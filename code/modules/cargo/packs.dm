@@ -3387,8 +3387,8 @@
 /datum/supply_pack/costumes_toys/ducks
 	name = "Rubber Duck Crate"
 	desc = "A crate filled with 5 adorable rubber ducks!"
-	cost = 100
-	max_supply = 100000
+	cost = 2000
+	max_supply = 5
 	contains = list(
 		/obj/item/bikehorn/rubberducky,
 		/obj/item/bikehorn/rubberducky,
