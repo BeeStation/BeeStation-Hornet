@@ -62,7 +62,7 @@
 /mob/living/silicon/generate_random_mob_name(unique)
 	return generate_random_name(gender, unique, list(/datum/language/machine = 1))
 
-/mob/living/basic/drone/generate_random_mob_name(unique)
+/mob/living/simplemob/drone/generate_random_mob_name(unique)
 	return generate_random_name(gender, unique, list(/datum/language/machine = 1))
 
 /mob/living/basic/bot/generate_random_mob_name(unique)
