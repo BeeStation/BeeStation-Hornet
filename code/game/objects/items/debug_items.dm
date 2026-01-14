@@ -344,6 +344,7 @@
 		TRAIT_SURGEON,
 		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
+	var/spacewalk_initial
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
@@ -366,7 +367,9 @@
 	picker.see_override = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
-	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	spacewalk_initial = HAS_TRAIT(user, TRAIT_SPACEWALK)
+	if(!spacewalk_initial)
+		ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
@@ -374,7 +377,8 @@
 	if(orb)
 		return
 
-	REMOVE_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	if(!space_walk_initial)
+		REMOVE_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
