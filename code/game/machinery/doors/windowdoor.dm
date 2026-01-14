@@ -17,8 +17,8 @@
 	pass_flags_self = PASSTRANSPARENT
 	can_atmos_pass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
-	network_id = NETWORK_DOOR_AIRLOCKS
 	z_flags = NONE // reset zblock
+	opens_with_door_remote = TRUE
 	var/operationdelay = 5
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
@@ -63,8 +63,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
-
 	AddElement(/datum/element/connect_loc, loc_connections)
 	switch(dir)
 		if(NORTH)
@@ -80,7 +78,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	add_ai_view()
 
 	AddElement(/datum/element/atmos_sensitive)
-	AddComponent(/datum/component/ntnet_interface)
 
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
@@ -164,8 +161,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		return TRUE
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir)
-	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
+/obj/machinery/door/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower() && !pass_info.no_id)
 
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
@@ -389,41 +386,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 			flick("[base_state]closing", src)
 		if("deny")
 			flick("[base_state]deny", src)
-
-/obj/machinery/door/window/check_access_ntnet(datum/netdata/data)
-	// Cutting WIRE_IDSCAN grants remote access... or it would, if we could hack windowdoors.
-	return id_scan_hacked() || ..()
-
-/obj/machinery/door/window/proc/ntnet_receive(datum/netdata/data)
-	// Check if the airlock is powered.
-	if(!hasPower())
-		return
-
-	//Check radio signal jamming
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
-		return
-
-	// Check packet access level.
-	if(!check_access_ntnet(data))
-		return
-
-	// Handle received packet.
-	var/command = LOWER_TEXT(data.data["data"])
-	var/command_value = LOWER_TEXT(data.data["data_secondary"])
-	switch(command)
-		if("open")
-			if(command_value == "on" && !density)
-				return
-
-			if(command_value == "off" && density)
-				return
-
-			if(density)
-				INVOKE_ASYNC(src, PROC_REF(open))
-			else
-				INVOKE_ASYNC(src, PROC_REF(close))
-		if("touch")
-			INVOKE_ASYNC(src, PROC_REF(open_and_close))
 
 /obj/machinery/door/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)

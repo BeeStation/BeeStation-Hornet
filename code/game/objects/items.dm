@@ -295,7 +295,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// Add AI view
 	add_ai_view()
 
-/obj/item/Destroy()
+/obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
 		var/mob/m = loc

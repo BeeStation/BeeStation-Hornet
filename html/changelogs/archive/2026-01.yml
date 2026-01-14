@@ -140,3 +140,57 @@
   PowerfulBacon:
   - tweak: Updates some maps for future support of smartwires
   - bugfix: Crashing caused by dizziness status effect.
+2026-01-13:
+  PowerfulBacon:
+  - tweak: Chemical grenades can now have assemblies attached when completed.
+  - rscadd: Adds screentips to chemical grenades.
+  - tweak: If a chemical grenade does not explode, you can screwdriver it to reset
+      it. You cannot re-use the reagents though as they will be cleared when you remove
+      the beakers from it.
+  - tweak: Edits the TGUI base theme to give the server a more distinct look and feel.
+  - rscadd: Adds the new blue chat theme.
+  mrmanlikesbt:
+  - bugfix: fixed kitty ear spawners spawning fake kitty ears
+  rkz, coiax, ShizCalev, carpotoxin, Rhials, san7890:
+  - refactor: refactor ventcrawling accessing
+  - code_imp: ventcrawling ability is now a trait
+  - rscadd: indicates when a mob is attempting to enter a vent
+  - rscadd: mobs that get stuck in pipes with no exit can force their way out
+  - rscadd: ventcrawling mobs now have a 1 second delay to exiting, to prevent accidental
+      ventcrawl exit
+2026-01-14:
+  'rkz, JohnFulp, Mothblocks, Lemon, Tastyfish, Fikou, AnturK, ':
+  - rscdel: removed ntnet
+  - rscadd: fulfill your discord mod dreams. The captain and RD can grant/remove send-to-all
+      permissions in the messaging app.
+  - refactor: converted like the 4 things that were using it to use generic code instead
+  - refactor: Modular computers NTnet and applications run on its own subsystem, please
+      report any new bugs you may find.
+  - bugfix: Computers are now properly connected to Ethernet, and can use Ntos when
+      Relays are down.
+  - refactor: Removes Ntnet and Ntnet interfaces, which was only used by Ntnet circuits
+      (which now directly checks for a Relay to work) and MULEbots, which did nothing
+      with it.
+  - balance: Wirecarp now properly shuts off NtNet remotely.
+  - balance: Wirecarp now shows the source of a PDA that does an action.
+  - bugfix: Wirecarp can no longer be used to see if Nukies exist through their networks.
+  - rscdel: Removes Software downloading and communication Ntnet networks, as they
+      were pretty worthless.
+  - rscadd: adds element injector mapping helper
+  - rscadd: adds sound injector mapping helper
+  - rscadd: adds icon injector mapping helper
+  - rscadd: adds trait injector mapping helper
+  - refactor: refactors component injectors into atom injectors.
+  rkz, LemonInTheDark, MrStonedOne, AnturK, SmartKar, Capybara, kapu:
+  - bugfix: blob mob ai should get stuck on stuff less
+  - refactor: moves CanAStarPass to the atom level
+  - bugfix: simplebots should no longer lock up during normal duties
+  - refactor: puts JPS on a subsystem. Pathing from bots/simplemobs/players cannot
+      eat into maptick anymore
+  - refactor: pathfinding is roughly 40% faster
+  - rscadd: Adds swarmed pathfinding, trading accuracy for potential optimization
+      of used correctly
+  - bugfix: Bots will no longer take diagonal paths, preventing weirdo looking path
+      visuals
+  - bugfix: Fixed our pathfinding logic getting deeply confused by border objects
+  - admin: Added clientside displayed pathfinding debug tools, give em a go

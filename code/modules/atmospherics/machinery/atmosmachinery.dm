@@ -20,7 +20,7 @@
 	armor_type = /datum/armor/machinery_atmospherics
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	flags_1 = STAT_UNIQUE_1
 	ai_view = FALSE
 	trade_flags = TRADE_NOT_SELLABLE // Adding this here just in case
@@ -84,9 +84,9 @@
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
 	. += span_notice("[src] is on layer [piping_layer].")
-	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
+	if((vent_movement & VENTCRAWL_ENTRANCE_ALLOWED) && isliving(user))
 		var/mob/living/L = user
-		if(L.ventcrawler)
+		if(HAS_TRAIT(L, TRAIT_VENTCRAWLER_NUDE) || HAS_TRAIT(L, TRAIT_VENTCRAWLER_ALWAYS))
 			. += span_notice("Alt-click to crawl through it.")
 
 /obj/machinery/atmospherics/New(loc, process = TRUE, setdir, init_dir = ALL_CARDINALS)
@@ -102,6 +102,10 @@
 /obj/machinery/atmospherics/Initialize(mapload)
 	if(mapload && name != initial(name))
 		override_naming = TRUE
+	var/turf/turf_loc = null
+	if(isturf(loc))
+		turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
 	if(init_processing)
 		SSair.start_processing_machine(src)
 	return ..()
@@ -259,7 +263,7 @@
  */
 /obj/machinery/atmospherics/proc/find_connecting(direction, prompted_layer)
 	for(var/obj/machinery/atmospherics/target in get_step_multiz(src, direction))
-		if(!(target.initialize_directions & get_dir(target,src)))
+		if(!(target.initialize_directions & get_dir(target,src)) && !istype(target, /obj/machinery/atmospherics/pipe/multiz))
 			continue
 		if(connection_check(target, prompted_layer))
 			return target
@@ -531,48 +535,48 @@
 
 #define VENT_SOUND_DELAY 30
 
+// Handles mob movement inside a pipenet
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
 	if(!(direction & initialize_directions) || !(direction in GLOB.cardinals_multiz)) //cant go this way.
 		return
 	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
+
 	var/obj/machinery/atmospherics/target_move = find_connecting(direction, user.ventcrawl_layer)
-	if(target_move)
-		if(target_move.can_crawl_through())
-			if(is_type_in_typecache(target_move, GLOB.ventcrawl_machinery))
-				user.forceMove(target_move.loc) //handle entering and so on.
-				user.visible_message(span_notice("You hear something squeezing through the ducts..."), span_notice("You climb out the ventilation system."))
-			else
-				var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
-				if(pipenetdiff.len)
-					user.update_pipe_vision(target_move)
-				user.forceMove(target_move)
-				user.client.set_eye(target_move)  //Byond only updates the eye every tick, This smooths out the movement
-				if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
-					user.last_played_vent = world.time
-					playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
-					if(prob(1))
-						audible_message(span_warning("You hear something crawling through the ducts..."))
-	else if(is_type_in_typecache(src, GLOB.ventcrawl_machinery) && can_crawl_through()) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
-		user.forceMove(loc)
-		user.visible_message(span_notice("You hear something squeezing through the ducts..."), span_notice("You climb out the ventilation system."))
+
+	if(!target_move)
+		// If we couldn't find a target to move to and we're ventcrawling, try to exit if this vent allows it
+		if(HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING) && (vent_movement & VENTCRAWL_ENTRANCE_ALLOWED))
+			user.handle_ventcrawl(src)
+		return
+
+	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
+		return
+	user.forceMove(target_move)
+	user.client.set_eye(target_move)  //Byond only updates the eye every tick, This smooths out the movement
+	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
+	if(pipenetdiff.len)
+		user.update_pipe_vision()
+	if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
+		user.last_played_vent = world.time
+		playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
+		if(prob(1))
+			audible_message(span_warning("You hear something crawling through the ducts..."))
+
+	//Would be great if this could be implemented when someone alt-clicks the image.
+	if (target_move.vent_movement & VENTCRAWL_ENTRANCE_ALLOWED)
+		user.handle_ventcrawl(target_move)
+		return
 
 	//PLACEHOLDER COMMENT FOR ME TO READD THE 1 (?) DS DELAY THAT WAS IMPLEMENTED WITH A... TIMER?
 
 /obj/machinery/atmospherics/AltClick(mob/living/L)
 	. = ..()
-	if(istype(L) && is_type_in_list(src, GLOB.ventcrawl_machinery))
+	if(!(vent_movement & VENTCRAWL_ALLOWED)) // Early return for machines which does not allow ventcrawling at all.
+		return
+	if(istype(L))
 		L.handle_ventcrawl(src)
 		return
-
-/**
- * Getter for vent crawling
- *
- * returns TRUE or FALSE, many devices overrides this (like cryo, or vents)
- * called by relaymove()
- */
-/obj/machinery/atmospherics/proc/can_crawl_through()
-	return TRUE
 
 /**
  * Getter of a list of pipenets
