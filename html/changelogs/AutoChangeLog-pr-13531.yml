@@ -1,0 +1,15 @@
+author: rkz, LemonInTheDark, MrStonedOne, AnturK, SmartKar, Capybara, kapu
+delete-after: true
+changes:
+  - bugfix: blob mob ai should get stuck on stuff less
+  - refactor: moves CanAStarPass to the atom level
+  - bugfix: simplebots should no longer lock up during normal duties
+  - refactor: puts JPS on a subsystem. Pathing from bots/simplemobs/players cannot
+      eat into maptick anymore
+  - refactor: pathfinding is roughly 40% faster
+  - rscadd: Adds swarmed pathfinding, trading accuracy for potential optimization
+      of used correctly
+  - bugfix: Bots will no longer take diagonal paths, preventing weirdo looking path
+      visuals
+  - bugfix: Fixed our pathfinding logic getting deeply confused by border objects
+  - admin: Added clientside displayed pathfinding debug tools, give em a go
