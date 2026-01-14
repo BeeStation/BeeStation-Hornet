@@ -32,17 +32,16 @@
 #define ABSTRACT				(1<<9) 	//! for all things that are technically items but used for various different stuff
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
 #define IN_STORAGE				(1<<11) //! is this item in the storage item, such as backpack? used for tooltips
-#define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
-#define NO_PIXEL_RANDOM_DROP 	(1<<13) //if dropped, it wont have a randomized pixel_x/pixel_y
-#define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
-#define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
-#define ISCARVABLE			    (1<<16) //! Examine will not read out this item
-#define NO_WORN_SLOWDOWN		(1<<17)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
-#define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
+#define NO_PIXEL_RANDOM_DROP 	(1<<12) //if dropped, it wont have a randomized pixel_x/pixel_y
+#define WAS_THROWN				(1<<13) //if the item was thrown and shouldn't have the drop_item animation applied
+#define ISWEAPON				(1<<14) //! If this item should hit living mobs when used on harm intent
+#define ISCARVABLE			    (1<<15) //! Examine will not read out this item
+#define NO_WORN_SLOWDOWN		(1<<16)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
+#define HAND_ITEM (1<<17) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 ///Can be equipped on digitigrade legs.
-#define IGNORE_DIGITIGRADE (1<<19)
+#define IGNORE_DIGITIGRADE (1<<18)
 /// No blood overlay is allowed to appear on this item, and it cannot gain blood DNA forensics
-#define NO_BLOOD_ON_ITEM (1 << 20)
+#define NO_BLOOD_ON_ITEM (1 << 19)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
