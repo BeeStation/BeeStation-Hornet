@@ -158,3 +158,26 @@
   - rscadd: mobs that get stuck in pipes with no exit can force their way out
   - rscadd: ventcrawling mobs now have a 1 second delay to exiting, to prevent accidental
       ventcrawl exit
+2026-01-14:
+  'rkz, JohnFulp, Mothblocks, Lemon, Tastyfish, Fikou, AnturK, ':
+  - rscdel: removed ntnet
+  - rscadd: fulfill your discord mod dreams. The captain and RD can grant/remove send-to-all
+      permissions in the messaging app.
+  - refactor: converted like the 4 things that were using it to use generic code instead
+  - refactor: Modular computers NTnet and applications run on its own subsystem, please
+      report any new bugs you may find.
+  - bugfix: Computers are now properly connected to Ethernet, and can use Ntos when
+      Relays are down.
+  - refactor: Removes Ntnet and Ntnet interfaces, which was only used by Ntnet circuits
+      (which now directly checks for a Relay to work) and MULEbots, which did nothing
+      with it.
+  - balance: Wirecarp now properly shuts off NtNet remotely.
+  - balance: Wirecarp now shows the source of a PDA that does an action.
+  - bugfix: Wirecarp can no longer be used to see if Nukies exist through their networks.
+  - rscdel: Removes Software downloading and communication Ntnet networks, as they
+      were pretty worthless.
+  - rscadd: adds element injector mapping helper
+  - rscadd: adds sound injector mapping helper
+  - rscadd: adds icon injector mapping helper
+  - rscadd: adds trait injector mapping helper
+  - refactor: refactors component injectors into atom injectors.
