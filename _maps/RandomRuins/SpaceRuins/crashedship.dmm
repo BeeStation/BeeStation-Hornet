@@ -236,8 +236,11 @@
 "id" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
 	installation = /obj/item/gun/energy/lasercannon
+	},
+/obj/effect/mapping_helpers/atom_injector/obj_flag{
+	inject_flags = 1;
+	target_type = /obj/machinery/porta_turret
 	},
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Fore)
@@ -1391,8 +1394,11 @@
 "Iv" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
 	installation = /obj/item/gun/energy/lasercannon
+	},
+/obj/effect/mapping_helpers/atom_injector/obj_flag{
+	inject_flags = 1;
+	target_type = /obj/machinery/porta_turret
 	},
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)

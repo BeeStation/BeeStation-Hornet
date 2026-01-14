@@ -41,6 +41,8 @@
 /// Produces a mutable appearance glued to the [EMISSIVE_PLANE], but instead of more opaque being white, more opaque is black.
 /// Setting the layer is highly important
 /proc/emissive_blocker(icon, icon_state = "", layer = FLOAT_LAYER, alpha = 255, appearance_flags = NONE)
+	// Note: alpha doesn't "do" anything, since it's overridden by the color set shortly after
+	// Consider removing it someday?
 	var/mutable_appearance/appearance = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE, alpha, appearance_flags | EMISSIVE_APPEARANCE_FLAGS)
 	appearance.color = GLOB.em_blocker_matrix
 	return appearance
