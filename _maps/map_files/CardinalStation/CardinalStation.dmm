@@ -18339,7 +18339,6 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/club)
 "dTJ" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/decal/cleanable/robot_debris{
 	icon_state = "gib4";
 	pixel_x = 14;
@@ -87678,11 +87677,11 @@
 /area/ai_monitored/turret_protected/aisat/hallway)
 "thl" = (
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
-/obj/machinery/computer/message_monitor{
-	dir = 4
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
+	},
+/obj/machinery/computer/message_monitor{
+	dir = 4
 	},
 /turf/open/floor/iron/tech,
 /area/tcommsat/computer)

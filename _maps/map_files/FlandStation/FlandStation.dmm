@@ -42032,7 +42032,6 @@
 /turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
 "lqQ" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/science/robotics/lab)

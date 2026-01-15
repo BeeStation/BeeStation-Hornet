@@ -214,7 +214,6 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "E" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
