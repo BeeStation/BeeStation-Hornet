@@ -133,18 +133,6 @@
 		update_icon()
 	. = ..()
 
-/obj/item/clothing/head/kitty/visual_equipped(mob/living/carbon/human/user, slot)
-	. = ..()
-	if(ishuman(user) && (slot == ITEM_SLOT_HEAD || slot == ITEM_SLOT_NECK))
-		update_icon(ALL, user)
-		user.update_worn_head() //Color might have been changed by update_appearance.
-	..()
-
-/obj/item/clothing/head/kitty/update_icon(updates=ALL, mob/living/carbon/human/user)
-	. = ..()
-	if(ishuman(user))
-		add_atom_colour(user.hair_color, FIXED_COLOUR_PRIORITY)
-
 /obj/item/clothing/head/costume/speedwagon
 	name = "hat of ultimate masculinity"
 	desc = "Even the mere act of wearing this makes you want to pose menacingly."
