@@ -101,6 +101,11 @@
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 
+	armor_type = /datum/armor/obj_machinery
+
+	ai_view = TRUE
+	ai_view_icon = "ai_machine"
+
 	var/machine_stat = NONE
 	var/use_power = IDLE_POWER_USE
 		//0 = dont use power
@@ -183,6 +188,11 @@
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
+
+	// Build our AI view / hologram appearance
+	update_ai_view()
+	// Add AI view
+	add_ai_view()
 
 	return INITIALIZE_HINT_LATELOAD
 

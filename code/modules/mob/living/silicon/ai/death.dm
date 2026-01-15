@@ -20,6 +20,9 @@
 	if(ai_tracking_target)
 		ai_stop_tracking()
 
+	// Clean up camera indicators
+	disable_camera_telegraphing()
+
 	anchored = FALSE //unbolt floorbolts
 	move_resist = MOVE_FORCE_NORMAL
 

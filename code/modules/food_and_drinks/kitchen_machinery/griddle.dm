@@ -11,6 +11,7 @@
 	circuit = /obj/item/circuitboard/machine/griddle
 	processing_flags = START_PROCESSING_MANUALLY
 	resistance_flags = FIRE_PROOF
+	ai_view = FALSE
 
 	///Things that are being griddled right now
 	var/list/griddled_objects = list()

@@ -3,6 +3,7 @@
 	desc = "A remote control switch."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
+	ai_view_icon = "ai_switch"
 	base_icon_state = "doorctrl"
 	layer = ABOVE_WINDOW_LAYER
 	armor_type = /datum/armor/machinery_button

@@ -200,6 +200,9 @@
 
 ///AI Camera Static
 #define CAMERA_STATIC_PLANE 200
+#define CAMERA_STATIC_PLANE_RENDER_TARGET "CAMERA_STATIC_PLANE_RENDER_TARGET"
+///AI Machinery
+#define AI_MACHINERY_PLANE 300
 
 ///Anything that wants to be part of the game plane, but also wants to draw above literally everything else
 #define HIGH_GAME_PLANE 499

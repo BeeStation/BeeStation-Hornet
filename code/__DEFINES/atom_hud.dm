@@ -27,6 +27,8 @@
 //for antag huds. these are used at the /mob level
 #define ANTAG_HUD		"23"
 #define DIAG_WAKE_HUD	"24" // Bluespace Wakes
+#define DIAG_AI_VIEW "25"//! AI machinery view hud
+
 /// Gives permanent visibility of hacked APCs
 #define HACKED_APC_HUD 	"25"
 

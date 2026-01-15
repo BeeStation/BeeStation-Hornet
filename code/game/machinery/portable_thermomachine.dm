@@ -17,6 +17,7 @@
 	circuit = /obj/item/circuitboard/machine/portable_thermomachine
 	//We don't use area power, we always use the cell
 	use_power = NO_POWER_USE
+	ai_view = FALSE
 
 	///The cell we spawn with
 	var/obj/item/stock_parts/cell/cell = null

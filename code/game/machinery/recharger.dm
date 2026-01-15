@@ -9,6 +9,7 @@
 	active_power_usage = 300 WATT // This is overriden while giving power
 	circuit = /obj/item/circuitboard/machine/recharger
 	pass_flags = PASSTABLE
+	ai_view = FALSE
 	/// The item currently inserted into the charger
 	var/obj/item/charging = null
 	/// How good the capacitor is at charging the item

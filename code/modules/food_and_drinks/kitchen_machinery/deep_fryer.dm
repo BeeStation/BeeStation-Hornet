@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	idle_power_usage = 5
 	layer = BELOW_OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/deep_fryer
+	ai_view = FALSE
 
 	/// What's being fried RIGHT NOW?
 	var/obj/item/frying

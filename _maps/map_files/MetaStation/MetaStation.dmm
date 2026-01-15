@@ -8944,16 +8944,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"byF" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/machinery/disposal/bin,
-/turf/open/floor/iron,
-/area/engine/break_room)
 "byI" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line{
@@ -18724,11 +18714,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured,
 /area/engine/atmos)
-"dAC" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
-/obj/machinery/meter,
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "dAL" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/prison,
@@ -25499,6 +25484,16 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
+"fVX" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal/bin,
+/turf/open/floor/iron,
+/area/engine/break_room)
 "fWc" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -25555,6 +25550,17 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
+"fXc" = (
+/obj/machinery/computer/security/telescreen/tcomms{
+	dir = 8;
+	pixel_x = 26
+	},
+/obj/machinery/computer/telecomms/monitor{
+	dir = 8;
+	
+	},
+/turf/open/floor/carpet/grimy,
+/area/tcommsat/computer)
 "fXj" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/door/window/westright{
@@ -28386,11 +28392,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/engine/engineering)
-"hdF" = (
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
-/obj/machinery/meter,
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "hdH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -33984,16 +33985,6 @@
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
-"iXO" = (
-/obj/machinery/computer/security/telescreen/tcomms{
-	dir = 8;
-	pixel_x = 26
-	},
-/obj/machinery/computer/telecomms/monitor{
-	dir = 8;
-	},
-/turf/open/floor/carpet/grimy,
-/area/tcommsat/computer)
 "iXP" = (
 /obj/structure/railing{
 	dir = 8
@@ -35112,6 +35103,11 @@
 	},
 /turf/open/floor/iron,
 /area/science/shuttledock)
+"jvg" = (
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
+/obj/machinery/meter,
+/turf/closed/wall/r_wall,
+/area/engine/atmos)
 "jvn" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -45383,20 +45379,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
-"nhx" = (
-/obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/ai_monitored/turret_protected/ai_upload";
-	name = "Upload APC";
-	pixel_y = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/camera/motion/directional/south{
-	c_tag = "AI Upload Chamber - Port"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai_upload)
 "nhS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -52712,6 +52694,26 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"pLF" = (
+/obj/machinery/power/apc{
+	areastring = "/area/security/execution/education";
+	dir = 1;
+	name = "Prisoner Education Chamber APC";
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/closet/secure_closet/injection{
+	name = "educational injections";
+	pixel_x = 2
+	},
+/obj/effect/turf_decal/tile/red/half{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
+/turf/open/floor/iron/dark/smooth_half,
+/area/security/execution/education)
 "pLY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -56690,6 +56692,11 @@
 	},
 /turf/open/floor/noslip/dark,
 /area/science/shuttledock)
+"riq" = (
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/obj/machinery/meter,
+/turf/closed/wall/r_wall,
+/area/engine/atmos)
 "rjv" = (
 /obj/effect/turf_decal/numbers/two_nine,
 /turf/open/floor/iron/grid/steel,
@@ -58892,6 +58899,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"rZS" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
+/obj/machinery/meter,
+/turf/closed/wall/r_wall,
+/area/engine/atmos)
 "rZZ" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
@@ -60737,6 +60749,39 @@
 	},
 /turf/open/floor/iron,
 /area/science/research)
+"sJz" = (
+/obj/machinery/turretid{
+	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	icon_state = "control_stun";
+	name = "AI Upload turret control";
+	pixel_y = 28
+	},
+/obj/item/radio/intercom{
+	broadcasting = 1;
+	frequency = 1447;
+	name = "Private AI Channel";
+	pixel_x = -24;
+	pixel_y = 24
+	},
+/obj/effect/landmark/start/cyborg,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	areastring = "/area/ai_monitored/turret_protected/ai_upload_foyer";
+	name = "AI Upload Access APC";
+	pixel_y = -24
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/computer/security/telescreen/aiupload{
+	dir = 4;
+	pixel_x = -29
+	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "sJK" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/structure/disposalpipe/junction{
@@ -63121,25 +63166,6 @@
 	dir = 1
 	},
 /area/security/brig)
-"tAv" = (
-/obj/machinery/power/apc{
-	areastring = "/area/security/execution/education";
-	dir = 1;
-	name = "Prisoner Education Chamber APC";
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/closet/secure_closet/injection{
-	name = "educational injections";
-	pixel_x = 2
-	},
-/obj/effect/turf_decal/tile/red/half{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_half,
-/area/security/execution/education)
 "tAQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -64345,38 +64371,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /turf/open/space/basic,
 /area/space/nearstation)
-"tYY" = (
-/obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
-	icon_state = "control_stun";
-	name = "AI Upload turret control";
-	pixel_y = 28
-	},
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1447;
-	name = "Private AI Channel";
-	pixel_x = -24;
-	pixel_y = 24
-	},
-/obj/effect/landmark/start/cyborg,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	areastring = "/area/ai_monitored/turret_protected/ai_upload_foyer";
-	name = "AI Upload Access APC";
-	pixel_y = -24
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/computer/security/telescreen/aiupload{
-	dir = 4;
-	pixel_x = -29
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/turret_protected/ai_upload_foyer)
 "tZb" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -68698,11 +68692,6 @@
 	},
 /turf/open/floor/iron,
 /area/construction/storage_wing)
-"vBb" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/obj/machinery/meter,
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "vBq" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -73771,6 +73760,21 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/science/explab)
+"xld" = (
+/obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/ai_monitored/turret_protected/ai_upload";
+	name = "Upload APC";
+	pixel_y = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/camera/motion/directional/south{
+	c_tag = "AI Upload Chamber - Port"
+	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload)
 "xlk" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/tile/green{
@@ -101713,7 +101717,7 @@ lMJ
 lMJ
 lMJ
 aaZ
-tAv
+pLF
 pVV
 hiI
 nWc
@@ -101744,7 +101748,7 @@ aLu
 aMH
 aMH
 aPu
-nhx
+xld
 aJS
 aJS
 aUx
@@ -102004,7 +102008,7 @@ sIq
 aPu
 aRT
 aJS
-tYY
+sJz
 aUx
 xiW
 ehJ
@@ -119233,7 +119237,7 @@ qUj
 xgK
 tEJ
 pvX
-byF
+fVX
 qBn
 euQ
 cXh
@@ -121833,7 +121837,7 @@ qcW
 pvv
 ceg
 cfu
-vBb
+jvg
 gKX
 bUJ
 bUJ
@@ -122347,7 +122351,7 @@ hUa
 gnT
 lxp
 sWV
-dAC
+riq
 luW
 dFJ
 bUJ
@@ -122861,7 +122865,7 @@ mzf
 pvv
 ceg
 jMH
-vBb
+jvg
 oJz
 bPy
 bPy
@@ -123375,7 +123379,7 @@ fvI
 gnT
 lxp
 sWV
-dAC
+riq
 omA
 cvx
 bPy
@@ -123889,7 +123893,7 @@ sGc
 pvv
 ceg
 jMH
-vBb
+jvg
 kXz
 bJd
 bJd
@@ -124403,7 +124407,7 @@ aSO
 gnT
 lxp
 sWV
-dAC
+riq
 qLU
 fKa
 bJd
@@ -124917,7 +124921,7 @@ bta
 xcm
 ceg
 jMH
-vBb
+jvg
 uxb
 bCC
 bCC
@@ -125431,7 +125435,7 @@ nLX
 ben
 tRE
 wcH
-hdF
+rZS
 her
 qtk
 bCC
@@ -132602,7 +132606,7 @@ etj
 bjQ
 btL
 xPA
-iXO
+fXc
 pbb
 wlg
 bCD

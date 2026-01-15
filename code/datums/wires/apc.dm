@@ -38,6 +38,9 @@
 		if(WIRE_AI) // Disable AI control for a very short time.
 			if(!A.aidisabled)
 				A.aidisabled = TRUE
+				var/area/our_area = get_area(A)
+				if(our_area)
+					our_area.update_ai_views(FALSE)
 				addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/power/apc, reset), wire), 10)
 	ui_update()
 
@@ -56,6 +59,12 @@
 		if(WIRE_AI) // Disable AI control.
 			if(mend)
 				A.aidisabled = FALSE
+				var/area/our_area = get_area(A)
+				if(our_area)
+					our_area.update_ai_views(TRUE)
 			else
 				A.aidisabled = TRUE
+				var/area/our_area = get_area(A)
+				if(our_area)
+					our_area.update_ai_views(FALSE)
 	ui_update()

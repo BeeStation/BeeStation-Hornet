@@ -26,6 +26,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	move_resist = INFINITY
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
 	var/sprite_number = 0
 	var/ztrait //Set to a valid ZTRAIT define to have the gravgen provide gravity to all of the zlevels with said trait. Ex: ZTRAIT_STATION
 	/// The gravity field created by the generator.

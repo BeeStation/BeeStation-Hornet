@@ -64,6 +64,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
+	switch(dir)
+		if(NORTH)
+			ai_view_y = 14
+		if(SOUTH)
+			ai_view_y = -14
+		if(WEST)
+			ai_view_x = -14
+		if(EAST)
+			ai_view_x = 14
+
+	update_ai_view()
+	add_ai_view()
+
 	AddElement(/datum/element/atmos_sensitive)
 
 /obj/machinery/door/window/Destroy()

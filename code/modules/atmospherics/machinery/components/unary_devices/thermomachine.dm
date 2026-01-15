@@ -14,6 +14,7 @@
 	armor_type = /datum/armor/unary_thermomachine
 	layer = OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/thermomachine
+	ai_view = FALSE
 
 	move_resist = MOVE_RESIST_DEFAULT
 	vent_movement = NONE
