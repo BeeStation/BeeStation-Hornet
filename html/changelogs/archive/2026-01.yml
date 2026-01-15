@@ -194,3 +194,6 @@
       visuals
   - bugfix: Fixed our pathfinding logic getting deeply confused by border objects
   - admin: Added clientside displayed pathfinding debug tools, give em a go
+2026-01-15:
+  PatienceStPim:
+  - rscadd: Rubber ducks can be purchased from cargo
