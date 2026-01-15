@@ -1,5 +1,0 @@
-author: Isaac
-delete-after: true
-changes:
-  - bugfix: Only Shrooms and Moths are able to be the only people to eat raw cloth
-      again.

@@ -195,6 +195,9 @@
   - bugfix: Fixed our pathfinding logic getting deeply confused by border objects
   - admin: Added clientside displayed pathfinding debug tools, give em a go
 2026-01-15:
+  Isaac:
+  - bugfix: Only Shrooms and Moths are able to be the only people to eat raw cloth
+      again.
   PatienceStPim:
   - rscadd: Rubber ducks can be purchased from cargo
   rkz, andrea-feather, Melbert, Jacquerel, John Willard, timothytorres, Absolucy:
