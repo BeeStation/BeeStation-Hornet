@@ -39,6 +39,13 @@
 	if(length(languages_to_pick_from) >= 2)
 		// Basically, if we have alternatives, don't pick common it's boring
 		languages_to_pick_from -= /datum/language/common
+		// remove metalanguage as it pollutes name generation
+		languages_to_pick_from -= /datum/language/metalanguage
+
+	//SNOWFLAKE regenerate, kapulimbs will kill this
+	// If we have no languages left after filtering, pass null to use default language weights
+	//if(!length(languages_to_pick_from))
+	//	languages_to_pick_from = null
 
 	if(!include_all || length(languages_to_pick_from) <= 1)
 		return generate_random_name(gender, unique, languages_to_pick_from)
