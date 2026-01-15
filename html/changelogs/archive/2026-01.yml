@@ -200,6 +200,8 @@
       again.
   PatienceStPim:
   - rscadd: Rubber ducks can be purchased from cargo
+  rkz:
+  - rscadd: adds production method for IPC blood
   rkz, andrea-feather, Melbert, Jacquerel, John Willard, timothytorres, Absolucy:
   - refactor: Random Name Generation has been refactored. Report any instances of
       people having weird (or "Unknown") names.
