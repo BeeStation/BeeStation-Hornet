@@ -76,13 +76,6 @@
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
-/datum/species/ipc/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
-
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
 	if(ishuman(C) && !change_screen)

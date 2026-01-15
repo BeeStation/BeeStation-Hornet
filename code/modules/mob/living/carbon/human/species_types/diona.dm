@@ -169,11 +169,6 @@
 		if(status_effect == /datum/status_effect/planthealing)
 			H.remove_status_effect(/datum/status_effect/planthealing)
 
-/datum/species/diona/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.diona_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return ..(gender, TRUE, null, ++attempts)
-
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
 	if(. && target != user && target.on_fire)
