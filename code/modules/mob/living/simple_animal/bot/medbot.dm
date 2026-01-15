@@ -44,7 +44,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/skin = null //based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
 	var/mob/living/carbon/patient = null
 	var/mob/living/carbon/oldpatient = null
-	var/oldloc = null
 	var/last_found = 0
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/injection_amount = 15 //How much reagent do we inject at a time?
@@ -159,7 +158,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	..()
 	set_patient(null)
 	oldpatient = null
-	oldloc = null
 	last_found = world.time
 	COOLDOWN_RESET(src, declare_cooldown)
 	update_icon()
@@ -463,7 +461,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	if(QDELETED(patient))
 		if(!shut_up && prob(1))
 			if(emagged && prob(30))
-				var/list/i_need_scissors = list('sound/voice/medbot/fuck_you.ogg', 'sound/voice/medbot/im_different.ogg', 'sound/voice/medbot/shindemashou.ogg') //some lines removed because they are very LRP/meta, doesn't fit with bee
+				var/list/i_need_scissors = list(
+					'sound/voice/medbot/fuck_you.ogg',
+					'sound/voice/medbot/im_different.ogg',
+					'sound/voice/medbot/shindemashou.ogg'
+				)
 				playsound(src, pick(i_need_scissors), 70)
 			else
 				var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/medbot/radar.ogg',"There's always a catch, and I'm the best there is." = 'sound/voice/medbot/catch.ogg',"I knew it, I should've been a plastic surgeon." = 'sound/voice/medbot/surgeon.ogg',"What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/medbot/flies.ogg',"Delicious!" = 'sound/voice/medbot/delicious.ogg', "Why are we still here? Just to suffer?" = 'sound/voice/medbot/why.ogg')
@@ -471,7 +473,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 				speak(message)
 				playsound(src, messagevoice[message], 50)
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
-		set_patient(scan(/mob/living/carbon/human, oldpatient, scan_range))
+		set_patient(scan(list(/mob/living/carbon/human), oldpatient, scan_range))
 
 	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
 		if(mode != BOT_HEALING)
@@ -492,10 +494,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		return
 
 	if(patient && path.len == 0 && (get_dist(src,patient) > 1))
-		path = get_path_to(src, patient, 30,id=access_card)
+		path = get_path_to(src, patient, max_distance=30, access=access_card.GetAccess())
 		mode = BOT_MOVING
 		if(!path.len) //try to get closer if you can't reach the patient directly
-			path = get_path_to(src, patient, 30,1,id=access_card)
+			path = get_path_to(src, patient, max_distance=30, mintargetdist=1, access=access_card.GetAccess())
 			if(!path.len) //Do not chase a patient we cannot reach.
 				soft_reset()
 

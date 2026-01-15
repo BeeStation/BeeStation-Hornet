@@ -3384,6 +3384,21 @@
 		plush_nomoth = pick(_temporary_list_plush_nomoth)
 		new plush_nomoth(C)
 
+/datum/supply_pack/costumes_toys/ducks
+	name = "Rubber Duck Crate"
+	desc = "A crate filled with 5 adorable rubber ducks!"
+	cost = 2000
+	max_supply = 5
+	contains = list(
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+	)
+	crate_name = "duck crate"
+	crate_type = /obj/structure/closet/crate/wooden
+
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

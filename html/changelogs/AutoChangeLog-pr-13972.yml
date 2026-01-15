@@ -1,9 +1,0 @@
-author: rkz, coiax, ShizCalev, carpotoxin, Rhials, san7890
-delete-after: true
-changes:
-  - refactor: refactor ventcrawling accessing
-  - code_imp: ventcrawling ability is now a trait
-  - rscadd: indicates when a mob is attempting to enter a vent
-  - rscadd: mobs that get stuck in pipes with no exit can force their way out
-  - rscadd: ventcrawling mobs now have a 1 second delay to exiting, to prevent accidental
-      ventcrawl exit
