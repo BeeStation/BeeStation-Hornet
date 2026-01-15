@@ -971,35 +971,22 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	remove_overlay(FIRE_LAYER)
 
 /mob/living/carbon/proc/create_bodyparts()
-	var/l_arm_index_next = -1
-	var/r_arm_index_next = 0
-	for(var/bodypart_path in bodyparts)
+	var/list/bodyparts_paths = bodyparts.Copy()
+	bodyparts = list()
+	for(var/bodypart_path in bodyparts_paths)
 		var/obj/item/bodypart/bodypart_instance = new bodypart_path()
 		bodypart_instance.set_owner(src)
-		bodyparts.Remove(bodypart_path)
 		add_bodypart(bodypart_instance)
-		switch(bodypart_instance.body_part)
-			if(ARM_LEFT)
-				l_arm_index_next += 2
-				bodypart_instance.held_index = l_arm_index_next //1, 3, 5, 7...
-				on_added_hand(bodypart_instance, l_arm_index_next)
-			if(ARM_RIGHT)
-				r_arm_index_next += 2
-				bodypart_instance.held_index = r_arm_index_next //2, 4, 6, 8...
-				on_added_hand(bodypart_instance, r_arm_index_next)
 
 /// Called when a new hand is added
 /mob/living/carbon/proc/on_added_hand(obj/item/bodypart/arm/new_hand, hand_index)
 	if(hand_index > hand_bodyparts.len)
 		hand_bodyparts.len = hand_index
 	hand_bodyparts[hand_index] = new_hand
-	RegisterSignals(new_hand, list(COMSIG_PARENT_QDELETING, COMSIG_BODYPART_REMOVED), PROC_REF(on_lost_hand))
 
-/// Cleans up references to an arm when it is dismembered or deleted
+/// Cleans up references to a hand when it is dismembered or deleted
 /mob/living/carbon/proc/on_lost_hand(obj/item/bodypart/arm/lost_hand)
-	SIGNAL_HANDLER
 	hand_bodyparts[lost_hand.held_index] = null
-	UnregisterSignal(lost_hand, list(COMSIG_PARENT_QDELETING, COMSIG_BODYPART_REMOVED))
 
 ///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/attach_limb()].
 /mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)

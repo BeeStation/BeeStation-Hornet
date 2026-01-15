@@ -492,6 +492,15 @@
 	owner = new_owner
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
 	if(old_owner)
+		if(held_index)
+			old_owner.on_lost_hand(src)
+			if(old_owner.hud_used)
+				var/atom/movable/screen/inventory/hand/hand = old_owner.hud_used.hand_slots["[held_index]"]
+				if(hand)
+					hand.update_appearance()
+			old_owner.update_worn_gloves()
+		//if(speed_modifier)
+		//	old_owner.update_bodypart_speed_modifier()
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
 				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -502,6 +511,15 @@
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
 	if(owner)
+		if(held_index)
+			owner.on_added_hand(src, held_index)
+			if(owner.hud_used)
+				var/atom/movable/screen/inventory/hand/hand = owner.hud_used.hand_slots["[held_index]"]
+				if(hand)
+					hand.update_appearance()
+			owner.update_worn_gloves()
+		//if(speed_modifier)
+		//	owner.update_bodypart_speed_modifier()
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 				set_can_be_disabled(FALSE)

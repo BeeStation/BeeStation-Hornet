@@ -14,8 +14,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// The formatting of the name of the species in plural context. Defaults to "[name]\s" if unset.
 	/// Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
 	var/plural_form
-	//Species flags currently used for species restriction on items
-	var/bodyflag = FLAG_HUMAN
 	var/bodytype = BODYTYPE_HUMANOID
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
@@ -1243,9 +1241,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(no_equip_flags & slot)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
-	if(I.species_restricted & H.dna?.species.bodyflag)
-		to_chat(H, span_warning("Your species cannot wear this item!"))
-		return FALSE
 
 	switch(slot)
 		if(ITEM_SLOT_HANDS)
@@ -2479,38 +2474,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/turf/T = H.loc
 			T.Entered(H)
 	H.refresh_gravity()
-
-///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
-/datum/species/proc/get_custom_icons(part)
-	return
-/*Here's what a species that has a unique icon for every slot would look like. If your species doesnt have any custom icons for a given part, return null.
-/datum/species/teshari/get_custom_icons(part)
-	switch(part)
-		if("uniform")
-			return 'icons/mob/species/teshari/tesh_uniforms.dmi'
-		if("gloves")
-			return 'icons/mob/species/teshari/tesh_gloves.dmi'
-		if("glasses")
-			return 'icons/mob/species/teshari/tesh_glasses.dmi'
-		if("ears")
-			return 'icons/mob/species/teshari/tesh_ears.dmi'
-		if("shoes")
-			return 'icons/mob/species/teshari/tesh_shoes.dmi'
-		if("head")
-			return 'icons/mob/species/teshari/tesh_head.dmi'
-		if("belt")
-			return 'icons/mob/species/teshari/tesh_belts.dmi'
-		if("suit")
-			return 'icons/mob/species/teshari/tesh_suits.dmi'
-		if("mask")
-			return 'icons/mob/species/teshari/tesh_masks.dmi'
-		if("back")
-			return 'icons/mob/species/teshari/tesh_back.dmi'
-		if("generic")
-			return 'icons/mob/species/teshari/tesh_generic.dmi'
-		else
-			return
-*/
 
 /datum/species/proc/get_item_offsets_for_index(i)
 	return
