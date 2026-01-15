@@ -187,7 +187,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	if (z_flags & Z_MIMIC_BELOW)
 		setup_zmimic(mapload)
 
-	if (light_power && light_range)
+	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
 	if (opacity)

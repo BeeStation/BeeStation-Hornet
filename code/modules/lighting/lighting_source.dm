@@ -129,14 +129,18 @@
 
 // TODO OFfset x by this x=\frac{f}{l_{r}+1} but stretch to make sure we intercept y=0 at the same point
 
-// How quickly light falls off, lower values mean that light falls off quickly
-#define FALLOFF_VALUE 16
+/// The falloff multiplier for values close to the light source. Higher values cause the light to drop into linear falloff quicker
+#define FALLOFF_VALUE 0.5
+/// The linear falloff multiplier, higher values result in overall darker lights
+#define LINEAR_FALLOFF_VALUE 2
 
-#define BASE_INTENSITY(x, r) (r + 1 + FALLOFF_VALUE / r) - (FALLOFF_VALUE / x)
+#define SPOT_INTENSITY(x, r) (r + 1 - (r - x)/(FALLOFF_VALUE * x))
+
+#define LINEAR_INTENSITY(x, r) CLAMP01((r - x) / (r * LINEAR_FALLOFF_VALUE))
 
 // 1/x lighting falloff. Relatively cheap compared to the other option while still giving
 // a nice falloff equation
-#define LUM_FALLOFF(R) (1 - CLAMP01(max(BASE_INTENSITY(R, light_range), light_height) / max(1, light_range+1)))
+#define LUM_FALLOFF(distance) max((1 - CLAMP01(max(SPOT_INTENSITY(distance, light_range), light_height) / max(1, light_range+1))), LINEAR_INTENSITY(distance, light_range))
 
 //Linear lighting falloff but with an octagonal shape in place of a diamond shape. Lummox JR please add pointer support.
 #define GET_LUM_DIST(DISTX, DISTY) (DISTX + DISTY + abs(DISTX - DISTY)*0.4)

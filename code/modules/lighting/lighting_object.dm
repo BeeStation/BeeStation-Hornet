@@ -116,36 +116,6 @@
 			00, 00, 00, 01
 		)
 
-	if(cr.applying_additive || cg.applying_additive || cb.applying_additive || ca.applying_additive)
-		myturf.underlays -= additive_underlay
-		additive_underlay.icon_state = "light"
-		var/arr = cr.add_r
-		var/arb = cr.add_b
-		var/arg = cr.add_g
-
-		var/agr = cg.add_r
-		var/agb = cg.add_b
-		var/agg = cg.add_g
-
-		var/abr = cb.add_r
-		var/abb = cb.add_b
-		var/abg = cb.add_g
-
-		var/aarr = ca.add_r
-		var/aarb = ca.add_b
-		var/aarg = ca.add_g
-
-		additive_underlay.color = list(
-			arr, arg, arb, 00,
-			agr, agg, agb, 00,
-			abr, abg, abb, 00,
-			aarr, aarg, aarb, 00,
-			00, 00, 00, 01
-		)
-		myturf.underlays += additive_underlay
-	else
-		myturf.underlays -= additive_underlay
-
 	// Use luminosity directly because we are the lighting object
 	// and not the turf
 	luminosity = set_luminosity

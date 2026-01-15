@@ -32,7 +32,8 @@
 	if(!isnull(l_height))
 		set_light_height(l_height)
 
-	update_light()
+	if(light_system == STATIC_LIGHT)
+		update_light()
 
 #undef NONSENSICAL_VALUE
 
