@@ -23,8 +23,9 @@
 		TRAIT_NOMOUTH,
 		TRAIT_REVIVESBYHEALING,
 		TRAIT_NO_DEBRAIN_OVERLAY,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
-	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
+	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
 	mutanttongue = /obj/item/organ/tongue/robot
@@ -70,13 +71,6 @@
 	var/datum/action/innate/change_screen/change_screen
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
-
-/datum/species/ipc/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()

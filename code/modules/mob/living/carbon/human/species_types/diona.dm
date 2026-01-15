@@ -7,12 +7,12 @@
 		TRAIT_AGENDER,
 		TRAIT_BEEFRIEND,
 		TRAIT_MUTANT_COLORS,
-		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADHEALER,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
+		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOHUSK
 	)
@@ -172,11 +172,6 @@
 	for(var/status_effect as anything in C.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
 			C.remove_status_effect(/datum/status_effect/planthealing)
-
-/datum/species/diona/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.diona_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return ..(gender, TRUE, null, ++attempts)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()

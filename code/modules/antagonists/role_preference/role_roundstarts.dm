@@ -276,7 +276,7 @@
 	back = /obj/item/mod/control/pre_equipped/empty/syndicate
 
 /datum/outfit/nuclear_operative/post_equip(mob/living/carbon/human/H, visuals_only)
-	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
+	var/obj/item/mod/module/mod_switch/booster = locate() in H.back
 	booster.active = TRUE
 	H.update_worn_back()
 
@@ -288,7 +288,7 @@
 	r_hand = /obj/item/shield/energy
 
 /datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visuals_only)
-	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
+	var/obj/item/mod/module/mod_switch/booster = locate() in H.back
 	booster.active = TRUE
 	H.update_worn_back()
 	var/obj/item/shield/energy/shield = locate() in H.held_items

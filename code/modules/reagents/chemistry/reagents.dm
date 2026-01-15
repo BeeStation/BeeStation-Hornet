@@ -71,10 +71,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/metabolite
 	/// above this overdoses happen
 	var/overdose_threshold = 0
-	/// above this amount addictions start
-	var/addiction_threshold = 0
-	/// increases as addiction gets worse
-	var/addiction_stage = 0
 	// What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
 	var/process_flags = ORGANIC
 	/// You fucked up and this is now triggering its overdose effects, purge that shit quick.
@@ -83,6 +79,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/self_consuming = FALSE
 	///affects how far it travels when sprayed
 	var/reagent_weight = 1
+	///Assoc list with key type of addiction this reagent feeds, and value amount of addiction points added per unit of reagent metabolzied (which means * REAGENTS_METABOLISM every life())
+	var/list/addiction_types = null
 
 	///The default reagent container for the reagent, used for icon generation
 	var/obj/item/reagent_containers/default_container = /obj/item/reagent_containers/cup/bottle
@@ -147,6 +145,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /// Called when this reagent is removed while inside a mob
 /datum/reagent/proc/on_mob_delete(mob/living/carbon/affected_mob)
 	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(affected_mob, COMSIG_CLEAR_MOOD_EVENT, "[type]_overdose")
 	REMOVE_TRAITS_IN(affected_mob, "base:[type]")
 
 /// Called when this reagent first starts being metabolized by a liver
@@ -186,27 +185,3 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/overdose_start(mob/living/carbon/affected_mob)
 	to_chat(affected_mob, span_userdanger("You feel like you took too much of [name]!"))
 	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
-
-/// Called when addiction hits stage1, see [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/addiction_act_stage1(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_light, name)
-	if(prob(30))
-		to_chat(affected_mob, span_notice("You feel like having some [name] right about now."))
-
-/// Called when addiction hits stage2, see [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/addiction_act_stage2(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_medium, name)
-	if(prob(30))
-		to_chat(affected_mob, span_notice("You feel like you need [name]. You just can't get enough."))
-
-/// Called when addiction hits stage3, see [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/addiction_act_stage3(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_severe, name)
-	if(prob(30))
-		to_chat(affected_mob, span_danger("You have an intense craving for [name]."))
-
-/// Called when addiction hits stage4, see [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/addiction_act_stage4(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_critical, name)
-	if(prob(30))
-		to_chat(affected_mob, span_boldannounce("You're not feeling good at all! You really need some [name]."))

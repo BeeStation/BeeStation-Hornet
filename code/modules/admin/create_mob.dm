@@ -11,12 +11,12 @@
 	user << browse(create_panel_helper(create_mob_html), "window=create_mob;size=425x475")
 
 /**
- * Randomizes everything about a human, including DNA and name
+ * Fully randomizes everything about a human, including DNA and name.
  */
 /proc/randomize_human(mob/living/carbon/human/human, randomize_mutations = FALSE)
 	human.gender = human.dna.species.sexes ? pick(MALE, FEMALE, PLURAL) : PLURAL
 	human.physique = human.gender
-	human.real_name = human.dna?.species.random_name(human.gender) || random_unique_name(human.gender)
+	human.real_name = human.generate_random_mob_name()
 	human.name = human.get_visible_name()
 	human.set_hairstyle(random_hairstyle(human.gender), update = FALSE)
 	human.set_facial_hairstyle(random_facial_hairstyle(human.gender), update = FALSE)
@@ -40,7 +40,7 @@
 	// Sorry enbys but statistically you are not average enough
 	human.gender = human.dna.species.sexes ? pick(MALE, FEMALE) : PLURAL
 	human.physique = human.gender
-	human.real_name = human.dna?.species.random_name(human.gender) || random_unique_name(human.gender)
+	human.real_name = human.generate_random_mob_name()
 	human.name = human.get_visible_name()
 	human.eye_color= random_eye_color()
 	human.skin_tone = pick(GLOB.skin_tones)

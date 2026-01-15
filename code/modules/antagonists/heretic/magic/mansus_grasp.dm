@@ -37,12 +37,14 @@
 
 	var/mob/living/living_hit = victim
 	living_hit.apply_damage(10, BRUTE)
-	if(iscarbon(victim))
-		var/mob/living/carbon/carbon_hit = victim
-		carbon_hit.silent = 3 SECONDS
-		carbon_hit.slurring = 7 SECONDS
-		carbon_hit.AdjustKnockdown(5 SECONDS)
-		carbon_hit.adjustStaminaLoss(80)
+	if(!iscarbon(victim))
+		return TRUE
+
+	var/mob/living/carbon/carbon_hit = victim
+
+	carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	carbon_hit.AdjustKnockdown(5 SECONDS)
+	carbon_hit.adjustStaminaLoss(80)
 
 	return TRUE
 

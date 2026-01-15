@@ -537,16 +537,16 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					if(prob(60) && M.mind && ishuman(M))
 						if(tetsuo && prob(15))
 							if(A.affected_mob.job == JOB_NAME_CLOWN)
-								new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
+								new /obj/effect/spawner/random/medical/teratoma/major/clown(M.loc)
 							if(A.infectable_biotypes & MOB_ROBOTIC)
 								new /obj/effect/decal/cleanable/robot_debris(M.loc)
-								new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
-						new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
+								new /obj/effect/spawner/random/medical/teratoma/robot(M.loc)
+						new /obj/effect/spawner/random/medical/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35) && M.mind && ishuman(M) && M.stat != DEAD)
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
-						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
+						new /obj/effect/spawner/random/medical/teratoma/major(M.loc)
 					if(missing.len) //we regrow one missing limb
 						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))

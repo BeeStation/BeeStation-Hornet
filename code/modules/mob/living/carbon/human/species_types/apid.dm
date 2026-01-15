@@ -54,20 +54,7 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/random_name(gender, unique, lastname, attempts)
-	if(gender == MALE)
-		. =  "[pick(GLOB.apid_names_male)]"
-	else
-		. =  "[pick(GLOB.apid_names_female)]"
 
-	if(lastname)
-		. += " [lastname]"
-	else
-		. +=  " [pick(GLOB.apid_names_last)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, attempts+1)
 
 /datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)

@@ -63,8 +63,10 @@ Passive gate is similar to the regular pump except:
 	if(input_air.release_gas_to(output_air, target_pressure, output_pipenet_air = output_pipenet_air))
 		update_parents()
 
-/obj/machinery/atmospherics/components/binary/passive_gate/ui_state(mob/user)
-	return GLOB.default_state
+/obj/machinery/atmospherics/components/binary/passive_gate/relaymove(mob/living/user, direction)
+	if(!on || direction != dir)
+		return
+	. = ..()
 
 /obj/machinery/atmospherics/components/binary/passive_gate/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

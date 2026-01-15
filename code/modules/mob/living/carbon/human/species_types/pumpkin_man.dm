@@ -6,7 +6,6 @@
 	meat = /obj/item/food/pieslice/pumpkin
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
-		TRAIT_NONECRODISEASE,
 		TRAIT_MUTANT_COLORS,
 	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)

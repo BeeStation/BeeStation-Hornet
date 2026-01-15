@@ -1,5 +1,5 @@
 /obj/item/clothing/head/hos/beret : /obj/item/clothing/head/hats/hos/beret{@OLD}
-/obj/item/clothing/head/beret/captain : /obj/item/clothing/head/caphat/beret{@OLD}
+/obj/item/clothing/head/beret/captain : /obj/item/clothing/head/hats/caphat/beret{@OLD}
 
 /obj/item/clothing/head/beret/vintage : /obj/item/clothing/head/beret{@OLD}
 

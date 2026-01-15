@@ -54,7 +54,7 @@
 #define ARMOR_LIST_DURABILITY list(ACID, FIRE)
 
 /// All armors, preferable in the order as seen above
-#define ARMOR_LIST_ALL list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, STAMINA, BLEED, ACID, FIRE)
+#define ARMOR_LIST_ALL list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, STAMINA, BLEED, ACID, FIRE, CONSUME)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
@@ -72,8 +72,6 @@
 #define EFFECT_UNCONSCIOUS "unconscious"
 #define EFFECT_PARALYZE "paralyze"
 #define EFFECT_IMMOBILIZE "immobilize"
-#define EFFECT_STUTTER "stutter"
-#define EFFECT_SLUR "slur"
 #define EFFECT_EYE_BLUR "eye_blur"
 #define EFFECT_DROWSY "drowsy"
 

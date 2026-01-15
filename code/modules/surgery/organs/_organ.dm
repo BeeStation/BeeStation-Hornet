@@ -201,7 +201,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return FALSE
 	damage = clamp(damage + damage_amount, 0, maximum)
 	. = (prev_damage - damage) // return net damage
-	var/message = check_damage_thresholds(owner)
+	var/message = check_damage_thresholds()
 	prev_damage = damage
 
 	if(damage >= maxHealth)
@@ -222,7 +222,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
  * description: By checking our current damage against our previous damage, we can decide whether we've passed an organ threshold.
  *  If we have, send the corresponding threshold message to the owner, if such a message exists.
  */
-/obj/item/organ/proc/check_damage_thresholds(mob/organ_owner)
+/obj/item/organ/proc/check_damage_thresholds()
+	SHOULD_CALL_PARENT(TRUE)
 	if(damage == prev_damage)
 		return
 	var/delta = damage - prev_damage

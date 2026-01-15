@@ -10,6 +10,7 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
+		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_ENVIROSUIT
 	)
 	inherent_biotypes = MOB_MINERAL|MOB_HUMANOID
@@ -108,12 +109,7 @@
 	. = ..()
 	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
 
-/datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
 
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)

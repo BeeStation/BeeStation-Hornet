@@ -13,7 +13,8 @@
 	hijack_speed = 0.5
 	/// Whether to give this changeling objectives or not
 	give_objectives = TRUE
-	/// Weather we assign objectives which compete with other lings
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
+	/// Whether we assign objectives which compete with other lings
 	var/competitive_objectives = FALSE
 
 	// Changeling Stuff.
@@ -412,7 +413,7 @@
 		if(verbose)
 			to_chat(user, span_warning("We already have this DNA in storage!"))
 		return FALSE
-	if(HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
+	if(HAS_TRAIT(target, TRAIT_NOT_TRANSMORPHIC) || HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
 		return FALSE
@@ -456,6 +457,11 @@
 	new_profile.underwear_color = target.underwear_color
 	new_profile.undershirt = target.undershirt
 	new_profile.socks = target.socks
+
+	var/obj/item/card/id/id_card = target.wear_id?.GetID()
+	if (istype(id_card))
+		new_profile.id_job_name = id_card.assignment
+		new_profile.id_hud_state = id_card.hud_state
 
 	// Hair and facial hair gradients, alongside their colours.
 	new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
@@ -550,11 +556,24 @@
  * Create a profile based on the changeling's initial appearance.
  */
 /datum/antagonist/changeling/proc/create_initial_profile()
-	if(!ishuman(owner.current))
-		return
+	var/mob/living/carbon/carbon_owner = owner.current //only carbons have dna now, so we have to typecast
+	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
+		carbon_owner.set_species(/datum/species/human)
+		var/prefs_name = carbon_owner.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		if(prefs_name)
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, prefs_name)
+		else
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.generate_random_mob_name())
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = carbon_owner.dna.species.name
+				record.gender = carbon_owner.gender
 
-	add_new_profile(owner.current)
+				//Not directly assigning carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
+	if(ishuman(carbon_owner))
+		add_new_profile(carbon_owner)
 
 /datum/antagonist/changeling/greet()
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
@@ -853,6 +872,7 @@
 	name = "Xenobio Changeling"
 	give_objectives = FALSE
 	show_in_roundend = FALSE //These are here for admin tracking purposes only
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()
@@ -889,6 +909,7 @@
 	antagpanel_category = "Changeling"
 	banning_key = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/fallen_changeling
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/mood_event/fallen_changeling
 	description = "My powers! Where are my powers?!"

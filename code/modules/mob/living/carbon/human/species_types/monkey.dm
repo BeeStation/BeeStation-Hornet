@@ -3,12 +3,15 @@
 /datum/species/monkey
 	name = "Monkey"
 	id = SPECIES_MONKEY
-	skinned_type = /obj/item/stack/sheet/animalhide/
+	mutantbrain = /obj/item/organ/brain/primate
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	meat = /obj/item/food/meat/slab/monkey
 	changesource_flags = MIRROR_BADMIN
 	inherent_traits = list(
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NO_BLOOD_OVERLAY,
 		TRAIT_NO_AUGMENTS,
+		TRAIT_VENTCRAWLER_NUDE,
 	)
 
 	bodypart_overrides = list(

@@ -398,7 +398,7 @@
 	user.add_traits(vampire_traits, TRAIT_VAMPIRE)
 
 	// Clear Addictions
-	user.reagents.addiction_list = new/list()
+	user.fully_heal(HEAL_TRAUMAS)
 	owner.remove_quirk(/datum/quirk/junkie)
 	owner.remove_quirk(/datum/quirk/junkie/smoker)
 
@@ -533,20 +533,11 @@
 
 		for(var/datum/record/crew/record in GLOB.manifest.general)
 			if(record.name == carbon_owner.real_name)
-				record.species = "\improper Human"
+				record.species = carbon_owner.dna.species.name
 				record.gender = carbon_owner.gender
 
-				var/datum/picture/picture_south = new
-				var/datum/picture/picture_west = new
-
-				picture_south.picture_name = "[carbon_owner]"
-				picture_west.picture_name = "[carbon_owner]"
-				picture_south.picture_desc = "This is [carbon_owner]."
-				picture_west.picture_desc = "This is [carbon_owner]."
-
-				var/icon/image = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
-				picture_south.picture_image = icon(image, dir = SOUTH)
-				picture_west.picture_image = icon(image, dir = WEST)
+				//Not using carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER

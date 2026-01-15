@@ -43,18 +43,6 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/moth/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.moth_first)]"
-
-	if(lastname)
-		. += " [lastname]"
-	else
-		. += " [pick(GLOB.moth_last)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
-
 /datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER * delta_time)

@@ -47,6 +47,11 @@
 
 	minimal_lightup_areas = list(/area/medical/morgue)
 
+	manuscript_jobs = list(
+		JOB_NAME_BARBER,
+		JOB_NAME_ASSISTANT
+	)
+
 /datum/outfit/job/gimmick/barber
 	name = JOB_NAME_BARBER
 	jobtype = /datum/job/gimmick/barber
@@ -117,6 +122,12 @@
 	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_MEDICAL_METABOLISM, TRAIT_SUPERMATTER_SOOTHER)
 
 	rpg_title = "Enchanter"
+
+	manuscript_jobs = list(
+		JOB_NAME_PSYCHIATRIST,
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_CHEMIST
+	)
 
 /datum/outfit/job/gimmick/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = JOB_NAME_PSYCHIATRIST

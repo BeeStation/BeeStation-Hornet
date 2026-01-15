@@ -50,10 +50,13 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 	time_applied += seconds_between_ticks SECONDS
 
-	// For light bleeding, only process healing/bleeding every 1 second
-	// For heavy bleeding, process every tick (0.2 seconds)
-	var/should_process = (bleed_rate > BLEED_RATE_MINOR) || (time_applied >= 1 SECONDS)
+	var/should_process = time_applied >= 1 SECONDS
 	if (!should_process)
+		// For heavy bleeding, leave drops if we are standing.
+		// If we are lying down, allow the trail to form
+		// This doesn't actually cause you to lose blood any faster
+		if (bleed_rate > BLEED_RATE_MINOR && owner.body_position == STANDING_UP && !HAS_TRAIT(owner, TRAIT_BLEED_HELD))
+			owner.add_splatter_floor(owner.loc, TRUE)
 		return
 	time_applied = 0
 	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
@@ -352,7 +355,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
 		blood_volume = max(blood_volume - blood_loss_amount, 0)
-		if(isturf(src.loc) && !isgroundlessturf(src.loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
+		if(prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
 			if(blood_loss_amount >= 2)
 				add_splatter_floor(src.loc)
 			else
@@ -501,8 +504,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if(get_blood_id() != /datum/reagent/blood)
 		return
-	if(!T)
+	if (!T)
 		T = get_turf(src)
+	if(T && !isturf(T))
+		T = get_turf(T)
+	if (!T || isgroundlessturf(T))
+		return
 
 	var/list/temp_blood_DNA
 	if(small_drip)

@@ -1,10 +1,11 @@
 /obj/item/modular_computer/tablet/pda/preset	//This needs to exist or else we can't really have empty PDA shells!
+	var/cell_type = /obj/item/computer_hardware/battery/tiny
 
 /obj/item/modular_computer/tablet/pda/preset/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/hard_drive/micro)
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery/tiny)
+	install_component(new cell_type)
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/identifier)
@@ -134,7 +135,7 @@
 	icon_state = "pda-science"
 	init_ringtone = "boom"
 
-/obj/item/modular_computer/tablet/pda/science/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/preset/science/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/radio_card)
 
@@ -197,6 +198,14 @@
 	icon_state = "pda-captain"
 	default_virus_defense = ANTIVIRUS_BEST
 
+/obj/item/modular_computer/tablet/pda/preset/heads/captain/Initialize(mapload)
+	. = ..()
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	if(!drive)
+		return
+	for(var/datum/computer_file/program/messenger/messenger_app in drive.stored_files)
+		messenger_app.spam_mode = TRUE
+
 /obj/item/modular_computer/tablet/pda/preset/cargo_technician
 	name = "cargo technician PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/cargo_technician
@@ -237,6 +246,8 @@
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	default_virus_defense = ANTIVIRUS_BEST
+	max_hardware_size = WEIGHT_CLASS_SMALL
+	cell_type = /obj/item/computer_hardware/battery/large
 
 /obj/item/modular_computer/tablet/pda/preset/syndicate/Initialize(mapload)
 	. = ..()
@@ -256,6 +267,14 @@
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-lawyer"
 	init_ringtone = "objection"
+
+/obj/item/modular_computer/tablet/pda/preset/lawyer/Initialize(mapload)
+	. = ..()
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	if(!drive)
+		return
+	for(var/datum/computer_file/program/messenger/messenger_app in drive.stored_files)
+		messenger_app.spam_mode = TRUE
 
 /obj/item/modular_computer/tablet/pda/preset/roboticist
 	name = "roboticist PDA"
