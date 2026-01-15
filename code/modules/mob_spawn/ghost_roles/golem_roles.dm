@@ -57,7 +57,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 			if(has_owner)
 				H.fully_replace_character_name(null, "[initial(X.prefix)] Golem ([rand(1,999)])")
 			else
-				H.fully_replace_character_name(null, H.dna.species.random_name())
+				H.fully_replace_character_name(null, generate_random_name_species_based(species_type = H.dna.species))
 		else
 			H.fully_replace_character_name(null, name)
 	if(has_owner)

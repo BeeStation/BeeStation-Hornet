@@ -315,10 +315,14 @@ GLOBAL_LIST_INIT(prototype_language_holders, init_language_holder_prototypes())
 	)
 
 /datum/language_holder/oozeling
-	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
-			/datum/language/slime = list(LANGUAGE_ATOM))
-	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/slime = list(LANGUAGE_ATOM))
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/slime = list(LANGUAGE_ATOM)
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/slime = list(LANGUAGE_ATOM)
+	)
 
 /datum/language_holder/lightbringer
 	understood_languages = list(/datum/language/slime = list(LANGUAGE_ATOM))
@@ -347,16 +351,6 @@ GLOBAL_LIST_INIT(prototype_language_holders, init_language_holder_prototypes())
 	)
 	spoken_languages = list(
 		/datum/language/monkey = list(LANGUAGE_ATOM),
-	)
-
-/datum/language_holder/mushroom
-	understood_languages = list(
-		/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/mushroom = list(LANGUAGE_ATOM),
-	)
-	spoken_languages = list(
-		/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/mushroom = list(LANGUAGE_ATOM),
 	)
 
 /datum/language_holder/slime
@@ -514,6 +508,48 @@ GLOBAL_LIST_INIT(prototype_language_holders, init_language_holder_prototypes())
 		/datum/language/common = list(LANGUAGE_ATOM),
 		/datum/language/sonus = list(LANGUAGE_ATOM),
 		/datum/language/sylvan = list(LANGUAGE_ATOM)
+	)
+
+/datum/language_holder/syndicate
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/codespeak = list(LANGUAGE_ATOM)
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/codespeak = list(LANGUAGE_ATOM)
+	)
+
+/datum/language_holder/beachbum
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/beachbum = list(LANGUAGE_ATOM)
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/beachbum = list(LANGUAGE_ATOM)
+	)
+	selected_language = /datum/language/beachbum
+
+// Vending machines are extremely well-educated
+/datum/language_holder/speaking_machine
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/uncommon = list(LANGUAGE_ATOM),
+		/datum/language/machine = list(LANGUAGE_ATOM),
+		/datum/language/draconic = list(LANGUAGE_ATOM),
+		/datum/language/moffic = list(LANGUAGE_ATOM),
+		/datum/language/calcic = list(LANGUAGE_ATOM),
+		/datum/language/voltaic = list(LANGUAGE_ATOM),
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/uncommon = list(LANGUAGE_ATOM),
+		/datum/language/machine = list(LANGUAGE_ATOM),
+		/datum/language/draconic = list(LANGUAGE_ATOM),
+		/datum/language/moffic = list(LANGUAGE_ATOM),
+		/datum/language/calcic = list(LANGUAGE_ATOM),
+		/datum/language/voltaic = list(LANGUAGE_ATOM),
 	)
 
 /datum/language_holder/empty

@@ -394,12 +394,22 @@
 		paicard.emp_act(severity)
 		src.visible_message("[paicard] is flies out of [bot_name]!",span_warning("You are forcefully ejected from [bot_name]!"))
 		ejectpai(0)
+
+	if (QDELETED(src))
+		return
+
 	if(on)
 		turn_off()
 	spawn(severity*300)
 		stat &= ~EMPED
 		if(was_on)
 			turn_on()
+	if(!prob(70/severity))
+		return
+	if (!length(GLOB.uncommon_roundstart_languages))
+		return
+	remove_all_languages(source = LANGUAGE_EMP)
+	grant_random_uncommon_language(source = LANGUAGE_EMP)
 
 /mob/living/simple_animal/bot/proc/set_custom_texts() //Superclass for setting hack texts. Appears only if a set is not given to a bot locally.
 	text_hack = "You hack [name]."
