@@ -1,0 +1,15 @@
+author: rkz, andrea-feather, Melbert, Jacquerel, John Willard, timothytorres, Absolucy
+delete-after: true
+changes:
+  - refactor: Random Name Generation has been refactored. Report any instances of
+      people having weird (or "Unknown") names.
+  - rscadd: 'Adds a negative station trait: Bot Language Matrix Malfunction and Machine
+      Language Malfunction. Apply to their respective bits.'
+  - rscadd: Add language variety to machines that speak. You can also pulse the vendor
+      language wire to make it switch languages or EMP a machine to get the same effect.
+  - rscadd: Shambling cola vendors will now speak a different language each time they
+      talk. Syndicate vendors will now speak codespeak. Beach vendors will now speak
+      beachbum.
+  - refactor: defines a new global proc, pick_weight_recursive()
+  - code_imp: languages can weight syllables, and galactic common's definition is
+      easier to look at
