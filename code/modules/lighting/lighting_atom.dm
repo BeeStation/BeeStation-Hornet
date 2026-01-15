@@ -1,5 +1,6 @@
 
 /atom
+	var/has_component = FALSE
 	var/light_power = 1 // Intensity of the light.
 	var/light_range = 0 // Range in tiles of the light.
 	var/light_color     // Hexadecimal RGB string representing the colour of the light.
@@ -32,8 +33,7 @@
 	if(!isnull(l_height))
 		set_light_height(l_height)
 
-	if(light_system == STATIC_LIGHT)
-		update_light()
+	update_light()
 
 #undef NONSENSICAL_VALUE
 
@@ -45,7 +45,15 @@
 		return
 
 	if(light_system != STATIC_LIGHT)
-		CRASH("update_light() for [src] with following light_system value: [light_system]")
+		if (has_component)
+			return
+		switch(light_system)
+			if(MOVABLE_LIGHT)
+				AddComponent(/datum/component/overlay_lighting)
+			if(MOVABLE_LIGHT_DIRECTIONAL)
+				AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
+		has_component = TRUE
+		return
 
 	if (!light_power || !light_range || !light_on) // We won't emit light anyways, destroy the light source.
 		QDEL_NULL(light)
@@ -173,6 +181,8 @@
 /atom/proc/set_light_on(new_value)
 	if(new_value == light_on)
 		return
+	if (!has_component && light_system != STATIC_LIGHT)
+		update_light()
 	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_ON, new_value) & COMPONENT_BLOCK_LIGHT_UPDATE)
 		return
 	. = light_on

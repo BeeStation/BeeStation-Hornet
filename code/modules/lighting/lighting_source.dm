@@ -130,13 +130,15 @@
 // TODO OFfset x by this x=\frac{f}{l_{r}+1} but stretch to make sure we intercept y=0 at the same point
 
 /// The falloff multiplier for values close to the light source. Higher values cause the light to drop into linear falloff quicker
-#define FALLOFF_VALUE 0.5
+#define FALLOFF_VALUE 0.4
 /// The linear falloff multiplier, higher values result in overall darker lights
-#define LINEAR_FALLOFF_VALUE 2
+#define LINEAR_FALLOFF_VALUE 1.5
+/// The maximum amount of light that is allowed to be emitted by linear lights
+#define LINEAR_LIGHTING_MAXIMUM 0.6
 
 #define SPOT_INTENSITY(x, r) (r + 1 - (r - x)/(FALLOFF_VALUE * x))
 
-#define LINEAR_INTENSITY(x, r) CLAMP01((r - x) / (r * LINEAR_FALLOFF_VALUE))
+#define LINEAR_INTENSITY(x, r) min(LINEAR_LIGHTING_MAXIMUM, CLAMP01((r - x) / (r * LINEAR_FALLOFF_VALUE)))
 
 // 1/x lighting falloff. Relatively cheap compared to the other option while still giving
 // a nice falloff equation

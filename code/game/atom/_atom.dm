@@ -62,6 +62,11 @@
 	///Bitflags to determine lighting-related atom properties.
 	var/light_flags = NONE
 
+	///Lazylist to keep track on the sources of illumination.
+	var/list/affected_dynamic_lights
+	///Highest-intensity light affecting us, which determines our visibility.
+	var/affecting_dynamic_lumi = 0
+
 	var/flags_ricochet = NONE
 	///When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this
 	var/ricochet_chance_mod = 1
@@ -1040,15 +1045,6 @@
 	add_overlay(MA)
 
 /atom/proc/update_luminosity()
-	if (isnull(base_luminosity))
-		base_luminosity = initial(luminosity)
-
-	if (_emissive_count)
-		luminosity = max(1, base_luminosity)
-	else
-		luminosity = base_luminosity
-
-/atom/movable/update_luminosity()
 	if (isnull(base_luminosity))
 		base_luminosity = initial(luminosity)
 

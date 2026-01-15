@@ -121,7 +121,7 @@
 	var/lighting_colour_night = LIGHT_COLOUR_NIGHT
 	var/lighting_brightness_tube = 11
 	var/lighting_brightness_bulb = 6
-	var/lighting_brightness_night = 6
+	var/lighting_brightness_night = 9
 
 	///Typepath to limit the areas (subtypes included) that atoms in this area can smooth with. Used for shuttles.
 	var/area/area_limited_icon_smoothing

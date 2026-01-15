@@ -63,7 +63,5 @@
 	target_atom.set_light_color(shell_light_color)
 	target_atom.set_light_on(!!on.value)
 
-	if(target_atom.light_system == STATIC_LIGHT)
-		target_atom.update_light()
-	else
-		target_atom.update_icon()
+	target_atom.update_light()
+	target_atom.update_icon()

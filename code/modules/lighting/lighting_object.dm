@@ -12,7 +12,6 @@
 
 	var/needs_update = FALSE
 	var/turf/myturf
-	var/mutable_appearance/additive_underlay
 
 /atom/movable/lighting_object/Initialize(mapload)
 	. = ..()
@@ -23,9 +22,6 @@
 	if (myturf.lighting_object)
 		qdel(myturf.lighting_object, force = TRUE)
 	myturf.lighting_object = src
-
-	additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER, LIGHTING_PLANE_ADDITIVE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
-	additive_underlay.blend_mode = BLEND_ADD
 
 	needs_update = TRUE
 	SSlighting.objects_queue += src
@@ -39,7 +35,6 @@
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if (isturf(myturf))
 			myturf.lighting_object = null
-			myturf.underlays -= additive_underlay
 		myturf = null
 
 		return ..()

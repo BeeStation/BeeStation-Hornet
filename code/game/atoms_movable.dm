@@ -68,10 +68,6 @@
 	///contains every client mob corresponding to every client eye in this container. lazily updated by SSparallax and is sparse:
 	///only the last container of a client eye has this list assuming no movement since SSparallax's last fire
 	var/list/client_mobs_in_contents
-	///Lazylist to keep track on the sources of illumination.
-	var/list/affected_dynamic_lights
-	///Highest-intensity light affecting us, which determines our visibility.
-	var/affecting_dynamic_lumi = 0
 
 	/// Whether this atom should have its dir automatically changed when it moves. Setting this to FALSE allows for things such as directional windows to retain dir on moving without snowflake code all of the place.
 	var/set_dir_on_move = TRUE
@@ -92,11 +88,6 @@
 			update_appearance(UPDATE_OVERLAYS)
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
-	switch(light_system)
-		if(MOVABLE_LIGHT)
-			AddComponent(/datum/component/overlay_lighting)
-		if(MOVABLE_LIGHT_DIRECTIONAL)
-			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
 	if(isturf(loc))
 		var/turf/T = loc

@@ -153,7 +153,6 @@
 //---------- LIGHTING -------------
 ///Normal 1 per turf dynamic lighting objects
 #define LIGHTING_PLANE 100
-#define LIGHTING_PLANE_ADDITIVE 101
 
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110

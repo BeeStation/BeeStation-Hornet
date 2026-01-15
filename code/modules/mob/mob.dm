@@ -1281,14 +1281,6 @@
 			L.alpha = lighting_alpha
 		if(client?.prefs)
 			L.color = color_matrix_saturation(client.prefs.read_preference(/datum/preference/numeric/lighting_saturation))
-		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.plane_masters["[LIGHTING_PLANE_ADDITIVE]"]
-		if(LA)
-			var/bloom = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
-			if(client?.prefs) //If this ever doesn't work for some reason add update_sight() to /mob/living/Login()
-				bloom = client.prefs.read_preference(/datum/preference/numeric/bloom) * (ADDITIVE_LIGHTING_PLANE_ALPHA_MAX / 100)
-			LA.alpha = lighting_alpha * (bloom / 255)
-
-
 
 ///Update the mouse pointer of the attached client in this mob
 /mob/proc/update_mouse_pointer()

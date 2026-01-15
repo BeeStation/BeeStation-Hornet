@@ -122,21 +122,6 @@
 		add_filter("emissives", 1, layering_filter(render_source = EMISSIVE_RENDER_TARGET, blend_mode = BLEND_ADD))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
 
-/atom/movable/screen/plane_master/additive_lighting
-	name = "additive lighting plane master"
-	plane = LIGHTING_PLANE_ADDITIVE
-	blend_mode_override = BLEND_ADD
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/plane_master/additive_lighting/backdrop(mob/mymob)
-	. = ..()
-	// Disable this as a plane master when using low graphics quality, the stuff does not render at all
-	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
-	if (low_graphics_quality)
-		appearance_flags &= ~PLANE_MASTER
-	else
-		appearance_flags |= PLANE_MASTER
-
 /**
  * Renders extremely blurred white stuff over space to give the effect of starlight lighting.
  */
