@@ -232,7 +232,7 @@
 		adult.real_name = old_name
 		adult.dna.features = features
 	else
-		adult.fully_replace_character_name(name, adult.dna.species.random_name(gender))
+		adult.fully_replace_character_name(name, generate_random_name_species_based(gender = gender, species_type = /datum/species/diona))
 		adult.dna.features["mcolor"] = sanitize_hexcolor(RANDOM_COLOUR)
 	if(mind)
 		mind.transfer_to(adult)

@@ -36,6 +36,9 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	GLOB.announcement_systems += src
 	update_appearance()
 
+/obj/machinery/announcement_system/randomize_language_if_on_station()
+	return
+
 /obj/machinery/announcement_system/Destroy()
 	QDEL_NULL(radio)
 	QDEL_LAZYLIST(config_entries)
