@@ -62,7 +62,6 @@
 		/mob/living/carbon/monkey,
 	))
 	var/lastpuke = 0
-	var/last_fire_update
 
 	/// The core temperature of the human compaired to the skin temp of the body
 	var/coretemperature = BODYTEMP_NORMAL

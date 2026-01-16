@@ -720,13 +720,11 @@
 
 /obj/item/minebot_upgrade/antiweather/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/minebot, mob/user)
 	. = ..()
-	minebot.weather_immunities += "lava"
-	minebot.weather_immunities += "ash"
+	minebot.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), type)
 
 /obj/item/minebot_upgrade/antiweather/unequip()
-	linked_bot.weather_immunities -= "lava"
-	linked_bot.weather_immunities -= "ash"
-	. = ..()
+	linked_bot.remove_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), type)
+	return ..()
 
 // Minebot Sentience
 

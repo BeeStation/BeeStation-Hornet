@@ -83,7 +83,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 	icon_state = "ladder[up ? 1 : 0][down ? 1 : 0]"
 	return ..()
 
-/obj/structure/ladder/singularity_pull()
+/obj/structure/ladder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	if (!(resistance_flags & INDESTRUCTIBLE))
 		visible_message(span_danger("[src] is torn to pieces by the gravitational pull!"))
 		qdel(src)

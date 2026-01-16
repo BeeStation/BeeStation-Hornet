@@ -587,7 +587,7 @@ Difficulty: Hard
 	color = "#C80000"
 	density = FALSE
 	faction = list(FACTION_MINING, FACTION_BOSS)
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()

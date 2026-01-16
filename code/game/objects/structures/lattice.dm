@@ -71,6 +71,6 @@
 		return TRUE
 	return FALSE
 
-/obj/structure/lattice/singularity_pull(S, current_size)
+/obj/structure/lattice/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	if(current_size >= STAGE_FOUR)
 		deconstruct()

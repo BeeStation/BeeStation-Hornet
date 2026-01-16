@@ -187,10 +187,10 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-/obj/singularity_pull(S, current_size)
-	..()
+/obj/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(!anchored || current_size >= STAGE_FIVE)
-		step_towards(src,S)
+		step_towards(src, singularity)
 
 /obj/get_dumping_location(datum/storage/source, mob/user)
 	return get_turf(src)

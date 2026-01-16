@@ -44,7 +44,7 @@
 	qdel(src)
 	return 0
 
-/obj/effect/abstract/singularity_pull()
+/obj/effect/abstract/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/abstract/singularity_act()
@@ -53,7 +53,7 @@
 /obj/effect/abstract/has_gravity(turf/T)
 	return FALSE
 
-/obj/effect/dummy/singularity_pull()
+/obj/effect/dummy/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/dummy/singularity_act()

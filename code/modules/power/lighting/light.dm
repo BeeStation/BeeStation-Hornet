@@ -642,7 +642,7 @@
 
 		for(var/mob/living/person in range(3, src))
 			person.fire_stacks = max(person.fire_stacks, 3)
-			person.IgniteMob()
+			person.ignite_mob()
 			person.electrocute_act(0, "[src]", flags = SHOCK_TESLA)
 
 		qdel(src)

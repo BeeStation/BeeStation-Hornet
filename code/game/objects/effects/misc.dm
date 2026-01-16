@@ -15,7 +15,7 @@
 /obj/effect/beam/singularity_act()
 	return
 
-/obj/effect/beam/singularity_pull()
+/obj/effect/beam/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/spawner
@@ -69,7 +69,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.adjust_fire_stacks(5)
-		L.IgniteMob()
+		L.ignite_mob()
 
 //Makes a tile fully lit no matter what
 /obj/effect/fullbright

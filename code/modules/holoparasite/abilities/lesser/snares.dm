@@ -300,5 +300,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/snare)
 /**
  * Destroy the surveillance snare when pulled by a singularity.
  */
-/obj/effect/snare/singularity_pull()
+/obj/effect/snare/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	qdel(src)
