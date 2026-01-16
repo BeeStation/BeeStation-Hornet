@@ -1,0 +1,188 @@
+/**
+ * Document Theme
+ *
+ * An aged paper/parchment theme designed for official-looking documents.
+ * Uses serif fonts and muted colors to evoke a corporate document feel.
+ *
+ */
+
+@use 'sass:meta';
+
+// Theme color palette
+$document-bg: hsl(43, 33%, 90%);
+$document-fg: hsl(30, 10%, 15%);
+$document-accent: hsl(30, 50%, 25%);
+$document-border: hsl(30, 20%, 60%);
+$document-header-bg: hsl(43, 25%, 85%);
+
+@use '../colors.scss' with (
+  $primary: $document-fg,
+  $fg-map-keys: (),
+  $bg-map-keys: ()
+);
+@use '../base.scss' with (
+  $color-fg: $document-fg,
+  $color-bg: $document-bg,
+  $color-bg-grad-spread: 0%,
+  $border-radius: 0
+);
+
+.theme-document {
+  // Expose theme colors as CSS custom properties for interface-specific styles
+  --document-bg: #{$document-bg};
+  --document-fg: #{$document-fg};
+  --document-accent: #{$document-accent};
+  --document-border: #{$document-border};
+  --document-header-bg: #{$document-header-bg};
+
+  // Use a serif font for that official document feel
+  font-family: 'Times New Roman', 'Georgia', serif;
+
+  // Atomic classes - override label color for document theme
+  @include meta.load-css(
+    '../atomic/color.scss',
+    $with: (
+      'fg-map': (
+        'label': hsl(30, 10%, 35%),
+      ),
+      'bg-map': ()
+    )
+  );
+
+  // Components
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('background-color': transparent)
+  );
+  @include meta.load-css('../components/BlockQuote.scss');
+  @include meta.load-css('../components/Button.scss');
+  @include meta.load-css('../components/ProgressBar.scss');
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: (
+      'text-color': $document-fg,
+      'background-color': $document-header-bg,
+      'shadow-color-core': rgba(0, 0, 0, 0.15)
+    )
+  );
+
+  // Document page background with aged paper texture effect
+  .Layout__content {
+    background-color: $document-bg;
+    background-image:
+      // Subtle noise/grain effect for aged paper look
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(139, 119, 101, 0.03) 2px,
+        rgba(139, 119, 101, 0.03) 4px
+      ),
+      // Slight vignette
+      radial-gradient(
+          ellipse at center,
+          transparent 0%,
+          rgba(139, 119, 101, 0.08) 100%
+        );
+    background-size:
+      auto,
+      100% 100%;
+    background-position:
+      0 0,
+      0 0;
+    background-repeat: repeat, no-repeat;
+  }
+
+  // Override Section component for document theme
+  .Section {
+    background: transparent;
+
+    &__title {
+      font-family: 'Times New Roman', 'Georgia', serif;
+      font-size: 16px;
+      border-bottom: 1px solid $document-border;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    &__content {
+      padding: 0;
+    }
+  }
+
+  // Override Window content for document feel
+  .Window__contentPadding {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+  }
+
+  // Paper-styled buttons for document theme
+  .Button {
+    background: linear-gradient(
+      180deg,
+      hsl(43, 30%, 88%) 0%,
+      hsl(43, 25%, 82%) 100%
+    );
+    border: 1px solid $document-border;
+    color: $document-fg;
+    font-family: 'Times New Roman', 'Georgia', serif;
+    text-transform: none;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+    &:hover {
+      background: linear-gradient(
+        180deg,
+        hsl(43, 35%, 92%) 0%,
+        hsl(43, 30%, 86%) 100%
+      );
+      border-color: $document-accent;
+    }
+
+    &:active {
+      background: linear-gradient(
+        180deg,
+        hsl(43, 25%, 80%) 0%,
+        hsl(43, 30%, 84%) 100%
+      );
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      background: hsl(43, 20%, 85%);
+      box-shadow: none;
+      pointer-events: none;
+    }
+  }
+
+  // Document-styled blockquotes
+  .BlockQuote {
+    position: relative;
+    padding: 1rem 2rem;
+    background: rgba(139, 119, 101, 0.08);
+    border-left: 3px solid $document-accent;
+    border-right: 3px solid $document-accent;
+    color: $document-fg;
+    font-size: 14px;
+    font-style: italic;
+
+    // Optional quote icon via ::before
+    &::before {
+      content: '"';
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      font-size: 24px;
+      color: $document-accent;
+      opacity: 0.5;
+      font-style: normal;
+    }
+  }
+}
