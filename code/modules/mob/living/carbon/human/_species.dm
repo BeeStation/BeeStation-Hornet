@@ -228,7 +228,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * If there are no available roundstart species, defaults to human.
  */
 /proc/generate_selectable_species_and_languages()
-/proc/generate_selectable_species()
 	var/list/selectable_species = list()
 
 	for(var/species_type in subtypesof(/datum/species))
