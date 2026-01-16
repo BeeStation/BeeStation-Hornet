@@ -45,6 +45,7 @@
 
 /datum/symptom/heal/chem
 	name = "Toxolysis"
+	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
 	stealth = 0
 	resistance = -2
 	stage_speed = 2
@@ -52,10 +53,10 @@
 	level = 6
 	power = 2
 	prefixes = list("Toxo")
-	var/food_conversion = FALSE
-	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
+	required_organ = ORGAN_SLOT_HEART
 	threshold_desc = "<b>Resistance 7:</b> Increases chem removal speed.<br>\
 						<b>Stage Speed 6:</b> Consumed chemicals nourish the host."
+	var/food_conversion = FALSE
 
 /datum/symptom/heal/chem/Start(datum/disease/advance/A)
 	if(!..())
@@ -160,7 +161,7 @@
 		return
 
 	for(var/obj/item/bodypart/L in parts)
-		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len, null, BODYTYPE_ORGANIC))
+		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len, required_bodytype = BODYTYPE_ORGANIC))
 			M.update_damage_overlays()
 
 	if(active_coma && M.getBruteLoss() + M.getFireLoss() == 0)
@@ -202,12 +203,12 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshold)
-		M.heal_overall_damage(power, required_status = BODYTYPE_ORGANIC)
+		M.heal_overall_damage(power, required_bodytype = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshold)
-		M.heal_overall_damage(burn = power, required_status = BODYTYPE_ORGANIC)
+		M.heal_overall_damage(burn = power, required_bodytype = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
@@ -228,19 +229,20 @@
 
 /datum/symptom/heal/metabolism
 	name = "Metabolic Boost"
+	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
+		but also causing increased hunger."
 	stealth = -1
 	resistance = -2
 	stage_speed = 2
 	transmission = 1
 	level = 6
+	required_organ = ORGAN_SLOT_STOMACH
 	prefixes = list("Metabolic ", "Junkie's ", "Chemical ")
 	bodies = list("Hunger")
-	var/triple_metabolism = FALSE
-	var/reduced_hunger = FALSE
-	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
-		but also causing increased hunger."
 	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
 						<b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+	var/triple_metabolism = FALSE
+	var/reduced_hunger = FALSE
 
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())
@@ -250,17 +252,15 @@
 	if(A.stealth >= 3)
 		reduced_hunger = TRUE
 
-/datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
-	if(!istype(C))
-		return
+/datum/symptom/heal/metabolism/Heal(mob/living/carbon/infected_mob, datum/disease/advance/A, actual_power)
 	var/metabolic_boost = triple_metabolism ? 2 : 1
-	C.reagents.metabolize(C, metabolic_boost * SSMOBS_DT, 0, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
-	C.overeatduration = max(C.overeatduration - 4 SECONDS, 0)
+	infected_mob.reagents.metabolize(infected_mob, metabolic_boost * SSMOBS_DT, 0, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	infected_mob.overeatduration = max(infected_mob.overeatduration - 4 SECONDS, 0)
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
-	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
-	if(prob(2) && C.stat != DEAD)
-		to_chat(C, span_notice("You feel an odd gurgle in your stomach, as if it was working much faster than normal."))
-	return 1
+	infected_mob.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
+	if(prob(2))
+		to_chat(infected_mob, span_notice("You feel an odd gurgle in your stomach, as if it was working much faster than normal."))
+	return TRUE
 
 /*
 //////////////////////////////////////
@@ -570,7 +570,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 									M.grab_ghost()
 								break
 			if(bruteheal)
-				M.heal_overall_damage(2 * power, required_status = BODYTYPE_ORGANIC)
+				M.heal_overall_damage(2 * power, required_bodytype = BODYTYPE_ORGANIC)
 				if(prob(33) && tetsuo)
 					M.adjustCloneLoss(1)
 		else
@@ -602,7 +602,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	bodies = list("Blood")
 	var/bloodpoints = 0
 	var/maxbloodpoints = 50
-	var/datum/blood_type/bloodtypearchive
+	var/bloodtypearchive
 	var/bruteheal = FALSE
 	var/aggression = FALSE
 	var/vampire = FALSE
@@ -640,7 +640,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = /datum/blood_type/universal
+		H.dna.blood_type = "U"
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
@@ -651,7 +651,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(5) && M.stat != DEAD)
 				to_chat(M, span_warning("[pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]"))
 		if(5)
-			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
+			ADD_TRAIT(A.affected_mob, TRAIT_DRINKS_BLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
 			if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood)
 				var/missing = BLOOD_VOLUME_NORMAL - M.blood_volume
@@ -675,7 +675,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
-						M.heal_overall_damage(2, required_status = BODYTYPE_ORGANIC)
+						M.heal_overall_damage(2, required_bodytype = BODYTYPE_ORGANIC)
 					if(prob(60) && !M.stat)
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
 				else if(prob(20) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
@@ -686,7 +686,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism/End(datum/disease/advance/A)
 	. = ..()
-	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
+	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKS_BLOOD, DISEASE_TRAIT)
 	if(bloodtypearchive && ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.dna.blood_type = bloodtypearchive

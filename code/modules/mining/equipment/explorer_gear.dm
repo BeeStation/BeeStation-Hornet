@@ -6,6 +6,7 @@
 	icon = 'icons/obj/clothing/suits/utility.dmi'
 	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
 	inhand_icon_state = null
+	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -26,6 +27,8 @@
 	high_pressure_multiplier = 0.4
 	flags_inv = HIDEJUMPSUIT
 
+/obj/item/clothing/suit/hooded/explorer/get_general_color(icon/base_icon)
+	return "#796755"
 
 /datum/armor/hooded_explorer
 	melee = 30
@@ -100,15 +103,19 @@
 	bleed = 10
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
-	adjustmask(user)
+	adjust_visor(user)
 
-/obj/item/clothing/mask/gas/explorer/adjustmask(user)
+/obj/item/clothing/mask/gas/explorer/visor_toggling()
 	..()
-	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/explorer/update_icon_state()
+	. = ..()
+	inhand_icon_state = "[initial(inhand_icon_state)][up ? "_up" : ""]"
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
-	adjustmask()
+	visor_toggling()
 
 /obj/item/clothing/suit/hooded/hostile_environment
 	name = "H.E.C.K. suit"

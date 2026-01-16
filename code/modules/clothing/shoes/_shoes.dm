@@ -21,24 +21,25 @@
 
 /obj/item/clothing/shoes/suicide_act(mob/living/carbon/user)
 	if(prob(50))
-		user.visible_message(span_suicide("[user] begins fastening \the [src] up waaay too tightly! It looks like [user.p_theyre()] trying to commit suicide!"))
+		user.visible_message(span_suicide("[user] begins tying \the [src] up waaay too tightly! It looks like [user.p_theyre()] trying to commit suicide!"))
 		var/obj/item/bodypart/leg/left = user.get_bodypart(BODY_ZONE_L_LEG)
 		var/obj/item/bodypart/leg/right = user.get_bodypart(BODY_ZONE_R_LEG)
 		if(left)
 			left.dismember()
+			playsound(user,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
 		if(right)
 			right.dismember()
-		playsound(user, "desecration", 50, TRUE, -1)
+			playsound(user,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
 		return BRUTELOSS
 	else//didnt realize this suicide act existed (was in miscellaneous.dm) and didnt want to remove it, so made it a 50/50 chance. Why not!
 		user.visible_message(span_suicide("[user] is bashing [user.p_their()] own head in with [src]! Ain't that a kick in the head?"))
 		for(var/i in 1 to 3)
-			sleep(0.3 SECONDS)
+			sleep(3)
 			playsound(user, 'sound/weapons/genhit2.ogg', 50, TRUE)
 		return BRUTELOSS
 
 /obj/item/clothing/shoes/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands)
 
 		if(damaged_clothes)
@@ -72,3 +73,7 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_worn_shoes()
+
+/obj/item/clothing/shoes/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	return icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "boots_worn")
+

@@ -357,8 +357,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					mob_occupant.transferItemToLoc(W, loc, TRUE)
 
 	for(var/obj/item/W in mob_occupant.GetAllContents())
+		if(istype(W, /obj/item/organ) || istype(W, /obj/item/bodypart))
+			continue
 		qdel(W)//because we moved all items to preserve away
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
+		//This method is shit, thanks jlsnow, but atleast mobs shouldnt fucking explode anymore
 
 	// Suspend their bank payment
 	if(mob_occupant.mind?.account_id)

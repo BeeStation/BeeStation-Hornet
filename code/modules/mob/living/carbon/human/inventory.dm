@@ -1,5 +1,5 @@
-/mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
-	return dna.species.can_equip(I, slot, disable_warning, src, bypass_equip_delay_self, ignore_occupancy)
+/mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+	return dna.species.can_equip(I, slot, disable_warning, src, bypass_equip_delay_self, ignore_equipped)
 
 // Return the item currently in the slot ID
 /mob/living/carbon/human/get_item_by_slot(slot_id)
@@ -79,9 +79,6 @@
 
 	return ..()
 
-/mob/living/carbon/human/get_all_worn_items()
-	. = get_head_slots() | get_body_slots()
-
 /mob/living/carbon/human/proc/get_body_slots()
 	return list(
 		back,
@@ -146,8 +143,6 @@
 			var/obj/item/clothing/glasses/G = I
 			if(G.glass_colour_type)
 				update_glasses_color(G, 1)
-			if(G.tint)
-				update_tint()
 			if(G.vision_correction)
 				clear_fullscreen("nearsighted")
 				clear_fullscreen("eye_damage")
@@ -170,8 +165,6 @@
 
 			wear_suit = I
 
-			if(I.flags_inv & HIDEJUMPSUIT)
-				update_worn_undersuit()
 			if(wear_suit.breakouttime) //when equipping a straightjacket
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 				stop_pulling() //can't pull if restrained
@@ -208,25 +201,13 @@
 
 	return not_handled //For future deeper overrides
 
-/// This proc is called after an item has been successfully handled and equipped to a slot.
-/mob/living/carbon/proc/has_equipped(obj/item/item, slot, initial = FALSE)
-	return item.equipped(src, slot, initial)
-
-/mob/living/carbon/human/equipped_speed_mods()
-	. = ..()
-	for(var/sloties in get_all_worn_items() - list(l_store, r_store, s_store))
-		var/obj/item/thing = sloties
-		if (thing?.item_flags & NO_WORN_SLOWDOWN)
-			continue
-		. += thing?.slowdown
+/mob/living/carbon/human/get_equipped_speed_mod_items()
+	return ..() - list(l_store, r_store, s_store)
 
 /mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
-	var/index = get_held_index_of_item(I)
 	. = ..(I, force, newloc, no_move, invdrop, was_thrown) //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
-	if(index && !QDELETED(src) && dna.species.mutanthands) //hand freed, fill with claws, skip if we're getting deleted.
-		put_in_hand(new dna.species.mutanthands(), index)
 	var/not_handled = FALSE //if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
 	if(I == wear_suit)
 		if(s_store && invdrop)
@@ -237,8 +218,6 @@
 			update_action_buttons_icon() //certain action buttons may be usable again.
 		wear_suit = null
 		if(!QDELETED(src)) //no need to update we're getting deleted anyway
-			if(I.flags_inv & HIDEJUMPSUIT)
-				update_worn_undersuit()
 			update_worn_oversuit()
 	else if(I == w_uniform)
 		if(invdrop)
@@ -263,8 +242,6 @@
 		var/obj/item/clothing/glasses/G = I
 		if(G.glass_colour_type)
 			update_glasses_color(G, 0)
-		if(G.tint)
-			update_tint()
 		if(G.vision_correction)
 			if(HAS_TRAIT(src, TRAIT_NEARSIGHT))
 				overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
@@ -311,6 +288,7 @@
 	if(not_handled)
 		return
 
+	update_equipment_speed_mods()
 	update_obscured_slots(I.flags_inv)
 	hud_used?.update_locked_slots()
 
@@ -325,8 +303,8 @@
 	// Use mask in absence of tube.
 	if(isclothing(wear_mask) && ((wear_mask.visor_flags & MASKINTERNALS) || (wear_mask.clothing_flags & MASKINTERNALS)))
 		// Adjust dishevelled breathing mask back onto face.
-		if (wear_mask.mask_adjusted)
-			wear_mask.adjustmask(src)
+		if (wear_mask.up)
+			wear_mask.adjust_visor(src)
 		return toggle_open_internals(tank, is_external)
 	// Use helmet in absence of tube or valid mask.
 	if(can_breathe_helmet())
@@ -346,34 +324,6 @@
 /mob/living/carbon/human/toggle_externals(obj/item/tank)
 	return toggle_internals(tank, TRUE)
 
-/mob/living/carbon/human/wear_mask_update(obj/item/I, toggle_off = 1)
-	if((I.flags_inv & (HIDEHAIR|HIDEFACIALHAIR)) || (initial(I.flags_inv) & (HIDEHAIR|HIDEFACIALHAIR)))
-		update_hair()
-	// Close internal air tank if mask was the only breathing apparatus.
-	if(invalid_internals())
-		cutoff_internals()
-	if(I.flags_inv & HIDEEYES)
-		update_worn_glasses()
-	sec_hud_set_security_status()
-	..()
-
-/mob/living/carbon/human/head_update(obj/item/I, forced)
-	if((I.flags_inv & (HIDEHAIR|HIDEFACIALHAIR)) || forced)
-		update_hair()
-	else
-		var/obj/item/clothing/C = I
-		if(istype(C) && C.dynamic_hair_suffix)
-			update_hair()
-	// Close internal air tank if helmet was the only breathing apparatus.
-	if(invalid_internals())
-		cutoff_internals()
-	if(I.flags_inv & HIDEEYES || forced)
-		update_worn_glasses()
-	if(I.flags_inv & HIDEEARS || forced)
-		update_body()
-	sec_hud_set_security_status()
-	..()
-
 /mob/living/carbon/human/proc/equipOutfit(outfit, visuals_only = FALSE)
 	var/datum/outfit/O = null
 
@@ -390,10 +340,10 @@
 
 //delete all equipment without dropping anything
 /mob/living/carbon/human/proc/delete_equipment()
-	for(var/slot in get_all_worn_items())//order matters, dependant slots go first
+	for(var/slot in get_equipped_items(include_pockets = TRUE))//order matters, dependant slots go first
 		qdel(slot)
-	for(var/obj/item/I in held_items)
-		qdel(I)
+	for(var/obj/item/held_item in held_items)
+		qdel(held_item)
 
 /mob/living/carbon/human/proc/smart_equip_targeted(slot_type = ITEM_SLOT_BELT, slot_item_name = "belt")
 	if(incapacitated())

@@ -3,11 +3,9 @@
 #define BREATH_PLASMA	/datum/breathing_class/plasma
 
 /obj/item/organ/lungs
-	var/failed = FALSE
-	var/operated = FALSE	//whether we can still have our damages fixed through surgery
 	name = "lungs"
 	icon_state = "lungs"
-	visual = FALSE
+
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LUNGS
 	gender = PLURAL
@@ -20,6 +18,8 @@
 	now_fixed = span_warning("Your lungs seem to once again be able to hold air.")
 	high_threshold_cleared = span_info("The constriction around your chest loosens as your breathing calms down.")
 
+	var/failed = FALSE
+	var/operated = FALSE //whether we can still have our damages fixed through surgery
 
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/medicine/salbutamol = 5)
 
@@ -82,19 +82,18 @@
 	. = ..()
 	populate_gas_info()
 
-/obj/item/organ/lungs/Insert(mob/living/carbon/M, special, drop_if_replaced, pref_load)
+/obj/item/organ/lungs/on_mob_insert(mob/living/carbon/receiver, special = FALSE, movement_flags)
 	// This may look weird, but uh, organ code is weird, so we FIRST check to see if this organ is going into a NEW person.
 	// If it is going into a new person, ..() will ensure that organ is Remove()d first, and we won't run into any issues with duplicate signals.
-	var/new_owner = QDELETED(owner) || owner != M
+	var/new_owner = QDELETED(owner) || owner != receiver
 	. = ..()
-	if(!.)
-		return .
-	if(new_owner)
-		RegisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
 
-/obj/item/organ/lungs/Remove(mob/living/carbon/M, special, pref_load)
+	if(new_owner)
+		RegisterSignal(receiver, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
+
+/obj/item/organ/lungs/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	UnregisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH))
+	UnregisterSignal(organ_owner, SIGNAL_ADDTRAIT(TRAIT_NOBREATH))
 	LAZYNULL(thrown_alerts)
 
 /obj/item/organ/lungs/proc/populate_gas_info()
@@ -239,7 +238,7 @@
 				H.reagents.add_reagent(danger_reagent,1)
 			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
-			H.apply_damage_type(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
+			H.apply_damage(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"], spread_damage = TRUE)
 			throw_alert_for(H, alert_category, alert_type)
 		else
 			clear_alert_for(H, alert_category)
@@ -324,11 +323,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/cold_modifier = H.dna.species.coldmod
 		if(breath_temperature < cold_level_3_threshold)
-			H.apply_damage_type(cold_level_3_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(cold_level_3_damage*cold_modifier, cold_damage_type, spread_damage = TRUE)
 		if(breath_temperature > cold_level_3_threshold && breath_temperature < cold_level_2_threshold)
-			H.apply_damage_type(cold_level_2_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(cold_level_2_damage*cold_modifier, cold_damage_type, spread_damage = TRUE)
 		if(breath_temperature > cold_level_2_threshold && breath_temperature < cold_level_1_threshold)
-			H.apply_damage_type(cold_level_1_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(cold_level_1_damage*cold_modifier, cold_damage_type, spread_damage = TRUE)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
@@ -336,11 +335,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/heat_modifier = H.dna.species.heatmod
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
-			H.apply_damage_type(heat_level_1_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(heat_level_1_damage*heat_modifier, heat_damage_type, spread_damage = TRUE)
 		if(breath_temperature > heat_level_2_threshold && breath_temperature < heat_level_3_threshold)
-			H.apply_damage_type(heat_level_2_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(heat_level_2_damage*heat_modifier, heat_damage_type, spread_damage = TRUE)
 		if(breath_temperature > heat_level_3_threshold)
-			H.apply_damage_type(heat_level_3_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(heat_level_3_damage*heat_modifier, heat_damage_type, spread_damage = TRUE)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [hot_message] in your [name]!"))
@@ -380,8 +379,7 @@
 	name = "cybernetic lungs"
 	desc = "A cybernetic version of the lungs found in traditional humanoid entities. Allows for greater intakes of oxygen than organic lungs, requiring slightly less pressure."
 	icon_state = "lungs-c"
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = 1.1 * STANDARD_ORGAN_THRESHOLD
 	safe_breath_min = 13
 	safe_breath_max = 100

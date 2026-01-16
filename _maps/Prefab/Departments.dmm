@@ -416,6 +416,11 @@
 /obj/machinery/status_display/door_timer,
 /turf/open/floor/iron,
 /area/space)
+"iQ" = (
+/obj/effect/spawner/random/trash/grille_or_waste,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/space)
 "jm" = (
 /obj/machinery/status_display/supply,
 /turf/open/floor/iron,
@@ -512,10 +517,6 @@
 "lW" = (
 /turf/open/floor/iron/textured_corner,
 /area/space)
-"lX" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/white,
-/area/science/robotics)
 "mo" = (
 /obj/item/toy/plush/moth/lovers,
 /turf/open/floor/iron/tech/grid,
@@ -635,36 +636,6 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/freezer,
 /area/ai_monitored/turret_protected/ai)
-"oG" = (
-/obj/structure/disposalpipe/sorting/mail/destination/research,
-/obj/structure/table/reinforced,
-/obj/item/clothing/glasses/science{
-	pixel_x = 4;
-	pixel_y = 10
-	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 4;
-	pixel_x = -5
-	},
-/obj/item/clothing/gloves/artifact_pinchers{
-	pixel_y = 3
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/item/analyzer,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/multitool,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/science/research)
-"oI" = (
-/obj/machinery/computer/xenoartifact_console{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/mixing)
 "oO" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/janitorialcart,
@@ -843,10 +814,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/sorting)
-"tg" = (
-/obj/effect/spawner/random/decoration/glowstick,
-/turf/open/floor/iron,
-/area/space)
 "ti" = (
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
@@ -991,10 +958,6 @@
 /area/space)
 "wQ" = (
 /obj/machinery/sparker,
-/turf/open/floor/iron,
-/area/space)
-"wV" = (
-/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
 /area/space)
 "xd" = (
@@ -1391,11 +1354,6 @@
 /obj/structure/disposalpipe/sorting/mail/destination/library,
 /turf/open/floor/carpet/royalblack,
 /area/library)
-"GN" = (
-/obj/effect/spawner/random/trash/grille_or_waste,
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
-/area/space)
 "GV" = (
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 10
@@ -1424,6 +1382,10 @@
 	},
 /turf/open/floor/iron,
 /area/security/main)
+"HI" = (
+/obj/effect/spawner/random/maintenance,
+/turf/open/floor/iron,
+/area/space)
 "HZ" = (
 /obj/structure/disposalpipe/sorting/mail/destination/qm_office,
 /turf/open/floor/carpet/orange,
@@ -1505,10 +1467,6 @@
 /obj/structure/closet/l3closet/virology,
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
-"JZ" = (
-/obj/structure/closet/firecloset/full,
-/turf/open/floor/iron,
-/area/space)
 "Kb" = (
 /obj/item/book/codex_gigas,
 /turf/open/floor/carpet/royalblack,
@@ -1663,13 +1621,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/space)
-"MZ" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/science/research)
 "Nb" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/machinery/vending/wardrobe/chem_wardrobe,
@@ -1926,6 +1877,10 @@
 	},
 /turf/open/floor/iron,
 /area/space)
+"RO" = (
+/obj/effect/spawner/random/decoration/glowstick,
+/turf/open/floor/iron,
+/area/space)
 "Sa" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /turf/open/floor/grass/no_border,
@@ -2129,6 +2084,26 @@
 /obj/structure/closet/wardrobe/black,
 /turf/open/floor/iron/dark,
 /area/space)
+"VN" = (
+/obj/structure/disposalpipe/sorting/mail/destination/research,
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/science{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/item/clothing/gloves/artifact_pinchers{
+	pixel_y = 3
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/item/analyzer,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/multitool,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/science/research)
 "VY" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -2350,7 +2325,7 @@ IY
 nG
 yv
 xd
-oG
+VN
 aJ
 Fq
 qf
@@ -2391,7 +2366,7 @@ tM
 CE
 zT
 nt
-MZ
+aJ
 Hb
 ac
 Wx
@@ -2452,7 +2427,7 @@ KM
 kX
 zU
 lt
-oI
+lt
 LH
 nv
 ba
@@ -2471,7 +2446,7 @@ Tj
 Vy
 or
 TE
-lX
+ei
 BQ
 OT
 Rd
@@ -2782,7 +2757,7 @@ OR
 pG
 sb
 LR
-tg
+RO
 Cn
 MS
 "}
@@ -2802,9 +2777,9 @@ Qk
 sb
 Ec
 sb
-wV
+HI
 TU
-JZ
+Qk
 "}
 (27,1,1) = {"
 Cb
@@ -2884,5 +2859,5 @@ rq
 CS
 Kg
 iC
-GN
+iQ
 "}

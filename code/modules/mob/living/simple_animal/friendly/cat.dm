@@ -17,7 +17,7 @@
 	see_in_dark = 6
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	minbodytemp = 200
 	maxbodytemp = 400
 	unsuitable_atmos_damage = 0.5
@@ -247,8 +247,12 @@
 	health = 50
 	maxHealth = 50
 	gender = FEMALE
-	butcher_results = list(/obj/item/organ/brain = 1, /obj/item/organ/heart = 1, /obj/item/food/cakeslice/birthday = 3,  \
-	/obj/item/food/meat/slab = 2)
+	butcher_results = list(
+		/obj/item/organ/brain = 1,
+		/obj/item/organ/heart = 1,
+		/obj/item/food/cakeslice/birthday = 3,
+		/obj/item/food/meat/slab = 2
+	)
 	response_harm_continuous = "takes a bite out of"
 	response_harm_simple = "take a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'

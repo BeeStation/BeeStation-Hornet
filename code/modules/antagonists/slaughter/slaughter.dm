@@ -15,7 +15,7 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
 	icon_living = "daemon"
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	speed = 1
 	combat_mode = TRUE
 	stop_automated_movement = 1
@@ -97,7 +97,7 @@
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
 	gender = NEUTER
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "innards"
 	random_icon_states = null
 
@@ -108,7 +108,7 @@
 /obj/item/organ/heart/demon
 	name = "demon heart"
 	desc = "Still it beats furiously, emanating an aura of utter hate."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "demon_heart-on"
 	decay_factor = 0
 
@@ -132,13 +132,13 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	src.Insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
-/obj/item/organ/heart/demon/on_insert(mob/living/carbon/heart_owner)
+/obj/item/organ/heart/demon/on_mob_insert(mob/living/carbon/heart_owner)
 	..()
 	// Gives a non-eat-people crawl to the new owner
 	var/datum/action/spell/jaunt/bloodcrawl/crawl = new(heart_owner)
 	crawl.Grant(heart_owner)
 
-/obj/item/organ/heart/demon/on_remove(mob/living/carbon/heart_owner, special = FALSE)
+/obj/item/organ/heart/demon/on_mob_remove(mob/living/carbon/heart_owner, special = FALSE, movement_flags)
 	..()
 	var/datum/action/spell/jaunt/bloodcrawl/crawl = locate() in heart_owner.actions
 	qdel(crawl)

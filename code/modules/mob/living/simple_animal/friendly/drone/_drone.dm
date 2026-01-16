@@ -169,9 +169,10 @@
 	. = list()
 
 	//Hands
-	for(var/obj/item/I in held_items)
-		if(!(I.item_flags & ABSTRACT))
-			. += "It has [I.examine_title(user)] in its [get_held_index_name(get_held_index_of_item(I))]."
+	for(var/obj/item/held_thing in held_items)
+		if((held_thing.item_flags & (ABSTRACT|HAND_ITEM)) || HAS_TRAIT(held_thing, TRAIT_EXAMINE_SKIP))
+			continue
+		. += "It has [held_thing.examine_title(user)] in its [get_held_index_name(get_held_index_of_item(held_thing))]."
 
 	//Internal storage
 	if(internal_storage && !(internal_storage.item_flags & ABSTRACT))

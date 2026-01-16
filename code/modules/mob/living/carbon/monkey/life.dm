@@ -103,11 +103,12 @@
 
 	//the fire tries to damage the exposed clothes and items
 	var/list/burning_items = list()
+	var/covered = check_covered_slots()
 	//HEAD//
-	var/obscured = check_obscured_slots(TRUE)
-	if(wear_mask && !(obscured & ITEM_SLOT_MASK))
+
+	if(wear_mask && !(covered & ITEM_SLOT_MASK))
 		burning_items += wear_mask
-	if(wear_neck && !(obscured & ITEM_SLOT_NECK))
+	if(wear_neck && !(covered & ITEM_SLOT_NECK))
 		burning_items += wear_neck
 	if(head)
 		burning_items += head

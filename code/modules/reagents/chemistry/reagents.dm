@@ -43,13 +43,26 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	///pretend this is moles
 	var/volume = 0
 	/// color it looks in containers etc
-	var/color = "#000000" // rgb: 0, 0, 0
+	var/color = COLOR_BLACK // rgb: 0, 0, 0
 	/// intensity of color provided, dyes or things that should work like a dye will more strongly affect the final color of a reagent
 	var/color_intensity = 1
-	// default = I am not sure this shit + CHEMICAL_NOT_SYNTH
-	var/chemical_flags = CHEMICAL_NOT_DEFINED
 	///how fast the reagent is metabolized by the mob
 	var/metabolization_rate = REAGENTS_METABOLISM
+	///is it currently metabolizing
+	var/metabolizing = FALSE
+	///A list of causes why this chem should skip being removed, if the length is 0 it will be removed from holder naturally, if this is >0 it will not be removed from the holder.
+	var/list/reagent_removal_skip_list = list()
+	// default = I am not sure this shit + CHEMICAL_NOT_SYNTH
+	var/chemical_flags = CHEMICAL_NOT_DEFINED
+	/// The affected organ_flags, if the reagent damages/heals organ damage of an affected mob.
+	/// See "Organ defines for carbon mobs" in /code/_DEFINES/surgery.dm
+	var/affected_organ_flags = ORGAN_ORGANIC
+	/// The affected bodytype, if the reagent damages/heals bodyparts (Brute/Fire) of an affected mob.
+	/// See "Bodytype defines" in /code/_DEFINES/mobs.dm
+	var/affected_bodytype = BODYTYPE_ORGANIC
+	/// The affected biotype, if the reagent damages/heals toxin damage of an affected mob.
+	/// See "Mob bio-types flags" in /code/_DEFINES/mobs.dm
+	var/affected_biotype = MOB_ORGANIC
 	/// A list of traits to apply while the reagent is being metabolized.
 	var/list/metabolized_traits
 	/// A list of traits to apply while the reagent is in a mob.
@@ -66,8 +79,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/self_consuming = FALSE
 	///affects how far it travels when sprayed
 	var/reagent_weight = 1
-	///is it currently metabolizing
-	var/metabolizing = FALSE
 	///Assoc list with key type of addiction this reagent feeds, and value amount of addiction points added per unit of reagent metabolzied (which means * REAGENTS_METABOLISM every life())
 	var/list/addiction_types = null
 

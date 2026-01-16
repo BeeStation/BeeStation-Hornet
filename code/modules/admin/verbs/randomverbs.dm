@@ -10,6 +10,10 @@
 
 	for(var/obj/item/W in M)
 		if(!M.dropItemToGround(W))
+			// I hate that this is necessary, but the code is literally just dropping or deleting everything otherwise
+			// people should be allowed to keep their fucking organs
+			if(istype(W, /obj/item/organ) || istype(W, /obj/item/bodypart))
+				continue
 			qdel(W)
 			M.regenerate_icons()
 
@@ -435,7 +439,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		var/datum/dna/found_dna = record_found.weakref_dna.resolve()
 		new_character.hardset_dna(found_dna.unique_identity, record_found.dna_string, null, record_found.name, record_found.blood_type, new record_found.species, found_dna.features)
 	else
-		randomize_human(new_character)
+		randomize_human_normie(new_character)
 		//Whats the point of this?
 		//new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
 		new_character.name = new_character.real_name

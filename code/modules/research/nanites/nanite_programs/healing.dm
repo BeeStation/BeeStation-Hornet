@@ -23,7 +23,7 @@
 		if(!parts.len)
 			return
 		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(0.5/parts.len, 0.5/parts.len, null, BODYTYPE_ORGANIC))
+			if(L.heal_damage(brute = 0.5/parts.len, burn = 0.5/parts.len, required_bodytype = BODYTYPE_ORGANIC))
 				host_mob.update_damage_overlays()
 	else
 		host_mob.adjustBruteLoss(-0.5, TRUE)
@@ -134,7 +134,7 @@
 			return
 		var/update = FALSE
 		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, null, BODYTYPE_ROBOTIC)) //much faster than organic healing
+			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, required_bodytype = BODYTYPE_ROBOTIC)) //much faster than organic healing
 				update = TRUE
 		if(update)
 			host_mob.update_damage_overlays()
@@ -182,7 +182,7 @@
 			return
 		var/update = FALSE
 		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, null, BODYTYPE_ORGANIC))
+			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, required_bodytype = BODYTYPE_ORGANIC))
 				update = TRUE
 		if(update)
 			host_mob.update_damage_overlays()
