@@ -1,5 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - admin: Adds sanity checks to administration banning tool to prevent orphan entries
-      (submission with no player identifiers)
