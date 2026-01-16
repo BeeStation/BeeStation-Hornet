@@ -5,14 +5,14 @@
 	is_equippable = FALSE
 
 /datum/gear/ooc/char_slot
-	display_name = "extra character slot"
-	description = "An extra charslot. Pretty self-explanatory."
+	display_name = "two extra character slots"
+	description = "Two extra charslots. Pretty self-explanatory."
 	cost = 10000
 	path = /obj/item/toy/figure/captain
 
 /datum/gear/ooc/char_slot/purchase(client/C)
 	// This is only locally immediately after purchase - this will be incremented on load in preferences.dm
-	C.prefs.max_save_slots += 1
+	C.prefs.max_save_slots += 2
 
 /datum/gear/ooc/real_antagtoken
 	display_name = "antag token"
