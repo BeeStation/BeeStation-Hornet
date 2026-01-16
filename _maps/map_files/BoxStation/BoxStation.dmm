@@ -28099,10 +28099,6 @@
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"iRW" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "iSm" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -108188,7 +108184,7 @@ bhM
 dmo
 lnP
 bfT
-iRW
+bsQ
 bsQ
 bsQ
 box

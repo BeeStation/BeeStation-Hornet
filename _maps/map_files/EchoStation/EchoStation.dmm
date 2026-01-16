@@ -41460,11 +41460,6 @@
 /obj/item/clothing/under/rank/prisoner,
 /turf/open/floor/iron,
 /area/security/prison)
-"xay" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/white,
-/area/science/robotics)
 "xaM" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -191761,7 +191756,7 @@ qmd
 ohi
 qPj
 cZy
-xay
+ueQ
 obp
 xiY
 fyy

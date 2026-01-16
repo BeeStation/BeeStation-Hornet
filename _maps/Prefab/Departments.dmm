@@ -512,10 +512,6 @@
 "lW" = (
 /turf/open/floor/iron/textured_corner,
 /area/space)
-"lX" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/white,
-/area/science/robotics)
 "mo" = (
 /obj/item/toy/plush/moth/lovers,
 /turf/open/floor/iron/tech/grid,
@@ -642,10 +638,6 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 4;
-	pixel_x = -5
-	},
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
 	},
@@ -659,12 +651,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/science/research)
-"oI" = (
-/obj/machinery/computer/xenoartifact_console{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/mixing)
 "oO" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/janitorialcart,
@@ -1505,10 +1491,6 @@
 /obj/structure/closet/l3closet/virology,
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
-"JZ" = (
-/obj/structure/closet/firecloset/full,
-/turf/open/floor/iron,
-/area/space)
 "Kb" = (
 /obj/item/book/codex_gigas,
 /turf/open/floor/carpet/royalblack,
@@ -1663,13 +1645,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/space)
-"MZ" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/science/research)
 "Nb" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/machinery/vending/wardrobe/chem_wardrobe,
@@ -2391,7 +2366,7 @@ tM
 CE
 zT
 nt
-MZ
+aJ
 Hb
 ac
 Wx
@@ -2452,7 +2427,7 @@ KM
 kX
 zU
 lt
-oI
+lt
 LH
 nv
 ba
@@ -2471,7 +2446,7 @@ Tj
 Vy
 or
 TE
-lX
+ei
 BQ
 OT
 Rd
@@ -2804,7 +2779,7 @@ Ec
 sb
 wV
 TU
-JZ
+Qk
 "}
 (27,1,1) = {"
 Cb

@@ -33990,7 +33990,7 @@
 	pixel_x = 26
 	},
 /obj/machinery/computer/telecomms/monitor{
-	dir = 8;
+	dir = 8
 	},
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
@@ -65776,7 +65776,6 @@
 /area/ai_monitored/storage/eva)
 "uyf" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/aug_manipulator,
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},

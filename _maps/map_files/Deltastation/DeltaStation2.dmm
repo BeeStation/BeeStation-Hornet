@@ -82282,7 +82282,6 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "wyt" = (
