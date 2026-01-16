@@ -86,9 +86,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	/// What is the mobs real name (name is overridden for disguises etc)
 	var/real_name = null
 
-	/// can this mob move freely in space (should be a trait)
-	var/spacewalk = FALSE
-
 	/**
 	  * back up of the real name during admin possession
 	  *

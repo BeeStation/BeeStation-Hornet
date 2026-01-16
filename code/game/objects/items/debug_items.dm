@@ -367,8 +367,9 @@
 	picker.see_override = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
-	spacewalk_initial = user.spacewalk
-	user.spacewalk = TRUE
+	spacewalk_initial = HAS_TRAIT(user, TRAIT_SPACEWALK)
+	if(!spacewalk_initial)
+		ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
@@ -376,7 +377,8 @@
 	if(orb)
 		return
 
-	user.spacewalk = spacewalk_initial
+	if(!space_walk_initial)
+		REMOVE_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")

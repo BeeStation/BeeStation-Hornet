@@ -22,7 +22,6 @@
 	do_not_show_health_on_stat_panel = TRUE // showing their health info is confusing
 	plane = GHOST_PLANE
 	healable = FALSE
-	spacewalk = TRUE
 	sight = SEE_SELF
 	throwforce = 0
 	see_in_dark = NIGHTVISION_FOV_RANGE
@@ -73,6 +72,7 @@
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	// more rev abilities are in 'revenant_abilities.dm'
 	// Starting spells
 	var/datum/action/spell/night_vision/revenant/night_vision = new(src)

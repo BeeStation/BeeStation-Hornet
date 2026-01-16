@@ -14,7 +14,6 @@
 	speak_chance = 1
 	icon = 'icons/mob/cult.dmi'
 	speed = 0
-	spacewalk = TRUE
 	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH

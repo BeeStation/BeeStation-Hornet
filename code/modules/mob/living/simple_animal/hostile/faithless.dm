@@ -19,7 +19,6 @@
 	speed = 0
 	maxHealth = 80
 	health = 80
-	spacewalk = TRUE
 	stat_attack = HARD_CRIT
 	robust_searching = 1
 
@@ -38,6 +37,10 @@
 
 	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
+
+/mob/living/simple_animal/hostile/faithless/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/faithless/faithful
 	name = "Faithsworn"
