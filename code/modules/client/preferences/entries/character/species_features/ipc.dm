@@ -12,7 +12,7 @@
 	for (var/screen_name in GLOB.ipc_screens_list)
 		var/datum/sprite_accessory/screen = GLOB.ipc_screens_list[screen_name]
 
-		var/datum/universal_icon/icon_with_screen = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
+		var/datum/universal_icon/icon_with_screen = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 		if (screen_name != FEATURE_NONE)
 			var/datum/universal_icon/screen_icon = uni_icon(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
 			icon_with_screen.blend_icon(screen_icon, ICON_OVERLAY)
@@ -67,7 +67,7 @@
 	for (var/antenna_name in GLOB.ipc_antennas_list)
 		var/datum/sprite_accessory/antenna = GLOB.ipc_antennas_list[antenna_name]
 
-		var/datum/universal_icon/icon_with_antennae = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
+		var/datum/universal_icon/icon_with_antennae = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 		if (antenna.icon_state != "none")
 			// weird snowflake shit
 			var/side = (antenna_name == "Light" || antenna_name == "Drone Eyes") ? "FRONT" : "ADJ"
@@ -130,7 +130,7 @@
 		var/datum/universal_icon/icon_with_chassis = uni_icon('icons/effects/effects.dmi', "nothing")
 
 		for (var/body_part in body_parts)
-			icon_with_chassis.blend_icon(uni_icon('icons/mob/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
+			icon_with_chassis.blend_icon(uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
 		values[chassis.name] = icon_with_chassis
 

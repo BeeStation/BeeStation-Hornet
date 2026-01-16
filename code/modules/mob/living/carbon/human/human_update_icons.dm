@@ -169,7 +169,7 @@ There are several things that need to be remembered:
 		if(!uniform_overlay)
 			//Currently doesn't work with GAGS
 			//if((dna?.species.bodytype & BODYTYPE_DIGITIGRADE) && (uniform.supports_variations & CLOTHING_DIGITIGRADE_VARIATION))
-			//	icon_file = 'icons/mob/species/misc/digitigrade.dmi'
+			//	icon_file = 'icons/mob/human/species/misc/digitigrade.dmi'
 			uniform_overlay = uniform.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE, override_state = target_overlay)
 
 		if(OFFSET_UNIFORM in dna.species.offset_features)
@@ -489,7 +489,7 @@ There are several things that need to be remembered:
 		var/icon_file = DEFAULT_SUIT_FILE
 
 		if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
-			if(S.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION)
+			if(wear_suit.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION)
 				icon_file = DIGITIGRADE_SUIT_FILE
 
 		var/mutable_appearance/suit_overlay = wear_suit.build_worn_icon(src, default_layer = SUIT_LAYER, default_icon_file = icon_file)
@@ -877,9 +877,11 @@ generate/load female uniform sprites matching all previously decided variables
 	if(my_head && !(HAS_TRAIT(src, TRAIT_HUSK)))
 		// lipstick
 		if(lip_style && (LIPS in dna.species.species_traits))
-			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			lip_overlay.color = lip_color
-			my_head.worn_face_offset?.apply_offset(lip_overlay)
+			if(OFFSET_FACE in dna.species.offset_features)
+				lip_overlay.pixel_x += dna.species.offset_features[OFFSET_FACE][1]
+				lip_overlay.pixel_y += dna.species.offset_features[OFFSET_FACE][2]
 			add_overlay(lip_overlay)
 
 		// eyes
@@ -887,12 +889,14 @@ generate/load female uniform sprites matching all previously decided variables
 			var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/eye_overlay
 			if(!E)
-				eye_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			else
-				eye_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			if((EYECOLOR in dna.species.species_traits) && E)
 				eye_overlay.color = "#" + eye_color
-			my_head.worn_face_offset?.apply_offset(eye_overlay)
+			if(OFFSET_FACE in dna.species.offset_features)
+				eye_overlay.pixel_x += dna.species.offset_features[OFFSET_FACE][1]
+				eye_overlay.pixel_y += dna.species.offset_features[OFFSET_FACE][2]
 			add_overlay(eye_overlay)
 
 	dna.species.handle_hair(src)
