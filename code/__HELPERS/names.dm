@@ -32,20 +32,19 @@
 	ASSERT(ispath(species_type, /datum/species))
 	var/datum/language_holder/holder = GLOB.prototype_language_holders[species_type::species_language_holder]
 
+	// forcing Snowflake name set for synthetics, who have like 6 languages
+	if(istype(holder, /datum/language_holder/synthetic))
+		return generate_random_name(gender, unique, list(/datum/language/machine = 1))
+
 	var/list/languages_to_pick_from = list()
 	for(var/language in holder.spoken_languages)
 		languages_to_pick_from[language] = 1
 
+	// remove metalanguage as it pollutes name generation
+	languages_to_pick_from -= /datum/language/metalanguage
 	if(length(languages_to_pick_from) >= 2)
 		// Basically, if we have alternatives, don't pick common it's boring
 		languages_to_pick_from -= /datum/language/common
-		// remove metalanguage as it pollutes name generation
-		languages_to_pick_from -= /datum/language/metalanguage
-
-	//SNOWFLAKE regenerate, kapulimbs will kill this
-	// If we have no languages left after filtering, pass null to use default language weights
-	//if(!length(languages_to_pick_from))
-	//	languages_to_pick_from = null
 
 	if(!include_all || length(languages_to_pick_from) <= 1)
 		return generate_random_name(gender, unique, languages_to_pick_from)
