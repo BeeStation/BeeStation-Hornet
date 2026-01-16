@@ -6,6 +6,7 @@
 /area
 	name = "Space"
 	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
+	var/ingame_area_name /// players will read this name instead of "var/name" in their stat panel. This exists to suppress some metaknowledge of area names
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
