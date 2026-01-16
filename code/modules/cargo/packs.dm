@@ -2342,7 +2342,7 @@
 
 /datum/supply_pack/service/carpet_exotic
 	name = "Exotic Carpet Crate"
-	desc = "Exotic carpets straight from Space Russia, for all your decorating needs. Contains 100 tiles each of 8 different flooring patterns."
+	desc = "Exotic carpets straight from Space Russia, for all your decorating needs. Contains 100 tiles each of 10 different flooring patterns."
 	cost = 2000
 	max_supply = 3
 	contains = list(/obj/item/stack/tile/carpet/blue/fifty,
@@ -2357,6 +2357,8 @@
 					/obj/item/stack/tile/carpet/purple/fifty,
 					/obj/item/stack/tile/carpet/red/fifty,
 					/obj/item/stack/tile/carpet/red/fifty,
+					/obj/item/stack/tile/carpet/olive/fifty,
+					/obj/item/stack/tile/carpet/olive/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/eighties/fifty,
