@@ -13,6 +13,7 @@ GLOBAL_LIST_EMPTY(powernets)
 	if (mapload) {\
 		for (var/obj/structure/cable/cable in loc) {\
 			cable.add_power_node();\
+			return;\
 		}\
 	}\
 }

@@ -14,7 +14,7 @@
 	var/viewload = 0			// the load as it appears on the power console (gradually updated)
 	var/netexcess = 0			// excess power on the powernet (typically avail-load)///////
 	var/delayedload = 0			// load applied to powernet between power ticks.
-	var/dirty = FALSE
+	var/dirty = FALSE			// Is this powernet queued for a full reconsolidation in the powernet subsystem?
 
 /datum/powernet/New()
 	SSmachines.powernets += src

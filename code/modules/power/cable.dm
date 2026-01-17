@@ -30,13 +30,21 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	var/has_power_node = FALSE
 	/// Have we been manually given a power node and should keep it when we change?
 	var/forced_power_node = FALSE
+	/// List of cables that are connected to this cable.
 	var/list/connected = list()
+	/// Number of cables connected to the north of this cable, can be greater than 1 for omni cables.
 	var/north_count = 0
+	/// Number of cables connected to the east of this cable, can be greater than 1 for omni cables.
 	var/east_count = 0
+	/// Number of cables connected to the south of this cable, can be greater than 1 for omni cables.
 	var/south_count = 0
+	/// Number of cables connected to the west of this cable, can be greater than 1 for omni cables.
 	var/west_count = 0
-	var/omni_dirs = 0
+	/// Direction flag which specifies in what direction this cable connects to omni cables.
+	var/omni_dirs = NONE
+	/// Reference to the cable that is above us.
 	var/obj/structure/cable/up
+	/// Reference to the cable that is below us.
 	var/obj/structure/cable/down
 	/// Are we an omni cable?
 	var/omni = FALSE

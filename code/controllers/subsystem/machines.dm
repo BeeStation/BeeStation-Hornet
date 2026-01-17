@@ -31,8 +31,8 @@ SUBSYSTEM_DEF(machines)
 	powernets.Cut()
 
 	var/datum/powernet/new_powernet = new()
-	for(var/obj/structure/cable/PC in GLOB.cable_list)
-		new_powernet.add_cable(PC)
+	for(var/obj/structure/cable/cable in GLOB.cable_list)
+		new_powernet.add_cable(cable)
 	new_powernet.repropogate_cables()
 	new_powernet.dirty = FALSE
 	dirty_powernets.len = 0
@@ -87,13 +87,13 @@ SUBSYSTEM_DEF(machines)
 			return
 
 /datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
-	var/obj/structure/cable/PC
-	var/datum/powernet/NewPN = new()
+	var/obj/structure/cable/cable
+	var/datum/powernet/new_powernet = new()
 	for(var/A in 1 to cables.len)
-		PC = cables[A]
-		NewPN.add_cable(PC)
-	NewPN.repropogate_cables()
-	NewPN.dirty = FALSE
+		cable = cables[A]
+		new_powernet.add_cable(cable)
+	new_powernet.repropogate_cables()
+	new_powernet.dirty = FALSE
 	dirty_powernets.len = 0
 
 /datum/controller/subsystem/machines/Recover()

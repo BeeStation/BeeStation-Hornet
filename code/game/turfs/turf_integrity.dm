@@ -169,7 +169,7 @@
 	if(try_clean(W, user, T) || try_wallmount(W, user, T) || try_decon(W, user, T) || try_destroy(W, user, T))
 		return TRUE
 
-	return ..() || (W.attack_turf(src, user))
+	return ..() || W.attack_turf(src, user)
 
 /turf/proc/try_clean(obj/item/W, mob/user, turf/T)
 	return FALSE

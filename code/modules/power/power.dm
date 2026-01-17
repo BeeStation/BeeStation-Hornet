@@ -12,7 +12,7 @@ WANTS_POWER_NODE(/obj/machinery/power)
 	name = null
 	icon = 'icons/obj/power.dmi'
 	anchored = TRUE
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0

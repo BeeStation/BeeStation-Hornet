@@ -112,7 +112,7 @@
 #include "code\__DEFINES\important_recursive_contents.dm"
 #include "code\__DEFINES\injection.dm"
 #include "code\__DEFINES\instruments.dm"
-#include "code\__DEFINES\interaction.dm"
+#include "code\__DEFINES\interaction_flags.dm"
 #include "code\__DEFINES\inventory.dm"
 #include "code\__DEFINES\is_helpers.dm"
 #include "code\__DEFINES\jamming_defines.dm"
