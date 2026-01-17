@@ -51,7 +51,7 @@
 
 	// Change Name
 	prev_name = user.name
-	var/newname = generate_random_name_species_based(species_type = user.dna.species)
+	var/newname = generate_random_name_species_based(user.gender, TRUE, user.dna.species)
 	user.real_name = newname
 	user.name = newname
 

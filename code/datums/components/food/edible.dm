@@ -461,7 +461,7 @@ Behavior that's still missing from this component that original food items had t
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
 	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
-		if(foodtypes & tongue.toxic_food)
+		if(foodtypes & tongue.toxic_foodtypes)
 			to_chat(human_eater, span_warning("You don't feel so good..."))
 			human_eater.adjust_disgust(25 + 30 * fraction)
 		return // Later checks are irrelevant if you have ageusia
@@ -508,13 +508,13 @@ Behavior that's still missing from this component that original food items had t
 
 	var/obj/item/organ/tongue/tongue = eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(ishuman(eater))
-		if(count_matching_foodtypes(foodtypes, tongue?.toxic_food)) //if the food is toxic, we don't care about anything else
+		if(count_matching_foodtypes(foodtypes, tongue?.toxic_foodtypes)) //if the food is toxic, we don't care about anything else
 			return TOXIC_FOOD_QUALITY_THRESHOLD
 		if(HAS_TRAIT(eater, TRAIT_AGEUSIA)) //if you can't taste it, it doesn't taste good
 			return 0
 
-	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.disliked_food)
-	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.liked_food)
+	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.disliked_foodtypes)
+	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.liked_foodtypes)
 
 	return food_quality
 

@@ -206,8 +206,8 @@
 
 /datum/reagent/consumable/nothing/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
-		affected_mob.silent = max(affected_mob.silent, MIMEDRINK_SILENCE_DURATION)
+	if(ishuman(affected_mob) && HAS_TRAIT(affected_mob, TRAIT_MIMING))
+		affected_mob.set_silence_if_lower(MIMEDRINK_SILENCE_DURATION)
 		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
@@ -1305,7 +1305,7 @@
 
 /datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/carbon/affected_mob)
 	var/obj/item/organ/tongue/tongue = affected_mob.get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(tongue.liked_food & MEAT)
+	if(tongue.liked_foodtypes & MEAT)
 		to_chat(affected_mob, span_notice("That drink was PERFECTLY beefy! It's great!."))
 		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
 	else
@@ -1344,7 +1344,7 @@
 /datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	var/obj/item/organ/tongue/tongue = affected_mob.get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(tongue.liked_food & MEAT)
+	if(tongue.liked_foodtypes & MEAT)
 		to_chat(affected_mob, span_notice("That drink was like a liquid steak! It's amazing!."))
 		SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
 	else

@@ -47,7 +47,8 @@
 #define REM_REAGENT 3 // reagent removed (may still exist)
 #define CLEAR_REAGENTS 4 // all reagents were cleared
 
-#define MIMEDRINK_SILENCE_DURATION 30  //ends up being 60 seconds given 1 tick every 2 seconds
+// How long do mime drinks silence the drinker (if they are a mime)?
+#define MIMEDRINK_SILENCE_DURATION 1 MINUTES
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
 ///Minimum requirement for addiction buzz to be met. Addiction code only checks this once every two seconds, so this should generally be low

@@ -399,7 +399,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message(span_warning("[L] is utterly unphased by your utterance!"), \
-									   span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
+									span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
 		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, span_cultitalic("[L] falls to the ground, gibbering madly!"))
 			L.Paralyze(160)
@@ -409,7 +409,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				S.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
 				var/mob/living/carbon/C = L
-				C.silent += 6
+				C.adjust_silence(12 SECONDS)
 				C.adjust_stutter(30 SECONDS)
 				C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/slurring/cult)
 				C.set_jitter_if_lower(30 SECONDS)
@@ -418,7 +418,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					C.ears.emp_act(EMP_LIGHT)
 		else
 			target.visible_message(span_warning("You fail to corrupt [L]'s mind!"), \
-									   span_userdanger("Your mindshield protects you from the heresy of [user]!"))
+									span_userdanger("Your mindshield protects you from the heresy of [user]!"))
 		uses--
 	..()
 
@@ -493,7 +493,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			if(!C.handcuffed)
 				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
-				C.silent += 5
+				C.adjust_silence(10 SECONDS)
 				to_chat(user, span_notice("You shackle [C]."))
 				log_combat(user, C, "shackled", src)
 				uses--

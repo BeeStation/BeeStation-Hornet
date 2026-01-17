@@ -75,7 +75,6 @@
 	if(H.mind)
 		var/datum/action/spell/vow_of_silence/vow = new(H.mind)
 		vow.Grant(H)
-		H.mind.miming = 1
 
 /obj/item/book/mimery
 	name = "Guide to Dank Mimery"

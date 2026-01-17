@@ -1068,7 +1068,7 @@
 	. = ..()
 	affected_mob.set_drugginess(5)
 	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
-	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
+	affected_mob.set_silence_if_lower(6 SECONDS * REM * delta_time)
 	affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
