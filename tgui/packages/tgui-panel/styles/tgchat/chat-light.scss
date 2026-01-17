@@ -14,7 +14,7 @@ body {
   color: hsl(0, 0%, 0%);
 }
 body {
-  background: #fff;
+  background: hsl(0, 0%, 100%);
   font-family: Verdana, sans-serif;
   font-size: 9pt;
   line-height: 1.2;
@@ -52,11 +52,11 @@ img.icon {
   font-size: 0.7em;
   padding: 0.2em 0.3em;
   line-height: 1;
-  color: white;
+  color: hsl(0, 0%, 100%);
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  background-color: crimson;
+  background-color: hsl(348, 83%, 47%);
   border-radius: 10px;
 }
 
@@ -104,15 +104,15 @@ a.popt {
   bottom: 0;
   right: 0;
   padding: 8px;
-  background: #ddd;
+  background: hsl(0, 0%, 86.7%);
   text-decoration: none;
   font-variant: small-caps;
   font-size: 1.1em;
   font-weight: bold;
-  color: #333;
+  color: hsl(0, 0%, 20%);
 }
 #newMessages:hover {
-  background: #ccc;
+  background: hsl(0, 0%, 80%);
 }
 #newMessages i {
   vertical-align: middle;
@@ -123,7 +123,7 @@ a.popt {
   top: 0;
   right: 135px;
   width: 45px;
-  background: #ddd;
+  background: hsl(0, 0%, 86.7%);
   height: 30px;
   padding: 8px 0 2px 0;
 }
@@ -143,21 +143,21 @@ a.popt {
   right: 0;
 }
 #userBar .subCell {
-  background: #ddd;
+  background: hsl(0, 0%, 86.7%);
   height: 30px;
   padding: 5px 0;
   display: block;
-  color: #333;
+  color: hsl(0, 0%, 20%);
   text-decoration: none;
   line-height: 28px;
   border-top: 1px solid hsl(0, 0%, 70.6%);
 }
 #userBar .subCell:hover {
-  background: #ccc;
+  background: hsl(0, 0%, 80%);
 }
 #userBar .toggle {
   width: 45px;
-  background: #ccc;
+  background: hsl(0, 0%, 80%);
   border-top: 0;
   float: right;
   text-align: center;
@@ -206,14 +206,14 @@ a.popt {
   position: fixed;
   top: 50%;
   left: 50%;
-  background: #ddd;
+  background: hsl(0, 0%, 86.7%);
 }
 .popup .close {
   position: absolute;
-  background: #aaa;
+  background: hsl(0, 0%, 66.7%);
   top: 0;
   right: 0;
-  color: #333;
+  color: hsl(0, 0%, 20%);
   text-decoration: none;
   z-index: 2;
   padding: 0 10px;
@@ -221,11 +221,11 @@ a.popt {
   line-height: 30px;
 }
 .popup .close:hover {
-  background: #999;
+  background: hsl(0, 0%, 60%);
 }
 .popup .head {
-  background: #999;
-  color: #ddd;
+  background: hsl(0, 0%, 60%);
+  color: hsl(0, 0%, 86.7%);
   padding: 0 10px;
   height: 30px;
   line-height: 30px;
@@ -235,12 +235,12 @@ a.popt {
   border-bottom: 2px solid green;
 }
 .popup input {
-  border: 1px solid #999;
-  background: #fff;
+  border: 1px solid hsl(0, 0%, 60%);
+  background: hsl(0, 0%, 100%);
   margin: 0;
   padding: 5px;
   outline: none;
-  color: #333;
+  color: hsl(0, 0%, 20%);
 }
 .popup input[type='text']:hover,
 .popup input[type='text']:active,
@@ -249,8 +249,8 @@ a.popt {
 }
 .popup input[type='submit'] {
   padding: 5px 10px;
-  background: #999;
-  color: #ddd;
+  background: hsl(0, 0%, 60%);
+  color: hsl(0, 0%, 86.7%);
   text-transform: uppercase;
   font-size: 0.9em;
   font-weight: bold;
@@ -258,7 +258,7 @@ a.popt {
 .popup input[type='submit']:hover,
 .popup input[type='submit']:focus,
 .popup input[type='submit']:active {
-  background: #aaa;
+  background: hsl(0, 0%, 66.7%);
   cursor: pointer;
 }
 
@@ -269,10 +269,10 @@ a.popt {
   display: block;
   text-decoration: none;
   padding: 3px;
-  color: #333;
+  color: hsl(0, 0%, 20%);
 }
 .changeFont a:hover {
-  background: #ccc;
+  background: hsl(0, 0%, 80%);
 }
 
 .highlightPopup {
@@ -294,7 +294,7 @@ a.popt {
 
 /* ADMIN CONTEXT MENU */
 .contextMenu {
-  background-color: #ddd;
+  background-color: hsl(0, 0%, 86.7%);
   position: fixed;
   margin: 2px;
   width: 150px;
@@ -303,11 +303,11 @@ a.popt {
   display: block;
   padding: 2px 5px;
   text-decoration: none;
-  color: #333;
+  color: hsl(0, 0%, 20%);
 }
 
 .contextMenu a:hover {
-  background-color: #ccc;
+  background-color: hsl(0, 0%, 80%);
 }
 
 /* ADMIN FILTER MESSAGES MENU */
@@ -448,7 +448,7 @@ em {
 }
 .mentorhelp_conclusion {
   display: block;
-  color: white;
+  color: hsl(0, 0%, 100%);
   text-align: center;
   background-color: black;
   border: 2px solid hsl(261, 100%, 38%);
@@ -662,7 +662,7 @@ h2.alert {
 
 .adminhelp_conclusion {
   display: block;
-  color: white;
+  color: hsl(0, 0%, 100%);
   text-align: center;
   background-color: black;
   border: 2px solid red;
@@ -673,10 +673,10 @@ h2.alert {
 
 .death_message {
   display: block;
-  color: white;
+  color: hsl(0, 0%, 100%);
   text-align: center;
   background-color: black;
-  border: 2px solid rgb(240, 62, 225);
+  border: 2px solid hsl(305, 86%, 59%);
   border-radius: 10px;
   padding: 10px;
   margin: 10px 20px;
@@ -685,10 +685,10 @@ h2.alert {
   font-family: 'Times New Roman', Times, serif;
   font-size: 20px;
   display: block;
-  color: #656062;
+  color: hsl(336, 2.5%, 38.6%);
   text-align: center;
-  background-color: #fff5ed;
-  border: 8px solid #9c958f;
+  background-color: hsl(26.7, 100%, 96.5%);
+  border: 8px solid hsl(27.7, 6.2%, 58.6%);
   border-radius: 0px;
   padding: 10px;
   margin: 10px 20px;
@@ -1208,7 +1208,7 @@ h2.alert {
 .connectionClosed,
 .fatalError {
   background: red;
-  color: white;
+  color: hsl(0, 0%, 100%);
   padding: 5px;
 }
 .connectionClosed.restored {
@@ -1740,5 +1740,5 @@ $border-width-px: $border-width * 1px;
 
 .tooltip {
   font-style: italic;
-  border-bottom: 1px dashed #000;
+  border-bottom: 1px dashed hsl(0, 0%, 0%);
 }

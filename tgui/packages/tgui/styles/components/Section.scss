@@ -114,7 +114,7 @@ $title-background-color: transparent !default;
 
 .Section.LogSection {
   background-color: black;
-  color: white;
+  color: hsl(0, 0%, 100%);
   white-space: pre-wrap;
 }
 
@@ -125,7 +125,7 @@ $title-background-color: transparent !default;
 
 .section-background-dark {
   background-color: functions.fake-alpha(
-    rgba(0, 0, 0, 0.2),
+    hsla(0, 0%, 0%, 0.2),
     base.$color-bg
   ) !important;
   background-color: $background-color !important;
