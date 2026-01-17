@@ -2,93 +2,77 @@
 SUBSYSTEM_DEF(research)
 	name = "Research"
 	priority = FIRE_PRIORITY_RESEARCH
-	wait = 10
+	wait = 1 SECONDS
 	dependencies = list(
 		/datum/controller/subsystem/processing/station,
 	)
-	//TECHWEB STATIC
-	var/list/techweb_nodes = list()				//associative id = node datum
-	var/list/techweb_designs = list()			//associative id = node datum
+
+	/// Associative list of all techweb nodes
+	/// node.id -> /datum/techweb_node
+	var/list/techweb_nodes = list()
+	/// Associative list of all designs
+	/// design.id -> /datum/design
+	var/list/techweb_designs = list()
+
+	/// List of all techwebs, generating points or not.
+	/// Autolathes, Mechfabs, and others all have shared techwebs, for example.
 	var/list/datum/techweb/techwebs = list()
-	var/datum/techweb/science/science_tech
-	var/datum/techweb/admin/admin_tech
-	var/datum/techweb_node/error_node/error_node	//These two are what you get if a node/design is deleted and somehow still stored in a console.
+
+	/// These two are what you get if a node/design is deleted and somehow still stored in a console.
+	var/datum/techweb_node/error_node/error_node
 	var/datum/design/error_design/error_design
 
-	var/list/obj/machinery/rnd/server/servers = list()
-
-	var/list/techweb_nodes_starting = list()	//associative id = TRUE
-	var/list/techweb_categories = list()		//category name = list(node.id = TRUE)
-	var/list/techweb_boost_items = list()		//associative double-layer path = list(id = list(point_type = point_discount))
-	var/list/techweb_nodes_hidden = list()		//Node ids that should be hidden by default.
-	var/list/techweb_point_items = list(		//path = list(point type = value)
+	/// Nodes that EVERY techweb starts with unlocked
+	/// node.id -> TRUE
+	var/list/techweb_nodes_starting = list()
+	/// category name = list(node.id = TRUE)
+	var/list/techweb_categories = list()
+	/// Associative list of all items that can unlock a node
+	/// node.id -> list(item typepaths)
+	var/list/techweb_unlock_items = list()
+	/// Nodes that should be hidden by default.
+	/// node.id -> TRUE
+	var/list/techweb_nodes_hidden = list()
+	/// Associative list of all items that give research points when destroyed by the destructive analyzer
+	/// item typepath = list(point type = value)
+	var/list/techweb_point_items = list(
 		/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = 10000, TECHWEB_POINT_TYPE_DISCOVERY = 5000)
 	)
-	var/list/point_types = list()				//typecache style type = TRUE list
-	//----------------------------------------------
-	var/list/single_server_income = list(TECHWEB_POINT_TYPE_GENERIC = 54.3)
-	var/multiserver_calculation = TRUE			// Enable this to switch between using servers or the constant
-	var/last_income
-	//^^^^^^^^ ALL OF THESE ARE PER SECOND! ^^^^^^^^
-
-	//Aiming for 1.5 hours to max R&D
-	//[88nodes * 5000points/node] / [1.5hr * 90min/hr * 60s/min]
-	//Around 450000 points max???
+	/// Associative list of all point types that techwebs will have and their respective 'abbreviated' name.
+	var/list/point_types = TECHWEB_POINT_TYPE_LIST_ASSOCIATIVE_NAMES
 
 /datum/controller/subsystem/research/Initialize()
-	point_types = TECHWEB_POINT_TYPE_LIST_ASSOCIATIVE_NAMES
 	initialize_all_techweb_designs()
 	initialize_all_techweb_nodes()
-	science_tech = new /datum/techweb/science
-	//Some points to get you started.
-	//Points can be gained by
-	// 1) Exploration team going to ruins
-	// 2) Scientists using their shuttle to go to ruins
-	// 3) Giving miners a scanner
-	// 4) Scanning station pets
-	// (probably more added since this comment was written.)
-	science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, 2500)
-	admin_tech = new /datum/techweb/admin
 	autosort_categories()
-	error_design = new
-	error_node = new
+	error_design = new()
+	error_node = new()
+
+	new /datum/techweb/science
+	new /datum/techweb/admin
+	new /datum/techweb/oldstation
+	new /datum/techweb/golem
+
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/research/fire()
-	var/list/bitcoins = list()
-	if(multiserver_calculation)
-		var/eff = calculate_server_coefficient()
-		for(var/obj/machinery/rnd/server/miner in servers)
-			var/list/result = (miner.mine())	//SLAVE AWAY, SLAVE.
-			for(var/i in result)
-				result[i] *= eff
-				bitcoins[i] = bitcoins[i]? bitcoins[i] + result[i] : result[i]
-	else
-		for(var/obj/machinery/rnd/server/miner in servers)
-			if(miner.machine_stat)
-				continue
-			bitcoins = single_server_income.Copy()
-			break			//Just need one to work.
-	if (!isnull(last_income))
-		var/income_time_difference = world.time - last_income
-		science_tech.last_bitcoins = bitcoins  // Doesn't take tick drift into account
-		for(var/i in bitcoins)
-			bitcoins[i] *= income_time_difference / 10
-		science_tech.add_point_list(bitcoins)
-	last_income = world.time
-
-/datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.
-	var/list/obj/machinery/rnd/server/active = new()
-	for(var/obj/machinery/rnd/server/miner in servers)
-		if(miner.machine_stat)
+	for(var/datum/techweb/techweb_list as anything in techwebs)
+		if(!techweb_list.should_generate_points)
 			continue
-		active.Add(miner)
-	var/amt = active.len
-	if(!amt)
-		return 0
-	var/coeff = 100
-	coeff = sqrt(coeff / amt)
-	return coeff
+		var/list/bitcoins = list()
+		for(var/obj/machinery/rnd/server/miner as anything in techweb_list.techweb_servers)
+			var/list/results = miner.mine()
+			for(var/i in results)
+				bitcoins[i] += results[i]
+
+		if(!isnull(techweb_list.last_income))
+			var/income_time_difference = world.time - techweb_list.last_income
+			techweb_list.last_bitcoins = bitcoins // Doesn't take tick drift into account
+			for(var/i in bitcoins)
+				bitcoins[i] *= income_time_difference / 10
+			techweb_list.add_point_list(bitcoins)
+
+		techweb_list.last_income = world.time
 
 /datum/controller/subsystem/research/proc/autosort_categories()
 	for(var/i in techweb_nodes)
@@ -137,7 +121,7 @@ SUBSYSTEM_DEF(research)
 		TN.Initialize()
 	techweb_nodes = returned
 	calculate_techweb_nodes()
-	calculate_techweb_boost_list()
+	calculate_techweb_item_unlocking_requirements()
 
 /datum/controller/subsystem/research/proc/initialize_all_techweb_designs(clearall = FALSE)
 	if(islist(techweb_designs) && clearall)
@@ -180,16 +164,42 @@ SUBSYSTEM_DEF(research)
 			var/datum/techweb_node/prereq_node = techweb_node_by_id(prereq_id)
 			prereq_node.unlock_ids[node.id] = node
 
-/datum/controller/subsystem/research/proc/calculate_techweb_boost_list(clearall = FALSE)
-	if(clearall)
-		techweb_boost_items = list()
+/datum/controller/subsystem/research/proc/calculate_techweb_item_unlocking_requirements()
 	for(var/node_id in techweb_nodes)
 		var/datum/techweb_node/node = techweb_nodes[node_id]
-		for(var/path in node.boost_item_paths)
+		for(var/path in node.required_items_to_unlock)
 			if(!ispath(path))
 				continue
-			if(length(techweb_boost_items[path]))
-				techweb_boost_items[path][node.id] = node.boost_item_paths[path]
+			if(length(techweb_unlock_items[path]))
+				techweb_unlock_items[path][node.id] = node.required_items_to_unlock[path]
 			else
-				techweb_boost_items[path] = list(node.id = node.boost_item_paths[path])
+				techweb_unlock_items[path] = list(node.id = node.required_items_to_unlock[path])
 		CHECK_TICK
+
+/**
+ * Goes through all techwebs and goes through their servers to find ones on a valid z-level
+ * Returns the full list of all techweb servers.
+ */
+/datum/controller/subsystem/research/proc/get_available_servers(turf/location)
+	var/list/local_servers = list()
+	if(!location)
+		return local_servers
+	for (var/datum/techweb/individual_techweb as anything in techwebs)
+		var/list/servers = find_valid_servers(location, individual_techweb)
+		if(length(servers))
+			local_servers += servers
+	return local_servers
+
+/**
+ * Goes through an individual techweb's servers and finds one on a valid z-level
+ * Returns a list of existing ones, or an empty list otherwise.
+ * Args:
+ * - checking_web - The techweb we're checking the servers of.
+ */
+/datum/controller/subsystem/research/proc/find_valid_servers(turf/location, datum/techweb/checking_web)
+	var/list/valid_servers = list()
+	for(var/obj/machinery/rnd/server/server as anything in checking_web.techweb_servers)
+		if(!is_valid_z_level(get_turf(server), location))
+			continue
+		valid_servers += server
+	return valid_servers

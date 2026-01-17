@@ -56,4 +56,4 @@
 	foodtypes = FRUIT
 	juice_typepath = /datum/reagent/consumable/blumpkinjuice
 	wine_power = 50
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

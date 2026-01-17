@@ -135,9 +135,13 @@
 	var/static/datum/techweb/linked_techweb
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/LateInitialize()
 	. = ..()
-	if(isnull(linked_techweb))
-		linked_techweb = SSresearch.science_tech
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
 	for(var/i in linked_techweb.researched_designs)

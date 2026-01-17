@@ -1,4 +1,5 @@
 import { filter, map } from 'common/collections';
+import { toFixed } from 'common/math';
 import { useState } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
@@ -79,15 +80,6 @@ const useRemappedBackend = () => {
   };
 };
 
-// Utility Functions
-
-const abbreviations = {
-  'General Research': 'Gen. Res.',
-  'Nanite Research': 'Nanite Res.',
-  'Discovery Research': 'Disc. Res.',
-};
-const abbreviateName = (name) => abbreviations[name] ?? name;
-
 // Actual Components
 
 export const Techweb = (props) => {
@@ -144,7 +136,6 @@ export const TechwebContent = (props) => {
     t_disk,
     d_disk,
     locked,
-    linkedanalyzer,
     compact,
     tech_tier,
   } = data;
@@ -162,7 +153,8 @@ export const TechwebContent = (props) => {
                 {Object.keys(points).map((k) => (
                   <li key={k}>
                     <b>{k}</b>: {points[k]}
-                    {!!points_last_tick[k] && ` (+${points_last_tick[k]}/sec)`}
+                    {!!points_last_tick[k] &&
+                      ` (+${toFixed(points_last_tick[k], 1)}/sec)`}
                   </li>
                 ))}
               </ul>
@@ -186,21 +178,6 @@ export const TechwebContent = (props) => {
               >
                 Compactify
               </Button.Checkbox>
-              <Button
-                icon="link"
-                onClick={() => {
-                  act('linkmachines');
-                }}
-              >
-                Link
-              </Button>
-              <Button
-                icon="trash"
-                disabled={!linkedanalyzer}
-                onClick={() => setTechwebRoute({ route: 'analyzer' })}
-              >
-                Analyzer
-              </Button>
             </Box>
           </Flex.Item>
           <Flex.Item grow={1} />
@@ -249,7 +226,6 @@ const TechwebRouter = (props) => {
   const RoutedComponent =
     (route === 'details' && TechwebNodeDetail) ||
     (route === 'disk' && TechwebDiskMenu) ||
-    (route === 'analyzer' && Techwebanalyzer) ||
     TechwebOverview;
 
   return <RoutedComponent {...techwebRoute} />;
@@ -450,63 +426,6 @@ const TechwebDiskMenu = (props) => {
   );
 };
 
-const Techwebanalyzer = (props) => {
-  const { act, data } = useRemappedBackend();
-  const { linkedanalyzer, analyzertechs, analyzeritem } = data;
-  const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
-
-  return (
-    <Flex direction="column" height="100%">
-      <Flex.Item>
-        <Flex justify="space-between" className="Techweb__HeaderSectionTabs">
-          <Flex.Item align="center" className="Techweb__HeaderTabTitle">
-            Destructive Analyzer
-          </Flex.Item>
-          <Flex.Item align="center">
-            {analyzeritem ? analyzeritem : ''}
-          </Flex.Item>
-          <Flex.Item align="center">
-            <Button
-              icon="trash"
-              color="red"
-              disabled={analyzeritem === null}
-              onClick={() => act('destroyitem')}
-            >
-              Destroy item(Material Reclaim)
-            </Button>
-            <Button
-              icon="eject"
-              disabled={analyzeritem === null}
-              onClick={() => act('ejectitem')}
-            >
-              Eject
-            </Button>
-            <Button icon="home" onClick={() => setTechwebRoute(null)}>
-              Home
-            </Button>
-          </Flex.Item>
-        </Flex>
-      </Flex.Item>
-      {!!linkedanalyzer && (
-        <>
-          <Flex.Item>{analyzeritem ? <TechwebItemmaterials /> : ''}</Flex.Item>
-          <Flex.Item grow={1} className="Techweb__OverviewNodes">
-            {analyzeritem ? (
-              analyzertechs ? (
-                <TechwebItemtechs />
-              ) : (
-                'Item has no new researchable nodes'
-              )
-            ) : (
-              'No inserted items!'
-            )}
-          </Flex.Item>
-        </>
-      )}
-    </Flex>
-  );
-};
-
 const TechwebItemmaterials = (props) => {
   const { act, data } = useRemappedBackend();
   const { itemmats, itempoints } = data;
@@ -535,15 +454,6 @@ const TechwebItemmaterials = (props) => {
       </Section>
     )
   );
-};
-
-const TechwebItemtechs = (props) => {
-  const { act, data } = useRemappedBackend();
-  const { analyzertechs } = data;
-
-  return Object.keys(analyzertechs)
-    .map((x) => ({ id: x }))
-    .map((n) => <TechNode key={n.id} nodetails destructive node={n} />);
 };
 
 const TechwebDesignDisk = (props) => {
@@ -716,8 +626,14 @@ const DesignTooltip = (props) => {
 
 const TechNode = (props) => {
   const { act, data } = useRemappedBackend();
-  const { node_cache, design_cache, points, compact, researchable, tech_tier } =
-    data;
+  const {
+    node_cache,
+    design_cache,
+    points = [],
+    compact,
+    tech_tier,
+    point_types_abbreviations = [],
+  } = data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier, costs } = node;
   const { name, description, design_ids, prereq_ids, node_tier } =
@@ -745,7 +661,6 @@ const TechNode = (props) => {
           )}
           {tier > 0 &&
             !destructive &&
-            !!researchable &&
             (node_tier > tech_tier + 1 ? (
               <Button.Confirm
                 icon="lightbulb"
@@ -810,7 +725,7 @@ const TechNode = (props) => {
                         : Math.min(1, (points[key] || 0) / reqPts)
                     }
                   >
-                    {abbreviateName(key)} ({nodeProg}/{reqPts})
+                    {point_types_abbreviations[key]} ({nodeProg}/{reqPts})
                   </ProgressBar>
                 </Flex.Item>
               );

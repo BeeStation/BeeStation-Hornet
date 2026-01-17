@@ -69,32 +69,32 @@
 
 	return TRUE
 
-/obj/item/computer_hardware/printer/try_insert(obj/item/I, mob/living/user = null)
-	if(istype(I, /obj/item/paper))
+/obj/item/computer_hardware/printer/application_attackby(obj/item/attacking_item, mob/living/user)
+	if(istype(attacking_item, /obj/item/paper))
 		if(stored_paper >= max_paper)
-			to_chat(user, span_warning("You try to add \the [I] into [src], but its paper bin is full!"))
+			to_chat(user, span_warning("You try to add \the [attacking_item] into [src], but its paper bin is full!"))
 			balloon_alert(user, "printer bin is full!")
 			return FALSE
 
-		if(user && !user.temporarilyRemoveItemFromInventory(I))
+		if(user && !user.temporarilyRemoveItemFromInventory(attacking_item))
 			balloon_alert(user, "can't insert!")
 			return FALSE
 
 		playsound(src, 'sound/machines/paper_insert.ogg', 40, vary = TRUE)
-		to_chat(user, span_notice("You insert \the [I] into [src]'s paper recycler."))
+		to_chat(user, span_notice("You insert \the [attacking_item] into [src]'s paper recycler."))
 		balloon_alert(user, "inserted paper!")
-		qdel(I)
+		qdel(attacking_item)
 		stored_paper++
 		return TRUE
 
-	if(istype(I, /obj/item/paper_bin))
-		var/obj/item/paper_bin/bin = I
+	if(istype(attacking_item, /obj/item/paper_bin))
+		var/obj/item/paper_bin/bin = attacking_item
 		if(bin.total_paper <= 0)
 			balloon_alert(user, "empty bin!")
 			return FALSE
 
 		if(stored_paper >= max_paper)
-			to_chat(user, span_warning("You try to add \the [I] into [src], but its paper bin is full!"))
+			to_chat(user, span_warning("You try to add \the [attacking_item] into [src], but its paper bin is full!"))
 			balloon_alert(user, "printer bin is full!")
 			return FALSE
 

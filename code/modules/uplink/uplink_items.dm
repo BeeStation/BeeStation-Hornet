@@ -173,7 +173,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 		A = new spawn_path(get_turf(user))
 	else
 		A = spawn_path
-	put_illegal_bitflag(A, illegal_tech, contents_are_illegal_tech)
 	if(istype(A, /obj/item))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -184,17 +183,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	to_chat(user, "[A] materializes onto the floor.")
 	log_uplink_purchase(user, A, is_bonus = is_bonus)
 	return A
-
-/// Uplink purchased items get ILLEGAL tech bitflag based on given parameter.
-/// Note: This should be a global proc because of surplus crate
-/proc/put_illegal_bitflag(obj/item/target_item, illegal_tech, contents_are_illegal_tech)
-	if(contents_are_illegal_tech)
-		for(var/obj/item/each_item in target_item.contents)
-			put_illegal_bitflag(each_item, contents_are_illegal_tech, TRUE)
-	if(!illegal_tech)
-		return
-	target_item.item_flags |= ILLEGAL
-
 
 /datum/uplink_item/proc/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
 	return refundable
@@ -339,7 +327,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			continue
 		remaining_crate_value -= uplink_entry.cost
 		var/obj/goods = new uplink_entry.item(target_crate)
-		put_illegal_bitflag(goods, uplink_entry.illegal_tech, uplink_entry.contents_are_illegal_tech)
 		if(user_uplink.purchase_log)
 			user_uplink.purchase_log.LogPurchase(goods, uplink_entry, uplink_entry.cost, is_bonus = TRUE)
 	return target_crate

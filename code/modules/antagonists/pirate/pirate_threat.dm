@@ -133,11 +133,12 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 //interrupt_research
 /obj/machinery/shuttle_scrambler/proc/interrupt_research()
-	for(var/obj/machinery/rnd/server/S in GLOB.machines)
-		if(S.machine_stat & (NOPOWER|BROKEN))
+	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+	for(var/obj/machinery/rnd/server/research_server as anything in science_web.techweb_servers)
+		if(research_server.machine_stat & (NOPOWER|BROKEN|EMPED))
 			continue
-		S.emp_act(1)
-		new /obj/effect/temp_visual/emp(get_turf(S))
+		research_server.emp_act(EMP_LIGHT)
+		new /obj/effect/temp_visual/emp(get_turf(research_server))
 
 /obj/machinery/shuttle_scrambler/proc/dump_loot(mob/user)
 	if(credits_stored)	// Prevents spamming empty holochips

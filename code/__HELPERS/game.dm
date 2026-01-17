@@ -281,19 +281,18 @@
 
 	return A.loc
 
-/proc/AnnounceArrival(mob/living/carbon/human/character, rank)
+/proc/announce_arrival(mob/living/carbon/human/character, rank)
 	if(QDELETED(character) || !SSticker.IsRoundInProgress())
 		return
-	var/area/A = get_area(character)
-	var/message = span_gamedeadsay("[span_name(character.real_name)] ([rank]) has arrived at the station at [span_name(A.name)].")
+
+	var/area/player_area = get_area(character)
+	var/message = span_gamedeadsay("[span_name(character.real_name)] ([rank]) has arrived at the station at [span_name(player_area.name)].")
 	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
-	if((!GLOB.announcement_systems.len) || (!character.mind))
-		return
-	if((character.mind.assigned_role == JOB_NAME_CYBORG) || (character.mind.assigned_role == character.mind.special_role))
+
+	if(!character.mind || character.mind.assigned_role == JOB_NAME_CYBORG || character.mind.assigned_role == character.mind.special_role)
 		return
 
-	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-	announcer.announce("ARRIVAL", character.real_name, rank, list()) //make the list empty to make it announce it in common
+	aas_config_announce(/datum/aas_config_entry/arrival, list("PERSON" = character.real_name, "RANK" = rank))
 
 /proc/lavaland_equipment_pressure_check(turf/T)
 	. = FALSE

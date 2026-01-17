@@ -997,6 +997,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stock_parts/scanning_module = 1)
 
+/obj/item/circuitboard/machine/rdserver/oldstation
+	name = "Ancient R&D Server"
+	build_path = /obj/machinery/rnd/server/oldstation
+
+/obj/item/circuitboard/machine/rdserver/golem
+	name = "Ancient R&D Server"
+	build_path = /obj/machinery/rnd/server/golem
+
 /obj/item/circuitboard/machine/techfab/department/science
 	name = "departmental techfab - science (Machine Board)"
 	icon_state = "science"

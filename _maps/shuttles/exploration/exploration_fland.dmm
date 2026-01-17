@@ -3,6 +3,10 @@
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"aB" = (
+/obj/machinery/computer/rdconsole/unlocked,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "aL" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/generic{
@@ -132,6 +136,14 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"eo" = (
+/obj/structure/dresser,
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
+/turf/open/floor/wood,
+/area/shuttle/exploration)
 "eA" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
@@ -178,10 +190,6 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"fp" = (
-/obj/machinery/computer/rdconsole,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "fW" = (
@@ -247,14 +255,6 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"ik" = (
-/obj/structure/dresser,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
-/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
-/turf/open/floor/wood,
 /area/shuttle/exploration)
 "iy" = (
 /obj/machinery/vending/boozeomat/maint,
@@ -552,15 +552,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating,
-/area/shuttle/exploration)
-"zC" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/closet/crate/large,
-/obj/effect/spawner/random/maintenance/three,
-/obj/effect/spawner/random/ruinloot/medical,
-/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "zG" = (
 /obj/machinery/door/airlock/shuttle,
@@ -889,6 +880,15 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"Qz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/closet/crate/large,
+/obj/effect/spawner/random/maintenance/three,
+/obj/effect/spawner/random/ruinloot/medical,
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
 "QV" = (
 /obj/machinery/computer/arcade/orion_trail{
 	dir = 4
@@ -1181,7 +1181,7 @@ gz
 nG
 nG
 vA
-zC
+Qz
 XF
 LM
 cN
@@ -1272,7 +1272,7 @@ Qv
 "}
 (7,1,1) = {"
 Om
-fp
+aB
 kV
 qX
 nG
@@ -1352,7 +1352,7 @@ vp
 Nt
 Kh
 nG
-ik
+eo
 aS
 nG
 eM

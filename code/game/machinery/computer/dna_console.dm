@@ -226,6 +226,14 @@
 		return
 	..()
 
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "techweb connected")
+		stored_research = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
+
 /obj/machinery/computer/scan_consolenew/AltClick(mob/user)
 	// Make sure the user can interact with the machine.
 	if(!user.canUseTopic(src, !issilicon(user)))
@@ -290,7 +298,10 @@
 	COOLDOWN_START(src, scramble_cooldown, scramble_timeout)
 	COOLDOWN_START(src, joker_cooldown, joker_timeout)
 
-	stored_research = SSresearch.science_tech
+/obj/machinery/computer/scan_consolenew/LateInitialize()
+	. = ..()
+	if(!stored_research)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(stored_research, src)
 
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui)
 	// Most of ui_interact is spent setting variables for passing to the tgui

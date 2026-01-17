@@ -30,7 +30,7 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 
-	discovery_points = 4000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 	var/spawaning_obj_type = null
 

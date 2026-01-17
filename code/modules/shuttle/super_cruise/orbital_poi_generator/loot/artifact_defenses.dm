@@ -7,7 +7,7 @@
 
 /obj/structure/alien_artifact/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/discoverable, 20000)
+	AddComponent(/datum/component/discoverable, TECHWEB_TIER_5_POINTS)
 
 //Watcher
 //Triggers nearby defenses when motion is detected

@@ -107,7 +107,7 @@
 	icon_state = "firelemon"
 	foodtypes = FRUIT
 	wine_power = 70
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/firelemon/attack_self(mob/living/user)
 	user.visible_message(span_warning("[user] primes [src]!"), span_userdanger("You prime [src]!"))
@@ -178,7 +178,7 @@
 	juice_typepath = /datum/reagent/consumable/orangejuice
 	distill_reagent = /datum/reagent/consumable/ethanol/triple_sec
 	tastes = list("polygons" = 1, "oranges" = 1)
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/citrus/orange_3d/pickup(mob/user)
 	..()

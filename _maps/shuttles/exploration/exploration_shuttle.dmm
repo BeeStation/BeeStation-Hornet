@@ -105,7 +105,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "n" = (
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 8
 	},
 /obj/machinery/button/door{

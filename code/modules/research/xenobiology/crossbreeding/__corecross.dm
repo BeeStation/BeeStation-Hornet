@@ -38,7 +38,7 @@ To add a crossbreed:
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 6
-	var/discovery_points = 750
+	var/discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/slimecross/examine(mob/user)
 	. = ..()

@@ -47,7 +47,7 @@
 	var/theme = THEME_CULT
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 	usable_legs = 0
 	usable_hands = 0
