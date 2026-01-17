@@ -1075,7 +1075,7 @@
 
 
 /obj/vehicle/sealed/mecha/add_occupant(mob/M, control_flags)
-	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(mob_exit))
+	RegisterSignal(M, COMSIG_LIVING_DEATH, PROC_REF(mob_exit))
 	RegisterSignal(M, COMSIG_MOB_CLICKON, PROC_REF(on_mouseclick))
 	RegisterSignal(M, COMSIG_MOB_MIDDLECLICKON, PROC_REF(on_middlemouseclick)) //For AIs
 	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble))
@@ -1083,7 +1083,7 @@
 	update_appearance()
 
 /obj/vehicle/sealed/mecha/remove_occupant(mob/M)
-	UnregisterSignal(M, COMSIG_MOB_DEATH)
+	UnregisterSignal(M, COMSIG_LIVING_DEATH)
 	UnregisterSignal(M, COMSIG_MOB_CLICKON)
 	UnregisterSignal(M, COMSIG_MOB_MIDDLECLICKON)
 	UnregisterSignal(M, COMSIG_MOB_SAY)

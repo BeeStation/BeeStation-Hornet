@@ -258,12 +258,12 @@
 	// Let's get this show on the road!
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	RegisterSignal(user, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
 /datum/heretic_knowledge/final/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
-	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
+	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_LIVING_DEATH))
 	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 /**
@@ -298,7 +298,7 @@
 	storm.update_areas(list(source_area))
 
 /**
- * Signal proc for [COMSIG_MOB_DEATH].
+ * Signal proc for [COMSIG_LIVING_DEATH].
  *
  * Stop the storm when the heretic passes away.
  */

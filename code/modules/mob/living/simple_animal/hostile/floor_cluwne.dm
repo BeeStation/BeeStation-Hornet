@@ -572,7 +572,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	LAZYREMOVE(return_timers, REF(sac_target))
 
 	UnregisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED)
-	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
+	UnregisterSignal(sac_target, COMSIG_LIVING_DEATH)
 	sac_target.remove_status_effect(/datum/status_effect/necropolis_curse)
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
 	sac_target.reagents?.del_reagent(/datum/reagent/helgrasp/heretic)
