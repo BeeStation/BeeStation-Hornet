@@ -45,6 +45,7 @@
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "pocketprotector"
 	desc = "An advanced piece of espionage equipment in the shape of a pocket protector. It has a built in 360 degree camera for all your \"admirable\" needs. Microphone not included."
+	hidden = TRUE
 	var/obj/item/clothing/glasses/sunglasses/spy/linked_glasses
 	var/atom/movable/screen/map_view/cam_screen
 	var/datum/remote_view/remote_view
