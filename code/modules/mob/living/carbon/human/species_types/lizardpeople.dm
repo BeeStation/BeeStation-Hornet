@@ -115,8 +115,8 @@
 	)
 	inherent_traits = list(
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_VIRUSIMMUNE
-		)
+		TRAIT_VIRUSIMMUNE,
+	)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	mutantbrain = /obj/item/organ/brain/primitive
