@@ -23,7 +23,7 @@
 	web_tile()
 	..()
 
-/obj/projectile/bullet/spidernet/proc/web_tile(var/turf/T)
+/obj/projectile/bullet/spidernet/proc/web_tile(turf/T)
 	if(!T)
 		T = get_turf(src)
 	var/webs = 0

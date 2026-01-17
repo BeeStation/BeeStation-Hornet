@@ -83,11 +83,14 @@
 	/// Should we warn about dangerous clothing?
 	var/warn_dangerous_clothing = TRUE
 
-/datum/strippable_item/proc/can_interact(mob/user)
+/datum/strippable_item/proc/can_interact(mob/user)	// If mobs shouldn't be able to strip we need to do it here, man
 	if(isliving(user))
 		var/mob/living/L = user
 		if(L.incorporeal_move) // Mobs that can walk through walls cannot grasp items to strip
 			to_chat(user, span_warning("You can't interact with the physical plane while you are incorporeal!"))
+			return FALSE
+		if(isswarmer(L))
+			to_chat(user, span_warning("You are not able to grasp objects!"))
 			return FALSE
 		return TRUE
 	else
@@ -101,13 +104,16 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
-	if(!can_interact(user))
+	if(!can_interact(user) || !equipping)
 		return FALSE
-	if(!equipping)
-		return
+
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, span_warning("You can't put [equipping] on [source], it's stuck to your hand!"))
 		return FALSE
+
+	if (equipping.item_flags & ABSTRACT)
+		return FALSE
+
 	//This is important due to the fact otherwise it will be equipped without a proper existing icon, because it's forced on through the strip menu
 	if(ismonkey(source))
 		equipping.compile_monkey_icon()
@@ -160,6 +166,8 @@
 /datum/strippable_item/proc/start_unequip(atom/source, mob/user)
 
 	var/obj/item/item = get_item(source)
+	var/mob/living/carbon/source_pocket = source
+
 	if(isnull(item))
 		return FALSE
 
@@ -177,6 +185,9 @@
 	source.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red")
 	user.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
+
+	if(item.on_start_stripping(source, user, source_pocket.get_slot_by_item(item)))
+		return FALSE
 
 	return TRUE
 
@@ -306,12 +317,12 @@
 
 	var/mob/living/carbon/carbon = source
 
-	if(carbon.dna?.species && (item_slot in carbon.dna.species.no_equip))
+	if(carbon.dna?.species && (carbon.dna.species.no_equip_flags & item_slot))
 		return TRUE
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay, hidden = FALSE)
-	if(!do_after(user, strip_delay || item.strip_delay, source, interaction_key = REF(item), hidden = hidden))
+	if(!do_after(user, strip_delay || item.strip_delay, source, interaction_key = REF(item), hidden = hidden, timed_action_flags = IGNORE_HELD_ITEM))
 		return FALSE
 
 	return TRUE
@@ -342,7 +353,11 @@
 	. = ..()
 	src.owner = owner
 	src.strippable = strippable
-
+	if(ismob(owner))
+		var/mob/M = owner
+		if(M.real_name in usr.client.player_details.played_names)
+			log_game("[key_name(usr)] has started stripping one of their prior lives' bodies.")
+			message_admins("ATTENTION! [key_name(usr)][ADMIN_JMP(usr.loc)] is stripping [owner], a mob that they played previously! They may be metagaming to recover loot!")
 /datum/strip_menu/Destroy()
 	owner = null
 	strippable = null
@@ -563,7 +578,9 @@
 /datum/strip_menu/ui_status(mob/user, datum/ui_state/state)
 	return min(
 		ui_status_only_living(user, owner),
+		ui_status_user_has_free_hands(user, owner),
 		ui_status_user_is_adjacent(user, owner),
+		HAS_TRAIT(user, TRAIT_CAN_STRIP) ? UI_INTERACTIVE : UI_UPDATE,
 		max(
 			ui_status_user_is_conscious_and_lying_down(user),
 			ui_status_user_is_abled(user, owner),

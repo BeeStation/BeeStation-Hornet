@@ -1,10 +1,15 @@
 SUBSYSTEM_DEF(minor_mapping)
 	name = "Minor Mapping"
-	init_order = INIT_ORDER_MINOR_MAPPING
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms,
+	)
 	flags = SS_NO_FIRE
 
 /datum/controller/subsystem/minor_mapping/Initialize()
+#ifndef UNIT_TESTS
 	trigger_migration(CONFIG_GET(number/mice_roundstart))
+#endif
 	place_satchels()
 	return SS_INIT_SUCCESS
 

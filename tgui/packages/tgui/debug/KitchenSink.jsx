@@ -23,7 +23,7 @@ const getStories = () => r.keys().map((path) => r(path));
 
 export const KitchenSink = (props) => {
   const { panel } = props;
-  const [theme] = useState(null);
+  const [theme] = useState();
   const [pageIndex, setPageIndex] = useState(0);
   const stories = getStories();
   const story = stories[pageIndex];
@@ -35,7 +35,12 @@ export const KitchenSink = (props) => {
           <Section fill fitted>
             <Tabs vertical>
               {stories.map((story, i) => (
-                <Tabs.Tab key={i} color="transparent" selected={i === pageIndex} onClick={() => setPageIndex(i)}>
+                <Tabs.Tab
+                  key={i}
+                  color="transparent"
+                  selected={i === pageIndex}
+                  onClick={() => setPageIndex(i)}
+                >
                   {story.meta.title}
                 </Tabs.Tab>
               ))}

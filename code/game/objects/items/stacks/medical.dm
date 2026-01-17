@@ -28,8 +28,6 @@
 	var/stop_bleeding = 0
 	///How long does it take to apply on yourself?
 	var/self_delay = 2 SECONDS
-	/// Does this apply the self-tend effect
-	var/self_tend_debuff = TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
@@ -40,7 +38,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		reagents.add_reagent_list(reagent)
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
-	if(!M || !user || (isliving(M) && !M.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))) //If no mob, user and if we can't inject the mob just return
+	if(!M || !user) //If no mob, user and if we can't inject the mob just return
 		return
 
 	if(M.stat == DEAD && !stop_bleeding)
@@ -75,6 +73,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 /obj/item/stack/medical/proc/do_application(mob/living/M, mob/user, zone_selected)
 	if (!zone_selected)
+		return
+	if (isliving(M) && !M.try_inject(user, zone_selected, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 		return
 	if (!user.can_interact_with(M, TRUE))
 		to_chat(user, span_danger("You cannot reach [M]!"))
@@ -136,8 +136,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		user.visible_message(span_notice("[user] starts to apply [src] on [user.p_them()]self..."), span_notice("You begin applying [src] on yourself..."))
 		if(!do_after(user, self_delay, M))
 			return
-		if (self_tend_debuff)
-			C.apply_status_effect(/datum/status_effect/self_tend)
 
 	if(stop_bleeding)
 		C.suppress_bloodloss(stop_bleeding)
@@ -205,7 +203,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	heal_creatures = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
 	merge_type = /obj/item/stack/medical/gauze
-	self_tend_debuff = FALSE
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
@@ -231,7 +228,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	stop_bleeding = BLEED_SURFACE
 	heal_creatures = FALSE
 	merge_type = /obj/item/stack/medical/gauze/improvised
-	self_tend_debuff = TRUE
 
 /obj/item/stack/medical/gauze/adv
 	name = "sterilized medical gauze"
@@ -242,39 +238,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 /obj/item/stack/medical/gauze/adv/one
 	amount = 1
-
-/datum/status_effect/self_tend
-	id = "self_tend"
-	duration = 60 SECONDS
-	tick_interval = 1 SECONDS
-	status_type = STATUS_EFFECT_MERGE
-	on_remove_on_mob_delete = TRUE
-	alert_type = /atom/movable/screen/alert/status_effect/self_tend
-
-/datum/status_effect/self_tend/merge()
-	duration += initial(duration)
-
-/datum/status_effect/self_tend/on_apply()
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/self_tend)
-	owner.Paralyze(3 SECONDS)
-	to_chat(owner, span_danger("An intense wave of pain washes over you as you try to mend your wounds."))
-	owner.emote("scream")
-	owner.adjustStaminaLoss(clamp(50 - owner.staminaloss, 0, 50))
-	return TRUE
-
-/datum/status_effect/self_tend/on_remove()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/self_tend)
-	owner.cure_nearsighted(FAST_REF(src))
-
-/datum/status_effect/self_tend/tick()
-	owner.adjustStaminaLoss(clamp(50 - owner.staminaloss, 0, 5))
-
-/atom/movable/screen/alert/status_effect/self_tend
-	name = "Self-Tended"
-	desc = "You have recently applied medical equipment to yourself, limiting its effectiveness. Getting someone else to tend your wounds avoids negative effects from self-tending."
-	icon_state = "self_tend"
-
-/datum/movespeed_modifier/self_tend
-	multiplicative_slowdown = 1.5
 
 #undef REAGENT_AMOUNT_PER_ITEM

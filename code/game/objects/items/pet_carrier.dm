@@ -8,7 +8,7 @@
 	icon = 'icons/obj/pet_carrier.dmi'
 	base_icon_state = "pet_carrier"
 	icon_state = "pet_carrier_open"
-	item_state = "pet_carrier"
+	inhand_icon_state = "pet_carrier"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 5
@@ -90,7 +90,7 @@
 	if(!open)
 		to_chat(user, span_warning("You need to open [src]'s door!"))
 		return
-	if(target.mob_size > max_occupant_weight)
+	if(target.mob_size > max_occupant_weight || !target.can_be_held)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			if(iscatperson(H))

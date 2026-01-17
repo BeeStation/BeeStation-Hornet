@@ -18,6 +18,10 @@
 	description = span_moodneutral("My fucking head, that hurt...")
 	timeout = 1 MINUTES
 
+/datum/mood_event/table_fat
+	description = span_warning("My fucking head... Did I break that table?!")
+	timeout = 1 MINUTES
+
 /datum/mood_event/jittery
 	description = span_moodneutral("I'm nervous and on edge and I can't stand still!!!")
 

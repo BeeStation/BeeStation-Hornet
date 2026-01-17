@@ -2,7 +2,7 @@
 	name = "syringe"
 	desc = "A syringe that can hold up to 15 units."
 	icon = 'icons/obj/syringe.dmi'
-	item_state = "syringe_0"
+	inhand_icon_state = "syringe_0"
 	base_icon_state = "syringe"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -24,12 +24,13 @@
 	fill_icon_state = "syringe"
 	fill_icon_thresholds = list(1, 5, 10, 15)
 
+/obj/item/reagent_containers/syringe/add_context_self(datum/screentip_context/context, mob/living/user)
+	context.use_cache()
+	context.add_left_click_action("Inject")
+	context.add_right_click_action("Draw")
+
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
-
-/obj/item/reagent_containers/syringe/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., syringe_diseases)
 
 /obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
 	for(var/datum/disease/D in syringe_diseases)
@@ -155,7 +156,7 @@
 	else
 		rounded_vol = 0
 	icon_state = "[base_icon_state]_[rounded_vol]"
-	item_state = "[base_icon_state]_[rounded_vol]"
+	inhand_icon_state = "[base_icon_state]_[rounded_vol]"
 
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
 	C.apply_status_effect(/datum/status_effect/syringe, src, injectmult)
@@ -196,6 +197,11 @@
 	desc = "Contains calomel."
 	list_reagents = list(/datum/reagent/medicine/calomel = 15)
 
+/obj/item/reagent_containers/syringe/perfluorodecalin
+	name = "syringe (perfluorodecalin)"
+	desc = "Contains perfluorodecalin."
+	list_reagents = list(/datum/reagent/medicine/perfluorodecalin = 15)
+
 /obj/item/reagent_containers/syringe/antiviral
 	name = "syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
@@ -205,11 +211,6 @@
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
 	list_reagents = list(/datum/reagent/consumable/ethanol/neurotoxin = 5, /datum/reagent/toxin/mutetoxin = 5, /datum/reagent/toxin/sodium_thiopental = 5)
-
-/obj/item/reagent_containers/syringe/calomel
-	name = "syringe (calomel)"
-	desc = "Contains calomel."
-	list_reagents = list(/datum/reagent/medicine/calomel = 15)
 
 /obj/item/reagent_containers/syringe/plasma
 	name = "syringe (plasma)"
@@ -290,7 +291,7 @@
 
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"
-	desc = "A diamond-tipped syringe that pierces armor. It can hold up to 10 units."
+	desc = "A diamond-tipped syringe that pierces clothing, but not heavy armor. It can hold up to 10 units."
 	icon_state = "piercing_0"
 	base_icon_state = "piercing"
 	volume = 10
@@ -307,3 +308,52 @@
 	volume = 5
 	fill_icon_state = "syringe_crude"
 	fill_icon_thresholds = list(5, 10, 15)
+
+/obj/item/reagent_containers/syringe/on_start_stripping(mob/source, mob/user, item_slot)
+	if(!iscarbon(user))
+		return FALSE
+
+	var/mob/living/carbon/carbon_user = user
+
+	if(item_slot == ITEM_SLOT_LPOCKET || item_slot == ITEM_SLOT_RPOCKET)
+		if(!carbon_user.gloves || !(carbon_user.gloves.clothing_flags & THICKMATERIAL))
+			finish_unequip_mob(src, source, user)
+			embed(user)
+			user.visible_message(span_danger("You see [user] yank their hand out of [source]'s pocket and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
+			user.emote("scream")
+			return TRUE
+	else
+		if(item_slot == ITEM_SLOT_ICLOTHING)
+			if((!carbon_user.gloves || !(carbon_user.gloves.clothing_flags & THICKMATERIAL)) || proj_piercing)
+				finish_unequip_mob(src, source, user)
+				embed(user)
+				user.visible_message(span_danger("You see [user] try to rip off [source]'s jumpsuit and scream in pain!"), span_userdanger("A syringe embeds itself in your hand!"))
+				user.emote("scream")
+				return TRUE
+
+	return FALSE
+
+/obj/item/reagent_containers/syringe/contraband
+	name = "unlabeled syringe"
+	desc = "A syringe containing some sort of unknown chemical cocktail."
+
+/obj/item/reagent_containers/syringe/contraband/space_drugs
+	list_reagents = list(/datum/reagent/drug/space_drugs = 15)
+
+/obj/item/reagent_containers/syringe/contraband/krokodil
+	list_reagents = list(/datum/reagent/drug/krokodil = 15)
+
+/obj/item/reagent_containers/syringe/contraband/crank
+	list_reagents = list(/datum/reagent/drug/crank = 15)
+
+/obj/item/reagent_containers/syringe/contraband/methamphetamine
+	list_reagents = list(/datum/reagent/drug/methamphetamine = 15)
+
+/obj/item/reagent_containers/syringe/contraband/bath_salts
+	list_reagents = list(/datum/reagent/drug/bath_salts = 15)
+
+/obj/item/reagent_containers/syringe/contraband/fentanyl
+	list_reagents = list(/datum/reagent/toxin/fentanyl = 15)
+
+/obj/item/reagent_containers/syringe/contraband/morphine
+	list_reagents = list(/datum/reagent/medicine/morphine = 15)

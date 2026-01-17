@@ -6,10 +6,12 @@
 	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
+	// Requires a round in medical, this is a decent role for new players but is poorly
+	// communicated. Once the onboarding is better for this role, playtime requirements
+	// should be removed.
 	exp_requirements = 120
-	exp_type = EXP_TYPE_CREW
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/geneticist
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL)
@@ -38,12 +40,17 @@
 	)
 	minimal_lightup_areas = list(/area/medical/morgue, /area/medical/genetics)
 
+	manuscript_jobs = list(
+		JOB_NAME_GENETICIST,
+		JOB_NAME_SCIENTIST // credit to the old age when they're a member of R&D
+	)
+
 /datum/outfit/job/geneticist
 	name = JOB_NAME_GENETICIST
 	jobtype = /datum/job/geneticist
 
 	id = /obj/item/card/id/job/geneticist
-	belt = /obj/item/modular_computer/tablet/pda/geneticist
+	belt = /obj/item/modular_computer/tablet/pda/preset/geneticist
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	shoes = /obj/item/clothing/shoes/sneakers/white

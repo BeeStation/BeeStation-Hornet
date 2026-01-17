@@ -1,8 +1,8 @@
 /obj/projectile/bullet/dart
 	name = "dart"
 	icon_state = "cbbolt"
-	damage = 6
-	bleed_force = BLEED_SURFACE
+	damage = 5
+	bleed_force = BLEED_SCRATCH
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
 
@@ -23,7 +23,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100) // not completely blocked
-			if(M.can_inject(firer, FALSE, def_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
+			if(M.can_inject(firer, def_zone, piercing ? INJECT_CHECK_PENETRATE_THICK : NONE)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 				if(syringe)
 					syringe.embed(M)

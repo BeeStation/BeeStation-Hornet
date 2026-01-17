@@ -15,55 +15,53 @@
 
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
-#define ROLE_TRAITOR			"Traitor"
-#define ROLE_OPERATIVE			"Nuclear Operative"
-#define ROLE_CHANGELING			"Changeling"
-#define ROLE_WIZARD				"Wizard"
-#define ROLE_MALF				"Malfunctioning AI"
-#define ROLE_INCURSION			"Incursion Team"
-#define ROLE_EXCOMM				"Excommunicated Syndicate Agent"
-#define ROLE_REV				"Revolutionary"
-#define ROLE_REV_HEAD			"Head Revolutionary"
-#define ROLE_ALIEN				"Xenomorph"
-#define ROLE_CULTIST			"Cultist"
-#define ROLE_SERVANT_OF_RATVAR	"Servant of Ratvar"
-#define ROLE_HERETIC			"Heretic"
-#define ROLE_BLOB				"Blob"
-#define ROLE_NINJA				"Space Ninja"
-#define ROLE_ABDUCTOR			"Abductor"
-#define ROLE_REVENANT			"Revenant"
-#define ROLE_DEVIL				"Devil"
-#define ROLE_BROTHER			"Blood Brother"
-#define ROLE_HIVE				"Hivemind Host"
-#define ROLE_OBSESSED			"Obsessed"
-#define ROLE_SPACE_DRAGON		"Space Dragon"
-#define ROLE_INTERNAL_AFFAIRS	"Internal Affairs Agent"
-#define ROLE_GANG				"Gangster"
-#define ROLE_HOLOPARASITE		"Holoparasite"
-#define ROLE_TERATOMA			"Teratoma"
-#define ROLE_SPIDER				"Spider"
-#define ROLE_SWARMER			"Swarmer"
-#define ROLE_MORPH				"Morph"
-#define ROLE_NIGHTMARE			"Nightmare"
-#define ROLE_SPACE_PIRATE		"Space Pirate"
-#define ROLE_FUGITIVE			"Fugitive"
-#define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
-#define ROLE_SLAUGHTER_DEMON	"Slaughter Demon"
+#define ROLE_TRAITOR "Traitor"
+#define ROLE_OPERATIVE "Nuclear Operative"
+#define ROLE_CLOWN_OPERATIVE "Clown Operative"
+#define ROLE_CHANGELING "Changeling"
+#define ROLE_WIZARD "Wizard"
+#define ROLE_MALF "Malfunctioning AI"
+#define ROLE_REV "Revolutionary"
+#define ROLE_REV_HEAD "Head Revolutionary"
+#define ROLE_ALIEN "Xenomorph"
+#define ROLE_CULTIST "Cultist"
+#define ROLE_SERVANT_OF_RATVAR "Servant of Ratvar"
+#define ROLE_HERETIC "Heretic"
+#define ROLE_BLOB "Blob"
+#define ROLE_NINJA "Space Ninja"
+#define ROLE_ABDUCTOR "Abductor"
+#define ROLE_REVENANT "Revenant"
+#define ROLE_BROTHER "Blood Brother"
+#define ROLE_HIVE "Hivemind Host"
+#define ROLE_OBSESSED "Obsessed"
+#define ROLE_SPACE_DRAGON "Space Dragon"
+#define ROLE_INTERNAL_AFFAIRS "Internal Affairs Agent"
+#define ROLE_GANG "Gangster"
+#define ROLE_HOLOPARASITE "Holoparasite"
+#define ROLE_TERATOMA "Teratoma"
+#define ROLE_SPIDER "Spider"
+#define ROLE_SWARMER "Swarmer"
+#define ROLE_MORPH "Morph"
+#define ROLE_NIGHTMARE "Nightmare"
+#define ROLE_SPACE_PIRATE "Space Pirate"
+#define ROLE_FUGITIVE "Fugitive"
+#define ROLE_FUGITIVE_HUNTER "Fugitive Hunter"
+#define ROLE_SLAUGHTER_DEMON "Slaughter Demon"
 #define ROLE_CONTRACTOR_SUPPORT_UNIT "Contractor Support Unit"
-#define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
-#define ROLE_MONKEY_HELMET		"Sentient Monkey"
-#define ROLE_PRISONER			"Prisoner"
-#define ROLE_WIZARD_APPRENTICE "apprentice"
+#define ROLE_PYRO_SLIME "Pyroclastic Anomaly Slime"
+#define ROLE_MONKEY_HELMET "Sentient Monkey"
+#define ROLE_PRISONER "Prisoner"
+#define ROLE_WIZARD_APPRENTICE "Apprentice"
+#define ROLE_VAMPIRE "Vampire"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_TRAITOR,
 	ROLE_OPERATIVE,
+	ROLE_CLOWN_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
 	ROLE_MALF,
-	ROLE_INCURSION,
-	ROLE_EXCOMM,
 	ROLE_REV,
 	ROLE_REV_HEAD,
 	ROLE_ALIEN,
@@ -74,7 +72,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_NINJA,
 	ROLE_ABDUCTOR,
 	ROLE_REVENANT,
-	ROLE_DEVIL,
 	ROLE_BROTHER,
 	ROLE_HIVE,
 	ROLE_OBSESSED,
@@ -92,6 +89,7 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_FUGITIVE_HUNTER,
 	ROLE_SLAUGHTER_DEMON,
 	ROLE_CONTRACTOR_SUPPORT_UNIT,
+	ROLE_VAMPIRE,
 ))
 
 #define BAN_ROLE_FORCED_ANTAGONISTS			"Forced Antagonists"
@@ -211,11 +209,15 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 			if(feedback)
 				to_chat(src, "<span class='warning'>You are banned from this role!</span>")
 			return FALSE
+#ifndef TESTING_DYNAMIC
 	if(req_hours) //minimum living hour count
+		if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(src, R_ADMIN))
+			return TRUE
 		if((src.get_exp_living(TRUE)/60) < req_hours)
 			if(feedback)
 				to_chat(src, "<span class='warning'>You do not have enough living hours to take this role ([req_hours]hrs required)!</span>")
 			return FALSE
+#endif
 	return TRUE
 
 /client/proc/can_take_ghost_spawner(banning_key = BAN_ROLE_ALL_ANTAGONISTS, use_cooldown = TRUE, is_ghost_role = FALSE, is_admin_spawned = FALSE)
@@ -235,20 +237,18 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	return TRUE
 
 //Job defines for what happens when you fail to qualify for any job during job selection
-#define BEOVERFLOW 	1
-#define BERANDOMJOB 	2
-#define RETURNTOLOBBY 	3
+#define BEOVERFLOW 1
+#define BERANDOMJOB 2
+#define RETURNTOLOBBY 3
 
-#define ROLE_PREFERENCE_CATEGORY_ANAGONIST "Antagonists"
-#define ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING "Midrounds (Living)"
-#define ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST "Midrounds (Ghost)"
-#define ROLE_PREFERENCE_CATEGORY_LEGACY "Legacy Roles (Out of Rotation)"
+#define ROLE_PREFERENCE_CATEGORY_ROUNDSTART "Roundstart Antagonists"
+#define ROLE_PREFERENCE_CATEGORY_MIDROUND "Midround Antagonists"
+#define ROLE_PREFERENCE_CATEGORY_LATEJOIN "Latejoin Antagonists"
 
 GLOBAL_LIST_INIT(role_preference_categories, list(
-	ROLE_PREFERENCE_CATEGORY_ANAGONIST,
-	ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST,
-	ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING,
-	ROLE_PREFERENCE_CATEGORY_LEGACY,
+	ROLE_PREFERENCE_CATEGORY_ROUNDSTART,
+	ROLE_PREFERENCE_CATEGORY_MIDROUND,
+	ROLE_PREFERENCE_CATEGORY_LATEJOIN,
 ))
 
 GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())

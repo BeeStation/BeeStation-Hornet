@@ -25,13 +25,14 @@
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/box/teargas(src)
 	new /obj/item/storage/backpack/duffelbag/syndie/med(src)
-	new /obj/item/modular_computer/tablet/pda/syndicate(src)
+	new /obj/item/modular_computer/tablet/pda/preset/syndicate(src)
 
 /obj/structure/closet/syndicate/resources
 	desc = "An old, dusty locker."
 
-/obj/structure/closet/syndicate/resources/PopulateContents()
-	..()
+// A lot of this stuff is objective items, and it's also only used for debugging, so init times don't matter here.
+/obj/structure/closet/syndicate/resources/populate_contents_immediate()
+	. = ..()
 	var/common_min = 30 //Minimum amount of minerals in the stack for common minerals
 	var/common_max = 50 //Maximum amount of HONK in the stack for HONK common minerals
 	var/rare_min = 5  //Minimum HONK of HONK in the stack HONK HONK rare minerals
@@ -94,6 +95,7 @@
 /obj/structure/closet/syndicate/resources/everything
 	desc = "It's an emergency storage closet for repairs."
 
-/obj/structure/closet/syndicate/resources/everything/PopulateContents()
+// A lot of this stuff is objective items, and it's also only used for debugging, so init times don't matter here.
+/obj/structure/closet/syndicate/resources/everything/populate_contents_immediate()
 	new /obj/item/storage/box/material(src)
 	new /obj/item/storage/box/material(src)

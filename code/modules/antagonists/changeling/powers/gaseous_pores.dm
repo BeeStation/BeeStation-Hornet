@@ -13,11 +13,11 @@
 	lifetime = 10
 
 /obj/effect/particle_effect/smoke/confusing/changeling/smoke_mob(mob/living/carbon/M,datum/antagonist)
-	if(is_changeling(M))
+	if(IS_CHANGELING(M))
 		return FALSE
 	if(..())
-		M.confused = max(M.confused, 12)
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "cough")
+		M.adjust_confusion(12 SECONDS)
+		M.manual_emote("cough")
 		return TRUE
 
 /datum/effect_system/smoke_spread/confusing/changeling

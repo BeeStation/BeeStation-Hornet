@@ -3,7 +3,7 @@
 	desc = "A scanner used by scientists to collect research data about unknown artifacts and specimins."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "discovery"
-	item_state = "discoveryscanner"
+	inhand_icon_state = "discoveryscanner"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -13,6 +13,7 @@
 	. = ..()
 	if(!linked_techweb)
 		linked_techweb = SSresearch.science_tech
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 
 /obj/item/discovery_scanner/Destroy()
 	linked_techweb = null	//Note: Shouldn't hard del anyway since techwebs don't get deleted, however if they do then troubles will arise and this will need to be changed.

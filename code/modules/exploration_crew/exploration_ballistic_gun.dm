@@ -9,7 +9,7 @@
 /obj/item/ammo_box/magazine/internal/leveraction/exploration
 	name = "lever action rifle internal magazine"
 	ammo_type = /obj/item/ammo_casing/c38
-	caliber = "38"
+	caliber = list("38")
 	max_ammo = 8
 	multiload = FALSE
 

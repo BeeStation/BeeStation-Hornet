@@ -86,7 +86,10 @@
 
 /turf/open/lava/proc/is_safe()
 	//if anything matching this typecache is found in the lava, we don't burn things
-	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
+	var/static/list/lava_safeties_typecache = typecacheof(list(
+		/obj/structure/lattice/catwalk,
+		/obj/structure/stone_tile,
+	))
 	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
 	for(var/obj/structure/stone_tile/S in found_safeties)
 		if(S.fallen)
@@ -155,6 +158,10 @@
 				L.adjust_fire_stacks(20 * delta_time)
 				L.IgniteMob()
 
+
+/turf/open/lava/can_cross_safely(atom/movable/crossing)
+	return /*HAS_TRAIT(src, TRAIT_LAVA_STOPPED) || HAS_TRAIT(crossing, immunity_trait ) ||*/ HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
+
 /turf/open/lava/smooth
 	name = "lava"
 	baseturfs = /turf/open/lava/smooth
@@ -164,6 +171,13 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_LAVA)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
+
+/turf/open/lava/smooth/echo
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	planetary_atmos = TRUE
+	luminosity = 2
+	light_range = 5
+	light_color = "#ff5100"
 
 /turf/open/lava/smooth/cold
 	initial_gas_mix = FROZEN_ATMOS

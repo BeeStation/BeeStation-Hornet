@@ -39,14 +39,18 @@
 		B.objectives -= objective
 	M.remove_antag_datum(/datum/antagonist/hypnotized)
 
-/datum/brain_trauma/hypnosis/on_life()
+/datum/brain_trauma/hypnosis/on_life(delta_time, times_fired)
 	..()
-	if(prob(2))
-		switch(rand(1,2))
-			if(1)
-				to_chat(owner, "<i>...[LOWER_TEXT(hypnotic_phrase)]...</i>")
-			if(2)
-				new /datum/hallucination/chat(owner, TRUE, FALSE, span_hypnophrase("[hypnotic_phrase]"))
+	if(DT_PROB(1, delta_time))
+		if(prob(50))
+			to_chat(owner, span_hypnophrase("<i>...[LOWER_TEXT(hypnotic_phrase)]...</i>"))
+		else
+			owner.cause_hallucination( \
+				/datum/hallucination/chat, \
+				"hypnosis", \
+				force_radio = TRUE, \
+				specific_message = span_hypnophrase("[hypnotic_phrase]"), \
+			)
 
 /datum/brain_trauma/hypnosis/handle_hearing(datum/source, list/hearing_args)
 	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], span_hypnophrase("$1"))

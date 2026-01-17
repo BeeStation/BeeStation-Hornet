@@ -13,6 +13,7 @@ GLOBAL_LIST_INIT(huds, list(
 	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),
 	DATA_HUD_SENTIENT_DISEASE = new/datum/atom_hud/sentient_disease(),
 	DATA_HUD_AI_DETECT = new/datum/atom_hud/ai_detector(),
+	DATA_HUD_HACKED_APC = new/datum/atom_hud/hacked_apc(),
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(),
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(),
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(),
@@ -22,9 +23,6 @@ GLOBAL_LIST_INIT(huds, list(
 	ANTAG_HUD_NINJA = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_CHANGELING = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag(),
-	ANTAG_HUD_SINTOUCHED = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_SOULLESS = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_CLOCKWORK = new/datum/atom_hud/antag(),
 	ANTAG_HUD_BROTHER = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_OBSESSED = new/datum/atom_hud/antag/hidden(),
@@ -43,6 +41,7 @@ GLOBAL_LIST_INIT(huds, list(
 	ANTAG_HUD_VALENTINE = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_HEARTBREAKER = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_PRISONER = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag(),
 	))
 
 /datum/atom_hud
@@ -84,7 +83,7 @@ GLOBAL_LIST_INIT(huds, list(
 	if(!M || !hudusers[M])
 		return
 	if (absolute || !--hudusers[M])
-		UnregisterSignal(M, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(M, COMSIG_QDELETING)
 		hudusers -= M
 		if(next_time_allowed[M])
 			next_time_allowed -= M
@@ -113,7 +112,7 @@ GLOBAL_LIST_INIT(huds, list(
 		return
 	if(!hudusers[M])
 		hudusers[M] = 1
-		RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(unregister_mob))
+		RegisterSignal(M, COMSIG_QDELETING, PROC_REF(unregister_mob))
 		if(next_time_allowed[M] > world.time)
 			if(!queued_to_see[M])
 				addtimer(CALLBACK(src, PROC_REF(show_hud_images_after_cooldown), M), next_time_allowed[M] - world.time)

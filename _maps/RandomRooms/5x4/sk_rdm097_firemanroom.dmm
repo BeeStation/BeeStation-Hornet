@@ -12,9 +12,9 @@
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
-/obj/item/bodypart/r_arm/robot,
-/obj/item/bodypart/r_arm/robot,
-/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/right/robot,
 /obj/item/extinguisher,
 /obj/item/extinguisher,
 /obj/item/extinguisher,
@@ -96,7 +96,7 @@
 /area/template_noop)
 "n" = (
 /obj/effect/trap/nexus/darkness,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/iron,
 /area/template_noop)
 "s" = (

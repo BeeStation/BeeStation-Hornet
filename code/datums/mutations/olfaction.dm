@@ -23,10 +23,11 @@
 	if(sniffed)
 		var/old_target = tracking_target
 		possible = list()
-		var/list/prints = sniffed.return_fingerprints()
-		for(var/mob/living/carbon/potential_target in GLOB.carbon_list)
-			if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna.uni_identity)])
-				possible |= potential_target
+		var/list/prints = GET_ATOM_FINGERPRINTS(sniffed)
+		if(prints)
+			for(var/mob/living/carbon/potential_target in GLOB.carbon_list)
+				if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna?.unique_identity)])
+					possible |= potential_target
 		if(!length(possible))
 			to_chat(user, "<span class='warning'>Despite your best efforts, there are no scents to be found on [sniffed]...</span>")
 			return

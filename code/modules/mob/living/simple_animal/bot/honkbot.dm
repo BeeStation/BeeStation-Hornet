@@ -183,9 +183,9 @@
 		sensor_blink()
 	if(spam_flag == 0)
 		if(ishuman(C))
-			C.stuttering = 20
+			C.set_stutter_if_lower(40 SECONDS)
 			C.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
-			C.Jitter(50)
+			C.set_jitter_if_lower(100 SECONDS)
 			C.Paralyze(60)
 			var/mob/living/carbon/human/H = C
 			if(client) //prevent spam from players..
@@ -204,7 +204,7 @@
 			C.visible_message(span_danger("[src] has honked [C]!"),\
 					span_userdanger("[src] has honked you!"))
 		else
-			C.stuttering = 20
+			C.set_stutter_if_lower(40 SECONDS)
 			C.Paralyze(80)
 			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
 
@@ -325,7 +325,7 @@
 	new /obj/effect/decal/cleanable/oil(loc)
 	..()
 
-/mob/living/simple_animal/bot/honkbot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/honkbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()
 	if(!isalien(target))
 		target = user

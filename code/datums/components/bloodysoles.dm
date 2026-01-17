@@ -26,8 +26,8 @@
 	parent_atom = parent
 
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED,  PROC_REF(on_drop))
-	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT,  PROC_REF(on_clean))
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
+	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 
 /**
   * Unregisters from the wielder if necessary
@@ -70,7 +70,7 @@
 	if(HAS_TRAIT(parent_atom, TRAIT_LIGHT_STEP)) //the character is agile enough to don't mess their clothing and hands just from one blood splatter at floor
 		return TRUE
 
-	parent_atom.add_blood_DNA(pool.return_blood_DNA())
+	parent_atom.add_blood_DNA(GET_ATOM_BLOOD_DNA(pool))
 	update_icon()
 
 /**
@@ -104,8 +104,8 @@
 
 	equipped_slot = slot
 	wielder = equipper
-	RegisterSignal(wielder, COMSIG_MOVABLE_MOVED,  PROC_REF(on_moved))
-	RegisterSignal(wielder, COMSIG_STEP_ON_BLOOD,  PROC_REF(on_step_blood))
+	RegisterSignal(wielder, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	RegisterSignal(wielder, COMSIG_STEP_ON_BLOOD, PROC_REF(on_step_blood))
 
 /**
   * Called when the parent item has been dropped
@@ -149,13 +149,14 @@
 			bloody_shoes[last_blood_state] -= half_our_blood
 			update_icon()
 
+
 			oldLocFP = new(oldLocTurf)
 			if(!QDELETED(oldLocFP)) ///prints merged
 				oldLocFP.blood_state = last_blood_state
 				oldLocFP.exited_dirs |= wielder.dir
 				add_parent_to_footprint(oldLocFP)
 				oldLocFP.bloodiness = half_our_blood
-				oldLocFP.add_blood_DNA(parent_atom.return_blood_DNA())
+				oldLocFP.add_blood_DNA(GET_ATOM_BLOOD_DNA(parent_atom))
 				oldLocFP.update_appearance()
 
 			half_our_blood = bloody_shoes[last_blood_state] / 2
@@ -175,7 +176,7 @@
 			FP.entered_dirs |= wielder.dir
 			add_parent_to_footprint(FP)
 			FP.bloodiness = half_our_blood
-			FP.add_blood_DNA(parent_atom.return_blood_DNA())
+			FP.add_blood_DNA(GET_ATOM_BLOOD_DNA(parent_atom))
 			FP.update_appearance()
 
 
@@ -233,21 +234,25 @@
 	if(!bloody_feet)
 		bloody_feet = mutable_appearance('icons/effects/blood.dmi', "shoeblood", SHOES_LAYER)
 
-	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT,  PROC_REF(on_clean))
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED,  PROC_REF(on_moved))
-	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD,  PROC_REF(on_step_blood))
-	RegisterSignal(parent, COMSIG_CARBON_UNEQUIP_SHOECOVER,  PROC_REF(unequip_shoecover))
-	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER,  PROC_REF(equip_shoecover))
+	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD, PROC_REF(on_step_blood))
+	RegisterSignal(parent, COMSIG_CARBON_UNEQUIP_SHOECOVER, PROC_REF(unequip_shoecover))
+	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER, PROC_REF(equip_shoecover))
 
 /datum/component/bloodysoles/feet/update_icon()
-	if(ishuman(wielder))
-		// Monkeys get no bloody feet :(
-		if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
-			wielder.remove_overlay(SHOES_LAYER)
-			wielder.overlays_standing[SHOES_LAYER] = bloody_feet
-			wielder.apply_overlay(SHOES_LAYER)
-		else
-			wielder.update_inv_shoes()
+	. = list()
+	if(!ishuman(wielder))
+		return
+	if(GET_ATOM_BLOOD_DNA_LENGTH(wielder))
+		bloody_feet.color = bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
+		. += bloody_feet
+	if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
+		wielder.remove_overlay(SHOES_LAYER)
+		wielder.overlays_standing[SHOES_LAYER] = bloody_feet
+		wielder.apply_overlay(SHOES_LAYER)
+	else
+		wielder.update_worn_shoes()
 
 /datum/component/bloodysoles/feet/add_parent_to_footprint(obj/effect/decal/cleanable/blood/footprints/FP)
 	if(ismonkey(wielder))

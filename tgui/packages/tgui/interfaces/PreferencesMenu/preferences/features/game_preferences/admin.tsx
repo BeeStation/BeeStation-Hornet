@@ -1,6 +1,23 @@
 import { useLocalState } from 'tgui/backend';
-import { Box, Button, Flex, Icon, Input, Popper, Section, Stack, TrackOutsideClicks } from 'tgui/components';
-import { CheckboxInput, FeatureColorInput, Feature, FeatureValueProps, FeatureChoicedServerData, FeatureToggle } from '../base';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Input,
+  Popper,
+  Section,
+  Stack,
+} from 'tgui/components';
+
+import {
+  CheckboxInput,
+  Feature,
+  FeatureChoicedServerData,
+  FeatureColorInput,
+  FeatureToggle,
+  FeatureValueProps,
+} from '../base';
 
 export const asaycolor: Feature<string> = {
   name: 'Admin chat color',
@@ -18,10 +35,14 @@ export const brief_outfit: Feature<string> = {
   description: 'The outfit to gain when spawning as the briefing officer.',
   important: true,
   component: (
-    props: FeatureValueProps<string, string, FeatureChoicedServerData & { outfit_names: Record<string, string> }> & {
+    props: FeatureValueProps<
+      string,
+      string,
+      FeatureChoicedServerData & { outfit_names: Record<string, string> }
+    > & {
       disabled?: boolean;
       buttons?: boolean;
-    }
+    },
   ) => {
     const serverData = props.serverData;
     if (!serverData) {
@@ -29,7 +50,10 @@ export const brief_outfit: Feature<string> = {
     }
 
     let [isOpen, setOpen] = useLocalState('brief_outfit_pref_open', false);
-    let [searchText, setSearchText] = useLocalState('brief_outfit_pref_search_text', '');
+    let [searchText, setSearchText] = useLocalState(
+      'brief_outfit_pref_search_text',
+      '',
+    );
     const handleCloseInternal = () => {
       setOpen(false);
       setSearchText('');
@@ -52,74 +76,78 @@ export const brief_outfit: Feature<string> = {
 
     return (
       <Popper
-        options={{
-          placement: 'bottom-start',
-        }}
-        popperContent={
-          isOpen ? (
-            <TrackOutsideClicks onOutsideClick={handleCloseInternal} removeOnOutsideClick>
-              <Box
-                className="theme-generic-yellow"
-                style={{
-                  height: `250px`,
-                  width: `400px`,
-                }}>
-                <Box className="PopupWindow" style={{ 'padding': '5px' }} width="100%" height="100%">
-                  <Section>
-                    <Box>
-                      <Icon mr={1} name="search" />
-                      <Input
-                        autoFocus
-                        width="350px"
-                        placeholder="Search outfits"
-                        value={searchText}
-                        onInput={(_, value) => setSearchText(value)}
-                      />
-                    </Box>
-                  </Section>
-                  <Section fill fitted scrollable maxHeight="190px">
-                    <Stack fill vertical>
-                      {sortedChoices
-                        .filter(
-                          (choice) =>
-                            searchText.length <= 1 ||
-                            choice.includes(searchText) ||
-                            serverData.outfit_names[choice]?.includes(searchText)
-                        )
-                        .map((choice) => {
-                          const shortChoice = choice.replace('/datum/outfit/', '');
-                          return (
-                            <Stack.Item key={shortChoice} className="candystripe" p={1}>
-                              <Flex fill>
-                                <Flex.Item grow>
-                                  <Box>
-                                    {`${serverData.outfit_names[choice] ? `${serverData.outfit_names[choice]}` : 'N/A'}`}
-                                  </Box>
-                                  <Box textColor="label">{shortChoice}</Box>
-                                </Flex.Item>
-                                <Flex.Item>
-                                  <Button
-                                    selected={props.value === choice}
-                                    onClick={() => {
-                                      props.handleSetValue(choice);
-                                      handleCloseInternal();
-                                    }}>
-                                    Select
-                                  </Button>
-                                </Flex.Item>
-                              </Flex>
-                            </Stack.Item>
-                          );
-                        })}
-                    </Stack>
-                  </Section>
+        placement="bottom-start"
+        isOpen={isOpen}
+        onClickOutside={handleCloseInternal}
+        content={
+          <Box
+            className="theme-generic-yellow"
+            style={{
+              height: `250px`,
+              width: `400px`,
+            }}
+          >
+            <Box
+              className="PopupWindow"
+              style={{ padding: '5px' }}
+              width="100%"
+              height="100%"
+            >
+              <Section>
+                <Box>
+                  <Icon mr={1} name="search" />
+                  <Input
+                    autoFocus
+                    width="350px"
+                    placeholder="Search outfits"
+                    value={searchText}
+                    onInput={(_, value) => setSearchText(value)}
+                  />
                 </Box>
-              </Box>
-            </TrackOutsideClicks>
-          ) : (
-            <> </>
-          )
-        }>
+              </Section>
+              <Section fill fitted scrollable maxHeight="190px">
+                <Stack fill vertical>
+                  {sortedChoices
+                    .filter(
+                      (choice) =>
+                        searchText.length <= 1 ||
+                        choice.includes(searchText) ||
+                        serverData.outfit_names[choice]?.includes(searchText),
+                    )
+                    .map((choice) => {
+                      const shortChoice = choice.replace('/datum/outfit/', '');
+                      return (
+                        <Stack.Item
+                          key={shortChoice}
+                          className="candystripe"
+                          p={1}
+                        >
+                          <Flex fill>
+                            <Flex.Item grow>
+                              <Box>{`${serverData.outfit_names[choice] ? `${serverData.outfit_names[choice]}` : 'N/A'}`}</Box>
+                              <Box textColor="label">{shortChoice}</Box>
+                            </Flex.Item>
+                            <Flex.Item>
+                              <Button
+                                selected={props.value === choice}
+                                onClick={() => {
+                                  props.handleSetValue(choice);
+                                  handleCloseInternal();
+                                }}
+                              >
+                                Select
+                              </Button>
+                            </Flex.Item>
+                          </Flex>
+                        </Stack.Item>
+                      );
+                    })}
+                </Stack>
+              </Section>
+            </Box>
+          </Box>
+        }
+      >
         <Flex pr={2}>
           <Flex.Item grow>
             {props.value ? (
@@ -144,7 +172,8 @@ export const brief_outfit: Feature<string> = {
                 } else {
                   setOpen(true);
                 }
-              }}>
+              }}
+            >
               Change
             </Button>
           </Flex.Item>

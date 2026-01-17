@@ -1,7 +1,7 @@
 /obj/effect/fun_balloon
 	name = "fun balloon"
 	desc = "This is going to be a laugh riot."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/balloons.dmi'
 	icon_state = "syndballoon"
 	anchored = TRUE
 	var/popped = FALSE
@@ -52,16 +52,21 @@
 	for(var/mob/living/M in viewers(effect_range, get_turf(src)))
 		bodies += M
 
-	var/question = "Would you like to be [group_name]?"
-	var/list/candidates = poll_candidates_for_mobs(question, ROLE_SENTIENCE, null, 10 SECONDS, bodies)
+	var/datum/poll_config/config = new()
+	config.question = "Would you like to be [span_notice(group_name)]?"
+	config.check_jobban = ROLE_SENTIENCE
+	config.poll_time = 10 SECONDS
+	config.role_name_text = "sentience fun balloon"
+	config.alert_pic = src
+	var/list/candidates = SSpolling.poll_ghosts_for_targets(config, bodies)
 	while(LAZYLEN(candidates) && LAZYLEN(bodies))
-		var/mob/dead/observer/C = pick_n_take(candidates)
+		var/mob/dead/observer/candidate = pick_n_take(candidates)
 		var/mob/living/body = pick_n_take(bodies)
 
 		to_chat(body, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(body)])")
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(body)])")
 		body.ghostize(FALSE)
-		body.key = C.key
+		body.key = candidate.key
 		new /obj/effect/temp_visual/gravpush(get_turf(body))
 
 /obj/effect/fun_balloon/sentience/emergency_shuttle
@@ -69,9 +74,10 @@
 	var/trigger_time = 60
 
 /obj/effect/fun_balloon/sentience/emergency_shuttle/check()
-	. = FALSE
 	if(SSshuttle.emergency && (SSshuttle.emergency.timeLeft() <= trigger_time) && (SSshuttle.emergency.mode == SHUTTLE_CALL))
-		. = TRUE
+		return TRUE
+
+	return FALSE
 
 /obj/effect/fun_balloon/scatter
 	name = "scatter fun balloon"
@@ -88,7 +94,7 @@
 /obj/effect/station_crash
 	name = "station crash"
 	desc = "With no survivors!"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/balloons.dmi'
 	icon_state = "syndballoon"
 	anchored = TRUE
 
@@ -125,7 +131,7 @@
 		qdel(L.pulling)
 		var/turf/LA = get_turf(pick(warp_points))
 		L.forceMove(LA)
-		L.hallucination = 0
+		L.remove_status_effect(/datum/status_effect/hallucination)
 		to_chat(L, span_reallybigredtext("The battle is won. Your bloodlust subsides."))
 		for(var/obj/item/chainsaw/doomslayer/chainsaw in L)
 			qdel(chainsaw)

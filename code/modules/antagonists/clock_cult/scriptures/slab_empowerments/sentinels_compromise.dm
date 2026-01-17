@@ -21,11 +21,11 @@
 
 	if(isliving(clicked_on) && (clicked_on in view(7, get_turf(clicker))))
 		var/mob/living/L = clicked_on
-		if(!is_servant_of_ratvar(L))
+		if(!IS_SERVANT_OF_RATVAR(L))
 			to_chat(clicker, ("<span class='inathneq'>\"[L] does not yet serve Ratvar.\"</span>"))
 			return TRUE
 		if(L.stat == DEAD)
-			to_chat(clicker, ("<span class='inathneq'>\"[L.p_theyre(TRUE)] dead. [text2ratvar("Oh, child. To have your life cut short...")]\"</span>"))
+			to_chat(clicker, ("<span class='inathneq'>\"[L.p_Theyre()] dead. [text2ratvar("Oh, child. To have your life cut short...")]\"</span>"))
 			return TRUE
 
 		var/brutedamage = L.getBruteLoss()

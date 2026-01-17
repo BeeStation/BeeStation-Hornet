@@ -3,7 +3,7 @@
 	desc = "A device used to rapidly deploy cable. It has screws on the side which can be removed to slide off the cables. Do not use without insulation!"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
-	item_state = "rcl-0"
+	inhand_icon_state = "rcl-0"
 	var/obj/structure/cable/last
 	var/obj/item/stack/cable_coil/loaded
 	opacity = FALSE
@@ -28,8 +28,6 @@
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
 
-/obj/item/rcl/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/two_handed)
 	AddElement(/datum/element/update_icon_updates_onmob)
 
@@ -116,21 +114,21 @@
 /obj/item/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
-		item_state = "rcl-0"
+		inhand_icon_state = "rcl-0"
 		return ..()
 	switch(loaded.amount)
 		if(61 to INFINITY)
 			icon_state = "rcl-30"
-			item_state = "rcl"
+			inhand_icon_state = "rcl"
 		if(31 to 60)
 			icon_state = "rcl-20"
-			item_state = "rcl"
+			inhand_icon_state = "rcl"
 		if(1 to 30)
 			icon_state = "rcl-10"
-			item_state = "rcl"
+			inhand_icon_state = "rcl"
 		else
 			icon_state = "rcl-0"
-			item_state = "rcl-0"
+			inhand_icon_state = "rcl-0"
 	return ..()
 
 /obj/item/rcl/proc/is_empty(mob/user, loud = 1)
@@ -327,7 +325,6 @@
 			showWiringGui(user)
 
 /obj/item/rcl/ghetto
-	actions_types = list()
 	max_amount = 30
 	name = "makeshift rapid cable layer"
 	ghetto = TRUE
@@ -335,23 +332,23 @@
 /obj/item/rcl/ghetto/update_icon_state()
 	if(!loaded)
 		icon_state = "rclg-0"
-		item_state = "rclg-0"
+		inhand_icon_state = "rclg-0"
 		return ..()
 	switch(loaded.amount)
 		if(1 to INFINITY)
 			icon_state = "rclg-1"
-			item_state = "rcl"
+			inhand_icon_state = "rcl"
 		else
 			icon_state = "rclg-1"
-			item_state = "rclg-1"
+			inhand_icon_state = "rclg-1"
 	return ..()
 
 /datum/action/item_action/rcl_col
 	name = "Change Cable Color"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "rcl_rainbow"
 
 /datum/action/item_action/rcl_gui
 	name = "Toggle Fast Wiring Gui"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "rcl_gui"

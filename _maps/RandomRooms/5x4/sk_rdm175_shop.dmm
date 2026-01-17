@@ -22,7 +22,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /obj/item/gun/ballistic/shotgun/toy,
 /obj/machinery/light/small{
 	dir = 1
@@ -62,7 +62,7 @@
 /area/template_noop)
 "H" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /obj/structure/sign/poster/contraband/punch_shit{
 	pixel_y = 32
 	},

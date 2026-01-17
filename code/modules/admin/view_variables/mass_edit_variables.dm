@@ -198,7 +198,7 @@
 	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
 
 //not using global lists as vv is a debug function and debug functions should rely on as less things as possible.
-/proc/get_all_of_type(var/T, subtypes = TRUE)
+/proc/get_all_of_type(T, subtypes = TRUE)
 	var/list/typecache = list()
 	typecache[T] = 1
 	if (subtypes)
@@ -253,7 +253,7 @@
 			CHECK_TICK
 
 	else if (ispath(T, /client))
-		for(var/client/thing in GLOB.clients)
+		for(var/client/thing in GLOB.clients_unsafe)
 			if (typecache[thing.type])
 				. += thing
 			CHECK_TICK

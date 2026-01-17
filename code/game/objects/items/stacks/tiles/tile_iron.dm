@@ -4,7 +4,7 @@
 	singular_name = "floor tile"
 	desc = "The ground you walk on."
 	icon_state = "tile"
-	item_state = "tile"
+	inhand_icon_state = "tile"
 	force = 6
 	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
@@ -230,7 +230,7 @@
 /obj/item/stack/tile/iron/checker/other
 	name = "alternate checker tile"
 	singular_name = "alternate checker floor tile"
-	icon_state = "tile_checker"
+	icon_state = "tile_checker_alternate"
 	turf_type = /turf/open/floor/iron/checker/other
 	merge_type = /obj/item/stack/tile/iron/checker/other
 

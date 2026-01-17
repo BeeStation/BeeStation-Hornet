@@ -5,6 +5,7 @@
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=4000)
+	custom_price = 2000
 
 /obj/effect/mob_spawn/swarmer
 	name = "unactivated swarmer"
@@ -34,7 +35,7 @@
 	. = ..()
 	if(.)
 		return
-	to_chat(user, span_notice("Picking up the swarmer may cause it to activate. You should be careful about this."))
+	to_chat(user, span_notice("Picking up the swarmer may cause it to activate. You should be careful about this. You could probably disable it if you had a screwdriver."))
 
 /obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/living/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && !user.combat_mode)
@@ -57,7 +58,7 @@
 	speak_emote = list("tones")
 	initial_language_holder = /datum/language_holder/swarmer
 	bubble_icon = "swarmer"
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	health = 65
 	maxHealth = 65
 	status_flags = CANPUSH
@@ -175,7 +176,7 @@
 	return FALSE //would logically be TRUE, but we don't want AI swarmers eating player spawn chances.
 
 /obj/effect/mob_spawn/swarmer/IntegrateAmount()
-	return 50
+	return 20
 
 /turf/closed/indestructible/swarmer_act()
 	return FALSE
@@ -461,7 +462,7 @@
 		to_chat(src, span_warning("[target] is incompatible with our internal matter recycler."))
 	return FALSE
 
-/mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(var/gains)
+/mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(gains)
 	var/datum/antagonist/swarmer/S = mind?.has_antag_datum(/datum/antagonist/swarmer)
 	if(S)
 		S.swarm.total_resources_eaten += gains
@@ -741,6 +742,7 @@
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
 	required_living_playtime = 4
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/datum/team/swarmer/swarm
 
 /datum/antagonist/swarmer/on_gain()

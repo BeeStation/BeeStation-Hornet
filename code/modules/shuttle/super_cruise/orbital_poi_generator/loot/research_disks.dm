@@ -10,8 +10,6 @@
 		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
 		name = "research disk ([node.display_name])"
 
-/obj/item/disk/tech_disk/research/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#e7a3e4", TRUE, TRUE)
 	//After 15 minutes the tracking beacon turns off
 	addtimer(CALLBACK(src, PROC_REF(signal_decay)), 15 MINUTES)
@@ -42,7 +40,7 @@
 		if(!SSresearch.science_tech.isNodeResearchedID(initial(disk.node_id)))
 			valid_nodes += initial(disk.node_id)
 	if(!length(valid_nodes))
-		new /obj/effect/spawner/lootdrop/ruinloot/basic(get_turf(src))
+		new /obj/effect/spawner/random/ruinloot/basic(get_turf(src))
 		return INITIALIZE_HINT_QDEL
 	node_id = pick(valid_nodes)
 	. = ..()
@@ -73,9 +71,6 @@
 
 /obj/item/disk/tech_disk/research/adv_beam_weapons
 	node_id = "adv_beam_weapons"
-
-/obj/item/disk/tech_disk/research/exotic_ammo
-	node_id = "exotic_ammo"
 
 /obj/item/disk/tech_disk/research/phazon
 	node_id = "mecha_phazon"

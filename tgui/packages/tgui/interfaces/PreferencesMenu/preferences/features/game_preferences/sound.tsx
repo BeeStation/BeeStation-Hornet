@@ -1,4 +1,4 @@
-import { FeatureToggle, CheckboxInput } from '../base';
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const sound_adminhelp: FeatureToggle = {
   name: 'Enable adminhelp sounds',
@@ -12,7 +12,8 @@ export const sound_ambience: FeatureToggle = {
   name: 'Enable ambience',
   category: 'SOUND',
   subcategory: 'Ambience',
-  description: 'When enabled, plays various sounds depending on the area of the station you are in.',
+  description:
+    'When enabled, plays various sounds depending on the area of the station you are in.',
   component: CheckboxInput,
   important: true,
 };
@@ -24,6 +25,14 @@ export const sound_announcements: FeatureToggle = {
   description: 'When enabled, hear sounds for command reports, notices, etc.',
   component: CheckboxInput,
   important: true,
+};
+
+export const sound_ghostpoll: FeatureToggle = {
+  name: 'Enable ghost polling sound',
+  category: 'SOUND',
+  description:
+    'When enabled, hear an alert when being polled for a ghost role.',
+  component: CheckboxInput,
 };
 
 export const sound_combatmode: FeatureToggle = {
@@ -71,7 +80,8 @@ export const sound_adminalert: FeatureToggle = {
   name: 'Enable admin alert sounds',
   category: 'ADMIN',
   subcategory: 'Sound',
-  description: 'Enables sound on various admin notifications such as midround and event triggers.',
+  description:
+    'Enables sound on various admin notifications such as midround and event triggers.',
   component: CheckboxInput,
   important: true,
 };

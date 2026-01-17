@@ -1,35 +1,26 @@
 @use '../colors.scss';
 @use '../base.scss';
-
-$bg-map: colors.$bg-map !default;
-
+$fg-map: colors.$fg-map !default;
 .CircuitInfo__Examined {
   background-color: rgba(0, 0, 0, 1);
   padding: 8px;
   border-radius: 5px;
-
   user-select: none;
   pointer-events: none;
 }
-
 .ObjectComponent__Titlebar {
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-
   white-space: nowrap;
-
   -ms-user-select: none;
   user-select: none;
 }
-
 .ObjectComponent__Content {
   white-space: nowrap;
   background-color: rgba(0, 0, 0, 0.5);
-
   -ms-user-select: none;
   user-select: none;
 }
-
 .ObjectComponent__PortPos {
   position: absolute;
   top: 0;
@@ -37,18 +28,76 @@ $bg-map: colors.$bg-map !default;
   right: 0;
   bottom: 0;
 }
-
-@each $color-name, $color-value in $bg-map {
+@each $color-name, $color-value in $fg-map {
   .color-stroke-#{$color-name} {
     stroke: $color-value !important;
   }
+  .color-fill-#{$color-name} {
+    fill: $color-value !important;
+  }
 }
-
-$border-color: #88bfff !default;
+$border-color: hsl(210, 100%, 73%) !default;
 $border-radius: base.$border-radius !default;
-
-.Datatype__Option {
+.IntegratedCircuit__BlueBorder {
   border: base.em(1px) solid $border-color;
   border: base.em(1px) solid rgba($border-color, 0.75);
   border-radius: $border-radius;
+}
+
+$category-colors: (
+  'Utility': (
+    bg: hsl(49, 84%, 41%),
+    contrast: white,
+  ),
+  'Entity': (
+    bg: hsl(288, 60%, 49%),
+    contrast: white,
+  ),
+  'Sensor': (
+    bg: hsl(337, 58%, 55%),
+    contrast: white,
+  ),
+  'Math': (
+    bg: hsl(138, 69%, 33%),
+    contrast: white,
+  ),
+  'Unassigned': (
+    bg: hsl(197, 65%, 47%),
+    contrast: white,
+  ),
+  'String': (
+    bg: hsl(24, 84%, 48%),
+    contrast: white,
+  ),
+  'List': (
+    bg: hsl(4, 73%, 47%),
+    contrast: white,
+  ),
+  'Action': (
+    bg: hsl(101, 63%, 43%),
+    contrast: white,
+  ),
+  'NTNet': (
+    bg: hsl(231, 57%, 48%),
+    contrast: white,
+  ),
+  'Abstract': (
+    bg: hsl(212, 65%, 47%),
+    contrast: white,
+  ),
+  'BCI': (
+    bg: rgb(131, 26, 201),
+    contrast: white,
+  ),
+  'Gates': (
+    bg: hsl(138, 69%, 33%),
+    contrast: white,
+  ),
+);
+
+@each $category-name, $values in $category-colors {
+  .ObjectComponent__Category__#{$category-name} {
+    background-color: map-get($values, bg);
+    color: map-get($values, contrast);
+  }
 }

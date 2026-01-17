@@ -21,7 +21,7 @@
 
 /datum/objective/open/damage_equipment/proc/register_machine_damage(obj/machinery/source)
 	SIGNAL_HANDLER
-	UnregisterSignal(source, list(COMSIG_MACHINERY_BROKEN, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(source, list(COMSIG_MACHINERY_BROKEN, COMSIG_QDELETING))
 	damaged_machines ++
 
 /datum/objective/open/damage_equipment/update_explanation_text()
@@ -71,5 +71,5 @@
 				if (!allowed)
 					continue
 				RegisterSignal(machine, COMSIG_MACHINERY_BROKEN, PROC_REF(register_machine_damage))
-				RegisterSignal(machine, COMSIG_PARENT_QDELETING, PROC_REF(register_machine_damage))
+				RegisterSignal(machine, COMSIG_QDELETING, PROC_REF(register_machine_damage))
 				break

@@ -28,6 +28,7 @@ Make sure to add new items to this list if you document new components.
   - [`Grid`](#grid)
   - [`Grid.Column`](#gridcolumn)
   - [`Icon`](#icon)
+ - [`ImageButton`](#imagebutton)
   - [`Input`](#input)
   - [`Knob`](#knob)
   - [`LabeledControls`](#labeledcontrols)
@@ -356,9 +357,8 @@ and displays selected entry.
 - See inherited props: [Box](#box)
 - See inherited props: [Icon](#icon)
 - `options: string[] | DropdownEntry[]` - An array of strings which will be displayed in the
-dropdown when open. See Dropdown.tsx for more adcanced usage with DropdownEntry
+dropdown when open. See Dropdown.tsx for more advanced usage with DropdownEntry
 - `selected: any` - Currently selected entry
-- `width: string` - Width of dropdown button and resulting menu; css width value
 - `over: boolean` - Dropdown renders over instead of below
 - `color: string` - Color of dropdown button
 - `nochevron: boolean` - Whether or not the arrow on the right hand side of the dropdown button is visible
@@ -524,6 +524,43 @@ Fractional numbers are supported.
 - `rotation: number` - Icon rotation, in degrees.
 - `spin: boolean` - Whether an icon should be spinning. Good for load
 indicators.
+
+### `ImageButton`
+
+A Robust button is specifically for sticking a picture in it.
+
+**Props:**
+
+- See inherited props: [Box](#box)
+- `asset: string[]` - Asset cache. Example: `asset={`assetname32x32, ${thing.key}`}`
+- `base64: string` - Classic way to put images. Example: `base64={thing.image}`
+- `buttons: any` - Special section for any component, or, content.
+  Quite a small area at the bottom of the image in non-fluid mode.
+  Has a style overrides, best to use [Button](#button) inside.
+- `buttonsAlt: boolean` - Enables alternative buttons layout.
+  With fluid, makes buttons like a humburger.
+  Without, moves it to top, and disables pointer-events.
+- `children: any` - Content under image.
+- `className: string` - Applies a CSS class to the element.
+- `color: string` - Color of the button, but without `transparent`; see [Button](#button)
+- `disabled: boolean` - Makes button disabled and dark red if true.
+  Also disables onClick & onRightClick.
+- `selected: boolean` - Makes button selected and green if true.
+- `dmFallback: any` - Optional. Adds a "stub" when loading DmIcon.
+- `dmIcon: string` - Parameter `icon` of component `DmIcon`.
+- `dmIconState: string` - Parameter `icon_state` of component `DmIcon`.
+  For proper work of `DmIcon` it is necessary that both parameters are filled in!
+- `fluid: boolean` - Changes the layout of the button, making it fill the entire horizontally available space.
+  Allows the use of `title`
+- `imageSize: number` - Parameter responsible for the size of the image, component and standard "stubs".
+  Measured in pixels. `imageSize={64}` = 64px.
+- `imageSrc: string` - Prop `src` of <img>. Example: `imageSrc={resolveAsset(thing.image)}`
+- `onClick: (e) => void` - Called when button is clicked with LMB.
+- `onRightClick: (e) => void` - Called when button is clicked with RMB.
+- `title: string` - Requires `fluid` for work. Bold text with divider betwen content.
+- `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
+over the button.
+- `tooltipPosition: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
 
 ### `Input`
 
@@ -735,9 +772,10 @@ Popper lets you position elements so that they don't go out of the bounds of the
 
 **Props:**
 
-- `popperContent: ReactNode` - The content that will be put inside the popper.
-- `options?: { ... }` - An object of options to pass to `createPopper`. See [https://popper.js.org/docs/v2/constructors/#options], but the one you want most is `placement`. Valid placements are "bottom", "top", "left", and "right". You can affix "-start" and "-end" to achieve something like top left or top right respectively. You can also use "auto" (with an optional "-start" or "-end"), where a best fit will be chosen.
-- `additionalStyles: { ... }` - A map of CSS styles to add to the element that will contain the popper.
+- `content: ReactNode` - The content that will be put inside the popper.
+- `isOpen: boolean` - Whether or not the popper is open.
+- `onClickOutside?: (e) => void` - A function that will be called when the user clicks outside of the popper.
+- `placement?: string` - The placement of the popper. See [https://popper.js.org/docs/v2/constructors/#placement]
 
 ### `ProgressBar`
 

@@ -13,6 +13,22 @@
 	cooldown_time = 10 SECONDS
 	button_icon_state = "skeleton"
 
+/datum/action/spell/lesserlichdom/can_cast_spell(feedback = TRUE)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	// We call this here so we can get feedback if they try to cast it when they shouldn't.
+	if(!is_valid_spell(owner, owner))
+		if(feedback)
+			to_chat(owner, span_warning("You do not possess a soul."))
+		return FALSE
+
+	return TRUE
+
+/datum/action/spell/lesserlichdom/is_valid_spell(mob/user, atom/target)
+	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL)
+
 /datum/action/spell/lesserlichdom/on_cast(mob/user, atom/target)
 	. = ..()
 	var/list/hand_items = list()
@@ -20,9 +36,6 @@
 		hand_items = list(user.get_active_held_item(),user.get_inactive_held_item())
 	if(!length(hand_items))
 		to_chat(user, span_warning("You must hold an item you wish to make your phylactery..."))
-		return
-	if(!user.mind.hasSoul)
-		to_chat(user, span_warning("You do not possess a soul."))
 		return
 
 	var/obj/item/marked_item
@@ -53,18 +66,14 @@
 	new /obj/item/lesserphylactery(marked_item, user.mind)
 
 	to_chat(user, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!"))
-	user.mind.hasSoul = FALSE
-	// No revival other than lichdom revival
-	if(isliving(user))
-		var/mob/living/L = user
-		L.sethellbound()
-	else
-		user.mind.hellbound = TRUE
+
+	// No soul. You just sold it
+	ADD_TRAIT(user, TRAIT_NO_SOUL, LICH_TRAIT)
+
 	user.set_species(/datum/species/skeleton)
 	// no robes spawn for a lesser spell
 	// you only get one phylactery.
 	src.Remove(user)
-
 
 /obj/item/lesserphylactery
 	name = "lesser phylactery"

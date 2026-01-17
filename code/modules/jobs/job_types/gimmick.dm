@@ -5,10 +5,8 @@
 	show_in_prefs = TRUE
 	faction = "Station"
 	total_positions = 0
-	spawn_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
-	exp_type_department = EXP_TYPE_GIMMICK
 
 	base_access = list(ACCESS_MAINT_TUNNELS)
 	extra_access = list()
@@ -49,11 +47,16 @@
 
 	minimal_lightup_areas = list(/area/medical/morgue)
 
+	manuscript_jobs = list(
+		JOB_NAME_BARBER,
+		JOB_NAME_ASSISTANT
+	)
+
 /datum/outfit/job/gimmick/barber
 	name = JOB_NAME_BARBER
 	jobtype = /datum/job/gimmick/barber
 	id = /obj/item/card/id/job/barber
-	belt = /obj/item/modular_computer/tablet/pda/unlicensed
+	belt = /obj/item/modular_computer/tablet/pda/preset/unlicensed
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/suit/sl
 	shoes = /obj/item/clothing/shoes/laceup
@@ -89,7 +92,7 @@
 	name = JOB_NAME_STAGEMAGICIAN
 	jobtype = /datum/job/gimmick/stage_magician
 	id = /obj/item/card/id/job/stage_magician
-	belt = /obj/item/modular_computer/tablet/pda/unlicensed
+	belt = /obj/item/modular_computer/tablet/pda/preset/unlicensed
 	head = /obj/item/clothing/head/hats/tophat
 	ears = /obj/item/radio/headset
 	neck = /obj/item/bedsheet/magician
@@ -116,15 +119,21 @@
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_EASY)
-	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_MEDICAL_METABOLISM)
+	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_MEDICAL_METABOLISM, TRAIT_SUPERMATTER_SOOTHER)
 
 	rpg_title = "Enchanter"
+
+	manuscript_jobs = list(
+		JOB_NAME_PSYCHIATRIST,
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_CHEMIST
+	)
 
 /datum/outfit/job/gimmick/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = JOB_NAME_PSYCHIATRIST
 	jobtype = /datum/job/gimmick/psychiatrist
 	id = /obj/item/card/id/job/psychiatrist
-	belt = /obj/item/modular_computer/tablet/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/preset/medical
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
@@ -155,7 +164,7 @@
 	name = JOB_NAME_VIP
 	jobtype = /datum/job/gimmick/vip
 	id = /obj/item/card/id/gold/vip
-	belt = /obj/item/modular_computer/tablet/pda/vip
+	belt = /obj/item/modular_computer/tablet/pda/preset/vip
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
 	uniform = /obj/item/clothing/under/suit/black_really

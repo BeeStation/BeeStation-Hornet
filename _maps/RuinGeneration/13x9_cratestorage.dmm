@@ -29,21 +29,21 @@
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "o" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
-/obj/item/modular_computer/tablet/pda/clear,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/item/modular_computer/tablet/pda/preset/clear,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "p" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
 /obj/item/storage/pill_bottle/stimulant,
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "q" = (
@@ -57,14 +57,14 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "u" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/cardboard/fifty,
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "x" = (
@@ -84,7 +84,7 @@
 /obj/structure/closet/crate/medical,
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/fire,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "G" = (

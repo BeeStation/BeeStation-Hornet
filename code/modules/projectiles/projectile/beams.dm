@@ -41,11 +41,14 @@
 
 /obj/projectile/beam/laser/lesslethal
 	damage = 11
-	stamina = 18
+	stamina = 22
 	icon_state = "minilaser"
 
 /obj/projectile/beam/weak
 	damage = 12
+
+/obj/projectile/beam/weak/shotgun
+	damage = 18
 
 /obj/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
 	damage = 15
@@ -66,7 +69,6 @@
 	name = "\improper X-ray beam"
 	icon_state = "xray"
 	damage = 15
-	irradiate = 300
 	range = 15
 	armour_penetration = 60
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
@@ -116,7 +118,7 @@
 			SSexplosions.medturf += target
 
 /obj/projectile/beam/pulse/shotgun
-	damage = 40
+	damage = 35
 
 /obj/projectile/beam/pulse/heavy
 	name = "heavy pulse laser"
@@ -132,14 +134,9 @@
 /obj/projectile/beam/emitter
 	name = "emitter beam"
 	icon_state = "emitter"
-	damage = 30
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	//Will actually be 30 when fired from an emitter due to additional damage provided by stock parts
+	damage = 25
 	light_color = LIGHT_COLOR_GREEN
-
-/obj/projectile/beam/emitter/singularity_pull()
-	return //don't want the emitters to miss
-
-/obj/projectile/beam/emitter/hitscan
 	hitscan = TRUE
 	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
 	tracer_type = /obj/effect/projectile/tracer/laser/emitter
@@ -154,6 +151,32 @@
 	impact_light_intensity = 7
 	impact_light_range = 2.5
 	impact_light_color_override = COLOR_LIME
+
+/obj/projectile/beam/emitter/on_hit(atom/target, blocked)
+	if(istype(target, /obj/structure/blob))
+		damage *= 0.25
+	. = ..()
+
+/obj/projectile/beam/emitter/drill
+	name = "driller beam"
+	icon_state = "emitter"
+	//Will actually be 10 when fired from an emitter due to additional damage provided by stock parts
+	damage = 5
+	light_color = COLOR_DARK_ORANGE
+	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter/drill
+	tracer_type = /obj/effect/projectile/tracer/laser/emitter/drill
+	impact_type = /obj/effect/projectile/impact/laser/emitter/drill
+	hitscan_light_color_override = COLOR_DARK_ORANGE
+	muzzle_flash_color_override = COLOR_DARK_ORANGE
+	impact_light_color_override = COLOR_DARK_ORANGE
+
+/obj/projectile/beam/emitter/drill/on_hit(atom/target, blocked)
+	if(istype(target, /turf/closed/mineral))
+		var/turf/closed/mineral/T = target
+		T.gets_drilled()
+	else if(isturf(target) || (isobj(target) && !istype(target, /obj/structure/blob)))
+		damage *= 10
+	. = ..()
 
 /obj/projectile/beam/lasertag
 	name = "laser tag beam"

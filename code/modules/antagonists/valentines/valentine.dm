@@ -5,8 +5,8 @@
 	prevent_roundtype_conversion = FALSE
 	replace_banned = FALSE
 	var/datum/mind/date
-	count_against_dynamic_roll_chance = FALSE
 	banning_key = UNBANNABLE_ANTAGONIST
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/valentine/proc/forge_objectives()
 	var/datum/objective/protect/protect_objective = new

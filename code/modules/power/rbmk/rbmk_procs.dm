@@ -9,7 +9,7 @@
 			to_chat(user, span_warning("[src] is already at maximum fuel load."))
 			return FALSE
 		to_chat(user, span_notice("You start to insert [attacked_item] into [src]..."))
-		radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
+		radiation_pulse(src, max_range = 3, threshold = RAD_EXTREME_INSULATION)
 		if(do_after(user, 5 SECONDS, target=src))
 			if(length(fuel_rods) >= 5)
 				to_chat(user, span_warning("[src] is already at maximum fuel load."))
@@ -102,7 +102,7 @@ This proc checks the surrounding of the core to ensure that the machine has been
 */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/check_part_connectivity()
 	. = TRUE
-	if(!anchored || panel_open)
+	if(!anchored)
 		return FALSE
 
 	for(var/obj/machinery/rbmk/object in orange(1,src))
@@ -153,27 +153,30 @@ Arguments:
 * -user: the player doing the action
 */
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate(mob/living/user)
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/user_activate(mob/living/user)
 	if(active)
 		to_chat(user, span_notice("You already activated the machine."))
 		return
 	to_chat(user, span_notice("You activate the machine."))
+	activate()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate()
 	active = TRUE
 	start_power = TRUE
 	update_appearance()
 	if (linked_interface)
 		linked_interface.active = TRUE
 		linked_interface.update_appearance()
-		RegisterSignal(linked_interface, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+		RegisterSignal(linked_interface, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	linked_input.active = TRUE
 	linked_input.update_appearance()
-	RegisterSignal(linked_input, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+	RegisterSignal(linked_input, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	linked_output.active = TRUE
 	linked_output.update_appearance()
-	RegisterSignal(linked_output, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+	RegisterSignal(linked_output, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	linked_moderator.active = TRUE
 	linked_moderator.update_appearance()
-	RegisterSignal(linked_moderator, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+	RegisterSignal(linked_moderator, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	START_PROCESSING(SSmachines, src)
 	desired_reate_of_reaction = 1
 	var/startup_sound = pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg')
@@ -202,13 +205,13 @@ Arguments:
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/unregister_signals(only_signals = FALSE)
 	SIGNAL_HANDLER
 	if(linked_interface)
-		UnregisterSignal(linked_interface, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_interface, COMSIG_QDELETING)
 	if(linked_input)
-		UnregisterSignal(linked_input, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_input, COMSIG_QDELETING)
 	if(linked_output)
-		UnregisterSignal(linked_output, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_output, COMSIG_QDELETING)
 	if(linked_moderator)
-		UnregisterSignal(linked_moderator, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(linked_moderator, COMSIG_QDELETING)
 	if(!only_signals)
 		deactivate()
 
@@ -373,8 +376,7 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/damage_handler(delta_time)
 	critical_threshold_proximity_archived = critical_threshold_proximity
-	if(rate_of_reaction <= 0 && temperature <= 0 && !has_fuel())
-		deactivate()
+
 	//First alert condition: Overheat
 	var/turf/core_turf = get_turf(src)
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
@@ -496,7 +498,7 @@ Arguments:
 	SSair.atmos_machinery -= src //Annd we're now just a useless brick.
 	update_icon()
 	STOP_PROCESSING(SSmachines, src)
-	AddComponent(/datum/component/radioactive, 15000 , src)
+	AddElement(/datum/element/radioactive, intensity = 20, threshold = RAD_EXTREME_INSULATION)
 	var/turf/reactor_turf = get_turf(src)
 	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
 	for(var/mob/player_mob in GLOB.player_list)
@@ -510,9 +512,8 @@ Arguments:
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
 	var/datum/gas_mixture/coolant_output = linked_output.airs[1]
-	coolant_input.temperature = ((temperature+273.15)*2)
-	moderator_input.temperature = ((temperature+273.15)*2)
-	coolant_output.temperature = ((temperature+273.15)*2)
+	moderator_input.temperature = temperature*2
+	coolant_output.temperature = temperature*2
 	reactor_turf.assume_air(coolant_input)
 	reactor_turf.assume_air(moderator_input)
 	reactor_turf.assume_air(coolant_output)
@@ -520,6 +521,11 @@ Arguments:
 	empulse(get_turf(src), 20, 30)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "failed")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
+
+	// make a little bit of spicy mess, maximum of 4+25=29 tile radius, minimum of 4+4=8 tile radius, scaled on how far over temperature it is
+	var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/modules/power/rbmk/nuclear_sludge_spawner(get_turf(src))
+	nuclear_sludge_spawner.range = 4 + min(25,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // scales by an extra 4 tile radius per 100% over maximum
+	nuclear_sludge_spawner.fire()
 	Destroy()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/blowout()
@@ -542,9 +548,9 @@ Arguments:
 
 //Plutonium sludge
 
-#define PLUTONIUM_SLUDGE_RANGE 500
-#define PLUTONIUM_SLUDGE_RANGE_STRONG 1000
-#define PLUTONIUM_SLUDGE_RANGE_WEAK 300
+#define PLUTONIUM_SLUDGE_RANGE 50
+#define PLUTONIUM_SLUDGE_RANGE_STRONG 80
+#define PLUTONIUM_SLUDGE_RANGE_WEAK 20
 
 #define PLUTONIUM_SLUDGE_CHANCE 15
 
@@ -561,8 +567,8 @@ Arguments:
 		/obj/structure/grille,
 		/obj/structure/window/fulltile,
 		/obj/structure/window/plasma/fulltile,
-		/obj/structure/window/plasma/reinforced/fulltile,
-		/obj/structure/window/plastitanium,
+		/obj/structure/window/reinforced/plasma/fulltile,
+		/obj/structure/window/reinforced/plasma/plastitanium,
 		/obj/structure/window/reinforced/fulltile,
 		/obj/structure/window/reinforced/clockwork/fulltile,
 		/obj/structure/window/reinforced/tinted/fulltile,
@@ -570,7 +576,7 @@ Arguments:
 		/obj/structure/window/shuttle,
 		/obj/machinery/gateway,
 		/obj/machinery/gravity_generator,
-		))
+	))
 /// Tries to place plutonium sludge on 'floor'. Returns TRUE if the turf has been successfully processed, FALSE otherwise.
 /obj/modules/power/rbmk/nuclear_sludge_spawner/proc/place_sludge(turf/open/floor, epicenter = FALSE)
 	if(!floor)
@@ -579,7 +585,6 @@ Arguments:
 	if(epicenter)
 		for(var/obj/effect/decal/cleanable/nuclear_waste/waste in floor) //Replace nuclear waste with the stronger version
 			qdel(waste)
-		new /obj/effect/decal/cleanable/nuclear_waste/epicenter (floor)
 		return TRUE
 
 	if(!prob(PLUTONIUM_SLUDGE_CHANCE)) //Scatter the sludge, don't smear it everywhere

@@ -126,7 +126,7 @@
 
 			var/new_sec_level = SSsecurity_level.text_level_to_number(params["newSecurityLevel"])
 			var/current_sec_level = SSsecurity_level.get_current_level_as_number()
-			if (current_sec_level > SEC_LEVEL_RED)
+			if (current_sec_level > SEC_LEVEL_BLACK)
 				to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 				return
@@ -515,7 +515,7 @@
 /// Returns TRUE if the user can buy shuttles.
 /// If they cannot, returns FALSE or a string detailing why.
 /obj/machinery/computer/communications/proc/can_buy_shuttles(mob/user)
-	if (!SSmapping.config.allow_custom_shuttles)
+	if (!SSmapping.current_map.allow_custom_shuttles)
 		return FALSE
 	if (!authenticated_as_non_silicon_captain(user))
 		return FALSE
@@ -549,7 +549,7 @@
 	if(!SScommunications.can_announce(user, is_ai))
 		to_chat(user, span_alert("Intercomms recharging. Please stand by."))
 		return
-	var/input = stripped_input(user, "Please choose a message to announce to the station crew.", "What?")
+	var/input = tgui_input_text(user, "Please choose a message to announce to the station crew.", "Make Priority Announcement")
 	if(!input || !user.canUseTopic(src, !issilicon(usr)))
 		return
 	if(CHAT_FILTER_CHECK(input))

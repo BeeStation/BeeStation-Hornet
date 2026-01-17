@@ -31,7 +31,9 @@
 	run_later = TRUE
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
-	light_power = 0.25
+	light_power = 1
+	light_range = 2
+	light_color = COLOR_STARLIGHT
 	fullbright_type = FULLBRIGHT_STARLIGHT
 	bullet_bounce_sound = null
 	vis_flags = VIS_INHERIT_ID //when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
@@ -190,12 +192,6 @@
 			arrived.start_pulling(AM)
 			AM.can_be_z_moved = TRUE
 
-		// now we're on the new z_level, proceed the space drifting
-		// Stays as a comment for now most likely this is not needed at all but just in case i will leave it here
-		// stoplag() //Let a diagonal move finish, if necessary
-		// if(!arrived.inertia_moving)
-		// 	arrived.newtonian_move(get_dir(old_loc, src)) //we don't have inertial dir anymore so this has to do
-
 /turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
@@ -248,11 +244,8 @@
 	destination_z = dest_z
 
 //Don't fall if in zero gravity, but we should allow non-fall movement
-/turf/open/space/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
-	return !falling || A.has_gravity(src)
+/turf/open/space/zPassIn(direction, falling = FALSE)
+	return !falling
 
 /turf/open/space/check_gravity()
 	return FALSE
-
-/turf/open/space/rad_act(pulse_strength)
-	return

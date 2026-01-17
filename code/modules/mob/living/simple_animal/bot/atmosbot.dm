@@ -56,10 +56,9 @@
 		/datum/gas/carbon_dioxide = 1,
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/nitrous_oxide = 1,
-		/datum/gas/nitryl = 1,
+		/datum/gas/nitrium = 1,
 		/datum/gas/plasma = 1,
 		/datum/gas/pluoxium = 0,
-		/datum/gas/stimulum = 0,
 		/datum/gas/tritium = 1,
 		/datum/gas/water_vapor = 0,
 	)
@@ -177,7 +176,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 
 		if(!LAZYLEN(path))
 			var/turf/target_turf = get_turf(target)
-			path = get_path_to(src, target_turf, 30, id=access_card, simulated_only = FALSE)
+			path = get_path_to(src, target_turf, 30, access=access_card.GetAccess(), simulated_only = FALSE)
 
 			if(!bot_move(target))
 				add_to_ignore(target)

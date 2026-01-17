@@ -12,8 +12,8 @@
 /obj/machinery/computer/records/ui_data(mob/user)
 	var/list/data = list()
 
-	var/has_access = (authenticated && isliving(user)) || issiliconoradminghost(user)
-	data["authenticated"] = has_access
+	data["authenticated"] = authenticated && (isliving(user) || IsAdminGhost(user))
+	data["is_silicon"] = issilicon(user)
 
 	return data
 
@@ -43,18 +43,23 @@
 
 	switch(action)
 		if("edit_field")
-			target_record = locate(params["record_ref"]) in GLOB.manifest.general
+			if (!target_record)
+				return FALSE
+			if (!authenticated)
+				return FALSE
 			var/field = params["field"]
-			if(!field || !(field in target_record?.vars))
+			if(!field || !can_edit_field(field))
 				return FALSE
 			var/text = "[params["value"]]" //Converts the value to a string, due to fuckery in TGUI.
-			var/value = trim(text, MAX_BROADCAST_LEN)
+			var/value = sanitize_ic(trim(text, MAX_BROADCAST_LEN))
 			target_record.vars[field] = value || null
 			update_all_security_huds()
 			return TRUE
 
 		if("anonymize_record")
 			if(!target_record)
+				return FALSE
+			if (!authenticated)
 				return FALSE
 
 			target_record.anonymize_record_info()
@@ -75,6 +80,8 @@
 			return TRUE
 
 		if("purge_records")
+			if (!authenticated)
+				return FALSE
 			ui.close()
 			balloon_alert(user, "purging records")
 			playsound(src, 'sound/machines/terminal_alert.ogg', 70, TRUE)
@@ -92,11 +99,16 @@
 		if("view_record")
 			if(!target_record)
 				return FALSE
+			if (!authenticated)
+				return FALSE
 
 			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
-			update_preview(user, params["character_preview_view"], target_record)
+			update_preview(user, sanitize(params["character_preview_view"]), target_record)
 			return TRUE
 
+	return FALSE
+
+/obj/machinery/computer/records/proc/can_edit_field(field)
 	return FALSE
 
 /// Creates a character preview view for the UI.
@@ -129,7 +141,7 @@
 
 /// Detects whether a user can use buttons on the machine
 /obj/machinery/computer/records/proc/has_auth(mob/user)
-	if(issiliconoradminghost(user)) // Silicons don't need to authenticate
+	if(IsAdminGhost(user)) // Admins don't need to authenticate
 		return TRUE
 
 	if(!isliving(user))
@@ -147,7 +159,7 @@
 
 /// Inserts a new record into GLOB.manifest.general. Requires a photo to be taken.
 /obj/machinery/computer/records/proc/insert_new_record(mob/user, obj/item/photo/mugshot)
-	if(!mugshot || !is_operational || !user.canUseTopic(src, be_close = !issilicon(user)))
+	if(!mugshot || !is_operational || !user.canUseTopic(src))
 		return FALSE
 
 	if(!authenticated && !has_auth(user))
@@ -162,7 +174,7 @@
 
 	var/trimmed = copytext(mugshot.name, 9, MAX_NAME_LEN) // Remove "photo - "
 	var/name = tgui_input_text(user, "Enter the name of the new record.", "New Record", trimmed, MAX_NAME_LEN)
-	if(!name || !is_operational || !user.canUseTopic(src, be_close = !issilicon(user)) || !mugshot || QDELETED(mugshot) || QDELETED(src))
+	if(!name || !is_operational || !user.canUseTopic(src) || !mugshot || QDELETED(mugshot) || QDELETED(src))
 		return FALSE
 
 	new /datum/record/crew(name = name, character_appearance = mugshot.picture.picture_image)
@@ -176,7 +188,7 @@
 
 /// Secure login
 /obj/machinery/computer/records/proc/secure_login(mob/user)
-	if(!user.canUseTopic(src, be_close = !issilicon(user)) || !is_operational)
+	if(!user.canUseTopic(src) || !is_operational)
 		return FALSE
 
 	if(!has_auth(user))

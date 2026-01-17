@@ -601,7 +601,7 @@
 	category = list("initial", "Misc")
 
 /datum/design/tape
-	name = "Tape"
+	name = "Cassette Tape"
 	id = "tape"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 20, /datum/material/glass = 5)
@@ -791,7 +791,7 @@
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 	build_path = /obj/item/ammo_casing/shotgun
 	category = list("hacked", "Security")
 
@@ -799,15 +799,23 @@
 	name = "Buckshot Shell"
 	id = "buckshot_shell"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 4000, /datum/material/copper = 500)
 	build_path = /obj/item/ammo_casing/shotgun/buckshot
+	category = list("hacked", "Security")
+
+/datum/design/buckshot_armour_shell
+	name = "Armour-Piercing Buckshot Shell"
+	id = "buckshot_armour_shell"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/gold = 500)
+	build_path = /obj/item/ammo_casing/shotgun/buckshot/armour_piercing
 	category = list("hacked", "Security")
 
 /datum/design/shotgun_dart
 	name = "Shotgun Dart"
 	id = "shotgun_dart"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 4000, /datum/material/silver = 2000)
 	build_path = /obj/item/ammo_casing/shotgun/dart
 	category = list("hacked", "Security")
 
@@ -815,7 +823,7 @@
 	name = "Incendiary Slug"
 	id = "incendiary_slug"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 4000, /datum/material/plasma = 500)
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
 
@@ -899,6 +907,15 @@
 	build_path = /obj/item/dest_tagger
 	category = list("initial", "Electronics")
 
+/datum/design/salestagger
+	name = "Sales Tagger"
+	id = "salestagger"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/glass = 200)
+	build_path = /obj/item/sales_tagger
+	category = list("initial", "Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/handlabeler
 	name = "Hand Labeler"
 	id = "handlabel"
@@ -947,7 +964,7 @@
 	id = "laptop"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 1000)
-	build_path = /obj/item/modular_computer/laptop/buildable
+	build_path = /obj/item/modular_computer/laptop
 	category = list("initial","Misc")
 
 /datum/design/tablet
@@ -1108,3 +1125,38 @@
 	category = list("initial", "Construction")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/potion
+	name = "Potion Bottle"
+	id = "potion"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/glass = 500)
+	build_path = /obj/item/reagent_containers/cup/bottle/big_potion
+	category = list("initial", "Medical")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/small_potion
+	name = "Small Potion Bottle"
+	id = "small_potion"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/glass = 200)
+	build_path = /obj/item/reagent_containers/cup/bottle/small_potion
+	category = list("initial", "Medical")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/vial
+	name = "Potion Vial"
+	id = "vial"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/glass = 100)
+	build_path = /obj/item/reagent_containers/cup/bottle/vial
+	category = list("initial", "Medical")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/duct_tape
+	name = "Duct Tape"
+	id = "duct_tape"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list (/datum/material/plastic = 200)
+	build_path = /obj/item/stack/sticky_tape/duct
+	category = list("initial", "Tools", "Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE

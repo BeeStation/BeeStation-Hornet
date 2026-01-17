@@ -121,7 +121,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
 	if(job)
 		if(!job_blacklisted(job.title))
-			if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
+			if((job.get_spawn_position_count() <= GLOB.player_list.len * (max_relative_positions / 100)))
 				var/delta = (world.time / 10) - GLOB.time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
 					return 1
@@ -133,7 +133,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
 		if(!job_blacklisted(job.title))
-			if(job.total_positions > job.current_positions)
+			if(job.get_spawn_position_count() > job.current_positions)
 				var/delta = (world.time / 10) - GLOB.time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
 					return 1
@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(job_blacklisted(job.title))
 				continue
 			dat += "<td>[job.title]</td>"
-			dat += "<td>[job.current_positions]/[job.total_positions]</td>"
+			dat += "<td>[job.current_positions]/[job.get_spawn_position_count()]</td>"
 			dat += "<td>"
 			switch(can_open_job(job))
 				if(1)
@@ -266,7 +266,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(0)
 					dat += "Denied"
 			dat += "</td><td>"
-			switch(job.total_positions)
+			switch(job.get_spawn_position_count())
 				if(0)
 					dat += "Denied"
 				else
@@ -745,7 +745,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					return 0
 				if(opened_positions[edit_job_target] >= 0)
 					GLOB.time_last_changed_position = world.time / 10
-				j.total_positions++
+				j.total_position_delta++
 				opened_positions[edit_job_target]++
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 
@@ -763,7 +763,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				//Allow instant closing without cooldown if a position has been opened before
 				if(opened_positions[edit_job_target] <= 0)
 					GLOB.time_last_changed_position = world.time / 10
-				j.total_positions--
+				j.total_position_delta--
 				opened_positions[edit_job_target]--
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 
@@ -779,7 +779,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(j in SSjob.prioritized_jobs)
 					SSjob.prioritized_jobs -= j
 					priority = FALSE
-				else if(j.total_positions <= j.current_positions)
+				else if(j.get_spawn_position_count() <= j.current_positions)
 					to_chat(usr, span_notice("[j.title] has had all positions filled. Open up more slots before prioritizing it."))
 					updateUsrDialog()
 					return

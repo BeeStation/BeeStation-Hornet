@@ -55,7 +55,7 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if(eyes)
 		switch(A.stage)
 			if(1, 2)
@@ -65,10 +65,10 @@ Bonus
 				if(M.stat != DEAD)
 					to_chat(M, span_warning("<b>Your eyes burn!</b>"))
 				M.blur_eyes(10)
-				eyes.applyOrganDamage(1)
+				eyes.apply_organ_damage(1)
 			else
 				M.blur_eyes(20)
-				eyes.applyOrganDamage(5)
+				eyes.apply_organ_damage(5)
 				if(eyes.damage >= 10)
 					M.become_nearsighted(EYE_DAMAGE)
 				if(prob(eyes.damage - 10 + 1))
@@ -76,7 +76,7 @@ Bonus
 						if(!M.is_blind())
 							if(M.stat != DEAD)
 								to_chat(M, span_userdanger("You go blind!"))
-							eyes.applyOrganDamage(eyes.maxHealth)
+							eyes.apply_organ_damage(eyes.maxHealth)
 					else
 						M.visible_message(span_warning("[M]'s eyes fall out of their sockets!"), span_userdanger("Your eyes fall out of their sockets!"))
 						eyes.Remove(M)

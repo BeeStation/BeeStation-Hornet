@@ -37,7 +37,8 @@
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 26;
-	use_power = 0
+	use_power = 0;
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
@@ -66,19 +67,19 @@
 /area/template_noop)
 "t" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
 "x" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -124,7 +125,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "Q" = (
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)

@@ -13,6 +13,9 @@
 	///Probability of actually "firing", stunning and doing damage
 	var/probability
 
+	///Amount of time the spike will paralyze
+	var/paralyze_duration
+
 	///Miscelanous caltrop flags; shoe bypassing, walking interaction, silence
 	var/flags
 
@@ -28,7 +31,7 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
 
-/datum/component/caltrop/Initialize(min_damage = 0, max_damage = 0, probability = 100, flags = NONE, soundfile = null)
+/datum/component/caltrop/Initialize(min_damage = 0, max_damage = 0, probability = 100, paralyze_duration = 6 SECONDS, flags = NONE, soundfile = null)
 	. = ..()
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -36,6 +39,7 @@
 	src.min_damage = min_damage
 	src.max_damage = max(min_damage, max_damage)
 	src.probability = probability
+	src.paralyze_duration = paralyze_duration
 	src.flags = flags
 	src.soundfile = soundfile
 
@@ -105,8 +109,8 @@
 	if(!(flags & CALTROP_SILENT) && !H.has_status_effect(/datum/status_effect/caltropped))
 		H.apply_status_effect(/datum/status_effect/caltropped)
 		H.visible_message(
-			"<span class='danger'>[H] steps on [source].</span>",
-			"<span class='userdanger'>You step on [source]!</span>"
+			span_danger("[H] steps on [parent]!"),
+			span_userdanger("You step on [parent]!")
 		)
 
 
@@ -114,7 +118,7 @@
 	H.add_bleeding(BLEED_SCRATCH)
 
 	if(!(flags & CALTROP_NOSTUN)) // Won't set off the paralysis.
-		H.Paralyze(60)
+		H.Paralyze(paralyze_duration)
 
 	if(!soundfile)
 		return

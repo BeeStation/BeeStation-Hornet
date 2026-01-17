@@ -1,6 +1,9 @@
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
-	init_order = INIT_ORDER_AIR
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms,
+	)
 	priority = FIRE_PRIORITY_AIR
 	wait = 0.5 SECONDS
 	flags = SS_BACKGROUND
@@ -53,6 +56,9 @@ SUBSYSTEM_DEF(air)
 	var/list/queued_for_activation
 	var/display_all_groups = FALSE
 
+	var/list/reaction_handbook
+	var/list/gas_handbook
+
 	// Supercruise Z-pausing
 	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
 	var/list/unpausing_z_levels = list()
@@ -101,6 +107,7 @@ SUBSYSTEM_DEF(air)
 	setup_pipenets()
 	setup_turf_visuals()
 	process_adjacent_rebuild()
+	atmos_handbooks_init()
 	return SS_INIT_SUCCESS
 
 

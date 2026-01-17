@@ -129,20 +129,20 @@ GLOBAL_LIST_INIT(input_window_presets, list(
 
 //Those verbs are used by the hotkeys to ensure the window is created when you try to use it
 
-/client/verb/init_say()
+AUTH_CLIENT_VERB(init_say)
 	set name = ".init_say"
 	set hidden = TRUE
 
 	create_preset_input_window("say")
 
-/client/verb/init_me()
+AUTH_CLIENT_VERB(init_me)
 	set name = ".init_me"
 	set hidden = TRUE
 
 	create_preset_input_window("me")
 
 //Verb available to the user in case something in the window breaks
-/client/verb/fix_chatbox()
+AUTH_CLIENT_VERB(fix_chatbox)
 	set name = "Fix chatbox"
 
 	var/preset = input(src, "Which chat window do you want to recreate?", "Fix chatbox") as null|anything in GLOB.input_window_presets
@@ -151,11 +151,3 @@ GLOBAL_LIST_INIT(input_window_presets, list(
 		return
 
 	create_preset_input_window(preset, force=TRUE)
-
-//Create the windows for say and me ahead of time
-/client/New()
-	. = ..()
-
-	if(src) //In case the client was deleted while New was running
-		create_preset_input_window("say", show=FALSE)
-		create_preset_input_window("me", show=FALSE)

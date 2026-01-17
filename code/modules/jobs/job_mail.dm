@@ -13,13 +13,27 @@
 		/obj/item/crowbar/large = 2,
 	)
 
+//PRISONER
+/datum/job/prisoner
+	mail_goodies = list(
+		/obj/item/clothing/mask/cigarette = 10,
+		/obj/item/stack/spacecash/c20 = 10,
+		/obj/item/stack/spacecash/c50 = 10,
+		/obj/item/food/syndicake = 8,
+		/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka = 5,
+		/obj/item/food/cake/birthday = 5,
+		/obj/item/toy/sword = 5,
+		/obj/item/choice_beacon/radial/music = 3,
+		/obj/item/toy/cards/deck/syndicate = 2,
+	)
+
 //ATMOSPHERIC TECHNICIAN
 /datum/job/atmospheric_technician
 	mail_goodies = list(
 		/obj/item/book/manual/wiki/atmospherics = 12,
 		/obj/item/tank/internals/emergency_oxygen/engi = 10,
 		/obj/item/clothing/mask/gas = 10,
-		/obj/effect/spawner/mail/maintloot = 7,
+		/obj/effect/spawner/random/maintenance = 7,
 		/obj/item/tank/internals/plasma/empty = 5,
 		/obj/item/crowbar/large = 3,
 	)
@@ -47,7 +61,7 @@
 		/obj/item/reagent_containers/cup/bottle/toxin/mutagen = 12,
 		/obj/item/grenade/chem_grenade/antiweed = 10,
 		/obj/item/gun/energy/floragun = 10,
-		/obj/item/seeds/random = 10,
+		/obj/effect/spawner/random/food_or_drink/seed_rare = 10,
 		/obj/item/scythe = 10
 	)
 
@@ -84,7 +98,7 @@
 //CARGO TECH
 /datum/job/cargo_technician
 	mail_goodies = list(
-		/obj/effect/spawner/mail/maintloot = 15,
+		/obj/effect/spawner/random/maintenance = 15,
 		/obj/item/pizzabox = 10,
 		/obj/item/ammo_box/a762 = 3,
 		//URAAAAHH
@@ -241,6 +255,7 @@
 		/obj/item/stack/marker_beacon/thirty = 5,
 		/obj/item/extraction_pack = 5,
 		/obj/item/gps/mining/exploration = 5,
+		/obj/effect/spawner/random/engineering/tool_advanced = 3,
 	)
 
 //GENETICIST
@@ -471,3 +486,9 @@
 		/obj/item/storage/box/handcuffs = 5,
 		/obj/item/melee/classic_baton/police/telescopic = 1,
 		)
+
+//Prisoner
+/datum/job/prisoner
+	mail_goodies = list(
+		/obj/effect/spawner/random/contraband/prison = 1
+	)

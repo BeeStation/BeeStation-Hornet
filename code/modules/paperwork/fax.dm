@@ -65,7 +65,7 @@
 	. = ..()
 	GLOB.fax_machines += src
 	if(!fax_id)
-		fax_id = SSnetworks.assign_random_name()
+		fax_id = assign_random_name()
 	if(!fax_name)
 		fax_name = "Unregistered Fax Machine " + fax_id
 	wires = new /datum/wires/fax(src)
@@ -233,6 +233,8 @@
  * This list expands if you snip a particular wire.
  */
 /obj/machinery/fax/proc/is_allowed_type(obj/item/item)
+	if(item?.GetComponent(/datum/component/xenoartifact))
+		return FALSE
 	if(is_type_in_list(item, allowed_types))
 		return TRUE
 	if(!allow_exotic_faxes)

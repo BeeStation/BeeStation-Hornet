@@ -1,7 +1,7 @@
 /mob/living/basic/pet
 	icon = 'icons/mob/pets.dmi'
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 	/// if the mob is protected from being renamed by collars.
@@ -16,20 +16,6 @@
 
 /mob/living/basic/pet/Initialize(mapload)
 	. = ..()
-
-	// String assoc list returns a cached list, so this is like a static list to pass into the element below.
-	var/static/list/habitable_atmos = list(
-		"min_oxy" = 5,
-		"max_oxy" = 0,
-		"min_plas" = 0,
-		"max_plas" = 1,
-		"min_co2" = 0,
-		"max_co2" = 5,
-		"min_n2" = 0,
-		"max_n2" = 0,
-	)
-
-	AddElement(/datum/element/atmos_requirements, atmos_requirements = habitable_atmos, unsuitable_atmos_damage = 1)
 
 	/// Can set the collar var beforehand to start the pet with a collar.
 	if(collar)
@@ -61,7 +47,7 @@
 		return
 
 	// Determine which status tag to add to the middle of the icon state.
-	var/dead_tag = stat == DEAD ? "_dead" : null
+	var/dead_tag = (stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH)) ? "_dead" : null
 	var/rest_tag = has_collar_resting_icon_state && resting ? "_rest" : null
 	var/stat_tag = dead_tag || rest_tag || ""
 
@@ -69,9 +55,8 @@
 	. += mutable_appearance(icon, "[collar_icon_state][stat_tag]tag")
 
 /mob/living/basic/pet/gib()
-	. = ..()
-
 	remove_collar(drop_location(), update_visuals = FALSE)
+	return ..()
 
 /mob/living/basic/pet/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE, admin_revive = FALSE, full_heal = FALSE)
 	. = ..()

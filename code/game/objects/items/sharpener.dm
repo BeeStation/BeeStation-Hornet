@@ -4,6 +4,7 @@
 	icon_state = "sharpener"
 	desc = "A block that makes things sharp."
 	force = 5
+	custom_price = 25
 	var/used = 0
 	var/increment = 4
 	var/max = 30
@@ -20,7 +21,7 @@
 	if(!I.is_sharp())
 		to_chat(user, span_warning("You can only sharpen items that are already sharp, such as knives!"))
 		return
-	if(istype(I, /obj/item/melee/transforming/energy))
+	if(is_type_in_list(I, list(/obj/item/melee/energy, /obj/item/dualsaber))) //You can't sharpen the photons in energy meelee weapons
 		to_chat(user, span_warning("You don't think \the [I] will be the thing getting modified if you use it on \the [src]!"))
 		return
 

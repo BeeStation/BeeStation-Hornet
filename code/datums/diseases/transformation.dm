@@ -7,7 +7,7 @@
 	agent = "Shenanigans"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/alien)
 	danger = DISEASE_BIOHAZARD
-	stage_prob = 10
+	stage_prob = 5
 	visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 	disease_flags = CURABLE
 	var/is_mutagenic = FALSE
@@ -29,23 +29,26 @@
 	D.new_form = D.new_form
 	return D
 
-/datum/disease/transformation/stage_act()
-	..()
+/datum/disease/transformation/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(1)
-			if (prob(stage_prob) && length(stage1))
+			if (stage1 && DT_PROB(stage_prob, delta_time))
 				to_chat(affected_mob, pick(stage1))
 		if(2)
-			if (prob(stage_prob) && length(stage2))
+			if (stage2 && DT_PROB(stage_prob, delta_time))
 				to_chat(affected_mob, pick(stage2))
 		if(3)
-			if (prob(stage_prob*2) && length(stage3))
+			if (stage3 && DT_PROB(stage_prob * 2, delta_time))
 				to_chat(affected_mob, pick(stage3))
 		if(4)
-			if (prob(stage_prob*2) && length(stage4))
+			if (stage4 && DT_PROB(stage_prob * 2, delta_time))
 				to_chat(affected_mob, pick(stage4))
 		if(5)
-			if(is_mutagenic)	//we don't do it normally
+			if(is_mutagenic) //we don't do it normally
 				form_mutagen(affected_mob)
 				return
 			do_disease_transformation(affected_mob)
@@ -77,18 +80,23 @@
 /datum/disease/transformation/proc/form_mutagen(mob/living/affected_mob)
 	return //default if something goes wrong
 
-/datum/disease/transformation/proc/replace_banned_player(var/mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
+/datum/disease/transformation/proc/replace_banned_player(mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
 
 	affected_mob.playable_bantype = bantype
 	affected_mob.ghostize(TRUE,SENTIENCE_FORCE)
 	to_chat(affected_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [affected_mob.name]?", bantype, null, 7.5 SECONDS, affected_mob, ignore_category = FALSE)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
-		affected_mob.key = C.key
+	var/datum/poll_config/config = new()
+	config.check_jobban = bantype
+	config.poll_time = 10 SECONDS
+	config.jump_target = affected_mob
+	config.alert_pic = affected_mob
+	config.role_name_text = affected_mob.name
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, affected_mob)
+	if(candidate)
+		affected_mob.key = candidate.key
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
 	else
 		to_chat(new_mob, "Your mob has been offered to ghosts! Appeal your job ban if you want to avoid this in the future!")
 
@@ -97,7 +105,7 @@
 	name = "Robotic Transformation"
 	cure_text = "An injection of copper."
 	cures = list(/datum/reagent/copper)
-	cure_chance = 5
+	cure_chance = 2.5
 	agent = "R2D2 Nanomachines"
 	desc = "An acute nanomachine infection which converts its host into a cyborg."
 	danger = DISEASE_BIOHAZARD
@@ -108,20 +116,24 @@
 	stage4	= list(span_danger("Your skin feels very loose."), span_danger("You can feel... something...inside you."))
 	stage5	= list(span_danger("Your skin feels as if it's about to burst off!"))
 	new_form = /mob/living/silicon/robot
-	infectable_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_ROBOTIC)
+	infectable_biotypes = MOB_ORGANIC | MOB_UNDEAD |  MOB_ROBOTIC
 	bantype = JOB_NAME_CYBORG
 
-/datum/disease/transformation/robot/stage_act()
-	..()
+
+/datum/disease/transformation/robot/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(3)
-			if (prob(8))
+			if (DT_PROB(4, delta_time))
 				affected_mob.say(pick("Beep, boop", "beep, beep!", "Boop...bop"), forced = "robotic transformation")
-			if (prob(4))
+			if (DT_PROB(2, delta_time))
 				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
 				affected_mob.Unconscious(40)
 		if(4)
-			if (prob(20))
+			if (DT_PROB(10, delta_time))
 				affected_mob.say(pick("beep, beep!", "Boop bop boop beep.", "kkkiiiill mmme", "I wwwaaannntt tttoo dddiiieeee..."), forced = "robotic transformation")
 
 
@@ -130,8 +142,8 @@
 	name = "Xenomorph Transformation"
 	cure_text = "Spaceacillin & Glycerol"
 	cures = list(/datum/reagent/medicine/spaceacillin, /datum/reagent/glycerol)
-	cure_chance = 5
-	agent = "Rip-LEY Alien Microbes"
+	cure_chance = 2.5
+	agent = "Rip-LEY Alien Microbes" //I would have said nostramos, personally, guy from September 2013 -rkz
 	desc = "This disease changes the victim into a xenomorph."
 	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
@@ -143,15 +155,19 @@
 	new_form = /mob/living/carbon/alien/humanoid/hunter
 	bantype = ROLE_ALIEN
 
-/datum/disease/transformation/xeno/stage_act()
-	..()
+
+/datum/disease/transformation/xeno/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(3)
-			if (prob(4))
+			if(DT_PROB(2, delta_time))
 				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
 				affected_mob.Unconscious(40)
 		if(4)
-			if (prob(20))
+			if(DT_PROB(10, delta_time))
 				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"), forced = "xenomorph transformation")
 
 
@@ -170,11 +186,16 @@
 	stage5	= list(span_danger("You have become a slime."))
 	new_form = /mob/living/simple_animal/slime
 
-/datum/disease/transformation/slime/stage_act()
-	..()
+/datum/disease/transformation/slime/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	var/mob/living/carbon/H = affected_mob
 	if(H.bodytemperature < T0C)
 		cure()
+		return FALSE
+
 	switch(stage)
 		if(1)
 			if(ishuman(affected_mob) && affected_mob.dna)
@@ -201,14 +222,16 @@
 	stage5	= list(span_danger("AUUUUUU!!!"))
 	new_form = /mob/living/basic/pet/dog/corgi
 
-/datum/disease/transformation/corgi/stage_act()
-	..()
+/datum/disease/transformation/corgi/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
 	switch(stage)
 		if(3)
-			if (prob(8))
+			if (DT_PROB(4, delta_time))
 				affected_mob.say(pick("YAP", "Woof!"), forced = "corgi transformation")
 		if(4)
-			if (prob(20))
+			if (DT_PROB(10, delta_time))
 				affected_mob.say(pick("Bark!", "AUUUUUU"), forced = "corgi transformation")
 
 /datum/disease/transformation/morph
@@ -217,7 +240,7 @@
 	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "Gluttony's Blessing"
 	desc = "A 'gift' from somewhere terrible."
-	stage_prob = 20
+	stage_prob = 10
 	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("Your stomach rumbles.")
@@ -226,14 +249,14 @@
 	stage4	= list(span_danger("You're ravenous."))
 	stage5	= list(span_danger("You have become a morph."))
 	new_form = /mob/living/simple_animal/hostile/morph
-	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD) //magic!
+	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD //magic!
 
 /datum/disease/transformation/gondola
 	name = "Gondola Transformation"
 	cure_text = "Condensed Capsaicin, ingested or injected." //getting pepper sprayed doesn't help
 	cures = list(/datum/reagent/consumable/condensedcapsaicin) //beats the hippie crap right out of your system
-	cure_chance = 80
-	stage_prob = 5
+	cure_chance = 55
+	stage_prob = 2.5
 	agent = "Tranquility"
 	desc = "Consuming the flesh of a Gondola comes at a terrible price."
 	danger = DISEASE_BIOHAZARD
@@ -245,28 +268,33 @@
 	stage5	= list(span_danger("You have become a Gondola."))
 	new_form = /mob/living/basic/pet/gondola
 
-/datum/disease/transformation/gondola/stage_act()
-	..()
+
+/datum/disease/transformation/gondola/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(2)
-			if (prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("smile")
-			if (prob(20))
+			if(DT_PROB(10, delta_time))
 				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
 		if(3)
-			if (prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("smile")
-			if (prob(20))
+			if(DT_PROB(10, delta_time))
 				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
 		if(4)
-			if (prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("smile")
-			if (prob(20))
+			if(DT_PROB(10, delta_time))
 				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
-			if (prob(2))
-				to_chat(affected_mob, span_danger("You let go of what you were holding."))
-				var/obj/item/I = affected_mob.get_active_held_item()
-				affected_mob.dropItemToGround(I)
+			if(DT_PROB(1, delta_time))
+				var/obj/item/held_item = affected_mob.get_active_held_item()
+				if(held_item)
+					to_chat(affected_mob, "<span class='danger'>You let go of what you were holding.</span>")
+					affected_mob.dropItemToGround(held_item)
 
 /datum/disease/transformation/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis"
@@ -286,7 +314,7 @@
 	stage3	= list(span_danger("You feel the need to cough out something fluffy."), span_danger("You feel the need to scratch your neck with your foot."), span_danger("You think you should adopt a cat."))
 	stage4	= list(span_danger("You start thinking that felinids are not that bad after all!"), span_danger("You feel scared at the thought of eating chocolate."))
 	stage5	= list(span_danger("You have become a catperson."))
-	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD) //Nothing evades the curse!
+	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD //Nothing evades the curse!
 	new_form = /mob/living/carbon/human/species/felinid
 
 /datum/disease/transformation/felinid/stage_act()
@@ -387,7 +415,7 @@
 	stage4	= list(span_userdanger("The planet's core calls to you... Lavaland is your home."), span_danger("A thousand voices beckon you to join them."))
 	stage5	= list(span_userdanger("You have become one of Legion. You are one with the Necropolis now, and have no other loyalties. Serve well."))
 	new_form = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
-	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD)
+	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD
 
 /datum/disease/transformation/psyphoza
 	name = "Acute Fungal Infection"
@@ -407,5 +435,5 @@
 	stage3	= list(span_danger("Your vision dims briefly."))
 	stage4	= list(span_danger("You sense something you can't see."))
 	stage5	= list(span_danger("Your head sprouts a cap, and your eyes rupture."))
-	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD)
+	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD
 	new_form = /mob/living/carbon/human/species/psyphoza

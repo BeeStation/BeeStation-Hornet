@@ -7,13 +7,13 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "shield_belt"
-	item_state = "security"
+	inhand_icon_state = "security"
 	worn_icon_state = "shield_belt"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	var/max_shield_integrity = 80
 
-/obj/item/shield_belt/ComponentInitialize()
+/obj/item/shield_belt/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/shielded, max_integrity = max_shield_integrity, charge_recovery = 10, shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_INVISIBLE | ENERGY_SHIELD_EMP_VULNERABLE, on_active_effects = CALLBACK(src, PROC_REF(add_shield_effects)), on_deactive_effects = CALLBACK(src, PROC_REF(remove_shield_effects)), on_integrity_changed = CALLBACK(src, PROC_REF(update_shield_health)))
 

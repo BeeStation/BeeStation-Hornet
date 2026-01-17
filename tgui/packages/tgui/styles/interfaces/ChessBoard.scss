@@ -1,0 +1,61 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss';
+
+.ChessBoard_Slot {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  border: 4px outset greenyellow;
+}
+
+.ChessBoard_Text {
+  vertical-align: bottom;
+  pointer-events: none;
+  position: absolute;
+  width: 200%;
+  left: -50%;
+  font-weight: bold;
+  font-family: monospace;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 18px;
+  text-shadow:
+    -1px -1px 1px black,
+    1px -1px 1px black,
+    -1px 1px 1px black,
+    1px 1px 1px black;
+  color: white;
+  z-index: 1;
+}
+
+.ChessBoard_Outline {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 3px outset black;
+  opacity: 0.7;
+}
+
+.ChessBoard_Slot:hover {
+  opacity: 1;
+}
+
+.ChessBoard_Box {
+  height: 100%;
+  width: 100%;
+}
+
+.ChessBoard_Icon {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  right: 35%;
+  bottom: 20%;
+}

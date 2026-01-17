@@ -8,32 +8,31 @@
 	check_flags = AB_CHECK_DEAD
 
 /datum/action/changeling/regenerate/sting_action(mob/living/user)
+	if(!iscarbon(user))
+		to_chat(user, span_notice("You have nothing to regenerate in this state!"))
+		return FALSE
+
 	..()
 	to_chat(user, span_notice("You feel an itching, both inside and outside as your tissues knit and reknit."))
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		var/list/missing = C.get_missing_limbs()
-		if(missing.len)
-			playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)
-			C.visible_message(span_warning("[user]'s missing limbs reform, making a loud, grotesque sound!"),
-								span_userdanger("Your limbs regrow, making a loud, crunchy sound and giving you great pain!"),
-								span_italics("You hear organic matter ripping and tearing!"))
-			C.emote("scream")
-			C.regenerate_limbs(1)
-		if(!user.getorganslot(ORGAN_SLOT_BRAIN))
-			var/obj/item/organ/brain/B
-			if(C.has_dna() && C.dna.species.mutantbrain)
-				B = new C.dna.species.mutantbrain()
-			else
-				B = new()
-			B.organ_flags &= ~ORGAN_VITAL
-			B.decoy_override = TRUE
-			B.Insert(C)
-		C.regenerate_organs()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.restore_blood()
-		H.remove_all_embedded_objects()
+	var/mob/living/carbon/carbon_user = user
+	if(length(carbon_user.get_missing_limbs()))
+		playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+		carbon_user.visible_message(
+			span_warning("[user]'s missing limbs reform, making a loud, grotesque sound!"),
+			span_userdanger("Your limbs regrow, making a loud, crunchy sound and giving you great pain!"),
+			span_hear("You hear organic matter ripping and tearing!"),
+		)
+
+		carbon_user.emote("scream")
+
+	carbon_user.fully_heal(HEAL_BODY)
+
+	// Make sure the brain's nonvital
+	// Shouldn't be necessary but you can never be certain with lingcode
+	var/obj/item/organ/brain/replacement_brain = user.get_organ_slot(ORGAN_SLOT_BRAIN)
+	replacement_brain.organ_flags &= ~ORGAN_VITAL
+	replacement_brain.decoy_override = TRUE
+
 	return TRUE
 
 /datum/action/changeling/limbsnake
@@ -91,11 +90,10 @@
 	response_disarm_simple = "shoo"
 	response_harm_continuous = "steps on"
 	response_harm_simple = "step on"
-	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	chat_color = "#26F55A"
@@ -104,3 +102,7 @@
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
 	discovery_points = 1000
+
+/mob/living/simple_animal/hostile/poison/limbsnake/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)

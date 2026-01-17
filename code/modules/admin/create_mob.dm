@@ -12,13 +12,13 @@
 
 /proc/randomize_human(mob/living/carbon/human/H, unique = FALSE)
 	H.gender = pick(MALE, FEMALE)
-	H.real_name = random_unique_name(H.gender)
+	H.real_name = H.generate_random_mob_name()
 	H.name = H.real_name
 	H.underwear = random_underwear(H.gender)
 	H.socks = random_socks(H.gender)
 	H.undershirt = random_undershirt(H.undershirt)
 	H.underwear_color = random_short_color()
-	H.skin_tone = random_skin_tone()
+	H.skin_tone = pick(GLOB.skin_tones)
 	H.eye_color = random_eye_color()
 	H.dna.blood_type = random_blood_type()
 
@@ -91,4 +91,5 @@
 
 	H.update_body()
 	H.update_hair()
+	H.dna.species.spec_updatehealth(H)
 

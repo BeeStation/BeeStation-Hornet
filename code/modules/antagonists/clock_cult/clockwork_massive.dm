@@ -1,12 +1,20 @@
 GLOBAL_LIST_INIT(clockwork_portals, list())
 
+/proc/flee_reebe()
+	for(var/mob/living/M in GLOB.mob_list)
+		if(!is_reebe(M.z))
+			continue
+		var/safe_place = find_safe_turf()
+		M.forceMove(safe_place)
+		if(!IS_SERVANT_OF_RATVAR(M))
+			M.SetSleeping(50)
+
 /obj/structure/destructible/clockwork/massive/celestial_gateway
 	name = "\improper Ark of the Clockwork Justiciar"
 	desc = "A massive, hulking amalgamation of parts. It seems to be maintaining a very unstable bluespace anomaly."
 	clockwork_desc = "Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
 	its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs."
 	max_integrity = 1000
-	max_hit_damage = 25
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
@@ -37,7 +45,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/mob/living/M in GLOB.player_list)
 		if(!is_reebe(M.z))
 			continue
-		if(is_servant_of_ratvar(M))
+		if(IS_SERVANT_OF_RATVAR(M))
 			to_chat(M, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i>"))
 			continue
 		var/safe_place = find_safe_turf()
@@ -79,7 +87,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_disrupted.ogg'))
 	for(var/mob/M in GLOB.player_list)
 		var/turf/T = get_turf(M)
-		if((T && T.get_virtual_z_level() == get_virtual_z_level()) || is_servant_of_ratvar(M))
+		if((T && T.get_virtual_z_level() == get_virtual_z_level()) || IS_SERVANT_OF_RATVAR(M))
 			M.playsound_local(M, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
 	addtimer(CALLBACK(src, PROC_REF(last_call)), 27)
 
@@ -93,7 +101,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	addtimer(CALLBACK(src, PROC_REF(clockies_win)), 300)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/clockies_win()
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = FORCE_END_ROUND
 	qdel(src)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
@@ -133,7 +141,6 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		SEND_SOUND(servant, 'sound/machines/clockcult/ark_recall.ogg')
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
-	set_dynamic_high_impact_event("clockwork ark has opened")
 	activated = TRUE
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
@@ -157,7 +164,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		if(!LAZYLEN(spawns))	//Just in case :^)
 			spawns = GLOB.servant_spawns.Copy()
 		if(ishuman(servant) && add_overlay)
-			var/datum/antagonist/servant_of_ratvar/servant_antag = is_servant_of_ratvar(servant)
+			var/datum/antagonist/servant_of_ratvar/servant_antag = IS_SERVANT_OF_RATVAR(servant)
 			if(servant_antag)
 				servant_antag.forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 				servant.add_overlay(servant_antag.forbearance)
@@ -206,7 +213,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	resistance_flags |= INDESTRUCTIBLE
 	for(var/mob/living/M in GLOB.all_servants_of_ratvar)
-		M.status_flags |= GODMODE
+		ADD_TRAIT(M, TRAIT_GODMODE, TRAIT_GENERIC)
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
 	GLOB.ratvar_risen = TRUE
 	var/original_matrix = matrix()
@@ -282,9 +289,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/eldritch/ratvar)
 					SEND_SOUND(world, 'sound/magic/demon_dies.ogg')
 					to_chat(world, span_ratvar("You were a fool for underestimating me..."))
 					qdel(ratvar_target)
-					for(var/datum/mind/M as() in SSticker.mode?.cult)
-						to_chat(M, span_userdanger("You feel a stabbing pain in your chest... This can't be happening!"))
-						M.current?.dust()
+					for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+						to_chat(cult_mind, span_userdanger("You feel a stabbing pain in your chest... This can't be happening!"))
+						cult_mind.current?.dust()
 				return
 
 /obj/eldritch/ratvar/consume(atom/A)

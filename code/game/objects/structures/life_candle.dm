@@ -24,7 +24,7 @@
 	var/respawn_time = 50
 	var/respawn_sound = 'sound/magic/staff_animation.ogg'
 
-/obj/structure/life_candle/ComponentInitialize()
+/obj/structure/life_candle/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/movetype_handler)
 
@@ -91,8 +91,7 @@
 		mind.transfer_to(body)
 	else
 		body.forceMove(T)
-		body.revive(1,1)
-	mind.grab_ghost(TRUE)
+		body.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE)
 	body.flash_act()
 
 	if(ishuman(body) && istype(outfit))

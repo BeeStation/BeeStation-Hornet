@@ -55,21 +55,4 @@
 	// players could be found, and just runtime if anything else happens
 	return TRUE
 
-/datum/round_event/ghost_role/proc/get_candidates(banning_key, role_preference, poll_ignore = null)
-	// Returns a list of candidates in priority order, with candidates from
-	// `priority_candidates` first, and ghost roles randomly shuffled and
-	// appended after
-	var/list/mob/dead/observer/regular_candidates
-	// don't get their hopes up
-	if(priority_candidates.len < minimum_required)
-		regular_candidates = poll_ghost_candidates("Do you wish to be considered for the special role of '[role_name]'?", banning_key, role_preference, ignore_category = poll_ignore)
-	else
-		regular_candidates = list()
-
-	shuffle_inplace(regular_candidates)
-
-	var/list/candidates = priority_candidates + regular_candidates
-
-	return candidates
-
 #undef MAX_SPAWN_ATTEMPT

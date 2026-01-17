@@ -8,3 +8,5 @@
 #define METACOIN_NOTSURVIVE_REWARD       10
 /// Rewarded when you are alive and active for 10 minutes
 #define METACOIN_TENMINUTELIVING_REWARD  4
+/// Rewarded when you started the round ready
+#define METACOIN_READY_UP_REWARD  40

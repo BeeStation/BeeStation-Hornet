@@ -95,7 +95,9 @@
  */
 SUBSYSTEM_DEF(spatial_grid)
 	can_fire = FALSE
-	init_order = INIT_ORDER_SPATIAL_GRID
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+	)
 	name = "Spatial Grid"
 
 	///list of the spatial_grid_cell datums per z level, arranged in the order of y index then x index
@@ -131,7 +133,7 @@ SUBSYSTEM_DEF(spatial_grid)
 			if(movable_turf)
 				enter_cell(movable, movable_turf)
 
-			UnregisterSignal(movable, COMSIG_PARENT_PREQDELETED)
+			UnregisterSignal(movable, COMSIG_PREQDELETED)
 			waiting_to_add_by_type[channel_type] -= movable
 
 	pregenerate_more_oranges_ears(NUMBER_OF_PREGENERATED_ORANGES_EARS)
@@ -143,7 +145,7 @@ SUBSYSTEM_DEF(spatial_grid)
 
 ///add a movable to the pre init queue for whichever type is specified so that when the subsystem initializes they get added to the grid
 /datum/controller/subsystem/spatial_grid/proc/enter_pre_init_queue(atom/movable/waiting_movable, type)
-	RegisterSignal(waiting_movable, COMSIG_PARENT_PREQDELETED, PROC_REF(queued_item_deleted), override = TRUE)
+	RegisterSignal(waiting_movable, COMSIG_PREQDELETED, PROC_REF(queued_item_deleted), override = TRUE)
 	//override because something can enter the queue for two different types but that is done through unrelated procs that shouldnt know about eachother
 	waiting_to_add_by_type[type] += waiting_movable
 
@@ -158,11 +160,11 @@ SUBSYSTEM_DEF(spatial_grid)
 				waiting_movable_is_in_other_queues = TRUE
 
 		if(!waiting_movable_is_in_other_queues)
-			UnregisterSignal(movable_to_remove, COMSIG_PARENT_PREQDELETED)
+			UnregisterSignal(movable_to_remove, COMSIG_PREQDELETED)
 
 		return
 
-	UnregisterSignal(movable_to_remove, COMSIG_PARENT_PREQDELETED)
+	UnregisterSignal(movable_to_remove, COMSIG_PREQDELETED)
 	for(var/type in waiting_to_add_by_type)
 		waiting_to_add_by_type[type] -= movable_to_remove
 
@@ -297,7 +299,7 @@ SUBSYSTEM_DEF(spatial_grid)
 	var/cells_on_x_axis = src.cells_on_x_axis
 
 	//technically THIS list only contains lists, but inside those lists are grid cell datums and we can go without a SINGLE var init if we do this
-	var/list/datum/spatial_grid_cell/grid_level = grids_by_z_level[center_turf.z]
+	var/list/list/datum/spatial_grid_cell/grid_level = grids_by_z_level[center_turf.z]
 	switch(type)
 		if(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
 			for(var/row in BOUNDING_BOX_MIN(center_y) to BOUNDING_BOX_MAX(center_y, cells_on_y_axis))

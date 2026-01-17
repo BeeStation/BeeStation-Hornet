@@ -40,7 +40,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/space/nearstation
 	icon_state = "space_near"
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	default_gravity = ZERO_GRAVITY
 
 /area/start
@@ -78,30 +78,33 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
-/area/asteroid/paradise
+/area/paradise
 	name = "paradise"
 	icon_state = "asteroid"
 	outdoors = TRUE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
 	camera_networks = list(CAMERA_NETWORK_STATION)
+	requires_power = FALSE
 
-/area/asteroid/paradise/surface
+/area/paradise/surface
 	name = "paradise surface"
 	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 	sound_environment = null
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_STASH_LOCATION
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
-/area/asteroid/paradise/surface/sand
+/area/paradise/surface/sand
 	name = "paradise surface sand"
 	map_generator = /datum/map_generator/grass_generator
 
-/area/asteroid/paradise/surface/water
+/area/paradise/surface/water
 	name = "paradise surface water"
 	ambientsounds = list('sound/ambience/shore.ogg')
 	mood_bonus = 1
 	mood_message = span_warning("The waves sound nice.\n")
 
-/area/asteroid/paradise/surface/grass
+/area/paradise/surface/grass
 	name = "paradise surface grass"
 	map_generator = /datum/map_generator/grass_generator
 
@@ -270,6 +273,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
 
+//Maintenance - Cardstation's club
+
+/area/maintenance/club
+	name = "Abandoned Club"
+	icon_state = "yellow"
 
 //Maintenance - Generic
 
@@ -344,6 +352,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/disposal/incinerator
 	name = "Incinerator"
 	icon_state = "incinerator"
+	disable_air_alarm_automation = TRUE
 
 //Maintenance - Upper
 
@@ -622,6 +631,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
+	disable_air_alarm_automation = TRUE
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 /area/server
@@ -630,6 +640,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
+	disable_air_alarm_automation = TRUE
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 //Crew
@@ -708,6 +719,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Lounge"
 	icon_state = "yellow"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/crew_quarters/barbershop
+	name = "Barbershop"
+	icon_state = "yellow"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/crew_quarters/fitness
 	name = "Fitness Room"
@@ -914,6 +930,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
+	disable_air_alarm_automation = TRUE
 
 /area/engine/engine_room //donut station specific
 	name = "Engine Room"
@@ -932,6 +949,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
+	disable_air_alarm_automation = TRUE
 
 /area/engine/break_room
 	name = "Engineering Foyer"
@@ -967,7 +985,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar
 	//requires_power = FALSE /* YOU WISH FOR INFINITE POWER YOU STINGY CHEAPO, TOO BAD */
 	always_unpowered = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	area_flags = UNIQUE_AREA | NO_GRAVITY
 	flags_1 = NONE
 	ambience_index = AMBIENCE_ENGI
@@ -1180,6 +1197,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Auxillery Surgery"
 	icon_state = "surgery"
 
+/area/medical/booth
+	name = "Medical Booth"
+
 /area/medical/cryo
 	name = "Cryogenics"
 	icon_state = "cryo"
@@ -1266,7 +1286,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/processing
 	name = "Labor Shuttle Dock"
 	icon_state = "sec_prison"
-	camera_networks = list(CAMERA_NETWORK_PRISON)
+	camera_networks = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /area/security/processing/cremation
 	name = "Security Crematorium"
@@ -1284,10 +1304,48 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
 
+/area/security/detectives_office/Exited(atom/movable/a, atom/oldloc)
+	..()
+	if (!isliving(a))
+		return
+
+	var/mob/living/living_a = a
+	if(!(HAS_TRAIT(living_a, TRAIT_NOIR)))
+		return
+
+	REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
+	if(ishuman(a))
+		var/mob/living/carbon/human/human_a = a
+		if (human_a.has_quirk(/datum/quirk/monochromatic))
+			return
+
+	living_a.remove_client_colour(/datum/client_colour/monochrome)
+
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"
 	icon_state = "detective"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/security/interrogation_room
+	name = "Interrogation Room"
+	icon_state = "interrogation"
+
+/area/security/interrogation_room/Exited(atom/movable/a, atom/oldloc)
+	..()
+	if (!isliving(a))
+		return
+
+	var/mob/living/living_a = a
+	if(!(HAS_TRAIT(living_a, TRAIT_NOIR)))
+		return
+
+	REMOVE_TRAIT(living_a, TRAIT_NOIR, TRAIT_GENERIC)
+	if(ishuman(a))
+		var/mob/living/carbon/human/human_a = a
+		if (human_a.has_quirk(/datum/quirk/monochromatic))
+			return
+
+	living_a.remove_client_colour(/datum/client_colour/monochrome)
 
 /area/security/range
 	name = "Firing Range"
@@ -1555,6 +1613,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Toxins Mixing Chamber"
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "tox_mix_chamber"
+	disable_air_alarm_automation = TRUE
 
 /area/science/misc_lab
 	name = "Testing Lab"
@@ -1727,6 +1786,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "eva"
 	ambience_index = AMBIENCE_DANGER
 	color_correction = /datum/client_colour/area_color/cold_ish
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/ai_monitored/storage/satellite
 	name = "AI Satellite Maint"
@@ -1807,9 +1867,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "For safety reasons, warping here is disallowed; the radio and bluespace noise could cause catastrophic results."
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
-											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
-	network_root_id = STATION_NETWORK_ROOT	// They should of unpluged the router before they left
+	ambientsounds = list(
+		'sound/ambience/ambisin2.ogg',
+		'sound/ambience/signal.ogg',
+		'sound/ambience/signal.ogg',
+		'sound/ambience/ambigen10.ogg',
+		'sound/ambience/ambitech.ogg',
+		'sound/ambience/ambitech2.ogg',
+		'sound/ambience/ambitech3.ogg',
+		'sound/ambience/ambimystery.ogg'
+	)
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	camera_networks = list(CAMERA_NETWORK_MINISAT, CAMERA_NETWORK_ENGINEERING, CAMERA_NETWORK_TCOMMS)
 
@@ -1828,3 +1895,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat/relay
 	name = "Telecommunications Relay"
 	icon_state = "tcom_sat_cham"
+
+//Flavor area on Card Station
+
+/area/syndicate_sat
+	name = "Starboard Aft Bathroom" //syndies are spoofing sensor area reading
+	icon_state = "syndie-control"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED

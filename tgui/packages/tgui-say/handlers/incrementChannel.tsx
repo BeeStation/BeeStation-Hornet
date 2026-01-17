@@ -1,4 +1,8 @@
-import { CHANNELS, CYCLEABLE_CHANNELS, RESTRICTED_CHANNELS } from '../constants';
+import {
+  CHANNELS,
+  CYCLEABLE_CHANNELS,
+  RESTRICTED_CHANNELS,
+} from '../constants';
 import { Modal } from '../types';
 
 /**

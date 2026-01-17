@@ -121,16 +121,14 @@
 	to_chat(src, span_danger("Warning: Electromagnetic pulse detected."))
 	if(. & EMP_PROTECT_SELF)
 		return
-	switch(severity)
-		if(1)
-			src.take_bodypart_damage(burn = 20)
-		if(2)
-			src.take_bodypart_damage(burn = 10)
-	to_chat(src, span_userdanger("*BZZZT*"))
+
+	//Light EMP does 20 damage, heavy EMP does 40.
+	adjustFireLoss(40/severity, FALSE)
+
 	for(var/mob/living/M in buckled_mobs)
 		if(prob(100/severity))
 			unbuckle_mob(M)
-			M.Paralyze(40)
+			M.Paralyze(4 SECONDS)
 			M.visible_message(span_boldwarning("[M] is thrown off of [src]!"))
 	flash_act(affect_silicon = 1)
 
@@ -148,7 +146,7 @@
 			for(var/mob/living/M in buckled_mobs)
 				M.visible_message(span_boldwarning("[M] is knocked off of [src]!"))
 				unbuckle_mob(M)
-				M.Paralyze(40)
+				M.Paralyze(4 SECONDS)
 	if(Proj.stun || Proj.knockdown || Proj.paralyze)
 		for(var/mob/living/M in buckled_mobs)
 			unbuckle_mob(M)

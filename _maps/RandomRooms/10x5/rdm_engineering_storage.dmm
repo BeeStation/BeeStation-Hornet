@@ -42,9 +42,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/machinery/power/tesla_coil{
-	anchored = 1
-	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
@@ -85,7 +83,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
-/obj/effect/spawner/lootdrop/techstorage/engineering,
+/obj/effect/spawner/random/techstorage/engineering_all,
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (

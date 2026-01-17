@@ -34,6 +34,10 @@
 	moveToNullspace()
 	return QDEL_HINT_QUEUE
 
+/// Override to define loot blacklist behavior
+/obj/effect/spawner/proc/can_spawn(atom/loot)
+	return TRUE
+
 /obj/effect/list_container
 	name = "list container"
 
@@ -47,7 +51,7 @@
 	name = "thermite"
 	desc = "Looks hot."
 	icon = 'icons/effects/fire.dmi'
-	icon_state = "2" //what?
+	icon_state = "medium" //what?
 	anchored = TRUE
 	opacity = FALSE
 	density = FALSE

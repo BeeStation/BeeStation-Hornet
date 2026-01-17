@@ -11,8 +11,15 @@
 
 /mob/living/carbon/monkey/punpun/Initialize(mapload)
 	// Init our blacklists.
-	relic_hat_blacklist = typecacheof(list(/obj/item/clothing/head/chameleon,/obj/item/clothing/head/helmet/monkey_sentience_helmet), only_root_path = TRUE)
-	relic_mask_blacklist = typecacheof(list(/obj/item/clothing/mask/facehugger, /obj/item/clothing/mask/chameleon), only_root_path = TRUE)
+	relic_hat_blacklist = typecacheof(list(
+		/obj/item/clothing/head/chameleon,
+		/obj/item/clothing/head/helmet/monkey_sentience_helmet,
+	), only_root_path = TRUE)
+
+	relic_mask_blacklist = typecacheof(list(
+		/obj/item/clothing/mask/facehugger,
+		/obj/item/clothing/mask/chameleon,
+	), only_root_path = TRUE)
 
 	// Read memory
 	Read_Memory()
@@ -34,7 +41,7 @@
 	if(relic_mask && !is_type_in_typecache(relic_mask, relic_mask_blacklist))
 		equip_to_slot_or_del(new relic_mask, ITEM_SLOT_MASK)
 
-/mob/living/carbon/monkey/punpun/Life()
+/mob/living/carbon/monkey/punpun/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
 		Write_Memory(FALSE, FALSE)
 		memory_saved = TRUE
