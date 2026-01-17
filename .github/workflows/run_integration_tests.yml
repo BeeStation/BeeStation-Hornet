@@ -19,20 +19,36 @@ on:
 
 jobs:
   run_integration_tests:
+    # If `inputs.major` is specified, this will output `Run Tests (major.minor; map; max)`.
+    # For example, `Run Tests (515.1627; runtimestation; 515)`.
+    #
+    # Otherwise, it will output `Run Tests (map; max)`.
+    # For example, `Run Tests (runtimestation; 515)`.
+    name: Run Tests (${{ inputs.major && format('{0}.{1}; ', inputs.major, inputs.minor) || '' }}${{ inputs.map }}; ${{ inputs.max_required_byond_client }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Restore BYOND cache
-        uses: actions/cache@v4
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: ~/BYOND
-          key: ${{ runner.os }}-byond-${{ hashFiles('dependencies.sh') }}
+          major: ${{ inputs.major }}
+          minor: ${{ inputs.minor }}
+      - name: Download build outputs
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact-${{ inputs.major || env.BYOND_MAJOR }}-${{ inputs.minor || env.BYOND_MINOR}}
+          path: ./
       - name: Setup database
+        env:
+          MYSQL_CONFIG_FILE: tools/ci/mysql_config.cnf
         run: |
           sudo systemctl start mysql
-          mysql -u root -proot -e 'CREATE DATABASE bee_ci;'
-          mysql -u root -proot bee_ci < SQL/beestation_schema.sql
+          mysql --defaults-extra-file=${{ env.MYSQL_CONFIG_FILE }} -e 'CREATE DATABASE bee_ci;'
+          mysql --defaults-extra-file=${{ env.MYSQL_CONFIG_FILE }} bee_ci < SQL/beestation_schema.sql
+          echo "Sucessful MySQL Database Setup"
+      - name: Setup Node
+        uses: ./.github/actions/setup_node
       - name: Install rust-g
         run: |
           bash tools/ci/install_rust_g.sh
@@ -40,26 +56,29 @@ jobs:
 #      - name: Install dreamluau
 #        run: |
 #          bash tools/ci/install_dreamluau.sh
-      - name: Install curl
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt update || true
-          sudo apt install -o APT::Immediate-Configure=false curl:i386
-      - name: Configure version
-        run: |
-          echo "BYOND_MAJOR=${{ inputs.major }}" >> $GITHUB_ENV
-          echo "BYOND_MINOR=${{ inputs.minor }}" >> $GITHUB_ENV
-        if: ${{ inputs.major }}
-      - name: Compile Tests
-        id: compile_tests
-        run: |
-          bash tools/ci/install_byond.sh
-          source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build --ci dm -DCIBUILDING -DANSICOLORS -Werror -ITG0001 -I"loop_checks"
       - name: Run Tests
+        id: run_tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           bash tools/ci/run_server.sh ${{ inputs.map }}
+      - name: On test fail, write a step summary
+        if: always() && steps.run_tests.outcome == 'failure'
+        run: |
+          # Get a JSON array of failed unit tests
+          FAILED_UNIT_TESTS=$(jq 'to_entries | map(.value | select(.status == 1))' data/unit_tests.json)
+          FAIL_COUNT=$(echo $FAILED_UNIT_TESTS | jq 'length')
+          echo "# Test failures" >> $GITHUB_STEP_SUMMARY
+          echo "$FAIL_COUNT tests failed." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          for i in $( seq $FAIL_COUNT ); do
+            CURRENT_FAIL=$(echo $FAILED_UNIT_TESTS | jq --arg i $i '.[($i | tonumber) - 1]')
+            TEST=$(echo $CURRENT_FAIL | jq --raw-output '.name')
+            echo "### $TEST" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo $CURRENT_FAIL | jq --raw-output '.message' >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          done
       - name: Upload screenshot tests
         if: always()
         uses: actions/upload-artifact@v4
