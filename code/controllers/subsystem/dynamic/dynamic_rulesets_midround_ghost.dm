@@ -54,7 +54,7 @@
 	get_candidates()
 	trim_candidates()
 
-	// Don't even send applications out if we don't have enough candidates
+	// Don't send applications out if we don't have enough candidates
 	if(!allowed())
 		make_persistent(FALSE)
 		return DYNAMIC_EXECUTE_WAITING
@@ -145,24 +145,24 @@
  * Send a poll to ghosts to see if they wanna sign up for a ruleset
  */
 /datum/dynamic_ruleset/midround/ghost/proc/send_applications()
-	// How?
-	if(!length(candidates))
-		return
+	// Helper vars to avoid repeated logic
+	var/amount_of_candidates = length(candidates)
+	var/multiple_candidates = amount_of_candidates > 1
 
-	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
-	log_dynamic("MIDROUND: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
+	message_admins("DYNAMIC: Polling [amount_of_candidates] player[multiple_candidates ? "s" : ""] to apply for [src].")
+	log_dynamic("MIDROUND: Polling [amount_of_candidates] player[multiple_candidates ? "s" : ""] to apply for [src].")
 
 	var/datum/poll_config/config = new()
 	config.role_name_text = initial(antag_datum.name)
 	config.alert_pic = get_poll_icon()
 	candidates = SSpolling.poll_ghost_candidates(config)
 
-	if(length(candidates) >= drafted_players_amount)
-		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
-		log_dynamic("[length(candidates)] player\s volunteered for the ruleset [src].")
+	if(amount_of_candidates >= drafted_players_amount)
+		message_admins("DYNAMIC: [amount_of_candidates] player[multiple_candidates ? "s" : ""] volunteered for [src].")
+		log_dynamic("[amount_of_candidates] player[multiple_candidates ? "s" : ""] volunteered for [src].")
 
 /**
- * Spawn a body for the chosen candidate
+ * Spawn a body for the chosen candidate, returns said body
  */
 /datum/dynamic_ruleset/midround/ghost/proc/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/carbon/human/new_body = makeBody(chosen_mob)
@@ -702,16 +702,14 @@
 	if(!allowed())
 		return DYNAMIC_EXECUTE_FAILURE
 
-	// Get ghost candidates
 	send_applications()
-	// Trim candidates
 	trim_candidates()
 
 	// Spawn prisoners
 	var/turf/landing_turf = pick(spawn_locations)
 	if(spawn_fugitives(landing_turf, candidates, list()) == NOT_ENOUGH_PLAYERS)
-		message_admins("DYNAMIC: Not enough players volunteered for the [src] rulset - [length(candidates)] out of [drafted_players_amount].")
-		log_dynamic("NOT ALLOWED: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
+		message_admins("DYNAMIC: Not enough players volunteered for [src] - [length(candidates)]/[drafted_players_amount].")
+		log_dynamic("MIDROUND: FAIL: Not enough players volunteered for [src] - [length(candidates)]/[drafted_players_amount].")
 		return DYNAMIC_EXECUTE_FAILURE
 
 	return DYNAMIC_EXECUTE_SUCCESS

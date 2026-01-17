@@ -1,0 +1,50 @@
+{
+	"Name": "Lost Traditions",
+	"Description": "A classic experience, roundstart antagonists are the same type and midrounds are random and ignore the station's state.",
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 1,
+		"roundstart_divergence_percent_upper": 1,
+		"roundstart_points_per_ready": 1,
+		"roundstart_points_per_unready": 0.5,
+		"midround_grace_period": 12000,
+		"midround_linear_delta": 0,
+		"midround_linear_delta_forced": 0.7,
+		"midround_dead_security_delta": 0,
+		"midround_living_delta": 0,
+        "midround_observer_delta": 0,
+        "midround_dead_delta": 0,
+		"midround_light_end_time": 60,
+		"midround_medium_end_time": 120,
+		"midround_medium_increase_ratio": 1,
+		"latejoin_ruleset_probability": 10,
+		"latejoin_max_rulesets": 1
+	},
+	"Roundstart": {
+		"Traitor": {
+			"points_cost": 6,
+			"restricted_roles": [
+				"Cyborg",
+				"AI"
+			],
+			"elasticity": 100
+		},
+		"Revolution": {
+			"points_cost": 100
+		},
+		"Clown Operatives": {
+			"points_cost": 500
+		},
+		"Changeling": {
+			"elasticity": 100
+		},
+		"Vampire": {
+			"elasticity": 100
+		},
+		"Blood Brothers": {
+			"elasticity": 100
+		},
+		"Heretic": {
+			"elasticity": 100
+		}
+	}
+}
