@@ -1440,6 +1440,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 ///For when you want to add/update the embedding on an item. Uses the vars in [/obj/item/embedding], and defaults to config values for values that aren't set. Will automatically detach previous embed elements on this item.
 /obj/item/proc/updateEmbedding()
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(!islist(embedding) || !LAZYLEN(embedding))
 		return
 

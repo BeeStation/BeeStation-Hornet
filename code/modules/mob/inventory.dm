@@ -519,7 +519,6 @@
 				path = /obj/item/bodypart/arm/right
 
 			var/obj/item/bodypart/BP = new path ()
-			BP.owner = src
 			BP.held_index = i
 			BP.try_attach_limb(src, TRUE)
 			hand_bodyparts[i] = BP

@@ -929,10 +929,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		set_handcuffed(null)
 		update_handcuffed()
 
-	// heal ears after healing traits, since ears check TRAIT_DEAF trait
-	// when healing.
-	restoreEars()
-
 	return ..()
 
 /mob/living/carbon/can_be_revived()

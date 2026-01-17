@@ -70,7 +70,7 @@
 
 /obj/item/bodypart/head/examine(mob/user)
 	. = ..()
-	if(IS_ORGANIC_LIMB(src) && show_organs_on_examine)
+	if(show_organs_on_examine && IS_ORGANIC_LIMB(src))
 		if(!brain)
 			. += span_info("The brain has been removed from [src].")
 		else if(brain.suicided || brainmob?.suiciding)
@@ -104,13 +104,12 @@
 
 /obj/item/bodypart/head/drop_organs(mob/user, violent_removal)
 	var/atom/drop_loc = drop_location()
-	for(var/obj/item/I in src)
-		if(I == brain)
+	for(var/obj/item/head_item in src)
+		if(head_item == brain)
 			if(user)
 				user.visible_message(span_warning("[user] saws [src] open and pulls out a brain!"), span_notice("You saw [src] open and pull out a brain."))
 			if(brainmob)
 				brainmob.container = null
-				brainmob.forceMove(brain)
 				brain.brainmob = brainmob
 				brainmob = null
 			if(violent_removal && prob(rand(80, 100))) //ghetto surgery can damage the brain.
@@ -120,14 +119,14 @@
 			brain = null
 			update_icon_dropped()
 		else
-			if(istype(I, /obj/item/reagent_containers/pill))
-				for(var/datum/action/item_action/hands_free/activate_pill/AP in I.actions)
+			if(istype(head_item, /obj/item/reagent_containers/pill))
+				for(var/datum/action/item_action/hands_free/activate_pill/AP in head_item.actions)
 					qdel(AP)
-			else if(isorgan(I))
-				var/obj/item/organ/organ = I
+			else if(isorgan(head_item))
+				var/obj/item/organ/organ = head_item
 				if(organ.organ_flags & ORGAN_UNREMOVABLE)
 					continue
-			I.forceMove(drop_loc)
+			head_item.forceMove(drop_loc)
 	eyes = null
 	ears = null
 	tongue = null
@@ -136,8 +135,8 @@
 
 /obj/item/bodypart/head/update_limb(dropping_limb, is_creating)
 	. = ..()
-
-	real_name = owner.real_name
+	if(!isnull(owner))
+		real_name = owner.real_name
 	if(HAS_TRAIT(owner, TRAIT_HUSK))
 		real_name = "Unknown"
 		hair_style = "Bald"
