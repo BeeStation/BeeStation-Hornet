@@ -18,6 +18,12 @@ WANTS_POWER_NODE(/obj/machinery/power)
 	active_power_usage = 0
 	var/datum/powernet/powernet = null
 
+/obj/machinery/power/Initialize(mapload)
+	. = ..()
+	if(isturf(loc))
+		var/turf/turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
+
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
 	return ..()

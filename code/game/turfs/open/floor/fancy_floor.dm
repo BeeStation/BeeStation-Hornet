@@ -398,6 +398,14 @@
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_RED)
 	floor_tile = /obj/item/stack/tile/carpet/red
 
+/turf/open/floor/carpet/olive
+	icon = 'icons/turf/floors/carpet_olive.dmi'
+	icon_state = "carpet_olive-255"
+	base_icon_state = "carpet_olive"
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_OLIVE)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_OLIVE)
+	floor_tile = /obj/item/stack/tile/carpet/olive
+
 /turf/open/floor/carpet/royalblack
 	icon = 'icons/turf/floors/carpet_royalblack.dmi'
 	icon_state = "carpet_royalblack-255"

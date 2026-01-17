@@ -23,7 +23,6 @@
 	response_harm_continuous = "stomps on"
 	response_harm_simple = "stomp on"
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
@@ -49,6 +48,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0

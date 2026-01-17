@@ -13,7 +13,7 @@
 		destination = get_step_multiz(src, direction)
 		if(!destination)
 			return FALSE
-	return T.zPassOut(src, direction, destination) && destination.zPassIn(src, direction, T)
+	return T.zPassOut(direction) && destination.zPassIn(direction)
 
 /// Called when an atom changes z-levels for any reason. This includes shuttle transfer, teleports, etc.
 /atom/movable/proc/onTransitZ(old_z,new_z)

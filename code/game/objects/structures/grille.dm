@@ -190,10 +190,12 @@ WANTS_POWER_NODE(/obj/structure/grille)
 	if(!. && istype(mover, /obj/projectile))
 		return prob(30)
 
-/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
-	. = !density
-	if(istype(passing_atom))
-		. = . || (passing_atom.pass_flags & PASSGRILLE)
+/obj/structure/grille/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags & PASSGRILLE)
+		return TRUE
+	return FALSE
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

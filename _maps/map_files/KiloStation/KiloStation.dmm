@@ -53605,14 +53605,6 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/machinery/button/door{
-	id = "Unit_2";
-	name = "Unit 2 Privacy Lock";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = 8;
-	specialfunctions = 4
-	},
 /obj/machinery/newscaster{
 	pixel_x = -30;
 	pixel_y = -30
@@ -53620,13 +53612,21 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/recharge_station,
 /obj/machinery/button/door{
-	id = "Unit_2Privacy";
-	name = "Unit 2 Privacy Toggle";
+	id = "Unit_3Privacy";
+	name = "Unit 3 Privacy Toggle";
 	pixel_x = 24;
 	pixel_y = -8
 	},
-/obj/machinery/recharge_station,
+/obj/machinery/button/door{
+	id = "Unit_3";
+	name = "Unit 3 Privacy Lock";
+	normaldoorcontrol = 1;
+	pixel_x = 24;
+	pixel_y = 8;
+	specialfunctions = 4
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 "shP" = (
@@ -70350,14 +70350,6 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/machinery/button/door{
-	id = "Unit_3";
-	name = "Unit 3 Privacy Lock";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = 8;
-	specialfunctions = 4
-	},
 /obj/machinery/newscaster{
 	pixel_x = -30;
 	pixel_y = -30
@@ -70367,15 +70359,23 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
-/obj/machinery/button/door{
-	id = "Unit_3Privacy";
-	name = "Unit 3 Privacy Toggle";
-	pixel_x = 24;
-	pixel_y = -8
-	},
 /obj/effect/landmark/start/assistant,
 /obj/structure/toilet{
 	dir = 1
+	},
+/obj/machinery/button/door{
+	id = "Unit_2";
+	name = "Unit 2 Privacy Lock";
+	normaldoorcontrol = 1;
+	pixel_x = 24;
+	pixel_y = 8;
+	specialfunctions = 4
+	},
+/obj/machinery/button/door{
+	id = "Unit_2Privacy";
+	name = "Unit 2 Privacy Toggle";
+	pixel_x = 24;
+	pixel_y = -8
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/toilet/restrooms)

@@ -407,6 +407,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // Trait for allowing an item that isn't food into the customizable reagent holder
 #define TRAIT_ODD_CUSTOMIZABLE_FOOD_INGREDIENT "odd_customizable_food_ingredient"
 
+/* Traits for ventcrawling.
+ * Both give access to ventcrawling, but *_NUDE requires the user to be
+ * wearing no clothes and holding no items. If both present, *_ALWAYS
+ * takes precedence.
+ */
+#define TRAIT_VENTCRAWLER_ALWAYS "ventcrawler_always"
+#define TRAIT_VENTCRAWLER_NUDE "ventcrawler_nude"
+
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
 
@@ -447,6 +455,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_STRONG_SUPPLY_LINES "strong_supply_lines"
 #define STATION_TRAIT_UNITED_BUDGET "united_budget"
 #define STATION_TRAIT_BIRTHDAY "station_trait_birthday"
+#define STATION_TRAIT_BOTS_GLITCHED "station_trait_bot_glitch"
+#define STATION_TRAIT_MACHINES_GLITCHED "station_trait_machine_glitch"
 #define STATION_TRAIT_UNIQUE_AI "station_trait_unique_ai"
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]

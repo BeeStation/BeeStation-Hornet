@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	icon_state = "0-1-2-4-8"
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	flags_1 = STAT_UNIQUE_1
 	var/datum/powernet/powernet
 	/// Are we a single cable that wants to be a node?
@@ -96,6 +96,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	update_appearance(UPDATE_ICON)
 	linkup_adjacent(!mapload)
+	if(isturf(loc))
+		var/turf/turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	// Update our neighbors
