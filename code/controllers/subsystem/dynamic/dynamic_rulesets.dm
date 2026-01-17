@@ -27,6 +27,8 @@
 	var/list/blocking_rulesets = list()
 	/// The flags that determines how the ruleset is handled.
 	var/ruleset_flags = NONE
+	/// Time that the ruleset was executed at
+	var/executed_at = 0
 
 	/**
 	 * Backend Variables
@@ -55,6 +57,7 @@
 /// Called when we successfully execute
 /datum/dynamic_ruleset/proc/success()
 	SHOULD_CALL_PARENT(TRUE)
+	executed_at = world.time - SSticker.round_start_time
 	if (CHECK_BITFIELD(ruleset_flags, SHOULD_PROCESS_RULESET))
 		SSdynamic.rulesets_to_process += src
 
@@ -90,12 +93,12 @@
 /datum/dynamic_ruleset/proc/allowed(require_drafted = TRUE)
 	// Some rulesets such as midrounds don't need drafted players to be
 	// picked, as the poll will continue until it hits the players required
-	if(length(candidates) < drafted_players_amount && (require_drafted || !(ruleset_flags & IGNORE_DRAFTED_COUNT)))
+	if(length(candidates) < drafted_players_amount && require_drafted)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum candidate requirement! (required candidates: [drafted_players_amount]) (candidates: [length(candidates)])")
 		return FALSE
 
 	var/players = length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
-	if(istype(src, /datum/dynamic_ruleset/roundstart))
+	if (!SSticker.HasRoundStarted() || istype(src, /datum/dynamic_ruleset/supplementary))
 		players = length(GLOB.player_list)
 
 	if(players < minimum_players_required)
@@ -121,12 +124,10 @@
 		return DYNAMIC_EXECUTE_FAILURE
 
 	// Roundstart rulesets have their candidate bodies deleted before execute so we store a list of minds, not bodies
-	if(istype(src, /datum/dynamic_ruleset/roundstart))
-		for(var/datum/mind/chosen_mind in chosen_candidates)
-			chosen_mind.add_antag_datum(antag_datum)
-	else
-		for(var/mob/chosen_candidate in chosen_candidates)
-			chosen_candidate.mind.add_antag_datum(antag_datum)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.add_antag_datum(antag_datum)
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.add_antag_datum(antag_datum)
 
 	return DYNAMIC_EXECUTE_SUCCESS
 

@@ -8,6 +8,7 @@
 	show_to_ghosts = TRUE
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
 	ui_name = "AntagInfoNukeOp"
+	faction = FACTION_SYNDICATE
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
@@ -477,7 +478,7 @@
 		R.use_command = TRUE
 
 	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
-		var/obj/item/U = new uplink_type(H, H.key, tc)
+		var/obj/item/U = new uplink_type(H, H, tc)
 		H.equip_to_slot_or_del(U, ITEM_SLOT_BACKPACK)
 
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)

@@ -32,9 +32,6 @@
 	/// The head of the department to show in the preferences menu
 	var/department_head_for_prefs
 
-	///Mostly deprecated, but only used in pref job savefiles
-	var/department_flag = NONE
-
 	///Players will be allowed to spawn in as jobs that are set to "Station"
 	var/faction = "None"
 

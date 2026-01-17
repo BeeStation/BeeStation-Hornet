@@ -7,7 +7,8 @@
 
 #define DYNAMIC_STORYTELLERS_DIRECTORY "[global.config.directory]/dynamic/"
 
-#define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
+#define DYNAMIC_CATEGORY_GAMEMODE "Gamemode"
+#define DYNAMIC_CATEGORY_SUPPLEMENTARY "Supplementary"
 #define DYNAMIC_CATEGORY_MIDROUND "Midround"
 #define DYNAMIC_CATEGORY_LATEJOIN "Latejoin"
 
@@ -28,10 +29,12 @@
 #define SHOULD_USE_ANTAG_REP (1 << 3)
 /// If this flag is enabled no other rulesets can be executed
 #define NO_OTHER_RULESETS (1 << 4)
-/// If we ignore the number of candidates when seeing if we can execute this
-/// Mainly useful for rulesets which require a certain number of candidates, but
-/// can draft them past the point of execution (midrounds from ghosts)
-#define IGNORE_DRAFTED_COUNT (1 << 5)
+/// Latejoining as this ruleset is not allowed, used for supplementary rulesets
+/// and for when a gamemode ruleset could not be executed at roundstart.
+#define NO_LATE_JOIN (1 << 5)
+/// Is this ruleset obvious? We will only show 1 obvious ruleset in the
+/// roundstart security report.
+#define IS_OBVIOUS_RULESET (1 << 6)
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
