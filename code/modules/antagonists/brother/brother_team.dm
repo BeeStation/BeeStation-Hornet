@@ -131,7 +131,7 @@
 		if (!mind.current.client.should_include_for_role(ROLE_BROTHER, /datum/role_preference/supplementary/brother/convert))
 			continue
 		// Is an antagonist already
-		if (length(mind.antag_datums))
+		if (length(mind.antag_datums) || mind.special_role)
 			continue
 		// Are we allowed security?
 		var/datum/job/job = SSjob.GetJob(mind.assigned_role)

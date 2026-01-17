@@ -84,7 +84,7 @@
 			mission_update("A new highest bid has been made for [new_highest.data["bid"]] credits. The bid ends in [DisplayTimeText(time_left, 1)] left. The bidder's location has been tracked.")
 	if (team == new_highest)
 		highest_bid_location = get_turf(user)
-		if (new_highest == new_highest)
+		if (current_highest == new_highest)
 			mission_update("The bid has been raised to [new_highest.data["bid"]] credits. The bidders location has been tracked.")
 
 /datum/priority_directive/acquire_funding/proc/get_highest_bidder()
