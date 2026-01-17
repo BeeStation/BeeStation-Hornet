@@ -488,7 +488,7 @@ There are several things that need to be remembered:
 
 		var/icon_file = DEFAULT_SUIT_FILE
 
-		if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
+		if(bodytype & BODYTYPE_DIGITIGRADE)
 			if(wear_suit.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION)
 				icon_file = DIGITIGRADE_SUIT_FILE
 

@@ -97,9 +97,6 @@
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
 
-//Bodypart change blocking flags
-#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
-
 //Bodytype defines for how things can be worn, surgery, and other misc things.
 ///The limb is organic.
 #define BODYTYPE_ORGANIC (1<<0)

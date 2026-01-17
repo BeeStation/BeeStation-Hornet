@@ -24,7 +24,9 @@
 	///A bitfield of bodytypes for clothing, surgery, and misc information
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
 	///Defines when a bodypart should not be changed. Example: BP_BLOCK_CHANGE_SPECIES prevents the limb from being overwritten on species gain
-	var/change_exempt_flags
+	var/change_exempt_flags = NONE
+	///Random flags that describe this bodypart
+	var/bodypart_flags = NONE
 
 	///Whether the bodypart (and the owner) is husked.
 	var/is_husked = FALSE
@@ -46,12 +48,10 @@
 	var/aux_layer = BODYPARTS_LAYER
 	/// bitflag used to check which clothes cover this bodypart
 	var/body_part
-/// List of obj/item's embedded inside us. Managed by embedded components, do not modify directly
+	/// List of obj/item's embedded inside us. Managed by embedded components, do not modify directly
 	var/list/embedded_objects = list()
 	/// are we a hand? if so, which one!
 	var/held_index = 0
-	/// For limbs that don't really exist, eg chainsaws
-	var/is_pseudopart = FALSE
 
 	///If disabled, limb is as good as missing.
 	var/bodypart_disabled = FALSE
@@ -88,9 +88,6 @@
 	var/damage_color = ""
 	/// Should we even use a color?
 	var/use_damage_color = FALSE
-
-	///whether it can be dismembered with a weapon.
-	var/dismemberable = TRUE
 
 	var/px_x = 0
 	var/px_y = 0
@@ -226,26 +223,28 @@
 /obj/item/bodypart/blob_act()
 	receive_damage(max_damage)
 
-/obj/item/bodypart/attack(mob/living/carbon/C, mob/user)
+/obj/item/bodypart/attack(mob/living/carbon/victim, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
-			if(!H.get_bodypart(body_zone))
+	if(ishuman(victim))
+		var/mob/living/carbon/human/human_victim = victim
+		if(HAS_TRAIT(victim, TRAIT_LIMBATTACHMENT))
+			if(!human_victim.get_bodypart(body_zone))
 				user.temporarilyRemoveItemFromInventory(src, TRUE)
-				if(!try_attach_limb(C))
-					to_chat(user, span_warning("[H]'s body rejects [src]!"))
-					forceMove(H.loc)
+				if(!try_attach_limb(victim))
+					to_chat(user, span_warning("[human_victim]'s body rejects [src]!"))
+					forceMove(human_victim.loc)
 					return
-				if(H == user)
-					H.visible_message(span_warning("[H] jams [src] into [H.p_their()] empty socket!"),\
+				if(check_for_frankenstein(victim))
+					bodypart_flags |= BODYPART_IMPLANTED
+				if(human_victim == user)
+					human_victim.visible_message(span_warning("[human_victim] jams [src] into [human_victim.p_their()] empty socket!"),\
 					span_notice("You force [src] into your empty socket, and it locks into place!"))
 				else
-					H.visible_message(span_warning("[user] jams [src] into [H]'s empty socket!"),\
+					human_victim.visible_message(span_warning("[user] jams [src] into [human_victim]'s empty socket!"),\
 					span_notice("[user] forces [src] into your empty socket, and it locks into place!"))
 				return
-	..()
+	return ..()
 
 /obj/item/bodypart/attackby(obj/item/W, mob/user, params)
 	SHOULD_CALL_PARENT(TRUE)
@@ -274,11 +273,13 @@
 /obj/item/bodypart/proc/drop_organs(mob/user, violent_removal)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/turf/T = get_turf(src)
+	var/atom/drop_loc = drop_location()
 	if(IS_ORGANIC_LIMB(src))
-		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
-	for(var/obj/item/I in src)
-		I.forceMove(T)
+		playsound(drop_loc, 'sound/misc/splort.ogg', 50, 1, -1)
+	for(var/obj/item/organ/bodypart_organ in get_organs())
+		bodypart_organ.transfer_to_limb(src, owner)
+	for(var/obj/item/item_in_bodypart in src)
+		item_in_bodypart.forceMove(drop_loc)
 
 ///since organs aren't actually stored in the bodypart themselves while attached to a person, we have to query the owner for what we should have
 /obj/item/bodypart/proc/get_organs()
@@ -500,6 +501,8 @@
 			old_owner.update_worn_gloves()
 		//if(speed_modifier)
 		//	old_owner.update_bodypart_speed_modifier()
+		//if(length(bodypart_traits))
+		//	old_owner.remove_traits(bodypart_traits, bodypart_trait_source)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
 				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -519,6 +522,8 @@
 			owner.update_worn_gloves()
 		//if(speed_modifier)
 		//	owner.update_bodypart_speed_modifier()
+		//if(length(bodypart_traits))
+		//	owner.add_traits(bodypart_traits, bodypart_trait_source)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 				set_can_be_disabled(FALSE)

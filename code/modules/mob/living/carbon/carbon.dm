@@ -1005,12 +1005,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(!new_bodypart.bodypart_disabled)
 				set_usable_hands(usable_hands + 1)
 
+	synchronize_bodytypes()
 
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	bodyparts -= old_bodypart
+
 	switch(old_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)
 			set_num_legs(num_legs - 1)
@@ -1020,6 +1022,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			set_num_hands(num_hands - 1)
 			if(!old_bodypart.bodypart_disabled)
 				set_usable_hands(usable_hands - 1)
+
+	synchronize_bodytypes()
 
 /mob/living/carbon/proc/create_internal_organs()
 	for(var/X in internal_organs)

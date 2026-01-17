@@ -53,7 +53,7 @@
 	for(var/Zim in C.bodyparts)
 		var/obj/item/bodypart/BP = Zim
 		if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
-			if(BP.dismemberable)
+			if(!(BP.bodypart_flags & BODYPART_UNREMOVABLE))
 				parts += BP
 	if(!LAZYLEN(parts))
 		to_chat(user, span_notice("We don't have any limbs to detach."))
