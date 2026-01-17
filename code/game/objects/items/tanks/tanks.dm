@@ -24,7 +24,7 @@
 	/// The gases this tank contains.
 	var/datum/gas_mixture/air_contents = null
 	/// The volume of this tank.
-	var/volume = 70
+	var/volume = TANK_STANDARD_VOLUME
 	/// Whether the tank is currently leaking.
 	var/leaking = FALSE
 	/// The pressure of the gases this tank supplies to internals.
