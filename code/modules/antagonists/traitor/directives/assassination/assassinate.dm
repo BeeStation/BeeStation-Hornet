@@ -26,6 +26,9 @@
 		// Must have a body
 		if (!mind.current)
 			continue
+		// No people that were already victims
+		if (HAS_TRAIT(mind.current, TRAIT_ASSASSINATION_VICTIM))
+			continue
 		// No limit on forced directives
 		if (force)
 			valid_targets += mind
@@ -113,5 +116,7 @@
 
 /datum/priority_directive/assassination/proc/target_killed()
 	SIGNAL_HANDLER
+	if (target)
+		ADD_TRAIT(target, TRAIT_ASSASSINATION_VICTIM, FROM_DIRECTIVE)
 	grant_universal_victory()
 	finish()
