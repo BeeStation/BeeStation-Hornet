@@ -2,7 +2,6 @@
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "\improper Apid"
 	id = SPECIES_APID
-	bodyflag = FLAG_APID
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG

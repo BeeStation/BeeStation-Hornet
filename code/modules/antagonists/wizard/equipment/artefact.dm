@@ -345,7 +345,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		else if(istype(I, /obj/item/bikehorn))
 			to_chat(target, span_userdanger("HONK"))
 			SEND_SOUND(target, 'sound/items/airhorn.ogg')
-			target.adjustEarDamage(0,3)
+			var/obj/item/organ/ears/ears = user.get_organ_slot(ORGAN_SLOT_EARS)
+			if(ears)
+				ears.adjustEarDamage(0, 3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return

@@ -29,68 +29,36 @@
 	var/damage_multiplier = 1
 
 /obj/item/organ/ears/on_life(delta_time, times_fired)
-	if(!iscarbon(owner))
+	// only inform when things got worse, needs to happen before we heal
+	if((damage > low_threshold && prev_damage < low_threshold) || (damage > high_threshold && prev_damage < high_threshold))
+		to_chat(owner, span_warning("The ringing in your ears grows louder, blocking out any external noises for a moment."))
+
+	. = ..()
+	// if we have non-damage related deafness like mutations, quirks or clothing (earmuffs), don't bother processing here. Ear healing from earmuffs or chems happen elsewhere
+	if(HAS_TRAIT_NOT_FROM(owner, TRAIT_DEAF, EAR_DAMAGE))
 		return
-	..()
-	var/mob/living/carbon/C = owner
-	if((damage < maxHealth) && (organ_flags & ORGAN_FAILING))	//ear damage can be repaired from the failing condition
-		organ_flags &= ~ORGAN_FAILING
-	// genetic deafness prevents the body from using the ears, even if healthy
-	if(HAS_TRAIT(C, TRAIT_DEAF))
-		deaf = max(deaf, 1)
-	else if(!(organ_flags & ORGAN_FAILING)) // if this organ is failing, do not clear deaf stacks.
+
+	if((organ_flags & ORGAN_FAILING))
+		deaf = max(deaf, 1) // if we're failing we always have at least 1 deaf stack (and thus deafness)
+	else // only clear deaf stacks if we're not failing
 		deaf = max(deaf - (0.5 * delta_time), 0)
 		if((damage > low_threshold) && DT_PROB(damage / 60, delta_time))
 			adjustEarDamage(0, 4)
-			SEND_SOUND(C, sound('sound/weapons/flash_ring.ogg'))
-			to_chat(C, span_warning("The ringing in your ears grows louder, blocking out any external noises for a moment."))
-	else if((organ_flags & ORGAN_FAILING) && (deaf == 0))
-		deaf = 1	//stop being not deaf you deaf idiot
+			SEND_SOUND(owner, sound('sound/weapons/flash_ring.ogg'))
 
-/obj/item/organ/ears/proc/restoreEars()
-	deaf = 0
-	damage = 0
-	organ_flags &= ~ORGAN_FAILING
-
-	var/mob/living/carbon/C = owner
-
-	if(iscarbon(owner) && HAS_TRAIT(C, TRAIT_DEAF))
-		deaf = 1
+	if(deaf)
+		ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+	else
+		REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
 
 /obj/item/organ/ears/proc/adjustEarDamage(ddmg, ddeaf)
-	damage = max(damage + (ddmg*damage_multiplier), 0)
-	deaf = max(deaf + (ddeaf*damage_multiplier), 0)
-
-/obj/item/organ/ears/proc/minimumDeafTicks(value)
-	deaf = max(deaf, value)
+	if(HAS_TRAIT(owner, TRAIT_GODMODE))
+		return
+	set_organ_damage(clamp(damage + (ddmg * damage_multiplier), 0, maxHealth))
+	deaf = max(deaf + (ddeaf * damage_multiplier), 0)
 
 /obj/item/organ/ears/invincible
 	damage_multiplier = 0
-
-
-/mob/proc/restoreEars()
-
-/mob/living/carbon/restoreEars()
-	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
-	if(ears)
-		ears.restoreEars()
-
-/mob/proc/adjustEarDamage()
-
-/mob/living/carbon/adjustEarDamage(ddmg, ddeaf)
-	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
-	if(ears)
-		ears.adjustEarDamage(ddmg, ddeaf)
-		if(ears.deaf)
-			SEND_SOUND(src, sound(null))
-
-/mob/proc/minimumDeafTicks()
-
-/mob/living/carbon/minimumDeafTicks(value)
-	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
-	if(ears)
-		ears.minimumDeafTicks(value)
-
 
 /obj/item/organ/ears/cat
 	name = "cat ears"

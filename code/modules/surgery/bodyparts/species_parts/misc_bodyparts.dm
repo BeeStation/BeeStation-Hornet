@@ -529,8 +529,8 @@
 	var/image/carved_overlay
 
 /obj/item/bodypart/head/pumpkin_man/Initialize(mapload)
-	. = ..()
-	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", -BODY_LAYER)
+	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+	. = ..() // set after carved_overlay is set
 
 /obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
 	. = ..()

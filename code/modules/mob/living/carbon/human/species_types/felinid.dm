@@ -2,7 +2,6 @@
 /datum/species/human/felinid
 	name = "\improper Felinid"
 	id = SPECIES_FELINID
-	bodyflag = FLAG_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
 	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")

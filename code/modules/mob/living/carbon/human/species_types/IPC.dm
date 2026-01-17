@@ -2,7 +2,6 @@
 	name = "\improper Integrated Positronic Chassis"
 	plural_form = "IPCs"
 	id = SPECIES_IPC
-	bodyflag = FLAG_IPC
 	sexes = FALSE
 	species_traits = list(
 		NOEYESPRITES,

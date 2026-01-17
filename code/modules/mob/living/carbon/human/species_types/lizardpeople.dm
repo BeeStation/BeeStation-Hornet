@@ -3,7 +3,6 @@
 	name = "\improper Lizardperson"
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
-	bodyflag = FLAG_LIZARD
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,

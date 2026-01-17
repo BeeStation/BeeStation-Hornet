@@ -89,7 +89,9 @@
 		return
 	switch(A.stage)
 		if(4, 5)
-			M.restoreEars()
+			var/obj/item/organ/ears/ears = M.get_organ_slot(ORGAN_SLOT_EARS)
+			if(ears)
+				ears.adjustEarDamage(-4, -4)
 
 			if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))
 				if(prob(20))

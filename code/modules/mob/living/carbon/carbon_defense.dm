@@ -40,7 +40,7 @@
 
 /mob/living/carbon/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/bodypart/affecting = get_bodypart(def_zone)
-	if(affecting && affecting.dismemberable && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
+	if(affecting && !(affecting.bodypart_flags & BODYPART_UNREMOVABLE) && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		affecting.dismember(P.damtype)
 
 /mob/living/carbon/proc/can_catch_item(skip_throw_mode_check)
@@ -494,17 +494,18 @@
 				Paralyze((stun_pwr*effect_amount)*0.1)
 			Knockdown(stun_pwr*effect_amount)
 
-		if(istype(ears) && (deafen_pwr || damage_pwr))
+		if(ears && (deafen_pwr || damage_pwr))
 			var/ear_damage = damage_pwr * effect_amount
 			var/deaf = deafen_pwr * effect_amount
-			adjustEarDamage(ear_damage,deaf)
+			ears.adjustEarDamage(ear_damage,deaf)
 
 			if(ears.damage >= 15)
 				to_chat(src, span_warning("Your ears start to ring badly!"))
 				if(prob(ears.damage - 5))
 					to_chat(src, span_userdanger("You can't hear anything!"))
-					ears.damage = min(ears.damage, ears.maxHealth)
+					// Makes you deaf, enough that you need a proper source of healing, it won't self heal
 					// you need earmuffs, inacusiate, or replacement
+					ears.set_organ_damage(ears.maxHealth)
 			else if(ears.damage >= 5)
 				to_chat(src, span_warning("Your ears start to ring!"))
 			SEND_SOUND(src, sound('sound/weapons/flash_ring.ogg',0,1,0,250))
@@ -529,7 +530,7 @@
 /mob/living/carbon/can_hear()
 	. = FALSE
 	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
-	if(istype(ears) && !ears.deaf)
+	if(ears && !HAS_TRAIT(src, TRAIT_DEAF))
 		. = TRUE
 
 /mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
