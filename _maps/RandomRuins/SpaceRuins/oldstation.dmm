@@ -234,9 +234,7 @@
 	pixel_x = 24;
 	start_charge = 0
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/comm)
 "aQ" = (
@@ -260,9 +258,7 @@
 /area/ruin/space/has_grav/ancientstation)
 "aU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
 "aW" = (
@@ -370,9 +366,7 @@
 /area/ruin/space/has_grav/ancientstation/betanorth)
 "bx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
@@ -459,9 +453,7 @@
 /turf/closed/wall/rust,
 /area/ruin/space/has_grav/ancientstation)
 "bP" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants{
 	icon_state = "plant-25"
@@ -471,9 +463,7 @@
 /area/ruin/space/has_grav/ancientstation)
 "bQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation)
@@ -594,9 +584,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/powered)
 "cl" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -696,9 +684,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -706,9 +692,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "cA" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -717,34 +701,20 @@
 "cB" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "cC" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/range,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "cD" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
-"cE" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -804,9 +774,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation)
 "cO" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -875,9 +843,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "cY" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1013,9 +979,7 @@
 /turf/closed/wall/rust,
 /area/ruin/space/has_grav/ancientstation/sec)
 "dw" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 8
@@ -1084,19 +1048,12 @@
 /area/template_noop)
 "dK" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/template_noop,
 /area/template_noop)
 "dL" = (
 /obj/machinery/power/solar,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "dP" = (
@@ -1158,13 +1115,6 @@
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/betanorth)
-"ei" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/template_noop,
-/area/template_noop)
 "el" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
@@ -1228,14 +1178,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
-"ey" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "ez" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -1286,22 +1228,12 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/betanorth)
 "eI" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/solar,
 /turf/open/floor/plating/airless,
 /area/template_noop)
-"eJ" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating/airless,
-/area/template_noop)
 "eK" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -1352,9 +1284,7 @@
 /area/ruin/space/has_grav/ancientstation/hydroponics)
 "eW" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot,
@@ -1398,24 +1328,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
-"fd" = (
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/engi)
 "fe" = (
 /obj/machinery/power/smes/engineering{
 	charge = 0
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -1430,9 +1347,7 @@
 /area/ruin/space/has_grav/ancientstation/engi)
 "fg" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -1479,9 +1394,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
 "ft" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 8
@@ -1548,9 +1461,7 @@
 /area/ruin/space/has_grav/ancientstation/engi)
 "fE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
@@ -1606,9 +1517,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
 "fL" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -1638,9 +1547,7 @@
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "fQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Delta Main Corridor APC";
@@ -1650,9 +1557,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "fR" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot,
@@ -1696,18 +1601,14 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/betanorth)
 "ga" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/betanorth)
 "gb" = (
@@ -1720,43 +1621,12 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"gc" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/template_noop,
-/area/template_noop)
 "gd" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/template_noop,
-/area/template_noop)
-"ge" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/template_noop,
 /area/template_noop)
 "gg" = (
@@ -1771,9 +1641,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "gh" = (
@@ -1781,9 +1649,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "gi" = (
@@ -1792,32 +1658,17 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "gj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "gk" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -1830,28 +1681,15 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "gm" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
 "gn" = (
 /obj/effect/spawner/structure/window/hollow/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -1861,15 +1699,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/powered)
 "go" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -1878,18 +1708,14 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation)
 "gp" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation)
 "gq" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
@@ -1898,9 +1724,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
 "gr" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -1915,21 +1739,14 @@
 	pixel_y = 23;
 	start_charge = 0
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/hydroponics)
 "gt" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
@@ -1938,9 +1755,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
 "gu" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
@@ -1952,18 +1767,11 @@
 	pixel_y = -23;
 	start_charge = 0
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/kitchen)
 "gw" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/item/solar_assembly,
@@ -1973,17 +1781,13 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
 "gx" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
 "gy" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
@@ -1992,9 +1796,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation)
 "gz" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2004,12 +1806,7 @@
 /area/ruin/space/has_grav/ancientstation)
 "gA" = (
 /obj/effect/spawner/structure/window/hollow/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2019,13 +1816,8 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/sec)
 "gB" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2034,9 +1826,7 @@
 /area/ruin/space/has_grav/ancientstation/sec)
 "gC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2050,21 +1840,14 @@
 /area/ruin/space/has_grav/ancientstation/atmo)
 "gE" = (
 /obj/effect/spawner/structure/window/hollow/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/sec)
 "gF" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2072,9 +1855,7 @@
 /area/space/nearstation)
 "gG" = (
 /obj/effect/spawner/structure/window/hollow/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2082,22 +1863,7 @@
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "gH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
-"gI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2105,9 +1871,7 @@
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "gJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -2115,15 +1879,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "gK" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -2139,9 +1895,7 @@
 	pixel_x = 24;
 	start_charge = 0
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
@@ -2232,17 +1986,7 @@
 /area/ruin/space/has_grav/ancientstation/engi)
 "gW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation/engi)
-"gX" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
@@ -2314,9 +2058,7 @@
 /area/ruin/space/has_grav/ancientstation/engi)
 "hl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -2341,9 +2083,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
 "ho" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/iron,
@@ -2354,9 +2094,7 @@
 /area/ruin/space/has_grav/ancientstation/engi)
 "hq" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -2412,9 +2150,7 @@
 /area/ruin/space/has_grav/ancientstation/sec)
 "hC" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 8
@@ -2451,24 +2187,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "hL" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/betanorth)
-"hM" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating/airless,
-/area/template_noop)
-"hN" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/template_noop,
-/area/template_noop)
 "hP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/head/utility/welding{
@@ -2505,13 +2226,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/rnd)
-"ib" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/template_noop,
-/area/template_noop)
 "if" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow{
@@ -2520,9 +2234,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
 "ih" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -2727,9 +2439,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "iV" = (
@@ -2738,9 +2448,7 @@
 	name = "backup power storage unit"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "iW" = (
@@ -2819,9 +2527,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "jh" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "ji" = (
@@ -2845,9 +2551,7 @@
 	name = "Backup Generator Room"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "jl" = (
@@ -3011,21 +2715,8 @@
 /obj/item/paper/fluff/ruins/oldstation/generator_manual,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
-"jE" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-25"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation)
 "jF" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -3054,46 +2745,19 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
-"jK" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "jL" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
-"jM" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "jO" = (
-/turf/open/floor/plating/airless,
-/area/ruin/space/has_grav/ancientstation/atmo)
-"jP" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "jQ" = (
@@ -3136,9 +2800,7 @@
 	name = "Prototype Laboratory";
 	req_access_txt = "200"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side,
 /area/ruin/space/has_grav/ancientstation/proto)
 "jX" = (
@@ -3210,16 +2872,12 @@
 	pixel_y = 23;
 	start_charge = 0
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
 "kh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
 "ki" = (
@@ -3759,9 +3417,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
 "pd" = (
@@ -3770,9 +3426,7 @@
 /area/ruin/space/has_grav/ancientstation/atmo)
 "pk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},
@@ -3818,9 +3472,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
 "rv" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 8;
@@ -3938,9 +3590,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/ancientstation/kitchen)
 "wp" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
@@ -4012,9 +3662,7 @@
 "xH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Charlie Security APC";
@@ -4050,9 +3698,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/comm)
 "zq" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -4067,9 +3713,7 @@
 /area/ruin/space/has_grav/ancientstation/atmo)
 "Af" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
@@ -4104,9 +3748,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/comm)
 "BC" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
@@ -4196,9 +3838,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/oil,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -24
@@ -4406,9 +4046,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "Kx" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
@@ -4477,9 +4115,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/comm)
 "LB" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -4489,21 +4125,8 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
-"LY" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation)
 "Mc" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/west,
 /obj/effect/mapping_helpers/airalarm/all_access,
@@ -4538,9 +4161,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/rnd)
 "MS" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 8;
@@ -4631,9 +4252,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation)
 "OL" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/west,
 /obj/effect/mapping_helpers/airalarm/all_access,
@@ -4656,9 +4275,7 @@
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "Pl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/item/solar_assembly,
 /obj/item/stack/sheet/glass{
 	amount = 30
@@ -4880,21 +4497,11 @@
 /area/ruin/space/has_grav/ancientstation/engi)
 "Yc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
-"Yi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/engi)
 "Ym" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window/westleft,
@@ -5034,7 +4641,7 @@ dF
 iT
 km
 km
-jP
+jh
 jY
 km
 km
@@ -5603,7 +5210,7 @@ aa
 gb
 aa
 aa
-hM
+jR
 lz
 lz
 aA
@@ -5645,19 +5252,19 @@ aa
 aA
 dH
 dH
-ei
+dK
 dH
 dH
-gc
-ei
-ei
-hN
+gd
+dK
+dK
+dK
 dH
-ib
+dK
 dH
-ei
+dK
 dH
-hN
+dK
 dF
 aa
 aa
@@ -5700,7 +5307,7 @@ gd
 aa
 aa
 lz
-hM
+jR
 lz
 aA
 lz
@@ -5742,15 +5349,15 @@ aA
 dH
 dH
 dK
-ei
-ei
-ge
-ei
+dK
+dK
+gd
+dK
 dH
 dH
-hN
+dK
 dH
-ei
+dK
 dH
 dH
 dH
@@ -5789,7 +5396,7 @@ aa
 aa
 lz
 lz
-eJ
+jR
 aa
 aa
 gd
@@ -5836,20 +5443,20 @@ bd
 aa
 aA
 dK
-ei
+dK
 dH
 dH
 dH
-gc
-ei
-ei
-ei
-ib
-ei
+gd
+dK
+dK
+dK
+dK
+dK
 dH
-ei
-ei
-ib
+dK
+dK
+dK
 dF
 aa
 aa
@@ -5892,12 +5499,12 @@ gd
 aa
 aa
 lz
-eJ
+jR
 lz
 aA
 lz
-eJ
-eJ
+jR
+jR
 aa
 aa
 aa
@@ -6126,10 +5733,10 @@ dl
 dl
 Fy
 em
-fd
-Yi
+hm
 gj
-Yi
+gj
+gj
 hm
 em
 KE
@@ -6273,7 +5880,7 @@ Uq
 ff
 el
 gm
-gX
+gk
 ho
 wp
 BC
@@ -6376,8 +5983,8 @@ ih
 rv
 eK
 cO
-LY
-jE
+cl
+bP
 aG
 jZ
 yk
@@ -7712,7 +7319,7 @@ aa
 aa
 bD
 fQ
-gI
+gH
 he
 bD
 aa
@@ -7809,14 +7416,14 @@ eW
 ft
 fR
 gK
-ey
+cD
 hC
-ey
+cD
 MS
 OL
 dw
-ey
-ey
+cD
+cD
 jJ
 bD
 aa
@@ -7961,7 +7568,7 @@ iD
 iP
 dy
 jt
-jK
+fR
 jV
 kd
 kt
@@ -8088,7 +7695,7 @@ aB
 aN
 bG
 lx
-cE
+cD
 dc
 dy
 my
@@ -8153,7 +7760,7 @@ eb
 fU
 jc
 dc
-jM
+cD
 jW
 kh
 kw

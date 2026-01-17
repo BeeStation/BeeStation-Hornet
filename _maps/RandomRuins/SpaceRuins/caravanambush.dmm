@@ -132,9 +132,7 @@
 /area/shuttle/caravan/freighter2)
 "aQ" = (
 /obj/effect/turf_decal/bot_white/right,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Tiny Freighter APC";
@@ -261,7 +259,7 @@
 	},
 /area/shuttle/caravan/freighter3)
 "eG" = (
-/obj/item/stack/cable_coil/yellow{
+/obj/item/stack/cable_coil{
 	amount = 1
 	},
 /turf/open/floor/plating/airless{
@@ -430,9 +428,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -657,9 +653,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -1226,9 +1220,7 @@
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Tiny Freighter APC";

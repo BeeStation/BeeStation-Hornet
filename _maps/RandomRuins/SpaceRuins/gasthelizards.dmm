@@ -122,15 +122,11 @@
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
 "p" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
 "q" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/gasthelizard)
@@ -157,9 +153,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
 "u" = (
@@ -203,9 +197,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
 "B" = (

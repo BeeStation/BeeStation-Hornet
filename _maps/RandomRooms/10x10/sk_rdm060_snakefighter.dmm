@@ -1,15 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/sign/departments/science{
 	pixel_y = 32
 	},
@@ -34,9 +30,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/sign/warning{
 	pixel_y = -32
 	},
@@ -51,9 +45,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
@@ -98,9 +90,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/item/wrench,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -130,42 +120,20 @@
 /area/template_noop)
 "B" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/template_noop)
 "D" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Pit";
 	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/template_noop)
-"E" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -219,9 +187,7 @@
 /area/template_noop)
 "S" = (
 /obj/structure/cable,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/sign/warning{
 	pixel_y = -32
 	},
@@ -250,9 +216,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "X" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -358,7 +322,7 @@ Z
 p
 f
 y
-E
+B
 H
 f
 K

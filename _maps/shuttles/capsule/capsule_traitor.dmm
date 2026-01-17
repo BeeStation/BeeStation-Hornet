@@ -7,9 +7,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance/three,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/item/pickaxe/emergency,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
@@ -28,9 +26,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
 "e" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "f" = (
@@ -51,9 +47,7 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
 "j" = (
@@ -76,9 +70,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance/two,
 /obj/item/clothing/glasses/sunglasses/advanced,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "o" = (
@@ -92,18 +84,6 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/pod_shuttle)
-"p" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "q" = (
 /obj/effect/turf_decal/stripes/line{
@@ -160,9 +140,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
@@ -179,12 +157,6 @@
 "D" = (
 /obj/machinery/computer/crew/syndie,
 /turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/pod_shuttle)
-"K" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "M" = (
 /obj/effect/turf_decal/stripes/line{
@@ -275,12 +247,6 @@
 /obj/item/storage/toolbox/syndicate,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
-"Z" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
 
 (1,1,1) = {"
 S
@@ -316,7 +282,7 @@ h
 e
 h
 h
-Z
+e
 Q
 x
 A
@@ -329,7 +295,7 @@ h
 n
 B
 b
-p
+e
 W
 x
 A
@@ -342,7 +308,7 @@ h
 h
 h
 h
-K
+e
 C
 x
 A

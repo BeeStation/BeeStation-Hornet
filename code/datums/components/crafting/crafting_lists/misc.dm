@@ -215,14 +215,6 @@
 	)
 	category = CAT_MISC
 
-/datum/crafting_recipe/rcl
-	name = "Makeshift Rapid Cable Layer"
-	result = /obj/item/rcl/ghetto
-	time = 4 SECONDS
-	tool_behaviors = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
-	reqs = list(/obj/item/stack/sheet/iron = 15)
-	category = CAT_MISC
-
 /datum/crafting_recipe/aitater
 	name = "intelliTater"
 	result = /obj/item/aicard/aitater

@@ -353,17 +353,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			return 1
 	return 0
 
-/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
-	if(C.loaded)
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.handlecable(C, user)
-				return
-		C.loaded.place_turf(src, user)
-		if(C.wiring_gui_menu)
-			C.wiringGuiUpdate(user)
-		C.is_empty(user)
-
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover)
 	// Do not call ..()
