@@ -24,6 +24,9 @@ type Data = {
 
 type GamemodeData = {
   has_round_started: BooleanLike;
+  gamemode_whitelist_forced: BooleanLike;
+  gamemode_blacklist_forced: BooleanLike;
+  forced_gamemode_rulesets: Ruleset[];
   valid_gamemode_rulesets: Ruleset[];
   executed_gamemode_rulesets: Ruleset[];
 };
@@ -39,11 +42,12 @@ type SupplementaryData = {
   roundstart_ready_amount: number;
   has_round_started: BooleanLike;
   roundstart_points_override: BooleanLike;
-  roundstart_only_use_forced_rulesets: BooleanLike;
-  roundstart_blacklist_forced_rulesets: BooleanLike;
+  supplementary_whitelist_forced: BooleanLike;
+  supplementary_blacklist_forced: BooleanLike;
   forced_supplementary_rulesets: CostRuleset[];
   valid_supplementary_rulesets: CostRuleset[];
   executed_supplementary_rulesets: CostRuleset[];
+  supplementary_next: CostRuleset;
 };
 
 type Ruleset = {
@@ -188,6 +192,9 @@ const GamemodePage = () => {
     valid_gamemode_rulesets,
     executed_gamemode_rulesets,
     has_round_started,
+    gamemode_blacklist_forced,
+    gamemode_whitelist_forced,
+    forced_gamemode_rulesets,
   } = data;
 
   const [forced_roundstart_points, set_forced_points] = useLocalState(
@@ -206,6 +213,60 @@ const GamemodePage = () => {
 
   return (
     <Flex direction="column">
+      {/* Forced roundstarts */}
+      <Section
+        fill
+        title="Forced Roundstart Rulesets"
+        buttons={
+          <>
+            <Button
+              disabled={has_round_started}
+              color={gamemode_whitelist_forced ? 'green' : 'red'}
+              icon={gamemode_whitelist_forced ? 'check' : 'times'}
+              tooltip="Prevent rulesets other than the ones below from being drafted"
+              onClick={() => act('toggle_gamemode_whitelist_forced')}
+            >
+              Force Selected
+            </Button>
+            <Button
+              disabled={has_round_started}
+              color={gamemode_blacklist_forced ? 'green' : 'red'}
+              icon={gamemode_blacklist_forced ? 'check' : 'times'}
+              tooltip="Prevent the rulesets below from being drafted"
+              onClick={() => act('toggle_gamemode_blacklist_forced')}
+            >
+              Blacklist Selected
+            </Button>
+          </>
+        }
+      >
+        {roundstart_ruleset_names.length === 0 ? (
+          <Box italic>There are no valid roundstart rulesets (uh oh)</Box>
+        ) : (
+          roundstart_ruleset_names.map((ruleset, idx) => (
+            <Button.Checkbox
+              disabled={has_round_started}
+              checked={forced_gamemode_rulesets.find(
+                (forced_ruleset) => forced_ruleset.name === ruleset,
+              )}
+              key={ruleset + idx}
+              onClick={() => {
+                const selectedRuleset = valid_gamemode_rulesets.find(
+                  (valid_ruleset) => valid_ruleset.name === ruleset,
+                );
+                act('force_gamemode_ruleset', {
+                  forced_roundstart_ruleset: selectedRuleset
+                    ? selectedRuleset.path
+                    : ruleset,
+                });
+              }}
+              verticalAlign="middle"
+            >
+              {ruleset}
+            </Button.Checkbox>
+          ))
+        )}
+      </Section>
       {/* Executed roundstarts */}
       <Section fill title="Executed Gamemodes Rulesets">
         {executed_gamemode_rulesets.length === 0 ? (
@@ -239,11 +300,12 @@ const SupplementaryPage = () => {
     supplementary_points_per_observer,
     has_round_started,
     roundstart_points_override,
-    roundstart_only_use_forced_rulesets,
-    roundstart_blacklist_forced_rulesets,
+    supplementary_whitelist_forced,
+    supplementary_blacklist_forced,
     forced_supplementary_rulesets,
     valid_supplementary_rulesets,
     executed_supplementary_rulesets,
+    supplementary_next,
   } = data;
 
   const [forced_roundstart_points, set_forced_points] = useLocalState(
@@ -251,14 +313,16 @@ const SupplementaryPage = () => {
     0,
   );
 
-  const roundstart_rulesets_by_name = Object.fromEntries(
+  const supplementary_rulesets_by_name = Object.fromEntries(
     valid_supplementary_rulesets.map((ruleset) => {
       return [ruleset.name, ruleset.path];
     }),
   );
 
-  const roundstart_ruleset_names = Object.keys(roundstart_rulesets_by_name);
-  roundstart_ruleset_names.sort();
+  const supplementary_ruleset_names = Object.keys(
+    supplementary_rulesets_by_name,
+  );
+  supplementary_ruleset_names.sort();
 
   return (
     <Flex direction="column">
@@ -387,14 +451,43 @@ const SupplementaryPage = () => {
                 verticalAlign="middle"
               >
                 <NumberInput
-                  value={forced_roundstart_points ?? 0}
-                  disabled={has_round_started || !roundstart_points_override}
+                  value={
+                    !has_round_started
+                      ? (forced_roundstart_points ?? 0)
+                      : supplementary_points
+                  }
+                  disabled={!has_round_started && !roundstart_points_override}
                   animated
                   minValue={0}
                   maxValue={100}
                   step={1}
-                  onChange={(value) => set_forced_points(value)}
+                  onChange={(value) => {
+                    if (!has_round_started) {
+                      set_forced_points(value);
+                    } else {
+                      act('set_supplementary_points', {
+                        new_supplementary_points: value,
+                      });
+                    }
+                  }}
                   width="25%"
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Next Latejoin" verticalAlign="middle">
+                <Dropdown
+                  options={supplementary_ruleset_names}
+                  selected={supplementary_next?.name ?? 'None'}
+                  width="100%"
+                  onSelected={(value) => {
+                    const selectedRuleset = valid_supplementary_rulesets.find(
+                      (ruleset) => ruleset.name === value,
+                    );
+                    act('set_latejoin_ruleset', {
+                      new_latejoin_ruleset: selectedRuleset
+                        ? selectedRuleset.path
+                        : value,
+                    });
+                  }}
                 />
               </LabeledList.Item>
             </Section>
@@ -411,29 +504,29 @@ const SupplementaryPage = () => {
           <>
             <Button
               disabled={has_round_started}
-              color={roundstart_only_use_forced_rulesets ? 'green' : 'red'}
-              icon={roundstart_only_use_forced_rulesets ? 'check' : 'times'}
+              color={supplementary_whitelist_forced ? 'green' : 'red'}
+              icon={supplementary_whitelist_forced ? 'check' : 'times'}
               tooltip="Prevent rulesets other than the ones below from being drafted"
-              onClick={() => act('toggle_roundstart_rulesets_override')}
+              onClick={() => act('toggle_supplementary_whitelist_forced')}
             >
-              Blacklist Others
+              Force Selected
             </Button>
             <Button
               disabled={has_round_started}
-              color={roundstart_blacklist_forced_rulesets ? 'green' : 'red'}
-              icon={roundstart_blacklist_forced_rulesets ? 'check' : 'times'}
+              color={supplementary_blacklist_forced ? 'green' : 'red'}
+              icon={supplementary_blacklist_forced ? 'check' : 'times'}
               tooltip="Prevent the rulesets below from being drafted"
-              onClick={() => act('toggle_roundstart_blacklist_forced_rulesets')}
+              onClick={() => act('toggle_supplementary_blacklist_forced')}
             >
-              Blacklist These
+              Blacklist Selected
             </Button>
           </>
         }
       >
-        {roundstart_ruleset_names.length === 0 ? (
+        {supplementary_ruleset_names.length === 0 ? (
           <Box italic>There are no valid roundstart rulesets (uh oh)</Box>
         ) : (
-          roundstart_ruleset_names.map((ruleset, idx) => (
+          supplementary_ruleset_names.map((ruleset, idx) => (
             <Button.Checkbox
               disabled={has_round_started}
               checked={forced_supplementary_rulesets.find(

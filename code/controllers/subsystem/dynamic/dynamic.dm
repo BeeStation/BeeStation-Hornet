@@ -27,6 +27,13 @@ SUBSYSTEM_DEF(dynamic)
 	/// The next gamemode ruleset to be triggered, if we want to trigger one late
 	var/datum/dynamic_ruleset/gamemode/gamemode_late_ruleset = null
 
+	/// List of forced roundstart rulesets from the dynamic panel
+	var/list/datum/dynamic_ruleset/supplementary/gamemode_forced_rulesets = list()
+	/// Do we choose any roundstart rulesets or only use the ones in `supplementary_forced_rulesets`
+	var/gamemode_whitelist_forced = FALSE
+	/// Inverse of the above, blacklist the rulesets in `supplementary_forced_rulesets`
+	var/gamemode_blacklist_forced = FALSE
+
 	/**
 	 * Supplementary variables
 	 */
@@ -52,9 +59,9 @@ SUBSYSTEM_DEF(dynamic)
 	/// List of forced roundstart rulesets from the dynamic panel
 	var/list/datum/dynamic_ruleset/supplementary/supplementary_forced_rulesets = list()
 	/// Do we choose any roundstart rulesets or only use the ones in `supplementary_forced_rulesets`
-	var/roundstart_only_use_forced_rulesets = FALSE
+	var/supplementary_whitelist_forced = FALSE
 	/// Inverse of the above, blacklist the rulesets in `supplementary_forced_rulesets`
-	var/roundstart_blacklist_forced_rulesets = FALSE
+	var/supplementary_blacklist_forced = FALSE
 	/// Whether or not we ignore our roundstart points calculation
 	var/roundstart_points_override = FALSE
 
@@ -386,8 +393,8 @@ SUBSYSTEM_DEF(dynamic)
 		return TRUE
 
 	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
-	select_gamemode(gamemode_configured_rulesets)
-	pick_roundstart_rulesets(supplementary_configured_rulesets)
+	execute_gamemode_roundstart(gamemode_configured_rulesets)
+	execute_supplementary_roundstart_rulesets(supplementary_configured_rulesets)
 
 	// Save us from hard dels
 	roundstart_ready_amount = length(roundstart_candidates)
@@ -397,8 +404,28 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Select the gamemode to be ran
  */
-/datum/controller/subsystem/dynamic/proc/select_gamemode(list/gamemodes)
-	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(get_weighted_rulesets(gamemodes), TRUE)
+/datum/controller/subsystem/dynamic/proc/execute_gamemode_roundstart(list/gamemodes)
+	var/list/possible_gamemodes = list()
+	// Apply whitelist rules
+	if (gamemode_whitelist_forced)
+		for (var/datum/dynamic_ruleset/gamemode/forced_gamemode in gamemode_forced_rulesets)
+			// It was forced after all
+			forced_gamemode.minimum_players_required = 0
+			possible_gamemodes += forced_gamemode
+	else
+		possible_gamemodes = gamemodes.Copy()
+	// Apply blacklisting rules
+	if (gamemode_blacklist_forced)
+		for (var/datum/dynamic_ruleset/gamemode/forced_gamemode in gamemode_forced_rulesets)
+			possible_gamemodes -= forced_gamemode
+	// Select the ruleset we want
+	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(get_weighted_rulesets(possible_gamemodes), TRUE)
+	// Ignore the user input
+	if (!selected_mode && (gamemode_whitelist_forced || gamemode_blacklist_forced))
+		log_dynamic("GAMEMODE: Could not find a valid gamemode when filtering rules were applied, attempting to pick gamemode ignoring user rules.")
+		message_admins("DYNAMIC: Forced/Banned gamemodes were ignored because a valid gamemode could not be selected with filtering rules applied.")
+		selected_mode = pick_ruleset(get_weighted_rulesets(gamemodes), TRUE)
+	// Failed to select a moed
 	if (!selected_mode)
 		log_dynamic("GAMEMODE: Fatal error, could not find any gamemodes to be executed; round will have no primary antagonist.")
 		return FALSE
@@ -433,7 +460,7 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Pick the roundstart rulesets to run based on their configured variables (weight, cost, flags)
  */
-/datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets(unfiltered_rules)
+/datum/controller/subsystem/dynamic/proc/execute_supplementary_roundstart_rulesets(unfiltered_rules)
 	// Extended was forced, don't pick any rulesets
 	if(forced_extended)
 		log_dynamic("SUPPLEMENTARY: Starting a round of forced extended.")
@@ -446,7 +473,7 @@ SUBSYSTEM_DEF(dynamic)
 			return
 
 	// Check for forced rulesets
-	if(!roundstart_blacklist_forced_rulesets)
+	if(!supplementary_blacklist_forced)
 		for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in supplementary_forced_rulesets)
 			forced_ruleset.set_drafted_players_amount()
 			forced_ruleset.get_candidates()
@@ -467,7 +494,7 @@ SUBSYSTEM_DEF(dynamic)
 			log_dynamic("SUPPLEMENTARY: Forced [new_forced_roundstart_ruleset]")
 			message_admins("DYNAMIC: SUPPLEMENTARY: Forced [new_forced_roundstart_ruleset]")
 
-	if(roundstart_only_use_forced_rulesets)
+	if(supplementary_whitelist_forced)
 		return
 
 	// Trim the rulesets
@@ -535,7 +562,7 @@ SUBSYSTEM_DEF(dynamic)
 		if(!potential_ruleset.allowed(require_drafted = !for_midround))
 			continue
 
-		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in supplementary_forced_rulesets))
+		if(supplementary_blacklist_forced && (potential_ruleset in supplementary_forced_rulesets))
 			log_dynamic("NOT ALLOWED: Ruleset [potential_ruleset.name] was blacklisted.")
 			continue
 

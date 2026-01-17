@@ -32,13 +32,9 @@
 /// Latejoining as this ruleset is not allowed, used for supplementary rulesets
 /// and for when a gamemode ruleset could not be executed at roundstart.
 #define NO_LATE_JOIN (1 << 5)
-/// If we ignore the number of candidates when seeing if we can execute this
-/// Mainly useful for rulesets which require a certain number of candidates, but
-/// can draft them past the point of execution (midrounds from ghosts)
-#define IGNORE_DRAFTED_COUNT (1 << 6)
 /// Is this ruleset obvious? We will only show 1 obvious ruleset in the
 /// roundstart security report.
-#define IS_OBVIOUS_RULESET (1 << 7)
+#define IS_OBVIOUS_RULESET (1 << 6)
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
