@@ -247,6 +247,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
+/// This mob has had their soul stolen by something magical
+#define TRAIT_FRAGMENTED_SOUL "fragmented_soul"
 /// Immune to being afflicted by time stop (spell)
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 /// Whether a spider's consumed this mob

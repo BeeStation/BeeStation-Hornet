@@ -29,7 +29,7 @@
 	return TRUE
 
 /datum/action/spell/lichdom/is_valid_spell(mob/user, atom/target)
-	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL)
+	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL) && !HAS_TRAIT(user, TRAIT_FRAGMENTED_SOUL)
 
 /datum/action/spell/lichdom/on_cast(mob/living/user, atom/target)
 	var/obj/item/marked_item = user.get_active_held_item()

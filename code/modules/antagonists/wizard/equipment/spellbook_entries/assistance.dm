@@ -44,7 +44,7 @@
 /datum/spellbook_entry/tap/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_NO_SOUL))
-		to_chat(user, span_boldwarning("You need to have ownership of your soul to spend it on soul tap."))
+		to_chat(user, span_boldwarning("You can't learn soul tap if you don't have a soul."))
 		return FALSE
 	return .
 

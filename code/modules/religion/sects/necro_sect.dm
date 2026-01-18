@@ -56,6 +56,10 @@
 			to_chat(user,span_warning("[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
+		if(HAS_TRAIT(lich_to_be, TRAIT_FRAGMENTED_SOUL))
+			to_chat(user,span_warning("[lich_to_be] has lost a portion of their soul, as such this rite would destroy what remains. To empower another, they must be buckled to [movable_reltool]."))
+			lich_to_be = null
+			return FALSE
 		for(var/datum/action/spell/knownspell in lich_to_be.actions)
 			if(knownspell.type == lichspell)
 				to_chat(user,span_warning("You've already empowered [lich_to_be], get them to use the spell granted to them! To empower another, they must be buckled to [movable_reltool]."))
@@ -70,6 +74,10 @@
 		lich_to_be = user
 		if(HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,span_warning("You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool]."))
+			lich_to_be = null
+			return FALSE
+		if(HAS_TRAIT(lich_to_be, TRAIT_FRAGMENTED_SOUL))
+			to_chat(user,span_warning("You have lost a portion of your soul, as such this rite would destroy what remains. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
 		for(var/datum/action/spell/knownspell in lich_to_be.actions)

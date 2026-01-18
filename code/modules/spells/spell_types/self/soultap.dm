@@ -42,6 +42,8 @@
 	. = ..()
 	user.maxHealth -= tap_health_taken
 	user.health = min(user.health, user.maxHealth)
+	if(!HAS_TRAIT(user, TRAIT_FRAGMENTED_SOUL))
+		ADD_TRAIT(user, TRAIT_FRAGMENTED_SOUL, MAGIC_TRAIT)
 
 	for(var/datum/action/spell/spell in user.actions)
 		spell.reset_spell_cooldown()
@@ -49,9 +51,6 @@
 	// If the tap took all of our life, we die and lose our soul!
 	if(user.maxHealth <= 0)
 		to_chat(user, ("<span class='userdanger'>Your weakened soul is completely consumed by the tap!</span>"))
-		ADD_TRAIT(user, TRAIT_NO_SOUL, MAGIC_TRAIT)
-		user.fragment_soul()
-
 		user.visible_message(("<span class='danger'>[user] suddenly dies!</span>"), ignored_mobs = user)
 		user.death()
 

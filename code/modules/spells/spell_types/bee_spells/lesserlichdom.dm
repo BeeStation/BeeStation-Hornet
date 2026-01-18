@@ -27,7 +27,7 @@
 	return TRUE
 
 /datum/action/spell/lesserlichdom/is_valid_spell(mob/user, atom/target)
-	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL)
+	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL) && !HAS_TRAIT(user, TRAIT_FRAGMENTED_SOUL)
 
 /datum/action/spell/lesserlichdom/on_cast(mob/user, atom/target)
 	. = ..()
