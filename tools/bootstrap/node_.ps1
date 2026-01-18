@@ -33,7 +33,7 @@ function Verify-Node {
 	Write-Output "Verifying Node checksum"
 	$FileHash = Get-FileHash $NodeTarget -Algorithm SHA256
 	$ActualSha = $FileHash.Hash
-	$LoginResponse = Invoke-WebRequest "https://nodejs.org/download/release/v$NodeVersion/SHASUMS256.txt"
+	$LoginResponse = Invoke-WebRequest "https://nodejs.org/download/release/v$NodeVersion/SHASUMS256.txt" -UseBasicParsing
 	$ShaArray = $LoginResponse.Content.split("`n")
 	foreach ($ShaArrayEntry in $ShaArray) {
 		$EntrySplit = $ShaArrayEntry -split "\s+"

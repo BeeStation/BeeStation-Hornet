@@ -39,6 +39,11 @@
 
 	minimal_lightup_areas = list(/area/construction/mining/aux_base)
 
+	manuscript_jobs = list(
+		JOB_NAME_SECURITYOFFICER,
+		JOB_NAME_ASSISTANT // they're used to be troubles
+	)
+
 /datum/job/security_officer/get_access()
 	. = ..()
 	LOWPOP_GRANT_ACCESS(JOB_NAME_DETECTIVE, ACCESS_FORENSICS_LOCKERS)
@@ -157,13 +162,17 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	suit = /obj/item/clothing/suit/armor/vest/alt
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/security
-	r_pocket = /obj/item/clothing/accessory/badge/officer
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
+	r_pocket = /obj/item/clothing/accessory/badge
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival/security
+
+	backpack_contents = list(
+		/obj/item/mining_voucher/security = 1,
+		/obj/item/ammo_casing/taser = 1,
+		)
 
 	implants = list(/obj/item/implant/mindshield)
 

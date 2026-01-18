@@ -2,7 +2,7 @@
 	desc = "The prankster's standard-issue clowning shoes. Damn, they're huge!"
 	name = "clown shoes"
 	icon_state = "clown"
-	item_state = "cluwne"
+	inhand_icon_state = "cluwne"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = DROPDEL
 	slowdown = SHOES_SLOWDOWN+1

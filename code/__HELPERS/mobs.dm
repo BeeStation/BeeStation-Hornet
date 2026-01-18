@@ -154,81 +154,6 @@
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.facial_hair_styles_list, required_gender = gender)
 	return picked.name
 
-/proc/random_unique_name(gender, attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		if(gender==FEMALE)
-			. = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-		else if(gender==MALE)
-			. = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
-		else
-			. = capitalize(pick(GLOB.first_names)) + " " + capitalize(pick(GLOB.last_names))
-
-		if(!findname(.))
-			break
-
-/proc/random_lizard_name(gender, attempts)
-	if(gender == MALE)
-		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
-	else
-		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
-
-	if(attempts < 10)
-		if(findname(.))
-			. = .(gender, ++attempts)
-
-//this proc tries to generate an AI name that mimics the way players name AIs and borgs
-/proc/random_ai_name(style, attempts = 1)
-	var/numbers = list("1","2","3","4","5","6","7","8","9","0")
-	var/version_words = list("v", "V", "Version ", "mk", "MK", "Mark ")
-	for(var/i in 1 to attempts)
-
-		if(!style)
-			style = rand(1,2)
-
-		switch(style)
-			if(1) //2-3 random sectors
-				var/sectors = 2 + prob(20) //small chance for 3 sectors
-				for(var/s in 1 to sectors)
-					var/sector
-					var/sector_characters
-					var/breakup_character = "-"
-					var/sectorlength = rand(1,3)
-					switch(rand(1,100))
-						if(1 to 25)//25% chance for both numbers and letters
-							sector_characters = numbers + GLOB.alphabet + GLOB.alphabet //add alphabet twice so that numbers are lower weight
-						if(25 to 75) //50% chance for only letters
-							sector_characters = GLOB.alphabet
-						else //25% chance for only numbers, along with shorter sector length and a different breakup character
-							sector_characters = numbers
-							breakup_character = "."
-							sectorlength = rand(1,3)
-
-					sector = random_string(sectorlength, sector_characters)
-					if(prob(80)) //it's probably going to be uppercase
-						sector = uppertext(sector)
-
-					if(s > 1)
-						. += breakup_character
-					. += sector
-
-			if(2) //random vaguely AI related word with a chance to be followed by a version number or a "mark", such as mk1.2, or v3.6
-				. += pick(GLOB.ai_names)
-				if(prob(max(30 - (LAZYLEN(.)), 10))) //chance to for every character to be capitalized followed by a period. the chance is lower the longer the name is.
-					. = uppertext(replacetextEx(.,regex(@"([a-z](?=[a-z]))","g"),"$1."))
-				else if (prob(50)) //slightly higher chance to just be full uppertext
-					. = uppertext(.)
-				else
-					. = capitalize(.)
-
-				if(prob(33))
-
-					var/version_string = " " + pick(version_words) + num2text(prob(50) ? rand(1, 100) / 10 : rand(1,10))
-
-					. += version_string
-
-/proc/random_skin_tone()
-	return pick(GLOB.skin_tones)
-
 GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"albino",
 	"caucasian1",
@@ -258,9 +183,6 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	"latino" = "Light beige",
 	"mediterranean" = "Olive",
 ))
-
-/// An assoc list of species IDs to type paths
-GLOBAL_LIST_EMPTY(species_list)
 
 /proc/age2agedescription(age)
 	switch(age)
@@ -570,6 +492,12 @@ GLOBAL_LIST_EMPTY(species_list)
 	. = list()
 	for(var/mob/living/player in GLOB.mob_living_list)
 		if(player.stat != DEAD && player.mind && !is_centcom_level(player.z) && !isnewplayer(player) && !isbrain(player))
+			. |= player
+
+/proc/get_living_connected_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && player.client)
 			. |= player
 
 //Gets all sentient humans that are alive

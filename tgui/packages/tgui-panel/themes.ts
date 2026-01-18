@@ -4,11 +4,15 @@
  * @license MIT
  */
 
-export const THEMES = ['light', 'dark'];
+export const THEMES = ['light', 'dark', 'blue'];
 
 const COLOR_DARK_BG = '#202020';
 const COLOR_DARK_BG_DARKER = '#171717';
 const COLOR_DARK_TEXT = '#a4bad6';
+
+const COLOR_BLUE_BG = '#11121c';
+const COLOR_BLUE_BG_DARKER = '#0a0b13';
+const COLOR_BLUE_TEXT = '#dbd8ef';
 
 /**
  * Darkmode preference, originally by Kmc2000.
@@ -71,6 +75,11 @@ export const setClientTheme = (name) => {
       desired_background = COLOR_DARK_BG;
       desired_text = COLOR_DARK_TEXT;
       desired_background_darker = COLOR_DARK_BG_DARKER;
+      break;
+    case 'blue':
+      desired_background = COLOR_BLUE_BG;
+      desired_text = COLOR_BLUE_TEXT;
+      desired_background_darker = COLOR_BLUE_BG_DARKER;
       break;
   }
   Byond.winset({

@@ -42,6 +42,11 @@
 
 	minimal_lightup_areas = list(/area/construction/mining/aux_base)
 
+	manuscript_jobs = list(
+		JOB_NAME_SHAFTMINER,
+		JOB_NAME_CARGOTECHNICIAN // miner is actually cargo tech.
+	)
+
 /datum/outfit/job/miner
 	name = JOB_NAME_SHAFTMINER
 	jobtype = /datum/job/shaft_miner

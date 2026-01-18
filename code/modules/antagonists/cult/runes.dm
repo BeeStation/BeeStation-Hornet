@@ -312,8 +312,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	if(ishuman(convertee))
 		var/mob/living/carbon/human/H = convertee
 		H.uncuff()
-		H.stuttering = 0
-		H.cultslurring = 0
+		H.remove_status_effect(/datum/status_effect/speech/slurring/cult)
+		H.remove_status_effect(/datum/status_effect/speech/stutter)
 	return 1
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/sacrificial, list/invokers)
@@ -651,16 +651,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-			question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?",
-			role = /datum/role_preference/roundstart/blood_cultist,
-			check_jobban = ROLE_CULTIST,
-			poll_time = 10 SECONDS,
-			checked_target = mob_to_revive,
-			jump_target = mob_to_revive,
-			role_name_text = "inactive blood cultist",
-			alert_pic = mob_to_revive,
-		)
+		var/datum/poll_config/config = new()
+		config.question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?"
+		config.role = /datum/role_preference/roundstart/blood_cultist
+		config.check_jobban = ROLE_CULTIST
+		config.poll_time = 10 SECONDS
+		config.jump_target = mob_to_revive
+		config.role_name_text = "inactive blood cultist"
+		config.alert_pic = mob_to_revive
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = mob_to_revive)
 		if(candidate)
 			mob_to_revive.ghostize(FALSE)
 			mob_to_revive.key = candidate.key

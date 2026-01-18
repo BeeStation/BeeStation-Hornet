@@ -8,8 +8,10 @@
 import './styles/main.scss';
 import './styles/themes/abductor.scss';
 import './styles/themes/admin.scss';
+import './styles/themes/cardboard.scss';
 import './styles/themes/cardtable.scss';
 import './styles/themes/clockwork.scss';
+import './styles/themes/computer.scss';
 import './styles/themes/elevator.scss';
 import './styles/themes/hackerman.scss';
 import './styles/themes/login.scss';

@@ -37,6 +37,8 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
+	/// Whether or not this door can be opened through a door remote, ever
+	var/opens_with_door_remote = FALSE
 
 
 /datum/armor/machinery_door
@@ -205,8 +207,9 @@
 	return
 
 /obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
-	try_to_weld(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	if (!user.combat_mode)
+		try_to_weld(tool, user)
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode || HAS_TRAIT(tool, TRAIT_DOOR_PRYER))

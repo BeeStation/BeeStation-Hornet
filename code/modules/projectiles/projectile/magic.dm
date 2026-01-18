@@ -556,7 +556,7 @@
 	animate(src, alpha = 0, time = 30)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 30)
 
-/obj/structure/closet/decay/open(mob/living/user)
+/obj/structure/closet/decay/open(mob/living/user, force, special_effects)
 	. = ..()
 	if(.)
 		if(icon_state == magic_icon) //check if we used the magic icon at all before giving it the lesser magic icon
@@ -669,15 +669,14 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		question = poll_message,
-		check_jobban = ban_key,
-		poll_time = 10 SECONDS,
-		checked_target = M,
-		jump_target = M,
-		role_name_text = "ghost possession",
-		alert_pic = M,
-	)
+	var/datum/poll_config/config = new()
+	config.question = poll_message
+	config.check_jobban = ban_key
+	config.poll_time = 10 SECONDS
+	config.jump_target = M
+	config.role_name_text = "ghost possession"
+	config.alert_pic = M
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, M)
 	if(M.stat == DEAD)//boo.
 		return
 	if(candidate)
