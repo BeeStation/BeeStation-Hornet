@@ -16,8 +16,8 @@
 	if(obj_flags & IN_USE)
 		return
 
-	if(user.maxHealth <= soul_drain)
-		to_chat(user, span_userdanger("The machine rejects you, you have nothing left to give..."))
+	if(user.maxHealth <= soul_drain || HAS_TRAIT(user, TRAIT_NO_SOUL))
+		to_chat(user, span_userdanger("The machine rejects you, you have nothing to give..."))
 		return
 
 	else
