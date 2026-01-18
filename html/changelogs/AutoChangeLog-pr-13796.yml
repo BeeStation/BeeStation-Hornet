@@ -1,5 +1,0 @@
-author: TsunamiAnt
-delete-after: true
-changes:
-  - code_imp: changed some code in weather-listener to account for off-lavaland weather
-      soundloops

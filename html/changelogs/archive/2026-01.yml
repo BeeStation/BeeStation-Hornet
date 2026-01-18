@@ -222,3 +222,7 @@
   - admin: Adds sanity checks to administration banning tool to prevent orphan entries
       (submission with no player identifiers)
   - bugfix: fixes species naming
+2026-01-18:
+  TsunamiAnt:
+  - code_imp: changed some code in weather-listener to account for off-lavaland weather
+      soundloops
