@@ -5,7 +5,7 @@
 
 #define RADIATION_GLOW_THRESHOLD 20
 #define RADIATION_ALERT_THRESHOLD 20
-#define RADIATION_MUTATE_THRESHOLD 40
+#define RADIATION_MUTATE_THRESHOLD 75
 #define RADIATION_BURN_THRESHOLD 75
 
 #define RADIATION_BURN_SPLOTCH_DAMAGE 11
@@ -121,7 +121,7 @@
 	if (intensity >= RADIATION_BURN_THRESHOLD && !trying_to_burn)
 		start_burn_splotch_timer()
 
-	if(intensity >= RADIATION_MUTATE_THRESHOLD && COOLDOWN_FINISHED(src, irradiated_mutation))
+	if(intensity >= RADIATION_MUTATE_THRESHOLD && COOLDOWN_FINISHED(src, irradiated_mutation) && DT_PROB(5, delta_time))
 		mutate_human_parent(human_parent)
 
 	var/damage = min(RADIATION_TOX_DAMAGE_PER_INTENSITY * intensity * delta_time, RADIATION_MAX_TOX_DAMAGE)
@@ -147,9 +147,11 @@
 
 /datum/component/irradiated/proc/mutate_human_parent(mob/living/carbon/human/human_parent)
 	COOLDOWN_START(src, irradiated_mutation, rand(45, 120) SECONDS)
-	human_parent.easy_random_mutate()
-	human_parent.random_mutate_unique_features()
-	human_parent.random_mutate_unique_identity()
+	if(prob(75)) //usually a mutation, sometimes a total appearance change instead
+		human_parent.easy_random_mutate()
+	else
+		human_parent.random_mutate_unique_features()
+		human_parent.random_mutate_unique_identity()
 
 /datum/component/irradiated/proc/start_burn_splotch_timer()
 	trying_to_burn = TRUE
