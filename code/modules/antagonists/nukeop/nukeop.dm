@@ -101,11 +101,10 @@
 		if(istype(human_to_rename)) // Reinforcements get a real name
 			var/first_name = pick(GLOB.operative_aliases)
 			var/chosen_name = "[first_name] [nuke_team.syndicate_name]"
-			human_to_rename.fully_replace_character_name(human_to_rename.real_name, chosen_name)
+			human_to_rename.fully_replace_character_name(null, chosen_name)
 		else
-			var/number = 1
-			number = nuke_team.members.Find(owner)
-			owner.current.real_name = "[nuke_team.syndicate_name] Operative #[number]"
+			var/number = nuke_team.members.Find(owner)
+			owner.current.fully_replace_character_name(null, "[nuke_team.syndicate_name] Operative #[number]")
 
 /datum/antagonist/nukeop/proc/memorize_code()
 	if(nuke_team && nuke_team.tracked_nuke && nuke_team.memorized_code)
@@ -199,11 +198,12 @@
 			H.update_icons()
 
 /datum/antagonist/nukeop/leader/give_alias()
-	title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
-	if(nuke_team && nuke_team.syndicate_name)
-		owner.current.real_name = "[nuke_team.syndicate_name] [title]"
+	title ||= pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
+	. = ..()
+	if(ishuman(owner.current))
+		owner.current.fully_replace_character_name(owner.current.real_name, "[title] [owner.current.real_name]")
 	else
-		owner.current.real_name = "Syndicate [title]"
+		owner.current.fully_replace_character_name(owner.current.real_name, "[nuke_team.syndicate_name] [title]")
 
 /datum/antagonist/nukeop/leader/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
@@ -228,16 +228,18 @@
 	syndicate_name = new_name
 	name = "Family [syndicate_name]"
 	for(var/datum/mind/synd_mind in members)
-		var/mob/living/carbon/human/human_to_rename = synd_mind.current
-		if(!istype(human_to_rename))
-			continue
-		var/first_name = pick(GLOB.operative_aliases)
-		var/chosen_name = "[first_name] [syndicate_name]"
-		human_to_rename.fully_replace_character_name(human_to_rename.real_name, chosen_name)
+		var/datum/antagonist/nukeop/nukie_ref = synd_mind.has_antag_datum(/datum/antagonist/nukeop)
+		nukie_ref?.give_alias()
 
 /datum/antagonist/nukeop/leader/proc/ask_name()
 	var/randomname = pick(GLOB.last_names)
-	var/newname = stripped_input(owner.current,"You are the nuke operative [title]. Please choose a last name for your family.", "Name change",randomname)
+	var/newname = stripped_input(
+		owner.current,
+		"You are the nuclear operative [title]. Please choose a last name for your family.",
+		"Name change",
+		randomname,
+		max_length = MAX_NAME_LEN,
+	)
 	if (!newname)
 		newname = randomname
 	else
@@ -273,6 +275,7 @@
 	.["lone"] = TRUE
 
 /datum/antagonist/nukeop/reinforcement
+	name = "Nuclear Operative Reinforcement"
 	send_to_spawnpoint = FALSE
 	nukeop_outfit = /datum/outfit/syndicate/no_crystals
 
