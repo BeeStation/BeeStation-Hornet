@@ -60,7 +60,6 @@
 
 	var/bloodcrawl = 0 //0 No blood crawling, BLOODCRAWL for bloodcrawling, BLOODCRAWL_EAT for crawling+mob devour
 	var/holder = null //The holder for blood crawling
-	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
 	var/limb_destroyer = FALSE //1 Sets AI behavior that allows mobs to target and dismember limbs with their basic attack.
 
 	var/mob_size = MOB_SIZE_HUMAN
@@ -84,6 +83,8 @@
 
 	var/list/pipes_shown = list()
 	var/last_played_vent
+	/// Cooldown for welded vent movement messages to prevent spam
+	COOLDOWN_DECLARE(welded_vent_message_cd)
 
 	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
 
@@ -111,13 +112,6 @@
 
 	var/list/status_effects //a list of all status effects the mob has
 	var/druggy = 0
-
-	//Speech
-	var/stuttering = 0
-	var/slurring = 0
-	var/cultslurring = 0
-	var/clockslurring = 0
-	var/derpspeech = 0
 
 	var/list/implants = null
 

@@ -97,9 +97,9 @@
 	var/mob/living/carbon/spawned_carbon = living_mob
 	spawned_carbon.set_resting(TRUE, silent = TRUE)
 	if(prob(50))
-		spawned_carbon.adjust_drugginess(rand(30 SECONDS, 40 SECONDS))
+		spawned_carbon.adjust_drugginess(rand(10 SECONDS, 20 SECONDS))
 	else
-		spawned_carbon.drunkenness += rand(15, 25)
+		spawned_carbon.adjust_drunk_effect(rand(30 SECONDS, 40 SECONDS))
 	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
 
 	if(prob(35) && !spawned_carbon.head)
@@ -172,6 +172,7 @@
 	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
 	report_message = "Your station's friendly bots have had their language matrix fried due to an event, resulting in some strange and unfamiliar speech patterns."
+	trait_to_give = STATION_TRAIT_BOTS_GLITCHED
 
 /datum/station_trait/bot_languages/New()
 	. = ..()
@@ -181,11 +182,25 @@
 
 /datum/station_trait/bot_languages/on_round_start()
 	. = ..()
-	// All bots that exist round start have their set language randomized.
-	for(var/mob/living/simple_animal/bot/found_bot in GLOB.alive_mob_list)
-		// The bot's language holder - so we can randomize and change their language
-		var/datum/language_holder/bot_languages = found_bot.get_language_holder()
-		bot_languages.selected_language = bot_languages.get_random_spoken_language()
+	// All bots that exist round start on station Z OR on the escape shuttle have their set language randomized.
+	for(var/mob/living/found_bot as anything in GLOB.bots_list)
+		found_bot.randomize_language_if_on_station()
+
+/datum/station_trait/machine_languages
+	name = "Machine Language Matrix Malfunction"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	cost = STATION_TRAIT_COST_FULL
+	show_in_report = TRUE
+	report_message = "Your station's machines have had their language matrix fried due to an event, \
+		resulting in some strange and unfamiliar speech patterns."
+	trait_to_give = STATION_TRAIT_MACHINES_GLITCHED
+
+/datum/station_trait/machine_languages/New()
+	. = ..()
+	// What "caused" our machines to go haywire (fluff)
+	var/event_source = pick("an ion storm", "a malfunction", "a software update", "a power surge", "a computer virus", "a subdued machine uprising", "a clown's prank")
+	report_message = "Your station's machinery have had their language matrix fried due to [event_source], resulting in some strange and unfamiliar speech patterns."
 
 /datum/station_trait/united_budget
 	name = "United Department Budget Management"

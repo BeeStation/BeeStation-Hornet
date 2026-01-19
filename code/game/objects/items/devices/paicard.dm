@@ -114,11 +114,8 @@
 			candidate.ready = FALSE
 			SSpai.candidates[candidate.ckey] = candidate
 		if("fix_speech")
-			to_chat(pai, span_notice("Your owner has corrected your speech modulation!"))
-			to_chat(usr, span_notice("You fix the pAI's speech modulator."))
-			pai.stuttering = 0
-			pai.slurring = 0
-			pai.derpspeech = 0
+			pai.fix_speech()
+			return TRUE
 		if("request")
 			if(!pai)
 				SSpai.findPAI(src, usr)
@@ -126,14 +123,16 @@
 			if(pai.master_dna)
 				return
 			if(!iscarbon(usr))
-				to_chat(usr, span_warning("You don't have any DNA, or your DNA is incompatible with this device!"))
-			else
-				var/mob/living/carbon/master = usr
-				pai.master = master.real_name
-				pai.master_dna = master.dna.unique_enzymes
-				to_chat(pai, span_notice("You have been bound to a new master."))
-				pai.laws.set_zeroth_law("Serve your master.")
-				pai.emittersemicd = FALSE
+				balloon_alert(usr, "incompatible DNA signature")
+				return FALSE
+			var/mob/living/carbon/master = usr
+			pai.master = master.real_name
+			pai.master_dna = master.dna.unique_enzymes
+			to_chat(src, span_bolddanger("You have been bound to a new master: [usr.real_name]!"))
+			pai.laws.set_zeroth_law("Serve your master.")
+			pai.holochassis_ready = TRUE
+			return TRUE
+
 		if("set_laws")
 			var/newlaws = stripped_multiline_input(usr, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.laws.supplied[1])
 			if(!in_range(src, usr))

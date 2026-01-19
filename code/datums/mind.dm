@@ -55,7 +55,6 @@
 	/// Martial art on this mind
 	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art
-	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -89,6 +88,11 @@
 
 	/// What color our soul is
 	var/soul_glimmer
+
+	///Assoc list of addiction values, key is the type of withdrawal (as singleton type), and the value is the amount of addiction points (as number)
+	var/list/addiction_points
+	///Assoc list of key active addictions and value amount of cycles that it has been active.
+	var/list/active_addictions
 
 /datum/mind/New(key)
 	src.key = key
@@ -666,6 +670,18 @@
 	if(martial_art && martial_art.id == string)
 		return martial_art
 	return FALSE
+
+///Adds addiction points to the specified addiction
+/datum/mind/proc/add_addiction_points(type, amount)
+	LAZYSET(addiction_points, type, min(LAZYACCESS(addiction_points, type) + amount, MAX_ADDICTION_POINTS))
+	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
+	return affected_addiction.on_gain_addiction_points(src)
+
+///Adds addiction points to the specified addiction
+/datum/mind/proc/remove_addiction_points(type, amount)
+	LAZYSET(addiction_points, type, max(LAZYACCESS(addiction_points, type) - amount, 0))
+	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
+	return affected_addiction.on_lose_addiction_points(src)
 
 /mob/dead/new_player/sync_mind()
 	return

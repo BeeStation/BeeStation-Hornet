@@ -20,6 +20,7 @@
 	antag_moodlet = /datum/mood_event/heretics
 	banning_key = ROLE_HERETIC
 	required_living_playtime = 4
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -177,7 +178,7 @@
 		if(prefs_name)
 			carbon_owner.fully_replace_character_name(carbon_owner.real_name, prefs_name)
 		else
-			carbon_owner.fully_replace_character_name(carbon_owner.real_name, random_unique_name(carbon_owner.gender))
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.generate_random_mob_name())
 		for(var/datum/record/crew/record in GLOB.manifest.general)
 			if(record.name == carbon_owner.real_name)
 				record.species = carbon_owner.dna.species.name

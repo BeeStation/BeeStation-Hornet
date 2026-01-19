@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed organ smart fridges runtiming when a non-organ is removed from their
+      contents
