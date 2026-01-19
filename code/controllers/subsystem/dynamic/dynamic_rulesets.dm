@@ -8,6 +8,7 @@
 	/// When this ruleset runs. (Roundstart, Midround, Latejoin)
 	var/rule_category
 	/// The probability of this ruleset being picked against other rulesets.
+	/// Access via get_weight
 	var/weight = 5
 	/// How many points this ruleset costs to run.
 	var/points_cost = 7
@@ -40,6 +41,12 @@
 	var/list/candidates
 	/// A list of mobs (or minds for roundstart rulesets) chosen for this ruleset.
 	var/list/chosen_candidates
+
+/**
+ * Sets the weight of this ruleset based on non-static rules such as recovery time.
+ */
+/datum/dynamic_ruleset/proc/get_weight()
+	return weight
 
 /**
  * Set the amount of players to be drafted.

@@ -544,7 +544,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/possible_rulesets = list()
 	for(var/datum/dynamic_ruleset/potential_ruleset in rulesets)
 		potential_ruleset.set_drafted_players_amount()
-		possible_rulesets[potential_ruleset] = potential_ruleset.weight
+		possible_rulesets[potential_ruleset] = potential_ruleset.get_weight()
 	return possible_rulesets
 
 /datum/controller/subsystem/dynamic/proc/get_weighted_executable_rulesets(list/rulesets, for_midround = FALSE)
@@ -566,7 +566,7 @@ SUBSYSTEM_DEF(dynamic)
 			log_dynamic("NOT ALLOWED: Ruleset [potential_ruleset.name] was blacklisted.")
 			continue
 
-		possible_rulesets[potential_ruleset] = potential_ruleset.weight
+		possible_rulesets[potential_ruleset] = potential_ruleset.get_weight()
 	return possible_rulesets
 
 /**
@@ -876,7 +876,7 @@ SUBSYSTEM_DEF(dynamic)
 
 		ruleset.candidates = null
 
-		possible_rulesets[ruleset] = ruleset.weight
+		possible_rulesets[ruleset] = ruleset.get_weight()
 
 	// Tick down to a lower severity ruleset if there are none of the chosen severity
 	if(!length(possible_rulesets))

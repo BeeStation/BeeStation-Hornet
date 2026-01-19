@@ -8,6 +8,28 @@
 	/// Default minimum players required so that there is some mystery involved.
 	/// Disabled for now, since traitor works fine on 0 pop
 	minimum_players_required = 5
+	/// The number of rounds that it takes before this gamemode reaches full weight after it has been executed.
+	/// The first round after execution will use a weight of 1 (still possible but rare).
+	/// A value of 1 means that it will instantly recover
+	/// A value of 2 means that the next round after it executes, it will have half weight and after that it
+	/// will have full weight.
+	var/recent_weight_recovery_linear = 4
+
+/datum/dynamic_ruleset/gamemode/proc/set_dynamic_weight()
+	if (recent_weight_recovery_linear <= 1)
+		return
+	var/list/gamemode_data = SSpersistence.get_gamemode_data()
+	var/rounds_since_execution = gamemode_data["[type]"]
+	// No data available (never executed)
+	if (rounds_since_execution <= 0)
+		return
+	// Calculate the proportion
+	var/proportion = (rounds_since_execution - 1) / recent_weight_recovery_linear
+	var/old_weight = weight
+	// Linear interpolation between 1 and the original weight based on time since last execution
+	weight = 1 + (weight - 1) * proportion
+	if (weight != old_weight)
+		log_dynamic("DYNAMIC: Ruleset [type] is using a weight of [weight] instead of [old_weight] as it executed [rounds_since_execution] rounds ago and takes [recent_weight_recovery_linear] rounds to fully recover.")
 
 /datum/dynamic_ruleset/gamemode/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
@@ -58,6 +80,7 @@
 	role_preference = /datum/role_preference/roundstart/traitor
 	antag_datum = /datum/antagonist/traitor
 	weight = 8
+	recent_weight_recovery_linear = 2
 
 /datum/dynamic_ruleset/gamemode/traitor/security_report()
 	return "Intercepted communications between neighboring orbital stations suggest that Syndicate activity, as always, remains a potential threat."

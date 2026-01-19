@@ -591,6 +591,7 @@
 #include "code\controllers\subsystem\persistence\counter_delamination.dm"
 #include "code\controllers\subsystem\persistence\custom_outfits.dm"
 #include "code\controllers\subsystem\persistence\photo_albums.dm"
+#include "code\controllers\subsystem\persistence\recent_modes.dm"
 #include "code\controllers\subsystem\persistence\trophies.dm"
 #include "code\controllers\subsystem\processing\ai_basic_avoidance.dm"
 #include "code\controllers\subsystem\processing\ai_behaviors.dm"
