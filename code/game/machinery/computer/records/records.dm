@@ -37,7 +37,7 @@
 
 	var/mob/user = ui.user
 
-	if (!authenticated || issilicon(user)) // Silicons are forbidden from editing records.
+	if (issilicon(user)) // Silicons are forbidden from editing records.
 		return FALSE
 
 	var/datum/record/crew/target_record
