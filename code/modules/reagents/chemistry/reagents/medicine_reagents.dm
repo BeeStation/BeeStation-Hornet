@@ -762,22 +762,24 @@
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjust_temp_blindness(-4 SECONDS * REM * delta_time)
-	affected_mob.adjust_eye_blur(-4 SECONDS * REM * delta_time)
 	var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
-	if(eyes)
-		// Healing eye damage will cure nearsightedness and blindness from ... eye damage
-		if(eyes.apply_organ_damage(-2 * REM * delta_time))
-			. = UPDATE_MOB_HEALTH
-		// If our eyes are seriously damaged, we have a probability of causing eye blur while healing
-		if(eyes.damage >= eyes.low_threshold && IS_ORGANIC_ORGAN(eyes) && DT_PROB(10, delta_time))
-			// While healing, gives some eye blur
-			if(affected_mob.is_blind_from(EYE_DAMAGE))
-				to_chat(affected_mob, span_warning("Your vision slowly returns..."))
-				affected_mob.adjust_eye_blur(20 SECONDS)
-			else if(affected_mob.is_nearsighted_from(EYE_DAMAGE))
-				to_chat(affected_mob, span_warning("The blackness in your peripheral vision begins to fade."))
-				affected_mob.adjust_eye_blur(5 SECONDS)
+	if(!eyes)
+		return
+
+	eyes.apply_organ_damage(-2 * REM * delta_time)
+	if(HAS_TRAIT_FROM(affected_mob, TRAIT_BLIND, EYE_DAMAGE))
+		if(DT_PROB(10, delta_time))
+			to_chat(affected_mob, span_warning("Your vision slowly returns..."))
+			affected_mob.cure_blind(EYE_DAMAGE)
+			affected_mob.cure_nearsighted(EYE_DAMAGE)
+			affected_mob.set_eye_blur_if_lower(70 SECONDS)
+	else if(HAS_TRAIT_FROM(affected_mob, TRAIT_NEARSIGHT, EYE_DAMAGE))
+		to_chat(affected_mob, span_warning("The blackness in your peripheral vision fades."))
+		affected_mob.cure_nearsighted(EYE_DAMAGE)
+		affected_mob.set_eye_blur_if_lower(20 SECONDS)
+	else if(affected_mob.is_blind() || affected_mob.has_status_effect(/datum/status_effect/eye_blur))
+		affected_mob.set_blindness(0)
+		affected_mob.remove_status_effect(/datum/status_effect/eye_blur)
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"
