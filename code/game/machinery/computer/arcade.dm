@@ -500,7 +500,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	. = ..()
 	if (!isliving(_user))
 		return
-	var/mob/living/user = _user
+	var/mob/living/living_user = user
 	if(fuel <= 0 || food <=0 || settlers.len == 0)
 		gameStatus = ORION_STATUS_GAMEOVER
 		event = null
