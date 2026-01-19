@@ -382,8 +382,6 @@
 			AdjustSleeping(100)
 			Unconscious(100)
 
-	if(silent)
-		silent = max(silent - (0.5 * delta_time), 0)
 
 	if(druggy)
 		adjust_drugginess(-0.5 * delta_time)

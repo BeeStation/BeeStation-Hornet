@@ -153,11 +153,3 @@ GLOBAL_LIST_INIT(blood_types, generate_blood_types())
 		if(mind)
 			minds += mind
 	return minds
-/// List of all species prototypes to reference, assoc [type] = prototype
-GLOBAL_LIST_INIT_TYPED(species_prototypes, /datum/species, init_species_prototypes())
-
-/proc/init_species_prototypes()
-	var/list/species_list = list()
-	for(var/species_type in subtypesof(/datum/species))
-		species_list[species_type] = new species_type()
-	return species_list

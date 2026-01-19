@@ -501,11 +501,11 @@
 			nearby_people++
 	var/mob/living/carbon/human/H = quirk_target
 	if(DT_PROB(2 + nearby_people, delta_time))
-		H.adjust_stutter(0.5 SECONDS)
+		H.set_silence_if_lower(6 SECONDS)
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety", /datum/mood_event/anxiety)
-	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
+	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.has_status_effect(/datum/status_effect/silenced))
 		to_chat(H, span_danger("You retreat into yourself. You <i>really</i> don't feel up to talking."))
-		H.silent = max(10, H.silent)
+		H.set_silence_if_lower(10 SECONDS)
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety_mute", /datum/mood_event/anxiety_mute)
 	else if(DT_PROB(0.5, delta_time) && dumb_thing)
 		to_chat(H, span_userdanger("You think of a dumb thing you said a long time ago and scream internally."))

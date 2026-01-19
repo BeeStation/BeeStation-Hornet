@@ -403,12 +403,12 @@
 						need_mob_update += reagent.overdose_start(owner)
 						log_game("[key_name(owner)] has started overdosing on [reagent.name] at [reagent.volume] units.")
 
-					for(var/addiction in R.addiction_types)
-						owner.mind?.add_addiction_points(addiction, R.addiction_types[addiction] * REAGENTS_METABOLISM)
+					for(var/addiction in reagent.addiction_types)
+						owner.mind?.add_addiction_points(addiction, reagent.addiction_types[addiction] * REAGENTS_METABOLISM)
 
 				if(reagent.overdosed)
 					need_mob_update += reagent.overdose_process(owner, delta_time, times_fired)
-	
+
 			need_mob_update += reagent.on_mob_life(owner, delta_time, times_fired)
 
 	if(owner && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.

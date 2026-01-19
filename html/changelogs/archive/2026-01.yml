@@ -200,6 +200,8 @@
       again.
   PatienceStPim:
   - rscadd: Rubber ducks can be purchased from cargo
+  rkz:
+  - rscadd: adds production method for IPC blood
   rkz, andrea-feather, Melbert, Jacquerel, John Willard, timothytorres, Absolucy:
   - refactor: Random Name Generation has been refactored. Report any instances of
       people having weird (or "Unknown") names.
@@ -213,3 +215,26 @@
   - refactor: defines a new global proc, pick_weight_recursive()
   - code_imp: languages can weight syllables, and galactic common's definition is
       easier to look at
+2026-01-16:
+  BotTierPC, Blerpfish:
+  - rscadd: Adds a new shade of carpet, found in Cargo's Exotic Carpet Crate.
+  Tsar-Salat:
+  - admin: Adds sanity checks to administration banning tool to prevent orphan entries
+      (submission with no player identifiers)
+  - bugfix: fixes species naming
+2026-01-18:
+  TsunamiAnt:
+  - code_imp: changed some code in weather-listener to account for off-lavaland weather
+      soundloops
+2026-01-19:
+  Tsar-Salat:
+  - bugfix: fixes nukeop name assignment
+  mrmanlikesbt:
+  - bugfix: Fixed organ smart fridges runtiming when a non-organ is removed from their
+      contents
+  rkz, SishTis, timothymtorres, Melbert, tralezab:
+  - bugfix: cleans up aphasia and slurring speech when lacking a tongue
+  - bugfix: hivemind languages dont force talking emotes
+  - rscadd: some tongues have a native language, these languages are not affected
+      by the tongue's respective speechmods
+  - refactor: converts silence from a mob stat to a status effect

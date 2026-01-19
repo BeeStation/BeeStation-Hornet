@@ -16,16 +16,34 @@
 	 * To modify this list for subtypes, see [/obj/item/organ/tongue/proc/get_possible_languages]. Do not modify directly.
 	 */
 	VAR_PRIVATE/list/languages_possible
+	/**
+	 * A list of languages which are native to this tongue
+	 *
+	 * When these languages are spoken with this tongue, and modifies speech is true, no modifications will be made
+	 * (such as no accent, hissing, or whatever)
+	 */
+	var/list/languages_native
+	///changes the verbage of how you speak. (Permille -> says <-, "I just used a verb!")
+	///i hate to say it, but because of sign language, this may have to be a component. and we may have to do some insane shit like putting a component on a component
 	var/say_mod = "says"
+	///for temporary overrides of the above variable.
+	var/temp_say_mod = ""
+
 	var/ask_mod = "asks"
 	var/yell_mod = "yells"
 	var/exclaim_mod = "exclaims"
-	var/liked_food = JUNKFOOD | FRIED
-	var/disliked_food = GROSS | RAW | CLOTH | GORE
-	var/toxic_food = TOXIC
-	// Determines how "sensitive" this tongue is to tasting things, lower is more sensitive.
+
+	/// Whether the owner of this tongue can taste anything. Being set to FALSE will mean no taste feedback will be provided.
+	var/sense_of_taste = TRUE
+	/// Determines how "sensitive" this tongue is to tasting things, lower is more sensitive.
 	/// See [/mob/living/proc/get_taste_sensitivity].
 	var/taste_sensitivity = 15
+	/// Foodtypes this tongue likes
+	var/liked_foodtypes = JUNKFOOD | FRIED //human tastes are default
+	/// Foodtypes this tongue dislikes
+	var/disliked_foodtypes = GROSS | RAW | CLOTH | GORE
+	/// Foodtypes this tongue HATES
+	var/toxic_foodtypes = TOXIC
 	/// Whether this tongue modifies speech via signal
 	var/modifies_speech = FALSE
 
@@ -74,20 +92,63 @@
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
+	if(speech_args[SPEECH_LANGUAGE] in languages_native)
+		return FALSE //no changes
+	modify_speech(source, speech_args)
+
+/obj/item/organ/tongue/proc/modify_speech(datum/source, list/speech_args)
+	return speech_args[SPEECH_MESSAGE]
+
 /obj/item/organ/tongue/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 
 	if(modifies_speech)
 		RegisterSignal(receiver, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	receiver.UnregisterSignal(receiver, COMSIG_MOB_SAY)
+	/* This could be slightly simpler, by making the removal of the
+	* NO_TONGUE_TRAIT conditional on the tongue's `sense_of_taste`, but
+	* then you can distinguish between ageusia from no tongue, and
+	* ageusia from having a non-tasting tongue.
+	*/
+	REMOVE_TRAIT(receiver, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
+	apply_tongue_effects()
 
-/obj/item/organ/tongue/on_mob_remove(mob/living/carbon/tongue_owner, special, movement_flags)
-	UnregisterSignal(tongue_owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	tongue_owner.RegisterSignal(tongue_owner, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
-	return ..()
+/obj/item/organ/tongue/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+	. = ..()
+
+	temp_say_mod = ""
+	UnregisterSignal(organ_owner, COMSIG_MOB_SAY)
+	REMOVE_TRAIT(organ_owner, TRAIT_SPEAKS_CLEARLY, SPEAKING_FROM_TONGUE)
+	REMOVE_TRAIT(organ_owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+	// Carbons by default start with NO_TONGUE_TRAIT caused TRAIT_AGEUSIA
+	ADD_TRAIT(organ_owner, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
+
+/obj/item/organ/tongue/apply_organ_damage(damage_amount, maximum = maxHealth, required_organ_flag)
+	. = ..()
+	if(!owner)
+		return FALSE
+	apply_tongue_effects()
+
+/// Applies effects to our owner based on how damaged our tongue is
+/obj/item/organ/tongue/proc/apply_tongue_effects()
+	if(sense_of_taste)
+		//tongues can't taste food when they are failing
+		if(organ_flags & ORGAN_FAILING)
+			ADD_TRAIT(owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+		else
+			REMOVE_TRAIT(owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+	else
+		//tongues can't taste food when they lack a sense of taste
+		ADD_TRAIT(owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+	if(organ_flags & ORGAN_FAILING)
+		REMOVE_TRAIT(owner, TRAIT_SPEAKS_CLEARLY, SPEAKING_FROM_TONGUE)
+	else
+		ADD_TRAIT(owner, TRAIT_SPEAKS_CLEARLY, SPEAKING_FROM_TONGUE)
 
 /obj/item/organ/tongue/could_speak_language(datum/language/language_path)
 	return (language_path in languages_possible)
+
+/obj/item/organ/tongue/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutanttongue
 
 /obj/item/organ/tongue/lizard
 	name = "forked tongue"
@@ -96,10 +157,11 @@
 	say_mod = "hisses"
 	taste_sensitivity = 10 // combined nose + tongue, extra sensitive
 	modifies_speech = TRUE
-	disliked_food = GRAIN | DAIRY | CLOTH | GROSS
-	liked_food = GORE | MEAT
+	languages_native = list(/datum/language/draconic)
+	disliked_foodtypes = GRAIN | DAIRY | CLOTH | GROSS
+	liked_foodtypes = GORE | MEAT
 
-/obj/item/organ/tongue/lizard/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/lizard/modify_speech(datum/source, list/speech_args)
 	var/static/regex/lizard_hiss = new("s+", "g")
 	var/static/regex/lizard_hiSS = new("S+", "g")
 	var/static/regex/lizard_kss = new(@"(\w)x", "g")
@@ -123,11 +185,12 @@
 	say_mod = "buzzes"
 	taste_sensitivity = 25 // you eat vomit, this is a mercy
 	modifies_speech = TRUE
-	liked_food = GROSS | RAW | GORE // Limit how much food they actually like. They already have carte blanche on like 90% of food
-	disliked_food = NONE
-	toxic_food = NONE
+	languages_native = list(/datum/language/buzzwords)
+	liked_foodtypes = GROSS | RAW | GORE // Limit how much food they actually like. They already have carte blanche on like 90% of food
+	disliked_foodtypes = NONE
+	toxic_foodtypes = NONE
 
-/obj/item/organ/tongue/fly/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/fly/modify_speech(datum/source, list/speech_args)
 	var/static/regex/fly_buzz = new("z+", "g")
 	var/static/regex/fly_buZZ = new("Z+", "g")
 	var/message = speech_args[SPEECH_MESSAGE]
@@ -169,7 +232,7 @@
 		else
 			. += span_notice("It is attuned to [mothership].")
 
-/obj/item/organ/tongue/abductor/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/abductor/modify_speech(datum/source, list/speech_args)
 	//Hacks
 	var/message = speech_args[SPEECH_MESSAGE]
 	speech_args[SPEECH_MESSAGE] = ""
@@ -196,9 +259,9 @@
 	say_mod = "moans"
 	modifies_speech = TRUE
 	taste_sensitivity = 32
-	liked_food = GROSS | MEAT | RAW | GORE
+	liked_foodtypes = GROSS | MEAT | RAW | GORE
 
-/obj/item/organ/tongue/zombie/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/zombie/modify_speech(datum/source, list/speech_args)
 	var/list/message_list = splittext(speech_args[SPEECH_MESSAGE], " ")
 	var/maxchanges = max(round(message_list.len / 1.5), 2)
 
@@ -233,7 +296,11 @@
 		/datum/language/monkey,
 	)
 
-/obj/item/organ/tongue/alien/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/alien/modify_speech(datum/source, list/speech_args)
+	var/datum/saymode/xeno/hivemind = speech_args[SPEECH_SAYMODE]
+	if(hivemind)
+		return
+
 	playsound(owner, "hiss", 25, 1, 1)
 
 /obj/item/organ/tongue/bee
@@ -242,9 +309,9 @@
 	icon_state = "tonguefly"
 	say_mod = "buzzes"
 	taste_sensitivity = 5
-	liked_food = VEGETABLES | FRUIT
-	disliked_food = GROSS | DAIRY
-	toxic_food = MEAT | RAW
+	liked_foodtypes = VEGETABLES | FRUIT
+	disliked_foodtypes = GROSS | DAIRY
+	toxic_foodtypes = MEAT | RAW
 
 /obj/item/organ/tongue/bone
 	name = "bone \"tongue\""
@@ -255,9 +322,9 @@
 	attack_verb_simple = list("bite", "chatter", "chomp", "enamel", "bone")
 	taste_sensitivity = 101 // skeletons cannot taste anything
 	modifies_speech = TRUE
-	liked_food = GROSS | MEAT | RAW | GORE
-	disliked_food = NONE // why would they care
-	toxic_food = NONE
+	liked_foodtypes = GROSS | MEAT | RAW | GORE
+	disliked_foodtypes = NONE // why would they care
+	toxic_foodtypes = NONE
 	var/chattering = FALSE
 	var/phomeme_type = "sans"
 	var/list/phomeme_types = list("sans", "papyrus")
@@ -266,7 +333,7 @@
 	. = ..()
 	phomeme_type = pick(phomeme_types)
 
-/obj/item/organ/tongue/bone/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/bone/modify_speech(datum/source, list/speech_args)
 	if(chattering)
 		chatter(speech_args[SPEECH_MESSAGE], phomeme_type, source)
 	switch(phomeme_type)
@@ -280,8 +347,8 @@
 	desc = "Like animated skeletons, Plasmamen vibrate their teeth in order to produce speech."
 	icon_state = "tongueplasma"
 	modifies_speech = FALSE
-	disliked_food = FRUIT | CLOTH
-	liked_food = VEGETABLES
+	disliked_foodtypes = FRUIT | CLOTH
+	liked_foodtypes = VEGETABLES
 
 /obj/item/organ/tongue/robot
 	name = "robotic voicebox"
@@ -306,7 +373,7 @@
 		owner.apply_status_effect(/datum/status_effect/spanish)
 
 
-/obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/robot/modify_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
 
 /obj/item/organ/tongue/snail
@@ -314,7 +381,7 @@
 	modifies_speech = TRUE
 	say_mod = "slurs"
 
-/obj/item/organ/tongue/snail/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/snail/modify_speech(datum/source, list/speech_args)
 	var/new_message
 	var/message = speech_args[SPEECH_MESSAGE]
 	for(var/i in 1 to length(message))
@@ -332,7 +399,7 @@
 	attack_verb_continuous = list("shocks", "jolts", "zaps")
 	attack_verb_simple = list("shock", "jolt", "zap")
 	taste_sensitivity = 101 // Not a tongue, they can't taste shit
-	toxic_food = NONE
+	toxic_foodtypes = NONE
 
 /obj/item/organ/tongue/ethereal/get_possible_languages()
 	return ..() + /datum/language/voltaic
@@ -361,8 +428,8 @@
 	name = "cat tongue"
 	desc = "A rough tongue, full of small, boney spines all over it's surface."
 	say_mod = "meows"
-	disliked_food = GROSS | VEGETABLES | SUGAR | CLOTH
-	liked_food = DAIRY | MEAT | GORE
+	disliked_foodtypes = GROSS | VEGETABLES | SUGAR | CLOTH
+	liked_foodtypes = DAIRY | MEAT | GORE
 
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"
@@ -371,9 +438,9 @@
 	ask_mod = "inquisitively blorbles"
 	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"
-	liked_food = MEAT | BUGS //cause slimes are mostly carnivores, however the ability to consume RAW or GORE was lost when spliced with humans
-	toxic_food = NONE
-	disliked_food = NONE
+	liked_foodtypes = MEAT | BUGS //cause slimes are mostly carnivores, however the ability to consume RAW or GORE was lost when spliced with humans
+	toxic_foodtypes = NONE
+	disliked_foodtypes = NONE
 
 /obj/item/organ/tongue/slime/get_possible_languages()
 	return ..() + /datum/language/slime
@@ -383,17 +450,17 @@
 	desc = "It's long and noodly."
 	say_mod = "flutters"
 	icon_state = "tonguemoth"
-	liked_food = FRUIT | VEGETABLES | DAIRY | CLOTH
-	disliked_food = GROSS | GORE
-	toxic_food = MEAT | RAW
+	liked_foodtypes = FRUIT | VEGETABLES | DAIRY | CLOTH
+	disliked_foodtypes = GROSS | GORE
+	toxic_foodtypes = MEAT | RAW
 
 /obj/item/organ/tongue/teratoma
 	name = "malformed tongue"
 	desc = "It's a tongue that looks off... Must be from a creature that shouldn't exist."
 	say_mod = "mumbles"
 	icon_state = "tonguefly"
-	disliked_food = CLOTH
-	liked_food = JUNKFOOD | FRIED | GROSS | RAW | GORE
+	disliked_foodtypes = CLOTH
+	liked_foodtypes = JUNKFOOD | FRIED | GROSS | RAW | GORE
 
 /obj/item/organ/tongue/diona
 	name = "diona tongue"
@@ -403,15 +470,16 @@
 	ask_mod = "quivers"
 	yell_mod = "shrieks"
 	exclaim_mod = "ripples"
-	disliked_food = DAIRY | FRUIT | GRAIN | CLOTH | VEGETABLES
-	liked_food = MEAT | RAW
+	languages_native = list(/datum/language/sylvan)
+	disliked_foodtypes = DAIRY | FRUIT | GRAIN | CLOTH | VEGETABLES
+	liked_foodtypes = MEAT | RAW
 
 /obj/item/organ/tongue/diona/pumpkin
 	modifies_speech = TRUE
 	///Is this tongue carved?
 	var/carved = FALSE
 
-/obj/item/organ/tongue/diona/pumpkin/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/diona/pumpkin/modify_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if((message[1] != "*" || message[1] != "#") && !carved)
 		message = "..."
@@ -426,5 +494,5 @@
 	say_mod = "clicks"
 	//Black tongue
 	color = "#1b1b1b"
-	liked_food = RAW | GROSS
-	disliked_food = DAIRY
+	liked_foodtypes = RAW | GROSS
+	disliked_foodtypes = DAIRY

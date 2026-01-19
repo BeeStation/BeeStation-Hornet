@@ -377,11 +377,11 @@
 		if(pizza.type != pizza_preferences[nommer.ckey])
 			QDEL_NULL(pizza)
 		else
-			pizza.foodtypes = T?.liked_food //make sure it's our favourite
+			pizza.foodtypes = T?.liked_foodtypes //make sure it's our favourite
 			return
 
 	var/obj/item/food/pizza/favourite_pizza_type = pizza_preferences[nommer.ckey]
 	pizza = new favourite_pizza_type
 	boxtag_set = FALSE
 	update_icon() //update our boxtag to match our new pizza
-	pizza.foodtypes = T?.liked_food //it's our favorite!
+	pizza.foodtypes = T?.liked_foodtypes //it's our favorite!

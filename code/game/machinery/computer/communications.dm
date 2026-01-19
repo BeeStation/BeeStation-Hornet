@@ -555,6 +555,19 @@
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(user, span_warning("You cannot send an announcement that contains prohibited words."))
 		return
+	if(user.try_speak(input))
+		//Adds slurs and so on. Someone should make this use languages too.
+		input = user.treat_message(input)
+	else
+		//No cheating, mime/random mute guy!
+		input = "..."
+		user.visible_message(
+			span_notice("You leave the mic on in awkward silence..."),
+			span_notice("[user] holds down [src]'s announcement button, leaving the mic on in awkward silence."),
+			span_hear("You hear an awkward silence, somehow."),
+			vision_distance = 4,
+		)
+
 	SScommunications.make_announcement(user, is_ai, input, null, syndicate)
 	deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] made a priority announcement from [span_name("[get_area_name(usr, TRUE)]")]."), user)
 

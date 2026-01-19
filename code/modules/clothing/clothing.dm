@@ -109,7 +109,7 @@
 
 /obj/item/food/clothing/proc/pre_eat(mob/eater)
 	var/obj/item/organ/tongue/tongue = eater?.get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(tongue?.liked_food & CLOTH)
+	if(tongue?.liked_foodtypes & CLOTH)
 		return TRUE
 	return FALSE
 

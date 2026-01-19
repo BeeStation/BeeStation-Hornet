@@ -146,6 +146,7 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
+		stack_trace("Called is_banned without a mob. This shouldn't happen.")
 		return FALSE
 	. = (is_banned_from(M.ckey, banning_key) || QDELETED(M))
 

@@ -47,9 +47,9 @@
 			var/need_mob_update = FALSE
 			if(DT_PROB(1, delta_time))
 				to_chat(affected_mob, span_userdanger("[pick("You feel your heart slowing...", "You relax and slow your heartbeat.")]"))
-				need_mob_update += affected_mob.adjustStaminaLoss(70, updating_health = FALSE)
+				need_mob_update += affected_mob.adjustStaminaLoss(70, updating_stamina = FALSE)
 			if(DT_PROB(5, delta_time))
-				need_mob_update += affected_mob.adjustStaminaLoss(100, updating_health = FALSE)
+				need_mob_update += affected_mob.adjustStaminaLoss(100, updating_stamina = FALSE)
 				affected_mob.visible_message(span_warning("[affected_mob] faints!"), span_userdanger("You surrender yourself and feel at peace..."))
 				affected_mob.AdjustSleeping(10 SECONDS)
 			if(DT_PROB(1, delta_time))

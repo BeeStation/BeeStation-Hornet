@@ -94,10 +94,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 	D.grabbedby(A, 1)
 	D.Knockdown(5) //Without knockdown target still stands up while T3 grabbed.
 	A.setGrabState(GRAB_NECK)
-	if(iscarbon(D))
-		var/mob/living/carbon/carbon_defender = D
-		if(carbon_defender.silent <= 10)
-			carbon_defender.silent = clamp(carbon_defender.silent + 10, 0, 10)
+	D.adjust_silence_up_to(20 SECONDS, 20 SECONDS)
 	playsound(get_turf(D), 'sound/effects/woodhit.ogg', 100, TRUE, -1)
 
 /datum/martial_art/tribal_claw/harm_act(mob/living/A, mob/living/D)
