@@ -307,7 +307,7 @@
 	role_preference = /datum/role_preference/roundstart/nuclear_operative
 	antag_datum = /datum/antagonist/nukeop
 	drafted_players_amount = 3
-	weight = 7
+	weight = 8
 	minimum_players_required = 24
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
 
@@ -386,7 +386,7 @@
 	name = "Clown Operatives"
 	antag_datum = /datum/antagonist/nukeop/clownop
 	antag_leader_datum = /datum/antagonist/nukeop/leader/clownop
-	weight = 1
+	weight = 0
 
 /datum/dynamic_ruleset/gamemode/nuclear/clown_ops/execute()
 	. = ..()
