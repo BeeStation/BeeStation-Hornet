@@ -37,6 +37,9 @@
 
 	var/mob/user = ui.user
 
+	if (!authenticated || issilicon(user)) // Silicons are forbidden from editing records.
+		return FALSE
+
 	var/datum/record/crew/target_record
 	if(params["record_ref"])
 		target_record = locate(params["record_ref"]) in GLOB.manifest.general
@@ -141,7 +144,7 @@
 
 /// Detects whether a user can use buttons on the machine
 /obj/machinery/computer/records/proc/has_auth(mob/user)
-	if(IsAdminGhost(user) || user.has_unlimited_silicon_privilege) // Admins (and silicons) don't need to authenticate
+	if(IsAdminGhost(user)) // Admins don't need to authenticate
 		return TRUE
 
 	if(!isliving(user))
