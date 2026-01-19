@@ -152,7 +152,7 @@
 	. = ..()
 	if(prob(30/severity))
 		owner.set_jitter_if_lower(60 SECONDS/severity)
-		owner.Dizzy(30/severity)
+		owner.set_dizzy_if_lower(60 SECONDS/severity)
 		to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
 
 

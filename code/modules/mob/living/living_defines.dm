@@ -112,13 +112,6 @@
 	var/list/status_effects //a list of all status effects the mob has
 	var/druggy = 0
 
-	//Speech
-	var/stuttering = 0
-	var/slurring = 0
-	var/cultslurring = 0
-	var/clockslurring = 0
-	var/derpspeech = 0
-
 	var/list/implants = null
 
 	var/datum/language/selected_default_language
