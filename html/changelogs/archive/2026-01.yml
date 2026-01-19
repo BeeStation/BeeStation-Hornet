@@ -227,6 +227,9 @@
   - code_imp: changed some code in weather-listener to account for off-lavaland weather
       soundloops
 2026-01-19:
+  mrmanlikesbt:
+  - bugfix: Fixed organ smart fridges runtiming when a non-organ is removed from their
+      contents
   rkz, SishTis, timothymtorres, Melbert, tralezab:
   - bugfix: cleans up aphasia and slurring speech when lacking a tongue
   - bugfix: hivemind languages dont force talking emotes
