@@ -10,7 +10,7 @@
  * of the spell is able to cast the spell.
  * - [is_valid_spell][/datum/action/spell/is_valid_spell] checks if the user and target
  * are valid for this particular spell
- * - [can_invoke][/datum/action/spell/can_invoke] is run in can_cast_spell to check if
+ * - [try_invoke][/datum/action/spell/try_invoke] is run in can_cast_spell to check if
  * the OWNER of the spell is able to say the current invocation.
  *
  * ## The spell chain:
@@ -99,6 +99,10 @@
 	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB))
 		RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(update_icon_on_signal))
 	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_icon_on_signal))
+	if(invocation_type == INVOCATION_EMOTE)
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_EMOTEMUTE), SIGNAL_REMOVETRAIT(TRAIT_EMOTEMUTE)), PROC_REF(update_icon_on_signal))
+	if(invocation_type == INVOCATION_SHOUT || invocation_type == INVOCATION_WHISPER)
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_MUTE), SIGNAL_REMOVETRAIT(TRAIT_MUTE)), PROC_REF(update_icon_on_signal))
 
 /datum/action/spell/Remove(mob/living/remove_from)
 
@@ -107,6 +111,10 @@
 		COMSIG_MOB_ENTER_JAUNT,
 		COMSIG_MOB_EQUIPPED_ITEM,
 		COMSIG_MOVABLE_Z_CHANGED,
+		SIGNAL_ADDTRAIT(TRAIT_EMOTEMUTE),
+		SIGNAL_REMOVETRAIT(TRAIT_EMOTEMUTE),
+		SIGNAL_ADDTRAIT(TRAIT_MUTE),
+		SIGNAL_REMOVETRAIT(TRAIT_MUTE),
 	))
 
 	return ..()
@@ -120,6 +128,7 @@
 	// about why the ability is unavailable.
 	// It is otherwise redundant, however, as is_available() checks can_cast_spell as well.
 	if(!can_cast_spell())
+		update_buttons(TRUE)
 		return FALSE
 
 	return ..()
@@ -154,7 +163,7 @@
 		// No point in feedback here, as mindless mobs aren't players
 		return FALSE
 
-	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !owner.mind?.miming)
+	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !HAS_TRAIT(owner, TRAIT_MIMING))
 		// In the future this can be moved out of spell checks exactly
 		if(feedback)
 			to_chat(owner, span_warning("You must dedicate yourself to silence first!"))
@@ -172,7 +181,7 @@
 			to_chat(owner, span_warning("[src] cannot be cast unless you are completely manifested in the material plane!"))
 		return FALSE
 
-	if(!can_invoke(feedback = feedback))
+	if(!try_invoke(feedback = feedback))
 		return FALSE
 
 	if(ishuman(owner))
@@ -337,7 +346,7 @@
 			owner.visible_message(invocation, invocation_self_message)
 
 /// Checks if the current OWNER of the spell is in a valid state to say the spell's invocation
-/datum/action/spell/proc/can_invoke(feedback = TRUE)
+/datum/action/spell/proc/try_invoke(feedback = TRUE)
 	if(spell_requirements & SPELL_CASTABLE_WITHOUT_INVOCATION)
 		return TRUE
 
@@ -356,7 +365,7 @@
 			to_chat(owner, span_warning("You can't position your hands correctly to invoke [src]!"))
 		return FALSE
 
-	if((invocation_type == INVOCATION_WHISPER || invocation_type == INVOCATION_SHOUT) && !living_owner.can_speak_vocal())
+	if((invocation_type == INVOCATION_WHISPER || invocation_type == INVOCATION_SHOUT) && !living_owner.can_speak())
 		if(feedback)
 			to_chat(owner, span_warning("You can't get the words out to invoke [src]!"))
 		return FALSE

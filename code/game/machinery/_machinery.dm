@@ -100,6 +100,7 @@
 
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	initial_language_holder = /datum/language_holder/speaking_machine
 
 	armor_type = /datum/armor/obj_machinery
 
@@ -194,6 +195,9 @@
 		update_ai_view()
 		// Add AI view
 		add_ai_view()
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MACHINES_GLITCHED) && mapload)
+		randomize_language_if_on_station()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -338,15 +342,23 @@
 
 /obj/machinery/emp_act(severity)
 	. = ..()
-	if(use_power && !machine_stat && !(. & EMP_PROTECT_SELF))
-		use_power(7.5 KILOWATT/severity)
-		//Set the machine to be EMPed
-		machine_stat |= EMPED
-		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
-		//Update power
-		power_change()
-		new /obj/effect/temp_visual/emp(loc)
+	if(!use_power || machine_stat || (. & EMP_PROTECT_SELF))
+		return
+	use_power(7.5 KILOWATT/severity)
+	//Set the machine to be EMPed
+	machine_stat |= EMPED
+	//Reset EMP state in 120/60 seconds
+	addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
+	//Update power
+	power_change()
+	new /obj/effect/temp_visual/emp(loc)
+
+	if(!prob(70/severity))
+		return
+	if (!length(GLOB.uncommon_roundstart_languages))
+		return
+	remove_all_languages(source = LANGUAGE_EMP)
+	grant_random_uncommon_language(source = LANGUAGE_EMP)
 
 /obj/machinery/proc/emp_reset()
 	//Reset EMP state

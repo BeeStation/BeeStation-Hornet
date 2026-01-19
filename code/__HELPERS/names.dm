@@ -1,3 +1,134 @@
+/**
+ * Generate a random name based off of one of the roundstart languages
+ *
+ * * gender - What gender to pick from. Picks between male, female if not provided.
+ * * unique - If the name should be unique, IE, avoid picking names that mobs already have.
+ * * list/language_weights - A list of language weights to pick from.
+ * If not provided, it will default to a list of roundstart languages, with common being the most likely.
+ */
+/proc/generate_random_name(gender, unique, list/language_weights)
+	if(isnull(language_weights))
+		language_weights = list()
+		for(var/lang_type in GLOB.uncommon_roundstart_languages)
+			language_weights[lang_type] = 1
+		language_weights[/datum/language/common] = 20
+
+	var/datum/language/picked = GLOB.language_datum_instances[pick_weight(language_weights)]
+	if(unique)
+		return picked.get_random_unique_name(gender)
+	return picked.get_random_name(gender)
+
+/**
+ * Generate a random name based off of a species
+ * This will pick a name from the species language, and avoid picking common if there are alternatives
+ *
+ * * gender - What gender to pick from. Picks between male, female if not provided.
+ * * unique - If the name should be unique, IE, avoid picking names that mobs already have.
+ * * datum/species/species_type - The species to pick from
+ * * include_all - Makes the generated name a mix of all the languages the species can speak rather than just one of them
+ * Does this on a per-name basis, IE "Lizard first name, uncommon last name".
+ */
+/proc/generate_random_name_species_based(gender, unique, datum/species/species_type, include_all = FALSE)
+	ASSERT(ispath(species_type, /datum/species))
+	var/datum/language_holder/holder = GLOB.prototype_language_holders[species_type::species_language_holder]
+
+	// forcing Snowflake name set for synthetics, who have like 6 languages
+	if(istype(holder, /datum/language_holder/synthetic))
+		return generate_random_name(gender, unique, list(/datum/language/machine = 1))
+
+	var/list/languages_to_pick_from = list()
+	for(var/language in holder.spoken_languages)
+		languages_to_pick_from[language] = 1
+
+	// remove metalanguage as it pollutes name generation
+	languages_to_pick_from -= /datum/language/metalanguage
+	if(length(languages_to_pick_from) >= 2)
+		// Basically, if we have alternatives, don't pick common it's boring
+		languages_to_pick_from -= /datum/language/common
+
+	if(!include_all || length(languages_to_pick_from) <= 1)
+		return generate_random_name(gender, unique, languages_to_pick_from)
+
+	var/list/name_parts = list()
+	for(var/lang_type in shuffle(languages_to_pick_from))
+		name_parts += GLOB.language_datum_instances[lang_type].get_random_name(gender, name_count = 1, force_use_syllables = TRUE)
+	return jointext(name_parts, " ")
+
+/**
+ * Generates a random name for the mob based on their gender or species (for humans)
+ *
+ * * unique - If the name should be unique, IE, avoid picking names that mobs already have.
+ */
+/mob/proc/generate_random_mob_name(unique)
+	return generate_random_name_species_based(gender, unique, /datum/species/human)
+
+/mob/living/carbon/generate_random_mob_name(unique)
+	return generate_random_name_species_based(gender, unique, dna?.species?.type || /datum/species/human)
+
+/mob/living/silicon/generate_random_mob_name(unique)
+	return generate_random_name(gender, unique, list(/datum/language/machine = 1))
+
+/mob/living/simple_animal/drone/generate_random_mob_name(unique)
+	return generate_random_name(gender, unique, list(/datum/language/machine = 1))
+
+/mob/living/basic/bot/generate_random_mob_name(unique)
+	return generate_random_name(gender, unique, list(/datum/language/machine = 1))
+
+/mob/living/simple_animal/bot/generate_random_mob_name(unique)
+	return generate_random_name(gender, unique, list(/datum/language/machine = 1))
+
+
+
+// Snowflake proc, but I cant think of anything better
+/proc/random_ai_name(style, attempts = 1)
+	var/numbers = list("1","2","3","4","5","6","7","8","9","0")
+	var/version_words = list("v", "V", "Version ", "mk", "MK", "Mark ")
+	for(var/i in 1 to attempts)
+
+		if(!style)
+			style = rand(1,2)
+
+		switch(style)
+			if(1) //2-3 random sectors
+				var/sectors = 2 + prob(20) //small chance for 3 sectors
+				for(var/s in 1 to sectors)
+					var/sector
+					var/sector_characters
+					var/breakup_character = "-"
+					var/sectorlength = rand(1,3)
+					switch(rand(1,100))
+						if(1 to 25)//25% chance for both numbers and letters
+							sector_characters = numbers + GLOB.alphabet + GLOB.alphabet //add alphabet twice so that numbers are lower weight
+						if(25 to 75) //50% chance for only letters
+							sector_characters = GLOB.alphabet
+						else //25% chance for only numbers, along with shorter sector length and a different breakup character
+							sector_characters = numbers
+							breakup_character = "."
+							sectorlength = rand(1,3)
+
+					sector = random_string(sectorlength, sector_characters)
+					if(prob(80)) //it's probably going to be uppercase
+						sector = uppertext(sector)
+
+					if(s > 1)
+						. += breakup_character
+					. += sector
+
+			if(2) //random vaguely AI related word with a chance to be followed by a version number or a "mark", such as mk1.2, or v3.6
+				. += pick(GLOB.ai_names)
+				if(prob(max(30 - (LAZYLEN(.)), 10))) //chance to for every character to be capitalized followed by a period. the chance is lower the longer the name is.
+					. = uppertext(replacetextEx(.,regex(@"([a-z](?=[a-z]))","g"),"$1."))
+				else if (prob(50)) //slightly higher chance to just be full uppertext
+					. = uppertext(.)
+				else
+					. = capitalize(.)
+
+				if(prob(33))
+
+					var/version_string = " " + pick(version_words) + num2text(prob(50) ? rand(1, 100) / 10 : rand(1,10))
+
+					. += version_string
+
 GLOBAL_VAR(command_name)
 /proc/command_name()
 	if (GLOB.command_name)
@@ -176,16 +307,10 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 			if(1)//1 and 2 can only be selected once each to prevent more than two specific names/places/etc.
 				switch(rand(1,2))//Mainly to add more options later.
 					if(1)
-						if(names.len&&prob(70))
+						if(length(names) && prob(70))
 							. += pick(names)
 						else
-							if(prob(10))
-								. += pick(random_lizard_name(MALE),random_lizard_name(FEMALE))
-							else
-								var/new_name = pick(pick(GLOB.first_names_male,GLOB.first_names_female))
-								new_name += " "
-								new_name += pick(GLOB.last_names)
-								. += new_name
+							. += generate_random_name()
 					if(2)
 						. += pick(get_all_jobs())//Returns a job.
 				safety -= 1

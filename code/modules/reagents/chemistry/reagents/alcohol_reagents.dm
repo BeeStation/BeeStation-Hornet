@@ -1562,8 +1562,8 @@
 
 /datum/reagent/consumable/ethanol/silencer/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.silent = max(affected_mob.silent, 1.25)
-	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
+	affected_mob.set_silence_if_lower(MIMEDRINK_SILENCE_DURATION)
+	if(ishuman(affected_mob) && HAS_TRAIT(affected_mob, TRAIT_MIMING))
 		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
@@ -2424,8 +2424,8 @@
 
 /datum/reagent/consumable/ethanol/blank_paper/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.silent = max(affected_mob.silent, MIMEDRINK_SILENCE_DURATION)
-	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
+	affected_mob.set_silence_if_lower(MIMEDRINK_SILENCE_DURATION)
+	if(ishuman(affected_mob) && HAS_TRAIT(affected_mob, TRAIT_MIMING))
 		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
