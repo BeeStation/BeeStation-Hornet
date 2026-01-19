@@ -1,10 +1,11 @@
 NAMED_TUPLE_2(directive_team, var/list, uplinks, var/list, data)
 NAMED_TUPLE_1(directive_special_action, var, action_name)
 
-/datum/directive_team/proc/grant_reward(tc_amount, reputation_amount)
+/datum/directive_team/proc/grant_reward(datum/priority_directive/directive, tc_amount, reputation_amount)
 	for (var/datum/component/uplink/uplink in uplinks)
 		uplink.telecrystals += ceil(tc_amount * uplink.directive_tc_multiplier)
 		uplink.reputation += reputation_amount
+		uplink.completed_directive_names += directive.objective_explanation
 	for (var/datum/component/uplink/uplink in uplinks)
 		send_uplink_message_to(uplink, "[ceil(tc_amount * uplink.directive_tc_multiplier)] telecrystals and [reputation_amount] reputation points have been authorised for your use.")
 
@@ -175,7 +176,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/priority_directive/proc/grant_victory(datum/directive_team/victor_team)
 	log_directive("Priority directive: [objective_explanation]. Directive Completed")
-	victor_team?.grant_reward(tc_reward, reputation_reward)
+	victor_team?.grant_reward(src, tc_reward, reputation_reward)
 	if (victor_team != null)
 		for (var/datum/directive_team/team in teams)
 			if (team == victor_team)
@@ -184,4 +185,4 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/priority_directive/proc/grant_universal_victory()
 	for (var/datum/directive_team/team in teams)
-		team.grant_reward(tc_reward, reputation_reward)
+		team.grant_reward(src, tc_reward, reputation_reward)

@@ -23,6 +23,8 @@ GLOBAL_LIST_EMPTY(uplinks)
 	var/datum/mind/owner = null
 	var/uplink_flag
 	var/datum/uplink_purchase_log/purchase_log
+	/// List of directives that we have completed
+	var/list/completed_directive_names = list()
 	var/list/uplink_items
 	var/hidden_crystals = 0
 	var/unlock_text

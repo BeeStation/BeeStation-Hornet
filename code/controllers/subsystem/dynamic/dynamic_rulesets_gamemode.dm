@@ -7,7 +7,7 @@
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_PRISONER, JOB_NAME_SHAFTMINER, JOB_NAME_EXPLORATIONCREW)
 	/// Default minimum players required so that there is some mystery involved.
 	/// Disabled for now, since traitor works fine on 0 pop
-	minimum_players_required = 3
+	minimum_players_required = 5
 
 /datum/dynamic_ruleset/gamemode/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
@@ -108,7 +108,7 @@
 	role_preference = /datum/role_preference/roundstart/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
 	weight = 8
-	minimum_players_required = 16
+	minimum_players_required = 20
 	restricted_roles = list(JOB_NAME_CYBORG)
 	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
 
@@ -224,7 +224,7 @@
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 4
 	weight = 8
-	minimum_players_required = 35
+	minimum_players_required = 30
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/gamemode/bloodcult,
@@ -285,7 +285,7 @@
 	antag_datum = /datum/antagonist/nukeop
 	drafted_players_amount = 3
 	weight = 7
-	minimum_players_required = 18
+	minimum_players_required = 24
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
@@ -392,7 +392,7 @@
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	drafted_players_amount = 3
 	weight = 0	// Temporarily disabled: We need to refactor this so that it executes after round-start, and rolls into a different gamemode if it fails to execute.
-	minimum_players_required = 22
+	minimum_players_required = 24
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
 
 	var/datum/team/revolution/team
