@@ -26,7 +26,7 @@
 		if(target.mind.has_antag_datum(/datum/antagonist/brainwashed))
 			unbrainwash(target)
 
-		if (locate(/obj/item/implant/bloodbrother) in target.implants && !target.mind.has_antag_datum(/datum/antagonist/brother/prime))
+		if ((locate(/obj/item/implant/bloodbrother) in target.implants) && !target.mind.has_antag_datum(/datum/antagonist/brother/prime))
 			if(!silent)
 				target.visible_message(span_warning("[target] seems to resist the implant!"), span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
 			removed(target, 1)
