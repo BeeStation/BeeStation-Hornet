@@ -227,6 +227,8 @@
   - code_imp: changed some code in weather-listener to account for off-lavaland weather
       soundloops
 2026-01-19:
+  Tsar-Salat:
+  - bugfix: fixes nukeop name assignment
   mrmanlikesbt:
   - bugfix: Fixed organ smart fridges runtiming when a non-organ is removed from their
       contents
