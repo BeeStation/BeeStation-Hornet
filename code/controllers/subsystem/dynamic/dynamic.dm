@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/datum/dynamic_ruleset/gamemode/gamemode_late_ruleset = null
 
 	/// List of forced roundstart rulesets from the dynamic panel
-	var/list/datum/dynamic_ruleset/supplementary/gamemode_forced_rulesets = list()
+	var/list/datum/dynamic_ruleset/gamemode/gamemode_forced_rulesets = list()
 	/// Do we choose any roundstart rulesets or only use the ones in `supplementary_forced_rulesets`
 	var/gamemode_whitelist_forced = FALSE
 	/// Inverse of the above, blacklist the rulesets in `supplementary_forced_rulesets`
