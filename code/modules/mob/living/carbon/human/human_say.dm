@@ -1,10 +1,19 @@
+/mob/living/carbon/human/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, message_range, datum/saymode/saymode)
+	if(!HAS_TRAIT(src, TRAIT_SPEAKS_CLEARLY))
+		var/static/regex/tongueless_lower = new("\[gdntke]+", "g")
+		var/static/regex/tongueless_upper = new("\[GDNTKE]+", "g")
+		if(message[1] != "*")
+			message = tongueless_lower.Replace(message, pick("aa","oo","'"))
+			message = tongueless_upper.Replace(message, pick("AA","OO","'"))
+	return ..()
+
 /mob/living/carbon/human/say_mod(input, list/message_mods = list())
-	var/obj/item/organ/tongue/T = get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(T)
-		verb_say = pick(T.say_mod)
-		verb_ask = pick(T.ask_mod)
-		verb_yell = pick(T.yell_mod)
-		verb_exclaim = pick(T.exclaim_mod)
+	var/obj/item/organ/tongue/tongue = get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(tongue)
+		verb_say = pick(tongue.say_mod)
+		verb_ask = pick(tongue.ask_mod)
+		verb_yell = pick(tongue.yell_mod)
+		verb_exclaim = pick(tongue.exclaim_mod)
 	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
 		var/obj/item/clothing/mask/worn_mask = wear_mask
 		if(!isnull(worn_mask.chosen_tongue))
@@ -30,17 +39,6 @@
 		var/obj/item/clothing/mask/modulator = wear_mask
 		current_name = modulator.get_name(src, current_name)
 	return current_name
-
-/mob/living/carbon/human/IsVocal()
-	// how do species that don't breathe talk? magic, that's what.
-	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !get_organ_slot(ORGAN_SLOT_LUNGS))
-		return FALSE
-	if(dna?.species && !dna?.species.speak_no_tongue)
-		if(!get_organ_slot(ORGAN_SLOT_TONGUE))
-			return FALSE
-	if(mind)
-		return !mind.miming
-	return TRUE
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)

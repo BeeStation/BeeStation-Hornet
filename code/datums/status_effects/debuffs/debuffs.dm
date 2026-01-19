@@ -1090,9 +1090,7 @@
 	var/turf/open/turfie = get_turf(owner)
 	turfie.take_temperature(-40)
 	owner.adjust_bodytemperature(-20)
-	if(iscarbon(owner))
-		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.silent += 4
+	owner.adjust_silence(10 SECONDS)
 	return ..()
 
 /datum/status_effect/amok

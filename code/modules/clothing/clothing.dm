@@ -112,7 +112,14 @@
 		bite_consumption = bite_consumption,\
 		microwaved_type = microwaved_type,\
 		junkiness = junkiness,\
+		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
 		after_eat = CALLBACK(src, PROC_REF(after_eat)))
+
+/obj/item/food/clothing/proc/pre_eat(mob/eater)
+	var/obj/item/organ/tongue/tongue = eater?.get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(tongue?.liked_foodtypes & CLOTH)
+		return TRUE
+	return FALSE
 
 /obj/item/food/clothing/proc/after_eat(mob/eater)
 	var/resolved_item = clothing.resolve()

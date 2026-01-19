@@ -1,4 +1,4 @@
-/mob/dead/observer/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/dead/observer/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if (!message)
 		return
