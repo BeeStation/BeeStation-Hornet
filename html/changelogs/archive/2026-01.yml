@@ -226,3 +226,10 @@
   TsunamiAnt:
   - code_imp: changed some code in weather-listener to account for off-lavaland weather
       soundloops
+2026-01-19:
+  rkz, SishTis, timothymtorres, Melbert, tralezab:
+  - bugfix: cleans up aphasia and slurring speech when lacking a tongue
+  - bugfix: hivemind languages dont force talking emotes
+  - rscadd: some tongues have a native language, these languages are not affected
+      by the tongue's respective speechmods
+  - refactor: converts silence from a mob stat to a status effect

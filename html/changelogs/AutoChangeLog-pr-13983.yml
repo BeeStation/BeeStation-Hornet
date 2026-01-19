@@ -1,8 +1,0 @@
-author: rkz, SishTis, timothymtorres, Melbert, tralezab
-delete-after: true
-changes:
-  - bugfix: cleans up aphasia and slurring speech when lacking a tongue
-  - bugfix: hivemind languages dont force talking emotes
-  - rscadd: some tongues have a native language, these languages are not affected
-      by the tongue's respective speechmods
-  - refactor: converts silence from a mob stat to a status effect
