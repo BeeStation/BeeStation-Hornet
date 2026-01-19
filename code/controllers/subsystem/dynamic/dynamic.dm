@@ -27,11 +27,11 @@ SUBSYSTEM_DEF(dynamic)
 	/// The next gamemode ruleset to be triggered, if we want to trigger one late
 	var/datum/dynamic_ruleset/gamemode/gamemode_late_ruleset = null
 
-	/// List of forced roundstart rulesets from the dynamic panel
+	/// List of forced gamemode rulesets from the dynamic panel
 	var/list/datum/dynamic_ruleset/gamemode/gamemode_forced_rulesets = list()
-	/// Do we choose any roundstart rulesets or only use the ones in `supplementary_forced_rulesets`
+	/// Are we only permitting gamemodes inside of gamemode_forced_rulesets to execute?
 	var/gamemode_whitelist_forced = FALSE
-	/// Inverse of the above, blacklist the rulesets in `supplementary_forced_rulesets`
+	/// Inverse of the above, blacklist the rulesets in `gamemode_forced_rulesets`
 	var/gamemode_blacklist_forced = FALSE
 
 	/**
