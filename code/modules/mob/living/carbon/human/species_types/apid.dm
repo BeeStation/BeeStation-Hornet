@@ -43,7 +43,7 @@
 			to_chat(H, span_warning("The cold is making you feel tired..."))
 		switch(cold_cycle)
 			if(5 to 10)
-				H.drowsyness++
+				H.adjust_drowsiness(2 SECONDS)
 			if(10 to INFINITY)
 				H.SetSleeping(50) // Should be 5 seconds
 				cold_cycle = 0 // Resets the cycle, they have a chance to get out after waking up

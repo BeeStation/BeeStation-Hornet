@@ -61,8 +61,7 @@ Bonus
 			if(prob(50))
 				to_chat(M, span_warning("You try to focus on staying awake."))
 
-			if(M.drowsyness < 70)
-				M.adjust_drowsyness(5)
+			M.adjust_drowsiness_up_to(10 SECONDS, 140 SECONDS)
 
 		if(4)
 			if(prob(50))
@@ -71,8 +70,7 @@ Bonus
 				else
 					to_chat(M, span_warning("You nod off for a moment.")) //you can't really yawn while nodding off, can you?
 
-			if(M.drowsyness < 70)
-				M.adjust_drowsyness(10)
+			M.adjust_drowsiness_up_to(20 SECONDS, 140 SECONDS)
 
 			if(yawning)
 				M.emote("yawn")
@@ -83,8 +81,7 @@ Bonus
 			if(prob(50))
 				to_chat(M, span_warning("[pick("So tired...","You feel very sleepy.","You have a hard time keeping your eyes open.","You try to stay awake.")]"))
 
-			if(M.drowsyness < 70)
-				M.adjust_drowsyness(40)
+			M.adjust_drowsiness_up_to(80 SECONDS, 140 SECONDS)
 
 			if(yawning)
 				M.emote("yawn")

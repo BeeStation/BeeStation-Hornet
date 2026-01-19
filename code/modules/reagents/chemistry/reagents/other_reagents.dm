@@ -350,13 +350,14 @@
 			qdel(rune)
 	exposed_turf.Bless()
 
-/datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
+/datum/reagent/fuel/unholywater //if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
 	description = "Something that shouldn't exist on this plane of existence."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "suffering"
+	self_consuming = TRUE
 	metabolized_traits = list(TRAIT_NO_BLEEDING)
-	metabolization_rate = 1
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM //1u/tick
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/fuel/unholywater/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
@@ -366,31 +367,35 @@
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+
+	var/need_mob_update = FALSE
 	if(IS_CULTIST(affected_mob))
-		affected_mob.drowsyness = max(affected_mob.drowsyness - 5 * REM * delta_time, 0)
-		affected_mob.AdjustAllImmobility(-40 * REM* REM * delta_time)
-		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
-		affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+		need_mob_update += affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
+		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
+		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
 		if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
 			affected_mob.blood_volume += 3 * REM * delta_time
-	else  // Will deal about 90 damage when 50 units are thrown
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
-		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, forced = TRUE)
-		affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustOxyLoss(1 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustBruteLoss(1 * REM * delta_time, updating_health = FALSE)
-	return TRUE
 
-/datum/reagent/hellwater			//if someone has this in their system they've really pissed off an eldrich god
+	else  // Will deal about 90 damage when 50 units are thrown
+		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		need_mob_update += affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, forced = TRUE)
+		need_mob_update += affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOxyLoss(1 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustBruteLoss(1 * REM * delta_time, updating_health = FALSE)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/datum/reagent/hellwater //if someone has this in their system they've really pissed off an eldrich god
 	name = "Hell Water"
 	description = "YOUR FLESH! IT BURNS!"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 0.5
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/hellwater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1274,7 +1279,7 @@
 	if(DT_PROB(55, delta_time))
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(DT_PROB(30, delta_time))
-		affected_mob.drowsyness = max(affected_mob.drowsyness, 3)
+		affected_mob.adjust_drowsiness(6 SECONDS)
 	if(DT_PROB(5, delta_time))
 		affected_mob.emote("drool")
 
@@ -1400,7 +1405,9 @@
 
 /datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == VAPOR)
-		exposed_mob.drowsyness += max(round(reac_volume, 1), 2)
+		// apply 2 seconds of drowsiness per unit applied, with a min duration of 4 seconds
+		var/drowsiness_to_apply = max(round(reac_volume, 1) * 2 SECONDS, 4 SECONDS)
+		exposed_mob.adjust_drowsiness(drowsiness_to_apply)
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents
@@ -2034,7 +2041,7 @@
 	. = ..()
 	if(DT_PROB(17, delta_time))
 		affected_mob.Stun(20, 0)
-		affected_mob.blur_eyes(5)
+		affected_mob.set_eye_blur_if_lower(10 SECONDS)
 	if(DT_PROB(17, delta_time))
 		affected_mob.Knockdown(2 SECONDS)
 	if(DT_PROB(10, delta_time))
@@ -2090,14 +2097,15 @@
 		It re-energizes and heals those who can see beyond this fragile reality, \
 		but is incredibly harmful to the closed-minded. It metabolizes very quickly."
 	taste_description = "Ag'hsj'saje'sh"
+	self_consuming = TRUE
 	color = "#1f8016"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM //0.5u/second
 
 /datum/reagent/eldritch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(IS_HERETIC(affected_mob))
-		affected_mob.drowsyness = max(affected_mob.drowsyness - 5 * REM * delta_time, 0)
+	if(IS_HERETIC_OR_MONSTER(affected_mob))
+		affected_mob.adjust_drowsiness(-10 * REM * delta_time)
 		affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
 		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)

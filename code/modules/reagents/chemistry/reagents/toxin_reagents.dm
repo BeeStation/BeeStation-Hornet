@@ -298,7 +298,7 @@
 	. = ..()
 	affected_mob.damageoverlaytemp = 60
 	affected_mob.update_damage_hud()
-	affected_mob.blur_eyes(3 * REM * delta_time)
+	affected_mob.set_eye_blur_if_lower(6 SECONDS * REM * delta_time)
 
 /datum/reagent/toxin/spore_burning
 	name = "Burning Spore Toxin"
@@ -328,7 +328,7 @@
 	switch(current_cycle)
 		if(1 to 10)
 			affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
-			affected_mob.drowsyness += 2 * REM * delta_time
+			affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
 		if(10 to 50)
 			affected_mob.Sleeping(40 * REM * delta_time)
 		if(51 to INFINITY)
@@ -465,7 +465,7 @@
 		switch(pick(1, 2, 3, 4))
 			if(1)
 				to_chat(affected_mob, span_danger("You can barely see!"))
-				affected_mob.blur_eyes(3)
+				affected_mob.set_eye_blur_if_lower(6 SECONDS)
 			if(2)
 				affected_mob.emote("cough")
 			if(3)

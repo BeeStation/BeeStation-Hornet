@@ -162,7 +162,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
-		blur_eyes(1)
+		set_eye_blur_if_lower(2 SECONDS)
 		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
 		to_chat(src, "[span_userdanger("[blood.name] starts rushing out of the open wound!")]")
 
@@ -326,12 +326,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				//adjustOxyLoss(round(0.01 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
 				if(DT_PROB(2.5, delta_time))
-					blur_eyes(6)
+					set_eye_blur_if_lower(12 SECONDS)
 					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				//adjustOxyLoss(2.5 * delta_time)
 				if(DT_PROB(15, delta_time))
-					blur_eyes(6)
+					set_eye_blur_if_lower(12 SECONDS)
 					Unconscious(rand(3,6))
 					to_chat(src, span_warning("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)

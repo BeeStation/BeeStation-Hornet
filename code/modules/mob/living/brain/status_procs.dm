@@ -9,14 +9,3 @@
 
 /mob/living/brain/set_blindness()
 	return
-
-/////////////////////////////////// EYE_BLURRY ////////////////////////////////////
-
-/mob/living/brain/blur_eyes()
-	return
-
-/mob/living/brain/adjust_blurriness()
-	return
-
-/mob/living/brain/set_blurriness()
-	return
