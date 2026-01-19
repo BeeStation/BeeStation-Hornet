@@ -26,8 +26,6 @@
 
 	light_power = 0.85
 
-
-
 	FASTDMM_PROP(\
 		set_instance_vars(\
 			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
@@ -67,8 +65,6 @@
 	var/locked = TRUE
 	///Is the apc cover locked?
 	var/coverlocked = TRUE
-	///Is the AI locked from using the APC
-	var/aidisabled = 0
 
 	///Reference to our cable terminal
 	var/obj/machinery/power/terminal/terminal = null
@@ -83,20 +79,12 @@
 	///State of the apc external power (no power, low power, has power)
 	var/main_status = APC_NO_POWER
 	powernet = 0 // set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
-	///Is the apc hacked by a malf ai?
-	var/malfhack = 0 //New var for my changes to AI malf. --NeoFite
-	///Reference to our ai hacker
-	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
 	///State of the electronics inside (missing, installed, secured)
 	var/has_electronics = APC_ELECTRONICS_MISSING
 	///used for the Blackout malf module
 	var/overload = 1
 	///used for counting how many times it has been hit, used for Aliens at the moment
 	var/beenhit = 0
-	///Reference to the shunted ai inside
-	var/mob/living/silicon/ai/occupier = null
-	///Is there an AI being transferred out of us?
-	var/transfer_in_progress = FALSE
 	///buffer state that makes apcs not shut off channels immediately as long as theres some power left, effect visible in apcs only slowly losing power
 	var/longtermpower = 10
 	///Automatically name the APC after the area is in
@@ -123,8 +111,6 @@
 	///Represents a signel source of power alarms for this apc
 	var/datum/alarm_handler/alarm_manager
 
-	/// Used for apc helper called cut_ai_wire to make apc's wore responsible for ai connectione mended.
-	var/cut_ai_wire = FALSE
 	/// Used for apc helper called unlocked to make apc unlocked.
 	var/unlocked = FALSE
 	/// Used for apc helper called syndicate_access to make apc's required access syndicate_access.
@@ -135,6 +121,22 @@
 	var/no_charge = FALSE
 	/// Used for apc helper called full_charge to make apc's charge at 100% meter.
 	var/full_charge = FALSE
+
+	// AI stuff
+	///Is the AI locked from using the APC
+	var/aidisabled = 0
+	/// Is an AI currently hacking this APC? Not the malf hacking, the normal one.
+	var/aiHacking = FALSE
+	/// Used for apc helper called cut_ai_wire to make apc's wire responsible for ai connection mended.
+	var/cut_ai_wire = FALSE
+	///Is the apc hacked by a malf ai?
+	var/malfhack = 0 //New var for my changes to AI malf. --NeoFite
+	///Reference to our ai hacker
+	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
+	///Reference to the shunted ai inside
+	var/mob/living/silicon/ai/occupier = null
+	///Is there an AI being transferred out of us?
+	var/transfer_in_progress = FALSE
 
 	//Clockcult - Has the reward for converting an APC been given?
 	var/clock_cog_rewarded = FALSE
@@ -659,3 +661,75 @@
 	icon_state = "power_mod"
 	custom_price = 5
 	desc = "Heavy-duty switching circuits for power control."
+
+/// Sets the AI control state of the APC. Defaults to true.
+/obj/machinery/power/apc/proc/set_ai_control(control = TRUE)
+	if(control)
+		aidisabled = FALSE
+		var/area/our_area = get_area(src)
+		if(our_area)
+			our_area.update_ai_views(TRUE)
+	else
+		aidisabled = TRUE
+		var/area/our_area = get_area(src)
+		if(our_area)
+			our_area.update_ai_views(FALSE)
+
+// Copied from airlocks
+/obj/machinery/power/apc/proc/hack(mob/user)
+	set waitfor = 0
+	if(!aiHacking)
+		aiHacking = TRUE
+		to_chat(user, "APC AI control has been blocked. Beginning fault-detection.")
+		say("Remote Telemetry requested by server ping.")
+		playsound(src, 'sound/machines/beep.ogg', 50, TRUE)
+		sleep(20 SECONDS)
+
+		if(hack_interrupt(user))
+			return
+		to_chat(user, "Fault confirmed: APC control wire disabled or cut.")
+		sleep(2 SECONDS)
+
+		if(hack_interrupt(user))
+			return
+		to_chat(user, "Attempting to hack into APC. This may take some time.")
+		say("Remote Filesystem Access detected.") // Hello mister engineer, the ai is hacking the apc.
+		playsound(src, 'sound/machines/terminal_alert.ogg', 80, TRUE, 5)
+		sleep(30 SECONDS)
+
+		if(hack_interrupt(user))
+			return
+		to_chat(user, "Upload access confirmed. Loading control program into APC software.")
+		say("Incoming routed file upload from /SYS/[uppertext(user.name)].")
+		playsound(src, 'sound/machines/terminal_processing.ogg', 80, TRUE)
+		sleep(30 SECONDS)
+
+		if(hack_interrupt(user))
+			return
+		playsound(src, 'sound/machines/terminal_success.ogg', 80, TRUE)
+		to_chat(user, "Transfer complete. Forcing APC to execute program.")
+		say("Executing OVERRIDE.ntsc")
+		sleep(5 SECONDS)
+
+		if(hack_interrupt(user))
+			return
+		to_chat(user, "Receiving control information from APC.")
+		sleep(5 SECONDS)
+
+		aiHacking = FALSE
+		set_ai_control(TRUE)
+		to_chat(user, "APC connection restored. We may now access the area's remote control systems.")
+		if(user)
+			attack_ai(user)
+
+// Returns TRUE if the hack was interrupted
+/obj/machinery/power/apc/proc/hack_interrupt(mob/user)
+	if(!aidisabled)
+		to_chat(user, "Operation cancelled. APC control has been restored without our assistance.")
+		aiHacking = FALSE
+		return TRUE
+	if(!operating)
+		to_chat(user, "Operation cancelled. Connection to APC lost.")
+		aiHacking = FALSE
+		return TRUE
+	return FALSE

@@ -112,10 +112,7 @@
 				shorted = FALSE
 		if(WIRE_AI)
 			if(!wires.is_cut(WIRE_AI))
-				aidisabled = FALSE
-				var/area/our_area = get_area(src)
-				if(our_area)
-					our_area.update_ai_views(TRUE)
+				set_ai_control(TRUE)
 		if(APC_RESET_EMP)
 			equipment = APC_CHANNEL_AUTO_ON
 			environ = APC_CHANNEL_AUTO_ON

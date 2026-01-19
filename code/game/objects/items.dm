@@ -290,10 +290,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
-	// Build our AI view / hologram appearance
-	update_ai_view()
-	// Add AI view
-	add_ai_view()
+	if(mapload)
+		// Build our AI view / hologram appearance
+		update_ai_view()
+		// Add AI view
+		add_ai_view()
 
 /obj/item/Destroy(force)
 	master = null

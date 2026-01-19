@@ -74,8 +74,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		if(EAST)
 			ai_view_x = 14
 
-	update_ai_view()
-	add_ai_view()
+	if(mapload)
+		// Build our AI view / hologram appearance
+		update_ai_view()
+		// Add AI view
+		add_ai_view()
 
 	AddElement(/datum/element/atmos_sensitive)
 

@@ -189,10 +189,11 @@
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
-	// Build our AI view / hologram appearance
-	update_ai_view()
-	// Add AI view
-	add_ai_view()
+	if(mapload)
+		// Build our AI view / hologram appearance
+		update_ai_view()
+		// Add AI view
+		add_ai_view()
 
 	return INITIALIZE_HINT_LATELOAD
 

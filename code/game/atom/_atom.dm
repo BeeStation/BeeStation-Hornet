@@ -122,15 +122,17 @@
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
 
-// AI machinery view
+	// AI machinery view
+	/// Icon state for the AI view appearance
 	var/ai_view_icon
+	/// Pixel offsets for the AI view appearance
 	var/ai_view_x = 0
 	var/ai_view_y = 0
-	///Does this atom have an AI appearance - used for stuff an AI can see through the fog of war
+	/// Does this atom have an AI appearance at all?
 	var/ai_view = FALSE
 	/// Is it's hologram active?
 	var/ai_view_active = TRUE
-	///Dedicated appearance the AI can see through the fog
+	/// Dedicated appearance the AI can see through the fog
 	var/mutable_appearance/hologram_appearance
 
 /atom/proc/add_ai_view()
@@ -147,6 +149,8 @@
 		return
 	if(!ai_view_active)
 		return
+
+	// Does it already have one? If so, we replace it
 	var/replace = (hologram_appearance in overlays)
 	//Remove old appearance
 	remove_ai_view()
