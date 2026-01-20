@@ -103,6 +103,7 @@
   * This is simply "mob_"+ a global incrementing counter that goes up for every mob
   */
 /mob/GenerateTag()
+	. = ..()
 	tag = "mob_[next_mob_id++]"
 
 /**

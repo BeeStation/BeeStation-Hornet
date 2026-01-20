@@ -105,6 +105,18 @@
 /// From /mob/living/proc/stop_leaning()
 #define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
 
+/// From mob/living/try_speak(): (message, ignore_spam, forced)
+#define COMSIG_LIVING_TRY_SPEECH "living_vocal_speech"
+	/// Return if the mob can speak the message, regardless of any other signal returns or checks.
+	#define COMPONENT_CAN_ALWAYS_SPEAK (1<<0)
+	/// Return if the mob cannot speak.
+	#define COMPONENT_CANNOT_SPEAK (1<<1)
+
+/// From mob/living/treat_message(): (list/message_args)
+#define COMSIG_LIVING_TREAT_MESSAGE "living_treat_message"
+	/// The index of message_args that corresponds to the actual message
+	#define TREAT_MESSAGE_ARG 1
+
 /// From /mob/living/get_examine_name(mob/user) : (mob/examined, visible_name, list/name_override)
 /// Allows mobs to override how they perceive others when examining
 #define COMSIG_LIVING_PERCEIVE_EXAMINE_NAME "living_perceive_examine_name"

@@ -26,7 +26,7 @@
 "m" = (
 /obj/machinery/light,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -82,7 +82,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "F" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -166,7 +166,7 @@
 /area/template_noop)
 "X" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/effect/spawner/random/maintenance/five,
 /turf/open/floor/plating,
 /area/template_noop)
 

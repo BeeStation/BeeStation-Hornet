@@ -151,6 +151,8 @@
 /datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)
 	if(owner.maxHealth)
 		var/health_ratio = owner.health / owner.maxHealth
+
+
 		if(health_ratio > 0.8)
 			var/healing = -0.2
 			if((locate(/obj/structure/bed) in owner.loc))
@@ -167,9 +169,8 @@
 			if(need_mob_update)
 				owner.updatehealth()
 
-	if(ishuman(owner))
-		var/mob/living/carbon/human/human_owner = owner
-		human_owner.drunkenness *= 0.997 //reduce drunkenness by 0.3% per tick, 6% per 2 seconds
+	// Drunkenness gets reduced by 0.3% per tick (6% per 2 seconds)
+	owner.set_drunk_effect(owner.get_drunk_amount() * 0.997)
 
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
@@ -540,7 +541,7 @@
 /datum/status_effect/trance/tick(seconds_between_ticks)
 	if(stun)
 		owner.Stun(60, TRUE)
-	owner.dizziness = 20
+	owner.set_dizzy(40 SECONDS)
 
 /datum/status_effect/trance/on_apply()
 	if(!iscarbon(owner))
@@ -561,7 +562,7 @@
 /datum/status_effect/trance/on_remove()
 	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
 	REMOVE_TRAIT(owner, TRAIT_MUTE, "trance")
-	owner.dizziness = 0
+	owner.remove_status_effect(/datum/status_effect/dizziness)
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.remove_client_colour(/datum/client_colour/monochrome)
 	to_chat(owner, span_warning("You snap out of your trance!"))
@@ -727,8 +728,7 @@
 /datum/status_effect/interdiction/tick()
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		owner.toggle_move_intent(owner)
-		if(owner.confused < 10)
-			owner.confused = 10
+		owner.adjust_confusion_up_to(10 SECONDS, max_duration = 10 SECONDS)
 		running_toggled = TRUE
 		to_chat(owner, span_warning("You know you shouldn't be running here."))
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
@@ -922,7 +922,7 @@
 			human_owner.vomit()
 		if(20 to 30)
 			message = span_warning("You feel feel very well.")
-			human_owner.Dizzy(50)
+			human_owner.set_dizzy_if_lower(100 SECONDS)
 			human_owner.set_jitter_if_lower(100 SECONDS)
 		if(30 to 40)
 			message = span_warning("You feel a sharp sting in your side.")
@@ -1084,9 +1084,7 @@
 	var/turf/open/turfie = get_turf(owner)
 	turfie.take_temperature(-40)
 	owner.adjust_bodytemperature(-20)
-	if(iscarbon(owner))
-		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.silent += 4
+	owner.adjust_silence(10 SECONDS)
 	return ..()
 
 /datum/status_effect/amok

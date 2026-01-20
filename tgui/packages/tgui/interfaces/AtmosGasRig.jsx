@@ -15,7 +15,7 @@ import { Window } from '../layouts';
 
 export const AtmosGasRig = (props) => {
   return (
-    <Window theme="ntos" width={480} height={500}>
+    <Window width={480} height={500}>
       <Window.Content>
         <Section title="Advanced Gas Rig:" fill={1} overflow-y="scroll">
           <AtmosGasRigTemplate props />

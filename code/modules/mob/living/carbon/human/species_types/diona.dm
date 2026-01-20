@@ -15,7 +15,6 @@
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
-		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADHEALER,
@@ -169,11 +168,6 @@
 	for(var/status_effect as anything in H.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
 			H.remove_status_effect(/datum/status_effect/planthealing)
-
-/datum/species/diona/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.diona_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return ..(gender, TRUE, null, ++attempts)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()

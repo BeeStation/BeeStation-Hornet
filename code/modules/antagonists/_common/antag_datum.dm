@@ -35,6 +35,12 @@ GLOBAL_LIST(admin_antag_list)
 	/// Weakref to button to access antag interface
 	var/datum/weakref/info_button_ref
 
+	/// The action that we should perform when the antagonist
+	/// needs to leave the game. You cannot force someone to continue
+	/// playing, so the game needs to handle someone leaving as best
+	/// as it can.
+	var/leave_behaviour = ANTAGONIST_LEAVE_OFFER
+
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
 		return
@@ -140,6 +146,7 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
+		stack_trace("Called is_banned without a mob. This shouldn't happen.")
 		return FALSE
 	. = (is_banned_from(M.ckey, banning_key) || QDELETED(M))
 
@@ -340,6 +347,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/custom
 	antagpanel_category = "Custom"
 	show_name_in_check_antagonists = TRUE //They're all different
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/datum/team/custom_team
 
 /datum/antagonist/custom/create_team(datum/team/team)
