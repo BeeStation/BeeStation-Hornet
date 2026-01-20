@@ -238,3 +238,7 @@
   - rscadd: some tongues have a native language, these languages are not affected
       by the tongue's respective speechmods
   - refactor: converts silence from a mob stat to a status effect
+2026-01-20:
+  PowerfulBacon:
+  - bugfix: Breaching charges can no longer have their pin pulled as if they were
+      a grenade.
