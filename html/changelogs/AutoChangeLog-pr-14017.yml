@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Breaching charges can no longer have their pin pulled as if they were
+      a grenade.
