@@ -395,9 +395,9 @@
 			if (istype(thing, /obj/item/clothing))
 				compare_to = thing
 				break
-		to_chat(usr, examine_block("[generate_armor_readout(usr, compare_to)]"))
+		to_chat(usr, examine_block("[generate_armor_readout(usr, compare_to, ismob(loc) && loc != usr)]"))
 
-/obj/item/clothing/proc/generate_armor_readout(mob/examiner, obj/item/clothing/compare_to)
+/obj/item/clothing/proc/generate_armor_readout(mob/examiner, obj/item/clothing/compare_to, external_examination = FALSE)
 	var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
 	var/datum/armor/armor = get_armor_for_examination(examiner)
@@ -424,6 +424,12 @@
 			readout += "\n<b>DURABILITY (I-X)</b>"
 			added_durability_header = TRUE
 		readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, compare_rating)]"
+
+	// During external examinations, you can only see armour values and not the tags (since we are less able to
+	// find them if we have a disguised item like changeling armour)
+	if (external_examination)
+		readout += "</span>"
+		return readout.Join()
 
 	if(flags_cover & HEADCOVERSMOUTH)
 		var/list/things_blocked = list()
