@@ -54,8 +54,6 @@
 
 	var/datum/physiology/physiology
 
-	var/list/datum/bioware = list()
-
 	/// What types of mobs are allowed to ride/buckle to this mob
 	var/static/list/can_ride_typecache = typecacheof(list(
 		/mob/living/carbon/human,

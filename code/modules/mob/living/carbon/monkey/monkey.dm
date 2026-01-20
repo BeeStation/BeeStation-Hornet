@@ -6,7 +6,6 @@
 	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_NUDE
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/food/meat/slab/monkey
@@ -58,6 +57,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//initialize limbs
 	create_bodyparts()
 	create_internal_organs()
+
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_NUDE, INNATE_TRAIT)
 
 	. = ..()
 
@@ -184,11 +185,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 
 	return threatcount
 
-/mob/living/carbon/monkey/IsVocal()
-	if(!get_organ_slot(ORGAN_SLOT_LUNGS))
-		return 0
-	return 1
-
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
 
@@ -224,8 +220,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = null
-	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
-	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
+	butcher_results = list(/obj/effect/spawner/random/medical/teratoma/minor = 5, /obj/effect/spawner/random/medical/teratoma/major = 1)
+	type_of_meat = /obj/effect/spawner/random/medical/teratoma/minor
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/arm/left/monkey/teratoma,
 					/obj/item/bodypart/arm/right/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null
@@ -257,7 +253,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		TRAIT_RADIMMUNE,
 		TRAIT_BADDNA,
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_NONECRODISEASE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
 	) //Made of mutated cells

@@ -11,7 +11,7 @@
 /area/template_noop)
 "f" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "h" = (
@@ -30,7 +30,7 @@
 "j" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "k" = (
@@ -128,7 +128,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "I" = (

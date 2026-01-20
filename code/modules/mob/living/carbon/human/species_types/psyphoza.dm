@@ -49,11 +49,6 @@
 	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null
 
-/datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.psyphoza_first_names)] [pick(GLOB.psyphoza_last_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return .(gender, TRUE, null, ++attempts)
-
 /datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
 		H.blood_volume += chem.volume * 15

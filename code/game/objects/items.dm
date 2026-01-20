@@ -289,7 +289,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
-/obj/item/Destroy()
+/obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
 		var/mob/m = loc
@@ -903,33 +903,55 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
 
-/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
+/// Returns true if damage was applied, false if the attack was fully blocked.
+/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user, obj/item/weapon, silent)
 
 	var/is_human_victim
 	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
 	if(ishuman(M))
 		if(!affecting) //no head!
-			return
+			return FALSE
 		is_human_victim = TRUE
 
 	if(M.is_eyes_covered())
 		// you can't stab someone in the eyes wearing a mask!
-		to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
+		return FALSE
 
 	if(isalien(M))//Aliens don't have eyes./N     slimes also don't have eyes!
-		to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
-		return
+		if (!silent)
+			to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
+		return FALSE
 
 	if(isbrain(M))
-		to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
+		return FALSE
 
 	add_fingerprint(user)
 
 	playsound(loc, src.hitsound, 30, 1, -1)
 
 	user.do_attack_animation(M)
+
+	if(is_human_victim)
+		var/mob/living/carbon/human/U = M
+		var/blocked = U.run_armor_check(BODY_ZONE_HEAD, MELEE, armour_penetration = weapon.armour_penetration)
+		U.apply_damage(weapon.force, BRUTE, affecting, blocked = blocked)
+		if (prob(blocked))
+			if(M != user)
+				M.visible_message(span_danger("[user] stabbed [M] in the head with [src]!"), \
+									span_userdanger("[user] stabs you in the head with [src], but your armor protects your eyes!"))
+			else
+				user.visible_message( \
+					span_danger("[user] has stabbed [user.p_them()]self in the head with [src]!"), \
+					span_userdanger("You stab yourself in the head with [src], your armor protecting your eyes!") \
+				)
+			return TRUE
+
+	else
+		M.take_bodypart_damage(weapon.force)
 
 	if(M != user)
 		M.visible_message(span_danger("[user] has stabbed [M] in the eye with [src]!"), \
@@ -939,12 +961,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"), \
 			span_userdanger("You stab yourself in the eyes with [src]!") \
 		)
-	if(is_human_victim)
-		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting)
-
-	else
-		M.take_bodypart_damage(7)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
@@ -952,7 +968,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
-		return
+		return TRUE
 	M.adjust_blurriness(3)
 	eyes.apply_organ_damage(3)
 	if(eyes.damage >= 10)
@@ -965,6 +981,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if (eyes.damage >= 60)
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, span_danger("You go blind!"))
+	return TRUE
 
 /obj/item/singularity_pull(S, current_size)
 	..()
@@ -1649,32 +1666,32 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		usr.examinate(src)
 		return TRUE
 
-/obj/item/examine_title(mob/user, thats = FALSE)
-	// Items use get_examine_line() which includes blood stains, ID links, examine links, etc.
-	// When thats=TRUE, this is the main item being examined, so skip the self-referential examine link
-	// When thats=FALSE, this is an inventory item, so include the examine link
-	var/examine_line = get_examine_line(skip_examine_link = thats)
-	if(thats)
-		examine_line = "[examine_thats] [examine_line]"
-	return examine_line
-
-/obj/item/proc/get_examine_line(skip_examine_link = FALSE)
-	var/whole_word = usr?.client?.prefs?.read_player_preference(/datum/preference/toggle/whole_word_examine_links)
-	var/examine_name = get_examine_name(usr)
+/// Gets the examination title of an item that is equipped by another mob, this is what
+/// shows on every line when you examine someone. Certain things, such as uniforms, may include
+/// more details such as information on the accessories equipped which would not be appropriate
+/// in the title of that item.
+/// This proc also appends inspection links, which can be clicked in the chatbox to examine this
+/// item in greater detail.
+/obj/item/proc/examine_worn_title(mob/living/wearer, mob/user, skip_examine_link = FALSE)
+	ASSERT(user, "Cannot generate worn examination title without a user, worn titles require the target which you are showing them to.")
+	ASSERT(user.client, "Attempting to generate worn title for a mob without a client, which is not allowed.")
+	var/examine_name = get_examine_name(user)
 
 	// Don't add examine link if this is the item being directly examined
 	if(skip_examine_link)
-		return "[icon2html(src, viewers(get_turf(src)))] [examine_name]"
+		return "[icon2html(src, user.client)] [examine_name]"
+	return examine_inspection_link(user, "[icon2html(src, user.client)] [examine_name]")
 
+/// Appends the inspection links to the name of this item.
+/// This may be overriden to provice custom inspection commands, or may be called with a custom item name
+/// that differs from the returned examine name of the item.
+/obj/item/proc/examine_inspection_link(mob/user, examine_name)
+	var/whole_word = user.client.prefs?.read_player_preference(/datum/preference/toggle/whole_word_examine_links)
 	var/obj/item/card/id/ID = GetID()
 	if(ID)
-		if(whole_word)
-			return "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a> <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
-		else
-			return "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+		return "[examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Examine ID\]</a>"
 	else
 		if(whole_word)
-			return "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a>"
+			return "<a href='byond://?src=\ref[src];examine=1'>[examine_name]</a>"
 		else
-			return "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
-
+			return "[examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"

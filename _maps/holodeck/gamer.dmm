@@ -4,7 +4,7 @@
 /turf/open/floor/holofloor/basalt,
 /area/template_noop)
 "x" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/holofloor/basalt,
 /area/template_noop)
 "C" = (

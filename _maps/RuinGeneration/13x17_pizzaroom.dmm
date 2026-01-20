@@ -37,7 +37,7 @@
 /turf/open/indestructible/hierophant,
 /area/ruin/unpowered)
 "v" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/indestructible/hierophant,
 /area/ruin/unpowered)
 "A" = (

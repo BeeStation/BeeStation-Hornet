@@ -8,14 +8,14 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
 /obj/effect/decal/cleanable/vomit/old,
 /obj/effect/mob_spawn/human/corpse/assistant,
 /obj/item/storage/pill_bottle,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
