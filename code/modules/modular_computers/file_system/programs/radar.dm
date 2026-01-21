@@ -105,7 +105,7 @@
 	var/pointer_z = ""
 	var/locx = (target_turf.x - here_turf.x) + 24
 	var/locy = (here_turf.y - target_turf.y) + 24
-	var/dist = get_dist_euclidian(here_turf, target_turf)
+	var/dist = get_dist_euclidean(here_turf, target_turf)
 
 	// this stores the z-value difference
 	var/z_comparison_result_value
@@ -217,7 +217,7 @@
 
 	var/here_turf = get_turf(computer)
 	var/target_turf = get_turf(signal)
-	var/trackdistance = get_dist_euclidian(here_turf, target_turf)
+	var/trackdistance = get_dist_euclidean(here_turf, target_turf)
 	switch(trackdistance)
 		if(0)
 			program_icon_state = "[initial(program_icon_state)]direct"

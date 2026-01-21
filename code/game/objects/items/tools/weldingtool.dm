@@ -134,7 +134,7 @@
 		if (!QDELETED(attacked_atom) && isliving(attacked_atom)) // can't ignite something that doesn't exist
 			handle_fuel_and_temps(1, user)
 			var/mob/living/attacked_mob = attacked_atom
-			if(attacked_mob.IgniteMob())
+			if(attacked_mob.ignite_mob())
 				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(attacked_mob)] on fire with [src] at [AREACOORD(user)]")
 				log_game("[key_name(user)] set [key_name(attacked_mob)] on fire with [src] at [AREACOORD(user)]")
 
@@ -153,7 +153,7 @@
 
 		if(!QDELETED(attacked_atom) && isliving(attacked_atom)) // can't ignite something that doesn't exist
 			var/mob/living/attacked_mob = attacked_atom
-			if(attacked_mob.IgniteMob())
+			if(attacked_mob.ignite_mob())
 				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(attacked_mob)] on fire with [src] at [AREACOORD(user)].")
 				log_game("set [key_name(attacked_mob)] on fire with [src]")
 

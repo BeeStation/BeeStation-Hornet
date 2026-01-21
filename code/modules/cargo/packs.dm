@@ -2337,7 +2337,7 @@
 
 /datum/supply_pack/service/carpet_exotic
 	name = "Exotic Carpet Crate"
-	desc = "Exotic carpets straight from Space Russia, for all your decorating needs. Contains 100 tiles each of 8 different flooring patterns."
+	desc = "Exotic carpets straight from Space Russia, for all your decorating needs. Contains 100 tiles each of 10 different flooring patterns."
 	cost = 2000
 	max_supply = 3
 	contains = list(/obj/item/stack/tile/carpet/blue/fifty,
@@ -2352,6 +2352,8 @@
 					/obj/item/stack/tile/carpet/purple/fifty,
 					/obj/item/stack/tile/carpet/red/fifty,
 					/obj/item/stack/tile/carpet/red/fifty,
+					/obj/item/stack/tile/carpet/olive/fifty,
+					/obj/item/stack/tile/carpet/olive/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/eighties/fifty,
@@ -3378,6 +3380,21 @@
 	for(var/i in 1 to num_contained)
 		plush_nomoth = pick(_temporary_list_plush_nomoth)
 		new plush_nomoth(C)
+
+/datum/supply_pack/costumes_toys/ducks
+	name = "Rubber Duck Crate"
+	desc = "A crate filled with 5 adorable rubber ducks!"
+	cost = 2000
+	max_supply = 5
+	contains = list(
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+	)
+	crate_name = "duck crate"
+	crate_type = /obj/structure/closet/crate/wooden
 
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////

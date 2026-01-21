@@ -13,6 +13,8 @@
 		target = get_step_multiz(source, direction)
 		if(!target)
 			return FALSE
+	if(anchored)
+		return FALSE
 	return !(movement_type & (FLYING|FLOATING)) && has_gravity(src) && !throwing
 
 /// Returns a set of flags, determining what the zfall system will consider this atom in its falling handling
