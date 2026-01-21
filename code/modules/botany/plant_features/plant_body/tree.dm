@@ -67,12 +67,13 @@
 /datum/plant_feature/body/tree/palm
 	species_name = "litus arbore"
 	name = "palm tree"
-	icon_state = "missing"
+	icon = 'icons/obj/hydroponics/features/body_tall.dmi'
+	icon_state = "palm"
 	overlay_positions = list(list(16, 18), list(21, 19, list(12, 20), list(21, 24)))
 	mutations = list(/datum/plant_feature/body/tree)
 
 /datum/plant_feature/body/tree/palm/banana
-	name = "banana tree"
+	name = "banana palm"
 
 /datum/plant_feature/body/tree/palm/coconut
-	name = "coconut tree"
+	name = "coconut palm"

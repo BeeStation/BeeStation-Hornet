@@ -1,8 +1,10 @@
-#define MAX_REAGENT_GRID 100
+//TODO: move these - Racc
+#define MAX_REAGENT_GRID 33
 #define GRID_REAGENT_POSITION "GRID_REAGENT_POSITION"
 #define GRID_REAGENT_OFFSET "REAGENT_OFFSET"
 #define GRID_REAGENT_SIZE "GRID_REAGENT_SIZE"
 #define GRID_REAGENT_NAME "GRID_REAGENT_NAME"
+#define GRID_MAX_ACCURACY 3
 
 SUBSYSTEM_DEF(botany)
 	name = "Botany"
@@ -57,14 +59,14 @@ SUBSYSTEM_DEF(botany)
 /datum/controller/subsystem/botany/Initialize(timeofday)
 	build_dict()
 	fruit_blacklist = typecacheof(fruit_blacklist)
-	//Build overdraw need list
+//Build overdraw need list
 	for(var/datum/plant_need/need as anything in subtypesof(/datum/plant_need))
 		if(initial(need.overdraw_need))
 			overdraw_needs += need
-	//Build random seeds lists
+//Build random seeds lists
 	for(var/obj/item/plant_seeds/preset/random/seed as anything in subtypesof(/obj/item/plant_seeds/preset/random))
 		random_seeds += seed
-	//Build random traits
+//Build random traits
 	for(var/datum/plant_trait/trait as anything in subtypesof(/datum/plant_trait))
 		if(!initial(trait.random_trait))
 			continue
@@ -75,27 +77,32 @@ SUBSYSTEM_DEF(botany)
 		if(!random_traits["[initial(trait.plant_feature_compat)]"])
 			random_traits["[initial(trait.plant_feature_compat)]"] = list()
 		random_traits["[initial(trait.plant_feature_compat)]"] += trait
-	//Build refraction reagents
+//Build refraction reagents
 	var/list/all_reagents = subtypesof(/datum/reagent)
 	all_reagents = shuffle(all_reagents)
-	for(var/datum/reagent/reagent as anything in all_reagents)
-		if(!(initial(reagent.chemical_flags) & CHEMICAL_RNG_BOTANY))
-			continue
-		//Area in which we can fall inside
-		var/matrix_size = rand(2, 5)
-		//Where our hint radius is offset by
-		var/max_offset = floor(matrix_size/2)
-		var/offset_x = rand(-max_offset+1, max_offset)
-		var/offset_y = rand(-max_offset+1, max_offset)
-		//Where we actually live
-		var/grid_x = rand(1, MAX_REAGENT_GRID)
-		var/grid_y = rand(1, MAX_REAGENT_GRID)
-		//Fill the cunt with the info
-		refraction_reagents["[initial(reagent.type)]"] = list(GRID_REAGENT_POSITION = list(grid_x, grid_y),
-		GRID_REAGENT_NAME = initial(reagent.name),
-		GRID_REAGENT_SIZE = matrix_size,
-		GRID_REAGENT_OFFSET = list(offset_x, offset_y))
-		refraction_coords["[grid_x]:[grid_y]"] = "[initial(reagent.type)]"
+	//Popluate accuracy levels
+	for(var/level in 1 to GRID_MAX_ACCURACY)
+		refraction_reagents["[level]"] = list()
+		refraction_coords["[level]"] = list()
+		//Populate reagent data
+		for(var/datum/reagent/reagent as anything in all_reagents)
+			if(!(initial(reagent.chemical_flags) & CHEMICAL_RNG_BOTANY))
+				continue
+			//Area in which we can fall inside
+			var/matrix_size = rand(2, level+2)
+			//Where our hint radius is offset by
+			var/max_offset = floor(matrix_size/2)
+			var/offset_x = rand(-max_offset+1, max_offset)
+			var/offset_y = rand(-max_offset+1, max_offset)
+			//Where we actually live
+			var/grid_x = rand(1, MAX_REAGENT_GRID*level)
+			var/grid_y = rand(1, MAX_REAGENT_GRID*level)
+			//Fill the cunt with the info
+			refraction_reagents["[level]"]["[initial(reagent.type)]"] = list(GRID_REAGENT_POSITION = list(grid_x, grid_y),
+			GRID_REAGENT_NAME = initial(reagent.name),
+			GRID_REAGENT_SIZE = matrix_size,
+			GRID_REAGENT_OFFSET = list(offset_x, offset_y))
+			refraction_coords["[level]"]["[grid_x]:[grid_y]"] = "[initial(reagent.type)]"
 
 /datum/controller/subsystem/botany/proc/build_dict()
 //Features

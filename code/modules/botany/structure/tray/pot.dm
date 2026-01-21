@@ -56,6 +56,10 @@
 	var/datum/component/plant/plant_component = seed.plant(src, logic = TRUE)
 //Add some bonus traits to it
 	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
+		//Add a random refraction reagent trait if its a fruit feature
+		if(istype(feature, /datum/plant_feature/fruit))
+			var/datum/plant_trait/refraction/reagent_trait = new /datum/plant_trait/refraction(feature)
+			feature.plant_traits += reagent_trait
 		//Remove possible duplicates - kind of a fucked up way of doing it tbh
 		for(var/datum/plant_trait/trait as anything in feature.plant_traits)
 			if(trait.allow_multiple)

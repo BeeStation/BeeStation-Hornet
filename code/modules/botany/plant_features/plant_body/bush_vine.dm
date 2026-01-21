@@ -80,14 +80,20 @@
 /datum/plant_feature/body/bush_vine/nettle
 	species_name = "aculeatum rubi"
 	name = "nettle bush"
-	icon_state = "missing"
+	icon_state = "big_fingers_2"
 	draw_below_water = FALSE
 	overlay_positions = list(list(24, 6))
-	plant_traits = list(/datum/plant_trait/body/thorns/thrower)
+	mutations = list(/datum/plant_feature/body/bush_vine/nettle/death)
 
+/datum/plant_feature/body/bush_vine/nettle/death //This is just a legacy thing, don't bother giving it a unique name or stats
+	name = "big_fingers_3"
+	mutations = list(/datum/plant_feature/body/bush_vine/nettle)
+
+//TODO: Make this its own thing - Racc
 /datum/plant_feature/body/bush_vine/nettle/thistle
 	name = "thistle bush"
 
+//TODO: Make this its own thing - Racc
 /datum/plant_feature/body/bush_vine/nettle/kudzu
 	name = "kudzu vine"
 
@@ -110,6 +116,6 @@
 /datum/plant_feature/body/bush_vine/tea
 	species_name = "asperae rubi"
 	name = "tea bush"
-	icon_state = "missing"
+	icon_state = "bush_2"
 	draw_below_water = FALSE
 	overlay_positions = list(list(24, 6))

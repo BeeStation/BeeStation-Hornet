@@ -3072,6 +3072,22 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/construction)
+"Jg" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/obj/item/disk/plant_disk,
+/turf/open/floor/iron,
+/area/storage/primary)
 "Jj" = (
 /obj/structure/table,
 /obj/item/storage/backpack/duffelbag/syndie/surgery,
@@ -9753,7 +9769,7 @@ hO
 Ba
 rr
 dF
-nM
+Jg
 Bi
 nM
 Jr

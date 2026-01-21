@@ -2660,6 +2660,7 @@
 #include "code\modules\botany\plant_traits\body_traits\thrower.dm"
 #include "code\modules\botany\plant_traits\fruit_traits\nectar.dm"
 #include "code\modules\botany\plant_traits\fruit_traits\reagent_traits.dm"
+#include "code\modules\botany\plant_traits\fruit_traits\refraction.dm"
 #include "code\modules\botany\plant_traits\fruit_traits\seperated_contents.dm"
 #include "code\modules\botany\plant_traits\fruit_traits\fruit_behaviour\_fruit_trait.dm"
 #include "code\modules\botany\plant_traits\fruit_traits\fruit_behaviour\biolight.dm"
