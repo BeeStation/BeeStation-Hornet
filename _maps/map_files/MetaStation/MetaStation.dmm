@@ -21636,10 +21636,11 @@
 "exI" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/requests_console/auto_name/directional/east,
-/obj/structure/table,
-/obj/item/food/dough{
-	pixel_x = -4
+/obj/structure/sink/kitchen{
+	dir = 8;
+	pixel_x = 10
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "exK" = (
@@ -68697,6 +68698,14 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/qm)
+"vfq" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/food/dough{
+	pixel_x = -4
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/kitchen)
 "vfy" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -115013,7 +115022,7 @@ ecd
 lil
 rxA
 exI
-nuU
+vfq
 tIp
 bKe
 juF
