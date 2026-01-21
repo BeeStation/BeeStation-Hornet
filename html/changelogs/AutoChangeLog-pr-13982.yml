@@ -1,0 +1,18 @@
+author: mrmanlikesbt, timothymtorres, Ghommie, SmArtKar, DarthSidiousPalpatine, ShizCalev,
+  Jacquerel, MrMelbert
+delete-after: true
+changes:
+  - refactor: Fire stacks have been refactored into a status effect
+  - refactor: Refactored weather immunities into traits
+  - bugfix: Fixed not being able to jump over lava with jump boots
+  - bugfix: Fixed monkeys having the human burning sprite when on fire
+  - rscadd: When being set on fire, objects in your hands will also be set on fire
+  - balance: Stop dropping and rolling no longer instantly clears fire stacks from
+      you, instead it will gradually remove them over time
+  - code_imp: Renamed IgniteMob() to ignite_mob()
+  - code_imp: Renamed ExtinguishMob() to extinguish_mob()
+  - code_imp: get_equipped_items() now uses bitflags for arguments instead of individual
+      bools
+  - code_imp: All instances of singularity_pull() now have their correct arguments
+  - code_imp: Removed the IS_CARVABLE obj bitflag
+  - spellcheck: Added a missing description to lava
