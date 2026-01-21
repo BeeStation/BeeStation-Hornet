@@ -80,3 +80,183 @@
   - balance: Mech's cells are drained faster from EMP's
   - balance: Mech's receive more damage from EMP's
   - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
+  PowerfulBacon:
+  - bugfix: Mice no longer spawn during unit testing, which breaks cable tests.
+  - bugfix: Fixes TGUI windows lagging the game when opened until you open the preferences
+      screen.
+  - bugfix: Eye-stabbing will now always deal the same damage as a regular attack,
+      and will perform a regular attack if it fails making it behave better while
+      on simplified mode.
+  - bugfix: Fixes eye-stabbing having 100% armour penetration.
+  RKz:
+  - rscadd: 'All drug addictions are now put into 5 categories: Stimulants, Opioids,
+      Alcohol, Hallucinogens, and Maintenance Drugs. All narcotics have been given
+      a category corresponding to their effect.'
+  - bugfix: Narcotics that had clearly addicting effects, yet were missing an addiction
+      call, now properly interface with the new addiction system.
+  - rscadd: new stats have been added to some chemistry reagents that will help medical
+      deal with these new effects. Neurine and Sodium-Thiopetal can be used to alleviate
+      seizures from drug abuse.
+  - tweak: Completely gutted the "threshold" addiction system in favor of a point
+      based system. It progresses much like disease tiers. Addiction is no longer
+      some joke noobtrap that just affects your mood, if you partake in a shitton
+      of drugs, you will feel the consequences.
+  Rukofamicom:
+  - bugfix: Loose power cells mapped into stations no longer have unusual capacities
+  - rscadd: Maps will now lint against changes to charge and maxcharge variables for
+      power cells
+  mrmanlikesbt, Fikou:
+  - tweak: nuclear operative reinforcements are now drop podded in instead of being
+      teleported
+  - refactor: cleaned up the antag spawner item's code
+  - bugfix: the ghost poll for syndicate reinforcements now have the correct poll
+      icon for what is being spawned, previously it would always be the syndicate
+      assault cyborg
+  mrmanlikesbt, Jacquerel, lessthnthree, SmArtKar:
+  - rscadd: Added incident displays. These show how many rounds it has been since
+      a supermatter delamination on your station.
+  rkz, Melbert:
+  - code_imp: drunkeness, dizziness, and speech slurring are now status effects
+  - refactor: slurring speech from drunkeness should have much better ramp-up, rather
+      than making you intelligible immediately
+  - rscadd: adds hereticslurring, rather than copying cultslurring
+  rkz, Mothblocks:
+  - balance: ashlanders and monkeys are hardcoded via brains to be unable to operate
+      mechs
+  - code_imp: adds another carbon trait to brains, the ability to strip others with
+      the stripping menu
+  - code_imp: strip menu unit test
+2026-01-11:
+  Isaacnml:
+  - balance: MOD energy shield can withstand 60 damage and recharges 5 seconds after
+      not being hit, recharging 5 per second, roughly reaching max charge in 16 total
+      seconds of not being hit
+  - rscadd: Mod Energy shield to the traitor uplink
+  PowerfulBacon:
+  - balance: Hacked APCs will now only sometimes flicker their distinctive blue colour.
+      Only players standing near the APC can see this. Malf AIs and ghosts always
+      see hacked APCs as blue.
+2026-01-12:
+  PowerfulBacon:
+  - tweak: Updates some maps for future support of smartwires
+  - bugfix: Crashing caused by dizziness status effect.
+2026-01-13:
+  PowerfulBacon:
+  - tweak: Chemical grenades can now have assemblies attached when completed.
+  - rscadd: Adds screentips to chemical grenades.
+  - tweak: If a chemical grenade does not explode, you can screwdriver it to reset
+      it. You cannot re-use the reagents though as they will be cleared when you remove
+      the beakers from it.
+  - tweak: Edits the TGUI base theme to give the server a more distinct look and feel.
+  - rscadd: Adds the new blue chat theme.
+  mrmanlikesbt:
+  - bugfix: fixed kitty ear spawners spawning fake kitty ears
+  rkz, coiax, ShizCalev, carpotoxin, Rhials, san7890:
+  - refactor: refactor ventcrawling accessing
+  - code_imp: ventcrawling ability is now a trait
+  - rscadd: indicates when a mob is attempting to enter a vent
+  - rscadd: mobs that get stuck in pipes with no exit can force their way out
+  - rscadd: ventcrawling mobs now have a 1 second delay to exiting, to prevent accidental
+      ventcrawl exit
+2026-01-14:
+  'rkz, JohnFulp, Mothblocks, Lemon, Tastyfish, Fikou, AnturK, ':
+  - rscdel: removed ntnet
+  - rscadd: fulfill your discord mod dreams. The captain and RD can grant/remove send-to-all
+      permissions in the messaging app.
+  - refactor: converted like the 4 things that were using it to use generic code instead
+  - refactor: Modular computers NTnet and applications run on its own subsystem, please
+      report any new bugs you may find.
+  - bugfix: Computers are now properly connected to Ethernet, and can use Ntos when
+      Relays are down.
+  - refactor: Removes Ntnet and Ntnet interfaces, which was only used by Ntnet circuits
+      (which now directly checks for a Relay to work) and MULEbots, which did nothing
+      with it.
+  - balance: Wirecarp now properly shuts off NtNet remotely.
+  - balance: Wirecarp now shows the source of a PDA that does an action.
+  - bugfix: Wirecarp can no longer be used to see if Nukies exist through their networks.
+  - rscdel: Removes Software downloading and communication Ntnet networks, as they
+      were pretty worthless.
+  - rscadd: adds element injector mapping helper
+  - rscadd: adds sound injector mapping helper
+  - rscadd: adds icon injector mapping helper
+  - rscadd: adds trait injector mapping helper
+  - refactor: refactors component injectors into atom injectors.
+  rkz, LemonInTheDark, MrStonedOne, AnturK, SmartKar, Capybara, kapu:
+  - bugfix: blob mob ai should get stuck on stuff less
+  - refactor: moves CanAStarPass to the atom level
+  - bugfix: simplebots should no longer lock up during normal duties
+  - refactor: puts JPS on a subsystem. Pathing from bots/simplemobs/players cannot
+      eat into maptick anymore
+  - refactor: pathfinding is roughly 40% faster
+  - rscadd: Adds swarmed pathfinding, trading accuracy for potential optimization
+      of used correctly
+  - bugfix: Bots will no longer take diagonal paths, preventing weirdo looking path
+      visuals
+  - bugfix: Fixed our pathfinding logic getting deeply confused by border objects
+  - admin: Added clientside displayed pathfinding debug tools, give em a go
+2026-01-15:
+  Isaac:
+  - bugfix: Only Shrooms and Moths are able to be the only people to eat raw cloth
+      again.
+  PatienceStPim:
+  - rscadd: Rubber ducks can be purchased from cargo
+  rkz:
+  - rscadd: adds production method for IPC blood
+  rkz, andrea-feather, Melbert, Jacquerel, John Willard, timothytorres, Absolucy:
+  - refactor: Random Name Generation has been refactored. Report any instances of
+      people having weird (or "Unknown") names.
+  - rscadd: 'Adds a negative station trait: Bot Language Matrix Malfunction and Machine
+      Language Malfunction. Apply to their respective bits.'
+  - rscadd: Add language variety to machines that speak. You can also pulse the vendor
+      language wire to make it switch languages or EMP a machine to get the same effect.
+  - rscadd: Shambling cola vendors will now speak a different language each time they
+      talk. Syndicate vendors will now speak codespeak. Beach vendors will now speak
+      beachbum.
+  - refactor: defines a new global proc, pick_weight_recursive()
+  - code_imp: languages can weight syllables, and galactic common's definition is
+      easier to look at
+2026-01-16:
+  BotTierPC, Blerpfish:
+  - rscadd: Adds a new shade of carpet, found in Cargo's Exotic Carpet Crate.
+  Tsar-Salat:
+  - admin: Adds sanity checks to administration banning tool to prevent orphan entries
+      (submission with no player identifiers)
+  - bugfix: fixes species naming
+2026-01-18:
+  TsunamiAnt:
+  - code_imp: changed some code in weather-listener to account for off-lavaland weather
+      soundloops
+2026-01-19:
+  Tsar-Salat:
+  - bugfix: fixes nukeop name assignment
+  mrmanlikesbt:
+  - bugfix: Fixed organ smart fridges runtiming when a non-organ is removed from their
+      contents
+  rkz, SishTis, timothymtorres, Melbert, tralezab:
+  - bugfix: cleans up aphasia and slurring speech when lacking a tongue
+  - bugfix: hivemind languages dont force talking emotes
+  - rscadd: some tongues have a native language, these languages are not affected
+      by the tongue's respective speechmods
+  - refactor: converts silence from a mob stat to a status effect
+2026-01-20:
+  PowerfulBacon:
+  - bugfix: Breaching charges can no longer have their pin pulled as if they were
+      a grenade.
+2026-01-21:
+  mrmanlikesbt:
+  - tweak: Destroyed catwalks now drop 2 iron rods instead of just 1
+  mrmanlikesbt, timothymtorres, Ghommie, SmArtKar, DarthSidiousPalpatine, ShizCalev, Jacquerel, MrMelbert:
+  - refactor: Fire stacks have been refactored into a status effect
+  - refactor: Refactored weather immunities into traits
+  - bugfix: Fixed not being able to jump over lava with jump boots
+  - bugfix: Fixed monkeys having the human burning sprite when on fire
+  - rscadd: When being set on fire, objects in your hands will also be set on fire
+  - balance: Stop dropping and rolling no longer instantly clears fire stacks from
+      you, instead it will gradually remove them over time
+  - code_imp: Renamed IgniteMob() to ignite_mob()
+  - code_imp: Renamed ExtinguishMob() to extinguish_mob()
+  - code_imp: get_equipped_items() now uses bitflags for arguments instead of individual
+      bools
+  - code_imp: All instances of singularity_pull() now have their correct arguments
+  - code_imp: Removed the IS_CARVABLE obj bitflag
+  - spellcheck: Added a missing description to lava

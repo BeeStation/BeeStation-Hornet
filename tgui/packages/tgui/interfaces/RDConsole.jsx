@@ -83,7 +83,7 @@ export const RDConsole = (props) => {
   const { act, data } = useBackend();
   const { logs = [], servers = [] } = data;
   return (
-    <Window width={900} height={750}>
+    <Window width={980} height={750}>
       <Window.Content scrollable>
         <Section title="Servers">
           {servers.map((server) => (

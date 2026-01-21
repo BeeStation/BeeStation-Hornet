@@ -13,7 +13,7 @@
 	var/energy = 10
 	var/stop_dissipate = FALSE
 
-/obj/projectile/energy/accelerated_particle/singularity_pull()
+/obj/projectile/energy/accelerated_particle/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/projectile/energy/accelerated_particle/weak

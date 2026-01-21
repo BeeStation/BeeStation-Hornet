@@ -15,7 +15,6 @@
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxHealth = 150
@@ -51,6 +50,10 @@
 	discovery_points = 2000
 	var/datum/morph_stomach/morph_stomach
 	var/datum/action/innate/morph_stomach/stomach_action
+
+/mob/living/simple_animal/hostile/morph/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	morph_stomach = new(src)
@@ -129,7 +132,7 @@
 	if(do_after(src, 3 SECONDS, living_target))
 		if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
 			var/list/turfs_to_throw = view(2, src)
-			var/list/target_contents = living_target.get_equipped_items(include_pockets = TRUE) + living_target.held_items
+			var/list/target_contents = living_target.get_equipped_items(INCLUDE_POCKETS) + living_target.held_items
 			for(var/obj/item/item in target_contents)
 				if(isclothing(item))
 					continue //no reason to strip them of sensors

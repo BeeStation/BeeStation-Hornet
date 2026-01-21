@@ -143,8 +143,9 @@
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /mob/living/fire_act()
+	. = ..()
 	adjust_fire_stacks(3)
-	IgniteMob()
+	ignite_mob()
 
 /**
  * Called when this mob is grabbed by another mob.

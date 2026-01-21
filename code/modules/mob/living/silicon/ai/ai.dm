@@ -235,9 +235,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
 
-/mob/living/silicon/ai/IgniteMob()
-	fire_stacks = 0
-	. = ..()
+/mob/living/silicon/ai/ignite_mob(silent)
+	return FALSE
 
 /mob/living/silicon/ai/proc/set_core_display_icon(input, client/C)
 	if(client && !C)
@@ -1012,6 +1011,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
+		apc.set_hacked_hud()
+		apc.flicker_hacked_icon()
 		log_message("hacked APC [apc] at [AREACOORD(turf)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, TRUE, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")

@@ -430,7 +430,7 @@
 			else
 				to_chat(M, span_notice("The light makes you feel oddly relaxed..."))
 				M.adjust_confusion_up_to(10 SECONDS, 20 SECONDS)
-				M.dizziness += min(M.dizziness + 10, 20)
+				M.adjust_dizzy_up_to(20 SECONDS, 40 SECONDS)
 				M.drowsyness += min(M.drowsyness + 10, 20)
 				M.adjust_pacifism(10 SECONDS)
 
@@ -444,7 +444,7 @@
 	else if(M.flash_act())
 		to_chat(M, span_notice("Such a pretty light..."))
 		M.adjust_confusion_up_to(4 SECONDS, 20 SECONDS)
-		M.dizziness += min(M.dizziness + 4, 20)
+		M.adjust_dizzy_up_to(8 SECONDS, 40 SECONDS)
 		M.drowsyness += min(M.drowsyness + 4, 20)
 		M.adjust_pacifism(4 SECONDS)
 

@@ -14,17 +14,16 @@
 	icon_state = "volpump_map-3"
 	name = "volumetric gas pump"
 	desc = "A pump that moves gas by volume."
-
 	can_unwrench = TRUE
 	shift_underlay_only = FALSE
+	construction_type = /obj/item/pipe/directional
+	pipe_state = "volumepump"
+	vent_movement = NONE
 
 	var/transfer_rate = MAX_TRANSFER_RATE
 	var/overclocked = FALSE
 	///flashing light overlay which appears on multitooled vol pumps
 	var/mutable_appearance/overclock_overlay
-
-	construction_type = /obj/item/pipe/directional
-	pipe_state = "volumepump"
 
 /obj/machinery/atmospherics/components/binary/volume_pump/add_context_self(datum/screentip_context/context, mob/user)
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
@@ -154,6 +153,13 @@
 		to_chat(user, span_warning("You cannot unwrench [src], turn it off first!"))
 		return FALSE
 
+/obj/machinery/atmospherics/components/binary/volume_pump/set_on(active)
+	. = ..()
+	if(active)
+		vent_movement |= VENTCRAWL_ALLOWED
+	else
+		vent_movement &= ~VENTCRAWL_ALLOWED
+
 /obj/machinery/atmospherics/components/binary/volume_pump/multitool_act(mob/living/user, obj/item/I)
 	if(!overclocked)
 		var/turf/turf = loc
@@ -168,9 +174,6 @@
 		to_chat(user, "The pump quiets down as you turn its limiters back on.")
 		update_icon()
 	return TRUE
-
-/obj/machinery/atmospherics/components/binary/volume_pump/can_crawl_through()
-	return on
 
 // mapping
 
