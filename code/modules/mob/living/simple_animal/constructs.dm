@@ -67,10 +67,9 @@
 		else
 			stone = /obj/item/soulstone/anybody
 	stone = new stone(get_turf(src))
-	src.real_name = original_name
-	stone.name = "[real_name]'s soulstone"
-	stone.transfer_soul("FORCE", src)
+	stone.init_shade(src)
 	return ..()
+
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
