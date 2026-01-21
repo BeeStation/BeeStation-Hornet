@@ -381,7 +381,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 		C.visible_message(span_warning("[C]'s skin bursts into flame!"), \
 							span_userdanger("You feel an inner fire as your skin bursts into flames!"))
 		C.adjust_fire_stacks(5)
-		C.ignite_mob()
+		C.IgniteMob()
 	return
 
 
@@ -441,3 +441,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
 /obj/anomaly/singularity/stationary/process(delta_time)
 	if(DT_PROB(0.5, delta_time))
 		mezzer()
+
+
+/obj/anomaly/singularity/temporary
+	var/time_to_delete = 60 SECONDS
+
+/obj/anomaly/singularity/temporary/Initialize(mapload)
+	. = ..(mapload, 300)
+	QDEL_IN(src, time_to_delete)

@@ -702,6 +702,20 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	output_air.merge(removed)
 	return removed
 
+/// Pumps gas from src to output_air. Amount depends on volume_to_pump
+/datum/gas_mixture/proc/pump_gas_volume(datum/gas_mixture/output_air, volume_to_pump)
+	var/datum/gas_mixture/removed
+	if(!volume)
+		return FALSE
+
+	removed = remove_ratio(volume_to_pump / volume)
+
+	if(!removed)
+		return FALSE
+
+	output_air.merge(removed)
+	return removed
+
 /// Releases gas from src to output air. This means that it can not transfer air to gas mixture with higher pressure.
 /datum/gas_mixture/proc/release_gas_to(datum/gas_mixture/output_air, target_pressure, rate=1, datum/gas_mixture/output_pipenet_air = null)
 	var/output_starting_pressure = output_air.return_pressure()
