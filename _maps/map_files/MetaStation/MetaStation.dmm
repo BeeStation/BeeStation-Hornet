@@ -736,11 +736,9 @@
 "ahe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small/directional/north,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12200,10 +12198,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
-"cfg" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "cft" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -13144,7 +13138,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -13836,7 +13829,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "cus" = (
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -16981,7 +16973,6 @@
 /area/engine/engineering)
 "dby" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "dbF" = (
@@ -19385,7 +19376,6 @@
 	req_access_txt = "26";
 	pixel_y = -23
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "dJp" = (
@@ -19649,7 +19639,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -20062,7 +20051,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/hydroponics)
 "dUo" = (
@@ -20769,7 +20757,6 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/crate,
@@ -22178,11 +22165,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/locker)
-"eHf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/iron,
-/area/maintenance/starboard/secondary)
 "eHi" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Storage Room"
@@ -23057,7 +23039,6 @@
 "fbd" = (
 /obj/structure/table/wood,
 /obj/machinery/light/floor,
-/obj/effect/spawner/lootdrop/gambling,
 /turf/open/floor/glass/reinforced,
 /area/crew_quarters/bar)
 "fbk" = (
@@ -31401,7 +31382,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -31539,7 +31519,6 @@
 /obj/effect/mapping_helpers/airalarm/tlv_kitchen,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -31965,7 +31944,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/west,
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/window/spawner/directional/south,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
@@ -35001,7 +34979,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/xeno_spawn,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "jhu" = (
@@ -40157,10 +40134,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/sign/poster/official/random/directional/west,
@@ -44451,7 +44426,6 @@
 "mEh" = (
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet,
@@ -50632,7 +50606,6 @@
 /area/medical/medbay/lobby)
 "oIW" = (
 /obj/machinery/airalarm/directional/south,
-/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "oJb" = (
@@ -51394,7 +51367,6 @@
 "oXN" = (
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -54778,7 +54750,6 @@
 	dir = 5
 	},
 /obj/machinery/light/directional/north,
-/obj/effect/spawner/randomvend/snack,
 /obj/machinery/status_display/ai/directional/west,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
@@ -55816,8 +55787,7 @@
 	pixel_x = 26
 	},
 /obj/machinery/computer/telecomms/monitor{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
@@ -56189,7 +56159,6 @@
 "qJj" = (
 /obj/machinery/light_switch/directional/south,
 /obj/structure/extinguisher_cabinet/directional/south,
-/obj/effect/spawner/randomvend/snack,
 /obj/machinery/camera/directional/south,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
@@ -63346,7 +63315,6 @@
 "tlQ" = (
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet,
@@ -64539,7 +64507,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "tJe" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -68213,7 +68180,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/crate{
@@ -70679,7 +70645,6 @@
 /obj/structure/chair/stool/bar/directional/north,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/wood/poker,
@@ -76418,7 +76383,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -114329,7 +114293,7 @@ bUe
 vYe
 ovj
 nVX
-eHf
+uJg
 ovj
 eGE
 ice
@@ -117146,7 +117110,7 @@ kda
 kVg
 apc
 bVC
-cfg
+apc
 alq
 ahe
 xGX
