@@ -738,7 +738,6 @@
 /obj/structure/closet/crate,
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "ahi" = (
@@ -19635,7 +19634,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -20453,8 +20451,7 @@
 "ebZ" = (
 /obj/machinery/chem_master/condimaster{
 	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
-	name = "HoochMaster Deluxe";
-	pixel_x = -4
+	name = "HoochMaster Deluxe"
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/dark,
@@ -23338,7 +23335,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -27933,9 +27929,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/machinery/door/window/northleft{
 	name = "Kitchen Delivery";
 	req_access_txt = "28"
@@ -27943,6 +27936,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
 "gNz" = (
@@ -37917,6 +37911,10 @@
 	dir = 1
 	},
 /area/engine/atmos)
+"kle" = (
+/obj/structure/sign/poster/official/random/directional/west,
+/turf/closed/wall,
+/area/crew_quarters/kitchen/coldroom)
 "kll" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/iron,
@@ -40105,19 +40103,17 @@
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "lbY" = (
-/obj/structure/sign/poster/official/random/directional/west,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/structure/sign/poster/official/random/directional/west,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/blacklight/directional/north,
-/obj/structure/closet/crate,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "lcg" = (
@@ -64125,17 +64121,13 @@
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
 "tCm" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/door/window/southleft{
 	req_access_txt = "25";
 	name = "Bar Delivery"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
 "tCy" = (
@@ -70727,7 +70719,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -74313,11 +74304,9 @@
 	name = "Hydroponics Delivery";
 	req_access_txt = "35"
 	},
-/obj/structure/window/reinforced,
 /obj/effect/turf_decal/delivery,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron,
 /area/maintenance/starboard)
 "xaz" = (
@@ -74440,7 +74429,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "xcE" = (
@@ -116315,7 +116303,7 @@ vMN
 pQA
 jFu
 gNp
-cRI
+kle
 atm
 atm
 vgE
