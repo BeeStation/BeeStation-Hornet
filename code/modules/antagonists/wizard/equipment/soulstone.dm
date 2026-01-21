@@ -225,7 +225,6 @@
 						for(var/obj/item/W in T)
 							T.dropItemToGround(W)
 						steal_soul(T, user, TRUE)
-						qdel(T)
 				else
 					to_chat(user, "[span_userdanger("Capture failed!")]: Kill or maim the victim first!")
 
@@ -326,7 +325,8 @@
 		var/datum/action/innate/seek_master/SM = new()
 		SM.Grant(newstruct)
 	if(target)
-		newstruct.original_name = target.real_name
+		newstruct.original_name = target.name
+		newstruct.original_real_name = target.real_name
 	newstruct.key = target.key
 	var/atom/movable/screen/alert/bloodsense/BS
 	if(newstruct.mind && ((stoner && IS_CULTIST(stoner)) || cultoverride))
