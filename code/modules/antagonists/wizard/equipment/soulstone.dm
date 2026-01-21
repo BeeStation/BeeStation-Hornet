@@ -225,7 +225,6 @@
 						for(var/obj/item/W in T)
 							T.dropItemToGround(W)
 						steal_soul(T, user, TRUE)
-						qdel(T)
 				else
 					to_chat(user, "[span_userdanger("Capture failed!")]: Kill or maim the victim first!")
 
