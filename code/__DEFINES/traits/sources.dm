@@ -153,6 +153,9 @@
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
 #define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
+
+/// A trait gained from a mob's leap action, like the leaper
+#define LEAPING_TRAIT "leaping"
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
