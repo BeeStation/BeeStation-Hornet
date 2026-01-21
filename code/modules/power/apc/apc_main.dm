@@ -335,6 +335,9 @@
 	if(issilicon(user))
 		. += span_notice("Ctrl-Click the APC to switch the breaker [ operating ? "off" : "on"].")
 
+	if(aiHacking)
+		. += span_notice("The control override light is blinking. An AI is attempting to hack into the APC. Deactivate the main breaker to cut off their connection.")
+
 /obj/machinery/power/apc/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
@@ -729,6 +732,10 @@
 		aiHacking = FALSE
 		return TRUE
 	if(!operating)
+		to_chat(user, "Operation cancelled. Connection to APC lost.")
+		aiHacking = FALSE
+		return TRUE
+	if(!GLOB.cameranet.checkTurfVis(src.loc))
 		to_chat(user, "Operation cancelled. Connection to APC lost.")
 		aiHacking = FALSE
 		return TRUE
