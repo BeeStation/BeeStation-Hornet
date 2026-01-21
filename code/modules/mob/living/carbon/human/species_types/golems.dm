@@ -672,12 +672,6 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cult
 	)
 
-/datum/species/golem/runic/random_name(gender,unique,lastname)
-	var/edgy_first_name = pick("Razor","Blood","Dark","Evil","Cold","Pale","Black","Silent","Chaos","Deadly","Coldsteel")
-	var/edgy_last_name = pick("Edge","Night","Death","Razor","Blade","Steel","Calamity","Twilight","Shadow","Nightmare") //dammit Razor Razor
-	var/golem_name = "[edgy_first_name] [edgy_last_name]"
-	return golem_name
-
 /datum/species/golem/runic/spec_death(gibbed, mob/living/carbon/human/human)
 
 	for(var/obj/item/item in human)
