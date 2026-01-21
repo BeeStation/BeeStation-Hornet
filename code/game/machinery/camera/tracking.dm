@@ -141,7 +141,7 @@
 
 /mob/living/silicon/ai/proc/track_if_not_moved(mob/living/target, turf/T)
 	if(get_turf(target) != T)
-		to_chat(src, span_warning("Unable to locate target. Facial recognition subsystems report partial checks. Another attempt may succeed."))
+		to_chat(src, span_warning("Unable to locate target. Tracking subsystems report partial checks. Another attempt may succeed."))
 		return
 	ai_start_tracking(target)
 
@@ -156,6 +156,7 @@
 	ai_tracking_target = target
 	eyeobj.setLoc(get_turf(target)) //on the first call of this we obviously need to jump to the target ourselfs else we would go there only after they moved once
 	to_chat(src, span_notice("Now tracking [target.get_visible_name()] on camera."))
+	start_tracking_telegraph(target)
 
 /mob/living/silicon/ai/proc/tracking_target_qdeleted() //we wrap the ai_stop_tracking proc so we don't need to offset the arguments in ai_stop_tracking
 	SIGNAL_HANDLER
@@ -215,3 +216,28 @@
 			if (sorttext(a.c_tag, b.c_tag) < 0)
 				L.Swap(j, j + 1)
 	return L
+
+/mob/living/silicon/ai/proc/start_tracking_telegraph(mob/living/target)
+	if(!ai_tracking_target)
+		return
+
+	var/has_maxed_sensors = FALSE
+	var/on_camera = near_camera(target)
+
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/clothing/under/uniform = human_target.w_uniform
+	var/nanite_sensors = HAS_TRAIT(human_target, TRAIT_NANITE_SENSORS)
+	if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && (HAS_TRAIT(human_target, TRAIT_SUIT_SENSORS) || nanite_sensors))
+		if (nanite_sensors || uniform?.sensor_mode >= SENSOR_COORDS)
+			has_maxed_sensors = TRUE
+
+	if(has_maxed_sensors && !on_camera)
+		/// Start the tracking telegraph loop. This only happens with suit sensors
+		uniform?.say("Suit Sensor pings requested by [src.get_visible_name()].")
+		tracking_telegraph_loop()
+		return
+
+/mob/living/silicon/ai/proc/tracking_telegraph_loop()
+	playsound(src, 'sound/effects/ping_hit.ogg', 1, TRUE)
+	if(ai_tracking_target)
+		addtimer(CALLBACK(src, PROC_REF(tracking_telegraph_loop)), 5 SECONDS, TIMER_STOPPABLE)
