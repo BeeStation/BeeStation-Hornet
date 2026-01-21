@@ -85,8 +85,8 @@
 
 	if(!instant_track && ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		var/nanite_sensors = HAS_TRAIT(human_target, TRAIT_SUIT_SENSORS)
-		if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && (nanite_sensors || HAS_TRAIT(human_target, TRAIT_NANITE_SENSORS)))
+		var/nanite_sensors = HAS_TRAIT(human_target, TRAIT_NANITE_SENSORS)
+		if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && (HAS_TRAIT(human_target, TRAIT_SUIT_SENSORS) || nanite_sensors))
 			var/obj/item/clothing/under/uniform = human_target.w_uniform
 			if (nanite_sensors || uniform?.sensor_mode >= SENSOR_COORDS)
 				has_maxed_sensors = TRUE
