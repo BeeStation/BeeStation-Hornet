@@ -113,7 +113,7 @@
 	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
-	minimum_players_required = 10
+	minimum_players_required = 16
 
 /datum/dynamic_ruleset/gamemode/heretic/security_report()
 	return "Independent theological organizations have long expressed interest in this region of space for reasons that remain unclear. \
