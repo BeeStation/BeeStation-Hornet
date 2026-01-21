@@ -196,7 +196,7 @@
 			if(T.client != null)
 				for(var/obj/item/W in T)
 					T.dropItemToGround(W)
-				init_shade(T, user)
+				steal_soul(T, user)
 				return TRUE
 			else
 				to_chat(user, "[span_userdanger("Capture failed!")]: The soul has already fled its mortal frame. You attempt to bring it back...")
@@ -224,7 +224,7 @@
 							return FALSE
 						for(var/obj/item/W in T)
 							T.dropItemToGround(W)
-						init_shade(T, user, message_user = 1)
+						steal_soul(T, user, TRUE)
 						qdel(T)
 				else
 					to_chat(user, "[span_userdanger("Capture failed!")]: Kill or maim the victim first!")
@@ -341,32 +341,29 @@
 		BS.Cviewer = newstruct
 	newstruct.cancel_camera()
 
-
-/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/user, message_user = FALSE, mob/shade_controller)
-	if(!shade_controller)
-		shade_controller = T
-	if(ishuman(T)) // Added due to the fact constructs spawned a human skeleton each time they died
+/obj/item/soulstone/proc/steal_soul(mob/living/carbon/human/T, mob/user, message_user = FALSE)
+	if(ishuman(T))
 		new /obj/effect/decal/remains/human(T.loc)
 		T.stop_sound_channel(CHANNEL_HEARTBEAT)
 		T.dust_animation()
-	T.invisibility = INVISIBILITY_ABSTRACT
+	init_shade(T, user, message_user)
+	qdel(T)
+
+/obj/item/soulstone/proc/init_shade(mob/target, mob/user, message_user = FALSE, mob/shade_controller)
+	if(!shade_controller)
+		shade_controller = target
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
 	//So they won't die inside the stone somehow
 	S.add_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
-	S.name = "Shade of [T.real_name]"
-	S.real_name = "Shade of [T.real_name]"
-	S.real_name = T.real_name
-	S.key = shade_controller.key
-	S.copy_languages(T, LANGUAGE_MIND)//Copies the old mobs languages into the new mob holder.
-	if(user)
-		S.copy_languages(user, LANGUAGE_MASTER)
-	S.get_language_holder().omnitongue = TRUE //Grants omnitongue
+	S.name = "Shade of [target.name]"
+	S.real_name = target.real_name
+
 	if(user)
 		S.faction |= "[REF(user)]" //Add the master as a faction, allowing inter-mob cooperation
-	if(user && IS_CULTIST(user))
-		S.mind.add_antag_datum(/datum/antagonist/cult)
-	S.cancel_camera()
-	name = "soulstone: Shade of [T.real_name]"
+
+	shade_controller.mind.transfer_to(S)
+
+	name = "soulstone: Shade of [target.real_name]"
 	switch(theme)
 		if(THEME_HOLY)
 			icon_state = "purified_soulstone2"
@@ -380,7 +377,7 @@
 		else if(role_check(user))
 			to_chat(S, "Your soul has been captured! You are now bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.")
 		if(message_user)
-			to_chat(user, "[span_info("<b>Capture successful!</b>:")] [T.real_name]'s soul has been ripped from [T.p_their()] body and stored within [src].")
+			to_chat(user, "[span_info("<b>Capture successful!</b>:")] [target.real_name]'s soul has been ripped from [target.p_their()] body and stored within [src].")
 
 
 /obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/user)

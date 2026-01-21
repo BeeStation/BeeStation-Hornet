@@ -702,6 +702,20 @@
 	var/golem_name = "[edgy_first_name] [edgy_last_name]"
 	return golem_name
 
+/datum/species/golem/runic/spec_death(gibbed, mob/living/carbon/human/human)
+
+	for(var/obj/item/item in human)
+		human.dropItemToGround(item)
+	if(human.mind)
+		human.visible_message(span_danger("[human] dissolves into a pile of blood, leaving behind a strange stone."))
+		var/obj/item/soulstone/new_stone = new /obj/item/soulstone(get_turf(human))
+		new_stone.init_shade(human)
+	else
+		human.visible_message(span_danger("[human] dissolves into a pile of blood."))
+		human.dust_animation()
+	new /obj/effect/decal/cleanable/blood/splatter(get_turf(human))
+	qdel(human)
+
 /datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
 	. = ..()
 	// Create our species specific spells here.
