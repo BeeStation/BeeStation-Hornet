@@ -708,7 +708,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(!ispath(spell_path))
 		return
 
-	var/robeless = (tgui_alert(usr, "Would you like to force this spell to be robeless?", "Robeless Casting?", list("Force Robeless", "Use Spell Setting")) == "Force Robeless")
+	var/robeless = (tgui_alert(usr, "Would you like to force this spell to be robeless/focusless?", "Robeless Casting?", list("Force Robeless", "Use Spell Setting")) == "Force Robeless")
 	if(QDELETED(spell_recipient))
 		to_chat(usr, ("<span class='warning'>The intended spell recipient no longer exists.</span>"))
 		return
@@ -721,6 +721,9 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	if(robeless)
 		new_spell.spell_requirements &= ~SPELL_REQUIRES_WIZARD_GARB
+		// Snowflake fix that allows heretic spells to be used without heretic focus worn. Go fix spell flags if you want to make this better
+		if(new_spell.school == SCHOOL_FORBIDDEN)
+			ADD_TRAIT(spell_recipient, TRAIT_ALLOW_HERETIC_CASTING, "[new_spell.type]")
 
 	new_spell.Grant(spell_recipient)
 

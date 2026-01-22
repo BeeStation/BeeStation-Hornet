@@ -26,12 +26,10 @@ export const NtosNetMonitor = (props) => {
     ntnetrelays,
     idsalarm,
     idsstatus,
-    ntnetmaxlogs,
-    maxlogs,
-    minlogs,
     ntnetlogs = [],
     tablets = [],
   } = data;
+
   return (
     <NtosWindow>
       <NtosWindow.Content scrollable>

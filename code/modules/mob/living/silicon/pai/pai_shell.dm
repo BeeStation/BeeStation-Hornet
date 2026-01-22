@@ -65,7 +65,7 @@
 	return TRUE
 
 /mob/living/silicon/pai/proc/fold_in(force = FALSE)
-	emittersemicd = TRUE
+	holochassis_ready = TRUE
 	if(!force)
 		addtimer(VARSET_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_COOLDOWN)
 	else
@@ -111,11 +111,12 @@
 	if(holoform)
 		. = fold_in(force)
 		return
-	if(emittersemicd)
+		
+	if(!holochassis_ready)
 		balloon_alert(src, "emitters recycling...")
 		return FALSE
 
-	emittersemicd = TRUE
+	holochassis_ready = FALSE
 	addtimer(VARSET_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_COOLDOWN)
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)

@@ -129,7 +129,6 @@
 	var/emitterregen = 0.50
 	var/emittercd = 50
 	var/emitteroverloadcd = 100
-	var/emittersemicd = FALSE
 
 	var/overload_ventcrawl = 0
 	var/overload_bulletblock = 0	//Why is this a good idea?

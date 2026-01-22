@@ -335,7 +335,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /mob/living/try_speak(message, ignore_spam = FALSE, forced = null)
 	if(!..())
 		return FALSE
-
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_TRY_SPEECH, message, ignore_spam, forced)
 	if(sigreturn & COMPONENT_CAN_ALWAYS_SPEAK)
 		return TRUE
@@ -344,7 +343,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return FALSE
 
 	if(!can_speak())
-		if(HAS_TRAIT(src, TRAIT_MIMING))
+		if(HAS_MIND_TRAIT(src, TRAIT_MIMING))
 			to_chat(src, span_green("Your vow of silence prevents you from speaking!"))
 		else
 			to_chat(src, span_warning("You find yourself unable to speak!"))
@@ -353,7 +352,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return TRUE
 
 /mob/living/can_speak(allow_mimes = FALSE)
-	if(!allow_mimes && HAS_TRAIT(src, TRAIT_MIMING))
+	if(!allow_mimes && HAS_MIND_TRAIT(src, TRAIT_MIMING))
 		return FALSE
 
 	if(HAS_TRAIT(src, TRAIT_MUTE))

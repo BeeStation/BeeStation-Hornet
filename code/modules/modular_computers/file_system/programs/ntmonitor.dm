@@ -12,10 +12,8 @@
 	hardware_requirement = MC_NET	// It doesn't require a network connection directly but it does require a network card
 	power_consumption = 80 WATT
 
-/datum/computer_file/program/ntnetmonitor/ui_act(action, list/params, datum/tgui/ui)
+/datum/computer_file/program/ntnetmonitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	if(.)
-		return
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	switch(action)
 		if("resetIDS")
