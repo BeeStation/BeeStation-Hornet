@@ -11496,6 +11496,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "crY" = (
@@ -13974,6 +13975,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "cOF" = (
@@ -17406,16 +17408,16 @@
 "dOp" = (
 /obj/machinery/airalarm/directional/south,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
-/obj/structure/bed/dogbed,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/mob/living/basic/pet/dog/pug{
-	density = 0;
-	dir = 8
+/obj/machinery/power/floodlight,
+/obj/effect/turf_decal/bot,
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
@@ -19121,6 +19123,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "elL" = (
@@ -21822,14 +21825,12 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "fgl" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
 	pixel_y = -27
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
 "fgv" = (
@@ -23150,7 +23151,6 @@
 	dir = 1
 	},
 /obj/item/paicard,
-/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
 "fDz" = (
@@ -26379,8 +26379,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/machinery/vending/wardrobe/science_wardrobe,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
@@ -26388,9 +26386,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
@@ -26792,6 +26793,11 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/bed/dogbed,
+/mob/living/basic/pet/dog/pug{
+	density = 0;
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
@@ -31256,6 +31262,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 6
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "iik" = (
@@ -37069,6 +37076,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "kbC" = (
@@ -42031,6 +42039,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "lKM" = (
@@ -44924,6 +44933,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
 "mFB" = (
@@ -45919,6 +45929,10 @@
 	},
 /obj/item/geiger_counter{
 	pixel_x = 5
+	},
+/obj/item/laser_pointer/purple{
+	pixel_x = 10;
+	pixel_y = 12
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
@@ -50218,6 +50232,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
 	dir = 9
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "orS" = (
@@ -57882,6 +57897,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "qQD" = (
@@ -59356,6 +59372,7 @@
 	req_one_access_txt = "8;49"
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
 "roU" = (
@@ -62652,6 +62669,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "ssW" = (
@@ -64528,6 +64546,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "sWE" = (
@@ -65560,6 +65579,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
@@ -68160,8 +68182,8 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
+/obj/structure/disposalpipe/junction{
+	dir = 2
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
@@ -69264,15 +69286,17 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/power/floodlight,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
 	dir = 6
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -80507,6 +80531,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "xUf" = (
@@ -81188,6 +81213,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/showroomfloor,
 /area/science/aft)
 "yfT" = (

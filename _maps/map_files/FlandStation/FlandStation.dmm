@@ -42442,10 +42442,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"kQc" = (
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/space/basic,
-/area/space)
 "kQd" = (
 /turf/closed/wall,
 /area/science/nanite)
@@ -83484,6 +83480,7 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
+/obj/item/laser_pointer/purple,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "vqQ" = (
@@ -102002,7 +101999,7 @@ nnx
 nnx
 nnx
 nnx
-kQc
+nnx
 nnx
 nnx
 nnx

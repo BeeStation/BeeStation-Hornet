@@ -13428,10 +13428,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ckg" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -14825,7 +14821,6 @@
 /obj/effect/turf_decal/trimline/purple/filled/corner{
 	dir = 4
 	},
-/obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "cxC" = (
@@ -21427,9 +21422,13 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -26
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -11
+	},
+/obj/item/radio/intercom/directional/west{
+	pixel_x = -31;
+	pixel_y = -7
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -34311,6 +34310,10 @@
 	pixel_x = 5
 	},
 /obj/structure/table,
+/obj/item/laser_pointer/purple{
+	pixel_x = -1;
+	pixel_y = 11
+	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "iyD" = (
@@ -43125,6 +43128,7 @@
 "lCD" = (
 /obj/structure/chair/office/light,
 /obj/effect/turf_decal/trimline/purple/filled/line,
+/obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "lCQ" = (
@@ -46568,12 +46572,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
-"mIj" = (
-/obj/item/radio/intercom{
-	pixel_y = 21
-	},
-/turf/open/floor/iron/dark,
-/area/science/explab)
 "mIk" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 23
@@ -49894,9 +49892,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "nSi" = (
-/obj/structure/sink{
-	dir = 1
-	},
 /obj/machinery/power/apc{
 	areastring = "/area/science/explab";
 	name = "Experimentation Lab APC";
@@ -55536,6 +55531,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 10
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "pFu" = (
@@ -116384,7 +116380,7 @@ koL
 ovj
 hat
 cgq
-mIj
+qjm
 qjm
 qjm
 qjm

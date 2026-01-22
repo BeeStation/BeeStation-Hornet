@@ -12605,6 +12605,10 @@
 /obj/item/hand_labeler{
 	pixel_x = 2
 	},
+/obj/item/laser_pointer/purple{
+	pixel_x = 0;
+	pixel_y = 18
+	},
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "cxG" = (
@@ -73793,10 +73797,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
-"pbn" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
-/area/medical/medbay/lobby)
 "pbp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -166438,7 +166438,7 @@ vgc
 jKU
 vgc
 pVR
-pbn
+maP
 iDx
 sNN
 xgk

@@ -40924,6 +40924,14 @@
 	},
 /turf/open/floor/iron,
 /area/teleporter)
+"hra" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/item/laser_pointer/purple,
+/turf/open/floor/iron,
+/area/maintenance/port)
 "hrg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 1
@@ -56475,6 +56483,7 @@
 /obj/item/geiger_counter{
 	pixel_x = 5
 	},
+/obj/item/laser_pointer/purple,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "myu" = (
@@ -120513,7 +120522,7 @@ cub
 inh
 inh
 cMY
-mZU
+hra
 pRU
 caE
 cea
