@@ -260,3 +260,6 @@
   - code_imp: All instances of singularity_pull() now have their correct arguments
   - code_imp: Removed the IS_CARVABLE obj bitflag
   - spellcheck: Added a missing description to lava
+2026-01-22:
+  mrmanlikesbt:
+  - bugfix: Fixed the language menu using the computer theme
