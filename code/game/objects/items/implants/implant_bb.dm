@@ -25,15 +25,19 @@
 	for (var/datum/antagonist/brother/brother in user.mind.antag_datums)
 		if (brother.get_team() == linked_team)
 			return
+	var/datum/dynamic_ruleset/ruleset_origin = null
 	// Link to all implants
 	for(var/datum/mind/M in linked_team.members) // Link the implants of all team members
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		link_implant(T)
+		var/datum/antagonist/brother/brother_antag_datum = M.has_antag_datum(/datum/antagonist/brother)
+		if (!ruleset_origin && brother_antag_datum)
+			ruleset_origin = brother_antag_datum.spawning_ruleset
 	// Remove mindshields
 	for(var/obj/item/implant/mindshield/mindshield in user.implants)
 		qdel(mindshield)
 	// Become a blood brother
-	user.mind.add_antag_datum(/datum/antagonist/brother, linked_team)
+	user.mind.add_antag_datum(/datum/antagonist/brother, linked_team, ruleset_origin)
 	linked_team.update_name()
 	log_objective("[key_name(user)] was made into a blood brother via implanting.")
 

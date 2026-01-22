@@ -35,6 +35,18 @@
 /// Is this ruleset obvious? We will only show 1 obvious ruleset in the
 /// roundstart security report.
 #define IS_OBVIOUS_RULESET (1 << 6)
+/// If antagonists spawned by this ruleset are admin-removed, then this flag will make
+/// it so that dynamic does not attempt to re-introduce an antagonist role to compensate
+/// for the removal.
+#define NO_TRANSFER_RULESET (1 << 7)
+/// If an antagonist spawned by this role is admin-removed, do not attempt to re-introduce
+/// it unless there are no other remaining antagonists of the same type, required for conversion
+/// antagonists which may create more antagonists that are not associated with a spawned
+/// ruleset. Not required for rulesets which pass on their spawning ruleset to any converts.
+/// Because it is difficult to track conversion in modes like clockcult, we don't try to associate
+/// antagonists to a single ruleset, and just assume that if an antagonist exists it is because of
+/// us.
+#define NO_CONVERSION_TRANSFER_RULESET (1 << 8)
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1

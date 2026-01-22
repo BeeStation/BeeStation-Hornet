@@ -807,19 +807,28 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(length(SSdynamic.gamemode_executed_rulesets))
 		discordmsg += "Gamemode:\n"
 		for(var/datum/dynamic_ruleset/rule in SSdynamic.gamemode_executed_rulesets)
-			discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
 	// Supplementary
 	if(length(SSdynamic.executed_supplementary_rulesets))
 		discordmsg += "Supplementary Antagonists:\n"
 		for(var/datum/dynamic_ruleset/rule in SSdynamic.executed_supplementary_rulesets)
-			discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
 	// Midround
 	if(length(SSdynamic.midround_executed_rulesets))
 		discordmsg += "Notable Round Events:\n"
 		for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
-			discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
 	var/list/ded = SSblackbox.first_death
 	if(ded)

@@ -30,6 +30,8 @@
 	var/ruleset_flags = NONE
 	/// Time that the ruleset was executed at
 	var/executed_at = 0
+	/// Was this ruleset removed from the round?
+	var/removed = FALSE
 
 	/**
 	 * Backend Variables
@@ -41,6 +43,39 @@
 	var/list/candidates
 	/// A list of mobs (or minds for roundstart rulesets) chosen for this ruleset.
 	var/list/chosen_candidates
+
+/// Shall we permit this ruleset to be converted into another one?
+/datum/dynamic_ruleset/proc/can_convert(ignore_dead = FALSE)
+	if (ruleset_flags & NO_TRANSFER_RULESET)
+		log_dynamic("CONVERSION: Cannot convert [name] as it is flagged with NO_TRANSFER_RULESET.")
+		return FALSE
+	// Check to see if we just nuked a ruleset
+	var/last_remaining_from_ruleset = TRUE
+	var/last_remaining_of_type = TRUE
+	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+		// This antagonist has been removed from its owner
+		if (!antagonist.owner)
+			continue
+		// If we ignore dead people, don't treat them as existing
+		if (ignore_dead && (!antagonist.owner.current || antagonist.owner.current == DEAD))
+			continue
+		if (antagonist.spawning_ruleset == src)
+			last_remaining_from_ruleset = FALSE
+		if (istype(antagonist, type))
+			last_remaining_of_type = FALSE
+	if (!last_remaining_from_ruleset)
+		log_dynamic("CONVERSION: Cannot convert [name] as there are still antagonists alive created by this ruleset.")
+		return FALSE
+	if ((ruleset_flags & NO_CONVERSION_TRANSFER_RULESET) && !last_remaining_of_type)
+		log_dynamic("CONVERSION: Cannot convert [name] as there are antagonists of the same type and this ruleset is marked with NO_CONVERSION_TRANSFER_RULESET.")
+		return FALSE
+	log_dynamic("CONVERSION: Conversion from ruleset [name] was allowed.")
+	return TRUE
+
+/// Convert this ruleset into a different ruleset
+/datum/dynamic_ruleset/proc/convert_ruleset()
+	message_admins("DYNAMIC: Attempted to convert [name] into a new ruleset, but the logic handling this was not implemented. Manual intervention may be required.")
+	CRASH("convert_ruleset was called on a ruleset which cannot manage its conversions.")
 
 /**
  * Sets the weight of this ruleset based on non-static rules such as recovery time.
@@ -132,9 +167,9 @@
 
 	// Roundstart rulesets have their candidate bodies deleted before execute so we store a list of minds, not bodies
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.add_antag_datum(antag_datum)
+		chosen_mind.add_antag_datum(antag_datum, ruleset = src)
 	for(var/mob/chosen_candidate in chosen_candidates)
-		chosen_candidate.mind.add_antag_datum(antag_datum)
+		chosen_candidate.mind.add_antag_datum(antag_datum, ruleset = src)
 
 	return DYNAMIC_EXECUTE_SUCCESS
 

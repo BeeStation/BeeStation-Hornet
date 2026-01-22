@@ -200,7 +200,7 @@
 	memory = null
 
 // Datum antag mind procs
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, team, datum/dynamic_ruleset/ruleset)
 	if(!datum_type_or_instance)
 		return
 	var/datum/antagonist/A
@@ -221,6 +221,7 @@
 	A.owner = src
 	LAZYADD(antag_datums, A)
 	A.create_team(team)
+	S.spawning_ruleset = ruleset
 	var/datum/team/antag_team = A.get_team()
 	if(antag_team)
 		antag_team.add_member(src)
@@ -241,6 +242,7 @@
 		antag.on_removal()
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
+	RETURN_TYPE(/datum/antagonist)
 	if(!datum_type)
 		return
 
@@ -349,8 +351,9 @@
 		creator = mob_creator.mind
 	if(!creator || !istype(creator))
 		return
-	if(creator.has_antag_datum(/datum/antagonist/cult))
-		add_antag_datum(/datum/antagonist/cult)
+	var/datum/antagonist/master_cultist = creator.has_antag_datum(/datum/antagonist/cult)
+	if(master_cultist)
+		add_antag_datum(/datum/antagonist/cult, ruleset = master_cultist.spawning_ruleset)
 	else if(creator.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		INVOKE_ASYNC(src, PROC_REF(add_servant_of_ratvar), current, TRUE)
 	if(creator.has_antag_datum(/datum/antagonist/rev))
@@ -361,7 +364,7 @@
 		var/datum/antagonist/nukeop/nukie_datum = new()
 		nukie_datum.send_to_spawnpoint = FALSE
 		nukie_datum.nukeop_outfit = null
-		add_antag_datum(nukie_datum, creator_nukie.nuke_team)
+		add_antag_datum(nukie_datum, creator_nukie.nuke_team, ruleset = nukie_datum.spawning_ruleset)
 	enslaved_to = creator
 	if(creator.current)
 		current.faction |= creator.current.faction

@@ -41,7 +41,7 @@
 	var/datum/antagonist/vassal/vassaldatum = new vassal_type(vassal_owner)
 	vassaldatum.master = vampiredatum
 	vassaldatum.silent = TRUE
-	vassal_owner.add_antag_datum(vassaldatum)
+	vassal_owner.add_antag_datum(vassaldatum, ruleset = vampiredatum.spawning_ruleset)
 	vassaldatum.silent = FALSE
 
 	//send alerts of completion

@@ -45,6 +45,12 @@ GLOBAL_LIST(admin_antag_list)
 	/// as it can.
 	var/leave_behaviour = ANTAGONIST_LEAVE_OFFER
 
+	/// If this antagonist was created through dynamic, then this is the ruleset whose execution
+	/// led to its creation. This may be null in cases where an antagonist was not introduced via
+	/// dynamic, for example, rulesets which create antagonist spawners or conversion antagonists
+	/// will not have this variable set, as they were not directly created from ruleset execution.
+	var/datum/dynamic_ruleset/spawning_ruleset = null
+
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
 		return
@@ -307,6 +313,18 @@ GLOBAL_LIST(admin_antag_list)
 	message_admins("[key_name_admin(user)] has removed [name] antagonist status from [key_name_admin(owner)].")
 	log_admin("[key_name(user)] has removed [name] antagonist status from [key_name(owner)].")
 	on_removal()
+	if (spawning_ruleset && spawning_ruleset.can_convert())
+		spawning_ruleset.convert_ruleset()
+		tgui_alert_async(user, "Dynamic will attempt to re-introduce an appropriate antagonist when possible as this antagonist was managed by dynamic. \
+		You do not need to introduce a new antagonist to replace this one.", "Dynamic - Will reinject")
+	else if (!spawning_ruleset)
+		tgui_alert_async(user, "This antagonist was not created through dynamic, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else if (spawning_ruleset.ruleset_flags & NO_TRANSFER_RULESET)
+		tgui_alert_async(user, "This antagonist cannot be transferred by the system, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else if (spawning_ruleset.ruleset_flags & NO_CONVERSION_TRANSFER_RULESET)
+		tgui_alert_async(user, "Dynamic will not create a new antagonist to compensate for the removal of this one as other antagonists of the same type exist within the round, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else
+		tgui_alert_async(user, "This antagonist was created from a ruleset that spawned multiple antagonists, no action will be taken to compensate for its removal from the round. You may want to introduce a new antagonist to compensate, transfer control of this player, or take no action.", "Dynamic - No reinjection")
 
 //Additional data to display in antagonist panel section
 //nuke disk code, genome count, etc

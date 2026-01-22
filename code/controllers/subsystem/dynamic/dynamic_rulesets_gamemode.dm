@@ -1,5 +1,6 @@
 /datum/dynamic_ruleset/gamemode
 	rule_category = DYNAMIC_CATEGORY_GAMEMODE
+	// Uses antag rep to pick candidates, as we choose from everyone available.
 	ruleset_flags = SHOULD_USE_ANTAG_REP
 	abstract_type = /datum/dynamic_ruleset/gamemode
 	// Sorry, but if you are going to be THE antagonist, you can't be leaving the station and making
@@ -30,6 +31,10 @@
 	weight = 1 + (weight - 1) * proportion
 	if (weight != old_weight)
 		log_dynamic("DYNAMIC: Ruleset [type] is using a weight of [weight] instead of [old_weight] as it executed [rounds_since_execution] rounds ago and takes [recent_weight_recovery_linear] rounds to fully recover.")
+
+/datum/dynamic_ruleset/gamemode/convert_ruleset()
+	removed = TRUE
+	log_dynamic("CONVERSION: [name] was removed from the round, it has been marked as removed.")
 
 /datum/dynamic_ruleset/gamemode/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
@@ -156,7 +161,7 @@
 	antag_datum = /datum/antagonist/wizard
 	weight = 8
 	minimum_players_required = 20
-	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
+	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET
 
 /datum/dynamic_ruleset/gamemode/wizard/allowed(require_drafted = TRUE)
 	. = ..()
@@ -197,7 +202,7 @@
 	drafted_players_amount = 2
 	weight = 8
 	minimum_players_required = 24
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | NO_LATE_JOIN
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/gamemode/clockcult,
 	)
@@ -215,7 +220,7 @@
 		cultist_datum.cult_team = team
 		cultist_datum.give_equipment = TRUE
 
-		chosen_mind.add_antag_datum(cultist_datum)
+		chosen_mind.add_antag_datum(cultist_datum, ruleset = src)
 		GLOB.pre_setup_antags -= chosen_mind
 
 	team.setup_objectives()
@@ -248,7 +253,7 @@
 	drafted_players_amount = 4
 	weight = 8
 	minimum_players_required = 30
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/gamemode/bloodcult,
 	)
@@ -327,10 +332,10 @@
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		if(!has_made_leader)
 			has_made_leader = TRUE
-			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum)
+			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum, ruleset = src)
 			nuke_team = leader_datum.nuke_team
 		else
-			chosen_mind.add_antag_datum(antag_datum)
+			chosen_mind.add_antag_datum(antag_datum, ruleset = src)
 
 		GLOB.pre_setup_antags -= chosen_mind
 
@@ -416,7 +421,7 @@
 	drafted_players_amount = 3
 	weight = 0	// Temporarily disabled: We need to refactor this so that it executes after round-start, and rolls into a different gamemode if it fails to execute.
 	minimum_players_required = 24
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_CONVERSION_TRANSFER_RULESET
 
 	var/datum/team/revolution/team
 	var/finished = FALSE
@@ -432,7 +437,7 @@
 		headrev_datum.give_hud = TRUE
 		headrev_datum.remove_clumsy = TRUE
 
-		chosen_mind.add_antag_datum(headrev_datum, team)
+		chosen_mind.add_antag_datum(headrev_datum, team, ruleset = src)
 		GLOB.pre_setup_antags -= chosen_mind
 
 	team.update_objectives()

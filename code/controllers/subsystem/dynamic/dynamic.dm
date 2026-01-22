@@ -920,7 +920,13 @@ SUBSYSTEM_DEF(dynamic)
 			return
 
 	// Check if we need to inject a gamemode antagonist
-	if (length(gamemode_executed_rulesets) == 0)
+	var/gamemode_executed = FALSE
+	for (var/datum/dynamic_ruleset/executed_ruleset in gamemode_executed_rulesets)
+		// Ignore removed rulesets
+		if (executed_ruleset.removed)
+			continue
+		gamemode_executed = TRUE
+	if (!gamemode_executed)
 		if (!gamemode_late_ruleset)
 			gamemode_late_ruleset = pick_ruleset(get_weighted_executable_rulesets(gamemode_configured_rulesets, TRUE), ignore_points = TRUE, ignore_candidates = TRUE)
 		if (gamemode_late_ruleset)

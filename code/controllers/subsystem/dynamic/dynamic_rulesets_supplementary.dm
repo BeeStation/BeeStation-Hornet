@@ -9,6 +9,10 @@
 	/// Maximum number of times that this ruleset can execute
 	var/max_amount = 0
 
+/datum/dynamic_ruleset/supplementary/convert_ruleset()
+	SSdynamic.supplementary_points += points_cost
+	log_dynamic("CONVERSION: [name] was removed from the round, [points_cost] points have been added to the supplementary system.")
+
 /datum/dynamic_ruleset/supplementary/allowed(require_drafted)
 	if (max_amount <= 0)
 		return ..()
@@ -90,7 +94,7 @@
 	team.pick_meeting_area()
 	team.forge_brother_objectives()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.add_antag_datum(antag_datum, team)
+		chosen_mind.add_antag_datum(antag_datum, team, ruleset = src)
 		GLOB.pre_setup_antags -= chosen_mind
 
 	team.update_name()
