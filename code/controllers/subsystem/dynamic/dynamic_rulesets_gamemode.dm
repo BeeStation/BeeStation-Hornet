@@ -16,21 +16,21 @@
 	/// will have full weight.
 	var/recent_weight_recovery_linear = 4
 
-/datum/dynamic_ruleset/gamemode/proc/set_dynamic_weight()
+/datum/dynamic_ruleset/gamemode/get_weight()
 	if (recent_weight_recovery_linear <= 1)
-		return
+		return weight
 	var/list/gamemode_data = SSpersistence.get_gamemode_data()
 	var/rounds_since_execution = gamemode_data["[type]"]
 	// No data available (never executed)
 	if (rounds_since_execution <= 0)
-		return
+		return weight
 	// Calculate the proportion
 	var/proportion = (rounds_since_execution - 1) / recent_weight_recovery_linear
-	var/old_weight = weight
 	// Linear interpolation between 1 and the original weight based on time since last execution
-	weight = 1 + (weight - 1) * proportion
-	if (weight != old_weight)
-		log_dynamic("DYNAMIC: Ruleset [type] is using a weight of [weight] instead of [old_weight] as it executed [rounds_since_execution] rounds ago and takes [recent_weight_recovery_linear] rounds to fully recover.")
+	var/used_weight 1 + (weight - 1) * proportion
+	if (weight != used_weight)
+		log_dynamic("DYNAMIC: Ruleset [type] is using a weight of [used_weight] instead of [weight] as it executed [rounds_since_execution] rounds ago and takes [recent_weight_recovery_linear] rounds to fully recover.")
+	return used_weight
 
 /datum/dynamic_ruleset/gamemode/convert_ruleset()
 	removed = TRUE
