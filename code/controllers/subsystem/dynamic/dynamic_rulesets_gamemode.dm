@@ -27,7 +27,7 @@
 	// Calculate the proportion
 	var/proportion = (rounds_since_execution - 1) / recent_weight_recovery_linear
 	// Linear interpolation between 1 and the original weight based on time since last execution
-	var/used_weight 1 + (weight - 1) * proportion
+	var/used_weight = 1 + (weight - 1) * proportion
 	if (weight != used_weight)
 		log_dynamic("DYNAMIC: Ruleset [type] is using a weight of [used_weight] instead of [weight] as it executed [rounds_since_execution] rounds ago and takes [recent_weight_recovery_linear] rounds to fully recover.")
 	return used_weight
