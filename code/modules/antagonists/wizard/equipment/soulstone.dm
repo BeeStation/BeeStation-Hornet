@@ -92,22 +92,27 @@
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 
-/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/user)
 	if(!role_check(user))
-		user.Unconscious(10 SECONDS)
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 	if(spent)
 		to_chat(user, span_warning("There is no power left in the shard."))
 		return
-	if(!ishuman(M))//If target is not a human.
+	if(!ishuman(M))
 		return ..()
+	var/mob/living/simple_animal/shade/S = locate() in src
+	if(S && M.stat == DEAD)
+		reanimate_corpse(M, user)
+		return
 	if(IS_CULTIST(M) && IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"Come now, do not capture your brethren's soul.\""))
 		return
+
 	if(theme == THEME_HOLY && IS_CULTIST(user))
 		hot_potato(user)
 		return
+
 	if(HAS_TRAIT(M, TRAIT_NO_SOUL))
 		to_chat(user, span_warning("This body does not possess a soul to capture."))
 		return
@@ -115,6 +120,44 @@
 	transfer_soul("VICTIM", M, user)
 
 ///////////////////Options for using captured souls///////////////////////////////////////
+
+/obj/item/soulstone/proc/reanimate_corpse(mob/living/carbon/human/host, mob/user)
+	var/mob/living/simple_animal/shade/soul = locate() in src
+	if(!soul)
+		return FALSE
+	if(host.stat != DEAD) // Self explanatory, they must be dead
+		to_chat(user, span_warning("The vessel must be dead to accept a new soul."))
+		return FALSE
+	if(host.mind) // We dont want to overwrite the original's body soul if it had one
+		to_chat(user, span_warning("This vessel's original soul still lingers within inside."))
+		return FALSE
+	user.visible_message(span_notice("[user] presses [src] against [host]'s chest, the gem glowing with eerie light!"), \
+						span_notice("You jam the [src] into [host]'s chest. The soul inside leaps into the vacant vessel."))
+	if(soul.mind) // Transfer the shade into the body
+		soul.mind.transfer_to(host)
+	else
+		host.key = soul.key
+	var/brutedamage = host.getBruteLoss()
+	var/burndamage = host.getFireLoss()
+	if(brutedamage || burndamage)
+		host.adjustBruteLoss(-(brutedamage * 0.75))
+		host.adjustFireLoss(-(burndamage * 0.75))
+	host.set_stat(CONSCIOUS)
+	var/message = ""
+	playsound(host, 'sound/effects/glassbr2.ogg', 50, TRUE)
+	switch(theme)
+		if(THEME_HOLY)
+			message = "You have been brought back into this world by holy energies."
+		if(THEME_CULT)
+			message = "Your soul is bound to this flesh by Nar'Sie! Serve the cult."
+			if(user.mind && user.mind.has_antag_datum(/datum/antagonist/cult))
+				host.mind.add_antag_datum(/datum/antagonist/cult) // Make them a cultist, just making sure they didn't lose it
+		else
+			message = "You have been forced back into a mortal shell"
+	to_chat(host, span_boldannounce("[message]"))
+	qdel(soul)
+	qdel(src)
+	return TRUE
 
 /obj/item/soulstone/attack_self(mob/living/user)
 	if(!in_range(src, user))
@@ -375,12 +418,12 @@
 			icon_state = "soulstone2"
 	if(user)
 		if(IS_CULTIST(user))
+			S.mind.add_antag_datum(/datum/antagonist/cult)
 			to_chat(S, "Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.")
 		else if(role_check(user))
 			to_chat(S, "Your soul has been captured! You are now bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.")
 		if(message_user)
 			to_chat(user, "[span_info("<b>Capture successful!</b>:")] [target.real_name]'s soul has been ripped from [target.p_their()] body and stored within [src].")
-
 
 /obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/user)
 	var/mob/dead/observer/chosen_ghost

@@ -19,7 +19,7 @@
 	active_msg = "You prepare to instill a deep terror in a target..."
 
 	/// The duration of the blind on our target
-	var/blind_duration = 4 SECONDS
+	var/blind_duration = 2 SECONDS
 	/// The amount of temperature we take from our target
 	var/amount_to_cool = 200
 
