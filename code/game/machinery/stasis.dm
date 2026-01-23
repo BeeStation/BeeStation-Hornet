@@ -126,7 +126,7 @@
 	if(HAS_TRAIT(target, TRAIT_NOSTASIS))
 		return
 	target.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
-	target.ExtinguishMob()
+	target.extinguish_mob()
 	update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)

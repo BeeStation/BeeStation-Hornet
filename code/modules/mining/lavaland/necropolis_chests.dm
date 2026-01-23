@@ -543,7 +543,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 /obj/effect/immortality_talisman/attackby()
 	return
 
-/obj/effect/immortality_talisman/singularity_pull()
+/obj/effect/immortality_talisman/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/immortality_talisman/Destroy(force)
@@ -1033,7 +1033,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			H.set_species(/datum/species/skeleton)
 		if(3)
 			to_chat(user, span_danger("You feel like you could walk straight through lava now."))
-			H.weather_immunities |= "lava"
+			ADD_TRAIT(H, TRAIT_LAVA_IMMUNE, type)
 
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)

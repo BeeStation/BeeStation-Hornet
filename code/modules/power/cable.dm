@@ -196,7 +196,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	else
 		return 0
 
-/obj/structure/cable/singularity_pull(S, current_size)
+/obj/structure/cable/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
