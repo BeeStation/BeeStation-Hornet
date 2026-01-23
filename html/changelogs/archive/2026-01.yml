@@ -266,3 +266,10 @@
 2026-01-23:
   BeeLover66:
   - bugfix: the species menu no longer gives every species the "Native Speaker" trait
+  ClownMoff:
+  - rscadd: Changes the cryopod message as an antagonist when you cryo to be more
+      clear
+  PowerfulBacon:
+  - balance: Shields belts now starts from 0 charge when equipped.
+  r1ks-iwnl:
+  - bugfix: Fixed particle acceleration rifle's zoom.
