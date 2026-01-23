@@ -85,9 +85,9 @@
 
 /obj/item/stack/cable_coil/suicide_act(mob/living/user)
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
-		user.visible_message("<span class='suicide'>[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	else
-		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/stack/cable_coil/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
@@ -154,7 +154,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		return TRUE
 
 	if(!isturf(T) || T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !T.can_have_cabling())
-		to_chat(user, "<span class='warning'>You can only lay cables on top of exterior catwalks and plating!</span>")
+		to_chat(user, span_warning("You can only lay cables on top of exterior catwalks and plating!"))
 		return TRUE
 
 	for (var/obj/structure/cable/wire in T)
@@ -164,12 +164,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		if (!resolved_wire)
 			return TRUE
 		if (resolved_wire.forced_power_node)
-			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+			to_chat(user, span_warning("There's already a cable at that position!"))
 			return TRUE
 		if (!use(1))
-			to_chat(user, "<span class='warning'>There is no cable left!</span>")
+			to_chat(user, span_warning("There is no cable left!"))
 			return TRUE
-		to_chat(user, "<span class='notice'>You add a node to the [resolved_wire], allowing it to connect to machines and structures placed on top of it!</span>")
+		to_chat(user, span_notice("You add a node to the [resolved_wire], allowing it to connect to machines and structures placed on top of it!"))
 		resolved_wire.add_power_node()
 		return TRUE
 
@@ -179,14 +179,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 			CRASH("Openspace exists without a turf below it.")
 		if (!(locate(/obj/structure/cable) in below_turf))
 			if (!use(2))
-				to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to wire between decks!</span>")
+				to_chat(user, span_warning("You need at least 2 pieces of cable to wire between decks!"))
 				return TRUE
 			if (omni)
 				new /obj/structure/cable/omni(below_turf, cable_color)
 			else
 				new /obj/structure/cable(below_turf, cable_color)
 		else if (!use(1))
-			to_chat(user, "<span class='warning'>There is no cable left!</span>")
+			to_chat(user, span_warning("There is no cable left!"))
 			return TRUE
 		if (omni)
 			new /obj/structure/cable/omni(T, cable_color, TRUE)
@@ -195,7 +195,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		return TRUE
 
 	if (!use(1))
-		to_chat(user, "<span class='warning'>There is no cable left!</span>")
+		to_chat(user, span_warning("There is no cable left!"))
 		return TRUE
 
 	if (omni)
