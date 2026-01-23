@@ -652,7 +652,7 @@
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH) //no mutcolors
 	prefix = "Runic"
-	armor = 40 // They're not exactly fast, and they cant wear any armor, so this makes up for it
+	armor = 30 // They're not exactly fast, and they cant wear any armor, so this makes up for it
 	special_names = null
 	random_eligible = FALSE //Zesko claims runic golems break the game
 	inherent_factions = list(FACTION_CULT)

@@ -64,7 +64,7 @@
 			. += span_cult("A soulstone, used to capture a soul, either from dead humans or from freed shades.")
 		else
 			. += span_cult("A soulstone, used to capture souls, either from unconscious or sleeping humans or from freed shades.")
-		. += span_cult("The captured soul can be placed into a construct shell to produce a construct, or released from the stone as a shade.")
+		. += span_cult("The captured soul can be placed into a construct shell to produce a construct, placed into a runic golem or released from the stone as a shade.")
 		if(spent)
 			. += span_cult("This shard is spent; it is now just a creepy rock.")
 
@@ -141,7 +141,7 @@
 	var/brutedamage = host.getBruteLoss()
 	var/burndamage = host.getFireLoss()
 	var/old_max = host.maxHealth
-	if(brutedamage || burndamage)
+	if(brutedamage || burndamage) // It's intended that this doesn't heal organ damage
 		host.adjustBruteLoss(-(brutedamage * 0.75))
 		host.adjustFireLoss(-(burndamage * 0.75))
 	host.maxHealth = round(old_max * 0.75) // You're permanently crippled to 75% of your health, cant be cured in any way, shouldn't stack

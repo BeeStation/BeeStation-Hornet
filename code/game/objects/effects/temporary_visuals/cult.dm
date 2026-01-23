@@ -11,7 +11,7 @@
 
 /obj/effect/temp_visual/cult/blood  // The traditional teleport
 	name = "blood jaunt"
-	duration = 12
+	duration = 6
 	icon_state = "bloodin"
 
 /obj/effect/temp_visual/cult/blood/long // For Necro Sect usage
