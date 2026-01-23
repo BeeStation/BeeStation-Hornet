@@ -50,7 +50,7 @@
 	// Absorb a lizard, speak Draconic.
 	owner.copy_languages(target, LANGUAGE_ABSORB)
 
-	var/mind_ref = REF(owner.mind)
+	var/mind_ref = target.mind ? REF(target.mind) : null
 	if(target.mind && owner.mind && !(mind_ref in changeling.absorbed_minds))//if the victim and owner have minds
 		// You can only absorb each mind once
 		changeling.absorbed_minds += mind_ref
