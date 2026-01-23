@@ -205,7 +205,7 @@
 	owner = null
 	return ..()
 
-/obj/effect/ebeam/singularity_pull()
+/obj/effect/ebeam/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/ebeam/singularity_act()

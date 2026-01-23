@@ -19,12 +19,15 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	speak_emote = list("squeaks")
-	ventcrawler = VENTCRAWLER_ALWAYS
 	/// The mind to transfer to our egg when it hatches
 	var/datum/mind/origin
 	/// Set to true once we've implanted our egg
 	var/egg_lain = FALSE
 	discovery_points = 2000
+
+/mob/living/simple_animal/hostile/headcrab/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/body_egg/changeling_egg/egg = new(victim)

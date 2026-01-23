@@ -157,7 +157,7 @@
 
 /datum/action/innate/morph_stomach
 	name = "Stomach Contents"
-	icon_icon = 'icons/mob/animal.dmi'
+	button_icon = 'icons/mob/animal.dmi'
 	button_icon_state = "morph"
 	var/datum/morph_stomach/morph_stomach
 

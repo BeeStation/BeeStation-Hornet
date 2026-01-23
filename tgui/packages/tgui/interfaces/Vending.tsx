@@ -217,10 +217,10 @@ const ProductDisplay = (props: {
       buttons={
         <Stack>
           {!all_products_free && user && (
-            <Stack.Item fontSize="16px" color="green">
+            <Stack.Item fontSize="16px" color="black">
               {(user && user.cash) || 0}
               {displayed_currency_name}
-              <Icon name={displayed_currency_icon} color="gold" />
+              <Icon ml={1} mt={0.4} name={displayed_currency_icon} />
             </Stack.Item>
           )}
           <Stack.Item>
@@ -323,6 +323,7 @@ const ProductGrid = (props) => {
     <ImageButton
       {...baseProps}
       tooltip={capitalizeAll(product.name)}
+      fontSize={0.94}
       buttonsAlt={
         <Stack fontSize={0.8}>
           <Stack.Item grow textAlign={'left'}>

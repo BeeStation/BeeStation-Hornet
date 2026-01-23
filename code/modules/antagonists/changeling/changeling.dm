@@ -13,6 +13,7 @@
 	hijack_speed = 0.5
 	/// Whether to give this changeling objectives or not
 	give_objectives = TRUE
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	/// Whether we assign objectives which compete with other lings
 	var/competitive_objectives = FALSE
 
@@ -434,7 +435,7 @@
 		if(verbose)
 			to_chat(user, span_warning("We already have this DNA in storage!"))
 		return FALSE
-	if(HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
+	if(HAS_TRAIT(target, TRAIT_NOT_TRANSMORPHIC) || HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
 		return FALSE
@@ -479,6 +480,11 @@
 	new_profile.undershirt = target.undershirt
 	new_profile.socks = target.socks
 
+	var/obj/item/card/id/id_card = target.wear_id?.GetID()
+	if (istype(id_card))
+		new_profile.id_job_name = id_card.assignment
+		new_profile.id_hud_state = id_card.hud_state
+
 	// Hair and facial hair gradients, alongside their colours.
 	//new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
 	//new_profile.grad_color = LAZYLISTDUPLICATE(target.grad_color)
@@ -503,7 +509,7 @@
 		new_profile.flags_cover_list[slot] = clothing_item.flags_cover
 		new_profile.lefthand_file_list[slot] = clothing_item.lefthand_file
 		new_profile.righthand_file_list[slot] = clothing_item.righthand_file
-		new_profile.item_state_list[slot] = clothing_item.item_state
+		new_profile.inhand_icon_state_list[slot] = clothing_item.inhand_icon_state
 		new_profile.worn_icon_list[slot] = clothing_item.worn_icon
 		new_profile.worn_icon_state_list[slot] = clothing_item.worn_icon_state
 		new_profile.exists_list[slot] = 1
@@ -572,11 +578,24 @@
  * Create a profile based on the changeling's initial appearance.
  */
 /datum/antagonist/changeling/proc/create_initial_profile()
-	if(!ishuman(owner.current))
-		return
+	var/mob/living/carbon/carbon_owner = owner.current //only carbons have dna now, so we have to typecast
+	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
+		carbon_owner.set_species(/datum/species/human)
+		var/prefs_name = carbon_owner.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		if(prefs_name)
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, prefs_name)
+		else
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.generate_random_mob_name())
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = carbon_owner.dna.species.name
+				record.gender = carbon_owner.gender
 
-	add_new_profile(owner.current)
+				//Not directly assigning carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
+	if(ishuman(carbon_owner))
+		add_new_profile(carbon_owner)
 
 /datum/antagonist/changeling/greet()
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
@@ -770,7 +789,7 @@
 		new_flesh_item.flags_cover = chosen_profile.flags_cover_list[slot]
 		new_flesh_item.lefthand_file = chosen_profile.lefthand_file_list[slot]
 		new_flesh_item.righthand_file = chosen_profile.righthand_file_list[slot]
-		new_flesh_item.item_state = chosen_profile.item_state_list[slot]
+		new_flesh_item.inhand_icon_state = chosen_profile.inhand_icon_state_list[slot]
 		new_flesh_item.worn_icon = chosen_profile.worn_icon_list[slot]
 		new_flesh_item.worn_icon_state = chosen_profile.worn_icon_state_list[slot]
 
@@ -809,7 +828,7 @@
 	/// Assoc list of item slot to file - stores the righthand file of the item in that slot
 	var/list/righthand_file_list = list()
 	/// Assoc list of item slot to file - stores the inhand file of the item in that slot
-	var/list/item_state_list = list()
+	var/list/inhand_icon_state_list = list()
 	/// Assoc list of item slot to file - stores the worn icon file of the item in that slot
 	var/list/worn_icon_list = list()
 	/// Assoc list of item slot to string - stores the worn icon state of the item in that slot
@@ -855,7 +874,7 @@
 	new_profile.appearance_list = appearance_list.Copy()
 	new_profile.flags_cover_list = flags_cover_list.Copy()
 	new_profile.exists_list = exists_list.Copy()
-	new_profile.item_state_list = item_state_list.Copy()
+	new_profile.inhand_icon_state_list = inhand_icon_state_list.Copy()
 	new_profile.lefthand_file_list = lefthand_file_list.Copy()
 	new_profile.righthand_file_list = righthand_file_list.Copy()
 	new_profile.worn_icon_list = worn_icon_list.Copy()
@@ -875,6 +894,7 @@
 	name = "Xenobio Changeling"
 	give_objectives = FALSE
 	show_in_roundend = FALSE //These are here for admin tracking purposes only
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()
@@ -911,6 +931,7 @@
 	antagpanel_category = "Changeling"
 	banning_key = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/fallen_changeling
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/mood_event/fallen_changeling
 	description = "My powers! Where are my powers?!"

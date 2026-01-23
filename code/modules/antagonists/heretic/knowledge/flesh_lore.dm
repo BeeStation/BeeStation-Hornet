@@ -171,15 +171,14 @@
 
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-			question = "Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?",
-			check_jobban = ROLE_HERETIC,
-			poll_time = 10 SECONDS,
-			checked_target = soon_to_be_ghoul,
-			jump_target = soon_to_be_ghoul,
-			role_name_text = "voiceless dead",
-			alert_pic = soon_to_be_ghoul,
-		)
+		var/datum/poll_config/config = new()
+		config.question = "Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?"
+		config.check_jobban = ROLE_HERETIC
+		config.poll_time = 10 SECONDS
+		config.jump_target = soon_to_be_ghoul
+		config.role_name_text = "voiceless dead"
+		config.alert_pic = soon_to_be_ghoul
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = soon_to_be_ghoul)
 		if(!candidate)
 			loc.balloon_alert(user, "Ritual failed, no ghosts")
 			return FALSE

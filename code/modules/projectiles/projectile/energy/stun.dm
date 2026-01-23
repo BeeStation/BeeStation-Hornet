@@ -294,8 +294,8 @@
 	tase_target(seconds_between_ticks)
 
 /datum/status_effect/tased/proc/tase_target(seconds_between_ticks)
-	owner.stuttering = max(min(owner.stuttering + 5, 30), owner.stuttering)
-	owner.adjust_jitter_up_to(40 SECONDS, 60 SECONDS)
+	owner.adjust_stutter_up_to(3, 8 SECONDS)
+	owner.adjust_jitter_up_to(25 SECONDS, 40 SECONDS)
 
 	// Use on incapacitated targets is real bad for them
 	var/mob/living/carbon/human/human = owner
@@ -308,7 +308,7 @@
 
 	// If you are covered in oil, then this provides the spark needed to ignite it
 	if(owner.fire_stacks < 0)
-		owner.IgniteMob()
+		owner.ignite_mob()
 
 	// clumsy people might hit their head while being tased
 	if(HAS_TRAIT(owner, TRAIT_CLUMSY) && owner.body_position == LYING_DOWN && DT_PROB(20, seconds_between_ticks))
@@ -349,6 +349,7 @@
 		RegisterSignal(firer, COMSIG_QDELETING, PROC_REF(end_tase))
 	RegisterSignal(firer, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(check_hands))
 	RegisterSignal(firer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_hands))
+	RegisterSignal(firer, COMSIG_MOB_DROPPED_ITEM, PROC_REF(check_hands))
 
 	RegisterSignal(firer, COMSIG_MOB_CLICKON, PROC_REF(user_cancel_tase))
 	RegisterSignal(firer, COMSIG_MOVABLE_MOVED, PROC_REF(recalculate_distance))
@@ -412,8 +413,11 @@
 	SIGNAL_HANDLER
 	if(QDELING(src))
 		return
-	// We don't care about switching hands, only about item equips
-	if (item.item_flags & ABSTRACT)
+	if (!isliving(firer))
+		end_tase()
+		return
+	var/mob/living/living_firer = firer
+	if (taser in living_firer.held_items)
 		return
 	end_tase()
 

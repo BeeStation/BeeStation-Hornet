@@ -234,7 +234,7 @@
 		/obj/item/mod/module/tracking_beacon/syndicate,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
+		/obj/item/mod/module/mod_switch,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/tracking_beacon/syndicate,
 	)
@@ -254,7 +254,7 @@
 		/obj/item/mod/module/tracking_beacon/syndicate,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
+		/obj/item/mod/module/mod_switch,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/tracking_beacon/syndicate,
 	)
@@ -273,7 +273,7 @@
 		/obj/item/mod/module/tracking_beacon/syndicate,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
+		/obj/item/mod/module/mod_switch,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/tracking_beacon/syndicate,
 	)
@@ -295,7 +295,7 @@
 		/obj/item/mod/module/tracking_beacon/syndicate,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
+		/obj/item/mod/module/mod_switch,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/tracking_beacon/syndicate,
 	)
@@ -313,7 +313,7 @@
 		/obj/item/mod/module/flamethrower,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
+		/obj/item/mod/module/mod_switch,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/tracking_beacon/syndicate,
 		/obj/item/mod/module/flamethrower,

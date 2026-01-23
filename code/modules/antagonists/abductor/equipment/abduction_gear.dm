@@ -11,7 +11,7 @@
 	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "vest_stealth"
-	item_state = "armor"
+	inhand_icon_state = "armor"
 	blood_overlay_type = "armor"
 	armor_type = /datum/armor/abductor_vest
 	actions_types = list(/datum/action/item_action/hands_free/activate)
@@ -196,7 +196,7 @@
 	name = "science tool"
 	desc = "A dual-mode tool for retrieving specimens and scanning appearances. Scanning can be done through cameras."
 	icon_state = "gizmo_scan"
-	item_state = "silencer"
+	inhand_icon_state = "silencer"
 	var/mode = GIZMO_SCAN
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
@@ -282,7 +282,7 @@
 	name = "abductor silencer"
 	desc = "A compact device used to shut down communications equipment."
 	icon_state = "silencer"
-	item_state = "gizmo"
+	inhand_icon_state = "gizmo"
 
 /obj/item/abductor/silencer/Initialize(mapload)
 	. = ..()
@@ -296,7 +296,7 @@
 	desc = "A dual-mode tool for directly communicating with sentient brains. It can be used to send a direct message to a target, \
 			or to send a command to a test subject with a charged gland."
 	icon_state = "mind_device_message"
-	item_state = "silencer"
+	inhand_icon_state = "silencer"
 	var/mode = MIND_DEVICE_MESSAGE
 
 /obj/item/abductor/mind_device/attack_self(mob/user)
@@ -393,7 +393,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/declone, /obj/item/ammo_casing/energy/ion, /obj/item/ammo_casing/energy/temp)
 	pin = /obj/item/firing_pin/abductor
 	icon_state = "alienpistol"
-	item_state = "alienpistol"
+	inhand_icon_state = "alienpistol"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -437,7 +437,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	lefthand_file = 'icons/mob/inhands/antag/abductor_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
 	icon_state = "wonderprodStun"
-	item_state = "wonderprod"
+	inhand_icon_state = "wonderprod"
 	worn_icon_state = "classic_baton"
 
 	force = 7
@@ -501,16 +501,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
-			item_state = "wonderprodStun"
+			inhand_icon_state = "wonderprodStun"
 		if(BATON_SLEEP)
 			icon_state = "wonderprodSleep"
-			item_state = "wonderprodSleep"
+			inhand_icon_state = "wonderprodSleep"
 		if(BATON_CUFF)
 			icon_state = "wonderprodCuff"
-			item_state = "wonderprodCuff"
+			inhand_icon_state = "wonderprodCuff"
 		if(BATON_PROBE)
 			icon_state = "wonderprodProbe"
-			item_state = "wonderprodProbe"
+			inhand_icon_state = "wonderprodProbe"
 
 /obj/item/melee/baton/abductor/attack(mob/target, mob/living/user)
 	if(!AbductorCheck(user))
@@ -678,7 +678,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "abductor_headset"
-	item_state = "abductor_headset"
+	inhand_icon_state = "abductor_headset"
 	keyslot2 = new /obj/item/encryptionkey/heads/captain
 	bang_protect = 1
 
@@ -767,7 +767,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "agent headgear"
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
-	item_state = "alienhelmet"
+	inhand_icon_state = "alienhelmet"
 	flash_protect = FLASH_PROTECTION_FLASH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 
@@ -915,7 +915,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien jumpsuit"
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	icon_state = "abductor"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 	armor_type = /datum/armor/under_abductor
 	can_adjust = FALSE

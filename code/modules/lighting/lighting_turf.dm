@@ -1,6 +1,8 @@
 /turf
-	var/fullbright_type = FULLBRIGHT_NONE
+	light_height = LIGHTING_HEIGHT_FLOOR
 	luminosity = 1
+
+	var/fullbright_type = FULLBRIGHT_NONE
 
 	var/tmp/lighting_corners_initialised = FALSE
 

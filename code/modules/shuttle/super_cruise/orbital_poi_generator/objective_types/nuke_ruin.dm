@@ -120,6 +120,6 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission/actually_explode()
 	SSticker.roundend_check_paused = FALSE
 	linked_objective.complete_objective()
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), target_z)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(kill_everyone_on_z_group), target_z)
 	QDEL_NULL(linked_objective.linked_beacon)
 	qdel(src)

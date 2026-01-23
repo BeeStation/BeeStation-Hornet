@@ -133,7 +133,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aB" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aC" = (
@@ -190,7 +190,7 @@
 /area/ruin/space/djstation)
 "aP" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aQ" = (

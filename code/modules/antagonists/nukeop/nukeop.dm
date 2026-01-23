@@ -8,6 +8,7 @@
 	show_to_ghosts = TRUE
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
 	ui_name = "AntagInfoNukeOp"
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
@@ -95,15 +96,15 @@
 			nuke_team.memorized_code = null
 
 /datum/antagonist/nukeop/proc/give_alias()
-	if(nuke_team && nuke_team.syndicate_name)
-		var/mob/living/carbon/human/H = owner.current
-		if(istype(H)) // Reinforcements get a real name
-			var/chosen_name = H.dna.species.random_name(H.gender,0,nuke_team.syndicate_name)
-			H.fully_replace_character_name(H.real_name,chosen_name)
+	if(nuke_team?.syndicate_name)
+		var/mob/living/carbon/human/human_to_rename = owner.current
+		if(istype(human_to_rename)) // Reinforcements get a real name
+			var/first_name = pick(GLOB.operative_aliases)
+			var/chosen_name = "[first_name] [nuke_team.syndicate_name]"
+			human_to_rename.fully_replace_character_name(null, chosen_name)
 		else
-			var/number = 1
-			number = nuke_team.members.Find(owner)
-			owner.current.real_name = "[nuke_team.syndicate_name] Operative #[number]"
+			var/number = nuke_team.members.Find(owner)
+			owner.current.fully_replace_character_name(null, "[nuke_team.syndicate_name] Operative #[number]")
 
 /datum/antagonist/nukeop/proc/memorize_code()
 	if(nuke_team && nuke_team.tracked_nuke && nuke_team.memorized_code)
@@ -197,11 +198,12 @@
 			H.update_icons()
 
 /datum/antagonist/nukeop/leader/give_alias()
-	title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
-	if(nuke_team && nuke_team.syndicate_name)
-		owner.current.real_name = "[nuke_team.syndicate_name] [title]"
+	title ||= pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
+	. = ..()
+	if(ishuman(owner.current))
+		owner.current.fully_replace_character_name(owner.current.real_name, "[title] [owner.current.real_name]")
 	else
-		owner.current.real_name = "Syndicate [title]"
+		owner.current.fully_replace_character_name(owner.current.real_name, "[nuke_team.syndicate_name] [title]")
 
 /datum/antagonist/nukeop/leader/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
@@ -225,17 +227,19 @@
 /datum/team/nuclear/proc/rename_team(new_name)
 	syndicate_name = new_name
 	name = "Family [syndicate_name]"
-	for(var/I in members)
-		var/datum/mind/synd_mind = I
-		var/mob/living/carbon/human/H = synd_mind.current
-		if(!istype(H))
-			continue
-		var/chosen_name = H.dna.species.random_name(H.gender,0,syndicate_name)
-		H.fully_replace_character_name(H.real_name,chosen_name)
+	for(var/datum/mind/synd_mind in members)
+		var/datum/antagonist/nukeop/nukie_ref = synd_mind.has_antag_datum(/datum/antagonist/nukeop)
+		nukie_ref?.give_alias()
 
 /datum/antagonist/nukeop/leader/proc/ask_name()
 	var/randomname = pick(GLOB.last_names)
-	var/newname = stripped_input(owner.current,"You are the nuke operative [title]. Please choose a last name for your family.", "Name change",randomname)
+	var/newname = tgui_input_text(
+		owner.current,
+		"You are the nuclear operative [title]. Please choose a last name for your family.",
+		"Name change",
+		randomname,
+		max_length = MAX_NAME_LEN,
+	)
 	if (!newname)
 		newname = randomname
 	else
@@ -271,6 +275,7 @@
 	.["lone"] = TRUE
 
 /datum/antagonist/nukeop/reinforcement
+	name = "Nuclear Operative Reinforcement"
 	send_to_spawnpoint = FALSE
 	nukeop_outfit = /datum/outfit/syndicate/no_crystals
 
@@ -489,13 +494,12 @@
 	name = "Syndicate Operative - Full Kit"
 
 	glasses = /obj/item/clothing/glasses/night
+	back = /obj/item/mod/control/pre_equipped/nuclear
 	mask = /obj/item/clothing/mask/gas/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/storage/belt/military
-	r_hand = /obj/item/gun/ballistic/shotgun/automatic/bulldog
-	l_hand = /obj/item/tank/jetpack/oxygen/harness
+	suit_store = /obj/item/gun/ballistic/shotgun/automatic/bulldog
 	backpack_contents = list(
 		/obj/item/storage/box/survival/syndie=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\

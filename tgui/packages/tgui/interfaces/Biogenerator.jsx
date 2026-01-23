@@ -63,11 +63,7 @@ export const BiogeneratorContent = (props) => {
     [];
   return (
     <Section
-      title={
-        <Box inline color={biomass > 0 ? 'good' : 'bad'}>
-          {formatMoney(biomass)} Biomass
-        </Box>
-      }
+      title={<Box inline>{formatMoney(biomass)} Biomass</Box>}
       buttons={
         <>
           Search

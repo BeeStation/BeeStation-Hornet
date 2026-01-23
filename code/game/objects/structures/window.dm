@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		new/obj/structure/window/reinforced/clockwork/fulltile(get_turf(src))
 	qdel(src)
 
-/obj/structure/window/singularity_pull(S, current_size)
+/obj/structure/window/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(anchored && current_size >= STAGE_TWO)
 		set_anchored(FALSE)
@@ -397,9 +397,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/get_dumping_location()
 	return null
 
-/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+/obj/structure/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
-		return 1
+		return TRUE
 	if(fulltile || (dir == to_dir))
 		return 0
 
@@ -733,6 +733,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 	glass_amount = 2
 	ricochet_chance_mod = 0.9
 
+/obj/structure/window/reinforced/shuttle/unanchored
+	anchored = FALSE
 
 /datum/armor/window_shuttle
 	melee = 50

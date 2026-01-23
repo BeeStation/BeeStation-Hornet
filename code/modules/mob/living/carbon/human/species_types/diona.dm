@@ -15,13 +15,12 @@
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
-		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADHEALER,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
@@ -44,7 +43,6 @@
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
 	deathsound = "sound/emotes/diona/death.ogg"
-	species_bitflags = NOT_TRANSMORPHIC
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
@@ -171,11 +169,6 @@
 		if(status_effect == /datum/status_effect/planthealing)
 			H.remove_status_effect(/datum/status_effect/planthealing)
 
-/datum/species/diona/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.diona_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return ..(gender, TRUE, null, ++attempts)
-
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
 	if(. && target != user && target.on_fire)
@@ -183,7 +176,7 @@
 		target.visible_message(span_warning("[user] catches fire from hugging [target]!"), span_boldnotice("[user] catches fire hugging you!"), span_italics("You hear a fire crackling."))
 		user.fire_stacks = target.fire_stacks
 		if(user.fire_stacks > 0)
-			user.IgniteMob()
+			user.ignite_mob()
 
 //////////////////////////////////////// Action abilities ///////////////////////////////////////////////
 
@@ -191,7 +184,7 @@
 	name = "Split"
 	desc = "Split into our seperate nymphs."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "split"
 	check_flags = AB_CHECK_DEAD
 	var/Activated = FALSE
@@ -263,7 +256,7 @@
 	name = "Partition"
 	desc = "Allow a nymph to partition from our gestalt self."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	cooldown_time = 5 MINUTES
 	var/ability_partition_cooldow

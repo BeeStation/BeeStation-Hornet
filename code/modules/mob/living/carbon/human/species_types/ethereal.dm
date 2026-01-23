@@ -87,15 +87,6 @@
 	QDEL_NULL(ethereal_light)
 	return ..()
 
-/datum/species/ethereal/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.ethereal_names)] [random_capital_letter()]"
-	if(prob(65))
-		. += "[random_capital_letter()]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
-
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()
 	if(!ethereal_light)
@@ -213,6 +204,13 @@
 	features += "feature_ethcolor"
 
 	return features
+
+/datum/species/ethereal/get_scream_sound(mob/living/carbon/human/ethereal)
+	return pick(
+		'sound/voice/ethereal/ethereal_scream_1.ogg',
+		'sound/voice/ethereal/ethereal_scream_2.ogg',
+		'sound/voice/ethereal/ethereal_scream_3.ogg',
+	)
 
 /datum/species/ethereal/get_species_description()
 	return "Ethereals are a unique species with liquid electricity for blood and a glowing body. They thrive on electricity, and are naturally agender."

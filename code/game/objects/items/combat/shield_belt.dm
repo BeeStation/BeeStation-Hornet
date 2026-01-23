@@ -7,7 +7,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "shield_belt"
-	item_state = "security"
+	inhand_icon_state = "security"
 	worn_icon_state = "shield_belt"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'

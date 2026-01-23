@@ -79,10 +79,14 @@
 	var/turf/checking = get_step_multiz(get_turf(src), UP)
 	if(!istype(checking))
 		return
-	if(!checking.zPassIn(AM, UP, get_turf(src)))
+	// I'm only interested in if the pass is unobstructed, not if the mob will actually make it
+	// Use atom's can_zTravel to forward to turf zPassOut/zPassIn checks. The original call
+	// allowed buckled movement via ZMOVE_ALLOW_BUCKLED; can_zTravel doesn't take that flag
+	// so we call it with the destination first and direction second (matching its signature).
+	if(!AM.can_zTravel(checking, UP))
 		return
 	var/turf/target = get_step_multiz(get_turf(src), (dir|UP))
-	if(istype(target) && !target.can_zFall(AM, null, get_step_multiz(target, DOWN)))			//Don't throw them into a tile that will just dump them back down.
+	if(istype(target) && !target.can_zFall(AM, null, get_step_multiz(target, DOWN))) //Don't throw them into a tile that will just dump them back down.
 		AM.Move(target, (dir | UP))
 
 /obj/structure/stairs/vv_edit_var(var_name, var_value)

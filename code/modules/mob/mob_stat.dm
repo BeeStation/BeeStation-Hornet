@@ -257,16 +257,22 @@
 	if(SSticker.round_start_time)
 		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(SSsecurity_level.get_current_level_as_text())]")
 
-	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+	if(SSticker.reboot_timer)
+		tab_data["divider_3"] = GENERATE_STAT_BLANK
+		var/reboot_time = timeleft(SSticker.reboot_timer)
+		if(reboot_time)
+			tab_data["Reboot"] = GENERATE_STAT_TEXT(DisplayTimeText(reboot_time, 1))
+	// admin must have delayed round end
+	else if(SSticker.ready_for_reboot)
+		tab_data["divider_3"] = GENERATE_STAT_BLANK
+		tab_data["Reboot"] = GENERATE_STAT_TEXT("DELAYED")
+
+	tab_data["divider_4"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
-	if (!isnewplayer(src) && SSautotransfer.can_fire && client?.player_details)
-		if (SSautotransfer.required_votes_to_leave && SSshuttle.canEvac() == TRUE) //THIS MUST BE "== TRUE" TO WORK. canEvac() ALWAYS RETURNS A VALUE.
-			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"] ([SSautotransfer.connected_votes_to_leave]/[CEILING(SSautotransfer.required_votes_to_leave, 1)])", "votetoleave")
-		else
-			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"]", "votetoleave")
+
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -468,8 +474,6 @@
 		if("start_br")
 			if(client.holder && check_rights(R_FUN))
 				client.battle_royale()
-		if ("votetoleave")
-			client.vote_to_leave()
 		if ("do_action")
 			var/datum/action/action = locate(params["ref"]) in actions
 			if (!action)
