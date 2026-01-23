@@ -398,10 +398,10 @@
 	var/purchases = ""
 	var/TC_uses = 0
 	var/effective_tc = 0
-	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
+	LAZYINITLIST(GLOB.uplink_logs_by_key)
 	for(var/I in members)
 		var/datum/mind/syndicate = I
-		var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[syndicate.key]
+		var/datum/uplink_log/H = GLOB.uplink_logs_by_key[syndicate.key]
 		if(H)
 			TC_uses += H.total_spent
 			effective_tc += H.effective_amount

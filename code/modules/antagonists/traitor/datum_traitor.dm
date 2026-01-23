@@ -163,8 +163,8 @@
 	var/effective_tc = 0
 	var/uplink_true = FALSE
 	var/purchases = ""
-	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-	var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[owner.key]
+	LAZYINITLIST(GLOB.uplink_logs_by_key)
+	var/datum/uplink_log/H = GLOB.uplink_logs_by_key[owner.key]
 	if(H)
 		TC_uses = H.total_spent
 		effective_tc = H.effective_amount
@@ -189,6 +189,10 @@
 		result += uplink_text
 
 	result += objectives_text
+
+	if (H)
+		result += "<br>"
+		result += H.render_directives()
 
 	var/backstory_text = "<br>"
 	if(istype(backstory))

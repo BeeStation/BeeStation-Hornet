@@ -132,7 +132,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	var/purchasable_from = ALL
 	var/list/restricted_roles = list() //If this uplink item is only available to certain roles. Roles are dependent on the frequency chip or stored ID.
 	var/player_minimum //The minimum crew size needed for this item to be added to uplinks.
-	var/purchase_log_vis = TRUE // Visible in the purchase log?
+	var/uplink_log_vis = TRUE // Visible in the purchase log?
 	var/restricted = FALSE // Adds restrictions for VR/Events
 	var/list/restricted_species //Limits items to a specific species. Hopefully.
 	var/illegal_tech = TRUE // Can this item be deconstructed to unlock certain techweb research nodes? (Some items will be forcefully set to FALSE, especially boxes, bottles)
@@ -160,8 +160,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	var/tmp = is_bonus
 	for(var/i in 1 to spawn_amount)
 		var/atom/A = spawn_item(item, user, U)
-		if(purchase_log_vis && U.purchase_log)
-			U.purchase_log.LogPurchase(A, src, cost, is_bonus = is_bonus)
+		if(uplink_log_vis && U.uplink_log)
+			U.uplink_log.LogPurchase(A, src, cost, is_bonus = is_bonus)
 		is_bonus = TRUE // additional spawn after first loop? that must be bonus item.
 	//Spawn bonus items
 	for(var/datum/uplink_item/bonus_entry in additional_uplink_entry)
@@ -335,8 +335,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 	var/remaining_crate_value = starting_crate_value
 	var/obj/structure/closet/crate/target_crate = spawn_item(/obj/structure/closet/crate, user, user_uplink)
-	if(user_uplink.purchase_log)
-		user_uplink.purchase_log.LogPurchase(target_crate, src, cost)
+	if(user_uplink.uplink_log)
+		user_uplink.uplink_log.LogPurchase(target_crate, src, cost)
 	while(remaining_crate_value)
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
@@ -349,8 +349,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 		remaining_crate_value -= uplink_entry.cost
 		var/obj/goods = new uplink_entry.item(target_crate)
 		put_illegal_bitflag(goods, uplink_entry.illegal_tech, uplink_entry.contents_are_illegal_tech)
-		if(user_uplink.purchase_log)
-			user_uplink.purchase_log.LogPurchase(goods, uplink_entry, uplink_entry.cost, is_bonus = TRUE)
+		if(user_uplink.uplink_log)
+			user_uplink.uplink_log.LogPurchase(goods, uplink_entry, uplink_entry.cost, is_bonus = TRUE)
 	return target_crate
 
 //Will either give you complete crap or overpowered as fuck gear
@@ -417,9 +417,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	item = /obj/item/stack/sheet/telecrystal
 	cost = 1
-	// Don't add telecrystals to the purchase_log since
+	// Don't add telecrystals to the uplink_log since
 	// it's just used to buy more items (including itself!)
-	purchase_log_vis = FALSE
+	uplink_log_vis = FALSE
 
 /datum/uplink_item/bundles_TC/telecrystal/five
 	name = "5 Raw Telecrystals"

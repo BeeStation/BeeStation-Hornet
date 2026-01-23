@@ -5,7 +5,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	for (var/datum/component/uplink/uplink in uplinks)
 		uplink.telecrystals += ceil(tc_amount * uplink.directive_tc_multiplier)
 		uplink.reputation += reputation_amount
-		uplink.completed_directive_names += directive.objective_explanation
+		uplink.uplink_log.completed_directive_names += directive.objective_explanation
 	for (var/datum/component/uplink/uplink in uplinks)
 		send_uplink_message_to(uplink, "[ceil(tc_amount * uplink.directive_tc_multiplier)] telecrystals and [reputation_amount] reputation points have been authorised for your use.")
 

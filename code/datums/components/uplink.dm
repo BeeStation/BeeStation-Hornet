@@ -22,9 +22,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	// Antag datum of the owner
 	var/datum/mind/owner = null
 	var/uplink_flag
-	var/datum/uplink_purchase_log/purchase_log
-	/// List of directives that we have completed
-	var/list/completed_directive_names = list()
+	var/datum/uplink_log/uplink_log
 	var/list/uplink_items
 	var/hidden_crystals = 0
 	var/unlock_text
@@ -65,11 +63,11 @@ GLOBAL_LIST_EMPTY(uplinks)
 
 	if(_owner)
 		owner = _owner
-		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner.key])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner.key]
+		LAZYINITLIST(GLOB.uplink_logs_by_key)
+		if(GLOB.uplink_logs_by_key[owner.key])
+			uplink_log = GLOB.uplink_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner.key, src)
+			uplink_log = new(owner.key, src)
 	lockable = _lockable
 	active = _enabled
 	reputation = _reputation
@@ -125,11 +123,11 @@ GLOBAL_LIST_EMPTY(uplinks)
 	active |= U.active
 	uplink_flag |= U.uplink_flag
 	telecrystals += U.telecrystals
-	if(purchase_log && U.purchase_log)
-		purchase_log.MergeWithAndDel(U.purchase_log)
+	if(uplink_log && U.uplink_log)
+		uplink_log.MergeWithAndDel(U.uplink_log)
 
 /datum/component/uplink/Destroy()
-	purchase_log = null
+	uplink_log = null
 	GLOB.uplinks -= src
 	if (persistent)
 		stack_trace("Persistent uplink was deleted.")
@@ -180,14 +178,14 @@ GLOBAL_LIST_EMPTY(uplinks)
 			//Check that the uplink item is refundable
 			//Check that the uplink is valid
 			//Check that the uplink has purchased this item (Sales can be refunded as the path relates to the old one)
-			var/hash = purchase_log.hash_purchase(UI, UI.cost)
-			var/datum/uplink_purchase_entry/UPE = purchase_log.purchase_log[hash]
+			var/hash = uplink_log.hash_purchase(UI, UI.cost)
+			var/datum/uplink_purchase_entry/UPE = uplink_log.uplink_log[hash]
 			if(I.type == path && UI.can_be_refunded(I, src) && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
 				UPE.amount_purchased --
 				if(!UPE.amount_purchased)
-					purchase_log.purchase_log.Remove(hash)
+					uplink_log.uplink_log.Remove(hash)
 				telecrystals += cost
-				purchase_log.total_spent -= cost
+				uplink_log.total_spent -= cost
 				to_chat(user, span_notice("[I] refunded."))
 				qdel(I)
 				return
@@ -335,12 +333,12 @@ GLOBAL_LIST_EMPTY(uplinks)
 	SIGNAL_HANDLER
 
 	owner = target?.mind
-	if(owner && !purchase_log)
-		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner.key])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner.key]
+	if(owner && !uplink_log)
+		LAZYINITLIST(GLOB.uplink_logs_by_key)
+		if(GLOB.uplink_logs_by_key[owner.key])
+			uplink_log = GLOB.uplink_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner.key, src)
+			uplink_log = new(owner.key, src)
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	SIGNAL_HANDLER
