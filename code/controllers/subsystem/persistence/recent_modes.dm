@@ -19,6 +19,8 @@
 		gamemode_data = list()
 
 /datum/controller/subsystem/persistence/proc/save_gamemode_execution()
+	if (!gamemode_data)
+		gamemode_data = list()
 	// Reset the executed modes to 0
 	for (var/datum/dynamic_ruleset/gamemode/executed_mode in SSdynamic.gamemode_executed_rulesets)
 		gamemode_data["[executed_mode.type]"] = 0
