@@ -3017,14 +3017,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/create_pref_language_perk()
 
-	// Grab galactic common as a path, for comparisons
+	// Grab galactic common and metalanguage as paths, for comparisons
 	var/datum/language/common_language = /datum/language/common
+	var/datum/language/metalanguage = /datum/language/metalanguage
 
-	// Now let's find all the languages they can speak that aren't common
+	// Now let's find all the languages they can speak that aren't common or metalanguage
 	var/list/bonus_languages = list()
 	var/datum/language_holder/basic_holder = GLOB.prototype_language_holders[species_language_holder]
 	for(var/datum/language/language_type as anything in basic_holder.spoken_languages)
-		if(ispath(language_type, common_language))
+		if(ispath(language_type, common_language) || ispath(language_type, metalanguage))
 			continue
 		bonus_languages += initial(language_type.name)
 
