@@ -74,6 +74,7 @@ categories = {
             "Construction/Crafting": 8,
             "Medical/Chemicals": 8,
             "Food": 8,
+            "Xenoartifacts": 6,
             "Modsuits": 4,
             "Music": 2,
             "Fakeout items": 1

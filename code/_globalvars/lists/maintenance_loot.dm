@@ -152,9 +152,6 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 		/obj/item/tank/internals/emergency_oxygen = 1,
 		/obj/item/paper_reader = 1,
 
-		// xenoartifacts
-		/obj/item/xenoartifact/maint = 3,
-
 		//light sources
 		/obj/effect/spawner/random/decoration/glowstick = 1,
 		/obj/item/clothing/head/utility/hardhat/red = 1,
@@ -239,6 +236,10 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 			) = 1,
 		/obj/item/food/monkeycube = 1,
 		) = 8,
+
+	list(//xenoartifacts
+		/obj/item/xenoartifact/maint = 1
+		) = 6,
 
 	list(//modsuits
 		/obj/effect/spawner/random/mod/maint = 3,
