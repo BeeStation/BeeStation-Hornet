@@ -271,5 +271,6 @@
       clear
   PowerfulBacon:
   - balance: Shields belts now starts from 0 charge when equipped.
+  - bugfix: Fixes boxstation solars using yellow wires var-edited to red.
   r1ks-iwnl:
   - bugfix: Fixed particle acceleration rifle's zoom.
