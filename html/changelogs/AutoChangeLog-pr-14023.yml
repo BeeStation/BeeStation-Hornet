@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Shields belts now starts from 0 charge when equipped.
