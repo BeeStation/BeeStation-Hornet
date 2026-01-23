@@ -131,7 +131,7 @@
 		CRASH("unimplemented /atom/proc/attack_generic()!")
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	log_combat(user, src, "attacked", addition="([damage_amount] [damage_type])")
+	log_combat(user, src, "attacked", addition="([damage_amount] [damage_type]), ([atom_integrity] / [max_integrity] integrity)")
 	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
 
 /// Called after the atom takes damage and integrity is below integrity_failure level
