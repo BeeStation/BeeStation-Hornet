@@ -52,6 +52,11 @@
 			candidates -= candidate
 			continue
 
+		// Compatible job?
+		if(candidate.mind.assigned_role && (candidate.mind.assigned_role in restricted_roles))
+			candidates -= candidate
+			continue
+
 /**
  * Choose candidates, if your ruleset makes them a non-crewmember, set their assigned role here.
  */
