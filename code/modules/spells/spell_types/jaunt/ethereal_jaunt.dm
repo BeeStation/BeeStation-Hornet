@@ -237,6 +237,7 @@
 	cooldown_time = 40 SECONDS
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/cult/phase
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/cult/phase/out
+	jaunt_duration = 3 SECONDS
 
 
 /// The dummy that holds people jaunting. Maybe one day we can replace it.
