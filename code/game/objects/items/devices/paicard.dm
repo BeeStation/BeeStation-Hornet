@@ -85,13 +85,13 @@
 	data["pai"]["dna"] = pai.master_dna
 	data["pai"]["emagged"] = pai.emagged
 	data["pai"]["laws"] = pai.laws.supplied
-	data["pai"]["master"] = pai.master
+	data["pai"]["master"] = pai.master_name
 	data["pai"]["name"] = pai.name
 	data["pai"]["transmit"] = pai.can_transmit
 	data["pai"]["receive"] = pai.can_receive
 	return data
 
-/obj/item/paicard/ui_act(action, list/params)
+/obj/item/paicard/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return FALSE
@@ -120,25 +120,11 @@
 			if(!pai)
 				SSpai.findPAI(src, usr)
 		if("set_dna")
-			if(pai.master_dna)
-				return
-			if(!iscarbon(usr))
-				balloon_alert(usr, "incompatible DNA signature")
-				return FALSE
-			var/mob/living/carbon/master = usr
-			pai.master = master.real_name
-			pai.master_dna = master.dna.unique_enzymes
-			to_chat(src, span_bolddanger("You have been bound to a new master: [usr.real_name]!"))
-			pai.laws.set_zeroth_law("Serve your master.")
-			pai.holochassis_ready = TRUE
+			pai.set_dna(usr)
 			return TRUE
-
 		if("set_laws")
-			var/newlaws = stripped_multiline_input(usr, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.laws.supplied[1])
-			if(!in_range(src, usr))
-				return FALSE
-			if(newlaws && pai)
-				pai.add_supplied_law(0,newlaws)
+			pai.set_laws(usr)
+			return TRUE
 		if("toggle_holo")
 			if(pai.canholo)
 				to_chat(pai, span_warning("Your owner has disabled your holomatrix projectors!"))

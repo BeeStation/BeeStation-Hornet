@@ -29,7 +29,7 @@
 /mob/living/silicon/pai/attack_hand(mob/living/carbon/human/user, modifiers)
 	if(user.combat_mode)
 		user.do_attack_animation(src)
-		if (user.name == master)
+		if (user.name == master_name)
 			visible_message("<span class='notice'>Responding to its master's touch, [src] disengages its holochassis emitter, rapidly losing coherence.</span>")
 			if(do_after(user, 1 SECONDS, TRUE, src))
 				fold_in()

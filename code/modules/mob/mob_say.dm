@@ -32,7 +32,7 @@
 /mob/proc/whisper(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof)
 	if(!message)
 		return
-	say(message, language) //only living mobs actually whisper, everything else just talks
+	say(message, language = language) //only living mobs actually whisper, everything else just talks
 
 ///The me emote verb
 /mob/verb/me_verb(message as text)
@@ -193,10 +193,15 @@
 			return
 	return message
 
-/mob/try_speak(message, ignore_spam = FALSE, forced = null)
+/mob/try_speak(message, ignore_spam = FALSE, forced = null, filterproof = null)
 	SHOULD_CALL_PARENT(TRUE)
 	if(!..())
 		return FALSE
+
+	if((client && !forced && CHAT_FILTER_CHECK(message)) && filterproof != TRUE)
+		//The filter warning message shows the sanitized message though.
+		to_chat(src, span_warning("That message contained a word prohibited in IC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ic_chat'>\"[message]\""))
+		return
 
 	if(client && !(ignore_spam || forced))
 		if(client.prefs && (client.player_details.muted & MUTE_IC))

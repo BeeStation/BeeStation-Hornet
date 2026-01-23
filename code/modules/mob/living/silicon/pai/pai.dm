@@ -55,7 +55,7 @@
 	/// The cable we produce when hacking a door
 	var/obj/item/pai_cable/hacking_cable
 	/// Name of the one who commands us
-	var/master
+	var/master_name
 	/// DNA string for owner verification
 	var/master_dna
 
@@ -196,7 +196,7 @@
 
 	create_modularInterface()
 
-	addtimer(VARSET_WEAK_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_INIT_TIME)
+	addtimer(VARSET_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_INIT_TIME)
 
 	if(!holoform)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
@@ -340,7 +340,7 @@
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
-	. += "A personal AI in holochassis mode. Its master ID string seems to be [master]."
+	. += "A personal AI in holochassis mode. Its master ID string seems to be [master_name]."
 
 /mob/living/silicon/pai/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
@@ -411,8 +411,35 @@
 	to_chat(pai, span_danger("Warning: System override detected, check directive sub-system for any changes.'"))
 	log_game("[key_name(user)] emagged [key_name(pai)], wiping their master DNA and supplemental directive.")
 	pai.emagged = TRUE
-	pai.master = null
+	pai.master_name = null
 	pai.master_dna = null
-	pai.laws.supplied[1] = "None." // Sets supplemental directive to this
+	pai.laws.clear_supplied_laws()
+	pai.laws.add_supplied_law(0, "None.") // Sets supplemental directive to this
+
+/mob/living/silicon/pai/proc/set_dna(mob/user)
+	if(!iscarbon(user))
+		balloon_alert(user, "incompatible DNA signature")
+		balloon_alert(src, "incompatible DNA signature")
+		return FALSE
+	if(emagged)
+		balloon_alert(user, "directive system malfunctioning")
+		return FALSE
+	var/mob/living/carbon/master = user
+	master_name = master.real_name
+	master_dna = master.dna.unique_enzymes
+	to_chat(src, span_bolddanger("You have been bound to a new master: [user.real_name]!"))
+	laws.set_zeroth_law("Serve your master.")
+	holochassis_ready = TRUE
+	return TRUE
+
+/mob/living/silicon/pai/proc/set_laws(mob/user)
+	var/new_laws = tgui_input_text(user, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", laws.supplied[1], 300)
+	if(!in_range(src, usr))
+		return FALSE
+	if(!new_laws)
+		return FALSE
+	add_supplied_law(0, new_laws)
+	to_chat(src, span_notice(new_laws))
+	return TRUE
 
 #undef HOLOCHASSIS_INIT_TIME

@@ -181,6 +181,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				if(cultist.stat != CONSCIOUS)
 					continue
 				invokers += cultist
+				
 	return invokers
 
 /obj/effect/rune/proc/invoke(list/invokers)

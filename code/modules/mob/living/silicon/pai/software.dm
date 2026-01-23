@@ -62,8 +62,8 @@
 	data["master"] = list()
 	data["ram"] = ram
 	data["refresh_spam"] = refresh_spam
-	if(master)
-		data["master"]["name"] = master
+	if(master_name)
+		data["master"]["name"] = master_name
 		data["master"]["dna"] = master_dna
 	return data
 

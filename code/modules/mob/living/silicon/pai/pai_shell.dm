@@ -111,7 +111,7 @@
 	if(holoform)
 		. = fold_in(force)
 		return
-		
+
 	if(!holochassis_ready)
 		balloon_alert(src, "emitters recycling...")
 		return FALSE
