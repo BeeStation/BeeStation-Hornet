@@ -76,6 +76,13 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		var/obj/O = skirt_path
 		skirt_description = initial(O.desc)
 
+/datum/gear/proc/can_purchase(client/C)
+	var/datum/preferences/preferences = C.prefs
+	if (!multi_purchase && (id in preferences.purchased_gear))
+		return FALSE
+
+	return TRUE
+
 /datum/gear/proc/purchase(client/C) //Called when the gear is first purchased
 	SHOULD_NOT_SLEEP(TRUE)
 	return
