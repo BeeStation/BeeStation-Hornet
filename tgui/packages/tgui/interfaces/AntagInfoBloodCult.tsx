@@ -538,8 +538,8 @@ const RunesSection = (_props) => {
             </p>
             <p>
               Sacrifice victims will be gibbed and have their soul placed into a
-              Soul Stone, which can then be placed into a construct shell
-              or a golem shell.
+              Soul Stone, which can then be placed into a construct shell or a
+              golem shell.
             </p>
           </Box>
         )}
