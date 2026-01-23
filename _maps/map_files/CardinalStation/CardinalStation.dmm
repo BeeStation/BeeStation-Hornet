@@ -37538,9 +37538,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/airless,
@@ -40218,9 +40216,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/airless,
