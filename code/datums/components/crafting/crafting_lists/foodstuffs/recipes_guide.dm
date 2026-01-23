@@ -30,6 +30,18 @@
 	non_craftable = TRUE
 	steps = list("Use Twisted Construction on iron")
 
+/datum/crafting_recipe/holymetal
+	reqs = list(/obj/item/stack/sheet/runed_metal = 1)
+	result = /obj/item/stack/sheet/holymetal
+	category = CAT_HOLY
+	non_craftable = TRUE
+	steps = list("Use a bible on runed metal to purify it")
+
+/datum/crafting_recipe/holyshell
+	reqs = list(/obj/item/stack/sheet/holymetal = 10)
+	result = /obj/item/golem_shell/holy
+	category = CAT_HOLY
+
 // Food reactions
 
 /datum/crafting_recipe/food/reaction

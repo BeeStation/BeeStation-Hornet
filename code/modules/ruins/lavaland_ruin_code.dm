@@ -113,8 +113,8 @@
 	if(!user.mind || !user.mind.has_antag_datum(/datum/antagonist/cult))  // You're not a cultist, why are you even trying to place a soulstone
 		to_chat(user, span_warning("The runes refuse to answer your touch."))
 		return TRUE
-	var/obj/item/soulstone/SS = O
-	var/mob/living/simple_animal/shade/soul = locate(/mob/living/simple_animal/shade) in SS
+	var/obj/item/soulstone/soulshard = O
+	var/mob/living/simple_animal/shade/soul = locate(/mob/living/simple_animal/shade) in soulshard
 	if(!soul)
 		to_chat(user, span_warning("The soulstone is empty. The runes remain dormant."))
 		return TRUE
@@ -125,9 +125,6 @@
 	user.visible_message(
 		span_cult("The runes flare in blood red as the soul is torn from the soulstone and bound into the shell!"))
 	var/mob/living/carbon/human/species/golem/blood_cult/golem = new(get_turf(src))
-	if(!golem)
-		to_chat(user, span_warning("The ritual fails."))
-		return TRUE
 	golem.update_body()
 	soul.mind.transfer_to(golem)
 	if(!golem.mind.has_antag_datum(/datum/antagonist/cult)) // Incase they somehow lost their antag datum, we give it again
@@ -135,7 +132,54 @@
 	golem.real_name = old_name
 	golem.name = old_name
 	qdel(soul)
-	SS.was_used()
-	qdel(SS)
+	qdel(soulshard)
 	qdel(src) // Full cleanup
+	return TRUE
+
+// Holy Golem, the opposite of the runic golem, made by the chaplain to transfer holy soulstones into it, they're just regular adamantine golems though
+
+/obj/item/golem_shell/holy
+	name = "incomplete holy golem shell"
+	desc = "A hollow frame of white marble inlaid with gold filigree. It feels warm to the touch, awaiting a spark of divinity."
+	icon_state = "construct"
+
+/obj/item/golem_shell/holy/attack_hand(mob/user)
+	if(istype(user, /mob/living/carbon/human/species/golem))
+		return TRUE
+	to_chat(user, span_warning("The shell is far too heavy to lift."))
+	return TRUE
+/obj/item/golem_shell/holy/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack))
+		to_chat(user, span_warning("The shell refuses these mundane materials."))
+		return TRUE
+	if(!istype(O, /obj/item/soulstone))
+		to_chat(user, span_warning("This shard hasn't been purified. The metal refuses to accept it."))
+		return TRUE
+	var/obj/item/soulstone/soulshard = O
+	if(!soulshard.purified)
+		to_chat(user, span_warning("This shard hasn't been purified. The metal refuses to accept it."))
+		return TRUE
+	if(!user || !user.Adjacent(src))
+		return TRUE
+	var/mob/living/simple_animal/shade/soul = locate(/mob/living/simple_animal/shade) in soulshard
+	if(!soul)
+		to_chat(user, span_warning("The soulstone is empty. The marble remains cold."))
+		return TRUE
+	if(!soul.mind)
+		to_chat(user, span_warning("The soul within is too fragmented to be purified."))
+		return TRUE
+	var/old_name = replacetext(soul.real_name, "Shade of ", "") // We still dont want a golem called "Shade of William"
+	user.visible_message(
+		to_chat("The gold filigree erupts in a blinding white light as the soul is purified and bound to the shell!"))
+	var/mob/living/carbon/human/species/golem/adamantine/golem = new(get_turf(src))
+	golem.update_body()
+	soul.mind.transfer_to(golem)
+	if(golem.mind.has_antag_datum(/datum/antagonist/cult)) // This is usually shouldn't happen, but we dont need a cultist adamantine holy golem made by this shell
+		golem.mind.remove_antag_datum(/datum/antagonist/cult)
+		to_chat(golem, span_boldannounce("Your soul has been purged of darkness, you no longer serve the Cult."))
+	golem.real_name = "[old_name]"
+	golem.name = golem.real_name
+	qdel(soul)
+	qdel(soulshard)
+	qdel(src)
 	return TRUE

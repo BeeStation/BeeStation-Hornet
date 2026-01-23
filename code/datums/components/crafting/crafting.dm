@@ -402,6 +402,8 @@
 		return FALSE
 	if (recipe.category == CAT_CULT && !IS_CULTIST(user)) // Skip blood cult recipes if not cultist
 		return FALSE
+	if(recipe.category == CAT_HOLY && !user.mind?.holy_role)
+		return FALSE
 	return TRUE
 
 /datum/component/personal_crafting/proc/component_ui_interact(atom/movable/screen/craft/image, location, control, params, user)

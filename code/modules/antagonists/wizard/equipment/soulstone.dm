@@ -16,6 +16,7 @@
 	var/theme = THEME_CULT
 	/// Role check, if any needed
 	var/required_role = /datum/antagonist/cult
+	var/purified = FALSE
 
 /obj/item/soulstone/proc/role_check(mob/who)
 	return required_role ? (who.mind && who.mind.has_antag_datum(required_role, TRUE)) : TRUE
@@ -139,9 +140,13 @@
 		host.key = soul.key
 	var/brutedamage = host.getBruteLoss()
 	var/burndamage = host.getFireLoss()
+	var/old_max = host.maxHealth
 	if(brutedamage || burndamage)
 		host.adjustBruteLoss(-(brutedamage * 0.75))
 		host.adjustFireLoss(-(burndamage * 0.75))
+	host.maxHealth = round(old_max * 0.75) // You're permanently crippled to 75% of your health, cant be cured in any way, shouldn't stack
+	if(host.health > host.maxHealth)
+		host.health = host.maxHealth
 	host.set_stat(CONSCIOUS)
 	var/message = ""
 	playsound(host, 'sound/effects/glassbr2.ogg', 50, TRUE)
@@ -155,6 +160,7 @@
 		else
 			message = "You have been forced back into a mortal shell"
 	to_chat(host, span_boldannounce("[message]"))
+	to_chat(host, span_warning("You feel something vital tear away as your soul is forced into this body. Part of you is gone forever."))
 	qdel(soul)
 	qdel(src)
 	return TRUE

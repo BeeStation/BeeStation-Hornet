@@ -239,6 +239,7 @@
 			playsound(src,'sound/effects/pray_chaplain.ogg',60,1)
 			SS.required_role = null
 			SS.theme = THEME_HOLY
+			SS.purified = TRUE
 			SS.icon_state = "purified_soulstone"
 			for(var/mob/M in SS.contents)
 				if(M.mind)

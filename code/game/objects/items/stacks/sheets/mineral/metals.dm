@@ -192,3 +192,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 
 /obj/item/stack/sheet/fleshymass/get_recipes()
 	return GLOB.fleshymass_recipes
+
+/* Holy Metal - The opposite of runed metal */
+
+/obj/item/stack/sheet/holymetal
+	name = "holy metal"
+	singular_name = "holy metal"
+	desc = "Metal imbued with some sort of holy energies"
+	icon_state = "sheet-holymetal"
+	inhand_icon_state = "sheet-holymetal"
+	merge_type = /obj/item/stack/sheet/holymetal
+	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/water/holywater = 5)
+
+/obj/item/stack/sheet/holymetal/attack_self(mob/user)
+    // Checks if holy_role is 1, 2, or 3
+    if(!user.mind?.holy_role)
+        to_chat(user, span_warning("The divine choir of this metal remains silent to you."))
+        return FALSE
+    return ..()
+
+/obj/item/stack/sheet/holymetal/radial_check(mob/builder)
+    // Ensures the builder has a mind and a holy role before proceeding to the parent check
+    if(!builder.mind?.holy_role)
+        return FALSE
+    return ..()
+
+/obj/item/stack/sheet/holymetal/get_recipes()
+    // Points to your specific holy recipe list
+    return GLOB.holymetal_recipes
+
