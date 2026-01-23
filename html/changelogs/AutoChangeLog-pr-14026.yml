@@ -1,0 +1,4 @@
+author: BeeLover66
+delete-after: true
+changes:
+  - bugfix: the species menu no longer gives every species the "Native Speaker" trait
