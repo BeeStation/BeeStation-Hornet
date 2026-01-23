@@ -30504,6 +30504,7 @@
 	},
 /obj/machinery/computer/telecomms/monitor{
 	dir = 8;
+	
 	},
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
