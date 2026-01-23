@@ -170,7 +170,7 @@
 		return TRUE
 	var/old_name = replacetext(soul.real_name, "Shade of ", "") // We still dont want a golem called "Shade of William"
 	user.visible_message(
-		to_chat("The gold filigree erupts in a blinding white light as the soul is purified and bound to the shell!"))
+		span_notice("The gold filigree erupts in a blinding white light as the soul is purified and bound to the shell!"))
 	var/mob/living/carbon/human/species/golem/adamantine/golem = new(get_turf(src))
 	golem.update_body()
 	soul.mind.transfer_to(golem)
