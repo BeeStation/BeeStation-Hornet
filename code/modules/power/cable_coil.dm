@@ -133,7 +133,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		amount = max_amount
 	else
 		amount += extra
-	new_cable.update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
 
 ///////////////////////////////////////////////
 // Cable laying procedures
