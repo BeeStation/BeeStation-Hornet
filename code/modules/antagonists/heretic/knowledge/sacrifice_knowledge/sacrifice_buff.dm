@@ -61,7 +61,7 @@
  * Initially heals the owner a bit, ensuring they have no suffocation and no immobility.
 */
 /datum/status_effect/unholy_determination/proc/initial_heal()
-	owner.ExtinguishMob()
+	owner.extinguish_mob()
 	// catch your breath
 	owner.losebreath = 0
 	owner.setOxyLoss(0, FALSE)

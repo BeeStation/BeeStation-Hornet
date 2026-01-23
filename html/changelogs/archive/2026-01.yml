@@ -222,3 +222,54 @@
   - admin: Adds sanity checks to administration banning tool to prevent orphan entries
       (submission with no player identifiers)
   - bugfix: fixes species naming
+2026-01-18:
+  TsunamiAnt:
+  - code_imp: changed some code in weather-listener to account for off-lavaland weather
+      soundloops
+2026-01-19:
+  Tsar-Salat:
+  - bugfix: fixes nukeop name assignment
+  mrmanlikesbt:
+  - bugfix: Fixed organ smart fridges runtiming when a non-organ is removed from their
+      contents
+  rkz, SishTis, timothymtorres, Melbert, tralezab:
+  - bugfix: cleans up aphasia and slurring speech when lacking a tongue
+  - bugfix: hivemind languages dont force talking emotes
+  - rscadd: some tongues have a native language, these languages are not affected
+      by the tongue's respective speechmods
+  - refactor: converts silence from a mob stat to a status effect
+2026-01-20:
+  PowerfulBacon:
+  - bugfix: Breaching charges can no longer have their pin pulled as if they were
+      a grenade.
+2026-01-21:
+  mrmanlikesbt:
+  - tweak: Destroyed catwalks now drop 2 iron rods instead of just 1
+  mrmanlikesbt, timothymtorres, Ghommie, SmArtKar, DarthSidiousPalpatine, ShizCalev, Jacquerel, MrMelbert:
+  - refactor: Fire stacks have been refactored into a status effect
+  - refactor: Refactored weather immunities into traits
+  - bugfix: Fixed not being able to jump over lava with jump boots
+  - bugfix: Fixed monkeys having the human burning sprite when on fire
+  - rscadd: When being set on fire, objects in your hands will also be set on fire
+  - balance: Stop dropping and rolling no longer instantly clears fire stacks from
+      you, instead it will gradually remove them over time
+  - code_imp: Renamed IgniteMob() to ignite_mob()
+  - code_imp: Renamed ExtinguishMob() to extinguish_mob()
+  - code_imp: get_equipped_items() now uses bitflags for arguments instead of individual
+      bools
+  - code_imp: All instances of singularity_pull() now have their correct arguments
+  - code_imp: Removed the IS_CARVABLE obj bitflag
+  - spellcheck: Added a missing description to lava
+2026-01-22:
+  mrmanlikesbt:
+  - bugfix: Fixed the language menu using the computer theme
+2026-01-23:
+  BeeLover66:
+  - bugfix: the species menu no longer gives every species the "Native Speaker" trait
+  ClownMoff:
+  - rscadd: Changes the cryopod message as an antagonist when you cryo to be more
+      clear
+  PowerfulBacon:
+  - balance: Shields belts now starts from 0 charge when equipped.
+  r1ks-iwnl:
+  - bugfix: Fixed particle acceleration rifle's zoom.

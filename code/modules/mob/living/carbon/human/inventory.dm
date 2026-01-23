@@ -1,3 +1,19 @@
+
+/**
+ * Used to return a list of equipped items on a human mob; does not by default include held items, see include_flags
+ *
+ * Argument(s):
+ * * Optional - include_flags, (see obj.flags.dm) describes which optional things to include or not (pockets, accessories, held items)
+ */
+/mob/living/carbon/human/get_equipped_items(include_flags = NONE)
+	var/list/items = ..()
+	if(!(include_flags & INCLUDE_POCKETS))
+		items -= list(l_store, r_store, s_store)
+	if((include_flags & INCLUDE_ACCESSORIES) && w_uniform)
+		var/obj/item/clothing/under/worn_under = w_uniform
+		items += worn_under.attached_accessory
+	return items
+
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
 	return dna.species.can_equip(I, slot, disable_warning, src, bypass_equip_delay_self, ignore_occupancy)
 
