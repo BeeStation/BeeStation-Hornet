@@ -9,11 +9,6 @@
 // Definitions
 ////////////////////////////////
 
-GLOBAL_LIST_INIT(cable_coil_recipes, list (
-	new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15, category = CAT_EQUIPMENT),
-	new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND),
-))
-
 /obj/item/stack/cable_coil
 	name = "cable coil"
 	custom_price = 15
@@ -56,9 +51,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (
 	update_appearance(UPDATE_ICON)
 	return ..()
 
-/obj/item/stack/cable_coil/get_recipes()
-	return GLOB.cable_coil_recipes
-
 /obj/item/stack/cable_coil/attack_self(mob/living/user)
 	var/list/options = list()
 	options[OMNI_CABLE] = mutable_appearance('icons/obj/power.dmi', "omni-coil")
@@ -89,7 +81,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (
 		else
 			cable_color = LOWER_TEXT(result)
 			omni = FALSE
-		update_icon()
+		update_appearance(UPDATE_ICON_STATE | UPDATE_NAME)
 
 /obj/item/stack/cable_coil/suicide_act(mob/living/user)
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
@@ -110,14 +102,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 // General procedures
 ///////////////////////////////////
 
-/obj/item/stack/cable_coil/update_icon()
+/obj/item/stack/cable_coil/update_name(updates)
+	. = ..()
+	if (omni)
+		name = "omni-cable [amount < 3 ? "piece" : "coil"]"
+	else
+		name = "cable [amount < 3 ? "piece" : "coil"]"
+
+/obj/item/stack/cable_coil/update_icon_state()
+	. = ..()
 	if (omni)
 		icon_state = "omni-coil[amount < 3 ? amount : ""]"
-		name = "omni-cable [amount < 3 ? "piece" : "coil"]"
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 	else
 		icon_state = "[initial(icon_state)][amount < 3 ? amount : ""]"
-		name = "cable [amount < 3 ? "piece" : "coil"]"
 		add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
 
 /obj/item/stack/cable_coil/attack_hand(mob/user)
@@ -127,7 +125,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	var/obj/item/stack/cable_coil/new_cable = ..()
 	if(istype(new_cable))
 		new_cable.cable_color = cable_color
-		new_cable.update_icon()
+		new_cable.update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
 
 //add cables to the stack
 /obj/item/stack/cable_coil/proc/give(extra)
@@ -135,9 +133,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		amount = max_amount
 	else
 		amount += extra
-	update_icon()
-
-
+	new_cable.update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
 
 ///////////////////////////////////////////////
 // Cable laying procedures
@@ -223,7 +219,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	. = ..()
 	pixel_x = base_pixel_x + rand(-2, 2)
 	pixel_y = base_pixel_y + rand(-2, 2)
-	update_icon()
+	new_cable.update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
 
 /obj/item/stack/cable_coil/one
 	amount = 1
