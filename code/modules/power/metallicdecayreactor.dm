@@ -66,6 +66,11 @@
 
 	var/input_volume = 200
 
+	var/last_user = null //for admin logging
+
+	var/mdr_uid = 1 //id of the MDR
+	var/static/gl_mdr_uid = 1 //number of MDRs that have been made (this solution is from supermatter.dm as of 2026, yell at them if you think its dumb)
+
 	var/datum/looping_sound/mdr/soundloop
 
 	var/list/obj/machinery/power/flux_harvester/linked_harvesters = list()
@@ -73,10 +78,13 @@
 
 /obj/machinery/atmospherics/components/unary/mdr/Initialize(mapload)
 	. = ..()
+	mdr_uid = gl_mdr_uid++
+	soundloop = new(src)
 
 /obj/machinery/atmospherics/components/unary/mdr/Destroy()
 	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		harvester.parent = null
+	qdel(soundloop)
 	. = ..()
 
 
@@ -116,6 +124,8 @@
 
 /obj/machinery/atmospherics/components/unary/mdr/ui_static_data(mob/user)
 	. = ..()
+	.["uid"] = mdr_uid
+	.["area"] = AREACOORD(src)
 
 /obj/machinery/atmospherics/components/unary/mdr/ui_data(mob/user)
 	. = ..()
@@ -135,6 +145,9 @@
 	.["core_instability"] = core_instability
 
 /obj/machinery/atmospherics/components/unary/mdr/ui_act(action, params)
+	var/mob/user = usr
+	if(ismob(user) && user.ckey)
+		last_user = user.ckey
 	. = ..()
 	switch(action)
 		if("change_input")
@@ -143,6 +156,8 @@
 			activate()
 		if("change_metal_ratio")
 			metallization_ratio = clamp(text2num(params["change_metal_ratio"]), 0.1, 1)
+		if("reconnect")
+			link_harvesters()
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/can_activate()
 	return !(activated || (!is_operational))
@@ -158,6 +173,7 @@
 		balloon_alert_to_viewers("can not activate now!")
 		playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
+	soundloop.start()
 	activated = TRUE
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/deactivate()
@@ -165,6 +181,7 @@
 		balloon_alert_to_viewers("can not deactivate now!")
 		playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
+	soundloop.stop()
 	activated = FALSE
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/get_core_heat_capacity()
@@ -180,10 +197,13 @@
 	return stability_value * get_temp_stab_factor()
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/link_harvesters()
+	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
+		harvester.unlink_harvester()
+		linked_harvesters -= harvester
 	for(var/obj/machinery/power/flux_harvester/harvester in orange(5, src))
 		if(!(harvester in linked_harvesters))
 			linked_harvesters += harvester
-			harvester.parent = src
+			harvester.link_harvester(src)
 			START_PROCESSING(SSmachines, harvester)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/get_decay_factor()
@@ -232,7 +252,8 @@
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_stability()
 	core_stability = get_core_stability()
 	core_instability = core_temperature >= 100000 ? 50000 * (log(10, core_temperature) - 4) : 0.5 * core_temperature //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
-	adjust_health(max(log(10, core_stability - core_instability), 0))
+	var/delta_stability = core_instability - core_stability
+	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/adjust_health(delta)
 	core_health = clamp(core_health + delta, 0, MDR_MAX_CORE_HEALTH)
@@ -240,7 +261,8 @@
 		fail()
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/fail()
-	new /obj/effect/anomaly/bhole(get_turf(src))
+	investigate_log("failed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
+	// new /obj/anomaly/singularity/temporary(get_turf(src), 500) TODO uncomment this when testing is done
 	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_toroid()
@@ -317,7 +339,7 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
 	var/output_this_tick = 0
-	var/max_harvested = 200 KILOWATT
+	var/max_harvested = 100 GIGAWATT
 	var/obj/machinery/atmospherics/components/unary/mdr/parent = null
 
 /obj/machinery/power/flux_harvester/Destroy()
@@ -334,3 +356,9 @@
 	var/excess = max(power - max_harvested, 0)
 	output_this_tick = min(power, max_harvested)
 	return excess
+
+/obj/machinery/power/flux_harvester/proc/link_harvester(obj/machinery/atmospherics/components/unary/mdr/reactor)
+	parent = reactor
+
+/obj/machinery/power/flux_harvester/proc/unlink_harvester()
+	parent = null

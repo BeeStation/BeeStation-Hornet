@@ -1,9 +1,21 @@
-import { useBackend } from '../backend';
-import { Button, Flex, Graph, Knob, NumberInput, Section } from '../components';
-import { Window } from '../layouts';
 
+
+import { useBackend } from '../backend';
+import { Box, Button, Graph, Knob, NumberInput, Section } from '../components';
+import { Window } from '../layouts';
 export const AtmosMdr = (props) => {
-  const { act, data } = useBackend();
+  const { data } = useBackend();
+  return (
+  <Window width={480} height={500}>
+    <Window.Content>
+      <MdrContent {...data} />
+    </Window.Content>
+  </Window>
+  );
+};
+
+export const MdrContent = (props) => {
+  const { act } = useBackend();
   const {
     toroid_spin,
     parabolic_setting,
@@ -18,10 +30,8 @@ export const AtmosMdr = (props) => {
     metallization_ratio,
     core_stability,
     core_instability,
-  } = data;
+  } = props;
   return (
-    <Window theme="ntos" width={480} height={500}>
-      <Window.Content>
         <Section>
           <Button
             icon={'power-off'}
@@ -29,6 +39,11 @@ export const AtmosMdr = (props) => {
             selected={activated}
             disabled={!can_activate}
             onClick={() => act('activate')}
+          />
+          <Button
+            icon={''}
+            content={'Activate'}
+            onClick={() => act('reconnect')}
           />
           <br />
           <Knob
@@ -69,11 +84,11 @@ export const AtmosMdr = (props) => {
           {core_temperature}
           <br />
           Core Comp:
-          {Object.keys(core_composition).map((key) => (
+          {core_composition ? Object.keys(core_composition).map((key) => (
             <div key={key}>
               {key}: {core_composition[key]}
             </div>
-          ))}
+          )) : null}
           <br />
           <NumberInput
             animated
@@ -89,31 +104,30 @@ export const AtmosMdr = (props) => {
               })
             }
           />
-          <Flex direction="column">
-            <Flex.Item position="absolute">
-                <svg>
+          {/* This react code is a tangled, hard-coded mess. If someone wants to try and fix it, be my guest */}
+          <Box height={10} width={30} m={1} backgroundColor="grey">
+            <Box position="absolute" width={30}>
+                <svg width="100%" viewBox={`0 0 ${2 * Math.sqrt(parabolic_upper_limit * parabolic_setting)} ${2 * Math.sqrt(parabolic_upper_limit * parabolic_setting) / 3}`}>
             <rect
-            x={1}
-            width="100"
-            height="100"
-            y={1}
-            fill="grey"
+            x={Math.min(parabolic_ratio, 2 * Math.sqrt(parabolic_upper_limit * parabolic_setting))}
+            width={2 * Math.sqrt(parabolic_upper_limit * parabolic_setting) / 100}
+            height="100%"
+            y={0}
+            fill="red"
             />
                 </svg>
-            </Flex.Item>
-            <Flex.Item grow={1}>
+            </Box>
+            <Box width={30} height="100%">
           <Graph
             funct={(i) => { return -((i - Math.sqrt(parabolic_setting * parabolic_upper_limit))**2) + parabolic_setting * parabolic_upper_limit; }}
-            upperLimit={parabolic_upper_limit}
+            upperLimit={parabolic_upper_limit + (parabolic_upper_limit * 0.01)}
             lowerLimit={0}
             leftLimit={0}
-            rightLimit={(2 * Math.sqrt(parabolic_upper_limit * parabolic_setting)) + (2 * Math.sqrt(parabolic_upper_limit * parabolic_setting) * 0.1)}
+            rightLimit={(2 * Math.sqrt(parabolic_upper_limit * parabolic_setting))}
             steps={25}
           />
-            </Flex.Item>
-          </Flex>
+            </Box>
+          </Box>
         </Section>
-      </Window.Content>
-    </Window>
   );
 };

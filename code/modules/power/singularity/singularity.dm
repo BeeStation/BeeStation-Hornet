@@ -34,7 +34,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 
-/obj/anomaly/singularity/Initialize(mapload, starting_energy = 50)
+/obj/anomaly/singularity/Initialize(mapload, starting_energy = 100)
 	. = ..()
 	START_PROCESSING(SSsinguloprocess, src)
 	AddElement(/datum/element/point_of_interest)
@@ -48,7 +48,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	)
 
 	singularity_component = WEAKREF(new_component)
-
+	energy = starting_energy
 	expand(current_size)
 
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
@@ -444,8 +444,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
 
 
 /obj/anomaly/singularity/temporary
-	var/time_to_delete = 60 SECONDS
+	var/time_to_explode = 30 SECONDS
 
-/obj/anomaly/singularity/temporary/Initialize(mapload)
-	. = ..(mapload, 300)
-	QDEL_IN(src, time_to_delete)
+/obj/anomaly/singularity/temporary/Initialize(mapload, starting_energy = 50)
+	. = ..(mapload, starting_energy)
+	addtimer(CALLBACK(src, PROC_REF(explode)), time_to_explode)
+
+/obj/anomaly/singularity/temporary/proc/explode()
+	explosion(
+		epicenter = get_turf(src),
+		devastation_range = 6,
+		heavy_impact_range = 12,
+		light_impact_range = 24,
+		flash_range = 32,
+		adminlog = TRUE,
+		ignorecap = TRUE,
+	)
+	qdel(src)

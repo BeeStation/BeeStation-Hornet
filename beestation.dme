@@ -3747,6 +3747,8 @@
 #include "code\modules\modular_computers\file_system\programs\gasrig_monitor.dm"
 #include "code\modules\modular_computers\file_system\programs\jobmanagement.dm"
 #include "code\modules\modular_computers\file_system\programs\log_viewer.dm"
+#include "code\modules\modular_computers\file_system\programs\mdrmonitor.dm"
+#include "code\modules\modular_computers\file_system\programs\mdrmonitor.dm"
 #include "code\modules\modular_computers\file_system\programs\newscaster.dm"
 #include "code\modules\modular_computers\file_system\programs\notepad.dm"
 #include "code\modules\modular_computers\file_system\programs\ntdownloader.dm"
