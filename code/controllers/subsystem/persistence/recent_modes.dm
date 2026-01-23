@@ -14,6 +14,9 @@
 		gamemode_data = list()
 	else
 		gamemode_data = json_decode(rustg_file_read(GAMEMODE_FILEPATH))
+	if (!islist(gamemode_data))
+		stack_trace("Gamemode data was loaded from the file as a non-list, this is not correct! It has been reset automatically.")
+		gamemode_data = list()
 
 /datum/controller/subsystem/persistence/proc/save_gamemode_execution()
 	// Reset the executed modes to 0
