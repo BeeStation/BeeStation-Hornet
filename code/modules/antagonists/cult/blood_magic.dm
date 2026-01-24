@@ -201,8 +201,8 @@
 	charges = 4
 	check_flags = AB_CHECK_CONSCIOUS
 	requires_target = TRUE
-	enable_text = span_cult("You prepare to horrify a target...")
-	disable_text = span_cult("You dispel the magic...")
+	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
+	disable_text = ("<span class='cult'>You dispel the magic...</span>")
 
 /datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
 	var/turf/clicker_turf = get_turf(clicker)
@@ -430,8 +430,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	invocation = "Sas'so c'arta forbici!"
 
 /obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity)
-	var/mob/living/living_target = target
-	if(!IS_CULTIST(living_target) || !proximity)
+	if(!isliving(target))
+		return
+	var/mob/living/L = target
+	if(!IS_CULTIST(L) || !proximity)
 		to_chat(user, span_warning("You can only teleport adjacent cultists with this spell!"))
 		return
 	if(IS_CULTIST(user))
@@ -458,13 +460,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			to_chat(user, span_warning("The target rune is blocked. You cannot teleport there."))
 			return
 		uses--
-
-		if(living_target)
-			if(do_teleport(living_target, dest, channel = TELEPORT_CHANNEL_CULT))
-				var/turf/origin = get_turf(user)
-				origin.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"), \
-					span_cultitalic("You speak the words of the talisman and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
-				dest.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
+		var/turf/origin = get_turf(user)
+		if(do_teleport(L, dest, channel = TELEPORT_CHANNEL_CULT))
+			origin.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"), \
+				span_cultitalic("You speak the words of the talisman and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
+			dest.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
 		..()
 
 //Shackles
@@ -628,23 +628,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	color = "#33cc33" // green
 
 /obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(iscarbon(target) && proximity)
-		var/mob/living/carbon/carbon_target = target
-		if(!IS_CULTIST(carbon_target))
-			return
-
+	if(!isliving(target))
+		return
+	var/mob/living/L = target
+	if(iscarbon(target) && IS_CULTIST(L) && proximity)
 		uses--
-
-		carbon_target.visible_message(span_warning("Otherworldly armor suddenly appears on [carbon_target]!"))
-		carbon_target.equip_to_slot_or_del(new /obj/item/clothing/under/color/black, ITEM_SLOT_ICLOTHING)
-		carbon_target.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
-		carbon_target.equip_to_slot_or_del(new /obj/item/clothing/head/hooded/cult_hoodie/alt(user), ITEM_SLOT_HEAD)
-		carbon_target.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult/alt(user), ITEM_SLOT_FEET)
-		carbon_target.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
-		if(carbon_target == user)
+		var/mob/living/carbon/C = target
+		C.visible_message(span_warning("Otherworldly armor suddenly appears on [C]!"))
+		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black,ITEM_SLOT_ICLOTHING)
+		C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
+		C.equip_to_slot_or_del(new /obj/item/clothing/head/hooded/cult_hoodie/alt(user), ITEM_SLOT_HEAD)
+		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult/alt(user), ITEM_SLOT_FEET)
+		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
+		if(C == user)
 			qdel(src) //Clears the hands
-		carbon_target.put_in_hands(new /obj/item/melee/cultblade(user))
-		carbon_target.put_in_hands(new /obj/item/restraints/legcuffs/bola/cult(user))
+		C.put_in_hands(new /obj/item/melee/cultblade(user))
+		C.put_in_hands(new /obj/item/restraints/legcuffs/bola/cult(user))
 		..()
 
 /obj/item/melee/blood_magic/manipulator

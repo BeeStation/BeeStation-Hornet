@@ -137,5 +137,5 @@
 	/// The scripture that this action will invoke
 	var/datum/clockcult/scripture/slab/parent_scripture
 
-/datum/action/spell/pointed/slab/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/spell/pointed/slab/InterceptClickOn(mob/living/clicker, params, atom/target)
 	INVOKE_ASYNC(parent_scripture, TYPE_PROC_REF(/datum/clockcult/scripture/slab, click_on), target)
