@@ -1,0 +1,4 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - admin: The destruction of station objects is now properly logged again
