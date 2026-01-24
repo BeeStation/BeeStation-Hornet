@@ -89,7 +89,7 @@
 	name = "Traitor"
 	role_preference = /datum/role_preference/roundstart/traitor
 	antag_datum = /datum/antagonist/traitor
-	weight = 8
+	weight = 16
 	recent_weight_recovery_linear = 2
 
 /datum/dynamic_ruleset/gamemode/traitor/security_report()
