@@ -456,7 +456,6 @@
 	gain_text = span_userdanger("...")
 	lose_text = span_notice("You feel in tune with the world again.")
 	medical_record_text = "Patient suffers from acute Reality Dissociation Syndrome and experiences vivid hallucinations."
-	var/datum/weakref/added_trauma_ref
 
 /datum/quirk/insanity/add()
 	if(!iscarbon(quirk_target))
@@ -475,7 +474,6 @@
 	added_trauma.lose_text = null
 
 	carbon_quirk_target.gain_trauma(added_trauma)
-	added_trauma_ref = WEAKREF(added_trauma)
 
 /datum/quirk/insanity/post_spawn()
 	if(!quirk_holder || quirk_holder.special_role)
@@ -483,9 +481,6 @@
 	// I don't /think/ we'll need this, but for newbies who think "roleplay as insane" = "license to kill",
 	// it's probably a good thing to have.
 	to_chat(quirk_target, "<span class='big bold info'>Please note that your [LOWER_TEXT(name)] does NOT give you any additional right to attack people or otherwise cause chaos.</span>")
-
-/datum/quirk/insanity/remove()
-	QDEL_NULL(added_trauma_ref)
 
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"
