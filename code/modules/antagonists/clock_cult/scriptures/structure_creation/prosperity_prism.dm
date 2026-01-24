@@ -27,22 +27,24 @@
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	holder = new /datum/reagents(1000)
+	holder = new(1000)
 	holder.my_atom = src
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/Destroy()
 	STOP_PROCESSING(SSobj, src)
 
 	// Disperse the contained reagents
-	if(LAZYLEN(holder.reagent_list))
-		var/datum/effect_system/smoke_spread/chem/toxic_smoke = new
+	if(length(holder?.reagent_list))
+		var/datum/effect_system/smoke_spread/chem/toxic_smoke = new()
 		var/turf = get_turf(src)
 
 		toxic_smoke.attach(turf)
 		toxic_smoke.set_up(holder, 3, turf, 0)
 		toxic_smoke.start()
-	QDEL_NULL(holder)
-	. = ..()
+	if(holder)
+		QDEL_NULL(holder)
+
+	return ..()
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/update_icon_state()
 	. = ..()
@@ -97,4 +99,4 @@
 
 	enabled = !enabled
 	balloon_alert(user, "[enabled ? "enabled" : "disabled"]!")
-	update_icon_state()
+	update_appearance(UPDATE_ICON)

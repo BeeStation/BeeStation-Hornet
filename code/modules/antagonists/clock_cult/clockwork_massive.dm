@@ -271,7 +271,7 @@
 	// Give servants godmode
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	for(var/mob/living/servant in GLOB.all_servants_of_ratvar)
-		servant.status_flags |= GODMODE
+		ADD_TRAIT(servant, TRAIT_GODMODE, REF(src))
 
 	// Sfx
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg'))

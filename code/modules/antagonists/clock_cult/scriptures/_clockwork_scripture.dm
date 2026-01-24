@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 /*
 * Here is where you put the code that runs when the scripture is succesfully invoked
 * For example, Summon Replica Fabricator will instantiate a replica fabricator
-* When inhereting this, . = ..() should be called at the END
+* When inhereting this, ..() should be called at the END
 */
 /datum/clockcult/scripture/proc/on_invoke_success()
 	GLOB.clockcult_power -= power_cost

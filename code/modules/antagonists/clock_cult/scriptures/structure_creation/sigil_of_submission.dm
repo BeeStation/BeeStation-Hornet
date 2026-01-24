@@ -45,9 +45,31 @@
 	// Convert
 	var/datum/antagonist/servant_of_ratvar/cogger = add_servant_of_ratvar(living_target)
 	cogger.equip_servant_conversion()
-	. = ..()
+	return ..()
 
 /obj/structure/destructible/clockwork/sigil/submission/on_fail()
 	var/mob/living/living_target = affected_atom
 	living_target.visible_message(span_warning("[living_target] resists conversion!"))
-	. = ..()
+	return ..()
+
+// Similar to cultist one, except silicons are allowed
+/proc/is_convertable_to_clockcult(mob/living/convertee)
+	if(!istype(convertee))
+		return FALSE
+	if(!convertee.mind)
+		return FALSE
+	if(ishuman(convertee) && (convertee.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
+		return FALSE
+	if(istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		return FALSE
+	if(IS_SERVANT_OF_RATVAR(convertee))
+		return FALSE
+	if(convertee.mind.enslaved_to && !convertee.mind.enslaved_to.has_antag_datum(/datum/antagonist/servant_of_ratvar))
+		return FALSE
+	if(convertee.mind.unconvertable)
+		return FALSE
+	if(IS_CULTIST(convertee) || isconstruct(convertee) || ispAI(convertee))
+		return FALSE
+	if(HAS_TRAIT(convertee, TRAIT_MINDSHIELD))
+		return FALSE
+	return TRUE

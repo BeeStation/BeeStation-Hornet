@@ -24,11 +24,11 @@
 /datum/clockcult/scripture/slab/vanguard/on_invoke_success()
 	invoker.add_traits(vanguard_traits, VANGUARD_TRAIT)
 	to_chat(invoker, span_sevtug("You feel like nothing can stop you!"))
-	. = ..()
+	return ..()
 
 /datum/clockcult/scripture/slab/vanguard/on_invoke_end()
 	invoker.remove_traits(vanguard_traits, VANGUARD_TRAIT)
-	. = ..()
+	return ..()
 
 /datum/clockcult/scripture/slab/vanguard/count_down()
 	. = ..()

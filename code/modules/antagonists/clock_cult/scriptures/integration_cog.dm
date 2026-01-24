@@ -12,5 +12,5 @@
 
 	to_chat(invoker, span_brass("You summon an integration cog!"))
 	playsound(src, 'sound/machines/click.ogg', 50)
-	. = ..()
+	return ..()
 

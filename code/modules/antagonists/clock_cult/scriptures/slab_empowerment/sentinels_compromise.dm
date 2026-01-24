@@ -27,36 +27,30 @@
 	var/mob/living/living_target = target_atom
 
 	if(living_target.stat == DEAD)
-		living_target.balloon_alert(invoker, "dead!")
+		living_target.balloon_alert(invoker, "[living_target.p_theyre()] dead!")
 		return FALSE
 
 	// Heal our target and add toxins to the invoker
 	var/total_damage = (living_target.getBruteLoss() + living_target.getFireLoss() + living_target.getOxyLoss() + living_target.getCloneLoss()) * 0.6
-	living_target.adjustBruteLoss(-living_target.getBruteLoss() * 0.6, FALSE)
-	living_target.adjustFireLoss(-living_target.getFireLoss() * 0.6, FALSE)
-	living_target.adjustOxyLoss(-living_target.getOxyLoss() * 0.6, FALSE)
-	living_target.adjustCloneLoss(-living_target.getCloneLoss() * 0.6, TRUE)
 
-	invoker.adjustToxLoss(min(total_damage / 2, 80), TRUE, TRUE)
+	var/needs_health_update = 0
+	needs_health_update += living_target.adjustBruteLoss(-living_target.getBruteLoss() * 0.6, updating_health = FALSE)
+	needs_health_update += living_target.adjustFireLoss(-living_target.getFireLoss() * 0.6, updating_health = FALSE)
+	needs_health_update += living_target.adjustOxyLoss(-living_target.getOxyLoss() * 0.6, updating_health = FALSE)
+	needs_health_update += living_target.adjustCloneLoss(-living_target.getCloneLoss() * 0.6, updating_health = FALSE)
+	if(needs_health_update)
+		living_target.updatehealth()
 
-	// Fix blood
-	living_target.blood_volume = BLOOD_VOLUME_NORMAL
+	invoker.adjustToxLoss(min(total_damage / 2, 80), updating_health = TRUE, forced = TRUE)
+
+	// Purge holywater
 	living_target.reagents.remove_reagent(/datum/reagent/water/holywater, INFINITY)
 
 	// Set nutrition and body temp back to normal
 	living_target.set_nutrition(NUTRITION_LEVEL_FULL)
 
-	living_target.bodytemperature = BODYTEMP_NORMAL
-
 	// Clear sight problems and husk
-	living_target.cure_blind()
-	living_target.set_blindness(0)
-	living_target.set_blurriness(0)
-	living_target.set_dizziness(0)
-	living_target.cure_nearsighted()
-	living_target.hallucination = 0
-
-	living_target.cure_husk()
+	living_target.fully_heal(HEAL_BODY)
 
 	// Effect and sounds
 	new /obj/effect/temp_visual/heal(get_turf(living_target), "#f8d984")

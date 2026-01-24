@@ -37,7 +37,7 @@
 	for(var/obj/structure/destructible/clockwork/gear_base/gear_base in linked_structures)
 		gear_base.unlink_sigil()
 	STOP_PROCESSING(SSobj, src)
-	. = ..()
+	return ..()
 
 /*
 * Update the power of all linked structures
@@ -104,4 +104,4 @@
 				if(power_cell.charge > power_cell.chargerate)
 					power_cell.give(-power_cell.chargerate)
 					GLOB.clockcult_power += 40
-	. = ..()
+	return ..()

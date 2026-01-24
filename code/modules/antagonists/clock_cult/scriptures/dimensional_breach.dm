@@ -26,4 +26,4 @@
 		return FALSE
 
 	gateway.open_gateway()
-	. = ..()
+	return ..()

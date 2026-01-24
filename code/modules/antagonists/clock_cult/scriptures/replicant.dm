@@ -11,4 +11,4 @@
 /datum/clockcult/scripture/replicant/on_invoke_success()
 	var/obj/item/clockwork/clockwork_slab/new_slab = new(get_turf(invoker))
 	invoker.put_in_hands(new_slab)
-	. = ..()
+	return ..()

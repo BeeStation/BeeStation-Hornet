@@ -33,14 +33,16 @@
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/Initialize(mapload)
 	. = ..()
-	internal_dampener = new
+	internal_dampener = new()
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/Destroy()
 	if(processing)
 		STOP_PROCESSING(SSobj, src)
-	QDEL_NULL(dampening_field)
-	QDEL_NULL(internal_dampener)
-	. = ..()
+	if(dampening_field)
+		QDEL_NULL(dampening_field)
+	if(internal_dampener)
+		QDEL_NULL(internal_dampener)
+	return ..()
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -126,7 +128,7 @@
 //Dampening field
 /datum/proximity_monitor/advanced/projectile_dampener/clockwork
 
-/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/projectile/projectile, track_projectile = TRUE)
+/datum/proximity_monitor/advanced/projectile_dampener/clockwork/capture_projectile(obj/projectile/projectile)
 	if(projectile in tracked)
 		return
 
@@ -136,12 +138,21 @@
 		if(IS_SERVANT_OF_RATVAR(living_target))
 			return
 
-	projector.dampen_projectile(projectile, track_projectile)
-	if(track_projectile)
-		tracked += projectile
+	SEND_SIGNAL(src, COMSIG_DAMPENER_CAPTURE, projectile)
+	tracked += projectile
 
 /obj/item/borg/projectile_dampen/clockcult
 	name = "internal clockcult projectile dampener"
+
+/obj/item/borg/projectile_dampen/clockcult/activate_field()
+	if(istype(dampening_field))
+		QDEL_NULL(dampening_field)
+	var/mob/living/silicon/robot/owner = get_host()
+	dampening_field = new /datum/proximity_monitor/advanced/projectile_dampener/clockwork(owner, field_radius, TRUE, src)
+	RegisterSignal(dampening_field, COMSIG_DAMPENER_CAPTURE,  PROC_REF(dampen_projectile))
+	RegisterSignal(dampening_field, COMSIG_DAMPENER_RELEASE,  PROC_REF(restore_projectile))
+	owner?.model.allow_riding = FALSE
+	active = TRUE
 
 /obj/item/borg/projectile_dampen/clockcult/process_recharge()
 	energy = maxenergy

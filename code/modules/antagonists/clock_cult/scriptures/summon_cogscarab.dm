@@ -13,7 +13,7 @@
 
 /datum/clockcult/scripture/cogscarab/try_to_invoke(mob/living/user)
 	invokation_time = initial(invokation_time) + ((6 SECONDS) * length(GLOB.cogscarabs))
-	. = ..()
+	return ..()
 
 /datum/clockcult/scripture/cogscarab/can_invoke()
 	. = ..()
@@ -32,4 +32,4 @@
 
 /datum/clockcult/scripture/cogscarab/on_invoke_success()
 	new /obj/effect/mob_spawn/drone/cogscarab(get_turf(invoker))
-	. = ..()
+	return ..()

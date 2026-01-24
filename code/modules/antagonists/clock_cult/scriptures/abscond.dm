@@ -15,19 +15,17 @@
 	if(text_point == 1)
 		previous_client_color = invoker.client.color
 		animate(invoker.client, color = "#AF0AAF", time = invokation_time)
-	. = ..()
+	return ..()
 
 /datum/clockcult/scripture/abscond/on_invoke_success()
 	try_warp_servant(invoker, get_turf(pick(GLOB.servant_spawns)), bring_dragging = TRUE)
 
-	// Fade the invoker from being invisible to.. not
 	var/prev_alpha = invoker.alpha
 	invoker.alpha = 0
 	animate(invoker, alpha = prev_alpha, time = 1 SECONDS)
-	. = ..()
+	return ..()
 
 /datum/clockcult/scripture/abscond/on_invoke_end()
-	// Set the color back to normal
 	if(invoker.client)
 		animate(invoker.client, color = previous_client_color, time = invokation_time)
-	. = ..()
+	return ..()

@@ -25,11 +25,13 @@
 		action.deactive_msg = ""
 
 /datum/clockcult/scripture/slab/Destroy()
-	progress_bar?.end_progress()
+	if(progress_bar)
+		progress_bar.end_progress() // calling this QDELs it
+		progress_bar = null
 
 	if(!QDELETED(action))
 		QDEL_NULL(action)
-	. = ..()
+	return ..()
 
 /*
 * Don't inherent the base behavior here
@@ -53,7 +55,7 @@
 
 /datum/clockcult/scripture/slab/dispose()
 	invoking_slab.active_scripture = null
-	. = ..()
+	return ..()
 
 /*
 * A (sort of) recursive proc to keep counting down from max_time
@@ -75,10 +77,10 @@
 		invoker.balloon_alert(invoker, "ran out of time!")
 		end_invocation()
 
-/*
-* Make sure we can interact with the target and then apply effects
-* Called from /datum/action/spell/pointed/slab/InterceptClickOn()
-*/
+/**
+ * Make sure we can interact with the target and then apply effects
+ * Called from /datum/action/spell/pointed/slab/InterceptClickOn()
+ */
 /datum/clockcult/scripture/slab/proc/click_on(atom/clicked_on)
 	if(!invoker.can_interact_with(clicked_on))
 		return
@@ -102,10 +104,6 @@
 
 	end_invocation()
 
-/*
-* Theres a reason this is its own proc and not fused with on_invoke_end()
-* Just trust me bro
-*/
 /datum/clockcult/scripture/slab/proc/end_invocation()
 	// Alert invoker
 	to_chat(invoker, span_brass("You are no longer invoking <b>[name]</b>"))
@@ -127,10 +125,10 @@
 
 	on_invoke_end()
 
-/*
-* Apply effects to the target
-* return TRUE if it succeeds
-*/
+/**
+ * Apply effects to the target
+ * return TRUE if it succeeds
+ */
 /datum/clockcult/scripture/slab/proc/apply_effects(atom/target_atom)
 	currently_applying_effects = TRUE
 	return TRUE

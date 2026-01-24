@@ -46,6 +46,14 @@
 	energy = 40
 	bomb = 20
 
+/obj/structure/destructible/clockwork/ocular_warden/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/destructible/clockwork/ocular_warden/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /obj/structure/destructible/clockwork/ocular_warden/process(delta_time)
 	if(!COOLDOWN_FINISHED(src, attack_cooldown))
 		return
@@ -77,11 +85,3 @@
 
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(src))
 	playsound(get_turf(src), 'sound/machines/clockcult/ocularwarden-target.ogg', 60, TRUE)
-
-/obj/structure/destructible/clockwork/ocular_warden/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
-/obj/structure/destructible/clockwork/ocular_warden/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	. = ..()

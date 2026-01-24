@@ -381,44 +381,44 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 /obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!isliving(target) || !proximity)
 		return
-	var/mob/living/living_target = target
-	if(IS_CULTIST(living_target))
+	var/mob/living/L = target
+	if(IS_CULTIST(L))
 		return
 	if(IS_CULTIST(user))
-		user.visible_message(span_warning("[user] floods [living_target]'s mind with an eldritch energy!"), \
-							span_cultitalic("You attempt to stun [living_target] with the spell!"))
+		user.visible_message(span_warning("[user] floods [L]'s mind with an eldritch energy!"), \
+							span_cultitalic("You attempt to stun [L] with the spell!"))
 		user.mob_light(range = 3, color = LIGHT_COLOR_BLOOD_MAGIC, duration = 0.2 SECONDS)
 
-		var/anti_magic_source = living_target.can_block_magic(MAGIC_RESISTANCE_HOLY)
+		var/anti_magic_source = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
 		if(anti_magic_source)
 
-			living_target.mob_light(range = 2, color = LIGHT_COLOR_HOLY_MAGIC, duration = 10 SECONDS)
+			L.mob_light(range = 2, color = LIGHT_COLOR_HOLY_MAGIC, duration = 10 SECONDS)
 			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
-			living_target.add_overlay(forbearance)
-			addtimer(CALLBACK(living_target, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
+			L.add_overlay(forbearance)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
 
 			if(istype(anti_magic_source, /obj/item))
-				target.visible_message(span_warning("[living_target] is utterly unphased by your utterance!"), \
-									   span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
-		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(living_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
-			to_chat(user, span_cultitalic("[living_target] falls to the ground, gibbering madly!"))
-			living_target.Paralyze(160)
-			living_target.flash_act(1,1)
+				target.visible_message(span_warning("[L] is utterly unphased by your utterance!"), \
+									span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
+		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+			to_chat(user, span_cultitalic("[L] falls to the ground, gibbering madly!"))
+			L.Paralyze(160)
+			L.flash_act(1,1)
 			if(issilicon(target))
-				var/mob/living/silicon/S = living_target
+				var/mob/living/silicon/S = L
 				S.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
-				var/mob/living/carbon/C = living_target
-				C.silent += 6
-				C.stuttering += 15
-				C.cultslurring += 15
-				C.Jitter(15)
+				var/mob/living/carbon/C = L
+				C.adjust_silence(12 SECONDS)
+				C.adjust_stutter(30 SECONDS)
+				C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/slurring/cult)
+				C.set_jitter_if_lower(30 SECONDS)
 				// EMP the radio on your ears
 				if (C.ears)
 					C.ears.emp_act(EMP_LIGHT)
 		else
-			target.visible_message(span_warning("You fail to corrupt [living_target]'s mind!"), \
-									   span_userdanger("Your mindshield protects you from the heresy of [user]!"))
+			target.visible_message(span_warning("You fail to corrupt [L]'s mind!"), \
+									span_userdanger("Your mindshield protects you from the heresy of [user]!"))
 		uses--
 	..()
 

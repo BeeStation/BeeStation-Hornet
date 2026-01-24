@@ -18,4 +18,4 @@
 	// Set owner
 	var/obj/structure/destructible/clockwork/clockwork_structure = created_structure
 	clockwork_structure?.owner = invoker.mind
-	. = ..()
+	return ..()

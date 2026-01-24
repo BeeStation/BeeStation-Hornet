@@ -52,8 +52,8 @@
 		animate(living_target, color = previous_color, time = 30 SECONDS)
 
 		// Effects
-		living_target.stuttering += 15
-		living_target.Jitter(15)
+		living_target.adjust_stutter(30 SECONDS)
+		living_target.set_jitter_if_lower(30 SECONDS)
 
 		// Flavor text
 		living_target.say("Fwebar uloft'gib mirlig yro'fara!")
@@ -71,21 +71,18 @@
 	if(!is_reebe(living_target.z))
 		if(HAS_TRAIT(living_target, TRAIT_MINDSHIELD))
 			to_chat(invoker, span_brass("[living_target] seems somewhat resistant to your powers!"))
-			living_target.confused = max(living_target.confused, 5 SECONDS)
+			living_target.adjust_confusion_up_to(5 SECONDS, 5 SECONDS)
 		else
 			living_target.Paralyze(15 SECONDS)
 
 
 	if(issilicon(living_target))
-		// Silicon reaction
 		var/mob/living/silicon/silicon_target = living_target
 		silicon_target.emp_act(EMP_HEAVY)
-	else if(iscarbon(living_target))
-		// Carbon reaction
-		var/mob/living/carbon/carbon_target = living_target
-		carbon_target.silent += 6
-		carbon_target.stuttering += 15
-		carbon_target.Jitter(15)
+	else
+		living_target.adjust_silence(12 SECONDS)
+		living_target.adjust_stutter(30 SECONDS)
+		living_target.set_jitter_if_lower(30 SECONDS)
 
 	// Apply color to the client's screen
 	if(living_target.client)

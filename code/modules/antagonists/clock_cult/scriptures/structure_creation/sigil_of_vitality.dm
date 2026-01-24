@@ -55,22 +55,22 @@
 		if(GLOB.clockcult_vitality >= damage_healed)
 			GLOB.clockcult_vitality -= damage_healed
 
-			living_target.revive(full_heal = TRUE)
+			living_target.revive(HEAL_ALL)
 
 			// Try to grab the target's ghost. If they don't come back, poll ghosts
 			if(living_target.mind)
 				living_target.mind.grab_ghost(TRUE)
 			else
-				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-					question = "Do you want to play as a [living_target], an inactive clock cultist?",
-					role = /datum/role_preference/antagonist/clock_cultist,
-					check_jobban = ROLE_SERVANT_OF_RATVAR,
-					poll_time = 10 SECONDS,
-					checked_target = living_target,
-					jump_target = living_target,
-					role_name_text = "inactive clock cultist",
-					alert_pic = living_target,
-				)
+				var/datum/poll_config/config = new()
+				config.question = "Do you want to play as a [living_target.name], an inactive clock cultist?"
+				config.role = /datum/role_preference/roundstart/clock_cultist
+				config.check_jobban = ROLE_SERVANT_OF_RATVAR
+				config.poll_time = 10 SECONDS
+				config.jump_target = living_target
+				config.role_name_text = "inactive clock cultist"
+				config.alert_pic = living_target
+
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, living_target)
 				if(candidate)
 					living_target.key = candidate.key
 					message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(living_target)]) to replace an AFK player.")

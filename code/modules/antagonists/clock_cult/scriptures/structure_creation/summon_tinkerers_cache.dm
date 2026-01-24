@@ -70,5 +70,4 @@
 		return FALSE
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
-
 	return TRUE

@@ -76,12 +76,12 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	if(!QDELETED(owner))
 		owner.key = key
 		owner.log_message("lost control of the abstraction crystal they were manifested at", LOG_ATTACK)
-	. = ..()
+	return ..()
 
 /mob/living/carbon/human/abstraction_hologram/Move(NewLoc, direct)
 	if(get_dist(NewLoc, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
 		return FALSE
-	. = ..()
+	return ..()
 
 /mob/living/carbon/human/abstraction_hologram/Life()
 	if(QDELETED(owner) || QDELETED(src))
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	// We were forcibly moved out of the crystal's range, lets break the crystal
 	if(incapacitated() || get_dist(src, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
 		linked_crystal.deconstruct(FALSE)
-	. = ..()
+	return ..()
 /*
 * On taking damage, 40% goes to the owner's mob and 60% goes to the crystal
 */
@@ -134,6 +134,30 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/dusting_hologram = FALSE
 	/// The beam effect from the crystal to the abstraction
 	var/datum/beam/abstraction_beam
+
+/obj/structure/destructible/clockwork/abstraction_crystal/Destroy()
+	GLOB.abstraction_crystals.Remove(key_word)
+	clear_ghost()
+
+	// Stop processing
+	if(processing)
+		STOP_PROCESSING(SSobj, src)
+		processing = FALSE
+	return ..()
+
+/obj/structure/destructible/clockwork/abstraction_crystal/eminence_act(mob/living/simple_animal/eminence/eminence)
+	manifest(eminence)
+
+/obj/structure/destructible/clockwork/abstraction_crystal/process()
+	if(QDELETED(linked_hologram) || QDELETED(activator) || activator.stat == DEAD)
+		clear_ghost()
+		return
+
+	// If someone other than the linked hologram holds any of the manifested items, delete the item
+	for(var/obj/item as anything in tracked_items)
+		if(!QDELETED(item))
+			if(ismob(item.loc) && item.loc != linked_hologram)
+				derez(item)
 
 /obj/structure/destructible/clockwork/abstraction_crystal/attack_hand(mob/user)
 	. = ..()
@@ -171,9 +195,6 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		balloon_alert(user, "chosen crystal no longer exists!")
 		return
 	chosen_crystal.manifest(user)
-
-/obj/structure/destructible/clockwork/abstraction_crystal/eminence_act(mob/living/simple_animal/eminence/eminence)
-	manifest(eminence)
 
 /obj/structure/destructible/clockwork/abstraction_crystal/proc/manifest(mob/living/user)
 	if(!IS_SERVANT_OF_RATVAR(user))
@@ -222,27 +243,6 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	// Start processing
 	START_PROCESSING(SSobj, src)
 	processing = TRUE
-
-/obj/structure/destructible/clockwork/abstraction_crystal/Destroy()
-	GLOB.abstraction_crystals.Remove(key_word)
-	clear_ghost()
-
-	// Stop processing
-	if(processing)
-		STOP_PROCESSING(SSobj, src)
-		processing = FALSE
-	. = ..()
-
-/obj/structure/destructible/clockwork/abstraction_crystal/process()
-	if(QDELETED(linked_hologram) || QDELETED(activator) || activator.stat == DEAD)
-		clear_ghost()
-		return
-
-	// If someone other than the linked hologram holds any of the manifested items, delete the item
-	for(var/obj/item as anything in tracked_items)
-		if(!QDELETED(item))
-			if(ismob(item.loc) && item.loc != linked_hologram)
-				derez(item)
 
 /obj/structure/destructible/clockwork/abstraction_crystal/proc/clear_ghost()
 	if(dusting_hologram)

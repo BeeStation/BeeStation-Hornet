@@ -9,7 +9,13 @@
 	category = SPELLTYPE_PRESERVATION
 
 	/// List of possible choices
-	var/list/clockwork_armaments = list("Brass Spear","Brass Battlehammer","Brass Sword", "Brass Bow", "Standard Equipment (Unarmed)")
+	var/list/clockwork_armaments = list(
+		"Brass Spear",
+		"Brass Battlehammer",
+		"Brass Sword",
+		"Brass Bow",
+		"Standard Equipment (Unarmed)",
+	)
 
 /datum/clockcult/scripture/clockwork_armaments/on_invoke_success()
 	var/mob/living/living_invoker = invoker
@@ -41,4 +47,4 @@
 			armaments_bow.equip(living_invoker)
 		if("Standard Equipment (Unarmed)")
 			default.equip(living_invoker)
-	. = ..()
+	return ..()
