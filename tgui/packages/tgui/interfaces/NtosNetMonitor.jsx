@@ -21,7 +21,7 @@ const decodeHtmlDeep = (s) => decodeHtml(decodeHtml(s));
 
 export const NtosNetMonitor = (props) => {
   const { act, data } = useBackend();
-  const [tab_main, setTab_main] = useSharedState(context, 'tab_main', 1);
+  const [tab_main, setTab_main] = useSharedState('tab_main', 1);
   const {
     ntnetrelays,
     idsalarm,

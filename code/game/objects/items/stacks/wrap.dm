@@ -10,6 +10,7 @@
 	max_amount = 25
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/wrapping_paper
+	singular_name = "wrapping paper"
 
 /obj/item/stack/wrapping_paper/use(used, transfer, check = TRUE)
 	var/turf/T = get_turf(src)
@@ -20,6 +21,7 @@
 /obj/item/stack/wrapping_paper/small
 	desc = "Wrap packages with this festive paper to make gifts. This roll looks a bit skimpy."
 	amount = 10
+	merge_type = /obj/item/stack/wrapping_paper/small
 
 /* Package Wrap */
 

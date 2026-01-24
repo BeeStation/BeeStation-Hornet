@@ -65,8 +65,6 @@
 	switch(action)
 		if("jump")
 			if(MS)
-				if (isdatum(MS))
-					return
 				usr.forceMove(get_turf(MS))
 				. = TRUE
 		if("spawn")

@@ -130,6 +130,7 @@
 		if(wrapping_paper.use(3))
 			user.visible_message(span_notice("[user] wraps the package in festive paper!"))
 			giftwrapped = TRUE
+			update_appearance()
 		else
 			to_chat(user, span_warning("You need more paper!"))
 
