@@ -277,3 +277,5 @@
 2026-01-24:
   Rukofamicom:
   - admin: The destruction of station objects is now properly logged again
+  mrmanlikesbt:
+  - tweak: Much less artifacts spawn in maintenance now
