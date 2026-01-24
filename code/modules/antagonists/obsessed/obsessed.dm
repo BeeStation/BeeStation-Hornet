@@ -6,9 +6,8 @@
 	required_living_playtime = 4
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
-	count_against_dynamic_roll_chance = FALSE
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
-	var/datum/brain_trauma/special/obsessed/trauma	
+	var/datum/brain_trauma/special/obsessed/trauma
 
 /datum/antagonist/obsessed/New(datum/brain_trauma/special/obsessed/_trauma)
 	. = ..()
@@ -155,12 +154,12 @@
 
 	return report.Join("<br>")
 
-/datum/antagonist/obsessed/proc/update_obsession_icons_added(var/mob/living/carbon/human/obsessed)
+/datum/antagonist/obsessed/proc/update_obsession_icons_added(mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
 	creephud.join_hud(obsessed)
 	set_antag_hud(obsessed, "obsessed")
 
-/datum/antagonist/obsessed/proc/update_obsession_icons_removed(var/mob/living/carbon/human/obsessed)
+/datum/antagonist/obsessed/proc/update_obsession_icons_removed(mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
 	creephud.leave_hud(obsessed)
 	set_antag_hud(obsessed, null)

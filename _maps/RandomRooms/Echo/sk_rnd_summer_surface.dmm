@@ -430,9 +430,7 @@
 	},
 /area/template_noop)
 "gs" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/structure/frame,
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
@@ -937,9 +935,7 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 "nS" = (
@@ -1548,7 +1544,7 @@
 /area/template_noop)
 "yl" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "yq" = (
@@ -1734,7 +1730,7 @@
 "Bo" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/railing,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "Bw" = (
@@ -1782,7 +1778,7 @@
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "BM" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/template_noop)
 "BN" = (
@@ -3074,7 +3070,7 @@
 	name = "Engi Desk";
 	req_one_access_txt = "32;19"
 	},
-/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3263,7 +3259,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Yr" = (
@@ -3303,7 +3299,7 @@
 /area/template_noop)
 "YT" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/wrench{
 	pixel_x = -4;
 	pixel_y = 7

@@ -5,13 +5,14 @@
 	desc = "A small bottle."
 	icon_state = "bottle"
 	fill_icon_state = "bottle"
-	item_state = "atoxinbottle"
+	inhand_icon_state = "atoxinbottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
 	volume = 30
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
 	label_icon = "label_bottle"
 	isGlass = TRUE
 	throwforce = 10
+	custom_price = 20
 
 /obj/item/reagent_containers/cup/bottle/Initialize(mapload)
 	. = ..()
@@ -204,12 +205,6 @@
 	label_name = "Fluorosulfuric Acid"
 	desc = "A small bottle. Contains a small amount of fluorosulfuric acid."
 	list_reagents = list(/datum/reagent/toxin/acid/fluacid = 30)
-
-/obj/item/reagent_containers/cup/bottle/viralbase
-	name = "Highly potent Viral Base bottle"
-	label_name = "Highly potent Viral Base"
-	desc = "A small bottle. Contains a trace amount of a substance found by scientists that can be used to create extremely advanced diseases once exposed to uranium."
-	list_reagents = list(/datum/reagent/consumable/virus_food/viralbase = 1)
 
 /obj/item/reagent_containers/cup/bottle/capsaicin
 	name = "Capsaicin bottle"
@@ -468,14 +463,6 @@
 	label_name = "BVAK"
 	desc = "A small bottle containing Bio Virus Antidote Kit."
 	list_reagents = list(/datum/reagent/medicine/atropine = 5, /datum/reagent/medicine/epinephrine = 5, /datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/spaceacillin = 10)
-
-/obj/item/reagent_containers/cup/bottle/necropolis_seed
-	name = "bowl of blood"
-	label_name = "blood"
-	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust virologist may be able to unlock its full potential..."
-	icon_state = "mortar"
-	spawned_disease = /datum/disease/advance/random/necropolis
-	label_icon = null
 
 /obj/item/reagent_containers/cup/bottle/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"

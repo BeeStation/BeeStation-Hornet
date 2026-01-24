@@ -162,6 +162,7 @@
 	hud_type = "rev_head"
 	banning_key = ROLE_REV_HEAD
 	required_living_playtime = 4
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
 	var/give_hud = TRUE
@@ -193,11 +194,9 @@
 	if(!can_be_converted(rev_mind.current))
 		return FALSE
 	if(stun)
-		if(iscarbon(rev_mind.current))
-			var/mob/living/carbon/carbon_mob = rev_mind.current
-			carbon_mob.silent = max(carbon_mob.silent, 5)
-			carbon_mob.flash_act(1, 1)
-		rev_mind.current.Stun(100)
+		rev_mind.current.set_silence_if_lower(10 SECONDS)
+		rev_mind.current.flash_act(1, 1)
+		rev_mind.current.Stun(10 SECONDS)
 	rev_mind.add_antag_datum(/datum/antagonist/rev,rev_team)
 	rev_mind.special_role = ROLE_REV
 	return TRUE
@@ -304,7 +303,7 @@
 			var/list/datum/mind/nonhuman_promotable = list()
 			for(var/datum/mind/khrushchev in non_heads)
 				if(khrushchev.current && !khrushchev.current.incapacitated() && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
-					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
+					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/roundstart/revolutionary))
 						if(ishuman(khrushchev.current))
 							promotable += khrushchev
 						else
@@ -338,24 +337,11 @@
 
 /// Updates the state of the world depending on if revs won or loss.
 /// Returns who won, at which case this method should no longer be called.
-/// If revs_win_injection_amount is passed, then that amount of threat will be added if the revs win.
-/datum/team/revolution/proc/process_victory(revs_win_injection_amount)
+/datum/team/revolution/proc/process_victory()
 	if (check_rev_victory())
 		return REVOLUTION_VICTORY
 	else if (check_heads_victory())
 		return STATION_VICTORY
-
-/// Mutates the ticker to report that the revs have won
-/datum/team/revolution/proc/round_result(finished)
-	if (finished == REVOLUTION_VICTORY)
-		SSticker.mode_result = "win - heads killed"
-		SSticker.news_report = REVS_WIN
-	else if (finished == STATION_VICTORY)
-		SSticker.mode_result = "loss - rev heads killed"
-		SSticker.news_report = REVS_LOSE
-	else
-		SSticker.mode_result = "minor win - station forced to be abandoned"
-		SSticker.news_report = STATION_EVACUATED
 
 /datum/team/revolution/roundend_report()
 	if(!members.len && !ex_headrevs.len)
@@ -448,9 +434,6 @@
 			heads_report += "<td><A href='byond://?priv_msg=[N.key]'>PM</A></td></tr>"
 	heads_report += "</table>"
 	return common_part + heads_report
-
-/datum/team/revolution/is_gamemode_hero()
-	return SSticker.mode.name == "revolution"
 
 /datum/objective/revolution
 	name = "revolution"

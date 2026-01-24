@@ -6,14 +6,21 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 3
-	spawn_positions = 2
 	selection_color = "#bbe291"
 	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
 
-	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_BAR, ACCESS_KITCHEN)
+	base_access = list(
+		ACCESS_HYDROPONICS,
+		ACCESS_MORGUE,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
+	extra_access = list(
+		ACCESS_BAR,
+		ACCESS_KITCHEN,
+	)
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
@@ -28,12 +35,17 @@
 
 	minimal_lightup_areas = list(/area/hydroponics, /area/medical/morgue)
 
+	manuscript_jobs = list(
+		JOB_NAME_BOTANIST,
+		JOB_NAME_MEDICALDOCTOR // herbal remedist
+	)
+
 /datum/outfit/job/botanist
 	name = JOB_NAME_BOTANIST
 	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/botanist
-	belt = /obj/item/modular_computer/tablet/pda/service
+	belt = /obj/item/modular_computer/tablet/pda/preset/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron

@@ -12,7 +12,6 @@
 	idle_power_usage = 50
 	active_power_usage = 500
 	fair_market_price = 10
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0
@@ -127,7 +126,7 @@
 	if(HAS_TRAIT(target, TRAIT_NOSTASIS))
 		return
 	target.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
-	target.ExtinguishMob()
+	target.extinguish_mob()
 	update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)

@@ -6,13 +6,21 @@
 	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 
+/proc/flee_reebe()
+	for(var/mob/living/M in GLOB.mob_list)
+		if(!is_reebe(M.z))
+			continue
+		var/safe_place = find_safe_turf()
+		M.forceMove(safe_place)
+		if(!IS_SERVANT_OF_RATVAR(M))
+			M.SetSleeping(50)
+
 /obj/structure/destructible/clockwork/massive/celestial_gateway
 	name = "\improper Ark of the Clockwork Justiciar"
 	desc = "A massive, hulking amalgamation of parts. It seems to be maintaining a very unstable bluespace anomaly."
 	clockwork_desc = "Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
 		its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs."
 	max_integrity = 1000
-	max_hit_damage = 25
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
@@ -37,7 +45,19 @@
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Destroy()
 	if(GLOB.ratvar_risen)
 		return
-
+	destroyed = TRUE
+	hierophant_message("The Ark has been destroyed, Reebe is becoming unstable!", null, "<span class='large_brass'>")
+	for(var/mob/living/M in GLOB.player_list)
+		if(!is_reebe(M.z))
+			continue
+		if(IS_SERVANT_OF_RATVAR(M))
+			to_chat(M, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i>"))
+			continue
+		var/safe_place = find_safe_turf()
+		M.SetSleeping(50)
+		to_chat(M, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams before suddenly everything falls silent."))
+		to_chat(M, span_hypnophrase("The only thing you remember is suddenly feeling warm and safe."))
+		M.forceMove(safe_place)
 	STOP_PROCESSING(SSobj, src)
 	destroyed = TRUE
 
@@ -123,12 +143,11 @@
 	// Alert
 	visible_message(span_userdanger("[src] begins to pulse uncontrollably... you might want to run!"))
 	sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_disrupted.ogg'))
-
-	// Play sound and then explode
-	for(var/mob/player in GLOB.player_list)
-		if(is_reebe(player.z) || IS_SERVANT_OF_RATVAR(player))
-			player.playsound_local(player, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
-	addtimer(CALLBACK(src, PROC_REF(last_call)), 4 SECONDS)
+	for(var/mob/M in GLOB.player_list)
+		var/turf/T = get_turf(M)
+		if((T && T.get_virtual_z_level() == get_virtual_z_level()) || IS_SERVANT_OF_RATVAR(M))
+			M.playsound_local(M, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
+	addtimer(CALLBACK(src, PROC_REF(last_call)), 27)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/last_call()
 	explosion(src, 5, 10, 20, 30)
@@ -164,7 +183,6 @@
 * The gateway is opened and the crew is alerted. The crew has 3 minutes to prepare for the attack.
 */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
-	set_dynamic_high_impact_event("clockwork ark has opened")
 	activated = TRUE
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	apply_overlays()

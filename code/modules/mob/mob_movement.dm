@@ -108,7 +108,7 @@
 	if(!mob.Process_Spacemove(direct))
 		return FALSE
 
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, new_loc) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
 		return FALSE
 
 	//We are now going to move
@@ -126,18 +126,6 @@
 	//Basically an optional override for our glide size
 	//Sometimes you want to look like you're moving with a delay you don't actually have yet
 	visual_delay = 0
-
-	if(L.confused && L.m_intent == MOVE_INTENT_RUN && !HAS_TRAIT(L, TRAIT_CONFUSEIMMUNE))
-		var/newdir = 0
-		if(L.confused > 40)
-			newdir = pick(GLOB.alldirs)
-		else if(prob(L.confused * 1.5))
-			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-		else if(prob(L.confused * 3))
-			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-		if(newdir)
-			direct = newdir
-			new_loc = get_step(L, direct)
 
 	. = ..()
 
@@ -245,7 +233,7 @@
 						return
 				var/target = locate(locx,locy,mobloc.z)
 				if(target && !istype(target, /turf/closed/indestructible/cordon))
-					var/lineofturf = getline(mobloc, target)
+					var/lineofturf = get_line(mobloc, target)
 					if(locate(/turf/closed/indestructible/cordon) in lineofturf)
 						return //No phasing over cordons
 					L.forceMove(target)
@@ -358,10 +346,11 @@
 	return mob_negates_gravity() || ..()
 
 /**
-  * Does this mob ignore gravity
-  */
+ * Does this mob ignore gravity
+ */
 /mob/proc/mob_negates_gravity()
-	return FALSE
+	var/turf/turf = get_turf(src)
+	return !isgroundlessturf(turf) && HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY)
 
 /mob/newtonian_move(direction, instant = FALSE)
 	. = ..()
@@ -389,7 +378,7 @@
   *
   * (bound to 8) - repeated presses toggles through head - eyes - mouth
   */
-/client/verb/body_toggle_head()
+AUTH_CLIENT_VERB(body_toggle_head)
 	set name = "body-toggle-head"
 	set hidden = 1
 
@@ -410,7 +399,7 @@
 	selector.set_selected_zone(next_in_line, mob)
 
 ///Hidden verb to target the right arm, bound to 4
-/client/verb/body_r_arm()
+AUTH_CLIENT_VERB(body_r_arm)
 	set name = "body-r-arm"
 	set hidden = 1
 
@@ -421,7 +410,7 @@
 	selector.set_selected_zone(BODY_ZONE_R_ARM, mob)
 
 ///Hidden verb to target the chest, bound to 5
-/client/verb/body_chest()
+AUTH_CLIENT_VERB(body_chest)
 	set name = "body-chest"
 	set hidden = 1
 
@@ -432,7 +421,7 @@
 	selector.set_selected_zone(BODY_ZONE_CHEST, mob)
 
 ///Hidden verb to target the left arm, bound to 6
-/client/verb/body_l_arm()
+AUTH_CLIENT_VERB(body_l_arm)
 	set name = "body-l-arm"
 	set hidden = 1
 
@@ -443,7 +432,7 @@
 	selector.set_selected_zone(BODY_ZONE_L_ARM, mob)
 
 ///Hidden verb to target the right leg, bound to 1
-/client/verb/body_r_leg()
+AUTH_CLIENT_VERB(body_r_leg)
 	set name = "body-r-leg"
 	set hidden = 1
 
@@ -454,7 +443,7 @@
 	selector.set_selected_zone(BODY_ZONE_R_LEG, mob)
 
 ///Hidden verb to target the groin, bound to 2
-/client/verb/body_groin()
+AUTH_CLIENT_VERB(body_groin)
 	set name = "body-groin"
 	set hidden = 1
 
@@ -465,7 +454,7 @@
 	selector.set_selected_zone(BODY_ZONE_PRECISE_GROIN, mob)
 
 ///Hidden verb to target the left leg, bound to 3
-/client/verb/body_l_leg()
+AUTH_CLIENT_VERB(body_l_leg)
 	set name = "body-l-leg"
 	set hidden = 1
 
@@ -475,7 +464,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_L_LEG, mob)
 
-/client/verb/body_up()
+AUTH_CLIENT_VERB(body_up)
 	set name = "body-up"
 	set hidden = 1
 
@@ -489,7 +478,7 @@
 		if (BODY_GROUP_ARMS, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 			selector.set_selected_zone(BODY_GROUP_CHEST_HEAD, mob)
 
-/client/verb/body_down()
+AUTH_CLIENT_VERB(body_down)
 	set name = "body-down"
 	set hidden = 1
 
@@ -504,7 +493,7 @@
 			selector.set_selected_zone(BODY_GROUP_LEGS, mob)
 
 ///Verb to toggle the walk or run status
-/client/verb/toggle_walk_run()
+AUTH_CLIENT_VERB(toggle_walk_run)
 	set name = "toggle-walk-run"
 	set hidden = TRUE
 	set instant = TRUE
@@ -529,7 +518,8 @@
 /mob/verb/up()
 	set name = "Move Upwards"
 	set category = "IC"
-
+	if(isnewplayer(src))
+		return
 	if(zMove(UP, TRUE))
 		to_chat(src, span_notice("You move upwards."))
 
@@ -537,7 +527,8 @@
 /mob/verb/down()
 	set name = "Move Down"
 	set category = "IC"
-
+	if(isnewplayer(src))
+		return
 	if(zMove(DOWN, TRUE))
 		to_chat(src, span_notice("You move down."))
 
@@ -563,6 +554,4 @@
 		pipe.relaymove(src, dir)
 	return TRUE
 
-/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
-/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
-	return FALSE
+

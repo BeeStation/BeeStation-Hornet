@@ -68,6 +68,19 @@
 
 #define SLOTS_AMT 20 // Keep this up to date!
 
+DEFINE_BITFIELD(no_equip_flags, list(
+	"EXOSUIT" = ITEM_SLOT_OCLOTHING,
+	"JUMPSUIT" = ITEM_SLOT_ICLOTHING,
+	"GLOVES" = ITEM_SLOT_GLOVES,
+	"GLASSES" = ITEM_SLOT_EYES,
+	"EARPIECES" = ITEM_SLOT_EARS,
+	"MASKS" = ITEM_SLOT_MASK,
+	"HATS" = ITEM_SLOT_HEAD,
+	"SHOES" = ITEM_SLOT_FEET,
+	"BACKPACKS" = ITEM_SLOT_BACK,
+	"TIES" = ITEM_SLOT_NECK,
+))
+
 //SLOT GROUP HELPERS
 #define ITEM_SLOT_POCKETS (ITEM_SLOT_LPOCKET|ITEM_SLOT_RPOCKET)
 
@@ -86,11 +99,15 @@
 #define HIDEFACIALHAIR (1<<9)
 #define HIDENECK (1<<10)
 /// for wigs, only obscures the headgear
-//#define HIDEHEADGEAR (1<<11)
+#define HIDEHEADGEAR (1<<11)
 ///for lizard snouts, because some HIDEFACE clothes don't actually conceal that portion of the head.
 #define HIDESNOUT (1<<12)
-///hides mutant/moth wings, does not apply to functional wings
-//#define HIDEMUTWINGS (1<<13)
+///hides mutant/moth wings
+#define HIDEMUTWINGS (1<<13)
+///hides belts and riggings
+#define HIDEBELT (1<<14)
+///hides antennae
+#define HIDEANTENNAE (1<<15)
 
 
 //bitflags for clothing coverage - also used for limbs
@@ -166,7 +183,8 @@ GLOBAL_LIST_INIT(advanced_hardsuit_allowed, typecacheof(list(
 	/obj/item/melee/tonfa,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
-	/obj/item/tank/internals)))
+	/obj/item/tank/internals,
+)))
 
 GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/ammo_box,
@@ -179,9 +197,10 @@ GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/melee/tonfa,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
-	/obj/item/tank/internals)))
+	/obj/item/tank/internals,
+)))
 
-GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
+GLOBAL_LIST_INIT(detective_vest_allowed, (list(
 	/obj/item/ammo_box,
 	/obj/item/ammo_casing,
 	/obj/item/detective_scanner,
@@ -200,7 +219,7 @@ GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman)))
 
-GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
+GLOBAL_LIST_INIT(security_vest_allowed, (list(
 	/obj/item/ammo_box,
 	/obj/item/ammo_casing,
 	/obj/item/flashlight,
@@ -213,10 +232,11 @@ GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
 	/obj/item/melee/classic_baton/police/telescopic,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
+	/obj/item/storage/belt/sabre/carbon_fiber,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman)))
 
-GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
+GLOBAL_LIST_INIT(security_wintercoat_allowed, (list(
 	/obj/item/ammo_box,
 	/obj/item/ammo_casing,
 	/obj/item/flashlight,

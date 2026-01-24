@@ -47,13 +47,13 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	icon_state = "swarmer_console"
 	health = 375
 	maxHealth = 375 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	gps_name = "Hungry Signal"
 	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
 	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
 	score_achievement_type = /datum/award/score/swarmer_beacon_score
 	faction = list(FACTION_MINING, FACTION_BOSS, FACTION_SWARMER)
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	stop_automated_movement = TRUE
 	wander = FALSE
 	layer = BELOW_MOB_LAYER
@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	maxHealth = 20
 	wander = TRUE
 	faction = list(FACTION_SWARMER, FACTION_MINING)
-	weather_immunities = list("ash") //wouldn't be fun otherwise
+	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE)
 	AIStatus = AI_ON
 	ranged_cooldown_time = 20
 	melee_damage = 15
@@ -170,7 +170,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	search_objects = 1
 	attack_all_objects = TRUE //attempt to nibble everything
 	lose_patience_timeout = 150
-	var/static/list/sharedWanted = typecacheof(list(/turf/closed/mineral, /turf/closed/wall)) //eat rocks and walls
+	//eat rocks and walls
+	var/static/list/sharedWanted = typecacheof(list(
+		/turf/closed/mineral,
+		/turf/closed/wall,
+	))
 	var/static/list/sharedIgnore = list()
 
 //This handles viable things to eat/attack

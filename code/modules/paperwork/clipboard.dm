@@ -5,7 +5,7 @@
 	name = "clipboard"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "clipboard"
-	item_state = "clipboard"
+	inhand_icon_state = "clipboard"
 	worn_icon_state = "clipboard"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -178,3 +178,14 @@
 				paper.rename()
 				update_icon()
 				. = TRUE
+
+/obj/item/clipboard/preloaded
+	var/list/papers_to_add = list(/obj/item/paper,/obj/item/paper,/obj/item/paper) //Default to 3 sheets of blank paper
+
+/obj/item/clipboard/preloaded/Initialize(mapload)
+	//Fill the clipboard with new papers
+	for(var/obj/item/paper/paper in papers_to_add)
+		if(!toppaper_ref)
+			toppaper_ref = WEAKREF(paper)
+
+	return ..()

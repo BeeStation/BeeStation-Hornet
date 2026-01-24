@@ -2,7 +2,7 @@
 	name = "soulstone shard"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	layer = HIGH_OBJ_LAYER
@@ -46,6 +46,10 @@
 	name = "mysterious old shard"
 	old_shard = TRUE
 
+/obj/item/soulstone/vampire
+	theme = THEME_WIZARD
+	required_role = /datum/antagonist/vassal
+
 /obj/item/soulstone/pickup(mob/living/user)
 	..()
 	if(!role_check(user))
@@ -71,9 +75,7 @@
 	..()
 	if(istype(S))
 		// Things that *really should always* happen to the shade when it comes out should go here.
-		S.status_flags &= ~GODMODE
-		REMOVE_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
-		REMOVE_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
+		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
@@ -91,7 +93,7 @@
 
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!role_check(user))
-		user.Unconscious(100)
+		user.Unconscious(10 SECONDS)
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 	if(spent)
@@ -99,14 +101,14 @@
 		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
-	if(M.mind && !M.mind.hasSoul)
-		to_chat(user, span_warning("That person has no soul!"))
-		return
 	if(IS_CULTIST(M) && IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"Come now, do not capture your brethren's soul.\""))
 		return
 	if(theme == THEME_HOLY && IS_CULTIST(user))
 		hot_potato(user)
+		return
+	if(HAS_TRAIT(M, TRAIT_NO_SOUL))
+		to_chat(user, span_warning("This body does not possess a soul to capture."))
 		return
 	log_combat(user, M, "captured [M.name]'s soul", src)
 	transfer_soul("VICTIM", M, user)
@@ -157,7 +159,7 @@
 
 /obj/structure/constructshell/examine(mob/user)
 	. = ..()
-	if(IS_CULTIST(user) || iswizard(user) || user.stat == DEAD)
+	if(IS_CULTIST(user) || IS_WIZARD(user) || user.stat == DEAD)
 		. += span_cult("A construct shell, used to house bound souls from a soulstone.\n"+\
 		"Placing a soulstone with a soul into this shell allows you to produce your choice of the following:\n"+\
 		"An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.\n"+\
@@ -167,9 +169,11 @@
 /obj/structure/constructshell/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
-		if(!IS_CULTIST(user) && !iswizard(user) && !SS.theme == THEME_HOLY)
-			to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell. It would be wise to be rid of this quickly."))
-			user.Dizzy(30)
+		if(!IS_CULTIST(user) && !IS_WIZARD(user) && !SS.theme == THEME_HOLY)
+			to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to place [SS] into the shell. It would be wise to be rid of this quickly."))
+			if(isliving(user))
+				var/mob/living/living_user = user
+				living_user.set_dizzy_if_lower(1 MINUTES)
 			return
 		if(SS.theme == THEME_HOLY && IS_CULTIST(user))
 			SS.hot_potato(user)
@@ -232,13 +236,13 @@
 				to_chat(user, "[span_userdanger("Capture failed!")]: The soulstone is full! Free an existing soul to make room.")
 			else
 				T.forceMove(src) //put shade in stone
-				T.status_flags |= GODMODE
+				ADD_TRAIT(T, TRAIT_GODMODE, SOULSTONE_TRAIT)
 				T.mobility_flags = NONE
 				T.health = T.maxHealth
 				if(theme == THEME_HOLY)
 					icon_state = "purified_soulstone2"
 					if(IS_CULTIST(T))
-						SSticker.mode.remove_cultist(T.mind, FALSE, FALSE)
+						T.mind.remove_antag_datum(/datum/antagonist/cult)
 				if(theme == THEME_WIZARD)
 					icon_state = "mystic_soulstone2"
 				if(theme == THEME_CULT)
@@ -258,10 +262,9 @@
 
 				make_new_construct_from_class(construct_class, theme, A, user, FALSE, T.loc)
 
-				for(var/datum/mind/B in SSticker.mode.cult)
-					if(B == A.mind)
-						SSticker.mode.cult -= A.mind
-						SSticker.mode.update_cult_icons_removed(A.mind)
+				for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+					if(cultist.owner == A.mind)
+						cultist.remove_antag_hud(ANTAG_HUD_CULT, cultist.owner.current)
 				qdel(T)
 				qdel(src)
 			else
@@ -325,8 +328,8 @@
 		SM.Grant(newstruct)
 	newstruct.key = target.key
 	var/atom/movable/screen/alert/bloodsense/BS
-	if(newstruct.mind && ((stoner && IS_CULTIST(stoner)) || cultoverride) && SSticker && SSticker.mode)
-		SSticker.mode.add_cultist(newstruct.mind, 0)
+	if(newstruct.mind && ((stoner && IS_CULTIST(stoner)) || cultoverride))
+		newstruct.mind.add_antag_datum(/datum/antagonist/cult)
 	if(IS_CULTIST(stoner) || cultoverride)
 		to_chat(newstruct, "<b>You are still bound to serve the cult[stoner ? " and [stoner]":""], follow [stoner ? stoner.p_their() : "their"] orders and help [stoner ? stoner.p_them() : "them"] complete [stoner ? stoner.p_their() : "their"] goals at all costs.</b>")
 	else if(stoner)
@@ -346,9 +349,8 @@
 	T.invisibility = INVISIBILITY_ABSTRACT
 	T.dust_animation()
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
-	S.status_flags |= GODMODE //So they won't die inside the stone somehow
-	ADD_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
-	ADD_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
+	//So they won't die inside the stone somehow
+	S.add_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
 	S.key = shade_controller.key
@@ -359,7 +361,7 @@
 	if(user)
 		S.faction |= "[REF(user)]" //Add the master as a faction, allowing inter-mob cooperation
 	if(user && IS_CULTIST(user))
-		SSticker.mode.add_cultist(S.mind, 0)
+		S.mind.add_antag_datum(/datum/antagonist/cult)
 	S.cancel_camera()
 	name = "soulstone: Shade of [T.real_name]"
 	switch(theme)
@@ -384,15 +386,14 @@
 	chosen_ghost = T.get_ghost(TRUE,TRUE) //Try to grab original owner's ghost first
 
 	if(!chosen_ghost || !chosen_ghost.client) //Failing that, we grab a ghosts
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-			check_jobban = ROLE_CULTIST,
-			poll_time = 10 SECONDS,
-			checked_target = T,
-			ignore_category = POLL_IGNORE_CULT_SHADE,
-			jump_target = T,
-			role_name_text = "shade",
-			alert_pic = /mob/living/simple_animal/shade,
-		)
+		var/datum/poll_config/config = new()
+		config.check_jobban = ROLE_CULTIST
+		config.poll_time = 10 SECONDS
+		config.ignore_category = POLL_IGNORE_CULT_SHADE
+		config.jump_target = T
+		config.role_name_text = "shade"
+		config.alert_pic = /mob/living/simple_animal/shade
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, T)
 
 		if(candidate)
 			chosen_ghost = candidate

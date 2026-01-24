@@ -2,7 +2,7 @@
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle. Walking carefully lets the user gain better traction."
 	name = "magboots"
 	icon_state = "magboots0"
-	item_state = "magboots"
+	inhand_icon_state = "magboots"
 	var/magboot_state = "magboots"
 	var/magpulse = 0
 	var/slowdown_active = 2
@@ -49,10 +49,8 @@
 	icon_state = "[magboot_state][magpulse]"
 	update_gravity_trait(user)
 	user.refresh_gravity()
+	user.update_equipment_speed_mods()
 	update_action_buttons()
-
-/obj/item/clothing/shoes/magboots/negates_gravity()
-	return isspaceturf(get_turf(src)) ? FALSE : magpulse //We don't mimick gravity on space turfs
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -98,23 +96,14 @@
 	energy = 25
 	bomb = 50
 	bio = 30
-	rad = 30
 	fire = 90
 	acid = 50
 	stamina = 30
 	bleed = 40
 
-/obj/item/clothing/shoes/magboots/commando/attack_self(mob/user) //Code for the passive no-slip of the commando magboots to always apply, kind of a shit code solution though.
+/obj/item/clothing/shoes/magboots/commando/attack_self(mob/user)
 	. = ..()
-	if(magpulse)
-		slowdown = SHOES_SLOWDOWN
-	else
-		slowdown = slowdown_active
-	magpulse = !magpulse
-	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, span_notice("You [magpulse ? "enable" : "disable"] the mag-pulse traction system."))
-	user.update_inv_shoes()
-	update_action_buttons()
+	clothing_flags |= NOSLIP
 
 /obj/item/clothing/shoes/magboots/crushing
 	desc = "Normal looking magboots that are altered to increase magnetic pull to crush anything underfoot."

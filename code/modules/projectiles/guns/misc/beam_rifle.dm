@@ -13,7 +13,7 @@
 	desc = "An energy-based anti material marksman rifle that uses highly charged particle beams moving at extreme velocities to decimate whatever is unfortunate enough to be targeted by one." + span_boldnotice("Hold down left click while scoped to aim, when weapon is fully aimed (Tracer goes from red to green as it charges), release to fire. Moving while aiming or changing where you're pointing at while aiming will delay the aiming process depending on how much you changed.")
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "esniper"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = null
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 	slot_flags = ITEM_SLOT_BACK
@@ -27,7 +27,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/beam_rifle/hitscan)
-	cell_type = /obj/item/stock_parts/cell/beam_rifle
+	gun_charge = 500 KILOWATT //This is not a gun you use lightly
 	canMouseDown = TRUE
 	pin = null
 	var/aiming = FALSE
@@ -71,7 +71,7 @@
 	var/current_zoom_x = 0
 	var/current_zoom_y = 0
 
-	var/datum/action/item_action/zoom_lock_action/zoom_lock_action
+	actions_types = list(/datum/action/item_action/zoom_lock_action)
 	var/mob/listeningTo
 
 	var/obj/aiming_target
@@ -79,7 +79,7 @@
 
 /obj/item/gun/energy/beam_rifle/debug
 	delay = 0
-	cell_type = /obj/item/stock_parts/cell/infinite
+	gun_charge = 500 GIGAWATT // Something completely absurd (infinite)
 	aiming_time = 0
 	recoil = 0
 	pin = /obj/item/firing_pin
@@ -97,7 +97,7 @@
 	set_user()
 
 /obj/item/gun/energy/beam_rifle/ui_action_click(mob/user, actiontype)
-	if(istype(actiontype, zoom_lock_action))
+	if(istype(actiontype, /datum/action/item_action/zoom_lock_action))
 		zoom_lock++
 		if(zoom_lock > 3)
 			zoom_lock = 0
@@ -126,6 +126,7 @@
 	current_user.client.view_size.setTo(zoom_target_view_increase)
 	zoom_current_view_increase = zoom_target_view_increase
 	set_autozoom_pixel_offsets_immediate(zooming_angle)
+	animate(current_user.client, pixel_x = current_zoom_x, pixel_y = current_zoom_y)
 
 /obj/item/gun/energy/beam_rifle/proc/start_zooming()
 	if(zoom_lock == ZOOM_LOCK_OFF)
@@ -164,7 +165,6 @@
 	fire_delay = delay
 	current_tracers = list()
 	START_PROCESSING(SSfastprocess, src)
-	zoom_lock_action = new(src)
 
 /obj/item/gun/energy/beam_rifle/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -291,25 +291,19 @@
 	process_aim()
 	if(aiming_time_left <= aiming_time_fire_threshold && check_user())
 		sync_ammo()
-		afterattack(object, M, FALSE, params, passthrough = TRUE)
+		pull_trigger(object, M, params, passthrough = TRUE)
 	stop_aiming()
 	QDEL_LIST(current_tracers)
 	return ..()
 
-/obj/item/gun/energy/beam_rifle/afterattack(atom/target, mob/living/user, flag, params, passthrough = FALSE)
-	if(flag) //It's adjacent, is the user, or is on the user's person
-		if(target in user.contents) //can't shoot stuff inside us.
-			return
-		if(!ismob(target) || user.combat_mode) //melee attack
-			return
-		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
-			return
+/obj/item/gun/energy/beam_rifle/pull_trigger(atom/target, mob/living/user, params, aimed, passthrough = FALSE)
 	if(!passthrough && (aiming_time > aiming_time_fire_threshold))
-		return
+		return FALSE
 	if(lastfire > world.time + delay)
-		return
+		return FALSE
 	lastfire = world.time
-	. = ..()
+	if (!..())
+		return FALSE
 	stop_aiming()
 
 /obj/item/gun/energy/beam_rifle/proc/sync_ammo()
@@ -403,7 +397,7 @@
 /obj/item/ammo_casing/energy/beam_rifle/hitscan
 	projectile_type = /obj/projectile/beam/beam_rifle/hitscan
 	select_name = "beam"
-	e_cost = 10000
+	e_cost = 100 KILOWATT
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 
 /obj/projectile/beam/beam_rifle
@@ -414,7 +408,7 @@
 	damage_type = BURN
 	armor_flag = ENERGY
 	range = 150
-	jitter = 10
+	jitter = 20 SECONDS
 	var/obj/item/gun/energy/beam_rifle/gun
 	var/structure_pierce_amount = 0				//All set to 0 so the gun can manually set them during firing.
 	var/structure_bleed_coeff = 0

@@ -22,7 +22,6 @@
 	refill_canister = /obj/item/vending_refill/cola
 	default_price = 5
 	extra_price = 60
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 
 /obj/item/vending_refill/cola
@@ -90,6 +89,16 @@
 		/obj/item/reagent_containers/cup/soda_cans/shamblers = 10
 		)
 	product_slogans = "~Shake me up some of that Shambler's Juice!~"
-	product_ads = "Refreshing!;Jyrbv dv lg jfdv fw kyrk Jyrdscvi'j Alztv!;Over 1 trillion souls drank!;Thirsty? Nyp efk uizeb kyv uribevjj?;Kyv Jyrdscvi uizebj kyv ezxyk!;Drink up!;Krjkp."
+	product_ads = "Refreshing!;Thirsty for DNA? Satiate your craving!;Over 1 trillion souls drank!;Made with real DNA!;The hivemind demands your thirst!;Drink up!;Absorb your thirst."
 	light_mask = "shamblers-light-mask"
 	light_color = COLOR_MOSTLY_PURE_PINK
+
+/obj/machinery/vending/cola/shamblers/Initialize(mapload)
+	. = ..()
+	var/datum/language_holder/ling_languages = get_language_holder()
+	ling_languages.selected_language = ling_languages.get_random_spoken_language()
+
+/obj/machinery/vending/cola/shamblers/speak(message)
+	. = ..()
+	var/datum/language_holder/ling_languages = get_language_holder()
+	ling_languages.selected_language = ling_languages.get_random_spoken_language()

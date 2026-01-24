@@ -40,7 +40,7 @@
 
 /obj/structure/destructible/cult/examine_status(mob/user)
 	if(IS_CULTIST(user) || isobserver(user))
-		var/t_It = p_they(TRUE)
+		var/t_It = p_They()
 		var/t_is = p_are()
 		return span_cult("[t_It] [t_is] at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.")
 	return ..()
@@ -211,7 +211,8 @@
 				/turf/open/floor/engine/cult,
 				/turf/open/space,
 				/turf/open/lava,
-				/turf/open/chasm))
+				/turf/open/chasm,
+			))
 			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
 				continue
 			else
@@ -292,5 +293,5 @@
 /obj/effect/gateway/singularity_act()
 	return
 
-/obj/effect/gateway/singularity_pull()
+/obj/effect/gateway/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return

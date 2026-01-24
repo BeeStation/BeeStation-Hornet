@@ -13,7 +13,7 @@
 	pixel_x = -5;
 	pixel_y = -3
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -49,17 +49,13 @@
 	pixel_y = 9
 	},
 /obj/item/reagent_containers/cup/bottle/mutagen,
-/obj/item/reagent_containers/cup/glass/bottle/virusfood{
-	pixel_x = 6;
-	pixel_y = 4
-	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /obj/item/reagent_containers/cup/bottle/synaptizine,
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/teratoma/major,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/medical/teratoma/major,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/plating,
 /area/template_noop)
 

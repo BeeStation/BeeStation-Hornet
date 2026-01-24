@@ -4,10 +4,7 @@
 /datum/unit_test/mutant_organs
 
 /datum/unit_test/mutant_organs/Run()
-	var/list/ignore = list(
-		/datum/species/dullahan,
-	)
-	var/list/species = subtypesof(/datum/species) - ignore
+	var/list/species = subtypesof(/datum/species)
 	var/static/list/organs_we_care_about = list(
 		ORGAN_SLOT_BRAIN,
 		ORGAN_SLOT_HEART,

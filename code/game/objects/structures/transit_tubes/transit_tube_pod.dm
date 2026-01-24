@@ -69,7 +69,7 @@
 			if(EXPLODE_LIGHT)
 				SSexplosions.low_mov_atom += thing
 
-/obj/structure/transit_tube_pod/singularity_pull(S, current_size)
+/obj/structure/transit_tube_pod/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
@@ -102,7 +102,7 @@
 	var/datum/move_loop/engine = SSmove_manager.force_move_dir(src, dir, 0, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	RegisterSignal(engine, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(before_pipe_transfer))
 	RegisterSignal(engine, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(after_pipe_transfer))
-	RegisterSignal(engine, COMSIG_PARENT_QDELETING, PROC_REF(engine_finish))
+	RegisterSignal(engine, COMSIG_QDELETING, PROC_REF(engine_finish))
 	calibrate_engine(engine)
 
 /obj/structure/transit_tube_pod/proc/before_pipe_transfer(datum/move_loop/move/source)

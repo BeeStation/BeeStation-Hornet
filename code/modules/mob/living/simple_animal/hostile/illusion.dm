@@ -6,7 +6,7 @@
 	icon_living = "static"
 	icon_dead = "null"
 	gender = NEUTER
-	mob_biotypes = list()
+	mob_biotypes = NONE
 	melee_damage = 5
 	combat_mode = TRUE
 	attack_verb_continuous = "gores"
@@ -72,3 +72,11 @@
 
 /mob/living/simple_animal/hostile/illusion/escape/AttackingTarget()
 	return FALSE
+
+/mob/living/simple_animal/hostile/illusion/mirage
+	AIStatus = AI_OFF
+	density = FALSE
+
+/mob/living/simple_animal/hostile/illusion/mirage/death(gibbed)
+	do_sparks(rand(3, 6), FALSE, src)
+	return ..()

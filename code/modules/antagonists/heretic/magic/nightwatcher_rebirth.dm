@@ -3,8 +3,8 @@
 	desc = "A spell that extinguishes you drains nearby heathens engulfed in flames of their life force, \
 		healing you for each victim drained. Those in critical condition \
 		will have the last of their vitality drained, killing them."
-	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	background_icon_state = "bg_heretic"
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "smoke"
 
 	school = SCHOOL_FORBIDDEN
@@ -15,7 +15,7 @@
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 /datum/action/spell/aoe/fiery_rebirth/on_cast(mob/living/carbon/human/user, atom/target)
-	user.ExtinguishMob()
+	user.extinguish_mob()
 	return ..()
 
 /datum/action/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)

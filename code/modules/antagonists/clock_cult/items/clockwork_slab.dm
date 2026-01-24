@@ -71,9 +71,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		buffer = null
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
-	. = ..()
 	if(!IS_SERVANT_OF_RATVAR(user))
 		return
+	. = ..()
 
 	// Grant quickbound spells
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)

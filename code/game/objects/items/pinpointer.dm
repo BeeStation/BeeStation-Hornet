@@ -7,7 +7,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "pinpointer"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -118,7 +118,7 @@
 		z_level_direction = ""
 
 	// getting xy result
-	if(get_dist_euclidian(here,there) <= minimum_range)
+	if(get_dist_euclidean(here,there) <= minimum_range)
 		pin_xy_result = "direct"
 	else
 		setDir(get_dir(here, there))
@@ -200,7 +200,7 @@
 	desc = "A handheld tracking device that points to crew suit sensors."
 	icon_state = "pinpointer_crew"
 	worn_icon_state = "pinpointer_crew"
-	custom_price = 150
+	custom_price = 100
 	jamming_resistance = JAMMER_PROTECTION_SENSOR_NETWORK
 	var/has_owner = FALSE
 	var/pinpointer_owner = null

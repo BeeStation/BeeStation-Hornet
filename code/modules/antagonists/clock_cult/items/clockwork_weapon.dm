@@ -5,13 +5,12 @@
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	worn_icon_state = "baguette"
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | ISWEAPON
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
-	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_upgrade_walk = TRUE
+	canblock = TRUE	//God blocking is actual aids to deal with, I am sorry for putting this here
+
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	item_flags = ISWEAPON
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
@@ -59,7 +58,7 @@
 		return ..()
 
 	// Special hit effect
-	if(!QDELETED(target) && target.stat != DEAD && !IS_SERVANT_OF_RATVAR(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+	if(target.stat != DEAD && !IS_SERVANT_OF_RATVAR(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		hit_effect(target, user)
 
 	// Buff the weapon's force based off how far it is from the gateway
@@ -124,7 +123,7 @@
 	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
 
-/obj/item/clockwork/weapon/brass_battlehammer/ComponentInitialize()
+/obj/item/clockwork/weapon/brass_battlehammer/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded = 15, force_wielded = 28, block_power_wielded = 25)
 

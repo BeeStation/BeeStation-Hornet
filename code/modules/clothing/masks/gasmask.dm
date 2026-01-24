@@ -5,11 +5,12 @@
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_NORMAL
-	item_state = "gas_alt"
+	inhand_icon_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	armor_type = /datum/armor/mask_gas
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
+	custom_price = 50
 
 
 /datum/armor/mask_gas
@@ -20,7 +21,7 @@
 	desc = "Oooh, gold and green. Fancy! This should help as you sit in your office."
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "gas_centcom"
-	item_state = "gas_centcom"
+	inhand_icon_state = "gas_centcom"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 // **** Welding gas mask ****
@@ -30,7 +31,7 @@
 	desc = "A gas mask with built-in welding goggles and a face shield. Looks like a skull - clearly designed by a nerd."
 	icon_state = "weldingmask"
 	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=2000)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	armor_type = /datum/armor/gas_welding
 	actions_types = list(/datum/action/item_action/toggle)
@@ -65,20 +66,21 @@
 	name = "plague doctor mask"
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
-	item_state = "gas_mask"
+	inhand_icon_state = "gas_mask"
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "syndicate"
 	strip_delay = 60
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	clothing_flags = MASKINTERNALS
 	icon_state = "clown"
-	item_state = "clown_hat"
+	inhand_icon_state = "clown_hat"
 	dye_color = "clown"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
@@ -113,7 +115,7 @@
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
 		icon_state = options[choice]
-		user.update_inv_wear_mask()
+		user.update_worn_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.update_buttons()
@@ -125,7 +127,7 @@
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
 	clothing_flags = MASKINTERNALS
 	icon_state = "sexyclown"
-	item_state = "sexyclown"
+	inhand_icon_state = "sexyclown"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
@@ -134,7 +136,7 @@
 	desc = "The traditional mime's mask. It has an eerie facial posture."
 	clothing_flags = MASKINTERNALS
 	icon_state = "mime"
-	item_state = "mime"
+	inhand_icon_state = "mime"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
@@ -164,7 +166,7 @@
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
 		icon_state = options[choice]
-		user.update_inv_wear_mask()
+		user.update_worn_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.update_buttons()
@@ -176,7 +178,7 @@
 	desc = "A mask used when acting as a monkey."
 	clothing_flags = MASKINTERNALS
 	icon_state = "monkeymask"
-	item_state = "monkeymask"
+	inhand_icon_state = "monkeymask"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
@@ -185,14 +187,14 @@
 	desc = "A traditional female mime's mask."
 	clothing_flags = MASKINTERNALS
 	icon_state = "sexymime"
-	item_state = "sexymime"
+	inhand_icon_state = "sexymime"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
 	icon_state = "swat"
-	item_state = "swat"
+	inhand_icon_state = "swat"
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
@@ -217,7 +219,7 @@
 	name = "tiki mask"
 	desc = "A creepy wooden mask. Surprisingly expressive for a poorly carved bit of wood."
 	icon_state = "tiki_eyebrow"
-	item_state = "tiki_eyebrow"
+	inhand_icon_state = "tiki_eyebrow"
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.25)
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
@@ -246,7 +248,7 @@
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
-		user.update_inv_wear_mask()
+		user.update_worn_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.update_buttons()
@@ -260,7 +262,7 @@
 /obj/item/clothing/mask/gas/old
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
 	icon_state = "gas_alt_old"
-	item_state = "gas_alt_old"
+	inhand_icon_state = "gas_alt_old"
 
 /obj/item/clothing/mask/gas/old/modulator
 	name = "modified gas mask"

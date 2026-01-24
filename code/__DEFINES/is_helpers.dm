@@ -24,7 +24,11 @@ GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA
 #define iscolortext(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
 
 // simple check whether or not a player is a guest using their key
-#define IS_GUEST_KEY(key)	(findtextEx(key, "Guest-", 1, 7))
+#define IS_GUEST_KEY(key) (findtextEx(key, "Guest-", 1, 7))
+/// use client.logged_in where possible
+#define IS_PREAUTH_KEY(key) (findtextEx(key, "Guest-preauth", 1, 14))
+/// use client.logged_in where possible
+#define IS_PREAUTH_CKEY(key) (findtextEx(key, "guestpreauth", 1, 13))
 
 //Turfs
 //#define isturf(A) (istype(A, /turf)) This is actually a byond built-in. Added here for completeness sake.
@@ -34,8 +38,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/open/chasm,
 	/turf/open/lava,
 	/turf/open/water,
-	/turf/open/openspace
-	)))
+	/turf/open/openspace,
+)))
 
 #define isgroundlessturf(A) (is_type_in_typecache(A, GLOB.turfs_without_ground))
 
@@ -79,6 +83,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
 
+#define ishumantesting(A) (istype(A, /mob/living/carbon/human/consistent) || istype(A, /mob/living/carbon/human/dummy))
+
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
@@ -100,8 +106,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ishumanbasic(A) (is_species(A, /datum/species/human) && !is_species(A, /datum/species/human/krokodil_addict))
 #define iscatperson(A) (is_species(A, /datum/species/human/felinid) )
 #define isethereal(A) (is_species(A, /datum/species/ethereal))
-#define isvampire(A) (is_species(A,/datum/species/vampire))
-#define isdullahan(A) (is_species(A, /datum/species/dullahan))
 #define isipc(A) (is_species(A, /datum/species/ipc))
 #define isapid(A) (is_species(A, /datum/species/apid))
 #define isandroid(A) (is_species(A, /datum/species/android))
@@ -229,7 +233,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismedicalmecha(A) (istype(A, /obj/vehicle/sealed/mecha/medical))
 
-#define ismopable(A) (A && (A.layer <= HIGH_SIGIL_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
+#define ismopable(A) (A && (A.layer <= FLOOR_CLEAN_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
 
 #define isorgan(A) (istype(A, /obj/item/organ))
 
@@ -239,7 +243,8 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
 	/obj/item/reagent_containers/syringe,
-	/obj/item/kitchen/fork)))
+	/obj/item/kitchen/fork,
+)))
 
 #define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
 
@@ -268,7 +273,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/plasmaglass,
 	/obj/item/stack/sheet/plasmarglass,
 	/obj/item/stack/sheet/titaniumglass,
-	/obj/item/stack/sheet/plastitaniumglass)))
+	/obj/item/stack/sheet/plastitaniumglass,
+)))
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
@@ -285,7 +291,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 GLOBAL_LIST_INIT(book_types, typecacheof(list(
 	/obj/item/book,
 	/obj/item/spellbook,
-	/obj/item/storage/book)))
+	/obj/item/storage/book,
+)))
 
 /// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
 #define isnan(x) ( (x) != (x) )
@@ -299,5 +306,15 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 
 #define iscash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/holochip))
 
-/// Helper for checking of someone's shapeshifted currently.
-#define is_shifted(mob) mob.has_status_effect(/datum/status_effect/shapechange_mob/from_spell)
+// Jobs
+#define is_job(job_type)  (istype(job_type, /datum/job))
+#define is_assistant_job(job_type) (istype(job_type, /datum/job/assistant))
+#define is_bartender_job(job_type) (istype(job_type, /datum/job/bartender))
+#define is_captain_job(job_type) (istype(job_type, /datum/job/captain))
+#define is_chaplain_job(job_type) (istype(job_type, /datum/job/chaplain))
+#define is_clown_job(job_type) (istype(job_type, /datum/job/clown))
+#define is_detective_job(job_type) (istype(job_type, /datum/job/detective))
+#define is_scientist_job(job_type) (istype(job_type, /datum/job/scientist))
+#define is_security_officer_job(job_type) (istype(job_type, /datum/job/security_officer))
+#define is_research_director_job(job_type) (istype(job_type, /datum/job/research_director))
+#define is_unassigned_job(job_type) (istype(job_type, /datum/job/unassigned))

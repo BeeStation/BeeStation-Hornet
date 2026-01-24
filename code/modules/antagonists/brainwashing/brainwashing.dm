@@ -74,7 +74,6 @@
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
-	count_against_dynamic_roll_chance = FALSE
 	ui_name = "AntagInfoBrainwashed"
 	required_living_playtime = 0
 
@@ -125,14 +124,19 @@
 	if(!istype(C))
 		return
 	var/list/objectives = list()
+	var/objective_count = 1
 	do
-		var/objective = stripped_input(admin, "Add an objective, or leave empty to finish.", "Brainwashing", null, MAX_MESSAGE_LEN)
+		var/objective = tgui_input_text(admin, "Add a brainwashing objective:", "Objective #[objective_count]:")
+		if(!objective)
+			to_chat(admin, span_warning("No objective entered."))
 		if(objective)
 			objectives += objective
+			objective_count++
 			log_objective(C, objective, admin)
-	while(alert(admin,"Add another objective?","More Brainwashing","Yes","No") == "Yes")
+	while(tgui_alert(admin, "Add another objective?", "More Brainwashing", list("Yes", "No")) == "Yes")
 
-	if(alert(admin,"Confirm Brainwashing?","Are you sure?","Yes","No") != "Yes")
+	if(tgui_alert(admin, "Confirm Brainwashing?", "Are you sure?", list("Yes", "No")) != "Yes")
+		to_chat(admin, "Brainwashing cancelled.")
 		return
 
 	if(!LAZYLEN(objectives))

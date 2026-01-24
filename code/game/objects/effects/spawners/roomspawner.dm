@@ -40,7 +40,9 @@
 			candidate = null
 			continue
 		possibletemplates[candidate] = candidate.weight
-	if(possibletemplates.len)
+	if(!length(possibletemplates))
+		stack_trace("Failed to find a valid random room / Room Info - height: [room_height], width: [room_width], name: [name]")
+	else
 		var/datum/map_template/random_room/template = pick_weight(possibletemplates)
 		template.stock --
 		template.weight = (template.weight / 2)
@@ -62,7 +64,7 @@
 					continue
 				// Check to see if we correctly placed ourselves on a wall
 				if (!isclosedturf(get_step(placed_object, placed_object.dir)))
-					qdel(placed_object)
+					SSatoms.prepare_deletion(placed_object)
 
 /obj/effect/spawner/room/special/tenxfive_terrestrial
 	name = "10x5 terrestrial room"

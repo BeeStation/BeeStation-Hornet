@@ -5,7 +5,7 @@
 	species = "towercap"
 	plantname = "Tower Caps"
 	product = /obj/item/grown/log
-	lifespan = 80
+	lifespan = 320
 	endurance = 50
 	maturation = 15
 	production = 1
@@ -46,10 +46,12 @@
 	attack_verb_simple = list("bash", "batter", "bludgeon", "whack")
 	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
-	var/static/list/accepted = typecacheof(list(/obj/item/food/grown/tobacco,
-	/obj/item/food/grown/tea,
-	/obj/item/food/grown/ambrosia,
-	/obj/item/food/grown/wheat))
+	var/static/list/accepted = typecacheof(list(
+		/obj/item/food/grown/tobacco,
+		/obj/item/food/grown/tea,
+		/obj/item/food/grown/ambrosia,
+		/obj/item/food/grown/wheat,
+	))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
 	if(W.is_sharp())
@@ -107,7 +109,7 @@
 	species = "bamboo"
 	plantname = "Bamboo"
 	product = /obj/item/grown/log/bamboo
-	lifespan = 80
+	lifespan = 320
 	endurance = 70
 	maturation = 15
 	production = 2
@@ -282,7 +284,7 @@
 		else if(isliving(A))
 			var/mob/living/L = A
 			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
-			L.IgniteMob()
+			L.ignite_mob()
 
 /obj/structure/bonfire/proc/Cook(delta_time = 2)
 	var/turf/current_location = get_turf(src)
@@ -292,7 +294,7 @@
 		else if(isliving(A)) //It's still a fire, idiot.
 			var/mob/living/L = A
 			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
-			L.IgniteMob()
+			L.ignite_mob()
 		else if(istype(A, /obj/item))
 			var/obj/item/grilled_item = A
 			SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, src, delta_time) //Not a big fan, maybe make this use fire_act() in the future.
@@ -307,6 +309,7 @@
 		Cook(delta_time)
 
 /obj/structure/bonfire/extinguish()
+	. = ..()
 	if(burning)
 		remove_emitter("fire")
 		remove_emitter("fire_spark")

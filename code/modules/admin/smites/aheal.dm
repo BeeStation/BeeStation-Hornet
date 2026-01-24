@@ -4,4 +4,4 @@
 
 /datum/smite/aheal/effect(client/user, mob/living/target)
 	. = ..()
-	target.revive(full_heal = 1, admin_revive = 1)
+	target.revive(ADMIN_HEAL_ALL)

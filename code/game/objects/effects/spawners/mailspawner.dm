@@ -3,16 +3,8 @@
 //--------------------------------------------//
 /obj/effect/spawner/mail
 	name = "\improper Random mail spawner"
-	icon = 'icons/effects/landmarks_spawners.dmi'
+	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "random_loot"
-
-/obj/effect/spawner/mail/maintloot
-	name = "\improper Random maintenance loot spawner"
-
-/obj/effect/spawner/mail/maintloot/Initialize(mapload)
-	var/picked_item = pick_weight(GLOB.maintenance_loot)
-	new picked_item(loc)
-	return ..()
 
 /obj/effect/spawner/mail/organminor
 	name = "\improper Random minor organs spawner"
@@ -145,7 +137,7 @@
 		/obj/item/nanite_scanner,
 		/obj/item/disk/tech_disk,
 		/obj/item/assembly/prox_sensor,
-		/obj/item/bodypart/r_arm/robot,
+		/obj/item/bodypart/arm/right/robot,
 		/obj/item/assembly/flash/handheld/weak,
 		/obj/item/stock_parts/cell/high,
 		/obj/item/stock_parts/manipulator/nano,
@@ -167,8 +159,8 @@
 		/obj/item/gps/science,
 		/obj/item/inducer/sci,
 		/obj/item/megaphone,
-		/obj/item/modular_computer/tablet/pda/roboticist,
-		/obj/item/modular_computer/tablet/pda/science,
+		/obj/item/modular_computer/tablet/pda/preset/roboticist,
+		/obj/item/modular_computer/tablet/pda/preset/science,
 		/obj/item/anomaly_neutralizer,
 		/obj/item/shuttle_creator,
 		/obj/item/soap,

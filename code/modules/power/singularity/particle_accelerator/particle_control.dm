@@ -10,6 +10,7 @@
 	active_power_usage = 10000
 	dir = NORTH
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	custom_price = 500
 
 
 	var/strength_upper_limit = 2

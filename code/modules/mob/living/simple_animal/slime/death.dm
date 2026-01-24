@@ -13,7 +13,7 @@
 				qdel(R)
 			var/datum/action/innate/slime/evolve/E = new
 			E.Grant(src)
-			revive(full_heal = 1)
+			revive(HEAL_ALL)
 			regenerate_icons()
 			update_name()
 			return
@@ -24,9 +24,6 @@
 	GLOB.total_slimes--
 	set_stat(DEAD)
 	cut_overlays()
-
-	if(SSticker.mode)
-		SSticker.mode.check_win()
 
 	return ..(gibbed)
 

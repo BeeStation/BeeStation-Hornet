@@ -7,12 +7,7 @@
 	var/atom/transform_path = /obj/item/food/bread/plain
 
 /datum/smite/objectify/configure(client/user)
-	var/attempted_target_path = input(
-		user,
-		"Enter typepath of an atom you'd like to turn your victim into.",
-		"Typepath",
-		"[/obj/item/food/bread/plain]",
-	) as null|text
+	var/attempted_target_path = tgui_input_text(user, "Enter typepath of an atom you'd like to turn your victim into.", "Typepath", "[/obj/item/food/bread/plain]")
 
 	if (isnull(attempted_target_path))
 		return FALSE //The user pressed "Cancel"

@@ -1,8 +1,9 @@
 /obj/effect/anomaly/insanity_pulse
 	name = "sanity disruption pulse anomaly"
-	icon_state = "purplecrack"
+	icon_state = "insanity"
 
 	COOLDOWN_DECLARE(pulse_cooldown)
+	anomaly_core = /obj/item/assembly/signaler/anomaly/insanity
 	var/pulse_interval = 7 SECONDS
 
 	var/weak_pulse_power = 8
@@ -60,5 +61,5 @@
 		each_mob.adjust_blindness(1.5) // very mild blindness
 		each_mob.Knockdown(10)
 		each_mob.emote("scream")
-		each_mob.Jitter(50)
-		each_mob.hallucination = each_mob.hallucination + 20
+		each_mob.set_jitter_if_lower(100 SECONDS)
+		each_mob.adjust_hallucinations(40 SECONDS)

@@ -20,7 +20,10 @@
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
-	var/divable = TRUE //controls whether someone with skittish trait can enter the closet with CtrlShiftClick
+	/// Whether a skittish person can dive inside this closet. Disable if opening the closet causes "bad things" to happen or that it leads to a logical inconsistency.
+	var/divable = TRUE
+	/// true whenever someone with the strong pull component (or magnet modsuit module) is dragging this, preventing opening
+	var/strong_grab = FALSE
 	var/large = TRUE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/breakout_time = 1200
@@ -138,7 +141,7 @@
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	. += locked ? icon_locked : icon_unlocked
 
-/obj/structure/closet/proc/animate_door(var/closing = FALSE)
+/obj/structure/closet/proc/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new
@@ -214,7 +217,9 @@
 	if(wall_mounted)
 		return TRUE
 
-/obj/structure/closet/proc/can_open(mob/living/user)
+/obj/structure/closet/proc/can_open(mob/living/user, force = FALSE)
+	if(force)
+		return TRUE
 	if(welded || locked)
 		return FALSE
 	var/turf/T = get_turf(src)
@@ -242,8 +247,10 @@
 /obj/structure/closet/dump_contents()
 	// Generate the contents if we haven't already
 	if (!contents_initialised)
-		PopulateContents()
 		contents_initialised = TRUE
+		PopulateContents()
+		SEND_SIGNAL(src, COMSIG_CLOSET_CONTENTS_INITIALIZED)
+
 	var/atom/L = drop_location()
 	for(var/atom/movable/AM in src)
 		AM.forceMove(L)
@@ -260,15 +267,17 @@
 		if(AM != src && insert(AM) == -1) // limit reached
 			break
 
-/obj/structure/closet/proc/open(mob/living/user)
-	if(opened || !can_open(user))
+/obj/structure/closet/proc/open(mob/living/user, force = FALSE, special_effects = TRUE)
+	if(opened || !can_open(user, force))
 		return
-	playsound(loc, open_sound, open_sound_volume, 1, -3)
+	if(special_effects)
+		playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	opened = TRUE
 	if(!dense_when_open)
-		density = FALSE
+		set_density(FALSE)
 	dump_contents()
-	animate_door(FALSE)
+	if(special_effects)
+		animate_door(FALSE)
 	update_appearance()
 	update_icon()
 	after_open(user, force)
@@ -564,7 +573,7 @@
 	welded = FALSE //applies to all lockers
 	locked = FALSE //applies to critter crates and secure lockers only
 	broken = TRUE //applies to secure lockers only
-	open()
+	open(force = TRUE, special_effects = FALSE)
 
 /obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
 	. = ..()
@@ -679,7 +688,7 @@
 		togglelock(user)
 		T1.visible_message(span_warning("[user] dives into [src]!"))
 
-/obj/structure/closet/on_object_saved(var/depth = 0)
+/obj/structure/closet/on_object_saved(depth = 0)
 	// Generate the contents if we haven't already
 	if (!contents_initialised)
 		PopulateContents()

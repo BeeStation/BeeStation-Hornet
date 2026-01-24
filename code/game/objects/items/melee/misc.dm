@@ -13,7 +13,7 @@
 	name = "chain of command"
 	desc = "A tool used by great men to placate the frothing masses."
 	icon_state = "chain"
-	item_state = "chain"
+	inhand_icon_state = "chain"
 	worn_icon_state = "whip"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
@@ -36,7 +36,7 @@
 	desc = "A grotesque blade that on closer inspection seems made of synthetic flesh, it still feels like it would hurt very badly as a weapon."
 	icon = 'icons/obj/changeling_items.dmi'
 	icon_state = "arm_blade"
-	item_state = "arm_blade"
+	inhand_icon_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
@@ -57,16 +57,16 @@
 	name = "officer's sabre"
 	desc = "An elegant weapon, its monomolecular edge is capable of cutting through flesh and bone with ease."
 	icon_state = "sabre"
-	item_state = "sabre"
+	inhand_icon_state = "sabre"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 15
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_power = 50
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
@@ -81,11 +81,6 @@
 /obj/item/melee/sabre/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
-
-/obj/item/melee/sabre/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
 
 /obj/item/melee/sabre/on_exit_storage(datum/storage/container)
 	var/obj/item/storage/belt/sabre/sabre = container.real_location?.resolve()
@@ -140,17 +135,25 @@
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
+/obj/item/melee/sabre/carbon_fiber
+	name = "carbon fiber sabre"
+	desc = "A sabre made of a sleek carbon fiber polymer with a reinforced blade."
+	icon_state = "sabre_fiber"
+	inhand_icon_state = "sabre_fiber"
+	force = 15
+	armour_penetration = 25
+	sharpness = SHARP //No dismembering for security sabre without direct intent
+
 /obj/item/melee/sabre/mime
 	name = "Bread Blade"
 	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
-	force = 18
+	force = 25
 	icon_state = "rapier"
-	item_state = "rapier"
+	inhand_icon_state = "rapier"
 	lefthand_file = null
 	righthand_file = null
-	block_power = 60
+	block_power = 75
 	armor_type = /datum/armor/sabre_mime
-
 
 /datum/armor/sabre_mime
 	fire = 100
@@ -171,7 +174,7 @@
 	desc = "A wooden truncheon for beating criminal scum."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "baton"
-	item_state = "classic_baton"
+	inhand_icon_state = "classic_baton"
 	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -192,7 +195,7 @@
 
 	var/on_icon_state // What is our sprite when turned on
 	var/off_icon_state // What is our sprite when turned off
-	var/on_item_state // What is our in-hand sprite when turned on
+	var/on_inhand_icon_state // What is our in-hand sprite when turned on
 	var/force_on // Damage when on - not stunning
 	var/force_off // Damage when off - not stunning
 	var/weight_class_on // What is the new size class when turned on
@@ -351,6 +354,7 @@
 	cooldown = 10
 	stamina_damage = 20
 	stun_animation = TRUE
+	custom_price = 120
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -362,8 +366,9 @@
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	stamina_damage = 0
 	stun_animation = FALSE
-	item_state = null
+	inhand_icon_state = null
 	slot_flags = ITEM_SLOT_BELT
+	block_flags = BLOCKING_EFFORTLESS
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	force = 0
@@ -372,12 +377,12 @@
 
 	on_icon_state = "telebaton_1"
 	off_icon_state = "telebaton_0"
-	on_item_state = "nullrod"
+	on_inhand_icon_state = "nullrod"
 	force_on = 0
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
 
-/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(on)
 		return ..()
 	return 0
@@ -407,7 +412,7 @@
 	if(on)
 		to_chat(user, desc["local_on"])
 		icon_state = on_icon_state
-		item_state = on_item_state
+		inhand_icon_state = on_inhand_icon_state
 		w_class = weight_class_on
 		force = force_on
 		attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
@@ -415,7 +420,7 @@
 	else
 		to_chat(user, desc["local_off"])
 		icon_state = off_icon_state
-		item_state = null //no sprite for concealment even when in hand
+		inhand_icon_state = null //no sprite for concealment even when in hand
 		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off
@@ -432,7 +437,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-	item_state = null
+	inhand_icon_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
@@ -451,7 +456,7 @@
 
 	on_icon_state = "contractor_baton_1"
 	off_icon_state = "contractor_baton_0"
-	on_item_state = "contractor_baton"
+	on_inhand_icon_state = "contractor_baton"
 	force_on = 10
 	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
@@ -460,8 +465,8 @@
 	return span_danger("The baton is still charging!")
 
 /obj/item/melee/classic_baton/retractible_stun/additional_effects_carbon(mob/living/target, mob/living/user)
-	target.Jitter(2 SECONDS)
-	target.stuttering += 2 SECONDS
+	target.set_jitter_if_lower(20 SECONDS)
+	target.set_stutter_if_lower(20 SECONDS)
 
 /obj/item/melee/classic_baton/retractible_stun/attack_self(mob/user)
 	on = !on
@@ -470,7 +475,7 @@
 	if(on)
 		to_chat(user, desc["local_on"])
 		icon_state = on_icon_state
-		item_state = on_item_state
+		inhand_icon_state = on_inhand_icon_state
 		w_class = weight_class_on
 		force = force_on
 		attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
@@ -478,7 +483,7 @@
 	else
 		to_chat(user, desc["local_off"])
 		icon_state = off_icon_state
-		item_state = null //no sprite for concealment even when in hand
+		inhand_icon_state = null //no sprite for concealment even when in hand
 		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off
@@ -564,8 +569,8 @@
 				target.Knockdown(knockdown_time_carbon)
 				target.drop_all_held_items()
 				target.adjustStaminaLoss(stamina_damage)
-				if(target_confusion > 0 && target.confused < 6 SECONDS)
-					target.confused = min(target.confused + target_confusion, 6 SECONDS)
+				if(target_confusion > 0)
+					target.adjust_confusion_up_to(target_confusion, 6 SECONDS)
 			else
 				target.Knockdown(knockdown_time_carbon)
 				target.adjustStaminaLoss(stamina_damage_non_target)
@@ -616,19 +621,20 @@
 	desc = "In a station full of bad ideas, this might just be the worst."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "supermatter_sword"
-	item_state = "supermatter_sword"
+	inhand_icon_state = "supermatter_sword"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 0.001
 	armour_penetration = 1000
+	force_string = "INFINITE"
+	item_flags = NEEDS_PERMIT|NO_BLOOD_ON_ITEM
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	force_string = "INFINITE"
 
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	qdel(hitby)
@@ -697,22 +703,25 @@
 
 /obj/item/melee/supermatter_sword/proc/consume_everything(target)
 	if(isnull(target))
-		shard.Consume()
+		shard.Bump(target)
 	else if(!isturf(target))
 		shard.Bumped(target)
 	else
 		consume_turf(target)
 
-/obj/item/melee/supermatter_sword/proc/consume_turf(turf/T)
-	var/oldtype = T.type
-	var/turf/newT = T.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	if(newT.type == oldtype)
+/obj/item/melee/supermatter_sword/proc/consume_turf(turf/turf)
+	var/oldtype = turf.type
+	var/turf/new_turf = turf.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+	if(new_turf.type == oldtype)
 		return
-	playsound(T, 'sound/effects/supermatter.ogg', 50, 1)
-	T.visible_message(span_danger("[T] smacks into [src] and rapidly flashes to ash."),\
-	span_italics("You hear a loud crack as you are washed with a wave of heat."))
-	shard.Consume()
-	CALCULATE_ADJACENT_TURFS(T, MAKE_ACTIVE)
+
+	playsound(turf, 'sound/effects/supermatter.ogg', 50, TRUE)
+	turf.visible_message(
+		span_danger("[turf] smacks into [src] and rapidly flashes to ash."),
+		span_hear("You hear a loud crack as you are washed with a wave of heat."),
+	)
+	shard.Bump(turf)
+	CALCULATE_ADJACENT_TURFS(turf, MAKE_ACTIVE)
 
 /obj/item/melee/supermatter_sword/add_blood_DNA(list/blood_dna)
 	return FALSE
@@ -721,7 +730,7 @@
 	name = "curator's whip"
 	desc = "Somewhat eccentric and outdated, it still stings like hell to be hit by."
 	icon_state = "whip"
-	item_state = "chain"
+	inhand_icon_state = "chain"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	worn_icon_state = "whip"
@@ -778,7 +787,7 @@
 	desc = "A telescopic roasting stick with a miniature shield generator designed to ensure entry into various high-tech shielded cooking ovens and firepits."
 	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "roastingstick_0"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = "tele_baton"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -796,7 +805,11 @@
 /obj/item/melee/roastingstick/Initialize(mapload)
 	. = ..()
 	if(!ovens)
-		ovens = typecacheof(list(/obj/anomaly, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
+		ovens = typecacheof(list(
+			/obj/anomaly,
+			/obj/machinery/power/supermatter_crystal,
+			/obj/structure/bonfire,
+		))
 	AddComponent( \
 		/datum/component/transforming, \
 		hitsound_on = hitsound, \
@@ -826,7 +839,7 @@
 /obj/item/melee/roastingstick/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
 	icon_state = active ? "roastingstick_1" : "roastingstick_0"
-	item_state = active ? "nullrod" : null
+	inhand_icon_state = active ? "nullrod" : null
 	if(user)
 		balloon_alert(user, "[active ? "extended" : "collapsed"] [src]")
 	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
@@ -904,7 +917,7 @@
 	desc = "An portable anti-gravity generator which knocks people back upon contact."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "telebaton_1"
-	item_state = "nullrod"
+	inhand_icon_state = "nullrod"
 	worn_icon_state = "tele_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -940,7 +953,7 @@
 		repeat offenses and has brought employment to lawyers for decades."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "beater"
-	item_state = "beater"
+	inhand_icon_state = "beater"
 	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -949,6 +962,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/effects/woodhit.ogg'
+	custom_price = 100
 	/// Damage dealt while on help intent
 	var/non_harm_force = 3
 	/// Stamina damage dealt
@@ -1023,3 +1037,113 @@
 			target.apply_damage(stamina_force, STAMINA, target_zone, armour_level)
 
 	return ..()
+
+/obj/item/stake
+	name = "wooden stake"
+	desc = "A simple wooden stake carved to a sharp point."
+	icon = 'icons/vampires/stakes.dmi'
+	icon_state = "wood"
+	inhand_icon_state = "wood"
+	lefthand_file = 'icons/vampires/bs_leftinhand.dmi'
+	righthand_file = 'icons/vampires/bs_rightinhand.dmi'
+	slot_flags = ITEM_SLOT_POCKETS
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb_continuous = list("staked", "stabbed", "tore into")
+	attack_verb_simple = list("staked", "stabbed", "tore into")
+	sharpness = SHARP
+	force = 6
+	throwforce = 10
+	max_integrity = 30
+	embedding = list(
+		"embed_chance" = 100,
+		"fall_chance" = 0,
+		"rip_time" = 5 SECONDS, // this is actually 10 seconds because it gets multiplied by the w_class
+	)
+
+	///Time it takes to embed the stake into someone's chest.
+	var/staketime = 12 SECONDS
+
+/obj/item/stake/attack(mob/living/target, mob/living/user, params)
+	. = ..()
+	if(.)
+		return
+
+	// Cannot target yourself, must be in combat mode and targeting the chest
+	if(target == user)
+		return
+	if(!user.combat_mode)
+		return
+	if(check_zone(user.get_combat_bodyzone()) != BODY_ZONE_CHEST)
+		return
+
+	if(HAS_TRAIT(target, TRAIT_BEINGSTAKED))
+		to_chat(user, span_notice("[target] is already having a stake driven into [target.p_their()] chest!"))
+		return
+
+	// lol, cry about it
+	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
+		to_chat(user, span_notice("[target]'s chest is too thick! [src] won't go in!"))
+		return
+
+	// Cannot have something in your chest
+	var/obj/item/bodypart/chest = target.get_bodypart(BODY_ZONE_CHEST)
+	if(!chest)
+		return
+	for(var/obj/item/embedded_object in chest.embedded_objects)
+		to_chat(user, span_boldannounce("[target]'s chest already has [embedded_object] inside of it!"))
+		return
+
+	playsound(target, 'sound/magic/Demon_consume.ogg', 50, 1)
+	to_chat(target, span_userdanger("[user] is driving a stake into your chest!"))
+	to_chat(user, span_notice("You put all your weight into embedding [src] into [target]'s chest..."))
+
+	ADD_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+	if(!do_after(user, staketime, target))
+		REMOVE_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+		return
+
+	REMOVE_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+
+	// Actually embed the stake and apply damage
+	if(!tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE))
+		return
+
+	target.apply_damage(force * 5, BRUTE, BODY_ZONE_CHEST)
+
+	playsound(target, 'sound/effects/splat.ogg', 40, 1)
+	user.visible_message(
+		span_danger("[user] drives the [src] into [target]'s chest!"),
+		span_danger("You drive the [src] into [target]'s chest!"),
+	)
+
+	if(IS_VAMPIRE(target))
+		to_chat(target, span_userdanger("You have been staked! Your powers are useless while it's in your chest!"))
+		target.balloon_alert(target, "you have been staked!")
+
+///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
+/obj/item/stake/proc/can_be_staked(mob/living/carbon/target)
+	if(!istype(target))
+		return FALSE
+	if(!CHECK_BITFIELD(target.mobility_flags, MOBILITY_MOVE))
+		return TRUE
+	return FALSE
+
+/// Created by welding and acid-treating a simple stake.
+/obj/item/stake/hardened
+	name = "hardened stake"
+	desc = "A wooden stake carved to a sharp point and hardened by fire."
+	icon_state = "hardened"
+	force = 8
+	throwforce = 12
+	armour_penetration = 10
+	staketime = 8 SECONDS
+
+/obj/item/stake/hardened/silver
+	name = "silver stake"
+	desc = "Polished and sharp at the end. For when some mofo is always trying to iceskate uphill."
+	icon_state = "silver"
+	inhand_icon_state = "silver"
+	siemens_coefficient = 1
+	force = 9
+	armour_penetration = 25
+	staketime = 6 SECONDS

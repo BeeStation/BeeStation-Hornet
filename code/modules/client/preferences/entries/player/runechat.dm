@@ -33,5 +33,5 @@
 	. = ..()
 	if(!CONFIG_GET(flag/looc_enabled))
 		return FALSE
-	if(preferences.read_player_preference(/datum/preference/toggle/enable_runechat))
+	if(!preferences.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE

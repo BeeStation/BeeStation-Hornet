@@ -5,10 +5,8 @@
 // /atom signals
 ///from base of atom/proc/Initialize(mapload): sent any time a new atom is created
 #define COMSIG_ATOM_CREATED "atom_created"
-/// from base of atom/examine(): (/mob, list/examine_text)
-#define COMSIG_PARENT_EXAMINE "atom_examine"
 ///from base of atom/examine(): (/mob, list/examine_text)
-//#define COMSIG_ATOM_EXAMINE "atom_examine"
+#define COMSIG_ATOM_EXAMINE "atom_examine"
 ///from base of atom/examine_tags(): (/mob, list/examine_tags)
 #define COMSIG_ATOM_EXAMINE_TAGS "atom_examine_tags"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
@@ -46,6 +44,8 @@
 	/// If returned from [COMSIG_ATOM_UPDATE_ICON] it prevents the atom from updating its overlays.
 	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS UPDATE_OVERLAYS
 	#define COMSIG_ATOM_NO_UPDATE_GREYSCALE UPDATE_GREAYSCALE
+///from base of [atom/update_inhand_icon]: (/mob)
+#define COMSIG_ATOM_UPDATE_INHAND_ICON "atom_update_inhand_icon"
 ///from base of [atom/update_icon_state]: ()
 #define COMSIG_ATOM_UPDATE_ICON_STATE "atom_update_icon_state"
 //from base of atom/update_overlays(): (list/new_overlays)
@@ -84,8 +84,6 @@
 	#define COMPONENT_CANCEL_BLOB_ACT (1<<0)
 ///! from base of atom/acid_act(): (acidpwr, acid_volume)
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
-///! from base of atom/rad_act(intensity)
-#define COMSIG_ATOM_RAD_ACT "atom_rad_act"
 ///! from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"
 ///! from base of atom/ratvar_act(): ()
@@ -100,7 +98,7 @@
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
 ///! from base of atom/Exited(): (mob/user, obj/item/extrapolator/extrapolator, dry_run, list/result)
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"
-///!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
+///!from base of atom/singularity_pull(): (obj/anomaly/singularity/singularity, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
@@ -111,15 +109,6 @@
 #define COMSIG_ATOM_CONTENTS_DEL "atom_contents_del"
 ///! from base of atom/has_gravity(): (turf/location, list/forced_gravities)
 #define COMSIG_ATOM_HAS_GRAVITY "atom_has_gravity"
-///! from proc/get_rad_contents(): ()
-#define COMSIG_ATOM_RAD_PROBE "atom_rad_probe"
-	#define COMPONENT_BLOCK_RADIATION 1
-///! from base of datum/radiation_wave/radiate(): (strength)
-#define COMSIG_ATOM_RAD_CONTAMINATING "atom_rad_contam"
-	#define COMPONENT_BLOCK_CONTAMINATION 1
-///! from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
-#define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
-	#define COMPONENT_RAD_WAVE_HANDLED 1
 ///! from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_ALLOW_REACH (1<<0)
@@ -156,6 +145,11 @@
 /// Sent when the amount of materials in silo connected to remote_materials changes. Does not apply when remote_materials is not connected to a silo.
 #define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
+/// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
+/// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_UNFREEZE "atom_timestop_unfreeze"
+
 /////////////////
 
 /// Check if an emag action should occur, this is inverted, so FALSE means the check succeeds.
@@ -180,3 +174,11 @@
 
 // From /atom/proc/set_density(new_value) for when an atom changes density
 #define COMSIG_ATOM_DENSITY_CHANGED "atom_density_change"
+// Atom movement signals. Format:
+// When the signal is called: (signal arguments)
+// All signals send the source datum of the signal as the first argument
+
+///signal sent out by an atom when it is no longer being pulled by something else : (atom/puller)
+#define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
+///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
+//#define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"

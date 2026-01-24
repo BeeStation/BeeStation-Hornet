@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	else
 		var/A
 
-		A = input("Select a beacon to connect to", "Balloon Extraction Pack", A) as null|anything in sort_names(possible_beacons)
+		A = tgui_input_list(user, "Select a beacon to connect to", "Balloon Extraction Pack", sort_names(possible_beacons))
 
 		if(!A)
 			return
@@ -188,8 +188,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				return 1
 	return 0
 
-/obj/effect/extraction_holder/singularity_pull()
+/obj/effect/extraction_holder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/obj/effect/extraction_holder/singularity_pull()
+/obj/effect/extraction_holder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return

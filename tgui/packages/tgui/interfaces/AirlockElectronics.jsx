@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Input, Section } from '../components';
+import { Button, Input, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 

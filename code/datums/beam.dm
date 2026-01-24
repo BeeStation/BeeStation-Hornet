@@ -187,7 +187,6 @@
 	var/emissive = TRUE
 	var/datum/beam/owner
 
-
 /obj/effect/ebeam/Initialize(mapload, beam_owner)
 	owner = beam_owner
 	return ..()
@@ -206,7 +205,7 @@
 	owner = null
 	return ..()
 
-/obj/effect/ebeam/singularity_pull()
+/obj/effect/ebeam/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/ebeam/singularity_act()

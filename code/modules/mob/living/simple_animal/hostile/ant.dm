@@ -15,7 +15,7 @@
 	gender = PLURAL // We are Ven-ant
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	minbodytemp = 200
 	maxbodytemp = 400
 	hardattacks = TRUE
@@ -40,11 +40,8 @@
 	maxHealth = 100
 	light_range = 1.5 // Bioluminescence!
 	light_color = "#d43229" // The ants that comprise the giant ant still glow red despite the sludge.
-	ventcrawler = VENTCRAWLER_ALWAYS
 
-/*
 /mob/living/simple_animal/hostile/ant/Initialize(mapload)
 	. = ..()
-	//ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
-	//AddElement(/datum/element/pet_bonus, "clacks happily!")
-*/
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	AddElement(/datum/element/pet_bonus, "clacks happily!")

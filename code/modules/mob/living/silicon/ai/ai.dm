@@ -10,7 +10,6 @@
 				subject.attack_ai(M)
 	return is_in_use
 
-
 /mob/living/silicon/ai
 	name = JOB_NAME_AI
 	real_name = JOB_NAME_AI
@@ -40,7 +39,7 @@
 	var/requires_power = POWER_REQ_ALL
 	var/can_be_carded = TRUE
 	var/icon/holo_icon //Default is assigned when AI is created.
-	var/obj/vehicle/sealed/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
+	var/obj/controlled_equipment //A piece of equipment, to determine whether to relaymove or use the AI eye.
 	var/radio_enabled = TRUE //Determins if a carded AI can speak with its built in radio or not.
 	radiomod = ";" //AIs will, by default, state their laws on the internal radio.
 	var/obj/item/multitool/aiMulti
@@ -236,9 +235,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
 
-/mob/living/silicon/ai/IgniteMob()
-	fire_stacks = 0
-	. = ..()
+/mob/living/silicon/ai/ignite_mob(silent)
+	return FALSE
 
 /mob/living/silicon/ai/proc/set_core_display_icon(input, client/C)
 	if(client && !C)
@@ -292,12 +290,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 				robot_status = "OFFLINE"
 			else if(!R.cell || R.cell.charge <= 0)
 				robot_status = "DEPOWERED"
-			//Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+			//Name, Health, Battery, Model, Area, and Status! Everything an AI wants to know about its borgies!
 			index++
 			tab_data["[R.name] (Connection [index])"] = list(
 				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
-					Module: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]",
-				type=STAT_TEXT)
+					Model: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]", type = STAT_TEXT)
 		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
@@ -366,6 +363,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 					"Wipe Core", "No", "No", "Yes") != "Yes")
 		return
 
+	// Offer special roles to ghosts and pause processing while we do
+	// Copy and paste from cryopod.dm since delegates are practically unusable in
+	// byond.
+	var/highest_leave = ANTAGONIST_LEAVE_DESPAWN
+	for (var/datum/antagonist/antagonist_datum in mind.antag_datums)
+		highest_leave = max(highest_leave, antagonist_datum.leave_behaviour)
+	switch (highest_leave)
+		if (ANTAGONIST_LEAVE_DESPAWN)
+			INVOKE_ASYNC(src, PROC_REF(leave_game), src)
+		if (ANTAGONIST_LEAVE_OFFER)
+			INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), src)
+		if (ANTAGONIST_LEAVE_KEEP)
+			INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), src)
+
+/mob/living/silicon/ai/proc/wipe()
 	// We warned you.
 	var/obj/structure/AIcore/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
@@ -384,6 +396,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	SEND_SIGNAL(mind, COMSIG_MIND_CRYOED)
 	QDEL_NULL(src)
+
+/mob/living/silicon/ai/proc/persistent_offer_to_ghosts()
+	ghostize(FALSE)
+	offer_control_persistently(src)
+
+/mob/living/silicon/ai/proc/offering_to_ghosts()
+	ghostize(FALSE)
+	if(!offer_control(src))
+		wipe()
+
+/mob/living/silicon/ai/proc/leave_game()
+	wipe()
 
 /mob/living/silicon/ai/verb/toggle_anchor()
 	set category = "AI Commands"
@@ -491,7 +515,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			log_game("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
-		if(controlled_mech)
+		if(controlled_equipment)
 			to_chat(src, span_warning("You are already loaded into an onboard computer!"))
 			return
 		if(!GLOB.cameranet.checkCameraVis(M))
@@ -865,10 +889,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(malf_picker)
 		stack_trace("Attempted to give malf AI malf picker to \[[src]\], who already has a malf picker.")
 		return
+
 	malf_picker = new /datum/module_picker
-	if(!IS_MALF_AI(src)) //antagonists have their modules built into their antag info panel. this is for adminbus and the combat upgrade
-		modules_action = new(malf_picker)
-		modules_action.Grant(src)
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...
@@ -901,11 +925,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	else
 		clear_fullscreen("remote_view", 0)
 
-/mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
+/mob/living/silicon/ai/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.) //successfully ressuscitated from death
-		set_core_display_icon(display_icon_override)
-		set_eyeobj_visible(TRUE)
+	if(!.) //successfully ressuscitated from death
+		return
+
+	set_core_display_icon(display_icon_override)
+	set_eyeobj_visible(TRUE)
 
 /mob/living/silicon/ai/proc/tilt(turf/target, damage, chance_to_crit, paralyze_time, damage_type = BRUTE, rotation = 90)
 	if(!target.is_blocked_turf(TRUE, src, list(src)))
@@ -925,10 +951,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 					switch(crit_case) // only carbons can have the fun crits
 						if(1) // shatter their legs and bleed 'em
 							carbon_target.bleed(150)
-							var/obj/item/bodypart/l_leg/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
+							var/obj/item/bodypart/leg/left/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
 							if(l)
 								l.receive_damage(brute=200, updating_health=TRUE)
-							var/obj/item/bodypart/r_leg/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
+							var/obj/item/bodypart/leg/right/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
 							if(r)
 								r.receive_damage(brute=200, updating_health=TRUE)
 							if(l || r)
@@ -985,12 +1011,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
+		apc.set_hacked_hud()
+		apc.flicker_hacked_icon()
 		log_message("hacked APC [apc] at [AREACOORD(turf)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, TRUE, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()
 
-/mob/living/silicon/ai/verb/deploy_to_shell(var/mob/living/silicon/robot/target)
+/mob/living/silicon/ai/verb/deploy_to_shell(mob/living/silicon/robot/target)
 	set category = "AI Commands"
 	set name = "Deploy to Shell"
 
@@ -1021,7 +1049,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		return
 
 	else if(mind)
-		soullink(/datum/soullink/sharedbody, src, target)
+		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
 		deployed_shell = target
 		transfer_observers_to(deployed_shell) // ai core to borg shell
 		eyeobj.transfer_observers_to(deployed_shell) // eyemob to borg
@@ -1034,7 +1062,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /datum/action/innate/deploy_shell
 	name = "Deploy to AI Shell"
 	desc = "Wirelessly control a specialized cyborg shell."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
 /datum/action/innate/deploy_shell/on_activate(mob/user, atom/target)
@@ -1046,7 +1074,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /datum/action/innate/deploy_last_shell
 	name = "Reconnect to shell"
 	desc = "Reconnect to the most recently used AI shell."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
@@ -1104,6 +1132,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs have no hands
+
+/mob/living/silicon/ai/get_exp_list(minutes)
+	. = ..()
+
+	var/datum/job/ai/ai_job_ref = SSjob.GetJobType(/datum/job/ai)
+
+	.[ai_job_ref.title] = minutes
 
 /mob/living/silicon/ai/verb/change_photo_camera_radius()
 	set category = "AI Commands"

@@ -70,9 +70,9 @@
 	stored_scanner = new /obj/item/t_scanner/adv_mining_scanner/lesser(src) // No full-power scanner right off the bat
 
 	// Keep track of our equipment
-	RegisterSignal(stored_pka, COMSIG_PARENT_QDELETING, PROC_REF(on_pka_qdel))
-	RegisterSignal(stored_drill, COMSIG_PARENT_QDELETING, PROC_REF(on_drill_qdel))
-	RegisterSignal(stored_scanner, COMSIG_PARENT_QDELETING, PROC_REF(on_scanner_qdel))
+	RegisterSignal(stored_pka, COMSIG_QDELETING, PROC_REF(on_pka_qdel))
+	RegisterSignal(stored_drill, COMSIG_QDELETING, PROC_REF(on_drill_qdel))
+	RegisterSignal(stored_scanner, COMSIG_QDELETING, PROC_REF(on_scanner_qdel))
 
 	// Setup actions
 	var/datum/action/innate/minedrone/toggle_light/toggle_light_action = new()
@@ -208,10 +208,10 @@
 		if(!do_after(user, 20, src))
 			return TRUE
 		stored_scanner.forceMove(get_turf(src))
-		UnregisterSignal(stored_scanner, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(stored_scanner, COMSIG_QDELETING)
 		item.forceMove(src)
 		stored_scanner = item
-		RegisterSignal(stored_scanner, COMSIG_PARENT_QDELETING, PROC_REF(on_scanner_qdel))
+		RegisterSignal(stored_scanner, COMSIG_QDELETING, PROC_REF(on_scanner_qdel))
 		to_chat(user, span_info("You install [item]."))
 		return TRUE
 	if(istype(item, /obj/item/borg/upgrade/modkit))
@@ -231,10 +231,10 @@
 		if(stored_cutter)
 			stored_cutter.forceMove(get_turf(src))
 			stored_cutter.requires_wielding = initial(stored_cutter.requires_wielding)
-			UnregisterSignal(stored_cutter, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(stored_cutter, COMSIG_QDELETING)
 		item.forceMove(src)
 		stored_cutter = item
-		RegisterSignal(stored_cutter, COMSIG_PARENT_QDELETING, PROC_REF(on_cutter_qdel))
+		RegisterSignal(stored_cutter, COMSIG_QDELETING, PROC_REF(on_cutter_qdel))
 		stored_cutter.requires_wielding = FALSE // Prevents inaccuracy when firing for the minebot.
 		to_chat(user, span_info("You install [item]."))
 		return TRUE
@@ -243,10 +243,10 @@
 			return TRUE
 		if(stored_drill)
 			stored_drill.forceMove(get_turf(src))
-			UnregisterSignal(stored_drill, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(stored_drill, COMSIG_QDELETING)
 		item.forceMove(src)
 		stored_drill = item
-		RegisterSignal(stored_drill, COMSIG_PARENT_QDELETING, PROC_REF(on_drill_qdel))
+		RegisterSignal(stored_drill, COMSIG_QDELETING, PROC_REF(on_drill_qdel))
 		to_chat(user, span_info("You install [item]."))
 		return TRUE
 	..()
@@ -255,22 +255,22 @@
 // Procs handling deletion of items
 /mob/living/simple_animal/hostile/mining_drone/proc/on_scanner_qdel()
 	SIGNAL_HANDLER
-	UnregisterSignal(stored_scanner, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_scanner, COMSIG_QDELETING)
 	stored_scanner = null
 
 /mob/living/simple_animal/hostile/mining_drone/proc/on_drill_qdel()
 	SIGNAL_HANDLER
-	UnregisterSignal(stored_drill, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_drill, COMSIG_QDELETING)
 	stored_drill = null
 
 /mob/living/simple_animal/hostile/mining_drone/proc/on_pka_qdel(datum/source, forced)
 	SIGNAL_HANDLER
-	UnregisterSignal(stored_pka, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_pka, COMSIG_QDELETING)
 	stored_pka = null
 
 /mob/living/simple_animal/hostile/mining_drone/proc/on_cutter_qdel()
 	SIGNAL_HANDLER
-	UnregisterSignal(stored_cutter, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stored_cutter, COMSIG_QDELETING)
 	stored_cutter = null
 
 /// EMPs stun and do some damage
@@ -390,7 +390,7 @@
 	. = ..()
 
 /// Effectively the same as standard target listing
-/mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(var/_Z)
+/mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(_Z)
 	if(mode == MODE_MINING)
 		return ListTargets()
 	. = ..()
@@ -418,7 +418,7 @@
 /mob/living/simple_animal/hostile/mining_drone/CanAttack(atom/A)
 	if(mining_enabled && istype(A, /turf/closed/mineral)) // Normally CanAttack() skips over turfs, but we'll sometimes want to attack mineral turfs
 		var/turf/closed/mineral/T = A
-		for(var/turf/closed/obstructing_turf in getline(src,A))
+		for(var/turf/closed/obstructing_turf in get_line(src,A))
 			if(!istype(obstructing_turf, /turf/closed/mineral)) // No trying to mine through non-rock turfs
 				return ..()
 		if(T.mineralType)
@@ -495,13 +495,13 @@
 /datum/action/innate/minedrone
 	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
 
 /// Toggles a minebot's inbuilt meson scanners.
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
-	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "trayson-"
 
 /datum/action/innate/minedrone/toggle_meson_vision/on_activate()
@@ -720,13 +720,11 @@
 
 /obj/item/minebot_upgrade/antiweather/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/minebot, mob/user)
 	. = ..()
-	minebot.weather_immunities += "lava"
-	minebot.weather_immunities += "ash"
+	minebot.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), type)
 
 /obj/item/minebot_upgrade/antiweather/unequip()
-	linked_bot.weather_immunities -= "lava"
-	linked_bot.weather_immunities -= "ash"
-	. = ..()
+	linked_bot.remove_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), type)
+	return ..()
 
 // Minebot Sentience
 

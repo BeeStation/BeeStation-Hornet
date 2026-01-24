@@ -6,7 +6,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/monkeycubes,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
@@ -31,8 +31,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "h" = (
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
 /turf/open/floor/iron/freezer,
@@ -62,7 +61,7 @@
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
@@ -149,8 +148,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "J" = (
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
 /obj/structure/bed/roller,
@@ -166,7 +164,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "N" = (
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "O" = (

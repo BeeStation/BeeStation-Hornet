@@ -4,10 +4,11 @@
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
+	bypass_blocking = FALSE
 
 /datum/action/neck_chop
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "neckchop"
 	check_flags = AB_CHECK_INCAPACITATED
 
@@ -24,7 +25,7 @@
 
 /datum/action/leg_sweep
 	name = "Leg Sweep - Trips the victim, knocking them down for a brief moment."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "legsweep"
 	check_flags = AB_CHECK_INCAPACITATED
 
@@ -41,7 +42,7 @@
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "lungpunch"
 	check_flags = AB_CHECK_INCAPACITATED
 
@@ -117,10 +118,7 @@
 	to_chat(A, span_danger("You karate chop [D]'s neck, rendering [D.p_them()] unable to speak!"))
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.apply_damage(5, A.get_attack_type())
-	if (iscarbon(D))
-		var/mob/living/carbon/carbon_defender = D
-		if(carbon_defender.silent <= 10)
-			carbon_defender.silent = clamp(carbon_defender.silent + 10, 0, 10)
+	D.adjust_silence_up_to(20 SECONDS, 20 SECONDS)
 	log_combat(A, D, "neck chopped", name)
 	return TRUE
 
@@ -185,7 +183,7 @@
 	name = "krav maga gloves"
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
-	item_state = "fightgloves"
+	inhand_icon_state = "fightgloves"
 	worn_icon_state = "fightgloves"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -208,7 +206,7 @@
 	name = "combat gloves plus"
 	desc = "These tactical gloves are fireproof and shock resistant, and using nanochip technology it teaches you the powers of krav maga."
 	icon_state = "cgloves"
-	item_state = "combatgloves"
+	inhand_icon_state = "combatgloves"
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
 	strip_delay = 80

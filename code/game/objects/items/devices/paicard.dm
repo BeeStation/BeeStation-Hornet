@@ -2,7 +2,7 @@
 	name = "personal AI device"
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -15,6 +15,7 @@
 	///what emotion icon we have. handled in /mob/living/silicon/pai/Topic()
 	var/emotion_icon = "off"
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	custom_price = PAYCHECK_MEDIUM * 4
 
 /obj/item/paicard/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is staring sadly at [src]! [user.p_they()] can't keep living without real human intimacy!"))
@@ -113,11 +114,8 @@
 			candidate.ready = FALSE
 			SSpai.candidates[candidate.ckey] = candidate
 		if("fix_speech")
-			to_chat(pai, span_notice("Your owner has corrected your speech modulation!"))
-			to_chat(usr, span_notice("You fix the pAI's speech modulator."))
-			pai.stuttering = 0
-			pai.slurring = 0
-			pai.derpspeech = 0
+			pai.fix_speech()
+			return TRUE
 		if("request")
 			if(!pai)
 				SSpai.findPAI(src, usr)
@@ -125,14 +123,16 @@
 			if(pai.master_dna)
 				return
 			if(!iscarbon(usr))
-				to_chat(usr, span_warning("You don't have any DNA, or your DNA is incompatible with this device!"))
-			else
-				var/mob/living/carbon/master = usr
-				pai.master = master.real_name
-				pai.master_dna = master.dna.unique_enzymes
-				to_chat(pai, span_notice("You have been bound to a new master."))
-				pai.laws.set_zeroth_law("Serve your master.")
-				pai.emittersemicd = FALSE
+				balloon_alert(usr, "incompatible DNA signature")
+				return FALSE
+			var/mob/living/carbon/master = usr
+			pai.master = master.real_name
+			pai.master_dna = master.dna.unique_enzymes
+			to_chat(src, span_bolddanger("You have been bound to a new master: [usr.real_name]!"))
+			pai.laws.set_zeroth_law("Serve your master.")
+			pai.holochassis_ready = TRUE
+			return TRUE
+
 		if("set_laws")
 			var/newlaws = stripped_multiline_input(usr, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.laws.supplied[1])
 			if(!in_range(src, usr))

@@ -91,6 +91,10 @@
 	description = span_warning("It sure is dark around here...")
 	mood_change = -3
 
+/datum/mood_event/bright_light
+	description = "I hate it in the light... I need to find a darker place..."
+	mood_change = -12
+
 /datum/mood_event/family_heirloom_missing
 	description = span_warning("I'm missing my family heirloom...")
 	mood_change = -4

@@ -36,12 +36,13 @@
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
-	item_state = "trashbag"
+	inhand_icon_state = "trashbag"
 	worn_icon_state = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	storage_type = /datum/storage/trash
+	custom_price = 50
 	var/insertable = TRUE
 
 /obj/item/storage/bag/trash/Initialize(mapload)
@@ -84,6 +85,12 @@
 		else
 			icon_state = "[initial(icon_state)]"
 	return ..()
+
+/obj/item/storage/bag/trash/filled/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(1, 7))
+		new /obj/effect/spawner/random/trash/garbage(src)
+	update_icon_state()
 
 /obj/item/storage/bag/trash/cyborg
 	insertable = FALSE
@@ -155,7 +162,6 @@
 
 /obj/item/storage/bag/ore/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, 0.05) //please datum mats no more cancer
 	atom_storage.max_specific_storage = WEIGHT_CLASS_HUGE
 	atom_storage.max_total_storage = 250
 	atom_storage.numerical_stacking = TRUE
@@ -215,7 +221,7 @@
 			span_notice("You [message_action_pov] the ores [message_location] you[message_box_pov].")
 		)
 
-/obj/item/storage/bag/ore/proc/handle_ores_in_turf(var/turf/turf, var/mob/living/user, var/obj/structure/ore_box/box)
+/obj/item/storage/bag/ore/proc/handle_ores_in_turf(turf/turf, mob/living/user, obj/structure/ore_box/box)
 	var/item_transferred = FALSE
 	var/collection_range = (is_bluespace ? bs_range : 0) // 0 means the current turf only
 	var/ore_found=FALSE
@@ -278,7 +284,7 @@
 			/obj/item/food/grown,
 			/obj/item/seeds,
 			/obj/item/grown,
-			/obj/item/reagent_containers/cup/glass/honeycomb,
+			/obj/item/food/honeycomb,
 			/obj/item/disk/plantgene,
 			/obj/item/food/seaweed_sheet
 		)

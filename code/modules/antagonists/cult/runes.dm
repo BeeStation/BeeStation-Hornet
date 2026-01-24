@@ -17,6 +17,27 @@ GLOBAL_LIST_EMPTY(wall_runes)
 		runes[initial(rune.cultist_name)] = rune // Uses the cultist name for displaying purposes
 
 	return runes
+
+/proc/is_convertable_to_cult(mob/living/M,datum/team/cult/specific_cult)
+	if(!istype(M))
+		return FALSE
+	if(M.mind)
+		if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
+			return FALSE
+		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
+			return FALSE
+		if(IS_SERVANT_OF_RATVAR(M))
+			return FALSE
+		if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/cult))
+			return FALSE
+		if(M.mind.unconvertable)
+			return FALSE
+	else
+		return FALSE
+	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || !M.client)
+		return FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
+	return TRUE
+
 /*
 
 This file contains runes.
@@ -137,7 +158,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 */
 
-/obj/effect/rune/proc/can_invoke(var/mob/living/user=null)
+/obj/effect/rune/proc/can_invoke(mob/living/user=null)
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	if(user && (allow_ghosts || !user.has_status_effect(/datum/status_effect/cultghost)))
@@ -148,23 +169,21 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
 		if(plushsie?.invoker_charges > 0)
 			invokers += plushsie
-		for(var/mob/living/L in viewers(1, src))
-			if(IS_CULTIST(L))
-				if(L == user)
+		for(var/mob/living/cultist in viewers(1, src))
+			if(IS_CULTIST(cultist))
+				if(cultist == user)
 					continue
-				if(L.has_status_effect(/datum/status_effect/cultghost) && !allow_ghosts)
-					L.visible_message(span_warning("[L] appears to shudder as they fail to perform the ritual, their soul is too fragile!"), span_narsie("You do not possess a strong enough physical binding to activate this rune!"))
+				if(cultist.has_status_effect(/datum/status_effect/cultghost) && !allow_ghosts)
+					cultist.visible_message(span_warning("[cultist] appears to shudder as they fail to perform the ritual, their soul is too fragile!"), span_narsie("You do not possess a strong enough physical binding to activate this rune!"))
 					continue
-				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
-					if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)
-						continue
-				if(L.stat)
+				if(!cultist.can_speak(allow_mimes = TRUE))
 					continue
-				invokers += L
+				if(cultist.stat != CONSCIOUS)
+					continue
+				invokers += cultist
 	return invokers
 
-/obj/effect/rune/proc/invoke(var/list/invokers)
+/obj/effect/rune/proc/invoke(list/invokers)
 	//This proc contains the effects of the rune as well as things that happen afterwards. If you want it to spawn an object and then delete itself, have both here.
 	for(var/M in invokers)
 		if(isliving(M))
@@ -209,7 +228,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	icon_state = "[rand(1,7)]"
 	color = rgb(rand(0,255), rand(0,255), rand(0,255))
 
-/obj/effect/rune/malformed/invoke(var/list/invokers)
+/obj/effect/rune/malformed/invoke(list/invokers)
 	..()
 	qdel(src)
 
@@ -227,7 +246,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 /obj/effect/rune/convert/do_invoke_glow()
 	return
 
-/obj/effect/rune/convert/invoke(var/list/invokers)
+/obj/effect/rune/convert/invoke(list/invokers)
 	if(rune_in_use)
 		return
 	var/list/myriad_targets = list()
@@ -280,7 +299,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 		convertee.adjustBruteLoss(-(brutedamage * 0.75))
 		convertee.adjustFireLoss(-(burndamage * 0.75))
 	convertee.visible_message(span_warning("[convertee] writhes in pain [brutedamage || burndamage ? "even as [convertee.p_their()] wounds heal and close" : "as the markings below [convertee.p_them()] glow a bloody red"]!"), span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
-	SSticker.mode.add_cultist(convertee.mind, 1)
+	convertee.mind.add_antag_datum(/datum/antagonist/cult)
+	convertee.Unconscious(10 SECONDS)
+
 	new /obj/item/melee/cultblade/dagger(get_turf(src))
 	convertee.mind.special_role = ROLE_CULTIST
 	to_chat(convertee, span_cultitalic("<b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
@@ -289,8 +310,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	if(ishuman(convertee))
 		var/mob/living/carbon/human/H = convertee
 		H.uncuff()
-		H.stuttering = 0
-		H.cultslurring = 0
+		H.remove_status_effect(/datum/status_effect/speech/slurring/cult)
+		H.remove_status_effect(/datum/status_effect/speech/stutter)
 	return 1
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/sacrificial, list/invokers)
@@ -366,7 +387,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	color = RUNE_COLOR_TALISMAN
 	construct_invoke = FALSE
 
-/obj/effect/rune/empower/invoke(var/list/invokers)
+/obj/effect/rune/empower/invoke(list/invokers)
 	. = ..()
 	var/mob/living/user = invokers[1] //the first invoker is always the user
 	for(var/datum/action/innate/cult/blood_magic/BM in user.actions)
@@ -402,7 +423,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 		QDEL_NULL(outer_portal)
 	return ..()
 
-/obj/effect/rune/teleport/invoke(var/list/invokers)
+/obj/effect/rune/teleport/invoke(list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
@@ -525,7 +546,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 /obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
 	return
 
-/obj/effect/rune/narsie/invoke(var/list/invokers)
+/obj/effect/rune/narsie/invoke(list/invokers)
 	if(used)
 		return
 	if(!is_station_level(z))
@@ -588,7 +609,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 		var/revive_number = LAZYLEN(GLOB.sacrificed) - revives_used
 		. += "<b>Revives Remaining:</b> [revive_number]"
 
-/obj/effect/rune/raise_dead/invoke(var/list/invokers)
+/obj/effect/rune/raise_dead/invoke(list/invokers)
 	var/turf/T = get_turf(src)
 	var/mob/living/mob_to_revive
 	var/list/potential_revive_mobs = list()
@@ -623,20 +644,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 			fail_invoke()
 			return
 		revives_used += SOULS_TO_REVIVE
-		mob_to_revive.revive(1, 1) //This does remove traits and such, but the rune might actually see some use because of it!
+		mob_to_revive.revive(ADMIN_HEAL_ALL) //This does remove traits and such, but the rune might actually see some use because of it! //Why did you think this was a good idea
 		mob_to_revive.grab_ghost()
+
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-			question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?",
-			role = /datum/role_preference/antagonist/blood_cultist,
-			check_jobban = ROLE_CULTIST,
-			poll_time = 10 SECONDS,
-			checked_target = mob_to_revive,
-			jump_target = mob_to_revive,
-			role_name_text = "inactive blood cultist",
-			alert_pic = mob_to_revive,
-		)
+		var/datum/poll_config/config = new()
+		config.question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?"
+		config.role = /datum/role_preference/roundstart/blood_cultist
+		config.check_jobban = ROLE_CULTIST
+		config.poll_time = 10 SECONDS
+		config.jump_target = mob_to_revive
+		config.role_name_text = "inactive blood cultist"
+		config.alert_pic = mob_to_revive
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = mob_to_revive)
 		if(candidate)
 			mob_to_revive.ghostize(FALSE)
 			mob_to_revive.key = candidate.key
@@ -700,7 +721,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	GLOB.wall_runes -= src
 	return ..()
 
-/obj/effect/rune/wall/invoke(var/list/invokers)
+/obj/effect/rune/wall/invoke(list/invokers)
 	if(recharging)
 		return
 	var/mob/living/user = invokers[1]
@@ -763,12 +784,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	icon_state = "3"
 	color = RUNE_COLOR_SUMMON
 
-/obj/effect/rune/summon/invoke(var/list/invokers)
+/obj/effect/rune/summon/invoke(list/invokers)
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
-	for(var/datum/mind/M in SSticker.mode.cult)
-		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
-			cultists |= M.current
+	for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+		if(cult_mind.current?.stat != DEAD && !(cult_mind.current in invokers))
+			cultists |= cult_mind.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in cultists
 	var/held_in_place = FALSE
 	if(iscarbon(cultist_to_summon))
@@ -828,7 +849,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 /obj/effect/rune/blood_boil/do_invoke_glow()
 	return
 
-/obj/effect/rune/blood_boil/invoke(var/list/invokers)
+/obj/effect/rune/blood_boil/invoke(list/invokers)
 	if(rune_in_use)
 		return
 	..()
@@ -901,7 +922,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		return list()
 	return ..()
 
-/obj/effect/rune/manifest/invoke(var/list/invokers)
+/obj/effect/rune/manifest/invoke(list/invokers)
 	. = ..()
 	var/mob/living/user = invokers[1]
 	var/turf/T = get_turf(src)
@@ -939,7 +960,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		to_chat(user, span_cultitalic("Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely..."))
 		var/obj/structure/emergency_shield/invoker/N = new(T)
 		new_human.key = ghost_to_spawn.key
-		SSticker.mode.add_cultist(new_human.mind, 0)
+		new_human.mind.add_antag_datum(/datum/antagonist/cult)
 		to_chat(new_human, span_cultitalic("<b>You are a servant of the Geometer. You have been made semi-corporeal by the cult of Nar'Sie, and you are to serve them at all costs.</b>"))
 
 		while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))
@@ -1016,7 +1037,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	scribe_delay = 100
 	allow_ghosts = FALSE
 
-/obj/effect/rune/apocalypse/invoke(var/list/invokers)
+/obj/effect/rune/apocalypse/invoke(list/invokers)
 	if(rune_in_use)
 		return
 	. = ..()
@@ -1101,8 +1122,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 				var/datum/round_event_control/meteor_wave/MW = new()
 				MW.runEvent()
 			if(51 to 60)
-				var/datum/round_event_control/spider_infestation/SI = new()
-				SI.runEvent()
+				var/datum/dynamic_ruleset/midround/ghost/spiders/spider = new()
+				spider.execute()
 			if(61 to 70)
 				var/datum/round_event_control/anomaly/anomaly_flux/AF
 				var/datum/round_event_control/anomaly/anomaly_grav/AG
@@ -1122,7 +1143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 				N.runEvent()
 	qdel(src)
 
-/obj/effect/rune/apocalypse/proc/image_handler(var/list/images, duration)
+/obj/effect/rune/apocalypse/proc/image_handler(list/images, duration)
 	var/end = world.time + duration
 	set waitfor = 0
 	while(end>world.time)

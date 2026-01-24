@@ -50,6 +50,13 @@
 		"smmon_4.gif" = 'icons/program_icons/smmon_4.gif',
 		"smmon_5.gif" = 'icons/program_icons/smmon_5.gif',
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
+		"antivirus_0.gif" = 'icons/program_icons/antivirus_0.gif',
+		"antivirus_1.gif" = 'icons/program_icons/antivirus_1.gif',
+		"antivirus_2.gif" = 'icons/program_icons/antivirus_2.gif',
+		"antivirus_3.gif" = 'icons/program_icons/antivirus_3.gif',
+		"antivirus_4.gif" = 'icons/program_icons/antivirus_4.gif',
+		"power_drain.gif" = 'icons/program_icons/power_drain.gif',
+		"no_relay.gif" = 'icons/program_icons/no_relay.gif',
 		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
 	)
 
@@ -135,31 +142,6 @@
 	assets = list(
 		"fuckywucky.png" = 'html/fuckywucky.png'
 	)
-
-/datum/asset/simple/namespaced/changelog
-	assets = list(
-		"88x31.png" = 'html/88x31.png',
-		"bug-minus.png" = 'html/bug-minus.png',
-		"cross-circle.png" = 'html/cross-circle.png',
-		"hard-hat-exclamation.png" = 'html/hard-hat-exclamation.png',
-		"image-minus.png" = 'html/image-minus.png',
-		"image-plus.png" = 'html/image-plus.png',
-		"music-minus.png" = 'html/music-minus.png',
-		"music-plus.png" = 'html/music-plus.png',
-		"tick-circle.png" = 'html/tick-circle.png',
-		"wrench-screwdriver.png" = 'html/wrench-screwdriver.png',
-		"spell-check.png" = 'html/spell-check.png',
-		"burn-exclamation.png" = 'html/burn-exclamation.png',
-		"chevron.png" = 'html/chevron.png',
-		"chevron-expand.png" = 'html/chevron-expand.png',
-		"scales.png" = 'html/scales.png',
-		"coding.png" = 'html/coding.png',
-		"ban.png" = 'html/ban.png',
-		"chrome-wrench.png" = 'html/chrome-wrench.png',
-		"changelog.css" = 'html/changelog.css'
-	)
-	parents = list("changelog.html" = 'html/changelog.html')
-
 
 /datum/asset/simple/jquery
 	legacy = TRUE
@@ -378,7 +360,7 @@
 				continue
 			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
 				var/obj/item/bodypart/body_part = item
-				icon_file = initial(body_part.static_icon)
+				icon_file = initial(body_part.icon_static)
 			else
 				icon_file = initial(item.icon)
 
@@ -407,29 +389,49 @@
 /datum/asset/spritesheet_batched/vending/create_spritesheets()
 	// initialising the list of items we need
 	var/target_items = list()
-	var/prize_dummy = list()
-	for(var/obj/machinery/vendor/V as() in subtypesof(/obj/machinery/vendor))
-		V = new V()
-		prize_dummy |= V.prize_list // prize_list is added by Init()
-		qdel(V)
-	for(var/datum/data/vendor_equipment/V as() in prize_dummy)
-		target_items |= V.equipment_path
-	for(var/obj/machinery/vending/V as() in subtypesof(/obj/machinery/vending))
-		V = new V() // It seems `initial(list var)` has nothing. need to make a type.
-		for(var/O in list(V.products, V.premium, V.contraband))
-			target_items |= O
-		qdel(V)
-	for(var/atom/item as() in target_items)
-		if (!ispath(item, /atom))
-			return FALSE
+	for(var/obj/machinery/vending/vendor as anything in subtypesof(/obj/machinery/vending))
+		vendor = new vendor() // It seems `initial(list var)` has nothing. need to make a type.
+		target_items |= vendor.products
+		target_items |= vendor.premium
+		target_items |= vendor.contraband
+		qdel(vendor)
 
-		var/overlay = initial(item.icon_state)
-		var/icon_init = initial(item.icon)
-		var/list/icon_states_available = icon_states(icon_init)
-		if(!(overlay in icon_states_available))
-			var/icon_file = "[icon_init]" || "Unknown Generated Icon"
-			stack_trace("Invalid overlay: Icon object '[icon_file]' [REF(src)] used in '[src]' [type] is missing icon state [overlay].")
+	// Add mining vendor items
+	for(var/obj/machinery/gear_requisition/mining_vendor as anything in subtypesof(/obj/machinery/gear_requisition))
+		mining_vendor = new mining_vendor()
+		for(var/datum/data/requisition_equipment/prize in mining_vendor.prize_list)
+			target_items |= prize.equipment_path
+		qdel(mining_vendor)
+
+	// building icons for each item
+	for (var/atom/item as anything in target_items)
+		if (!ispath(item, /atom))
 			continue
+
+		var/icon_state = initial(item.icon_state)
+		if(ispath(item, /obj))
+			var/obj/obj_atom = item
+			if(initial(obj_atom.icon_state_preview))
+				icon_state = initial(obj_atom.icon_state_preview)
+		var/has_gags = initial(item.greyscale_config) && initial(item.greyscale_colors)
+		var/has_color = initial(item.color) && icon_state
+		// GAGS and colored icons must be pregenerated
+		// Otherwise we can rely on DMIcon, so skip it to save init time
+		if(!has_gags && !has_color)
+			continue
+		#ifdef UNIT_TESTS
+		if (!has_gags && !icon_exists(initial(item.icon), icon_state))
+			var/icon_file = initial(item.icon)
+			var/icon_states_string
+			for (var/an_icon_state in icon_states(icon_file))
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)]([text_ref(an_icon_state)])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)]([text_ref(an_icon_state)])"
+
+			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)]([text_ref(icon_state)]), icon_states=[icon_states_string]")
+			continue
+		#endif
 
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 		insert_icon(imgid, get_display_icon_for(item))
@@ -518,14 +520,15 @@
 		"atool.png" = 'html/img/atool.png',
 		"apistol.png" = 'html/img/apistol.png',
 		"scitool.png" = 'html/img/scitool.png',
-		"alienorgan.png"= 'html/img/alienorgan.png',
-		"abaton.png"= 'html/img/abaton.png',
-		"spiderguard.png"= 'html/img/spiderguard.png',
-		"spiderbroodmother.png"= 'html/img/spiderbroodmother.png',
-		"spidernurse.png"= 'html/img/spidernurse.png',
-		"spiderhunter.png"= 'html/img/spiderhunter.png',
-		"spiderviper.png"= 'html/img/spiderviper.png',
-		"spidertarantula.png"= 'html/img/spidertarantula.png',
+		"alienorgan.png" = 'html/img/alienorgan.png',
+		"abaton.png" = 'html/img/abaton.png',
+		"spiderguard.png" = 'html/img/spiderguard.png',
+		"spiderbroodmother.png" = 'html/img/spiderbroodmother.png',
+		"spidernurse.png" = 'html/img/spidernurse.png',
+		"spiderhunter.png" = 'html/img/spiderhunter.png',
+		"spiderviper.png" = 'html/img/spiderviper.png',
+		"spidertarantula.png" = 'html/img/spidertarantula.png',
+		"vampire.png" = 'html/img/vampire.png',
 	)
 
 /datum/asset/simple/orbit

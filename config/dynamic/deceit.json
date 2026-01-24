@@ -1,0 +1,156 @@
+{
+	"Name": "Rumors of Deceit",
+	"Description": "Focuses on less-disruptive antagonists with the intent of sowing distrust",
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 1,
+		"roundstart_divergence_percent_upper": 1,
+		"roundstart_points_per_ready": 1.4,
+		"roundstart_points_per_unready": 0.5,
+		"midround_grace_period": 24000,
+		"midround_linear_delta": 0.3,
+		"midround_linear_delta_forced": 0.25,
+		"midround_living_delta": 0.05,
+        "midround_observer_delta": 0,
+        "midround_dead_delta": -0.01,
+		"latejoin_ruleset_probability": 50,
+		"latejoin_max_rulesets": 1,
+		"midround_light_end_time": 36000,
+		"midround_medium_end_time": 72000,
+		"midround_medium_increase_ratio": 1,
+		"midround_points_per_antag": {
+			"/datum/antagonist/ert": 0.2,
+			"/datum/antagonist/spider": -0.15,
+			"/datum/antagonist/swarmer": -0.15,
+			"/datum/antagonist/xeno": -0.2,
+			"/datum/antagonist/revenant": -0.6,
+			"/datum/antagonist/ninja": -1.1,
+			"/datum/antagonist/space_dragon": -2.5,
+			"/datum/antagonist/wizard": -2.5,
+			"/datum/antagonist/slaughter": -4,
+			"/datum/antagonist/blob": -4,
+			"/datum/antagonist/morph": -0.3,
+			"/datum/antagonist/pirate": -0.5,
+			"/datum/antagonist/pirate/captain": -0.5,
+			"/datum/antagonist/malf_ai": -0.6,
+			"/datum/antagonist/traitor": -0.2,
+			"/datum/antagonist/heretic": -0.2,
+			"/datum/antagonist/brother": -0.1,
+			"/datum/antagonist/changeling": -0.2,
+			"/datum/antagonist/abductor": -0.3,
+			"/datum/antagonist/abductor/agent": -0.3,
+			"/datum/antagonist/abductor/scientist": -0.3,
+			"/datum/antagonist/abductor/scientist/solo": -0.3,
+			"/datum/antagonist/nightmare": -0.4
+		}
+	},
+	"Roundstart": {
+		"Traitor": {
+			"points_cost": 6,
+			"weight": 20,
+			"restricted_roles": [
+				"Cyborg",
+				"AI"
+			],
+			"elasticity": 50
+		},
+		"Revolution": {
+			"points_cost": 100
+		},
+		"Clown Operatives": {
+			"points_cost": 500
+		},
+		"Blood Cult": {
+			"weight": 0
+		},
+		"Nuclear Operatives": {
+			"weight": 0
+		},
+		"Wizard": {
+			"weight": 0
+		},
+		"Changeling": {
+			"weight": 15
+		},
+		"Vampire": {
+			"weight": 10,
+			"elasticity": 70
+		},
+		"Malfunctioning AI": {
+			"weight": 10
+		},
+		"Blood Brothers": {
+			"weight": 15
+		}
+	},
+	"Midround": {
+        "Value Drifted AI": {
+            "weight": 3,
+            "minimum_players_required": 24,
+			"severity": 3
+        },
+        "Syndicate Sleeper Agent": {
+            "weight": 14,
+			"severity": 3
+        },
+        "Fanatic Revelation": {
+            "weight": 14,
+			"severity": 3
+        },
+        "Vampiric Accident": {
+            "weight": 14,
+			"severity": 3
+        },
+        "Obsessed": {
+            "weight": 14,
+			"severity": 3
+        },
+        "Wizard": {
+			"severity": 4
+        },
+        "Nuclear Assault": {
+			"severity": 4
+        },
+        "Blob": {
+			"severity": 4
+        },
+        "Xenomorph Infestation": {
+			"severity": 4
+        },
+        "Space Dragon": {
+			"severity": 4
+        },
+        "Space Ninja": {
+			"severity": 4
+        },
+        "Nightmare": {
+			"severity": 6
+        },
+        "Abductors": {
+			"severity": 4
+        },
+        "Lone Abductor": {
+			"severity": 4
+        },
+        "Revenant": {
+			"severity": 6
+        },
+        "Spider Infestation": {
+			"severity": 4
+        },
+        "Swarmer": {
+			"severity": 4
+        },
+        "Morph": {
+			"severity": 3
+        },
+        "Prisoners": {
+			"severity": 1
+        },
+        "Fugitives": {
+			"severity": 3
+        },
+		"Space Pirates": {
+			"severity": 4
+		}
+    }
+}

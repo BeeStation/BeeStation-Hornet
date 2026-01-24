@@ -24,7 +24,7 @@
 
 		if(stat != DEAD)
 			//Mutations and radiation
-			handle_mutations_and_radiation(delta_time, times_fired)
+			handle_mutations(delta_time, times_fired)
 
 		if(stat != DEAD)
 			//Breathing, if applicable
@@ -50,8 +50,6 @@
 			handle_traits(delta_time, times_fired) // eye, ear, brain damages
 			handle_status_effects(delta_time, times_fired) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
 
-	handle_fire(delta_time, times_fired)
-
 	if(machine)
 		machine.check_eye(src)
 
@@ -63,8 +61,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired)
 	return
 
-/mob/living/proc/handle_mutations_and_radiation(delta_time, times_fired)
-	radiation = 0 //so radiation don't accumulate in simple animals
+/mob/living/proc/handle_mutations(delta_time, times_fired)
 	return
 
 /mob/living/proc/handle_diseases(delta_time, times_fired)
@@ -87,27 +84,8 @@
 	else // this is a hot place
 		adjust_bodytemperature(min(min(temp_delta / BODYTEMP_DIVISOR, BODYTEMP_HEATING_MAX) * delta_time, temp_delta))
 
-/mob/living/proc/handle_fire(delta_time, times_fired)
-	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
-		fire_stacks = min(0, fire_stacks + (0.5 * delta_time)) //So we dry ourselves back to default, nonflammable.
-	if(!on_fire)
-		return TRUE //the mob is no longer on fire, no need to do the rest.
-	if(fire_stacks > 0)
-		adjust_fire_stacks(-0.05 * delta_time) //the fire is slowly consumed
-	else
-		ExtinguishMob()
-		return TRUE //mob was put out, on_fire = FALSE via ExtinguishMob(), no need to update everything down the chain.
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(GET_MOLES(/datum/gas/oxygen, G) < 1)
-		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
-		return TRUE
-	var/turf/location = get_turf(src)
-	location.hotspot_expose(700, 25 * delta_time, TRUE)
-
 //this updates all special effects: knockdown, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects(delta_time, times_fired)
-	if(confused)
-		confused = max(0, confused - (1 * delta_time))
 
 /mob/living/proc/handle_traits(delta_time, times_fired)
 	//Eyes
@@ -122,9 +100,9 @@
 /mob/living/proc/update_damage_hud()
 	return
 
-/mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
+/mob/living/proc/handle_gravity(delta_time, times_fired)
 	if(gravity_state > STANDARD_GRAVITY)
-		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
+		handle_high_gravity(gravity_state, delta_time, times_fired)
 
 /mob/living/proc/gravity_animate()
 	if(!get_filter("gravity"))
@@ -132,11 +110,11 @@
 	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
 	animate(y = 0, time = 10)
 
-/mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
+/mob/living/proc/handle_high_gravity(gravity, delta_time, times_fired)
 	if(gravity < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
 		return
 
 	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
-	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * delta_time)
 
 #undef BODYTEMP_DIVISOR

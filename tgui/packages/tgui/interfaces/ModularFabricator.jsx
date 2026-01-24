@@ -1,9 +1,22 @@
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Input, NoticeBox, ProgressBar, Section, Divider, Flex, Table, Grid, NumberInput } from '../components';
-import { Window } from '../layouts';
-import { Fragment } from 'react';
-import { capitalize, createSearch } from 'common/string';
 import { round } from 'common/math';
+import { capitalize, createSearch } from 'common/string';
+import { Fragment } from 'react';
+
+import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Grid,
+  Input,
+  NoticeBox,
+  NumberInput,
+  ProgressBar,
+  Section,
+  Table,
+} from '../components';
+import { Window } from '../layouts';
 
 const MAX_SEARCH_RESULTS = 25;
 
@@ -124,7 +137,7 @@ export const ModularFabricator = (props) => {
         <div className="ModularFabricator">
           <div className="vertical fill_height">
             <ModFabSecurityMessage />
-            <div className="horizontal">
+            <div className="horizontal grow no_overflow">
               <div className="vertical grow fill_height">
                 <div className="data">
                   <ModFabData />
@@ -161,7 +174,9 @@ export const ModFabMain = (props) => {
       .filter((item, i) => i < MAX_SEARCH_RESULTS)
       .filter((item) => {
         // check whether we have design_id repeats in our search
-        return repeats.has(item.design_id) ? false : repeats.add(item.design_id);
+        return repeats.has(item.design_id)
+          ? false
+          : repeats.add(item.design_id);
       });
   } else {
     for (let i = 0; i < items.length; i++) {
@@ -175,7 +190,11 @@ export const ModFabMain = (props) => {
     <>
       <ModFabCategoryList categories={items} />
       <Divider />
-      {selected_category_items ? <ModFabCategoryItems items={selected_category_items} /> : ''}
+      {selected_category_items ? (
+        <ModFabCategoryItems items={selected_category_items} />
+      ) : (
+        ''
+      )}
     </>
   );
 };
@@ -247,17 +266,17 @@ export const ModFabCategoryItems = (props) => {
           }
         />
       )}
-      <Table className="item_table">
+      <div className="item_table">
         {items.map((item) => (
           /* CSS can't handle height of divs inside table cells for some reason */
-          <Table.Row key={item.design_id} height="1px" className="item_row">
-            <Table.Cell height="inherit" pr={0}>
+          <div key={item.design_id} height="1px" className="item_row">
+            <div className="item_description" height="inherit" pr={0}>
               <div className="item_property_container">
                 <div className="item_name">{item.name}</div>
                 {!!item.desc && <div className="item_desc">{item.desc}</div>}
               </div>
-            </Table.Cell>
-            <Table.Cell pl={0} className="item_costs">
+            </div>
+            <div pl={0} className="item_costs">
               <div className="item_property_container">
                 {item.material_cost.map((mat) => (
                   <Box key={mat.name}>
@@ -265,27 +284,33 @@ export const ModFabCategoryItems = (props) => {
                   </Box>
                 ))}
               </div>
-            </Table.Cell>
-            <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
+            </div>
+            <div className="item_small_button">
               <Button
                 icon="minus"
                 onClick={() => {
                   amount !== 0 && setAmount(amount - 1);
                 }}
               />
-            </Table.Cell>
-            <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
-              <NumberInput value={amount} minValue={0} maxValue={50} step={1} onChange={(value) => setAmount(value)} />
-            </Table.Cell>
-            <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
+            </div>
+            <div className="item_small_button">
+              <NumberInput
+                value={amount}
+                minValue={0}
+                maxValue={50}
+                step={1}
+                onChange={(value) => setAmount(value)}
+              />
+            </div>
+            <div className="item_small_button">
               <Button
                 icon="plus"
                 onClick={() => {
                   amount !== 50 && setAmount(amount + 1);
                 }}
               />
-            </Table.Cell>
-            <Table.Cell collapsing verticalAlign="middle" className="item_large_button">
+            </div>
+            <Box className="item_large_button" pl={1}>
               <Button
                 icon="plus-circle"
                 content="Queue"
@@ -297,22 +322,31 @@ export const ModFabCategoryItems = (props) => {
                   })
                 }
               />
-            </Table.Cell>
-          </Table.Row>
+            </Box>
+          </div>
         ))}
-      </Table>
+      </div>
     </>
   );
 };
 
 export const ModFabSecurityMessage = (props) => {
   const { act, data } = useBackend();
-  const { hacked, sec_interface_unlock, show_unlock_bar, can_sync = true } = data;
+  const {
+    hacked,
+    sec_interface_unlock,
+    show_unlock_bar,
+    can_sync = true,
+  } = data;
   return show_unlock_bar ? (
-    <NoticeBox className="ModularFabricator__security_header" color={sec_interface_unlock ? 'green' : 'red'}>
+    <NoticeBox
+      className="ModularFabricator__security_header"
+      color={sec_interface_unlock ? 'green' : 'red'}
+    >
       <Flex align="center">
         <Flex.Item grow={1}>
-          Security protocol {hacked ? 'disengaged' : 'engaged'}. Swipe a valid ID to unlock safety controls.
+          Security protocol {hacked ? 'disengaged' : 'engaged'}. Swipe a valid
+          ID to unlock safety controls.
         </Flex.Item>
         <Flex.Item>
           <Button
@@ -373,7 +407,12 @@ export const SyncWithServers = (props) => {
         </Table.Row>
         <Table.Row>
           <Table.Cell colspan={2} textAlign="center" bold>
-            <Button color={'green'} content="Resync" icon="upload" onClick={() => act('resync_rd')} />
+            <Button
+              color={'green'}
+              content="Resync"
+              icon="upload"
+              onClick={() => act('resync_rd')}
+            />
           </Table.Cell>
         </Table.Row>
       </Table>
@@ -529,9 +568,9 @@ export const SidePanel = (props) => {
   const { act } = useBackend();
   const [queueRepeat, setQueueRepeat] = useLocalState('queueRepeat', 0);
   return (
-    <Section fill>
+    <Section fill className="no_overflow">
       <Flex direction="column" height="100%">
-        <Flex.Item minHeight="30%">
+        <Flex.Item minHeight="30%" shrink={1} className="scroll_vertically">
           <MaterialData />
         </Flex.Item>
         <Flex.Item>
@@ -557,14 +596,20 @@ export const SidePanel = (props) => {
               />
             </Flex.Item>
             <Flex.Item mx={1}>
-              <Button m={0} color="red" icon="times" content="Clear" onClick={() => act('clear_queue')} />
+              <Button
+                m={0}
+                color="red"
+                icon="times"
+                content="Clear"
+                onClick={() => act('clear_queue')}
+              />
             </Flex.Item>
           </Flex>
         </Flex.Item>
         <Flex.Item>
           <Divider />
         </Flex.Item>
-        <Flex.Item>
+        <Flex.Item shrink={1} className="scroll_vertically">
           <FabricationQueue />
         </Flex.Item>
         <Flex.Item grow={1} />
@@ -581,9 +626,20 @@ export const ProcessingBar = (props) => {
   const { being_build } = data;
   return (
     <div className="processing_bar">
-      <Button content="Process" color="green" icon="caret-right" onClick={() => act('begin_process')} />
+      <Button
+        content="Process"
+        color="green"
+        icon="caret-right"
+        onClick={() => act('begin_process')}
+      />
       {being_build ? (
-        <ProgressBar value={being_build.progress} minValue={0} maxValue={100} color="green" width="100%">
+        <ProgressBar
+          value={being_build.progress}
+          minValue={0}
+          maxValue={100}
+          color="green"
+          width="100%"
+        >
           {being_build.name} - {Math.min(round(being_build.progress), 100)}%
         </ProgressBar>
       ) : (
@@ -647,7 +703,10 @@ export const ModFabDataDisk = (props) => {
       <Table>
         <Table.Row>
           <Table.Cell>Status:</Table.Cell>
-          <Table.Cell bold color={acceptsDisk ? (diskInserted ? 'green' : 'yellow') : 'red'}>
+          <Table.Cell
+            bold
+            color={acceptsDisk ? (diskInserted ? 'green' : 'yellow') : 'red'}
+          >
             {acceptsDisk ? (diskInserted ? 'Ready' : 'Empty') : 'Inactive'}
           </Table.Cell>
         </Table.Row>

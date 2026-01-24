@@ -60,6 +60,8 @@
 	desc = "They carry the voice of an ancient god."
 	icon_state = "voice_of_god"
 	actions_types = list(/datum/action/item_action/organ_action/colossus)
+	custom_price = 40000
+	max_demand = 2
 	var/next_command = 0
 	var/cooldown_mod = 1
 	var/base_multiplier = 1
@@ -82,7 +84,7 @@
 		return FALSE
 	if(isliving(owner))
 		var/mob/living/L = owner
-		if(!L.can_speak_vocal())
+		if(!L.can_speak())
 			return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
@@ -98,15 +100,14 @@
 	owner.say(".x[command]")
 
 /obj/item/organ/vocal_cords/colossus/can_speak_with()
+	if(!owner)
+		return FALSE
+
 	if(world.time < next_command)
 		to_chat(owner, span_notice("You must wait [DisplayTimeText(next_command - world.time)] before Speaking again."))
 		return FALSE
-	if(!owner)
-		return FALSE
-	if(!owner.can_speak_vocal())
-		to_chat(owner, span_warning("You are unable to speak!"))
-		return FALSE
-	return TRUE
+
+	return owner.can_speak()
 
 /obj/item/organ/vocal_cords/colossus/handle_speech(message)
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)
@@ -277,14 +278,20 @@
 	else if((findtext(message, silence_words)))
 		cooldown = COOLDOWN_STUN
 		for(var/mob/living/carbon/C in listeners)
-			if(C.silent < VOICE_OF_GOD_MAX_SILENCE_TIME)
-				C.silent = min(C.silent + (10 * power_multiplier), VOICE_OF_GOD_MAX_SILENCE_TIME)
+			C.adjust_silence_up_to(10 * power_multiplier, VOICE_OF_GOD_MAX_SILENCE_TIME)
 
 	//HALLUCINATE
 	else if((findtext(message, hallucinate_words)))
 		cooldown = COOLDOWN_MEME
-		for(var/mob/living/carbon/C in listeners)
-			new /datum/hallucination/delusion(C, TRUE, null,150 * power_multiplier,0)
+		for(var/mob/living/target in listeners)
+			target.cause_hallucination( \
+				get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), \
+				"voice of god", \
+				duration = 15 SECONDS * power_multiplier, \
+				affects_us = FALSE, \
+				affects_others = TRUE, \
+				skip_nearby = FALSE, \
+			)
 
 	//WAKE UP
 	else if((findtext(message, wakeup_words)))
@@ -319,7 +326,7 @@
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.adjust_fire_stacks(1 * power_multiplier)
-			L.IgniteMob()
+			L.ignite_mob()
 
 	//HOT
 	else if((findtext(message, hot_words)))

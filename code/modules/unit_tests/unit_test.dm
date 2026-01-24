@@ -127,6 +127,9 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 		TEST_FAIL("[icon] is not an icon.")
 		return
 
+	if (!icon.Width())
+		TEST_FAIL("The icon provided to [name] has no width.")
+
 	var/path_prefix = replacetext(replacetext("[type]", "/datum/unit_test/", ""), "/", "_")
 	name = replacetext(name, "/", "_")
 
@@ -136,29 +139,41 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 		var/data_filename = "data/screenshots/[path_prefix]_[name].png"
 		fcopy(icon, data_filename)
 		log_test("\t[path_prefix]_[name] was found, putting in data/screenshots")
-	else if (fexists("code"))
+
+		if (!length(file(data_filename)))
+			TEST_FAIL("No data generated for icon [data_filename]")
+	else
+#ifndef CIBUILDING
 		// We are probably running in a local build
 		fcopy(icon, filename)
-		TEST_FAIL("Screenshot for [name] did not exist. One has been created.")
-	else
+		log_test("Screenshot for [name] did not exist. One has been created at [filename].")
+#else
 		// We are probably running in real CI, so just pretend it worked and move on
 		fcopy(icon, "data/screenshots_new/[path_prefix]_[name].png")
 
 		log_test("\t[path_prefix]_[name] was put in data/screenshots_new")
 
+		if (!length(file("data/screenshots_new/[path_prefix]_[name].png")))
+			TEST_FAIL("No data generated for icon data/screenshots_new/[path_prefix]_[name].png")
+#endif
+
 /// Helper for screenshot tests to take an image of an atom from all directions and insert it into one icon
-/datum/unit_test/proc/get_flat_icon_for_all_directions(atom/thing, no_anim = TRUE)
+/datum/unit_test/proc/get_flat_icon_for_all_directions(atom/thing, no_anim = TRUE, override_plane = null)
+	COMPILE_OVERLAYS(thing)
 	var/icon/output = icon('icons/effects/effects.dmi', "nothing")
 
+	if (!istype(thing))
+		TEST_FAIL("Non atom provided to get_flat_icon_for_all_directions, was: '[thing]'")
+
 	for (var/direction in GLOB.cardinals)
-		var/icon/partial = getFlatIcon(thing, defdir = direction, no_anim = no_anim)
+		var/icon/partial = getFlatIcon(thing, defdir = direction, no_anim = no_anim, override_plane = override_plane)
 		output.Insert(partial, dir = direction)
 
 	return output
 
 /// Logs a test message. Will use GitHub action syntax found at https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions
 /datum/unit_test/proc/log_for_test(text, priority, file, line)
-	var/map_name = SSmapping.config.map_name
+	var/map_name = SSmapping.current_map.map_name
 
 	// Need to escape the text to properly support newlines.
 	var/annotation_text = replacetext(text, "%", "%25")
@@ -174,14 +189,14 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 	GLOB.current_test = test
 	var/duration = REALTIMEOFDAY
-	var/skip_test = (test_path in SSmapping.config.skipped_tests)
+	var/skip_test = (test_path in SSmapping.current_map.skipped_tests)
 	var/test_output_desc = "[test_path]"
 	var/message = ""
 
 	log_world("::group::[test_path]")
 
 	if(skip_test)
-		log_world("[TEST_OUTPUT_YELLOW("SKIPPED")] Skipped run on map [SSmapping.config.map_name].")
+		log_world("[TEST_OUTPUT_YELLOW("SKIPPED")] Skipped run on map [SSmapping.current_map.map_name].")
 
 	else
 
@@ -263,7 +278,7 @@ that means the proc needs to be defined prior to everything else.
 	fdel(file_name)
 	file(file_name) << json_encode(test_results)
 
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = ADMIN_FORCE_END_ROUND
 	//We have to call this manually because del_text can preceed us, and SSticker doesn't fire in the post game
 	SSticker.declare_completion()
 

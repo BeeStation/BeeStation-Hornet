@@ -7,14 +7,23 @@
 
 /datum/species/moth
 	name = "\improper Mothman"
-	plural_form = "Mothpeople"
+	plural_form = "Mothmen"
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
-	default_color = "00FF00"
-	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS)
-	inherent_traits = list(TRAIT_TACKLING_WINGED_ATTACKER)
-	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
-	mutant_bodyparts = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
+	species_traits = list(
+		LIPS,
+		HAS_MARKINGS
+	)
+	inherent_traits = list(
+		TRAIT_TACKLING_WINGED_ATTACKER
+	)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
+	mutant_bodyparts = list(
+		"moth_wings" = "Plain",
+		"moth_antennae" = "Plain",
+		"moth_markings" = "None",
+		"body_size" = "Normal"
+	)
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -28,26 +37,16 @@
 	inert_mutation = /datum/mutation/strongwings
 	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
 
-	species_chest = /obj/item/bodypart/chest/moth
-	species_head = /obj/item/bodypart/head/moth
-	species_l_arm = /obj/item/bodypart/l_arm/moth
-	species_r_arm = /obj/item/bodypart/r_arm/moth
-	species_l_leg = /obj/item/bodypart/l_leg/moth
-	species_r_leg = /obj/item/bodypart/r_leg/moth
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/moth,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/moth,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/moth,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/moth,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/moth,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/moth,
+	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
-
-/datum/species/moth/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.moth_first)]"
-
-	if(lastname)
-		. += " [lastname]"
-	else
-		. += " [pick(GLOB.moth_last)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
@@ -85,7 +84,7 @@
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "wrap_0"
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/cocoon/on_activate()
 	var/mob/living/carbon/H = owner

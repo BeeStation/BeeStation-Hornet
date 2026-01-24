@@ -5,9 +5,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	speech_span = SPAN_ROBOT
 	var/obj_flags = CAN_BE_HIT
 
-	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
-	var/set_obj_flags
-
 	/// Extra examine line to describe controls, such as right-clicking, left-clicking, etc.
 	var/desc_controls
 
@@ -19,21 +16,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	var/force = 0
 	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
 	var/bleed_force = 0
-
-	/*
-	VAR_PRIVATE/atom_integrity //defaults to max_integrity
-	/// The maximum integrity the object can have.
-	var/max_integrity = 500
-	/// The object will break once atom_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
-	var/integrity_failure = 0
-	/// Damage under this value will be completely ignored
-	var/damage_deflection = 0
-	/// Maximum damage that can be taken in a single hit
-	var/max_hit_damage = null
-
-	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
-	var/resistance_flags = NONE
-	*/
 
 	/// How much acid is on that obj
 	var/acid_level = 0
@@ -58,6 +40,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	var/drag_slowdown // Amont of multiplicative slowdown applied if pulled. >1 makes you slower, <1 makes you faster.
 
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
+
 	/// Map tag for something.  Tired of it being used on snowflake items.  Moved here for some semblance of a standard.
 	/// Next pr after the network fix will have me refactor door interactions, so help me god.
 	var/id_tag = null
@@ -78,36 +61,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 			return FALSE
 	return ..()
 
-/obj/Initialize(mapload)
-
-	. = ..() //Do this after, else mat datums is mad.
-
-	if (set_obj_flags)
-		var/flagslist = splittext(set_obj_flags,";")
-		var/list/string_to_objflag = GLOB.bitfields["obj_flags"]
-		for (var/flag in flagslist)
-			if(flag[1] == "!")
-				flag = copytext(flag, length(flag[1]) + 1) // Get all but the initial !
-				obj_flags &= ~string_to_objflag[flag]
-			else
-				obj_flags |= string_to_objflag[flag]
-
-	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
-		var/turf/T = loc
-		T.add_blueprints_preround(src)
-	if(network_id)
-		var/area/A = get_area(src)
-		if(A)
-			if(!A.network_root_id)
-				log_telecomms("Area '[A.name]([REF(A)])' has no network network_root_id, force assigning in object [src]([REF(src)])")
-				SSnetworks.lookup_area_root_id(A)
-			network_id = NETWORK_NAME_COMBINE(A.network_root_id, network_id) // I regret nothing!!
-		else
-			log_telecomms("Created [src]([REF(src)] in nullspace, assuming network to be in station")
-			network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, network_id) // I regret nothing!!
-		AddComponent(/datum/component/ntnet_interface, network_id, id_tag)
-		/// Needs to run before as ComponentInitialize runs after this statement...why do we have ComponentInitialize again?
-
 // A list of all /obj by their id_tag
 GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
@@ -117,7 +70,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if (id_tag)
 		GLOB.objects_by_id_tag[id_tag] = src
 
-/obj/Destroy(force=FALSE)
+/obj/Destroy(force)
 	if(!ismachinery(src) && (datum_flags & DF_ISPROCESSING))
 		STOP_PROCESSING(SSobj, src)
 	SStgui.close_uis(src)
@@ -213,7 +166,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 	if(!machine)
 		return
-	UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(machine, COMSIG_QDELETING)
 	machine.on_unset_machine(src)
 	machine = null
 
@@ -225,7 +178,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if(machine)
 		unset_machine()
 	machine = O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(unset_machine))
+	RegisterSignal(O, COMSIG_QDELETING, PROC_REF(unset_machine))
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
@@ -234,29 +187,13 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-/obj/singularity_pull(S, current_size)
-	..()
+/obj/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(!anchored || current_size >= STAGE_FIVE)
-		step_towards(src,S)
+		step_towards(src, singularity)
 
 /obj/get_dumping_location(datum/storage/source, mob/user)
 	return get_turf(src)
-
-/**
- * This proc is used for telling whether something can pass by this object in a given direction, for use by the pathfinding system.
- *
- * Trying to generate one long path across the station will call this proc on every single object on every single tile that we're seeing if we can move through, likely
- * multiple times per tile since we're likely checking if we can access said tile from multiple directions, so keep these as lightweight as possible.
- *
- * Arguments:
- * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
- * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
- * * pathfinding_atom- The movable we're checking pass flags for, if we're making any such checks
- **/
-/obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
-	if(istype(passing_atom) && (passing_atom.pass_flags & pass_flags_self))
-		return TRUE
-	. = !density
 
 /obj/proc/check_uplink_validity()
 	return 1
@@ -382,7 +319,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 //Where thing is the additional thing you want to same (For example ores inside an ORM)
 //Just add ,\n between each thing
 //generate_tgm_metadata(thing) handles everything inside the {} for you
-/obj/proc/on_object_saved(var/depth = 0)
+/obj/proc/on_object_saved(depth = 0)
 	return ""
 
 // Should move all contained objects to it's location.

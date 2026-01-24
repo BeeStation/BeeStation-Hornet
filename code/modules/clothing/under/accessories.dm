@@ -3,7 +3,7 @@
 	desc = "Something has gone wrong!"
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "plasma"
-	item_state = ""	//no inhands
+	inhand_icon_state = ""	//no inhands
 	slot_flags = 0
 	w_class = WEIGHT_CLASS_SMALL
 	var/above_suit = FALSE
@@ -81,7 +81,7 @@
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
-	item_state = "waistcoat"
+	inhand_icon_state = "waistcoat"
 	minimize_when_attached = FALSE
 	attachment_slot = null
 
@@ -89,7 +89,7 @@
 	name = "maid apron"
 	desc = "The best part of a maid costume."
 	icon_state = "maidapron"
-	item_state = "maidapron"
+	inhand_icon_state = "maidapron"
 	minimize_when_attached = FALSE
 	attachment_slot = null
 
@@ -217,7 +217,8 @@
 		atmos_spawn_air("plasma=20;TEMP=[exposed_temperature]")
 		visible_message(span_danger(" \The [src] bursts into flame!"),span_userdanger("Your [src] bursts into flame!"))
 		qdel(src)
-/obj/item/clothing/accessory/medal/plasma/ComponentInitialize()
+
+/obj/item/clothing/accessory/medal/plasma/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
@@ -270,6 +271,7 @@
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"
 	desc = "An armband, worn by personnel authorized to act as a deputy of station security."
+	custom_price = 10
 
 /obj/item/clothing/accessory/armband/cargo
 	name = "cargo bay guard armband"
@@ -366,7 +368,6 @@
 	energy = 5
 	bomb = 20
 	bio = 20
-	rad = 5
 	acid = 25
 	stamina = 10
 	bleed = 10
@@ -387,7 +388,6 @@
 	energy = 5
 	bomb = 20
 	bio = 20
-	rad = 5
 	acid = 25
 	stamina = 10
 	bleed = 10
@@ -396,7 +396,7 @@
 	name = "shoulder holster"
 	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
 	icon_state = "holster"
-	item_state = "holster"
+	inhand_icon_state = "holster"
 	worn_icon_state = "holster"
 	slot_flags = ITEM_SLOT_SUITSTORE|ITEM_SLOT_BELT
 	var/holstertype = /datum/storage/pockets/holster
@@ -430,26 +430,46 @@
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
 
 //Security Badges
-/obj/item/clothing/accessory/badge/officer/det
-	name = "\improper Detective's badge"
-	desc = "A badge of the Nanotrasen Detective Agency, made of gold and set on false leather."
-	icon_state = "detbadge"
-	worn_icon_state = "detbadge"
-
-/obj/item/clothing/accessory/badge/officer/hos
-	name = "\improper Head of Security badge"
-	desc = "A badge of the Nanotrasen Security Division, made of gold and set on false black leather."
-	icon_state = "hosbadge"
-	worn_icon_state = "hosbadge"
-
-/obj/item/clothing/accessory/badge/officer
-	name = "\improper Security badge"
-	desc = "A badge of the Nanotrasen Security Division, made of silver and set on false black leather."
+/obj/item/clothing/accessory/badge
+	name = "badge"
+	desc = "A badge that symbolises a person's authority as a member of security."
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
+	var/badge_title = "Security Officer"
+	var/officer_name
 
-/obj/item/clothing/accessory/badge/officer/attack_self(mob/user)
-	if(Adjacent(user))
-		user.visible_message(span_notice("[user] shows you \the: [icon2html(src, viewers(user))] [src.name]."), span_notice("You show \the [src.name]."))
+/obj/item/clothing/accessory/badge/examine(mob/user)
+	. = ..()
+	if(officer_name)
+		to_chat(user, "The [src]'s text reads: [officer_name], [badge_title].")
+
+/obj/item/clothing/accessory/badge/attack_self(mob/user)
+	if (!officer_name)
+		to_chat(user, "You inspect your [src.name]. Everything seems to be in order and you give it a quick cleaning with your hand.")
+		officer_name = user.real_name
+		desc = usr
+		return
+	if (isliving(user))
+		if(officer_name)
+			user.visible_message(span_notice("[user] displays their [src.name].\nThe [src]'s text reads: [officer_name], [badge_title]."),span_notice("You display your [src.name].\nThe [src]'s text reads: [officer_name], [badge_title]."))
+		else
+			user.visible_message(span_notice("[user] displays their [src.name].\nIt reads: [badge_title]."),span_notice("You display your [src.name]. It reads: [badge_title]."))
 	..()
+
+/obj/item/clothing/accessory/badge/attack(mob/living/target, mob/living/user, params)
+	. = ..()
+	if (isliving(user) && istype(target))
+		user.visible_message(span_danger("[user] invades [target]'s personal space, thrusting \the [src] into their face insistently."), span_danger("You invade [target]'s personal space, thrusting \the [src] into their face insistently."))
+		if (officer_name)
+			to_chat(target, span_warning("The [src]'s text reads: [officer_name], [badge_title]."))
+
+/obj/item/clothing/accessory/badge/det
+	icon_state = "detbadge"
+	worn_icon_state = "detbadge"
+	badge_title = "Detective"
+
+/obj/item/clothing/accessory/badge/hos
+	icon_state = "hosbadge"
+	worn_icon_state = "hosbadge"
+	badge_title = "Head of Security"

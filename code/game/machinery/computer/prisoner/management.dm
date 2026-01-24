@@ -60,8 +60,7 @@
 				loc_display = mob_loc.loc
 
 			dat += "ID: [T.imp_in.name] | Location: [loc_display]<BR>"
-			dat += "<A href='byond://?src=[REF(src)];warn=[REF(T)]'>(<font class='bad'><i>Message Holder</i></font>)</A> |<BR>"
-			dat += "********************************<BR>"
+			dat += "<A href='byond://?src=[REF(src)];warn=[REF(T)]'>(<font class='bad'><i>Send Message</i></font>)</A><BR>"
 		dat += "<HR><A href='byond://?src=[REF(src)];lock=1'>{Log Out}</A>"
 	var/datum/browser/popup = new(user, "computer", "Prisoner Management Console", 400, 500)
 	popup.set_content(dat)
@@ -98,10 +97,8 @@
 					if("reset")
 						contained_id.points = 0
 					if("setgoal")
-						var/num = round(input(usr, "Choose prisoner's goal:", "Input an Integer", null) as num|null)
-						if(num >= 0)
-							num = min(num, 1500) //Cap the quota to the equivilent of 10 minutes.
-							contained_id.goal = num
+						var/num = round(tgui_input_number(usr, "Choose prisoner's goal:", "Input an number.", 0, 1500, 0))
+						contained_id.goal = num
 					if("setpermanent")
 						contained_id.permanent = !contained_id.permanent
 		else if(href_list["inject1"])
@@ -125,7 +122,7 @@
 				to_chat(usr, span_danger("Unauthorized access."))
 
 		else if(href_list["warn"])
-			var/warning = stripped_input(usr, "Message:", "Enter your message here!", "", MAX_MESSAGE_LEN)
+			var/warning = tgui_input_text(usr, "Message:", "Enter your message here!", "")
 			if(!warning)
 				return
 			if(CHAT_FILTER_CHECK(warning))

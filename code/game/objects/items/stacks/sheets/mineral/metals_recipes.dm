@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		new/datum/stack_recipe("tool closet", /obj/structure/closet/toolcloset/empty, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_CONTAINERS), \
 		new/datum/stack_recipe("wardrobe closet", /obj/structure/closet/wardrobe/empty, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_CONTAINERS), \
 		new/datum/stack_recipe("bomb closet", /obj/structure/closet/bombcloset/empty, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_CONTAINERS), \
+		new/datum/stack_recipe("weapon closet", /obj/structure/closet/gun_locker, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_CONTAINERS), \
 		)),
 	new /datum/stack_recipe_list("wall closets",	 list( \
 		new/datum/stack_recipe("wall closet",								/obj/item/wallframe/wall_closet, 2, time = 1.5 SECONDS), \
@@ -75,6 +76,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	null, \
 	new /datum/stack_recipe_list("airlock assemblies", list( \
 		new /datum/stack_recipe("standard airlock assembly", /obj/structure/door_assembly, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 SECONDS, category = CAT_DOORS), \
+		new /datum/stack_recipe("personal airlock assembly", /obj/structure/door_assembly/personal, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 SECONDS, category = CAT_DOORS), \
 		new /datum/stack_recipe("public airlock assembly", /obj/structure/door_assembly/door_assembly_public, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 SECONDS, category = CAT_DOORS), \
 		new /datum/stack_recipe("command airlock assembly", /obj/structure/door_assembly/door_assembly_com, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 SECONDS, category = CAT_DOORS), \
 		new /datum/stack_recipe("security airlock assembly", /obj/structure/door_assembly/door_assembly_sec, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 SECONDS, category = CAT_DOORS), \
@@ -128,6 +130,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list ( \
 	new/datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 10, time = 5, crafting_flags = NONE, category = CAT_CHEMISTRY),
 	new/datum/stack_recipe("dock tile", /obj/item/stack/tile/dock, 1, 4, 20, crafting_flags = NONE, category = CAT_TILES),
 	new/datum/stack_recipe("dry dock tile", /obj/item/stack/tile/drydock, 2, 4, 20, crafting_flags = NONE, category = CAT_TILES),
+	new/datum/stack_recipe("shutter assembly", /obj/machinery/door/poddoor/shutters/preopen/deconstructed, 5, time = 5 SECONDS, crafting_flags = CRAFT_ONE_PER_TURF, category = CAT_DOORS),
 	null, \
 	new /datum/stack_recipe_list("airlock assemblies", list( \
 		new/datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 SECONDS, category = CAT_DOORS),
@@ -190,3 +193,14 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/bronze)
+
+/* Fleshy Mass */
+
+GLOBAL_LIST_INIT(fleshymass_recipes, list ( \
+	new/datum/stack_recipe("Persuasion rack", /obj/structure/vampire/vassalrack, 10, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
+	new/datum/stack_recipe("Candelabrum", /obj/structure/vampire/candelabrum, 10, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
+	new/datum/stack_recipe("Blood throne", /obj/structure/vampire/bloodthrone, 20, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
+	new/datum/stack_recipe("Meat coffin", /obj/structure/closet/crate/coffin/meatcoffin, 20, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
+))
+
+STACKSIZE_MACRO(/obj/item/stack/sheet/fleshymass)

@@ -1,12 +1,20 @@
 import { toTitleCase } from 'common/string';
+
 import { useBackend } from '../backend';
 import { Box, Button, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
-import { round, scale } from 'common/math';
 
 export const Smelter = (props) => {
   const { act, data } = useBackend();
-  const { on, allowredeem, stored_points, materials, alloys, auto_shutdown, smelt_amount_limit } = data;
+  const {
+    on,
+    allowredeem,
+    stored_points,
+    materials,
+    alloys,
+    auto_shutdown,
+    smelt_amount_limit,
+  } = data;
   return (
     <Window width={440} height={550}>
       <Window.Content scrollable>
@@ -26,7 +34,11 @@ export const Smelter = (props) => {
               <Box inline color="label" mr={1}>
                 Machine Status:
               </Box>
-              <Button icon={on ? 'power-off' : 'times'} content={on ? 'On' : 'Off'} onClick={() => act('Toggle_on')} />
+              <Button
+                icon={on ? 'power-off' : 'times'}
+                content={on ? 'On' : 'Off'}
+                onClick={() => act('Toggle_on')}
+              />
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -56,7 +68,12 @@ export const Smelter = (props) => {
                     Stored Points:
                   </Box>
                   {stored_points}
-                  <Button ml={2} content="Redeem" disabled={stored_points === 0} onClick={() => act('Redeem')} />
+                  <Button
+                    ml={2}
+                    content="Redeem"
+                    disabled={stored_points === 0}
+                    onClick={() => act('Redeem')}
+                  />
                 </Box>
               </Table.Cell>
             )}

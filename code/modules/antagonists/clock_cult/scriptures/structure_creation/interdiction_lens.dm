@@ -124,7 +124,7 @@
 	return TRUE
 
 //Dampening field
-/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork
+/datum/proximity_monitor/advanced/projectile_dampener/clockwork
 
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/projectile/projectile, track_projectile = TRUE)
 	if(projectile in tracked)

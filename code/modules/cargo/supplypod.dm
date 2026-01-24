@@ -222,7 +222,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 /obj/structure/closet/supplypod/toggle(mob/living/user) //Supplypods shouldn't be able to be manually opened under any circumstances, as the open() proc generates supply order datums
 	return
 
-/obj/structure/closet/supplypod/open(mob/living/user, force = TRUE)
+/obj/structure/closet/supplypod/open(mob/living/user, force = FALSE, special_effects = TRUE)
 	return
 
 /obj/structure/closet/supplypod/proc/handleReturnAfterDeparting(atom/movable/holder = src)
@@ -398,9 +398,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 			return FALSE
 		if(istype(obj_to_insert, /obj/effect/supplypod_rubble))
 			return FALSE
-		if((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && reverse_option_list["Underfloor"])
+		if((obj_to_insert._listen_lookup && obj_to_insert._listen_lookup[COMSIG_OBJ_HIDE]) && reverse_option_list["Underfloor"])
 			return TRUE
-		else if ((obj_to_insert.comp_lookup && obj_to_insert.comp_lookup[COMSIG_OBJ_HIDE]) && !reverse_option_list["Underfloor"])
+		else if ((obj_to_insert._listen_lookup && obj_to_insert._listen_lookup[COMSIG_OBJ_HIDE]) && !reverse_option_list["Underfloor"])
 			return FALSE
 		if(isProbablyWallMounted(obj_to_insert) && reverse_option_list["Wallmounted"])
 			return TRUE
@@ -477,7 +477,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 	glow_effect.icon_state = "pod_glow_" + GLOB.podstyles[style][POD_GLOW]
 	vis_contents += glow_effect
 	glow_effect.layer = GASFIRE_LAYER
-	RegisterSignal(glow_effect, COMSIG_PARENT_QDELETING, PROC_REF(remove_glow))
+	RegisterSignal(glow_effect, COMSIG_QDELETING, PROC_REF(remove_glow))
 
 /obj/structure/closet/supplypod/proc/endGlow()
 	if(!glow_effect)
@@ -489,7 +489,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 /obj/structure/closet/supplypod/proc/remove_glow()
 	SIGNAL_HANDLER
 
-	UnregisterSignal(glow_effect, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(glow_effect, COMSIG_QDELETING)
 	vis_contents -= glow_effect
 	glow_effect = null
 
@@ -687,5 +687,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 	desc = "This disk provides a firmware update to the Express Supply Console, granting the use of Nanotrasen's Bluespace Drop Pods to the supply department."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cargodisk"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	w_class = WEIGHT_CLASS_SMALL

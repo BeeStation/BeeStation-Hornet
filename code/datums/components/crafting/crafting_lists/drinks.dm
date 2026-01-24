@@ -17,7 +17,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/moonshine
 	time = 3 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/datum/reagent/consumable/ethanol/moonshine = 100
 	)
 	category = CAT_DRINK
@@ -27,7 +27,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/hooch
 	time = 3 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/obj/item/storage/box/papersack = 1,
 		/datum/reagent/consumable/ethanol/hooch = 100
 	)
@@ -38,7 +38,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/blazaam
 	time = 2 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/datum/reagent/consumable/ethanol/blazaam = 100
 	)
 	category = CAT_DRINK
@@ -48,7 +48,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/champagne
 	time = 3 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/datum/reagent/consumable/ethanol/champagne = 100
 	)
 	category = CAT_DRINK
@@ -58,7 +58,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/trappist
 	time = 1.5 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank/small = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/small = 1,
 		/datum/reagent/consumable/ethanol/trappist = 50
 	)
 	category = CAT_DRINK
@@ -68,7 +68,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/goldschlager
 	time = 3 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/datum/reagent/consumable/ethanol/goldschlager = 100
 	)
 	category = CAT_DRINK
@@ -78,7 +78,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/patron
 	time = 3 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/datum/reagent/consumable/ethanol/patron = 100
 	)
 	category = CAT_DRINK
@@ -90,7 +90,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/holywater
 	time = 3 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/datum/reagent/water/holywater = 100
 	)
 	category = CAT_DRINK
@@ -100,7 +100,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/unholywater
 	time = 3 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/datum/reagent/fuel/unholywater = 100
 	)
 	category = CAT_DRINK
@@ -110,7 +110,7 @@
 	result = /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing
 	time = 3 SECONDS
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/blank = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 		/datum/reagent/consumable/nothing = 100
 	)
 	category = CAT_DRINK
@@ -124,9 +124,8 @@
 
 /datum/crafting_recipe/honeycomb
 	name = "Honeycomb"
-	result = /obj/item/reagent_containers/cup/glass/honeycomb
+	result = /obj/item/food/honeycomb
 	time = 3 SECONDS
 	reqs = list(/datum/reagent/consumable/sugar = 50)
 	category = CAT_DRINK
 	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
-

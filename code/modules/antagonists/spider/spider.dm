@@ -11,7 +11,7 @@
 	. = ..()
 	master = spider_master
 	if(spider_master)
-		RegisterSignal(spider_master, COMSIG_PARENT_QDELETING, PROC_REF(handle_master_qdel))
+		RegisterSignal(spider_master, COMSIG_QDELETING, PROC_REF(handle_master_qdel))
 		if(length(possible_colors))
 			team_huds[spider_master] = pick_n_take(possible_colors)
 

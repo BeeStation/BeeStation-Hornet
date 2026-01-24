@@ -47,8 +47,8 @@ SUBSYSTEM_DEF(parallax)
 		queued = temp
 		current_run_pointer = 1
 		//Check client count
-		throttle_ghosts = throttle_ghost_pop && length(GLOB.clients) >= throttle_ghost_pop
-		throttle_all = throttle_all_pop && length(GLOB.clients) >= throttle_all_pop
+		throttle_ghosts = throttle_ghost_pop && length(GLOB.clients_unsafe) >= throttle_ghost_pop
+		throttle_all = throttle_all_pop && length(GLOB.clients_unsafe) >= throttle_all_pop
 	//Begin processing the processing queue
 	while(current_run_pointer <= length(currentrun))
 		//Use a pointer, less wasted processing than removing from the list

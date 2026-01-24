@@ -130,7 +130,7 @@
 				continue
 			var/datum/chatmessage_group/group_heard = hearers_to_groups[C]
 			C.images.Remove(group_heard.message)
-			UnregisterSignal(C, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(C, COMSIG_QDELETING)
 	if(!QDELETED(message_loc))
 		LAZYREMOVE(message_loc.chat_messages, src)
 	message_loc = null
@@ -158,7 +158,7 @@
 
 	for(var/client/C as() in hearers)
 		if(C)
-			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(client_deleted))
+			RegisterSignal(C, COMSIG_QDELETING, PROC_REF(client_deleted))
 
 	// Remove spans in the message from things like the recorder
 	var/static/regex/span_check = new(@"<\/?span[^>]*>", "gi")
@@ -375,6 +375,14 @@
 				else
 					m.end_of_life()
 
+/datum/chatmessage/proc/transfer_to(atom/location)
+	LAZYREMOVE(message_loc.chat_messages, src)
+	message_loc = location
+	// Due to async, this may not have been created yet
+	for (var/datum/chatmessage_group/group in groups)
+		group.message.loc = location
+	LAZYADD(message_loc.chat_messages, src)
+
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion,
   * sets timer for scheduling deletion
@@ -422,6 +430,18 @@
 		return CHATMESSAGE_CANNOT_HEAR
 	return ..()
 
+/mob/dead/new_player/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote, is_heard)
+	return CHATMESSAGE_CANNOT_HEAR
+
+/**
+ * Creates a message overlay at a defined location for a given speaker
+ *
+ * Arguments:
+ * * speaker - The atom who is saying this message
+ * * message_language - The language that the message is said in
+ * * raw_message - The text content of the message
+ * * spans - Additional classes to be added to the message
+ */
 /proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
 	if(!length(hearers))
 		return
@@ -567,7 +587,10 @@
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
 /atom/proc/balloon_alert(mob/viewer, text, color = null, show_in_chat = TRUE, offset_x, offset_y)
-	if(!viewer?.client)
+	if(!ismob(viewer))
+		return
+	var/mob/M = viewer
+	if(!M.client)
 		return
 	switch(viewer.client.prefs.read_player_preference(/datum/preference/choiced/show_balloon_alerts))
 		if(BALLOON_ALERT_ALWAYS)
@@ -659,7 +682,7 @@
 	hearers_to_groups[owned_by] = group
 	group.clients += owned_by
 	groups += group
-	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(client_deleted))
+	RegisterSignal(owned_by, COMSIG_QDELETING, PROC_REF(client_deleted))
 
 	var/duration_mult = 1
 	var/duration_length = length(text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
@@ -676,6 +699,9 @@
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
+/atom/proc/transfer_messages_to(atom/new_location)
+	for (var/datum/chatmessage/message as() in chat_messages)
+		message.transfer_to(new_location)
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT

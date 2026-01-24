@@ -139,7 +139,7 @@
 		var/atom/movable/AM = i
 		var/obj/item/bodypart/head/as_head = AM
 		var/obj/item/mmi/as_mmi = AM
-		var/brain_holder = istype(AM, /obj/item/organ/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || isbrain(AM) || istype(AM, /obj/item/dullahan_relay)
+		var/brain_holder = istype(AM, /obj/item/organ/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || isbrain(AM)
 		if(brain_holder)
 			emergency_stop(AM)
 		else if(isliving(AM))
@@ -212,7 +212,7 @@
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
-		for(var/obj/item/I in L.get_equipped_items(TRUE))
+		for(var/obj/item/I in L.get_equipped_items(INCLUDE_POCKETS))
 			if(L.dropItemToGround(I))
 				eat(I, sound=FALSE)
 

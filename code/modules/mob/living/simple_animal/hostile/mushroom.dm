@@ -26,7 +26,6 @@
 	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
-	ventcrawler = VENTCRAWLER_ALWAYS
 	robust_searching = 1
 	unique_name = 1
 	speak_emote = list("squeaks")
@@ -62,6 +61,8 @@
 	UpdateMushroomCap()
 	health = maxHealth
 	. = ..()
+
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/mushroom/CanAttack(atom/the_target) // Mushroom-specific version of CanAttack to handle stupid attack_same = 2 crap so we don't have to do it for literally every single simple_animal/hostile because this shit never gets spawned
 	if(!the_target || isturf(the_target) || istype(the_target, /atom/movable/lighting_object))
@@ -109,14 +110,16 @@
 		return TRUE
 	return ..()
 
-/mob/living/simple_animal/hostile/mushroom/revive(full_heal = 0, admin_revive = 0)
-	if(..())
-		icon_state = "mushroom_color"
-		UpdateMushroomCap()
-		. = 1
+/mob/living/simple_animal/hostile/mushroom/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	. = ..()
+	if(!.)
+		return
+
+	icon_state = "mushroom_color"
+	UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/death(gibbed)
-	..(gibbed)
+	. = ..()
 	UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/proc/UpdateMushroomCap()
@@ -129,9 +132,9 @@
 		add_overlay(cap_living)
 
 /mob/living/simple_animal/hostile/mushroom/proc/Recover()
-	visible_message("[src] slowly begins to recover.")
+	visible_message(span_notice("[src] slowly begins to recover."))
 	faint_ticker = 0
-	revive(full_heal = 1)
+	revive(HEAL_ALL)
 	UpdateMushroomCap()
 	recovery_cooldown = 1
 	addtimer(CALLBACK(src, PROC_REF(recovery_recharge)), 300)

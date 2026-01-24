@@ -184,7 +184,7 @@
 			return TRUE
 	return FALSE
 
-/turf/closed/wall/singularity_pull(S, current_size)
+/turf/closed/wall/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	wall_singularity_pull(current_size)
 
@@ -207,7 +207,7 @@
 	if(.)
 		ChangeTurf(/turf/closed/wall/clockwork)
 
-/turf/closed/wall/get_dumping_location(obj/item/storage/source, mob/user)
+/turf/closed/wall/get_dumping_location()
 	return null
 
 /turf/closed/wall/acid_act(acidpwr, acid_volume)

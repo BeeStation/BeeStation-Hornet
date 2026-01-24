@@ -4,7 +4,7 @@
 	pressure_resistance = 25
 	can_buckle = TRUE
 	buckle_lying = 0
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
 	/// or other bodyparts may block the emissive elements of it.
 	blocks_emissive = FALSE
@@ -54,19 +54,14 @@
 
 	var/datum/physiology/physiology
 
-	var/list/datum/bioware = list()
-
 	/// What types of mobs are allowed to ride/buckle to this mob
-	var/static/list/can_ride_typecache = typecacheof(
-		list(
-			/mob/living/carbon/human,
-			/mob/living/simple_animal/slime,
-			/mob/living/simple_animal/parrot,
-			/mob/living/carbon/monkey
-		)
-	)
+	var/static/list/can_ride_typecache = typecacheof(list(
+		/mob/living/carbon/human,
+		/mob/living/simple_animal/slime,
+		/mob/living/simple_animal/parrot,
+		/mob/living/carbon/monkey,
+	))
 	var/lastpuke = 0
-	var/last_fire_update
 
 	/// The core temperature of the human compaired to the skin temp of the body
 	var/coretemperature = BODYTEMP_NORMAL

@@ -32,6 +32,14 @@
 //#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
 #endif //ifdef TESTING
 
+/// Disables hub authentication. This must be done at compile time due to /client::authenticate being read-only
+/// All connecting users will be forced to use external auth. If external auth is not enabled in the config, the connection is blindly trusted.
+/// DO NOT ENABLE THIS FLAG ON PRODUCTION WITHOUT EXTERNAL AUTH SET UP
+/// Toggle ENABLE_GUEST_EXTERNAL_AUTH to require external auth, otherwise CKEYs are blindly trusted!
+/// This flag also forcibly enables guest connections, because every client has its key reassigned on login.
+/// This flag also disables BYOND account age checks, BYOND Key change verification, and makes the config flag use_account_age_for_jobs useless.
+//#define DISABLE_BYOND_AUTH
+
 /// Enables BYOND TRACY, which allows profiling using Tracy.
 /// The prof.dll/libprof.so must be built and placed in the repo folder.
 /// https://github.com/mafemergency/byond-tracy
@@ -80,6 +88,10 @@
 #warn IF YOU PUT THIS ON LIVE I WILL FIND YOU AND MAKE YOU WISH YOU WERE NEVE-
 #endif
 
+// If defined, we will compile with FULL timer debug info, rather then a limited scope
+// Be warned, this increases timer creation cost by 5x
+// #define TIMER_DEBUG
+
 /// If this is uncommented, Autowiki will generate edits and shut down the server.
 /// Prefer the autowiki build target instead.
 // #define AUTOWIKI
@@ -100,20 +112,6 @@
 	#ifdef CIBUILDING
 	#error LOWMEMORYMODE is enabled, disable this!
 	#endif
-#endif
-
-//TODO Remove the SDMM check when it supports 1568
-#if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(FASTDMM)
-//Don't forget to update this part
-#error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
-#error You need version 515.1642 or higher.
-#endif
-
-//Update this whenever the byond version is stable so people stop updating to hilariously broken versions
-#define MAX_COMPILER_VERSION 516
-#define MAX_COMPILER_BUILD 1700
-#if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (516.1700)! Stability is not guaranteed.
 #endif
 
 #define SENDMAPS_PROFILE
@@ -141,6 +139,8 @@
 #define REFERENCE_TRACKING_DEBUG
 #define FIND_REF_NO_CHECK_TICK
 #define GC_FAILURE_HARD_LOOKUP
+//Test at full capacity, the extra cost doesn't matter
+#define TIMER_DEBUG
 #endif
 
 #ifdef TGS

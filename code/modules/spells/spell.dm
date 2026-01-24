@@ -10,7 +10,7 @@
  * of the spell is able to cast the spell.
  * - [is_valid_spell][/datum/action/spell/is_valid_spell] checks if the user and target
  * are valid for this particular spell
- * - [can_invoke][/datum/action/spell/can_invoke] is run in can_cast_spell to check if
+ * - [try_invoke][/datum/action/spell/try_invoke] is run in can_cast_spell to check if
  * the OWNER of the spell is able to say the current invocation.
  *
  * ## The spell chain:
@@ -42,7 +42,7 @@
 	name = "Spell"
 	desc = "A wizard spell."
 	background_icon_state = "bg_spell"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "spell_default"
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -99,6 +99,10 @@
 	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB))
 		RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(update_icon_on_signal))
 	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_icon_on_signal))
+	if(invocation_type == INVOCATION_EMOTE)
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_EMOTEMUTE), SIGNAL_REMOVETRAIT(TRAIT_EMOTEMUTE)), PROC_REF(update_icon_on_signal))
+	if(invocation_type == INVOCATION_SHOUT || invocation_type == INVOCATION_WHISPER)
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_MUTE), SIGNAL_REMOVETRAIT(TRAIT_MUTE)), PROC_REF(update_icon_on_signal))
 
 /datum/action/spell/Remove(mob/living/remove_from)
 
@@ -107,6 +111,10 @@
 		COMSIG_MOB_ENTER_JAUNT,
 		COMSIG_MOB_EQUIPPED_ITEM,
 		COMSIG_MOVABLE_Z_CHANGED,
+		SIGNAL_ADDTRAIT(TRAIT_EMOTEMUTE),
+		SIGNAL_REMOVETRAIT(TRAIT_EMOTEMUTE),
+		SIGNAL_ADDTRAIT(TRAIT_MUTE),
+		SIGNAL_REMOVETRAIT(TRAIT_MUTE),
 	))
 
 	return ..()
@@ -120,6 +128,7 @@
 	// about why the ability is unavailable.
 	// It is otherwise redundant, however, as is_available() checks can_cast_spell as well.
 	if(!can_cast_spell())
+		update_buttons(TRUE)
 		return FALSE
 
 	return ..()
@@ -147,32 +156,32 @@
 	var/turf/caster_turf = get_turf(owner)
 	if((spell_requirements & SPELL_REQUIRES_OFF_CENTCOM) && is_centcom_level(caster_turf.z))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You can't cast [src] here!</span>"))
+			to_chat(owner, span_warning("You can't cast [src] here!"))
 		return FALSE
 
 	if((spell_requirements & SPELL_REQUIRES_MIND) && !owner.mind)
 		// No point in feedback here, as mindless mobs aren't players
 		return FALSE
 
-	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !owner.mind?.miming)
+	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !HAS_TRAIT(owner, TRAIT_MIMING))
 		// In the future this can be moved out of spell checks exactly
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You must dedicate yourself to silence first!</span>"))
+			to_chat(owner, span_warning("You must dedicate yourself to silence first!"))
 		return FALSE
 
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
 	// that corresponds with the spell's antimagic, then they can't actually cast the spell
 	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !owner.can_cast_magic(antimagic_flags))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>Some form of antimagic is preventing you from casting [src]!</span>"))
+			to_chat(owner, span_warning("Some form of antimagic is preventing you from casting [src]!"))
 		return FALSE
 
 	if(!(spell_requirements & SPELL_CASTABLE_WHILE_PHASED) && HAS_TRAIT(owner, TRAIT_MAGICALLY_PHASED))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>[src] cannot be cast unless you are completely manifested in the material plane!</span>"))
+			to_chat(owner, span_warning("[src] cannot be cast unless you are completely manifested in the material plane!"))
 		return FALSE
 
-	if(!can_invoke(feedback = feedback))
+	if(!try_invoke(feedback = feedback))
 		return FALSE
 
 	if(ishuman(owner))
@@ -191,12 +200,12 @@
 		// If the spell requires wizard equipment and we're not a human (can't wear robes or hats), that's just a given
 		if(spell_requirements & (SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_HUMAN))
 			if(feedback)
-				to_chat(owner, ("<span class='warning'>[src] can only be cast by humans!</span>"))
+				to_chat(owner, span_warning("[src] can only be cast by humans!"))
 			return FALSE
 
 		if(!(spell_requirements & SPELL_CASTABLE_AS_BRAIN) && isbrain(owner))
 			if(feedback)
-				to_chat(owner, ("<span class='warning'>[src] can't be cast in this state!</span>"))
+				to_chat(owner, span_warning("[src] can't be cast in this state!"))
 			return FALSE
 
 		// Being put into a card form breaks a lot of spells, so we'll just forbid them in these states
@@ -337,7 +346,7 @@
 			owner.visible_message(invocation, invocation_self_message)
 
 /// Checks if the current OWNER of the spell is in a valid state to say the spell's invocation
-/datum/action/spell/proc/can_invoke(feedback = TRUE)
+/datum/action/spell/proc/try_invoke(feedback = TRUE)
 	if(spell_requirements & SPELL_CASTABLE_WITHOUT_INVOCATION)
 		return TRUE
 
@@ -347,18 +356,18 @@
 	// If you want a spell usable by ghosts for some reason, it must be INVOCATION_NONE
 	if(!isliving(owner))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You need to be living to invoke [src]!</span>"))
+			to_chat(owner, span_warning("You need to be living to invoke [src]!"))
 		return FALSE
 
 	var/mob/living/living_owner = owner
 	if(invocation_type == INVOCATION_EMOTE && HAS_TRAIT(living_owner, TRAIT_EMOTEMUTE))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You can't position your hands correctly to invoke [src]!</span>"))
+			to_chat(owner, span_warning("You can't position your hands correctly to invoke [src]!"))
 		return FALSE
 
-	if((invocation_type == INVOCATION_WHISPER || invocation_type == INVOCATION_SHOUT) && !living_owner.can_speak_vocal())
+	if((invocation_type == INVOCATION_WHISPER || invocation_type == INVOCATION_SHOUT) && !living_owner.can_speak())
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You can't get the words out to invoke [src]!</span>"))
+			to_chat(owner, span_warning("You can't get the words out to invoke [src]!"))
 		return FALSE
 
 	return TRUE

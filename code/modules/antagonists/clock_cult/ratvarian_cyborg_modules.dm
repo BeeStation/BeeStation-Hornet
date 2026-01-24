@@ -20,12 +20,11 @@
 	icon_state = scripture_datum.button_icon_state
 
 /obj/item/borg/ratvar/attack_self(mob/user)
-	..()
-
 	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	if(!iscyborg(user))
 		return
+	. = ..()
 
 	// Set slab
 	var/mob/living/silicon/robot/robot_user = user

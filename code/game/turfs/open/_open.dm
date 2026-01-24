@@ -32,7 +32,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	///Is this floor no-slip?
 	var/traction = FALSE
 
-/turf/open/ComponentInitialize()
+/turf/open/Initialize(mapload)
 	. = ..()
 	if(wet)
 		AddComponent(/datum/component/wet_floor, wet, INFINITY, 0, INFINITY, TRUE)
@@ -41,22 +41,22 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	return "floor"
 
 //direction is direction of travel of A
-/turf/open/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
-	if(direction == DOWN)
-		for(var/obj/O in contents)
-			if(O.z_flags & Z_BLOCK_IN_DOWN)
-				return FALSE
-		return TRUE
-	return FALSE
+/turf/open/zPassIn(direction, falling = FALSE)
+	if(direction != DOWN)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.z_flags & Z_BLOCK_IN_DOWN)
+			return FALSE
+	return TRUE
 
-//direction is direction of travel of A
-/turf/open/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
-	if(direction == UP)
-		for(var/obj/O in contents)
-			if(O.z_flags & Z_BLOCK_OUT_UP)
-				return FALSE
-		return TRUE
-	return FALSE
+//direction is direction of travel of an atom
+/turf/open/zPassOut(direction, falling = FALSE)
+	if(direction != UP)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.z_flags & Z_BLOCK_OUT_UP)
+			return FALSE
+	return TRUE
 
 //direction is direction of travel of air
 /turf/open/zAirIn(direction, turf/source)
@@ -275,14 +275,6 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open/proc/ClearWet()//Nuclear option of immediately removing slipperyness from the tile instead of the natural drying over time
 	qdel(GetComponent(/datum/component/wet_floor))
-
-/turf/open/rad_act(pulse_strength)
-	. = ..()
-	if (air.gases[/datum/gas/carbon_dioxide] && air.gases[/datum/gas/oxygen] && air.temperature <= PLUOXIUM_TEMP_CAP)
-		pulse_strength = min(pulse_strength,air.gases[/datum/gas/carbon_dioxide][MOLES]*1000,air.gases[/datum/gas/oxygen][MOLES]*2000) //Ensures matter is conserved properly
-		REMOVE_MOLES(/datum/gas/carbon_dioxide, air, (pulse_strength/1000))
-		REMOVE_MOLES(/datum/gas/oxygen, air, (pulse_strength/2000))
-		ADJUST_MOLES(/datum/gas/pluoxium, air, pulse_strength/4000)
 
 /turf/open/proc/break_tile(force, allow_base)
 	LAZYINITLIST(damage_overlays)

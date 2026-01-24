@@ -13,6 +13,7 @@
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
+	max_demand = 500
 	/// What's the name of just 1 of this stack. You have a stack of leather, but one piece of leather
 	var/singular_name
 	/// How much is in this stack?
@@ -36,9 +37,9 @@
 	var/list/mats_per_unit
 	/// Datum material type that this stack is made of
 	var/material_type
-	// NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM -
-	// these amounts will be multiplied by the stack size in on_grind()
-	/// Amount of matter given back to RCDs
+	/// Does this stack require a unique girder in order to make a wall?
+	var/has_unique_girder = FALSE
+	/// Amount of matter for RCD
 	var/matter_amount = 0
 	/// Does this stack require a unique girder in order to make a wall?
 	//var/has_unique_girder = FALSE
@@ -48,6 +49,8 @@
 	var/use_radial = FALSE
 	/// If use_radial is TRUE, this is the radius of the radial
 	var/radial_radius = 52
+	/// Base price of the item PER AMOUNT. 1 amount will be 1 custom_price
+	var/base_price = 1
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
@@ -363,7 +366,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		return
 	if(!is_valid_recipe(recipe, get_recipes())) //href exploit protection
 		return
-	if(!multiplier || multiplier < 1) //href exploit protection
+	if(!multiplier || multiplier < 1 || !IS_FINITE(multiplier)) //href exploit protection
 		return
 	if(!building_checks(builder, recipe, multiplier))
 		return
@@ -674,9 +677,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		return ..()
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)
-	add_blood_DNA(from.return_blood_DNA())
-	add_fingerprint_list(from.return_fingerprints())
-	add_hiddenprint_list(from.return_hiddenprints())
+	add_blood_DNA(GET_ATOM_BLOOD_DNA(from))
+	add_fingerprint_list(GET_ATOM_FINGERPRINTS(from))
+	add_hiddenprint_list(GET_ATOM_HIDDENPRINTS(from))
 	fingerprintslast  = from.fingerprintslast
 	//TODO bloody overlay
 

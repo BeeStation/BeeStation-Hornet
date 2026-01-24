@@ -191,6 +191,8 @@
 ///Called on SSmood process
 /datum/component/mood/process(delta_time)
 	var/mob/living/owner = parent
+	if(owner.stat == DEAD)
+		return //updating sanity during death leads to people getting revived and being completely insane for simply being dead for a long time
 	switch(sanity)
 		if(SANITY_GREAT-1 to INFINITY)
 			setSanity(sanity+sanity_modifier*delta_time*mood-0.4)
@@ -278,6 +280,21 @@
 	if(the_event.timeout)
 		addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
 
+/**
+ * Returns true if you already have a mood from a provided category.
+ * You may think to yourself, why am I trying to get a boolean from a component? Well, this system probably should not be a component.
+ *
+ * Arguments
+ * * category - Mood category to validate against.
+ */
+/datum/component/mood/proc/has_mood_of_category(category)
+	for(var/i in mood_events)
+		var/datum/mood_event/moodlet = mood_events[i]
+		if (moodlet.category == category)
+			return TRUE
+
+	return FALSE
+
 /datum/component/mood/proc/clear_event(datum/source, category)
 	SIGNAL_HANDLER
 
@@ -315,7 +332,7 @@
 	screen_obj_sanity = new
 	hud.infodisplay += screen_obj
 	hud.infodisplay += screen_obj_sanity
-	RegisterSignal(hud, COMSIG_PARENT_QDELETING, PROC_REF(unmodify_hud))
+	RegisterSignal(hud, COMSIG_QDELETING, PROC_REF(unmodify_hud))
 	RegisterSignal(screen_obj, COMSIG_CLICK, PROC_REF(hud_click))
 
 /datum/component/mood/proc/unmodify_hud(datum/source)
@@ -370,7 +387,7 @@
 		if(0 to NUTRITION_LEVEL_STARVING)
 			add_event(null, "nutrition", /datum/mood_event/decharged)
 
-/datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
+/datum/component/mood/proc/check_area_mood(datum/source, area/A)
 	SIGNAL_HANDLER
 
 	var/mob/living/owner = parent
@@ -397,3 +414,16 @@
 	SIGNAL_HANDLER
 
 	setSanity(sanity + amount)
+
+/datum/component/mood/proc/HandleAddictions()
+	if(!iscarbon(parent))
+		return
+
+	var/mob/living/carbon/affected_carbon = parent
+
+	if(sanity < SANITY_GREAT) ///Sanity is low, stay addicted.
+		return
+
+	for(var/addiction_type in affected_carbon.mind.addiction_points)
+		var/datum/addiction/addiction_to_remove = SSaddiction.all_addictions[type]
+		affected_carbon.mind.remove_addiction_points(type, addiction_to_remove.high_sanity_addiction_loss) //If true was returned, we lost the addiction!

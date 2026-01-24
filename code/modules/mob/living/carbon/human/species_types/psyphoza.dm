@@ -21,12 +21,14 @@
 	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
 	hair_color = "fixedmutcolor"
 
-	species_chest = /obj/item/bodypart/chest/psyphoza
-	species_head = /obj/item/bodypart/head/psyphoza
-	species_l_arm = /obj/item/bodypart/l_arm/psyphoza
-	species_r_arm = /obj/item/bodypart/r_arm/psyphoza
-	species_l_leg = /obj/item/bodypart/l_leg/psyphoza
-	species_r_leg = /obj/item/bodypart/r_leg/psyphoza
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/psyphoza,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/psyphoza,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/psyphoza,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/psyphoza,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/psyphoza,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/psyphoza
+	)
 
 	//Fire bad!
 	burnmod = 1.25
@@ -46,11 +48,6 @@
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null
-
-/datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.psyphoza_first_names)] [pick(GLOB.psyphoza_last_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return .(gender, TRUE, null, ++attempts)
 
 /datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -134,7 +131,7 @@
 /datum/action/item_action/organ_action/psychic_highlight
 	name = "Psychic Sense"
 	desc = "Sense your surroundings psychically."
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "activate_psychic"
 	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
@@ -237,7 +234,7 @@
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		if(eyes)
-			RegisterSignal(eyes, COMSIG_PARENT_QDELETING, PROC_REF(handle_eyes))
+			RegisterSignal(eyes, COMSIG_QDELETING, PROC_REF(handle_eyes))
 
 	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
@@ -401,14 +398,14 @@
 /datum/action/change_psychic_visual
 	name = "Change Psychic Sense"
 	desc = "Change the visual style of your psychic sense."
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_color"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
 
 /datum/action/change_psychic_visual/New(Target)
 	. = ..()
-	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_visual/Destroy()
 	psychic_overlay = null
@@ -428,7 +425,7 @@
 /datum/action/change_psychic_auto
 	name = "Auto Psychic Sense"
 	desc = "Change your psychic sense to auto."
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_generic"
 	///Ref to the action
 	var/datum/action/item_action/organ_action/psychic_highlight/psychic_action
@@ -437,7 +434,7 @@
 	. = ..()
 	psychic_action = Target
 	//Bad, but not my job to fix your runtimes
-	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy), override = TRUE)
+	RegisterSignal(psychic_action, COMSIG_QDELETING, PROC_REF(parent_destroy), override = TRUE)
 
 /datum/action/change_psychic_auto/Destroy()
 	psychic_action = null
@@ -461,7 +458,7 @@
 /datum/action/change_psychic_texture
 	name = "Change Psychic Texture"
 	desc = "Change your psychic texture."
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_texture"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
@@ -469,8 +466,8 @@
 
 /datum/action/change_psychic_texture/New(Target)
 	. = ..()
-	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
-	RegisterSignal(blind_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(blind_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
 
 
 /datum/action/change_psychic_texture/Destroy()

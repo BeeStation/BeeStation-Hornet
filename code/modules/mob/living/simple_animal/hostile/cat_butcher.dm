@@ -24,7 +24,7 @@
 	attack_verb_simple = "slash at"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	combat_mode = TRUE
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	loot = list(/obj/effect/mob_spawn/human/corpse/cat_butcher, /obj/item/circular_saw, /obj/item/gun/syringe)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 7.5
@@ -74,7 +74,7 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/hostile/cat_butcherer/proc/healvictim(var/mob/living/carbon/human/L)
+/mob/living/simple_animal/hostile/cat_butcherer/proc/healvictim(mob/living/carbon/human/L)
 	visible_message("[src] injects [L] with an unknown medicine!", span_notice("You inject [L] with medicine."))
 	L.SetSleeping(0, FALSE)
 	L.SetUnconscious(0, FALSE)
@@ -89,7 +89,7 @@
 		L.suppress_bloodloss(BLEED_DEEP_WOUND)//bandage their ass
 	FindTarget()
 
-/mob/living/simple_animal/hostile/cat_butcherer/proc/newvictim(var/mob/living/carbon/human/L)
+/mob/living/simple_animal/hostile/cat_butcherer/proc/newvictim(mob/living/carbon/human/L)
 	if(victims.Find(L))
 		adjustHealth(-(maxHealth))
 		return FALSE

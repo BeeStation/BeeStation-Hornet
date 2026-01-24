@@ -15,7 +15,7 @@
 	gender = NEUTER
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	worn_icon_state = "paper"
 	custom_fire_overlay = "paper_onfire_overlay"
@@ -277,7 +277,7 @@
 	if(contact_poison && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/clothing/gloves/G = H.gloves
-		if(!istype(G) || G.transfer_prints)
+		if(!istype(G) || !(G.body_parts_covered & HANDS) || HAS_TRAIT(G, TRAIT_FINGERPRINT_PASSTHROUGH) || HAS_TRAIT(H, TRAIT_FINGERPRINT_PASSTHROUGH))
 			H.reagents.add_reagent(contact_poison,contact_poison_volume)
 			contact_poison = null
 	..()
@@ -362,7 +362,7 @@
 		if(user.is_holding(I)) //checking if they're holding it in case TK is involved
 			user.dropItemToGround(I)
 		user.adjust_fire_stacks(1)
-		user.IgniteMob()
+		user.ignite_mob()
 		return
 
 	if(user.is_holding(src)) //no TK shit here.
@@ -756,14 +756,109 @@
 	name = "beer-stained note"
 
 /obj/item/paper/crumpled/beernuke/Initialize(mapload)
-	. = ..()
 	var/code
 	for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
 		if(beernuke.r_code == "ADMIN")
 			beernuke.r_code = random_code(5)
 		code = beernuke.r_code
 	default_raw_text = "important party info, DONT FORGET: <b>[code]</b>"
+	return ..()
 
 /obj/item/paper/troll
 	name = "very special note"
-	default_raw_text = "<span style=color:'black';font-family:'Verdana';><p>░░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄░░░░░░░<br>░░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄░░░░<br>░░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█░░░<br>░░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░░█░░<br>░▄▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░░█░<br>█░▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒░█<br>█░▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█<br>░█░▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█░<br>░░█░░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█░░<br>░░░█░░░░██░░▀█▄▄▄█▄▄█▄████░█░░░<br>░░░░█░░░░▀▀▄░█░░░█░█▀██████░█░░<br>░░░░░▀▄░░░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█░░<br>░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░<br>░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░<br>░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░</p> </span>"
+	default_raw_text = "<p>░░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄░░░░░░░<br>░░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄░░░░<br>░░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█░░░<br>░░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░░█░░<br>░▄▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░░█░<br>█░▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒░█<br>█░▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█<br>░█░▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█░<br>░░█░░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█░░<br>░░░█░░░░██░░▀█▄▄▄█▄▄█▄████░█░░░<br>░░░░█░░░░▀▀▄░█░░░█░█▀██████░█░░<br>░░░░░▀▄░░░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█░░<br>░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░<br>░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░<br>░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░</p>"
+
+/obj/item/paper/tablet_guide
+	color = COLOR_OFF_WHITE
+	name = "Assembly Instructions"
+	desc = "Instructions for the assembly of a Tablet computer."
+
+/obj/item/paper/tablet_guide/Initialize(mapload)
+	default_raw_text = {"Congratulations on acquiring your very own 'Tablets for Dummies' kit. You now have everything you need to build your own Tablet!
+
+	Within this kit you will find the following:
+
+		- A Tablet (void of any components).
+		- A Power Cell Controler.
+		- A small Battery.
+		- A Processor Unit.
+		- A micro Solid State Drive.
+		- A Network Card.
+		- A Primary Card Slot.
+		- An Identifier.
+		- And a Screwdriver.
+
+		To begin, please insert the provided Power Cell Controler onto the PDA. Doing so will allow you to now attach a Battery to it. Insert, now, the Battery.
+
+		Without a Battery (and a Power Cell Controler to attach it to), a CPU and a Drive the Tablet will be unable to start. Please ensure these three items are inserted well into the machines' body.
+
+		Congratulations, your Tablet may start now, but we have provided you with 3 bonus components you may find useful.
+
+		A Network Card will allow you to download programs from the web, and may even allow you to chat with other users "online".
+
+		A Primary Card Slot will allow you to insert your ID into your newly constructed tablet.
+
+		The Identifier will allow you to imprint your inserted ID into the machine, serving as your form of identification "online".
+
+		We now believe that you are ready and able to build your own tablet without aid in the future. If you'd like to retrieve the components, simply use the screwdriver provided to you to dislodge them from the body of your Tablet.
+
+		We wish you good luck and happy tinkering!"}
+
+	return ..()
+
+/obj/item/paper/manualhacking_guide
+	color = COLOR_OFF_WHITE
+	name = "Hacking GUIDE"
+	desc = "Instructions on how to be a very cool hacker."
+	trade_flags = TRADE_CONTRABAND
+
+/obj/item/paper/manualhacking_guide/Initialize(mapload)
+	default_raw_text = {"Greetings initiate. I am xX_Benita_Xx of the Hellraiser team and I will be guiding you on the art of manual hacking.
+
+	Firstly, a warning.
+	Hacking is quite fickle. Expect processes to change and evolve as NT attempts to combat our combined efforts.
+	In this kit you will find:
+
+		1 - A Screwdriver.
+
+		Screwdrivers are essential for opening the components up for manipulation.
+		They are also able to alter the power consumption of components, should that ever be of use.
+
+		2 - A Multitool.
+
+		The Multitool is the second part of your essential tool couple, so to speak.
+		The Multitool is able to preform a disgnostical reading of different components.
+		This will reveal relevant information. It is also used to bypass
+		internal component security, this is what we call "manual hacking".
+
+		3 - A collection of portable disks.
+
+		We have trough some effort hidden special programing inside the portable disks
+		issued to your station. Such programs can be accessed trough the manual hacking of the disks.
+
+
+		To begin, select a portable disk and open it with the screwdriver.
+		Next, utilize the multitool to bypass security.
+		After some time, the disk is now hacked.
+		Insert the disk inside a computer to acess its progamms.
+		A readme.txt file is included inside each disk with instructions regarding use.
+
+
+		However. Do not expect all parts to operate like this.
+		For example:
+
+		An hacked power cell controler has the ability to detonate its battery, under the right conditions.
+		On movement, an hacked CPU creates tears in bluespace fabric.
+		Hacked job disks not only allow the copying of their stored programs
+		but they also unlock advertisement restrictions on your hard drive.
+		An hacked primary ID port may now accept the... "less than eletronic" cards.
+
+
+		There are more parts with interesting behaviour changes that we have discovered.
+		However, we understand that there is fun in experimenting them all for yourself.
+
+		Enjoy yourself. And make sure NT pays an hefty price for their hubris.
+
+		xX_Benita_Xx out."}
+
+	return ..()

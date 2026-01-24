@@ -7,7 +7,7 @@ export const Wires = (props) => {
   const wires = data.wires || [];
   const statuses = data.status || [];
   return (
-    <Window width={320} height={wires.length * 30 + 150}>
+    <Window width={320} height={wires.length * 30 + 180}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -45,7 +45,8 @@ export const Wires = (props) => {
                       }
                     />
                   </>
-                }>
+                }
+              >
                 {!!wire.wire && <i>({wire.wire})</i>}
               </LabeledList.Item>
             ))}

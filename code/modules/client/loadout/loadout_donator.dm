@@ -29,6 +29,18 @@
 	display_name = "runtime catpack"
 	path = /obj/item/storage/backpack/runtime
 
+/datum/gear/donator/backpack/syndiassault_borg_bag
+	display_name = "suspiscious assault cyborg bag"
+	path = /obj/item/storage/backpack/syndiassault_borg_bag
+
+/datum/gear/donator/backpack/syndimed_borg_bag
+	display_name = "suspiscious medical cyborg bag"
+	path = /obj/item/storage/backpack/syndimed_borg_bag
+
+/datum/gear/donator/backpack/syndieng_borg_bag
+	display_name = "suspiscious engineering cyborg bag"
+	path = /obj/item/storage/backpack/syndieng_borg_bag
+
 //SUIT
 
 /datum/gear/donator/suit
@@ -133,4 +145,3 @@
 /datum/gear/donator/item/plush_opa
 	display_name = "metal opa plushie"
 	path = /obj/item/toy/plush/opa
-

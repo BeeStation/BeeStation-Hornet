@@ -1,0 +1,549 @@
+2022-05-01:
+  Archanial:
+  - bugfix: fixed double qdel in wielded
+  - bugfix: fixed bad arg penetrate_thick
+  Penwin0:
+  - balance: Scarabs can't use Sentinels compromise anymore.
+  PowerfulBacon:
+  - code_imp: Removed try catch blocks from exploration generators.
+  - bugfix: Acid no longer affects indestructible items.
+  ivanmixo:
+  - bugfix: You can no longer eat through gas masks if you're on harm intent
+2022-05-02:
+  Archanial:
+  - bugfix: fixed null runtime in teleporter.dm
+  - bugfix: fixed a runtime when deconstructing something, while having a stack of
+      an item already under you
+  - server: removed support for invalid timers.
+  - bugfix: fixed null client on tgui initialize runtime
+  Hardly, Retlaw34, comma, mattroks101, metalgearsloth, tichys:
+  - rscadd: New sounds for buttons, conveyors, fire alarms, health analyzers and mining
+      scanners.
+  - rscadd: Sleepers now make a noise when used.
+  - rscadd: All computers now make clicking noises when interacted with.
+  - rscadd: New sound variant for hypospray.
+  Kontaminant:
+  - bugfix: Nitryl now correctly calculates how much you are breathing so you accurately
+      get the reagent when inhaling it.
+  Mat05usz:
+  - bugfix: Kilo no longer has a 'ghost' second Z-level
+2022-05-03:
+  Dejaku51:
+  - tweak: cyborg KPA is no longer two-handed so mining borg can shoot straight again
+  PowerfulBacon:
+  - bugfix: Fixes post round shuttle loading.
+  - rscadd: Multiple mapped shuttles can spawn per round.
+  - bugfix: Fixes fastdmm not being able to compile the codebase.
+  - rscadd: Adds in some props to shutle ports to make fastdmm display important port
+      variables such as width, height, dwidth and dheight first.
+  PowerfulBacon, KubeRoot:
+  - tweak: Changed how the orbital map looks.
+  - tweak: Objects on the orbital map autopilot target list are now sorted by priority.
+  Rukofamicom:
+  - bugfix: Fixed a bug with the captain's laser which prevented it from appropriately
+      displaying when the gun had no charge
+  - balance: The captain's "antique" laser has been reduced to a 10 shot capacity,
+      so that it is more representative of being an antique.
+  - tweak: The captain's laser is now appropriately locked behind its display case
+      again to make it more intuitive that players are not intended to take the gun
+      from the start of the round. The captain will be able to open this case during
+      elevated alert levels.
+  - tweak: All display cases may now be closed even if you do not have access to the
+      case.
+  - bugfix: Miners being able to redeem points without providing ores to the station
+  ivanmixo:
+  - balance: Bluespace extract's major ability can no longer be activated while incapacitated
+  - balance: Bluespace extract's major ability now has a delay before the anchor point
+      is set and a delay until you're teleported back to it
+  - balance: Shortened the minor bluespace extract ability cooldown
+  - balance: Applying the regenerative bluespace extracts now has a delay
+2022-05-04:
+  Ivniinvi:
+  - bugfix: Various maintenance sofas now face the right direction.
+  Kapu1178:
+  - rscdel: Miasma
+  - rscdel: Rot component
+  - rscdel: Corpseflowers
+  - balance: Atmosbot EMAG now generates CO2
+  Penwin0:
+  - rscadd: Cargodrobe now has a beret
+  PowerfulBacon:
+  - bugfix: Fixes a bug in clockcult where a client disconnecting right before the
+      round starts could cause the ark to never open
+  - refactor: Refactors stargazer enchantments, they will no longer be negative and
+      are based on components.
+  h42:
+  - bugfix: Bone bracers, gloves of the north star, and all varieties of boxing gloves
+      now have their intended appearance.
+2022-05-05:
+  MNarath1:
+  - bugfix: fixes spaceheater requiring active apc powerchannel
+  Rukofamicom:
+  - bugfix: Energy guns have correct charge on initialization again.
+2022-05-06:
+  Crossedfall:
+  - rscdel: Removed two referential default lizard names
+  MNarath1:
+  - bugfix: fixes sm + indestructable item crashing server exploit
+  Mat05usz, Timberpoes:
+  - bugfix: Rare runtimes in crewmonitor
+2022-05-07:
+  Ivniinvi:
+  - rscadd: There is now a leaderboard for the biggest toxins bomb (theoretical size).
+  - bugfix: Bomb score actually works now
+  MNarath1:
+  - bugfix: fixes runtime for retaliate mobs
+  MNarath1, LemonInTheDark, Timberpoes, Mothblocks, Ghommie, spookydonut, Kylerace, TiviPlus, SpaceManiac, ninjanomnom:
+  - rscadd: movement loop subsystem
+  - rscadd: movement type procs for different movements
+  - rscadd: Movement bucket system
+  - refactor: changes forced_gravity into an element
+  - refactor: converts singularity into a component
+  - refactor: changes up most movement for mobs /atom etc to work with the movement
+      loop
+  - refactor: converts blob spore movement towards the  new movement loop
+  - refactor: moves conveyor belts to its own subsystem
+  - refactor: space drifting is now a component
+  - code_imp: refactors and changes some disposal loop stuff
+  - code_imp: refactors mulebots and adds some movement related signals
+  - code_imp: removes some spawn() procs
+  - refactor: removes sleep procs from transfer tubes
+  - tweak: disables effects during initialize
+  - rscdel: removes some redundant code regarding to monkeys
+  - bugfix: runtimes during in the movement type datum if it got GC while the proc
+      was running
+  - bugfix: fixes narsi's spawn animation not showing up
+  - bugfix: drifting speed exploit
+  - refactor: converts accelated particles from particle accelerator into projectiles
+  - bugfix: fixes tesla dissipation
+  - bugfix: fixes 0 setting for the PA to actually sustain the singularity
+  Phil Smith:
+  - tweak: Nukie Team Leaders start on loud mode (can still go into normal mode via
+      an alt-click on the headset)
+  TheChaser212:
+  - bugfix: Fixed augment manipulator and clockwork bodypart icons.
+  - rscadd: Anything with dna can get mutations (such as monkeys)
+  - code_imp: Added mobtypes_allowed var to mutations
+  - code_imp: Improvements to genetics code
+  covertcorvid:
+  - rscadd: Added stairs to multi-z debug station
+  - rscadd: Power cables that go up and down. Use 2 pieces of cable on an open space
+      to create one.
+  - bugfix: Buckles are no longer cancelled when using stairs
+  - bugfix: Vehicles are now able to go down stairs
+  - bugfix: Pulling someone in a roller bed or wheelchair on stairs now acts the same
+      regardless of whether you grabbed the person or the object
+  - bugfix: Fireman carrying people up and down stairs works now
+  - bugfix: Being buckled to a wheelchair or other vehicle no longer makes you immune
+      to damage from falling through open space
+  - bugfix: Non-observer ghosts (revenants, eminence, poly's ghost) no longer need
+      to hitch a ride in an elevator to get off their starting level.
+  - tweak: Blob overmind can use Move-Upwards and Move-Down verbs to find a location
+      to place itself
+  - tweak: Upwards movement from a floor tile in zero gravity will work as long as
+      the tile above you is open or space
+  - tweak: The Move-Upwards and Move-Down verbs from the IC tab can be used by more
+      than just observers
+  - tweak: Revenants and Eminences can use the up-down radial menu
+  - tweak: A shuttle that can choose its landing site can land on any level of a multi-Z
+      station
+  - code_imp: Stair travel uses Move or doMove now to better handle pulling and buckling
+  - code_imp: Allow_z_travel now indicates whether a turf is a valid start location
+      for downwards travel, or a valid destination for upwards travel
+  mc_meiler:
+  - tweak: Chemical Synthesizers now require regular, manual refilling with compressed
+      matter cartridges to operate.
+  - tweak: Chemistry lockers now start with 2 to 4 matter cartridges, depending on
+      locker type.
+2022-05-08:
+  Penwin0:
+  - rscadd: Getting Implanted now alerts you about it
+  - bugfix: Headspidering no longer teleports you and you can't headspider after cremation
+  PestoVerde322:
+  - rscadd: Added a random medkit for Battle royale and Hope reasons.
+  - rscadd: Added a doctor's bag as a dedicated alternative item for the medical aid
+      kit in the future.
+  - imageadd: Brand new sprites for all the medkits and their In-hand icons.
+  PowerfulBacon:
+  - bugfix: Client disconnect messages will now be immediate, so you will see the
+      message before being disconnected.
+  Rukofamicom:
+  - tweak: Ketamine overdose is now a random severe brain trauma.
+2022-05-09:
+  Rukofamicom:
+  - balance: Yellow slime cores are now cells that recharge over time instead of being
+      effectively infinite.
+  - balance: EMPs now halt regeneration for 30 seconds on slime cores.
+  d0sboots:
+  - bugfix: Can keybind semicolon
+2022-05-10:
+  BetaCentari:
+  - rscadd: Added hissing, humming and clicking your tongue emotes
+  - rscadd: Added zap emote for ethereals
+  - code_imp: Added unique message option for insect-like mobs (moths, apids and flypeople)
+  - soundadd: Added a dialup sound for IPC players when they are revived
+  PestoVerde322:
+  - balance: Fireball no longer has a 3 tile wide hitbox (courtesy of GoblinBackwards
+      over in /tg/).
+  ivanmixo:
+  - rscdel: removed unused TRAIT_APPRAISAL
+2022-05-11:
+  PestoVerde322:
+  - imageadd: Added new icons for the DNA injectors
+  - imageadd: Added new icons for the DNA implanters and their cases
+  - bugfix: The bluespace icon syringe is now more animated
+2022-05-12:
+  covertcorvid:
+  - bugfix: Fixes doing wiring in space
+  d0sboots:
+  - bugfix: suit_storage slot now shows the item it has equipped
+2022-05-13:
+  Archemagus:
+  - bugfix: Cyrillic in radio prefixes
+  Chirynnn:
+  - bugfix: This fixed the huge gaps between the first and last name of randomly generated
+      apids.
+  Hardly, Gandalf2k15:
+  - tweak: Vended items now go straight into your hand.
+  Ivniinvi:
+  - tweak: Players are now limited to one positronic brain per round.
+  MNarath1:
+  - config: Changes default editor settings for dmi files to the new dmi editor extension
+  Penwin0:
+  - rscdel: Removes mentions of changeling hivemind chat
+  - bugfix: Headspidering no longer causes a runtime
+  - bugfix: You can no longer headspider in revival stasis for a free aheal later
+      on
+  bluezorua:
+  - rscdel: Gondola Pockets from the cargo donkpocket variety crate
+  - tweak: cargo donkpocket variety crate's price has been decreased to 1.5K credits
+  d0sboots:
+  - bugfix: batteries are removed properly when removing the power controller from
+      tablets
+  ivanmixo:
+  - tweak: bubble alerts stay on screen longer
+  - spellcheck: fixed punctuation and grammar in bubble alerts
+2022-05-14:
+  Chirynnn:
+  - bugfix: Fixed wrong ritual information in the heretic's flesh path.
+  PestoVerde322:
+  - imageadd: Added new floor borders for normal steel floor and wooden floor
+  - imageadd: Added a new icon for the broken glass light floor
+  PowerfulBacon:
+  - tweak: EMPs no longer drain the charge of energy weapons
+  - tweak: Energy weapons are now temporarilly disabled by EMPs
+  - tweak: Stun batons no longer lose charge when EMPed.
+  - tweak: Stun batons are now temporarilly disabled by EMPs
+  - tweak: Data HUDs will now glitch out when affected by EMPs or emagged
+  - tweak: Machines will now temporarilly not function when EMPed
+  - balance: The icon rifle, pulse rifle and KA are now affeceted by EMPs.
+  Rukofamicom:
+  - balance: Heirloom toolboxes are now rusted shut and may no longer be used as extra
+      storage space.
+  - bugfix: Fixed fingerless insulated gloves equipment sprite, they are now appropriately
+      yellow instead of white.
+  Salex08:
+  - bugfix: heals contracted mobs more properly
+  ivanmixo:
+  - rscadd: added a bunch of new tongues
+  - tweak: moved saymods off species datums and onto tongues
+2022-05-15:
+  Mat05usz:
+  - bugfix: People disappearing from sensors after picking up jumpsuits
+  Patternseeker:
+  - bugfix: Fixed plasmaglass shard spears being invisible on right hand and in back
+      slot.
+  PestoVerde322:
+  - bugfix: fixed the icon behaviour of the manual valve
+  PowerfulBacon:
+  - bugfix: Fixes parallax move direction not working.
+  d0sboots:
+  - rscdel: Removed dead drop_item code
+2022-05-16:
+  Rukofamicom:
+  - tweak: The exploding rubber ducky now has a dramatic delay before exploding so
+      the victim can truly appreciate the humor of their situation. This delay does
+      not allow the victim any opportunity to move away from the explosion.
+  - bugfix: Mines now have to be smartmines to use smartmine logic. Explosive ducks
+      (and other mines) are now 100% more dangerous for security personnel who were
+      previously immune to funny.
+2022-05-17:
+  Ivniinvi:
+  - bugfix: Admins can no longer unprotect globals.
+  Patternseeker:
+  - tweak: Inducers are now called "NT-50" and "NT-100" for Science and Engineering
+      respectively. Referred to as "inducer" and "heavy-duty inducer".
+  - tweak: Renamed "inducer" to "heavy-duty inducer".
+  - rscadd: Added empty variant of engineering inducers for the protolathes.
+  - rscadd: NT-100 Inducers can now be printed at engineering protolathes.
+  - balance: NT-100 Inducers cost 2x the materials compared to NT-50.
+  - rscadd: Added new Science and Engineering Inducers crates at cargo.
+  - balance: Engineering Inducers come with high powered cells.
+  - balance: Science inducers crate now costs 1000 credits. Engi inducers crate costs
+      2000 to reflect twice the potential.
+  PestoVerde322:
+  - rscadd: Some plushes are now obtainable via the arcade machine and golden rune,
+      previously missing from the list.
+  - imageadd: Redone some in-hand icons for the plushes facing south, now they're
+      in front of the hand.
+  - imageadd: added plenty of new moth based plushes to have, collect them all!
+2022-05-18:
+  Ivniinvi:
+  - admin: Cryo is now a smite option.
+2022-05-19:
+  DatBoiTim:
+  - bugfix: fixed large number of plane_master_controller harddels
+  - bugfix: Rotatium now works properly
+  - tweak: create_and_destroy unit test ignores plane_master_controllers to avoid
+      runtimes
+  - bugfix: Fixed Hard-Del of Radial Menu Center Button
+  PowerfulBacon:
+  - bugfix: Fixes some mistakes in quirk code mob transfer.
+  - rscdel: Deletes the broken gravity symptom.
+  Rukofamicom:
+  - bugfix: Reactive armor now ignores imaginary bullets instead of activating.
+  - bugfix: Sleeping Carp now prevents the use of the Hierophant staff
+  Zams, Ashlynn:
+  - rscadd: a boatload new viro symptoms, check the wiki for more in-depth explanations
+      of each
+  - rscadd: Autobrewery syndrome. Gets the host drunk. has thresholds to change how
+      drunk it gets the host.
+  - rscadd: Bubonic infection. The host takes toxin and brute damage as they grow
+      pustules that can shoot off and infect others, especially when hit
+  - rscadd: Photosensitive muscle condensation. The host gains more max health and
+      is slowed down in the light, and loses max health and is sped up in the dark
+  - rscadd: Hemetophagy. The host sucks up blood on the floor and that they have drank
+      to cure bloodloss, but loses blood over time. At thresholds, can heal brute
+      damage.
+  - rscadd: Hyperactivity. Lowers mood and reduces nutrition, but heals stamina damage
+  - rscadd: Aptotic Culling. Converts radiation to brute damage, can convert cell
+      and toxin damage at thresholds
+  - rscadd: Organ regeneration. Heals organ damage. At thresholds, prevents and cures
+      heart attacks and appendicitis,  and can slowly regenerate organs the host is
+      missing
+  - rscadd: Viral Suspended Animation. Causes a virus to have next to no effect until
+      reaching stage 5
+  - rscadd: Hysteria. Causes a random emote, which does not change when the virus
+      transmits. Cannot cause farting. At threshold, infects whoever is looking and
+      is not mindshielded or wearing a tinfoil hat
+  - rscadd: Toxoplasmosis Sapiens. Grants a mood boost around cats and cat people.
+      Can cause some forms of dysmorphic mania at thresholds
+  - rscadd: a new, better, more evil adminspawn toxoplasmosis virus preset
+  - rscadd: Xenobiological Symbiosis. Heals toxin damage. The host barfs out grubs
+      that eat slimes and slimepeople, but can be cooked into delicious healing meat
+  - imageadd: new sprites for grubs
+  - rscadd: Gravitic Biopotential Instability Syndrome, or GBIS. Causes random gravity
+      increases, with thresholds can deal damage or throw objects at the host
+  - rscdel: removes high gravity animations. They're broken, and cause you to become
+      invisible.
+2022-05-20:
+  Hardly:
+  - rscadd: Added mute as a neutral quirk
+  MCterra:
+  - rscadd: partially readds psychotical brawling
+  - balance: bath salts is balanced again
+  MNarath1:
+  - rscadd: adds a check to ensure we won't keep on overwriting basically the same
+      moveloop
+  - bugfix: fixes mobs that would have an insane long move delay thus overwriting
+      their moveloop before it could fire
+  - balance: changes the movement delay of blob spores back to the default for hostiles
+  - bugfix: fixes a possible runtime in jps hostile while it gets qdeleted
+  PestoVerde322:
+  - rscadd: now Syndicate PDAs cannot be detonated anymore
+  - bugfix: tweaked numerous description of many PDAs, like the Captain's
+  - bugfix: the VIP now get their proper full golden ID to demonstrate their wealth
+  - bugfix: fixed the missing option to paint a PDA/ID with the Exploration crew's
+      colours
+  - imageadd: Added new icons for the PDAs and cartridges
+  Sarchutar:
+  - bugfix: Belt overlay not updating on dumping items
+  St0rmC4st3r:
+  - rscadd: Epinephrine, Dexalin and Atropine medipens are now printable in the medical
+      lathe.
+  - tweak: Reagents in the protolathe recipes no longer scale with part efficiency.
+  red031000:
+  - rscadd: Add the ability for moths to open their wings when they are able to fly
+      (either through genetics, or flight potions)
+  - tweak: Change time for flap and aflap to half
+  - imageadd: Add moth wings open images from yogstation
+2022-05-21:
+  Dejaku51:
+  - bugfix: Fixed plane_master_controller harddel
+  Penwin0:
+  - bugfix: Fixes harddel in heretic blades
+  PowerfulBacon:
+  - soundadd: All shuttles now place hyperspace sound effects
+  - bugfix: Fixes changeling abilities.
+  Wilchenx:
+  - balance: forensic scanner is no longer printable in techfabs
+  benbot16:
+  - tweak: Spider directives are now more obvious for the spider.
+  ivanmixo:
+  - rscadd: You can now permanently sentence people to labor camp
+  - rscadd: You can now give out 1500 point labor camp sentences
+  zeskorion:
+  - balance: silver extracts now only spawn one item
+  - balance: silver extracts can no longer spawn gatfruit or roburgers
+2022-05-22:
+  Autisem:
+  - tweak: light eater works on wisps
+  - bugfix: Light eater works on mechs
+  EvilDragonfiend:
+  - refactor: each chemical now has bitflag for synthesizable, rng, crew goal stuff.
+      some bitflags are not used yet, but they're going to be used in future update.
+      'NotSynth' flag doesn't involve in RNG chemical anymore except for when they
+      are used to filter as blacklist.
+  - tweak: random chemical system is now structured into 3 types - general, fun, botany.
+      random chemical is now more dynamic up to its type. (And added 2 types that
+      would be used in the future)
+  - rscadd: random chem general type - used in abductor gland, clown car, etc. can
+      be dangerous, but not frustrating stuff. (was meant to be used in scrub event.)
+  - rscadd: random chem fun type - used in maint pill or necropolis bottle. most ingame
+      chemicals including admin/traitor stuff excluding some lame stuff(like Water).
+      Risk yourself.
+  - rscadd: random chem botany type - used in botany strange seed. it will even use
+      a wider list than before - which means more gimmicky.
+  - rscadd: random chem basic chemical - to be used in future botany rework.
+  - rscadd: random chem basic drink - to be used in future botany rework.
+  - tweak: necropolis random reagent bottle's name is now "ancient bottle of unknown
+      reagent"
+  - tweak: the way choosing random chem for crew objective is changed. crew objectives
+      that give you a random chemical goal doesn't pick an unachievable objective
+      anymore (i.e. Changeling Adrenaline) This uses the same random chem system above,
+      but a bit separately named to avoid causing any confusion.
+  - rscadd: random chem goal - chemist drug type (now with more medicines)
+  - rscadd: random chem goal - chemist bloodstream type
+  - rscadd: random chem goal - botanist harvest type (if they're not in the standard
+      plants, you should do botanical-chemistry. build your own recipe.)
+  - rscadd: random chem goal - bartender servings type (only implemented in its codewise.)
+  MNarath1:
+  - tweak: changes the windows infront of singu engine area at delta to reinforced
+      plasma windows
+  - bugfix: fixes containment field generators at delta to be properly anchored from
+      roundstart (only anchored not welded yet)
+  MNarath1, LemonInTheDark:
+  - bugfix: fixes frozen persistant sparks
+  Mat05usz:
+  - bugfix: Fixes eminence being targeted by things that shouldn't see it.
+  - bugfix: Revenant and eminence can no longer be irradiated.
+  PestoVerde322:
+  - tweak: Tweaked the Quadruple and Quintuple Sec to yield less healing.
+  - balance: Rebalanced the White paper and the Silencer to mute everyone aside mimes.
+  PowerfulBacon:
+  - bugfix: Fixes clockcult sometimes failing due to antag_pick runtiming.
+  - rscadd: Adds the toy integration cog.
+  - rscadd: Adds the toy replica fabricator.
+  - balance: Laser shotgun shell damage increased from 8 to 12 per pellet.
+  - bugfix: Fixes docking randomly failing due to hyperspace being an area registered
+      to all shuttles.
+  - refactor: Shuttle docking camera will now correctly resize to the size of the
+      shuttle being docked.
+  - balance: Reduces the number of cult ghosts a single person can summon from 3 to
+      1.
+  'Ryll/Shaps, ':
+  - rscadd: You can slam table with *slap emote
+  - bugfix: fixed out of range bugged message when giving an item
+  - refactor: refactored giving code
+  ivanmixo:
+  - rscadd: You can now toggle throw mode by pressing space bar!
+  - bugfix: improved the automute spam filter, should help with lowering the amount
+      of false positives
+2022-05-23:
+  MNarath1:
+  - bugfix: fixes ruin generation issues
+  - bugfix: fixes frozen sparks
+  - bugfix: fixes the atom subsystem entering an invalid state
+  - bugfix: fixes broken gold airlock apparance
+  Mat05usz, Rukofamicom:
+  - tweak: Map votes are now weighted by number of votes rather than picking the map
+      with the most votes
+  Rukofamicom:
+  - bugfix: Fixed an edge case where attempting to feed as a slime fails. You are
+      no longer safe from hungry slimes by buckling to a cyborg, scooter or chair.
+  qwertyquerty:
+  - bugfix: Update RCL icon on refill
+  zeskorion:
+  - bugfix: misc hemetophagy fixes
+2022-05-24:
+  Buggy123, St0rmC4st3r, Rukofamicom:
+  - rscadd: Adds PTSD - a slightly modified version of the miniature energy gun with
+      3 fewer disabler shots per charge, but the ability to fully recharge itself
+      in 120 seconds.
+  - balance: All heads of staff can now pick up PTSD at the start of the round by
+      checking their lockers, except for the HoS who starts with PTSD whether they
+      want it or not.
+  - balance: The HoS and Captain no longer have roundstart access to a full size energy
+      gun due to acquiring PTSD. They do still have their unique weapons.
+  - balance: To make up for the increased firepower, the telescopic baton is no longer
+      deals stamina damage, except when targeting arms. It is still effective for
+      tripping and disarming, but not locking someone down in place indefinitely.
+  Rukofamicom:
+  - rscdel: Players who are shoved into walls no longer immediately drop their items,
+      but are knocked down for 50% longer
+  - rscadd: Shoving someone who is knocked down will cause them to drop their held
+      item(s)
+  - rscdel: Removed 4-second hardstun from shoving someone who is knocked down.
+  - tweak: Gives disarm attacks an increased action cooldown
+  - balance: Walls and empty hands are no longer the single most dangerous thing to
+      worry about in combat.
+  - tweak: simplified how lone op counter increments when nuclear disk is stationary
+  ivanmixo:
+  - bugfix: fixes hulk yelling being permanent
+2022-05-25:
+  d0sboots:
+  - rscadd: Added radiation to the Supermatter Monitor
+  ivanmixo:
+  - bugfix: You can throw people again
+2022-05-27:
+  ivanmixo:
+  - bugfix: fixed wacky mutation's description in dna console.
+2022-05-29:
+  Archanial:
+  - tweak: regenerative bluespace now teleports you instead of forcemoving.
+  - refactor: refactored some code related to xenobio extracts
+  Ebin-Halcyon, ported by Hardly.:
+  - imageadd: The maid costume has a new sprite!
+  - imageadd: Added maid headband, neck cover and arm cover.
+  MNarath1:
+  - tweak: makes spam protection work around messages per timeframe instead of you
+      have to wait so long before you can message again
+  Mat05usz:
+  - bugfix: Fixes living mobs forcefully moving unanchored stuff they are buckled
+      to
+  Penwin0:
+  - bugfix: Reverts PR that broke everything to do with buckling
+  Rukofamicom:
+  - balance: Stimulum is toxic again!
+  - tweak: Stimulum now causes difficulty breathing and oxyloss instead of plain toxin
+      damage, and has new notifications to assist in its usage. Recommended usage
+      is huffing one breath of stimulum for a high, and then waiting two minutes for
+      it to wear off before huffing again.
+  d0sboots:
+  - bugfix: Using Ctrl and Alt with movement works correctly
+  - rscdel: Removed "change facing" keybinds, they are no longer needed
+  - refactor: document behavior around airlocks and the id scan wire
+  giacomoh:
+  - rscadd: Added character selection slots in beecoin shop
+  - rscadd: Added equipped_loadout to save_character
+  ivanmixo:
+  - bugfix: fixed the extra 'the' when stripping people
+2022-05-30:
+  MNarath1:
+  - code_imp: reworks nuke_code proc (now random_code proc) to not use padding and
+      be able to accept variable code lengths
+  - refactor: make the antag uplinke code (for pda uplinks at least) also use this
+      proc
+  Penwin0:
+  - bugfix: fixes harddel with atmos backpack nozzle
+  PowerfulBacon:
+  - bugfix: Move upwards and move downwards no longer animate if there is nowhere
+      to move in that direction.
+  - bugfix: Fixes href pings being logged erronously.
+  Rukofamicom:
+  - bugfix: Warping grey crossbreeds are now properly created when feeding bluespace
+      extracts to a grey slime.
+  mcmeiler:
+  - spellcheck: Removed the redundant species name from limb names, moves it to description
+  - bugfix: fixed players getting first person messages when someone emags a power
+      flow control console

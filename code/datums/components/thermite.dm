@@ -8,18 +8,18 @@
 		/turf/open/lava,
 		/turf/open/space,
 		/turf/open/water,
-		/turf/open/chasm)
-		)
+		/turf/open/chasm,
+	))
 
 	var/static/list/immunelist = typecacheof(list(
 		/turf/closed/wall/mineral/diamond,
 		/turf/closed/indestructible,
-		/turf/open/indestructible)
-		)
+		/turf/open/indestructible,
+	))
 
 	var/static/list/resistlist = typecacheof(
-		/turf/closed/wall/r_wall
-		)
+		/turf/closed/wall/r_wall,
+	)
 
 /datum/component/thermite/Initialize(_amount)
 	if(!istype(parent, /turf) || blacklist[parent.type])
@@ -39,12 +39,12 @@
 	master.add_overlay(overlay)
 
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_react))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(attackby_react))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(attackby_react))
 	RegisterSignal(parent, COMSIG_ATOM_FIRE_ACT, PROC_REF(flame_react))
 
 /datum/component/thermite/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT)
-	UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(parent, COMSIG_ATOM_ATTACKBY)
 	UnregisterSignal(parent, COMSIG_ATOM_FIRE_ACT)
 
 /datum/component/thermite/Destroy()
@@ -68,7 +68,7 @@
 	addtimer(CALLBACK(src, PROC_REF(burn_parent), fakefire, user), min(amount * 0.35 SECONDS, 20 SECONDS))
 	UnregisterFromParent()
 
-/datum/component/thermite/proc/burn_parent(var/datum/fakefire, mob/user)
+/datum/component/thermite/proc/burn_parent(datum/fakefire, mob/user)
 	var/turf/master = parent
 	if(!QDELETED(fakefire))
 		qdel(fakefire)

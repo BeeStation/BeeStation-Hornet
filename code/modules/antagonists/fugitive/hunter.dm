@@ -6,7 +6,6 @@
 	antagpanel_category = "Fugitive Hunters"
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
-	count_against_dynamic_roll_chance = FALSE
 	required_living_playtime = 4
 	var/datum/team/fugitive_hunters/hunter_team
 	var/datum/fugitive_type/hunter/backstory
@@ -200,12 +199,12 @@
 
 	return result.Join("<br>")
 
-/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_added(var/mob/living/carbon/human/fugitive)
+/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_added(mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
 	fughud.join_hud(fugitive)
 	set_antag_hud(fugitive, "fugitive_hunter")
 
-/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_removed(var/mob/living/carbon/human/fugitive)
+/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_removed(mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
 	fughud.leave_hud(fugitive)
 	set_antag_hud(fugitive, null)

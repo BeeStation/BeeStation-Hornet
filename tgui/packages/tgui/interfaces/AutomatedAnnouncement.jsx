@@ -1,4 +1,5 @@
 import { multiline } from 'common/string';
+
 import { useBackend } from '../backend';
 import { Button, Input, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
@@ -24,9 +25,19 @@ export const AutomatedAnnouncement = (props) => {
               content={arrivalToggle ? 'On' : 'Off'}
               onClick={() => act('ArrivalToggle')}
             />
-          }>
+          }
+        >
           <LabeledList>
-            <LabeledList.Item label="Message" buttons={<Button icon="info" tooltip={TOOLTIP_TEXT} tooltipPosition="left" />}>
+            <LabeledList.Item
+              label="Message"
+              buttons={
+                <Button
+                  icon="info"
+                  tooltip={TOOLTIP_TEXT}
+                  tooltipPosition="left"
+                />
+              }
+            >
               <Input
                 fluid
                 value={arrival}
@@ -48,9 +59,19 @@ export const AutomatedAnnouncement = (props) => {
               content={newheadToggle ? 'On' : 'Off'}
               onClick={() => act('NewheadToggle')}
             />
-          }>
+          }
+        >
           <LabeledList>
-            <LabeledList.Item label="Message" buttons={<Button icon="info" tooltip={TOOLTIP_TEXT} tooltipPosition="left" />}>
+            <LabeledList.Item
+              label="Message"
+              buttons={
+                <Button
+                  icon="info"
+                  tooltip={TOOLTIP_TEXT}
+                  tooltipPosition="left"
+                />
+              }
+            >
               <Input
                 fluid
                 value={newhead}

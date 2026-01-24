@@ -7,7 +7,7 @@
 /area/ruin/space/has_grav/storage/materials3)
 "ac" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials3)
 "ad" = (
@@ -190,7 +190,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials2)
 "aI" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/materials1)
 "aJ" = (
@@ -362,18 +362,18 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bq" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "br" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bs" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bt" = (
@@ -745,7 +745,7 @@
 /area/ruin/space/has_grav/storage/central)
 "cB" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
@@ -757,7 +757,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cD" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
@@ -870,7 +870,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "sm" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /obj/effect/decal/cleanable/glass,
 /obj/structure/cable{
 	icon_state = "2-4"
