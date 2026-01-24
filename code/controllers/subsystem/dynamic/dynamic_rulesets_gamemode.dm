@@ -25,7 +25,7 @@
 	if (rounds_since_execution <= 0)
 		return weight
 	// Calculate the proportion
-	var/proportion = (rounds_since_execution - 1) / recent_weight_recovery_linear
+	var/proportion = CLAMP01((rounds_since_execution - 1) / recent_weight_recovery_linear)
 	// Linear interpolation between 1 and the original weight based on time since last execution
 	var/used_weight = 1 + (weight - 1) * proportion
 	if (weight != used_weight)
