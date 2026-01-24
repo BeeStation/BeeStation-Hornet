@@ -274,3 +274,6 @@
   - bugfix: Fixes boxstation solars using yellow wires var-edited to red.
   r1ks-iwnl:
   - bugfix: Fixed particle acceleration rifle's zoom.
+2026-01-24:
+  Rukofamicom:
+  - admin: The destruction of station objects is now properly logged again
