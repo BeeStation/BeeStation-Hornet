@@ -142,7 +142,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
 #define PREFERENCE_TAG_IGNORING			"ignoring"
 #define PREFERENCE_TAG_KEYBINDS			"key_bindings"
-#define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
 #define PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL "be_special"
 #define PREFERENCE_TAG_FAVORITE_OUTFITS "favorite_outfits"
 #define PREFERENCE_TAG_PAI_NAME			"pai_name"
@@ -154,7 +153,6 @@ GLOBAL_LIST_INIT(undatumized_preference_tags_player, list(
 	PREFERENCE_TAG_DEFAULT_SLOT,
 	PREFERENCE_TAG_IGNORING,
 	PREFERENCE_TAG_KEYBINDS,
-	PREFERENCE_TAG_PURCHASED_GEAR,
 	PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL,
 	PREFERENCE_TAG_FAVORITE_OUTFITS,
 	PREFERENCE_TAG_PAI_NAME,
@@ -256,3 +254,10 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// For main feature preferences, this key refers to a feature considered supplemental.
 /// For instance, hair color being supplemental to hair.
 #define SUPPLEMENTAL_FEATURE_KEY "supplemental_feature"
+
+/// Amount of character slots given to all players
+#define CHARACTER_SLOTS_DEFAULT 3
+/// Amount of extra character slots given to patron/byond supporters
+#define CHARACTER_SLOTS_PATRON 8
+/// Amount of extra character slots that players can purchase
+#define CHARACTER_SLOTS_PURCHASABLE 5

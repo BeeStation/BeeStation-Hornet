@@ -110,7 +110,7 @@ export type LoadoutGear = {
   cost: number;
   allowed_roles: string[] | null;
   is_equippable: BooleanLike;
-  multi_purchase: BooleanLike;
+  can_purchase: BooleanLike;
 };
 
 export type LoadoutCategory = {

@@ -295,9 +295,10 @@
 	var/list/gear_list = list()
 	var/obj/item/storage/spawned_box
 	var/jumpsuit_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
+	var/datum/loadout/loadout = preference_source.player_details.loadout
 
-	if(preference_source && LAZYLEN(preference_source.prefs.equipped_gear))
-		for(var/gear in preference_source.prefs.equipped_gear)
+	if(preference_source && length(loadout.equipped_gear))
+		for(var/gear in loadout.equipped_gear)
 			var/datum/gear/to_sort = GLOB.gear_datums[gear]
 			if(to_sort)
 				gear_list += to_sort
@@ -371,13 +372,11 @@
 					gear_leftovers += G
 
 			else
-				preference_source.prefs.equipped_gear -= G
-				preference_source.prefs.mark_undatumized_dirty_character()
+				loadout.unequip(G)
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/metadata = preference_source.prefs.equipped_gear[G.id]
-			var/item = G.spawn_item(null, metadata, jumpsuit_style)
+			var/item = G.spawn_item(null, jumpsuit_style)
 			var/atom/placed_in = human.equip_or_collect(item)
 
 			if(istype(placed_in))
@@ -400,7 +399,7 @@
 
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
-				G.spawn_item(B, metadata, jumpsuit_style)
+				G.spawn_item(B, jumpsuit_style)
 				if(M.client)
 					to_chat(M, span_notice("Placing [G.display_name] in [B.name]!"))
 				continue

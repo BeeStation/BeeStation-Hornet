@@ -86,7 +86,6 @@
 	READPREF_STR(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
-	READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	READPREF_JSONDEC(role_preferences_global, PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL)
 
 	READPREF_JSONDEC(favorite_outfits, PREFERENCE_TAG_FAVORITE_OUTFITS)
@@ -104,7 +103,6 @@
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	default_slot	= sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
 	ignoring		= SANITIZE_LIST(ignoring)
-	purchased_gear	= SANITIZE_LIST(purchased_gear)
 	role_preferences_global = SANITIZE_LIST(role_preferences_global)
 
 	pai_name		= sanitize_text(pai_name, initial(pai_name))
@@ -187,7 +185,6 @@
 
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
-	PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	PREP_WRITEPREF_JSONENC(role_preferences_global, PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL)
 	PREP_WRITEPREF_JSONENC(favorite_outfits, PREFERENCE_TAG_FAVORITE_OUTFITS)
 
@@ -282,14 +279,12 @@
 	JSONREAD_PREF(randomize, CHARACTER_PREFERENCE_RANDOMIZE)
 	JSONREAD_PREF(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
 	JSONREAD_PREF(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
-	JSONREAD_PREF(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
 	JSONREAD_PREF(role_preferences, CHARACTER_PREFERENCE_ROLE_PREFERENCES)
 
 	//Sanitize
 	randomize = SANITIZE_LIST(randomize)
 	job_preferences = SANITIZE_LIST(job_preferences)
 	all_quirks = SANITIZE_LIST(all_quirks)
-	equipped_gear = SANITIZE_LIST(equipped_gear)
 	role_preferences = SANITIZE_LIST(role_preferences)
 
 	// Validate job prefs
@@ -308,20 +303,6 @@
 		role_preferences -= preference
 		log_preferences("[parent_ckey]: WARN - Cleaned up invalid character role preference entry [preference].")
 		mark_undatumized_dirty_character()
-
-	// Validate equipped gear
-	for(var/gear_id in equipped_gear)
-		var/datum/gear/gear = GLOB.gear_datums[gear_id]
-		if(!length(GLOB.gear_datums)) // error safety, don't wanna clear everyone out
-			continue
-		if(!istype(gear))
-			equipped_gear -= gear_id
-			mark_undatumized_dirty_character()
-			continue
-		// Somehow have a gear equipped that you don't own...
-		if(islist(purchased_gear) && !(gear_id in purchased_gear))
-			equipped_gear -= gear_id
-			mark_undatumized_dirty_character()
 
 	return PREFERENCE_LOAD_SUCCESS
 
@@ -364,7 +345,6 @@
 	WRITEPREF_JSONENC(randomize, CHARACTER_PREFERENCE_RANDOMIZE)
 	WRITEPREF_JSONENC(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
 	WRITEPREF_JSONENC(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
-	WRITEPREF_JSONENC(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
 	WRITEPREF_JSONENC(role_preferences, CHARACTER_PREFERENCE_ROLE_PREFERENCES)
 
 	new_data["ckey"] = parent_ckey

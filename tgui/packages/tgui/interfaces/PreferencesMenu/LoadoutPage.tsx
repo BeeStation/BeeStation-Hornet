@@ -18,7 +18,7 @@ import { LoadoutGear, PreferencesMenuData } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const isPurchased = (purchased_gear: string[], gear: LoadoutGear) =>
-  purchased_gear.includes(gear.id) && !gear.multi_purchase;
+  purchased_gear.includes(gear.id) && !gear.can_purchase;
 
 export const LoadoutPage = (props) => {
   const { act, data } = useBackend<PreferencesMenuData>();
@@ -317,7 +317,7 @@ const GearEntry = (props: {
             (gear.donator && !is_donator) ||
             (isPurchased(purchased_gear, gear) &&
               !gear.is_equippable &&
-              !gear.multi_purchase)
+              !gear.can_purchase)
           }
           tooltip={
             !isPurchased(purchased_gear, gear) &&

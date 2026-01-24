@@ -6,8 +6,8 @@
 
 /datum/preference_middleware/loadout/get_ui_data(mob/user)
 	var/list/data = list()
-	data["equipped_gear"] = preferences.equipped_gear
-	data["purchased_gear"] = preferences.purchased_gear
+	data["equipped_gear"] = preferences.parent.player_details?.loadout?.equipped_gear || list()
+	data["purchased_gear"] = preferences.parent.player_details?.loadout?.purchased_gear || list()
 	data["metacurrency_balance"] = preferences.parent.get_metabalance_unreliable()
 	data["is_donator"] = (IS_PATRON(preferences.parent.ckey) || is_admin(preferences.parent))
 	return data
@@ -34,7 +34,7 @@
 			gear_entry["skirt_description"] = G.skirt_description
 			gear_entry["allowed_roles"] = G.allowed_roles
 			gear_entry["is_equippable"] = G.is_equippable
-			gear_entry["multi_purchase"] = G.multi_purchase
+			gear_entry["can_purchase"] = preferences?.parent ? G.can_purchase(preferences.parent, TRUE) : FALSE
 			gear += list(gear_entry)
 		category["gear"] = gear
 		categories += list(category)
@@ -46,53 +46,25 @@
 	var/datum/gear/TG = GLOB.gear_datums[params["id"]]
 	if(!istype(TG))
 		return
-	if(((TG.id in preferences.purchased_gear) || (TG.id in preferences.equipped_gear)) && !TG.multi_purchase)
-		to_chat(user, span_warning("You already own \the [TG.display_name]!"))
-		return TRUE
-	if(TG.sort_category == "Donator")
-		if(user.client && CONFIG_GET(flag/donator_items) && alert(user.client, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
-			user.client.donate()
+	if (!user.client)
 		return
-
-	if(TG.cost <= user.client.get_metabalance_db())
-		preferences.purchased_gear += TG.id
-		TG.purchase(user.client)
-		user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
-		log_preferences("[preferences?.parent?.ckey]: Purchased loadout gear: [TG.id] ([TG.display_name])")
-		preferences.mark_undatumized_dirty_player()
-		return TRUE
-	else
-		to_chat(user, span_warning("You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!"))
+	if (!TG.can_purchase(user.client, FALSE))
+		return
+	TG.do_purchase(preferences, user.client)
 
 /datum/preference_middleware/loadout/proc/equip_gear(list/params, mob/user)
 	var/datum/gear/TG = GLOB.gear_datums[params["id"]]
 	if(!istype(TG))
 		return
-	if(TG.id in preferences.equipped_gear)
-		preferences.equipped_gear -= TG.id
-		log_preferences("[preferences?.parent?.ckey]: Unequipped loadout gear: [TG.id] ([TG.display_name])")
-		preferences.character_preview_view?.update_body()
-		preferences.mark_undatumized_dirty_character()
-		return TRUE
+	if (!user.client)
+		return
+	var/datum/loadout/loadout = user.client.player_details.loadout
+	if (!loadout.is_purchased(TG))
+		log_href_exploit(user, "Attempting to equip [TG.type] when they do not own it.")
+		return
+	if (loadout.is_equipped())
+		loadout.unequip(TG)
 	else
-		var/list/type_blacklist = list()
-		var/list/slot_blacklist = list()
-		for(var/gear_id in preferences.equipped_gear)
-			var/datum/gear/G = GLOB.gear_datums[gear_id]
-			if(istype(G))
-				if(!(G.subtype_path in type_blacklist))
-					type_blacklist += G.subtype_path
-				if(!(G.slot in slot_blacklist))
-					slot_blacklist += G.slot
-		if((TG.id in preferences.purchased_gear))
-			if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
-				preferences.equipped_gear += TG.id
-				log_preferences("[preferences?.parent?.ckey]: Equipped loadout gear: [TG.id] ([TG.display_name])")
-				preferences.character_preview_view?.update_body()
-				preferences.mark_undatumized_dirty_character()
-				return TRUE
-			else
-				to_chat(user, span_warning("Can't equip [TG.display_name]. It conflicts with an already-equipped item."))
-		else
-			log_href_exploit(user, "Attempting to equip [TG.type] when they do not own it.")
-			return TRUE
+		loadout.equip(TG)
+	preferences.character_preview_view?.update_body()
+	return TRUE

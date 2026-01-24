@@ -1,104 +1,140 @@
-GLOBAL_LIST_EMPTY(loadout_categories)
-GLOBAL_LIST_EMPTY(gear_datums)
 
-/datum/loadout_category
-	var/category = ""
-	var/list/gear = list()
+/datum/loadout
+	/// The ckey of the user that owns this loadout datum
+	var/ckey
+	/// If we failed to execute the query that loads our gear from the database, then this will be true
+	var/loading_failed = FALSE
+	/// List of gear purchased by the user
+	var/list/purchased_gear = list()
+	/// List of gear equipped by the user
+	var/list/equipped_gear = list()
 
-/datum/loadout_category/New(cat)
-	category = cat
-	..()
+/datum/loadout/New(ckey)
+	. = ..()
+	src.ckey = ckey
 
-/proc/populate_gear_list()
-	//create a list of gear datums to sort
-	var/list/used_ids = list()
-	for(var/geartype in subtypesof(/datum/gear))
-		var/datum/gear/G = geartype
+/datum/loadout/proc/load_from_database()
+	var/static/list/unknown_gear_items
+	// Grab the gear info for this user
+	var/datum/db_query/load_user_gear = SSdbcore.NewQuery(
+		"SELECT gear_path, equipped, purchased_amount FROM [format_table_name("loadout_gear")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
 
-		var/use_name = initial(G.display_name)
-		var/use_id = initial(G.id)
-		if(!use_id) //Not set, generate fallback
-			use_id = md5(use_name)
-		var/use_category = initial(G.sort_category)
+	// Query execution failure, no gear loaded
+	if(!load_user_gear.Execute())
+		qdel(load_user_gear)
+		loading_failed = TRUE
+		return
 
-		if(G == initial(G.subtype_path))
+	// === HANDLE FREE ITEMS HERE ===
+	// Unlock donator items first
+	unlock_donator_items()
+
+	// === Handle purchased items ===
+	// Used up slots
+	var/list/used_slots = list()
+	// Now row for this user
+	while (load_user_gear.NextRow())
+		var/gear = load_user_gear.item[1]
+		var/equipped = text2num(load_user_gear.item[2])
+		var/purchased_amount = text2num(load_user_gear.item[3])
+		// Locate the ID of the gear
+		var/datum/gear/located_gear = GLOB.gear_datums[gear]
+		if (!located_gear)
+			// We already know about it
+			if (LAZYFIND(unknown_gear_items, gear))
+				continue
+			LAZYADD(unknown_gear_items, gear)
+			log_sql("Loadout: Could not find /datum/gear with the ID [gear], user will not be granted this item.")
 			continue
-
-		if(!use_name)
-			WARNING("Loadout - Missing display name: [G]")
+		// Recognise the purchased item
+		var/datum/user_gear/user_gear = new(located_gear, equipped, purchased_amount)
+		// For donator items, we may have items equipped which we haven't purchased
+		// These do not count as purchased, unless they were unlocked by unlock_donator_items
+		if (purchased_amount > 0)
+			purchased_gear[located_gear.id] = user_gear
+		// If we have not purchased this gear, we ignore it
+		// We maintain the equip status in the database, so that if we re-unlock the item, then
+		// it will maintain the previously equipped status.
+		if (!purchased_gear[located_gear.id])
 			continue
-		if(use_id in used_ids)
-			WARNING("Loadout - ID Already Exists: [G], with ID:[use_id], Conflicts with: [used_ids[use_id]]")
-			continue
-		if(!initial(G.cost))
-			WARNING("Loadout - Missing cost: [G]")
-			continue
-		if(!initial(G.path) && use_category != "OOC") //OOC category does not contain actual items
-			WARNING("Loadout - Missing path definition: [G]")
-			continue
+		// Handle equipping
+		if (equipped && (!located_gear.slot || !used_slots[located_gear.slot]))
+			equipped_gear[located_gear.id] = user_gear
+			if (located_gear.slot)
+				used_slots[located_gear.slot] = TRUE
 
-		if(!GLOB.loadout_categories[use_category])
-			GLOB.loadout_categories[use_category] = new /datum/loadout_category(use_category)
-		used_ids[use_id] = G
-		var/datum/loadout_category/LC = GLOB.loadout_categories[use_category]
-		GLOB.gear_datums[use_id] = new geartype
-		LC.gear[use_id] = GLOB.gear_datums[use_id]
+	// Remove any donator items that we no longer own
+	remove_donator_items()
+	// Cleanup the query
+	qdel(load_user_gear)
 
-	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
-
-/datum/gear
-	var/display_name       //Name. Should be unique.
-	var/id                 //ID string. MUST be unique.
-	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
-	var/path               //Path to item.
-	var/cost = INFINITY    //Number of metacoins
-	var/slot               //Slot to equip to.
-	var/list/allowed_roles //Roles that can spawn with this item.
-	var/list/species_blacklist //Stop certain species from receiving this gear
-	var/list/species_whitelist //Only allow certain species to receive this gear
-	var/sort_category = "General"
-	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
-	var/skirt_display_name
-	var/skirt_path = null
-	var/skirt_description
-	/// If this gear is actually granting an item, and can be equipped.
-	var/is_equippable = TRUE
-	/// If this gear can be purchased again - used for non-items
-	var/multi_purchase = FALSE
-
-/datum/gear/New()
-	..()
-	id = md5(display_name)
-	if(!description)
-		var/obj/O = path
-		description = initial(O.desc)
-	if(!isnull(skirt_path))
-		var/obj/O = skirt_path
-		skirt_description = initial(O.desc)
-
-/datum/gear/proc/can_purchase(client/C)
-	var/datum/preferences/preferences = C.prefs
-	if (!multi_purchase && (id in preferences.purchased_gear))
+/// Returns true if the user has equipped the specified gear datum.
+/datum/loadout/proc/is_equipped(datum/gear/gear)
+	if (ispath(gear))
+		gear = GLOB.gear_datums[gear::id || gear]
+	if (loading_failed)
 		return FALSE
-
+	if (!equipped_gear[gear.id])
+		return FALSE
 	return TRUE
 
-/datum/gear/proc/purchase(client/C) //Called when the gear is first purchased
-	SHOULD_NOT_SLEEP(TRUE)
-	return
+/// Returns true if we have purchased the specified gear datum.
+/datum/loadout/proc/is_purchased(datum/gear/gear)
+	if (ispath(gear))
+		gear = GLOB.gear_datums[gear::id || gear]
+	if (loading_failed)
+		return FALSE
+	if ((gear.gear_flags & GEAR_DONATOR) && (IS_PATRON(ckey) || is_admin(ckey)))
+		return TRUE
+	if (!purchased_gear[gear.id])
+		return FALSE
+	return TRUE
 
-/datum/gear_data
-	var/path
-	var/location
+/// Returns the number of times that we have purchased the specified gear datum.
+/datum/loadout/proc/get_purchased_count(datum/gear/gear)
+	if (ispath(gear))
+		gear = GLOB.gear_datums[gear::id || gear]
+	if (loading_failed)
+		return 0
+	var/datum/user_gear/user_gear = purchased_gear[gear.id]
+	if (!user_gear)
+		return 0
+	return user_gear.purchased_amount
 
-/datum/gear_data/New(npath, nlocation)
-	path = npath
-	location = nlocation
+/// Handles adding and removing donator items from clients
+/datum/loadout/proc/unlock_donator_items()
+	// Donator items are only accesibile by servers with a patreon
+	if(!CONFIG_GET(flag/donator_items))
+		return
+	if(!IS_PATRON(ckey) && !is_admin(ckey))
+		return
+	for(var/gear_id in GLOB.gear_datums)
+		var/datum/gear/AG = GLOB.gear_datums[gear_id]
+		if(AG.id in purchased_gear)
+			continue
+		var/datum/user_gear/user_gear = new(AG, FALSE, 0)
+		purchased_gear[AG.id] = user_gear
 
-/datum/gear/proc/spawn_item(location, metadata, skirt_pref)
-	var/item_path = path
-	if(skirt_pref == PREF_SKIRT && !isnull(skirt_path))
-		item_path = skirt_path
-	var/datum/gear_data/gd = new(item_path, location)
-	var/item = new gd.path(gd.location)
-	return item
+/datum/loadout/proc/remove_donator_items()
+	// Donator items are only accesibile by servers with a patreon
+	if(!CONFIG_GET(flag/donator_items))
+		return
+	if(IS_PATRON(ckey) || is_admin(ckey))
+		return
+	for (var/gear_id in equipped_gear)
+		var/datum/user_gear/user_gear = equipped_gear[gear_id]
+		if (user_gear.gear.gear_flags & GEAR_DONATOR)
+			equipped_gear -= gear_id
+
+/datum/user_gear
+	var/datum/gear/gear
+	var/equipped = FALSE
+	var/purchased_amount = 0
+
+/datum/user_gear/New(gear, equipped, amount)
+	. = ..()
+	src.gear = gear
+	src.equipped = equipped
+	src.purchased_amount = amount

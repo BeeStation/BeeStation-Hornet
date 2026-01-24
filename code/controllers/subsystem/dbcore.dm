@@ -516,6 +516,25 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 		log_query_debug("Arguments: [list2params(arguments)]")
 		slow_query_check()
 
+/// Execute asynchronously and never bother returning a result.
+/// Does not execute a sleep-wait to rejoin the process, so can be fired and forgotten about.
+/datum/db_query/proc/ExecuteAsync(log_error = TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
+	Activity("Execute")
+	if(status == DB_QUERY_STARTED)
+		CRASH("Attempted to start a new query while waiting on the old one")
+
+	if(!SSdbcore.IsConnected())
+		last_error = "No connection!"
+		return FALSE
+
+	Close()
+	status = DB_QUERY_STARTED
+	if(!MC_RUNNING(SSdbcore.init_stage))
+		INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore, run_query_sync), src)
+	else
+		SSdbcore.run_or_queue_query(src)
+
 /// Sleeps until execution of the query has finished.
 /datum/db_query/proc/sync()
 	UNTIL(process())
