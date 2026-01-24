@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		ui.open()
 
 /obj/item/clockwork/clockwork_slab/ui_state(mob/user)
-	return GLOB.clockcult_state
+	return GLOB.clockcult_held_state
 
 /obj/item/clockwork/clockwork_slab/ui_data(mob/user)
 	//Data
