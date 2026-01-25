@@ -53,7 +53,7 @@ const CharacterProfiles = (props: {
   const scrollBarRef = useRef(null);
 
   useEffect(() => {
-    const el: HTMLElement = scrollBarRef.current;
+    const el: HTMLElement | undefined | null = scrollBarRef.current;
 
     if (!el) {
       return;
