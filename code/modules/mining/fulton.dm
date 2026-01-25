@@ -188,8 +188,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				return 1
 	return 0
 
-/obj/effect/extraction_holder/singularity_pull()
+/obj/effect/extraction_holder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/obj/effect/extraction_holder/singularity_pull()
+/obj/effect/extraction_holder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return

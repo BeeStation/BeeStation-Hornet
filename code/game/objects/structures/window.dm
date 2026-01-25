@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		new/obj/structure/window/reinforced/clockwork/fulltile(get_turf(src))
 	qdel(src)
 
-/obj/structure/window/singularity_pull(S, current_size)
+/obj/structure/window/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(anchored && current_size >= STAGE_TWO)
 		set_anchored(FALSE)

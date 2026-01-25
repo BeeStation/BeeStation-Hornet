@@ -77,7 +77,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
 /// This allows a person who has antimagic to cast spells without getting blocked
 #define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
-#define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
 /// Can weave webs into cloth
 #define TRAIT_WEB_WEAVER "web_weaver"
 #define TRAIT_STABLEHEART		"stable_heart"
@@ -97,6 +96,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER "dismember_immunity"
 #define TRAIT_NOFIRE "nonflammable"
+#define TRAIT_NOFIRE_SPREAD "no_fire_spreading"
+/// Mobs that have this trait cannot be extinguished
+#define TRAIT_NO_EXTINGUISH "no_extinguish"
 /// Are we expected to fight antags?
 #define TRAIT_SECURITY "security_member"
 /// Prevents plasmamen from self-igniting
@@ -472,6 +474,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
+
+/// Weather immunities, also protect mobs inside them.
+#define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
+#define TRAIT_ACIDSTORM_IMMUNE "acidstorm_immune"
+#define TRAIT_ASHSTORM_IMMUNE "ashstorm_immune"
+#define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
+#define TRAIT_RADSTORM_IMMUNE "radstorm_immune"
+#define TRAIT_WEATHER_IMMUNE "weather_immune" //Immune to ALL weather effects.
 
 /// For unit testing, all do_afters set on this mob complete instantly and do not sleep
 #define INSTANT_DO_AFTER "instant_do_after"
