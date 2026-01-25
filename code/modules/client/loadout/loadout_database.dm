@@ -46,7 +46,7 @@
 INSERT INTO [format_table_name("loadout_gear")] (ckey, gear_path, equipped, purchased_amount)
 VALUES (:ckey, :gear_path, 1, 0)
 ON DUPLICATE KEY UPDATE
-    equipped = 1
+	equipped = 1
 			"},
 			list("ckey" = ckey, "gear_path" = gear.id)
 		)

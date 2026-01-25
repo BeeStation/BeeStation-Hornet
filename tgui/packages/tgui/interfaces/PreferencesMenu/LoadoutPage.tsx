@@ -176,7 +176,8 @@ export const LoadoutPage = (props) => {
                             .filter((gear) =>
                               searchText.length
                                 ? search(gear)
-                                : (isPurchased(purchased_gear, gear) && !isPurchasable(purchasable_gear, gear)),
+                                : isPurchased(purchased_gear, gear) &&
+                                  !isPurchasable(purchasable_gear, gear),
                             )
                             .map((gear) => (
                               <GearEntry
@@ -317,7 +318,8 @@ const GearEntry = (props: {
       >
         <Button
           disabled={
-            (!isPurchased(purchased_gear, gear) || !gear.is_equippable) && !isPurchasable(purchasable_gear, gear)
+            (!isPurchased(purchased_gear, gear) || !gear.is_equippable) &&
+            !isPurchasable(purchasable_gear, gear)
           }
           tooltip={
             isPurchasable(purchasable_gear, gear) &&
@@ -328,13 +330,16 @@ const GearEntry = (props: {
           content={
             isPurchasable(purchasable_gear, gear)
               ? 'Purchase'
-              : (isPurchased(purchased_gear, gear) && gear.is_equippable)
-                ? equipped_gear.includes(gear.id) ? 'Unequip' : 'Equip'
+              : isPurchased(purchased_gear, gear) && gear.is_equippable
+                ? equipped_gear.includes(gear.id)
+                  ? 'Unequip'
+                  : 'Equip'
                 : 'Purchased'
           }
           onClick={() =>
             act(
-              (isPurchased(purchased_gear, gear) && !isPurchasable(purchasable_gear, gear))
+              isPurchased(purchased_gear, gear) &&
+                !isPurchasable(purchasable_gear, gear)
                 ? 'equip_gear'
                 : 'purchase_gear',
               {
