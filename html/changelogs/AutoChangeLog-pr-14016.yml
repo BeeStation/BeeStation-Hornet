@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed a runtime when hitting a turf with a burn weapon
