@@ -14,7 +14,6 @@
 	visor_flags_inv = HIDEFACE | HIDESNOUT
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	visor_flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	unique_death = 'sound/voice/sec_death.ogg'
 	var/aggressiveness = 2
 	var/cooldown_special
 	var/recent_uses = 0
