@@ -4,7 +4,7 @@
 	clockie.mind_initialize()
 	clockie.mind.add_antag_datum(/datum/antagonist/servant_of_ratvar)
 	clockie.drop_all_held_items()
-	var/obj/item/clockwork/clockwork_slab/slab = allocate(/mob/living/carbon/human/consistent)
+	var/obj/item/clockwork/clockwork_slab/slab = allocate(/obj/item/clockwork/clockwork_slab)
 	clockie.put_in_active_hand(slab)
 	usr = clockie
 	slab.cogs = 1
