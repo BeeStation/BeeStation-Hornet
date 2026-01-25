@@ -342,7 +342,8 @@
 		SSfire_burning.processing -= src
 	turf_destruction(FIRE, 0)
 
-/turf/proc/extinguish()
+/turf/extinguish()
+	. = ..()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
 		update_icon()

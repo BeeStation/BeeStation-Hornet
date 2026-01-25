@@ -193,8 +193,8 @@
 		return
 	for(var/mob/living/cookedalive as anything in occupants)
 		if(cookedalive.fire_stacks < 5)
-			cookedalive.fire_stacks += 1
-			cookedalive.IgniteMob()
+			cookedalive.adjust_fire_stacks(1)
+			cookedalive.ignite_mob()
 
 /obj/vehicle/sealed/mecha/attackby_secondary(obj/item/weapon, mob/user, params)
 	if(istype(weapon, /obj/item/mecha_parts))

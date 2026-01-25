@@ -120,7 +120,7 @@
 			else
 				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 ///Called to get the damage that hulks will deal to the atom.
 /atom/proc/hulk_damage()
@@ -131,7 +131,9 @@
 		CRASH("unimplemented /atom/proc/attack_generic()!")
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
+	var/old_integrity = atom_integrity
+	. = take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
+	log_combat(user, src, "attacked", addition="integrity: ([max(atom_integrity, 0)] / [max_integrity]), took [old_integrity - atom_integrity] damage")
 
 /// Called after the atom takes damage and integrity is below integrity_failure level
 /atom/proc/atom_break(damage_flag)

@@ -194,3 +194,92 @@
       visuals
   - bugfix: Fixed our pathfinding logic getting deeply confused by border objects
   - admin: Added clientside displayed pathfinding debug tools, give em a go
+2026-01-15:
+  Isaac:
+  - bugfix: Only Shrooms and Moths are able to be the only people to eat raw cloth
+      again.
+  PatienceStPim:
+  - rscadd: Rubber ducks can be purchased from cargo
+  rkz:
+  - rscadd: adds production method for IPC blood
+  rkz, andrea-feather, Melbert, Jacquerel, John Willard, timothytorres, Absolucy:
+  - refactor: Random Name Generation has been refactored. Report any instances of
+      people having weird (or "Unknown") names.
+  - rscadd: 'Adds a negative station trait: Bot Language Matrix Malfunction and Machine
+      Language Malfunction. Apply to their respective bits.'
+  - rscadd: Add language variety to machines that speak. You can also pulse the vendor
+      language wire to make it switch languages or EMP a machine to get the same effect.
+  - rscadd: Shambling cola vendors will now speak a different language each time they
+      talk. Syndicate vendors will now speak codespeak. Beach vendors will now speak
+      beachbum.
+  - refactor: defines a new global proc, pick_weight_recursive()
+  - code_imp: languages can weight syllables, and galactic common's definition is
+      easier to look at
+2026-01-16:
+  BotTierPC, Blerpfish:
+  - rscadd: Adds a new shade of carpet, found in Cargo's Exotic Carpet Crate.
+  Tsar-Salat:
+  - admin: Adds sanity checks to administration banning tool to prevent orphan entries
+      (submission with no player identifiers)
+  - bugfix: fixes species naming
+2026-01-18:
+  TsunamiAnt:
+  - code_imp: changed some code in weather-listener to account for off-lavaland weather
+      soundloops
+2026-01-19:
+  Tsar-Salat:
+  - bugfix: fixes nukeop name assignment
+  mrmanlikesbt:
+  - bugfix: Fixed organ smart fridges runtiming when a non-organ is removed from their
+      contents
+  rkz, SishTis, timothymtorres, Melbert, tralezab:
+  - bugfix: cleans up aphasia and slurring speech when lacking a tongue
+  - bugfix: hivemind languages dont force talking emotes
+  - rscadd: some tongues have a native language, these languages are not affected
+      by the tongue's respective speechmods
+  - refactor: converts silence from a mob stat to a status effect
+2026-01-20:
+  PowerfulBacon:
+  - bugfix: Breaching charges can no longer have their pin pulled as if they were
+      a grenade.
+2026-01-21:
+  mrmanlikesbt:
+  - tweak: Destroyed catwalks now drop 2 iron rods instead of just 1
+  mrmanlikesbt, timothymtorres, Ghommie, SmArtKar, DarthSidiousPalpatine, ShizCalev, Jacquerel, MrMelbert:
+  - refactor: Fire stacks have been refactored into a status effect
+  - refactor: Refactored weather immunities into traits
+  - bugfix: Fixed not being able to jump over lava with jump boots
+  - bugfix: Fixed monkeys having the human burning sprite when on fire
+  - rscadd: When being set on fire, objects in your hands will also be set on fire
+  - balance: Stop dropping and rolling no longer instantly clears fire stacks from
+      you, instead it will gradually remove them over time
+  - code_imp: Renamed IgniteMob() to ignite_mob()
+  - code_imp: Renamed ExtinguishMob() to extinguish_mob()
+  - code_imp: get_equipped_items() now uses bitflags for arguments instead of individual
+      bools
+  - code_imp: All instances of singularity_pull() now have their correct arguments
+  - code_imp: Removed the IS_CARVABLE obj bitflag
+  - spellcheck: Added a missing description to lava
+2026-01-22:
+  mrmanlikesbt:
+  - bugfix: Fixed the language menu using the computer theme
+2026-01-23:
+  BeeLover66:
+  - bugfix: the species menu no longer gives every species the "Native Speaker" trait
+  ClownMoff:
+  - rscadd: Changes the cryopod message as an antagonist when you cryo to be more
+      clear
+  PowerfulBacon:
+  - balance: Shields belts now starts from 0 charge when equipped.
+  - bugfix: Fixes boxstation solars using yellow wires var-edited to red.
+  r1ks-iwnl:
+  - bugfix: Fixed particle acceleration rifle's zoom.
+2026-01-24:
+  Rukofamicom:
+  - admin: The destruction of station objects is now properly logged again
+  mrmanlikesbt:
+  - tweak: Much less artifacts spawn in maintenance now
+2026-01-25:
+  mrmanlikesbt:
+  - bugfix: Fixed a runtime when hitting a turf with a burn weapon
+  - bugfix: Fixed StackCrafting using the computer theme

@@ -290,13 +290,20 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/fire/Click()
-	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist() || L != owner)
+	if(!isliving(owner))
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.mobility_flags & MOBILITY_MOVE)
-		return L.resist_fire() //I just want to start a flame in your hearrrrrrtttttt.
+	var/mob/living/living_owner = owner
+	if(!living_owner.can_resist())
+		return
 
+	living_owner.changeNext_move(CLICK_CD_RESIST)
+	if(!(living_owner.mobility_flags & MOBILITY_MOVE))
+		return
+
+	return handle_stop_drop_roll(owner)
+
+/atom/movable/screen/alert/fire/proc/handle_stop_drop_roll(mob/living/roller)
+	return roller.resist_fire()
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"

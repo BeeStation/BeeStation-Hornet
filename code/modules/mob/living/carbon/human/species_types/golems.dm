@@ -54,21 +54,7 @@
 
 	var/prefix = "Iron"
 	var/list/special_names = list("Tarkus")
-	var/human_surname_chance = 3
-	var/special_name_chance = 5
 	var/owner //dobby is a free golem
-
-/datum/species/golem/random_name(gender,unique,lastname)
-	var/golem_surname = pick(GLOB.golem_names)
-	// 3% chance that our golem has a human surname, because
-	// cultural contamination
-	if(prob(human_surname_chance))
-		golem_surname = pick(GLOB.last_names)
-	else if(special_names?.len && prob(special_name_chance))
-		golem_surname = pick(special_names)
-
-	var/golem_name = "[prefix] [golem_surname]"
-	return golem_name
 
 /datum/species/golem/create_pref_unique_perks()
 	var/list/to_add = list()
@@ -176,7 +162,7 @@
 			to_chat(owner, span_notice("You ignite yourself!"))
 		else
 			to_chat(owner, span_warning("You try to ignite yourself, but fail!"))
-		H.IgniteMob() //firestacks are already there passively
+		H.ignite_mob() //firestacks are already there passively
 
 //Harder to hurt
 /datum/species/golem/diamond
@@ -289,11 +275,11 @@
 
 /datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.weather_immunities |= "ash"
+	ADD_TRAIT(C, TRAIT_ASHSTORM_IMMUNE, SPECIES_TRAIT)
 
 /datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.weather_immunities -= "ash"
+	REMOVE_TRAIT(C, TRAIT_ASHSTORM_IMMUNE, SPECIES_TRAIT)
 
 //Immune to ash storms and lava
 /datum/species/golem/plastitanium
@@ -308,13 +294,11 @@
 
 /datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.weather_immunities |= "lava"
-	C.weather_immunities |= "ash"
+	C.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), SPECIES_TRAIT)
 
 /datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.weather_immunities -= "ash"
-	C.weather_immunities -= "lava"
+	C.remove_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), SPECIES_TRAIT)
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
@@ -368,8 +352,6 @@
 	info_text = "As a " + span_danger("Wood Golem") + ", you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"
 	special_names = list("Bark", "Willow", "Catalpa", "Woody", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
-	human_surname_chance = 0
-	special_name_chance = 100
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
@@ -618,11 +600,6 @@
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_SAY)
 
-/datum/species/golem/bananium/random_name(gender,unique,lastname)
-	var/clown_name = pick(GLOB.clown_names)
-	var/golem_name = "[uppertext(clown_name)]"
-	return golem_name
-
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
 	if(COOLDOWN_FINISHED(src, banana_cooldown) && M != H &&  M.combat_mode)
@@ -694,12 +671,6 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/cult,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cult
 	)
-
-/datum/species/golem/runic/random_name(gender,unique,lastname)
-	var/edgy_first_name = pick("Razor","Blood","Dark","Evil","Cold","Pale","Black","Silent","Chaos","Deadly","Coldsteel")
-	var/edgy_last_name = pick("Edge","Night","Death","Razor","Blade","Steel","Calamity","Twilight","Shadow","Nightmare") //dammit Razor Razor
-	var/golem_name = "[edgy_first_name] [edgy_last_name]"
-	return golem_name
 
 /datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
 	. = ..()
@@ -863,12 +834,6 @@
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
-
-/datum/species/golem/cloth/random_name(gender,unique,lastname)
-	var/pharaoh_name = pick("Neferkare", "Hudjefa", "Khufu", "Mentuhotep", "Ahmose", "Amenhotep", "Thutmose", "Hatshepsut", "Tutankhamun", "Ramses", "Seti", \
-	"Merenptah", "Djer", "Semerkhet", "Nynetjer", "Khafre", "Pepi", "Intef", "Ay") //yes, Ay was an actual pharaoh
-	var/golem_name = "[pharaoh_name] \Roman[rand(1,99)]"
-	return golem_name
 
 /datum/species/golem/cloth/spec_life(mob/living/carbon/human/H)
 	if(H.fire_stacks < 1)
@@ -1301,11 +1266,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES2.ogg', 100)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			var/mutable_appearance/badtime = mutable_appearance('icons/mob/species/human/bodyparts.dmi', "b_golem_eyes", CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER))
+			var/mutable_appearance/badtime = mutable_appearance('icons/mob/species/human/bodyparts.dmi', "b_golem_eyes", CALCULATE_MOB_OVERLAY_LAYER(HIGHEST_LAYER))
 			badtime.appearance_flags = RESET_COLOR
-			H.overlays_standing[FIRE_LAYER+0.5] = badtime
-			H.apply_overlay(FIRE_LAYER+0.5)
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, remove_overlay), FIRE_LAYER+0.5), 25)
+			H.overlays_standing[HIGHEST_LAYER+0.5] = badtime
+			H.apply_overlay(HIGHEST_LAYER+0.5)
+			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, remove_overlay), HIGHEST_LAYER+0.5), 25)
 	else
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES.ogg', 100)
 	for(var/mob/living/L in orange(7, get_turf(owner)))

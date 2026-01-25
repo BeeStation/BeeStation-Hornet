@@ -69,7 +69,7 @@
 			if(EXPLODE_LIGHT)
 				SSexplosions.low_mov_atom += thing
 
-/obj/structure/transit_tube_pod/singularity_pull(S, current_size)
+/obj/structure/transit_tube_pod/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
