@@ -623,9 +623,87 @@ CREATE TABLE IF NOT EXISTS `SS13_achievement_metadata` (
 	PRIMARY KEY (`achievement_key`)
 ) ENGINE=InnoDB;
 
+-- =============================================
+-- PR #14045 - Refactors gear
+-- =============================================
 
+CREATE TABLE IF NOT EXISTS ss13_loadout_gear (
+    ckey VARCHAR(32) NOT NULL,
+    gear_path VARCHAR(255) NOT NULL,
 
+    equipped TINYINT(1) NOT NULL DEFAULT 0,
+    purchased_amount INT UNSIGNED NOT NULL DEFAULT 0,
 
+	-- ckey + gear_path make the unique key
+    PRIMARY KEY (ckey, gear_path)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP PROCEDURE IF EXISTS equip_gear;
+
+DELIMITER $$
+
+CREATE PROCEDURE equip_gear (
+	IN ckey VARCHAR(32),
+	IN equipped_gear VARCHAR(255),
+	IN unequipped_gear TEXT
+)
+SQL SECURITY INVOKER
+BEGIN
+
+INSERT INTO ss13_loadout_gear (ckey, gear_path, equipped, purchased_amount)
+VALUES (ckey, equipped_gear, 1, 0)
+ON DUPLICATE KEY UPDATE
+	equipped = 1;
+
+UPDATE ss13_loadout_gear SET equipped = 0 WHERE ckey = ckey AND gear_path in (unequipped_gear);
+
+END
+$$
+
+DROP PROCEDURE IF EXISTS purchase_gear
+$$
+
+CREATE PROCEDURE purchase_gear (
+	IN _ckey VARCHAR(32),
+	IN _gear_path VARCHAR(255),
+	IN _cost INT
+)
+SQL SECURITY INVOKER
+BEGIN
+
+START TRANSACTION;
+
+-- Lock player row and check balance
+SELECT metacoins
+INTO @current_metacoins
+FROM ss13_player
+WHERE ckey = _ckey
+FOR UPDATE;
+
+-- Deduct metacoins
+UPDATE ss13_player
+SET metacoins = metacoins - _cost
+WHERE ckey = _ckey and @current_metacoins > _cost;
+
+-- Insert or increment gear purchase
+INSERT INTO ss13_loadout_gear (ckey, gear_path, equipped, purchased_amount)
+SELECT _ckey, _gear_path, 0, 1
+WHERE @current_metacoins > _cost
+ON DUPLICATE KEY UPDATE
+   purchased_amount = purchased_amount + 1;
+
+SELECT @current_metacoins > _cost;
+
+COMMIT;
+
+END
+$$
+
+DELIMITER ;
+
+-- =============================================
+-- END PR #14045 - Refactors gear
+-- =============================================
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

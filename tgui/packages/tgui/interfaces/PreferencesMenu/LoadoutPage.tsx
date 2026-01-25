@@ -317,7 +317,7 @@ const GearEntry = (props: {
       >
         <Button
           disabled={
-            !isPurchased(purchased_gear, gear) && !isPurchasable(purchasable_gear, gear)
+            (!isPurchased(purchased_gear, gear) || !gear.is_equippable) && !isPurchasable(purchasable_gear, gear)
           }
           tooltip={
             isPurchasable(purchasable_gear, gear) &&

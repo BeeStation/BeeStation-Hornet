@@ -32,13 +32,7 @@
 		// Equip the item and unequip conflicting ones
 		// If we don't have the item in the database, it is a free item, so we equip
 		// it but keep the purchase count at 0.
-		var/datum/db_query/load_user_gear = SSdbcore.NewQuery({"
-INSERT INTO [format_table_name("loadout_gear")] (ckey, gear_path, equipped, purchased_amount)
-VALUES (:ckey, :gear_path, 1, 0)
-ON DUPLICATE KEY UPDATE
-    equipped = 1;
-UPDATE [format_table_name("loadout_gear")] SET equipped = 0 WHERE ckey = :ckey AND gear_path in ([jointext(unequipped_gear, ", ")]);
-			"},
+		var/datum/db_query/load_user_gear = SSdbcore.NewQuery("CALL equip_gear(:ckey, :gear_path, [jointext(unequipped_gear, ", ")])",
 			list("ckey" = ckey, "gear_path" = gear.id)
 		)
 		load_user_gear.warn_execute()
@@ -95,39 +89,23 @@ ON DUPLICATE KEY UPDATE
 /// Purchase the item and update the gear database in a single transaction, returning FALSE
 /// if the transaction failed.
 /datum/loadout/proc/purchase_for_cost_transaction(datum/gear/gear, cost)
-	var/datum/db_query/load_user_gear = SSdbcore.NewQuery(
-		{"
-START TRANSACTION;
-
--- Lock player row and check balance
-SELECT metacoins
-INTO @current_metacoins
-FROM [format_table_name("player")]
-WHERE ckey = :ckey
-FOR UPDATE;
-
--- Deduct metacoins
-UPDATE [format_table_name("player")]
-SET metacoins = metacoins - :cost
-WHERE ckey = :ckey and @current_metacoins > :cost;
-
--- Insert or increment gear purchase
-INSERT INTO [format_table_name("loadout_gear")] (ckey, gear_path, equipped, purchased_amount)
-VALUES (:ckey, :gear_path, 0, 1)
-WHERE @current_metacoins > :cost;
-ON DUPLICATE KEY UPDATE
-    purchased_amount = purchased_amount + 1;
-
-COMMIT;
-		"},
+	var/datum/db_query/purchase_gear = SSdbcore.NewQuery("CALL purchase_gear(:ckey, :gear_path, :cost)",
 		list(
 			"ckey" = ckey,
 			"gear_path" = gear.id,
 			"cost" = cost
 		)
 	)
-	if (!load_user_gear.Execute())
+	if (!purchase_gear.warn_execute())
+		qdel(purchase_gear)
 		return FALSE
+	if (!purchase_gear.NextRow())
+		qdel(purchase_gear)
+		return FALSE
+	if (!purchase_gear.item[1])
+		qdel(purchase_gear)
+		return FALSE
+	qdel(purchase_gear)
 	// Update cached metabalance to keep it in sync
 	var/client/connected_user = GLOB.directory[ckey]
 	if (connected_user)

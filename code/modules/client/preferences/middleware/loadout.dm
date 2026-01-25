@@ -62,13 +62,15 @@
 /datum/preference_middleware/loadout/proc/purchase_gear(list/params, mob/user)
 	var/datum/gear/TG = GLOB.gear_datums[params["id"]]
 	if(!istype(TG))
-		return
+		return FALSE
 	if (!user.client)
-		return
+		return FALSE
 	if (!TG.can_purchase(user.client, FALSE))
-		return
+		return FALSE
 	if (!TG.do_purchase(user.client))
 		to_chat(user, span_warning("Purchase failed, you have not been charged."))
+		return FALSE
+	return TRUE
 
 /datum/preference_middleware/loadout/proc/equip_gear(list/params, mob/user)
 	var/datum/gear/TG = GLOB.gear_datums[params["id"]]
