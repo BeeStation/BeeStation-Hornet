@@ -11,17 +11,18 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	/// The item to summon
-	var/obj/item/marked_item
+	var/datum/weakref/marked_item
 
 /datum/action/spell/summon_weapon/on_cast(mob/user, atom/target)
 	. = ..()
-	if(QDELETED(marked_item))
+	var/obj/item_to_retrieve = marked_item?.resolve()
+
+	if(QDELETED(item_to_retrieve))
 		qdel(src)
 
 	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 
-	var/obj/item_to_retrieve = marked_item
 	var/infinite_recursion = 0
 
 	if(item_to_retrieve.loc)
@@ -54,7 +55,7 @@
 							break
 
 			else
-				if(istype(item_to_retrieve.loc, /obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery
+				if(istype(item_to_retrieve.loc, /obj/machinery/portable_atmospherics)) //Edge cases for moved machinery
 					var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
 					P.disconnect()
 					P.update_icon()

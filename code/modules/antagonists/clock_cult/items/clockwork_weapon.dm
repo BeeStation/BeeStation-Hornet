@@ -40,8 +40,8 @@
 		return
 
 	if(IS_SERVANT_OF_RATVAR(user) && !summon_weapon)
-		summon_weapon = new
-		summon_weapon.marked_item = src
+		summon_weapon = new()
+		summon_weapon.marked_item = WEAKREF(src)
 		summon_weapon.Grant(user)
 
 /obj/item/clockwork/weapon/examine(mob/user)
