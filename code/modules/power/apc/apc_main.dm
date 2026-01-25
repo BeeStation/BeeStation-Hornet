@@ -20,6 +20,7 @@
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
+	hud_possible = list(HACKED_APC_HUD)
 
 	light_power = 0.85
 
@@ -41,9 +42,9 @@
 	///Reference to our internal cell
 	var/obj/item/stock_parts/cell/cell
 	///Initial cell charge %
-	var/start_charge = 90
+	var/start_charge = 100
 	///Type of cell we start with
-	var/cell_type = /obj/item/stock_parts/cell/high	//Base cell has 100 kW. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
+	var/cell_type = /obj/item/stock_parts/cell/high/plus	//Base cell has 150 kW. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	///State of the cover (closed, opened, removed)
 	var/opened = APC_COVER_CLOSED
 	///Is the APC shorted and not working?
@@ -128,10 +129,6 @@
 	var/syndicate_access = FALSE
 	/// Used for apc helper called away_general_access to make apc's required access away_general_access.
 	var/away_general_access = FALSE
-	/// Used for apc helper called cell_5k to install 5k cell into apc.
-	var/cell_5k = FALSE
-	/// Used for apc helper called cell_10k to install 10k cell into apc.
-	var/cell_10k = FALSE
 	/// Used for apc helper called no_charge to make apc's charge at 0% meter.
 	var/no_charge = FALSE
 	/// Used for apc helper called full_charge to make apc's charge at 100% meter.
@@ -142,6 +139,9 @@
 	//Clockcult - The integration cog inserted inside of us
 	var/integration_cog = null
 
+	/// The time that our last hacked flicker was performed at
+	COOLDOWN_DECLARE(last_hacked_flicker)
+
 	armor_type = /datum/armor/power_apc
 
 /datum/armor/power_apc
@@ -150,11 +150,10 @@
 	laser = 10
 	energy = 100
 	bomb = 30
-	rad = 100
 	fire = 90
 	acid = 50
 
-/obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+/obj/machinery/power/apc/New(turf/loc, ndir, building=0)
 	..()
 	GLOB.apcs_list += src
 
@@ -187,6 +186,12 @@
 			pixel_x = -APC_PIXEL_OFFSET
 	if(offset_old != APC_PIXEL_OFFSET && !building)
 		log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([dir] | [uppertext(dir2text(dir))]) has pixel_[dir & (WEST|EAST) ? "x" : "y"] value [offset_old] - should be [dir & (SOUTH|EAST) ? "-" : ""][APC_PIXEL_OFFSET]. Use the directional/ helpers!")
+
+/obj/machinery/power/apc/Initialize(mapload)
+	. = ..()
+	prepare_huds()
+	for(var/datum/atom_hud/hacked_apc/apc_hud in GLOB.huds)
+		apc_hud.add_to_hud(src)
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
@@ -415,16 +420,6 @@
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_equip+lastused_light+lastused_environ]) : [cell? cell.percent() : "N/C"] ([charging])"
 
-///Used for cell_5k apc helper, which installs 5k cell into apc.
-/obj/machinery/power/apc/proc/install_cell_5k()
-	cell_type = /obj/item/stock_parts/cell/upgraded/plus
-	cell = new cell_type(src)
-
-/// Used for cell_10k apc helper, which installs 10k cell into apc.
-/obj/machinery/power/apc/proc/install_cell_10k()
-	cell_type = /obj/item/stock_parts/cell/high
-	cell = new cell_type(src)
-
 /// Used for unlocked apc helper, which unlocks the apc.
 /obj/machinery/power/apc/proc/unlock()
 	locked = FALSE
@@ -550,6 +545,8 @@
 		failure_timer--
 		force_update = TRUE
 		return
+	if ((malfhack || (obj_flags & EMAGGED)) && COOLDOWN_FINISHED(src, last_hacked_flicker))
+		flicker_hacked_icon()
 	// Vars for the power usage of the different channels
 	var/light_power_req = area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT]
 	var/equip_power_req = area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP]
@@ -578,12 +575,12 @@
 	// The following math salad handles channel activation based on cell percent and if its charge plus surplus can meet the channels demand
 	// TODO: Not having it require cell
 	lighting = update_channel(lighting, light_power_req,
-		(cell.percent() > 65 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
+		(cell.percent() > 95 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
 		(environ_power_req + equip_power_req),
 		TRUE) // only lighting triggers alarms
 
 	equipment = update_channel(equipment, equip_power_req,
-		(cell.percent() >= 50 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
+		(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
 
 	environ = update_channel(environ, environ_power_req,
 		(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)

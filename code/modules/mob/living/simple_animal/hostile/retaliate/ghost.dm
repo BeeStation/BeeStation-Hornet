@@ -1,10 +1,10 @@
 /mob/living/simple_animal/hostile/retaliate/ghost
 	name = "ghost"
 	desc = "A soul of the dead, spooky."
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/observer.dmi'
 	icon_state = "ghost"
 	icon_living = "ghost"
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	speak_chance = 0
 	turns_per_move = 5
 	response_help_continuous = "passes through"

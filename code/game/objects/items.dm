@@ -15,7 +15,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	icon = 'icons/obj/items_and_weapons.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	/// The icon state for the icons that appear in the players hand while holding it. Gotten from /client/var/lefthand_file and /client/var/righthand_file
-	var/item_state = null
+	var/inhand_icon_state = null
 	/// The icon for holding in hand icon states for the left hand.
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	/// The icon for holding in hand icon states for the right hand.
@@ -42,7 +42,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	//Not on /clothing because for some reason any /obj/item can technically be "worn" with enough fuckery.
 	/// If this is set, update_icons() will find on mob (WORN, NOT INHANDS) states in this file instead, primary use: badminnery/events
 	var/icon/worn_icon = null
-	//Icon state for mob worn overlays. If not set falls back to item_state, then icon_state
+	//Icon state for mob worn overlays. If not set falls back to inhand_icon_state, then icon_state
 	var/worn_icon_state
 	/// If this is set, update_icons() will force the on mob state (WORN, NOT INHANDS) onto this layer, instead of it's default
 	var/alternate_worn_layer
@@ -116,7 +116,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/belt_icon_state
 
 	/// The body parts this item covers when worn. Used mostly for armor. See _DEFINES/setup.dm
-	var/body_parts_covered = 0
+	var/body_parts_covered = NONE
 	/// For leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/gas_transfer_coefficient = 1
 
@@ -172,7 +172,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The tool speed multiplier of how long it takes to do the tool action.
 	var/toolspeed = 1
 
-	/// The chance that holding this item will block attacks.
+	/// Whether or not an item can block attacks
 	var/canblock = FALSE
 	//blocking flags
 	var/block_flags = BLOCKING_ACTIVE
@@ -289,7 +289,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
-/obj/item/Destroy()
+/obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
 		var/mob/m = loc
@@ -349,11 +349,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/add_weapon_description()
 	AddElement(/datum/element/weapon_description)
 
-/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
-	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
+/**
+ * Checks if an item is allowed to be used on an atom/target
+ * Returns TRUE if allowed.
+ *
+ * Args:
+ * target_self - Whether we will check if we (src) are in target, preventing people from using items on themselves.
+ * not_inside - Whether target (or target's loc) has to be a turf.
+ */
+/obj/item/proc/check_allowed_items(atom/target, not_inside = FALSE, target_self = FALSE)
+	if(!target_self && (src in target))
 		return FALSE
-	else
-		return TRUE
+	if(not_inside && !isturf(target.loc) && !isturf(target))
+		return FALSE
+	return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
@@ -632,14 +641,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return FALSE
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
-			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/left) in owner.bodyparts)
 		else
-			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/right) in owner.bodyparts)
 	else
 		if(owner.active_hand_index == 1)
-			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/right) in owner.bodyparts)
 		else
-			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/left) in owner.bodyparts)
 	if(!blockhand)
 		return FALSE
 	if(blockhand?.bodypart_disabled)
@@ -659,12 +668,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
 			return FALSE
+	// Shields do not have a blocking cooldown
+	if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
+		COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
 	else
-		//Projectiles completely bypass blocking cooldown. Shields trigger the blocking cooldown but are not affected by it. This OR is intentional
-		if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
-			COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
-		else
-			return FALSE
+		return FALSE
 	switch(relative_dir)
 		if(180, -180) //Check for head on attack
 			if(canblock)
@@ -701,8 +709,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 
-		//If we block a stamina weapon, it does nothing unless it electrocutes us separately
-		if(I.damtype == STAMINA)
+		//If we block a stamina weapon, it does nothing
+		if(I.damtype == STAMINA || (I.block_flags & BLOCKING_EFFORTLESS))
 			attackforce = 0
 
 		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter
@@ -762,6 +770,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	for(var/datum/action/action_item_has as anything in actions)
 		action_item_has.Remove(user)
 
+	UnregisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)))
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
@@ -816,14 +826,19 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	visual_equipped(user, slot, initial)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
+
 	// Give out actions our item has to people who equip it.
 	for(var/datum/action/action as anything in actions)
 		give_item_action(action, user, slot)
+
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)), PROC_REF(update_slot_icon), override = TRUE)
+
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
 	if(ismonkey(user)) //Only generate icons if we have to
 		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
+
 	if(!initial)
 		if(equip_sound && slot_flags)
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
@@ -854,11 +869,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to TRUE if you wish it to not give you outputs.
-/obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
 	if(!M)
 		return FALSE
 
-	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_occupancy)
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
@@ -885,36 +900,58 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	attack_self(user)
 
-/obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
+/obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
 
-/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
+/// Returns true if damage was applied, false if the attack was fully blocked.
+/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user, obj/item/weapon, silent)
 
 	var/is_human_victim
 	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
 	if(ishuman(M))
 		if(!affecting) //no head!
-			return
+			return FALSE
 		is_human_victim = TRUE
 
 	if(M.is_eyes_covered())
 		// you can't stab someone in the eyes wearing a mask!
-		to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
+		return FALSE
 
 	if(isalien(M))//Aliens don't have eyes./N     slimes also don't have eyes!
-		to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
-		return
+		if (!silent)
+			to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
+		return FALSE
 
 	if(isbrain(M))
-		to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
+		return FALSE
 
 	add_fingerprint(user)
 
 	playsound(loc, src.hitsound, 30, 1, -1)
 
 	user.do_attack_animation(M)
+
+	if(is_human_victim)
+		var/mob/living/carbon/human/U = M
+		var/blocked = U.run_armor_check(BODY_ZONE_HEAD, MELEE, armour_penetration = weapon.armour_penetration)
+		U.apply_damage(weapon.force, BRUTE, affecting, blocked = blocked)
+		if (prob(blocked))
+			if(M != user)
+				M.visible_message(span_danger("[user] stabbed [M] in the head with [src]!"), \
+									span_userdanger("[user] stabs you in the head with [src], but your armor protects your eyes!"))
+			else
+				user.visible_message( \
+					span_danger("[user] has stabbed [user.p_them()]self in the head with [src]!"), \
+					span_userdanger("You stab yourself in the head with [src], your armor protecting your eyes!") \
+				)
+			return TRUE
+
+	else
+		M.take_bodypart_damage(weapon.force)
 
 	if(M != user)
 		M.visible_message(span_danger("[user] has stabbed [M] in the eye with [src]!"), \
@@ -924,12 +961,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"), \
 			span_userdanger("You stab yourself in the eyes with [src]!") \
 		)
-	if(is_human_victim)
-		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting)
-
-	else
-		M.take_bodypart_damage(7)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
@@ -937,7 +968,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
-		return
+		return TRUE
 	M.adjust_blurriness(3)
 	eyes.apply_organ_damage(3)
 	if(eyes.damage >= 10)
@@ -950,13 +981,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if (eyes.damage >= 60)
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, span_danger("You go blind!"))
+	return TRUE
 
-/obj/item/singularity_pull(S, current_size)
-	..()
+/obj/item/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(current_size >= STAGE_FOUR)
-		throw_at(S,14,3, spin=0)
-	else
-		return
+		throw_at(singularity, 14, 3, spin = FALSE)
 
 /obj/item/on_exit_storage(datum/storage/master_storage)
 	. = ..()
@@ -971,7 +1001,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(is_hot() && isliving(hit_atom))
 		var/mob/living/L = hit_atom
-		L.IgniteMob()
+		L.ignite_mob()
 	var/itempush = 1
 	if(w_class < WEIGHT_CLASS_NORMAL)
 		itempush = 0 //too light to push anything
@@ -1052,34 +1082,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
 
 /obj/item/proc/update_slot_icon()
+	SIGNAL_HANDLER
 	if(!ismob(loc))
 		return
 	var/mob/owner = loc
-	var/flags = slot_flags
-	if(flags & ITEM_SLOT_OCLOTHING)
-		owner.update_inv_wear_suit()
-	if(flags & ITEM_SLOT_ICLOTHING)
-		owner.update_inv_w_uniform()
-	if(flags & ITEM_SLOT_GLOVES)
-		owner.update_inv_gloves()
-	if(flags & ITEM_SLOT_EYES)
-		owner.update_inv_glasses()
-	if(flags & ITEM_SLOT_EARS)
-		owner.update_inv_ears()
-	if(flags & ITEM_SLOT_MASK)
-		owner.update_inv_wear_mask()
-	if(flags & ITEM_SLOT_HEAD)
-		owner.update_inv_head()
-	if(flags & ITEM_SLOT_FEET)
-		owner.update_inv_shoes()
-	if(flags & ITEM_SLOT_ID)
-		owner.update_inv_wear_id()
-	if(flags & ITEM_SLOT_BELT)
-		owner.update_inv_belt()
-	if(flags & ITEM_SLOT_BACK)
-		owner.update_inv_back()
-	if(flags & ITEM_SLOT_NECK)
-		owner.update_inv_neck()
+	owner.update_clothing(slot_flags | owner.get_slot_by_item(src))
 
 /obj/item/proc/is_hot()
 	return heat
@@ -1222,7 +1229,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/MouseEntered(location, control, params)
 	..()
-	if(((get(src, /mob) == usr) || src.loc.atom_storage || (src.item_flags & IN_STORAGE)) && !QDELETED(src))
+	if(((get(src, /mob) == usr) || loc?.atom_storage || (item_flags & IN_STORAGE)) && !QDELETED(src)) //nullspace exists.
 		var/mob/living/L = usr
 		if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips))
 			var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
@@ -1243,7 +1250,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 
 /obj/item/proc/apply_outline(colour = null)
-	if(((get(src, /mob) != usr) && !src.loc.atom_storage && !(src.item_flags & IN_STORAGE)) || QDELETED(src) || isobserver(usr)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
+	if(((get(src, /mob) != usr) && !loc?.atom_storage && !(item_flags & IN_STORAGE)) || QDELETED(src) || isobserver(usr)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
 		return FALSE
 	if(!usr.client?.prefs?.read_player_preference(/datum/preference/toggle/item_outlines))
 		return
@@ -1335,7 +1342,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/hand_index = M.get_held_index_of_item(src)
 		if(hand_index)
 			M.held_items[hand_index] = null
-			M.update_inv_hands()
+			M.update_held_items()
 			if(M.client)
 				M.client.screen -= src
 			layer = initial(layer)
@@ -1647,3 +1654,42 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // For item specific checks on strip start. Return true to interrupt stripping, return false to continue stripping.
 /obj/item/proc/on_start_stripping(mob/source, mob/user, item_slot)
 	return FALSE
+
+/obj/item/Topic(href, href_list)
+	. = ..()
+
+	if (href_list["examine"])
+		if(!usr.can_examine_in_detail(src))
+			return
+		usr.examinate(src)
+		return TRUE
+
+/// Gets the examination title of an item that is equipped by another mob, this is what
+/// shows on every line when you examine someone. Certain things, such as uniforms, may include
+/// more details such as information on the accessories equipped which would not be appropriate
+/// in the title of that item.
+/// This proc also appends inspection links, which can be clicked in the chatbox to examine this
+/// item in greater detail.
+/obj/item/proc/examine_worn_title(mob/living/wearer, mob/user, skip_examine_link = FALSE)
+	ASSERT(user, "Cannot generate worn examination title without a user, worn titles require the target which you are showing them to.")
+	ASSERT(user.client, "Attempting to generate worn title for a mob without a client, which is not allowed.")
+	var/examine_name = get_examine_name(user)
+
+	// Don't add examine link if this is the item being directly examined
+	if(skip_examine_link)
+		return "[icon2html(src, user.client)] [examine_name]"
+	return examine_inspection_link(user, "[icon2html(src, user.client)] [examine_name]")
+
+/// Appends the inspection links to the name of this item.
+/// This may be overriden to provice custom inspection commands, or may be called with a custom item name
+/// that differs from the returned examine name of the item.
+/obj/item/proc/examine_inspection_link(mob/user, examine_name)
+	var/whole_word = user.client.prefs?.read_player_preference(/datum/preference/toggle/whole_word_examine_links)
+	var/obj/item/card/id/ID = GetID()
+	if(ID)
+		return "[examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Examine ID\]</a>"
+	else
+		if(whole_word)
+			return "<a href='byond://?src=\ref[src];examine=1'>[examine_name]</a>"
+		else
+			return "[examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"

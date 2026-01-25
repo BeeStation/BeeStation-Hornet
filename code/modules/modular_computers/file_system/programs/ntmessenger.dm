@@ -44,6 +44,8 @@
 	var/is_silicon = FALSE
 	/// Whether or not we're in a mime PDA.
 	var/mime_mode = FALSE
+	/// Whether this app can send messages to all.
+	var/spam_mode = FALSE
 
 /datum/computer_file/program/messenger/proc/ScrubMessengerList()
 	var/list/dictionary = list()
@@ -249,6 +251,7 @@
 	data["sortByJob"] = sort_by_job
 	data["isSilicon"] = is_silicon
 	data["photo"] = photo_path
+
 	if(disk)
 		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/role/virus)
 		data["sending_virus"] = sending_virus
@@ -366,11 +369,11 @@
 
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	if(everyone)
-		computer.add_log("MSG log : [card.get_network_tag()] to (all): [message]", log_id = FALSE)
+		computer.add_log("MSG log : [card.get_network_tag()] to (all): [message]")
 	else if(targets.len == 1)
 		var/obj/item/modular_computer/target_comp = targets[1]
 		var/obj/item/computer_hardware/network_card/t_card = target_comp.all_components[MC_NET]
-		computer.add_log("MSG Log : [card.get_network_tag()] to [t_card.get_network_tag()]: [message]", log_id = FALSE)
+		computer.add_log("MSG Log : [card.get_network_tag()] to [t_card.get_network_tag()]: [message]")
 	// --------------------------------------------
 
 	// Parse emojis before to_chat

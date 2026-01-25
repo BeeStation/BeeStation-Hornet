@@ -545,12 +545,12 @@
 	if(drying && user?.mind)
 		current_user = WEAKREF(user.mind)
 
-/obj/machinery/smartfridge/drying/process(seconds_per_tick)
+/obj/machinery/smartfridge/drying/process(delta_time)
 	if(drying)
 		for(var/obj/item/item_iterator in src)
 			if(!accept_check(item_iterator))
 				continue
-			SEND_SIGNAL(item_iterator, COMSIG_ITEM_DRIED, current_user, seconds_per_tick)
+			SEND_SIGNAL(item_iterator, COMSIG_ITEM_DRIED, current_user, delta_time)
 
 		SStgui.update_uis(src)
 		update_appearance()
@@ -731,7 +731,7 @@
 
 /obj/machinery/smartfridge/organ/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(istype(gone))
+	if(isorgan(gone))
 		var/obj/item/organ/organ = gone
 		organ.organ_flags &= ~ORGAN_FROZEN
 
@@ -772,6 +772,7 @@
 		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/spray,
+		/obj/item/reagent_containers/chem_bag,
 	))
 
 	return is_type_in_typecache(weapon, chemfridge_typecache)

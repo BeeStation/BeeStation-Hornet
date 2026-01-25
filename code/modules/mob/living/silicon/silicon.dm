@@ -8,12 +8,11 @@
 	initial_language_holder = /datum/language_holder/synthetic
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	bubble_icon = "machine"
-	weather_immunities = list("ash")
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
 	examine_cursor_icon = null
+	fire_stack_decay_rate = -0.55
 	speech_span = SPAN_ROBOT
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/last_lawchange_announce = 0
@@ -68,10 +67,15 @@
 	diag_hud_set_health()
 	create_access_card(default_access_list)
 	default_access_list = null
-	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 
-	ADD_TRAIT(src, TRAIT_MADNESS_IMMUNE, ROUNDSTART_TRAIT)
-	ADD_TRAIT(src, TRAIT_MARTIAL_ARTS_IMMUNE, ROUNDSTART_TRAIT)
+	var/static/list/traits_to_apply = list(
+		TRAIT_ADVANCEDTOOLUSER,
+		TRAIT_ASHSTORM_IMMUNE,
+		TRAIT_MADNESS_IMMUNE,
+		TRAIT_MARTIAL_ARTS_IMMUNE,
+		TRAIT_NOFIRE_SPREAD,
+	)
+	add_traits(traits_to_apply, ROUNDSTART_TRAIT)
 
 /mob/living/silicon/Destroy()
 	QDEL_NULL(radio)
@@ -105,14 +109,6 @@
 	if(ispAI(src))
 		modularInterface.saved_job = JOB_NAME_PAI
 		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
-
-/mob/living/silicon/robot/model/syndicate/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-		modularInterface.saved_identification = real_name
-		modularInterface.saved_job = JOB_NAME_CYBORG
-	return ..()
-
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -175,7 +171,7 @@
 /mob/living/silicon/try_inject(mob/user, target_zone, injection_flags)
 	. = ..()
 	if(!. && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, "<span class='alert'>[p_Their()] outer shell is too tough.</span>")
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
@@ -508,3 +504,22 @@
 		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
 	modularInterface.saved_identification = newname
+
+/mob/living/silicon/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
+	. = FALSE
+
+	var/robot_is_damaged = getBruteLoss()
+
+	if (!robot_is_damaged)
+		balloon_alert(user, "[src] is not damaged!")
+		return
+
+	user.visible_message(span_notice("[user] begins repairing [src] with [tape]."), span_notice("You begin repairing [src] with [tape]."))
+	playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
+
+	if (!do_after(user, 3 SECONDS, target = src))
+		return
+
+	to_chat(user, span_notice("You finish repairing [src] with [tape]."))
+	adjustBruteLoss(-tape.object_repair_value)
+	return TRUE

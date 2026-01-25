@@ -13,8 +13,6 @@
 	contraband = list()
 	premium = list()
 */
-/// NT's Tax rate on the price the seller (cargo) receives
-#define TAX_RATE 0.5
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
   * # vending record datum
@@ -82,6 +80,7 @@
 	var/num_shards = 7
 	var/list/pinned_mobs = list()
 	COOLDOWN_DECLARE(purchase_message_cooldown)
+	COOLDOWN_DECLARE(vendor_lenience_hit_period)
 
 	/**
 	  * List of products this machine sells
@@ -148,7 +147,7 @@
 	///can we access the hidden inventory?
 	var/extended_inventory = 0
 	///Are we checking the users ID
-	var/scan_id = 1
+	var/scan_id = TRUE
 	///Default price of items if not overridden
 	var/default_price = 25
 	///Default price of premium items if not overridden
@@ -252,6 +251,13 @@
 
 /obj/machinery/vending/can_speak()
 	return !shut_up
+
+/obj/machinery/vending/emp_act(severity)
+	. = ..()
+	var/datum/language_holder/vending_languages = get_language_holder()
+	var/datum/wires/vending/vending_wires = wires
+	// if the language wire got pulsed during an EMP, this will make sure the language_iterator is synched correctly
+	vending_languages.selected_language = vending_languages.spoken_languages[vending_wires.language_iterator]
 
 //Better would be to make constructable child
 /obj/machinery/vending/RefreshParts()
@@ -362,7 +368,7 @@
 		if(!start_empty)
 			new_record.amount = amount
 		new_record.max_amount = amount
-		new_record.custom_price = initial(temp.custom_price)
+		new_record.custom_price = initial(temp.custom_price) * PRICE_MARKUP
 		new_record.custom_premium_price = initial(temp.custom_premium_price)
 		new_record.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		new_record.category = product_to_category[typepath]
@@ -601,6 +607,15 @@
 	else
 		. = ..()
 		if(tiltable && !tilted && I.force)
+
+			// We never do anything on the first hit. After the first hit, lenience is revoked, and a 10 second "timer" is started to reset it. During these 10 seconds, we process hits as normal.
+			if(COOLDOWN_FINISHED(src, vendor_lenience_hit_period))
+				COOLDOWN_START(src, vendor_lenience_hit_period, 10 SECONDS)
+				pass()
+				return
+
+			COOLDOWN_START(src, vendor_lenience_hit_period, 30 SECONDS) // At this point we are at the second hit and this guy really wants to push his luck.
+
 			switch(rand(1, 100))
 				if(1 to 5)
 					freebie(3)
@@ -644,6 +659,7 @@
 /obj/machinery/vending/proc/tilt(mob/fatty, crit=FALSE)
 	if(QDELETED(src))
 		return
+
 	visible_message(span_danger("[src] tips over!"))
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
@@ -670,10 +686,10 @@
 					if(1) // shatter their legs and bleed 'em
 						crit_rebate = 60
 						C.bleed(150)
-						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
+						var/obj/item/bodypart/leg/left/l = C.get_bodypart(BODY_ZONE_L_LEG)
 						if(l)
 							l.receive_damage(brute=200, updating_health=TRUE)
-						var/obj/item/bodypart/r_leg/r = C.get_bodypart(BODY_ZONE_R_LEG)
+						var/obj/item/bodypart/leg/right/r = C.get_bodypart(BODY_ZONE_R_LEG)
 						if(r)
 							r.receive_damage(brute=200, updating_health=TRUE)
 						if(l || r)
@@ -874,7 +890,7 @@
 		var/list/static_record = list(
 			path = replacetext(replacetext("[record.product_path]", "/obj/item/", ""), "/", "-"),
 			name = record.name,
-			price = premium ? (record.custom_premium_price || extra_price) : (record.custom_price || default_price),
+			price = premium ? (record.custom_premium_price || extra_price) : (record.custom_price || default_price * PRICE_MARKUP),
 			max_amount = record.max_amount,
 			ref = REF(record),
 		)
@@ -1011,7 +1027,7 @@
 	if(!R || !istype(R) || !R.product_path)
 		vend_ready = TRUE
 		return FALSE
-	var/price_to_use = default_price
+	var/price_to_use = default_price * PRICE_MARKUP
 	if(R.custom_price)
 		price_to_use = R.custom_price
 	if(R in hidden_records)
@@ -1023,7 +1039,7 @@
 		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 		return FALSE
 	if (R.amount <= 0)
-		say("Sold out of [R.name].")
+		speak("Sold out of [R.name].")
 		flick(icon_deny,src)
 		vend_ready = TRUE
 		return FALSE
@@ -1033,12 +1049,12 @@
 			var/mob/living/L = usr
 			C = L.get_idcard(TRUE)
 		if(!C)
-			say("No card found.")
+			speak("No card found.")
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return FALSE
 		else if (!C.registered_account)
-			say("No account found.")
+			speak("No account found.")
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return FALSE
@@ -1048,7 +1064,7 @@
 		if(LAZYLEN(R.returned_products))
 			price_to_use = 0 //returned items are free
 		if(price_to_use && !account.adjust_money(-price_to_use))
-			say("You do not possess the funds to purchase [R.name].")
+			speak("You do not possess the funds to purchase [R.name].")
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return FALSE
@@ -1064,7 +1080,8 @@
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
 	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
-		say(vend_reply)
+		var/vend_response = vend_reply || "Thank you for shopping with [src]!"
+		speak(vend_response)
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
 	use_power(500 WATT)
@@ -1248,13 +1265,13 @@
 /obj/machinery/vending/custom/canLoadItem(obj/item/I, mob/user)
 	. = FALSE
 	if(I.flags_1 & HOLOGRAM_1)
-		say("This vendor cannot accept nonexistent items.")
+		speak("This vendor cannot accept nonexistent items.")
 		return
 	if(loaded_items >= max_loaded_items)
-		say("There are too many items in stock.")
+		speak("There are too many items in stock.")
 		return
 	if(isstack(I))
-		say("Loose items may cause problems, try to use it inside wrapping paper.")
+		speak("Loose items may cause problems, try to use it inside wrapping paper.")
 		return
 	if(I.custom_price)
 		return TRUE
@@ -1332,13 +1349,13 @@
 							additional_message += "No ID card found. "
 						if(!C?.registered_account)
 							additional_message += "No account found. "
-						say("[additional_message]Not enough funds to purchase [S.name].")
+						speak("[additional_message]Not enough funds to purchase [S.name].")
 						flick(icon_deny,src)
 						vend_ready = TRUE
 						return
 			vend_ready = TRUE
 
-/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, var/N)
+/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, N)
 	var/datum/bank_account/owner = private_a
 	if(owner)
 		owner.adjust_money(bought_item.custom_price)
@@ -1360,7 +1377,7 @@
 	loaded_items--
 	use_power(500 WATT)
 	if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
-		say("Thank you for buying local and purchasing [bought_item]!")
+		speak("Thank you for buying local and purchasing [bought_item]!")
 		COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))
 		last_shopper = REF(usr)
 	vend_ready = TRUE
@@ -1374,7 +1391,7 @@
 			C = H.get_idcard(TRUE)
 			if(C?.registered_account)
 				private_a = C.registered_account
-				say("\The [src] has been linked to [C].")
+				speak("\The [src] has been linked to [C].")
 
 	if(compartmentLoadAccessCheck(user))
 		if(istype(I, /obj/item/pen))

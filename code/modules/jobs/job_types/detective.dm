@@ -32,6 +32,11 @@
 
 	minimal_lightup_areas = list(/area/medical/morgue, /area/security/detectives_office)
 
+	manuscript_jobs = list(
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_WARDEN
+	)
+
 /datum/outfit/job/detective
 	name = JOB_NAME_DETECTIVE
 	jobtype = /datum/job/detective
@@ -47,7 +52,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/detective
-	r_pocket = /obj/item/clothing/accessory/badge/officer/det
+	r_pocket = /obj/item/clothing/accessory/badge/det
 
 	mask = /obj/item/clothing/mask/cigarette
 
@@ -55,13 +60,13 @@
 
 	chameleon_extras = list(/obj/item/gun/ballistic/revolver/detective, /obj/item/clothing/glasses/sunglasses/advanced)
 
-/datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 	var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
 	if(istype(cig)) //Some species specfic changes can mess this up (plasmamen)
 		cig.light("")
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 /obj/item/storage/belt/fannypack/worn/detective/PopulateContents()

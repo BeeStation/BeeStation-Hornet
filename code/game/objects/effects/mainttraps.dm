@@ -313,7 +313,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)// NO MIMES
+		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.has_status_effect(/datum/status_effect/silenced))// NO MIMES
 			to_chat(user, span_warning("The quiet cannot comprehend [src]."))
 			return
 		if(HAS_TRAIT(H, TRAIT_LAW_ENFORCEMENT_METABOLISM) || HAS_TRAIT(H, TRAIT_MINDSHIELD))// NO SHITSEC
@@ -357,7 +357,7 @@
 		invokers += L
 	return invokers
 
-/obj/effect/rune/cluwne/invoke(var/list/invokers)
+/obj/effect/rune/cluwne/invoke(list/invokers)
 	..()
 	rune_in_use = TRUE
 	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne

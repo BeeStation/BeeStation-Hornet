@@ -49,7 +49,6 @@
 
 /datum/armor/unary_cryo_cell
 	energy = 100
-	rad = 100
 	fire = 30
 	acid = 30
 
@@ -220,7 +219,7 @@
 
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant.on_fire) //Extinguish occupant, happens after the occupant is healed and ejected.
-		mob_occupant.ExtinguishMob()
+		mob_occupant.extinguish_mob()
 	if(!check_nap_violations())
 		return
 	if(mob_occupant.stat == DEAD) // We don't bother with dead people.

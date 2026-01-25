@@ -2,7 +2,7 @@
 	name = "proto-kinetic accelerator"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure."
 	icon_state = "kineticgun"
-	item_state = "kineticgun"
+	inhand_icon_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	item_flags = NONE
 	obj_flags = UNIQUE_RENAME
@@ -509,14 +509,14 @@
 		KA.name = chassis_name
 		if(iscarbon(KA.loc))
 			var/mob/living/carbon/holder = KA.loc
-			holder.update_inv_hands()
+			holder.update_held_items()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	KA.icon_state = initial(KA.icon_state)
 	KA.name = initial(KA.name)
 	if(iscarbon(KA.loc))
 		var/mob/living/carbon/holder = KA.loc
-		holder.update_inv_hands()
+		holder.update_held_items()
 	..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange

@@ -126,6 +126,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		cmd_mentor_pm(href_list["mentor_msg"], null)
 		return TRUE
 
+	// LOOC commendation
+
+
 	if(href_list["commandbar_typing"])
 		handle_commandbar_typing(href_list)
 
@@ -220,7 +223,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/generate_uuid_string()
 	var/fiftyfifty = prob(50) ? FEMALE : MALE
-	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][random_unique_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
+	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][generate_random_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
 	return "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
 
 /client/proc/generate_uuid()

@@ -36,16 +36,20 @@
 
 	var/list/filter_data //For handling persistent filters
 
-	///Economy cost of item
+	/// Economy cost of item, 0 price items will not be sold and return when sent to CC trough cargo shuttle
 	var/custom_price
-	///Economy cost of item in premium vendor
+	/// Economy cost of item in premium vendor category (Export will use this if it exists even if custom price is defined)
 	var/custom_premium_price
+	/// Maximum demand of the object type for exporting calculations
+	var/max_demand
+	/// Can be: TRADE_CONTRABAND, TRADE_NOT_SELLABLE, TRADE_DELETE_UNSOLD. Important in exporting and other things!
+	var/trade_flags = NONE
+	/// This is the economy price of the item. This is important for exports and imports
+	var/item_price
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
 
-	/// Will move to flags_1 when i can be arsed to (2019, has not done so)
-	var/rad_flags = NONE
 	/// Radiation insulation types
 	var/rad_insulation = RAD_NO_INSULATION
 
@@ -53,6 +57,8 @@
 	var/light_system = STATIC_LIGHT
 	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
 	var/light_on = TRUE
+	/// How many tiles "up" this light is. 1 is typical, should only really change this if it's a floor light
+	var/light_height = LIGHTING_HEIGHT
 	///Bitflags to determine lighting-related atom properties.
 	var/light_flags = NONE
 
@@ -152,6 +158,9 @@
 
 	if(reagents)
 		QDEL_NULL(reagents)
+
+	if(forensics)
+		QDEL_NULL(forensics)
 
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
@@ -430,7 +439,7 @@
 /mob/living/proc/get_blood_dna_list()
 	if(get_blood_id() != /datum/reagent/blood)
 		return
-	return list("ANIMAL DNA" = "Y-")
+	return list("ANIMAL DNA" = get_blood_type("Y-"))
 
 ///Get the mobs dna list
 /mob/living/carbon/get_blood_dna_list()
@@ -440,14 +449,14 @@
 	if(dna)
 		blood_dna[dna.unique_enzymes] = dna.blood_type
 	else
-		blood_dna["UNKNOWN DNA"] = "X*"
+		blood_dna["UNKNOWN DNA"] = get_blood_type("X")
 	return blood_dna
 
 /mob/living/carbon/alien/get_blood_dna_list()
-	return list("UNKNOWN DNA" = "X*")
+	return list("UNKNOWN DNA" = get_blood_type("X"))
 
 /mob/living/silicon/get_blood_dna_list()
-	return list("MOTOR OIL" = "SAE 5W-30") //just a little flavor text.
+	return list("SYNTHETIC COOLANT" = get_blood_type("Coolant"))
 
 ///to add a mob's dna info into an object's blood_dna list.
 /atom/proc/transfer_mob_blood_dna(mob/living/L)
@@ -455,9 +464,9 @@
 	var/new_blood_dna = L.get_blood_dna_list()
 	if(!new_blood_dna)
 		return FALSE
-	var/old_length = blood_DNA_length()
+	var/old_length = GET_ATOM_BLOOD_DNA_LENGTH(src)
 	add_blood_DNA(new_blood_dna)
-	if(blood_DNA_length() == old_length)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src) == old_length)
 		return FALSE
 	return TRUE
 
@@ -813,6 +822,24 @@
 		filters += filter(arglist(arguments))
 	UNSETEMPTY(filter_data)
 
+/** Update a filter's parameter to the new one. If the filter doesn't exist we won't do anything.
+ *
+ * Arguments:
+ * * name - Filter name
+ * * new_params - New parameters of the filter
+ * * overwrite - TRUE means we replace the parameter list completely. FALSE means we only replace the things on new_params.
+ */
+/atom/proc/modify_filter(name, list/new_params, overwrite = FALSE)
+	var/filter = get_filter(name)
+	if(!filter)
+		return
+	if(overwrite)
+		filter_data[name] = new_params
+	else
+		for(var/thing in new_params)
+			filter_data[name][thing] = new_params[thing]
+	update_filters()
+
 /atom/proc/transition_filter(name, time, list/new_params, easing, loop)
 	var/filter = get_filter(name)
 	if(!filter)
@@ -889,7 +916,7 @@
   *
   * Use this if an atom needs to attempt to charge another atom.
   */
-/atom/proc/attempt_charge(var/atom/sender, var/atom/target, var/extra_fees = 0)
+/atom/proc/attempt_charge(atom/sender, atom/target, extra_fees = 0)
 	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
 
 /**
@@ -902,7 +929,7 @@
 		ai_controller = new ai_controller(src)
 
 ///Setter for the "base_pixel_x" var to append behavior related to it's changing
-/atom/proc/set_base_pixel_x(var/new_value)
+/atom/proc/set_base_pixel_x(new_value)
 	if(base_pixel_x == new_value)
 		return
 	. = base_pixel_x
@@ -925,9 +952,10 @@
  * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
  * the forced gravity var.
  *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
  * HEY JACKASS, LISTEN
  * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
- *
  * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
  * for them to use. If you add more to it, make sure you do that, or things will behave strangely
  *

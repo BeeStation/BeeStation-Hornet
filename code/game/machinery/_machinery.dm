@@ -100,6 +100,7 @@
 
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	initial_language_holder = /datum/language_holder/speaking_machine
 
 	var/machine_stat = NONE
 	var/use_power = IDLE_POWER_USE
@@ -159,6 +160,8 @@
 	/// Disables some optimizations
 	var/always_area_sensitive = FALSE
 
+	var/area_relationship_established = FALSE
+
 	armor_type = /datum/armor/obj_machinery
 
 /datum/armor/obj_machinery
@@ -181,6 +184,9 @@
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MACHINES_GLITCHED) && mapload)
+		randomize_language_if_on_station()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -222,6 +228,7 @@
  * does not affect power usage itself
  */
 /obj/machinery/proc/setup_area_power_relationship()
+	area_relationship_established = TRUE
 	var/area/our_area = get_area(src)
 	if(our_area)
 		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
@@ -296,6 +303,7 @@
 	return
 
 /obj/machinery/proc/process_atmos()//If you dont use process why are you here
+	set waitfor = FALSE
 	return PROCESS_KILL
 
 ///Called when we want to change the value of the machine_stat variable. Holds bitflags.
@@ -323,15 +331,23 @@
 
 /obj/machinery/emp_act(severity)
 	. = ..()
-	if(use_power && !machine_stat && !(. & EMP_PROTECT_SELF))
-		use_power(7.5 KILOWATT/severity)
-		//Set the machine to be EMPed
-		machine_stat |= EMPED
-		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
-		//Update power
-		power_change()
-		new /obj/effect/temp_visual/emp(loc)
+	if(!use_power || machine_stat || (. & EMP_PROTECT_SELF))
+		return
+	use_power(7.5 KILOWATT/severity)
+	//Set the machine to be EMPed
+	machine_stat |= EMPED
+	//Reset EMP state in 120/60 seconds
+	addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
+	//Update power
+	power_change()
+	new /obj/effect/temp_visual/emp(loc)
+
+	if(!prob(70/severity))
+		return
+	if (!length(GLOB.uncommon_roundstart_languages))
+		return
+	remove_all_languages(source = LANGUAGE_EMP)
+	grant_random_uncommon_language(source = LANGUAGE_EMP)
 
 /obj/machinery/proc/emp_reset()
 	//Reset EMP state
@@ -453,10 +469,11 @@
 		if(ACTIVE_POWER_USE)
 			new_usage = active_power_usage
 
-	if(use_power == NO_POWER_USE)
-		setup_area_power_relationship()
-	else if(new_use_power == NO_POWER_USE)
-		remove_area_power_relationship()
+	if (area_relationship_established)
+		if(use_power == NO_POWER_USE)
+			setup_area_power_relationship()
+		else if(new_use_power == NO_POWER_USE)
+			remove_area_power_relationship()
 
 	static_power_usage = new_usage
 
@@ -1015,8 +1032,8 @@
 				. += span_warning("It's falling apart!")
 	if(user.research_scanner && component_parts)
 		. += display_parts(user, TRUE)
-	if(return_blood_DNA())
-		. += "<span class='warning'>It's smeared with blood!</span>"
+	if(GET_ATOM_BLOOD_DNA(src))
+		. += span_warning("It's smeared with blood!")
 
 /obj/machinery/examine_descriptor(mob/user)
 	return "machine"
@@ -1035,14 +1052,23 @@
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, tesla_flags, shocked_objects)
-	..()
-	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
-	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, ENERGY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(
+			epicenter = src,
+			devastation_range = 1,
+			heavy_impact_range = 2,
+			light_impact_range = 4,
+			flame_range = 2,
+			adminlog = FALSE
+		)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 2.5e-4, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
+		power -= power * 5e-4
+
+	return ..()
 
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
@@ -1060,7 +1086,7 @@
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
 
-/obj/machinery/proc/play_click_sound(var/custom_clicksound)
+/obj/machinery/proc/play_click_sound(custom_clicksound)
 	if((custom_clicksound ||= clicksound) && world.time > next_clicksound)
 		next_clicksound = world.time + CLICKSOUND_INTERVAL
 		playsound(src, custom_clicksound, clickvol)

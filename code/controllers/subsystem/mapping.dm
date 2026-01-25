@@ -1,6 +1,9 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
-	init_order = INIT_ORDER_MAPPING
+	dependencies = list(
+		/datum/controller/subsystem/job,
+		/datum/controller/subsystem/processing/station,
+	)
 	runlevels = ALL
 
 	var/list/nuke_tiles = list()
@@ -205,6 +208,10 @@ SUBSYSTEM_DEF(mapping)
 		returning += M
 		qdel(T, TRUE)
 
+/// Returns true if the map we're playing on is on a planet
+/datum/controller/subsystem/mapping/proc/is_planetary()
+	return current_map.planetary_station
+
 /* Nuke threats, for making the blue tiles on the station go RED
 	Used by the AI doomsday and the self-destruct nuke.
 */
@@ -298,7 +305,7 @@ SUBSYSTEM_DEF(mapping)
 			errorList |= pm.original_path
 
 	if(!silent)
-		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
+		INIT_ANNOUNCE("Loaded [name] in [round((REALTIMEOFDAY - start_time)/10, 0.01)]s!")
 	return parsed_maps
 
 /datum/controller/subsystem/mapping/proc/LoadStationRooms()
@@ -314,7 +321,9 @@ SUBSYSTEM_DEF(mapping)
 				candidate = null
 				continue
 			possibletemplates[candidate] = candidate.weight
-		if(possibletemplates.len)
+		if(!length(possibletemplates))
+			stack_trace("Failed to find a valid random room / Room Info - height: [R.room_height], width: [R.room_width], name: [R.name]")
+		else
 			var/datum/map_template/random_room/template = pick_weight(possibletemplates)
 			template.stock--
 			template.weight = (template.weight / 2)
@@ -375,7 +384,12 @@ SUBSYSTEM_DEF(mapping)
 GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/generate_station_area_list()
-	var/static/list/station_areas_blacklist = typecacheof(list(/area/space, /area/mine, /area/ruin, /area/asteroid/nearstation))
+	var/static/list/station_areas_blacklist = typecacheof(list(
+		/area/space,
+		/area/mine,
+		/area/ruin,
+		/area/asteroid/nearstation,
+	))
 	// if we ever add /area/station (and remove this typecache) scope this loop's type to /area/station please!!
 	for(var/area/station_area in GLOB.areas)
 		if (is_type_in_typecache(station_area, station_areas_blacklist))

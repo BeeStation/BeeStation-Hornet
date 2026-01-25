@@ -12,6 +12,7 @@
 	movement_type = FLYING
 	//wound_bonus = CANT_WOUND // can't wound by default
 	generic_canpass = FALSE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
@@ -138,20 +139,26 @@
 	var/decayedRange //stores original range
 	var/reflect_range_decrease = 5 //amount of original range that falls off when reflecting, so it doesn't go forever
 	var/reflectable = NONE // Can it be reflected or not?
-		//Effects
+
+	// Status effects applied on hit
 	var/stun = 0
 	var/knockdown = 0
 	var/paralyze = 0
 	var/immobilize = 0
 	var/unconscious = 0
-	var/irradiate = 0
-	var/stutter = 0
-	var/slur = 0
 	var/eyeblur = 0
 	var/drowsy = 0
+	/// Jittering applied on projectile hit
+	var/jitter = 0 SECONDS
+	/// Extra stamina damage applied on projectile hit (in addition to the main damage)
 	var/stamina = 0
-	var/jitter = 0
-	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
+	/// Stuttering applied on projectile hit
+	var/stutter = 0 SECONDS
+	/// Slurring applied on projectile hit
+	var/slur = 0 SECONDS
+
+	/// Damage the limb must have for it to be dismembered upon getting hit. 0 will prevent dismembering altogether
+	var/dismemberment = 0
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)
 	var/martial_arts_no_deflect = FALSE
@@ -251,15 +258,16 @@
 			if(isalien(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			var/obj/item/bodypart/B = L.get_bodypart(def_zone)
-			if(B)
-				if(!IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
-					do_sparks(2, FALSE, target.loc)
-					if(prob(25))
-						new /obj/effect/decal/cleanable/oil(target_loca)
-				else
-					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir)
-				if(prob(33))
-					L.add_splatter_floor(target_loca)
+			if(B && !IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
+				do_sparks(2, FALSE, target.loc)
+			else
+				var/splatter_color = null
+				if(iscarbon(L))
+					var/mob/living/carbon/carbon_target = L
+					splatter_color = carbon_target.dna.blood_type.blood_color
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
+			if(prob(33))
+				L.add_splatter_floor(target_loca)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
@@ -297,7 +305,20 @@
 	else
 		L.log_message("has been shot by [firer] with [src]", LOG_ATTACK, color="orange")
 
-	return L.apply_effects(stun, knockdown, unconscious, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter, paralyze, immobilize)
+	return L.apply_effects(
+		stun = stun,
+		knockdown = knockdown,
+		unconscious = unconscious,
+		slur = slur,
+		stutter = stutter,
+		eyeblur = eyeblur,
+		drowsy = drowsy,
+		blocked = blocked,
+		stamina = stamina,
+		jitter = jitter,
+		paralyze = paralyze,
+		immobilize = immobilize,
+	)
 
 /obj/projectile/proc/vol_by_damage()
 	if(src.damage)
@@ -630,7 +651,7 @@
 /obj/projectile/proc/return_pathing_turfs_in_moves(moves, forced_angle)
 	var/turf/current = get_turf(src)
 	var/turf/ending = return_predicted_turf_after_moves(moves, forced_angle)
-	return getline(current, ending)
+	return get_line(current, ending)
 
 /obj/projectile/Process_Spacemove(movement_dir = 0)
 	return TRUE	//Bullets don't drift in space

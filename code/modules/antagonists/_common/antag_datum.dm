@@ -35,6 +35,12 @@ GLOBAL_LIST(admin_antag_list)
 	/// Weakref to button to access antag interface
 	var/datum/weakref/info_button_ref
 
+	/// The action that we should perform when the antagonist
+	/// needs to leave the game. You cannot force someone to continue
+	/// playing, so the game needs to handle someone leaving as best
+	/// as it can.
+	var/leave_behaviour = ANTAGONIST_LEAVE_OFFER
+
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
 		return
@@ -140,19 +146,19 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
+		stack_trace("Called is_banned without a mob. This shouldn't happen.")
 		return FALSE
 	. = (is_banned_from(M.ckey, banning_key) || QDELETED(M))
 
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = banning_key,
-		poll_time = 10 SECONDS,
-		checked_target = owner.current,
-		jump_target = owner.current,
-		role_name_text = name,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = banning_key
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner.current
+	config.role_name_text = name
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = owner.current)
 	if(candidate)
 		owner.current.ghostize(FALSE)
 		owner.current.key = candidate.key
@@ -253,8 +259,6 @@ GLOBAL_LIST(admin_antag_list)
 	return ..()
 
 /datum/antagonist/ui_state(mob/user)
-	if(owner?.current)
-		return GLOB.self_state
 	return GLOB.always_state
 
 ///generic helper to send objectives as data through tgui.
@@ -343,6 +347,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/custom
 	antagpanel_category = "Custom"
 	show_name_in_check_antagonists = TRUE //They're all different
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/datum/team/custom_team
 
 /datum/antagonist/custom/create_team(datum/team/team)

@@ -9,7 +9,7 @@
 	///When two of these are on a same tile or do we need to merge them into just one?
 	var/mergeable_decal = TRUE
 	//var/beauty = 0
-	///The type of cleaning required to clean the decal, CLEAN_TYPE_LIGHT_DECAL can be cleaned with mops and soap, CLEAN_TYPE_HARD_DECAL can be cleaned by soap, see __DEFINES/cleaning.dm for the others
+	///The type of cleaning required to clean the decal. See __DEFINES/cleaning.dm for the options
 	var/clean_type = CLEAN_TYPE_LIGHT_DECAL
 	///The reagent this decal holds. Leave blank for none.
 	var/datum/reagent/decal_reagent

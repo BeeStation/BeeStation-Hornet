@@ -10,11 +10,17 @@
 	name = null
 	icon = 'icons/obj/power.dmi'
 	anchored = TRUE
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
+
+/obj/machinery/power/Initialize(mapload)
+	. = ..()
+	if(isturf(loc))
+		var/turf/turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
 
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
@@ -177,7 +183,7 @@
 	update_appearance()
 
 // connect the machine to a powernet if a node cable is present on the turf
-/obj/machinery/power/proc/connect_to_network(var/turf/turf = loc)
+/obj/machinery/power/proc/connect_to_network(turf/turf = loc)
 	var/turf/T = turf
 	if(!T || !istype(T))
 		return FALSE

@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/toy/windupToolbox = 2,
 		/obj/item/toy/clockwork_watch = 2,
 		/obj/item/toy/toy_dagger = 2,
+		/obj/item/clothing/neck/cloak/fakehalo = 2,
 		/obj/item/toy/cog = 2,
 		/obj/item/toy/batong = 1,
 		/obj/item/toy/replica_fabricator = 1,
@@ -72,7 +73,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/choice_beacon/pet/hamster = 1,
 		/obj/item/choice_beacon/pet/pug = 1,
 		/obj/item/choice_beacon/pet/pingu = 1,
-		/obj/item/choice_beacon/pet/clown = 1))
+		/obj/item/choice_beacon/pet/clown = 1,
+		/obj/item/clothing/mask/party_horn = 2,
+		/obj/item/storage/box/party_poppers = 2))
 
 /obj/machinery/computer/arcade
 	name = "random arcade"
@@ -515,7 +518,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 				if(obj_flags & EMAGGED)
 					var/mob/living/M = user
 					M.adjust_fire_stacks(5)
-					M.IgniteMob() //flew into a star, so you're on fire
+					M.ignite_mob() //flew into a star, so you're on fire
 					to_chat(user, span_userdanger("You feel an immense wave of heat emanate from the arcade machine. Your skin bursts into flames."))
 
 		if(obj_flags & EMAGGED)
@@ -1123,7 +1126,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 
 //Add Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(var/specific = "")
+/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(specific = "")
 	var/newcrew = ""
 	if(specific)
 		newcrew = specific
@@ -1139,7 +1142,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 
 //Remove Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(var/specific = "", var/dont_remove = "")
+/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(specific = "", dont_remove = "")
 	var/list/safe2remove = settlers
 	var/removed = ""
 	if(dont_remove)

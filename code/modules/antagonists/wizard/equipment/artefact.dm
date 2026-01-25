@@ -8,7 +8,7 @@
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast city."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	item_state = "knife"
+	inhand_icon_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	force = 15
@@ -44,7 +44,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
-/obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc, spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -69,10 +69,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	else
 		return ..()
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/item/veilrender/vealrender
@@ -82,6 +82,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	spawn_amt = 20
 	activate_descriptor = "hunger"
 	rend_desc = "Reverberates with the sound of ten thousand moos."
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/veilrender/honkrender
 	name = "honk render"
@@ -235,7 +237,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "A shard capable of resurrecting humans as skeleton thralls."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "necrostone"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -274,7 +276,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	M.revive(ADMIN_HEAL_ALL)
 	spooky_scaries |= M
 	to_chat(M, "[span_userdanger("You have been revived by ")]<B>[user.real_name]!</B>")
-	to_chat(M, span_userdanger("[user.p_theyre(TRUE)] your master now, assist [user.p_them()] even if it costs you your new life!"))
+	to_chat(M, span_userdanger("[user.p_Theyre()] your master now, assist [user.p_them()] even if it costs you your new life!"))
 
 	equip_roman_skeleton(M)
 
@@ -307,8 +309,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), ITEM_SLOT_ICLOTHING)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), ITEM_SLOT_FEET)
 	H.put_in_hands(new /obj/item/shield/riot/roman(H), TRUE)
-	H.put_in_hands(new /obj/item/claymore(H), TRUE)
-	H.equip_to_slot_or_del(new /obj/item/spear(H), ITEM_SLOT_BACK)
+	H.put_in_hands(new /obj/item/claymore/bone(H), TRUE)
+	H.equip_to_slot_or_del(new /obj/item/spear/bonespear(H), ITEM_SLOT_BACK)
 
 
 /obj/item/voodoo
@@ -316,7 +318,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "Something creepy about it."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "voodoo"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	var/mob/living/carbon/human/target = null
@@ -327,6 +329,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
 	item_flags = ISWEAPON
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)
@@ -408,7 +412,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 				GiveHint(target)
 			if(BODY_ZONE_HEAD)
 				to_chat(user, span_notice("You smack the doll's head with your hand."))
-				target.Dizzy(10)
+				target.adjust_dizzy(20 SECONDS)
 				to_chat(target, span_warning("You suddenly feel as if your head was hit with a hammer!"))
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time
@@ -417,7 +421,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	possible = list()
 	if(!voodoo_link)
 		return
-	var/list/prints = voodoo_link.return_fingerprints()
+	var/list/prints = GET_ATOM_FINGERPRINTS(voodoo_link)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
@@ -440,7 +444,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)
 		target.adjust_fire_stacks(20)
-		target.IgniteMob()
+		target.ignite_mob()
 		GiveHint(target,1)
 	return ..()
 
@@ -450,6 +454,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
+	custom_price = 10000
+	max_demand = 10
 
 //Warp Whistle: Provides uncontrolled long distance teleportation.
 
@@ -458,6 +464,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "One toot on this whistle will send you to a far away land!"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "whistle"
+	w_class = WEIGHT_CLASS_SMALL
 	var/on_cooldown = 0 //0: usable, 1: in use, 2: on cooldown
 	var/mob/living/carbon/last_user
 
@@ -493,7 +500,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	var/breakout = 0
 	while(breakout < 50)
 		var/turf/potential_T = find_safe_turf()
-		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidian(potential_T,T)) > 50 - breakout)
+		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidean(potential_T,T)) > 50 - breakout)
 			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC_SELF, teleport_mode = TELEPORT_ALLOW_WIZARD)
 			T = potential_T
 			break

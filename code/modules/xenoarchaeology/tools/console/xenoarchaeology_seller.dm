@@ -41,11 +41,11 @@
 /datum/rnd_lister/proc/get_price(atom/listing)
 	switch(personality)
 		if(SELLER_PERSONALITY_GENEROUS)
-			return round(listing.custom_price * 0.8, 1)
+			return round(listing.item_price * 0.8, 1)
 		if(SELLER_PERSONALITY_NORMAL)
-			return listing.custom_price
+			return listing.item_price
 		if(SELLER_PERSONALITY_STINGY)
-			return round(listing.custom_price * 1.5, 1)
+			return round(listing.item_price * 1.5, 1)
 		else
 			return 0 //FOR FREE!
 
@@ -117,7 +117,6 @@
 	hidden = TRUE
 	crate_name = "research material container"
 	crate_type = /obj/structure/closet/crate/science
-	access_any = TRUE
 	max_supply = 1
 	current_supply = 1
 	cost = 0

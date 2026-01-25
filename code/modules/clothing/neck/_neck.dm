@@ -12,7 +12,7 @@
 		if(body_parts_covered & HEAD)
 			if(damaged_clothes)
 				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-			if(HAS_BLOOD_DNA(src))
+			if(GET_ATOM_BLOOD_DNA_LENGTH(src))
 				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
 
 /obj/item/clothing/neck/tie
@@ -20,7 +20,7 @@
 	desc = "A neosilk clip-on tie."
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bluetie"
-	item_state = ""	//no inhands
+	inhand_icon_state = ""	//no inhands
 	worn_icon = 'icons/mob/clothing/neck.dmi'
 	worn_icon_state = "bluetie"
 	w_class = WEIGHT_CLASS_SMALL

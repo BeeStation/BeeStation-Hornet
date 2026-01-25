@@ -11,6 +11,8 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	integrity_failure = 0.4
+	custom_price = 20 // Basic costum price for clothing. If it does not fit anything else.
+	max_demand = 15 // Demand shouldn't be too big for clothing or else you can just sell clothing like crazy
 	var/damaged_clothes = CLOTHING_PRISTINE //similar to machine's BROKEN stat and structure's broken var
 	var/flash_protect = FLASH_PROTECTION_NONE 		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/bang_protect = 0		//what level of sound protection the item has. 1 is the level of a normal bowman.
@@ -110,7 +112,14 @@
 		bite_consumption = bite_consumption,\
 		microwaved_type = microwaved_type,\
 		junkiness = junkiness,\
+		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
 		after_eat = CALLBACK(src, PROC_REF(after_eat)))
+
+/obj/item/food/clothing/proc/pre_eat(mob/eater)
+	var/obj/item/organ/tongue/tongue = eater?.get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(tongue?.liked_foodtypes & CLOTH)
+		return TRUE
+	return FALSE
 
 /obj/item/food/clothing/proc/after_eat(mob/eater)
 	var/resolved_item = clothing.resolve()
@@ -282,10 +291,21 @@
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])
 					user.vv_edit_var(variable, user_vars_to_edit[variable])
 
+// If the item is a piece of clothing and is being worn, make sure it updates on the player
+/obj/item/clothing/update_greyscale()
+	. = ..()
+
+	var/mob/living/carbon/human/wearer = loc
+
+	if(!istype(wearer))
+		return
+
+	wearer.update_clothing(slot_flags)
+
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	if(damaged_clothes == CLOTHING_SHREDDED)
-		. += span_warning("<b>[p_theyre(TRUE)] completely shredded and require[p_s()] mending before [p_they()] can be worn again!</b>")
+		. += span_warning("<b>[p_Theyre()] completely shredded and require[p_s()] mending before [p_they()] can be worn again!</b>")
 		return
 
 	for(var/zone in damage_by_parts)
@@ -456,7 +476,7 @@
 
 	if(isliving(loc)) //It's not important enough to warrant a message if it's not on someone
 		var/mob/living/M = loc
-		if(src in M.get_equipped_items(FALSE))
+		if(src in M.get_equipped_items())
 			to_chat(M, span_warning("Your [name] start[p_s()] to fall apart!"))
 		else
 			to_chat(M, span_warning("[src] start[p_s()] to fall apart!"))
@@ -626,7 +646,7 @@ BLIND	 // can't see anything
 		update_clothes_damaged_state(CLOTHING_SHREDDED)
 		if(isliving(loc))
 			var/mob/living/M = loc
-			if(src in M.get_equipped_items(FALSE)) //make sure they were wearing it and not attacking the item in their hands
+			if(src in M.get_equipped_items()) //make sure they were wearing it and not attacking the item in their hands
 				M.visible_message(span_danger("[M]'s [src.name] fall[p_s()] off, [p_theyre()] completely shredded!"), span_warning("<b>Your [src.name] fall[p_s()] off, [p_theyre()] completely shredded!</b>"), vision_distance = COMBAT_MESSAGE_RANGE)
 				M.dropItemToGround(src)
 			else

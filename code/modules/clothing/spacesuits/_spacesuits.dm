@@ -7,7 +7,7 @@
 	icon = 'icons/obj/clothing/head/spacehelm.dmi'
 	worn_icon = 'icons/mob/clothing/head/spacehelm.dmi'
 	icon_state = "spaceold"
-	item_state = "space_helmet"
+	inhand_icon_state = "space_helmet"
 	desc = "A special helmet with solar UV shielding to protect your eyes from harmful rays."
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	armor_type = /datum/armor/helmet_space
@@ -25,10 +25,10 @@
 	resistance_flags = NONE
 	dog_fashion = null
 	var/obj/item/clothing/head/attached_hat
+	custom_price = 75
 
 /datum/armor/helmet_space
 	bio = 100
-	rad = 50
 	fire = 80
 	acid = 70
 	stamina = 10
@@ -113,7 +113,7 @@
 	icon_state = "spaceold"
 	icon = 'icons/obj/clothing/suits/spacesuit.dmi'
 	worn_icon = 'icons/mob/clothing/suits/spacesuit.dmi'
-	item_state = "s_suit"
+	inhand_icon_state = "s_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE
@@ -135,6 +135,7 @@
 	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/toggle_spacesuit)
 	pockets = FALSE
+	custom_price = 150
 	var/temperature_setting = BODYTEMP_NORMAL /// The default temperature setting
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell /// If this is a path, this gets created as an object in Initialize.
 	var/cell_cover_open = FALSE /// Status of the cell cover on the suit
@@ -144,7 +145,6 @@
 
 /datum/armor/suit_space
 	bio = 100
-	rad = 50
 	fire = 80
 	acid = 70
 	stamina = 10

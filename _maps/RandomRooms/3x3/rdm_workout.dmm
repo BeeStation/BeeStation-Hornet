@@ -37,7 +37,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /obj/effect/turf_decal/stripes{
 	dir = 5
 	},

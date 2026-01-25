@@ -90,11 +90,10 @@
 	response_disarm_simple = "shoo"
 	response_harm_continuous = "steps on"
 	response_harm_simple = "step on"
-	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	chat_color = "#26F55A"
@@ -103,3 +102,7 @@
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
 	discovery_points = 1000
+
+/mob/living/simple_animal/hostile/poison/limbsnake/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)

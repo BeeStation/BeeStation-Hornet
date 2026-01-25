@@ -307,7 +307,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "disintegrate"
-	item_state = "disintegrate"
+	inhand_icon_state = "disintegrate"
 	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
@@ -321,7 +321,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 
-/obj/item/melee/blood_magic/Initialize(mapload, var/spell)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
 	if(!istype(spell, /datum/action/innate/cult/blood_spell))
 		return INITIALIZE_HINT_QDEL
@@ -399,7 +399,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message(span_warning("[L] is utterly unphased by your utterance!"), \
-									   span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
+									span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
 		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, span_cultitalic("[L] falls to the ground, gibbering madly!"))
 			L.Paralyze(160)
@@ -409,16 +409,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				S.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
 				var/mob/living/carbon/C = L
-				C.silent += 6
-				C.stuttering += 15
-				C.cultslurring += 15
-				C.Jitter(15)
+				C.adjust_silence(12 SECONDS)
+				C.adjust_stutter(30 SECONDS)
+				C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/slurring/cult)
+				C.set_jitter_if_lower(30 SECONDS)
 				// EMP the radio on your ears
 				if (C.ears)
 					C.ears.emp_act(EMP_LIGHT)
 		else
 			target.visible_message(span_warning("You fail to corrupt [L]'s mind!"), \
-									   span_userdanger("Your mindshield protects you from the heresy of [user]!"))
+									span_userdanger("Your mindshield protects you from the heresy of [user]!"))
 		uses--
 	..()
 
@@ -493,7 +493,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			if(!C.handcuffed)
 				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
-				C.silent += 5
+				C.adjust_silence(10 SECONDS)
 				to_chat(user, span_notice("You shackle [C]."))
 				log_combat(user, C, "shackled", src)
 				uses--
@@ -704,10 +704,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					user.Beam(H, icon_state="sendbeam", time = 15)
 			else
 				if(H.stat == DEAD)
-					to_chat(user,span_warning("[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it."))
+					to_chat(user,span_warning("[H.p_Their()] blood has stopped flowing, you'll have to find another way to extract it."))
 					return
-				if(H.cultslurring)
-					to_chat(user,span_danger("[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
+				if(H.has_status_effect(/datum/status_effect/speech/slurring/cult))
+					to_chat(user,span_danger("[H.p_Their()] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
 					return
 				if(H.blood_volume > BLOOD_VOLUME_SAFE)
 					H.blood_volume -= 100
@@ -718,7 +718,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					to_chat(user,span_cultitalic("Your blood rite gains 50 charges from draining [H]'s blood."))
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 				else
-					to_chat(user,span_danger("[H.p_theyre(TRUE)] missing too much blood - you cannot drain [H.p_them()] further!"))
+					to_chat(user,span_danger("[H.p_Theyre()] missing too much blood - you cannot drain [H.p_them()] further!"))
 					return
 		if(isconstruct(target))
 			var/mob/living/simple_animal/M = target
@@ -750,8 +750,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					temp += max((B.bloodiness**2)/800,1)
 				new /obj/effect/temp_visual/cult/turf/floor(get_turf(B))
 				qdel(B)
-		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(2, T))
-			qdel(TH)
 		if(temp)
 			user.Beam(T, icon_state="drainbeam", time = 15)
 			new /obj/effect/temp_visual/cult/sparks(get_turf(user))

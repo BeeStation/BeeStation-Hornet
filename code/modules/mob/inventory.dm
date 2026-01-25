@@ -195,7 +195,7 @@
 		return FALSE
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
-	update_inv_hands()
+	update_held_items()
 	I.pixel_x = I.base_pixel_x
 	I.pixel_y = I.base_pixel_y
 	return hand_index
@@ -340,7 +340,7 @@
 	var/hand_index = get_held_index_of_item(I)
 	if(hand_index)
 		held_items[hand_index] = null
-		update_inv_hands()
+		update_held_items()
 	if(I)
 		if(client)
 			client.screen -= I
@@ -355,90 +355,31 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	return TRUE
 
-//Outdated but still in use apparently. This should at least be a human proc.
-//Daily reminder to murder this - Remie.
-/mob/living/proc/get_equipped_items(include_pockets = FALSE)
-	return
-
-/mob/living/carbon/get_equipped_items(include_pockets = FALSE)
+/**
+ * Used to return a list of equipped items on a mob; does not include held items (use get_all_gear)
+ *
+ * Argument(s):
+ * * Optional - include_flags, (see obj.flags.dm) describes which optional things to include or not (pockets, accessories, held items)
+ */
+/mob/proc/get_equipped_items(include_flags = NONE)
 	var/list/items = list()
-	if(back)
-		items += back
-	if(head)
-		items += head
-	if(wear_mask)
-		items += wear_mask
-	if(wear_neck)
-		items += wear_neck
-	if(handcuffed)
-		items += handcuffed
-	if(legcuffed)
-		items += legcuffed
-	return items
+	for(var/obj/item/item_contents in contents)
+		if(item_contents.item_flags & PICKED_UP)
+			if(!(include_flags & INCLUDE_PROSTHETICS) && HAS_TRAIT_FROM(item_contents, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)) //prostetic limbs are not equipped items, they are part of the body.
+				continue
+			if(!(include_flags & INCLUDE_ABSTRACT) && (item_contents.item_flags & ABSTRACT)) //not really flavoured as items
+				continue
+			items += item_contents
+	if (!(include_flags & INCLUDE_HELD))
+		items -= held_items
 
-/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE)
-	var/list/items = ..()
-	if(belt)
-		items += belt
-	if(ears)
-		items += ears
-	if(glasses)
-		items += glasses
-	if(gloves)
-		items += gloves
-	if(shoes)
-		items += shoes
-	if(wear_id)
-		items += wear_id
-	if(wear_suit)
-		items += wear_suit
-	if(w_uniform)
-		items += w_uniform
-	if(include_pockets)
-		if(l_store)
-			items += l_store
-		if(r_store)
-			items += r_store
-		if(s_store)
-			items += s_store
 	return items
 
 /mob/living/proc/unequip_everything()
-	var/list/items = list()
-	items |= get_equipped_items(TRUE)
+	var/list/items = get_equipped_items(INCLUDE_POCKETS)
 	for(var/I in items)
 		dropItemToGround(I)
 	drop_all_held_items()
-
-
-/mob/living/carbon/proc/check_obscured_slots(transparent_protection)
-	var/obscured = NONE
-	var/hidden_slots = NONE
-
-	for(var/obj/item/I in get_all_worn_items())
-		hidden_slots |= I.flags_inv
-		if(transparent_protection)
-			hidden_slots |= I.transparent_protection
-
-	if(hidden_slots & HIDENECK)
-		obscured |= ITEM_SLOT_NECK
-	if(hidden_slots & HIDEMASK)
-		obscured |= ITEM_SLOT_MASK
-	if(hidden_slots & HIDEEYES)
-		obscured |= ITEM_SLOT_EYES
-	if(hidden_slots & HIDEEARS)
-		obscured |= ITEM_SLOT_EARS
-	if(hidden_slots & HIDEGLOVES)
-		obscured |= ITEM_SLOT_GLOVES
-	if(hidden_slots & HIDEJUMPSUIT)
-		obscured |= ITEM_SLOT_ICLOTHING
-	if(hidden_slots & HIDESHOES)
-		obscured |= ITEM_SLOT_FEET
-	if(hidden_slots & HIDESUITSTORAGE)
-		obscured |= ITEM_SLOT_SUITSTORE
-
-	return obscured
-
 
 /obj/item/proc/equip_to_best_slot(mob/M, swap = FALSE, check_hand = TRUE)
 	if(check_hand && src != M.get_active_held_item())
@@ -446,7 +387,7 @@
 		return FALSE
 
 	if(M.equip_to_appropriate_slot(src))
-		M.update_inv_hands()
+		M.update_held_items()
 		return TRUE
 	else
 		if(equip_delay_self)
@@ -514,9 +455,9 @@
 	else if(amt > old_limbs)
 		hand_bodyparts.len = amt
 		for(var/i in old_limbs+1 to amt)
-			var/path = /obj/item/bodypart/l_arm
+			var/path = /obj/item/bodypart/arm/left
 			if(!(i % 2))
-				path = /obj/item/bodypart/r_arm
+				path = /obj/item/bodypart/arm/right
 
 			var/obj/item/bodypart/BP = new path ()
 			BP.owner = src
@@ -527,7 +468,7 @@
 
 //GetAllContenst that is reasonable and not stupid
 /mob/living/carbon/proc/get_all_gear()
-	var/list/processing_list = get_equipped_items(include_pockets = TRUE) + held_items
+	var/list/processing_list = get_equipped_items(INCLUDE_POCKETS | INCLUDE_ACCESSORIES | INCLUDE_HELD)
 	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list) )

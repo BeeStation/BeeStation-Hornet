@@ -33,7 +33,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "eH" = (
@@ -169,7 +169,7 @@
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "vX" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
@@ -199,14 +199,12 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "AP" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "BT" = (
@@ -293,7 +291,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/toolbox/mechanical/old,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "NP" = (
@@ -320,12 +318,12 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Qa" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "Qo" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "RT" = (

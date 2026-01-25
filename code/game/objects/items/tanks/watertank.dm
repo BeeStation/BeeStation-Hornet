@@ -6,7 +6,7 @@
 	desc = "A S.U.N.S.H.I.N.E. brand watertank backpack with nozzle to water plants."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "waterbackpack"
-	item_state = "waterbackpack"
+	inhand_icon_state = "waterbackpack"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -16,6 +16,7 @@
 	max_integrity = 200
 	armor_type = /datum/armor/item_watertank
 	resistance_flags = FIRE_PROOF
+	custom_price = 50
 
 	var/obj/item/noz = /obj/item/reagent_containers/spray/mister
 	var/volume = 500
@@ -48,7 +49,7 @@
 		noz.update_icon()
 	if(istype(loc, /mob/living/carbon))//Someone's wearing it
 		var/mob/living/carbon/wearer = loc
-		wearer.update_inv_back()
+		wearer.update_worn_back()
 
 /obj/item/watertank/update_overlays()
 	. = ..()
@@ -176,7 +177,7 @@
 	desc = "A mister nozzle attached to a water tank."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "mister"
-	item_state = "mister"
+	inhand_icon_state = "mister"
 	lefthand_file = 'icons/mob/inhands/equipment/mister_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -206,7 +207,7 @@
 	name = "backpack cleaner tank"
 	desc = "A janitorial cleaner backpack with nozzle to clean blood and graffiti."
 	icon_state = "waterbackpackjani"
-	item_state = "waterbackpackjani"
+	inhand_icon_state = "waterbackpackjani"
 	custom_price = 100
 	noz = /obj/item/reagent_containers/spray/mister/janitor
 
@@ -220,7 +221,7 @@
 	desc = "A janitorial spray nozzle attached to a watertank, designed to clean up large messes."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "misterjani"
-	item_state = "misterjani"
+	inhand_icon_state = "misterjani"
 	lefthand_file = 'icons/mob/inhands/equipment/mister_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
 	amount_per_transfer_from_this = 5
@@ -241,7 +242,7 @@
 	name = "backpack firefighter tank"
 	desc = "A refrigerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, resin launcher and a smaller scale resin foamer."
 	icon = 'icons/obj/atmospherics/equipment.dmi'
-	item_state = "waterbackpackatmos"
+	inhand_icon_state = "waterbackpackatmos"
 	icon_state = "waterbackpackatmos"
 	worn_icon_state = "waterbackpackatmos"
 	volume = 200
@@ -269,13 +270,13 @@
 	if(noz)
 		var/obj/item/extinguisher/mini/nozzle/sprayer = noz
 		if(sprayer.toggled)
-			item_state = "[initial(item_state)]_on"
+			inhand_icon_state = "[initial(inhand_icon_state)]_on"
 		else
-			item_state = initial(item_state)
+			inhand_icon_state = initial(inhand_icon_state)
 		if(istype(loc, /mob/living/carbon))
 			var/mob/living/carbon/wearer = loc
 			if(wearer.back == src)
-				wearer.update_inv_back()
+				wearer.update_worn_back()
 
 /obj/item/watertank/atmos/update_overlays()
 	. = ..()
@@ -341,7 +342,7 @@
 	desc = "A heavy duty nozzle attached to a firefighter's backpack tank."
 	icon = 'icons/obj/atmospherics/equipment.dmi'
 	icon_state = "atmos_nozzle"
-	item_state = "nozzleatmos"
+	inhand_icon_state = "nozzleatmos"
 	lefthand_file = 'icons/mob/inhands/equipment/mister_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
 	safety = 0
@@ -388,13 +389,13 @@
 /obj/item/extinguisher/mini/nozzle/update_icon(updates)
 	. = ..()
 	if(toggled)
-		item_state = "[initial(item_state)]_on"
+		inhand_icon_state = "[initial(inhand_icon_state)]_on"
 	else
-		item_state = initial(item_state)
+		inhand_icon_state = initial(inhand_icon_state)
 	if(istype(loc, /mob/living/carbon))
 		var/mob/living/carbon/wearer = loc
 		if(wearer.get_active_held_item() == src)//Someone's holding it
-			wearer.update_inv_hands()
+			wearer.update_held_items()
 
 /obj/item/extinguisher/mini/nozzle/update_overlays()
 	. = ..()
@@ -427,7 +428,7 @@
 		if (istype(tank.loc, /mob/living/carbon))
 			tank.update_icon()
 			var/mob/living/carbon/wearer = tank.loc
-			wearer.update_inv_back()
+			wearer.update_worn_back()
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	reagents = null
@@ -539,9 +540,9 @@
 				balloon_alert(user, "Recharging")
 				return
 
-/obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, succeeded)
+/obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, result)
 	SIGNAL_HANDLER
-	if(succeeded)
+	if(result == MOVELOOP_SUCCESS)
 		return
 	resin_landed(source)
 	qdel(source)
@@ -604,7 +605,7 @@
 	desc = "A chemical autoinjector that can be carried on your back."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "waterbackpackchem"
-	item_state = "waterbackpackchem"
+	inhand_icon_state = "waterbackpackchem"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -690,7 +691,7 @@
 	reagents.expose(user, INJECT,injection_amount,0)
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
-	user.update_inv_back() //for overlays update
+	user.update_worn_back() //for overlays update
 
 /datum/action/item_action/activate_injector
 	name = "Activate Injector"

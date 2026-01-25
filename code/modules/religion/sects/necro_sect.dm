@@ -52,7 +52,7 @@
 	if(length(movable_reltool.buckled_mobs))
 		for(var/creature in movable_reltool.buckled_mobs)
 			lich_to_be = creature
-		if(!lich_to_be.mind.hasSoul)
+		if(HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,span_warning("[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
@@ -68,7 +68,7 @@
 			to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 			return FALSE
 		lich_to_be = user
-		if(!lich_to_be.mind.hasSoul)
+		if(HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,span_warning("You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
@@ -116,15 +116,15 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/cult/blood/long(altar_turf)
 	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		question = "Do you wish to be resurrected as a Holy Summoned Undead?",
-		check_jobban = ROLE_HOLY_SUMMONED,
-		poll_time = 10 SECONDS,
-		ignore_category = POLL_IGNORE_HOLYUNDEAD,
-		jump_target = religious_tool,
-		role_name_text = "holy summoned undead",
-		alert_pic = /mob/living/carbon/human/species/skeleton,
-	)
+	var/datum/poll_config/config = new()
+	config.question = "Do you wish to be resurrected as a Holy Summoned Undead?"
+	config.check_jobban = ROLE_HOLY_SUMMONED
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_HOLYUNDEAD
+	config.jump_target = religious_tool
+	config.role_name_text = "holy summoned undead"
+	config.alert_pic = /mob/living/carbon/human/species/skeleton
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		to_chat(user, span_warning("The soul pool is empty..."))
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
@@ -149,7 +149,7 @@
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
-		B.item_state = GLOB.bible_item_state
+		B.inhand_icon_state = GLOB.bible_inhand_icon_state
 		to_chat(undead, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		undead.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
 		GLOB.religious_sect?.on_conversion(undead)
@@ -239,7 +239,7 @@
 	if(!length(movable_reltool.buckled_mobs))
 		to_chat(user, span_warning("Nothing is buckled to the altar!"))
 		return FALSE
-	for(var/creature in movable_reltool.buckled_mobs)
+	for(var/mob/living/creature in movable_reltool.buckled_mobs)
 		chosen_sacrifice = creature
 		if(chosen_sacrifice.stat == DEAD)
 			to_chat(user, span_warning("You can only sacrifice living creatures, this one is dead!"))
@@ -253,9 +253,8 @@
 			to_chat(user, span_warning("You cannot sacrifice this. It is not made of flesh!"))
 			chosen_sacrifice = null
 			return FALSE
-		var/mob/living/carbon/C = creature
-		if(!isnull(C))
-			cuff(C)
+		if(iscarbon(creature))
+			cuff(creature)
 		return ..()
 
 /datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
@@ -277,7 +276,7 @@
 	chosen_sacrifice = null
 	return ..()
 
-/datum/religion_rites/living_sacrifice/proc/cuff(var/mob/living/carbon/C)
+/datum/religion_rites/living_sacrifice/proc/cuff(mob/living/carbon/C)
 	if(C.handcuffed)
 		return
 	C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(C)

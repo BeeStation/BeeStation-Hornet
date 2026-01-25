@@ -126,7 +126,7 @@
 	antag_memory += "You are the mortal servant of <b>[living_master]</b>, a vampire!<br>"
 
 	// Alert master
-	to_chat(living_master, span_userdanger("[living_vassal] has become addicted to your immortal blood. [living_vassal.p_they(TRUE)] [living_vassal.p_are()] now your undying servant"))
+	to_chat(living_master, span_userdanger("[living_vassal] has become addicted to your immortal blood. [living_vassal.p_They()] [living_vassal.p_are()] now your undying servant"))
 	living_master.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
 
 /datum/antagonist/vassal/farewell()
@@ -134,7 +134,7 @@
 		return
 
 	owner.current.visible_message(
-		span_deconversionmessage("[owner.current]'s eyes dart feverishly from side to side, and then stop. [owner.current.p_they(TRUE)] seem[owner.current.p_s()] calm, \
+		span_deconversionmessage("[owner.current]'s eyes dart feverishly from side to side, and then stop. [owner.current.p_They()] seem[owner.current.p_s()] calm, \
 			like [owner.current.p_they()] [owner.current.p_have()] regained some lost part of [owner.current.p_them()]self."),
 		span_deconversionmessage("With a snap, you are no longer enslaved to [master.owner]! You breathe in heavily, having regained your free will.")
 	)

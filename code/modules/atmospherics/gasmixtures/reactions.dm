@@ -251,15 +251,14 @@
 	else if(isatom(holder))
 		location = holder
 
-	if(burned_fuel)
-		energy_released += (FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel)
-		if(location && prob(10) && burned_fuel > TRITIUM_RADIATION_MINIMUM_MOLES) //woah there let's not crash the server
-			radiation_pulse(location, energy_released / TRITIUM_BURN_RADIOACTIVITY_FACTOR)
+	energy_released += FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel
+	if(location && burned_fuel > TRITIUM_RADIATION_MINIMUM_MOLES && energy_released > TRITIUM_RADIATION_RELEASE_THRESHOLD * (air.volume / CELL_VOLUME) ** ATMOS_RADIATION_VOLUME_EXP && prob(10))
+		radiation_pulse(location, max_range = min(sqrt(burned_fuel) / TRITIUM_RADIATION_RANGE_DIVISOR, GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE), threshold = TRITIUM_RADIATION_THRESHOLD, intensity = 1)
 
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.temperature = ((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.temperature = (temperature * old_heat_capacity + energy_released) / new_heat_capacity
 
 	//let the floor know a fire is happening
 	if(istype(location))
@@ -608,10 +607,11 @@
 
 /datum/gas_reaction/fusion/init_reqs()
 	requirements = list(
-		/datum/gas/tritium = FUSION_TRITIUM_MOLES_USED,
-		/datum/gas/plasma = FUSION_MOLE_THRESHOLD,
-		/datum/gas/carbon_dioxide = FUSION_MOLE_THRESHOLD,
-		"MIN_TEMP" = FUSION_TEMPERATURE_THRESHOLD)
+		/datum/gas/tritium = PLASMIC_FUSION_TRITIUM_MOLES_USED,
+		/datum/gas/plasma = PLASMIC_FUSION_MOLE_THRESHOLD,
+		/datum/gas/carbon_dioxide = PLASMIC_FUSION_MOLE_THRESHOLD,
+		"MIN_TEMP" = PLASMIC_FUSION_TEMPERATURE_THRESHOLD,
+	)
 
 /datum/gas_reaction/fusion/react(datum/gas_mixture/air, datum/holder)
 	var/turf/open/location
@@ -627,53 +627,53 @@
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
 	var/initial_plasma = GET_MOLES(/datum/gas/plasma, air)
 	var/initial_carbon = GET_MOLES(/datum/gas/carbon_dioxide, air)
-	var/scale_factor = max(air.return_volume() / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
+	var/scale_factor = max(air.return_volume() / PLASMIC_FUSION_SCALE_DIVISOR, PLASMIC_FUSION_MINIMAL_SCALE)
 	var/temperature_scale = log(10, air.return_temperature())
 	//The size of the phase space hypertorus
-	var/toroidal_size = 	TOROID_CALCULATED_THRESHOLD \
-							+ (temperature_scale <= FUSION_BASE_TEMPSCALE ? \
-							(temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_BUFFER_DIVISOR \
-							: 4 ** (temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_SLOPE_DIVISOR)
+	var/toroidal_size = 	PLASMIC_FUSION_TOROID_CALCULATED_THRESHOLD \
+							+ (temperature_scale <= PLASMIC_FUSION_BASE_TEMPSCALE ? \
+							(temperature_scale-PLASMIC_FUSION_BASE_TEMPSCALE) / PLASMIC_FUSION_BUFFER_DIVISOR \
+							: 4 ** (temperature_scale-PLASMIC_FUSION_BASE_TEMPSCALE) / PLASMIC_FUSION_SLOPE_DIVISOR)
 	var/gas_power = 0
 	for (var/datum/gas/gas_id as anything in air.gases)
 		gas_power += initial(gas_id.fusion_power)*air.gases[gas_id][MOLES]
-	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
+	var/instability = MODULUS((gas_power*PLASMIC_FUSION_INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 
-	var/plasma = (initial_plasma-FUSION_MOLE_THRESHOLD)/(scale_factor) //We have to scale the amounts of carbon and plasma down a significant amount in order to show the chaotic dynamics we want
-	var/carbon = (initial_carbon-FUSION_MOLE_THRESHOLD)/(scale_factor) //We also subtract out the threshold amount to make it harder for fusion to burn itself out.
+	var/plasma = (initial_plasma-PLASMIC_FUSION_MOLE_THRESHOLD)/(scale_factor) //We have to scale the amounts of carbon and plasma down a significant amount in order to show the chaotic dynamics we want
+	var/carbon = (initial_carbon-PLASMIC_FUSION_MOLE_THRESHOLD)/(scale_factor) //We also subtract out the threshold amount to make it harder for fusion to burn itself out.
 
 	//The reaction is a specific form of the Kicked Rotator system, which displays chaotic behavior and can be used to model particle interactions.
 	plasma = MODULUS(plasma - (instability*sin(TODEGREES(carbon))), toroidal_size)
 	carbon = MODULUS(carbon - plasma, toroidal_size)
 
-	SET_MOLES(/datum/gas/plasma, 		 air, plasma * scale_factor + FUSION_MOLE_THRESHOLD) //Scales the gases back up
-	SET_MOLES(/datum/gas/carbon_dioxide, air, carbon * scale_factor + FUSION_MOLE_THRESHOLD)
+	SET_MOLES(/datum/gas/plasma, 		 air, plasma * scale_factor + PLASMIC_FUSION_MOLE_THRESHOLD) //Scales the gases back up
+	SET_MOLES(/datum/gas/carbon_dioxide, air, carbon * scale_factor + PLASMIC_FUSION_MOLE_THRESHOLD)
 
 	var/delta_plasma = min(initial_plasma - air.gases[/datum/gas/plasma][MOLES], toroidal_size * scale_factor * 1.5)
 
 	//Energy is gained or lost corresponding to the creation or destruction of mass.
 	//Low instability prevents endothermality while higher instability acutally encourages it.
-	reaction_energy = 	instability <= FUSION_INSTABILITY_ENDOTHERMALITY || delta_plasma > 0 ? \
-						max(delta_plasma*PLASMA_BINDING_ENERGY, 0) \
-						: delta_plasma*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
+	reaction_energy = 	instability <= PLASMIC_FUSION_INSTABILITY_ENDOTHERMALITY || delta_plasma > 0 ? \
+						max(delta_plasma*PLASMIC_FUSION_PLASMA_BINDING_ENERGY, 0) \
+						: delta_plasma*PLASMIC_FUSION_PLASMA_BINDING_ENERGY * (instability-PLASMIC_FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 
 	//To achieve faster equilibrium. Too bad it is not that good at cooling down.
 	if (reaction_energy)
-		var/middle_energy = (((TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + FUSION_MOLE_THRESHOLD) * (200 * FUSION_MIDDLE_ENERGY_REFERENCE)
-		thermal_energy = middle_energy * FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, thermal_energy / middle_energy)
+		var/middle_energy = (((PLASMIC_FUSION_TOROID_CALCULATED_THRESHOLD / 2) * scale_factor) + PLASMIC_FUSION_MOLE_THRESHOLD) * (200 * PLASMIC_FUSION_MIDDLE_ENERGY_REFERENCE)
+		thermal_energy = middle_energy * PLASMIC_FUSION_ENERGY_TRANSLATION_EXPONENT ** log(10, thermal_energy / middle_energy)
 
 		//This bowdlerization is a double-edged sword. Tread with care!
 		var/bowdlerized_reaction_energy = 	clamp(reaction_energy, \
-											thermal_energy * ((1 / FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
-											thermal_energy * (FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
-		thermal_energy = middle_energy * 10 ** log(FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
+											thermal_energy * ((1 / PLASMIC_FUSION_ENERGY_TRANSLATION_EXPONENT ** 2) - 1), \
+											thermal_energy * (PLASMIC_FUSION_ENERGY_TRANSLATION_EXPONENT ** 2 - 1))
+		thermal_energy = middle_energy * 10 ** log(PLASMIC_FUSION_ENERGY_TRANSLATION_EXPONENT, (thermal_energy + bowdlerized_reaction_energy) / middle_energy)
 
 	//The reason why you should set up a tritium production line.
-	REMOVE_MOLES(/datum/gas/tritium, air, FUSION_TRITIUM_MOLES_USED)
+	REMOVE_MOLES(/datum/gas/tritium, air, PLASMIC_FUSION_TRITIUM_MOLES_USED)
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
-	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
+	var/standard_waste_gas_output = scale_factor * (PLASMIC_FUSION_TRITIUM_CONVERSION_COEFFICIENT*PLASMIC_FUSION_TRITIUM_MOLES_USED)
 	if (delta_plasma > 0)
 		ADD_MOLES(/datum/gas/water_vapor, air, standard_waste_gas_output)
 	else
@@ -683,15 +683,20 @@
 
 	if(reaction_energy)
 		if(location)
-			var/standard_energy = 400 * air.gases[/datum/gas/plasma][MOLES] * air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
-			if(prob(PERCENT(((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1))) //Asymptopically approaches 100% as the energy of the reaction goes up.
-				location.fire_nuclear_particle(customize = TRUE, custompower = standard_energy)
-			radiation_pulse(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
+			var/particle_chance = ((PLASMIC_FUSION_PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PLASMIC_FUSION_PARTICLE_CHANCE_CONSTANT)) + 1//Asymptopically approaches 100% as the energy of the reaction goes up.
+			if(prob(PERCENT(particle_chance)))
+				location.fire_nuclear_particle()
+			radiation_pulse(
+				location,
+				max_range = rand(6,30),
+				threshold = RAD_EXTREME_INSULATION,
+				intensity = 20,
+			)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			air.temperature = clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY)
 		return REACTING
-	else if(reaction_energy == 0 && instability <= FUSION_INSTABILITY_ENDOTHERMALITY)
+	else if(reaction_energy == 0 && instability <= PLASMIC_FUSION_INSTABILITY_ENDOTHERMALITY)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			air.temperature = clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY) //THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE

@@ -14,9 +14,9 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
-	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_INORGANIC | MOB_HUMANOID
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/liver/plasmaman
@@ -41,11 +41,11 @@
 	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT - 50) // about -50c
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/plasmaman,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/plasmaman,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/plasmaman,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/plasmaman,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/plasmaman,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/plasmaman,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/plasmaman,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/plasmaman,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/plasmaman,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/plasmaman,
 	)
 
@@ -75,7 +75,7 @@
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
 						H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
-					H.IgniteMob()
+					H.ignite_mob()
 					internal_fire = TRUE
 	else if(H.fire_stacks)
 		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
@@ -84,14 +84,14 @@
 			internal_fire = FALSE
 	else
 		internal_fire = FALSE
-	H.update_fire()
+	H.update_appearance(UPDATE_OVERLAYS)
 
 /datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
 	if(internal_fire)
 		no_protection = TRUE
 	. = ..()
 
-/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visuals_only = FALSE, client/preference_source = null)
 	H.open_internals(H.get_item_for_held_index(2))
 
 	if(!preference_source?.prefs)
@@ -119,13 +119,6 @@
 	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
 		return 0
 	return ..()
-
-/datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)

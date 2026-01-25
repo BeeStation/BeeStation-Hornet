@@ -110,6 +110,9 @@
 /// Allow players to vote to change the map mid-round
 /datum/config_entry/flag/allow_vote_map
 
+/// Allow players to vote to change the dynamic storyteller, this vote
+/datum/config_entry/flag/allow_vote_storyteller
+
 /datum/config_entry/number/vote_delay	// minimum time between voting sessions (deciseconds, 10 minute default)
 	config_entry_value = 6000
 	integer = FALSE
@@ -194,7 +197,25 @@
 
 /datum/config_entry/string/hostedby
 
-/datum/config_entry/flag/norespawn
+/// Determines if a player can respawn after dying.
+/// 0 / RESPAWN_FLAG_DISABLED = Cannot respawn (default)
+/// 1 / RESPAWN_FLAG_FREE = Can respawn
+/// 2 / RESPAWN_FLAG_NEW_CHARACTER = Can respawn if choosing a different character
+/datum/config_entry/flag/allow_respawn
+	default = RESPAWN_FLAG_DISABLED
+
+/datum/config_entry/flag/allow_respawn/ValidateAndSet(str_val)
+	if(!VASProcCallGuard(str_val))
+		return FALSE
+	var/val_as_num = text2num(str_val)
+	if(val_as_num in list(RESPAWN_FLAG_DISABLED, RESPAWN_FLAG_FREE, RESPAWN_FLAG_NEW_CHARACTER))
+		config_entry_value = val_as_num
+		return TRUE
+	return FALSE
+
+/// Determines how long before a player is allowed to respawn.
+/datum/config_entry/number/respawn_delay
+	default = 5 MINUTES
 
 /datum/config_entry/flag/guest_jobban
 
@@ -627,24 +648,19 @@
 /datum/config_entry/string/redirect_address
 	config_entry_value = ""
 
-/datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
+///toggle for autotransfer system
+/datum/config_entry/flag/vote_autotransfer_enabled
 
-/datum/config_entry/number/autotransfer_percentage //What percentage of players are required to vote before transfer happens (default 75%)
-	config_entry_value = 0.75
-	integer = FALSE
-	min_val = 0
-	max_val = 1
+///How often are transfer votes called?
+/datum/config_entry/number/vote_autotransfer_interval
+	config_entry_value = 20 MINUTES
+	integer = TRUE
+	min_val = 2 MINUTES //System only fires every other minute
 
-/datum/config_entry/number/autotransfer_decay_start //How long before the autotransfer decay starts to set in, also how often to remind players to vote (default 60 minutes)
-	config_entry_value = 36000
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/autotransfer_decay_amount //Every time the transfer system checks for votes after the decay start, it subtracts this % from the required percentage to pass (default 2.5%)
-	config_entry_value = 0.025
-	integer = FALSE
-	min_val = 0
-	max_val = 1
+///When a round reaches this length, the shuttle calls automatically
+/datum/config_entry/number/vote_autotransfer_override
+	config_entry_value = 0
+	integer = TRUE
 
 /datum/config_entry/flag/respect_upstream_bans
 

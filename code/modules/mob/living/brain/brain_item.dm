@@ -19,7 +19,7 @@
 	low_threshold = 45
 	high_threshold = 120
 
-	organ_traits = list(TRAIT_ADVANCEDTOOLUSER)
+	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP)
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
@@ -118,7 +118,7 @@
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
 		if(brain_owner.mind)
 			transfer_identity(brain_owner)
-			if(brain_owner.mind.current)
+			if(brain_owner.mind.current && !decoy_override)
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 	brain_owner.update_hair()
@@ -137,7 +137,7 @@
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
-	brainmob.timeofhostdeath = L.timeofdeath
+	brainmob.timeofdeath = L.timeofdeath
 	brainmob.suiciding = suicided
 	if(L.has_dna())
 		var/mob/living/carbon/C = L
@@ -185,7 +185,7 @@
 	if(suicided)
 		. += span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")
 	else if(brainmob)
-		if(!brainmob.soul_departed())
+		if(brainmob.key || brainmob.get_ghost(FALSE, TRUE))
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
 				. += span_info("It's lifeless and severely damaged.")
 			else if(organ_flags & ORGAN_FAILING)
@@ -232,7 +232,7 @@
 		owner.death()
 		brain_death = TRUE
 
-/obj/item/organ/brain/check_damage_thresholds(mob/M)
+/obj/item/organ/brain/check_damage_thresholds()
 	. = ..()
 	//if we're not more injured than before, return without gambling for a trauma
 	if(damage <= prev_damage)
@@ -280,7 +280,17 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
-	organ_traits = null
+	organ_traits = list(TRAIT_CAN_STRIP)
+
+/obj/item/organ/brain/primitive
+	name = "primitive brain"
+	desc = "This juicy piece of meat has a clearly underdeveloped frontal lobe."
+	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP, TRAIT_PRIMITIVE)
+
+/obj/item/organ/brain/primate
+	name = "primate brain"
+	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
+	organ_traits = list(TRAIT_CAN_STRIP, TRAIT_PRIMITIVE) // No advanced tool usage.
 
 /obj/item/organ/brain/diona
 	name = "diona nymph"
@@ -316,7 +326,7 @@
 					H.revive()
 
 /obj/item/organ/brain/positron/emp_act(severity)
-	owner.apply_status_effect(/datum/status_effect/ipc/emp)
+	owner.apply_status_effect(/datum/status_effect/ipc_emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
@@ -408,6 +418,9 @@
 	add_trauma_to_traumas(actual_trauma)
 	if(owner)
 		actual_trauma.owner = owner
+		if(SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_TRAUMA, trauma, resilience) & COMSIG_CARBON_BLOCK_TRAUMA)
+			qdel(actual_trauma)
+			return null
 		actual_trauma.on_gain()
 	if(resilience)
 		actual_trauma.resilience = resilience

@@ -1,9 +1,9 @@
 /* Cards
  * Contains:
- *		DATA CARD
- *		ID CARD
- *		FINGERPRINT CARD HOLDER
- *		FINGERPRINT CARD
+ *	DATA CARD
+ *	ID CARD
+ *	FINGERPRINT CARD HOLDER
+ *	FINGERPRINT CARD
  */
 
 
@@ -18,11 +18,20 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
 
-	var/list/files = list()
+	/// Cached icon that has been built for this card. Intended to be displayed in chat. Cardboards IDs and actual IDs use it.
+	var/icon/cached_flat_icon
 
 /obj/item/card/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins to swipe [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
+
+/obj/item/card/update_overlays()
+	. = ..()
+	cached_flat_icon = null
+
+/// Called to get what name this card represents
+/obj/item/card/proc/get_displayed_name(honorifics = FALSE)
+	return null
 
 /obj/item/card/data
 	name = "data card"
@@ -32,7 +41,7 @@
 	var/function = "storage"
 	var/data = "null"
 	var/special = null
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	var/detail_color = COLOR_ASSEMBLY_ORANGE
@@ -64,7 +73,7 @@
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry."
 	name = "cryptographic sequencer"
 	icon_state = "emag"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON | ISWEAPON
@@ -147,7 +156,7 @@
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
 	name = "cryptographic sequencer"
 	icon_state = "emag"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 
@@ -159,23 +168,38 @@
 	name = "identification card"
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	worn_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
 	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/list/access = list()
-	var/registered_name// The name registered_name on the card
-	var/assignment
-	var/hud_state = JOB_HUD_UNKNOWN
-	var/access_txt // mapping aid
+	trade_flags = TRADE_NOT_SELLABLE
+
+	/// The name registered on the card (for example: Dr Bryan See)
+	var/registered_name = null
+	/// Registered owner's age.
+	var/registered_age = 30
+
+	/// Linked bank account.
 	var/datum/bank_account/registered_account
+	/// Linked holopay.
 	var/obj/machinery/paystand/my_store
+
+	/// The job name registered on the card (for example: Assistant).
+	var/assignment
+
+	/// Access levels held by this card.
+	var/list/access = list()
+	/// Mapping aid for access
+	var/access_txt
+
+	/// The HUD given to our wearer
+	var/hud_state = JOB_HUD_UNKNOWN
+
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
 	var/electric = TRUE  // removes account info from examine
-
 
 /datum/armor/card_id
 	fire = 100
@@ -185,7 +209,8 @@
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
-	//RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, PROC_REFupdate_in_wallet))
+
+	RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, PROC_REF(update_in_wallet))
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
@@ -203,8 +228,23 @@
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
-		user.visible_message(span_notice("[user] shows you: [icon2html(src, viewers(user))] [src.name]."), span_notice("You show \the [src.name]."))
+		var/id_href = "<a href='byond://?src=[REF(user)];see_id=1;id_ref=[REF(src)];id_name=[registered_name];examine_time=[world.time]'>[src.name]</a>"
+		user.visible_message(
+			span_notice("[user] shows you [id_href]"),
+			span_notice("You show \the [id_href]."),
+		)
 	add_fingerprint(user)
+
+/obj/item/card/id/Topic(href, href_list)
+	. = ..()
+	if(!usr.canUseTopic(src, BE_CLOSE))
+		return
+
+	if(href_list["look_at_id"])
+		if(!usr.can_examine_in_detail(src))
+			return
+		usr.examinate(src)
+		return TRUE
 
 /obj/item/card/id/vv_edit_var(var_name, var_value)
 	. = ..()
@@ -252,6 +292,10 @@
 		return
 	else
 		return ..()
+
+/obj/item/card/id/get_id_examine_strings(mob/user)
+	. = ..()
+	. += list("[icon2html(src, user, extra_classes = "hugeicon idicon")]")
 
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
@@ -407,7 +451,6 @@
 /obj/item/card/id/RemoveID()
 	return src
 
-/*
 /// Called on COMSIG_ATOM_UPDATED_ICON. Updates the visuals of the wallet this card is in.
 /obj/item/card/id/proc/update_in_wallet()
 	SIGNAL_HANDLER
@@ -417,7 +460,6 @@
 		if(powergaming.front_id == src)
 			powergaming.update_label()
 			powergaming.update_appearance()
-*/
 
 /*
 Usage:
@@ -438,7 +480,7 @@ update_label("John Doe", "Clowny")
 	name = "silver identification card"
 	desc = "A silver ID card, issued to positions which require honour and dedication."
 	icon_state = "silver"
-	item_state = "silver_id"
+	inhand_icon_state = "silver_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	hud_state = JOB_HUD_RAWCENTCOM
@@ -454,7 +496,7 @@ update_label("John Doe", "Clowny")
 	name = "gold identification card"
 	desc = "A golden ID card. issued to positions which wield power and might."
 	icon_state = "gold"
-	item_state = "gold_id"
+	inhand_icon_state = "gold_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	hud_state = JOB_HUD_RAWCOMMAND
@@ -484,6 +526,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_CONTRABAND
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -522,7 +565,8 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/away/deep_storage,
 		/obj/item/card/id/changeling,
 		/obj/item/card/id/golem,
-		/obj/item/card/id/pass), only_root_path = TRUE)
+		/obj/item/card/id/pass,
+	), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
 
@@ -548,10 +592,10 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
-		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge", "Change Account ID")
+		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
 		if(user.incapacitated())
 			return
-		if(popup_input == "Forge")
+		if(popup_input == "Forge/Reset")
 			if(!assignment)
 				assignment = "Assistant"
 
@@ -604,7 +648,6 @@ update_label("John Doe", "Clowny")
 			set_new_account(user)
 			return
 	return ..()
-
 
 /obj/item/card/id/syndicate/emp_act(severity)
 	. = ..()
@@ -679,7 +722,7 @@ update_label("John Doe", "Clowny")
 	name = "captain's spare ID"
 	desc = "The spare ID of the High Lord himself."
 	icon_state = "gold"
-	item_state = "gold_id"
+	inhand_icon_state = "gold_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	registered_name = JOB_NAME_CAPTAIN
@@ -743,21 +786,21 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS
 	. = ..()
 
-/obj/item/card/id/ert/chaplain
-	registered_name = JOB_ERT_CHAPLAIN
-	assignment = JOB_ERT_CHAPLAIN
-	icon_state = "ert"
-
-/obj/item/card/id/ert/chaplain/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
-	. = ..()
-
 /obj/item/card/id/ert/Janitor
 	registered_name = JOB_ERT_JANITOR
 	assignment = JOB_ERT_JANITOR
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize(mapload)
+	access = get_all_accesses()
+	. = ..()
+
+/obj/item/card/id/ert/clown
+	registered_name = JOB_ERT_CLOWN
+	assignment = JOB_ERT_CLOWN
+	icon_state = "ert"
+
+/obj/item/card/id/ert/clown/Initialize(mapload)
 	access = get_all_accesses()
 	. = ..()
 
@@ -776,12 +819,12 @@ update_label("John Doe", "Clowny")
 	icon_state = "centcom"
 
 /// Trim for Bounty Hunters hired by centcom.
-/obj/item/card/id/silver/bounty/ert
+/obj/item/card/id/ert/bounty
 	registered_name = "Bounty Hunter"
 	assignment = "Bounty Hunter"
 	icon_state = "ert"
 
-/obj/item/card/id/silver/bounty/ert/Initialize(mapload)
+/obj/item/card/id/ert/bounty/Initialize(mapload)
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL)
 
@@ -793,7 +836,7 @@ update_label("John Doe", "Clowny")
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
 	icon_state = "orange"
-	item_state = "orange-id"
+	inhand_icon_state = "orange-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	var/goal = 0 //How far from freedom?

@@ -11,7 +11,6 @@
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
-		TRAIT_NONECRODISEASE
 	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
 	burnmod = 1.25
@@ -32,10 +31,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/pumpkin_man,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/pumpkin_man,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/pumpkin_man,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/pumpkin_man,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/pumpkin_man,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/pumpkin_man
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/pumpkin_man,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/pumpkin_man,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/pumpkin_man,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/pumpkin_man
 	)
 
 //Only allow race roundstart on Halloween
@@ -83,7 +82,6 @@
 	switch(P.type)
 		if(/obj/projectile/energy/floramut)
 			if(prob(15))
-				H.rad_act(rand(30,80))
 				H.Paralyze(100)
 				H.visible_message(span_warning("[H] writhes in pain as [H.p_their()] vacuoles boil."), span_userdanger("You writhe in pain as your vacuoles boil!"), span_italics("You hear the crunching of leaves."))
 				if(prob(80))
@@ -123,7 +121,7 @@
 	//Check if the item is sharp - give owner a random face if applicable
 	var/mob/living/carbon/human/M = _source
 	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
-	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && !_user.combat_mode && _user.is_zone_selected(BODY_ZONE_HEAD))
+	if(_item.is_sharp() && istype(head) && !_user.combat_mode && _user.is_zone_selected(BODY_ZONE_HEAD))
 		to_chat(_user, span_notice("You begin to carve a face into [_source]..."))
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))

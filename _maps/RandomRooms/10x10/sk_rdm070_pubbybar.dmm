@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/musician/piano,
+/obj/effect/spawner/structure/random_piano,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "b" = (
@@ -23,8 +23,8 @@
 /turf/open/floor/iron/stairs/right,
 /area/template_noop)
 "g" = (
-/obj/effect/spawner/lootdrop/three_course_meal,
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
 /obj/structure/closet/crate,
 /obj/item/paper/crumpled/beernuke,
 /turf/open/floor/plating{
@@ -172,7 +172,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -183,7 +183,7 @@
 	},
 /area/template_noop)
 "G" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood,
 /area/template_noop)
 "H" = (
@@ -213,8 +213,8 @@
 /area/template_noop)
 "M" = (
 /obj/item/clothing/under/rank/civilian/clown/sexy,
-/obj/effect/spawner/lootdrop/clowntrap,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap/clowntrap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "N" = (

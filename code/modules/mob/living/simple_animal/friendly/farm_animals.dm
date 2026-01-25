@@ -21,7 +21,7 @@
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
 	faction = list(FACTION_NEUTRAL)
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	attack_same = 1
 	attack_verb_continuous = "kicks"
 	attack_verb_simple = "kick"
@@ -114,7 +114,7 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "chick"
 	gender = FEMALE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
 	speak_emote = list("cheeps")
 	speak_language = /datum/language/metalanguage
@@ -134,7 +134,6 @@
 	attack_verb_simple = "kick"
 	health = 3
 	maxHealth = 3
-	ventcrawler = VENTCRAWLER_ALWAYS
 	var/can_grow = TRUE
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSMOB
@@ -149,6 +148,7 @@
 	pixel_x = base_pixel_x + rand(-6, 6)
 	pixel_y = base_pixel_y + rand(0, 10)
 	GLOB.total_chickens++
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/chick/Life(delta_time = SSMOBS_DT, times_fired)
 	. =..()
@@ -183,7 +183,7 @@
 	name = "\improper chicken"
 	desc = "Hopefully the eggs are good this season."
 	gender = FEMALE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"
 	icon_dead = "chicken_brown_dead"
@@ -206,7 +206,6 @@
 	attack_verb_simple = "kick"
 	health = 15
 	maxHealth = 15
-	ventcrawler = VENTCRAWLER_ALWAYS
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	pass_flags = PASSTABLE | PASSMOB
@@ -235,6 +234,7 @@
 		max_eggs_held = 8,\
 		egg_laid_callback = CALLBACK(src, PROC_REF(egg_laid))\
 	)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	GLOB.total_chickens--
@@ -279,6 +279,5 @@
 	attack_verb_continuous = "pecks"
 	attack_verb_simple = "peck"
 	attack_sound = 'sound/creatures/turkey.ogg'
-	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"

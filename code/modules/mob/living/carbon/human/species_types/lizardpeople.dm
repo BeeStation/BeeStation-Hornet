@@ -12,7 +12,7 @@
 	inherent_traits = list(
 		TRAIT_TACKLING_TAILED_DEFENDER
 	)
-	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
 	mutant_bodyparts = list(
 		"tail_lizard" = "Smooth",
 		"snout" = "Round",
@@ -38,6 +38,7 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
 	digitigrade_customization = DIGITIGRADE_OPTIONAL
+	blush_color = COLOR_BLUSH_TEAL
 
 	// Lizards are coldblooded and can stand a greater temperature range than humans
 	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT + 20) // This puts lizards 10 above lavaland max heat for ash lizards.
@@ -46,25 +47,15 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/lizard,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/lizard,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/lizard,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/lizard,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/lizard,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/lizard,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/lizard,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/lizard,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/lizard,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/lizard,
 	)
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally
 /datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)
 	return
-
-/datum/species/lizard/random_name(gender, unique, lastname, attempts)
-	if(gender == MALE)
-		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
-	else
-		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, null, ++attempts)
 
 //I wag in death
 /datum/species/lizard/spec_death(gibbed, mob/living/carbon/human/H)
@@ -128,6 +119,7 @@
 		)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
+	mutantbrain = /obj/item/organ/brain/primitive
 	digitigrade_customization = DIGITIGRADE_FORCED
 
 /datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)

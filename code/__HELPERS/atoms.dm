@@ -1,5 +1,5 @@
 /// Gets all contents of contents and returns them all in a list.
-/atom/proc/GetAllContents(var/T, ignore_flag_1)
+/atom/proc/GetAllContents(T, ignore_flag_1)
 	var/list/processing_list = list(src)
 	var/list/assembled = list()
 	if(T)
@@ -72,7 +72,6 @@
 			current = get_step_towards(current, target_turf)
 			steps++
 	return TRUE
-
 
 ///Get the cardinal direction between two atoms
 /proc/get_cardinal_dir(atom/start, atom/end)

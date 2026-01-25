@@ -70,7 +70,7 @@
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
-		IgniteMob()
+		ignite_mob()
 
 
 /mob/living/silicon/robot/emp_act(severity)
@@ -217,7 +217,7 @@
 			if (stat != DEAD)
 				adjustBruteLoss(30)
 
-/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj, def_zone)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj, def_zone)
 	. = ..()
 	updatehealth()
 	if(prob(75) && Proj.damage > 0)

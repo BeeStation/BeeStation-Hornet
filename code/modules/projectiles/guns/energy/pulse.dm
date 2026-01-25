@@ -2,7 +2,7 @@
 	name = "pulse rifle"
 	desc = "A heavy-duty, multifaceted energy rifle with three modes. Preferred by front-line combat personnel."
 	icon_state = "pulse"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
@@ -37,7 +37,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	worn_icon_state = "gun"
-	item_state = null
+	inhand_icon_state = null
 	gun_charge = 50 KILOWATT
 
 /obj/item/gun/energy/pulse/carbine/add_seclight_point()
@@ -56,7 +56,7 @@
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
-	item_state = null
+	inhand_icon_state = null
 	gun_charge = 50 KILOWATT
 
 //Handling seclights would be weird/why would borgs need seclights.
@@ -71,7 +71,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_pistol"
 	worn_icon_state = "gun"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	gun_charge = 20 KILOWATT
 	automatic = 0
 	fire_rate = 1.5
@@ -87,6 +87,9 @@
 	gun_charge = 500 GIGAWATT
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
+/obj/item/gun/energy/pulse/destroyer/loyalpin
+	pin = /obj/item/firing_pin/implant/mindshield
+
 /obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
 	to_chat(user, span_danger("[src.name] has three settings, and they are all DESTROY."))
 
@@ -94,5 +97,5 @@
 	name = "\improper M1911-P"
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
 	icon_state = "m1911"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	gun_charge = 500 GIGAWATT // Something completely absurd (infinite)

@@ -344,7 +344,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		else
 			continue
 
-/mob/living/simple_animal/bot/ed209/proc/check_for_weapons(var/obj/item/slot_item)
+/mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
 		return 1
 	return 0
@@ -362,9 +362,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	drop_part(cell_type, Tsec)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/G = new (Tsec)
-		G.cell.charge = 0
-		G.update_icon()
+		new /obj/item/gun/ballistic/taser(Tsec)
 	else if(lasercolor == "b")
 		var/obj/item/gun/energy/laser/bluetag/G = new (Tsec)
 		G.cell.charge = 0
@@ -375,9 +373,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		G.update_icon()
 
 	if(prob(50))
-		new /obj/item/bodypart/l_leg/robot(Tsec)
+		new /obj/item/bodypart/leg/left/robot(Tsec)
 		if(prob(25))
-			new /obj/item/bodypart/r_leg/robot(Tsec)
+			new /obj/item/bodypart/leg/right/robot(Tsec)
 	if(prob(25))//50% chance for a helmet OR vest
 		if(prob(50))
 			new /obj/item/clothing/head/helmet(Tsec)
@@ -532,7 +530,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = 5
 	C.Paralyze(100)
-	C.stuttering = 5
+	C.set_stutter_if_lower(10 SECONDS)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		var/judgment_criteria = judgment_criteria()

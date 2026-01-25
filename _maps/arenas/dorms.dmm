@@ -18,9 +18,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "ad" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/sink{
 	pixel_y = 24
 	},
@@ -31,9 +29,7 @@
 /turf/open/floor/plating,
 /area/tdome/arena)
 "ai" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/sink{
 	pixel_y = 24
 	},
@@ -45,7 +41,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "ak" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron,
@@ -70,7 +66,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "ap" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/plant_analyzer,
@@ -78,7 +74,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "at" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/biogenerator,
 /turf/open/floor/plating,
 /area/tdome/arena)
@@ -180,9 +176,7 @@
 /turf/open/floor/iron/freezer,
 /area/tdome/arena)
 "aI" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/freezer,
 /area/tdome/arena)
 "aM" = (
@@ -201,9 +195,7 @@
 /turf/open/floor/iron/freezer,
 /area/tdome/arena)
 "aO" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/shower{
 	dir = 1
 	},
@@ -211,9 +203,7 @@
 /area/tdome/arena)
 "aP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/tdome/arena)
 "aQ" = (
@@ -230,22 +220,13 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/tdome/arena)
-"aV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "aW" = (
 /obj/structure/chair/stool/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/tdome/arena)
 "aX" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -258,16 +239,14 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "gO" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
 /area/tdome/arena)
 "hK" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -301,7 +280,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "LA" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
@@ -310,7 +289,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "MF" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
@@ -459,7 +438,7 @@ az
 an
 ac
 ac
-aV
+aP
 "}
 (13,1,1) = {"
 ac

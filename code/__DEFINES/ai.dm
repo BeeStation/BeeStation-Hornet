@@ -53,6 +53,8 @@
 #define BB_NEXT_HUNGRY "BB_NEXT_HUNGRY"
 ///what we're going to eat next
 #define BB_FOOD_TARGET "bb_food_target"
+///Path we should use next time we use the JPS movement datum
+#define BB_PATH_TO_USE "BB_path_to_use"
 
 //for songs
 
@@ -195,11 +197,6 @@
 #define COMMAND_STOP "Stop"
 #define COMMAND_ATTACK "Attack"
 #define COMMAND_DIE "Play Dead"
-
-///bane ai
-#define BB_BANE_BATMAN "BB_bane_batman"
-//yep thats it
-
 
 //Hunting defines
 #define SUCCESSFUL_HUNT_COOLDOWN 5 SECONDS

@@ -6,8 +6,7 @@
 	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_NUDE
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
@@ -17,10 +16,10 @@
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
-		/obj/item/bodypart/l_arm/monkey,
-		/obj/item/bodypart/r_arm/monkey,
-		/obj/item/bodypart/r_leg/monkey,
-		/obj/item/bodypart/l_leg/monkey
+		/obj/item/bodypart/arm/left/monkey,
+		/obj/item/bodypart/arm/right/monkey,
+		/obj/item/bodypart/leg/right/monkey,
+		/obj/item/bodypart/leg/left/monkey
 	)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
@@ -58,6 +57,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//initialize limbs
 	create_bodyparts()
 	create_internal_organs()
+
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_NUDE, INNATE_TRAIT)
 
 	. = ..()
 
@@ -184,11 +185,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 
 	return threatcount
 
-/mob/living/carbon/monkey/IsVocal()
-	if(!get_organ_slot(ORGAN_SLOT_LUNGS))
-		return 0
-	return 1
-
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
 
@@ -224,10 +220,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = null
-	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
-	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
-					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	butcher_results = list(/obj/effect/spawner/random/medical/teratoma/minor = 5, /obj/effect/spawner/random/medical/teratoma/major = 1)
+	type_of_meat = /obj/effect/spawner/random/medical/teratoma/minor
+	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/arm/left/monkey/teratoma,
+					/obj/item/bodypart/arm/right/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null
 	var/creator_key = null
 
@@ -257,9 +253,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		TRAIT_RADIMMUNE,
 		TRAIT_BADDNA,
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_NONECRODISEASE,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	) //Made of mutated cells
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -270,10 +265,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/monkey/teratoma,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/monkey/teratoma,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/monkey/teratoma,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/monkey/teratoma,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/monkey/teratoma
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/monkey/teratoma,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/monkey/teratoma,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/monkey/teratoma,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/monkey/teratoma
 	)
 
 /obj/item/organ/brain/tumor
@@ -285,9 +280,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	if(!QDELETED(src))
 		qdel(src)
 
-/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
-	return
-
 /mob/living/carbon/monkey/tumor/has_dna()
 	return FALSE
 
@@ -296,3 +288,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//Give us the juicy mutant organs
 	dna.species.on_species_gain(src, null, FALSE)
 	dna.species.regenerate_organs(src, replace_current = TRUE)
+
+/mob/living/carbon/monkey/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "monkey_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
+
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
+
+	return GLOB.fire_appearances[fire_icon]

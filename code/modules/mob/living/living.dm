@@ -65,16 +65,16 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if(confused && stat == CONSCIOUS && body_position == STANDING_UP && m_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
+	if(has_status_effect(/datum/status_effect/confusion) && stat == CONSCIOUS && body_position == STANDING_UP && m_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
 		ADD_TRAIT(src, TRAIT_NO_BUMP_SLAM, type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message(span_warning("[src] [pick("ran", "slammed")] into \the [A]!"))
 			apply_damage(5, BRUTE)
 			Paralyze(40)
-			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 20 SECONDS)
 		else
-			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 50)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 5 SECONDS)
 
 
 	if(ismob(A))
@@ -213,7 +213,7 @@
 	if(len)
 		for(var/obj/item/I in held_items)
 			if(!length(holding))
-				holding += "[p_they(TRUE)] [p_are()] holding \a [I]"
+				holding += "[p_They()] [p_are()] holding \a [I]"
 			else if(held_items.Find(I) == len)
 				holding += ", and \a [I]."
 			else
@@ -527,6 +527,14 @@
 
 /mob/proc/get_contents()
 
+/**
+ * Returns the access list for this mob
+ */
+/mob/living/proc/get_access()
+	var/obj/item/card/id/id = get_idcard()
+	if(isnull(id))
+		return list()
+	return id.GetAccess()
 
 /mob/living/proc/toggle_resting()
 	set name = "Rest"
@@ -537,8 +545,11 @@
 
 ///Proc to hook behavior to the change of value in the resting variable.
 /mob/living/proc/set_resting(new_resting, silent = TRUE, instant = FALSE)
+	if(!(mobility_flags & MOBILITY_REST))
+		return
 	if(new_resting == resting)
 		return
+
 	. = resting
 	resting = new_resting
 	if(new_resting)
@@ -584,7 +595,7 @@
 
 
 /mob/living/proc/rest_checks_callback()
-	if(resting || lying_angle == 0 || HAS_TRAIT(src, TRAIT_FLOORED))
+	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
 		return FALSE
 	return TRUE
 
@@ -598,9 +609,7 @@
 /mob/living/proc/on_lying_down(new_lying_angle)
 	if(layer == initial(layer)) //to avoid things like hiding larvas.
 		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
-	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
-	ADD_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
+	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 
@@ -610,9 +619,7 @@
 	if(layer == LYING_MOB_LAYER)
 		layer = initial(layer)
 	density = initial(density) // We were prone before, so we become dense and things can bump into us again.
-	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
-	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
-	REMOVE_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
+	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)
 
 /mob/living/proc/update_density()
 	if(HAS_TRAIT(src, TRAIT_UNDENSE))
@@ -842,9 +849,8 @@
 	losebreath = 0
 	set_disgust(0)
 	cure_husk()
-	radiation = 0
-	ExtinguishMob()
-	fire_stacks = 0
+	qdel(GetComponent(/datum/component/irradiated))
+	extinguish_mob()
 
 	if(heal_flags & HEAL_TEMP)
 		bodytemperature = get_body_temp_normal(apply_change = FALSE)
@@ -930,13 +936,16 @@
 /mob/living/carbon/alien/humanoid/lying_angle_on_movement(direct)
 	return
 
-/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction, spec_color)
+/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
 	if(!has_gravity() || (movement_type & THROWN))
 		return
-	var/blood_exists = FALSE
+	var/blood_exists = locate(/obj/effect/decal/cleanable/blood/trail_holder) in start
 
-	for(var/obj/effect/decal/cleanable/trail_holder/C in start) //checks for blood splatter already on the floor
-		blood_exists = TRUE
+	var/glowyblood = FALSE
+	if(ishuman(src))
+		var/mob/living/carbon/human/humanoid = src
+		glowyblood = humanoid.dna.blood_type?.glowy
+
 	if(isturf(start))
 		var/trail_type = getTrail()
 		if(trail_type)
@@ -953,21 +962,22 @@
 				if((newdir in GLOB.cardinals) && (prob(50)))
 					newdir = turn(get_dir(target_turf, start), 180)
 				if(!blood_exists)
-					new /obj/effect/decal/cleanable/trail_holder(start, get_static_viruses())
+					//Snowflake to make blood glow
+					if(glowyblood)
+						new /obj/effect/decal/cleanable/blood/trail_holder/glowy(start, get_static_viruses())
+					else
+						new /obj/effect/decal/cleanable/blood/trail_holder(start, get_static_viruses())
 
-				for(var/obj/effect/decal/cleanable/trail_holder/TH in start)
+
+				for(var/obj/effect/decal/cleanable/blood/trail_holder/TH in start)
 					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 						TH.existing_dirs += newdir
 						TH.add_overlay(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
 
-						if(spec_color)
-							TH.color = spec_color
-
-/mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
+/mob/living/carbon/human/makeTrail(turf/T)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
 		return
-	spec_color = dna.species.blood_color
 	..()
 
 /mob/living/proc/getTrail()
@@ -1077,13 +1087,10 @@
 	buckled.user_unbuckle_mob(src,src)
 
 /mob/living/proc/resist_fire()
-	return
+	return FALSE
 
 /mob/living/proc/resist_restraints()
 	return
-
-/mob/living/proc/get_visible_name()
-	return name
 
 /mob/living/proc/update_gravity(gravity)
 	// Handle movespeed stuff
@@ -1094,11 +1101,11 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
 
 	// Time to add/remove gravity alerts. sorry for the mess it's gotta be fast
-	var/atom/movable/screen/alert/gravity_alert = alerts["gravity"]
+	var/atom/movable/screen/alert/gravity_alert = alerts[ALERT_GRAVITY]
 	switch(gravity)
 		if(-INFINITY to NEGATIVE_GRAVITY)
 			if(!istype(gravity_alert, /atom/movable/screen/alert/negative))
-				throw_alert("gravity", /atom/movable/screen/alert/negative)
+				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/negative)
 				ADD_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
 				var/matrix/flipped_matrix = transform
 				flipped_matrix.b = -flipped_matrix.b
@@ -1107,18 +1114,18 @@
 				base_pixel_y += 4
 		if(NEGATIVE_GRAVITY + 0.01 to 0)
 			if(!istype(gravity_alert, /atom/movable/screen/alert/weightless))
-				throw_alert("gravity", /atom/movable/screen/alert/weightless)
+				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/weightless)
 				ADD_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
 		if(0.01 to STANDARD_GRAVITY)
 			if(gravity_alert)
-				clear_alert("gravity")
+				clear_alert(ALERT_GRAVITY)
 		if(STANDARD_GRAVITY + 0.01 to GRAVITY_DAMAGE_THRESHOLD - 0.01)
-			throw_alert("gravity", /atom/movable/screen/alert/highgravity)
+			throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/highgravity)
 		if(GRAVITY_DAMAGE_THRESHOLD to INFINITY)
-			throw_alert("gravity", /atom/movable/screen/alert/veryhighgravity)
+			throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/veryhighgravity)
 
 	// If we had no gravity alert, or the same alert as before, go home
-	if(!gravity_alert || alerts["gravity"] == gravity_alert)
+	if(!gravity_alert || alerts[ALERT_GRAVITY] == gravity_alert)
 		return
 	// By this point we know that we do not have the same alert as we used to
 	if(istype(gravity_alert, /atom/movable/screen/alert/weightless))
@@ -1131,12 +1138,12 @@
 		animate(src, transform = flipped_matrix, pixel_y = pixel_y-4, time = 0.5 SECONDS, easing = EASE_OUT, flags = ANIMATION_PARALLEL)
 		base_pixel_y -= 4
 
-/mob/living/singularity_pull(S, current_size)
-	..()
+/mob/living/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(current_size >= STAGE_SIX) //your puny magboots/wings/whatever will not save you against supermatter singularity
-		throw_at(S, 14, 3, src, TRUE)
-	else if(!src.mob_negates_gravity())
-		step_towards(src,S)
+		throw_at(singularity, 14, 3, src, TRUE)
+	else if(!mob_negates_gravity())
+		step_towards(src, singularity)
 
 /mob/living/proc/do_stun_animation()
 	var/matrix/rotation_matrix = matrix()
@@ -1157,13 +1164,6 @@
 	animate(src, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
 	animate(time = 2, flags = ANIMATION_RELATIVE)
 	animate(time = 1, transform = reset_matrix, flags = ANIMATION_RELATIVE)
-
-/mob/living/proc/do_jitter_animation(jitteriness)
-	var/amplitude = min(4, (jitteriness/100) + 1)
-	var/pixel_x_diff = rand(-amplitude, amplitude)
-	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff , time = 2, loop = 6, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
-	animate(pixel_x = -pixel_x_diff , pixel_y = -pixel_y_diff , time = 2, flags = ANIMATION_RELATIVE)
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	var/loc_temp = environment ? environment.return_temperature() : T0C
@@ -1237,11 +1237,6 @@
 /mob/living/carbon/alien/update_stamina()
 	return
 
-/mob/living/proc/owns_soul()
-	if(mind)
-		return mind.soulOwner == mind
-	return TRUE
-
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
 	stop_pulling()
 	. = ..()
@@ -1290,31 +1285,25 @@
 	var/mob/living/new_mob
 
 	var/static/list/possible_results = list(
-		WABBAJACK_MONKEY,
-		WABBAJACK_ROBOT,
-		WABBAJACK_SLIME,
-		WABBAJACK_XENO,
-		WABBAJACK_HUMAN,
-		WABBAJACK_ANIMAL,
+		WABBAJACK_ROBOT = 5,
+		WABBAJACK_HUMAN = 5,
+		WABBAJACK_ANIMAL = 20,
 	)
 
 	// If we weren't passed one, pick a default one
-	what_to_randomize ||= pick(possible_results)
+	what_to_randomize ||= pick_weight(possible_results)
 
 	switch(what_to_randomize)
-		if(WABBAJACK_MONKEY)
-			new_mob = new /mob/living/carbon/monkey(loc)
-
 		if(WABBAJACK_ROBOT)
 			var/static/list/robot_options = list(
-				/mob/living/silicon/robot = 200,
-				/mob/living/simple_animal/drone/polymorphed = 200,
+				/mob/living/silicon/robot = 20,
+				/mob/living/simple_animal/drone/polymorphed = 10,
 				/mob/living/silicon/robot/model/syndicate = 1,
 				/mob/living/silicon/robot/model/syndicate/medical = 1,
 				/mob/living/silicon/robot/model/syndicate/saboteur = 1,
 			)
 
-			var/picked_robot = pick(robot_options)
+			var/picked_robot = pick_weight(robot_options)
 			new_mob = new picked_robot(loc)
 			if(issilicon(new_mob))
 				var/mob/living/silicon/robot/created_robot = new_mob
@@ -1326,24 +1315,6 @@
 				created_robot.mmi.transfer_identity(src) //Does not transfer key/client.
 				created_robot.clear_inherent_laws(announce = FALSE)
 				created_robot.clear_zeroth_law(announce = FALSE)
-
-		if(WABBAJACK_SLIME)
-			new_mob = new /mob/living/simple_animal/slime/random(loc)
-
-		if(WABBAJACK_XENO)
-			var/picked_xeno_type
-
-			if(ckey)
-				picked_xeno_type = pick(
-					/mob/living/carbon/alien/humanoid/hunter,
-					/mob/living/carbon/alien/humanoid/sentinel,
-				)
-			else
-				picked_xeno_type = pick(
-					/mob/living/carbon/alien/humanoid/hunter,
-					/mob/living/simple_animal/hostile/alien/sentinel,
-				)
-			new_mob = new picked_xeno_type(loc)
 
 		if(WABBAJACK_ANIMAL)
 			var/picked_animal = pick(
@@ -1359,6 +1330,7 @@
 				/mob/living/simple_animal/hostile/blob/blobbernaut/independent,
 				/mob/living/simple_animal/hostile/carp/ranged,
 				/mob/living/simple_animal/hostile/carp/ranged/chaos,
+				/mob/living/simple_animal/hostile/carp/megacarp,
 				/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
 				/mob/living/simple_animal/hostile/asteroid/goliath/beast,
 				/mob/living/simple_animal/hostile/headcrab,
@@ -1380,14 +1352,29 @@
 				/mob/living/simple_animal/butterfly,
 				/mob/living/simple_animal/pet/cat/cak,
 				/mob/living/simple_animal/chick,
+				/mob/living/simple_animal/slime/random,
+				/mob/living/carbon/monkey,
+				/mob/living/carbon/alien/humanoid/hunter,
+				/mob/living/carbon/alien/humanoid/sentinel,
+				/mob/living/simple_animal/hostile/alien/maid,
+				/mob/living/basic/pet/dog/corgi/capybara, //Why the fuck are these a subtype of corgi
+				/mob/living/basic/mothroach,
+				/mob/living/simple_animal/hostile/retaliate/nymph,
+				/mob/living/simple_animal/parrot,
+				/mob/living/simple_animal/hostile/netherworld/migo,
+				/mob/living/simple_animal/hostile/netherworld/blankbody,
+				/mob/living/simple_animal/hostile/asteroid/elite/pandora,
+				/mob/living/simple_animal/hostile/asteroid/elite/herald,
+				/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
+				/mob/living/simple_animal/hostile/heretic_summon/raw_prophet,
 				)
 			new_mob = new picked_animal(loc)
 
 		if(WABBAJACK_HUMAN)
 			var/mob/living/carbon/human/new_human = new(loc)
 
-			// 50% chance that we'll also randomice race
-			if(prob(50))
+			// 90% chance that we'll also randomice race
+			if(prob(90))
 				var/list/chooseable_races = list()
 				for(var/datum/species/species_type as anything in subtypesof(/datum/species))
 					if(initial(species_type.changesource_flags) & change_flags)
@@ -1449,90 +1436,162 @@
 	else if(key)
 		new_mob.key = key
 
-/mob/living/rad_act(amount)
-	. = ..()
-
-	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE) || HAS_TRAIT(src, TRAIT_NORADDAMAGE))
-		return
-
-	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
-
-	var/blocked = getarmor(null, RAD)
-
-	if(amount > RAD_BURN_THRESHOLD)
-		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)
-
-	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
-
 /mob/living/can_block_magic(casted_magic_flags)
 	. = ..()
 	if(.)
 		return
 
-/mob/living/proc/fakefireextinguish()
-	return
-
-/mob/living/proc/fakefire()
-	return
-
 /mob/living/proc/unfry_mob() //Callback proc to tone down spam from multiple sizzling frying oil dipping.
 	REMOVE_TRAIT(src, TRAIT_OIL_FRIED, "cooking_oil_react")
 
 //Mobs on Fire
-/mob/living/proc/IgniteMob()
-	if(fire_stacks > 0 && !on_fire)
-		on_fire = 1
-		src.visible_message(span_warning("[src] catches fire!"), \
-						span_userdanger("You're set on fire!"))
-		new/obj/effect/dummy/lighting_obj/moblight/fire(src)
-		throw_alert("fire", /atom/movable/screen/alert/fire)
-		update_fire()
-		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED,src)
-		return TRUE
-	return FALSE
 
-/mob/living/proc/ExtinguishMob()
-	if(on_fire)
-		on_fire = 0
-		fire_stacks = 0
-		for(var/obj/effect/dummy/lighting_obj/moblight/fire/F in src)
-			qdel(F)
-		clear_alert("fire")
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "on_fire")
-		SEND_SIGNAL(src, COMSIG_LIVING_EXTINGUISHED, src)
-		update_fire()
+/// Global list that containes cached fire overlays for mobs
+GLOBAL_LIST_EMPTY(fire_appearances)
 
-/mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
-	fire_stacks = clamp(fire_stacks + add_fire_stacks, -20, 20)
-	if(on_fire && fire_stacks <= 0)
-		ExtinguishMob()
+/mob/living/proc/ignite_mob(silent)
+	if(fire_stacks <= 0)
+		return FALSE
+
+	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+	if(!fire_status || fire_status.on_fire)
+		return FALSE
+
+	return fire_status.ignite(silent)
+
+/mob/living/proc/extinguish_mob()
+	if(HAS_TRAIT(src, TRAIT_NO_EXTINGUISH)) //The everlasting flames will not be extinguished
+		return
+	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+	if(!fire_status || !fire_status.on_fire)
+		return
+	remove_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+
+/**
+ * Adjust the amount of fire stacks on a mob
+ *
+ * This modifies the fire stacks on a mob.
+ *
+ * Vars:
+ * * stacks: int The amount to modify the fire stacks
+ * * fire_type: type Type of fire status effect that we apply, should be subtype of /datum/status_effect/fire_handler/fire_stacks
+ */
+
+/mob/living/proc/adjust_fire_stacks(stacks, fire_type = /datum/status_effect/fire_handler/fire_stacks)
+	if(stacks < 0)
+		if(HAS_TRAIT(src, TRAIT_NO_EXTINGUISH)) //You can't reduce fire stacks of the everlasting flames
+			return
+		stacks = max(-fire_stacks, stacks)
+	apply_status_effect(fire_type, stacks)
+
+/mob/living/proc/adjust_wet_stacks(stacks, wet_type = /datum/status_effect/fire_handler/wet_stacks)
+	if(HAS_TRAIT(src, TRAIT_NO_EXTINGUISH)) //The everlasting flames will not be extinguished
+		return
+	if(stacks < 0)
+		stacks = max(fire_stacks, stacks)
+	apply_status_effect(wet_type, stacks)
+
+/**
+ * Set the fire stacks on a mob
+ *
+ * This sets the fire stacks on a mob, stacks are clamped between -20 and 20.
+ * If the fire stacks are reduced to 0 then we will extinguish the mob.
+ *
+ * Vars:
+ * * stacks: int The amount to set fire_stacks to
+ * * fire_type: type Type of fire status effect that we apply, should be subtype of /datum/status_effect/fire_handler/fire_stacks
+ * * remove_wet_stacks: bool If we remove all wet stacks upon doing this
+ */
+
+/mob/living/proc/set_fire_stacks(stacks, fire_type = /datum/status_effect/fire_handler/fire_stacks, remove_wet_stacks = TRUE)
+	if(stacks < 0) //Shouldn't happen, ever
+		CRASH("set_fire_stacks received negative [stacks] fire stacks")
+
+	if(remove_wet_stacks)
+		remove_status_effect(/datum/status_effect/fire_handler/wet_stacks)
+
+	if(stacks == 0)
+		remove_status_effect(fire_type)
+		return
+
+	apply_status_effect(fire_type, stacks, TRUE)
+
+/mob/living/proc/set_wet_stacks(stacks, wet_type = /datum/status_effect/fire_handler/wet_stacks, remove_fire_stacks = TRUE)
+	if(stacks < 0)
+		CRASH("set_wet_stacks received negative [stacks] wet stacks")
+
+	if(remove_fire_stacks)
+		remove_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+
+	if(stacks == 0)
+		remove_status_effect(wet_type)
+		return
+
+	apply_status_effect(wet_type, stacks, TRUE)
 
 //Share fire evenly between the two mobs
 //Called in MobBump() and Crossed()
-/mob/living/proc/spreadFire(mob/living/L)
-	if(!istype(L))
+/mob/living/proc/spreadFire(mob/living/spread_to)
+	if(!istype(spread_to))
 		return
 
-	if(on_fire)
-		if(L.on_fire) // If they were also on fire
-			var/firesplit = (fire_stacks + L.fire_stacks)/2
-			fire_stacks = firesplit
-			L.fire_stacks = firesplit
-		else // If they were not
-			fire_stacks /= 2
-			L.fire_stacks += fire_stacks
-			if(L.IgniteMob()) // Ignite them
-				log_game("[key_name(src)] bumped into [key_name(L)] and set them on fire")
+	// can't spread fire to mobs that don't catch on fire
+	if(HAS_TRAIT(spread_to, TRAIT_NOFIRE_SPREAD) || HAS_TRAIT(src, TRAIT_NOFIRE_SPREAD))
+		return
 
-	else if(L.on_fire) // If they were on fire and we were not
-		L.fire_stacks /= 2
-		fire_stacks += L.fire_stacks
-		IgniteMob() // Ignite us
+	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+	var/datum/status_effect/fire_handler/fire_stacks/their_fire_status = spread_to.has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+	if(fire_status && fire_status.on_fire)
+		if(their_fire_status && their_fire_status.on_fire)
+			var/firesplit = (fire_stacks + spread_to.fire_stacks) / 2
+			var/fire_type = (spread_to.fire_stacks > fire_stacks) ? their_fire_status.type : fire_status.type
+			set_fire_stacks(firesplit, fire_type)
+			spread_to.set_fire_stacks(firesplit, fire_type)
+			return
+
+		adjust_fire_stacks(-fire_stacks / 2, fire_status.type)
+		spread_to.adjust_fire_stacks(fire_stacks, fire_status.type)
+		if(spread_to.ignite_mob())
+			log_message("bumped into [key_name(spread_to)] and set them on fire.", LOG_ATTACK)
+		return
+
+	if(!their_fire_status || !their_fire_status.on_fire)
+		return
+
+	spread_to.adjust_fire_stacks(-spread_to.fire_stacks / 2, their_fire_status.type)
+	adjust_fire_stacks(spread_to.fire_stacks, their_fire_status.type)
+	ignite_mob()
+
+/**
+ * Gets the fire overlay to use for this mob
+ *
+ * Args:
+ * * stacks: Current amount of fire_stacks
+ * * on_fire: If we're lit on fire
+ *
+ * Return a mutable appearance, the overlay that will be applied.
+ */
+
+/mob/living/proc/get_fire_overlay(stacks, on_fire)
+	RETURN_TYPE(/mutable_appearance)
+	return null
+
+/**
+ * Handles effects happening when mob is on normal fire
+ *
+ * Vars:
+ * * delta_time
+ * * times_fired
+ * * fire_handler: Current fire status effect that called the proc
+ */
+
+/mob/living/proc/on_fire_stack(delta_time, times_fired, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+	return
 
 //Mobs on Fire end
 
 // used by secbot and monkeys Crossed
-/mob/living/proc/knockOver(var/mob/living/carbon/C)
+/mob/living/proc/knockOver(mob/living/carbon/C)
 	if(C.key) //save us from monkey hordes
 		C.visible_message(span_warning(pick("[C] dives out of [src]'s way!", "[C] stumbles over [src]!", "[C] jumps out of [src]'s path!", "[C] trips over [src] and falls!", "[C] topples over [src]!", "[C] leaps out of [src]'s way!")))
 	C.Paralyze(40)
@@ -1810,6 +1869,7 @@
 /mob/living/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_SPEECH_IMPEDIMENT, "Impede Speech (Slurring, stuttering, etc)")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_HALLUCINATION, "Give Hallucination")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DELUSION_HALLUCINATION, "Give Delusion Hallucination")
 
@@ -1818,6 +1878,11 @@
 
 	if(!.)
 		return
+
+	if(href_list[VV_HK_GIVE_SPEECH_IMPEDIMENT])
+		if(!check_rights(NONE))
+			return
+		admin_give_speech_impediment(usr)
 
 	if(href_list[VV_HK_GIVE_HALLUCINATION])
 		if(!check_rights(NONE))
@@ -1990,8 +2055,8 @@
 
 		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
-		update_inv_w_uniform()
-		update_inv_wear_suit()
+		update_worn_undersuit()
+		update_worn_oversuit()
 
 	// Reset overeat duration.
 	overeatduration = 0
@@ -2127,7 +2192,7 @@
 /// Proc called when targetted by a lazarus injector
 /mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
 	if(mind)
-		if(suiciding || ishellbound())
+		if(suiciding)
 			reviver.visible_message(span_notice("[reviver] injects [src], but nothing happened."))
 			return
 		process_revival(src)
@@ -2153,14 +2218,14 @@
 		else
 			target_hostile.attack_same = FALSE //Will only attack non-passive mobs
 			if(prob(10)) //chance of sentience without loyaltyAdd commentMore actions
-				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-					question = "Do you want to play as \a [src] being revived by [reviver]?",
-					check_jobban = ROLE_SENTIENCE,
-					poll_time = 15 SECONDS,
-					jump_target = src,
-					role_name_text = "lazarus revived mob",
-					alert_pic = src,
-					)
+				var/datum/poll_config/config = new()
+				config.question = "Do you want to play as \a [src] being revived by [reviver]?"
+				config.check_jobban = ROLE_SENTIENCE
+				config.poll_time = 15 SECONDS
+				config.jump_target = src
+				config.role_name_text = "lazarus revived mob"
+				config.alert_pic = src
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					src.key = candidate.key
 					target_hostile.sentience_act()
@@ -2169,7 +2234,29 @@
 /mob/living/proc/process_revival(mob/living/simple_animal/target)
 	target.do_jitter_animation(10)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
-	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), HEAL_ALL, TRUE), 10 SECONDS)
+
+/// Admin only proc for giving a certain speech impediment to this mob
+/mob/living/proc/admin_give_speech_impediment(mob/admin)
+	if(!admin || !check_rights(NONE))
+		return
+
+	var/list/impediments = list()
+	for(var/datum/status_effect/possible as anything in typesof(/datum/status_effect/speech))
+		if(!initial(possible.id))
+			continue
+
+		impediments[initial(possible.id)] = possible
+
+	var/chosen = tgui_input_list(admin, "What speech impediment?", "Impede Speech", impediments)
+	if(!chosen || !ispath(impediments[chosen], /datum/status_effect/speech) || QDELETED(src) || !check_rights(NONE))
+		return
+
+	var/duration = tgui_input_number(admin, "How long should it last (in seconds)? Max is infinite duration.", "Duration", 0, INFINITY, 0 SECONDS)
+	if(!isnum(duration) || duration <= 0 || QDELETED(src) || !check_rights(NONE))
+		return
+
+	adjust_timed_status_effect(duration SECONDS, impediments[chosen])
 
 /// Admin only proc for making the mob hallucinate a certain thing
 /mob/living/proc/admin_give_hallucination(mob/admin)
@@ -2201,6 +2288,7 @@
 	log_admin("[key_name(admin)] gave [src] a delusion hallucination. (Type: [delusion_args[1]])")
 	// Not using the wrapper here because we already have a list / arglist
 	_cause_hallucination(delusion_args)
+
 /// Proc for giving a mob a new 'friend', generally used for AI control and targetting. Returns false if already friends.
 /mob/living/proc/befriend(mob/living/new_friend)
 	SHOULD_CALL_PARENT(TRUE)

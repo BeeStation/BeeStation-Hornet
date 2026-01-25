@@ -8,4 +8,4 @@
 /datum/preference/toggle/screentips/apply_to_client(client/client, value)
 	client?.show_screentips = value
 	if (!value)
-		client.mob.hud_used.screentip.maptext = null
+		client.mob?.hud_used?.screentip?.maptext = null

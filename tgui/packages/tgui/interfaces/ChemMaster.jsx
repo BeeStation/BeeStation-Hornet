@@ -53,7 +53,7 @@ const ChemMasterContent = (props) => {
         buttons={
           !!data.isBeakerLoaded && (
             <>
-              <Box inline color="label" mr={2}>
+              <Box inline mr={2}>
                 <AnimatedNumber value={beakerCurrentVolume} initial={0} />
                 {` / ${beakerMaxVolume} units`}
               </Box>
@@ -90,11 +90,11 @@ const ChemMasterContent = (props) => {
         title="Buffer"
         buttons={
           <>
-            <Box inline color="label" mr={2}>
+            <Box inline mr={2}>
               <AnimatedNumber value={machineCurrentVolume} initial={0} />
               {` / ${machineMaxVolume} units.`}
             </Box>
-            <Box inline color="label" mr={1}>
+            <Box inline mr={1}>
               Mode:
             </Box>
             <Button
@@ -125,7 +125,7 @@ const ChemMasterContent = (props) => {
         title="Packaging"
         buttons={
           <>
-            <Box inline color="label" mr={1}>
+            <Box inline mr={1}>
               Mode:
             </Box>
             <Button
@@ -188,7 +188,7 @@ const ChemMasterContent = (props) => {
           title="Pill Bottle"
           buttons={
             <>
-              <Box inline color="label" mr={2}>
+              <Box inline mr={2}>
                 {pillBottleCurrentAmount} / {pillBottleMaxAmount} pills
               </Box>
               <Button
@@ -508,7 +508,7 @@ const PackagingControls = ({ volume, packagingName }) => {
 
 const AnalysisResults = (props) => {
   const { act, data } = useBackend();
-  const { analyzeVars } = data;
+  const { analyze_vars } = data;
   return (
     <Section
       title="Analysis Results"
@@ -525,23 +525,23 @@ const AnalysisResults = (props) => {
       }
     >
       <LabeledList>
-        <LabeledList.Item label="Name">{analyzeVars.name}</LabeledList.Item>
-        <LabeledList.Item label="State">{analyzeVars.state}</LabeledList.Item>
+        <LabeledList.Item label="Name">{analyze_vars.name}</LabeledList.Item>
+        <LabeledList.Item label="State">{analyze_vars.state}</LabeledList.Item>
         <LabeledList.Item label="Color">
-          <ColorBox color={analyzeVars.color} mr={1} />
-          {analyzeVars.color}
+          <ColorBox color={analyze_vars.color} mr={1} />
+          {analyze_vars.color}
         </LabeledList.Item>
         <LabeledList.Item label="Description">
-          {analyzeVars.description}
+          {analyze_vars.description}
         </LabeledList.Item>
         <LabeledList.Item label="Metabolization Rate">
-          {analyzeVars.metaRate} u/minute
+          {analyze_vars.metaRate} u/minute
         </LabeledList.Item>
         <LabeledList.Item label="Overdose Threshold">
-          {analyzeVars.overD}
+          {analyze_vars.overD}
         </LabeledList.Item>
         <LabeledList.Item label="Addiction Threshold">
-          {analyzeVars.addicD}
+          {analyze_vars.addicD}
         </LabeledList.Item>
       </LabeledList>
     </Section>

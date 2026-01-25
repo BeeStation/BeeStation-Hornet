@@ -3,6 +3,9 @@ SUBSYSTEM_DEF(vote)
 	wait = 1 SECONDS
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	dependencies = list(
+		/datum/controller/subsystem/dynamic,
+	)
 
 	/// A list of all generated action buttons
 	var/list/datum/action/generated_actions = list()
@@ -331,6 +334,7 @@ SUBSYSTEM_DEF(vote)
 			for(var/key in current_vote.choices)
 				choices += list(list(
 					"name" = key,
+					"description" = current_vote.choice_descriptions[key],
 					"votes" = current_vote.choices[key],
 				))
 

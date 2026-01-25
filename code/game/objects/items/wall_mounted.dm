@@ -2,7 +2,7 @@
 	icon = 'icons/obj/wallframe.dmi'
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT*2)
 	flags_1 = CONDUCT_1
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -55,7 +55,7 @@
 
 	qdel(src)
 
-/obj/item/wallframe/proc/after_attach(var/obj/O)
+/obj/item/wallframe/proc/after_attach(obj/O)
 	transfer_fingerprints_to(O)
 
 /obj/item/wallframe/screwdriver_act(mob/living/user, obj/item/tool)
@@ -83,10 +83,12 @@
 	desc = "Looks like a circuit. Probably is."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "door_electronics"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 20
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 	grind_results = list(/datum/reagent/iron = 10, /datum/reagent/silicon = 10)
+	usesound = 'sound/items/deconstruct.ogg'

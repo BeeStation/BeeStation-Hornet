@@ -844,7 +844,7 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/sorting)
 "tg" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/iron,
 /area/space)
 "ti" = (
@@ -959,9 +959,7 @@
 /area/quartermaster/storage)
 "wc" = (
 /obj/item/radio/intercom,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/camera{
 	dir = 10
 	},
@@ -996,7 +994,7 @@
 /turf/open/floor/iron,
 /area/space)
 "wV" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
 /area/space)
 "xd" = (
@@ -1394,7 +1392,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/library)
 "GN" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/space)

@@ -91,17 +91,20 @@
 				if(affecting.body_zone == BODY_ZONE_HEAD)
 					if(wear_mask)
 						wear_mask.add_mob_blood(src)
-						update_inv_wear_mask()
+						update_worn_mask()
 					if(wear_neck)
 						wear_neck.add_mob_blood(src)
-						update_inv_neck()
+						update_worn_neck()
 					if(head)
 						head.add_mob_blood(src)
-						update_inv_head()
+						update_worn_head()
 		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
+
+		if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+			batong_act(I, user, affecting, armour_block)
 
 		var/dismember_limb = FALSE
 		var/weapon_sharpness = I.is_sharp()
@@ -225,11 +228,10 @@
 				span_userdanger("The [M.name] has shocked you!"))
 			do_sparks(5, TRUE, src)
 			Knockdown(M.powerlevel*5)
-			if(stuttering < M.powerlevel)
-				stuttering = M.powerlevel
+			set_stutter_if_lower(M.powerlevel * 5)
 			if(M.transformeffects & SLIME_EFFECT_ORANGE)
 				adjust_fire_stacks(2)
-				IgniteMob()
+				ignite_mob()
 			adjustFireLoss(M.powerlevel * 3)
 			updatehealth()
 		return TRUE
@@ -320,14 +322,14 @@
 	if(should_stun)
 		Paralyze(40)
 	//Jitter and other fluff.
-	jitteriness += 1000
-	do_jitter_animation(jitteriness)
-	stuttering += 2
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 20)
+	do_jitter_animation(300)
+	adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
+	adjust_stutter(4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 2 SECONDS)
 	return shock_damage
 
+///Called slightly after electrocute act to apply a secondary stun.
 /mob/living/carbon/proc/secondary_shock(should_stun)
-	jitteriness = max(jitteriness - 990, 10)
 	if(should_stun)
 		Paralyze(60)
 
@@ -470,6 +472,14 @@
 		if(prob(20))
 			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
+/mob/living/carbon/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
+	. = ..()
+	adjust_stutter(batong.active_force / 2) //0.5 seconds of stuttering speech for every 10 stamina damage
+	do_stun_animation()
+	if(ismonkey(src))
+		emote("screech")
+	else
+		emote("scream")
 
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	var/list/reflist = list(intensity) // Need to wrap this in a list so we can pass a reference

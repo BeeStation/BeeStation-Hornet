@@ -13,6 +13,7 @@
 	hide = TRUE
 	shift_underlay_only = FALSE
 	pipe_state = "uvent"
+	vent_movement = VENTCRAWL_ALLOWED | VENTCRAWL_CAN_SEE | VENTCRAWL_ENTRANCE_ALLOWED
 	// vents are more complex machinery and so are less resistant to damage
 	max_integrity = 100
 
@@ -27,6 +28,10 @@
 	// ATMOS_EXTERNAL_BOUND: Do not pass external_pressure_bound
 	// ATMOS_INTERNAL_BOUND: Do not pass internal_pressure_bound
 	// NO_BOUND: Do not pass either
+
+	/// If the external temperature is lower than this value, then we engage our heating element
+	/// on the gas coming out of the vent.
+	var/external_temperature = 0
 
 	/// id of air sensor its connected to
 	var/chamber_id
@@ -277,6 +282,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 				if(!removed || !removed.total_moles())
 					return
 
+				// Heat the gas mixture
+				if (loc.return_temperature() < external_temperature)
+					// Every second, we release enough energy to change the temperature
+					// of a standard tile by 1C.
+					var/heat_energy_released = MOLES_CELLSTANDARD * 20 * 1 * min(1, percent_integrity)
+					removed.temperature += heat_energy_released / removed.heat_capacity()
+
 				loc.assume_air(removed)
 				update_parents()
 
@@ -335,9 +347,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 	. = ..()
 	if(welded)
 		. += "It seems welded shut."
-
-/obj/machinery/atmospherics/components/unary/vent_pump/can_crawl_through()
-	return !(machine_stat & BROKEN) && !welded
 
 /obj/machinery/atmospherics/components/unary/vent_pump/power_change()
 	. = ..()

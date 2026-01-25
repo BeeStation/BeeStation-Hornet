@@ -2,7 +2,7 @@
 	name = "soulstone shard"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	layer = HIGH_OBJ_LAYER
@@ -93,7 +93,7 @@
 
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!role_check(user))
-		user.Unconscious(100)
+		user.Unconscious(10 SECONDS)
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 	if(spent)
@@ -101,14 +101,14 @@
 		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
-	if(M.mind && !M.mind.hasSoul)
-		to_chat(user, span_warning("That person has no soul!"))
-		return
 	if(IS_CULTIST(M) && IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"Come now, do not capture your brethren's soul.\""))
 		return
 	if(theme == THEME_HOLY && IS_CULTIST(user))
 		hot_potato(user)
+		return
+	if(HAS_TRAIT(M, TRAIT_NO_SOUL))
+		to_chat(user, span_warning("This body does not possess a soul to capture."))
 		return
 	log_combat(user, M, "captured [M.name]'s soul", src)
 	transfer_soul("VICTIM", M, user)
@@ -170,8 +170,10 @@
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		if(!IS_CULTIST(user) && !IS_WIZARD(user) && !SS.theme == THEME_HOLY)
-			to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell. It would be wise to be rid of this quickly."))
-			user.Dizzy(30)
+			to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to place [SS] into the shell. It would be wise to be rid of this quickly."))
+			if(isliving(user))
+				var/mob/living/living_user = user
+				living_user.set_dizzy_if_lower(1 MINUTES)
 			return
 		if(SS.theme == THEME_HOLY && IS_CULTIST(user))
 			SS.hot_potato(user)
@@ -384,15 +386,14 @@
 	chosen_ghost = T.get_ghost(TRUE,TRUE) //Try to grab original owner's ghost first
 
 	if(!chosen_ghost || !chosen_ghost.client) //Failing that, we grab a ghosts
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-			check_jobban = ROLE_CULTIST,
-			poll_time = 10 SECONDS,
-			checked_target = T,
-			ignore_category = POLL_IGNORE_CULT_SHADE,
-			jump_target = T,
-			role_name_text = "shade",
-			alert_pic = /mob/living/simple_animal/shade,
-		)
+		var/datum/poll_config/config = new()
+		config.check_jobban = ROLE_CULTIST
+		config.poll_time = 10 SECONDS
+		config.ignore_category = POLL_IGNORE_CULT_SHADE
+		config.jump_target = T
+		config.role_name_text = "shade"
+		config.alert_pic = /mob/living/simple_animal/shade
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, T)
 
 		if(candidate)
 			chosen_ghost = candidate

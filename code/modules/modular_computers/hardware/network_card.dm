@@ -3,7 +3,6 @@
 	desc = "A basic wireless network card for usage with standard NTNet frequencies."
 	power_usage = 1  // Watts per second
 	icon_state = "radio_mini"
-	network_id = NETWORK_CARDS	// Network we are on
 	var/hardware_id = null	// Identification ID. Technically MAC address of this device. Can't be changed by user.
 	var/identification_string = "nt_card_SFS" 	// Default Identification string, like half an IP.
 	/// Type of signal, High requires no Tcoms in Z-level, Lan is always on
@@ -56,7 +55,7 @@
 	return "[identification_string] (NID [hardware_id])"
 
 // 0 - No signal, 1 - Low signal, 2 - High signal. 3 - Wired Connection
-/obj/item/computer_hardware/network_card/proc/get_signal(var/specific_action = 0)
+/obj/item/computer_hardware/network_card/proc/get_signal()
 	if(!holder) // Hardware is not installed in anything. No signal. How did this even get called?
 		return 0
 	if(!check_functionality())
@@ -65,8 +64,9 @@
 		return 3
 	if(signal_level == SIGNAL_HACKED)
 		return 4
-	if(!SSnetworks.station_network || !SSnetworks.station_network.check_function(specific_action, get_virtual_z_level(), signal_level)) // NTNet is down and we are not connected via wired connection. No signal.
-		return 0
+	// NTNet is down and we are not connected via wired connection. No signal.
+	if(!find_functional_ntnet_relay())
+		return NTNET_NO_SIGNAL
 	if(holder)
 		var/turf/T = get_turf(holder)
 		if((T && istype(T)) && (is_station_level(T.z) || is_mining_level(T.z)))
@@ -95,7 +95,7 @@
 	name = "ultra-advanced network card"
 	desc = "A prototype card that mimics hardline connectivity using unstable bluespace channels. Impervious to relay interference."
 	signal_level = SIGNAL_NO_RELAY
-	power_usage = 25 // Watts per second
+	power_usage = 10 // Watts per second
 	icon_state = "no-relay"
 	custom_price = 100
 	identification_string = "x_net_card"
@@ -112,7 +112,7 @@
 /obj/item/computer_hardware/network_card/integrated //Borg tablet version, only works while the borg has power and is not locked
 	name = "cyborg data link"
 
-/obj/item/computer_hardware/network_card/integrated/get_signal(specific_action = 0)
+/obj/item/computer_hardware/network_card/integrated/get_signal()
 	var/obj/item/modular_computer/tablet/integrated/modularInterface = holder
 
 	if(!modularInterface || !istype(modularInterface))

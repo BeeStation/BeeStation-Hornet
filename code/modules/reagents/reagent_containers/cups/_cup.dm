@@ -42,19 +42,19 @@
 		return
 
 	if(HAS_TRAIT(H, TRAIT_AGEUSIA))
-		if(drink_type & T.toxic_food)
+		if(drink_type & T.toxic_foodtypes)
 			to_chat(H, span_warning("You don't feel so good..."))
 			H.adjust_disgust(25 + 30 * fraction)
 	else
-		if(drink_type & T.toxic_food)
+		if(drink_type & T.toxic_foodtypes)
 			to_chat(H, span_warning("What the hell was that thing?!"))
 			H.adjust_disgust(25 + 30 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
-		else if(drink_type & T.disliked_food)
+		else if(drink_type & T.disliked_foodtypes)
 			to_chat(H, span_notice("That didn't taste very good..."))
 			H.adjust_disgust(11 + 15 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
-		else if(drink_type & T.liked_food)
+		else if(drink_type & T.liked_foodtypes)
 			to_chat(H, span_notice("I love this taste!"))
 			H.adjust_disgust(-5 + -2.5 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
@@ -172,7 +172,7 @@
 	desc = "A beaker. It can hold up to 50 units."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
-	item_state = "beaker"
+	inhand_icon_state = "beaker"
 	worn_icon_state = "beaker"
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
@@ -294,7 +294,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "bucket"
-	item_state = "bucket"
+	inhand_icon_state = "bucket"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	custom_materials = list(/datum/material/iron=200)

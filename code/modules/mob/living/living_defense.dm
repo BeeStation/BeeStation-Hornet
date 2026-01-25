@@ -148,8 +148,9 @@
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /mob/living/fire_act()
+	. = ..()
 	adjust_fire_stacks(3)
-	IgniteMob()
+	ignite_mob()
 
 /**
  * Called when this mob is grabbed by another mob.
@@ -387,6 +388,13 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+///Called whenever a mob is hit with any electric baton to handle jittering and stuttering
+/mob/living/proc/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
+	if(!user.combat_mode)
+		return
+	apply_damage(initial(batong.force), initial(batong.damtype), affecting, armour_block)
+	playsound(src, initial(batong.hitsound), batong.get_clamped_volume(), TRUE)
+
 /*
  * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
  * Stuff like clown & engineers with their unique point values are under /mob/living/carbon/human/singularity_act()
@@ -454,16 +462,6 @@
 	if(!used_item)
 		used_item = get_active_held_item()
 	..()
-
-/mob/living/proc/sethellbound()
-	if(mind)
-		mind.hellbound = TRUE
-		med_hud_set_status()
-		return TRUE
-	return FALSE
-
-/mob/living/proc/ishellbound()
-	return mind?.hellbound
 
 /mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE

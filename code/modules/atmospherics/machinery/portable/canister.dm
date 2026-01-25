@@ -17,6 +17,7 @@
 	integrity_failure = 0.4
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	req_access = list()
+	custom_price = 25
 
 	var/icon/canister_overlay_file = 'icons/obj/atmospherics/canisters.dmi'
 
@@ -45,7 +46,6 @@
 	laser = 50
 	energy = 100
 	bomb = 10
-	rad = 100
 	fire = 80
 	acid = 50
 

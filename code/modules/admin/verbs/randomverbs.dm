@@ -83,7 +83,7 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Headset Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_mod_antag_rep(client/C in GLOB.clients, var/operation)
+/client/proc/cmd_admin_mod_antag_rep(client/C in GLOB.clients, operation)
 	set category = "Adminbus"
 	set name = "Modify Antagonist Reputation"
 
@@ -251,11 +251,11 @@
 	else
 		return
 
-	var/datum/preferences/P
+	var/datum/player_details/P
 	if(C)
-		P = C.prefs
+		P = C.player_details
 	else
-		P = GLOB.preferences_datums[whom]
+		P = GLOB.player_details[whom]
 
 	if(!P)
 		return
@@ -436,7 +436,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.hardset_dna(found_dna.unique_identity, record_found.dna_string, null, record_found.name, record_found.blood_type, new record_found.species, found_dna.features)
 	else
 		randomize_human(new_character)
-		new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
+		//Whats the point of this?
+		//new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
 		new_character.name = new_character.real_name
 		new_character.dna.update_dna_identity()
 
@@ -1107,11 +1108,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	admin_ticket_log(whom, msg)
 	log_admin("[key_name(src)] punished [key_name(whom)] with [punishment].")
 
-/mob/living/carbon/proc/give_cookie(var/client/admin_client)
+/mob/living/carbon/proc/give_cookie(client/admin_client)
 	var/obj/item/food/cookie/cookie = new(src)
 	if(src.put_in_hands(cookie))
 		if(ishuman(src))
-			src.update_inv_hands()
+			src.update_held_items()
 		log_admin("[key_name(src)] got their cookie, spawned by [key_name(admin_client)].")
 		message_admins("[key_name_admin(src)] got their cookie, spawned by [ADMIN_LOOKUPFLW(admin_client)].")
 		to_chat(src, span_adminnotice("Your prayers have been answered!! You received the <b>best cookie</b>!"))
@@ -1210,7 +1211,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				var/name = GLOB.trait_name_map[trait] || trait
 				available_traits[name] = trait
 
-	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in available_traits
+	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in sort_list(available_traits)
 	if(!chosen_trait)
 		return
 	chosen_trait = available_traits[chosen_trait]

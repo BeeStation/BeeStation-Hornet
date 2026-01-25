@@ -12,6 +12,8 @@
 	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+	/// forensics datum, contains fingerprints, fibres, blood_dna and hiddenprints on this atom
+	var/datum/forensics/forensics
 
 /// The essential proc to call when an atom must receive damage of any kind.
 /atom/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
@@ -129,7 +131,9 @@
 		CRASH("unimplemented /atom/proc/attack_generic()!")
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
+	var/old_integrity = atom_integrity
+	. = take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
+	log_combat(user, src, "attacked", addition="integrity: ([max(atom_integrity, 0)] / [max_integrity]), took [old_integrity - atom_integrity] damage")
 
 /// Called after the atom takes damage and integrity is below integrity_failure level
 /atom/proc/atom_break(damage_flag)

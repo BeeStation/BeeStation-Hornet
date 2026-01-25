@@ -11,6 +11,6 @@
 	target.visible_message(span_warning("[target] faints!"), span_narsie("[target_speech]"))
 	target.playsound_local(get_turf(target), target_sound, 200, 1)
 	target.Paralyze(300, ignore_canstun = TRUE)
-	target.Jitter(100)
-	target.confused += 50
+	target.set_jitter_if_lower(200 SECONDS)
+	target.adjust_confusion(50 SECONDS)
 

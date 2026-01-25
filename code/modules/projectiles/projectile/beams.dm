@@ -35,7 +35,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.IgniteMob()
+		M.ignite_mob()
 	else if(isturf(target))
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
@@ -69,7 +69,6 @@
 	name = "\improper X-ray beam"
 	icon_state = "xray"
 	damage = 15
-	irradiate = 300
 	range = 15
 	armour_penetration = 60
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS

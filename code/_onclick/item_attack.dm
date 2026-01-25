@@ -305,6 +305,8 @@
 		return FALSE
 	var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
 	apply_damage(I.force, I.damtype, blocked = armour_block)
+	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+		batong_act(I, user, null, armour_block)
 	if(I.damtype == BRUTE && prob(33))
 		I.add_mob_blood(src)
 		var/turf/location = get_turf(src)
@@ -413,7 +415,7 @@
 /mob/living/proc/check_for_accidental_attack()
 	addtimer(CALLBACK(src, PROC_REF(record_accidental_attack), time_of_last_attack_dealt), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
 
-/mob/living/proc/record_accidental_attack(var/time)
+/mob/living/proc/record_accidental_attack(time)
 	if(time_of_last_attack_dealt == 0) // We haven't attacked at all
 		return
 	if(time_of_last_attack_dealt > time) //We attacked again after the proc got called

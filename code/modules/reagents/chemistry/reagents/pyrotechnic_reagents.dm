@@ -65,7 +65,7 @@
 		if(isfloorturf(floor))
 			for(var/turf/open/turf in RANGE_TURFS(1,floor))
 				if(!locate(/obj/effect/hotspot) in turf)
-					new /obj/effect/hotspot(floor)
+					new /obj/effect/hotspot/bright(floor)
 
 	else if(iswallturf(exposed_turf))
 		var/turf/closed/wall/wall = exposed_turf
@@ -78,9 +78,9 @@
 
 	if(method != INGEST && method != INJECT)
 		exposed_mob.adjust_fire_stacks(min(reac_volume/5, 10))
-		exposed_mob.IgniteMob()
+		exposed_mob.ignite_mob()
 		if(!locate(/obj/effect/hotspot) in exposed_mob.loc)
-			new /obj/effect/hotspot(exposed_mob.loc)
+			new /obj/effect/hotspot/bright(exposed_mob.loc)
 
 /datum/reagent/sorium
 	name = "Sorium"
@@ -165,7 +165,7 @@
 	. = ..()
 	exposed_mob.adjust_fire_stacks(1)
 	exposed_mob.adjustFireLoss(max(0.3 * exposed_mob.fire_stacks, 0.3))
-	exposed_mob.IgniteMob()
+	exposed_mob.ignite_mob()
 
 /datum/reagent/phlogiston/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -344,4 +344,4 @@
 	. = ..()
 	if(method in list(VAPOR, TOUCH))
 		exposed_mob.adjust_fire_stacks(-reac_volume)
-		exposed_mob.ExtinguishMob()
+		exposed_mob.extinguish_mob()

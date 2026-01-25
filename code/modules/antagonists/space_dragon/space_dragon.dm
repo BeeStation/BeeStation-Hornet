@@ -41,7 +41,7 @@
 		/area/bridge,
 		/area/engine,
 		/area/security,
-		/area/science
+		/area/science,
 	))
 	// Things included above that we do NOT want
 	var/list/area/blocked_areas = typecacheof(list(
@@ -215,7 +215,7 @@
 	name = "Carp Wavespeak"
 	desc = "Communicate through wavespeak."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
+	button_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "wavespeak"
 	check_flags = AB_CHECK_CONSCIOUS
 

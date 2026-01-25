@@ -75,7 +75,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		M.adjust_fire_stacks(2)
-		M.IgniteMob()
+		M.ignite_mob()
 
 /obj/projectile/bullet/c38/iceblox //see /obj/projectile/temp for the original code
 	name = ".38 Iceblox bullet"
@@ -100,7 +100,7 @@
 /obj/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
 		var/mob/living/carbon/human/M = target
-		if(M.job == JOB_NAME_MIME)
+		if(HAS_TRAIT(M, TRAIT_MIMING))
 			var/defense = M.getarmor(CHEST, BULLET, armour_penetration)
 			M.apply_damage(5, BRUTE, CHEST, defense)
 			M.visible_message(span_danger("A bullet wound appears in [M]'s chest!"), \
@@ -115,9 +115,10 @@
 
 /obj/projectile/bullet/c38/mime_lethal/on_hit(atom/target, blocked)
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.silent = max(M.silent, 10)
+	if(isliving(target))
+		var/mob/living/living_target = target
+		living_target.set_silence_if_lower(20 SECONDS)
+
 // .357 (Syndie Revolver)
 
 /obj/projectile/bullet/a357

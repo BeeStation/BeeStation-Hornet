@@ -65,7 +65,7 @@
 	. = ..()
 	GLOB.fax_machines += src
 	if(!fax_id)
-		fax_id = SSnetworks.assign_random_name()
+		fax_id = assign_random_name()
 	if(!fax_name)
 		fax_name = "Unregistered Fax Machine " + fax_id
 	wires = new /datum/wires/fax(src)

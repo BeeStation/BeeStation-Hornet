@@ -30,7 +30,7 @@
 	REMOVE_TRAIT(owner, TRAIT_NOSOFTCRIT, type)
 	REMOVE_TRAIT(owner, TRAIT_NOBREATH, type)
 
-/datum/status_effect/unholy_determination/tick()
+/datum/status_effect/unholy_determination/tick(seconds_between_ticks)
 	// The amount we heal of each damage type per tick. If we're missing legs we heal better because we can't dodge.
 	var/healing_amount = 1 + (2 - owner.usable_legs)
 
@@ -46,8 +46,8 @@
 		healing_amount *= -0.5
 
 	if(owner.health > owner.crit_threshold && prob(4))
-		owner.Jitter(10)
-		owner.Dizzy(5)
+		owner.set_jitter_if_lower(20 SECONDS)
+		owner.set_dizzy_if_lower(10 SECONDS)
 		owner.adjust_hallucinations_up_to(6 SECONDS, 48 SECONDS)
 
 	if(prob(2))
@@ -61,7 +61,7 @@
  * Initially heals the owner a bit, ensuring they have no suffocation and no immobility.
 */
 /datum/status_effect/unholy_determination/proc/initial_heal()
-	owner.ExtinguishMob()
+	owner.extinguish_mob()
 	// catch your breath
 	owner.losebreath = 0
 	owner.setOxyLoss(0, FALSE)

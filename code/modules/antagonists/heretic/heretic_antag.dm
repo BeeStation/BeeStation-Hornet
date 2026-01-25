@@ -20,6 +20,7 @@
 	antag_moodlet = /datum/mood_event/heretics
 	banning_key = ROLE_HERETIC
 	required_living_playtime = 4
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -30,6 +31,8 @@
 	var/passive_gain_timer = 20 MINUTES
 	/// Assoc list of [typepath] = [knowledge instance]. A list of all knowledge this heretic's reserached.
 	var/list/researched_knowledge = list()
+	/// The organ slot we place our Living Heart in.
+	var/living_heart_organ_slot = ORGAN_SLOT_HEART
 	/// A list of TOTAL how many sacrifices completed. (Includes high value sacrifices)
 	var/total_sacrifices = 0
 	/// A list of TOTAL how many high value sacrifices completed.
@@ -43,10 +46,20 @@
 	/// Whether we're drawing a rune or not
 	var/drawing_rune = FALSE
 	/// A static typecache of all tools we can scribe with.
-	var/static/list/scribing_tools = typecacheof(list(/obj/item/pen, /obj/item/toy/crayon))
+	var/static/list/scribing_tools = typecacheof(list(
+		/obj/item/pen,
+		/obj/item/toy/crayon,
+	))
 	/// A blacklist of turfs we cannot scribe on.
-	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava, /turf/open/chasm))
+	var/static/list/blacklisted_rune_turfs = typecacheof(list(
+		/turf/open/space,
+		/turf/open/openspace,
+		/turf/open/lava,
+		/turf/open/chasm,
+	))
 	var/datum/action/innate/hereticmenu/menu
+	/// Are we on cooldown to dream for reality tears?
+	var/manus_dream_allowed = FALSE
 
 	/// Static list of what each path converts to in the UI (colors are TGUI colors)
 	var/static/list/path_to_ui_color = list(
@@ -158,14 +171,21 @@
 	return ..()
 
 /datum/antagonist/heretic/on_gain()
-	var/mob/living/carbon/C = owner.current //only carbons have dna now, so we have to typecast
 	if(isipc(owner.current))//Due to IPCs having a mechanical heart it messes with the living heart, so no IPC heretics for now
-		C.set_species(/datum/species/human)
-		var/prefs_name = C.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		var/mob/living/carbon/carbon_owner = owner.current
+		carbon_owner.set_species(/datum/species/human)
+		var/prefs_name = carbon_owner.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
 		if(prefs_name)
-			C.fully_replace_character_name(C.real_name, prefs_name)
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, prefs_name)
 		else
-			C.fully_replace_character_name(C.real_name, random_unique_name(C.gender))
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.generate_random_mob_name())
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = carbon_owner.dna.species.name
+				record.gender = carbon_owner.gender
+
+				//Not directly assigning carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 	if(give_objectives)
 		forge_objectives()
 
@@ -174,7 +194,7 @@
 
 	GLOB.reality_smash_track.add_tracked_mind(owner)
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
-	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, finish_manus_dream_cooldown)), 1 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(finish_manus_dream_cooldown)), 1 MINUTES) // Alert our heretic in one minute that they can dream
 	return ..()
 
 /datum/antagonist/heretic/on_removal()
@@ -485,13 +505,14 @@
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
+	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
 	switch(has_living_heart())
 		if(HERETIC_NO_LIVING_HEART)
 			.["Give Living Heart"] = CALLBACK(src, PROC_REF(admin_give_living_heart))
 		if(HERETIC_HAS_LIVING_HEART)
 			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(admin_add_marked_target))
-			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
-	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
+			if(length(sac_targets))
+				.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
 
 /*
  * Admin proc for giving a heretic a Living Heart easily.
@@ -568,7 +589,7 @@
 		else
 			string_of_knowledge += knowledge.name
 
-	return "<br><b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
+	return "<b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
 
 /datum/antagonist/heretic/antag_panel_objectives()
 	. = ..()
@@ -582,7 +603,6 @@
 			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
-	. += "<br>"
 
 /*
  * Learns the passed [typepath] of knowledge, creating a knowledge datum
@@ -676,7 +696,7 @@
  * and returns HERETIC_HAS_LIVING_HEART if they have a living heart
  */
 /datum/antagonist/heretic/proc/has_living_heart()
-	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(living_heart_organ_slot)
 	if(!our_living_heart)
 		return HERETIC_NO_HEART_ORGAN
 
@@ -684,6 +704,17 @@
 		return HERETIC_NO_LIVING_HEART
 
 	return HERETIC_HAS_LIVING_HEART
+
+/**
+ * Finish our dreaming cooldown
+ */
+/datum/antagonist/heretic/proc/finish_manus_dream_cooldown()
+	var/mob/living/living_current = owner?.current
+	if(!QDELETED(living_current))
+		to_chat(living_current, span_hypnophrase("You feel ready to walk the forest of the manus again..."))
+		living_current.balloon_alert(living_current, "You are ready to dream again")
+
+	manus_dream_allowed = TRUE
 
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
 /datum/objective/minor_sacrifice
@@ -761,7 +792,7 @@
 /datum/action/antag_info/heretic
 	name = "Forbidden Knowledge"
 	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
-	icon_icon = 'icons/obj/heretic.dmi'
+	button_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "book_open"
 	background_icon_state = "bg_heretic"
 

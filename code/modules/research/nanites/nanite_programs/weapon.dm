@@ -128,8 +128,8 @@
 	empulse(host_mob, 1, 2)
 
 /datum/nanite_program/pyro/active_effect()
-	host_mob.fire_stacks += 1
-	host_mob.IgniteMob()
+	host_mob.adjust_fire_stacks(1)
+	host_mob.ignite_mob()
 
 /datum/nanite_program/pyro
 	name = "Sub-Dermal Combustion"
@@ -143,8 +143,8 @@
 	return ..()
 
 /datum/nanite_program/pyro/active_effect()
-	host_mob.fire_stacks += 1
-	host_mob.IgniteMob()
+	host_mob.adjust_fire_stacks(1)
+	host_mob.ignite_mob()
 
 /datum/nanite_program/cryo
 	name = "Cryogenic Treatment"

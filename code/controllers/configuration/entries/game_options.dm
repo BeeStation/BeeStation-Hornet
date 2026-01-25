@@ -162,9 +162,8 @@
 	config_entry_value = "Central Command has ordered the Epsilon security level on the station. Consider your contracts terminated."
 
 /datum/config_entry/number/station_goal_budget
-	default = 1
+	config_entry_value = 1
 	min_val = 0
-	integer = FALSE
 
 /datum/config_entry/flag/diona_ghost_spawn
 
@@ -288,7 +287,6 @@
 /datum/config_entry/string/overflow_job
 	config_entry_value = JOB_NAME_ASSISTANT
 
-/datum/config_entry/flag/starlight
 /datum/config_entry/flag/grey_assistants
 
 /datum/config_entry/number/lavaland_budget
@@ -377,6 +375,21 @@
 
 /datum/config_entry/flag/station_traits
 
+/datum/config_entry/keyed_list/positive_station_traits
+	config_entry_value = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/negative_station_traits
+	config_entry_value = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/neutral_station_traits
+	config_entry_value = list("0" = 10, "1" = 10, "2" = 3, "2.5" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
 /datum/config_entry/flag/dark_unstaffed_departments
 
 /datum/config_entry/flag/allow_virologist
@@ -405,3 +418,13 @@
 
 /datum/config_entry/number/virus_thinning_cap
 	config_entry_value = 4
+
+/**
+ * A config that skews with the random spawners weights
+ * If the value is lower than 1, it'll tend to even out the odds
+ * If higher than 1, it'll lean toward common spawns even more.
+ */
+/datum/config_entry/number/random_loot_weight_modifier
+	integer = FALSE
+	default = 1
+	min_val = 0.05

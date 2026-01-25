@@ -228,6 +228,7 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 	AddElement(/datum/element/atmos_sensitive)
+	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE)
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
 /obj/vehicle/sealed/mecha/proc/Eject()
@@ -331,7 +332,7 @@
 ////////////////////////
 
 ///Adds a cell, for use in Map-spawned mechs, Nuke Ops mechs, and admin-spawned mechs. Mechs built by hand will replace this.
-/obj/vehicle/sealed/mecha/proc/add_cell(var/obj/item/stock_parts/cell/C=null)
+/obj/vehicle/sealed/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
 	QDEL_NULL(cell)
 	if(C)
 		C.forceMove(src)
@@ -340,7 +341,7 @@
 	cell = new /obj/item/stock_parts/cell/high/plus(src)
 
 ///Adds a scanning module, for use in Map-spawned mechs, Nuke Ops mechs, and admin-spawned mechs. Mechs built by hand will replace this.
-/obj/vehicle/sealed/mecha/proc/add_scanmod(var/obj/item/stock_parts/scanning_module/sm=null)
+/obj/vehicle/sealed/mecha/proc/add_scanmod(obj/item/stock_parts/scanning_module/sm=null)
 	QDEL_NULL(scanmod)
 	if(sm)
 		sm.forceMove(src)
@@ -349,7 +350,7 @@
 	scanmod = new /obj/item/stock_parts/scanning_module(src)
 
 ///Adds a capacitor, for use in Map-spawned mechs, Nuke Ops mechs, and admin-spawned mechs. Mechs built by hand will replace this.
-/obj/vehicle/sealed/mecha/proc/add_capacitor(var/obj/item/stock_parts/capacitor/cap=null)
+/obj/vehicle/sealed/mecha/proc/add_capacitor(obj/item/stock_parts/capacitor/cap=null)
 	QDEL_NULL(capacitor)
 	if(cap)
 		cap.forceMove(src)
@@ -504,8 +505,8 @@
 		return
 	for(var/mob/living/cookedalive as anything in occupants)
 		if(cookedalive.fire_stacks < 5)
-			cookedalive.fire_stacks += 1
-			cookedalive.IgniteMob()
+			cookedalive.adjust_fire_stacks(1)
+			cookedalive.ignite_mob()
 
 ///Displays a special speech bubble when someone inside the mecha speaks
 /obj/vehicle/sealed/mecha/proc/display_speech_bubble(datum/source, list/speech_args)
@@ -915,6 +916,9 @@
 
 /obj/vehicle/sealed/mecha/mob_try_enter(mob/M)
 	if(!ishuman(M)) // no silicons or drones in mechas.
+		return
+	if(HAS_TRAIT(M, TRAIT_PRIMITIVE)) //no lavalizards either.
+		to_chat(M, span_warning("The knowledge to use this device eludes you!"))
 		return
 	log_message("[M] tries to move into [src].", LOG_MECHA)
 	if(!operation_allowed(M))

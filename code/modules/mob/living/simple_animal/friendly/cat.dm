@@ -15,15 +15,14 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	minbodytemp = 200
 	maxbodytemp = 400
 	unsuitable_atmos_damage = 0.5
 	animal_species = /mob/living/simple_animal/pet/cat
-	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
+	childtype = list(/mob/living/simple_animal/pet/cat/kitten = 1)
 	butcher_results = list(/obj/item/food/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
@@ -32,6 +31,7 @@
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
 	var/mob/living/simple_animal/mouse/movement_target
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
 	can_be_held = TRUE
@@ -45,6 +45,7 @@
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "purrs!")
 	add_verb(/mob/living/proc/toggle_resting)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/pet/cat/space
 	name = "space cat"

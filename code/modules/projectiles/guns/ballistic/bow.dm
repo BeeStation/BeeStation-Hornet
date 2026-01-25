@@ -3,7 +3,7 @@
 	desc = "some sort of primitive projectile weapon. used to fire arrows."
 	icon_state = "bow"
 	icon_state_preview = "bow_unloaded"
-	item_state = "bow"
+	inhand_icon_state = "bow"
 	worn_icon_state = "baguette"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY //need both hands to fire
@@ -18,6 +18,7 @@
 	pin = null
 	no_pin_required = TRUE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL //so ashwalkers can use it
+	custom_price = 200
 
 /obj/item/gun/ballistic/bow/shoot_with_empty_chamber()
 	return
@@ -59,7 +60,7 @@
 	name = "Bone Bow"
 	desc = "Some sort of primitive projectile weapon made of bone and wrapped sinew."
 	icon_state = "ashenbow"
-	item_state = "ashenbow"
+	inhand_icon_state = "ashenbow"
 	icon_state_preview = "ashenbow_unloaded"
 	force = 8
 
@@ -67,6 +68,6 @@
 	name = "Pipe Bow"
 	desc = "A crude projectile weapon made from silk string, pipe and lots of bending."
 	icon_state = "pipebow"
-	item_state = "pipebow"
+	inhand_icon_state = "pipebow"
 	icon_state_preview = "pipebow_unloaded"
 	force = 7

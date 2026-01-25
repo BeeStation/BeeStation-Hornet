@@ -5,7 +5,7 @@
 	bodyflag = FLAG_APID
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
-	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
 	hair_color = "fixedmutcolor"
 	attack_verb = "slash"
@@ -27,10 +27,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/apid,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/apid,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/apid,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/apid,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/apid,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/apid
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/apid,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/apid,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/apid,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/apid
 	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
@@ -50,21 +50,6 @@
 
 	else
 		cold_cycle = 0
-
-/datum/species/apid/random_name(gender, unique, lastname, attempts)
-	if(gender == MALE)
-		. =  "[pick(GLOB.apid_names_male)]"
-	else
-		. =  "[pick(GLOB.apid_names_female)]"
-
-	if(lastname)
-		. += " [lastname]"
-	else
-		. +=  " [pick(GLOB.apid_names_last)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, attempts+1)
 
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))

@@ -16,13 +16,11 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
 	caliber = list("10mm")
-
-/obj/item/gun/ballistic/automatic/pistol/locker
-	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors. This one is rusted from being inside of a locker for so long."
 
 /obj/item/gun/ballistic/automatic/pistol/suppressed/Initialize(mapload)
 	. = ..()
@@ -34,7 +32,7 @@
 	desc = "An 'Infiltrator' double-barreled derringer, chambered in the powerful .357. Useful in a pinch but inadequate for longer engagements."
 	icon_state = "derringer"
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = null //Too small to show in hand, unless examined
+	inhand_icon_state = null //Too small to show in hand, unless examined
 	throwforce = 0 //Derringers are light and tiny, no hurtie
 	mag_type = /obj/item/ammo_box/magazine/internal/der38
 	load_sound = 'sound/weapons/revolverload.ogg'
@@ -62,6 +60,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE
@@ -79,16 +78,17 @@
 	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
 	lock_back_sound = "sound/weapons/deaglelock.ogg"
 	fire_sound = "sound/weapons/deagleshot.ogg"
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
 	icon_state = "deagleg"
-	item_state = "deagleg"
+	inhand_icon_state = "deagleg"
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/camo
 	desc = "A Deagle brand Deagle for operators operating operationally. Uses .50 AE ammo."
 	icon_state = "deaglecamo"
-	item_state = "deagleg"
+	inhand_icon_state = "deagleg"
 
 /obj/item/gun/ballistic/automatic/pistol/APS
 	name = "stechkin APS pistol"
@@ -136,6 +136,7 @@
 	fire_rate = 4
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
+	trade_flags = NONE
 	var/stripe_state = "officer_com"
 
 /obj/item/gun/ballistic/automatic/pistol/service/update_icon()

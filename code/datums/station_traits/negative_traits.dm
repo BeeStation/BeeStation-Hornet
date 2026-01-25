@@ -4,9 +4,7 @@
 	weight = 3
 	show_in_report = TRUE
 	report_message = "Please be nice to him."
-	blacklist = list(/datum/station_trait/announcement_medbot,
-	/datum/station_trait/announcement_baystation
-	)
+	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_baystation, /datum/station_trait/birthday)
 
 /datum/station_trait/announcement_intern/New()
 	. = ..()
@@ -37,8 +35,10 @@
 	report_message = "Sorry for that, we didn't expect to fly into that vomiting goose while bringing you to your new station."
 	trait_to_give = STATION_TRAIT_LATE_ARRIVALS
 	blacklist = list(/datum/station_trait/random_spawns, /datum/station_trait/hangover)
-	possible_announcements = list("You are getting late, again. Get your stuff together or you are all fired.",
-								"Our calculations were off by a bit. Shuttle will be there in a few seconds.")
+	possible_announcements = list(
+		"You are getting late, again. Get your stuff together or you are all fired.",
+		"Our calculations were off by a bit. Shuttle will be there in a few seconds.",
+	)
 
 /datum/station_trait/random_spawns
 	name = "Drive-by landing"
@@ -59,13 +59,23 @@
 	report_message = "Ohh.... Man.... That mandatory office party from last shift... God that was awesome... I woke up in some random toilet 3 sectors away..."
 	trait_to_give = STATION_TRAIT_HANGOVER
 	blacklist = list(/datum/station_trait/late_arrivals, /datum/station_trait/random_spawns)
-	possible_announcements = list("That was one hell of a night. Now, get back to work.",
-								"Party's over. Get back to work.")
+	possible_announcements = list(
+		"That was one hell of a night. Now, get back to work.",
+		"Party's over. Get back to work.",
+	)
+
+	/// All spawned hangover spots
+	var/list/obj/effect/spawner/hangover_spawn/spawns = list()
 
 /datum/station_trait/hangover/New()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
 	RegisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(create_spawners))
+
+/datum/station_trait/hangover/revert()
+	for(var/obj/effect/spawner/hangover_spawn/hangover_spot in spawns)
+		QDEL_LIST(hangover_spot.hangover_debris)
+	return ..()
 
 /datum/station_trait/hangover/proc/create_spawners()
 	SIGNAL_HANDLER
@@ -75,8 +85,8 @@
 
 /datum/station_trait/hangover/proc/pick_turfs_and_spawn()
 	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms), rand(200, 300))
-	for(var/turf/T as() in turfs)
-		new /obj/effect/spawner/hangover_spawn(T)
+	for(var/turf/turf as() in turfs)
+		spawns += new /obj/effect/spawner/hangover_spawn(turf)
 
 /datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/spawned_mob, joined_late)
 	SIGNAL_HANDLER
@@ -87,9 +97,9 @@
 	var/mob/living/carbon/spawned_carbon = living_mob
 	spawned_carbon.set_resting(TRUE, silent = TRUE)
 	if(prob(50))
-		spawned_carbon.adjust_drugginess(rand(15, 20))
+		spawned_carbon.adjust_drugginess(rand(10 SECONDS, 20 SECONDS))
 	else
-		spawned_carbon.drunkenness += rand(15, 25)
+		spawned_carbon.adjust_drunk_effect(rand(10 SECONDS, 20 SECONDS))
 	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
 
 	if(prob(35) && !spawned_carbon.head)
@@ -115,11 +125,12 @@
 	name = "Cleaned out maintenance"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
+	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
 	report_message = "Our workers cleaned out most of the junk in the maintenace areas."
 	blacklist = list(/datum/station_trait/filled_maint)
 	trait_to_give = STATION_TRAIT_EMPTY_MAINT
-
+	can_revert = FALSE
 
 /datum/station_trait/overflow_job_bureacracy
 	name = "Overflow bureacracy mistake"
@@ -158,8 +169,10 @@
 	name = "Bot Language Matrix Malfunction"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 3
+	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
 	report_message = "Your station's friendly bots have had their language matrix fried due to an event, resulting in some strange and unfamiliar speech patterns."
+	trait_to_give = STATION_TRAIT_BOTS_GLITCHED
 
 /datum/station_trait/bot_languages/New()
 	. = ..()
@@ -169,11 +182,25 @@
 
 /datum/station_trait/bot_languages/on_round_start()
 	. = ..()
-	//All bots that exist round start have their set language randomized.
-	for(var/mob/living/simple_animal/bot/found_bot in GLOB.alive_mob_list)
-		/// The bot's language holder - so we can randomize and change their language
-		var/datum/language_holder/bot_languages = found_bot.get_language_holder()
-		bot_languages.selected_language = bot_languages.get_random_spoken_language()
+	// All bots that exist round start on station Z OR on the escape shuttle have their set language randomized.
+	for(var/mob/living/found_bot as anything in GLOB.bots_list)
+		found_bot.randomize_language_if_on_station()
+
+/datum/station_trait/machine_languages
+	name = "Machine Language Matrix Malfunction"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	cost = STATION_TRAIT_COST_FULL
+	show_in_report = TRUE
+	report_message = "Your station's machines have had their language matrix fried due to an event, \
+		resulting in some strange and unfamiliar speech patterns."
+	trait_to_give = STATION_TRAIT_MACHINES_GLITCHED
+
+/datum/station_trait/machine_languages/New()
+	. = ..()
+	// What "caused" our machines to go haywire (fluff)
+	var/event_source = pick("an ion storm", "a malfunction", "a software update", "a power surge", "a computer virus", "a subdued machine uprising", "a clown's prank")
+	report_message = "Your station's machinery have had their language matrix fried due to [event_source], resulting in some strange and unfamiliar speech patterns."
 
 /datum/station_trait/united_budget
 	name = "United Department Budget Management"
@@ -185,14 +212,16 @@
 
 /datum/station_trait/united_budget/New()
 	. = ..()
-	var/event_source = pick(list("As your station has been selected for one of our financial experiments,",
-		                         "Our financial planner has decided:",
-		                         "Our new AI financial plan support module has generated a new budgeting system:",
-		                         "We thought the current budget categorisation system was too complicated, so",
-		                         "It appears one of your superiors has it out for you, so",
-		                         "The Syndicate damaged documents on procedures for the station's budgeting system, so",
-		                         "Due to our intern having free reign over the station budget system,",
-		                         "Thanks to our financial intern,",
-		                         "Due to the budget cuts in Nanotrasen Space Finance,",
-		                         "Since \[REDACTED\] has been \[REDACTED\] by \[REDACTED\],"))
+	var/event_source = pick(list(
+		"As your station has been selected for one of our financial experiments,",
+		"Our financial planner has decided:",
+		"Our new AI financial plan support module has generated a new budgeting system:",
+		"We thought the current budget categorisation system was too complicated, so",
+		"It appears one of your superiors has it out for you, so",
+		"The Syndicate damaged documents on procedures for the station's budgeting system, so",
+		"Due to our intern having free reign over the station budget system,",
+		"Thanks to our financial intern,",
+		"Due to the budget cuts in Nanotrasen Space Finance,",
+		"Since \[REDACTED\] has been \[REDACTED\] by \[REDACTED\],"
+	))
 	report_message = "[event_source] all station budgets have been united into one, and all budget cards will be linked to one account."

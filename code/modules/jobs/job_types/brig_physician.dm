@@ -13,7 +13,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brig_physician
 
-	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT,  ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
+	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
 	extra_access = list(ACCESS_MEDICAL, ACCESS_SURGERY)
 
 	departments = DEPT_BITFLAG_SEC
@@ -30,6 +30,11 @@
 	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
 
 	minimal_lightup_areas = list(/area/medical/morgue)
+
+	manuscript_jobs = list(
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_PARAMEDIC // They're somewhat identical
+	)
 
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN

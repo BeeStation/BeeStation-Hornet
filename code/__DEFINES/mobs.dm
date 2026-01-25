@@ -27,7 +27,7 @@
 #define BLEED_TINY 0.1
 #define BLEED_SCRATCH 0.8
 #define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
-#define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
+#define BLEED_CUT 2.3				// 560 > 442 blood in 115 seconds
 #define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
 #define BLEED_CRITICAL 3.6			// Crit in 190 seconds, Death in 238 seconds
 
@@ -63,17 +63,27 @@
 #define BLOODCRAWL 1
 #define BLOODCRAWL_EAT 2
 
-//Mob bio-types
-#define MOB_ORGANIC 	"organic"
-#define MOB_INORGANIC 	"inorganic"
-#define MOB_ROBOTIC 	"robotic"
-#define MOB_UNDEAD		"undead"
-#define MOB_HUMANOID 	"humanoid"
-#define MOB_BUG 		"bug"
-#define MOB_BEAST		"beast"
-#define MOB_EPIC		"epic" //megafauna
-#define MOB_REPTILE		"reptile"
-#define MOB_SPIRIT		"spirit"
+// Mob bio-type flags
+/// The mob is organic, can heal from medical sutures.
+#define MOB_ORGANIC (1 << 0)
+/// The mob isn't organic. For example, golems and IPCs.
+#define MOB_INORGANIC (1 << 1)
+/// The mob is a synthetic lifeform, like station borgs.
+#define MOB_ROBOTIC (1 << 2)
+/// The mob is an shambling undead corpse. Or a halloween species. Pick your poison.
+#define MOB_UNDEAD (1 << 3)
+/// The mob is a human-sized human-like human-creature.
+#define MOB_HUMANOID (1 << 4)
+/// The mob is a bug/insect/arachnid/some other kind of scuttly thing.
+#define MOB_BUG (1 << 5)
+/// The mob is a wild animal. Domestication may apply.
+#define MOB_BEAST (1 << 6)
+/// The mob is some kind of a creature that should be exempt from certain **fun** interactions for balance reasons, i.e. megafauna
+#define MOB_SPECIAL (1 << 7)
+/// The mob is some kind of a scaly reptile creature
+#define MOB_REPTILE (1 << 8)
+/// The mob is a spooky phantasm or an evil ghast of such nature.
+#define MOB_SPIRIT (1 << 9)
 
 //Organ defines for carbon mobs
 #define ORGAN_ORGANIC 1
@@ -220,13 +230,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
 #define WINGS_FLYING 2 //can generate lift and fly if atmos is present
 #define WINGS_MAGIC 3 //can fly regardless of atmos
-
-//Surgery Defines
-#define BIOWARE_GENERIC "generic"
-#define BIOWARE_NERVES "nerves"
-#define BIOWARE_CIRCULATION "circulation"
-#define BIOWARE_LIGAMENTS "ligaments"
-#define BIOWARE_CORTEX "cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
@@ -431,8 +434,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180
 
-#define HUMAN_FIRE_STACK_ICON_NUM	3
-
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
@@ -581,8 +582,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HALO_LAYER 3
 /// Typing layer for the typing indicator
 #define TYPING_LAYER 2
-/// Fire layer when you're on fire
-#define FIRE_LAYER 1
+/// The highest most layer for mob overlays
+#define HIGHEST_LAYER 1
 
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
@@ -622,6 +623,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+
+/// How far away you can be to make eye contact with someone while examining
+#define EYE_CONTACT_RANGE 5
 
 /// Returns whether or not the given mob can succumb
 #define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))
@@ -689,5 +693,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// Heals everything and is as strong as / is an admin heal
 #define ADMIN_HEAL_ALL ALL
 
-// Species related bitflags go here.
-#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.
+/// Distance which you can see someone's ID card
+/// Short enough that you can inspect over tables (bartender checking age)
+#define ID_EXAMINE_DISTANCE 3

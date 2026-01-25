@@ -1,34 +1,3 @@
-/mob/living/carbon/monkey/handle_mutations_and_radiation()
-	if(radiation)
-		if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))
-			if(!IsParalyzed())
-				emote("collapse")
-			Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
-			to_chat(src, span_danger("You feel weak."))
-		if(radiation > RAD_MOB_MUTATE)
-			if(prob(2))
-				to_chat(src, span_danger("You mutate!"))
-				easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
-				emote("gasp")
-				domutcheck()
-
-				if(radiation > RAD_MOB_MUTATE * 1.5)
-					switch(rand(1, 3))
-						if(1)
-							gorillize()
-						if(2)
-							humanize(TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPDAMAGE | TR_KEEPORGANS)
-						if(3)
-							var/obj/item/bodypart/BP = pick(bodyparts)
-							if(BP.body_part != HEAD && BP.body_part != CHEST)
-								if(BP.dismemberable)
-									BP.dismember()
-							take_bodypart_damage(100, 0, 0)
-					return
-		if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
-			vomit(10, TRUE)
-	return ..()
-
 /mob/living/carbon/monkey/handle_breath_temperature(datum/gas_mixture/breath)
 	if(abs(get_body_temp_normal() - breath.return_temperature()) > 50)
 		switch(breath.return_temperature())
@@ -56,13 +25,13 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod)
 		switch(bodytemperature)
 			if(360 to 400)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 1)
 				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
 			if(400 to 460)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 2)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 2)
 				apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 			if(460 to INFINITY)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 				if(on_fire)
 					apply_damage(HEAT_DAMAGE_LEVEL_3, BURN)
 				else
@@ -73,20 +42,20 @@
 			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 			switch(bodytemperature)
 				if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+					throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 					apply_damage(COLD_DAMAGE_LEVEL_1, BURN)
 				if(120 to 200)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+					throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 2)
 					apply_damage(COLD_DAMAGE_LEVEL_2, BURN)
 				if(-INFINITY to 120)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+					throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3)
 					apply_damage(COLD_DAMAGE_LEVEL_3, BURN)
 		else
-			clear_alert("temp")
+			clear_alert(ALERT_TEMPERATURE)
 
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod)
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)
 
 	//Account for massive pressure differences
 
@@ -126,29 +95,3 @@
 	if(wear_mask)
 		if(wear_mask.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return 1
-
-/mob/living/carbon/monkey/handle_fire()
-	. = ..()
-	if(.) //if the mob isn't on fire anymore
-		return
-
-	//the fire tries to damage the exposed clothes and items
-	var/list/burning_items = list()
-	//HEAD//
-	var/obscured = check_obscured_slots(TRUE)
-	if(wear_mask && !(obscured & ITEM_SLOT_MASK))
-		burning_items += wear_mask
-	if(wear_neck && !(obscured & ITEM_SLOT_NECK))
-		burning_items += wear_neck
-	if(head)
-		burning_items += head
-
-	if(back)
-		burning_items += back
-
-	for(var/obj/item/I as() in burning_items)
-		I.fire_act((fire_stacks * 50)) //damage taken is reduced to 2% of this value by fire_act()
-
-	if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-		adjust_bodytemperature(BODYTEMP_HEATING_MAX)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)

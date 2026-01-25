@@ -15,6 +15,10 @@
 /datum/dynamic_panel/ui_static_data(mob/user)
 	var/list/data = list()
 
+	data["possible_storytellers"] = list()
+	for (var/storyteller_name in SSdynamic.dynamic_storyteller_jsons)
+		data["possible_storytellers"] += storyteller_name
+
 	data["valid_roundstart_rulesets"] = list()
 	for(var/datum/dynamic_ruleset/roundstart/potential_ruleset in SSdynamic.roundstart_configured_rulesets)
 		data["valid_roundstart_rulesets"] += list(list(
@@ -46,6 +50,7 @@
 
 	// Other
 	data["forced_extended"] = SSdynamic.forced_extended
+	data["current_storyteller"] = SSdynamic.current_storyteller?["Name"]
 
 	// Roundstart
 	data["roundstart_points_override"] = SSdynamic.roundstart_points_override
@@ -152,11 +157,19 @@
 		if("vv")
 			usr.client.debug_variables(SSdynamic)
 			return TRUE
-		if("reload_config")
-			SSdynamic.configure_variables()
+		if("reload_storytellers")
+			SSdynamic.load_storytellers()
 			return TRUE
 		if("toggle_forced_extended")
 			SSdynamic.forced_extended = !SSdynamic.forced_extended
+			return TRUE
+		// Midround
+		if("set_storyteller")
+			var/new_storyteller = params["new_storyteller"]
+			SSdynamic.set_storyteller(new_storyteller == "None" ? null : new_storyteller)
+
+			message_admins("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
+			log_dynamic("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
 			return TRUE
 
 		// Roundstart
@@ -306,9 +319,15 @@
 			if(!midround_ruleset)
 				return
 
+			if (SSdynamic.midround_waiting_ruleset)
+				SSdynamic.midround_waiting_ruleset.abort()
+				SSdynamic.midround_waiting_ruleset = null
+
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
-			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(DYNAMIC_EXECUTE_SUCCESS)]")
+			if (result == DYNAMIC_EXECUTE_WAITING)
+				SSdynamic.midround_waiting_ruleset = midround_ruleset
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
 				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
@@ -403,7 +422,7 @@
 			return TRUE
 
 /datum/dynamic_panel/ui_status(mob/user, datum/ui_state/state)
-	return check_rights_for(user.client, R_FUN) ? UI_INTERACTIVE : UI_CLOSE
+	return check_rights_for(user.client, R_DEBUG) ? UI_INTERACTIVE : UI_CLOSE
 
 /datum/dynamic_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

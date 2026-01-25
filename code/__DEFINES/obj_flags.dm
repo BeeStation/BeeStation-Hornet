@@ -6,7 +6,6 @@
 #define CAN_BE_HIT (1<<2)  //! can this be bludgeoned by items?
 #define BEING_SHOCKED (1<<3)  //! Whether this thing is currently (already) being shocked by a tesla
 #define DANGEROUS_POSSESSION (1<<4)  //! Admin possession yes/no
-#define ON_BLUEPRINTS (1<<5)  //! Are we visible on the station blueprints at roundstart?
 #define UNIQUE_RENAME (1<<6)  //! can you customize the description/name of the thing?
 #define USES_TGUI (1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
 #define OBJ_EMPED (1<<8)  //! Object is affected by EMP
@@ -19,27 +18,48 @@
 
 // Flags for the item_flags var on /obj/item
 
-#define BEING_REMOVED			(1<<0)
-#define PICKED_UP				(1<<1)  //! Has this item been picked up by a mob and on their person? Handles pickup() behaviour, tooltips and outlining. Does not include backpack contents, that is covered by IN_STORAGE>
-#define FORCE_STRING_OVERRIDE	(1<<2)  //! used for tooltips
-#define NEEDS_PERMIT			(1<<3)  //! Used by security bots to determine if this item is safe for public use.
-#define SLOWS_WHILE_IN_HAND		(1<<4)
-#define NO_MAT_REDEMPTION		(1<<5)  //! Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
-#define DROPDEL					(1<<6)  //! When dropped, it calls qdel on itself
-#define NOBLUDGEON				(1<<7)	//! when an item has this it produces no "X has been hit by Y with Z" message in the default attackby()
-#define ABSTRACT				(1<<9) 	//! for all things that are technically items but used for various different stuff
-#define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
-#define IN_STORAGE				(1<<11) //! is this item in the storage item, such as backpack? used for tooltips
-#define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
-#define NO_PIXEL_RANDOM_DROP 	(1<<13) //if dropped, it wont have a randomized pixel_x/pixel_y
-#define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
-#define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
-#define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
-#define ISCARVABLE			    (1<<17) //! Examine will not read out this item
-#define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
-#define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
-///Can be equipped on digitigrade legs.
-#define IGNORE_DIGITIGRADE (1<<19)
+#define BEING_REMOVED (1<<0)
+/// Has this item been picked up by a mob and on their person? Handles pickup() behaviour, tooltips and outlining. Does not include backpack contents, that is covered by IN_STORAGE>
+#define PICKED_UP (1<<1)
+/// Used for tooltips
+#define FORCE_STRING_OVERRIDE (1<<2)
+/// Used by security bots to determine if this item is safe for public use.
+#define NEEDS_PERMIT (1<<3)
+/// If a speed modifier is applied while holding this item
+#define SLOWS_WHILE_IN_HAND (1<<4)
+/// Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
+#define NO_MAT_REDEMPTION (1<<5)
+/// When dropped, it calls qdel on itself
+#define DROPDEL (1<<6)
+//! when an item has this it produces no "X has been hit by Y with Z" message in the default attackby()
+#define NOBLUDGEON (1<<7)
+/**
+ * for all things that are technically items but don't want to be treated as such, given on a case-by-case basis
+ * examples of use are hand items, omni-toolsets, non-limb limbs (hand eater, mounted chainsaw, many null rods), borg modules, bodyparts, organs, etc.
+ * This is used for general exclusion, such as preventing insertions into other items
+ * Basically, these aren't "real" items. <= wow thanks for the fucking insight sherlock
+*/
+#define ABSTRACT (1<<9)
+/// When players should not be able to change the slowdown of the item (Speed potions, etc)
+#define IMMUTABLE_SLOW (1<<10)
+/// Is this item in the storage item, such as backpack? used for tooltips
+#define IN_STORAGE (1<<11)
+/// This item unlocks illegal tech
+#define ILLEGAL (1<<12)
+/// If dropped, it wont have a randomized pixel_x/pixel_y
+#define NO_PIXEL_RANDOM_DROP (1<<13)
+/// If the item was thrown and shouldn't have the drop_item animation applied
+#define WAS_THROWN (1<<14)
+/// If this item should hit living mobs when used on harm intent
+#define ISWEAPON (1<<15)
+/// Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
+#define NO_WORN_SLOWDOWN (1<<16)
+/// If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
+#define HAND_ITEM (1<<17)
+/// Can be equipped on digitigrade legs.
+#define IGNORE_DIGITIGRADE (1<<18)
+/// No blood overlay is allowed to appear on this item, and it cannot gain blood DNA forensics
+#define NO_BLOOD_ON_ITEM (1<<19)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -97,3 +117,12 @@
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 
 #define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode
+
+/// Flags for specifically what kind of items to get in get_equipped_items
+#define INCLUDE_POCKETS (1<<0)
+#define INCLUDE_ACCESSORIES (1<<1)
+#define INCLUDE_HELD (1<<2)
+/// Include prosthetic item limbs (which are not flavoured as being equipped items)
+#define INCLUDE_PROSTHETICS (1<<3)
+/// Include items that are not "real" items, such as hand items
+#define INCLUDE_ABSTRACT (1<<4)

@@ -9,7 +9,6 @@
 	dir = NONE
 	var/obj/structure/disposalpipe/last_pipe
 	var/obj/structure/disposalpipe/current_pipe
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	var/datum/gas_mixture/gas	// gas used to flush, will appear at exit point
 	var/active = FALSE			// true if the holder is moving, otherwise inactive
 	var/count = 1000			// can travel 1000 steps before going inactive (in case of loops)
@@ -78,7 +77,7 @@
 	SIGNAL_HANDLER
 	last_pipe = loc
 
-/obj/structure/disposalholder/proc/try_expel(datum/move_loop/source, succeed, visual_delay)
+/obj/structure/disposalholder/proc/try_expel(datum/move_loop/source, result, visual_delay)
 	SIGNAL_HANDLER
 	if(current_pipe || !active)
 		return

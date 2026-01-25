@@ -4,7 +4,7 @@
 /area/ruin/unpowered)
 "ab" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
@@ -84,9 +84,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
@@ -118,7 +116,7 @@
 /area/ruin/unpowered)
 "aF" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
@@ -150,7 +148,7 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -178,9 +176,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -198,7 +194,7 @@
 "aR" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/cup/bottle/charcoal,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
@@ -210,7 +206,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "aV" = (
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -219,7 +215,7 @@
 /area/ruin/unpowered)
 "aW" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)

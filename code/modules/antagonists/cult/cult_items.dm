@@ -12,7 +12,7 @@
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	item_state = "cultdagger"
+	inhand_icon_state = "cultdagger"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	inhand_x_dimension = 32
@@ -43,7 +43,7 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "eldritch longsword"
 	desc = "A sword humming with unholy energy. It glows with a dim red light."
 	icon_state = "cultblade"
-	item_state = "cultblade"
+	inhand_icon_state = "cultblade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -93,7 +93,7 @@ Striking a noncultist, however, will tear their flesh."}
 /datum/action/innate/dash/cult
 	name = "Rend the Veil"
 	desc = "Use the sword to shear open the flimsy fabric of this reality and teleport to your target."
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "phaseshift"
 	dash_sound = 'sound/magic/enter_blood.ogg'
 	recharge_sound = 'sound/magic/exit_blood.ogg'
@@ -111,9 +111,9 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "\improper Nar'Sien bola"
 	desc = "A strong bola, bound with dark magic that allows it to pass harmlessly through Nar'Sien cultists. Throw it to trip and slow your victim."
 	icon_state = "bola_cult"
-	item_state = "bola_cult"
+	inhand_icon_state = "bola_cult"
 	breakouttime = 6 SECONDS
-	knockdown = 20
+	knockdown = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -162,7 +162,7 @@ Striking a noncultist, however, will tear their flesh."}
 	icon_state = "cultrobes"
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
-	item_state = "cultrobes"
+	inhand_icon_state = "cultrobes"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
@@ -194,13 +194,13 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "cultist hood"
 	desc = "An armored hood worn by the followers of Nar'Sie."
 	icon_state = "cult_hoodalt"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	name = "cultist robes"
 	desc = "An armored set of robes worn by the followers of Nar'Sie."
 	icon_state = "cultrobesalt"
-	item_state = null
+	inhand_icon_state = null
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/alt
 
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
@@ -213,7 +213,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/clothing/head/wizard/magus
 	name = "magus helm"
 	icon_state = "magus"
-	item_state = null
+	inhand_icon_state = null
 	desc = "A helm worn by the followers of Nar'Sie."
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEEARS|HIDEEYES|HIDESNOUT
 	armor_type = /datum/armor/wizard_magus
@@ -238,7 +238,7 @@ Striking a noncultist, however, will tear their flesh."}
 	icon_state = "magusred"
 	icon = 'icons/obj/clothing/suits/wizard.dmi'
 	worn_icon = 'icons/mob/clothing/suits/wizard.dmi'
-	item_state = null
+	inhand_icon_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor_type = /datum/armor/suit_magusred
@@ -274,7 +274,7 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "empowered cultist armor"
 	desc = "A set of runed armour scribbed with blood rites which shimmer in the light, reflecting projectiles."
 	icon_state = "cult_armor"
-	item_state = null
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	armor_type = /datum/armor/cultrobes_cult_shield
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -289,7 +289,6 @@ Striking a noncultist, however, will tear their flesh."}
 	energy = 30
 	bomb = 50
 	bio = 30
-	rad = 30
 	fire = 50
 	acid = 60
 	stamina = 40
@@ -332,7 +331,6 @@ Striking a noncultist, however, will tear their flesh."}
 	energy = 30
 	bomb = 50
 	bio = 100
-	rad = 30
 	fire = 50
 	acid = 60
 	stamina = 40
@@ -344,7 +342,7 @@ Striking a noncultist, however, will tear their flesh."}
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.dropItemToGround(src, TRUE)
-		user.Dizzy(30)
+		user.set_dizzy_if_lower(1 MINUTES)
 		user.Paralyze(100)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker
@@ -382,14 +380,14 @@ Striking a noncultist, however, will tear their flesh."}
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.dropItemToGround(src, TRUE)
-		user.Dizzy(30)
+		user.set_dizzy_if_lower(1 MINUTES)
 		user.Paralyze(100)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
 	desc = "may Nar'Sie guide you through the darkness and shield you from the light."
 	name = "zealot's blindfold"
 	icon_state = "blindfold"
-	item_state = "blindfold"
+	inhand_icon_state = "blindfold"
 	flash_protect = FLASH_PROTECTION_FLASH
 	vision_correction = 1
 
@@ -398,7 +396,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(!IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"You want to be blind, do you?\""))
 		user.dropItemToGround(src, TRUE)
-		user.Dizzy(30)
+		user.set_dizzy_if_lower(1 MINUTES)
 		user.Paralyze(100)
 		user.adjust_blindness(30)
 
@@ -515,7 +513,7 @@ Striking a noncultist, however, will tear their flesh."}
 	w_class = WEIGHT_CLASS_SMALL
 	light_range = 1
 	icon_state = "torch"
-	item_state = "torch"
+	inhand_icon_state = "torch"
 	color = "#ff0000"
 	on_damage = 15
 	slot_flags = null
@@ -532,9 +530,9 @@ Striking a noncultist, however, will tear their flesh."}
 	if(istype(A, /obj/item))
 
 		var/list/cultists = list()
-		for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-			if(cultist.owner?.current?.stat != DEAD)
-				cultists |= cultist.owner.current
+		for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+			if(cult_mind.current?.stat != DEAD)
+				cultists |= cult_mind.current
 		var/mob/living/cultist_to_receive = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in (cultists - user)
 		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 			return
@@ -706,7 +704,7 @@ Striking a noncultist, however, will tear their flesh."}
 	lefthand_file = 'icons/mob/inhands/misc/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "disintegrate"
-	item_state = "disintegrate"
+	inhand_icon_state = "disintegrate"
 	item_flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 0
@@ -779,7 +777,7 @@ Striking a noncultist, however, will tear their flesh."}
 		playsound(src, 'sound/magic/exit_blood.ogg', 75, 1)
 		new /obj/effect/temp_visual/dir_setting/cult/phase(user.loc, user.dir)
 		var/turf/temp_target = get_turf_in_angle(set_angle, targets_from, 40)
-		for(var/turf/T in getline(targets_from,temp_target))
+		for(var/turf/T in get_line(targets_from,temp_target))
 			if (T.is_holy())
 				temp_target = T
 				playsound(T, 'sound/machines/clockcult/ark_damage.ogg', 50, 1)
@@ -824,7 +822,6 @@ Striking a noncultist, however, will tear their flesh."}
 	throw_range = 4
 	max_integrity = 50
 	w_class = WEIGHT_CLASS_BULKY
-	block_flags = BLOCKING_PROJECTILE
 	attack_verb_continuous = list("bumps", "prods")
 	attack_verb_simple = list("bump", "prod")
 	hitsound = 'sound/weapons/smash.ogg'

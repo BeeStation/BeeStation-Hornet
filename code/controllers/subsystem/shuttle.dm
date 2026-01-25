@@ -3,7 +3,11 @@
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
 	wait = 1 SECONDS
-	init_order = INIT_ORDER_SHUTTLE
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms,
+		/datum/controller/subsystem/air,
+	)
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 
@@ -71,6 +75,10 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+#ifdef LOWMEMORYMODE
+	if(supply)
+		supply.callTime = 3 SECONDS // quick shuttle for debug
+#endif
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/shuttle/proc/initial_load()

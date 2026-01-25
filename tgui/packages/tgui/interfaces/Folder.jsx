@@ -9,7 +9,7 @@ export const Folder = (props) => {
   return (
     <Window
       title={folder_name || 'Folder'}
-      theme={theme}
+      theme={theme || 'cardboard'}
       width={400}
       height={500}
     >

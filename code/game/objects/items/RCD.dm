@@ -216,6 +216,7 @@ RLD
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
 	actions_types = list(/datum/action/item_action/rcd_scan)
+	custom_price = 100
 	var/mode = RCD_FLOORWALL
 	var/construction_mode = RCD_FLOORWALL
 	var/ranged = FALSE
@@ -795,7 +796,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 /obj/item/construction/rcd/borg/syndicate
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	energyfactor = 66
 
 /obj/item/construction/rcd/loaded
@@ -804,22 +805,30 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/construction/rcd/combat
 	name = "industrial RCD"
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	max_matter = 500
 	matter = 500
 	canRturf = TRUE
 	item_flags = ISWEAPON
+
+/obj/item/construction/rcd/combat/ert
+	name = "ERT RCD"
+	icon_state = "ircd"
+	inhand_icon_state = "ircd"
+	max_matter = 450
+	matter = 450
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "rcd"
-	item_state = "rcdammo"
+	inhand_icon_state = "rcdammo"
 	w_class = WEIGHT_CLASS_TINY
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
+	custom_price = 60
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large
@@ -836,7 +845,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	delay_mod = 0.6
 	ranged = TRUE
 	icon_state = "arcd"
-	item_state = "oldrcd"
+	inhand_icon_state = "oldrcd"
 	has_ammobar = FALSE
 	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 
@@ -888,7 +897,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	var/color_choice = null
 
 
-/obj/item/construction/rld/ui_action_click(mob/user, var/datum/action/A)
+/obj/item/construction/rld/ui_action_click(mob/user, datum/action/A)
 	if(istype(A, /datum/action/item_action/pick_color))
 		color_choice = tgui_color_picker(user,"","Choose Color",color_choice)
 	else
@@ -913,7 +922,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 			to_chat(user, span_notice("You change RLD's mode to 'Deconstruct'."))
 
 
-/obj/item/construction/rld/proc/checkdupes(var/target)
+/obj/item/construction/rld/proc/checkdupes(target)
 	. = list()
 	var/turf/checking = get_turf(target)
 	for(var/obj/machinery/light/dupe in checking)

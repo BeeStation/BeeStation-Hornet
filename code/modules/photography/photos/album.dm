@@ -5,7 +5,7 @@
 	name = "photo album"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "album"
-	item_state = "briefcase"
+	inhand_icon_state = "briefcase"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	resistance_flags = FLAMMABLE

@@ -32,6 +32,9 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	radio = new /obj/item/radio/headset/silicon/ai(src)
 	update_icon()
 
+/obj/machinery/announcement_system/randomize_language_if_on_station()
+	return
+
 /obj/machinery/announcement_system/update_icon()
 	if(is_operational)
 		icon_state = (panel_open ? "AAS_On_Open" : "AAS_On")
