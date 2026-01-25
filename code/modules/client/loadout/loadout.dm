@@ -114,6 +114,8 @@
 		var/datum/gear/AG = GLOB.gear_datums[gear_id]
 		if(AG.id in purchased_gear)
 			continue
+		if (!(AG.gear_flags & GEAR_DONATOR))
+			continue
 		var/datum/user_gear/user_gear = new(AG, FALSE, 0)
 		purchased_gear[AG.id] = user_gear
 

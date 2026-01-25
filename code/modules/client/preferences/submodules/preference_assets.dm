@@ -49,6 +49,8 @@
 	early = TRUE
 
 /datum/asset/spritesheet_batched/preferences_loadout/create_spritesheets()
+	if (!length(GLOB.gear_datums))
+		CRASH("Attempting to generate loadout spritesheet prior to gear datums being loaded.")
 	for(var/gear_id in GLOB.gear_datums)
 		var/datum/gear/G = GLOB.gear_datums[gear_id]
 		var/regular_icon = get_display_icon_for(G.path)

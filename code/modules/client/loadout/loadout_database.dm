@@ -29,9 +29,14 @@
 
 	if (length(unequipped_gear))
 		// Equip the item and unequip conflicting ones
+		// If we don't have the item in the database, it is a free item, so we equip
+		// it but keep the purchase count at 0.
 		var/datum/db_query/load_user_gear = SSdbcore.NewQuery(
 			{"
-UPDATE [format_table_name("loadout_gear")] SET equipped = 1 WHERE ckey = :ckey AND gear_path = :gear_path;
+INSERT INTO [format_table_name("loadout_gear")] (ckey, gear_path, equipped, purchased_amount)
+VALUES (:ckey, :gear_path, 1, 0)
+ON DUPLICATE KEY UPDATE
+    equipped = 1;
 UPDATE [format_table_name("loadout_gear")] SET equipped = 0 WHERE ckey = :ckey AND gear_path in (:removed_gear_path);
 			"},
 			list("ckey" = ckey, "gear_path" = gear.id, "removed_gear_path" = jointext(unequipped_gear, ", "))
@@ -39,8 +44,15 @@ UPDATE [format_table_name("loadout_gear")] SET equipped = 0 WHERE ckey = :ckey A
 		load_user_gear.ExecuteAsync()
 	else
 		// Equip the item
+		// If we don't have the item in the database, it is a free item, so we equip
+		// it but keep the purchase count at 0.
 		var/datum/db_query/load_user_gear = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("loadout_gear")] SET equipped = 1 WHERE ckey = :ckey AND gear_path = :gear_path",
+			{"
+INSERT INTO [format_table_name("loadout_gear")] (ckey, gear_path, equipped, purchased_amount)
+VALUES (:ckey, :gear_path, 1, 0)
+ON DUPLICATE KEY UPDATE
+    equipped = 1
+			"},
 			list("ckey" = ckey, "gear_path" = gear.id)
 		)
 		load_user_gear.ExecuteAsync()

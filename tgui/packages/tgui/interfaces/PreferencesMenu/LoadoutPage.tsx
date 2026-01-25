@@ -18,12 +18,16 @@ import { LoadoutGear, PreferencesMenuData } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const isPurchased = (purchased_gear: string[], gear: LoadoutGear) =>
-  purchased_gear.includes(gear.id) && !gear.can_purchase;
+  purchased_gear.includes(gear.id);
+
+const isPurchasable = (purchasable_gear: string[], gear: LoadoutGear) =>
+  purchasable_gear.includes(gear.id);
 
 export const LoadoutPage = (props) => {
   const { act, data } = useBackend<PreferencesMenuData>();
   const {
     purchased_gear = [],
+    purchasable_gear = [],
     metacurrency_balance = 0,
     is_donator = false,
   } = data;
@@ -172,7 +176,7 @@ export const LoadoutPage = (props) => {
                             .filter((gear) =>
                               searchText.length
                                 ? search(gear)
-                                : isPurchased(purchased_gear, gear),
+                                : (isPurchased(purchased_gear, gear) && !isPurchasable(purchasable_gear, gear)),
                             )
                             .map((gear) => (
                               <GearEntry
@@ -206,6 +210,7 @@ const GearEntry = (props: {
   const {
     equipped_gear = [],
     purchased_gear = [],
+    purchasable_gear = [],
     metacurrency_balance,
     character_preferences,
     is_donator = false,
@@ -312,31 +317,24 @@ const GearEntry = (props: {
       >
         <Button
           disabled={
-            (!isPurchased(purchased_gear, gear) &&
-              gear.cost > metacurrency_balance) ||
-            (gear.donator && !is_donator) ||
-            (isPurchased(purchased_gear, gear) &&
-              !gear.is_equippable &&
-              !gear.can_purchase)
+            !isPurchased(purchased_gear, gear) && !isPurchasable(purchasable_gear, gear)
           }
           tooltip={
-            !isPurchased(purchased_gear, gear) &&
+            isPurchasable(purchasable_gear, gear) &&
             gear.cost > metacurrency_balance
               ? 'Not Enough ' + metacurrency_name + 's!'
               : null
           }
           content={
-            isPurchased(purchased_gear, gear)
-              ? equipped_gear.includes(gear.id)
-                ? 'Unequip'
-                : !gear.is_equippable
-                  ? 'Purchased'
-                  : 'Equip'
-              : 'Purchase'
+            isPurchasable(purchasable_gear, gear)
+              ? 'Purchase'
+              : (isPurchased(purchased_gear, gear) && gear.is_equippable)
+                ? 'Equip'
+                : 'Purchased'
           }
           onClick={() =>
             act(
-              isPurchased(purchased_gear, gear)
+              (isPurchased(purchased_gear, gear) && !isPurchasable(purchasable_gear, gear))
                 ? 'equip_gear'
                 : 'purchase_gear',
               {
