@@ -22,6 +22,7 @@
 #include "bloody_footprints.dm"
 #include "breath.dm"
 #include "check_adjustable_clothing.dm"
+#include "clockcult_tests.dm"
 #include "closets.dm"
 #include "combat.dm"
 #include "component_tests.dm"
