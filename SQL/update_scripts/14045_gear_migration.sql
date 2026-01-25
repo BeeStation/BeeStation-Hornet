@@ -35,3 +35,29 @@ JOIN JSON_TABLE(
     )
 ) AS jt
 WHERE p.preference_tag = 'purchased_gear' AND jt.gear_path NOT LIKE '/datum/gear/donator%';
+
+-- Delete the purchased gear data
+DELETE FROM `ss13_preferences`
+WHERE preference_tag = 'purchased_gear'
+
+-- Update equipped gear
+INSERT INTO ss13_loadout_gear (ckey, gear_path, equipped, purchased_amount)
+SELECT
+    p.ckey,
+    jt.gear_path,
+    1 AS equipped,
+    0 AS purchased_amount
+FROM ss13_preferences p
+JOIN JSON_TABLE(
+    p.preference_value,
+    '$[*]' COLUMNS (
+        gear_path VARCHAR(255) PATH '$'
+    )
+) AS jt
+WHERE p.preference_tag = 'equipped_gear'
+ON DUPLICATE KEY UPDATE
+    equipped = 1;
+
+-- Delete the purchased gear data
+DELETE FROM `ss13_preferences`
+WHERE preference_tag = 'equipped_gear'

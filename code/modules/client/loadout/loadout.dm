@@ -60,20 +60,23 @@
 		if (!purchased_gear[located_gear.id])
 			continue
 		// Handle equipping
-		if (equipped && (!located_gear.slot || !used_slots[located_gear.slot]))
+		if (equipped && (!located_gear.slot || !used_slots["[located_gear.slot]"]))
 			equipped_gear[located_gear.id] = user_gear
 			if (located_gear.slot)
-				used_slots[located_gear.slot] = TRUE
+				used_slots["[located_gear.slot]"] = TRUE
 
 	// Remove any donator items that we no longer own
 	remove_donator_items()
 	// Cleanup the query
 	qdel(load_user_gear)
+	// Load the character slot count
+	var/datum/preferences/prefs = GLOB.preferences_datums[ckey]
+	prefs.compute_save_slot_count(src)
 
 /// Returns true if the user has equipped the specified gear datum.
 /datum/loadout/proc/is_equipped(datum/gear/gear)
 	if (ispath(gear))
-		gear = GLOB.gear_datums[gear::id || gear]
+		gear = GLOB.gear_datums[gear::id || "[gear]"]
 	if (loading_failed)
 		return FALSE
 	if (!equipped_gear[gear.id])
@@ -83,7 +86,7 @@
 /// Returns true if we have purchased the specified gear datum.
 /datum/loadout/proc/is_purchased(datum/gear/gear)
 	if (ispath(gear))
-		gear = GLOB.gear_datums[gear::id || gear]
+		gear = GLOB.gear_datums[gear::id || "[gear]"]
 	if (loading_failed)
 		return FALSE
 	if ((gear.gear_flags & GEAR_DONATOR) && (IS_PATRON(ckey) || is_admin(ckey)))
@@ -95,7 +98,7 @@
 /// Returns the number of times that we have purchased the specified gear datum.
 /datum/loadout/proc/get_purchased_count(datum/gear/gear)
 	if (ispath(gear))
-		gear = GLOB.gear_datums[gear::id || gear]
+		gear = GLOB.gear_datums[gear::id || "[gear]"]
 	if (loading_failed)
 		return 0
 	var/datum/user_gear/user_gear = purchased_gear[gear.id]

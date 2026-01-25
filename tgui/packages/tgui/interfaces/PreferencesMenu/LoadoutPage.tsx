@@ -223,7 +223,7 @@ const GearEntry = (props: {
       <Table.Cell m={0} p={0}>
         <Box
           inline
-          className={`preferences_loadout32x32 loadout_gear___${gear.id}${
+          className={`preferences_loadout32x32 loadout_gear___${gear.id.replaceAll('/', '_')}${
             jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name
               ? '_skirt'
               : ''
@@ -329,7 +329,7 @@ const GearEntry = (props: {
             isPurchasable(purchasable_gear, gear)
               ? 'Purchase'
               : (isPurchased(purchased_gear, gear) && gear.is_equippable)
-                ? 'Equip'
+                ? equipped_gear.includes(gear.id) ? 'Unequip' : 'Equip'
                 : 'Purchased'
           }
           onClick={() =>

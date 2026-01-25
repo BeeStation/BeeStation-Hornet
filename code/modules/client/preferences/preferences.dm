@@ -116,7 +116,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/char_load
 	if(pref_load == PREFERENCE_LOAD_SUCCESS || pref_load == PREFERENCE_LOAD_NO_DATA)
 		log_preferences("[parent?.ckey]: Player preferences loaded and applied.")
-		compute_save_slot_count()
 		// Apply the loaded preferences!!
 		if(istype(parent))
 			apply_all_client_preferences()
@@ -377,7 +376,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character_preview_view.unregister_from_client(user.client)
 	save_locked = FALSE
 
-/datum/preferences/proc/compute_save_slot_count()
+/datum/preferences/proc/compute_save_slot_count(datum/loadout/loadout)
 	max_save_slots = initial(max_save_slots)
 
 	if(istype(parent))
@@ -387,8 +386,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				max_save_slots += CHARACTER_SLOTS_PATRON
 
 	// Apply additional save-slots
-	var/datum/loadout/player_loadout = parent.player_details.loadout
-	max_save_slots += player_loadout.get_purchased_count(/datum/gear/ooc/char_slot)
+	max_save_slots += loadout.get_purchased_count(/datum/gear/ooc/char_slot)
 
 /datum/preferences/proc/compile_character_preferences(mob/user)
 	var/list/preferences = list()

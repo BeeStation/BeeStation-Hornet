@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		var/datum/gear/G = geartype
 
 		var/use_name = initial(G.display_name)
-		var/use_id = initial(G.id) || "[G.type]"
+		var/use_id = initial(G.id) || "[G::type]"
 		var/use_category = initial(G.sort_category)
 
 		if(G == initial(G.subtype_path))
@@ -131,3 +131,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	if(skirt_pref == PREF_SKIRT && !isnull(skirt_path))
 		item_path = skirt_path
 	return new item_path(location)
+
+/datum/gear/vv_edit_var(var_name, var_value)
+	// ID gets passed to the database directly, to prevent SQL injection
+	// we disallow all edits to ID
+	return FALSE

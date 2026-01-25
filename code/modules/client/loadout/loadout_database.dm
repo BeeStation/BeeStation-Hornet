@@ -20,28 +20,29 @@
 	for (var/equipped_key in equipped_gear)
 		var/datum/user_gear/equipped = equipped_gear[equipped_key]
 		if (equipped.gear.slot == gear.slot)
-			unequipped_gear += "'[equipped.gear.id]'"
+			// To prevent SQL injection, use static values
+			unequipped_gear += "'[equipped.gear::id || equipped.gear::type]'"
 			equipped_gear -= equipped_key
 			equipped.equipped = FALSE
 
-	equipped_gear[gear.id] = TRUE
+	equipped_gear[gear.id] = user_gear
 	user_gear.equipped = TRUE
 
 	if (length(unequipped_gear))
 		// Equip the item and unequip conflicting ones
 		// If we don't have the item in the database, it is a free item, so we equip
 		// it but keep the purchase count at 0.
-		var/datum/db_query/load_user_gear = SSdbcore.NewQuery(
-			{"
+		var/datum/db_query/load_user_gear = SSdbcore.NewQuery({"
 INSERT INTO [format_table_name("loadout_gear")] (ckey, gear_path, equipped, purchased_amount)
 VALUES (:ckey, :gear_path, 1, 0)
 ON DUPLICATE KEY UPDATE
     equipped = 1;
-UPDATE [format_table_name("loadout_gear")] SET equipped = 0 WHERE ckey = :ckey AND gear_path in (:removed_gear_path);
+UPDATE [format_table_name("loadout_gear")] SET equipped = 0 WHERE ckey = :ckey AND gear_path in ([jointext(unequipped_gear, ", ")]);
 			"},
-			list("ckey" = ckey, "gear_path" = gear.id, "removed_gear_path" = jointext(unequipped_gear, ", "))
+			list("ckey" = ckey, "gear_path" = gear.id)
 		)
-		load_user_gear.ExecuteAsync()
+		load_user_gear.warn_execute()
+		qdel(load_user_gear)
 	else
 		// Equip the item
 		// If we don't have the item in the database, it is a free item, so we equip
@@ -55,7 +56,8 @@ ON DUPLICATE KEY UPDATE
 			"},
 			list("ckey" = ckey, "gear_path" = gear.id)
 		)
-		load_user_gear.ExecuteAsync()
+		load_user_gear.warn_execute()
+		qdel(load_user_gear)
 
 /// Unequip the specified gear datum
 /datum/loadout/proc/unequip(datum/gear/gear)
@@ -81,7 +83,14 @@ ON DUPLICATE KEY UPDATE
 		"UPDATE [format_table_name("loadout_gear")] SET equipped = 0 WHERE ckey = :ckey AND gear_path = :gear_path",
 		list("ckey" = ckey, "gear_path" = gear.id)
 	)
-	load_user_gear.ExecuteAsync()
+	load_user_gear.warn_execute()
+	qdel(load_user_gear)
+
+/client/verb/test()
+	set name = "test"
+	set category = "powerfulbacon"
+	var/datum/gear/a = GLOB.gear_datums[GLOB.gear_datums[1]]
+	player_details.loadout.purchase_for_cost_transaction(a, 1000000)
 
 /// Purchase the item and update the gear database in a single transaction, returning FALSE
 /// if the transaction failed.
@@ -97,21 +106,15 @@ FROM [format_table_name("player")]
 WHERE ckey = :ckey
 FOR UPDATE;
 
--- Abort if insufficient funds
-IF @current_metacoins < :cost THEN
-    ROLLBACK;
-    SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Not enough metacoins';
-END IF;
-
 -- Deduct metacoins
 UPDATE [format_table_name("player")]
 SET metacoins = metacoins - :cost
-WHERE ckey = :ckey;
+WHERE ckey = :ckey and @current_metacoins > :cost;
 
 -- Insert or increment gear purchase
 INSERT INTO [format_table_name("loadout_gear")] (ckey, gear_path, equipped, purchased_amount)
 VALUES (:ckey, :gear_path, 0, 1)
+WHERE @current_metacoins > :cost;
 ON DUPLICATE KEY UPDATE
     purchased_amount = purchased_amount + 1;
 

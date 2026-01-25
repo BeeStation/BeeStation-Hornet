@@ -8,6 +8,7 @@
 	display_name = "extra character slot"
 	description = "An extra charslot, allowing you to create and manage more characters."
 	cost = 2000
+	path = /obj/item/toy/figure/assistant
 	gear_flags = GEAR_MULTI_PURCHASE
 
 /datum/gear/ooc/char_slot/can_purchase(client/user, silent)
@@ -20,12 +21,13 @@
 	return TRUE
 
 /datum/gear/ooc/char_slot/purchase(client/user, purchase_count)
-	user.prefs.compute_save_slot_count()
+	user.prefs.compute_save_slot_count(user.player_details.loadout)
 
 /datum/gear/ooc/real_antagtoken
 	display_name = "antag token"
 	description = "If you can afford it, you deserve it."
 	cost = 100000
+	path = /obj/item/coin/antagtoken
 	gear_flags = GEAR_MULTI_PURCHASE
 
 /datum/gear/ooc/real_antagtoken/purchase(datum/preferences/prefs, client/user)

@@ -67,7 +67,8 @@
 		return
 	if (!TG.can_purchase(user.client, FALSE))
 		return
-	TG.do_purchase(preferences, user.client)
+	if (!TG.do_purchase(user.client))
+		to_chat(user, span_warning("Purchase failed, you have not been charged."))
 
 /datum/preference_middleware/loadout/proc/equip_gear(list/params, mob/user)
 	var/datum/gear/TG = GLOB.gear_datums[params["id"]]
@@ -79,7 +80,7 @@
 	if (!loadout.is_purchased(TG))
 		log_href_exploit(user, "Attempting to equip [TG.type] when they do not own it.")
 		return
-	if (loadout.is_equipped())
+	if (loadout.is_equipped(TG))
 		loadout.unequip(TG)
 	else
 		loadout.equip(TG)

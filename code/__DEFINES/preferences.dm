@@ -258,6 +258,6 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// Amount of character slots given to all players
 #define CHARACTER_SLOTS_DEFAULT 3
 /// Amount of extra character slots given to patron/byond supporters
-#define CHARACTER_SLOTS_PATRON 8
+#define CHARACTER_SLOTS_PATRON 6
 /// Amount of extra character slots that players can purchase
-#define CHARACTER_SLOTS_PURCHASABLE 5
+#define CHARACTER_SLOTS_PURCHASABLE 7
