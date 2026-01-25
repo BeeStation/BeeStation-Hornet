@@ -13,7 +13,7 @@
 /obj/structure/destructible/clockwork/gear_base/tinkerers_cache
 	name = "tinkerer's cache"
 	desc = "A bronze store filled with parts and components."
-	clockwork_desc = "A bronze store filled with parts and components. Can be used to forge powerful Ratvarian items."
+	clockwork_desc = span_brass("A bronze store filled with parts and components. Can be used to forge powerful Ratvarian items.")
 	icon_state = "tinkerers_cache"
 	anchored = TRUE
 	break_message = span_warning("The tinkerer's cache melts into a pile of brass.")

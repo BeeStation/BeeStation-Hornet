@@ -13,7 +13,7 @@
 /obj/structure/destructible/clockwork/sigil/transmission
 	name = "sigil of transmission"
 	desc = "A strange sigil, swirling with a yellow light."
-	clockwork_desc = "A glorious sigil used to power Rat'varian structures."
+	clockwork_desc = span_brass("A glorious sigil used to power Rat'varian structures.")
 	icon_state = "sigiltransmission"
 	effect_charge_time = 1 SECONDS
 	idle_color = "#f1a746"

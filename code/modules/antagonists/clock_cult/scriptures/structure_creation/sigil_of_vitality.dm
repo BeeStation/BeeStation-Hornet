@@ -14,7 +14,7 @@
 /obj/structure/destructible/clockwork/sigil/vitality
 	name = "vitality matrix"
 	desc = "A twisting, confusing artifact that drains the unenlightended on contact."
-	clockwork_desc = "A beautiful artifact that will drain the life of heretics placed on top of it."
+	clockwork_desc = span_brass("A beautiful artifact that will drain the life of heretics placed on top of it.")
 	icon_state = "sigilvitality"
 	effect_charge_time = 2 SECONDS
 	idle_color = "#5e87c4"

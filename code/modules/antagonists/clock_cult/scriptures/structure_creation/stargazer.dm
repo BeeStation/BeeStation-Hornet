@@ -14,7 +14,7 @@
 /obj/structure/destructible/clockwork/gear_base/stargazer
 	name = "stargazer"
 	desc = "A small pedestal, glowing with a divine energy."
-	clockwork_desc = "A small pedestal, glowing with a divine energy. Used to provide special powers and abilities to items."
+	clockwork_desc = span_brass("A small pedestal, glowing with a divine energy. Used to provide special powers and abilities to items.")
 	icon_state = "stargazer"
 	anchored = TRUE
 	break_message = span_warning("The stargazer collapses.")

@@ -18,8 +18,8 @@
 /obj/structure/destructible/clockwork/massive/celestial_gateway
 	name = "\improper Ark of the Clockwork Justiciar"
 	desc = "A massive, hulking amalgamation of parts. It seems to be maintaining a very unstable bluespace anomaly."
-	clockwork_desc = "Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
-		its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs."
+	clockwork_desc = span_brass("Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
+		its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs.")
 	max_integrity = 1000
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"

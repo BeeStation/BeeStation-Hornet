@@ -15,7 +15,7 @@
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens
 	name = "interdiction lens"
 	desc = "A mesmerizing light that flashes to a rhythm that you just can't stop tapping to."
-	clockwork_desc = "A small device which will slow down nearby attackers at a small power cost."
+	clockwork_desc = span_brass("A small device which will slow down nearby attackers at a small power cost.")
 	icon_state = "interdiction_lens"
 	anchored = TRUE
 	break_message = span_warning("The interdiction lens breaks into multiple fragments, which gently float to the ground.")

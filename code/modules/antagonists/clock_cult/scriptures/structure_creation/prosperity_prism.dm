@@ -13,7 +13,7 @@
 /obj/structure/destructible/clockwork/gear_base/prosperityprism
 	name = "prosperity prism"
 	desc = "A prism that seems to somehow always have its gaze locked to you."
-	clockwork_desc = "A prism that will heal nearby servants of toxin damage."
+	clockwork_desc = span_brass("A prism that will heal nearby servants of toxin damage.")
 	icon_state = "prolonging_prism"
 	anchored = TRUE
 	break_message = span_warning("The prism falls apart, toxic liquid leaking out into the air.")

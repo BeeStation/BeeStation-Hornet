@@ -1,7 +1,7 @@
 /obj/structure/destructible/clockwork/gear_base
 	name = "gear base"
 	desc = "A large cog lying on the floor at feet level."
-	clockwork_desc = "A large cog lying on the floor at feet level."
+	clockwork_desc = span_brass("A large cog lying on the floor at feet level.")
 	anchored = FALSE
 	break_message = span_warning("Oh, that broke. I guess you could report it to the coders, or just you know ignore this message and get on with killing those god damn heretics coming to break the Ark.")
 	icon_state = "gear_base"

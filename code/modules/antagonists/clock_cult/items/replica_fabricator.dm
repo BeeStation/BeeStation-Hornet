@@ -5,7 +5,7 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "replica_fabricator"
 	desc = "A strange, brass device with many twisting cogs and vents."
-	clockwork_desc = "A device used to rapidly fabricate brass."
+	clockwork_desc = span_brass("A device used to rapidly fabricate brass.")
 
 /obj/item/clockwork/replica_fabricator/examine(mob/user)
 	. = ..()

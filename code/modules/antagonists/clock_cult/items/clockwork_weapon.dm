@@ -101,7 +101,7 @@
 /obj/item/clockwork/weapon/brass_spear
 	name = "brass spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
-	clockwork_desc = "A razor-sharp spear made of a magnetic brass allow. It accelerates towards targets while on Reebe dealing increased damage."
+	clockwork_desc = span_brass("A razor-sharp spear made of a magnetic brass allow. It accelerates towards targets while on Reebe dealing increased damage.")
 	icon_state = "ratvarian_spear"
 	embedding = list("max_damage_mult" = 7.5, "armour_block" = 80)
 	throwforce = 36
@@ -112,7 +112,7 @@
 /obj/item/clockwork/weapon/brass_battlehammer
 	name = "brass battle-hammer"
 	desc = "A brass hammer glowing with energy."
-	clockwork_desc = "A brass hammer enfused with an ancient power allowing it to strike foes with incredible force."
+	clockwork_desc = span_brass("A brass hammer enfused with an ancient power allowing it to strike foes with incredible force.")
 	icon_state = "ratvarian_hammer"
 	worn_icon = 'icons/mob/clothing/back.dmi'
 	worn_icon_state = "mining_hammer1"
@@ -136,7 +136,7 @@
 /obj/item/clockwork/weapon/brass_sword
 	name = "brass longsword"
 	desc = "A large sword made of brass."
-	clockwork_desc = "A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics."
+	clockwork_desc = span_brass("A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics.")
 	icon_state = "ratvarian_sword"
 	worn_icon = 'icons/mob/clothing/back.dmi'
 	worn_icon_state = "claymore"

@@ -13,7 +13,7 @@
 /obj/structure/destructible/clockwork/sigil/submission
 	name = "sigil of submission"
 	desc = "A strange sigil, with otherworldy drawings on it."
-	clockwork_desc = "A sigil pulsating with a glorious light. Anyone held on top of this will become a loyal servant of Rat'var."
+	clockwork_desc = span_brass("A sigil pulsating with a glorious light. Anyone held on top of this will become a loyal servant of Rat'var.")
 	icon_state = "sigilsubmission"
 	effect_charge_time = 8 SECONDS
 	idle_color = "#FFFFFF"
