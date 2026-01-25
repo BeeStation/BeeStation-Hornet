@@ -13,45 +13,47 @@
 	use_time = 200
 	cogs_required = 0
 	category = SPELLTYPE_SERVITUDE
-	empowerment = MANACLES
 
 //For the Hateful Manacles scripture; applies replicant handcuffs to the clicked_on.
 
-/datum/clockcult/scripture/slab/proc/hateful_manacles(mob/living/clicker, atom/clicked_on)
-	empowerment = null
-	var/turf/T = clicker.loc
+/datum/clockcult/scripture/slab/hateful_manacles/on_slab_attack(atom/target, mob/user, ranged_attack)
+	var/turf/T = user.loc
 	if(!isturf(T))
 		return FALSE
 
-	if(iscarbon(clicked_on) && clicked_on.Adjacent(clicker))
-		var/mob/living/carbon/L = clicked_on
-		if(IS_SERVANT_OF_RATVAR(L))
-			to_chat(clicker, ("<span class='neovgre'>\"[L.p_Theyre()] a servant.\"</span>"))
-			return FALSE
-		else if(L.stat)
-			to_chat(clicker, ("<span class='neovgre'>\"There is use in shackling the dead, but for examples.\"</span>"))
-			return FALSE
-		else if (istype(L.handcuffed, /obj/item/restraints/handcuffs/clockwork))
-			to_chat(clicker, ("<span class='neovgre'>\"[L.p_Theyre()] already helpless, no?\"</span>"))
-			return FALSE
-
-		playsound(clicker.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE)
-		clicker.visible_message(("<span class='danger'>[clicker] begins forming manacles around [L]'s wrists!</span>"), \
-		("<span class='neovgre_small'>You begin shaping replicant alloy into manacles around [L]'s wrists...</span>"))
-		to_chat(L, ("<span class='userdanger'>[clicker] begins forming manacles around your wrists!</span>"))
-		if(do_after(clicker, 3 SECONDS, L))
-			if(!(istype(L.handcuffed,/obj/item/restraints/handcuffs/clockwork)))
-				var/obj/item/restraints/handcuffs/clockwork/restraints = new(L)
-				if (!restraints.apply_cuffs(L, clicker))
-					qdel(restraints)
-					return TRUE
-				restraints.item_flags |= DROPDEL
-
-				to_chat(clicker, ("<span class='neovgre_small'>You shackle [L].</span>"))
-				log_combat(clicker, L, "handcuffed")
-		else
-			to_chat(clicker, ("<span class='warning'>You fail to shackle [L].</span>"))
+	if(!iscarbon(target) || ranged_attack)
+		return FALSE
+	var/mob/living/carbon/carbon_target = target
+	if(IS_SERVANT_OF_RATVAR(carbon_target))
+		to_chat(user, span_neovgre("\"[carbon_target.p_Theyre()] a servant.\""))
+		return FALSE
+	else if(carbon_target.stat)
+		to_chat(user, span_neovgre("\"There is use in shackling the dead, but for examples.\""))
+		return FALSE
+	else if (istype(carbon_target.handcuffed, /obj/item/restraints/handcuffs/clockwork))
+		to_chat(user, span_neovgre("\"[carbon_target.p_Theyre()] already helpless, no?\""))
+		return FALSE
+	do_cuff(carbon_target, user)
 	return TRUE
+
+/datum/clockcult/scripture/slab/hateful_manacles/proc/do_cuff(mob/living/carbon/target, mob/user)
+	set waitfor = FALSE
+	playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE)
+	user.visible_message(span_danger("[user] begins forming manacles around [target]'s wrists!"), \
+	("<span class='neovgre_small'>You begin shaping replicant alloy into manacles around [target]'s wrists...</span>"))
+	to_chat(target, span_userdanger("[user] begins forming manacles around your wrists!"))
+	if(do_after(user, 3 SECONDS, target))
+		if(!(istype(target.handcuffed, /obj/item/restraints/handcuffs/clockwork)))
+			var/obj/item/restraints/handcuffs/clockwork/restraints = new(target)
+			if (!restraints.apply_cuffs(target, user))
+				qdel(restraints)
+				return TRUE
+			restraints.item_flags |= DROPDEL
+
+			to_chat(user, "<span class='neovgre_small'>You shackle [target].</span>")
+			log_combat(user, target, "handcuffed")
+	else
+		to_chat(user, span_warning("You fail to shackle [target]."))
 
 /obj/item/restraints/handcuffs/clockwork
 	name = "replicant manacles"

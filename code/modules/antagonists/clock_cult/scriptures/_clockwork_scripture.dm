@@ -173,8 +173,6 @@
 	var/uses_left
 	var/time_left = 0
 	var/loop_timer_id
-	var/empowerment
-
 
 /datum/clockcult/scripture/slab/Destroy()
 	if(progress)
@@ -189,7 +187,6 @@
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = src
-	invoking_slab.empowerment = empowerment
 	to_chat(invoker, span_brass("You prepare [name]. <b>Click on a target to use.</b>"))
 	count_down()
 	invoke_success()
@@ -215,22 +212,12 @@
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = null
-	empowerment = null
 	end_invoke()
 
 
-/datum/clockcult/scripture/slab/proc/on_slab_attack(atom/target, mob/user)
-	switch(empowerment)
-		if(KINDLE)
-			kindle(user, target)
-			end_invokation()
-		if(MANACLES)
-			hateful_manacles(user, target)
-			end_invokation()
-		if(COMPROMISE)
-			sentinels_compromise(user, target)
-			end_invokation()
-	return
+/datum/clockcult/scripture/slab/proc/on_slab_attack(atom/target, mob/user, ranged_attack)
+	SHOULD_NOT_SLEEP(TRUE)
+	return FALSE
 
 //==================================//
 // !       Quick bind spell       ! //

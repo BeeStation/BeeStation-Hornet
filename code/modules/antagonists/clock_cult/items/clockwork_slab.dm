@@ -15,7 +15,6 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 
 	var/holder_class
 	var/list/scriptures = list()
-	var/empowerment
 	var/charge_overlay
 
 	var/calculated_cogs = 0
@@ -93,11 +92,22 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		calculated_cogs += difference
 		cogs += difference
 
+/obj/item/clockwork/clockwork_slab/pre_attack(atom/A, mob/living/user, params)
+	if (active_scripture)
+		if (active_scripture.on_slab_attack(A, user, FALSE))
+			active_scripture.end_invokation()
+		// Block the attack chain, even if we didn't perform our action
+		return TRUE
+	return ..()
+
 /obj/item/clockwork/clockwork_slab/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	INVOKE_ASYNC(active_scripture, TYPE_PROC_REF(/datum/clockcult/scripture/slab, on_slab_attack), target, user)
-	if(active_scripture)
+	if (proximity_flag)
+		return ..()
+	// Ranged attacks
+	if (active_scripture?.on_slab_attack(target, user, TRUE))
 		active_scripture.end_invokation()
+		return TRUE
+	return ..()
 
 //==================================//
 // !   Quick bind spell handling  ! //
