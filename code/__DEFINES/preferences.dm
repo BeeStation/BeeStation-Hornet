@@ -255,8 +255,8 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// Amount of character slots given to all players
 #define CHARACTER_SLOTS_DEFAULT 3
 /// Amount of extra character slots given to patron/byond supporters
-#define CHARACTER_SLOTS_PATRON 6
+#define CHARACTER_SLOTS_PATRON 80
 /// Amount of extra character slots that players can purchase
-#define CHARACTER_SLOTS_PURCHASABLE 7
-// True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
-#define TRUE_MAX_SAVE_SLOTS 16
+#define CHARACTER_SLOTS_PURCHASABLE 17
+// The maximum number of save slots we are allowed before the game rejects additional
+#define TRUE_MAX_SAVE_SLOTS 100

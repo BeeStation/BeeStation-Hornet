@@ -1,8 +1,9 @@
 import { exhaustiveCheck } from 'common/exhaustive';
 import { BooleanLike } from 'common/react';
+import { useEffect, useRef } from 'react';
 
 import { useBackend, useLocalState } from '../../backend';
-import { Button, Divider, Flex, Stack } from '../../components';
+import { Button, Divider, Flex, Modal, Section, Stack, TrackOutsideClicks } from '../../components';
 import { Window } from '../../layouts';
 import { AntagsPage } from './AntagsPage';
 import { PreferencesMenuData } from './data';
@@ -32,28 +33,257 @@ const CharacterProfiles = (props: {
 }) => {
   const { profiles = [] } = props;
 
-  return (
-    <Flex justify="center" wrap>
-      {profiles?.map((profile, slot) => (
-        <Flex.Item key={slot} mr={1} mt={1}>
-          <Button
-            selected={slot === props.activeSlot}
-            disabled={slot >= props.maxSlot}
-            onClick={() => {
-              props.onClick(slot);
-            }}
-            tooltip={
-              !props.content_unlocked && slot >= props.maxSlot
-                ? 'Buy a BYOND Membership to unlock more slots!'
-                : null
-            }
-            fluid
-          >
-            {profile ?? 'New Character'}
+  const [expandedViewState, setExpandedViewState] = useLocalState('slotViewState', false);
+  const [isCharacterSelectorOpen, setCharacterSelectorOpen] = useLocalState('isCharacterSelectorOpen', false);
+
+  const scrollBarRef = useRef(null);
+
+  useEffect(() => {
+    const el: HTMLElement = scrollBarRef.current;
+
+    if (!el) {
+      return;
+    }
+
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY > 0) {
+        // Dont block scroll event
+        if (expandedViewState) {
+          return;
+        }
+        setExpandedViewState(true);
+      } else if (e.deltaY < 0) {
+        if (el.scrollTop !== 0) {
+          return;
+        }
+        setExpandedViewState(false);
+      }
+      e.stopPropagation();
+      e.preventDefault();
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+    };
+  }, [expandedViewState]);
+
+  const slotsLeft = profiles.filter((profile, slot) => !profile && slot < props.maxSlot).length;
+
+  const popupWindow = !!isCharacterSelectorOpen && (
+    <Modal
+      style={{
+        margin: '0 auto',
+        width: '40%',
+        position: 'fixed',
+        overflowY: 'auto',
+        maxHeight: 'calc(100vh - 100px)',
+      }}
+    >
+      <TrackOutsideClicks
+        onOutsideClick={() => setCharacterSelectorOpen(false)}
+        removeOnOutsideClick
+      >
+        <Section
+          buttons={
+            <Button color="red" onClick={() => setCharacterSelectorOpen(false)}>
+              Close
+            </Button>
+          }
+          title="Available Character Slots"
+        >
+          <Flex width="100%" wrap>
+            {profiles.map((profile, slot) => !!profile && (
+              <Flex.Item key={slot} mr={1} mt={1}>
+                <Button
+                  selected={slot === props.activeSlot}
+                  disabled={slot >= props.maxSlot}
+                  onClick={() => {
+                    props.onClick(slot);
+                  }}
+                  tooltip={
+                    !props.content_unlocked && slot >= props.maxSlot
+                      ? 'This character is inaccessible due to it being created with a donator slot that is no longer accessible. Buy a BYOND Membership or donate to the server to unlock this slot.'
+                      : null
+                  }
+                  fluid
+                >
+                  {profile ?? 'New Character'}
+                </Button>
+              </Flex.Item>
+            ))}
+            {slotsLeft > 0 ? (
+              <Flex.Item mr={1} mt={1}>
+                  <Button
+                    onClick={() => {
+                      props.onClick(profiles.findIndex((profile, slot) => !profile && slot < props.maxSlot));
+                    }}
+                    fluid
+                  >
+                    New Character ({slotsLeft} left)
+                  </Button>
+              </Flex.Item>
+            ) : (
+                !props.content_unlocked && (
+                <Flex.Item mr={1} mt={1}>
+                  <Button
+                    disabled
+                    tooltip={'Buy a BYOND Membership or donate to the server to unlock more slots!'}
+                    fluid
+                  >
+                    New Character
+                  </Button>
+                </Flex.Item>
+              )
+            )}
+          </Flex>
+        </Section>
+      </TrackOutsideClicks>
+    </Modal>
+  );
+
+  if (expandedViewState) {
+    return (
+      <>
+      {popupWindow}
+      <div style={{
+        height: '2.2em',
+      }} />
+      <div ref={scrollBarRef} style={{
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        right: '0',
+        zIndex: '1000',
+        overflowY: 'scroll',
+        maxHeight: '120px',
+      }}>
+        <Section style={{
+          backgroundColor: '#1B1920DD',
+        }} title='Available Characters' buttons={
+          <Button onClick={() => {
+            setExpandedViewState(false);
+          }}>Hide
           </Button>
-        </Flex.Item>
-      ))}
+        }>
+    <Flex width="100%" wrap>
+        {profiles.map((profile, slot) => !!profile && (
+              <Flex.Item key={slot} mr={1} mt={1}>
+                <Button
+                  selected={slot === props.activeSlot}
+                  disabled={slot >= props.maxSlot}
+                  onClick={() => {
+                    props.onClick(slot);
+                  }}
+                  tooltip={
+                    !props.content_unlocked && slot >= props.maxSlot
+                      ? 'This character is inaccessible due to it being created with a donator slot that is no longer accessible. Buy a BYOND Membership or donate to the server to unlock this slot.'
+                      : null
+                  }
+                  fluid
+                >
+                  {profile ?? 'New Character'}
+                </Button>
+              </Flex.Item>
+            ))}
+        {slotsLeft > 0 ? (
+              <Flex.Item mr={1} mt={1}>
+                  <Button
+                    onClick={() => {
+                      props.onClick(profiles.findIndex((profile, slot) => !profile && slot < props.maxSlot));
+                    }}
+                    fluid
+                  >
+                    New Character ({slotsLeft} left)
+                  </Button>
+              </Flex.Item>
+            ) : (
+                !props.content_unlocked && (
+                <Flex.Item mr={1} mt={1}>
+                  <Button
+                    disabled
+                    tooltip={'Buy a BYOND Membership or donate to the server to unlock more slots!'}
+                    fluid
+                  >
+                    New Character
+                  </Button>
+                </Flex.Item>
+              )
+            )}
     </Flex>
+        </Section>
+      </div>
+      </>
+  );
+  }
+
+  return (
+      <>
+      {popupWindow}
+      <div ref={scrollBarRef}>
+    <Flex width="100%" style={{ gap: '5px' }}>
+      <Flex.Item grow shrink minWidth="0">
+        <Flex overflow='hidden' width="100%">
+          {profiles.map((profile, slot) => !!profile && (
+              <Flex.Item key={slot} mr={1} mt={1}>
+                <Button
+                  selected={slot === props.activeSlot}
+                  disabled={slot >= props.maxSlot}
+                  onClick={() => {
+                    props.onClick(slot);
+                  }}
+                  tooltip={
+                    !props.content_unlocked && slot >= props.maxSlot
+                      ? 'This character is inaccessible due to it being created with a donator slot that is no longer accessible. Buy a BYOND Membership or donate to the server to unlock this slot.'
+                      : null
+                  }
+                  fluid
+                >
+                  {profile ?? 'New Character'}
+                </Button>
+              </Flex.Item>
+            ))}
+            {slotsLeft > 0 ? (
+              <Flex.Item mr={1} mt={1}>
+                  <Button
+                    onClick={() => {
+                      props.onClick(profiles.findIndex((profile, slot) => !profile && slot < props.maxSlot));
+                    }}
+                    fluid
+                  >
+                    New Character ({slotsLeft} left)
+                  </Button>
+              </Flex.Item>
+            ) : (
+                !props.content_unlocked && (
+                <Flex.Item mr={1} mt={1}>
+                  <Button
+                    disabled
+                    tooltip={'Buy a BYOND Membership or donate to the server to unlock more slots!'}
+                    fluid
+                  >
+                    New Character
+                  </Button>
+                </Flex.Item>
+              )
+            )}
+        </Flex>
+      </Flex.Item>
+      <Flex.Item shrink={0} mr={1} mt={1}>
+        <Button
+          onClick={(e: MouseEvent) => {
+            setCharacterSelectorOpen(true);
+            e.stopPropagation();
+          }}
+          fluid
+        >
+          ...
+        </Button>
+      </Flex.Item>
+    </Flex>
+      </div>
+      </>
   );
 };
 
