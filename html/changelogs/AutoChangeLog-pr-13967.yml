@@ -1,6 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - code_imp: The _traits.dm file has been sorted. When adding to it, make sure you
-      add your traits in the correct category.
-  - admin: The Modify Traits VV now uses a TGUI input instead of HTML.

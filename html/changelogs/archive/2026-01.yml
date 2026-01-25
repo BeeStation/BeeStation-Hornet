@@ -284,6 +284,10 @@
   - rscadd: Adds a new security pager accessory which informs the sec channel if someone
       dies. It does not give specifics on who or where the death occurred at.
   - tweak: Moves security's custom death sound effect out of masks and into the pager.
+  - bugfix: Fixes boxstation north west solar array not having north facing cables
   mrmanlikesbt:
   - bugfix: Fixed a runtime when hitting a turf with a burn weapon
   - bugfix: Fixed StackCrafting using the computer theme
+  - code_imp: The _traits.dm file has been sorted. When adding to it, make sure you
+      add your traits in the correct category.
+  - admin: The Modify Traits VV now uses a TGUI input instead of HTML.
