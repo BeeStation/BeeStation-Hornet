@@ -453,7 +453,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 			if(prob(33))
 				alarm()
 
-/obj/machinery/firealarm/singularity_pull(S, current_size)
+/obj/machinery/firealarm/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
 		deconstruct()
 	..()

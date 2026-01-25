@@ -46,7 +46,7 @@
 /atom/movable/openspace/singularity_act()
 	return
 
-/atom/movable/openspace/singularity_pull()
+/atom/movable/openspace/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/openspace/attackby(obj/item/W, mob/user, params)
@@ -73,7 +73,7 @@
 /atom/movable/openspace/ex_act(severity, target)
 	return
 
-/atom/movable/openspace/singularity_pull()
+/atom/movable/openspace/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/openspace/singularity_act()

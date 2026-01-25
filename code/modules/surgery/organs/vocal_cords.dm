@@ -326,7 +326,7 @@
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.adjust_fire_stacks(1 * power_multiplier)
-			L.IgniteMob()
+			L.ignite_mob()
 
 	//HOT
 	else if((findtext(message, hot_words)))

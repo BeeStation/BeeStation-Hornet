@@ -14,7 +14,7 @@
 		to_chat(vampiredatum.owner.current, span_warning("You don't belong in holy areas! The Faith burns you!"))
 		vampiredatum.owner.current.adjustFireLoss(20)
 		vampiredatum.owner.current.adjust_fire_stacks(2)
-		vampiredatum.owner.current.IgniteMob()
+		vampiredatum.owner.current.ignite_mob()
 
 /datum/vampire_clan/toreador
 	name = CLAN_TOREADOR
