@@ -649,10 +649,11 @@
 	name = "Runic Golem"
 	id = SPECIES_GOLEM_RUNIC
 	sexes = FALSE
+	speedmod = 0
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH) //no mutcolors
 	prefix = "Runic"
-	armor = 30 // They're not exactly fast, and they cant wear any armor, so this makes up for it
+	armor = 30 // They cant wear armor so this makes up for it
 	special_names = null
 	random_eligible = FALSE //Zesko claims runic golems break the game
 	inherent_factions = list(FACTION_CULT)
@@ -673,19 +674,16 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cult
 	)
 
-/datum/species/golem/runic/spec_death(gibbed, mob/living/carbon/human/human)
+/datum/species/golem/runic/spec_death(gibbed, mob/living/carbon/human/body)
 
-	for(var/obj/item/item in human)
-		human.dropItemToGround(item)
-	if(human.mind && human.mind.has_antag_datum(/datum/antagonist/cult)) // Only cultist golems get soulstones, the rest just dissolve into blood
-		human.visible_message(span_danger("[human] dissolves into a pile of blood, leaving behind a strange stone."))
-		var/obj/item/soulstone/new_stone = new /obj/item/soulstone(get_turf(human))
-		new_stone.init_shade(human)
-	else
-		human.visible_message(span_danger("[human] dissolves into a pile of blood."))
-		human.dust_animation()
-	new /obj/effect/decal/cleanable/blood/splatter(get_turf(human))
-	qdel(human)
+	for(var/obj/item/item in body)
+		body.dropItemToGround(item)
+	body.visible_message(span_danger("[body] dissolves into a pile of blood, leaving behind a strange stone."))
+	var/obj/item/soulstone/new_stone = new /obj/item/soulstone(get_turf(body))
+	new_stone.init_shade(body)
+	body.dust_animation()
+	new /obj/effect/decal/cleanable/blood/splatter(get_turf(body))
+	qdel(body)
 
 /datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
 	. = ..()
