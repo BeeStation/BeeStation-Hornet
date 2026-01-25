@@ -331,7 +331,7 @@
 			mark_undatumized_dirty_character()
 
 	if (parent && antag_prefs_altered)
-		to_chat(parent, span_userdanger("You had antagonist preferences set which no longer exist, your preferences may have been altered!"))
+		to_chat(parent, span_userdanger("You had antagonist or job preferences set which no longer exist, your preferences may have been altered!"))
 
 	return PREFERENCE_LOAD_SUCCESS
 
