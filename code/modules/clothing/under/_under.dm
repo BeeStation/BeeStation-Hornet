@@ -15,7 +15,8 @@
 	var/can_adjust = TRUE
 	var/adjusted = NORMAL_STYLE
 	var/alt_covers_chest = FALSE // for adjusted/rolled-down jumpsuits, FALSE = exposes chest and arms, TRUE = exposes arms only
-	var/list/obj/item/clothing/accessory/attached_accessories = list()
+	/// Assoc list [key: slot]: /obj/item/clothing/accessory
+	var/list/attached_accessories = list()
 	var/mutable_appearance/accessory_overlay_under
 	var/mutable_appearance/accessory_overlay_over
 	var/freshly_laundered = FALSE
