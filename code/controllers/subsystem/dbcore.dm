@@ -441,7 +441,6 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	var/last_error
 	var/last_activity
 	var/last_activity_time
-	var/delete_on_finish = FALSE
 
 	// Output
 	var/list/list/rows
