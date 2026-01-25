@@ -161,12 +161,12 @@ export const LaunchpadControl = (props) => {
     >
       <Grid>
         <Grid.Column>
-          <Section title="Controls" level={2}>
+          <Section title="Controls" level={2} ml={0.2}>
             <LaunchpadButtonPad />
           </Section>
         </Grid.Column>
         <Grid.Column>
-          <Section title="Target" level={2}>
+          <Section title="Target" ml={0.5} mr={0.2} level={2}>
             <Box fontSize="26px">
               <Box mb={1}>
                 <Box inline bold mr={1}>
@@ -252,7 +252,7 @@ export const LaunchpadConsole = (props) => {
   const { act, data } = useBackend();
   const { launchpads = [], selected_id } = data;
   return (
-    <Window width={475} height={260}>
+    <Window width={475} height={270}>
       <Window.Content scrollable>
         {(launchpads.length === 0 && (
           <NoticeBox>No Pads Connected</NoticeBox>

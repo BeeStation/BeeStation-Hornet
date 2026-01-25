@@ -61,7 +61,6 @@
 #include "missing_icons.dm"
 #include "modsuit.dm"
 #include "mutant_organs.dm"
-#include "ntnetwork_tests.dm"
 #include "organs.dm"
 #include "orphaned_genturf.dm"
 #include "outfit_sanity.dm"
@@ -91,6 +90,7 @@
 #include "spell_shapeshift.dm"
 #include "stat_mc.dm"
 #include "status_effect_validity.dm"
+#include "strippable.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"
@@ -115,6 +115,7 @@
 #include "mapping\check_disposals.dm"
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
+#include "mapping\check_wire_crossing.dm"
 #include "mapping\map_test.dm"
 
 // END_INCLUDE

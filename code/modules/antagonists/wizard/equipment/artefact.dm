@@ -69,10 +69,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	else
 		return ..()
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/item/veilrender/vealrender
@@ -412,7 +412,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 				GiveHint(target)
 			if(BODY_ZONE_HEAD)
 				to_chat(user, span_notice("You smack the doll's head with your hand."))
-				target.Dizzy(10)
+				target.adjust_dizzy(20 SECONDS)
 				to_chat(target, span_warning("You suddenly feel as if your head was hit with a hammer!"))
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time
@@ -444,7 +444,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)
 		target.adjust_fire_stacks(20)
-		target.IgniteMob()
+		target.ignite_mob()
 		GiveHint(target,1)
 	return ..()
 
@@ -500,7 +500,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	var/breakout = 0
 	while(breakout < 50)
 		var/turf/potential_T = find_safe_turf()
-		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidian(potential_T,T)) > 50 - breakout)
+		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidean(potential_T,T)) > 50 - breakout)
 			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC_SELF, teleport_mode = TELEPORT_ALLOW_WIZARD)
 			T = potential_T
 			break

@@ -118,7 +118,7 @@
 		z_level_direction = ""
 
 	// getting xy result
-	if(get_dist_euclidian(here,there) <= minimum_range)
+	if(get_dist_euclidean(here,there) <= minimum_range)
 		pin_xy_result = "direct"
 	else
 		setDir(get_dir(here, there))

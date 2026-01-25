@@ -224,6 +224,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/hallucinogens = 18) //7.2 per 2 seconds
 
 /datum/reagent/toxin/mindbreaker/on_mob_metabolize(mob/living/metabolizer)
 	. = ..()
@@ -310,7 +311,7 @@
 /datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjust_fire_stacks(2 * REM * delta_time)
-	affected_mob.IgniteMob()
+	affected_mob.ignite_mob()
 
 /datum/reagent/toxin/chloralhydrate
 	name = "Chloral Hydrate"
@@ -326,7 +327,7 @@
 	. = ..()
 	switch(current_cycle)
 		if(1 to 10)
-			affected_mob.confused += 2 * REM * delta_time
+			affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
 			affected_mob.drowsyness += 2 * REM * delta_time
 		if(10 to 50)
 			affected_mob.Sleeping(40 * REM * delta_time)
@@ -572,6 +573,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
+	addiction_types = list(/datum/addiction/opioids = 25)
 
 /datum/reagent/toxin/fentanyl/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -676,10 +678,10 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#195096"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 	taste_mult = 0 // undetectable, I guess?
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/toxin/pancuronium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -690,13 +692,14 @@
 
 /datum/reagent/toxin/sodium_thiopental
 	name = "Sodium Thiopental"
-	description = "Sodium Thiopental induces heavy weakness in its target as well as unconsciousness."
+	description = "Sodium Thiopental induces heavy weakness in its target as well as unconsciousness. It can be used to treat Seizure Disorders."
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#6496FA"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	toxpwr = 0
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	added_traits = list(TRAIT_ANTICONVULSANT)
 
 /datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1040,9 +1043,16 @@
 /datum/reagent/toxin/bungotoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
-	affected_mob.confused = affected_mob.dizziness //add a tertiary effect here if this is isn't an effective poison.
-	if(current_cycle >= 12 && DT_PROB(4, delta_time))
-		to_chat(affected_mob, span_notice(pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")))
+
+	// If our mob's currently dizzy from anything else, we will also gain confusion
+	var/mob_dizziness = affected_mob.get_timed_status_effect_duration(/datum/status_effect/confusion)
+	if(mob_dizziness > 0)
+		// Gain confusion equal to about half the duration of our current dizziness
+		affected_mob.set_confusion(mob_dizziness / 20)
+
+	if(current_cycle >= 13 && DT_PROB(4, delta_time))
+		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
+		to_chat(affected_mob, span_notice("[tox_message]"))
 
 //This reagent is intentionally not designed to give much fighting chance. Its only ever used when morph manages to trick somebody into interacting with its disguised form
 /datum/reagent/toxin/morphvenom
@@ -1058,8 +1068,8 @@
 	. = ..()
 	affected_mob.set_drugginess(5)
 	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
-	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
-	affected_mob.confused = max(affected_mob.confused, 10 * REM * delta_time)
+	affected_mob.set_silence_if_lower(6 SECONDS * REM * delta_time)
+	affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/morphvenom/mimite

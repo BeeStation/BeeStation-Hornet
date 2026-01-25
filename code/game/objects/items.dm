@@ -289,7 +289,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
-/obj/item/Destroy()
+/obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
 		var/mob/m = loc
@@ -903,33 +903,55 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
 
-/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
+/// Returns true if damage was applied, false if the attack was fully blocked.
+/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user, obj/item/weapon, silent)
 
 	var/is_human_victim
 	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
 	if(ishuman(M))
 		if(!affecting) //no head!
-			return
+			return FALSE
 		is_human_victim = TRUE
 
 	if(M.is_eyes_covered())
 		// you can't stab someone in the eyes wearing a mask!
-		to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
+		return FALSE
 
 	if(isalien(M))//Aliens don't have eyes./N     slimes also don't have eyes!
-		to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
-		return
+		if (!silent)
+			to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
+		return FALSE
 
 	if(isbrain(M))
-		to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
+		return FALSE
 
 	add_fingerprint(user)
 
 	playsound(loc, src.hitsound, 30, 1, -1)
 
 	user.do_attack_animation(M)
+
+	if(is_human_victim)
+		var/mob/living/carbon/human/U = M
+		var/blocked = U.run_armor_check(BODY_ZONE_HEAD, MELEE, armour_penetration = weapon.armour_penetration)
+		U.apply_damage(weapon.force, BRUTE, affecting, blocked = blocked)
+		if (prob(blocked))
+			if(M != user)
+				M.visible_message(span_danger("[user] stabbed [M] in the head with [src]!"), \
+									span_userdanger("[user] stabs you in the head with [src], but your armor protects your eyes!"))
+			else
+				user.visible_message( \
+					span_danger("[user] has stabbed [user.p_them()]self in the head with [src]!"), \
+					span_userdanger("You stab yourself in the head with [src], your armor protecting your eyes!") \
+				)
+			return TRUE
+
+	else
+		M.take_bodypart_damage(weapon.force)
 
 	if(M != user)
 		M.visible_message(span_danger("[user] has stabbed [M] in the eye with [src]!"), \
@@ -939,12 +961,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"), \
 			span_userdanger("You stab yourself in the eyes with [src]!") \
 		)
-	if(is_human_victim)
-		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting)
-
-	else
-		M.take_bodypart_damage(7)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
@@ -952,7 +968,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
-		return
+		return TRUE
 	M.adjust_blurriness(3)
 	eyes.apply_organ_damage(3)
 	if(eyes.damage >= 10)
@@ -965,13 +981,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if (eyes.damage >= 60)
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, span_danger("You go blind!"))
+	return TRUE
 
-/obj/item/singularity_pull(S, current_size)
-	..()
+/obj/item/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(current_size >= STAGE_FOUR)
-		throw_at(S,14,3, spin=0)
-	else
-		return
+		throw_at(singularity, 14, 3, spin = FALSE)
 
 /obj/item/on_exit_storage(datum/storage/master_storage)
 	. = ..()
@@ -986,7 +1001,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(is_hot() && isliving(hit_atom))
 		var/mob/living/L = hit_atom
-		L.IgniteMob()
+		L.ignite_mob()
 	var/itempush = 1
 	if(w_class < WEIGHT_CLASS_NORMAL)
 		itempush = 0 //too light to push anything

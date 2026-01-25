@@ -87,15 +87,6 @@
 	QDEL_NULL(ethereal_light)
 	return ..()
 
-/datum/species/ethereal/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.ethereal_names)] [random_capital_letter()]"
-	if(prob(65))
-		. += "[random_capital_letter()]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
-
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()
 	if(!ethereal_light)

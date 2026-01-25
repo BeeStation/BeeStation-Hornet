@@ -283,7 +283,7 @@
 /mob/living/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(on_fire)
-		ExtinguishMob()
+		extinguish_mob()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	if(pulling)
 		pulling.lighteater_act(light_eater)

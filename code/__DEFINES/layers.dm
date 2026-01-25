@@ -33,13 +33,16 @@
 #define GAS_FILTER_LAYER 2.48
 #define GAS_PUMP_LAYER 2.49
 #define PRESSURE_PLATE_LAYER 2.49
+#define BOT_PATH_LAYER 2.497
 #define LOW_OBJ_LAYER 2.5
 ///catwalk overlay of /turf/open/floor/plating/catwalk_floor
 #define CATWALK_LAYER 2.51
 #define LOW_SIGIL_LAYER 2.52
-#define SIGIL_LAYER 2.54
-#define HIGH_PIPE_LAYER 2.55
-#define HIGH_SIGIL_LAYER 2.56
+#define SIGIL_LAYER 2.53
+#define HIGH_PIPE_LAYER 2.54
+// Anything aboe this layer is not "on" a turf for the purposes of washing
+// I hate this life of ours
+#define FLOOR_CLEAN_LAYER 2.55
 
 #define BELOW_OPEN_DOOR_LAYER 2.6
 #define BLASTDOOR_LAYER 2.65
@@ -93,6 +96,35 @@
 
 #define RADIAL_BACKGROUND_LAYER 0
 #define RADIAL_CONTENT_LAYER 1000
+
+/*
+#define ADMIN_POPUP_LAYER 1
+
+///Layer for screentips
+#define SCREENTIP_LAYER 4
+
+/// Layer for tutorial instructions
+#define TUTORIAL_INSTRUCTIONS_LAYER 5
+
+/// Layer for light overlays
+#define LIGHT_DEBUG_LAYER 6
+*/
+/// Layer for pathfinding arrows
+#define PATH_ARROW_DEBUG_LAYER 7
+/// Layer for pathfinding overlays
+#define PATH_DEBUG_LAYER 8
+/*
+///Layer for lobby menu collapse button
+#define LOBBY_BELOW_MENU_LAYER 2
+/// Layer for background
+#define LOBBY_BACKGROUND_LAYER 3
+///Layer for main buttons (Join/Ready, Observe, Character Prefs)
+#define LOBBY_MENU_LAYER 4
+///Layer for lobby menu shutter, which covers up the menu to collapse/expand it
+#define LOBBY_SHUTTER_LAYER 5
+///Layer for lobby menu buttons that are hanging away from and lower than the main panel
+#define LOBBY_BOTTOM_BUTTON_LAYER 6
+*/
 
 /**
  * Planes

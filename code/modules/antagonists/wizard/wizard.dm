@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	ui_name = "AntagInfoWizard"
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"
@@ -308,6 +309,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	name = "Wizard Imposter"
 	allow_rename = FALSE
 	move_to_lair = FALSE
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/wizard/apprentice/imposter/greet()
 	to_chat(owner, "<B>You are an imposter! Trick and confuse the crew to misdirect malice from your handsome original!</B>")
@@ -354,6 +356,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	name = "Academy Teacher"
 	outfit_type = /datum/outfit/wizard
 	move_to_lair = FALSE
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/wizard/academy/equip_wizard()
 	. = ..()

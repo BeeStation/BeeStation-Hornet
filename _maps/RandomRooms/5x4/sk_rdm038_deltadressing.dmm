@@ -51,7 +51,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/jackboots,
-/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/random/clothing/costume,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
@@ -80,7 +80,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/suit/suspenders,
-/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/random/clothing/costume,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
