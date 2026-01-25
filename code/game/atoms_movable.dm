@@ -15,7 +15,7 @@
 	var/throw_range = 7
 	var/mob/pulledby = null
 	/// What language holder type to init as
-	var/initial_language_holder = /datum/language_holder
+	var/initial_language_holder = /datum/language_holder/atom_basic
 	/// Holds all languages this mob can speak and understand
 	VAR_PRIVATE/datum/language_holder/language_holder
 
@@ -1099,7 +1099,8 @@
 /atom/movable/proc/get_language_holder()
 	RETURN_TYPE(/datum/language_holder)
 	if(QDELING(src))
-		CRASH("get_language_holder() called on a QDELing atom, this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
+		CRASH("get_language_holder() called on a QDELing atom, \
+			this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
 
 	if(!language_holder)
 		language_holder = new initial_language_holder(src)
@@ -1169,6 +1170,35 @@
 	our_holder.selected_language = language_path
 
 	return our_holder.get_selected_language() // verifies its validity, returns it if successful.
+
+/**
+ * Randomizes our atom's language to an uncommon language if:
+ * - They are on the station Z level
+ * OR
+ * - They are on the escape shuttle
+ */
+/atom/movable/proc/randomize_language_if_on_station()
+	var/turf/atom_turf = get_turf(src)
+	var/area/atom_area = get_area(src)
+
+	if(!atom_turf) // some machines spawn in nullspace
+		return FALSE
+
+	if(!is_station_level(atom_turf.z) && !istype(atom_area, /area/shuttle/escape))
+		// Why snowflake check for escape shuttle? Well, a lot of shuttles spawn with machines
+		// but docked at centcom, and I wanted those machines to also speak funny languages
+		return FALSE
+	grant_random_uncommon_language()
+	return TRUE
+
+/// Teaches a random non-common language and sets it as the active language
+/atom/movable/proc/grant_random_uncommon_language(source)
+	if (!length(GLOB.uncommon_roundstart_languages))
+		return FALSE
+	var/picked = pick(GLOB.uncommon_roundstart_languages)
+	grant_language(picked, source = source)
+	set_active_language(picked)
+	return TRUE
 
 /* End language procs */
 
@@ -1397,3 +1427,7 @@
 
 	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
 		LAZYREMOVEASSOC(movable_loc.important_recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS, src)
+
+/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
+/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
+	return FALSE

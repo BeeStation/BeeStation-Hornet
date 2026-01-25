@@ -73,7 +73,6 @@
 			steps++
 	return TRUE
 
-
 ///Get the cardinal direction between two atoms
 /proc/get_cardinal_dir(atom/start, atom/end)
 	var/dx = abs(end.x - start.x)

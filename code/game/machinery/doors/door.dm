@@ -37,6 +37,8 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
+	/// Whether or not this door can be opened through a door remote, ever
+	var/opens_with_door_remote = FALSE
 
 
 /datum/armor/machinery_door

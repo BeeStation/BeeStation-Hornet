@@ -26,7 +26,7 @@
 /obj/effect/spawner/random/clothing/kittyears_or_rabbitears
 	name = "kitty ears or rabbit ears spawner"
 	loot = list(
-		/obj/item/clothing/head/kitty,
+		/obj/item/clothing/head/costume/kitty,
 		/obj/item/clothing/head/costume/rabbitears,
 	)
 

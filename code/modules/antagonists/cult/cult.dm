@@ -367,7 +367,7 @@
 				reshape = R.character_appearance
 				break
 	if(!reshape)
-		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)
+		reshape = icon('icons/mob/observer.dmi', "ghost", SOUTH)
 	reshape.Shift(SOUTH, 4)
 	reshape.Shift(EAST, 1)
 	reshape.Crop(7,4,26,31)

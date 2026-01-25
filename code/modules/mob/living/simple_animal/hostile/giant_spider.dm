@@ -47,7 +47,6 @@
 	faction = list(FACTION_SPIDER)
 	pass_flags = PASSTABLE
 	move_to_delay = 4
-	ventcrawler = VENTCRAWLER_ALWAYS
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -90,6 +89,7 @@
 	webbing.Grant(src)
 	wrap = new(src)
 	wrap.Grant(src)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize()
 	. = ..()
@@ -715,12 +715,12 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(10)
-		throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3)
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(10)
-		throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 	else
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)
 
 
 // Net casters are the balanced generalist of the spider family: Moderate stats all around, and a ranged knockdown to assist others

@@ -14258,12 +14258,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
-"dYD" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/turf/open/space/basic,
-/area/space)
 "dYE" = (
 /turf/closed/mineral/random/low_chance,
 /area/asteroid/nearstation)
@@ -140017,7 +140011,7 @@ nnx
 nnx
 nnx
 nnx
-dYD
+nnx
 nnx
 nnx
 nnx

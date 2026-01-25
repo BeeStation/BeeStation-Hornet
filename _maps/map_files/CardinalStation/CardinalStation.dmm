@@ -6734,6 +6734,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/reagent_dispensers/peppertank/directional/east,
 /turf/open/floor/vault/rock,
 /area/security/brig)
 "btV" = (
@@ -7783,6 +7784,11 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
+"bHv" = (
+/obj/effect/turf_decal/siding/red,
+/obj/structure/reagent_dispensers/peppertank/directional/south,
+/turf/open/floor/iron/dark,
+/area/security/main)
 "bHA" = (
 /obj/item/radio/intercom/directional/west,
 /obj/effect/turf_decal/edges/borderfloor{
@@ -8446,6 +8452,7 @@
 /area/quartermaster/warehouse)
 "bPj" = (
 /obj/structure/closet/bombcloset/security,
+/obj/structure/reagent_dispensers/peppertank/directional/north,
 /turf/open/floor/iron/tech,
 /area/security/main)
 "bPk" = (
@@ -37531,9 +37538,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/airless,
@@ -40211,9 +40216,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/airless,
@@ -64382,6 +64385,7 @@
 /obj/structure/railing/perspective/black/corner{
 	dir = 4
 	},
+/obj/structure/reagent_dispensers/peppertank/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
 "obP" = (
@@ -78290,6 +78294,7 @@
 	},
 /obj/structure/chair/fancy/bench/left,
 /obj/machinery/light/small/directional/west,
+/obj/structure/reagent_dispensers/peppertank/directional/west,
 /turf/open/floor/iron/smooth,
 /area/security/brig)
 "rcI" = (
@@ -109714,6 +109719,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/reagent_dispensers/peppertank/directional/north,
 /turf/open/floor/iron/smooth_half,
 /area/security/prison)
 "xVz" = (
@@ -148616,7 +148622,7 @@ qfk
 qfk
 hZp
 nNT
-nug
+bHv
 eQO
 qcg
 fCL

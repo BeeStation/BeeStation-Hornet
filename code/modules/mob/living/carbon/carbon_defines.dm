@@ -2,18 +2,17 @@
 	gender = MALE
 	pressure_resistance = 15
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ANTAG_HUD,GLAND_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
-	has_limbs = 1
+	has_limbs = TRUE
 	held_items = list(null, null)
 	num_legs = 0 //Populated on init through list/bodyparts
 	usable_legs = 0 //Populated on init through list/bodyparts
 	num_hands = 0 //Populated on init through list/bodyparts
 	usable_hands = 0 //Populated on init through list/bodyparts
+	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
 	/// List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
 	var/list/internal_organs = list()
 	/// Same as above, but stores "slot ID" - "organ" pairs for easy access.
 	var/list/internal_organs_slot = list()
-	/// Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
-	var/silent = FALSE
 	/// Whether or not the mob is handcuffed
 	var/obj/item/handcuffed = null
 	/// Same as handcuffs but for legs. Bear traps use this.
