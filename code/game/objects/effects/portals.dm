@@ -104,7 +104,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 	if(isturf(hard_target_override))
 		hard_target = hard_target_override
 
-/obj/effect/portal/singularity_pull()
+/obj/effect/portal/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/portal/singularity_act()

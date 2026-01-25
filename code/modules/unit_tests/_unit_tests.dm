@@ -62,7 +62,6 @@
 #include "modsuit.dm"
 #include "mutant_hands_consistency.dm"
 #include "mutant_organs.dm"
-#include "ntnetwork_tests.dm"
 #include "organs.dm"
 #include "orphaned_genturf.dm"
 #include "outfit_sanity.dm"

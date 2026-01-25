@@ -51,3 +51,27 @@
 	mid_length = 1669 // exact length of the music in ticks
 	volume = 100
 	extra_range = 30
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/rad_alert_inside
+	mid_sounds = list(
+		'sound/weather/radstorm/inside/alert.ogg' = 13,
+		'sound/weather/radstorm/inside/attention.ogg' = 1,
+		'sound/weather/radstorm/inside/radiation.ogg' = 2,
+		'sound/weather/radstorm/inside/seek_shelter.ogg' = 3
+	)
+	mid_length = 20
+	volume = 100
+	extra_range = 30
+
+/datum/looping_sound/rad_alert_outside
+	mid_sounds = list(
+		'sound/weather/radstorm/outside/alert.ogg' = 13,
+		'sound/weather/radstorm/outside/attention.ogg' = 1,
+		'sound/weather/radstorm/outside/radiation.ogg' = 2,
+		'sound/weather/radstorm/outside/seek_shelter.ogg' = 3
+	)
+	mid_length = 20
+	volume = 100
+	extra_range = 30

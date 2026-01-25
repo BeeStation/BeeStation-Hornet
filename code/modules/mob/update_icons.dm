@@ -118,9 +118,6 @@
 /mob/proc/update_hair()
 	return
 
-/mob/proc/update_fire()
-	return
-
 ///Updates the glasses overlay & HUD element.
 /mob/proc/update_worn_glasses(update_obscured = FALSE)
 	return

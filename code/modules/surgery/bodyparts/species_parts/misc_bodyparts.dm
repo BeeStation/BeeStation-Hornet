@@ -21,29 +21,29 @@
 
 ///ABDUCTCOR
 /obj/item/bodypart/head/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/left/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/right/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/left/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/right/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 ///SLIME
@@ -524,7 +524,6 @@
 	limb_id = "pumpkin_man"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	item_flags = ISCARVABLE
 	///Carved overlay
 	var/image/carved_overlay
 

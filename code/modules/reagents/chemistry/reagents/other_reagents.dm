@@ -1,5 +1,4 @@
 /datum/reagent/blood
-	data = list("viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null,"quirks"=null)
 	name = "Blood"
 	color = COLOR_BLOOD
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
@@ -7,6 +6,20 @@
 	taste_description = "iron"
 	taste_mult = 1.3
 	default_container = /obj/item/reagent_containers/blood
+	data = list(
+		"viruses"=null,
+		"blood_DNA"=null,
+		"blood_type"=null,
+		"resistances"=null,
+		"trace_chem"=null,
+		"mind"=null,
+		"ckey"=null,
+		"gender"=null,
+		"real_name"=null,
+		"cloneable"=null,
+		"factions"=null,
+		"quirks"=null
+	)
 
 /datum/glass_style/shot_glass/blood
 	required_drink_type = /datum/reagent/blood
@@ -102,6 +115,23 @@
 		blood = new(exposed_turf)
 	if(data["blood_DNA"])
 		blood.add_blood_DNA(list(data["blood_DNA"] = data["blood_type"]))
+
+/datum/reagent/blood/coolant
+	name = "Synthetic Coolant"
+	data = list(
+		"viruses" = null,
+		"blood_DNA" = null,
+		"blood_type" = /datum/blood_type/synthetic,
+		"resistances" = null,
+		"trace_chem" = null,
+		"mind" = null,
+		"ckey" = null,
+		"gender" = null,
+		"real_name" = null,
+		"cloneable" = null,
+		"factions" = null,
+		"quirks" = null
+	)
 
 /datum/reagent/liquidgibs
 	name = "Liquid gibs"
@@ -240,8 +270,8 @@
 		if(touch_mod < 0.9)
 			to_chat(exposed_mob, span_warning("The water causes you to melt away!"))
 	if(method == TOUCH)
-		exposed_mob.adjust_fire_stacks(-(reac_volume / 10))
-		exposed_mob.ExtinguishMob()
+		exposed_mob.adjust_wet_stacks(reac_volume / 10)
+		exposed_mob.extinguish_mob()
 	..()
 
 /datum/reagent/water/holywater
@@ -365,7 +395,7 @@
 /datum/reagent/hellwater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.fire_stacks = min(affected_mob.fire_stacks + 1.5 * delta_time, 5)
-	affected_mob.IgniteMob() //Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
+	affected_mob.ignite_mob() //Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
 	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE) //Hence the other damages... ain't I a bastard?
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2.5*delta_time, 150)

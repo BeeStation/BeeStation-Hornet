@@ -111,7 +111,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/singularity_act()
 	return
 
-/obj/effect/immovablerod/singularity_pull()
+/obj/effect/immovablerod/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/immovablerod/Bump(atom/clong)

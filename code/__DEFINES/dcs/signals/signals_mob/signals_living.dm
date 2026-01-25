@@ -5,7 +5,7 @@
 // /mob/living signals
 ///from base of mob/living/resist() (/mob/living)
 #define COMSIG_LIVING_RESIST "living_resist"
-///from base of mob/living/IgniteMob() (/mob/living)
+///from base of mob/living/ignite_mob() (/mob/living)
 #define COMSIG_LIVING_IGNITED "living_ignite"
 ///from base of mob/living/extinguish_mob() (/mob/living)
 #define COMSIG_LIVING_EXTINGUISHED "living_extinguished"
@@ -104,6 +104,13 @@
 	#define NO_Z_IMPACT_DAMAGE (1<<0)
 /// From /mob/living/proc/stop_leaning()
 #define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
+
+/// From mob/living/try_speak(): (message, ignore_spam, forced)
+#define COMSIG_LIVING_TRY_SPEECH "living_vocal_speech"
+	/// Return if the mob can speak the message, regardless of any other signal returns or checks.
+	#define COMPONENT_CAN_ALWAYS_SPEAK (1<<0)
+	/// Return if the mob cannot speak.
+	#define COMPONENT_CANNOT_SPEAK (1<<1)
 
 /// From mob/living/treat_message(): (list/message_args)
 #define COMSIG_LIVING_TREAT_MESSAGE "living_treat_message"
