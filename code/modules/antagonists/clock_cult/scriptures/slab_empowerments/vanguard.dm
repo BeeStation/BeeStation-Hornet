@@ -15,12 +15,7 @@
 //Only you are safe :)
 
 /datum/clockcult/scripture/slab/vanguard/invoke_success()
-	ADD_TRAIT(invoker, TRAIT_STUNIMMUNE, VANGUARD_TRAIT)
-	ADD_TRAIT(invoker, TRAIT_PUSHIMMUNE, VANGUARD_TRAIT)
-	ADD_TRAIT(invoker, TRAIT_CONFUSEIMMUNE, VANGUARD_TRAIT)
-	ADD_TRAIT(invoker, TRAIT_IGNOREDAMAGESLOWDOWN, VANGUARD_TRAIT)
-	ADD_TRAIT(invoker, TRAIT_NOSTAMCRIT, VANGUARD_TRAIT)
-	ADD_TRAIT(invoker, TRAIT_NOLIMBDISABLE, VANGUARD_TRAIT)
+	invoker.add_traits(list(TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_NOSTAMCRIT, TRAIT_NOLIMBDISABLE), VANGUARD_TRAIT)
 	to_chat(invoker, span_sevtug("You feel like nothing can stop you!"))
 
 /datum/clockcult/scripture/slab/vanguard/count_down()
@@ -29,12 +24,7 @@
 		to_chat(invoker, span_sevtug("You start to feel tired again."))
 
 /datum/clockcult/scripture/slab/vanguard/end_invoke()
-	REMOVE_TRAIT(invoker, TRAIT_STUNIMMUNE, VANGUARD_TRAIT)
-	REMOVE_TRAIT(invoker, TRAIT_PUSHIMMUNE, VANGUARD_TRAIT)
-	REMOVE_TRAIT(invoker, TRAIT_CONFUSEIMMUNE, VANGUARD_TRAIT)
-	REMOVE_TRAIT(invoker, TRAIT_IGNOREDAMAGESLOWDOWN, VANGUARD_TRAIT)
-	REMOVE_TRAIT(invoker, TRAIT_NOSTAMCRIT, VANGUARD_TRAIT)
-	REMOVE_TRAIT(invoker, TRAIT_NOLIMBDISABLE, VANGUARD_TRAIT)
+	invoker.remove_traits(list(TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_NOSTAMCRIT, TRAIT_NOLIMBDISABLE), VANGUARD_TRAIT)
 	..()
 
 // Due to how files are formatted this is put here.

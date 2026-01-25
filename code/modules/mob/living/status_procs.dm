@@ -504,8 +504,7 @@
 		for(var/symptom in D.symptoms)
 			var/datum/symptom/S = symptom
 			S.OnDeath(D)
-	ADD_TRAIT(src, TRAIT_FAKEDEATH, source)
-	ADD_TRAIT(src, TRAIT_DEATHCOMA, source)
+	add_traits(list(TRAIT_FAKEDEATH, TRAIT_DEATHCOMA), source)
 	tod = station_time_timestamp()
 
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
