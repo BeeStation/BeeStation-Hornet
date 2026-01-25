@@ -91,9 +91,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 	HELMET_PROTECTIVE,
 ))
 
-// True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
-#define TRUE_MAX_SAVE_SLOTS 9
-
 // Values for /datum/preference/preference_type
 /// This preference is character specific.
 #define PREFERENCE_CHARACTER "character"
@@ -261,3 +258,5 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 #define CHARACTER_SLOTS_PATRON 6
 /// Amount of extra character slots that players can purchase
 #define CHARACTER_SLOTS_PURCHASABLE 7
+// True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
+#define TRUE_MAX_SAVE_SLOTS 16
