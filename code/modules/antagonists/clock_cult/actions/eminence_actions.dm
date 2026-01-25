@@ -6,7 +6,7 @@
 	background_icon_state = "bg_clock"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-	///
+	/// The amount of cogs this costs
 	var/cog_cost
 
 /datum/action/spell/eminence/can_cast_spell(feedback = TRUE)

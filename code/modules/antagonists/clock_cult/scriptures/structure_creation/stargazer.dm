@@ -38,25 +38,27 @@
 
 	if(!anchored)
 		balloon_alert(user, "not anchored!")
-		return
+		return FALSE
 	if(!istype(attacking_item, /obj/item) || istype(attacking_item, /obj/item/clothing) || !attacking_item.force)
 		balloon_alert(user, "not enchantable!")
-		return
+		return FALSE
 	if(HAS_TRAIT(attacking_item, TRAIT_STARGAZED))
 		balloon_alert(user, "already enchanted!")
-		return
+		return FALSE
 	if(!COOLDOWN_FINISHED(src, enchant_cooldown))
 		balloon_alert(user, "on cooldown!")
-		return
+		return FALSE
 
 	// Enchant the item
-	if(do_after(user, 6 SECONDS, target = attacking_item))
-		COOLDOWN_START(src, enchant_cooldown, cooldown_time)
-
-		balloon_alert(user, "enchanted!")
-		enchant_weapon(attacking_item)
-	else
+	if(!do_after(user, 6 SECONDS, target = attacking_item))
 		balloon_alert(user, "interrupted!")
+		return FALSE
+
+	COOLDOWN_START(src, enchant_cooldown, cooldown_time)
+
+	balloon_alert(user, "enchanted!")
+	enchant_weapon(attacking_item)
+	return TRUE
 
 /obj/structure/destructible/clockwork/gear_base/stargazer/proc/enchant_weapon(obj/item/weapon)
 	// Prevent re-enchanting

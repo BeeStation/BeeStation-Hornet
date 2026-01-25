@@ -44,18 +44,15 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	GLOB.clockwork_slabs += src
 
 	// Set default scriptures
-	for(var/scripture in default_scriptures)
-		if(!scripture)
-			continue
-
-		var/datum/clockcult/scripture/default_scripture = new scripture(src)
-		scriptures[default_scripture.type] = default_scripture
+	for(var/datum/clockcult/scripture/scripture_type as anything in default_scriptures)
+		var/datum/clockcult/scripture/default_scripture = new scripture_type(src)
+		scriptures[scripture_type] = default_scripture
 
 		bind_spell(binder = null, scripture = default_scripture)
 
 /obj/item/clockwork/clockwork_slab/Destroy()
 	GLOB.clockwork_slabs -= src
-	. = ..()
+	return ..()
 
 /obj/item/clockwork/clockwork_slab/dropped(mob/user)
 	. = ..()
@@ -146,7 +143,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		ui.open()
 
 /obj/item/clockwork/clockwork_slab/ui_state(mob/user)
-	return GLOB.clockcult_state
+	return GLOB.clockcult_held_state
 
 /obj/item/clockwork/clockwork_slab/ui_data(mob/user)
 	var/list/data = list()
@@ -157,21 +154,17 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	data["scriptures"] = list()
 
 	//2 scriptures accessable at the same time will cause issues
-	for(var/scripture_name in GLOB.clockcult_all_scriptures)
-		var/datum/clockcult/scripture/scripture = GLOB.clockcult_all_scriptures[scripture_name]
-
-		var/is_purchased = FALSE
-		if(scriptures[scripture.type])
-			is_purchased = TRUE
+	for(var/scripture_type in GLOB.clockcult_all_scriptures)
+		var/datum/clockcult/scripture/scripture_instance = GLOB.clockcult_all_scriptures[scripture_type]
 
 		var/list/scripture_data = list(
-			"name" = scripture.name,
-			"desc" = scripture.desc,
-			"type" = scripture.category,
-			"tip" = scripture.tip,
-			"cost" = scripture.power_cost,
-			"purchased" = is_purchased,
-			"cog_cost" = scripture.cogs_required
+			"name" = scripture_instance.name,
+			"desc" = scripture_instance.desc,
+			"type" = scripture_instance.category,
+			"tip" = scripture_instance.tip,
+			"cost" = scripture_instance.power_cost,
+			"purchased" = !!scriptures[scripture_type],
+			"cog_cost" = scripture_instance.cogs_required,
 		)
 
 		data["scriptures"] += list(scripture_data)

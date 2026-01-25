@@ -13,13 +13,14 @@
 /obj/structure/destructible/clockwork/gear_base/prosperityprism
 	name = "prosperity prism"
 	desc = "A prism that seems to somehow always have its gaze locked to you."
-	clockwork_desc = span_brass("A prism that will heal nearby servants of toxin damage.")
 	icon_state = "prolonging_prism"
+	base_icon_state = "prolonging_prism"
 	anchored = TRUE
-	break_message = span_warning("The prism falls apart, toxic liquid leaking out into the air.")
 	max_integrity = 150
 	minimum_power = 4
 	depowered = FALSE
+	clockwork_desc = span_brass("A prism that will heal nearby servants of toxin damage.")
+	break_message = span_warning("The prism falls apart, toxic liquid leaking out into the air.")
 	var/powered = FALSE
 	var/enabled = TRUE
 	var/datum/reagents/holder
@@ -48,11 +49,10 @@
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/update_icon_state()
 	. = ..()
-	icon_state = icon_state
 	if(!anchored)
-		icon_state += unwrenched_suffix
+		icon_state += "[base_icon_state]_unwrenched"
 	else if(depowered || !powered)
-		icon_state += "_inactive"
+		icon_state = "[base_icon_state]_inactive"
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/process(delta_time)
 	if(!anchored)

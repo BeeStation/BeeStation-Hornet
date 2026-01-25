@@ -37,12 +37,11 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/*
-* Somebody is interacting with the sigil with their hands, lets break it
-*/
+/**
+ * Somebody is interacting with the sigil with their hands, lets break it
+ */
 /obj/structure/destructible/clockwork/sigil/attack_hand(mob/user, list/modifiers)
 	. = ..()
-
 	// Break the sigil
 	animate(src, transform = matrix() * 1.5, alpha = 0, time = 3)
 	sleep(3)
@@ -51,10 +50,10 @@
 		active_timer = null
 	qdel(src)
 
-/*
-* An atom has moved on top of the sigil
-* Try to apply effects to the target atom if the following checks pass
-*/
+/**
+ * An atom has moved on top of the sigil
+ * Try to apply effects to the target atom if the following checks pass
+ */
 /obj/structure/destructible/clockwork/sigil/proc/on_entered(datum/source, atom/movable/target_atom)
 	SIGNAL_HANDLER
 
@@ -67,10 +66,10 @@
 
 	try_apply_effects(target_atom)
 
-/*
-* An atom has moved off the sigil
-* If the target atom is the affected atom, stop affecting it
-*/
+/**
+ * An atom has moved off the sigil
+ * If the target atom is the affected atom, stop affecting it
+ */
 /obj/structure/destructible/clockwork/sigil/proc/on_exited(datum/source, atom/movable/target_atom)
 	SIGNAL_HANDLER
 
@@ -81,9 +80,9 @@
 			deltimer(active_timer)
 			active_timer = null
 
-/*
-* Basic checks to see if the target atom can be affected by this sigil
-*/
+/**
+ * Basic checks to see if the target atom can be affected by this sigil
+ */
 /obj/structure/destructible/clockwork/sigil/proc/can_affect(atom/movable/target_atom)
 	if(ismob(target_atom))
 		var/mob/mob_target = target_atom
@@ -92,10 +91,10 @@
 
 	return TRUE
 
-/*
-* Try to apply the effects to the target atom
-* If can_affect() returns FALSE, we won't apply effects and will instead play an animation
-*/
+/**
+ * Try to apply the effects to the target atom
+ * If can_affect() returns FALSE, we won't apply effects and will instead play an animation
+ */
 /obj/structure/destructible/clockwork/sigil/proc/try_apply_effects(atom/movable/target_atom)
 	if(!can_affect(target_atom))
 		on_fail()
@@ -110,10 +109,10 @@
 		animate(src, color = invokation_color, alpha = SIGIL_INVOKATION_ALPHA, effect_charge_time)
 		active_timer = addtimer(CALLBACK(src, PROC_REF(apply_effects)), effect_charge_time, TIMER_UNIQUE | TIMER_STOPPABLE)
 
-/*
-* Play a success animation and apply the effects to the target atom
-* When inhereting this, call . = ..() at the END
-*/
+/**
+ * Play a success animation and apply the effects to the target atom
+ * When inhereting this, call . = ..() at the END
+ */
 /obj/structure/destructible/clockwork/sigil/proc/apply_effects()
 	if(!can_affect(affected_atom))
 		return
@@ -130,11 +129,11 @@
 		affected_atom = null
 		animate(src, transform = matrix(), color = idle_color, alpha = initial(alpha), time = effect_charge_time)
 
-/*
-* We failed to apply the effects to the target atom
-* Reset timer and affected atom, then play a failure animation
-* When inhereting this, call . = ..() at the END
-*/
+/**
+ * We failed to apply the effects to the target atom
+ * Reset timer and affected atom, then play a failure animation
+ * When inhereting this, call . = ..() at the END
+ */
 /obj/structure/destructible/clockwork/sigil/proc/on_fail()
 	// Reset timer and affected atom
 	if(active_timer)

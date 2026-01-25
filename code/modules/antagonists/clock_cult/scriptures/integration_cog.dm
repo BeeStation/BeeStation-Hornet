@@ -11,6 +11,6 @@
 	invoker.put_in_hands(cog)
 
 	to_chat(invoker, span_brass("You summon an integration cog!"))
-	playsound(src, 'sound/machines/click.ogg', 50)
+	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	return ..()
 

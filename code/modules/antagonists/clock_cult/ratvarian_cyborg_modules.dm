@@ -52,7 +52,7 @@
 	scripture_datum = /datum/clockcult/scripture/create_structure/abstraction_crystal
 
 /obj/item/borg/ratvar/sentinels_compromise
-	scripture_datum = /datum/clockcult/scripture/slab/sentinelscompromise
+	scripture_datum = /datum/clockcult/scripture/slab/sentinels_compromise
 
 /obj/item/borg/ratvar/prosperity_prism
 	scripture_datum = /datum/clockcult/scripture/create_structure/prosperityprism

@@ -129,10 +129,9 @@
 	flick("clockwork_gateway_damaged", src)
 	playsound(src, 'sound/machines/clockcult/ark_damage.ogg', 75, FALSE)
 
-/*
-*
-* Indirectly called from ratvar_approaches()
-*/
+/**
+ * Called from ratvar_approaches()
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/deconstruct(disassembled = TRUE)
 	if((flags_1 & NODECONSTRUCT_1))
 		return
@@ -143,10 +142,10 @@
 	// Alert
 	visible_message(span_userdanger("[src] begins to pulse uncontrollably... you might want to run!"))
 	sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_disrupted.ogg'))
-	for(var/mob/M in GLOB.player_list)
-		var/turf/T = get_turf(M)
-		if((T && T.get_virtual_z_level() == get_virtual_z_level()) || IS_SERVANT_OF_RATVAR(M))
-			M.playsound_local(M, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
+	for(var/mob/player in GLOB.player_list)
+		var/turf/player_turf = get_turf(player)
+		if((player_turf && player_turf.get_virtual_z_level() == get_virtual_z_level()) || IS_SERVANT_OF_RATVAR(player))
+			player.playsound_local(player, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
 	addtimer(CALLBACK(src, PROC_REF(last_call)), 27)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/last_call()
@@ -156,16 +155,16 @@
 	for(var/obj/effect/portal/wormhole/clockcult/portal in GLOB.all_wormholes)
 		qdel(portal)
 
-/*
-* Time to open the gateway
-* Declare a hostile enviroment and after 30 seconds alert the crew and recall the servants
-*/
+/**
+ * Time to open the gateway
+ * Declare a hostile enviroment and after 30 seconds alert the crew and recall the servants
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/open_gateway()
-	icon_state = "clockwork_gateway_charging"
-	SSshuttle.registerHostileEnvironment(src)
-
 	if(GLOB.gateway_opening)
 		return
+
+	icon_state = "clockwork_gateway_charging"
+	SSshuttle.registerHostileEnvironment(src)
 	GLOB.gateway_opening = TRUE
 
 	// Alert servants
@@ -178,10 +177,10 @@
 	addtimer(CALLBACK(src, PROC_REF(begin_mass_recall)), 27 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(announce_gateway)), 30 SECONDS)
 
-/*
-* STAGE 0: Pre-attack phase, lasts 3 minutes
-* The gateway is opened and the crew is alerted. The crew has 3 minutes to prepare for the attack.
-*/
+/**
+ * STAGE 0: Pre-attack phase, lasts 3 minutes
+ * The gateway is opened and the crew is alerted. The crew has 3 minutes to prepare for the attack.
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
 	activated = TRUE
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
@@ -202,10 +201,10 @@
 
 	log_game("The clock cult has begun opening the Ark of the Clockwork Justiciar.")
 
-/*
-* STAGE 1: Defense phase, lasts 4 minutes
-* Start of the crew's attack, lets announce it and open portals to Reebe
-*/
+/**
+ * STAGE 1: Defense phase, lasts 4 minutes
+ * Start of the crew's attack, lets announce it and open portals to Reebe
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_assault()
 	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal \
 		energy pulse emanating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
@@ -218,10 +217,10 @@
 
 	addtimer(CALLBACK(src, PROC_REF(begin_activation)), 4 MINUTES)
 
-/*
-* STAGE 2: Assault phase, lasts 4 minutes
-* Mid-way point of the crew's attack.
-*/
+/**
+ * STAGE 2: Assault phase, lasts 4 minutes
+ * Mid-way point of the crew's attack.
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_activation()
 	sound_to_playing_players(volume = 25, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_active.ogg', TRUE))
 	icon_state = "clockwork_gateway_active"
@@ -237,10 +236,10 @@
 
 	addtimer(CALLBACK(src, PROC_REF(begin_ratvar_arrival)), 4 MINUTES)
 
-/*
-* STAGE 3: Cleanup phase, lasts 2 minutes
-* Final stretch
-*/
+/**
+ * STAGE 3: Cleanup phase, lasts 2 minutes
+ * Final stretch
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_ratvar_arrival()
 	sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_closing.ogg', TRUE))
 	icon_state = "clockwork_gateway_closing"
@@ -255,10 +254,10 @@
 
 	addtimer(CALLBACK(src, PROC_REF(ratvar_approaches)), 2 MINUTES)
 
-/*
-* STAGE 4: Ratvar approaches
-* Ratvar is here, the crew has lost.
-*/
+/**
+ * STAGE 4: Ratvar approaches
+ * Ratvar is here, the crew has lost.
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/ratvar_approaches()
 	if(destroyed)
 		return
@@ -304,10 +303,10 @@
 		if(!IS_SERVANT_OF_RATVAR(person))
 			person.SetSleeping(5 SECONDS)
 
-/*
-* Play a sound to all clock cultists and then after 3 seconds recall them to Reebe
-* Used when the gateway is opened and when the eminence uses their recall power
-*/
+/**
+ * Play a sound to all clock cultists and then after 3 seconds recall them to Reebe
+ * Used when the gateway is opened and when the eminence uses their recall power
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_mass_recall()
 	// Play sound to all servants
 	for(var/datum/mind/servant_mind in GLOB.servants_of_ratvar)
@@ -320,10 +319,10 @@
 	// Recall them in 3 seconds
 	addtimer(CALLBACK(src, PROC_REF(mass_recall)), 3 SECONDS)
 
-/*
-* Teleport all clock cultists to Reebe
-*/
-/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall(add_overlay = FALSE)
+/**
+ * Teleports all clock cultists to Reebe
+ */
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall()
 	for(var/datum/mind/servant_mind in GLOB.servants_of_ratvar)
 		var/mob/living/servant = servant_mind.current
 		if(!servant || QDELETED(servant))
@@ -331,14 +330,13 @@
 
 		servant.forceMove(pick(GLOB.servant_spawns))
 
-	// Play a sound to all players
 	for(var/mob/player in GLOB.player_list)
 		SEND_SOUND(player, 'sound/magic/clockwork/invoke_general.ogg')
 
-/*
-* Apply an overlay to all servants of Ratvar
-* Called when the ark is opened
-*/
+/**
+ * Apply an overlay to all servants of Ratvar
+ * Called when the ark is opened
+ */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/apply_overlays()
 	for(var/datum/mind/servant_mind in GLOB.servants_of_ratvar)
 		var/mob/living/servant = servant_mind.current

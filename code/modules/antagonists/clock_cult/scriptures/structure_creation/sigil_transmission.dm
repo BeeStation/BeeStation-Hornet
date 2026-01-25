@@ -34,7 +34,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/destructible/clockwork/sigil/transmission/Destroy()
-	for(var/obj/structure/destructible/clockwork/gear_base/gear_base in linked_structures)
+	for(var/obj/structure/destructible/clockwork/gear_base/gear_base as anything in linked_structures)
 		gear_base.unlink_sigil()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -43,7 +43,7 @@
 * Update the power of all linked structures
 */
 /obj/structure/destructible/clockwork/sigil/transmission/process()
-	for(var/obj/structure/destructible/clockwork/gear_base/gear_base in linked_structures)
+	for(var/obj/structure/destructible/clockwork/gear_base/gear_base as anything in linked_structures)
 		gear_base.update_power()
 
 /obj/structure/destructible/clockwork/sigil/transmission/can_affect(atom/movable/target_atom)

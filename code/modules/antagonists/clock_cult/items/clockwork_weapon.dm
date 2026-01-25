@@ -29,11 +29,8 @@
 
 /obj/item/clockwork/weapon/Destroy()
 	summon_weapon?.Remove(summon_weapon.owner)
-	. = ..()
+	return ..()
 
-/*
-* Bind weapon to the first person that picks it up
-*/
 /obj/item/clockwork/weapon/pickup(mob/user)
 	. = ..()
 	if(!user.mind)
@@ -49,10 +46,10 @@
 	if(IS_SERVANT_OF_RATVAR(user) && clockwork_hint)
 		. += span_brass(clockwork_hint)
 
-/*
-* While on Reebe the weapon will gain a buff to its damage based off how far it is from the gateway
-* Additionally, if target is not a clock cultist, not dead, and not holy, hit_effect() is called
-*/
+/**
+ * While on Reebe the weapon will gain a buff to its damage based off how far it is from the gateway
+ * Additionally, if target is not a clock cultist, not dead, and not holy, hit_effect() is called
+ */
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
 	if(!is_reebe(user.z))
 		return ..()
@@ -80,13 +77,11 @@
 	. = ..()
 	force = initial(force)
 
-/*
-* While on Reebe the weapon will call hit_effect() if thrown at a non-holy and non clock-cultist person
-*/
+/**
+ * While on Reebe the weapon will call hit_effect() if thrown at a non-holy and non clock-cultist person
+ */
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	if(.)
-		return
 	if(!is_reebe(z))
 		return
 
@@ -95,6 +90,9 @@
 		if(!living_target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_SERVANT_OF_RATVAR(living_target))
 			hit_effect(living_target, throwingdatum?.thrower, thrown = TRUE)
 
+/**
+ * The special effect applied when hitting a living creature
+ */
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
 	return
 

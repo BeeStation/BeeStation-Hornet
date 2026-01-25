@@ -33,11 +33,12 @@
 		QDEL_NULL(action)
 	return ..()
 
-/*
-* Don't inherent the base behavior here
-* We don't want to apply the costs of this scripture until we've actually applied the effects
-*/
+/**
+ * Don't inherent the base behavior here
+ * We don't want to apply the costs of this scripture until we've actually applied the effects
+ */
 /datum/clockcult/scripture/slab/on_invoke_success()
+	SHOULD_CALL_PARENT(FALSE)
 	// Start progress bar
 	progress_bar = new(invoker, max_time, invoking_slab)
 	count_down()
@@ -54,13 +55,13 @@
 		action.set_click_ability(invoker)
 
 /datum/clockcult/scripture/slab/dispose()
+	. = ..()
 	invoking_slab.active_scripture = null
-	return ..()
 
-/*
-* A (sort of) recursive proc to keep counting down from max_time
-* Once max_time equals 0, we forcibly end the invokation
-*/
+/**
+ * A recursive proc to keep counting down from max_time
+ * Once max_time equals 0, we forcibly end the invokation
+ */
 /datum/clockcult/scripture/slab/proc/count_down()
 	if(QDELETED(src))
 		return
@@ -72,7 +73,7 @@
 
 	// Update progress bar in one tick
 	if(max_time > 0)
-		addtimer(CALLBACK(src, PROC_REF(count_down)), 1, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(count_down)), 0.1 SECONDS, TIMER_STOPPABLE)
 	else
 		invoker.balloon_alert(invoker, "ran out of time!")
 		end_invocation()

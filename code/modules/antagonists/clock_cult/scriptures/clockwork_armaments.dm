@@ -1,3 +1,9 @@
+#define ARMAMENT_CHOICE_SPEAR "Brass Spear"
+#define ARMAMENT_CHOICE_HAMMER "Brass Battlehammer"
+#define ARMAMENT_CHOICE_SWORD "Brass Sword"
+#define ARMAMENT_CHOICE_BOW "Brass Bow"
+#define ARMAMENT_CHOICE_STANDARD "Standard Equipment (Unarmed)"
+
 /datum/clockcult/scripture/clockwork_armaments
 	name = "Clockwork Armaments"
 	desc = "Summon clockwork armor and weapons, to be ready for battle."
@@ -10,11 +16,11 @@
 
 	/// List of possible choices
 	var/list/clockwork_armaments = list(
-		"Brass Spear",
-		"Brass Battlehammer",
-		"Brass Sword",
-		"Brass Bow",
-		"Standard Equipment (Unarmed)",
+		ARMAMENT_CHOICE_SPEAR,
+		ARMAMENT_CHOICE_HAMMER,
+		ARMAMENT_CHOICE_SWORD,
+		ARMAMENT_CHOICE_BOW,
+		ARMAMENT_CHOICE_STANDARD,
 	)
 
 /datum/clockcult/scripture/clockwork_armaments/on_invoke_success()
@@ -37,14 +43,20 @@
 
 	// Give gear
 	switch(choice)
-		if("Brass Spear")
+		if(ARMAMENT_CHOICE_SPEAR)
 			armaments_spear.equip(living_invoker)
-		if("Brass Battlehammer")
+		if(ARMAMENT_CHOICE_HAMMER)
 			armaments_hammer.equip(living_invoker)
-		if("Brass Sword")
+		if(ARMAMENT_CHOICE_SWORD)
 			armaments_sword.equip(living_invoker)
-		if("Brass Bow")
+		if(ARMAMENT_CHOICE_BOW)
 			armaments_bow.equip(living_invoker)
-		if("Standard Equipment (Unarmed)")
+		if(ARMAMENT_CHOICE_STANDARD)
 			default.equip(living_invoker)
 	return ..()
+
+#undef ARMAMENT_CHOICE_SPEAR
+#undef ARMAMENT_CHOICE_HAMMER
+#undef ARMAMENT_CHOICE_SWORD
+#undef ARMAMENT_CHOICE_BOW
+#undef ARMAMENT_CHOICE_STANDARD

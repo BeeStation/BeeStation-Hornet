@@ -31,19 +31,19 @@
 	)
 
 	// Try to cuff target
-	if(do_after(invoker, 3 SECONDS, target = carbon_target))
-		if(carbon_target.handcuffed)
-			return FALSE
-
-		// Cuff target
-		var/obj/item/restraints/handcuffs/clockwork/restraints = new(carbon_target)
-		if(!restraints.apply_cuffs(carbon_target, invoker))
-			qdel(restraints)
-			return
-
-		log_combat(invoker, carbon_target, "handcuffed", src)
-	else
+	if(!do_after(invoker, 3 SECONDS, target = carbon_target))
 		return FALSE
+
+	if(carbon_target.handcuffed)
+		return FALSE
+
+	// Cuff target
+	var/obj/item/restraints/handcuffs/clockwork/restraints = new(carbon_target)
+	if(!restraints.apply_cuffs(carbon_target, invoker))
+		qdel(restraints)
+		return
+
+	log_combat(invoker, carbon_target, "handcuffed", src)
 
 /obj/item/restraints/handcuffs/clockwork
 	name = "replicant manacles"

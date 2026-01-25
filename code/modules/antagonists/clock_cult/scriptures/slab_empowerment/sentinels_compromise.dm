@@ -1,4 +1,4 @@
-/datum/clockcult/scripture/slab/sentinelscompromise
+/datum/clockcult/scripture/slab/sentinels_compromise
 	name = "Sentinel's Compromise"
 	desc = "Heal any servant within view, but half of their damage healed will be given to you in the form of toxin damage."
 	tip = "Use on any servant in trouble to heal their wounds."
@@ -10,7 +10,7 @@
 	cogs_required = 1
 	category = SPELLTYPE_PRESERVATION
 
-/datum/clockcult/scripture/slab/sentinelscompromise/can_invoke()
+/datum/clockcult/scripture/slab/sentinels_compromise/can_invoke()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -19,7 +19,7 @@
 		invoker.balloon_alert(invoker, "not a human!")
 		return FALSE
 
-/datum/clockcult/scripture/slab/sentinelscompromise/apply_effects(atom/target_atom)
+/datum/clockcult/scripture/slab/sentinels_compromise/apply_effects(atom/target_atom)
 	. = ..()
 	if(!isliving(target_atom))
 		return FALSE

@@ -12,6 +12,7 @@
 		return FALSE
 
 /datum/clockcult/scripture/create_structure/on_invoke_success()
+	SHOULD_CALL_PARENT(FALSE)
 	// Spawn
 	var/created_structure = new summoned_structure.type(get_turf(invoker))
 

@@ -27,4 +27,4 @@
 /obj/structure/destructible/clockwork/examine(mob/user)
 	. = ..()
 	if(IS_SERVANT_OF_RATVAR(user) && clockwork_desc)
-		. += span_brass(clockwork_desc)
+		. += clockwork_desc

@@ -44,24 +44,18 @@
 
 	// Blood Cultist reaction
 	if(IS_CULTIST(living_target))
-		// Lighting and color
 		living_target.mob_light(color = LIGHT_COLOR_BLOOD_MAGIC, range = 2, duration = 30 SECONDS)
-
 		var/previous_color = living_target.color
 		living_target.color = LIGHT_COLOR_BLOOD_MAGIC
 		animate(living_target, color = previous_color, time = 30 SECONDS)
 
-		// Effects
 		living_target.adjust_stutter(30 SECONDS)
 		living_target.set_jitter_if_lower(30 SECONDS)
 
-		// Flavor text
 		living_target.say("Fwebar uloft'gib mirlig yro'fara!")
 		to_chat(invoker, span_brass("You fail to stun [living_target]!"))
 
-		// Sound
 		playsound(invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)
-
 		return TRUE
 
 	// Light

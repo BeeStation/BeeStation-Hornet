@@ -10,6 +10,6 @@
 	category = SPELLTYPE_STRUCTURES
 
 /datum/clockcult/scripture/replica_fabricator/on_invoke_success()
-	var/obj/item/clockwork/replica_fabricator/fabricator = new(get_turf(invoker))
+	var/obj/item/clockwork/replica_fabricator/fabricator = new(invoker.drop_location())
 	invoker.put_in_inactive_hand(fabricator)
 	return ..()

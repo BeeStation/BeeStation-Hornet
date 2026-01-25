@@ -1,3 +1,7 @@
+#define TINKERERS_CACHE_ROBES "Robes of Divinity"
+#define TINKERERS_CACHE_CLOAK "Shrouding Cloak"
+#define TINKERERS_CACHE_SPECTACLES "Wraith Spectacles"
+
 /datum/clockcult/scripture/create_structure/tinkerers_cache
 	name = "Tinkerer's Cache"
 	desc = "Creates a tinkerer's cache, a powerful forge capable of crafting elite equipment."
@@ -30,40 +34,39 @@
 
 	if(!IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_warning("You try to put your hand into [src], but almost burn yourself!"))
-		return
+		return FALSE
 	if(!anchored)
 		balloon_alert(user, "not anchored!")
-		return
+		return FALSE
 	if(!COOLDOWN_FINISHED(src, craft_cooldown))
 		balloon_alert(user, "on cooldown!")
-		return
+		return FALSE
 
 	// Radial menu to choose what items you want
 	var/list/items = list(
-		"Robes of Divinity" = image(icon = 'icons/obj/clothing/clockwork_garb.dmi', icon_state = "clockwork_cuirass_speed"),
-		"Shrouding Cloak" = image(icon = 'icons/obj/clothing/clockwork_garb.dmi', icon_state = "clockwork_cloak"),
-		"Wraith Spectacles" = image(icon = 'icons/obj/clothing/clockwork_garb.dmi', icon_state = "wraith_specs")
+		TINKERERS_CACHE_ROBES = image(icon = 'icons/obj/clothing/clockwork_garb.dmi', icon_state = "clockwork_cuirass_speed"),
+		TINKERERS_CACHE_CLOAK = image(icon = 'icons/obj/clothing/clockwork_garb.dmi', icon_state = "clockwork_cloak"),
+		TINKERERS_CACHE_SPECTACLES = image(icon = 'icons/obj/clothing/clockwork_garb.dmi', icon_state = "wraith_specs"),
 	)
 
 	var/choice = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!choice)
-		return
+		return FALSE
 
 	var/obj/item/clothing/picked
 	switch(choice)
-		if("Robes of Divinity")
+		if(TINKERERS_CACHE_ROBES)
 			picked = /obj/item/clothing/suit/clockwork/speed
-		if("Shrouding Cloak")
+		if(TINKERERS_CACHE_CLOAK)
 			picked = /obj/item/clothing/suit/clockwork/cloak
-		if("Wraith Spectacles")
+		if(TINKERERS_CACHE_SPECTACLES)
 			picked = /obj/item/clothing/glasses/clockwork/wraith_spectacles
 
 	// Spawn item and start cooldown
-	new picked(get_turf(src))
-
+	new picked(drop_location())
 	balloon_alert(user, "[choice] crafted!")
-
 	COOLDOWN_START(src, craft_cooldown, cooldown_time)
+	return TRUE
 
 /obj/structure/destructible/clockwork/gear_base/tinkerers_cache/proc/check_menu(mob/user)
 	if(!istype(user))
@@ -71,3 +74,7 @@
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
+
+#undef TINKERERS_CACHE_ROBES
+#undef TINKERERS_CACHE_CLOAK
+#undef TINKERERS_CACHE_SPECTACLES

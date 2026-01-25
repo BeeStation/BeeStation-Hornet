@@ -1,9 +1,9 @@
 GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 
-/*
-* Create a global list to reference scriptures by their name
-* Only needs to be called once
-*/
+/**
+ * Create a global list to reference scriptures by their name
+ * Only needs to be called once
+ */
 /proc/generate_clockcult_scriptures()
 	// Generate scriptures
 	for(var/categorypath in subtypesof(/datum/clockcult/scripture))
@@ -69,10 +69,11 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 	else
 		dispose()
 
-/*
-* Basic checks to see if the scripture can be invoked
-*/
+/**
+ * Basic checks to see if the scripture can be invoked
+ */
 /datum/clockcult/scripture/proc/can_invoke()
+	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.clockcult_power < power_cost)
 		invoker.balloon_alert(invoker, "not enough power!")
 		return FALSE
@@ -83,7 +84,7 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 		invoker.balloon_alert(invoker, "not in hand!")
 		return FALSE
 	if(!should_bypass_unlock_checks && !invoking_slab.scriptures[src.type])
-		log_runtime("Attempting to invoke a scripture that has not been unlocked. Either there is a bug, or [ADMIN_LOOKUP(invoker)] is using some wacky exploits.")
+		stack_trace("Attempting to invoke a scripture that has not been unlocked. Either there is a bug, or [ADMIN_LOOKUP(invoker)] is using some wacky exploits.")
 		invoker.balloon_alert(invoker, "not unlocked!")
 		return FALSE
 
@@ -97,31 +98,35 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 		invokers++
 
 	if(invokers < invokers_required)
-		invoker.balloon_alert(invoker, "missing [invokers_required - invokers] invoker\s!")
+		var/invoker_delta = invokers_required - invokers
+		invoker.balloon_alert(invoker, "missing [invoker_delta] invoker[invoker_delta > 1 ? "s" : null]!")
 		return FALSE
 
 	return TRUE
 
-/*
-* Here is where you put the code that runs when the scripture is succesfully invoked
-* For example, Summon Replica Fabricator will instantiate a replica fabricator
-* When inhereting this, ..() should be called at the END
-*/
+/**
+ * Here is where you put the code that runs when the scripture is succesfully invoked
+ * For example, Summon Replica Fabricator will instantiate a replica fabricator
+ * Only parent call if you successfully casted your spell
+ */
 /datum/clockcult/scripture/proc/on_invoke_success()
+	SHOULD_CALL_PARENT(TRUE)
 	GLOB.clockcult_power -= power_cost
 	GLOB.clockcult_vitality -= vitality_cost
 
-/*
-* Here is where you put the code that runs when the scripture's invokation ends
-* When inhereting this, . = ..() should be called at the END
-*/
+/**
+ * Here is where you put the code that runs when the scripture's invokation ends
+ * When inhereting this, ..() should be called at the END
+ */
 /datum/clockcult/scripture/proc/on_invoke_end()
+	SHOULD_CALL_PARENT(TRUE)
 	dispose()
 
 /*
 * This isn't with on_invoke_end() because we don't want to call whatever logic we use whenever we for example, fail the do_after in try_to_invoke()
 */
 /datum/clockcult/scripture/proc/dispose()
+	SHOULD_CALL_PARENT(TRUE)
 	invoking_slab.invoking_scripture = null
 
 /*
