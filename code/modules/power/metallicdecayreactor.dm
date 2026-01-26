@@ -26,30 +26,35 @@
 	/datum/gas/nitrogen = list(GAS_DECAY_RATE = 0.1, GAS_DECAY_THRESHOLD = 50, GAS_DECAY_FLUX_MULT = 20, GAS_STABILITY_VAL = 8), \
 	/datum/gas/pluoxium = list(GAS_DECAY_RATE = 0.1, GAS_DECAY_THRESHOLD = 10, GAS_DECAY_FLUX_MULT = 100, GAS_STABILITY_VAL = 10), \
 	/datum/gas/hypernoblium = list(GAS_DECAY_RATE = 0, GAS_DECAY_THRESHOLD = 0, GAS_DECAY_FLUX_MULT = 0, GAS_STABILITY_VAL = 100))
-
+//oxygen decreases the increase in stability from low temperatures
+//BZ increases base_instability
 
 #define MDR_MOL_TO_SPIN 1000
 #define MDR_SPIN_INSTABILITY_MULT 1e3
-#define MDR_HEAT_CONSUMED_PER_MOL 1 MEGAWATT
 
+#define MDR_BASE_INSTABILITY 100
+
+#define MDR_HEAT_CONSUMED_PER_MOL 1 MEGAWATT
 #define MDR_FLUX_TO_POWER 1 KILOWATT
 
-#define MDR_MAX_CORE_HEALTH 100
+#define MDR_MAX_CORE_HEALTH 250
 
 #define MDR_CORE_MASS_DIV 1000
 
 /obj/machinery/atmospherics/components/unary/mdr
 	name = "Metallic Decay Reactor"
 	desc = "A sphere of ultra-stable metallic gases, which generate magnetic flux by decaying into more stable gases."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "ccharger"
+	icon = 'icons/obj/machines/mdr.dmi'
+	icon_state = "mdr"
 	density = TRUE
-
+	layer = MOB_LAYER
 	var/activated = FALSE
 
 	var/metallization_ratio = 0.2
 	var/core_stability = 0
 	var/core_instability = 0
+	var/base_instability = MDR_BASE_INSTABILITY
+
 	var/core_health = MDR_MAX_CORE_HEALTH
 	var/temp_stability_factor = 0
 	var/core_temperature = T20C
@@ -57,7 +62,6 @@
 	var/flux = 0
 
 	var/toroid_spin = 0
-	var/spin_flux_usage = 0
 	var/toroid_flux_mult = 0
 
 	var/parabolic_setting = 1
@@ -84,6 +88,11 @@
 /obj/machinery/atmospherics/components/unary/mdr/Destroy()
 	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		harvester.parent = null
+	var/total_core_mols = 0
+	for(var/gastype in core_composition)
+		total_core_mols += core_composition[gastype]
+	if(total_core_mols > 1000)
+		fail()
 	qdel(soundloop)
 	. = ..()
 
@@ -97,13 +106,14 @@
 	process_toroid()
 	process_harvesters()
 	process_stability()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/components/unary/mdr/screwdriver_act(mob/living/user, obj/item/tool)
 	if(activated)
 		balloon_alert(user, "deactivate first!")
 		return TRUE
 
-	if(default_deconstruction_screwdriver(user, "ccharger", "ccharger", tool)) //todo fix the sprites
+	if(default_deconstruction_screwdriver(user, "mdr", "mdr", tool))
 		update_appearance()
 		return TRUE
 
@@ -114,6 +124,23 @@
 	deactivate()
 	return TRUE
 
+/obj/machinery/atmospherics/components/unary/mdr/update_overlays()
+	. = ..()
+	var/core_mass = 0
+	for(var/gastype in core_composition)
+		core_mass += core_composition[gastype]
+	if(!activated)
+		return
+	switch(core_mass)
+		if(0 to 500)
+			. += mutable_appearance(initial(icon), "sphere_1")
+			. += emissive_appearance(initial(icon), "sphere_1", layer)
+		if(500 to 5000) //todo, figure out if this is inclusive or exclusive, and how to handle a switch better
+			. += mutable_appearance(initial(icon), "sphere_2")
+			. += emissive_appearance(initial(icon), "sphere_2", layer)
+		else
+			. += mutable_appearance(initial(icon), "sphere_3")
+			. += emissive_appearance(initial(icon), "sphere_3", layer)
 
 /obj/machinery/atmospherics/components/unary/mdr/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -122,10 +149,14 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
+/obj/machinery/atmospherics/components/unary/mdr/ui_state()
+	return GLOB.default_state
+
 /obj/machinery/atmospherics/components/unary/mdr/ui_static_data(mob/user)
 	. = ..()
 	.["uid"] = mdr_uid
 	.["area"] = AREACOORD(src)
+	.["max_core_health"] = MDR_MAX_CORE_HEALTH
 
 /obj/machinery/atmospherics/components/unary/mdr/ui_data(mob/user)
 	. = ..()
@@ -143,6 +174,7 @@
 	.["parabolic_ratio"] = parabolic_ratio
 	.["core_stability"] = core_stability
 	.["core_instability"] = core_instability
+	.["core_health"] = core_health
 
 /obj/machinery/atmospherics/components/unary/mdr/ui_act(action, params)
 	var/mob/user = usr
@@ -171,17 +203,19 @@
 /obj/machinery/atmospherics/components/unary/mdr/proc/activate()
 	if(!can_activate())
 		balloon_alert_to_viewers("can not activate now!")
-		playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
 	soundloop.start()
+	update_appearance()
 	activated = TRUE
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/deactivate()
 	if(!can_deactivate())
 		balloon_alert_to_viewers("can not deactivate now!")
-		playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
 	soundloop.stop()
+	update_appearance()
 	activated = FALSE
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/get_core_heat_capacity()
@@ -210,10 +244,10 @@
 	return 1 //todo remove this proc or add to it
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/get_temp_stab_factor()
-	var/datum/gas_mixture/turf_mix = src.loc.return_air()
-	var/maximum_temp_factor = 100 //todo make this dynamic
-	var/temp_slope = 0.01 //todo make this dynamic
-	return max(-(turf_mix.temperature * temp_slope) + maximum_temp_factor, 1)
+	var/n2o_mols = core_composition[/datum/gas/oxygen]
+	var/maximum_temp_factor = n2o_mols ? max(100 - n2o_mols * 0.1, 10) : 100 //when n2o mols > 1000 temp_factor = 10
+	var/temp_slope = 0.01
+	return max(-(core_temperature * temp_slope) + maximum_temp_factor, 1)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/decay_gases(decay_factor)
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
@@ -250,8 +284,10 @@
 	return max(core_mass / MDR_CORE_MASS_DIV, 1)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_stability()
+	var/bz_mols = core_composition[/datum/gas/bz]
 	core_stability = get_core_stability()
-	core_instability = core_temperature >= 100000 ? 50000 * (log(10, core_temperature) - 4) : 0.5 * core_temperature //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
+	base_instability = max(bz_mols ? bz_mols * MDR_GAS_VARS[/datum/gas/bz][GAS_DECAY_THRESHOLD] : 0, MDR_BASE_INSTABILITY)
+	core_instability = (max(core_temperature >= 100000 ? 50000 * (log(10, core_temperature) - 4) : 0.5 * core_temperature, 0) + base_instability) //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
 	var/delta_stability = core_instability - core_stability
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
 
@@ -261,8 +297,8 @@
 		fail()
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/fail()
-	investigate_log("failed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
-	// new /obj/anomaly/singularity/temporary(get_turf(src), 500) TODO uncomment this when testing is done
+	investigate_log("was destroyed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
+	new /obj/anomaly/singularity/temporary(get_turf(src), 500)
 	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_toroid()
@@ -280,7 +316,7 @@
 	parabolic_upper_limit = get_mass_multiplier()
 	parabolic_ratio = toroid_spin / 10000
 
-	toroid_flux_mult = max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0) //todo this might need a tweak
+	toroid_flux_mult = max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
@@ -316,7 +352,6 @@
 	var/power_left = flux * MDR_FLUX_TO_POWER
 	for (var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		power_left -= harvester.add_power(power_left)
-
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/garbage_collect()
 	for(var/gastype in core_composition)
@@ -362,3 +397,17 @@
 
 /obj/machinery/power/flux_harvester/proc/unlink_harvester()
 	parent = null
+
+#undef GAS_DECAY_LIST
+#undef GAS_DECAY_RATE
+#undef GAS_DECAY_THRESHOLD
+#undef MDR_BASE_INSTABILITY
+#undef GAS_DECAY_FLUX_MULT
+#undef GAS_STABILITY_VAL
+#undef MDR_GAS_VARS
+#undef MDR_MOL_TO_SPIN
+#undef MDR_SPIN_INSTABILITY_MULT
+#undef MDR_HEAT_CONSUMED_PER_MOL
+#undef MDR_FLUX_TO_POWER
+#undef MDR_MAX_CORE_HEALTH
+#undef MDR_CORE_MASS_DIV

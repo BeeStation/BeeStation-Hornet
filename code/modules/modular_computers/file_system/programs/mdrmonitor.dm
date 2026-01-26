@@ -25,7 +25,7 @@
 	. = ..()
 	.["selected_mdr_uid"] = selected_mdr?.mdr_uid
 	.["mdr_data"] = list()
-	for(var/mdr as anything in mdrs) // todo add on qdel signal so mdrs that get destroyed are automatically removed from this list also its failing to close on destruction of the mdr
+	for(var/mdr as anything in mdrs)
 		.["mdr_data"][mdr] = (mdrs[mdr].ui_static_data(user) + mdrs[mdr].ui_data(user)) //very stupid, but I frankly dont know another solution
 
 /datum/computer_file/program/mdr_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -42,7 +42,7 @@
 
 /datum/computer_file/program/mdr_monitor/proc/refresh()
 	for(var/mdr in mdrs)
-		mdrs -= mdr
+		clear_mdr(mdrs[mdr])
 	var/turf/user_turf = get_turf(computer.ui_host())
 	if(!user_turf)
 		return
@@ -50,3 +50,13 @@
 		if (!(is_station_level(mdr.z) || is_mining_level(mdr.z) || mdr.z == user_turf.z))
 			continue
 		mdrs["[mdr.mdr_uid]"] = mdr
+		RegisterSignal(mdr, COMSIG_QDELETING, PROC_REF(clear_mdr))
+
+/datum/computer_file/program/mdr_monitor/proc/clear_mdr(obj/machinery/atmospherics/components/unary/mdr/mdr)
+	SIGNAL_HANDLER
+	if(selected_mdr == mdr)
+		selected_mdr = null
+	for(var/iter_mdr in mdrs)
+		if(mdr == mdrs[iter_mdr])
+			mdrs -= iter_mdr
+	UnregisterSignal(mdr, COMSIG_QDELETING)
