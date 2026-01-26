@@ -1,0 +1,8 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Players now have a greater chance of being mutated when irradiated
+  - tweak: Mutations from radiation are no longer locked to being negative mutations,
+      you have an equal chance at any mutation
+  - tweak: Mutations from radiation have a lower chance of affecting your appearance
+      instead of giving an easily reversible genetic mutation
