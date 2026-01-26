@@ -271,5 +271,30 @@
       clear
   PowerfulBacon:
   - balance: Shields belts now starts from 0 charge when equipped.
+  - bugfix: Fixes boxstation solars using yellow wires var-edited to red.
   r1ks-iwnl:
   - bugfix: Fixed particle acceleration rifle's zoom.
+2026-01-24:
+  Rukofamicom:
+  - admin: The destruction of station objects is now properly logged again
+  mrmanlikesbt:
+  - tweak: Much less artifacts spawn in maintenance now
+2026-01-25:
+  PowerfulBacon:
+  - rscadd: Adds a new security pager accessory which informs the sec channel if someone
+      dies. It does not give specifics on who or where the death occurred at.
+  - tweak: Moves security's custom death sound effect out of masks and into the pager.
+  - bugfix: Fixes boxstation north west solar array not having north facing cables
+  mrmanlikesbt:
+  - bugfix: Fixed a runtime when hitting a turf with a burn weapon
+  - bugfix: Fixed StackCrafting using the computer theme
+  - code_imp: The _traits.dm file has been sorted. When adding to it, make sure you
+      add your traits in the correct category.
+  - admin: The Modify Traits VV now uses a TGUI input instead of HTML.
+2026-01-26:
+  rkz, Melbert, etherware, Ghommie, Lemon, Sealed101:
+  - bugfix: cleans up gibtonite overlays. The overlay will no longer eat clicks when
+      you are trying to defuse it with a mining scanner
+  - bugfix: flick_overlay is an atom proc. flick_overlay is also faster
+  - bugfix: Taking items from your inventory while flying over lava or a chasm will
+      NOT set them on fire or drop them into chasms ANYMORE
