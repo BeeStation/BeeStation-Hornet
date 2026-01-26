@@ -41,6 +41,8 @@
 
 #define MDR_CORE_MASS_DIV 1000
 
+#define MDR_RADIO_COOLDOWN 8 SECONDS
+
 /obj/machinery/atmospherics/components/unary/mdr
 	name = "Metallic Decay Reactor"
 	desc = "A sphere of ultra-stable metallic gases, which generate magnetic flux by decaying into more stable gases."
@@ -80,10 +82,21 @@
 	var/list/obj/machinery/power/flux_harvester/linked_harvesters = list()
 	var/list/core_composition = list()
 
+	/// Our internal radio
+	var/obj/item/radio/radio
+	/// The key our internal radio uses
+	var/radio_key = /obj/item/encryptionkey/headset_eng
+
+	COOLDOWN_DECLARE(radio_cooldown)
+
 /obj/machinery/atmospherics/components/unary/mdr/Initialize(mapload)
 	. = ..()
 	mdr_uid = gl_mdr_uid++
 	soundloop = new(src)
+	radio = new(src)
+	radio.keyslot = new radio_key
+	radio.set_listening(FALSE)
+	radio.recalculateChannels()
 
 /obj/machinery/atmospherics/components/unary/mdr/Destroy()
 	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
@@ -92,8 +105,10 @@
 	for(var/gastype in core_composition)
 		total_core_mols += core_composition[gastype]
 	if(total_core_mols > 1000)
-		fail()
+		investigate_log("was destroyed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
+		new /obj/anomaly/singularity/temporary(get_turf(src), 500)
 	qdel(soundloop)
+	qdel(radio)
 	. = ..()
 
 
@@ -160,12 +175,17 @@
 
 /obj/machinery/atmospherics/components/unary/mdr/ui_data(mob/user)
 	. = ..()
+
+	var/list/core_composition_named = list()
+	for(var/gastype in core_composition)
+		core_composition_named[GLOB.meta_gas_info[gastype]?[META_GAS_NAME]] = core_composition[gastype]
+
 	.["toroid_spin"] = toroid_spin
 	.["parabolic_setting"] = parabolic_setting
 	.["input_volume"] = input_volume
 	.["toroid_flux_mult"] = toroid_flux_mult
 	.["core_temperature"] = core_temperature
-	.["core_composition"] = core_composition
+	.["core_composition"] = core_composition_named
 	.["can_activate"] = can_activate()
 	.["activated"] = activated
 	.["metallization_ratio"] = metallization_ratio
@@ -188,6 +208,8 @@
 			activate()
 		if("change_metal_ratio")
 			metallization_ratio = clamp(text2num(params["change_metal_ratio"]), 0.1, 1)
+		if("change_parabolic_setting")
+			parabolic_setting = clamp(text2num(params["change_parabolic_setting"]), 0.1, 1)
 		if("reconnect")
 			link_harvesters()
 
@@ -292,13 +314,23 @@
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/adjust_health(delta)
-	core_health = clamp(core_health + delta, 0, MDR_MAX_CORE_HEALTH)
+	var/health_delta = clamp(core_health + delta, 0, MDR_MAX_CORE_HEALTH)
+	if(health_delta > core_health)
+		alert_radio(FALSE)
+	if(health_delta < core_health)
+		alert_radio(TRUE)
+	core_health = health_delta
 	if (core_health <= 0)
 		fail()
 
+/obj/machinery/atmospherics/components/unary/mdr/proc/alert_radio(decreasing)
+	if(!(COOLDOWN_FINISHED(src, radio_cooldown)) || core_health > MDR_MAX_CORE_HEALTH * 0.6)
+		return
+	var/message = "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!"
+	core_health < MDR_MAX_CORE_HEALTH * 0.25 ? radio.talk_into(src, message, null) : radio.talk_into(src, message, RADIO_CHANNEL_ENGINEERING)
+	COOLDOWN_START(src, radio_cooldown, MDR_RADIO_COOLDOWN)
+
 /obj/machinery/atmospherics/components/unary/mdr/proc/fail()
-	investigate_log("was destroyed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
-	new /obj/anomaly/singularity/temporary(get_turf(src), 500)
 	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_toroid()
@@ -411,3 +443,4 @@
 #undef MDR_FLUX_TO_POWER
 #undef MDR_MAX_CORE_HEALTH
 #undef MDR_CORE_MASS_DIV
+#undef MDR_RADIO_COOLDOWN

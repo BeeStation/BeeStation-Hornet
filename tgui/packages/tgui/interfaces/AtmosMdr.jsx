@@ -1,17 +1,34 @@
 
 
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Graph, Knob, LabeledControls, LabeledList, NumberInput, ProgressBar, Section } from '../components';
+import { Box, Button, Collapsible, Flex, Graph, Knob, LabeledControls, LabeledList, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 export const AtmosMdr = (props) => {
   const { data } = useBackend();
   return (
-  <Window width={480} height={500}>
+  <Window width={540} height={500}>
     <Window.Content>
       <MdrContent {...data} />
     </Window.Content>
   </Window>
   );
+};
+
+const DisplayGasOutput = (core_composition) => {
+  return Object.keys(core_composition)
+    .map((name, index) => (
+      <Flex
+        key={name}
+        justify="space-between"
+        p="3px"
+        backgroundColor={index % 2 === 0 ? '#35303b' : '#423f46ff'}
+      >
+        <Flex.Item>{name}</Flex.Item>
+        <Flex.Item>
+          {core_composition[name].toFixed(2) + ' mol'}
+        </Flex.Item>
+      </Flex>
+    ));
 };
 
 export const MdrContent = (props) => {
@@ -73,6 +90,24 @@ export const MdrContent = (props) => {
             }
           />
           </LabeledControls.Item>
+          <LabeledControls.Item minWidth="66px" label="Parab. Setting">
+          <Knob
+            size={1.25}
+            color={'yellow'}
+            value={parabolic_setting}
+            unit=""
+            format={(i) => { return i.toFixed(1); }}
+            minValue={0.1}
+            maxValue={1}
+            step={0.1}
+            stepPixelSize={5}
+            onDrag={(e, value) =>
+              act('change_parabolic_setting', {
+                change_parabolic_setting: value,
+              })
+            }
+          />
+          </LabeledControls.Item>
           <LabeledControls.Item minWidth="66px" label="Toroid Input">
           <NumberInput
             animated
@@ -92,6 +127,7 @@ export const MdrContent = (props) => {
           </LabeledControls>
         </Section>
           <Section title="Data">
+            Core Health:
             <ProgressBar
                           minValue={0}
                           maxValue={max_core_health}
@@ -110,37 +146,37 @@ export const MdrContent = (props) => {
                   key={"Core Stability"}
                   label={"Core Stability"}
                 >
-                  {core_stability}
+                  {core_stability.toFixed(0)}
             </LabeledList.Item>
             <LabeledList.Item
                   key={"Core Instability"}
                   label={"Core Instability"}
                 >
-                  {core_instability}
+                  {core_instability.toFixed(0)}
             </LabeledList.Item>
             <LabeledList.Item
                   key={"Delta Stability"}
                   label={"Delta Stability"}
                 >
-                  {core_stability - core_instability}
+                  {(core_stability - core_instability).toFixed(0)}
             </LabeledList.Item>
             <LabeledList.Item
                   key={"Toroid Spin"}
                   label={"Toroid Spin"}
                 >
-                  {toroid_spin}
+                  {toroid_spin.toFixed(0)}
             </LabeledList.Item>
             <LabeledList.Item
                   key={"Toroid Flux Mult"}
                   label={"Toroid Flux Mult"}
                 >
-                  {toroid_flux_mult}
+                  {toroid_flux_mult.toFixed(2)}
             </LabeledList.Item>
             <LabeledList.Item
                   key={"Core Temperature"}
                   label={"Core Temperature"}
                 >
-                  {core_temperature}
+                  {core_temperature.toFixed(2)}
             </LabeledList.Item>
           </LabeledList>
           </Box>
@@ -154,7 +190,7 @@ export const MdrContent = (props) => {
                 <svg width="100%" height="100%" viewBox={`0 0 ${2 * sqrt_parabolic_limit} ${2 * sqrt_parabolic_limit / 3}`}>
             <rect
             x={parabolic_ratio}
-            width={2 * Math.sqrt(parabolic_upper_limit * parabolic_setting) / 100}
+            width={2 * sqrt_parabolic_limit / 100}
             height="100%"
             y={0}
             fill="red"
@@ -174,12 +210,9 @@ export const MdrContent = (props) => {
           </Box>
           </Flex.Item>
           </Flex>
-          Core Comp:
-          {core_composition ? Object.keys(core_composition).map((key) => (
-            <div key={key}>
-              {key}: {core_composition[key]}
-            </div>
-          )) : null}
+          <Collapsible title="Core Composition" overflow="overlay">
+            {DisplayGasOutput(core_composition)}
+          </Collapsible>
           </Section>
     </Box>
   );
