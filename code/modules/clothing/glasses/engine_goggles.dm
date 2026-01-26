@@ -25,7 +25,7 @@
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/item/clothing/glasses/meson/engine/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -88,8 +88,12 @@
 				pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
 			flick_overlay(pic, list(user.client), 8)
 
-/obj/item/clothing/glasses/meson/engine/update_icon()
+/obj/item/clothing/glasses/meson/engine/update_icon_state()
+	. = ..()
 	icon_state = "trayson-[mode]"
+
+/obj/item/clothing/glasses/meson/engine/update_icon()
+	. = ..()
 	update_mob()
 
 /obj/item/clothing/glasses/meson/engine/proc/update_mob()
