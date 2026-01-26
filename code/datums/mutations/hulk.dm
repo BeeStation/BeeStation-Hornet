@@ -13,7 +13,6 @@
 	traits = list(
 		TRAIT_STUNIMMUNE,
 		TRAIT_PUSHIMMUNE,
-		TRAIT_CONFUSEIMMUNE,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_NOSTAMCRIT,
 		TRAIT_NOLIMBDISABLE,
@@ -58,4 +57,7 @@
 	if(message)
 		message = "[replacetext(message, ".", "!")]!!"
 	speech_args[SPEECH_MESSAGE] = message
+
+	// the reason we don't just uppertext(message) in this proc is so that our hulk speech
+	// can uppercase all other speech moidifiers after they are done (by returning COMPONENT_UPPERCASE_SPEECH)
 	return COMPONENT_UPPERCASE_SPEECH

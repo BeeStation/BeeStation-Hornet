@@ -17,7 +17,7 @@
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	changeling.chosen_sting = src
 
-	user.hud_used.lingstingdisplay.icon = icon_icon
+	user.hud_used.lingstingdisplay.icon = button_icon
 	user.hud_used.lingstingdisplay.icon_state = button_icon_state
 	user.hud_used.lingstingdisplay.invisibility = 0
 
@@ -82,7 +82,7 @@
 	selected_dna = changeling.select_dna()
 	if(!selected_dna)
 		return
-	if(HAS_TRAIT(user, TRAIT_NO_TRANSFORMATION_STING))
+	if(HAS_TRAIT(user, TRAIT_NOT_TRANSMORPHIC))
 		user.balloon_alert(user, "incompatible DNA!")
 		return
 	return ..()
@@ -90,7 +90,7 @@
 /datum/action/changeling/sting/transformation/can_sting(mob/user, mob/living/carbon/target)
 	if(!..())
 		return
-	if(!iscarbon(target) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_NO_TRANSFORMATION_STING))
+	if(!iscarbon(target) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_NOT_TRANSMORPHIC))
 		user.balloon_alert(user, "incompatible DNA!")
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, next_sting))
@@ -200,7 +200,7 @@
 
 /datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
 	log_combat(user, target, "stung", "mute sting")
-	target.silent += 30
+	target.adjust_silence(1 MINUTES)
 	return TRUE
 
 /datum/action/changeling/sting/blind

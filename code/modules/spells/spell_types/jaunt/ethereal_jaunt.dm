@@ -30,7 +30,7 @@
 
 	var/turf/cast_turf = get_turf(.)
 	new jaunt_out_type(cast_turf, jaunter.dir)
-	jaunter.ExtinguishMob()
+	jaunter.extinguish_mob()
 	do_steam_effects(cast_turf)
 
 /datum/action/spell/jaunt/ethereal_jaunt/on_cast(mob/living/user, atom/target)
@@ -207,7 +207,7 @@
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls."
 	background_icon_state = "bg_demon"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "phaseshift"
 
 	cooldown_time = 25 SECONDS

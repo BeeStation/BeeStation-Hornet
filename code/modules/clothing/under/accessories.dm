@@ -1,21 +1,36 @@
 /obj/item/clothing/accessory
 	name = "Accessory"
 	desc = "Something has gone wrong!"
+	// Accessory worn icons found in icons/mob/accessories.dmi
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "plasma"
-	item_state = ""	//no inhands
+	inhand_icon_state = ""	//no inhands
 	slot_flags = 0
 	w_class = WEIGHT_CLASS_SMALL
-	var/above_suit = FALSE
-	var/minimize_when_attached = TRUE // TRUE if shown as a small icon in corner, FALSE if overlayed
-	var/attachment_slot = CHEST
 	appearance_flags = TILE_BOUND | RESET_COLOR
+	/// If we have multiple accessories, what is the layer of this one?
+	var/accessory_layer = ACCESSORY_LAYER_DEFAULT
+	/// The accessory slot that is consumed by this item, 2 accessories cannot exist on the same spot.
+	var/accessory_slot = ACCESSORY_CHEST
+	/// Is this accessory hidden to examiners?
+	var/hidden = FALSE
+	/// Does it show above the armour slot item
+	var/above_suit = FALSE
+	/// TRUE if shown as a small icon in corner, FALSE if overlayed
+	var/minimize_when_attached = TRUE
+	/// The slot that the clothing must cover for the accessory to be valid
+	var/attachment_slot = CHEST
 
-/obj/item/clothing/accessory/proc/can_attach_accessory(obj/item/clothing/U, mob/user)
-	if(!attachment_slot || (U && U.body_parts_covered & attachment_slot))
-		return TRUE
-	if(user)
-		to_chat(user, span_warning("There doesn't seem to be anywhere to put [src]..."))
+/obj/item/clothing/accessory/proc/can_attach_accessory(obj/item/clothing/under/U, mob/user, silent = TRUE)
+	if(attachment_slot && !(U && U.body_parts_covered & attachment_slot))
+		if(user && !silent)
+			to_chat(user, span_warning("There doesn't seem to be anywhere to put [src]..."))
+		return FALSE
+	if (accessory_slot in U.attached_accessories)
+		if(user && !silent)
+			to_chat(user, span_warning("You already have an accessory covering the [LOWER_TEXT(accessory_slot)] of \the [U]."))
+		return FALSE
+	return TRUE
 
 /obj/item/clothing/accessory/proc/attach(obj/item/clothing/under/U, user)
 	if(atom_storage)
@@ -23,20 +38,16 @@
 			return FALSE
 		U.clone_storage(atom_storage)
 		U.atom_storage.set_real_location(src)
-	U.attached_accessory = src
+	U.attached_accessories[accessory_slot] = src
 	forceMove(U)
 	layer = FLOAT_LAYER
 	plane = FLOAT_PLANE
-	if(minimize_when_attached)
-		transform *= 0.5 //halve the size so it doesn't overpower the under
-		pixel_x += 8
-		pixel_y -= 8
-	U.add_overlay(src)
+	U.update_appearance(UPDATE_OVERLAYS)
 
 	U.set_armor(U.get_armor().add_other_armor(get_armor()))
 
-	if(isliving(user))
-		on_uniform_equip(U, user)
+	if(isliving(U.loc))
+		on_uniform_equip(U, U.loc)
 
 	return TRUE
 
@@ -49,20 +60,16 @@
 	if(isliving(user))
 		on_uniform_dropped(U, user)
 
-	if(minimize_when_attached)
-		transform *= 2
-		pixel_x -= 8
-		pixel_y += 8
 	layer = initial(layer)
 	plane = initial(plane)
-	U.cut_overlays()
-	U.attached_accessory = null
-	U.accessory_overlay = null
+	U.attached_accessories -= accessory_slot
+	U.update_appearance(UPDATE_OVERLAYS)
+	U.update_accessory_overlays()
 
-/obj/item/clothing/accessory/proc/on_uniform_equip(obj/item/clothing/under/U, user)
+/obj/item/clothing/accessory/proc/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
 	return
 
-/obj/item/clothing/accessory/proc/on_uniform_dropped(obj/item/clothing/under/U, user)
+/obj/item/clothing/accessory/proc/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
 	return
 
 /obj/item/clothing/accessory/AltClick(mob/user)
@@ -81,7 +88,7 @@
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
-	item_state = "waistcoat"
+	inhand_icon_state = "waistcoat"
 	minimize_when_attached = FALSE
 	attachment_slot = null
 
@@ -89,7 +96,7 @@
 	name = "maid apron"
 	desc = "The best part of a maid costume."
 	icon_state = "maidapron"
-	item_state = "maidapron"
+	inhand_icon_state = "maidapron"
 	minimize_when_attached = FALSE
 	attachment_slot = null
 
@@ -103,6 +110,8 @@
 	icon_state = "bronze"
 	custom_materials = list(/datum/material/iron=1000)
 	resistance_flags = FIRE_PROOF
+	accessory_slot = ACCESSORY_MEDAL
+	accessory_layer = ACCESSORY_LAYER_MEDAL
 	var/medaltype = "medal" //Sprite used for medalbox
 	var/commended = FALSE
 
@@ -255,6 +264,8 @@
 	desc = "A fancy red armband!"
 	icon_state = "redband"
 	attachment_slot = null
+	accessory_slot = ACCESSORY_ARMBAND
+	accessory_layer = ACCESSORY_LAYER_ARMBAND
 
 /obj/item/clothing/accessory/armband/blue
 	name = "blue armband"
@@ -317,13 +328,13 @@
 		user.say("The testimony contradicts the evidence!", forced = "attorney's badge")
 	user.visible_message("[user] shows [user.p_their()] attorney's badge.", span_notice("You show your attorney's badge."))
 
-/obj/item/clothing/accessory/lawyers_badge/on_uniform_equip(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/lawyers_badge/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L)
 		L.bubble_icon = "lawyer"
 
-/obj/item/clothing/accessory/lawyers_badge/on_uniform_dropped(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/lawyers_badge/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L)
 		L.bubble_icon = initial(L.bubble_icon)
 
@@ -396,7 +407,7 @@
 	name = "shoulder holster"
 	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
 	icon_state = "holster"
-	item_state = "holster"
+	inhand_icon_state = "holster"
 	worn_icon_state = "holster"
 	slot_flags = ITEM_SLOT_SUITSTORE|ITEM_SLOT_BELT
 	var/holstertype = /datum/storage/pockets/holster
@@ -418,38 +429,63 @@
 	name = "poppy pin"
 	desc = "A pin made from a poppy, worn to remember those who have fallen in war."
 	icon_state = "poppy_pin"
+	accessory_slot = ACCESSORY_MEDAL
+	accessory_layer = ACCESSORY_LAYER_MEDAL
 
-/obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "poppy_pin", /datum/mood_event/poppy_pin)
 
-/obj/item/clothing/accessory/poppy_pin/on_uniform_dropped(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/poppy_pin/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
 
 //Security Badges
-/obj/item/clothing/accessory/badge/officer/det
-	name = "\improper Detective's badge"
-	desc = "A badge of the Nanotrasen Detective Agency, made of gold and set on false leather."
-	icon_state = "detbadge"
-	worn_icon_state = "detbadge"
-
-/obj/item/clothing/accessory/badge/officer/hos
-	name = "\improper Head of Security badge"
-	desc = "A badge of the Nanotrasen Security Division, made of gold and set on false black leather."
-	icon_state = "hosbadge"
-	worn_icon_state = "hosbadge"
-
-/obj/item/clothing/accessory/badge/officer
-	name = "\improper Security badge"
-	desc = "A badge of the Nanotrasen Security Division, made of silver and set on false black leather."
+/obj/item/clothing/accessory/badge
+	name = "badge"
+	desc = "A badge that symbolises a person's authority as a member of security."
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
+	accessory_slot = ACCESSORY_MEDAL
+	accessory_layer = ACCESSORY_LAYER_MEDAL
+	above_suit = TRUE
+	var/badge_title = "Security Officer"
+	var/officer_name
 
-/obj/item/clothing/accessory/badge/officer/attack_self(mob/user)
-	if(Adjacent(user))
-		user.visible_message(span_notice("[user] shows you \the: [icon2html(src, viewers(user))] [src.name]."), span_notice("You show \the [src.name]."))
+/obj/item/clothing/accessory/badge/examine(mob/user)
+	. = ..()
+	if(officer_name)
+		to_chat(user, "The [src]'s text reads: [officer_name], [badge_title].")
+
+/obj/item/clothing/accessory/badge/attack_self(mob/user)
+	if (!officer_name)
+		to_chat(user, "You inspect your [src.name]. Everything seems to be in order and you give it a quick cleaning with your hand.")
+		officer_name = user.real_name
+		desc = usr
+		return
+	if (isliving(user))
+		if(officer_name)
+			user.visible_message(span_notice("[user] displays their [src.name].\nThe [src]'s text reads: [officer_name], [badge_title]."),span_notice("You display your [src.name].\nThe [src]'s text reads: [officer_name], [badge_title]."))
+		else
+			user.visible_message(span_notice("[user] displays their [src.name].\nIt reads: [badge_title]."),span_notice("You display your [src.name]. It reads: [badge_title]."))
 	..()
+
+/obj/item/clothing/accessory/badge/attack(mob/living/target, mob/living/user, params)
+	. = ..()
+	if (isliving(user) && istype(target))
+		user.visible_message(span_danger("[user] invades [target]'s personal space, thrusting \the [src] into their face insistently."), span_danger("You invade [target]'s personal space, thrusting \the [src] into their face insistently."))
+		if (officer_name)
+			to_chat(target, span_warning("The [src]'s text reads: [officer_name], [badge_title]."))
+
+/obj/item/clothing/accessory/badge/det
+	icon_state = "detbadge"
+	worn_icon_state = "detbadge"
+	badge_title = "Detective"
+
+/obj/item/clothing/accessory/badge/hos
+	icon_state = "hosbadge"
+	worn_icon_state = "hosbadge"
+	badge_title = "Head of Security"

@@ -60,10 +60,6 @@ There are several things that need to be remembered:
 	dna.species.handle_body(src)
 	dna.update_body_size()
 
-/mob/living/carbon/human/update_fire()
-	..((fire_stacks > HUMAN_FIRE_STACK_ICON_NUM) ? "Standing" : "Generic_mob_burning")
-
-
 /* --------------------------------------- */
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
@@ -455,15 +451,15 @@ There are several things that need to be remembered:
 		if(client && hud_used && hud_used.hud_shown)
 			client.screen += s_store
 		update_observer_view(s_store)
-		var/t_state = s_store.item_state
-		if(!t_state)
-			t_state = s_store.icon_state
-		overlays_standing[SUIT_STORE_LAYER]	= mutable_appearance('icons/mob/clothing/belt_mirror.dmi', t_state, -SUIT_STORE_LAYER)
-		var/mutable_appearance/s_store_overlay = overlays_standing[SUIT_STORE_LAYER]
-		if(OFFSET_S_STORE in dna.species.offset_features)
-			s_store_overlay.pixel_x += dna.species.offset_features[OFFSET_S_STORE][1]
-			s_store_overlay.pixel_y += dna.species.offset_features[OFFSET_S_STORE][2]
-		overlays_standing[SUIT_STORE_LAYER] = s_store_overlay
+
+		var/t_state = s_store.worn_icon_state || s_store.inhand_icon_state || s_store.icon_state
+
+		var/mutable_appearance/s_store_overlay = s_store.build_worn_icon(src, default_layer = SUIT_STORE_LAYER, default_icon_file = 'icons/mob/clothing/belt_mirror.dmi', override_state = t_state)
+		if(s_store_overlay)
+			if(OFFSET_S_STORE in dna.species.offset_features)
+				s_store_overlay.pixel_x -= dna.species.offset_features[OFFSET_S_STORE][1]
+				s_store_overlay.pixel_y += dna.species.offset_features[OFFSET_S_STORE][2]
+			overlays_standing[SUIT_STORE_LAYER] = s_store_overlay
 	apply_overlay(SUIT_STORE_LAYER)
 
 
@@ -711,7 +707,7 @@ There are several things that need to be remembered:
 							observers = null
 							break
 
-		var/t_state = I.item_state
+		var/t_state = I.inhand_icon_state
 		if(!t_state)
 			t_state = I.icon_state
 
@@ -813,7 +809,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if(override_state)
 		t_state = override_state
 	else
-		t_state = !isinhands ? (worn_icon_state ? worn_icon_state : icon_state) : (item_state ? item_state : icon_state)
+		t_state = !isinhands ? (worn_icon_state ? worn_icon_state : icon_state) : (inhand_icon_state ? inhand_icon_state : icon_state)
 
 	//Find a valid icon file from variables+arguments
 	var/file2use = !isinhands ? (worn_icon ? worn_icon : default_icon_file) : default_icon_file

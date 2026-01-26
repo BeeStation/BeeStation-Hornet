@@ -31,6 +31,11 @@
 
 	minimal_lightup_areas = list(/area/medical/morgue)
 
+	manuscript_jobs = list(
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_PARAMEDIC // They're somewhat identical
+	)
+
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN
 	jobtype = /datum/job/brig_physician

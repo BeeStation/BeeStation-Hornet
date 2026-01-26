@@ -71,7 +71,7 @@
 /area/template_noop)
 "ma" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -152,7 +152,7 @@
 /area/template_noop)
 "uU" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "vs" = (
@@ -176,7 +176,7 @@
 	pixel_x = -32
 	},
 /obj/structure/closet/secure_closet/personal,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
 /area/template_noop)
 "yq" = (
@@ -191,7 +191,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
 "Aa" = (
@@ -209,11 +209,11 @@
 /area/template_noop)
 "AQ" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/spawner/lootdrop/organ_spawner,
-/obj/effect/spawner/lootdrop/organ_spawner,
-/obj/effect/spawner/lootdrop/organ_spawner,
-/obj/effect/spawner/lootdrop/organ_spawner,
-/obj/effect/spawner/lootdrop/organ_spawner,
+/obj/effect/spawner/random/medical/organs,
+/obj/effect/spawner/random/medical/organs,
+/obj/effect/spawner/random/medical/organs,
+/obj/effect/spawner/random/medical/organs,
+/obj/effect/spawner/random/medical/organs,
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "Bx" = (
@@ -225,7 +225,7 @@
 /area/template_noop)
 "Dp" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "Fh" = (
@@ -278,7 +278,7 @@
 "NT" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "Pd" = (
@@ -339,7 +339,7 @@
 /area/template_noop)
 "RR" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/eighties,
 /area/template_noop)
 "SW" = (
@@ -388,7 +388,7 @@
 "YQ" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "YS" = (

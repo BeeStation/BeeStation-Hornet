@@ -34,6 +34,11 @@
 		update_icon()
 	return ..()
 
+/obj/machinery/atmospherics/components/binary/pressure_valve/relaymove(mob/living/user, direction)
+	if(!on || direction != dir)
+		return
+	. = ..()
+
 /obj/machinery/atmospherics/components/binary/pressure_valve/update_icon_nopipes()
 	if(on && is_operational)
 		if(is_gas_flowing)

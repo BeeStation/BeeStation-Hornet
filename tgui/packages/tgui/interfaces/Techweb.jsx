@@ -94,7 +94,7 @@ export const Techweb = (props) => {
   const { act, data } = useRemappedBackend();
   const { locked } = data;
   return (
-    <Window width={947} height={735}>
+    <Window width={980} height={735}>
       <Window.Content>
         {!!locked && (
           <Modal width="15em" align="center" className="Techweb__LockedModal">

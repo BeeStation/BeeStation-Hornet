@@ -366,7 +366,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(4, 5)
-			M.adjust_fire_stacks(-5)
+			M.adjust_wet_stacks(5)
 			if(!ammonia && prob(30))
 				var/turf/open/OT = get_turf(M)
 				if(istype(OT))
@@ -465,7 +465,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 					do_sparks(5, FALSE, M)
 					if(burnheal)
-						M.adjust_fire_stacks(-10)
+						M.adjust_wet_stacks(10)
 					location_return = null
 					COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN)
 			if(COOLDOWN_FINISHED(src, teleport_cooldown))
@@ -537,16 +537,16 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					if(prob(60) && M.mind && ishuman(M))
 						if(tetsuo && prob(15))
 							if(A.affected_mob.job == JOB_NAME_CLOWN)
-								new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
+								new /obj/effect/spawner/random/medical/teratoma/major/clown(M.loc)
 							if(A.infectable_biotypes & MOB_ROBOTIC)
 								new /obj/effect/decal/cleanable/robot_debris(M.loc)
-								new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
-						new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
+								new /obj/effect/spawner/random/medical/teratoma/robot(M.loc)
+						new /obj/effect/spawner/random/medical/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35) && M.mind && ishuman(M) && M.stat != DEAD)
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
-						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
+						new /obj/effect/spawner/random/medical/teratoma/major(M.loc)
 					if(missing.len) //we regrow one missing limb
 						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))

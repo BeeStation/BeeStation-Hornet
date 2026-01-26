@@ -48,18 +48,15 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		qdel(src)
 		return
 
-	// Add splatter effects on every tick for heavy bleeding, less frequently for light
-	if(bleed_rate >= BLEED_DEEP_WOUND)
-		owner.add_splatter_floor(owner.loc)
-	else if(time_applied >= 1 SECONDS)
-		owner.add_splatter_floor(owner.loc, TRUE)
-
 	time_applied += seconds_between_ticks SECONDS
 
-	// For light bleeding, only process healing/bleeding every 1 second
-	// For heavy bleeding, process every tick (0.2 seconds)
-	var/should_process = (bleed_rate > BLEED_RATE_MINOR) || (time_applied >= 1 SECONDS)
+	var/should_process = time_applied >= 1 SECONDS
 	if (!should_process)
+		// For heavy bleeding, leave drops if we are standing.
+		// If we are lying down, allow the trail to form
+		// This doesn't actually cause you to lose blood any faster
+		if (bleed_rate > BLEED_RATE_MINOR && owner.body_position == STANDING_UP && !HAS_TRAIT(owner, TRAIT_BLEED_HELD))
+			owner.add_splatter_floor(owner.loc, TRUE)
 		return
 	time_applied = 0
 	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
@@ -168,10 +165,6 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		blur_eyes(1)
 		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
 		to_chat(src, "[span_userdanger("[blood.name] starts rushing out of the open wound!")]")
-	if(bleed_level >= BLEED_CUT)
-		add_splatter_floor(src.loc)
-	else
-		add_splatter_floor(src.loc, 1)
 
 /mob/living/carbon/human/add_bleeding(bleed_level)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
@@ -349,7 +342,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		adjustOxyLoss(health_difference)
 
 /mob/living/proc/bleed(amt)
-	add_splatter_floor(src.loc, 1)
+	add_splatter_floor(src.loc, TRUE)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/bleed(amt)
@@ -358,15 +351,15 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
 		var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-		if (!heart || !heart.beating)
+		if (!heart || !heart.beating || src.stat == DEAD)
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
 		blood_volume = max(blood_volume - blood_loss_amount, 0)
-		if(isturf(src.loc) && !isgroundlessturf(src.loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
+		if(prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
 			if(blood_loss_amount >= 2)
 				add_splatter_floor(src.loc)
 			else
-				add_splatter_floor(src.loc, 1)
+				add_splatter_floor(src.loc, TRUE)
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
@@ -506,8 +499,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if(get_blood_id() != /datum/reagent/blood)
 		return
-	if(!T)
+	if (!T)
 		T = get_turf(src)
+	if(T && !isturf(T))
+		T = get_turf(T)
+	if (!T || isgroundlessturf(T))
+		return
 
 	var/list/temp_blood_DNA
 	if(small_drip)

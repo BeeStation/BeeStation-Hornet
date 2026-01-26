@@ -16,7 +16,7 @@
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && ishuman(user)) // Give them a visual blush effect if they're human
+	if(ishuman(user)) // Give them a visual blush effect if they're human
 		var/mob/living/carbon/human/human_user = user
 		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
 		human_user.update_body()
@@ -108,12 +108,9 @@
 		message_simple = S.deathmessage
 	. = ..()
 	message_simple = initial(message_simple)
-	if(!user.can_speak_vocal() || user.getOxyLoss() >= 50)
+	if(!user.can_speak() || user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
-	var/mob/living/carbon/carbon_user = user
-	// For masks that give unique death sounds
-	if(istype(carbon_user) && isclothing(carbon_user.wear_mask) && carbon_user.wear_mask.unique_death)
-		playsound(carbon_user, carbon_user.wear_mask.unique_death, 200, TRUE, TRUE)
+	if (SEND_SIGNAL(user, COMSIG_MOB_DEATHGASP, params, type_override, intentional) & COMSIG_MOB_CANCEL_DEATHGASP_SOUND)
 		return
 	if(user.deathsound)
 		playsound(user, user.deathsound, 200, TRUE, TRUE)
@@ -233,16 +230,15 @@
 	vary = TRUE
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
-	. = ..()
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		return !C.silent
+	return ..() && user.can_speak(allow_mimes = TRUE)
 
 /datum/emote/living/laugh/get_sound(mob/living/user)
-	if(!iscarbon(user) || user.mind?.miming)
+	if(!iscarbon(user))
 		return
-	var/mob/living/carbon/H = user
-	return H.dna?.species?.get_laugh_sound(H)
+	if(HAS_TRAIT(user, TRAIT_MIMING))
+		return
+	var/mob/living/carbon/carbon_user = user
+	return carbon_user.dna?.species?.get_laugh_sound(carbon_user)
 
 /datum/emote/living/look
 	key = "look"

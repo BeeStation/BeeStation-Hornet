@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CLOWN = /obj/item/clothing/head/beret/clown,
 		DYE_QM = /obj/item/clothing/head/beret/cargo,
 		DYE_LAW = /obj/item/clothing/head/beret/black,
-		DYE_CAPTAIN = /obj/item/clothing/head/caphat/beret,
+		DYE_CAPTAIN = /obj/item/clothing/head/hats/caphat/beret,
 		DYE_HOS = /obj/item/clothing/head/hats/hos/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
 		DYE_RD = /obj/item/clothing/head/beret/science,
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	add_atom_colour(initial(target_type.color), FIXED_COLOUR_PRIORITY)
 	icon_state = initial(target_type.icon_state)
-	item_state = initial(target_type.item_state)
+	inhand_icon_state = initial(target_type.inhand_icon_state)
 	worn_icon_state = initial(target_type.worn_icon_state)
 	inhand_x_dimension = initial(target_type.inhand_x_dimension)
 	inhand_y_dimension = initial(target_type.inhand_y_dimension)

@@ -88,6 +88,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	poster_item_desc = initial(selected.poster_item_desc)
 	poster_item_icon_state = initial(selected.poster_item_icon_state)
 	ruined = initial(selected.ruined)
+	update_appearance()
 
 
 /obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)

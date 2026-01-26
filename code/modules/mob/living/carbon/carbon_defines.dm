@@ -2,23 +2,21 @@
 	gender = MALE
 	pressure_resistance = 15
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ANTAG_HUD,GLAND_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
-	has_limbs = 1
+	has_limbs = TRUE
 	held_items = list(null, null)
 	num_legs = 0 //Populated on init through list/bodyparts
 	usable_legs = 0 //Populated on init through list/bodyparts
 	num_hands = 0 //Populated on init through list/bodyparts
 	usable_hands = 0 //Populated on init through list/bodyparts
-	//List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
+	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
+	/// List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
 	var/list/internal_organs = list()
-	//Same as above, but stores "slot ID" - "organ" pairs for easy access.
+	/// Same as above, but stores "slot ID" - "organ" pairs for easy access.
 	var/list/internal_organs_slot = list()
-	var/silent = FALSE 		//Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
-
-	///Whether or not the mob is currently handcuffed, defined as the handcuff item restraining them
-	var/obj/item/restraints/handcuffs/handcuffed = null
-	///used to track how many times the mob has tried breaking away from their handcuffs since being cuffed. Reset to zero in update_handcuffed()
-	var/cuff_breakout_attempts = 0
-	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
+	/// Whether or not the mob is handcuffed
+	var/obj/item/handcuffed = null
+	/// Same as handcuffs but for legs. Bear traps use this.
+	var/obj/item/legcuffed = null
 
 	/// Measure of how disgusted we are. See DISGUST_LEVEL_GROSS and friends
 	var/disgust = 0
@@ -78,7 +76,6 @@
 	/// This number is also reset to 0 every tick of carbon Life(). Pain.
 	var/damageoverlaytemp = 0
 
-	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_heal = 10	//Stamina healed per 2 seconds overall. When the mob has taken more than 60 stamina damage, the rate of stamina regeneration will be increased, up to 20 per second when the mob has taken 120 stamina damage.
 

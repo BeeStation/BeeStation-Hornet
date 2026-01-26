@@ -52,7 +52,7 @@ export const settingsMiddleware = (store) => {
         setClientTheme(theme);
       } else if (type === loadSettings.type) {
         updateSettings({
-          theme: 'dark',
+          theme: 'blue',
         });
       }
       // Pass action to get an updated state

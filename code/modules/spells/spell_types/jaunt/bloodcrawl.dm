@@ -7,7 +7,7 @@
 	name = "Blood Crawl"
 	desc = "Allows you to phase in and out of existance via pools of blood."
 	background_icon_state = "bg_demon"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "bloodcrawl"
 
 	spell_requirements = NONE
@@ -77,7 +77,7 @@
 
 	blood.visible_message(("<span class='warning'>[jaunter] sinks into [blood]!</span>"))
 	playsound(jaunt_turf, 'sound/magic/enter_blood.ogg', 50, TRUE, -1)
-	jaunter.ExtinguishMob()
+	jaunter.extinguish_mob()
 
 	jaunter.notransform = FALSE
 	return TRUE

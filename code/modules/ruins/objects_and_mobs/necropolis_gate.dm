@@ -59,7 +59,7 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/structure/necropolis_gate/singularity_pull()
+/obj/structure/necropolis_gate/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return 0
 
 /obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, border_dir)
@@ -90,7 +90,7 @@
 	opacity = TRUE
 	anchored = TRUE
 
-/obj/structure/opacity_blocker/singularity_pull()
+/obj/structure/opacity_blocker/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return 0
 
 /obj/structure/opacity_blocker/Destroy(force)
@@ -237,7 +237,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	top_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(top_overlay)
 
-/obj/structure/necropolis_arch/singularity_pull()
+/obj/structure/necropolis_arch/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return 0
 
 /obj/structure/necropolis_arch/Destroy(force)
@@ -278,7 +278,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/structure/stone_tile/singularity_pull()
+/obj/structure/stone_tile/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/structure/stone_tile/proc/on_entered(datum/source, atom/movable/AM)

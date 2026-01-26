@@ -98,7 +98,7 @@
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
 ///! from base of atom/Exited(): (mob/user, obj/item/extrapolator/extrapolator, dry_run, list/result)
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"
-///!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
+///!from base of atom/singularity_pull(): (obj/anomaly/singularity/singularity, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"

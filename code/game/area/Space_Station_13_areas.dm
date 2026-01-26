@@ -40,7 +40,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/space/nearstation
 	icon_state = "space_near"
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	default_gravity = ZERO_GRAVITY
 
 /area/start
@@ -269,14 +269,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "maint_engi"
 
 /area/maintenance/department/science/xenobiology
-	name = "Abandoned Club"
+	name = "Xenobiology Maintenance"
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
 
 //Maintenance - Cardstation's club
 
 /area/maintenance/club
-	name = "Xenobiology Maintenance"
+	name = "Abandoned Club"
 	icon_state = "yellow"
 
 //Maintenance - Generic
@@ -985,7 +985,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar
 	//requires_power = FALSE /* YOU WISH FOR INFINITE POWER YOU STINGY CHEAPO, TOO BAD */
 	always_unpowered = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	area_flags = UNIQUE_AREA | NO_GRAVITY
 	flags_1 = NONE
 	ambience_index = AMBIENCE_ENGI
@@ -1868,9 +1867,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "For safety reasons, warping here is disallowed; the radio and bluespace noise could cause catastrophic results."
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
-											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
-	network_root_id = STATION_NETWORK_ROOT	// They should of unpluged the router before they left
+	ambientsounds = list(
+		'sound/ambience/ambisin2.ogg',
+		'sound/ambience/signal.ogg',
+		'sound/ambience/signal.ogg',
+		'sound/ambience/ambigen10.ogg',
+		'sound/ambience/ambitech.ogg',
+		'sound/ambience/ambitech2.ogg',
+		'sound/ambience/ambitech3.ogg',
+		'sound/ambience/ambimystery.ogg'
+	)
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	camera_networks = list(CAMERA_NETWORK_MINISAT, CAMERA_NETWORK_ENGINEERING, CAMERA_NETWORK_TCOMMS)
 

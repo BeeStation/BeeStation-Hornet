@@ -7,7 +7,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "shield_belt"
-	item_state = "security"
+	inhand_icon_state = "security"
 	worn_icon_state = "shield_belt"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
@@ -15,7 +15,7 @@
 
 /obj/item/shield_belt/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/shielded, max_integrity = max_shield_integrity, charge_recovery = 10, shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_INVISIBLE | ENERGY_SHIELD_EMP_VULNERABLE, on_active_effects = CALLBACK(src, PROC_REF(add_shield_effects)), on_deactive_effects = CALLBACK(src, PROC_REF(remove_shield_effects)), on_integrity_changed = CALLBACK(src, PROC_REF(update_shield_health)))
+	AddComponent(/datum/component/shielded, max_integrity = max_shield_integrity, charge_recovery = 10, shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_INVISIBLE | ENERGY_SHIELD_EMP_VULNERABLE | ENERGY_SHIELD_DEPLETE_EQUIP, on_active_effects = CALLBACK(src, PROC_REF(add_shield_effects)), on_deactive_effects = CALLBACK(src, PROC_REF(remove_shield_effects)), on_integrity_changed = CALLBACK(src, PROC_REF(update_shield_health)))
 
 /obj/item/shield_belt/proc/add_shield_effects(mob/living/wearer, current_integrity)
 	RegisterSignal(wearer, COMSIG_MOB_BEFORE_FIRE_GUN, PROC_REF(intercept_gun_fire))
@@ -26,6 +26,9 @@
 	wearer.remove_filter("shield_filter")
 
 /obj/item/shield_belt/proc/update_shield_health(mob/living/wearer, current_integrity)
+	if (current_integrity <= 0)
+		wearer.remove_filter("shield_filter")
+		return
 	var/list/good = rgb2num(COLOUR_GOOD)
 	var/list/bad = rgb2num(COLOUR_BAD)
 	var/proportion = current_integrity / max_shield_integrity
