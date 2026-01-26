@@ -270,8 +270,8 @@
 		if(touch_mod < 0.9)
 			to_chat(exposed_mob, span_warning("The water causes you to melt away!"))
 	if(method == TOUCH)
-		exposed_mob.adjust_fire_stacks(-(reac_volume / 10))
-		exposed_mob.ExtinguishMob()
+		exposed_mob.adjust_wet_stacks(reac_volume / 10)
+		exposed_mob.extinguish_mob()
 	..()
 
 /datum/reagent/water/holywater
@@ -297,9 +297,6 @@
 	for(var/datum/component/anti_magic/anti_magic in affected_mob.GetComponents(/datum/component/anti_magic))
 		if(anti_magic.source == type)
 			qdel(anti_magic)
-	if(HAS_TRAIT_FROM(affected_mob, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
-		REMOVE_TRAIT(affected_mob, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
-		to_chat(affected_mob, span_notice("You cheer up, knowing that everything is going to be ok."))
 
 /datum/reagent/water/holywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -320,9 +317,7 @@
 		if(IS_SERVANT_OF_RATVAR(affected_mob) && DT_PROB(10, delta_time))
 			affected_mob.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
 			if(prob(40))
-				if(!HAS_TRAIT_FROM(affected_mob, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
-					to_chat(affected_mob, span_largebrass("You feel the light fading and the world collapsing around you..."))
-					ADD_TRAIT(affected_mob, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
+				to_chat(affected_mob, span_largebrass("You feel the light fading and the world collapsing around you..."))
 		if(IS_CULTIST(affected_mob) && DT_PROB(10, delta_time))
 			affected_mob.say(pick("Av'te Nar'Sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","R'ge Na'sie","Diabo us Vo'iscum","Eld' Mon Nobis"), forced = "holy water")
 			if(prob(10))
@@ -395,7 +390,7 @@
 /datum/reagent/hellwater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.fire_stacks = min(affected_mob.fire_stacks + 1.5 * delta_time, 5)
-	affected_mob.IgniteMob() //Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
+	affected_mob.ignite_mob() //Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
 	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE) //Hence the other damages... ain't I a bastard?
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2.5*delta_time, 150)

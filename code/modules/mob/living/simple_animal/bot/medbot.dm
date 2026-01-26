@@ -713,11 +713,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/proc/set_patient(new_patient)
 	if(patient)
-		REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 		oldpatient = patient
 	patient = new_patient
-	if(patient)
-		ADD_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
 	if(!COOLDOWN_FINISHED(src, declare_cooldown))
