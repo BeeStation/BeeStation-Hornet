@@ -15,7 +15,7 @@
 		winset(client, "mainwindow", "on-status=\".winset \\\"status_bar_wide.text = \[\[*]]\\\"\"")
 		winset(client, "status_bar", "is-visible=false")
 
-	attempt_auto_fit_viewport()
+	client.attempt_auto_fit_viewport()
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
 	var/windowsize = winget(client, "split", "size")
