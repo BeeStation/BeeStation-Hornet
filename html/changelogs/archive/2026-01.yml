@@ -292,6 +292,12 @@
       add your traits in the correct category.
   - admin: The Modify Traits VV now uses a TGUI input instead of HTML.
 2026-01-26:
+  Rukofamicom:
+  - tweak: Players now have a greater chance of being mutated when irradiated
+  - tweak: Mutations from radiation are no longer locked to being negative mutations,
+      you have an equal chance at any mutation
+  - tweak: Mutations from radiation have a lower chance of affecting your appearance
+      instead of giving an easily reversible genetic mutation
   rkz, Melbert, etherware, Ghommie, Lemon, Sealed101:
   - bugfix: cleans up gibtonite overlays. The overlay will no longer eat clicks when
       you are trying to defuse it with a mining scanner
