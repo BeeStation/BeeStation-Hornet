@@ -816,7 +816,7 @@
 	affected_mob.adjust_dizzy(-10 SECONDS * REM * delta_time)
 	affected_mob.adjust_drowsiness(-6 SECONDS * REM * delta_time)
 	var/need_mob_update
-	need_mob_update = affected_mob.SetSleeping(0)
+	need_mob_update += affected_mob.SetSleeping(0)
 	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
 		need_mob_update += affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 0, updating_health = FALSE)
@@ -843,7 +843,7 @@
 	affected_mob.adjust_dizzy(-10 SECONDS * REM * delta_time)
 	affected_mob.adjust_drowsiness(-12 SECONDS * REM * delta_time)
 	var/need_mob_update
-	need_mob_update = affected_mob.SetSleeping(0)
+	need_mob_update += affected_mob.SetSleeping(0)
 	affected_mob.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, affected_mob.get_body_temp_normal())
 	if(affected_mob.getBruteLoss() && DT_PROB(10, delta_time))
 		need_mob_update += affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 0, updating_health = FALSE)
