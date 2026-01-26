@@ -19,8 +19,8 @@ export class Graph extends Component {
 
   iterateOverNodes(funct, leftLimit, steps) {
     let points = [];
-    for(let i = 0; i <= steps; i++) {
-      let xPos = (i * this.distPerStep + leftLimit);
+    for (let i = 0; i <= steps; i++) {
+      let xPos = i * this.distPerStep + leftLimit;
       points.push([xPos, funct(xPos)]);
     }
     return points;
@@ -28,25 +28,25 @@ export class Graph extends Component {
 
   render() {
     const {
-    funct,
-    upperLimit,
-    lowerLimit,
-    leftLimit,
-    rightLimit,
-    steps,
-    lineColor,
-    fillColor,
-    ...rest
-  } = this.props;
-  return (
+      funct,
+      upperLimit,
+      lowerLimit,
+      leftLimit,
+      rightLimit,
+      steps,
+      lineColor,
+      fillColor,
+      ...rest
+    } = this.props;
+    return (
       <Chart.Line
-              data={this.iterateOverNodes(funct, leftLimit, steps)}
-              rangeX={[leftLimit, rightLimit]}
-              rangeY={[lowerLimit, upperLimit]}
-              strokeColor={lineColor}
-              fillColor={fillColor}
-              {...rest}
-            />
-  );
+        data={this.iterateOverNodes(funct, leftLimit, steps)}
+        rangeX={[leftLimit, rightLimit]}
+        rangeY={[lowerLimit, upperLimit]}
+        strokeColor={lineColor}
+        fillColor={fillColor}
+        {...rest}
+      />
+    );
   }
 }
