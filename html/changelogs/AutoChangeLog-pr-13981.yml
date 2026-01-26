@@ -1,8 +1,0 @@
-author: rkz, Melbert, etherware, Ghommie, Lemon, Sealed101
-delete-after: true
-changes:
-  - bugfix: cleans up gibtonite overlays. The overlay will no longer eat clicks when
-      you are trying to defuse it with a mining scanner
-  - bugfix: flick_overlay is an atom proc. flick_overlay is also faster
-  - bugfix: Taking items from your inventory while flying over lava or a chasm will
-      NOT set them on fire or drop them into chasms ANYMORE
