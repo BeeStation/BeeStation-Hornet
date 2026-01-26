@@ -175,12 +175,6 @@
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
 
-/obj/item/circuitboard/machine/circulator
-	name = "circulator/heat exchanger (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/binary/circulator
-	req_components = list()
-
 /obj/item/circuitboard/machine/emitter
 	name = "emitter (Machine Board)"
 	icon_state = "engineering"
@@ -214,11 +208,6 @@
 	else
 		return ..()
 
-/obj/item/circuitboard/machine/generator
-	name = "thermo-electric generator (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/power/generator
-	req_components = list()
 
 /obj/item/circuitboard/machine/ntnet_relay
 	name = "NTNet relay (Machine Board)"

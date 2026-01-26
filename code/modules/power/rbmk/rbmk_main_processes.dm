@@ -128,7 +128,7 @@
 		temperature = clamp(temperature, TCMB, INFINITY) // ensure nothing silly happens
 
 		// calculate how many moles to transfer to equalise pressures
-		// use similar calculation to circulators - move the required number of moles to equalise the pressures (with a restriction as we don't want things to be too easy)
+		// use similar calculation to circulators (now removed) - move the required number of moles to equalise the pressures (with a restriction as we don't want things to be too easy)
 		var/pressure_delta = (input_pressure - output_pressure) / 2 * RBMK_COOLANT_FLOW_RESTRICTION
 		var/output_temperature = clamp(coolant_output.temperature, last_coolant_temperature, INFINITY) // output should not be lower than input gas (at least until it subtracts heat_delta), and not return 0 if the output is empty
 		var/transfer_moles = (pressure_delta*coolant_input.return_volume())/(output_temperature * R_IDEAL_GAS_EQUATION)

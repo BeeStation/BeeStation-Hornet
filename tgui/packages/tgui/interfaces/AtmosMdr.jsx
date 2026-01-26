@@ -153,7 +153,7 @@ export const MdrContent = (props) => {
             <Box position="absolute" width="stretch" height="stretch">
                 <svg width="100%" height="100%" viewBox={`0 0 ${2 * sqrt_parabolic_limit} ${2 * sqrt_parabolic_limit / 3}`}>
             <rect
-            x={2 * sqrt_parabolic_limit}
+            x={parabolic_ratio}
             width={2 * Math.sqrt(parabolic_upper_limit * parabolic_setting) / 100}
             height="100%"
             y={0}
