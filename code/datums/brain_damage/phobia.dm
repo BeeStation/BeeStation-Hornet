@@ -20,7 +20,7 @@
 	var/last_scare = 0
 	var/faint_length = 0
 	var/cooldown_length = 0 //Grace period between faints caused by high fearscore
-	var/list/trigger_words
+	var/regex/trigger_regex
 	//instead of cycling every atom, only cycle the relevant types
 	var/list/trigger_mobs
 	var/list/trigger_objs //also checked in mob equipment
@@ -40,7 +40,7 @@
 	gain_text = span_warning("You start finding [phobia_type] very unnerving...")
 	lose_text = span_notice("You no longer feel afraid of [phobia_type].")
 	scan_desc += " of [phobia_type]"
-	trigger_words = SStraumas.phobia_words[phobia_type]
+	trigger_regex = SStraumas.phobia_regexes[phobia_type]
 	trigger_mobs = SStraumas.phobia_mobs[phobia_type]
 	trigger_objs = SStraumas.phobia_objs[phobia_type]
 	trigger_turfs = SStraumas.phobia_turfs[phobia_type]
@@ -186,30 +186,22 @@
 
 
 /datum/brain_trauma/mild/phobia/handle_hearing(datum/source, list/hearing_args)
-
 	if(!owner.can_hear()) //words can't trigger you if you can't hear them *taps head*
 		return
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
 		return
-	for(var/word in trigger_words)
-		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
-
-		if(findtext(hearing_args[HEARING_RAW_MESSAGE], reg))
-			if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
-				fearscore ++
-			hearing_args[HEARING_RAW_MESSAGE] = reg.Replace(hearing_args[HEARING_RAW_MESSAGE], span_phobia("$1"))
-			break
+	if(trigger_regex.Find(hearing_args[HEARING_RAW_MESSAGE]) != 0)
+		if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
+			fearscore ++
+		hearing_args[HEARING_RAW_MESSAGE] = trigger_regex.Replace(hearing_args[HEARING_RAW_MESSAGE], span_phobia("$2"))
 
 /datum/brain_trauma/mild/phobia/handle_speech(datum/source, list/speech_args)
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
 		return
-	for(var/word in trigger_words)
-		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
-
-		if(findtext(speech_args[SPEECH_MESSAGE], reg))
-			to_chat(owner, span_warning("Saying \"[span_phobia("[word]")]\" puts you on edge!"))
-			if(fear_state <= (PHOBIA_STATE_CALM))
-				fearscore ++
+	if(trigger_regex.Find(speech_args[SPEECH_MESSAGE]) != 0)
+		to_chat(owner, span_warning("Saying \"[span_phobia("[trigger_regex.group[2]]")]\" puts you on edge!"))
+		if(fear_state <= (PHOBIA_STATE_CALM))
+			fearscore ++
 
 /datum/brain_trauma/mild/phobia/proc/freak_out(atom/reason, trigger_word, spooklevel = 0)//spooklevel is only used when calculating amount of scary items on a person.
 	if(owner.stat >= UNCONSCIOUS)

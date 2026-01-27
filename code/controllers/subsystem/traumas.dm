@@ -2,7 +2,7 @@ SUBSYSTEM_DEF(traumas)
 	name = "Traumas"
 	flags = SS_NO_FIRE
 	var/list/phobia_types
-	var/list/phobia_words
+	var/list/phobia_regexes
 	var/list/phobia_mobs
 	var/list/phobia_objs
 	var/list/phobia_turfs
@@ -14,25 +14,25 @@ SUBSYSTEM_DEF(traumas)
 	//5 is the default weight, lower it for more punishing phobias
 	phobia_types = sort_list(GLOB.available_random_trauma_list)
 
-	phobia_words = list(
-		"spiders" = strings(PHOBIA_FILE, "spiders"),
-		"space" = strings(PHOBIA_FILE, "space"),
-		"security" = strings(PHOBIA_FILE, "security"),
-		"clowns" = strings(PHOBIA_FILE, "clowns"),
-		"greytide" = strings(PHOBIA_FILE, "greytide"),
-		"lizards" = strings(PHOBIA_FILE, "lizards"),
-		"skeletons" = strings(PHOBIA_FILE, "skeletons"),
-		"snakes" = strings(PHOBIA_FILE, "snakes"),
-		"robots" = strings(PHOBIA_FILE, "robots"),
-		"doctors" = strings(PHOBIA_FILE, "doctors"),
-		"authority"	= strings(PHOBIA_FILE, "authority"),
-		"the supernatural"	= strings(PHOBIA_FILE, "the supernatural"),
-		"aliens" = strings(PHOBIA_FILE, "aliens"),
-		"strangers"	= strings(PHOBIA_FILE, "strangers"),
-		"conspiracies" = strings(PHOBIA_FILE, "conspiracies"),
-		"birds" = strings(PHOBIA_FILE, "birds"),
-		"falling" = strings(PHOBIA_FILE, "falling"),
-		"anime" = strings(PHOBIA_FILE, "anime"),
+	phobia_regexes = list(
+		"spiders" = construct_phobia_regex("spiders"),
+		"space" = construct_phobia_regex("space"),
+		"security" = construct_phobia_regex("security"),
+		"clowns" = construct_phobia_regex("clowns"),
+		"greytide" = construct_phobia_regex("greytide"),
+		"lizards" = construct_phobia_regex("lizards"),
+		"skeletons" = construct_phobia_regex("skeletons"),
+		"snakes" = construct_phobia_regex("snakes"),
+		"robots" = construct_phobia_regex("robots"),
+		"doctors" = construct_phobia_regex("doctors"),
+		"authority"	= construct_phobia_regex("authority"),
+		"the supernatural"	= construct_phobia_regex("the supernatural"),
+		"aliens" = construct_phobia_regex("aliens"),
+		"strangers"	= construct_phobia_regex("strangers"),
+		"conspiracies" = construct_phobia_regex("conspiracies"),
+		"birds" = construct_phobia_regex("birds"),
+		"falling" = construct_phobia_regex("falling"),
+		"anime" = construct_phobia_regex("anime"),
 	)
 
 	phobia_mobs = list(
@@ -91,6 +91,7 @@ SUBSYSTEM_DEF(traumas)
 	phobia_objs = list(
 		"snakes" = typecacheof(list(
 			/obj/item/rod_of_asclepius,
+			/obj/item/toy/plush/snakeplushie,
 		)),
 
 		"spiders" = typecacheof(list(
@@ -131,6 +132,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/food/kebab/tail,
 			/obj/item/organ/tail/lizard,
 			/obj/item/reagent_containers/cup/glass/bottle/lizardwine,
+			/obj/item/clothing/head/costume/lizard,
 		)),
 
 		"skeletons" = typecacheof(list(
@@ -377,3 +379,16 @@ SUBSYSTEM_DEF(traumas)
 	)
 
 	return SS_INIT_SUCCESS
+
+///Creates a regular expression to match against the given phobia
+///Capture group 2 = the scary word
+///Capture group 3 = an optional suffix on the scary word
+/datum/controller/subsystem/traumas/proc/construct_phobia_regex(list/name)
+	var/list/words = strings(PHOBIA_FILE, name)
+	if(!length(words))
+		CRASH("phobia [name] has no entries")
+	var/words_match = ""
+	for(var/word in words)
+		words_match += "[REGEX_QUOTE(word)]|"
+	words_match = copytext(words_match, 1, -1)
+	return regex("(\\b|\\A)([words_match])('?s*)(\\b|\\|)", "ig")
