@@ -185,10 +185,8 @@
 	if(!message)
 		return
 
-	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, span_warning("Your message contains forbidden words."))
-		return
-	message = treat_message_min(message)
+	if(sanitize)
+		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	src.log_talk(message, LOG_SAY)
 	var/rendered = span_revennotice("<b>[src]</b> haunts, \"[message]\"")
 	var/rendered_yourself = span_revennotice("You haunt to ghosts: [message]")

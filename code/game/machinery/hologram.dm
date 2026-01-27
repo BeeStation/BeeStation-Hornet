@@ -488,7 +488,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				create_chat_message(speaker, message_language, list(HC.user), raw_message, spans, message_mods)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		outgoing_call.hologram.say(raw_message)
+		outgoing_call.hologram.say(raw_message, sanitize = FALSE)
 
 	if(record_mode && speaker == record_user)
 		record_message(speaker,raw_message,message_language)
