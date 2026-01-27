@@ -77,10 +77,10 @@ global procs
 		Message treatment or composition of output are not done by this proc, these are handled by the rest of
 		say() and the hearer respectively.
 
-	lang_treat(message, atom/movable/speaker, message_langs, raw_message, spans, list/message_mods)
+	translate_language(atom/movable/speaker, datum/language/language, raw_message, spans, list/message_mods)
 		Modifies the message by comparing the languages of the speaker with the languages of the hearer.
+		If the hearer doesn't have the language, scrambles the message.
 		Called on the hearer.
-		Passes message_mods to say_quote.
 
 	say_quote(input, spans, list/message_mods)
 		Adds a verb and quotes to a message. Also attaches span classes to a message.

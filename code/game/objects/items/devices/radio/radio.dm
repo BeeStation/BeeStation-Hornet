@@ -252,7 +252,7 @@
 		spans = list(talking_movable.speech_span)
 	if(!language)
 		language = talking_movable.get_selected_language()
-	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, talking_movable, message, channel, message_mods)
+	SEND_SIGNAL(src, COMSIG_RADIO_NEW_MESSAGE, talking_movable, message, channel, message_mods)
 	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), talking_movable, message, channel, spans.Copy(), language, message_mods)
 	return ITALICS | REDUCE_RANGE
 
@@ -340,7 +340,7 @@
 	signal.levels = list(T.get_virtual_z_level())
 	signal.broadcast()
 
-/obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+/obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	. = ..()
 	if(radio_freq || !broadcasting || get_dist(src, speaker) > canhear_range)
 		return
@@ -380,6 +380,9 @@
 			if(GLOB.radiochannels[ch_name] == text2num(input_frequency) || syndie)
 				return TRUE
 	return FALSE
+
+/obj/item/radio/proc/on_receive_message(list/data)
+	SEND_SIGNAL(src, COMSIG_RADIO_RECEIVE_MESSAGE, data)
 
 /obj/item/radio/ui_state(mob/user)
 	if(issilicon(user))

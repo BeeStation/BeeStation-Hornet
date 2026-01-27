@@ -186,12 +186,12 @@
 
 
 /datum/brain_trauma/mild/phobia/handle_hearing(datum/source, list/hearing_args)
-	if(!owner.can_hear()) //words can't trigger you if you can't hear them *taps head*
+	if(!owner.can_hear() || owner == hearing_args[HEARING_SPEAKER] || !owner.has_language(hearing_args[HEARING_LANGUAGE])) 	//words can't trigger you if you can't hear them *taps head*
 		return
+
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
 		return
-	if(!owner.has_language(hearing_args[HEARING_LANGUAGE])) //can't be triggered if you don't know the language
-		return
+
 	if(trigger_regex.Find(hearing_args[HEARING_RAW_MESSAGE]) != 0)
 		if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
 			fearscore ++

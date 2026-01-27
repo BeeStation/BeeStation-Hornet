@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		language = get_selected_language()
 	send_speech(message, message_range, source, bubble_type, spans, message_language = language, forced = forced)
 
-/atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+/atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range=0)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
 
 /**
@@ -46,11 +46,12 @@ GLOBAL_LIST_INIT(freqtospan, list(
  * - message (string): the original message
  * - ignore_spam (bool): should we ignore spam?
  * - forced (null|string): what was it forced by? null if voluntary
+ * - filterproof (bool): are we filterproof?
  *
  * Returns:
  * 	TRUE of FASE depending on if our movable can speak
  */
-/atom/movable/proc/try_speak(message, ignore_spam = FALSE, forced = null)
+/atom/movable/proc/try_speak(message, ignore_spam = FALSE, forced = null, filterproof = FALSE)
 	return TRUE
 
 /**
@@ -70,9 +71,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	return TRUE
 
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list(), forced = FALSE)
-	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
 	var/list/show_overhead_message_to = list()
-	for(var/atom/movable/hearing_movable as anything in get_hearers_in_view(range, source, SEE_INVISIBLE_MAXIMUM))
+	var/list/listeners = get_hearers_in_view(range, source, SEE_INVISIBLE_MAXIMUM)
+	for(var/atom/movable/hearing_movable as anything in listeners)
 		if(!hearing_movable)//theoretically this should use as anything because it shouldnt be able to get nulls but there are reports that it does.
 			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
 			continue
@@ -80,7 +81,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 			var/mob/M = hearing_movable
 			if(M.should_show_chat_message(source, message_language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
-		hearing_movable.Hear(rendered, src, message_language, message, , spans, message_mods)
+		hearing_movable.Hear(null, src, message_language, message, null, spans, message_mods, range)
 	if(length(show_overhead_message_to))
 		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
 
@@ -141,11 +142,11 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
 		messagepart = message_mods[MODE_CUSTOM_SAY_EMOTE]
 	else
-		messagepart = lang_treat(speaker, message_language, raw_message, spans, message_mods)
+		messagepart = speaker.say_quote(raw_message, spans, message_mods)
 
-		var/datum/language/D = GLOB.language_datum_instances[message_language]
-		if(istype(D) && D.display_icon(src))
-			languageicon = "[D.get_icon()] "
+		var/datum/language/dialect = GLOB.language_datum_instances[message_language]
+		if(istype(dialect) && dialect.display_icon(src))
+			languageicon = "[dialect.get_icon()] "
 
 	messagepart = "[space][span_message("[say_emphasis(messagepart)]")]</span>"
 
@@ -191,16 +192,16 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 	return message
 
-/atom/movable/proc/lang_treat(atom/movable/speaker, datum/language/language, raw_message, list/spans, list/message_mods = list(), no_quote = FALSE)
-	var/atom/movable/source = speaker.GetSource() || speaker //is the speaker virtual
-	if(has_language(language))
-		return no_quote ? raw_message : source.say_quote(raw_message, spans, message_mods)
-	else if(language)
-		var/datum/language/D = GLOB.language_datum_instances[language]
-		raw_message = D.scramble(raw_message)
-		return no_quote ? raw_message : source.say_quote(raw_message, spans, message_mods)
-	else
+///	Modifies the message by comparing the languages of the speaker with the languages of the hearer. Called on the hearer.
+/atom/movable/proc/translate_language(atom/movable/speaker, datum/language/language, raw_message, list/spans, list/message_mods = list())
+	if(!language)
 		return "makes a strange sound."
+
+	if(!has_language(language))
+		var/datum/language/dialect = GLOB.language_datum_instances[language]
+		raw_message = dialect.scramble(raw_message)
+
+	return raw_message
 
 /proc/get_radio_span(freq)
 	var/returntext = GLOB.freqtospan["[freq]"]

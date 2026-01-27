@@ -25,6 +25,7 @@
 
 /datum/antagonist/malf_ai/on_gain()
 	if(owner.current && !isAI(owner.current))
+		stack_trace("Attempted to give malf AI antag datum to \[[owner]\], who did not meet the requirements.")
 		return ..()
 
 	owner.special_role = ROLE_MALF
@@ -36,6 +37,8 @@
 	malfunction_flavor = strings(MALFUNCTION_FLAVOR_FILE, employer)
 
 	add_law_zero()
+	if(malf_sound)
+		owner.current.playsound_local(get_turf(owner.current), malf_sound, vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	owner.current.grant_language(/datum/language/codespeak, source = LANGUAGE_MALF)
 
 	var/datum/atom_hud/data/hackyhud = GLOB.huds[DATA_HUD_HACKED_APC]
@@ -107,10 +110,10 @@
 	msg += span_warning("Use :t to communicate on a secure channel with Syndicate Agents.")
 	msg += span_warning("Hack APCs to gain processing time which you can use to unlock powerful Malfunction Abilities.")
 
-	if(malf_sound)
-		owner.current.playsound_local(get_turf(owner.current), malf_sound, vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-
 	to_chat(owner.current, examine_block(msg.Join("\n")))
+
+	if(should_give_codewords)
+		give_codewords()
 
 /datum/antagonist/malf_ai/proc/handle_hearing(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
@@ -127,8 +130,8 @@
 	if(istype(datum_owner))
 		datum_owner.hack_software = TRUE
 
-	if(should_give_codewords)
-		RegisterSignal(datum_owner, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "blue", src)
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "red", src)
 
 	add_antag_hud(ANTAG_HUD_TRAITOR, "traitor", datum_owner)
 
@@ -140,9 +143,21 @@
 	if(istype(datum_owner))
 		datum_owner.hack_software = FALSE
 
-	UnregisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
+	for(var/datum/component/codeword_hearing/component as anything in datum_owner.GetComponents(/datum/component/codeword_hearing))
+		component.delete_if_from_source(src)
 
 	remove_antag_hud(ANTAG_HUD_TRAITOR, datum_owner)
+
+/// Outputs this shift's codewords and responses to the antag's chat and copies them to their memory.
+/datum/antagonist/malf_ai/proc/give_codewords()
+	if(!owner.current)
+		return
+
+	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
+	var/responses = jointext(GLOB.syndicate_code_response, ", ")
+
+	antag_memory += "<b>Code Phrase</b>: [span_blue("[phrases]")]<br>"
+	antag_memory += "<b>Code Response</b>: [span_red("[responses]")]<br>"
 
 /datum/antagonist/malf_ai/proc/add_law_zero()
 	var/mob/living/silicon/ai/malf_ai = owner.current

@@ -773,6 +773,7 @@
 #include "code\datums\components\butchering.dm"
 #include "code\datums\components\caltrop.dm"
 #include "code\datums\components\chasm.dm"
+#include "code\datums\components\codeword_hearing.dm"
 #include "code\datums\components\connect_containers.dm"
 #include "code\datums\components\connect_loc_behalf.dm"
 #include "code\datums\components\connect_range.dm"

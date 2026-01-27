@@ -472,7 +472,7 @@ Possible to do for anyone motivated enough:
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
-/obj/machinery/holopad/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+/obj/machinery/holopad/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	. = ..()
 	if(speaker && LAZYLEN(masters) && !radio_freq)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
@@ -483,7 +483,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		if(HC.connected_holopad == src && speaker != HC.hologram)
-			HC.user.Hear(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
+			HC.user.Hear(message, speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range)
 			if(HC.user.should_show_chat_message(speaker, message_language, FALSE, is_heard = TRUE))
 				create_chat_message(speaker, message_language, list(HC.user), raw_message, spans, message_mods)
 
@@ -491,7 +491,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		outgoing_call.hologram.say(raw_message, sanitize = FALSE)
 
 	if(record_mode && speaker == record_user)
-		record_message(speaker,raw_message,message_language)
+		record_message(speaker, raw_message, message_language)
 
 /obj/machinery/holopad/proc/SetLightsAndPower()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)

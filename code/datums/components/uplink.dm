@@ -46,7 +46,7 @@
 	else if(istype(parent, /obj/item/modular_computer/tablet))
 		RegisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE, PROC_REF(new_ringtone))
 	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, PROC_REF(radio_message))
+		RegisterSignal(parent, COMSIG_RADIO_NEW_MESSAGE, PROC_REF(radio_message))
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
 

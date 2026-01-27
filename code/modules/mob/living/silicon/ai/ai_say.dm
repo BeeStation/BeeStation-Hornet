@@ -56,7 +56,7 @@
 		if(istype(D) && D.display_icon(src))
 			language_icon = "[D.get_icon()] "
 
-		message = span_robot(say_emphasis(lang_treat(src, language, message)))
+		message = span_robot(say_emphasis(say_quote(message)))
 		message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(real_name)]</b> [message]")
 		to_chat(src, message)
 
