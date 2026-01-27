@@ -43,8 +43,8 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 
 /mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/projectile/projectile)
 	if(isliving(projectile.fired_from))
-		var/mob/living/living_firer = projectile.fired_from
-		if(IS_SERVANT_OF_RATVAR(living_firer))
+		var/mob/living/living_target = projectile.fired_from
+		if(IS_SERVANT_OF_RATVAR(living_target))
 			return FALSE
 	return TRUE
 
@@ -58,8 +58,8 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	mob_type = /mob/living/simple_animal/drone/cogscarab
 	short_desc = "You are a cogscarab!"
 	flavour_text = "You are a cogscarab, a tiny building construct of Ratvar. While you're weak and can't leave Reebe, \
-	you have a set of quick tools, as well as a replica fabricator that can create brass for construction. Work with the servants of Ratvar \
-	to construct and maintain defenses at the City of Cogs."
+		you have a set of quick tools, as well as a replica fabricator that can create brass for construction. Work with the servants of Ratvar \
+		to construct and maintain defenses at the City of Cogs."
 
 /obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))

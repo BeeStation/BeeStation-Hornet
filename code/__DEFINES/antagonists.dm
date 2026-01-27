@@ -197,13 +197,6 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
 #define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
-// Clockcult
-// ------------------------------------
-
-#define SIGIL_TRANSMISSION_RANGE 4
-/// Clockcult drone
-#define CLOCKDRONE	"drone_clock"
-
 // Abductors
 // ------------------------------------
 
