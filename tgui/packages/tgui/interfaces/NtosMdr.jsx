@@ -13,13 +13,17 @@ export const NtosMdr = (props) => {
       <NtosWindow.Content scrollable>
         {activeMdr ? (
           <Box>
-          <Button icon="arrow-left" onClick={() =>
-                          act('select_mdr', {
-                            select_mdr: null,
-                          })}>
+            <Button
+              icon="arrow-left"
+              onClick={() =>
+                act('select_mdr', {
+                  select_mdr: null,
+                })
+              }
+            >
               Back
-          </Button>
-          <MdrContent {...activeMdr} />
+            </Button>
+            <MdrContent {...activeMdr} />
           </Box>
         ) : (
           <Section title="Detected Metallic Decay Reactors">

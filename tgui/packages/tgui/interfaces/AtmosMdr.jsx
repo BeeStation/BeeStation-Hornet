@@ -205,9 +205,9 @@ export const MdrContent = (props) => {
                     height="100%"
                     viewBox={`0 0 ${2 * sqrt_parabolic_limit} ${(2 * sqrt_parabolic_limit) / 3}`}
                     preserveAspectRatio="none"
-  style={{
-    position: 'absolute',
-  }}
+                    style={{
+                      position: 'absolute',
+                    }}
                   >
                     <rect
                       x={parabolic_ratio}

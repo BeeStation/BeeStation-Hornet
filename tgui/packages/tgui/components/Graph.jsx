@@ -1,6 +1,5 @@
 import { Component } from 'react';
 
-
 export class Graph extends Component {
   constructor(props) {
     super(props);
@@ -40,23 +39,22 @@ export class Graph extends Component {
     } = this.props;
     return (
       <svg
-            viewBox={`${leftLimit} ${lowerLimit} ${rightLimit} ${upperLimit}`}
-            preserveAspectRatio="none"
-  style={{
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-  }}
-            {...rest}
-          >
-
-            <polyline
-              transform={`scale(1, -1) translate(0, -${upperLimit - lowerLimit})`}
-              fill={fillColor}
-              stroke={lineColor}
-              strokeWidth={strokeWidth}
-              points={this.iterateOverNodes(funct, leftLimit, steps)}
-            />
+        viewBox={`${leftLimit} ${lowerLimit} ${rightLimit} ${upperLimit}`}
+        preserveAspectRatio="none"
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+        }}
+        {...rest}
+      >
+        <polyline
+          transform={`scale(1, -1) translate(0, -${upperLimit - lowerLimit})`}
+          fill={fillColor}
+          stroke={lineColor}
+          strokeWidth={strokeWidth}
+          points={this.iterateOverNodes(funct, leftLimit, steps)}
+        />
       </svg>
     );
   }
