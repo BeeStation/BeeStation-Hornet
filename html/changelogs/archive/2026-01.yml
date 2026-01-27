@@ -315,3 +315,4 @@
   - tweak: people killed by a vitality rune are now dusted (before they were husked
       and made soulless)
   - balance: the clockcult vitality matrix now heals bleeding
+  - bugfix: Fixed silicons not being able to sign into security/medical records
