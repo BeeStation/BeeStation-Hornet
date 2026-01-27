@@ -195,7 +195,7 @@ multiple modular subtrees with behaviors
 		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
 		// Then pick the max of this and the delta_time passed to ai_controller.process()
 		// Action cooldowns cannot happen faster than delta_time, so delta_time should be the value used in this scenario.
-		var/action_delta_time = max(current_behavior.action_cooldown * 0.1, delta_time)
+		var/action_delta_time = max(current_behavior.get_cooldown(src) * 0.1, delta_time)
 
 		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) //Might need to move closer
 			if(!current_movement_target)
@@ -251,6 +251,7 @@ multiple modular subtrees with behaviors
 			if(subtree.SelectBehaviors(src, delta_time) == SUBTREE_RETURN_FINISH_PLANNING)
 				break
 
+	SEND_SIGNAL(src, COMSIG_AI_CONTROLLER_PICKED_BEHAVIORS, current_behaviors, planned_behaviors)
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 		if(LAZYACCESS(planned_behaviors, current_behavior))
 			continue
@@ -278,6 +279,9 @@ multiple modular subtrees with behaviors
 /datum/ai_controller/proc/PauseAi(time)
 	paused_until = world.time + time
 
+/datum/ai_controller/proc/modify_cooldown(datum/ai_behavior/behavior, new_cooldown)
+	behavior_cooldowns[behavior.type] = new_cooldown
+
 ///Call this to add a behavior to the stack.
 /datum/ai_controller/proc/queue_behavior(behavior_type, ...)
 	var/datum/ai_behavior/behavior = GET_AI_BEHAVIOR(behavior_type)
@@ -299,6 +303,7 @@ multiple modular subtrees with behaviors
 		behavior_args[behavior_type] = arguments
 	else
 		behavior_args -= behavior_type
+	SEND_SIGNAL(src, AI_CONTROLLER_BEHAVIOR_QUEUED(behavior_type), arguments)
 
 /datum/ai_controller/proc/ProcessBehavior(delta_time, datum/ai_behavior/behavior)
 	var/list/arguments = list(delta_time, src)
@@ -350,6 +355,15 @@ multiple modular subtrees with behaviors
 		if(iter_behavior.required_distance < minimum_distance)
 			minimum_distance = iter_behavior.required_distance
 	return minimum_distance
+
+/// Returns true if we have a blackboard key with the provided key and it is not qdeleting
+/datum/ai_controller/proc/blackboard_key_exists(key)
+	var/datum/key_value = blackboard[key]
+	if (isdatum(key_value))
+		return !QDELETED(key_value)
+	if (islist(key_value))
+		return length(key_value) > 0
+	return !!key_value
 
 /**
  * Used to manage references to datum by AI controllers

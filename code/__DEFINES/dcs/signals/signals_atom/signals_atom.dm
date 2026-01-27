@@ -131,7 +131,10 @@
 ///signal sent out by an atom upon onZImpact : (turf/impacted_turf, levels)
 #define COMSIG_ATOM_ON_Z_IMPACT "movable_on_z_impact"
 
+//from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
+//from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization and has a loc
+#define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON "atom_init_success_on"
 
 ///from base of atom/throw_impact, sent by the target hit by a thrown object. (hit_atom, thrown_atom, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_PREHITBY "atom_pre_hitby"

@@ -1,27 +1,12 @@
-///Datum for basic mobs to define what they can attack.GET_TARGETING_STRATEGY\((/[^,]*)\),
-///Global, just like ai_behaviors
-/datum/targeting_strategy
-
-///Returns true or false depending on if the target can be attacked by the mob
-/datum/targeting_strategy/proc/can_attack(mob/living/living_mob, atom/target, vision_range)
-	return
-
-///Returns something the target might be hiding inside of
-/datum/targeting_strategy/proc/find_hidden_mobs(mob/living/living_mob, atom/target)
-	var/atom/target_hiding_location
-	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
-		target_hiding_location = target.loc
-	return target_hiding_location
-
 /datum/targeting_strategy/basic
 	/// When we do our basic faction check, do we look for exact faction matches?
 	var/check_factions_exactly = FALSE
-	/// Minimum status to attack living beings
-	var/stat_attack = CONSCIOUS
 	///Whether we care for seeing the target or not
 	var/ignore_sight = FALSE
+	/// Minimum status to attack living beings
+	var/stat_attack = CONSCIOUS
 
-/datum/targeting_strategy/basic/can_attack(mob/living/living_mob, atom/the_target, vision_range, check_faction = TRUE)
+/datum/targeting_strategy/basic/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	var/datum/ai_controller/basic_controller/our_controller = living_mob.ai_controller
 
 	if(isnull(our_controller))
@@ -46,8 +31,7 @@
 
 	if(isliving(the_target)) //Targeting vs living mobs
 		var/mob/living/living_target = the_target
-		var/bypass_faction_check = !check_faction || our_controller.blackboard[BB_BASIC_MOB_SKIP_FACTION_CHECK]
-		if(faction_check(living_mob, living_target) && !bypass_faction_check)
+		if(faction_check(our_controller, living_mob, living_target))
 			return FALSE
 		if(living_target.stat > stat_attack)
 			return FALSE
@@ -75,22 +59,17 @@
 /// Careful, this can go wrong and keep a mob hyperfocused on an item it can't lose aggro on
 /datum/targeting_strategy/basic/allow_items
 
-/datum/targeting_strategy/basic/allow_items/can_attack(mob/living/living_mob, atom/the_target)
+/datum/targeting_strategy/basic/allow_items/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	. = ..()
 	if(isitem(the_target))
 		// trust fall exercise
 		return TRUE
 
 /// Returns true if the mob and target share factions
-/datum/targeting_strategy/basic/proc/faction_check(mob/living/living_mob, mob/living/the_target)
+/datum/targeting_strategy/basic/proc/faction_check(datum/ai_controller/controller, mob/living/living_mob, mob/living/the_target)
+	if (controller.blackboard[BB_ALWAYS_IGNORE_FACTION] || controller.blackboard[BB_TEMPORARILY_IGNORE_FACTION])
+		return FALSE
 	return living_mob.faction_check_mob(the_target, exact_match = check_factions_exactly)
-
-/// Subtype which doesn't care about faction
-/// Mobs which retaliate but don't otherwise target seek should just attack anything which annoys them
-/datum/targeting_strategy/basic/ignore_faction
-
-/datum/targeting_strategy/basic/ignore_faction/faction_check(mob/living/living_mob, mob/living/the_target)
-	return FALSE
 
 /// Subtype which searches for mobs of a size relative to ours
 /datum/targeting_strategy/basic/of_size
@@ -99,7 +78,7 @@
 	/// If true, we will return mobs which are the same size as us.
 	var/inclusive = TRUE
 
-/datum/targeting_strategy/basic/of_size/can_attack(mob/living/owner, atom/target)
+/datum/targeting_strategy/basic/of_size/can_attack(mob/living/owner, atom/target, vision_range)
 	if(!isliving(target))
 		return FALSE
 	. = ..()

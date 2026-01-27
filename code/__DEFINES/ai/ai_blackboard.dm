@@ -5,8 +5,8 @@
 #define BB_NEXT_HUNGRY "BB_NEXT_HUNGRY"
 /// what we're going to eat next
 #define BB_FOOD_TARGET "bb_food_target"
-/// Path we should use next time we use the JPS movement datum
-#define BB_PATH_TO_USE "BB_path_to_use"
+///How close a mob must be for us to select it as a target, if that is less than how far we can maintain it as a target
+#define BB_AGGRO_RANGE "BB_aggro_range"
 
 /// song instrument blackboard, set by instrument subtrees
 #define BB_SONG_INSTRUMENT "BB_SONG_INSTRUMENT"
@@ -46,6 +46,11 @@
 /// List of mobs who have damaged us
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_basic_mob_shitlist"
 
+/// Chance to randomly acquire a new target
+#define BB_RANDOM_AGGRO_CHANCE "BB_random_aggro_chance"
+/// Chance to randomly drop all of our targets
+#define BB_RANDOM_DEAGGRO_CHANCE "BB_random_deaggro_chance"
+
 /// Flag to set on or off if you want your mob to prioritise running away
 #define BB_BASIC_MOB_FLEEING "BB_basic_fleeing"
 
@@ -68,4 +73,11 @@
 #define BB_VISION_RANGE "BB_VISION_RANGE"
 
 /// should we skip the faction check for the targetting datum?
-#define BB_BASIC_MOB_SKIP_FACTION_CHECK "BB_basic_mob_skip_faction_check"
+#define BB_ALWAYS_IGNORE_FACTION "BB_always_ignore_factions"
+///are we in some kind of temporary state of ignoring factions when targetting? can result in volatile results if multiple behaviours touch this
+#define BB_TEMPORARILY_IGNORE_FACTION "BB_temporarily_ignore_factions"
+
+// Keys used by one and only one behavior
+// Used to hold state without making bigass lists
+/// For /datum/ai_behavior/find_potential_targets, what if any field are we using currently
+#define BB_FIND_TARGETS_FIELD(type) "bb_find_targets_field_[type]"

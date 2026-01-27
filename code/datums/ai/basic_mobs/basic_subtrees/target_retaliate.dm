@@ -10,9 +10,8 @@
 	/// do we check for faction?
 	var/check_faction = FALSE
 
-/datum/ai_planning_subtree/target_retaliate/SelectBehaviors(datum/ai_controller/controller, delta_time)
-	. = ..()
-	controller.queue_behavior(/datum/ai_behavior/target_from_retaliate_list, BB_BASIC_MOB_RETALIATE_LIST, target_key, targetting_datum_key, hiding_place_key, check_faction)
+/datum/ai_planning_subtree/target_retaliate/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
+	controller.queue_behavior(/datum/ai_behavior/target_from_retaliate_list, BB_BASIC_MOB_RETALIATE_LIST, target_key, targeting_strategy_key, hiding_place_key, check_faction)
 
 /datum/ai_planning_subtree/target_retaliate/check_faction
 	check_faction = TRUE
@@ -41,20 +40,24 @@
 	if(!targeting_strategy)
 		CRASH("No target datum was supplied in the blackboard for [controller.pawn]")
 
-	var/list/enemies_list = list()
+	var/list/shitlist = controller.blackboard[shitlist_key]
+	var/atom/existing_target = controller.blackboard[target_key]
 
-	for(var/mob/living/potential_target as anything in controller.blackboard[shitlist_key])
-		if(!targetting_datum.can_attack(living_mob, potential_target, vision_range, check_faction))
+	if (!check_faction)
+		controller.set_blackboard_key(BB_TEMPORARILY_IGNORE_FACTION, TRUE)
+
+	if (!QDELETED(existing_target) && (locate(existing_target) in shitlist) && targeting_strategy.can_attack(living_mob, existing_target, vision_range))
+		finish_action(controller, succeeded = TRUE, check_faction = check_faction)
+		return
+
+	var/list/enemies_list = list()
+	for(var/mob/living/potential_target as anything in shitlist)
+		if(!targeting_strategy.can_attack(living_mob, potential_target, vision_range))
 			continue
 		enemies_list += potential_target
 
-
 	if(!length(enemies_list))
 		finish_action(controller, succeeded = FALSE, check_faction = check_faction)
-		return
-
-	if (controller.blackboard[target_key] in enemies_list) // Don't bother changing
-		finish_action(controller, succeeded = TRUE, check_faction = check_faction)
 		return
 
 	var/atom/new_target = pick_final_target(controller, enemies_list)
@@ -71,8 +74,9 @@
 /datum/ai_behavior/target_from_retaliate_list/proc/pick_final_target(datum/ai_controller/controller, list/enemies_list)
 	return pick(enemies_list)
 
-/datum/ai_behavior/target_from_retaliate_list/finish_action(datum/ai_controller/controller, succeeded, target_key, check_faction)
+/datum/ai_behavior/target_from_retaliate_list/finish_action(datum/ai_controller/controller, succeeded, shitlist_key, target_key, targeting_strategy_key, hiding_location_key, check_faction)
 	. = ..()
-	if(check_faction)
+	if (succeeded || check_faction)
 		return
-	controller.set_blackboard_key(BB_BASIC_MOB_SKIP_FACTION_CHECK, succeeded)
+	var/usually_ignores_faction = controller.blackboard[BB_ALWAYS_IGNORE_FACTION] || FALSE
+	controller.set_blackboard_key(BB_TEMPORARILY_IGNORE_FACTION, usually_ignores_faction)

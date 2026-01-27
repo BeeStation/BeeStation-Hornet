@@ -25,7 +25,7 @@
 /// Subtype that allows us to target items while deftly avoiding attacking our allies. Be careful when it comes to targeting items as an AI could get trapped targeting something it can't destroy.
 /datum/targeting_strategy/basic/not_friends/allow_items
 
-/datum/targeting_strategy/basic/not_friends/allow_items/can_attack(mob/living/living_mob, atom/the_target)
+/datum/targeting_strategy/basic/not_friends/allow_items/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	. = ..()
 	if(isitem(the_target))
 		// trust fall exercise

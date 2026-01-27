@@ -229,6 +229,7 @@
 
 	AddElement(/datum/element/atmos_sensitive)
 	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE)
+	AddElement(/datum/element/hostile_machine)
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
 /obj/vehicle/sealed/mecha/proc/Eject()
