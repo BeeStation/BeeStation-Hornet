@@ -9516,6 +9516,7 @@
 	pixel_x = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/laser_pointer/purple,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "fhs" = (

@@ -13417,6 +13417,7 @@
 /obj/item/taperecorder{
 	pixel_y = 15
 	},
+/obj/item/laser_pointer/purple,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "cOR" = (
@@ -68838,10 +68839,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
-"pbn" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
-/area/medical/medbay/lobby)
 "pbp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -158445,7 +158442,7 @@ vgc
 jKU
 vgc
 pVR
-pbn
+maP
 iDx
 sNN
 xgk
