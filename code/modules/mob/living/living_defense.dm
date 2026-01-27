@@ -32,7 +32,7 @@
 			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor
 
-/// Get the armour value for a specific damage type, targetting a particular zone.
+/// Get the armour value for a specific damage type, targeting a particular zone.
 /// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
 /// type: The damage type to test for. Must not be null.
 /// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.

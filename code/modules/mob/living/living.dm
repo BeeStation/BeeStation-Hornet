@@ -2284,7 +2284,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	// Not using the wrapper here because we already have a list / arglist
 	_cause_hallucination(delusion_args)
 
-/// Proc for giving a mob a new 'friend', generally used for AI control and targetting. Returns false if already friends.
+/// Proc for giving a mob a new 'friend', generally used for AI control and targeting. Returns false if already friends.
 /mob/living/proc/befriend(mob/living/new_friend)
 	SHOULD_CALL_PARENT(TRUE)
 	var/friend_ref = REF(new_friend)

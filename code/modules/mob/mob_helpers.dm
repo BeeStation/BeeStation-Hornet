@@ -443,7 +443,7 @@
  * Head/Chest target: Damage/kill target
  */
 /mob/proc/get_combat_bodyzone(atom/target = null, precise = FALSE, zone_context = BODYZONE_CONTEXT_COMBAT)
-	// Just grab whatever bodyzone they were targetting
+	// Just grab whatever bodyzone they were targeting
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
 		if (!precise)
 			return check_zone(zone_selected)

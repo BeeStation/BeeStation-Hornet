@@ -129,7 +129,7 @@
 		Goto(P.starting, move_to_delay, 3)
 	return ..()
 
-//////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
+//////////////HOSTILE MOB TARGETING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/proc/ListTargets() //Step 1, find out what we can see
 	var/atom/target_from = GET_TARGETS_FROM(src)
@@ -148,7 +148,7 @@
 		possible_targets = ListTargets()
 	for(var/pos_targ in possible_targets)
 		var/atom/A = pos_targ
-		if(Found(A))//Just in case people want to override targetting
+		if(Found(A))//Just in case people want to override targeting
 			. = list(A)
 			break
 		if(CanAttack(A))//Can we attack it?
@@ -367,7 +367,7 @@
 	SSmove_manager.stop_looping(src)
 	LoseAggro()
 
-//////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
+//////////////END HOSTILE MOB TARGETING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
 	LoseTarget()

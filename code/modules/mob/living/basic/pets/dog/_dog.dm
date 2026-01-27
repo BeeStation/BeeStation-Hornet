@@ -7,15 +7,15 @@
 	speech_commands = list("good dog", "good boy", "brav")
 
 // Set correct attack behaviour
-/datum/pet_command/point_targetting/attack/dog
+/datum/pet_command/point_targeting/attack/dog
 	attack_behaviour = /datum/ai_behavior/basic_melee_attack/dog
 	speech_commands = list("attack", "sic", "kill", "fass")
 
-/datum/pet_command/point_targetting/attack/dog/set_command_active(mob/living/parent, mob/living/commander)
+/datum/pet_command/point_targeting/attack/dog/set_command_active(mob/living/parent, mob/living/commander)
 	. = ..()
 	parent.ai_controller.set_blackboard_key(BB_DOG_HARASS_HARM, TRUE)
 
-/datum/pet_command/point_targetting/fetch/dog
+/datum/pet_command/point_targeting/fetch/dog
 	speech_commands = list("fetch", "apport", "bring")
 
 /datum/pet_command/play_dead/dog
@@ -44,8 +44,8 @@
 		/datum/pet_command/free,
 		/datum/pet_command/good_boy/dog,
 		/datum/pet_command/follow/dog,
-		/datum/pet_command/point_targetting/attack/dog,
-		/datum/pet_command/point_targetting/fetch/dog,
+		/datum/pet_command/point_targeting/attack/dog,
+		/datum/pet_command/point_targeting/fetch/dog,
 		/datum/pet_command/play_dead/dog,
 	)
 

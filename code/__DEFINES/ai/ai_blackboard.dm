@@ -22,17 +22,19 @@
 /// key that holds the cooldown for our hunting subtree
 #define BB_HUNTING_COOLDOWN "BB_HUNTING_COOLDOWN"
 
-// Targetting subtrees
+// Targeting subtrees
 
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
-#define BB_TARGETTING_DATUM "targetting_datum"
+#define BB_TARGETING_STRATEGY "targeting_strategy"
+/// What typepath the holding object targeting strategy should look for
+#define BB_TARGET_HELD_ITEM "BB_target_held_item"
 
 // Targeting keys for something to run away from, if you need to store this separately from current target
 
 #define BB_BASIC_MOB_FLEE_TARGET "BB_basic_flee_target"
 #define BB_BASIC_MOB_FLEE_TARGET_HIDING_LOCATION "BB_basic_flee_target_hiding_location"
-#define BB_FLEE_TARGETTING_DATUM "flee_targetting_datum"
+#define BB_FLEE_TARGETING_STRATEGY "flee_targeting_strategy"
 
 // Tipped blackboards
 
@@ -64,3 +66,6 @@
 #define BB_FOLLOW_TARGET "BB_FOLLOW_TARGET"
 #define BB_ATTACK_TARGET "BB_ATTACK_TARGET"
 #define BB_VISION_RANGE "BB_VISION_RANGE"
+
+/// should we skip the faction check for the targetting datum?
+#define BB_BASIC_MOB_SKIP_FACTION_CHECK "BB_basic_mob_skip_faction_check"
