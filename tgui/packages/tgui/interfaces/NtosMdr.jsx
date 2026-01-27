@@ -1,8 +1,7 @@
 import { useBackend } from '../backend';
-import { Button, Section, Table } from '../components';
+import { Box, Button, Section, Table } from '../components';
 import { NtosWindow } from '../layouts';
 import { MdrContent } from './AtmosMdr';
-
 export const NtosMdr = (props) => {
   const { act, data } = useBackend();
   const { mdr_data, selected_mdr_uid } = data;
@@ -11,9 +10,17 @@ export const NtosMdr = (props) => {
   );
   return (
     <NtosWindow height={400} width={700}>
-      <NtosWindow.Content>
+      <NtosWindow.Content scrollable>
         {activeMdr ? (
+          <Box>
+          <Button icon="arrow-left" onClick={() =>
+                          act('select_mdr', {
+                            select_mdr: null,
+                          })}>
+              Back
+          </Button>
           <MdrContent {...activeMdr} />
+          </Box>
         ) : (
           <Section title="Detected Metallic Decay Reactors">
             <Button
@@ -28,7 +35,7 @@ export const NtosMdr = (props) => {
                     <Table.Cell>
                       {`MDR::${mdr.uid} at ${mdr.area}`}
                       <Button
-                        icon="arrow-left"
+                        icon="arrow-right"
                         onClick={() =>
                           act('select_mdr', {
                             select_mdr: mdr.uid,

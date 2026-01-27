@@ -252,6 +252,16 @@
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/capacitor = 6)
 
+/obj/item/circuitboard/machine/mdr
+	name = "metallic decay reactor (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/components/unary/mdr
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 2,
+		/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stock_parts/manipulator/femto = 2,
+		/obj/item/stack/sheet/plasmaglass = 10,
+	)
 /obj/item/circuitboard/machine/igniter
 	name = "igniter (Machine Board)"
 	icon_state = "engineering"

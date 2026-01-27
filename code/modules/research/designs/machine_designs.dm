@@ -83,6 +83,14 @@
 	category = list ("Engineering Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/board/mdr
+	name = "Machine Design (Metallic Decay Reactor)"
+	desc = "The circuit board for a metallic decay reactor."
+	id = "mdr"
+	build_path = /obj/item/circuitboard/machine/mdr
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
 /datum/design/board/thermomachine
 	name = "Machine Design (Thermomachine Board)"
 	desc = "The circuit board for a thermomachine."

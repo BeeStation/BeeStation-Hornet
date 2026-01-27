@@ -16,8 +16,8 @@ import { Window } from '../layouts';
 export const AtmosMdr = (props) => {
   const { data } = useBackend();
   return (
-    <Window width={540} height={500}>
-      <Window.Content>
+    <Window width={550} height={400} style={{ overflowY: 'scroll' }}>
+      <Window.Content scrollable>
         <MdrContent {...data} />
       </Window.Content>
     </Window>
@@ -62,7 +62,7 @@ export const MdrContent = (props) => {
   return (
     <Box>
       <Section title="Controls">
-        <LabeledControls backgroundColor="">
+        <LabeledControls>
           <LabeledControls.Item minWidth="66px" label="Activation">
             <Button
               icon={'power-off'}
@@ -191,19 +191,23 @@ export const MdrContent = (props) => {
           </Flex.Item>
           <br />
           <Flex.Item grow={1} m={1} align="center">
-            {/* This react code is a tangled, hard-coded mess. If someone wants to try and fix it, be my guest */}
-            <Box height="100%">
+            Parabolic Multiplier
+            <Box width="100%" m={1}>
               <Box
                 width="100%"
                 backgroundColor="grey"
                 style={{ aspectRatio: '3 / 1' }}
                 position="relative"
               >
-                <Box position="absolute" width="stretch" height="stretch">
+                <Box>
                   <svg
                     width="100%"
                     height="100%"
                     viewBox={`0 0 ${2 * sqrt_parabolic_limit} ${(2 * sqrt_parabolic_limit) / 3}`}
+                    preserveAspectRatio="none"
+  style={{
+    position: 'absolute',
+  }}
                   >
                     <rect
                       x={parabolic_ratio}
@@ -222,13 +226,15 @@ export const MdrContent = (props) => {
                     );
                   }}
                   upperLimit={
-                    parabolic_upper_limit + parabolic_upper_limit * 0.01
+                    parabolic_upper_limit + parabolic_upper_limit * 0.03
                   }
                   lowerLimit={0}
                   leftLimit={0}
                   rightLimit={2 * sqrt_parabolic_limit}
                   steps={25}
-                  strokeWidth={5}
+                  strokeWidth={sqrt_parabolic_limit / 30}
+                  fillColor="#ffffff00"
+                  lineColor="#ffffff"
                 />
               </Box>
             </Box>

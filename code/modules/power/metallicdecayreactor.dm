@@ -50,6 +50,8 @@
 	icon_state = "mdr"
 	density = TRUE
 	layer = MOB_LAYER
+	circuit = /obj/item/circuitboard/machine/mdr
+
 	var/activated = FALSE
 
 	var/metallization_ratio = 0.2
@@ -104,12 +106,15 @@
 	var/total_core_mols = 0
 	for(var/gastype in core_composition)
 		total_core_mols += core_composition[gastype]
-	if(total_core_mols > 1000)
-		investigate_log("was destroyed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
-		new /obj/anomaly/singularity/temporary(get_turf(src), 500)
 	qdel(soundloop)
 	qdel(radio)
 	. = ..()
+
+/obj/machinery/atmospherics/components/unary/mdr/on_construction(mob/user)
+	. = ..()
+	if(check_pipe_on_turf())
+		to_chat(user, span_warning("Something is hogging the tile!"))
+		deconstruct(TRUE)
 
 
 /obj/machinery/atmospherics/components/unary/mdr/process(delta_time)
@@ -117,7 +122,7 @@
 	if(!activated)
 		return
 	process_diffusion()
-	decay_gases(get_decay_factor())
+	decay_gases(1)
 	process_toroid()
 	process_harvesters()
 	process_stability()
@@ -139,6 +144,10 @@
 	deactivate()
 	return TRUE
 
+/obj/machinery/atmospherics/components/unary/mdr/crowbar_act(mob/living/user, obj/item/tool)
+	return crowbar_deconstruction_act(user, tool)
+
+
 /obj/machinery/atmospherics/components/unary/mdr/update_overlays()
 	. = ..()
 	var/core_mass = 0
@@ -150,7 +159,7 @@
 		if(0 to 500)
 			. += mutable_appearance(initial(icon), "sphere_1")
 			. += emissive_appearance(initial(icon), "sphere_1", layer)
-		if(500 to 5000) //todo, figure out if this is inclusive or exclusive, and how to handle a switch better
+		if(500 to 5000)
 			. += mutable_appearance(initial(icon), "sphere_2")
 			. += emissive_appearance(initial(icon), "sphere_2", layer)
 		else
@@ -213,6 +222,14 @@
 		if("reconnect")
 			link_harvesters()
 
+/obj/machinery/atmospherics/components/unary/mdr/proc/check_pipe_on_turf()
+	for(var/obj/machinery/atmospherics/device in get_turf(src))
+		if(device == src)
+			continue
+		if(device.piping_layer == piping_layer)
+			return TRUE
+	return FALSE
+
 /obj/machinery/atmospherics/components/unary/mdr/proc/can_activate()
 	return !(activated || (!is_operational))
 
@@ -228,8 +245,9 @@
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
 	soundloop.start()
-	update_appearance()
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF //you cannot destroy it while its on... because of its quantum-flux-field!
 	activated = TRUE
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/deactivate()
 	if(!can_deactivate())
@@ -237,8 +255,9 @@
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
 	soundloop.stop()
-	update_appearance()
+	resistance_flags = FREEZE_PROOF
 	activated = FALSE
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/get_core_heat_capacity()
 	var/total_capacity
@@ -261,9 +280,6 @@
 			linked_harvesters += harvester
 			harvester.link_harvester(src)
 			START_PROCESSING(SSmachines, harvester)
-
-/obj/machinery/atmospherics/components/unary/mdr/proc/get_decay_factor()
-	return 1 //todo remove this proc or add to it
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/get_temp_stab_factor()
 	var/n2o_mols = core_composition[/datum/gas/oxygen]
@@ -292,7 +308,7 @@
 		remove_gas_from_core(gastype, decayed_gas)
 		add_gas_to_core(GAS_DECAY_LIST[gastype], decayed_gas)
 
-	var/core_capacity = get_core_heat_capacity() //todo make this heat transfer not instant
+	var/core_capacity = get_core_heat_capacity()
 	var/core_thermal_heat = (core_temperature * core_capacity) - total_energy_consumed
 	var/mix_capacity = turf_mix.heat_capacity()
 	var/new_temperature = max(((turf_mix.temperature * mix_capacity) + core_thermal_heat) / (core_capacity + mix_capacity), TCMB)
@@ -321,7 +337,9 @@
 		alert_radio(TRUE)
 	core_health = health_delta
 	if (core_health <= 0)
-		fail()
+		addtimer(CALLBACK(src, PROC_REF(fail)), 3 SECONDS)
+		STOP_PROCESSING(SSmachines, src)
+		playsound(src, 'sound/machines/mdr_collapse.ogg', 100, FALSE, 40, falloff_distance = 25)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/alert_radio(decreasing)
 	if(!(COOLDOWN_FINISHED(src, radio_cooldown)) || core_health > MDR_MAX_CORE_HEALTH * 0.6)
@@ -331,6 +349,8 @@
 	COOLDOWN_START(src, radio_cooldown, MDR_RADIO_COOLDOWN)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/fail()
+	investigate_log("failed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
+	new /obj/anomaly/singularity/temporary(get_turf(src), 500)
 	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_toroid()
@@ -343,7 +363,13 @@
 	airs[1].pump_gas_volume(toroid_mix, input_volume)
 
 	if(toroid_mix)
-		toroid_spin += toroid_mix.total_moles() * MDR_MOL_TO_SPIN //todo make this respect specific heat
+		var/total_heat_capacity = 0
+		var/gas_count = 0
+		for (var/datum/gas/gas_id as anything in toroid_mix.gases)
+			total_heat_capacity += initial(gas_id.specific_heat) * toroid_mix.gases[gas_id][MOLES]
+			gas_count++
+		if(gas_count)
+			toroid_spin += (total_heat_capacity / gas_count) * MDR_MOL_TO_SPIN
 
 	parabolic_upper_limit = get_mass_multiplier()
 	parabolic_ratio = toroid_spin / 10000
@@ -368,7 +394,7 @@
 		var/diffusion_difference = ratio - turf_mix_mols
 		var/gas_diffused = (((diffusion_difference / total_gas) / 1) ** 3) * total_gas
 
-		gas_diffused = clamp(gas_diffused, gas_diffused > 0 ? 0 : -turf_mix_mols, gas_diffused < 0 ? 0 : core_comp_mols) //todo, make this avoid instant diffusion (when metallization is 0 all gas is diffused instantly)
+		gas_diffused = clamp(gas_diffused, gas_diffused > 0 ? 0 : -turf_mix_mols, gas_diffused < 0 ? 0 : core_comp_mols)
 		if(gas_diffused > 0)
 			remove_gas_from_core(turf_gas, gas_diffused)
 			ADD_MOLES(turf_gas, turf_mix, gas_diffused)

@@ -1,6 +1,5 @@
 import { Component } from 'react';
 
-import { Chart } from './Chart';
 
 export class Graph extends Component {
   constructor(props) {
@@ -36,17 +35,29 @@ export class Graph extends Component {
       steps,
       lineColor,
       fillColor,
+      strokeWidth,
       ...rest
     } = this.props;
     return (
-      <Chart.Line
-        data={this.iterateOverNodes(funct, leftLimit, steps)}
-        rangeX={[leftLimit, rightLimit]}
-        rangeY={[lowerLimit, upperLimit]}
-        strokeColor={lineColor}
-        fillColor={fillColor}
-        {...rest}
-      />
+      <svg
+            viewBox={`${leftLimit} ${lowerLimit} ${rightLimit} ${upperLimit}`}
+            preserveAspectRatio="none"
+  style={{
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  }}
+            {...rest}
+          >
+
+            <polyline
+              transform={`scale(1, -1) translate(0, -${upperLimit - lowerLimit})`}
+              fill={fillColor}
+              stroke={lineColor}
+              strokeWidth={strokeWidth}
+              points={this.iterateOverNodes(funct, leftLimit, steps)}
+            />
+      </svg>
     );
   }
 }
