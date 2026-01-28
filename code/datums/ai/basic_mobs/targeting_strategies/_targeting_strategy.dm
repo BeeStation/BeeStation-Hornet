@@ -1,4 +1,4 @@
-///Datum for basic mobs to define what they can attack.GET_TARGETING_STRATEGY\((/[^,]*)\),
+///Datum for basic mobs to define what they can attack,
 ///Global, just like ai_behaviors
 /datum/targeting_strategy
 
@@ -12,3 +12,4 @@
 	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
 		target_hiding_location = target.loc
 	return target_hiding_location
+

@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(ai_controllers)
 	var/list/currentrun = list()
 	///type of status we are interested in running
 	var/planning_status = AI_STATUS_ON
-	/// The tick cost of all active AI, calculated on fire.
+	/// The average tick cost of all active AI, calculated on fire.
 	var/our_cost
 	/// The tick cost of all currently processed AI, being summed together
 	var/summing_cost

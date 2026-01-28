@@ -3,8 +3,10 @@
 	var/check_factions_exactly = FALSE
 	///Whether we care for seeing the target or not
 	var/ignore_sight = FALSE
-	/// Minimum status to attack living beings
-	var/stat_attack = CONSCIOUS
+	/// Blackboard key containing the minimum stat of a living mob to target
+	var/minimum_stat_key = BB_TARGET_MINIMUM_STAT
+	/// If this blackboard key is TRUE, makes us only target wounded mobs
+	var/target_wounded_key
 
 /datum/targeting_strategy/basic/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	var/datum/ai_controller/basic_controller/our_controller = living_mob.ai_controller
@@ -12,28 +14,41 @@
 	if(isnull(our_controller))
 		return FALSE
 
-	if(isturf(the_target) || !the_target) // bail out on invalids
+	if(isturf(the_target) || isnull(the_target)) // bail out on invalids
 		return FALSE
 
-	if(ismob(the_target)) //Target is in godmode, ignore it.
-		var/mob/M = the_target
-		if(HAS_TRAIT(M, TRAIT_GODMODE))
+	if(isobj(the_target.loc))
+		var/obj/container = the_target.loc
+		if(container.resistance_flags & INDESTRUCTIBLE)
 			return FALSE
 
-	if(!ignore_sight && can_see(living_mob, the_target, vision_range)) //Target has moved behind cover and we have lost line of sight to it
+	if(ismob(the_target)) //Target is in godmode, ignore it.
+		if(living_mob.loc == the_target)
+			return FALSE // We've either been eaten or are shapeshifted, let's assume the latter because we're still alive
+		if(HAS_TRAIT(the_target, TRAIT_GODMODE))
+			return FALSE
+
+	if (vision_range && get_dist(living_mob, the_target) > vision_range)
 		return FALSE
 
-	if(living_mob.see_invisible < the_target.invisibility)//Target's invisible to us, forget it
+	if(!ignore_sight && !can_see(living_mob, the_target, vision_range)) //Target has moved behind cover and we have lost line of sight to it
 		return FALSE
 
-	if(isturf(the_target.loc) && living_mob.get_virtual_z_level() != the_target.get_virtual_z_level()) // z check will always fail if target is in a mech
+	if(living_mob.see_invisible < the_target.invisibility) //Target's invisible to us, forget it
+		return FALSE
+
+	if(!isturf(living_mob.loc))
+		return FALSE
+	if(isturf(the_target.loc) && living_mob.get_virtual_z_level() != the_target.get_virtual_z_level()) // z check will always fail if target is in a mech or pawn is shapeshifted or jaunting
 		return FALSE
 
 	if(isliving(the_target)) //Targeting vs living mobs
 		var/mob/living/living_target = the_target
 		if(faction_check(our_controller, living_mob, living_target))
 			return FALSE
-		if(living_target.stat > stat_attack)
+		if(living_target.stat > our_controller.blackboard[minimum_stat_key])
+			return FALSE
+		if(target_wounded_key && our_controller.blackboard[target_wounded_key] && living_target.health == living_target.maxHealth)
 			return FALSE
 		return TRUE
 

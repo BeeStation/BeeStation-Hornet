@@ -80,7 +80,7 @@ multiple modular subtrees with behaviors
 	if(!isnull(new_pawn)) // unit tests need the ai_controller to exist in isolation due to list schenanigans i hate it here
 		PossessPawn(new_pawn)
 
-/datum/ai_controller/Destroy(force, ...)
+/datum/ai_controller/Destroy(force)
 	UnpossessPawn(FALSE)
 	if(ai_status)
 		GLOB.ai_controllers_by_status[ai_status] -= src
@@ -207,7 +207,7 @@ multiple modular subtrees with behaviors
 	if(!can_idle || isnull(our_cells))
 		return FALSE
 	for(var/datum/spatial_grid_cell/grid as anything in our_cells.member_cells)
-		if(length(grid.client_contents))
+		if(locate(/mob/living) in grid.client_contents)
 			return FALSE
 	return TRUE
 
@@ -229,8 +229,11 @@ multiple modular subtrees with behaviors
 	if(should_idle())
 		set_ai_status(AI_STATUS_IDLE)
 
-/datum/ai_controller/proc/on_client_enter(datum/source, atom/target)
+/datum/ai_controller/proc/on_client_enter(datum/source, list/target_list)
 	SIGNAL_HANDLER
+
+	if (!(locate(/mob/living) in target_list))
+		return
 
 	if(ai_status == AI_STATUS_IDLE)
 		set_ai_status(AI_STATUS_ON)
@@ -238,7 +241,7 @@ multiple modular subtrees with behaviors
 /datum/ai_controller/proc/on_client_exit(datum/source, datum/exited)
 	SIGNAL_HANDLER
 
-	recalculate_idle()
+	recalculate_idle(exited)
 
 /// Sets the AI on or off based on current conditions, call to reset after you've manually disabled it somewhere
 /datum/ai_controller/proc/reset_ai_status()
@@ -296,9 +299,11 @@ multiple modular subtrees with behaviors
 
 ///Proc for deinitializing the pawn to the old controller
 /datum/ai_controller/proc/UnpossessPawn(destroy)
+	SHOULD_CALL_PARENT(TRUE)
 	if(isnull(pawn))
 		return // instantiated without an applicable pawn, fine
 
+	SEND_SIGNAL(src, COMSIG_AI_CONTROLLER_UNPOSSESSED_PAWN)
 	set_ai_status(AI_STATUS_OFF)
 	UnregisterSignal(pawn, list(COMSIG_MOVABLE_Z_CHANGED, COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_MOB_STATCHANGE, COMSIG_QDELETING))
 	clear_able_to_run()
@@ -337,6 +342,32 @@ multiple modular subtrees with behaviors
 	if(world.time < paused_until)
 		return AI_UNABLE_TO_RUN
 	return NONE
+
+///Can this pawn interact with objects?
+/datum/ai_controller/proc/ai_can_interact()
+	SHOULD_CALL_PARENT(TRUE)
+	return !QDELETED(pawn)
+
+///Interact with objects
+/datum/ai_controller/proc/ai_interact(target, combat_mode, list/modifiers)
+	if(!ai_can_interact())
+		return FALSE
+
+	var/atom/final_target = isdatum(target) ? target : blackboard[target] //incase we got a blackboard key instead
+
+	if(QDELETED(final_target))
+		return FALSE
+	var/params = list2params(modifiers)
+	var/mob/living/living_pawn = pawn
+	if(isnull(combat_mode))
+		living_pawn.ClickOn(final_target, params)
+		return TRUE
+
+	var/old_combat_mode = living_pawn.combat_mode
+	living_pawn.set_combat_mode(combat_mode)
+	living_pawn.ClickOn(final_target, params)
+	living_pawn.set_combat_mode(old_combat_mode)
+	return TRUE
 
 ///Runs any actions that are currently running
 /datum/ai_controller/process(delta_time)
@@ -559,7 +590,7 @@ multiple modular subtrees with behaviors
 	set_ai_status(AI_STATUS_IDLE) //Can't do anything while player is connected
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, PROC_REF(on_sentience_gained))
 
-// Turn the controller off the controller if the pawn has been qdeleted
+// Turn the controller off if the pawn has been qdeleted
 /datum/ai_controller/proc/on_pawn_qdeleted()
 	SIGNAL_HANDLER
 	set_ai_status(AI_STATUS_OFF)
@@ -569,7 +600,10 @@ multiple modular subtrees with behaviors
 
 /// Use this proc to define how your controller defines what access the pawn has for the sake of pathfinding. Return the access list you want to use
 /datum/ai_controller/proc/get_access()
-	return
+	if(!isliving(pawn))
+		return
+	var/mob/living/living_pawn = pawn
+	return living_pawn.get_access()
 
 ///Returns the minimum required distance to preform one of our current behaviors. Honestly this should just be cached or something but fuck you
 /datum/ai_controller/proc/get_minimum_distance()
@@ -668,6 +702,25 @@ multiple modular subtrees with behaviors
 	post_blackboard_key_set(key)
 
 /**
+ * Helper to force a key to be a certain thing no matter what's already there
+ *
+ * Useful for if you're overriding a list with a new list entirely,
+ * as otherwise it would throw a runtime error from trying to override a list
+ *
+ * Not necessary to use if you aren't dealing with lists, as set_blackboard_key will clear the existing value
+ * in that case already, but may be useful for clarity.
+ *
+ * * key - A blackboard key
+ * * thing - a value to set the blackboard key to.
+ */
+/datum/ai_controller/proc/override_blackboard_key(key, thing)
+	if(blackboard[key] == thing)
+		return
+
+	clear_blackboard_key(key)
+	set_blackboard_key(key, thing)
+
+/**
  * Sets the key at index thing to the passed value
  *
  * Assumes the key value is already a list, if not throws an error.
@@ -713,7 +766,7 @@ multiple modular subtrees with behaviors
 /datum/ai_controller/proc/post_blackboard_key_set(key)
 	if (isnull(pawn))
 		return
-	SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_SET(key))
+	SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_SET(key), key)
 
 /**
  * Adds the passed "thing" to the associated key
@@ -803,6 +856,8 @@ multiple modular subtrees with behaviors
 /datum/ai_controller/proc/clear_blackboard_key(key)
 	if(isnull(blackboard[key]))
 		return
+	if(pawn && (SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_PRECLEAR(key))))
+		return
 	CLEAR_AI_DATUM_TARGET(blackboard[key], key)
 	blackboard[key] = null
 	if(isnull(pawn))
@@ -843,6 +898,19 @@ multiple modular subtrees with behaviors
 	CRASH("remove_thing_from_blackboard_key called with an invalid \"thing\" argument ([thing]). \
 		(The passed value is not tracked in the passed list.)")
 
+///removes a tracked object from a lazylist
+/datum/ai_controller/proc/remove_from_blackboard_lazylist_key(key, thing)
+	var/lazylist = blackboard[key]
+	if(isnull(lazylist))
+		return
+	for(var/key_index in lazylist)
+		if(thing == key_index || lazylist[key_index] == thing)
+			CLEAR_AI_DATUM_TARGET(thing, key)
+			lazylist -= key_index
+			break
+	if(!LAZYLEN(lazylist))
+		clear_blackboard_key(key)
+
 /// Signal proc to go through every key and remove the datum from all keys it finds
 /datum/ai_controller/proc/sig_remove_from_blackboard(datum/source)
 	SIGNAL_HANDLER
@@ -870,6 +938,7 @@ multiple modular subtrees with behaviors
 			// We found the value that's been deleted, it was an assoc value. Clear it out entirely
 			else if(associated_value == source)
 				next_to_clear -= inner_value
+				SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_CLEARED(inner_value))
 
 		index += 1
 

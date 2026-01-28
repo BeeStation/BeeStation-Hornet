@@ -13,7 +13,7 @@
 		return SUBTREE_RETURN_FINISH_PLANNING //we are going into battle...no distractions.
 
 /datum/ai_planning_subtree/basic_ranged_attack_subtree
-	operational_datums = list(/datum/element/ranged_attacks)
+	operational_datums = list(/datum/component/ranged_attacks)
 	var/datum/ai_behavior/basic_ranged_attack/ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack
 
 /datum/ai_planning_subtree/basic_ranged_attack_subtree/SelectBehaviors(datum/ai_controller/controller, delta_time)

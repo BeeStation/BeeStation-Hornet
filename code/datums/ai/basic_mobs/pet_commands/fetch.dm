@@ -95,20 +95,22 @@
 	set_movement_target(controller, snack)
 
 /datum/ai_behavior/eat_fetched_snack/perform(delta_time, datum/ai_controller/controller, target_key, delivery_key)
-	. = ..()
 	var/obj/item/snack = controller.blackboard[target_key]
-	if(QDELETED(snack) || !isturf(snack.loc) || ishuman(snack.loc))
+	var/is_living_loc = isliving(snack.loc)
+	if(QDELETED(snack) || (!isturf(snack.loc) && !is_living_loc))
 		// Where did it go?
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	var/mob/living/basic/basic_pawn = controller.pawn
-	if(!in_range(basic_pawn, snack))
+	if(is_living_loc)
+		if(DT_PROB(10, delta_time))
+			basic_pawn.manual_emote("Stares at [snack.loc]'s [snack.name] intently.")
 		return AI_BEHAVIOR_DELAY
 
-	if(isturf(snack.loc))
-		basic_pawn.melee_attack(snack) // snack attack!
-	else if(iscarbon(snack.loc) && DT_PROB(10, delta_time))
-		basic_pawn.manual_emote("Stares at [snack.loc]'s [snack.name] intently.")
+	if(!basic_pawn.Adjacent(snack))
+		return AI_BEHAVIOR_DELAY
+
+	controller.ai_interact(target = snack)
 
 	if(QDELETED(snack)) // we ate it!
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
