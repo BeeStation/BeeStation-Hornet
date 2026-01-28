@@ -204,6 +204,7 @@
 	.["core_stability"] = core_stability
 	.["core_instability"] = core_instability
 	.["core_health"] = core_health
+	.["power_output"] = display_power_persec(flux * MDR_FLUX_TO_POWER)
 
 /obj/machinery/atmospherics/components/unary/mdr/ui_act(action, params)
 	var/mob/user = usr
@@ -428,11 +429,12 @@
 
 /obj/machinery/power/flux_harvester
 	name = "Magnetic Flux Harvester"
-	desc = "Uses advanced wire coils to harvest magnetic flux efficiently"
+	desc = "Uses advanced wire coils to harvest magnetic flux efficiently."
 	icon = 'icons/obj/power.dmi'
-	icon_state = "ccharger"
+	icon_state = "flux_harvester"
+	circuit = /obj/item/circuitboard/machine/flux_harvester
 	var/output_this_tick = 0
-	var/max_harvested = 100 GIGAWATT
+	var/max_harvested = 1 GIGAWATT
 	var/obj/machinery/atmospherics/components/unary/mdr/parent = null
 
 /obj/machinery/power/flux_harvester/Destroy()
@@ -444,6 +446,13 @@
 		..()
 	add_avail(output_this_tick)
 	output_this_tick = 0
+
+/obj/machinery/power/flux_harvester/screwdriver_act(mob/living/user, obj/item/tool)
+	return default_deconstruction_screwdriver(user, "flux_harvester-o", "flux_harvester", tool)
+
+/obj/machinery/power/flux_harvester/crowbar_act(mob/living/user, obj/item/tool)
+	return default_deconstruction_crowbar(tool)
+
 
 /obj/machinery/power/flux_harvester/proc/add_power(power)
 	var/excess = max(power - max_harvested, 0)
