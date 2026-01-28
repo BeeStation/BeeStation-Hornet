@@ -10,7 +10,7 @@ PROCESSING_SUBSYSTEM_DEF(ai_behaviors)
 	wait = 1
 	///List of all ai_behavior singletons, key is the typepath while assigned value is a newly created instance of the typepath. See SetupAIBehaviors()
 	var/list/ai_behaviors
-	/// List of all targeting_strategy singletons, key is the typepath while assigned value is a newly created instance of the typepath. See SetupAIBehaviors()
+	///List of all targeting_strategy singletons, key is the typepath while assigned value is a newly created instance of the typepath. See SetupAIBehaviors()
 	var/list/targeting_strategies
 
 /datum/controller/subsystem/processing/ai_behaviors/Initialize()

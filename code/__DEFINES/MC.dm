@@ -121,6 +121,7 @@
 /datum/controller/subsystem/ai_controllers/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
+	ss_id=#X;\
 }\
 /datum/controller/subsystem/ai_controllers/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/ai_controllers/##X
@@ -129,6 +130,7 @@
 /datum/controller/subsystem/unplanned_controllers/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
+	ss_id=#X;\
 }\
 /datum/controller/subsystem/unplanned_controllers/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/unplanned_controllers/##X
