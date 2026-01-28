@@ -35,20 +35,15 @@ Dockerfile @crossedfall
 
 /tools/MapTileAggregator.py @itsmeow
 /code/modules/admin/player_panel.dm @itsmeow
-/code/modules/tgui/ @itsmeow
 /code/modules/tgui_input/ @itsmeow
-/code/modules/tgui_panel/ @itsmeow
-/tgui/ @itsmeow
 /tgui/packages/tgui/interfaces/PlayerPanel.js @itsmeow
-/code/modules/multiz @itsmeow
-/code/modules/client/login @itsmeow
+/code/modules/multiz/ @itsmeow
+/code/modules/client/login/ @itsmeow
+/code/modules/client/preferences/ @itsmeow
 
 # itsmeow (explicitly disowned)
 
-/tgui/packages/tgui/interfaces/
-/tgui/packages/tgui/styles/interfaces/
-/tgui/packages/tgui-panel/styles/tgchat/chat-dark.scss
-/tgui/packages/tgui-panel/styles/tgchat/chat-light.scss
+/code/modules/client/preferences/entries/
 
 # mrmanlikesbt
 
