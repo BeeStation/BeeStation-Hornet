@@ -44,14 +44,14 @@
 
 #define MDR_RADIO_COOLDOWN 8 SECONDS
 
-/obj/machinery/atmospherics/components/unary/mdr
-	name = "Metallic Decay Reactor"
+/obj/machinery/atmospherics/components/unary/cdr
+	name = "Condensate Decay Reactor"
 	desc = "A sphere of ultra-stable metallic gases, which generate magnetic flux by decaying into more stable gases."
-	icon = 'icons/obj/machines/mdr.dmi'
-	icon_state = "mdr"
+	icon = 'icons/obj/machines/cdr.dmi'
+	icon_state = "cdr"
 	density = TRUE
 	layer = MOB_LAYER
-	circuit = /obj/item/circuitboard/machine/mdr
+	circuit = /obj/item/circuitboard/machine/cdr
 
 	var/activated = FALSE
 
@@ -78,10 +78,10 @@
 
 	var/last_user = null //for admin logging
 
-	var/mdr_uid = 1 //id of the MDR
-	var/static/gl_mdr_uid = 1 //number of MDRs that have been made (this solution is from supermatter.dm as of 2026, yell at them if you think its dumb)
+	var/cdr_uid = 1 //id of the MDR
+	var/static/gl_cdr_uid = 1 //number of MDRs that have been made (this solution is from supermatter.dm as of 2026, yell at them if you think its dumb)
 
-	var/datum/looping_sound/mdr/soundloop
+	var/datum/looping_sound/cdr/soundloop
 
 	var/list/obj/machinery/power/flux_harvester/linked_harvesters = list()
 	var/list/core_composition = list()
@@ -93,16 +93,16 @@
 
 	COOLDOWN_DECLARE(radio_cooldown)
 
-/obj/machinery/atmospherics/components/unary/mdr/Initialize(mapload)
+/obj/machinery/atmospherics/components/unary/cdr/Initialize(mapload)
 	. = ..()
-	mdr_uid = gl_mdr_uid++
+	cdr_uid = gl_cdr_uid++
 	soundloop = new(src)
 	radio = new(src)
 	radio.keyslot = new radio_key
 	radio.set_listening(FALSE)
 	radio.recalculateChannels()
 
-/obj/machinery/atmospherics/components/unary/mdr/Destroy()
+/obj/machinery/atmospherics/components/unary/cdr/Destroy()
 	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		harvester.parent = null
 	var/total_core_mols = 0
@@ -112,14 +112,14 @@
 	qdel(radio)
 	. = ..()
 
-/obj/machinery/atmospherics/components/unary/mdr/on_construction(mob/user)
+/obj/machinery/atmospherics/components/unary/cdr/on_construction(mob/user)
 	. = ..()
 	if(check_pipe_on_turf())
 		to_chat(user, span_warning("Something is hogging the tile!"))
 		deconstruct(TRUE)
 
 
-/obj/machinery/atmospherics/components/unary/mdr/process(delta_time)
+/obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
 	update_parents() //needs to process constantly for gases to not get stuck
 	if(!activated)
 		return
@@ -130,27 +130,27 @@
 	process_stability()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/atmospherics/components/unary/mdr/screwdriver_act(mob/living/user, obj/item/tool)
+/obj/machinery/atmospherics/components/unary/cdr/screwdriver_act(mob/living/user, obj/item/tool)
 	if(activated)
 		balloon_alert(user, "deactivate first!")
 		return TRUE
 
-	if(default_deconstruction_screwdriver(user, "mdr", "mdr", tool))
+	if(default_deconstruction_screwdriver(user, "cdr", "cdr", tool))
 		update_appearance()
 		return TRUE
 
-/obj/machinery/atmospherics/components/unary/mdr/wrench_act(mob/living/user, obj/item/tool)
+/obj/machinery/atmospherics/components/unary/cdr/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)
 
-/obj/machinery/atmospherics/components/unary/mdr/multitool_act(mob/living/user, obj/item/tool)
+/obj/machinery/atmospherics/components/unary/cdr/multitool_act(mob/living/user, obj/item/tool)
 	deactivate()
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/mdr/crowbar_act(mob/living/user, obj/item/tool)
+/obj/machinery/atmospherics/components/unary/cdr/crowbar_act(mob/living/user, obj/item/tool)
 	return crowbar_deconstruction_act(user, tool)
 
 
-/obj/machinery/atmospherics/components/unary/mdr/update_overlays()
+/obj/machinery/atmospherics/components/unary/cdr/update_overlays()
 	. = ..()
 	var/core_mass = 0
 	for(var/gastype in core_composition)
@@ -168,23 +168,23 @@
 			. += mutable_appearance(initial(icon), "sphere_3")
 			. += emissive_appearance(initial(icon), "sphere_3", layer)
 
-/obj/machinery/atmospherics/components/unary/mdr/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/atmospherics/components/unary/cdr/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AtmosMdr")
+		ui = new(user, src, "AtmosCdr")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/atmospherics/components/unary/mdr/ui_state()
+/obj/machinery/atmospherics/components/unary/cdr/ui_state()
 	return GLOB.default_state
 
-/obj/machinery/atmospherics/components/unary/mdr/ui_static_data(mob/user)
+/obj/machinery/atmospherics/components/unary/cdr/ui_static_data(mob/user)
 	. = ..()
-	.["uid"] = mdr_uid
+	.["uid"] = cdr_uid
 	.["area"] = AREACOORD(src)
 	.["max_core_health"] = MDR_MAX_CORE_HEALTH
 
-/obj/machinery/atmospherics/components/unary/mdr/ui_data(mob/user)
+/obj/machinery/atmospherics/components/unary/cdr/ui_data(mob/user)
 	. = ..()
 
 	var/list/core_composition_named = list()
@@ -208,7 +208,7 @@
 	.["core_health"] = core_health
 	.["power_output"] = display_power_persec(flux * MDR_FLUX_TO_POWER)
 
-/obj/machinery/atmospherics/components/unary/mdr/ui_act(action, params)
+/obj/machinery/atmospherics/components/unary/cdr/ui_act(action, params)
 	var/mob/user = usr
 	if(ismob(user) && user.ckey)
 		last_user = user.ckey
@@ -225,7 +225,7 @@
 		if("reconnect")
 			link_harvesters()
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/check_pipe_on_turf()
+/obj/machinery/atmospherics/components/unary/cdr/proc/check_pipe_on_turf()
 	for(var/obj/machinery/atmospherics/device in get_turf(src))
 		if(device == src)
 			continue
@@ -233,16 +233,16 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/can_activate()
+/obj/machinery/atmospherics/components/unary/cdr/proc/can_activate()
 	return !(activated || (!is_operational))
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/can_deactivate()
+/obj/machinery/atmospherics/components/unary/cdr/proc/can_deactivate()
 	for(var/gastype in core_composition)
 		if(core_composition[gastype])
 			return FALSE
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/activate()
+/obj/machinery/atmospherics/components/unary/cdr/proc/activate()
 	if(!can_activate())
 		balloon_alert_to_viewers("can not activate now!")
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
@@ -252,7 +252,7 @@
 	activated = TRUE
 	update_appearance()
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/deactivate()
+/obj/machinery/atmospherics/components/unary/cdr/proc/deactivate()
 	if(!can_deactivate())
 		balloon_alert_to_viewers("can not deactivate now!")
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
@@ -262,19 +262,19 @@
 	activated = FALSE
 	update_appearance()
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/get_core_heat_capacity()
+/obj/machinery/atmospherics/components/unary/cdr/proc/get_core_heat_capacity()
 	var/total_capacity
 	for(var/gastype in core_composition)
 		total_capacity += GLOB.meta_gas_info[gastype]?[META_GAS_SPECIFIC_HEAT] * core_composition[gastype]
 	return total_capacity
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/get_core_stability()
+/obj/machinery/atmospherics/components/unary/cdr/proc/get_core_stability()
 	var/stability_value = 0
 	for(var/gastype in core_composition) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
 		stability_value += core_composition[gastype] * MDR_GAS_VARS[gastype]?[GAS_STABILITY_VAL]
 	return stability_value * get_temp_stab_factor()
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/link_harvesters()
+/obj/machinery/atmospherics/components/unary/cdr/proc/link_harvesters()
 	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		harvester.unlink_harvester()
 		linked_harvesters -= harvester
@@ -284,13 +284,13 @@
 			harvester.link_harvester(src)
 			START_PROCESSING(SSmachines, harvester)
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/get_temp_stab_factor()
+/obj/machinery/atmospherics/components/unary/cdr/proc/get_temp_stab_factor()
 	var/n2o_mols = core_composition[/datum/gas/oxygen]
 	var/maximum_temp_factor = n2o_mols ? max(100 - n2o_mols * 0.1, 10) : 100 //when n2o mols > 1000 temp_factor = 10
 	var/temp_slope = 0.01
 	return max(-(core_temperature * temp_slope) + maximum_temp_factor, 1)
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/decay_gases(decay_factor)
+/obj/machinery/atmospherics/components/unary/cdr/proc/decay_gases(decay_factor)
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	var/total_energy_consumed = 0
 	for(var/gastype in core_composition)
@@ -318,13 +318,13 @@
 	core_temperature = new_temperature
 	turf_mix.temperature = new_temperature
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/get_mass_multiplier()
+/obj/machinery/atmospherics/components/unary/cdr/proc/get_mass_multiplier()
 	var/core_mass = 0
 	for(var/gastype in core_composition)
 		core_mass += core_composition[gastype]
 	return max(core_mass / MDR_CORE_MASS_DIV, 1)
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/process_stability()
+/obj/machinery/atmospherics/components/unary/cdr/proc/process_stability()
 	var/bz_mols = core_composition[/datum/gas/bz]
 	core_stability = get_core_stability()
 	base_instability = max(bz_mols ? bz_mols * MDR_GAS_VARS[/datum/gas/bz][GAS_DECAY_THRESHOLD] : 0, MDR_BASE_INSTABILITY)
@@ -332,7 +332,7 @@
 	var/delta_stability = core_instability - core_stability
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/adjust_health(delta)
+/obj/machinery/atmospherics/components/unary/cdr/proc/adjust_health(delta)
 	if(invincible)
 		return
 	var/health_delta = clamp(core_health + delta, 0, MDR_MAX_CORE_HEALTH)
@@ -344,21 +344,21 @@
 	if (core_health <= 0)
 		addtimer(CALLBACK(src, PROC_REF(fail)), 3 SECONDS)
 		STOP_PROCESSING(SSmachines, src)
-		playsound(src, 'sound/machines/mdr_collapse.ogg', 100, FALSE, 40, falloff_distance = 25)
+		playsound(src, 'sound/machines/cdr-collapse.ogg', 100, FALSE, 40, falloff_distance = 25)
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/alert_radio(decreasing)
+/obj/machinery/atmospherics/components/unary/cdr/proc/alert_radio(decreasing)
 	if(!(COOLDOWN_FINISHED(src, radio_cooldown)) || core_health > MDR_MAX_CORE_HEALTH * 0.6)
 		return
 	var/message = "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!"
 	core_health < MDR_MAX_CORE_HEALTH * 0.25 ? radio.talk_into(src, message, null) : radio.talk_into(src, message, RADIO_CHANNEL_ENGINEERING)
 	COOLDOWN_START(src, radio_cooldown, MDR_RADIO_COOLDOWN)
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/fail()
+/obj/machinery/atmospherics/components/unary/cdr/proc/fail()
 	investigate_log("failed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
 	new /obj/anomaly/singularity/temporary(get_turf(src), 500)
 	qdel(src)
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/process_toroid()
+/obj/machinery/atmospherics/components/unary/cdr/proc/process_toroid()
 	toroid_spin = toroid_spin - toroid_spin * metallization_ratio
 
 	if(toroid_spin < 0.001) //prevent it from reaching absurdly small numbers
@@ -381,7 +381,7 @@
 
 	toroid_flux_mult = round(max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0), (parabolic_upper_limit * parabolic_setting) / MDR_PARABOLIC_ACCURACY) //hopefully this rounding removes some issues
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/process_diffusion()
+/obj/machinery/atmospherics/components/unary/cdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	for(var/turf_gas in (turf_mix.gases | core_composition))
 		var/turf_mix_mols = turf_mix.gases[turf_gas]?[MOLES]
@@ -411,24 +411,24 @@
 			src.air_update_turf(FALSE, FALSE)
 			garbage_collect()
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/process_harvesters()
+/obj/machinery/atmospherics/components/unary/cdr/proc/process_harvesters()
 	var/power_left = flux * MDR_FLUX_TO_POWER
 	for (var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		power_left -= harvester.add_power(power_left)
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/garbage_collect()
+/obj/machinery/atmospherics/components/unary/cdr/proc/garbage_collect()
 	for(var/gastype in core_composition)
 		if(QUANTIZE(core_composition[gastype]) <= 0)
 			core_composition -= gastype
 
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/add_flux(flux_to_add)
+/obj/machinery/atmospherics/components/unary/cdr/proc/add_flux(flux_to_add)
 	flux = flux_to_add * toroid_flux_mult
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/add_gas_to_core(datum/gas/to_add, mols_to_add)
+/obj/machinery/atmospherics/components/unary/cdr/proc/add_gas_to_core(datum/gas/to_add, mols_to_add)
 	core_composition[to_add] += mols_to_add
 
-/obj/machinery/atmospherics/components/unary/mdr/proc/remove_gas_from_core(datum/gas/to_add, mols_to_remove)
+/obj/machinery/atmospherics/components/unary/cdr/proc/remove_gas_from_core(datum/gas/to_add, mols_to_remove)
 	core_composition[to_add] = max(core_composition[to_add] - mols_to_remove, 0)
 
 /obj/machinery/power/flux_harvester
@@ -439,7 +439,7 @@
 	circuit = /obj/item/circuitboard/machine/flux_harvester
 	var/output_this_tick = 0
 	var/max_harvested = 1 GIGAWATT
-	var/obj/machinery/atmospherics/components/unary/mdr/parent = null
+	var/obj/machinery/atmospherics/components/unary/cdr/parent = null
 
 /obj/machinery/power/flux_harvester/Destroy()
 	. = ..()
@@ -463,7 +463,7 @@
 	output_this_tick = min(power, max_harvested)
 	return excess
 
-/obj/machinery/power/flux_harvester/proc/link_harvester(obj/machinery/atmospherics/components/unary/mdr/reactor)
+/obj/machinery/power/flux_harvester/proc/link_harvester(obj/machinery/atmospherics/components/unary/cdr/reactor)
 	parent = reactor
 
 /obj/machinery/power/flux_harvester/proc/unlink_harvester()

@@ -18,7 +18,7 @@ import { Window } from '../layouts';
 
 type CoreComposition = Record<string, number>;
 
-export type MdrData = {
+export type CdrData = {
   uid: number;
   area: string;
   toroid_spin: number;
@@ -39,12 +39,12 @@ export type MdrData = {
   power_output: string;
 };
 
-export const AtmosMdr = (props) => {
-  const { data } = useBackend<MdrData>();
+export const AtmosCdr = (props) => {
+  const { data } = useBackend<CdrData>();
   return (
     <Window width={550} height={420}>
       <Window.Content scrollable>
-        <MdrContent {...data} />
+        <CdrContent {...data} />
       </Window.Content>
     </Window>
   );
@@ -64,7 +64,7 @@ const DisplayGasOutput = (core_composition: CoreComposition) => {
   ));
 };
 
-export const MdrContent = (props: MdrData) => {
+export const CdrContent = (props: CdrData) => {
   const { act } = useBackend();
   const {
     uid,

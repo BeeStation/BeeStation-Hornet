@@ -561,7 +561,7 @@
 		"super_capacitor",
 		"super_cell",
 		"superpacman",
-		"mdr",
+		"cdr",
 		"flux_harvester"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
