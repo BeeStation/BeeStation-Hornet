@@ -113,9 +113,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			say_dead(original_message)
 			return
 
-	if(saymode && saymode.early && !saymode.handle_message(src, message, language))
-		return
-
 	if(!try_speak(original_message, ignore_spam, forced))
 		return
 
@@ -180,16 +177,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			succumb()
 		return
 
-	//This is before anything that sends say a radio message, and after all important message type modifications, so you can scumb in alien chat or something
-	if(saymode && !saymode.early && !saymode.handle_message(src, message, language))
-		return
-	var/radio_message = message
-	if(message_mods[WHISPER_MODE])
-		// radios don't pick up whispers very well
-		radio_message = stars(radio_message)
-		spans |= SPAN_ITALICS
+	//Get which verb is prefixed to the message before radio but after most modifications
+	message_mods[SAY_MOD_VERB] = say_mod(message, message_mods)
 
-	var/radio_return = radio(radio_message, message_mods, spans, language)//roughly 27% of living/say()'s total cost
+	//This is before anything that sends say a radio message, and after all important message type modifications, so you can scumb in alien chat or something
+	if(saymode && !saymode.handle_message(src, message, language))
+		return
+
+	var/radio_return = radio(message, message_mods, spans, language)//roughly 27% of living/say()'s total cost
 	if(radio_return & ITALICS)
 		spans |= SPAN_ITALICS
 	if(radio_return & REDUCE_RANGE)
@@ -252,7 +247,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(speaker != src)
 		if(!radio_freq) //These checks have to be separate, else people talking on the radio will make "You can't hear yourself!" appear when hearing people over the radio while deaf.
-			deaf_message = "[span_name("[speaker]")] [speaker.verb_say] something but you cannot hear [speaker.p_them()]."
+			deaf_message = "[span_name("[speaker]")] [speaker.get_default_say_verb()] something but you cannot hear [speaker.p_them()]."
 			deaf_type = MSG_VISUAL
 	else
 		deaf_message = span_notice("You can't hear yourself!")

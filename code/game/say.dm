@@ -29,7 +29,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	spans |= speech_span
 	if(!language)
 		language = get_selected_language()
-	send_speech(message, message_range, source, bubble_type, spans, message_language = language, forced = forced)
+	var/list/message_mods = list()
+	message_mods[SAY_MOD_VERB] = say_mod(message, message_mods)
+	send_speech(message, message_range, source, bubble_type, spans, language, message_mods, forced = forced)
 
 /atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range=0)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
@@ -158,16 +160,40 @@ GLOBAL_LIST_INIT(freqtospan, list(
 /atom/movable/proc/compose_job(atom/movable/speaker, message_langs, raw_message, radio_freq)
 	return ""
 
+/**
+ * Works out and returns which prefix verb the passed message should use.
+ *
+ * input - The message for which we want the verb.
+ * message_mods - A list of message modifiers, i.e. whispering/singing.
+ */
 /atom/movable/proc/say_mod(input, list/message_mods = list())
 	var/ending = copytext_char(input, -1)
 	if(copytext_char(input, -2) == "!!")
-		return verb_yell
+		return get_default_yell_verb()
 	else if(ending == "?")
-		return verb_ask
+		return get_default_ask_verb()
 	else if(ending == "!")
-		return verb_exclaim
+		return get_default_exclaim_verb()
 	else
-		return verb_say
+		return get_default_say_verb()
+
+/**
+ * Gets the say verb we default to if no special verb is chosen.
+ * This is primarily a hook for inheritors,
+ * like human_say.dm's tongue-based verb_say changes.
+ */
+/atom/movable/proc/get_default_say_verb()
+	return verb_say
+
+/atom/movable/proc/get_default_ask_verb()
+	return verb_ask
+
+/atom/movable/proc/get_default_yell_verb()
+	return verb_yell
+
+/atom/movable/proc/get_default_exclaim_verb()
+	return verb_exclaim
+
 
 /atom/movable/proc/say_quote(input, list/spans=list(speech_span), list/message_mods = list())
 	if(!input)
@@ -176,9 +202,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(copytext_char(input, -2) == "!!")
 		spans |= SPAN_YELL
 
-	var/say_mod = message_mods[MODE_CUSTOM_SAY_EMOTE]
-	if(!say_mod)
-		say_mod = say_mod(input, message_mods)
+	var/say_mod = message_mods[MODE_CUSTOM_SAY_EMOTE] || message_mods[SAY_MOD_VERB] || say_mod(input, message_mods)
 
 	var/spanned = attach_spans(input, spans)
 	return "[say_mod], \"[spanned]\""
@@ -262,10 +286,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/virtualspeaker)
 	source = M
 	if(istype(M))
 		name = radio.anonymize ? "Unknown" : M.GetVoice()
-		verb_say = M.verb_say
-		verb_ask = M.verb_ask
-		verb_exclaim = M.verb_exclaim
-		verb_yell = M.verb_yell
+		verb_say = M.get_default_say_verb()
+		verb_ask = M.get_default_say_verb()
+		verb_exclaim = M.get_default_say_verb()
+		verb_yell = M.get_default_say_verb()
 
 	// The mob's job identity
 	if(ishuman(M))
