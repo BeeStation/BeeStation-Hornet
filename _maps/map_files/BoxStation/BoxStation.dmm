@@ -18428,12 +18428,10 @@
 	pixel_y = 2
 	},
 /obj/item/hand_labeler{
-	pixel_x = 0;
 	pixel_y = 5
 	},
 /obj/item/camera{
-	pixel_x = 10;
-	pixel_y = 0
+	pixel_x = 10
 	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
