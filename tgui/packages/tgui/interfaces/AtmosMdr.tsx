@@ -252,14 +252,9 @@ export const MdrContent = (props: MdrData) => {
                 </Box>
                 <Graph
                   funct={(i: number) => {
-                    return (
-                      -((i - 2) ** 2) +
-                      4
-                    );
+                    return -((i - 2) ** 2) + 4;
                   }}
-                  upperLimit={
-                    4.1
-                  }
+                  upperLimit={4.1}
                   lowerLimit={0}
                   leftLimit={0}
                   rightLimit={4}

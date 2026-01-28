@@ -1,2 +1,9 @@
 crate_close.ogg and crate_open.ogg are made by lawnjelly
 (https://freesound.org/people/lawnjelly/sounds/156892/)
+
+mdr-mid.ogg is made with sounds from FrazierWing and eguaus
+(https://freesound.org/people/FrazierWing/sounds/638022/,
+https://freesound.org/people/eguaus/sounds/321719/)
+
+mdr_collapse.ogg is made by bevibeldesign
+(https://freesound.org/people/bevibeldesign/sounds/366091/)
