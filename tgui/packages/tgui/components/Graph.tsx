@@ -1,24 +1,27 @@
 import { Component } from 'react';
 
-export class Graph extends Component {
+type Props = {
+  funct: number;
+  upperLimit: number;
+  lowerLimit: number;
+  leftLimit: number;
+  rightLimit: number;
+  steps: number;
+  lineColor: string;
+  fillColor: string;
+  strokeWidth: number;
+};
+
+
+export class Graph extends Component<Props> {
   constructor(props) {
     super(props);
-    const {
-      funct,
-      upperLimit,
-      lowerLimit,
-      leftLimit,
-      rightLimit,
-      steps,
-      ...rest
-    } = props;
-    this.distPerStep = (rightLimit - leftLimit) / steps;
   }
 
-  iterateOverNodes(funct, leftLimit, steps) {
-    let points = [];
+  iterateOverNodes(funct: (i: number) => number, distPerStep: number, leftLimit: number, steps: number) {
+    let points: number[][] = [];
     for (let i = 0; i <= steps; i++) {
-      let xPos = i * this.distPerStep + leftLimit;
+      let xPos = i * distPerStep + leftLimit;
       points.push([xPos, funct(xPos)]);
     }
     return points;
@@ -35,8 +38,8 @@ export class Graph extends Component {
       lineColor,
       fillColor,
       strokeWidth,
-      ...rest
     } = this.props;
+    let distPerStep = (rightLimit - leftLimit) / steps;
     return (
       <svg
         viewBox={`${leftLimit} ${lowerLimit} ${rightLimit} ${upperLimit}`}
@@ -46,15 +49,15 @@ export class Graph extends Component {
           width: '100%',
           height: '100%',
         }}
-        {...rest}
       >
         <polyline
           transform={`scale(1, -1) translate(0, -${upperLimit - lowerLimit})`}
           fill={fillColor}
           stroke={lineColor}
           strokeWidth={strokeWidth}
-          points={this.iterateOverNodes(funct, leftLimit, steps)}
+          points={this.iterateOverNodes(funct, distPerStep, leftLimit, steps)}
         />
+
       </svg>
     );
   }

@@ -1,3 +1,5 @@
+import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import {
   Box,
@@ -13,8 +15,33 @@ import {
   Section,
 } from '../components';
 import { Window } from '../layouts';
+
+
+type CoreComposition = Record<string, number>;
+
+export type MdrData = Partial<{
+  uid: number;
+  area: string;
+  toroid_spin: number;
+  parabolic_setting: number;
+  parabolic_upper_limit: number;
+  parabolic_ratio: number;
+  input_volume: number;
+  toroid_flux_mult: number;
+  core_temperature: number;
+  core_composition: CoreComposition;
+  can_activate: BooleanLike;
+  activated: BooleanLike;
+  metallization_ratio: number;
+  core_stability: number;
+  core_instability: number;
+  core_health: number;
+  max_core_health: number;
+  power_output: string;
+}>
+
 export const AtmosMdr = (props) => {
-  const { data } = useBackend();
+  const { data } = useBackend<MdrData>();
   return (
     <Window width={550} height={420} style={{ overflowY: 'scroll' }}>
       <Window.Content scrollable>
@@ -24,7 +51,7 @@ export const AtmosMdr = (props) => {
   );
 };
 
-const DisplayGasOutput = (core_composition) => {
+const DisplayGasOutput = (core_composition: CoreComposition) => {
   return Object.keys(core_composition).map((name, index) => (
     <Flex
       key={name}
@@ -38,7 +65,7 @@ const DisplayGasOutput = (core_composition) => {
   ));
 };
 
-export const MdrContent = (props) => {
+export const MdrContent = (props: Data) => {
   const { act } = useBackend();
   const {
     toroid_spin,
@@ -123,7 +150,7 @@ export const MdrContent = (props) => {
           <LabeledControls.Item minWidth="66px" label="Toroid Input">
             <NumberInput
               animated
-              value={parseFloat(input_volume)}
+              value={input_volume}
               width="75px"
               unit="L/s"
               minValue={0}
@@ -236,7 +263,7 @@ export const MdrContent = (props) => {
                   leftLimit={0}
                   rightLimit={2 * sqrt_parabolic_limit}
                   steps={25}
-                  strokeWidth={sqrt_parabolic_limit / 30}
+                  strokeWidth={parabolic_upper_limit / 30}
                   fillColor="#ffffff00"
                   lineColor="#ffffff"
                 />

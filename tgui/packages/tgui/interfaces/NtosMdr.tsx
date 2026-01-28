@@ -1,9 +1,17 @@
 import { useBackend } from '../backend';
 import { Box, Button, Section, Table } from '../components';
 import { NtosWindow } from '../layouts';
-import { MdrContent } from './AtmosMdr';
+import { MdrContent, MdrData } from './AtmosMdr';
 export const NtosMdr = (props) => {
-  const { act, data } = useBackend();
+
+  type MdrDataList = Record<string, MdrData>;
+
+  type Data = {
+    mdr_data: MdrDataList;
+    selected_mdr_uid: number;
+  };
+
+  const { act, data } = useBackend<Data>();
   const { mdr_data, selected_mdr_uid } = data;
   const activeMdr = Object.values(mdr_data).find(
     (mdr) => mdr.uid === selected_mdr_uid,

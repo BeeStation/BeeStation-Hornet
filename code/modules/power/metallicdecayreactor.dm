@@ -31,6 +31,7 @@
 
 #define MDR_MOL_TO_SPIN 1000
 #define MDR_SPIN_INSTABILITY_MULT 1e3
+#define MDR_PARABOLIC_ACCURACY 1E-4
 
 #define MDR_BASE_INSTABILITY 100
 
@@ -375,7 +376,7 @@
 	parabolic_upper_limit = get_mass_multiplier()
 	parabolic_ratio = toroid_spin / 10000
 
-	toroid_flux_mult = max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0)
+	toroid_flux_mult = round(max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0), MDR_PARABOLIC_ACCURACY)
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
