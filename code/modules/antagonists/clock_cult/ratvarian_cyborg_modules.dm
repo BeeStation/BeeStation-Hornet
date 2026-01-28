@@ -1,69 +1,73 @@
-/obj/item/clock_module
+/obj/item/borg/ratvar
 	name = "ratvarian borg module"
 	desc = "cool."
 	icon = 'icons/hud/actions/actions_clockcult.dmi'
 	icon_state = "Replicant"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = NOBLUDGEON
-	var/scripture_datum = /datum/clockcult/scripture
 
-/obj/item/clock_module/Initialize(mapload)
-	..()
-	var/datum/clockcult/scripture/S = new scripture_datum
-	name = S.name
-	desc = S.desc
-	icon_state = S.button_icon_state
+	/// The scripture this module invokes
+	var/datum/clockcult/scripture/scripture_datum = /datum/clockcult/scripture
 
-/obj/item/clock_module/attack_self(mob/user)
-	..()
+/obj/item/borg/ratvar/Initialize(mapload)
+	. = ..()
+
+	scripture_datum = new scripture_datum(null)
+	scripture_datum.should_bypass_unlock_checks = TRUE
+
+	name = scripture_datum.name
+	desc = scripture_datum.desc
+	icon_state = scripture_datum.button_icon_state
+
+/obj/item/borg/ratvar/attack_self(mob/user)
 	if(!IS_SERVANT_OF_RATVAR(user))
 		return
-	var/mob/living/silicon/robot/R = user
-	if(!istype(R))
+	if(!iscyborg(user))
 		return
-	if(!scripture_datum)
-		return
-	var/obj/item/clockwork/clockwork_slab/internal_slab = R.internal_clock_slab
-	if(!internal_slab)
-		return
-	if(internal_slab.invoking_scripture)
-		to_chat(user, span_brass("You fail to invoke [name]."))
-		return FALSE
-	var/datum/clockcult/scripture/new_scripture = new scripture_datum
-	if(new_scripture.power_cost > GLOB.clockcult_power)
-		to_chat(user, span_neovgre("You need [new_scripture.power_cost]W to invoke [new_scripture.name]."))
-		qdel(new_scripture)
-		return FALSE
-	//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
-	new_scripture.qdel_on_completion = TRUE
-	new_scripture.begin_invoke(user, internal_slab, TRUE)
+	. = ..()
 
-/obj/item/clock_module/abscond
+	// Set slab
+	var/mob/living/silicon/robot/robot_user = user
+	var/obj/item/clockwork/clockwork_slab/internal_slab = robot_user.internal_clock_slab
+
+	if(!scripture_datum.invoking_slab)
+		if(!internal_slab)
+			return
+
+		scripture_datum.invoking_slab = internal_slab
+
+	if(internal_slab.invoking_scripture)
+		user.balloon_alert(user, "already invoking scripture!")
+		return
+
+	scripture_datum.try_to_invoke(user)
+
+/obj/item/borg/ratvar/abscond
 	scripture_datum = /datum/clockcult/scripture/abscond
 
-/obj/item/clock_module/kindle
+/obj/item/borg/ratvar/kindle
 	scripture_datum = /datum/clockcult/scripture/slab/kindle
 
-/obj/item/clock_module/abstraction_crystal
+/obj/item/borg/ratvar/abstraction_crystal
 	scripture_datum = /datum/clockcult/scripture/create_structure/abstraction_crystal
 
-/obj/item/clock_module/sentinels_compromise
-	scripture_datum = /datum/clockcult/scripture/slab/sentinelscompromise
+/obj/item/borg/ratvar/sentinels_compromise
+	scripture_datum = /datum/clockcult/scripture/slab/sentinels_compromise
 
-/obj/item/clock_module/prosperity_prism
+/obj/item/borg/ratvar/prosperity_prism
 	scripture_datum = /datum/clockcult/scripture/create_structure/prosperityprism
 
-/obj/item/clock_module/ocular_warden
+/obj/item/borg/ratvar/ocular_warden
 	scripture_datum = /datum/clockcult/scripture/create_structure/ocular_warden
 
-/obj/item/clock_module/tinkerers_cache
+/obj/item/borg/ratvar/tinkerers_cache
 	scripture_datum = /datum/clockcult/scripture/create_structure/tinkerers_cache
 
-/obj/item/clock_module/stargazer
+/obj/item/borg/ratvar/stargazer
 	scripture_datum = /datum/clockcult/scripture/create_structure/stargazer
 
-/obj/item/clock_module/vanguard
+/obj/item/borg/ratvar/vanguard
 	scripture_datum = /datum/clockcult/scripture/slab/vanguard
 
-/obj/item/clock_module/sigil_submission
+/obj/item/borg/ratvar/sigil_submission
 	scripture_datum = /datum/clockcult/scripture/create_structure/sigil_submission

@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 
 	delay *= user.cached_multiplicative_actions_slowdown
 
-	if (HAS_TRAIT(user, INSTANT_DO_AFTER))
+	if (HAS_TRAIT(user, TRAIT_INSTANT_DO_AFTER))
 		delay = -1
 
 	var/datum/progressbar/progbar
