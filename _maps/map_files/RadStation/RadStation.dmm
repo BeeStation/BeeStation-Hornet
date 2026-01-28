@@ -18006,7 +18006,9 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "fZx" = (
-/mob/living/simple_animal/pet/cat/Proc,
+/mob/living/simple_animal/pet/cat/Proc{
+	name = "Captain Snugglebottoms III Esquire"
+	},
 /obj/structure/bed/dogbed,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
