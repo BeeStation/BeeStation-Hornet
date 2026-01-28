@@ -4,7 +4,7 @@
 	category = PROGRAM_CATEGORY_ENGI
 	ui_header = "smmon_0.gif"
 	program_icon_state = "smmon_0"
-	extended_desc = "The Condensate Decay Reactor monitoring system. As one might expect, it monitors MDRs."
+	extended_desc = "The Condensate Decay Reactor monitoring system. As one might expect, it monitors CDRs."
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_CONSTRUCTION)
 	network_destination = "metallic decay reactor monitoring system"

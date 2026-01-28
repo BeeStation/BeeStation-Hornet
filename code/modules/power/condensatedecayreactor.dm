@@ -14,7 +14,7 @@
 #define GAS_DECAY_THRESHOLD 2
 #define GAS_DECAY_FLUX_MULT 3
 #define GAS_STABILITY_VAL 4
-#define MDR_GAS_VARS list( \
+#define CDR_GAS_VARS list( \
 	/datum/gas/nitrium = list(GAS_DECAY_RATE = 0.1, GAS_DECAY_THRESHOLD = 10, GAS_DECAY_FLUX_MULT = 10, GAS_STABILITY_VAL = 0.1), \
 	/datum/gas/tritium = list(GAS_DECAY_RATE = 0.1, GAS_DECAY_THRESHOLD = 20, GAS_DECAY_FLUX_MULT = 5, GAS_STABILITY_VAL = 0.2), \
 	/datum/gas/plasma = list(GAS_DECAY_RATE = 0.1, GAS_DECAY_THRESHOLD = 100, GAS_DECAY_FLUX_MULT = 2, GAS_STABILITY_VAL = 0.5), \
@@ -29,20 +29,20 @@
 //oxygen decreases the increase in stability from low temperatures
 //BZ increases base_instability
 
-#define MDR_MOL_TO_SPIN 1000
-#define MDR_SPIN_INSTABILITY_MULT 1e3
-#define MDR_PARABOLIC_ACCURACY 1e4
+#define CDR_MOL_TO_SPIN 1000
+#define CDR_SPIN_INSTABILITY_MULT 1e3
+#define CDR_PARABOLIC_ACCURACY 1e4
 
-#define MDR_BASE_INSTABILITY 100
+#define CDR_BASE_INSTABILITY 100
 
-#define MDR_HEAT_CONSUMED_PER_MOL 1 MEGAWATT
-#define MDR_FLUX_TO_POWER 1 KILOWATT
+#define CDR_HEAT_CONSUMED_PER_MOL 1 MEGAWATT
+#define CDR_FLUX_TO_POWER 1 KILOWATT
 
-#define MDR_MAX_CORE_HEALTH 250
+#define CDR_MAX_CORE_HEALTH 250
 
-#define MDR_CORE_MASS_DIV 1000
+#define CDR_CORE_MASS_DIV 1000
 
-#define MDR_RADIO_COOLDOWN 8 SECONDS
+#define CDR_RADIO_COOLDOWN 8 SECONDS
 
 /obj/machinery/atmospherics/components/unary/cdr
 	name = "Condensate Decay Reactor"
@@ -58,9 +58,9 @@
 	var/metallization_ratio = 0.2
 	var/core_stability = 0
 	var/core_instability = 0
-	var/base_instability = MDR_BASE_INSTABILITY
+	var/base_instability = CDR_BASE_INSTABILITY
 
-	var/core_health = MDR_MAX_CORE_HEALTH
+	var/core_health = CDR_MAX_CORE_HEALTH
 	var/invincible = FALSE
 	var/temp_stability_factor = 0
 	var/core_temperature = T20C
@@ -78,8 +78,8 @@
 
 	var/last_user = null //for admin logging
 
-	var/cdr_uid = 1 //id of the MDR
-	var/static/gl_cdr_uid = 1 //number of MDRs that have been made (this solution is from supermatter.dm as of 2026, yell at them if you think its dumb)
+	var/cdr_uid = 1 //id of the CDR
+	var/static/gl_cdr_uid = 1 //number of CDRs that have been made (this solution is from supermatter.dm as of 2026, yell at them if you think its dumb)
 
 	var/datum/looping_sound/cdr/soundloop
 
@@ -182,7 +182,7 @@
 	. = ..()
 	.["uid"] = cdr_uid
 	.["area"] = AREACOORD(src)
-	.["max_core_health"] = MDR_MAX_CORE_HEALTH
+	.["max_core_health"] = CDR_MAX_CORE_HEALTH
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_data(mob/user)
 	. = ..()
@@ -206,13 +206,15 @@
 	.["core_stability"] = core_stability
 	.["core_instability"] = core_instability
 	.["core_health"] = core_health
-	.["power_output"] = display_power_persec(flux * MDR_FLUX_TO_POWER)
+	.["power_output"] = display_power_persec(flux * CDR_FLUX_TO_POWER)
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
 	var/mob/user = usr
 	if(ismob(user) && user.ckey)
 		last_user = user.ckey
-	. = ..()
 	switch(action)
 		if("change_input")
 			input_volume = clamp(text2num(params["change_input"]), 0, 200)
@@ -271,7 +273,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_stability()
 	var/stability_value = 0
 	for(var/gastype in core_composition) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
-		stability_value += core_composition[gastype] * MDR_GAS_VARS[gastype]?[GAS_STABILITY_VAL]
+		stability_value += core_composition[gastype] * CDR_GAS_VARS[gastype]?[GAS_STABILITY_VAL]
 	return stability_value * get_temp_stab_factor()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/link_harvesters()
@@ -294,20 +296,20 @@
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	var/total_energy_consumed = 0
 	for(var/gastype in core_composition)
-		if(!MDR_GAS_VARS[gastype]) //sanity check, the MDR_GAS defines SHOULD cover all gases, but on the off chance they dont? this should stop it
+		if(!CDR_GAS_VARS[gastype]) //sanity check, the CDR_GAS defines SHOULD cover all gases, but on the off chance they dont? this should stop it
 			continue
 		if(!GAS_DECAY_LIST[gastype]) //same as above, except decaying should always skip the last gas on the decay chain
 			continue
 		if(!core_composition[gastype])
 			continue
-		if(core_composition[gastype] < MDR_GAS_VARS[gastype][GAS_DECAY_THRESHOLD])
+		if(core_composition[gastype] < CDR_GAS_VARS[gastype][GAS_DECAY_THRESHOLD])
 			continue
 
-		var/true_decay_factor = decay_factor * MDR_GAS_VARS[gastype][GAS_DECAY_RATE]
-		var/decayed_gas = max((core_composition[gastype] - MDR_GAS_VARS[gastype][GAS_DECAY_THRESHOLD]) * true_decay_factor, 0)
-		total_energy_consumed += decayed_gas * MDR_HEAT_CONSUMED_PER_MOL * MDR_GAS_VARS[gastype][GAS_DECAY_FLUX_MULT]
+		var/true_decay_factor = decay_factor * CDR_GAS_VARS[gastype][GAS_DECAY_RATE]
+		var/decayed_gas = max((core_composition[gastype] - CDR_GAS_VARS[gastype][GAS_DECAY_THRESHOLD]) * true_decay_factor, 0)
+		total_energy_consumed += decayed_gas * CDR_HEAT_CONSUMED_PER_MOL * CDR_GAS_VARS[gastype][GAS_DECAY_FLUX_MULT]
 
-		add_flux(MDR_GAS_VARS[gastype][GAS_DECAY_FLUX_MULT] * core_composition[gastype] * get_mass_multiplier())
+		add_flux(CDR_GAS_VARS[gastype][GAS_DECAY_FLUX_MULT] * core_composition[gastype] * get_mass_multiplier())
 		remove_gas_from_core(gastype, decayed_gas)
 		add_gas_to_core(GAS_DECAY_LIST[gastype], decayed_gas)
 
@@ -322,12 +324,12 @@
 	var/core_mass = 0
 	for(var/gastype in core_composition)
 		core_mass += core_composition[gastype]
-	return max(core_mass / MDR_CORE_MASS_DIV, 1)
+	return max(core_mass / CDR_CORE_MASS_DIV, 1)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_stability()
 	var/bz_mols = core_composition[/datum/gas/bz]
 	core_stability = get_core_stability()
-	base_instability = max(bz_mols ? bz_mols * MDR_GAS_VARS[/datum/gas/bz][GAS_DECAY_THRESHOLD] : 0, MDR_BASE_INSTABILITY)
+	base_instability = max(bz_mols ? bz_mols * CDR_GAS_VARS[/datum/gas/bz][GAS_DECAY_THRESHOLD] : 0, CDR_BASE_INSTABILITY)
 	core_instability = (max(core_temperature >= 100000 ? 50000 * (log(10, core_temperature) - 4) : 0.5 * core_temperature, 0) + base_instability) //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
 	var/delta_stability = core_instability - core_stability
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
@@ -335,7 +337,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/adjust_health(delta)
 	if(invincible)
 		return
-	var/health_delta = clamp(core_health + delta, 0, MDR_MAX_CORE_HEALTH)
+	var/health_delta = clamp(core_health + delta, 0, CDR_MAX_CORE_HEALTH)
 	if(health_delta > core_health)
 		alert_radio(FALSE)
 	if(health_delta < core_health)
@@ -347,11 +349,11 @@
 		playsound(src, 'sound/machines/cdr-collapse.ogg', 100, FALSE, 40, falloff_distance = 25)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/alert_radio(decreasing)
-	if(!(COOLDOWN_FINISHED(src, radio_cooldown)) || core_health > MDR_MAX_CORE_HEALTH * 0.6)
+	if(!(COOLDOWN_FINISHED(src, radio_cooldown)) || core_health > CDR_MAX_CORE_HEALTH * 0.6)
 		return
 	var/message = "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!"
-	core_health < MDR_MAX_CORE_HEALTH * 0.25 ? radio.talk_into(src, message, null) : radio.talk_into(src, message, RADIO_CHANNEL_ENGINEERING)
-	COOLDOWN_START(src, radio_cooldown, MDR_RADIO_COOLDOWN)
+	core_health < CDR_MAX_CORE_HEALTH * 0.25 ? radio.talk_into(src, message, null) : radio.talk_into(src, message, RADIO_CHANNEL_ENGINEERING)
+	COOLDOWN_START(src, radio_cooldown, CDR_RADIO_COOLDOWN)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/fail()
 	investigate_log("failed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
@@ -374,12 +376,12 @@
 			total_heat_capacity += initial(gas_id.specific_heat) * toroid_mix.gases[gas_id][MOLES]
 			gas_count++
 		if(gas_count)
-			toroid_spin += (total_heat_capacity / gas_count) * MDR_MOL_TO_SPIN
+			toroid_spin += (total_heat_capacity / gas_count) * CDR_MOL_TO_SPIN
 
 	parabolic_upper_limit = get_mass_multiplier()
 	parabolic_ratio = toroid_spin / 10000
 
-	toroid_flux_mult = round(max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0), (parabolic_upper_limit * parabolic_setting) / MDR_PARABOLIC_ACCURACY) //hopefully this rounding removes some issues
+	toroid_flux_mult = round(max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0), (parabolic_upper_limit * parabolic_setting) / CDR_PARABOLIC_ACCURACY) //hopefully this rounding removes some issues
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
@@ -412,7 +414,7 @@
 			garbage_collect()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_harvesters()
-	var/power_left = flux * MDR_FLUX_TO_POWER
+	var/power_left = flux * CDR_FLUX_TO_POWER
 	for (var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		power_left -= harvester.add_power(power_left)
 
@@ -472,14 +474,15 @@
 #undef GAS_DECAY_LIST
 #undef GAS_DECAY_RATE
 #undef GAS_DECAY_THRESHOLD
-#undef MDR_BASE_INSTABILITY
+#undef CDR_BASE_INSTABILITY
+#undef CDR_PARABOLIC_ACCURACY
 #undef GAS_DECAY_FLUX_MULT
 #undef GAS_STABILITY_VAL
-#undef MDR_GAS_VARS
-#undef MDR_MOL_TO_SPIN
-#undef MDR_SPIN_INSTABILITY_MULT
-#undef MDR_HEAT_CONSUMED_PER_MOL
-#undef MDR_FLUX_TO_POWER
-#undef MDR_MAX_CORE_HEALTH
-#undef MDR_CORE_MASS_DIV
-#undef MDR_RADIO_COOLDOWN
+#undef CDR_GAS_VARS
+#undef CDR_MOL_TO_SPIN
+#undef CDR_SPIN_INSTABILITY_MULT
+#undef CDR_HEAT_CONSUMED_PER_MOL
+#undef CDR_FLUX_TO_POWER
+#undef CDR_MAX_CORE_HEALTH
+#undef CDR_CORE_MASS_DIV
+#undef CDR_RADIO_COOLDOWN

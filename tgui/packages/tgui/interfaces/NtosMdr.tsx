@@ -45,7 +45,7 @@ export const NtosCdr = (props) => {
                 return (
                   <Table.Row key={cdr.uid}>
                     <Table.Cell>
-                      {`MDR::${cdr.uid} at ${cdr.area}`}
+                      {`CDR::${cdr.uid} at ${cdr.area}`}
                       <Button
                         icon="arrow-right"
                         onClick={() =>
