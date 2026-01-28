@@ -16,7 +16,7 @@ import { Window } from '../layouts';
 export const AtmosMdr = (props) => {
   const { data } = useBackend();
   return (
-    <Window width={550} height={400} style={{ overflowY: 'scroll' }}>
+    <Window width={550} height={420} style={{ overflowY: 'scroll' }}>
       <Window.Content scrollable>
         <MdrContent {...data} />
       </Window.Content>
@@ -56,6 +56,7 @@ export const MdrContent = (props) => {
     core_instability,
     core_health,
     max_core_health,
+    power_output,
   } = props;
   const adjusted_parabolic_limit = parabolic_upper_limit * parabolic_setting;
   const sqrt_parabolic_limit = Math.sqrt(adjusted_parabolic_limit);
@@ -185,6 +186,12 @@ export const MdrContent = (props) => {
                   label={'Core Temperature'}
                 >
                   {core_temperature.toFixed(2)}
+                </LabeledList.Item>
+                <LabeledList.Item
+                  key={'Output Power'}
+                  label={'Output Power'}
+                >
+                  {power_output}
                 </LabeledList.Item>
               </LabeledList>
             </Box>
