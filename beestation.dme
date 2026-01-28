@@ -1035,6 +1035,7 @@
 #include "code\datums\elements\shatters_when_thrown.dm"
 #include "code\datums\elements\squish.dm"
 #include "code\datums\elements\strippable.dm"
+#include "code\datums\elements\toy_talk.dm"
 #include "code\datums\elements\undertile.dm"
 #include "code\datums\elements\unfriend_attacker.dm"
 #include "code\datums\elements\update_icon_blocker.dm"

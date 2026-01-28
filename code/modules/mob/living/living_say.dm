@@ -74,12 +74,23 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	return new_msg
 
-/mob/living/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, message_range = 7, datum/saymode/saymode = null)
+/mob/living/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
 	if(sanitize)
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message || message == "")
 		return
-	var/list/message_mods = list()
 	if(language) // if a language is specified already, the language is added into the list
 		message_mods[LANGUAGE_EXTENSION] = istype(language) ? language.type : language
 	var/original_message = message
@@ -185,13 +196,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return
 
 	var/radio_return = radio(message, message_mods, spans, language)//roughly 27% of living/say()'s total cost
+	if(radio_return & NOPASS)
+		return TRUE
+
 	if(radio_return & ITALICS)
 		spans |= SPAN_ITALICS
 	if(radio_return & REDUCE_RANGE)
 		message_range = 1
 		message_mods[MODE_RADIO_MESSAGE] = MODE_RADIO_MESSAGE
-	if(radio_return & NOPASS)
-		return TRUE
 
 	//now that the radio message is sent, if the custom say message was just an emote we return
 	if (message_mods[MODE_CUSTOM_SAY_ERASE_INPUT] && message_mods[MODE_CUSTOM_SAY_EMOTE])
@@ -327,38 +339,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 /mob/proc/binarycheck()
 	return FALSE
-
-/mob/living/try_speak(message, ignore_spam = FALSE, forced = null)
-	if(!..())
-		return FALSE
-
-	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_TRY_SPEECH, message, ignore_spam, forced)
-	if(sigreturn & COMPONENT_CAN_ALWAYS_SPEAK)
-		return TRUE
-
-	if(sigreturn & COMPONENT_CANNOT_SPEAK)
-		return FALSE
-
-	if(!can_speak())
-		if(HAS_MIND_TRAIT(src, TRAIT_MIMING))
-			to_chat(src, span_green("Your vow of silence prevents you from speaking!"))
-		else
-			to_chat(src, span_warning("You find yourself unable to speak!"))
-		return FALSE
-
-	return TRUE
-
-/mob/living/can_speak(allow_mimes = FALSE)
-	if(!allow_mimes && HAS_MIND_TRAIT(src, TRAIT_MIMING))
-		return FALSE
-
-	if(HAS_TRAIT(src, TRAIT_MUTE))
-		return FALSE
-
-	if(is_muzzled())
-		return FALSE
-
-	return TRUE
 
 /mob/living/proc/treat_message(message)
 	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))

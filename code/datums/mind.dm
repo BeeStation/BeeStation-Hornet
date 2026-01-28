@@ -280,6 +280,11 @@
 	var/implant = FALSE
 
 	var/uplink_spawn_location = traitor_mob.client?.prefs?.read_character_preference(/datum/preference/choiced/uplink_location)
+	var/cant_speak = (HAS_TRAIT(traitor_mob, TRAIT_MUTE) || traitor_mob.mind?.assigned_role.title == JOB_NAME_MIME)
+	if(uplink_spawn_location == UPLINK_RADIO && cant_speak)
+		if(!silent)
+			to_chat(traitor_mob, span_warning("You have been deemed ineligible for a radio uplink. Supplying standard uplink instead."))
+		uplink_spawn_location = UPLINK_PDA
 	switch(uplink_spawn_location)
 		if(UPLINK_PDA)
 			uplink_loc = PDA
@@ -288,19 +293,11 @@
 			if(!uplink_loc)
 				uplink_loc = P
 		if(UPLINK_RADIO)
-			if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
-				to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
-				uplink_loc = PDA
-				if(!uplink_loc)
-					uplink_loc = R
-				if(!uplink_loc)
-					uplink_loc = P
-			else
+			uplink_loc = PDA
+			if(!uplink_loc)
 				uplink_loc = R
-				if(!uplink_loc)
-					uplink_loc = PDA
-				if(!uplink_loc)
-					uplink_loc = P
+			if(!uplink_loc)
+				uplink_loc = P
 		if(UPLINK_PEN)
 			uplink_loc = P
 		if(UPLINK_PEN)

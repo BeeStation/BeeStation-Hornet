@@ -31,10 +31,15 @@
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
+/datum/component/uplink/Initialize(
+	owner,
+	lockable = TRUE,
+	enabled = FALSE,
+	uplink_flag = UPLINK_TRAITORS,
+	starting_tc = TELECRYSTALS_DEFAULT
+)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-
 
 	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
@@ -50,15 +55,15 @@
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
 
-	if(_owner)
-		owner = _owner
+	if(owner)
+		owner = owner
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 		if(GLOB.uplink_purchase_logs_by_key[owner])
 			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
 		else
 			purchase_log = new(owner, src)
-	lockable = _lockable
-	active = _enabled
+	lockable = lockable
+	active = enabled
 	src.uplink_flag = uplink_flag
 	update_items()
 	telecrystals = starting_tc
@@ -315,8 +320,7 @@
 	if(ismob(master.loc))
 		interact(null, master.loc)
 
-
-/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, treated_message, channel, list/message_mods)
+/datum/component/uplink/proc/radio_message(datum/source, user, message, channel, list/message_mods)
 	SIGNAL_HANDLER
 	var/message_to_use = message_mods[MODE_UNTREATED_MESSAGE]
 
@@ -330,6 +334,7 @@
 	locked = FALSE
 	interact(null, user)
 	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
+	return COMPONENT_CANNOT_USE_RADIO
 
 // Pen signal responses
 
@@ -357,7 +362,7 @@
 	if(istype(parent,/obj/item/modular_computer/tablet))
 		unlock_note = "<B>Uplink Passcode:</B> [unlock_code] ([P.name])."
 	else if(istype(parent,/obj/item/radio))
-		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name] on the :d channel)."
+		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name], :d channel)."
 	else if(istype(parent,/obj/item/pen))
 		unlock_note = "<B>Uplink Degrees:</B> [english_list(unlock_code)] ([P.name])."
 
