@@ -11,9 +11,9 @@
 	basic_pawn.look_dead()
 
 /datum/ai_behavior/play_dead/perform(delta_time, datum/ai_controller/controller)
-	. = ..()
 	if(DT_PROB(10, delta_time))
-		finish_action(controller, TRUE)
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_DELAY
 
 /datum/ai_behavior/play_dead/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()

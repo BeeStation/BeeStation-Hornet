@@ -7,6 +7,8 @@
 #define BB_FOOD_TARGET "bb_food_target"
 ///How close a mob must be for us to select it as a target, if that is less than how far we can maintain it as a target
 #define BB_AGGRO_RANGE "BB_aggro_range"
+///maximum kids we can have
+#define BB_MAX_CHILDREN "BB_max_children"
 
 /// song instrument blackboard, set by instrument subtrees
 #define BB_SONG_INSTRUMENT "BB_SONG_INSTRUMENT"
@@ -15,14 +17,19 @@
 
 // Hunting BB keys
 
-/// key that holds our current hunting target
+///key that holds our current hunting target
 #define BB_CURRENT_HUNTING_TARGET "BB_current_hunting_target"
-/// key that holds our less priority hunting target
+///key that holds our less priority hunting target
 #define BB_LOW_PRIORITY_HUNTING_TARGET "BB_low_priority_hunting_target"
-/// key that holds the cooldown for our hunting subtree
-#define BB_HUNTING_COOLDOWN "BB_HUNTING_COOLDOWN"
+///key that holds the cooldown for our hunting subtree
+#define BB_HUNTING_COOLDOWN(type) "BB_HUNTING_COOLDOWN_[type]"
 
 // Targeting subtrees
+
+/// How long to wait before attacking a target in range
+#define BB_BASIC_MOB_MELEE_DELAY "BB_basic_melee_delay"
+/// Key used to store the time we can actually attack
+#define BB_BASIC_MOB_MELEE_COOLDOWN_TIMER "BB_basic_melee_cooldown_timer"
 
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
@@ -35,6 +42,8 @@
 #define BB_BASIC_MOB_FLEE_TARGET "BB_basic_flee_target"
 #define BB_BASIC_MOB_FLEE_TARGET_HIDING_LOCATION "BB_basic_flee_target_hiding_location"
 #define BB_FLEE_TARGETING_STRATEGY "flee_targeting_strategy"
+#define BB_BASIC_MOB_FLEE_DISTANCE "BB_basic_flee_distance"
+#define DEFAULT_BASIC_FLEE_DISTANCE 9
 
 // Tipped blackboards
 
@@ -51,8 +60,8 @@
 /// Chance to randomly drop all of our targets
 #define BB_RANDOM_DEAGGRO_CHANCE "BB_random_deaggro_chance"
 
-/// Flag to set on or off if you want your mob to prioritise running away
-#define BB_BASIC_MOB_FLEEING "BB_basic_fleeing"
+/// Flag to set on if you want your mob to STOP running away
+#define BB_BASIC_MOB_STOP_FLEEING "BB_basic_stop_fleeing"
 
 ///list of foods this mob likes
 #define BB_BASIC_FOODS "BB_basic_foods"
