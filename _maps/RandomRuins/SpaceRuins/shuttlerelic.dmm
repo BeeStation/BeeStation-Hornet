@@ -72,10 +72,6 @@
 /mob/living/simple_animal/hostile/retaliate/spaceman,
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
-"t" = (
-/obj/machinery/power/generator,
-/turf/open/floor/oldshuttle,
-/area/ruin/powered)
 "u" = (
 /obj/machinery/power/smes,
 /turf/open/floor/oldshuttle,
@@ -263,7 +259,7 @@ g
 g
 g
 c
-t
+g
 g
 g
 J
