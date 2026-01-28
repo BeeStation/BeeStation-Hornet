@@ -346,7 +346,7 @@
 	if (core_health <= 0)
 		addtimer(CALLBACK(src, PROC_REF(fail)), 3 SECONDS)
 		STOP_PROCESSING(SSmachines, src)
-		playsound(src, 'sound/machines/cdr-collapse.ogg', 100, FALSE, 40, falloff_distance = 25)
+		playsound(src, 'sound/machines/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/alert_radio(decreasing)
 	if(!(COOLDOWN_FINISHED(src, radio_cooldown)) || core_health > CDR_MAX_CORE_HEALTH * 0.6)
