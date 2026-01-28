@@ -96,6 +96,7 @@
 	. = ..()
 	for(var/obj/item/implant/bloodbrother/i in linked_implants) // Removes this implant from the list of implants
 		i.linked_implants -= src
+	QDEL_NULL(linked_implants)
 
 /obj/item/implant/bloodbrother/proc/link_implant(obj/item/implant/bloodbrother/BB)
 	if(BB)

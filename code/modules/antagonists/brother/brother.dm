@@ -37,6 +37,10 @@
 		owner.current.log_message("has had their blood brother removed!", LOG_ATTACK, color="#960000")
 	owner.special_role = null
 	remove_antag_hud(ANTAG_HUD_BROTHER, owner.current)
+	if (owner.current)
+		for (var/obj/item/implant/bloodbrother/brother_implant in owner.current.implants)
+			if (brother_implant.linked_team == team)
+				qdel(brother_implant)
 	return ..()
 
 /datum/antagonist/brother/antag_panel_data()
