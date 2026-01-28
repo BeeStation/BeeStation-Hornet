@@ -14,7 +14,5 @@
 /datum/ai_movement/basic_avoidance/allowed_to_move(datum/move_loop/has_target/dist_bound/source)
 	. = ..()
 	var/turf/target_turf = get_step_towards(source.moving, source.target)
-
 	if(!target_turf?.can_cross_safely(source.moving))
-		. = MOVELOOP_SKIP_STEP
-	return .
+		return FALSE

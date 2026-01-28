@@ -80,12 +80,11 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 	AddComponent(/datum/component/connect_loc_behalf, pawn, loc_connections)
 
-/datum/ai_controller/monkey/able_to_run()
-	. = ..()
+/datum/ai_controller/monkey/get_able_to_run()
 	var/mob/living/living_pawn = pawn
-
 	if(IS_DEAD_OR_INCAP(living_pawn))
-		return FALSE
+		return AI_UNABLE_TO_RUN
+	return ..()
 
 ///re-used behavior pattern by monkeys for finding a weapon
 /datum/ai_controller/monkey/proc/TryFindWeapon()

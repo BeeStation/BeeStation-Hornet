@@ -61,6 +61,8 @@
 /datum/ai_behavior/break_spine/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	if(succeeded)
 		var/mob/living/bane = controller.pawn
+		if(QDELETED(bane)) // pawn can be null at this point
+			return ..()
 		bane.stop_pulling()
 		controller.clear_blackboard_key(target_key)
 	return ..()
@@ -68,7 +70,6 @@
 /// Use in hand the currently held item
 /datum/ai_behavior/use_in_hand
 	behavior_flags = AI_BEHAVIOR_MOVE_AND_PERFORM
-
 
 /datum/ai_behavior/use_in_hand/perform(delta_time, datum/ai_controller/controller)
 	var/mob/living/pawn = controller.pawn
@@ -108,7 +109,6 @@
 
 /datum/ai_behavior/give
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
-
 
 /datum/ai_behavior/give/setup(datum/ai_controller/controller, target_key)
 	. = ..()

@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(ai_list)					//all instances of /mob/living/silicon/ai and sub
 GLOBAL_LIST_EMPTY(cyborg_list)				//all instances of /mob/living/silicon/robot and subtypes
 GLOBAL_LIST_EMPTY(pai_list)					//all instances of /mob/living/silicon/pai and subtypes
 GLOBAL_LIST_EMPTY(available_ai_shells)
-GLOBAL_LIST_INIT(simple_animals, list(list(),list(),list(),list())) // One for each AI_* status define
+GLOBAL_LIST_INIT(simple_animals, list(list(),list(),list())) // One for each AI_* status define
 GLOBAL_LIST_EMPTY(spidermobs)				//all sentient spider mobs
 GLOBAL_LIST_EMPTY(all_mimites)				//all mimites and their subtypes
 GLOBAL_LIST_EMPTY(bots_list)

@@ -19,7 +19,7 @@
 	if (!targeting_datum.can_attack(living_pawn, target))
 		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
-	if (!in_range(living_pawn, target))
+	if (!living_pawn.Adjacent(target))
 		growl_at(living_pawn, target, delta_time)
 		return AI_BEHAVIOR_INSTANT
 
