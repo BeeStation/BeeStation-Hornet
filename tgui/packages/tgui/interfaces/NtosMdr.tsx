@@ -3,7 +3,6 @@ import { Box, Button, Section, Table } from '../components';
 import { NtosWindow } from '../layouts';
 import { MdrContent, MdrData } from './AtmosMdr';
 export const NtosMdr = (props) => {
-
   type MdrDataList = Record<string, MdrData>;
 
   type Data = {

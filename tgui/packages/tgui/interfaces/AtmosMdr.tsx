@@ -16,7 +16,6 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-
 type CoreComposition = Record<string, number>;
 
 export type MdrData = Partial<{
@@ -38,7 +37,7 @@ export type MdrData = Partial<{
   core_health: number;
   max_core_health: number;
   power_output: string;
-}>
+}>;
 
 export const AtmosMdr = (props) => {
   const { data } = useBackend<MdrData>();

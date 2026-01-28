@@ -12,13 +12,17 @@ type Props = {
   strokeWidth: number;
 };
 
-
 export class Graph extends Component<Props> {
   constructor(props) {
     super(props);
   }
 
-  iterateOverNodes(funct: (i: number) => number, distPerStep: number, leftLimit: number, steps: number) {
+  iterateOverNodes(
+    funct: (i: number) => number,
+    distPerStep: number,
+    leftLimit: number,
+    steps: number,
+  ) {
     let points: number[][] = [];
     for (let i = 0; i <= steps; i++) {
       let xPos = i * distPerStep + leftLimit;
@@ -57,7 +61,6 @@ export class Graph extends Component<Props> {
           strokeWidth={strokeWidth}
           points={this.iterateOverNodes(funct, distPerStep, leftLimit, steps)}
         />
-
       </svg>
     );
   }
