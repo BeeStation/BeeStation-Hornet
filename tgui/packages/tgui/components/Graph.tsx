@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
 type Props = {
-  funct: number;
+  funct: (i: number) => number;
   upperLimit: number;
   lowerLimit: number;
   leftLimit: number;
@@ -23,10 +23,10 @@ export class Graph extends Component<Props> {
     leftLimit: number,
     steps: number,
   ) {
-    let points: number[][] = [];
+    let points: string[][] = [];
     for (let i = 0; i <= steps; i++) {
       let xPos = i * distPerStep + leftLimit;
-      points.push([xPos, funct(xPos)]);
+      points.push([xPos.toString(), funct(xPos).toString()]);
     }
     return points;
   }

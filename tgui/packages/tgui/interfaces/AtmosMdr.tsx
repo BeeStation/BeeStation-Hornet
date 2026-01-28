@@ -18,7 +18,7 @@ import { Window } from '../layouts';
 
 type CoreComposition = Record<string, number>;
 
-export type MdrData = Partial<{
+export type MdrData = {
   uid: number;
   area: string;
   toroid_spin: number;
@@ -37,12 +37,12 @@ export type MdrData = Partial<{
   core_health: number;
   max_core_health: number;
   power_output: string;
-}>;
+};
 
 export const AtmosMdr = (props) => {
   const { data } = useBackend<MdrData>();
   return (
-    <Window width={550} height={420} style={{ overflowY: 'scroll' }}>
+    <Window width={550} height={420}>
       <Window.Content scrollable>
         <MdrContent {...data} />
       </Window.Content>
@@ -64,9 +64,11 @@ const DisplayGasOutput = (core_composition: CoreComposition) => {
   ));
 };
 
-export const MdrContent = (props: Data) => {
+export const MdrContent = (props: MdrData) => {
   const { act } = useBackend();
   const {
+    uid,
+    area,
     toroid_spin,
     parabolic_setting,
     parabolic_upper_limit,
@@ -249,7 +251,7 @@ export const MdrContent = (props: Data) => {
                   </svg>
                 </Box>
                 <Graph
-                  funct={(i) => {
+                  funct={(i: number) => {
                     return (
                       -((i - sqrt_parabolic_limit) ** 2) +
                       adjusted_parabolic_limit
@@ -262,7 +264,7 @@ export const MdrContent = (props: Data) => {
                   leftLimit={0}
                   rightLimit={2 * sqrt_parabolic_limit}
                   steps={25}
-                  strokeWidth={parabolic_upper_limit / 30}
+                  strokeWidth={parabolic_upper_limit * 0.03}
                   fillColor="#ffffff00"
                   lineColor="#ffffff"
                 />
