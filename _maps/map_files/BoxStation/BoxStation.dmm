@@ -6417,8 +6417,7 @@
 	pixel_y = 17
 	},
 /obj/effect/loot_jobscale/medical/tox_kit{
-	pixel_x = -3;
-	pixel_y = 0
+	pixel_x = -3
 	},
 /obj/machinery/door/window/westleft{
 	name = "First-Aid Supplies";
@@ -13184,8 +13183,7 @@
 "cVq" = (
 /obj/machinery/magnetic_controller{
 	autolink = 1;
-	pixel_y = -30;
-	pixel_x = 0
+	pixel_y = -30
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab)
@@ -17445,7 +17443,6 @@
 	pixel_x = 6
 	},
 /obj/item/xenoarchaeology_labeler{
-	pixel_x = 0;
 	pixel_y = 1
 	},
 /obj/item/clothing/gloves/artifact_pinchers{
@@ -18424,7 +18421,6 @@
 	pixel_y = 4
 	},
 /obj/item/stack/package_wrap{
-	pixel_x = 0;
 	pixel_y = 9
 	},
 /obj/item/stack/package_wrap{
@@ -19248,7 +19244,6 @@
 	pixel_x = 8
 	},
 /obj/item/clothing/glasses/science{
-	pixel_x = 0;
 	pixel_y = 3
 	},
 /obj/item/laser_pointer/purple{
@@ -23719,7 +23714,6 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/table/reinforced,
 /obj/effect/loot_jobscale/medical/brute_kit{
-	pixel_x = 0;
 	pixel_y = 12
 	},
 /obj/effect/loot_jobscale/medical/burn_kit{
@@ -44695,7 +44689,6 @@
 	receive_ore_updates = 1
 	},
 /obj/item/clothing/neck/stethoscope{
-	pixel_x = 0;
 	pixel_y = 2
 	},
 /obj/item/storage/firstaid/regular{

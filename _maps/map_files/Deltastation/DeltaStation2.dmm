@@ -53071,7 +53071,6 @@
 	pixel_x = 5
 	},
 /obj/item/laser_pointer/purple{
-	pixel_x = 0;
 	pixel_y = 9
 	},
 /turf/open/floor/iron/dark,
