@@ -187,10 +187,7 @@ export const MdrContent = (props) => {
                 >
                   {core_temperature.toFixed(2)}
                 </LabeledList.Item>
-                <LabeledList.Item
-                  key={'Output Power'}
-                  label={'Output Power'}
-                >
+                <LabeledList.Item key={'Output Power'} label={'Output Power'}>
                   {power_output}
                 </LabeledList.Item>
               </LabeledList>
