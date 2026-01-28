@@ -59,7 +59,7 @@ export class Graph extends Component<Props> {
           fill={fillColor}
           stroke={lineColor}
           strokeWidth={strokeWidth}
-          points={this.iterateOverNodes(funct, distPerStep, leftLimit, steps)}
+          points={`${this.iterateOverNodes(funct, distPerStep, leftLimit, steps)}`}
         />
       </svg>
     );

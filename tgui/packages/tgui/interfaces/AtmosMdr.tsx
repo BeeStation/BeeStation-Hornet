@@ -253,18 +253,18 @@ export const MdrContent = (props: MdrData) => {
                 <Graph
                   funct={(i: number) => {
                     return (
-                      -((i - sqrt_parabolic_limit) ** 2) +
-                      adjusted_parabolic_limit
+                      -((i - 2) ** 2) +
+                      4
                     );
                   }}
                   upperLimit={
-                    parabolic_upper_limit + parabolic_upper_limit * 0.03
+                    4.1
                   }
                   lowerLimit={0}
                   leftLimit={0}
-                  rightLimit={2 * sqrt_parabolic_limit}
+                  rightLimit={4}
                   steps={25}
-                  strokeWidth={parabolic_upper_limit * 0.03}
+                  strokeWidth={0.05}
                   fillColor="#ffffff00"
                   lineColor="#ffffff"
                 />

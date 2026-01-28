@@ -31,7 +31,7 @@
 
 #define MDR_MOL_TO_SPIN 1000
 #define MDR_SPIN_INSTABILITY_MULT 1e3
-#define MDR_PARABOLIC_ACCURACY 1E-4
+#define MDR_PARABOLIC_ACCURACY 1e4
 
 #define MDR_BASE_INSTABILITY 100
 
@@ -61,6 +61,7 @@
 	var/base_instability = MDR_BASE_INSTABILITY
 
 	var/core_health = MDR_MAX_CORE_HEALTH
+	var/invincible = FALSE
 	var/temp_stability_factor = 0
 	var/core_temperature = T20C
 
@@ -332,6 +333,8 @@
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/adjust_health(delta)
+	if(invincible)
+		return
 	var/health_delta = clamp(core_health + delta, 0, MDR_MAX_CORE_HEALTH)
 	if(health_delta > core_health)
 		alert_radio(FALSE)
@@ -376,7 +379,7 @@
 	parabolic_upper_limit = get_mass_multiplier()
 	parabolic_ratio = toroid_spin / 10000
 
-	toroid_flux_mult = round(max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0), MDR_PARABOLIC_ACCURACY)
+	toroid_flux_mult = round(max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0), (parabolic_upper_limit * parabolic_setting) / MDR_PARABOLIC_ACCURACY) //hopefully this rounding removes some issues
 
 /obj/machinery/atmospherics/components/unary/mdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
