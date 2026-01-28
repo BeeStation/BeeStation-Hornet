@@ -1,5 +1,5 @@
 /datum/ai_planning_subtree/basic_melee_attack_subtree
-/// What do we do in order to attack someone?
+	/// What do we do in order to attack someone?
 	var/datum/ai_behavior/basic_melee_attack/melee_attack_behavior = /datum/ai_behavior/basic_melee_attack
 	/// Is this the last thing we do? (if we set a movement target, this will usually be yes)
 	var/end_planning = TRUE

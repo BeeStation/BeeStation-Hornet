@@ -10,6 +10,9 @@
 ///maximum kids we can have
 #define BB_MAX_CHILDREN "BB_max_children"
 
+///The trait checked by ai_behavior/find_potential_targets/prioritize_trait to return a target with a trait over the rest.
+#define BB_TARGET_PRIORITY_TRAIT "target_priority_trait"
+
 /// song instrument blackboard, set by instrument subtrees
 #define BB_SONG_INSTRUMENT "BB_SONG_INSTRUMENT"
 /// song lines blackboard, set by default on controllers
@@ -34,6 +37,8 @@
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETING_STRATEGY "targeting_strategy"
+///Blackboard key for a whitelist typecache of "things we can target while trying to move"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
 /// Key for the minimum status at which we want to target mobs (does not need to be specified if CONSCIOUS)
 #define BB_TARGET_MINIMUM_STAT "BB_target_minimum_stat"
 /// Flag for whether to target only wounded mobs
@@ -41,8 +46,7 @@
 /// What typepath the holding object targeting strategy should look for
 #define BB_TARGET_HELD_ITEM "BB_target_held_item"
 
-// Targeting keys for something to run away from, if you need to store this separately from current target
-
+///Targeting keys for something to run away from, if you need to store this separately from current target
 #define BB_BASIC_MOB_FLEE_TARGET "BB_basic_flee_target"
 #define BB_BASIC_MOB_FLEE_TARGET_HIDING_LOCATION "BB_basic_flee_target_hiding_location"
 #define BB_FLEE_TARGETING_STRATEGY "flee_targeting_strategy"

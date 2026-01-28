@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(/mob, /obj/machinery/
 	if(controller.blackboard[BB_FIND_TARGETS_FIELD(type)])
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-	var/list/potential_targets = hearers(aggro_range, controller.pawn) - living_mob //Remove self, so we don't suicide
+	var/list/potential_targets = hearers(aggro_range, get_turf(controller.pawn)) - living_mob //Remove self, so we don't suicide
 
 	var/turf/mob_turf = get_turf(living_mob)
 	if(mob_turf?.z)
@@ -93,7 +93,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(/mob, /obj/machinery/
 /datum/ai_behavior/find_potential_targets/proc/new_turf_found(turf/found, datum/ai_controller/controller, datum/targeting_strategy/strategy)
 	var/valid_found = FALSE
 	var/mob/pawn = controller.pawn
-	for(var/maybe_target as anything in found)
+	for(var/maybe_target in found)
 		if(maybe_target == pawn)
 			continue
 		if(!is_type_in_typecache(maybe_target, GLOB.target_interested_atoms))
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(/mob, /obj/machinery/
 /datum/ai_behavior/find_potential_targets/proc/new_atoms_found(list/atom/movable/found, datum/ai_controller/controller, target_key, datum/targeting_strategy/strategy, hiding_location_key)
 	var/mob/pawn = controller.pawn
 	var/list/accepted_targets = list()
-	for(var/maybe_target as anything in found)
+	for(var/maybe_target in found)
 		if(maybe_target == pawn)
 			continue
 		// Need to better handle viewers here
@@ -149,8 +149,23 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(/mob, /obj/machinery/
 		var/datum/proximity_monitor/field = controller.blackboard[BB_FIND_TARGETS_FIELD(type)]
 		qdel(field) // autoclears so it's fine
 		controller.CancelActions() // On retarget cancel any further queued actions so that they will setup again with new target
-		controller.modify_cooldown(controller, get_cooldown(controller))
+		controller.modify_cooldown(src, get_cooldown(controller))
 
 /// Returns the desired final target from the filtered list of targets
 /datum/ai_behavior/find_potential_targets/proc/pick_final_target(datum/ai_controller/controller, list/filtered_targets)
 	return pick(filtered_targets)
+
+/// Targets with the trait specified by the BB_TARGET_PRIORITY_TRAIT blackboard key will be prioritized over the rest.
+/datum/ai_behavior/find_potential_targets/prioritize_trait
+
+/datum/ai_behavior/find_potential_targets/prioritize_trait/pick_final_target(datum/ai_controller/controller, list/filtered_targets)
+	var/priority_targets = list()
+	for(var/atom/target as anything in filtered_targets)
+		if(HAS_TRAIT(target, controller.blackboard[BB_TARGET_PRIORITY_TRAIT]))
+			priority_targets += target
+	if(length(priority_targets))
+		return pick(priority_targets)
+	return ..()
+
+/datum/ai_behavior/find_potential_targets/bigger_range
+	vision_range = 16
