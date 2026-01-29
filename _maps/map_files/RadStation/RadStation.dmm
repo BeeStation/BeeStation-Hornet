@@ -26131,7 +26131,7 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ppflowers,
-/mob/living/simple_animal/mouse/brown{
+/mob/living/basic/mouse/brown{
 	desc = "This one doesn't squeal";
 	name = "Tony";
 	pixel_x = 7;
