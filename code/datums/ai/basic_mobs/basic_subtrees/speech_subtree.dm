@@ -55,6 +55,13 @@
 	speech_chance = 2
 	emote_hear = list("flutters.", "flaps its wings.", "flaps its wings aggressively!")
 
+/datum/ai_planning_subtree/random_speech/mouse
+	speech_chance = 1
+	speak = list("Squeak!", "SQUEAK!", "Squeak?")
+	sound = list('sound/effects/mousesqueek.ogg')
+	emote_hear = list("squeaks.")
+	emote_see = list("runs in a circle.", "shakes.")
+
 /datum/ai_planning_subtree/random_speech/cow
 	speech_chance = 1
 	speak = list("moo?","moo","MOOOOOO")

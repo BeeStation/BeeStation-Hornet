@@ -22,3 +22,8 @@
 #define BB_BABIES_TARGET "BB_babies_target"
 ///Timeout for finding partners when theres too many of us in 1 location
 #define BB_PARTNER_SEARCH_TIMEOUT "BB_partner_search_timeout"
+
+///the name of our trick
+#define BB_TRICK_NAME "trick_name"
+///the sequence of our trick
+#define BB_TRICK_SEQUENCE "trick_sequence"

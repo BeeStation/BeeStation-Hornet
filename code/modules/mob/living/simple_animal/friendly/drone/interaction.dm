@@ -52,7 +52,7 @@
 			return
 		to_chat(user, span_notice("You pick [src] up."))
 		drop_all_held_items()
-		var/obj/item/clothing/head/mob_holder/drone/DH = new(get_turf(src), src)
+		var/obj/item/mob_holder/drone/DH = new(get_turf(src), src)
 		DH.slot_flags = worn_slot_flags
 		user.put_in_hands(DH)
 

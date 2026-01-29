@@ -112,7 +112,7 @@
 	fire_damage = fire_damage + amount * damage_coeff[BURN] * CONFIG_GET(number/damage_multiplier)
 	. = ..()
 
-/mob/living/simple_animal/hostile/retaliate/nymph/UnarmedAttack(atom/A, proximity)
+/mob/living/simple_animal/hostile/retaliate/nymph/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	melee_damage = 1.5
 	. = ..()
 
@@ -197,8 +197,8 @@
 		QDEL_NULL(src)
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/evolve(mob/living/simple_animal/hostile/retaliate/nymph/nymphs)
-	if(istype(loc, /obj/item/clothing/head/mob_holder))
-		var/obj/item/clothing/head/mob_holder/L = loc
+	if(ispickedupmob(loc))
+		var/obj/item/mob_holder/L = loc
 		src.loc = L.loc
 		qdel(L)
 
@@ -331,13 +331,13 @@
 		resting = FALSE
 		update_resting()
 	toggle_ai(AI_OFF)
-	var/obj/item/clothing/head/mob_holder/nymph/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
+	var/obj/item/mob_holder/nymph/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
 	if(stat == DEAD && mind)
 		holder.tool_behaviour = TOOL_SEED
 	L.visible_message(span_warning("[L] scoops up [src]!"))
 	L.put_in_hands(holder)
 
-/obj/item/clothing/head/mob_holder/nymph
+/obj/item/mob_holder/nymph
 	var/moving_cooldown
 	var/on_head
 	//Variables for planting a dead nymph into a hydroponics tray
@@ -346,13 +346,13 @@
 	grind_results = list(/datum/reagent/consumable/chlorophyll = 20)
 	juice_typepath = /datum/reagent/consumable/chlorophyll
 
-/obj/item/clothing/head/mob_holder/nymph/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags)
+/obj/item/mob_holder/nymph/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags)
 	if(M.mind)
 		fake_seed = new /obj/item/seeds/nymph
 		fake_seed.mind = M.mind
 	. = ..()
 
-/obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
+/obj/item/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
 	if(moving_cooldown <= world.time)
 		moving_cooldown = world.time + 50
 		user.visible_message(span_notice("[user] starts to squirm in [loc]'s hands!"),
@@ -362,23 +362,23 @@
 		if(do_after(held_mob, 8 SECONDS, user, NONE, TRUE))
 			release()
 
-/obj/item/clothing/head/mob_holder/nymph/microwave_act(obj/machinery/microwave/M)
+/obj/item/mob_holder/nymph/microwave_act(obj/machinery/microwave/M)
 	. = ..()
 	M.muck()
 	held_mob.adjustFireLoss(50)
 	Destroy()
 
-/obj/item/clothing/head/mob_holder/nymph/release()
+/obj/item/mob_holder/nymph/release(display_messages = TRUE, delete_mob = FALSE)
 	on_head = FALSE
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph_mob = held_mob
 	nymph_mob.toggle_ai(AI_ON)
 	. = ..()
 
-/obj/item/clothing/head/mob_holder/nymph/equipped()
+/obj/item/mob_holder/nymph/equipped()
 	. = ..()
 	on_head = TRUE
 
-/obj/item/clothing/head/mob_holder/nymph/on_grind()
+/obj/item/mob_holder/nymph/on_grind()
 	playsound(held_mob, 'sound/effects/splat.ogg', 50, 1)
 	qdel(held_mob)
 	. = ..()

@@ -450,7 +450,7 @@
 /obj/item/choice_beacon/pet/mouse
 	name = "mouse delivery beacon"
 	default_name = "Jerry"
-	mob_choice = /mob/living/simple_animal/mouse
+	mob_choice = /mob/living/basic/mouse
 
 /obj/item/choice_beacon/pet/corgi
 	name = "corgi delivery beacon"

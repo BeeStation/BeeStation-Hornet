@@ -148,6 +148,10 @@
 /// Sent when the amount of materials in silo connected to remote_materials changes. Does not apply when remote_materials is not connected to a silo.
 #define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
+/// called on [/obj/item/lazarus_injector/afterattack] : (injector, user)
+#define COMSIG_ATOM_ON_LAZARUS_INJECTOR "atom_on_lazarus_injector"
+	#define LAZARUS_INJECTOR_USED (1<<0) //Early return.
+
 /// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
 #define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
 /// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)

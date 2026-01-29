@@ -75,7 +75,11 @@
 ///list of foods this mob likes
 #define BB_BASIC_FOODS "BB_basic_foods"
 
-// Modsuit
+///key holding the next time we eat
+#define BB_NEXT_FOOD_EAT "BB_next_food_eat"
+
+///key holding our eating cooldown
+#define BB_EAT_FOOD_COOLDOWN "BB_eat_food_cooldown"
 
 /// Mob the MOD is trying to attach to
 #define BB_MOD_TARGET "BB_mod_target"

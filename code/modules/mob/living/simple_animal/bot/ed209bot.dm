@@ -498,7 +498,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 /mob/living/simple_animal/bot/ed209/redtag
 	lasercolor = "r"
 
-/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
 		return
 	if(iscarbon(A))

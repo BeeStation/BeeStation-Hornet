@@ -76,8 +76,8 @@
 		return FALSE
 	visible_message(span_notice("[src] dematerialises!"))
 	stop_pulling()
-	if(istype(loc, /obj/item/clothing/head/mob_holder))
-		var/obj/item/clothing/head/mob_holder/MH = loc
+	if(ispickedupmob(loc))
+		var/obj/item/mob_holder/MH = loc
 		MH.release()
 	if(client)
 		client.perspective = EYE_PERSPECTIVE
