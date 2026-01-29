@@ -316,3 +316,6 @@
       and made soulless)
   - balance: the clockcult vitality matrix now heals bleeding
   - bugfix: Fixed silicons not being able to sign into security/medical records
+2026-01-29:
+  mrmanlikesbt:
+  - bugfix: Fixed the stray bullet hallucination
