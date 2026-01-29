@@ -156,6 +156,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	ADD_TRAIT(src, TRAIT_SECURITY_HUD, ref(src))
+	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_GOOD_HEARING, INNATE_TRAIT)
 
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts) //we only add it when observing
 

@@ -85,9 +85,6 @@
 /datum/unit_test/speech/proc/handle_hearing(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
 
-	// So it turns out that the `message` arg for COMSIG_MOVABLE_HEAR is super redundant and should probably
-	// be gutted out of both the Hear() proc and signal since it's never used
-	//TEST_ASSERT(hearing_args[HEARING_MESSAGE], "Handle hearing signal does not have a message arg")
 	TEST_ASSERT(hearing_args[HEARING_SPEAKER], "Handle hearing signal does not have a speaker arg")
 	TEST_ASSERT(hearing_args[HEARING_LANGUAGE], "Handle hearing signal does not have a language arg")
 	TEST_ASSERT(hearing_args[HEARING_RAW_MESSAGE], "Handle hearing signal does not have a raw message arg")

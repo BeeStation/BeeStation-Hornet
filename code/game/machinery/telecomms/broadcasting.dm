@@ -174,7 +174,6 @@
 	// Always call this on the virtualspeaker to avoid issues.
 	var/spans = data["spans"]
 	var/list/message_mods = data["mods"]
-	var/rendered = virt.compose_message(virt, language, message, frequency, spans)
 	var/list/show_overhead_message_to = list()
 
 	for(var/atom/movable/hearer as anything in receive)
@@ -186,7 +185,7 @@
 			var/mob/M = hearer
 			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
-		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods, message_range = INFINITY)
+		hearer.Hear(virt, language, message, frequency, spans, message_mods, message_range = INFINITY)
 	if(length(show_overhead_message_to))
 		create_chat_message(virt, language, show_overhead_message_to, message, spans, message_mods)
 

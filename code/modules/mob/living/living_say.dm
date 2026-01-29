@@ -91,12 +91,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message || message == "")
 		return
+
 	if(language) // if a language is specified already, the language is added into the list
 		message_mods[LANGUAGE_EXTENSION] = istype(language) ? language.type : language
 	var/original_message = message
 	message = get_message_mods(message, message_mods)
 	saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
-
 	if(!forced && !saymode)
 		message = check_for_custom_say_emote(message, message_mods)
 
@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			say_dead(original_message)
 			return
 
-	if(!try_speak(original_message, ignore_spam, forced))
+	if(!try_speak(original_message, ignore_spam, forced, filterproof))
 		return
 
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
@@ -161,6 +161,17 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message_mods[MODE_UNTREATED_MESSAGE] = message // let's store the original message before treating those
 	message = treat_message(message) // unfortunately we still need this
 
+#ifdef UNIT_TESTS
+	// Saves a ref() to our arglist specifically.
+	// We do this because we need to check that COMSIG_MOB_SAY is getting EXACTLY this list.
+	last_say_args_ref = REF(args)
+#endif
+
+	// Make sure the arglist is passed exactly - don't pass a copy of it. Say signal handlers will modify some of the parameters.
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
+		message = uppertext(message)
+
 	spans |= speech_span
 
 	var/datum/language/spoken_lang = GLOB.language_datum_instances[language]
@@ -172,16 +183,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message = "[randomnote] [message] [randomnote]"
 		spans |= SPAN_SINGING
 
-	#ifdef UNIT_TESTS
-	// Saves a ref() to our arglist specifically.
-	// We do this because we need to check that COMSIG_MOB_SAY is getting EXACTLY this list.
-	last_say_args_ref = REF(args)
-	#endif
-
-	// Make sure the arglist is passed exactly - don't pass a copy of it. Say signal handlers will modify some of the parameters.
-	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
-	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
-		message = uppertext(message)
+	if(message_mods[WHISPER_MODE]) // whisper away
+		spans |= SPAN_ITALICS
 
 	if(!message)
 		if(succumbed)
@@ -220,15 +223,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(pressure < ONE_ATMOSPHERE*0.4) //Thin air, let's italicise the message
 		spans |= SPAN_ITALICS
 
-	send_speech(message, message_range, src, bubble_type, spans, language, message_mods)//roughly 58% of living/say()'s total cost
-
+	send_speech(message, message_range, src, bubble_type, spans, language, message_mods, forced = forced)//roughly 58% of living/say()'s total cost
 	if(succumbed)
 		succumb(TRUE)
-		to_chat(src, compose_message(src, language, message, , spans, message_mods))
+		to_chat(src, compose_message(src, language, message, null, spans, message_mods))
 
 	return TRUE
 
-/mob/living/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range=0)
+/mob/living/Hear(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range=0)
 	if(!GET_CLIENT(src))
 		return
 	var/deaf_message
@@ -246,11 +248,30 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(!is_custom_emote) // we do not translate emotes
 		raw_message = translate_language(src, message_language, raw_message) // translate
 
+	var/message = ""
 	// if someone is whispering we make an extra type of message that is obfuscated for people out of range
-	var/is_speaker_whispering = message_mods[WHISPER_MODE]
-	var/can_hear_whisper = get_dist(speaker, src) <= message_range
-	if(is_speaker_whispering && !can_hear_whisper && !isobserver(src)) // ghosts can hear all messages clearly
+	// Less than or equal to 0 means normal hearing. More than 0 and less than or equal to EAVESDROP_EXTRA_RANGE means
+	// partial hearing. More than EAVESDROP_EXTRA_RANGE means no hearing. Exception for GOOD_HEARING trait
+	var/dist = get_dist(speaker, src) - message_range
+	if(dist > 0 && dist <= EAVESDROP_EXTRA_RANGE && !HAS_TRAIT(src, TRAIT_GOOD_HEARING))
 		raw_message = stars(raw_message)
+	if(message_range != INFINITY && dist > EAVESDROP_EXTRA_RANGE && !HAS_TRAIT(src, TRAIT_GOOD_HEARING))
+		// Too far away and don't have good hearing, you can't hear anything
+		if(is_blind()) // Can't see them speak either
+			return FALSE
+		if(!isturf(speaker.loc)) // If they're inside of something, probably can't see them speak
+			return FALSE
+
+		if(can_hear()) // If we can't hear we want to continue to the default deaf message
+			var/mob/living/living_speaker = speaker
+			if(istype(living_speaker) && living_speaker.is_mouth_covered()) // Can't see them speak if their mouth is covered
+				return FALSE
+			deaf_message = "[span_name("[speaker]")] [speaker.verb_whisper] something, but you are too far away to hear [speaker.p_them()]."
+
+		if(deaf_message)
+			deaf_type = MSG_VISUAL
+			message = deaf_message
+			return show_message(message, MSG_VISUAL, deaf_message, deaf_type, avoid_highlight)
 
 	// we need to send this signal before compose_message() is used since other signals need to modify
 	// the raw_message first. After the raw_message is passed through the various signals, it's ready to be formatted
@@ -275,10 +296,17 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/whisper_range = 0
 	var/is_speaker_whispering = FALSE
 	if(message_mods[WHISPER_MODE]) //If we're whispering
-		whisper_range = EAVESDROP_EXTRA_RANGE
+		// Needed for good hearing trait. The actual filtering for whispers happens at the /mob/living/Hear proc
+		whisper_range = MESSAGE_RANGE - WHISPER_RANGE
 		is_speaker_whispering = TRUE
 
-	var/list/listening = get_hearers_in_view(message_range + whisper_range, source, SEE_INVISIBLE_MAXIMUM)
+	var/list/in_view = get_hearers_in_view(message_range + whisper_range, source, SEE_INVISIBLE_MAXIMUM)
+	var/list/listening = get_hearers_in_range(message_range + whisper_range, source)
+
+	// Pre-process listeners to account for line-of-sight
+	for(var/atom/movable/listening_movable as anything in listening)
+		if(!(listening_movable in in_view) && !HAS_TRAIT(listening_movable, TRAIT_XRAY_HEARING))
+			listening.Remove(listening_movable)
 
 	if(client) //client is so that ghosts don't have to listen to mice
 		for(var/mob/player_mob as anything in GLOB.player_list)
@@ -340,17 +368,25 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /mob/proc/binarycheck()
 	return FALSE
 
-/mob/living/proc/treat_message(message)
+/**
+ * Treats the passed message with things that may modify speech (stuttering, slurring etc).
+ *
+ * message - The message to treat.
+ * capitalize_message - Whether we run capitalize() on the message after we're done.
+ */
+/mob/living/proc/treat_message(message, capitalize_message = TRUE)
+
 	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))
 		message = unintelligize(message)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_TREAT_MESSAGE, args)
 
-	return treat_message_min(message)
+	return treat_message_min(message, capitalize_message)
 
-/mob/proc/treat_message_min(message)
+/mob/proc/treat_message_min(message, capitalize_message = TRUE)
 	message = punctuate(message)
-	message = capitalize(message)
+	if(capitalize_message)
+		message = capitalize(message)
 	return message
 
 /mob/living/proc/radio(message, list/message_mods = list(), list/spans, language)
@@ -369,6 +405,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				if (r_hand)
 					return r_hand.talk_into(src, message, , spans, language, message_mods)
 				return ITALICS | REDUCE_RANGE
+
 		if(MODE_L_HAND)
 			for(var/obj/item/l_hand in get_held_items_for_side("l", all = TRUE))
 				if (l_hand)
@@ -380,7 +417,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				I.talk_into(src, message, , spans, language, message_mods)
 			return ITALICS | REDUCE_RANGE
 
-	return 0
+	return NONE
 
 /mob/living/say_mod(input, list/message_mods = list())
 	if(message_mods[WHISPER_MODE] == MODE_WHISPER)
@@ -416,4 +453,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
  * filterproof - whether we ignore the word filter
  */
 /mob/living/whisper(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof)
-	say("#[message]", bubble_type, spans, sanitize, language, ignore_spam, forced)
+	if(!message)
+		return
+	say("#[message]", bubble_type, spans, sanitize, language, ignore_spam, forced, filterproof)

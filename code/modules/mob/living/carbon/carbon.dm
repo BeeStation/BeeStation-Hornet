@@ -926,7 +926,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	return ..()
 
 /mob/living/carbon/can_be_revived()
-	if(!get_organ_by_type(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
+	if(HAS_TRAIT(src, TRAIT_HUSK))
+		return FALSE
+	var/brainless_creature = IS_CHANGELING(src)
+	if(!brainless_creature && !get_organ_by_type(/obj/item/organ/brain))
 		return FALSE
 	return ..()
 
