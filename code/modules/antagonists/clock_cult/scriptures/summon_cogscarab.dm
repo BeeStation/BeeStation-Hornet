@@ -12,7 +12,7 @@
 	category = SPELLTYPE_PRESERVATION
 
 /datum/clockcult/scripture/cogscarab/try_to_invoke(mob/living/user)
-	invokation_time = initial(invokation_time) + ((6 SECONDS) * length(GLOB.cogscarabs))
+	invokation_time = initial(invokation_time) + (6 SECONDS * length(GLOB.cogscarabs))
 	return ..()
 
 /datum/clockcult/scripture/cogscarab/can_invoke()
