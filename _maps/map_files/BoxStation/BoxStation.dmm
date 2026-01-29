@@ -20174,7 +20174,6 @@
 	pixel_x = 6;
 	pixel_y = 7
 	},
-/obj/item/pen/red,
 /obj/item/stamp/denied{
 	pixel_x = -8;
 	pixel_y = 10
@@ -20182,6 +20181,10 @@
 /obj/item/stamp{
 	pixel_x = -8;
 	pixel_y = 6
+	},
+/obj/item/pen{
+	pixel_x = 6;
+	pixel_y = 8
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/office)
