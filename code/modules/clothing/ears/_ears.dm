@@ -80,7 +80,7 @@
 	return ..()
 
 /obj/item/clothing/ears/headphones/proc/should_stop_playing(mob/user)
-	return user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))
+	return user.incapacitated || !((loc == user) || (isturf(loc) && Adjacent(user)))
 
 /obj/item/clothing/ears/headphones/AltClick(mob/user)
 	. = ..()

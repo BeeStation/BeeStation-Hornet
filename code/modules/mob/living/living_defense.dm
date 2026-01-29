@@ -134,7 +134,7 @@
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
 				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
-			if(!incapacitated(IGNORE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
+			if(!INCAPACITATED_IGNORING(src, INCAPABLE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
 				hitpush = FALSE
 		else
 			return 1
@@ -166,6 +166,7 @@
 		to_chat(user, span_notice("You don't want to risk hurting [src]!"))
 		return FALSE
 	grippedby(user)
+	update_incapacitated()
 
 //proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/user, instant = FALSE)

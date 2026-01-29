@@ -61,7 +61,7 @@
 /obj/structure/destructible/cult/proc/check_menu(mob/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
@@ -100,7 +100,7 @@
 			pickedtype += /obj/item/reagent_containers/cup/glass/bottle/unholywater
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
@@ -143,7 +143,7 @@
 			pickedtype += /obj/item/shield/mirror
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
@@ -273,7 +273,7 @@
 			pickedtype += /obj/item/flashlight/flare/culttorch
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype.len && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype.len && Adjacent(user) && !user.incapacitated && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))

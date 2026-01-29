@@ -32,7 +32,7 @@
 			return FALSE
 
 		var/mob/living/carbon/human/human_owner = owner
-		if(human_owner.incapacitated())
+		if(human_owner.incapacitated)
 			if(feedback)
 				to_chat(owner, ("<span class='warning'>You can't properly point your fingers while incapacitated.</span>"))
 			return FALSE

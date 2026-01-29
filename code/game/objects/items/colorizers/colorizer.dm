@@ -30,7 +30,7 @@
 	. = ..()
 
 /obj/item/colorizer/proc/can_use(atom/target, mob/user)
-	if(!user || !ismob(user) || user.incapacitated() || !user.Adjacent(target))
+	if(!user || !ismob(user) || user.incapacitated || !user.Adjacent(target))
 		return FALSE
 	return TRUE
 

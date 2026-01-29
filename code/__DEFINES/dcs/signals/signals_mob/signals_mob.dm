@@ -132,6 +132,9 @@
 #define COMSIG_MOB_BEFORE_FIRE_GUN "before_fire_gun"
 	#define GUN_HIT_SELF (1 << 0)
 
+/// from /mob/update_incapacitated: (old_incap, new_incap)
+#define COMSIG_MOB_INCAPACITATE_CHANGED "mob_incapacitated"
+
 /// Signal sent when a blackboard key is set to a new value
 #define COMSIG_AI_BLACKBOARD_KEY_SET(blackboard_key) "ai_blackboard_key_set_[blackboard_key]"
 

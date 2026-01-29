@@ -190,7 +190,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	set name = "Invert Pipe"
 	set src in view(1)
 
-	if(usr.incapacitated() || !isliving(usr))
+	if(usr.incapacitated || !isliving(usr))
 		return
 
 	do_a_flip()

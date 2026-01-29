@@ -871,7 +871,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	set category = "Object"
 	set name = "Pick up"
 
-	if(usr.incapacitated() || !Adjacent(usr))
+	if(usr.incapacitated || !Adjacent(usr))
 		return
 
 	if(isliving(usr))
@@ -1226,7 +1226,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
 			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, usr), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 		if(usr.client.prefs.read_preference(/datum/preference/toggle/item_outlines))
-			if(istype(L) && L.incapacitated())
+			if(istype(L) && L.incapacitated)
 				apply_outline(COLOR_RED_GRAY)
 			else
 				apply_outline()

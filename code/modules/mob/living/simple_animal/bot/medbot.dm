@@ -292,7 +292,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 			MEDBOT_SKIN_BEZERK= image(icon = 'icons/mob/aibots.dmi', icon_state = "medskin_bezerk")
 			)
 	var/choice = show_radial_menu(M, src, skinlist, radius = 42, require_near = TRUE)
-	if(choice && !M.incapacitated() && in_range(M,src))
+	if(choice && !M.incapacitated && in_range(M,src))
 		skin = choice
 		update_icon()
 

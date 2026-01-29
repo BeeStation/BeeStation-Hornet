@@ -207,7 +207,7 @@
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
 
 /mob/living/basic/relaymove(mob/living/user, direction)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	return relaydrive(user, direction)
 

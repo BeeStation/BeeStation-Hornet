@@ -449,7 +449,7 @@
 				cabin_air.pump_gas_to(t_air, cabin_pressure)
 
 	for(var/mob/living/occupant as anything in occupants)
-		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.
+		if(!enclosed && occupant?.incapacitated)  //no sides mean it's easy to just sorta fall out if you're incapacitated.
 			visible_message(span_warning("[occupant] tumbles out of the cockpit!"))
 			mob_exit(occupant) //bye bye
 			continue
@@ -546,7 +546,7 @@
 	if(phasing)
 		balloon_alert(user, "not while [phasing]!")
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(construction_state)
 		balloon_alert(user, "end maintenance first!")

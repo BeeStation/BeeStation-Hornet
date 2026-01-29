@@ -421,7 +421,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated())
+	if(incapacitated)
 		return FALSE
 	if(!..())
 		return FALSE
@@ -446,31 +446,21 @@
 	investigate_log("has succumbed to death.", INVESTIGATE_DEATHS)
 	death()
 
-/**
- * Checks if a mob is incapacitated
- *
- * Normally being restrained, agressively grabbed, or in stasis counts as incapacitated
- * unless there is a flag being used to check if it's ignored
- *
- * args:
- * * flags (optional) bitflags that determine if special situations are exempt from being considered incapacitated
- *
- * bitflags: (see code/__DEFINES/status_effects.dm)
- * * IGNORE_RESTRAINTS - mob in a restraint (handcuffs) is not considered incapacitated
- * * IGNORE_STASIS - mob in stasis (stasis bed, etc.) is not considered incapacitated
- * * IGNORE_GRAB - mob that is agressively grabbed is not considered incapacitated
-**/
-/mob/living/incapacitated(flags)
+// Remember, anything that influences this needs to call update_incapacitated somehow when it changes
+// Most often best done in [code/modules/mob/living/init_signals.dm]
+/mob/living/build_incapacitated()
+	// Holds a set of flags that describe how we are currently incapacitated
+	var/incap_status = NONE
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
-		return TRUE
+		incap_status |= TRADITIONAL_INCAPACITATED
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
+		incap_status |= INCAPABLE_RESTRAINTS
+	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
+		incap_status |= INCAPABLE_GRAB
+	if(IS_IN_STASIS(src))
+		incap_status |= INCAPABLE_STASIS
 
-	if(!(flags & IGNORE_RESTRAINTS) && HAS_TRAIT(src, TRAIT_RESTRAINED))
-		return TRUE
-	if(!(flags & IGNORE_GRAB) && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
-		return TRUE
-	if(!(flags & IGNORE_STASIS) && IS_IN_STASIS(src))
-		return TRUE
-	return FALSE
+	return incap_status
 
 /mob/living/canUseStorage()
 	if (usable_hands <= 0)
@@ -1696,6 +1686,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 /mob/living/set_pulledby(new_pulledby)
 	. = ..()
+	update_incapacitated()
 	if(. == FALSE) //null is a valid value here, we only want to return if FALSE is explicitly passed.
 		return
 	if(pulledby)
