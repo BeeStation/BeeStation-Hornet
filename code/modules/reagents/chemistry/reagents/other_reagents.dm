@@ -473,31 +473,17 @@
 					human.skin_tone = "caucasian1"
 
 		if(MUTCOLORS in human.dna.species.species_traits) //take current alien color and darken it slightly
-			var/newcolor = ""
-			var/string = human.dna.features["mcolor"]
-			var/len = length(string)
-			var/char = ""
-			var/ascii = 0
-			for(var/i=1, i<=len, i += length(char))
-				char = string[i]
-				ascii = text2ascii(char)
-				switch(ascii)
-					if(48)
-						newcolor += "0"
-					if(49 to 57)
-						newcolor += ascii2text(ascii-1)	//numbers 1 to 9
-					if(97)
-						newcolor += "9"
-					if(98 to 102)
-						newcolor += ascii2text(ascii-1)	//letters b to f lowercase
-					if(65)
-						newcolor += "9"
-					if(66 to 70)
-						newcolor += ascii2text(ascii+31)	//letters B to F - translates to lowercase
-					else
-						break
-			if(ReadHSV(newcolor)[3] >= ReadHSV("#7F7F7F")[3])
-				human.dna.features["mcolor"] = newcolor
+			var/list/existing_color = rgb2num(human.dna.features["mcolor"])
+			var/list/darkened_color = list()
+			// Reduces each part of the color by 16
+			for(var/channel in existing_color)
+				darkened_color += max(channel - 17, 0)
+
+			var/new_color = rgb(darkened_color[1], darkened_color[2], darkened_color[3])
+			var/list/new_hsv = rgb2hsv(new_color)
+			// Can't get too dark now
+			if(new_hsv[3] >= 50)
+				human.dna.features["mcolor"] = new_color
 		human.regenerate_icons()
 
 /datum/reagent/spraytan/overdose_start(mob/living/carbon/affected_mob)

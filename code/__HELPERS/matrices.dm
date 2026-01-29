@@ -225,7 +225,7 @@ round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), ro
 ///Converts RGB shorthands into RGBA matrices complete of constants rows (ergo a 20 keys list in byond).
 /proc/color_to_full_rgba_matrix(color)
 	if(istext(color))
-		var/list/L = ReadRGB(color)
+		var/list/L = rgb2num(color)
 		if(!L)
 			CRASH("Invalid/unsupported color format argument in color_to_full_rgba_matrix()")
 		return list(L[1]/255,0,0,0, 0,L[2]/255,0,0, 0,0,L[3]/255,0, 0,0,0,L.len>3?L[4]/255:1, 0,0,0,0)
@@ -236,7 +236,7 @@ round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), ro
 		if(3 to 5) // row-by-row hexadecimals
 			. = list()
 			for(var/a in 1 to L.len)
-				var/list/rgb = ReadRGB(L[a])
+				var/list/rgb = rgb2num(L[a])
 				for(var/b in rgb)
 					. += b/255
 				if(length(rgb) % 4) // RGB has no alpha instruction

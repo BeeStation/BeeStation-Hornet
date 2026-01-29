@@ -182,9 +182,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_mutantcolor)
-					var/temp_hsv = RGBtoHSV(new_mutantcolor)
+					var/list/mutant_hsv = rgb2hsv(new_mutantcolor)
 
-					if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright
+					if(mutant_hsv[3] >= 50) // mutantcolors must be bright
 						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
 						H.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
 

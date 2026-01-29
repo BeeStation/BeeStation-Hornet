@@ -31,7 +31,7 @@
 	if (unique)
 		H.hair_color = random_short_color()
 		H.facial_hair_color = H.hair_color
-		var/list/rgb_list = ReadRGB(H.hair_color)
+		var/list/rgb_list = rgb2num(H.hair_color)
 		var/list/hsl = rgb2hsl(rgb_list[1], rgb_list[2], rgb_list[3])
 		hsl[1] = CLAMP01(hsl[1] + (rand(-6, 6)/360))
 		hsl[2] = CLAMP01(hsl[2] + (rand(-4, 4)/100))
