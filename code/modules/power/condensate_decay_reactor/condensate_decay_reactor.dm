@@ -138,7 +138,7 @@
 	.["toroid_flux_mult"] = toroid_flux_mult
 	.["core_temperature"] = core_composition.temperature
 	.["core_composition"] = core_composition_named
-	.["can_activate"] = can_activate()
+	.["can_activate"] = !activated && is_operational
 	.["activated"] = activated
 	.["metallization_ratio"] = metallization_ratio
 	.["parabolic_setting"] = parabolic_setting
@@ -181,11 +181,8 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/atmospherics/components/unary/cdr/proc/can_activate()
-	return !(activated || (!is_operational))
-
 /obj/machinery/atmospherics/components/unary/cdr/proc/activate()
-	if(!can_activate())
+	if(!activated && is_operational)
 		//this provides no feedback because it isnt normally possible to start it when its already active
 		return
 	soundloop.start()
