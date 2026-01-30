@@ -53,6 +53,7 @@
 		for(var/key in sorted_keys)
 			threat_entries += list(entries_by_label[key])
 	catch(var/exception/e)
+		log_runtime("Failed to load corporate threats config: [e] on [e.file]:[e.line]")
 		message_admins(span_boldannounce("Failed to load corporate threats config: [e] on [e.file]:[e.line]"))
 		load_default_threats()
 
