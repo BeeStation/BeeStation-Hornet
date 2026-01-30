@@ -707,8 +707,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	if(!volume_to_pump)
 		return FALSE
 
-	var/datum/gas_mixture/removed
-	removed = remove_ratio(volume_to_pump / volume)
+	var/datum/gas_mixture/removed = remove_ratio(volume_to_pump / volume)
 
 	if(!removed)
 		return FALSE
