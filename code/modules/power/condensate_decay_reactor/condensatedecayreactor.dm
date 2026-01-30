@@ -17,7 +17,7 @@
 	var/base_instability = CDR_BASE_INSTABILITY
 
 	var/core_health = CDR_MAX_CORE_HEALTH
-	var/invincible = FALSE
+	var/takes_core_damage = FALSE
 	var/temp_stability_factor = 0
 	var/core_temperature = T20C
 
@@ -111,13 +111,9 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/update_overlays()
 	. = ..()
-	var/core_mass = 0
-	var/list/gases = core_composition.gases
-	for(var/gastype in gases)
-		core_mass += gases[gastype]
 	if(!activated)
 		return
-	switch(core_mass)
+	switch(core_composition.total_moles())
 		if(0 to 500)
 			. += mutable_appearance(icon, "sphere_1")
 			. += emissive_appearance(icon, "sphere_1", layer)
@@ -149,7 +145,7 @@
 
 	var/list/core_composition_named = list()
 	for(var/gastype in core_composition.gases)
-		core_composition_named[GLOB.meta_gas_info[gastype]?[META_GAS_NAME]] = core_composition.gases[gastype]
+		core_composition_named[GLOB.meta_gas_info[gastype]?[META_GAS_NAME]] = GET_MOLES(gastype, core_composition)
 
 	.["toroid_spin"] = toroid_spin
 	.["parabolic_setting"] = parabolic_setting
@@ -220,16 +216,17 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_heat_capacity()
 	var/total_capacity
-	var/list/gases = core_composition.gases
-	for(var/gastype in gases)
-		total_capacity += GLOB.meta_gas_info[gastype]?[META_GAS_SPECIFIC_HEAT] * gases[gastype]
+
+	for(var/gastype in core_composition.gases)
+		total_capacity += GLOB.meta_gas_info[gastype]?[META_GAS_SPECIFIC_HEAT] * GET_MOLES(gastype, core_composition)
 	return total_capacity
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_stability()
 	var/stability_value = 0
-	var/list/gases = core_composition.gases
-	for(var/gastype in gases) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
-		stability_value += gases[gastype] * gas_vars[gastype]?.stability_val
+
+	for(var/gastype in core_composition.gases) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
+		var/datum/condensate_gas/gas_var = gas_vars[gastype]
+		stability_value += GET_MOLES(gastype, core_composition) * gas_var?.stability_val
 	return stability_value * get_temp_stab_factor()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/link_harvesters()
@@ -251,8 +248,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/decay_gases(decay_factor)
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	var/total_energy_consumed = 0
-	var/list/gases = core_composition.gases
-	for(var/gastype in gases)
+	for(var/gastype in core_composition.gases)
 		var/datum/condensate_gas/cdr_gas = gas_vars[gastype]
 		var/gas_moles = GET_MOLES(gastype, core_composition)
 		if(!gas_vars[gastype]) //sanity check, the CDR_GAS defines SHOULD cover all gases, but on the off chance they dont? this should stop it
@@ -281,9 +277,8 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_mass_multiplier()
 	var/core_mass = 0
-	var/list/gases = core_composition.gases
-	for(var/gastype in gases)
-		core_mass += gases[gastype]
+	for(var/gastype in core_composition.gases)
+		core_mass += GET_MOLES(gastype, core_composition)
 	return max(core_mass / CDR_CORE_MASS_DIV, 1)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_stability()
@@ -296,7 +291,7 @@
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/adjust_health(delta)
-	if(invincible)
+	if(takes_core_damage)
 		return
 	var/health_delta = clamp(core_health + delta, 0, CDR_MAX_CORE_HEALTH)
 	if(health_delta > core_health)
@@ -347,8 +342,8 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	for(var/turf_gas in (turf_mix.gases | core_composition.gases))
-		var/turf_mix_mols = turf_mix.gases[turf_gas]?[MOLES]
-		var/core_comp_mols = core_composition.gases[turf_gas]
+		var/turf_mix_mols = GET_MOLES(turf_gas, turf_mix)
+		var/core_comp_mols = GET_MOLES(turf_gas, core_composition)
 		if(!turf_mix_mols)
 			turf_mix_mols = 0
 		if(!core_comp_mols)
