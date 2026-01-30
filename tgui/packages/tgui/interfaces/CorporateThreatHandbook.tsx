@@ -22,7 +22,6 @@ type Data = {
   handbook_title: string;
   handbook_author: string;
   threat_entries: ThreatEntry[];
-  current_page: number;
 };
 
 enum PageType {
@@ -101,7 +100,6 @@ export const CorporateThreatHandbook = () => {
     handbook_title,
     handbook_author,
     threat_entries = [],
-    current_page = 0,
   } = data;
 
   const pages: PageInfo[] = [
@@ -115,16 +113,13 @@ export const CorporateThreatHandbook = () => {
     { type: PageType.EndPage },
   ];
 
-  const [currentPage, setCurrentPage] = useLocalState(
-    'currentPage',
-    current_page,
-  );
+  const [currentPage, setCurrentPage] = useLocalState('currentPage', 0);
   const totalPages = pages.length;
 
   const changePage = (newPage: number) => {
     if (newPage >= 0 && newPage < totalPages && newPage !== currentPage) {
       setCurrentPage(newPage);
-      act('turn_page', { page: newPage });
+      act('turn_page');
     }
   };
 

@@ -25,8 +25,6 @@
 	var/config_file = "config/corporate_threats.json"
 	/// Static list of threat entries, shared across all instances
 	var/static/list/threat_entries
-	/// The current page the book is turned to
-	var/current_page = 0
 
 /obj/item/book/manual/tgui_handbook/Initialize(mapload)
 	. = ..()
@@ -86,25 +84,17 @@
 	data["threat_entries"] = threat_entries
 	return data
 
-/obj/item/book/manual/tgui_handbook/ui_data(mob/user)
-	var/list/data = list()
-	data["current_page"] = current_page
-	return data
-
 /obj/item/book/manual/tgui_handbook/ui_act(action, params)
 	. = ..()
 	if(.)
 		return
 	switch(action)
 		if("turn_page")
-			var/new_page = params["page"]
-			if(isnum(new_page))
-				current_page = new_page
-				playsound(src, pick(
-					'sound/items/paper/rustling/rustle1.ogg',
-					'sound/items/paper/rustling/rustle2.ogg',
-					'sound/items/paper/rustling/rustle3.ogg',
-					'sound/items/paper/rustling/rustle4.ogg',
-					'sound/items/paper/rustling/rustle5.ogg'), 50, TRUE)
-				return TRUE
+			playsound(src, pick(
+				'sound/items/paper/rustling/rustle1.ogg',
+				'sound/items/paper/rustling/rustle2.ogg',
+				'sound/items/paper/rustling/rustle3.ogg',
+				'sound/items/paper/rustling/rustle4.ogg',
+				'sound/items/paper/rustling/rustle5.ogg'), 50, TRUE)
+			return TRUE
 	return FALSE
