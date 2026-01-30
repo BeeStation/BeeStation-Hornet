@@ -704,10 +704,10 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 /// Pumps gas from src to output_air. Amount depends on volume_to_pump
 /datum/gas_mixture/proc/pump_gas_volume(datum/gas_mixture/output_air, volume_to_pump)
-	var/datum/gas_mixture/removed
-	if(!volume)
+	if(!volume_to_pump)
 		return FALSE
 
+	var/datum/gas_mixture/removed
 	removed = remove_ratio(volume_to_pump / volume)
 
 	if(!removed)
