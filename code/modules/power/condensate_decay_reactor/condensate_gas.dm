@@ -5,7 +5,6 @@
 		gas_list[condensate_gas.gas_path] = condensate_gas
 	return gas_list
 
-
 /datum/condensate_gas
 	/// Path of the [/datum/gas] involved with this interaction.
 	var/gas_path
