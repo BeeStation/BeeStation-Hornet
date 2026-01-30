@@ -74,7 +74,6 @@
 		to_chat(user, span_warning("Something is hogging the tile!"))
 		deconstruct(TRUE)
 
-
 /obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
 	update_parents() //needs to process constantly for gases to not get stuck
 	if(!activated)
@@ -92,7 +91,6 @@
 		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "cdr", "cdr", tool))
-		update_appearance()
 		return TRUE
 
 /obj/machinery/atmospherics/components/unary/cdr/wrench_act(mob/living/user, obj/item/tool)
@@ -104,7 +102,6 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/crowbar_act(mob/living/user, obj/item/tool)
 	return crowbar_deconstruction_act(user, tool)
-
 
 /obj/machinery/atmospherics/components/unary/cdr/update_overlays()
 	. = ..()
@@ -200,7 +197,7 @@
 	soundloop.start()
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF //you cannot destroy it while its on... because of its quantum-flux-field!
 	activated = TRUE
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/deactivate(mob/user)
 	if(core_composition.total_moles())
@@ -210,7 +207,7 @@
 	soundloop.stop()
 	resistance_flags = FREEZE_PROOF
 	activated = FALSE
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_heat_capacity()
 	var/total_capacity
@@ -232,10 +229,10 @@
 		harvester.unlink_harvester()
 		linked_harvesters -= harvester
 	for(var/obj/machinery/power/flux_harvester/harvester in orange(5, src))
-		if(!(harvester in linked_harvesters))
-			linked_harvesters += harvester
-			harvester.link_harvester(src)
-			START_PROCESSING(SSmachines, harvester)
+		if(harvester in linked_harvesters)
+			continue
+		linked_harvesters += harvester
+		harvester.link_harvester(src)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_temp_stab_factor()
 	var/n2o_mols = GET_MOLES(/datum/gas/oxygen, core_composition)
@@ -408,6 +405,7 @@
 
 /obj/machinery/power/flux_harvester/proc/link_harvester(obj/machinery/atmospherics/components/unary/cdr/reactor)
 	parent = reactor
+	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/power/flux_harvester/proc/unlink_harvester()
 	parent = null
