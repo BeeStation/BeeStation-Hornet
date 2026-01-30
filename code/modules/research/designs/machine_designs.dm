@@ -99,7 +99,6 @@
 	category = list ("Engineering Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-
 /datum/design/board/thermomachine
 	name = "Machine Design (Thermomachine Board)"
 	desc = "The circuit board for a thermomachine."

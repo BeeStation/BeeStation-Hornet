@@ -263,16 +263,13 @@
 		/obj/item/stack/sheet/plasmaglass = 10
 	)
 
-/obj/item/circuitboard/machine/cdr/can_construct(mob/user)
-	var/turf_occupied = FALSE
+/obj/item/circuitboard/machine/cdr/can_construct(mob/living/user)
 	for(var/obj/machinery/atmospherics/device in get_turf(src))
 		if(device.piping_layer == 3) // the CDR will always be on layer three
-			turf_occupied = TRUE
-	if(turf_occupied)
-		if(user)
-			balloon_alert(user, "tile occupied!")
-		return FALSE
-	return TRUE
+			if(user)
+				balloon_alert(user, "tile occupied!")
+			return FALSE
+	return ..()
 
 /obj/item/circuitboard/machine/flux_harvester
 	name = "flux harvester (Machine Board)"

@@ -82,7 +82,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/screwdriver_act(mob/living/user, obj/item/tool)
 	if(activated)
 		balloon_alert(user, "deactivate first!")
-		return TRUE
+		return FALSE
 
 	if(default_deconstruction_screwdriver(user, "cdr", "cdr", tool))
 		return TRUE
@@ -120,42 +120,43 @@
 		ui.set_autoupdate(TRUE)
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_static_data(mob/user)
-	. = ..()
-	.["uid"] = cdr_uid
-	.["area"] = AREACOORD(src)
-	.["max_core_health"] = CDR_MAX_CORE_HEALTH
+	var/list/data = list()
+	data["uid"] = cdr_uid
+	data["area"] = AREACOORD(src)
+	data["max_core_health"] = CDR_MAX_CORE_HEALTH
+	return data
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_data(mob/user)
-	. = ..()
+	var/list/data = list()
 
 	var/list/core_composition_named = list()
 	for(var/gastype in core_composition.gases)
 		core_composition_named[GLOB.meta_gas_info[gastype]?[META_GAS_NAME]] = GET_MOLES(gastype, core_composition)
 
-	.["toroid_spin"] = toroid_spin
-	.["parabolic_setting"] = parabolic_setting
-	.["input_volume"] = input_volume
-	.["toroid_flux_mult"] = toroid_flux_mult
-	.["core_temperature"] = core_composition.temperature
-	.["core_composition"] = core_composition_named
-	.["can_activate"] = !activated && is_operational
-	.["activated"] = activated
-	.["metallization_ratio"] = metallization_ratio
-	.["parabolic_setting"] = parabolic_setting
-	.["parabolic_upper_limit"] = parabolic_upper_limit
-	.["parabolic_ratio"] = parabolic_ratio
-	.["core_stability"] = core_stability
-	.["core_instability"] = core_instability
-	.["core_health"] = core_health
-	.["power_output"] = display_power_persec(flux * CDR_FLUX_TO_POWER)
+	data["toroid_spin"] = toroid_spin
+	data["parabolic_setting"] = parabolic_setting
+	data["input_volume"] = input_volume
+	data["toroid_flux_mult"] = toroid_flux_mult
+	data["core_temperature"] = core_composition.temperature
+	data["core_composition"] = core_composition_named
+	data["can_activate"] = !activated && is_operational
+	data["activated"] = activated
+	data["metallization_ratio"] = metallization_ratio
+	data["parabolic_setting"] = parabolic_setting
+	data["parabolic_upper_limit"] = parabolic_upper_limit
+	data["parabolic_ratio"] = parabolic_ratio
+	data["core_stability"] = core_stability
+	data["core_instability"] = core_instability
+	data["core_health"] = core_health
+	data["power_output"] = display_power_persec(flux * CDR_FLUX_TO_POWER)
+	return data
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_act(action, params)
 	. = ..()
 	if(.)
 		return
-	var/mob/user = usr
-	if(ismob(user) && user.ckey)
-		last_user = user.ckey
+	if(ismob(user) && usr.ckey)
+		last_user = usr.ckey
 	switch(action)
 		if("change_input")
 			input_volume = clamp(text2num(params["change_input"]), 0, 200)
@@ -183,7 +184,6 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/activate()
 	if(!activated && is_operational)
-		//this provides no feedback because it isnt normally possible to start it when its already active
 		return
 	soundloop.start()
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF //you cannot destroy it while its on... because of its quantum-flux-field!
@@ -191,6 +191,8 @@
 	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/deactivate(mob/user)
+	if(!activated)
+		return
 	if(core_composition.total_moles())
 		balloon_alert(user, "can't deactivate!")
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
@@ -199,13 +201,6 @@
 	resistance_flags = FREEZE_PROOF
 	activated = FALSE
 	update_appearance(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/components/unary/cdr/proc/get_core_heat_capacity()
-	var/total_capacity
-
-	for(var/gastype in core_composition.gases)
-		total_capacity += GLOB.meta_gas_info[gastype]?[META_GAS_SPECIFIC_HEAT] * GET_MOLES(gastype, core_composition)
-	return total_capacity
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_stability()
 	var/stability_value = 0
@@ -237,10 +232,6 @@
 	for(var/gastype in core_composition.gases)
 		var/datum/condensate_gas/cdr_gas = gas_vars[gastype]
 		var/gas_moles = GET_MOLES(gastype, core_composition)
-		if(!gas_vars[gastype]) //sanity check, the CDR_GAS defines SHOULD cover all gases, but on the off chance they dont? this should stop it
-			continue
-		if(!cdr_gas.decays_into)
-			continue
 		if(!gas_moles)
 			continue
 		if(gas_moles < cdr_gas.threshold)
@@ -250,7 +241,7 @@
 		var/decayed_gas = max((gas_moles - cdr_gas.threshold) * true_decay_factor, 0)
 		total_energy_consumed += decayed_gas * CDR_HEAT_CONSUMED_PER_MOL * cdr_gas.decay_flux_mult
 
-		add_flux(cdr_gas.decay_flux_mult * gas_moles * get_mass_multiplier())
+		set_flux(cdr_gas.decay_flux_mult * gas_moles * get_mass_multiplier())
 		REMOVE_MOLES(gastype, core_composition, decayed_gas)
 		ADD_MOLES(cdr_gas.decays_into, core_composition, decayed_gas)
 
@@ -288,10 +279,10 @@
 		playsound(src, 'sound/machines/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/alert_radio(decreasing)
-	if(!(COOLDOWN_FINISHED(src, radio_cooldown)) || core_health > CDR_MAX_CORE_HEALTH * 0.6)
+	if(!COOLDOWN_FINISHED(src, radio_cooldown) || core_health > CDR_MAX_CORE_HEALTH * 0.6)
 		return
 	var/message = "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!"
-	core_health < CDR_MAX_CORE_HEALTH * 0.25 ? radio.talk_into(src, message, null) : radio.talk_into(src, message, RADIO_CHANNEL_ENGINEERING)
+	radio.talk_into(src, "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!", core_health < CDR_MAX_CORE_HEALTH * 0.25 ? RADIO_CHANNEL_ENGINEERING : null)
 	COOLDOWN_START(src, radio_cooldown, CDR_RADIO_COOLDOWN)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/fail()
@@ -302,7 +293,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_toroid()
 	toroid_spin = toroid_spin - toroid_spin * metallization_ratio
 
-	if(toroid_spin < 0.001) //prevent it from reaching absurdly small numbers
+	if(round(toroid_spin, 0.001) <= 0) //prevent it from reaching absurdly small numbers
 		toroid_spin = 0
 
 	var/datum/gas_mixture/toroid_mix = new
@@ -359,15 +350,16 @@
 	for (var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		power_left -= harvester.add_power(power_left)
 
-/obj/machinery/atmospherics/components/unary/cdr/proc/add_flux(flux_to_add)
+/obj/machinery/atmospherics/components/unary/cdr/proc/set_flux(flux_to_add)
 	flux = flux_to_add * toroid_flux_mult
 
 /obj/machinery/power/flux_harvester
-	name = "Magnetic Flux Harvester"
+	name = "magnetic flux harvester"
 	desc = "Uses advanced wire coils to harvest magnetic flux efficiently."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "flux_harvester"
 	circuit = /obj/item/circuitboard/machine/flux_harvester
+	processing_flags = START_PROCESSING_MANUALLY
 	var/output_this_tick = 0
 	var/max_harvested = 1 GIGAWATT
 	var/obj/machinery/atmospherics/components/unary/cdr/parent = null
@@ -377,8 +369,6 @@
 	parent?.linked_harvesters -= src
 
 /obj/machinery/power/flux_harvester/process(delta_time)
-	if(!parent)
-		..()
 	add_avail(output_this_tick)
 	output_this_tick = 0
 
@@ -387,7 +377,6 @@
 
 /obj/machinery/power/flux_harvester/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)
-
 
 /obj/machinery/power/flux_harvester/proc/add_power(power)
 	var/excess = max(power - max_harvested, 0)
@@ -400,3 +389,4 @@
 
 /obj/machinery/power/flux_harvester/proc/unlink_harvester()
 	parent = null
+	STOP_PROCESSING(SSmachines, src)

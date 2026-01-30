@@ -55,10 +55,9 @@
   * Used to check if a circuit board can be constructed.
   *
   * Arguments:
-  * * user - A mob to send messages to.
+  * * user - The person constructing this machine.
   */
-/obj/item/circuitboard/proc/can_construct(mob/user)
-	return TRUE
+/obj/item/circuitboard/proc/can_construct(mob/living/user)
 
 // Circuitboard/machine
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
