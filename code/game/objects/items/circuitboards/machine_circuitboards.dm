@@ -274,7 +274,6 @@
 		return FALSE
 	return TRUE
 
-
 /obj/item/circuitboard/machine/flux_harvester
 	name = "flux harvester (Machine Board)"
 	icon_state = "engineering"
