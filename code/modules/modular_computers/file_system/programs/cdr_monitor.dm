@@ -22,14 +22,16 @@
 	refresh()
 
 /datum/computer_file/program/cdr_monitor/ui_data(mob/user)
-	. = ..()
-	.["selected_cdr_uid"] = selected_cdr?.cdr_uid
-	.["cdr_data"] = list()
+	var/list/data = list()
+	data["selected_cdr_uid"] = selected_cdr?.cdr_uid
+	data["cdr_data"] = list()
 	for(var/obj/machinery/atmospherics/components/unary/cdr/cdr in cdrs)
-		.["cdr_data"] += list((cdr.ui_static_data(user) + cdr.ui_data(user))) //very stupid, but I frankly dont know another solution
+		data["cdr_data"] += list((cdr.ui_static_data(user) + cdr.ui_data(user))) //very stupid, but I frankly dont know another solution
 
 /datum/computer_file/program/cdr_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
+	if(.)
+		return
 	switch (action)
 		if("refresh")
 			refresh()

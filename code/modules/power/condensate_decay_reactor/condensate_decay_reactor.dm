@@ -232,6 +232,7 @@
 	for(var/gastype in core_composition.gases)
 		var/datum/condensate_gas/cdr_gas = gas_vars[gastype]
 		var/gas_moles = GET_MOLES(gastype, core_composition)
+		if(!cdr_gas.decays_into)
 		if(!gas_moles)
 			continue
 		if(gas_moles < cdr_gas.threshold)
