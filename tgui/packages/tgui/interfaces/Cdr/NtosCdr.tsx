@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
-import { Box, Button, Section, Table } from '../components';
-import { NtosWindow } from '../layouts';
+import { useBackend } from '../../backend';
+import { Box, Button, Section, Table } from '../../components';
+import { NtosWindow } from '../../layouts';
 import { CdrContent, CdrData } from './AtmosCdr';
 
 export const NtosCdr = (props) => {
