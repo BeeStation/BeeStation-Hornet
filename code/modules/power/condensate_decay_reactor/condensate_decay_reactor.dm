@@ -101,16 +101,14 @@
 	. = ..()
 	if(!activated)
 		return
+	var/overlay_state = "sphere_3"
 	switch(core_composition.total_moles())
 		if(0 to 500)
-			. += mutable_appearance(icon, "sphere_1")
-			. += emissive_appearance(icon, "sphere_1", layer)
+			overlay_state = "sphere_1"
 		if(500 to 5000)
-			. += mutable_appearance(icon, "sphere_2")
-			. += emissive_appearance(icon, "sphere_2", layer)
-		else
-			. += mutable_appearance(icon, "sphere_3")
-			. += emissive_appearance(icon, "sphere_3", layer)
+			overlay_state = "sphere_2"
+	. += mutable_appearance(icon, overlay_state)
+	. += emissive_appearance(icon, overlay_state, layer)
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -155,7 +153,7 @@
 	. = ..()
 	if(.)
 		return
-	if(ismob(user) && usr.ckey)
+	if(usr.ckey)
 		last_user = usr.ckey
 	switch(action)
 		if("change_input")
