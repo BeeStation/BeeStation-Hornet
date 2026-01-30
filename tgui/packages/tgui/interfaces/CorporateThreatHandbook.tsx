@@ -49,64 +49,50 @@ const THREAT_LEVELS = [
 ] as const;
 
 const THREAT_SYMBOLS: Record<string, string> = {
-  negligible: '&alpha;',
-  minor: '&beta;',
-  moderate: '&gamma;',
-  major: '&Delta;',
-  severe: '&epsilon;',
-  critical: '&Omega;',
+  negligible: 'α',
+  minor: 'β',
+  moderate: 'γ',
+  major: 'Δ',
+  severe: 'ε',
+  critical: 'Ω',
 };
 
 const DESIGNATIONS = [
   {
     level: 'Negligible',
-    symbol: '&alpha;',
+    symbol: 'α',
     desc: 'Minimal risk to crew or station operations. May require security attention or monitoring.',
   },
   {
     level: 'Minor',
-    symbol: '&beta;',
+    symbol: 'β',
     desc: 'Low risk. Requires security attention but poses no significant threat to station integrity.',
   },
   {
     level: 'Moderate',
-    symbol: '&gamma;',
+    symbol: 'γ',
     desc: 'Notable risk to crew safety. Direct security intervention required. Coordination with department heads advised.',
   },
   {
     level: 'Major',
-    symbol: '&Delta;',
+    symbol: 'Δ',
     desc: 'Significant threat to multiple crew members or critical systems. Full security mobilization required.',
   },
   {
     level: 'Severe',
-    symbol: '&epsilon;',
+    symbol: 'ε',
     desc: 'Extreme danger to station survival. All crew should be on high alert. Command-level response necessary.',
   },
   {
     level: 'Critical',
-    symbol: '&Omega;',
+    symbol: 'Ω',
     desc: 'Existential threat to the station. Evacuation protocols may be necessary. Maximum response authorized.',
   },
 ];
 
 const getThreatSymbol = (designation: string): string => {
-  // Decode HTML entity strings (e.g. '&alpha;') into their unicode characters
-  const decodeHtml = (str: string) => {
-    try {
-      const doc = new DOMParser().parseFromString(str, 'text/html');
-      return doc.documentElement.textContent || '';
-    } catch {
-      // Fallback for environments without DOMParser
-      const textarea = document.createElement('textarea');
-      textarea.innerHTML = str;
-      return textarea.value;
-    }
-  };
-
-  const entity = THREAT_SYMBOLS[designation.toLowerCase()];
-  if (!entity) return '?';
-  return decodeHtml(entity);
+  const symbol = THREAT_SYMBOLS[designation.toLowerCase()];
+  return symbol || '?';
 };
 
 export const CorporateThreatHandbook = () => {
@@ -294,7 +280,7 @@ const CoverPage = (props: CoverPageProps) => {
       </Stack.Item>
 
       <Stack.Item className="Handbook__coverFooter">
-        © 2563 Nanotrasen Corporation — All Rights Reserved
+        &copy; 2563 Nanotrasen Corporation — All Rights Reserved
       </Stack.Item>
     </Stack>
   );
@@ -436,20 +422,7 @@ const ThreatDesignationsPage = () => {
             >
               <Flex align="center" mb={0.5}>
                 <Flex.Item className="Handbook__designationSymbol">
-                  {/* decode HTML entity for display */}
-                  {(() => {
-                    try {
-                      const doc = new DOMParser().parseFromString(
-                        d.symbol,
-                        'text/html',
-                      );
-                      return doc.documentElement.textContent || d.symbol;
-                    } catch {
-                      const textarea = document.createElement('textarea');
-                      textarea.innerHTML = d.symbol;
-                      return textarea.value || d.symbol;
-                    }
-                  })()}
+                  {d.symbol}
                 </Flex.Item>
                 <Flex.Item
                   className={`Handbook__designation Handbook__designation--${d.level.toLowerCase()}`}
