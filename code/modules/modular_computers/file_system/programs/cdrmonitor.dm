@@ -1,6 +1,6 @@
 /datum/computer_file/program/cdr_monitor
 	filename = "ntcdrms"
-	filedesc = "NT CDRms"
+	filedesc = "NT CDRMS"
 	category = PROGRAM_CATEGORY_ENGI
 	ui_header = "smmon_0.gif"
 	program_icon_state = "smmon_0"
@@ -47,7 +47,7 @@
 	if(!user_turf)
 		return
 	for (var/obj/machinery/atmospherics/components/unary/cdr/cdr in GLOB.machines)
-		if (!(is_station_level(cdr.z) || is_mining_level(cdr.z) || cdr.z == user_turf.z))
+		if (!is_station_level(cdr.z) || !is_mining_level(cdr.z) || cdr.z == user_turf.z)
 			continue
 		cdrs["[cdr.cdr_uid]"] = cdr
 		RegisterSignal(cdr, COMSIG_QDELETING, PROC_REF(clear_cdr))

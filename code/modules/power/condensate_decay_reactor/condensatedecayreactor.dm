@@ -1,18 +1,3 @@
-#define CDR_MOL_TO_SPIN 1000
-#define CDR_SPIN_INSTABILITY_MULT 1e3
-#define CDR_PARABOLIC_ACCURACY 1e4
-
-#define CDR_BASE_INSTABILITY 100
-
-#define CDR_HEAT_CONSUMED_PER_MOL 1 MEGAWATT
-#define CDR_FLUX_TO_POWER 1 KILOWATT
-
-#define CDR_MAX_CORE_HEALTH 250
-
-#define CDR_CORE_MASS_DIV 1000
-
-#define CDR_RADIO_COOLDOWN 8 SECONDS
-
 /obj/machinery/atmospherics/components/unary/cdr
 	name = "Condensate Decay Reactor"
 	desc = "A sphere of ultra-stable metallic gases, which generate magnetic flux by decaying into more stable gases."
@@ -53,7 +38,7 @@
 	var/datum/looping_sound/cdr/soundloop
 
 	var/list/obj/machinery/power/flux_harvester/linked_harvesters = list()
-	var/list/core_composition = list()
+	var/datum/gas_mixture/core_composition
 
 	// For admin logging
 	var/last_user = null
@@ -67,6 +52,7 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/Initialize(mapload)
 	. = ..()
+	core_composition = new
 	gas_vars = init_condensate_gas()
 	cdr_uid = gl_cdr_uid++
 	soundloop = new(src)
@@ -79,8 +65,8 @@
 	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		harvester.parent = null
 	var/total_core_mols = 0
-	for(var/gastype in core_composition)
-		total_core_mols += core_composition[gastype]
+	for(var/gastype in core_composition.gases)
+		total_core_mols += core_composition.gases[gastype]
 	QDEL_NULL(soundloop)
 	QDEL_NULL(radio)
 	. = ..()
@@ -126,8 +112,9 @@
 /obj/machinery/atmospherics/components/unary/cdr/update_overlays()
 	. = ..()
 	var/core_mass = 0
-	for(var/gastype in core_composition)
-		core_mass += core_composition[gastype]
+	var/list/gases = core_composition.gases
+	for(var/gastype in gases)
+		core_mass += gases[gastype]
 	if(!activated)
 		return
 	switch(core_mass)
@@ -161,14 +148,14 @@
 	. = ..()
 
 	var/list/core_composition_named = list()
-	for(var/gastype in core_composition)
-		core_composition_named[GLOB.meta_gas_info[gastype]?[META_GAS_NAME]] = core_composition[gastype]
+	for(var/gastype in core_composition.gases)
+		core_composition_named[GLOB.meta_gas_info[gastype]?[META_GAS_NAME]] = core_composition.gases[gastype]
 
 	.["toroid_spin"] = toroid_spin
 	.["parabolic_setting"] = parabolic_setting
 	.["input_volume"] = input_volume
 	.["toroid_flux_mult"] = toroid_flux_mult
-	.["core_temperature"] = core_temperature
+	.["core_temperature"] = core_composition.temperature
 	.["core_composition"] = core_composition_named
 	.["can_activate"] = can_activate()
 	.["activated"] = activated
@@ -211,12 +198,6 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/can_activate()
 	return !(activated || (!is_operational))
 
-/obj/machinery/atmospherics/components/unary/cdr/proc/can_deactivate()
-	for(var/gastype in core_composition)
-		if(core_composition[gastype])
-			return FALSE
-	return TRUE
-
 /obj/machinery/atmospherics/components/unary/cdr/proc/activate()
 	if(!can_activate())
 		balloon_alert_to_viewers("can not activate now!")
@@ -228,7 +209,7 @@
 	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/deactivate()
-	if(!can_deactivate())
+	if(core_composition.total_moles())
 		balloon_alert_to_viewers("can not deactivate now!")
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
@@ -239,14 +220,16 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_heat_capacity()
 	var/total_capacity
-	for(var/gastype in core_composition)
-		total_capacity += GLOB.meta_gas_info[gastype]?[META_GAS_SPECIFIC_HEAT] * core_composition[gastype]
+	var/list/gases = core_composition.gases
+	for(var/gastype in gases)
+		total_capacity += GLOB.meta_gas_info[gastype]?[META_GAS_SPECIFIC_HEAT] * gases[gastype]
 	return total_capacity
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_stability()
 	var/stability_value = 0
-	for(var/gastype in core_composition) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
-		stability_value += core_composition[gastype] * gas_vars[gastype]?.stability_val
+	var/list/gases = core_composition.gases
+	for(var/gastype in gases) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
+		stability_value += gases[gastype] * gas_vars[gastype]?.stability_val
 	return stability_value * get_temp_stab_factor()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/link_harvesters()
@@ -260,52 +243,55 @@
 			START_PROCESSING(SSmachines, harvester)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_temp_stab_factor()
-	var/n2o_mols = core_composition[/datum/gas/oxygen]
+	var/n2o_mols = GET_MOLES(/datum/gas/oxygen, core_composition)
 	var/maximum_temp_factor = n2o_mols ? max(100 - n2o_mols * 0.1, 10) : 100 //when n2o mols > 1000 temp_factor = 10
 	var/temp_slope = 0.01
-	return max(-(core_temperature * temp_slope) + maximum_temp_factor, 1)
+	return max(-(core_composition.temperature * temp_slope) + maximum_temp_factor, 1)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/decay_gases(decay_factor)
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	var/total_energy_consumed = 0
-	for(var/gastype in core_composition)
+	var/list/gases = core_composition.gases
+	for(var/gastype in gases)
 		var/datum/condensate_gas/cdr_gas = gas_vars[gastype]
+		var/gas_moles = GET_MOLES(gastype, core_composition)
 		if(!gas_vars[gastype]) //sanity check, the CDR_GAS defines SHOULD cover all gases, but on the off chance they dont? this should stop it
 			continue
 		if(!cdr_gas.decays_into)
 			continue
-		if(!core_composition[gastype])
+		if(!gas_moles)
 			continue
-		if(core_composition[gastype] < cdr_gas.threshold)
+		if(gas_moles < cdr_gas.threshold)
 			continue
 
 		var/true_decay_factor = decay_factor * cdr_gas.decay_rate
-		var/decayed_gas = max((core_composition[gastype] - cdr_gas.threshold) * true_decay_factor, 0)
+		var/decayed_gas = max((gas_moles - cdr_gas.threshold) * true_decay_factor, 0)
 		total_energy_consumed += decayed_gas * CDR_HEAT_CONSUMED_PER_MOL * cdr_gas.decay_flux_mult
 
-		add_flux(cdr_gas.decay_flux_mult * core_composition[gastype] * get_mass_multiplier())
-		remove_gas_from_core(gastype, decayed_gas)
-		add_gas_to_core(cdr_gas.decays_into, decayed_gas)
+		add_flux(cdr_gas.decay_flux_mult * gas_moles * get_mass_multiplier())
+		REMOVE_MOLES(gastype, core_composition, decayed_gas)
+		ADD_MOLES(cdr_gas.decays_into, core_composition, decayed_gas)
 
-	var/core_capacity = get_core_heat_capacity()
-	var/core_thermal_heat = (core_temperature * core_capacity) - total_energy_consumed
+	var/core_capacity = core_composition.heat_capacity()
+	var/core_thermal_heat = core_composition.thermal_energy() - total_energy_consumed
 	var/mix_capacity = turf_mix.heat_capacity()
 	var/new_temperature = max(((turf_mix.temperature * mix_capacity) + core_thermal_heat) / (core_capacity + mix_capacity), TCMB)
-	core_temperature = new_temperature
+	core_composition.temperature = new_temperature
 	turf_mix.temperature = new_temperature
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_mass_multiplier()
 	var/core_mass = 0
-	for(var/gastype in core_composition)
-		core_mass += core_composition[gastype]
+	var/list/gases = core_composition.gases
+	for(var/gastype in gases)
+		core_mass += gases[gastype]
 	return max(core_mass / CDR_CORE_MASS_DIV, 1)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_stability()
 	var/datum/condensate_gas/bz_gas = gas_vars[/datum/gas/bz]
-	var/bz_mols = core_composition[/datum/gas/bz]
+	var/bz_mols = GET_MOLES(/datum/gas/bz, core_composition)
 	core_stability = get_core_stability()
 	base_instability = max(bz_mols ? bz_mols * bz_gas.threshold : 0, CDR_BASE_INSTABILITY)
-	core_instability = (max(core_temperature >= 100000 ? 50000 * (log(10, core_temperature) - 4) : 0.5 * core_temperature, 0) + base_instability) //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
+	core_instability = (max(core_composition.temperature >= 100000 ? 50000 * (log(10, core_composition.temperature) - 4) : 0.5 * core_composition.temperature, 0) + base_instability) //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
 	var/delta_stability = core_instability - core_stability
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
 
@@ -360,9 +346,9 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
-	for(var/turf_gas in (turf_mix.gases | core_composition))
+	for(var/turf_gas in (turf_mix.gases | core_composition.gases))
 		var/turf_mix_mols = turf_mix.gases[turf_gas]?[MOLES]
-		var/core_comp_mols = core_composition[turf_gas]
+		var/core_comp_mols = core_composition.gases[turf_gas]
 		if(!turf_mix_mols)
 			turf_mix_mols = 0
 		if(!core_comp_mols)
@@ -378,35 +364,25 @@
 
 		gas_diffused = clamp(gas_diffused, gas_diffused > 0 ? 0 : -turf_mix_mols, gas_diffused < 0 ? 0 : core_comp_mols)
 		if(gas_diffused > 0)
-			remove_gas_from_core(turf_gas, gas_diffused)
+			REMOVE_MOLES(turf_gas, core_composition, gas_diffused)
 			ADD_MOLES(turf_gas, turf_mix, gas_diffused)
 			src.air_update_turf(FALSE, FALSE)
-			garbage_collect()
+			core_composition.garbage_collect()
+			turf_mix.garbage_collect()
 		if(gas_diffused < 0)
-			add_gas_to_core(turf_gas, -gas_diffused)
+			ADD_MOLES(turf_gas, core_composition, -gas_diffused)
 			REMOVE_MOLES(turf_gas, turf_mix, -gas_diffused)
 			src.air_update_turf(FALSE, FALSE)
-			garbage_collect()
+			core_composition.garbage_collect()
+			turf_mix.garbage_collect()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_harvesters()
 	var/power_left = flux * CDR_FLUX_TO_POWER
 	for (var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		power_left -= harvester.add_power(power_left)
 
-/obj/machinery/atmospherics/components/unary/cdr/proc/garbage_collect()
-	for(var/gastype in core_composition)
-		if(QUANTIZE(core_composition[gastype]) <= 0)
-			core_composition -= gastype
-
-
 /obj/machinery/atmospherics/components/unary/cdr/proc/add_flux(flux_to_add)
 	flux = flux_to_add * toroid_flux_mult
-
-/obj/machinery/atmospherics/components/unary/cdr/proc/add_gas_to_core(datum/gas/to_add, mols_to_add)
-	core_composition[to_add] += mols_to_add
-
-/obj/machinery/atmospherics/components/unary/cdr/proc/remove_gas_from_core(datum/gas/to_add, mols_to_remove)
-	core_composition[to_add] = max(core_composition[to_add] - mols_to_remove, 0)
 
 /obj/machinery/power/flux_harvester
 	name = "Magnetic Flux Harvester"
@@ -445,13 +421,3 @@
 
 /obj/machinery/power/flux_harvester/proc/unlink_harvester()
 	parent = null
-
-#undef CDR_BASE_INSTABILITY
-#undef CDR_PARABOLIC_ACCURACY
-#undef CDR_MOL_TO_SPIN
-#undef CDR_SPIN_INSTABILITY_MULT
-#undef CDR_HEAT_CONSUMED_PER_MOL
-#undef CDR_FLUX_TO_POWER
-#undef CDR_MAX_CORE_HEALTH
-#undef CDR_CORE_MASS_DIV
-#undef CDR_RADIO_COOLDOWN
