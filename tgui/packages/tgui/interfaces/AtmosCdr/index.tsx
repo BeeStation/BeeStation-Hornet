@@ -1,7 +1,7 @@
-import { useBackend } from "tgui/backend";
+import { useBackend } from 'tgui/backend';
 
 import { Window } from '../../layouts';
-import { CdrContent, CdrData } from "./CdrContent";
+import { CdrContent, CdrData } from './CdrContent';
 
 export const AtmosCdr = (props) => {
   const { data } = useBackend<CdrData>();
