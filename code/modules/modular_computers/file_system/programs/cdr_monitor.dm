@@ -25,8 +25,8 @@
 	. = ..()
 	.["selected_cdr_uid"] = selected_cdr?.cdr_uid
 	.["cdr_data"] = list()
-	for(var/cdr as anything in cdrs)
-		.["cdr_data"][cdr] = (cdrs[cdr].ui_static_data(user) + cdrs[cdr].ui_data(user)) //very stupid, but I frankly dont know another solution
+	for(var/obj/machinery/atmospherics/components/unary/cdr/cdr in cdrs)
+		.["cdr_data"] += (cdr.ui_static_data(user) + cdr.ui_data(user)) //very stupid, but I frankly dont know another solution
 
 /datum/computer_file/program/cdr_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
@@ -35,7 +35,9 @@
 			refresh()
 			return TRUE
 		if("select_cdr")
-			selected_cdr = cdrs["[params["select_cdr"]]"]
+			for (var/obj/machinery/atmospherics/components/unary/cdr/cdr in cdrs)
+				if(cdr.cdr_uid == text2num(params["select_cdr"]))
+					selected_cdr = cdr
 			return TRUE
 	if(selected_cdr)
 		selected_cdr.ui_act(action, params, ui, state)
@@ -47,16 +49,14 @@
 	if(!user_turf)
 		return
 	for (var/obj/machinery/atmospherics/components/unary/cdr/cdr in GLOB.machines)
-		if (!is_station_level(cdr.z) || !is_mining_level(cdr.z) || cdr.z == user_turf.z)
+		if (!(is_station_level(cdr.z) || is_mining_level(cdr.z) || cdr.z == user_turf.z))
 			continue
-		cdrs["[cdr.cdr_uid]"] = cdr
+		cdrs += cdr
 		RegisterSignal(cdr, COMSIG_QDELETING, PROC_REF(clear_cdr))
 
 /datum/computer_file/program/cdr_monitor/proc/clear_cdr(obj/machinery/atmospherics/components/unary/cdr/cdr)
 	SIGNAL_HANDLER
 	if(selected_cdr == cdr)
 		selected_cdr = null
-	for(var/iter_cdr in cdrs)
-		if(cdr == cdrs[iter_cdr])
-			cdrs -= iter_cdr
+	cdrs -= cdr
 	UnregisterSignal(cdr, COMSIG_QDELETING)

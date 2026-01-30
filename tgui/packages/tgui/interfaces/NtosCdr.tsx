@@ -1,7 +1,7 @@
-import { useBackend } from '../../backend';
-import { Box, Button, Section, Table } from '../../components';
-import { NtosWindow } from '../../layouts';
-import { CdrContent, CdrData } from './AtmosCdr';
+import { useBackend } from '../backend';
+import { Box, Button, Section, Table } from '../components';
+import { NtosWindow } from '../layouts';
+import { CdrContent, CdrData } from './AtmosCdr/CdrContent';
 
 export const NtosCdr = (props) => {
   type CdrDataList = Record<string, CdrData>;

@@ -14,7 +14,6 @@ import {
   ProgressBar,
   Section,
 } from '../../components';
-import { Window } from '../../layouts';
 
 type CoreComposition = Record<string, number>;
 
@@ -37,17 +36,6 @@ export type CdrData = {
   core_health: number;
   max_core_health: number;
   power_output: string;
-};
-
-export const AtmosCdr = (props) => {
-  const { data } = useBackend<CdrData>();
-  return (
-    <Window width={550} height={420}>
-      <Window.Content scrollable>
-        <CdrContent {...data} />
-      </Window.Content>
-    </Window>
-  );
 };
 
 const DisplayGasOutput = (core_composition: CoreComposition) => {
