@@ -172,6 +172,8 @@
 				return
 
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
+				if(!circuit.can_construct(user))
+					return
 				var/component_check = TRUE
 				for(var/R in req_components)
 					if(req_components[R] > 0)

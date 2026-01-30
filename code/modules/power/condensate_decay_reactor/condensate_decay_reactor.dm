@@ -68,12 +68,6 @@
 	QDEL_NULL(radio)
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/cdr/on_construction(mob/user)
-	. = ..()
-	if(check_pipe_on_turf())
-		to_chat(user, span_warning("Something is hogging the tile!"))
-		deconstruct(TRUE)
-
 /obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
 	update_parents() //needs to process constantly for gases to not get stuck
 	if(!activated)

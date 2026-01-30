@@ -51,6 +51,15 @@
 /obj/item/circuitboard/proc/configure_machine(obj/machinery/machine)
 	return
 
+/**
+  * Used to check if a circuit board can be constructed.
+  *
+  * Arguments:
+  * * user - A mob to send messages to.
+  */
+/obj/item/circuitboard/proc/can_construct(mob/user)
+	return TRUE
+
 // Circuitboard/machine
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
 micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
