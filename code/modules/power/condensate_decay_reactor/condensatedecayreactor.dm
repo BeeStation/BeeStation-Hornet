@@ -64,12 +64,9 @@
 /obj/machinery/atmospherics/components/unary/cdr/Destroy()
 	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
 		harvester.parent = null
-	var/total_core_mols = 0
-	for(var/gastype in core_composition.gases)
-		total_core_mols += core_composition.gases[gastype]
 	QDEL_NULL(soundloop)
 	QDEL_NULL(radio)
-	. = ..()
+	return ..()
 
 /obj/machinery/atmospherics/components/unary/cdr/on_construction(mob/user)
 	. = ..()
@@ -102,7 +99,7 @@
 	return default_change_direction_wrench(user, tool)
 
 /obj/machinery/atmospherics/components/unary/cdr/multitool_act(mob/living/user, obj/item/tool)
-	deactivate()
+	deactivate(user)
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/cdr/crowbar_act(mob/living/user, obj/item/tool)
@@ -130,9 +127,6 @@
 		ui = new(user, src, "AtmosCdr")
 		ui.open()
 		ui.set_autoupdate(TRUE)
-
-/obj/machinery/atmospherics/components/unary/cdr/ui_state()
-	return GLOB.default_state
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_static_data(mob/user)
 	. = ..()
@@ -174,14 +168,19 @@
 	switch(action)
 		if("change_input")
 			input_volume = clamp(text2num(params["change_input"]), 0, 200)
+			return TRUE
 		if("activate")
 			activate()
+			return TRUE
 		if("change_metal_ratio")
 			metallization_ratio = clamp(text2num(params["change_metal_ratio"]), 0.1, 1)
+			return TRUE
 		if("change_parabolic_setting")
 			parabolic_setting = clamp(text2num(params["change_parabolic_setting"]), 0.1, 1)
+			return TRUE
 		if("reconnect")
 			link_harvesters()
+			return TRUE
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/check_pipe_on_turf()
 	for(var/obj/machinery/atmospherics/device in get_turf(src))
@@ -196,17 +195,16 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/activate()
 	if(!can_activate())
-		balloon_alert_to_viewers("can not activate now!")
-		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
+		//this provides no feedback because it isnt normally possible to start it when its already active
 		return
 	soundloop.start()
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF //you cannot destroy it while its on... because of its quantum-flux-field!
 	activated = TRUE
 	update_appearance()
 
-/obj/machinery/atmospherics/components/unary/cdr/proc/deactivate()
+/obj/machinery/atmospherics/components/unary/cdr/proc/deactivate(mob/user)
 	if(core_composition.total_moles())
-		balloon_alert_to_viewers("can not deactivate now!")
+		balloon_alert(user, "can't deactivate!")
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
 	soundloop.stop()
@@ -276,10 +274,7 @@
 	turf_mix.temperature = new_temperature
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_mass_multiplier()
-	var/core_mass = 0
-	for(var/gastype in core_composition.gases)
-		core_mass += GET_MOLES(gastype, core_composition)
-	return max(core_mass / CDR_CORE_MASS_DIV, 1)
+	return max(core_composition.total_moles() / CDR_CORE_MASS_DIV, 1)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_stability()
 	var/datum/condensate_gas/bz_gas = gas_vars[/datum/gas/bz]
