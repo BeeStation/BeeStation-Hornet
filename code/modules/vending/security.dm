@@ -56,15 +56,15 @@
 	// Supports single items or whole boxes.
 	var/atom/movable/spawned
 
-	var/items = list("Carbon Fibre Sabre", "NPS-10")
+	var/items = list("Patrol Sabre", "NPS-10")
 
 	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Voucher Redemption", sort_list(items), "NPS-10")
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
 	switch(selection)
-		if("Carbon Fibre Sabre")
-			spawned = new /obj/item/storage/belt/sabre/carbon_fiber(redeemer)
+		if("Patrol Sabre")
+			spawned = new /obj/item/storage/belt/sabre/patrol(redeemer)
 
 		if("NPS-10")
 			spawned = new /obj/item/storage/box/gearvend
