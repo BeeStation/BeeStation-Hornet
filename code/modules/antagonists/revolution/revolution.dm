@@ -265,7 +265,7 @@
 
 	if(give_hud)
 		var/obj/item/organ/cyberimp/eyes/hud/security/syndicate/S = new(H)
-		S.Insert(H, special = FALSE, drop_if_replaced = FALSE)
+		S.Insert(H, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 		to_chat(H, "Your eyes have been implanted with a cybernetic security HUD which will help you keep track of who is mindshield-implanted, and therefore unable to be recruited.")
 
 /datum/team/revolution

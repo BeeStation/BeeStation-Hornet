@@ -1,7 +1,7 @@
 /mob/living/basic/pet
 	icon = 'icons/mob/pets.dmi'
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 	/// if the mob is protected from being renamed by collars.

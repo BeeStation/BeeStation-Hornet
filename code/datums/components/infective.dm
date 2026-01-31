@@ -15,6 +15,7 @@
 	if(expire_in)
 		expire_time = world.time + expire_in
 		QDEL_IN(src, expire_in)
+
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -34,24 +35,42 @@
 		RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
 		if(istype(parent, /obj/item/reagent_containers/cup))
 			RegisterSignal(parent, COMSIG_GLASS_DRANK, PROC_REF(try_infect_drink))
+		if(isorgan(parent))
+			RegisterSignal(parent, COMSIG_ORGAN_IMPLANTED, PROC_REF(on_organ_insertion))
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
+
+/datum/component/infective/proc/on_organ_insertion(obj/item/organ/target, mob/living/carbon/receiver)
+	SIGNAL_HANDLER
+
+	for(var/datum/disease/disease in diseases)
+		receiver.ForceContractDisease(disease)
+
+	qdel(src) // once organ is implanted delete the infective component
 
 /datum/component/infective/proc/try_infect_eat(datum/source, mob/living/eater, mob/living/feeder)
 	SIGNAL_HANDLER
 
-	for(var/V in diseases)
-		eater.ForceContractDisease(V)
+	for(var/datum/disease/disease in diseases)
+		if(!disease.has_required_infectious_organ(eater, ORGAN_SLOT_STOMACH))
+			continue
+
+		eater.ForceContractDisease(disease)
+
 	try_infect(feeder, BODY_ZONE_L_ARM)
 
 /datum/component/infective/proc/try_infect_drink(datum/source, mob/living/drinker, mob/living/feeder)
 	SIGNAL_HANDLER
 
-	for(var/disease in diseases)
-		drinker.ForceContractDisease(disease)
 	var/appendage_zone = feeder.held_items.Find(source)
 	appendage_zone = appendage_zone == 0 ? BODY_ZONE_CHEST : appendage_zone % 2 ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM
 	try_infect(feeder, appendage_zone)
+
+	for(var/datum/disease/disease in diseases)
+		if(!disease.has_required_infectious_organ(drinker, ORGAN_SLOT_STOMACH))
+			continue
+
+		drinker.ForceContractDisease(disease)
 
 /datum/component/infective/proc/clean(datum/source, clean_types)
 	SIGNAL_HANDLER
@@ -89,7 +108,6 @@
 
 /datum/component/infective/proc/try_infect_attack(datum/source, mob/living/target, mob/living/user)
 	SIGNAL_HANDLER
-
 	if(!iscarbon(target)) //this case will be handled by try_infect_attack_zone
 		try_infect(target)
 	try_infect(user, BODY_ZONE_L_ARM)

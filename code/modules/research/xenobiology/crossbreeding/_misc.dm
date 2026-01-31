@@ -36,7 +36,7 @@ Slimecrossing Items
 			saved_part.old_part = new saved_part.bodypart_type
 		if(!already || already != saved_part.old_part)
 			saved_part.old_part.replace_limb(src, TRUE)
-		saved_part.old_part.heal_damage(INFINITY, INFINITY, INFINITY, null, FALSE)
+		saved_part.old_part.heal_damage(brute = INFINITY, burn = INFINITY, stamina = INFINITY, updating_health = FALSE)
 		saved_part.old_part.receive_damage(saved_part.brute_dam, saved_part.burn_dam, saved_part.stamina_dam)
 		dont_chop[zone] = TRUE
 	for(var/obj/item/bodypart/BP as() in bodyparts)

@@ -25,7 +25,7 @@
 	//Register ears for people with them - deaf people can't use this component
 	if(iscarbon(parent))
 		var/mob/living/carbon/C = parent
-		ears = locate(/obj/item/organ/ears) in C.internal_organs
+		ears = locate(/obj/item/organ/ears) in C.organs
 		RegisterSignal(ears, COMSIG_QDELETING, PROC_REF(handle_ears))
 
 /datum/component/blind_sense/Destroy(force, silent)

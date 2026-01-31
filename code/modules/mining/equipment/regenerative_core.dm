@@ -27,10 +27,9 @@
 	name = "regenerative core"
 	desc = "All that remains of a hivelord. It can be used to heal completely, but it will rapidly decay into uselessness."
 	icon_state = "roro core 2"
-	visual = FALSE
 	item_flags = NOBLUDGEON
-	organ_flags = null
-	slot = "hivecore"
+	organ_flags = ORGAN_ORGANIC
+	slot = ORGAN_SLOT_MONSTER_CORE
 	force = 0
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/inert = 0
@@ -112,15 +111,14 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/regenerative_core/Insert(mob/living/carbon/target_carbon, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/target_carbon, special, movement_flags)
 	. = ..()
-	if(!.)
-		return
+
 	if(!preserved && !inert)
 		preserved(TRUE)
 		owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
 
-/obj/item/organ/regenerative_core/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/M, special, movement_flags)
 	if(!inert && !special)
 		owner.visible_message(span_notice("[src] rapidly decays as it's removed."))
 		go_inert()

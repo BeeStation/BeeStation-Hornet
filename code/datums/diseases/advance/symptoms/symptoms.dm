@@ -30,7 +30,10 @@
 	//used for viral suspended animation. dont use this elsewhere. Stops a symptom without neutering it
 	var/stopped = FALSE
 	var/list/thresholds
-	var/naturally_occuring = TRUE //if this symptom can appear from /datum/disease/advance/GenerateSymptoms()
+	///If this symptom can appear from /datum/disease/advance/GenerateSymptoms()
+	var/naturally_occuring = TRUE
+	///If the symptom requires an organ for the effects to function, robotic organs are immune to disease unless inorganic biology symptom is present
+	var/required_organ
 	var/list/prefixes = list()
 	var/list/bodies = list()
 	var/list/suffixes = list()
@@ -59,11 +62,14 @@
 		return FALSE
 	return TRUE
 
-/datum/symptom/proc/Activate(datum/disease/advance/A)
-	if(!A)
+/datum/symptom/proc/Activate(datum/disease/advance/advanced_disease)
+	if(!advanced_disease)
 		return FALSE //prevents a niche runtime where a disease procs on the same tick it is cured
 	if(neutered || stopped)
 		return FALSE
+	if(required_organ)
+		if(!advanced_disease.has_required_infectious_organ(advanced_disease.affected_mob, required_organ))
+			return FALSE
 	if(world.time < next_activation)
 		return FALSE
 	else

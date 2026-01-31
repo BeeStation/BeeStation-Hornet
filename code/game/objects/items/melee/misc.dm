@@ -124,7 +124,7 @@
 	return MANUAL_SUICIDE
 
 /obj/item/melee/sabre/proc/suicide_dismember(mob/living/user, obj/item/bodypart/affecting)
-	if(!QDELETED(affecting) && affecting.dismemberable && affecting.owner == user && !QDELETED(user))
+	if(!QDELETED(affecting) && !(affecting.bodypart_flags & BODYPART_UNREMOVABLE) && affecting.owner == user && !QDELETED(user))
 		playsound(user, hitsound, 25, 1)
 		affecting.dismember(BRUTE)
 		user.adjustBruteLoss(20)
@@ -400,7 +400,7 @@
 	sleep(3)
 	if (!QDELETED(H))
 		if(!QDELETED(B))
-			H.internal_organs -= B
+			H.organs -= B
 			qdel(B)
 		new /obj/effect/gibspawner/generic(H.drop_location(), H)
 		return BRUTELOSS

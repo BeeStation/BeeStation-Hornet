@@ -33,13 +33,13 @@
 	return ..()
 
 /mob/living/carbon/alien/create_internal_organs()
-	internal_organs += new /obj/item/organ/brain/alien
-	internal_organs += new /obj/item/organ/alien/hivenode
-	internal_organs += new /obj/item/organ/tongue/alien
-	internal_organs += new /obj/item/organ/eyes/night_vision/alien
-	internal_organs += new /obj/item/organ/liver/alien
-	internal_organs += new /obj/item/organ/ears
-	return ..()
+	organs += new /obj/item/organ/brain/alien
+	organs += new /obj/item/organ/alien/hivenode
+	organs += new /obj/item/organ/tongue/alien
+	organs += new /obj/item/organ/eyes/night_vision/alien
+	organs += new /obj/item/organ/liver/alien
+	organs += new /obj/item/organ/ears
+	..()
 
 /mob/living/carbon/alien/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums
 	return -10

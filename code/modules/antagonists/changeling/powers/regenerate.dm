@@ -9,7 +9,7 @@
 
 /datum/action/changeling/regenerate/sting_action(mob/living/user)
 	if(!iscarbon(user))
-		to_chat(user, span_notice("You have nothing to regenerate in this state!"))
+		user.balloon_alert(user, "nothing missing!")
 		return FALSE
 
 	..()
@@ -53,7 +53,7 @@
 	for(var/Zim in C.bodyparts)
 		var/obj/item/bodypart/BP = Zim
 		if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
-			if(BP.dismemberable)
+			if(!(BP.bodypart_flags & BODYPART_UNREMOVABLE))
 				parts += BP
 	if(!LAZYLEN(parts))
 		to_chat(user, span_notice("We don't have any limbs to detach."))
@@ -93,7 +93,7 @@
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	chat_color = "#26F55A"

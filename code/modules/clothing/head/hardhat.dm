@@ -11,7 +11,7 @@
 	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
-	clothing_flags = SNUG_FIT
+	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
 
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
@@ -75,7 +75,7 @@
 	inhand_icon_state = null
 	hat_type = "red"
 	dog_fashion = null
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | STACKABLE_HELMET_EXEMPT
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -90,7 +90,7 @@
 	icon_state = "hardhat0_white"
 	inhand_icon_state = null
 	hat_type = "white"
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | STACKABLE_HELMET_EXEMPT
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -133,25 +133,20 @@
 	///Icon state of the welding visor.
 	var/visor_state = "weldvisor"
 
-/obj/item/clothing/head/utility/hardhat/welding/Initialize(mapload)
-	. = ..()
-	update_appearance()
-
-/obj/item/clothing/head/utility/hardhat/welding/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		toggle_welding_screen(user)
+/obj/item/clothing/head/utility/hardhat/welding/attack_self_secondary(mob/user, modifiers)
+	adjust_visor(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/clothing/head/utility/hardhat/welding/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, /datum/action/item_action/toggle_welding_screen))
-		toggle_welding_screen(user)
+		adjust_visor(user)
 		return
-
 	return ..()
 
-/obj/item/clothing/head/utility/hardhat/welding/proc/toggle_welding_screen(mob/living/user)
-	if(weldingvisortoggle(user))
-		playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
-	update_appearance()
+/obj/item/clothing/head/utility/hardhat/welding/adjust_visor(mob/living/user)
+	. = ..()
+	if(.)
+		playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE)
 
 /obj/item/clothing/head/utility/hardhat/welding/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
@@ -177,7 +172,7 @@
 	inhand_icon_state = "hardhat0_white"
 	light_range = 4 //Boss always takes the best stuff
 	hat_type = "white"
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | STACKABLE_HELMET_EXEMPT
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -213,6 +208,6 @@
 	flags_inv = 0
 	armor_type = /datum/armor/none
 	light_range = 1 //luminosity when on
-	dynamic_hair_suffix = ""
+
 
 	dog_fashion = /datum/dog_fashion/head/reindeer

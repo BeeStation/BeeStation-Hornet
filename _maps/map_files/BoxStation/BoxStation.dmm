@@ -190,6 +190,14 @@
 /obj/item/stack/cable_coil/random,
 /turf/open/space,
 /area/space/nearstation)
+"acH" = (
+/obj/structure/cable,
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/fore)
 "acO" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow{
@@ -221,11 +229,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"acW" = (
-/obj/structure/cable,
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/fore)
 "acX" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
@@ -256,67 +259,7 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/starboard/fore)
-"adu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/solar/port/fore)
-"adv" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/solar/port/fore)
-"adw" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/solar/port/fore)
-"adx" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/fore)
 "ady" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/fore)
-"adz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/port/fore)
-"adA" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/fore)
@@ -2219,16 +2162,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/office)
-"aHs" = (
-/obj/machinery/power/solar{
-	id = "starboardsolar";
-	name = "Starboard Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/starboard/aft)
 "aHt" = (
 /obj/machinery/light{
 	dir = 1
@@ -2283,6 +2216,19 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"aIC" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/solar/port/fore)
 "aIE" = (
 /obj/structure/table/glass,
 /turf/open/floor/iron/chapel,
@@ -11972,6 +11918,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"cFD" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/space,
+/area/solar/port/fore)
 "cFI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -14322,14 +14275,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
-"dqQ" = (
-/obj/structure/cable,
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/port/fore)
 "dqS" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -15768,6 +15713,16 @@
 	dir = 4
 	},
 /area/crew_quarters/bar/atrium)
+"dVk" = (
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "dVB" = (
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate{
@@ -18010,6 +17965,19 @@
 	dir = 1
 	},
 /area/hallway/secondary/exit)
+"eOB" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/space,
+/area/solar/port/fore)
 "eOH" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -18683,6 +18651,13 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/courtroom)
+"fcp" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/solar/port/fore)
 "fcO" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -24715,6 +24690,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
+"hAa" = (
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/fore)
 "hAv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -28097,10 +28082,6 @@
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"iRW" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "iSm" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30465,6 +30446,16 @@
 	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
+"jSS" = (
+/obj/machinery/power/solar{
+	id = "starboardsolar";
+	name = "Starboard Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/aft)
 "jSW" = (
 /obj/structure/chair/fancy/sofa/corp{
 	dir = 1
@@ -36712,6 +36703,11 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"mtS" = (
+/obj/structure/cable,
+/obj/structure/lattice/catwalk,
+/turf/open/space,
+/area/solar/port/fore)
 "mtW" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -42177,6 +42173,16 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
+"oNk" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/solar/port/fore)
 "oNw" = (
 /obj/item/cigbutt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/pink/visible,
@@ -44633,6 +44639,16 @@
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
+"pKK" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/space,
+/area/solar/port/fore)
 "pKV" = (
 /obj/effect/turf_decal/siding/wideplating_new,
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
@@ -51437,16 +51453,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
-"sEy" = (
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/port/fore)
 "sEG" = (
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plating,
@@ -54790,16 +54796,6 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
-"tMF" = (
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/starboard/fore)
 "tNl" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
@@ -79851,17 +79847,17 @@ aaa
 aaa
 abY
 aaa
-sEy
-adv
-dqQ
+hAa
+oNk
+acH
 aaa
-sEy
-adv
-dqQ
+hAa
+oNk
+acH
 aaa
-sEy
-adv
-dqQ
+hAa
+oNk
+acH
 aaa
 aaS
 aaf
@@ -80108,17 +80104,17 @@ aaa
 aaa
 abY
 aaf
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaa
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaa
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaf
 aaf
 aaa
@@ -80365,17 +80361,17 @@ aaa
 aaa
 abY
 aaa
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaf
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaf
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaa
 aaf
 aaa
@@ -80622,17 +80618,17 @@ aaa
 aaa
 aaf
 aaf
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaa
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaa
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaf
 aaf
 aaf
@@ -80879,17 +80875,17 @@ aaS
 aaS
 aaf
 aaa
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaa
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaa
-sEy
-adu
-dqQ
+hAa
+aIC
+acH
 aaa
 aaf
 aaa
@@ -81137,15 +81133,15 @@ aaf
 aaa
 aaa
 aaa
-adw
+fcp
 aaa
 aaa
 aaa
-adw
+fcp
 aaa
 aaa
 aaa
-adw
+fcp
 aaa
 aaa
 xvU
@@ -81393,7 +81389,7 @@ aaf
 cDk
 abZ
 abZ
-acW
+mtS
 ady
 ady
 ady
@@ -81651,15 +81647,15 @@ aaf
 aaa
 aaa
 aaa
-adx
+cFD
 aaa
 aaa
 aaa
-adx
+cFD
 aaa
 aaa
 aaa
-adx
+cFD
 aaa
 aaa
 xvU
@@ -81907,17 +81903,17 @@ aba
 aaS
 aaf
 aaa
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaa
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaa
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaa
 aaf
 aaa
@@ -82164,17 +82160,17 @@ aaa
 aaa
 aaf
 aaf
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaa
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaa
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaf
 aaf
 aaa
@@ -82421,17 +82417,17 @@ aaa
 aaa
 aaS
 aaa
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaf
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaf
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaa
 aaf
 aaf
@@ -82678,17 +82674,17 @@ aaa
 aaa
 aaS
 aaf
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaa
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaa
-sEy
-adz
-dqQ
+hAa
+eOB
+acH
 aaf
 aaf
 aaa
@@ -82935,17 +82931,17 @@ aaa
 aaa
 aaS
 aaa
-sEy
-adA
-dqQ
+hAa
+pKK
+acH
 aaa
-sEy
-adA
-dqQ
+hAa
+pKK
+acH
 aaa
-sEy
-adA
-dqQ
+hAa
+pKK
+acH
 aaa
 aaS
 aaa
@@ -104780,15 +104776,15 @@ aaa
 aaa
 aaS
 aaa
-tMF
+dVk
 adS
 cmB
 aaa
-tMF
+dVk
 adS
 qen
 aaa
-tMF
+dVk
 adS
 qen
 aaa
@@ -105037,15 +105033,15 @@ aaa
 aaa
 aaS
 aaf
-tMF
+dVk
 adT
 cmB
 aaa
-tMF
+dVk
 adT
 qen
 aaa
-tMF
+dVk
 adT
 qen
 aaf
@@ -105294,15 +105290,15 @@ aaa
 aaa
 aaS
 aaa
-tMF
+dVk
 adT
 cmB
 aaf
-tMF
+dVk
 adT
 qen
 aaf
-tMF
+dVk
 adT
 qen
 aaa
@@ -105551,15 +105547,15 @@ aaa
 aaa
 aaf
 aaf
-tMF
+dVk
 adT
 cmB
 aaa
-tMF
+dVk
 adT
 qen
 aaa
-tMF
+dVk
 adT
 qen
 aaf
@@ -105808,15 +105804,15 @@ aaS
 aaS
 aaf
 aaa
-tMF
+dVk
 adT
 cmB
 aaa
-tMF
+dVk
 adT
 qen
 aaa
-tMF
+dVk
 adT
 qen
 aaa
@@ -106836,15 +106832,15 @@ aba
 aaS
 acy
 aaa
-tMF
+dVk
 adW
 cmB
 aaa
-tMF
+dVk
 adW
 qen
 aaa
-tMF
+dVk
 adW
 qen
 aaa
@@ -107093,15 +107089,15 @@ aaa
 aaa
 aaf
 aaf
-tMF
+dVk
 adW
 cmB
 aaa
-tMF
+dVk
 adW
 qen
 aaa
-tMF
+dVk
 adW
 qen
 aaf
@@ -107350,15 +107346,15 @@ aaa
 aaa
 aaS
 aaa
-tMF
+dVk
 adW
 cmB
 aaf
-tMF
+dVk
 adW
 qen
 aaf
-tMF
+dVk
 adW
 qen
 aaa
@@ -107607,15 +107603,15 @@ aaa
 aaa
 aaS
 aaf
-tMF
+dVk
 adW
 cmB
 aaa
-tMF
+dVk
 adW
 qen
 aaa
-tMF
+dVk
 adW
 qen
 aaf
@@ -107864,15 +107860,15 @@ aaa
 aaa
 aaS
 aaa
-tMF
+dVk
 adY
 cmB
 aaa
-tMF
+dVk
 adY
 qen
 aaa
-tMF
+dVk
 adY
 qen
 aaa
@@ -108182,7 +108178,7 @@ bhM
 dmo
 lnP
 bfT
-iRW
+bsQ
 bsQ
 bsQ
 box
@@ -113630,15 +113626,15 @@ aaa
 aaa
 aaS
 aaa
-aHs
+jSS
 crB
 rLe
 aaa
-aHs
+jSS
 crB
 rLe
 aaa
-aHs
+jSS
 crB
 rLe
 aaa
@@ -113887,15 +113883,15 @@ aaa
 aaa
 aba
 aaf
-aHs
+jSS
 crC
 rLe
 aaa
-aHs
+jSS
 crC
 rLe
 aaa
-aHs
+jSS
 crC
 rLe
 aaf
@@ -114144,15 +114140,15 @@ aaa
 aaa
 aaf
 aaa
-aHs
+jSS
 crC
 rLe
 aaf
-aHs
+jSS
 crC
 rLe
 aaf
-aHs
+jSS
 crC
 rLe
 aaa
@@ -114401,15 +114397,15 @@ aaf
 aaf
 aaf
 aaf
-aHs
+jSS
 crC
 rLe
 aaa
-aHs
+jSS
 crC
 rLe
 aaa
-aHs
+jSS
 crC
 rLe
 aaf
@@ -114658,15 +114654,15 @@ aaa
 aaa
 aaf
 aaa
-aHs
+jSS
 crC
 rLe
 aaa
-aHs
+jSS
 crC
 rLe
 aaa
-aHs
+jSS
 crC
 rLe
 aaa
@@ -115686,15 +115682,15 @@ aaa
 aaa
 aaf
 aaa
-aHs
+jSS
 crE
 rLe
 aaa
-aHs
+jSS
 crE
 rLe
 aaa
-aHs
+jSS
 crE
 rLe
 aaa
@@ -115943,15 +115939,15 @@ aaf
 aaf
 aaf
 aaf
-aHs
+jSS
 crE
 rLe
 aaa
-aHs
+jSS
 crE
 rLe
 aaa
-aHs
+jSS
 crE
 rLe
 aaf
@@ -116200,15 +116196,15 @@ aaa
 aaa
 aaf
 aaa
-aHs
+jSS
 crE
 rLe
 aaf
-aHs
+jSS
 crE
 rLe
 aaf
-aHs
+jSS
 crE
 rLe
 aaa
@@ -116457,15 +116453,15 @@ aaf
 aaf
 aaf
 aaf
-aHs
+jSS
 crE
 rLe
 aaa
-aHs
+jSS
 crE
 rLe
 aaa
-aHs
+jSS
 crE
 rLe
 aaf
@@ -116714,15 +116710,15 @@ aaa
 aaa
 aba
 aaa
-aHs
+jSS
 crG
 rLe
 aaa
-aHs
+jSS
 crG
 rLe
 aaa
-aHs
+jSS
 crG
 rLe
 aaa

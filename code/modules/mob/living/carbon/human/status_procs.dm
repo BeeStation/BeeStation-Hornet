@@ -29,15 +29,15 @@
 /mob/living/carbon/human/cure_husk(list/sources)
 	. = ..()
 	if(.)
-		update_hair()
+		update_body_parts()
 
 /mob/living/carbon/human/become_husk(source)
-	if(NOHUSK in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUSK))
 		cure_husk()
 		return
 	. = ..()
 	if(.)
-		update_hair()
+		update_body_parts()
 
 /mob/living/carbon/human/set_drugginess(amount)
 	..()

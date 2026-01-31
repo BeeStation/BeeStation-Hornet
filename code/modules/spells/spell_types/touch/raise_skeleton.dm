@@ -25,7 +25,7 @@
 	var/mob/living/carbon/human/human_victim = victim
 
 	//dump all the organs out, we don't need those but we don't want to lose the brain when we destroy the head
-	human_victim.spew_organ(amt = length(human_victim.internal_organs))
+	human_victim.spew_organ(amt = length(human_victim.organs))
 
 	//we also don't want any limbs left behind, we took the bones after all
 	for(var/obj/item/bodypart/parts in human_victim.bodyparts)
@@ -69,6 +69,7 @@
 
 	//Same equipment restrictions as golems. No hiding their identity or putting on any real armor
 	skelebones.dna.species.no_equip_flags = ITEM_SLOT_MASK | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
+	ADD_TRAIT(skelebones.dna.species, TRAIT_NO_JUMPSUIT, SPECIES_TRAIT)
 
 	candidate_mind.active = 1
 	candidate_mind.transfer_to(skelebones)

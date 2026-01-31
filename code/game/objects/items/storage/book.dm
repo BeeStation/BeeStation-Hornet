@@ -133,9 +133,8 @@
 
 	var/mob/living/carbon/human/H = L
 
-	for(var/X in H.bodyparts)
-		var/obj/item/bodypart/BP = X
-		if(!IS_ORGANIC_LIMB(BP))
+	for(var/obj/item/bodypart/bodypart as anything in H.bodyparts)
+		if(!IS_ORGANIC_LIMB(bodypart))
 			to_chat(user, span_warning("[src.deity_name] refuses to heal this metallic taint!"))
 			return 0
 
@@ -143,9 +142,8 @@
 	var/list/hurt_limbs = H.get_damaged_bodyparts(1, 1, null, BODYTYPE_ORGANIC)
 
 	if(hurt_limbs.len)
-		for(var/X in hurt_limbs)
-			var/obj/item/bodypart/affecting = X
-			if(affecting.heal_damage(heal_amt, heal_amt, null, BODYTYPE_ORGANIC))
+		for(var/obj/item/bodypart/affecting as anything in hurt_limbs)
+			if(affecting.heal_damage(heal_amt, heal_amt, required_bodytype = BODYTYPE_ORGANIC))
 				H.update_damage_overlays()
 		H.visible_message(span_notice("[user] heals [H] with the power of [deity_name]!"))
 		to_chat(H, span_boldnotice("May the power of [deity_name] compel you to be healed!"))

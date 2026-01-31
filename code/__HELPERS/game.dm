@@ -94,7 +94,7 @@
 
 		else if(istype(A, /mob/living/carbon))
 			var/mob/living/carbon/Q = A
-			for(var/organ in Q.internal_organs)
+			for(var/organ in Q.organs)
 				found_organ = organ
 				found_organ.organ_flags ^= ORGAN_FROZEN
 

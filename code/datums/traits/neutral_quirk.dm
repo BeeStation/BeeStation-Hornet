@@ -116,7 +116,7 @@
 /datum/quirk/monochromatic/add()
 	quirk_target.add_client_colour(/datum/client_colour/monochrome)
 
-/datum/quirk/monochromatic/post_spawn()
+/datum/quirk/monochromatic/post_add()
 	if(quirk_holder.assigned_role == JOB_NAME_DETECTIVE)
 		to_chat(quirk_target, span_boldannounce("Mmm. Nothing's ever clear on this station. It's all shades of gray."))
 		quirk_target.playsound_local(quirk_target, 'sound/ambience/ambidet1.ogg', 50, FALSE)
@@ -162,10 +162,9 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/choice_beacon/radial/plushie/B = new(get_turf(H))
 	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
 		"hands" = ITEM_SLOT_HANDS,
 	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
+	H.equip_in_one_of_slots(B, slots, qdel_on_fail = TRUE)
 
 /datum/quirk/spiritual
 	name = "Spiritual"
@@ -221,3 +220,89 @@
 	icon = "fa-eye"
 	medical_record_text = "Fucking creep kept staring at me the whole damn checkup. I'm only diagnosing this because it's less awkward than thinking it was on purpose."
 	mob_trait = TRAIT_SHIFTY_EYES
+/datum/quirk/item_quirk/bald
+	name = "Smooth-Headed"
+	desc = "You have no hair and are quite insecure about it! Keep your wig on, or at least your head covered up."
+	icon = "fa-egg"
+	quirk_value = 0
+	mob_trait = TRAIT_BALD
+	gain_text = span_notice("Your head is as smooth as can be, it's terrible.")
+	lose_text = span_notice("Your head itches, could it be... growing hair?!")
+	medical_record_text = "Patient starkly refused to take off headwear during examination."
+	/// The user's starting hairstyle
+	var/old_hair
+
+/datum/quirk/item_quirk/bald/add(client/client_source)
+	var/mob/living/carbon/human/human_holder = quirk_holder
+	old_hair = human_holder.hairstyle
+	human_holder.set_hairstyle("Bald", update = TRUE)
+	RegisterSignal(human_holder, COMSIG_CARBON_EQUIP_HAT, PROC_REF(equip_hat))
+	RegisterSignal(human_holder, COMSIG_CARBON_UNEQUIP_HAT, PROC_REF(unequip_hat))
+
+/datum/quirk/item_quirk/bald/add_unique(client/client_source)
+	var/obj/item/clothing/head/wig/natural/baldie_wig = new(get_turf(quirk_holder))
+	if(old_hair == "Bald")
+		baldie_wig.hairstyle = pick(SSaccessories.hairstyles_list - "Bald")
+	else
+		baldie_wig.hairstyle = old_hair
+
+	baldie_wig.update_appearance()
+
+	give_item_to_holder(baldie_wig, list(LOCATION_HEAD = ITEM_SLOT_HEAD, LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS), notify_player = FALSE)
+
+/datum/quirk/item_quirk/bald/give_item_to_holder(obj/item/quirk_item, list/valid_slots, flavour_text = null, default_location = "at your feet", notify_player = TRUE)
+	var/any_head = FALSE
+	for(var/place_loc in valid_slots)
+		if(valid_slots[place_loc] & ITEM_SLOT_HEAD)
+			any_head = TRUE
+			break
+
+	// guess we don't care
+	if(!any_head)
+		return ..()
+
+	if(ispath(quirk_item, /obj/item))
+		quirk_item = new quirk_item(get_turf(quirk_target))
+
+	// check if their job / loadout has a hat
+	var/obj/item/clothing/existing = quirk_target.get_item_by_slot(ITEM_SLOT_HEAD)
+	// no hat -> try equipping like normal (via parent)
+	if(!istype(existing) || (existing.clothing_flags & STACKABLE_HELMET_EXEMPT))
+		return ..()
+	// try removing the existing hat. if fail -> try equipping like normal
+	if(!quirk_target.temporarilyRemoveItemFromInventory(existing))
+		return ..()
+	// try to place the wig. if fail -> try equipping like normal
+	if(!quirk_target.equip_to_slot_if_possible(quirk_item, ITEM_SLOT_HEAD, qdel_on_fail = FALSE))
+		return ..()
+
+	// now that the wig is properly equipped, try attaching the old job / loadout hat via the component
+	var/datum/component/hat_stabilizer/comp = quirk_item.GetComponent(/datum/component/hat_stabilizer)
+	// nvm i guess someone removed that feature (futureproofed comment)
+	if(isnull(comp))
+		return ..()
+
+	comp.attach_hat(existing)
+
+/datum/quirk/item_quirk/bald/remove()
+	. = ..()
+	var/mob/living/carbon/human/human_holder = quirk_holder
+	if(human_holder.hairstyle == "Bald" && old_hair != "Bald")
+		human_holder.set_hairstyle(old_hair, update = TRUE)
+	UnregisterSignal(human_holder, list(COMSIG_CARBON_EQUIP_HAT, COMSIG_CARBON_UNEQUIP_HAT))
+	SEND_SIGNAL(human_holder, COMSIG_CLEAR_MOOD_EVENT, "bad_hair_day")
+
+///Checks if the headgear equipped is a wig and sets the mood event accordingly
+/datum/quirk/item_quirk/bald/proc/equip_hat(mob/user, obj/item/hat)
+	SIGNAL_HANDLER
+
+	if(istype(hat, /obj/item/clothing/head/wig))
+		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "bad_hair_day", /datum/mood_event/confident_mane) //Our head is covered, but also by a wig so we're happy.
+	else
+		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "bad_hair_day") //Our head is covered
+
+///Applies a bad moodlet for having an uncovered head
+/datum/quirk/item_quirk/bald/proc/unequip_hat(mob/user, obj/item/clothing, force, newloc, no_move, invdrop, silent)
+	SIGNAL_HANDLER
+
+	SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "bad_hair_day", /datum/mood_event/bald)

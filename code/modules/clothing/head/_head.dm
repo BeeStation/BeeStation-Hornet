@@ -4,91 +4,8 @@
 	worn_icon = 'icons/mob/clothing/head/default.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
-	dynamic_hair_suffix = "+generic"
 	///Is the person wearing this trackable by the AI?
 	var/blockTracking = FALSE
-	var/obj/item/clothing/head/wig/attached_wig
-
-/obj/item/clothing/head/Initialize(mapload)
-	. = ..()
-	if(ishuman(loc) && dynamic_hair_suffix)
-		var/mob/living/carbon/human/H = loc
-		H.update_hair()
-
-/obj/item/clothing/head/equipped(mob/user, slot)
-	. = ..()
-	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
-		var/mob/living/carbon/human/H = user
-		H.update_worn_head()
-	attached_wig?.equipped(user, slot)
-
-/obj/item/clothing/head/dropped(mob/user)
-	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.head == src)
-			H.update_worn_head()
-	attached_wig?.dropped(user)
-
-/obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
-	. = ..()
-	if(istype(W, /obj/item/clothing/head/wig))
-		if(flags_inv & HIDEHAIR)
-			to_chat(user, span_notice("You can't attach a wig to [src]!"))
-			return
-		if(attached_wig)
-			to_chat(user,span_notice("[src] already has a wig attached!"))
-			return
-		else
-			if(!user.transferItemToLoc(W, src))
-				to_chat(user, span_warning("\The [W] is stuck to your hand and can't be attached to \the [src]!"))
-				return
-			attached_wig = W
-			attached_wig.hat_attached_to = src
-			add_verb(/obj/item/clothing/head/verb/unattach_wig)
-			update_icon()
-			strip_delay = 1 SECONDS //The fake hair makes it really easy to swipe the hat off the head
-			attached_wig.equipped(user, ITEM_SLOT_HEAD)
-
-
-/obj/item/clothing/head/verb/unattach_wig()
-	set name = "Remove Wig"
-	set category = "Object"
-	set src in usr
-
-	var/mob/user = usr
-	if(!user)
-		return
-	if(HAS_TRAIT_FROM(attached_wig, TRAIT_NODROP, GLUED_ITEM_TRAIT))
-		to_chat(user, span_warning("\The [attached_wig] is stuck to \the [src] and can't be detached!"))
-		return
-	user.put_in_hands(attached_wig)
-	if (user.get_item_by_slot(ITEM_SLOT_HEAD) == user)
-		attached_wig.dropped(user)
-	attached_wig.hat_attached_to = null
-	attached_wig = null
-	update_icon()
-	remove_verb(/obj/item/clothing/head/verb/unattach_wig)
-	strip_delay = initial(strip_delay)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.head == src)
-			H.update_worn_head()
-
-/obj/item/clothing/head/Destroy()
-	if (attached_wig)
-		if (attached_wig.resistance_flags & INDESTRUCTIBLE)
-			attached_wig.forceMove(get_turf(src))
-		else
-			QDEL_NULL(attached_wig)
-	..()
-
-/obj/item/clothing/head/examine(mob/user)
-	. = ..()
-	if(attached_wig)
-		. += span_notice("There's \a [attached_wig.name] attached, which can be removed through the context menu.")
-	else if(!(flags_inv & HIDEHAIR))
-		. += span_notice("A wig can be attached to the [src].")
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
@@ -136,7 +53,7 @@
 			R.place_on_head(src) //hats aren't designed to snugly fit borg heads or w/e so they'll always manage to knock eachother off
 
 /obj/item/clothing/head/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands)
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet", item_layer)

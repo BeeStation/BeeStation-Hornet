@@ -9,33 +9,28 @@
 	name = "\improper Mothman"
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
-	bodyflag = FLAG_MOTH
-	species_traits = list(
-		LIPS,
-		HAS_MARKINGS
-	)
 	inherent_traits = list(
-		TRAIT_TACKLING_WINGED_ATTACKER
+		TRAIT_TACKLING_WINGED_ATTACKER,
 	)
-	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
+	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
 	mutant_bodyparts = list(
-		"moth_wings" = "Plain",
-		"moth_antennae" = "Plain",
-		"moth_markings" = "None",
 		"body_size" = "Normal"
 	)
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
+	body_markings = list(
+		/datum/bodypart_overlay/simple/body_marking/moth = SPRITE_ACCESSORY_NONE,
+	)
+	mutant_organs = list(
+		/obj/item/organ/wings/moth = "Plain",
+		/obj/item/organ/antennae = "Plain"
+	)
 	var/datum/action/innate/cocoon/cocoon_action
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
-	mutantwings = /obj/item/organ/wings/moth
 	mutanttongue = /obj/item/organ/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
-	inert_mutation = /datum/mutation/strongwings
-	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
+	//inert_mutation = /datum/mutation/strongwings
+	death_sound = 'sound/voice/moth/moth_deathgasp.ogg'
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/moth,
@@ -54,10 +49,25 @@
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return FALSE
 	return ..()
-/datum/species/moth/check_species_weakness(obj/item/weapon, mob/living/attacker)
-	if(istype(weapon, /obj/item/melee/flyswatter))
-		return 9 //flyswatters deal 10x damage to moths
-	return 0
+
+/datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load, regenerate_icons)
+	. = ..()
+	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
+
+/datum/species/moth/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
+
+/datum/species/moth/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
+
+	if(istype(attacking_item, /obj/item/melee/flyswatter))
+		damage_mods += 10 // Yes, a 10x damage modifier
+
+/datum/species/moth/randomize_features()
+	var/list/features = ..()
+	features["moth_markings"] = pick(SSaccessories.moth_markings_list)
+	return features
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
 	return 'sound/emotes/moth/mothlaugh.ogg'
@@ -65,7 +75,8 @@
 /datum/species/moth/get_scream_sound(mob/living/carbon/user)
 	return 'sound/voice/moth/scream_moth.ogg'
 
-/datum/species/moth/on_species_gain(mob/living/carbon/human/H)
+/*
+/datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	cocoon_action = new()
 	cocoon_action.Grant(H)
@@ -198,6 +209,7 @@
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+*/
 
 /datum/species/moth/get_species_description()
 	return "Mothpeople are an intelligent species, known for their affinity to all things moth - lights, cloth, wings, and friendship."

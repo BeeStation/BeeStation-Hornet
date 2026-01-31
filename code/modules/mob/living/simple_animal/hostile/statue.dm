@@ -9,7 +9,7 @@
 	icon_dead = "human_male"
 	gender = NEUTER
 	combat_mode = TRUE
-	mob_biotypes = MOB_INORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_HUMANOID
 
 	response_help_continuous = "touches"
 	response_help_simple = "touch"

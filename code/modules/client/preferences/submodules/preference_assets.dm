@@ -12,23 +12,27 @@
 		if (!preference.should_generate_icons)
 			continue
 
-		if(preference.preference_spritesheet != name)
-			continue
+		for (var/preference_value in preference.get_choices())
+			var/create_icon_of = preference.icon_for(preference_value)
 
-		var/list/choices = preference.get_choices_serialized()
-		for (var/preference_value in choices)
-			var/create_icon_of = choices[preference_value]
 			var/datum/universal_icon/icon
+
 			if (ispath(create_icon_of, /atom))
 				var/atom/atom_icon_source = create_icon_of
-				icon = uni_icon(initial(atom_icon_source.icon), initial(atom_icon_source.icon_state))
+				icon = get_display_icon_for(atom_icon_source)
 			else if (istype(create_icon_of, /datum/universal_icon))
 				icon = create_icon_of
 			else if (isicon(create_icon_of))
 				CRASH("Icon given for preference [preference_key]:[preference_value]. This is not supported anymore, provide a /datum/universal_icon instead.")
 			else
 				CRASH("[create_icon_of] is an invalid preference value (from [preference_key]:[preference_value]).")
-			insert_icon(preference.get_spritesheet_key(preference_value), icon)
+			// There's no cost associated with inserting uni_icons, so just insert them immediately.
+			var/spritesheet_key = preference.get_spritesheet_key(preference.serialize(preference_value))
+			insert_icon(spritesheet_key, icon)
+
+/// Returns the key that will be used in the spritesheet for a given value.
+/datum/preference/proc/get_spritesheet_key(value)
+	return "[db_key]___[sanitize_css_class_name(value)]"
 
 /// This "large" spritesheet helps reduce mount lag from large PNG files.
 /datum/asset/spritesheet_batched/preferences/large
@@ -39,10 +43,6 @@
 /datum/asset/spritesheet_batched/preferences/huge
 	name = PREFERENCE_SHEET_HUGE
 	early = TRUE
-
-/// Returns the key that will be used in the spritesheet for a given value.
-/datum/preference/proc/get_spritesheet_key(value)
-	return "[db_key]___[sanitize_css_class_name(value)]"
 
 /datum/asset/spritesheet_batched/preferences_loadout
 	name = "preferences_loadout"

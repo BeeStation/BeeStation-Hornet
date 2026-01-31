@@ -24,7 +24,7 @@
 	attack_verb_simple = "slash at"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	combat_mode = TRUE
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	loot = list(/obj/effect/mob_spawn/human/corpse/cat_butcher, /obj/item/circular_saw, /obj/item/gun/syringe)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 7.5
@@ -128,7 +128,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/human/C = target
 		if(C.get_organ_by_type(/obj/item/organ/ears/cat) && C.get_organ_by_type(/obj/item/organ/tail/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
-			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !isipc(C))) //unless they need healing
+			if(C.stat && (!HAS_TRAIT(C, TRAIT_LIVERLESS_METABOLISM) || !isipc(C))) //unless they need healing
 				return ..()
 			return FALSE
 	return ..()

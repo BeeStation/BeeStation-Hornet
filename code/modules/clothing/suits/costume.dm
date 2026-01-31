@@ -86,6 +86,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	resistance_flags = NONE
+	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
 	custom_price = 75
 
 /obj/item/clothing/suit/costume/hastur

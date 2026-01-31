@@ -617,16 +617,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 		return
 
 	var/mob/living/carbon/human/human = affected_mob
-	human.dna.species.brutemod -= 0.1
-	human.dna.species.burnmod -= 0.1
+	human.physiology.brute_mod -= 0.1
+	human.physiology.burn_mod -= 0.1
 
 /obj/structure/slime_crystal/adamantine/on_mob_leave(mob/living/affected_mob)
 	if(!ishuman(affected_mob))
 		return
 
 	var/mob/living/carbon/human/human = affected_mob
-	human.dna.species.brutemod += 0.1
-	human.dna.species.burnmod += 0.1
+	human.physiology.brute_mod += 0.1
+	human.physiology.burn_mod += 0.1
 
 /obj/structure/slime_crystal/rainbow
 	colour = SLIME_TYPE_RAINBOW

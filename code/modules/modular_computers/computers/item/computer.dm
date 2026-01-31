@@ -656,7 +656,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
   * It is separated from ui_act() to be overwritten as needed.
 */
 /obj/item/modular_computer/proc/toggle_flashlight()
-	if(!has_light || !use_power(10 WATT))
+	if(!has_light && use_power(10 WATT))
 		return FALSE
 	using_flashlight = !using_flashlight
 	set_light_on(using_flashlight)

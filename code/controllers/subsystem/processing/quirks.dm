@@ -36,9 +36,14 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 	// Sort by Positive, Negative, Neutral; and then by name
 	var/list/quirk_list = sort_list(subtypesof(/datum/quirk), GLOBAL_PROC_REF(cmp_quirk_asc))
 
-	for(var/datum/quirk/T as() in quirk_list)
-		quirks[initial(T.name)] = T
-		quirk_points[initial(T.name)] = initial(T.quirk_value)
+	for(var/type in quirk_list)
+		var/datum/quirk/quirk_type = type
+
+		if (initial(quirk_type.abstract_parent_type) == quirk_type)
+			continue // Skip abstract quirk types
+
+		quirks[initial(quirk_type.name)] = quirk_type
+		quirk_points[initial(quirk_type.name)] = initial(quirk_type.quirk_value)
 
 /datum/controller/subsystem/processing/quirks/proc/AssignQuirks(datum/mind/user, client/cli, spawn_effects)
 	var/list/bad_quirks = list()

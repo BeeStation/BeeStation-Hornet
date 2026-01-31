@@ -59,3 +59,6 @@
 #define COMSIG_ATOM_ATTACK_MECH "atom_attack_mech"
 ///from relay_attackers element: (atom/attacker)
 #define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
+
+/// from cosmetic items to restyle certain mobs, objects or organs: (atom/source, mob/living/trimmer, atom/movable/original_target, body_zone, restyle_type, style_speed)
+#define COMSIG_ATOM_RESTYLE "atom_restyle"

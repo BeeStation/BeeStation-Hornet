@@ -75,19 +75,20 @@
 
 /datum/reagent/consumable/ethanol/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with ethanol isn't quite as good as fuel.
 	. = ..()
-	if(!isliving(exposed_mob))
+	if(!(method in list(TOUCH, VAPOR, PATCH)))
 		return
 
-	if(method in list(TOUCH, VAPOR, PATCH))
-		exposed_mob.adjust_fire_stacks(reac_volume / 15)
+	exposed_mob.adjust_fire_stacks(reac_volume / 15)
 
-		if(iscarbon(exposed_mob))
-			var/mob/living/carbon/exposed_carbon = exposed_mob
-			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+	if(!iscarbon(exposed_mob))
+		return
 
-			for(var/datum/surgery/surgery in exposed_carbon.surgeries)
-				surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
-				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+
+	for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
+		// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 
 /datum/reagent/consumable/ethanol/beer
 	name = "Beer"
@@ -227,17 +228,17 @@
 
 	if(DT_PROB(2.5, delta_time))
 		var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
-		if(affected_mob.is_blind())
-			if(istype(eyes))
+		if(eyes && IS_ORGANIC_ORGAN(eyes)) // doesn't affect robotic eyes
+			if(affected_mob.is_blind())
 				eyes.Remove(affected_mob)
 				eyes.forceMove(get_turf(affected_mob))
 				to_chat(affected_mob, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
 				affected_mob.emote("scream")
 				affected_mob.adjustBruteLoss(15)
-		else
-			to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
-			eyes.apply_organ_damage(eyes.maxHealth)
-			affected_mob.emote("scream")
+			else
+				to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
+				eyes.apply_organ_damage(eyes.maxHealth)
+				affected_mob.emote("scream")
 
 	if(DT_PROB(1.5, delta_time))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
@@ -841,9 +842,9 @@
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
 	. = ..()
+	drinker.set_jitter_if_lower(4 SECONDS)
 	if(HAS_MIND_TRAIT(drinker, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		. = UPDATE_MOB_HEALTH
-		drinker.adjustStaminaLoss(-10 * REM * delta_time, 0)
+		drinker.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
 		if(DT_PROB(10, delta_time))
 			drinker.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/nearby_fake_item), name)
 		if(DT_PROB(5, delta_time))
@@ -1777,7 +1778,7 @@
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
 
 	if(DT_PROB(10, delta_time))
-		affected_mob.adjustStaminaLoss(10, updating_health = FALSE)
+		affected_mob.adjustStaminaLoss(10, updating_stamina = FALSE)
 		. = UPDATE_MOB_HEALTH
 		affected_mob.drop_all_held_items()
 		to_chat(affected_mob, span_notice("You cant feel your hands!"))
@@ -1785,7 +1786,7 @@
 	if(current_cycle > 5)
 		if(DT_PROB(10, delta_time))
 			ADD_TRAIT(affected_mob, pick_trait(), "metabolize:[type]")
-			affected_mob.adjustStaminaLoss(10, updating_health = FALSE)
+			affected_mob.adjustStaminaLoss(10, updating_stamina = FALSE)
 			. = UPDATE_MOB_HEALTH
 
 		if(current_cycle > 30)
@@ -2051,31 +2052,35 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "bastion_bourbon"
 
-/datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_metabolize(mob/living/carbon/affected_mob)
+/datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_metabolize(mob/living/carbon/drinker)
 	. = ..()
 	var/heal_points = 10
-	if(affected_mob.health <= 0)
+	if(drinker.health <= 0)
 		heal_points = 20 //heal more if we're in softcrit
-	for(var/i in 1 to min(volume, heal_points)) //only heals 1 point of damage per unit on add, for balance reasons
-		affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
-		affected_mob.adjustFireLoss(-1, updating_health = FALSE)
-		affected_mob.adjustToxLoss(-1, updating_health = FALSE)
-		affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
-		affected_mob.adjustStaminaLoss(-1, updating_health = FALSE)
-		. = UPDATE_MOB_HEALTH
-	affected_mob.visible_message(span_warning("[affected_mob] shivers with renewed vigor!"), span_notice("One taste of [LOWER_TEXT(name)] fills you with energy!"))
-	if(!affected_mob.stat && heal_points == 20) //brought us out of softcrit
-		affected_mob.visible_message(span_danger("[affected_mob] lurches to [affected_mob.p_their()] feet!"), span_boldnotice("Up and at 'em, kid."))
+	var/need_mob_update
+	var/heal_amt = min(volume, heal_points) //only heals 1 point of damage per unit on add, for balance reasons
+	need_mob_update = drinker.adjustBruteLoss(-heal_amt, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += drinker.adjustFireLoss(-heal_amt, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += drinker.adjustToxLoss(-heal_amt, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += drinker.adjustOxyLoss(-heal_amt, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += drinker.adjustStaminaLoss(-heal_amt, updating_stamina = FALSE, required_biotype = affected_biotype)
+	if(need_mob_update)
+		drinker.updatehealth()
+	drinker.visible_message(span_warning("[drinker] shivers with renewed vigor!"), span_notice("One taste of [LOWER_TEXT(name)] fills you with energy!"))
+	if(!drinker.stat && heal_points == 20) //brought us out of softcrit
+		drinker.visible_message(span_danger("[drinker] lurches to [drinker.p_their()] feet!"), span_boldnotice("Up and at 'em, kid."))
 
-/datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_life(mob/living/L, delta_time, times_fired)
-	if(L.health > 0)
-		L.adjustBruteLoss(-1 * REM * delta_time)
-		L.adjustFireLoss(-1 * REM * delta_time)
-		L.adjustToxLoss(-0.5 * REM * delta_time)
-		L.adjustOxyLoss(-3 * REM * delta_time)
-		L.adjustStaminaLoss(-5 * REM * delta_time)
-		. = TRUE
-	..()
+/datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_life(mob/living/drinker, delta_time, times_fired)
+	. = ..()
+	if(drinker.health > 0)
+		var/need_mob_update
+		need_mob_update = drinker.adjustBruteLoss(-1 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+		need_mob_update += drinker.adjustFireLoss(-1 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+		need_mob_update += drinker.adjustToxLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+		need_mob_update += drinker.adjustOxyLoss(-3 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+		need_mob_update += drinker.adjustStaminaLoss(-5 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+		if(need_mob_update)
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/squirt_cider
 	name = "Squirt Cider"
@@ -2379,7 +2384,7 @@
 /datum/reagent/consumable/ethanol/fanciulli/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	if(affected_mob.health > 0)
-		affected_mob.adjustStaminaLoss(20, updating_health = TRUE)
+		affected_mob.adjustStaminaLoss(20, updating_stamina = TRUE)
 
 /datum/reagent/consumable/ethanol/branca_menta
 	name = "Branca Menta"
@@ -2399,7 +2404,7 @@
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	if(affected_mob.health > 0)
-		affected_mob.adjustStaminaLoss(35, updating_health = TRUE)
+		affected_mob.adjustStaminaLoss(35, updating_stamina = TRUE)
 
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -2667,7 +2672,7 @@
 	if(DT_PROB(2, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")))
 
-	affected_mob.adjustStaminaLoss(-0.25 * affected_mob.get_drunk_amount() * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustStaminaLoss(-0.25 * affected_mob.get_drunk_amount() * REM * delta_time, updating_stamina = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/old_timer
@@ -2695,14 +2700,12 @@
 	if(DT_PROB(10, delta_time))
 		affected_human.age += 1
 		if(affected_human.age > 70)
-			affected_human.facial_hair_color = "ccc"
-			affected_human.hair_color = "ccc"
-			affected_human.update_hair()
+			affected_human.set_facial_haircolor("#cccccc", update = FALSE)
+			affected_human.set_haircolor("#cccccc", update = TRUE)
 			if(affected_human.age > 100)
 				affected_human.become_nearsighted(type)
 				if(affected_human.gender == MALE)
-					affected_human.facial_hair_style = "Beard (Very Long)"
-					affected_human.update_hair()
+					affected_human.set_facial_hairstyle("Beard (Very Long)", update = TRUE)
 
 				if(affected_human.age > 969) //Best not let people get older than this or i might incur G-ds wrath
 					affected_human.visible_message(span_notice("[affected_human] becomes older than any man should be.. and crumbles into dust!"))

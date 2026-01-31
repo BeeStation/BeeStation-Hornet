@@ -9,7 +9,7 @@
 	held_state = "lizard"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	can_be_held = TRUE
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST |  MOB_REPTILE
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST|MOB_REPTILE
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE

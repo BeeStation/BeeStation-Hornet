@@ -291,7 +291,7 @@
 	if(isoozeling(affected_mob))
 		shock_timer = 0 //immune to shocks
 		affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-		affected_mob.adjustStaminaLoss(-2 * REM * delta_time, updating_health = FALSE)
+		affected_mob.adjustStaminaLoss(-2 * REM * delta_time, updating_stamina = FALSE)
 
 		if(isluminescent(affected_mob))
 			var/mob/living/carbon/human/affected_human = affected_mob

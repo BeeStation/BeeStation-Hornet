@@ -38,8 +38,8 @@
 	// Store Prev Appearance
 	prev_gender = user.gender
 	prev_skin_tone = user.skin_tone
-	prev_hair_style = user.hair_style
-	prev_facial_hair_style = user.facial_hair_style
+	prev_hair_style = user.hairstyle
+	prev_facial_hair_style = user.facial_hairstyle
 	prev_hair_color = user.hair_color
 	prev_facial_hair_color = user.facial_hair_color
 	prev_underwear = user.underwear
@@ -58,8 +58,8 @@
 	// Change Appearance
 	user.gender = pick(MALE, FEMALE, PLURAL)
 	user.skin_tone = pick(GLOB.skin_tones)
-	user.hair_style = random_hair_style(user.gender)
-	user.facial_hair_style = pick(random_facial_hair_style(user.gender), "Shaved")
+	user.hairstyle = random_hairstyle(user.gender)
+	user.facial_hairstyle = pick(random_facial_hairstyle(user.gender), "Shaved")
 	user.hair_color = random_short_color()
 	user.facial_hair_color = user.hair_color
 	user.underwear = random_underwear(user.gender)
@@ -68,7 +68,7 @@
 	user.eye_color = random_eye_color()
 	if(prev_disfigured)
 		REMOVE_TRAIT(user, TRAIT_DISFIGURED, null)
-	user.dna.features = random_features()
+	user.dna.features = user.dna.species.randomize_features()
 
 	// Apply Appearance
 	user.SetSpecialVoice(user.name)
@@ -92,8 +92,8 @@
 	// Revert Appearance
 	user.gender = prev_gender
 	user.skin_tone = prev_skin_tone
-	user.hair_style = prev_hair_style
-	user.facial_hair_style = prev_facial_hair_style
+	user.hairstyle = prev_hair_style
+	user.facial_hairstyle = prev_facial_hair_style
 	user.hair_color = prev_hair_color
 	user.facial_hair_color = prev_facial_hair_color
 	user.underwear = prev_underwear

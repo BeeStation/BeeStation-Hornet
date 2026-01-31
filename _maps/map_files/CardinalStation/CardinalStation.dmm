@@ -4899,23 +4899,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
-"bcu" = (
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/trimline/red/line{
-	dir = 5
-	},
-/obj/machinery/camera/directional/east,
-/obj/effect/turf_decal/tile/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/vending/deputy,
-/turf/open/floor/iron,
-/area/hallway/upper/primary/starboard)
 "bcv" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
@@ -18338,15 +18321,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/maintenance/club)
-"dTJ" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/decal/cleanable/robot_debris{
-	icon_state = "gib4";
-	pixel_x = 14;
-	pixel_y = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "dUa" = (
 /obj/structure/fluff/hedge/opaque{
 	pixel_y = 5
@@ -27708,6 +27682,22 @@
 	},
 /turf/open/floor/iron/textured,
 /area/maintenance/department/engine)
+"gdl" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 5
+	},
+/obj/machinery/camera/directional/east,
+/obj/effect/turf_decal/tile/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hallway/upper/primary/starboard)
 "gdr" = (
 /obj/structure/platform/gray{
 	dir = 1
@@ -37533,16 +37523,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/mineral/plastitanium,
 /area/engine/gravity_generator)
-"iib" = (
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/port/aft)
 "iif" = (
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 8
@@ -40211,16 +40191,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
-"iLu" = (
-/obj/machinery/power/solar{
-	id = "auxsolareast";
-	name = "Port Auxiliary Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/starboard/aft)
 "iLy" = (
 /obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/effect/turf_decal/trimline/white/warning{
@@ -55469,6 +55439,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/textured_half,
 /area/chapel/office)
+"mfE" = (
+/obj/machinery/requests_console/auto_name/directional/west{
+	announcementConsole = 1
+	},
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
 "mfJ" = (
 /obj/structure/transit_tube/curved/flipped{
 	dir = 1
@@ -62064,6 +62040,16 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/department/medical/morgue)
+"nBW" = (
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/aft)
 "nBY" = (
 /obj/effect/turf_decal/trimline/white/filled/line{
 	dir = 9
@@ -66451,13 +66437,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/nanite)
-"oCx" = (
-/obj/structure/table/wood,
-/obj/item/razor/straightrazor{
-	pixel_x = 11
-	},
-/turf/open/floor/concrete/slab,
-/area/crew_quarters/barbershop)
 "oCA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -90764,6 +90743,14 @@
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
 /area/tcommsat/server)
+"tQd" = (
+/obj/effect/decal/cleanable/robot_debris{
+	icon_state = "gib4";
+	pixel_x = 14;
+	pixel_y = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "tQf" = (
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/wood,
@@ -92217,14 +92204,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
-"ugX" = (
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
-	pixel_x = -30
-	},
-/turf/open/floor/carpet/orange,
-/area/quartermaster/qm)
 "uhf" = (
 /obj/structure/railing{
 	dir = 8
@@ -100041,6 +100020,16 @@
 /obj/structure/closet/crate,
 /turf/open/floor/plating/rust,
 /area/maintenance/central)
+"vMS" = (
+/obj/machinery/power/solar{
+	id = "auxsolareast";
+	name = "Port Auxiliary Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/aft)
 "vMW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -106480,6 +106469,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
+"xiT" = (
+/obj/structure/table/wood,
+/turf/open/floor/concrete/slab,
+/area/crew_quarters/barbershop)
 "xiZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -134654,7 +134647,7 @@ hzj
 hzj
 hzj
 hyT
-iib
+nBW
 xXZ
 qhR
 hyT
@@ -134911,7 +134904,7 @@ nzj
 hyT
 nzj
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
@@ -135168,7 +135161,7 @@ nzj
 hyT
 nzj
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
@@ -135421,11 +135414,11 @@ hzj
 hzj
 hzj
 hyT
-iib
+nBW
 xXZ
 qhR
 hyT
-iib
+nBW
 mPI
 qhR
 hyT
@@ -135678,11 +135671,11 @@ nzj
 hyT
 nzj
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
@@ -135935,7 +135928,7 @@ nzj
 hyT
 nzj
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
@@ -136188,11 +136181,11 @@ gFx
 tSW
 hyT
 hyT
-iib
+nBW
 xXZ
 qhR
 hyT
-iib
+nBW
 mPI
 qhR
 hyT
@@ -136445,11 +136438,11 @@ pkG
 vJP
 hyT
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
@@ -136702,7 +136695,7 @@ oKF
 tSW
 hyT
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
@@ -136959,7 +136952,7 @@ tSW
 tSW
 hyT
 hyT
-iib
+nBW
 mPI
 qhR
 hyT
@@ -137216,7 +137209,7 @@ tSW
 hyT
 hyT
 nzj
-iib
+nBW
 mPI
 qhR
 nzj
@@ -137481,7 +137474,7 @@ tdk
 nhg
 hyT
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
@@ -137738,7 +137731,7 @@ nhg
 nhg
 hyT
 hyT
-iib
+nBW
 wRr
 qhR
 hyT
@@ -137995,7 +137988,7 @@ hyT
 hKO
 hyT
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
@@ -138248,11 +138241,11 @@ hyT
 nhg
 hyT
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
@@ -138505,11 +138498,11 @@ hyT
 nhg
 hyT
 hyT
-iib
+nBW
 wRr
 qhR
 hyT
-iib
+nBW
 aHH
 qhR
 hyT
@@ -138762,7 +138755,7 @@ hyT
 hKO
 hyT
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
@@ -139015,11 +139008,11 @@ hyT
 nzj
 nzj
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
@@ -139272,11 +139265,11 @@ hyT
 hyT
 hyT
 hyT
-iib
+nBW
 wRr
 qhR
 hyT
-iib
+nBW
 aHH
 qhR
 hyT
@@ -139529,7 +139522,7 @@ hyT
 nzj
 nzj
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
@@ -139786,7 +139779,7 @@ nzj
 nzj
 nzj
 nzj
-iib
+nBW
 wRr
 qhR
 nzj
@@ -140043,7 +140036,7 @@ nzj
 nzj
 nzj
 hyT
-iib
+nBW
 aHH
 qhR
 hyT
@@ -140502,7 +140495,7 @@ wfG
 uDV
 vUM
 stt
-oCx
+xiT
 mgS
 lfm
 asP
@@ -141269,7 +141262,7 @@ pDL
 fmT
 mgc
 tNq
-dTJ
+tQd
 uDV
 mmW
 nZj
@@ -148963,7 +148956,7 @@ qkz
 qkz
 ilI
 pUT
-ugX
+mfE
 fQw
 sfi
 tDc
@@ -149410,7 +149403,7 @@ phD
 gig
 phD
 phD
-bcu
+gdl
 avc
 tRM
 avc
@@ -162862,7 +162855,7 @@ kFe
 kFe
 kFe
 hyT
-iLu
+vMS
 cZg
 dDw
 hyT
@@ -163119,7 +163112,7 @@ nzj
 hyT
 nzj
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
@@ -163376,7 +163369,7 @@ nzj
 hyT
 nzj
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
@@ -163629,11 +163622,11 @@ kFe
 kFe
 kFe
 hyT
-iLu
+vMS
 cZg
 dDw
 hyT
-iLu
+vMS
 tdQ
 dDw
 hyT
@@ -163886,11 +163879,11 @@ nzj
 hyT
 nzj
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
@@ -164143,7 +164136,7 @@ nzj
 hyT
 nzj
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
@@ -164396,11 +164389,11 @@ hyT
 hyT
 hyT
 hyT
-iLu
+vMS
 cZg
 dDw
 hyT
-iLu
+vMS
 tdQ
 dDw
 hyT
@@ -164653,11 +164646,11 @@ nzj
 nzj
 nzj
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
@@ -164910,7 +164903,7 @@ nzj
 nzj
 nzj
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
@@ -165167,7 +165160,7 @@ nzj
 nzj
 nzj
 hyT
-iLu
+vMS
 tdQ
 dDw
 hyT
@@ -165424,7 +165417,7 @@ nzj
 nzj
 nzj
 nzj
-iLu
+vMS
 tdQ
 dDw
 nzj
@@ -165689,7 +165682,7 @@ tdk
 rNT
 hyT
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
@@ -165946,7 +165939,7 @@ rNT
 rNT
 hyT
 hyT
-iLu
+vMS
 nnH
 dDw
 hyT
@@ -166203,7 +166196,7 @@ hyT
 iGY
 hyT
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
@@ -166456,11 +166449,11 @@ hyT
 rNT
 hyT
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
@@ -166713,11 +166706,11 @@ hyT
 rNT
 hyT
 hyT
-iLu
+vMS
 nnH
 dDw
 hyT
-iLu
+vMS
 dgO
 dDw
 hyT
@@ -166970,7 +166963,7 @@ hyT
 iGY
 hyT
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
@@ -167223,11 +167216,11 @@ nzj
 nzj
 nzj
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
@@ -167480,11 +167473,11 @@ hyT
 hyT
 hyT
 hyT
-iLu
+vMS
 nnH
 dDw
 hyT
-iLu
+vMS
 dgO
 dDw
 hyT
@@ -167737,7 +167730,7 @@ nzj
 nzj
 nzj
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
@@ -167994,7 +167987,7 @@ nzj
 nzj
 nzj
 nzj
-iLu
+vMS
 nnH
 dDw
 nzj
@@ -168251,7 +168244,7 @@ nzj
 nzj
 nzj
 hyT
-iLu
+vMS
 dgO
 dDw
 nzj

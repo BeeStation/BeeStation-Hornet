@@ -30,7 +30,8 @@
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/spreading_modifier = 1
 	var/danger = DISEASE_NONTHREAT
-	var/list/required_organs = list()
+	/// If the disease requires an organ for the effects to function, robotic organs are immune to disease unless inorganic biology symptom is present
+	var/required_organ
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
 	var/infectable_biotypes = MOB_ORGANIC //if the disease can spread on organics, synthetics, or undead
@@ -70,8 +71,13 @@
 ///Proc to process the disease and decide on whether to advance, cure or make the sympthoms appear. Returns a boolean on whether to continue acting on the symptoms or not.
 /datum/disease/proc/stage_act(delta_time, times_fired)
 	var/mob/living/L = affected_mob
-	if(IS_IN_STASIS(L))
+	if(HAS_TRAIT(L, TRAIT_STASIS))
 		return
+
+	if(required_organ)
+		if(!has_required_infectious_organ(affected_mob, required_organ))
+			cure()
+			return FALSE
 
 	if(has_cure())
 		if(DT_PROB(cure_chance, delta_time))
@@ -171,7 +177,7 @@
 		"bypasses_immunity",
 		"spreading_modifier",
 		"danger",
-		"required_organs",
+		"required_organ",
 		"needs_all_cures",
 		"strain_data",
 		"infectable_biotypes",
@@ -198,6 +204,21 @@
 	affected_mob.diseases -= src		//remove the datum from the list
 	affected_mob.med_hud_set_status()
 	affected_mob = null
+
+/// Checks if the mob has the required organ and it's not robotic or affected by inorganic biology
+/datum/disease/proc/has_required_infectious_organ(mob/living/carbon/target, required_organ_slot)
+	if(!iscarbon(target))
+		return FALSE
+
+	var/obj/item/organ/target_organ = target.get_organ_slot(required_organ_slot)
+	if(!istype(target_organ))
+		return FALSE
+
+	// robotic organs are immune to disease unless 'inorganic biology' symptom is present
+	if(IS_ROBOTIC_ORGAN(target_organ) && !(infectable_biotypes & MOB_ROBOTIC))
+		return FALSE
+
+	return TRUE
 
 //Use this to compare severities
 /proc/get_disease_danger_value(danger)

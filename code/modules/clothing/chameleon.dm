@@ -730,7 +730,7 @@
 
 /datum/action/item_action/chameleon/tongue_change
 	name = "Tongue Change"
-	button_icon = 'icons/obj/surgery.dmi'
+	button_icon = 'icons/obj/medical/organs/organs.dmi'
 	button_icon_state = "tonguebone"
 	var/static/list/tongue_list
 

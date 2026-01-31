@@ -162,7 +162,7 @@
 	carbon_user.regenerate_organs()
 
 	// Heal organs
-	for(var/obj/item/organ/organ as anything in carbon_user.internal_organs)
+	for(var/obj/item/organ/organ as anything in carbon_user.organs)
 		organ.set_organ_damage(0)
 
 	// Heart

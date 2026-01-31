@@ -13,7 +13,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/pets_held.dmi'
@@ -104,11 +104,11 @@
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
-/mob/living/simple_animal/hostile/retaliate/nymph/adjustBruteLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/retaliate/nymph/adjustBruteLoss(amount, updating_health, forced, required_bodytype)
 	brute_damage = brute_damage + amount * damage_coeff[BRUTE] * CONFIG_GET(number/damage_multiplier)
 	. = ..()
 
-/mob/living/simple_animal/hostile/retaliate/nymph/adjustFireLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/retaliate/nymph/adjustFireLoss(amount, updating_health, forced, required_bodytype)
 	fire_damage = fire_damage + amount * damage_coeff[BURN] * CONFIG_GET(number/damage_multiplier)
 	. = ..()
 

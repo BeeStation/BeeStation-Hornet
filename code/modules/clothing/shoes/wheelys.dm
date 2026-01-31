@@ -15,6 +15,7 @@
 
 /obj/item/clothing/shoes/wheelys/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
 	W = new /obj/vehicle/ridden/scooter/skateboard/wheelys(null)
 
 /obj/item/clothing/shoes/wheelys/ui_action_click(mob/user, action)

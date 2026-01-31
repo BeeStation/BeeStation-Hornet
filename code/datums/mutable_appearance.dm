@@ -11,18 +11,50 @@
 	if(!to_copy)
 		plane = FLOAT_PLANE
 
-// Helper similar to image()
+/** Helper similar to image()
+ *
+ * icon - Our appearance's icon
+ * icon_state - Our appearance's icon state
+ * layer - Our appearance's layer
+ * plane - The plane to use for the appearance.
+ * alpha - Our appearance's alpha
+ * appearance_flags - Our appearance's appearance_flags
+**/
 /proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, plane = FLOAT_PLANE, alpha = 255, appearance_flags = NONE, color)
-	var/mutable_appearance/MA = new()
-	MA.icon = icon
-	MA.icon_state = icon_state
-	MA.layer = layer
-	MA.plane = plane
-	MA.alpha = alpha
-	MA.appearance_flags |= appearance_flags
+	#ifdef TESTING
+	// Icon should be an icon file or null
+	if(isnum(icon))
+		CRASH("mutable_appearance() received a number for icon parameter: [icon]")
+	if(istext(icon) && !isdmifile(icon))
+		CRASH("mutable_appearance() received invalid string for icon parameter: [icon]")
+
+	// Layer and plane must be numbers
+	if(!isnum(layer))
+		CRASH("mutable_appearance() received non-number for layer parameter: [layer]")
+	if(!isnum(plane))
+		CRASH("mutable_appearance() received non-number for plane parameter: [plane]")
+
+	// Alpha must be a number between 0-255
+	if(!isnum(alpha))
+		CRASH("mutable_appearance() received non-number for alpha parameter: [alpha]")
+	if(alpha < 0 || alpha > 255)
+		CRASH("mutable_appearance() received invalid alpha value: [alpha] (must be 0-255)")
+
+	// Appearance flags must be a number (bitfield)
+	if(!isnum(appearance_flags))
+		CRASH("mutable_appearance() received non-number for appearance_flags parameter: [appearance_flags]")
+	#endif
+
+	var/mutable_appearance/appearance = new()
+	appearance.icon = icon
+	appearance.icon_state = icon_state
+	appearance.layer = layer
+	appearance.plane = plane
+	appearance.alpha = alpha
+	appearance.appearance_flags |= appearance_flags
 	if(color)
-		MA.color = color
-	return MA
+		appearance.color = color
+	return appearance
 
 /// Produces a mutable appearance glued to the [EMISSIVE_PLANE] dyed to be the [EMISSIVE_COLOR].
 /// Setting the layer is highly important

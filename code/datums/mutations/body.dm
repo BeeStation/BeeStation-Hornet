@@ -86,7 +86,7 @@
 	difficulty = 16
 	instability = 5
 	conflicts = list(/datum/mutation/gigantism)
-	locked = TRUE    // Default intert species for now, so locked from regular pool.
+	locked = TRUE // Default intert species for now, so locked from regular pool.
 
 /datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -362,6 +362,7 @@
 		owner.visible_message(span_danger("[owner] tries to stand up, but trips!"), span_userdanger("You trip over your own feet!"))
 		COOLDOWN_START(src, stun_cooldown, 30 SECONDS)
 
+/*
 /datum/mutation/strongwings
 	name = "Strengthened Wings"
 	desc = "Subject's wing muscle volume rapidly increases."
@@ -375,7 +376,7 @@
 /datum/mutation/strongwings/on_acquiring()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(!wings)
 		to_chat(owner, span_warning("You don't have wings to strengthen!"))
 		return
@@ -391,10 +392,11 @@
 		return
 	to_chat(owner, span_notice("Your wings feel stronger."))
 
+
 /datum/mutation/strongwings/on_losing()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(!wings)
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
@@ -409,9 +411,11 @@
 
 /datum/mutation/strongwings/modify()
 	..()
-	var/obj/item/organ/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(istype(bee_wings))
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
+*/
+
 /datum/mutation/catclaws
 	name = "Cat Claws"
 	desc = "Subject's hands grow sharpened claws."
@@ -421,30 +425,56 @@
 	instability = 25
 	power_coeff = 1
 	species_allowed = list(SPECIES_FELINID)
-	var/added_damage = 6
+	var/damage_boost = 6
 
 /datum/mutation/catclaws/on_acquiring()
 	if(..())
 		return
-	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
-	owner.dna.species.punchdamage += added_damage
-	owner.dna.species.attack_verb = "slash"
-	owner.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-	owner.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+
+	// Modify both arm limbs to have claws
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+
+			// Apply claw damage and effects
+			var/damage_increase = min(17, damage_boost * GET_MUTATION_POWER(src))
+			arm.unarmed_damage += damage_increase
+			arm.unarmed_attack_verb = "slash"
+			arm.unarmed_attack_sound = 'sound/weapons/slash.ogg'
+			arm.unarmed_miss_sound = 'sound/weapons/slashmiss.ogg'
+
 	to_chat(owner, span_notice("Claws extend from your fingertips."))
 
 /datum/mutation/catclaws/on_losing()
 	if(..())
 		return
-	to_chat(owner, span_warning(" Your claws retract into your hand."))
-	owner.dna.species.punchdamage -= added_damage
-	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
-	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
-	owner.dna.species.miss_sound = initial(owner.dna.species.miss_sound)
+
+	// Restore original arm attack values
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM))
+			// Only restore if the original values exist
+			if(isnum(arm.unarmed_damage))
+				arm.unarmed_damage = initial(arm.unarmed_damage)
+
+			if(arm.unarmed_attack_verb)
+				arm.unarmed_attack_verb = initial(arm.unarmed_attack_verb)
+
+			if(arm.unarmed_attack_sound)
+				arm.unarmed_attack_sound = initial(arm.unarmed_attack_sound)
+
+			if(arm.unarmed_miss_sound)
+				arm.unarmed_miss_sound = initial(arm.unarmed_miss_sound)
+
+	to_chat(owner, span_warning("Your claws retract into your hands."))
 
 /datum/mutation/catclaws/modify()
 	..()
-	if(added_damage)
-		owner.dna.species.punchdamage -= added_damage
-	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
-	owner.dna.species.punchdamage += added_damage
+
+	// Update damage values when mutation power changes
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM) && isnum(arm.unarmed_damage))
+			// Reset to original values first
+			arm.unarmed_damage = initial(arm.unarmed_damage)
+
+			// Apply updated damage boost
+			var/damage_increase = min(17, damage_boost * GET_MUTATION_POWER(src))
+			arm.unarmed_damage += damage_increase

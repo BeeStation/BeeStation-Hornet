@@ -34,7 +34,7 @@
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/A, mob/living/D)
 	if(iscarbon(A))
 		var/mob/living/carbon/L = A
-		if(!istype(L.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/lizard))
+		if(!istype(L.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL), /obj/item/organ/tail/lizard))
 			L.visible_message(span_warningbig("You lack the tail of a lizard."))
 			return
 	if(A == D) //Don't allow storing moves on yourself to cast on command
@@ -83,7 +83,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/A, mob/living/D)
 	if(iscarbon(A))
 		var/mob/living/carbon/L = A
-		if(!istype(L.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/lizard))
+		if(!istype(L.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL), /obj/item/organ/tail/lizard))
 			L.visible_message(span_warningbig("You lack the tail of a lizard."))
 			return
 	if(A == D) //Don't grab yourself

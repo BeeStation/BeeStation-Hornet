@@ -180,8 +180,10 @@
 			icon_state = "cutout_ntsec"
 	return 1
 
+// Cutouts always face forward
 /obj/item/cardboard_cutout/setDir(newdir)
-	dir = SOUTH
+	SHOULD_CALL_PARENT(FALSE)
+	return
 
 //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
 /obj/item/cardboard_cutout/adaptive

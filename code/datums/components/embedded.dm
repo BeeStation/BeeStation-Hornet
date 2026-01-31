@@ -95,7 +95,8 @@
 	if(harmful)
 		victim.throw_alert(ALERT_EMBEDDED_OBJECT, /atom/movable/screen/alert/embeddedobject)
 		playsound(victim,'sound/weapons/bladeslice.ogg', 40)
-		weapon.add_mob_blood(victim)//it embedded itself in you, of course it's bloody!
+		if (limb.can_bleed())
+			weapon.add_mob_blood(victim)//it embedded itself in you, of course it's bloody!
 		SEND_SIGNAL(victim, COMSIG_ADD_MOOD_EVENT, "embedded", /datum/mood_event/embedded)
 
 /datum/component/embedded/Destroy()

@@ -8,7 +8,7 @@
 	icon_living = "psycho"
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	turns_per_move = 0
 	del_on_death = TRUE
 	speak_chance = 5

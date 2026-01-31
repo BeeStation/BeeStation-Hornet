@@ -54,47 +54,47 @@ Slimecrossing Mobs
 	var/ooze_colour = null
 	switch((colour))
 		if(SLIME_TYPE_ORANGE)
-			ooze_colour = "FFA500"
+			ooze_colour = "#FFA500"
 		if(SLIME_TYPE_PURPLE)
-			ooze_colour = "B19CD9"
+			ooze_colour = "#B19CD9"
 		if(SLIME_TYPE_BLUE)
-			ooze_colour = "ADD8E6"
+			ooze_colour = "#ADD8E6"
 		if(SLIME_TYPE_METAL)
-			ooze_colour = "7E7E7E"
+			ooze_colour = "#7E7E7E"
 		if(SLIME_TYPE_YELLOW)
-			ooze_colour = "FFFF00"
+			ooze_colour = "#FFFF00"
 		if(SLIME_TYPE_DARK_PURPLE)
-			ooze_colour = "551A8B"
+			ooze_colour = "#551A8B"
 		if(SLIME_TYPE_DARK_BLUE)
-			ooze_colour = "0000FF"
+			ooze_colour = "#0000FF"
 		if(SLIME_TYPE_SILVER)
-			ooze_colour = "D3D3D3"
+			ooze_colour = "#D3D3D3"
 		if(SLIME_TYPE_BLUESPACE)
-			ooze_colour = "32CD32"
+			ooze_colour = "#32CD32"
 		if(SLIME_TYPE_SEPIA)
-			ooze_colour = "704214"
+			ooze_colour = "#704214"
 		if(SLIME_TYPE_CERULEAN)
-			ooze_colour = "2956B2"
+			ooze_colour = "#2956B2"
 		if(SLIME_TYPE_PYRITE)
-			ooze_colour = "#AFAD2"
+			ooze_colour = "#AFAD21"
 		if(SLIME_TYPE_RED)
-			ooze_colour = "FF0000"
+			ooze_colour = "#FF0000"
 		if(SLIME_TYPE_GREEN)
-			ooze_colour = "00FF00"
+			ooze_colour = "#00FF00"
 		if(SLIME_TYPE_PINK)
-			ooze_colour = "FF69B4"
+			ooze_colour = "#FF69B4"
 		if(SLIME_TYPE_GOLD)
-			ooze_colour = "FFD700"
+			ooze_colour = "#FFD700"
 		if(SLIME_TYPE_OIL)
-			ooze_colour = "505050"
+			ooze_colour = "#505050"
 		if(SLIME_TYPE_BLACK)
-			ooze_colour = "000000"
+			ooze_colour = "#000000"
 		if(SLIME_TYPE_LIGHT_PINK)
-			ooze_colour = "FFB6C1"
+			ooze_colour = "#FFB6C1"
 		if(SLIME_TYPE_ADAMANTINE)
-			ooze_colour = "008b8b"
+			ooze_colour = "#008b8b"
 		if(SLIME_TYPE_GREY)
-			ooze_colour = "FFFFFF"
+			ooze_colour = "#FFFFFF"
 	var/mob/living/carbon/human/species/oozeling/new_ooze = new(owner.loc)
 	new_ooze.dna.features["mcolor"] = ooze_colour
 	new_ooze.name = owner.name

@@ -48,6 +48,8 @@ SUBSYSTEM_DEF(overlays)
 		if(length(atom_to_compile.overlays) >= MAX_ATOM_OVERLAYS)
 			//Break it real GOOD
 			stack_trace("Too many overlays on [atom_to_compile.type] - [length(atom_to_compile.overlays)], refusing to update and cutting.")
+			if(istype(atom_to_compile, /mob/living/carbon))
+				send2tgs("Server", "Overlay culling has occurred on atom_to_compile, a carbon. Possible overlay issue/invisibility ahelp inbound.")
 			atom_to_compile.overlays.Cut()
 			continue
 		STAT_START_STOPWATCH

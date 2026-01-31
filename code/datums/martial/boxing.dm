@@ -15,15 +15,15 @@
 /datum/martial_art/boxing/harm_act(mob/living/A, mob/living/D)
 
 	var/mob/living/carbon/human/attacker_human = A
-	var/datum/species/species = attacker_human.dna.species
+	var/obj/item/bodypart/arm/active_arm = attacker_human.get_active_hand()
 
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
 
-	var/damage = 6 +species.punchdamage
+	var/damage = rand(5, 8) + active_arm.unarmed_damage
 	if(!damage)
-		playsound(D.loc, species.miss_sound, 25, TRUE, -1)
+		playsound(D.loc, active_arm.unarmed_miss_sound, 25, TRUE, -1)
 		D.visible_message(span_warning("[A]'s [atk_verb] misses [D]!"), \
 			span_userdanger("[A]'s [atk_verb] misses you!"), null, COMBAT_MESSAGE_RANGE)
 		log_combat(A, D, "attempted to hit", atk_verb, important = FALSE)
@@ -33,7 +33,7 @@
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
-	playsound(D.loc, species.attack_sound, 25, TRUE, -1)
+	playsound(D.loc, active_arm.unarmed_attack_sound, 25, TRUE, -1)
 
 	D.visible_message(span_danger("[A] [atk_verb]ed [D]!"), \
 			span_userdanger("[A] [atk_verb]ed you!"), null, COMBAT_MESSAGE_RANGE)

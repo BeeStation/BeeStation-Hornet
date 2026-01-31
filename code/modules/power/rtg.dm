@@ -46,7 +46,7 @@
 
 /obj/machinery/power/rtg/advanced
 	desc = "An advanced RTG capable of moderating isotope decay, increasing power output but reducing lifetime. It uses plasma-fueled radiation collectors to increase output even further."
-	power_gen = 12.5 KILOWATT
+	power_gen = 1250 // 2500 on T1, 10000 on T4.
 	circuit = /obj/item/circuitboard/machine/rtg/advanced
 
 // Void Core, power source for Abductor ships and bases.

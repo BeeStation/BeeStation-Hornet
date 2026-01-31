@@ -134,7 +134,7 @@
 	intensity = clamp(intensity + amount, 0, 100)
 
 /datum/component/irradiated/proc/should_halt_effects(mob/living/carbon/human/target)
-	if (IS_IN_STASIS(target))
+	if (HAS_TRAIT(target, TRAIT_STASIS))
 		return TRUE
 
 	if (HAS_TRAIT(target, TRAIT_HALT_RADIATION_EFFECTS))

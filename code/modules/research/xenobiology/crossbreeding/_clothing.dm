@@ -109,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	slot_flags = ITEM_SLOT_HEAD
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	body_parts_covered = NONE
-	dynamic_hair_suffix = ""
+
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY

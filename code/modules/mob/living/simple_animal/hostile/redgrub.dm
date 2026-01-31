@@ -4,7 +4,7 @@
 	icon_state = "grub_1"
 	icon_living = "grub_1"
 	icon_dead = "grub_1_dead"
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	butcher_results = list(/obj/effect/decal/cleanable/insectguts = 1)
 	damage_coeff = list(BRUTE = 1, BURN = 2, TOX = -1, CLONE = 0, STAMINA = 0, OXY = 0) //can't be eaten by slimes, and healed by toxin damage
 	turns_per_move = 5

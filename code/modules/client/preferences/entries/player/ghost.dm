@@ -41,12 +41,10 @@
 	should_generate_icons = TRUE
 
 /datum/preference/choiced/ghost_form/init_possible_values()
-	var/list/values = list()
+	return assoc_to_keys(GLOB.ghost_forms)
 
-	for (var/ghost_form in GLOB.ghost_forms)
-		values[ghost_form] = uni_icon('icons/mob/observer.dmi', ghost_form)
-
-	return values
+/datum/preference/choiced/ghost_form/icon_for(value)
+	return uni_icon('icons/mob/mob.dmi', value)
 
 /datum/preference/choiced/ghost_form/create_default_value()
 	return "ghost"
