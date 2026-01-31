@@ -27,6 +27,7 @@
 	data["cdr_data"] = list()
 	for(var/obj/machinery/atmospherics/components/unary/cdr/cdr in cdrs)
 		data["cdr_data"] += list((cdr.ui_static_data(user) + cdr.ui_data(user))) //very stupid, but I frankly dont know another solution
+	return data
 
 /datum/computer_file/program/cdr_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()

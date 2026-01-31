@@ -17,7 +17,7 @@
 	var/base_instability = CDR_BASE_INSTABILITY
 
 	var/core_health = CDR_MAX_CORE_HEALTH
-	var/takes_core_damage = FALSE
+	var/no_core_damage = FALSE
 	var/temp_stability_factor = 0
 	var/core_temperature = T20C
 
@@ -37,7 +37,7 @@
 
 	var/datum/looping_sound/cdr/soundloop
 
-	var/list/obj/machinery/power/flux_harvester/linked_harvesters = list()
+	var/list/obj/machinery/power/energy_accumulator/flux_harvester/linked_harvesters = list()
 	var/datum/gas_mixture/core_composition
 
 	// For admin logging
@@ -62,7 +62,7 @@
 	radio.recalculateChannels()
 
 /obj/machinery/atmospherics/components/unary/cdr/Destroy()
-	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
+	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in linked_harvesters)
 		harvester.parent = null
 	QDEL_NULL(soundloop)
 	QDEL_NULL(radio)
@@ -181,7 +181,7 @@
 	return FALSE
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/activate()
-	if(!activated && is_operational)
+	if(activated || !is_operational)
 		return
 	soundloop.start()
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF //you cannot destroy it while its on... because of its quantum-flux-field!
@@ -209,10 +209,10 @@
 	return stability_value * get_temp_stab_factor()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/link_harvesters()
-	for(var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
+	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in linked_harvesters)
 		harvester.unlink_harvester()
 		linked_harvesters -= harvester
-	for(var/obj/machinery/power/flux_harvester/harvester in orange(5, src))
+	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in orange(5, src))
 		if(harvester in linked_harvesters)
 			continue
 		linked_harvesters += harvester
@@ -231,6 +231,7 @@
 		var/datum/condensate_gas/cdr_gas = gas_vars[gastype]
 		var/gas_moles = GET_MOLES(gastype, core_composition)
 		if(!cdr_gas.decays_into)
+			continue
 		if(!gas_moles)
 			continue
 		if(gas_moles < cdr_gas.threshold)
@@ -264,7 +265,7 @@
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/adjust_health(delta)
-	if(takes_core_damage)
+	if(no_core_damage)
 		return
 	var/health_delta = clamp(core_health + delta, 0, CDR_MAX_CORE_HEALTH)
 	if(health_delta > core_health)
@@ -280,7 +281,6 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/alert_radio(decreasing)
 	if(!COOLDOWN_FINISHED(src, radio_cooldown) || core_health > CDR_MAX_CORE_HEALTH * 0.6)
 		return
-	var/message = "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!"
 	radio.talk_into(src, "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!", core_health < CDR_MAX_CORE_HEALTH * 0.25 ? RADIO_CHANNEL_ENGINEERING : null)
 	COOLDOWN_START(src, radio_cooldown, CDR_RADIO_COOLDOWN)
 
@@ -346,46 +346,38 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_harvesters()
 	var/power_left = flux * CDR_FLUX_TO_POWER
-	for (var/obj/machinery/power/flux_harvester/harvester in linked_harvesters)
+	for (var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in linked_harvesters)
 		power_left -= harvester.add_power(power_left)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/set_flux(flux_to_add)
 	flux = flux_to_add * toroid_flux_mult
 
-/obj/machinery/power/flux_harvester
+/obj/machinery/power/energy_accumulator/flux_harvester
 	name = "magnetic flux harvester"
 	desc = "Uses advanced wire coils to harvest magnetic flux efficiently."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "flux_harvester"
 	circuit = /obj/item/circuitboard/machine/flux_harvester
-	processing_flags = START_PROCESSING_MANUALLY
-	var/output_this_tick = 0
 	var/max_harvested = 1 GIGAWATT
 	var/obj/machinery/atmospherics/components/unary/cdr/parent = null
 
-/obj/machinery/power/flux_harvester/Destroy()
+/obj/machinery/power/energy_accumulator/flux_harvester/Destroy()
 	. = ..()
 	parent?.linked_harvesters -= src
 
-/obj/machinery/power/flux_harvester/process(delta_time)
-	add_avail(output_this_tick)
-	output_this_tick = 0
-
-/obj/machinery/power/flux_harvester/screwdriver_act(mob/living/user, obj/item/tool)
+/obj/machinery/power/energy_accumulator/flux_harvester/screwdriver_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_screwdriver(user, "flux_harvester-o", "flux_harvester", tool)
 
-/obj/machinery/power/flux_harvester/crowbar_act(mob/living/user, obj/item/tool)
+/obj/machinery/power/energy_accumulator/flux_harvester/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)
 
-/obj/machinery/power/flux_harvester/proc/add_power(power)
+/obj/machinery/power/energy_accumulator/flux_harvester/proc/add_power(power)
 	var/excess = max(power - max_harvested, 0)
-	output_this_tick = min(power, max_harvested)
+	stored_energy += min(power, max_harvested)
 	return excess
 
-/obj/machinery/power/flux_harvester/proc/link_harvester(obj/machinery/atmospherics/components/unary/cdr/reactor)
+/obj/machinery/power/energy_accumulator/flux_harvester/proc/link_harvester(obj/machinery/atmospherics/components/unary/cdr/reactor)
 	parent = reactor
-	START_PROCESSING(SSmachines, src)
 
-/obj/machinery/power/flux_harvester/proc/unlink_harvester()
+/obj/machinery/power/energy_accumulator/flux_harvester/proc/unlink_harvester()
 	parent = null
-	STOP_PROCESSING(SSmachines, src)

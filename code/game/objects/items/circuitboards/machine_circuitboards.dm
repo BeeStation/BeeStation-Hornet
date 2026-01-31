@@ -274,7 +274,7 @@
 /obj/item/circuitboard/machine/flux_harvester
 	name = "flux harvester (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/power/flux_harvester
+	build_path = /obj/machinery/power/energy_accumulator/flux_harvester/
 	req_components = list(
 		/obj/item/stock_parts/capacitor/quadratic = 5,
 		/obj/item/stack/cable_coil = 5
