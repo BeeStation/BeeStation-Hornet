@@ -65,25 +65,21 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// The mob has the stasis effect.
 /// Does nothing on its own, applied via status effect.
 #define TRAIT_STASIS "in_stasis"
-#define TRAIT_REGEN_COMA "regencoma"
-#define TRAIT_FAKEDEATH "fakedeath" //Makes the owner appear as dead to most forms of medical examination
-#define TRAIT_DISFIGURED "disfigured"
-#define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
-#define TRAIT_STUNIMMUNE "stun_immunity"
-#define TRAIT_STUNRESISTANCE "stun_resistance"
-#define TRAIT_CONFUSEIMMUNE "confuse_immunity"
-#define TRAIT_SLEEPIMMUNE "sleep_immunity"
-#define TRAIT_PUSHIMMUNE "push_immunity"
-#define TRAIT_SHOCKIMMUNE "shock_immunity"
-#define TRAIT_HOLY "holy"
-#define TRAIT_ANTIMAGIC "antimagic" //Unharmable
+/// Makes the owner appear as dead to most forms of medical examination
+#define TRAIT_FAKEDEATH "fakedeath"
+#define TRAIT_DISFIGURED		"disfigured"
+#define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
+#define TRAIT_STUNIMMUNE		"stun_immunity"
+#define TRAIT_STUNRESISTANCE    "stun_resistance"
+#define TRAIT_SLEEPIMMUNE		"sleep_immunity"
+#define TRAIT_PUSHIMMUNE		"push_immunity"
+#define TRAIT_SHOCKIMMUNE		"shock_immunity"
+#define TRAIT_HOLY				"holy"
+#define TRAIT_ANTIMAGIC			"antimagic" //Unharmable
 /// This mob recently blocked magic with some form of antimagic
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
 /// This allows a person who has antimagic to cast spells without getting blocked
 #define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
-#define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
-/// Can weave webs into cloth
-#define TRAIT_WEB_WEAVER "web_weaver"
 #define TRAIT_STABLEHEART		"stable_heart"
 #define TRAIT_STABLELIVER		"stable_liver"
 #define TRAIT_NOVOMIT			"no_vomit"
@@ -101,6 +97,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER "dismember_immunity"
 #define TRAIT_NOFIRE "nonflammable"
+#define TRAIT_NOFIRE_SPREAD "no_fire_spreading"
+/// Mobs that have this trait cannot be extinguished
+#define TRAIT_NO_EXTINGUISH "no_extinguish"
 /// Are we expected to fight antags?
 #define TRAIT_SECURITY "security_member"
 /// Prevents plasmamen from self-igniting
@@ -161,8 +160,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FASTMED "fast_med_use"
 /// reduces the use time of syringes, pills, patches and medigels but only when using on someone
 #define TRAIT_SEE_ANTIMAGIC		"see_anti_magic"
-#define TRAIT_DEPRESSION		"depression"
-#define TRAIT_JOLLY				"jolly"
 #define TRAIT_NOCRITDAMAGE		"no_crit"
 #define TRAIT_NOSLIPWATER		"noslip_water"
 /// Stops all slipping and sliding from ocurring
@@ -211,14 +208,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TRUE_NIGHT_VISION "true_night_vision"
 /// Lets us scan reagents
 #define TRAIT_REAGENT_SCANNER "reagent_scanner"
-/// Lets us scan boozepower
-#define  TRAIT_BOOZEPOWER_SCANNER "boozepower_scanner"
 #define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 #define TRAIT_ABDUCTOR_SCIENTIST_TRAINING "abductor-scientist-training"
 #define TRAIT_SURGEON           "surgeon" //Grants access to all surgeries
 #define TRAIT_ABDUCTOR_SURGEON  "abductor-surgery-training" //Grants access to all surgeries except for certain blacklisted ones
 #define	TRAIT_STRONG_GRABBER	"strong_grabber"
-#define	TRAIT_CALCIUM_HEALER	"calcium_healer"
 #define	TRAIT_MAGIC_CHOKE		"magic_choke"
 #define TRAIT_SOOTHED_THROAT    "soothed-throat"
 #define TRAIT_LAW_ENFORCEMENT_METABOLISM "law-enforcement-metabolism"
@@ -237,17 +231,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_JUMPSUIT "no_jumpsuit"
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
 #define TRAIT_BEEFRIEND 		"beefriend"
-#define TRAIT_PLANTHEALING		"planthealing"
 #define TRAIT_MEDICAL_HUD "med_hud"
 #define TRAIT_SECURITY_HUD "sec_hud"
 /// for something granting you a diagnostic hud
 #define TRAIT_DIAGNOSTIC_HUD "diag_hud"
-/// Is a medbot healing you
-#define TRAIT_MEDIBOTCOMINGTHROUGH "medbot"
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_NOBLOCK			"noblock"
 #define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
-#define TRAIT_WARDED "curse_immune"
 #define TRAIT_NICE_SHOT "nice_shot" //hnnnnnnnggggg..... you're pretty good....
 /// Prevents hallucinations from the hallucination brain trauma (RDS)
 #define TRAIT_HALLUCINATION_SUPPRESSED "hallucination_suppressed"
@@ -255,10 +245,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NAIVE "naive" //All dead people will appear as sleeping.
 #define TRAIT_PRIMITIVE "primitive"
 #define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale
-#define TRAIT_MINDSWAPPED "mindswapped"
+#define TRAIT_DRINKSBLOOD "drinks_blood"
 #define TRAIT_SOMMELIER			"sommelier"  // shows different booze power flavor texts
 #define TRAIT_BARMASTER			"bar_master" // always can identify reagents
-#define TRAIT_HIVE_BURNT		 "hive-burnt"
 #define TRAIT_MOTH_BURNT		"moth_burnt"
 /// From anti-convulsant medication against seizures.
 #define TRAIT_ANTICONVULSANT "anticonvulsant"
@@ -289,10 +278,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
-/// Immune to being afflicted by time stop (spell)
-#define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
-/// Whether a spider's consumed this mob
-#define TRAIT_SPIDER_CONSUMED "spider_consumed"
 /// Whether we're sneaking, from the alien sneak ability.
 /// Maybe worth generalizing into a general "is sneaky" / "is stealth" trait in the future.
 #define TRAIT_ALIEN_SNEAK "sneaking_alien"
@@ -309,8 +294,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNDENSE "undense"
 /// Makes the mob immune to damage and several other ailments.
 #define TRAIT_GODMODE "godmode"
-/// A trait gained by leaning against a wall
-#define TRAIT_LEANING "leaning"
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -333,7 +316,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ORBITING_FORBIDDEN "orbiting_forbidden"
 
 ///Mob is being tracked on glob suit sensors list
-#define TRACKED_SENSORS_TRAIT "tracked_sensors"
+#define TRAIT_TRACKED_SENSORS "tracked_sensors"
 ///Mob is tracked by suit sensors, and on glob suit sensors list
 #define TRAIT_SUIT_SENSORS "suit_sensors"
 ///Mob is tracked by nanites, and on glob suit sensors list
@@ -341,9 +324,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait for psyphoza, flag for examine logic
 #define TRAIT_PSYCHIC_SENSE "psychic_sense"
-
-///Trait given when a mob has been tipped
-#define TRAIT_MOB_TIPPED "mob_tipped"
 
 /// Trait which means whatever has this is dancing by a dance machine
 #define TRAIT_DISCO_DANCER "disco_dancer"
@@ -416,23 +396,17 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FREERUNNING		"freerunning"
 #define TRAIT_SKITTISH			"skittish"
 #define TRAIT_POOR_AIM			"poor_aim"
-#define TRAIT_PROSOPAGNOSIA		"prosopagnosia"
-#define	TRAIT_NEET				"NEET"
-#define TRAIT_DRUNK_HEALING		"drunk_healing"
 #define TRAIT_TAGGER			"tagger"
 #define TRAIT_PHOTOGRAPHER		"photographer"
-#define TRAIT_MUSICIAN			"musician"
 #define TRAIT_LIGHT_DRINKER		"light_drinker"
 #define TRAIT_EMPATH			"empath"
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
-#define TRAIT_BRAIN_TUMOR		"brain_tumor"
-#define TRAIT_PROSKATER			"pro_skater"
-#define TRAIT_PLUSHIELOVER		"plushie lover"
 #define TRAIT_BALD "bald"
 #define TRAIT_SHAVED "shaved"
+#define TRAIT_BRAIN_TUMOR		"brain_tumor"
+#define TRAIT_PROSKATER			"pro_skater"
 #define TRAIT_COMPUTER_WHIZ		"computer_whiz"
-#define	TRAIT_ACCENT			"Accent"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"
@@ -510,12 +484,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM		"no-floating-animation"
 
+/// Weather immunities, also protect mobs inside them.
+#define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
+#define TRAIT_ACIDSTORM_IMMUNE "acidstorm_immune"
+#define TRAIT_ASHSTORM_IMMUNE "ashstorm_immune"
+#define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
+#define TRAIT_RADSTORM_IMMUNE "radstorm_immune"
+#define TRAIT_WEATHER_IMMUNE "weather_immune" //Immune to ALL weather effects.
+
 /// For unit testing, all do_afters set on this mob complete instantly and do not sleep
-#define INSTANT_DO_AFTER "instant_do_after"
-/// This mob heals from cult pylons.
-#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
-/// This means the user is currently holding/wearing a "tactical camouflage" item (like a potted plant).
-#define TRAIT_TACTICALLY_CAMOUFLAGED "tactically_camouflaged"
+#define TRAIT_INSTANT_DO_AFTER "TRAIT_INSTANT_DO_AFTER"
 
 /// The person with this trait always appears as 'unknown'.
 #define TRAIT_UNKNOWN "unknown"
@@ -524,7 +502,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNORING_GRAVITY "ignores_gravity"
 /// We have some form of forced gravity acting on us
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
-#define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
 
@@ -545,6 +522,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BEING_SHOCKED "shocked"
 /// Trait given to a dreaming carbon when they are currently doing dreaming stuff
 #define TRAIT_DREAMING "currently_dreaming"
+
+/// Stores typepaths, the typepath value read from this trait indicates that this item
+/// is meant to look like the item with that path, which might affect how you show
+/// this item to players (such as through armour readouts).
+#define TRAIT_VALUE_MIMIC_PATH "mimic_path"
 
 ///without a human having this trait, they speak as if they have no tongue.
 #define TRAIT_SPEAKS_CLEARLY "speaks_clearly"

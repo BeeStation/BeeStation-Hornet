@@ -825,7 +825,6 @@
 	limb_id = "pumpkin_man"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	item_flags = ISCARVABLE
 	burn_modifier = 1.25
 	/*
 	///Carved overlay

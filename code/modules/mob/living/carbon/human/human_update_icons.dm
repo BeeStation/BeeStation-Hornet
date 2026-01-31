@@ -45,8 +45,6 @@ There are several things that need to be remembered:
 		update_body()				//Calls update_body_parts(), as well as updates mutant bodyparts, the old, not-actually-bodypart system.
 */
 
-/mob/living/carbon/human/update_fire()
-	..((fire_stacks > HUMAN_FIRE_STACK_ICON_NUM) ? "Standing" : "Generic_mob_burning")
 
 
 /* --------------------------------------- */

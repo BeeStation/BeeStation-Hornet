@@ -196,14 +196,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	var/list/modifiers = params2list(params)
 	if(!(flags_1 & NODECONSTRUCT_1) && LAZYACCESS(modifiers, RIGHT_CLICK))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-			if(I.use_tool(src, user, 20, volume=50))
+			to_chat(user, span_notice("You start disassembling [src]..."))
+			if(I.use_tool(src, user, 2 SECONDS, volume=50))
 				deconstruct(TRUE)
 			return
 
 		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
-			if(I.use_tool(src, user, 40, volume=50))
+			to_chat(user, span_notice("You start deconstructing [src]..."))
+			if(I.use_tool(src, user, 4 SECONDS, volume=50))
 				playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 				deconstruct(TRUE, 1)
 			return

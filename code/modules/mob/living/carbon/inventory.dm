@@ -1,3 +1,46 @@
+/// Convers HIDEX to ITEM_SLOT_X, should be phased out in favor of using latter everywhere later
+/proc/hidden_slots_to_inventory_slots(hidden_slots)
+	var/obscured = NONE
+	if(hidden_slots & HIDENECK)
+		obscured |= ITEM_SLOT_NECK
+	if(hidden_slots & HIDEMASK)
+		obscured |= ITEM_SLOT_MASK
+	if(hidden_slots & HIDEBELT)
+		obscured |= ITEM_SLOT_BELT
+	if(hidden_slots & HIDEEYES)
+		obscured |= ITEM_SLOT_EYES
+	if(hidden_slots & HIDEEARS)
+		obscured |= ITEM_SLOT_EARS
+	if(hidden_slots & HIDEGLOVES)
+		obscured |= ITEM_SLOT_GLOVES
+	if(hidden_slots & HIDEJUMPSUIT)
+		obscured |= ITEM_SLOT_ICLOTHING
+	if(hidden_slots & HIDESHOES)
+		obscured |= ITEM_SLOT_FEET
+	if(hidden_slots & HIDESUITSTORAGE)
+		obscured |= ITEM_SLOT_SUITSTORE
+	if(hidden_slots & HIDEHEADGEAR)
+		obscured |= ITEM_SLOT_HEAD
+	return obscured
+
+/// Returns a list of slots that are *visibly* covered by clothing and thus cannot be seen by others
+/mob/living/carbon/proc/check_obscured_slots()
+	var/hidden_slots = NONE
+
+	for(var/obj/item/equipped_item in get_equipped_items())
+		hidden_slots |= equipped_item.flags_inv
+
+	return hidden_slots_to_inventory_slots(hidden_slots)
+
+/// Returns a list of slots that are protected by other clothing, but could possibly be seen by others, via transparent visors and similar stuff
+/mob/living/carbon/proc/check_covered_slots()
+	var/hidden_slots = NONE
+
+	for(var/obj/item/equipped_item in get_equipped_items())
+		hidden_slots |= equipped_item.flags_inv | equipped_item.transparent_protection
+
+	return hidden_slots_to_inventory_slots(hidden_slots)
+
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
 		if(ITEM_SLOT_BACK)

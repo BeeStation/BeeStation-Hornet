@@ -11,7 +11,6 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	weather_immunities = list("ash")
 	health = 500
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER

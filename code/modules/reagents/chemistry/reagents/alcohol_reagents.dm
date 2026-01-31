@@ -2833,7 +2833,7 @@
 	affected_mob.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time)
 	if(DT_PROB(2.5, delta_time))
 		affected_mob.adjust_fire_stacks(1)
-		affected_mob.IgniteMob()
+		affected_mob.ignite_mob()
 
 /datum/reagent/consumable/ethanol/painkiller
 	name = "Painkiller"
@@ -2884,7 +2884,7 @@
 /datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(80, delta_time))
-		affected_mob.IgniteMob()
+		affected_mob.ignite_mob()
 		affected_mob.adjust_fire_stacks(10 * REM * delta_time)
 
 	if(affected_mob.fire_stacks > 9 && affected_mob.on_fire)

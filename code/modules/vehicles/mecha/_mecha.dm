@@ -505,8 +505,8 @@
 		return
 	for(var/mob/living/cookedalive as anything in occupants)
 		if(cookedalive.fire_stacks < 5)
-			cookedalive.fire_stacks += 1
-			cookedalive.IgniteMob()
+			cookedalive.adjust_fire_stacks(1)
+			cookedalive.ignite_mob()
 
 ///Displays a special speech bubble when someone inside the mecha speaks
 /obj/vehicle/sealed/mecha/proc/display_speech_bubble(datum/source, list/speech_args)
@@ -517,7 +517,7 @@
 			speech_bubble_recipients += listener.client
 
 	var/image/mech_speech = image('icons/mob/talk.dmi', src, "machine[say_test(speech_args[SPEECH_MESSAGE])]",MOB_LAYER+1)
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), mech_speech, speech_bubble_recipients, 3 SECONDS)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), mech_speech, speech_bubble_recipients, 3 SECONDS)
 
 /obj/vehicle/sealed/mecha/on_emag(mob/user)
 	..()

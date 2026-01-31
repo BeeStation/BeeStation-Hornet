@@ -71,6 +71,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/match/extinguish()
+	. = ..()
 	matchburnout()
 
 /obj/item/match/dropped(mob/user)
@@ -80,7 +81,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!isliving(M))
 		return
-	if(lit && M.IgniteMob())
+	if(lit && M.ignite_mob())
 		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
 		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
@@ -268,6 +269,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	playsound(src, 'sound/items/cig_light.ogg', 75, 1, -1)
 
 /obj/item/clothing/mask/cigarette/extinguish()
+	. = ..()
 	if(!lit)
 		return
 	name = copytext_char(name, 5) //5 == length_char("lit ") + 1
@@ -311,7 +313,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/turf/location = get_turf(src)
 	var/mob/living/M = loc
 	if(isliving(loc))
-		M.IgniteMob()
+		M.ignite_mob()
 	smoketime -= delta_time
 	if(smoketime <= 0)
 		new type_butt(location)
@@ -705,6 +707,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	update_icon()
 
 /obj/item/lighter/extinguish()
+	. = ..()
 	set_lit(FALSE)
 
 /obj/item/lighter/attack_self(mob/living/user)
@@ -740,7 +743,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		. = ..()
 
 /obj/item/lighter/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(lit && M.IgniteMob())
+	if(lit && M.ignite_mob())
 		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
 		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
@@ -984,7 +987,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
 				if(reagents.get_reagent_amount(/datum/reagent/fuel))
 					//HOT STUFF
 					C.fire_stacks = 2
-					C.IgniteMob()
+					C.ignite_mob()
 
 				if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)) // the plasma explodes when exposed to fire
 					var/datum/effect_system/reagents_explosion/e = new()
@@ -998,7 +1001,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
 	var/mob/living/M = loc
 
 	if(isliving(loc))
-		M.IgniteMob()
+		M.ignite_mob()
 
 	vapetime += delta_time
 

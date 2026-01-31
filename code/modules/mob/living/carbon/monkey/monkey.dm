@@ -290,3 +290,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//Give us the juicy mutant organs
 	dna.species.on_species_gain(src, null, FALSE)
 	dna.species.regenerate_organs(src, replace_current = TRUE)
+
+/mob/living/carbon/monkey/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "monkey_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
+
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
+
+	return GLOB.fire_appearances[fire_icon]

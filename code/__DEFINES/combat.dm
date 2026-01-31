@@ -322,3 +322,5 @@ GLOBAL_LIST_INIT(leg_zones, list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 #define ENERGY_SHIELD_INVISIBLE (1 << 2)
 /// Energy shield will take max damage when EMP'd
 #define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)
+/// Energy shield starts at 0 health
+#define ENERGY_SHIELD_DEPLETE_EQUIP (1 << 4)

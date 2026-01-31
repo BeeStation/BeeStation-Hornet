@@ -235,7 +235,7 @@
 			set_stutter_if_lower(M.powerlevel * 5)
 			if(M.transformeffects & SLIME_EFFECT_ORANGE)
 				adjust_fire_stacks(2)
-				IgniteMob()
+				ignite_mob()
 			adjustFireLoss(M.powerlevel * 3)
 			updatehealth()
 		return TRUE

@@ -87,7 +87,7 @@
 				pic = new('icons/turf/overlays.dmi', place, "greenOverlay", AREA_LAYER)
 			else
 				pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
-			flick_overlay(pic, list(user.client), 8)
+			flick_overlay_global(pic, list(user.client), 8)
 
 /obj/item/clothing/glasses/meson/engine/update_icon()
 	icon_state = "trayson-[mode]"

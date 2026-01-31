@@ -159,7 +159,6 @@
 	split_ability.Grant(C)
 	partition_ability = new
 	partition_ability.Grant(C)
-	ADD_TRAIT(C, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/on_species_loss(mob/living/carbon/C, datum/species/new_species, pref_load)
 	. = ..()
@@ -167,7 +166,6 @@
 	QDEL_NULL(split_ability)
 	partition_ability.Remove(C)
 	QDEL_NULL(partition_ability)
-	REMOVE_TRAIT(C, TRAIT_MOBILE, "diona")
 	qdel(drone_ref)
 	for(var/status_effect as anything in C.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
@@ -180,7 +178,7 @@
 		target.visible_message(span_warning("[user] catches fire from hugging [target]!"), span_boldnotice("[user] catches fire hugging you!"), span_italics("You hear a fire crackling."))
 		user.fire_stacks = target.fire_stacks
 		if(user.fire_stacks > 0)
-			user.IgniteMob()
+			user.ignite_mob()
 
 //////////////////////////////////////// Action abilities ///////////////////////////////////////////////
 

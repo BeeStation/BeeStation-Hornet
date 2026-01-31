@@ -462,8 +462,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180
 
-#define HUMAN_FIRE_STACK_ICON_NUM	3
-
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
@@ -626,8 +624,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HALO_LAYER 3
 /// Typing layer for the typing indicator
 #define TYPING_LAYER 2
-/// Fire layer when you're on fire
-#define FIRE_LAYER 1
+/// The highest most layer for mob overlays
+#define HIGHEST_LAYER 1
 
 //Bitflags for the layers a bodypart overlay can draw on (can be drawn on multiple layers)
 /// Draws overlay on the BODY_FRONT_LAYER

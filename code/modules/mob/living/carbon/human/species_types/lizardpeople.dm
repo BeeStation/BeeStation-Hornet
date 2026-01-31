@@ -96,14 +96,14 @@
 	name = "Ash Walker"
 	id = SPECIES_LIZARD_ASH
 	examine_limb_id = SPECIES_LIZARD
+	mutantlungs = /obj/item/organ/lungs/ashwalker
+	mutantbrain = /obj/item/organ/brain/primitive
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
 		TRAIT_VIRUSIMMUNE
-		)
+	)
 	inherent_factions = list(FACTION_ASHWALKER)
 	species_language_holder = /datum/language_holder/lizard/ash
-	mutantlungs = /obj/item/organ/lungs/ashwalker
-	mutantbrain = /obj/item/organ/brain/primitive
 	digitigrade_customization = DIGITIGRADE_FORCED
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/lizard,

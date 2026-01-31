@@ -50,7 +50,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 //Instead of just deleting our equipment, we save what we can and reinsert it into SSwardrobe's store
 //Hopefully this makes preference reloading not the worst thing ever
 /mob/living/carbon/human/dummy/delete_equipment()
-	var/list/items_to_check = get_equipped_items(include_pockets = TRUE) + held_items
+	var/list/items_to_check = get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)
 	var/list/to_nuke = list() //List of items queued for deletion, can't qdel them before iterating their contents in case they hold something
 	///Travel to the bottom of the contents chain, expanding it out
 	for(var/i = 1; i <= length(items_to_check); i++) //Needs to be a c style loop since it can expand
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/consistent/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, INSTANT_DO_AFTER, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_INSTANT_DO_AFTER, INNATE_TRAIT)
 
 /mob/living/carbon/human/consistent/setup_human_dna()
 	create_consistent_human_dna(src)

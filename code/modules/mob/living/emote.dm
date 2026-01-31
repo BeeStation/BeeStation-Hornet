@@ -93,10 +93,7 @@
 	message_simple = initial(message_simple)
 	if(!user.can_speak() || user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
-	var/mob/living/carbon/carbon_user = user
-	// For masks that give unique death sounds
-	if(istype(carbon_user) && isclothing(carbon_user.wear_mask) && carbon_user.wear_mask.unique_death)
-		playsound(carbon_user, carbon_user.wear_mask.unique_death, 200, TRUE, TRUE)
+	if (SEND_SIGNAL(user, COMSIG_MOB_DEATHGASP, params, type_override, intentional) & COMSIG_MOB_CANCEL_DEATHGASP_SOUND)
 		return
 	if(user.deathsound)
 		playsound(user, user.deathsound, 200, TRUE, TRUE)

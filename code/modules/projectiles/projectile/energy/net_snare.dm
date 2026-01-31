@@ -68,7 +68,7 @@
 /obj/effect/nettingportal/singularity_act()
 	return
 
-/obj/effect/nettingportal/singularity_pull()
+/obj/effect/nettingportal/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/projectile/energy/trap

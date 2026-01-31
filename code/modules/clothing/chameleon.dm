@@ -295,6 +295,8 @@
 				comp.update_id_display()
 			keepname = TRUE // do not change PDA name unnecesarily
 			update_mob_hud(item_holder)
+		REMOVE_TRAIT(I, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON)
+		ADD_VALUE_TRAIT(I, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON, initial(picked_item.type), PRIORITY_CHAMELEON_MIMIC)
 
 /datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
@@ -346,7 +348,6 @@
 	armor_type = /datum/armor/under_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/under_chameleon
 	melee = 10
@@ -441,7 +442,6 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-
 /datum/armor/suit_chameleon
 	melee = 10
 	bullet = 10
@@ -498,7 +498,6 @@
 	armor_type = /datum/armor/glasses_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/glasses_chameleon
 	melee = 10
@@ -563,7 +562,6 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-
 /datum/armor/gloves_chameleon
 	melee = 10
 	bullet = 10
@@ -626,7 +624,6 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/chameleon_combat
 
-
 /datum/armor/chameleon_combat
 	melee = 10
 	bullet = 10
@@ -648,7 +645,6 @@
 	armor_type = /datum/armor/head_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/head_chameleon
 	melee = 5
@@ -785,7 +781,6 @@
 	var/datum/action/item_action/chameleon/change/chameleon_action
 	var/datum/action/item_action/chameleon/tongue_change/tongue_action
 
-
 /datum/armor/mask_chameleon
 	melee = 5
 	bullet = 5
@@ -884,7 +879,6 @@
 	armor_type = /datum/armor/shoes_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/shoes_chameleon
 	melee = 10
@@ -1140,7 +1134,6 @@
 	icon_state = "blacktie"
 	resistance_flags = NONE
 	armor_type = /datum/armor/neck_chameleon
-
 
 /datum/armor/neck_chameleon
 	fire = 50

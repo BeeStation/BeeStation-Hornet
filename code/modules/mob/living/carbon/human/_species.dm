@@ -417,7 +417,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			QDEL_NULL(new_organ)
 
 /datum/species/proc/worn_items_fit_body_check(mob/living/carbon/wearer)
-	for(var/obj/item/equipped_item in wearer.get_equipped_items(include_pockets = TRUE))
+	for(var/obj/item/equipped_item in wearer.get_equipped_items(INCLUDE_POCKETS))
 		var/equipped_item_slot = wearer.get_slot_by_item(equipped_item)
 		if(!equipped_item.mob_can_equip(wearer, equipped_item_slot, bypass_equip_delay_self = TRUE, ignore_equipped = TRUE))
 			wearer.dropItemToGround(equipped_item, force = TRUE)
@@ -1215,12 +1215,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(intensity > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
 		source.vomit(10, TRUE)
 
-	if(intensity > RAD_MOB_MUTATE && source.can_mutate() && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
-		to_chat(source, span_danger("You mutate!"))
-		source.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
-		source.emote("gasp")
-		source.domutcheck()
-
 	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
 		var/obj/item/bodypart/head/head = source.get_bodypart(BODY_ZONE_HEAD)
 		if(!(source.hairstyle == "Bald") && (head?.head_flags & HEAD_HAIR|HEAD_FACIAL_HAIR) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
@@ -1663,11 +1657,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// display alerts based on how hot it is
 		// Can't be a switch due to http://www.byond.com/forum/post/2750423
 		if(bodytemp in bodytemp_heat_damage_limit to BODYTEMP_HEAT_WARNING_2)
-			humi.throw_alert("temp", /atom/movable/screen/alert/hot, 1)
+			humi.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 1)
 		else if(bodytemp in BODYTEMP_HEAT_WARNING_2 to BODYTEMP_HEAT_WARNING_3)
-			humi.throw_alert("temp", /atom/movable/screen/alert/hot, 2)
+			humi.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 2)
 		else
-			humi.throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+			humi.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 
 	// Body temperature is too cold, and we do not have resist traits
 	else if(bodytemp < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
@@ -1679,17 +1673,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// Display alerts based how cold it is
 		// Can't be a switch due to http://www.byond.com/forum/post/2750423
 		if(bodytemp in BODYTEMP_COLD_WARNING_2 to bodytemp_cold_damage_limit)
-			humi.throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+			humi.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 		else if(bodytemp in BODYTEMP_COLD_WARNING_3 to BODYTEMP_COLD_WARNING_2)
-			humi.throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+			humi.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 2)
 		else
-			humi.throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+			humi.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3)
 
 	// We are not to hot or cold, remove status and moods
 	// Optimization here, we check these things based off the old temperature to avoid unneeded work
 	// We're not perfect about this, because it'd just add more work to the base case, and resistances are rare
 	else if (old_bodytemp > bodytemp_heat_damage_limit || old_bodytemp < bodytemp_cold_damage_limit)
-		humi.clear_alert("temp")
+		humi.clear_alert(ALERT_TEMPERATURE)
 		humi.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "cold")
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
@@ -1849,74 +1843,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //////////
 
 /datum/species/proc/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
-	if(!CanIgniteMob(H))
-		return TRUE
-	if(H.on_fire)
-		SEND_SIGNAL(H, COMSIG_HUMAN_BURNING)
-		//the fire tries to damage the exposed clothes and items
-		var/list/burning_items = list()
-		var/covered = H.check_covered_slots()
-		//HEAD//
-
-		if(H.glasses && !(covered & ITEM_SLOT_EYES))
-			burning_items += H.glasses
-		if(H.wear_mask && !(covered & ITEM_SLOT_MASK))
-			burning_items += H.wear_mask
-		if(H.wear_neck && !(covered & ITEM_SLOT_NECK))
-			burning_items += H.wear_neck
-		if(H.ears && !(covered & ITEM_SLOT_EARS))
-			burning_items += H.ears
-		if(H.head)
-			burning_items += H.head
-
-		//CHEST//
-		if(H.w_uniform && !(covered & ITEM_SLOT_ICLOTHING))
-			burning_items += H.w_uniform
-		if(H.wear_suit)
-			burning_items += H.wear_suit
-
-		//ARMS & HANDS//
-		var/obj/item/clothing/arm_clothes = null
-		if(H.gloves && !(covered & ITEM_SLOT_GLOVES))
-			arm_clothes = H.gloves
-		else if(H.wear_suit && ((H.wear_suit.body_parts_covered & HANDS) || (H.wear_suit.body_parts_covered & ARMS)))
-			arm_clothes = H.wear_suit
-		else if(H.w_uniform && ((H.w_uniform.body_parts_covered & HANDS) || (H.w_uniform.body_parts_covered & ARMS)))
-			arm_clothes = H.w_uniform
-		if(arm_clothes)
-			burning_items |= arm_clothes
-
-		//LEGS & FEET//
-		var/obj/item/clothing/leg_clothes = null
-		if(H.shoes && !(covered & ITEM_SLOT_FEET))
-			leg_clothes = H.shoes
-		else if(H.wear_suit && ((H.wear_suit.body_parts_covered & FEET) || (H.wear_suit.body_parts_covered & LEGS)))
-			leg_clothes = H.wear_suit
-		else if(H.w_uniform && ((H.w_uniform.body_parts_covered & FEET) || (H.w_uniform.body_parts_covered & LEGS)))
-			leg_clothes = H.w_uniform
-		if(leg_clothes)
-			burning_items |= leg_clothes
-
-		for(var/obj/item/I as() in burning_items)
-			I.fire_act((H.fire_stacks * 50)) //damage taken is reduced to 2% of this value by fire_act()
-
-		var/thermal_protection = H.get_thermal_protection()
-
-		if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT && !no_protection)
-			return
-		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT && !no_protection)
-			H.adjust_bodytemperature(5.5 * delta_time)
-		else
-			H.adjust_bodytemperature((BODYTEMP_HEATING_MAX + (H.fire_stacks * 12)) * 0.5 * delta_time)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
-
-/datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)
-	if(HAS_TRAIT(H, TRAIT_NOFIRE))
-		return FALSE
-	return TRUE
-
-/datum/species/proc/ExtinguishMob(mob/living/carbon/human/H)
-	return
+	return no_protection
 
 
 ////////////
@@ -2499,14 +2426,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/create_pref_language_perk()
 
-	// Grab galactic common as a path, for comparisons
+	// Grab galactic common and metalanguage as paths, for comparisons
 	var/datum/language/common_language = /datum/language/common
+	var/datum/language/metalanguage = /datum/language/metalanguage
 
-	// Now let's find all the languages they can speak that aren't common
+	// Now let's find all the languages they can speak that aren't common or metalanguage
 	var/list/bonus_languages = list()
 	var/datum/language_holder/basic_holder = GLOB.prototype_language_holders[species_language_holder]
 	for(var/datum/language/language_type as anything in basic_holder.spoken_languages)
-		if(ispath(language_type, common_language))
+		if(ispath(language_type, common_language) || ispath(language_type, metalanguage))
 			continue
 		bonus_languages += initial(language_type.name)
 
