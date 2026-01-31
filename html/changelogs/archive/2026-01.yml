@@ -328,3 +328,7 @@
   - rscadd: Adds a system so that when someone inspects the armour values of an item,
       it shows faked numbers if it is mimicking another item.
   - bugfix: Fixes value traits not working.
+2026-01-31:
+  mrmanlikesbt, Mothblocks:
+  - refactor: Optimized emissive generation, saving 140ms of init time.
+  - bugfix: Fixed game crashing when alt-clicking a borg
