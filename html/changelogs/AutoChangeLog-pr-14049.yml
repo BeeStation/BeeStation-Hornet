@@ -1,0 +1,5 @@
+author: mrmanlikesbt, Mothblocks
+delete-after: true
+changes:
+  - refactor: Optimized emissive generation, saving 140ms of init time.
+  - bugfix: Fixed game crashing when alt-clicking a borg
