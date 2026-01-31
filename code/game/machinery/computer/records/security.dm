@@ -414,8 +414,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		if(sec_record.wanted_status != status_to_set)
 			successful_set++
 			names_of_entries += target["name"]
-		if (!sec_record.set_wanted_status(src, status_to_set))
-			continue
+		sec_record.set_wanted_status(src, status_to_set)
 
 	if(successful_set > 0)
 		investigate_log("[parent.get_creator()] has set security records for '[names_of_entries.Join(", ")]' to [status_to_set] via circuits.", INVESTIGATE_RECORDS)
