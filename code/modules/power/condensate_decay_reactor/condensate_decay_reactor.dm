@@ -213,8 +213,6 @@
 		harvester.unlink_harvester()
 		linked_harvesters -= harvester
 	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in orange(5, src))
-		if(harvester in linked_harvesters)
-			continue
 		linked_harvesters += harvester
 		harvester.link_harvester(src)
 

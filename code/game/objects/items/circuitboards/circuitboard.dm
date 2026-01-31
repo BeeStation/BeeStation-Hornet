@@ -58,6 +58,7 @@
   * * user - The person constructing this machine.
   */
 /obj/item/circuitboard/proc/can_construct(mob/living/user)
+	return TRUE
 
 // Circuitboard/machine
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
