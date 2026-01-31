@@ -217,7 +217,30 @@
 	desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
 	icon_state = "stasis"
 
-//GOLEM GANG
+//BOLA TRACKING
+
+/datum/status_effect/bola
+	id = "bola"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	var/obj/item/linked_bola
+
+/datum/status_effect/bola/on_creation(mob/living/new_owner, bola_duration, obj/item/bola)
+	linked_bola = bola
+	duration = bola_duration
+	return ..()
+
+/datum/status_effect/bola/on_remove()
+	var/mob/living/carbon/carbon_owner = owner
+	if(carbon_owner?.legcuffed == linked_bola)
+		var/turf/owner_turf = get_turf(carbon_owner)
+		linked_bola.forceMove(owner_turf)
+		carbon_owner.legcuffed = null
+		carbon_owner.update_worn_legcuffs()
+
+/datum/status_effect/bola/Destroy()
+	. = ..()
+	linked_bola = null
 
 //OTHER DEBUFFS
 /datum/status_effect/strandling //get it, strand as in durathread strand + strangling = strandling hahahahahahahahahahhahahaha i want to die
