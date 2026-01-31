@@ -50340,8 +50340,11 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "nHc" = (
-/obj/structure/closet/crate,
-/turf/open/floor/iron/dark,
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister,
+/turf/open/floor/plating{
+	burnt = 1
+	},
 /area/maintenance/department/engine)
 "nHf" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning{
@@ -66695,11 +66698,8 @@
 	},
 /area/engine/atmos)
 "skz" = (
-/obj/machinery/atmospherics/components/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/obj/structure/closet/crate,
+/turf/open/floor/iron/dark,
 /area/maintenance/department/engine)
 "skP" = (
 /obj/machinery/door/poddoor/preopen{
@@ -87903,7 +87903,7 @@
 	},
 /obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = 7;
-	pixel_y = 0
+	pixel_y = 2
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/engine)
@@ -143928,11 +143928,11 @@ tKS
 wWM
 csJ
 aOE
-skz
+nHc
 dyO
 uWh
 yaw
-nHc
+skz
 rXm
 rZp
 wkz
