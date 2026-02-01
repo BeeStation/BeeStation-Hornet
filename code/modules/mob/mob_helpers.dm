@@ -371,15 +371,6 @@
 /mob/proc/has_mouth()
 	return FALSE
 
-/**
-  * Examine text for traits shared by multiple types.
-  *
-  * I wish examine was less copypasted. (oranges say, be the change you want to see buddy)
-  */
-/mob/proc/common_trait_examine()
-	if(HAS_TRAIT(src, TRAIT_DISSECTED))
-		. += "[span_notice("This body has been dissected and analyzed. It is no longer worth experimenting on.")]<br>"
-
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
 	. = FALSE

@@ -279,3 +279,56 @@
   - admin: The destruction of station objects is now properly logged again
   mrmanlikesbt:
   - tweak: Much less artifacts spawn in maintenance now
+2026-01-25:
+  PowerfulBacon:
+  - rscadd: Adds a new security pager accessory which informs the sec channel if someone
+      dies. It does not give specifics on who or where the death occurred at.
+  - tweak: Moves security's custom death sound effect out of masks and into the pager.
+  - bugfix: Fixes boxstation north west solar array not having north facing cables
+  mrmanlikesbt:
+  - bugfix: Fixed a runtime when hitting a turf with a burn weapon
+  - bugfix: Fixed StackCrafting using the computer theme
+  - code_imp: The _traits.dm file has been sorted. When adding to it, make sure you
+      add your traits in the correct category.
+  - admin: The Modify Traits VV now uses a TGUI input instead of HTML.
+2026-01-26:
+  Rukofamicom:
+  - tweak: Players now have a greater chance of being mutated when irradiated
+  - tweak: Mutations from radiation are no longer locked to being negative mutations,
+      you have an equal chance at any mutation
+  - tweak: Mutations from radiation have a lower chance of affecting your appearance
+      instead of giving an easily reversible genetic mutation
+  rkz, Melbert, etherware, Ghommie, Lemon, Sealed101:
+  - bugfix: cleans up gibtonite overlays. The overlay will no longer eat clicks when
+      you are trying to defuse it with a mining scanner
+  - bugfix: flick_overlay is an atom proc. flick_overlay is also faster
+  - bugfix: Taking items from your inventory while flying over lava or a chasm will
+      NOT set them on fire or drop them into chasms ANYMORE
+2026-01-27:
+  mrmanlikesbt:
+  - code_imp: code documentation and cleanup for clockcult
+  - code_imp: added trait helpers to add or remove a list of traits to an atom
+  - code_imp: de-hardcodes max_vials in sleepers
+  - bugfix: fixed kindle spell for clockcult
+  - tweak: a lot of clock cult related things use balloon alerts now
+  - tweak: the tinkerer's cache now uses a radial menu instead of the old html popup
+  - tweak: people killed by a vitality rune are now dusted (before they were husked
+      and made soulless)
+  - balance: the clockcult vitality matrix now heals bleeding
+  - bugfix: Fixed silicons not being able to sign into security/medical records
+2026-01-29:
+  mrmanlikesbt:
+  - bugfix: Fixed the stray bullet hallucination
+2026-01-30:
+  PowerfulBacon:
+  - balance: Examine in detail now only shows mostly static information about objects
+      worn by other people, preventing you from accidentally meta-gaming items which
+      are meant to be hidden. You can still inspect armour values of items worn by
+      other people.
+  - rscadd: Adds a system so that when someone inspects the armour values of an item,
+      it shows faked numbers if it is mimicking another item.
+  - bugfix: Fixes value traits not working.
+2026-01-31:
+  mrmanlikesbt, Mothblocks:
+  - refactor: Optimized emissive generation, saving 140ms of init time.
+  - bugfix: Fixed game crashing when alt-clicking a borg

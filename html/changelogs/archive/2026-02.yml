@@ -1,0 +1,10 @@
+2026-02-01:
+  Rukofamicom:
+  - bugfix: Bolas work as previously reported and intended again, applying a slowdown
+      and temporary status effect on hit and no longer requiring players to stand
+      still in order to remove them.
+  mrmanlikesbt, SmArtKar:
+  - bugfix: fixed viewport runtimes
+  - bugfix: fixed delayed viewport fitting when connecting to the server
+  rkz, mothblocks:
+  - code_imp: moved death() to mob/living/, up from mob/
