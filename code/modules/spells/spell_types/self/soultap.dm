@@ -42,7 +42,7 @@
 	. = ..()
 	user.maxHealth -= tap_health_taken
 	user.health = min(user.health, user.maxHealth)
-	if(!HAS_TRAIT(user, TRAIT_FRAGMENTED_SOUL))
+	if(!HAS_TRAIT_FROM(user, TRAIT_FRAGMENTED_SOUL, MAGIC_TRAIT))
 		ADD_TRAIT(user, TRAIT_FRAGMENTED_SOUL, MAGIC_TRAIT)
 
 	for(var/datum/action/spell/spell in user.actions)
