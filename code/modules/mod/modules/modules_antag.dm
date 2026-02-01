@@ -119,7 +119,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	incompatible_modules = list(/obj/item/mod/module/energy_shield)
 	required_slots = list(ITEM_SLOT_BACK)
-	max_integrity = 60 	/// Max integrity of the shield.
+	max_integrity = 30 	/// Max integrity of the shield.
 	/// How long we have to avoid being hit to start replenishing integrity.
 	var/recharge_start_delay = 5 SECONDS
 	/// Once we go unhit long enough to recharge, we replenish integrity this often.

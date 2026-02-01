@@ -151,14 +151,7 @@
 	attack_weight = 3
 	armour_penetration = 75
 	light_range = 6
-	active_force = 60
-
-	/// How much time someone is knocked down for when attacking them
-	var/knockdown_time = 1 SECONDS
-
-/obj/item/chainsaw/energy/doom/attack(mob/living/target)
-	. = ..()
-	target.Knockdown(knockdown_time)
+	active_force = 50
 
 /datum/action/item_action/startchainsaw
 	name = "Pull The Starting Cord"

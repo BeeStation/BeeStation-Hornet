@@ -628,7 +628,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/mounted_chainsaw/super
 	name = "mounted super energy chainsaw"
 	desc = "A super energy chainsaw that has replaced your arm."
-	force = 60
+	force = 50
 	armour_penetration = 75
 	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
@@ -643,10 +643,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	. = ..()
 	if(part)
 		part.drop_limb()
-
-/obj/item/mounted_chainsaw/super/attack(mob/living/target)
-	..()
-	target.Knockdown(4)
 
 /obj/item/statuebust
 	name = "bust"
