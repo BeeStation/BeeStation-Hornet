@@ -31,14 +31,10 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/incapacitating/stun/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 
@@ -78,18 +74,11 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/incapacitating/paralyzed/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	return ..()
-
 
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
@@ -228,7 +217,30 @@
 	desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
 	icon_state = "stasis"
 
-//GOLEM GANG
+//BOLA TRACKING
+
+/datum/status_effect/bola
+	id = "bola"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	var/obj/item/linked_bola
+
+/datum/status_effect/bola/on_creation(mob/living/new_owner, bola_duration, obj/item/bola)
+	linked_bola = bola
+	duration = bola_duration
+	return ..()
+
+/datum/status_effect/bola/on_remove()
+	var/mob/living/carbon/carbon_owner = owner
+	if(carbon_owner?.legcuffed == linked_bola)
+		var/turf/owner_turf = get_turf(carbon_owner)
+		linked_bola.forceMove(owner_turf)
+		carbon_owner.legcuffed = null
+		carbon_owner.update_worn_legcuffs()
+
+/datum/status_effect/bola/Destroy()
+	. = ..()
+	linked_bola = null
 
 //OTHER DEBUFFS
 /datum/status_effect/strandling //get it, strand as in durathread strand + strangling = strandling hahahahahahahahahahhahahaha i want to die
@@ -237,11 +249,11 @@
 	alert_type = /atom/movable/screen/alert/status_effect/strandling
 
 /datum/status_effect/strandling/on_apply()
-	ADD_TRAIT(owner, TRAIT_MAGIC_CHOKE, "dumbmoron")
+	ADD_TRAIT(owner, TRAIT_MAGIC_CHOKE, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 /datum/status_effect/strandling/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_MAGIC_CHOKE, "dumbmoron")
+	REMOVE_TRAIT(owner, TRAIT_MAGIC_CHOKE, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 /atom/movable/screen/alert/status_effect/strandling
@@ -517,12 +529,12 @@
 	alert_type = null
 
 /datum/status_effect/gonbola_pacify/on_apply()
-	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MUTE, TRAIT_JOLLY), TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MUTE), TRAIT_STATUS_EFFECT(id))
 	to_chat(owner, span_notice("You suddenly feel at peace and feel no need to make any sudden or rash actions."))
 	return ..()
 
 /datum/status_effect/gonbola_pacify/on_remove()
-	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MUTE, TRAIT_JOLLY), TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MUTE), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/trance
 	id = "trance"
@@ -757,25 +769,42 @@
 	switch(msg_stage)
 		if(0 to 300)
 			if(prob(1))
-				fake_msg = pick(span_warning(pick("Your head hurts.", "Your head pounds.")),
-				span_warning(pick("You're having difficulty breathing.", "Your breathing becomes heavy.")),
-				span_warning(pick("You feel dizzy.", "Your head spins.")),
-				span_warning(pick("You swallow excess mucus.", "You lightly cough.")),
-				span_warning(pick("Your head hurts.", "Your mind blanks for a moment.")),
-				span_warning(pick("Your throat hurts.", "You clear your throat.")))
+				fake_msg = pick(
+					"Your head hurts.",
+					"Your head pounds.",
+					"You're having difficulty breathing.",
+					"Your breathing becomes heavy.",
+					"You feel dizzy.",
+					"Your head spins.",
+					"You swallow excess mucus.",
+					"You lightly cough.",
+					"Your head hurts.",
+					"Your mind blanks for a moment.",
+					"Your throat hurts.",
+					"You clear your throat.",
+				)
+				fake_msg = span_warning(fake_msg)
 		if(301 to 600)
 			if(prob(2))
-				fake_msg = pick(span_warning("[pick("Your head hurts a lot.", "Your head pounds incessantly.")]"),
-				span_warning("[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]"),
-				span_warning("You feel very [pick("dizzy","woozy","faint")]."),
-				span_warning("[pick("You hear a ringing in your ear.", "Your ears pop.")]"),
-				span_warning("You nod off for a moment."))
+				fake_msg = pick(
+					"Your head hurts a lot.",
+					"Your head pounds incessantly.",
+					"Your windpipe feels like a straw.",
+					"Your breathing becomes tremendously difficult.",
+					"You feel very [pick("dizzy", "woozy", "faint")].",
+					"You hear a ringing in your ear.",
+					"Your ears pop.",
+					"You nod off for a moment.",
+				)
+				fake_msg = span_warning(fake_msg)
 		else
 			if(prob(3))
 				if(prob(50))// coin flip to throw a message or an emote
-					fake_msg = pick(span_userdanger("[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]"),
-					span_userdanger("[pick("Your lungs hurt!", "It hurts to breathe!")]"),
-					span_warning("[pick("You feel nauseated.", "You feel like you're going to throw up!")]"))
+					fake_msg = pick(
+						span_userdanger("[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]"),
+						span_userdanger("[pick("Your lungs hurt!", "It hurts to breathe!")]"),
+						span_warning("[pick("You feel nauseated.", "You feel like you're going to throw up!")]"),
+					)
 				else
 					fake_emote = pick("cough", "sniff", "sneeze")
 
@@ -1084,9 +1113,7 @@
 	var/turf/open/turfie = get_turf(owner)
 	turfie.take_temperature(-40)
 	owner.adjust_bodytemperature(-20)
-	if(iscarbon(owner))
-		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.silent += 4
+	owner.adjust_silence(10 SECONDS)
 	return ..()
 
 /datum/status_effect/amok

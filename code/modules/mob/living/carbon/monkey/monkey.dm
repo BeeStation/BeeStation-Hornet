@@ -12,7 +12,7 @@
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
 	// Managed by the limb overlay system
-	blocks_emissive = FALSE
+	blocks_emissive = EMISSIVE_BLOCK_NONE
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
@@ -185,11 +185,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 
 	return threatcount
 
-/mob/living/carbon/monkey/IsVocal()
-	if(!get_organ_slot(ORGAN_SLOT_LUNGS))
-		return 0
-	return 1
-
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
 
@@ -293,3 +288,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//Give us the juicy mutant organs
 	dna.species.on_species_gain(src, null, FALSE)
 	dna.species.regenerate_organs(src, replace_current = TRUE)
+
+/mob/living/carbon/monkey/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "monkey_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
+
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
+
+	return GLOB.fire_appearances[fire_icon]

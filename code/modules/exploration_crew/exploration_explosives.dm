@@ -25,6 +25,9 @@
 	attached_detonators = null
 	. = ..()
 
+/obj/item/grenade/exploration/attack_self(mob/user)
+	return
+
 /obj/item/grenade/exploration/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/exploration_detonator))
 		var/obj/item/exploration_detonator/detonator = W

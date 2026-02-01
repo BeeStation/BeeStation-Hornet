@@ -13,7 +13,6 @@
 	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
 	icon = "wine-bottle"
 	quirk_value = 1
-	mob_trait = TRAIT_DRUNK_HEALING
 	gain_text = span_notice("You feel like a drink would do you good.")
 	lose_text = span_danger("You no longer feel like drinking would ease your pain.")
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
@@ -69,7 +68,6 @@
 	desc = "You sometimes just feel happy, for no reason at all."
 	icon = "grin"
 	quirk_value = 1
-	mob_trait = TRAIT_JOLLY
 	mood_quirk = TRUE
 	process = TRUE
 	medical_record_text = "Patient demonstrates constant euthymia irregular for environment. It's a bit much, to be honest."
@@ -224,7 +222,6 @@
 	desc = "For some reason you qualified for social welfare."
 	icon = "money-check-alt"
 	quirk_value = 1
-	mob_trait = TRAIT_NEET
 	gain_text = span_notice("You feel useless to society.")
 	lose_text = span_danger("You no longer feel useless to society.")
 	mood_quirk = TRUE

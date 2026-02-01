@@ -7,7 +7,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
 	/// or other bodyparts may block the emissive elements of it.
-	blocks_emissive = FALSE
+	blocks_emissive = EMISSIVE_BLOCK_NONE
 
 	///Hair color
 	var/hair_color = "000"
@@ -62,7 +62,6 @@
 		/mob/living/carbon/monkey,
 	))
 	var/lastpuke = 0
-	var/last_fire_update
 
 	/// The core temperature of the human compaired to the skin temp of the body
 	var/coretemperature = BODYTEMP_NORMAL

@@ -10,10 +10,13 @@
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)
 
-	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
+	icon_state = "" //Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
 	//initialize limbs first
 	create_bodyparts()
+
+	// This needs to be called very very early in human init (before organs / species are created at the minimum)
+	setup_organless_effects()
 
 	setup_human_dna()
 
@@ -44,6 +47,15 @@
 		AddComponent(/datum/component/mood)
 
 	GLOB.human_list += src
+
+/// This proc is for holding effects applied when a mob is missing certain organs
+/// It is called very, very early in human init because all humans innately spawn with no organs and gain them during init
+/// Gaining said organs removes these effects
+/mob/living/carbon/human/proc/setup_organless_effects()
+	// All start without eyes, and get them via set species
+	//become_blind(NO_EYES)
+	// Mobs cannot taste anything without a tongue; the tongue organ removes this on Insert
+	ADD_TRAIT(src, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
@@ -486,13 +498,13 @@
 	update_body()
 	update_hair()
 
-/mob/living/carbon/human/singularity_pull(S, current_size)
-	..()
+/mob/living/carbon/human/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(current_size >= STAGE_THREE)
 		for(var/obj/item/hand in held_items)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && dropItemToGround(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2) && dropItemToGround(hand))
 				step_towards(hand, src)
-				to_chat(src, span_warning("\The [S] pulls \the [hand] from your grip!"))
+				to_chat(src, span_warning("\The [singularity] pulls \the [hand] from your grip!"))
 
 #define CPR_PANIC_SPEED (0.8 SECONDS)
 
@@ -651,18 +663,27 @@
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
 /mob/living/carbon/human/proc/electrocution_animation(anim_duration)
-	//Handle mutant parts if possible
+	var/mutable_appearance/zap_appearance
+
+	// If we have a species, we need to handle mutant parts and stuff
 	if(dna?.species)
 		add_atom_colour("#000000", TEMPORARY_COLOUR_PRIORITY)
-		var/static/mutable_appearance/electrocution_skeleton_anim
-		if(!electrocution_skeleton_anim)
-			electrocution_skeleton_anim = mutable_appearance(icon, "electrocuted_base")
-			electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
-		add_overlay(electrocution_skeleton_anim)
-		addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), electrocution_skeleton_anim), anim_duration)
+		var/static/mutable_appearance/shock_animation_dna
+		if(!shock_animation_dna)
+			shock_animation_dna = mutable_appearance(icon, "electrocuted_base")
+			shock_animation_dna.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_dna
 
-	else //or just do a generic animation
-		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
+	// Otherwise do a generic animation
+	else
+		var/static/mutable_appearance/shock_animation_generic
+		if(!shock_animation_generic)
+			shock_animation_generic = mutable_appearance(icon, "electrocuted_generic")
+			shock_animation_generic.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_generic
+
+	add_overlay(zap_appearance)
+	addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), zap_appearance), anim_duration)
 
 /mob/living/carbon/human/proc/end_electrocution_animation(mutable_appearance/MA)
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")

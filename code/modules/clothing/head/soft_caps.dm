@@ -31,10 +31,8 @@
 
 /obj/item/clothing/head/soft/equipped(mob/user, slot)
 	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		if(HAS_TRAIT(user, TRAIT_PROSKATER))
-			if(!flipped)
-				flip(user)
+	if(slot == ITEM_SLOT_HEAD && HAS_TRAIT(user, TRAIT_PROSKATER) && !flipped)
+		flip(user)
 
 /obj/item/clothing/head/soft/examine(mob/user)
 	. = ..()

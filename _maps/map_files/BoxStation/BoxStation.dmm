@@ -222,8 +222,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "acW" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/cable,
+/obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/fore)
 "acX" = (
@@ -257,7 +257,6 @@
 /turf/open/space,
 /area/solar/starboard/fore)
 "adu" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -267,30 +266,31 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/solar/port/fore)
 "adv" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/solar/port/fore)
 "adw" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/solar/port/fore)
 "adx" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/fore)
 "ady" = (
@@ -298,7 +298,6 @@
 /turf/open/space,
 /area/solar/port/fore)
 "adz" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -308,16 +307,17 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/fore)
 "adA" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/fore)
 "adI" = (
@@ -2224,9 +2224,7 @@
 	id = "starboardsolar";
 	name = "Starboard Solar Array"
 	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/airless,
@@ -14325,11 +14323,11 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
 "dqQ" = (
+/obj/structure/cable,
 /obj/machinery/power/solar{
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/obj/structure/cable,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "dqS" = (
@@ -51444,9 +51442,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/airless,
@@ -54799,9 +54795,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/airless,

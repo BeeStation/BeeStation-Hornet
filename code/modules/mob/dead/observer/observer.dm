@@ -6,7 +6,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 /mob/dead/observer
 	name = "ghost"
 	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/observer.dmi'
 	icon_state = "ghost"
 	plane = GHOST_PLANE
 	stat = DEAD
@@ -1015,3 +1015,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.images += t_ray_images
 		else
 			client.images -= stored_t_ray_images
+
+/mob/dead/observer/can_examine_in_detail(atom/examinify, silent)
+	return TRUE
