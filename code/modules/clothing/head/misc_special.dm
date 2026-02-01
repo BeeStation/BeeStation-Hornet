@@ -143,9 +143,9 @@
 /obj/item/clothing/head/costume/speedwagon/cursed
 	name = "ULTIMATE HAT"
 	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
-	icon_state = "speedwagon"
-	inhand_icon_state = "speedwagon"
-	worn_y_offset = 6
+	icon_state = "speedwagon_cursed"
+	inhand_icon_state = "speedwagon_cursed"
+	worn_y_offset = 18
 
 /obj/item/clothing/head/franks_hat
 	name = "Frank's Hat"
