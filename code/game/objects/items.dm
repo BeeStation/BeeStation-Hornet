@@ -493,15 +493,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	add_fingerprint(usr)
 	return ..()
 
-/obj/item/attack_hand(mob/user, modifiers)
+/obj/item/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(.)
+	if(. || !user || anchored)
 		return
-	if(!user)
-		return
-	if(anchored)
-		return
+	return attempt_pickup(user)
 
+/obj/item/proc/attempt_pickup(mob/user)
 	. = TRUE
 
 	if(resistance_flags & ON_FIRE)
@@ -546,14 +544,23 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 
 	//If the item is in a storage item, take it out
-	if(loc.atom_storage && !loc.atom_storage.remove_single(user, src, user.loc, silent = TRUE))
+	var/outside_storage = !loc.atom_storage
+	var/turf/storage_turf
+	if(loc.atom_storage)
+		//We want the pickup animation to play even if we're moving the item between movables. Unless the mob is not located on a turf.
+		if(isturf(user.loc))
+			storage_turf = get_turf(loc)
+		if(!loc.atom_storage.remove_single(user, src, user, silent = TRUE))
+			return
+	if(QDELETED(src)) //moving it out of the storage destroyed it.
 		return
-	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
-		return
+
+	if(storage_turf)
+		do_pickup_animation(user, storage_turf)
 
 	if(throwing)
 		throwing.finalize(FALSE)
-	if(loc == user)
+	if(loc == user && outside_storage)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
@@ -573,27 +580,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 
-/obj/item/attack_paw(mob/user)
-	if(!user)
+/obj/item/attack_paw(mob/user, list/modifiers)
+	. = ..()
+	if(. || !user || anchored)
 		return
-	if(anchored)
-		return
-
-	//If the item is in a storage item, take it out
-	if(loc.atom_storage?.remove_single(user, src, user.loc, silent = TRUE))
-		return
-	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
-		return
-
-	if(throwing)
-		throwing.finalize(FALSE)
-	if(loc == user)
-		if(!user.temporarilyRemoveItemFromInventory(src))
-			return
-
-	add_fingerprint(user)
-	if(!user.put_in_active_hand(src, FALSE, FALSE))
-		user.dropItemToGround(src)
+	return attempt_pickup(user)
 
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
@@ -1670,7 +1661,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (href_list["examine"])
 		if(!usr.can_examine_in_detail(src))
 			return
-		usr.examinate(src)
+		if (src in usr)
+			usr.examinate(src)
+		else
+			usr.external_examinate(src)
 		return TRUE
 
 /// Gets the examination title of an item that is equipped by another mob, this is what

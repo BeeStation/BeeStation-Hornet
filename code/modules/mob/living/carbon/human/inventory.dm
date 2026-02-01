@@ -11,7 +11,8 @@
 		items -= list(l_store, r_store, s_store)
 	if((include_flags & INCLUDE_ACCESSORIES) && w_uniform)
 		var/obj/item/clothing/under/worn_under = w_uniform
-		items += worn_under.attached_accessory
+		for (var/accessory in worn_under.attached_accessories)
+			items += worn_under.attached_accessories[accessory]
 	return items
 
 /mob/living/carbon/human/can_equip(obj/item/equip_target, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)

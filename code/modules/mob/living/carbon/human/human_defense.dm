@@ -333,7 +333,7 @@
 	apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
-	if(TRAIT_BOMBIMMUNE in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
 		return
 	..()
 	if (!severity || QDELETED(src))

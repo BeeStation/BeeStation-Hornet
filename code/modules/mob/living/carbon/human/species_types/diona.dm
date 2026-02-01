@@ -154,7 +154,6 @@
 	split_ability.Grant(H)
 	partition_ability = new
 	partition_ability.Grant(H)
-	ADD_TRAIT(H, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
@@ -162,7 +161,6 @@
 	QDEL_NULL(split_ability)
 	partition_ability.Remove(H)
 	QDEL_NULL(partition_ability)
-	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
 	qdel(drone_ref)
 	for(var/status_effect as anything in H.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)

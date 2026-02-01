@@ -106,7 +106,7 @@ export const StackCrafting = (_props) => {
   const height: number = clamp(94 + Object.keys(recipes).length * 26, 250, 500);
 
   return (
-    <Window width={400} height={height}>
+    <Window width={400} height={height} theme="generic">
       <Window.Content scrollable>
         <Section
           title={'Amount: ' + amount}

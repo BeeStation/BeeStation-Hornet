@@ -46,7 +46,7 @@
 	check_flags = NONE
 	ignores_fakedeath = TRUE
 
-/datum/action/changeling/limbsnake/sting_action(mob/user)
+/datum/action/changeling/limbsnake/sting_action(mob/living/user)
 	..()
 	var/mob/living/carbon/C = user
 	var/list/parts = list()

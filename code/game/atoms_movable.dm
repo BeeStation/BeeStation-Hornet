@@ -55,8 +55,8 @@
 	var/datum/component/orbiter/orbiting
 	var/can_be_z_moved = TRUE
 
-	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
-	var/blocks_emissive = FALSE
+	/// Either [EMISSIVE_BLOCK_NONE], [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = EMISSIVE_BLOCK_NONE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
 	/**
@@ -76,20 +76,60 @@
 	/// Whether this atom should have its dir automatically changed when it moves. Setting this to FALSE allows for things such as directional windows to retain dir on moving without snowflake code all of the place.
 	var/set_dir_on_move = TRUE
 
+/mutable_appearance/emissive_blocker
 
-/atom/movable/Initialize(mapload)
+/mutable_appearance/emissive_blocker/New()
 	. = ..()
-	switch(blocks_emissive)
-		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
-			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
-			gen_emissive_blocker.color = GLOB.em_blocker_matrix
-			add_overlay(list(gen_emissive_blocker))
-		if(EMISSIVE_BLOCK_UNIQUE)
+	// Need to do this here because it's overridden by the parent call
+	// This is a microop which is the sole reason why this child exists, because its static this is a really cheap way to set color without setting or checking it every time we create an atom
+	color = EM_BLOCKER_MATRIX
+
+/atom/movable/Initialize(mapload, ...)
+	. = ..()
+
+#if EMISSIVE_BLOCK_GENERIC != 0
+	#error EMISSIVE_BLOCK_GENERIC is expected to be 0 to facilitate a weird optimization hack where we rely on it being the most common.
+	#error Read the comment in code/game/atoms_movable.dm for details.
+#endif
+
+	// This one is incredible.
+	// `if (x) else { /* code */ }` is surprisingly fast, and it's faster than a switch, which is seemingly not a jump table.
+	// From what I can tell, a switch case checks every single branch individually, although sane, is slow in a hot proc like this.
+	// So, we make the most common `blocks_emissive` value, EMISSIVE_BLOCK_GENERIC, 0, getting to the fast else branch quickly.
+	// If it fails, then we can check over every value it can be (here, EMISSIVE_BLOCK_UNIQUE is the only one that matters).
+	// This saves several hundred milliseconds of init time.
+	if (blocks_emissive)
+		if (blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
-			em_block = new(src, render_target)
-			update_appearance(UPDATE_OVERLAYS)
+			em_block = new(src, src)
+			overlays += em_block
+			if(managed_overlays)
+				if(islist(managed_overlays))
+					managed_overlays += em_block
+				else
+					managed_overlays = list(managed_overlays, em_block)
+			else
+				managed_overlays = em_block
+	else
+		var/static/mutable_appearance/blocker = new()
+		blocker.icon = icon
+		blocker.icon_state = icon_state
+		blocker.dir = dir
+		blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+		// Ok so this is really cursed, but I want to set with this blocker cheaply while
+		// Still allowing it to be removed from the overlays list later
+		// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly
+		// I'm sorry
+		var/mutable_appearance/flat = blocker.appearance
+		overlays += flat
+		if(managed_overlays)
+			if(islist(managed_overlays))
+				managed_overlays += flat
+			else
+				managed_overlays = list(managed_overlays, flat)
+		else
+			managed_overlays = flat
+
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
 	switch(light_system)
@@ -101,7 +141,6 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		T.update_above() // Z-Mimic
-
 
 /atom/movable/Destroy(force)
 	QDEL_NULL(language_holder)
@@ -984,43 +1023,43 @@
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
 
-/atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
-	var/image/I
-	var/obj/effect/icon/temp/attack_animation_object
+/atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
+	var/image/attack_image
 	if(visual_effect_icon)
-		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
-		attack_animation_object = new(get_turf(A), I, 10) //A.loc is an area when A is a turf
+		attack_image = image(icon = 'icons/effects/effects.dmi', icon_state = visual_effect_icon)
 	else if(used_item)
-		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
-		I.plane = GAME_PLANE
-		I.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
-		attack_animation_object = new(get_turf(A), I, 10)
+		attack_image = image(icon = used_item)
+		attack_image.plane = GAME_PLANE
 
 		// Scale the icon.
-		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
+		attack_image.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
+		// The icon should not rotate.
+		attack_image.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 		// Set the direction of the icon animation.
-		var/direction = get_dir(src, A)
+		var/direction = get_dir(src, attacked_atom)
 		if(direction & NORTH)
-			attack_animation_object.pixel_y = rand(-15,-11)
+			attack_image.pixel_y = rand(-15,-11)
 		else if(direction & SOUTH)
-			attack_animation_object.pixel_y = rand(11,15)
+			attack_image.pixel_y = rand(11,15)
 
 		if(direction & EAST)
-			attack_animation_object.pixel_x = rand(-15,-11)
+			attack_image.pixel_x = rand(-15,-11)
 		else if(direction & WEST)
-			attack_animation_object.pixel_x = rand(11,15)
+			attack_image.pixel_x = rand(11,15)
 
 		if(!direction) // Attacked self?!
-			attack_animation_object.pixel_z = 16
+			attack_image.pixel_z = 16
 
-	if(!I)
+	if(!attack_image)
 		return
 
+	var/atom/movable/flick_visual/attack = attacked_atom.flick_overlay_view(attack_image, 1 SECONDS)
+	var/matrix/copy_transform = new(transform)
 	// And animate the attack!
-	animate(attack_animation_object, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
-	animate(time = 1)
-	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
+	animate(attack, alpha = 175, transform = copy_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
+	animate(time = 0.1 SECONDS)
+	animate(alpha = 0, time = 0.3 SECONDS, easing = CIRCULAR_EASING|EASE_OUT)
 
 /// Common proc used by painting tools like spraycans and palettes that can access the entire 24 bits color space.
 /obj/item/proc/pick_painting_tool_color(mob/user, default_color)
@@ -1243,16 +1282,18 @@
 			if(. <= GRAB_AGGRESSIVE)
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
-/obj/item/proc/do_pickup_animation(atom/target)
+/obj/item/proc/do_pickup_animation(atom/target, turf/source)
 	set waitfor = FALSE
-	if(!istype(loc, /turf))
-		return
-	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
+	if(!source)
+		if(!istype(loc, /turf))
+			return
+		source = loc
+	var/image/pickup_animation = image(icon = src)
 	pickup_animation.plane = GAME_PLANE
-	pickup_animation.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
+	pickup_animation.transform *= 0.75
+	pickup_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	var/turf/current_turf = get_turf(src)
-	var/direction = get_dir(current_turf, target)
+	var/direction = get_dir(source, target)
 	var/to_x = target.base_pixel_x
 	var/to_y = target.base_pixel_y
 
@@ -1268,14 +1309,13 @@
 		to_y += 10
 		pickup_animation.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
 
-	var/obj/effect/icon/temp/pickup_animation_object = new(loc, pickup_animation, 4)
-	pickup_animation_object.transform *= 0.75
-	var/matrix/animation_matrix = new(pickup_animation_object.transform)
+	var/atom/movable/flick_visual/pickup = source.flick_overlay_view(pickup_animation, 0.4 SECONDS)
+	var/matrix/animation_matrix = new(pickup.transform)
 	animation_matrix.Turn(pick(-30, 30))
 	animation_matrix.Scale(0.65)
 
-	animate(pickup_animation_object, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
-	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
+	animate(pickup, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 0.3 SECONDS, transform = animation_matrix, easing = CUBIC_EASING)
+	animate(alpha = 0, transform = matrix().Scale(0.7), time = 0.1 SECONDS)
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
 	set waitfor = FALSE
