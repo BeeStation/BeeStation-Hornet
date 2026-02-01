@@ -203,32 +203,11 @@
 	worn_icon_state = "latex"
 	siemens_coefficient = 0.3
 	armor_type = /datum/armor/color_latex
-	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
+	clothing_traits = list(TRAIT_QUICK_CARRY, TRAIT_FINGERPRINT_PASSTHROUGH)
 	resistance_flags = NONE
-	var/carrytrait = TRAIT_QUICKER_CARRY
-
 
 /datum/armor/color_latex
 	bio = 100
-
-/obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
-	..()
-	if(slot == ITEM_SLOT_GLOVES)
-		ADD_TRAIT(user, carrytrait, CLOTHING_TRAIT)
-
-/obj/item/clothing/gloves/color/latex/dropped(mob/user)
-	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.gloves != src)
-			return
-		else
-			REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
-
-/obj/item/clothing/gloves/color/latex/atom_break()
-	. = ..()
-	if(ishuman(loc))
-		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
@@ -236,7 +215,7 @@
 	icon_state = "nitrile"
 	inhand_icon_state = "nitrilegloves"
 	worn_icon_state = "nitrilegloves"
-	carrytrait = TRAIT_QUICKER_CARRY
+	clothing_traits = list(TRAIT_QUICKER_CARRY, TRAIT_FASTMED)
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"

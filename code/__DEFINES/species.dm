@@ -67,22 +67,6 @@
 #define SPECIES_GOLEM_URANIUM "uranium_golem"
 #define SPECIES_GOLEM_WOOD "wood_golem"
 
-//Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
-#define FLAG_HUMAN			(1<<0)
-#define FLAG_IPC			(1<<1)
-#define FLAG_ETHEREAL		(1<<2)
-#define FLAG_PLASMAMAN		(1<<3)
-#define	FLAG_APID			(1<<4)
-#define FLAG_MOTH			(1<<5)
-#define FLAG_LIZARD			(1<<6)
-#define FLAG_FELINID		(1<<7)
-#define FLAG_OOZELING		(1<<8)
-#define FLAG_FLY			(1<<9)
-#define FLAG_DEBUG_SPECIES	(1<<10)
-#define FLAG_MONKEY			(1<<11)
-#define FLAG_PSYPHOZA		(1<<12)
-#define FLAG_DIONA			(1<<13)
-
 #define FEATURE_NONE "None" //For usage in species_features, for checking for marking names.
 
 // Defines for used in creating "perks" for the species preference pages.
