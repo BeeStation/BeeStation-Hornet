@@ -124,19 +124,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 				else
 					target = get_vent_turf()
 					action = ATMOSBOT_VENT_AIR
-				try_speak("Low pressure detected at [get_area(src)], attempting to detect and isolate breach...")
+				attempt_speak("Low pressure detected at [get_area(src)], attempting to detect and isolate breach...")
 			if(ATMOSBOT_LOW_OXYGEN)
 				target = get_vent_turf()
 				action = ATMOSBOT_VENT_AIR
-				try_speak("Low oxygen detected at [get_area(src)].")
+				attempt_speak("Low oxygen detected at [get_area(src)].")
 			if(ATMOSBOT_HIGH_TOXINS)
 				target = get_vent_turf()
 				action = ATMOSBOT_SCRUB_TOXINS
-				try_speak("Toxic contaminants in the atmosphere have been detected at [get_area(src)].")
+				attempt_speak("Toxic contaminants in the atmosphere have been detected at [get_area(src)].")
 			if(ATMOSBOT_BAD_TEMP)
 				target = get_vent_turf()
 				action = ATMOSBOT_TEMPERATURE_CONTROL
-				try_speak("The atmospheric temperature in [get_area(src)] exceeds allowed operating limits.")
+				attempt_speak("The atmospheric temperature in [get_area(src)] exceeds allowed operating limits.")
 			if(ATMOSBOT_AREA_STABLE)
 				if(emagged == 2)
 					if(prob(20))
@@ -189,7 +189,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 			mode = BOT_IDLE
 			return
 
-/mob/living/simple_animal/bot/atmosbot/proc/try_speak(message)
+/mob/living/simple_animal/bot/atmosbot/proc/attempt_speak(message)
 	if (has_spoken || last_speech > world.time + 3 MINUTES)
 		return
 	has_spoken = TRUE

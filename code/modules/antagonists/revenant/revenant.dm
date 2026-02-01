@@ -92,7 +92,7 @@
 	blight.Grant(src)
 	var/datum/action/spell/aoe/revenant/malfunction/malfunction = new(src)
 	malfunction.Grant(src)
-	random_revenant_name()
+	name = generate_random_mob_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	grant_all_languages(UNDERSTOOD_LANGUAGE, grant_omnitongue = FALSE, source = LANGUAGE_REVENANT) // rev can understand every langauge
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
@@ -109,13 +109,13 @@
 /mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, no_hands = FALSE, floor_okay=FALSE)
 	return FALSE
 
-/mob/living/simple_animal/revenant/proc/random_revenant_name()
-	var/built_name = ""
-	built_name += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
-	built_name += " of "
-	built_name += pick(strings(REVENANT_NAME_FILE, "adverb"))
-	built_name += pick(strings(REVENANT_NAME_FILE, "theme"))
-	name = built_name
+/mob/living/basic/revenant/generate_random_mob_name()
+	var/list/built_name_strings = list()
+	built_name_strings += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
+	built_name_strings += " of "
+	built_name_strings += pick(strings(REVENANT_NAME_FILE, "adverb"))
+	built_name_strings += pick(strings(REVENANT_NAME_FILE, "theme"))
+	return built_name_strings.Join("")
 
 /mob/living/simple_animal/revenant/Login()
 	. = ..()
@@ -181,7 +181,7 @@
 /mob/living/simple_animal/revenant/med_hud_set_status()
 	return //we use no hud
 
-/mob/living/simple_animal/revenant/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/revenant/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
 	if(!message)
 		return
 

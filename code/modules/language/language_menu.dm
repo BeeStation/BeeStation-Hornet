@@ -12,81 +12,52 @@
 	return GLOB.language_menu_state
 
 /datum/language_menu/ui_interact(mob/user, datum/tgui/ui)
+	if(isnull(language_holder.selected_language))
+		language_holder.get_selected_language()
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "LanguageMenu")
 		ui.open()
-
-/datum/language_menu/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet_batched/chat)
-	)
-
-/datum/language_menu/ui_static_data(mob/user)
-	var/list/data = list()
-
-	data["language_static_data"] = list()
-	for(var/lang in GLOB.all_languages)
-		var/datum/language/language = lang
-		var/list/L = list()
-
-		L["name"] = initial(language.name)
-		L["desc"] = initial(language.desc)
-		L["key"] = initial(language.key)
-		L["icon_state"] = initial(language.icon_state)
-
-		data["language_static_data"][initial(language.name)] = L
-	return data
 
 /datum/language_menu/ui_data(mob/user)
 	var/list/data = list()
 
 	var/is_admin = check_rights_for(user.client, R_ADMIN) || check_rights_for(user.client, R_DEBUG)
 	var/atom/movable/speaker = language_holder.owner
-	data["is_living"] = isliving(speaker)
-
-	data["known_languages"] = list()
+	data["languages"] = list()
 	for(var/datum/language/language as anything in GLOB.all_languages)
-		var/result = language_holder.has_language(language) || language_holder.has_language(language, SPOKEN_LANGUAGE)
-		if(!result)
-			continue
 		var/list/lang_data = list()
 
 		lang_data["name"] = initial(language.name)
+		lang_data["desc"] = initial(language.desc)
+		lang_data["key"] = initial(language.key)
 		lang_data["is_default"] = (language == language_holder.selected_language)
+		lang_data["icon"] = initial(language.icon)
+		lang_data["icon_state"] = initial(language.icon_state)
 		if(speaker)
-			lang_data["can_speak"] = speaker.can_speak_language(language)
-			lang_data["can_understand"] = speaker.has_language(language)
+			lang_data["can_speak"] = !!speaker.has_language(language, SPOKEN_LANGUAGE)
+			lang_data["could_speak"] = !!(language_holder.omnitongue || speaker.could_speak_language(language))
+			lang_data["can_understand"] = !!speaker.has_language(language, UNDERSTOOD_LANGUAGE)
 
 		if(language == /datum/language/metalanguage) // metalanguage is only visible to admins
 			if(!(is_admin || HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED)))
 				continue
 
-		UNTYPED_LIST_ADD(data["known_languages"], lang_data)
+		UNTYPED_LIST_ADD(data["languages"], lang_data)
 
-	if(is_admin || isobserver(speaker))
-		data["admin_mode"] = TRUE
-		data["omnitongue"] = language_holder.omnitongue
-		data["unknown_languages"] = list()
-		for(var/datum/language/language as anything in GLOB.all_languages)
-			if(language_holder.has_language(language) || language_holder.has_language(language, TRUE))
-				continue
-			var/list/lang_data = list()
+	data["is_living"] = isliving(speaker)
+	data["admin_mode"] = check_rights_for(user.client, R_ADMIN) || isobserver(speaker)
+	data["omnitongue"] = language_holder.omnitongue
 
-			lang_data["name"] = initial(language.name)
-
-			UNTYPED_LIST_ADD(data["unknown_languages"], lang_data)
-	else
-		data["admin_mode"] = null
-		data["omnitongue"] = null
-		data["unknown_languages"] = null
 	return data
 
-/datum/language_menu/ui_act(action, params)
+/datum/language_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
-	var/mob/user = usr
+
+	var/mob/user = ui.user
 	var/atom/movable/speaker = language_holder.owner
 	var/is_admin = check_rights_for(user.client, R_ADMIN) || check_rights_for(user.client, R_DEBUG)
 	var/language_name = params["language_name"]

@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	return new_msg
 
-/mob/living/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
+/mob/living/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
 
 	var/ic_blocked = FALSE
 	if(client && !forced && CHAT_FILTER_CHECK(message))
@@ -96,13 +96,17 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message_mods[LANGUAGE_EXTENSION] = istype(language) ? language.type : language
 	var/original_message = message
 	message = get_message_mods(message, message_mods)
-	var/datum/saymode/saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
+	saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
+
+	if(!forced && !saymode)
+		message = check_for_custom_say_emote(message, message_mods)
 
 	if(!message)
 		return
 
-	if(!forced && !saymode)
-		message = check_for_custom_say_emote(message, message_mods)
+	// dead is the only state you can never emote
+	if(stat != DEAD && check_emote(original_message, forced))
+		return
 
 	if (HAS_TRAIT(src, TRAIT_WHISPER_ONLY))
 		message_mods[WHISPER_MODE] = MODE_WHISPER
@@ -124,21 +128,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(saymode && saymode.early && !saymode.handle_message(src, message, language))
 		return
 
-	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
-		return TRUE
-
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
 		language = message_mods[LANGUAGE_EXTENSION] || get_selected_language()
 
 	// if you add a new language that works like everyone doesn't understand (i.e. anti-metalanguage), add an additional condition after this
 	// i.e.) if(!language) language = /datum/language/nobody_understands
 	// This works as an additional failsafe for get_selected_language() has no language to return
-
-	if(!can_speak_vocal(message))
-		to_chat(src, span_warning("You find yourself unable to speak!"))
-		return
-
-	var/message_range = 7
 
 	var/succumbed = FALSE
 
@@ -169,18 +164,18 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	spans |= speech_span
 
-	if(language)
-		var/datum/language/L = GLOB.language_datum_instances[language]
-		spans |= L.spans
+	var/datum/language/spoken_lang = GLOB.language_datum_instances[language]
+	if(LAZYLEN(spoken_lang?.spans))
+		spans |= spoken_lang.spans
 
 	if(message_mods[MODE_SING])
 		var/randomnote = pick("\u2669", "\u266A", "\u266B")
 		message = "[randomnote] [message] [randomnote]"
 		spans |= SPAN_SINGING
 
-	// Leaving this here so that anything that handles speech this way will be able to have spans affecting it and all that.
-	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args, message_range)
-	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
+	// Make sure the arglist is passed exactly - don't pass a copy of it. Say signal handlers will modify some of the parameters.
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
 		message = uppertext(message)
 	if(!message)
 		if(succumbed)
@@ -255,7 +250,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	show_message(message, MSG_AUDIBLE, deaf_message, deaf_type, avoid_highlight)
 	return message
 
-/mob/living/send_speech(message, message_range = 6, obj/source = src, bubble_type = bubble_icon, list/spans, datum/language/message_language=null, list/message_mods = list())
+/mob/living/send_speech(message, message_range = 6, obj/source = src, bubble_type = bubble_icon, list/spans, datum/language/message_language=null, list/message_mods = list(), forced = null)
 	var/static/list/eavesdropping_modes = list(MODE_WHISPER = TRUE, MODE_WHISPER_CRIT = TRUE)
 	var/eavesdrop_range = 0
 	if(message_mods[WHISPER_MODE]) //If we're whispering
@@ -264,23 +259,21 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source, SEE_INVISIBLE_MAXIMUM)
 	var/list/the_dead = list()
 
-	for(var/mob/M as() in GLOB.player_list)
-		if(!M)				//yogs
-			continue		//yogs | null in player_list for whatever reason :shrug:
-		if(M.stat != DEAD) //not dead, not important
-			continue
-		if(!M.client || !client) //client is so that ghosts don't have to listen to mice
-			listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
-			continue
-		if(M.get_virtual_z_level() != get_virtual_z_level() || get_dist(M, src) > 7 ) //they're out of range of normal hearing
-			if(M.client?.prefs && eavesdrop_range && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
-				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
+	if(client) //client is so that ghosts don't have to listen to mice
+		for(var/mob/player_mob as anything in GLOB.player_list)
+			if(QDELETED(player_mob)) //Some times nulls and deleteds stay in this list. This is a workaround to prevent ic chat breaking for everyone when they do.
+				continue //Remove if underlying cause (likely byond issue) is fixed.
+			if(player_mob.stat != DEAD) //not dead, not important
 				continue
-			if(M.client?.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostears)) //they're talking normally and we have hearing at any range off
-				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
-				continue
-		listening |= M
-		the_dead[M] = TRUE
+			if(player_mob.get_virtual_z_level() != get_virtual_z_level() || get_dist(player_mob, src) > 7 ) //they're out of range of normal hearing
+				if(player_mob.client?.prefs && eavesdrop_range && !player_mob.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
+					listening -= player_mob // remove (added by SEE_INVISIBLE_MAXIMUM)
+					continue
+				if(player_mob.client?.prefs && !player_mob.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostears)) //they're talking normally and we have hearing at any range off
+					listening -= player_mob // remove (added by SEE_INVISIBLE_MAXIMUM)
+					continue
+			listening |= player_mob
+			the_dead[player_mob] = TRUE
 
 	var/eavesdropping
 	var/eavesrendered
@@ -339,28 +332,34 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /mob/proc/binarycheck()
 	return FALSE
 
-/mob/living/can_speak(message) //For use outside of Say()
-	if(!is_muted(message) && can_speak_vocal(message))
+/mob/living/try_speak(message, ignore_spam = FALSE, forced = null)
+	if(!..())
+		return FALSE
+
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_TRY_SPEECH, message, ignore_spam, forced)
+	if(sigreturn & COMPONENT_CAN_ALWAYS_SPEAK)
 		return TRUE
 
-/mob/living/proc/is_muted(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
-	if(client)
-		if(client.prefs && (client.player_details.muted & MUTE_IC))
-			to_chat(src, span_danger("You cannot speak in IC (muted)."))
-			return TRUE
-		if(!ignore_spam && !forced && client.handle_spam_prevention(message, MUTE_IC))
-			return TRUE
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
 
-	return FALSE
+	if(!can_speak())
+		if(HAS_TRAIT(src, TRAIT_MIMING))
+			to_chat(src, span_green("Your vow of silence prevents you from speaking!"))
+		else
+			to_chat(src, span_warning("You find yourself unable to speak!"))
+		return FALSE
 
-/mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
+	return TRUE
+
+/mob/living/can_speak(allow_mimes = FALSE)
+	if(!allow_mimes && HAS_TRAIT(src, TRAIT_MIMING))
+		return FALSE
+
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return FALSE
 
 	if(is_muzzled())
-		return FALSE
-
-	if(!IsVocal())
 		return FALSE
 
 	return TRUE
@@ -414,6 +413,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		. = "[verb_whisper] in [p_their()] last breath"
 	else if(message_mods[MODE_SING])
 		. = verb_sing
+	else if(message_mods[WHISPER_MODE])
+		. = verb_whisper
 	// Any subtype of slurring in our status effects make us "slur"
 	else if(locate(/datum/status_effect/speech/slurring) in status_effects)
 		. = "slurs"

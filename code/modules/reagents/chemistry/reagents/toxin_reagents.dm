@@ -311,7 +311,7 @@
 /datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjust_fire_stacks(2 * REM * delta_time)
-	affected_mob.IgniteMob()
+	affected_mob.ignite_mob()
 
 /datum/reagent/toxin/chloralhydrate
 	name = "Chloral Hydrate"
@@ -1068,7 +1068,7 @@
 	. = ..()
 	affected_mob.set_drugginess(5)
 	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
-	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
+	affected_mob.set_silence_if_lower(6 SECONDS * REM * delta_time)
 	affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 

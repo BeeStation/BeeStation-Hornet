@@ -82,7 +82,7 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
 	if(!overmind)
 		return ..()
 	if(CHAT_FILTER_CHECK(message))
@@ -289,13 +289,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 		return
 
 	adjustHealth(maxHealth * BLOBMOB_BLOBBERNAUT_HEALTH_DECAY * damagesources * delta_time) //take 2.5% of max health as damage when not near the blob or if the naut has no factory, 5% if both
-	var/image/I = new('icons/mob/blob.dmi', src, "nautdamage", MOB_LAYER+0.01)
-	I.appearance_flags = RESET_COLOR
+	var/mutable_appearance/healing = mutable_appearance('icons/mob/blob.dmi', "nautdamage", MOB_LAYER+0.01)
+	healing.appearance_flags = RESET_COLOR
 
 	if(overmind)
-		I.color = overmind.blobstrain.complementary_color
-
-	flick_overlay_view(I, src, 8)
+		healing.color = overmind.blobstrain.complementary_color
+	flick_overlay_view(healing, 0.8 SECONDS)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()

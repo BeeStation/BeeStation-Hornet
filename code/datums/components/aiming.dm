@@ -199,7 +199,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			to_chat(user, span_warning("You've already given a command recently!"))
 			show_ui(user, target, choice)
 			return
-		if(user.mind.assigned_role == JOB_NAME_MIME)
+		if(HAS_TRAIT(user, TRAIT_MIMING))
 			user.visible_message(span_warning("[user] waves [parent] around menacingly!"))
 			show_ui(user, target, choice)
 			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)

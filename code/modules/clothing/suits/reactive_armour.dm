@@ -168,7 +168,7 @@
 	playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
 	for(var/mob/living/carbon/C in ohearers(6, owner))
 		C.fire_stacks += 8
-		C.IgniteMob()
+		C.ignite_mob()
 	owner.fire_stacks = -20
 	return TRUE
 
@@ -176,7 +176,7 @@
 	owner.visible_message(span_danger("[src] just makes [attack_text] worse by spewing fire on [owner]!"))
 	playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
 	owner.fire_stacks += 12
-	owner.IgniteMob()
+	owner.ignite_mob()
 	return FALSE
 
 //Stealth

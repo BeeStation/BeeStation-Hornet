@@ -48,9 +48,14 @@
 /// If the incapacitated status effect will ignore a mob being agressively grabbed
 #define IGNORE_GRAB (1<<2)
 
-// Grouped effect sources, see also code/__DEFINES/traits.dm
-#define STASIS_MACHINE_EFFECT "stasis_machine"
+/// Max amounts of fire stacks a mob can get
+#define MAX_FIRE_STACKS 20
+/// If a mob has a higher threshold than this, the icon shown will be increased to the big fire icon.
+#define MOB_BIG_FIRE_STACK_THRESHOLD 3
 
+// Grouped effect sources, see also code/__DEFINES/traits.dm
+
+#define STASIS_MACHINE_EFFECT "stasis_machine"
 #define STASIS_ADMIN "stasis_admin"
 
 // Stasis helpers
@@ -121,6 +126,11 @@
 #define adjust_confusion_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/confusion, up_to)
 #define set_confusion(duration) set_timed_status_effect(duration, /datum/status_effect/confusion)
 #define set_confusion_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/confusion, TRUE)
+
+#define adjust_silence(duration) adjust_timed_status_effect(duration, /datum/status_effect/silenced)
+#define adjust_silence_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/silenced, up_to)
+#define set_silence(duration) set_timed_status_effect(duration, /datum/status_effect/silenced)
+#define set_silence_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/silenced, TRUE)
 
 #define adjust_hallucinations(duration) adjust_timed_status_effect(duration, /datum/status_effect/hallucination)
 #define adjust_hallucinations_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/hallucination, up_to)
