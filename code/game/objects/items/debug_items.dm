@@ -341,7 +341,8 @@
 		TRAIT_SECURITY_HUD,
 		TRAIT_BARMASTER,
 		TRAIT_SURGEON,
-		TRAIT_METALANGUAGE_KEY_ALLOWED
+		TRAIT_METALANGUAGE_KEY_ALLOWED,
+		TRAIT_SPACEWALK
 	)
 	var/spacewalk_initial
 
@@ -366,18 +367,11 @@
 	picker.see_override = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
-	spacewalk_initial = HAS_TRAIT(user, TRAIT_SPACEWALK)
-	if(!spacewalk_initial)
-		ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
-
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
 	var/obj/item/debug/orb_of_power/orb = locate() in user.get_contents()
 	if(orb)
 		return
-
-	if(!space_walk_initial)
-		REMOVE_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
