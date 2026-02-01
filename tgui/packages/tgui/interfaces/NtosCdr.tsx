@@ -1,5 +1,6 @@
+import { Box, Button, Section, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table } from '../components';
 import { NtosWindow } from '../layouts';
 import { CdrContent, CdrData } from './AtmosCdr/CdrContent';
 

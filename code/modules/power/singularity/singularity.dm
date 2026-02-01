@@ -444,9 +444,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
 
 
 /obj/anomaly/singularity/temporary
-	var/time_to_explode = 30 SECONDS
 
-/obj/anomaly/singularity/temporary/Initialize(mapload, starting_energy = 50)
+/obj/anomaly/singularity/temporary/Initialize(mapload, starting_energy = 50, time_to_explode = 30 SECONDS)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(explode)), time_to_explode)
 

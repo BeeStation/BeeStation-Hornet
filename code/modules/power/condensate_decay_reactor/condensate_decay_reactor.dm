@@ -7,42 +7,47 @@
 	layer = MOB_LAYER
 	circuit = /obj/item/circuitboard/machine/cdr
 
-	var/list/gas_vars
-
+	var/list/cdr_gas_factors
+	/// Is the CDR activated or not?
 	var/activated = FALSE
-
+	/// What is the ratio of gases of core_compostion and the CDR's turf mix
 	var/metallization_ratio = 0.2
+	/// How stable the core is
 	var/core_stability = 0
+	/// How unstable the core is
 	var/core_instability = 0
+	/// How unstable the core is naturally
 	var/base_instability = CDR_BASE_INSTABILITY
-
+	/// How much health the core has, reaching zero causes the fail state
 	var/core_health = CDR_MAX_CORE_HEALTH
+	/// Does the core take damage?
 	var/no_core_damage = FALSE
-	var/temp_stability_factor = 0
-	var/core_temperature = T20C
-
+	/// How much power is the CDR making?
 	var/flux = 0
-
+	/// The spin of the toroid, influenced by gases added to the CDRs node
 	var/toroid_spin = 0
+	/// Multiplier for flux based on toroid_spin
 	var/toroid_flux_mult = 0
-
+	/// How steep the toroid parabola is
 	var/parabolic_setting = 1
+	/// The upper limit on the toroid parabola
 	var/parabolic_upper_limit = 1
+	/// Where on the toroid parabolic curve the CDR is at
 	var/parabolic_ratio = 0
-
+	/// Volume to pump into its internal buffer per cycle
 	var/input_volume = 200
-
-	var/cdr_uid = 1 //id of the CDR
-	var/static/gl_cdr_uid = 1 //number of CDRs that have been made (this solution is from supermatter.dm as of 2026, yell at them if you think its dumb)
-
+	/// Id of the CDR
+	var/cdr_uid = 1
+	/// The number of CDRs that have been made
+	var/static/gl_cdr_uid = 1
+	/// The soundloop to play while active
 	var/datum/looping_sound/cdr/soundloop
-
+	/// Currently linked flux_harvesters
 	var/list/obj/machinery/power/energy_accumulator/flux_harvester/linked_harvesters = list()
+	///The internal gas_mixture
 	var/datum/gas_mixture/core_composition
-
-	// For admin logging
+	/// For admin logging
 	var/last_user = null
-
 	/// Our internal radio
 	var/obj/item/radio/radio
 	/// The key our internal radio uses
@@ -52,8 +57,8 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/Initialize(mapload)
 	. = ..()
-	core_composition = new
-	gas_vars = init_condensate_gas()
+	core_composition = new()
+	cdr_gas_factors = init_condensate_gas()
 	cdr_uid = gl_cdr_uid++
 	soundloop = new(src)
 	radio = new(src)
@@ -73,7 +78,7 @@
 	if(!activated)
 		return
 	process_diffusion()
-	decay_gases(1)
+	decay_gases()
 	process_toroid()
 	process_harvesters()
 	process_stability()
@@ -84,15 +89,13 @@
 		balloon_alert(user, "deactivate first!")
 		return FALSE
 
-	if(default_deconstruction_screwdriver(user, "cdr", "cdr", tool))
-		return TRUE
+	return default_deconstruction_screwdriver(user, "cdr", "cdr", tool)
 
 /obj/machinery/atmospherics/components/unary/cdr/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)
 
 /obj/machinery/atmospherics/components/unary/cdr/multitool_act(mob/living/user, obj/item/tool)
-	deactivate(user)
-	return TRUE
+	return deactivate(user)
 
 /obj/machinery/atmospherics/components/unary/cdr/crowbar_act(mob/living/user, obj/item/tool)
 	return crowbar_deconstruction_act(user, tool)
@@ -190,43 +193,44 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/deactivate(mob/user)
 	if(!activated)
-		return
+		return FALSE
 	if(core_composition.total_moles())
 		balloon_alert(user, "can't deactivate!")
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-		return
+		return FALSE
 	soundloop.stop()
 	resistance_flags = FREEZE_PROOF
 	activated = FALSE
 	update_appearance(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_stability()
 	var/stability_value = 0
 
 	for(var/gastype in core_composition.gases) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
-		var/datum/condensate_gas/gas_var = gas_vars[gastype]
-		stability_value += GET_MOLES(gastype, core_composition) * gas_var?.stability_val
+		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
+		stability_value += GET_MOLES(gastype, core_composition) * cdr_gas?.stability_val
 	return stability_value * get_temp_stab_factor()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/link_harvesters()
 	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in linked_harvesters)
-		harvester.unlink_harvester()
+		harvester.parent = null
 		linked_harvesters -= harvester
 	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in orange(5, src))
 		linked_harvesters += harvester
-		harvester.link_harvester(src)
+		harvester.parent = src
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_temp_stab_factor()
 	var/n2o_mols = GET_MOLES(/datum/gas/oxygen, core_composition)
 	var/maximum_temp_factor = n2o_mols ? max(100 - n2o_mols * 0.1, 10) : 100 //when n2o mols > 1000 temp_factor = 10
 	var/temp_slope = 0.01
-	return max(-(core_composition.temperature * temp_slope) + maximum_temp_factor, 1)
+	return max(-core_composition.temperature * temp_slope + maximum_temp_factor, 1)
 
-/obj/machinery/atmospherics/components/unary/cdr/proc/decay_gases(decay_factor)
+/obj/machinery/atmospherics/components/unary/cdr/proc/decay_gases()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	var/total_energy_consumed = 0
 	for(var/gastype in core_composition.gases)
-		var/datum/condensate_gas/cdr_gas = gas_vars[gastype]
+		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
 		var/gas_moles = GET_MOLES(gastype, core_composition)
 		if(!cdr_gas.decays_into)
 			continue
@@ -235,8 +239,7 @@
 		if(gas_moles < cdr_gas.threshold)
 			continue
 
-		var/true_decay_factor = decay_factor * cdr_gas.decay_rate
-		var/decayed_gas = max((gas_moles - cdr_gas.threshold) * true_decay_factor, 0)
+		var/decayed_gas = max((gas_moles - cdr_gas.threshold) * cdr_gas.decay_rate, 0)
 		total_energy_consumed += decayed_gas * CDR_HEAT_CONSUMED_PER_MOL * cdr_gas.decay_flux_mult
 
 		set_flux(cdr_gas.decay_flux_mult * gas_moles * get_mass_multiplier())
@@ -254,7 +257,7 @@
 	return max(core_composition.total_moles() / CDR_CORE_MASS_DIV, 1)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_stability()
-	var/datum/condensate_gas/bz_gas = gas_vars[/datum/gas/bz]
+	var/datum/condensate_gas/bz_gas = cdr_gas_factors[/datum/gas/bz]
 	var/bz_mols = GET_MOLES(/datum/gas/bz, core_composition)
 	core_stability = get_core_stability()
 	base_instability = max(bz_mols ? bz_mols * bz_gas.threshold : 0, CDR_BASE_INSTABILITY)
@@ -290,10 +293,9 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_toroid()
 	toroid_spin = toroid_spin - toroid_spin * metallization_ratio
 
-	if(round(toroid_spin, 0.001) <= 0) //prevent it from reaching absurdly small numbers
-		toroid_spin = 0
+	toroid_spin = round(toroid_spin, 0.001) // prevent it from reaching absurdly small numbers
 
-	var/datum/gas_mixture/toroid_mix = new
+	var/datum/gas_mixture/toroid_mix = new()
 	airs[1].pump_gas_volume(toroid_mix, input_volume)
 
 	if(toroid_mix)
@@ -373,9 +375,3 @@
 	var/excess = max(power - max_harvested, 0)
 	stored_energy += min(power, max_harvested)
 	return excess
-
-/obj/machinery/power/energy_accumulator/flux_harvester/proc/link_harvester(obj/machinery/atmospherics/components/unary/cdr/reactor)
-	parent = reactor
-
-/obj/machinery/power/energy_accumulator/flux_harvester/proc/unlink_harvester()
-	parent = null

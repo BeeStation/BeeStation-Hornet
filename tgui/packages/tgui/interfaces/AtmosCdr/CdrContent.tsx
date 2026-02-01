@@ -1,19 +1,19 @@
 import { BooleanLike } from 'common/react';
-
-import { useBackend } from '../../backend';
 import {
   Box,
   Button,
   Collapsible,
   Flex,
-  Graph,
   Knob,
   LabeledControls,
   LabeledList,
   NumberInput,
   ProgressBar,
   Section,
-} from '../../components';
+} from 'tgui-core/components';
+
+import { useBackend } from '../../backend';
+import { Graph } from '../../components';
 
 type CoreComposition = Record<string, number>;
 
