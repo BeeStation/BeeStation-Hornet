@@ -134,7 +134,7 @@
 	if(host.stat != DEAD) // Self explanatory, they must be dead
 		to_chat(user, span_warning("The vessel must be dead to accept a new soul."))
 		return FALSE
-	if(host.mind) // We dont want to overwrite the original's body soul if it had one
+	if(host.get_ghost(FALSE, TRUE)) // We don't want to overwrite the original soul if it still exists
 		to_chat(user, span_warning("This vessel's original soul still lingers within inside."))
 		return FALSE
 	user.visible_message(span_notice("[user] presses [src] against [host]'s chest, the gem glowing with eerie light!"), \
@@ -142,12 +142,9 @@
 	if(!soul.mind)
 		return FALSE
 	soul.mind.transfer_to(host)
-	var/brutedamage = host.getBruteLoss()
-	var/burndamage = host.getFireLoss()
-	if(brutedamage || burndamage) // It's intended that this doesn't heal organ damage
-		host.adjustBruteLoss(-(brutedamage * 0.75))
-		host.adjustFireLoss(-(burndamage * 0.75))
-	host.set_stat(CONSCIOUS)
+	host.revive() //This does not heal a mangled corpse
+	host.emote("gasp")
+	log_combat(user, src, "revived with soulstone")
 	var/message = ""
 	playsound(host, 'sound/effects/glassbr2.ogg', 50, TRUE)
 	switch(theme)
@@ -155,7 +152,7 @@
 			message = "You have been brought back into this world by holy energies."
 		if(THEME_CULT)
 			message = "Your soul is bound to this flesh by Nar'Sie! Serve the cult."
-			if(user.mind && user.mind.has_antag_datum(/datum/antagonist/cult))
+			if(user?.mind.has_antag_datum(/datum/antagonist/cult))
 				host.mind.add_antag_datum(/datum/antagonist/cult) // Make them a cultist, just making sure they didn't lose it
 		else
 			message = "You have been forced back into a mortal shell"
