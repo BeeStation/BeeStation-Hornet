@@ -73,7 +73,7 @@
 	QDEL_NULL(radio)
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
+/obj/machinery/atmospherics/components/unary/cdr/process_atmos()
 	update_parents() //needs to process constantly for gases to not get stuck
 	if(!activated)
 		return
@@ -83,6 +83,10 @@
 	process_harvesters()
 	process_stability()
 	update_appearance(UPDATE_OVERLAYS)
+	if (core_health <= 0)
+		addtimer(CALLBACK(src, PROC_REF(fail)), 3 SECONDS)
+		playsound(src, 'sound/machines/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE)
+		return PROCESS_KILL
 
 /obj/machinery/atmospherics/components/unary/cdr/screwdriver_act(mob/living/user, obj/item/tool)
 	if(activated)
@@ -175,14 +179,6 @@
 			link_harvesters()
 			return TRUE
 
-/obj/machinery/atmospherics/components/unary/cdr/proc/check_pipe_on_turf()
-	for(var/obj/machinery/atmospherics/device in get_turf(src))
-		if(device == src)
-			continue
-		if(device.piping_layer == piping_layer)
-			return TRUE
-	return FALSE
-
 /obj/machinery/atmospherics/components/unary/cdr/proc/activate()
 	if(activated || !is_operational)
 		return
@@ -229,6 +225,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/decay_gases()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	var/total_energy_consumed = 0
+	var/total_flux_produced = 0
 	for(var/gastype in core_composition.gases)
 		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
 		var/gas_moles = GET_MOLES(gastype, core_composition)
@@ -242,9 +239,11 @@
 		var/decayed_gas = max((gas_moles - cdr_gas.threshold) * cdr_gas.decay_rate, 0)
 		total_energy_consumed += decayed_gas * CDR_HEAT_CONSUMED_PER_MOL * cdr_gas.decay_flux_mult
 
-		set_flux(cdr_gas.decay_flux_mult * gas_moles * get_mass_multiplier())
+		total_flux_produced += cdr_gas.decay_flux_mult * gas_moles
 		REMOVE_MOLES(gastype, core_composition, decayed_gas)
 		ADD_MOLES(cdr_gas.decays_into, core_composition, decayed_gas)
+
+	set_flux(total_flux_produced * get_mass_multiplier())
 
 	var/core_capacity = core_composition.heat_capacity()
 	var/core_thermal_heat = core_composition.thermal_energy() - total_energy_consumed
@@ -274,10 +273,6 @@
 	if(health_delta < core_health)
 		alert_radio(TRUE)
 	core_health = health_delta
-	if (core_health <= 0)
-		addtimer(CALLBACK(src, PROC_REF(fail)), 3 SECONDS)
-		STOP_PROCESSING(SSmachines, src)
-		playsound(src, 'sound/machines/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/alert_radio(decreasing)
 	if(!COOLDOWN_FINISHED(src, radio_cooldown) || core_health > CDR_MAX_CORE_HEALTH * 0.6)
@@ -331,18 +326,17 @@
 		var/gas_diffused = (((diffusion_difference / total_gas) / 1) ** 3) * total_gas
 
 		gas_diffused = clamp(gas_diffused, gas_diffused > 0 ? 0 : -turf_mix_mols, gas_diffused < 0 ? 0 : core_comp_mols)
+
 		if(gas_diffused > 0)
 			REMOVE_MOLES(turf_gas, core_composition, gas_diffused)
 			ADD_MOLES(turf_gas, turf_mix, gas_diffused)
-			src.air_update_turf(FALSE, FALSE)
-			core_composition.garbage_collect()
-			turf_mix.garbage_collect()
-		if(gas_diffused < 0)
+		else
 			ADD_MOLES(turf_gas, core_composition, -gas_diffused)
 			REMOVE_MOLES(turf_gas, turf_mix, -gas_diffused)
-			src.air_update_turf(FALSE, FALSE)
-			core_composition.garbage_collect()
-			turf_mix.garbage_collect()
+
+		src.air_update_turf(FALSE, FALSE)
+		core_composition.garbage_collect()
+		turf_mix.garbage_collect()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_harvesters()
 	var/power_left = flux * CDR_FLUX_TO_POWER
