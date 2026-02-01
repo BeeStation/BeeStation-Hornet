@@ -31,8 +31,7 @@
 /obj/item/implant/exile/hotel/on_implanted(mob/user)
 	user.AddComponent(/datum/component/stationloving/hotelloving)
 
-/obj/item/implant/exile/hotel/removed(mob/living/source, silent = FALSE, destroyed = FALSE)
-	. = ..()
+/obj/item/implant/exile/hotel/removed(mob/living/unimplanted) // Incase they try self surgery
 	visible_message(span_danger("The implant's anti-removal mechanisms activate!"))
 	source.dust()
 	message_admins("[ADMIN_LOOKUPFLW(source)] tried to remove their hotel staff implant to enter the station and was dusted.")
@@ -52,8 +51,8 @@
 //Override to plop the disk back to a syndie crew spawn rather than somewhere on the station.
 
 /datum/component/stationloving/hotelloving/relocate()
-	var/mob/hotelstaff = parent
-	if(ismob(hotelstaff))
+	var/mob/living/hotelstaff = parent
+	if(isliving(hotelstaff))
 		if(!QDELETED(src)) // if you don't do this the body gets continuously dusted forever. While this is funny, an infinitely large pile of remains that crashes clients on right click isn't.
 			qdel(src)
 		to_chat(hotelstaff,span_danger("The implant's anti-escape mechanisms activate!"))

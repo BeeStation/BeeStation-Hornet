@@ -482,6 +482,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait given to people that were successfully assassinated
 #define TRAIT_ASSASSINATION_VICTIM "assassinated"
 
+/// Stores typepaths, the typepath value read from this trait indicates that this item
+/// is meant to look like the item with that path, which might affect how you show
+/// this item to players (such as through armour readouts).
+#define TRAIT_VALUE_MIMIC_PATH "mimic_path"
+
 ///without a human having this trait, they speak as if they have no tongue.
 #define TRAIT_SPEAKS_CLEARLY "speaks_clearly"
 

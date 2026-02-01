@@ -873,5 +873,5 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/mob/living/carbon/human/H = spawnedMob
 			H.equipOutfit(humanoutfit)
 	var/turf/T = get_step(loc, SOUTHWEST)
-	flick_overlay_static(portal_appearance, T, 15)
+	T.flick_overlay_static(portal_appearance, 15)
 	playsound(T, 'sound/magic/lightningbolt.ogg', rand(80, 100), 1)

@@ -122,7 +122,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/lesserphylactery)
 	if(!item_turf)
 		return "[src] is not at a turf? NULLSPACE!?"
 
-	var/mob/old_body = mind.current
+	var/mob/living/old_body = mind.current
 	var/mob/living/carbon/human/lich = new(item_turf)
 	// no robes spawn for lesser spell
 

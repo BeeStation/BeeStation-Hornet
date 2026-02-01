@@ -338,6 +338,9 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 ))
 
+// Value traits, cannot ever be assigned by VV:
+// - "TRAIT_VALUE_MIMIC_PATH" = TRAIT_VALUE_MIMIC_PATH
+
 /// value -> trait name, generated on use from trait_by_type global
 GLOBAL_LIST(trait_name_map)
 

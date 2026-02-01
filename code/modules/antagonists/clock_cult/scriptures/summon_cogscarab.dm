@@ -1,31 +1,35 @@
-//==================================//
-// !           Cogscarab          ! //
-//==================================//
 /datum/clockcult/scripture/cogscarab
 	name = "Summon Cogscarab"
 	desc = "Summon a Cogscarab shell, which will be possessed by fallen Rat'Varian soldiers. Requires 2 invokers. Takes longer the more cogscarabs are alive. Requires 20 vitality."
 	tip = "Use Cogscarabs to fortify Reebe while the human servants convert and sabotage the crew."
+	invokation_text = list("My fallen brothers,", "Now is the time we rise", "Protect our lord", "Achieve greatness!")
+	invokation_time = 12 SECONDS
+	invokers_required = 2
 	button_icon_state = "Cogscarab"
 	power_cost = 500
 	vitality_cost = 20
-	invokation_time = 120
-	invokation_text = list("My fallen brothers,", "Now is the time we rise", "Protect our lord", "Achieve greatness!")
-	category = SPELLTYPE_PRESERVATION
 	cogs_required = 5
-	invokers_required = 2
+	category = SPELLTYPE_PRESERVATION
 
-/datum/clockcult/scripture/cogscarab/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks)
-	invokation_time = 120 + (60 * GLOB.cogscarabs.len)
-	if(!is_reebe(M.z))
-		to_chat(M, span_warning("You must do this on Reebe!"))
-		return
-	if(GLOB.cogscarabs.len > 8)
-		to_chat(M, span_warning("You can't summon anymore cogscarabs."))
-		return
-	if(GLOB.gateway_opening)
-		to_chat(M, span_warning("It is too late to summon cogscarabs now, Rat'var is coming!"))
-		return
+/datum/clockcult/scripture/cogscarab/try_to_invoke(mob/living/user)
+	invokation_time = initial(invokation_time) + ((6 SECONDS) * length(GLOB.cogscarabs))
+	return ..()
+
+/datum/clockcult/scripture/cogscarab/can_invoke()
 	. = ..()
+	if(!.)
+		return FALSE
 
-/datum/clockcult/scripture/cogscarab/invoke_success()
+	if(!is_reebe(invoker.z))
+		invoker.balloon_alert(invoker, "not on Reebe!")
+		return FALSE
+	if(length(GLOB.cogscarabs) >= CLOCKCULT_COGSCARAB_LIMIT)
+		invoker.balloon_alert(invoker, "max cogscarabs reached!")
+		return FALSE
+	if(GLOB.gateway_opening)
+		invoker.balloon_alert(invoker, "the rift is opening!")
+		return FALSE
+
+/datum/clockcult/scripture/cogscarab/on_invoke_success()
 	new /obj/effect/mob_spawn/drone/cogscarab(get_turf(invoker))
+	return ..()

@@ -11,10 +11,6 @@ GLOBAL_VAR(celestial_gateway)	//The celestial gateway
 GLOBAL_VAR_INIT(ratvar_risen, FALSE)	//Has ratvar risen?
 GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
 
-//A useful list containing all scriptures with the index of the name.
-//This should only be used for looking up scriptures
-GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
-
 GLOBAL_VAR_INIT(clockcult_power, 2500)
 GLOBAL_VAR_INIT(clockcult_vitality, 200)
 
@@ -37,10 +33,11 @@ GLOBAL_VAR(clockcult_eminence)
 	var/datum/action/innate/clockcult/transmit/transmit_spell
 	var/datum/team/clock_cult/team
 
+	/// Prefix used when using the hierophant transmit action
 	var/prefix = CLOCKCULT_PREFIX_RECRUIT
-
-	var/counts_towards_total = TRUE//Counts towards the total number of servants.
-
+	/// Whether or not this servant counts towards the total number of servants, think abstraction crystal projections
+	var/counts_towards_total = TRUE
+	/// Flavor appearance applied when the gateway is opened
 	var/mutable_appearance/forbearance
 
 /datum/antagonist/servant_of_ratvar/greet()
@@ -139,23 +136,32 @@ GLOBAL_VAR(clockcult_eminence)
 	H.uncuff()
 	return FALSE
 
-//Grant access to the clockwork tools.
-//If AI, disconnect all active borgs and make it only able to control converted shells
-/datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/S)
-	if(isAI(S))
-		var/mob/living/silicon/ai/AI = S
-		AI.disconnect_shell()
-		for(var/mob/living/silicon/robot/R in AI.connected_robots)
-			R.connected_ai = null
+/*
+* Silicons can be converted to clock cultists
+* AIs have all of their robots disconnected and get a flavorful overlay on their sprite
+* Borgs are disconnected from their AI and get special ratvar modules
+*/
+/datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/silicon)
+	if(isAI(silicon))
+		var/mob/living/silicon/ai/ai = silicon
+
+		// Disconnect borgs
+		ai.disconnect_shell()
+		for(var/mob/living/silicon/robot/robot in ai.connected_robots)
+			robot.connected_ai = null
+
+		// Flavor
 		var/mutable_appearance/ai_clock = mutable_appearance('icons/mob/clockwork_mobs.dmi', "aiframe")
-		AI.add_overlay(ai_clock)
-	else if(iscyborg(S))
-		var/mob/living/silicon/robot/R = S
-		R.connected_ai = null
-		R.SetRatvar(TRUE)
-	S.laws = new /datum/ai_laws/ratvar     //Laws down here so borgs don't instantly resync their laws
-	S.laws.associate(S)
-	S.show_laws()
+		ai.add_overlay(ai_clock)
+	else if(iscyborg(silicon))
+		var/mob/living/silicon/robot/robot = silicon
+		robot.connected_ai = null
+		robot.SetRatvar(TRUE)
+
+	// Give laws
+	silicon.laws = new /datum/ai_laws/ratvar
+	silicon.laws.associate(silicon)
+	silicon.show_laws()
 
 /datum/antagonist/servant_of_ratvar/proc/add_objectives()
 	objectives |= team.objectives
