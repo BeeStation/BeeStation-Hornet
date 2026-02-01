@@ -32,9 +32,9 @@
 	var/list/previous_attempts
 
 /datum/component/uplink/Initialize(
-	owner,
-	lockable = TRUE,
-	enabled = FALSE,
+	_owner,
+	_lockable = TRUE,
+	_enabled = FALSE,
 	uplink_flag = UPLINK_TRAITORS,
 	starting_tc = TELECRYSTALS_DEFAULT
 )
@@ -55,15 +55,15 @@
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
 
-	if(owner)
-		owner = owner
+	if(_owner)
+		owner = _owner
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 		if(GLOB.uplink_purchase_logs_by_key[owner])
 			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
 		else
 			purchase_log = new(owner, src)
-	lockable = lockable
-	active = enabled
+	lockable = _lockable
+	active = _enabled
 	src.uplink_flag = uplink_flag
 	update_items()
 	telecrystals = starting_tc
