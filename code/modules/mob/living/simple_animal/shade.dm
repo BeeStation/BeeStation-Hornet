@@ -9,7 +9,6 @@
 	mob_biotypes = MOB_SPIRIT
 	maxHealth = 40
 	health = 40
-	spacewalk = TRUE
 	healable = 0
 	speak_emote = list("hisses")
 	emote_hear = list("wails.","screeches.")
@@ -37,6 +36,10 @@
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
 	discovery_points = 1000
+
+/mob/living/simple_animal/shade/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /mob/living/simple_animal/shade/death()
 	deathmessage = "lets out a contented sigh as [p_their()] form unwinds."

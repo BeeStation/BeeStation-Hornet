@@ -299,15 +299,25 @@
   */
 /mob/Process_Spacemove(movement_dir = 0)
 	. = ..()
-	if(. ||spacewalk)
+	if(. || HAS_TRAIT(src, TRAIT_SPACEWALK))
 		return TRUE
+
+	if(buckled)
+		return TRUE
+
+	if(movement_type & FLYING)
+		return TRUE
+
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
-	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			if(backup.newtonian_move(turn(movement_dir, 180), instant = TRUE)) //You're pushing off something movable, so it moves
-				to_chat(src, span_info("You push off of [backup] to propel yourself."))
+	if(!backup)
+		return FALSE
+
+	if(!istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
-	return FALSE
+
+	if(backup.newtonian_move(dir2angle(REVERSE_DIR(movement_dir)), instant = TRUE)) //You're pushing off something movable, so it moves
+		to_chat(src, span_info("You push off of [backup] to propel yourself."))
+	return TRUE
 
 /**
  * Finds a target near a mob that is viable for pushing off when moving.
