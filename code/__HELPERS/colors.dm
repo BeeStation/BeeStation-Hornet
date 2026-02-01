@@ -1,10 +1,3 @@
-/// Given a color in the format of "#RRGGBB" or "#RRGGBBAA", gives back a 4 entry list with the number values of each
-/proc/split_color(color)
-	var/list/output = rgb2num(color)
-	if(length(output) == 3)
-		output += 255
-	return output
-
 //!!CURRENTLY UNUSED!!//
 
 ///Returns a random color picked from a list, has 2 modes (0 and 1), mode 1 doesn't pick white, black or gray
