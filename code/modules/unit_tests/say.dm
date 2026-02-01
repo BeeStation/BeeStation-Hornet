@@ -37,10 +37,6 @@
 	TEST_ASSERT_EQUAL(REF(say_args), source.last_say_args_ref, "Say signal didn't get the argslist of say as a reference. \
 		This is required for the signal to function in most places - do not create a new instance of a list when passing it in to the signal.")
 
-// For the above test to track the last use of say's message args.
-/mob/living
-	var/last_say_args_ref
-
 /// This unit test translates a string from one language to another depending on if the person can understand the language
 /datum/unit_test/translate_language
 	var/mob/host_mob
