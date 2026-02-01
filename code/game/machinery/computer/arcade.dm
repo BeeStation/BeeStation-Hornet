@@ -496,9 +496,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		gamers[gamer] = -1
 
 
-/obj/machinery/computer/arcade/orion_trail/ui_interact(mob/_user)
+/obj/machinery/computer/arcade/orion_trail/ui_interact(mob/user)
 	. = ..()
-	if (!isliving(_user))
+	if (!isliving(user))
 		return
 	var/mob/living/living_user = user
 	if(fuel <= 0 || food <=0 || settlers.len == 0)
@@ -514,20 +514,19 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			if(food <= 0)
 				dat += "<br>You ran out of food and starved."
 				if(obj_flags & EMAGGED)
-					user.set_nutrition(0) //yeah you pretty hongry
-					to_chat(user, span_userdanger("Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor."))
+					living_user.set_nutrition(0) //yeah you pretty hongry
+					to_chat(living_user, span_userdanger("Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor."))
 			if(fuel <= 0)
 				dat += "<br>You ran out of fuel, and drift, slowly, into a star."
 				if(obj_flags & EMAGGED)
-					var/mob/living/M = user
-					M.adjust_fire_stacks(5)
-					M.ignite_mob() //flew into a star, so you're on fire
-					to_chat(user, span_userdanger("You feel an immense wave of heat emanate from the arcade machine. Your skin bursts into flames."))
+					living_user.adjust_fire_stacks(5)
+					living_user.ignite_mob() //flew into a star, so you're on fire
+					to_chat(living_user, span_userdanger("You feel an immense wave of heat emanate from the arcade machine. Your skin bursts into flames."))
 
 		if(obj_flags & EMAGGED)
-			to_chat(user, span_userdanger("You're never going to make it to Orion..."))
-			user.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
-			user.death()
+			to_chat(living_user, span_userdanger("You're never going to make it to Orion..."))
+			living_user.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
+			living_user.death()
 			obj_flags &= ~EMAGGED //removes the emagged status after you lose
 			gameStatus = ORION_STATUS_START
 			name = "The Orion Trail"
