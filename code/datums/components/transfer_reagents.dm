@@ -18,6 +18,7 @@
 /datum/component/transfer_reagents/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped))
+	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 
 /datum/component/transfer_reagents/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -26,6 +27,7 @@
 	return ..()
 
 /datum/component/transfer_reagents/proc/on_equipped(obj/item/target, mob/living/carbon/equipper, slot)
+	SIGNAL_HANDLER
 	if (slot != ITEM_SLOT_HANDS)
 		return
 	if (!istype(equipper))
@@ -36,4 +38,8 @@
 	if(gloves && (gloves.body_parts_covered & HANDS) && !HAS_TRAIT(gloves, TRAIT_FINGERPRINT_PASSTHROUGH && !HAS_TRAIT(equipper, TRAIT_FINGERPRINT_PASSTHROUGH)))
 		return
 	reagents.expose(equipper, TOUCH)
+	qdel(src)
+
+/datum/component/transfer_reagents/proc/on_clean(datum/source)
+	SIGNAL_HANDLER
 	qdel(src)
