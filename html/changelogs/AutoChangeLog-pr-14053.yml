@@ -1,5 +1,0 @@
-author: mrmanlikesbt, SmArtKar
-delete-after: true
-changes:
-  - bugfix: fixed viewport runtimes
-  - bugfix: fixed delayed viewport fitting when connecting to the server
