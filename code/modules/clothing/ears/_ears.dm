@@ -12,6 +12,7 @@
 	desc = "Protects your hearing from loud noises, and quiet ones as well."
 	icon_state = "earmuffs"
 	inhand_icon_state = "earmuffs"
+	clothing_traits = list(TRAIT_DEAF)
 	strip_delay = 15
 	equip_delay_other = 25
 	resistance_flags = FLAMMABLE

@@ -9,7 +9,6 @@
 	name = "\improper Mothman"
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
-	bodyflag = FLAG_MOTH
 	species_traits = list(
 		LIPS,
 		HAS_MARKINGS

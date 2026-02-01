@@ -89,16 +89,13 @@
 #define ORGAN_ORGANIC 1
 #define ORGAN_ROBOTIC 2
 
-#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
+#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
 #define MONKEY_BODYPART "monkey"
 #define TERATOMA_BODYPART "teratoma"
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
-
-//Bodypart change blocking flags
-#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
 //Bodytype defines for how things can be worn, surgery, and other misc things.
 ///The limb is organic.
@@ -125,6 +122,9 @@
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
+
+///Digitigrade's prefs, used in features for legs if you're meant to be a Digitigrade.
+#define DIGITIGRADE_LEGS "Digitigrade Legs"
 
 // Health/damage defines
 #define MAX_LIVING_HEALTH 100
