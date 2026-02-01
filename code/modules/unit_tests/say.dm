@@ -137,7 +137,7 @@
 
 	// Language test
 	speaker.grant_language(/datum/language/beachbum)
-	speaker.language_holder.selected_language = /datum/language/beachbum
+	speaker.set_active_language(/datum/language/beachbum)
 	listener.add_blocked_language(/datum/language/beachbum)
 	// speaking and whispering should be hearable
 	conversation(distance = 1)
