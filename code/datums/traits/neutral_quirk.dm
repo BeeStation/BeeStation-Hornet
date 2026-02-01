@@ -206,12 +206,10 @@
 /datum/quirk/accent/add()
 	var/chosen = read_choice_preference(/datum/preference/choiced/quirk/accent)
 	accent_to_use = GLOB.accents[chosen || pick(GLOB.accents)]
-	var/mob/living/carbon/human/H = quirk_target
-	RegisterSignal(H, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	RegisterSignal(quirk_target, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/quirk/accent/remove()
-	var/mob/living/carbon/human/H = quirk_target
-	UnregisterSignal(H, COMSIG_MOB_SAY)
+	UnregisterSignal(quirk_target, COMSIG_MOB_SAY)
 
 /datum/quirk/accent/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
