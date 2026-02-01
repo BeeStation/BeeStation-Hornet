@@ -204,9 +204,3 @@ GLOBAL_LIST_INIT(fleshymass_recipes, list ( \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/fleshymass)
-
-GLOBAL_LIST_INIT(holymetal_recipes, list ( \
-	new/datum/stack_recipe("Holy Golem Shell", /obj/item/golem_shell/holy, 10, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
-))
-STACKSIZE_MACRO(/obj/item/stack/sheet/holymetal)
-

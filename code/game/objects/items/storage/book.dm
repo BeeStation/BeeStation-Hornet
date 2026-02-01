@@ -251,20 +251,6 @@
 				EX.name = "Purified [initial(EX.name)]"
 			user.visible_message(span_notice("[user] has purified [SS]!"))
 
-	else if(istype(A, /obj/item/stack/sheet/runed_metal) && !IS_CULTIST(user))
-		var/obj/item/stack/sheet/runed_metal/runedmetal = A
-		to_chat(user, span_notice("You begin purging the unholy markings from the strange metal."))
-		playsound(src, 'sound/effects/pray_chaplain.ogg', 50, TRUE)
-
-		if(do_after(user, 4 SECONDS, target = runedmetal))
-			to_chat(user, span_notice("You cleanse the metal, leaving it sanctified and pure."))
-
-			var/amount = runedmetal.amount
-			var/turf/floor = get_turf(runedmetal)
-
-			qdel(runedmetal)
-			new /obj/item/stack/sheet/holymetal(floor, amount)
-
 /obj/item/storage/book/bible/booze
 	desc = "To be applied to the head repeatedly."
 
