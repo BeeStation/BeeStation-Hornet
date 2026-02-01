@@ -157,7 +157,6 @@
 		else
 			message = "You have been forced back into a mortal shell"
 	to_chat(host, span_boldannounce("[message]"))
-	to_chat(host, span_warning("You feel something vital tear away as your soul is forced into this body. Part of you is gone forever."))
 	contained_shade = null
 	qdel(src)
 	qdel(soul)
