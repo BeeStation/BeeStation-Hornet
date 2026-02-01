@@ -266,12 +266,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			var/mob/living/living_speaker = speaker
 			if(istype(living_speaker) && living_speaker.is_mouth_covered()) // Can't see them speak if their mouth is covered
 				return FALSE
-			deaf_message = "[span_name("[speaker]")] [speaker.verb_whisper] something, but you are too far away to hear [speaker.p_them()]."
+			deaf_message = "[span_subtle(span_name("[speaker]")] [speaker.verb_whisper] something, but you are too far away to hear [speaker.p_them())]."
 
 		if(deaf_message)
 			deaf_type = MSG_VISUAL
 			message = deaf_message
-			return show_message(message, MSG_VISUAL, deaf_message, deaf_type, avoid_highlight)
+			show_message(message, MSG_VISUAL, deaf_message, deaf_type, avoid_highlight)
+			return FALSE
 
 	// we need to send this signal before compose_message() is used since other signals need to modify
 	// the raw_message first. After the raw_message is passed through the various signals, it's ready to be formatted
@@ -280,7 +281,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(speaker != src)
 		if(!radio_freq) //These checks have to be separate, else people talking on the radio will make "You can't hear yourself!" appear when hearing people over the radio while deaf.
-			deaf_message = "[span_name("[speaker]")] [speaker.get_default_say_verb()] something but you cannot hear [speaker.p_them()]."
+			deaf_message = "[span_subtle(span_name("[speaker]")] [speaker.get_default_say_verb()] something but you cannot hear [speaker.p_them())]."
 			deaf_type = MSG_VISUAL
 	else
 		deaf_message = span_notice("You can't hear yourself!")
