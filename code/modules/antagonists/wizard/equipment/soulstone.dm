@@ -129,6 +129,7 @@
 
 /obj/item/soulstone/proc/reanimate_corpse(mob/living/carbon/human/host, mob/user)
 	var/mob/living/simple_animal/shade/soul = contained_shade
+	var/obj/item/organ/brain/brainless = host.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!soul)
 		return FALSE
 	if(host.stat != DEAD) // Self explanatory, they must be dead
@@ -136,6 +137,9 @@
 		return FALSE
 	if(host.get_ghost(FALSE, TRUE)) // We don't want to overwrite the original soul if it still exists
 		to_chat(user, span_warning("This vessel's original soul still lingers within inside."))
+		return FALSE
+	if(!brainless) // No brain and having a soul, shouldn't happen, we cant let it pass
+		to_chat(user, span_warning("This vessel lacks a brain and cannot house a soul."))
 		return FALSE
 	user.visible_message(span_notice("[user] presses [src] against [host]'s chest, the gem glowing with eerie light!"), \
 						span_notice("You jam the [src] into [host]'s chest. The soul inside leaps into the vacant vessel."))
