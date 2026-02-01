@@ -15,8 +15,8 @@
 
 	// Unfortunately going to repeat this check in parent call but what can you do
 	var/atom/target = controller.blackboard[target_key]
-	var/datum/targeting_strategy/targeting_datum = controller.blackboard[targeting_strategy_key]
-	if (!targeting_datum.can_attack(living_pawn, target))
+	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
+	if (!targeting_strategy.can_attack(living_pawn, target))
 		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	if (!living_pawn.Adjacent(target))
