@@ -14,5 +14,5 @@
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_DEATH, src , gibbed)
 	if(HAS_TRAIT(src, TRAIT_FRAGMENTED_SOUL))
 		to_chat(src, span_userdanger("Your fragmented soul can never return..."))
-		ghostize(FALSE)
+		ghostize(can_reenter_corpse = FALSE)
 
