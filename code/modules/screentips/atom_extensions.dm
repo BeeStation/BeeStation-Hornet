@@ -36,10 +36,23 @@
 
 /// Called when a client mouses over this atom
 /atom/proc/on_mouse_enter(client/client)
-	if (!client.show_screentips)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/mob/user = client?.mob
+
+	if(isnull(user))
 		return
-	if (isnewplayer(client.mob))
+
+	if(isnewplayer(user))
 		return
+
+	// Handle mouse prefs
+	var/should_show_tips = client.show_screentips
+
+	//Show screentips
+	if (!should_show_tips)
+		return
+
 	// =====================================================
 	// Initialise data
 	// =====================================================

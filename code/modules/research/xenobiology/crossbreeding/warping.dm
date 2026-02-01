@@ -41,7 +41,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/warped_rune/Moved(atom/OldLoc, Dir)
+/obj/effect/warped_rune/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	rune_turf = get_turf(src)
 

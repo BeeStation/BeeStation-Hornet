@@ -51,6 +51,11 @@
 	QDEL_LIST(diseases)
 	return ..()
 
+/mob/living/update_overlays()
+	. = ..()
+	if(combat_indicator)
+		. += GLOB.combat_indicator_overlay
+
 /mob/living/proc/can_bumpslam()
 	REMOVE_TRAIT(src, TRAIT_NO_BUMP_SLAM, type)
 
@@ -2305,3 +2310,156 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
 	return TRUE
+
+//#define COMBAT_NOTICE_COOLDOWN (10 SECONDS)
+GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
+
+/proc/GenerateCombatOverlay()
+	var/mutable_appearance/combat_indicator = mutable_appearance('icons/misc/combat_indicator.dmi', "combat", FLY_LAYER)
+	combat_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
+	return combat_indicator
+
+/**
+ * Called whenever a mob's stat changes.
+ * Checks if the mob's stat is greater than SOFT_CRIT, and if it is, it will disable CI.
+ *
+ * Arguments:
+ * * source -- The mob in question that toggled CI status.
+ * * new_stat -- The new stat of the mob.
+ */
+
+/mob/living/proc/ci_on_stat_change(mob/source, new_stat)
+	SIGNAL_HANDLER
+	if(new_stat <= SOFT_CRIT)
+		return
+
+	//set_combat_mode will already run set_combat_indicator, but we need to ensure involuntary is passed :)
+	set_combat_indicator(FALSE, involuntary = TRUE)
+	set_combat_mode(FALSE)
+
+/**
+ * Called whenever a mob's CI status changes for any reason.
+ *
+ * Checks if the mob is dead, if config disallows CI, or if the current CI status is the same as state, and if it is, it will change CI status to state.
+ *
+ * Arguments:
+ * * state -- Boolean. Inherited from the procs that call this, basically it's what that proc wants CI to change to - true or false, on or off.
+ * * involuntary -- Boolean. If true, the mob is dead or unconscious, and the log will reflect that.
+ */
+
+/mob/living/proc/set_combat_indicator(state, involuntary = FALSE)
+	if(!CONFIG_GET(flag/combat_indicator))
+		return
+
+	if(combat_indicator == state) // If the mob is dead (should not happen) or if the combat_indicator is the same as state (also shouldnt happen) kill the proc.
+		return
+
+	if(stat == DEAD)
+		disable_combat_indicator(involuntary)
+
+	combat_indicator = state
+
+	SEND_SIGNAL(src, COMSIG_MOB_CI_TOGGLED)
+
+	if(combat_indicator)
+		enable_combat_indicator()
+	else
+		disable_combat_indicator()
+
+/**
+ * Called whenever a mob enables CI.
+ *
+ * Plays a sound, sents a message to chat, updates their overlay, and sets the mob's CI status to true.
+ */
+
+/mob/living/proc/enable_combat_indicator()
+	if(COOLDOWN_FINISHED(src, nextcombatpopup))
+		COOLDOWN_START(src, nextcombatpopup, combat_notice_cooldown)
+		playsound(src, 'sound/machines/chime.ogg', vol = 5, vary = FALSE, extrarange = -6, falloff_exponent = 4, frequency = null, channel = 0, pressure_affected = FALSE, ignore_walls = FALSE, falloff_distance = 1)
+		flick_emote_popup_on_mob("combat", 1 SECONDS)
+		var/ciweapon
+		if(get_active_held_item())
+			ciweapon = get_active_held_item()
+			if(istype(ciweapon, /obj/item/gun))
+				visible_message(span_boldwarning("[src] raises \the [ciweapon] with their finger on the trigger!"))
+			else
+				visible_message(span_boldwarning("[src] readies \the [ciweapon] with a tightened grip!"))
+		else
+			if(issilicon(src))
+				visible_message(span_boldwarning("<b>[src] shifts its armour plating into a defensive stance!"))
+			if(ishuman(src))
+				visible_message(span_boldwarning("[src] raises [p_their()] fists!"))
+			if(isalien(src))
+				visible_message(span_boldwarning("[src] hisses in a terrifying stance!"))
+			else
+				visible_message(span_boldwarning("[src] gets ready for combat!"))
+	combat_indicator = TRUE
+	apply_status_effect(/datum/status_effect/grouped/surrender, src)
+	log_message("<font color='red'>[src] has turned ON the combat indicator!</font>", LOG_ATTACK)
+	RegisterSignal(src, COMSIG_MOB_STATCHANGE , PROC_REF(ci_on_stat_change))
+	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+
+/**
+ * Called whenever a mob disables CI. Or when they die or fall unconscious.
+ *
+ * Arguments:
+ * * involuntary -- Boolean. If true, the mob is dead or unconscious, and the log will reflect that.
+ */
+
+/mob/living/proc/disable_combat_indicator(involuntary = FALSE)
+	combat_indicator = FALSE
+	remove_status_effect(/datum/status_effect/grouped/surrender, src)
+	if(involuntary)
+		log_message("<font color='cyan'>[src] has fallen unconsious or has died, and lost their combat indicator!</font>", LOG_ATTACK)
+	else
+		log_message("<font color='cyan'>[src] has turned OFF the combat indicator!</font>", LOG_ATTACK)
+	UnregisterSignal(src, COMSIG_MOB_STATCHANGE)
+	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+
+/**
+ * Called whenever a mob enters a vehicle/sealed, after everything else.
+ *
+ * Sets the vehicle's CI status to that of the mob if the mob is a driver and there are no other drivers, or if the mob is a passenger and there are no drivers.
+ *
+ * Arguments:
+ * * user -- mob/living, the mob that is entering the vehicle.
+ */
+
+/obj/vehicle/sealed/proc/handle_ci_migration(mob/living/user)
+	if(!typesof(user.loc, /obj/vehicle/sealed)) //Sanity check: If the mob's location (not the tile they are on) is NOT a type of vehicle/sealed, kill the proc.
+		return
+	//If the vehicle can have more passenger seats than driver seats (note: each driver seat counts as a passenger seat) AND both: The mob is not a driver, and the vehicle has a driver, return.
+	if ((src.max_occupants > src.max_drivers) && ((!(user in return_drivers())) && (src.driver_amount() > 0)))
+		return
+	if (user.combat_indicator && !combat_indicator_vehicle) // Finally, if all conditions prior are not met, and the mob has CI enabled and the vehicle doesn't, enable CI.
+		combat_indicator_vehicle = TRUE
+		update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+
+/**
+ * Called whenever a mob exits a vehicle/sealed, after everything else.
+ *
+ * Disables the vehicle's CI if it was enabled, and if it was the only occupant (or there was noone else in the mech with CI enabled).
+ *
+ * Arguments:
+ * * user -- mob/living, the mob that is exiting the vehicle.
+ */
+
+/obj/vehicle/sealed/proc/disable_ci(mob/living/user)
+	// If the vehicle can have more occupants than drivers, and either 1. The mob is not a driver and the vehicle has drivers, or 2. The user IS a driver but there is an occupant (drivers count as occupants), return.
+	if ((src.max_occupants > src.max_drivers) && ((!(user in return_drivers()) && (src.driver_amount() > 0)) || ((user in return_drivers()) && (src.occupant_amount() > 0))))
+		return
+	// If the preceding conditions are not met, and the vehicle has CI, look at each occupant to see if there is a non-driver with CI enabled. If yes, stop the proc, if no, disable CI.
+	if (combat_indicator_vehicle)
+		var/has_occupant_with_ci = FALSE
+		if (src.occupant_amount() > src.driver_amount())
+			for (var/mob/living/vehicle_occupant in return_occupants())
+				if (vehicle_occupant in return_drivers()) //this for loop does not account for multiple clowns in clown cars. i will not account for that. fuck that.
+					continue
+				if (vehicle_occupant.combat_indicator)
+					has_occupant_with_ci = TRUE
+					break
+		if (!has_occupant_with_ci)
+			combat_indicator_vehicle = FALSE
+			update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+
+//#undef COMBAT_NOTICE_COOLDOWN

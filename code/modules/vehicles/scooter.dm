@@ -20,7 +20,7 @@
 		qdel(src)
 	return TRUE
 
-/obj/vehicle/ridden/scooter/Moved()
+/obj/vehicle/ridden/scooter/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m

@@ -80,6 +80,8 @@
 
 	stop_pulling()
 
+	cut_overlay(GLOB.combat_indicator_overlay)
+
 	. = ..()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)

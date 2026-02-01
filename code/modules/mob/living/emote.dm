@@ -379,12 +379,14 @@
 	key_third_person = "surrenders"
 	message = "puts their hands on their head and falls to the ground, surrendering"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	stat_allowed = SOFT_CRIT
 
-/datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/surrender/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
 	if(isliving(user) && intentional)
 		var/mob/living/living = user
 		living.Paralyze(20 SECONDS)
+		living.set_combat_mode(FALSE)
 
 /datum/emote/living/sway
 	key = "sway"

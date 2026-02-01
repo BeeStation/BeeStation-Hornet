@@ -1,6 +1,6 @@
 //From NSV13
 //Credit to oraclestation for the idea! This just a recode...
-// Recode CanAllowThrough() at some point, it won't allow ridden vehicles
+// Recode CanAllowThrough() at some point, it won't allow ridden vehicles //no
 
 /obj/machinery/turnstile
 	name = "turnstile"
@@ -285,9 +285,13 @@
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
 	if(machine_stat & BROKEN)
 		return FALSE
-	// Let everything through in 1 direction
+
+	// Nerds get to go one way
 	if(mover.dir == dir)
-		return TRUE
+		// But only if they're actually facing the turnstile
+		if(is_source_facing_target(mover, src))
+			return TRUE
+
 	// Call the default allowed functionality, handles:
 	// - Mobs with security access
 	// - Mobs with security access that are buckled to a vehicle

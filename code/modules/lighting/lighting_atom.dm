@@ -91,7 +91,7 @@
 	recalculate_directional_opacity()
 
 
-/atom/movable/Moved(atom/OldLoc, Dir)
+/atom/movable/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		light.source_atom.update_light()

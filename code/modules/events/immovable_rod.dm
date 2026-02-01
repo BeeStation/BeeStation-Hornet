@@ -90,7 +90,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(istype(ghost))
 			ghost.check_orbitable(src)
 
-/obj/effect/immovablerod/Moved()
+/obj/effect/immovablerod/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(!loc || QDELETED(src))
 		return ..()
 	//Moved more than 10 tiles in 1 move.

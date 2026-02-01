@@ -86,12 +86,16 @@
 				return 0
 
 /mob/living/proc/set_combat_mode(new_mode, silent = TRUE)
+
 	if(combat_mode == new_mode)
 		return
 	. = combat_mode
 	combat_mode = new_mode
 	if(hud_used?.action_intent)
 		hud_used.action_intent.update_appearance()
+
+	set_combat_indicator(new_mode)
+
 	if(silent || !(client?.prefs.read_preference(/datum/preference/toggle/sound_combatmode)))
 		return
 	if(combat_mode)

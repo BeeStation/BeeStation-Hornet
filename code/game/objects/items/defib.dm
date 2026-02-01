@@ -344,7 +344,7 @@
 	listeningTo = user
 	check_range()
 
-/obj/item/shockpaddles/Moved()
+/obj/item/shockpaddles/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!istype(loc, /mob/living))
 		check_range()

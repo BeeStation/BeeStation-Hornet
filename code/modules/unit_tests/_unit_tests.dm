@@ -60,6 +60,7 @@
 #include "mindbound_actions.dm"
 #include "missing_icons.dm"
 #include "modsuit.dm"
+#include "movement_order_sanity.dm"
 #include "mutant_organs.dm"
 #include "organs.dm"
 #include "orphaned_genturf.dm"
