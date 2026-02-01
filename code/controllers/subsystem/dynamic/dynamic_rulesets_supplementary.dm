@@ -113,4 +113,5 @@
 	weight = 8
 	points_cost = 12
 	minimum_players_required = 16
+	ruleset_flags = SHOULD_USE_ANTAG_REP | REQUIRED_POP_ALLOW_UNREADY
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)

@@ -47,6 +47,9 @@
 /// antagonists to a single ruleset, and just assume that if an antagonist exists it is because of
 /// us.
 #define NO_CONVERSION_TRANSFER_RULESET (1 << 8)
+/// If this flag is set, then minimum player count cares about total pop rather than
+/// crew counts.
+#define REQUIRED_POP_ALLOW_UNREADY (1 << 9)
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1

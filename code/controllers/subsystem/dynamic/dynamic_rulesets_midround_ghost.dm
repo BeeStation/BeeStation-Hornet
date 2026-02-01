@@ -8,7 +8,7 @@
 
 /datum/dynamic_ruleset/midround/ghost
 	abstract_type = /datum/dynamic_ruleset/midround/ghost
-	ruleset_flags = CANNOT_REPEAT | NO_TRANSFER_RULESET
+	ruleset_flags = CANNOT_REPEAT | NO_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 
 	/// List of possible locations for this antag to spawn
 	var/list/spawn_locations = list()

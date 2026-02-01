@@ -140,8 +140,13 @@
 		return FALSE
 
 	var/players = length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
-	if (!SSticker.HasRoundStarted() || istype(src, /datum/dynamic_ruleset/supplementary))
+	if (ruleset_flags & REQUIRED_POP_ALLOW_UNREADY)
+		// If we can use unreadied players, take anyone in the game
 		players = length(GLOB.player_list)
+	else if (!SSticker.HasRoundStarted())
+		// If the round hasn't started and we can't use unreadied players,
+		// then take the total number of ready players
+		players = SSticker.totalPlayersReady
 
 	if(players < minimum_players_required)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum player requirement! (minimum players: [minimum_players_required]) (players: [players])")
