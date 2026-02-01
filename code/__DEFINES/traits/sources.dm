@@ -53,7 +53,8 @@
 #define STATION_TRAIT "station-trait"
 #define TRAIT_RUSTY "rust_trait"
 #define ACTION_TRAIT "action_trait"
-#define TURF_TRAIT "turf"
+#define TRAIT_LEANING "leaning"
+#define TRAIT_REGEN_COMA "regencoma"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
@@ -118,8 +119,10 @@
 #define HANDCUFFED_TRAIT "handcuffed"
 /// Trait granted by [/obj/item/warpwhistle]
 #define WARPWHISTLE_TRAIT "warpwhistle"
-/// Trait sorce for "was recently shocked by something"
+/// Trait source for "was recently shocked by something"
 #define WAS_SHOCKED "was_shocked"
+/// Trait source for turfs
+#define TURF_TRAIT "turf"
 /// Trait applied by by [/datum/component/soulstoned]
 #define SOULSTONE_TRAIT "soulstone"
 /// Trait applied to slimes by low temperature
@@ -185,3 +188,5 @@
 #define MODULE_TRAIT "module_trait"
 /// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
+/// Source for chameleon ietms
+#define FROM_CHAMELEON "from_chameleon"

@@ -54,15 +54,16 @@
 			if(!L.stat)
 				if(!L.incapacitated(IGNORE_RESTRAINTS))
 					L.face_atom(src)
-				L.do_alert_animation(L)
+				L.do_alert_animation()
 		playsound(loc, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
-/mob/living/proc/do_alert_animation()
-	var/image/alert_image = image('icons/obj/storage/closet.dmi', src, "cardboard_special", layer+1)
-	alert_image.plane = ABOVE_LIGHTING_PLANE
-	flick_overlay_view(alert_image, 0.8 SECONDS)
-	alert_image.alpha = 0
-	animate(alert_image, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
+/// Does the MGS ! animation
+/atom/proc/do_alert_animation()
+	var/mutable_appearance/alert = mutable_appearance('icons/obj/storage/closet.dmi', "cardboard_special")
+	alert.plane = ABOVE_LIGHTING_PLANE
+	var/atom/movable/flick_visual/exclamation = flick_overlay_view(alert, 1 SECONDS)
+	exclamation.alpha = 0
+	animate(exclamation, pixel_z = 32, alpha = 255, time = 0.5 SECONDS, easing = ELASTIC_EASING)
 
 
 /obj/structure/closet/cardboard/metal
