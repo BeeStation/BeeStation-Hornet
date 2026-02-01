@@ -9,7 +9,7 @@
 	last_for = 8 MINUTES
 	var/turf/highest_bid_location = null
 
-/datum/priority_directive/acquire_funding/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
+/datum/priority_directive/acquire_funding/allocate_teams(list/uplinks, list/player_minds, force = FALSE)
 	if (length(uplinks) < 2 && !force)
 		reject()
 		return
@@ -24,7 +24,7 @@
 		"bid" = 0
 	))
 
-/datum/priority_directive/acquire_funding/_generate(list/teams)
+/datum/priority_directive/acquire_funding/generate(list/teams)
 	return rand(4, 8)
 
 /datum/priority_directive/acquire_funding/get_track_atom(turf/origin, datum/component/uplink/tracker)

@@ -8,7 +8,7 @@
 	shared = TRUE
 	var/obj/item/storage/deaddrop_box/target
 
-/datum/priority_directive/deaddrop/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
+/datum/priority_directive/deaddrop/allocate_teams(list/uplinks, list/player_minds, force = FALSE)
 	if (length(uplinks) <= 1 && !force)
 		reject()
 		return
@@ -19,7 +19,7 @@
 /datum/priority_directive/deaddrop/late_allocate(datum/component/uplink/uplink)
 	return add_antagonist_team(uplink)
 
-/datum/priority_directive/deaddrop/_generate(list/teams)
+/datum/priority_directive/deaddrop/generate(list/teams)
 	// Spawn the deaddrop package
 	var/tc_count = rand(2, 4)
 	// Put the deaddrop somewhere

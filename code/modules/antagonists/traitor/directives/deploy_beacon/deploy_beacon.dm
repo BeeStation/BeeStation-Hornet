@@ -15,7 +15,7 @@
 	var/list/empty_uplinks = list()
 	var/last_time_update = INFINITY
 
-/datum/priority_directive/deploy_beacon/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
+/datum/priority_directive/deploy_beacon/allocate_teams(list/uplinks, list/player_minds, force = FALSE)
 	empty_uplinks.Cut()
 	if (length(uplinks) < 2 && !force)
 		reject()
@@ -64,7 +64,7 @@
 	smallest_team.uplinks += uplink
 	return smallest_team
 
-/datum/priority_directive/deploy_beacon/_generate(list/teams)
+/datum/priority_directive/deploy_beacon/generate(list/teams)
 	return rand(2, 4)
 
 /datum/priority_directive/deploy_beacon/get_track_atom(turf/origin, datum/component/uplink/tracker)

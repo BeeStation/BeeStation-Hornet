@@ -59,12 +59,12 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	teams.Cut()
 	rejected = FALSE
 	can_timeout = TRUE
-	_allocate_teams(uplinks, player_minds, force)
+	allocate_teams(uplinks, player_minds, force)
 	return !rejected
 
 /// Allocate teams for this directive. Call reject() to reject this directive and
 /// add_antagonist_team to add antagonist teams.
-/datum/priority_directive/proc/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
+/datum/priority_directive/proc/allocate_teams(list/uplinks, list/player_minds, force = FALSE)
 	PROTECTED_PROC(TRUE)
 
 /// Handle late allocation
@@ -73,7 +73,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	return null
 
 /// Return the reward type and amount
-/datum/priority_directive/proc/_generate(list/teams)
+/datum/priority_directive/proc/generate(list/teams)
 	PROTECTED_PROC(TRUE)
 
 /// Get the tracking target of this atom
@@ -100,7 +100,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 /datum/priority_directive/proc/start(list/uplinks)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	end_at = world.time + last_for
-	tc_reward = _generate(teams)
+	tc_reward = generate(teams)
 	for (var/datum/component/uplink/uplink in uplinks)
 		log_directive("Priority directive: [objective_explanation]. Assigned: [uplink.owner ? key_name(uplink.owner) : "Unknown"].")
 	mission_update("New priority directive relayed to available uplinks. [objective_explanation]", prefix = "")

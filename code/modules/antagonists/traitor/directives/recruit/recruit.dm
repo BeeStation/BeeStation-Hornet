@@ -12,11 +12,11 @@
 	var/obj/item/implanter/bloodbrother/implanter_to_track = null
 	var/equipment_granted = FALSE
 
-/datum/priority_directive/recruit/_allocate_teams(list/uplinks, list/player_minds, force)
+/datum/priority_directive/recruit/allocate_teams(list/uplinks, list/player_minds, force)
 	// Never automatically run this directive
 	reject()
 
-/datum/priority_directive/recruit/_generate(list/teams)
+/datum/priority_directive/recruit/generate(list/teams)
 	return 0
 
 /datum/priority_directive/recruit/get_track_atom(turf/origin, datum/component/uplink/tracker)

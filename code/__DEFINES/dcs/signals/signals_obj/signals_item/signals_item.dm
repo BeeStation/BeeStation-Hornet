@@ -120,3 +120,6 @@
 
 ///from base of /item/canvas/ui_act(), "change_color" action: (chosen_color, color_index)
 #define COMSIG_PAINTING_TOOL_PALETTE_COLOR_CHANGED "painting_tool_palette_color_changed"
+
+/// Called by poison paper when a user applies it (atom/target, mob/living/user)
+#define COMSIG_POISON_PAPER_APPLIED "posion_paper_applied"

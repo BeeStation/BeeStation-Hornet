@@ -268,3 +268,9 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// and that we cannot continue the round without issue if they were
 /// simply removed or swapped.
 #define ANTAGONIST_LEAVE_KEEP 2
+
+// Steal Directive Flags
+// ------------------------------------
+
+/// Is this item available for the toxin directive?
+#define STEAL_DIRECTIVE_TOXIN (1 << 0)

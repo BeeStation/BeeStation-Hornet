@@ -7,11 +7,11 @@
 		granted immediately upon the death of the target."
 	reputation_loss = REPUTATION_LOSS_SOLO_DIRECTIVE
 	shared = FALSE
-	last_for = 30 MINUTES
+	last_for = 40 MINUTES
 	var/mob/living/target = null
 	var/datum/mind/target_mind = null
 
-/datum/priority_directive/assassination/_allocate_teams(list/uplinks, list/player_minds, force)
+/datum/priority_directive/assassination/allocate_teams(list/uplinks, list/player_minds, force)
 	if (!length(uplinks) && !force)
 		reject()
 		return
@@ -72,7 +72,7 @@
 	// Create the team
 	add_antagonist_team(uplinks)
 
-/datum/priority_directive/assassination/_generate(list/teams)
+/datum/priority_directive/assassination/generate(list/teams)
 	return rand(4, 8)
 
 /datum/priority_directive/assassination/get_track_atom(turf/origin, datum/component/uplink/tracker)
