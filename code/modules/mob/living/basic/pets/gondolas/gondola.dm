@@ -1,5 +1,5 @@
 #define GONDOLA_HEIGHT pick(list("gondola_body_long", "gondola_body_medium", "gondola_body_short"))
-#define GONDOLA_COLOR pick(list("A87855", "915E48", "683E2C"))
+#define GONDOLA_COLOR pick(list("#A87855", "#915E48", "#683E2C"))
 #define GONDOLA_MOUSTACHE pick(list("gondola_moustache_large", "gondola_moustache_small"))
 #define GONDOLA_EYES pick(list("gondola_eyes_close", "gondola_eyes_far"))
 
@@ -52,7 +52,7 @@
 	var/mutable_appearance/body_overlay = mutable_appearance(icon, height)
 	var/mutable_appearance/eyes_overlay = mutable_appearance(icon, GONDOLA_EYES)
 	var/mutable_appearance/moustache_overlay = mutable_appearance(icon, GONDOLA_MOUSTACHE)
-	body_overlay.color = ("#[GONDOLA_COLOR]")
+	body_overlay.color = GONDOLA_COLOR
 
 	//Offset the face to match the Gondola's height.
 	switch(height)
