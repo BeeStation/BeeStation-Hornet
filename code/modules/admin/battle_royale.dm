@@ -330,6 +330,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	config.alert_pic = /obj/item/claymore
 	var/list/participants = SSpolling.poll_ghost_candidates(config)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
+	if(!spawn_turf)
+		return
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
 	players = list()
@@ -388,6 +390,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(!item_path)
 		return
 	var/turf/target = get_safe_random_station_turfs()
+	if(!target)
+		return
 	var/obj/structure/closet/supplypod/battleroyale/pod = new()
 	if(islist(item_path))
 		for(var/thing in item_path)
