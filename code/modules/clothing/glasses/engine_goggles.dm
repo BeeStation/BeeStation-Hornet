@@ -25,7 +25,7 @@
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	update_appearance(UPDATE_ICON_STATE)
+	update_icon()
 
 /obj/item/clothing/glasses/meson/engine/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -53,8 +53,7 @@
 		if(H.glasses == src)
 			H.update_sight()
 
-	update_appearance(UPDATE_ICON_STATE)
-	update_mob()
+	update_icon()
 	update_action_buttons()
 
 /obj/item/clothing/glasses/meson/engine/attack_self(mob/user)
@@ -89,9 +88,9 @@
 				pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
 			flick_overlay_global(pic, list(user.client), 8)
 
-/obj/item/clothing/glasses/meson/engine/update_icon_state()
-	. = ..()
+/obj/item/clothing/glasses/meson/engine/update_icon()
 	icon_state = "trayson-[mode]"
+	update_mob()
 
 /obj/item/clothing/glasses/meson/engine/proc/update_mob()
 	inhand_icon_state = icon_state
