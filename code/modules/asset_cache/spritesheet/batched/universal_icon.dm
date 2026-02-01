@@ -21,7 +21,7 @@
 	src.icon_state = icon_state
 	src.dir = dir
 	src.frame = frame
-	if(isnull(transform) && !isnull(color) && uppertext(color) != COLOR_WHITE)
+	if(isnull(transform) && !isnull(color) && uppertext(color) != "#FFFFFF")
 		var/datum/icon_transformer/T = new()
 		if(color)
 			T.blend_color(color, ICON_MULTIPLY)

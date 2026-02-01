@@ -809,7 +809,7 @@
 	use_overlays = FALSE
 
 	can_change_colour = FALSE
-	paint_color = COLOR_WHITE //RGB
+	paint_color = COLOR_WHITE
 
 	pre_noise = FALSE
 	post_noise = FALSE

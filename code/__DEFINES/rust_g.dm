@@ -215,7 +215,7 @@
 ///     ...,
 /// )
 /// TRANSFORM_OBJECT format:
-/// list("type" = RUSTG_ICONFORGE_BLEND_COLOR, "color" = COLOR_RED, "blend_mode" = ICON_MULTIPLY)
+/// list("type" = RUSTG_ICONFORGE_BLEND_COLOR, "color" = "#ff0000", "blend_mode" = ICON_MULTIPLY)
 /// list("type" = RUSTG_ICONFORGE_BLEND_ICON, "icon" = [SPRITE_OBJECT], "blend_mode" = ICON_OVERLAY)
 /// list("type" = RUSTG_ICONFORGE_SCALE, "width" = 32, "height" = 32)
 /// list("type" = RUSTG_ICONFORGE_CROP, "x1" = 1, "y1" = 1, "x2" = 32, "y2" = 32) // (BYOND icons index from 1,1 to the upper bound, inclusive)
