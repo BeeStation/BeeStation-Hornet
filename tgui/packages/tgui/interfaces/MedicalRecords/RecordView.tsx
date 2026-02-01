@@ -101,7 +101,7 @@ export const MedicalRecordView = (props) => {
                   onChange={(_, value) =>
                     act('edit_field', {
                       field: 'age',
-                      ref: record_ref,
+                      record_ref: record_ref,
                       value: value,
                     })
                   }

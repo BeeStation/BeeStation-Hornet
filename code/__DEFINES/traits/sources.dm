@@ -184,3 +184,5 @@
 #define MODULE_TRAIT "module_trait"
 /// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
+/// Source for chameleon ietms
+#define FROM_CHAMELEON "from_chameleon"
