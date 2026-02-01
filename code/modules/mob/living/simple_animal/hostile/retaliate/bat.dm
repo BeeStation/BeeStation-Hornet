@@ -38,8 +38,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/bat/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	add_traits(list(TRAIT_VENTCRAWLER_ALWAYS, TRAIT_SPACEWALK), INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/retaliate/bat/vampire
 	desc = "A rare breed of bat which roosts in spaceships.\nLooks a little... bloody."
