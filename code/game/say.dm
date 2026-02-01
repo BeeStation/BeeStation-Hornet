@@ -104,9 +104,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	SHOULD_BE_PURE(TRUE)
 	return !HAS_TRAIT(src, TRAIT_MUTE)
 
-/atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list(), forced = FALSE)
+/atom/movable/proc/send_speech(message_raw, message_range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list(), forced = FALSE)
 	var/list/show_overhead_message_to = list()
-	var/list/listeners = get_hearers_in_view(range, source, SEE_INVISIBLE_MAXIMUM)
+	var/list/listeners = get_hearers_in_view(message_range, source, SEE_INVISIBLE_MAXIMUM)
 	for(var/atom/movable/hearing_movable as anything in listeners)
 		if(!hearing_movable)//theoretically this should use as anything because it shouldnt be able to get nulls but there are reports that it does.
 			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
@@ -115,9 +115,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 			var/mob/M = hearing_movable
 			if(M.should_show_chat_message(source, message_language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
-		hearing_movable.Hear(src, message_language, message, null, spans, message_mods, range)
+		hearing_movable.Hear(src, message_language, message_raw, null, spans, message_mods, message_range)
 	if(length(show_overhead_message_to))
-		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
+		create_chat_message(src, message_language, show_overhead_message_to, message_raw, spans, message_mods)
 
 /// this creates runechat, so that they can communicate better
 /atom/movable/proc/create_private_chat_message(message, datum/language/message_language=/datum/language/metalanguage, list/hearers, includes_ghosts=TRUE)
@@ -187,10 +187,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
 
-/atom/movable/proc/compose_track_href(atom/movable/speaker, message_langs, raw_message, radio_freq)
+/atom/movable/proc/compose_track_href(atom/movable/speaker, message_language, raw_message, radio_freq)
 	return ""
 
-/atom/movable/proc/compose_job(atom/movable/speaker, message_langs, raw_message, radio_freq)
+/atom/movable/proc/compose_job(atom/movable/speaker, message_language, raw_message, radio_freq)
 	return ""
 
 /**
