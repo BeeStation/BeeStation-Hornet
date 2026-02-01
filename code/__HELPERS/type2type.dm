@@ -466,7 +466,7 @@
 		else
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
-/// Converts a text color like "red" to a hex color (COLOR_RED)
+/// Converts a text color like "red" to a hex color ("#FF0000")
 /proc/color2hex(color)	//web colors
 	if(!color)
 		return COLOR_BLACK

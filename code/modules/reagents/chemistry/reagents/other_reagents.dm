@@ -885,7 +885,7 @@
 /datum/reagent/mercury
 	name = "Mercury"
 	description = "A curious metal that's a liquid at room temperature. Neurodegenerative and very bad for the mind."
-	color = COLOR_WEBSAFE_DARK_GRAY // rgb: 72, 72, 72A
+	color = COLOR_WEBSAFE_DARK_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
 	taste_mult = 0 // apparently tasteless.
 
@@ -1390,7 +1390,7 @@
 	name = "Mundane Powder" //the name's a bit similar to the name of colorful reagent, but hey, they're practically the same chem anyway
 	description = "A powder that is used for coloring things."
 	reagent_state = SOLID
-	color = COLOR_WHITE // rgb: 207, 54, 0
+	color = COLOR_WHITE
 	color_intensity = 50
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "the back of class"
@@ -1456,7 +1456,7 @@
 /datum/reagent/colorful_reagent/powder/white
 	name = "White Dye Powder"
 	colorname = "white"
-	color = COLOR_WHITE // white
+	color = COLOR_WHITE
 	random_color_list = list(COLOR_WHITE) //doesn't actually change appearance at all
 
 /* used by crayons, can't color living things but still used for stuff like food recipes */
@@ -1508,7 +1508,7 @@
 /datum/reagent/plantnutriment
 	name = "Generic nutriment"
 	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
-	color = COLOR_BLACK // RBG: 0, 0, 0
+	color = COLOR_BLACK
 	chemical_flags = CHEMICAL_NOT_DEFINED // this shouldn't exist
 	var/tox_prob = 0
 	taste_description = "plant food"
@@ -1895,7 +1895,7 @@
 /datum/reagent/growthserum
 	name = "Growth Serum"
 	description = "A commercial chemical designed to help older men in the bedroom."//not really it just makes you a giant
-	color = COLOR_RED//strong red. rgb 255, 0, 0
+	color = COLOR_RED
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness" // apparently what viagra tastes like
 
