@@ -327,6 +327,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message_raw)
 
 	var/list/show_overhead_message_to = list()
+	var/list/show_overhead_message_to_eavesdrop = list()
 	for(var/atom/movable/listening_movable as anything in listening)
 		if(!listening_movable)
 			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
@@ -335,10 +336,21 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(ismob(listening_movable))
 			var/mob/M = listening_movable
 			if(M.should_show_chat_message(src, message_language, FALSE, is_heard = TRUE))
-				show_overhead_message_to += M
+				// separate hearers into close (clear) and far (distorted) for runechat
+				if(is_speaker_whispering && !HAS_TRAIT(M, TRAIT_GOOD_HEARING))
+					var/dist = get_dist(source, M) - message_range
+					if(dist > 0 && dist <= EAVESDROP_EXTRA_RANGE)
+						show_overhead_message_to_eavesdrop += M
+					else if(dist <= 0)
+						show_overhead_message_to += M
+					// If dist > EAVESDROP_EXTRA_RANGE, too far for runechat
+				else
+					show_overhead_message_to += M
 		listening_movable.Hear(speaker = src, message_language = message_language, raw_message = message_raw, radio_freq = null, spans = spans, message_mods = message_mods, message_range = message_range)
 	if(length(show_overhead_message_to))
 		create_chat_message(src, message_language, hearers = show_overhead_message_to, raw_message = message_raw, spans = spans)
+	if(length(show_overhead_message_to_eavesdrop))
+		create_chat_message(src, message_language, hearers = show_overhead_message_to_eavesdrop, raw_message = stars(message_raw), spans = spans)
 
 	//speech bubble
 	var/list/speech_bubble_recipients = list()
