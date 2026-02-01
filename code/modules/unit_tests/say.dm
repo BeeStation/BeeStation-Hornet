@@ -153,7 +153,7 @@
 	speaker.forceMove(run_loc_floor_bottom_left)
 	listener.forceMove(locate((run_loc_floor_bottom_left.x + distance), run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z))
 
-	var/pangram_quote = "The quick brown fox jumps over the lazy dog"
+	var/pangram_quote = "The quick brown fox jumps over the lazy dog."
 
 	// speaking
 	speaker.say(pangram_quote)
