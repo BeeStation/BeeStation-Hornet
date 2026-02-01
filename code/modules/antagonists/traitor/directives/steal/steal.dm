@@ -75,6 +75,7 @@
 	if (equipment_summoned)
 		to_chat(user, span_warning("You have already obtained the equipment for this mission."))
 		return
+	equipment_summoned = TRUE
 	// Summon Equipment
 	var/obj/item/spawned = new /obj/item/poison_paper/sarin(user.loc, src)
 	user.put_in_active_hand(spawned)
@@ -91,3 +92,4 @@
 		finish()
 		return
 	grant_universal_victory()
+	finish()
