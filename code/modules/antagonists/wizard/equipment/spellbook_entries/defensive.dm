@@ -57,11 +57,10 @@
 	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/lichdom/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	. = ..()
 	if(HAS_TRAIT(user, TRAIT_FRAGMENTED_SOUL))
 		to_chat(user, span_boldwarning("You cannot store your soul into an object when you have already lost part of it."))
 		return FALSE
-	return .
+	return ..()
 
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
