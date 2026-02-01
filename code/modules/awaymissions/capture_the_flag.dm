@@ -430,10 +430,9 @@
 	ctf_enabled = FALSE
 	arena_reset = FALSE
 	var/area/A = get_area(src)
-	for(var/i in GLOB.mob_list)
-		var/mob/M = i
-		if((get_area(A) == A) && (M.ckey in team_members))
-			M.dust()
+	for(var/mob/living/competitor as anything in GLOB.mob_living_list)
+		if((get_area(A) == A) && (competitor.ckey in team_members))
+			competitor.dust()
 	team_members.Cut()
 	spawned_mobs.Cut()
 	recently_dead_ckeys.Cut()

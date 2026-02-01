@@ -108,7 +108,7 @@
 	log_game("[key_name(source)] created a ghoul, controlled by [key_name(human_target)].")
 	message_admins("[ADMIN_LOOKUPFLW(source)] created a ghoul, [ADMIN_LOOKUPFLW(human_target)].")
 
-	RegisterSignal(human_target, COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
+	RegisterSignal(human_target, COMSIG_LIVING_DEATH, PROC_REF(remove_ghoul))
 	human_target.revive(ADMIN_HEAL_ALL) // Have to do an admin heal here, otherwise they'll likely just die due to missing organs or limbs
 	human_target.setMaxHealth(GHOUL_MAX_HEALTH)
 	human_target.health = GHOUL_MAX_HEALTH
@@ -127,7 +127,7 @@
 	source.remove_status_effect(/datum/status_effect/ghoul)
 	source.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 
-	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	UnregisterSignal(source, COMSIG_LIVING_DEATH)
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul
 	name = "Imperfect Ritual"
@@ -204,7 +204,7 @@
 	selected_atoms -= soon_to_be_ghoul
 	LAZYADD(created_items, WEAKREF(soon_to_be_ghoul))
 
-	RegisterSignal(soon_to_be_ghoul, COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
+	RegisterSignal(soon_to_be_ghoul, COMSIG_LIVING_DEATH, PROC_REF(remove_ghoul))
 	return TRUE
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/remove_ghoul(mob/living/carbon/human/source)
@@ -215,7 +215,7 @@
 	source.remove_status_effect(/datum/status_effect/ghoul)
 	source.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 
-	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	UnregisterSignal(source, COMSIG_LIVING_DEATH)
 
 /datum/heretic_knowledge/flesh_mark
 	name = "Mark of Flesh"
