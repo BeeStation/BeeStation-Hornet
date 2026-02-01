@@ -31,7 +31,7 @@
 		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed)), 1 MINUTES, TIMER_STOPPABLE)
 	vote_active = TRUE
 
-/obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/eminence)
+/obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/living/eminence)
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
