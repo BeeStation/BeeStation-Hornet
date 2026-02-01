@@ -42,11 +42,10 @@
 	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/tap/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	. = ..()
 	if(HAS_TRAIT(user, TRAIT_NO_SOUL))
 		to_chat(user, span_boldwarning("You can't learn soul tap if you don't have a soul."))
 		return FALSE
-	return .
+	return ..()
 
 /datum/spellbook_entry/item/soulstones
 	name = "Soulstone Shard Kit"
