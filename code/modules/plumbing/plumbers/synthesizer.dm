@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/synthesizer)
 	if(reagent_id)
 		r_overlay.color = initial(reagent_id.color)
 	else
-		r_overlay.color = "#FFFFFF"
+		r_overlay.color = COLOR_WHITE
 
 	overlays += r_overlay
 	..()

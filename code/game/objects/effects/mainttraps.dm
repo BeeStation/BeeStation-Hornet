@@ -282,7 +282,7 @@
 	req_cultists = 9//if a cultist invokes this, it acts like an invocation rune by asking them to check this.
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "Cluwne"
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 	pixel_x = -32
 	pixel_y = -32
 	rune_in_use = FALSE
@@ -364,7 +364,7 @@
 		FC.dontkill = FALSE
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
 	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)

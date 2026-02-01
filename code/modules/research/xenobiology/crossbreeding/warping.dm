@@ -488,11 +488,11 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	desc = "Who shall we be today? they asked, but not even the canvas would answer."
 	icon_state = "rune_pyrite"
 	remove_on_activation = FALSE
-	var/colour = "#FFFFFF"
+	var/colour = COLOR_WHITE
 
 /obj/effect/warped_rune/pyritespace/Initialize(mapload)
 	. = ..()
-	colour = pick("#FFFFFF", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#FF00FF")
+	colour = pick(COLOR_WHITE, COLOR_RED, "#FFA500", COLOR_YELLOW, COLOR_VIBRANT_LIME, COLOR_BLUE, "#4B0082", COLOR_MAGENTA)
 
 /obj/effect/warped_rune/pyritespace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(isliving(AM))

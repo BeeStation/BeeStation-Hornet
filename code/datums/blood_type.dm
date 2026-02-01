@@ -89,7 +89,7 @@
 
 /datum/blood_type/lizard
 	name = "L"
-	blood_color = "#009696"
+	blood_color = COLOR_BLUSH_TEAL
 	compatible_types = list(
 		/datum/blood_type/lizard
 	)

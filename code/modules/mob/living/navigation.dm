@@ -121,7 +121,7 @@
 		if(!length(client.navigation_images))
 			return
 		animate(client.navigation_images[i], time = 1 SECONDS, loop = -1, alpha = 200, color = "#bbffff", easing = BACK_EASING | EASE_OUT)
-		animate(time = 2 SECONDS, loop = -1, alpha = 150, color = "#00ffff", easing = CUBIC_EASING | EASE_OUT)
+		animate(time = 2 SECONDS, loop = -1, alpha = 150, color = COLOR_CYAN, easing = CUBIC_EASING | EASE_OUT)
 		stoplag(0.1 SECONDS)
 
 /mob/living/proc/cut_navigation()

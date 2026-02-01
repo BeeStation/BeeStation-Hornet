@@ -59,7 +59,7 @@
 	if(!ishuman(new_ethereal))
 		return
 	var/mob/living/carbon/human/ethereal = new_ethereal
-	default_color = "#[ethereal.dna.features["ethcolor"]]"
+	default_color = ethereal.dna.features["ethcolor"]
 	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
@@ -93,7 +93,7 @@
 			current_color = rgb(built_color[1], built_color[2], built_color[3])
 	else
 		ethereal_light.set_light_on(FALSE)
-		fixed_mut_color = rgb(128,128,128)
+		fixed_mut_color = COLOR_GRAY
 	ethereal.update_body()
 	//ethereal.update_hair()
 

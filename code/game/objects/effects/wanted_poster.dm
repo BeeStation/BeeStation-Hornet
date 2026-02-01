@@ -12,7 +12,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 /obj/item/poster/wanted
 	icon_state = "rolled_poster"
 	var/postHeaderText = "WANTED" // MAX 7 Characters
-	var/postHeaderColor = "#FF0000"
+	var/postHeaderColor = COLOR_RED
 	var/background = "wanted_background"
 	var/postName = "wanted poster"
 	var/postDesc = "A wanted poster for"
@@ -21,7 +21,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 	postName = "missing poster"
 	postDesc = "A missing poster for"
 	postHeaderText = "MISSING" // MAX 7 Characters
-	postHeaderColor = "#0000FF"
+	postHeaderColor = COLOR_BLUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 

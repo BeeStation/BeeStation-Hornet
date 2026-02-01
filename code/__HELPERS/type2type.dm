@@ -466,22 +466,22 @@
 		else
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
-/// Converts a text color like "red" to a hex color ("#FF0000")
+/// Converts a text color like "red" to a hex color (COLOR_RED)
 /proc/color2hex(color)	//web colors
 	if(!color)
-		return "#000000"
+		return COLOR_BLACK
 
 	switch(color)
 		if("white")
-			return "#FFFFFF"
+			return COLOR_WHITE
 		if("black")
-			return "#000000"
+			return COLOR_BLACK
 		if("gray")
-			return "#808080"
+			return COLOR_GRAY
 		if("brown")
 			return "#A52A2A"
 		if("red")
-			return "#FF0000"
+			return COLOR_RED
 		if("darkred")
 			return "#8B0000"
 		if("crimson")
@@ -489,27 +489,27 @@
 		if("orange")
 			return "#FFA500"
 		if("yellow")
-			return "#FFFF00"
+			return COLOR_YELLOW
 		if("green")
-			return "#008000"
+			return COLOR_GREEN
 		if("lime")
-			return "#00FF00"
+			return COLOR_VIBRANT_LIME
 		if("darkgreen")
 			return "#006400"
 		if("cyan")
-			return "#00FFFF"
+			return COLOR_CYAN
 		if("blue")
-			return "#0000FF"
+			return COLOR_BLUE
 		if("navy")
-			return "#000080"
+			return COLOR_NAVY
 		if("teal")
-			return "#008080"
+			return COLOR_TEAL
 		if("purple")
-			return "#800080"
+			return COLOR_PURPLE
 		if("indigo")
 			return "#4B0082"
 		else
-			return "#FFFFFF"
+			return COLOR_WHITE
 
 /**
 This is a weird one: It returns a list of all var names found in the string. These vars must be in the [var_name] format

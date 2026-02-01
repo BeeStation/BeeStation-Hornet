@@ -41,7 +41,7 @@
 
 /datum/role_preference/midround/obsessed/get_preview_icon()
 	var/mob/living/carbon/human/dummy/consistent/victim_dummy = new
-	victim_dummy.hair_color = "b96" // Brown
+	victim_dummy.hair_color = "#bb9966" // Brown
 	victim_dummy.hair_style = "Messy"
 	victim_dummy.update_hair()
 

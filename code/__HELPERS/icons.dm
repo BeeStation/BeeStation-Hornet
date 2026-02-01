@@ -35,7 +35,7 @@ icon/MinColors(icon)
 icon/MaxColors(icon)
 	The icon is blended with a second icon where the maximum of each RGB pixel is the result.
 	Opacity may increase, as if the icons were blended with ICON_OR. You may supply a color in place of an icon.
-icon/Opaque(background = "#000000")
+icon/Opaque(background = COLOR_BLACK)
 	All alpha values are set to 255 throughout the icon. Transparent pixels become black, or whatever background color you specify.
 icon/BecomeAlphaMask()
 	You can convert a simple grayscale icon into an alpha mask to use with other icons very easily with this proc.
@@ -244,8 +244,8 @@ world
 	else
 		// solid color
 		I = new(src)
-		I.Blend("#000000", ICON_OVERLAY)
-		I.SwapColor("#000000", null)
+		I.Blend(COLOR_BLACK, ICON_OVERLAY)
+		I.SwapColor(COLOR_BLACK, null)
 		I.Blend(icon, ICON_OVERLAY)
 	var/icon/J = new(src)
 	J.Opaque()
@@ -253,7 +253,7 @@ world
 	Blend(I, ICON_OR)
 
 // make this icon fully opaque--transparent pixels become black
-/icon/proc/Opaque(background = "#000000")
+/icon/proc/Opaque(background = COLOR_BLACK)
 	SwapColor(null, background)
 	MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,0, 0,0,0,1)
 
@@ -269,7 +269,7 @@ world
 
 /icon/proc/AddAlphaMask(mask)
 	var/icon/M = new(mask)
-	M.Blend("#ffffff", ICON_SUBTRACT)
+	M.Blend(COLOR_WHITE, ICON_SUBTRACT)
 	// apply mask
 	Blend(M, ICON_ADD)
 
@@ -362,9 +362,9 @@ world
 	var/tone_gray = TONE[1]*0.3 + TONE[2]*0.59 + TONE[3]*0.11
 
 	if(gray <= tone_gray)
-		return BlendRGB("#000000", tone, gray/(tone_gray || 1))
+		return BlendRGB(COLOR_BLACK, tone, gray/(tone_gray || 1))
 	else
-		return BlendRGB(tone, "#ffffff", (gray-tone_gray)/((255-tone_gray) || 1))
+		return BlendRGB(tone, COLOR_WHITE, (gray-tone_gray)/((255-tone_gray) || 1))
 
 
 //Used in the OLD chem colour mixing algorithm

@@ -643,7 +643,7 @@
 /datum/reagent/consumable/space_up
 	name = "Space-Up"
 	description = "Tastes like a hull breach in your mouth."
-	color = "#00FF00" // rgb: 0, 255, 0
+	color = COLOR_VIBRANT_LIME
 	chemical_flags = CHEMICAL_BASIC_DRINK
 	taste_description = "cherry soda"
 
@@ -878,7 +878,7 @@
 /datum/reagent/consumable/chocolatepudding
 	name = "Chocolate Pudding"
 	description = "A great dessert for chocolate lovers."
-	color = "#800000"
+	color = COLOR_MAROON
 	chemical_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_VERYGOOD
 	nutriment_factor = 4 * REAGENTS_METABOLISM

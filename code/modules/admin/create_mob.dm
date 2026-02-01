@@ -29,7 +29,7 @@
 	// since they are usually important characters, and as we know from anime
 	// important characters always have colourful hair
 	if (unique)
-		H.hair_color = random_short_color()
+		H.hair_color = "#[random_color()]"
 		H.facial_hair_color = H.hair_color
 		var/list/rgb_list = rgb2num(H.hair_color)
 		var/list/hsl = rgb2hsl(rgb_list[1], rgb_list[2], rgb_list[3])
@@ -64,7 +64,7 @@
 	H.gradient_style = gradient_style.name
 
 	// Mutant randomizing, doesn't affect the mob appearance unless it's the specific mutant.
-	H.dna.features["mcolor"] = random_short_color()
+	H.dna.features["mcolor"] = "#[random_color()]"
 	H.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 	H.dna.features["tail_lizard"] = pick(GLOB.tails_list_lizard)
 	H.dna.features["snout"] = pick(GLOB.snouts_list)

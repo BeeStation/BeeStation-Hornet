@@ -21,7 +21,7 @@
 	window_name = "Automatic Security Unit v2.6"
 	allow_pai = 0
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
-	path_image_color = "#FF0000"
+	path_image_color = COLOR_RED
 	carryable = FALSE
 
 	var/lastfired = 0

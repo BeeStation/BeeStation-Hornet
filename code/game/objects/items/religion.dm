@@ -206,7 +206,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	item_flags = ISWEAPON
-	var/conversion_color = "#ffffff"
+	var/conversion_color = COLOR_WHITE
 	var/staffcooldown = 0
 	var/staffwait = 30
 
@@ -222,11 +222,11 @@
 
 /obj/item/godstaff/red
 	icon_state = "godstaff-red"
-	conversion_color = "#ff0000"
+	conversion_color = COLOR_RED
 
 /obj/item/godstaff/blue
 	icon_state = "godstaff-blue"
-	conversion_color = "#0000ff"
+	conversion_color = COLOR_BLUE
 
 /obj/item/clothing/gloves/plate
 	name = "Plate Gauntlets"

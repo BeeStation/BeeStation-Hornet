@@ -197,7 +197,7 @@
 
 /obj/effect/turf_decal/tile/black
 	name = "black corner"
-	color = "#000000"
+	color = COLOR_BLACK
 
 /obj/effect/turf_decal/tile/black/corner_ramp
 	icon_state = "tile_corner_ramp"
@@ -1030,7 +1030,7 @@
 /// White trimlines
 
 /obj/effect/turf_decal/trimline/white
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 
 /obj/effect/turf_decal/trimline/white/line
 	name = "trim decal"
@@ -1740,7 +1740,7 @@
 /// Black trimlines
 
 /obj/effect/turf_decal/trimline/black
-	color = "#000000"
+	color = COLOR_BLACK
 
 /obj/effect/turf_decal/trimline/black/line
 	name = "trim decal"

@@ -24,7 +24,7 @@
 		var/color = GLOB.color_list_ethereal[name]
 
 		var/datum/universal_icon/icon = ethereal_base.copy()
-		icon.blend_color("#[color]", ICON_MULTIPLY)
+		icon.blend_color(color, ICON_MULTIPLY)
 		values[name] = icon
 
 	return values

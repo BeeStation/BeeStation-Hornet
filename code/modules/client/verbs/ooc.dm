@@ -144,7 +144,7 @@ AUTH_CLIENT_VERB(ooc, msg as text)
 	set name = "Set All Player OOC Color"
 	set desc = "Modifies player OOC Color"
 	set category = "Fun"
-	GLOB.OOC_COLOR = sanitize_hexcolor(newColor, desired_format = 6, include_crunch = TRUE)
+	GLOB.OOC_COLOR = sanitize_hexcolor(newColor, include_crunch = TRUE)
 
 /client/proc/reset_ooc()
 	set name = "Reset All Player OOC Color"

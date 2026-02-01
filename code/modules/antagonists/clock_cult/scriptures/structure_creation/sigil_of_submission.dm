@@ -16,7 +16,7 @@
 	clockwork_desc = span_brass("A sigil pulsating with a glorious light. Anyone held on top of this will become a loyal servant of Rat'var.")
 	icon_state = "sigilsubmission"
 	effect_charge_time = 8 SECONDS
-	idle_color = "#FFFFFF"
+	idle_color = COLOR_WHITE
 	invokation_color = "#e042d8"
 	success_color = "#EBC670"
 	fail_color = "#d43333"

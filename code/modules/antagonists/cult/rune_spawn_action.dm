@@ -89,7 +89,7 @@
 	rune_word_type = /obj/effect/temp_visual/cult/rune_spawn/rune2
 	rune_innerring_type = /obj/effect/temp_visual/cult/rune_spawn/rune2/inner
 	rune_center_type = /obj/effect/temp_visual/cult/rune_spawn/rune2/center
-	rune_color = RUNE_COLOR_TELEPORT
+	rune_color = COLOR_DARK_PURPLE
 
 /datum/action/innate/cult/create_rune/wall
 	name = "Summon Barrier Rune"
@@ -99,7 +99,7 @@
 	rune_word_type = /obj/effect/temp_visual/cult/rune_spawn/rune4
 	rune_innerring_type = /obj/effect/temp_visual/cult/rune_spawn/rune4/inner
 	rune_center_type = /obj/effect/temp_visual/cult/rune_spawn/rune4/center
-	rune_color = RUNE_COLOR_DARKRED
+	rune_color = COLOR_DARK_RED
 
 /datum/action/innate/cult/create_rune/wall/on_activate()
 	. = ..()

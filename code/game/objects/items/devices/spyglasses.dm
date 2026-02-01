@@ -89,7 +89,7 @@
 
 /obj/item/paper/fluff/nerddocs
 	name = "Espionage For Dummies"
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	desc = "An eye gougingly yellow pamphlet with a badly designed image of a detective on it. the subtext says \" The Latest Way To Violate Privacy Guidelines!\" "
 	default_raw_text = @{"
 Thank you for your purchase of the Nerd Co SpySpeks <small>tm</small>, this paper will be your quick-start guide to violating the privacy of your crewmates in three easy steps!<br><br>Step One: Nerd Co SpySpeks <small>tm</small> upon your face. <br>

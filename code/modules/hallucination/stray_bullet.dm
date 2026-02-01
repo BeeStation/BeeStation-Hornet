@@ -226,7 +226,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/hallucination)
 	name = "electrode"
 	damage_type = BURN
 	hal_icon_state = "spark"
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	hal_fire_sound = 'sound/weapons/taser.ogg'
 	hal_hitsound = 'sound/weapons/taserhit.ogg'
 	hal_hitsound_wall = null

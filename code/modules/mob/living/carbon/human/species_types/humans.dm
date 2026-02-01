@@ -48,7 +48,7 @@
 
 /datum/species/human/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.hair_style = "Business Hair"
-	human.hair_color = "b96" // brown
+	human.hair_color = "#bb9966" // brown
 	human.update_hair()
 
 /datum/species/human/get_species_description()

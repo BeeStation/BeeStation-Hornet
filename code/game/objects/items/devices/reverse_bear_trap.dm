@@ -113,7 +113,7 @@
 		jill.apply_damage(9999, BRUTE, BODY_ZONE_HEAD)
 		jill.investigate_log("has been killed by [src].", INVESTIGATE_DEATHS)
 		jill.death() //just in case, for some reason, they're still alive
-		flash_color(jill, flash_color = "#FF0000", flash_time = 100)
+		flash_color(jill, flash_color = COLOR_RED, flash_time = 100)
 
 /obj/item/reverse_bear_trap/proc/reset()
 	ticking = FALSE
