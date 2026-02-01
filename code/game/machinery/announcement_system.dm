@@ -97,6 +97,10 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	else if(message_type == "EXPLORATION_PAYOUT")
 		message = "Exploration objective completed. [exploration_payout / channels.len] credits have been distributed to the departmental budget."
 
+	broadcast(message, channels)
+
+/// Sends a message to the appropriate channels.
+/obj/machinery/announcement_system/proc/broadcast(message, list/channels)
 	if(channels.len == 0)
 		radio.talk_into(src, message, null)
 	else

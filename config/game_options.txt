@@ -538,9 +538,6 @@ EVENT_SYMPTOM_THRESHOLDS
 ##Uncomment to allow certain symptoms to have powerful, game-warping thresholds (vampirism, zombies, etc)
 SPECIAL_SYMPTOM_THRESHOLDS
 
-##At this amount of symptoms, Synaptizine will no longer remove symptoms from a virus. Set this to 6 or higher to prevent removing symptoms at all. Set this to 1 to allow synaptizine to work to its full effect
-VIRUS_THINNING_CAP 4
-
 ##Uncomment to allow station traits
 STATION_TRAITS
 
@@ -563,3 +560,6 @@ NEGATIVE_STATION_TRAITS 2 2
 # If the value is lower than 1, it'll tend to even out the odds
 # If higher than 1, it'll lean toward common spawns even more.
 RANDOM_LOOT_WEIGHT_MODIFIER 1
+
+## Whether talking on the common channel makes radio noises
+COMMON_RADIO_AUDIO

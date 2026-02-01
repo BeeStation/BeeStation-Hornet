@@ -59,6 +59,8 @@
 	var/use_command = FALSE
 	/// If true, use_command can be toggled at will.
 	var/command = FALSE
+	/// Does it play radio noise?
+	var/radio_noise = TRUE
 
 
 	var/headset = FALSE
@@ -78,8 +80,11 @@
 	var/list/channels
 	/// associative list of the encrypted radio channels this radio can listen/broadcast to, of the form: list(channel name = channel frequency)
 	var/list/secure_radio_connections
-	// If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
-	var/radio_silent = FALSE
+
+	/// A very brief cooldown to prevent regular radio sounds from overlapping.
+	COOLDOWN_DECLARE(audio_cooldown)
+	/// A very brief cooldown to prevent "important" radio sounds from overlapping.
+	COOLDOWN_DECLARE(important_audio_cooldown)
 
 /obj/item/radio/Initialize(mapload)
 	wires = new /datum/wires/radio(src)
@@ -250,6 +255,7 @@
 		return NONE
 	if(SEND_SIGNAL(src, COMSIG_RADIO_NEW_MESSAGE, talking_movable, message, channel, message_mods) & COMPONENT_CANNOT_USE_RADIO)
 		return NONE
+
 	if(!spans)
 		spans = list(talking_movable.speech_span)
 	if(!language)
@@ -279,18 +285,23 @@
 	if(!talking_movable.try_speak(message, ignore_spam = TRUE, filterproof = TRUE)) //Looks scary, but we've already run try_speak, so no big deal
 		return
 
-	if(!radio_silent)//Radios make small static noises now
-		var/mob/sender = loc
-		if(istype(sender) && sender.hears_radio())
-			var/sound/radio_sound = sound(pick("sound/effects/radio1.ogg", "sound/effects/radio2.ogg"), volume = 50)
-			radio_sound.frequency = get_rand_frequency()
-			SEND_SOUND(sender, radio_sound)
-
 	if(use_command)
 		spans |= SPAN_COMMAND
 
+	// Show nearby audience that someone is talking into a radio
+	// Only triggers if the radio is in contents of speaker, implanted radios loc is the implant so it shouldn't show up
+	// Lore is uh... "Implanted radios are subvocal and don't produce visible cues to audience"
+	if(ismob(talking_movable) && loc == talking_movable)
+		var/mob/talking_mob = talking_movable
+		talking_mob.visible_message(
+			span_subtle("\The [talking_mob] talks into \the [src]."),
+			blind_message = span_subtlenotice("You hear someone talk into their headset."),
+			vision_distance = 5,
+			ignored_mobs = talking_mob,
+		)
+
 	var/radio_message = message
-	if(message_mods[WHISPER_MODE])
+	if(LAZYACCESS(message_mods, WHISPER_MODE))
 		// Radios don't pick up whispers very well
 		radio_message = stars(radio_message)
 		spans |= SPAN_ITALICS
@@ -336,6 +347,14 @@
 		signal.levels = list(0)  // reaches all Z-levels
 		signal.broadcast()
 		return
+
+	if(isliving(talking_movable))
+		var/mob/living/talking_living = talking_movable
+		//Whether audio plays when talking into the radio on common frequency
+		var/common_radio_audio = CONFIG_GET(flag/common_radio_audio)
+		if(radio_noise && talking_living.can_hear() && talking_living.client?.prefs.read_preference(/datum/preference/toggle/radio_noise) && (common_radio_audio || signal.frequency != FREQ_COMMON) && !LAZYACCESS(message_mods, MODE_SEQUENTIAL) && COOLDOWN_FINISHED(src, audio_cooldown))
+			COOLDOWN_START(src, audio_cooldown, 0.5 SECONDS)
+			playsound(talking_living, 'sound/items/radio/radio2.ogg', 15, 0, -1)
 
 	// All radios make an attempt to use the subspace system first
 	signal.send_to_receivers()
@@ -407,6 +426,22 @@
 /obj/item/radio/proc/on_receive_message(list/data)
 	SEND_SIGNAL(src, COMSIG_RADIO_RECEIVE_MESSAGE, data)
 
+	if(!isliving(loc))
+		return
+
+	var/mob/living/holder = loc
+	if(!radio_noise || HAS_TRAIT(holder, TRAIT_DEAF) || !holder.client?.prefs.read_preference(/datum/preference/toggle/radio_noise))
+		return
+	var/list/spans = data["spans"]
+	if(COOLDOWN_FINISHED(src, audio_cooldown))
+		COOLDOWN_START(src, audio_cooldown, 0.5 SECONDS)
+		playsound(holder, 'sound/items/radio/radio_chatter.ogg', 10, 0, -6)
+	if((SPAN_COMMAND in spans) && COOLDOWN_FINISHED(src, important_audio_cooldown))
+		COOLDOWN_START(src, important_audio_cooldown, 0.5 SECONDS)
+		var/sound/radio_important = sound('sound/items/radio/radio_important.ogg')
+		radio_important.frequency = get_rand_frequency_low_range()
+		SEND_SOUND(holder, radio_important)
+
 /obj/item/radio/ui_state(mob/user)
 	if(issilicon(user))
 		return GLOB.inventory_state
@@ -446,6 +481,7 @@
 	. = ..()
 	if(.)
 		return
+
 	switch(action)
 		if("frequency")
 			if(freqlock)
@@ -492,10 +528,6 @@
 					recalculateChannels()
 				. = TRUE
 
-/obj/item/radio/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
-	return BRUTELOSS
-
 /obj/item/radio/examine(mob/user)
 	. = ..()
 	if (frequency && in_range(src, user))
@@ -507,14 +539,13 @@
 	if (in_range(src, user) && !headset)
 		. += span_info("Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.")
 
-/obj/item/radio/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/radio/screwdriver_act(mob/living/user, obj/item/tool)
 	add_fingerprint(user)
-
-	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
-		unscrewed = !unscrewed
-		to_chat(user, span_notice(unscrewed ? "The radio can now be attached and modified!" : "The radio can no longer be modified or attached!"))
+	unscrewed = !unscrewed
+	if(unscrewed)
+		to_chat(user, span_notice("The radio can now be attached and modified!"))
 	else
-		return ..()
+		to_chat(user, span_notice("The radio can no longer be modified or attached!"))
 
 /obj/item/radio/emp_act(severity)
 	. = ..()
@@ -592,33 +623,35 @@
 	dog_fashion = null
 	canhear_range = 0 // Same as the headset range, you must be on the same tile to hear a borg's communications
 
+/obj/item/radio/borg/screwdriver_act(mob/living/user, obj/item/tool)
+	if(!keyslot)
+		to_chat(user, span_warning("This radio doesn't have any encryption keys!"))
+		return
+
+	for(var/channel in channels)
+		SSradio.remove_object(src, GLOB.radiochannels[channel])
+		secure_radio_connections[channel] = null
+
+	var/turf/turf = get_turf(user)
+	if(turf)
+		keyslot.forceMove(turf)
+		keyslot = null
+
+	recalculateChannels()
+	ui_update()
+	to_chat(user, span_notice("You pop out the encryption key in the radio."))
+	return ..()
+
 /obj/item/radio/borg/attackby(obj/item/attacking_item, mob/user, params)
 	add_fingerprint(user)
-
-	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
-		if(keyslot)
-			for(var/channel in channels)
-				SSradio.remove_object(src, GLOB.radiochannels[channel])
-				secure_radio_connections[channel] = null
-
-			var/turf/turf = get_turf(user)
-			if(turf)
-				keyslot.forceMove(turf)
-				keyslot = null
-
-			recalculateChannels()
-			ui_update()
-			to_chat(user, span_notice("You pop out the encryption key in the radio."))
-		else
-			to_chat(user, span_warning("This radio doesn't have any encryption keys!"))
-	else if(istype(attacking_item, /obj/item/encryptionkey))
+	if(istype(attacking_item, /obj/item/encryptionkey))
 		if(keyslot)
 			to_chat(user, span_warning("The radio can't hold another key!"))
 			return
-		else
-			if(!user.transferItemToLoc(attacking_item, src))
-				return
-			keyslot = attacking_item
+
+		if(!user.transferItemToLoc(attacking_item, src))
+			return
+		keyslot = attacking_item
 
 		recalculateChannels()
 		ui_update()
