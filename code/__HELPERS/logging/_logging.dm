@@ -48,31 +48,8 @@
 #define log_reftracker(msg)
 #endif
 
-/* Items with ADMINPRIVATE prefixed are stripped from public logs. */
-/proc/log_admin(text)
-	GLOB.admin_log.Add(text)
-	if (CONFIG_GET(flag/log_admin))
-		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text]")
-
-/proc/log_admin_private(text)
-	GLOB.admin_log.Add(text)
-	if (CONFIG_GET(flag/log_admin))
-		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: [text]")
-
-/proc/log_adminsay(text)
-	GLOB.admin_log.Add(text)
-	if (CONFIG_GET(flag/log_adminchat))
-		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: ASAY: [text]")
-
-/proc/log_dsay(text)
-	if (CONFIG_GET(flag/log_adminchat))
-		WRITE_LOG(GLOB.world_game_log, "ADMIN: DSAY: [text]")
-
 
 /* All other items are public. */
-/proc/log_game(text)
-	if (CONFIG_GET(flag/log_game))
-		WRITE_LOG(GLOB.world_game_log, "GAME: [text]")
 
 /proc/log_dynamic(text)
 	if (CONFIG_GET(flag/log_dynamic))
@@ -100,13 +77,6 @@
 
 /proc/log_paper(text)
 	WRITE_LOG(GLOB.world_paper_log, "PAPER: [text]")
-
-/proc/log_asset(text)
-	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
-
-/proc/log_access(text)
-	if (CONFIG_GET(flag/log_access))
-		WRITE_LOG(GLOB.world_game_log, "ACCESS: [text]")
 
 /proc/log_law(text)
 	if (CONFIG_GET(flag/log_law))
@@ -149,31 +119,6 @@
 	if(message_admins)
 		message_admins("[user ? "[ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(user)] " : ""][details][bomb ? " [bomb.name] at [ADMIN_VERBOSEJMP(bomb)]": ""][additional_details ? " [additional_details]" : ""].")
 
-
-/proc/log_say(text)
-	if (CONFIG_GET(flag/log_say))
-		WRITE_LOG(GLOB.world_game_log, "SAY: [text]")
-
-/proc/log_radio_emote(text)
-	if (CONFIG_GET(flag/log_emote))
-		WRITE_LOG(GLOB.world_game_log, "RADIOEMOTE: [text]")
-
-/proc/log_ooc(text)
-	if (CONFIG_GET(flag/log_ooc))
-		WRITE_LOG(GLOB.world_game_log, "OOC: [text]")
-
-/proc/log_whisper(text)
-	if (CONFIG_GET(flag/log_whisper))
-		WRITE_LOG(GLOB.world_game_log, "WHISPER: [text]")
-
-/proc/log_emote(text)
-	if (CONFIG_GET(flag/log_emote))
-		WRITE_LOG(GLOB.world_game_log, "EMOTE: [text]")
-
-/proc/log_prayer(text)
-	if (CONFIG_GET(flag/log_prayer))
-		WRITE_LOG(GLOB.world_game_log, "PRAY: [text]")
-
 /proc/log_pda(text)
 	if (CONFIG_GET(flag/log_pda))
 		WRITE_LOG(GLOB.world_pda_log, "PDA: [text]")
@@ -183,77 +128,20 @@
 		//reusing the PDA option because I really don't think news comments are worth a config option
 		WRITE_LOG(GLOB.world_pda_log, "COMMENT: [text]")
 
-/proc/log_telecomms(text)
-	if (CONFIG_GET(flag/log_telecomms))
-		WRITE_LOG(GLOB.world_telecomms_log, "TCOMMS: [text]")
-
 /proc/log_chat(text)
 	if (CONFIG_GET(flag/log_pda))
 		//same thing here
 		WRITE_LOG(GLOB.world_pda_log, "CHAT: [text]")
 
-/proc/log_vote(text)
-	if (CONFIG_GET(flag/log_vote))
-		WRITE_LOG(GLOB.world_game_log, "VOTE: [text]")
-
-/// Logging for speech indicators.
-/proc/log_speech_indicators(text)
-	if (CONFIG_GET(flag/log_speech_indicators))
-		WRITE_LOG(GLOB.world_speech_indicators_log, "SPEECH INDICATOR: [text]")
-
-/proc/log_topic(text)
-	WRITE_LOG(GLOB.world_game_log, "TOPIC: [text]")
-
 /proc/log_href(text)
 	WRITE_LOG(GLOB.world_href_log, "HREF: [text]")
-
-/proc/log_sql(text)
-	WRITE_LOG(GLOB.sql_error_log, "SQL: [text]")
-
-/proc/log_qdel(text)
-	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text]")
-
-/proc/log_signal(text)
-	WRITE_LOG(GLOB.world_signal_log, "SIGNAL: [text]")
 
 /proc/log_query_debug(text)
 	WRITE_LOG(GLOB.query_debug_log, "SQL: [text]")
 
-/proc/log_job_debug(text)
-	if (CONFIG_GET(flag/log_job_debug))
-		WRITE_LOG(GLOB.world_job_debug_log, "JOB: [text]")
-
 /proc/log_href_exploit(atom/user, data = "")
 	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.[data]")
 	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.[data]")
-
-/// Logging for wizard powers learned
-/proc/log_spellbook(text)
-	WRITE_LOG(world.log, text)
-
-
-/* Log to both DD and the logfile. */
-/proc/log_world(text)
-#ifdef USE_CUSTOM_ERROR_HANDLER
-	WRITE_LOG(GLOB.world_runtime_log, text)
-#endif
-	SEND_TEXT(world.log, text)
-
-/* Log to the logfile only. */
-/proc/log_runtime(text)
-	WRITE_LOG(GLOB.world_runtime_log, text)
-
-/* Rarely gets called; just here in case the config breaks. */
-/proc/log_config(text)
-	WRITE_LOG(GLOB.config_error_log, text)
-	SEND_TEXT(world.log, text)
-
-/proc/log_mapping(text)
-	WRITE_LOG(GLOB.world_map_error_log, text)
-
-/proc/log_perf(list/perf_info)
-	. = "[perf_info.Join(",")]\n"
-	WRITE_LOG_NO_FORMAT(GLOB.perf_log, .)
 
 /* ui logging */
 /proc/log_tgui(user_or_client, text)
@@ -263,7 +151,7 @@
 	else if(istype(user_or_client, /mob))
 		var/mob/user = user_or_client
 		entry += "[user.ckey] (as [user])"
-	else if(istype(user_or_client, /client))
+
 		var/client/client = user_or_client
 		entry += "[client.ckey]"
 	entry += ":\n[text]"

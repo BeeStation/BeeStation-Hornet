@@ -254,7 +254,6 @@
 		spans = list(talking_movable.speech_span)
 	if(!language)
 		language = talking_movable.get_selected_language()
-	SEND_SIGNAL(src, COMSIG_RADIO_NEW_MESSAGE, talking_movable, message, channel, message_mods)
 	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), talking_movable, message, channel, LAZYLISTDUPLICATE(spans), language, LAZYLISTDUPLICATE(message_mods))
 	return ITALICS | REDUCE_RANGE
 
@@ -372,11 +371,9 @@
 		filtered_mods[WHISPER_MODE] = message_mods[WHISPER_MODE]
 	if (message_mods[SAY_MOD_VERB])
 		filtered_mods[SAY_MOD_VERB] = message_mods[SAY_MOD_VERB]
-
 	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
 		filtered_mods[MODE_CUSTOM_SAY_EMOTE] = message_mods[MODE_CUSTOM_SAY_EMOTE]
 		filtered_mods[MODE_CUSTOM_SAY_ERASE_INPUT] = message_mods[MODE_CUSTOM_SAY_ERASE_INPUT]
-
 	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
 		if (loc == speaker && ismob(speaker))
@@ -385,8 +382,7 @@
 			// left hands are odd slots
 			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
 				return
-
-	talk_into(speaker, raw_message, , spans, language=message_language, message_mods=filtered_mods)
+	talk_into(speaker, raw_message, spans=spans, language=message_language, message_mods=filtered_mods)
 
 // Checks if this radio can receive on the given frequency.
 /obj/item/radio/proc/can_receive(input_frequency, list/levels)
