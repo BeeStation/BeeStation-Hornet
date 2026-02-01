@@ -87,7 +87,7 @@
 	// Deregister signals
 	if (target)
 		UnregisterSignal(target, COMSIG_QDELETING)
-		UnregisterSignal(target, COMSIG_MOB_DEATH)
+		UnregisterSignal(target, COMSIG_LIVING_DEATH)
 	if (target_mind)
 		UnregisterSignal(target_mind, COMSIG_MIND_TRANSFER_TO)
 		UnregisterSignal(target_mind, COMSIG_MIND_CRYOED)
@@ -98,7 +98,7 @@
 	if (!target)
 		return
 	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(target_killed))
-	RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(target_killed))
+	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(target_killed))
 	if (target_mind)
 		RegisterSignal(target_mind, COMSIG_MIND_TRANSFER_TO, PROC_REF(target_transfer))
 		RegisterSignal(target_mind, COMSIG_MIND_CRYOED, PROC_REF(target_cryod))

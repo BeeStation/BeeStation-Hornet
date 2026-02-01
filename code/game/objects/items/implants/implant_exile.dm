@@ -31,7 +31,7 @@
 /obj/item/implant/exile/hotel/on_implanted(mob/user)
 	user.AddComponent(/datum/component/stationloving/hotelloving)
 
-/obj/item/implant/exile/hotel/removed(mob/living/unimplanted) // Incase they try self surgery
+/obj/item/implant/exile/hotel/removed(mob/living/source, silent = FALSE, destroyed = FALSE)
 	visible_message(span_danger("The implant's anti-removal mechanisms activate!"))
 	source.dust()
 	message_admins("[ADMIN_LOOKUPFLW(source)] tried to remove their hotel staff implant to enter the station and was dusted.")
