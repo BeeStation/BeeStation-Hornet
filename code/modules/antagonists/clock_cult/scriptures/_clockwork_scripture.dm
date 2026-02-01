@@ -1,298 +1,169 @@
+GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 
+/**
+ * Create a global list to reference scriptures by their name
+ * Only needs to be called once
+ */
 /proc/generate_clockcult_scriptures()
-	//Generate scriptures
+	// Generate scriptures
 	for(var/categorypath in subtypesof(/datum/clockcult/scripture))
-		var/datum/clockcult/scripture/S = new categorypath
-		GLOB.clockcult_all_scriptures[S.name] = S
-
-#define KINDLE 0
-#define MANACLES 1
-#define COMPROMISE 2
+		var/datum/clockcult/scripture/scripture = new categorypath
+		GLOB.clockcult_all_scriptures[scripture.name] = scripture
 
 /datum/clockcult/scripture
+	/// The name of the scripture
 	var/name = ""
+	/// The description of the scripture
 	var/desc = ""
+	/// A tip on how to use the scripture
 	var/tip = ""
-	var/power_cost = 0
-	var/vitality_cost = 0
-	var/cogs_required = 0
-	var/invokation_time = 0
-	var/list/invokation_text = list()	//This is all translated to rat'var so doesn't matter if its cringey or doesn't make sense, since most people can't read it
-	var/button_icon_state = "telerune"
+	/// The text that is recited when invoking this scripture
+	var/list/invokation_text = list()
+	/// How long it takes to invoke this scripture
+	var/invokation_time = 1 SECONDS
+	/// How many clock cultists that must be in range of the slab to invoke this scripture
 	var/invokers_required = 1
+	/// The icon for the scripture's quick bind button
+	var/button_icon_state = "Abscond"
+	/// How much power this scripture draws from the ark
+	var/power_cost = 0
+	/// How much vitality this scripture draws from the ark
+	var/vitality_cost = 0
+	/// The amount of cogs required to invoke this scripture
+	var/cogs_required = 0
+	/// The category of the scripture (SPELLTYPE_ABSTRACT, SPELLTYPE_SERVITUDE, SPELLTYPE_PRESERVATION, SPELLTYPE_STRUCTURES)
 	var/category = SPELLTYPE_ABSTRACT
-	var/end_on_invokation = TRUE	//Only set to false if you call end_invoke somewhere in your sciprture
-
+	/// Set to FALSE if the scripture should not end after it finishes charging, for example: Kindle
+	var/end_on_invokation = TRUE
+	/// The person invoking the scripture
 	var/mob/living/invoker
+	/// Reference to the slab that is invoking this scripture
 	var/obj/item/clockwork/clockwork_slab/invoking_slab
+	/// The sound that plays when reciting the scripture
+	var/sound/recital_sound
+	/// If this is TRUE, the scripture does not have to be unlocked to be invoked
+	var/should_bypass_unlock_checks = FALSE
 
-	var/invokation_chant_timer = null
-	var/qdel_on_completion = FALSE
+/datum/clockcult/scripture/New(obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
+	invoking_slab = slab
+	should_bypass_unlock_checks = bypass_unlock_checks
 
-	var/sound/recital_sound = null
+/datum/clockcult/scripture/proc/try_to_invoke(mob/living/user)
+	invoker = user
+	invoking_slab.invoking_scripture = src
 
-/datum/clockcult/scripture/proc/invoke()
-	if(GLOB.clockcult_power < power_cost || GLOB.clockcult_vitality < vitality_cost)
-		invoke_fail()
-		if(invokation_chant_timer)
-			deltimer(invokation_chant_timer)
-			invokation_chant_timer = null
-		end_invoke()
+	// Basic checks
+	if(!can_invoke())
+		dispose()
 		return
+
+	// Recite the invokation text
+	if(length(invokation_text))
+		var/time_between_say = invokation_time / length(invokation_text)
+		recite(text_point = 1, wait_time = time_between_say, stop_at = length(invokation_text))
+
+	if(do_after(invoker, invokation_time, target = invoker, extra_checks = CALLBACK(src, PROC_REF(can_invoke))))
+		on_invoke_success()
+		if(end_on_invokation)
+			on_invoke_end()
+	else
+		dispose()
+
+/**
+ * Basic checks to see if the scripture can be invoked
+ */
+/datum/clockcult/scripture/proc/can_invoke()
+	SHOULD_CALL_PARENT(TRUE)
+	if(GLOB.clockcult_power < power_cost)
+		invoker.balloon_alert(invoker, "not enough power!")
+		return FALSE
+	if(GLOB.clockcult_vitality < vitality_cost)
+		invoker.balloon_alert(invoker, "not enough vitality!")
+		return FALSE
+	if(invoker.get_active_held_item() != invoking_slab && !iscyborg(invoker))
+		invoker.balloon_alert(invoker, "not in hand!")
+		return FALSE
+	if(!should_bypass_unlock_checks && !invoking_slab.scriptures[src.type])
+		stack_trace("Attempting to invoke a scripture that has not been unlocked. Either there is a bug, or [ADMIN_LOOKUP(invoker)] is using some wacky exploits.")
+		invoker.balloon_alert(invoker, "not unlocked!")
+		return FALSE
+
+	var/invokers
+	for(var/mob/living/potential_invoker in viewers(invoker))
+		if(potential_invoker.stat != CONSCIOUS)
+			continue
+		if(!IS_SERVANT_OF_RATVAR(potential_invoker))
+			continue
+
+		invokers++
+
+	if(invokers < invokers_required)
+		var/invoker_delta = invokers_required - invokers
+		invoker.balloon_alert(invoker, "missing [invoker_delta] invoker[invoker_delta > 1 ? "s" : null]!")
+		return FALSE
+
+	return TRUE
+
+/**
+ * Here is where you put the code that runs when the scripture is succesfully invoked
+ * For example, Summon Replica Fabricator will instantiate a replica fabricator
+ * Only parent call if you successfully casted your spell
+ */
+/datum/clockcult/scripture/proc/on_invoke_success()
+	SHOULD_CALL_PARENT(TRUE)
 	GLOB.clockcult_power -= power_cost
 	GLOB.clockcult_vitality -= vitality_cost
-	invoke_success()
 
-/datum/clockcult/scripture/proc/invoke_success()
-	return TRUE
+/**
+ * Here is where you put the code that runs when the scripture's invokation ends
+ * When inhereting this, ..() should be called at the END
+ */
+/datum/clockcult/scripture/proc/on_invoke_end()
+	SHOULD_CALL_PARENT(TRUE)
+	dispose()
 
-/datum/clockcult/scripture/proc/invoke_fail()
-	return TRUE
+/*
+* This isn't with on_invoke_end() because we don't want to call whatever logic we use whenever we for example, fail the do_after in try_to_invoke()
+*/
+/datum/clockcult/scripture/proc/dispose()
+	SHOULD_CALL_PARENT(TRUE)
+	invoking_slab.invoking_scripture = null
 
-/datum/clockcult/scripture/proc/recital()
-	if(!LAZYLEN(invokation_text))
-		return
-	var/steps = invokation_text.len
-	var/time_between_say = invokation_time / (steps + 1)
-	if(invokation_chant_timer)
-		deltimer(invokation_chant_timer)
-		invokation_chant_timer = null
-	recite(1, time_between_say, steps)
-
+/*
+* A recursive proc that calls itself until all parts of invokation_text have been recited
+*/
 /datum/clockcult/scripture/proc/recite(text_point, wait_time, stop_at = 0)
 	if(QDELETED(src))
 		return
-	invokation_chant_timer = null
-	if(!invoking_slab || !invoking_slab.invoking_scripture)
+
+	// Need to check this each time we invoke, as the conditions may have changed
+	if(!can_invoke())
 		return
+
+	// Time to recite the message
 	var/invokers_left = invokers_required
-	if(invokers_left > 1)
-		for(var/mob/living/M in viewers(invoker))
-			if(M.stat)
-				continue
+	if(invokers_required > 1)
+		// This scripture requires multiple invokers, lets find them and start reciting
+		for(var/mob/living/possible_invoker in viewers(invoker))
 			if(!invokers_left)
 				break
-			if(IS_SERVANT_OF_RATVAR(M))
-				clockwork_say(M, text2ratvar(invokation_text[text_point]), TRUE)
+			if(possible_invoker.stat != CONSCIOUS)
+				continue
+
+			// Say the invokation text
+			if(IS_SERVANT_OF_RATVAR(possible_invoker))
+				clockwork_say(possible_invoker, text2ratvar(invokation_text[text_point]), TRUE)
+				if(recital_sound)
+					SEND_SOUND(possible_invoker, recital_sound)
 				invokers_left--
 	else
+		// Just a single invoker required, lets have our invoker recite the text
 		clockwork_say(invoker, text2ratvar(invokation_text[text_point]), TRUE)
-	if(recital_sound)
-		SEND_SOUND(invoker, recital_sound)
+
+		if(recital_sound)
+			SEND_SOUND(invoker, recital_sound)
+
+	// Recite the next line
 	if(text_point < stop_at)
-		invokation_chant_timer = addtimer(CALLBACK(src, PROC_REF(recite), text_point+1, wait_time, stop_at), wait_time, TIMER_STOPPABLE)
-
-/datum/clockcult/scripture/proc/check_special_requirements(mob/user)
-	if(!invoker || !invoking_slab)
-		message_admins("No invoker for [name]")
-		return FALSE
-	if(invoker.get_active_held_item() != invoking_slab && !iscyborg(invoker))
-		to_chat(invoker, span_brass("You fail to invoke [name]."))
-		return FALSE
-	var/invokers
-	for(var/mob/living/M in viewers(invoker))
-		if(M.stat)
-			continue
-		if(IS_SERVANT_OF_RATVAR(M))
-			invokers++
-	if(invokers < invokers_required)
-		to_chat(invoker, span_brass("You need [invokers_required] servants to channel [name]!"))
-		return FALSE
-	return TRUE
-
-/datum/clockcult/scripture/proc/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
-	if(M.get_active_held_item() != slab && !iscyborg(M))
-		to_chat(M, span_brass("You need to have the [slab.name] in your active hand to recite scriptures."))
-		return
-	slab.invoking_scripture = src
-	invoker = M
-	invoking_slab = slab
-	if(!(type in slab.purchased_scriptures) && !bypass_unlock_checks)
-		log_runtime("CLOCKCULT: Attempting to invoke a scripture that has not been unlocked. Either there is a bug, or [ADMIN_LOOKUP(invoker)] is using some wacky exploits.")
-		end_invoke()
-		return
-	if(!check_special_requirements(M))
-		end_invoke()
-		return
-	recital()
-	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, PROC_REF(check_special_requirements), M)))
-		invoke()
-		to_chat(M, span_brass("You invoke [name]."))
-		if(end_on_invokation)
-			end_invoke()
-	else
-		invoke_fail()
-		if(invokation_chant_timer)
-			deltimer(invokation_chant_timer)
-			invokation_chant_timer = null
-		end_invoke()
-
-/datum/clockcult/scripture/proc/end_invoke()
-	invoking_slab.invoking_scripture = null
-	if(qdel_on_completion)
-		qdel(src)
-
-//==================================//
-// !      Structure Creation      ! //
-//==================================//
-/datum/clockcult/scripture/create_structure
-	var/summoned_structure
-
-/datum/clockcult/scripture/create_structure/check_special_requirements(mob/user)
-	if(!..())
-		return FALSE
-	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
-		to_chat(invoker, span_brass("You cannot invoke that here, the tile is occupied by [structure]."))
-		return FALSE
-	return TRUE
-
-/datum/clockcult/scripture/create_structure/invoke_success()
-	var/created_structure = new summoned_structure(get_turf(invoker))
-	var/obj/structure/destructible/clockwork/clockwork_structure = created_structure
-	if(istype(clockwork_structure))
-		clockwork_structure.owner = invoker.mind
-
-
-//==================================//
-// !       Slab Empowerment       ! //
-//==================================//
-//For scriptures that charge the slab, and the slab will affect something
-//(stunning etc.)
-
-/datum/clockcult/scripture/slab
-	name = "Charge Slab"
-	var/use_time = 10
-	var/slab_overlay = "volt"
-	var/datum/progressbar/progress
-	var/uses = 1
-	var/after_use_text = ""
-	end_on_invokation = FALSE
-	var/timeout_time = 0
-	var/allow_mobility = TRUE //if moving and swapping hands is allowed during the while
-
-	var/uses_left
-	var/time_left = 0
-	var/loop_timer_id
-	var/empowerment
-
-
-/datum/clockcult/scripture/slab/Destroy()
-	if(progress)
-		QDEL_NULL(progress)
-	return ..()
-
-
-/datum/clockcult/scripture/slab/invoke()
-	progress = new(invoker, use_time, invoking_slab)
-	uses_left = uses
-	time_left = use_time
-	invoking_slab.charge_overlay = slab_overlay
-	invoking_slab.update_icon()
-	invoking_slab.active_scripture = src
-	invoking_slab.empowerment = empowerment
-	to_chat(invoker, span_brass("You prepare [name]. <b>Click on a target to use.</b>"))
-	count_down()
-	invoke_success()
-
-/datum/clockcult/scripture/slab/proc/count_down()
-	if(QDELETED(src))
-		return
-	progress.update(time_left)
-	time_left --
-	loop_timer_id = null
-	if(time_left > 0)
-		loop_timer_id = addtimer(CALLBACK(src, PROC_REF(count_down)), 1, TIMER_STOPPABLE)
-	else
-		end_invokation()
-
-/datum/clockcult/scripture/slab/proc/end_invokation()
-	//Remove the timer if there is one currently active
-	if(loop_timer_id)
-		deltimer(loop_timer_id)
-		loop_timer_id = null
-	to_chat(invoker, span_brass("You are no longer invoking <b>[name]</b>"))
-	progress.end_progress()
-	invoking_slab.charge_overlay = null
-	invoking_slab.update_icon()
-	invoking_slab.active_scripture = null
-	empowerment = null
-	end_invoke()
-
-
-/datum/clockcult/scripture/slab/proc/on_slab_attack(atom/target, mob/user)
-	switch(empowerment)
-		if(KINDLE)
-			kindle(user, target)
-			end_invokation()
-		if(MANACLES)
-			hateful_manacles(user, target)
-			end_invokation()
-		if(COMPROMISE)
-			sentinels_compromise(user, target)
-			end_invokation()
-	return
-
-//==================================//
-// !       Quick bind spell       ! //
-//==================================//
-
-/datum/action/innate/clockcult
-	button_icon = 'icons/hud/actions/actions_clockcult.dmi'
-	button_icon_state = null
-	background_icon_state = "bg_clock"
-	buttontooltipstyle = "brass"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
-
-/datum/action/innate/clockcult/quick_bind
-	name = "Quick Bind"
-	desc = "A quick bound spell."
-	var/obj/item/clockwork/clockwork_slab/activation_slab
-	var/datum/clockcult/scripture/scripture
-
-/datum/action/innate/clockcult/quick_bind/Destroy()
-	activation_slab = null
-	Remove(owner)
-	. = ..()
-
-/datum/action/innate/clockcult/quick_bind/Grant(mob/living/M)
-	name = scripture.name
-	desc = scripture.tip
-	button_icon_state = scripture.button_icon_state
-	if(scripture.power_cost)
-		desc += "<br>Draws <b>[scripture.power_cost]W</b> from the ark per use."
-	..(M)
-
-/datum/action/innate/clockcult/quick_bind/is_available()
-	if(!IS_SERVANT_OF_RATVAR(owner) || owner.incapacitated())
-		return FALSE
-	return ..()
-
-/datum/action/innate/clockcult/quick_bind/on_activate()
-	if(!activation_slab)
-		return
-	if(!activation_slab.invoking_scripture)
-		scripture.begin_invoke(owner, activation_slab)
-	else
-		to_chat(owner, span_brass("You fail to invoke [name]."))
-
-//==================================//
-// !     Hierophant Transmit      ! //
-//==================================//
-/datum/action/innate/clockcult/transmit
-	name = "Hierophant Transmit"
-	button_icon_state = "hierophant"
-	desc = "Transmit a message to your allies through the Hierophant."
-
-/datum/action/innate/clockcult/transmit/is_available()
-	if(!IS_SERVANT_OF_RATVAR(owner))
-		Remove(owner)
-		return FALSE
-	if(owner.incapacitated())
-		return FALSE
-	return ..()
-
-/datum/action/innate/clockcult/transmit/on_activate()
-	hierophant_message(tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", "", encode = FALSE), owner, "<span class='brass'>")
-
-/datum/action/innate/clockcult/transmit/Grant(mob/M)
-	..(M)
+		text_point++
+		addtimer(CALLBACK(src, PROC_REF(recite), text_point, wait_time, stop_at), wait_time, TIMER_STOPPABLE)

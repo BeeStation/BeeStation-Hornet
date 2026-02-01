@@ -1,3 +1,20 @@
+/datum/action/innate/clockcult/transmit
+	name = "Hierophant Transmit"
+	button_icon_state = "hierophant"
+	desc = "Transmit a message to your allies through the Hierophant."
+
+/datum/action/innate/clockcult/transmit/is_available()
+	if(!IS_SERVANT_OF_RATVAR(owner))
+		Remove(owner)
+		return FALSE
+	if(owner.incapacitated())
+		return FALSE
+	. = ..()
+
+/datum/action/innate/clockcult/transmit/on_activate()
+	var/message = tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", "", encode = FALSE)
+	hierophant_message(message, owner, "<span class='brass'>")
+
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='srt_radio brass'>", use_sanitisation=TRUE, say=TRUE)
@@ -70,7 +87,8 @@
 			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]", type = MESSAGE_TYPE_RADIO)
 		else
 			to_chat(O, hierophant_message, type = MESSAGE_TYPE_RADIO)
-	sender.log_talk(msg, LOG_SAY, tag="clock cult")
+
+	sender?.log_talk(msg, LOG_SAY, tag = "clock cult")
 
 /proc/send_hierophant_message_to(mob/living/sender, datum/mind/mind, hierophant_message)
 	var/mob/M = mind.current

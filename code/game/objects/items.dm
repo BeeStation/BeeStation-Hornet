@@ -1652,7 +1652,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (href_list["examine"])
 		if(!usr.can_examine_in_detail(src))
 			return
-		usr.examinate(src)
+		if (src in usr)
+			usr.examinate(src)
+		else
+			usr.external_examinate(src)
 		return TRUE
 
 /// Gets the examination title of an item that is equipped by another mob, this is what
