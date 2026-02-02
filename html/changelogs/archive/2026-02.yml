@@ -22,3 +22,8 @@
   - code_imp: moved death() to mob/living/, up from mob/
   rkz, spookydonut:
   - code_imp: traitifies spacewalking
+2026-02-02:
+  BotTierPC:
+  - rscdel: Removes outdated PodPerson Guide
+  mrmanlikesbt:
+  - bugfix: Fixed several sprites having broken overlays and icons
