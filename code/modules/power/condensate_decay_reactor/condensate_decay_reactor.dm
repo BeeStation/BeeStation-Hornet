@@ -263,7 +263,7 @@
 	base_instability = max(bz_mols ? bz_mols * bz_gas.threshold : 0, CDR_BASE_INSTABILITY)
 	core_instability = (max(core_composition.temperature >= 100000 ? 50000 * (log(10, core_composition.temperature) - 4) : 0.5 * core_composition.temperature, 0) + base_instability) //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
 	var/delta_stability = core_instability - core_stability
-	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)), 0) : min(-log(10, abs(delta_stability)), 0))
+	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)) / CDR_HEALTH_DELTA_DIVISOR, 0) : min(-log(10, abs(delta_stability)) / CDR_HEALTH_DELTA_DIVISOR, 0))
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/adjust_health(delta)
 	if(no_core_damage)
