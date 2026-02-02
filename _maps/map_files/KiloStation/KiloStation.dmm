@@ -49727,6 +49727,7 @@
 /area/science/mixing)
 "pda" = (
 /obj/item/radio/intercom{
+	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_y = -28
@@ -61272,6 +61273,7 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
+	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_x = 28
