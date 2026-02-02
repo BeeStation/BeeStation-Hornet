@@ -612,7 +612,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	// take in a z level as a number, and kill everyone on the same 'z orbital map' or z group
 	if(!zGroup)
 		return
-	for(var/mob/M in GLOB.mob_list)
+	for(var/mob/living/M in GLOB.alive_mob_list)
 		if (compare_z(M.get_virtual_z_level(), zGroup)) // check whether the mob is on the same z orbital map as the input level (as in multi-z stations etc)
 			if(M.stat != DEAD && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 				to_chat(M, span_userdanger("You are shredded to atoms!"))

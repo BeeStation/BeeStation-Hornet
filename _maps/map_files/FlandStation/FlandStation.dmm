@@ -39086,7 +39086,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "kFI" = (
 /obj/item/stack/package_wrap,
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
@@ -82404,6 +82403,7 @@
 /obj/structure/table/reinforced,
 /obj/item/geiger_counter,
 /obj/machinery/camera/directional/north,
+/obj/item/laser_pointer/purple,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "wkX" = (

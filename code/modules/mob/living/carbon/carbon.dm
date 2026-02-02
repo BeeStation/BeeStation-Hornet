@@ -919,10 +919,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		set_handcuffed(null)
 		update_handcuffed()
 
-	// heal ears after healing traits, since ears check TRAIT_DEAF trait
-	// when healing.
-	restoreEars()
-
 	return ..()
 
 /mob/living/carbon/can_be_revived()
@@ -944,23 +940,22 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		to_chat(user, span_notice("You retrieve some of [src]\'s internal organs!"))
 
 /mob/living/carbon/proc/create_bodyparts()
-	var/l_arm_index_next = -1
-	var/r_arm_index_next = 0
-	for(var/bodypart_path in bodyparts)
+	var/list/bodyparts_paths = bodyparts.Copy()
+	bodyparts = list()
+	for(var/bodypart_path in bodyparts_paths)
 		var/obj/item/bodypart/bodypart_instance = new bodypart_path()
 		bodypart_instance.set_owner(src)
-		bodyparts.Remove(bodypart_path)
 		add_bodypart(bodypart_instance)
-		switch(bodypart_instance.body_part)
-			if(ARM_LEFT)
-				l_arm_index_next += 2
-				bodypart_instance.held_index = l_arm_index_next //1, 3, 5, 7...
-				hand_bodyparts += bodypart_instance
-			if(ARM_RIGHT)
-				r_arm_index_next += 2
-				bodypart_instance.held_index = r_arm_index_next //2, 4, 6, 8...
-				hand_bodyparts += bodypart_instance
 
+/// Called when a new hand is added
+/mob/living/carbon/proc/on_added_hand(obj/item/bodypart/arm/new_hand, hand_index)
+	if(hand_index > hand_bodyparts.len)
+		hand_bodyparts.len = hand_index
+	hand_bodyparts[hand_index] = new_hand
+
+/// Cleans up references to a hand when it is dismembered or deleted
+/mob/living/carbon/proc/on_lost_hand(obj/item/bodypart/arm/lost_hand)
+	hand_bodyparts[lost_hand.held_index] = null
 
 ///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/attach_limb()].
 /mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)
@@ -979,12 +974,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(!new_bodypart.bodypart_disabled)
 				set_usable_hands(usable_hands + 1)
 
+	synchronize_bodytypes()
 
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	bodyparts -= old_bodypart
+
 	switch(old_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)
 			set_num_legs(num_legs - 1)
@@ -994,6 +991,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			set_num_hands(num_hands - 1)
 			if(!old_bodypart.bodypart_disabled)
 				set_usable_hands(usable_hands - 1)
+
+	synchronize_bodytypes()
 
 /mob/living/carbon/proc/create_internal_organs()
 	for(var/X in internal_organs)
@@ -1047,7 +1046,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			switch(edit_action)
 				if("remove")
 					if(BP)
-						BP.drop_limb(special = TRUE)
+						BP.drop_limb()
 						admin_ticket_log("[key_name_admin(usr)] has removed [src]'s [parse_zone(BP.body_zone)]")
 					else
 						to_chat(usr, span_boldwarning("[src] doesn't have such bodypart."))

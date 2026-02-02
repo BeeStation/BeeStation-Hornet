@@ -1,7 +1,7 @@
-/datum/action/spell/summon_spear // not conjure since this is like the marvel movie
+// We don't use conjure because it has limitations
+/datum/action/spell/summon_weapon
 	name = "Summon Weapon"
 	desc = "Summons your weapon from across time and space."
-
 	cooldown_time = 20 SECONDS
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
@@ -10,17 +10,19 @@
 	background_icon_state = "bg_clock"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-	var/obj/item/marked_item
+	/// The item to summon
+	var/datum/weakref/marked_item
 
-/datum/action/spell/summon_spear/on_cast(mob/user, atom/target)
+/datum/action/spell/summon_weapon/on_cast(mob/user, atom/target)
 	. = ..()
-	if(QDELETED(marked_item))
+	var/obj/item_to_retrieve = marked_item?.resolve()
+
+	if(QDELETED(item_to_retrieve))
 		qdel(src)
 
 	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 
-	var/obj/item_to_retrieve = marked_item
 	var/infinite_recursion = 0
 
 	if(item_to_retrieve.loc)
@@ -53,7 +55,7 @@
 							break
 
 			else
-				if(istype(item_to_retrieve.loc, /obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery
+				if(istype(item_to_retrieve.loc, /obj/machinery/portable_atmospherics)) //Edge cases for moved machinery
 					var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
 					P.disconnect()
 					P.update_icon()

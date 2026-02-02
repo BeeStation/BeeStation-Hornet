@@ -25,11 +25,9 @@
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
-	if(!ishuman(user) || !user.mind)
+	if(!(slot & ITEM_SLOT_NECK))
 		return
-	if(!IS_HERETIC_OR_MONSTER(user))
-		return
-	if(slot != ITEM_SLOT_NECK)
+	if(!ishuman(user) || !IS_HERETIC_OR_MONSTER(user))
 		return
 
 	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT] [REF(src)]")
@@ -37,13 +35,8 @@
 
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
 	. = ..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.wear_neck != src)
-			return
-		else
-			REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT] [REF(src)]")
-			user.update_sight()
+	REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT] [REF(src)]")
+	user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/piercing
 	name = "Piercing Eldritch Medallion"

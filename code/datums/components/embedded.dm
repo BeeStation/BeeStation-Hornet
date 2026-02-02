@@ -87,7 +87,7 @@
 	START_PROCESSING(SSdcs, src)
 	var/mob/living/carbon/victim = parent
 
-	limb.embedded_objects |= weapon // on the inside... on the inside...
+	limb._embed_object(weapon) // on the inside... on the inside...
 	weapon.forceMove(victim)
 	RegisterSignals(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(weaponDeleted))
 	victim.visible_message(span_danger("[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] [victim]'s [limb.name]!"), span_userdanger("[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] your [limb.name]!"))
@@ -219,7 +219,7 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/carbon/victim = parent
-	limb.embedded_objects -= weapon
+	limb._unembed_object(weapon)
 	UnregisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING)) // have to do it here otherwise we trigger weaponDeleted()
 
 	if(!weapon.unembedded()) // if it hasn't deleted itself due to drop del
@@ -333,7 +333,7 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/carbon/victim = parent
-	limb.embedded_objects -= weapon
+	limb._unembed_object(weapon)
 
 	if(victim)
 		to_chat(victim, span_userdanger("\The [weapon] that was embedded in your [limb.name] disappears!"))
