@@ -124,8 +124,6 @@
 	if(new_capacity > 0)
 		capacity = new_capacity
 
-	update_static_data_for_all_viewers()
-
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
