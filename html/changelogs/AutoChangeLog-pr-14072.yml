@@ -1,6 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed randomized accents not applying an accent. If your character starts
-      speaking strangely, check to see if you have the accent quirk.
-  - spellcheck: Fixed a typo in the accent quirk gain/remove text

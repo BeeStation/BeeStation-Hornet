@@ -27,3 +27,7 @@
   - rscdel: Removes outdated PodPerson Guide
   mrmanlikesbt:
   - bugfix: Fixed several sprites having broken overlays and icons
+  - bugfix: Fixed randomized accents not applying an accent. If your character starts
+      speaking strangely, check to see if you have the accent quirk.
+  - spellcheck: Fixed a typo in the accent quirk gain/remove text
+  - bugfix: Fixed the active sonar MOD runtiming on use
