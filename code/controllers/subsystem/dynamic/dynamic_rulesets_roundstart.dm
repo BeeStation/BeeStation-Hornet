@@ -257,7 +257,7 @@
 
 /datum/dynamic_ruleset/roundstart/clockcult/choose_candidates()
 	. = ..()
-	LoadReebe()
+	load_reebe()
 	generate_clockcult_scriptures()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
@@ -267,14 +267,16 @@
 	main_cult = new()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.current.forceMove(pick_n_take(GLOB.servant_spawns))
-
 		var/datum/antagonist/servant_of_ratvar/servant_datum = add_servant_of_ratvar(chosen_mind.current, team = main_cult)
 		servant_datum.equip_carbon(chosen_mind.current)
 		servant_datum.equip_servant()
 		servant_datum.prefix = CLOCKCULT_PREFIX_MASTER
 
 		GLOB.pre_setup_antags -= chosen_mind
+
+	// If Reebe is somehow loaded, we might as well go ahead and move our servants there
+	if(length(GLOB.servant_spawns))
+		teleport_all_servants_to_reebe()
 
 	main_cult.setup_objectives()
 

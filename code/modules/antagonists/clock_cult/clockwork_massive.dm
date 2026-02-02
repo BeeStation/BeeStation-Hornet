@@ -323,13 +323,7 @@
  * Teleports all clock cultists to Reebe
  */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall()
-	for(var/datum/mind/servant_mind in GLOB.servants_of_ratvar)
-		var/mob/living/servant = servant_mind.current
-		if(!servant || QDELETED(servant))
-			continue
-
-		servant.forceMove(pick(GLOB.servant_spawns))
-
+	teleport_all_servants_to_reebe()
 	for(var/mob/player in GLOB.player_list)
 		SEND_SOUND(player, 'sound/magic/clockwork/invoke_general.ogg')
 
