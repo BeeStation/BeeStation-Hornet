@@ -4,35 +4,41 @@
 /obj/machinery/power/smes
 	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
+	icon = 'icons/obj/machines/power/smes.dmi'
 	icon_state = "smes"
 	density = TRUE
+	anchored = TRUE
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/machine/smes
-
-
 
 	var/capacity = 0 WATT // maximum charge
 	var/charge = 0 WATT // actual charge
 
-	var/input_attempt = TRUE // TRUE = attempting to charge, FALSE = not attempting to charge
-	var/inputting = TRUE // TRUE = actually inputting, FALSE = not inputting
-	var/input_level = 50 KILOWATT // amount of power the SMES attempts to charge by
-	var/input_level_max = 200 KILOWATT // cap on input_level
-	var/input_available = 0 // amount of charge available from input last tick
+	/// TRUE = attempting to charge, FALSE = not attempting to charge
+	var/input_attempt = TRUE
+	/// TRUE = actually inputting, FALSE = not inputting
+	var/inputting = TRUE
+	/// amount of power the SMES attempts to charge by
+	var/input_level = 50 KILOWATT
+	/// cap on input_level
+	var/input_level_max = 200 KILOWATT
+	/// amount of charge available from input last tick
+	var/input_available = 0
 
-	var/output_attempt = TRUE // TRUE = attempting to output, FALSE = not attempting to output
-	var/outputting = TRUE // TRUE = actually outputting, FALSE = not outputting
+	/// TRUE = attempting to output, FALSE = not attempting to output
+	var/output_attempt = TRUE
+	/// TRUE = actually outputting, FALSE = not outputting
+	var/outputting = TRUE
+	/// amount of power the SMES attempts to output
 	var/output_level = 50 KILOWATT // amount of power the SMES attempts to output
 	var/output_level_max = 200 KILOWATT // cap on output_level
-	var/output_used = 0 // amount of power actually outputted. may be less than output_level if the powernet returns excess power
-	var/process_cells = FALSE //We have self-recharging cells
+	/// amount of power actually outputted. may be less than output_level if the powernet returns excess power
+	var/output_used = 0
+	/// If we have self-recharging cells
+	var/process_cells = FALSE
 
+	/// Terminal for charging this smes
 	var/obj/machinery/power/terminal/terminal = null
-
-/obj/machinery/power/smes/examine(user)
-	. = ..()
-	if(!terminal)
-		. += span_warning("This SMES has no power terminal!")
 
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
@@ -50,9 +56,65 @@
 	if(mapload)
 		charge = capacity
 	terminal.master = src
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
+
+/obj/machinery/power/smes/disconnect_terminal()
+	if(terminal)
+		terminal.master = null
+		terminal = null
+		atom_break()
+
+/obj/machinery/power/smes/Destroy()
+	if(SSticker.IsRoundInProgress())
+		var/turf/T = get_turf(src)
+		message_admins("SMES deleted at [ADMIN_VERBOSEJMP(T)]")
+		log_game("SMES deleted at [AREACOORD(T)]")
+		investigate_log("<font color='red'>deleted</font> at [AREACOORD(T)]", INVESTIGATE_ENGINES)
+	if(terminal)
+		disconnect_terminal()
+	return ..()
+
+/obj/machinery/power/smes/examine(user)
+	. = ..()
+	if(!terminal)
+		. += span_warning("This SMES has no power terminal!")
+
+/obj/machinery/power/smes/update_overlays()
+	. = ..()
+	if(machine_stat & BROKEN)
+		return
+
+	if(panel_open)
+		. += mutable_appearance(icon, "smes-panel", layer)
+		return
+
+	// Output indicator (emissive)
+	// 0 = off (not attempting), 1 = enabled but not delivering, 2 = actively outputting
+	var/output_state = 0
+	if(output_attempt)
+		output_state = outputting ? 2 : 1
+	. += mutable_appearance(icon, "smes-op[output_state]", layer)
+	. += emissive_appearance(icon, "smes-op[output_state]", layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
+	// Input/charging indicator (emissive)
+	// 0 = off (not attempting), 1 = partially charging, 2 = fully charging
+	var/input_state = 0
+	if(input_attempt && inputting)
+		input_state = (input_available >= input_level) ? 2 : 1
+	. += mutable_appearance(icon, "smes-oc[input_state]", layer)
+	. += emissive_appearance(icon, "smes-oc[input_state]", layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
+	// Charge level gauge (emissive)
+	var/clevel = chargedisplay()
+	if(clevel > 0)
+		. += mutable_appearance(icon, "smes-og[clevel]", layer)
+		. += emissive_appearance(icon, "smes-og[clevel]", layer)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/power/smes/RefreshParts()
+
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		input_level_max = initial(input_level_max) * capacitor.rating
 		output_level_max = initial(output_level_max) * capacitor.rating
@@ -62,10 +124,12 @@
 	if(new_capacity > 0)
 		capacity = new_capacity
 
+	update_static_data_for_all_viewers()
+
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
-		update_icon()
+		update_appearance(UPDATE_OVERLAYS)
 		return
 
 	//changing direction using wrench
@@ -82,7 +146,7 @@
 			to_chat(user, span_alert("No power terminal found."))
 			return
 		set_machine_stat(machine_stat & ~BROKEN)
-		update_icon()
+		update_appearance(UPDATE_OVERLAYS)
 		return
 
 	//building and linking a terminal
@@ -159,16 +223,6 @@
 
 	return ..()
 
-/obj/machinery/power/smes/Destroy()
-	if(SSticker.IsRoundInProgress())
-		var/turf/T = get_turf(src)
-		message_admins("SMES deleted at [ADMIN_VERBOSEJMP(T)]")
-		log_game("SMES deleted at [AREACOORD(T)]")
-		investigate_log("<font color='red'>deleted</font> at [AREACOORD(T)]", INVESTIGATE_ENGINES)
-	if(terminal)
-		disconnect_terminal()
-	return ..()
-
 // create a terminal object pointing towards the SMES
 // wires will attach to this
 /obj/machinery/power/smes/proc/make_terminal(turf/T)
@@ -176,36 +230,6 @@
 	terminal.setDir(get_dir(T,src))
 	terminal.master = src
 	set_machine_stat(machine_stat & ~BROKEN)
-
-/obj/machinery/power/smes/disconnect_terminal()
-	if(terminal)
-		terminal.master = null
-		terminal = null
-		atom_break()
-
-
-/obj/machinery/power/smes/update_icon()
-	cut_overlays()
-	if(machine_stat & BROKEN)
-		return
-
-	if(panel_open)
-		return
-
-	if(outputting)
-		add_overlay("smes-op1")
-	else
-		add_overlay("smes-op0")
-
-	if(inputting)
-		add_overlay("smes-oc1")
-	else
-		if(input_attempt)
-			add_overlay("smes-oc0")
-
-	var/clevel = chargedisplay()
-	if(clevel>0)
-		add_overlay("smes-og[clevel]")
 
 
 /obj/machinery/power/smes/proc/chargedisplay()
@@ -265,7 +289,7 @@
 
 	// only update icon if state changed
 	if(last_disp != chargedisplay() || last_chrg != inputting || last_onln != outputting)
-		update_icon()
+		update_appearance(UPDATE_OVERLAYS)
 
 
 
@@ -295,10 +319,7 @@
 	output_used -= excess
 
 	if(clev != chargedisplay() ) //if needed updates the icons overlay
-		update_icon()
-	return
-
-
+		update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/power/smes/ui_state(mob/user)
 	return GLOB.default_state
@@ -330,18 +351,24 @@
 	)
 	return data
 
-/obj/machinery/power/smes/ui_act(action, params)
-	if(..())
+/obj/machinery/power/smes/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
+
 	switch(action)
 		if("tryinput")
 			input_attempt = !input_attempt
-			update_icon()
-			. = TRUE
+			log_smes(ui.user)
+			update_appearance(UPDATE_OVERLAYS)
+			return TRUE
+
 		if("tryoutput")
 			output_attempt = !output_attempt
-			update_icon()
-			. = TRUE
+			log_smes(ui.user)
+			update_appearance(UPDATE_OVERLAYS)
+			return TRUE
+
 		if("input")
 			var/target = params["target"]
 			var/adjust = text2num(params["adjust"])
@@ -359,6 +386,9 @@
 				. = TRUE
 			if(.)
 				input_level = clamp(target, 0, input_level_max)
+				log_smes(ui.user)
+				return
+
 		if("output")
 			var/target = params["target"]
 			var/adjust = text2num(params["adjust"])
@@ -376,10 +406,10 @@
 				. = TRUE
 			if(.)
 				output_level = clamp(target, 0, output_level_max)
-	if(.)
-		log_smes(usr)
+				log_smes(ui.user)
 
 /obj/machinery/power/smes/proc/log_smes(mob/user)
+	PRIVATE_PROC(TRUE)
 	investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", INVESTIGATE_ENGINES)
 
 
@@ -396,7 +426,7 @@
 	charge -= 1e6/severity
 	if (charge < 0)
 		charge = 0
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
 	log_smes()
 
 /obj/machinery/power/smes/engineering

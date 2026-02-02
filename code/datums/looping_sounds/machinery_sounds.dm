@@ -27,6 +27,11 @@
 	end_sound = 'sound/machines/generator/generator_end.ogg'
 	volume = 40
 
+/datum/looping_sound/portable_generator
+	mid_sounds = list('sound/machines/engine.ogg' = 1)
+	mid_length = 4 SECONDS
+	volume = 25
+
 /datum/looping_sound/oven
 	start_sound = 'sound/machines/oven/oven_loop_start.ogg' //my immersions
 	start_length = 1.2 SECONDS

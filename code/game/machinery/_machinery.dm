@@ -757,6 +757,7 @@
 	RefreshParts()
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
+	SHOULD_CALL_PARENT(TRUE)
 	return
 
 /obj/machinery/proc/default_pry_open(obj/item/I)

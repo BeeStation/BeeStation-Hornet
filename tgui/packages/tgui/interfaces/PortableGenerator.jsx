@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,7 +5,9 @@ import {
   NoticeBox,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const PortableGenerator = (props) => {
@@ -17,7 +18,7 @@ export const PortableGenerator = (props) => {
     (stack_percent > 15 && 'average') ||
     'bad';
   return (
-    <Window>
+    <Window width={450} height={340}>
       <Window.Content scrollable>
         {!data.anchored && <NoticeBox>Generator not anchored.</NoticeBox>}
         <Section title="Status">
@@ -31,7 +32,7 @@ export const PortableGenerator = (props) => {
                 {data.active ? 'On' : 'Off'}
               </Button>
             </LabeledList.Item>
-            <LabeledList.Item label={data.sheet_name + ' sheets'}>
+            <LabeledList.Item label={`${data.sheet_name} sheets`}>
               <Box inline color={stackPercentState}>
                 {data.sheets}
               </Box>
@@ -56,21 +57,34 @@ export const PortableGenerator = (props) => {
                 }}
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Heat level">
-              {data.current_heat < 100 ? (
-                <Box inline color="good">
-                  Nominal
-                </Box>
-              ) : data.current_heat < 200 ? (
-                <Box inline color="average">
-                  Caution
-                </Box>
-              ) : (
-                <Box inline color="bad">
-                  DANGER
-                </Box>
-              )}
+            <LabeledList.Item label="Operating temperature">
+              <Box
+                inline
+                color={
+                  data.current_heat < data.max_temperature * 0.7
+                    ? 'good'
+                    : data.current_heat < data.max_temperature * 0.9
+                      ? 'average'
+                      : 'bad'
+                }
+              >
+                {data.current_heat}°C / {data.max_temperature}°C
+              </Box>
             </LabeledList.Item>
+            {data.overheat_percent > 0 && (
+              <LabeledList.Item label="Overheat warning">
+                <ProgressBar
+                  value={data.overheat_percent / 100}
+                  ranges={{
+                    good: [-Infinity, 0.3],
+                    average: [0.3, 0.7],
+                    bad: [0.7, Infinity],
+                  }}
+                >
+                  {data.overheat_percent}% - REDUCE POWER!
+                </ProgressBar>
+              </LabeledList.Item>
+            )}
           </LabeledList>
         </Section>
         <Section title="Output">
