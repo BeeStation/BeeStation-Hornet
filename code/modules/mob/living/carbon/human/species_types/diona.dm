@@ -3,7 +3,6 @@
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
 	sexes = 0 //no sex for bug/plant people!
-	bodyflag = FLAG_DIONA
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,

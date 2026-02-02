@@ -1,4 +1,0 @@
-author: rkz, mothblocks
-delete-after: true
-changes:
-  - code_imp: moved death() to mob/living/, up from mob/
