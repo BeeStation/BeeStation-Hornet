@@ -7288,7 +7288,6 @@
 	},
 /obj/effect/turf_decal/siding/dark/corner,
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_y = 24
@@ -19617,7 +19616,6 @@
 	},
 /obj/effect/turf_decal/siding/dark/corner,
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_x = -30
@@ -22889,7 +22887,6 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_y = 24
@@ -27420,7 +27417,6 @@
 	dir = 5
 	},
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_x = 32
@@ -28052,12 +28048,6 @@
 /obj/machinery/camera/motion/directional/west,
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 4
-	},
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1447;
-	name = "Private AI Channel";
-	pixel_x = -30
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/ai_monitored/turret_protected/ai)
@@ -55974,7 +55964,6 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_y = 24
@@ -56271,7 +56260,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/edges/borderfloor,
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_y = -32
@@ -56685,9 +56673,9 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
+	broadcasting = 1;
 	pixel_y = 24
 	},
 /turf/open/floor/iron/dark/smooth_large,
@@ -63440,7 +63428,6 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_x = 32
@@ -65122,7 +65109,6 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_y = 24
@@ -65718,7 +65704,6 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
 	pixel_y = -32
