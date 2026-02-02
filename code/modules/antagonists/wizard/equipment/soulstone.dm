@@ -16,7 +16,6 @@
 	var/theme = THEME_CULT
 	/// Role check, if any needed
 	var/required_role = /datum/antagonist/cult
-	var/purified = FALSE
 	var/mob/living/simple_animal/shade/contained_shade = null
 
 /obj/item/soulstone/proc/role_check(mob/who)
@@ -86,7 +85,7 @@
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
-			S.name = "Purified [S.name]"
+			S.name = "Purified [S.real_name]"
 
 /obj/item/soulstone/proc/hot_potato(mob/living/user)
 	to_chat(user, span_userdanger("Holy magics residing in \the [src] burn your hand!"))
@@ -114,11 +113,9 @@
 	if(IS_CULTIST(M) && IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"Come now, do not capture your brethren's soul.\""))
 		return
-
 	if(theme == THEME_HOLY && IS_CULTIST(user))
 		hot_potato(user)
 		return
-
 	if(HAS_TRAIT(M, TRAIT_NO_SOUL))
 		to_chat(user, span_warning("This body does not possess a soul to capture."))
 		return
@@ -189,7 +186,7 @@
 		if(THEME_HOLY)
 			icon_state = "purified_soulstone"
 			A.icon_state = "shade_holy"
-			A.name = "Purified [initial(A.name)]"
+			A.name = "Purified [A.real_name]"
 			A.loot = list(/obj/item/ectoplasm/angelic)
 		if(THEME_WIZARD)
 			icon_state = "mystic_soulstone"
@@ -413,12 +410,10 @@
 	S.add_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 	S.name = "Shade of [target.name]"
 	S.real_name = target.real_name
-
+	S.cancel_camera()
 	if(user)
 		S.faction |= "[REF(user)]" //Add the master as a faction, allowing inter-mob cooperation
-
 	shade_controller.mind.transfer_to(S)
-
 	name = "soulstone: Shade of [target.real_name]"
 	switch(theme)
 		if(THEME_HOLY)
