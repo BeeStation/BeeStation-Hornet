@@ -408,7 +408,7 @@
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
 				drop_light_tube()
-			new /obj/item/stack/cable_coil(loc, 1, "red")
+			new /obj/item/stack/cable_coil(loc, 1)
 		transfer_fingerprints_to(newlight)
 		var/obj/item/stock_parts/cell/real_cell = get_cell()
 		if(!QDELETED(real_cell))

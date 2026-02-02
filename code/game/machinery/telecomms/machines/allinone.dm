@@ -41,6 +41,7 @@
 /obj/machinery/telecomms/allinone/attackby(obj/item/attacking_item, mob/user, params)
 	if(attacking_item.tool_behaviour == TOOL_MULTITOOL)
 		return attack_hand(user)
+	return ..()
 
 /obj/machinery/telecomms/allinone/exploration
 	name = "exploration mainframe"

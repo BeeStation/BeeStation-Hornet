@@ -335,7 +335,7 @@
 /area/ruin/unpowered)
 "Fe" = (
 /obj/structure/frame/machine,
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "Ff" = (

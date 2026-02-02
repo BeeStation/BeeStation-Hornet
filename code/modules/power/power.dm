@@ -6,15 +6,17 @@
 // Definitions
 /////////////////////////////
 
+WANTS_POWER_NODE(/obj/machinery/power)
+
 /obj/machinery/power
 	name = null
 	icon = 'icons/obj/power.dmi'
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT
-	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
+	var/datum/powernet/powernet = null
 
 /obj/machinery/power/Initialize(mapload)
 	. = ..()
@@ -25,6 +27,9 @@
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
 	return ..()
+
+/obj/machinery/power/proc/get_powernet()
+	return powernet
 
 ///////////////////////////////
 // General procedures
@@ -221,121 +226,14 @@
 // Powernet handling helpers
 //////////////////////////////////////////
 
-//returns all the cables WITHOUT a powernet in neighbors turfs,
-//pointing towards the turf the machine is located at
-/obj/machinery/power/proc/get_connections()
-
-	. = list()
-
-	var/cdir
-	var/turf/T
-
-	for(var/card in GLOB.cardinals)
-		T = get_step(loc,card)
-		cdir = get_dir(T,loc)
-
-		for(var/obj/structure/cable/C in T)
-			if(C.powernet)
-				continue
-			if(C.d1 == cdir || C.d2 == cdir)
-				. += C
-	return .
-
-//returns all the cables in neighbors turfs,
-//pointing towards the turf the machine is located at
-/obj/machinery/power/proc/get_marked_connections()
-
-	. = list()
-
-	var/cdir
-	var/turf/T
-
-	for(var/card in GLOB.cardinals)
-		T = get_step(loc,card)
-		cdir = get_dir(T,loc)
-
-		for(var/obj/structure/cable/C in T)
-			if(C.d1 == cdir || C.d2 == cdir)
-				. += C
-	return .
-
-//returns all the NODES (O-X) cables WITHOUT a powernet in the turf the machine is located at
-/obj/machinery/power/proc/get_indirect_connections()
-	. = list()
-	for(var/obj/structure/cable/C in loc)
-		if(C.powernet)
-			continue
-		if(C.d1 == 0) // the cable is a node cable
-			. += C
-	return .
-
-/obj/machinery/power/lateShuttleMove(turf/oldT, list/movement_force, move_dir)
+/obj/machinery/power/Move(atom/newloc, direct, update_dir)
 	. = ..()
-	disconnect_from_network()
-	connect_to_network()
+	if (!anchored || !connect_to_network())
+		disconnect_from_network()
 
 ///////////////////////////////////////////
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////
-
-
-// returns a list of all power-related objects (nodes, cable, junctions) in turf,
-// excluding source, that match the direction d
-// if unmarked==1, only return those with no powernet
-/proc/power_list(turf/T, source, d, unmarked=0, cable_only = 0)
-	. = list()
-
-	for(var/AM in T)
-		if(AM == source)
-			continue			//we don't want to return source
-
-		if(!cable_only && istype(AM, /obj/machinery/power))
-			var/obj/machinery/power/P = AM
-			if(P.powernet == 0)
-				continue		// exclude APCs which have powernet=0
-
-			if(!unmarked || !P.powernet)		//if unmarked=1 we only return things with no powernet
-				if(d == 0)
-					. += P
-
-		else if(istype(AM, /obj/structure/cable))
-			var/obj/structure/cable/C = AM
-
-			if(!unmarked || !C.powernet)
-				if(C.d1 == d || C.d2 == d)
-					. += C
-	return .
-
-//remove the old powernet and replace it with a new one throughout the network.
-/proc/propagate_network(obj/O, datum/powernet/PN)
-	var/list/worklist = list()
-	var/list/found_machines = list()
-	var/index = 1
-	var/obj/P = null
-
-	worklist+=O //start propagating from the passed object
-
-	while(index<=worklist.len) //until we've exhausted all power objects
-		P = worklist[index] //get the next power object found
-		index++
-
-		if( istype(P, /obj/structure/cable))
-			var/obj/structure/cable/C = P
-			if(C.powernet != PN) //add it to the powernet, if it isn't already there
-				PN.add_cable(C)
-			worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
-
-		else if(P.anchored && istype(P, /obj/machinery/power))
-			found_machines |= P //we wait until the powernet is fully propagates to connect the machines
-
-		else
-			continue
-
-	//now that the powernet is set, connect found machines to it
-	for(var/obj/machinery/power/PM as() in found_machines)
-		if(!PM.connect_to_network()) //couldn't find a node on its turf...
-			PM.disconnect_from_network() //... so disconnect if already on a powernet
-
 
 //Merge two powernets, the bigger (in cable length term) absorbing the other
 /proc/merge_powernets(datum/powernet/net1, datum/powernet/net2)
@@ -455,6 +353,6 @@
 	if(!can_have_cabling())
 		return null
 	for(var/obj/structure/cable/C in src)
-		if(C.d1 == 0)
+		if(C.has_power_node)
 			return C
 	return null

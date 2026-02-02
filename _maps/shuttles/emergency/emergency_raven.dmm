@@ -931,32 +931,17 @@
 "dC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dD" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"dG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/bot,
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dH" = (
@@ -982,12 +967,6 @@
 	name = "Cockpit Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"dO" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dQ" = (
@@ -1016,9 +995,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dV" = (
@@ -1279,9 +1256,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "lz" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/terminal{
 	dir = 1
 	},
@@ -1394,12 +1369,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "vD" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = 22
@@ -1646,9 +1616,7 @@
 /area/shuttle/escape)
 "Ie" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/terminal{
 	dir = 1
 	},
@@ -1824,9 +1792,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "RC" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/hidden,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -2320,7 +2286,7 @@ HE
 ax
 vD
 RC
-dO
+dD
 ed
 ax
 ax
@@ -2386,7 +2352,7 @@ dd
 dm
 Yy
 ax
-dG
+dC
 Ie
 dU
 ec

@@ -24,9 +24,7 @@
 	req_access_txt = "181"
 	},
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
@@ -155,17 +153,13 @@
 /area/shuttle/hunter)
 "hO" = (
 /obj/effect/turf_decal/edges/techfloor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "ie" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden,
 /turf/open/floor/plating{
@@ -310,9 +304,7 @@
 /area/shuttle/hunter)
 "ne" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
 	dir = 8
@@ -374,9 +366,7 @@
 	pixel_y = 15;
 	pixel_x = -10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
@@ -513,9 +503,7 @@
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/box,
 /obj/item/wrench,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/button/door{
 	id = "hunters_engines";
 	name = "engine lockdown";
@@ -542,9 +530,7 @@
 /area/shuttle/hunter)
 "zm" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating,
@@ -568,9 +554,7 @@
 /area/shuttle/hunter)
 "AT" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating{
 	broken = 1
@@ -700,9 +684,7 @@
 	cell_type = /obj/item/stock_parts/cell/high/plus;
 	req_access = list(181)
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
 	dir = 1
@@ -751,9 +733,7 @@
 "Lb" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/decal/cleanable/glass,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 10
 	},
@@ -969,9 +949,7 @@
 /area/shuttle/hunter)
 "TW" = (
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
 /turf/open/floor/plating,

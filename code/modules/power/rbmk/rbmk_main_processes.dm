@@ -180,5 +180,4 @@
 	var/turf/reactor_turf = get_turf(src)
 	var/obj/structure/cable/reactor_cable = reactor_turf.get_cable_node()
 	if(reactor_cable)
-		reactor_cable.get_connections()
 		reactor_cable.add_avail(last_power_produced)

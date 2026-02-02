@@ -213,6 +213,8 @@
 #define SHIELD_SETUPFIELDS 1
 #define SHIELD_HASFIELDS 2
 
+WANTS_POWER_NODE(/obj/machinery/power/shieldwallgen)
+
 /obj/machinery/power/shieldwallgen
 	name = "shield wall generator"
 	desc = "A shield generator."

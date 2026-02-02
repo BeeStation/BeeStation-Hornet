@@ -45,9 +45,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "es" = (
@@ -78,12 +76,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 10
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -169,9 +162,7 @@
 	id = "exploholo";
 	anchored = 1
 	},
-/obj/structure/cable/orange{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 5
 	},
@@ -292,9 +283,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "nh" = (
@@ -410,9 +399,7 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "sx" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/purple/visible,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
@@ -436,9 +423,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 1
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -463,9 +448,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
 	},
@@ -575,9 +558,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 1
 	},
-/obj/structure/cable/orange{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -647,18 +628,14 @@
 	id = "exploholo";
 	anchored = 1
 	},
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
 /area/shuttle/exploration)
 "Ie" = (
 /obj/machinery/door/airlock/hatch,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 4
 	},
@@ -880,9 +857,7 @@
 	},
 /area/shuttle/exploration)
 "QT" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
@@ -894,14 +869,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-4"
 	},
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
@@ -938,9 +908,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -963,9 +931,7 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/orange,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "WI" = (
@@ -1041,9 +1007,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
 	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 4
 	},
@@ -1055,9 +1019,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/orange,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/shutters{
 	id = "exploshittletop"

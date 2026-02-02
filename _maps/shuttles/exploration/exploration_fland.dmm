@@ -8,9 +8,7 @@
 /obj/effect/decal/cleanable/generic{
 	pixel_x = 11
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "aO" = (
@@ -52,9 +50,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "bO" = (
@@ -72,9 +68,7 @@
 	id = 6;
 	anchored = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "cN" = (
@@ -127,9 +121,7 @@
 /area/shuttle/exploration)
 "em" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "eA" = (
@@ -159,9 +151,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "fo" = (
@@ -269,7 +259,7 @@
 /obj/item/stack/sheet/mineral/plastitanium{
 	amount = 30
 	},
-/obj/item/stack/cable_coil/red,
+/obj/item/stack/cable_coil,
 /obj/item/assembly/prox_sensor{
 	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
 	pixel_x = -6;
@@ -332,9 +322,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "nG" = (
@@ -343,9 +331,7 @@
 "nV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/shuttle,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "oV" = (
@@ -429,9 +415,7 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "ts" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "tF" = (
@@ -545,9 +529,7 @@
 "yV" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_y = 32
 	},
@@ -665,12 +647,7 @@
 /obj/machinery/power/apc/auto_name/directional/north{
 	cell_type = /obj/item/stock_parts/cell/high
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "DG" = (
@@ -691,9 +668,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Gb" = (
@@ -703,9 +678,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "GG" = (
@@ -714,17 +687,13 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/stairs,
 /area/shuttle/exploration)
 "Hi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "HU" = (
@@ -742,9 +711,7 @@
 "IM" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint,
@@ -855,12 +822,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Qu" = (
@@ -954,9 +916,7 @@
 /area/shuttle/exploration)
 "ST" = (
 /obj/machinery/door/airlock/shuttle,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Tf" = (
@@ -980,9 +940,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Vq" = (
@@ -1000,9 +958,7 @@
 	id = 6;
 	anchored = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "VZ" = (
@@ -1073,9 +1029,7 @@
 /area/shuttle/exploration)
 "XF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "XP" = (

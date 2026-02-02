@@ -8,6 +8,16 @@
 
 GLOBAL_LIST_EMPTY(powernets)
 
+#define WANTS_POWER_NODE(typepath) ##typepath/Initialize(mapload, ...) {\
+	. = ..();\
+	if (mapload) {\
+		for (var/obj/structure/cable/cable in loc) {\
+			cable.add_power_node();\
+			return;\
+		}\
+	}\
+}
+
 #define SOLAR_TRACK_OFF 0
 #define SOLAR_TRACK_TIMED 1
 #define SOLAR_TRACK_AUTO 2

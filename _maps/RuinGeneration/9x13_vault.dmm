@@ -64,7 +64,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "y" = (
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)

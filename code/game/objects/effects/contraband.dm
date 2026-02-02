@@ -100,6 +100,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 		else
 			to_chat(user, span_notice("You carefully remove the poster from the wall."))
 			roll_and_drop(user.loc)
+		return TRUE
+	return ..()
 
 /obj/structure/sign/poster/attack_hand(mob/user, list/modifiers)
 	. = ..()

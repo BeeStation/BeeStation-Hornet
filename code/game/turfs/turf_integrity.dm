@@ -138,7 +138,7 @@
 //====================================
 
 /obj/item/proc/attack_turf(turf/T, mob/living/user)
-	if(item_flags & NOBLUDGEON)
+	if((item_flags & NOBLUDGEON) || !T.can_hit)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(T)
@@ -167,21 +167,9 @@
 
 	//the istype cascade has been spread among various procs for easy overriding
 	if(try_clean(W, user, T) || try_wallmount(W, user, T) || try_decon(W, user, T) || try_destroy(W, user, T))
-		return
-
-	if(can_lay_cable() && istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = W
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.attackby(W,user)
-				return
-		coil.place_turf(src, user)
 		return TRUE
 
-	else if(istype(W, /obj/item/rcl))
-		handleRCL(W, user)
-
-	return ..() || ((can_hit) && W.attack_turf(src, user))
+	return ..() || W.attack_turf(src, user)
 
 /turf/proc/try_clean(obj/item/W, mob/user, turf/T)
 	return FALSE
@@ -189,10 +177,8 @@
 /turf/proc/try_wallmount(obj/item/W, mob/user, turf/T)
 	return FALSE
 
-
 /turf/proc/try_decon(obj/item/I, mob/user, turf/T)
 	return FALSE
-
 
 /turf/proc/try_destroy(obj/item/I, mob/user, turf/T)
 	return FALSE
