@@ -20708,7 +20708,6 @@
 /area/science/mixing/chamber)
 "emG" = (
 /obj/structure/table,
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/machinery/light,
 /obj/item/paper/guides/jobs/hydroponics,
 /obj/machinery/camera/directional/south{
