@@ -184,7 +184,9 @@
 	if(spam_flag == 0)
 		if(ishuman(C))
 			C.set_stutter_if_lower(40 SECONDS)
-			C.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
+			var/obj/item/organ/ears/target_ears = C.get_organ_slot(ORGAN_SLOT_EARS)
+			if(target_ears && !HAS_TRAIT(C, TRAIT_DEAF))
+				target_ears.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.set_jitter_if_lower(100 SECONDS)
 			C.Paralyze(60)
 			var/mob/living/carbon/human/H = C

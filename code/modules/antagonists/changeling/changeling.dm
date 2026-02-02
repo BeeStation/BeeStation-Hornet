@@ -506,6 +506,7 @@
 			continue
 		new_profile.name_list[slot] = clothing_item.name
 		new_profile.appearance_list[slot] = clothing_item.appearance
+		new_profile.type_list[slot] = clothing_item.type
 		new_profile.flags_cover_list[slot] = clothing_item.flags_cover
 		new_profile.lefthand_file_list[slot] = clothing_item.lefthand_file
 		new_profile.righthand_file_list[slot] = clothing_item.righthand_file
@@ -793,6 +794,9 @@
 		new_flesh_item.worn_icon = chosen_profile.worn_icon_list[slot]
 		new_flesh_item.worn_icon_state = chosen_profile.worn_icon_state_list[slot]
 
+		REMOVE_TRAIT(new_flesh_item, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON)
+		ADD_VALUE_TRAIT(new_flesh_item, TRAIT_VALUE_MIMIC_PATH, CHANGELING_TRAIT, chosen_profile.type_list[slot], PRIORITY_CHANGELING_MIMIC)
+
 		if(istype(new_flesh_item, /obj/item/card/id/changeling) && chosen_profile.id_job_name)
 			var/obj/item/card/id/changeling/flesh_id = new_flesh_item
 			flesh_id.assignment = chosen_profile.id_job_name
@@ -817,6 +821,8 @@
 	var/datum/dna/dna
 	/// Assoc list of item slot to item name - stores the name of every item of this profile.
 	var/list/name_list = list()
+	/// Assoc list of item slot to type - stores the type of every item of this profile.
+	var/list/type_list = list()
 	/// Assoc list of item slot to apperance - stores the appearance of every item of this profile.
 	var/list/appearance_list = list()
 	/// Assoc list of item slot to flag - stores the flags_cover of every item of this profile.

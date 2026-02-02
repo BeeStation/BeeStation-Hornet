@@ -6,7 +6,7 @@
 	dna_cost = 1
 
 //Prevents AIs tracking you but makes you easily detectable to the human-eye.
-/datum/action/changeling/digitalcamo/sting_action(mob/user)
+/datum/action/changeling/digitalcamo/sting_action(mob/living/user)
 	..()
 	if(active)
 		to_chat(user, span_notice("We return to normal."))

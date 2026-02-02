@@ -391,7 +391,7 @@
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE)
 	if(!istype(W))
 		return FALSE
-	if(!W.mob_can_equip(src, null, slot, disable_warning, bypass_equip_delay_self))
+	if(!W.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self))
 		if(qdel_on_fail)
 			qdel(W)
 		else if(!disable_warning)
@@ -457,7 +457,7 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot)
-	if(W.mob_can_equip(src, null, slot, TRUE, TRUE))
+	if(W.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot)
 	else
@@ -537,6 +537,38 @@
 
 	INVOKE_ASYNC(src, PROC_REF(run_examinate), examinify)
 
+/mob/proc/external_examinate(atom/examinify)
+	INVOKE_ASYNC(src, PROC_REF(run_external_examinate), examinify)
+
+/// Examine the atom provided when it is worn by someone else
+/mob/proc/run_external_examinate(atom/examinify)
+	if(QDELETED(examinify))
+		return
+
+	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
+
+	if(is_blind() && !blind_examine_check(examinify)) //blind people see things differently (through touch)
+		return
+
+	face_atom(examinify)
+
+	// Show nearby mobs that we're examining something
+	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/M in viewers(4, src))
+			if(M == src || !M.client || M.is_blind())
+				continue
+			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+				continue
+			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+
+	var/list/result = examinify.examine_base(src, TRUE)
+	var/atom_title = examinify.examine_title(src, thats = TRUE)
+	var/rendered = (atom_title ? "[span_slightly_larger(separator_hr("[atom_title]."))]" : "") + jointext(result, "<br>")
+
+	to_chat(src, examine_block(span_infoplain(rendered)))
+
 /mob/proc/run_examinate(atom/examinify)
 	if(QDELETED(examinify))
 		return
@@ -551,7 +583,7 @@
 	face_atom(examinify)
 
 	// Show nearby mobs that we're examining something
-	if(isliving(src) && examinify.loc != src && !is_holding(examinify))
+	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
 		for(var/mob/M in viewers(4, src))
 			if(M == src || !M.client || M.is_blind())
 				continue
@@ -586,8 +618,13 @@
 
 //This is a proc for worn item examines. See /obj/item/proc/get_examine_line
 /mob/proc/can_examine_in_detail(atom/examinify, silent = FALSE)
+	var/turf/inspecting_location = get_turf(examinify)
+	if (!inspecting_location)
+		if (!silent)
+			to_chat(src, span_warning("You can't see that!"))
+		return FALSE
 	// Allow examine from up to 4 tiles away
-	if(!isobserver(src) && !(src in viewers(4, get_turf(examinify))))
+	if(!(src in viewers(4, inspecting_location)))
 		if(!silent)
 			to_chat(src, span_warning("You are too far away!"))
 		return FALSE
@@ -596,7 +633,7 @@
 		if(!silent)
 			to_chat(src, span_warning("You can't make out any of the details!"))
 		return FALSE
-	if(!has_light_nearby() && !has_nightvision())
+	if(inspecting_location.get_lumcount() < LIGHTING_TILE_IS_DARK && !has_nightvision())
 		if(!silent)
 			to_chat(src, span_warning("You can't make those out!"))
 		return FALSE
