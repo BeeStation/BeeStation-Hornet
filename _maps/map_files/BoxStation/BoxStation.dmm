@@ -3572,6 +3572,10 @@
 	pixel_x = 6;
 	pixel_y = 1
 	},
+/obj/item/paicard{
+	pixel_x = -9;
+	pixel_y = -1
+	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "baA" = (
@@ -4172,15 +4176,16 @@
 	},
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/clothing/glasses/welding,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/obj/item/stack/sheet/mineral/plasma/fifty,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
-	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
 	},
 /turf/open/floor/iron/white,
 /area/science/lab)
@@ -12895,6 +12900,12 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "cRm" = (
@@ -14587,6 +14598,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/iron,
 /area/science/misc_lab)
 "dxd" = (
@@ -17131,11 +17143,13 @@
 /area/maintenance/starboard/aft)
 "exP" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/xenoarchaeology{
-	pixel_x = 19;
-	pixel_y = 4
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = 7;
+	pixel_y = 5
 	},
-/obj/item/paicard,
+/obj/item/stack/sheet/mineral/plasma/fifty,
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "exU" = (
@@ -29561,9 +29575,6 @@
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
-/obj/item/book/manual/hydroponics_pod_people{
-	pixel_x = 10
-	},
 /obj/item/paper/guides/jobs/hydroponics,
 /turf/open/floor/iron,
 /area/hydroponics)
@@ -33492,11 +33503,11 @@
 /obj/item/clothing/head/costume/bearpelt,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/obj/item/ammo_box/a357,
 /obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/gun/ballistic/revolver/golden,
+/obj/item/gun/ballistic/revolver/detective/cowboy,
+/obj/item/ammo_box/c38,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/nuke_storage)
 "lcX" = (

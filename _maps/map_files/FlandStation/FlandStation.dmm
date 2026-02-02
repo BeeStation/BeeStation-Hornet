@@ -39086,7 +39086,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "kFI" = (
 /obj/item/stack/package_wrap,
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
 /obj/structure/table,

@@ -47485,7 +47485,6 @@
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
-/obj/item/book/manual/hydroponics_pod_people,
 /turf/open/floor/iron,
 /area/hydroponics)
 "nWr" = (

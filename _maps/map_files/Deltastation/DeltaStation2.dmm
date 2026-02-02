@@ -9908,7 +9908,6 @@
 	dir = 4
 	},
 /obj/item/stack/package_wrap,
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
