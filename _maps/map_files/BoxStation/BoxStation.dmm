@@ -3565,23 +3565,17 @@
 /turf/open/floor/wood,
 /area/library)
 "bay" = (
-/obj/machinery/magnetic_controller{
-	autolink = 1;
-	pixel_y = 3
-	},
 /obj/structure/table,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
+/obj/machinery/recharger{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/paicard{
+	pixel_x = -9;
+	pixel_y = -1
+	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "baA" = (
@@ -3747,9 +3741,6 @@
 "bdd" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_y = -35
 	},
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/tech,
@@ -4185,15 +4176,16 @@
 	},
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/clothing/glasses/welding,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/obj/item/stack/sheet/mineral/plasma/fifty,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
-	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
 	},
 /turf/open/floor/iron/white,
 /area/science/lab)
@@ -6423,21 +6415,23 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bLq" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/door/window/westleft{
-	name = "plumbing Factory Duct Access";
-	red_alert_access = 1;
-	req_access_txt = "5; 33";
-	dir = 4
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/table/reinforced,
+/obj/effect/loot_jobscale/medical/oxy_kit{
+	pixel_x = 5;
+	pixel_y = 17
 	},
-/obj/effect/turf_decal/tile/yellow{
+/obj/effect/loot_jobscale/medical/tox_kit{
+	pixel_x = -3
+	},
+/obj/machinery/door/window/westleft{
+	name = "First-Aid Supplies";
+	req_access_txt = "5"
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/plumbing/output{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
+/turf/open/floor/iron/dark,
 /area/medical/storage)
 "bLr" = (
 /turf/closed/indestructible{
@@ -12906,6 +12900,12 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "cRm" = (
@@ -13192,10 +13192,9 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "cVq" = (
-/obj/structure/bed/dogbed,
-/mob/living/basic/pet/dog/pug{
-	density = 0;
-	dir = 8
+/obj/machinery/magnetic_controller{
+	autolink = 1;
+	pixel_y = -30
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab)
@@ -14599,6 +14598,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/iron,
 /area/science/misc_lab)
 "dxd" = (
@@ -15964,12 +15964,13 @@
 "dXD" = (
 /obj/structure/table,
 /obj/item/paper_bin{
-	pixel_y = 6
+	pixel_y = 7;
+	pixel_x = 6
 	},
-/obj/item/taperecorder,
-/obj/item/folder/white,
-/obj/item/folder/white,
-/obj/item/pen,
+/obj/item/pen{
+	pixel_x = 5;
+	pixel_y = 8
+	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "dXE" = (
@@ -17142,9 +17143,13 @@
 /area/maintenance/starboard/aft)
 "exP" = (
 /obj/structure/table,
-/obj/machinery/recharger,
-/obj/item/gun/energy/laser/practice,
-/obj/item/gun/energy/laser/practice,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = 7;
+	pixel_y = 5
+	},
+/obj/item/stack/sheet/mineral/plasma/fifty,
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "exU" = (
@@ -17448,16 +17453,19 @@
 	},
 /obj/structure/table,
 /obj/item/xenoarchaeology_labeler{
-	pixel_y = 6
+	pixel_y = 8;
+	pixel_x = 6
 	},
-/obj/item/xenoarchaeology_labeler,
+/obj/item/xenoarchaeology_labeler{
+	pixel_y = 1
+	},
 /obj/item/clothing/gloves/artifact_pinchers{
-	pixel_y = 5
+	pixel_y = 9;
+	pixel_x = -2
 	},
-/obj/item/clothing/gloves/artifact_pinchers,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science{
-	pixel_y = 8
+/obj/item/clothing/gloves/artifact_pinchers{
+	pixel_x = -13;
+	pixel_y = 3
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab)
@@ -18412,21 +18420,32 @@
 /area/crew_quarters/kitchen)
 "eYh" = (
 /obj/structure/table,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/mineral/plasma,
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/item/folder/white{
+	pixel_x = 23;
+	pixel_y = 7
+	},
+/obj/item/folder/white{
+	pixel_x = 20;
+	pixel_y = 4
+	},
+/obj/item/stack/package_wrap{
+	pixel_y = 9
+	},
+/obj/item/stack/package_wrap{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/hand_labeler{
+	pixel_y = 5
+	},
+/obj/item/camera{
+	pixel_x = 10
 	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
@@ -19229,12 +19248,20 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "fmJ" = (
-/obj/machinery/holopad,
 /obj/structure/table,
-/obj/item/paicard,
-/obj/item/book/manual/wiki/xenoarchaeology,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/item/clothing/glasses/science{
+	pixel_y = 8;
+	pixel_x = 8
+	},
+/obj/item/clothing/glasses/science{
+	pixel_y = 3
+	},
+/obj/item/laser_pointer/purple{
+	pixel_x = -5;
+	pixel_y = 10
+	},
 /turf/open/floor/iron,
 /area/science/misc_lab)
 "fmW" = (
@@ -20161,7 +20188,6 @@
 	pixel_x = 6;
 	pixel_y = 7
 	},
-/obj/item/pen/red,
 /obj/item/stamp/denied{
 	pixel_x = -8;
 	pixel_y = 10
@@ -20169,6 +20195,10 @@
 /obj/item/stamp{
 	pixel_x = -8;
 	pixel_y = 6
+	},
+/obj/item/pen{
+	pixel_x = 6;
+	pixel_y = 8
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/office)
@@ -23696,21 +23726,27 @@
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "hew" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/plumbing/output{
-	dir = 4
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/table/reinforced,
+/obj/effect/loot_jobscale/medical/brute_kit{
+	pixel_y = 12
+	},
+/obj/effect/loot_jobscale/medical/burn_kit{
+	pixel_x = 3;
+	pixel_y = -2
+	},
+/obj/effect/loot_jobscale/medical/first_aid_kit{
+	pixel_x = -3;
+	pixel_y = -15
 	},
 /obj/machinery/door/window/westleft{
-	name = "plumbing Factory Duct Access";
-	red_alert_access = 1;
-	req_access_txt = "5; 33";
-	dir = 4
+	name = "First-Aid Supplies";
+	req_access_txt = "5"
 	},
-/obj/effect/turf_decal/tile/yellow{
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/iron/white,
+/turf/open/floor/iron/dark,
 /area/medical/storage)
 "heA" = (
 /obj/effect/turf_decal/tile/dark/diagonal_edge,
@@ -26366,18 +26402,14 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "igo" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/plumbing/bottle_dispenser{
-	dir = 4
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/westright{
+	name = "First-Aid Supplies";
+	req_access_txt = "5"
 	},
-/obj/machinery/door/window/westleft{
-	name = "plumbing Factory Duct Access";
-	red_alert_access = 1;
-	req_access_txt = "5; 33";
-	dir = 4
-	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/iron/white,
+/obj/effect/loot_jobscale/medical/medkits,
+/turf/open/floor/iron/dark,
 /area/medical/storage)
 "igv" = (
 /obj/effect/turf_decal/trimline/yellow/warning_offset,
@@ -26801,6 +26833,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"inC" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/floor,
+/turf/open/floor/iron/large,
+/area/quartermaster/storage)
 "inH" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -29537,9 +29574,6 @@
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
-	},
-/obj/item/book/manual/hydroponics_pod_people{
-	pixel_x = 10
 	},
 /obj/item/paper/guides/jobs/hydroponics,
 /turf/open/floor/iron,
@@ -33469,11 +33503,11 @@
 /obj/item/clothing/head/costume/bearpelt,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/obj/item/gun/ballistic/revolver/russian,
-/obj/item/ammo_box/a357,
 /obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/gun/ballistic/revolver/detective/cowboy,
+/obj/item/ammo_box/c38,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/nuke_storage)
 "lcX" = (
@@ -34572,28 +34606,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"lzT" = (
-/obj/structure/table/reinforced,
-/obj/effect/loot_jobscale/medical/medkits{
-	pixel_x = -7
-	},
-/obj/effect/loot_jobscale/medical/medkits{
-	pixel_x = -1;
-	pixel_y = 5
-	},
-/obj/effect/loot_jobscale/medical/medkits{
-	pixel_x = 7;
-	pixel_y = 8
-	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/door/window/northright{
-	dir = 2;
-	name = "First-Aid Supplies";
-	req_access_txt = "5"
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "lAb" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/brown{
@@ -34946,12 +34958,12 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/crew_quarters/locker)
 "lGD" = (
-/obj/machinery/computer/cargo/request{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/machinery/computer/cargo/request{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/medical/storage)
@@ -40971,14 +40983,16 @@
 	},
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
+	pixel_x = -1;
+	pixel_y = 3
 	},
 /obj/item/multitool{
-	pixel_x = -1
+	pixel_x = 9;
+	pixel_y = 8
 	},
 /obj/item/geiger_counter{
-	pixel_x = 5
+	pixel_x = 14;
+	pixel_y = -1
 	},
 /turf/open/floor/iron,
 /area/science/misc_lab)
@@ -42566,7 +42580,6 @@
 /obj/structure/rack,
 /obj/item/wrench,
 /obj/item/crowbar,
-/obj/item/hand_labeler,
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "oWN" = (
@@ -42967,10 +42980,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
-"pes" = (
-/obj/effect/spawner/structure/window,
-/turf/closed/wall,
-/area/medical/morgue)
 "peN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/structure/window,
@@ -44137,12 +44146,9 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
 "pBk" = (
-/obj/item/radio/intercom{
-	pixel_x = -29;
-	pixel_y = -2
-	},
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "pBz" = (
@@ -44694,10 +44700,20 @@
 	pixel_y = 30;
 	receive_ore_updates = 1
 	},
-/obj/item/clothing/neck/stethoscope,
-/obj/item/storage/firstaid/regular,
+/obj/item/clothing/neck/stethoscope{
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = -6;
+	pixel_y = 13
+	},
 /obj/item/healthanalyzer{
-	pixel_y = 7
+	pixel_y = 3;
+	pixel_x = -1
+	},
+/obj/item/taperecorder{
+	pixel_x = 16;
+	pixel_y = 8
 	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
@@ -47065,19 +47081,11 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "qNr" = (
-/obj/item/clothing/mask/gas{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/structure/rack,
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
+/obj/structure/closet/radiation,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "qNB" = (
@@ -49354,8 +49362,11 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
-/obj/structure/closet/radiation,
-/obj/effect/turf_decal/bot,
+/obj/structure/bed/dogbed,
+/mob/living/basic/pet/dog/pug{
+	density = 0;
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "rHU" = (
@@ -56248,6 +56259,8 @@
 /obj/item/target/syndicate,
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,
+/obj/item/gun/energy/laser/practice,
+/obj/item/gun/energy/laser/practice,
 /turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "uvN" = (
@@ -58343,6 +58356,17 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"vrU" = (
+/obj/item/radio/intercom/directional/east{
+	pixel_x = 30;
+	pixel_y = -9
+	},
+/obj/machinery/light_switch/directional/east{
+	pixel_x = 25;
+	pixel_y = 6
+	},
+/turf/open/floor/iron/tech,
+/area/quartermaster/storage)
 "vsg" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -61449,15 +61473,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
-"wGR" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/machinery/fax/med,
-/obj/structure/table/glass,
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "wHb" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
@@ -62718,21 +62733,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "xhk" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/table/reinforced,
-/obj/effect/loot_jobscale/medical/first_aid_kit{
-	pixel_x = -5
-	},
-/obj/effect/loot_jobscale/medical/medkits{
-	pixel_x = 7;
-	pixel_y = 8
-	},
-/obj/machinery/door/window/northright{
-	dir = 2;
-	name = "First-Aid Supplies";
-	req_access_txt = "5"
-	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/table/glass,
+/obj/machinery/fax/med,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "xhr" = (
@@ -84281,10 +84283,10 @@ aZE
 aZE
 lcu
 vuU
-cjt
+inC
 pMt
 pMt
-cjt
+inC
 wRC
 wXe
 qjV
@@ -85309,10 +85311,10 @@ aZE
 sbj
 gfT
 vuU
-cjt
+inC
 pMt
 pMt
-cjt
+inC
 wRC
 bdd
 bxu
@@ -86081,7 +86083,7 @@ wtv
 gfT
 lKM
 lKM
-bkJ
+vrU
 gxW
 gxW
 gxW
@@ -98429,7 +98431,7 @@ xhf
 cBD
 cBD
 cBD
-pes
+cBD
 cBD
 cBD
 oyg
@@ -103813,10 +103815,10 @@ cfC
 umv
 xaR
 bok
-lzT
-peP
 vba
-wGR
+peP
+srF
+iGU
 yjp
 lvS
 bRO
