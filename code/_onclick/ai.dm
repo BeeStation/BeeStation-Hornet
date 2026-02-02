@@ -40,15 +40,19 @@
 	var/turf/pixel_turf = get_turf_pixel(A)
 	if(isnull(pixel_turf))
 		return
-	if(!can_see(A))
-		if(isturf(A)) //On unmodified clients clicking the static overlay clicks the turf underneath
-			return //So there's no point messaging admins
-		message_admins("[ADMIN_LOOKUPFLW(src)] might be running a modified client! (failed can_see on AI click of [A] (Turf Loc: [ADMIN_VERBOSEJMP(pixel_turf)]))")
-		var/message = "[key_name(src)] might be running a modified client! (failed can_see on AI click of [A] (Turf Loc: [AREACOORD(pixel_turf)]))"
-		log_admin(message)
-		if(REALTIMEOFDAY >= chnotify + 9000)
-			chnotify = REALTIMEOFDAY
-			send2tgs_adminless_only("NOCHEAT", message)
+
+	if(!A.ai_view_active) // Does it even HAVE a connection to us?
+		if(!GLOB.cameranet.checkTurfVis(pixel_turf)) // It does not. Is it visible?
+			return
+
+		if(istype(A, /obj/machinery/power/apc)) // It is at least visible. Is it an APC? Hack it.
+			var/obj/machinery/power/apc/apc = A
+			if(apc.aidisabled)
+				apc.hack(src)
+				return
+
+		// It's not an APC, it's visible, but we don't have a connection to it.
+		to_chat(src, span_notice("ERROR. Remote interface ping failed. Last credible node: REMOTE/APC_ID/APC_CHECK. Re-establish APC connection for remote control capabilities."))
 		return
 
 	var/list/modifiers = params2list(params)

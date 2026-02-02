@@ -9066,13 +9066,6 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
-"cgn" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/iron,
-/area/science/xenobiology)
 "cgz" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -17881,6 +17874,28 @@
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
+"eLO" = (
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 8
+	},
+/obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/ai_monitored/turret_protected/ai_upload";
+	name = "Upload APC";
+	pixel_y = -24
+	},
+/obj/machinery/camera/motion/directional/south{
+	c_tag = "AI Upload Chamber - Starboard"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
+/turf/open/floor/iron/grid/steel,
+/area/ai_monitored/turret_protected/ai_upload)
 "eLT" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -25942,6 +25957,20 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/prison,
 /area/security/prison)
+"hUZ" = (
+/obj/machinery/power/apc/auto_name/directional/east{
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/structure/table,
+/obj/item/clothing/mask/balaclava,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
+/turf/open/floor/iron/dark,
+/area/security/execution/transfer)
 "hVk" = (
 /obj/machinery/door/airlock/command{
 	name = "Conference Room";
@@ -30088,27 +30117,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"jKG" = (
-/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 8
-	},
-/obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/ai_monitored/turret_protected/ai_upload";
-	name = "Upload APC";
-	pixel_y = -24
-	},
-/obj/machinery/camera/motion/directional/south{
-	c_tag = "AI Upload Chamber - Starboard"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/ai_monitored/turret_protected/ai_upload)
 "jLl" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold/dark{
@@ -34903,20 +34911,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"lFS" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Observation Lounge"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "loungeshutter";
-	name = "Observation Lounge Shutters"
-	},
-/turf/open/floor/wood/big,
-/area/crew_quarters/lounge)
 "lFV" = (
 /obj/effect/turf_decal/pool,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -36900,19 +36894,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
-"myM" = (
-/obj/machinery/computer/telecomms/monitor{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/white{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/tcommsat/computer)
 "myP" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -41459,19 +41440,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"owi" = (
-/obj/machinery/power/apc/auto_name/directional/east{
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/structure/table,
-/obj/item/clothing/mask/balaclava,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5
-	},
-/turf/open/floor/iron/dark,
-/area/security/execution/transfer)
 "owl" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -49983,6 +49951,20 @@
 /obj/item/taperecorder,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"rUm" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Observation Lounge"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "loungeshutter";
+	name = "Observation Lounge Shutters"
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/lounge)
 "rUx" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -53167,6 +53149,19 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/storage/tools)
+"tiJ" = (
+/obj/machinery/computer/telecomms/monitor{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/tcommsat/computer)
 "tiL" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
@@ -54875,6 +54870,13 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
+"tOR" = (
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/science/xenobiology)
 "tPk" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -90679,7 +90681,7 @@ gXs
 bfv
 bfv
 hiL
-jKG
+eLO
 bfv
 bfv
 aaa
@@ -90891,7 +90893,7 @@ fcO
 sNN
 vZK
 cco
-owi
+hUZ
 afA
 wyP
 iKo
@@ -91768,7 +91770,7 @@ bZr
 pyy
 cbn
 wuV
-myM
+tiJ
 dzT
 bVJ
 cay
@@ -100951,7 +100953,7 @@ mrU
 qAJ
 sxX
 bUk
-lFS
+rUm
 ekf
 veN
 veN
@@ -109244,7 +109246,7 @@ bRZ
 bMi
 bMi
 cfy
-cgn
+tOR
 cjB
 tGp
 aaf

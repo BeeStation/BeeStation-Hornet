@@ -5,6 +5,12 @@
 ///! from base of area/proc/power_change(): ()
 #define COMSIG_AREA_POWER_CHANGE "area_power_change"
 
+/// called when area AI control is enabled
+#define COMSIG_AREA_AI_CON_ON "area_ai_control_on"
+/// called when area AI control is disabled
+#define COMSIG_AREA_AI_CON_OFF "area_ai_control_off"
+
+
 /// called after a successful area creation by a mob: (area/created_area, list/area/old_areas, mob/creator)
 #define COMSIG_AREA_CREATED "!mob_created_area"
 

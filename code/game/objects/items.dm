@@ -14,6 +14,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	name = "item"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	ai_view_icon = "ai_item"
 	/// The icon state for the icons that appear in the players hand while holding it. Gotten from /client/var/lefthand_file and /client/var/righthand_file
 	var/inhand_icon_state = null
 	/// The icon for holding in hand icon states for the left hand.
@@ -288,6 +289,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * toolspeed)
+
+	if(mapload)
+		// Build our AI view / hologram appearance
+		update_ai_view()
+		// Add AI view
+		add_ai_view()
 
 /obj/item/Destroy(force)
 	master = null

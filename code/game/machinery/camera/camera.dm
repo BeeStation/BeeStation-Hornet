@@ -13,6 +13,9 @@
 	armor_type = /datum/armor/machinery_camera
 	max_integrity = 100
 	integrity_failure = 0.5
+	ai_view_x = 0
+	ai_view_y = 0
+	ai_view_icon = "ai_camera"
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
 	var/list/network
 	var/c_tag = null
@@ -31,7 +34,7 @@
 	//OTHER
 
 	var/view_range = 7
-	var/short_range = 2
+	var/short_range = 1
 
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 	var/in_use_lights = 0
@@ -128,6 +131,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		update_appearance()
 
 	alarm_manager = new(src)
+
+	switch(dir)
+		if(NORTH)
+			ai_view_x = -11
+			ai_view_y = 11
+		if(SOUTH)
+			ai_view_x = -11
+			ai_view_y = -11
+		if(WEST)
+			ai_view_x = -11
+			ai_view_y = 11
+		if(EAST)
+			ai_view_x = 11
+			ai_view_y = 11
+
+	update_ai_view()
 
 	AddComponent(/datum/component/jam_receiver, JAMMER_PROTECTION_CAMERAS)
 	RegisterSignal(src, COMSIG_ATOM_JAMMED, PROC_REF(update_jammed))

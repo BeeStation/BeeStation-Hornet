@@ -37,7 +37,7 @@
 			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/power/apc, reset), wire), 300)
 		if(WIRE_AI) // Disable AI control for a very short time.
 			if(!A.aidisabled)
-				A.aidisabled = TRUE
+				A.set_ai_control(FALSE)
 				addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/power/apc, reset), wire), 10)
 	ui_update()
 
@@ -53,9 +53,9 @@
 				A.shorted = TRUE
 				if (user)
 					A.shock(user, 50)
-		if(WIRE_AI) // Disable AI control.
+		if(WIRE_AI) // AI control.
 			if(mend)
-				A.aidisabled = FALSE
+				A.set_ai_control(TRUE)
 			else
-				A.aidisabled = TRUE
+				A.set_ai_control(FALSE)
 	ui_update()

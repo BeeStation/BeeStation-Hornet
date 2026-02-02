@@ -112,7 +112,7 @@
 				shorted = FALSE
 		if(WIRE_AI)
 			if(!wires.is_cut(WIRE_AI))
-				aidisabled = FALSE
+				set_ai_control(TRUE)
 		if(APC_RESET_EMP)
 			equipment = APC_CHANNEL_AUTO_ON
 			environ = APC_CHANNEL_AUTO_ON

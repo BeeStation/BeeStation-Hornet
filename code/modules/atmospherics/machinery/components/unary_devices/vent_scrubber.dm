@@ -18,7 +18,6 @@
 	vent_movement = VENTCRAWL_ALLOWED | VENTCRAWL_CAN_SEE | VENTCRAWL_ENTRANCE_ALLOWED
 	processing_flags = NONE
 
-
 	///The mode of the scrubber (ATMOS_DIRECTION_SCRUBBING or ATMOS_DIRECTION_SIPHONING)
 	var/scrubbing = ATMOS_DIRECTION_SCRUBBING
 	///The list of gases we are filtering

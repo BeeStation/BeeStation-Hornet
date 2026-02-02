@@ -16,6 +16,7 @@
 	resistance_flags = FIRE_PROOF
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
+	ai_view_icon = "ai_apc_atmos"
 
 	/// Current alert level of our air alarm.
 	/// [AIR_ALARM_ALERT_NONE], [AIR_ALARM_ALERT_WARNING], [AIR_ALARM_ALERT_HAZARD]

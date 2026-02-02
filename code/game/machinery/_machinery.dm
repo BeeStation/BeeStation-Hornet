@@ -102,6 +102,11 @@
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	initial_language_holder = /datum/language_holder/speaking_machine
 
+	armor_type = /datum/armor/obj_machinery
+
+	ai_view = TRUE
+	ai_view_icon = "ai_machine"
+
 	var/machine_stat = NONE
 	var/use_power = IDLE_POWER_USE
 		//0 = dont use power
@@ -184,6 +189,12 @@
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
+
+	if(mapload)
+		// Build our AI view / hologram appearance
+		update_ai_view()
+		// Add AI view
+		add_ai_view()
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_MACHINES_GLITCHED) && mapload)
 		randomize_language_if_on_station()

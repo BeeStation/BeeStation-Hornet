@@ -12,6 +12,7 @@
 	recipe_type = /datum/crafting_recipe/shutters
 	pod_open_sound  = 'sound/machines/shutter_open.ogg'
 	pod_close_sound = 'sound/machines/shutter_close.ogg'
+	ai_view = FALSE
 
 /datum/armor/poddoor_shutters
 	melee = 20
