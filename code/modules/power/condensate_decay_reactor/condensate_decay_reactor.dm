@@ -321,7 +321,7 @@
 
 		var/ratio = total_gas * (1 - metallization_ratio)
 		var/diffusion_difference = ratio - turf_mix_mols
-		var/gas_diffused = (((diffusion_difference / total_gas) / 1) ** 3) * total_gas
+		var/gas_diffused = ((diffusion_difference / total_gas) ** 3) * total_gas
 
 		gas_diffused = clamp(gas_diffused, gas_diffused > 0 ? 0 : -turf_mix_mols, gas_diffused < 0 ? 0 : core_comp_mols)
 
