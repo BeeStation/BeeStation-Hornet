@@ -7,6 +7,7 @@
 	layer = MOB_LAYER
 	circuit = /obj/item/circuitboard/machine/cdr
 
+	/// The list of CDR-specific gas attributes
 	var/list/cdr_gas_factors
 	/// Is the CDR activated or not?
 	var/activated = FALSE
@@ -296,6 +297,7 @@
 	if(toroid_mix)
 		var/total_heat_capacity = 0
 		var/gas_count = 0
+		toroid_mix.heat_capacity()
 		for (var/datum/gas/gas_id as anything in toroid_mix.gases)
 			total_heat_capacity += initial(gas_id.specific_heat) * toroid_mix.gases[gas_id][MOLES]
 			gas_count++
@@ -312,10 +314,6 @@
 	for(var/turf_gas in (turf_mix.gases | core_composition.gases))
 		var/turf_mix_mols = GET_MOLES(turf_gas, turf_mix)
 		var/core_comp_mols = GET_MOLES(turf_gas, core_composition)
-		if(!turf_mix_mols)
-			turf_mix_mols = 0
-		if(!core_comp_mols)
-			core_comp_mols = 0
 		var/total_gas = core_comp_mols + turf_mix_mols
 
 		if(!total_gas)
