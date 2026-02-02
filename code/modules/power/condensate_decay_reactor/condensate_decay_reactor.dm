@@ -218,7 +218,7 @@
 		harvester.parent = src
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_temp_stab_factor()
-	var/n2o_mols = GET_MOLES(/datum/gas/oxygen, core_composition)
+	var/n2o_mols = GET_MOLES(/datum/gas/nitrous_oxide, core_composition)
 	var/maximum_temp_factor = n2o_mols ? max(100 - n2o_mols * 0.1, 10) : 100 //when n2o mols > 1000 temp_factor = 10
 	var/temp_slope = 0.01
 	return max(-core_composition.temperature * temp_slope + maximum_temp_factor, 1)
