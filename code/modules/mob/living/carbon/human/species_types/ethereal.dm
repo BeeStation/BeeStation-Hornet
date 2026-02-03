@@ -91,6 +91,10 @@
 			for(var/i in 1 to 3)
 				built_color += skin_color[i] + ((colors[i] - skin_color[i]) * healthpercent)
 			current_color = rgb(built_color[1], built_color[2], built_color[3])
+
+		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
+		ethereal_light.set_light_on(TRUE)
+		fixed_mut_color = current_color
 	else
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = COLOR_GRAY
@@ -138,7 +142,7 @@
 /datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/H)
 	if(!emageffect)
 		return
-	current_color = "#[GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]]"	//Picks a random colour from the Ethereal colour list
+	current_color = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)] //Picks a random colour from the Ethereal colour list
 	spec_updatehealth(H)
 	addtimer(CALLBACK(src, PROC_REF(handle_emag), H), 5) //Call ourselves every 0.5 seconds to change color
 
