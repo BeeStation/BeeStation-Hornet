@@ -272,6 +272,9 @@
 		servant_datum.equip_servant()
 		servant_datum.prefix = CLOCKCULT_PREFIX_MASTER
 
+		// Blind them while Reebe loads, cleared by teleport_all_servants_to_reebe()
+		chosen_mind.current.overlay_fullscreen("reebe_loading", /atom/movable/screen/fullscreen/flash/black)
+
 		GLOB.pre_setup_antags -= chosen_mind
 
 	// If Reebe is somehow loaded, we might as well go ahead and move our servants there

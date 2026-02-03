@@ -16,4 +16,6 @@
 		if(QDELETED(servant))
 			continue
 
+		servant.clear_fullscreen("reebe_loading", 1 SECONDS)
+
 		servant.forceMove(pick(GLOB.servant_spawns))
