@@ -278,7 +278,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/alert_radio(decreasing)
 	if(!COOLDOWN_FINISHED(src, radio_cooldown) || core_health > CDR_MAX_CORE_HEALTH * 0.6)
 		return
-	radio.talk_into(src, "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!", core_health < CDR_MAX_CORE_HEALTH * 0.25 ? RADIO_CHANNEL_ENGINEERING : null)
+	radio.talk_into(src, "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!", core_health < CDR_MAX_CORE_HEALTH * 0.25 ? null : RADIO_CHANNEL_ENGINEERING)
 	COOLDOWN_START(src, radio_cooldown, CDR_RADIO_COOLDOWN)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/fail()
@@ -295,14 +295,7 @@
 	airs[1].pump_gas_volume(toroid_mix, input_volume)
 
 	if(toroid_mix)
-		var/total_heat_capacity = 0
-		var/gas_count = 0
-		toroid_mix.heat_capacity()
-		for (var/datum/gas/gas_id as anything in toroid_mix.gases)
-			total_heat_capacity += initial(gas_id.specific_heat) * toroid_mix.gases[gas_id][MOLES]
-			gas_count++
-		if(gas_count)
-			toroid_spin += (total_heat_capacity / gas_count) * CDR_MOL_TO_SPIN
+		toroid_spin += (length(toroid_mix.gases) ? toroid_mix.heat_capacity() / length(toroid_mix.gases) : 0) * CDR_MOL_TO_SPIN
 
 	parabolic_upper_limit = get_mass_multiplier()
 	parabolic_ratio = toroid_spin / 10000
@@ -354,8 +347,8 @@
 	var/obj/machinery/atmospherics/components/unary/cdr/parent = null
 
 /obj/machinery/power/energy_accumulator/flux_harvester/Destroy()
-	. = ..()
 	parent?.linked_harvesters -= src
+	return ..()
 
 /obj/machinery/power/energy_accumulator/flux_harvester/screwdriver_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_screwdriver(user, "flux_harvester-o", "flux_harvester", tool)

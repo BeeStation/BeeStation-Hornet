@@ -11,7 +11,7 @@
 	/// Which gas does this decay into? Null if it does not decay
 	var/decays_into = null
 	/// How fast does this gas decay?
-	var/decay_rate = 0.1
+	var/decay_rate = 0.05
 	/// What amount is needed before this gas starts to decay?
 	var/threshold = 0
 	/// How much flux does this gas produce on decay?
