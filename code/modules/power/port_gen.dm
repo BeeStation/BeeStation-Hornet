@@ -98,7 +98,7 @@
 	/// Maximum safe operating temperature before overheating begins (in Kelvin)
 	var/max_temperature = T0C + 300
 	/// Temperature gain per power level (equilibrium calculation)
-	var/temperature_gain = 50
+	var/temperature_gain = 55
 	/// Heat capacity of the generator (J/K) - affects how quickly temperature changes
 	var/heat_capacity = 5000
 	/// Overheat counter - explodes when this exceeds max_overheat
@@ -197,15 +197,26 @@
 	operating_temperature += bias + rand(-7, 7)
 	operating_temperature = max(operating_temperature, TCMB) // Can't go below cosmic background temperature
 
+	// Thermal runaway - when running hot, chance for temperature spikes
+	if(operating_temperature > max_temperature * 0.9)
+		if(prob(power_output * 10))
+			operating_temperature += rand(5, 15)
+
 	// Heat transfer to environment
-	if(environment && operating_temperature > ambient_temp)
-		var/environment_heat_capacity = environment.heat_capacity()
-		if(environment_heat_capacity > 0)
-			var/heat_amount = CALCULATE_CONDUCTION_ENERGY(operating_temperature - ambient_temp, heat_capacity, environment_heat_capacity)
-			// Apply heat to environment
-			environment.temperature = max(environment.temperature + heat_amount / environment_heat_capacity, TCMB)
-			// We dissipate some generator heat
-			operating_temperature = max(operating_temperature - heat_amount / heat_capacity, TCMB)
+	if(environment)
+		// Calculate outer temperature
+		var/outer_temp = 0.1 * (operating_temperature - T0C) + T0C
+		if(outer_temp > environment.temperature)
+			var/environment_heat_capacity = environment.heat_capacity()
+			if(environment_heat_capacity > 0)
+				// Energy needed to heat environment to outer_temp
+				var/heat_transfer = environment_heat_capacity * (outer_temp - environment.temperature)
+				if(heat_transfer > 1)
+					// Cap by heating power (10% of power output)
+					var/heating_power = 0.1 * power_gen * power_output
+					heat_transfer = min(heat_transfer, heating_power)
+					// Apply thermal energy to environment
+					environment.temperature = max(environment.temperature + heat_transfer / environment_heat_capacity, TCMB)
 
 	// Overheat mechanics
 	if(operating_temperature > max_temperature)
