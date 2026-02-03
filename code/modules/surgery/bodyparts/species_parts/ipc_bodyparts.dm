@@ -1,6 +1,6 @@
 /obj/item/bodypart/head/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_head"
 	limb_id = "synth" //Overriden in /species/ipc/replace_body()
 	is_dimorphic = FALSE
@@ -15,8 +15,8 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/chest/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_chest"
 	limb_id = "synth"
 	is_dimorphic = FALSE
@@ -32,8 +32,8 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/arm/left/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_l_arm"
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -48,8 +48,8 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/arm/right/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_r_arm"
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -64,8 +64,8 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/leg/left/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_l_leg"
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -80,8 +80,8 @@
 	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/leg/right/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_r_leg"
 	limb_id = "synth"
 	should_draw_greyscale = FALSE

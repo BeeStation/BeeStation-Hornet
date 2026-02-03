@@ -69,7 +69,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 			I.registered_name = new_spawn.name
 			I.update_label()
 
-/obj/effect/mob_spawn/human/golem/attack_hand(mob/user, list/modifiers)
+/obj/effect/mob_spawn/human/golem/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

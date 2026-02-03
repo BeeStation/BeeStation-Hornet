@@ -206,6 +206,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ALWAYS_STUBS "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
 #define TRAIT_NAIVE "naive" //All dead people will appear as sleeping.
 #define TRAIT_PRIMITIVE "primitive"
+#define TRAIT_SPACEWALK "spacewalk"
 #define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale
 #define TRAIT_DRINKSBLOOD "drinks_blood"
 #define TRAIT_SOMMELIER			"sommelier"  // shows different booze power flavor texts
@@ -481,6 +482,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BEING_SHOCKED "shocked"
 /// Trait given to a dreaming carbon when they are currently doing dreaming stuff
 #define TRAIT_DREAMING "currently_dreaming"
+
+/// Stores typepaths, the typepath value read from this trait indicates that this item
+/// is meant to look like the item with that path, which might affect how you show
+/// this item to players (such as through armour readouts).
+#define TRAIT_VALUE_MIMIC_PATH "mimic_path"
 
 ///without a human having this trait, they speak as if they have no tongue.
 #define TRAIT_SPEAKS_CLEARLY "speaks_clearly"

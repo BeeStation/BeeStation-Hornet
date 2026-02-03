@@ -40,12 +40,12 @@
 /obj/item/clothing/head/wig
 	name = "wig"
 	desc = "A bunch of hair without a head attached."
-	icon = 'icons/mob/species/human/human_face.dmi'	  // default icon for all hairs
+	icon = 'icons/mob/human/human_face.dmi'	  // default icon for all hairs
 	icon_state = "hair_vlong"
 	inhand_icon_state = "pwig"
 	flags_inv = HIDEHAIR	//Instead of being handled as a clothing item, it overrides the hair values in /datum/species/proc/handle_hair
 	slot_flags = ITEM_SLOT_HEAD
-	worn_icon = 'icons/mob/species/human/human_face.dmi'
+	worn_icon = 'icons/mob/human/human_face.dmi'
 	worn_icon_state = "bald"
 	var/hair_style = "Very Long Hair"
 	var/hair_color = "#000"
@@ -143,9 +143,9 @@
 /obj/item/clothing/head/costume/speedwagon/cursed
 	name = "ULTIMATE HAT"
 	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
-	icon_state = "speedwagon"
-	inhand_icon_state = "speedwagon"
-	worn_y_offset = 6
+	icon_state = "speedwagon_cursed"
+	inhand_icon_state = "speedwagon_cursed"
+	worn_y_offset = 18
 
 /obj/item/clothing/head/franks_hat
 	name = "Frank's Hat"

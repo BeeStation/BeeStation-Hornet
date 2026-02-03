@@ -21,7 +21,6 @@
 	maxHealth = 25
 	health = 25
 	combat_mode = TRUE
-	spacewalk = TRUE
 
 	environment_smash = 0
 	melee_damage = 15
@@ -35,6 +34,10 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
+
+/mob/living/simple_animal/hostile/retaliate/dolphin/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/retaliate/dolphin/Process_Spacemove(movement_dir = 0)
 	return TRUE

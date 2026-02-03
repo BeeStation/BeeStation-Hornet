@@ -218,7 +218,7 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "fakehalo"
 
-/obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
+/obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(iscarbon(M))
 		var/mob/living/carbon/carbon_wearer = M
 		if(carbon_wearer.overlays_standing[HALO_LAYER])

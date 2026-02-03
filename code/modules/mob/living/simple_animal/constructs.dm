@@ -14,7 +14,6 @@
 	speak_chance = 1
 	icon = 'icons/mob/cult.dmi'
 	speed = 0
-	spacewalk = TRUE
 	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
@@ -437,7 +436,7 @@
 		for(var/X in C.bodyparts)
 			var/obj/item/bodypart/BP = X
 			if(BP.body_part != HEAD && BP.body_part != CHEST)
-				if(BP.dismemberable)
+				if(BP.bodypart_flags & BODYPART_UNREMOVABLE)
 					parts += BP
 				else
 					undismembermerable_limbs++
