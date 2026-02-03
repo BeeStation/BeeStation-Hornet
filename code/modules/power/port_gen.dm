@@ -93,12 +93,14 @@
 	var/sheet_path = /obj/item/stack/sheet/mineral/plasma
 	var/sheet_left = 0 // How much is left of the sheet
 	var/time_per_sheet = 260
-	/// Current operating temperature in Celsius
-	var/operating_temperature = 20
-	/// Maximum safe operating temperature before overheating begins
-	var/max_temperature = 300
+	/// Current operating temperature in Kelvin
+	var/operating_temperature = T20C
+	/// Maximum safe operating temperature before overheating begins (in Kelvin)
+	var/max_temperature = T0C + 300
 	/// Temperature gain per power level (equilibrium calculation)
 	var/temperature_gain = 50
+	/// Heat capacity of the generator (J/K) - affects how quickly temperature changes
+	var/heat_capacity = 5000
 	/// Overheat counter - explodes when this exceeds max_overheat
 	var/overheating = 0
 	/// Maximum overheat counter before explosion
@@ -146,7 +148,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Fuel efficiency increased by <b>[(consumption*100)-100]%</b>.")
 		if(active)
-			. += span_notice("Operating temperature: <b>[round(operating_temperature, 0.1)]°C</b> (max safe: [max_temperature]°C)")
+			. += span_notice("Operating temperature: <b>[round(operating_temperature - T0C, 0.1)]°C</b> (max safe: [round(max_temperature - T0C)]°C)")
 			if(overheating > 0)
 				var/percent = round((overheating / max_overheat) * 100, 1)
 				. += span_warning("OVERHEATING: [percent]%")
@@ -174,15 +176,15 @@
 
 	// Thermal equilibrium system
 	var/datum/gas_mixture/environment = loc.return_air()
-	var/ambient_temp = environment ? environment.return_temperature() - T0C : 20 // Convert to Celsius
+	var/ambient_temp = environment ? environment.return_temperature() : T20C
 	var/pressure_ratio = environment ? min(environment.return_pressure() / ONE_ATMOSPHERE, 1) : 1
 
-	// target temperature range based on power output
-	var/lower_limit = 56 + (power_output * temperature_gain)
-	var/upper_limit = 76 + (power_output * temperature_gain)
+	// target temperature range based on power output (in Kelvin)
+	var/lower_limit = T0C + 56 + (power_output * temperature_gain)
+	var/upper_limit = T0C + 76 + (power_output * temperature_gain)
 
-	// environmental effects
-	var/ambient_deviation = ambient_temp - 20
+	// ambient temperature deviation from 20C
+	var/ambient_deviation = ambient_temp - T20C
 	lower_limit += ambient_deviation * pressure_ratio
 	upper_limit += ambient_deviation * pressure_ratio
 
@@ -193,14 +195,17 @@
 
 	//temperature change random variation
 	operating_temperature += bias + rand(-7, 7)
-	operating_temperature = max(operating_temperature, 0) // Can't go below absolute zero (obviously)
+	operating_temperature = max(operating_temperature, TCMB) // Can't go below cosmic background temperature
 
 	// Heat transfer to environment
 	if(environment && operating_temperature > ambient_temp)
-		var/heat_transfer = min((power_gen * power_output) * 0.1, (operating_temperature - ambient_temp) * 50)
-		if(heat_transfer > 0)
-			// Convert heat transfer to Kelvin and apply to environment
-			environment.temperature += (heat_transfer / (environment.heat_capacity() + 1))
+		var/environment_heat_capacity = environment.heat_capacity()
+		if(environment_heat_capacity > 0)
+			var/heat_amount = CALCULATE_CONDUCTION_ENERGY(operating_temperature - ambient_temp, heat_capacity, environment_heat_capacity)
+			// Apply heat to environment
+			environment.temperature = max(environment.temperature + heat_amount / environment_heat_capacity, TCMB)
+			// We dissipate some generator heat
+			operating_temperature = max(operating_temperature - heat_amount / heat_capacity, TCMB)
 
 	// Overheat mechanics
 	if(operating_temperature > max_temperature)
@@ -226,14 +231,14 @@
 /obj/machinery/power/port_gen/pacman/handleInactive()
 	// Environmental cooling when inactive
 	var/datum/gas_mixture/environment = loc.return_air()
-	var/ambient_temp = environment ? environment.return_temperature() - T0C : 20 // Convert to Celsius
+	var/ambient_temp = environment ? environment.return_temperature() : T20C
 	var/pressure_ratio = environment ? min(environment.return_pressure() / ONE_ATMOSPHERE, 1) : 1
 
-	// Cool toward ambient temperature (or 20°C default)
-	var/cooling_target = 20 + ((ambient_temp - 20) * pressure_ratio)
+	// Cool toward ambient temperature (in Kelvin)
+	var/cooling_target = T20C + ((ambient_temp - T20C) * pressure_ratio)
 	var/temp_loss = clamp((operating_temperature - cooling_target) / 40, 2, 20)
 	operating_temperature -= temp_loss
-	operating_temperature = max(operating_temperature, cooling_target)
+	operating_temperature = max(operating_temperature, TCMB)
 
 	// Reduce overheat counter while cooling
 	if(overheating > 0)
@@ -335,8 +340,8 @@
 	data["power_generated"] = display_power_persec(power_gen)
 	data["power_output"] = display_power_persec(power_gen * power_output)
 	data["power_available"] = (powernet == null ? 0 : display_power_persec(avail()))
-	data["current_heat"] = round(operating_temperature, 0.1)
-	data["max_temperature"] = max_temperature
+	data["current_heat"] = round(operating_temperature - T0C, 0.1) // Display in Celsius
+	data["max_temperature"] = round(max_temperature - T0C) // ditto
 	data["overheat_percent"] = round((overheating / max_overheat) * 100, 0.1)
 	. =  data
 
@@ -378,7 +383,7 @@
 	power_gen = 15 KILOWATT
 	time_per_sheet = 85
 	// Thermal characteristics same as standard PACMAN
-	max_temperature = 300
+	max_temperature = T0C + 300
 	temperature_gain = 50
 	/// Radiation output multiplier
 	var/rad_power = 4
@@ -432,7 +437,7 @@
 	power_gen = 40 KILOWATT
 	time_per_sheet = 80
 	// MRS has much higher thermal tolerance but generates more heat per level
-	max_temperature = 800
+	max_temperature = T0C + 800
 	temperature_gain = 90
 
 /obj/machinery/power/port_gen/pacman/mrs/overheat()
