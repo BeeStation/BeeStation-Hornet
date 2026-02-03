@@ -26130,7 +26130,6 @@
 	pixel_y = 5
 	},
 /obj/machinery/newscaster/directional/north{
-	pixel_x = 0;
 	pixel_y = 33
 	},
 /obj/effect/decal/cleanable/dirt,
