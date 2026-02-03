@@ -8,7 +8,7 @@
 
 /proc/flee_reebe()
 	for(var/mob/living/M in GLOB.mob_list)
-		if(!is_reebe(M.z))
+		if(M.get_virtual_z_level() != REEBE_VIRTUAL_Z)
 			continue
 		var/safe_place = find_safe_turf()
 		M.forceMove(safe_place)
@@ -48,7 +48,7 @@
 	destroyed = TRUE
 	hierophant_message("The Ark has been destroyed, Reebe is becoming unstable!", null, "<span class='large_brass'>")
 	for(var/mob/living/M in GLOB.player_list)
-		if(!is_reebe(M.z))
+		if(M.get_virtual_z_level() != REEBE_VIRTUAL_Z)
 			continue
 		if(IS_SERVANT_OF_RATVAR(M))
 			to_chat(M, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i>"))
@@ -66,7 +66,7 @@
 
 	// Release the non-servants from Reebe
 	for(var/mob/living/person in GLOB.player_list)
-		if(!is_reebe(person.z))
+		if(person.get_virtual_z_level() != REEBE_VIRTUAL_Z)
 			continue
 		if(IS_SERVANT_OF_RATVAR(person))
 			to_chat(person, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i>"))
@@ -296,7 +296,7 @@
 
 	// Send to the station
 	for(var/mob/living/person in GLOB.mob_list)
-		if(!is_reebe(person.z))
+		if(person.get_virtual_z_level() != REEBE_VIRTUAL_Z)
 			continue
 		person.forceMove(find_safe_turf())
 

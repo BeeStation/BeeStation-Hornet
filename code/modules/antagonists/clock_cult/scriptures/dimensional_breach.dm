@@ -15,7 +15,7 @@
 	if(!.)
 		return FALSE
 
-	if(!is_reebe(invoker.z))
+	if(invoker.get_virtual_z_level() != REEBE_VIRTUAL_Z)
 		invoker.balloon_alert(invoker, "must be on Reebe!")
 		return FALSE
 

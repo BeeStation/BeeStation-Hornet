@@ -9,10 +9,6 @@
 	var/datum/async_map_generator/map_place/reebe_placer = reebe_template.load(locate(reebe_reservation.bottom_left_coords[1], reebe_reservation.bottom_left_coords[2], reebe_reservation.bottom_left_coords[3]))
 	reebe_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(teleport_all_servants_to_reebe)))
 	reebe_loaded = TRUE
-	/*
-	var/datum/map_template/template = new("_maps/map_files/generic/CityOfCogs.dmm", "Reebe")
-	template.load_new_z(null, ZTRAITS_REEBE)
-	*/
 
 /proc/teleport_all_servants_to_reebe()
 	for(var/datum/mind/servant_mind in GLOB.servants_of_ratvar)

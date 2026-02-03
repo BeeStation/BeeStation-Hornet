@@ -20,7 +20,7 @@
 	if(!.)
 		return FALSE
 
-	if(!is_reebe(invoker.z))
+	if(invoker.get_virtual_z_level() != REEBE_VIRTUAL_Z)
 		invoker.balloon_alert(invoker, "not on Reebe!")
 		return FALSE
 	if(length(GLOB.cogscarabs) >= CLOCKCULT_COGSCARAB_LIMIT)
