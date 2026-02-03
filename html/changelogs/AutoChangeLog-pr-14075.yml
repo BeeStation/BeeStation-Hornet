@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed the masculine hat clipping inside of the wearer
-  - bugfix: Fixed the elongated masculine hat not being elongated
