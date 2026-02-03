@@ -22,9 +22,9 @@
 			update_inv_internal_storage()
 
 /mob/living/simple_animal/hostile/holoparasite/build_incapacitated(flags)
-	. = ..()
 	if(!can_use_abilities)
-		. |= TRADITIONAL_INCAPACITATED
+		return ..()
+	return NONE
 
 /mob/living/simple_animal/hostile/holoparasite/can_put_in_hand(item, hand_index)
 	return can_use_abilities && ..()
