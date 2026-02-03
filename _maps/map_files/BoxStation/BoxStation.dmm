@@ -19460,23 +19460,25 @@
 /area/quartermaster/qm)
 "frr" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 5;
-	pixel_y = 13
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 9;
-	pixel_y = -1
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/folder/red{
-	pixel_x = -4;
+/obj/item/folder/white{
+	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/item/folder/white{
-	pixel_x = -9
-	},
 /obj/machinery/light/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/bodybags{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = 7;
+	pixel_y = -9
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -6;
+	pixel_y = -12
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "frs" = (
@@ -20058,6 +20060,7 @@
 "fDt" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "fDG" = (
@@ -20083,6 +20086,11 @@
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/cup/bottle/morphine{
+	pixel_x = -7;
+	pixel_y = 15
+	},
+/obj/item/reagent_containers/syringe/used,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "fEJ" = (
@@ -22435,6 +22443,7 @@
 "gBM" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "gCm" = (
@@ -26107,23 +26116,28 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/flashlight/lamp{
 	pixel_x = -5;
-	pixel_y = 14
+	pixel_y = 15
 	},
 /obj/item/paper_bin{
-	pixel_x = 9;
-	pixel_y = 6
+	pixel_x = 6;
+	pixel_y = 3
 	},
 /obj/item/pen{
-	pixel_x = 9;
-	pixel_y = 7
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /obj/machinery/newscaster/directional/north{
 	pixel_x = 0;
 	pixel_y = 33
 	},
-/obj/item/food/donkpocket/random{
-	pixel_x = -6;
-	pixel_y = 2
+/obj/effect/decal/cleanable/dirt,
+/obj/item/folder/red{
+	pixel_x = 19;
+	pixel_y = 1
+	},
+/obj/item/sticky_note_pile{
+	pixel_x = -7;
+	pixel_y = 3
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
@@ -33221,6 +33235,25 @@
 "kYS" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/digital_clock/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/can{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/effect/decal/cleanable/ants{
+	pixel_x = 6;
+	pixel_y = 11
+	},
+/obj/effect/decal/cleanable/ash,
+/obj/item/cigbutt{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/effect/spawner/mail/donut,
+/obj/effect/decal/cleanable/garbage{
+	pixel_x = -6;
+	pixel_y = -5
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "kYX" = (
@@ -34660,6 +34693,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/brig_physician,
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "lBc" = (
@@ -36176,6 +36211,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "mkg" = (
@@ -38243,6 +38279,11 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
+"ncV" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/techmaint,
+/area/security/brig)
 "ncX" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
@@ -40151,11 +40192,13 @@
 /area/chapel/office)
 "nRb" = (
 /obj/structure/table/optable,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 7
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/defibrillator_mount/directional/south,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 3;
+	pixel_x = 1
+	},
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "nRk" = (
@@ -45088,6 +45131,16 @@
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
+"pWC" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 9
+	},
+/obj/effect/landmark/start/brig_physician,
+/turf/open/floor/iron/white,
+/area/security/brig)
 "pWF" = (
 /obj/structure/janitorialcart,
 /obj/item/mop,
@@ -51857,6 +51910,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "sMu" = (
@@ -53678,6 +53732,7 @@
 	pixel_y = 9
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron/white,
 /area/security/brig)
 "tum" = (
@@ -57979,7 +58034,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/item/storage/box/bodybags,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
@@ -60338,6 +60392,9 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/security/brig)
@@ -95027,7 +95084,7 @@ xHk
 mvc
 mjJ
 pAl
-pAl
+pWC
 nRb
 aaQ
 hBf
@@ -96055,7 +96112,7 @@ anF
 aiX
 hYi
 lAO
-flQ
+ncV
 flQ
 eNp
 exj
