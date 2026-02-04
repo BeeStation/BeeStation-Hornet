@@ -6,7 +6,7 @@
 
 /obj/effect/turf_decal/tile/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
-		color = "#[random_short_color()]"
+		color = "#[random_color()]"
 	return ..()
 
 /// White tiles
@@ -941,7 +941,7 @@
 	name = "contrasted colorful anticorner ramp"
 
 /obj/effect/turf_decal/tile/random/Initialize(mapload)
-	color = "#[random_short_color()]"
+	color = "#[random_color()]"
 	return ..()
 
 
@@ -1024,7 +1024,7 @@
 
 /obj/effect/turf_decal/trimline/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
-		color = "#[random_short_color()]"
+		color = "#[random_color()]"
 	return ..()
 
 /// White trimlines

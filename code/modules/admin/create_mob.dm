@@ -17,7 +17,7 @@
 	H.underwear = random_underwear(H.gender)
 	H.socks = random_socks(H.gender)
 	H.undershirt = random_undershirt(H.undershirt)
-	H.underwear_color = random_short_color()
+	H.underwear_color = "#[random_color()]"
 	H.skin_tone = pick(GLOB.skin_tones)
 	H.eye_color = random_eye_color()
 	H.dna.blood_type = random_blood_type()
