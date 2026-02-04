@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	return ..()
 
 /mob/living/simple_animal/drone/cogscarab/Life(seconds, times_fired)
-	if(get_virtual_z_level() != REEBE_VIRTUAL_Z && !GLOB.ratvar_risen)
+	if(!is_on_reebe(src) && !GLOB.ratvar_risen)
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(src, T, FALSE)
 	return ..()

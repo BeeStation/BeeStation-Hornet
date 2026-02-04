@@ -276,7 +276,7 @@
 				if(salt)
 					to_chat(L, span_warning("[salt] bars your passage!"))
 					return
-				if((stepTurf.flags_1 & NOJAUNT_1) && loccheck.get_virtual_z_level() != REEBE_VIRTUAL_Z)
+				if((stepTurf.flags_1 & NOJAUNT_1) && !is_on_reebe(loccheck))
 					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(stepTurf.is_holy())
