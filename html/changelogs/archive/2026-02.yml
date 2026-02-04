@@ -35,3 +35,6 @@
   mrmanlikesbt:
   - bugfix: Fixed the masculine hat clipping inside of the wearer
   - bugfix: Fixed the elongated masculine hat not being elongated
+2026-02-04:
+  Rukofamicom:
+  - rscdel: Removed haloperidol from expanded cyborg hypospray
