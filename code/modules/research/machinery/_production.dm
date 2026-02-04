@@ -1,90 +1,118 @@
-#define MAX_SENT 10
-
 /obj/machinery/rnd/production
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
-	/// Whether it can be used without a console.
-	var/consoleless_interface = FALSE
-	/// Used for material distribution among other things.
-	var/efficiency_coeff = 1
-	var/list/categories = list()
-	var/datum/component/remote_materials/materials
-	var/allowed_department_flags = ALL
-	/// What's flick()'d on print.
-	var/production_animation
-	var/allowed_buildtypes = NONE
-	var/list/datum/design/cached_designs
-	var/list/datum/design/matching_designs
-	/// Used for material distribution among other things.
-	var/department_tag = "Unidentified"
-	var/datum/techweb/stored_research
-	var/datum/techweb/host_research
 
+	/// The efficiency coefficient. Material costs and print times are multiplied by this number;
+	var/efficiency_coeff = 1
+	/// The material storage used by this fabricator.
+	var/datum/component/remote_materials/materials
+	/// Which departments are allowed to process this design
+	var/allowed_department_flags = ALL
+	/// Icon state when production has started
+	var/production_animation
+	/// The types of designs this fabricator can print.
+	var/allowed_buildtypes = NONE
+	/// All designs in the techweb that can be fabricated by this machine, since the last update.
+	var/list/datum/design/cached_designs
+	/// What color is this machine's stripe? Leave null to not have a stripe.
+	var/stripe_color = null
+	/// Made so we dont call addtimer() 40,000 times in on_techweb_update(). only allows addtimer() to be called on the first update
+	var/techweb_updating = FALSE
+	/// How many material we hold by default per matter bin rating (when not connected to a silo)
+	var/base_storage = 75000
+
+	/// TGUI stuff
+	var/list/categories = list()
 	var/search = null
 	var/selected_category = null
 
-	/// What color is this machine's stripe? Leave null to not have a stripe.
-	var/stripe_color = null
-
-	var/list/mob/viewing_mobs = list()
-
-	/// Only used for storing pending research for examine()
-	var/list/pending_research = list()
-	var/base_storage = 75000
-
 /obj/machinery/rnd/production/Initialize(mapload)
+	materials = AddComponent(
+		/datum/component/remote_materials, \
+		"lathe", \
+		mapload, \
+		mat_container_flags = BREAKDOWN_FLAGS_LATHE, \
+	)
+
 	. = ..()
-	create_reagents(0, OPENCONTAINER)
-	matching_designs = list()
+
 	cached_designs = list()
-	stored_research = new
-	host_research = SSresearch.science_tech
-	update_research()
-	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload, mat_container_flags=BREAKDOWN_FLAGS_LATHE)
-	RefreshParts()
+	create_reagents(0, OPENCONTAINER)
+
 	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(on_materials_changed))
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))
-	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_RESEARCH, PROC_REF(alert_research))
 
 /obj/machinery/rnd/production/Destroy()
 	custom_materials = null
 	cached_designs = null
-	matching_designs = null
-	QDEL_NULL(stored_research)
-	host_research = null
 	return ..()
-
-/obj/machinery/rnd/production/examine(mob/user)
-	. = ..()
-	var/num_research = length(pending_research)
-	if(num_research)
-		. += "\nPENDING RESEARCH:"
-		var/list/displayed = reverseList(pending_research)  // newest first
-		if(num_research >= MAX_SENT)
-			displayed.Cut(MAX_SENT)
-			displayed += "..."
-		. += displayed.Join("\n")
 
 // Stuff for the stripe on the department machines
 /obj/machinery/rnd/production/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/rnd/production/update_icon()
+/obj/machinery/rnd/production/update_overlays()
 	. = ..()
-	cut_overlays()
-	if(stripe_color)
-		var/mutable_appearance/stripe = mutable_appearance('icons/obj/machines/research.dmi', "protolate_stripe")
-		stripe.color = stripe_color
-		if(!panel_open)
-			cut_overlays()
-			stripe.icon_state = "protolathe_stripe"
-		else
-			stripe.icon_state = "protolathe_stripe_t"
-		add_overlay(stripe)
-	if(length(pending_research))
-		add_overlay("lathe-research")
+	if(!stripe_color)
+		return
+
+	var/mutable_appearance/stripe = mutable_appearance('icons/obj/machines/research.dmi', "protolathe_stripe[panel_open ? "_t" : ""]")
+	stripe.color = stripe_color
+	. += stripe
+
+/obj/machinery/rnd/production/examine(mob/user)
+	. = ..()
+	if(!in_range(user, src) && !isobserver(user))
+		return
+
+	. += span_notice("Material usage cost at <b>[efficiency_coeff * 100]%</b>")
+	. += span_notice("Build time at <b>[efficiency_coeff * 100]%</b>")
+
+/obj/machinery/rnd/production/connect_techweb(datum/techweb/new_techweb)
+	if(stored_research)
+		UnregisterSignal(stored_research, list(COMSIG_TECHWEB_ADD_DESIGN, COMSIG_TECHWEB_REMOVE_DESIGN))
+	return ..()
+
+/obj/machinery/rnd/production/on_connected_techweb()
+	. = ..()
+	RegisterSignals(
+		stored_research,
+		list(COMSIG_TECHWEB_ADD_DESIGN, COMSIG_TECHWEB_REMOVE_DESIGN),
+		TYPE_PROC_REF(/obj/machinery/rnd/production, on_techweb_update)
+	)
+	update_designs()
+
+/obj/machinery/rnd/production/proc/on_techweb_update()
+	SIGNAL_HANDLER
+
+	if(!techweb_updating) //so we batch these updates together
+		techweb_updating = TRUE
+		addtimer(CALLBACK(src, PROC_REF(update_designs)), 2 SECONDS)
+
+/// Updates the list of designs this fabricator can print.
+/obj/machinery/rnd/production/proc/update_designs()
+	PROTECTED_PROC(TRUE)
+	techweb_updating = FALSE
+
+	var/previous_design_count = length(cached_designs)
+
+	cached_designs.Cut()
+
+	for(var/design_id in stored_research.researched_designs)
+		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+
+		if((isnull(allowed_department_flags) || (design.departmental_flags & allowed_department_flags)) && (design.build_type & allowed_buildtypes))
+			cached_designs |= design
+
+	var/design_delta = length(cached_designs) - previous_design_count
+
+	if(design_delta > 0)
+		say("Received [design_delta] new design[design_delta == 1 ? "" : "s"].")
+		playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+
+	update_static_data_for_all_viewers()
 
 /obj/machinery/rnd/production/proc/on_materials_changed()
 	SIGNAL_HANDLER
@@ -94,51 +122,20 @@
 	. = ..()
 	ui_update()
 
-/obj/machinery/rnd/production/proc/update_research()
-	host_research.copy_research_to(stored_research, TRUE)
-	update_designs()
-
-/obj/machinery/rnd/production/proc/alert_research(datum/source, node_id)
-	SIGNAL_HANDLER
-
-	var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
-
-	for(var/i in node.design_ids)
-		var/datum/design/d = SSresearch.techweb_design_by_id(i)
-		if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
-			pending_research += d.name
-	update_icon()
-
-/obj/machinery/rnd/production/proc/update_designs()
-	pending_research.Cut()
-	cached_designs.Cut()
-	for(var/i in stored_research.researched_designs)
-		var/datum/design/d = SSresearch.techweb_design_by_id(i)
-		if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
-			cached_designs |= d
-	update_viewer_statics()
-	update_icon()
-
 /obj/machinery/rnd/production/RefreshParts()
 	calculate_efficiency()
 	ui_update()
+
+/obj/machinery/rnd/production/attackby(obj/item/attacking_item, mob/user, params)
+	if(is_refillable() && attacking_item.is_drainable())
+		return TRUE
+	return ..()
 
 /obj/machinery/rnd/production/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "TechFab")
 		ui.open()
-		viewing_mobs += user
-
-/obj/machinery/rnd/production/ui_close(mob/user)
-	. = ..()
-	viewing_mobs -= user
-
-/obj/machinery/rnd/production/proc/update_viewer_statics()
-	for(var/mob/M as() in viewing_mobs)
-		if(QDELETED(M) || !(M.client || M.mind))
-			continue
-		update_static_data(M)
 
 /obj/machinery/rnd/production/ui_data(mob/user)
 	var/list/data = list()
@@ -204,15 +201,14 @@
 
 /obj/machinery/rnd/production/proc/build_design(datum/design/design)
 	return list(
-			name = design.name,
-			description = design.desc,
-			id = design.id,
-			category = design.category,
-			max_amount = design.maxstack,
-			efficiency_affects = efficient_with(design.build_path),
-			materials = design.materials,
-			reagents = build_recipe_reagents(design.reagents_list),
-		)
+		name = design.name,
+		description = design.desc,
+		id = design.id,
+		category = design.category,
+		efficiency_affects = efficient_with(design.build_path),
+		materials = design.materials,
+		reagents = build_recipe_reagents(design.reagents_list),
+	)
 
 /obj/machinery/rnd/production/proc/build_recipe_reagents(list/reagents)
 	var/list/L = list()
@@ -235,7 +231,7 @@
 			user_try_print_id(params["design_id"], params["amount"])
 			. = TRUE
 	if(action == "sync_research")
-		update_research()
+		update_designs()
 		say("Synchronizing research with host technology database.")
 		. = TRUE
 	if(action == "dispose")
@@ -324,13 +320,13 @@
 	return !ispath(path, /obj/item/stack/sheet) && !ispath(path, /obj/item/stack/ore/bluespace_crystal)
 
 /obj/machinery/rnd/production/proc/user_try_print_id(id, amount)
-	if((!istype(linked_console) && requires_console) || !id)
+	if(!id)
 		return FALSE
 	if(istext(amount))
 		amount = text2num(amount)
 	if(isnull(amount))
 		amount = 1
-	var/datum/design/D = (linked_console || requires_console)? (linked_console.stored_research.researched_designs[id]? SSresearch.techweb_design_by_id(id) : null) : SSresearch.techweb_design_by_id(id)
+	var/datum/design/D = stored_research.researched_designs[id] ? SSresearch.techweb_design_by_id(id) : null
 	if(!istype(D))
 		return FALSE
 	if(!(isnull(allowed_department_flags) || (D.departmental_flags & allowed_department_flags)))
@@ -391,6 +387,3 @@
 /obj/machinery/rnd/production/reset_busy()
 	. = ..()
 	SStgui.update_uis(src)
-
-
-#undef MAX_SENT

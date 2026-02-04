@@ -13,31 +13,32 @@
 	output_direction = SOUTH
 
 	remote_materials = TRUE
-	can_sync = TRUE
 	can_print_category = TRUE
 
 	categories = list(
-		"Cyborg",
-		"Ripley",
-		"Odysseus",
-		"Clarke",
-		"Gygax",
-		"Durand",
-		"H.O.N.K",
-		"Phazon",
-		"Exosuit Equipment",
-		"Exosuit Ammunition",
-		"Cyborg Upgrade Modules",
-		"IPC Components",
-		"Cybernetics",
-		"Implants",
-		"Control Interfaces",
-		"MOD Construction",
-		"MOD Modules",
-		"Misc"
+		RND_CATEGORY_CYBORG,
+		RND_CATEGORY_RIPLEY,
+		RND_CATEGORY_ODYSSEUS,
+		RND_CATEGORY_CLARKE,
+		RND_CATEGORY_GYGAX,
+		RND_CATEGORY_DURAND,
+		RND_CATEGORY_HONK,
+		RND_CATEGORY_PHAZON,
+		RND_CATEGORY_EXOSUIT_EQUIPMENT,
+		RND_CATEGORY_EXOSUIT_AMMUNITION,
+		RND_CATEGORY_CYBORG_UPGRADE_MODULES,
+		RND_CATEGORY_IPC_COMPONENTS,
+		RND_CATEGORY_CYBERNETICS,
+		RND_CATEGORY_IMPLANTS,
+		RND_CATEGORY_CONTROL_INTERFACES,
+		RND_CATEGORY_MOD_CONSTRUCTION,
+		RND_CATEGORY_MOD_MODULES,
+		RND_CATEGORY_MISC,
 	)
 
-	stored_research_type = /datum/techweb/specialized/autounlocking/exofab
+	stored_research = null
+	use_station_research = TRUE
+	allowed_buildtypes = MECHFAB
 
 /obj/machinery/modular_fabricator/exosuit_fab/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())

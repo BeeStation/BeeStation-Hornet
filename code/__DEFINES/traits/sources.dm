@@ -109,7 +109,6 @@
 #define LIGHTPINK_TRAIT "lightpinktrait"
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
-#define TRAIT_JAWS_OF_LIFE "jaws-of-life"
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a good soundcloud rapper's name
 //#define SKILLCHIP_TRAIT "skillchip"
 #define BUSY_FLOORBOT_TRAIT "busy-floorbot"
@@ -136,7 +135,6 @@
 #define BRAIN_UNAIDED "brain-unaided"
 /// Trait applied by MODsuits.
 #define MOD_TRAIT "mod"
-#define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"

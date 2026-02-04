@@ -885,6 +885,11 @@
 	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
+"Ci" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/rnd/server/golem,
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
 "JJ" = (
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
@@ -1002,7 +1007,7 @@ an
 aH
 aS
 ab
-bf
+Ci
 bs
 bz
 bI

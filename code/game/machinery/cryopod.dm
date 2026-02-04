@@ -335,14 +335,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	else
 		control_computer.frozen_crew += "[mob_occupant.real_name]"
 
-	if(GLOB.announcement_systems.len)
-		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		if(mob_occupant.job == JOB_NAME_CAPTAIN)
-			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")  // for when the admins do a stupid british gimmick that makes 0 sense cough
-		else
-			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
-		visible_message(span_notice("\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage."))
-
+	if(mob_occupant.job == JOB_NAME_CAPTAIN)
+		// for when the admins do a stupid british gimmick that makes 0 sense cough
+		minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")
+	else
+		aas_config_announce(/datum/aas_config_entry/cryo, list("PERSON" = mob_occupant.real_name, "RANK" = announce_rank))
 
 	for(var/obj/item/W in mob_occupant.GetAllContents())
 		if(W.loc.loc && (( W.loc.loc == loc ) || (W.loc.loc == control_computer)))

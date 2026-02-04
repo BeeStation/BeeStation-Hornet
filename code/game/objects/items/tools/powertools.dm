@@ -101,7 +101,7 @@
 
 /obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
+	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 
 /obj/item/powertool/jaws_of_life/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_CROWBAR)

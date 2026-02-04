@@ -1243,11 +1243,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/rnd)
-"eA" = (
-/obj/machinery/computer/rdconsole/core,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/ancientstation/rnd)
 "eB" = (
 /obj/machinery/rnd/destructive_analyzer,
 /obj/effect/decal/cleanable/dirt,
@@ -1505,13 +1500,6 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/strong,
 /turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation/rnd)
-"fx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
-/turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/rnd)
 "fy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4111,6 +4099,13 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
+"BE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/operating/oldstation{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/ancientstation/rnd)
 "BH" = (
 /obj/structure/particle_accelerator/particle_emitter/left,
 /obj/effect/decal/cleanable/dirt,
@@ -4271,14 +4266,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/rnd)
-"Fy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stock_parts/cell,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation/engi)
 "Fz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -4600,6 +4587,12 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
+"Ob" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/rnd/server/oldstation,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/ancientstation/rnd)
 "Od" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/strong,
@@ -4937,12 +4930,25 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
+"YW" = (
+/obj/machinery/computer/rdconsole/unlocked,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/ancientstation/rnd)
 "YY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
+"Zl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stock_parts/cell,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/ancientstation/engi)
 "ZE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -6124,7 +6130,7 @@ bd
 aa
 dl
 dl
-Fy
+Zl
 em
 fd
 Yi
@@ -7952,7 +7958,7 @@ ez
 NF
 dZ
 ME
-eb
+Ob
 hf
 eb
 hY
@@ -7996,7 +8002,7 @@ cD
 dc
 dy
 dZ
-eA
+YW
 dZ
 fu
 dZ
@@ -8286,7 +8292,7 @@ dy
 dZ
 eD
 dZ
-fx
+BE
 dZ
 gQ
 dy

@@ -1,24 +1,47 @@
-
-//Techweb nodes are GLOBAL, there should only be one instance of them in the game. Persistent changes should never be made to them in-game.
-//USE SSRESEARCH PROCS TO OBTAIN REFERENCES. DO NOT REFERENCE OUTSIDE OF SSRESEARCH OR YOU WILL FUCK UP GC.
-
+/**
+ * # Techweb Node
+ *
+ * A datum representing a researchable node in the techweb.
+ *
+ * Techweb nodes are GLOBAL, there should only be one instance of them in the game. Persistant
+ * changes should never be made to them in-game. USE SSRESEARCH PROCS TO OBTAIN REFERENCES.
+ * DO NOT REFERENCE OUTSIDE OF SSRESEARCH OR YOU WILL FUCK UP GC.
+ */
 /datum/techweb_node
+	/// Internal ID of the node
 	var/id
+	/// The tech tier of the node.
+	/// If a node with a higher tier than the linked techweb is researched discovery points are subtracted based off of the difference in tier. See calculate_discovery_cost()
 	var/tech_tier = 0
+	/// The name of the node as it is shown on UIs
 	var/display_name = "Errored Node"
+	/// A description of the node to show on UIs
 	var/description = "Why are you seeing this?"
-	var/hidden = FALSE			//Whether it starts off hidden.
-	var/starting_node = FALSE	//Whether it's available without any research.
+	/// The category of the node
+	var/category = "Misc"
+	/// Whether it starts off hidden
+	var/hidden = FALSE
+	/// Whether it's available without any research
+	var/starting_node = FALSE
+	/// A list of prerequisite node ids that must be researched before we are available
 	var/list/prereq_ids = list()
+	/// A list of design ids unlocked when this node is researched
 	var/list/design_ids = list()
-	var/list/unlock_ids = list()			//CALCULATED FROM OTHER NODE'S PREREQUISITES. Assoc list id = TRUE.
-	var/list/boost_item_paths = list()		//Associative list, path = list(point type = point_value).
-	var/autounlock_by_boost = TRUE			//boosting this will autounlock this node.
-	var/export_price = 0					//Cargo export price.
-	var/list/research_costs = list()					//Point cost to research. type = amount
-	var/category = "Misc"				//Category
+	/// CALCULATED FROM OTHER NODE'S PREREQUISITIES. Associated list id = TRUE
+	var/list/unlock_ids = list()
+	/// List of items you need to deconstruct to unlock this node.
+	var/list/required_items_to_unlock = list()
+	/// An associative list of how much this node costs to research in various point types
+	/// point type -> point amount
+	var/list/research_costs = list()
 	/// Whether or not this node should show on the wiki
 	var/show_on_wiki = TRUE
+	/**
+	 * If set, the researched node will be announced on these channels by an announcement system
+	 * with 'announce_research_node' set to TRUE when researched by the station.
+	 * Not every node has to be announced if you want, some are best kept a little "subtler", like illegal technology.
+	 */
+	var/list/announce_channels
 
 /datum/techweb_node/error_node
 	id = "ERROR"
@@ -39,39 +62,6 @@
 	SSresearch.techweb_nodes -= id
 	return ..()
 
-/datum/techweb_node/serialize_list(list/options)
-	. = list()
-	VARSET_TO_LIST(., id)
-	VARSET_TO_LIST(., display_name)
-	VARSET_TO_LIST(., hidden)
-	VARSET_TO_LIST(., starting_node)
-	VARSET_TO_LIST(., assoc_to_keys(prereq_ids))
-	VARSET_TO_LIST(., assoc_to_keys(design_ids))
-	VARSET_TO_LIST(., assoc_to_keys(unlock_ids))
-	VARSET_TO_LIST(., boost_item_paths)
-	VARSET_TO_LIST(., autounlock_by_boost)
-	VARSET_TO_LIST(., export_price)
-	VARSET_TO_LIST(., research_costs)
-	VARSET_TO_LIST(., category)
-
-/datum/techweb_node/deserialize_list(list/input, list/options)
-	if(!input["id"])
-		return
-	VARSET_FROM_LIST(input, id)
-	VARSET_FROM_LIST(input, display_name)
-	VARSET_FROM_LIST(input, hidden)
-	VARSET_FROM_LIST(input, starting_node)
-	VARSET_FROM_LIST(input, prereq_ids)
-	VARSET_FROM_LIST(input, design_ids)
-	VARSET_FROM_LIST(input, unlock_ids)
-	VARSET_FROM_LIST(input, boost_item_paths)
-	VARSET_FROM_LIST(input, autounlock_by_boost)
-	VARSET_FROM_LIST(input, export_price)
-	VARSET_FROM_LIST(input, research_costs)
-	VARSET_FROM_LIST(input, category)
-	Initialize()
-	return src
-
 /datum/techweb_node/proc/on_design_deletion(datum/design/D)
 	prune_design_id(D.id)
 
@@ -86,17 +76,20 @@
 	unlock_ids -= node_id
 
 /datum/techweb_node/proc/get_price(datum/techweb/host)
-	if(host)
-		var/list/actual_costs = research_costs
-		if(host.boosted_nodes[id])
-			var/list/L = host.boosted_nodes[id]
-			for(var/i in L)
-				if(actual_costs[i])
-					actual_costs[i] -= L[i]
-		actual_costs[TECHWEB_POINT_TYPE_DISCOVERY] = calculate_discovery_cost(host.current_tier)
-		return actual_costs
-	else
+	if(!host)
 		return research_costs
+
+	var/list/actual_costs = research_costs.Copy()
+
+	if(host.boosted_nodes[id])
+		var/list/boostlist = host.boosted_nodes[id]
+		for(var/booster in boostlist)
+			if(actual_costs[booster])
+				actual_costs[booster] -= boostlist[booster]
+
+	actual_costs[TECHWEB_POINT_TYPE_DISCOVERY] = calculate_discovery_cost(host.current_tier)
+
+	return actual_costs
 
 /datum/techweb_node/proc/calculate_discovery_cost(their_tier)
 	var/delta = tech_tier - their_tier
@@ -104,16 +97,27 @@
 		if(-INFINITY to 0)
 			return 0
 		if(1)
-			return 1000
+			return TECHWEB_TIER_1_POINTS
 		if(2)
-			return 2500
+			return TECHWEB_TIER_2_POINTS
 		if(3)
-			return 5000
+			return TECHWEB_TIER_3_POINTS
 		if(4 to INFINITY)
-			return 10000
+			return TECHWEB_TIER_4_POINTS
 
 /datum/techweb_node/proc/price_display(datum/techweb/TN)
 	return techweb_point_display_generic(get_price(TN))
 
-/datum/techweb_node/proc/on_research() //new proc, not currently in file
-	return
+/// Proc called when the Station (Science techweb specific) researches a node.
+/datum/techweb_node/proc/on_station_research(atom/research_source)
+	SHOULD_CALL_PARENT(TRUE)
+	var/channels_to_use = announce_channels
+	if(istype(research_source, /obj/machinery/computer/rdconsole))
+		var/obj/machinery/computer/rdconsole/console = research_source
+		var/obj/item/circuitboard/computer/rdconsole/board = console.circuit
+		if(board.silence_announcements)
+			return
+		if(board.obj_flags & EMAGGED)
+			channels_to_use = list(RADIO_CHANNEL_COMMON)
+	if(length(channels_to_use) && !starting_node)
+		aas_config_announce(/datum/aas_config_entry/researched_node, list("NODE" = display_name), null, channels_to_use)

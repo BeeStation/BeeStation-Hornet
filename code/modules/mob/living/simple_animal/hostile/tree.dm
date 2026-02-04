@@ -42,7 +42,7 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/tree/Life(delta_time = SSMOBS_DT, times_fired)
 	..()

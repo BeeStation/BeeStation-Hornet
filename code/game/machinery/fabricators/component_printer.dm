@@ -7,23 +7,34 @@
 
 	remote_materials = TRUE
 	auto_link = FALSE
-	can_sync = TRUE
 
 	//Quick.
-	minimum_construction_time = 5
+	minimum_construction_time = 0.5 SECONDS
 
-	stored_research_type = /datum/techweb/specialized/autounlocking/component_printer
+	stored_research = null
 
-	categories = WIREMODE_CATEGORIES
+	categories = list(
+		RND_CATEGORY_CIRCUITRY,
+		RND_CATEGORY_CORE,
+		RND_CATEGORY_SHELLS,
+		RND_CATEGORY_INPUT_COMPONENTS,
+		RND_CATEGORY_OUTPUT_COMPONENTS,
+		RND_CATEGORY_MATH_COMPONENTS,
+		RND_CATEGORY_TIME_COMPONENTS,
+		RND_CATEGORY_LOGIC_COMPONENTS,
+		RND_CATEGORY_GATE_COMPONENTS,
+		RND_CATEGORY_BCI_COMPONENTS,
+		RND_CATEGORY_TEMPLATES,
+	)
+
+	stored_research = null
+	use_station_research = TRUE
+	allowed_buildtypes = COMPONENT_PRINTER
 
 /obj/machinery/modular_fabricator/component_printer/crowbar_act(mob/living/user, obj/item/tool)
-	if(..())
-		return TRUE
 	return default_deconstruction_crowbar(tool)
 
 /obj/machinery/modular_fabricator/component_printer/screwdriver_act(mob/living/user, obj/item/tool)
-	if(..())
-		return TRUE
 	return default_deconstruction_screwdriver(user, "fab-o", "fab-idle", tool)
 
 /obj/machinery/modular_fabricator/component_printer/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
@@ -63,9 +74,6 @@
 
 	var/list/scanned_designs = list()
 
-	//Viewing mobs of the UI to update
-	var/list/mob/viewing_mobs = list()
-
 	///the multiplier for how much materials the created object takes from this machines stored materials
 	var/creation_efficiency = 1.2
 
@@ -75,7 +83,7 @@
 		"lathe", \
 		mapload \
 	)
-	. = ..()
+	return ..()
 
 /obj/machinery/module_duplicator/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!is_operational)
@@ -84,17 +92,12 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ComponentPrinter", name)
-		ui.open()
 		ui.set_autoupdate(TRUE)
-		viewing_mobs += user
-
-/obj/machinery/modular_fabricator/ui_close(mob/user, datum/tgui/tgui)
-	. = ..()
-	viewing_mobs -= user
+		ui.open()
 
 /obj/machinery/module_duplicator/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet_batched/sheetmaterials)
+		get_asset_datum(/datum/asset/spritesheet_batched/sheetmaterials),
 	)
 
 /obj/machinery/module_duplicator/ui_act(action, list/params)
@@ -132,7 +135,7 @@
 
 			// SAFETY: eject_sheets checks for valid mats
 			materials.eject_sheets(material, amount)
-			update_viewer_statics()
+			update_static_data_for_all_viewers()
 
 	return TRUE
 
@@ -155,7 +158,7 @@
 		created_atom = module
 	created_atom.pixel_x = initial(created_atom.pixel_x) + rand(-5, 5)
 	created_atom.pixel_y = initial(created_atom.pixel_y) + rand(-5, 5)
-	update_viewer_statics()
+	update_static_data_for_all_viewers()
 
 /obj/machinery/module_duplicator/attackby(obj/item/weapon, mob/user, params)
 	var/list/data = list()
@@ -203,20 +206,14 @@
 
 	balloon_alert(user, "module has been saved.")
 	playsound(src, 'sound/machines/ping.ogg', 50)
-	update_viewer_statics()
+	update_static_data_for_all_viewers()
 
 /obj/machinery/module_duplicator/RefreshParts()
 	var/efficiency = 1.2
 	for(var/obj/item/stock_parts/manipulator/new_manipulator in component_parts)
 		efficiency -= new_manipulator.rating * 0.15
 	creation_efficiency = max(0.1,efficiency)
-	update_viewer_statics()
-
-/obj/machinery/module_duplicator/proc/update_viewer_statics()
-	for(var/mob/M in viewing_mobs)
-		if(QDELETED(M) || !(M.client || M.mind))
-			continue
-		update_static_data(M)
+	update_static_data_for_all_viewers()
 
 /obj/machinery/module_duplicator/ui_static_data(mob/user)
 	var/list/data = list()

@@ -43,7 +43,7 @@ field_generator power level display
 	var/list/obj/machinery/field/containment/fields
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = 0
-	COOLDOWN_STATIC_DECLARE(loose_message_cooldown)
+	STATIC_COOLDOWN_DECLARE(loose_message_cooldown)
 
 
 /datum/armor/field_generator

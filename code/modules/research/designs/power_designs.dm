@@ -10,7 +10,7 @@
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 50, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/empty
-	category = list("Misc","Power Designs","Machinery","initial")
+	category = list(RND_CATEGORY_MISC, RND_CATEGORY_POWER_DESIGNS, RND_CATEGORY_MACHINERY, RND_CATEGORY_INITIAL)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/high_cell
@@ -21,7 +21,7 @@
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 60, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/high/empty
-	category = list("Misc","Power Designs")
+	category = list(RND_CATEGORY_MISC, RND_CATEGORY_POWER_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/super_cell
@@ -32,7 +32,7 @@
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 70, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/super/empty
-	category = list("Misc","Power Designs")
+	category = list(RND_CATEGORY_MISC, RND_CATEGORY_POWER_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/hyper_cell
@@ -43,7 +43,7 @@
 	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/silver = 150, /datum/material/glass = 80, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/hyper/empty
-	category = list("Misc","Power Designs")
+	category = list(RND_CATEGORY_MISC, RND_CATEGORY_POWER_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/bluespace_cell
@@ -54,7 +54,7 @@
 	materials = list(/datum/material/iron = 800, /datum/material/gold = 120, /datum/material/glass = 160, /datum/material/diamond = 160, /datum/material/titanium = 300, /datum/material/bluespace = 100, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/bluespace/empty
-	category = list("Misc","Power Designs")
+	category = list(RND_CATEGORY_MISC, RND_CATEGORY_POWER_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/light_replacer
@@ -64,7 +64,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 3000)
 	build_path = /obj/item/lightreplacer
-	category = list("Power Designs")
+	category = list(RND_CATEGORY_POWER_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/light_replacer_bluespace
@@ -74,7 +74,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 6000, /datum/material/bluespace = 300)
 	build_path = /obj/item/lightreplacer/bluespace
-	category = list("Power Designs")
+	category = list(RND_CATEGORY_POWER_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
 
 
@@ -85,7 +85,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 6000, /datum/material/glass = 2000, /datum/material/copper = 200)
 	build_path = /obj/item/inducer/eng
-	category = list("Power Designs")
+	category = list(RND_CATEGORY_POWER_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/inducer/sci
@@ -95,7 +95,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000, /datum/material/copper = 100)
 	build_path = /obj/item/inducer/sci
-	category = list("Power Designs")
+	category = list(RND_CATEGORY_POWER_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/pacman
@@ -103,7 +103,7 @@
 	desc = "The circuit board that for a PACMAN-type portable generator."
 	id = "pacman"
 	build_path = /obj/item/circuitboard/machine/pacman
-	category = list("Engineering Machinery")
+	category = list(RND_CATEGORY_ENGINEERING_MACHINERY)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/pacman/super

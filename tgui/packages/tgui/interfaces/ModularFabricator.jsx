@@ -39,7 +39,6 @@ const MAX_SEARCH_RESULTS = 25;
  * [*] - recommended
  *
  * ui_data / ui_static_data things:
- *  - [R] can_sync - If TRUE the Sync R&D button will be displayed
  *  - [R] allow_add_category - If TRUE a button will be added that lets the
 ====user queue all items in the category.
  *  - [R] show_unlock_bar - TRUE if the interface can be hacked / unlocked.
@@ -49,9 +48,9 @@ const MAX_SEARCH_RESULTS = 25;
  *  - [*] hacked - TRUE if the interface is hacked
  *  - [R] outputDir ("center", "left", "right", "up", "down")
 ====- Direction of output
- *  - [R] acceptsDisk - Does this interface accept data disks?
+ *  - [R] accepts_disk - Does this interface accept data disks?
 ====If false the data disk drive on the UI will display is 'inactive'
- *  - [*] diskInserted - Required if you accept disks. Will unlock
+ *  - [*] disk_inserted - Required if you accept disks. Will unlock
 ====the install and eject buttons when set to TRUE.
  *  - [R] materials - List of all inserted materials (or linked
 ====silo materials if you want that)
@@ -127,7 +126,6 @@ const MAX_SEARCH_RESULTS = 25;
     (Nothing to stop this being automatic)
  *  - [*] queue_category - Queues an entier category
     Parameters: category_name (string)
- *  - [*] resync_rd - Resync with nearby R&D Servers
  *
 */
 export const ModularFabricator = (props) => {
@@ -332,12 +330,7 @@ export const ModFabCategoryItems = (props) => {
 
 export const ModFabSecurityMessage = (props) => {
   const { act, data } = useBackend();
-  const {
-    hacked,
-    sec_interface_unlock,
-    show_unlock_bar,
-    can_sync = true,
-  } = data;
+  const { hacked, sec_interface_unlock, show_unlock_bar } = data;
   return show_unlock_bar ? (
     <NoticeBox
       className="ModularFabricator__security_header"
@@ -376,8 +369,6 @@ export const ModFabSecurityMessage = (props) => {
 };
 
 export const ModFabData = (props) => {
-  const { data } = useBackend();
-  const { can_sync = true } = data;
   return (
     <Section height="100px">
       <ModFabDataDisk />
@@ -387,36 +378,7 @@ export const ModFabData = (props) => {
         </Box>
         <OutputDir />
       </Box>
-      {!!can_sync && <SyncWithServers />}
     </Section>
-  );
-};
-
-export const SyncWithServers = (props) => {
-  const { act } = useBackend();
-  return (
-    <Box inline>
-      <Box bold textAlign="center">
-        Research Database
-      </Box>
-      <Table>
-        <Table.Row>
-          <Table.Cell colspan={2} textAlign="center" bold>
-            Actions:
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell colspan={2} textAlign="center" bold>
-            <Button
-              color={'green'}
-              content="Resync"
-              icon="upload"
-              onClick={() => act('resync_rd')}
-            />
-          </Table.Cell>
-        </Table.Row>
-      </Table>
-    </Box>
   );
 };
 
@@ -694,7 +656,7 @@ export const FabricationQueue = (props) => {
 
 export const ModFabDataDisk = (props) => {
   const { act, data } = useBackend();
-  const { acceptsDisk, diskInserted } = data;
+  const { accepts_disk, disk_inserted } = data;
   return (
     <Box inline>
       <Box bold textAlign="center">
@@ -705,9 +667,9 @@ export const ModFabDataDisk = (props) => {
           <Table.Cell>Status:</Table.Cell>
           <Table.Cell
             bold
-            color={acceptsDisk ? (diskInserted ? 'green' : 'yellow') : 'red'}
+            color={accepts_disk ? (disk_inserted ? 'green' : 'yellow') : 'red'}
           >
-            {acceptsDisk ? (diskInserted ? 'Ready' : 'Empty') : 'Inactive'}
+            {accepts_disk ? (disk_inserted ? 'Ready' : 'Empty') : 'Inactive'}
           </Table.Cell>
         </Table.Row>
         <Table.Row>
@@ -718,7 +680,7 @@ export const ModFabDataDisk = (props) => {
         <Table.Row>
           <Table.Cell colspan={2} textAlign="center" bold>
             <Button
-              color={acceptsDisk && diskInserted ? 'green' : 'grey'}
+              color={accepts_disk && disk_inserted ? 'green' : 'grey'}
               content="Install"
               icon="upload"
               onClick={() => act('upload_disk')}
@@ -728,7 +690,7 @@ export const ModFabDataDisk = (props) => {
         <Table.Row>
           <Table.Cell colspan={2} textAlign="center" bold>
             <Button
-              color={acceptsDisk && diskInserted ? 'green' : 'grey'}
+              color={accepts_disk && disk_inserted ? 'green' : 'grey'}
               content="Eject"
               icon="folder-open"
               onClick={() => act('eject_disk')}

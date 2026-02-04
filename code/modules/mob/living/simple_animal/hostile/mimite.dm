@@ -40,7 +40,7 @@
 	gold_core_spawnable = NO_SPAWN
 	hardattacks = TRUE
 
-	discovery_points = 8000
+	discovery_points = TECHWEB_TIER_4_POINTS
 
 	var/static/list/blacklist_typecache = typecacheof(list(
 		/atom/movable/screen,

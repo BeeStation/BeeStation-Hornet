@@ -34,7 +34,7 @@
 	chat_color = "#9EE08F"
 	mobchatspan = "alienmobsay"
 
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/alien/drone

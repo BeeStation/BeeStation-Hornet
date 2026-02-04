@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	chat_color = "#ffffff"
 	mobchatspan = "holoparasite"
 	faction = list()
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_4_POINTS
 	see_in_dark = 10
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	/**

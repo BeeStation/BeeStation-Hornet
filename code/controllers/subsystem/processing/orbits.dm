@@ -177,8 +177,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 /datum/controller/subsystem/processing/orbits/proc/update_objective_computers()
 	for(var/obj/machinery/computer/objective/computer as() in GLOB.objective_computers)
-		for(var/M in computer.viewing_mobs)
-			computer.update_static_data(M)
+		computer.update_static_data_for_all_viewers()
 
 /// parameter must accept 'get_virtual_z_level()' values
 /datum/controller/subsystem/processing/orbits/proc/get_orbital_map_name_from_z(my_z)

@@ -31,7 +31,7 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	hardattacks = TRUE
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_5_POINTS * 2
 	var/achievement_type
 	var/crusher_achievement_type
 	var/score_achievement_type

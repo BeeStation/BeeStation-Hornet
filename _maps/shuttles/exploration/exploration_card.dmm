@@ -713,7 +713,7 @@
 /turf/open/floor/carpet/purple,
 /area/shuttle/exploration)
 "KA" = (
-/obj/machinery/computer/rdconsole,
+/obj/machinery/computer/rdconsole/unlocked,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "KH" = (

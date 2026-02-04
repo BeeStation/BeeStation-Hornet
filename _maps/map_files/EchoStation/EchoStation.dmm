@@ -2976,6 +2976,31 @@
 	},
 /turf/closed/wall/r_wall,
 /area/medical/patients_rooms)
+"buQ" = (
+/obj/machinery/airalarm/directional/north,
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/analyzer{
+	pixel_x = -9
+	},
+/obj/item/multitool{
+	pixel_x = -1
+	},
+/obj/item/geiger_counter{
+	pixel_x = 5
+	},
+/obj/item/sticky_note_pile{
+	pixel_y = 3;
+	pixel_x = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/laser_pointer/purple,
+/turf/open/floor/iron/dark,
+/area/science/explab)
 "bvt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/random/decoration/glowstick/lit,
@@ -5174,17 +5199,6 @@
 	},
 /turf/open/floor/pod/dark,
 /area/engine/atmos)
-"cQj" = (
-/obj/structure/closet/secure_closet/hydroponics{
-	req_access = null;
-	req_one_access_txt = "28;25;35"
-	},
-/obj/item/clothing/suit/toggle/chef,
-/obj/item/clothing/head/utility/chefhat,
-/obj/machinery/requests_console/directional/west,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/grid/steel,
-/area/hydroponics)
 "cQS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -8022,6 +8036,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
+"eto" = (
+/obj/machinery/camera/directional/north,
+/obj/machinery/computer/security/telescreen/toxins{
+	pixel_x = 1;
+	pixel_y = 30
+	},
+/obj/machinery/doppler_array/research{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/science/mixing)
 "ett" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
@@ -8051,6 +8076,17 @@
 	dir = 8
 	},
 /area/hallway/primary/central)
+"euJ" = (
+/obj/structure/closet/secure_closet/hydroponics{
+	req_access = null;
+	req_one_access_txt = "28;25;35"
+	},
+/obj/item/clothing/suit/toggle/chef,
+/obj/item/clothing/head/utility/chefhat,
+/obj/machinery/requests_console/directional/west,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/grid/steel,
+/area/hydroponics)
 "euR" = (
 /obj/structure/railing{
 	dir = 8
@@ -9493,31 +9529,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/science/lab)
-"fhn" = (
-/obj/machinery/airalarm/directional/north,
-/obj/effect/turf_decal/stripes/corner,
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/analyzer{
-	pixel_x = -9
-	},
-/obj/item/multitool{
-	pixel_x = -1
-	},
-/obj/item/geiger_counter{
-	pixel_x = 5
-	},
-/obj/item/sticky_note_pile{
-	pixel_y = 3;
-	pixel_x = 8
-	},
-/obj/effect/turf_decal/bot,
-/obj/item/laser_pointer/purple,
-/turf/open/floor/iron/dark,
-/area/science/explab)
 "fhs" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/chair/foldable,
@@ -18839,18 +18850,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
-"kgM" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/glasses/meson/engine,
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5;
-	pixel_x = -7;
-	pixel_y = 3
-	},
-/obj/item/storage/belt/utility/full/engi,
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/turf/open/floor/iron/large,
-/area/engine/engineering)
 "khi" = (
 /obj/machinery/button/door{
 	id = "Cabin4";
@@ -19002,12 +19001,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/lab)
-"klF" = (
-/obj/machinery/computer/rdconsole/production{
-	dir = 4
-	},
-/turf/open/floor/iron/large,
-/area/engine/engineering)
 "klI" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/turf_decal/siding/wood{
@@ -19978,6 +19971,26 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
+"kOA" = (
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science RC";
+	pixel_x = 32;
+	pixel_y = -3;
+	receive_ore_updates = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/science/lab)
 "kOC" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -22240,6 +22253,18 @@
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
+"lZG" = (
+/obj/item/clothing/glasses/meson/engine,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5;
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/item/storage/belt/utility/full/engi,
+/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/structure/table/reinforced,
+/turf/open/floor/iron/large,
+/area/engine/engineering)
 "mam" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/bot,
@@ -25377,15 +25402,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"nTB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/computer/rdconsole/core{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics)
 "nTR" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
@@ -31054,17 +31070,6 @@
 "rhd" = (
 /turf/open/openspace/planetary,
 /area/medical/medbay/central)
-"rhe" = (
-/obj/machinery/camera/directional/north,
-/obj/machinery/computer/security/telescreen/toxins{
-	pixel_x = 1;
-	pixel_y = 30
-	},
-/obj/machinery/doppler_array/research/science{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/science/mixing)
 "rhp" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/reagent_dispensers/watertank,
@@ -31653,6 +31658,15 @@
 /obj/item/chair,
 /turf/open/floor/plating,
 /area/science/test_area)
+"rwG" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics)
 "rwM" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
@@ -37249,26 +37263,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"uDY" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science RC";
-	pixel_x = 32;
-	pixel_y = -3;
-	receive_ore_updates = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/computer/rdconsole/core{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/science/lab)
 "uEq" = (
 /obj/machinery/light_switch{
 	pixel_x = 24
@@ -58656,7 +58650,7 @@ jqA
 lfI
 uKn
 sRi
-klF
+uHS
 mEZ
 jLo
 sTO
@@ -58915,8 +58909,8 @@ gdS
 dgu
 cIz
 oIR
-kgM
-uHS
+lZG
+jYj
 aoi
 taY
 awj
@@ -120048,7 +120042,7 @@ afw
 gda
 gda
 gZw
-cQj
+euJ
 ogI
 hTo
 ibQ
@@ -127256,7 +127250,7 @@ tmO
 mdk
 fGv
 dmN
-uDY
+kOA
 hSD
 pSj
 hdn
@@ -127771,7 +127765,7 @@ brb
 gIx
 jTq
 aAV
-fhn
+buQ
 iWg
 aPc
 aPc
@@ -130859,7 +130853,7 @@ mGR
 mGR
 mGR
 aqu
-rhe
+eto
 dRW
 qWJ
 aqu
@@ -190993,7 +190987,7 @@ lEg
 lEg
 nbh
 qvt
-nTB
+rwG
 tJm
 gMG
 aUN

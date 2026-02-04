@@ -129,6 +129,16 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
+"jC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "nb" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
@@ -173,13 +183,13 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"ry" = (
+"tt" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 8
 	},
-/obj/machinery/computer/rdconsole/core{
-	dir = 1
-	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -219,16 +229,6 @@
 /obj/item/crowbar,
 /obj/effect/spawner/random/ruinloot/science,
 /obj/effect/spawner/random/ruinloot/science,
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"Cb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -391,7 +391,7 @@ aD
 nb
 FM
 Ni
-ry
+jC
 au
 "}
 (7,1,1) = {"
@@ -408,7 +408,7 @@ au
 (8,1,1) = {"
 au
 Ar
-Cb
+tt
 nZ
 qh
 gk

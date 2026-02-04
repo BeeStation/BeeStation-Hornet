@@ -59,7 +59,7 @@
 	bite_consumption_mod = 2
 	wine_power = 70 //Water to wine, baby.
 	wine_flavor = "divinity"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/holymelon/make_dryable()
 	return //No drying
@@ -137,4 +137,4 @@
 	filling_color = "#e35b6f"
 	throw_range = 1
 	throw_speed = 1
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

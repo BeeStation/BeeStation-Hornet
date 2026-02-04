@@ -9,12 +9,10 @@
 	name = "Golem Creation Disk"
 	desc = "A gift from the Liberator."
 	icon_state = "datadisk1"
-	max_blueprints = 1
 
 /obj/item/disk/design_disk/golem_shell/Initialize(mapload)
 	. = ..()
-	var/datum/design/golem_shell/G = new
-	blueprints[1] = G
+	blueprints += new /datum/design/golem_shell()
 
 /datum/design/golem_shell
 	name = "Golem Shell Construction"
@@ -23,7 +21,18 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 40000)
 	build_path = /obj/item/golem_shell
-	category = list("Imported")
+	category = list(RND_CATEGORY_IMPORTED)
+
+/obj/machinery/rnd/server/golem
+	name = "\improper Ancient R&D Server"
+	circuit = /obj/item/circuitboard/machine/rdserver/golem
+	req_access = null
+	generates_heat = FALSE
+
+/obj/machinery/rnd/server/golem/Initialize(mapload)
+	var/datum/techweb/golem_web = locate(/datum/techweb/golem) in SSresearch.techwebs
+	stored_research = golem_web
+	return ..()
 
 /obj/item/golem_shell
 	name = "incomplete free golem shell"

@@ -207,7 +207,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					var/obj/item/computer_hardware/card_slot/card = PDA.all_components[MC_CARD]
 					qdel(card.stored_card)
 					if(card)
-						card.try_insert(id, H)
+						card.application_attackby(id, H)
 				else if(istype(worn, /obj/item/storage/wallet))
 					var/obj/item/storage/wallet/W = worn
 					W.front_id = id

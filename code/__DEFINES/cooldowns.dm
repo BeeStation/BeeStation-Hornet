@@ -82,7 +82,7 @@
 
 #define COOLDOWN_DECLARE(cd_index) var/##cd_index = 0
 
-#define COOLDOWN_STATIC_DECLARE(cd_index) var/static/##cd_index = 0
+#define STATIC_COOLDOWN_DECLARE(cd_index) var/static/##cd_index = 0
 
 #define COOLDOWN_START(cd_source, cd_index, cd_time) (cd_source.cd_index = world.time + (cd_time))
 

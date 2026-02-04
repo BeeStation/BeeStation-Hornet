@@ -9,9 +9,6 @@
 	circuit = /obj/item/circuitboard/machine/autolathe
 
 	var/shocked = FALSE
-	var/hack_wire
-	var/disable_wire
-	var/shock_wire
 
 	//Security modes
 	can_be_hacked_or_unlocked = TRUE
@@ -19,21 +16,21 @@
 	var/hacked = FALSE
 
 	categories = list(
-		"Tools",
-		"Electronics",
-		"Construction",
-		"T-Comm",
-		"Security",
-		"Machinery",
-		"Medical",
-		"Misc",
-		"Dinnerware",
-		"Imported"
-		)
+		RND_CATEGORY_TOOLS,
+		RND_CATEGORY_ELECTRONICS,
+		RND_CATEGORY_CONSTRUCTION,
+		RND_CATEGORY_TELECOMMS,
+		RND_CATEGORY_SECURITY,
+		RND_CATEGORY_MACHINERY,
+		RND_CATEGORY_MEDICAL,
+		RND_CATEGORY_MISC,
+		RND_CATEGORY_DINNERWARE,
+		RND_CATEGORY_IMPORTED,
+	)
 
 	accepts_disks = TRUE
-
-	stored_research_type = /datum/techweb/specialized/autounlocking/autolathe
+	allowed_buildtypes = AUTOLATHE
+	stored_research = /datum/techweb/autounlocking/autolathe
 
 /obj/machinery/modular_fabricator/autolathe/Initialize(mapload)
 	. = ..()
@@ -49,9 +46,17 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ModularFabricator")
-		ui.open()
 		ui.set_autoupdate(TRUE)
-		viewing_mobs += user
+		ui.open()
+
+/obj/machinery/modular_fabricator/autolathe/ui_static_data(mob/user)
+	var/list/data = ..()
+
+	if(hacked && istype(stored_research, /datum/techweb/autounlocking))
+		var/datum/techweb/autounlocking/autounlocking_web = stored_research
+		data["items"] += handle_designs(autounlocking_web.hacked_designs)
+
+	return data
 
 /obj/machinery/modular_fabricator/autolathe/ui_data(mob/user)
 	var/list/data = ..()
@@ -72,12 +77,14 @@
 		if("toggle_safety")
 			if(security_interface_locked)
 				return
-			adjust_hacked(!hacked)
-			. = TRUE
+			hacked = !hacked
+			update_static_data_for_all_viewers()
+			wires.ui_update()
+			return FALSE // Lets avoid an unnecessary UI update, update_static_data_for_all_viewers() already did it for us
 
 		if("toggle_lock")
 			if(obj_flags & EMAGGED)
-				return
+				return FALSE
 			if (!security_interface_locked)
 				security_interface_locked = TRUE
 			else
@@ -85,11 +92,10 @@
 				if((ACCESS_SECURITY in id_slot.GetAccess()) && !(obj_flags & EMAGGED))
 					security_interface_locked = FALSE
 					to_chat(usr, span_warning("You unlock the security controls of [src]."))
-			. = TRUE
+			return TRUE
 
-/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/O, mob/living/user, params)
-
-	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
+/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/attacking_item, mob/living/user, params)
+	if((ACCESS_SECURITY in attacking_item.GetAccess()) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
 		to_chat(user, span_warning("You [security_interface_locked?"lock":"unlock"] the security controls of [src]."))
 		return TRUE
@@ -98,10 +104,10 @@
 		balloon_alert(user, "it's busy!")
 		return TRUE
 
-	if(default_deconstruction_crowbar(O))
+	if(default_deconstruction_crowbar(attacking_item))
 		return TRUE
 
-	if(panel_open && is_wire_tool(O))
+	if(panel_open && is_wire_tool(attacking_item))
 		wires.interact(user)
 		return TRUE
 
@@ -111,13 +117,13 @@
 	if(machine_stat)
 		return TRUE
 
-	if(istype(O, /obj/item/disk/design_disk))
-		user.visible_message("[user] loads \the [O] into \the [src]...",
-			"You load a design from \the [O]...",
+	if(istype(attacking_item, /obj/item/disk/design_disk))
+		user.visible_message("[user] loads \the [attacking_item] into \the [src]...",
+			"You load a design from \the [attacking_item]...",
 			"You hear the chatter of a floppy drive.")
-		inserted_disk = O
-		O.forceMove(src)
-		update_viewer_statics()
+		inserted_disk = attacking_item
+		attacking_item.forceMove(src)
+		update_static_data_for_all_viewers()
 		return TRUE
 
 	if(panel_open)
@@ -148,7 +154,7 @@
 	switch(wire)
 		if(WIRE_HACK)
 			if(!wires.is_cut(wire))
-				adjust_hacked(FALSE)
+				hacked = FALSE
 		if(WIRE_SHOCK)
 			if(!wires.is_cut(wire))
 				shocked = FALSE
@@ -170,27 +176,12 @@
 	else
 		return FALSE
 
-/obj/machinery/modular_fabricator/autolathe/proc/adjust_hacked(state)
-	hacked = state
-	for(var/id in SSresearch.techweb_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(id)
-		if((D.build_type & AUTOLATHE) && ("hacked" in D.category))
-			if(hacked)
-				stored_research.add_design(D)
-			else
-				stored_research.remove_design(D)
-	update_viewer_statics()
-	wires.ui_update()
-
 /obj/machinery/modular_fabricator/autolathe/on_emag(mob/user)
 	..()
 	security_interface_locked = FALSE
-	adjust_hacked(TRUE)
-	playsound(src, "sparks", 100, 1)
-
-/obj/machinery/modular_fabricator/autolathe/hacked/Initialize(mapload)
-	. = ..()
-	adjust_hacked(TRUE)
+	update_static_data_for_all_viewers()
+	wires.ui_update()
+	playsound(src, "sparks", 100, TRUE)
 
 /obj/machinery/modular_fabricator/autolathe/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
 	. = ..()
@@ -204,3 +195,6 @@
 
 /obj/machinery/modular_fabricator/autolathe/set_working_sprite()
 	icon_state = "autolathe_n"
+
+/obj/machinery/modular_fabricator/autolathe/hacked
+	hacked = TRUE

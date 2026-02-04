@@ -52,7 +52,7 @@
 		/obj/projectile/magic/fireball,
 		/obj/projectile/magic/spellblade,
 		)
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/carp/ranged/Initialize(mapload)
 	projectiletype = pick(allowed_projectile_types)
@@ -68,7 +68,7 @@
 	maxHealth = 75
 	health = 75
 	gold_core_spawnable = NO_SPAWN
-	discovery_points = 5000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 /mob/living/simple_animal/hostile/carp/ranged/chaos/Shoot()
 	projectiletype = pick(allowed_projectile_types)

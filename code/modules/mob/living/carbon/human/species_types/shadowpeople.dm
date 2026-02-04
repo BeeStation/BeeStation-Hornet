@@ -252,8 +252,8 @@
 	icon_state = "arm_blade"
 	inhand_icon_state = "arm_blade"
 	force = 25
-
 	armour_penetration = 35
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON

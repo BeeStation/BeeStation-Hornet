@@ -39,15 +39,14 @@
 #define EMERGENCY (1<<5)
 
 //used in design to specify which machine can build it
-#define IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE		(1<<1)	//New stuff. Uses glass/iron/chemicals
-#define AUTOLATHE		(1<<2)	//Uses glass/iron only.
-#define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
-#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time var.
-#define BIOGENERATOR	(1<<5) 	//Uses biomass
-#define LIMBGROWER		(1<<6) 	//Uses synthetic flesh
-#define SMELTER			(1<<7) 	//uses various minerals
-#define NANITE_COMPILER  (1<<8) //Prints nanite disks
+#define IMPRINTER (1<<0) //For circuits. Uses glass/chemicals.
+#define PROTOLATHE (1<<1) //New stuff. Uses various minerals
+#define AUTOLATHE (1<<2) //Prints basic designs without research
+#define MECHFAB (1<<3) //Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define BIOGENERATOR (1<<4) //Uses biomass
+#define LIMBGROWER (1<<5) //Uses synthetic flesh
+#define SMELTER (1<<6) //uses various minerals
+#define NANITE_COMPILER (1<<8) //Prints nanite disks
 /// For wiremod/integrated circuits. Uses various minerals.
 #define COMPONENT_PRINTER (1<<10)
 //Note: More than one of these can be added to a design but imprinter and lathe designs are incompatable.
