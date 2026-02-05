@@ -10071,6 +10071,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "bIp" = (
@@ -11885,7 +11888,7 @@
 /obj/structure/window/spawner/directional/west,
 /obj/structure/window/spawner/directional/south,
 /obj/structure/window/spawner/directional/north,
-/turf/open/floor/grass,
+/turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "bYj" = (
 /turf/open/floor/iron,
@@ -18062,6 +18065,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "dpI" = (
@@ -36465,6 +36469,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/janitor)
 "jKJ" = (
@@ -37328,6 +37333,9 @@
 /area/science/research)
 "jZn" = (
 /obj/structure/platform/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,
@@ -42600,6 +42608,9 @@
 /obj/structure/platform/wood{
 	dir = 9
 	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar)
 "lYG" = (
@@ -43268,7 +43279,7 @@
 /obj/structure/window/spawner/directional/west,
 /obj/structure/window/spawner/directional/south,
 /obj/structure/window/spawner/directional/north,
-/turf/open/floor/grass,
+/turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "mkM" = (
 /obj/structure/closet,
@@ -46501,9 +46512,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
 	},
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -51030,7 +51038,6 @@
 /turf/closed/wall/r_wall,
 /area/aisat)
 "oPU" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/hidden,
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/vending/wardrobe/chef_wardrobe,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
@@ -59673,6 +59680,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/disposalpipe/junction/yjunction,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "rUu" = (
@@ -61670,9 +61678,6 @@
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "sHV" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -74105,6 +74110,7 @@
 /obj/structure/disposalpipe/sorting/mail/destination/threatre{
 	dir = 2
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "wXa" = (
@@ -74471,6 +74477,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/janitor/custodian)
 "xcm" = (
