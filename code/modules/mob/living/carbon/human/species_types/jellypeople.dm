@@ -13,6 +13,13 @@
 		HAIR,
 		FACEHAIR,
 	)
+	inherent_traits = list(
+		TRAIT_TOXINLOVER,
+		TRAIT_NOHAIRLOSS,
+		TRAIT_NOFIRE,
+		TRAIT_EASYDISMEMBER,
+		TRAIT_NOBLOOD
+	)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	var/datum/action/innate/split_body/slime_split
