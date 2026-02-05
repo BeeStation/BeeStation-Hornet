@@ -58150,9 +58150,6 @@
 /obj/effect/turf_decal/tile/random/opposingcorners{
 	dir = 8
 	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Central Primary Hallway - Starboard - Art Storage"
-	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/theatre/backstage)
 "rto" = (
