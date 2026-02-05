@@ -128,6 +128,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(saymode && saymode.early && !saymode.handle_message(src, message, language))
 		return
 
+	if(!try_speak(original_message, ignore_spam, forced))
+		return
+
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
 		language = message_mods[LANGUAGE_EXTENSION] || get_selected_language()
 
