@@ -1,0 +1,8 @@
+author: Isaac
+delete-after: true
+changes:
+  - balance: Super energy chainsaw damage reduced to 45, roughly fully kills you in
+      5 hits, 3 to crit
+  - balance: Energy Shield Module HP reduced to 30
+  - bugfix: Chainsaws turn themselves off when dropped on the ground, preventing cases
+      where the damage was reset to 0 when dropped
