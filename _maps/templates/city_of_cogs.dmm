@@ -72,9 +72,6 @@
 	},
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
-"r" = (
-/turf/open/indestructible/reebe_void,
-/area/space)
 "s" = (
 /obj/structure/table/brass,
 /obj/item/radio/intercom,
@@ -7338,7 +7335,7 @@ a
 a
 "}
 (95,1,1) = {"
-r
+a
 a
 a
 a
