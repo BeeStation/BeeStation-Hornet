@@ -263,7 +263,7 @@
 		return
 	if(wires.is_cut(WIRE_TX))  // Permacell and otherwise tampered-with radios
 		return
-	if(!talking_movable.try_speak(message))
+	if(!talking_movable.try_speak(message, ignore_spam = TRUE))
 		return
 
 	if(!radio_silent)//Radios make small static noises now
