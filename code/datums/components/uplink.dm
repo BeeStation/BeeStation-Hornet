@@ -31,15 +31,10 @@
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(
-	_owner,
-	_lockable = TRUE,
-	_enabled = FALSE,
-	uplink_flag = UPLINK_TRAITORS,
-	starting_tc = TELECRYSTALS_DEFAULT
-)
+/datum/component/uplink/Initialize(_owner,_lockable = TRUE,_enabled = FALSE,uplink_flag = UPLINK_TRAITORS,starting_tc = TELECRYSTALS_DEFAULT)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
+
 
 	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
@@ -320,7 +315,8 @@
 	if(ismob(master.loc))
 		interact(null, master.loc)
 
-/datum/component/uplink/proc/radio_message(datum/source, user, message, channel, list/message_mods)
+
+/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, treated_message, channel, list/message_mods)
 	SIGNAL_HANDLER
 	var/message_to_use = message_mods[MODE_UNTREATED_MESSAGE]
 
