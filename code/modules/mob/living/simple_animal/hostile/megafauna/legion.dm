@@ -125,7 +125,7 @@ Difficulty: Medium
 	if(health > 0)
 		return
 	if(size > 1)
-		adjustHealth(-maxHealth) //heal ourself to full in prep for splitting
+		adjustHealth(-(maxHealth * 2)) //heal ourself to full in prep for splitting, 2x multiplier otherwise health gets wonky when we overkill
 		var/mob/living/simple_animal/hostile/megafauna/legion/L = new(loc)
 
 		L.maxHealth = round(maxHealth * 0.6,DAMAGE_PRECISION)
