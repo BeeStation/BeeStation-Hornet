@@ -29,7 +29,7 @@
 /datum/preferences/proc/ready_to_save_player()
 	return dirty_undatumized_preferences_player || length(player_data.dirty_prefs)
 
-/// checks keybindings for non-existant keybinds and removes them
+/// checks keybindings for nonexistent keybinds and removes them
 /datum/preferences/proc/sanitize_keybinds()
 	if(!parent)
 		return
