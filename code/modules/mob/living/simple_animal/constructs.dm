@@ -71,7 +71,7 @@
 		name = original_name //set the names so init_shade() uses the right one. I know this is spagetti, but the other solution was adding even more params to init_shade
 	if(original_real_name)
 		real_name = original_real_name
-	stone = new stone(get_turf(src))
+	stone = new stone(drop_location())
 	stone.init_shade(src)
 	return ..()
 

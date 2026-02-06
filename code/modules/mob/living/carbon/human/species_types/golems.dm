@@ -675,10 +675,10 @@
 
 /datum/species/golem/runic/spec_death(gibbed, mob/living/carbon/human/body)
 
-	for(var/obj/item/item in body)
+	for(var/obj/item/item in body.get_equipped_items(INCLUDE_POCKETS))
 		body.dropItemToGround(item)
 	body.visible_message(span_danger("[body] dissolves into a pile of blood, leaving behind a strange stone."))
-	var/obj/item/soulstone/new_stone = new /obj/item/soulstone(get_turf(body))
+	var/obj/item/soulstone/new_stone = new(body.drop_location())
 	new_stone.init_shade(body)
 	body.dust_animation()
 	new /obj/effect/decal/cleanable/blood/splatter(get_turf(body))

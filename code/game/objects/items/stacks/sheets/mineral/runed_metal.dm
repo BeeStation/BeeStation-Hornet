@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 		req_amount = 3, \
 		time = 4 SECONDS, \
 		crafting_flags = CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, \
-		desc = span_cultbold("Altar: Can make Eldritch Whetstones, Construct Shells, Runic Golem Shells and  Flasks of Unholy Water."), \
+		desc = span_cultbold("Altar: Can make Eldritch Whetstones, Construct Shells, Runic Golem Shells and Flasks of Unholy Water."), \
 		required_noun = "runed metal sheet", \
 		category = CAT_CULT, \
 	), \

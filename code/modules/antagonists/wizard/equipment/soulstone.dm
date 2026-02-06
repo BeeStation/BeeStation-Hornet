@@ -79,7 +79,7 @@
 	if(gone == contained_shade)
 		contained_shade = null
 
-	if(istype(gone, /mob/living/simple_animal/shade))
+	if(isshade(gone)
 		var/mob/living/simple_animal/shade/S = gone
 		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 		S.cancel_camera()
@@ -97,7 +97,7 @@
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 
-/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!role_check(user))
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
@@ -138,7 +138,7 @@
 	if(!brainless) // No brain and having a soul, shouldn't happen, we cant let it pass
 		to_chat(user, span_warning("This vessel lacks a brain and cannot house a soul."))
 		return FALSE
-	user.visible_message(span_notice("[user] presses [src] against [host]'s chest, the gem glowing with eerie light!"), \
+	user.visible_message(span_notice("[user] presses [src] against [host]'s chest, the gem glowing with eerie light!"),
 						span_notice("You jam the [src] into [host]'s chest. The soul inside leaps into the vacant vessel."))
 	if(!soul.mind)
 		return FALSE
@@ -153,14 +153,14 @@
 			message = "You have been brought back into this world by holy energies."
 		if(THEME_CULT)
 			message = "Your soul is bound to this flesh by Nar'Sie! Serve the cult."
-			if(user?.mind.has_antag_datum(/datum/antagonist/cult))
+			if(IS_CULTIST(user))
 				host.mind.add_antag_datum(/datum/antagonist/cult) // Make them a cultist, just making sure they didn't lose it
 		else
 			message = "You have been forced back into a mortal shell"
-	to_chat(host, span_boldannounce("[message]"))
+	to_chat(host, span_boldannounce(message))
 	contained_shade = null
 	qdel(src)
-	qdel(soul)
+	QDEL_NULL(contained_shade)
 	return TRUE
 
 /obj/item/soulstone/attack_self(mob/living/user)
