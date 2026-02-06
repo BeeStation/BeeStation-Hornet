@@ -4,7 +4,11 @@
 	icon = 'icons/obj/containers.dmi'
 	icon_state = "container_blank"
 	max_integrity = 1000
+	layer = FLY_LAYER
+	density = TRUE
 	anchored = TRUE
+	bound_width = 96
+	bound_height = 32
 
 /obj/structure/shipping_container/conarex
 	name = "\improper Conarex Aeronautics shipping container"
