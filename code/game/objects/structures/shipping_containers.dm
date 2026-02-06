@@ -3,7 +3,7 @@
 	desc = "A standard-measure shipping container for bulk transport of goods. This one is blank, offering no clue as to its contents."
 	icon = 'icons/obj/containers.dmi'
 	icon_state = "container_blank"
-	max_integrity = 1000
+	max_integrity = 300
 	layer = FLY_LAYER
 	density = TRUE
 	anchored = TRUE
