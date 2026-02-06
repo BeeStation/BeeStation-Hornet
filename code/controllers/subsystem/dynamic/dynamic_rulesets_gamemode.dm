@@ -8,7 +8,7 @@
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_PRISONER, JOB_NAME_SHAFTMINER, JOB_NAME_EXPLORATIONCREW)
 	/// Default minimum players required so that there is some mystery involved.
 	/// Disabled for now, since traitor works fine on 0 pop
-	minimum_players_required = 5
+	minimum_players_required = 3
 	/// The number of rounds that it takes before this gamemode reaches full weight after it has been executed.
 	/// The first round after execution will use a weight of 1 (still possible but rare).
 	/// A value of 1 means that it will instantly recover
