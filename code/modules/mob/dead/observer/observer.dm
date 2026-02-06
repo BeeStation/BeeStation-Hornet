@@ -257,17 +257,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
  */
 /proc/ghostify_color(input_color)
 	var/list/read_color = rgb2num(input_color, COLORSPACE_HSL)
-	var/sat = read_color[2]
-	var/lum = read_color[3]
 
 	// Clamp so it still has color, can't get too bright/desaturated
-	sat -= 15
-	if(sat < 30)
-		sat = min(read_color[2], 30)
+	var/sat = clamp(read_color[2] - 15, 30, read_color[2])
+	var/lum = clamp(read_color[3] + 15, read_color[3], 80)
 
-	lum += 15
-	if(lum > 80)
-		lum = max(read_color[3], 80)
 	return rgb(read_color[1], sat, lum, space = COLORSPACE_HSL)
 
 /*
