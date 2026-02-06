@@ -253,7 +253,7 @@
 /obj/item/radio/talk_into(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(SEND_SIGNAL(talking_movable, COMSIG_MOVABLE_USING_RADIO, src) & COMPONENT_CANNOT_USE_RADIO)
 		return NONE
-	if(SEND_SIGNAL(src, COMSIG_RADIO_NEW_MESSAGE, talking_movable, message, channel, message_mods) & COMPONENT_CANNOT_USE_RADIO)
+	if(SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, talking_movable, message, channel, message_mods) & COMPONENT_CANNOT_USE_RADIO)
 		return NONE
 
 	if(!spans)

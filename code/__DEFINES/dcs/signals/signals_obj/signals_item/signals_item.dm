@@ -82,7 +82,7 @@
 ///called from base of /obj/item/radio/proc/set_frequency(): (list/args)
 #define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"
 ///called from base of /obj/item/radio/talk_into(): (atom/movable/M, message, channel)
-#define COMSIG_RADIO_NEW_MESSAGE "radio_new_message"
+#define COMSIG_RADIO_MESSAGE "radio_new_message"
 ///called from base of /obj/item/radio/proc/on_receive_message(): (list/data)
 #define COMSIG_RADIO_RECEIVE_MESSAGE "radio_receive_message"
 

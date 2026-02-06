@@ -120,7 +120,7 @@
 	listener.mock_client = mock_client
 
 	RegisterSignal(speaker, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	RegisterSignal(speaker_radio, COMSIG_RADIO_NEW_MESSAGE, PROC_REF(handle_radio_hearing))
+	RegisterSignal(speaker_radio, COMSIG_RADIO_MESSAGE, PROC_REF(handle_radio_hearing))
 
 	RegisterSignal(listener, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 	RegisterSignal(listener_radio, COMSIG_RADIO_RECEIVE_MESSAGE, PROC_REF(handle_radio_speech))
