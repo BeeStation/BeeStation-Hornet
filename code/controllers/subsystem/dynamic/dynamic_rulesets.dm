@@ -110,7 +110,12 @@
 /datum/dynamic_ruleset/proc/trim_candidates()
 	SHOULD_CALL_PARENT(TRUE)
 
-	for(var/mob/candidate in candidates)
+	for(var/mob/candidate as anything in candidates)
+		// Hard-deleted?
+		if (QDELETED(candidate))
+			candidates -= candidate
+			continue
+
 		// Connected?
 		if(!candidate.client)
 			candidates -= candidate
