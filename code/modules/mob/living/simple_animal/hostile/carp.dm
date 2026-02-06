@@ -22,7 +22,6 @@
 	speed = 0
 	maxHealth = 25
 	health = 25
-	spacewalk = TRUE
 
 	obj_damage = 50
 	melee_damage = 20
@@ -72,6 +71,7 @@
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	if(random_color)
 		set_greyscale(new_config=/datum/greyscale_config/carp)
 		carp_randomify(rarechance)

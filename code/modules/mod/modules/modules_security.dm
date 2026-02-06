@@ -400,7 +400,7 @@
 	var/oldgroup = keyed_creatures[creature]
 	var/newgroup = round(get_angle(mod.wearer, creature) / (360 / radar_slices)) + 1
 	if(oldgroup)
-		if(creature.stat == DEAD || get_dist(get_turf(mod.wearer), get_turf(creature)) > world.view)
+		if(creature.stat == DEAD || get_dist(get_turf(mod.wearer), get_turf(creature)) > 7)
 			sorted_creatures[oldgroup] -= creature
 			keyed_creatures -= creature
 			UnregisterSignal(creature, COMSIG_MOVABLE_MOVED)

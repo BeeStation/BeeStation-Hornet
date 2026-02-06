@@ -6,5 +6,48 @@
   mrmanlikesbt, SmArtKar:
   - bugfix: fixed viewport runtimes
   - bugfix: fixed delayed viewport fitting when connecting to the server
+  rkz, Shaps/Ryll, ShizCalev, JohnFulpWillard, Melbert, Jacquerel, FernandoJ8, Fluffles:
+  - refactor: ears now follow the same damage/healing operations as every other organ
+  - refactor: life() optimization
+  - bugfix: Cyborg flashes will no longer fail to drop from the heads of borgs.
+  - bugfix: Butchering a bodypart for it's organs while inside a locker will no longer
+      drop the organs /outside/ the locker.
+  - code_imp: adds species-related unit tests for clothing and hands
+  - bugfix: It should be way harder to lose your special hands as a zombie or shattered
+      risen ghoul.
+  - refactor: Refactored mutanthands for zombies and shattered risen.
+  - bugfix: Changing species no longer drops all held items
+  - bugfix: fixes Losing your right hand not un-cuffing you or dropping your gloves
   rkz, mothblocks:
   - code_imp: moved death() to mob/living/, up from mob/
+  rkz, spookydonut:
+  - code_imp: traitifies spacewalking
+2026-02-02:
+  BotTierPC:
+  - rscdel: Removes outdated PodPerson Guide
+  mrmanlikesbt:
+  - bugfix: Fixed several sprites having broken overlays and icons
+  - bugfix: Fixed randomized accents not applying an accent. If your character starts
+      speaking strangely, check to see if you have the accent quirk.
+  - spellcheck: Fixed a typo in the accent quirk gain/remove text
+  - bugfix: Fixed the active sonar MOD runtiming on use
+2026-02-03:
+  mrmanlikesbt:
+  - bugfix: Fixed the masculine hat clipping inside of the wearer
+  - bugfix: Fixed the elongated masculine hat not being elongated
+2026-02-04:
+  Rukofamicom:
+  - rscdel: Removed haloperidol from expanded cyborg hypospray
+2026-02-05:
+  ClownMoff:
+  - tweak: Remade MetaStation service area
+  Isaac:
+  - balance: Super energy chainsaw damage reduced to 45, roughly fully kills you in
+      5 hits, 3 to crit
+  - balance: Energy Shield Module HP reduced to 30
+  - bugfix: Chainsaws turn themselves off when dropped on the ground, preventing cases
+      where the damage was reset to 0 when dropped
+2026-02-06:
+  Rukofamicom:
+  - bugfix: fixed humanoid slime race from xenobiology not inheriting oozeling traits
+      properly.

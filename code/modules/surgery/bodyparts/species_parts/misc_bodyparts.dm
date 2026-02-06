@@ -21,29 +21,29 @@
 
 ///ABDUCTCOR
 /obj/item/bodypart/head/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/left/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/arm/right/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/left/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/leg/right/abductor
-	limb_id = "abductor"
+	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
 
 ///SLIME
@@ -528,8 +528,8 @@
 	var/image/carved_overlay
 
 /obj/item/bodypart/head/pumpkin_man/Initialize(mapload)
-	. = ..()
-	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", -BODY_LAYER)
+	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+	. = ..() // set after carved_overlay is set
 
 /obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
 	. = ..()

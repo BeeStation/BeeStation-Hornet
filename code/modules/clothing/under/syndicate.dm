@@ -26,7 +26,7 @@
 	armor_type = /datum/armor/clothing_under/syndicate_bloodred
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	can_adjust = FALSE
-	supports_variations = NONE
+	supports_variations_flags = NONE
 
 /datum/armor/clothing_under/syndicate_bloodred
 	melee = 10
