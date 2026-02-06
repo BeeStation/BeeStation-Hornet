@@ -29,6 +29,18 @@
 /datum/preferences/proc/ready_to_save_player()
 	return dirty_undatumized_preferences_player || length(player_data.dirty_prefs)
 
+/// checks keybindings for non-existant keybinds and removes them
+/datum/preferences/proc/sanitize_keybinds()
+	if(!parent)
+		return
+
+	for(var/key, keybinds_list in key_bindings)
+		for(var/keybind in keybinds_list)
+			if(isnull(GLOB.keybindings_by_name[keybind]))
+				keybinds_list -= keybind
+
+	save_preferences()
+
 // Defines for list sanity
 #define READPREF_STR(target, tag) if(prefmap[tag]) target = prefmap[tag]
 #define READPREF_INT(target, tag) if(prefmap[tag]) target = text2num(prefmap[tag])
@@ -101,17 +113,18 @@
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 
 	//Sanitize
-	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
-	default_slot	= sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
-	ignoring		= SANITIZE_LIST(ignoring)
+	lastchangelog = sanitize_text(lastchangelog, initial(lastchangelog))
+	default_slot = sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
+	ignoring = SANITIZE_LIST(ignoring)
 	purchased_gear	= SANITIZE_LIST(purchased_gear)
 	role_preferences_global = SANITIZE_LIST(role_preferences_global)
 
-	pai_name		= sanitize_text(pai_name, initial(pai_name))
+	pai_name = sanitize_text(pai_name, initial(pai_name))
 	pai_description	= sanitize_text(pai_description, initial(pai_description))
-	pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
+	pai_comment = sanitize_text(pai_comment, initial(pai_comment))
 
-	key_bindings 	= sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
+	sanitize_keybinds()
+	key_bindings = sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 
 	// Remove any invalid role preference entries
