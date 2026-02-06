@@ -654,7 +654,7 @@
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
 /datum/antagonist/heretic/proc/can_ascend()
-	return TRUE
+	return total_sacrifices >= 3
 
 /*
  * Helper to determine if a Heretic
@@ -690,7 +690,7 @@
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
 /datum/objective/ascend
 	name = "ascend"
-	explanation_text = "Fully complete a ritual path and ascend as a dark god."
+	explanation_text = "Fully complete a ritual path and ascend as a dark god. The final ritual requires at least 3 sacrifices."
 
 /datum/objective/ascend/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
