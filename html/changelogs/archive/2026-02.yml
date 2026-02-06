@@ -51,3 +51,7 @@
   Rukofamicom:
   - bugfix: fixed humanoid slime race from xenobiology not inheriting oozeling traits
       properly.
+  mrmanlikesbt:
+  - bugfix: Fixed living creatures being exempt from the spam filter
+  - bugfix: Speaking near multiple active radios will no longer trigger the spam filter
+      and auto-mute you
