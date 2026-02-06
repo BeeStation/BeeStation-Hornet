@@ -43,7 +43,7 @@
 	if(no_faction)
 		if(new_faction.give_codewords)
 			give_codewords()
-		equip_with_uplink(silent)
+		equip(silent)
 	log_game("[key_name(owner)] selected traitor faction [new_faction.name]")
 	SSblackbox.record_feedback("tally", "traitor_faction_selected", 1, new_faction.name)
 

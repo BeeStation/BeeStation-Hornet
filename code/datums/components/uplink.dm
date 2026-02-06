@@ -31,7 +31,7 @@
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner,_lockable = TRUE,_enabled = FALSE,uplink_flag = UPLINK_TRAITORS,starting_tc = TELECRYSTALS_DEFAULT)
+/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 

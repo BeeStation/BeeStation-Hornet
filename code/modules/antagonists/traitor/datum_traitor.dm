@@ -98,7 +98,7 @@
 	has_codewords = FALSE
 	UnregisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
-/datum/antagonist/traitor/proc/equip_with_uplink(silent = FALSE)
+/datum/antagonist/traitor/proc/equip(silent = FALSE)
 	var/obj/item/uplink_loc = owner.equip_traitor(employer, silent, src)
 	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
 	if(uplink)
