@@ -90,7 +90,7 @@
 	role_preference = /datum/role_preference/roundstart/traitor
 	antag_datum = /datum/antagonist/traitor
 	weight = 16
-	recent_weight_recovery_linear = 2
+	recent_weight_recovery_linear = 1
 
 /datum/dynamic_ruleset/gamemode/traitor/security_report()
 	return "Intercepted communications between neighboring orbital stations suggest that Syndicate activity, as always, remains a potential threat."
