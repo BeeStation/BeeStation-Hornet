@@ -47,3 +47,7 @@
   - balance: Energy Shield Module HP reduced to 30
   - bugfix: Chainsaws turn themselves off when dropped on the ground, preventing cases
       where the damage was reset to 0 when dropped
+2026-02-06:
+  Rukofamicom:
+  - bugfix: fixed humanoid slime race from xenobiology not inheriting oozeling traits
+      properly.
