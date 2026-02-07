@@ -1,0 +1,20 @@
+name: Execute Management Actions
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]  # triggers when PR is opened or updated
+  issue_comment:
+    types: [created]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run local action
+        uses: BeeStation/Repo-Actions
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          tagLabels: Administration, Balance/Rebalance, Feature, Fix, Mapping, Port, Refactor, Quality Of Life, Removal, Revert, Tweak, UI
