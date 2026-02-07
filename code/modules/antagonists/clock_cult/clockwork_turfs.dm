@@ -279,7 +279,7 @@
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
 	ratvar_act()
-	if(is_reebe(z))
+	if(is_on_reebe(src))
 		resistance_flags |= INDESTRUCTIBLE
 
 /obj/structure/lattice/clockwork/ratvar_act()
@@ -312,7 +312,7 @@
 	if(!mapload)
 		new /obj/effect/temp_visual/ratvar/floor/catwalk(loc)
 		new /obj/effect/temp_visual/ratvar/beam/catwalk(loc)
-	if(is_reebe(z))
+	if(is_on_reebe(src))
 		resistance_flags |= INDESTRUCTIBLE
 
 /obj/structure/lattice/catwalk/clockwork/ratvar_act()

@@ -44,7 +44,6 @@ require only minor tweaks.
 #define ZTRAIT_CENTCOM "CentCom"
 #define ZTRAIT_STATION "Station"
 #define ZTRAIT_MINING "Mining"
-#define ZTRAIT_REEBE "Reebe"
 #define ZTRAIT_RESERVED "Transit/Reserved"
 #define ZTRAIT_AWAY "Away Mission"
 #define ZTRAIT_DYNAMIC_LEVEL "Dynamic Level"
@@ -89,7 +88,6 @@ require only minor tweaks.
 	ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
 	ZTRAIT_ASHSTORM = TRUE, \
 	ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
-#define ZTRAITS_REEBE list(ZTRAIT_REEBE = TRUE, ZTRAIT_BOMBCAP_MULTIPLIER = 0.5)
 #define ZTRAITS_DEBUG list(ZTRAIT_DEBUG = TRUE)
 #define DL_NAME "name"
 #define DL_TRAITS "traits"

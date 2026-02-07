@@ -62,7 +62,7 @@
 			return
 		var/datum/space_level/space_level = pick(z_linked.linked_z_level)
 		//Check protected levels
-		if(space_level.traits[ZTRAIT_CENTCOM] || space_level.traits[ZTRAIT_REEBE])
+		if(space_level.traits[ZTRAIT_CENTCOM])
 			return
 		//Check level flags for planetary bodies
 		if(space_level.traits[ZTRAIT_MINING] || (space_level.traits[ZTRAIT_STATION] && SSmapping.current_map.planetary_station))

@@ -15,7 +15,7 @@
 	if(!.)
 		return FALSE
 
-	if(!is_reebe(invoker.z))
+	if(!is_on_reebe(invoker))
 		invoker.balloon_alert(invoker, "must be on Reebe!")
 		return FALSE
 

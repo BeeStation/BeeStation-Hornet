@@ -62,7 +62,7 @@
 	invoker.mob_light(color = LIGHT_COLOR_CLOCKWORK, range = 2, duration = 1 SECONDS)
 
 	// If not on Reebe and does not have a mindshield, paralyze for 15 seconds
-	if(!is_reebe(living_target.z))
+	if(!is_on_reebe(living_target))
 		if(HAS_TRAIT(living_target, TRAIT_MINDSHIELD))
 			to_chat(invoker, span_brass("[living_target] seems somewhat resistant to your powers!"))
 			living_target.adjust_confusion_up_to(5 SECONDS, 5 SECONDS)
