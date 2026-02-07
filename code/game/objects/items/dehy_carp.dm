@@ -13,7 +13,7 @@
 /obj/item/toy/plush/carpplushie/dehy_carp/cayenne
 	name = "rare space carp plushie"
 	desc = "An adorable stuffed toy that resembles a space carp. She looks familiar..."
-	greyscale_colors = "#911200#000000"//red, like lia!
+	greyscale_colors = "#fdfbf3#000000"//red, like lia!
 	mobtype = /mob/living/simple_animal/hostile/carp/cayenne
 
 /obj/item/toy/plush/carpplushie/dehy_carp/Initialize(mapload)

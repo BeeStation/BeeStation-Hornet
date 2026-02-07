@@ -177,6 +177,7 @@
 	unique_name = FALSE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
+	rarechance = 100
 	faction = list(FACTION_CARP, FACTION_SYNDICATE)
 	health = 60
 	maxHealth = 60
