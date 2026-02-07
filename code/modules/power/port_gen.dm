@@ -45,12 +45,12 @@
 /obj/machinery/power/port_gen/proc/TogglePower()
 	if(active)
 		active = FALSE
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 		soundloop.stop()
 	else if(HasFuel())
 		active = TRUE
 		START_PROCESSING(SSmachines, src)
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 		update_sound_volume()
 		soundloop.start()
 
@@ -374,14 +374,14 @@
 			if (power_output > 1)
 				power_output--
 				update_sound_volume()
-				update_appearance()
+				update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 				. = TRUE
 
 		if("higher_power")
 			if (power_output < 4 || (obj_flags & EMAGGED))
 				power_output++
 				update_sound_volume()
-				update_appearance()
+				update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 				. = TRUE
 
 /obj/machinery/power/port_gen/pacman/super

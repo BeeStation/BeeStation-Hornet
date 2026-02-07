@@ -2,6 +2,7 @@
 	name = "portable air pump"
 	desc = "It's a small portable air pump, capable of siphoning or pumping gasses into its surroundings. It has a decent internal gas storage, and a slot for external tanks. It can be wrenched to a connection port to join it into the pipe net."
 	icon_state = "siphon"
+	base_icon_state = "siphon"
 	density = TRUE
 	volume = 1000
 
@@ -22,7 +23,7 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/pump/update_icon_state()
-	icon_state = "[initial(icon_state)]_[on]"
+	icon_state = "[base_icon_state]_[on]"
 	return ..()
 
 /obj/machinery/portable_atmospherics/pump/update_overlays()
@@ -73,7 +74,7 @@
 	if(prob(100 / severity))
 		direction = PUMP_OUT
 	target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)
 	. = ..()
@@ -162,7 +163,7 @@
 			if(holding)
 				replace_tank(usr, FALSE)
 				. = TRUE
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /obj/machinery/portable_atmospherics/pump/unregister_holding()
 	on = FALSE

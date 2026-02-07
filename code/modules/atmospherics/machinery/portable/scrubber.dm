@@ -2,6 +2,7 @@
 	name = "portable air scrubber"
 	desc = "It's a small portable scrubber, capable of siphoning selected gasses from its surroundings. It has an internal tank, and a slot for inserting an external tank. It can be wrenched to connection ports to pump and withdraw gasses from the internal tank."
 	icon_state = "scrubber"
+	base_icon_state = "scrubber"
 	density = TRUE
 	volume = 2000
 
@@ -31,7 +32,7 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon_state()
-	icon_state = "[initial(icon_state)]_[on]"
+	icon_state = "[base_icon_state]_[on]"
 	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/update_overlays()
@@ -153,7 +154,7 @@
 	if(close_valve)
 		if(on)
 			on = FALSE
-			update_appearance()
+			update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	else if(on && holding)
 		user.investigate_log("started a transfer into [holding].", INVESTIGATE_ATMOS)
 
@@ -183,6 +184,7 @@
 /obj/machinery/portable_atmospherics/scrubber/huge
 	name = "huge air scrubber"
 	icon_state = "hugescrubber"
+	base_icon_state = "hugescrubber"
 	anchored = TRUE
 	active_power_usage = 500
 	idle_power_usage = 10
@@ -198,13 +200,13 @@
 	movable = TRUE
 
 /obj/machinery/portable_atmospherics/scrubber/huge/update_icon_state()
-	icon_state = "[initial(icon_state)]_[on]"
+	icon_state = "[base_icon_state]_[on]"
 	return ..()
 
 /obj/machinery/portable_atmospherics/scrubber/huge/process_atmos()
 	if((!anchored && !movable) || !is_operational)
 		on = FALSE
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	update_use_power(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	if(!on)
 		return ..()
