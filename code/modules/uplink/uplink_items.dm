@@ -753,9 +753,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
 	name = "Dehydrated Space Carp"
-	desc = "Looks like a plush toy carp, but just add water and it becomes a real-life space carp! Activate in \
-			your hand before use so it knows not to kill you."
-	item = /obj/item/toy/plush/carpplushie/dehy_carp
+	desc = "Looks like a plush toy carp, but just add liquid and it becomes a real-life space carp! Activate in \
+			your hand before use so it knows not to kill you. 20% chance for a rare variant!"
+	item = /obj/effect/spawner/random/contraband/cayennelottery
 	cost = 1
 
 /datum/uplink_item/stealthy_weapons/edagger

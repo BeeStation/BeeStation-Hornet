@@ -10979,7 +10979,7 @@
 "bQl" = (
 /obj/structure/table/wood,
 /obj/item/toy/plush/carpplushie{
-	color = "red";
+	greyscale_colors = "#ff5050#000000";
 	name = "Nanotrasen wildlife department space carp plushie"
 	},
 /turf/open/floor/carpet/blue,
