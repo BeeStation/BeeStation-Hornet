@@ -29,11 +29,11 @@
   position: relative;
   flex-grow: 1;
   border-color: transparent; /* Fixes https://github.com/omgovich/react-colorful/issues/139 */
-  border-bottom: 12px solid #000;
+  border-bottom: 12px solid hsl(0, 0%, 0%);
   border-radius: 8px 8px 0 0;
   background-image:
-    linear-gradient(to top, rgba(0, 0, 0, 255), rgba(0, 0, 0, 0)),
-    linear-gradient(to right, rgba(255, 255, 255, 255), rgba(255, 255, 255, 0));
+    linear-gradient(to top, hsla(0, 0%, 0%, 1), hsla(0, 0%, 0%, 0)),
+    linear-gradient(to right, hsl(0, 0%, 100%), hsla(0, 0%, 100%, 0));
 }
 
 .react-colorful__pointer-fill,
@@ -51,7 +51,7 @@
 /* Improve elements rendering on light backgrounds */
 .react-colorful__alpha-gradient,
 .react-colorful__saturation_value {
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.05);
 }
 
 .react-colorful__hue,
@@ -68,26 +68,26 @@
 .react-colorful__hue {
   background: linear-gradient(
     to right,
-    #f00 0%,
-    #ff0 17%,
-    #0f0 33%,
-    #0ff 50%,
-    #00f 67%,
-    #f0f 83%,
-    #f00 100%
+    hsl(0, 100%, 50%) 0%,
+    hsl(60, 100%, 50%) 17%,
+    hsl(120, 100%, 50%) 33%,
+    hsl(180, 100%, 50%) 50%,
+    hsl(240, 100%, 50%) 67%,
+    hsl(300, 100%, 50%) 83%,
+    hsl(0, 100%, 50%) 100%
   );
 }
 
 .react-colorful__r {
-  background: linear-gradient(to right, #000, #f00);
+  background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(0, 100%, 50%));
 }
 
 .react-colorful__g {
-  background: linear-gradient(to right, #000, #0f0);
+  background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(120, 100%, 50%));
 }
 
 .react-colorful__b {
-  background: linear-gradient(to right, #000, #00f);
+  background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(240, 100%, 50%));
 }
 
 /* Round bottom corners of the last element: `Hue` for `ColorPicker` or `Alpha` for `AlphaColorPicker` */
@@ -117,19 +117,19 @@
   background-color: hsl(0, 0%, 81.2%);
   border: 2px solid hsl(0, 0%, 81.2%);
   border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.4);
 }
 
 .react-colorful__interactive:focus .react-colorful__pointer {
   transform: translate(-50%, -50%) scale(1.1);
-  background-color: #fff;
-  border-color: #fff;
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
 }
 
 /* Chessboard-like pattern for alpha related elements */
 .react-colorful__alpha,
 .react-colorful__alpha-pointer {
-  background-color: #fff;
+  background-color: hsl(0, 0%, 100%);
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
 }
 

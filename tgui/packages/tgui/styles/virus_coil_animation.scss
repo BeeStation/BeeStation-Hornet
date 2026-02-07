@@ -1,18 +1,18 @@
 @keyframes colourCycle {
   0% {
-    color: #00dfff;
+    color: hsl(187.5, 100%, 50%);
   }
   25% {
-    color: #00ff00;
+    color: hsl(120, 100%, 50%);
   }
   50% {
-    color: #ffea00;
+    color: hsl(55.1, 100%, 50%);
   }
   75% {
-    color: #ff6b00;
+    color: hsl(25.2, 100%, 50%);
   }
   100% {
-    color: #ff006e;
+    color: hsl(334.1, 100%, 50%);
   }
 }
 
@@ -29,13 +29,13 @@
 
 @keyframes glowPulse {
   0% {
-    box-shadow: 0 0 5px #38f5ff;
+    box-shadow: 0 0 5px hsl(183, 100%, 61%);
   }
   50% {
-    box-shadow: 0 0 15px #38f5ff;
+    box-shadow: 0 0 15px hsl(183, 100%, 61%);
   }
   100% {
-    box-shadow: 0 0 5px #38f5ff;
+    box-shadow: 0 0 5px hsl(183, 100%, 61%);
   }
 }
 
@@ -47,7 +47,7 @@
 
 .script-line {
   font-family: monospace;
-  color: #00ff00;
+  color: hsl(120, 100%, 50%);
   white-space: pre;
 }
 
@@ -57,7 +57,7 @@
 
 .progress-bar {
   font-family: monospace;
-  color: #00ff00;
+  color: hsl(120, 100%, 50%);
   margin-top: 1rem;
   display: flex;
   align-items: center;
@@ -75,17 +75,17 @@
 .detonate-button {
   margin-top: 1rem;
   background-color: black;
-  border: 1px solid #38f5ff;
-  color: #38f5ff;
+  border: 1px solid hsl(183, 100%, 61%);
+  color: hsl(183, 100%, 61%);
   font-family: monospace;
   padding: 0.4rem 1rem;
   text-transform: uppercase;
   cursor: pointer;
-  text-shadow: 0 0 5px #38f5ff;
+  text-shadow: 0 0 5px hsl(183, 100%, 61%);
   animation: glowPulse 2s ease-in-out infinite;
 
   &:hover {
-    background-color: #111;
-    box-shadow: 0 0 20px #38f5ff;
+    background-color: hsl(0, 0%, 6.7%);
+    box-shadow: 0 0 20px hsl(183, 100%, 61%);
   }
 }

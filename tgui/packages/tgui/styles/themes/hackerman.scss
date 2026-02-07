@@ -53,7 +53,7 @@
     border-width: base.em(2px);
     border-style: outset;
     border-color: hsl(120, 100%, 33.3%);
-    outline: base.em(1px) solid rgb(0, 122, 0);
+    outline: base.em(1px) solid hsl(120, 100%, 24%);
     box-sizing: content-box;
   }
 
@@ -62,6 +62,6 @@
   }
 
   .candystripe:nth-child(odd) {
-    background-color: rgba(0, 100, 0, 0.5);
+    background-color: hsla(120, 100%, 20%, 0.5);
   }
 }

@@ -1,6 +1,6 @@
 @use './ntos-colors.scss' with (
   $ntos-color: hsl(0, 0%, 91.8%),
-  $ntos-fg: rgb(241, 241, 241)
+  $ntos-fg: hsl(0, 0%, 95%)
 );
 .theme-ntos-light {
   @include ntos-colors.theme-ntos;

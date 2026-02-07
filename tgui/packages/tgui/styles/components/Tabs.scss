@@ -12,11 +12,11 @@ $color-default: color.scale(
   colors.fg(colors.$primary),
   $lightness: 75%
 ) !default;
-$text-color: rgba(255, 255, 255, 0.5) !default;
+$text-color: hsla(0, 0%, 100%, 0.5) !default;
 $text-color-selected: color.scale($color-default, $lightness: 25%) !default;
 $tab-color: transparent !default;
-$tab-color-hovered: rgba(255, 255, 255, 0.075) !default;
-$tab-color-selected: rgba(255, 255, 255, 0.125) !default;
+$tab-color-hovered: hsla(0, 0%, 100%, 0.075) !default;
+$tab-color-selected: hsla(0, 0%, 100%, 0.125) !default;
 $border-radius: base.$border-radius !default;
 $fg-map: colors.$fg-map !default;
 

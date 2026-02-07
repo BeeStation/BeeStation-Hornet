@@ -35,11 +35,11 @@
   );
   @include meta.load-css(
     '../components/NumberInput.scss',
-    $with: ('border-color': #fff)
+    $with: ('border-color': hsl(0, 0%, 100%))
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5))
+    $with: ('background-color': hsla(0, 0%, 0%, 0.5))
   );
   @include meta.load-css('../components/Section.scss');
 
@@ -52,6 +52,6 @@
   );
 
   .Button {
-    border: base.em(2px) solid #fff;
+    border: base.em(2px) solid hsl(0, 0%, 100%);
   }
 }

@@ -3,17 +3,17 @@
 @use '../functions.scss' as *;
 
 $color-default-fill: colors.bg(colors.$primary) !default;
-$background-color: rgba(0, 0, 0, 0) !default;
+$background-color: hsla(0, 0%, 0%, 0) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
 
 //Like candystripe, but in pairs
 .TechFab__Reagent:nth-child(4n + 1) {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: hsla(0, 0%, 0%, 0.25);
 }
 
 .TechFab__Reagent:nth-child(4n + 2) {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: hsla(0, 0%, 0%, 0.25);
 }
 
 //Rounded corners for all things inside

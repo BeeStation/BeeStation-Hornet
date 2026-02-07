@@ -35,9 +35,9 @@
   @include meta.load-css(
     '~tgui/styles/components/Tabs.scss',
     $with: (
-      'text-color': rgba(0, 0, 0, 0.7),
-      'text-color-selected': rgb(0, 0, 0),
-      'color-default': rgb(0, 0, 0)
+      'text-color': hsla(0, 0%, 0%, 0.7),
+      'text-color-selected': hsl(0, 0%, 0%),
+      'color-default': hsl(0, 0%, 0%)
     )
   );
   @include meta.load-css('~tgui/styles/components/Section.scss');
@@ -49,7 +49,7 @@
       'color-selected': hsl(207, 93.7%, 37.3%),
       'color-caution': hsl(29.5, 91%, 39%),
       'color-danger': hsl(61.1, 100%, 30.8%),
-      'color-transparent-text': rgba(0, 0, 0, 0.8)
+      'color-transparent-text': hsla(0, 0%, 0%, 0.8)
     )
   );
   @include meta.load-css(
@@ -80,9 +80,9 @@
   @include meta.load-css(
     '~tgui/styles/layouts/TitleBar.scss',
     $with: (
-      'text-color': rgba(0, 0, 0, 0.75),
+      'text-color': hsla(0, 0%, 0%, 0.75),
       'background-color': base.$color-bg,
-      'shadow-color-core': rgba(0, 0, 0, 0.25)
+      'shadow-color-core': hsla(0, 0%, 0%, 0.25)
     )
   );
 

@@ -21,7 +21,7 @@ $accent-2: hsl(44.9, 100%, 50%);
     '../components/Button.scss',
     $with: (
       'color-default': $accent,
-      'color-transparent-text': rgba(227, 240, 255, 0.75)
+      'color-transparent-text': hsla(212, 100%, 95%, 0.75)
     )
   );
   @include meta.load-css(
@@ -32,7 +32,7 @@ $accent-2: hsl(44.9, 100%, 50%);
     '../components/ProgressBar.scss',
     $with: (
       'color-default-fill': $accent,
-      'background-color': rgba(0, 0, 0, 0.5)
+      'background-color': hsla(0, 0%, 0%, 0.5)
     )
   );
   @include meta.load-css('../components/Section.scss');
