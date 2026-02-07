@@ -14,6 +14,9 @@
 	if(. != VOTE_AVAILABLE)
 		return .
 
+	if(!SSticker.HasRoundStarted())
+		return "The round hasn't started."
+
 	// canEvac() always returns a truthy value. (TRUE or a string with the reason why the shuttle can't be called)
 	var/evac_result = SSshuttle.canEvac()
 	if(evac_result != TRUE)
