@@ -112,9 +112,8 @@
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg
 	name = "multi-purpose energy gun"
 	desc = "An energy gun with three firing modes useful in a variety of situations, it is not capable of causing substantial harm to crew on any setting."
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg, /obj/item/ammo_casing/energy/laser/anti_creature/cyborg)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg, /obj/item/ammo_casing/energy/laser/anti_creature/cyborg)
 	gun_charge = 10 KILOWATT
-	fire_rate = 1		//One shots per second
 	charge_delay = 9	//Fully charged in 90 seconds
 	w_class = WEIGHT_CLASS_LARGE //Same weight as disabler, for the slightly higher slowdown while active
 	can_charge = FALSE
@@ -143,18 +142,18 @@
 		R.apply_status_effect(/datum/status_effect/cyborg_sentry)
 	. = ..()
 
-//Standard disabler round
-/obj/item/ammo_casing/energy/disabler/cyborg
-	e_cost = 500 WATT	//20 shot capacity
+//Standard taser round
+/obj/item/ammo_casing/energy/electrode/cyborg
+	e_cost = 5000 WATT	//2 shot capacity, aim carefully.
 
 //Does 5 damage to mobs and 70 to objects, with exception to blobs
 /obj/item/ammo_casing/energy/laser/cutting/cyborg
 	e_cost = 250 WATT	//40 shot capacity
 
-//Does 5 damage to humans, 30 damage to all other mobs.
+//Does 15 damage to humans, 30 damage to all other mobs.
 /obj/item/ammo_casing/energy/laser/anti_creature/cyborg
-	projectile_type = /obj/projectile/beam/laser/anti_creature/cyborg
-	e_cost = 500 WATT	//20 shot capacity
+	projectile_type = /obj/projectile/beam/laser/anti_creature
+	e_cost = 1000 WATT	//10 shot capacity
 
-/obj/projectile/beam/laser/anti_creature/cyborg
-	damage = 5  //15 is too much given this can be used on station
+/obj/item/ammo_casing/energy/disabler/cyborg
+	e_cost = 500 WATT  //20 shot capacity
