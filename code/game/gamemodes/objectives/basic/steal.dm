@@ -8,6 +8,25 @@ GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal/get_target()
 	return steal_target
 
+/datum/objective/steal/get_tracking_target(atom/source)
+	var/closest = INFINITY
+	var/turf/source_turf = get_turf(source)
+	var/atom/tracked = null
+	for (var/atom/target in get_trackables_by_type(steal_target, TRUE))
+		var/turf/target_turf = get_turf(target)
+		if (!target_turf)
+			continue
+		// Objectives in incorrect locations are simply not trackable
+		if (!compare_z(source_turf.z, target_turf.z))
+			continue
+		// Prioritise things that are on the same z
+		var/dist = get_dist(target, source) + abs(source_turf.z - target_turf.z) * 1000
+		if (dist > closest)
+			continue
+		closest = dist
+		tracked = target
+	return tracked
+
 /datum/objective/steal/New()
 	..()
 	if(!GLOB.possible_items.len)//Only need to fill the list when it's needed.
@@ -37,7 +56,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		steal_target = targetinfo.targetitem
 		explanation_text = "Steal [targetinfo.name]"
 		if (length(targetinfo.special_equipment))
-			generate_stash(targetinfo.special_equipment)
+			generate_stash(targetinfo.special_equipment, get_owners())
 		update_explanation_text()
 		return steal_target
 	else

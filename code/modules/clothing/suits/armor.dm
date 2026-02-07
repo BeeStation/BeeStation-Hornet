@@ -270,7 +270,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
 
-
 /datum/armor/armor_laserproof
 	melee = 10
 	bullet = 10
@@ -280,6 +279,10 @@
 	acid = 100
 	stamina = 40
 	bleed = 10
+
+/obj/item/clothing/suit/armor/laserproof/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!

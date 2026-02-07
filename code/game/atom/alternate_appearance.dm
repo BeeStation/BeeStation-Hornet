@@ -192,17 +192,36 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	return FALSE
 
 /datum/atom_hud/alternate_appearance/basic/one_person
-	var/mob/seer
+	var/datum/weakref/seer
 
 /datum/atom_hud/alternate_appearance/basic/one_person/mobShouldSee(mob/M)
-	if(M == seer)
+	var/mob/seer_reference = seer.resolve()
+	if (!seer_reference)
+		qdel(src)
+		return FALSE
+	if(M == seer_reference)
 		return TRUE
 	return FALSE
 
 /datum/atom_hud/alternate_appearance/basic/one_person/New(key, image/I, mob/living/M)
 	..(key, I, FALSE)
-	seer = M
+	seer = WEAKREF(M)
 	add_hud_to(seer)
+
+/datum/atom_hud/alternate_appearance/basic/minds
+	var/list/seers
+
+/datum/atom_hud/alternate_appearance/basic/minds/mobShouldSee(mob/M)
+	if(M.mind in seers)
+		return TRUE
+	return FALSE
+
+/datum/atom_hud/alternate_appearance/basic/minds/New(key, image/I, list/minds)
+	..(key, I, FALSE)
+	seers = list()
+	for (var/datum/mind/mind in minds)
+		seers += mind
+		add_hud_to(mind.current)
 
 /datum/atom_hud/alternate_appearance/basic/heretics
 	add_ghost_version = FALSE //just in case, to prevent infinite loops

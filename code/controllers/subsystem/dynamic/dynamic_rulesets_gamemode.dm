@@ -1,15 +1,45 @@
-/datum/dynamic_ruleset/roundstart
-	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
+/datum/dynamic_ruleset/gamemode
+	rule_category = DYNAMIC_CATEGORY_GAMEMODE
+	// Uses antag rep to pick candidates, as we choose from everyone available.
 	ruleset_flags = SHOULD_USE_ANTAG_REP
-	abstract_type = /datum/dynamic_ruleset/roundstart
-	/// The percentage (0 to 100) chance that this ruleset will be repicked
-	/// when selected, assuming there are cost points available.
-	var/elasticity = 0
+	abstract_type = /datum/dynamic_ruleset/gamemode
+	// Sorry, but if you are going to be THE antagonist, you can't be leaving the station and making
+	// the round boring for everyone else.
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_PRISONER, JOB_NAME_SHAFTMINER, JOB_NAME_EXPLORATIONCREW)
+	/// Default minimum players required so that there is some mystery involved.
+	/// Disabled for now, since traitor works fine on 0 pop
+	minimum_players_required = 3
+	/// The number of rounds that it takes before this gamemode reaches full weight after it has been executed.
+	/// The first round after execution will use a weight of 1 (still possible but rare).
+	/// A value of 1 means that it will instantly recover
+	/// A value of 2 means that the next round after it executes, it will have half weight and after that it
+	/// will have full weight.
+	var/recent_weight_recovery_linear = 4
 
-/datum/dynamic_ruleset/roundstart/get_candidates()
+/datum/dynamic_ruleset/gamemode/get_weight()
+	if (recent_weight_recovery_linear <= 1)
+		return weight
+	var/list/gamemode_data = SSpersistence.get_gamemode_data()
+	var/rounds_since_execution = gamemode_data["[type]"]
+	// No data available (never executed)
+	if (rounds_since_execution <= 0)
+		return weight
+	// Calculate the proportion
+	var/proportion = CLAMP01((rounds_since_execution - 1) / recent_weight_recovery_linear)
+	// Linear interpolation between 1 and the original weight based on time since last execution
+	var/used_weight = 1 + (weight - 1) * proportion
+	if (weight != used_weight)
+		log_dynamic("DYNAMIC: Ruleset [type] is using a weight of [used_weight] instead of [weight] as it executed [rounds_since_execution] rounds ago and takes [recent_weight_recovery_linear] rounds to fully recover.")
+	return used_weight
+
+/datum/dynamic_ruleset/gamemode/convert_ruleset()
+	removed = TRUE
+	log_dynamic("CONVERSION: [name] was removed from the round, it has been marked as removed.")
+
+/datum/dynamic_ruleset/gamemode/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
 
-/datum/dynamic_ruleset/roundstart/trim_candidates()
+/datum/dynamic_ruleset/gamemode/trim_candidates()
 	. = ..()
 	for(var/mob/candidate in candidates)
 		// "Connected"?
@@ -22,10 +52,15 @@
 			candidates -= candidate
 			continue
 
+		// Compatible job?
+		if(candidate.mind.assigned_role && (candidate.mind.assigned_role in restricted_roles))
+			candidates -= candidate
+			continue
+
 /**
  * Choose candidates, if your ruleset makes them a non-crewmember, set their assigned role here.
  */
-/datum/dynamic_ruleset/roundstart/proc/choose_candidates()
+/datum/dynamic_ruleset/gamemode/proc/choose_candidates()
 	for(var/i = 1 to drafted_players_amount)
 		var/mob/chosen_candidate = select_player()
 		var/datum/mind/chosen_mind = chosen_candidate.mind
@@ -36,10 +71,13 @@
 		chosen_mind.special_role = initial(antag_datum.banning_key)
 		chosen_mind.restricted_roles = restricted_roles
 
-/datum/dynamic_ruleset/roundstart/execute()
+/datum/dynamic_ruleset/gamemode/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		GLOB.pre_setup_antags -= chosen_mind
+
+/datum/dynamic_ruleset/gamemode/proc/security_report()
+	return null
 
 //////////////////////////////////////////////
 //                                          //
@@ -47,11 +85,15 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/traitor
+/datum/dynamic_ruleset/gamemode/traitor
 	name = "Traitor"
 	role_preference = /datum/role_preference/roundstart/traitor
 	antag_datum = /datum/antagonist/traitor
-	weight = 10
+	weight = 16
+	recent_weight_recovery_linear = 1
+
+/datum/dynamic_ruleset/gamemode/traitor/security_report()
+	return "Intercepted communications between neighboring orbital stations suggest that Syndicate activity, as always, remains a potential threat."
 
 //////////////////////////////////////////////
 //                                          //
@@ -59,12 +101,17 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/changeling
+/datum/dynamic_ruleset/gamemode/changeling
 	name = "Changeling"
 	role_preference = /datum/role_preference/roundstart/changeling
 	antag_datum = /datum/antagonist/changeling
 	weight = 8
-	points_cost = 9
+	ruleset_flags = SHOULD_USE_ANTAG_REP | REQUIRED_POP_ALLOW_UNREADY
+	minimum_players_required = 8
+
+/datum/dynamic_ruleset/gamemode/changeling/security_report()
+	return "Private research teams have recently been researching lifeforms of unknown origin, capable of controlling their bodies at a cellular level. \
+	Unconfirmed reports suggest a tangible risk of impersonation and infiltration for the purposes of their species' hunting cycle."
 
 //////////////////////////////////////////////
 //                                          //
@@ -72,28 +119,18 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/heretic
+/datum/dynamic_ruleset/gamemode/heretic
 	name = "Heretic"
 	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
-	points_cost = 12
-	minimum_players_required = 13
+	ruleset_flags = SHOULD_USE_ANTAG_REP | REQUIRED_POP_ALLOW_UNREADY
+	minimum_players_required = 14
 
-//////////////////////////////////////////////
-//                                          //
-//                  VAMPIRE                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/vampire
-	name = "Vampire"
-	role_preference = /datum/role_preference/roundstart/vampire
-	antag_datum = /datum/antagonist/vampire
-	weight = 8
-	points_cost = 9
-	minimum_players_required = 13
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+/datum/dynamic_ruleset/gamemode/heretic/security_report()
+	return "Independent theological organizations have long expressed interest in this region of space for reasons that remain unclear. \
+	Individuals with confirmed or suspected thaumaturgical expertise may constitute a potential security liability, \
+	regardless of the current inconclusiveness of their findings."
 
 //////////////////////////////////////////////
 //                                          //
@@ -101,20 +138,23 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/malf
+/datum/dynamic_ruleset/gamemode/malf
 	name = "Malfunctioning AI"
 	role_preference = /datum/role_preference/roundstart/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
-	weight = 6
-	points_cost = 13
-	minimum_players_required = 24
+	weight = 8
+	minimum_players_required = 20
 	restricted_roles = list(JOB_NAME_CYBORG)
-	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
+	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT | REQUIRED_POP_ALLOW_UNREADY
 
-/datum/dynamic_ruleset/roundstart/malf/choose_candidates()
+/datum/dynamic_ruleset/gamemode/malf/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		SSjob.AssignRole(chosen_mind.current, JOB_NAME_AI)
+
+/datum/dynamic_ruleset/gamemode/malf/security_report()
+	return "The proximity to multiple stars leads to a risk of ion storms born from constructive wave interference. This has been identified \
+	as an unconfirmed future risk towards various computer-controlled systems, including artificial-intelligence units and power supply technologies."
 
 //////////////////////////////////////////////
 //                                          //
@@ -122,16 +162,15 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/wizard
+/datum/dynamic_ruleset/gamemode/wizard
 	name = "Wizard"
 	role_preference = /datum/role_preference/roundstart/wizard
 	antag_datum = /datum/antagonist/wizard
-	weight = 1
-	points_cost = 15
+	weight = 8
 	minimum_players_required = 20
-	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 
-/datum/dynamic_ruleset/roundstart/wizard/allowed()
+/datum/dynamic_ruleset/gamemode/wizard/allowed(require_drafted = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -140,48 +179,21 @@
 		log_dynamic("NOT ALLOWED: [src] couldn't find any spawn points.")
 		return FALSE
 
-/datum/dynamic_ruleset/roundstart/wizard/choose_candidates()
+/datum/dynamic_ruleset/gamemode/wizard/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.assigned_role = initial(antag_datum.banning_key)
 
-/datum/dynamic_ruleset/roundstart/wizard/execute()
+/datum/dynamic_ruleset/gamemode/wizard/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
 		chosen_mind.assigned_role = initial(antag_datum.banning_key)
 
-//////////////////////////////////////////
-//                                      //
-//            BLOOD BROTHERS            //
-//                                      //
-//////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/brothers
-	name = "Blood Brothers"
-	role_preference = /datum/role_preference/roundstart/blood_brother
-	antag_datum = /datum/antagonist/brother
-	drafted_players_amount = 2
-	weight = 6
-	points_cost = 8
-
-	var/datum/team/brother_team/team
-
-/datum/dynamic_ruleset/roundstart/brothers/choose_candidates()
-	. = ..()
-	team = new()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		team.add_member(chosen_mind)
-
-/datum/dynamic_ruleset/roundstart/brothers/execute()
-	team.pick_meeting_area()
-	team.forge_brother_objectives()
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.add_antag_datum(antag_datum, team)
-		GLOB.pre_setup_antags -= chosen_mind
-
-	team.update_name()
-	return DYNAMIC_EXECUTE_SUCCESS
+/datum/dynamic_ruleset/gamemode/wizard/security_report()
+	return "Unconfirmed rumours suggest that a series of powerful artifacts that possess intricate control over space-time are in the hands \
+	of an independant organisation. While these reports currently lack credibility, the probability of incident has yet to be determined as \
+	negligable and security should utilise this possibility as a training excercise."
 
 //////////////////////////////////////////////
 //                                          //
@@ -189,26 +201,25 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/bloodcult
+/datum/dynamic_ruleset/gamemode/bloodcult
 	name = "Blood Cult"
 	role_preference = /datum/role_preference/roundstart/blood_cultist
 	antag_datum = /datum/antagonist/cult
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 2
-	weight = 5
-	points_cost = 20
+	weight = 8
 	minimum_players_required = 24
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 	blocking_rulesets = list(
-		/datum/dynamic_ruleset/roundstart/clockcult,
+		/datum/dynamic_ruleset/gamemode/clockcult,
 	)
 
 	var/datum/team/cult/team
 
-/datum/dynamic_ruleset/roundstart/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 9, 1), 2)
+/datum/dynamic_ruleset/gamemode/bloodcult/set_drafted_players_amount()
+	drafted_players_amount = max(CEILING(length(SSdynamic.roundstart_candidates) / 9, 1), 2)
 
-/datum/dynamic_ruleset/roundstart/bloodcult/execute()
+/datum/dynamic_ruleset/gamemode/bloodcult/execute()
 	team = new
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		var/datum/antagonist/cult/cultist_datum = new antag_datum()
@@ -216,13 +227,13 @@
 		cultist_datum.cult_team = team
 		cultist_datum.give_equipment = TRUE
 
-		chosen_mind.add_antag_datum(cultist_datum)
+		chosen_mind.add_antag_datum(cultist_datum, ruleset = src)
 		GLOB.pre_setup_antags -= chosen_mind
 
 	team.setup_objectives()
 	return DYNAMIC_EXECUTE_SUCCESS
 
-/datum/dynamic_ruleset/roundstart/bloodcult/round_result()
+/datum/dynamic_ruleset/gamemode/bloodcult/round_result()
 	if(team.check_cult_victory())
 		SSticker.mode_result = "win - cult win"
 		SSticker.news_report = CULT_SUMMON
@@ -230,32 +241,36 @@
 		SSticker.mode_result = "loss - staff stopped the cult"
 		SSticker.news_report = CULT_FAILURE
 
+/datum/dynamic_ruleset/gamemode/bloodcult/security_report()
+	return "Although numerous fringe theological groups are under observation, one faction has shown increased operational boldness, \
+	culminating in several recorded attacks on civilian facilities. The group's capacity for further disruption cannot be dismissed; \
+	persistent monitoring of relevant sectors is advised."
+
 //////////////////////////////////////////////
 //                                          //
 //                CLOCK CULT                //
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/clockcult
+/datum/dynamic_ruleset/gamemode/clockcult
 	name = "Clockwork Cult"
 	role_preference = /datum/role_preference/roundstart/clock_cultist
 	antag_datum = /datum/antagonist/servant_of_ratvar
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 4
-	weight = 5
-	points_cost = 35
-	minimum_players_required = 35
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	weight = 8
+	minimum_players_required = 30
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 	blocking_rulesets = list(
-		/datum/dynamic_ruleset/roundstart/bloodcult,
+		/datum/dynamic_ruleset/gamemode/bloodcult,
 	)
 
 	var/datum/team/clock_cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 2)
+	drafted_players_amount = max(CEILING(length(SSdynamic.roundstart_candidates) / 7, 1), 3)
 
-/datum/dynamic_ruleset/roundstart/clockcult/choose_candidates()
+/datum/dynamic_ruleset/gamemode/clockcult/choose_candidates()
 	. = ..()
 	LoadReebe()
 	generate_clockcult_scriptures()
@@ -263,7 +278,7 @@
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.assigned_role = initial(antag_datum.banning_key)
 
-/datum/dynamic_ruleset/roundstart/clockcult/execute()
+/datum/dynamic_ruleset/gamemode/clockcult/execute()
 	main_cult = new()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
@@ -281,7 +296,7 @@
 	calculate_clockcult_values()
 	return DYNAMIC_EXECUTE_SUCCESS
 
-/datum/dynamic_ruleset/roundstart/clockcult/round_result()
+/datum/dynamic_ruleset/gamemode/clockcult/round_result()
 	if(GLOB.ratvar_risen)
 		SSticker.news_report = CLOCK_SUMMON
 		SSticker.mode_result = "win - servants completed their objective (summon ratvar)"
@@ -289,48 +304,51 @@
 		SSticker.news_report = CULT_FAILURE
 		SSticker.mode_result = "loss - servants failed their objective (summon ratvar)"
 
+/datum/dynamic_ruleset/gamemode/clockcult/security_report()
+	return "A group yielding unprecedented theological methodologies involving machine logic and dimensional interfaces has been linked to several abductions. \
+	The operational intent remains unclear, but potential applications present a non-trivial security concern. Crew safety monitoring is recommended."
+
 //////////////////////////////////////////////
 //                                          //
 //            NUCLEAR OPERATIVES            //
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/nuclear
+/datum/dynamic_ruleset/gamemode/nuclear
 	name = "Nuclear Operatives"
 	role_preference = /datum/role_preference/roundstart/nuclear_operative
 	antag_datum = /datum/antagonist/nukeop
 	drafted_players_amount = 3
-	weight = 3
-	points_cost = 20
+	weight = 8
 	minimum_players_required = 24
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | REQUIRED_POP_ALLOW_UNREADY
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
 
-/datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
+/datum/dynamic_ruleset/gamemode/nuclear/set_drafted_players_amount()
 	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 2)
 
-/datum/dynamic_ruleset/roundstart/nuclear/choose_candidates()
+/datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.assigned_role = initial(antag_datum.banning_key)
 
-/datum/dynamic_ruleset/roundstart/nuclear/execute()
+/datum/dynamic_ruleset/gamemode/nuclear/execute()
 	var/has_made_leader = FALSE
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		if(!has_made_leader)
 			has_made_leader = TRUE
-			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum)
+			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum, ruleset = src)
 			nuke_team = leader_datum.nuke_team
 		else
-			chosen_mind.add_antag_datum(antag_datum)
+			chosen_mind.add_antag_datum(antag_datum, ruleset = src)
 
 		GLOB.pre_setup_antags -= chosen_mind
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
-/datum/dynamic_ruleset/roundstart/nuclear/round_result()
+/datum/dynamic_ruleset/gamemode/nuclear/round_result()
 	var/result = nuke_team.get_result()
 	switch(result)
 		if(NUKE_RESULT_FLUKE)
@@ -364,26 +382,37 @@
 			SSticker.mode_result = "halfwin - interrupted"
 			SSticker.news_report = OPERATIVE_SKIRMISH
 
+
+/datum/dynamic_ruleset/gamemode/nuclear/security_report()
+	return "During construction of a nearby station, a well-armed and well-funded Syndicate faction intercepted a shipment containing the station's \
+	nuclear self-destruct system. Intelligence assessments indicate a credible risk of future terrorist activity with the objective of total target \
+	destruction. Heightened security protocols are recommended."
+
 //////////////////////////////////////////////
 //                                          //
 //             CLOWN OPERATIVES             //
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/nuclear/clown_ops
+/datum/dynamic_ruleset/gamemode/nuclear/clown_ops
 	name = "Clown Operatives"
 	antag_datum = /datum/antagonist/nukeop/clownop
 	antag_leader_datum = /datum/antagonist/nukeop/leader/clownop
-	weight = 2
+	weight = 0
 
-/datum/dynamic_ruleset/roundstart/nuclear/clown_ops/execute()
+/datum/dynamic_ruleset/gamemode/nuclear/clown_ops/execute()
 	. = ..()
 	for(var/obj/machinery/nuclearbomb/syndicate/nuke in GLOB.nuke_list)
 		var/turf/turf = get_turf(nuke)
 		if(turf)
 			var/obj/machinery/nuclearbomb/syndicate/bananium/new_nuke = new(turf)
-			new_nuke.yes_code = nuke.yes_code
+			new_nuke.r_code = nuke.r_code
 			qdel(nuke)
+
+/datum/dynamic_ruleset/gamemode/nuclear/clown_ops/security_report()
+	return "During construction of a nearby circus, a well-armed and well-funded Clown faction intercepted a shipment containing the station's \
+	prank system. Intelligence assessments indicate a credible risk of future pranks with the objective of total target \
+	pranking. Looser security protocols are not recommended."
 
 //////////////////////////////////////////////
 //                                          //
@@ -391,24 +420,23 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/roundstart/revolution
+/datum/dynamic_ruleset/gamemode/revolution
 	name = "Revolution"
 	role_preference = /datum/role_preference/roundstart/revolutionary
 	antag_datum = /datum/antagonist/rev/head
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	drafted_players_amount = 3
-	weight = 4
-	points_cost = 20
-	minimum_players_required = 35
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	weight = 0	// Temporarily disabled: We need to refactor this so that it executes after round-start, and rolls into a different gamemode if it fails to execute.
+	minimum_players_required = 24
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 
 	var/datum/team/revolution/team
 	var/finished = FALSE
 
-/datum/dynamic_ruleset/roundstart/revolution/set_drafted_players_amount()
+/datum/dynamic_ruleset/gamemode/revolution/set_drafted_players_amount()
 	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 15)
 
-/datum/dynamic_ruleset/roundstart/revolution/execute()
+/datum/dynamic_ruleset/gamemode/revolution/execute()
 	team = new
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		var/datum/antagonist/rev/head/headrev_datum = new antag_datum()
@@ -416,7 +444,7 @@
 		headrev_datum.give_hud = TRUE
 		headrev_datum.remove_clumsy = TRUE
 
-		chosen_mind.add_antag_datum(headrev_datum, team)
+		chosen_mind.add_antag_datum(headrev_datum, team, ruleset = src)
 		GLOB.pre_setup_antags -= chosen_mind
 
 	team.update_objectives()
@@ -424,7 +452,7 @@
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
-/datum/dynamic_ruleset/roundstart/revolution/rule_process()
+/datum/dynamic_ruleset/gamemode/revolution/rule_process()
 	var/winner = team.process_victory()
 	if(isnull(winner))
 		return
@@ -435,7 +463,7 @@
 #define REVOLUTION_VICTORY 1
 #define STATION_VICTORY 2
 
-/datum/dynamic_ruleset/roundstart/revolution/round_result()
+/datum/dynamic_ruleset/gamemode/revolution/round_result()
 	if(finished == REVOLUTION_VICTORY)
 		SSticker.mode_result = "win - heads killed"
 		SSticker.news_report = REVS_WIN
@@ -445,6 +473,11 @@
 	else
 		SSticker.mode_result = "minor win - station forced to be abandoned"
 		SSticker.news_report = STATION_EVACUATED
+
+/datum/dynamic_ruleset/gamemode/revolution/security_report()
+	return "Following an industrial incident on Tellune, violent demonstrations demanding unsanctioned worker concessions occurred outside a \
+	Nanotrasen command center. The potential emergence of imitator movements with revolutionary intent presents a credible short-term security \
+	concern and should be monitored."
 
 #undef REVOLUTION_VICTORY
 #undef STATION_VICTORY

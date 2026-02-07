@@ -111,7 +111,7 @@
 	return antag_bans
 
 /datum/preference_middleware/antags/proc/get_antag_living_playtime_hours_left()
-	if(!preferences.parent)
+	if(!preferences.parent || preferences.parent.holder)
 		return list()
 	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(preferences.parent, R_ADMIN))
 		return list()

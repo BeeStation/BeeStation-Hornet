@@ -480,6 +480,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BEING_SHOCKED "shocked"
 /// Trait given to a dreaming carbon when they are currently doing dreaming stuff
 #define TRAIT_DREAMING "currently_dreaming"
+/// Trait given to people that were successfully assassinated
+#define TRAIT_ASSASSINATION_VICTIM "assassinated"
 
 /// Stores typepaths, the typepath value read from this trait indicates that this item
 /// is meant to look like the item with that path, which might affect how you show

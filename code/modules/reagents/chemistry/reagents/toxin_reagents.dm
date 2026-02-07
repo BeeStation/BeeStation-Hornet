@@ -1076,3 +1076,37 @@
 	name = "Mimite venom"
 	description = "Deadly venom of a shapeshifting creature."
 	color = "#330063"
+
+/datum/reagent/toxin/sarin
+	name = "Sarin"
+	description = "An extremely lethal contact nerve agent which causes difficulty breathing, vomiting, organ failure, and severe brain damage, even in small doses."
+	silent_toxin = TRUE
+	color = "#F0F8FF" // rgb: 240, 248, 255
+	chemical_flags = CHEMICAL_RNG_FUN
+	toxpwr = 0
+	taste_description = "bitterness"
+	// 1 every 20 seconds
+	metabolization_rate = 0.05
+
+// Always transfers to the mob no matter what
+/datum/reagent/toxin/sarin/expose_mob(mob/living/exposed_mob, method, reac_volume, show_message, touch_protection, obj/item/bodypart/affecting)
+	if(!istype(exposed_mob))
+		return FALSE
+	if(exposed_mob.reagents)
+		var/modifier = clamp((1 - touch_protection), 0, 1)
+		var/amount = round(reac_volume * modifier, 0.1)
+		if(amount >= 0.5)
+			exposed_mob.reagents.add_reagent(type, amount)
+	return TRUE
+
+/datum/reagent/toxin/sarin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, min(0.05 * current_cycle, 5))
+	affected_mob.adjustToxLoss(min(0.5 * current_cycle, 5))
+	affected_mob.adjustOxyLoss(min(0.5 * current_cycle, 5))
+	if (current_cycle > 20 && DT_PROB(10, delta_time))
+		affected_mob.vomit(10, prob(10), prob(50), 1, TRUE)
+	// You die
+	if (current_cycle > 50)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_LUNGS, 5)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 5)

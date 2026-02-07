@@ -6,6 +6,7 @@
 	rule_category = DYNAMIC_CATEGORY_MIDROUND
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
 	abstract_type = /datum/dynamic_ruleset/midround
+	ruleset_flags = NO_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 
 	/// How disruptive the ruleset is (DYNAMIC_MIDROUND_LIGHT, DYNAMIC_MIDROUND_MEDIUM, DYNAMIC_MIDROUND_HEAVY)
 	var/severity
@@ -36,9 +37,9 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	points_cost = 40
 	weight = 2
-	ruleset_flags = CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT | NO_TRANSFER_RULESET
 
-/datum/dynamic_ruleset/midround/pirates/allowed()
+/datum/dynamic_ruleset/midround/pirates/allowed(require_drafted = TRUE)
 	if(!SSmapping.empty_space)
 		return FALSE
 	return TRUE

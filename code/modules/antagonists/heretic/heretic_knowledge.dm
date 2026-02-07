@@ -461,6 +461,7 @@
 /datum/heretic_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!can_be_invoked(heretic_datum))
+		to_chat(user, span_warning("You need at least 3 sacrifices to invoke this ritual!"))
 		return FALSE
 
 	// Remove all non-dead humans from the atoms list.

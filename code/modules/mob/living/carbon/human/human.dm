@@ -313,7 +313,7 @@
 					investigate_log("SecHUD auto-crime | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
 
 				investigate_log("has been set from [target_record.wanted_status] to [new_status] via HUD by [key_name(human_user)].", INVESTIGATE_RECORDS)
-				target_record.wanted_status = new_status
+				target_record.set_wanted_status(human_user, new_status)
 				update_matching_security_huds(target_record.name)
 				return
 

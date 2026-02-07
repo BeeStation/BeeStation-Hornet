@@ -61,7 +61,7 @@
 			ref = i["ref"],
 			name = i["name"],
 		)
-		data["object"] += list(objectdata)
+		data["objects"] += list(objectdata)
 
 	data["target"] = list()
 	var/list/trackinfo = track()

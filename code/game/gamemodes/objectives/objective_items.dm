@@ -10,6 +10,10 @@
 	var/list/special_equipment = list()
 	/// Require that the target item is spawned at roundstart by closets.
 	var/require_item_spawns_at_roundstart = TRUE
+	/// If we want a different item other than the target to be the track target
+	var/special_track_type
+	/// Special flags for the target
+	var/objective_flags = NONE
 
 /datum/objective_item/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
 	return 1
@@ -44,6 +48,7 @@
 	targetitem = /obj/item/gun/energy/laser/captain
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_CAPTAIN)
+	objective_flags = STEAL_DIRECTIVE_TOXIN
 
 /datum/objective_item/steal/hoslaser
 	name = "the head of security's personal laser gun."
@@ -51,12 +56,14 @@
 	difficulty = 10
 	excludefromjob = list(JOB_NAME_HEADOFSECURITY)
 	requiredjob = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN)
+	objective_flags = STEAL_DIRECTIVE_TOXIN
 
 /datum/objective_item/steal/handtele
 	name = "a hand teleporter."
 	targetitem = /obj/item/hand_tele
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_CAPTAIN, JOB_NAME_RESEARCHDIRECTOR)
+	objective_flags = STEAL_DIRECTIVE_TOXIN
 
 /datum/objective_item/steal/jetpack
 	name = "the Captain's jetpack."
@@ -83,12 +90,14 @@
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	requiredjob = list(JOB_NAME_CHIEFMEDICALOFFICER)
+	objective_flags = STEAL_DIRECTIVE_TOXIN
 
 /datum/objective_item/steal/nukedisc
 	name = "the nuclear authentication disk."
 	targetitem = /obj/item/disk/nuclear
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_CAPTAIN)
+	objective_flags = STEAL_DIRECTIVE_TOXIN
 
 /datum/objective_item/steal/nukedisc/check_special_completion(obj/item/disk/nuclear/N)
 	return !N.fake
@@ -106,6 +115,7 @@
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_RESEARCHDIRECTOR)
 	requiredjob = list(JOB_NAME_RESEARCHDIRECTOR)
+	objective_flags = STEAL_DIRECTIVE_TOXIN
 
 /datum/objective_item/steal/documents
 	name = "any set of secret documents of any organization."
@@ -125,6 +135,7 @@
 	name = "a sliver of a supermatter crystal. Be sure to use the proper safety equipment when extracting the sliver!"
 	targetitem = /obj/item/nuke_core/supermatter_sliver
 	difficulty = 15
+	special_track_type = /obj/machinery/power/supermatter_crystal
 
 /datum/objective_item/steal/supermatter/New()
 	special_equipment += /obj/item/storage/box/syndie_kit/supermatter
@@ -138,6 +149,7 @@
 	targetitem = /obj/item/aicard
 	difficulty = 20 //beyond the impossible
 	requiredjob = list(JOB_NAME_AI)
+	special_track_type = /mob/living/silicon/ai
 
 /datum/objective_item/steal/functionalai/New()
 	. = ..()
@@ -178,18 +190,6 @@
 		if(P.picture.has_blueprints)	//if the blueprints are in frame
 			return TRUE
 	return FALSE
-
-/datum/objective_item/steal/slime
-	name = "an unused sample of slime extract."
-	targetitem = /obj/item/slime_extract
-	difficulty = 3
-	excludefromjob = list(JOB_NAME_RESEARCHDIRECTOR,JOB_NAME_SCIENTIST)
-	requiredjob = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST)
-
-/datum/objective_item/steal/slime/check_special_completion(obj/item/slime_extract/E)
-	if(E.Uses > 0)
-		return 1
-	return 0
 
 /datum/objective_item/steal/blackbox
 	name = "the blackbox."

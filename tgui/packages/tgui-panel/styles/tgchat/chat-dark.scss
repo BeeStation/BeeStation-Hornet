@@ -561,6 +561,20 @@ em {
   font-weight: bold;
 }
 
+.traitor_objective {
+  display: block;
+  font-size: large;
+  font-family: monospace;
+  color: #f08181;
+  background-color: #000000;
+  border: 1px solid #f08181;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .userdanger {
   color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
@@ -666,6 +680,17 @@ em {
   text-align: center;
   background-color: black;
   border: 2px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
+
+.testmerge_message {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid rgb(240, 160, 62);
   border-radius: 10px;
   padding: 10px;
   margin: 10px 20px;

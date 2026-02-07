@@ -8,7 +8,7 @@
 
 /datum/dynamic_ruleset/midround/ghost
 	abstract_type = /datum/dynamic_ruleset/midround/ghost
-	ruleset_flags = IGNORE_DRAFTED_COUNT | CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT | NO_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 
 	/// List of possible locations for this antag to spawn
 	var/list/spawn_locations = list()
@@ -21,7 +21,7 @@
 /datum/dynamic_ruleset/midround/ghost/get_candidates()
 	candidates = SSdynamic.current_players[CURRENT_DEAD_PLAYERS] | SSdynamic.current_players[CURRENT_OBSERVERS]
 
-/datum/dynamic_ruleset/midround/ghost/allowed()
+/datum/dynamic_ruleset/midround/ghost/allowed(require_drafted = TRUE)
 	// With ghost midrounds, we do not care about drafted player counts
 	// as the players may come later
 	. = ..()
@@ -173,7 +173,7 @@
  * Finalize the candidate's body
  */
 /datum/dynamic_ruleset/midround/ghost/proc/finish_setup(mob/new_character)
-	new_character.mind.add_antag_datum(antag_datum)
+	new_character.mind.add_antag_datum(antag_datum, ruleset = src)
 	new_character.mind.special_role = antag_datum.banning_key
 
 //////////////////////////////////////////////
@@ -235,7 +235,7 @@
 
 	var/datum/antagonist/nukeop/leader/leader_datum = new
 	team = leader_datum.nuke_team
-	new_character.mind.add_antag_datum(leader_datum)
+	new_character.mind.add_antag_datum(leader_datum, ruleset = src)
 
 //////////////////////////////////////////////
 //                                          //
@@ -424,9 +424,9 @@
 		has_made_leader = TRUE
 		team = new
 
-		new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team)
+		new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team, ruleset = src)
 	else
-		new_character.mind.add_antag_datum(antag_datum, team)
+		new_character.mind.add_antag_datum(antag_datum, team, ruleset = src)
 
 //////////////////////////////////////////////
 //                                          //
@@ -452,7 +452,7 @@
 	new_character.mind.assigned_role = ROLE_ABDUCTOR
 
 	team = new
-	new_character.mind.add_antag_datum(antag_datum, team)
+	new_character.mind.add_antag_datum(antag_datum, team, ruleset = src)
 
 //////////////////////////////////////////////
 //                                          //
@@ -679,7 +679,7 @@
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_poll_icon()
 	return /obj/item/clothing/mask/gas/tiki_mask
 
-/datum/dynamic_ruleset/midround/ghost/fugitives/allowed()
+/datum/dynamic_ruleset/midround/ghost/fugitives/allowed(require_drafted = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE

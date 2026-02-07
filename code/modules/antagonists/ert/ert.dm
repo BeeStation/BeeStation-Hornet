@@ -22,7 +22,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	banning_key = ROLE_ERT
-	required_living_playtime = 2
+	required_living_playtime = 0
 
 /datum/antagonist/ert/get_team()
 	return ert_team

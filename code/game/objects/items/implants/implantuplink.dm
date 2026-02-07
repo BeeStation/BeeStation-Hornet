@@ -5,17 +5,22 @@
 	icon_state = "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	implant_flags = IMPLANT_HIDDEN
 	var/starting_tc = 0
 	/// The uplink flags of the implant uplink inside, only checked during initialisation so modifying it after initialisation will do nothing
 	var/uplink_flag = UPLINK_TRAITORS
+	/// Flags for the types of directives the uplink can receive
+	var/directive_flags = NONE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/uplink)
 
-/obj/item/implant/uplink/Initialize(mapload, owner, uplink_flag)
+/obj/item/implant/uplink/Initialize(mapload, mob/owner, uplink_flag, directive_flags)
 	. = ..()
 	if(!uplink_flag)
 		uplink_flag = src.uplink_flag
-	var/datum/component/uplink/new_uplink = AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
+	if (!directive_flags)
+		directive_flags = src.directive_flags
+	var/datum/component/uplink/new_uplink = AddComponent(/datum/component/uplink, _owner = owner?.mind, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc, directive_flags = directive_flags)
 	new_uplink.unlock_text = "Your Syndicate Uplink has been cunningly implanted in you, for a small TC fee. Simply trigger the uplink to access it."
 	RegisterSignal(src, COMSIG_COMPONENT_REMOVING, PROC_REF(_component_removal))
 
@@ -39,8 +44,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/uplink)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implanter/uplink)
 
-/obj/item/implanter/uplink/Initialize(mapload, uplink_flag = UPLINK_TRAITORS)
-	imp = new imp_type(src, null, uplink_flag)
+/obj/item/implanter/uplink/Initialize(mapload, uplink_flag = UPLINK_TRAITORS, directive_flags = NONE)
+	imp = new imp_type(src, null, uplink_flag, directive_flags)
 	. = ..()
 
 /obj/item/implanter/uplink/precharged
@@ -51,4 +56,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implanter/uplink)
 	starting_tc = TELECRYSTALS_PRELOADED_IMPLANT
 
 /obj/item/implant/uplink/starting
-	starting_tc = TELECRYSTALS_DEFAULT - UPLINK_IMPLANT_TELECRYSTAL_COST
+	starting_tc = TELECRYSTALS_DEFAULT
+	directive_flags = TRAITOR_DIRECTIVE_FLAGS

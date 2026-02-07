@@ -14,7 +14,7 @@ GLOBAL_LIST(admin_antag_list)
 	/// The ROLE_X key used for this antagonist.
 	var/banning_key
 	/// Required living playtime to be included in the rolling for this antagonist
-	var/required_living_playtime = 1
+	var/required_living_playtime = 0
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()
@@ -22,6 +22,10 @@ GLOBAL_LIST(admin_antag_list)
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
 	var/ui_name = "AntagInfoGeneric"
+	/// What faction does the antag belong to, used to determine if faction specific items
+	/// such as uplinks can detect this datum's objectives for the cases where a syndicate
+	/// gets new objectives due to conversion.
+	var/faction = null
 
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
@@ -40,6 +44,12 @@ GLOBAL_LIST(admin_antag_list)
 	/// playing, so the game needs to handle someone leaving as best
 	/// as it can.
 	var/leave_behaviour = ANTAGONIST_LEAVE_OFFER
+
+	/// If this antagonist was created through dynamic, then this is the ruleset whose execution
+	/// led to its creation. This may be null in cases where an antagonist was not introduced via
+	/// dynamic, for example, rulesets which create antagonist spawners or conversion antagonists
+	/// will not have this variable set, as they were not directly created from ruleset execution.
+	var/datum/dynamic_ruleset/spawning_ruleset = null
 
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
@@ -118,13 +128,13 @@ GLOBAL_LIST(admin_antag_list)
 		CRASH("[src] ran on_gain() on a mind without a mob")
 	var/datum/action/antag_info/info_button = make_info_button()
 	if(!silent)
+		greet()
 		if(tips)
 			show_tips(tips)
 		if(info_button)
 			to_chat(owner.current, span_boldnotice("For more info, read the panel. \
 				You can always come back to it using the button in the top left."))
 			info_button?.trigger()
-		greet()
 	apply_innate_effects()
 	give_antag_moodies()
 	if(is_banned(owner.current) && replace_banned)
@@ -210,7 +220,8 @@ GLOBAL_LIST(admin_antag_list)
 
 //Returns the team antagonist belongs to if any.
 /datum/antagonist/proc/get_team()
-	return
+	RETURN_TYPE(/datum/team)
+	return null
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
@@ -302,6 +313,18 @@ GLOBAL_LIST(admin_antag_list)
 	message_admins("[key_name_admin(user)] has removed [name] antagonist status from [key_name_admin(owner)].")
 	log_admin("[key_name(user)] has removed [name] antagonist status from [key_name(owner)].")
 	on_removal()
+	if (spawning_ruleset && spawning_ruleset.can_convert())
+		spawning_ruleset.convert_ruleset()
+		tgui_alert_async(user, "Dynamic will attempt to re-introduce an appropriate antagonist when possible as this antagonist was managed by dynamic. \
+		You do not need to introduce a new antagonist to replace this one.", "Dynamic - Will reinject")
+	else if (!spawning_ruleset)
+		tgui_alert_async(user, "This antagonist was not created through dynamic, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else if (spawning_ruleset.ruleset_flags & NO_TRANSFER_RULESET)
+		tgui_alert_async(user, "This antagonist cannot be transferred by the system, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else if (spawning_ruleset.ruleset_flags & NO_CONVERSION_TRANSFER_RULESET)
+		tgui_alert_async(user, "Dynamic will not create a new antagonist to compensate for the removal of this one as other antagonists of the same type exist within the round, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else
+		tgui_alert_async(user, "This antagonist was created from a ruleset that spawned multiple antagonists, no action will be taken to compensate for its removal from the round. You may want to introduce a new antagonist to compensate, transfer control of this player, or take no action.", "Dynamic - No reinjection")
 
 //Additional data to display in antagonist panel section
 //nuke disk code, genome count, etc

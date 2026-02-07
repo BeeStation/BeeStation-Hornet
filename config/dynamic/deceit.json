@@ -12,8 +12,6 @@
 		"midround_living_delta": 0.05,
         "midround_observer_delta": 0,
         "midround_dead_delta": -0.01,
-		"latejoin_ruleset_probability": 50,
-		"latejoin_max_rulesets": 1,
 		"midround_light_end_time": 36000,
 		"midround_medium_end_time": 72000,
 		"midround_medium_increase_ratio": 1,

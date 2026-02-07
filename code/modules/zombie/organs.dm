@@ -30,6 +30,10 @@
 	if(!.)
 		return .
 	START_PROCESSING(SSobj, src)
+	// Find all antag datums and mark romerol objectives as complete
+	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+		for (var/datum/objective/romerol/objective in antagonist.objectives)
+			objective.released = TRUE
 
 /obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()

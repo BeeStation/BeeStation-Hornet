@@ -55,16 +55,6 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
-
-	var/datum/objective/heretic_summon/summon_objective = new()
-	summon_objective.owner = our_heretic.owner
-	our_heretic.objectives += summon_objective
-
-	to_chat(user, span_hierophant("Undertaking the Path of Flesh, you are given another objective."))
-	our_heretic.owner.announce_objectives()
-
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
 	desc = "Your Mansus Grasp gains the ability to create a single ghoul out of corpse with a soul. \

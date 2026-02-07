@@ -8,6 +8,7 @@
 	/// When this ruleset runs. (Roundstart, Midround, Latejoin)
 	var/rule_category
 	/// The probability of this ruleset being picked against other rulesets.
+	/// Access via get_weight
 	var/weight = 5
 	/// How many points this ruleset costs to run.
 	var/points_cost = 7
@@ -27,6 +28,10 @@
 	var/list/blocking_rulesets = list()
 	/// The flags that determines how the ruleset is handled.
 	var/ruleset_flags = NONE
+	/// Time that the ruleset was executed at
+	var/executed_at = 0
+	/// Was this ruleset removed from the round?
+	var/removed = FALSE
 
 	/**
 	 * Backend Variables
@@ -38,6 +43,45 @@
 	var/list/candidates
 	/// A list of mobs (or minds for roundstart rulesets) chosen for this ruleset.
 	var/list/chosen_candidates
+
+/// Shall we permit this ruleset to be converted into another one?
+/datum/dynamic_ruleset/proc/can_convert(ignore_dead = FALSE)
+	if (ruleset_flags & NO_TRANSFER_RULESET)
+		log_dynamic("CONVERSION: Cannot convert [name] as it is flagged with NO_TRANSFER_RULESET.")
+		return FALSE
+	// Check to see if we just nuked a ruleset
+	var/last_remaining_from_ruleset = TRUE
+	var/last_remaining_of_type = TRUE
+	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+		// This antagonist has been removed from its owner
+		if (!antagonist.owner)
+			continue
+		// If we ignore dead people, don't treat them as existing
+		if (ignore_dead && (!antagonist.owner.current || antagonist.owner.current == DEAD))
+			continue
+		if (antagonist.spawning_ruleset == src)
+			last_remaining_from_ruleset = FALSE
+		if (istype(antagonist, type))
+			last_remaining_of_type = FALSE
+	if (!last_remaining_from_ruleset)
+		log_dynamic("CONVERSION: Cannot convert [name] as there are still antagonists alive created by this ruleset.")
+		return FALSE
+	if ((ruleset_flags & NO_CONVERSION_TRANSFER_RULESET) && !last_remaining_of_type)
+		log_dynamic("CONVERSION: Cannot convert [name] as there are antagonists of the same type and this ruleset is marked with NO_CONVERSION_TRANSFER_RULESET.")
+		return FALSE
+	log_dynamic("CONVERSION: Conversion from ruleset [name] was allowed.")
+	return TRUE
+
+/// Convert this ruleset into a different ruleset
+/datum/dynamic_ruleset/proc/convert_ruleset()
+	message_admins("DYNAMIC: Attempted to convert [name] into a new ruleset, but the logic handling this was not implemented. Manual intervention may be required.")
+	CRASH("convert_ruleset was called on a ruleset which cannot manage its conversions.")
+
+/**
+ * Sets the weight of this ruleset based on non-static rules such as recovery time.
+ */
+/datum/dynamic_ruleset/proc/get_weight()
+	return weight
 
 /**
  * Set the amount of players to be drafted.
@@ -55,6 +99,7 @@
 /// Called when we successfully execute
 /datum/dynamic_ruleset/proc/success()
 	SHOULD_CALL_PARENT(TRUE)
+	executed_at = world.time - SSticker.round_start_time
 	if (CHECK_BITFIELD(ruleset_flags, SHOULD_PROCESS_RULESET))
 		SSdynamic.rulesets_to_process += src
 
@@ -65,7 +110,12 @@
 /datum/dynamic_ruleset/proc/trim_candidates()
 	SHOULD_CALL_PARENT(TRUE)
 
-	for(var/mob/candidate in candidates)
+	for(var/mob/candidate as anything in candidates)
+		// Hard-deleted?
+		if (QDELETED(candidate))
+			candidates -= candidate
+			continue
+
 		// Connected?
 		if(!candidate.client)
 			candidates -= candidate
@@ -90,13 +140,18 @@
 /datum/dynamic_ruleset/proc/allowed(require_drafted = TRUE)
 	// Some rulesets such as midrounds don't need drafted players to be
 	// picked, as the poll will continue until it hits the players required
-	if(length(candidates) < drafted_players_amount && (require_drafted || !(ruleset_flags & IGNORE_DRAFTED_COUNT)))
+	if(length(candidates) < drafted_players_amount && require_drafted)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum candidate requirement! (required candidates: [drafted_players_amount]) (candidates: [length(candidates)])")
 		return FALSE
 
 	var/players = length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
-	if(istype(src, /datum/dynamic_ruleset/roundstart))
+	if (ruleset_flags & REQUIRED_POP_ALLOW_UNREADY)
+		// If we can use unreadied players, take anyone in the game
 		players = length(GLOB.player_list)
+	else if (!SSticker.HasRoundStarted())
+		// If the round hasn't started and we can't use unreadied players,
+		// then take the total number of ready players
+		players = SSticker.totalPlayersReady
 
 	if(players < minimum_players_required)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum player requirement! (minimum players: [minimum_players_required]) (players: [players])")
@@ -121,12 +176,10 @@
 		return DYNAMIC_EXECUTE_FAILURE
 
 	// Roundstart rulesets have their candidate bodies deleted before execute so we store a list of minds, not bodies
-	if(istype(src, /datum/dynamic_ruleset/roundstart))
-		for(var/datum/mind/chosen_mind in chosen_candidates)
-			chosen_mind.add_antag_datum(antag_datum)
-	else
-		for(var/mob/chosen_candidate in chosen_candidates)
-			chosen_candidate.mind.add_antag_datum(antag_datum)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.add_antag_datum(antag_datum, ruleset = src)
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.add_antag_datum(antag_datum, ruleset = src)
 
 	return DYNAMIC_EXECUTE_SUCCESS
 

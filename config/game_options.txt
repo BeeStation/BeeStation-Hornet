@@ -92,7 +92,7 @@ ALERT_LAMBDA Central Command has ordered "LAMBDA" security level on the station.
 ALERT_EPSILON Central Command has ordered "EPSILON" security level on the station. Your station is designated as a lost asset. Consider your contracts with Nanotrasen terminated.
 
 ## Uncomment to not send a roundstart intercept report
-NO_INTERCEPT_REPORT
+INTERCEPT_REPORT
 
 ## The total weight of station goals possible for a round (allows multiple goals)
 STATION_GOAL_BUDGET 2

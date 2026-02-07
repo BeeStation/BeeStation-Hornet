@@ -118,6 +118,9 @@
 			if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_RINGTONE, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
 				ui.close(can_be_suspended = FALSE)
 				return
+			if(SEND_SIGNAL(SSdcs, COMSIG_GLOB_TABLET_CHANGE_RINGTONE, computer, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
+				ui.close(can_be_suspended = FALSE)
+				return
 			ringtone = new_ringtone
 			return TRUE
 		if("PDA_ringer_status")
