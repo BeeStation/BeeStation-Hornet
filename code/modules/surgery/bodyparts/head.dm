@@ -27,15 +27,18 @@
 
 	//Limb appearance info:
 	var/real_name = "" //Replacement name
-	//Hair colour and style
-	var/hair_color = "000"
 
+	/// Hair style
 	var/hair_style = "Bald"
+	/// Hair colour and style
+	var/hair_color = COLOR_BLACK
+	/// Hair alpha
 	var/hair_alpha = 255
-	//Facial hair colour and style
-	var/facial_hair_color = "000"
+
+	/// Facial hair style
 	var/facial_hair_style = "Shaved"
-	//Eye Colouring
+	/// Facial hair color
+	var/facial_hair_color = COLOR_BLACK
 
 	var/lip_style = null
 	var/lip_color = "white"
@@ -158,7 +161,7 @@
 			if(S.hair_color == "mutcolor")
 				facial_hair_color = H.dna.features["mcolor"]
 			else if(S.hair_color == "fixedmutcolor")
-				facial_hair_color = "[S.fixed_mut_color]"
+				facial_hair_color = S.fixed_mut_color
 			else
 				facial_hair_color = S.hair_color
 		else
@@ -166,7 +169,7 @@
 		hair_alpha = S.hair_alpha
 	else
 		facial_hair_style = "Shaved"
-		facial_hair_color = "000"
+		facial_hair_color = COLOR_BLACK
 		hair_alpha = 255
 	//Hair
 	if(H.hair_style && (HAIR in S.species_traits))
@@ -175,7 +178,7 @@
 			if(S.hair_color == "mutcolor")
 				hair_color = H.dna.features["mcolor"]
 			else if(S.hair_color == "fixedmutcolor")
-				hair_color = "[S.fixed_mut_color]"
+				hair_color = S.fixed_mut_color
 			else
 				hair_color = S.hair_color
 		else
@@ -183,7 +186,7 @@
 		hair_alpha = S.hair_alpha
 	else
 		hair_style = "Bald"
-		hair_color = "000"
+		hair_color = COLOR_BLACK
 		hair_alpha = initial(hair_alpha)
 	// lipstick
 	if(H.lip_style && (LIPS in S.species_traits))
@@ -205,7 +208,7 @@
 				var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facial_hair_style]
 				if(S?.icon_state)
 					var/image/facial_overlay = image(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
-					facial_overlay.color = "#" + facial_hair_color
+					facial_overlay.color = facial_hair_color
 					facial_overlay.alpha = hair_alpha
 					. += facial_overlay
 
@@ -226,7 +229,7 @@
 				var/datum/sprite_accessory/S2 = GLOB.hair_styles_list[hair_style]
 				if(S2?.icon_state)
 					var/image/hair_overlay = image(S2.icon, "[S2.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
-					hair_overlay.color = "#" + hair_color
+					hair_overlay.color = hair_color
 					hair_overlay.alpha = hair_alpha
 					. += hair_overlay
 
@@ -243,7 +246,7 @@
 				eyes_overlay.icon_state = eyes.eye_icon_state
 
 				if(eyes.eye_color)
-					eyes_overlay.color = "#" + eyes.eye_color
+					eyes_overlay.color = eyes.eye_color
 
 
 /obj/item/bodypart/head/talk_into(mob/holder, message, channel, spans, datum/language/language, list/message_mods)

@@ -333,7 +333,7 @@
 /datum/team/cult/proc/rise(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
-		H.eye_color = "f00"
+		H.eye_color = BLOODCULT_EYE
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
 		H.update_body()

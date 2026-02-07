@@ -10,26 +10,26 @@
 	blocks_emissive = EMISSIVE_BLOCK_NONE
 
 	///Hair color
-	var/hair_color = "000"
+	var/hair_color = COLOR_BLACK
 	///Hair style
 	var/hair_style = "Bald"
 	///Colour used for the hair gradient.
-	var/gradient_color = "000"
+	var/gradient_color = COLOR_BLACK
 	///Style used for the hair gradient.
 	var/gradient_style = "None"
 	///Facial hair colour
-	var/facial_hair_color = "000"
+	var/facial_hair_color = COLOR_BLACK
 	///Facial hair style
 	var/facial_hair_style = "Shaved"
 	//Eye colour
-	var/eye_color = "000"
+	var/eye_color = COLOR_BLACK
 	var/skin_tone = "caucasian1"	//Skin tone
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"
 	var/age = 30		//Player's age
 	//consider updating /mob/living/carbon/human/copy_clothing_prefs() if adding more of these
 	var/underwear = "Nude"	//Which underwear the player wants
-	var/underwear_color = "000"
+	var/underwear_color = COLOR_BLACK
 	var/undershirt = "Nude" //Which undershirt the player wants
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = DBACKPACK		//Which backpack type the player has chosen.

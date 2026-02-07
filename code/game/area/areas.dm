@@ -128,7 +128,7 @@
 
 	//Lighting overlay
 	var/obj/effect/lighting_overlay
-	var/lighting_overlay_colour = "#FFFFFF"
+	var/lighting_overlay_colour = COLOR_WHITE
 	var/lighting_overlay_opacity = 0
 	var/lighting_overlay_matrix_cr = 0
 	var/lighting_overlay_matrix_cg = 0

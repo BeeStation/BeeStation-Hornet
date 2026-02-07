@@ -1027,7 +1027,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			to_chat(user, span_danger("Your appearance morphs to that of a very small humanoid ash dragon! You get to look like a freak without the cool abilities."))
 			H.dna.features = list(
 				"body_size" = "Normal",
-				"mcolor" = "A02720",
+				"mcolor" = "#A02720",
 				"tail_lizard" = "Dark Tiger",
 				"tail_human" = "None",
 				"snout" = "Sharp",
@@ -1177,7 +1177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "blood contract"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
-	color = "#FF0000"
+	color = COLOR_RED
 	desc = "Mark your target for death."
 	custom_price = 40000
 	max_demand = 2

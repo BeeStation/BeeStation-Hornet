@@ -271,13 +271,13 @@
 	name = "blue armband"
 	desc = "A fancy blue armband!"
 	icon_state = "medband"
-	color = "#0000ff"
+	color = COLOR_BLUE
 
 /obj/item/clothing/accessory/armband/green
 	name = "green armband"
 	desc = "A fancy green armband!"
 	icon_state = "medband"
-	color = "#00ff00"
+	color = COLOR_VIBRANT_LIME
 
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"

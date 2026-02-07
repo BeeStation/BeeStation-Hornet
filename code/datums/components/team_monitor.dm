@@ -397,9 +397,9 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	/// Are we visible to other trackers?
 	var/visible = TRUE
 	/// Our colour
-	var/colour = "#FFFFFF"
+	var/colour = COLOR_WHITE
 	/// Colour when on a different z level
-	var/z_diff_colour = "#808080"
+	var/z_diff_colour = COLOR_GRAY
 	/// Who are we updating for
 	var/mob/updating = null
 	/// Do we have an attached monitor?
@@ -409,7 +409,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	/// Global signal?
 	var/global_signal = FALSE
 
-/datum/component/tracking_beacon/Initialize(_frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = "#ffffff", _global = FALSE, _always_update = FALSE, _z_diff_colour = "#808080")
+/datum/component/tracking_beacon/Initialize(_frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = COLOR_WHITE, _global = FALSE, _always_update = FALSE, _z_diff_colour = COLOR_GRAY)
 	. = ..()
 
 	//Set vars

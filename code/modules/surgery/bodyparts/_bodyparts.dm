@@ -624,7 +624,7 @@
 	if(variable_color)
 		draw_color = variable_color
 	else if(should_draw_greyscale)
-		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
+		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone))
 	else
 		draw_color = null
 
@@ -654,7 +654,7 @@
 
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
+		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
 //to update the bodypart's icon when not attached to a mob
 /obj/item/bodypart/proc/update_icon_dropped()
@@ -728,12 +728,12 @@
 
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
+		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
-	if(draw_color) 
-		limb.color = "#[draw_color]"
+	if(draw_color)
+		limb.color = draw_color
 		if(aux_zone)
-			aux.color = "#[draw_color]"
+			aux.color = draw_color
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	SHOULD_CALL_PARENT(TRUE)

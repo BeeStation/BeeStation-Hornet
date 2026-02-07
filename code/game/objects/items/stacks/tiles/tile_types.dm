@@ -136,7 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	turf_type = /turf/open/floor/grass/fairy
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/tile/fairygrass
-	color = "#33CCFF"
+	color = COLOR_BLUE_LIGHT
 
 /obj/item/stack/tile/fairygrass/white
 	name = "white fairygrass tile"
@@ -144,7 +144,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	desc = "A patch of odd, glowing white grass."
 	turf_type = /turf/open/floor/grass/fairy/white
 	merge_type = /obj/item/stack/tile/fairygrass/white
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 
 /obj/item/stack/tile/fairygrass/red
 	name = "red fairygrass tile"
@@ -152,7 +152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	desc = "A patch of odd, glowing red grass."
 	turf_type = /turf/open/floor/grass/fairy/red
 	merge_type = /obj/item/stack/tile/fairygrass/red
-	color = "#FF3333"
+	color = COLOR_RED_LIGHT
 
 /obj/item/stack/tile/fairygrass/orange
 	name = "orange fairygrass tile"

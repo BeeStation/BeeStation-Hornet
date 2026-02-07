@@ -315,7 +315,7 @@
 	for(var/i in 1 to 5)
 		new /obj/item/paper(src)
 	var/obj/item/paper/construction/redpaper = new /obj/item/paper/construction(src)
-	redpaper.color = "#FF0000" //Red paper, for an extra special calling card flair
+	redpaper.color = COLOR_RED //Red paper, for an extra special calling card flair
 
 /obj/item/storage/box/syndie_kit/imp_freedom
 	name = "freedom implant box"

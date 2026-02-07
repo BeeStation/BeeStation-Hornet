@@ -65,7 +65,7 @@
 	light_on = FALSE
 	var/helmet_on = FALSE
 	var/smile = FALSE
-	var/smile_color = "#FF0000"
+	var/smile_color = COLOR_RED
 	var/smile_state = "envirohelm_smile"
 	var/visor_state = "enviro_visor"
 	var/lamp_functional = TRUE

@@ -133,11 +133,11 @@
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
-	greyscale_colors = "#ffffff"
+	greyscale_colors = COLOR_WHITE
 
 /obj/item/clothing/under/color/jumpskirt/white
 	name = "white jumpskirt"
-	greyscale_colors = "#ffffff"
+	greyscale_colors = COLOR_WHITE
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"

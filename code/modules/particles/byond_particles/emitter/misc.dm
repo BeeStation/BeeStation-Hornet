@@ -17,7 +17,7 @@
 	#endif
 	friction = 0.15
 	gravity = list(0, -1, 0)
-	color = generator("color", "#ff0000", "#0000ff", UNIFORM_RAND)
+	color = generator("color", COLOR_RED, COLOR_BLUE, UNIFORM_RAND)
 	scale = list(0.7, 1)
 	velocity = generator("box", list(-4, 15, -4), list(4, 10, 4), NORMAL_RAND)
 	rotation = generator("num", 0, 360, UNIFORM_RAND)

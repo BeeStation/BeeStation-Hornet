@@ -34,7 +34,7 @@
 	/// List of possible random colors
 	var/static/list/screwdriver_colors = list(
 		"blue" = "#1861d5",
-		"red" = "#ff0000",
+		"red" = COLOR_RED,
 		"pink" = "#d5188d",
 		"brown" = "#a05212",
 		"green" = "#0e7f1b",

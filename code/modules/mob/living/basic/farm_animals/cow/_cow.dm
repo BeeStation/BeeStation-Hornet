@@ -35,7 +35,7 @@
 	/// singular version for player cows
 	var/self_tame_message = "let out a happy moo"
 
-	chat_color = "#FFFFFF"
+	chat_color = COLOR_WHITE
 
 /mob/living/basic/cow/Initialize(mapload)
 	AddComponent(/datum/component/tippable, \

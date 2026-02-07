@@ -8,7 +8,7 @@
  * * timeout - The timeout of the picker, after which the modal will close and qdel itself. Set to zero for no timeout.
  * * autofocus - The bool that controls if this picker should grab window focus.
  */
-/proc/tgui_color_picker(mob/user, message, title, default = "#000000", timeout = 0, autofocus = TRUE)
+/proc/tgui_color_picker(mob/user, message, title, default = COLOR_BLACK, timeout = 0, autofocus = TRUE)
 	if (!user)
 		user = usr
 	if (!istype(user))
@@ -38,7 +38,7 @@
  * * timeout - The timeout of the picker, after which the modal will close and qdel itself. Set to zero for no timeout.
  * * autofocus - The bool that controls if this picker should grab window focus.
  */
-/proc/tgui_color_picker_async(mob/user, message, title, default = "#000000", datum/callback/callback, timeout = 0, autofocus = TRUE)
+/proc/tgui_color_picker_async(mob/user, message, title, default = COLOR_BLACK, datum/callback/callback, timeout = 0, autofocus = TRUE)
 	if (!user)
 		user = usr
 	if (!istype(user))
@@ -133,7 +133,7 @@
 	switch(action)
 		if("submit")
 			var/raw_data = LOWER_TEXT(params["entry"])
-			var/hex = sanitize_hexcolor(raw_data, desired_format = 6, include_crunch = TRUE)
+			var/hex = sanitize_hexcolor(raw_data, include_crunch = TRUE)
 			if (!hex)
 				return
 			set_choice(hex)

@@ -126,7 +126,7 @@
 	desc = "I say to-mah-to, you say tom-mae-to... OH GOD IT'S EATING MY LEGS!!"
 	icon_state = "killertomato"
 	var/awakening = FALSE
-	filling_color = "#FF0000"
+	filling_color = COLOR_RED
 	distill_reagent = /datum/reagent/consumable/ethanol/demonsblood
 	discovery_points = 300
 

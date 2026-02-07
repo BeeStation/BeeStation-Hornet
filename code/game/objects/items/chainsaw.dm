@@ -130,7 +130,7 @@
 	block_power = 50
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_UNBLOCKABLE
 	armour_penetration = 50
-	light_color = "#ff0000"
+	light_color = COLOR_RED
 	light_system = MOVABLE_LIGHT
 	light_range = 3
 	light_power = 1

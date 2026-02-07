@@ -61,7 +61,7 @@
 /datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
 	description = "Increases resistance to stuns as well as reducing drowsiness and hallucinations."
-	color = "#FF00FF"
+	color = COLOR_MAGENTA
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -452,7 +452,7 @@
 	name = "Charcoal"
 	description = "Heals mild toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
 	reagent_state = LIQUID
-	color = "#000000"
+	color = COLOR_BLACK
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = REAGENTS_METABOLISM
 	taste_description = "ash"
@@ -626,7 +626,7 @@
 	name = "Salbutamol"
 	description = "Rapidly restores oxygen deprivation as well as preventing more of it to an extent."
 	reagent_state = LIQUID
-	color = "#00FFFF"
+	color = COLOR_CYAN
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	overdose_threshold = 25
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
@@ -921,7 +921,7 @@
 /datum/reagent/medicine/neurine
 	name = "Neurine"
 	description = "Reacts with neural tissue, helping reform damaged connections. Can cure minor traumas and treat seizure disorders."
-	color = "#C0C0C0" //ditto
+	color = COLOR_SILVER //ditto
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	added_traits = list(TRAIT_ANTICONVULSANT)
 
@@ -1577,8 +1577,8 @@
 	if(method == TOUCH || method == VAPOR)
 		if(ishuman(exposed_mob) && reac_volume >= 0.5)
 			var/mob/living/carbon/human/exposed_human = exposed_mob
-			exposed_human.hair_color = "92f"
-			exposed_human.facial_hair_color = "92f"
+			exposed_human.hair_color = "#9922ff"
+			exposed_human.facial_hair_color = "#9922ff"
 			exposed_human.update_hair()
 
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1589,7 +1589,7 @@
 	name = "Stabilizing nanites"
 	description = "Rapidly heals a patient out of crit by regenerating damaged cells and causing blood to clot, preventing bleeding. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
 	reagent_state = LIQUID
-	color = "#000000"
+	color = COLOR_BLACK
 	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 15

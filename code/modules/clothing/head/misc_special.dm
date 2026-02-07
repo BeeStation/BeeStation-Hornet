@@ -48,9 +48,9 @@
 	worn_icon = 'icons/mob/human/human_face.dmi'
 	worn_icon_state = "bald"
 	var/hair_style = "Very Long Hair"
-	var/hair_color = "#000"
+	var/hair_color = COLOR_BLACK
 	var/gradient_style = "None"
-	var/gradient_color = "000"
+	var/gradient_color = COLOR_BLACK
 	var/adjustablecolor = TRUE //can color be changed manually?
 	strip_delay = 10 //It's fake hair, can't be too hard to just grab and pull it off
 	var/obj/item/clothing/head/hat_attached_to = null
@@ -90,22 +90,22 @@
 		hair_style = new_style
 		user.visible_message(span_notice("[user] changes \the [src]'s hairstyle to [new_style]."), span_notice("You change \the [src]'s hairstyle to [new_style]."))
 	if(adjustablecolor)
-		hair_color = tgui_color_picker(usr,"","Choose Color",hair_color)
+		hair_color = tgui_color_picker(usr, "", "Choose Color", hair_color)
 		var/picked_gradient_style
 		picked_gradient_style = input(usr, "", "Choose Gradient")  as null|anything in GLOB.hair_gradients_list
 		if(picked_gradient_style)
 			gradient_style = picked_gradient_style
 			if(gradient_style != "None")
-				var/picked_hair_gradient = tgui_color_picker(user, "", "Choose Gradient Color", "#" + gradient_color)
+				var/picked_hair_gradient = tgui_color_picker(user, "", "Choose Gradient Color", gradient_color)
 				if(picked_hair_gradient)
 					gradient_color = sanitize_hexcolor(picked_hair_gradient)
 				else
-					gradient_color = "000"
+					gradient_color = COLOR_BLACK
 			else
-				gradient_color = "000"
+				gradient_color = COLOR_BLACK
 		else
 			gradient_style = "None"
-			gradient_color = "000"
+			gradient_color = COLOR_BLACK
 
 	update_icon()
 
@@ -113,12 +113,12 @@
 	. = ..()
 
 	hair_style = pick(GLOB.hair_styles_list - "Bald") //Don't want invisible wig
-	hair_color = "#[random_short_color()]"
+	hair_color = "#[random_color()]"
 
 /obj/item/clothing/head/wig/natural
 	name = "natural wig"
 	desc = "A bunch of hair without a head attached. This one changes color to match the hair of the wearer. Nothing natural about that."
-	hair_color = "#FFF"
+	hair_color = COLOR_WHITE
 	adjustablecolor = FALSE
 	custom_price = 25
 
@@ -129,7 +129,7 @@
 /obj/item/clothing/head/wig/natural/equipped(mob/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
 		var/mob/living/carbon/human/human_mob = user
-		hair_color = "#[human_mob.hair_color]"
+		hair_color = human_mob.hair_color
 		update_icon()
 	. = ..()
 
