@@ -116,7 +116,7 @@
 	lastchangelog = sanitize_text(lastchangelog, initial(lastchangelog))
 	default_slot = sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
 	ignoring = SANITIZE_LIST(ignoring)
-	purchased_gear	= SANITIZE_LIST(purchased_gear)
+	purchased_gear = SANITIZE_LIST(purchased_gear)
 	role_preferences_global = SANITIZE_LIST(role_preferences_global)
 
 	pai_name = sanitize_text(pai_name, initial(pai_name))
