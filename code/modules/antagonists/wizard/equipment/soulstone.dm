@@ -79,9 +79,9 @@
 	if(gone == contained_shade)
 		contained_shade = null
 
-	if(isshade(gone)
+	if(isshade(gone))
 		var/mob/living/simple_animal/shade/S = gone
-		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
+		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT,)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
@@ -100,14 +100,15 @@
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!role_check(user))
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
+		user.Unconscious(10 SECONDS)
 		return
 	if(spent)
 		to_chat(user, span_warning("There is no power left in the shard."))
 		return
 	if(!ishuman(M))
 		return ..()
-	var/mob/living/simple_animal/shade/S = locate() in src
-	if(S && M.stat == DEAD)
+
+	if(contained_shade && M.stat == DEAD)
 		reanimate_corpse(M, user)
 		return
 	if(IS_CULTIST(M) && IS_CULTIST(user))
@@ -125,9 +126,8 @@
 ///////////////////Options for using captured souls///////////////////////////////////////
 
 /obj/item/soulstone/proc/reanimate_corpse(mob/living/carbon/human/host, mob/user)
-	var/mob/living/simple_animal/shade/soul = contained_shade
 	var/obj/item/organ/brain/brainless = host.get_organ_slot(ORGAN_SLOT_BRAIN)
-	if(!soul)
+	if(!contained_shade)
 		return FALSE
 	if(host.stat != DEAD) // Self explanatory, they must be dead
 		to_chat(user, span_warning("The vessel must be dead to accept a new soul."))
@@ -140,9 +140,9 @@
 		return FALSE
 	user.visible_message(span_notice("[user] presses [src] against [host]'s chest, the gem glowing with eerie light!"),
 						span_notice("You jam the [src] into [host]'s chest. The soul inside leaps into the vacant vessel."))
-	if(!soul.mind)
+	if(!contained_shade.mind)
 		return FALSE
-	soul.mind.transfer_to(host)
+	contained_shade.mind.transfer_to(host)
 	host.revive() //This does not heal a mangled corpse
 	host.emote("gasp")
 	log_combat(user, src, "revived with soulstone")
@@ -160,7 +160,6 @@
 	to_chat(host, span_boldannounce(message))
 	contained_shade = null
 	qdel(src)
-	QDEL_NULL(contained_shade)
 	return TRUE
 
 /obj/item/soulstone/attack_self(mob/living/user)
@@ -176,29 +175,28 @@
 	release_shades(user)
 
 /obj/item/soulstone/proc/release_shades(mob/user)
-	var/mob/living/simple_animal/shade/A = contained_shade
-	if(!A)
+	if(!contained_shade)
 		return
 	contained_shade = null
-	A.forceMove(get_turf(user))
-	A.cancel_camera()
+	contained_shade.forceMove(get_turf(user))
+	contained_shade.cancel_camera()
 	switch(theme)
 		if(THEME_HOLY)
 			icon_state = "purified_soulstone"
-			A.icon_state = "shade_holy"
-			A.name = "Purified [A.real_name]"
-			A.loot = list(/obj/item/ectoplasm/angelic)
+			contained_shade.icon_state = "shade_holy"
+			contained_shade.name = "Purified [contained_shade.real_name]"
+			contained_shade.loot = list(/obj/item/ectoplasm/angelic)
 		if(THEME_WIZARD)
 			icon_state = "mystic_soulstone"
-			A.icon_state = "shade_wizard"
-			A.loot = list(/obj/item/ectoplasm/mystic)
+			contained_shade.icon_state = "shade_wizard"
+			contained_shade.loot = list(/obj/item/ectoplasm/mystic)
 		if(THEME_CULT)
 			icon_state = "soulstone"
 	name = initial(name)
 	if(IS_CULTIST(user))
-		to_chat(A, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
+		to_chat(contained_shade, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
 	else if(role_check(user))
-		to_chat(A, "<b>You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.</b>")
+		to_chat(contained_shade, "<b>You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.</b>")
 	was_used()
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
 /obj/structure/constructshell
@@ -304,16 +302,15 @@
 
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/T = target
-			var/mob/living/simple_animal/shade/A = contained_shade
-			if(A)
+			if(contained_shade)
 				var/construct_class = show_radial_menu(user, src, GLOB.construct_radial_images, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 				if(!T || !T.loc || !construct_class)
 					return
 
-				make_new_construct_from_class(construct_class, theme, A, user, FALSE, T.loc)
+				make_new_construct_from_class(construct_class, theme, contained_shade, user, FALSE, T.loc)
 
 				for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-					if(cultist.owner == A.mind)
+					if(cultist.owner == contained_shade.mind)
 						cultist.remove_antag_hud(ANTAG_HUD_CULT, cultist.owner.current)
 				qdel(T)
 				contained_shade = null
