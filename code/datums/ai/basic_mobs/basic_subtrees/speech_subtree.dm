@@ -1,38 +1,51 @@
 /datum/ai_planning_subtree/random_speech
-	//The chance of an emote occuring each second
+	//The chance of an emote occurring each second
 	var/speech_chance = 0
 	///Hearable emotes
-	var/list/emote_hear = list()
+	var/list/emote_hear
 	///Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
-	var/list/emote_see = list()
+	var/list/emote_see
 	///Possible lines of speech the AI can have
-	var/list/speak = list()
+	var/list/speak
+	///The sound effects associated with this speech, if any
+	var/list/sound
 
 /datum/ai_planning_subtree/random_speech/New()
 	. = ..()
-	if(speak)
+	if(LAZYLEN(speak))
 		speak = string_list(speak)
-	if(emote_hear)
+	if(LAZYLEN(sound))
+		sound = string_list(sound)
+	if(LAZYLEN(emote_hear))
 		emote_hear = string_list(emote_hear)
-	if(emote_see)
+	if(LAZYLEN(emote_see))
 		emote_see = string_list(emote_see)
 
 /datum/ai_planning_subtree/random_speech/SelectBehaviors(datum/ai_controller/controller, delta_time)
-	if(DT_PROB(speech_chance, delta_time))
-		var/audible_emotes_length = emote_hear?.len
-		var/non_audible_emotes_length = emote_see?.len
-		var/speak_lines_length = speak?.len
+	if(!DT_PROB(speech_chance, delta_time))
+		return
+	speak(controller)
 
-		var/total_choices_length = audible_emotes_length + non_audible_emotes_length + speak_lines_length
+/// Actually perform an action
+/datum/ai_planning_subtree/random_speech/proc/speak(datum/ai_controller/controller)
+	var/audible_emotes_length = LAZYLEN(emote_hear)
+	var/non_audible_emotes_length = LAZYLEN(emote_see)
+	var/speak_lines_length = LAZYLEN(speak)
 
-		var/random_number_in_range =  rand(1, total_choices_length)
+	var/total_choices_length = audible_emotes_length + non_audible_emotes_length + speak_lines_length
 
-		if(random_number_in_range <= audible_emotes_length)
-			controller.queue_behavior(/datum/ai_behavior/perform_emote, pick(emote_hear))
-		else if(random_number_in_range <= (audible_emotes_length + non_audible_emotes_length))
-			controller.queue_behavior(/datum/ai_behavior/perform_emote, pick(emote_see))
-		else
-			controller.queue_behavior(/datum/ai_behavior/perform_speech, pick(speak))
+	if (total_choices_length == 0)
+		return
+
+	var/random_number_in_range = rand(1, total_choices_length)
+	var/sound_to_play = length(sound) > 0 ? pick(sound) : null
+
+	if(random_number_in_range <= audible_emotes_length)
+		controller.queue_behavior(/datum/ai_behavior/perform_emote, pick(emote_hear), sound_to_play)
+	else if(random_number_in_range <= (audible_emotes_length + non_audible_emotes_length))
+		controller.queue_behavior(/datum/ai_behavior/perform_emote, pick(emote_see))
+	else
+		controller.queue_behavior(/datum/ai_behavior/perform_speech, pick(speak), sound_to_play)
 
 /datum/ai_planning_subtree/random_speech/cockroach
 	speech_chance = 1
@@ -41,6 +54,13 @@
 /datum/ai_planning_subtree/random_speech/mothroach
 	speech_chance = 2
 	emote_hear = list("flutters.", "flaps its wings.", "flaps its wings aggressively!")
+
+/datum/ai_planning_subtree/random_speech/mouse
+	speech_chance = 1
+	speak = list("Squeak!", "SQUEAK!", "Squeak?")
+	sound = list('sound/effects/mousesqueek.ogg')
+	emote_hear = list("squeaks.")
+	emote_see = list("runs in a circle.", "shakes.")
 
 /datum/ai_planning_subtree/random_speech/cow
 	speech_chance = 1

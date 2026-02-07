@@ -101,13 +101,13 @@
 	for(var/datum/mind/B in team.members)
 		if(B.current)
 			B.current.update_action_buttons_icon()
-			if(!B.current.incapacitated())
+			if(!B.current.incapacitated)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
 				to_chat(B.current, span_cultlarge("Acolyte [nominee] has asserted that [nominee.p_theyre()] worthy of leading the cult. A vote will be called shortly."))
 	sleep(100)
 	var/list/asked_cultists = list()
 	for(var/datum/mind/B in team.members)
-		if(B.current && B.current != nominee && !B.current.incapacitated())
+		if(B.current && B.current != nominee && !B.current.incapacitated)
 			SEND_SOUND(B.current, 'sound/magic/exit_blood.ogg')
 			asked_cultists += B.current
 	var/datum/poll_config/config = new()
@@ -124,12 +124,12 @@
 	config.alert_pic = nominee
 	config.chat_text_border_icon = mutable_appearance('icons/effects/effects.dmi', "cult_master_logo")
 	var/list/yes_voters = SSpolling.poll_candidates(config, asked_cultists)
-	if(QDELETED(nominee) || nominee.incapacitated())
+	if(QDELETED(nominee) || nominee.incapacitated)
 		team.cult_vote_called = FALSE
 		for(var/datum/mind/B in team.members)
 			if(B.current)
 				B.current.update_action_buttons_icon()
-				if(!B.current.incapacitated())
+				if(!B.current.incapacitated)
 					to_chat(B.current,span_cultlarge("[nominee] has died in the process of attempting to win the cult's support!"))
 		return FALSE
 	if(!nominee.mind)
@@ -137,7 +137,7 @@
 		for(var/datum/mind/B in team.members)
 			if(B.current)
 				B.current.update_action_buttons_icon()
-				if(!B.current.incapacitated())
+				if(!B.current.incapacitated)
 					to_chat(B.current,span_cultlarge("[nominee] has gone catatonic in the process of attempting to win the cult's support!"))
 		return FALSE
 	if(LAZYLEN(yes_voters) <= LAZYLEN(asked_cultists) * 0.5)
@@ -145,7 +145,7 @@
 		for(var/datum/mind/B in team.members)
 			if(B.current)
 				B.current.update_action_buttons_icon()
-				if(!B.current.incapacitated())
+				if(!B.current.incapacitated)
 					to_chat(B.current, span_cultlarge("[nominee] could not win the cult's support and shall continue to serve as an acolyte."))
 		return FALSE
 	team.cult_master = nominee
@@ -155,7 +155,7 @@
 		if(B.current)
 			for(var/datum/action/innate/cult/mastervote/vote in B.current.actions)
 				qdel(vote)
-			if(!B.current.incapacitated())
+			if(!B.current.incapacitated)
 				to_chat(B.current,span_cultlarge("[nominee] has won the cult's support and is now their master. Follow [nominee.p_their()] orders to the best of your ability!"))
 	return TRUE
 

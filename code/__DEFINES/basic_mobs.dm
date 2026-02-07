@@ -10,3 +10,6 @@
 #define FLAMMABLE_MOB (1<<3)
 /// Mob is immune to getting wet
 #define IMMUNE_TO_GETTING_WET (1<<4)
+
+///hunger cooldown for basic mobs
+#define EAT_FOOD_COOLDOWN 45 SECONDS

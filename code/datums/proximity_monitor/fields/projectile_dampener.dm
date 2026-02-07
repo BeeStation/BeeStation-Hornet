@@ -19,7 +19,7 @@
 /datum/proximity_monitor/advanced/projectile_dampener/New(atom/_host, range, _ignore_if_not_on_turf = TRUE, atom/projector)
 	..()
 	RegisterSignal(projector, COMSIG_QDELETING, PROC_REF(on_projector_del))
-	recalculate_field()
+	recalculate_field(full_recalc = TRUE)
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/proximity_monitor/advanced/projectile_dampener/Destroy()
@@ -86,16 +86,15 @@
 
 /datum/proximity_monitor/advanced/projectile_dampener/proc/on_projector_del(datum/source)
 	SIGNAL_HANDLER
-
 	qdel(src)
 
-/datum/proximity_monitor/advanced/projectile_dampener/field_edge_uncrossed(atom/movable/movable, turf/location)
-	if(istype(movable, /obj/projectile) && get_dist(movable, host) > current_range)
+/datum/proximity_monitor/advanced/projectile_dampener/field_edge_uncrossed(atom/movable/movable, turf/old_location, turf/new_location)
+	if(isprojectile(movable) && get_dist(movable, host) > current_range)
 		if(movable in tracked)
 			release_projectile(movable)
 
-/datum/proximity_monitor/advanced/projectile_dampener/field_edge_crossed(atom/movable/movable, turf/location)
-	if(istype(movable, /obj/projectile) && !(movable in tracked))
+/datum/proximity_monitor/advanced/projectile_dampener/field_edge_crossed(atom/movable/movable, turf/location, turf/old_location)
+	if(isprojectile(movable))
 		capture_projectile(movable)
 
 /datum/proximity_monitor/advanced/projectile_dampener/peaceborg/process(delta_time)

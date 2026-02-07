@@ -35,6 +35,8 @@
 	var/attack_vis_effect
 	///Played when someone punches the creature.
 	var/attacked_sound = "punch" //This should be an element
+	/// How often can you melee attack?
+	var/melee_attack_cooldown = 2 SECONDS
 
 	///What kind of objects this mob can smash.
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
@@ -175,8 +177,10 @@
 		return
 	. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be [HAS_MIND_TRAIT(user, TRAIT_NAIVE) ? "asleep" : "dead"].")
 
-/mob/living/basic/proc/melee_attack(atom/target, list/modifiers)
+/mob/living/basic/proc/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
+	if (!ignore_cooldown)
+		changeNext_move(melee_attack_cooldown)
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
 		return FALSE //but more importantly return before attack_animal called
 	var/result = target.attack_basic_mob(src, modifiers)
@@ -203,7 +207,7 @@
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
 
 /mob/living/basic/relaymove(mob/living/user, direction)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	return relaydrive(user, direction)
 

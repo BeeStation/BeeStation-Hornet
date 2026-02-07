@@ -21,7 +21,7 @@
 /obj/item/glove_box/MouseDrop(atom/over_object)
 	. = ..()
 	var/mob/living/M = usr
-	if(!istype(M) || M.incapacitated() || !Adjacent(M))
+	if(!istype(M) || M.incapacitated || !Adjacent(M))
 		return
 
 	if(over_object == M)

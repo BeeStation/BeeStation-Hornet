@@ -75,7 +75,7 @@
 	if(LAZYACCESS(modifiers, ALT_CLICK) || LAZYACCESS(modifiers, SHIFT_CLICK) || LAZYACCESS(modifiers, CTRL_CLICK) || LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
 
-	if(!user.throw_mode || user.get_active_held_item() || user.pulling || user.buckled || user.incapacitated())
+	if(!user.throw_mode || user.get_active_held_item() || user.pulling || user.buckled || user.incapacitated)
 		return
 
 	if(!clicked_atom || !(isturf(clicked_atom) || isturf(clicked_atom.loc)))

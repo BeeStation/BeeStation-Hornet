@@ -10,7 +10,7 @@
 	set name = "Navigate"
 	set category = "IC"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	if(length(client.navigation_images))
 		addtimer(CALLBACK(src, PROC_REF(cut_navigation)), world.tick_lag)
@@ -22,7 +22,7 @@
 	addtimer(CALLBACK(src, PROC_REF(create_navigation)), world.tick_lag)
 
 /mob/living/proc/create_navigation()
-	if(incapacitated())
+	if(incapacitated)
 		to_chat(src, "<span class='notice'>You are not conscious enough to do that.</span>")
 		return
 	var/list/filtered_navigation_list = list()
@@ -49,7 +49,7 @@
 		return
 	if(isatom(target_destination) && !target_destination.is_available_to_user(src))
 		return
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	// automatically change your destination to another floor

@@ -107,7 +107,7 @@
 
 /obj/item/storage/book/bible/proc/reskin_bible(mob/M)//Total override of the proc because I need some new things added to it
 	var/choice = show_radial_menu(M, src, unique_reskin, radius = 42, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated && in_range(M,src))
 		if(!unique_reskin[choice])
 			return
 		current_skin = choice

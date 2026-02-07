@@ -48,6 +48,10 @@
 	max_integrity = 250
 	move_resist = MOVE_FORCE_STRONG
 
+/obj/structure/kitchenspike/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_DANGEROUS_BUCKLE, INNATE_TRAIT)
+
 /obj/structure/kitchenspike/attack_paw(mob/user)
 	return attack_hand(user)
 

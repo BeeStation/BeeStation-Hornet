@@ -13,7 +13,7 @@
 	check_flags = AB_CHECK_INCAPACITATED
 
 /datum/action/neck_chop/on_activate(mob/user, atom/target)
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
 	if (owner.mind.martial_art.streak == "neck_chop")
@@ -30,7 +30,7 @@
 	check_flags = AB_CHECK_INCAPACITATED
 
 /datum/action/leg_sweep/on_activate()
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
 	if (owner.mind.martial_art.streak == "leg_sweep")
@@ -47,7 +47,7 @@
 	check_flags = AB_CHECK_INCAPACITATED
 
 /datum/action/lung_punch/on_activate()
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
 	if (owner.mind.martial_art.streak == "quick_choke")

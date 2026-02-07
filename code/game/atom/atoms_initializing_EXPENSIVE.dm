@@ -38,7 +38,11 @@
 	else if(!(A.flags_1 & INITIALIZED_1))
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
 	else
-		SEND_SIGNAL(A,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
+		SEND_SIGNAL(A, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
+		var/atom/location = A.loc
+		if(location)
+			/// Sends a signal that the new atom `src`, has been created at `loc`
+			SEND_SIGNAL(location, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, A, arguments[1])
 		if(created_atoms && from_template && ispath(the_type, /atom/movable))//we only want to populate the list with movables
 			created_atoms += A.GetAllContents()
 
@@ -128,7 +132,8 @@
 	if(uses_integrity)
 		atom_integrity = max_integrity
 
-	InitializeAIController()
+	if(ispath(ai_controller))
+		ai_controller = new ai_controller(src)
 
 	if(length(smoothing_groups))
 		#ifdef UNIT_TESTS

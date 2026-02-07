@@ -163,7 +163,7 @@
 
 /datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/A, obj/projectile/P, def_zone)
 	. = ..()
-	if(A.incapacitated(IGNORE_GRAB)) //NO STUN
+	if(INCAPACITATED_IGNORING(A, INCAPABLE_GRAB)) //NO STUN
 		return BULLET_ACT_HIT
 	if(!(A.mobility_flags & MOBILITY_USE)) //NO UNABLE TO USE
 		return BULLET_ACT_HIT

@@ -199,7 +199,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a target
 		var/threatlevel = 0
-		if(C.incapacitated())
+		if(C.incapacitated)
 			continue
 		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 		//speak(C.real_name + ": threat: [threatlevel]")
@@ -498,7 +498,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 /mob/living/simple_animal/bot/ed209/redtag
 	lasercolor = "r"
 
-/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
 		return
 	if(iscarbon(A))

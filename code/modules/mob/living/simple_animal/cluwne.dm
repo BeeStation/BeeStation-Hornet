@@ -36,7 +36,7 @@
 		act = "me"
 	..()
 
-/mob/living/simple_animal/cluwne/UnarmedAttack(atom/A, proximity)
+/mob/living/simple_animal/cluwne/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	playsound(src, 'sound/items/bikehorn.ogg', 20, 2)
 	..()
 

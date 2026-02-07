@@ -6,7 +6,7 @@
 	var/required_software
 
 /atom/movable/screen/pai/Click()
-	if(isobserver(usr) || usr.incapacitated())
+	if(isobserver(usr) || usr.incapacitated)
 		return FALSE
 	var/mob/living/silicon/pai/pAI = usr
 	if(required_software && !pAI.software.Find(required_software))

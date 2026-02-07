@@ -302,7 +302,7 @@
 			var/list/datum/mind/promotable = list()
 			var/list/datum/mind/nonhuman_promotable = list()
 			for(var/datum/mind/khrushchev in non_heads)
-				if(khrushchev.current && !khrushchev.current.incapacitated() && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
+				if(khrushchev.current && !khrushchev.current.incapacitated && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
 					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/roundstart/revolutionary))
 						if(ishuman(khrushchev.current))
 							promotable += khrushchev

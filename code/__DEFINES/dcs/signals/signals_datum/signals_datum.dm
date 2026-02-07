@@ -156,8 +156,6 @@
 #define COMSIG_PARENT_RECEIVE_BUFFER "receive_buffer"
 	#define COMPONENT_BUFFER_RECEIVED (1 << 0)
 
-///sent from ai controllers when they possess a pawn: (datum/ai_controller/source_controller)
-#define COMSIG_AI_CONTROLLER_POSSESSED_PAWN "ai_controller_possessed_pawn"
 /// Called when a device a traitor has planted effects someone's mood. Pass the mind of the viewer.
 #define COMSIG_DEMORALISING_EVENT "traitor_demoralise_event"
 

@@ -366,7 +366,7 @@
 	if (!istype(L))
 		return
 
-	if(user.incapacitated() || (istype(L) && L.body_position == LYING_DOWN))
+	if(user.incapacitated || (istype(L) && L.body_position == LYING_DOWN))
 		return
 
 	if(!istype(AM) || isdead(AM) || iscameramob(AM) || istype(AM, /obj/effect/dummy/phased_mob))
@@ -725,7 +725,7 @@
 
 // player on mulebot attempted to move
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/living/user, direction)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(load == user)
 		unload(0)
@@ -783,7 +783,7 @@
 	if(load)
 		unload()
 
-/mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)

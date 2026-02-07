@@ -446,7 +446,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated || !actual_selected_rune)
 		fail_invoke()
 		return
 
@@ -677,7 +677,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	var/turf/T = get_turf(src)
 	if(QDELETED(user))
 		return FALSE
-	if(!Adjacent(user) || user.incapacitated())
+	if(!Adjacent(user) || user.incapacitated)
 		return FALSE
 	if(QDELETED(target_mob))
 		return FALSE
@@ -796,7 +796,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		var/mob/living/carbon/C = cultist_to_summon
 		if(C.handcuffed && cultist_to_summon.pulledby)
 			held_in_place = TRUE
-	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated)
 		return
 	if(!cultist_to_summon)
 		to_chat(user, span_cultitalic("You require a summoning target!"))

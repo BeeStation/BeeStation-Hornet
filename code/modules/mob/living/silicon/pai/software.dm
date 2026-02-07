@@ -202,7 +202,7 @@
 	return TRUE
 
 /mob/living/silicon/pai/proc/check_radial_menu(atom/anchor)
-	if(incapacitated())
+	if(incapacitated)
 		return FALSE
 	if(get_turf(src) != get_turf(anchor))
 		return FALSE

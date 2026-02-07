@@ -273,6 +273,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		if(!hidden && delay >= 1 SECONDS)
 			cog = new(user)
 
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
+
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = TRUE
@@ -312,6 +314,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 			return
 		// all out, let's clear er out fully
 		LAZYREMOVE(user.do_afters, interaction_key)
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
 /// Returns the total amount of do_afters this mob is taking part in
 /mob/proc/do_after_count()

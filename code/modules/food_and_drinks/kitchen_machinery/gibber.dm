@@ -124,7 +124,7 @@
 	set category = "Object"
 	set name = "empty gibber"
 	set src in oview(1)
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	if(!usr.canUseTopic())
 		return

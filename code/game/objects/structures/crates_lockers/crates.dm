@@ -116,7 +116,7 @@
 	var/mob/living/user = usr
 	if(!isliving(user))
 		return // Ghosts busted.
-	if(!isturf(user.loc) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
+	if(!isturf(user.loc) || user.incapacitated || !(user.mobility_flags & MOBILITY_STAND))
 		return // If the user is in a weird state, don't bother trying.
 	if(get_dist(user, src) != 1 || get_dist(drop_atom, user) != 1)
 		return // Check whether the user is next to the shelf and if the crate is next to the user.

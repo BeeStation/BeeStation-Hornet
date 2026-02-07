@@ -7,7 +7,7 @@
 	Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
 */
 /mob/living/silicon/ai/DblClickOn(atom/A, params)
-	if(control_disabled || incapacitated())
+	if(control_disabled || incapacitated)
 		return
 
 	if(ismob(A))
@@ -34,7 +34,7 @@
 	if(check_click_intercept(params,A))
 		return
 
-	if(control_disabled || incapacitated())
+	if(control_disabled || incapacitated)
 		return
 
 	var/turf/pixel_turf = get_turf_pixel(A)
@@ -95,7 +95,7 @@
 	The below is only really for safety, or you can alter the way
 	it functions and re-insert it above.
 */
-/mob/living/silicon/ai/UnarmedAttack(atom/A)
+/mob/living/silicon/ai/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	A.attack_ai(src)
 
 /mob/living/silicon/ai/RangedAttack(atom/A)

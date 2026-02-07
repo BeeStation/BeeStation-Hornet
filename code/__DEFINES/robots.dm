@@ -1,4 +1,10 @@
-/*ALL DEFINES FOR AIS, CYBORGS, AND SIMPLE ANIMAL BOTS*/
+// AI laws
+#define LAW_VALENTINES "valentines"
+#define LAW_ZEROTH "zeroth"
+#define LAW_INHERENT "inherent"
+#define LAW_SUPPLIED "supplied"
+#define LAW_ION "ion"
+#define LAW_HACKED "hacked"
 
 #define DEFAULT_AI_LAWID "default"
 

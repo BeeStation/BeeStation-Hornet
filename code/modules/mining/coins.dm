@@ -101,7 +101,7 @@
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
 		var/oldloc = loc
 		sleep(15)
-		if(loc == oldloc && user && !user.incapacitated())
+		if(loc == oldloc && user && !user.incapacitated)
 			user.visible_message("[user] has flipped [src]. It lands on [coinflip].", \
 							span_notice("You flip [src]. It lands on [coinflip]."), \
 							span_italics("You hear the clattering of loose change."))

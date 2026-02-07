@@ -7,7 +7,7 @@
 	if(!IS_SERVANT_OF_RATVAR(owner))
 		Remove(owner)
 		return FALSE
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		return FALSE
 	. = ..()
 

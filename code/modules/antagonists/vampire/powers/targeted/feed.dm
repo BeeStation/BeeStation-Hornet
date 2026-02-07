@@ -65,7 +65,7 @@
 		return FALSE
 	var/mob/living/target = target_atom
 	// Mice check
-	if(istype(target, /mob/living/simple_animal/mouse))
+	if(ismouse(target))
 		if(vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY)
 			target.balloon_alert(owner, "too disgusting!")
 			return FALSE
@@ -107,7 +107,7 @@
 	target_ref = WEAKREF(feed_target)
 
 	// Mice
-	if(istype(feed_target, /mob/living/simple_animal/mouse))
+	if(ismouse(feed_target))
 		to_chat(owner, span_notice("You recoil at the taste of a lesser lifeform."))
 		vampiredatum_power.AddBloodVolume(FEED_BLOOD_FROM_MICE)
 		power_activated_sucessfully()
