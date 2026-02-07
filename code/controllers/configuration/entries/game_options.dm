@@ -415,9 +415,6 @@
 
 /datum/config_entry/flag/special_symptom_thresholds
 
-/datum/config_entry/number/virus_thinning_cap
-	config_entry_value = 4
-
 /**
  * A config that skews with the random spawners weights
  * If the value is lower than 1, it'll tend to even out the odds
@@ -427,3 +424,7 @@
 	integer = FALSE
 	default = 1
 	min_val = 0.05
+
+/datum/config_entry/flag/common_radio_audio
+	config_entry_value = 1
+	default = 1

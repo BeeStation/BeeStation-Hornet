@@ -122,32 +122,6 @@
 		rewarded.adjustOxyLoss(-25)
 		rewarded.adjustCloneLoss(-25)
 
-/datum/status_effect/bugged //Lets another mob hear everything you can
-	id = "bugged"
-	duration = STATUS_EFFECT_PERMANENT
-	status_type = STATUS_EFFECT_MULTIPLE
-	alert_type = null
-	var/mob/living/listening_in
-
-/datum/status_effect/bugged/on_apply(mob/living/new_owner, mob/living/tracker)
-	. = ..()
-	if (.)
-		RegisterSignal(new_owner, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
-
-/datum/status_effect/bugged/on_remove()
-	. = ..()
-	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
-
-/datum/status_effect/bugged/proc/handle_hearing(datum/source, list/hearing_args)
-	SIGNAL_HANDLER
-	listening_in.show_message(hearing_args[HEARING_MESSAGE])
-
-
-/datum/status_effect/bugged/on_creation(mob/living/new_owner, mob/living/tracker)
-	. = ..()
-	if(.)
-		listening_in = tracker
-
 /datum/status_effect/offering
 	id = "offering"
 	duration = STATUS_EFFECT_PERMANENT

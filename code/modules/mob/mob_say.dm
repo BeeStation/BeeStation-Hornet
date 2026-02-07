@@ -32,7 +32,7 @@
 /mob/proc/whisper(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof)
 	if(!message)
 		return
-	say(message, language) //only living mobs actually whisper, everything else just talks
+	say(message, language = language) //only living mobs actually whisper, everything else just talks
 
 ///The me emote verb
 /mob/verb/me_verb(message as text)
@@ -154,6 +154,10 @@
   */
 /mob/proc/get_message_mods(message, list/mods)
 	for(var/I in 1 to MESSAGE_MODS_LENGTH)
+		// Prevents "...text" from being read as a radio message
+		if (length(message) > 1 && message[2] == message[1])
+			continue
+
 		var/key = message[1]
 		var/chop_to = 2 //By default we just take off the first char
 		if((key == "#" && !mods[WHISPER_MODE]))
@@ -193,10 +197,11 @@
 			return
 	return message
 
-/mob/try_speak(message, ignore_spam = FALSE, forced = null)
-	SHOULD_CALL_PARENT(TRUE)
-	if(!..())
-		return FALSE
+/mob/try_speak(message, ignore_spam = FALSE, forced = null, filterproof = null)
+	if((client && !forced && CHAT_FILTER_CHECK(message)) && filterproof != TRUE)
+		//The filter warning message shows the sanitized message though.
+		to_chat(src, span_warning("That message contained a word prohibited in IC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ic_chat'>\"[message]\""))
+		return
 
 	if(client && !(ignore_spam || forced))
 		if(client.prefs && (client.player_details.muted & MUTE_IC))
@@ -204,7 +209,29 @@
 			return FALSE
 		if(client.handle_spam_prevention(message, MUTE_IC))
 			return FALSE
-	// Including can_speak() here would ignore COMPONENT_CAN_ALWAYS_SPEAK in /mob/living/try_speak()
+
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message, ignore_spam, forced)
+	if(sigreturn & COMPONENT_IGNORE_CAN_SPEAK)
+		return TRUE
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
+
+	if(!..()) // the can_speak check
+		if(HAS_MIND_TRAIT(src, TRAIT_MIMING))
+			to_chat(src, span_green("Your vow of silence prevents you from speaking!"))
+		else
+			to_chat(src, span_warning("You find yourself unable to speak!"))
+		return FALSE
+
 	return TRUE
+
+/mob/can_speak(allow_mimes = FALSE)
+	if(!allow_mimes && HAS_MIND_TRAIT(src, TRAIT_MIMING))
+		return FALSE
+
+	if(is_muzzled())
+		return FALSE
+
+	return ..()
 
 #undef MESSAGE_MODS_LENGTH

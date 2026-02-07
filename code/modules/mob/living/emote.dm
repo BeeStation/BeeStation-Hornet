@@ -235,8 +235,6 @@
 /datum/emote/living/laugh/get_sound(mob/living/user)
 	if(!iscarbon(user))
 		return
-	if(HAS_TRAIT(user, TRAIT_MIMING))
-		return
 	var/mob/living/carbon/carbon_user = user
 	return carbon_user.dna?.species?.get_laugh_sound(carbon_user)
 

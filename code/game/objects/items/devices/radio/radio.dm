@@ -59,6 +59,8 @@
 	var/use_command = FALSE
 	/// If true, use_command can be toggled at will.
 	var/command = FALSE
+	/// Does it play radio noise?
+	var/radio_noise = TRUE
 
 
 	var/headset = FALSE
@@ -78,8 +80,9 @@
 	var/list/channels
 	/// associative list of the encrypted radio channels this radio can listen/broadcast to, of the form: list(channel name = channel frequency)
 	var/list/secure_radio_connections
-	// If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
-	var/radio_silent = FALSE
+
+	/// A very brief cooldown to prevent regular radio sounds from overlapping.
+	COOLDOWN_DECLARE(audio_cooldown)
 
 /obj/item/radio/Initialize(mapload)
 	wires = new /datum/wires/radio(src)
@@ -247,15 +250,29 @@
 
 /obj/item/radio/talk_into(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(SEND_SIGNAL(talking_movable, COMSIG_MOVABLE_USING_RADIO, src) & COMPONENT_CANNOT_USE_RADIO)
-		return
+		return NONE
+	if(SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, talking_movable, message, channel, message_mods) & COMPONENT_CANNOT_USE_RADIO)
+		return NONE
+
 	if(!spans)
 		spans = list(talking_movable.speech_span)
 	if(!language)
 		language = talking_movable.get_selected_language()
-	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, talking_movable, message, channel, message_mods)
-	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), talking_movable, message, channel, spans.Copy(), language, message_mods)
+	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), talking_movable, message, channel, LAZYLISTDUPLICATE(spans), language, LAZYLISTDUPLICATE(message_mods))
 	return ITALICS | REDUCE_RANGE
 
+/**
+ * Handles talking into the radio
+ *
+ * Unlike most speech related procs, spans and message_mods are not guaranteed to be lists
+ *
+ * * talking_movable - the atom that is talking
+ * * message - the message to be spoken
+ * * channel - the channel to be spoken on
+ * * spans - the spans to be used, lazylist
+ * * language - the language to be spoken in. (Should) never be null
+ * * message_mods - the message mods to be used, lazylist
+ */
 /obj/item/radio/proc/talk_into_impl(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!on)
 		return // the device has to be on
@@ -263,18 +280,29 @@
 		return
 	if(wires.is_cut(WIRE_TX))  // Permacell and otherwise tampered-with radios
 		return
-	if(!talking_movable.try_speak(message, ignore_spam = TRUE))
+	if(!talking_movable.try_speak(message, ignore_spam = TRUE, filterproof = TRUE)) //Looks scary, but we've already run try_speak, so no big deal
 		return
-
-	if(!radio_silent)//Radios make small static noises now
-		var/mob/sender = loc
-		if(istype(sender) && sender.hears_radio())
-			var/sound/radio_sound = sound(pick("sound/effects/radio1.ogg", "sound/effects/radio2.ogg"), volume = 50)
-			radio_sound.frequency = get_rand_frequency()
-			SEND_SOUND(sender, radio_sound)
 
 	if(use_command)
 		spans |= SPAN_COMMAND
+
+	// Show nearby audience that someone is talking into a radio
+	// Only triggers if the radio is in contents of speaker, implanted radios loc is the implant so it shouldn't show up
+	// Lore is uh... "Implanted radios are subvocal and don't produce visible cues to audience"
+	if(ismob(talking_movable) && loc == talking_movable)
+		var/mob/talking_mob = talking_movable
+		talking_mob.visible_message(
+			span_subtle("\The [talking_mob] talks into \the [src]."),
+			blind_message = span_subtlenotice("You hear someone talk into their headset."),
+			vision_distance = 5,
+			ignored_mobs = talking_mob,
+		)
+
+	var/radio_message = message
+	if(LAZYACCESS(message_mods, WHISPER_MODE))
+		// Radios don't pick up whispers very well
+		radio_message = stars(radio_message)
+		spans |= SPAN_ITALICS
 
 	/*
 	Roughly speaking, radios attempt to make a subspace transmission (which
@@ -308,7 +336,7 @@
 	var/atom/movable/virtualspeaker/speaker = new(null, talking_movable, src)
 
 	// Construct the signal
-	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, message, spans, message_mods)
+	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, radio_message, spans, message_mods)
 
 	// Independent radios, on the CentCom frequency, reach all independent radios
 	if (independent && (freq == FREQ_CENTCOM || freq == FREQ_CTF_RED || freq == FREQ_CTF_BLUE))
@@ -317,6 +345,14 @@
 		signal.levels = list(0)  // reaches all Z-levels
 		signal.broadcast()
 		return
+
+	if(isliving(talking_movable))
+		var/mob/living/talking_living = talking_movable
+		//Whether audio plays when talking into the radio on common frequency
+		var/common_radio_audio = CONFIG_GET(flag/common_radio_audio)
+		if(radio_noise && talking_living.can_hear() && talking_living.client?.prefs.read_preference(/datum/preference/toggle/radio_noise) && (common_radio_audio || signal.frequency != FREQ_COMMON) && !LAZYACCESS(message_mods, MODE_SEQUENTIAL) && COOLDOWN_FINISHED(src, audio_cooldown))
+			COOLDOWN_START(src, audio_cooldown, 0.5 SECONDS)
+			playsound(talking_living, 'sound/items/radio/radio2.ogg', 15, 0, -1)
 
 	// All radios make an attempt to use the subspace system first
 	signal.send_to_receivers()
@@ -340,16 +376,21 @@
 	signal.levels = list(T.get_virtual_z_level())
 	signal.broadcast()
 
-/obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+/obj/item/radio/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	. = ..()
-	if(radio_freq || !broadcasting || get_dist(src, speaker) > canhear_range)
+	if(radio_freq || !broadcasting || get_dist(src, speaker) > canhear_range || message_mods[MODE_RELAY])
 		return
+	var/list/filtered_mods = list()
 
-	var/filtered_mods = list()
+	if (message_mods[MODE_SING])
+		filtered_mods[MODE_SING] = message_mods[MODE_SING]
+	if (message_mods[WHISPER_MODE])
+		filtered_mods[WHISPER_MODE] = message_mods[WHISPER_MODE]
+	if (message_mods[SAY_MOD_VERB])
+		filtered_mods[SAY_MOD_VERB] = message_mods[SAY_MOD_VERB]
 	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
 		filtered_mods[MODE_CUSTOM_SAY_EMOTE] = message_mods[MODE_CUSTOM_SAY_EMOTE]
 		filtered_mods[MODE_CUSTOM_SAY_ERASE_INPUT] = message_mods[MODE_CUSTOM_SAY_ERASE_INPUT]
-
 	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
 		if (loc == speaker && ismob(speaker))
@@ -358,8 +399,7 @@
 			// left hands are odd slots
 			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
 				return
-
-	talk_into(speaker, raw_message, , spans, language=message_language, message_mods=filtered_mods)
+	talk_into(speaker, raw_message, spans=spans, language=message_language, message_mods=filtered_mods)
 
 // Checks if this radio can receive on the given frequency.
 /obj/item/radio/proc/can_receive(input_frequency, list/levels)
@@ -380,6 +420,19 @@
 			if(GLOB.radiochannels[ch_name] == text2num(input_frequency) || syndie)
 				return TRUE
 	return FALSE
+
+/obj/item/radio/proc/on_receive_message(list/data)
+	SEND_SIGNAL(src, COMSIG_RADIO_RECEIVE_MESSAGE, data)
+
+	if(!isliving(loc))
+		return
+
+	var/mob/living/holder = loc
+	if(!radio_noise || HAS_TRAIT(holder, TRAIT_DEAF) || !holder.client?.prefs.read_preference(/datum/preference/toggle/radio_noise))
+		return
+	if(COOLDOWN_FINISHED(src, audio_cooldown))
+		COOLDOWN_START(src, audio_cooldown, 0.5 SECONDS)
+		playsound(holder, 'sound/items/radio/radio_chatter.ogg', 10, 0, -6)
 
 /obj/item/radio/ui_state(mob/user)
 	if(issilicon(user))
@@ -420,6 +473,7 @@
 	. = ..()
 	if(.)
 		return
+
 	switch(action)
 		if("frequency")
 			if(freqlock)
@@ -466,10 +520,6 @@
 					recalculateChannels()
 				. = TRUE
 
-/obj/item/radio/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
-	return BRUTELOSS
-
 /obj/item/radio/examine(mob/user)
 	. = ..()
 	if (frequency && in_range(src, user))
@@ -481,14 +531,13 @@
 	if (in_range(src, user) && !headset)
 		. += span_info("Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.")
 
-/obj/item/radio/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/radio/screwdriver_act(mob/living/user, obj/item/tool)
 	add_fingerprint(user)
-
-	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
-		unscrewed = !unscrewed
-		to_chat(user, span_notice(unscrewed ? "The radio can now be attached and modified!" : "The radio can no longer be modified or attached!"))
+	unscrewed = !unscrewed
+	if(unscrewed)
+		to_chat(user, span_notice("The radio can now be attached and modified!"))
 	else
-		return ..()
+		to_chat(user, span_notice("The radio can no longer be modified or attached!"))
 
 /obj/item/radio/emp_act(severity)
 	. = ..()
@@ -566,33 +615,35 @@
 	dog_fashion = null
 	canhear_range = 0 // Same as the headset range, you must be on the same tile to hear a borg's communications
 
+/obj/item/radio/borg/screwdriver_act(mob/living/user, obj/item/tool)
+	if(!keyslot)
+		to_chat(user, span_warning("This radio doesn't have any encryption keys!"))
+		return
+
+	for(var/channel in channels)
+		SSradio.remove_object(src, GLOB.radiochannels[channel])
+		secure_radio_connections[channel] = null
+
+	var/turf/turf = get_turf(user)
+	if(turf)
+		keyslot.forceMove(turf)
+		keyslot = null
+
+	recalculateChannels()
+	ui_update()
+	to_chat(user, span_notice("You pop out the encryption key in the radio."))
+	return ..()
+
 /obj/item/radio/borg/attackby(obj/item/attacking_item, mob/user, params)
 	add_fingerprint(user)
-
-	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
-		if(keyslot)
-			for(var/channel in channels)
-				SSradio.remove_object(src, GLOB.radiochannels[channel])
-				secure_radio_connections[channel] = null
-
-			var/turf/turf = get_turf(user)
-			if(turf)
-				keyslot.forceMove(turf)
-				keyslot = null
-
-			recalculateChannels()
-			ui_update()
-			to_chat(user, span_notice("You pop out the encryption key in the radio."))
-		else
-			to_chat(user, span_warning("This radio doesn't have any encryption keys!"))
-	else if(istype(attacking_item, /obj/item/encryptionkey))
+	if(istype(attacking_item, /obj/item/encryptionkey))
 		if(keyslot)
 			to_chat(user, span_warning("The radio can't hold another key!"))
 			return
-		else
-			if(!user.transferItemToLoc(attacking_item, src))
-				return
-			keyslot = attacking_item
+
+		if(!user.transferItemToLoc(attacking_item, src))
+			return
+		keyslot = attacking_item
 
 		recalculateChannels()
 		ui_update()

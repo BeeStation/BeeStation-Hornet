@@ -76,8 +76,15 @@
 
 
 // /obj/item/radio signals
-#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//! called from base of /obj/item/radio/proc/set_frequency(): (list/args)
-#define COMSIG_RADIO_MESSAGE "radio_message"					//! called from radio subtype procs in /obj/item/radio/talk_into(): (mob/living/user, treated_message, channel, list/message_mods)
+
+///called from base of /obj/item/proc/talk_into(): (atom/movable/speaker, message, channel, list/spans, language, list/message_mods)
+#define COMSIG_ITEM_TALK_INTO "item_talk_into"
+///called from base of /obj/item/radio/proc/set_frequency(): (list/args)
+#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"
+///called from base of /obj/item/radio/talk_into(): (atom/movable/M, message, channel)
+#define COMSIG_RADIO_MESSAGE "radio_new_message"
+///called from base of /obj/item/radio/proc/on_receive_message(): (list/data)
+#define COMSIG_RADIO_RECEIVE_MESSAGE "radio_receive_message"
 
 // /obj/item/pen signals
 #define COMSIG_PEN_ROTATED "pen_rotated"						//! called after rotation in /obj/item/pen/attack_self(): (rotation, mob/living/carbon/user)

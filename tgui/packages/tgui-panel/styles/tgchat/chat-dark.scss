@@ -645,10 +645,19 @@ em {
   font-weight: bold;
 }
 
+.hear {
+  color: hsl(227, 87.7%, 68%);
+  font-style: italic;
+}
+
 .usernotice {
   color: hsl(227, 87.7%, 68%);
   font-weight: bold;
   font-size: 24px;
+}
+
+.subtlenotice {
+  color: hsl(211, 63.4%, 50.8%);
 }
 
 .adminnotice {

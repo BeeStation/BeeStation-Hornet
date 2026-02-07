@@ -39,7 +39,6 @@ $holo: hsl(339.8, 77.6%, 47.3%);
 $intercom: hsl(93.2, 96.9%, 37.6%);
 $left: hsl(277.8, 90.2%, 24.1%);
 $right: hsl(277.8, 90.2%, 24.1%);
-$slime: hsl(188.1, 100%, 31.8%);
 $holoparasite: hsl(351, 33.6%, 57.5%);
 
 $_restricted_channel_map: (
@@ -75,7 +74,6 @@ $_channel_map: (
   'right': $right,
   'holo': $holo,
   'intercom': $intercom,
-  'slime': $slime,
   'holoparasite': $holoparasite,
 );
 
