@@ -83,8 +83,6 @@
 
 	/// A very brief cooldown to prevent regular radio sounds from overlapping.
 	COOLDOWN_DECLARE(audio_cooldown)
-	/// A very brief cooldown to prevent "important" radio sounds from overlapping.
-	COOLDOWN_DECLARE(important_audio_cooldown)
 
 /obj/item/radio/Initialize(mapload)
 	wires = new /datum/wires/radio(src)
@@ -436,11 +434,6 @@
 	if(COOLDOWN_FINISHED(src, audio_cooldown))
 		COOLDOWN_START(src, audio_cooldown, 0.5 SECONDS)
 		playsound(holder, 'sound/items/radio/radio_chatter.ogg', 10, 0, -6)
-	if((SPAN_COMMAND in spans) && COOLDOWN_FINISHED(src, important_audio_cooldown))
-		COOLDOWN_START(src, important_audio_cooldown, 0.5 SECONDS)
-		var/sound/radio_important = sound('sound/items/radio/radio_important.ogg')
-		radio_important.frequency = get_rand_frequency_low_range()
-		SEND_SOUND(holder, radio_important)
 
 /obj/item/radio/ui_state(mob/user)
 	if(issilicon(user))
