@@ -163,7 +163,7 @@
 			new /obj/item/clothing/suit/hooded/carp_costume/spaceproof(src)
 			new /obj/item/clothing/mask/gas/carp(src)
 			new /obj/item/grenade/spawnergrenade/spesscarp(src)
-			new /obj/item/toy/plush/carpplushie/dehy_carp(src)
+			new /obj/effect/spawner/random/contraband/cayennelottery(src)
 			new /obj/item/slimepotion/slime/sentience(src)
 
 		if("mad_scientist")

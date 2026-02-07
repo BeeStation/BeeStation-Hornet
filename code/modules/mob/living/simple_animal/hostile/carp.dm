@@ -178,7 +178,11 @@
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
 	faction = list(FACTION_CARP, FACTION_SYNDICATE)
-	AIStatus = AI_OFF
+	health = 60
+	maxHealth = 60
+	melee_damage = 25
+	//Same speed as a human
+	speed = -1
 	/// Keeping track of the nuke disk for the functionality of storing it.
 	var/obj/item/disk/nuclear/disky
 	/// Location of the file storing disk overlays

@@ -5,10 +5,16 @@
 
 //Child of carpplushie because this should do everything the toy does and more
 /obj/item/toy/plush/carpplushie/dehy_carp
-	greyscale_colors = "#911200#000000" //red, like lia!
+	greyscale_colors = "#cc99ff#000000" //normal...
 	var/mob/owner = null //Carp doesn't attack owner, set when using in hand
 	var/mobtype = /mob/living/simple_animal/hostile/carp //So admins can change what mob spawns via var fuckery
 	var/swelling = FALSE
+
+/obj/item/toy/plush/carpplushie/dehy_carp/cayenne
+	name = "rare space carp plushie"
+	desc = "An adorable stuffed toy that resembles a space carp. She looks familiar..."
+	greyscale_colors = "#911200#000000"//red, like lia!
+	mobtype = /mob/living/simple_animal/hostile/carp/cayenne
 
 /obj/item/toy/plush/carpplushie/dehy_carp/Initialize(mapload)
 	. = ..()
