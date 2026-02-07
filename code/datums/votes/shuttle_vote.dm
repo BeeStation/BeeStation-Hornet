@@ -14,8 +14,13 @@
 	if(. != VOTE_AVAILABLE)
 		return .
 
-	if(!SSshuttle.canEvac() && SSshuttle.emergency.mode != SHUTTLE_RECALL)
-		return "The shuttle has already been called"
+	if(!SSticker.HasRoundStarted())
+		return "The round hasn't started."
+
+	// canEvac() always returns a truthy value. (TRUE or a string with the reason why the shuttle can't be called)
+	var/evac_result = SSshuttle.canEvac()
+	if(evac_result != TRUE)
+		return evac_result
 
 /datum/vote/shuttle_vote/finalize_vote(winning_option)
 	if(winning_option == CHOICE_SHUTTLE)
