@@ -42,21 +42,6 @@
 	category = list ("Engineering Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/board/circulator
-	name = "Machine Design (Circulator Board)"
-	desc = "The circuit board for a circulator."
-	id = "circulator"
-	build_path = /obj/item/circuitboard/machine/circulator
-	category = list ("Engineering Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/design/board/teg
-	name = "Machine Design (TEG Board)"
-	desc = "The circuit board for a TEG."
-	id = "teg"
-	build_path = /obj/item/circuitboard/machine/generator
-	category = list ("Engineering Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/announcement_system
 	name = "Machine Design (Automated Announcement System Board)"
@@ -97,6 +82,22 @@
 	build_path = /obj/item/circuitboard/machine/power_turbine
 	category = list ("Engineering Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/cdr
+	name = "Machine Design (Condensate Decay Reactor)"
+	desc = "The circuit board for a metallic decay reactor."
+	id = "cdr"
+	build_path = /obj/item/circuitboard/machine/cdr
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/flux_harvester
+	name = "Machine Design (Flux Harvester)"
+	desc = "The circuit board for a flux harvester."
+	id = "flux_harvester"
+	build_path = /obj/item/circuitboard/machine/flux_harvester
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/thermomachine
 	name = "Machine Design (Thermomachine Board)"

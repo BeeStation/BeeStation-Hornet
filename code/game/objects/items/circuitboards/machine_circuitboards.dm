@@ -175,12 +175,6 @@
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
 
-/obj/item/circuitboard/machine/circulator
-	name = "circulator/heat exchanger (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/binary/circulator
-	req_components = list()
-
 /obj/item/circuitboard/machine/emitter
 	name = "emitter (Machine Board)"
 	icon_state = "engineering"
@@ -214,11 +208,6 @@
 	else
 		return ..()
 
-/obj/item/circuitboard/machine/generator
-	name = "thermo-electric generator (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/power/generator
-	req_components = list()
 
 /obj/item/circuitboard/machine/ntnet_relay
 	name = "NTNet relay (Machine Board)"
@@ -262,6 +251,34 @@
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/capacitor = 6)
+
+/obj/item/circuitboard/machine/cdr
+	name = "metallic decay reactor (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/components/unary/cdr
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 2,
+		/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stock_parts/manipulator/femto = 2,
+		/obj/item/stack/sheet/plasmaglass = 10
+	)
+
+/obj/item/circuitboard/machine/cdr/can_construct(mob/living/user)
+	for(var/obj/machinery/atmospherics/device in get_turf(src))
+		if(device.piping_layer == 3) // the CDR will always be on layer three
+			if(user)
+				balloon_alert(user, "tile occupied!")
+			return FALSE
+	return ..()
+
+/obj/item/circuitboard/machine/flux_harvester
+	name = "flux harvester (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/energy_accumulator/flux_harvester/
+	req_components = list(
+		/obj/item/stock_parts/capacitor/quadratic = 5,
+		/obj/item/stack/cable_coil = 5
+	)
 
 /obj/item/circuitboard/machine/igniter
 	name = "igniter (Machine Board)"

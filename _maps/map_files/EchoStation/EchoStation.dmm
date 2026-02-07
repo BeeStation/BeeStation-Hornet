@@ -11539,7 +11539,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/electrical,
-/obj/item/circuitboard/machine/circulator,
 /obj/item/extinguisher/advanced{
 	pixel_x = -8;
 	pixel_y = 2
@@ -11553,7 +11552,6 @@
 	pixel_y = 7
 	},
 /obj/item/pen/fourcolor,
-/obj/item/circuitboard/machine/generator,
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 4
 	},

@@ -147,9 +147,6 @@
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aH" = (
-/obj/machinery/atmospherics/components/binary/pump/off/orange/visible{
-	anchored = 0
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 4
@@ -1174,19 +1171,6 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/plating,
 /area/mine/atmospost)
-"gE" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "gI" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 4
@@ -1474,20 +1458,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/mine/atmospost)
-"in" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 5;
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing{
-	dir = 10
-	},
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "io" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -2487,20 +2457,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/freezer,
 /area/mine/laborcamp)
-"og" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 9;
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "oi" = (
 /obj/structure/stone_tile/cracked,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -2523,11 +2479,6 @@
 /obj/structure/closet/crate/large,
 /turf/open/floor/iron,
 /area/mine/atmosposthallway)
-"ot" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/mine/atmospostengine)
 "ou" = (
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/siding/thinplating,
@@ -2553,12 +2504,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/atmosposthallway)
-"ox" = (
-/obj/structure/lattice/rlattice{
-	desc = "A support lattice. This one is reinforced to withstand extreme environments, you feel as if you shouldn't step on it regardless."
-	},
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "oF" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/light/directional/east,
@@ -3407,15 +3352,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/laborcamp/security)
-"tR" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 9;
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing,
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "tT" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/tile_breaker,
@@ -3573,11 +3509,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"uQ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
-/turf/open/floor/plating,
-/area/mine/atmospostengine)
 "uT" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 4;
@@ -3736,7 +3667,6 @@
 /area/mine/atmosposthallway)
 "vU" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/crate/large,
 /obj/effect/turf_decal/siding/wideplating/dark/corner,
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
@@ -3897,19 +3827,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/living_quarters)
-"wO" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "wS" = (
 /turf/closed/wall,
 /area/mine/eva)
@@ -4370,18 +4287,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
-"zN" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 8;
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing,
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "zP" = (
 /obj/machinery/mineral/unloading_machine{
 	icon_state = "unloader-corner2";
@@ -5070,18 +4975,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/gateway)
-"DP" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 6;
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/railing/corner,
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "DR" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -5910,9 +5803,6 @@
 /turf/open/floor/iron/checker,
 /area/mine/production)
 "If" = (
-/obj/machinery/atmospherics/components/binary/circulator{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
 /area/mine/atmospostengine)
@@ -5941,9 +5831,6 @@
 "Ir" = (
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible{
-	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
@@ -6285,15 +6172,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Kt" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/mine/atmospostengine)
 "Ku" = (
 /turf/open/floor/iron,
 /area/mine/gateway)
@@ -6419,15 +6297,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
-"Ld" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 5;
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing,
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "Le" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -8235,7 +8104,6 @@
 /obj/structure/frame/machine{
 	anchored = 1
 	},
-/obj/item/circuitboard/machine/generator,
 /obj/structure/cable,
 /turf/open/floor/iron/techmaint/planetary,
 /area/mine/atmospostengine)
@@ -8353,9 +8221,6 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "WM" = (
-/obj/machinery/atmospherics/components/binary/circulator/cold{
-	dir = 8
-	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/mine/atmospostengine)
 "WO" = (
@@ -8456,18 +8321,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/eva)
-"Xu" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10;
-	hide = 0
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing/corner,
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/open/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "Xy" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Shuttle Prisoner Airlock"
@@ -51337,12 +51190,12 @@ pi
 KB
 pi
 MO
-DP
-wO
-wO
-wO
-wO
-in
+RR
+RR
+RR
+RR
+RR
+RR
 RR
 RR
 RR
@@ -51593,13 +51446,13 @@ EE
 vU
 aH
 Ir
-ot
-tR
-ox
+MO
 RR
 RR
-ox
-zN
+RR
+RR
+RR
+RR
 RR
 RR
 RR
@@ -51849,14 +51702,14 @@ Yd
 QG
 DC
 If
-Kt
-uQ
-Ld
-ox
+YH
+MO
 RR
 RR
-ox
-zN
+RR
+RR
+RR
+RR
 RR
 RR
 RR
@@ -52108,12 +51961,12 @@ be
 Wh
 La
 MO
-Xu
-gE
-gE
-gE
-gE
-og
+RR
+RR
+RR
+RR
+RR
+RR
 RR
 RR
 RR
@@ -52365,7 +52218,7 @@ VR
 WM
 YH
 uJ
-cW
+VX
 RR
 RR
 RR

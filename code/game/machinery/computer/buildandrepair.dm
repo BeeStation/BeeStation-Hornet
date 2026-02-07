@@ -139,6 +139,8 @@
 				new /obj/item/stack/sheet/glass(drop_location(), 2, TRUE, user)
 				return
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
+				if(!circuit.can_construct(user))
+					return
 				P.play_tool_sound(src)
 				to_chat(user, span_notice("You connect the monitor."))
 
