@@ -100,7 +100,7 @@
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!role_check(user))
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
-		user.Unconscious(10 SECONDS)
+		user.Unconscious(3 SECONDS)
 		return
 	if(spent)
 		to_chat(user, span_warning("There is no power left in the shard."))
@@ -169,34 +169,35 @@
 		hot_potato(user)
 		return
 	if(!role_check(user))
-		user.Unconscious(10 SECONDS)
+		user.Unconscious(3 SECONDS)
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 	release_shades(user)
 
 /obj/item/soulstone/proc/release_shades(mob/user)
-	if(!contained_shade)
+	var/mob/living/simple_animal/shade/soul = contained_shade
+	if(!soul)
 		return
 	contained_shade = null
-	contained_shade.forceMove(get_turf(user))
-	contained_shade.cancel_camera()
+	soul.forceMove(get_turf(user))
+	soul.cancel_camera()
 	switch(theme)
 		if(THEME_HOLY)
 			icon_state = "purified_soulstone"
-			contained_shade.icon_state = "shade_holy"
-			contained_shade.name = "Purified [contained_shade.real_name]"
-			contained_shade.loot = list(/obj/item/ectoplasm/angelic)
+			soul.icon_state = "shade_holy"
+			soul.name = "Purified [soul.real_name]"
+			soul.loot = list(/obj/item/ectoplasm/angelic)
 		if(THEME_WIZARD)
 			icon_state = "mystic_soulstone"
-			contained_shade.icon_state = "shade_wizard"
-			contained_shade.loot = list(/obj/item/ectoplasm/mystic)
+			soul.icon_state = "shade_wizard"
+			soul.loot = list(/obj/item/ectoplasm/mystic)
 		if(THEME_CULT)
 			icon_state = "soulstone"
 	name = initial(name)
 	if(IS_CULTIST(user))
-		to_chat(contained_shade, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
+		to_chat(soul, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
 	else if(role_check(user))
-		to_chat(contained_shade, "<b>You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.</b>")
+		to_chat(soul, "<b>You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.</b>")
 	was_used()
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
 /obj/structure/constructshell
