@@ -135,9 +135,9 @@
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
-/obj/item/melee/sabre/carbon_fiber
-	name = "carbon fiber sabre"
-	desc = "A sabre made of a sleek carbon fiber polymer with a reinforced blade."
+/obj/item/melee/sabre/patrol
+	name = "patrol sabre"
+	desc = "A standard-issue blade for security personnel. Polymer construction keeps it cheap and reliable. Cuts deep, but won't cut limbs without some effort."
 	icon_state = "sabre_fiber"
 	inhand_icon_state = "sabre_fiber"
 	force = 15

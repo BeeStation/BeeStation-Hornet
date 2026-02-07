@@ -233,7 +233,7 @@ GLOBAL_LIST_INIT(security_vest_allowed, (list(
 	/obj/item/melee/classic_baton/police/telescopic,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
-	/obj/item/storage/belt/sabre/carbon_fiber,
+	/obj/item/storage/belt/sabre/patrol,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman)))
 
