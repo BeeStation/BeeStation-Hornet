@@ -338,6 +338,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define AI_ON 1
 #define AI_IDLE 2
 #define AI_OFF 3
+#define AI_Z_OFF 4
 
 /// An AI hint which tells the AI what it should break.
 /// Note that mobs being able to break walls and r-walls is determined by their attack force.

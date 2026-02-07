@@ -132,7 +132,8 @@
 	if(uses_integrity)
 		atom_integrity = max_integrity
 
-	InitializeAIController()
+	if(ispath(ai_controller))
+		ai_controller = new ai_controller(src)
 
 	if(length(smoothing_groups))
 		#ifdef UNIT_TESTS
