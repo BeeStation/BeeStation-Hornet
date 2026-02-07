@@ -2,7 +2,7 @@
 	set name = "Dynamic Panel"
 	set category = "Round"
 
-	var/static/datum/dynamic_panel/dynamic_panel = new
+	var/static/datum/dynamic_panel/dynamic_panel = new()
 	dynamic_panel.ui_interact(usr)
 
 /datum/dynamic_panel
@@ -102,8 +102,8 @@
 		))
 
 	data["current_midround_points"] = SSdynamic.midround_points
-	data["midround_grace_period"] = SSdynamic.midround_grace_period / (1 MINUTES)
-	data["midround_failure_stallout"] = SSdynamic.midround_failure_stallout / (1 MINUTES)
+	data["midround_grace_period"] = SSdynamic.midround_grace_period
+	data["midround_failure_stallout"] = SSdynamic.midround_failure_stallout
 
 	data["living_delta"] = SSdynamic.midround_living_delta
 	data["dead_delta"] = SSdynamic.midround_dead_delta
@@ -112,18 +112,24 @@
 	data["linear_delta"] = SSdynamic.midround_linear_delta
 	data["linear_delta_forced"] = SSdynamic.midround_linear_delta_forced
 
-	data["logged_points"] = SSdynamic.logged_points["logged_points"]
-	data["logged_points_living"] = SSdynamic.logged_points["logged_points_living"]
-	data["logged_points_observer"] = SSdynamic.logged_points["logged_points_observer"]
-	data["logged_points_dead"] = SSdynamic.logged_points["logged_points_dead"]
-	data["logged_points_dead_security"] = SSdynamic.logged_points["logged_points_dead_security"]
-	data["logged_points_antag"] = SSdynamic.logged_points["logged_points_antag"]
-	data["logged_points_linear"] = SSdynamic.logged_points["logged_points_linear"]
-	data["logged_points_linear_forced"] = SSdynamic.logged_points["logged_points_linear_forced"]
+	data["logged_points"] = SSdynamic.midround_logged_points["logged_points"]
+	data["logged_points_living"] = SSdynamic.midround_logged_points["logged_points_living"]
+	data["logged_points_observer"] = SSdynamic.midround_logged_points["logged_points_observer"]
+	data["logged_points_dead"] = SSdynamic.midround_logged_points["logged_points_dead"]
+	data["logged_points_dead_security"] = SSdynamic.midround_logged_points["logged_points_dead_security"]
+	data["logged_points_antag"] = SSdynamic.midround_logged_points["logged_points_antag"]
+	data["logged_points_linear"] = SSdynamic.midround_logged_points["logged_points_linear"]
+	data["logged_points_linear_forced"] = SSdynamic.midround_logged_points["logged_points_linear_forced"]
 
-	data["logged_light_chance"] = SSdynamic.logged_chances["light"]
-	data["logged_medium_chance"] = SSdynamic.logged_chances["medium"]
-	data["logged_heavy_chance"] = SSdynamic.logged_chances["heavy"]
+	data["calculated_light_chances"] = SSdynamic.midround_chances["light"]
+	data["calculated_medium_chances"] = SSdynamic.midround_chances["medium"]
+	data["calculated_heavy_chances"] = SSdynamic.midround_chances["heavy"]
+
+	data["minutes_elapsed"] = SSdynamic.times_fired - 1
+
+	data["light_end_time"] = SSdynamic.midround_light_end_time
+	data["medium_end_time"] = SSdynamic.midround_medium_end_time
+	data["medium_increase_ratio"] = SSdynamic.midround_medium_increase_ratio
 
 	// Latejoin
 	data["executed_latejoin_rulesets"] = list()
@@ -157,113 +163,84 @@
 		if("vv")
 			usr.client.debug_variables(SSdynamic)
 			return TRUE
-		if("reload_storytellers")
-			SSdynamic.load_storytellers()
-			return TRUE
+
 		if("toggle_forced_extended")
 			SSdynamic.forced_extended = !SSdynamic.forced_extended
 			return TRUE
-		// Midround
+
+		// Storyteller
+		if("reload_storytellers")
+			SSdynamic.load_storytellers()
+			return TRUE
 		if("set_storyteller")
 			var/new_storyteller = params["new_storyteller"]
 			SSdynamic.set_storyteller(new_storyteller == "None" ? null : new_storyteller)
 
-			message_admins("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
+			message_admins("[key_name_admin(usr)] set the dynamic storyteller to [new_storyteller]")
 			log_dynamic("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
 			return TRUE
 
+		if("set_var")
+			var/variable = params["variable"]
+			var/new_state = params["new_state"]
+			SSdynamic.vars[variable] = new_state
+
+			message_admins("DYNAMIC: [key_name(usr)] set [variable] to [new_state]")
+			log_dynamic("DYNAMIC: [key_name(usr)] set [variable] to [new_state]")
+			return TRUE
+
 		// Roundstart
-		if("set_roundstart_points")
-			var/new_roundstart_points = params["new_roundstart_points"]
-			SSdynamic.roundstart_points = new_roundstart_points
-			message_admins("[key_name(usr)] set the roundstart points to [new_roundstart_points]")
-			log_dynamic("[key_name(usr)] set the roundstart points to [new_roundstart_points]")
-			return TRUE
-		if("set_roundstart_divergence_upper")
-			var/new_divergence_upper = params["new_divergence_upper"]
-			SSdynamic.roundstart_divergence_percent_upper = new_divergence_upper
-			message_admins("[key_name(usr)] set the roundstart divergence upper range to [new_divergence_upper]")
-			log_dynamic("[key_name(usr)] set the roundstart divergence upper range to [new_divergence_upper]")
-			return TRUE
-		if("set_roundstart_divergence_lower")
-			var/new_divergence_lower = params["new_divergence_lower"]
-			SSdynamic.roundstart_divergence_percent_lower = new_divergence_lower
-			message_admins("[key_name(usr)] set the roundstart divergence lower range to [new_divergence_lower]")
-			log_dynamic("[key_name(usr)] set the roundstart divergence lower range to [new_divergence_lower]")
-			return TRUE
-
-		if("set_roundstart_points_per_ready")
-			var/new_points_per_ready = params["new_points_per_ready"]
-			SSdynamic.roundstart_points_per_ready = new_points_per_ready
-			message_admins("[key_name(usr)] set the roundstart points per ready to [new_points_per_ready]")
-			log_dynamic("[key_name(usr)] set the roundstart points per ready to [new_points_per_ready]")
-			return TRUE
-		if("set_roundstart_points_per_unready")
-			var/new_points_per_unready = params["new_points_per_unready"]
-			SSdynamic.roundstart_points_per_unready = new_points_per_unready
-			message_admins("[key_name(usr)] set the roundstart points per unready to [new_points_per_unready]")
-			log_dynamic("[key_name(usr)] set the roundstart points per unready to [new_points_per_unready]")
-			return TRUE
-		if("set_roundstart_points_per_observer")
-			var/new_points_per_observer = params["new_points_per_observer"]
-			SSdynamic.roundstart_points_per_observer = new_points_per_observer
-			message_admins("[key_name(usr)] set the roundstart points per observer to [new_points_per_observer]")
-			log_dynamic("[key_name(usr)] set the roundstart points per observer to [new_points_per_observer]")
-			return TRUE
-
 		if("toggle_roundstart_points_override")
 			SSdynamic.roundstart_points_override = !SSdynamic.roundstart_points_override
 
 			if(SSdynamic.roundstart_points_override)
 				var/forced_roundstart_points = params["forced_roundstart_points"]
 				SSdynamic.roundstart_points = forced_roundstart_points
-				message_admins("[key_name(usr)] has forced dynamic to use [forced_roundstart_points] roundstart points")
-				log_dynamic("[key_name(usr)] has forced dynamic to use [forced_roundstart_points] roundstart points")
+				message_admins("[key_name_admin(usr)] forced dynamic to use [forced_roundstart_points] roundstart points")
+				log_dynamic("[key_name(usr)] forced dynamic to use [forced_roundstart_points] roundstart points")
 			else
-				message_admins("[key_name(usr)] has let dynamic choose its own roundstart points again")
-				log_dynamic("[key_name(usr)] has let dynamic choose its own roundstart points again")
+				message_admins("[key_name_admin(usr)] let dynamic choose its own roundstart points again")
+				log_dynamic("[key_name(usr)] let dynamic choose its own roundstart points again")
 			return TRUE
 
 		if("toggle_roundstart_rulesets_override")
 			SSdynamic.roundstart_only_use_forced_rulesets = !SSdynamic.roundstart_only_use_forced_rulesets
 
-			// Invert the other one
 			if(SSdynamic.roundstart_only_use_forced_rulesets)
+				// Force the other one to be false
 				SSdynamic.roundstart_blacklist_forced_rulesets = FALSE
 
-			if(SSdynamic.roundstart_only_use_forced_rulesets)
 				var/list/forced_rulesets = list()
 				for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
 					forced_rulesets += forced_ruleset.name
 
-				message_admins("[key_name(usr)] has forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
-				log_dynamic("[key_name(usr)] has forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
+				message_admins("[key_name_admin(usr)] forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
+				log_dynamic("[key_name(usr)] forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
 			else
-				message_admins("[key_name(usr)] has let dynamic choose its own roundstart rulesets again")
-				log_dynamic("[key_name(usr)] has let dynamic choose its own roundstart rulesets again")
+				message_admins("[key_name_admin(usr)] let dynamic choose its own roundstart rulesets again")
+				log_dynamic("[key_name(usr)] let dynamic choose its own roundstart rulesets again")
 			return TRUE
 
 		if("toggle_roundstart_blacklist_forced_rulesets")
 			if(!length(SSdynamic.roundstart_forced_rulesets))
-				message_admins("[key_name(usr)] tried to blacklist the forced rulesets, but there were none")
+				message_admins("[key_name_admin(usr)] tried to blacklist the forced rulesets, but there were none")
 				log_dynamic("[key_name(usr)] tried to blacklist the forced rulesets, but there were none")
 				return TRUE
 
 			SSdynamic.roundstart_blacklist_forced_rulesets = !SSdynamic.roundstart_blacklist_forced_rulesets
-
-			// Invert the other one
-			if(SSdynamic.roundstart_blacklist_forced_rulesets)
-				SSdynamic.roundstart_only_use_forced_rulesets = FALSE
 
 			var/list/blacklisted_rulesets = list()
 			for(var/datum/dynamic_ruleset/roundstart/blacklisted_ruleset in SSdynamic.roundstart_forced_rulesets)
 				blacklisted_rulesets += blacklisted_ruleset.name
 
 			if(SSdynamic.roundstart_blacklist_forced_rulesets)
-				message_admins("[key_name(usr)] has blacklisted these roundstart rulesets: [blacklisted_rulesets.Join(", ")]")
+				// Force the other one to be false
+				SSdynamic.roundstart_only_use_forced_rulesets = FALSE
+
+				message_admins("[key_name_admin(usr)] has blacklisted these roundstart rulesets: [blacklisted_rulesets.Join(", ")]")
 				log_dynamic("[key_name(usr)] has blacklisted these roundstart rulesets: [blacklisted_rulesets.Join(", ")]")
 			else
-				message_admins("[key_name(usr)] has un-blacklisted these rulesets: [blacklisted_rulesets.Join(", ")]")
+				message_admins("[key_name_admin(usr)] has un-blacklisted these rulesets: [blacklisted_rulesets.Join(", ")]")
 				log_dynamic("[key_name(usr)] has un-blacklisted these rulesets: [blacklisted_rulesets.Join(", ")]")
 			return TRUE
 
@@ -271,17 +248,17 @@
 			var/ruleset_text = params["forced_roundstart_ruleset"]
 			var/datum/dynamic_ruleset/roundstart/ruleset_path = text2path(ruleset_text)
 			if(!ispath(ruleset_path, /datum/dynamic_ruleset/roundstart) || ruleset_path == /datum/dynamic_ruleset/roundstart)
-				message_admins("[key_name(usr)] tried to force/blacklist an invalid roundstart ruleset: [ruleset_text]")
-				to_chat(usr, span_warning("Invalid ruleset: [ruleset_text]"))
+				message_admins("[key_name_admin(usr)] tried to force/blacklist an invalid roundstart ruleset: [ruleset_text]")
+				log_dynamic("[key_name(usr)] tried to force/blacklist an invalid roundstart ruleset: [ruleset_text]")
 				return TRUE
 
-			// If it's already forced, unforce it, otherwise, force it.
+			// If it's already forced, unforce it
 			var/needs_to_force = TRUE
 			for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
 				if(forced_ruleset.type == ruleset_path)
 					SSdynamic.roundstart_forced_rulesets -= forced_ruleset
 					needs_to_force = FALSE
-					message_admins("[key_name(usr)] has un[SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
+					message_admins("[key_name_admin(usr)] has un[SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 					log_dynamic("[key_name(usr)] has un[SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 
 			if(!length(SSdynamic.roundstart_forced_rulesets))
@@ -291,7 +268,7 @@
 				for(var/datum/dynamic_ruleset/roundstart/ruleset in SSdynamic.roundstart_configured_rulesets)
 					if(ruleset.type == ruleset_path)
 						SSdynamic.roundstart_forced_rulesets += ruleset
-						message_admins("[key_name(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
+						message_admins("[key_name_admin(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 						log_dynamic("[key_name(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 						break
 
@@ -300,10 +277,21 @@
 		// Midround
 		if("set_midround_ruleset")
 			var/ruleset_text = params["new_midround_ruleset"]
+			if(ruleset_text == "None")
+				SSdynamic.midround_chosen_ruleset = null
+				message_admins("[key_name_admin(usr)] set the midround ruleset to: [ruleset_text]")
+				log_dynamic("[key_name(usr)] set the midround ruleset to: [ruleset_text]")
+				return TRUE
+			else if(ruleset_text == "Random")
+				SSdynamic.choose_midround_ruleset(DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY)
+				// If absolutely zero midround rulesets are available, midround_chosen_ruleset can be null
+				message_admins("[key_name_admin(usr)] randomly set the midround ruleset to: [SSdynamic.midround_chosen_ruleset || "None"]")
+				log_dynamic("[key_name(usr)] randomly set the midround ruleset to: [SSdynamic.midround_chosen_ruleset || "None"]")
+				return TRUE
+
 			var/datum/dynamic_ruleset/midround/ruleset_path = text2path(ruleset_text)
-			if(!ispath(ruleset_path, /datum/dynamic_ruleset/midround) || ruleset_path == /datum/dynamic_ruleset/midround)
-				message_admins("[key_name(usr)] tried to set an invalid midround ruleset: [ruleset_text]")
-				to_chat(usr, span_warning("Invalid ruleset: [ruleset_text]"))
+			if(!ispath(ruleset_path, /datum/dynamic_ruleset/midround) || ruleset_path == initial(ruleset_path.abstract_type))
+				message_admins("[key_name_admin(usr)] tried to set an invalid midround ruleset: [ruleset_text]")
 				return TRUE
 
 			for(var/datum/dynamic_ruleset/midround/ruleset in SSdynamic.midround_configured_rulesets)
@@ -311,9 +299,10 @@
 					SSdynamic.midround_chosen_ruleset = ruleset
 					break
 
-			message_admins("[key_name(usr)] set the midround ruleset to [ruleset_path::name]")
-			log_dynamic("[key_name(usr)] set the midround ruleset to [ruleset_path::name]")
+			message_admins("[key_name_admin(usr)] set the midround ruleset to: [ruleset_path::name]")
+			log_dynamic("[key_name(usr)] set the midround ruleset to: [ruleset_path::name]")
 			return TRUE
+
 		if("execute_midround_ruleset")
 			var/datum/dynamic_ruleset/midround/midround_ruleset = SSdynamic.midround_chosen_ruleset
 			if(!midround_ruleset)
@@ -324,7 +313,7 @@
 				SSdynamic.midround_waiting_ruleset = null
 
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
-			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+			message_admins("[key_name_admin(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(DYNAMIC_EXECUTE_SUCCESS)]")
 			if (result == DYNAMIC_EXECUTE_WAITING)
 				SSdynamic.midround_waiting_ruleset = midround_ruleset
@@ -333,70 +322,27 @@
 			SSdynamic.midround_chosen_ruleset = null
 			return TRUE
 
-		if("set_midround_points")
-			var/new_points = params["new_points"]
-			SSdynamic.midround_points = new_points
-			SSdynamic.logged_points["logged_points"] += new_points
-			message_admins("[key_name(usr)] set the midround points to [new_points]")
-			log_dynamic("[key_name(usr)] set the midround points to [new_points]")
-			return TRUE
-		if("set_midround_grace_period")
-			var/new_grace_period = params["new_grace_period"]
-			SSdynamic.midround_grace_period = new_grace_period MINUTES
-			message_admins("[key_name(usr)] set the midround grace period to [new_grace_period] minutes")
-			log_dynamic("[key_name(usr)] set the midround grace period to [new_grace_period] minutes")
-			return TRUE
-		if("set_midround_failure_stallout")
-			var/new_midround_stallout = params["new_midround_stallout"]
-			SSdynamic.midround_failure_stallout = new_midround_stallout MINUTES
-			message_admins("[key_name(usr)] set the midround stallout time to [new_midround_stallout] minutes")
-			log_dynamic("[key_name(usr)] set the midround grace period to [new_midround_stallout] minutes")
-			return TRUE
-
-		if("set_midround_living_delta")
-			var/new_living_delta = params["new_living_delta"]
-			SSdynamic.midround_living_delta = new_living_delta
-			message_admins("[key_name(usr)] set the midround living delta to [new_living_delta]")
-			log_dynamic("[key_name(usr)] set the midround living delta to [new_living_delta]")
-			return TRUE
-		if("set_midround_dead_delta")
-			var/new_dead_delta = params["new_dead_delta"]
-			SSdynamic.midround_dead_delta = new_dead_delta
-			message_admins("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
-			log_dynamic("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
-			return TRUE
-		if("set_midround_dead_security_delta")
-			var/new_dead_security_delta = params["new_dead_security_delta"]
-			SSdynamic.midround_dead_security_delta = new_dead_security_delta
-			message_admins("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
-			log_dynamic("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
-			return TRUE
-		if("set_midround_observer_delta")
-			var/new_observer_delta = params["new_observer_delta"]
-			SSdynamic.midround_observer_delta = new_observer_delta
-			message_admins("[key_name(usr)] set the midround observer delta to [new_observer_delta]")
-			log_dynamic("[key_name(usr)] set the midround observer delta to [new_observer_delta]")
-			return TRUE
-		if("set_midround_linear_delta")
-			var/new_linear_delta = params["new_linear_delta"]
-			SSdynamic.midround_linear_delta = new_linear_delta
-			message_admins("[key_name(usr)] set the midround linear delta to [new_linear_delta]")
-			log_dynamic("[key_name(usr)] set the midround linear delta to [new_linear_delta]")
-			return TRUE
-		if("set_midround_linear_delta_forced")
-			var/new_linear_delta_forced = params["new_linear_delta_forced"]
-			SSdynamic.midround_linear_delta_forced = new_linear_delta_forced
-			message_admins("[key_name(usr)] set the forced midround linear delta to [new_linear_delta_forced]")
-			log_dynamic("[key_name(usr)] set the forced midround linear delta to [new_linear_delta_forced]")
+		if("calculate_midround_chances")
+			SSdynamic.calculate_midround_chances()
 			return TRUE
 
 		// Latejoin
 		if("set_latejoin_ruleset")
 			var/ruleset_text = params["new_latejoin_ruleset"]
+			if(ruleset_text == "None")
+				SSdynamic.latejoin_forced_ruleset = null
+				message_admins("[key_name_admin(usr)] set the latejoin ruleset to: [ruleset_text]")
+				log_dynamic("[key_name(usr)] set the latejoin ruleset to: [ruleset_text]")
+				return TRUE
+			else if(ruleset_text == "Random")
+				SSdynamic.choose_latejoin_ruleset()
+				message_admins("[key_name_admin(usr)] randomly set the latejoin ruleset to: [SSdynamic.latejoin_forced_ruleset]")
+				log_dynamic("[key_name(usr)] randomly set the latejoin ruleset to: [SSdynamic.latejoin_forced_ruleset]")
+				return TRUE
+
 			var/datum/dynamic_ruleset/latejoin/ruleset_path = text2path(ruleset_text)
 			if(!ispath(ruleset_path, /datum/dynamic_ruleset/latejoin) || ruleset_path == /datum/dynamic_ruleset/latejoin)
-				message_admins("[key_name(usr)] tried to set an invalid latejoin ruleset: [ruleset_text]")
-				to_chat(usr, span_warning("Invalid ruleset: [ruleset_text]"))
+				message_admins("[key_name_admin(usr)] tried to set an invalid latejoin ruleset: [ruleset_text]")
 				return TRUE
 
 			for(var/datum/dynamic_ruleset/latejoin/ruleset in SSdynamic.latejoin_configured_rulesets)
@@ -404,21 +350,8 @@
 					SSdynamic.latejoin_forced_ruleset = ruleset
 					break
 
-			message_admins("[key_name(usr)] set the latejoin ruleset to [ruleset_path::name]")
-			log_dynamic("[key_name(usr)] set the latejoin ruleset to [ruleset_path::name]")
-			return TRUE
-
-		if("set_latejoin_probability")
-			var/new_probability = params["new_probability"]
-			SSdynamic.latejoin_ruleset_probability = new_probability
-			message_admins("[key_name(usr)] set the latejoin probability to [new_probability]%")
-			log_dynamic("[key_name(usr)] set the latejoin probability to [new_probability]%")
-			return TRUE
-		if("set_latejoin_max")
-			var/new_max = params["new_max"]
-			SSdynamic.latejoin_max_rulesets = new_max
-			message_admins("[key_name(usr)] set the latejoin max to [new_max]")
-			log_dynamic("[key_name(usr)] set the latejoin max to [new_max]")
+			message_admins("[key_name_admin(usr)] set the latejoin ruleset to: [ruleset_path::name]")
+			log_dynamic("[key_name(usr)] set the latejoin ruleset to: [ruleset_path::name]")
 			return TRUE
 
 /datum/dynamic_panel/ui_status(mob/user, datum/ui_state/state)

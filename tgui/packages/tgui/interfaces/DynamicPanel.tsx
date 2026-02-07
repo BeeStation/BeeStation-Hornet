@@ -1,8 +1,9 @@
 import { exhaustiveCheck } from 'common/exhaustive';
 import { BooleanLike } from 'common/react';
+import { useState } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -56,6 +57,10 @@ type MidroundData = {
   observer_delta: number;
   linear_delta: number;
   linear_delta_forced: number;
+  minutes_elapsed: number;
+  light_end_time: number;
+  medium_end_time: number;
+  medium_increase_ratio: number;
   logged_points: number[][];
   logged_points_living: number[][];
   logged_points_dead: number[][];
@@ -64,9 +69,9 @@ type MidroundData = {
   logged_points_antag: number[][];
   logged_points_linear: number[][];
   logged_points_linear_forced: number[][];
-  logged_light_chance: number[][];
-  logged_medium_chance: number[][];
-  logged_heavy_chance: number[][];
+  calculated_light_chances: number[][];
+  calculated_medium_chances: number[][];
+  calculated_heavy_chances: number[][];
   current_midround_ruleset: Ruleset;
   valid_midround_rulesets: Ruleset[];
   executed_midround_rulesets: Ruleset[];
@@ -90,10 +95,7 @@ export const DynamicPanel = () => {
   const { data, act } = useBackend<Data>();
   const { forced_extended, current_storyteller, possible_storytellers } = data;
 
-  const [currentTab, setCurrentTab] = useLocalState(
-    'dynamic_tab',
-    Tab.Roundstart,
-  );
+  const [currentTab, setCurrentTab] = useState(Tab.Roundstart);
   let currentPage;
 
   switch (currentTab) {
@@ -111,7 +113,7 @@ export const DynamicPanel = () => {
   }
 
   return (
-    <Window title="Dynamic Panel" theme="admin" height={500} width={700}>
+    <Window title="Dynamic Panel" theme="admin" height={800} width={700}>
       <Window.Content scrollable>
         <Section>
           <Box style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -201,10 +203,7 @@ const RoundstartPage = () => {
     executed_roundstart_rulesets,
   } = data;
 
-  const [forced_roundstart_points, set_forced_points] = useLocalState(
-    'forced_roundstart_points',
-    0,
-  );
+  const [forced_roundstart_points, set_forced_points] = useState(0);
 
   const roundstart_rulesets_by_name = Object.fromEntries(
     valid_roundstart_rulesets.map((ruleset) => {
@@ -234,8 +233,9 @@ const RoundstartPage = () => {
                   maxValue={10}
                   step={0.2}
                   onChange={(value) =>
-                    act('set_roundstart_divergence_upper', {
-                      new_divergence_upper: value,
+                    act('set_var', {
+                      variable: 'roundstart_divergence_percent_upper',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -253,8 +253,9 @@ const RoundstartPage = () => {
                   maxValue={10}
                   step={0.2}
                   onChange={(value) =>
-                    act('set_roundstart_divergence_lower', {
-                      new_divergence_lower: value,
+                    act('set_var', {
+                      variable: 'roundstart_divergence_percent_lower',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -269,8 +270,9 @@ const RoundstartPage = () => {
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_ready', {
-                      new_points_per_ready: value,
+                    act('set_var', {
+                      variable: 'roundstart_points_per_ready',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -288,8 +290,9 @@ const RoundstartPage = () => {
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_unready', {
-                      new_points_per_unready: value,
+                    act('set_var', {
+                      variable: 'roundstart_points_per_unready',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -307,8 +310,9 @@ const RoundstartPage = () => {
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_observer', {
-                      new_points_per_observer: value,
+                    act('set_var', {
+                      variable: 'roundstart_points_per_observer',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -415,7 +419,7 @@ const RoundstartPage = () => {
       <Divider />
 
       {/* Roundstart Stats */}
-      <Section fill title="Roundstart Stats" tooltip="test">
+      <Section fill title="Roundstart Stats">
         {has_round_started ? (
           <>
             <LabeledList.Item label="Ready Count" verticalAlign="middle">
@@ -469,9 +473,9 @@ const RoundstartPage = () => {
 const MidroundPage = () => {
   const { act, data } = useBackend<MidroundData>();
   const {
-    logged_light_chance,
-    logged_medium_chance,
-    logged_heavy_chance,
+    calculated_light_chances,
+    calculated_medium_chances,
+    calculated_heavy_chances,
     logged_points,
     logged_points_living,
     logged_points_dead,
@@ -492,20 +496,24 @@ const MidroundPage = () => {
     observer_delta,
     linear_delta,
     linear_delta_forced,
+    minutes_elapsed,
+    light_end_time,
+    medium_end_time,
+    medium_increase_ratio,
   } = data;
 
   // Convert our logged data into a useable format
-  const light_data = logged_light_chance.map((value, i) => [
+  const light_data = calculated_light_chances.map((value, i) => [
     i,
-    Array.isArray(value) ? value[0] : value,
+    Array.isArray(value) ? value[0] / 10 : value / 10,
   ]);
-  const medium_data = logged_medium_chance.map((value, i) => [
+  const medium_data = calculated_medium_chances.map((value, i) => [
     i,
-    Array.isArray(value) ? value[0] : value,
+    Array.isArray(value) ? value[0] / 10 : value / 10,
   ]);
-  const heavy_data = logged_heavy_chance.map((value, i) => [
+  const heavy_data = calculated_heavy_chances.map((value, i) => [
     i,
-    Array.isArray(value) ? value[0] : value,
+    Array.isArray(value) ? value[0] / 10 : value / 10,
   ]);
 
   const points_data = logged_points.map((value, i) => [
@@ -550,38 +558,17 @@ const MidroundPage = () => {
   const midround_ruleset_names = Object.keys(midround_rulesets_by_name);
   midround_ruleset_names.sort();
 
-  const [show_light, toggle_light_graph] = useLocalState('show_light', true);
-  const [show_medium, toggle_medium_graph] = useLocalState('show_medium', true);
-  const [show_heavy, toggle_heavy_graph] = useLocalState('show_heavy', true);
+  const [show_light, toggle_light_graph] = useState(true);
+  const [show_medium, toggle_medium_graph] = useState(true);
+  const [show_heavy, toggle_heavy_graph] = useState(true);
 
-  const [show_living_delta, toggle_living_graph] = useLocalState(
-    'show_living_delta',
-    true,
-  );
-  const [show_dead_delta, toggle_dead_graph] = useLocalState(
-    'show_dead_delta',
-    true,
-  );
-  const [show_dead_security_delta, toggle_dead_security_graph] = useLocalState(
-    'show_dead_security_delta',
-    true,
-  );
-  const [show_observer_delta, toggle_observer_graph] = useLocalState(
-    'show_observer_delta',
-    true,
-  );
-  const [show_antag_delta, toggle_antag_graph] = useLocalState(
-    'show_antag_delta',
-    true,
-  );
-  const [show_linear_delta, toggle_linear_graph] = useLocalState(
-    'show_linear_delta',
-    true,
-  );
-  const [show_linear_delta_forced, toggle_linear_graph_forced] = useLocalState(
-    'show_linear_delta_forced',
-    true,
-  );
+  const [show_living_delta, toggle_living_graph] = useState(true);
+  const [show_dead_delta, toggle_dead_graph] = useState(true);
+  const [show_dead_security_delta, toggle_dead_security_graph] = useState(true);
+  const [show_observer_delta, toggle_observer_graph] = useState(true);
+  const [show_antag_delta, toggle_antag_graph] = useState(true);
+  const [show_linear_delta, toggle_linear_graph] = useState(true);
+  const [show_linear_delta_forced, toggle_linear_graph_forced] = useState(true);
 
   return (
     <Flex direction="column">
@@ -604,7 +591,7 @@ const MidroundPage = () => {
             >
               <LabeledList.Item label="Midround Ruleset" verticalAlign="middle">
                 <Dropdown
-                  options={midround_ruleset_names}
+                  options={[...midround_ruleset_names, 'Random', 'None']}
                   selected={current_midround_ruleset?.name ?? 'None'}
                   width="100%"
                   onSelected={(value) => {
@@ -627,39 +614,47 @@ const MidroundPage = () => {
                   maxValue={1000}
                   step={1}
                   onChange={(value) =>
-                    act('set_midround_points', { new_points: value })
+                    act('set_var', {
+                      variable: 'midround_points',
+                      new_state: value,
+                    })
                   }
                   width="50%"
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Grace Period" verticalAlign="middle">
                 <NumberInput
-                  value={midround_grace_period ?? 0}
+                  value={
+                    midround_grace_period ? midround_grace_period / 600 : 0
+                  }
                   animated
                   minValue={0}
                   maxValue={120}
                   step={5}
                   onChange={(value) =>
-                    act('set_midround_grace_period', {
-                      new_grace_period: value,
+                    act('set_var', {
+                      variable: 'midround_grace_period',
+                      new_state: value * 600,
                     })
                   }
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item
-                label="Midround Failure Stallout"
-                verticalAlign="middle"
-              >
+              <LabeledList.Item label="Failure Stallout" verticalAlign="middle">
                 <NumberInput
-                  value={midround_failure_stallout ?? 0}
+                  value={
+                    midround_failure_stallout
+                      ? midround_failure_stallout / 600
+                      : 0
+                  }
                   animated
                   minValue={0}
                   maxValue={60}
                   step={1}
                   onChange={(value) =>
-                    act('set_midround_failure_stallout', {
-                      new_midround_stallout: value,
+                    act('set_var', {
+                      variable: 'midround_failure_stallout',
+                      new_state: value * 600,
                     })
                   }
                   width="50%"
@@ -678,8 +673,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_living_delta', {
-                      new_living_delta: value,
+                    act('set_var', {
+                      variable: 'midround_living_delta',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -693,7 +689,10 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_dead_delta', { new_dead_delta: value })
+                    act('set_var', {
+                      variable: 'midround_dead_delta',
+                      new_state: value,
+                    })
                   }
                   width="25%"
                 />
@@ -706,8 +705,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_dead_security_delta', {
-                      new_dead_security_delta: value,
+                    act('set_var', {
+                      variable: 'midround_dead_security_delta',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -721,8 +721,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_observer_delta', {
-                      new_observer_delta: value,
+                    act('set_var', {
+                      variable: 'midround_observer_delta',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -736,8 +737,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_linear_delta', {
-                      new_linear_delta: value,
+                    act('set_var', {
+                      variable: 'midround_linear_delta',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -754,8 +756,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_linear_delta_forced', {
-                      new_linear_delta_forced: value,
+                    act('set_var', {
+                      variable: 'midround_linear_delta_forced',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -765,6 +768,62 @@ const MidroundPage = () => {
           </Flex.Item>
         </Flex>
       </Flex.Item>
+      <Divider />
+
+      {/* Executed midround rulesets */}
+      <Section fill title="Chance Values">
+        <LabeledList.Item label="Light End Time" verticalAlign="middle">
+          <NumberInput
+            value={light_end_time ?? 0}
+            animated
+            minValue={0}
+            maxValue={599}
+            step={1}
+            onChange={(value) => {
+              act('set_var', {
+                variable: 'midround_light_end_time',
+                new_state: value,
+              });
+              act('calculate_midround_chances');
+            }}
+            width="20%"
+          />
+        </LabeledList.Item>
+        <LabeledList.Item label="Medium End Time" verticalAlign="middle">
+          <NumberInput
+            value={medium_end_time ?? 0}
+            animated
+            minValue={0}
+            maxValue={600}
+            step={1}
+            onChange={(value) => {
+              act('set_var', {
+                variable: 'midround_medium_end_time',
+                new_state: value,
+              });
+              act('calculate_midround_chances');
+            }}
+            width="20%"
+          />
+        </LabeledList.Item>
+        <LabeledList.Item label="Medium Increase Ratio" verticalAlign="middle">
+          <NumberInput
+            value={medium_increase_ratio ?? 0}
+            animated
+            minValue={0}
+            maxValue={1}
+            step={0.1}
+            onChange={(value) => {
+              act('set_var', {
+                variable: 'midround_medium_increase_ratio',
+                new_state: value,
+              });
+              act('calculate_midround_chances');
+            }}
+            width="20%"
+          />
+        </LabeledList.Item>
+      </Section>
       <Divider />
 
       {/* Executed midround rulesets */}
@@ -869,6 +928,27 @@ const MidroundPage = () => {
                 />
               ))}
             </Box>
+            {(() => {
+              const ratio = medium_end_time
+                ? Math.min(1, minutes_elapsed / medium_end_time)
+                : 0;
+              const leftPos = `${Math.min(ratio * 100, 100)}%`;
+
+              return (
+                <Box
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    bottom: 0,
+                    left: leftPos,
+                    width: '2px',
+                    background: 'rgba(255,255,255,0.85)',
+                    zIndex: 2,
+                    pointerEvents: 'none',
+                  }}
+                />
+              );
+            })()}
             {show_light && (
               <Chart.Line
                 fillPositionedParent
@@ -1262,11 +1342,11 @@ const LatejoinPage = () => {
     <Flex direction="column">
       {/* Variables */}
       <Section fill title="Variables">
-        <LabeledList.Item label="Set Latejoin Ruleset" verticalAlign="middle">
+        <LabeledList.Item label="Latejoin Ruleset" verticalAlign="middle">
           <Dropdown
-            options={latejoin_ruleset_names}
+            options={['Random', ...latejoin_ruleset_names, 'None']}
             selected={current_latejoin_ruleset?.name ?? 'None'}
-            width="50%"
+            width="30%"
             onSelected={(value) => {
               const selectedRuleset = valid_latejoin_rulesets.find(
                 (ruleset) => ruleset.name === value,
@@ -1279,10 +1359,7 @@ const LatejoinPage = () => {
             }}
           />
         </LabeledList.Item>
-        <LabeledList.Item
-          label="Set Latejoin Probability"
-          verticalAlign="middle"
-        >
+        <LabeledList.Item label="Latejoin Probability" verticalAlign="middle">
           <NumberInput
             value={latejoin_probability ?? 0}
             animated
@@ -1290,20 +1367,28 @@ const LatejoinPage = () => {
             maxValue={100}
             step={10}
             onChange={(value) =>
-              act('set_latejoin_probability', { new_probability: value })
+              act('set_var', {
+                variable: 'latejoin_ruleset_probability',
+                new_state: value,
+              })
             }
-            width="25%"
+            width="30%"
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Set Max Latejoins" verticalAlign="middle">
+        <LabeledList.Item label="Max Latejoins" verticalAlign="middle">
           <NumberInput
             value={latejoin_max ?? 0}
             animated
             minValue={0}
             maxValue={100}
             step={1}
-            onChange={(value) => act('set_latejoin_max', { new_max: value })}
-            width="25%"
+            onChange={(value) =>
+              act('set_var', {
+                variable: 'latejoin_max_rulesets',
+                new_state: value,
+              })
+            }
+            width="30%"
           />
         </LabeledList.Item>
       </Section>
