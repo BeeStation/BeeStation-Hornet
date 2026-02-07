@@ -1,8 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: Fixed megafauna legion sprite offset being wrong.
-  - bugfix: Fixed megafauna legion going invisible.
-  - bugfix: Fixed megafauna legion splitting into 3 instead of 2 in rare cases.
-  - balance: The mentioned invisibility fix also means that the Legion will have slightly
-      more health than before upon splitting but only in the cases where it gets overkilled.
