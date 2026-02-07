@@ -30,10 +30,14 @@
 	var/has_criticized = FALSE
 	/// Bitflags for communications that are muted
 	var/muted = NONE
+	/// Loadout datum
+	var/datum/loadout/loadout = null
 
 /datum/player_details/New(ckey)
 	src.ckey = ckey
 	achievements = new(ckey)
+	loadout = new /datum/loadout(ckey)
+	loadout.load_from_database()
 
 /datum/player_details/proc/find_client()
 	for (var/client/client in GLOB.clients)

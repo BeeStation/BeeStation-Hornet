@@ -49,16 +49,18 @@
 	early = TRUE
 
 /datum/asset/spritesheet_batched/preferences_loadout/create_spritesheets()
+	if (!length(GLOB.gear_datums))
+		CRASH("Attempting to generate loadout spritesheet prior to gear datums being loaded.")
 	for(var/gear_id in GLOB.gear_datums)
 		var/datum/gear/G = GLOB.gear_datums[gear_id]
 		var/regular_icon = get_display_icon_for(G.path)
 		if(!regular_icon)
 			continue
-		insert_icon("loadout_gear___[gear_id]", regular_icon)
+		insert_icon("loadout_gear___[replacetext(gear_id, "/", "_")]", regular_icon)
 		var/skirt_icon = get_display_icon_for(G.skirt_path)
 		if(!skirt_icon)
 			continue
-		insert_icon("loadout_gear___[gear_id]_skirt", skirt_icon)
+		insert_icon("loadout_gear___[replacetext(gear_id, "/", "_")]_skirt", skirt_icon)
 
 /// Sends information needed for shared details on individual preferences
 /datum/asset/json/preferences

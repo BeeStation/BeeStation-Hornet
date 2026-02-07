@@ -2,6 +2,7 @@
 	subtype_path = /datum/gear/donator
 	sort_category = "Donator"
 	cost = 3500
+	gear_flags = GEAR_DONATOR
 
 //BACKPACKS
 

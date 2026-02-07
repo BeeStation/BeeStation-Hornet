@@ -96,6 +96,7 @@ export type QuirkInfo = {
 export type LoadoutInfo = {
   categories: LoadoutCategory[];
   purchased_gear: string[];
+  purchasable_gear: string[];
   equipped_gear: string[];
   metacurrency_name: string;
 };
@@ -106,11 +107,9 @@ export type LoadoutGear = {
   skirt_display_name: string | null;
   description: string;
   skirt_description: string | null;
-  donator: BooleanLike;
   cost: number;
   allowed_roles: string[] | null;
   is_equippable: BooleanLike;
-  multi_purchase: BooleanLike;
 };
 
 export type LoadoutCategory = {
@@ -203,6 +202,7 @@ export type PreferencesMenuData = {
   selected_quirks: string[];
 
   purchased_gear: string[];
+  purchasable_gear: string[];
   equipped_gear: string[];
   metacurrency_balance: number;
   is_donator: BooleanLike;

@@ -722,8 +722,6 @@
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 
-	prefs.handle_donator_items()
-
 /client/proc/setup_player_details()
 	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
 	if(GLOB.player_details[ckey])
