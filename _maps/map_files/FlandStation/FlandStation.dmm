@@ -61567,7 +61567,7 @@
 	pixel_y = 7
 	},
 /obj/item/toy/plush/carpplushie{
-	color = "red";
+	greyscale_colors = "#ff5050#000000";
 	name = "Nanotrasen wildlife department space carp plushie"
 	},
 /obj/item/paicard{

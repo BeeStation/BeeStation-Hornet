@@ -9762,7 +9762,7 @@
 /obj/item/book/manual/wiki/detective,
 /obj/item/book/manual/wiki/barman_recipes,
 /obj/item/toy/plush/carpplushie{
-	color = "red";
+	greyscale_colors = "#ff5050#000000";
 	name = "Nanotrasen wildlife department space carp plushie";
 	pixel_y = 18;
 	pixel_x = 17
