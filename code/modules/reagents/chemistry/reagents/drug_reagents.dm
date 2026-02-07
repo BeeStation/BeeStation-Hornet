@@ -22,7 +22,7 @@
 
 /datum/reagent/drug/space_drugs/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(15 * REM * delta_time)
+	affected_mob.set_drugginess(30 SECONDS * REM * delta_time)
 	if(isturf(affected_mob.loc) && !isspaceturf(affected_mob.loc) && !HAS_TRAIT(affected_mob, TRAIT_IMMOBILIZED) && DT_PROB(5, delta_time))
 		step(affected_mob, pick(GLOB.cardinals))
 
@@ -169,7 +169,7 @@
 	affected_mob.AdjustParalyzed(-40 * REM * delta_time)
 	affected_mob.AdjustImmobilized(-40 * REM * delta_time)
 	affected_mob.adjustStaminaLoss(-40 * REM * delta_time, updating_health = FALSE)
-	affected_mob.drowsyness = max(affected_mob.drowsyness - (60 * REM * delta_time), 0)
+	affected_mob.set_drowsiness_if_lower(-8 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(4 SECONDS * REM * delta_time)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 
@@ -327,7 +327,7 @@
 		if(10)
 			to_chat(affected_mob, span_warning("You start to feel tired..."))
 		if(11 to 25)
-			affected_mob.drowsyness += 1 * REM * delta_time
+			affected_mob.adjust_drowsiness(2 SECONDS * REM * delta_time)
 		if(26 to INFINITY)
 			affected_mob.Sleeping(60 * REM * delta_time)
 

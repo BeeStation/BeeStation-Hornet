@@ -987,7 +987,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
 		if(4 to 5)
 			M.adjustStaminaLoss((-5 * power), 0)
-			M.drowsyness = max(0, M.drowsyness - 10 * power)
+			M.set_drowsiness_if_lower(4 SECONDS * power)
 			M.AdjustSleeping(-10 * power)
 			M.AdjustUnconscious(-10 * power)
 			if(prob(power) && prob(50))

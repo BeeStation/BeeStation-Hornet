@@ -48,7 +48,6 @@
 
 		if(stat != DEAD)
 			handle_traits(delta_time, times_fired) // eye, ear, brain damages
-			handle_status_effects(delta_time, times_fired) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
 
 	if(machine)
 		machine.check_eye(src)
@@ -84,8 +83,6 @@
 	else // this is a hot place
 		adjust_bodytemperature(min(min(temp_delta / BODYTEMP_DIVISOR, BODYTEMP_HEATING_MAX) * delta_time, temp_delta))
 
-//this updates all special effects: knockdown, druggy, stuttering, etc..
-/mob/living/proc/handle_status_effects(delta_time, times_fired)
 
 /mob/living/proc/handle_traits(delta_time, times_fired)
 	//Eyes
@@ -94,8 +91,6 @@
 			adjust_blindness(-1.5 * delta_time)
 		else if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
 			adjust_blindness(-0.5 * delta_time)
-	else if(eye_blurry) //blurry eyes heal slowly
-		adjust_blurriness(-0.5 * delta_time)
 
 /mob/living/proc/update_damage_hud()
 	return

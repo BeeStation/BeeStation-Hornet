@@ -372,23 +372,6 @@
 		if(HM?.timeout)
 			dna.remove_mutation(HM.type)
 
-//this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
-/mob/living/carbon/handle_status_effects(delta_time, times_fired)
-	..()
-
-	var/restingpwr = 0.5 + 2 * resting
-
-	if(drowsyness)
-		drowsyness = max(drowsyness - (restingpwr * delta_time), 0)
-		blur_eyes(1 * delta_time)
-		if(DT_PROB(2.5, delta_time))
-			AdjustSleeping(100)
-			Unconscious(100)
-
-
-	if(druggy)
-		adjust_drugginess(-0.5 * delta_time)
-
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
 	var/areatemp = get_temperature(environment)

@@ -66,12 +66,8 @@
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.drowsyness = max(affected_mob.drowsyness - (5 * REM * delta_time), 0)
-	affected_mob.AdjustStun(-20 * REM * delta_time)
-	affected_mob.AdjustKnockdown(-20 * REM * delta_time)
-	affected_mob.AdjustUnconscious(-20 * REM * delta_time)
-	affected_mob.AdjustImmobilized(-20 * REM * delta_time)
-	affected_mob.AdjustParalyzed(-20 * REM * delta_time)
+	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
 
 	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
 		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
@@ -89,7 +85,7 @@
 
 /datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.drowsyness = max(affected_mob.drowsyness - (5 * REM * delta_time), 0)
+	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
 	affected_mob.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 
 	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
@@ -720,7 +716,7 @@
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(5, delta_time))
-		affected_mob.drowsyness++
+		affected_mob.adjust_drowsiness(2 SECONDS)
 	affected_mob.adjust_jitter(-2 SECONDS * REM * delta_time)
 	affected_mob.reagents.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
 
@@ -748,7 +744,7 @@
 		if(11)
 			to_chat(affected_mob, span_warning("You start to feel tired...") )
 		if(12 to 24)
-			affected_mob.drowsyness += 1 * REM * delta_time
+			affected_mob.adjust_drowsiness(2 SECONDS * REM * delta_time)
 		if(24 to INFINITY)
 			affected_mob.Sleeping(4 SECONDS * REM * delta_time)
 
@@ -780,14 +776,14 @@
 			to_chat(affected_mob, span_warning("Your vision slowly returns..."))
 			affected_mob.cure_blind(EYE_DAMAGE)
 			affected_mob.cure_nearsighted(EYE_DAMAGE)
-			affected_mob.blur_eyes(35)
+			affected_mob.set_eye_blur_if_lower(70 SECONDS)
 	else if(HAS_TRAIT_FROM(affected_mob, TRAIT_NEARSIGHT, EYE_DAMAGE))
 		to_chat(affected_mob, span_warning("The blackness in your peripheral vision fades."))
 		affected_mob.cure_nearsighted(EYE_DAMAGE)
-		affected_mob.blur_eyes(10)
-	else if(affected_mob.is_blind() || affected_mob.eye_blurry)
+		affected_mob.set_eye_blur_if_lower(20 SECONDS)
+	else if(affected_mob.is_blind() || affected_mob.has_status_effect(/datum/status_effect/eye_blur))
 		affected_mob.set_blindness(0)
-		affected_mob.set_blurriness(0)
+		affected_mob.remove_status_effect(/datum/status_effect/eye_blur)
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"
@@ -953,11 +949,11 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "raw egg"
 	/// All status effects we remove on metabolize.
-	/// Does not include drunk (despite what you may thing) as that's decreased gradually
+	/// Does not include drunk (despite what you may thing) as that's decresed gradually
 	var/static/list/status_effects_to_clear = list(
 		/datum/status_effect/confusion,
 		/datum/status_effect/dizziness,
-		//datum/status_effect/drowsiness,
+		/datum/status_effect/drowsiness,
 		/datum/status_effect/speech/slurring/drunk,
 	)
 
@@ -966,10 +962,9 @@
 	if(!HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
 		for(var/effect in status_effects_to_clear)
 			affected_mob.remove_status_effect(effect)
-		affected_mob.drowsyness = 0
-		affected_mob.adjust_drunk_effect(-10 * REM * delta_time)
 	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
 	affected_mob.adjustToxLoss(-0.2 * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjust_drunk_effect(-10 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 //Stimulants. Used in Adrenal Implant
@@ -1337,21 +1332,23 @@
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.drowsyness += 2 * REM * delta_time
-	affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_health = FALSE)
 
 	for(var/datum/reagent/drug/drug in affected_mob.reagents.reagent_list)
 		affected_mob.reagents.remove_reagent(drug.type, 5 * REM * delta_time)
+	affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
 
 	if(affected_mob.get_timed_status_effect_duration(/datum/status_effect/jitter) >= 6 SECONDS)
-		affected_mob.adjust_timed_status_effect(-6 SECONDS * REM * delta_time, /datum/status_effect/jitter)
+		affected_mob.adjust_jitter(-6 SECONDS * REM * delta_time)
+
 	if (affected_mob.get_timed_status_effect_duration(/datum/status_effect/hallucination) >= 10 SECONDS)
 		affected_mob.adjust_hallucinations(-10 SECONDS * REM * delta_time)
 
+	var/need_mob_update = FALSE
 	if(DT_PROB(10, delta_time))
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50)
-
-	return UPDATE_MOB_HEALTH
+		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50)
+	need_mob_update += affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_health = FALSE)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/lavaland_extract
 	name = "Lavaland Extract"

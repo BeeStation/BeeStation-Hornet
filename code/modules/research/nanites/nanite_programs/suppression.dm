@@ -10,7 +10,7 @@
 
 /datum/nanite_program/sleepy/on_trigger(comm_message)
 	to_chat(host_mob, span_warning("You start to feel very sleepy..."))
-	host_mob.drowsyness += 20
+	host_mob.adjust_drowsiness(40 SECONDS)
 	addtimer(CALLBACK(host_mob, TYPE_PROC_REF(/mob/living, Sleeping), 200), rand(60,200))
 
 /datum/nanite_program/paralyzing

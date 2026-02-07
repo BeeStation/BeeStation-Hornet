@@ -76,8 +76,13 @@
 		var/mob/living/carbon/human/human_owner = eye_owner
 		human_owner.eye_color = old_eye_color
 		human_owner.update_body()
+	eye_owner.cure_blind(EYE_DAMAGE)
+	eye_owner.cure_nearsighted(EYE_DAMAGE)
+	eye_owner.set_blindness(0)
+	eye_owner.remove_status_effect(/datum/status_effect/eye_blur)
 	eye_owner.update_tint()
 	eye_owner.update_sight()
+
 
 //Gotta reset the eye color, because that persists
 /obj/item/organ/eyes/enter_wardrobe()
