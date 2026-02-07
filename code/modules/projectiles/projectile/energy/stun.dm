@@ -212,7 +212,7 @@
 	if(istype(taser, /obj/item/mecha_parts/mecha_equipment))
 		var/obj/item/mecha_parts/mecha_equipment/taser_equipment = taser
 		if(!taser_equipment.chassis \
-			|| !taser_equipment.activated \
+			|| !taser_equipment.active \
 			|| taser_equipment.get_integrity() <= 1 \
 			|| taser_equipment.chassis.is_currently_ejecting \
 			|| taser_equipment.chassis.equipment_disabled \

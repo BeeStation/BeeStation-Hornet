@@ -1,16 +1,25 @@
-/obj/vehicle/sealed/mecha/combat/durand
+/obj/vehicle/sealed/mecha/durand
 	desc = "An aging combat exosuit utilized by the Nanotrasen corporation. Originally developed to combat hostile alien lifeforms."
 	name = "\improper Durand"
 	icon_state = "durand"
 	base_icon_state = "durand"
 	movedelay = 4
-	dir_in = 1 //Facing North.
 	max_integrity = 400
-	deflect_chance = 20
+	accesses = list(ACCESS_MECH_SCIENCE, ACCESS_MECH_SECURITY)
 	armor_type = /datum/armor/combat_durand
 	max_temperature = 30000
 	force = 40
+	destruction_knockdown_duration = 40
+	exit_delay = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
+	mech_type = EXOSUIT_MODULE_DURAND
+	max_equip_by_category = list(
+		MECHA_L_ARM = 1,
+		MECHA_R_ARM = 1,
+		MECHA_UTILITY = 3,
+		MECHA_POWER = 1,
+		MECHA_ARMOR = 3,
+	)
 	var/obj/durand_shield/shield
 
 
@@ -24,24 +33,24 @@
 	fire = 100
 	acid = 100
 
-/obj/vehicle/sealed/mecha/combat/durand/Initialize(mapload)
+/obj/vehicle/sealed/mecha/durand/Initialize(mapload)
 	. = ..()
 	shield = new /obj/durand_shield(loc, src, layer, dir)
 	RegisterSignal(src, COMSIG_MECHA_ACTION_TRIGGER, PROC_REF(relay))
 	RegisterSignal(src, COMSIG_PROJECTILE_PREHIT, PROC_REF(prehit))
 
 
-/obj/vehicle/sealed/mecha/combat/durand/Destroy()
+/obj/vehicle/sealed/mecha/durand/Destroy()
 	if(shield)
 		QDEL_NULL(shield)
 	return ..()
 
 
-/obj/vehicle/sealed/mecha/combat/durand/generate_actions()
+/obj/vehicle/sealed/mecha/durand/generate_actions()
 	. = ..()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_defense_mode)
 
-/obj/vehicle/sealed/mecha/combat/durand/process()
+/obj/vehicle/sealed/mecha/durand/process()
 	. = ..()
 	if(defense_mode && !use_power(100))	//Defence mode can only be on with a occupant so we check if one of them can toggle it and toggle
 		for(var/O in occupants)
@@ -51,17 +60,17 @@
 				action.trigger()
 				break
 
-/obj/vehicle/sealed/mecha/combat/durand/Move(direction)
+/obj/vehicle/sealed/mecha/durand/Move(direction)
 	. = ..()
 	if(shield)
 		shield.forceMove(loc)
 		shield.setDir(dir)
 
-/obj/vehicle/sealed/mecha/combat/durand/forceMove(turf/T)
+/obj/vehicle/sealed/mecha/durand/forceMove(turf/T)
 	. = ..()
 	shield.forceMove(T)
 
-/obj/vehicle/sealed/mecha/combat/durand/mob_exit(mob/M, silent, randomstep, forced)
+/obj/vehicle/sealed/mecha/durand/mob_exit(mob/M, silent = FALSE, randomstep = FALSE, forced = FALSE)
 	if(defense_mode)
 		var/datum/action/action = LAZYACCESSASSOC(occupant_actions, M, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
 		if(action)
@@ -69,7 +78,7 @@
 	return ..()
 
 ///Relays the signal from the action button to the shield, and creates a new shield if the old one is MIA.
-/obj/vehicle/sealed/mecha/combat/durand/proc/relay(datum/source, mob/owner, list/signal_args)
+/obj/vehicle/sealed/mecha/durand/proc/relay(datum/source, mob/owner, list/signal_args)
 	SIGNAL_HANDLER
 	if(!shield) //if the shield somehow got deleted
 		stack_trace("Durand triggered relay without a shield")
@@ -78,14 +87,16 @@
 	SEND_SIGNAL(shield, COMSIG_MECHA_ACTION_TRIGGER, owner, signal_args)
 
 //Redirects projectiles to the shield if defense_check decides they should be blocked and returns true.
-/obj/vehicle/sealed/mecha/combat/durand/proc/prehit(obj/vehicle/sealed/mecha/combat/durand/source, obj/projectile/projectile, list/signal_args)
+/obj/vehicle/sealed/mecha/durand/proc/prehit(obj/vehicle/sealed/mecha/durand/source, obj/projectile/projectile, list/signal_args)
+	SIGNAL_HANDLER
+
 	if(defense_check(get_step(src, angle2dir(projectile.Angle + 180))) && shield)
 		signal_args[2] = shield
 
 
 /**Checks if defense mode is enabled, and if the attacker is standing in an area covered by the shield.
 Expects a turf. Returns true if the attack should be blocked, false if not.*/
-/obj/vehicle/sealed/mecha/combat/durand/proc/defense_check(turf/aloc)
+/obj/vehicle/sealed/mecha/durand/proc/defense_check(turf/aloc)
 	if (!defense_mode || !shield || shield.switching)
 		return FALSE
 	. = FALSE
@@ -104,14 +115,14 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 				. = TRUE
 	return
 
-/obj/vehicle/sealed/mecha/combat/durand/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
+/obj/vehicle/sealed/mecha/durand/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
 	if(defense_check(user.loc))
 		log_message("Attack absorbed by defense field. Attacker - [user].", LOG_MECHA, color="orange")
 		shield.attack_generic(user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
 	else
 		. = ..()
 
-/obj/vehicle/sealed/mecha/combat/durand/blob_act(obj/structure/blob/B)
+/obj/vehicle/sealed/mecha/durand/blob_act(obj/structure/blob/B)
 	if(defense_check(B.loc))
 		log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
 		log_message("Attack absorbed by defense field.", LOG_MECHA, color="orange")
@@ -119,19 +130,26 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 	else
 		. = ..()
 
-/obj/vehicle/sealed/mecha/combat/durand/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/vehicle/sealed/mecha/durand/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(defense_check(user.loc))
 		log_message("Attack absorbed by defense field. Attacker - [user], with [W]", LOG_MECHA, color="orange")
 		shield.attackby(W, user, params)
 	else
 		. = ..()
 
-/obj/vehicle/sealed/mecha/combat/durand/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+/obj/vehicle/sealed/mecha/durand/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(defense_check(AM.loc))
 		log_message("Impact with [AM] absorbed by defense field.", LOG_MECHA, color="orange")
 		shield.hitby(AM, skipcatch, hitpush, blocked, throwingdatum)
 	else
 		. = ..()
+
+/datum/action/vehicle/sealed/mecha/mech_defense_mode
+	name = "Toggle an energy shield that blocks all attacks from the faced direction at a heavy power cost."
+	button_icon_state = "mech_defense_mode_off"
+
+/datum/action/vehicle/sealed/mecha/mech_defense_mode/on_activate(mob/user, atom/target)
+	SEND_SIGNAL(chassis, COMSIG_MECHA_ACTION_TRIGGER, owner, args) //Signal sent to the mech, to be handed to the shield. See durand.dm for more details
 
 ////////////////////////////
 ///// Shield processing ////
@@ -157,7 +175,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	light_color = LIGHT_COLOR_CYAN
 	light_on = FALSE
 	///Our link back to the durand
-	var/obj/vehicle/sealed/mecha/combat/durand/chassis
+	var/obj/vehicle/sealed/mecha/durand/chassis
 	///To keep track of things during the animation
 	var/switching = FALSE
 	var/currentuser

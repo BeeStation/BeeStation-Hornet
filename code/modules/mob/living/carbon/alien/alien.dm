@@ -26,6 +26,7 @@
 	add_verb(/mob/living/proc/toggle_resting)
 
 	create_bodyparts() //initialize bodyparts
+
 	create_internal_organs()
 
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
@@ -116,6 +117,7 @@ Des: Removes all infected images from the alien.
 	if(!alien_name_regex.Find(name))
 		new_xeno.name = name
 		new_xeno.real_name = real_name
+
 	if(mind)
 		mind.transfer_to(new_xeno)
 	qdel(src)

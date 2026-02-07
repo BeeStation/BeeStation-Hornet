@@ -1,21 +1,27 @@
-/obj/vehicle/sealed/mecha/combat/reticence
+/obj/vehicle/sealed/mecha/reticence
 	desc = "A silent, fast, and nigh-invisible miming exosuit. Popular among mimes and mime assassins."
 	name = "\improper reticence"
 	icon_state = "reticence"
 	base_icon_state = "reticence"
 	movedelay = 2
-	dir_in = 1 //Facing North.
 	max_integrity = 100
-	deflect_chance = 3
 	armor_type = /datum/armor/combat_reticence
 	max_temperature = 15000
+	force = 30
+	destruction_knockdown_duration = 40
+	exit_delay = 40
 	wreckage = /obj/structure/mecha_wreckage/reticence
-	operation_req_access = list(ACCESS_THEATRE)
-	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_THEATRE)
-	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS | QUIET_STEPS | QUIET_TURNS
-	internal_damage_threshold = 25
-	max_equip = 2
-	step_energy_drain = 3
+	accesses = list(ACCESS_MECH_SCIENCE, ACCESS_THEATRE)
+	mecha_flags = CAN_STRAFE | IS_ENCLOSED | HAS_LIGHTS | QUIET_STEPS | QUIET_TURNS
+	mech_type = EXOSUIT_MODULE_RETICENCE
+	max_equip_by_category = list(
+		MECHA_L_ARM = 1,
+		MECHA_R_ARM = 1,
+		MECHA_UTILITY = 3,
+		MECHA_POWER = 1,
+		MECHA_ARMOR = 1,
+	)
+	step_energy_drain = 4
 	color = "#87878715"
 
 
@@ -27,9 +33,18 @@
 	fire = 100
 	acid = 100
 
-/obj/vehicle/sealed/mecha/combat/reticence/loaded/Initialize(mapload)
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/rcd //HAHA IT MAKES WALLS GET IT
-	ME.attach(src)
+/obj/vehicle/sealed/mecha/reticence/loaded
+	equip_by_category = list(
+		MECHA_L_ARM = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced,
+		MECHA_R_ARM = /obj/item/mecha_parts/mecha_equipment/rcd,
+		MECHA_UTILITY = list(),
+		MECHA_POWER = list(),
+		MECHA_ARMOR = list(),
+	)
+
+/obj/vehicle/sealed/mecha/reticence/loaded/populate_parts()
+	cell = new /obj/item/stock_parts/cell/hyper(src)
+	scanmod = new /obj/item/stock_parts/scanning_module/phasic(src)
+	capacitor = new /obj/item/stock_parts/capacitor/super(src)
+	servo = new /obj/item/stock_parts/manipulator/pico(src)
+	update_part_values()

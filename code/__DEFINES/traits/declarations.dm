@@ -238,6 +238,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// If applied to a mob, nearby dogs will have a small chance to nonharmfully harass said mob
 #define TRAIT_HATED_BY_DOGS "hated_by_dogs"
 #define TRAIT_BALLMER_SCIENTIST "ballmer_scientist"
+#define TRAIT_KNOW_ROBO_WIRES "know_robo_wires"
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"

@@ -244,6 +244,29 @@
 		if(istype(I) && I.on_found(user))
 			return
 
+/**
+ * Checks whether wire assignments should be revealed.
+ *
+ * Returns TRUE if the wires should be revealed, FALSE otherwise.
+ * Currently checks for admin ghost AI, abductor multitool and blueprints.
+ * Arguments:
+ * * user - The mob to check when deciding whether to reveal wires.
+ */
+/datum/wires/proc/can_reveal_wires(mob/user)
+	// Admin ghost can see a purpose of each wire.
+	if(IsAdminGhost(user))
+		return TRUE
+
+	// Same for anyone with an abductor multitool.
+	if(user.is_holding_item_of_type(/obj/item/multitool/abductor))
+		return TRUE
+
+	// Station blueprints do that too, but only if the wires are not randomized.
+	if(user.is_holding_item_of_type(/obj/item/areaeditor/blueprints) && !randomize)
+		return TRUE
+
+	return FALSE
+
 /datum/wires/ui_host()
 	return holder
 

@@ -25,11 +25,11 @@
 	QDEL_IN(src, engine.delay) //Gotta let it stop drifting
 	animate(src, alpha = 0, time = engine.delay)
 
-/obj/effect/decal/chempuff/proc/loop_ended(datum/source)
+/obj/effect/decal/chempuff/proc/loop_ended(datum/move_loop/source)
 	SIGNAL_HANDLER
 	if(QDELETED(src))
 		return
-	qdel(src)
+	end_life(source)
 
 /obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, result)
 	if(QDELETED(src)) //Reasons PLEASE WORK I SWEAR TO GOD
