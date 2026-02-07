@@ -1,0 +1,494 @@
+/**
+ * CorporateThreatHandbook Interface Styles
+ *
+ * Styles for the Nanotrasen Corporate Threat Handbook UI.
+ * Works with the 'document' theme.
+ */
+
+// Variables
+$handbook-border: hsl(30, 20%, 60%);
+$handbook-accent: hsl(30, 50%, 25%);
+$handbook-fg: hsl(30, 10%, 15%);
+$handbook-subtle-bg: rgba(139, 119, 101, 0.08);
+
+// Main layout
+.Handbook {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.Handbook__pageNumber {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 11px;
+  color: hsl(30, 10%, 40%);
+  font-style: italic;
+  z-index: 10;
+}
+
+.Handbook__page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  padding: 1.5rem;
+  overflow-y: auto;
+  box-shadow: inset 0 0 30px rgba(139, 119, 101, 0.1);
+}
+
+// Navigation bar
+.Handbook__nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+}
+
+// Designation colors
+.Handbook__designation {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+}
+
+.Handbook__designation--negligible {
+  color: hsl(120, 35%, 30%);
+}
+.Handbook__designation--minor {
+  color: hsl(180, 35%, 30%);
+}
+.Handbook__designation--moderate {
+  color: hsl(45, 60%, 35%);
+}
+.Handbook__designation--major {
+  color: hsl(30, 70%, 35%);
+}
+.Handbook__designation--severe {
+  color: hsl(15, 70%, 35%);
+}
+.Handbook__designation--critical {
+  color: hsl(0, 70%, 35%);
+}
+
+// Cover page
+.Handbook__cover {
+  min-height: 100%;
+  padding: 1.5rem 1rem;
+}
+
+.Handbook__coverLogo {
+  color: var(--document-accent, $handbook-accent);
+  opacity: 0.85;
+}
+
+.Handbook__coverCorp {
+  font-size: 14px;
+  letter-spacing: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.Handbook__coverTitleBlock {
+  text-align: center;
+  padding: 1rem 2rem;
+}
+
+.Handbook__coverTitle {
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(139, 119, 101, 0.2);
+  margin-bottom: 0.5rem;
+}
+
+.Handbook__coverAuthor {
+  font-size: 13px;
+  color: hsl(30, 10%, 40%);
+  font-style: italic;
+}
+
+.Handbook__stamps {
+  gap: 2rem;
+}
+
+.Handbook__stamp {
+  padding: 0.4rem 1rem;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 2px solid;
+  opacity: 0.85;
+}
+
+.Handbook__stamp--red {
+  color: hsl(0, 60%, 35%);
+  border-color: hsl(0, 60%, 35%);
+  transform: rotate(-5deg);
+}
+
+.Handbook__stamp--blue {
+  color: hsl(210, 60%, 35%);
+  border-color: hsl(210, 60%, 35%);
+  transform: rotate(3deg);
+}
+
+.Handbook__coverInfo {
+  gap: 1rem;
+}
+
+.Handbook__coverInfoItem {
+  text-align: center;
+  padding: 0.5rem 1rem;
+  background: $handbook-subtle-bg;
+  border: 1px solid var(--document-border, $handbook-border);
+}
+
+.Handbook__coverInfoLabel {
+  font-size: 9px;
+  color: hsl(30, 10%, 45%);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+}
+
+.Handbook__coverInfoValue {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.Handbook__notice {
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 10px;
+  color: hsl(0, 60%, 25%);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  max-width: 380px;
+  padding: 0.6rem 1rem;
+  background: rgba(180, 60, 60, 0.06);
+  border: 2px solid hsl(0, 40%, 40%);
+  transform: rotate(-0.5deg);
+}
+
+.Handbook__coverFooter {
+  font-size: 10px;
+  color: hsl(30, 10%, 50%);
+  margin-top: auto;
+}
+
+// Contents page
+.Handbook__subtitle {
+  font-size: 12px;
+  color: hsl(30, 10%, 45%);
+  font-style: italic;
+  text-align: center;
+}
+
+.Handbook__tocItem {
+  display: flex;
+  align-items: baseline;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+
+  &:hover {
+    background: rgba(139, 119, 101, 0.1);
+    border-left-color: var(--document-accent, $handbook-accent);
+  }
+}
+
+.Handbook__tocNumber {
+  font-weight: bold;
+  color: var(--document-accent, $handbook-accent);
+  margin-right: 0.5rem;
+}
+
+.Handbook__tocText {
+  flex: 1;
+  font-size: 12px;
+}
+
+.Handbook__tocDesc {
+  font-size: 10px;
+  color: hsl(30, 10%, 50%);
+  font-style: italic;
+}
+
+.Handbook__tocPage {
+  font-size: 11px;
+  color: hsl(30, 10%, 45%);
+  margin-left: 0.5rem;
+}
+
+.Handbook__statRow {
+  padding: 0.25rem 0.5rem;
+  font-size: 11px;
+}
+
+.Handbook__statCount {
+  font-weight: bold;
+  background: rgba(139, 119, 101, 0.15);
+  padding: 0.1rem 0.5rem;
+  border-radius: 2px;
+}
+
+.Handbook__threatGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.Handbook__threatItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba($handbook-border, 0.5);
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(139, 119, 101, 0.12);
+    transform: translateX(2px);
+  }
+}
+
+.Handbook__threatSymbol {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 119, 101, 0.1);
+  border-radius: 2px;
+  color: var(--document-accent, $handbook-accent);
+  font-family: 'Times New Roman', 'Georgia', serif;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.Handbook__threatInfo {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+
+  > div:first-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.Handbook__threatPage {
+  font-size: 10px;
+  color: hsl(30, 10%, 50%);
+  padding: 0.2rem 0.4rem;
+  background: rgba(139, 119, 101, 0.1);
+}
+
+// Designations page
+.Handbook__intro {
+  font-size: 12px;
+  color: hsl(30, 10%, 35%);
+  padding: 0.75rem;
+  background: rgba(139, 119, 101, 0.05);
+  border-left: 3px solid var(--document-accent, $handbook-accent);
+}
+
+.Handbook__designationGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.Handbook__designationCard {
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--document-border, $handbook-border);
+  border-left-width: 4px;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.Handbook__designationCard--negligible {
+  border-left-color: hsl(120, 35%, 30%);
+}
+.Handbook__designationCard--minor {
+  border-left-color: hsl(180, 35%, 30%);
+}
+.Handbook__designationCard--moderate {
+  border-left-color: hsl(45, 60%, 35%);
+}
+.Handbook__designationCard--major {
+  border-left-color: hsl(30, 70%, 35%);
+}
+.Handbook__designationCard--severe {
+  border-left-color: hsl(15, 70%, 35%);
+}
+.Handbook__designationCard--critical {
+  border-left-color: hsl(0, 70%, 35%);
+}
+
+.Handbook__designationSymbol {
+  font-family: 'Times New Roman', 'Georgia', serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--document-accent, $handbook-accent);
+  opacity: 0.8;
+  margin-right: 0.5rem;
+}
+
+.Handbook__designationDesc {
+  font-size: 11px;
+  color: hsl(30, 10%, 35%);
+  line-height: 1.4;
+}
+
+.Handbook__note {
+  font-size: 11px;
+  color: hsl(30, 10%, 45%);
+  font-style: italic;
+  padding: 0.5rem 0.75rem;
+  background: rgba(139, 119, 101, 0.05);
+  border: 1px dashed var(--document-border, $handbook-border);
+  text-align: center;
+}
+
+// Threat entry page
+.Handbook__entryHeader {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 119, 101, 0.1) 0%,
+    rgba(139, 119, 101, 0.05) 100%
+  );
+  border: 1px solid var(--document-border, $handbook-border);
+  border-left-width: 5px;
+}
+
+.Handbook__entryHeader--negligible {
+  border-left-color: hsl(120, 35%, 30%);
+}
+.Handbook__entryHeader--minor {
+  border-left-color: hsl(180, 35%, 30%);
+}
+.Handbook__entryHeader--moderate {
+  border-left-color: hsl(45, 60%, 35%);
+}
+.Handbook__entryHeader--major {
+  border-left-color: hsl(30, 70%, 35%);
+}
+.Handbook__entryHeader--severe {
+  border-left-color: hsl(15, 70%, 35%);
+}
+.Handbook__entryHeader--critical {
+  border-left-color: hsl(0, 70%, 35%);
+}
+
+.Handbook__entrySymbol {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--document-border, $handbook-border);
+  border-radius: 4px;
+  font-family: 'Times New Roman', 'Georgia', serif;
+  font-weight: bold;
+  font-size: 28px;
+  color: var(--document-accent, $handbook-accent);
+  margin-right: 1rem;
+}
+
+.Handbook__entryTitle {
+  font-size: 18px;
+  margin-bottom: 0.25rem;
+}
+
+.Handbook__sidebar {
+  width: 180px;
+  margin-left: 1rem;
+}
+
+.Handbook__sign {
+  font-size: 10px;
+  color: hsl(30, 10%, 30%);
+  margin-bottom: 0.4rem;
+}
+
+.Handbook__quickrefItem {
+  margin-bottom: 0.4rem;
+}
+
+.Handbook__quickrefLabel {
+  font-size: 9px;
+  color: hsl(30, 10%, 50%);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// End page
+.Handbook__endPage {
+  min-height: 100%;
+  padding: 1rem;
+  text-align: center;
+}
+
+.Handbook__endSeal {
+  color: var(--document-accent, $handbook-accent);
+  opacity: 0.7;
+}
+
+.Handbook__endTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.Handbook__endDivider {
+  width: 80%;
+  gap: 1rem;
+  color: var(--document-accent, $handbook-accent);
+}
+
+.Handbook__endDividerLine {
+  height: 1px;
+  background: var(--document-border, $handbook-border);
+}
+
+.Handbook__endMessage {
+  font-size: 13px;
+  color: hsl(30, 10%, 35%);
+  max-width: 350px;
+}
+
+.Handbook__contactText {
+  font-size: 11px;
+  color: hsl(30, 10%, 40%);
+  max-width: 380px;
+}
+
+.Handbook__endFooter {
+  margin-top: auto;
+}
+
+.Handbook__endVersion {
+  font-size: 11px;
+  color: hsl(30, 10%, 50%);
+  margin-bottom: 0.5rem;
+}
+
+.Handbook__endDisclaimer {
+  font-size: 9px;
+  color: hsl(0, 50%, 40%);
+  font-style: italic;
+  max-width: 350px;
+}

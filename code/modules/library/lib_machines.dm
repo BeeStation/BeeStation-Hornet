@@ -350,6 +350,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			dat += "<A href='byond://?src=[REF(src)];printsopsci=1'>\[Science SOP\]</A><BR>"
 			dat += "<A href='byond://?src=[REF(src)];printsopmed=1'>\[Medical SOP\]</A><BR>"
 			dat += "<A href='byond://?src=[REF(src)];printsopsvc=1'>\[Service SOP\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printthreathandbook=1'>\[NT Incident Awareness\]</A><BR>"
 			dat += "<A href='byond://?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(8)
 			dat += "<h3>Accessing Forbidden Lore Vault v 1.3</h3>"
@@ -599,6 +600,13 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(href_list["printsopsvc"])
 		if(cooldown < world.time)
 			new /obj/item/book/manual/wiki/sopservice(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printthreathandbook"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/tgui_handbook(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
