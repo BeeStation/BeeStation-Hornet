@@ -235,7 +235,7 @@
 			return
 		to_chat(user, span_notice("You begin to exorcise [SS]."))
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
-		if(do_after(user, 40, target = SS))
+		if(do_after(user, 4 SECONDS, target = SS))
 			playsound(src,'sound/effects/pray_chaplain.ogg',60,1)
 			SS.required_role = null
 			SS.theme = THEME_HOLY

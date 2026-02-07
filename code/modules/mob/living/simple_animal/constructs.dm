@@ -40,6 +40,8 @@
 	var/playstyle_string = span_bigbold("You are a generic construct!") + "<b> Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/master = null
 	var/seeking = FALSE
+	var/original_name = null // The original name of the person, passed down by /proc/makeNewConstruct(mob/living/simple_animal/hostile/construct/
+	var/original_real_name = null
 	var/can_repair_constructs = FALSE
 	var/can_repair_self = FALSE
 	/// Theme controls color. THEME_CULT is red THEME_WIZARD is purple and THEME_HOLY is blue
@@ -50,6 +52,27 @@
 
 	usable_legs = 0
 	usable_hands = 0
+
+/mob/living/simple_animal/hostile/construct/death(gibbed)
+	if(!mind)
+		return ..()
+	var/obj/item/soulstone/stone = /obj/item/soulstone/anybody
+	switch(theme)
+		if(THEME_CULT)
+			stone = /obj/item/soulstone
+		if(THEME_WIZARD)
+			stone = /obj/item/soulstone/mystic
+		if(THEME_HOLY)
+			stone = /obj/item/soulstone/anybody/purified
+		else
+			stone = /obj/item/soulstone/anybody
+	if(original_name)
+		name = original_name //set the names so init_shade() uses the right one. I know this is spagetti, but the other solution was adding even more params to init_shade
+	if(original_real_name)
+		real_name = original_real_name
+	stone = new stone(drop_location())
+	stone.init_shade(src)
+	return ..()
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
