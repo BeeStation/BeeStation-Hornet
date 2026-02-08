@@ -830,6 +830,25 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			else
 				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
+	// Unaccounted for antagonists
+	var/list/unaccounted_antagonists = list()
+	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+		if (antagonist.spawning_ruleset)
+			continue
+		if (unaccounted_antagonists[antagonist.name])
+			unaccounted_antagonists[antagonist.name] = unaccounted_antagonists[antagonist.name] + 1
+		else
+			unaccounted_antagonists[antagonist.name] = 1
+
+	if (length(unaccounted_antagonists))
+		discordmsg += "Other Antagonists:\n"
+		for (var/antag_name in unaccounted_antagonists)
+			var/count = unaccounted_antagonists[antag_name]
+			if (count > 1)
+				discordmsg += "- **[antag_name]** (x[count]):\n"
+			else
+				discordmsg += "- **[antag_name]**:\n"
+
 	var/list/ded = SSblackbox.first_death
 	if(ded)
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"

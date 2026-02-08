@@ -405,6 +405,9 @@ SUBSYSTEM_DEF(dynamic)
  * Select the gamemode to be ran
  */
 /datum/controller/subsystem/dynamic/proc/execute_gamemode_roundstart(list/gamemodes)
+	if(forced_extended)
+		log_dynamic("GAMEMODE: Starting a round of forced extended.")
+		return
 	var/list/possible_gamemodes = list()
 	// Apply whitelist rules
 	if (gamemode_whitelist_forced)
@@ -926,6 +929,14 @@ SUBSYSTEM_DEF(dynamic)
 		if (executed_ruleset.removed)
 			continue
 		gamemode_executed = TRUE
+	// Check if a gamemode antagonist is in existance, even if not spawned through us
+	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+		for (var/datum/dynamic_ruleset/gamemode/gamemode_antagonist as anything in subtypesof(/datum/dynamic_ruleset/gamemode))
+			if (gamemode_antagonist::antag_datum && ispath(antagonist.type, gamemode_antagonist))
+				gamemode_executed = TRUE
+				break
+		if (gamemode_executed)
+			break
 	if (!gamemode_executed)
 		if (!gamemode_late_ruleset)
 			gamemode_late_ruleset = pick_ruleset(get_weighted_executable_rulesets(gamemode_configured_rulesets, TRUE), ignore_points = TRUE, ignore_candidates = TRUE)
