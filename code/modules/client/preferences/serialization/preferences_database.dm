@@ -120,7 +120,7 @@
 	role_preferences_global = SANITIZE_LIST(role_preferences_global)
 
 	pai_name = sanitize_text(pai_name, initial(pai_name))
-	pai_description	= sanitize_text(pai_description, initial(pai_description))
+	pai_description = sanitize_text(pai_description, initial(pai_description))
 	pai_comment = sanitize_text(pai_comment, initial(pai_comment))
 
 	sanitize_keybinds()
