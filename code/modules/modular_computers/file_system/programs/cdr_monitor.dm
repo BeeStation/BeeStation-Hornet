@@ -7,7 +7,7 @@
 	extended_desc = "The Condensate Decay Reactor monitoring system. As one might expect, it monitors CDRs."
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_CONSTRUCTION)
-	network_destination = "metallic decay reactor monitoring system"
+	network_destination = "condensate decay reactor monitoring system"
 	size = 4
 	tgui_id = "NtosCdr"
 	program_icon = "radiation"

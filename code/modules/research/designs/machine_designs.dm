@@ -85,7 +85,7 @@
 
 /datum/design/board/cdr
 	name = "Machine Design (Condensate Decay Reactor)"
-	desc = "The circuit board for a metallic decay reactor."
+	desc = "The circuit board for a condensate decay reactor."
 	id = "cdr"
 	build_path = /obj/item/circuitboard/machine/cdr
 	category = list ("Engineering Machinery")

@@ -253,7 +253,7 @@
 		/obj/item/stock_parts/capacitor = 6)
 
 /obj/item/circuitboard/machine/cdr
-	name = "metallic decay reactor (Machine Board)"
+	name = "condensate decay reactor (Machine Board)"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/unary/cdr
 	req_components = list(
