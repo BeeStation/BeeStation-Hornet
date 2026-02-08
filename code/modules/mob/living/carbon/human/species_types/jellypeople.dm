@@ -14,6 +14,10 @@
 		FACEHAIR,
 	)
 	inherent_traits = list(
+		TRAIT_TOXINLOVER,
+		TRAIT_NOHAIRLOSS,
+		TRAIT_NOFIRE,
+		TRAIT_EASYDISMEMBER,
 		TRAIT_NOBLOOD
 	)
 	hair_color = "mutcolor"
