@@ -378,6 +378,9 @@
 	attack_verb_simple = list("bite", "eat", "fin slap")
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
 
+/obj/item/toy/plush/carpplushie/regular
+	greyscale_colors = "#cc99ff#000000"
+
 /obj/item/toy/plush/bubbleplush
 	name = "\improper Bubblegum plushie"
 	desc = "The friendly red demon that gives good miners gifts."

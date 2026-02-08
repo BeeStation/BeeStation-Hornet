@@ -5,6 +5,7 @@
 
 //Child of carpplushie because this should do everything the toy does and more
 /obj/item/toy/plush/carpplushie/dehy_carp
+	greyscale_colors = "#911200#000000" //red, like lia!
 	var/mob/owner = null //Carp doesn't attack owner, set when using in hand
 	var/mobtype = /mob/living/simple_animal/hostile/carp //So admins can change what mob spawns via var fuckery
 	var/swelling = FALSE
