@@ -245,10 +245,7 @@
 	if(istype(exposed_obj, /obj/item/food/monkeycube))
 		var/obj/item/food/monkeycube/cube = exposed_obj
 		cube.Expand()
-	// Dehydrated carp
-	else if(istype(exposed_obj, /obj/item/toy/plush/carpplushie/dehy_carp))
-		var/obj/item/toy/plush/carpplushie/dehy_carp/dehy = exposed_obj
-		dehy.Swell()
+
 	// Leather
 	else if(istype(exposed_obj, /obj/item/stack/sheet/leather/hairlesshide))
 		var/obj/item/stack/sheet/leather/hairlesshide/hide = exposed_obj

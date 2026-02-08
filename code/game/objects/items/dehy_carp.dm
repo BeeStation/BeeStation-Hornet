@@ -9,6 +9,14 @@
 	var/mobtype = /mob/living/simple_animal/hostile/carp //So admins can change what mob spawns via var fuckery
 	var/swelling = FALSE
 
+/obj/item/toy/plush/carpplushie/dehy_carp/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_EXPOSE_REAGENT, PROC_REF(on_expose_reagent))
+
+/obj/item/toy/plush/carpplushie/dehy_carp/proc/on_expose_reagent(atom/parent_atom, datum/reagent/exposing_reagent, reac_volume)
+	SIGNAL_HANDLER
+	Swell()
+
 //Attack self
 /obj/item/toy/plush/carpplushie/dehy_carp/attack_self(mob/user)
 	if(owner)
