@@ -29791,7 +29791,6 @@
 "hxQ" = (
 /obj/effect/turf_decal/siding/red/corner{
 	dir = 8;
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
@@ -34722,7 +34721,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/siding/red/corner{
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /turf/open/floor/iron/smooth_large,
@@ -36677,6 +36675,10 @@
 	},
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/door/window/northleft{
+	name = "Kitchen Delivery";
+	req_access_txt = "28"
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "jNv" = (
@@ -39650,14 +39652,12 @@
 "kSg" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 10;
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/structure/sign/poster/contraband/clown{
 	pixel_x = -32
 	},
-/obj/structure/platform/wood,
 /turf/open/floor/iron/smooth_large,
 /area/crew_quarters/theatre)
 "kSn" = (
@@ -45880,6 +45880,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
+	},
+/obj/machinery/door/window/westright{
+	req_one_access_txt = "22;25;26;28;35;37"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
@@ -57447,15 +57450,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"rdz" = (
-/obj/effect/turf_decal/siding/red{
-	pixel_x = 0;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/platform/wood,
-/turf/open/floor/iron/smooth_large,
-/area/crew_quarters/theatre)
 "rdQ" = (
 /turf/closed/wall/r_wall,
 /area/security/checkpoint/medical)
@@ -58267,7 +58261,6 @@
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/machinery/light/floor,
-/obj/structure/platform/wood,
 /turf/open/floor/iron/smooth_large,
 /area/crew_quarters/theatre)
 "rvh" = (
@@ -61138,16 +61131,6 @@
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/security/main)
-"sxh" = (
-/obj/effect/turf_decal/siding/red{
-	pixel_x = 0;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/red/fourcorners,
-/obj/machinery/light/floor,
-/obj/structure/platform/wood,
-/turf/open/floor/iron/smooth_large,
-/area/crew_quarters/theatre)
 "sxm" = (
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
@@ -64585,7 +64568,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/effect/turf_decal/siding/red{
 	dir = 8;
-	pixel_x = 0;
 	pixel_y = 5
 	},
 /turf/open/floor/iron/smooth_large,
@@ -68375,7 +68357,6 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/platform/wood,
 /turf/open/floor/iron/smooth_large,
 /area/crew_quarters/theatre)
 "uYo" = (
@@ -71943,11 +71924,9 @@
 "wjv" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 6;
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/platform/wood,
 /turf/open/floor/iron/smooth_large,
 /area/crew_quarters/theatre)
 "wkg" = (
@@ -72272,7 +72251,6 @@
 	},
 /obj/effect/turf_decal/siding/red{
 	dir = 4;
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /turf/open/floor/iron/smooth_large,
@@ -113873,7 +113851,7 @@ vNZ
 ksN
 uKQ
 uKQ
-sxh
+ruR
 aLi
 eKS
 fQd
@@ -114130,7 +114108,7 @@ byN
 qKl
 uKQ
 uKQ
-rdz
+uXR
 bIo
 hjT
 tyZ
