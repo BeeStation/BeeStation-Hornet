@@ -45862,6 +45862,10 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/machinery/door/window/westright{
+	req_access_txt = "12;22;25;26;28;35;37;38;46";
+	name = "Service Access"
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "ncI" = (
