@@ -74,6 +74,11 @@
 	QDEL_NULL(radio)
 	return ..()
 
+/obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
+	if(!activated)
+		return
+	process_harvesters()
+
 /obj/machinery/atmospherics/components/unary/cdr/process_atmos()
 	update_parents() //needs to process constantly for gases to not get stuck
 	if(!activated)
@@ -81,7 +86,6 @@
 	process_diffusion()
 	decay_gases()
 	process_toroid()
-	process_harvesters()
 	process_stability()
 	update_appearance(UPDATE_OVERLAYS)
 	if (core_health <= 0)
