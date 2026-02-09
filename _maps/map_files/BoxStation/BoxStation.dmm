@@ -19461,16 +19461,16 @@
 "frr" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/folder/white{
-	pixel_x = 3;
-	pixel_y = -1
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 0;
-	pixel_y = 16
-	},
 /obj/machinery/light/directional/east,
+/obj/item/paper_bin{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = 5;
+	pixel_y = 9
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "frs" = (
@@ -26126,25 +26126,23 @@
 	pixel_x = -5;
 	pixel_y = 15
 	},
-/obj/item/paper_bin{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/item/pen{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/folder/red{
-	pixel_x = 27;
-	pixel_y = -8
-	},
 /obj/machinery/newscaster/directional/north{
 	pixel_y = 33
 	},
 /obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -7;
-	pixel_y = 0
+	pixel_x = -7
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = 18;
+	pixel_y = 16
+	},
+/obj/item/folder/white{
+	pixel_x = 11
+	},
+/obj/item/folder/red{
+	pixel_x = 21;
+	pixel_y = -5
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
