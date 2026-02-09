@@ -35,7 +35,7 @@ Difficulty: Medium
 	achievement_type = /datum/award/achievement/boss/legion_kill
 	crusher_achievement_type = /datum/award/achievement/boss/legion_crusher
 	score_achievement_type = /datum/award/score/legion_score
-	SET_BASE_PIXEL(-32, -16)
+	SET_BASE_PIXEL(-75, -90)
 	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
 	wander = FALSE
@@ -125,7 +125,7 @@ Difficulty: Medium
 	if(health > 0)
 		return
 	if(size > 1)
-		adjustHealth(-maxHealth) //heal ourself to full in prep for splitting
+		adjustHealth(-(maxHealth * 2)) //heal ourself to full in prep for splitting, 2x multiplier otherwise health gets wonky when we overkill
 		var/mob/living/simple_animal/hostile/megafauna/legion/L = new(loc)
 
 		L.maxHealth = round(maxHealth * 0.6,DAMAGE_PRECISION)
