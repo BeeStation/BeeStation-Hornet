@@ -1,6 +1,6 @@
 /obj/item/plant_item
 	name = "plant"
-	desc = "plant :)"
+	desc = "A little bit of nature, mostly stationary."
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = ""
 	flags_1 = IS_ONTOP_1

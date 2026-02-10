@@ -63,6 +63,7 @@
 	COOLDOWN_START(src, nectar_timer, nectar_buff_duration)
 
 /datum/plant_need/proc/apply_buff(__delta_time)
+	//Buff visuals
 	parent.parent?.plant_item.add_overlay(buff_appearance)
 	return
 

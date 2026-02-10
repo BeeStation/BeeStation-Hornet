@@ -9,7 +9,7 @@
 	///Do we allow our substrate to be changed?
 	var/allow_substrate_change = TRUE
 	///How much do we visually offset the plant when planting it
-	var/visual_upset = 14
+	var/visual_upset = 16
 	///How much we offset entering plant's layer - used to make pots work
 	var/layer_upset = 0
 	///Do we gain weeds over time?

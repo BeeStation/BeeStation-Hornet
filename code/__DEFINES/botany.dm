@@ -6,6 +6,14 @@
 ///Plant data format
 #define PLANT_DATA(title, data) list("data_title" = title, "data_field" = data)
 
+//Reagent grid stuff
+#define MAX_REAGENT_GRID 33
+#define GRID_REAGENT_POSITION "GRID_REAGENT_POSITION"
+#define GRID_REAGENT_OFFSET "REAGENT_OFFSET"
+#define GRID_REAGENT_SIZE "GRID_REAGENT_SIZE"
+#define GRID_REAGENT_NAME "GRID_REAGENT_NAME"
+#define GRID_MAX_ACCURACY 3
+
 /*
 	Plant stat values
 */

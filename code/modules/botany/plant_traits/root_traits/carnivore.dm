@@ -1,6 +1,6 @@
 /datum/plant_trait/roots/carnivore
-	name = "Carnivorous"
-	desc = "This gene causes roots to develop carnivorous traits. Plants with this trait will consume nearby pests."
+	name = "Pesticide Secretions"
+	desc = "This gene causes roots to develop pesticide secretions. Plants with this trait will destroy nearby pests."
 	genetic_cost = 2
 
 /datum/plant_trait/roots/carnivore/setup_component_parent(datum/source)

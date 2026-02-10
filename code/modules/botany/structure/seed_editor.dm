@@ -102,7 +102,7 @@
 				return
 			//If it's a disk feature
 			if(feature == disk?.saved)
-				disk?.saved = null
+				disk?.set_saved(null)
 			//Fix focus
 			if(feature == current_feature)
 				current_feature_ref = null
@@ -120,7 +120,7 @@
 				return
 			//If it's a disk trait
 			if(trait == disk?.saved)
-				disk?.saved = null
+				disk?.set_saved(null)
 			else //otherwise just carry on and null our species ID while we're at it, to gen a new one
 				seeds.update_species_id()
 				seeds.update_plant_name()

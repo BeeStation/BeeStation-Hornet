@@ -80,7 +80,7 @@
 /datum/plant_feature/body/bush_vine/nettle
 	species_name = "aculeatum rubi"
 	name = "nettle bush"
-	icon_state = "big_fingers_2"
+	icon_state = "big_fingers"
 	draw_below_water = FALSE
 	overlay_positions = list(list(24, 6))
 	mutations = list(/datum/plant_feature/body/bush_vine/nettle/death)
@@ -89,9 +89,9 @@
 	name = "big_fingers_3"
 	mutations = list(/datum/plant_feature/body/bush_vine/nettle)
 
-//TODO: Make this its own thing - Racc
 /datum/plant_feature/body/bush_vine/nettle/thistle
 	name = "thistle bush"
+	icon_state = "big_fingers_2"
 
 //TODO: Make this its own thing - Racc
 /datum/plant_feature/body/bush_vine/nettle/kudzu

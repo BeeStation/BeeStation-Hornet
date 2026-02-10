@@ -90,7 +90,7 @@
 //Visuals
 	//Masking
 	if(plant_component?.draw_below_water)
-		arrived.add_filter("plant_tray_mask", 1, alpha_mask_filter(y = -12, icon = mask, flags = MASK_INVERSE))
+		arrived.add_filter("plant_tray_mask", 1, alpha_mask_filter(y = -14, icon = mask, flags = MASK_INVERSE))
 
 //When a plant is uprooted / ceases to exist
 /obj/item/plant_tray/Exited(atom/movable/gone, direction)

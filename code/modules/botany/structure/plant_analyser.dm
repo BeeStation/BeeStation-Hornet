@@ -55,6 +55,12 @@
 		break
 	if(!plant)
 		return ..()
+	//Don't let immature plants through
+	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant.plant_features
+	if(body_feature?.current_stage < body_feature?.growth_stages)
+		playsound(src, 'sound/machines/terminal_error.ogg', 60)
+		say("ERROR: Plant specimen is not fully mature!")
+		return
 	C.vis_contents -= plant_item
 	plant_item.forceMove(src)
 	inserted_plant = plant_item
@@ -129,7 +135,7 @@
 			var/datum/plant_trait/trait = locate(params["key"])
 			if(!trait.can_copy)
 				return
-			disk.saved = trait.copy()
+			disk.set_saved(trait.copy())
 			last_command = "per reader write -f -m [params["key"]]"
 			ui_update()
 		if("save_feature")
@@ -163,7 +169,7 @@
 					feature.plant_traits -= trait
 					qdel(trait)
 				//finished :)
-				disk.saved = feature
+				disk.set_saved(feature)
 				saving_feature = FALSE
 				last_command = "per reader write -f -m [params["key"]]"
 				ui_update()
@@ -186,7 +192,7 @@
 			ui_update()
 		if("remove_feature") //For disk
 			var/datum/plant_feature/feature = locate(params["key"])
-			disk?.saved = null
+			disk?.set_saved(null)
 			//Fix focus
 			if(feature == current_feature)
 				current_feature_ref = null
@@ -196,7 +202,7 @@
 			ui_update()
 		if("remove_trait") //For disk
 			var/datum/plant_trait/trait = locate(params["key"])
-			disk?.saved = null
+			disk?.set_saved(null)
 			qdel(trait)
 			last_command = "pit trait remove -f -m [params["key"]]"
 			ui_update()

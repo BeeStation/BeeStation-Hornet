@@ -73,6 +73,6 @@
 			if(disk.saved)
 				QDEL_NULL(disk.saved)
 			var/datum/plant_trait/refraction/trait = new(null, grid_x, grid_y, list_accuracy)
-			disk.saved = trait
+			disk.set_saved(trait)
 	ui_update()
 
