@@ -833,7 +833,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	// Unaccounted for antagonists
 	var/list/unaccounted_antagonists = list()
 	for (var/datum/antagonist/antagonist in GLOB.antagonists)
-		if (antagonist.spawning_ruleset)
+		if (antagonist.spawning_ruleset || !antagonist.name)
 			continue
 		if (unaccounted_antagonists[antagonist.name])
 			unaccounted_antagonists[antagonist.name] = unaccounted_antagonists[antagonist.name] + 1
