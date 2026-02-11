@@ -6733,14 +6733,8 @@
 "aNr" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
@@ -26107,14 +26101,14 @@
 /area/crew_quarters/bar)
 "eHb" = (
 /obj/structure/transit_tube/diagonal,
-/obj/structure/cable/yellow{
-	icon_state = "5-10"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -48650,9 +48644,7 @@
 	id = "portsolar";
 	name = "Port Solar Control"
 	},
-/obj/structure/cable/yellow{
-	cable_color = "red";
-	color = "#ff0000";
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
@@ -58023,9 +58015,6 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"sEp" = (
-/turf/open/floor/iron,
-/area/maintenance/department/security/brig)
 "sEq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -62355,6 +62344,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -66709,11 +66701,11 @@
 /obj/structure/transit_tube/curved{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-10"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "wIX" = (
@@ -68136,14 +68128,14 @@
 /obj/structure/transit_tube/curved/flipped{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "5-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -85909,7 +85901,7 @@ aiu
 aiu
 aiu
 aiu
-axC
+aht
 axC
 rKr
 axC
@@ -86165,9 +86157,9 @@ ajD
 ajD
 oTC
 aiu
-sEp
+aiu
 axC
-ayz
+axC
 gFz
 axC
 axC
