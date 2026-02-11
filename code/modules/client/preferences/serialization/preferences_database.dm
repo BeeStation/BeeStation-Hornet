@@ -39,8 +39,6 @@
 			if(isnull(GLOB.keybindings_by_name[keybind]))
 				keybinds_list -= keybind
 
-	save_preferences()
-
 // Defines for list sanity
 #define READPREF_STR(target, tag) if(prefmap[tag]) target = prefmap[tag]
 #define READPREF_INT(target, tag) if(prefmap[tag]) target = text2num(prefmap[tag])
