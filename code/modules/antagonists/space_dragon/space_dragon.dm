@@ -87,7 +87,7 @@
 	wavespeak_ability.Grant(owner.current)
 	owner.current.faction |= FACTION_CARP
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
-	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(destroy_rifts))
+	RegisterSignal(owner.current, COMSIG_LIVING_DEATH, PROC_REF(destroy_rifts))
 	RegisterSignal(owner.current, COMSIG_QDELETING, PROC_REF(destroy_rifts))
 	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
 		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
@@ -98,7 +98,7 @@
 	rift_ability.Remove(owner.current)
 	owner.current.faction -= FACTION_CARP
 	UnregisterSignal(owner.current, COMSIG_LIVING_LIFE)
-	UnregisterSignal(owner.current, COMSIG_MOB_DEATH)
+	UnregisterSignal(owner.current, COMSIG_LIVING_DEATH)
 	rift_list = null
 
 /datum/antagonist/space_dragon/Destroy()

@@ -89,7 +89,37 @@ GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Yellow" = "fbdf56",
 ))
 
-GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list("ghost")) //stores the ghost forms that support directional sprites
+GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list(
+	"catghost",
+	"ghost_black",
+	"ghost_blazeit",
+	"ghost_blue",
+	"ghost_camo",
+	"ghost_cyan",
+	"ghost_dblue",
+	"ghost_dcyan",
+	"ghost_dgreen",
+	"ghost_dpink",
+	"ghost_dred",
+	"ghost_dyellow",
+	"ghost_fire",
+	"ghost_funkypurp",
+	"ghost_green",
+	"ghost_grey",
+	"ghost_mellow",
+	"ghost_pink",
+	"ghost_pinksherbert",
+	"ghost_purpleswirl",
+	"ghost_rainbow",
+	"ghost_red",
+	"ghost_yellow",
+	"ghost",
+	"ghostian",
+	"ghostian2",
+	"ghostking",
+	"skeleghost",
+))
+//stores the ghost forms that support directional sprites
 GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost",
 	"ghost_red",

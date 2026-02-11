@@ -38,7 +38,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		reagents.add_reagent_list(reagent)
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
-	if(!M || !user || (isliving(M) && !M.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))) //If no mob, user and if we can't inject the mob just return
+	if(!M || !user) //If no mob, user and if we can't inject the mob just return
 		return
 
 	if(M.stat == DEAD && !stop_bleeding)
@@ -73,6 +73,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 /obj/item/stack/medical/proc/do_application(mob/living/M, mob/user, zone_selected)
 	if (!zone_selected)
+		return
+	if (isliving(M) && !M.try_inject(user, zone_selected, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 		return
 	if (!user.can_interact_with(M, TRUE))
 		to_chat(user, span_danger("You cannot reach [M]!"))

@@ -130,7 +130,7 @@
 		return
 	return ..()
 
-/obj/structure/closet/crate/secure/loot/open(mob/living/user, force = FALSE)
+/obj/structure/closet/crate/secure/loot/open(mob/living/user, force = FALSE, special_effects)
 	. = ..()
 	if(qdel_on_open)
 		qdel(src)

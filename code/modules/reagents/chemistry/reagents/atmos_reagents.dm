@@ -7,7 +7,6 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 	overdose_threshold = 10
-	addiction_threshold = 4 //Nitrium is highly addictive
 	metabolized_traits = list(TRAIT_NOSTAMCRIT, TRAIT_NOLIMBDISABLE)
 
 	var/warned = FALSE
@@ -50,6 +49,7 @@
 	color = "#E1A116"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/stimulants = 14)
 	metabolized_traits = list(TRAIT_STUNIMMUNE, TRAIT_SLEEPIMMUNE)
 
 	var/warned = FALSE

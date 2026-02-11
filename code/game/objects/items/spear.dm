@@ -156,6 +156,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 		explosive.prime(lanced_by=user)
 		qdel(src)
 
+//GREY TIDE
+/obj/item/spear/grey_tide
+	name = "\improper Grey Tide"
+	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
+	attack_verb_continuous = list("gores")
+	attack_verb_simple = list("gore")
+	force_unwielded = 15
+	force_wielded = 25
+
+/obj/item/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	user.faction |= "greytide([REF(user)])"
+	if(isliving(AM))
+		var/mob/living/L = AM
+		if(istype (L, /mob/living/simple_animal/hostile/illusion))
+			return
+		if(!L.stat && prob(50))
+			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
+			M.faction = user.faction.Copy()
+			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
+			M.GiveTarget(L)
+
 /*
  * Bone Spear
  */

@@ -17,8 +17,6 @@
 	area_type = /area
 	target_trait = ZTRAIT_VOIDSTORM
 
-	immunity_type = "void"
-
 	barometer_predictable = FALSE
 	perpetual = TRUE
 

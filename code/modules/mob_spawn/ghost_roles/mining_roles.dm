@@ -157,7 +157,7 @@
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
 	var/mob/living/carbon/human/species/diona/H = new_spawn
-	H.fully_replace_character_name(null, H.dna.species.random_name(gender))
+	H.fully_replace_character_name(null, generate_random_name_species_based(gender = gender, species_type = /datum/species/diona))
 	H.underwear = "Nude" //You're a plant, partner
 	H.update_body()
 
@@ -199,7 +199,7 @@
 		var/mob/living/carbon/human/H = new_spawn
 		H.underwear = "Nude"
 		H.update_body()
-		H.fully_replace_character_name(null, H.dna.species.random_name(gender))
+		H.fully_replace_character_name(null, generate_random_name_species_based(gender = gender, species_type = /datum/species/lizard))
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 
@@ -311,6 +311,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	mob_name = "a translocated vet"
+	short_desc = "You're a disoriented veterinary intern, stranded far from home."
 	flavour_text = "What...? Where are you? What's the purpose of this place? This is still the animal hospital - you should know, you've been an intern here for weeks - but \
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"

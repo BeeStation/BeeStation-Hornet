@@ -50,11 +50,11 @@
 							/obj/item/stock_parts/capacitor/quadratic = 5,//Probably okay, right?
 							/obj/item/stack/ore/bluespace_crystal = 5)
 
-/obj/effect/spawner/lootdrop/bluespace_tap
+/obj/effect/spawner/random/bluespace_tap
 	name = "bluespace harvester reward spawner"
-	lootcount = 1
+	spawn_loot_count = 1
 
-/obj/effect/spawner/lootdrop/bluespace_tap/hat
+/obj/effect/spawner/random/bluespace_tap/hat
 	name = "exotic hat"
 	loot = list(
 			/obj/item/clothing/head/collectable/chef,	//same weighing on all of them
@@ -81,7 +81,7 @@
 	)
 
 
-/obj/effect/spawner/lootdrop/bluespace_tap/cultural
+/obj/effect/spawner/random/bluespace_tap/cultural
 	name = "cultural artifacts"
 	loot = list(
 		/obj/item/grenade/clusterbuster/cleaner = 10,
@@ -113,7 +113,7 @@
 		/obj/item/xenoartifact/maint = 5 // Random artifact
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_tap/organic
+/obj/effect/spawner/random/bluespace_tap/organic
 	name = "organic objects"
 	loot = list(
 		/obj/item/seeds/random = 10,
@@ -146,9 +146,9 @@
 		/obj/item/slime_extract/blue = 5
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_tap/food
+/obj/effect/spawner/random/bluespace_tap/food
 	name = "fancy food"
-	lootcount = 2
+	spawn_loot_count = 2
 	loot = list(
 		/obj/item/food/burger/crab,
 		/obj/item/food/crab_rangoon,
@@ -170,9 +170,9 @@
 		/obj/item/pizzabox
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_tap/materials
+/obj/effect/spawner/random/bluespace_tap/materials
 	name = "materials"
-	lootcount = 5 // The price goes up each time it's bought, so should be good for the price, they might get duplicates aswell
+	spawn_loot_count = 5 // The price goes up each time it's bought, so should be good for the price, they might get duplicates aswell
 	loot = list(
 		/obj/item/stack/sheet/iron/twenty = 20,
 		/obj/item/stack/sheet/glass/twenty = 20,
@@ -221,11 +221,11 @@
 
 	/// list of possible products
 	var/static/product_list = list(
-	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 2000), // Why was food so expensive to being with
-	new /datum/data/bluespace_tap_product("Unknown Material Recolection", /obj/effect/spawner/lootdrop/bluespace_tap/materials, 4000), // Spawns random materials, argueably the only useful one
-	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 6000),
-	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 10000), // This is mostly junk, the reason why it's so expensive, nobody knows
-	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 15000)
+		new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/random/bluespace_tap/food, 2000), // Why was food so expensive to being with
+		new /datum/data/bluespace_tap_product("Unknown Material Recolection", /obj/effect/spawner/random/bluespace_tap/materials, 4000), // Spawns random materials, argueably the only useful one
+		new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/random/bluespace_tap/hat, 6000),
+		new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/random/bluespace_tap/cultural, 10000), // This is mostly junk, the reason why it's so expensive, nobody knows
+		new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/random/bluespace_tap/organic, 15000)
 	)
 
 	/// The level the machine is currently mining at. 0 means off

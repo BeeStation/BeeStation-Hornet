@@ -19,7 +19,7 @@
 	//area_type = /area/awaymission/snowdin/outside
 	target_trait = ZTRAIT_AWAY
 
-	immunity_type = "snow"
+	immunity_type = TRAIT_SNOWSTORM_IMMUNE
 
 	barometer_predictable = TRUE
 

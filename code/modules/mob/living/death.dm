@@ -1,4 +1,12 @@
-/mob/living/gib(no_brain, no_organs, no_bodyparts)
+/**
+ * Blow up the mob into giblets
+ *
+ * Arguments:
+ * * no_brain - Should the mob NOT drop a brain?
+ * * no_organs - Should the mob NOT drop organs?
+ * * no_bodyparts - Should the mob NOT drop bodyparts?
+*/
+/mob/living/proc/gib(no_brain, no_organs, no_bodyparts)
 	var/prev_lying = lying_angle
 	if(stat != DEAD)
 		death(TRUE)
@@ -6,6 +14,7 @@
 	if(!prev_lying)
 		gib_animation()
 
+	ghostize()
 	spill_organs(no_brain, no_organs, no_bodyparts)
 
 	if(!no_bodyparts)
@@ -27,7 +36,16 @@
 /mob/living/proc/spread_bodyparts()
 	return
 
-/mob/living/dust(just_ash, drop_items, force)
+/**
+ * This is the proc for turning a mob into ash.
+ * Dusting robots does not eject the MMI, so it's a bit more powerful than gib()
+ *
+ * Arguments:
+ * * just_ash - If TRUE, ash will spawn where the mob was, as opposed to remains
+ * * drop_items - Should the mob drop their items before dusting?
+ * * force - Should this mob be FORCABLY dusted?
+*/
+/mob/living/proc/dust(just_ash, drop_items, force)
 	if(stat != DEAD)
 		death(TRUE)
 
@@ -48,7 +66,13 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 
 
-/mob/living/death(gibbed)
+/*
+ * Called when the mob dies. Can also be called manually to kill a mob.
+ *
+ * Arguments:
+ * * gibbed - Was the mob gibbed?
+*/
+/mob/living/proc/death(gibbed)
 	var/was_dead_before = stat == DEAD
 	set_stat(DEAD)
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
@@ -80,9 +104,8 @@
 
 	stop_pulling()
 
-	. = ..()
-
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_DEATH, src, gibbed)
 
 	if (client)
 		reset_perspective(null)
@@ -92,7 +115,7 @@
 		//This first death of the game will not incur a ghost role cooldown
 		client.next_ghost_role_tick = client.next_ghost_role_tick || suiciding ? world.time + CONFIG_GET(number/ghost_role_cooldown) : world.time
 
-		INVOKE_ASYNC(client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/ghosts, client.mob)
+		INVOKE_ASYNC(client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/ghosts, src)
 
 	if(mind?.current)
 		client?.tgui_panel?.give_dead_popup()

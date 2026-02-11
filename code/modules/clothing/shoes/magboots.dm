@@ -3,26 +3,20 @@
 	name = "magboots"
 	icon_state = "magboots0"
 	inhand_icon_state = "magboots"
-	var/magboot_state = "magboots"
-	var/magpulse = 0
-	var/slowdown_active = 2
 	armor_type = /datum/armor/shoes_magboots
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
+	clothing_traits = list(TRAIT_NEGATES_GRAVITY)
+	var/magboot_state = "magboots"
+	var/magpulse = 0
+	var/slowdown_active = 2
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_FEET)
 		update_gravity_trait(user)
-	else
-		REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
-
-/obj/item/clothing/shoes/magboots/dropped(mob/user)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
-
 
 /datum/armor/shoes_magboots
 	bio = 90

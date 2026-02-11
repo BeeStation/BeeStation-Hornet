@@ -337,6 +337,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	turf_type = /turf/open/floor/carpet/red
 	tableVariant = /obj/structure/table/wood/fancy/red
 
+/obj/item/stack/tile/carpet/olive
+	name = "olive carpet"
+	icon_state = "tile-carpet-olive"
+	inhand_icon_state = "tile-carpet-olive"
+	merge_type = /obj/item/stack/tile/carpet/olive
+	turf_type = /turf/open/floor/carpet/olive
+	tableVariant = /obj/structure/table/wood/fancy/green
+
 /obj/item/stack/tile/carpet/royalblack
 	name = "royal black carpet"
 	icon_state = "tile-carpet-royalblack"
@@ -397,6 +405,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	amount = 50
 
 /obj/item/stack/tile/carpet/red/fifty
+	amount = 50
+
+/obj/item/stack/tile/carpet/olive/fifty
 	amount = 50
 
 /obj/item/stack/tile/carpet/royalblack/fifty

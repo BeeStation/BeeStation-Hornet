@@ -193,7 +193,7 @@
 			else
 				to_chat(owner, span_warning("You can't stop shaking..."))
 
-			owner.dizziness += 20
+			owner.set_dizzy_if_lower(20 SECONDS)
 			owner.set_jitter_if_lower(20 SECONDS)
 
 		if(3, 4)

@@ -335,7 +335,7 @@ AUTH_CLIENT_VERB(fit_viewport)
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
-	var/sizes = params2list(winget(src, "mainwindow.split;mapwindow", "size"))
+	var/list/sizes = params2list(winget(src, "mainwindow.split;mapwindow", "size"))
 
 	// Client closed the window? Some other error? This is unexpected behaviour, let's
 	// CRASH with some info.
@@ -397,10 +397,9 @@ AUTH_CLIENT_VERB(fit_viewport)
 /client/proc/attempt_auto_fit_viewport()
 	if (!prefs || !prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
+	// No need to attempt to fit the viewport on non-initialized clients as they'll auto-fit viewport right before finishing init
 	if(fully_created)
 		INVOKE_ASYNC(src, PROC_REF(fit_viewport))
-	else //Delayed to avoid wingets from Login calls.
-		addtimer(CALLBACK(src, PROC_REF(fit_viewport), 1 SECONDS))
 
 AUTH_CLIENT_VERB(view_runtimes_minimal)
 	set name = "View Minimal Runtimes"

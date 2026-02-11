@@ -94,6 +94,10 @@
 					var/image/dam_indicator = image(icon = 'icons/mob/zone_dam.dmi', icon_state = "brute")
 					dam_indicator.appearance_flags = RESET_COLOR | RESET_ALPHA
 					selection_overlay.overlays += dam_indicator
+			if (!living_target.can_inject(user, bodyzone, NONE))
+				var/image/dam_indicator = image(icon = 'icons/mob/zone_dam.dmi', icon_state = "no_pierce")
+				dam_indicator.appearance_flags = RESET_COLOR | RESET_ALPHA
+				selection_overlay.overlays += dam_indicator
 			if (proportion > 0)
 				new_colour = list(
 					proportion * unhealthy[1] + (1 - proportion) * damaged[1],

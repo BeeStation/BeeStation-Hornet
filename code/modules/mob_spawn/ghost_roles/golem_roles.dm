@@ -57,7 +57,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 			if(has_owner)
 				H.fully_replace_character_name(null, "[initial(X.prefix)] Golem ([rand(1,999)])")
 			else
-				H.fully_replace_character_name(null, H.dna.species.random_name())
+				H.fully_replace_character_name(null, H.generate_random_mob_name(TRUE))
 		else
 			H.fully_replace_character_name(null, name)
 	if(has_owner)
@@ -69,7 +69,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 			I.registered_name = new_spawn.name
 			I.update_label()
 
-/obj/effect/mob_spawn/human/golem/attack_hand(mob/user, list/modifiers)
+/obj/effect/mob_spawn/human/golem/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

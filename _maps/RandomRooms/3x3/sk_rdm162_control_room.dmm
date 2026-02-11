@@ -30,7 +30,7 @@
 	icon_state = "bulb"
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /obj/structure/sign/warning/securearea{
 	pixel_x = -32
 	},

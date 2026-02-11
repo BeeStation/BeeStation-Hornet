@@ -539,7 +539,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	sac_target.flash_act()
 	sac_target.blur_eyes(15)
 	sac_target.set_jitter_if_lower(20 SECONDS)
-	sac_target.Dizzy(10)
+	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
@@ -572,16 +572,15 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	LAZYREMOVE(return_timers, REF(sac_target))
 
 	UnregisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED)
-	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
+	UnregisterSignal(sac_target, COMSIG_LIVING_DEATH)
 	sac_target.remove_status_effect(/datum/status_effect/necropolis_curse)
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
 	sac_target.reagents?.del_reagent(/datum/reagent/helgrasp/heretic)
 	SEND_SIGNAL(sac_target, COMSIG_CLEAR_MOOD_EVENT, "shadow_realm")
 
 	// Wherever we end up, we sure as hell won't be able to explain
-	sac_target.slurring += 20
-	sac_target.cultslurring += 20
-	sac_target.stuttering += 20
+	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	sac_target.adjust_stutter(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
 	if(is_station_level(sac_target.z))
@@ -618,7 +617,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	sac_target.flash_act()
 	sac_target.set_jitter_if_lower(120 SECONDS)
 	sac_target.blur_eyes(50)
-	sac_target.Dizzy(30)
+	sac_target.set_dizzy_if_lower(60 SECONDS)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 

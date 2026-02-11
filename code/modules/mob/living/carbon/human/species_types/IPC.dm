@@ -2,7 +2,6 @@
 	name = "\improper Integrated Positronic Chassis"
 	plural_form = "IPCs"
 	id = SPECIES_IPC
-	bodyflag = FLAG_IPC
 	sexes = FALSE
 	species_traits = list(
 		NOEYESPRITES,
@@ -75,13 +74,6 @@
 	var/datum/action/innate/change_screen/change_screen
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
-
-/datum/species/ipc/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()

@@ -207,6 +207,10 @@
 #define LIGHT_COLOR_TUNGSTEN "#FAE1AF" //! Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
 #define LIGHT_COLOR_HALOGEN "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
 
+/// Colors for incident displays
+#define COLOR_DISPLAY_RED "#BE3455"
+#define COLOR_DISPLAY_YELLOW "#FFF743"
+#define COLOR_DISPLAY_GREEN "#3CF046"
 
 // check "chat-light-theme.scss" and "chat-dark-theme.scss"
 GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(

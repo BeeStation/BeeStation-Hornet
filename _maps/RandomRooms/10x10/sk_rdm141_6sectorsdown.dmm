@@ -49,7 +49,7 @@
 /area/template_noop)
 "hp" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/radio/intercom{
 	pixel_y = 26
 	},
@@ -58,7 +58,7 @@
 "iC" = (
 /obj/structure/closet,
 /obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "kk" = (
@@ -244,7 +244,7 @@
 /area/template_noop)
 "NR" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Pf" = (
@@ -265,7 +265,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "QK" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/plating,
 /area/template_noop)
 "TC" = (
@@ -279,13 +279,13 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "UQ" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Vd" = (
@@ -308,7 +308,7 @@
 /area/template_noop)
 "Yy" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "YL" = (

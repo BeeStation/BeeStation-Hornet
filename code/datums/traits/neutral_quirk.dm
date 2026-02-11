@@ -29,17 +29,17 @@
 /datum/quirk/vegetarian/add()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
-	T?.liked_food &= ~MEAT
-	T?.disliked_food |= MEAT
+	T?.liked_foodtypes &= ~MEAT
+	T?.disliked_foodtypes |= MEAT
 
 /datum/quirk/vegetarian/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(H)
-		if(initial(T.liked_food) & MEAT)
-			T?.liked_food |= MEAT
-		if(!(initial(T.disliked_food) & MEAT))
-			T?.disliked_food &= ~MEAT
+		if(initial(T.liked_foodtypes) & MEAT)
+			T?.liked_foodtypes |= MEAT
+		if(!(initial(T.disliked_foodtypes) & MEAT))
+			T?.disliked_foodtypes &= ~MEAT
 
 /datum/quirk/pineapple_liker
 	name = "Ananas Affinity"
@@ -52,12 +52,12 @@
 /datum/quirk/pineapple_liker/add()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
-	T?.liked_food |= PINEAPPLE
+	T?.liked_foodtypes |= PINEAPPLE
 
 /datum/quirk/pineapple_liker/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
-	T?.liked_food &= ~PINEAPPLE
+	T?.liked_foodtypes &= ~PINEAPPLE
 
 /datum/quirk/pineapple_hater
 	name = "Ananas Aversion"
@@ -70,12 +70,12 @@
 /datum/quirk/pineapple_hater/add()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
-	T?.disliked_food |= PINEAPPLE
+	T?.disliked_foodtypes |= PINEAPPLE
 
 /datum/quirk/pineapple_hater/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
-	T?.disliked_food &= ~PINEAPPLE
+	T?.disliked_foodtypes &= ~PINEAPPLE
 
 /datum/quirk/deviant_tastes
 	name = "Deviant Tastes"
@@ -88,15 +88,15 @@
 /datum/quirk/deviant_tastes/add()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
-	var/liked = T?.liked_food
-	T?.liked_food = T?.disliked_food
-	T?.disliked_food = liked
+	var/liked = T?.liked_foodtypes
+	T?.liked_foodtypes = T?.disliked_foodtypes
+	T?.disliked_foodtypes = liked
 
 /datum/quirk/deviant_tastes/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/tongue/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
-	T?.liked_food = initial(T?.liked_food)
-	T?.disliked_food = initial(T?.disliked_food)
+	T?.liked_foodtypes = initial(T?.liked_foodtypes)
+	T?.disliked_foodtypes = initial(T?.disliked_foodtypes)
 
 /datum/quirk/light_drinker
 	name = "Light Drinker"
@@ -128,7 +128,6 @@
 	name = "Musician"
 	desc = "You start with a delivery beacon for a variety of musical instruments."
 	icon = "guitar"
-	mob_trait = TRAIT_MUSICIAN
 	gain_text = span_notice("You feel an irresistible urge to play Stairway to Heaven in every guitar shop you enter.")
 	lose_text = span_danger("Your insatiable urge to play Wonderwall is finally sated.")
 	medical_record_text = "Patient has been banned from several music stores for repeatedly playing forbidden riffs."
@@ -155,7 +154,6 @@
 	name = "Plushie Lover"
 	desc = "You love your squishy friends so much. You start with a plushie delivery beacon."
 	icon = "heart"
-	mob_trait = TRAIT_PLUSHIELOVER
 	gain_text = span_notice("You can't wait to hug a plushie!.")
 	lose_text = span_danger("You don't feel that passion for plushies anymore.")
 	medical_record_text = "Patient demonstrated a high affinity for plushies."
@@ -199,20 +197,19 @@
 	name = "Accent"
 	desc = "You have a distinct way of speaking! (Select one in character creation)"
 	icon = "comment-dots"
-	mob_trait = TRAIT_ACCENT
-	gain_text = span_notice("You are aflicted with an accent.")
-	lose_text = span_danger("You are no longer aflicted with an accent.")
+	gain_text = span_notice("You are afflicted with an accent.")
+	lose_text = span_danger("You are no longer afflicted with an accent.")
 	medical_record_text = "Patient has a distinct accent."
+	/// Accent to be used in accent traits
+	var/accent_to_use = null
 
 /datum/quirk/accent/add()
 	var/chosen = read_choice_preference(/datum/preference/choiced/quirk/accent)
-	accent_to_use = GLOB.accents[chosen]
-	var/mob/living/carbon/human/H = quirk_target
-	RegisterSignal(H, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	accent_to_use = GLOB.accents[chosen || pick(GLOB.accents)]
+	RegisterSignal(quirk_target, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/quirk/accent/remove()
-	var/mob/living/carbon/human/H = quirk_target
-	UnregisterSignal(H, COMSIG_MOB_SAY)
+	UnregisterSignal(quirk_target, COMSIG_MOB_SAY)
 
 /datum/quirk/accent/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER

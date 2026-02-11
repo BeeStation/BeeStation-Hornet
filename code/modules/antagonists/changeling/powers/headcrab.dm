@@ -9,7 +9,7 @@
 	check_flags = NONE
 	ignores_fakedeath = TRUE
 
-/datum/action/changeling/headcrab/sting_action(mob/user)
+/datum/action/changeling/headcrab/sting_action(mob/living/user)
 	set waitfor = FALSE
 	var/confirm = tgui_alert(user, "Are we sure we wish to destroy our body and create a headslug?", "Last Resort", list("Yes", "No"))
 	if(confirm != "Yes")
@@ -34,7 +34,7 @@
 			H.Stun(20)
 			H.blur_eyes(20)
 			eyes?.apply_organ_damage(5)
-			H.confused += 10
+			H.adjust_confusion(10 SECONDS)
 
 		else if(issilicon(A))
 			var/mob/living/silicon/S = A

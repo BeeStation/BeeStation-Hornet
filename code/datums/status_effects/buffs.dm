@@ -553,7 +553,7 @@
 
 /datum/status_effect/regenerative_core
 	id = "Regenerative Core"
-	duration = 300
+	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 	show_duration = TRUE
@@ -579,7 +579,6 @@
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/humi = owner
 		humi.coretemperature = humi.get_body_temp_normal()
-	owner.restoreEars()
 	duration = rand(150, 450) * duration_mod
 	return TRUE
 
@@ -634,13 +633,6 @@
 	name = "Photosynthesis"
 	desc = "Your wounds seem to be healing from the light."
 	icon_state = "blooming"
-
-/datum/status_effect/planthealing/on_apply()
-	ADD_TRAIT(owner, TRAIT_PLANTHEALING, "Light Source")
-	return ..()
-
-/datum/status_effect/planthealing/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PLANTHEALING, "Light Source")
 
 /datum/status_effect/planthealing/tick()
 	owner.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC) //one unit of brute and burn healing should be good with the amount of times this is ran. Much slower than spec_life

@@ -49,7 +49,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "pb" = (
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance/eight,
 /obj/structure/rack,
 /turf/open/floor/iron/white,
 /area/template_noop)
@@ -93,12 +93,12 @@
 /area/template_noop)
 "wa" = (
 /obj/structure/table/wood/fancy/black,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "wr" = (
 /obj/structure/table/wood/fancy/black,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "xT" = (

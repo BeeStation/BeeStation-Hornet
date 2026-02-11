@@ -3,8 +3,11 @@
 /datum/species/monkey
 	name = "\improper Monkey"
 	id = SPECIES_MONKEY
-	skinned_type = /obj/item/stack/sheet/animalhide/
+	mutantbrain = /obj/item/organ/brain/primate
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	meat = /obj/item/food/meat/slab/monkey
 	changesource_flags = MIRROR_BADMIN
+	inherent_traits = list(TRAIT_VENTCRAWLER_NUDE)
 	offset_features = list(
 	OFFSET_HEAD = list(0,-3),
 	OFFSET_FACEMASK = list(0,-3)

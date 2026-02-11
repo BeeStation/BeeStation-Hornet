@@ -278,7 +278,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if (!isnull(relevant_mutant_bodypart) || !isnull(relevant_species_trait))
 		var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
 
-		var/datum/species/species = new species_type
+		var/datum/species/species = GLOB.species_prototypes[species_type]
 		if (!(db_key in species.get_features()))
 			return FALSE
 

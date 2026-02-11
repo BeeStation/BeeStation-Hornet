@@ -55,3 +55,4 @@
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
 	req_access = list(ACCESS_SYNDICATE)
+	initial_language_holder = /datum/language_holder/syndicate

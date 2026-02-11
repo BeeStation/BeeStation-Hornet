@@ -21,72 +21,85 @@
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
+
+	/// Clock cultists can examine this weapon for a hint on how to use it
 	var/clockwork_hint = ""
-	var/datum/action/spell/summon_spear/SS
+	/// Action to summon the spear
+	var/datum/action/spell/summon_weapon/summon_weapon
 
 /obj/item/clockwork/weapon/Destroy()
-	if(SS)
-		SS.Remove(SS.owner)
-	. = ..()
-
+	summon_weapon?.Remove(summon_weapon.owner)
+	return ..()
 
 /obj/item/clockwork/weapon/pickup(mob/user)
-	..()
+	. = ..()
 	if(!user.mind)
 		return
-	if(IS_SERVANT_OF_RATVAR(user) && !SS)
-		SS = new
-		SS.marked_item = src
-		SS.Grant(user)
+
+	if(IS_SERVANT_OF_RATVAR(user) && !summon_weapon)
+		summon_weapon = new()
+		summon_weapon.marked_item = WEAKREF(src)
+		summon_weapon.Grant(user)
 
 /obj/item/clockwork/weapon/examine(mob/user)
 	. = ..()
 	if(IS_SERVANT_OF_RATVAR(user) && clockwork_hint)
-		. += clockwork_hint
+		. += span_brass(clockwork_hint)
 
+/**
+ * While on Reebe the weapon will gain a buff to its damage based off how far it is from the gateway
+ * Additionally, if target is not a clock cultist, not dead, and not holy, hit_effect() is called
+ */
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
 	if(!is_reebe(user.z))
 		return ..()
-	//Gain a slight buff when fighting near to the Ark.
+
+	// Special hit effect
+	if(target.stat != DEAD && !IS_SERVANT_OF_RATVAR(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		hit_effect(target, user)
+
+	// Buff the weapon's force based off how far it is from the gateway
 	var/force_buff = 0
-	//Check distance
 	if(GLOB.celestial_gateway)
-		var/turf/gatewayT = get_turf(GLOB.celestial_gateway)
-		var/turf/ourT = get_turf(user)
-		var/distance_from_ark = get_dist(gatewayT, ourT)
-		if(gatewayT.z == ourT.z && distance_from_ark < 15)
-			switch(distance_from_ark)
+		var/distance = get_dist(GLOB.celestial_gateway, user)
+		if(distance < 15)
+			switch(distance)
 				if(0 to 6)
 					force_buff = 8
 				if(6 to 10)
 					force_buff = 5
 				if(10 to 15)
 					force_buff = 3
-			//Magic sound
+
 			playsound(src, 'sound/effects/clockcult_gateway_disrupted.ogg', 40)
+
 	force += force_buff
 	. = ..()
-	force -= force_buff
-	if(!QDELETED(target) && target.stat != DEAD && !IS_SERVANT_OF_RATVAR(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
-		hit_effect(target, user)
+	force = initial(force)
 
+/**
+ * While on Reebe the weapon will call hit_effect() if thrown at a non-holy and non clock-cultist person
+ */
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!is_reebe(z))
 		return
-	if(isliving(hit_atom))
-		var/mob/living/target = hit_atom
-		if(!.)
-			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_SERVANT_OF_RATVAR(target))
-				hit_effect(target, throwingdatum?.thrower, TRUE)
 
-/obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
+	if(isliving(hit_atom))
+		var/mob/living/living_target = hit_atom
+		if(!living_target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_SERVANT_OF_RATVAR(living_target))
+			hit_effect(living_target, throwingdatum?.thrower, thrown = TRUE)
+
+/**
+ * The special effect applied when hitting a living creature
+ */
+/obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
 	return
 
 /obj/item/clockwork/weapon/brass_spear
 	name = "brass spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
-	clockwork_desc = "A razor-sharp spear made of a magnetic brass allow. It accelerates towards targets while on Reebe dealing increased damage."
+	clockwork_desc = span_brass("A razor-sharp spear made of a magnetic brass allow. It accelerates towards targets while on Reebe dealing increased damage.")
 	icon_state = "ratvarian_spear"
 	embedding = list("max_damage_mult" = 7.5, "armour_block" = 80)
 	throwforce = 36
@@ -97,7 +110,7 @@
 /obj/item/clockwork/weapon/brass_battlehammer
 	name = "brass battle-hammer"
 	desc = "A brass hammer glowing with energy."
-	clockwork_desc = "A brass hammer enfused with an ancient power allowing it to strike foes with incredible force."
+	clockwork_desc = span_brass("A brass hammer enfused with an ancient power allowing it to strike foes with incredible force.")
 	icon_state = "ratvarian_hammer"
 	worn_icon = 'icons/mob/clothing/back.dmi'
 	worn_icon_state = "mining_hammer1"
@@ -110,9 +123,9 @@
 
 /obj/item/clockwork/weapon/brass_battlehammer/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=28, block_power_wielded=25)
+	AddComponent(/datum/component/two_handed, force_unwielded = 15, force_wielded = 28, block_power_wielded = 25)
 
-/obj/item/clockwork/weapon/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
+/obj/item/clockwork/weapon/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
 	if(!ISWIELDED(src))
 		return
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
@@ -121,7 +134,7 @@
 /obj/item/clockwork/weapon/brass_sword
 	name = "brass longsword"
 	desc = "A large sword made of brass."
-	clockwork_desc = "A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics."
+	clockwork_desc = span_brass("A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics.")
 	icon_state = "ratvarian_sword"
 	worn_icon = 'icons/mob/clothing/back.dmi'
 	worn_icon_state = "claymore"
@@ -131,6 +144,7 @@
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
+
 	COOLDOWN_DECLARE(emp_cooldown)
 
 /obj/item/clockwork/weapon/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)

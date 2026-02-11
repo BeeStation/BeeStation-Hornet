@@ -515,7 +515,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		add_blood_DNA(list("Non-human DNA" = random_blood_type()))
-		for(var/obj/item/I in H.get_equipped_items(TRUE))
+		for(var/obj/item/I in H.get_equipped_items(INCLUDE_POCKETS))
 			I.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			I.update_icon()
 		for(var/obj/item/I in H.held_items)
@@ -619,7 +619,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/gun/energy/laser/retro/old,
 		/obj/item/storage/toolbox/mechanical/old,
 		/obj/item/storage/toolbox/emergency/old,
-		/obj/effect/spawner/lootdrop/three_course_meal,
+		/obj/effect/spawner/random/food_or_drink/three_course_meal,
 		/mob/living/basic/pet/dog/corgi/puppy/void,
 		/obj/structure/closet/crate/necropolis/tendril,
 		/obj/item/card/emagfake,
@@ -628,8 +628,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	)
 
 	var/static/list/rare_items = list(
-		/obj/effect/spawner/lootdrop/armory_contraband,
-		/obj/effect/spawner/lootdrop/teratoma/major
+		/obj/effect/spawner/random/contraband/armory,
+		/obj/effect/spawner/random/medical/teratoma/major
 	)
 
 

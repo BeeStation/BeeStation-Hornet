@@ -234,7 +234,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 			if(ismob(M))
 				H = M
 
-	H.silent = 20 //Prevents an extreme edge case where clones could speak if they said something at exactly the right moment.
+	H.adjust_silence(40 SECONDS) //Prevents an extreme edge case where clones could speak if they said something at exactly the right moment.
 	occupant = H
 
 	if(!clonename)	//to prevent null names

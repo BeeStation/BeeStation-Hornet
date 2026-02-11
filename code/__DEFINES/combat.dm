@@ -70,8 +70,6 @@
 #define EFFECT_UNCONSCIOUS "unconscious"
 #define EFFECT_PARALYZE "paralyze"
 #define EFFECT_IMMOBILIZE "immobilize"
-#define EFFECT_STUTTER "stutter"
-#define EFFECT_SLUR "slur"
 #define EFFECT_EYE_BLUR "eye_blur"
 #define EFFECT_DROWSY "drowsy"
 
@@ -317,3 +315,5 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define ENERGY_SHIELD_INVISIBLE (1 << 2)
 /// Energy shield will take max damage when EMP'd
 #define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)
+/// Energy shield starts at 0 health
+#define ENERGY_SHIELD_DEPLETE_EQUIP (1 << 4)

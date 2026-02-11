@@ -558,3 +558,8 @@ NEUTRAL_STATION_TRAITS 2 4
 NEGATIVE_STATION_TRAITS 0 8
 NEGATIVE_STATION_TRAITS 1 4
 NEGATIVE_STATION_TRAITS 2 2
+
+# A config that skews with the random spawners weights
+# If the value is lower than 1, it'll tend to even out the odds
+# If higher than 1, it'll lean toward common spawns even more.
+RANDOM_LOOT_WEIGHT_MODIFIER 1
