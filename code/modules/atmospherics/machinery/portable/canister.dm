@@ -610,6 +610,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
 
+/obj/machinery/portable_atmospherics/canister/toxic
+	name = "toxic canister"
+	gas_type = /datum/gas/toxic
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#3fcd40#930093"
+
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"
 	gas_type = /datum/gas/water_vapor

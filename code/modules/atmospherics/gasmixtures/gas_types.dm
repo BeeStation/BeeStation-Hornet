@@ -3,7 +3,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 /proc/meta_gas_list()
 	. = subtypesof(/datum/gas)
 	for(var/gas_path in .)
-		var/list/gas_info = new(15)
+		var/list/gas_info = new(META_GAS_LIST_LENGTH)
 		var/datum/gas/gas = gas_path
 
 		gas_info[META_GAS_SPECIFIC_HEAT] = initial(gas.specific_heat)
@@ -19,7 +19,15 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 		gas_info[META_GAS_DANGER] = initial(gas.dangerous)
 		gas_info[META_GAS_ID] = initial(gas.id)
 		gas_info[META_GAS_DESC] = initial(gas.desc)
+		gas_info[META_GAS_FILTERABLE] = initial(gas.filterable)
+		LAZYINITLIST(gas_info[META_GAS_MASQUERADED_BY])
 		.[gas_path] = gas_info
+	//Initialize the back links to all the gasses that masquerade as something else. For instance, toxic gas that masquerades as oxygen is stored in the oxygen meta list.
+	for(var/gas_path in .)
+		var/datum/gas/gas = gas_path
+		if(!initial(gas.masquerades_as))
+			continue
+		.[initial(gas.masquerades_as)][META_GAS_MASQUERADED_BY] += gas
 
 /proc/generate_gas_overlay(datum/gas/gas_type)
 	var/fill = list()
@@ -74,6 +82,11 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 
 	///Maximum demand when exporting in MOLES
 	var/max_demand = 5000
+
+	///This gas can be filtered in filters and scrubbers
+	var/filterable = TRUE
+	///This gas is sneaky, and filters through gas filters and scrubbers as another gas type
+	var/masquerades_as = null
 
 /datum/gas/oxygen
 	id = GAS_O2
@@ -219,6 +232,20 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	base_value = 2.5
 	desc = "A gas that could supply even more oxygen to the bloodstream when inhaled, without being an oxidizer."
 	primary_color = "#7b68ee"
+
+/datum/gas/toxic
+	id = GAS_TOXIC
+	specific_heat = 20
+	name = "Toxic"
+	dangerous = TRUE
+	gasrig_shielding_modifier = 3
+	rarity = 900 //Only adminbus, so rarity is doesn't matter
+	purchaseable = FALSE
+	base_value = 0.2
+	desc = "Don't breathe this. Warning: Behaves like Oxygen"
+	primary_color = "#940303"
+	masquerades_as = /datum/gas/oxygen
+	filterable = FALSE
 
 /obj/effect/overlay/gas
 	icon = 'icons/effects/atmospherics.dmi'
