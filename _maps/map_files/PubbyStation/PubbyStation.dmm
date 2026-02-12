@@ -3698,10 +3698,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/crew_quarters/fitness/recreation)
 "axy" = (
@@ -3863,11 +3861,12 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "ayo" = (
-/obj/structure/platform/black/corner{
-	dir = 1
+/obj/machinery/door/airlock/hatch{
+	name = "Recharging Dock Entrance";
+	id_tag = "Toliet3"
 	},
-/turf/open/floor/iron/dark/textured_large,
-/area/security/warden)
+/turf/open/floor/iron/dark,
+/area/crew_quarters/toilet/restrooms)
 "ayq" = (
 /obj/machinery/airalarm/directional/north,
 /turf/closed/wall,
@@ -4070,10 +4069,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "azv" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "azx" = (
 /obj/machinery/vending/cola,
@@ -4271,6 +4268,9 @@
 /area/hallway/primary/central)
 "aAP" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/effect/turf_decal/siding/thinplating_new/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "aAQ" = (
@@ -4774,13 +4774,14 @@
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
 "aDk" = (
-/obj/machinery/light/warm/directional/south,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -5166,14 +5167,19 @@
 /turf/open/floor/noslip/standard,
 /area/crew_quarters/toilet/restrooms)
 "aFb" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/maintenance/department/cargo)
+/obj/effect/turf_decal/bot,
+/obj/item/paper/fluff/junkmail_redpill,
+/obj/item/storage/backpack/satchel/mail,
+/obj/structure/rack,
+/obj/item/poster/random_contraband,
+/obj/item/xenoartifact/maint,
+/obj/item/poster/random_contraband,
+/obj/effect/turf_decal/tile/red/fourcorners,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "aFc" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -5584,14 +5590,18 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "aHC" = (
-/obj/effect/turf_decal/tile/red/half{
+/obj/structure/mirror/directional/north,
+/obj/structure/sink{
+	pixel_y = 16
+	},
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/structure/platform/black{
-	dir = 8
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/open/floor/iron/dark/textured_large,
-/area/security/warden)
+/turf/open/floor/wood,
+/area/crew_quarters/toilet/restrooms)
 "aHF" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Dorms";
@@ -6052,11 +6062,15 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aKh" = (
-/obj/structure/chair/fancy/bench{
-	pixel_y = 21
+/obj/structure/mirror/directional/north,
+/obj/structure/sink{
+	pixel_y = 16
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -14422,17 +14436,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
-"bGA" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/structure/railing/sec,
-/turf/open/floor/iron/dark/textured_large,
-/area/security/warden)
 "bGE" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -14851,6 +14854,12 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/dock)
+"bKe" = (
+/obj/structure/platform/black/corner{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/security/warden)
 "bKf" = (
 /obj/structure/chair,
 /turf/open/floor/iron/dark/smooth_half,
@@ -15602,6 +15611,19 @@
 "bQr" = (
 /turf/closed/wall/r_wall,
 /area/storage/tech)
+"bQs" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/wood,
+/area/crew_quarters/fitness/recreation)
 "bQA" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 9
@@ -16400,19 +16422,11 @@
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/chief)
 "bUN" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
+/obj/effect/light_emitter/red_energy_sword,
+/turf/open/indestructible/sound/pool{
+	color = "#ADD8E6";
+	name = "Jacuzzi Pool"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/wood,
 /area/crew_quarters/toilet/restrooms)
 "bUT" = (
 /turf/closed/wall,
@@ -17334,13 +17348,6 @@
 	dir = 4
 	},
 /area/chapel/main/monastery)
-"cba" = (
-/obj/effect/turf_decal/pool,
-/turf/open/indestructible/sound/pool{
-	color = "#ADD8E6";
-	name = "Jacuzzi Pool"
-	},
-/area/crew_quarters/toilet/restrooms)
 "cbc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -17577,6 +17584,12 @@
 /obj/machinery/light/small,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
+"ccp" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/dorms)
 "ccu" = (
 /obj/structure/flora/ausbushes/leafybush,
 /turf/open/floor/plating/asteroid,
@@ -22939,12 +22952,15 @@
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "dmk" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/effect/turf_decal/siding/thinplating_new/corner{
-	dir = 4
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/dorms)
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/auto_name/directional/south,
+/turf/open/floor/wood,
+/area/crew_quarters/toilet/restrooms)
 "dmT" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -23274,14 +23290,13 @@
 /turf/open/floor/iron/tech/grid,
 /area/bridge)
 "dsF" = (
-/obj/effect/turf_decal/pool{
-	dir = 4
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/turf/open/indestructible/sound/pool/end{
-	color = "#ADD8E6";
-	name = "Jacuzzi Pool"
-	},
-/area/crew_quarters/toilet/restrooms)
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "dta" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -24355,12 +24370,19 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "dVh" = (
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
+/obj/machinery/light/warm/directional/south,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/dorms)
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/toilet/restrooms)
 "dVm" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -24376,6 +24398,15 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/main/monastery)
+"dVt" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 1
+	},
+/obj/structure/platform/black{
+	dir = 9
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/security/warden)
 "dVz" = (
 /mob/living/carbon/monkey,
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -25241,6 +25272,19 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
+"emX" = (
+/obj/machinery/door/airlock{
+	name = "Restrooms"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/toilet/restrooms)
 "enE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -25279,6 +25323,18 @@
 	},
 /turf/open/floor/iron/tech,
 /area/crew_quarters/heads/cmo)
+"enY" = (
+/obj/effect/turf_decal/pool,
+/obj/effect/turf_decal/pool{
+	dir = 4
+	},
+/obj/emitter/sparks/fire,
+/obj/effect/light_emitter/red_energy_sword,
+/turf/open/indestructible/sound/pool{
+	color = "#ADD8E6";
+	name = "Jacuzzi Pool"
+	},
+/area/crew_quarters/toilet/restrooms)
 "eom" = (
 /obj/structure/disposalpipe/sorting/wrap{
 	dir = 1
@@ -26016,14 +26072,14 @@
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
 "eDJ" = (
-/obj/structure/closet/athletic_mixed,
-/obj/item/clothing/under/costume/yukata/white,
-/obj/item/clothing/under/costume/yukata/white,
-/obj/machinery/light{
-	dir = 4
+/obj/structure/curtain{
+	name = "Women's Changing"
 	},
+/obj/effect/turf_decal/siding/thinplating/light,
 /obj/effect/turf_decal/delivery/white,
-/turf/open/floor/noslip/standard,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
 "eDT" = (
 /obj/docking_port/stationary{
@@ -28112,7 +28168,7 @@
 "fyQ" = (
 /obj/effect/turf_decal/tile/red/half,
 /obj/structure/platform/black{
-	dir = 5
+	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/security/warden)
@@ -28773,19 +28829,11 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "fOA" = (
-/obj/effect/turf_decal/stripes/corner{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/bot,
-/obj/item/paper/fluff/junkmail_redpill,
-/obj/item/storage/backpack/satchel/mail,
-/obj/structure/rack,
-/obj/item/poster/random_contraband,
-/obj/item/xenoartifact/maint,
-/obj/item/poster/random_contraband,
-/obj/effect/turf_decal/tile/red/fourcorners,
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
+/turf/open/floor/carpet/green,
+/area/crew_quarters/dorms)
 "fPF" = (
 /turf/closed/wall/r_wall,
 /area/engine/engine_room/external)
@@ -30149,6 +30197,14 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
+"gyp" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/platform/black{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/security/warden)
 "gyQ" = (
 /obj/machinery/light{
 	dir = 4
@@ -30285,15 +30341,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/hydroponics)
-"gCm" = (
-/obj/effect/turf_decal/tile/red/half{
-	dir = 1
-	},
-/obj/structure/platform/black{
-	dir = 9
-	},
-/turf/open/floor/iron/dark/textured_large,
-/area/security/warden)
 "gCo" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
@@ -31930,16 +31977,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"hqq" = (
-/obj/structure/curtain{
-	name = "Women's Changing"
-	},
-/obj/effect/turf_decal/siding/thinplating/light,
-/obj/effect/turf_decal/delivery/white,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/toilet/restrooms)
 "hqu" = (
 /obj/structure/closet/crate/medical,
 /obj/item/storage/firstaid/regular,
@@ -32428,6 +32465,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"hzQ" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 1
+	},
+/obj/structure/platform/black{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/security/warden)
 "hzV" = (
 /obj/structure/transit_tube/horizontal,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -32689,14 +32735,6 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/science/shuttledock)
-"hGD" = (
-/obj/emitter/sparks/fire,
-/obj/effect/light_emitter/red_energy_sword,
-/turf/open/indestructible/sound/pool/end{
-	color = "#ADD8E6";
-	name = "Jacuzzi Pool"
-	},
-/area/crew_quarters/toilet/restrooms)
 "hGG" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -32935,6 +32973,23 @@
 /obj/effect/turf_decal/trimline/purple/corner,
 /turf/open/floor/iron/dark,
 /area/science/lab)
+"hMN" = (
+/obj/item/clothing/under/costume/kimono,
+/obj/item/clothing/under/costume/kimono,
+/obj/structure/closet/athletic_mixed,
+/obj/item/clothing/under/costume/kimono/red,
+/obj/item/clothing/under/costume/kimono/red,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/white,
+/turf/open/floor/noslip/standard,
+/area/crew_quarters/toilet/restrooms)
 "hMS" = (
 /obj/structure/flora/junglebush/b,
 /turf/open/floor/grass,
@@ -34057,22 +34112,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/open/floor/iron,
 /area/engine/atmos)
-"iix" = (
-/obj/item/razor/straightrazor{
-	pixel_x = 2;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/medspray/dye{
-	pixel_x = 6;
-	pixel_y = 15
-	},
-/obj/machinery/light/warm/directional/west,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/dresser,
-/turf/open/floor/wood,
-/area/crew_quarters/toilet/restrooms)
 "iiF" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -34581,12 +34620,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
-"iuX" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/dorms)
 "ivn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -36393,11 +36426,17 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "jmB" = (
-/obj/machinery/door/airlock/hatch{
-	name = "Recharging Dock Entrance";
-	id_tag = "Toliet3"
+/obj/structure/curtain,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
 	},
-/turf/open/floor/iron/dark,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood,
 /area/crew_quarters/toilet/restrooms)
 "jmH" = (
 /obj/structure/chair/office{
@@ -36573,6 +36612,12 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/security)
+"jpv" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/dorms)
 "jpN" = (
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/siding/wood{
@@ -38585,17 +38630,6 @@
 	},
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
-"khn" = (
-/obj/effect/turf_decal/siding/thinplating_new,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/platform/wood{
-	dir = 1
-	},
-/obj/structure/flora/bigplant,
-/turf/open/floor/wood,
-/area/crew_quarters/fitness/recreation)
 "khw" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Launch Room";
@@ -40196,6 +40230,10 @@
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
+"kLJ" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark/textured_large,
+/area/security/warden)
 "kLT" = (
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
@@ -41157,16 +41195,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "lgK" = (
-/obj/effect/turf_decal/pool{
-	dir = 8
-	},
-/obj/emitter/sparks/fire,
-/obj/effect/light_emitter/red_energy_sword,
-/turf/open/indestructible/sound/pool{
-	color = "#ADD8E6";
-	name = "Jacuzzi Pool"
-	},
-/area/crew_quarters/toilet/restrooms)
+/obj/structure/table/wood/poker,
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/fitness/recreation)
 "lha" = (
 /obj/structure/rack,
 /obj/machinery/light{
@@ -41913,22 +41945,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/engine/engineering)
-"lyF" = (
-/obj/structure/mirror/directional/north,
-/obj/structure/sink{
-	pixel_y = 16
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/toilet/restrooms)
 "lyH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -42543,9 +42559,19 @@
 /turf/open/floor/iron/airless,
 /area/space/nearstation)
 "lNE" = (
-/obj/effect/turf_decal/tile/red/fourcorners,
-/turf/open/floor/iron/dark/smooth_large,
-/area/security)
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "Toliet2";
+	name = "Bathroom Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_x = 24;
+	pixel_y = 3;
+	specialfunctions = 4
+	},
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/toilet/restrooms)
 "lNW" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -46232,10 +46258,11 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "nwJ" = (
-/obj/effect/turf_decal/pool,
 /obj/effect/turf_decal/pool{
 	dir = 8
 	},
+/obj/emitter/sparks/fire,
+/obj/effect/light_emitter/red_energy_sword,
 /turf/open/indestructible/sound/pool{
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
@@ -47663,7 +47690,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
 "ocd" = (
-/obj/effect/light_emitter/red_energy_sword,
+/obj/effect/turf_decal/pool,
 /turf/open/indestructible/sound/pool{
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
@@ -48437,11 +48464,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
-"ovT" = (
-/obj/structure/table/wood/poker,
-/obj/machinery/light,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/fitness/recreation)
 "owg" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags{
@@ -49859,13 +49881,6 @@
 	},
 /turf/open/floor/iron/textured_half,
 /area/storage/eva)
-"oXt" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/toilet/restrooms)
 "oXA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -50373,6 +50388,15 @@
 	dir = 8
 	},
 /area/chapel/main/monastery)
+"piQ" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "pji" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -50657,12 +50681,6 @@
 /obj/item/soulstone/anybody/chaplain,
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/office)
-"ppu" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/dorms)
 "ppv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -51593,6 +51611,17 @@
 /obj/effect/turf_decal/tile/dark_red/fourcorners,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
+"pJB" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/railing/sec,
+/turf/open/floor/iron/dark/textured_large,
+/area/security/warden)
 "pKd" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
@@ -51806,18 +51835,12 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
 "pNX" = (
-/obj/structure/mirror/directional/north,
-/obj/structure/sink{
-	pixel_y = 16
+/obj/effect/turf_decal/tile/red/half,
+/obj/structure/platform/black{
+	dir = 5
 	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/toilet/restrooms)
+/turf/open/floor/iron/dark/textured_large,
+/area/security/warden)
 "pOj" = (
 /obj/structure/rack,
 /turf/open/floor/plating,
@@ -51888,6 +51911,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
+"pQt" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/toilet/restrooms)
 "pQN" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -52558,19 +52588,6 @@
 	},
 /turf/open/floor/engine/airless,
 /area/engine/supermatter)
-"qgc" = (
-/obj/structure/curtain,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/toilet/restrooms)
 "qgj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -54607,14 +54624,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/syndicate_sat)
-"rbL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "rbX" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -55148,17 +55157,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"ros" = (
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/wood,
-/area/crew_quarters/fitness/recreation)
 "roP" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Mix to Port"
@@ -55949,19 +55947,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"rGc" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating,
-/area/crew_quarters/toilet/restrooms)
 "rGj" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -56217,17 +56202,13 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "rMo" = (
-/obj/machinery/door/airlock{
-	name = "Restrooms"
+/obj/effect/turf_decal/pool{
+	dir = 4
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/turf/open/indestructible/sound/pool/end{
+	color = "#ADD8E6";
+	name = "Jacuzzi Pool"
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/restrooms)
 "rMw" = (
 /obj/structure/cable/yellow{
@@ -59317,10 +59298,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/white/smooth_large,
 /area/science/mixing)
-"tcy" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark/textured_large,
-/area/security/warden)
 "tcQ" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Port Solar Access";
@@ -60238,22 +60215,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
-"tAv" = (
-/obj/item/clothing/under/costume/kimono,
-/obj/item/clothing/under/costume/kimono,
-/obj/structure/closet/athletic_mixed,
-/obj/item/clothing/under/costume/kimono/red,
-/obj/item/clothing/under/costume/kimono/red,
-/obj/item/clothing/shoes/sandal,
-/obj/item/clothing/shoes/sandal,
-/obj/item/clothing/shoes/sandal,
-/obj/item/clothing/shoes/sandal,
-/obj/item/clothing/shoes/sandal,
-/obj/machinery/light{
-	dir = 8
+"tAH" = (
+/obj/structure/chair/fancy/bench{
+	pixel_y = 21
 	},
-/obj/effect/turf_decal/delivery/white,
-/turf/open/floor/noslip/standard,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood,
 /area/crew_quarters/toilet/restrooms)
 "tAK" = (
 /obj/structure/table,
@@ -60478,14 +60450,13 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/execution)
 "tDZ" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
+/obj/effect/turf_decal/pool{
+	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
+/turf/open/indestructible/sound/pool{
+	color = "#ADD8E6";
+	name = "Jacuzzi Pool"
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
-/turf/open/floor/wood,
 /area/crew_quarters/toilet/restrooms)
 "tED" = (
 /obj/machinery/door/airlock/maintenance{
@@ -62734,6 +62705,22 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/lawyer,
 /turf/open/floor/wood,
 /area/lawoffice)
+"uKT" = (
+/obj/item/razor/straightrazor{
+	pixel_x = 2;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/medspray/dye{
+	pixel_x = 6;
+	pixel_y = 15
+	},
+/obj/machinery/light/warm/directional/west,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/dresser,
+/turf/open/floor/wood,
+/area/crew_quarters/toilet/restrooms)
 "uLe" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -65090,12 +65077,15 @@
 /turf/open/floor/iron/sepia,
 /area/chapel/dock)
 "vQo" = (
-/obj/effect/turf_decal/tile/red/half,
-/obj/structure/platform/black{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/textured_large,
-/area/security/warden)
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/fourcorners,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "vQz" = (
 /obj/vehicle/ridden/wheelchair,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -65617,10 +65607,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "wen" = (
-/obj/effect/turf_decal/pool{
-	dir = 4
-	},
-/turf/open/indestructible/sound/pool{
+/obj/emitter/sparks/fire,
+/obj/effect/light_emitter/red_energy_sword,
+/turf/open/indestructible/sound/pool/end{
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
 	},
@@ -67288,15 +67277,18 @@
 /turf/open/floor/iron/tech,
 /area/tcommsat/computer)
 "wPa" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/red/fourcorners,
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
+/turf/open/floor/plating,
+/area/crew_quarters/toilet/restrooms)
 "wPg" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -67518,10 +67510,8 @@
 "wSl" = (
 /obj/effect/turf_decal/pool,
 /obj/effect/turf_decal/pool{
-	dir = 4
+	dir = 8
 	},
-/obj/emitter/sparks/fire,
-/obj/effect/light_emitter/red_energy_sword,
 /turf/open/indestructible/sound/pool{
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
@@ -67681,14 +67671,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"wVB" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/structure/platform/black{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/textured_large,
-/area/security/warden)
 "wWB" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -68797,6 +68779,17 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/main/monastery)
+"xtD" = (
+/obj/effect/turf_decal/siding/thinplating_new,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/platform/wood{
+	dir = 1
+	},
+/obj/structure/flora/bigplant,
+/turf/open/floor/wood,
+/area/crew_quarters/fitness/recreation)
 "xub" = (
 /obj/machinery/light{
 	dir = 4
@@ -69647,6 +69640,13 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"xMG" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/dorms)
 "xML" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -69673,6 +69673,23 @@
 	},
 /turf/open/floor/wood,
 /area/medical/exam_room)
+"xNa" = (
+/obj/structure/closet/athletic_mixed,
+/obj/item/clothing/under/costume/yukata/white,
+/obj/item/clothing/under/costume/yukata/white,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/white,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/under/costume/yukata/green,
+/obj/item/clothing/under/costume/yukata/green,
+/turf/open/floor/noslip/standard,
+/area/crew_quarters/toilet/restrooms)
 "xNc" = (
 /obj/structure/sign/departments/engineering{
 	pixel_y = -32
@@ -70452,20 +70469,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"yhE" = (
-/obj/structure/toilet{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "Toliet2";
-	name = "Bathroom Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = 3;
-	specialfunctions = 4
-	},
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/toilet/restrooms)
 "yhI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -70520,6 +70523,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
+"yja" = (
+/obj/effect/turf_decal/tile/red/fourcorners,
+/turf/open/floor/iron/dark/smooth_large,
+/area/security)
 "yjc" = (
 /obj/machinery/computer/atmos_control/plasma_tank{
 	dir = 8
@@ -92822,7 +92829,7 @@ tYC
 amg
 agC
 lBC
-vQo
+fyQ
 ybh
 ajc
 amh
@@ -93080,7 +93087,7 @@ amg
 tXs
 icc
 ssg
-fyQ
+pNX
 ybh
 ajc
 apJ
@@ -93334,7 +93341,7 @@ nDS
 lcH
 amg
 amq
-bGA
+pJB
 bbi
 rEH
 kNu
@@ -93595,7 +93602,7 @@ bSw
 cSW
 asJ
 sdk
-wVB
+gyp
 mLB
 aik
 fsA
@@ -94108,8 +94115,8 @@ amg
 tXs
 kwc
 eVS
-gCm
-ayo
+dVt
+bKe
 ajc
 apJ
 ajj
@@ -94364,8 +94371,8 @@ feW
 amg
 lsg
 jij
-aHC
-ayo
+hzQ
+bKe
 ajc
 amh
 eMS
@@ -94620,7 +94627,7 @@ asC
 agd
 amg
 agC
-tcy
+kLJ
 cnJ
 anN
 drx
@@ -95159,10 +95166,10 @@ drx
 dZn
 ahQ
 orH
-fOA
-wPa
+aFb
+vQo
 rNI
-wPa
+vQo
 aBi
 aBi
 aBi
@@ -95413,11 +95420,11 @@ aKZ
 nHy
 kmF
 eOT
-lNE
+yja
 ahQ
 xJE
 oUE
-wPa
+vQo
 eaW
 mSJ
 aBi
@@ -95673,7 +95680,7 @@ lHg
 obP
 auE
 awO
-rbL
+dsF
 eAg
 hxn
 eVU
@@ -109306,8 +109313,8 @@ wQC
 sgU
 wQC
 elp
-aAP
-aAP
+azv
+azv
 lAs
 aMl
 aNM
@@ -109552,9 +109559,9 @@ apX
 apX
 oJh
 dnv
-azv
+ccp
 dMO
-aAP
+azv
 fjz
 coo
 atm
@@ -109811,16 +109818,16 @@ gXr
 yix
 dbi
 oCF
-dVh
-dVh
-dmk
+xMG
+xMG
+aAP
 aEc
-aAP
+azv
 cot
-aAP
-aAP
-aAP
-aAP
+azv
+azv
+azv
+azv
 pQN
 lAs
 aMn
@@ -110076,9 +110083,9 @@ aEd
 aEd
 ayq
 aEd
-ppu
-aAP
-aAP
+jpv
+azv
+azv
 apX
 aMo
 cDa
@@ -110328,10 +110335,10 @@ ujz
 xjY
 dMV
 aEd
-tAv
+hMN
 aEZ
 aEd
-iix
+uKT
 aEd
 apX
 aIj
@@ -110588,7 +110595,7 @@ aEd
 dLz
 dLz
 ebp
-tDZ
+dmk
 aEd
 njh
 aJn
@@ -110839,13 +110846,13 @@ kRY
 owI
 vbY
 nRt
-iuX
+fOA
 ayr
 aEd
 qQb
 aEd
 aEd
-pNX
+aHC
 aEd
 aHo
 aJo
@@ -111096,13 +111103,13 @@ aww
 ayv
 azB
 htC
+bQs
 axv
-ros
-rMo
-oXt
+emX
+pQt
 kzR
 aEd
-aKh
+tAH
 aEd
 aEd
 aEd
@@ -111359,7 +111366,7 @@ aEd
 aEf
 aEd
 aEd
-lyF
+aKh
 aHp
 aIl
 aEd
@@ -111615,8 +111622,8 @@ aBU
 aEd
 aEg
 aFc
-hqq
-aDk
+eDJ
+dVh
 aEd
 aEd
 aEd
@@ -111868,14 +111875,14 @@ ayv
 rUN
 dFR
 xCk
-ovT
+lgK
 aEd
-eDJ
+xNa
 aFe
 aEd
-bUN
+aDk
 aHq
-yhE
+lNE
 aEd
 aKk
 aLh
@@ -112130,7 +112137,7 @@ aEd
 aEd
 aEd
 aEd
-qgc
+jmB
 aEd
 aEd
 aEd
@@ -112379,20 +112386,20 @@ atn
 oul
 awB
 ayv
-khn
+xtD
 yjI
 gxR
 aBX
-jmB
+ayo
 aEi
 aEd
 pGL
 fan
 naS
-rGc
+wPa
 aJp
 cCY
-aFb
+piQ
 aMw
 aEj
 aaa
@@ -112644,8 +112651,8 @@ aEd
 aEd
 aEd
 qZx
-lgK
 nwJ
+wSl
 aEd
 aFi
 aFi
@@ -112900,9 +112907,9 @@ aur
 aur
 aur
 aEd
-hGD
+wen
+bUN
 ocd
-cba
 aEj
 aEj
 aEj
@@ -113157,9 +113164,9 @@ aur
 aur
 aur
 aEd
-dsF
-wen
-wSl
+rMo
+tDZ
+enY
 aEj
 woc
 gHi
