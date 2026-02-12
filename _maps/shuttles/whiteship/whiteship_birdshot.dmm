@@ -53,8 +53,8 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
 /turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
 "i" = (
