@@ -131,7 +131,8 @@
 	data["id_tag"] = -1 //must be defined in order to reuse code between portable and vent scrubbers
 	data["filter_types"] = list()
 	for(var/gas_type in subtypesof(/datum/gas))
-		data["filter_types"] += list(list("gas_id" = GLOB.meta_gas_info[gas_type][META_GAS_ID], "gas_name" = GLOB.meta_gas_info[gas_type][META_GAS_NAME], "enabled" = (gas_type in scrubbing)))
+		if(gas[META_GAS_FILTERABLE])
+			data["filter_types"] += list(list("gas_id" = GLOB.meta_gas_info[gas_type][META_GAS_ID], "gas_name" = GLOB.meta_gas_info[gas_type][META_GAS_NAME], "enabled" = (gas_type in scrubbing)))
 
 	if(holding)
 		data["holding"] = list()
@@ -167,6 +168,11 @@
 				. = TRUE
 		if("toggle_filter")
 			scrubbing ^= gas_id2path(params["val"])
+			var/list/meta_information = GLOB.meta_gas_info[gas_id2path(params["val"])]
+			if(gas_id2path(params["val"]) in filter_type)
+				filter_type += meta_information[META_GAS_MASQUERADED_BY]
+			else
+				filter_type -= meta_information[META_GAS_MASQUERADED_BY]
 			. = TRUE
 	if(.)
 		update_appearance()
