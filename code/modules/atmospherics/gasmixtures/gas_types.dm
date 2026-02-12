@@ -233,6 +233,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	desc = "A gas that could supply even more oxygen to the bloodstream when inhaled, without being an oxidizer."
 	primary_color = "#7b68ee"
 
+// This gas is designed to be extremely toxic and used as an environmental hazard for adminbus. Extremely quick toxin damage at low concentrations,
+// and just to be a pain for engineering, can't be scrubbed out because it masquerades as oxygen.
 /datum/gas/toxic
 	id = GAS_TOXIC
 	specific_heat = 20
