@@ -44,7 +44,7 @@ GLOBAL_VAR(clockcult_eminence)
 	if(!owner.current)
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', vol = 60, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE)
-	to_chat(owner.current, "[span_heavybrass("<font size='7'>You feel a flash of light and the world spin around you!</font>")]")
+	to_chat(owner.current, span_heavybrass("<font size='7'>You feel a flash of light and the world spin around you!</font>"))
 	to_chat(owner.current, span_brass("<font size='5'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font>"))
 	to_chat(owner.current, span_brass("Use Rat'varian observation consoles to monitor the crew and warp to the station."))
 	to_chat(owner.current, span_brass("Use your Clockwork Slab to summon integration cogs to unlock more scriptures and siphon power."))

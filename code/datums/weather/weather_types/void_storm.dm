@@ -25,5 +25,5 @@
 		return
 	L.adjustOxyLoss(rand(1,3))
 	L.adjustFireLoss(rand(1,3))
-	L.adjust_blurriness(rand(0,1))
+	L.adjust_eye_blur(rand(0 SECONDS, 2 SECONDS))
 	L.adjust_bodytemperature(-rand(5,15))

@@ -9762,7 +9762,7 @@
 /obj/item/book/manual/wiki/detective,
 /obj/item/book/manual/wiki/barman_recipes,
 /obj/item/toy/plush/carpplushie{
-	color = "red";
+	greyscale_colors = "#ff5050#000000";
 	name = "Nanotrasen wildlife department space carp plushie";
 	pixel_y = 18;
 	pixel_x = 17
@@ -13417,6 +13417,7 @@
 /obj/item/taperecorder{
 	pixel_y = 15
 	},
+/obj/item/laser_pointer/purple,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "cOR" = (
@@ -30350,7 +30351,7 @@
 	dir = 4
 	},
 /obj/structure/railing/perspective/black{
-	pixel_y = 23
+	dir = 1
 	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
@@ -38060,9 +38061,6 @@
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/cryopods)
 "ipg" = (
-/obj/structure/railing/perspective/black{
-	pixel_y = 23
-	},
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
@@ -38079,6 +38077,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/railing/perspective/black{
+	dir = 1
 	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
@@ -50016,28 +50017,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"kVu" = (
-/obj/structure/railing/perspective/black{
-	pixel_y = 23
-	},
-/obj/effect/turf_decal/edges/borderfloor/black{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron/smooth_edge{
-	dir = 1
-	},
-/area/hallway/primary/port)
 "kVy" = (
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 9
@@ -50557,9 +50536,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "kZT" = (
-/obj/structure/railing/perspective/black{
-	pixel_y = 23
-	},
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
@@ -50573,6 +50549,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/junction{
 	dir = 4
+	},
+/obj/structure/railing/perspective/black{
+	dir = 1
 	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
@@ -68838,10 +68817,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
-"pbn" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
-/area/medical/medbay/lobby)
 "pbp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -132750,7 +132725,7 @@ jjM
 jJF
 pag
 mFA
-kVu
+gDQ
 vWs
 upe
 pum
@@ -133007,7 +132982,7 @@ waW
 jJF
 oHy
 aZZ
-kVu
+gDQ
 xws
 aXq
 aXq
@@ -158445,7 +158420,7 @@ vgc
 jKU
 vgc
 pVR
-pbn
+maP
 iDx
 sNN
 xgk

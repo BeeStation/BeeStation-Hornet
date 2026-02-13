@@ -5179,7 +5179,6 @@
 	req_access = null;
 	req_one_access_txt = "28;25;35"
 	},
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/item/clothing/suit/toggle/chef,
 /obj/item/clothing/head/utility/chefhat,
 /obj/machinery/requests_console/directional/west,
@@ -9516,6 +9515,7 @@
 	pixel_x = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/laser_pointer/purple,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "fhs" = (

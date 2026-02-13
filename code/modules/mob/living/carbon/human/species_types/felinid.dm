@@ -109,7 +109,7 @@
 
 /datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.hair_style = "Hime Cut"
-	human.hair_color = "fcc" // pink
+	human.hair_color = COLOR_PINK
 	human.update_hair()
 
 	var/obj/item/organ/ears/cat/cat_ears = human.get_organ_by_type(/obj/item/organ/ears/cat)

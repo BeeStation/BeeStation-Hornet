@@ -150,7 +150,7 @@
 /obj/effect/spawner/random/trash/graffiti/make_item(spawn_loc, type_path_to_make)
 	var/obj/effect/decal/cleanable/crayon/graffiti_decal = ..()
 	if(istype(graffiti_decal))
-		color = random_color && "#[random_short_color()]" || color
+		color = random_color && "#[random_color()]" || color
 		icon_state = random_icon && pick(graffiti_icons) || icon_state
 
 		graffiti_decal.add_atom_colour(color, FIXED_COLOUR_PRIORITY)

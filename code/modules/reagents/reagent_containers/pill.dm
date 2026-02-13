@@ -226,7 +226,7 @@
 	name = "black pill"
 	desc = "I wouldn't eat this if I were you."
 	icon_state = "pill_shape_tablet_white_lined"
-	color = "#454545"
+	color = COLOR_DARK
 	list_reagents = list(/datum/reagent/mutationtoxin/shadow = 5)
 
 //////////////////////////////////////// drugs

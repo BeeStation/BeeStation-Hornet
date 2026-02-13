@@ -55,7 +55,7 @@
 		"swamp" = "#e5e75a",
 		"turquoise" = "#04e1ed",
 		"brown" = "#ca805a",
-		"teal" = "#20e28e",
+		"teal" = COLOR_PALE_GREEN,
 		"lightblue" = "#4d88cc",
 		"rusty" = "#dd5f34",
 		"lightred" = "#fd6767",
@@ -177,8 +177,13 @@
 	unique_name = FALSE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
+	rarechance = 100
 	faction = list(FACTION_CARP, FACTION_SYNDICATE)
-	AIStatus = AI_OFF
+	health = 60
+	maxHealth = 60
+	melee_damage = 25
+	//A lil bit faster than a human
+	speed = -0.2
 	/// Keeping track of the nuke disk for the functionality of storing it.
 	var/obj/item/disk/nuclear/disky
 	/// Location of the file storing disk overlays

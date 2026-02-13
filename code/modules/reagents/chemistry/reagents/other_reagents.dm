@@ -245,10 +245,7 @@
 	if(istype(exposed_obj, /obj/item/food/monkeycube))
 		var/obj/item/food/monkeycube/cube = exposed_obj
 		cube.Expand()
-	// Dehydrated carp
-	else if(istype(exposed_obj, /obj/item/toy/plush/carpplushie/dehy_carp))
-		var/obj/item/toy/plush/carpplushie/dehy_carp/dehy = exposed_obj
-		dehy.Swell()
+
 	// Leather
 	else if(istype(exposed_obj, /obj/item/stack/sheet/leather/hairlesshide))
 		var/obj/item/stack/sheet/leather/hairlesshide/hide = exposed_obj
@@ -345,13 +342,14 @@
 			qdel(rune)
 	exposed_turf.Bless()
 
-/datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
+/datum/reagent/fuel/unholywater //if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
 	description = "Something that shouldn't exist on this plane of existence."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "suffering"
+	self_consuming = TRUE
 	metabolized_traits = list(TRAIT_NO_BLEEDING)
-	metabolization_rate = 1
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM //1u/tick
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/fuel/unholywater/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
@@ -361,31 +359,35 @@
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+
+	var/need_mob_update = FALSE
 	if(IS_CULTIST(affected_mob))
-		affected_mob.drowsyness = max(affected_mob.drowsyness - 5 * REM * delta_time, 0)
-		affected_mob.AdjustAllImmobility(-40 * REM* REM * delta_time)
-		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
-		affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+		need_mob_update += affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
+		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
+		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
 		if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
 			affected_mob.blood_volume += 3 * REM * delta_time
-	else  // Will deal about 90 damage when 50 units are thrown
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
-		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, forced = TRUE)
-		affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustOxyLoss(1 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustBruteLoss(1 * REM * delta_time, updating_health = FALSE)
-	return TRUE
 
-/datum/reagent/hellwater			//if someone has this in their system they've really pissed off an eldrich god
+	else  // Will deal about 90 damage when 50 units are thrown
+		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		need_mob_update += affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, forced = TRUE)
+		need_mob_update += affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOxyLoss(1 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustBruteLoss(1 * REM * delta_time, updating_health = FALSE)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/datum/reagent/hellwater //if someone has this in their system they've really pissed off an eldrich god
 	name = "Hell Water"
 	description = "YOUR FLESH! IT BURNS!"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 0.5
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/hellwater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -473,31 +475,17 @@
 					human.skin_tone = "caucasian1"
 
 		if(MUTCOLORS in human.dna.species.species_traits) //take current alien color and darken it slightly
-			var/newcolor = ""
-			var/string = human.dna.features["mcolor"]
-			var/len = length(string)
-			var/char = ""
-			var/ascii = 0
-			for(var/i=1, i<=len, i += length(char))
-				char = string[i]
-				ascii = text2ascii(char)
-				switch(ascii)
-					if(48)
-						newcolor += "0"
-					if(49 to 57)
-						newcolor += ascii2text(ascii-1)	//numbers 1 to 9
-					if(97)
-						newcolor += "9"
-					if(98 to 102)
-						newcolor += ascii2text(ascii-1)	//letters b to f lowercase
-					if(65)
-						newcolor += "9"
-					if(66 to 70)
-						newcolor += ascii2text(ascii+31)	//letters B to F - translates to lowercase
-					else
-						break
-			if(ReadHSV(newcolor)[3] >= ReadHSV("#7F7F7F")[3])
-				human.dna.features["mcolor"] = newcolor
+			var/list/existing_color = rgb2num(human.dna.features["mcolor"])
+			var/list/darkened_color = list()
+			// Reduces each part of the color by 16
+			for(var/channel in existing_color)
+				darkened_color += max(channel - 17, 0)
+
+			var/new_color = rgb(darkened_color[1], darkened_color[2], darkened_color[3])
+			var/list/new_hsv = rgb2hsv(new_color)
+			// Can't get too dark now
+			if(new_hsv[3] >= 50)
+				human.dna.features["mcolor"] = new_color
 		human.regenerate_icons()
 
 /datum/reagent/spraytan/overdose_start(mob/living/carbon/affected_mob)
@@ -508,14 +496,14 @@
 		var/mob/living/carbon/human/affected_human = affected_mob
 		affected_human.hair_style = "Spiky"
 		affected_human.facial_hair_style = "Shaved"
-		affected_human.facial_hair_color = "000"
-		affected_human.hair_color = "000"
+		affected_human.facial_hair_color = COLOR_BLACK
+		affected_human.hair_color = COLOR_BLACK
 		if(!(HAIR in affected_human.dna.species.species_traits)) //No hair? No problem!
 			affected_human.dna.species.species_traits += HAIR
 		if(affected_human.dna.species.use_skintones)
 			affected_human.skin_tone = "orange"
 		else if(MUTCOLORS in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
-			affected_human.dna.features["mcolor"] = "f80"
+			affected_human.dna.features["mcolor"] = COLOR_ORANGE
 		affected_human.regenerate_icons()
 
 /datum/reagent/spraytan/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -830,7 +818,7 @@
 	name = "Oxygen"
 	description = "A colorless, odorless gas. Grows on trees but is still pretty valuable."
 	reagent_state = GAS
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0 // oderless and tasteless
 
@@ -865,7 +853,7 @@
 	name = "Nitrogen"
 	description = "A colorless, odorless, tasteless gas. A simple asphyxiant that can silently displace vital oxygen."
 	reagent_state = GAS
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
 
@@ -884,7 +872,7 @@
 	name = "Hydrogen"
 	description = "A colorless, odorless, nonmetallic, tasteless, highly combustible diatomic gas."
 	reagent_state = GAS
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
 
@@ -899,7 +887,7 @@
 /datum/reagent/mercury
 	name = "Mercury"
 	description = "A curious metal that's a liquid at room temperature. Neurodegenerative and very bad for the mind."
-	color = "#484848" // rgb: 72, 72, 72A
+	color = COLOR_WEBSAFE_DARK_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
 	taste_mult = 0 // apparently tasteless.
 
@@ -949,7 +937,7 @@
 	name = "Chlorine"
 	description = "A pale yellow gas that's well known as an oxidizer. While it forms many harmless molecules in its elemental form it is far from harmless."
 	reagent_state = GAS
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "chlorine"
 
@@ -962,7 +950,7 @@
 	name = "Fluorine"
 	description = "A comically-reactive chemical element. The universe does not want this stuff to exist in this form in the slightest."
 	reagent_state = GAS
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "acid"
 	process_flags = ORGANIC | SYNTHETIC
@@ -976,7 +964,7 @@
 	name = "Sodium"
 	description = "A soft silver metal that can easily be cut with a knife. It's not salt just yet, so refrain from putting in on your chips."
 	reagent_state = SOLID
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "salty metal"
 
@@ -992,7 +980,7 @@
 	name = "Lithium"
 	description = "A silver metal, its claim to fame is its remarkably low density. Using it is a bit too effective in calming oneself down."
 	reagent_state = SOLID
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because it is fun
 	taste_description = "metal"
 
@@ -1006,7 +994,7 @@
 /datum/reagent/glycerol
 	name = "Glycerol"
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sweetness"
 
@@ -1269,7 +1257,7 @@
 	if(DT_PROB(55, delta_time))
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(DT_PROB(30, delta_time))
-		affected_mob.drowsyness = max(affected_mob.drowsyness, 3)
+		affected_mob.adjust_drowsiness(6 SECONDS)
 	if(DT_PROB(5, delta_time))
 		affected_mob.emote("drool")
 
@@ -1309,7 +1297,7 @@
 /datum/reagent/snail
 	name = "Agent-S"
 	description = "Virological agent that infects the subject with Gastrolosis."
-	color = "#003300" // rgb(0, 51, 0)
+	color = COLOR_VERY_DARK_LIME_GREEN
 	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 	taste_description = "goo"
 
@@ -1379,7 +1367,7 @@
 	description = "A potent oxidizer used as fuel in rockets and as an anaesthetic during surgery."
 	reagent_state = LIQUID
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-	color = "#808080"
+	color = COLOR_GRAY
 	chemical_flags = NONE
 	taste_description = "sweetness"
 
@@ -1395,7 +1383,9 @@
 
 /datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == VAPOR)
-		exposed_mob.drowsyness += max(round(reac_volume, 1), 2)
+		// apply 2 seconds of drowsiness per unit applied, with a min duration of 4 seconds
+		var/drowsiness_to_apply = max(round(reac_volume, 1) * 2 SECONDS, 4 SECONDS)
+		exposed_mob.adjust_drowsiness(drowsiness_to_apply)
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents
@@ -1404,7 +1394,7 @@
 	name = "Mundane Powder" //the name's a bit similar to the name of colorful reagent, but hey, they're practically the same chem anyway
 	description = "A powder that is used for coloring things."
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 207, 54, 0
+	color = COLOR_WHITE
 	color_intensity = 50
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "the back of class"
@@ -1470,8 +1460,8 @@
 /datum/reagent/colorful_reagent/powder/white
 	name = "White Dye Powder"
 	colorname = "white"
-	color = "#FFFFFF" // white
-	random_color_list = list("#FFFFFF") //doesn't actually change appearance at all
+	color = COLOR_WHITE
+	random_color_list = list(COLOR_WHITE) //doesn't actually change appearance at all
 
 /* used by crayons, can't color living things but still used for stuff like food recipes */
 
@@ -1522,7 +1512,7 @@
 /datum/reagent/plantnutriment
 	name = "Generic nutriment"
 	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
-	color = "#000000" // RBG: 0, 0, 0
+	color = COLOR_BLACK
 	chemical_flags = CHEMICAL_NOT_DEFINED // this shouldn't exist
 	var/tox_prob = 0
 	taste_description = "plant food"
@@ -1678,7 +1668,7 @@
 /datum/reagent/carpet/royal/black
 	name = "Royal Black Carpet"
 	description = "For those that feel the need to show off their timewasting skills."
-	color = "#000000"
+	color = COLOR_BLACK
 	taste_description = "royalty"
 	carpet_type = /turf/open/floor/carpet/royalblack
 
@@ -1750,7 +1740,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	var/list/potential_colors = list("0ad","a0f","f73","d14","d14","0b5","0ad","f73","fc2","084","05e","d22","fa0") // fucking hair code // someone forgot how hair_color is programmed
+	var/list/potential_colors = list("#00aadd","#aa00ff","#ff7733","#dd1144","#dd1144","#00bb55","#00aadd","#ff7733","#ffcc22","#008844","#0055ee","#dd2222","#ffaa00") // fucking hair code
 	taste_description = "sourness"
 
 /datum/reagent/hair_dye/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
@@ -1909,7 +1899,7 @@
 /datum/reagent/growthserum
 	name = "Growth Serum"
 	description = "A commercial chemical designed to help older men in the bedroom."//not really it just makes you a giant
-	color = "#ff0000"//strong red. rgb 255, 0, 0
+	color = COLOR_RED
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness" // apparently what viagra tastes like
 
@@ -1950,7 +1940,7 @@
 /datum/reagent/glitter
 	name = "light pink glitter"
 	description = "light pink sparkles that get everywhere."
-	color = "#FFFFFF" //base colour of decal is light pink
+	color = COLOR_WHITE //base colour of decal is light pink
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	taste_description = "plastic"
 	reagent_state = SOLID
@@ -2029,7 +2019,7 @@
 	. = ..()
 	if(DT_PROB(17, delta_time))
 		affected_mob.Stun(20, 0)
-		affected_mob.blur_eyes(5)
+		affected_mob.set_eye_blur_if_lower(10 SECONDS)
 	if(DT_PROB(17, delta_time))
 		affected_mob.Knockdown(2 SECONDS)
 	if(DT_PROB(10, delta_time))
@@ -2085,14 +2075,15 @@
 		It re-energizes and heals those who can see beyond this fragile reality, \
 		but is incredibly harmful to the closed-minded. It metabolizes very quickly."
 	taste_description = "Ag'hsj'saje'sh"
+	self_consuming = TRUE
 	color = "#1f8016"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM //0.5u/second
 
 /datum/reagent/eldritch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(IS_HERETIC(affected_mob))
-		affected_mob.drowsyness = max(affected_mob.drowsyness - 5 * REM * delta_time, 0)
+	if(IS_HERETIC_OR_MONSTER(affected_mob))
+		affected_mob.adjust_drowsiness(-10 * REM * delta_time)
 		affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
 		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)

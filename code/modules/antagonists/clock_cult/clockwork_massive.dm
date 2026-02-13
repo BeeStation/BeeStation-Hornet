@@ -8,7 +8,7 @@
 
 /proc/flee_reebe()
 	for(var/mob/living/M in GLOB.mob_list)
-		if(!is_reebe(M.z))
+		if(!is_on_reebe(M))
 			continue
 		var/safe_place = find_safe_turf()
 		M.forceMove(safe_place)
@@ -48,7 +48,7 @@
 	destroyed = TRUE
 	hierophant_message("The Ark has been destroyed, Reebe is becoming unstable!", null, "<span class='large_brass'>")
 	for(var/mob/living/M in GLOB.player_list)
-		if(!is_reebe(M.z))
+		if(!is_on_reebe(M))
 			continue
 		if(IS_SERVANT_OF_RATVAR(M))
 			to_chat(M, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i>"))
@@ -66,7 +66,7 @@
 
 	// Release the non-servants from Reebe
 	for(var/mob/living/person in GLOB.player_list)
-		if(!is_reebe(person.z))
+		if(!is_on_reebe(person))
 			continue
 		if(IS_SERVANT_OF_RATVAR(person))
 			to_chat(person, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i>"))
@@ -296,7 +296,7 @@
 
 	// Send to the station
 	for(var/mob/living/person in GLOB.mob_list)
-		if(!is_reebe(person.z))
+		if(!is_on_reebe(person))
 			continue
 		person.forceMove(find_safe_turf())
 
@@ -323,13 +323,7 @@
  * Teleports all clock cultists to Reebe
  */
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall()
-	for(var/datum/mind/servant_mind in GLOB.servants_of_ratvar)
-		var/mob/living/servant = servant_mind.current
-		if(!servant || QDELETED(servant))
-			continue
-
-		servant.forceMove(pick(GLOB.servant_spawns))
-
+	teleport_all_servants_to_reebe()
 	for(var/mob/player in GLOB.player_list)
 		SEND_SOUND(player, 'sound/magic/clockwork/invoke_general.ogg')
 

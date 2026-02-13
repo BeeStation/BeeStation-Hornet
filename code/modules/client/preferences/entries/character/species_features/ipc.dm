@@ -33,14 +33,14 @@
 
 	return data
 
-/datum/preference/color_legacy/ipc_screen_color
+/datum/preference/color/ipc_screen_color
 	db_key = "feature_ipc_screen_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_mutant_bodypart = "ipc_antenna"
 	priority = PREFERENCE_PRIORITY_EYE_COLOR
 
-/datum/preference/color_legacy/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(!isipc(target))
 		return
 	target.eye_color = value
@@ -50,8 +50,8 @@
 			eyes_organ.eye_color = value
 		eyes_organ.old_eye_color = value
 
-/datum/preference/color_legacy/ipc_screen_color/create_default_value()
-	return "fff"
+/datum/preference/color/ipc_screen_color/create_default_value()
+	return COLOR_WHITE
 
 /datum/preference/choiced/ipc_antenna
 	db_key = "feature_ipc_antenna"
@@ -90,20 +90,20 @@
 
 	return data
 
-/datum/preference/color_legacy/ipc_antenna_color
+/datum/preference/color/ipc_antenna_color
 	db_key = "feature_ipc_antenna_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_mutant_bodypart = "ipc_antenna"
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
 
-/datum/preference/color_legacy/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(!isipc(target))
 		return
 	target.hair_color = value
 
-/datum/preference/color_legacy/ipc_antenna_color/create_default_value()
-	return "222"
+/datum/preference/color/ipc_antenna_color/create_default_value()
+	return "#222222"
 
 /datum/preference/choiced/ipc_chassis
 	db_key = "feature_ipc_chassis"

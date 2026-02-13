@@ -20,7 +20,7 @@
 	sword.icon_state = "swordred"
 	H.update_held_items()
 	H.hair_style = "Messy"
-	H.hair_color = "431"
+	H.hair_color = "#443311"
 	H.update_hair()
 
 /datum/role_preference/roundstart/changeling
@@ -53,7 +53,7 @@
 	r_hand = /obj/item/melee/arm_blade
 
 /datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visuals_only)
-	H.dna.features["mcolor"] = "8d8"
+	H.dna.features["mcolor"] = "#88dd88"
 	H.dna.features["horns"] = "Short"
 	H.dna.features["frills"] = "Simple"
 	H.set_species(/datum/species/lizard)

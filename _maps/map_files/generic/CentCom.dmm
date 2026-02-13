@@ -19928,7 +19928,6 @@
 /area/centcom/control)
 "aZg" = (
 /obj/structure/table,
-/obj/item/book/manual/hydroponics_pod_people,
 /obj/item/seeds/pumpkin/blumpkin,
 /obj/item/paper/guides/jobs/hydroponics,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,

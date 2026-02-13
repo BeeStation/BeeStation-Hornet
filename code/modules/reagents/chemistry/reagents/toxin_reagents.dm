@@ -31,7 +31,7 @@
 /datum/reagent/toxin/mutagen
 	name = "Unstable Mutagen"
 	description = "Might cause unpredictable mutations. Keep away from children."
-	color = "#00FF00"
+	color = COLOR_VIBRANT_LIME
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "slime"
@@ -298,7 +298,7 @@
 	. = ..()
 	affected_mob.damageoverlaytemp = 60
 	affected_mob.update_damage_hud()
-	affected_mob.blur_eyes(3 * REM * delta_time)
+	affected_mob.set_eye_blur_if_lower(6 SECONDS * REM * delta_time)
 
 /datum/reagent/toxin/spore_burning
 	name = "Burning Spore Toxin"
@@ -328,7 +328,7 @@
 	switch(current_cycle)
 		if(1 to 10)
 			affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
-			affected_mob.drowsyness += 2 * REM * delta_time
+			affected_mob.adjust_drowsiness(4 SECONDS * REM * delta_time)
 		if(10 to 50)
 			affected_mob.Sleeping(40 * REM * delta_time)
 		if(51 to INFINITY)
@@ -465,7 +465,7 @@
 		switch(pick(1, 2, 3, 4))
 			if(1)
 				to_chat(affected_mob, span_danger("You can barely see!"))
-				affected_mob.blur_eyes(3)
+				affected_mob.set_eye_blur_if_lower(6 SECONDS)
 			if(2)
 				affected_mob.emote("cough")
 			if(3)
@@ -729,7 +729,7 @@
 	description = "A very powerful delayed toxin. Upon full metabolization, a massive amount of toxin damage will be dealt depending on how long it has been in the victim's bloodstream."
 	silent_toxin = TRUE
 	reagent_state = LIQUID
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
@@ -1066,7 +1066,7 @@
 
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(5)
+	affected_mob.set_drugginess(10 SECONDS * REM * delta_time)
 	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
 	affected_mob.set_silence_if_lower(6 SECONDS * REM * delta_time)
 	affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)

@@ -168,7 +168,7 @@
 		M.reagents.add_reagent(/datum/reagent/medicine/stabilizing_nanites, 10)
 		M.flash_act()
 		M.adjust_confusion(10 SECONDS)
-		M.blur_eyes(5)
+		M.set_eye_blur_if_lower(10 SECONDS)
 		to_chat(M, span_warning("You feel strange..."))
 		sleep(60)
 		to_chat(M, span_warning("That pod did something to you..."))
@@ -177,7 +177,7 @@
 		to_chat(M, span_warning("Your head pounds... It feels like it's going to burst out your skull!"))
 		M.flash_act()
 		M.adjust_confusion(20 SECONDS)
-		M.blur_eyes(3)
+		M.set_eye_blur_if_lower(6 SECONDS)
 		sleep(30)
 		to_chat(M, span_warning("Your head pounds..."))
 		sleep(100)
@@ -186,7 +186,7 @@
 		to_chat(M, span_reallybighypnophrase("A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
 					so it's only a matter of time before we ship you back...\"</i>"))
-		M.blur_eyes(10)
+		M.set_eye_blur_if_lower(20 SECONDS)
 		M.adjust_dizzy(1.5 SECONDS)
 		M.adjust_confusion(20 SECONDS)
 
@@ -225,7 +225,7 @@
 		M.forceMove(return_pod)
 
 		M.flash_act()
-		M.blur_eyes(30)
+		M.set_eye_blur_if_lower(60 SECONDS)
 		M.adjust_dizzy(3.5 SECONDS)
 		M.adjust_confusion(20 SECONDS)
 

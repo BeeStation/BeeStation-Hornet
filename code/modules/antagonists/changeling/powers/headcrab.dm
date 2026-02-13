@@ -31,17 +31,16 @@
 			if(!eyes || H.is_blind())
 				continue
 			to_chat(H, span_userdanger("You are blinded by a shower of blood!"))
-			H.Stun(20)
-			H.blur_eyes(20)
-			eyes?.apply_organ_damage(5)
+			H.Stun(4 SECONDS)
+			H.set_eye_blur_if_lower(40 SECONDS)
 			H.adjust_confusion(10 SECONDS)
 
 		else if(issilicon(A))
 			var/mob/living/silicon/S = A
 			to_chat(S, span_userdanger("Your sensors are disabled by a shower of blood!"))
-			S.Paralyze(60)
+			S.Paralyze(6 SECONDS)
 
-	// Headcrab transformation is *very* unique; origin mob death happens *before* resulting mob's creation. Action removal should happen beforehand.
+	// Headcrab transformation is *very* unique; origin mob death happens *before* resulting mob's creation. Action removal should happen beforehand. //You're so weird.
 	for(var/datum/action/cp in user.actions)
 		cp.Remove(user)
 	. = TRUE

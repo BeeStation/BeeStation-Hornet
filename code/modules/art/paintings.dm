@@ -50,7 +50,7 @@
 	var/height = 11
 	var/list/grid
 	/// empty canvas color
-	var/canvas_color = "#ffffff"
+	var/canvas_color = COLOR_WHITE
 	/// Is it clean canvas or was there something painted on it at some point, used to decide when to show wip splotch overlay
 	var/used = FALSE
 	var/finalized = FALSE //Blocks edits
@@ -282,11 +282,11 @@
 		var/obj/item/pen/P = painting_implement
 		switch(P.colour)
 			if("black")
-				return "#000000"
+				return COLOR_BLACK
 			if("blue")
-				return "#0000ff"
+				return COLOR_BLUE
 			if("red")
-				return "#ff0000"
+				return COLOR_RED
 		return P.colour
 	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/cup/rag))
 		return canvas_color
@@ -559,7 +559,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/painting)
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = 15
 	///Chosen paint color
-	var/current_color = "#000000"
+	var/current_color = COLOR_BLACK
 
 /obj/item/paint_palette/Initialize(mapload)
 	. = ..()
