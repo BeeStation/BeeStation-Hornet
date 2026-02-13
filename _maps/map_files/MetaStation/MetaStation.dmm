@@ -70005,30 +70005,13 @@
 /turf/open/floor/iron/dark,
 /area/science/misc_lab/range)
 "vDD" = (
-/obj/effect/turf_decal/trimline/green/line,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /obj/machinery/door/window/westright{
 	req_access_txt = "12;22;25;26;28;35;37;38;46";
 	name = "Service Access"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/trimline/green/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/door/window/westright{
-	req_one_access_txt = "22;25;26;28;35;37"
-	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "vDL" = (
