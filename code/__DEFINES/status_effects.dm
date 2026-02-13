@@ -127,6 +127,11 @@
 #define set_confusion(duration) set_timed_status_effect(duration, /datum/status_effect/confusion)
 #define set_confusion_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/confusion, TRUE)
 
+#define adjust_drugginess(duration) adjust_timed_status_effect(duration, /datum/status_effect/drugginess)
+#define adjust_drugginess_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/drugginess, up_to)
+#define set_drugginess(duration) set_timed_status_effect(duration, /datum/status_effect/drugginess)
+#define set_drugginess_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/drugginess, TRUE)
+
 #define adjust_silence(duration) adjust_timed_status_effect(duration, /datum/status_effect/silenced)
 #define adjust_silence_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/silenced, up_to)
 #define set_silence(duration) set_timed_status_effect(duration, /datum/status_effect/silenced)
@@ -136,6 +141,16 @@
 #define adjust_hallucinations_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/hallucination, up_to)
 #define set_hallucinations(duration) set_timed_status_effect(duration, /datum/status_effect/hallucination)
 #define set_hallucinations_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/hallucination, TRUE)
+
+#define adjust_drowsiness(duration) adjust_timed_status_effect(duration, /datum/status_effect/drowsiness)
+#define adjust_drowsiness_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/drowsiness, up_to)
+#define set_drowsiness(duration) set_timed_status_effect(duration, /datum/status_effect/drowsiness)
+#define set_drowsiness_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/drowsiness, TRUE)
+
+#define adjust_eye_blur(duration) adjust_timed_status_effect(duration, /datum/status_effect/eye_blur)
+#define adjust_eye_blur_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/eye_blur, up_to)
+#define set_eye_blur(duration) set_timed_status_effect(duration, /datum/status_effect/eye_blur)
+#define set_eye_blur_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/eye_blur, TRUE)
 
 #define adjust_pacifism(duration) adjust_timed_status_effect(duration, /datum/status_effect/pacify)
 #define set_pacifism(duration) set_timed_status_effect(duration, /datum/status_effect/pacify)

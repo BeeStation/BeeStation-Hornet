@@ -145,7 +145,7 @@
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"
 	actions_types = list(/datum/action/item_action/organ_action/pumpkin_head_candy)
-	color = "#ff7b00"
+	color = COLOR_TAN_ORANGE
 
 /datum/action/item_action/organ_action/pumpkin_head_candy
 	name = "Make Candy"

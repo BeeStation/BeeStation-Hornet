@@ -739,7 +739,7 @@
 		return SPEED_POTION_STOP
 
 	to_chat(user, span_notice("You slather the red gunk over [src], making it faster."))
-	set_mod_color("#FF0000")
+	set_mod_color(COLOR_RED)
 	ADD_TRAIT(src, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
 	update_speed()
 	qdel(speed_potion)

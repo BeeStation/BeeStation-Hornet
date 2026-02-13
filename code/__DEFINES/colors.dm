@@ -134,21 +134,6 @@
 #define COLOR_ASSEMBLY_BLUE "#38559E"
 #define COLOR_ASSEMBLY_PURPLE "#6F6192"
 
-
-///Pipe colors
-#define COLOR_PIPE_AMETHYST "#822BFF"
-#define COLOR_PIPE_BLUE "#0000FF"
-#define COLOR_PIPE_BROWN "#B26438"
-#define COLOR_PIPE_CYAN "#00FFF9"
-#define COLOR_PIPE_DARK "#454545"
-#define COLOR_PIPE_GREEN "#1EFF00"
-#define COLOR_PIPE_GREY "#FFFFFF"
-#define COLOR_PIPE_ORANGE "#FF8119"
-#define COLOR_PIPE_PURPLE "#8000B6"
-#define COLOR_PIPE_RED "#FF0000"
-#define COLOR_PIPE_VIOLET "#400080"
-#define COLOR_PIPE_YELLOW "#FFC600"
-
 /**
  * Some defines to generalise colours used in lighting.
  *
@@ -195,7 +180,6 @@
 /// deep crimson
 #define LIGHT_COLOR_BLOOD_MAGIC "#D00000"
 
-#define LIGHT_COLOR_WHITE "#FFFFFF" //! Full white. rgb(255, 255, 255)
 #define LIGHT_COLOR_RED "#FA8282" //! Warm but extremely diluted red. rgb(250, 130, 130)
 #define LIGHT_COLOR_CLOCKWORK "#BE8700"
 
@@ -211,6 +195,8 @@
 #define COLOR_DISPLAY_RED "#BE3455"
 #define COLOR_DISPLAY_YELLOW "#FFF743"
 #define COLOR_DISPLAY_GREEN "#3CF046"
+
+#define DEFAULT_HEX_COLOR_LEN 6
 
 // check "chat-light-theme.scss" and "chat-dark-theme.scss"
 GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(

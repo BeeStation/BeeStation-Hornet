@@ -51,7 +51,7 @@
  * Additionally, if target is not a clock cultist, not dead, and not holy, hit_effect() is called
  */
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
-	if(!is_reebe(user.z))
+	if(!is_on_reebe(user))
 		return ..()
 
 	// Special hit effect
@@ -82,7 +82,7 @@
  */
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	if(!is_reebe(z))
+	if(!is_on_reebe(src))
 		return
 
 	if(isliving(hit_atom))
@@ -160,7 +160,7 @@
 
 /obj/item/clockwork/weapon/brass_sword/attack_atom(obj/O, mob/living/user)
 	..()
-	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
+	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_on_reebe(user)))
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		return

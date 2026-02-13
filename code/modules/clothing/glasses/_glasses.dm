@@ -70,7 +70,7 @@
 				to_chat(H, span_danger("[src] overloads and blinds you!"))
 				H.flash_act(visual = 1)
 				H.adjust_blindness(3)
-				H.blur_eyes(5)
+				H.set_eye_blur_if_lower(10 SECONDS)
 				eyes.apply_organ_damage(5)
 
 /obj/item/clothing/glasses/meson
@@ -421,7 +421,7 @@
 
 /obj/item/clothing/glasses/blindfold/white/update_icon(updates=ALL, mob/living/carbon/human/user)
 	if(ishuman(user) && !colored_before)
-		add_atom_colour("#[user.eye_color]", FIXED_COLOUR_PRIORITY)
+		add_atom_colour(user.eye_color, FIXED_COLOUR_PRIORITY)
 		colored_before = TRUE
 
 /obj/item/clothing/glasses/blindfold/white/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
@@ -430,7 +430,7 @@
 		var/mob/living/carbon/human/H = loc
 		var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/eyes.dmi', "blindfoldwhite", item_layer)
 		M.appearance_flags |= RESET_COLOR
-		M.color = "#[H.eye_color]"
+		M.color = H.eye_color
 		. += M
 
 /obj/item/clothing/glasses/sunglasses/advanced/big

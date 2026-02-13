@@ -1335,7 +1335,7 @@
 	allowed = null
 	greyscale_config = /datum/greyscale_config/ctf_standard
 	greyscale_config_worn = /datum/greyscale_config/ctf_standard_worn
-	greyscale_colors = "#ffffff"
+	greyscale_colors = COLOR_WHITE
 	clothing_flags = THICKMATERIAL
 
 	///Icon state to be fed into the shielded component

@@ -194,7 +194,7 @@
 	name = "Sugar"
 	description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 255, 255, 255
+	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_mult = 1.5 // stop sugar drowning out other flavours
 	nutriment_factor = 10 * REAGENTS_METABOLISM
@@ -314,7 +314,7 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
-			victim.blur_eyes(5) // 10 seconds
+			victim.set_eye_blur_if_lower(10 SECONDS) // 10 seconds
 			victim.adjust_blindness(3) // 6 seconds
 			victim.set_confusion_if_lower(10 SECONDS)
 			victim.Knockdown(3 SECONDS)
@@ -333,7 +333,7 @@
 	name = "Table Salt"
 	description = "A salt made of sodium chloride. Commonly used to season food."
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 255,255,255
+	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 	default_container = /obj/item/reagent_containers/condiment/saltshaker
@@ -424,7 +424,7 @@
 /datum/reagent/consumable/sprinkles
 	name = "Sprinkles"
 	description = "Multi-colored little bits of sugar, commonly found on donuts. Loved by cops."
-	color = "#FF00FF" // rgb: 255, 0, 255
+	color = COLOR_MAGENTA
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	taste_description = "childhood whimsy"
 
@@ -480,7 +480,7 @@
 	name = "Flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 0, 0, 0
+	color = COLOR_WHITE
 	chemical_flags = NONE
 	taste_description = "chalky wheat"
 	default_container = /obj/item/reagent_containers/condiment/flour
@@ -512,7 +512,7 @@
 	description = "Tiny nutritious grains. A fast and filling meal!"
 	reagent_state = SOLID
 	nutriment_factor = 3 * REAGENTS_METABOLISM
-	color = "#FFFFFF" // rgb: 0, 0, 0
+	color = COLOR_WHITE
 	chemical_flags = NONE
 	taste_description = "rice"
 	default_container = /obj/item/reagent_containers/condiment/rice
@@ -634,15 +634,15 @@
 		if(!exposed_mob.get_organ_slot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
 			to_chat(exposed_mob, span_notice("Your eye sockets feel wet."))
 		else
-			if(!exposed_mob.eye_blurry)
+			if(!exposed_mob.has_status_effect(/datum/status_effect/eye_blur))
 				to_chat(exposed_mob, span_warning("Tears well up in your eyes!"))
 			exposed_mob.adjust_blindness(2)
-			exposed_mob.blur_eyes(5)
+			exposed_mob.set_eye_blur_if_lower(10 SECONDS)
 
 /datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.eye_blurry)	//Don't worsen vision if it was otherwise fine
-		affected_mob.blur_eyes(4 * REM * delta_time)
+	if(affected_mob.has_status_effect(/datum/status_effect/eye_blur))	//Don't worsen vision if it was otherwise fine
+		affected_mob.set_eye_blur_if_lower(8 SECONDS * REM * delta_time)
 		if(DT_PROB(5, delta_time))
 			to_chat(affected_mob, span_warning("Your eyes sting!"))
 			affected_mob.adjust_blindness(2)
@@ -678,7 +678,7 @@
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150)
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
 		affected_mob.adjustStaminaLoss(10 * REM, updating_health = FALSE)
-		affected_mob.blur_eyes(5)
+		affected_mob.set_eye_blur_if_lower(10 SECONDS)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/tinlux
@@ -769,7 +769,7 @@
 	nutriment_factor = 0
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 255, 255, 255
+	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_mult = 8
 	taste_description = "sweetness"

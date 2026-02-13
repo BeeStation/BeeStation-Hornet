@@ -178,13 +178,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
 			if(MUTCOLORS in H.dna.species.species_traits)
-				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change","#"+H.dna.features["mcolor"])
+				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", H.dna.features["mcolor"])
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_mutantcolor)
-					var/temp_hsv = RGBtoHSV(new_mutantcolor)
+					var/list/mutant_hsv = rgb2hsv(new_mutantcolor)
 
-					if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright
+					if(mutant_hsv[3] >= 50) // mutantcolors must be bright
 						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
 						H.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
 
@@ -231,21 +231,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 				if(new_style)
 					H.hair_style = new_style
 			else
-				var/new_hair_color = tgui_color_picker(H, "Choose your hair color", "Hair Color","#"+H.hair_color)
+				var/new_hair_color = tgui_color_picker(H, "Choose your hair color", "Hair Color", H.hair_color)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_hair_color)
 					H.hair_color = sanitize_hexcolor(new_hair_color)
 					H.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 				if(H.gender == "male")
-					var/new_face_color = tgui_color_picker(H, "Choose your facial hair color", "Hair Color","#"+H.facial_hair_color)
+					var/new_face_color = tgui_color_picker(H, "Choose your facial hair color", "Hair Color", H.facial_hair_color)
 					if(new_face_color)
 						H.facial_hair_color = sanitize_hexcolor(new_face_color)
 						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
 			H.update_hair()
 
 		if(BODY_ZONE_PRECISE_EYES)
-			var/new_eye_color = tgui_color_picker(H, "Choose your eye color", "Eye Color","#"+H.eye_color)
+			var/new_eye_color = tgui_color_picker(H, "Choose your eye color", "Eye Color", H.eye_color)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(new_eye_color)

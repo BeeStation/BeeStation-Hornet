@@ -202,6 +202,11 @@
 // PLUSHIES
 //
 
+/datum/greyscale_config/plush_carp
+	name = "Plushie Carp"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_carp.json'
+
 /datum/greyscale_config/plush_lizard
 	name = "Plushie Lizard"
 	icon_file = 'icons/obj/plushes.dmi'
@@ -211,6 +216,11 @@
 	name = "Plushie Space Lizard"
 	icon_file = 'icons/obj/plushes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plushie_spacelizard.json'
+
+/datum/greyscale_config/plush_snake
+	name = "Plushie Snake"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_snake.json'
 
 /datum/greyscale_config/beret
 	name = "Beret"

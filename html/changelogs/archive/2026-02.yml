@@ -62,3 +62,35 @@
   - bugfix: Fixed megafauna legion splitting into 3 instead of 2 in rare cases.
   - balance: The mentioned invisibility fix also means that the Legion will have slightly
       more health than before upon splitting but only in the cases where it gets overkilled.
+2026-02-11:
+  rkz, Fikou, Thunder12345:
+  - rscadd: adds suicide act for carp plushies
+  - rscadd: GAGs carp and snake plushies. They now can be in different colors.
+  - tweak: dehydrated carps can transform when exposed to any reagent
+  - tweak: dehydrated carps have a 25% chance to spawn a cayenne plushy, which will
+      spawn cayenne when rehydrated.
+  - tweak: Cayenne will spawn as the rare Albino/Silver carp, rather than randomized
+      colors
+  - balance: Cayenne has been buffed to have health just slightly above half of what
+      spacedragon carps have, and a movespeed similiar to humans.
+2026-02-12:
+  mrmanlikesbt:
+  - refactor: Reebe is now a virtual z-level, what this really means is that clock
+      cult will load instantly now and you can no longer tell that it has been picked
+      from a delayed roundstart.
+  - balance: Removed the 0.5x TTV bombcap from Reebe
+2026-02-13:
+  BotTierPC, MrMan, WhiskeyMarten:
+  - tweak: Fixed All Access not having access to service doors by default
+  mrmanlikesbt, Seris02, ninjanomnom, LemonInTheDark:
+  - code_imp: Replaced most color values with their defines from the colors file
+  - refactor: Implements rgb2num()
+  - refactor: Gas visuals send less data to clients now, increasing performance
+  rkz, melbert, kriskog:
+  - bugfix: fixes blindness persisting past removal and re-insertion of eyes
+  - refactor: Drowsiness and Blurred Eyes are now tracked via status effect.
+  - refactor: Drugginess is now a status effect. Now any living mob can be high and
+      speak beach-bum instead of just carbons and humanoids. Drug effects should also
+      be more consistently removed on aheal / in rare cases.
+  - admin: Admin basic disease trigger and custom disease renaming should now work
+      properly.

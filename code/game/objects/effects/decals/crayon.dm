@@ -8,7 +8,7 @@
 	mergeable_decal = FALSE
 	var/do_icon_rotate = TRUE
 	var/rotation = 0
-	var/paint_colour = "#FFFFFF"
+	var/paint_colour = COLOR_WHITE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/crayon)
 

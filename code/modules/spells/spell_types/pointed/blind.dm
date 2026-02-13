@@ -18,7 +18,7 @@
 	/// The amount of blind to apply
 	var/eye_blind_amount = 10
 	/// The amount of blurriness to apply
-	var/eye_blurry_amount = 20
+	var/eye_blur_duration = 40 SECONDS
 	/// The duration of the blind mutation placed on the person
 	var/blind_mutation_duration = 30 SECONDS
 
@@ -43,5 +43,5 @@
 
 	to_chat(target, ("<span class='warning'>Your eyes cry out in pain!</span>"))
 	target.set_blindness(eye_blind_amount)
-	target.blur_eyes(eye_blurry_amount)
+	target.set_eye_blur_if_lower(eye_blur_duration)
 	return TRUE

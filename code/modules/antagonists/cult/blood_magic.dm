@@ -375,7 +375,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 /obj/item/melee/blood_magic/stun
 	name = "Forbidden Whispers"
 	desc = "A coil of death wrapped around your hand, anyone inflicted with this will have their mind flooded with the forbidden whispers of Nar'Sie, causing them to collapse in to a frenzy if they lack protection for their mind."
-	color = RUNE_COLOR_RED
+	color = COLOR_RED
 	invocation = "Fuu ma'jin!"
 
 /obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity)
@@ -425,7 +425,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 //Teleportation
 /obj/item/melee/blood_magic/teleport
 	name = "Teleporting Aura"
-	color = RUNE_COLOR_TELEPORT
+	color = COLOR_DARK_PURPLE
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Sas'so c'arta forbici!"
 
@@ -472,7 +472,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	name = "Shackling Aura"
 	desc = "Will start handcuffing a victim on contact, and mute them if successful."
 	invocation = "In'totum Lig'abis!"
-	color = "#000000" // black
+	color = COLOR_BLACK // black
 
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(IS_CULTIST(user) && iscarbon(target) && proximity)
@@ -522,7 +522,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	name = "Twisting Aura"
 	desc = "Corrupts certain metalic objects on contact."
 	invocation = "Ethra p'ni dedol!"
-	color = "#000000" // black
+	color = COLOR_BLACK // black
 	var/channeling = FALSE
 
 /obj/item/melee/blood_magic/construction/examine(mob/user)
