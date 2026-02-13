@@ -15,7 +15,7 @@
 	/// The atom that this sigil is currently affecting
 	var/affected_atom
 	/// Color while inactive
-	var/idle_color = "#FFFFFF"
+	var/idle_color = COLOR_WHITE
 	/// Color faded to while someone stands on top
 	var/invokation_color = "#F1A03B"
 	/// Color pulsed when sigil succeeds

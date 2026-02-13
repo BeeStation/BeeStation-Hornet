@@ -209,6 +209,9 @@
 	ambience_index = AMBIENCE_REEBE
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
+/area/reebe/get_virtual_z(turf/T)
+	return REEBE_VIRTUAL_Z
+
 /area/reebe/city_of_cogs
 	name = "Reebe - City of Cogs"
 	icon_state = "purple"

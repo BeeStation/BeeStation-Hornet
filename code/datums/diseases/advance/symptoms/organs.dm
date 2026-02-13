@@ -37,7 +37,7 @@
 
 	if(A.stage >= 3)
 		M.adjust_dizzy(-4 SECONDS)
-		M.drowsyness = max(0, M.drowsyness - 2)
+		M.adjust_drowsiness(-4 SECONDS)
 		// All slurring effects get reduced down a bit
 		for(var/datum/status_effect/speech/slurring/slur in M.status_effects)
 			slur.remove_duration(1 SECONDS)
@@ -48,7 +48,7 @@
 			M.adjust_drunk_effect(-5)
 
 	if(A.stage >= 4)
-		M.drowsyness = max(0, M.drowsyness - 2)
+		M.adjust_drowsiness(-4 SECONDS)
 		if(M.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
 			M.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5)
 		if(M.reagents.has_reagent(/datum/reagent/toxin/histamine))
@@ -99,15 +99,15 @@
 						to_chat(M, span_notice("Your vision slowly returns..."))
 					M.cure_blind(EYE_DAMAGE)
 					M.cure_nearsighted(EYE_DAMAGE)
-					M.blur_eyes(35)
+					M.set_eye_blur_if_lower(70 SECONDS)
 			else if(HAS_TRAIT_FROM(M, TRAIT_NEARSIGHT, EYE_DAMAGE))
 				if(M.stat != DEAD)
 					to_chat(M, span_notice("You can finally focus your eyes on distant objects."))
 				M.cure_nearsighted(EYE_DAMAGE)
-				M.blur_eyes(10)
-			else if(M.is_blind() || M.eye_blurry)
+				M.set_eye_blur_if_lower(20 SECONDS)
+			else if(M.is_blind() || M.has_status_effect(/datum/status_effect/eye_blur))
 				M.set_blindness(0)
-				M.set_blurriness(0)
+				M.remove_status_effect(/datum/status_effect/eye_blur)
 			else if(eyes.damage > 0)
 				eyes.apply_organ_damage(-1)
 		else

@@ -197,7 +197,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(elitehere == mychild && activity == TUMOR_PASSIVE)
 				mychild.adjustHealth(-mychild.maxHealth*0.025*delta_time)
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
-				H.color = "#FF0000"
+				H.color = COLOR_RED
 
 /obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
 	. = ..()

@@ -50,7 +50,7 @@
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		adjustHealth(-maxHealth * BLOBMOB_HEALING_MULTIPLIER)
 
 /mob/living/simple_animal/hostile/blob/fire_act(exposed_temperature, exposed_volume)
@@ -276,14 +276,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		if(locate(/obj/structure/blob/special/node) in blobs_in_area)
 			adjustHealth(-maxHealth*BLOBMOB_BLOBBERNAUT_HEALING_NODE * delta_time)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src))
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 
 	if(!damagesources)
 		return

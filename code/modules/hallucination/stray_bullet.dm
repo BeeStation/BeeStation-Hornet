@@ -222,13 +222,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/hallucination)
 
 /obj/projectile/hallucination/laser/apply_effect_to_hallucinator(mob/living/afflicted)
 	afflicted.adjustStaminaLoss(20)
-	afflicted.blur_eyes(2)
+	afflicted.adjust_eye_blur(4 SECONDS)
 
 /obj/projectile/hallucination/taser
 	name = "electrode"
 	damage_type = BURN
 	hal_icon_state = "spark"
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	hal_fire_sound = 'sound/weapons/taser.ogg'
 	hal_hitsound = 'sound/weapons/taserhit.ogg'
 	hal_hitsound_wall = null
@@ -283,7 +283,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/hallucination)
 	afflicted.adjust_stutter(10 SECONDS)
 	afflicted.Knockdown(1 SECONDS)
 	afflicted.adjustStaminaLoss(75) // 60 stam + 15 tox
-	afflicted.blur_eyes(10)
+	afflicted.set_eye_blur_if_lower(20 SECONDS)
 
 /obj/projectile/hallucination/change
 	name = "bolt of change"

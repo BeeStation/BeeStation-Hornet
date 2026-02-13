@@ -84,7 +84,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 	light_system = MOVABLE_LIGHT //Used as a flash here.
 	light_range = FLASH_LIGHT_RANGE
 	light_power = FLASH_LIGHT_POWER
@@ -431,7 +431,7 @@
 				to_chat(M, span_notice("The light makes you feel oddly relaxed..."))
 				M.adjust_confusion_up_to(10 SECONDS, 20 SECONDS)
 				M.adjust_dizzy_up_to(20 SECONDS, 40 SECONDS)
-				M.drowsyness += min(M.drowsyness + 10, 20)
+				M.adjust_drowsiness_up_to(20 SECONDS, 40 SECONDS)
 				M.adjust_pacifism(10 SECONDS)
 
 
@@ -445,7 +445,7 @@
 		to_chat(M, span_notice("Such a pretty light..."))
 		M.adjust_confusion_up_to(4 SECONDS, 20 SECONDS)
 		M.adjust_dizzy_up_to(8 SECONDS, 40 SECONDS)
-		M.drowsyness += min(M.drowsyness + 4, 20)
+		M.adjust_drowsiness_up_to(8 SECONDS, 40 SECONDS)
 		M.adjust_pacifism(4 SECONDS)
 
 #undef FLASH_USE

@@ -20,7 +20,7 @@
 	if(!.)
 		return FALSE
 
-	if(!is_reebe(invoker.z))
+	if(!is_on_reebe(invoker))
 		invoker.balloon_alert(invoker, "not on Reebe!")
 		return FALSE
 	if(length(GLOB.cogscarabs) >= CLOCKCULT_COGSCARAB_LIMIT)

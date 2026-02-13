@@ -5,7 +5,7 @@
 	visual = FALSE
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
-	var/implant_color = "#FFFFFF"
+	var/implant_color = COLOR_WHITE
 	var/implant_overlay
 	var/syndicate_implant = FALSE //Makes the implant invisible to health analyzers and medical HUDs.
 
@@ -89,7 +89,7 @@
 /obj/item/organ/cyberimp/brain/anti_stun
 	name = "CNS Rebooter implant"
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
-	implant_color = "#FFFF00"
+	implant_color = COLOR_YELLOW
 	slot = ORGAN_SLOT_BRAIN_ANTISTUN
 
 	var/static/list/signalCache = list(

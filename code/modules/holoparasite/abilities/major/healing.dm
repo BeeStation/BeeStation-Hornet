@@ -164,7 +164,7 @@
 		if(istype(eyes))
 			eyes.apply_organ_damage(-actual_heal_amt)
 		target.adjust_blindness(-actual_effect_heal_amt)
-		target.adjust_blurriness(-actual_effect_heal_amt)
+		target.adjust_eye_blur(-actual_effect_heal_amt * 2)
 		target.adjust_disgust(-actual_effect_heal_amt)
 		target.adjust_dizzy(-actual_effect_heal_amt * 2) //Status's used to tick every 2 seconds before conversion to status effects, so we double them
 		target.adjust_confusion(-actual_effect_heal_amt * 2)

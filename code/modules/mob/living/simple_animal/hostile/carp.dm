@@ -55,7 +55,7 @@
 		"swamp" = "#e5e75a",
 		"turquoise" = "#04e1ed",
 		"brown" = "#ca805a",
-		"teal" = "#20e28e",
+		"teal" = COLOR_PALE_GREEN,
 		"lightblue" = "#4d88cc",
 		"rusty" = "#dd5f34",
 		"lightred" = "#fd6767",

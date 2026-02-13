@@ -99,7 +99,7 @@
 	if(prob(50))
 		spawned_carbon.adjust_drugginess(rand(10 SECONDS, 20 SECONDS))
 	else
-		spawned_carbon.adjust_drunk_effect(rand(10 SECONDS, 20 SECONDS))
+		spawned_carbon.adjust_drunk_effect(rand(30 SECONDS, 40 SECONDS))
 	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
 
 	if(prob(35) && !spawned_carbon.head)

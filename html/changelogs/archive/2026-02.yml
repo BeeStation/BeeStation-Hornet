@@ -73,3 +73,27 @@
       colors
   - balance: Cayenne has been buffed to have health just slightly above half of what
       spacedragon carps have, and a movespeed similiar to humans.
+2026-02-12:
+  mrmanlikesbt:
+  - refactor: Reebe is now a virtual z-level, what this really means is that clock
+      cult will load instantly now and you can no longer tell that it has been picked
+      from a delayed roundstart.
+  - balance: Removed the 0.5x TTV bombcap from Reebe
+2026-02-13:
+  BotTierPC, MrMan, WhiskeyMarten:
+  - tweak: Fixed All Access not having access to service doors by default
+  SirYoshimoto:
+  - bugfix: fixed shipping containers not having any solidness, decreases integrity
+      to 500
+  mrmanlikesbt, Seris02, ninjanomnom, LemonInTheDark:
+  - code_imp: Replaced most color values with their defines from the colors file
+  - refactor: Implements rgb2num()
+  - refactor: Gas visuals send less data to clients now, increasing performance
+  rkz, melbert, kriskog:
+  - bugfix: fixes blindness persisting past removal and re-insertion of eyes
+  - refactor: Drowsiness and Blurred Eyes are now tracked via status effect.
+  - refactor: Drugginess is now a status effect. Now any living mob can be high and
+      speak beach-bum instead of just carbons and humanoids. Drug effects should also
+      be more consistently removed on aheal / in rare cases.
+  - admin: Admin basic disease trigger and custom disease renaming should now work
+      properly.

@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	///pretend this is moles
 	var/volume = 0
 	/// color it looks in containers etc
-	var/color = "#000000" // rgb: 0, 0, 0
+	var/color = COLOR_BLACK
 	/// intensity of color provided, dyes or things that should work like a dye will more strongly affect the final color of a reagent
 	var/color_intensity = 1
 	// default = I am not sure this shit + CHEMICAL_NOT_SYNTH

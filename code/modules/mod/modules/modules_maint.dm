@@ -54,7 +54,7 @@
 	mod.wearer.apply_damage(500, BRUTE, forced = TRUE) //boggers, bogchamp, etc
 	if(!HAS_TRAIT(mod.wearer, TRAIT_NODEATH))
 		mod.wearer.death() //just in case, for some reason, they're still alive
-	flash_color(mod.wearer, flash_color = "#FF0000", flash_time = 10 SECONDS)
+	flash_color(mod.wearer, flash_color = COLOR_RED, flash_time = 10 SECONDS)
 	set_off = FALSE
 
 ///Rave Visor - Gives you a rainbow visor and plays jukebox music to you.

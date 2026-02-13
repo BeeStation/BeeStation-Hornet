@@ -48,10 +48,10 @@
 	var/supervisors = ""
 
 	///Selection screen color
-	var/selection_color = "#ffffff"
+	var/selection_color = COLOR_WHITE
 
 	///Overhead chat message colour
-	var/chat_color = "#ffffff"
+	var/chat_color = COLOR_WHITE
 
 	///If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify

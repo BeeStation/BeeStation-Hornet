@@ -160,13 +160,13 @@
 	alpha = 80
 
 /atom/movable/screen/fullscreen/color_vision/green
-	color = "#00ff00"
+	color = COLOR_VIBRANT_LIME
 
 /atom/movable/screen/fullscreen/color_vision/red
-	color = "#ff0000"
+	color = COLOR_RED
 
 /atom/movable/screen/fullscreen/color_vision/blue
-	color = "#0000ff"
+	color = COLOR_BLUE
 
 /atom/movable/screen/fullscreen/lighting_backdrop
 	icon = 'icons/hud/screen_gen.dmi'
