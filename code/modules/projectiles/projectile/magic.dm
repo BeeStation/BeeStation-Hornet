@@ -247,7 +247,7 @@
 	damage = 0
 	damage_type = OXY
 	nodamage = TRUE
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 	///Heal this much of each damage type if revival and limb regeneration aren't applicable
 	var/amount_healed = 25
 
@@ -351,7 +351,7 @@
 	damage = 0
 	damage_type = OXY
 	nodamage = TRUE
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
@@ -404,7 +404,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = TRUE
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 	/// If set, this projectile will only do a certain wabbajack effect
 	var/set_wabbajack_effect
 	/// If set, this projectile will only pass certain changeflags to wabbajack
@@ -468,7 +468,7 @@
 	damage_type = BURN
 	dismemberment = 50
 	nodamage = FALSE
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
@@ -477,13 +477,13 @@
 	damage_type = BURN
 	nodamage = FALSE
 	hitsound = 'sound/weapons/barragespellhit.ogg'
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/locker
 	name = "locker bolt"
 	icon_state = "locker"
 	nodamage = TRUE
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
 	var/locker_suck = TRUE
@@ -573,7 +573,7 @@
 /obj/projectile/magic/flying
 	name = "bolt of flying"
 	icon_state = "flight"
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/flying/on_hit(mob/living/target)
 	. = ..()
@@ -584,7 +584,7 @@
 /obj/projectile/magic/bounty
 	name = "bolt of bounty"
 	icon_state = "bounty"
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/bounty/on_hit(mob/living/target)
 	. = ..()
@@ -594,7 +594,7 @@
 /obj/projectile/magic/antimagic
 	name = "bolt of antimagic"
 	icon_state = "antimagic"
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/antimagic/on_hit(mob/living/target)
 	. = ..()
@@ -604,7 +604,7 @@
 /obj/projectile/magic/fetch
 	name = "bolt of fetching"
 	icon_state = "fetch"
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/fetch/on_hit(mob/living/target)
 	. = ..()
@@ -615,7 +615,7 @@
 /obj/projectile/magic/sapping
 	name = "bolt of sapping"
 	icon_state = "sapping"
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/sapping/on_hit(mob/living/target)
 	. = ..()
@@ -625,7 +625,7 @@
 /obj/projectile/magic/necropotence
 	name = "bolt of necropotence"
 	icon_state = "necropotence"
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/necropotence/on_hit(target)
 	. = ..()
@@ -643,7 +643,7 @@
 /obj/projectile/magic/wipe
 	name = "bolt of possession"
 	icon_state = "wipe"
-	martial_arts_no_deflect = FALSE
+//	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/wipe/on_hit(mob/living/carbon/target)
 	. = ..()
