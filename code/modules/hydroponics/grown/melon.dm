@@ -94,7 +94,6 @@
 
 /obj/item/food/grown/holymelon/Initialize(mapload)
 	. = ..()
-	var/uses = 1
 	if(seed)
 		uses = round(seed.potency / 20)
 /*
