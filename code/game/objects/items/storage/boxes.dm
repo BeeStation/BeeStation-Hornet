@@ -165,7 +165,7 @@
 	w_class = WEIGHT_CLASS_SMALL //So the roundstart box takes up less space.
 	var/mask_type = /obj/item/clothing/mask/breath
 	var/internal_type = /obj/item/tank/internals/emergency_oxygen
-	var/medipen_type = /obj/item/reagent_containers/hypospray/medipen
+	var/medipen_type = /obj/item/gun/magic/wand/healing
 
 /obj/item/storage/box/survival/Initialize(mapload)
 	. = ..()
@@ -180,6 +180,8 @@
 		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman/belt,
+		/obj/item/gun/magic/wand,
+		/obj/item/spellbook,
 	))
 	atom_storage.exception_hold = exception_hold
 
@@ -196,6 +198,8 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/flashlight/flare(src)
 		new /obj/item/radio/off(src)
+
+	new /obj/item/spellbook(src)
 
 /obj/item/storage/box/survival/proc/wardrobe_removal()
 	if(!isplasmaman(loc)) //We need to specially fill the box with plasmaman gear, since it's intended for one

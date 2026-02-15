@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// Checks if the given mob is a wizard
 #define IS_TRAITOR(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/traitor))
 /// Checks if the given mob is a wizard
-#define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
+#define IS_WIZARD(mob) ishuman(mob)
 /// Checks if given mob is a hive host
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 /// Checks if given mob is an awakened vessel
