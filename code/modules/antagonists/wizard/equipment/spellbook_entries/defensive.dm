@@ -139,6 +139,50 @@
 	category = "Defensive"
 	cost = 1
 */
+/datum/spellbook_entry/item/robes
+	name = "Blue Wizard Robes"
+	desc = "A set of blue wizard robes, necessary to cast certain spells"
+	item_path = /obj/item/clothing/suit/wizrobe
+	category = "Defensive"
+	cost = 0
+
+/datum/spellbook_entry/item/hat
+	name = "Blue Wizard Hat"
+	desc = "A blue wizard hat, necessary for looking proper and nothing else"
+	item_path = /obj/item/clothing/head/wizard
+	category = "Defensive"
+	cost = 0
+
+/datum/spellbook_entry/item/robes/red
+	name = "Red Wizard Robes"
+	desc = "A set of red wizard robes, necessary to cast certain spells"
+	item_path = /obj/item/clothing/suit/wizrobe/red
+
+/datum/spellbook_entry/item/hat/red
+	name = "Red Wizard Hat"
+	desc = "A red wizard hat, necessary for looking proper and nothing else"
+	item_path = /obj/item/clothing/head/wizard/red
+
+/datum/spellbook_entry/item/robes/yellow
+	name = "Yellow Wizard Robes"
+	desc = "A set of yellow wizard robes, necessary to cast certain spells"
+	item_path = /obj/item/clothing/suit/wizrobe/yellow
+
+/datum/spellbook_entry/item/hat/yellow
+	name = "Yellow Wizard Hat"
+	desc = "A yellow wizard hat, necessary for looking proper and nothing else"
+	item_path = /obj/item/clothing/head/wizard/yellow
+
+/datum/spellbook_entry/item/robes/black
+	name = "Black Wizard Robes"
+	desc = "A set of black wizard robes, necessary to cast certain spells"
+	item_path = /obj/item/clothing/suit/wizrobe/black
+
+/datum/spellbook_entry/item/hat/black
+	name = "Black Wizard Hat"
+	desc = "A black wizard hat, necessary for looking proper and nothing else"
+	item_path = /obj/item/clothing/head/wizard/black
+
 /datum/spellbook_entry/item/healing_wand
 	name = "Wand of Healing"
 	desc = "A wand that can close any wound, though it cannot restore limbs or organs. You can use it on yourself."
