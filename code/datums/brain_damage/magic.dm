@@ -51,7 +51,7 @@
 			throwing = I
 	if(throwing)
 		throwing.throw_at(owner, 8, 2)
-
+/*
 /datum/brain_trauma/magic/antimagic
 	name = "Athaumasia"
 	desc = "Patient is completely inert to magical forces."
@@ -71,7 +71,7 @@
 		if (anti_magic.source == TRAUMA_TRAIT)
 			qdel(anti_magic)
 	..()
-
+*/
 /datum/brain_trauma/magic/stalker
 	name = "Stalking Phantom"
 	desc = "Patient is stalked by a phantom only they can see."

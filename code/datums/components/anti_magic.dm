@@ -40,6 +40,7 @@
  * * MAGIC_RESISTANCE_HOLY - Holy magic resistance that blocks unholy magic (revenant, cult, vampire, voice of god)
 **/
 
+/*
 /datum/component/anti_magic/Initialize(
 	_source,
 	antimagic_flags = MAGIC_RESISTANCE,
@@ -72,7 +73,7 @@
 
 	else
 		return COMPONENT_INCOMPATIBLE
-
+*/
 /datum/component/anti_magic/proc/register_antimagic_signals(datum/on_what)
 	RegisterSignal(on_what, COMSIG_MOB_RECEIVE_MAGIC, PROC_REF(block_receiving_magic), override = TRUE)
 	RegisterSignal(on_what, COMSIG_MOB_RESTRICT_MAGIC, PROC_REF(restrict_casting_magic), override = TRUE)

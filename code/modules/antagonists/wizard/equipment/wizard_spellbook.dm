@@ -76,7 +76,7 @@
 
 /obj/item/spellbook/attackby(obj/item/O, mob/user, params)
 	// This can be generalized in the future, but for now it stays
-	if(istype(O, /obj/item/antag_spawner/contract))
+/*	if(istype(O, /obj/item/antag_spawner/contract))
 		var/datum/spellbook_entry/item/contract/contract_entry = locate() in entries
 		if(!istype(contract_entry))
 			to_chat(user, ("<span class='warning'>[src] doesn't seem to want to refund [O].</span>"))
@@ -93,8 +93,8 @@
 		uses += contract_entry.cost
 		contract_entry.times--
 		qdel(O)
-
-	else if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
+*/
+	if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
 		var/datum/spellbook_entry/item/hugbottle/demon_entry = locate() in entries
 		if(!istype(demon_entry))
 			to_chat(user, ("<span class='warning'>[src] doesn't seem to want to refund [O].</span>"))
@@ -107,7 +107,7 @@
 		uses += demon_entry.cost
 		demon_entry.times--
 		qdel(O)
-
+/*
 	else if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		var/datum/spellbook_entry/item/bloodbottle/demon_entry = locate() in entries
 		if(!istype(demon_entry))
@@ -121,7 +121,7 @@
 		uses += demon_entry.cost
 		demon_entry.times--
 		qdel(O)
-
+*/
 	return ..()
 
 /// Instantiates our list of spellbook entries.

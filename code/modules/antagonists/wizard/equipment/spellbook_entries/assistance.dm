@@ -65,7 +65,7 @@
 	desc = "A Necromantic stone is able to resurrect three dead individuals as armed skeletal thralls for you to command."
 	item_path = /obj/item/necromantic_stone
 	category = "Assistance"
-
+/*
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
@@ -79,6 +79,7 @@
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
 	item_path = /obj/item/holoparasite_creator/wizard
 	category = "Assistance"
+
 
 /datum/spellbook_entry/item/blood_contract
 	name = "Blood Contract"
@@ -98,7 +99,7 @@
 	limit = 3
 	category = "Assistance"
 	refundable = TRUE
-
+*/
 /datum/spellbook_entry/item/hugbottle
 	name = "Bottle of Tickles"
 	desc = "A bottle of magically infused fun, the smell of which will \

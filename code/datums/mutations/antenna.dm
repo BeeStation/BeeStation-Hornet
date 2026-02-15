@@ -57,7 +57,7 @@
 	button_icon_state = "mindread"
 	cooldown_time = 5 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	antimagic_flags = MAGIC_RESISTANCE_MIND
+//	antimagic_flags = MAGIC_RESISTANCE_MIND
 	mindbound = FALSE
 	ranged_mousepointer = 'icons/effects/mouse_pointers/mindswap_target.dmi'
 

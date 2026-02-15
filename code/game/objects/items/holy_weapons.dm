@@ -162,10 +162,10 @@
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, \
+/*	AddComponent(/datum/component/anti_magic, \
 		_source = INNATE_TRAIT, \
 		antimagic_flags = MAGIC_RESISTANCE | MAGIC_RESISTANCE_HOLY \
-	)
+	)*/
 	AddComponent(/datum/component/effect_remover, \
 		success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 		success_forcesay = "BEGONE FOUL MAGIKS!!", \

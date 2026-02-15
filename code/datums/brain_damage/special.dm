@@ -2,7 +2,7 @@
 //they are the easiest to cure, which means that if you want
 //to keep them, you can't cure your other traumas
 /datum/brain_trauma/special
-
+/*
 /datum/brain_trauma/special/godwoken
 	name = "Godwoken Syndrome"
 	desc = "Patient occasionally and uncontrollably channels an eldritch god when speaking."
@@ -34,7 +34,7 @@
 		if (anti_magic.source == TRAUMA_TRAIT)
 			qdel(anti_magic)
 	..()
-
+*/
 /datum/brain_trauma/special/godwoken/proc/speak(type, include_owner = FALSE)
 	var/message
 	switch(type)

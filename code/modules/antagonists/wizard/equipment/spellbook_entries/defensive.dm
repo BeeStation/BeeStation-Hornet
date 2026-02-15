@@ -110,7 +110,7 @@
 	new /obj/item/camera_film(get_turf(user))
 	new /obj/item/camera_film(get_turf(user))
 	. = ..()
-
+/*
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armour Set"
 	desc = "An artefact suit of armour that allows you to cast spells while providing more protection against attacks and the void of space."
@@ -138,7 +138,7 @@
 	item_path = /obj/item/wizard_armour_charge
 	category = "Defensive"
 	cost = 1
-
+*/
 /datum/spellbook_entry/item/healing_wand
 	name = "Wand of Healing"
 	desc = "A wand that can close any wound, though it cannot restore limbs or organs. You can use it on yourself."

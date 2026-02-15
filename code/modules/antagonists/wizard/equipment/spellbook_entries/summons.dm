@@ -2,6 +2,7 @@
 /// How much threat we need to let these rituals happen on dynamic
 #define MINIMUM_THREAT_FOR_RITUALS 100
 
+/*
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. \
@@ -64,5 +65,5 @@
 	curse_of_madness(user, message)
 	playsound(user, 'sound/magic/mandswap.ogg', 50, TRUE)
 	return ..()
-
+*/
 #undef MINIMUM_THREAT_FOR_RITUALS
