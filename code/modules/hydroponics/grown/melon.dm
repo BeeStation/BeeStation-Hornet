@@ -94,8 +94,6 @@
 
 /obj/item/food/grown/holymelon/Initialize(mapload)
 	. = ..()
-	if(seed)
-		uses = round(seed.potency / 20)
 /*
 	AddComponent(/datum/component/anti_magic, \
 	_source = src, \
