@@ -284,7 +284,7 @@
 	name = "glass of holy water"
 	desc = "A glass of holy water."
 	icon_state = "glass_clear"
-
+/*
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.AddComponent(/datum/component/anti_magic, type, MAGIC_RESISTANCE_HOLY)
@@ -294,7 +294,7 @@
 	for(var/datum/component/anti_magic/anti_magic in affected_mob.GetComponents(/datum/component/anti_magic))
 		if(anti_magic.source == type)
 			qdel(anti_magic)
-
+*/
 /datum/reagent/water/holywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(!data)
