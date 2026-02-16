@@ -42,7 +42,7 @@
 	 * 	"admin_say" = list("F3"), <--- This is correct. The bind's string form as the index's key and a list of buttons as the index's value.
 	 *  "F3" = list("admin_say"), <--- This is incorrect. Buttons shouldn't ever be index keys.
 	 *  "select_help_intent" = list("1"), <--- This is incorrect. "select_help_intent" is not a valid index key as it is not apart of GLOB.keybindings_by_name.
- 	 * 	...
+	 * 	...
 	 * )
 	 *
 	 * Sample GLOB.keybindings_by_name:
