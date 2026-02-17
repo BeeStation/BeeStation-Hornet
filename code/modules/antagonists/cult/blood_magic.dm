@@ -375,7 +375,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 /obj/item/melee/blood_magic/stun
 	name = "Forbidden Whispers"
 	desc = "A coil of death wrapped around your hand, anyone inflicted with this will have their mind flooded with the forbidden whispers of Nar'Sie, causing them to collapse in to a frenzy if they lack protection for their mind."
-	color = RUNE_COLOR_RED
+	color = COLOR_RED
 	invocation = "Fuu ma'jin!"
 
 /obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity)
@@ -399,7 +399,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message(span_warning("[L] is utterly unphased by your utterance!"), \
-									   span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
+									span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
 		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, span_cultitalic("[L] falls to the ground, gibbering madly!"))
 			L.Paralyze(160)
@@ -409,23 +409,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				S.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
 				var/mob/living/carbon/C = L
-				C.silent += 6
-				C.stuttering += 15
-				C.cultslurring += 15
+				C.adjust_silence(12 SECONDS)
+				C.adjust_stutter(30 SECONDS)
+				C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/slurring/cult)
 				C.set_jitter_if_lower(30 SECONDS)
 				// EMP the radio on your ears
 				if (C.ears)
 					C.ears.emp_act(EMP_LIGHT)
 		else
 			target.visible_message(span_warning("You fail to corrupt [L]'s mind!"), \
-									   span_userdanger("Your mindshield protects you from the heresy of [user]!"))
+									span_userdanger("Your mindshield protects you from the heresy of [user]!"))
 		uses--
 	..()
 
 //Teleportation
 /obj/item/melee/blood_magic/teleport
 	name = "Teleporting Aura"
-	color = RUNE_COLOR_TELEPORT
+	color = COLOR_DARK_PURPLE
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Sas'so c'arta forbici!"
 
@@ -472,7 +472,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	name = "Shackling Aura"
 	desc = "Will start handcuffing a victim on contact, and mute them if successful."
 	invocation = "In'totum Lig'abis!"
-	color = "#000000" // black
+	color = COLOR_BLACK // black
 
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(IS_CULTIST(user) && iscarbon(target) && proximity)
@@ -493,7 +493,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			if(!C.handcuffed)
 				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
-				C.silent += 5
+				C.adjust_silence(10 SECONDS)
 				to_chat(user, span_notice("You shackle [C]."))
 				log_combat(user, C, "shackled", src)
 				uses--
@@ -522,7 +522,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	name = "Twisting Aura"
 	desc = "Corrupts certain metalic objects on contact."
 	invocation = "Ethra p'ni dedol!"
-	color = "#000000" // black
+	color = COLOR_BLACK // black
 	var/channeling = FALSE
 
 /obj/item/melee/blood_magic/construction/examine(mob/user)
@@ -706,7 +706,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				if(H.stat == DEAD)
 					to_chat(user,span_warning("[H.p_Their()] blood has stopped flowing, you'll have to find another way to extract it."))
 					return
-				if(H.cultslurring)
+				if(H.has_status_effect(/datum/status_effect/speech/slurring/cult))
 					to_chat(user,span_danger("[H.p_Their()] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
 					return
 				if(H.blood_volume > BLOOD_VOLUME_SAFE)

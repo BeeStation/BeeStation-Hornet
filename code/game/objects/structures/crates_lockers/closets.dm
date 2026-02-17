@@ -188,10 +188,9 @@
 	if(opened)
 		. += span_notice("The parts are <b>welded</b> together.")
 	else if(secure && !opened)
-		. += "<span class='notice'>Right-click to [locked ? "unlock" : "lock"].</span>"
+		. += span_notice("Right-click to [locked ? "unlock" : "lock"].")
 	if(isliving(user))
-		var/mob/living/L = user
-		if(divable && HAS_TRAIT(L, TRAIT_SKITTISH))
+		if(divable && HAS_TRAIT(user, TRAIT_SKITTISH))
 			. += span_notice("Ctrl-Shift-click [src] to jump inside.")
 
 /obj/structure/closet/add_context_self(datum/screentip_context/context, mob/user)

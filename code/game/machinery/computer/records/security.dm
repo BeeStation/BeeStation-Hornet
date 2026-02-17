@@ -128,7 +128,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	var/mob/user = ui.user
 	var/datum/record/crew/target_record
 
-	if (!authenticated)
+	if (!authenticated || issilicon(user)) // Silicons are forbidden from editing records.
 		return FALSE
 
 	if (action == "set_amount")

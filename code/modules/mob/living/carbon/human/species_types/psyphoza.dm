@@ -2,7 +2,6 @@
 	name = "\improper Psyphoza"
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
-	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS)
 	sexes = FALSE
@@ -18,7 +17,7 @@
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
+	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = COLOR_WHITE)
 	hair_color = "fixedmutcolor"
 
 	bodypart_overrides = list(
@@ -48,11 +47,6 @@
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null
-
-/datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.psyphoza_first_names)] [pick(GLOB.psyphoza_last_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return .(gender, TRUE, null, ++attempts)
 
 /datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)

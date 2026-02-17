@@ -370,7 +370,7 @@
 		seeker_port_in = null
 	var/fiftyfifty = prob(50) ? FEMALE : MALE
 	// sufficiently entropic, unguessable string unique to this user's current connection
-	var/hashtext = "[ckey][ip][rand(0,9999)][world.realtime][rand(0,9999)][world.address][random_unique_name(fiftyfifty)][rand(0,9999)][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
+	var/hashtext = "[ckey][ip][rand(0,9999)][world.realtime][rand(0,9999)][world.address][generate_random_name(fiftyfifty)][rand(0,9999)][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
 	var/nonce = rustg_hash_string(RUSTG_HASH_SHA256, hashtext)
 	var/datum/db_query/insert_nonce_query = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("session_creation_nonce")] (`ip`, `seeker_port`, `session_nonce`) VALUES (:ip, :seeker_port, :nonce)",

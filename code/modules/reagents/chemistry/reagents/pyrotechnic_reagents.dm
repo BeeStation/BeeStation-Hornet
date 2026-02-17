@@ -21,7 +21,7 @@
 /datum/reagent/nitroglycerin
 	name = "Nitroglycerin"
 	description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "oil"
 
@@ -29,7 +29,7 @@
 	name = "Stabilizing Agent"
 	description = "Keeps unstable chemicals stable. This does not work on everything."
 	reagent_state = LIQUID
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	chemical_flags = NONE
 	taste_description = "metal"
 
@@ -78,7 +78,7 @@
 
 	if(method != INGEST && method != INJECT)
 		exposed_mob.adjust_fire_stacks(min(reac_volume/5, 10))
-		exposed_mob.IgniteMob()
+		exposed_mob.ignite_mob()
 		if(!locate(/obj/effect/hotspot) in exposed_mob.loc)
 			new /obj/effect/hotspot/bright(exposed_mob.loc)
 
@@ -102,7 +102,7 @@
 	name = "Black Powder"
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
-	color = "#000000"
+	color = COLOR_BLACK
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	taste_description = "salt"
@@ -165,7 +165,7 @@
 	. = ..()
 	exposed_mob.adjust_fire_stacks(1)
 	exposed_mob.adjustFireLoss(max(0.3 * exposed_mob.fire_stacks, 0.3))
-	exposed_mob.IgniteMob()
+	exposed_mob.ignite_mob()
 
 /datum/reagent/phlogiston/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -344,4 +344,4 @@
 	. = ..()
 	if(method in list(VAPOR, TOUCH))
 		exposed_mob.adjust_fire_stacks(-reac_volume)
-		exposed_mob.ExtinguishMob()
+		exposed_mob.extinguish_mob()

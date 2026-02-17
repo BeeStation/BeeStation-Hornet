@@ -81,13 +81,8 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	/// Is the mob blind
 	var/eye_blind = 0		//Carbon
-	/// Does the mob have blurry sight
-	var/eye_blurry = 0		//Carbon
 	/// What is the mobs real name (name is overridden for disguises etc)
 	var/real_name = null
-
-	/// can this mob move freely in space (should be a trait)
-	var/spacewalk = FALSE
 
 	/**
 	  * back up of the real name during admin possession
@@ -103,10 +98,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	/// Our body temperatue as of the last process, prevents pointless work when handling alerts
 	var/old_bodytemperature = 0
 
-	/// Drowsyness level of the mob
-	var/drowsyness = 0//Carbon
-	/// Dizziness level of the mob
-	var/dizziness = 0//Carbon
 	/// Hunger level of the mob
 	var/nutrition = NUTRITION_LEVEL_START_MIN // randomised in Initialize
 	/// Satiation level of the mob

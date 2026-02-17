@@ -8,7 +8,7 @@
 	mob_gender = NEUTER
 	husk = FALSE
 	mob_species = /datum/species/skeleton
-	mob_color = "#454545"
+	mob_color = COLOR_DARK
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
 	. = ..()

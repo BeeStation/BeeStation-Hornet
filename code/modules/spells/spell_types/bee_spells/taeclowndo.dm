@@ -82,8 +82,10 @@
 		var/mul = (M==target ? 1 : 0.5)
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.stuttering += 20*mul
-		M.adjustEarDamage(0, 30*mul)
+		M.adjust_stutter(40 SECONDS*mul)
+		var/obj/item/organ/ears/target_ears = user.get_organ_slot(ORGAN_SLOT_EARS)
+		if(target_ears && !HAS_TRAIT(user, TRAIT_DEAF))
+			target_ears.adjustEarDamage(0, 30*mul)
 		M.Knockdown(60*mul)
 		if(prob(40))
 			M.Knockdown(200*mul)

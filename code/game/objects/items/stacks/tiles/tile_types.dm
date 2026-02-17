@@ -136,7 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	turf_type = /turf/open/floor/grass/fairy
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/tile/fairygrass
-	color = "#33CCFF"
+	color = COLOR_BLUE_LIGHT
 
 /obj/item/stack/tile/fairygrass/white
 	name = "white fairygrass tile"
@@ -144,7 +144,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	desc = "A patch of odd, glowing white grass."
 	turf_type = /turf/open/floor/grass/fairy/white
 	merge_type = /obj/item/stack/tile/fairygrass/white
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 
 /obj/item/stack/tile/fairygrass/red
 	name = "red fairygrass tile"
@@ -152,7 +152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	desc = "A patch of odd, glowing red grass."
 	turf_type = /turf/open/floor/grass/fairy/red
 	merge_type = /obj/item/stack/tile/fairygrass/red
-	color = "#FF3333"
+	color = COLOR_RED_LIGHT
 
 /obj/item/stack/tile/fairygrass/orange
 	name = "orange fairygrass tile"
@@ -337,6 +337,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	turf_type = /turf/open/floor/carpet/red
 	tableVariant = /obj/structure/table/wood/fancy/red
 
+/obj/item/stack/tile/carpet/olive
+	name = "olive carpet"
+	icon_state = "tile-carpet-olive"
+	inhand_icon_state = "tile-carpet-olive"
+	merge_type = /obj/item/stack/tile/carpet/olive
+	turf_type = /turf/open/floor/carpet/olive
+	tableVariant = /obj/structure/table/wood/fancy/green
+
 /obj/item/stack/tile/carpet/royalblack
 	name = "royal black carpet"
 	icon_state = "tile-carpet-royalblack"
@@ -397,6 +405,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	amount = 50
 
 /obj/item/stack/tile/carpet/red/fifty
+	amount = 50
+
+/obj/item/stack/tile/carpet/olive/fifty
 	amount = 50
 
 /obj/item/stack/tile/carpet/royalblack/fifty

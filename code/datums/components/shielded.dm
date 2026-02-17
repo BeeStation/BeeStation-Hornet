@@ -121,6 +121,9 @@
 	if(current_integrity >= max_integrity)
 		STOP_PROCESSING(SSdcs, src)
 		return
+	if (!wearer)
+		STOP_PROCESSING(SSdcs, src)
+		return
 
 	if(!COOLDOWN_FINISHED(src, recently_hit_cd))
 		return
@@ -146,6 +149,9 @@
 		qdel(src)
 		return
 
+	if (!wearer)
+		return
+
 	// Remove effects on shield break
 	if (_effects_activated)
 		on_deactive_effects?.Invoke(wearer)
@@ -155,8 +161,10 @@
 	START_PROCESSING(SSdcs, src) // if we DO recharge, start processing so we can do that
 
 /datum/component/shielded/proc/adjust_charge(change)
-	var/needs_update = current_integrity == 0
+	var/needs_update = current_integrity <= 0
 	current_integrity = clamp(current_integrity + change, 0, max_integrity)
+	if (!wearer)
+		return
 	on_integrity_changed?.Invoke(wearer, current_integrity)
 	if(wearer && needs_update)
 		wearer.update_appearance(UPDATE_ICON)
@@ -164,12 +172,17 @@
 		if (!_effects_activated)
 			on_active_effects?.Invoke(wearer, current_integrity)
 			_effects_activated = TRUE
+	if (current_integrity < max_integrity)
+		START_PROCESSING(SSdcs, src)
 
 /datum/component/shielded/proc/set_charge(new_value)
 	current_integrity = clamp(new_value, 0, max_integrity)
 	on_integrity_changed?.Invoke(wearer, current_integrity)
 	// activate cooldown after updating the charge
 	COOLDOWN_START(src, recently_hit_cd, recharge_start_delay)
+	// Start processing if we need to charge up
+	if (current_integrity < max_integrity)
+		START_PROCESSING(SSdcs, src)
 
 /// Check if we've been equipped to a valid slot to shield
 /datum/component/shielded/proc/on_equipped(datum/source, mob/user, slot)
@@ -203,10 +216,15 @@
 	RegisterSignal(wearer, COMSIG_QDELETING, PROC_REF(lost_wearer))
 	if(current_integrity)
 		wearer.update_appearance(UPDATE_ICON)
+	if (shield_flags & ENERGY_SHIELD_DEPLETE_EQUIP)
+		set_charge(0)
 	// re-add effects when the shield recovers
-	if (!_effects_activated)
+	if (!_effects_activated && current_integrity > 0)
 		on_active_effects?.Invoke(wearer, current_integrity)
 		_effects_activated = TRUE
+	// Start charging
+	if (current_integrity < max_integrity)
+		START_PROCESSING(SSdcs, src)
 
 /// Used to draw the shield overlay on the wearer
 /datum/component/shielded/proc/on_update_overlays(atom/parent_atom, list/overlays)
@@ -241,13 +259,14 @@
 
 	INVOKE_ASYNC(src, PROC_REF(actually_run_hit_callback), owner, attack_text, current_integrity)
 
-
-	if(!charge_recovery) // if charge_recovery is 0, we don't recharge
-		if(!current_integrity) // obviously if someone ever adds a manual way to replenish charges, change this
+	// if charge_recovery is 0, we don't recharge
+	if(!charge_recovery)
+		// obviously if someone ever adds a manual way to replenish charges, change this
+		if(current_integrity <= 0)
 			qdel(src)
 		return
 
-	if (!current_integrity)
+	if (current_integrity <= 0)
 		// Remove effects on shield break
 		if (_effects_activated)
 			on_deactive_effects?.Invoke(wearer)

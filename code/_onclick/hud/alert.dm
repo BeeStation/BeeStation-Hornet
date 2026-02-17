@@ -224,11 +224,6 @@
 or something covering your eyes."
 	icon_state = "blind"
 
-/atom/movable/screen/alert/high
-	name = "High"
-	desc = "Whoa man, you're tripping balls! Careful you don't get addicted... if you aren't already."
-	icon_state = "high"
-
 /atom/movable/screen/alert/hypnosis
 	name = "Hypnosis"
 	desc = "Something's hypnotizing you, but you're not really sure about what."
@@ -247,11 +242,6 @@ or something covering your eyes."
 	if(L != owner)
 		return
 	to_chat(L, span_mindcontrol("[command]"))
-
-/atom/movable/screen/alert/drunk
-	name = "Drunk"
-	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
-	icon_state = "drunk"
 
 /atom/movable/screen/alert/embeddedobject
 	name = "Embedded Object"
@@ -295,13 +285,20 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/fire/Click()
-	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist() || L != owner)
+	if(!isliving(owner))
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.mobility_flags & MOBILITY_MOVE)
-		return L.resist_fire() //I just want to start a flame in your hearrrrrrtttttt.
+	var/mob/living/living_owner = owner
+	if(!living_owner.can_resist())
+		return
 
+	living_owner.changeNext_move(CLICK_CD_RESIST)
+	if(!(living_owner.mobility_flags & MOBILITY_MOVE))
+		return
+
+	return handle_stop_drop_roll(owner)
+
+/atom/movable/screen/alert/fire/proc/handle_stop_drop_roll(mob/living/roller)
+	return roller.resist_fire()
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
@@ -848,6 +845,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/poll_alert/MouseExited()
 	. = ..()
+	if (QDELETED(src))
+		return
 	if (!poll.config.can_hide)
 		return
 	usr.client.set_right_click_menu_mode(usr.shift_to_open_context_menu)

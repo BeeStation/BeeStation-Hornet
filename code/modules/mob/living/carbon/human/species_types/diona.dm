@@ -3,7 +3,6 @@
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
 	sexes = 0 //no sex for bug/plant people!
-	bodyflag = FLAG_DIONA
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
@@ -15,7 +14,6 @@
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
-		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADHEALER,
@@ -156,7 +154,6 @@
 	split_ability.Grant(H)
 	partition_ability = new
 	partition_ability.Grant(H)
-	ADD_TRAIT(H, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
@@ -164,16 +161,10 @@
 	QDEL_NULL(split_ability)
 	partition_ability.Remove(H)
 	QDEL_NULL(partition_ability)
-	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
 	qdel(drone_ref)
 	for(var/status_effect as anything in H.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
 			H.remove_status_effect(/datum/status_effect/planthealing)
-
-/datum/species/diona/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.diona_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return ..(gender, TRUE, null, ++attempts)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
@@ -182,7 +173,7 @@
 		target.visible_message(span_warning("[user] catches fire from hugging [target]!"), span_boldnotice("[user] catches fire hugging you!"), span_italics("You hear a fire crackling."))
 		user.fire_stacks = target.fire_stacks
 		if(user.fire_stacks > 0)
-			user.IgniteMob()
+			user.ignite_mob()
 
 //////////////////////////////////////// Action abilities ///////////////////////////////////////////////
 

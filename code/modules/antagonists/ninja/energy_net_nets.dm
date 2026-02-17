@@ -62,7 +62,7 @@
 	qdel(src)
 	if(ishuman(affecting))
 		var/mob/living/carbon/human/affected_human = affecting
-		var/list/target_contents = affected_human.get_equipped_items(include_pockets = TRUE) + affected_human.held_items
+		var/list/target_contents = affected_human.get_equipped_items(INCLUDE_POCKETS) + affected_human.held_items
 		for(var/obj/item/item in target_contents)
 			if(item == affected_human.w_uniform || item == affected_human.shoes)
 				ADD_TRAIT(item, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
@@ -102,7 +102,7 @@
 	// Drop any items acquired from the location
 	if(ishuman(target))
 		var/mob/living/carbon/human/target_human = target
-		var/list/target_contents = target_human.get_equipped_items(include_pockets = TRUE) + target_human.held_items
+		var/list/target_contents = target_human.get_equipped_items(INCLUDE_POCKETS) + target_human.held_items
 		for(var/obj/item/item in target_contents)
 			if(item == target_human.w_uniform || item == target_human.shoes)
 				REMOVE_TRAIT(item, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)

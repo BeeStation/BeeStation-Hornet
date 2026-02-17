@@ -7,7 +7,9 @@ SUBSYSTEM_DEF(minor_mapping)
 	flags = SS_NO_FIRE
 
 /datum/controller/subsystem/minor_mapping/Initialize()
+#ifndef UNIT_TESTS
 	trigger_migration(CONFIG_GET(number/mice_roundstart))
+#endif
 	place_satchels()
 	return SS_INIT_SUCCESS
 

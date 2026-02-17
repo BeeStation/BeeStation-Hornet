@@ -246,6 +246,8 @@
 		set_listening(FALSE, actual_setting = FALSE)
 
 /obj/item/radio/talk_into(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
+	if(SEND_SIGNAL(talking_movable, COMSIG_MOVABLE_USING_RADIO, src) & COMPONENT_CANNOT_USE_RADIO)
+		return
 	if(!spans)
 		spans = list(talking_movable.speech_span)
 	if(!language)
@@ -261,7 +263,7 @@
 		return
 	if(wires.is_cut(WIRE_TX))  // Permacell and otherwise tampered-with radios
 		return
-	if(!talking_movable.IsVocal())
+	if(!talking_movable.try_speak(message, ignore_spam = TRUE))
 		return
 
 	if(!radio_silent)//Radios make small static noises now

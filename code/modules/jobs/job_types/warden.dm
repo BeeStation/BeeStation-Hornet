@@ -58,6 +58,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	l_pocket = /obj/item/clothing/accessory/badge
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/warden
+	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
 	backpack_contents = list(

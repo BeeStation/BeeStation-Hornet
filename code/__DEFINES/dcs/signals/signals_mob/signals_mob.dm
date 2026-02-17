@@ -5,13 +5,16 @@
 // /mob signals
 #define COMSIG_MOB_LOGIN "mob_login"
 #define COMSIG_MOB_LOGOUT "mob_logout"							///from base of /mob/Logout(): ()
-#define COMSIG_MOB_DEATH "mob_death"							//! from base of mob/death(): (gibbed)
 #define COMSIG_MOB_STATCHANGE "mob_statchange"					//from base of mob/set_stat(): (new_stat)
 #define COMSIG_MOB_CLICKON "mob_clickon"						//! from base of mob/clickon(): (atom/A, params)
 #define COMSIG_MOB_MIDDLECLICKON "mob_middleclickon"			//from base of mob/MiddleClickOn(): (atom/A)
 ///from base of mob/AltClickOn(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"
 	#define COMSIG_MOB_CANCEL_CLICKON (1<<0)
+///from base of datum/emote/living/deathgasp/run_emote(): (params, type_override, intentional)
+#define COMSIG_MOB_DEATHGASP "mob_deathgasp"
+	/// Don't play the default sound
+	#define COMSIG_MOB_CANCEL_DEATHGASP_SOUND (1 << 0)
 ///from base of mob/alt_click_on_secodary(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON_SECONDARY "mob_altclickon_secondary"
 
@@ -78,13 +81,15 @@
 	#define COMPONENT_UPPERCASE_SPEECH (1<<0)
 	// used to access COMSIG_MOB_SAY argslist
 	#define SPEECH_MESSAGE 1
-	// #define SPEECH_BUBBLE_TYPE 2
+	#define SPEECH_BUBBLE_TYPE 2
 	#define SPEECH_SPANS 3
-	/* #define SPEECH_SANITIZE 4
+	#define SPEECH_SANITIZE 4
 	#define SPEECH_LANGUAGE 5
 	#define SPEECH_IGNORE_SPAM 6
-	#define SPEECH_FORCED 7 */
-	#define SPEECH_RANGE 8
+	#define SPEECH_FORCED 7
+	#define SPEECH_FILTERPROOF 8
+	#define SPEECH_RANGE 9
+	#define SPEECH_SAYMODE 10
 
 ///from /datum/component/speechmod/handle_speech(): ()
 #define COMSIG_TRY_MODIFY_SPEECH "try_modify_speech"

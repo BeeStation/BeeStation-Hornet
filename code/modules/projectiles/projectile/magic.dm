@@ -829,7 +829,7 @@
 	if(isliving(target))
 		var/mob/living/target_mob = target
 		target_mob.fire_stacks += 5 //One stop drop and roll can put this out, two if it spreads during the knockdown
-		target_mob.IgniteMob()
+		target_mob.ignite_mob()
 
 	explosion(
 		target_turf,

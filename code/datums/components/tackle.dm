@@ -365,7 +365,7 @@
 	// DE-FENSE
 
 	// Drunks are easier to knock off balance
-	var/target_drunkenness = target.drunkenness
+	var/target_drunkenness = target.get_drunk_amount()
 	if(target_drunkenness > 60)
 		defense_mod -= 3
 	else if(target_drunkenness > 30)
@@ -415,7 +415,7 @@
 
 	// OF-FENSE
 	var/mob/living/carbon/sacker = parent
-	var/sacker_drunkenness = sacker.drunkenness
+	var/sacker_drunkenness = sacker.get_drunk_amount()
 
 	if(sacker_drunkenness > 60) // you're far too drunk to hold back!
 		attack_mod += 1

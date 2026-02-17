@@ -107,10 +107,6 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 		/obj/item/storage/wallet/random = 1,
 		) = 1,
 
-	list(//xenoartifacts
-		/obj/item/xenoartifact/maint = 1,
-		) = 2,
-
 	list(//construction and crafting
 		/obj/item/sign_backing = 1,
 		/obj/item/stack/cable_coil = 1,
@@ -240,6 +236,10 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 			) = 1,
 		/obj/item/food/monkeycube = 1,
 		) = 8,
+
+	list(//xenoartifacts
+		/obj/item/xenoartifact/maint = 1
+		) = 6,
 
 	list(//modsuits
 		/obj/effect/spawner/random/mod/maint = 3,

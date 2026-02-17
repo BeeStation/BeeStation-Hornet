@@ -58,7 +58,7 @@
 				if(!(bodypart_to_attach.bodytype & target_chest.acceptable_bodytype))
 					to_chat(user, span_warning("[bodypart_to_attach] doesn't match the patient's morphology."))
 					return -1
-				if(human_target.dna.species.id != bodypart_to_attach.limb_id)
+				if(bodypart_to_attach.check_for_frankenstein(target))
 					organ_rejection_dam = 30
 
 			if(!bodypart_to_attach.can_attach_limb(target))
@@ -96,8 +96,10 @@
 		tool.cut_overlays()
 		tool = tool.contents[1]
 	if(istype(tool, /obj/item/bodypart) && user.temporarilyRemoveItemFromInventory(tool))
-		var/obj/item/bodypart/L = tool
-		L.try_attach_limb(target)
+		var/obj/item/bodypart/bodypart_to_attach = tool
+		bodypart_to_attach.try_attach_limb(target)
+		if(bodypart_to_attach.check_for_frankenstein(target))
+			bodypart_to_attach.bodypart_flags |= BODYPART_IMPLANTED
 		if(organ_rejection_dam)
 			target.adjustToxLoss(organ_rejection_dam)
 		display_results(
@@ -110,9 +112,9 @@
 		target.cauterise_wounds()
 		return
 	else
-		var/obj/item/bodypart/L = target.newBodyPart(target_zone, FALSE, FALSE)
-		L.is_pseudopart = TRUE
-		L.try_attach_limb(target)
+		var/obj/item/bodypart/bodypart_to_attach = target.newBodyPart(target_zone, FALSE, FALSE)
+		bodypart_to_attach.try_attach_limb(target)
+		bodypart_to_attach.bodypart_flags |= BODYPART_PSEUDOPART | BODYPART_IMPLANTED
 		user.visible_message(span_notice("[user] finishes attaching [tool]!"), span_notice("You attach [tool]."))
 		display_results(
 			user,
@@ -121,23 +123,26 @@
 			span_notice("[user] finishes attaching [tool]!"),
 			span_notice("[user] finishes the attachment procedure!"),
 		)
-		qdel(tool)
 		if(istype(tool, /obj/item/chainsaw/energy/doom))
+			qdel(tool)
 			var/obj/item/mounted_chainsaw/super/new_arm = new(target)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()
 			return
 		else if(istype(tool, /obj/item/chainsaw/energy))
+			qdel(tool)
 			var/obj/item/mounted_chainsaw/energy/new_arm = new(target)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()
 			return
 		else if(istype(tool, /obj/item/chainsaw))
+			qdel(tool)
 			var/obj/item/mounted_chainsaw/normal/new_arm = new(target)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()
 			return
 		else if(istype(tool, /obj/item/melee/synthetic_arm_blade))
+			qdel(tool)
 			var/obj/item/melee/arm_blade/new_arm = new(target,TRUE,TRUE)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()

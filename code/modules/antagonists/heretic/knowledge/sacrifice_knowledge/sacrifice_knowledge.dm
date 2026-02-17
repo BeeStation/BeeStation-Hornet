@@ -281,7 +281,7 @@
 	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
 
 	RegisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_target_escape)) // Cheese condition
-	RegisterSignal(sac_target, COMSIG_MOB_DEATH, PROC_REF(on_target_death)) // Loss condition
+	RegisterSignal(sac_target, COMSIG_LIVING_DEATH, PROC_REF(on_target_death)) // Loss condition
 
 /**
  * This proc is called from [proc/after_target_sleeps] when the [sac_target] should be waking up.
@@ -305,9 +305,9 @@
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm", /datum/mood_event/shadow_realm)
 
 	sac_target.flash_act()
-	sac_target.blur_eyes(15)
+	sac_target.set_eye_blur_if_lower(30 SECONDS)
 	sac_target.set_jitter_if_lower(20 SECONDS)
-	sac_target.Dizzy(10)
+	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
@@ -331,7 +331,7 @@
 	to_chat(sac_target, span_hypnophrase("The worst is behind you... Not much longer! Hold fast, or expire!"))
 
 /**
- * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm, or [COMSIG_MOB_DEATH] if they don't.
+ * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm, or [COMSIG_LIVING_DEATH] if they don't.
  *
  * Teleports [sac_target] back to a random safe turf on the station (or observer spawn if it fails to find a safe turf).
  * Also clears their status effects, unregisters any signals associated with the shadow realm, and sends a message
@@ -351,16 +351,15 @@
 	LAZYREMOVE(return_timers, REF(sac_target))
 
 	UnregisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED)
-	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
+	UnregisterSignal(sac_target, COMSIG_LIVING_DEATH)
 	sac_target.remove_status_effect(/datum/status_effect/necropolis_curse)
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
 	sac_target.reagents?.del_reagent(/datum/reagent/helgrasp/heretic)
 	SEND_SIGNAL(sac_target, COMSIG_CLEAR_MOOD_EVENT, "shadow_realm")
 
 	// Wherever we end up, we sure as hell won't be able to explain
-	sac_target.slurring += 20
-	sac_target.cultslurring += 20
-	sac_target.stuttering += 20
+	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	sac_target.adjust_stutter(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
 	if(is_station_level(sac_target.z))
@@ -428,8 +427,8 @@
 	// Oh god where are we?
 	sac_target.flash_act()
 	sac_target.set_jitter_if_lower(120 SECONDS)
-	sac_target.blur_eyes(50)
-	sac_target.Dizzy(30)
+	sac_target.set_eye_blur_if_lower(100 SECONDS)
+	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 

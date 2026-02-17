@@ -119,7 +119,7 @@
 			vitaecost_multiplier = 0.25 // Decrease cost if we're sleeping in a coffin.
 
 			// Extinguish and remove embedded objects
-			carbon_owner.ExtinguishMob()
+			carbon_owner.extinguish_mob()
 			carbon_owner.remove_all_embedded_objects()
 
 			if(try_regenerate_limbs(vitaecost_multiplier))

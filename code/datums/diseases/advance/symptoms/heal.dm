@@ -366,7 +366,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(4, 5)
-			M.adjust_fire_stacks(-5)
+			M.adjust_wet_stacks(5)
 			if(!ammonia && prob(30))
 				var/turf/open/OT = get_turf(M)
 				if(istype(OT))
@@ -465,7 +465,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 					do_sparks(5, FALSE, M)
 					if(burnheal)
-						M.adjust_fire_stacks(-10)
+						M.adjust_wet_stacks(10)
 					location_return = null
 					COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN)
 			if(COOLDOWN_FINISHED(src, teleport_cooldown))
@@ -987,7 +987,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
 		if(4 to 5)
 			M.adjustStaminaLoss((-5 * power), 0)
-			M.drowsyness = max(0, M.drowsyness - 10 * power)
+			M.set_drowsiness_if_lower(4 SECONDS * power)
 			M.AdjustSleeping(-10 * power)
 			M.AdjustUnconscious(-10 * power)
 			if(prob(power) && prob(50))

@@ -2,7 +2,7 @@
 #define NOT_PRESENT_COLOUR "#0d0d0d"
 #define FULL_HEALTH_COLOUR "#11ff00"
 #define LOW_DAMAGE_COLOUR "#d9ff00"
-#define POOR_HEALTH_COLOUR "#ff0000"
+#define POOR_HEALTH_COLOUR COLOR_RED
 
 /// Displays a UI around the target allowing the user to select which bodypart
 /// that they want to act on.

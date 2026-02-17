@@ -188,16 +188,29 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define EMP_PROTECT_CONTENTS (1<<1)
 #define EMP_PROTECT_WIRES (1<<2)
 
-//! ## Mob mobility var flags
-#define MOBILITY_MOVE			(1<<0)		//! can move
-#define MOBILITY_STAND			(1<<1)		//! can, and is, standing up
-#define MOBILITY_PICKUP			(1<<2)		//! can pickup items
-#define MOBILITY_USE			(1<<3)		//! can hold and use items
-#define MOBILITY_UI				(1<<4)		//! can use interfaces like machinery
-#define MOBILITY_STORAGE		(1<<5)		//! can use storage item
-#define MOBILITY_PULL			(1<<6)		//! can pull things
+//Mob mobility var flags
+/// can move
+#define MOBILITY_MOVE (1<<0)
+/// can, and is, standing up
+#define MOBILITY_STAND (1<<1)
+/// can pickup items
+#define MOBILITY_PICKUP (1<<2)
+/// can hold and use items
+#define MOBILITY_USE (1<<3)
+/// can use interfaces like machinery
+#define MOBILITY_UI (1<<4)
+/// can use storage item
+#define MOBILITY_STORAGE (1<<5)
+/// can pull things
+#define MOBILITY_PULL (1<<6)
+/// can rest
+#define MOBILITY_REST (1<<7)
+/// can lie down
+#define MOBILITY_LIEDOWN (1<<8)
 
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL)
+#define MOBILITY_FLAGS_CARBON_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL | MOBILITY_REST | MOBILITY_LIEDOWN)
+#define MOBILITY_FLAGS_REST_CAPABLE_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL | MOBILITY_REST | MOBILITY_LIEDOWN)
 
 //alternate appearance flags
 #define AA_TARGET_SEE_APPEARANCE (1<<0)

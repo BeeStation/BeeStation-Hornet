@@ -34,7 +34,7 @@
 	/// List of possible random colors
 	var/static/list/screwdriver_colors = list(
 		"blue" = "#1861d5",
-		"red" = "#ff0000",
+		"red" = COLOR_RED,
 		"pink" = "#d5188d",
 		"brown" = "#a05212",
 		"green" = "#0e7f1b",
@@ -64,14 +64,16 @@
 /obj/item/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M))
 		return ..()
-	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && !user.is_zone_selected(BODY_ZONE_HEAD, simplified_probability = 40))
+	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && !user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm [M]!"))
-		return
+		return TRUE
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		M = user
-	return eyestab(M,user)
+	if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
+		return TRUE
+	return ..()
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"

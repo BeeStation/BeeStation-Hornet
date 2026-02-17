@@ -47,7 +47,7 @@
 
 	if(owner.health > owner.crit_threshold && prob(4))
 		owner.set_jitter_if_lower(20 SECONDS)
-		owner.Dizzy(5)
+		owner.set_dizzy_if_lower(10 SECONDS)
 		owner.adjust_hallucinations_up_to(6 SECONDS, 48 SECONDS)
 
 	if(prob(2))
@@ -61,7 +61,7 @@
  * Initially heals the owner a bit, ensuring they have no suffocation and no immobility.
 */
 /datum/status_effect/unholy_determination/proc/initial_heal()
-	owner.ExtinguishMob()
+	owner.extinguish_mob()
 	// catch your breath
 	owner.losebreath = 0
 	owner.setOxyLoss(0, FALSE)

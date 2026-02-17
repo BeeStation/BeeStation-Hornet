@@ -6,7 +6,7 @@
 	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
 	anchored = TRUE
 	density = FALSE
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	dir = NONE			// dir will contain dominant direction for junction pipes
 	max_integrity = 200
 	armor_type = /datum/armor/structure_disposalpipe
@@ -48,6 +48,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 			dpdir |= turn(dir, 180)
 
 	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+	if(isturf(loc))
+		var/turf/turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
 
 // pipe is deleted
 // ensure if holder is present, it is expelled
@@ -156,7 +159,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 					P.setDir(D)
 	..()
 
-/obj/structure/disposalpipe/singularity_pull(S, current_size)
+/obj/structure/disposalpipe/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()

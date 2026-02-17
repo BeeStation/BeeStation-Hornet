@@ -26,7 +26,6 @@
 	unsuitable_atmos_damage = 0
 	wander = FALSE
 	speed = 0
-	ventcrawler = VENTCRAWLER_ALWAYS
 	healable = 0
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
@@ -102,6 +101,7 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
 
 	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER), list(z))
