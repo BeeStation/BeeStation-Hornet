@@ -442,6 +442,7 @@ export class Changelog extends Component {
     return (
       <Window
         title="Changelog"
+        theme="generic"
         width={testmerges?.length ? 1000 : 675}
         height={650}
       >

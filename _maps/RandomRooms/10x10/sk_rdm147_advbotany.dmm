@@ -48,7 +48,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "m" = (
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance/eight,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -155,7 +155,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "M" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
@@ -165,7 +165,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Q" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /obj/machinery/light/small{
 	dir = 8
 	},

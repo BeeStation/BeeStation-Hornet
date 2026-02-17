@@ -40,7 +40,7 @@
 		if(!SSresearch.science_tech.isNodeResearchedID(initial(disk.node_id)))
 			valid_nodes += initial(disk.node_id)
 	if(!length(valid_nodes))
-		new /obj/effect/spawner/lootdrop/ruinloot/basic(get_turf(src))
+		new /obj/effect/spawner/random/ruinloot/basic(get_turf(src))
 		return INITIALIZE_HINT_QDEL
 	node_id = pick(valid_nodes)
 	. = ..()

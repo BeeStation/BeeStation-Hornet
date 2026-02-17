@@ -1,23 +1,17 @@
-/*
-	The equivalent of the server, for PDA and request console messages.
-	Without it, PDA and request console messages cannot be transmitted.
-	PDAs require the rest of the telecomms setup, but request consoles only
-	require the message server.
-*/
-
 // A decorational representation of SSblackbox, usually placed alongside the message server. Also contains a traitor theft item.
 /obj/machinery/blackbox_recorder
+	name = "Blackbox Recorder"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
-	name = "Blackbox Recorder"
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
 	armor_type = /datum/armor/machinery_blackbox_recorder
+	/// The object that's stored in the machine, which is to say, the blackbox itself.
+	/// When it hasn't already been stolen, of course.
 	var/obj/item/stored
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
-
 
 /datum/armor/machinery_blackbox_recorder
 	melee = 25
@@ -40,17 +34,18 @@
 	else
 		to_chat(user, span_warning("It seems that the blackbox is missing..."))
 
-/obj/machinery/blackbox_recorder/attackby(obj/item/I, mob/living/user, params)
-	. = ..()
-	if(istype(I, /obj/item/blackbox))
-		if(HAS_TRAIT(I, TRAIT_NODROP) || !user.transferItemToLoc(I, src))
-			to_chat(user, span_warning("[I] is stuck to your hand!"))
+/obj/machinery/blackbox_recorder/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(istype(attacking_item, /obj/item/blackbox))
+		if(HAS_TRAIT(attacking_item, TRAIT_NODROP) || !user.transferItemToLoc(attacking_item, src))
+			to_chat(user, span_warning("[attacking_item] is stuck to your hand!"))
 			return
-		user.visible_message(span_notice("[user] clicks [I] into [src]!"), \
+		user.visible_message(span_notice("[user] clicks [attacking_item] into [src]!"), \
 		span_notice("You press the device into [src], and it clicks into place. The tapes begin spinning again."))
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-		stored = I
-		update_icon()
+		stored = attacking_item
+		update_appearance()
+		return
+	return ..()
 
 /obj/machinery/blackbox_recorder/Destroy()
 	if(stored)
@@ -74,13 +69,16 @@
 	w_class = WEIGHT_CLASS_LARGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-#define MESSAGE_SERVER_FUNCTIONING_MESSAGE "This is an automated message. The messaging system is functioning correctly."
-
-// The message server itself.
+/**
+ * The equivalent of the server, for PDA and request console messages.
+ * Without it, PDA and request console messages cannot be transmitted.
+ * PDAs require the rest of the telecomms setup, but request consoles only
+ * require the message server.
+ */
 /obj/machinery/telecomms/message_server
-	icon_state = "message_server"
 	name = "Messaging Server"
 	desc = "A machine that processes and routes PDA and request console messages."
+	icon_state = "message_server"
 	telecomms_type = /obj/machinery/telecomms/message_server
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -88,15 +86,25 @@
 	active_power_usage = 40
 	circuit = /obj/item/circuitboard/machine/telecomms/message_server
 
+	/// A list of all the PDA messages that were intercepted and processed by
+	/// this messaging server.
 	var/list/datum/data_tablet_msg/modular_msgs = list()
+	/// A list of all the Request Console messages that were intercepted and
+	/// processed by this messaging server.
 	var/list/datum/data_rc_msg/rc_msgs = list()
+	/// The password of this messaging server.
 	var/decryptkey = "password"
-	var/calibrating = 15 MINUTES //Init reads this and adds world.time, then becomes 0 when that time has passed and the machine works
+	/// Init reads this and adds world.time, then becomes 0 when that time has
+	/// passed and the machine works.
+	/// Basically, if it's not 0, it's calibrating and therefore non-functional.
+	var/calibrating = 15 MINUTES
+
+#define MESSAGE_SERVER_FUNCTIONING_MESSAGE "This is an automated message. The messaging system is functioning correctly."
 
 /obj/machinery/telecomms/message_server/Initialize(mapload)
 	. = ..()
 	if (!decryptkey)
-		decryptkey = GenerateKey()
+		decryptkey = generate_key()
 
 	if (calibrating)
 		calibrating += world.time
@@ -110,18 +118,24 @@
 	if(calibrating)
 		. += span_warning("It's still calibrating.")
 
-/obj/machinery/telecomms/message_server/proc/GenerateKey()
-	var/newKey
-	newKey += pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
-	newKey += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
-	newKey += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-	return newKey
+/**
+ * Handles generating a key for the message server, returning it. Doesn't assign
+ * it in this proc, you have to do so yourself.
+ */
+/obj/machinery/telecomms/message_server/proc/generate_key()
+	var/generated_key
+	generated_key += pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
+	generated_key += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
+	generated_key += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+	return generated_key
 
 /obj/machinery/telecomms/message_server/process()
 	. = ..()
 	if(calibrating && calibrating <= world.time)
 		calibrating = 0
 		modular_msgs += new /datum/data_tablet_msg("System Administrator", "system", MESSAGE_SERVER_FUNCTIONING_MESSAGE)
+
+#undef MESSAGE_SERVER_FUNCTIONING_MESSAGE
 
 /obj/machinery/telecomms/message_server/receive_information(datum/signal/subspace/messaging/signal, obj/machinery/telecomms/machine_from)
 	// can't log non-message signals
@@ -135,9 +149,9 @@
 		modular_msgs += msg
 		signal.logged = msg
 	else if(istype(signal, /datum/signal/subspace/messaging/rc))
-		var/datum/data_rc_msg/msg = new(signal.data["rec_dpt"], signal.data["send_dpt"], signal.data["message"], signal.data["stamped"], signal.data["verified"], signal.data["priority"])
+		var/datum/data_rc_msg/msg = new(signal.data["receiving_department"], signal.data["sender_department"], signal.data["message"], signal.data["stamped"], signal.data["verified"], signal.data["priority"])
 		signal.logged = msg
-		if(signal.data["send_dpt"]) // don't log messages not from a department but allow them to work
+		if(signal.data["sender_department"]) // don't log messages not from a department but allow them to work
 			rc_msgs += msg
 	signal.data["reject"] = FALSE
 
@@ -152,6 +166,14 @@
 		add_overlay("message_server_calibrate")
 
 
+// Preset messaging server
+/obj/machinery/telecomms/message_server/preset
+	id = "Messaging Server"
+	network = "tcommsat"
+	autolinkers = list("messaging")
+	decryptkey = null //random
+	calibrating = 0
+
 // Root messaging signal datum
 /datum/signal/subspace/messaging
 	frequency = FREQ_COMMON
@@ -161,8 +183,8 @@
 /datum/signal/subspace/messaging/New(init_source, init_data)
 	source = init_source
 	data = init_data
-	var/turf/T = get_turf(source)
-	levels = list(T.get_virtual_z_level())
+	var/turf/origin_turf = get_turf(source)
+	levels = list(origin_turf.get_virtual_z_level())
 	if(!("reject" in data))
 		data["reject"] = TRUE
 
@@ -173,12 +195,15 @@
 	return copy
 
 // Tablet message signal datum
+/// Returns a string representing the target of this message, formatted properly.
 /datum/signal/subspace/messaging/tablet_msg/proc/format_target()
 	if (length(data["targets"]) > 1)
 		return "Everyone"
 	var/obj/item/modular_computer/target = data["targets"][1]
 	return "[target.saved_identification] ([target.saved_job])"
 
+/// Returns the formatted message contained in this message. Use this to apply
+/// any processing to it if it needs to be formatted in a specific way.
 /datum/signal/subspace/messaging/tablet_msg/proc/format_message(include_photo = FALSE)
 	if (include_photo && logged && data["photo"])
 		return "\"[data["message"]]\" (<a href='byond://?src=[REF(logged)];photo=1'>Photo</a>)"
@@ -196,18 +221,22 @@
 /datum/signal/subspace/messaging/rc/broadcast()
 	if (!logged)  // Like /pda, only if logged
 		return
-	var/rec_dpt = ckey(data["rec_dpt"])
+	var/recipient_department = ckey(data["recipient_department"])
 	for (var/obj/machinery/requests_console/Console in GLOB.allConsoles)
-		if(ckey(Console.department) == rec_dpt || (data["ore_update"] && Console.receive_ore_updates))
-			Console.createmessage(data["sender"], data["send_dpt"], data["message"], data["verified"], data["stamped"], data["priority"], data["notify_freq"])
+		if(ckey(Console.department) == recipient_department || (data["ore_update"] && Console.receive_ore_updates))
+			Console.createmessage(data["sender"], data["sender_department"], data["message"], data["verified"], data["stamped"], data["priority"], data["notify_freq"])
 
-// Log datums stored by the message server.
+/// Log datums stored by the message server.
 /datum/data_tablet_msg
+	/// Who sent the message.
 	var/sender = "Unspecified"
+	/// Who was targeted by the message.
 	var/recipient = "Unspecified"
-	var/message = "Blank"  // transferred message
+	/// The transfered message.
+	var/message = "Blank"
 	var/datum/picture/picture  // attached photo
-	var/automated = FALSE //automated message
+	/// Whether or not it's an automated message. Defaults to `FALSE`.
+	var/automated = FALSE
 	/// If this message is allowed to render emojis
 	var/emojis = FALSE
 
@@ -234,19 +263,30 @@
 		+ "</body></html>", "window=photo_showing;size=480x608")
 		onclose(M, "pdaphoto")
 
+#define REQUEST_PRIORITY_NORMAL "Normal"
+#define REQUEST_PRIORITY_HIGH "High"
+#define REQUEST_PRIORITY_EXTREME "Extreme"
+#define REQUEST_PRIORITY_UNDETERMINED "Undetermined"
+
 /datum/data_rc_msg
-	var/rec_dpt = "Unspecified"  // receiving department
-	var/send_dpt = "Unspecified"  // sending department
+	/// The department that sent the request.
+	var/sender_department = "Unspecified"
+	/// The department that was targeted by the request.
+	var/receiving_department = "Unspecified"
+	/// The message of the request.
 	var/message = "Blank"
+	/// The stamp that authenticated this message, if any.
 	var/stamp = "Unstamped"
+	/// The ID that authenticated this message, if any.
 	var/id_auth = "Unauthenticated"
-	var/priority = "Normal"
+	/// The priority of this request.
+	var/priority = REQUEST_PRIORITY_NORMAL
 
 /datum/data_rc_msg/New(param_rec, param_sender, param_message, param_stamp, param_id_auth, param_priority)
 	if(param_rec)
-		rec_dpt = param_rec
+		receiving_department = param_rec
 	if(param_sender)
-		send_dpt = param_sender
+		sender_department = param_sender
 	if(param_message)
 		message = param_message
 	if(param_stamp)
@@ -256,19 +296,15 @@
 	if(param_priority)
 		switch(param_priority)
 			if(REQ_NORMAL_MESSAGE_PRIORITY)
-				priority = "Normal"
+				priority = REQUEST_PRIORITY_NORMAL
 			if(REQ_HIGH_MESSAGE_PRIORITY)
-				priority = "High"
+				priority = REQUEST_PRIORITY_HIGH
 			if(REQ_EXTREME_MESSAGE_PRIORITY)
-				priority = "Extreme"
+				priority = REQUEST_PRIORITY_EXTREME
 			else
-				priority = "Undetermined"
+				priority = REQUEST_PRIORITY_UNDETERMINED
 
-#undef MESSAGE_SERVER_FUNCTIONING_MESSAGE
-
-/obj/machinery/telecomms/message_server/preset
-	id = "Messaging Server"
-	network = "tcommsat"
-	autolinkers = list("messaging")
-	decryptkey = null //random
-	calibrating = 0
+#undef REQUEST_PRIORITY_NORMAL
+#undef REQUEST_PRIORITY_HIGH
+#undef REQUEST_PRIORITY_EXTREME
+#undef REQUEST_PRIORITY_UNDETERMINED

@@ -43,6 +43,6 @@
 			warningstrings = list("ahyguabngaghabyugbauwf", "You feel sick", "It feels like you drank too much", "You feel like doing something unwise")
 		else
 			warningstrings = list("You feel buzzed", "You feel a bit tipsy")
-	M.drunkenness = clamp(M.drunkenness + target * ((A.stage - 1) * 0.1), M.drunkenness, target)
+	M.adjust_timed_status_effect(M.get_drunk_amount() + target * ((A.stage - 1) * 0.1), /datum/status_effect/inebriated, target)
 	if(prob(5 * A.stage))
 		to_chat(M, span_warning("[pick(warningstrings)]"))

@@ -38,6 +38,9 @@
 	add_law_zero()
 	owner.current.grant_language(/datum/language/codespeak, source = LANGUAGE_MALF)
 
+	var/datum/atom_hud/data/hackyhud = GLOB.huds[DATA_HUD_HACKED_APC]
+	hackyhud.add_hud_to(owner.current)
+
 	return ..()
 
 /datum/antagonist/malf_ai/on_removal()

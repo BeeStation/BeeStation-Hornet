@@ -25,13 +25,13 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod)
 		switch(bodytemperature)
 			if(360 to 400)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 1)
 				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
 			if(400 to 460)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 2)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 2)
 				apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 			if(460 to INFINITY)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 				if(on_fire)
 					apply_damage(HEAT_DAMAGE_LEVEL_3, BURN)
 				else
@@ -42,20 +42,20 @@
 			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 			switch(bodytemperature)
 				if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+					throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 					apply_damage(COLD_DAMAGE_LEVEL_1, BURN)
 				if(120 to 200)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+					throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 2)
 					apply_damage(COLD_DAMAGE_LEVEL_2, BURN)
 				if(-INFINITY to 120)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+					throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3)
 					apply_damage(COLD_DAMAGE_LEVEL_3, BURN)
 		else
-			clear_alert("temp")
+			clear_alert(ALERT_TEMPERATURE)
 
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod)
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)
 
 	//Account for massive pressure differences
 
@@ -95,29 +95,3 @@
 	if(wear_mask)
 		if(wear_mask.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return 1
-
-/mob/living/carbon/monkey/handle_fire()
-	. = ..()
-	if(.) //if the mob isn't on fire anymore
-		return
-
-	//the fire tries to damage the exposed clothes and items
-	var/list/burning_items = list()
-	//HEAD//
-	var/obscured = check_obscured_slots(TRUE)
-	if(wear_mask && !(obscured & ITEM_SLOT_MASK))
-		burning_items += wear_mask
-	if(wear_neck && !(obscured & ITEM_SLOT_NECK))
-		burning_items += wear_neck
-	if(head)
-		burning_items += head
-
-	if(back)
-		burning_items += back
-
-	for(var/obj/item/I as() in burning_items)
-		I.fire_act((fire_stacks * 50)) //damage taken is reduced to 2% of this value by fire_act()
-
-	if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-		adjust_bodytemperature(BODYTEMP_HEATING_MAX)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)

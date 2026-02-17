@@ -179,7 +179,7 @@
 	},
 /obj/structure/rack,
 /obj/item/melee/baton/cattleprod,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},

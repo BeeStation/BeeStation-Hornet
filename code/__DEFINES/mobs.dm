@@ -89,16 +89,13 @@
 #define ORGAN_ORGANIC 1
 #define ORGAN_ROBOTIC 2
 
-#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
+#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
 #define MONKEY_BODYPART "monkey"
 #define TERATOMA_BODYPART "teratoma"
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
-
-//Bodypart change blocking flags
-#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
 //Bodytype defines for how things can be worn, surgery, and other misc things.
 ///The limb is organic.
@@ -125,6 +122,9 @@
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
+
+///Digitigrade's prefs, used in features for legs if you're meant to be a Digitigrade.
+#define DIGITIGRADE_LEGS "Digitigrade Legs"
 
 // Health/damage defines
 #define MAX_LIVING_HEALTH 100
@@ -230,13 +230,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
 #define WINGS_FLYING 2 //can generate lift and fly if atmos is present
 #define WINGS_MAGIC 3 //can fly regardless of atmos
-
-//Surgery Defines
-#define BIOWARE_GENERIC "generic"
-#define BIOWARE_NERVES "nerves"
-#define BIOWARE_CIRCULATION "circulation"
-#define BIOWARE_LIGAMENTS "ligaments"
-#define BIOWARE_CORTEX "cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
@@ -441,8 +434,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180
 
-#define HUMAN_FIRE_STACK_ICON_NUM	3
-
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
@@ -591,8 +582,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HALO_LAYER 3
 /// Typing layer for the typing indicator
 #define TYPING_LAYER 2
-/// Fire layer when you're on fire
-#define FIRE_LAYER 1
+/// The highest most layer for mob overlays
+#define HIGHEST_LAYER 1
 
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
@@ -701,9 +692,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HEAL_ALL ~(HEAL_ADMIN|HEAL_RESTRAINTS)
 /// Heals everything and is as strong as / is an admin heal
 #define ADMIN_HEAL_ALL ALL
-
-// Species related bitflags go here.
-#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.
 
 /// Distance which you can see someone's ID card
 /// Short enough that you can inspect over tables (bartender checking age)

@@ -77,9 +77,6 @@
 	// first or not.  Its defined In Initialize yet its run first in templates
 	// BEFORE so... hummm
 	SSmapping.reg_in_areas_in_z(areas)
-	// We have to do this hack here because its the ONLY place we can get the
-	// meta data from the template so we can properly set up the area
-	SSnetworks.assign_areas_root_ids(areas, src)
 	// If the world is starting up stop here and the world will do the rest
 	if(!SSatoms.initialized)
 		return

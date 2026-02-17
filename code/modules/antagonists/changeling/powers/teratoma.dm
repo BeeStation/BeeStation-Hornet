@@ -10,7 +10,7 @@
 	req_human = TRUE
 
 //Reskinned monkey - teratoma, will burst out of the host, with the objective to cause chaos.
-/datum/action/changeling/teratoma/sting_action(mob/user)
+/datum/action/changeling/teratoma/sting_action(mob/living/user)
 	..()
 	if(create_teratoma(user))
 		var/mob/living/U = user

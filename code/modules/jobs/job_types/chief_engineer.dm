@@ -39,6 +39,12 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/heads/chief, /area/engine/atmos)
 
+	manuscript_jobs = list(
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_ATMOSPHERICTECHNICIAN
+	)
+
 /datum/outfit/job/chief_engineer
 	name = JOB_NAME_CHIEFENGINEER
 	jobtype = /datum/job/chief_engineer

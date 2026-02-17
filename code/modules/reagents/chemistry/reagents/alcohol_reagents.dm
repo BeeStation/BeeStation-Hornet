@@ -34,23 +34,30 @@
 	 */
 	var/boozepwr = 65
 
+
+/datum/reagent/consumable/ethanol/New()
+	///Ranges from -0.5 - 15 per tick on the addiction scale
+	if(boozepwr) // anything other than 0
+		LAZYSET(addiction_types, /datum/addiction/alcohol, 0.05 * boozepwr)
+	return ..()
+
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.drunkenness < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER)
+	if(affected_mob.get_drunk_amount() < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER || boozepwr < 0)
 		var/booze_power = boozepwr
 		if(HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE)) //we're an accomplished drinker
 			booze_power *= 0.7
 		if(HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
-			if(booze_power < 0)
-				booze_power *= -1
-			else
-				booze_power *= 2
-		affected_mob.drunkenness = max((affected_mob.drunkenness + (sqrt(volume) * booze_power * ALCOHOL_RATE * REM * delta_time)), 0) //Volume, power, and server alcohol rate effect how quickly one gets drunk
-		if(affected_mob.drunkenness >= 250)
+			booze_power *= 2
+
+		// Volume, power, and server alcohol rate effect how quickly one gets drunk
+		affected_mob.adjust_drunk_effect(sqrt(volume) * booze_power * ALCOHOL_RATE * REM * delta_time)
+		if(affected_mob.get_drunk_amount() >= 250)
 			affected_mob.client?.give_award(/datum/award/achievement/misc/drunk, affected_mob)
-		var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
-		if(istype(liver))
-			liver.apply_organ_damage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
+		if(boozepwr > 0)
+			var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
+			if(istype(liver))
+				liver.apply_organ_damage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
 
 /datum/reagent/consumable/ethanol/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
@@ -150,8 +157,8 @@
 
 /datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
-	affected_mob.drowsyness = max(affected_mob.drowsyness - (3 * REM * delta_time), 0)
+	affected_mob.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
+	affected_mob.adjust_drowsiness(-6 SECONDS * REM * delta_time)
 	affected_mob.AdjustSleeping(-40 * REM * delta_time)
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
@@ -184,7 +191,6 @@
 	boozepwr = 80
 	quality = DRINK_GOOD
 	overdose_threshold = 60
-	addiction_threshold = 30
 	taste_description = "jitters and death"
 
 /datum/glass_style/drinking_glass/thirteenloko
@@ -195,10 +201,9 @@
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.drowsyness = max(affected_mob.drowsyness - (7 * REM * delta_time))
-	affected_mob.AdjustSleeping(-40 * REM * delta_time)
+	affected_mob.adjust_drowsiness(-14 SECONDS * REM * delta_time)
+	affected_mob.AdjustSleeping(-4 SECONDS * REM * delta_time)
 	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
-
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
 		affected_mob.set_jitter_if_lower(10 SECONDS)
 
@@ -301,7 +306,7 @@
 
 /datum/reagent/consumable/ethanol/threemileisland/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(50 * REM * delta_time)
+	affected_mob.set_drugginess(100 SECONDS * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/gin
 	name = "Gin"
@@ -462,6 +467,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 100
 	taste_description = "pure resignation"
+	addiction_types = list(/datum/addiction/alcohol = 5, /datum/addiction/maintenance_drugs = 2)
 
 /datum/glass_style/drinking_glass/hooch
 	required_drink_type = /datum/reagent/consumable/ethanol/hooch
@@ -761,7 +767,7 @@
 		return
 	to_chat(affected_mob, span_notice("You feel gentle warmth spread through your body!"))
 	light_holder = new(affected_mob)
-	light_holder.set_light(3, 0.7, "#FFCC00") //Tequila Sunrise makes you radiate dim light, like a sunrise!
+	light_holder.set_light(3, 0.7, COLOR_YELLOW) //Tequila Sunrise makes you radiate dim light, like a sunrise!
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1035,7 +1041,7 @@
 
 /datum/reagent/consumable/ethanol/manhattan_proj/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(30 * REM * delta_time)
+	affected_mob.set_drugginess(1 MINUTES * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/whiskeysoda
 	name = "Whiskey Soda"
@@ -1099,7 +1105,7 @@
 /datum/reagent/consumable/ethanol/snowwhite
 	name = "Snow White"
 	description = "A cold refreshment."
-	color = "#FFFFFF" // rgb: 255, 255, 255
+	color = COLOR_WHITE // rgb: 255, 255, 255
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_NICE
@@ -1555,8 +1561,8 @@
 
 /datum/reagent/consumable/ethanol/silencer/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.silent = max(affected_mob.silent, 1.25)
-	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
+	affected_mob.set_silence_if_lower(MIMEDRINK_SILENCE_DURATION)
+	if(ishuman(affected_mob) && HAS_TRAIT(affected_mob, TRAIT_MIMING))
 		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
@@ -1692,18 +1698,15 @@
 
 /datum/reagent/consumable/ethanol/atomicbomb/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(50 * REM * delta_time)
-	affected_mob.slurring += 3 * REM * delta_time
-
+	affected_mob.set_drugginess(100 SECONDS * REM * delta_time)
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
-		affected_mob.confused = max(affected_mob.confused + (2 * REM * delta_time),0)
-		affected_mob.Dizzy(10 * REM * delta_time)
-	if (!affected_mob.slurring)
-		affected_mob.slurring = 1 * REM * delta_time
+		affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
+	affected_mob.set_dizzy_if_lower(20 SECONDS * REM * delta_time)
+	affected_mob.adjust_slurring(6 SECONDS * REM * delta_time)
 	switch(current_cycle)
-		if(51 to 200)
+		if(52 to 201)
 			affected_mob.Sleeping(100 * REM * delta_time)
-		if(201 to INFINITY)
+		if(202 to INFINITY)
 			affected_mob.AdjustSleeping(40 * REM * delta_time)
 			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
 			return UPDATE_MOB_HEALTH
@@ -1726,17 +1729,15 @@
 
 /datum/reagent/consumable/ethanol/gargle_blaster/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.dizziness += 1.5 * REM * delta_time
+	affected_mob.adjust_dizzy(3 SECONDS * REM * delta_time)
 	switch(current_cycle)
-		if(15 to 45)
-			if(!affected_mob.slurring)
-				affected_mob.slurring = 1 * REM * delta_time
-			affected_mob.slurring += 3 * REM * delta_time
-		if(45 to 55)
+		if(16 to 46)
+			affected_mob.adjust_slurring(3 SECONDS * REM * delta_time)
+		if(46 to 56)
 			if(DT_PROB(30, delta_time))
-				affected_mob.confused = max(affected_mob.confused + 3, 0)
+				affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
 		if(55 to 200)
-			affected_mob.set_drugginess(55 * REM * delta_time)
+			affected_mob.set_drugginess(110 SECONDS * REM * delta_time)
 		if(200 to INFINITY)
 			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
 			return UPDATE_MOB_HEALTH
@@ -1770,29 +1771,28 @@
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(50 * REM * delta_time)
-	affected_mob.dizziness += 2 * REM * delta_time
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
+	affected_mob.set_drugginess(100 SECONDS * REM * delta_time)
+	affected_mob.adjust_dizzy(4 SECONDS * REM * delta_time)
 
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
 	if(DT_PROB(10, delta_time))
-		affected_mob.adjustStaminaLoss(10, updating_health = FALSE)
-		. = UPDATE_MOB_HEALTH
+		need_mob_update += affected_mob.adjustStaminaLoss(10 * REM * delta_time, updating_health = FALSE)
 		affected_mob.drop_all_held_items()
 		to_chat(affected_mob, span_notice("You cant feel your hands!"))
-
-	if(current_cycle > 5)
+	if(current_cycle > 6)
 		if(DT_PROB(10, delta_time))
 			ADD_TRAIT(affected_mob, pick_trait(), "metabolize:[type]")
-			affected_mob.adjustStaminaLoss(10, updating_health = FALSE)
-			. = UPDATE_MOB_HEALTH
-
-		if(current_cycle > 30)
-			affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time)
-			if(current_cycle > 50 && DT_PROB(7.5, delta_time))
+			need_mob_update += affected_mob.adjustStaminaLoss(10 * REM * delta_time, updating_health = FALSE)
+		if(current_cycle > 31)
+			need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time)
+			if(current_cycle > 51 && DT_PROB(7.5, delta_time))
 				if(!affected_mob.undergoing_cardiac_arrest() && affected_mob.can_heartattack())
 					affected_mob.set_heartattack(TRUE)
 					if(affected_mob.stat == CONSCIOUS)
 						affected_mob.visible_message(span_userdanger("[affected_mob] clutches at [affected_mob.p_their()] chest as if [affected_mob.p_their()] heart stopped!"))
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -1816,36 +1816,37 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "hippiesdelightglass"
 
-/datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
 	. = ..()
-	if(!affected_mob.slurring)
-		affected_mob.slurring = 1 * REM * delta_time
+	drinker.set_slurring_if_lower(1 SECONDS * REM * delta_time)
+
 	switch(current_cycle)
-		if(1 to 5)
-			affected_mob.Dizzy(10 * REM * delta_time)
-			affected_mob.set_drugginess(30 * REM * delta_time)
+		if(2 to 6)
+			drinker.set_dizzy_if_lower(20 SECONDS * REM * delta_time)
+			drinker.set_drugginess(1 MINUTES * REM * delta_time)
 			if(DT_PROB(5, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if(5 to 10)
-			affected_mob.set_jitter_if_lower(40 SECONDS * REM * delta_time)
-			affected_mob.Dizzy(20 * REM * delta_time)
-			affected_mob.set_drugginess(45 * REM * delta_time)
+				drinker.emote(pick("twitch","giggle"))
+		if(6 to 11)
+			drinker.set_jitter_if_lower(40 SECONDS * REM * delta_time)
+			drinker.set_dizzy_if_lower(40 SECONDS * REM * delta_time)
+			drinker.set_drugginess(1.5 MINUTES * REM * delta_time)
 			if(DT_PROB(10, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if (10 to 200)
-			affected_mob.set_jitter_if_lower(80 SECONDS * REM * delta_time)
-			affected_mob.Dizzy(40 * REM * delta_time)
-			affected_mob.set_drugginess(60 * REM * delta_time)
+				drinker.emote(pick("twitch","giggle"))
+		if (11 to 201)
+			drinker.set_jitter_if_lower(80 SECONDS * REM * delta_time)
+			drinker.set_dizzy_if_lower(80 SECONDS * REM * delta_time)
+			drinker.set_drugginess(2 MINUTES * REM * delta_time)
 			if(DT_PROB(16, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if(200 to INFINITY)
-			affected_mob.set_jitter_if_lower(120 SECONDS * REM * delta_time)
-			affected_mob.Dizzy(60 * REM * delta_time)
-			affected_mob.set_drugginess(75 * REM * delta_time)
+				drinker.emote(pick("twitch","giggle"))
+		if(201 to INFINITY)
+			drinker.set_jitter_if_lower(120 SECONDS * REM * delta_time)
+			drinker.set_dizzy_if_lower(120 SECONDS * REM * delta_time)
+			drinker.set_drugginess(2.5 MINUTES * REM * delta_time)
 			if(DT_PROB(23, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
-			return UPDATE_MOB_HEALTH
+				drinker.emote(pick("twitch","giggle"))
+			if(DT_PROB(16, delta_time))
+				drinker.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
+				return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/eggnog
 	name = "Eggnog"
@@ -1874,7 +1875,7 @@
 /datum/reagent/consumable/ethanol/narsour
 	name = "Nar'Sour"
 	description = "Side effects include self-mutilation and hoarding plasteel."
-	color = RUNE_COLOR_DARKRED
+	color = COLOR_DARK_RED
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 10
 	quality = DRINK_FANTASTIC
@@ -1889,8 +1890,8 @@
 
 /datum/reagent/consumable/ethanol/narsour/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.cultslurring = min(affected_mob.cultslurring + (3 * REM * delta_time), 3)
-	affected_mob.stuttering = min(affected_mob.stuttering + (3 * REM * delta_time), 3)
+	affected_mob.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/cult, max_duration = 6 SECONDS)
+	affected_mob.adjust_stutter_up_to(6 SECONDS * REM * delta_time, 6 SECONDS)
 
 /datum/reagent/consumable/ethanol/triple_sec
 	name = "Triple Sec"
@@ -1951,7 +1952,7 @@
 /datum/reagent/consumable/ethanol/quadruple_sec
 	name = "Quadruple Sec"
 	description = "Kicks just as hard as licking the power cell on a baton, but tastier."
-	color = "#cc0000"
+	color = COLOR_BLOOD
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
@@ -1975,7 +1976,7 @@
 /datum/reagent/consumable/ethanol/quintuple_sec
 	name = "Quintuple Sec"
 	description = "Law, Order, Alcohol, and Police Brutality distilled into one single elixir of JUSTICE."
-	color = "#ff3300"
+	color = COLOR_MOSTLY_PURE_RED
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 60
 	quality = DRINK_FANTASTIC
@@ -1999,7 +2000,7 @@
 /datum/reagent/consumable/ethanol/grasshopper
 	name = "Grasshopper"
 	description = "A fresh and sweet dessert shooter. Difficult to look manly while drinking this."
-	color = "#00ff00"
+	color = COLOR_VIBRANT_LIME
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 25
 	quality = DRINK_GOOD
@@ -2031,7 +2032,7 @@
 /datum/reagent/consumable/ethanol/bastion_bourbon
 	name = "Bastion Bourbon"
 	description = "Soothing hot herbal brew with restorative properties. Hints of citrus and berry flavors."
-	color = "#00FFFF"
+	color = COLOR_CYAN
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 30
 	quality = DRINK_FANTASTIC
@@ -2078,7 +2079,7 @@
 /datum/reagent/consumable/ethanol/squirt_cider
 	name = "Squirt Cider"
 	description = "Fermented squirt extract with a nose of stale bread and ocean water. Whatever a squirt is."
-	color = "#FF0000"
+	color = COLOR_RED
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 40
 	taste_description = "stale bread with a staler aftertaste"
@@ -2388,11 +2389,11 @@
 	quality = DRINK_GOOD
 	taste_description = "a bitter freshness"
 
-/datum/glass_style/drinking_glass/fanciulli
-	required_drink_type = /datum/reagent/consumable/ethanol/fanciulli
-	name = "glass of fanciulli"
-	desc = "A glass of Fanciulli. It's just Manhattan with Fernet."
-	icon_state = "fanciulli"
+/datum/glass_style/drinking_glass/branca_menta
+	required_drink_type = /datum/reagent/consumable/ethanol/branca_menta
+	name = "glass of branca menta"
+	desc = "A glass of Branca Menta, perfect for those lazy and hot Sunday summer afternoons." //Get lazy literally by drinking this
+	icon_state = "minted_fernet"
 
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -2422,15 +2423,15 @@
 
 /datum/reagent/consumable/ethanol/blank_paper/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.silent = max(affected_mob.silent, MIMEDRINK_SILENCE_DURATION)
-	if(ishuman(affected_mob) && affected_mob.job == JOB_NAME_MIME)
+	affected_mob.set_silence_if_lower(MIMEDRINK_SILENCE_DURATION)
+	if(ishuman(affected_mob) && HAS_TRAIT(affected_mob, TRAIT_MIMING))
 		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/fruit_wine
 	name = "Fruit Wine"
 	description = "A wine made from grown plants."
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 35
 	quality = DRINK_GOOD
@@ -2665,7 +2666,7 @@
 	if(DT_PROB(2, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")))
 
-	affected_mob.adjustStaminaLoss(-0.25 * affected_mob.drunkenness * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustStaminaLoss(-0.25 * affected_mob.get_drunk_amount() * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/old_timer
@@ -2693,8 +2694,8 @@
 	if(DT_PROB(10, delta_time))
 		affected_human.age += 1
 		if(affected_human.age > 70)
-			affected_human.facial_hair_color = "ccc"
-			affected_human.hair_color = "ccc"
+			affected_human.facial_hair_color = "#CCCCCC"
+			affected_human.hair_color = "#CCCCCC"
 			affected_human.update_hair()
 			if(affected_human.age > 100)
 				affected_human.become_nearsighted(type)
@@ -2759,7 +2760,7 @@
 	if(affected_mob.mind?.holy_role)
 		affected_mob.adjustFireLoss(-2.5 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjust_jitter(-2 SECONDS * REM * delta_time)
-		affected_mob.stuttering = max(affected_mob.stuttering - (1 * REM * delta_time), 0)
+		affected_mob.adjust_stutter(-2 SECONDS * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/blazaam
@@ -2781,7 +2782,7 @@
 
 /datum/reagent/consumable/ethanol/blazaam/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.drunkenness > 40)
+	if(affected_mob.get_drunk_amount() > 40)
 		if(stored_teleports)
 			do_teleport(affected_mob, get_turf(affected_mob), rand(1,3), channel = TELEPORT_CHANNEL_WORMHOLE)
 			stored_teleports--
@@ -2828,7 +2829,7 @@
 	affected_mob.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time)
 	if(DT_PROB(2.5, delta_time))
 		affected_mob.adjust_fire_stacks(1)
-		affected_mob.IgniteMob()
+		affected_mob.ignite_mob()
 
 /datum/reagent/consumable/ethanol/painkiller
 	name = "Painkiller"
@@ -2879,7 +2880,7 @@
 /datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(80, delta_time))
-		affected_mob.IgniteMob()
+		affected_mob.ignite_mob()
 		affected_mob.adjust_fire_stacks(10 * REM * delta_time)
 
 	if(affected_mob.fire_stacks > 9 && affected_mob.on_fire)
@@ -2965,8 +2966,8 @@
 	if(DT_PROB(5, delta_time))
 		to_chat(affected_mob, span_warning(pick("You can faintly hear the sound of gears.", "You can feel an unnatural hatred towards exposed blood.", "You swear you can feel steam eminating from the drink.", "You hear faint, pleasant whispers.", "You can see a white void within your mind.")))
 
-	affected_mob.clockslurring = min(affected_mob.clockslurring + (3 * REM * delta_time), 3)
-	affected_mob.stuttering = min(affected_mob.stuttering + (3 * REM * delta_time), 3)
+	affected_mob.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/clock, max_duration = 6 SECONDS)
+	affected_mob.adjust_stutter_up_to(6 SECONDS * REM * delta_time, 6 SECONDS)
 
 /datum/reagent/consumable/ethanol/icewing
 	name = "Icewing"

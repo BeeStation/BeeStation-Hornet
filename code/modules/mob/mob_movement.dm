@@ -108,7 +108,7 @@
 	if(!mob.Process_Spacemove(direct))
 		return FALSE
 
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, new_loc) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
 		return FALSE
 
 	//We are now going to move
@@ -126,18 +126,6 @@
 	//Basically an optional override for our glide size
 	//Sometimes you want to look like you're moving with a delay you don't actually have yet
 	visual_delay = 0
-
-	if(L.confused && L.m_intent == MOVE_INTENT_RUN && !HAS_TRAIT(L, TRAIT_CONFUSEIMMUNE))
-		var/newdir = 0
-		if(L.confused > 40)
-			newdir = pick(GLOB.alldirs)
-		else if(prob(L.confused * 1.5))
-			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-		else if(prob(L.confused * 3))
-			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-		if(newdir)
-			direct = newdir
-			new_loc = get_step(L, direct)
 
 	. = ..()
 
@@ -288,10 +276,9 @@
 				if(salt)
 					to_chat(L, span_warning("[salt] bars your passage!"))
 					return
-				if(stepTurf.flags_1 & NOJAUNT_1)
-					if(!is_reebe(loccheck.z))
-						to_chat(L, span_warning("Some strange aura is blocking the way."))
-						return
+				if((stepTurf.flags_1 & NOJAUNT_1) && !is_on_reebe(loccheck))
+					to_chat(L, span_warning("Some strange aura is blocking the way."))
+					return
 				if(stepTurf.is_holy())
 					to_chat(L, span_warning("Holy energies block your path!"))
 					return
@@ -311,15 +298,25 @@
   */
 /mob/Process_Spacemove(movement_dir = 0)
 	. = ..()
-	if(. ||spacewalk)
+	if(. || HAS_TRAIT(src, TRAIT_SPACEWALK))
 		return TRUE
+
+	if(buckled)
+		return TRUE
+
+	if(movement_type & FLYING)
+		return TRUE
+
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
-	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			if(backup.newtonian_move(turn(movement_dir, 180), instant = TRUE)) //You're pushing off something movable, so it moves
-				to_chat(src, span_info("You push off of [backup] to propel yourself."))
+	if(!backup)
+		return FALSE
+
+	if(!istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
-	return FALSE
+
+	if(backup.newtonian_move(dir2angle(REVERSE_DIR(movement_dir)), instant = TRUE)) //You're pushing off something movable, so it moves
+		to_chat(src, span_info("You push off of [backup] to propel yourself."))
+	return TRUE
 
 /**
  * Finds a target near a mob that is viable for pushing off when moving.
@@ -566,6 +563,4 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 		pipe.relaymove(src, dir)
 	return TRUE
 
-/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
-/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
-	return FALSE
+

@@ -191,6 +191,7 @@
 	wires.ui_update()
 	to_chat(user, span_notice("You emag the APC interface."))
 	update_appearance()
+	flicker_hacked_icon()
 
 // damage and destruction acts
 /obj/machinery/power/apc/emp_act(severity)

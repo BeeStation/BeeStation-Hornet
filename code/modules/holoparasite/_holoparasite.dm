@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/holoparasite
 	dextrous_hud_type = /datum/hud/holoparasite
-	chat_color = "#ffffff"
+	chat_color = COLOR_WHITE
 	mobchatspan = "holoparasite"
 	faction = list()
 	discovery_points = 10000

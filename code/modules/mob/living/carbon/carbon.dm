@@ -276,17 +276,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	buckled.user_unbuckle_mob(src,src)
 
 /mob/living/carbon/resist_fire()
-	fire_stacks -= 5
-	Paralyze(60, ignore_canstun = TRUE)
-	spin(32,2)
-	visible_message(span_danger("[src] rolls on the floor, trying to put [p_them()]self out!"), \
-		span_notice("You stop, drop, and roll!"))
-	sleep(30)
-	if(fire_stacks <= 0)
-		visible_message(span_danger("[src] has successfully extinguished [p_them()]self!"), \
-			span_notice("You extinguish yourself."))
-		ExtinguishMob()
-	return
+	return !!apply_status_effect(/datum/status_effect/stop_drop_roll)
 
 /mob/living/carbon/resist_restraints()
 	var/obj/item/I = null
@@ -919,21 +909,15 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(heal_flags & HEAL_TRAUMAS)
 		cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 		// Addictions are like traumas
-		if(reagents)
-			reagents.clear_reagents()
-			for(var/addi in reagents.addiction_list)
-				reagents.remove_addiction(addi)
-			reagents.addiction_list = list()
+		if(mind)
+			for(var/addiction_type in subtypesof(/datum/addiction))
+				mind.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
 
 	if(heal_flags & HEAL_RESTRAINTS)
 		QDEL_NULL(handcuffed)
 		QDEL_NULL(legcuffed)
 		set_handcuffed(null)
 		update_handcuffed()
-
-	// heal ears after healing traits, since ears check TRAIT_DEAF trait
-	// when healing.
-	restoreEars()
 
 	return ..()
 
@@ -955,41 +939,23 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(organs_amt)
 		to_chat(user, span_notice("You retrieve some of [src]\'s internal organs!"))
 
-/mob/living/carbon/ExtinguishMob()
-	for(var/X in get_equipped_items())
-		var/obj/item/I = X
-		I.acid_level = 0 //washes off the acid on our clothes
-		I.extinguish() //extinguishes our clothes
-	..()
-
-/mob/living/carbon/fakefire(fire_icon = "Generic_mob_burning")
-	var/mutable_appearance/new_fire_overlay = mutable_appearance('icons/mob/OnFire.dmi', fire_icon, CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER))
-	new_fire_overlay.appearance_flags = RESET_COLOR
-	new_fire_overlay.overlays.Add(emissive_appearance('icons/mob/OnFire.dmi', fire_icon, CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER), filters = src.filters))
-	overlays_standing[FIRE_LAYER] = new_fire_overlay
-	apply_overlay(FIRE_LAYER)
-
-/mob/living/carbon/fakefireextinguish()
-	remove_overlay(FIRE_LAYER)
-
 /mob/living/carbon/proc/create_bodyparts()
-	var/l_arm_index_next = -1
-	var/r_arm_index_next = 0
-	for(var/bodypart_path in bodyparts)
+	var/list/bodyparts_paths = bodyparts.Copy()
+	bodyparts = list()
+	for(var/bodypart_path in bodyparts_paths)
 		var/obj/item/bodypart/bodypart_instance = new bodypart_path()
 		bodypart_instance.set_owner(src)
-		bodyparts.Remove(bodypart_path)
 		add_bodypart(bodypart_instance)
-		switch(bodypart_instance.body_part)
-			if(ARM_LEFT)
-				l_arm_index_next += 2
-				bodypart_instance.held_index = l_arm_index_next //1, 3, 5, 7...
-				hand_bodyparts += bodypart_instance
-			if(ARM_RIGHT)
-				r_arm_index_next += 2
-				bodypart_instance.held_index = r_arm_index_next //2, 4, 6, 8...
-				hand_bodyparts += bodypart_instance
 
+/// Called when a new hand is added
+/mob/living/carbon/proc/on_added_hand(obj/item/bodypart/arm/new_hand, hand_index)
+	if(hand_index > hand_bodyparts.len)
+		hand_bodyparts.len = hand_index
+	hand_bodyparts[hand_index] = new_hand
+
+/// Cleans up references to a hand when it is dismembered or deleted
+/mob/living/carbon/proc/on_lost_hand(obj/item/bodypart/arm/lost_hand)
+	hand_bodyparts[lost_hand.held_index] = null
 
 ///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/attach_limb()].
 /mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)
@@ -1008,12 +974,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(!new_bodypart.bodypart_disabled)
 				set_usable_hands(usable_hands + 1)
 
+	synchronize_bodytypes()
 
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	bodyparts -= old_bodypart
+
 	switch(old_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)
 			set_num_legs(num_legs - 1)
@@ -1023,6 +991,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			set_num_hands(num_hands - 1)
 			if(!old_bodypart.bodypart_disabled)
 				set_usable_hands(usable_hands - 1)
+
+	synchronize_bodytypes()
 
 /mob/living/carbon/proc/create_internal_organs()
 	for(var/X in internal_organs)
@@ -1076,7 +1046,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			switch(edit_action)
 				if("remove")
 					if(BP)
-						BP.drop_limb(special = TRUE)
+						BP.drop_limb()
 						admin_ticket_log("[key_name_admin(usr)] has removed [src]'s [parse_zone(BP.body_zone)]")
 					else
 						to_chat(usr, span_boldwarning("[src] doesn't have such bodypart."))

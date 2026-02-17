@@ -30,7 +30,7 @@
 
 	var/turf/cast_turf = get_turf(.)
 	new jaunt_out_type(cast_turf, jaunter.dir)
-	jaunter.ExtinguishMob()
+	jaunter.extinguish_mob()
 	do_steam_effects(cast_turf)
 
 /datum/action/spell/jaunt/ethereal_jaunt/on_cast(mob/living/user, atom/target)

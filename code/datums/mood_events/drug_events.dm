@@ -2,6 +2,10 @@
 	mood_change = 6
 	description = span_nicegreen("Woooow duudeeeeee...I'm tripping baaalls...")
 
+/datum/mood_event/stoned
+	mood_change = 6
+	description = "I'm sooooo stooooooooooooned..."
+
 /datum/mood_event/smoked
 	description = span_nicegreen("I have had a smoke recently.")
 	mood_change = 2
@@ -58,3 +62,11 @@
 	mood_change = -100
 	timeout = 30 SECONDS
 	special_screen_obj = "mood_happiness_bad"
+
+/datum/mood_event/nicotine_withdrawal_moderate
+	description = "Haven't had a smoke in a while. Feeling a little on edge... "
+	mood_change = -5
+
+/datum/mood_event/nicotine_withdrawal_severe
+	description = "Head pounding. Cold sweating. Feeling anxious. Need a smoke to calm down!"
+	mood_change = -8

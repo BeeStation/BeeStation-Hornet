@@ -64,6 +64,7 @@
 		attack_verb_simple_on = list("saw", "tear", "lacerate", "cut", "chop", "dice"), \
 	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_dropped))
 
 /obj/item/chainsaw/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
@@ -83,6 +84,12 @@
 	update_appearance(UPDATE_ICON_STATE)
 
 	return COMPONENT_NO_DEFAULT_MESSAGE
+
+/obj/item/chainsaw/proc/on_dropped(obj/item/source, mob/user)
+	SIGNAL_HANDLER
+	var/datum/component/transforming/T = GetComponent(/datum/component/transforming)
+	if(T && T.active)
+		SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
 
 /obj/item/chainsaw/suicide_act(mob/living/carbon/user)
 	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
@@ -123,7 +130,7 @@
 	block_power = 50
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_UNBLOCKABLE
 	armour_penetration = 50
-	light_color = "#ff0000"
+	light_color = COLOR_RED
 	light_system = MOVABLE_LIGHT
 	light_range = 3
 	light_power = 1
@@ -151,7 +158,7 @@
 	attack_weight = 3
 	armour_penetration = 75
 	light_range = 6
-	active_force = 60
+	active_force = 45
 
 	/// How much time someone is knocked down for when attacking them
 	var/knockdown_time = 1 SECONDS

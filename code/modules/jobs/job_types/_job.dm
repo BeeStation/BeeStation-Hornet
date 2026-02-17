@@ -48,10 +48,10 @@
 	var/supervisors = ""
 
 	///Selection screen color
-	var/selection_color = "#ffffff"
+	var/selection_color = COLOR_WHITE
 
 	///Overhead chat message colour
-	var/chat_color = "#ffffff"
+	var/chat_color = COLOR_WHITE
 
 	///If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
@@ -142,6 +142,9 @@
 	/// The HOP can manually add or decrease the amount of players
 	/// that can apply for a job, which adjusts the delta value.
 	var/total_position_delta = 0
+
+	/// The list of jobs that you can write a manuscript as. This exists letting command roles write more.
+	var/list/manuscript_jobs
 
 /datum/job/New()
 	. = ..()
@@ -716,11 +719,11 @@
 			set_species(/datum/species/human)
 			apply_pref_name(/datum/preference/name/backup_human, player_client)
 		if(CONFIG_GET(flag/force_random_names))
-			var/species_type = player_client.prefs.read_character_preference(/datum/preference/choiced/species)
-			var/datum/species/species = new species_type
-
-			var/gender = player_client.prefs.read_character_preference(/datum/preference/choiced/gender)
-			real_name = species.random_name(gender, TRUE)
+			real_name = generate_random_name_species_based(
+				player_client.prefs.read_character_preference(/datum/preference/choiced/gender),
+				TRUE,
+				player_client.prefs.read_character_preference(/datum/preference/choiced/species),
+			)
 	dna.update_dna_identity()
 
 /mob/living/silicon/ai/apply_prefs_job(client/player_client, datum/job/job)
@@ -734,9 +737,11 @@
 			if(!player_client)
 				return // Disconnected while checking the appearance ban.
 
-			var/species_type = player_client.prefs.read_character_preference(/datum/preference/choiced/species)
-			var/datum/species/species = new species_type
-			organic_name = species.random_name(player_client.prefs.read_character_preference(/datum/preference/choiced/gender), TRUE)
+			organic_name = generate_random_name_species_based(
+				player_client.prefs.read_character_preference(/datum/preference/choiced/gender),
+				TRUE,
+				player_client.prefs.read_character_preference(/datum/preference/choiced/species),
+			)
 		else
 			if(!player_client)
 				return // Disconnected while checking the appearance ban.

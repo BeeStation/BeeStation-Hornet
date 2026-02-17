@@ -753,9 +753,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
 	name = "Dehydrated Space Carp"
-	desc = "Looks like a plush toy carp, but just add water and it becomes a real-life space carp! Activate in \
-			your hand before use so it knows not to kill you."
-	item = /obj/item/toy/plush/carpplushie/dehy_carp
+	desc = "Looks like a plush toy carp, but just add liquid and it becomes a real-life space carp! Activate in \
+			your hand before use so it knows not to kill you. 20% chance for a rare variant!"
+	item = /obj/effect/spawner/random/contraband/cayennelottery
 	cost = 1
 
 /datum/uplink_item/stealthy_weapons/edagger
@@ -1624,7 +1624,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			will rapidly recharge while not under fire."
 	item = /obj/item/mod/module/energy_shield
 	cost = 8
-	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
 
 /datum/uplink_item/suits/emp_shield
 	name = "MODsuit Advanced EMP Shield Module"

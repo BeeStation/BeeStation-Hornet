@@ -65,7 +65,7 @@
 /area/template_noop)
 "y" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/wood,
 /area/template_noop)
 "z" = (

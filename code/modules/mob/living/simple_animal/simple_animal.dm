@@ -23,6 +23,8 @@
 	var/turns_since_move = 0
 	var/stop_automated_movement = 0 //Use this to temporarely stop random movement or to if you write special movement code for animals.
 	var/wander = TRUE	// Does the mob wander around when idle?
+	/// Makes Goto() return FALSE and not start a move loop
+	var/prevent_goto_movement = FALSE
 	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
 
 	///When someone interacts with the simple animal.
@@ -50,6 +52,9 @@
 
 	//Healable by medical stacks? Defaults to yes.
 	var/healable = 1
+
+	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
+	var/list/weather_immunities
 
 	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
@@ -148,14 +153,16 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
-
+	ADD_TRAIT(src, TRAIT_NOFIRE_SPREAD, ROUNDSTART_TRAIT)
+	if(length(weather_immunities))
+		add_traits(weather_immunities, ROUNDSTART_TRAIT)
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
 	if(no_flying_animation)
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
-		ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
+		add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP), ROUNDSTART_TRAIT)
 	if(is_flying_animal)
 		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(discovery_points)
@@ -216,12 +223,6 @@
 		else
 			set_stat(CONSCIOUS)
 	med_hud_set_status()
-
-
-/mob/living/simple_animal/handle_status_effects(delta_time, times_fired)
-	..()
-	if(stuttering)
-		stuttering = 0
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -342,26 +343,26 @@
 		adjustHealth(unsuitable_atmos_damage * delta_time)
 		switch(unsuitable_atmos_damage)
 			if(1 to 5)
-				throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 			if(5 to 10)
-				throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 2)
 			if(10 to INFINITY)
-				throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3)
 		. = TRUE
 
 	if((bodytemperature > maxbodytemp) && unsuitable_atmos_damage)
 		adjustHealth(unsuitable_atmos_damage * delta_time)
 		switch(unsuitable_atmos_damage)
 			if(1 to 5)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 1)
 			if(5 to 10)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 2)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 2)
 			if(10 to INFINITY)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 		. = TRUE
 
 	if(!.)
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)
 
 /mob/living/simple_animal/gib()
 	if(butcher_results || guaranteed_butcher_results)
@@ -459,16 +460,6 @@
 		if(LAZYLEN(M.occupants))
 			return FALSE
 	return TRUE
-
-/mob/living/simple_animal/handle_fire(delta_time, times_fired)
-	return TRUE
-
-/mob/living/simple_animal/IgniteMob()
-	return FALSE
-
-/mob/living/simple_animal/ExtinguishMob()
-	return
-
 
 /mob/living/simple_animal/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
@@ -675,6 +666,12 @@
 	if(.)
 		sentience_act(user)
 
+/mob/living/simple_animal/proc/Goto(target, delay, minimum_distance)
+	if(prevent_goto_movement)
+		return FALSE
+	SSmove_manager.move_to(src, target, minimum_distance, delay)
+	return TRUE
+
 //Makes this mob hunt the prey, be it living or an object. Will kill living creatures, and delete objects.
 /mob/living/simple_animal/proc/hunt(hunted)
 	if(src == hunted) //Make sure it doesn't eat itself. While not likely to ever happen, might as well check just in case.
@@ -686,9 +683,8 @@
 		return
 	if(!COOLDOWN_FINISHED(src, emote_cooldown)) // Has the cooldown on this ended?
 		return
-	if(!Adjacent(hunted))
+	if(!Adjacent(hunted) && Goto(hunted, 3, 0))
 		stop_automated_movement = TRUE
-		walk_to(src,hunted,0,3)
 		if(Adjacent(hunted))
 			hunt(hunted) // In case it gets next to the target immediately, skip the scan timer and kill it.
 		return

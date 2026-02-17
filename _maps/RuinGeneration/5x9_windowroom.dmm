@@ -5,7 +5,7 @@
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/gloves,
+/obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "m" = (

@@ -32,6 +32,11 @@
 		/area/crew_quarters/theatre
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_CHAPLAIN,
+		JOB_NAME_BOTANIST // in a sense of religion
+	)
+
 /datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(!M.client || on_dummy)

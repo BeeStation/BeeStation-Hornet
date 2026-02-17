@@ -4,19 +4,17 @@
 	icon = 'icons/obj/smooth_structures/catwalks/lattice.dmi'
 	icon_state = "lattice-255"
 	base_icon_state = "lattice"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LATTICE)
 	density = FALSE
 	anchored = TRUE
 	armor_type = /datum/armor/structure_lattice
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
-	var/number_of_rods = 1
-	//	flags = CONDUCT_1
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
+	canSmoothWith = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LATTICE)
 	z_flags = Z_BLOCK_OUT_DOWN
-
+	var/number_of_rods = 1
 
 /datum/armor/structure_lattice
 	melee = 50
@@ -71,6 +69,6 @@
 		return TRUE
 	return FALSE
 
-/obj/structure/lattice/singularity_pull(S, current_size)
+/obj/structure/lattice/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	if(current_size >= STAGE_FOUR)
 		deconstruct()

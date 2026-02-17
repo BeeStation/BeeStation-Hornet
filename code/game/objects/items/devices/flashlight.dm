@@ -565,29 +565,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	name = "pink glowstick"
 	color = LIGHT_COLOR_PINK
 
-/obj/effect/spawner/lootdrop/glowstick
-	name = "random colored glowstick"
-	icon = 'icons/obj/lighting.dmi'
-	icon_state = "random_glowstick"
-
-/obj/effect/spawner/lootdrop/glowstick/Initialize(mapload)
-	loot = typesof(/obj/item/flashlight/glowstick)
-	. = ..()
-
-/obj/effect/spawner/lootdrop/glowstick/lit/Initialize(mapload)
-	. = ..()
-	var/obj/item/flashlight/glowstick/found = locate() in get_turf(src)
-	if(!found)
-		return
-	found.on = TRUE
-	found.update_icon()
-	found.update_brightness()
-
-	for(var/X in found.actions)
-		var/datum/action/A = X
-		A.update_buttons()
-	found.burn_pickup = TRUE
-
 /obj/item/flashlight/spotlight //invisible lighting source
 	name = "disco light"
 	desc = "Groovy..."

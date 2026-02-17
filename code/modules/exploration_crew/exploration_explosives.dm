@@ -25,6 +25,9 @@
 	attached_detonators = null
 	. = ..()
 
+/obj/item/grenade/exploration/attack_self(mob/user)
+	return
+
 /obj/item/grenade/exploration/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/exploration_detonator))
 		var/obj/item/exploration_detonator/detonator = W
@@ -87,8 +90,8 @@
 		location = get_turf(src)
 	if(location)
 		explosion(location, devastation_range, heavy_range, light_exp_range)
-	if(ismob(target))
-		var/mob/M = target
+	if(isliving(target))
+		var/mob/living/M = target
 		M.gib()
 	qdel(src)
 

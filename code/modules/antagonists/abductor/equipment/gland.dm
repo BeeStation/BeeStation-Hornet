@@ -187,7 +187,7 @@
 				H.Stun(50)
 			if(2)
 				to_chat(H, span_warning("You hear an annoying buzz in your head."))
-				H.confused += 15
+				H.adjust_confusion(15 SECONDS)
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
 			if(3)
 				H.adjust_hallucinations(120 SECONDS)
@@ -218,8 +218,8 @@
 	mind_control_duration = 1800
 
 /obj/item/organ/heart/gland/ventcrawling/activate()
-	to_chat(owner, span_notice("You feel very stretchy."))
-	owner.ventcrawler = VENTCRAWLER_ALWAYS
+	to_chat(owner, span_notice("You feel very stretchy. You could probably fit in that vent, if you tried..."))
+	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
 
 /obj/item/organ/heart/gland/viral
 	true_name = "contamination incubator"

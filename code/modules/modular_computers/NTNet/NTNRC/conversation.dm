@@ -16,13 +16,11 @@
 
 /datum/ntnet_conversation/New()
 	id = ntnrc_uid++
-	if(SSnetworks.station_network)
-		SSnetworks.station_network.chat_channels.Add(src)
+	SSmodular_computers.chat_channels.Add(src)
 	..()
 
 /datum/ntnet_conversation/Destroy()
-	if(SSnetworks.station_network)
-		SSnetworks.station_network.chat_channels.Remove(src)
+	SSmodular_computers.chat_channels.Remove(src)
 	for(var/datum/computer_file/program/chatclient/chatterbox as() in (active_clients | offline_clients | muted_clients))
 		purge_client(chatterbox)
 	return ..()

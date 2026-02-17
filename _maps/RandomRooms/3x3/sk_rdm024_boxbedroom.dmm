@@ -23,7 +23,7 @@
 /obj/item/electronics/airalarm,
 /obj/item/circuitboard/machine/seed_extractor,
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/plating,
 /area/template_noop)
 

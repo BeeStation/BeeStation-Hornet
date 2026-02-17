@@ -41,7 +41,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "ak" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron,
@@ -203,9 +203,7 @@
 /area/tdome/arena)
 "aP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/tdome/arena)
 "aQ" = (
@@ -221,13 +219,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/tdome/arena)
-"aV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade{
-	dir = 8
-	},
-/turf/open/floor/iron,
 /area/tdome/arena)
 "aW" = (
 /obj/structure/chair/stool/directional/south,
@@ -447,7 +438,7 @@ az
 an
 ac
 ac
-aV
+aP
 "}
 (13,1,1) = {"
 ac

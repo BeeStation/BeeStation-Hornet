@@ -56,7 +56,7 @@ Difficulty: Hard
 	ranged = TRUE
 	ranged_cooldown_time = 40
 	aggro_vision_range = 21 //so it can see to one side of the arena to the other
-	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/hierophant)
+	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/hierophant)
 	wander = FALSE
 	gps_name = "Zealous Signal"
 	achievement_type = /datum/award/achievement/boss/hierophant_kill

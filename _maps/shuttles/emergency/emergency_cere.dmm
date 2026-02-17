@@ -913,7 +913,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Iv" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/shuttle/escape)

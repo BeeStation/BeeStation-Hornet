@@ -144,7 +144,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 // Cannot talk
 
 /mob/living/simple_animal/hostile/statue/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	return 0
+	return
 
 // Turn to dust when gibbed
 

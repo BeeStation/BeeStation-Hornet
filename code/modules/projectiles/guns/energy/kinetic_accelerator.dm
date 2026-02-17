@@ -4,6 +4,7 @@
 	icon_state = "kineticgun"
 	inhand_icon_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
+	resistance_flags = FIRE_PROOF
 	item_flags = NONE
 	obj_flags = UNIQUE_RENAME
 	weapon_weight = WEAPON_LIGHT
@@ -530,7 +531,7 @@
 	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion. Only one may be installed."
 	cost = 0
 	restricted_mod_type = /obj/item/borg/upgrade/modkit/tracer
-	var/bolt_color = "#FFFFFF"
+	var/bolt_color = COLOR_WHITE
 
 /obj/item/borg/upgrade/modkit/tracer/modify_projectile(obj/projectile/kinetic/K)
 	K.icon_state = "ka_tracer"

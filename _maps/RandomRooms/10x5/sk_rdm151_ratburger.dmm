@@ -3,7 +3,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -174,7 +174,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (

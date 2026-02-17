@@ -597,6 +597,11 @@ em {
   font-weight: bold;
 }
 
+.subtle {
+  color: hsl(210, 6%, 55%);
+  font-style: italic;
+}
+
 .announce {
   color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
@@ -1148,6 +1153,12 @@ em {
   font-size: 5em;
 }
 
+.idicon {
+  min-height: 94px;
+  margin-top: -10%;
+  margin-bottom: -10%;
+}
+
 .memo {
   color: hsl(75.3, 100%, 26.1%);
   text-align: center;
@@ -1249,6 +1260,7 @@ em {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .img_by_text_container img {

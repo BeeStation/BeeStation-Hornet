@@ -12,7 +12,7 @@
 	for (var/screen_name in GLOB.ipc_screens_list)
 		var/datum/sprite_accessory/screen = GLOB.ipc_screens_list[screen_name]
 
-		var/datum/universal_icon/icon_with_screen = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
+		var/datum/universal_icon/icon_with_screen = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 		if (screen_name != FEATURE_NONE)
 			var/datum/universal_icon/screen_icon = uni_icon(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
 			icon_with_screen.blend_icon(screen_icon, ICON_OVERLAY)
@@ -33,14 +33,14 @@
 
 	return data
 
-/datum/preference/color_legacy/ipc_screen_color
+/datum/preference/color/ipc_screen_color
 	db_key = "feature_ipc_screen_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_mutant_bodypart = "ipc_antenna"
 	priority = PREFERENCE_PRIORITY_EYE_COLOR
 
-/datum/preference/color_legacy/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(!isipc(target))
 		return
 	target.eye_color = value
@@ -50,8 +50,8 @@
 			eyes_organ.eye_color = value
 		eyes_organ.old_eye_color = value
 
-/datum/preference/color_legacy/ipc_screen_color/create_default_value()
-	return "fff"
+/datum/preference/color/ipc_screen_color/create_default_value()
+	return COLOR_WHITE
 
 /datum/preference/choiced/ipc_antenna
 	db_key = "feature_ipc_antenna"
@@ -67,7 +67,7 @@
 	for (var/antenna_name in GLOB.ipc_antennas_list)
 		var/datum/sprite_accessory/antenna = GLOB.ipc_antennas_list[antenna_name]
 
-		var/datum/universal_icon/icon_with_antennae = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
+		var/datum/universal_icon/icon_with_antennae = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 		if (antenna.icon_state != "none")
 			// weird snowflake shit
 			var/side = (antenna_name == "Light" || antenna_name == "Drone Eyes") ? "FRONT" : "ADJ"
@@ -90,20 +90,20 @@
 
 	return data
 
-/datum/preference/color_legacy/ipc_antenna_color
+/datum/preference/color/ipc_antenna_color
 	db_key = "feature_ipc_antenna_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_mutant_bodypart = "ipc_antenna"
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
 
-/datum/preference/color_legacy/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(!isipc(target))
 		return
 	target.hair_color = value
 
-/datum/preference/color_legacy/ipc_antenna_color/create_default_value()
-	return "222"
+/datum/preference/color/ipc_antenna_color/create_default_value()
+	return "#222222"
 
 /datum/preference/choiced/ipc_chassis
 	db_key = "feature_ipc_chassis"
@@ -130,7 +130,7 @@
 		var/datum/universal_icon/icon_with_chassis = uni_icon('icons/effects/effects.dmi', "nothing")
 
 		for (var/body_part in body_parts)
-			icon_with_chassis.blend_icon(uni_icon('icons/mob/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
+			icon_with_chassis.blend_icon(uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
 		values[chassis.name] = icon_with_chassis
 

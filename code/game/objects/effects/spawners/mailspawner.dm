@@ -3,16 +3,8 @@
 //--------------------------------------------//
 /obj/effect/spawner/mail
 	name = "\improper Random mail spawner"
-	icon = 'icons/effects/landmarks_spawners.dmi'
+	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "random_loot"
-
-/obj/effect/spawner/mail/maintloot
-	name = "\improper Random maintenance loot spawner"
-
-/obj/effect/spawner/mail/maintloot/Initialize(mapload)
-	var/picked_item = pick_weight(GLOB.maintenance_loot)
-	new picked_item(loc)
-	return ..()
 
 /obj/effect/spawner/mail/organminor
 	name = "\improper Random minor organs spawner"

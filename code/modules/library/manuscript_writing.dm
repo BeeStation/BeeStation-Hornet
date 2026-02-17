@@ -28,7 +28,7 @@
 	if(isnull(booked_job))
 		to_chat(user, span_notice("This book needs a pen to write someone's experience."))
 		return
-	to_chat(user, span_notice("This is about the [booked_job]. There's a wall of text with unrecognisable handwriting."))
+	to_chat(user, span_notice("This is about the [booked_job::title]. There's a wall of text with unrecognisable handwriting."))
 
 /obj/item/book/manuscript/attackby(obj/item/attacking_item, mob/user, params)
 	if(!istype(attacking_item, /obj/item/pen) || !user.is_literate())
@@ -50,19 +50,23 @@
 	var/is_antag = length(mind.antag_datums)
 
 	var/datum/job/writer_job
-	if(is_antag) // antag can make any job books. *NOTE: every antag including non-humans can do this, but who cares...
-		writer_job = tgui_input_list(user, "Choose a job to mimic", "Antag helper for writing", valid_jobs)
-		if(!writer_job)
-			return ..()
-		writer_job = SSjob.GetJob(writer_job)
-	else
+	if(!is_antag)
 		if(!(user.mind?.assigned_role in valid_jobs))
 			to_chat(user, span_notice("Your job knowledge doesn't seem to be describable in writing."))
 			return ..()
 		writer_job = SSjob.GetJob(user.mind?.assigned_role)
-	if(!writer_job)
-		to_chat(user, span_notice("It seems you do not have expertise in any job."))
-		return ..()
+
+	var/list/jobs_with_knowledge = \
+		is_antag ? valid_jobs \
+		: user.mind?.assigned_role == JOB_NAME_CURATOR ? valid_jobs \
+		: length(writer_job.manuscript_jobs) ? writer_job.manuscript_jobs \
+		: null
+
+	if(length(jobs_with_knowledge))
+		writer_job = tgui_input_list(user, "Choose a job", "Manuscript", jobs_with_knowledge)
+		if(!writer_job)
+			return ..()
+		writer_job = SSjob.GetJob(writer_job)
 
 	bookwriting(attacking_item, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
 	return ..()

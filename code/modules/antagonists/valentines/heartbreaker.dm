@@ -4,7 +4,7 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
-
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/heartbreaker/proc/forge_objectives()
 	if(prob(30)) // rare chance to get martyr, really ruin those dates!

@@ -18,7 +18,7 @@
 	armour_penetration = 35
 	item_flags = ISWEAPON|NO_BLOOD_ON_ITEM
 	var/saber_color = "green"
-	light_color = "#00ff00"//green
+	light_color = COLOR_VIBRANT_LIME
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	canblock = TRUE

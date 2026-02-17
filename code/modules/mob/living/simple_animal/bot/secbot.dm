@@ -19,7 +19,7 @@
 	window_name = "Automatic Security Unit v1.6"
 	allow_pai = 0
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
-	path_image_color = "#FF0000"
+	path_image_color = COLOR_RED
 	boot_delay = 8 SECONDS
 
 	var/noloot = FALSE
@@ -103,6 +103,14 @@
 	text_hack = "You overload [name]'s target identification system."
 	text_dehack = "You reboot [name] and restore the target identification."
 	text_dehack_fail = "[name] refuses to accept your authority!"
+
+/*
+/mob/living/simple_animal/bot/secbot/handle_atom_del(atom/deleting_atom)
+	if(deleting_atom == weapon)
+		weapon = null
+		update_appearance()
+	return ..()
+*/
 
 /mob/living/simple_animal/bot/secbot/ui_data(mob/user)
 	var/list/data = ..()
@@ -227,7 +235,11 @@
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
 	var/judgment_criteria = judgment_criteria()
+	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+	icon_state = "[initial(icon_state)]-c"
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 0.2 SECONDS)
 	var/threat = 5
+
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(H.check_shields(src, 0))
@@ -241,16 +253,13 @@
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
 	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
-	C.apply_effect(EFFECT_STUTTER, 50)
+	C.set_stutter(10 SECONDS)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\
 		span_userdanger("[src] has stunned you!")
 	)
 
 	log_combat(src, C, "stunned")
-	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-	icon_state = "[initial(icon_state)]-c"
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)
 
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
 	if(!..())

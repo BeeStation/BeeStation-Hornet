@@ -21,7 +21,7 @@
 	name = "Tea Aspera tips"
 	desc = "These aromatic tips of the tea plant can be dried to make tea."
 	icon_state = "tea_aspera_leaves"
-	filling_color = "#008000"
+	filling_color = COLOR_GREEN
 	dry_grind = TRUE
 	grind_results = list(/datum/reagent/toxin/teapowder = 0)
 	can_distill = FALSE

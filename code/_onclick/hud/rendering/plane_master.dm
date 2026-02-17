@@ -59,8 +59,6 @@
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion) && !low_graphics_quality)
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
-	if(istype(mymob) && mymob.eye_blurry)
-		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"

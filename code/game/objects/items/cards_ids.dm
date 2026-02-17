@@ -33,13 +33,6 @@
 /obj/item/card/proc/get_displayed_name(honorifics = FALSE)
 	return null
 
-/// If no cached_flat_icon exists, this proc creates it and crops it. This proc then returns the cached_flat_icon. Intended for use displaying ID card icons in chat.
-/obj/item/card/proc/get_cached_flat_icon()
-	if(!cached_flat_icon)
-		cached_flat_icon = getFlatIcon(src)
-		cached_flat_icon.Crop(1, 9, 32, 24)
-	return cached_flat_icon
-
 /obj/item/card/data
 	name = "data card"
 	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one has a stripe running down the middle."
@@ -242,6 +235,17 @@
 		)
 	add_fingerprint(user)
 
+/obj/item/card/id/Topic(href, href_list)
+	. = ..()
+	if(!usr.canUseTopic(src, BE_CLOSE))
+		return
+
+	if(href_list["look_at_id"])
+		if(!usr.can_examine_in_detail(src))
+			return
+		usr.examinate(src)
+		return TRUE
+
 /obj/item/card/id/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(.)
@@ -291,10 +295,7 @@
 
 /obj/item/card/id/get_id_examine_strings(mob/user)
 	. = ..()
-	. += list("[icon2html(get_cached_flat_icon(), user, extra_classes = "hugeicon")]")
-
-/obj/item/card/id/get_examine_icon(mob/user)
-	return icon2html(get_cached_flat_icon(), user)
+	. += list("[icon2html(src, user, extra_classes = "hugeicon idicon")]")
 
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
@@ -591,10 +592,10 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
-		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge", "Change Account ID")
+		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
 		if(user.incapacitated())
 			return
-		if(popup_input == "Forge")
+		if(popup_input == "Forge/Reset")
 			if(!assignment)
 				assignment = "Assistant"
 
@@ -647,7 +648,6 @@ update_label("John Doe", "Clowny")
 			set_new_account(user)
 			return
 	return ..()
-
 
 /obj/item/card/id/syndicate/emp_act(severity)
 	. = ..()
