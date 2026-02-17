@@ -217,9 +217,9 @@ SUBSYSTEM_DEF(orbital_visuals)
 
 // Helper proc to lighten a color
 /proc/LightenRGB(color, amount)
-	var/r = GETREDPART(color)
-	var/g = GETGREENPART(color)
-	var/b = GETBLUEPART(color)
+	var/r = hex2num(copytext(color, 2, 4))
+	var/g = hex2num(copytext(color, 4, 6))
+	var/b = hex2num(copytext(color, 6, 8))
 
 	// Lighten by moving towards white (255)
 	r = clamp(r + ((255 - r) * amount), 0, 255)
