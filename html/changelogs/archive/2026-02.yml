@@ -82,6 +82,9 @@
 2026-02-13:
   BotTierPC, MrMan, WhiskeyMarten:
   - tweak: Fixed All Access not having access to service doors by default
+  SirYoshimoto:
+  - bugfix: fixed shipping containers not having any solidness, decreases integrity
+      to 500
   mrmanlikesbt, Seris02, ninjanomnom, LemonInTheDark:
   - code_imp: Replaced most color values with their defines from the colors file
   - refactor: Implements rgb2num()
@@ -94,3 +97,11 @@
       be more consistently removed on aheal / in rare cases.
   - admin: Admin basic disease trigger and custom disease renaming should now work
       properly.
+2026-02-14:
+  r1ks-iwnl:
+  - tweak: PKA, KC, resonators and plasma cutters are now fireproof.
+  - bugfix: Fixes confusion fully randomizing movement every time
+  - bugfix: Fixes dizziness offsetting your screen improperly
+2026-02-16:
+  EvilDragonfiend:
+  - bugfix: Captain now can write a manuscript of Research Director - it was missing.
