@@ -1,21 +1,20 @@
 import { useBackend } from '../backend';
 import { Box, NumberInput, Section, Stack, Tooltip } from '../components';
-
 import {
   BigNumericDisplay,
   CompactNumericDisplay,
   ExpandablePanel,
   labelStyle,
   ReadoutBox,
+  ScanLineOverlay,
   SciFi,
   SciFiActionButton,
   SciFiWindow,
-  ScanLineOverlay,
   StatusBar,
   StatusIcon,
   ToggleButton,
-  type WarningLevel,
   WarningBanner,
+  type WarningLevel,
 } from './common/SciFiTheme';
 
 // ─── Data types (specific to the orbital console) ────────────────────────────
