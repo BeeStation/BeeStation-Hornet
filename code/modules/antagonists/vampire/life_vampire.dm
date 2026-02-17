@@ -28,7 +28,7 @@
 		to_chat(owner, span_warning("Your inhuman nature is rejected by a holy presence!"))
 		owner.current.adjustFireLoss(10)
 		owner.current.adjust_fire_stacks(4)
-		owner.current.IgniteMob()
+		owner.current.ignite_mob()
 
 	// Standard Updates
 

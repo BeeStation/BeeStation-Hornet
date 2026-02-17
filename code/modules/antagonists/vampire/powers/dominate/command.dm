@@ -48,7 +48,7 @@
 		owner.balloon_alert(owner, "your mouth is blocked.")
 		return FALSE
 
-	if(carbon_owner.silent || !isturf(carbon_owner.loc))
+	if(HAS_TRAIT(carbon_owner, TRAIT_MUTE) || !isturf(carbon_owner.loc))
 		owner.balloon_alert(owner, "you cannot speak!")
 		return FALSE
 	return TRUE

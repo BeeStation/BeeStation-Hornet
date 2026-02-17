@@ -7,15 +7,6 @@
 	worn_icon_state = "cross"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_NECK && istype(user))
-		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
-
-/obj/item/clothing/neck/crucifix/dropped(mob/user)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
-
 /obj/item/clothing/neck/crucifix/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, \

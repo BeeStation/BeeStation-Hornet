@@ -321,9 +321,9 @@
 		to_chat(owner, span_bighypnophrase("eugh.. garlic..."))
 
 		living_owner.Stun(50)
-		living_owner.set_dizziness(10)
+		living_owner.adjust_dizzy(10 SECONDS)
 		living_owner.adjust_jitter(15)
-		living_owner.blur_eyes(5)
+		living_owner.adjust_eye_blur(5 SECONDS)
 
 		smacked.Unconscious(10)
 		smacked.throw_at(target_turf, 2, 1, spin = TRUE)
