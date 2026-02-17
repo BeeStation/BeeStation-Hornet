@@ -1,16 +1,24 @@
-import { useState } from 'react';
-
 import { useBackend } from '../backend';
+import { Box, NumberInput, Section, Stack, Tooltip } from '../components';
+
 import {
-  Box,
-  Button,
-  Icon,
-  NumberInput,
-  Section,
-  Stack,
-  Tooltip,
-} from '../components';
-import { Window } from '../layouts';
+  BigNumericDisplay,
+  CompactNumericDisplay,
+  ExpandablePanel,
+  labelStyle,
+  ReadoutBox,
+  SciFi,
+  SciFiActionButton,
+  SciFiWindow,
+  ScanLineOverlay,
+  StatusBar,
+  StatusIcon,
+  ToggleButton,
+  type WarningLevel,
+  WarningBanner,
+} from './common/SciFiTheme';
+
+// ─── Data types (specific to the orbital console) ────────────────────────────
 
 type ThrusterData = {
   name: string;
@@ -43,7 +51,8 @@ type OrbitalBand = {
   is_mining_regime?: boolean;
 };
 
-// Constants for visualization
+// ─── Orbital visualization constants ─────────────────────────────────────────
+
 const PLANET_RADIUS = 720;
 const MAX_ORBIT_RADIUS = 400;
 const MAX_ALTITUDE = 280;
@@ -52,93 +61,40 @@ const MINING_BAND_MIN = 95;
 const MINING_BAND_MAX = 105;
 const UNIVERSAL_VERTICAL_OFFSET = -650;
 
+// ─── Orbital warning thresholds ──────────────────────────────────────────────
+
+const CRITICAL_HIGH = 130;
+const SAFE_ZONE_MAX = 120;
+const SAFE_ZONE_MIN = 95;
+const CRITICAL_LOW = 90;
+
+// ─── Root component ──────────────────────────────────────────────────────────
+
 export const OrbitalHeightControl = () => {
   return (
-    <Window width={640} height={620}>
-      <Window.Content
-        style={{
-          fontFamily: 'Consolas, "Courier New", monospace',
-          background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%)',
-        }}
-      >
-        <OrbitalHeightContent />
-      </Window.Content>
-    </Window>
+    <SciFiWindow width={640} height={620}>
+      <OrbitalHeightContent />
+    </SciFiWindow>
   );
 };
 
-const OrbitalWarning = (props: { current_altitude: number }) => {
-  const { current_altitude } = props;
-
-  // Define danger thresholds based on the orbital bands
-  const CRITICAL_HIGH = 130; // km
-  const SAFE_ZONE_MAX = 120; // km
-  const SAFE_ZONE_MIN = 95; // km
-  const CRITICAL_LOW = 90; // km
-
-  let warningLevel: 'none' | 'warning' | 'critical' = 'none';
-  let warningMessage = '';
-
-  if (current_altitude < CRITICAL_LOW) {
-    warningLevel = 'critical';
-    warningMessage = '⚠ CRITICAL: ORBITAL DECAY IMMINENT ⚠';
-  } else if (current_altitude >= CRITICAL_HIGH) {
-    warningLevel = 'critical';
-    warningMessage = '⚠ CRITICAL: EXCEEDING SAFE ORBIT ⚠';
-  } else if (current_altitude < SAFE_ZONE_MIN) {
-    warningLevel = 'warning';
-    warningMessage = '⚠ ADVISORY: LOW ALTITUDE ⚠';
-  } else if (current_altitude > SAFE_ZONE_MAX) {
-    warningLevel = 'warning';
-    warningMessage = '⚠ WARNING: HIGH ALTITUDE ⚠';
+/** Derive warning level & message from the current orbital altitude. */
+const getOrbitalWarning = (
+  altitude: number,
+): { level: WarningLevel; message: string } => {
+  if (altitude < CRITICAL_LOW) {
+    return { level: 'critical', message: '⚠ CRITICAL: ORBITAL DECAY IMMINENT ⚠' };
   }
-
-  if (warningLevel === 'none') {
-    return null;
+  if (altitude >= CRITICAL_HIGH) {
+    return { level: 'critical', message: '⚠ CRITICAL: EXCEEDING SAFE ORBIT ⚠' };
   }
-
-  const isCritical = warningLevel === 'critical';
-
-  return (
-    <Box
-      style={{
-        position: 'absolute',
-        top: '90px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 10,
-        backgroundColor: isCritical
-          ? 'rgba(139, 0, 0, 0.9)'
-          : 'rgba(255, 140, 0, 0.85)',
-        border: isCritical
-          ? '2px solid rgba(255, 0, 0, 0.8)'
-          : '2px solid rgba(255, 200, 0, 0.9)',
-        borderRadius: '4px',
-        boxShadow: isCritical
-          ? '0 0 20px rgba(255, 0, 0, 0.6), inset 0 0 15px rgba(255, 0, 0, 0.2)'
-          : '0 0 15px rgba(255, 200, 0, 0.6), inset 0 0 10px rgba(255, 140, 0, 0.2)',
-        padding: '6px 16px',
-      }}
-    >
-      <Box
-        style={{
-          fontFamily: 'Consolas, "Courier New", monospace',
-          color: isCritical ? '#ff0000' : '#ffff00',
-          fontSize: '12px',
-          fontWeight: 'bold',
-          textTransform: 'uppercase',
-          letterSpacing: '2px',
-          textShadow: isCritical
-            ? '0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 0.5)'
-            : '0 0 10px rgba(255, 255, 0, 1), 0 0 5px rgba(0, 0, 0, 1)',
-          whiteSpace: 'nowrap',
-          textAlign: 'center',
-        }}
-      >
-        {warningMessage}
-      </Box>
-    </Box>
-  );
+  if (altitude < SAFE_ZONE_MIN) {
+    return { level: 'warning', message: '⚠ ADVISORY: LOW ALTITUDE ⚠' };
+  }
+  if (altitude > SAFE_ZONE_MAX) {
+    return { level: 'warning', message: '⚠ WARNING: HIGH ALTITUDE ⚠' };
+  }
+  return { level: 'none', message: '' };
 };
 
 const OrbitalHeightContent = () => {
@@ -157,34 +113,21 @@ const OrbitalHeightContent = () => {
   } = data;
 
   const hasLowFuel = thrusters.some((t) => !t.has_fuel);
+  const warning = getOrbitalWarning(current_altitude);
 
   return (
     <>
-      {/* Scan line effect overlay */}
-      <Box
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background:
-            'repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px)',
-          pointerEvents: 'none',
-          zIndex: 9999,
-        }}
-      />
+      <ScanLineOverlay />
       <Stack vertical fill>
         <Stack.Item>
           <Section
             title=">>> ORBITING: CINIS (AURI-GEMINAE I) <<<"
             style={{
-              fontFamily: 'Consolas, "Courier New", monospace',
-              borderColor: '#40e0d0',
+              fontFamily: SciFi.font,
+              borderColor: SciFi.accent,
               borderWidth: '2px',
-              backgroundColor: 'rgba(0, 20, 20, 0.6)',
-              boxShadow:
-                '0 0 15px rgba(64, 224, 208, 0.3), inset 0 0 20px rgba(64, 224, 208, 0.05)',
+              backgroundColor: SciFi.bgPanel,
+              boxShadow: `0 0 15px ${SciFi.accentDim}, inset 0 0 20px ${SciFi.accentFaint}`,
             }}
           >
             <Stack vertical>
@@ -238,8 +181,8 @@ const OrbitalHeightContent = () => {
           <Section
             fill
             style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.4)',
-              border: '2px solid rgba(64, 224, 208, 0.3)',
+              backgroundColor: SciFi.bgSurface,
+              border: `2px solid ${SciFi.accentDim}`,
               boxShadow: 'inset 0 0 20px rgba(0, 0, 0, 0.8)',
               position: 'relative',
               padding: '8px',
@@ -256,7 +199,7 @@ const OrbitalHeightContent = () => {
               altitude_hold_target={altitude_hold_target}
               act={act}
             />
-            <OrbitalWarning current_altitude={current_altitude} />
+            <WarningBanner level={warning.level} message={warning.message} />
             <Box
               style={{
                 position: 'absolute',
@@ -284,60 +227,6 @@ const OrbitalHeightContent = () => {
   );
 };
 
-const ReadoutBox = (props: {
-  label: string;
-  value: string;
-  color: 'turquoise' | 'orange' | 'red';
-  tooltip: string;
-  textAlign?: string;
-}) => {
-  const { label, value, color, tooltip, textAlign = 'left' } = props;
-
-  const colorMap = {
-    turquoise: {
-      color: '#40e0d0',
-      shadow: 'rgba(64, 224, 208, 0.8)',
-      bg: 'rgba(64, 224, 208, 0.05)',
-      border: 'rgba(64, 224, 208, 0.3)',
-    },
-    orange: {
-      color: '#ff9933',
-      shadow: 'rgba(255, 153, 51, 0.8)',
-      bg: 'rgba(255, 153, 51, 0.08)',
-      border: 'rgba(255, 153, 51, 0.3)',
-    },
-    red: {
-      color: '#ff6666',
-      shadow: 'rgba(255, 102, 102, 0.8)',
-      bg: 'rgba(255, 102, 102, 0.08)',
-      border: 'rgba(255, 102, 102, 0.3)',
-    },
-  };
-
-  const colors = colorMap[color];
-
-  return (
-    <Tooltip content={tooltip}>
-      <Box
-        fontSize="1.1em"
-        bold
-        textAlign={textAlign}
-        style={{
-          fontFamily: 'Consolas, "Courier New", monospace',
-          color: colors.color,
-          textShadow: `0 0 5px ${colors.shadow}`,
-          backgroundColor: colors.bg,
-          padding: '4px 8px',
-          borderRadius: '2px',
-          border: `1px solid ${colors.border}`,
-        }}
-      >
-        [{label}: {value}]
-      </Box>
-    </Tooltip>
-  );
-};
-
 const ThrustControlPanel = (props: {
   thrust_level: number;
   actual_thrust: number;
@@ -346,20 +235,26 @@ const ThrustControlPanel = (props: {
 }) => {
   const { thrust_level, actual_thrust, altitude_hold_enabled, act } = props;
 
-  const buttonStyle = {
-    fontFamily: 'Consolas, "Courier New", monospace',
-    fontWeight: 'bold',
-    fontSize: '1.5em',
-    padding: '10px 20',
-    textAlign: 'center' as const,
-    backgroundColor: 'rgba(64, 224, 208, 0.15)',
-    border: '2px solid #40e0d0',
-    boxShadow:
-      '0 0 10px rgba(64, 224, 208, 0.4), inset 0 0 10px rgba(64, 224, 208, 0.1)',
-  };
-
-  // Determine if actual thrust differs from set thrust
   const thrustMismatch = Math.abs(thrust_level - actual_thrust) > 0.1;
+
+  // Colors for the SET display depend on sign of thrust
+  const setColor = thrust_level >= 0 ? SciFi.green : SciFi.redBright;
+  const setGlow = thrust_level >= 0 ? SciFi.greenGlow : SciFi.redBrightGlow;
+
+  // Colors for the ACTUAL display depend on mismatch + sign
+  const actualColor = thrustMismatch
+    ? SciFi.amber
+    : actual_thrust >= 0
+      ? SciFi.accent
+      : SciFi.redBright;
+  const actualGlow = thrustMismatch
+    ? SciFi.amberGlow
+    : actual_thrust >= 0
+      ? SciFi.accentGlow
+      : SciFi.redBrightGlow;
+  const actualBorder = thrustMismatch
+    ? `rgba(255, 165, 0, 0.6)`
+    : `rgba(64, 224, 208, 0.4)`;
 
   return (
     <Box
@@ -369,14 +264,14 @@ const ThrustControlPanel = (props: {
         top: '10px',
         zIndex: 10,
         width: '100px',
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        backgroundColor: SciFi.bgOverlay,
         border: altitude_hold_enabled
-          ? '2px solid rgba(64, 224, 208, 0.3)'
-          : '2px solid #40e0d0',
+          ? `2px solid ${SciFi.accentDim}`
+          : `2px solid ${SciFi.accent}`,
         borderRadius: '4px',
         boxShadow: altitude_hold_enabled
-          ? '0 0 5px rgba(64, 224, 208, 0.15)'
-          : '0 0 10px rgba(64, 224, 208, 0.3)',
+          ? `0 0 5px ${SciFi.accentSubtle}`
+          : `0 0 10px ${SciFi.accentDim}`,
         padding: '8px',
         opacity: altitude_hold_enabled ? 0.5 : 1,
         filter: altitude_hold_enabled ? 'grayscale(0.6)' : 'none',
@@ -386,136 +281,52 @@ const ThrustControlPanel = (props: {
     >
       <Box
         style={{
-          fontFamily: 'Consolas, "Courier New", monospace',
-          color: '#40e0d0',
-          fontSize: '11px',
-          fontWeight: 'bold',
+          ...labelStyle(SciFi.accent),
           textAlign: 'center',
           marginBottom: '8px',
-          textTransform: 'uppercase',
-          letterSpacing: '2px',
-          textShadow: '0 0 8px rgba(64, 224, 208, 0.8)',
-          borderBottom: '1px solid rgba(64, 224, 208, 0.3)',
+          borderBottom: `1px solid ${SciFi.accentDim}`,
           paddingBottom: '4px',
         }}
       >
         THRUST
       </Box>
 
-      <Button
-        fluid
+      <SciFiActionButton
         onClick={() => act('increase_thrust')}
-        style={{ ...buttonStyle, marginBottom: '8px' }}
+        style={{ marginBottom: '8px' }}
       >
         ▲
-      </Button>
+      </SciFiActionButton>
 
-      <Box
-        style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          border: '2px solid rgba(0, 255, 0, 0.6)',
-          borderRadius: '4px',
-          padding: '20px 10px',
-          marginBottom: '8px',
-          textAlign: 'center',
-          boxShadow:
-            '0 0 15px rgba(0, 255, 0, 0.3), inset 0 0 10px rgba(0, 255, 0, 0.1)',
-        }}
-      >
-        <Box
-          style={{
-            fontFamily: 'Consolas, "Courier New", monospace',
-            color: thrust_level >= 0 ? '#00ff00' : '#ff4444',
-            fontSize: '3em',
-            fontWeight: 'bold',
-            textShadow:
-              thrust_level >= 0
-                ? '0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.4)'
-                : '0 0 10px rgba(255, 68, 68, 0.8), 0 0 20px rgba(255, 68, 68, 0.4)',
-            lineHeight: '1',
-          }}
-        >
-          {thrust_level ?? 0}
-        </Box>
-        <Box
-          style={{
-            fontFamily: 'Consolas, "Courier New", monospace',
-            color: '#00ff00',
-            fontSize: '0.7em',
-            marginTop: '8px',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            textShadow: '0 0 5px rgba(0, 255, 0, 0.8)',
-          }}
-        >
-          SET
-        </Box>
+      <Box style={{ marginBottom: '8px' }}>
+        <BigNumericDisplay
+          value={thrust_level ?? 0}
+          label="SET"
+          color={setColor}
+          glowColor={setGlow}
+          borderColor="rgba(0, 255, 0, 0.6)"
+        />
       </Box>
 
-      <Button fluid onClick={() => act('decrease_thrust')} style={buttonStyle}>
+      <SciFiActionButton onClick={() => act('decrease_thrust')}>
         ▼
-      </Button>
+      </SciFiActionButton>
 
       {/* Actual thrust output indicator */}
-      <Tooltip
-        content={
-          thrustMismatch
-            ? 'Thrusters not operating at commanded level. Please check system status.'
-            : 'Thrusters operating at commanded level'
-        }
-      >
-        <Box
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-            border: thrustMismatch
-              ? '2px solid rgba(255, 165, 0, 0.6)'
-              : '2px solid rgba(64, 224, 208, 0.4)',
-            borderRadius: '4px',
-            padding: '8px 6px',
-            marginTop: '8px',
-            textAlign: 'center',
-            boxShadow: thrustMismatch
-              ? '0 0 10px rgba(255, 165, 0, 0.3), inset 0 0 8px rgba(255, 165, 0, 0.1)'
-              : '0 0 8px rgba(64, 224, 208, 0.2), inset 0 0 5px rgba(64, 224, 208, 0.05)',
-          }}
-        >
-          <Box
-            style={{
-              fontFamily: 'Consolas, "Courier New", monospace',
-              color: thrustMismatch
-                ? '#ffa500'
-                : actual_thrust >= 0
-                  ? '#40e0d0'
-                  : '#ff4444',
-              fontSize: '1.8em',
-              fontWeight: 'bold',
-              textShadow: thrustMismatch
-                ? '0 0 8px rgba(255, 165, 0, 0.8)'
-                : actual_thrust >= 0
-                  ? '0 0 8px rgba(64, 224, 208, 0.8)'
-                  : '0 0 8px rgba(255, 68, 68, 0.8)',
-              lineHeight: '1',
-            }}
-          >
-            {actual_thrust.toFixed(1)}
-          </Box>
-          <Box
-            style={{
-              fontFamily: 'Consolas, "Courier New", monospace',
-              color: thrustMismatch ? '#ffa500' : '#40e0d0',
-              fontSize: '0.6em',
-              marginTop: '4px',
-              textTransform: 'uppercase',
-              letterSpacing: '1.5px',
-              textShadow: thrustMismatch
-                ? '0 0 5px rgba(255, 165, 0, 0.8)'
-                : '0 0 5px rgba(64, 224, 208, 0.8)',
-            }}
-          >
-            ACTUAL
-          </Box>
-        </Box>
-      </Tooltip>
+      <Box style={{ marginTop: '8px' }}>
+        <CompactNumericDisplay
+          value={actual_thrust.toFixed(1)}
+          label="ACTUAL"
+          color={actualColor}
+          glowColor={actualGlow}
+          borderColor={actualBorder}
+          tooltip={
+            thrustMismatch
+              ? 'Thrusters not operating at commanded level. Please check system status.'
+              : 'Thrusters operating at commanded level'
+          }
+        />
+      </Box>
     </Box>
   );
 };
@@ -535,10 +346,10 @@ const AltitudeHoldPanel = (props: {
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 10,
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-        border: '2px solid #40e0d0',
+        backgroundColor: SciFi.bgOverlay,
+        border: `2px solid ${SciFi.accent}`,
         borderRadius: '4px',
-        boxShadow: '0 0 10px rgba(64, 224, 208, 0.3)',
+        boxShadow: `0 0 10px ${SciFi.accentDim}`,
         padding: '6px 10px',
       }}
     >
@@ -546,13 +357,8 @@ const AltitudeHoldPanel = (props: {
         <Stack.Item>
           <Box
             style={{
-              fontFamily: 'Consolas, "Courier New", monospace',
-              color: '#40e0d0',
-              fontSize: '10px',
-              fontWeight: 'bold',
-              textTransform: 'uppercase',
+              ...labelStyle(SciFi.accent, '10px'),
               letterSpacing: '1.5px',
-              textShadow: '0 0 8px rgba(64, 224, 208, 0.8)',
               marginRight: '8px',
               whiteSpace: 'nowrap',
             }}
@@ -578,41 +384,15 @@ const AltitudeHoldPanel = (props: {
           />
         </Stack.Item>
         <Stack.Item>
-          <Tooltip
-            content={
+          <ToggleButton
+            enabled={altitude_hold_enabled}
+            tooltip={
               altitude_hold_enabled
                 ? 'Altitude hold active - automatic thrust adjustment enabled'
                 : 'Altitude hold inactive - manual thrust control'
             }
-          >
-            <Button
-              onClick={() => act('toggle_altitude_hold')}
-              style={{
-                fontFamily: 'Consolas, "Courier New", monospace',
-                fontWeight: 'bold',
-                fontSize: '0.85em',
-                padding: '4px 12px',
-                backgroundColor: altitude_hold_enabled
-                  ? 'rgba(0, 255, 0, 0.2)'
-                  : 'rgba(255, 0, 0, 0.15)',
-                border: altitude_hold_enabled
-                  ? '2px solid rgba(0, 255, 0, 0.6)'
-                  : '2px solid rgba(255, 0, 0, 0.4)',
-                color: altitude_hold_enabled ? '#00ff00' : '#ff6666',
-                boxShadow: altitude_hold_enabled
-                  ? '0 0 8px rgba(0, 255, 0, 0.4), inset 0 0 8px rgba(0, 255, 0, 0.1)'
-                  : '0 0 8px rgba(255, 0, 0, 0.3), inset 0 0 8px rgba(255, 0, 0, 0.1)',
-                textShadow: altitude_hold_enabled
-                  ? '0 0 6px rgba(0, 255, 0, 0.8)'
-                  : '0 0 6px rgba(255, 0, 0, 0.8)',
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {altitude_hold_enabled ? '● ON' : '○ OFF'}
-            </Button>
-          </Tooltip>
+            onClick={() => act('toggle_altitude_hold')}
+          />
         </Stack.Item>
       </Stack>
     </Box>
@@ -624,87 +404,27 @@ const ThrusterStatusPanel = (props: {
   hasLowFuel: boolean;
 }) => {
   const { thrusters, hasLowFuel } = props;
-  const [expanded, setExpanded] = useState(hasLowFuel);
 
   if (thrusters.length === 0) {
     return null;
   }
 
-  const titleContent = (
-    <Box
-      style={{
-        fontFamily: 'Consolas, "Courier New", monospace',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        cursor: 'pointer',
-      }}
-      onClick={() => setExpanded(!expanded)}
-    >
-      <Icon
-        name={expanded ? 'chevron-down' : 'chevron-right'}
-        style={{
-          color: '#40e0d0',
-          fontSize: '10px',
-        }}
-      />
-      <Box
-        as="span"
-        style={{
-          color: '#40e0d0',
-          fontSize: '11px',
-          fontWeight: 'bold',
-          textTransform: 'uppercase',
-          letterSpacing: '1.5px',
-          textShadow: '0 0 8px rgba(64, 224, 208, 0.8)',
-        }}
-      >
-        THRUSTER STATUS [{thrusters.length}]
-      </Box>
-      {hasLowFuel && (
-        <Box
-          as="span"
-          style={{
-            color: '#ff4444',
-            fontSize: '10px',
-            fontWeight: 'bold',
-            textShadow: '0 0 8px rgba(255, 68, 68, 0.8)',
-            letterSpacing: '1px',
-          }}
-        >
-          ⚠ LOW FUEL
-        </Box>
-      )}
-    </Box>
-  );
-
   return (
-    <Box
-      style={{
-        backgroundColor: 'rgba(0, 10, 10, 0.85)',
-        border: hasLowFuel
-          ? '1px solid rgba(255, 68, 68, 0.5)'
-          : '1px solid rgba(64, 224, 208, 0.3)',
-        borderRadius: '3px',
-        boxShadow: hasLowFuel
-          ? '0 0 8px rgba(255, 68, 68, 0.2), inset 0 0 10px rgba(255, 68, 68, 0.05)'
-          : '0 0 8px rgba(64, 224, 208, 0.15), inset 0 0 10px rgba(64, 224, 208, 0.03)',
-        padding: '6px 10px',
-      }}
+    <ExpandablePanel
+      title="THRUSTER STATUS"
+      count={thrusters.length}
+      alert={hasLowFuel}
+      alertText="⚠ LOW FUEL"
+      defaultExpanded={hasLowFuel}
     >
-      {titleContent}
-      {expanded && (
-        <Box style={{ marginTop: '6px' }}>
-          <Stack vertical>
-            {thrusters.map((thruster) => (
-              <Stack.Item key={thruster.ref}>
-                <ThrusterStatusRow thruster={thruster} />
-              </Stack.Item>
-            ))}
-          </Stack>
-        </Box>
-      )}
-    </Box>
+      <Stack vertical>
+        {thrusters.map((thruster) => (
+          <Stack.Item key={thruster.ref}>
+            <ThrusterStatusRow thruster={thruster} />
+          </Stack.Item>
+        ))}
+      </Stack>
+    </ExpandablePanel>
   );
 };
 
@@ -720,23 +440,27 @@ const ThrusterStatusRow = (props: { thruster: ThrusterData }) => {
   let fuelColor: string;
   let fuelGlow: string;
   if (isLowFuel) {
-    fuelColor = '#ff4444';
+    fuelColor = SciFi.redBright;
     fuelGlow = 'rgba(255, 68, 68, 0.6)';
   } else if (fuelPercent < 40) {
-    fuelColor = '#ffa500';
+    fuelColor = SciFi.amber;
     fuelGlow = 'rgba(255, 165, 0, 0.6)';
   } else {
-    fuelColor = '#00ff00';
-    fuelGlow = 'rgba(0, 255, 0, 0.4)';
+    fuelColor = SciFi.green;
+    fuelGlow = SciFi.greenDim;
   }
+
+  const thrustMismatch = thruster.thrust_level !== thruster.requested_thrust;
+  const thrustColor = thrustMismatch ? SciFi.amber : SciFi.accent;
+  const thrustGlow = thrustMismatch ? SciFi.amberGlow : 'rgba(64, 224, 208, 0.6)';
 
   return (
     <Box
       style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        backgroundColor: SciFi.bgSurface,
         border: isLowFuel
-          ? '1px solid rgba(255, 68, 68, 0.4)'
-          : '1px solid rgba(64, 224, 208, 0.15)',
+          ? `1px solid rgba(255, 68, 68, 0.4)`
+          : `1px solid ${SciFi.accentSubtle}`,
         borderRadius: '2px',
         padding: '4px 8px',
       }}
@@ -745,36 +469,17 @@ const ThrusterStatusRow = (props: { thruster: ThrusterData }) => {
         <Stack.Item grow basis="0">
           <Stack align="center">
             <Stack.Item>
-              <Tooltip
-                content={
-                  isLowFuel
-                    ? 'Thruster has insufficient fuel!'
-                    : 'Thruster fuel nominal'
-                }
-              >
-                <Icon
-                  name={isLowFuel ? 'exclamation-triangle' : 'check-circle'}
-                  style={{
-                    color: isLowFuel ? '#ff4444' : '#00ff00',
-                    fontSize: '12px',
-                    textShadow: isLowFuel
-                      ? '0 0 6px rgba(255, 68, 68, 0.8)'
-                      : '0 0 6px rgba(0, 255, 0, 0.6)',
-                    marginRight: '6px',
-                  }}
-                />
-              </Tooltip>
+              <StatusIcon
+                ok={!isLowFuel}
+                okTooltip="Thruster fuel nominal"
+                alertTooltip="Thruster has insufficient fuel!"
+              />
             </Stack.Item>
             <Stack.Item grow>
               <Box
                 style={{
-                  fontFamily: 'Consolas, "Courier New", monospace',
-                  color: '#40e0d0',
-                  fontSize: '10px',
-                  fontWeight: 'bold',
-                  textTransform: 'uppercase',
+                  ...labelStyle(SciFi.accent, '10px'),
                   letterSpacing: '1px',
-                  textShadow: '0 0 5px rgba(64, 224, 208, 0.6)',
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
@@ -791,17 +496,11 @@ const ThrusterStatusRow = (props: { thruster: ThrusterData }) => {
           >
             <Box
               style={{
-                fontFamily: 'Consolas, "Courier New", monospace',
-                color:
-                  thruster.thrust_level !== thruster.requested_thrust
-                    ? '#ffa500'
-                    : '#40e0d0',
+                fontFamily: SciFi.font,
+                color: thrustColor,
                 fontSize: '10px',
                 fontWeight: 'bold',
-                textShadow:
-                  thruster.thrust_level !== thruster.requested_thrust
-                    ? '0 0 5px rgba(255, 165, 0, 0.8)'
-                    : '0 0 5px rgba(64, 224, 208, 0.6)',
+                textShadow: `0 0 5px ${thrustGlow}`,
                 marginRight: '10px',
                 whiteSpace: 'nowrap',
               }}
@@ -810,59 +509,16 @@ const ThrusterStatusRow = (props: { thruster: ThrusterData }) => {
             </Box>
           </Tooltip>
         </Stack.Item>
-        <Stack.Item
-          style={{
-            width: '120px',
-            minWidth: '120px',
-          }}
-        >
-          <Tooltip
-            content={`Fuel: ${thruster.fuel_amount.toFixed(1)} / ${thruster.fuel_target} moles`}
-          >
-            <Box
-              style={{
-                position: 'relative',
-                height: '12px',
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                border: `1px solid ${isLowFuel ? 'rgba(255, 68, 68, 0.5)' : 'rgba(64, 224, 208, 0.3)'}`,
-                borderRadius: '2px',
-                overflow: 'hidden',
-              }}
-            >
-              <Box
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  height: '100%',
-                  width: `${fuelPercent}%`,
-                  backgroundColor: fuelColor,
-                  boxShadow: `0 0 6px ${fuelGlow}`,
-                  transition: 'width 0.3s ease',
-                }}
-              />
-              <Box
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontFamily: 'Consolas, "Courier New", monospace',
-                  fontSize: '8px',
-                  fontWeight: 'bold',
-                  color: '#ffffff',
-                  textShadow: '0 0 3px rgba(0, 0, 0, 1)',
-                  letterSpacing: '0.5px',
-                }}
-              >
-                {fuelPercent.toFixed(0)}%
-              </Box>
-            </Box>
-          </Tooltip>
+        <Stack.Item>
+          <StatusBar
+            percent={fuelPercent}
+            color={fuelColor}
+            glowColor={fuelGlow}
+            borderColor={
+              isLowFuel ? SciFi.redBrightDim : SciFi.accentDim
+            }
+            tooltip={`Fuel: ${thruster.fuel_amount.toFixed(1)} / ${thruster.fuel_target} moles`}
+          />
         </Stack.Item>
       </Stack>
     </Box>
@@ -976,6 +632,7 @@ const PlanetVisualization = (props: {
           }}
         />
 
+        {/* Orbit ring (dashed) */}
         <Box
           style={{
             position: 'absolute',
@@ -985,12 +642,13 @@ const PlanetVisualization = (props: {
             width: `${orbitDistance * 2}px`,
             height: `${orbitDistance * 2}px`,
             borderRadius: '50%',
-            border: '2px dashed rgba(64, 224, 208, 0.6)',
+            border: `2px dashed rgba(64, 224, 208, 0.6)`,
             pointerEvents: 'none',
-            boxShadow: '0 0 5px rgba(64, 224, 208, 0.3)',
+            boxShadow: `0 0 5px ${SciFi.accentDim}`,
           }}
         />
 
+        {/* Station blip */}
         <Box
           style={{
             position: 'absolute',
@@ -1000,14 +658,14 @@ const PlanetVisualization = (props: {
             width: '12px',
             height: '12px',
             borderRadius: '50%',
-            backgroundColor: '#40e0d0',
-            boxShadow:
-              '0 0 10px #40e0d0, 0 0 20px #40e0d0, 0 0 30px rgba(64, 224, 208, 0.5)',
-            border: '2px solid rgba(64, 224, 208, 0.8)',
+            backgroundColor: SciFi.accent,
+            boxShadow: `0 0 10px ${SciFi.accent}, 0 0 20px ${SciFi.accent}, 0 0 30px rgba(64, 224, 208, 0.5)`,
+            border: `2px solid ${SciFi.accentGlow}`,
             zIndex: 10,
           }}
         />
 
+        {/* Altitude label */}
         <Box
           style={{
             position: 'absolute',
@@ -1017,22 +675,22 @@ const PlanetVisualization = (props: {
             backgroundColor: 'rgba(0, 0, 0, 0.95)',
             padding: '8px 12px',
             borderRadius: '3px',
-            border: '2px solid #40e0d0',
-            color: '#40e0d0',
+            border: `2px solid ${SciFi.accent}`,
+            color: SciFi.accent,
             fontSize: '14px',
             fontWeight: 'bold',
-            fontFamily: 'Consolas, "Courier New", monospace',
+            fontFamily: SciFi.font,
             whiteSpace: 'nowrap',
             zIndex: 10,
-            boxShadow:
-              '0 0 15px rgba(64, 224, 208, 0.6), inset 0 0 8px rgba(64, 224, 208, 0.15)',
-            textShadow: '0 0 5px rgba(64, 224, 208, 1)',
+            boxShadow: `0 0 15px rgba(64, 224, 208, 0.6), inset 0 0 8px ${SciFi.accentSubtle}`,
+            textShadow: `0 0 5px ${SciFi.accent}`,
             letterSpacing: '1px',
           }}
         >
           [{(altitude * 1000).toFixed(0)}m]
         </Box>
 
+        {/* Altitude line from planet to station */}
         <Box
           style={{
             position: 'absolute',
@@ -1041,8 +699,7 @@ const PlanetVisualization = (props: {
             transform: 'translateX(-50%)',
             width: '2px',
             height: `${Math.max(0, orbitDistance - PLANET_RADIUS)}px`,
-            background:
-              'linear-gradient(to top, rgba(64, 224, 208, 0.8), rgba(64, 224, 208, 0.3))',
+            background: `linear-gradient(to top, ${SciFi.accentGlow}, ${SciFi.accentDim})`,
             transformOrigin: 'bottom',
             pointerEvents: 'none',
           }}
@@ -1064,19 +721,13 @@ const PlanetVisualization = (props: {
               position: 'absolute',
               top: '-28px',
               left: '-35px',
-              color: '#40e0d0',
-              fontWeight: 'bold',
-              fontSize: '11px',
-              textShadow: '0 0 8px rgba(64, 224, 208, 1)',
+              ...labelStyle(SciFi.accent),
               textAlign: 'left',
               width: '115%',
               whiteSpace: 'nowrap',
-              fontFamily: 'Consolas, "Courier New", monospace',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backgroundColor: SciFi.bgInset,
               padding: '2px 6px',
-              border: '1px solid rgba(64, 224, 208, 0.5)',
+              border: `1px solid rgba(64, 224, 208, 0.5)`,
               borderRadius: '2px',
             }}
           >
@@ -1088,8 +739,8 @@ const PlanetVisualization = (props: {
               y="0"
               width="10"
               height="200"
-              fill="rgba(0, 0, 0, 0.9)"
-              stroke="rgba(64, 224, 208, 1)"
+              fill={SciFi.bgDarkest}
+              stroke={SciFi.accent}
               strokeWidth="2"
               rx="2"
             />
@@ -1113,21 +764,21 @@ const PlanetVisualization = (props: {
                 <stop
                   offset="0%"
                   style={{
-                    stopColor: 'rgba(64, 224, 208, 0.2)',
+                    stopColor: SciFi.accentSubtle,
                     stopOpacity: 1,
                   }}
                 />
                 <stop
                   offset="50%"
                   style={{
-                    stopColor: 'rgba(64, 224, 208, 0.05)',
+                    stopColor: SciFi.accentFaint,
                     stopOpacity: 1,
                   }}
                 />
                 <stop
                   offset="100%"
                   style={{
-                    stopColor: 'rgba(64, 224, 208, 0.2)',
+                    stopColor: SciFi.accentSubtle,
                     stopOpacity: 1,
                   }}
                 />
@@ -1146,22 +797,22 @@ const PlanetVisualization = (props: {
                     y1={yPosition}
                     x2="70"
                     y2={yPosition}
-                    stroke="rgba(64, 224, 208, 1)"
+                    stroke={SciFi.accent}
                     strokeWidth="2"
                   />
                   {i % 2 === 0 && (
                     <text
                       x="60"
                       y={yPosition}
-                      fill="#40e0d0"
+                      fill={SciFi.accent}
                       fontSize="11px"
-                      fontFamily="Consolas, 'Courier New', monospace"
+                      fontFamily={SciFi.font}
                       textAnchor="end"
                       dominantBaseline="middle"
                       fontWeight="bold"
                       style={{
-                        textShadow: '0 0 5px rgba(64, 224, 208, 0.8)',
-                        filter: 'drop-shadow(0 0 3px rgba(64, 224, 208, 0.6))',
+                        textShadow: `0 0 5px ${SciFi.accentGlow}`,
+                        filter: `drop-shadow(0 0 3px rgba(64, 224, 208, 0.6))`,
                       }}
                     >
                       {altitudeValue.toFixed(0)}
@@ -1186,11 +837,11 @@ const PlanetVisualization = (props: {
                       (MINING_BAND_MAX - MINING_BAND_MIN)) *
                     200
                   }
-                  stroke="#00ff00"
+                  stroke={SciFi.green}
                   strokeWidth="3"
                   strokeDasharray="6,3"
                   style={{
-                    filter: 'drop-shadow(0 0 3px rgba(0, 255, 0, 0.8))',
+                    filter: `drop-shadow(0 0 3px ${SciFi.greenGlow})`,
                   }}
                 />
                 <circle
@@ -1201,10 +852,10 @@ const PlanetVisualization = (props: {
                     200
                   }
                   r="4"
-                  fill="#00ff00"
-                  stroke="#ffffff"
+                  fill={SciFi.green}
+                  stroke={SciFi.white}
                   strokeWidth="1"
-                  style={{ filter: 'drop-shadow(0 0 5px rgba(0, 255, 0, 1))' }}
+                  style={{ filter: `drop-shadow(0 0 5px ${SciFi.green})` }}
                 />
               </>
             )}
