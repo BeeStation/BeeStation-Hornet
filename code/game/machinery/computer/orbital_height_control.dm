@@ -93,6 +93,26 @@
 	))
 	data["orbital_bands"] = orbital_bands
 
+	// Thruster status data
+	var/list/thrusters = list()
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/T in SSorbital_altitude.orbital_thrusters)
+		if(QDELETED(T))
+			continue
+		var/fuel_moles = 0
+		if(T.fuel_buffer)
+			ASSERT_GAS(/datum/gas/hydrogen_fuel, T.fuel_buffer)
+			fuel_moles = T.fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES]
+		thrusters += list(list(
+			"name" = T.name,
+			"ref" = REF(T),
+			"has_fuel" = T.has_fuel,
+			"fuel_amount" = round(fuel_moles, 0.1),
+			"fuel_target" = T.buffer_target,
+			"thrust_level" = T.thrust_level,
+			"requested_thrust" = T.requested_thrust,
+		))
+	data["thrusters"] = thrusters
+
 	return data
 
 /obj/machinery/computer/orbital_height_control/ui_act(action, list/params)
@@ -133,7 +153,7 @@
 	custom_text = "To the captain or anyone operating this console: \n\n\
 	The eggheads will tell you to 'Stay within orbital parameters', but won't say what those are beyond giving you some shitty placard. So I'll be nice, here's the deal:\n\
 	\n\
-	1. **Lot's of rads**: 130-140 km\n\
+	1. **Lots of rads**: 130-140 km\n\
 	2. **Small rads**: 120-130 km\n\
 	3. **Safe 100%**: 100-120 km\n\
 	4. **Mining Regime**: 95-100 km\n\
@@ -141,7 +161,7 @@
 	\n\
 	The further up you go, you'll edge into the radiation belts. Too low, and the atmosphere will start to eat at the station. Try to keep us in the Safe Zone as much as possible.\n\n\
 	Gonna be honest with you here too, I reckon the station can probably handle dipping below 95km. It'll scratch the paint and give you a light show, but it should be fiiiine.\n\n\
-	Ah another thing. See the number on the left with ACTUAL below it? That's what the thrusters are delivering. **CHECK THAT RELIGIOUSLY.** You never know why the thrusters might not be giving you full power but you won't want to find out in-atmo.\n\n\
+	Ah another thing. See the thruster panel at the bottom? **CHECK THAT RELIGIOUSLY.** You never know why the thrusters might not be giving you full power but you won't want to find out in-atmo.\n\n\
 	- Engineer J."
 
 // Roughly tell them what they're gonna get out of a can of fuel:

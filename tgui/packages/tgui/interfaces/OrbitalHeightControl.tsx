@@ -1,13 +1,26 @@
+import { useState } from 'react';
+
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Icon,
   NumberInput,
   Section,
   Stack,
   Tooltip,
 } from '../components';
 import { Window } from '../layouts';
+
+type ThrusterData = {
+  name: string;
+  ref: string;
+  has_fuel: boolean;
+  fuel_amount: number;
+  fuel_target: number;
+  thrust_level: number;
+  requested_thrust: number;
+};
 
 type OrbitalData = {
   current_altitude: number;
@@ -19,6 +32,7 @@ type OrbitalData = {
   altitude_hold_enabled: boolean;
   altitude_hold_target: number;
   orbital_bands: OrbitalBand[];
+  thrusters: ThrusterData[];
 };
 
 type OrbitalBand = {
@@ -40,7 +54,7 @@ const UNIVERSAL_VERTICAL_OFFSET = -650;
 
 export const OrbitalHeightControl = () => {
   return (
-    <Window width={640} height={580}>
+    <Window width={640} height={620}>
       <Window.Content
         style={{
           fontFamily: 'Consolas, "Courier New", monospace',
@@ -139,7 +153,10 @@ const OrbitalHeightContent = () => {
     altitude_hold_enabled = false,
     altitude_hold_target = 98000,
     orbital_bands = [],
+    thrusters = [],
   } = data;
+
+  const hasLowFuel = thrusters.some((t) => !t.has_fuel);
 
   return (
     <>
@@ -255,6 +272,12 @@ const OrbitalHeightContent = () => {
               />
             </Box>
           </Section>
+        </Stack.Item>
+        <Stack.Item>
+          <ThrusterStatusPanel
+            thrusters={thrusters}
+            hasLowFuel={hasLowFuel}
+          />
         </Stack.Item>
       </Stack>
     </>
@@ -589,6 +612,256 @@ const AltitudeHoldPanel = (props: {
             >
               {altitude_hold_enabled ? '● ON' : '○ OFF'}
             </Button>
+          </Tooltip>
+        </Stack.Item>
+      </Stack>
+    </Box>
+  );
+};
+
+const ThrusterStatusPanel = (props: {
+  thrusters: ThrusterData[];
+  hasLowFuel: boolean;
+}) => {
+  const { thrusters, hasLowFuel } = props;
+  const [expanded, setExpanded] = useState(hasLowFuel);
+
+  if (thrusters.length === 0) {
+    return null;
+  }
+
+  const titleContent = (
+    <Box
+      style={{
+        fontFamily: 'Consolas, "Courier New", monospace',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        cursor: 'pointer',
+      }}
+      onClick={() => setExpanded(!expanded)}
+    >
+      <Icon
+        name={expanded ? 'chevron-down' : 'chevron-right'}
+        style={{
+          color: '#40e0d0',
+          fontSize: '10px',
+        }}
+      />
+      <Box
+        as="span"
+        style={{
+          color: '#40e0d0',
+          fontSize: '11px',
+          fontWeight: 'bold',
+          textTransform: 'uppercase',
+          letterSpacing: '1.5px',
+          textShadow: '0 0 8px rgba(64, 224, 208, 0.8)',
+        }}
+      >
+        THRUSTER STATUS [{thrusters.length}]
+      </Box>
+      {hasLowFuel && (
+        <Box
+          as="span"
+          style={{
+            color: '#ff4444',
+            fontSize: '10px',
+            fontWeight: 'bold',
+            textShadow: '0 0 8px rgba(255, 68, 68, 0.8)',
+            letterSpacing: '1px',
+          }}
+        >
+          ⚠ LOW FUEL
+        </Box>
+      )}
+    </Box>
+  );
+
+  return (
+    <Box
+      style={{
+        backgroundColor: 'rgba(0, 10, 10, 0.85)',
+        border: hasLowFuel
+          ? '1px solid rgba(255, 68, 68, 0.5)'
+          : '1px solid rgba(64, 224, 208, 0.3)',
+        borderRadius: '3px',
+        boxShadow: hasLowFuel
+          ? '0 0 8px rgba(255, 68, 68, 0.2), inset 0 0 10px rgba(255, 68, 68, 0.05)'
+          : '0 0 8px rgba(64, 224, 208, 0.15), inset 0 0 10px rgba(64, 224, 208, 0.03)',
+        padding: '6px 10px',
+      }}
+    >
+      {titleContent}
+      {expanded && (
+        <Box style={{ marginTop: '6px' }}>
+          <Stack vertical>
+            {thrusters.map((thruster) => (
+              <Stack.Item key={thruster.ref}>
+                <ThrusterStatusRow thruster={thruster} />
+              </Stack.Item>
+            ))}
+          </Stack>
+        </Box>
+      )}
+    </Box>
+  );
+};
+
+const ThrusterStatusRow = (props: { thruster: ThrusterData }) => {
+  const { thruster } = props;
+  const fuelPercent = Math.min(
+    (thruster.fuel_amount / thruster.fuel_target) * 100,
+    100,
+  );
+  const isLowFuel = !thruster.has_fuel;
+
+  // Determine fuel bar color
+  let fuelColor: string;
+  let fuelGlow: string;
+  if (isLowFuel) {
+    fuelColor = '#ff4444';
+    fuelGlow = 'rgba(255, 68, 68, 0.6)';
+  } else if (fuelPercent < 40) {
+    fuelColor = '#ffa500';
+    fuelGlow = 'rgba(255, 165, 0, 0.6)';
+  } else {
+    fuelColor = '#00ff00';
+    fuelGlow = 'rgba(0, 255, 0, 0.4)';
+  }
+
+  return (
+    <Box
+      style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        border: isLowFuel
+          ? '1px solid rgba(255, 68, 68, 0.4)'
+          : '1px solid rgba(64, 224, 208, 0.15)',
+        borderRadius: '2px',
+        padding: '4px 8px',
+      }}
+    >
+      <Stack align="center">
+        <Stack.Item grow basis="0">
+          <Stack align="center">
+            <Stack.Item>
+              <Tooltip
+                content={
+                  isLowFuel
+                    ? 'Thruster has insufficient fuel!'
+                    : 'Thruster fuel nominal'
+                }
+              >
+                <Icon
+                  name={isLowFuel ? 'exclamation-triangle' : 'check-circle'}
+                  style={{
+                    color: isLowFuel ? '#ff4444' : '#00ff00',
+                    fontSize: '12px',
+                    textShadow: isLowFuel
+                      ? '0 0 6px rgba(255, 68, 68, 0.8)'
+                      : '0 0 6px rgba(0, 255, 0, 0.6)',
+                    marginRight: '6px',
+                  }}
+                />
+              </Tooltip>
+            </Stack.Item>
+            <Stack.Item grow>
+              <Box
+                style={{
+                  fontFamily: 'Consolas, "Courier New", monospace',
+                  color: '#40e0d0',
+                  fontSize: '10px',
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  textShadow: '0 0 5px rgba(64, 224, 208, 0.6)',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {thruster.name}
+              </Box>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Tooltip
+            content={`Thrust: ${thruster.thrust_level} / Requested: ${thruster.requested_thrust}`}
+          >
+            <Box
+              style={{
+                fontFamily: 'Consolas, "Courier New", monospace',
+                color:
+                  thruster.thrust_level !== thruster.requested_thrust
+                    ? '#ffa500'
+                    : '#40e0d0',
+                fontSize: '10px',
+                fontWeight: 'bold',
+                textShadow:
+                  thruster.thrust_level !== thruster.requested_thrust
+                    ? '0 0 5px rgba(255, 165, 0, 0.8)'
+                    : '0 0 5px rgba(64, 224, 208, 0.6)',
+                marginRight: '10px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              T:{thruster.thrust_level}
+            </Box>
+          </Tooltip>
+        </Stack.Item>
+        <Stack.Item
+          style={{
+            width: '120px',
+            minWidth: '120px',
+          }}
+        >
+          <Tooltip
+            content={`Fuel: ${thruster.fuel_amount.toFixed(1)} / ${thruster.fuel_target} moles`}
+          >
+            <Box
+              style={{
+                position: 'relative',
+                height: '12px',
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                border: `1px solid ${isLowFuel ? 'rgba(255, 68, 68, 0.5)' : 'rgba(64, 224, 208, 0.3)'}`,
+                borderRadius: '2px',
+                overflow: 'hidden',
+              }}
+            >
+              <Box
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  height: '100%',
+                  width: `${fuelPercent}%`,
+                  backgroundColor: fuelColor,
+                  boxShadow: `0 0 6px ${fuelGlow}`,
+                  transition: 'width 0.3s ease',
+                }}
+              />
+              <Box
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontFamily: 'Consolas, "Courier New", monospace',
+                  fontSize: '8px',
+                  fontWeight: 'bold',
+                  color: '#ffffff',
+                  textShadow: '0 0 3px rgba(0, 0, 0, 1)',
+                  letterSpacing: '0.5px',
+                }}
+              >
+                {fuelPercent.toFixed(0)}%
+              </Box>
+            </Box>
           </Tooltip>
         </Stack.Item>
       </Stack>
