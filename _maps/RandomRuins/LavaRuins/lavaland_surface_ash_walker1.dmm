@@ -1048,9 +1048,7 @@
 /obj/item/construction/rcd/loaded,
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
-/obj/item/storage/crayons{
-	pixel_y = 0
-	},
+/obj/item/storage/crayons,
 /obj/item/stack/marker_beacon/ten,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
