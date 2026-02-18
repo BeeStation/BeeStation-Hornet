@@ -26,8 +26,8 @@
 	)
 
 /obj/item/clothing/suit/apron/Initialize(mapload)
-	. = ..()
 	create_storage(storage_type = /datum/storage/pockets/exo/large)
+	return ..()
 
 //Captain
 /obj/item/clothing/suit/captunic
@@ -158,8 +158,8 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/suit/hazardvest/Initialize(mapload)
-	. = ..()
 	create_storage(storage_type = /datum/storage/pockets/exo/large)
+	return ..()
 
 //Lawyer
 /obj/item/clothing/suit/toggle/lawyer

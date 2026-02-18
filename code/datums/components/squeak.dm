@@ -59,6 +59,9 @@
 	if(isnum(fallof_distance))
 		sound_falloff_distance = fallof_distance
 
+/datum/component/squeak/Destroy()
+	return ..()
+
 /datum/component/squeak/UnregisterFromParent()
 	. = ..()
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
