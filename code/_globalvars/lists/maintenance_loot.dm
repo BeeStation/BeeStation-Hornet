@@ -131,7 +131,6 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 		/obj/item/grenade/chem_grenade/cleaner = 1,
 		/obj/item/reagent_containers/cup/beaker = 1,
 		/obj/item/reagent_containers/cup/rag = 1,
-		/obj/item/reagent_containers/hypospray/medipen/pumpup = 2,
 		/obj/item/reagent_containers/syringe = 1,
 		/obj/item/storage/box/matches = 1,
 		/obj/item/storage/fancy/cigarettes/dromedaryco = 1,
@@ -311,6 +310,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		list(//medical chems
 			/obj/item/reagent_containers/hypospray/medipen/oxandrolone = 1,
 			/obj/item/reagent_containers/hypospray/medipen/salacid = 1,
+			/obj/item/reagent_containers/hypospray/medipen/pumpup = 1,
 			/obj/item/reagent_containers/syringe/contraband/methamphetamine = 1,
 			) = 1,
 		) = 1,
