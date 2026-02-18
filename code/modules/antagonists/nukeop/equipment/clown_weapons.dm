@@ -66,11 +66,10 @@
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize(mapload)
 	create_storage(storage_type = /datum/storage/pockets/shoes)
-
+	. = ..()
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
 	bananium.insert_amount_mat(BANANA_SHOES_MAX_CHARGE, /datum/material/bananium)
 	START_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Destroy()
 	STOP_PROCESSING(SSobj, src)
