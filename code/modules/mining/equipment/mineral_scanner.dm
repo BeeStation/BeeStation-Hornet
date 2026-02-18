@@ -102,12 +102,11 @@
 		for(var/turf/closed/mineral/M in turfs)
 			new /obj/effect/temp_visual/mining_scanner(M)
 			if(M.scan_state)
-				var/mutable_appearance/mining_overlay = mutable_appearance('icons/turf/smoothrocks.dmi', M.scan_state, FLASH_LAYER, FULLSCREEN_PLANE)
-				mining_overlay.appearance_flags = RESET_COLOR | RESET_ALPHA
-				M.add_overlay(mining_overlay)
-				animate(mining_overlay, alpha = 0, time = 35, easing = EASE_IN)//doesnt work
-				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_mining_overlay), M, mining_overlay), 35)
-				message_admins("Ore hit")
+				var/obj/effect/temp_visual/mining_overlay/oldC = locate(/obj/effect/temp_visual/mining_overlay) in M
+				if(oldC)
+					qdel(oldC)
+				var/obj/effect/temp_visual/mining_overlay/C = new /obj/effect/temp_visual/mining_overlay(M)
+				C.icon_state = M.scan_state
 		sleep(1)
 
 /proc/pulse_effect(turf/T, range = world.view)
@@ -131,9 +130,6 @@
 		for(var/turf/M in turfs)
 			new /obj/effect/temp_visual/mining_scanner(M)
 		sleep(1)
-
-/proc/remove_mining_overlay(turf/closed/mineral/M, mutable_appearance/mining_overlay)
-	M.cut_overlay(mining_overlay)
 
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE

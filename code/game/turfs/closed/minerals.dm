@@ -541,7 +541,7 @@
 
 /turf/closed/mineral/gibtonite
 	mineralAmt = 1
-	scan_state = "rock_Gibtonite_inactive"
+	scan_state = "rock_Gibtonite"
 	var/det_time = 8 //Countdown till explosion, but also rewards the player for how close you were to detonation when you defuse it
 	var/stage = GIBTONITE_UNSTRUCK //How far into the lifecycle of gibtonite we are
 	var/activated_ckey = null //These are to track who triggered the gibtonite deposit for logging purposes
