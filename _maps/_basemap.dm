@@ -10,7 +10,7 @@
 // #define FORCE_MAP "flandstation"
 // #define FORCE_MAP "radstation"
 // #define FORCE_MAP "echostation"
-// #define FORCE_MAP "runtimestation"
+#define FORCE_MAP "runtimestation"
 // #define FORCE_MAP "multiz_debug"
 
 #include "map_files\generic\CentCom.dmm"
