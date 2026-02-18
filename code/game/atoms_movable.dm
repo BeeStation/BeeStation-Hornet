@@ -676,17 +676,17 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 	CRASH("/atom/movable/Uncrossed() was called")
 
-/atom/movable/Bump(atom/A)
-	if(!A)
+/atom/movable/Bump(atom/bumped_atom)
+	if(!bumped_atom)
 		CRASH("Bump was called with no argument.")
-	SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, bumped_atom)
 	. = ..()
 	if(!QDELETED(throwing))
-		throwing.finalize(hit = TRUE, target = A)
+		throwing.finalize(hit = TRUE, target = bumped_atom)
 		. = TRUE
-		if(QDELETED(A))
+		if(QDELETED(bumped_atom))
 			return
-	A.Bumped(src)
+	bumped_atom.Bumped(src)
 
 ///called when this movable becomes the parent of a storage component that is currently being viewed by a player. uses important_recursive_contents
 /atom/movable/proc/become_active_storage(datum/storage/source)
