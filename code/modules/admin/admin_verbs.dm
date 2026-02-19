@@ -222,7 +222,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/datum/admins/proc/dynamic_panel,
 	)
 
-GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))
+GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release_obj)))
 GLOBAL_PROTECT(admin_verbs_possess)
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(/client/proc/edit_admin_permissions, /client/proc/edit_mentors))
 GLOBAL_PROTECT(admin_verbs_permissions)
@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,
 	/proc/possess,
-	/proc/release,
+	/proc/release_obj,
 	/client/proc/reload_admins,
 	/client/proc/panicbunker,
 	/client/proc/toggle_interviews,

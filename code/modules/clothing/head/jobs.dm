@@ -155,7 +155,7 @@
 		flip(user)
 
 /obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
-	if(!user.incapacitated() && adjustable == TRUE)
+	if(!user.incapacitated && adjustable == TRUE)
 		adjusted = !adjusted
 		if(adjusted)
 			worn_icon_state = aura_icon_on

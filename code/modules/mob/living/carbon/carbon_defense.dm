@@ -620,6 +620,6 @@
 
 /mob/living/carbon/proc/check_block()
 	if(mind)
-		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(IGNORE_GRAB))
+		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 			return TRUE
 	return FALSE

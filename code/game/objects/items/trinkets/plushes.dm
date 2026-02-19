@@ -913,7 +913,7 @@
 	if(!length(item_list))
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		for(var/V in plushie_list)
 			var/atom/A = V
 			if(initial(A.name) == choice)

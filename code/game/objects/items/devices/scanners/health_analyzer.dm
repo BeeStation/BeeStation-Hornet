@@ -88,7 +88,7 @@
  * tochat - Whether to immediately post the result into the chat of the user, otherwise it will return the results.
  */
 /proc/healthscan(mob/user, mob/living/target, mode = SCANNER_VERBOSE, advanced = FALSE, tochat = TRUE)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	// the final list of strings to render
@@ -382,7 +382,7 @@
 		return(jointext(render_list, ""))
 
 /proc/chemscan(mob/living/user, mob/living/target)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	if(istype(target) && target.reagents)

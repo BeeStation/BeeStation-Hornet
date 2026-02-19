@@ -58620,7 +58620,7 @@
 	pixel_x = 6
 	},
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/mouse/white{
+/mob/living/basic/mouse/white{
 	name = "Cheddar";
 	desc = "It's a nasty, disease-ridden rodent covered in cheese dust. This one seems to be wearing a small name tag."
 	},

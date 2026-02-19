@@ -489,4 +489,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///without a human having this trait, they speak as if they have no tongue.
 #define TRAIT_SPEAKS_CLEARLY "speaks_clearly"
 
+/// Object is dangerous to mobs buckled to it
+#define TRAIT_DANGEROUS_BUCKLE "dangerous_buckle"
+
 // END TRAIT DEFINES

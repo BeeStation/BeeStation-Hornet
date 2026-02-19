@@ -105,3 +105,20 @@
 2026-02-16:
   EvilDragonfiend:
   - bugfix: Captain now can write a manuscript of Research Director - it was missing.
+2026-02-19:
+  mrmanlikesbt:
+  - bugfix: Player keybinds are now sanitized. What this really means is that people
+      who played before combat-mode no longer cause 2 runtimes every time they press
+      1.
+  ? mrmanlikesbt, LemonInTheDark, mc-oofert, MrMelbert, Kylerace, Ben10Omintrix, Jacquerel,
+    ninjanomnom, vinylspiders, Mothblocks, Hatterhat, Kapu1178, JohnFulpWillard, Iamgoofball,
+    DATA-xPUNGED, Absolucy, SmArtKar, grungussuss, lelandkemble, san7890, Arkatos1
+  : - refactor: Refactored basic mob AI code
+    - refactor: Refactored mice to be basic mobs instead of simple animals
+    - rscadd: Feeding a mouse cheese will attract MORE MICE
+    - rscadd: Mice can now play music on synthesizers
+    - rscadd: Mice can now be tamed
+    - code_imp: Renamed "/datum/targetting_datum" to "/datum/targeting_strategy"
+    - code_imp: Refactored mob incapacitation to use a cached incapacitated state
+        instead of recomputing every time it's used
+    - spellcheck: Replaced all instances of "targetting" with "targeting"

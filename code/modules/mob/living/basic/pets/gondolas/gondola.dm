@@ -70,7 +70,7 @@
 
 /datum/ai_controller/basic_controller/gondola
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targetting_datum/basic,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 	)
 
 	ai_traits = STOP_MOVING_WHEN_PULLED

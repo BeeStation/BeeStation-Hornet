@@ -130,7 +130,7 @@
 
 	// For luring whatever mobs that are "interested" in laser pointers
 	for(var/mob/M as() in viewers(1,targloc))
-		if(M.incapacitated())
+		if(M.incapacitated)
 			return
 		var/mob/living/carbon/human/H = M
 		if(iscatperson(H) && !H.is_blind()) //catpeople!

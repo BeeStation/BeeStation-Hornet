@@ -60,7 +60,7 @@
 		return
 
 	if(W)
-		if(incapacitated())
+		if(incapacitated)
 			return
 
 		//while buckled, you can still connect to and control things like doors, but you can't use your modules
@@ -179,7 +179,7 @@
 	clicks, you can do so here, but you will have to
 	change attack_robot() above to the proper function
 */
-/mob/living/silicon/robot/UnarmedAttack(atom/A)
+/mob/living/silicon/robot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	A.attack_robot(src)
