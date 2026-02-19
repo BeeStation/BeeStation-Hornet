@@ -454,7 +454,7 @@
 	var/radrate = 1
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/generator_init()
-	fuel = new /obj/item/stack/sheet/mineral/uranium(src, 0)
+	fuel = new /obj/item/stack/sheet/mineral/uranium(src)
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process(delta_time)
 	. = ..()
