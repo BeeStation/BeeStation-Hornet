@@ -122,3 +122,6 @@
     - code_imp: Refactored mob incapacitation to use a cached incapacitated state
         instead of recomputing every time it's used
     - spellcheck: Replaced all instances of "targetting" with "targeting"
+2026-02-20:
+  r1ks-iwnl:
+  - balance: Maintenance pumpup pen spawn rate has been heavily reduced.
