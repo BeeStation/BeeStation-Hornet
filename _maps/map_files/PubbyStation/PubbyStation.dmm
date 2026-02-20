@@ -1323,19 +1323,11 @@
 /turf/closed/wall/r_wall,
 /area/ai_monitored/security/armory)
 "ahM" = (
-/obj/machinery/light{
-	light_color = "#e8eaff"
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 9
 	},
-/obj/machinery/computer/security/telescreen/entertainment/directional/south,
-/obj/machinery/camera/directional/west{
-	c_tag = "Prison - Main Lobby"
-	},
-/obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/chair/wood/normal{
-	dir = 1
-	},
-/turf/open/floor/prison/dark,
-/area/security/prison)
+/turf/open/floor/iron/white/smooth_large,
+/area/medical/medbay/central)
 "ahO" = (
 /obj/machinery/vending/deputy,
 /obj/effect/turf_decal/tile/red/fourcorners,
@@ -2234,11 +2226,19 @@
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "aol" = (
-/obj/effect/turf_decal/siding/thinplating_new/light{
-	dir = 9
+/obj/machinery/light{
+	light_color = "#e8eaff"
 	},
-/turf/open/floor/iron/white/smooth_large,
-/area/medical/medbay/central)
+/obj/machinery/computer/security/telescreen/entertainment/directional/south,
+/obj/machinery/camera/directional/west{
+	c_tag = "Prison - Main Lobby"
+	},
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/structure/chair/wood/normal{
+	dir = 1
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "aon" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/blood/OMinus,
@@ -10225,6 +10225,18 @@
 	},
 /turf/open/space,
 /area/solar/starboard)
+"beX" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/light_switch/directional/west,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "beY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/iron/dark/textured_large,
@@ -15324,6 +15336,10 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"bOa" = (
+/obj/structure/sign/departments/minsky/security/command,
+/turf/closed/wall,
+/area/hallway/primary/central)
 "bOb" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -20230,11 +20246,6 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/carpet,
 /area/chapel/office)
-"cuh" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/prison/dark,
-/area/security/prison)
 "cuk" = (
 /obj/structure/chair/fancy{
 	name = "Judge"
@@ -21832,16 +21843,8 @@
 /area/crew_quarters/bar)
 "cQK" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/reagent_containers/cup/bottle/nutrient/ez{
-	pixel_w = 9;
-	pixel_y = 6
-	},
-/obj/item/food/canned/beefbroth/maint{
-	pixel_y = 5;
-	pixel_x = -12
+/obj/structure/chair/wood/normal{
+	dir = 1
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -22697,9 +22700,6 @@
 "dfo" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -24580,20 +24580,6 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/surgery)
-"dYd" = (
-/obj/machinery/door/window/checkpoint/northleft{
-	req_one_access_txt = "2"
-	},
-/obj/machinery/door/window/checkpoint/southleft{
-	req_one_access_txt = "2"
-	},
-/obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison Blast Door"
-	},
-/turf/open/floor/prison/dark,
-/area/hallway/primary/fore)
 "dYg" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
@@ -32819,9 +32805,6 @@
 /area/security/main)
 "hGe" = (
 /obj/machinery/door/airlock/highsecurity,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -33449,9 +33432,19 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/main)
 "hTW" = (
-/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/window/checkpoint/northleft{
+	req_one_access_txt = "2"
+	},
+/obj/machinery/door/window/checkpoint/southleft{
+	req_one_access_txt = "2"
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
 /turf/open/floor/prison/dark,
-/area/security/prison)
+/area/hallway/primary/fore)
 "hTY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -35967,9 +35960,6 @@
 /area/medical/genetics/cloning)
 "iZv" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
@@ -36285,13 +36275,12 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "jhC" = (
-/obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/rack,
-/obj/item/paint_palette,
-/obj/item/paint_palette,
-/obj/item/storage/crayons,
-/turf/open/floor/prison/dark,
-/area/security/prison)
+/obj/structure/closet/secure_closet/security/sec,
+/obj/effect/turf_decal/bot,
+/obj/item/clothing/under/syndicate/camo,
+/obj/item/clothing/head/helmet/rus_helmet,
+/turf/open/floor/iron/dark/textured_large,
+/area/security)
 "jhK" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -37042,9 +37031,6 @@
 /turf/open/floor/iron/tech/grid,
 /area/bridge)
 "jvV" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
@@ -41119,9 +41105,6 @@
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "lcg" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -43823,10 +43806,8 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "mlL" = (
-/obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/chair/wood/normal{
-	dir = 1
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "mlW" = (
@@ -47588,6 +47569,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard)
+"nVh" = (
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/structure/rack,
+/obj/item/paint_palette,
+/obj/item/paint_palette,
+/obj/item/storage/crayons,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "nVz" = (
 /obj/structure/sign/directions/evac{
 	dir = 8;
@@ -49776,12 +49765,18 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "oQy" = (
-/obj/structure/closet/secure_closet/security/sec,
-/obj/effect/turf_decal/bot,
-/obj/item/clothing/under/syndicate/camo,
-/obj/item/clothing/head/helmet/rus_helmet,
-/turf/open/floor/iron/dark/textured_large,
-/area/security)
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_x = 5;
+	pixel_y = 8
+	},
+/obj/item/food/canned/peaches{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "oRf" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -51358,6 +51353,10 @@
 /obj/machinery/computer/security/telescreen/entertainment/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
+"pzm" = (
+/obj/effect/turf_decal/tile/red/fourcorners,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "pzy" = (
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -51981,9 +51980,6 @@
 /turf/open/floor/wood,
 /area/maintenance/department/science)
 "pMN" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/oven,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/security/prison)
@@ -56761,9 +56757,6 @@
 /area/security/prison)
 "rRV" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/prison/dark,
@@ -61836,19 +61829,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"ufP" = (
-/obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_x = 5;
-	pixel_y = 8
-	},
-/obj/item/food/canned/peaches{
-	pixel_x = -6;
-	pixel_y = 10
-	},
-/turf/open/floor/prison/dark,
-/area/security/prison)
 "ugc" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/trimline/purple/line,
@@ -62728,18 +62708,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/library/lounge)
-"uBi" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
-	},
-/obj/machinery/light_switch/directional/west,
-/turf/open/floor/prison/dark,
-/area/security/prison)
 "uBX" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters2";
@@ -68354,9 +68322,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hor)
 "xbi" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/wall_closet/emergency/directional/west,
 /obj/item/clothing/mask/breath,
@@ -69116,9 +69081,20 @@
 /turf/open/floor/grass,
 /area/hallway/primary/aft)
 "xtm" = (
-/obj/structure/sign/departments/minsky/security/command,
-/turf/closed/wall,
-/area/hallway/primary/central)
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez{
+	pixel_w = 9;
+	pixel_y = 6
+	},
+/obj/item/food/canned/beefbroth/maint{
+	pixel_y = 5;
+	pixel_x = -12
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "xto" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/flower/harebell,
@@ -92404,7 +92380,7 @@ cIC
 fCn
 ror
 ayQ
-dYd
+hTW
 vxF
 atv
 dOD
@@ -92652,7 +92628,7 @@ drx
 drx
 amd
 xZG
-cuh
+mlL
 esS
 wba
 bsy
@@ -93167,8 +93143,8 @@ drx
 lsT
 jRV
 fzz
-ufP
-ahM
+oQy
+aol
 wba
 hxi
 avF
@@ -93424,8 +93400,8 @@ drx
 mCp
 jRV
 qad
+xtm
 cQK
-mlL
 wba
 syC
 wba
@@ -93681,8 +93657,8 @@ aqC
 gQX
 xZG
 gYl
-jhC
-hTW
+nVh
+pzm
 wba
 vuS
 wba
@@ -93940,7 +93916,7 @@ lzb
 uAY
 hrM
 hrM
-uBi
+beX
 hrM
 aOu
 bir
@@ -96054,7 +96030,7 @@ bpI
 biY
 sjb
 spG
-aol
+ahM
 bnv
 uZV
 jGh
@@ -97265,7 +97241,7 @@ orH
 orH
 vvG
 aop
-oQy
+jhC
 orH
 aoV
 bna
@@ -103725,7 +103701,7 @@ cTE
 aEL
 bIE
 aGt
-xtm
+bOa
 chY
 aDZ
 dXB
