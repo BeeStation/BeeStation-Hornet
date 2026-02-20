@@ -3912,6 +3912,9 @@
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/machinery/vending/wardrobe/gene_wardrobe,
 /obj/structure/cable/yellow,
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 6
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics/cloning)
 "ayG" = (
@@ -9116,6 +9119,9 @@
 "aYW" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/cryopods)
 "aYY" = (
@@ -13501,7 +13507,7 @@
 /turf/open/floor/grass,
 /area/medical/genetics)
 "bzH" = (
-/turf/open/floor/iron/white/smooth_large,
+/turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "bzL" = (
 /obj/machinery/harvester{
@@ -13636,6 +13642,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/grass,
 /area/medical/genetics)
 "bAP" = (
@@ -21786,11 +21793,7 @@
 /area/crew_quarters/bar)
 "cQK" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+	dir = 9
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
@@ -22366,6 +22369,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/thinplating_new/light,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
 "daJ" = (
@@ -24408,7 +24412,10 @@
 /area/chapel/main/monastery)
 "dVz" = (
 /mob/living/carbon/monkey,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/machinery/door/window/eastleft{
+	name = "Monkey Pen";
+	req_one_access_txt = "9"
+	},
 /turf/open/floor/grass,
 /area/medical/genetics)
 "dVI" = (
@@ -26112,7 +26119,10 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/ai_monitored/security/armory)
 "eEG" = (
-/obj/effect/landmark/event_spawn,
+/obj/effect/turf_decal/siding/thinplating_new/light,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
 "eEK" = (
@@ -26429,16 +26439,13 @@
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
 "eKQ" = (
-/obj/machinery/door/window/eastleft{
-	name = "Monkey Pen";
-	req_one_access_txt = "9"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/grass,
 /area/medical/genetics)
 "eLj" = (
@@ -26982,6 +26989,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/thinplating_new/light,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
 "eXO" = (
@@ -27868,6 +27876,12 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 1
 	},
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "frr" = (
@@ -28014,9 +28028,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/thinplating_new/light{
-	dir = 1
+	dir = 5
 	},
-/turf/open/floor/iron/white/textured_large,
+/turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
 "ftW" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -30674,6 +30688,12 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
@@ -35187,7 +35207,7 @@
 /area/security)
 "iFX" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
-	dir = 4
+	dir = 5
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics/cloning)
@@ -37395,7 +37415,10 @@
 	dir = 8
 	},
 /obj/machinery/disposal/bin,
-/obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 9
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
 "jGF" = (
@@ -40120,7 +40143,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/white/smooth_large,
+/turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "kJf" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -50479,6 +50502,12 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "pjZ" = (
@@ -52497,6 +52526,12 @@
 	pixel_x = 24
 	},
 /obj/machinery/dna_scannernew,
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "qdi" = (
@@ -55651,7 +55686,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/iron/white/smooth_large,
+/turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "rzl" = (
 /obj/effect/spawner/random/trash/grille_or_waste,
@@ -57331,7 +57366,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/any/medical/genetics,
-/turf/open/floor/iron/white/smooth_large,
+/turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "sgA" = (
 /obj/structure/cable/yellow{
@@ -57416,6 +57451,7 @@
 /obj/machinery/door/window/northleft{
 	name = "Reception Window"
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
 "siq" = (
@@ -57692,8 +57728,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
@@ -57850,6 +57889,12 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
@@ -61769,7 +61814,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/iron/white/smooth_large,
+/turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "ujz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -63356,7 +63401,7 @@
 	name = "Cloning Lab";
 	req_one_access_txt = "9"
 	},
-/turf/open/floor/iron/white/smooth_large,
+/turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "uZZ" = (
 /obj/structure/cable/yellow{
@@ -65075,7 +65120,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/white/smooth_large,
+/turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
 "vNH" = (
 /obj/structure/tank_dispenser,
@@ -95555,7 +95600,7 @@ mmx
 biY
 pAh
 xVc
-cQK
+pSm
 sgr
 vNh
 ryW
@@ -95812,7 +95857,7 @@ bpI
 biY
 sjb
 spG
-bFO
+cQK
 bnv
 uZV
 jGh
@@ -96071,7 +96116,7 @@ sPD
 crs
 pMw
 ayF
-iFX
+bAW
 iFX
 bzL
 meW
