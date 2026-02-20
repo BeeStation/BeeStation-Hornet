@@ -44,7 +44,7 @@
 
 /datum/ai_controller/basic_controller/cow/moonicorn
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic/allow_items/moonicorn(),
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/allow_items/moonicorn,
 		BB_BASIC_MOB_TIP_REACTING = FALSE,
 		BB_BASIC_MOB_TIPPER = null,
 	)
@@ -56,25 +56,18 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		//...or something to eat, possibly. both types of target handled by melee attack subtree
 		/datum/ai_planning_subtree/find_food,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree/moonicorn,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
 
-/datum/ai_planning_subtree/basic_melee_attack_subtree/moonicorn
-	melee_attack_behavior = /datum/ai_behavior/basic_melee_attack/moonicorn
-
-/datum/ai_behavior/basic_melee_attack/moonicorn
-	//it's a fairly strong attack and it applies pax, so they do not attack often
-	action_cooldown = 2 SECONDS
-
 ///moonicorns will not attack people holding something that could tame them.
-/datum/targetting_datum/basic/allow_items/moonicorn
+/datum/targeting_strategy/basic/allow_items/moonicorn
 
-/datum/targetting_datum/basic/allow_items/moonicorn/can_attack(mob/living/living_mob, atom/the_target)
+/datum/targeting_strategy/basic/allow_items/moonicorn/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	if(isliving(the_target)) //Targetting vs living mobs
+	if(isliving(the_target)) //Targeting vs living mobs
 		var/mob/living/living_target = the_target
 		for(var/obj/item/food/grown/galaxythistle/tame_food in living_target.held_items)
 			return FALSE //heyyy this can tame me! let's NOT fight

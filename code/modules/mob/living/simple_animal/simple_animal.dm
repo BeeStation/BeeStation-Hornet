@@ -115,10 +115,13 @@
 	//If the creature should play its bobbing up and down animation.
 	var/no_flying_animation
 
-	var/AIStatus = AI_ON //The Status of our AI, can be changed via toggle_ai(togglestatus) to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players)
-	var/can_have_ai = TRUE //once we have become sentient, we can never go back
+	///The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players).
+	var/AIStatus = AI_ON
+	///once we have become sentient, we can never go back.
+	var/can_have_ai = TRUE
 
-	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
+	///convenience var for forcibly waking up an idling AI on next check.
+	var/shouldwakeup = FALSE
 
 	var/my_z // I don't want to confuse this with client registered_z
 
@@ -177,16 +180,15 @@
 
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src
-	if (SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
-		SSnpcpool.currentrun -= src
-
-	if(nest)
-		nest.spawned_mobs -= src
-		nest = null
+	SSnpcpool.currentrun -= src
 
 	var/turf/T = get_turf(src)
 	if (T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
+
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
 
 	return ..()
 
@@ -230,51 +232,59 @@
 
 /mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
-	if(!stop_automated_movement && wander)
-		if((isturf(loc) || allow_movement_on_non_turfs) && (mobility_flags & MOBILITY_MOVE))		//This is so it only moves if it's not inside a closet, gentics machine, etc.
-			turns_since_move++
-			if(turns_since_move >= turns_per_move)
-				if(!(stop_automated_movement_when_pulled && pulledby)) //Some animals don't move when pulled
-					var/anydir = pick(GLOB.cardinals)
-					if(Process_Spacemove(anydir))
-						Move(get_step(src, anydir), anydir)
-						turns_since_move = 0
-			return 1
+	if(stop_automated_movement || !wander)
+		return
+	if(!isturf(loc) && !allow_movement_on_non_turfs)
+		return
+	if(!(mobility_flags & MOBILITY_MOVE)) //This is so it only moves if it's not inside a closet, gentics machine, etc.
+		return TRUE
+
+	turns_since_move++
+	if(turns_since_move < turns_per_move)
+		return TRUE
+	if(stop_automated_movement_when_pulled && pulledby) //Some animals don't move when pulled
+		return TRUE
+	var/anydir = pick(GLOB.cardinals)
+	if(Process_Spacemove(anydir))
+		Move(get_step(src, anydir), anydir)
+		turns_since_move = 0
+	return TRUE
 
 /mob/living/simple_animal/proc/handle_automated_speech(override)
 	set waitfor = FALSE
-	if(speak_chance)
-		if(prob(speak_chance) || override)
-			if(speak?.len)
-				if((emote_hear && emote_hear.len) || (emote_see && emote_see.len))
-					var/length = speak.len
-					if(emote_hear && emote_hear.len)
-						length += emote_hear.len
-					if(emote_see && emote_see.len)
-						length += emote_see.len
-					var/randomValue = rand(1,length)
-					if(randomValue <= speak.len)
-						say(pick(speak), language = speak_language, forced = "simple_animal")
-					else
-						randomValue -= speak.len
-						if(emote_see && randomValue <= emote_see.len)
-							emote("me [pick(emote_see)]", 1)
-						else
-							emote("me [pick(emote_hear)]", 2)
-				else
-					say(pick(speak), language = speak_language, forced = "simple_animal")
+	if(!speak_chance || (!prob(speak_chance) && !override))
+		return
+
+	if(length(speak))
+		if(length(emote_hear) || length(emote_see))
+			var/length = length(speak)
+			if(length(emote_hear))
+				length += length(emote_hear)
+			if(length(emote_see))
+				length += length(emote_see)
+			var/randomValue = rand(1, length)
+			if(randomValue <= length(speak))
+				say(pick(speak), language = speak_language, forced = "automated speech")
 			else
-				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					emote("me", 1, pick(emote_see))
-				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
-					emote("me", 2, pick(emote_hear))
-				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					var/length = emote_hear.len + emote_see.len
-					var/pick = rand(1,length)
-					if(pick <= emote_see.len)
-						emote("me", 1, pick(emote_see))
-					else
-						emote("me", 2, pick(emote_hear))
+				randomValue -= length(speak)
+				if(emote_see && randomValue <= length(emote_see))
+					manual_emote(pick(emote_see))
+				else
+					manual_emote(pick(emote_hear))
+		else
+			say(pick(speak), language = speak_language, forced = "automated speech")
+	else
+		if(!length(emote_hear) && length(emote_see))
+			manual_emote(pick(emote_see))
+		if(length(emote_hear) && !length(emote_see))
+			manual_emote(pick(emote_hear))
+		if(length(emote_hear) && length(emote_see))
+			var/length = length(emote_hear) + length(emote_see)
+			var/pick = rand(1,length)
+			if(pick <= length(emote_see))
+				manual_emote(pick(emote_see))
+			else
+				manual_emote(pick(emote_hear))
 
 /mob/living/simple_animal/proc/environment_air_is_safe()
 	. = TRUE
@@ -616,7 +626,7 @@
 //ANIMAL RIDING
 
 /mob/living/simple_animal/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	for(var/atom/movable/A in get_turf(src))
 		if(A != src && A != M && A.density)
@@ -625,21 +635,26 @@
 	return ..()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
+	if(QDELETED(src))
+		return
 	if(!can_have_ai && (togglestatus != AI_OFF))
 		return
-	if (AIStatus != togglestatus)
-		if (togglestatus > 0 && togglestatus < 5)
-			if (togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
-				var/turf/T = get_turf(src)
+	if (AIStatus == togglestatus)
+		return
+
+	if (togglestatus > 0 && togglestatus < 5)
+		if (togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
+			var/turf/T = get_turf(src)
+			if (T)
 				if (AIStatus == AI_Z_OFF)
 					SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 				else
 					SSidlenpcpool.idle_mobs_by_zlevel[T.z] += src
-			GLOB.simple_animals[AIStatus] -= src
-			GLOB.simple_animals[togglestatus] += src
-			AIStatus = togglestatus
-		else
-			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+		GLOB.simple_animals[AIStatus] -= src
+		GLOB.simple_animals[togglestatus] += src
+		AIStatus = togglestatus
+	else
+		stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
 
 /mob/living/simple_animal/proc/get_discovery_id()
 	return type
@@ -647,13 +662,6 @@
 /mob/living/simple_animal/proc/consider_wakeup()
 	if (pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
-
-/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(!ckey && !stat)//Not unconscious
-		if(AIStatus == AI_IDLE)
-			toggle_ai(AI_ON)
-
 
 /mob/living/simple_animal/onTransitZ(old_z, new_z)
 	..()
@@ -709,7 +717,7 @@
 		return
 
 /mob/living/simple_animal/relaymove(mob/living/user, direction)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	return relaydrive(user, direction)
 

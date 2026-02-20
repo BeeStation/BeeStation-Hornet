@@ -87732,7 +87732,7 @@
 /turf/open/floor/iron/ridged/steel,
 /area/science/lobby)
 "xyo" = (
-/mob/living/simple_animal/mouse/gray,
+/mob/living/basic/mouse/gray,
 /obj/structure/lattice/catwalk,
 /obj/item/food/cheese/wheel,
 /obj/item/food/breadslice/creamcheese,

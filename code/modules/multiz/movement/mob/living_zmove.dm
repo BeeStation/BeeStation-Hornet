@@ -11,7 +11,7 @@
 /// Returns a movement type that is allowed, given a source and target turf.
 /// pre_move controls if things like fuel are consumed for jetpacks.
 /mob/living/canZMove(dir, turf/source, turf/target, pre_move = TRUE)
-	if(incapacitated() || resting || zmoving || IsKnockdown())
+	if(incapacitated || resting || zmoving || IsKnockdown())
 		return MOVETYPE_NONE
 	if(incorporeal_move || (movement_type & PHASING))
 		return MOVETYPE_JAUNT

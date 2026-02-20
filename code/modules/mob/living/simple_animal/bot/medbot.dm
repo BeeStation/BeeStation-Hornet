@@ -292,7 +292,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 			MEDBOT_SKIN_BEZERK= image(icon = 'icons/mob/aibots.dmi', icon_state = "medskin_bezerk")
 			)
 	var/choice = show_radial_menu(M, src, skinlist, radius = 42, require_near = TRUE)
-	if(choice && !M.incapacitated() && in_range(M,src))
+	if(choice && !M.incapacitated && in_range(M,src))
 		skin = choice
 		update_icon()
 
@@ -569,7 +569,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 	return FALSE // we shouldn't get random TRUE cases
 
-/mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(iscarbon(A))

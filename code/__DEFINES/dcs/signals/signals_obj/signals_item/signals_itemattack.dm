@@ -12,7 +12,7 @@
 //from base of obj/item/attack_self_secondary(): (/mob)
 #define COMSIG_ITEM_ATTACK_SELF_SECONDARY "item_attack_self_secondary"
 ///from base of obj/item/attack_atom(): (/obj, /mob)
-#define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
+#define COMSIG_ITEM_ATTACK_ATOM "item_attack_obj"
 ///from base of obj/item/pre_ranged_attack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_RANGED_ATTACK "item_pre_ranged_attack"
 	//COMPONENT_CANCEL_ATTACK_CHAIN

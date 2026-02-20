@@ -3718,7 +3718,7 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "aPU" = (
-/mob/living/simple_animal/mouse/brown/Tom,
+/mob/living/basic/mouse/brown/tom,
 /turf/open/floor/wood,
 /area/security/prison)
 "aPW" = (

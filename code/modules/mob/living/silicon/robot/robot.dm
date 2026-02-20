@@ -609,7 +609,7 @@
 	set category = "IC"
 	set src = usr
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	var/obj/item/held_item = get_active_held_item()
 	if(held_item)
@@ -1114,7 +1114,7 @@
 		M.visible_message(span_warning("[M] really can't seem to mount [src]..."))
 		return
 
-	if(stat || incapacitated())
+	if(stat || incapacitated)
 		return
 	if(model && !model.allow_riding)
 		M.visible_message(span_boldwarning("Unfortunately, [M] just can't seem to hold onto [src]!"))

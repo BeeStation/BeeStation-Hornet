@@ -79,7 +79,7 @@
 	make_tameable()
 
 /mob/living/simple_animal/hostile/carp/proc/make_tameable()
-	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/meat), tame_chance = 10, bonus_tame_chance = 5, after_tame = CALLBACK(src, PROC_REF(tamed)))
+	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/meat), tame_chance = 10, bonus_tame_chance = 5)
 
 /**
  * Randomly assigns a color to a carp from either a common or rare color variant lists
@@ -104,7 +104,7 @@
 	update_greyscale()
 	update_icon()
 
-/mob/living/simple_animal/hostile/carp/proc/tamed(mob/living/tamer)
+/mob/living/simple_animal/hostile/carp/tamed(mob/living/tamer, atom/food)
 	can_buckle = TRUE
 	buckle_lying = 0
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/carp)

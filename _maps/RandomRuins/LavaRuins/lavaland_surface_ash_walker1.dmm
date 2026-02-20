@@ -1048,6 +1048,7 @@
 /obj/item/construction/rcd/loaded,
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
+/obj/item/storage/crayons,
 /obj/item/stack/marker_beacon/ten,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1182,6 +1183,10 @@
 /obj/item/seeds/glowshroom,
 /obj/item/seeds/bamboo,
 /obj/item/seeds/tower,
+/obj/item/seeds/bamboo,
+/obj/item/seeds/cotton,
+/obj/item/seeds/tower,
+/obj/item/seeds/tobacco/lavaland,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Wm" = (

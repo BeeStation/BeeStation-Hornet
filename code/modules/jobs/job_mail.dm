@@ -323,7 +323,7 @@
 /datum/job/gimmick/stage_magician
 	mail_goodies = list(
 		//AND FOR MY NEXT TRICK... Bunny
-		/obj/item/clothing/head/mob_holder/rabbit = 40,
+		/obj/item/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
 		/obj/item/clothing/head/hats/bowler = 5,

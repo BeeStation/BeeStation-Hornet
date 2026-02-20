@@ -269,7 +269,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 /obj/proc/reskin_obj(mob/M)
 	var/choice = show_radial_menu(M, src, unique_reskin, radius = 42, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated && in_range(M,src))
 		if(!unique_reskin[choice])
 			return
 		current_skin = choice

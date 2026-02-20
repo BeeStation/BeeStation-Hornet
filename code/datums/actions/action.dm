@@ -78,7 +78,7 @@
 	/// If the ability is currently active or not
 	VAR_PRIVATE/active = FALSE
 	/// If we require a target and are a toggleable button, we track a reference to the
-	/// object that we are targetting.
+	/// object that we are targeting.
 	VAR_PRIVATE/datum/selected_target = null
 	/// Overlay currently applied to this action
 	VAR_PRIVATE/mutable_appearance/timer_overlay
