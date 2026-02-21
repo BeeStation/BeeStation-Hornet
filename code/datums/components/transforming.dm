@@ -126,7 +126,7 @@
  * Also starts the [transform_cooldown] if we have a set [transform_cooldown_time].
  *
  * source - the item being transformed / parent
- * user - the mob transforming the item
+ * user - the mob transforming the item (can be null)
  *
  * returns TRUE.
  */
@@ -134,7 +134,8 @@
 	toggle_active(source)
 	if(!(SEND_SIGNAL(source, COMSIG_TRANSFORMING_ON_TRANSFORM, user, active) & COMPONENT_NO_DEFAULT_MESSAGE))
 		default_transform_message(source, user)
-
+	if(!isnull(user))
+		SEND_SIGNAL(user, COMSIG_MOB_TRANSFORMING_ITEM, source, active)
 	if(isnum(transform_cooldown_time))
 		COOLDOWN_START(src, transform_cooldown, transform_cooldown_time)
 	if(user)
