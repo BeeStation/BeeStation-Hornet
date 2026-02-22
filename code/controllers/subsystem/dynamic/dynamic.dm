@@ -1,6 +1,6 @@
 // If this is defined, then any storyteller configs which do not have
 // a 'Version' tag that match this value will not be loaded.
-#define STORYTELLER_VERSION "GamemodeAntagonists"
+// #define STORYTELLER_VERSION "GamemodeAntagonists"
 
 
 SUBSYSTEM_DEF(dynamic)
