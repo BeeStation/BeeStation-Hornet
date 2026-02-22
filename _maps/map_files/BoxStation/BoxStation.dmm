@@ -52960,6 +52960,7 @@
 	pixel_y = 7;
 	req_access_txt = "18"
 	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "tep" = (
@@ -62631,7 +62632,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/light/floor,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/dark,
 /area/bridge)
