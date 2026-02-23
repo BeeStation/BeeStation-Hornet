@@ -1016,6 +1016,7 @@
 #include "code\datums\elements\forced_gravity.dm"
 #include "code\datums\elements\frozen.dm"
 #include "code\datums\elements\gags_recolorable.dm"
+#include "code\datums\elements\height_filter.dm"
 #include "code\datums\elements\item_scaling.dm"
 #include "code\datums\elements\light_blocking.dm"
 #include "code\datums\elements\mechanical_repair.dm"
