@@ -81,7 +81,7 @@
 
 	if(isshade(gone))
 		var/mob/living/simple_animal/shade/S = gone
-		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT,)
+		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
@@ -126,7 +126,6 @@
 ///////////////////Options for using captured souls///////////////////////////////////////
 
 /obj/item/soulstone/proc/reanimate_corpse(mob/living/carbon/human/host, mob/user)
-	var/obj/item/organ/brain/brainless = host.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!contained_shade)
 		return FALSE
 	if(host.stat != DEAD) // Self explanatory, they must be dead
@@ -135,7 +134,7 @@
 	if(host.get_ghost(FALSE, TRUE)) // We don't want to overwrite the original soul if it still exists
 		to_chat(user, span_warning("This vessel's original soul still lingers within inside."))
 		return FALSE
-	if(!brainless) // No brain and having a soul, shouldn't happen, we cant let it pass
+	if(!host.get_organ_slot(ORGAN_SLOT_BRAIN)) // No brain and having a soul, shouldn't happen, we cant let it pass
 		to_chat(user, span_warning("This vessel lacks a brain and cannot house a soul."))
 		return FALSE
 	user.visible_message(span_notice("[user] presses [src] against [host]'s chest, the gem glowing with eerie light!"),
@@ -392,13 +391,9 @@
 		BS.Cviewer = newstruct
 	newstruct.cancel_camera()
 
-/obj/item/soulstone/proc/steal_soul(mob/living/carbon/human/T, mob/user, message_user = FALSE)
-	if(ishuman(T))
-		new /obj/effect/decal/remains/human(T.loc)
-		T.stop_sound_channel(CHANNEL_HEARTBEAT)
-		T.dust_animation()
-	init_shade(T, user, message_user)
-	qdel(T)
+/obj/item/soulstone/proc/steal_soul(mob/living/victim, mob/user, message_user = FALSE)
+	init_shade(victim, user, message_user)
+	victim.dust()
 
 /obj/item/soulstone/proc/init_shade(mob/target, mob/user, message_user = FALSE, mob/shade_controller)
 	if(!shade_controller)

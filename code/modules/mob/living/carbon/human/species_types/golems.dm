@@ -680,9 +680,8 @@
 	body.visible_message(span_danger("[body] dissolves into a pile of blood, leaving behind a strange stone."))
 	var/obj/item/soulstone/new_stone = new(body.drop_location())
 	new_stone.init_shade(body)
-	body.dust_animation()
 	new /obj/effect/decal/cleanable/blood/splatter(get_turf(body))
-	qdel(body)
+	body.dust()
 
 /datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
 	. = ..()

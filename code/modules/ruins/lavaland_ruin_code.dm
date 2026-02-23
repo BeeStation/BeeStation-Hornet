@@ -109,11 +109,11 @@
 		return ..()
 	if(!user || !user.Adjacent(src))
 		return TRUE
-	if(!user.mind || !user.mind.has_antag_datum(/datum/antagonist/cult))  // You're not a cultist, why are you even trying to place a soulstone
+	if(!IS_CULTIST(user))  // You're not a cultist, why are you even trying to place a soulstone
 		to_chat(user, span_warning("The runes refuse to answer your touch."))
 		return TRUE
 	var/obj/item/soulstone/soulshard = O
-	var/mob/living/simple_animal/shade/soul = locate(/mob/living/simple_animal/shade) in soulshard
+	var/mob/living/simple_animal/shade/soul = soulshard.contained_shade
 	if(!soul)
 		to_chat(user, span_warning("The soulstone is empty. The runes remain dormant."))
 		return TRUE
@@ -126,7 +126,7 @@
 	var/mob/living/carbon/human/species/golem/blood_cult/golem = new(get_turf(src))
 	golem.update_body()
 	soul.mind.transfer_to(golem)
-	if(!golem.mind.has_antag_datum(/datum/antagonist/cult)) // Incase they somehow lost their antag datum, we give it again
+	if(!IS_CULTIST(golem)) // Incase they somehow lost their antag datum, we give it again
 		golem.mind.add_antag_datum(/datum/antagonist/cult)
 	golem.real_name = old_name
 	golem.name = old_name
