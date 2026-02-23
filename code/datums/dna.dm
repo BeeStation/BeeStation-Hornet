@@ -19,13 +19,13 @@
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 	var/current_body_size = BODY_SIZE_NORMAL
 	//Holder for the displacement appearance, related to species height
-	var/icon/height_displacement
+	var/datum/component/height_filter/height_displacement
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
 	//Add our size stuff so we can simulate short people
-	new_holder.AddElement(/datum/element/height_filter, 'icons/effects/64x64.dmi', species?.height_icon, 1)
+	height_displacement = holder?.AddComponent(/datum/component/height_filter, 'icons/effects/64x64.dmi', species?.height_icon)
 	update_body_size()
 
 /datum/dna/Destroy()
@@ -33,9 +33,9 @@
 		var/mob/living/carbon/cholder = holder
 		if(cholder?.dna == src)
 			cholder.dna = null
-	holder?._RemoveElement(/datum/element/height_filter)
-	holder = null
 	QDEL_NULL(height_displacement)
+	holder = null
+
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -467,7 +467,7 @@
 	var/desired_size = heights[features["body_size"]]
 	if(desired_size == current_body_size && !force)
 		return
-	SEND_SIGNAL(src, COMSIG_CARBON_HEIGHT_UPDATE, holder, desired_size)
+	SEND_SIGNAL(src, COMSIG_CARBON_HEIGHT_UPDATE, desired_size)
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
