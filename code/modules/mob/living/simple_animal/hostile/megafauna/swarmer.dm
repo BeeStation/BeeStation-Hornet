@@ -262,8 +262,8 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai/melee_combat
 	icon_state = "swarmer_melee"
 	icon_living = "swarmer_melee"
-	health = 40
-	maxHealth = 40
+	health = 60
+	maxHealth = 60
 	ranged = FALSE
 
 /mob/living/simple_animal/hostile/swarmer/ai/melee_combat/Aggro()
@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		else
 			var/mob/living/mob = target
 			mob.attack_animal(src)
-			mob.apply_damage(25, STAMINA) // Why did it use the shocking, that's ass
+			mob.adjustStaminaLoss(25) // Why did it use shocking, that's ass
 		return TRUE
 	else
 		return ..()
