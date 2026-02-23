@@ -107,7 +107,6 @@
 		return
 	if(!ishuman(M))
 		return ..()
-
 	if(contained_shade && M.stat == DEAD)
 		reanimate_corpse(M, user)
 		return
@@ -178,6 +177,7 @@
 		return
 	contained_shade.forceMove(get_turf(user))
 	contained_shade.cancel_camera()
+	contained_shade.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 	switch(theme)
 		if(THEME_HOLY)
 			icon_state = "purified_soulstone"
@@ -192,9 +192,9 @@
 			icon_state = "soulstone"
 	name = initial(name)
 	if(IS_CULTIST(user))
-		to_chat(contained_shade,  span_bold("You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs."))
+		to_chat(contained_shade, span_bold("You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs."))
 	else if(role_check(user))
-		to_chat(contained_shade,  span_bold("You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs."))
+		to_chat(contained_shade, span_bold("You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs."))
 	contained_shade = null
 	was_used()
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
@@ -290,8 +290,7 @@
 			else
 				T.forceMove(src)
 				contained_shade = T
-				ADD_TRAIT(T, TRAIT_GODMODE, SOULSTONE_TRAIT)
-				T.mobility_flags = NONE
+				T.add_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 				T.health = T.maxHealth
 				if(theme == THEME_HOLY)
 					icon_state = "purified_soulstone2"
@@ -452,7 +451,7 @@
 	if(!chosen_ghost)
 		to_chat(user, span_danger("There were no spirits willing to become a shade."))
 		return FALSE
-	if(contents.len) //If they used the soulstone on someone else in the meantime
+	if(contained_shade)//If they used the soulstone on someone else in the meantime
 		return FALSE
 	for(var/obj/item/W in T)
 		T.dropItemToGround(W)
