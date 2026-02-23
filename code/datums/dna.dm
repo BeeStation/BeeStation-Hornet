@@ -467,7 +467,7 @@
 	var/desired_size = heights[features["body_size"]]
 	if(desired_size == current_body_size && !force)
 		return
-	SEND_SIGNAL(src, holder, desired_size)
+	SEND_SIGNAL(src, COMSIG_CARBON_HEIGHT_UPDATE, holder, desired_size)
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return

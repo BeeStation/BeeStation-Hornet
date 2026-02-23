@@ -1,5 +1,3 @@
-#define COMSIG_HEIGHT_UPDATE "COMSIG_HEIGHT_UPDATE"
-
 /datum/element/height_filter
 	var/list/displacement_textures = list(NORTH, SOUTH, EAST, WEST)
 	var/intensity = 1
@@ -10,7 +8,7 @@
 		return ELEMENT_INCOMPATIBLE
 	intensity = _intensity || pick(list(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL))
 //Catch signals for dynamic updates
-	RegisterSignal(_target, COMSIG_HEIGHT_UPDATE, PROC_REF(update_displacement))
+	RegisterSignal(_target, COMSIG_CARBON_HEIGHT_UPDATE, PROC_REF(update_displacement))
 	RegisterSignal(_target, COMSIG_ATOM_DIR_CHANGE, PROC_REF(translate_dir))
 //Populate textures
 	for(var/direction as anything in displacement_textures)
@@ -24,7 +22,7 @@
 /datum/element/height_filter/Detach(datum/_target)
 	. = ..()
 	var/mob/living/carbon/target = _target
-	UnregisterSignal(target, COMSIG_HEIGHT_UPDATE)
+	UnregisterSignal(target, COMSIG_CARBON_HEIGHT_UPDATE)
 	UnregisterSignal(target, COMSIG_ATOM_DIR_CHANGE)
 	target.remove_filter("species_height_displacement")
 	target.remove_filter("height_cutoff_fix")
