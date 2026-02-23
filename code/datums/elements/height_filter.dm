@@ -16,7 +16,7 @@
 //Apply effects
 	var/mob/living/carbon/target = _target
 	//Weird little fix - if height < 0, our guy gets cut off!! We can fix this by layering an invisible 64x64 icon, aka the displacement
-	target.add_filter("height_cutoff_fix", 1, layering_filter(icon = displacement_textures[target.dir], color = "#ffffff00"))
+	target.add_filter("height_cutoff_fix", 1, layering_filter(icon = displacement_textures[NORTH], color = "#ffffff00"))
 	update_displacement(src, target)
 
 /datum/element/height_filter/Detach(datum/_target)
