@@ -39,6 +39,9 @@
 #define COMSIG_CARBON_POST_ATTACH_LIMB "carbon_post_attach_limb"
 /// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
 #define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
+///from /obj/item/bodypart/proc/receive_damage, sent from the limb owner (limb, brute, burn)
+#define COMSIG_CARBON_LIMB_DAMAGED "carbon_limb_damaged"
+	#define COMPONENT_PREVENT_LIMB_DAMAGE (1 << 0)
 ///Called when a carbon gets a brain trauma (source = carbon, trauma = what trauma was added, resilience = the resilience of the trauma given, if set differently from the default) - this is before on_gain()
 #define COMSIG_CARBON_GAIN_TRAUMA "carbon_gain_trauma"
 	/// Return if you want to prevent the carbon from gaining the brain trauma.

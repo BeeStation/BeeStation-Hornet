@@ -306,6 +306,9 @@
 		return
 	if(HAS_TRAIT(consumed_object, TRAIT_GODMODE))
 		return
+	var/obj/consumed_as_object = consumed_object
+	if (istype(consumed_as_object) && (consumed_as_object.resistance_flags & INDESTRUCTIBLE))
+		return
 
 	var/atom/atom_source = source
 	SEND_SIGNAL(consumed_object, COMSIG_SUPERMATTER_CONSUMED, atom_source)

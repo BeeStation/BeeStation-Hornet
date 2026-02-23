@@ -1,4 +1,3 @@
-
 /**
  * Tells the AI to find a certain target nearby to hunt.
  * If a target has been found, we will start to move towards it, and eventually attack it.
@@ -8,15 +7,17 @@
 	/// If you want to have multiple hunting behaviors on a controller be sure that this is unique
 	var/target_key = BB_CURRENT_HUNTING_TARGET
 	/// What behavior to execute if we have no target
-	var/datum/ai_behavior/finding_behavior = /datum/ai_behavior/find_hunt_target
+	var/finding_behavior = /datum/ai_behavior/find_hunt_target
 	/// What behavior to execute if we do have a target
-	var/datum/ai_behavior/hunting_behavior = /datum/ai_behavior/hunt_target
+	var/hunting_behavior = /datum/ai_behavior/hunt_target
 	/// What targets we're hunting for
 	var/list/hunt_targets
 	/// In what radius will we hunt
 	var/hunt_range = 2
 	/// What are the chances we hunt something at any given moment
 	var/hunt_chance = 100
+	///do we finish planning subtree
+	var/finish_planning = TRUE
 
 /datum/ai_planning_subtree/find_and_hunt_target/New()
 	. = ..()
@@ -25,45 +26,37 @@
 /datum/ai_planning_subtree/find_and_hunt_target/SelectBehaviors(datum/ai_controller/controller, delta_time)
 	if(!DT_PROB(hunt_chance, delta_time))
 		return
-	if(controller.blackboard[BB_HUNTING_COOLDOWN] >= world.time)
+
+	if(controller.blackboard[BB_HUNTING_COOLDOWN(type)] >= world.time)
 		return
 
-	var/mob/living/living_pawn = controller.pawn
-	// We can't hunt if we're indisposed
-	if(living_pawn.stat != CONSCIOUS)
-		return
-
-	var/atom/hunted = controller.blackboard[target_key]
-	// We're not hunting anything, look around for something
-	if(isnull(hunted))
+	if(!controller.blackboard_key_exists(target_key))
 		controller.queue_behavior(finding_behavior, target_key, hunt_targets, hunt_range)
+		return
 
-	else
-		// We ARE hunting something, execute the hunt.
-		// Note that if our AI controller has multiple hunting subtrees set,
-		// we may accidentally be executing another tree's hunt - not ideal,
-		// try to set a unique target key if you have multiple
-		controller.queue_behavior(hunting_behavior, target_key, BB_HUNTING_COOLDOWN)
+	// We ARE hunting something, execute the hunt.
+	// Note that if our AI controller has multiple hunting subtrees set,
+	// we may accidentally be executing another tree's hunt - not ideal,
+	// try to set a unique target key if you have multiple
+
+	controller.queue_behavior(hunting_behavior, target_key, BB_HUNTING_COOLDOWN(type))
+	if(finish_planning)
 		return SUBTREE_RETURN_FINISH_PLANNING //If we're hunting we're too busy for anything else
 
 /// Finds a specific atom type to hunt.
 /datum/ai_behavior/find_hunt_target
 
 /datum/ai_behavior/find_hunt_target/perform(delta_time, datum/ai_controller/controller, hunting_target_key, types_to_hunt, hunt_range)
-	. = ..()
-
 	var/mob/living/living_mob = controller.pawn
 
 	for(var/atom/possible_dinner as anything in typecache_filter_list(range(hunt_range, living_mob), types_to_hunt))
-		if(!valid_dinner(living_mob, possible_dinner, hunt_range))
+		if(!valid_dinner(living_mob, possible_dinner, hunt_range, controller, delta_time))
 			continue
 		controller.set_blackboard_key(hunting_target_key, possible_dinner)
-		finish_action(controller, TRUE)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-	finish_action(controller, FALSE)
-
-/datum/ai_behavior/find_hunt_target/proc/valid_dinner(mob/living/source, atom/dinner, radius)
+/datum/ai_behavior/find_hunt_target/proc/valid_dinner(mob/living/source, atom/dinner, radius, datum/ai_controller/controller, delta_time)
 	if(isliving(dinner))
 		var/mob/living/living_target = dinner
 		if(living_target.stat == DEAD) //bitch is dead
@@ -78,6 +71,8 @@
 	var/hunt_cooldown = 5 SECONDS
 	/// What emote is said when the hunter eats something?
 	var/hunt_emote = "chomps"
+	/// Do we reset the target after attacking something, so we can check for status changes.
+	var/always_reset_target = FALSE
 
 /datum/ai_behavior/hunt_target/setup(datum/ai_controller/controller, hunting_target_key, hunting_cooldown_key)
 	. = ..()
@@ -87,18 +82,13 @@
 	set_movement_target(controller, hunt_target)
 
 /datum/ai_behavior/hunt_target/perform(delta_time, datum/ai_controller/controller, hunting_target_key, hunting_cooldown_key)
-	. = ..()
 	var/mob/living/hunter = controller.pawn
 	var/atom/hunted = controller.blackboard[hunting_target_key]
 
 	if(QDELETED(hunted))
-		//Target is gone for some reason. forget about this task!
-		controller.blackboard[hunting_target_key] = null
-		finish_action(controller, FALSE, hunting_target_key)
-		return
-
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	target_caught(hunter, hunted)
-	finish_action(controller, TRUE, hunting_target_key, hunting_cooldown_key)
+	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/hunt_target/proc/target_caught(mob/living/hunter, atom/hunted)
 	if(isliving(hunted)) // Are we hunting a living mob?
@@ -108,7 +98,7 @@
 		living_target.death()
 
 	else if(IS_EDIBLE(hunted))
-		hunter.attack_animal(hunter)
+		hunted.attack_animal(hunter)
 
 	else // We're hunting an object, and should delete it instead of killing it. Mostly useful for decal bugs like ants or spider webs.
 		hunter.manual_emote("[hunt_emote] [hunted]!")
@@ -120,10 +110,54 @@
 		controller.set_blackboard_key(hunting_cooldown_key, world.time + hunt_cooldown)
 	else if(hunting_target_key)
 		controller.clear_blackboard_key(hunting_target_key)
-	//if(always_reset_target && hunting_target_key)
-	//	controller.clear_blackboard_key(hunting_target_key)
+	if(always_reset_target && hunting_target_key)
+		controller.clear_blackboard_key(hunting_target_key)
 
-/datum/ai_behavior/hunt_target/unarmed_attack_target
+/datum/ai_behavior/hunt_target/interact_with_target
+	///what combat mode should we use to interact with
+	var/behavior_combat_mode = TRUE
 
-/datum/ai_behavior/hunt_target/unarmed_attack_target/target_caught(mob/living/hunter, obj/structure/cable/hunted)
-	hunter.UnarmedAttack(hunted, TRUE)
+/datum/ai_behavior/hunt_target/interact_with_target/target_caught(mob/living/hunter, obj/structure/cable/hunted)
+	var/datum/ai_controller/controller = hunter.ai_controller
+	controller.ai_interact(target = hunted, combat_mode = behavior_combat_mode)
+
+/datum/ai_behavior/hunt_target/interact_with_target/combat_mode_off
+	behavior_combat_mode = FALSE
+
+/datum/ai_behavior/hunt_target/interact_with_target/reset_target
+	always_reset_target = TRUE
+
+/datum/ai_behavior/hunt_target/interact_with_target/reset_target_combat_mode_off
+	always_reset_target = TRUE
+	behavior_combat_mode = FALSE
+
+/datum/ai_behavior/hunt_target/use_ability_on_target
+	always_reset_target = TRUE
+	///the ability we will use
+	var/ability_key
+
+/datum/ai_behavior/hunt_target/use_ability_on_target/perform(delta_time, datum/ai_controller/controller, hunting_target_key, hunting_cooldown_key)
+	var/datum/action/ability = controller.blackboard[ability_key]
+	if(!ability?.is_available())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+	return ..()
+
+/datum/ai_behavior/hunt_target/use_ability_on_target/target_caught(mob/living/hunter, atom/hunted)
+	var/datum/action/ability = hunter.ai_controller.blackboard[ability_key]
+	ability.InterceptClickOn(hunter, null, hunted)
+
+/datum/ai_behavior/hunt_target/latch_onto
+
+/datum/ai_behavior/hunt_target/latch_onto/setup(datum/ai_controller/controller, hunting_target_key, hunting_cooldown_key)
+	. = ..()
+	var/mob/living/living_pawn = controller.pawn
+	if(living_pawn.buckled)
+		return FALSE
+
+/datum/ai_behavior/hunt_target/latch_onto/target_caught(mob/living/hunter, obj/hunted)
+	if(hunter.buckled)
+		return FALSE
+	if(!hunted.buckle_mob(hunter, force = TRUE))
+		return FALSE
+	hunted.visible_message(span_notice("[hunted] has been latched onto by [hunter]!"))
+	return TRUE

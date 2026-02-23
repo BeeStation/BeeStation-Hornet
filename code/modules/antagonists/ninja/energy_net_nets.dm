@@ -36,6 +36,7 @@
 	underlay.plane = GAME_PLANE
 	add_overlay(underlay)
 	START_PROCESSING(SSobj, src)
+	ADD_TRAIT(src, TRAIT_DANGEROUS_BUCKLE, INNATE_TRAIT)
 
 /obj/structure/energy_net/Destroy()
 	STOP_PROCESSING(SSobj, src)

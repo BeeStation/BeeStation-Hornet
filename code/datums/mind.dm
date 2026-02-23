@@ -48,8 +48,8 @@
 	var/memory
 	var/list/quirks = list()
 
-	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
-	var/datum/job/assigned_role
+	/// The role that this mob was assigned, as a text value, may be a job which GetJob can be called to fetch
+	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
 	/// Martial art on this mind
@@ -80,8 +80,8 @@
 	/// A holder datum used to handle holoparasites and their shared behavior.
 	var/datum/holoparasite_holder/holoparasite_holder
 
-	/// The atom of our antag stash
-	var/atom/antag_stash = null
+	/// A list of all antag stashes that we can see
+	var/list/antag_stashes = null
 
 	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE
@@ -200,7 +200,7 @@
 	memory = null
 
 // Datum antag mind procs
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, team, datum/dynamic_ruleset/ruleset)
 	if(!datum_type_or_instance)
 		return
 	var/datum/antagonist/A
@@ -221,6 +221,7 @@
 	A.owner = src
 	LAZYADD(antag_datums, A)
 	A.create_team(team)
+	S.spawning_ruleset = ruleset
 	var/datum/team/antag_team = A.get_team()
 	if(antag_team)
 		antag_team.add_member(src)
@@ -241,6 +242,7 @@
 		antag.on_removal()
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
+	RETURN_TYPE(/datum/antagonist)
 	if(!datum_type)
 		return
 
@@ -251,11 +253,30 @@
 		else if(A.type == datum_type)
 			return A
 
-/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT)
+/datum/mind/proc/equip_traitor(datum/antagonist/traitor/antag_datum, employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT)
 	if(!current)
 		return
 	var/mob/living/carbon/human/traitor_mob = current
 	if (!istype(traitor_mob))
+		return
+
+	var/obj/item/implant/uplink/starting/I = new(traitor_mob)
+	I.implant(traitor_mob, null, silent = TRUE)
+	var/datum/component/uplink/U = I.GetComponents(/datum/component/uplink)[1]
+	if(!silent)
+		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink. Simply trigger the uplink to access it."
+		to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
+		traitor_mob.mind.store_memory()
+	return I
+
+/datum/mind/proc/equip_standard_uplink(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT, directive_flags = NONE)
+	RETURN_TYPE(/datum/component/uplink)
+	if(!current)
+		return
+	var/mob/living/carbon/human/traitor_mob = current
+	if (!istype(traitor_mob))
+		return
+	if (!traitor_mob.mind)
 		return
 
 	var/list/all_contents = traitor_mob.GetAllContents()
@@ -277,7 +298,6 @@
 			P = inowhaveapen
 
 	var/obj/item/uplink_loc
-	var/implant = FALSE
 
 	var/uplink_spawn_location = traitor_mob.client?.prefs?.read_character_preference(/datum/preference/choiced/uplink_location)
 	switch(uplink_spawn_location)
@@ -303,41 +323,25 @@
 					uplink_loc = P
 		if(UPLINK_PEN)
 			uplink_loc = P
-		if(UPLINK_PEN)
-			uplink_loc = P
-		if(UPLINK_IMPLANT)
-			implant = TRUE
 
-	if(!uplink_loc) // We've looked everywhere, let's just implant you
-		implant = TRUE
+	var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.mind, TRUE, FALSE, starting_tc = telecrystals, directive_flags = directive_flags)
+	if(!U)
+		CRASH("Uplink creation failed.")
+	U.setup_unlock_code()
+	if(uplink_loc == R)
+		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
+	else if(uplink_loc == PDA)
+		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
+	else if(uplink_loc == P)
+		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
+	if(!silent)
+		to_chat(traitor_mob, span_traitorobjective("[U.unlock_text]"))
 
-	if (!implant)
-		. = uplink_loc
-		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, starting_tc = telecrystals)
-		if(!U)
-			CRASH("Uplink creation failed.")
-		U.setup_unlock_code()
-		if(!silent)
-			if(uplink_loc == R)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
-			else if(uplink_loc == PDA)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
-			else if(uplink_loc == P)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
-			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
-
-		if(uplink_owner)
-			uplink_owner.antag_memory += U.unlock_note + "<br>"
-		else
-			traitor_mob.mind.store_memory(U.unlock_note)
+	if(uplink_owner)
+		uplink_owner.antag_memory += U.unlock_note + "<br>"
 	else
-		var/obj/item/implant/uplink/starting/I = new(traitor_mob)
-		I.implant(traitor_mob, null, silent = TRUE)
-		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
-		if(!silent)
-			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
-			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
-		return I
+		traitor_mob.mind.store_memory(U.unlock_note)
+	return U
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 
@@ -347,8 +351,9 @@
 		creator = mob_creator.mind
 	if(!creator || !istype(creator))
 		return
-	if(creator.has_antag_datum(/datum/antagonist/cult))
-		add_antag_datum(/datum/antagonist/cult)
+	var/datum/antagonist/master_cultist = creator.has_antag_datum(/datum/antagonist/cult)
+	if(master_cultist)
+		add_antag_datum(/datum/antagonist/cult, ruleset = master_cultist.spawning_ruleset)
 	else if(creator.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		INVOKE_ASYNC(src, PROC_REF(add_servant_of_ratvar), current, TRUE)
 	if(creator.has_antag_datum(/datum/antagonist/rev))
@@ -359,7 +364,7 @@
 		var/datum/antagonist/nukeop/nukie_datum = new()
 		nukie_datum.send_to_spawnpoint = FALSE
 		nukie_datum.nukeop_outfit = null
-		add_antag_datum(nukie_datum, creator_nukie.nuke_team)
+		add_antag_datum(nukie_datum, creator_nukie.nuke_team, ruleset = nukie_datum.spawning_ruleset)
 	enslaved_to = creator
 	if(creator.current)
 		current.faction |= creator.current.faction
@@ -565,7 +570,7 @@
 							message_admins("[key_name_admin(usr)] changed [current]'s telecrystal count to [crystals].")
 							log_admin("[key_name(usr)] changed [current]'s telecrystal count to [crystals].")
 			if("uplink")
-				if(!equip_traitor())
+				if(!equip_traitor(has_antag_datum(/datum/antagonist/traitor)))
 					to_chat(usr, span_danger("Equipping a syndicate failed!"))
 					log_admin("[key_name(usr)] tried and failed to give [current] an uplink.")
 				else
@@ -620,9 +625,9 @@
 	var/list/L = current.GetAllContents()
 	for (var/i in L)
 		var/atom/movable/I = i
-		. = I.GetComponent(/datum/component/uplink)
-		if(.)
-			break
+		for (var/datum/component/uplink/uplink in I.GetComponents(/datum/component/uplink))
+			if (uplink.owner == src || !uplink.owner)
+				return uplink
 
 /datum/mind/proc/take_uplink()
 	qdel(find_syndicate_uplink())

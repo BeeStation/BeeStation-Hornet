@@ -300,7 +300,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	new /obj/item/food/meat/slab/corgi(loc)
 	qdel(src)
 
-/obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
+/obj/item/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
 	..()
 	held_mob.machine_wash(WM)
 	qdel(src)

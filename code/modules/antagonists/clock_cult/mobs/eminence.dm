@@ -63,7 +63,7 @@
 /mob/living/simple_animal/eminence/gib()
 	return
 
-/mob/living/simple_animal/eminence/UnarmedAttack(atom/A)
+/mob/living/simple_animal/eminence/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	return FALSE
 
 /mob/living/simple_animal/eminence/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)

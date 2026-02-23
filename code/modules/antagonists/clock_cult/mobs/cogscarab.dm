@@ -27,19 +27,19 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 //No you can't go wielding guns like that.
 /mob/living/simple_animal/drone/cogscarab/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NOGUNS, "cogscarab")
+	ADD_TRAIT(src, TRAIT_NOGUNS, INNATE_TRAIT)
 	GLOB.cogscarabs += src
 	add_actionspeed_modifier(/datum/actionspeed_modifier/cogscarab)
 
 /mob/living/simple_animal/drone/cogscarab/death(gibbed)
 	GLOB.cogscarabs -= src
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/drone/cogscarab/Life(seconds, times_fired)
-	if(!is_reebe(z) && !GLOB.ratvar_risen)
+	if(!is_on_reebe(src) && !GLOB.ratvar_risen)
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(src, T, FALSE)
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/projectile/projectile)
 	if(isliving(projectile.fired_from))

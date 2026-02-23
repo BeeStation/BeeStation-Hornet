@@ -15,15 +15,14 @@
 	if(!.)
 		return FALSE
 
-	if(!is_reebe(invoker.z))
+	if(!is_on_reebe(invoker))
 		invoker.balloon_alert(invoker, "must be on Reebe!")
 		return FALSE
-
 
 /datum/clockcult/scripture/ark_activation/on_invoke_success()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
 	if(!gateway)
-		return FALSE
+		return
 
 	gateway.open_gateway()
 	return ..()

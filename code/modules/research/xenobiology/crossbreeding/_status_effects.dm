@@ -177,10 +177,13 @@
 	alert_type = /atom/movable/screen/alert/status_effect/clone_decay
 
 /datum/status_effect/slime_clone_decay/tick(seconds_between_ticks)
-	owner.adjustToxLoss(1, 0)
-	owner.adjustOxyLoss(1, 0)
-	owner.adjustBruteLoss(1, 0)
-	owner.adjustFireLoss(1, 0)
+	var/need_mob_update
+	need_mob_update = owner.adjustToxLoss(1, updating_health = FALSE)
+	need_mob_update += owner.adjustOxyLoss(1, updating_health = FALSE)
+	need_mob_update += owner.adjustBruteLoss(1, updating_health = FALSE)
+	need_mob_update += owner.adjustFireLoss(1, updating_health = FALSE)
+	if(need_mob_update)
+		owner.updatehealth()
 	owner.color = "#007BA7"
 
 /atom/movable/screen/alert/status_effect/bloodchill
@@ -519,23 +522,27 @@
 
 /datum/status_effect/stabilized/purple/tick(seconds_between_ticks)
 	healed_last_tick = FALSE
+	var/need_mob_update = FALSE
 
 	if(owner.getBruteLoss() > 0)
-		owner.adjustBruteLoss(-0.2)
+		need_mob_update += owner.adjustBruteLoss(-0.2, updating_health = FALSE)
 		healed_last_tick = TRUE
 
 	if(owner.getFireLoss() > 0)
-		owner.adjustFireLoss(-0.2)
+		need_mob_update += owner.adjustFireLoss(-0.2, updating_health = FALSE)
 		healed_last_tick = TRUE
 
 	if(owner.getToxLoss() > 0)
 		// Forced, so slimepeople are healed as well.
-		owner.adjustToxLoss(-0.2, forced = TRUE)
+		need_mob_update += owner.adjustToxLoss(-0.2, updating_health = FALSE, forced = TRUE)
 		healed_last_tick = TRUE
+
+	if(need_mob_update)
+		owner.updatehealth()
 
 	// Technically, "healed this tick" by now.
 	if(healed_last_tick)
-		new /obj/effect/temp_visual/heal(get_turf(owner), "#FF0000")
+		new /obj/effect/temp_visual/heal(get_turf(owner), COLOR_RED)
 
 	return ..()
 
@@ -607,7 +614,7 @@
 	name = "burning fingertips"
 	desc = "You shouldn't see this."
 
-/obj/item/hothands/is_hot()
+/obj/item/hothands/get_temperature()
 	return 290 //Below what's required to ignite plasma.
 
 /datum/status_effect/stabilized/darkpurple
@@ -1004,7 +1011,7 @@
 		healing_types += CLONE
 
 	if(length(healing_types))
-		owner.apply_damage_type(-heal_amount, damagetype = pick(healing_types))
+		owner.heal_damage_type(heal_amount, damagetype = pick(healing_types))
 
 	owner.adjust_nutrition(3)
 	drained.adjustCloneLoss(heal_amount * DRAIN_DAMAGE_MULTIPLIER)

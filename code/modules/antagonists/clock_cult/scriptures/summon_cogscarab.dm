@@ -12,7 +12,7 @@
 	category = SPELLTYPE_PRESERVATION
 
 /datum/clockcult/scripture/cogscarab/try_to_invoke(mob/living/user)
-	invokation_time = initial(invokation_time) + ((6 SECONDS) * length(GLOB.cogscarabs))
+	invokation_time = initial(invokation_time) + (6 SECONDS * length(GLOB.cogscarabs))
 	return ..()
 
 /datum/clockcult/scripture/cogscarab/can_invoke()
@@ -20,7 +20,7 @@
 	if(!.)
 		return FALSE
 
-	if(!is_reebe(invoker.z))
+	if(!is_on_reebe(invoker))
 		invoker.balloon_alert(invoker, "not on Reebe!")
 		return FALSE
 	if(length(GLOB.cogscarabs) >= CLOCKCULT_COGSCARAB_LIMIT)

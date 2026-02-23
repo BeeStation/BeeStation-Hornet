@@ -433,19 +433,18 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	return ..()
 
 /mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = VOMIT_TOXIC, purge = FALSE)
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		return 1
+	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER) || HAS_TRAIT(src, TRAIT_NOVOMIT)))
+		return TRUE
 
 	if(!has_mouth())
 		return 1
 
-	if(HAS_TRAIT(src, TRAIT_NOVOMIT))
-		return TRUE
-
-	if(nutrition < 100 && !blood)
+	if(!blood && (nutrition < 100))
 		if(message)
-			visible_message(span_warning("[src] dry heaves!"), \
-							span_userdanger("You try to throw up, but there's nothing in your stomach!"))
+			visible_message(
+				span_warning("[src] dry heaves!"),
+				span_userdanger("You try to throw up, but there's nothing in your stomach!"),
+			)
 		if(stun)
 			Paralyze(30)
 			Knockdown(180)
@@ -453,13 +452,18 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(is_mouth_covered()) //make this add a blood/vomit overlay later it'll be hilarious
 		if(message)
-			visible_message(span_danger("[src] throws up all over [p_them()]self!"), \
-							span_userdanger("You throw up all over yourself!"))
+			visible_message(
+				span_danger("[src] throws up all over [p_them()]self!"),
+				span_userdanger("You throw up all over yourself!"),
+			)
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "vomit", /datum/mood_event/vomitself)
 		distance = 0
 	else
 		if(message)
-			visible_message(span_danger("[src] throws up!"), span_userdanger("You throw up!"))
+			visible_message(
+				span_danger("[src] throws up!"),
+				span_userdanger("You throw up!"),
+			)
 			if(!isflyperson(src))
 				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "vomit", /datum/mood_event/vomit)
 
@@ -467,27 +471,33 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		Paralyze(15)
 		Knockdown(90)
 
-	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
-	var/turf/T = get_turf(src)
+	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, TRUE)
+
+	var/need_mob_update = FALSE
+	var/turf/location = get_turf(src)
 	if(!blood)
 		adjust_nutrition(-lost_nutrition)
-		adjustToxLoss(-3)
+		need_mob_update += adjustToxLoss(-3, updating_health = FALSE)
 
 	for(var/i=0 to distance)
 		if(blood)
-			if(T)
-				add_splatter_floor(T)
+			if(location)
+				add_splatter_floor(location)
 			if(stun)
-				adjustBruteLoss(3)
+				need_mob_update += adjustBruteLoss(3, updating_health = FALSE)
 		else if(src.reagents.has_reagent(/datum/reagent/consumable/ethanol/blazaam, needs_metabolizing = TRUE))
-			if(T)
-				T.add_vomit_floor(src, toxic || VOMIT_PURPLE, purge)
+			if(location)
+				location.add_vomit_floor(src, toxic || VOMIT_PURPLE, purge)
 		else
-			if(T)
-				T.add_vomit_floor(src, toxic, purge)//toxic barf looks different
-		T = get_step(T, dir)
-		if (T?.is_blocked_turf())
+			if(location)
+				location.add_vomit_floor(src, toxic, purge)//toxic barf looks different
+
+		location = get_step(location, dir)
+		if (location?.is_blocked_turf())
 			break
+	if(need_mob_update) // so we only have to call updatehealth() once as opposed to n times
+		updatehealth()
+
 	return TRUE
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
@@ -862,11 +872,11 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
 			blood_volume += (excess_healing * 2) //1 excess = 10 blood
 
-		for(var/obj/item/organ/organ as anything in internal_organs)
-			if(organ.organ_flags & ORGAN_SYNTHETIC)
+		for(var/obj/item/organ/target_organ as anything in internal_organs)
+			if(!target_organ.damage)
 				continue
 
-			organ.apply_organ_damage(excess_healing * -1) //1 excess = 5 organ damage healed
+			target_organ.apply_organ_damage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
 
 	return ..()
 

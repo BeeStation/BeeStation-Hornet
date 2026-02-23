@@ -17765,7 +17765,7 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/melee/classic_baton/police/deputy{
+/obj/item/melee/baton/deputy{
 	pixel_x = -4;
 	pixel_y = 3
 	},

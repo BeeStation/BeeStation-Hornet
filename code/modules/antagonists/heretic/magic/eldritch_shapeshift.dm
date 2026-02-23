@@ -9,9 +9,9 @@
 	invocation = "SH'PE"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
-	
+
 	possible_shapes = list(
-		/mob/living/simple_animal/mouse,
+		/mob/living/basic/mouse,
 		/mob/living/basic/pet/dog/corgi,
 		/mob/living/simple_animal/hostile/carp,
 		/mob/living/simple_animal/bot/secbot,

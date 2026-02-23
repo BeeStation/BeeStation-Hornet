@@ -18849,7 +18849,7 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/item/wallframe/camera,
 /obj/structure/table/wood,
-/obj/item/melee/baton/cattleprod,
+/obj/item/melee/baton/security/cattleprod,
 /obj/item/flashlight/lamp,
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/mask/muzzle,

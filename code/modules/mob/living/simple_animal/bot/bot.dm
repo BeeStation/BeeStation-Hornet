@@ -98,7 +98,7 @@
 	var/datum/atom_hud/data/bot_path/path_hud = new /datum/atom_hud/data/bot_path()
 	var/path_image_icon = 'icons/mob/aibots.dmi'
 	var/path_image_icon_state = "path_indicator"
-	var/path_image_color = "#FFFFFF"
+	var/path_image_color = COLOR_WHITE
 	var/reset_access_timer_id
 	var/ignorelistcleanuptimer = 1 // This ticks up every automated action, at 300 we clean the ignore list
 	var/robot_arm = /obj/item/bodypart/arm/right/robot
@@ -262,7 +262,7 @@
 	else
 		. += "[src] is in pristine condition."
 
-/mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(amount>0 && prob(10))
 		new /obj/effect/decal/cleanable/oil(loc)
 	return ..()

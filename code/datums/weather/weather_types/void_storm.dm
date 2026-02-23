@@ -20,10 +20,16 @@
 	barometer_predictable = FALSE
 	perpetual = TRUE
 
-/datum/weather/void_storm/weather_act(mob/living/L)
-	if(IS_HERETIC_OR_MONSTER(L))
-		return
-	L.adjustOxyLoss(rand(1,3))
-	L.adjustFireLoss(rand(1,3))
-	L.adjust_blurriness(rand(0,1))
-	L.adjust_bodytemperature(-rand(5,15))
+/datum/weather/void_storm/can_weather_act(mob/living/mob_to_check)
+	. = ..()
+	if(IS_HERETIC_OR_MONSTER(mob_to_check))
+		return FALSE
+
+/datum/weather/void_storm/weather_act(mob/living/victim)
+	var/need_mob_update = FALSE
+	victim.adjustFireLoss(1, updating_health = FALSE)
+	victim.adjustOxyLoss(rand(1, 3), updating_health = FALSE)
+	if(need_mob_update)
+		victim.updatehealth()
+	victim.adjust_eye_blur(rand(0 SECONDS, 2 SECONDS))
+	victim.adjust_bodytemperature(-30 * TEMPERATURE_DAMAGE_COEFFICIENT)

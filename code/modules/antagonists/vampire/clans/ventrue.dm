@@ -96,7 +96,7 @@
 			vassaldatum.silent = TRUE
 			carbon_vassal.mind.remove_antag_datum(/datum/antagonist/vassal)
 
-			carbon_vassal.mind.add_antag_datum(/datum/antagonist/vampire)
+			carbon_vassal.mind.add_antag_datum(/datum/antagonist/vampire, ruleset = vampiredatum.spawning_ruleset)
 			var/datum/antagonist/vampire/new_vampire = IS_VAMPIRE(carbon_vassal)
 			new_vampire.vampire_level_unspent = vassal_level
 

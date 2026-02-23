@@ -346,7 +346,7 @@
 		if("pick custom color")
 			if(supports_custom_color)
 				var/chosen_color = tgui_color_picker(usr, "Pick new color", "[src]", COLOR_YELLOW)
-				if(!chosen_color || QDELETED(src) || usr.incapacitated() || !usr.is_holding(src))
+				if(!chosen_color || QDELETED(src) || usr.incapacitated || !usr.is_holding(src))
 					return
 				stored_custom_color = chosen_color
 				stored_color = chosen_color
@@ -481,7 +481,7 @@
 		render_alpha = text2num(tile_type.rgba_regex.group[2], 16)
 
 	var/datum/universal_icon/colored_icon = uni_icon('icons/turf/decals.dmi', source_decal, dir=source_dir)
-	colored_icon.blend_color("#ffffff" + num2hex(clamp(render_alpha, 0, 255), 2), ICON_MULTIPLY)
+	colored_icon.blend_color(COLOR_WHITE + num2hex(clamp(render_alpha, 0, 255), 2), ICON_MULTIPLY)
 	if(color == "custom")
 		colored_icon.blend_color("#0e0f0f", ICON_MULTIPLY)
 	else

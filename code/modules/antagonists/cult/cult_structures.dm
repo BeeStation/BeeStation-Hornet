@@ -61,7 +61,7 @@
 /obj/structure/destructible/cult/proc/check_menu(mob/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
@@ -87,7 +87,8 @@
 	var/list/items = list(
 		"Eldritch Whetstone" = image(icon = 'icons/obj/cult.dmi', icon_state = "cult_sharpener"),
 		"Construct Shell" = image(icon = 'icons/obj/wizard.dmi', icon_state = "construct_cult"),
-		"Flask of Unholy Water" = image(icon = 'icons/obj/drinks/drinks.dmi', icon_state = "holyflask")
+		"Flask of Unholy Water" = image(icon = 'icons/obj/drinks/drinks.dmi', icon_state = "holyflask"),
+		"Runic Golem Shell" = image(icon = 'icons/obj/wizard.dmi', icon_state = "construct")
 		)
 	var/choice = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	var/list/pickedtype = list()
@@ -98,9 +99,11 @@
 			pickedtype += /obj/structure/constructshell
 		if("Flask of Unholy Water")
 			pickedtype += /obj/item/reagent_containers/cup/glass/bottle/unholywater
+		if("Runic Golem Shell")
+			pickedtype += /obj/item/golem_shell/runic
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
@@ -143,7 +146,7 @@
 			pickedtype += /obj/item/shield/mirror
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
@@ -273,7 +276,7 @@
 			pickedtype += /obj/item/flashlight/flare/culttorch
 		else
 			return
-	if(src && !QDELETED(src) && anchored && pickedtype.len && Adjacent(user) && !user.incapacitated() && IS_CULTIST(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype.len && Adjacent(user) && !user.incapacitated && IS_CULTIST(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))

@@ -10,7 +10,7 @@
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
 	banning_key = ROLE_CULTIST
-	required_living_playtime = 4
+	required_living_playtime = 6
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
@@ -333,7 +333,7 @@
 /datum/team/cult/proc/rise(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
-		H.eye_color = "f00"
+		H.eye_color = BLOODCULT_EYE
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
 		H.update_body()

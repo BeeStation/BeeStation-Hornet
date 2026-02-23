@@ -52,7 +52,7 @@
 			if(SMILEY)
 				desc = "A paper sack with a crude smile etched onto the side."
 		return 0
-	else if(W.is_sharp())
+	else if(W.get_sharpness())
 		if(!contents.len)
 			if(inhand_icon_state == "paperbag_None")
 				user.show_message(span_notice("You cut eyeholes into [src]."), MSG_VISUAL)

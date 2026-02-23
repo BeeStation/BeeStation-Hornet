@@ -68,27 +68,28 @@ GLOBAL_LIST_EMPTY(diona_pbody_list)
 
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
-	"Cyan" = "00ffff",
-	"Dark Green" = "0ab432",
-	"Dark Teal" = "5ea699",
-	"Denim Blue" = "3399ff",
-	"Gray" = "979497",
-	"Green" = "97ee63",
-	"Lavender" = "d1acff",
-	"Maroon" = "9c3030",
-	"Orange" = "f69c28",
-	"Orchid Purple" = "ee82ee",
-	"Powder Blue" = "95e5ff",
-	"Purple" = "a42df7",
-	"Red" = "ff3131",
-	"Rose" = "ff92b6",
-	"Royal Blue" = "5860f5",
-	"Sandy Yellow" = "ffefa5",
-	"Sea Green" = "37835b",
-	"Spring Green" = "00fa9a",
-	"Yellow" = "fbdf56",
+	"Cyan" = "#00ffff",
+	"Dark Green" = "#0ab432",
+	"Dark Teal" = "#5ea699",
+	"Denim Blue" = "#3399ff",
+	"Gray" = "#979497",
+	"Green" = "#97ee63",
+	"Lavender" = "#d1acff",
+	"Maroon" = "#9c3030",
+	"Orange" = "#f69c28",
+	"Orchid Purple" = "#ee82ee",
+	"Powder Blue" = "#95e5ff",
+	"Purple" = "#a42df7",
+	"Red" = "#ff3131",
+	"Rose" = "#ff92b6",
+	"Royal Blue" = "#5860f5",
+	"Sandy Yellow" = "#ffefa5",
+	"Sea Green" = "#37835b",
+	"Spring Green" = "#00fa9a",
+	"Yellow" = "#fbdf56",
 ))
 
+//stores the ghost forms that support directional sprites
 GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list(
 	"catghost",
 	"ghost_black",
@@ -119,7 +120,8 @@ GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list(
 	"ghostking",
 	"skeleghost",
 ))
-//stores the ghost forms that support directional sprites
+
+//stores the ghost forms that support hair and other such things
 GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost",
 	"ghost_red",
@@ -144,8 +146,8 @@ GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost_pinksherbert",
 	"ghost_blazeit",
 	"ghost_mellow",
-	"ghost_camo",))
-	//stores the ghost forms that support hair and other such things
+	"ghost_camo",
+))
 
 GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	":thinking:",
@@ -237,17 +239,15 @@ GLOBAL_LIST_INIT(jumpsuitlist, list(
 
 // What we show to the user
 GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(
-	UPLINK_IMPLANT_WITH_PRICE,
 	UPLINK_PDA,
-	UPLINK_PEN,
 	UPLINK_RADIO,
+	UPLINK_PEN
 ))
 // What is actually saved; if the uplink implant price changes, it won't affect save files then
 GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(
-	UPLINK_IMPLANT,
 	UPLINK_PDA,
-	UPLINK_PEN,
 	UPLINK_RADIO,
+	UPLINK_PEN
 ))
 
 	//Female Uniforms
@@ -403,54 +403,54 @@ GLOBAL_LIST_INIT(junkie_drugs, list(
 
 /// Naturally occuring hair colours
 GLOBAL_LIST_INIT(natural_hair_colours, list(
-	"f0e2ba",
-	"f4eede",
-	"c3a87c",
-	"ecd19d",
-	"feedb8",
-	"A0785F",
-	"996F53",
-	"60463D",
-	"9E7046",
-	"9B7257",
-	"523F38",
-	"50362F",
-	"A55A3B",
-	"4D3B2C",
-	"312016",
-	"432C20",
-	"2C1C11",
-	"2E3239",
-	"693822",
-	"663423"
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
+	"#A0785F",
+	"#996F53",
+	"#60463D",
+	"#9E7046",
+	"#9B7257",
+	"#523F38",
+	"#50362F",
+	"#A55A3B",
+	"#4D3B2C",
+	"#312016",
+	"#432C20",
+	"#2C1C11",
+	"#2E3239",
+	"#693822",
+	"#663423"
 ))
 
 /// Hair colours that aren't naturaly but relatively normal (I'll save the anime hair colours for custom characters)
 GLOBAL_LIST_INIT(female_dyed_hair_colours, list(
-	"733338",
-	"593333",
-	"401B24",
-	"492D38",
-	"3E262D",
+	"#733338",
+	"#593333",
+	"#401B24",
+	"#492D38",
+	"#3E262D",
 ))
 
 GLOBAL_LIST_INIT(secondary_dye_hair_colours, list(
-	"f0e2ba",
-	"f4eede",
-	"c3a87c",
-	"ecd19d",
-	"feedb8",
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
 ))
 
 GLOBAL_LIST_INIT(secondary_dye_female_hair_colours, list(
-	"f0e2ba",
-	"f4eede",
-	"c3a87c",
-	"ecd19d",
-	"feedb8",
-	"733338",
-	"593333",
-	"401B24",
-	"492D38",
-	"3E262D",
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
+	"#733338",
+	"#593333",
+	"#401B24",
+	"#492D38",
+	"#3E262D",
 ))

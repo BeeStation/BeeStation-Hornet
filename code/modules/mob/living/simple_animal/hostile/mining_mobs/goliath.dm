@@ -76,7 +76,7 @@
 		icon_state = icon_aggro
 		pre_attack = 0
 
-/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	ranged_cooldown -= 10
 	handle_preattack()
 	. = ..()
@@ -110,7 +110,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/grown/ash_flora), tame_chance = 10, bonus_tame_chance = 5, after_tame = CALLBACK(src, PROC_REF(tamed)))
+	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/grown/ash_flora), tame_chance = 10, bonus_tame_chance = 5)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/goliath_saddle))
@@ -131,7 +131,7 @@
 		user.visible_message(span_warning("[src] is rocking around! You can't put the saddle on!"))
 	..()
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/proc/tamed(mob/living/tamer)
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/tamed(mob/living/tamer, atom/food)
 	can_saddle = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)

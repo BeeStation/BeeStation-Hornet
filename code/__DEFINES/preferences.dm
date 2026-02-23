@@ -77,8 +77,6 @@
 #define UPLINK_PDA "PDA"
 #define UPLINK_RADIO "Radio"
 #define UPLINK_PEN "Pen" //like a real spy!
-#define UPLINK_IMPLANT "Implant"
-#define UPLINK_IMPLANT_WITH_PRICE "[UPLINK_IMPLANT] (-[UPLINK_IMPLANT_TELECRYSTAL_COST] TC)"
 
 //Plasmamen helmet styles
 #define HELMET_DEFAULT "Default"

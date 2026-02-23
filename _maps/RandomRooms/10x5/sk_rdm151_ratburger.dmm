@@ -13,7 +13,7 @@
 /area/template_noop)
 "g" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/mob/living/simple_animal/mouse/gray,
+/mob/living/basic/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "h" = (
@@ -65,7 +65,7 @@
 "r" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/east,
-/mob/living/simple_animal/mouse/brown,
+/mob/living/basic/mouse/brown,
 /turf/open/floor/grass,
 /area/template_noop)
 "y" = (
@@ -74,7 +74,7 @@
 	},
 /area/template_noop)
 "z" = (
-/mob/living/simple_animal/mouse/brown,
+/mob/living/basic/mouse/brown,
 /turf/open/floor/grass,
 /area/template_noop)
 "A" = (
@@ -83,13 +83,13 @@
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "B" = (
-/mob/living/simple_animal/mouse/white,
+/mob/living/basic/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
 "C" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/east,
-/mob/living/simple_animal/mouse/gray,
+/mob/living/basic/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "D" = (
@@ -154,7 +154,7 @@
 /area/template_noop)
 "L" = (
 /obj/machinery/door/window/eastright,
-/mob/living/simple_animal/mouse/gray,
+/mob/living/basic/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "M" = (
@@ -196,7 +196,7 @@
 /area/template_noop)
 "V" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/mob/living/simple_animal/mouse/white,
+/mob/living/basic/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
 "W" = (

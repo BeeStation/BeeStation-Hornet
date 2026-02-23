@@ -561,7 +561,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		return FALSE
 	if(DOING_INTERACTION(owner, INTERACTION_SPIDER_KEY))
 		return FALSE
