@@ -96,11 +96,6 @@
 	to_chat(user, span_warning("The shell is far too heavy to lift."))
 	return TRUE
 
-/obj/item/golem_shell/runic/attack_hand(mob/user)
-	if(istype(user, /mob/living/carbon/human/species/golem))
-		return TRUE
-	return ..()
-
 /obj/item/golem_shell/runic/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack))
 		to_chat(user, span_warning("The shell refuses the material you are putting on it.")) // Otherwise they could place metal into it and turn it into a regular golem
