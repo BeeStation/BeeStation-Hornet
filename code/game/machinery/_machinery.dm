@@ -616,7 +616,7 @@
 			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(/datum/mutation/telekinesis)))
 				return FALSE
 
-		if(L.incapacitated()) // Finally make sure we aren't incapacitated
+		if(L.incapacitated) // Finally make sure we aren't incapacitated
 			return FALSE
 
 	else // If we aren't a silicon, living, or admin ghost, bad!

@@ -45,8 +45,8 @@
 #define ROLE_NIGHTMARE "Nightmare"
 #define ROLE_SPACE_PIRATE "Space Pirate"
 #define ROLE_FUGITIVE "Fugitive"
-#define ROLE_FUGITIVE_HUNTER "Fugitive Hunter"
-#define ROLE_SLAUGHTER_DEMON "Slaughter Demon"
+#define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
+#define ROLE_SLAUGHTER_DEMON	"Slaughter Demon"
 #define ROLE_CONTRACTOR_SUPPORT_UNIT "Contractor Support Unit"
 #define ROLE_PYRO_SLIME "Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET "Sentient Monkey"
@@ -183,12 +183,21 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	// If this is per character, check if it's disabled. Otherwise continue and check the global value
 	if(initial(pref.per_character))
 		var/role_preference_value = src.prefs.role_preferences["[role_preference_key]"]
-		if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
-			return FALSE
+		if (pref.default_enabled)
+			if(isnum(role_preference_value) && !role_preference_value)
+				return FALSE
+		else
+			if(isnum(role_preference_value) && role_preference_value)
+				return TRUE
+	// Handle global preferences
 	var/role_preference_value = src.prefs.role_preferences_global["[role_preference_key]"]
-	if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
-		return FALSE
-	return TRUE
+	if (pref.default_enabled)
+		if(isnum(role_preference_value) && !role_preference_value)
+			return FALSE
+	else
+		if(isnum(role_preference_value) && role_preference_value)
+			return TRUE
+	return pref.default_enabled
 
 /// If the client given is fit for a given role based on the arguments passed
 /// banning_key: ROLE_X used for this role - to check if the player is banned.
@@ -243,12 +252,12 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 
 #define ROLE_PREFERENCE_CATEGORY_ROUNDSTART "Roundstart Antagonists"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND "Midround Antagonists"
-#define ROLE_PREFERENCE_CATEGORY_LATEJOIN "Latejoin Antagonists"
+#define ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY "Supplementary Antagonists"
 
 GLOBAL_LIST_INIT(role_preference_categories, list(
 	ROLE_PREFERENCE_CATEGORY_ROUNDSTART,
 	ROLE_PREFERENCE_CATEGORY_MIDROUND,
-	ROLE_PREFERENCE_CATEGORY_LATEJOIN,
+	ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY,
 ))
 
 GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())

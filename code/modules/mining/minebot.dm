@@ -368,7 +368,7 @@
 		stored_cutter.afterattack(target, src)
 
 /// Handles reacting to attacks, getting the minebot in combat mode if it was mining.
-/mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!client && mode != MODE_COMBAT && amount > 0) // We don't want to automatically switch it if a player's in control
 		set_offense_behavior()
 	update_health_hud()

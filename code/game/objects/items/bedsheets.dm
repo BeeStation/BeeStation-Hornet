@@ -46,7 +46,7 @@
 	return
 
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.get_sharpness())
 		var/turf/T = get_turf(src)
 		var/obj/item/stack/sheet/cotton/cloth/C = new (T, 3)
 		if(QDELETED(C))

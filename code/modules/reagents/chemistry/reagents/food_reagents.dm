@@ -13,15 +13,22 @@
 	taste_description = "generic food"
 	taste_mult = 4
 	/// How much nutrition this reagent supplies
-	var/nutriment_factor = 1 * REAGENTS_METABOLISM
-	var/quality = 0	//affects mood, typically higher for mixed drinks with more complex recipes
+	var/nutriment_factor = 1
+	/// affects mood, typically higher for mixed drinks with more complex recipes'
+	var/quality = 0
+
+/datum/reagent/consumable/New()
+	. = ..()
+	// All food reagents function at a fixed rate
+	chemical_flags |= REAGENT_UNAFFECTED_BY_METABOLISM
 
 /datum/reagent/consumable/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/affected_human = affected_mob
-		if(!HAS_TRAIT(affected_human, TRAIT_NOHUNGER) && !HAS_TRAIT(affected_human, TRAIT_POWERHUNGRY))
-			affected_human.adjust_nutrition(nutriment_factor * REM * delta_time)
+	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER) || HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
+		return
+
+	var/mob/living/carbon/human/affected_human = affected_mob
+	affected_human.adjust_nutrition(nutriment_factor * REM * delta_time)
 
 /datum/reagent/consumable/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
@@ -39,6 +46,10 @@
 		if(DRINK_FANTASTIC)
 			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
 
+/// Gets just how much nutrition this reagent is worth for the passed mob
+/datum/reagent/consumable/proc/get_nutriment_factor(mob/living/carbon/eater)
+	return nutriment_factor * REAGENTS_METABOLISM * 2
+
 /datum/reagent/consumable/nutriment
 	name = "Nutriment"
 	description = "All the vitamins, minerals, and carbohydrates the body needs in pure form."
@@ -53,8 +64,8 @@
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(30, delta_time))
-		affected_mob.heal_bodypart_damage(brute_heal, burn_heal, updating_health = FALSE)
-		return UPDATE_MOB_HEALTH
+		if(affected_mob.heal_bodypart_damage(brute = brute_heal * REM * delta_time, burn = burn_heal * REM * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC))
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
 	. = ..()
@@ -194,7 +205,7 @@
 	name = "Sugar"
 	description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 255, 255, 255
+	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_mult = 1.5 // stop sugar drowning out other flavours
 	nutriment_factor = 10 * REAGENTS_METABOLISM
@@ -314,7 +325,7 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
-			victim.blur_eyes(5) // 10 seconds
+			victim.set_eye_blur_if_lower(10 SECONDS) // 10 seconds
 			victim.adjust_blindness(3) // 6 seconds
 			victim.set_confusion_if_lower(10 SECONDS)
 			victim.Knockdown(3 SECONDS)
@@ -333,7 +344,7 @@
 	name = "Table Salt"
 	description = "A salt made of sodium chloride. Commonly used to season food."
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 255,255,255
+	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 	default_container = /obj/item/reagent_containers/condiment/saltshaker
@@ -418,21 +429,22 @@
 		var/mob/living/carbon/human/affected_human = affected_mob
 		if(affected_human.job == JOB_NAME_COOK)
 			if(DT_PROB(10, delta_time)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
-				affected_human.heal_bodypart_damage(1, 1, updating_health = FALSE)
-				return UPDATE_MOB_HEALTH
+				if(affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 1 * REM * delta_time, updating_health = FALSE))
+					return UPDATE_MOB_HEALTH
+
 
 /datum/reagent/consumable/sprinkles
 	name = "Sprinkles"
 	description = "Multi-colored little bits of sugar, commonly found on donuts. Loved by cops."
-	color = "#FF00FF" // rgb: 255, 0, 255
+	color = COLOR_MAGENTA
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	taste_description = "childhood whimsy"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
-		return UPDATE_MOB_HEALTH
+		if(affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 1 * REM * delta_time, updating_health = FALSE))
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
@@ -480,7 +492,7 @@
 	name = "Flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 0, 0, 0
+	color = COLOR_WHITE
 	chemical_flags = NONE
 	taste_description = "chalky wheat"
 	default_container = /obj/item/reagent_containers/condiment/flour
@@ -512,7 +524,7 @@
 	description = "Tiny nutritious grains. A fast and filling meal!"
 	reagent_state = SOLID
 	nutriment_factor = 3 * REAGENTS_METABOLISM
-	color = "#FFFFFF" // rgb: 0, 0, 0
+	color = COLOR_WHITE
 	chemical_flags = NONE
 	taste_description = "rice"
 	default_container = /obj/item/reagent_containers/condiment/rice
@@ -572,13 +584,16 @@
 	default_container = /obj/item/reagent_containers/condiment/honey
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	holder.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
 	. = ..()
-	affected_mob.reagents.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
-	affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
-	affected_mob.adjustFireLoss(-1, updating_health = FALSE)
-	affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
-	affected_mob.adjustToxLoss(-1, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	var/need_mob_update
+	if(DT_PROB(33, delta_time))
+		need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+		need_mob_update += affected_mob.adjustFireLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+		need_mob_update += affected_mob.adjustOxyLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
+		need_mob_update += affected_mob.adjustToxLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/honey/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
@@ -634,15 +649,15 @@
 		if(!exposed_mob.get_organ_slot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
 			to_chat(exposed_mob, span_notice("Your eye sockets feel wet."))
 		else
-			if(!exposed_mob.eye_blurry)
+			if(!exposed_mob.has_status_effect(/datum/status_effect/eye_blur))
 				to_chat(exposed_mob, span_warning("Tears well up in your eyes!"))
 			exposed_mob.adjust_blindness(2)
-			exposed_mob.blur_eyes(5)
+			exposed_mob.set_eye_blur_if_lower(10 SECONDS)
 
 /datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.eye_blurry)	//Don't worsen vision if it was otherwise fine
-		affected_mob.blur_eyes(4 * REM * delta_time)
+	if(affected_mob.has_status_effect(/datum/status_effect/eye_blur))	//Don't worsen vision if it was otherwise fine
+		affected_mob.set_eye_blur_if_lower(8 SECONDS * REM * delta_time)
 		if(DT_PROB(5, delta_time))
 			to_chat(affected_mob, span_warning("Your eyes sting!"))
 			affected_mob.adjust_blindness(2)
@@ -658,7 +673,7 @@
 /datum/reagent/consumable/nutriment/stabilized/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(affected_mob.nutrition > NUTRITION_LEVEL_FULL - 25)
-		affected_mob.adjust_nutrition(-3 * REM * nutriment_factor * delta_time)
+		affected_mob.adjust_nutrition(-3 * REM * get_nutriment_factor(affected_mob) * delta_time)
 
 ////Lavaland Flora Reagents////
 
@@ -671,14 +686,17 @@
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	var/need_mob_update
 	if(current_cycle >= 10)
 		affected_mob.Unconscious(40 * REM * delta_time, FALSE)
 	if(DT_PROB(10, delta_time))
 		affected_mob.losebreath += 4
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150)
-		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
-		affected_mob.adjustStaminaLoss(10 * REM, updating_health = FALSE)
-		affected_mob.blur_eyes(5)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150, affected_biotype)
+		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE, required_biotype = affected_biotype)
+		affected_mob.adjustStaminaLoss(10 * REM, updating_stamina = FALSE, required_biotype = affected_biotype)
+		affected_mob.set_eye_blur_if_lower(10 SECONDS)
+		need_mob_update = TRUE
+	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/tinlux
@@ -724,9 +742,11 @@
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	var/need_mob_update
 	if(DT_PROB(55, delta_time))
-		affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
-		affected_mob.adjustFireLoss(-1, updating_health = FALSE)
+		need_mob_update = affected_mob.adjustBruteLoss(-1 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+		need_mob_update += affected_mob.adjustFireLoss(-1 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/clownstears
@@ -769,7 +789,7 @@
 	nutriment_factor = 0
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	reagent_state = SOLID
-	color = "#FFFFFF" // rgb: 255, 255, 255
+	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_mult = 8
 	taste_description = "sweetness"

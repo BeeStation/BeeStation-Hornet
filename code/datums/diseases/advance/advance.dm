@@ -553,7 +553,7 @@
 			else if(ispath(symptom))
 				var/datum/symptom/S = new symptom
 				if(!D.HasSymptom(S))
-					D.symptoms += S
+					D.AddSymptom(S)
 					i -= 1
 	while(i > 0)
 
@@ -565,25 +565,42 @@
 			new_name = D.random_disease_name()
 		if(tgui_alert(user, "Create Virus ([new_name]) as is?", "Confirmation", list("Yes", "No")) != "Yes")
 			return
-		D.AssignName(new_name)
 		D.Refresh()
+		D.AssignName(new_name) //Updates the master copy
+		D.name = new_name //Updates our copy
 		D.Finalize()
 
 		for(var/datum/disease/advance/AD in SSdisease.active_diseases)
 			AD.Refresh()
 
-		for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
-			if(!is_station_level(H.z))
-				continue
-			if(!H.HasDisease(D))
-				H.ForceContractDisease(D)
-				break
+		var/list/targets = list("Random")
+		targets += sort_names(GLOB.human_list)
+		var/target = input(user, "Pick a viable human target for the disease.", "Disease Target") as null|anything in targets
 
-		var/list/name_symptoms = list()
-		for(var/datum/symptom/S in D.symptoms)
-			name_symptoms += S.name
-		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
-		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
+		var/mob/living/carbon/human/H
+		if(!target)
+			return
+		if(target == "Random")
+			for(var/human in shuffle(GLOB.human_list))
+				H = human
+				var/found = FALSE
+				if(!is_station_level(H.z))
+					continue
+				if(!H.HasDisease(D))
+					found = H.ForceContractDisease(D)
+					break
+				if(!found)
+					to_chat(user, "Could not find a valid target for the disease.")
+		else
+			H = target
+			if(istype(H) && D.infectable_biotypes & H.mob_biotypes)
+				H.ForceContractDisease(D)
+			else
+				to_chat(user, "Target could not be infected. Check mob biotype compatibility or resistances.")
+				return
+
+		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()] in [ADMIN_LOOKUPFLW(H)]")
+		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()] in [H]!")
 
 /datum/disease/advance/infect(mob/living/infectee, make_copy = TRUE)
 	var/datum/disease/advance/A = make_copy ? Copy() : src
@@ -689,7 +706,7 @@
 			if(/obj/effect/decal/cleanable)
 				prefixes += list("Bloody ", "Maintenance ")
 				bodies += list("Maint")
-			if(/mob/living/simple_animal/mouse)
+			if(/mob/living/basic/mouse)
 				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 			if(/obj/item/reagent_containers/syringe)

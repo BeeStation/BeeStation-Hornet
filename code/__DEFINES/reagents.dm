@@ -38,6 +38,17 @@
 /// Syringes
 #define INJECT 5
 
+/// Reagent effect multiplier - adjusts all effects according to metabolism rate
+#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)
+/// Shorthand for the above define for ease of use in equations and the like
+#define REM REAGENTS_EFFECT_MULTIPLIER
+/// How much of a reagent is converted to metabolites if one is defined
+#define METABOLITE_RATE 0.5
+/// The maximum amount of a given metabolite someone can have at a time
+#define MAX_METABOLITES 15
+/// Ranges from 1 to 5 depending on level of metabolites
+#define METABOLITE_PENALTY(path) clamp(affected_mob.reagents.get_reagent_amount(path)/2.5, 1, 5)
+
 /// When returned by on_mob_life(), on_mob_dead(), overdose_start() or overdose_processed(), will cause the mob to updatehealth() afterwards
 #define UPDATE_MOB_HEALTH 1
 
@@ -50,6 +61,20 @@
 // How long do mime drinks silence the drinker (if they are a mime)?
 #define MIMEDRINK_SILENCE_DURATION 1 MINUTES
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
+
+/// Greater numbers mean that less alcohol has greater intoxication potential
+#define ALCOHOL_THRESHOLD_MODIFIER 1
+/// The rate at which alcohol affects you
+#define ALCOHOL_RATE 0.005
+/// The exponent applied to boozepwr to make higher volume alcohol at least a little bit damaging to the liver
+#define ALCOHOL_EXPONENT 1.6
+
+/// Reaction hint for explosions
+#define REACTION_HINT_EXPLOSION_OTHER "explosion"
+/// A radius table showing the radius at 10, 50 and 100, 200 and 500 units of the reaction
+#define REACTION_HINT_RADIUS_TABLE "explosion_radius"
+/// Reaction safety hint
+#define REACTION_HINT_SAFETY "safety"
 
 ///Minimum requirement for addiction buzz to be met. Addiction code only checks this once every two seconds, so this should generally be low
 #define MIN_ADDICTION_REAGENT_AMOUNT 1
@@ -69,6 +94,14 @@
 #define CHEMICAL_QUANTISATION_LEVEL 0.0001
 /// the default temperature at which chemicals are added to reagent holders at
 #define DEFAULT_REAGENT_TEMPERATURE 300
+
+/// If present, when metabolizing out of a mob, we divide by the mob's metabolism rather than multiply.
+/// Without this flag: Higher metabolism means the reagent exits the system faster.
+/// With this flag: Higher metabolism means the reagent exits the system slower.
+#define REAGENT_REVERSE_METABOLISM (1<<10)
+/// If present, this reagent will not be affected by the mob's metabolism at all, meaning it exits at a fixed rate for all mobs.
+/// Supercedes [REAGENT_REVERSE_METABOLISM].
+#define REAGENT_UNAFFECTED_BY_METABOLISM (1<<11)
 
 // synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
 #define CHEMICAL_NOT_DEFINED   (1<<0)  // identical to CHEMICAL_NOT_SYNTH, but it is good to label when you are not sure which flag you should set on it, or something that shouldn't exist in the game. - i.e) medicine parent type

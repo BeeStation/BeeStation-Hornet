@@ -28,7 +28,7 @@
 	modify_action = new(src)
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/check_eye(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/CreateEye()
@@ -40,7 +40,7 @@
 	if(!isliving(user))
 		return FALSE
 	var/mob/living/L = user
-	if(L.incapacitated())
+	if(L.incapacitated)
 		return FALSE
 	return TRUE
 

@@ -181,7 +181,7 @@ Difficulty: Hard
 	SSmove_manager.stop_looping(src)
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
-	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
+	animate(D, alpha = 0, color = COLOR_RED, transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.7
@@ -298,7 +298,7 @@ Difficulty: Hard
 		return FALSE
 
 	var/obj/effect/temp_visual/decoy/DA = new /obj/effect/temp_visual/decoy(loc,src)
-	DA.color = "#FF0000"
+	DA.color = COLOR_RED
 	var/oldtransform = DA.transform
 	DA.transform = matrix()*2
 	animate(DA, alpha = 255, color = initial(DA.color), transform = oldtransform, time = 3)
@@ -398,7 +398,7 @@ Difficulty: Hard
 	if(useoriginal)
 		charge(chargeat, delay, chargepast)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(. > 0 && prob(25))
 		var/obj/effect/decal/cleanable/blood/gibs/bubblegum/B = new /obj/effect/decal/cleanable/blood/gibs/bubblegum(loc)
@@ -553,7 +553,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life(delta_time = SSMOBS_DT, times_fired)
 	return
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	return
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/OpenFire()

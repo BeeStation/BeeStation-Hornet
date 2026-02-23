@@ -1,5 +1,5 @@
 /// The darkness threshold for space dragon when choosing a color
-#define DARKNESS_THRESHOLD		50
+#define REJECT_DARK_COLOUR_THRESHOLD 20
 
 /**
  * # Space Dragon
@@ -220,8 +220,8 @@
 		to_chat(src, span_warning("Not a valid color, please try again."))
 		color_selection()
 		return
-	var/temp_hsv = RGBtoHSV(chosen_color)
-	if(ReadHSV(temp_hsv)[3] < DARKNESS_THRESHOLD)
+	var/list/skin_hsv = rgb2hsv(chosen_color)
+	if(skin_hsv[3] < REJECT_DARK_COLOUR_THRESHOLD)
 		to_chat(src, span_danger("Invalid color. Your color is not bright enough."))
 		color_selection()
 		return
@@ -477,4 +477,4 @@
 	start_cooldown()
 	return TRUE
 
-#undef DARKNESS_THRESHOLD
+#undef REJECT_DARK_COLOUR_THRESHOLD

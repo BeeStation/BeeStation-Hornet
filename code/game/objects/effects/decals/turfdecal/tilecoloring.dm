@@ -6,7 +6,7 @@
 
 /obj/effect/turf_decal/tile/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
-		color = "#[random_short_color()]"
+		color = "#[random_color()]"
 	return ..()
 
 /// White tiles
@@ -197,7 +197,7 @@
 
 /obj/effect/turf_decal/tile/black
 	name = "black corner"
-	color = "#000000"
+	color = COLOR_BLACK
 
 /obj/effect/turf_decal/tile/black/corner_ramp
 	icon_state = "tile_corner_ramp"
@@ -941,7 +941,7 @@
 	name = "contrasted colorful anticorner ramp"
 
 /obj/effect/turf_decal/tile/random/Initialize(mapload)
-	color = "#[random_short_color()]"
+	color = "#[random_color()]"
 	return ..()
 
 
@@ -1024,13 +1024,13 @@
 
 /obj/effect/turf_decal/trimline/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
-		color = "#[random_short_color()]"
+		color = "#[random_color()]"
 	return ..()
 
 /// White trimlines
 
 /obj/effect/turf_decal/trimline/white
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 
 /obj/effect/turf_decal/trimline/white/line
 	name = "trim decal"
@@ -1740,7 +1740,7 @@
 /// Black trimlines
 
 /obj/effect/turf_decal/trimline/black
-	color = "#000000"
+	color = COLOR_BLACK
 
 /obj/effect/turf_decal/trimline/black/line
 	name = "trim decal"

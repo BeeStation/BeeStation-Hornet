@@ -85,9 +85,13 @@
 	weapon_weight = WEAPON_LIGHT
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/laser/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/gun/energy/laser/captain/contents_explosion(severity, target)
 	if (!ammo_type || !cell)
-		name = "\improper broken antique laser gun"
+		name = "broken antique laser gun"
 		desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It was decorated with leather and chrome. Seems too be damaged to the point of not functioning, but still valuable."
 		icon_state = "caplaser_broken"
 		update_icon()

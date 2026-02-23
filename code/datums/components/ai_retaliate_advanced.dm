@@ -16,7 +16,7 @@
 
 	ADD_TRAIT(parent, TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM, type)
 
-/datum/component/ai_retaliate_advanced/Destroy(force, silent)
+/datum/component/ai_retaliate_advanced/Destroy(force)
 	post_retaliate_callback = null
 	return ..()
 
@@ -30,7 +30,7 @@
 /datum/component/ai_retaliate_advanced/proc/on_attacked(mob/victim, atom/attacker)
 	SIGNAL_HANDLER
 
-	if(!victim.ai_controller)
+	if (!victim.ai_controller)
 		return
 
 	victim.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)

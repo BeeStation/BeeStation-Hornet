@@ -110,7 +110,7 @@
 	//Dionae heal and eat radiation for a living.
 	source.adjust_nutrition(intensity * 0.1 * delta_time)
 	if(intensity > 50)
-		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_status = BODYTYPE_ORGANIC)
+		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
 		source.adjustToxLoss(-2 * delta_time)
 		source.adjustOxyLoss(-1 * delta_time)
 
@@ -193,7 +193,7 @@
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(user, 8 SECONDS, user, hidden = TRUE))
-		if(user.incapacitated(IGNORE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
+		if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
 			return FALSE
 		startSplitting(FALSE, user) //This runs when you manually activate the ability.
 		return TRUE

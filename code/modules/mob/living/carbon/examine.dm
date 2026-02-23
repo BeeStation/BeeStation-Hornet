@@ -429,7 +429,7 @@
 
 	var/list/cybers = list()
 	for(var/obj/item/organ/cyberimp/cyberimp in internal_organs)
-		if(cyberimp.status == ORGAN_ROBOTIC && !cyberimp.syndicate_implant)
+		if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
 			cybers += cyberimp.examine_title(user)
 	if(length(cybers))
 		. += "<span class='notice ml-1'>Detected cybernetic modifications:</span>"

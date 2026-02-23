@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 3
 	light_power = 0.6
-	light_color = "#FFFFFF"
+	light_color = COLOR_WHITE
 	light_on = FALSE
 
 	// Whether the computer is turned on.
@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// How far the computer's light can reach, is not editable by players.
 	var/comp_light_luminosity = 3
 	/// The built-in light's color, editable by players.
-	var/comp_light_color = "#FFFFFF"
+	var/comp_light_color = COLOR_WHITE
 	/// Whether or not the tablet is invisible in messenger and other apps
 	var/messenger_invisible = FALSE
 	/// The saved image used for messaging purposes

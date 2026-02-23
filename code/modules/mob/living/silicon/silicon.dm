@@ -413,7 +413,7 @@
 	diagsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/toggle_sensors()
-	if(incapacitated())
+	if(incapacitated)
 		return
 	sensors_on = !sensors_on
 	if (!sensors_on)

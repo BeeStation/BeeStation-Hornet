@@ -164,20 +164,20 @@
 	floor_tile = /obj/item/stack/tile/fairygrass
 	light_range = 2
 	light_power = 0.80
-	light_color = "#33CCFF"
-	color = "#33CCFF"
+	light_color = COLOR_BLUE_LIGHT
+	color = COLOR_BLUE_LIGHT
 
 /turf/open/floor/grass/fairy/white
 	name = "white fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/white
-	light_color = "#FFFFFF"
-	color = "#FFFFFF"
+	light_color = COLOR_WHITE
+	color = COLOR_WHITE
 
 /turf/open/floor/grass/fairy/red
 	name = "red fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/red
-	light_color = "#FF3333"
-	color = "#FF3333"
+	light_color = COLOR_RED_LIGHT
+	color = COLOR_RED_LIGHT
 
 /turf/open/floor/grass/fairy/orange
 	name = "orange fairygrass patch"

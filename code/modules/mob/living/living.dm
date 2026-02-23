@@ -421,7 +421,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated())
+	if(incapacitated)
 		return FALSE
 	if(!..())
 		return FALSE
@@ -446,31 +446,21 @@
 	investigate_log("has succumbed to death.", INVESTIGATE_DEATHS)
 	death()
 
-/**
- * Checks if a mob is incapacitated
- *
- * Normally being restrained, agressively grabbed, or in stasis counts as incapacitated
- * unless there is a flag being used to check if it's ignored
- *
- * args:
- * * flags (optional) bitflags that determine if special situations are exempt from being considered incapacitated
- *
- * bitflags: (see code/__DEFINES/status_effects.dm)
- * * IGNORE_RESTRAINTS - mob in a restraint (handcuffs) is not considered incapacitated
- * * IGNORE_STASIS - mob in stasis (stasis bed, etc.) is not considered incapacitated
- * * IGNORE_GRAB - mob that is agressively grabbed is not considered incapacitated
-**/
-/mob/living/incapacitated(flags)
+// Remember, anything that influences this needs to call update_incapacitated somehow when it changes
+// Most often best done in [code/modules/mob/living/init_signals.dm]
+/mob/living/build_incapacitated()
+	// Holds a set of flags that describe how we are currently incapacitated
+	var/incap_status = NONE
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
-		return TRUE
+		incap_status |= TRADITIONAL_INCAPACITATED
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
+		incap_status |= INCAPABLE_RESTRAINTS
+	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
+		incap_status |= INCAPABLE_GRAB
+	if(IS_IN_STASIS(src))
+		incap_status |= INCAPABLE_STASIS
 
-	if(!(flags & IGNORE_RESTRAINTS) && HAS_TRAIT(src, TRAIT_RESTRAINED))
-		return TRUE
-	if(!(flags & IGNORE_GRAB) && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
-		return TRUE
-	if(!(flags & IGNORE_STASIS) && IS_IN_STASIS(src))
-		return TRUE
-	return FALSE
+	return incap_status
 
 /mob/living/canUseStorage()
 	if (usable_hands <= 0)
@@ -505,6 +495,12 @@
 
 /mob/living/proc/setMaxHealth(newMaxHealth)
 	maxHealth = newMaxHealth
+
+/// Returns the health of the mob while ignoring damage of non-organic (prosthetic) limbs
+/// Used by cryo cells to not permanently imprison those with damage from prosthetics,
+/// as they cannot be healed through chemicals.
+/mob/living/proc/get_organic_health()
+	return health
 
 // MOB PROCS //END
 
@@ -787,13 +783,13 @@
 	var/oxy_to_heal = heal_to - getOxyLoss()
 	var/tox_to_heal = heal_to - getToxLoss()
 	if(brute_to_heal < 0)
-		adjustBruteLoss(brute_to_heal, FALSE)
+		adjustBruteLoss(brute_to_heal, updating_health = FALSE)
 	if(burn_to_heal < 0)
-		adjustFireLoss(burn_to_heal, FALSE)
+		adjustFireLoss(burn_to_heal, updating_health = FALSE)
 	if(oxy_to_heal < 0)
-		adjustOxyLoss(oxy_to_heal, FALSE)
+		adjustOxyLoss(oxy_to_heal, updating_health = FALSE)
 	if(tox_to_heal < 0)
-		adjustToxLoss(tox_to_heal, FALSE, TRUE)
+		adjustToxLoss(tox_to_heal, updating_health = FALSE, forced = TRUE)
 
 	// Run updatehealth once to set health for the revival check
 	updatehealth()
@@ -825,25 +821,29 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(heal_flags & HEAL_TOX)
-		setToxLoss(0, FALSE, TRUE)
+		setToxLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_OXY)
-		setOxyLoss(0, FALSE, TRUE)
+		setOxyLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_CLONE)
-		setCloneLoss(0, FALSE, TRUE)
+		setCloneLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_BRUTE)
-		setBruteLoss(0, FALSE, TRUE)
+		setBruteLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_BURN)
-		setFireLoss(0, FALSE, TRUE)
+		setFireLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_STAM)
-		setStaminaLoss(0, FALSE, TRUE)
+		setStaminaLoss(0, updating_stamina = FALSE, forced = TRUE)
 
 	// I don't really care to keep this under a flag
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
 
 	// These should be tracked by status effects
 	losebreath = 0
+	set_blindness(0)
 	set_disgust(0)
+	cure_nearsighted()
+	cure_blind()
 	cure_husk()
+
 	qdel(GetComponent(/datum/component/irradiated))
 	extinguish_mob()
 
@@ -1337,7 +1337,7 @@
 				/mob/living/simple_animal/crab,
 				/mob/living/basic/pet/dog/pug,
 				/mob/living/simple_animal/pet/cat,
-				/mob/living/simple_animal/mouse,
+				/mob/living/basic/mouse,
 				/mob/living/simple_animal/chicken,
 				/mob/living/basic/cow,
 				/mob/living/simple_animal/hostile/lizard,
@@ -1696,6 +1696,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 /mob/living/set_pulledby(new_pulledby)
 	. = ..()
+	update_incapacitated()
 	if(. == FALSE) //null is a valid value here, we only want to return if FALSE is explicitly passed.
 		return
 	if(pulledby)
@@ -1718,22 +1719,43 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
-	if (registered_z != new_z)
-		if (registered_z)
-			SSmobs.clients_by_zlevel[registered_z] -= src
-		if (client)
-			if (new_z)
-				SSmobs.clients_by_zlevel[new_z] += src
-				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
-					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
-					if (SA)
-						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
-					else
-						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
+	if(registered_z == new_z)
+		return
+	if(registered_z)
+		SSmobs.clients_by_zlevel[registered_z] -= src
+	if(isnull(client))
+		registered_z = null
+		return
 
-			registered_z = new_z
-		else
-			registered_z = null
+	//Check the amount of clients exists on the Z level we're leaving from,
+	//this excludes us because at this point we are not registered to any z level.
+	var/old_level_new_clients = (registered_z ? SSmobs.clients_by_zlevel[registered_z].len : null)
+	//No one is left after we're gone, shut off inactive ones
+	if(registered_z && old_level_new_clients == 0)
+		for(var/datum/ai_controller/controller as anything in GLOB.ai_controllers_by_zlevel[registered_z])
+			controller.set_ai_status(AI_STATUS_OFF)
+
+	if(new_z)
+		//Check the amount of clients exists on the Z level we're moving towards, excluding ourselves.
+		var/new_level_old_clients = SSmobs.clients_by_zlevel[new_z].len
+
+		//We'll add ourselves to the list now so get_expected_ai_status() will know we're on the z level.
+		SSmobs.clients_by_zlevel[new_z] += src
+
+		if(new_level_old_clients == 0) //No one was here before, wake up all the AIs.
+			for (var/datum/ai_controller/controller as anything in GLOB.ai_controllers_by_zlevel[new_z])
+				//We don't set them directly on, for instances like AIs acting while dead and other cases that may exist in the future.
+				//This isn't a problem for AIs with a client since the client will prevent this from being called anyway.
+				controller.set_ai_status(controller.get_expected_ai_status())
+
+			for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+				var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
+				if (SA)
+					SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
+				else
+					SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
+
+	registered_z = new_z
 
 /mob/living/onTransitZ(old_z,new_z)
 	..()
@@ -1752,7 +1774,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(resting)
 		resting = FALSE
 		update_resting()
-	var/obj/item/clothing/head/mob_holder/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
+	var/obj/item/mob_holder/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
 	L.visible_message(span_warning("[L] scoops up [src]!"))
 	L.put_in_hands(holder)
 
@@ -1783,10 +1805,11 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	return result
 
 /mob/living/reset_perspective(atom/A)
-	if(..())
-		update_sight()
-		update_fullscreen()
-		update_pipe_vision()
+	if(!..())
+		return
+	update_sight()
+	update_fullscreen()
+	update_pipe_vision()
 
 /// Proc used to handle the fullscreen overlay updates, realistically meant for the reset_perspective() proc.
 /mob/living/proc/update_fullscreen()
@@ -2033,6 +2056,14 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	else if(!(movement_type & (FLYING | FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+
+/// Whether or not this mob will escape from storages while being picked up/held.
+/mob/living/proc/will_escape_storage()
+	return FALSE
+
+//Used specifically for the clown box suicide act
+/mob/living/carbon/human/will_escape_storage()
+	return TRUE
 
 /// Sets the mob's hunger levels to a safe overall level. Useful for TRAIT_NOHUNGER species changes.
 /mob/living/proc/set_safe_hunger_level()
@@ -2282,9 +2313,12 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	// Not using the wrapper here because we already have a list / arglist
 	_cause_hallucination(delusion_args)
 
-/// Proc for giving a mob a new 'friend', generally used for AI control and targetting. Returns false if already friends.
+/// Proc for giving a mob a new 'friend', generally used for AI control and targeting. Returns false if already friends.
 /mob/living/proc/befriend(mob/living/new_friend)
 	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(new_friend, COMSIG_LIVING_MADE_NEW_FRIEND, src)
+	if(QDELETED(new_friend))
+		return
 	var/friend_ref = REF(new_friend)
 	if (faction.Find(friend_ref))
 		return FALSE

@@ -513,7 +513,7 @@ Striking a noncultist, however, will tear their flesh."}
 	light_range = 1
 	icon_state = "torch"
 	inhand_icon_state = "torch"
-	color = "#ff0000"
+	color = COLOR_RED
 	on_damage = 15
 	slot_flags = null
 	on = TRUE
@@ -533,7 +533,7 @@ Striking a noncultist, however, will tear their flesh."}
 			if(cult_mind.current?.stat != DEAD)
 				cultists |= cult_mind.current
 		var/mob/living/cultist_to_receive = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in (cultists - user)
-		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
+		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated)
 			return
 		if(!cultist_to_receive)
 			to_chat(user, span_cultitalic("You require a destination!"))
@@ -654,7 +654,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
 	desc = "Blood for blood."
-	color = "#ff0000"
+	color = COLOR_RED
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
@@ -751,9 +751,9 @@ Striking a noncultist, however, will tear their flesh."}
 		if(i > 1)
 			sleep(15)
 		if(i < 4)
-			O = new /obj/effect/temp_visual/cult/rune_spawn/rune1/inner(user.loc, 30, "#ff0000")
+			O = new /obj/effect/temp_visual/cult/rune_spawn/rune1/inner(user.loc, 30, COLOR_RED)
 		else
-			O = new /obj/effect/temp_visual/cult/rune_spawn/rune5(user.loc, 30, "#ff0000")
+			O = new /obj/effect/temp_visual/cult/rune_spawn/rune5(user.loc, 30, COLOR_RED)
 			new /obj/effect/temp_visual/dir_setting/cult/phase/out(user.loc, user.dir)
 	if(O)
 		qdel(O)

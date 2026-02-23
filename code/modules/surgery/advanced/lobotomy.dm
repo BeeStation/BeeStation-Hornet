@@ -37,7 +37,7 @@
 	failure_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/lobotomize/tool_check(mob/user, obj/item/tool)
-	if(implement_type == /obj/item && !tool.is_sharp())
+	if(implement_type == /obj/item && !tool.get_sharpness())
 		return FALSE
 	return TRUE
 

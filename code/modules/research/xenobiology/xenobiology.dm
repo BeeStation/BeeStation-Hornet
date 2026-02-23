@@ -680,7 +680,7 @@
 /obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			user.dna.features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F")
+			user.dna.features["mcolor"] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
 			user.updateappearance(mutcolor_update = TRUE)
 			if(istype(species,/datum/species/oozeling/luminescent))
 				var/datum/species/oozeling/luminescent/lum_species = species
@@ -1047,7 +1047,7 @@
 
 	to_chat(user, span_notice("You slather the red gunk over [thingy], making it faster."))
 	thingy.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	thingy.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
+	thingy.add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
 	ADD_TRAIT(thingy, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
 	qdel(src)
 	return FALSE
@@ -1074,7 +1074,7 @@
 	to_chat(user, span_notice("You slather the blue gunk over [clothing], fireproofing it."))
 	clothing.name = "fireproofed [clothing.name]"
 	clothing.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	clothing.add_atom_colour("#000080", FIXED_COLOUR_PRIORITY)
+	clothing.add_atom_colour(COLOR_NAVY, FIXED_COLOUR_PRIORITY)
 	clothing.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing.heat_protection = clothing.body_parts_covered
 	clothing.resistance_flags |= FIRE_PROOF
