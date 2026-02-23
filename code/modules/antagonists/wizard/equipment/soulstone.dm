@@ -176,30 +176,24 @@
 /obj/item/soulstone/proc/release_shades(mob/user)
 	if(!contained_shade)
 		return
-
 	contained_shade.forceMove(get_turf(user))
 	contained_shade.cancel_camera()
-
 	switch(theme)
 		if(THEME_HOLY)
 			icon_state = "purified_soulstone"
 			contained_shade.icon_state = "shade_holy"
 			contained_shade.name = "Purified [contained_shade.real_name]"
 			contained_shade.loot = list(/obj/item/ectoplasm/angelic)
-
 		if(THEME_WIZARD)
 			icon_state = "mystic_soulstone"
 			contained_shade.icon_state = "shade_wizard"
 			contained_shade.loot = list(/obj/item/ectoplasm/mystic)
-
 		if(THEME_CULT)
 			icon_state = "soulstone"
 	name = initial(name)
 	if(IS_CULTIST(user))
-		to_chat(contained_shade, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
 	else if(role_check(user))
-		to_chat(contained_shade, "<b>You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.</b>")
-
+		to_chat(contained_shade,  span_bold("You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs."))
 	contained_shade = null
 	was_used()
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
@@ -245,19 +239,20 @@
 				return FALSE
 			if(contents.len)
 				return FALSE
-			var/mob/living/carbon/T = target
 			if(iscarbon(target))
-				var/mob/living/carbon/T = target
-				if(T.client)
-					for(var/obj/item/W in T)
-						T.dropItemToGround(W)
+				var/mob/living/carbon/victim = target
+				if(victim.client)
+					for(var/obj/item/W in victim)
+						victim.dropItemToGround(W)
+					steal_soul(victim, user)
 					return TRUE
 				else
 					to_chat(user, "[span_userdanger("Capture failed!")]: The soul has already fled its mortal frame. You attempt to bring it back...")
+					return getCultGhost(victim, user)
 			else if(isconstruct(target))
-				var/mob/living/simple_animal/hostile/construct/C = target
-				if(C.client)
-					steal_soul(C, user)
+				var/mob/living/simple_animal/hostile/construct/creation = target
+				if(creation.client)
+					steal_soul(creation, user)
 					return TRUE
 				to_chat(user, "[span_userdanger("Capture failed!")]: The soul has already fled its construct shell.")
 				return FALSE
