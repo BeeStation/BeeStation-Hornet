@@ -192,6 +192,7 @@
 			icon_state = "soulstone"
 	name = initial(name)
 	if(IS_CULTIST(user))
+		to_chat(contained_shade,  span_bold("You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs."))
 	else if(role_check(user))
 		to_chat(contained_shade,  span_bold("You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs."))
 	contained_shade = null
