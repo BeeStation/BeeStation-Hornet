@@ -149,7 +149,7 @@
 
 /datum/dynamic_ruleset/gamemode/malf/trim_candidates()
 	. = ..()
-	var/datum/job/posibrain/ai_job = SSjob.GetJob(JOB_NAME_AI)
+	var/datum/job/ai/ai_job = SSjob.GetJob(JOB_NAME_AI)
 	for(var/mob/candidate in candidates)
 		// Must have enough hours to play AI
 		if(ai_job.required_playtime_remaining(candidate.client))
