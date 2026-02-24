@@ -201,46 +201,8 @@
 /proc/get_every_access()
 	return get_all_accesses() + get_all_centcom_access() + get_all_syndicate_access() + get_all_away_access() + ACCESS_BLOODCULT + ACCESS_CLOCKCULT
 
-/proc/get_region_accesses(code)
-	switch(code)
-		if(0)
-			return get_all_accesses()
-		if(1) //station general
-			return list(ACCESS_KITCHEN,ACCESS_BAR, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_LIBRARY, ACCESS_THEATRE, ACCESS_LAWYER)
-		if(2) //security
-			return list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_WEAPONS, ACCESS_SECURITY, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MECH_SECURITY, ACCESS_HOS)
-		if(3) //medbay
-			return list(ACCESS_MEDICAL, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_SURGERY, ACCESS_MECH_MEDICAL, ACCESS_CMO)
-		if(4) //research
-			return list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_EXPLORATION, ACCESS_MECH_SCIENCE, ACCESS_MINISAT, ACCESS_RD, ACCESS_NETWORK, ACCESS_RD_SERVER)
-		if(5) //engineering and maintenance
-			return list(ACCESS_CONSTRUCTION, ACCESS_AUX_BASE, ACCESS_MAINT_TUNNELS, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TECH_STORAGE, ACCESS_ATMOSPHERICS, ACCESS_MECH_ENGINE, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_CE)
-		if(6) //supply
-			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_QM, ACCESS_VAULT)
-		if(7) //command
-			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_GATEWAY, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_VAULT)
-
-/proc/get_region_accesses_name(code)
-	switch(code)
-		if(0)
-			return "All"
-		if(1) //station general
-			return "General"
-		if(2) //security
-			return "Security"
-		if(3) //medbay
-			return "Medbay"
-		if(4) //research
-			return "Research"
-		if(5) //engineering and maintenance
-			return "Engineering"
-		if(6) //supply
-			return "Supply"
-		if(7) //command
-			return "Command"
-
-
 GLOBAL_LIST_INIT(access_desc_list, list( \
+	"[ACCESS_SERVICE]" = "Service",
 	"[ACCESS_CARGO]" = "Cargo Bay",
 	"[ACCESS_SECURITY]" = "Security",
 	"[ACCESS_BRIG]" = "Holding Cells",

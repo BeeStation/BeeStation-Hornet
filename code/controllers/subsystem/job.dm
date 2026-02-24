@@ -48,6 +48,12 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_DEPUTY,
 		JOB_NAME_GIMMICK,
 		JOB_NAME_PRISONER)
+	/// list of jobs that aren't part of standard jobs - used for job manager
+	var/list/all_job_exceptions = list(
+		JOB_NAME_VIP,
+		JOB_NAME_GIMMICK,
+		JOB_NAME_PRISONER,
+	)
 
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
 	var/assigned_captain = FALSE

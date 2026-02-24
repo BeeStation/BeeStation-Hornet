@@ -12,12 +12,16 @@
 	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
 	var/mode = WAND_OPEN
-	var/region_access = 1 //See access.dm
+	var/region_access = DEPT_BITFLAG_SRV //See department.dm
 	var/list/access_list
 
 /obj/item/door_remote/Initialize(mapload)
 	. = ..()
-	access_list = get_region_accesses(region_access)
+	if(!region_access)
+		access_list = get_all_accesses()
+	else
+		var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region_access)[1]
+		access_list = dept_datum.access_list.Copy()
 
 /obj/item/door_remote/attack_self(mob/user)
 	var/static/list/desc = list(WAND_OPEN = "Open Door", WAND_BOLT = "Toggle Bolts", WAND_EMERGENCY = "Toggle Emergency Access")
@@ -87,43 +91,43 @@
 	name = "omni door remote"
 	desc = "This control wand can access any door on the station."
 	icon_state = "gangtool-yellow"
-	region_access = 0
+	region_access = ALL
 
 /obj/item/door_remote/captain
 	name = "command door remote"
 	icon_state = "gangtool-yellow"
-	region_access = 7
+	region_access = DEPT_BITFLAG_COM
 
 /obj/item/door_remote/chief_engineer
 	name = "engineering door remote"
 	icon_state = "gangtool-orange"
-	region_access = 5
+	region_access = DEPT_BITFLAG_ENG
 
 /obj/item/door_remote/research_director
 	name = "research door remote"
 	icon_state = "gangtool-purple"
-	region_access = 4
+	region_access = DEPT_BITFLAG_SCI
 
 /obj/item/door_remote/head_of_security
 	name = "security door remote"
 	icon_state = "gangtool-red"
-	region_access = 2
+	region_access = DEPT_BITFLAG_SEC
 
 /obj/item/door_remote/quartermaster
 	name = "supply door remote"
 	desc = "Remotely controls airlocks. This remote has additional Vault access."
 	icon_state = "gangtool-green"
-	region_access = 6
+	region_access = DEPT_BITFLAG_CAR
 
 /obj/item/door_remote/chief_medical_officer
 	name = "medical door remote"
 	icon_state = "gangtool-blue"
-	region_access = 3
+	region_access = DEPT_BITFLAG_MED
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
 	icon_state = "gangtool-white"
-	region_access = 1
+	region_access = DEPT_BITFLAG_SRV
 
 #undef WAND_OPEN
 #undef WAND_BOLT
