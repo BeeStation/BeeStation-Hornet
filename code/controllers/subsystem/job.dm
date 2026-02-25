@@ -909,7 +909,7 @@ SUBSYSTEM_DEF(job)
 		if(target.rank in jobs)
 			employees++
 
-	if(employees > crew_threshold)
+	if(employees >= crew_threshold)
 		return TRUE
 
 	return FALSE
