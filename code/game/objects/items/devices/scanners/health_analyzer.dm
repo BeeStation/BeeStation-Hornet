@@ -368,7 +368,7 @@
 		var/mob/living/carbon/carbontarget = target
 		var/cyberimp_detect
 		for(var/obj/item/organ/cyberimp/cyberimp in carbontarget.internal_organs)
-			if(cyberimp.status == ORGAN_ROBOTIC && !cyberimp.syndicate_implant)
+			if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
 				cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.examine_title(user)]" : ", [cyberimp.examine_title(user)]"]"
 		if(cyberimp_detect)
 			render_list += "<span class='notice ml-1'>Detected cybernetic modifications:</span>\n"

@@ -7,7 +7,8 @@
 
 #define DYNAMIC_STORYTELLERS_DIRECTORY "[global.config.directory]/dynamic/"
 
-#define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
+#define DYNAMIC_CATEGORY_GAMEMODE "Gamemode"
+#define DYNAMIC_CATEGORY_SUPPLEMENTARY "Supplementary"
 #define DYNAMIC_CATEGORY_MIDROUND "Midround"
 #define DYNAMIC_CATEGORY_LATEJOIN "Latejoin"
 
@@ -28,10 +29,27 @@
 #define SHOULD_USE_ANTAG_REP (1 << 3)
 /// If this flag is enabled no other rulesets can be executed
 #define NO_OTHER_RULESETS (1 << 4)
-/// If we ignore the number of candidates when seeing if we can execute this
-/// Mainly useful for rulesets which require a certain number of candidates, but
-/// can draft them past the point of execution (midrounds from ghosts)
-#define IGNORE_DRAFTED_COUNT (1 << 5)
+/// Latejoining as this ruleset is not allowed, used for supplementary rulesets
+/// and for when a gamemode ruleset could not be executed at roundstart.
+#define NO_LATE_JOIN (1 << 5)
+/// Is this ruleset obvious? We will only show 1 obvious ruleset in the
+/// roundstart security report.
+#define IS_OBVIOUS_RULESET (1 << 6)
+/// If antagonists spawned by this ruleset are admin-removed, then this flag will make
+/// it so that dynamic does not attempt to re-introduce an antagonist role to compensate
+/// for the removal.
+#define NO_TRANSFER_RULESET (1 << 7)
+/// If an antagonist spawned by this role is admin-removed, do not attempt to re-introduce
+/// it unless there are no other remaining antagonists of the same type, required for conversion
+/// antagonists which may create more antagonists that are not associated with a spawned
+/// ruleset. Not required for rulesets which pass on their spawning ruleset to any converts.
+/// Because it is difficult to track conversion in modes like clockcult, we don't try to associate
+/// antagonists to a single ruleset, and just assume that if an antagonist exists it is because of
+/// us.
+#define NO_CONVERSION_TRANSFER_RULESET (1 << 8)
+/// If this flag is set, then minimum player count cares about total pop rather than
+/// crew counts.
+#define REQUIRED_POP_ALLOW_UNREADY (1 << 9)
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1

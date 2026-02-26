@@ -24,9 +24,6 @@
 	desc = "A standard-measure shipping container for bulk transport of goods. This one is from Kahraman, and is reinforced for carrying ore."
 	icon_state = "kahraman"
 
-/obj/structure/shipping_container/kahraman/alt
-	icon_state = "kahraman_alt"
-
 /obj/structure/shipping_container/kosmologistika
 	name = "\improper Kosmologistika shipping container"
 	desc = "A standard-measure shipping container for bulk transport of goods. This one is from Kosmologistika, the logistics company owned and operated by the SSC."

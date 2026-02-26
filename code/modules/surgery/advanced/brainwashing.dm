@@ -75,6 +75,10 @@
 	brainwash(target, objective, "brainwashing surgery from [user.mind ? user.mind.name : user.real_name]")
 	message_admins("[ADMIN_LOOKUPFLW(user)] surgically brainwashed [ADMIN_LOOKUPFLW(target)] with the objective '[objective]'.")
 	log_game("[key_name(user)] surgically brainwashed [key_name(target)] with the objective '[objective]'.")
+	// Find all antag datums and mark romerol objectives as complete
+	for (var/datum/antagonist/antagonist in user.mind?.antag_datums)
+		for (var/datum/objective/brainwash_targets/objective in antagonist.objectives)
+			objective.amount++
 	return TRUE
 
 /datum/surgery_step/brainwash/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

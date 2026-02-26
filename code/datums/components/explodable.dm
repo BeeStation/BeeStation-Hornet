@@ -65,13 +65,16 @@
 	check_if_detonate(target)
 
 ///Called when you attack a specific body part of the thing this is equipped on. Useful for exploding pants.
-/datum/component/explodable/proc/explodable_attack_zone(datum/source, damage, damagetype, def_zone)
+/datum/component/explodable/proc/explodable_attack_zone(datum/source, damage, damagetype, def_zone, ...)
 	SIGNAL_HANDLER
 
 	if(!def_zone)
 		return
 	if(damagetype != BURN) //Don't bother if it's not fire.
 		return
+	if(isbodypart(def_zone))
+		var/obj/item/bodypart/hitting = def_zone
+		def_zone = hitting.body_zone
 	if(!is_hitting_zone(def_zone)) //You didn't hit us! ha!
 		return
 	detonate()
@@ -121,7 +124,7 @@
 	if(!isitem(target))
 		return
 	var/obj/item/I = target
-	if(!I.is_hot())
+	if(!I.get_temperature())
 		return
 	detonate() //If we're touching a hot item we go boom
 

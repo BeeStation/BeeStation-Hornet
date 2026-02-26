@@ -6,6 +6,9 @@
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
+/mob/living/simple_animal/slime/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /mob/living/simple_animal/slime/Life(delta_time = SSMOBS_DT, times_fired)
 	set invisibility = 0
@@ -175,12 +178,16 @@
 		"A sharp, deep pain bathes every inch of your body!")]</span>")
 
 	var/bonus_damage = 1
+	var/need_mob_update
 	if(transformeffects & SLIME_EFFECT_RED)
 		bonus_damage *= 1.1
-	M.adjustCloneLoss(4*bonus_damage)
-	M.adjustToxLoss(2*bonus_damage)
+	need_mob_update = M.adjustCloneLoss(4 * bonus_damage, updating_health = FALSE)
+	need_mob_update += M.adjustToxLoss(2 * bonus_damage, updating_health = FALSE)
 	if(ismonkey(M))
-		M.adjustCloneLoss(monkey_bonus_damage*bonus_damage)
+		need_mob_update += M.adjustCloneLoss(monkey_bonus_damage*bonus_damage, updating_health = FALSE)
+
+	if(need_mob_update)
+		M.updatehealth()
 
 	add_nutrition((15 * CONFIG_GET(number/damage_multiplier)))
 	adjustBruteLoss(-2.5 * delta_time)

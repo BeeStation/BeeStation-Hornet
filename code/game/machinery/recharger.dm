@@ -159,18 +159,17 @@
 	. = ..()
 	if (. & EMP_PROTECT_CONTENTS)
 		return
-	if(!(machine_stat & (NOPOWER|BROKEN)) && anchored)
-		if(istype(charging,  /obj/item/gun/energy))
-			var/obj/item/gun/energy/E = charging
-			if(E.cell)
-				E.cell.emp_act(severity)
+	if((machine_stat & (NOPOWER|BROKEN)) || !anchored)
+		return
+	if(istype(charging,  /obj/item/gun/energy))
+		var/obj/item/gun/energy/E = charging
+		if(E.cell)
+			E.cell.emp_act(severity)
 
-		else if(istype(charging, /obj/item/melee/baton))
-			var/obj/item/melee/baton/B = charging
-			if(B.cell)
-				B.cell.charge = 0
-
-
+	else if(istype(charging, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/batong = charging
+		if(batong.cell)
+			batong.cell.charge = 0
 
 /obj/machinery/recharger/update_overlays()
 	. = ..()

@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 	list(//tools
 		/obj/item/grenade/iedcasing = 1,
 		/obj/item/hatchet = 1,
-		/obj/item/melee/baton/cattleprod = 1,
+		/obj/item/melee/baton/security/cattleprod = 1,
 		/obj/item/multitool = 1,
 		/obj/item/pen/fountain = 1,
 		/obj/item/pen/screwdriver = 1,
@@ -273,7 +273,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		/obj/item/assembly/flash/memorizer = 1,
 		/obj/item/flashlight/flashdark = 1,
 		/obj/item/knife/kitchen = 1,
-		/obj/item/melee/baton/cattleprod/teleprod = 1,
+		/obj/item/melee/baton/security/cattleprod/teleprod = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/shield/buckler = 1,
 		/obj/item/throwing_star = 1,

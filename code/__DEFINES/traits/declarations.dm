@@ -63,7 +63,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DISFIGURED		"disfigured"
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_STUNIMMUNE		"stun_immunity"
-#define TRAIT_STUNRESISTANCE    "stun_resistance"
+#define TRAIT_BATON_RESISTANCE "baton_resistance"
+/// Anti Dual-baton cooldown bypass exploit.
+#define TRAIT_IWASBATONED "iwasbatoned"
 #define TRAIT_SLEEPIMMUNE		"sleep_immunity"
 #define TRAIT_PUSHIMMUNE		"push_immunity"
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
@@ -480,6 +482,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BEING_SHOCKED "shocked"
 /// Trait given to a dreaming carbon when they are currently doing dreaming stuff
 #define TRAIT_DREAMING "currently_dreaming"
+/// Trait given to people that were successfully assassinated
+#define TRAIT_ASSASSINATION_VICTIM "assassinated"
 
 /// Stores typepaths, the typepath value read from this trait indicates that this item
 /// is meant to look like the item with that path, which might affect how you show

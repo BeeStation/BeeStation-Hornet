@@ -56,15 +56,23 @@
 #define COMSIG_MOB_RECEIVE_ARTIFACT "mob_receive_artifact"			//
 	#define COMPONENT_BLOCK_ARTIFACT 1
 
+/// from /mob/living/proc/apply_damage(): (list/damage_mods, damage, damagetype, def_zone, sharpness, attack_direction, attacking_item)
+/// allows you to add multiplicative damage modifiers to the damage mods argument to adjust incoming damage
+/// not sent if the apply damage call was forced
+#define COMSIG_MOB_APPLY_DAMAGE_MODIFIERS "mob_apply_damage_modifiers"
+/// from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone, blocked, sharpness, attack_direction, attacking_item)
+#define COMSIG_MOB_APPLY_DAMAGE "mob_apply_damage"
+/// from /mob/living/proc/apply_damage(): (damage, damagetype, def_zone, blocked, sharpness, attack_direction, attacking_item)
+/// works like above but after the damage is actually inflicted
+#define COMSIG_MOB_AFTER_APPLY_DAMAGE "mob_after_apply_damage"
+
 #define COMSIG_MOB_ATTACK_ALIEN "mob_attack_alien"				//! from base of /mob/living/attack_alien(): (user)
 #define COMSIG_MOB_MOVESPEED_UPDATED "mob_update_movespeed"		//! From base of mob/update_movespeed():area
-
 
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"				//! from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_ATTACK_HAND_TURF "mob_attack_hand_turf"		//! from base of turf/attack_hand
 #define COMSIG_MOB_HAND_ATTACKED "mob_hand_attacked"			//! from base of
 #define COMSIG_MOB_DROPPED_ITEM "mob_dropped_item"				//! from base of /item/dropped(): (/mob/user, /obj/item, loc)
-#define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"				//! from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
 #define COMSIG_MOB_THROW "mob_throw"							//! from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"				//! from base of /mob/update_sight(): ()
 ///from base of /mob/verb/examinate(): (atom/target, list/examine_strings)

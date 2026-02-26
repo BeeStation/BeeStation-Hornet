@@ -118,7 +118,7 @@
 	head = /obj/item/clothing/head/hats/hopcap
 	backpack_contents = list(
 		/obj/item/storage/box/ids=1,
-		/obj/item/melee/classic_baton/police/telescopic=1
+		/obj/item/melee/baton/telescopic=1
 	)
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)

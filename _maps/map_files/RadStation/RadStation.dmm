@@ -6566,6 +6566,22 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
+"cip" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/mob/living/basic/mouse/brown{
+	desc = "This one doesn't squeal";
+	name = "Tony";
+	pixel_x = 7;
+	pixel_y = 12
+	},
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 17
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/secondary/exit/departure_lounge)
 "cjc" = (
 /obj/structure/girder/reinforced,
 /turf/open/space/basic,
@@ -26116,22 +26132,6 @@
 /obj/item/folder/white,
 /turf/open/floor/plating,
 /area/medical/apothecary)
-"iXg" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/ppflowers,
-/mob/living/basic/mouse/brown{
-	desc = "This one doesn't squeal";
-	name = "Tony";
-	pixel_x = 7;
-	pixel_y = 12
-	},
-/obj/machinery/holopad{
-	pixel_x = 16;
-	pixel_y = 17
-	},
-/turf/open/floor/grass/no_border,
-/area/hallway/secondary/exit/departure_lounge)
 "iXm" = (
 /obj/machinery/light{
 	dir = 8
@@ -54665,6 +54665,22 @@
 "sYx" = (
 /turf/open/floor/iron/tech,
 /area/engine/gravity_generator)
+"sYF" = (
+/obj/effect/turf_decal/tile/dark_red/anticorner/contrasted,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/trashcart,
+/obj/item/trash/boritos{
+	pixel_y = -9
+	},
+/obj/item/broken_bottle,
+/obj/item/cigbutt,
+/obj/item/trash/waffles,
+/obj/item/melee/baton/deputy{
+	name = "old baton";
+	stamina_damage = 10
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/security)
 "sYG" = (
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /obj/machinery/firealarm/directional/south,
@@ -65831,22 +65847,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/security/prison)
-"wGA" = (
-/obj/effect/turf_decal/tile/dark_red/anticorner/contrasted,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/trashcart,
-/obj/item/trash/boritos{
-	pixel_y = -9
-	},
-/obj/item/broken_bottle,
-/obj/item/cigbutt,
-/obj/item/trash/waffles,
-/obj/item/melee/classic_baton/police/deputy{
-	name = "old baton";
-	stamina_damage = 10
-	},
-/turf/open/floor/iron,
-/area/maintenance/department/security)
 "wHb" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -99989,7 +99989,7 @@ wzF
 fFX
 uNT
 voS
-wGA
+sYF
 kwq
 bVL
 jBw
@@ -112359,7 +112359,7 @@ amC
 heE
 gyK
 rEf
-iXg
+cip
 pWy
 qPp
 xFb

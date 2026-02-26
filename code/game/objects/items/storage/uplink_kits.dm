@@ -273,7 +273,7 @@
 /obj/item/storage/box/syndie_kit/contract_kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
 	new /obj/item/storage/box/syndie_kit/contractor_loadout(src)
-	new /obj/item/melee/classic_baton/retractible_stun/contractor_baton(src)
+	new /obj/item/melee/baton/telescopic/contractor_baton(src)
 
 	// All about 4 TC or less - some nukeops only items, but fit nicely to the theme.
 	var/list/item_list = list(

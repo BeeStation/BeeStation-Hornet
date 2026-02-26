@@ -2,6 +2,7 @@
 	name = "Brother"
 	antagpanel_category = "Brother"
 	banning_key = ROLE_BROTHER
+	faction = FACTION_SYNDICATE
 	required_living_playtime = 4
 	ui_name = "AntagInfoBrother"
 	hijack_speed = 0.5
@@ -24,13 +25,22 @@
 	for(var/datum/objective/O in team.objectives)
 		log_objective(owner, O.explanation_text)
 	owner.special_role = ROLE_BROTHER
-	finalize_brother()
-	return ..()
+	. = ..()
+	// Little bit jank, finalize the brother after 1 second to give time for other antagonist
+	// roles to spawn; so that our logic for allocated appropriate brothers is sound.
+	addtimer(CALLBACK(src, PROC_REF(finalize_brother)), 1 SECONDS)
 
 /datum/antagonist/brother/on_removal()
-	if(owner.current)
-		to_chat(owner.current,span_userdanger("You are no longer the Blood Brother!"))
+	if (!silent && owner.current)
+		owner.current.visible_message("[span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] their true allegiance!")]", null, null, null, owner.current)
+		to_chat(owner.current, span_userdanger("Your mind slips away from the clutches of your blood-brother. You are no longer required to follow their orders, but blackmail of your past crimes may make it difficult for you to find a way out of working with them..."))
+		owner.current.log_message("has had their blood brother removed!", LOG_ATTACK, color="#960000")
 	owner.special_role = null
+	remove_antag_hud(ANTAG_HUD_BROTHER, owner.current)
+	if (owner.current)
+		for (var/obj/item/implant/bloodbrother/brother_implant in owner.current.implants)
+			if (brother_implant.linked_team == team)
+				qdel(brother_implant)
 	return ..()
 
 /datum/antagonist/brother/antag_panel_data()
@@ -63,28 +73,30 @@
 
 /datum/antagonist/brother/greet()
 	var/brother_text = get_brother_names()
-	to_chat(owner.current, span_alertsyndie("You are the Blood Brother of [brother_text]."))
+	if (brother_text)
+		to_chat(owner.current, span_alertsyndie("You are the Blood Brother of [brother_text]."))
+	else
+		to_chat(owner.current, span_alertsyndie("You are the Blood Brother."))
 	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together! You and your team are outfitted with communication implants allowing for direct, encrypted communication.")
 	owner.announce_objectives()
 	give_meeting_area()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Brother",
 		"The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
+	for (var/datum/mind/brother in team.members)
+		if (brother == owner)
+			continue
+		to_chat(brother.current, span_alertsyndie("[owner.current.name] is now your blood brother."))
 
 /datum/antagonist/brother/proc/finalize_brother()
-	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
-	I.implant(owner.current, null, TRUE, TRUE)
-	if(team.team_id <= length(GLOB.color_list_blood_brothers))
-		I.span_implant_colour = GLOB.color_list_blood_brothers[team.team_id]
-	else
-		I.span_implant_colour = "cfc_redpurple"
-		stack_trace("Blood brother teams exist more than [length(GLOB.color_list_blood_brothers)] teams, and colour preset is ran out")
-	for(var/datum/mind/M in team.members) // Link the implants of all team members
-		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
-		I.link_implant(T)
 	add_antag_hud(ANTAG_HUD_BROTHER, "brother", owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)
+	// Jank: Add it normally
+	if (istype(src, /datum/antagonist/brother/prime))
+		create_team(new /datum/team/brother_team)
+		team.forge_brother_objectives()
+		return ..()
 	//show list of possible brothers
 	var/list/candidates = list()
 	for(var/mob/living/L in GLOB.player_list)
@@ -92,7 +104,7 @@
 			continue
 		candidates += L.mind
 
-	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in sort_names(candidates)
+	var/choice = input(admin, "Choose the blood brother.", "Brother") as null|anything in sort_names(candidates)
 	if(!choice)
 		return
 	var/datum/mind/bro = choice
@@ -101,91 +113,8 @@
 	T.add_member(bro)
 	T.pick_meeting_area()
 	T.forge_brother_objectives()
-	new_owner.add_antag_datum(/datum/antagonist/brother,T)
+	new_owner.add_antag_datum(/datum/antagonist/brother/prime/no_conversion, T)
 	bro.add_antag_datum(/datum/antagonist/brother, T)
 	T.update_name()
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(bro)] into blood brothers.")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(bro)] into blood brothers.")
-
-/datum/team/brother_team
-	name = "brotherhood"
-	member_name = "blood brother"
-	var/team_id
-	var/meeting_area
-	var/static/meeting_areas = list("The Bar", "Dorms", "Escape Dock", "Arrivals", "Holodeck", "Primary Tool Storage", "Recreation Area", "Chapel", "Library")
-
-/datum/team/brother_team/New(starting_members)
-	. = ..()
-	var/static/blood_teams
-	team_id = ++blood_teams
-
-/datum/team/brother_team/is_solo()
-	return FALSE
-
-/datum/team/brother_team/proc/pick_meeting_area()
-	meeting_area = pick(meeting_areas)
-	meeting_areas -= meeting_area
-
-/datum/team/brother_team/proc/update_name()
-	var/list/last_names = list()
-	for(var/datum/mind/M in members)
-		var/list/split_name = splittext(M.name," ")
-		last_names += split_name[split_name.len]
-
-	name = last_names.Join(" & ")
-
-/datum/team/brother_team/roundend_report()
-	var/list/parts = list()
-
-	parts += span_header("The blood brothers of [name] were:")
-	for(var/datum/mind/M in members)
-		parts += printplayer(M)
-	var/win = TRUE
-	var/objective_count = 1
-	for(var/datum/objective/objective in objectives)
-		if(objective.check_completion())
-			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [span_greentext("Success!")]"
-		else
-			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [span_redtext("Fail.")]"
-			win = FALSE
-		objective_count++
-	if(win)
-		parts += span_greentext("The blood brothers were successful!")
-	else
-		parts += span_redtext("The blood brothers have failed!")
-
-	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
-
-/datum/team/brother_team/proc/add_objective(datum/objective/O, needs_target = FALSE)
-	O.team = src
-	if(needs_target)
-		O.find_target(dupe_search_range = list(src))
-	O.update_explanation_text()
-	objectives += O
-	for(var/datum/mind/member in members)
-		log_objective(member, O.explanation_text)
-
-/datum/team/brother_team/proc/forge_brother_objectives()
-	objectives = list()
-	var/is_hijacker = prob(10)
-	for(var/i = 1 to max(1, CONFIG_GET(number/brother_objectives_amount) + (members.len > 2) - is_hijacker))
-		forge_single_objective()
-	if(is_hijacker)
-		if(!locate(/datum/objective/hijack) in objectives)
-			add_objective(new/datum/objective/hijack)
-	else if(!locate(/datum/objective/escape) in objectives)
-		add_objective(new/datum/objective/escape)
-
-/datum/team/brother_team/proc/forge_single_objective()
-	if(prob(50))
-		if(LAZYLEN(active_ais()) && prob(100/GLOB.joined_player_list.len))
-			add_objective(new/datum/objective/destroy, TRUE)
-		else if(prob(30))
-			add_objective(new/datum/objective/maroon, TRUE)
-		else
-			add_objective(new/datum/objective/assassinate, TRUE)
-	else
-		add_objective(new/datum/objective/steal, TRUE)
-
-/datum/team/brother_team/antag_listing_name()
-	return "[name] blood brothers"

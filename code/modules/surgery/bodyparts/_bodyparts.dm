@@ -53,20 +53,21 @@
 	/// are we a hand? if so, which one!
 	var/held_index = 0
 
+	///Controls whether bodypart_disabled makes sense or not for this limb.
+	var/can_be_disabled = FALSE
 	///If disabled, limb is as good as missing.
 	var/bodypart_disabled = FALSE
 
-	///Controls whether bodypart_disabled makes sense or not for this limb.
-	var/can_be_disabled = FALSE
-
 	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
 	var/stam_damage_coeff = 0.7 //Why is this the default???
-	var/brutestate = 0
-	var/burnstate = 0
 	var/brute_dam = 0
 	var/burn_dam = 0
 	var/max_stamina_damage = 0
 	var/max_damage = 0
+
+	//Used in determining overlays for limb damage states. As the mob receives more burn/brute damage, their limbs update to reflect.
+	var/brutestate = 0
+	var/burnstate = 0
 
 	var/stamina_dam = 0
 	var/stamina_heal_rate = 1	//Stamina heal multiplier
@@ -253,7 +254,7 @@
 /obj/item/bodypart/attackby(obj/item/W, mob/user, params)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(W.is_sharp())
+	if(W.get_sharpness())
 		add_fingerprint(user)
 		if(!contents.len)
 			to_chat(user, span_warning("There is nothing left inside [src]!"))
@@ -315,21 +316,25 @@
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
 //Cannot apply negative damage
-/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null)
+/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, forced = FALSE, required_bodytype = null, sharpness = NONE, attack_direction = null, damage_source)
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/hit_percent = (100-blocked)/100
-	if((!brute && !burn && !stamina) || hit_percent <= 0)
+	if((!brute && !burn) || hit_percent <= 0)
 		return FALSE
-	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
-		return FALSE	//godmode
-	if(required_status && !(bodytype & required_status))
-		return FALSE
+	if (!forced)
+		if(!isnull(owner))
+			if(HAS_TRAIT(owner, TRAIT_GODMODE))
+				return FALSE
+			if (SEND_SIGNAL(owner, COMSIG_CARBON_LIMB_DAMAGED, src, brute, burn) & COMPONENT_PREVENT_LIMB_DAMAGE)
+				return FALSE
+		if(required_bodytype && !(bodytype & required_bodytype))
+			return FALSE
 
-	var/dmg_mlt = CONFIG_GET(number/damage_multiplier) * hit_percent
-	brute = round(max(brute * dmg_mlt, 0),DAMAGE_PRECISION)
-	burn = round(max(burn * dmg_mlt, 0),DAMAGE_PRECISION)
-	stamina = round(max(stamina * dmg_mlt, 0),DAMAGE_PRECISION)
+	var/dmg_multi = CONFIG_GET(number/damage_multiplier) * hit_percent
+	brute = round(max(brute * dmg_multi, 0),DAMAGE_PRECISION)
+	burn = round(max(burn * dmg_multi, 0),DAMAGE_PRECISION)
+	stamina = round(max(stamina * dmg_multi, 0),DAMAGE_PRECISION)
 	brute = max(0, brute - brute_reduction)
 	burn = max(0, burn - burn_reduction)
 	//No stamina scaling.. for now..
@@ -371,10 +376,10 @@
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
 //Damage cannot go below zero.
 //Cannot remove negative damage (i.e. apply damage)
-/obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status, updating_health = TRUE)
+/obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status, updating_health = TRUE, forced = FALSE, required_bodytype)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(required_status && !(bodytype & required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
+	if(!forced && required_bodytype && !(bodytype & required_bodytype)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return
 
 	if(brute)

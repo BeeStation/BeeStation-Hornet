@@ -107,21 +107,23 @@
 		robot.hud_used.update_robot_modules_display()
 
 /obj/item/robot_model/proc/respawn_consumable(mob/living/silicon/robot/robot, coeff = 1)
+	SHOULD_CALL_PARENT(TRUE)
+
 	for(var/datum/robot_energy_storage/st in storages)
 		st.energy = min(st.max_energy, st.energy + coeff * st.recharge_rate)
 
 	// Refresh flashes, stun baton charge, energy gun charge
-	for(var/obj/item/item in get_usable_modules())
-		if(istype(item, /obj/item/assembly/flash))
-			var/obj/item/assembly/flash/flash = item
+	for(var/obj/item/module in get_usable_modules())
+		if(istype(module, /obj/item/assembly/flash))
+			var/obj/item/assembly/flash/flash = module
 			flash.bulb.charges_left = INFINITY
 			flash.burnt_out = FALSE
 			flash.update_icon()
-		else if(istype(item, /obj/item/melee/baton))
-			var/obj/item/melee/baton/stun_baton = item
-			stun_baton.cell?.charge = stun_baton.cell.maxcharge
-		else if(istype(item, /obj/item/gun/energy))
-			var/obj/item/gun/energy/energy_gun = item
+		else if(istype(module, /obj/item/melee/baton/security))
+			var/obj/item/melee/baton/security/baton = module
+			baton.cell?.charge = baton.cell.maxcharge
+		else if(istype(module, /obj/item/gun/energy))
+			var/obj/item/gun/energy/energy_gun = module
 			if(!energy_gun.chambered)
 				energy_gun.recharge_newshot() //try to reload a new shot.
 
@@ -187,6 +189,7 @@
 	robot.setDir(SOUTH)
 	robot.set_anchored(FALSE)
 	robot.notransform = FALSE
+	robot.updatehealth()
 	robot.update_icons()
 	robot.notify_ai(NEW_MODEL)
 	if(robot.hud_used)
@@ -629,7 +632,7 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
-		/obj/item/melee/baton/loaded,
+		/obj/item/melee/baton/security/loaded,
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/shield/riot/tele,

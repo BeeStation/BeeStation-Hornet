@@ -1,16 +1,26 @@
 /obj/item/organ
 	name = "organ"
 	icon = 'icons/obj/surgery.dmi'
-	var/mob/living/carbon/owner = null
-	var/status = ORGAN_ORGANIC
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
+	/// The mob that owns this organ.
+	var/mob/living/carbon/owner = null
+	/// The body zone this organ is supposed to inhabit.
 	var/zone = BODY_ZONE_CHEST
+	/**
+	 * The organ slot this organ is supposed to inhabit. This should be unique by type. (Lungs, Appendix, Stomach, etc)
+	 * Do NOT add slots with matching names to different zones - it will break the organs_slot list!
+	 */
 	var/slot
-	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
-	var/organ_flags = ORGAN_EDIBLE
+	/// Random flags that describe this organ
+	var/organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE
+	/// Maximum damage the organ can take, ever.
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
-	var/damage = 0		//total damage this organ has sustained
+	/**
+	 * Total damage this organ has sustained.
+	 * Should only ever be modified by apply_organ_damage!
+	 */
+	var/damage = 0
 	///Healing factor and decay factor function on % of maxhealth, and do not work by applying a static number per tick
 	var/healing_factor 	= 0										//fraction of maxhealth healed per on_life(), set to 0 for generic organs
 	var/decay_factor 	= 0										//same as above but when without a living owner, set to 0 for generic organs
@@ -26,7 +36,7 @@
 	var/high_threshold_cleared
 	var/low_threshold_cleared
 
-	///When you take a bite you cant jam it in for surgery anymore.
+	/// When set to false, this can't be used in surgeries and such
 	var/useable = TRUE
 	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	juice_typepath = /datum/reagent/liquidgibs
@@ -55,8 +65,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
-	if(organ_flags & ORGAN_SYNTHETIC)
-		juice_typepath = null
 
 /*
  * Insert the organ into the select mob.
@@ -194,7 +202,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
 
 /obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
-	if(organ_flags & (ORGAN_SYNTHETIC | ORGAN_FROZEN))
+	if(organ_flags & (ORGAN_ROBOTIC | ORGAN_FROZEN))
 		return
 	apply_organ_damage(decay_factor * maxHealth * delta_time)
 
@@ -213,7 +221,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/examine(mob/user)
 	. = ..()
 	if(organ_flags & ORGAN_FAILING)
-		if(status == ORGAN_ROBOTIC)
+		if(IS_ROBOTIC_ORGAN(src))
 			. += span_warning("[src] seems to be broken!")
 			return
 		. += span_warning("[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!")
@@ -264,22 +272,25 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	return //so we don't grant the organ's action to mobs who pick up the organ.
 
 ///Adjusts an organ's damage by the amount "damage_amount", up to a maximum amount, which is by default max damage. Returns the net change in organ damage.
-/obj/item/organ/proc/apply_organ_damage(damage_amount, maximum = maxHealth)	//use for damaging effects
+/obj/item/organ/proc/apply_organ_damage(damage_amount, maximum = maxHealth, required_organ_flag = NONE) //use for damaging effects
 	if(!damage_amount) //Micro-optimization.
 		return FALSE
 	maximum = clamp(maximum, 0, maxHealth) // the logical max is, our max
 	if(maximum < damage)
 		return FALSE
+	if(required_organ_flag && !(organ_flags & required_organ_flag))
+		return FALSE
 	damage = clamp(damage + damage_amount, 0, maximum)
-	var/message = check_damage_thresholds()
+	. = (prev_damage - damage) // return net damage
+	var/message = check_damage_thresholds(owner)
 	prev_damage = damage
 
 	if(message && owner && owner.stat <= SOFT_CRIT)
 		to_chat(owner, message)
 
 ///SETS an organ's damage to the amount "damage_amount", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
-/obj/item/organ/proc/set_organ_damage(damage_amount) //use mostly for admin heals
-	apply_organ_damage(damage_amount - damage)
+/obj/item/organ/proc/set_organ_damage(damage_amount, required_organ_flag = NONE) //use mostly for admin heals
+	return apply_organ_damage(damage_amount - damage, required_organ_flag = required_organ_flag)
 
 /** check_damage_thresholds
  * input: mob/organ_owner (a mob, the owner of the organ we call the proc on)

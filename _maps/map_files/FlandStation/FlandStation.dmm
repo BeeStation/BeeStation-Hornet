@@ -47289,6 +47289,27 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"mOG" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_x = -3;
+	pixel_y = 12
+	},
+/obj/item/melee/baton/security/cattleprod{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/blindfold{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/obj/item/wallframe/camera{
+	pixel_x = 3;
+	pixel_y = -2
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
 "mOH" = (
 /obj/structure/sign/painting/library{
 	pixel_x = -32
@@ -66984,6 +67005,13 @@
 	},
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
+"slZ" = (
+/mob/living/basic/mouse/gray,
+/obj/structure/lattice/catwalk,
+/obj/item/food/cheese/wheel,
+/obj/item/food/breadslice/creamcheese,
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "sma" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -81887,27 +81915,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
-"wdH" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp{
-	pixel_x = -3;
-	pixel_y = 12
-	},
-/obj/item/melee/baton/cattleprod{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/blindfold{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/wallframe/camera{
-	pixel_x = 3;
-	pixel_y = -2
-	},
-/turf/open/floor/iron/dark,
-/area/security/main)
 "wdR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -87731,13 +87738,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/ridged/steel,
 /area/science/lobby)
-"xyo" = (
-/mob/living/basic/mouse/gray,
-/obj/structure/lattice/catwalk,
-/obj/item/food/cheese/wheel,
-/obj/item/food/breadslice/creamcheese,
-/turf/open/floor/plating,
-/area/maintenance/port/central)
 "xyr" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/side{
@@ -122583,7 +122583,7 @@ gsN
 xAn
 wrM
 vUR
-wdH
+mOG
 rGl
 jFK
 pYu
@@ -124074,7 +124074,7 @@ lHA
 jID
 jID
 jID
-xyo
+slZ
 jID
 aVq
 asn

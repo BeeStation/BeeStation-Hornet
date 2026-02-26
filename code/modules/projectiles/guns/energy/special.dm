@@ -195,7 +195,7 @@
 	else
 		. = ..(amount=1)
 
-/obj/item/gun/energy/plasmacutter/is_hot()
+/obj/item/gun/energy/plasmacutter/get_temperature()
 	if(use(1))
 		return heat_weld
 	return heat

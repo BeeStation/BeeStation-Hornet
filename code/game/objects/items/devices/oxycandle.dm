@@ -75,7 +75,7 @@
 		user.dropItemToGround(src)
 		START_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/oxycandle/is_hot()
+/obj/item/flashlight/oxycandle/get_temperature()
 	return on * heat
 
 /obj/item/flashlight/oxycandle/equipped(mob/user, slot)

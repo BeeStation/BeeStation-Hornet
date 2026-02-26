@@ -305,8 +305,6 @@
 		return FALSE
 	var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
 	apply_damage(I.force, I.damtype, blocked = armour_block)
-	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
-		batong_act(I, user, null, armour_block)
 	if(I.damtype == BRUTE && prob(33))
 		I.add_mob_blood(src)
 		var/turf/location = get_turf(src)
@@ -316,7 +314,7 @@
 	return TRUE //successful attack
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
-	if(I.force < force_threshold || I.damtype == STAMINA || nonharmfulhit)
+	if(!attack_threshold_check(I.force, I.damtype, MELEE, FALSE) || nonharmfulhit)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
 	else
 		return ..()

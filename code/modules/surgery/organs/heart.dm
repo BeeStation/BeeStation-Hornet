@@ -143,8 +143,7 @@
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
 	icon_state = "heart-c-on"
 	base_icon_state = "heart-c"
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC
 	var/dose_available = TRUE
 	var/rid = /datum/reagent/medicine/epinephrine
 	var/ramount = 10
@@ -152,7 +151,6 @@
 /obj/item/organ/heart/cybernetic/ipc //this sucks
 	name = "coolant pump"
 	desc = "A small pump powered by the IPC's internal systems for circulating coolant."
-	status = ORGAN_ROBOTIC
 
 /obj/item/organ/heart/cybernetic/ipc/emp_act()
 	. = ..()
@@ -190,7 +188,7 @@
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
-	organ_flags = ORGAN_SYNTHETIC //the power of freedom prevents heart attacks
+	organ_flags = ORGAN_ROBOTIC  //the power of freedom prevents heart attacks
 	/// The cooldown until the next time this heart can give the host an adrenaline boost.
 	COOLDOWN_DECLARE(adrenaline_cooldown)
 

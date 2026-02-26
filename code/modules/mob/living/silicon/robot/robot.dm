@@ -28,6 +28,8 @@
 
 	ident = rand(1, 999)
 
+	previous_health = health
+
 	if(ispath(cell))
 		cell = new cell(src)
 

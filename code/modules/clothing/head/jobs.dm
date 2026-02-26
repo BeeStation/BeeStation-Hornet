@@ -127,11 +127,9 @@
 	bleed = 20
 
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
-	. = ..()
-
 	create_storage(storage_type = /datum/storage/pockets/small/fedora/detective)
-
 	new /obj/item/reagent_containers/cup/glass/flask/det(src)
+	return ..()
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
 	. = ..()
