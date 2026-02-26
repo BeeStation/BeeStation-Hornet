@@ -80,7 +80,7 @@
 		qdel(src)
 		return
 
-	if(owner.incapacitated(IGNORE_RESTRAINTS))
+	if(INCAPACITATED_IGNORING(owner, INCAPABLE_RESTRAINTS))
 		return
 
 	// Only check if we're within range of the vampire

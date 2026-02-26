@@ -224,7 +224,7 @@
 		if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
 			continue
 
-		if(!watcher.incapacitated(IGNORE_RESTRAINTS))
+		if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
 			watcher.face_atom(owner)
 
 		watcher.do_alert_animation(watcher)

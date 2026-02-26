@@ -85,7 +85,7 @@
 		qdel(src)
 		return
 
-	if(owner.incapacitated(IGNORE_RESTRAINTS))
+	if(INCAPACITATED_IGNORING(owner, INCAPABLE_RESTRAINTS))
 		return
 
 	if(COOLDOWN_FINISHED(src, awe_effect_cooldown))

@@ -79,7 +79,7 @@
 			if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
 				continue
 
-			if(!watcher.incapacitated(IGNORE_RESTRAINTS))
+			if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
 				watcher.face_atom(owner)
 			watcher.do_alert_animation(watcher)
 			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
@@ -103,7 +103,7 @@
 			if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
 				continue
 
-			if(!watcher.incapacitated(IGNORE_RESTRAINTS))
+			if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
 				watcher.face_atom(owner)
 
 			watcher.do_alert_animation(watcher)
@@ -127,7 +127,7 @@
 		return FALSE
 	var/mob/living/target = target_atom
 	// Mice check
-	if(istype(target, /mob/living/simple_animal/mouse))
+	if(istype(target, /mob/living/basic/mouse))
 		if(vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY)
 			owner.balloon_alert(owner, "too disgusting!")
 			return FALSE
@@ -183,7 +183,7 @@
 	target_ref = WEAKREF(feed_target)
 
 	// Mice
-	if(istype(feed_target, /mob/living/simple_animal/mouse))
+	if(istype(feed_target, /mob/living/basic/mouse))
 		to_chat(owner, span_warning("You recoil at the taste of a lesser lifeform."))
 		vampiredatum_power.AdjustBloodVolume(FEED_BLOOD_FROM_MICE)
 		power_activated_sucessfully()
