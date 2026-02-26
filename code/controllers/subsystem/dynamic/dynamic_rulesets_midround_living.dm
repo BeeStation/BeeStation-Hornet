@@ -223,3 +223,21 @@
 		chosen_candidate.gain_trauma(/datum/brain_trauma/special/obsessed)
 
 	return DYNAMIC_EXECUTE_SUCCESS
+
+//////////////////////////////////////////////
+//                                          //
+//             VAMPIRE (LIGHT)              //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/living/vampire
+	name = "Vampiric Accident"
+	severity = DYNAMIC_MIDROUND_LIGHT
+	role_preference = /datum/role_preference/midround/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 7
+	points_cost = 30
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+
+/datum/dynamic_ruleset/midround/living/vampire/get_poll_icon()
+	return icon('icons/effects/blood.dmi', "uniformblood")
