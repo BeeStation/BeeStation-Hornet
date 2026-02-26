@@ -269,7 +269,7 @@
 	minimum_players_required = 14
 	drafted_players_amount = 3
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 /datum/dynamic_ruleset/gamemode/vampires/set_drafted_players_amount()
 	// Start with 3 at 14 pop. Every three players above that, a vampire gets added.
