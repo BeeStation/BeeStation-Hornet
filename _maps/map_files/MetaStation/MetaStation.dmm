@@ -2051,7 +2051,6 @@
 	dir = 1
 	},
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/machinery/hydroponics/soil,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
 "auk" = (
@@ -4045,16 +4044,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
-/obj/item/seeds/watermelon,
-/obj/item/seeds/wheat,
-/obj/item/seeds/sugarcane,
-/obj/item/seeds/orange,
-/obj/item/seeds/grape,
-/obj/item/seeds/cocoapod,
-/obj/item/seeds/banana,
-/obj/item/seeds/apple,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/tower,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
 "aMH" = (
@@ -21057,7 +21046,6 @@
 	pixel_y = 27
 	},
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/machinery/hydroponics/soil,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
 "esA" = (
@@ -22395,7 +22383,6 @@
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "eSS" = (
-/obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
@@ -29283,7 +29270,6 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "hnF" = (
-/obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/requests_console/auto_name/directional/south,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
@@ -35868,7 +35854,6 @@
 /turf/closed/wall,
 /area/crew_quarters/toilet/restrooms)
 "jzq" = (
-/obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
@@ -36524,7 +36509,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "jKY" = (
-/obj/machinery/seed_extractor,
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
@@ -37793,7 +37777,6 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "kjk" = (
-/obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
@@ -44506,9 +44489,6 @@
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "mDH" = (
-/obj/machinery/hydroponics/soil{
-	pixel_y = 8
-	},
 /obj/item/food/grown/flower/harebell,
 /obj/item/food/grown/flower/harebell,
 /obj/item/food/grown/flower/harebell,
@@ -44628,7 +44608,6 @@
 /turf/open/floor/iron/chapel,
 /area/chapel/main)
 "mFo" = (
-/obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
@@ -53455,7 +53434,6 @@
 "pIB" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/machinery/hydroponics/soil,
 /obj/item/cultivator,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
@@ -56466,7 +56444,6 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "qLT" = (
-/obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
@@ -60158,7 +60135,6 @@
 /area/engine/atmos)
 "scW" = (
 /obj/effect/turf_decal/bot_white/left,
-/obj/machinery/hydroponics/constructable,
 /turf/open/floor/iron/dark/textured_large,
 /area/hydroponics/garden)
 "sdd" = (
@@ -61344,9 +61320,6 @@
 "sBj" = (
 /obj/structure/railing/perspective/wood{
 	pixel_y = -6
-	},
-/obj/machinery/hydroponics/soil{
-	pixel_y = 7
 	},
 /obj/item/reagent_containers/cup/bucket{
 	pixel_x = 13;
@@ -64338,9 +64311,6 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
 "tAU" = (
-/obj/machinery/plantgenes{
-	pixel_y = 6
-	},
 /obj/structure/table,
 /obj/machinery/light/directional/east,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
@@ -71102,7 +71072,6 @@
 /area/quartermaster/storage)
 "vSM" = (
 /obj/machinery/light_switch/directional/west,
-/obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
@@ -72802,20 +72771,10 @@
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
-"wyw" = (
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/hydroponics/constructable,
-/obj/effect/turf_decal/tile/dark_green/opposingcorners{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green/opposingcorners,
-/turf/open/floor/iron,
-/area/hydroponics)
 "wyx" = (
 /obj/machinery/light,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot_white/right,
-/obj/machinery/hydroponics/constructable,
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/dark/textured_large,
 /area/hydroponics/garden)
@@ -76586,7 +76545,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "xNV" = (
-/obj/machinery/seed_extractor,
 /obj/machinery/firealarm{
 	pixel_x = 31
 	},
@@ -77475,7 +77433,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/machinery/hydroponics/constructable,
 /obj/structure/railing{
 	pixel_y = 24
 	},
@@ -112076,7 +112033,7 @@ lUn
 pvH
 ilu
 auD
-wyw
+eSS
 eSS
 mgu
 jzq
