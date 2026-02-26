@@ -167,7 +167,7 @@
 /atom/movable/lighting_object/singularity_act()
 	return
 
-/atom/movable/lighting_object/singularity_pull()
+/atom/movable/lighting_object/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/lighting_object/blob_act()

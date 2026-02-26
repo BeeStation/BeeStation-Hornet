@@ -5,6 +5,7 @@
 	show_name_in_check_antagonists = TRUE
 	var/duration = 2 MINUTES
 	banning_key = UNBANNABLE_ANTAGONIST
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/blood_contract/on_gain()
 	. = ..()
@@ -28,7 +29,7 @@
 	if(!istype(H))
 		return
 
-	H.add_atom_colour("#FF0000", ADMIN_COLOUR_PRIORITY)
+	H.add_atom_colour(COLOR_RED, ADMIN_COLOUR_PRIORITY)
 
 	var/obj/effect/mine/pickup/bloodbath/B = new(H)
 	B.duration = duration

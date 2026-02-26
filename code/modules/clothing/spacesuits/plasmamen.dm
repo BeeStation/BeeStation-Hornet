@@ -37,7 +37,7 @@
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
 			H.visible_message(span_warning("[H]'s suit automatically extinguishes [H.p_them()]!"),span_warning("Your suit automatically extinguishes you."))
-			H.ExtinguishMob()
+			H.extinguish_mob()
 			new /obj/effect/particle_effect/water(get_turf(H))
 
 
@@ -65,7 +65,7 @@
 	light_on = FALSE
 	var/helmet_on = FALSE
 	var/smile = FALSE
-	var/smile_color = "#FF0000"
+	var/smile_color = COLOR_RED
 	var/smile_state = "envirohelm_smile"
 	var/visor_state = "enviro_visor"
 	var/lamp_functional = TRUE

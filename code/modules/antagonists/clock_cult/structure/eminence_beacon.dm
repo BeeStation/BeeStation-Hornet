@@ -25,13 +25,13 @@
 		return
 	else if(option == "Yourself")
 		hierophant_message("[user] has elected themselves to become the Eminence. Interact with [src] to object.", span="<span=large_brass>")
-		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed), user), 600, TIMER_STOPPABLE)
+		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed), user), 1 MINUTES, TIMER_STOPPABLE)
 	else if(option == "A ghost")
 		hierophant_message("[user] has elected for a ghost to become the Eminence. Interact with [src] to object.")
-		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed)), 600, TIMER_STOPPABLE)
+		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed)), 1 MINUTES, TIMER_STOPPABLE)
 	vote_active = TRUE
 
-/obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/eminence)
+/obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/living/eminence)
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
@@ -48,7 +48,8 @@
 			eminence = candidate
 	else
 		eminence.dust()
-	if(!(eminence?.client))
+
+	if(!eminence?.client)
 		hierophant_message("The Eminence remains in slumber, for now, try waking it again soon.")
 		used = FALSE
 		return

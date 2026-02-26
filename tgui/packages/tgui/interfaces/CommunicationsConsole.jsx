@@ -654,116 +654,136 @@ export const CommunicationsConsole = (props) => {
   return (
     <Window width={800} height={550} theme={emagged ? 'syndicate' : undefined}>
       <Window.Content>
-        {(canRequestSafeCode ? (
-          <Section title="Emergency Safe Code">
-            <Button
-              icon="key"
-              content="Request Safe Code"
-              color="good"
-              onClick={() => act('requestSafeCodes')}
-            />
-          </Section>
-        ) : null) ||
-          (safeCodeDeliveryWait ? (
-            <Section title="Emergency Safe Code Delivery">
-              {`Drop pod to ${safeCodeDeliveryArea} in \
+        <Flex
+          height="100%"
+          style={{
+            gap: '5px',
+            flexDirection: 'column',
+          }}
+        >
+          {(canRequestSafeCode ? (
+            <Flex.Item>
+              <Section title="Emergency Safe Code">
+                <Button
+                  icon="key"
+                  content="Request Safe Code"
+                  color="good"
+                  onClick={() => act('requestSafeCodes')}
+                />
+              </Section>
+            </Flex.Item>
+          ) : null) ||
+            (safeCodeDeliveryWait ? (
+              <Flex.Item>
+                <Section title="Emergency Safe Code Delivery">
+                  {`Drop pod to ${safeCodeDeliveryArea} in \
             ${Math.round(safeCodeDeliveryWait / 10)}s`}
-            </Section>
-          ) : null)}
-
-        {authenticated ? (
-          <Stack fill>
-            <Stack.Item width="40%">
-              {canLogOut || !authenticated ? (
-                <Section title="Authentication">
-                  <Button
-                    icon={authenticated ? 'sign-out-alt' : 'sign-in-alt'}
-                    content={
-                      authenticated
-                        ? `Log Out${authorizeName ? ` (${authorizeName})` : ''}`
-                        : 'Log In'
-                    }
-                    color={authenticated ? 'bad' : 'good'}
-                    onClick={() => act('toggleAuthentication')}
-                  />
                 </Section>
-              ) : null}
+              </Flex.Item>
+            ) : null)}
 
-              {!!authenticated && <PageMain />}
-            </Stack.Item>
-            <Stack.Item width="60%">
-              <Stack vertical fill>
-                <Stack.Item>
-                  <Section title="Menus" fitted>
-                    <Tabs>
-                      <Tabs.Tab
-                        fluid
-                        icon="desktop"
-                        selected={page === STATE_CHANGING_STATUS}
-                        onClick={() =>
-                          act('setState', { state: STATE_CHANGING_STATUS })
+          {authenticated ? (
+            <Flex.Item grow>
+              <Stack fill>
+                <Stack.Item width="40%">
+                  {canLogOut || !authenticated ? (
+                    <Section title="Authentication">
+                      <Button
+                        icon={authenticated ? 'sign-out-alt' : 'sign-in-alt'}
+                        content={
+                          authenticated
+                            ? `Log Out${authorizeName ? ` (${authorizeName})` : ''}`
+                            : 'Log In'
                         }
-                      >
-                        Set Status Display
-                      </Tabs.Tab>
+                        color={authenticated ? 'bad' : 'good'}
+                        onClick={() => act('toggleAuthentication')}
+                      />
+                    </Section>
+                  ) : null}
 
-                      <Tabs.Tab
-                        fluid
-                        icon="envelope-o"
-                        selected={page === STATE_MESSAGES}
-                        onClick={() =>
-                          act('setState', { state: STATE_MESSAGES })
-                        }
-                      >
-                        Message List
-                      </Tabs.Tab>
-
-                      {canBuyShuttles !== 0 && (
-                        <ConditionalTooltip
-                          condition={canBuyShuttles !== 1}
-                          content={canBuyShuttles}
-                        >
+                  {!!authenticated && <PageMain />}
+                </Stack.Item>
+                <Stack.Item width="60%">
+                  <Stack vertical fill>
+                    <Stack.Item>
+                      <Section title="Menus" fitted>
+                        <Tabs>
                           <Tabs.Tab
                             fluid
-                            icon="shopping-cart"
-                            selected={page === STATE_BUYING_SHUTTLE}
+                            icon="desktop"
+                            selected={page === STATE_CHANGING_STATUS}
                             onClick={() =>
-                              act('setState', { state: STATE_BUYING_SHUTTLE })
+                              act('setState', { state: STATE_CHANGING_STATUS })
                             }
                           >
-                            Purchase Shuttle
+                            Set Status Display
                           </Tabs.Tab>
-                        </ConditionalTooltip>
-                      )}
-                    </Tabs>
-                  </Section>
-                </Stack.Item>
-                <Stack.Item grow position="relative">
-                  {!!authenticated &&
-                    ((page === STATE_BUYING_SHUTTLE && <PageBuyingShuttle />) ||
-                      (page === STATE_CHANGING_STATUS && (
-                        <PageChangingStatus />
-                      )) ||
-                      (page === STATE_MESSAGES && <PageMessages />) || (
-                        <Box>Page not implemented: {page}</Box>
-                      ))}
+
+                          <Tabs.Tab
+                            fluid
+                            icon="envelope-o"
+                            selected={page === STATE_MESSAGES}
+                            onClick={() =>
+                              act('setState', { state: STATE_MESSAGES })
+                            }
+                          >
+                            Message List
+                          </Tabs.Tab>
+
+                          {canBuyShuttles !== 0 && (
+                            <ConditionalTooltip
+                              condition={canBuyShuttles !== 1}
+                              content={canBuyShuttles}
+                            >
+                              <Tabs.Tab
+                                fluid
+                                icon="shopping-cart"
+                                selected={page === STATE_BUYING_SHUTTLE}
+                                onClick={() =>
+                                  act('setState', {
+                                    state: STATE_BUYING_SHUTTLE,
+                                  })
+                                }
+                              >
+                                Purchase Shuttle
+                              </Tabs.Tab>
+                            </ConditionalTooltip>
+                          )}
+                        </Tabs>
+                      </Section>
+                    </Stack.Item>
+                    <Stack.Item grow position="relative">
+                      {!!authenticated &&
+                        ((page === STATE_BUYING_SHUTTLE && (
+                          <PageBuyingShuttle />
+                        )) ||
+                          (page === STATE_CHANGING_STATUS && (
+                            <PageChangingStatus />
+                          )) ||
+                          (page === STATE_MESSAGES && <PageMessages />) || (
+                            <Box>Page not implemented: {page}</Box>
+                          ))}
+                    </Stack.Item>
+                  </Stack>
                 </Stack.Item>
               </Stack>
-            </Stack.Item>
-          </Stack>
-        ) : (
-          <Flex height="100%" width="100%" justify="center" align="center">
-            <Section title="Authentication">
-              <Button
-                icon="sign-in-alt"
-                content="Log In"
-                color="good"
-                onClick={() => act('toggleAuthentication')}
-                fluid
-              />
-            </Section>
-          </Flex>
-        )}
+            </Flex.Item>
+          ) : (
+            <Flex.Item grow>
+              <Flex height="100%" width="100%" justify="center" align="center">
+                <Section title="Authentication">
+                  <Button
+                    icon="sign-in-alt"
+                    content="Log In"
+                    color="good"
+                    onClick={() => act('toggleAuthentication')}
+                    fluid
+                  />
+                </Section>
+              </Flex>
+            </Flex.Item>
+          )}
+        </Flex>
 
         {!hasConnection && <NoConnectionModal />}
       </Window.Content>

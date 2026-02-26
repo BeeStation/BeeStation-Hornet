@@ -112,8 +112,7 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "A strong bola, bound with dark magic that allows it to pass harmlessly through Nar'Sien cultists. Throw it to trip and slow your victim."
 	icon_state = "bola_cult"
 	inhand_icon_state = "bola_cult"
-	breakouttime = 6 SECONDS
-	knockdown = 2 SECONDS
+	knockdown = 6 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -342,7 +341,7 @@ Striking a noncultist, however, will tear their flesh."}
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.dropItemToGround(src, TRUE)
-		user.Dizzy(30)
+		user.set_dizzy_if_lower(1 MINUTES)
 		user.Paralyze(100)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker
@@ -380,7 +379,7 @@ Striking a noncultist, however, will tear their flesh."}
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.dropItemToGround(src, TRUE)
-		user.Dizzy(30)
+		user.set_dizzy_if_lower(1 MINUTES)
 		user.Paralyze(100)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
@@ -396,7 +395,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(!IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"You want to be blind, do you?\""))
 		user.dropItemToGround(src, TRUE)
-		user.Dizzy(30)
+		user.set_dizzy_if_lower(1 MINUTES)
 		user.Paralyze(100)
 		user.adjust_blindness(30)
 
@@ -514,7 +513,7 @@ Striking a noncultist, however, will tear their flesh."}
 	light_range = 1
 	icon_state = "torch"
 	inhand_icon_state = "torch"
-	color = "#ff0000"
+	color = COLOR_RED
 	on_damage = 15
 	slot_flags = null
 	on = TRUE
@@ -534,7 +533,7 @@ Striking a noncultist, however, will tear their flesh."}
 			if(cult_mind.current?.stat != DEAD)
 				cultists |= cult_mind.current
 		var/mob/living/cultist_to_receive = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in (cultists - user)
-		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
+		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated)
 			return
 		if(!cultist_to_receive)
 			to_chat(user, span_cultitalic("You require a destination!"))
@@ -655,7 +654,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
 	desc = "Blood for blood."
-	color = "#ff0000"
+	color = COLOR_RED
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
@@ -752,9 +751,9 @@ Striking a noncultist, however, will tear their flesh."}
 		if(i > 1)
 			sleep(15)
 		if(i < 4)
-			O = new /obj/effect/temp_visual/cult/rune_spawn/rune1/inner(user.loc, 30, "#ff0000")
+			O = new /obj/effect/temp_visual/cult/rune_spawn/rune1/inner(user.loc, 30, COLOR_RED)
 		else
-			O = new /obj/effect/temp_visual/cult/rune_spawn/rune5(user.loc, 30, "#ff0000")
+			O = new /obj/effect/temp_visual/cult/rune_spawn/rune5(user.loc, 30, COLOR_RED)
 			new /obj/effect/temp_visual/dir_setting/cult/phase/out(user.loc, user.dir)
 	if(O)
 		qdel(O)

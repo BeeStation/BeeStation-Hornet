@@ -2,7 +2,7 @@
 	var/datum/universal_icon/lower_half = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	for (var/icon in icons)
-		lower_half.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', icon), ICON_OVERLAY)
+		lower_half.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', icon), ICON_OVERLAY)
 
 	var/list/values = list()
 
@@ -115,13 +115,13 @@
 	priority = PREFERENCE_PRIORITY_UNDERSHIRT
 
 /datum/preference/choiced/undershirt/init_possible_values()
-	var/datum/universal_icon/body = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_leg")
-	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_arm"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_l_arm"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_hand"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_l_hand"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_chest_m"), ICON_OVERLAY)
+	var/datum/universal_icon/body = uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_r_leg")
+	body.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_r_arm"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_l_arm"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_r_hand"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_l_hand"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_chest_m"), ICON_OVERLAY)
 
 	var/list/values = list()
 
@@ -167,7 +167,7 @@
 		return FALSE
 
 	var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
-	var/datum/species/species = new species_type
+	var/datum/species/species = GLOB.species_prototypes[species_type]
 	return !(NO_UNDERWEAR in species.species_traits)
 
 /datum/preference/choiced/underwear/compile_constant_data()

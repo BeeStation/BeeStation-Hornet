@@ -159,7 +159,7 @@
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/gun/ballistic/automatic/pistol(src)
 	new /obj/item/suppressor(src)
-	new /obj/item/melee/classic_baton/police/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/bodybag(src)
 	new /obj/item/soap/nanotrasen(src)

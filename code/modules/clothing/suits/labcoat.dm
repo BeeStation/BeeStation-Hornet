@@ -22,7 +22,7 @@
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/paper,
-		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/soap,
 		/obj/item/sensor_device,
 		/obj/item/tank/internals/emergency_oxygen,

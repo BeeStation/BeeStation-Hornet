@@ -77,7 +77,7 @@
 
 	blood.visible_message(("<span class='warning'>[jaunter] sinks into [blood]!</span>"))
 	playsound(jaunt_turf, 'sound/magic/enter_blood.ogg', 50, TRUE, -1)
-	jaunter.ExtinguishMob()
+	jaunter.extinguish_mob()
 
 	jaunter.notransform = FALSE
 	return TRUE

@@ -56,7 +56,7 @@ SUBSYSTEM_DEF(botany)
 		if(initial(need.overdraw_need))
 			overdraw_needs += need
 //Build random seeds lists
-	for(var/obj/item/plant_seeds/preset/random/seed as anything in subtypesof(/obj/item/plant_seeds/preset/random))
+	for(var/obj/item/plant_seeds/preset/kirby/seed as anything in subtypesof(/obj/item/plant_seeds/preset/kirby))
 		random_seeds += seed
 //Build random traits
 	for(var/datum/plant_trait/trait as anything in subtypesof(/datum/plant_trait))

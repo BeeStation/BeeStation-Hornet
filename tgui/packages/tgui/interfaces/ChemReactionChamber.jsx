@@ -27,7 +27,7 @@ export const ChemReactionChamber = (props) => {
         <Section
           title="Reagents"
           buttons={
-            <Box inline bold color={emptying ? 'bad' : 'good'}>
+            <Box inline bold mt={0.5}>
               {emptying ? 'Emptying' : 'Filling'}
             </Box>
           }

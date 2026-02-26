@@ -34,7 +34,7 @@
 	. = ..()
 	if(books_to_load && isnum_safe(books_to_load))
 		books_to_load += pick(-1,-1,0,1,1)
-	if(books_to_load && prob(5)) // as long as the bookshelf is not meant to be empty, it has a small chance of having manuscript
+	if(books_to_load && prob(15)) // as long as the bookshelf is not meant to be empty, it has a small chance of having manuscript
 		new /obj/item/book/manuscript(src)
 	update_icon()
 

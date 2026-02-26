@@ -33,7 +33,7 @@
 /turf/open/floor/carpet/purple,
 /area/ruin/space/has_grav/powered)
 "k" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/carpet/purple,
 /area/ruin/space/has_grav/powered)
 "l" = (
@@ -95,7 +95,7 @@
 /turf/open/floor/carpet/purple,
 /area/ruin/space/has_grav/powered)
 "r" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/eighties,
 /area/ruin/space/has_grav/powered)
 "s" = (

@@ -75,7 +75,7 @@
 	if(LAZYACCESS(modifiers, ALT_CLICK) || LAZYACCESS(modifiers, SHIFT_CLICK) || LAZYACCESS(modifiers, CTRL_CLICK) || LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
 
-	if(!user.throw_mode || user.get_active_held_item() || user.pulling || user.buckled || user.incapacitated())
+	if(!user.throw_mode || user.get_active_held_item() || user.pulling || user.buckled || user.incapacitated)
 		return
 
 	if(!clicked_atom || !(isturf(clicked_atom) || isturf(clicked_atom.loc)))
@@ -365,7 +365,7 @@
 	// DE-FENSE
 
 	// Drunks are easier to knock off balance
-	var/target_drunkenness = target.drunkenness
+	var/target_drunkenness = target.get_drunk_amount()
 	if(target_drunkenness > 60)
 		defense_mod -= 3
 	else if(target_drunkenness > 30)
@@ -415,7 +415,7 @@
 
 	// OF-FENSE
 	var/mob/living/carbon/sacker = parent
-	var/sacker_drunkenness = sacker.drunkenness
+	var/sacker_drunkenness = sacker.get_drunk_amount()
 
 	if(sacker_drunkenness > 60) // you're far too drunk to hold back!
 		attack_mod += 1
@@ -559,7 +559,7 @@
 								"<span class='userdanger'>You slam head-first into [hit], and the world explodes around you!</span>")
 			user.apply_damage(30, BRUTE)
 			user.apply_damage(30, STAMINA)
-			user.confused += 15
+			user.adjust_confusion(15 SECONDS)
 			if(prob(80))
 				user.gain_trauma(/datum/brain_trauma/mild/concussion)
 			user.playsound_local(get_turf(user), 'sound/weapons/flashbang.ogg', 100, TRUE, 8)
@@ -572,7 +572,7 @@
 								"<span class='userdanger'>You slam hard into [hit], knocking yourself senseless!</span>")
 			user.apply_damage(10, BRUTE)
 			user.apply_damage(30, STAMINA)
-			user.confused += 10
+			user.adjust_confusion(10 SECONDS)
 			user.Knockdown(3 SECONDS)
 			shake_camera(user, 3, 4)
 
@@ -614,7 +614,7 @@
 		user.Paralyze(1 SECONDS)
 		user.Knockdown(3 SECONDS)
 		windscreen_casualty.take_damage(30 * speed)
-		user.adjustStaminaLoss(10 * speed, updating_health=FALSE)
+		user.adjustStaminaLoss(10 * speed, updating_stamina=FALSE)
 		user.adjustBruteLoss(5 * speed)
 
 ///Check to see if we hit a table, and if so, make a big mess!
@@ -655,7 +655,7 @@
 
 	owner.visible_message("<span class='danger'>[owner] trips over [kevved] and slams into it face-first[HOW_big_of_a_miss_did_we_just_make]!</span>",
 						"<span class='userdanger'>You trip over [kevved] and slam into it face-first[HOW_big_of_a_miss_did_we_just_make]!</span>")
-	owner.adjustStaminaLoss(15 + messes.len * 2, updating_health = FALSE)
+	owner.adjustStaminaLoss(15 + messes.len * 2, updating_stamina = FALSE)
 	owner.adjustBruteLoss(8 + messes.len, updating_health = FALSE)
 	owner.Paralyze(0.4 SECONDS * messes.len) // .4 seconds of paralyze for each thing you knock around
 	owner.Knockdown(2 SECONDS + 0.4 SECONDS * messes.len) // 2 seconds of knockdown after the paralyze

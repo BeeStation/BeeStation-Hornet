@@ -10,10 +10,13 @@
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)
 
-	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
+	icon_state = "" //Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
 	//initialize limbs first
 	create_bodyparts()
+
+	// This needs to be called very very early in human init (before organs / species are created at the minimum)
+	setup_organless_effects()
 
 	setup_human_dna()
 
@@ -45,6 +48,15 @@
 
 	GLOB.human_list += src
 
+/// This proc is for holding effects applied when a mob is missing certain organs
+/// It is called very, very early in human init because all humans innately spawn with no organs and gain them during init
+/// Gaining said organs removes these effects
+/mob/living/carbon/human/proc/setup_organless_effects()
+	// All start without eyes, and get them via set species
+	//become_blind(NO_EYES)
+	// Mobs cannot taste anything without a tongue; the tongue organ removes this on Insert
+	ADD_TRAIT(src, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
+
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
 	create_dna(src)
@@ -53,7 +65,6 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
-	QDEL_LIST(bioware)
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
 	return ..()
@@ -145,7 +156,7 @@
 			id_species ||= dna.species.name
 			id_blood_type ||= dna.blood_type?.name
 
-		var/id_examine = span_slightly_larger(separator_hr("This is <em>[src]'s ID card</em>."))
+		var/id_examine = span_slightly_larger(separator_hr("This is <em>[id.get_examine_name(viewer)]</em>."))
 		id_examine += "<div class='img_by_text_container'>"
 		id_examine += "[id_icon]"
 		id_examine += "<div class='img_text'>"
@@ -302,7 +313,7 @@
 					investigate_log("SecHUD auto-crime | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
 
 				investigate_log("has been set from [target_record.wanted_status] to [new_status] via HUD by [key_name(human_user)].", INVESTIGATE_RECORDS)
-				target_record.wanted_status = new_status
+				target_record.set_wanted_status(human_user, new_status)
 				update_matching_security_huds(target_record.name)
 				return
 
@@ -365,7 +376,7 @@
 /mob/living/carbon/human/can_inject(mob/user, target_zone, injection_flags)
 	. = TRUE // Default to returning true.
 	if(user && !target_zone)
-		target_zone = user.get_combat_bodyzone()
+		target_zone = user.get_combat_bodyzone(zone_context = BODYZONE_CONTEXT_INJECTION)
 	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
 	// we may choose to ignore species trait pierce immunity in case we still want to check skellies for thick clothing without insta failing them (wounds)
 	if(injection_flags & INJECT_CHECK_IGNORE_SPECIES)
@@ -487,13 +498,13 @@
 	update_body()
 	update_hair()
 
-/mob/living/carbon/human/singularity_pull(S, current_size)
-	..()
+/mob/living/carbon/human/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(current_size >= STAGE_THREE)
 		for(var/obj/item/hand in held_items)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && dropItemToGround(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2) && dropItemToGround(hand))
 				step_towards(hand, src)
-				to_chat(src, span_warning("\The [S] pulls \the [hand] from your grip!"))
+				to_chat(src, span_warning("\The [singularity] pulls \the [hand] from your grip!"))
 
 #define CPR_PANIC_SPEED (0.8 SECONDS)
 
@@ -652,21 +663,30 @@
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
 /mob/living/carbon/human/proc/electrocution_animation(anim_duration)
-	//Handle mutant parts if possible
-	if(dna?.species)
-		add_atom_colour("#000000", TEMPORARY_COLOUR_PRIORITY)
-		var/static/mutable_appearance/electrocution_skeleton_anim
-		if(!electrocution_skeleton_anim)
-			electrocution_skeleton_anim = mutable_appearance(icon, "electrocuted_base")
-			electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
-		add_overlay(electrocution_skeleton_anim)
-		addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), electrocution_skeleton_anim), anim_duration)
+	var/mutable_appearance/zap_appearance
 
-	else //or just do a generic animation
-		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
+	// If we have a species, we need to handle mutant parts and stuff
+	if(dna?.species)
+		add_atom_colour(COLOR_BLACK, TEMPORARY_COLOUR_PRIORITY)
+		var/static/mutable_appearance/shock_animation_dna
+		if(!shock_animation_dna)
+			shock_animation_dna = mutable_appearance(icon, "electrocuted_base")
+			shock_animation_dna.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_dna
+
+	// Otherwise do a generic animation
+	else
+		var/static/mutable_appearance/shock_animation_generic
+		if(!shock_animation_generic)
+			shock_animation_generic = mutable_appearance(icon, "electrocuted_generic")
+			shock_animation_generic.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_generic
+
+	add_overlay(zap_appearance)
+	addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), zap_appearance), anim_duration)
 
 /mob/living/carbon/human/proc/end_electrocution_animation(mutable_appearance/MA)
-	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
+	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_BLACK)
 	cut_overlay(MA)
 
 /mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
@@ -885,7 +905,7 @@
 		if(isnull(dna.species))
 			to_chat(usr, "The species of [src] is null, aborting.")
 		var/old_name = real_name
-		fully_replace_character_name(real_name, dna.species.random_name(gender))
+		fully_replace_character_name(real_name, generate_random_mob_name())
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
 		message_admins(span_notice("[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name]."))
 
@@ -992,7 +1012,7 @@
 	return ((ishuman(target) || ismonkey(target)) && target.body_position == LYING_DOWN)
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		to_chat(src, span_notice("You can't fireman carry [target] while they're standing!"))
 		return
 
@@ -1014,7 +1034,7 @@
 		return
 
 	//Second check to make sure they're still valid to be carried
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB) || target.buckled)
 		target.visible_message(span_warning("[target] can't hang on to [src]!"))
 		return
 
@@ -1030,7 +1050,7 @@
 		visible_message(span_warning("[target] fails to climb onto [src]!"))
 		return
 
-	if(target.incapacitated(IGNORE_GRAB) || incapacitated(IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(target, INCAPABLE_GRAB) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		target.visible_message(span_warning("[target] can't hang onto [src]!"))
 		return
 

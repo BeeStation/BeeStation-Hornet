@@ -1,6 +1,6 @@
 /datum/action/changeling/absorbDNA
 	name = "Absorb DNA"
-	desc = "Absorb the DNA of our victim. Requires us to strangle them."
+	desc = "Absorb the DNA of our victim, increasing our power level. Requires us to strangle them."
 	button_icon_state = "absorb_dna"
 	chemical_cost = 0
 	dna_cost = 0
@@ -25,7 +25,7 @@
 
 	var/mob/living/carbon/target = owner.pulling
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
-	return changeling.can_absorb_dna(target)
+	return changeling.can_absorb_dna(target, ignore_duplicates = TRUE)
 
 /datum/action/changeling/absorbDNA/sting_action(mob/owner)
 	SHOULD_CALL_PARENT(FALSE)
@@ -50,8 +50,16 @@
 	// Absorb a lizard, speak Draconic.
 	owner.copy_languages(target, LANGUAGE_ABSORB)
 
-	if(target.mind && owner.mind)//if the victim and owner have minds
+	var/mind_ref = target.mind ? REF(target.mind) : null
+	if(target.mind && owner.mind && !(mind_ref in changeling.absorbed_minds))//if the victim and owner have minds
+		// You can only absorb each mind once
+		changeling.absorbed_minds += mind_ref
 		absorb_memories(target)
+	else
+		if (mind_ref in changeling.absorbed_minds)
+			to_chat(owner, span_changeling("We already absorbed [target.p_their()] memories, we gain no additional DNA to work with."))
+		else
+			to_chat(owner, span_changeling("We were unable to find any memories inside of [target.p_them()], we gain no additional DNA to work with."))
 
 	is_absorbing = FALSE
 
@@ -120,29 +128,16 @@
 		changeling.antag_memory += "<B>We have no more knowledge of [target]'s speech patterns.</B><br>"
 		to_chat(owner, span_boldnotice("We have no more knowledge of [target]'s speech patterns."))
 
+	changeling.total_genetic_points += initial(changeling.total_genetic_points)
+	changeling.genetic_points += initial(changeling.total_genetic_points)
 
-	var/datum/antagonist/changeling/target_ling = IS_CHANGELING(target)
-	if(target_ling)//If the target was a changeling, suck out their extra juice and objective points!
-		to_chat(owner, span_boldnotice("[target] was one of us. We have absorbed their power."))
+	var/chems_added = initial(changeling.total_chem_storage)
+	changeling.total_chem_storage += chems_added
+	changeling.adjust_chemicals(chems_added)
 
-		// Gain half of their genetic points.
-		var/genetic_points_to_add = round(target_ling.total_genetic_points / 2)
-		changeling.genetic_points += genetic_points_to_add
-		changeling.total_genetic_points += genetic_points_to_add
+	changeling.chem_recharge_rate += initial(changeling.chem_recharge_rate)
 
-		// And half of their chemical charges.
-		var/chems_to_add = round(target_ling.total_chem_storage / 2)
-		changeling.adjust_chemicals(chems_to_add)
-		changeling.total_chem_storage += chems_to_add
-
-		// And of course however many they've absorbed, we've absorbed
-		changeling.absorbed_count += target_ling.absorbed_count
-
-		// Lastly, make them not a ling anymore. (But leave their objectives for round-end purposes).
-		var/list/copied_objectives = target_ling.objectives.Copy()
-		target.mind.remove_antag_datum(/datum/antagonist/changeling)
-		var/datum/antagonist/fallen_changeling/fallen = target.mind.add_antag_datum(/datum/antagonist/fallen_changeling)
-		fallen.objectives = copied_objectives
+	to_chat(changeling, span_changeling("With new DNA, our body adapts to the species. We gain greater chemical storage, faster chemical regeneration, and more genetic points."))
 
 /datum/action/changeling/absorbDNA/proc/attempt_absorb(mob/living/carbon/human/target)
 	for(var/absorbing_iteration in 1 to 3)

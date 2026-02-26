@@ -150,6 +150,17 @@
 	update_species_id()
 
 /*
+	Random
+*/
+/obj/item/plant_seeds/random
+
+/obj/item/plant_seeds/random/Initialize(mapload, list/_plant_features, _species_id)
+	. = ..()
+	var/obj/item/plant_seeds/random_seeds = pick(subtypesof(/obj/item/plant_seeds/preset))
+	random_seeds = new random_seeds(src.loc)
+	return INITIALIZE_HINT_QDEL
+
+/*
 	Debug
 */
 /obj/item/plant_seeds/debug

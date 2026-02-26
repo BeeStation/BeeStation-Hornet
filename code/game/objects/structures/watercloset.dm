@@ -274,7 +274,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 	if(washing_face)
 		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_WASH)
-		user.drowsyness = max(user.drowsyness - rand(2,3), 0) //Washing your face wakes you up if you're falling asleep
 	else if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		if(!human_user.wash_hands(CLEAN_WASH))
@@ -301,15 +300,16 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 			to_chat(user, span_notice("\The [RG] is full."))
 			return FALSE
 
-	if(istype(O, /obj/item/melee/baton))
-		var/obj/item/melee/baton/batong = O
-		if(batong.cell?.charge && batong.damtype == STAMINA)
+	if(istype(O, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/baton = O
+		if(baton.cell?.charge && baton.active)
 			flick("baton_active", src)
-			user.Paralyze(batong.active_force)
-			batong.cell.use(batong.cell.charge)
-			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [batong.name]!"), \
-								span_userdanger("You unwisely attempt to wash [batong] while it's still on."))
-			playsound(src, batong.active_hitsound, 50, TRUE)
+			user.Paralyze(baton.knockdown_time)
+			user.set_stutter(baton.knockdown_time)
+			baton.cell.use(baton.cell_hit_cost)
+			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [baton.name]!"), \
+								span_userdanger("You unwisely attempt to wash [baton] while it's still on."))
+			playsound(src, baton.on_stun_sound, 50, TRUE)
 			return
 
 	if(istype(O, /obj/item/mop))

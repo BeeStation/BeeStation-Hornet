@@ -3,7 +3,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
 /obj/item/wirerod,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (

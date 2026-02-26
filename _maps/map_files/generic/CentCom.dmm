@@ -1239,11 +1239,6 @@
 	dir = 8
 	},
 /area/tdome/tdomeobserve)
-"acM" = (
-/obj/machinery/seed_extractor,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/holding)
 "acN" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/handcuffs,
@@ -2079,7 +2074,6 @@
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "aeH" = (
-/obj/machinery/hydroponics/constructable,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -8708,11 +8702,6 @@
 	dir = 8
 	},
 /area/centcom/supplypod/loading/two)
-"awj" = (
-/obj/machinery/hydroponics/constructable,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/holding)
 "awk" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
@@ -9534,7 +9523,6 @@
 "ayM" = (
 /obj/structure/table/wood/bar,
 /obj/structure/safe/floor,
-/obj/item/seeds/cherry/bomb,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "ayN" = (
@@ -15549,11 +15537,6 @@
 	dir = 8
 	},
 /area/tdome/tdomeadmin)
-"aOl" = (
-/obj/machinery/plantgenes/seedvault,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/holding)
 "aOm" = (
 /turf/open/floor/iron/white,
 /area/ctf)
@@ -19928,7 +19911,6 @@
 /area/centcom/control)
 "aZg" = (
 /obj/structure/table,
-/obj/item/seeds/pumpkin/blumpkin,
 /obj/item/paper/guides/jobs/hydroponics,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -48099,13 +48081,13 @@ aaa
 aaa
 aRk
 aNd
-awj
-awj
-awj
+aaT
+aaT
+aaT
 aeH
-awj
-awj
-awj
+aaT
+aaT
+aaT
 aNd
 aQI
 aVA
@@ -49127,9 +49109,9 @@ aaa
 aaa
 aRk
 aNd
-aOl
+aaT
 aZg
-acM
+aaT
 aaT
 aXl
 acp

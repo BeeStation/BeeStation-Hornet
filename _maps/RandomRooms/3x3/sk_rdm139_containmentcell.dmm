@@ -8,13 +8,13 @@
 /area/template_noop)
 "k" = (
 /obj/effect/trap/nexus/doorbolt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating{
 	broken = 1
 	},
 /area/template_noop)
 "G" = (
-/obj/effect/spawner/lootdrop/sanitarium,
+/obj/effect/spawner/random/unsorted/sanitarium,
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (

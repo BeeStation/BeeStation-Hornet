@@ -86,6 +86,12 @@
 			icon_state = "[initial(icon_state)]"
 	return ..()
 
+/obj/item/storage/bag/trash/filled/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(1, 7))
+		new /obj/effect/spawner/random/trash/garbage(src)
+	update_icon_state()
+
 /obj/item/storage/bag/trash/cyborg
 	insertable = FALSE
 
@@ -293,7 +299,7 @@
 	actions_types = list(/datum/action/item_action/portaseeder_dissolve)
 
 /obj/item/storage/bag/plants/portaseeder/proc/dissolve_contents()
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)

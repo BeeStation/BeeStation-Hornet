@@ -8,8 +8,8 @@
 
 /obj/item/clothing/head/fedora/Initialize(mapload)
 	. = ..()
-
-	create_storage(storage_type = /datum/storage/pockets/small/fedora)
+	if(!istype(atom_storage))
+		create_storage(storage_type = /datum/storage/pockets/small/fedora)
 
 /obj/item/clothing/head/fedora/suicide_act(mob/living/user)
 	if(user.gender == FEMALE)

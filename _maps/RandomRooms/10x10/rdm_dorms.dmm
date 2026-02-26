@@ -2,7 +2,7 @@
 "ez" = (
 /obj/structure/table/wood,
 /obj/item/stack/cable_coil/red,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "fQ" = (
@@ -58,7 +58,7 @@
 "mB" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit/burgundy,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "mZ" = (
@@ -164,7 +164,7 @@
 "DB" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/dress/redeveninggown,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "DD" = (
@@ -185,12 +185,12 @@
 /area/template_noop)
 "FR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "GG" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/plating,
 /area/template_noop)
 "GQ" = (
@@ -213,7 +213,7 @@
 	icon_state = "curator"
 	},
 /obj/item/clothing/under/rank/civilian/curator/treasure_hunter,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/carpet/purple,
 /area/template_noop)
 "HI" = (
@@ -246,12 +246,12 @@
 /turf/closed/wall,
 /area/template_noop)
 "Mo" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/plating,
 /area/template_noop)
 "Nw" = (
 /obj/structure/closet/emcloset,
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/plating,
 /area/template_noop)
 "NI" = (
@@ -265,7 +265,7 @@
 /area/template_noop)
 "NK" = (
 /obj/structure/lattice/catwalk/over,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/template_noop)
 "Pj" = (
@@ -341,7 +341,7 @@
 /area/template_noop)
 "Xb" = (
 /obj/structure/closet/firecloset/full,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "Xm" = (
@@ -350,7 +350,7 @@
 /obj/item/clothing/head/beret,
 /obj/item/clothing/suit/toggle/lawyer,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "Xn" = (
@@ -374,7 +374,7 @@
 /area/template_noop)
 "ZM" = (
 /obj/structure/lattice/catwalk/over,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 

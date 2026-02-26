@@ -24,7 +24,6 @@
 		new /datum/spacevine_controller(T, list(pick(subtypesof(/datum/spacevine_mutation))), rand(10,100), rand(1,6)) //spawn a controller at turf with randomized stats and a single random mutation
 		message_admins("Event spacevine has been spawned in [ADMIN_VERBOSEJMP(T)].")
 
-
 // SPACE VINES (Note that this code is very similar to Biomass code)
 /obj/structure/spacevine
 	name = "space vines"
@@ -43,7 +42,7 @@
 
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
-	add_atom_colour("#ffffff", FIXED_COLOUR_PRIORITY)
+	add_atom_colour(COLOR_WHITE, FIXED_COLOUR_PRIORITY)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -89,7 +88,7 @@
 
 /obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
 	var/damage_dealt = I.force
-	if(I.is_sharp())
+	if(I.get_sharpness())
 		damage_dealt *= 4
 	if(I.damtype == BURN)
 		damage_dealt *= 4
@@ -278,7 +277,7 @@
 			else if(!L.down && direction == DOWN)
 				continue
 			ladder = TRUE
-		if((!stepturf?.zPassIn(src, direction, startturf) || !startturf.zPassOut(src, direction, stepturf)) && !ladder) //We can't zmove, choose another direction
+		if((!stepturf?.zPassIn(direction) || !startturf.zPassOut(direction)) && !ladder) //We can't zmove, choose another direction
 			direction = pick(GLOB.cardinals)
 			stepturf = get_step(src,direction)
 	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it

@@ -35,5 +35,3 @@
 #endif
 
 #undef DELTA_CALC
-
-#define UNTIL(X) while(!(X)) stoplag()

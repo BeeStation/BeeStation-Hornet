@@ -40,6 +40,8 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
+		// Register the user as a viewer
+		computer_users |= REF(user)
 		if(active_program)
 			ui = new(user, src, active_program.tgui_id, active_program.filedesc)
 			ui.set_autoupdate(TRUE)
@@ -66,6 +68,7 @@
 /obj/item/modular_computer/ui_close(mob/user, datum/tgui/tgui)
 	if(active_program)
 		active_program.on_ui_close(user, tgui)
+	computer_users -= REF(user)
 
 /obj/item/modular_computer/ui_assets(mob/user)
 	var/list/data = list()

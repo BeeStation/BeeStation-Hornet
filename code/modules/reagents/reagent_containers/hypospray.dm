@@ -60,7 +60,7 @@
 	set name = "Empty Hypospray"
 	set category = "Object"
 	set src in usr
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
@@ -73,6 +73,10 @@
 	list_reagents = list(/datum/reagent/medicine/omnizine = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
@@ -194,6 +198,38 @@
 	icon_state = "morphen"
 	inhand_icon_state = "morphen"
 	list_reagents = list(/datum/reagent/medicine/morphine = 10)
+
+/obj/item/reagent_containers/hypospray/medipen/oxandrolone
+	name = "oxandrolone medipen"
+	desc = "An autoinjector containing oxandrolone, used to treat severe burns."
+	icon_state = "oxapen"
+	inhand_icon_state = "oxapen"
+	base_icon_state = "oxapen"
+	list_reagents = list(/datum/reagent/medicine/oxandrolone = 10)
+
+/obj/item/reagent_containers/hypospray/medipen/penacid
+	name = "pentetic acid medipen"
+	desc = "An autoinjector containing pentetic acid, used to reduce high levels of radiations and moderate toxins."
+	icon_state = "penacid"
+	inhand_icon_state = "penacid"
+	base_icon_state = "penacid"
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 10)
+
+/obj/item/reagent_containers/hypospray/medipen/salacid
+	name = "salicylic acid medipen"
+	desc = "An autoinjector containing salicylic acid, used to treat severe brute damage."
+	icon_state = "salacid"
+	inhand_icon_state = "salacid"
+	base_icon_state = "salacid"
+	list_reagents = list(/datum/reagent/medicine/sal_acid = 10)
+
+/obj/item/reagent_containers/hypospray/medipen/salbutamol
+	name = "salbutamol medipen"
+	desc = "An autoinjector containing salbutamol, used to heal oxygen damage quickly."
+	icon_state = "salpen"
+	inhand_icon_state = "salpen"
+	base_icon_state = "salpen"
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/dexalin
 	name = "dexalin medipen"

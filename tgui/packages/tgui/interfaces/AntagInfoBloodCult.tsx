@@ -27,11 +27,11 @@ const StructureAltar = (_props) => {
       <Box inline textColor="red">
         altar
       </Box>{' '}
-      is a bloodstained alter dedicated to{' '}
+      is a bloodstained altar dedicated to{' '}
       <Box inline textColor="#aa1c1c">
         <b>Nar&apos;Sie</b>
       </Box>
-      , capable of producing 3 different items:
+      , capable of producing 4 different items:
       <br />
       <Box inline textColor="red">
         <b>Eldritch Whetstone</b>
@@ -49,6 +49,12 @@ const StructureAltar = (_props) => {
       </Box>
       : A dark flask containing unholy water, which will heal believers, and
       burn the veins of heretics.
+      <br />
+      <Box inline textColor="red">
+        <b>Runic Golem Shell</b>
+      </Box>
+      : A consecrated shell capable of binding a soul stone into a runic golem
+      construct.
     </Box>
   );
 };
@@ -497,7 +503,7 @@ const RunesSection = (_props) => {
             Spirit Realm
           </Tabs.Tab>
           <Tabs.Tab selected={tab === 9} onClick={() => setTab(9)}>
-            Apocolypse
+            Apocalypse
           </Tabs.Tab>
           <Tabs.Tab selected={tab === 10} onClick={() => setTab(10)}>
             Nar&apos;Sie
@@ -532,7 +538,8 @@ const RunesSection = (_props) => {
             </p>
             <p>
               Sacrifice victims will be gibbed and have their soul placed into a
-              Soul Stone, which can then be placed into a construct shell.
+              Soul Stone, which can then be placed into a construct shell or a
+              golem shell.
             </p>
           </Box>
         )}
@@ -725,7 +732,7 @@ const RunesSection = (_props) => {
                 <i>Ta&apos;gh fara&apos;qha fel d&apos;amar det!</i>
               </Box>
             </h2>
-            <b>Name</b>: Apocolypse
+            <b>Name</b>: Apocalypse
             <br />
             <b>Cultists Required</b>: 3
             <p>

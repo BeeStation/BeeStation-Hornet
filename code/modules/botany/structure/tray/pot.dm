@@ -51,7 +51,7 @@
 /obj/item/plant_tray/pot/random/Initialize(mapload)
 	. = ..()
 //Plant a random seed
-	var/obj/item/plant_seeds/preset/random/seed = SSbotany.get_seed()
+	var/obj/item/plant_seeds/preset/kirby/seed = SSbotany.get_seed()
 	seed = new seed(src)
 	var/datum/component/plant/plant_component = seed.plant(src, logic = TRUE)
 //Add some bonus traits to it

@@ -78,8 +78,8 @@
 			explosion(get_step(T, aim_dir), boom_sizes[1], boom_sizes[2], boom_sizes[3])
 		else
 			explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3])
-	if(ismob(target))
-		var/mob/M = target
+	if(isliving(target))
+		var/mob/living/M = target
 		M.gib()
 	qdel(src)
 

@@ -181,3 +181,23 @@
 	name = "trumpet seeds"
 	name_override = "trumpet"
 	plant_features = list(/datum/plant_feature/roots/sand, /datum/plant_feature/body/tree/gum, /datum/plant_feature/fruit/mail)
+
+//Death Nettle
+/obj/item/plant_seeds/preset/death_nettle
+	name = "death nettle seeds"
+	name_override = "death nettle bush"
+	plant_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/bush_vine/nettle/death, /datum/plant_feature/fruit/nettle/death)
+
+//Rainbow Cannabis
+/obj/item/plant_seeds/preset/rainbow_cannabis
+	name = "rainbow cannabis seeds"
+	name_override = "rainbow cannabis bush"
+	plant_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/bush_vine/cannabis, /datum/plant_feature/fruit/cannabis/rainbow)
+	trade_flags = TRADE_CONTRABAND
+
+//Omega Cannabis
+/obj/item/plant_seeds/preset/omega_cannabis
+	name = "omega cannabis seeds"
+	name_override = "omega cannabis bush"
+	plant_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/bush_vine/cannabis, /datum/plant_feature/fruit/cannabis/omega)
+	trade_flags = TRADE_CONTRABAND

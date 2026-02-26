@@ -19,7 +19,6 @@
 	melee_damage = 1
 	attack_verb_continuous = "pokes"
 	attack_verb_simple = "poke"
-	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	faction = list(FACTION_PLANTS)

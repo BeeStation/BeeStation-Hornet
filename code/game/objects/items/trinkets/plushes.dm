@@ -118,7 +118,7 @@
 		to_chat(user, span_notice("You try to pet [src], but it has no stuffing. Aww..."))
 
 /obj/item/toy/plush/attackby(obj/item/I, mob/living/user, params)
-	if(I.is_sharp())
+	if(I.get_sharpness())
 		if(!grenade)
 			if(!stuffed)
 				to_chat(user, span_warning("You already murdered it!"))
@@ -367,13 +367,19 @@
 	if(mood_message)
 		desc += mood_message
 	return ..()
+
 /obj/item/toy/plush/carpplushie
 	name = "space carp plushie"
 	desc = "An adorable stuffed toy that resembles a space carp."
-	icon_state = "carpplush"
+	icon_state = "map_plushie_carp"
+	greyscale_config = /datum/greyscale_config/plush_carp
+	greyscale_colors = "#cc99ff#000000"
 	attack_verb_continuous = list("bites", "eats", "fin slaps")
 	attack_verb_simple = list("bite", "eat", "fin slap")
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
+
+/obj/item/toy/plush/carpplushie/regular
+	greyscale_colors = "#cc99ff#000000"
 
 /obj/item/toy/plush/bubbleplush
 	name = "\improper Bubblegum plushie"
@@ -511,14 +517,14 @@
 	if(!greyscale_colors)
 		// Generate a random valid lizard color for our plushie friend
 		var/generated_lizard_color = "#" + random_color()
-		var/temp_hsv = RGBtoHSV(generated_lizard_color)
+		var/list/lizard_hsv = rgb2hsv(generated_lizard_color)
 
 		// If our color is too dark, use the classic green lizard plush color
-		if(ReadHSV(temp_hsv)[3] < ReadHSV("#7F7F7F")[3])
+		if(lizard_hsv[3] < 50)
 			generated_lizard_color = "#66ff33"
 
 		// Set our greyscale colors to the lizard color we made + black eyes
-		set_greyscale(colors = list(generated_lizard_color, "#000000"))
+		set_greyscale(colors = list(generated_lizard_color, COLOR_BLACK))
 
 // Preset lizard plushie that uses the original lizard plush green. (Or close to it)
 /obj/item/toy/plush/lizard_plushie/green
@@ -541,7 +547,9 @@
 /obj/item/toy/plush/snakeplushie
 	name = "snake plushie"
 	desc = "An adorable stuffed toy that resembles a snake. Not to be mistaken for the real thing."
-	icon_state = "snakeplush"
+	icon_state = "map_plushie_snake"
+	greyscale_config = /datum/greyscale_config/plush_snake
+	greyscale_colors = "#99ff99#000000"
 	attack_verb_continuous = list("bites", "hisses", "tail slaps")
 	attack_verb_simple = list("bite", "hiss", "tail slap")
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
@@ -905,7 +913,7 @@
 	if(!length(item_list))
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		for(var/V in plushie_list)
 			var/atom/A = V
 			if(initial(A.name) == choice)

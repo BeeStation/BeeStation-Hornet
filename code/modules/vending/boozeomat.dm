@@ -83,6 +83,7 @@
 
 /obj/machinery/vending/boozeomat/syndicate_access
 	req_access = list(ACCESS_SYNDICATE)
+	initial_language_holder = /datum/language_holder/syndicate
 
 /obj/item/vending_refill/boozeomat
 	machine_name = "Booze-O-Mat"

@@ -29,6 +29,6 @@
 			/obj/item/reagent_containers/syringe,
 			/obj/item/screwdriver,
 			/obj/item/stamp,
-			/obj/item/clothing/accessory/badge/officer,
+			/obj/item/clothing/accessory/badge,
 		),
 	)

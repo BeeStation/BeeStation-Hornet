@@ -167,7 +167,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "bv" = (
-/obj/effect/mob_spawn/human/doctor/alive/lavaland{
+/obj/effect/mob_spawn/human/lavaland_doctor{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
@@ -597,7 +597,7 @@
 "wC" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/melee/baton/cattleprod{
+/obj/item/melee/baton/security/cattleprod{
 	desc = "On-the-fly rabies treatment.";
 	name = "cattle prod"
 	},

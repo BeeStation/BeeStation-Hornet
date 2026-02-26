@@ -159,7 +159,7 @@
 	list_reagents = list(/datum/reagent/medicine/kelotane = 15)
 	rename_with_volume = TRUE
 
-/obj/item/reagent_containers/pill/salicyclic
+/obj/item/reagent_containers/pill/salicylic
 	name = "salicylic acid pill"
 	desc = "Used to dull pain."
 	icon_state = "pill_shape_tablet_white_lined"
@@ -226,7 +226,7 @@
 	name = "black pill"
 	desc = "I wouldn't eat this if I were you."
 	icon_state = "pill_shape_tablet_white_lined"
-	color = "#454545"
+	color = COLOR_DARK
 	list_reagents = list(/datum/reagent/mutationtoxin/shadow = 5)
 
 //////////////////////////////////////// drugs

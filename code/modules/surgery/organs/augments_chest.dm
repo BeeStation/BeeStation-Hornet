@@ -81,18 +81,21 @@
 			to_chat(owner, span_notice("You feel a faint buzzing as your reviver implant starts patching your wounds..."))
 
 /obj/item/organ/cyberimp/chest/reviver/proc/heal()
+	var/need_mob_update = FALSE
 	if(owner.getOxyLoss())
-		owner.adjustOxyLoss(-5)
+		need_mob_update += owner.adjustOxyLoss(-5, updating_health = FALSE)
 		revive_cost += 5
 	if(owner.getBruteLoss())
-		owner.adjustBruteLoss(-2)
+		need_mob_update += owner.adjustBruteLoss(-2, updating_health = FALSE)
 		revive_cost += 40
 	if(owner.getFireLoss())
-		owner.adjustFireLoss(-2)
+		need_mob_update += owner.adjustFireLoss(-2, updating_health = FALSE)
 		revive_cost += 40
 	if(owner.getToxLoss())
-		owner.adjustToxLoss(-1)
+		need_mob_update += owner.adjustToxLoss(-1, updating_health = FALSE)
 		revive_cost += 40
+	if(need_mob_update)
+		owner.updatehealth()
 
 /obj/item/organ/cyberimp/chest/reviver/emp_act(severity)
 	. = ..()
@@ -104,7 +107,7 @@
 		Destroy()
 
 /obj/item/organ/cyberimp/chest/reviver/syndicate
-	syndicate_implant = TRUE
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
 
 /obj/item/organ/cyberimp/chest/thrusters
 	name = "implantable thrusters set"

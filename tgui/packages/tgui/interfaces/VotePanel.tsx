@@ -83,7 +83,7 @@ export const VotePanel = (props) => {
   }
 
   return (
-    <Window title={windowTitle} width={400} height={500}>
+    <Window title={windowTitle} theme="generic" width={400} height={500}>
       <Window.Content>
         <Stack fill vertical>
           <Section

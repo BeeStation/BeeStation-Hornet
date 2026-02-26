@@ -48,7 +48,7 @@ Difficulty: Medium
 	ranged = TRUE
 	pixel_x = -16
 	base_pixel_x = -16
-	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/dragon)
+	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/dragon)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/ashdrake = 10)
 	var/swooping = NONE
@@ -381,7 +381,7 @@ Difficulty: Medium
 		return
 	..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && (swooping & SWOOP_INVULNERABLE))
 		return FALSE
 	return ..()
@@ -472,7 +472,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 	layer = BELOW_MOB_LAYER
 	pixel_x = -32
 	pixel_y = -32
-	color = "#FF0000"
+	color = COLOR_RED
 	duration = 10
 
 /obj/effect/temp_visual/dragon_flight

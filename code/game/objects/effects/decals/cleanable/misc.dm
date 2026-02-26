@@ -284,3 +284,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 	desc = "Torn pieces of cardboard and paper, left over from a package."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paper_shreds"
+
+/obj/effect/decal/cleanable/garbage
+	name = "decomposing garbage"
+	desc = "A split open garbage bag, its stinking content seems to be partially liquified. Yuck!"
+	icon = 'icons/obj/debris.dmi'
+	icon_state = "garbage"
+	plane = GAME_PLANE
+	layer = FLOOR_CLEAN_LAYER
+	//beauty = -150
+	clean_type = CLEAN_TYPE_HARD_DECAL

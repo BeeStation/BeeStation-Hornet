@@ -126,9 +126,10 @@
 	taste_mult = 1.3
 
 /datum/reagent/toxin/leaper_venom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
 	if(volume >= 10)
-		M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
-	..()
+		if(M.adjustToxLoss(5 * REM * delta_time, updating_health = FALSE))
+			. = UPDATE_MOB_HEALTH
 
 /obj/effect/temp_visual/leaper_crush
 	name = "grim tidings"
@@ -154,7 +155,7 @@
 		return
 	if(isliving(A))
 		var/mob/living/L = A
-		if(L.incapacitated())
+		if(L.incapacitated)
 			BellyFlop()
 			return
 	if(hop_cooldown <= world.time)
@@ -172,7 +173,7 @@
 	if(target)
 		if(isliving(target))
 			var/mob/living/L = target
-			if(L.incapacitated())
+			if(L.incapacitated)
 				BellyFlop()
 				return
 		if(!hopping)
@@ -182,7 +183,7 @@
 	. = ..()
 	update_icons()
 
-/mob/living/simple_animal/hostile/jungle/leaper/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/jungle/leaper/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(prob(33) && !ckey)
 		ranged_cooldown = 0 //Keeps em on their toes instead of a constant rotation
 	..()
@@ -195,7 +196,7 @@
 				return
 			if(isliving(target))
 				var/mob/living/L = target
-				if(L.incapacitated())
+				if(L.incapacitated)
 					return //No stunlocking. Hop on them after you stun them, you donk.
 		if(AIStatus == AI_ON && !projectile_ready && !ckey)
 			return

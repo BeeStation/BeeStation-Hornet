@@ -20,7 +20,7 @@
 	protect_indoors = TRUE
 	target_trait = ZTRAIT_ASHSTORM
 
-	immunity_type = "ash"
+	immunity_type = TRAIT_ASHSTORM_IMMUNE
 
 	probability = 90
 
@@ -62,27 +62,18 @@
 	GLOB.ash_storm_sounds -= weak_sounds
 	return ..()
 
-/datum/weather/ash_storm/proc/is_ash_immune(atom/L)
-	while (L && !isturf(L))
-		if(ismecha(L)) //Mechs are immune
-			return TRUE
-		if(ishuman(L)) //Are you immune?
-			var/mob/living/carbon/human/H = L
-			var/thermal_protection = H.get_thermal_protection()
-			if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-				return TRUE
-		if(isliving(L))// if we're a non immune mob inside an immune mob we have to reconsider if that mob is immune to protect ourselves
-			var/mob/living/the_mob = L
-			if("ash" in the_mob.weather_immunities)
-				return TRUE
-		L = L.loc //Check parent items immunities (recurses up to the turf)
-	return FALSE //RIP you
+/datum/weather/ash_storm/recursive_weather_protection_check(atom/to_check)
+	. = ..()
+	if(. || !ishuman(to_check))
+		return
+	var/mob/living/carbon/human/human_to_check = to_check
+	if(human_to_check.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		return TRUE
 
 /datum/weather/ash_storm/weather_act(mob/living/L)
-	if(is_ash_immune(L))
+	if(!can_weather_act(L))
 		return
 	L.adjustFireLoss(4)
-
 
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall

@@ -42,7 +42,7 @@
 	dir = 1
 	},
 /obj/effect/trap/nexus/trickyspawner/catbutcher,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/iron/white,
 /area/template_noop)
 "h" = (
@@ -94,7 +94,7 @@
 /obj/item/organ/eyes/apid,
 /obj/item/organ/eyes/moth,
 /obj/item/organ/eyes/robotic,
-/obj/effect/spawner/lootdrop/teratoma/major,
+/obj/effect/spawner/random/medical/teratoma/major,
 /turf/open/floor/iron/white,
 /area/template_noop)
 

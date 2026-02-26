@@ -51,7 +51,7 @@
 			var/turf/tr = get_turf(W)
 
 			// Make sure it's on a turf and that its Z-level matches the tracker's Z-level
-			if (tr && tr.z == sr.z)
+			if (tr && tr.get_virtual_z_level() == sr.get_virtual_z_level())
 				// Get the distance between the beacon's turf and our turf
 				var/distance = max(abs(tr.x - sr.x), abs(tr.y - sr.y))
 
@@ -126,6 +126,7 @@
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
 	active_portal_pairs = list()
+	AddElement(/datum/element/trackable)
 
 /obj/item/hand_tele/pre_attack(atom/target, mob/user, params)
 	if(try_dispel_portal(target, user))
@@ -185,7 +186,7 @@
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
 	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
-	if (!t1 || user.get_active_held_item() != src || user.incapacitated())
+	if (!t1 || user.get_active_held_item() != src || user.incapacitated)
 		return
 	if(active_portal_pairs.len >= max_portal_pairs)
 		user.show_message(span_notice("\The [src] is recharging!"))

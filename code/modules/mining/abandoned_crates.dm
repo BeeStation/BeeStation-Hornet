@@ -130,7 +130,7 @@
 		return
 	return ..()
 
-/obj/structure/closet/crate/secure/loot/open(mob/living/user, force = FALSE)
+/obj/structure/closet/crate/secure/loot/open(mob/living/user, force = FALSE, special_effects)
 	. = ..()
 	if(qdel_on_open)
 		qdel(src)
@@ -173,7 +173,7 @@
 			for(var/i in 1 to 7)
 				new /obj/item/clothing/neck/tie/horrible(src)
 		if(51 to 52) // 2% chance
-			new /obj/item/melee/classic_baton/police(src)
+			new /obj/item/melee/baton(src)
 		if(53 to 54)
 			new /obj/item/toy/balloon(src)
 		if(55 to 56)

@@ -1544,7 +1544,7 @@
 /area/template_noop)
 "yl" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "yq" = (
@@ -1730,7 +1730,7 @@
 "Bo" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/railing,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "Bw" = (
@@ -3259,7 +3259,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Yr" = (
@@ -3299,7 +3299,7 @@
 /area/template_noop)
 "YT" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/wrench{
 	pixel_x = -4;
 	pixel_y = 7

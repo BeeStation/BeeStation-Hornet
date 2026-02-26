@@ -4273,10 +4273,7 @@
 /area/ruin/space/has_grav/ancientstation/rnd)
 "Fy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stock_parts/cell{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},

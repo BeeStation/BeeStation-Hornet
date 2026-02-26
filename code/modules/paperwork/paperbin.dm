@@ -43,7 +43,7 @@
 /obj/item/paper_bin/MouseDrop(atom/over_object)
 	. = ..()
 	var/mob/living/M = usr
-	if(!istype(M) || M.incapacitated() || !Adjacent(M))
+	if(!istype(M) || M.incapacitated || !Adjacent(M))
 		return
 
 	if(over_object == M)
@@ -160,7 +160,7 @@
 	qdel(src)
 
 /obj/item/paper_bin/bundlenatural/attackby(obj/item/W, mob/user)
-	if(W.is_sharp())
+	if(W.get_sharpness())
 		to_chat(user, span_notice("You snip \the [src], spilling paper everywhere."))
 		var/turf/T = get_turf(src.loc)
 		while(total_paper > 0)

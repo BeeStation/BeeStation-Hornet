@@ -365,7 +365,7 @@
 	atom_storage.set_holdable(list(
 		/obj/item/melee/baton,
 		/obj/item/melee/tonfa,
-		/obj/item/melee/classic_baton/police,
+		/obj/item/melee/baton,
 		/obj/item/grenade,
 		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/restraints/handcuffs,
@@ -375,7 +375,7 @@
 		/obj/item/food/donut,
 		/obj/item/knife/combat,
 		/obj/item/flashlight/seclite,
-		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/radio,
 		/obj/item/clothing/gloves,
 		/obj/item/restraints/legcuffs/bola,
@@ -391,13 +391,13 @@
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/ert/full/PopulateContents()
 	new /obj/item/shield/riot/tele(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/club(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
@@ -866,14 +866,14 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/belt/fannypack/worn
-	name = "Worn belt"
+	name = "worn belt"
 	desc = "A weathered belt"
 	icon_state = "utilitybelt" //Placeholder for now.
 	inhand_icon_state = "utility"
 	worn_icon_state = "utility"
 
 /obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
-	name = "Worn belt"
+	name = "worn belt"
 	desc = "A weathered belt that is used for storing various gadgets"
 
 /obj/item/storage/belt/fannypack/black
@@ -939,6 +939,7 @@
 	inhand_icon_state = "sheath"
 	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_SUITSTORE
 
 	//Sheathes made to hold swords can block too
 	force = 8
@@ -998,7 +999,7 @@
 
 /obj/item/storage/belt/sabre/carbon_fiber
 	name = "carbon fiber sabre sheath"
-	desc = "A military grade sabre sheath."
+	desc = "A military grade sabre sheath. This one has special hooks to interface with the suit storage system of common armor classes."
 	icon_state = "sheath_fiber"
 	inhand_icon_state = "sheath_fiber"
 	worn_icon_state = "sheath_fiber"
