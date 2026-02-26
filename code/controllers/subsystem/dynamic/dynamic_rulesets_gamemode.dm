@@ -277,9 +277,7 @@
 	drafted_players_amount = 3 + extra
 
 /datum/dynamic_ruleset/gamemode/vampires/security_report()
-	return "Several stations in adjacent sectors have reported a statistically anomalous uptick in unexplained blood loss cases and personnel \
-	exhibiting aversion to bright light. Nanotrasen maintains that 'vampires' do not exist, and these incidents are attributed to space rabies \
-	outbreaks, changeling activity, or psychological manipulation. Security personnel are advised to escort affected crew to Medical and report \
+	return "Several stations in adjacent sectors have reported a statistically anomalous uptick in space rabies. Please be aware of potential medical emergencies resultant of this. Security personnel are advised to escort affected crew to Medical and report \
 	any unusual findings to Central Command via secure channel."
 
 /////////////////////////////////////////////
