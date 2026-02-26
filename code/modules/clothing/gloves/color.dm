@@ -203,7 +203,7 @@
 	worn_icon_state = "latex"
 	siemens_coefficient = 0.3
 	armor_type = /datum/armor/color_latex
-	clothing_traits = list(TRAIT_QUICK_CARRY, TRAIT_FINGERPRINT_PASSTHROUGH)
+	clothing_traits = list(TRAIT_QUICK_CARRY)
 	resistance_flags = NONE
 
 /datum/armor/color_latex

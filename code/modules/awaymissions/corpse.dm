@@ -254,7 +254,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
-	mob_type = 	/mob/living/simple_animal/mouse
+	mob_type = /mob/living/basic/mouse
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/obj/machines/sleeper.dmi'

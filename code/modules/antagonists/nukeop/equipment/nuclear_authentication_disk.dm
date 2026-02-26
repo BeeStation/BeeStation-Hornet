@@ -39,6 +39,7 @@
 		START_PROCESSING(SSobj, src)
 		//Global teamfinder signal trackable on the synd frequency.
 		AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ebeca1", TRUE, TRUE, "#818157")
+		AddElement(/datum/element/trackable)
 
 /obj/item/disk/nuclear/process()
 	++process_tick

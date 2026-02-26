@@ -165,8 +165,7 @@
 	attack_verb_continuous = list("assault and batteries")
 	attack_verb_simple = list("assault and battery")
 	desc = "A micro-cell, for IPC use. Do not swallow."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	max_charge = 2750 //50 nutrition from 250 charge
 	charge = 2750
 
@@ -205,7 +204,7 @@
 	name = "cybernetic stomach"
 	icon_state = "stomach-c"
 	desc = "A basic device designed to mimic the functions of a human stomach"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 
 /obj/item/organ/stomach/cybernetic/upgraded

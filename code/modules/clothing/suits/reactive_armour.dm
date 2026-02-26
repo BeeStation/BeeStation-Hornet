@@ -141,6 +141,10 @@
 	var/tele_range = 6
 	var/rad_amount= 15
 
+/obj/item/clothing/suit/armor/reactive/teleport/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/clothing/suit/armor/reactive/teleport/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("The reactive teleport system flings [owner] clear of [attack_text], shutting itself off in the process!"))
 	playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
@@ -167,15 +171,15 @@
 	owner.visible_message(span_danger("[src] blocks [attack_text], sending out jets of flame!"))
 	playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
 	for(var/mob/living/carbon/C in ohearers(6, owner))
-		C.fire_stacks += 8
+		C.adjust_fire_stacks(8)
 		C.ignite_mob()
-	owner.fire_stacks = -20
+	owner.set_wet_stacks(20)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/fire/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] just makes [attack_text] worse by spewing fire on [owner]!"))
 	playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
-	owner.fire_stacks += 12
+	owner.adjust_fire_stacks(12)
 	owner.ignite_mob()
 	return FALSE
 

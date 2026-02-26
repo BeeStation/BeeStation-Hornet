@@ -275,7 +275,7 @@
 	name = "Holy Water"
 	description = "Water blessed by some deity."
 	color = "#E0E8EF" // rgb: 224, 232, 239
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST|REAGENT_UNAFFECTED_BY_METABOLISM
 	self_consuming = TRUE //divine intervention won't be limited by the lack of a liver
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/holywater
 
@@ -284,6 +284,15 @@
 	name = "glass of holy water"
 	desc = "A glass of holy water."
 	icon_state = "glass_clear"
+
+/datum/reagent/water/holywater/on_new(list/data)
+	// Tracks the total amount of deciseconds that the reagent has been metab'd for, for the purpose of deconversion
+	if(isnull(data))
+		data = list("deciseconds_metabolized" = 0)
+	else if(isnull(data["deciseconds_metabolized"]))
+		data["deciseconds_metabolized"] = 0
+
+	return ..()
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -297,18 +306,21 @@
 
 /datum/reagent/water/holywater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!data)
-		data = list("misc" = 0)
 
-	data["misc"] += delta_time SECONDS * REM
-	affected_mob.adjust_timed_status_effect(4 SECONDS * delta_time, /datum/status_effect/jitter, max_duration = 20 SECONDS)
+	data["deciseconds_metabolized"] += (delta_time * 1 SECONDS * REM)
+
+	affected_mob.adjust_jitter_up_to(4 SECONDS * REM * delta_time, 20 SECONDS)
+
 	if(IS_CULTIST(affected_mob))
 		for(var/datum/action/innate/cult/blood_magic/BM in affected_mob.actions)
-			to_chat(affected_mob, span_cultlarge("Your blood rites falter as holy water scours your body!"))
+			var/removed_any = FALSE
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
+				removed_any = TRUE
 				qdel(BS)
+			if(removed_any)
+				to_chat(affected_mob, span_cultlarge("Your blood rites falter as holy water scours your body!"))
 
-	if(data["misc"] >= (25 SECONDS)) // 10 units
+	if(data["deciseconds_metabolized"] >= (25 SECONDS)) // 10 units
 		affected_mob.adjust_stutter_up_to(4 SECONDS * REM * delta_time, 20 SECONDS)
 		affected_mob.set_dizzy_if_lower(10 SECONDS)
 		if(IS_SERVANT_OF_RATVAR(affected_mob) && DT_PROB(10, delta_time))
@@ -322,7 +334,8 @@
 				affected_mob.Unconscious(12 SECONDS)
 				to_chat(affected_mob, span_cultlarge(pick("Your blood is your bond - you are nothing without it", "Do not forget your place", \
 				"All that power, and you still fail?", "If you cannot scour this poison, I shall scour your meager life!")))
-	if(data["misc"] >= (1 MINUTES)) // 24 units
+
+	if(data["deciseconds_metabolized"] >= (1 MINUTES)) // 24 units
 		if(IS_CULTIST(affected_mob) || IS_SERVANT_OF_RATVAR(affected_mob))
 			if(IS_CULTIST(affected_mob))
 				affected_mob.mind.remove_antag_datum(/datum/antagonist/cult)
@@ -330,8 +343,7 @@
 				remove_servant_of_ratvar(affected_mob.mind)
 			affected_mob.remove_status_effect(/datum/status_effect/jitter)
 			affected_mob.remove_status_effect(/datum/status_effect/speech/stutter)
-			affected_mob.reagents.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
-			return
+			holder?.remove_reagent(type, volume) // maybe this is a little too perfect and a max() cap on the statuses would be better??
 
 /datum/reagent/water/holywater/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -364,7 +376,7 @@
 	if(IS_CULTIST(affected_mob))
 		need_mob_update += affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
 		need_mob_update += affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
 		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
 		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
@@ -381,22 +393,23 @@
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
-/datum/reagent/hellwater //if someone has this in their system they've really pissed off an eldrich god
+/datum/reagent/hellwater //if someone has this in their system they've really pissed off an eldritch god
 	name = "Hell Water"
 	description = "YOUR FLESH! IT BURNS!"
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
-	metabolization_rate = 0.5
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/hellwater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.fire_stacks = min(affected_mob.fire_stacks + 1.5 * delta_time, 5)
+	affected_mob.set_fire_stacks(min(affected_mob.fire_stacks + (1.5 * delta_time), 5))
 	affected_mob.ignite_mob() //Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
-	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE) //Hence the other damages... ain't I a bastard?
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustToxLoss(0.5*delta_time, updating_health = FALSE)
+	need_mob_update += affected_mob.adjustFireLoss(0.5*delta_time, updating_health = FALSE) //Hence the other damages... ain't I a bastard?
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2.5*delta_time, 150)
-	return UPDATE_MOB_HEALTH
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/omnizine/godblood
 	name = "Godblood"
@@ -957,8 +970,8 @@
 
 /datum/reagent/fluorine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustToxLoss(0.5*REM*delta_time, updating_health = FALSE))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/sodium
 	name = "Sodium"
@@ -1070,8 +1083,8 @@
 			irradiated_component = affected_mob.AddComponent(/datum/component/irradiated)
 		irradiated_component.adjust_intensity(rad_power * REM * delta_time)
 
-	affected_mob.adjustToxLoss(tox_damage * delta_time * REM, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustToxLoss(tox_damage * delta_time * REM, updating_health = FALSE, required_biotype = affected_biotype))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/uranium/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -1159,8 +1172,8 @@
 
 /datum/reagent/fuel/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustToxLoss(0.5 * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustToxLoss(0.5 * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/space_cleaner
 	name = "Space Cleaner"
@@ -1176,8 +1189,8 @@
 /datum/reagent/space_cleaner/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(toxic)//don't drink space cleaner, dumbass
-		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
-		return UPDATE_MOB_HEALTH
+		if(affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/space_cleaner/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
@@ -1195,7 +1208,8 @@
 		movable_content.wash(clean_types)
 
 	for(var/mob/living/simple_animal/slime/slime in exposed_turf)
-		slime.adjustToxLoss(rand(5,10))
+		if(slime.adjustToxLoss(rand(5,10), updating_health = FALSE, required_biotype = affected_biotype))
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/space_cleaner/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
@@ -1520,8 +1534,8 @@
 /datum/reagent/plantnutriment/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(tox_prob, delta_time))
-		affected_mob.adjustToxLoss(1, updating_health = FALSE)
-		return UPDATE_MOB_HEALTH
+		if(affected_mob.adjustToxLoss(1, updating_health = FALSE, required_biotype = affected_biotype))
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/plantnutriment/eznutriment
 	name = "E-Z-Nutrient"
@@ -2082,23 +2096,25 @@
 
 /datum/reagent/eldritch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
+	var/need_mob_update = FALSE
 	if(IS_HERETIC_OR_MONSTER(affected_mob))
 		affected_mob.adjust_drowsiness(-10 * REM * delta_time)
 		affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-		affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
-		if(ishuman(affected_mob) && affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
+		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
+		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
+		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE)
+		if(affected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
 			affected_mob.blood_volume += 3 * REM * delta_time
 	else
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
-		affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustFireLoss(2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustOxyLoss(2 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustBruteLoss(2 * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+		need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
+		need_mob_update += affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustFireLoss(2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOxyLoss(2 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustBruteLoss(2 * REM * delta_time, updating_health = FALSE)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ratlight
 	name = "Ratvarian Light"
@@ -2212,11 +2228,13 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	affected_mob.losebreath = 0
 
 	if(affected_mob.health <= 20)
-		affected_mob.adjustToxLoss(-4 * REM * delta_time, updating_health = FALSE, forced = TRUE) // forced makes it heal toxinlovers
-		affected_mob.adjustBruteLoss(-4 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustFireLoss(-4 * REM * delta_time, updating_health = FALSE)
-		affected_mob.adjustOxyLoss(-5 * REM * delta_time, updating_health = FALSE)
-		return UPDATE_MOB_HEALTH
+		var/need_mob_update
+		need_mob_update = affected_mob.adjustToxLoss(-4 * REM * delta_time, updating_health = FALSE, forced = TRUE) // forced makes it heal toxinlovers
+		need_mob_update += affected_mob.adjustBruteLoss(-4 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustFireLoss(-4 * REM * delta_time, updating_health = FALSE)
+		need_mob_update += affected_mob.adjustOxyLoss(-5 * REM * delta_time, updating_health = FALSE)
+		if(need_mob_update)
+			return UPDATE_MOB_HEALTH
 
 /datum/reagent/ants
 	name = "Ants"

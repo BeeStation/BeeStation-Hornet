@@ -164,12 +164,12 @@
 		if(1 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 2)
 			if(H.health > 10.5)
-				apply_damage(0.65, TOX, null, null, H)
+				H.apply_damage(0.65, TOX, null, null, H)
 			brutemod = 1.75
 		else
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 3)
 			if(H.health > 10.5)
-				apply_damage(1, TOX, null, null, H)
+				H.apply_damage(1, TOX, null, null, H)
 			brutemod = 2
 
 /datum/species/ethereal/get_cough_sound(mob/living/carbon/user)

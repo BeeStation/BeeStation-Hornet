@@ -25,8 +25,8 @@
 /obj/effect/spawner/random/ruinloot/basic
 	loot = list(
 		"" = 12,
-		/obj/item/melee/classic_baton/police = 3,
-		/obj/item/melee/classic_baton/police/telescopic = 2,
+		/obj/item/melee/baton = 3,
+		/obj/item/melee/baton/telescopic = 2,
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/firstaid/toxin = 1,
 		/obj/item/storage/firstaid/brute = 1,
@@ -34,7 +34,7 @@
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/storage/belt/utility/full = 1,
 		/obj/item/shield/riot/tele = 1,
-		/obj/item/melee/baton/loaded = 1,
+		/obj/item/melee/baton/security/loaded = 1,
 		/obj/item/gun/energy/e_gun/mini = 1,
 		/obj/item/seeds/random = 1,
 		/obj/item/gun/energy/floragun = 1,
@@ -131,7 +131,7 @@
 	loot = list(
 		"" = 18,
 		/obj/item/assembly/flash/handheld = 4,
-		/obj/item/melee/baton/loaded = 3,
+		/obj/item/melee/baton/security/loaded = 3,
 		/obj/item/restraints/handcuffs = 4,
 		/obj/item/storage/lockbox/loyalty = 1,
 		/obj/item/storage/box/handcuffs = 2,

@@ -21,7 +21,7 @@
 /datum/unit_test/species_change_held_items/Run()
 	var/mob/living/carbon/human/morphing_human = allocate(/mob/living/carbon/human/dummy/consistent)
 	var/obj/item/item_a = allocate(/obj/item/storage/toolbox)
-	var/obj/item/item_b = allocate(/obj/item/melee/baton/loaded)
+	var/obj/item/item_b = allocate(/obj/item/melee/baton/security/loaded)
 	morphing_human.put_in_hands(item_a)
 	morphing_human.put_in_hands(item_b)
 

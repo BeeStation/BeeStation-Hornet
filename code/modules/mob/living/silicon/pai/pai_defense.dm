@@ -54,56 +54,22 @@
 	emitterhealth = clamp((emitterhealth - amount), -50, emittermaxhealth)
 	if(emitterhealth < 0)
 		fold_in(force = TRUE)
-	to_chat(src, span_userdanger("The impact degrades your holochassis!"))
+	if(amount > 0)
+		to_chat(src, span_userdanger("The impact degrades your holochassis!"))
 	return amount
 
-/mob/living/silicon/pai/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
-	return take_holo_damage(amount)
+// Called when we take burn or brute damage, pass it to the shell instead
+/mob/living/silicon/pai/proc/on_shell_damaged(datum/hurt, type, amount, forced)
+	take_holo_damage(amount)
+	return COMPONENT_IGNORE_CHANGE
 
-/mob/living/silicon/pai/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
-	return take_holo_damage(amount)
-
-/mob/living/silicon/pai/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
-	return FALSE
-
-/mob/living/silicon/pai/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	return FALSE
-
-/mob/living/silicon/pai/adjustCloneLoss(amount, updating_health = TRUE, forced = FALSE)
-	return FALSE
-
-/mob/living/silicon/pai/adjustStaminaLoss(amount, updating_health, forced = FALSE)
-	if(forced)
-		take_holo_damage(amount)
-	else
-		take_holo_damage(amount * 0.25)
+/// Called when we take stamina damage, pass it to the shell instead
+/mob/living/silicon/pai/proc/on_shell_weakened(datum/hurt, type, amount, forced)
+	take_holo_damage(amount * ((forced) ? 1 : 0.25))
+	return COMPONENT_IGNORE_CHANGE
 
 /mob/living/silicon/pai/getBruteLoss()
 	return emittermaxhealth - emitterhealth
 
 /mob/living/silicon/pai/getFireLoss()
 	return emittermaxhealth - emitterhealth
-
-/mob/living/silicon/pai/getToxLoss()
-	return FALSE
-
-/mob/living/silicon/pai/getOxyLoss()
-	return FALSE
-
-/mob/living/silicon/pai/getCloneLoss()
-	return FALSE
-
-/mob/living/silicon/pai/getStaminaLoss()
-	return FALSE
-
-/mob/living/silicon/pai/setCloneLoss()
-	return FALSE
-
-/mob/living/silicon/pai/setStaminaLoss(amount, updating_health = TRUE)
-	return FALSE
-
-/mob/living/silicon/pai/setToxLoss()
-	return FALSE
-
-/mob/living/silicon/pai/setOxyLoss()
-	return FALSE

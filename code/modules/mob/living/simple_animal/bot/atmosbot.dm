@@ -350,7 +350,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 		return
 	icon_state = "atmosbot[on][on?"_[action]":""]"
 
-/mob/living/simple_animal/bot/atmosbot/UnarmedAttack(atom/A, proximity)
+/mob/living/simple_animal/bot/atmosbot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(isturf(A) && A == get_turf(src))
 		return deploy_holobarrier()
 	return ..()

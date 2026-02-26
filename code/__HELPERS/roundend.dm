@@ -372,43 +372,22 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	parts += "[GLOB.TAB]Dynamic Storyteller: <b>[SSdynamic.current_storyteller?["Name"] || "None"]</b>"
 
 	// Roundstart
-	var/list/roundstart_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.roundstart_executed_rulesets)
-		if(roundstart_rule_counts[rule])
-			roundstart_rule_counts[rule]++
-		else
-			roundstart_rule_counts[rule] = 1
+	if(length(SSdynamic.gamemode_executed_rulesets))
+		parts += "[GLOB.TAB]Gamemode:"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.gamemode_executed_rulesets)
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]"
 
-	if(length(roundstart_rule_counts))
-		parts += "[GLOB.TAB]Executed roundstart rulesets:"
-		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
-			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "")
+	// Supplementary
+	if(length(SSdynamic.executed_supplementary_rulesets))
+		parts += "[GLOB.TAB]Supplementary Antagonists:"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.executed_supplementary_rulesets)
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]"
 
 	// Midround
-	var/list/midround_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
-		if(midround_rule_counts[rule])
-			midround_rule_counts[rule]++
-		else
-			midround_rule_counts[rule] = 1
-
-	if(length(midround_rule_counts))
-		parts += "[GLOB.TAB]Executed midround rulesets:"
-		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
-			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
-
-	// Latejoin
-	var/list/latejoin_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.latejoin_executed_rulesets)
-		if(latejoin_rule_counts[rule])
-			latejoin_rule_counts[rule]++
-		else
-			latejoin_rule_counts[rule] = 1
-
-	if(length(latejoin_rule_counts))
-		parts += "[GLOB.TAB]Executed latejoin rulesets:"
-		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
-			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
+	if(length(SSdynamic.midround_executed_rulesets))
+		parts += "[GLOB.TAB]Notable Round Events:"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]"
 
 	return parts.Join("<br>")
 
@@ -825,43 +804,50 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	discordmsg += "Dynamic Storyteller: [SSdynamic.current_storyteller?["Name"] || "None"]\n"
 
 	// Roundstart
-	var/list/roundstart_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.roundstart_executed_rulesets)
-		if(roundstart_rule_counts[rule])
-			roundstart_rule_counts[rule]++
-		else
-			roundstart_rule_counts[rule] = 1
+	if(length(SSdynamic.gamemode_executed_rulesets))
+		discordmsg += "Gamemode:\n"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.gamemode_executed_rulesets)
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
-	if(length(roundstart_rule_counts))
-		discordmsg += "Executed roundstart rulesets:\n"
-		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
-			discordmsg += "[rule.name]" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
+	// Supplementary
+	if(length(SSdynamic.executed_supplementary_rulesets))
+		discordmsg += "Supplementary Antagonists:\n"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.executed_supplementary_rulesets)
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
 	// Midround
-	var/list/midround_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
-		if(midround_rule_counts[rule])
-			midround_rule_counts[rule]++
+	if(length(SSdynamic.midround_executed_rulesets))
+		discordmsg += "Notable Round Events:\n"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
+
+	// Unaccounted for antagonists
+	var/list/unaccounted_antagonists = list()
+	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+		if (antagonist.spawning_ruleset || !antagonist.name)
+			continue
+		if (unaccounted_antagonists[antagonist.name])
+			unaccounted_antagonists[antagonist.name] = unaccounted_antagonists[antagonist.name] + 1
 		else
-			midround_rule_counts[rule] = 1
+			unaccounted_antagonists[antagonist.name] = 1
 
-	if(length(midround_rule_counts))
-		discordmsg += "Executed midround rulesets:\n"
-		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
-			discordmsg += "[rule.name]" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
-
-	// Latejoin
-	var/list/latejoin_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.latejoin_executed_rulesets)
-		if(latejoin_rule_counts[rule])
-			latejoin_rule_counts[rule]++
-		else
-			latejoin_rule_counts[rule] = 1
-
-	if(length(latejoin_rule_counts))
-		discordmsg += "Executed latejoin rulesets:\n"
-		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
-			discordmsg += "[rule.name]" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "") + "\n"
+	if (length(unaccounted_antagonists))
+		discordmsg += "Other Antagonists:\n"
+		for (var/antag_name in unaccounted_antagonists)
+			var/count = unaccounted_antagonists[antag_name]
+			if (count > 1)
+				discordmsg += "- **[antag_name]** (x[count]):\n"
+			else
+				discordmsg += "- **[antag_name]**:\n"
 
 	var/list/ded = SSblackbox.first_death
 	if(ded)

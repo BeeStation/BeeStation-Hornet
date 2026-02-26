@@ -228,7 +228,7 @@
 	if(href_list["close"])
 		return
 
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 
 	if(in_range(src, usr))
@@ -299,7 +299,7 @@
 		//Set pressure.
 		if(href_list["set_internal_tank_valve"] && construction_state)
 			var/new_pressure = input(usr,"Input new output pressure","Pressure setting",internal_tank_valve) as num|null
-			if(isnull(new_pressure) || usr.incapacitated() || !construction_state)
+			if(isnull(new_pressure) || usr.incapacitated || !construction_state)
 				return
 			internal_tank_valve = new_pressure
 			to_chat(usr, span_notice("The internal pressure valve has been set to [internal_tank_valve]kPa."))
@@ -346,7 +346,7 @@
 	//Changes the exosuit name.
 	if(href_list["change_name"])
 		var/userinput = stripped_input(usr, "Choose a new exosuit name.", "Rename exosuit", "", MAX_NAME_LEN)
-		if(!userinput || !locate(usr) in occupants || usr.incapacitated())
+		if(!userinput || !locate(usr) in occupants || usr.incapacitated)
 			return
 		name = userinput
 		return

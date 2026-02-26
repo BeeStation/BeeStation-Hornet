@@ -55,7 +55,7 @@
 	// Set the master, then give the datum.
 	var/datum/antagonist/vassal/vassaldatum = new(conversion_target.mind)
 	vassaldatum.master = src
-	conversion_target.mind.add_antag_datum(vassaldatum)
+	conversion_target.mind.add_antag_datum(vassaldatum, ruleset = spawning_ruleset)
 
 	message_admins("[conversion_target] has become a vassal, and is enslaved to [owner.current].")
 	log_objective("[conversion_target] has become a vassal, and is enslaved to [owner.current].")

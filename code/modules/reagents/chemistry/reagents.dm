@@ -70,6 +70,15 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/metabolizing = FALSE
 	///Assoc list with key type of addiction this reagent feeds, and value amount of addiction points added per unit of reagent metabolzied (which means * REAGENTS_METABOLISM every life())
 	var/list/addiction_types = null
+	/// The affected organ_flags, if the reagent damages/heals organ damage of an affected mob.
+	/// See "Organ defines for carbon mobs" in /code/_DEFINES/surgery.dm
+	var/affected_organ_flags = ORGAN_ORGANIC
+	/// The affected bodytype, if the reagent damages/heals bodyparts (Brute/Fire) of an affected mob.
+	/// See "Bodytype defines" in /code/_DEFINES/mobs.dm
+	var/affected_bodytype = BODYTYPE_ORGANIC
+	/// The affected biotype, if the reagent damages/heals toxin damage of an affected mob.
+	/// See "Mob bio-types flags" in /code/_DEFINES/mobs.dm
+	var/affected_biotype = MOB_ORGANIC
 
 	///The default reagent container for the reagent, used for icon generation
 	var/obj/item/reagent_containers/default_container = /obj/item/reagent_containers/cup/bottle
@@ -111,15 +120,39 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/expose_turf(turf/exposed_turf, volume)
 	SHOULD_CALL_PARENT(TRUE)
 
-/// Called from [/datum/reagents/proc/metabolize]
+/**
+ * Ticks on mob Life() for as long as the reagent remains in the mob's reagents.
+ *
+ * Usage: Parent should be called first using . = ..()
+ *
+ * Exceptions: If the holder var needs to be accessed, call the parent afterward that as it can become null if the reagent is fully removed.
+ *
+ * Returns: UPDATE_MOB_HEALTH only if you need to update the health of a mob (this is only needed when damage is dealt to the mob)
+ *
+ * Arguments
+ * * mob/living/carbon/affected_mob - the mob which the reagent currently is inside of
+ * * delta_time - the time in server seconds between proc calls (when performing normally it will be 2)
+ * * times_fired - the number of times the owner's Life() tick has been called aka The number of times SSmobs has fired
+ *
+ */
 /datum/reagent/proc/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	SHOULD_CALL_PARENT(TRUE)
 	current_cycle++
 
-	if(!QDELETED(holder))
-		if(metabolite)
-			holder.add_reagent(metabolite, metabolization_rate * affected_mob.metabolism_efficiency * METABOLITE_RATE * delta_time)
-		holder.remove_reagent(type, metabolization_rate * affected_mob.metabolism_efficiency * delta_time) //By default it slowly disappears.
+	if(isnull(holder))
+		return
+
+	var/metabolizing_out = metabolization_rate * delta_time
+	if(!(chemical_flags & REAGENT_UNAFFECTED_BY_METABOLISM))
+		if(chemical_flags & REAGENT_REVERSE_METABOLISM)
+			metabolizing_out /= affected_mob.metabolism_efficiency
+		else
+			metabolizing_out *= affected_mob.metabolism_efficiency
+
+	if(metabolite)
+		holder.add_reagent(metabolite, metabolizing_out * METABOLITE_RATE)
+
+	holder.remove_reagent(type, metabolizing_out) //By default it slowly disappears.
 
 ///Called after a reagent is transfered
 /datum/reagent/proc/on_transfer(atom/A, method = TOUCH, trans_volume)

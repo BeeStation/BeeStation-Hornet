@@ -83,7 +83,7 @@
 	if(world.time <= usr.next_move)
 		return 1
 
-	if(usr.incapacitated(IGNORE_STASIS))
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_STASIS))
 		return 1
 
 	if(ismob(usr))
@@ -119,7 +119,7 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
-	if(usr.incapacitated() || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(usr.incapacitated || (isobserver(usr) && !IsAdminGhost(usr)))
 		return TRUE
 	var/area/A = get_area(usr)
 	if(!A.outdoors)
@@ -176,7 +176,7 @@
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
-			if(hud?.mymob.incapacitated())
+			if(hud?.mymob.incapacitated)
 				inv_item.apply_outline(COLOR_RED_GRAY)
 			else
 				inv_item.apply_outline()
@@ -253,7 +253,7 @@
 		return TRUE
 	if(world.time <= user.next_move)
 		return TRUE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 	if (ismecha(user.loc)) // stops inventory actions in a mech
 		return TRUE

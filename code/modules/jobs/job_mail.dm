@@ -323,7 +323,7 @@
 /datum/job/gimmick/stage_magician
 	mail_goodies = list(
 		//AND FOR MY NEXT TRICK... Bunny
-		/obj/item/clothing/head/mob_holder/rabbit = 40,
+		/obj/item/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
 		/obj/item/clothing/head/hats/bowler = 5,
@@ -417,7 +417,7 @@
 		/obj/item/assembly/flash/handheld = 7,
 		/obj/effect/spawner/mail/rdonut = 5,
 		//we don't have boomerangs here, ask ausstation
-		/obj/item/melee/classic_baton/police/telescopic = 1,
+		/obj/item/melee/baton/telescopic = 1,
 	)
 
 //SHAFT MINER
@@ -484,7 +484,7 @@
 		/obj/item/storage/box/rubbershot = 10,
 		/obj/item/storage/box/lethalshot = 5,
 		/obj/item/storage/box/handcuffs = 5,
-		/obj/item/melee/classic_baton/police/telescopic = 1,
+		/obj/item/melee/baton/telescopic = 1,
 		)
 
 //Prisoner

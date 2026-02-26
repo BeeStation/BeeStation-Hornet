@@ -24,7 +24,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		var/list/temp_list = typesof(/obj/item/storage/box/holy)
 		for(var/V in temp_list)
 			var/atom/A = V
@@ -251,7 +251,7 @@
 
 	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
 	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]") //Keeping this here just in case removing it breaks something
-	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated && in_range(M,src))
 		qdel(src)
 		var A = unique_reskin[choice]
 		var/obj/item/nullrod/holy_weapon = new A
@@ -792,7 +792,9 @@
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
 	desc = "Holding this makes you look absolutely devilish."
+	icon = 'icons/obj/weapons/spear.dmi'
 	icon_state = "pitchfork0"
+	inhand_icon_state = "pitchfork0"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	worn_icon_state = "pitchfork0"
@@ -837,6 +839,7 @@
 /obj/item/nullrod/spear
 	name = "ancient spear"
 	desc = "An ancient spear made of brass, I mean gold, I mean bronze. It looks highly mechanical."
+	icon = 'icons/obj/weapons/spear.dmi'
 	icon_state = "ratvarian_spear"
 	inhand_icon_state = "ratvarian_spear"
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi'

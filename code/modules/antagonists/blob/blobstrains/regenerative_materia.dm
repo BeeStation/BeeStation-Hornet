@@ -26,8 +26,8 @@
 
 /datum/reagent/blob/regenerative_materia/on_mob_life(mob/living/carbon/metabolizer, delta_time, times_fired)
 	. = ..()
-	metabolizer.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
-	return TRUE
+	if(metabolizer.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/blob/regenerative_materia/on_mob_metabolize(mob/living/metabolizer)
 	. = ..()

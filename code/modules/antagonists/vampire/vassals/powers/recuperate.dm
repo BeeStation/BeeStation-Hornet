@@ -17,7 +17,7 @@
 	if(!.)
 		return FALSE
 
-	if(owner.stat >= DEAD || owner.incapacitated())
+	if(owner.stat >= DEAD || owner.incapacitated)
 		owner.balloon_alert(owner, "you are incapacitated...")
 		return FALSE
 
@@ -50,7 +50,7 @@
 /datum/action/vampire/recuperate/continue_active()
 	if(owner.stat == DEAD)
 		return FALSE
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		owner.balloon_alert(owner, "too exhausted...")
 		return FALSE
 	return TRUE

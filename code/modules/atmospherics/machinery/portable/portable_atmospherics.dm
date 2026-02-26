@@ -7,6 +7,7 @@
 	max_integrity = 250
 	armor_type = /datum/armor/machinery_portable_atmospherics
 	anchored = FALSE
+	layer = ABOVE_OBJ_LAYER
 
 	///Stores the gas mixture of the portable component. Don't access this directly, use return_air() so you support the temporary processing it provides
 	var/datum/gas_mixture/air_contents
@@ -25,7 +26,6 @@
 	var/temp_limit = 100000
 	/// Max amount of pressure allowed inside of the canister before it starts to break. [PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT] is special value meaning we are immune.
 	var/pressure_limit = 500000
-
 
 /datum/armor/machinery_portable_atmospherics
 	energy = 100
@@ -62,6 +62,19 @@
 	if(!excited)
 		return PROCESS_KILL
 	excited = FALSE
+
+/obj/machinery/portable_atmospherics/welder_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(user.combat_mode)
+		return FALSE //We're attacking the machine.
+
+	if((atom_integrity < max_integrity) || (machine_stat & BROKEN))
+		to_chat(user, span_notice("You begin welding [src] back together..."))
+		if(I.use_tool(src, user, 3 SECONDS, volume=50))
+			update_integrity(max_integrity)
+			to_chat(user, span_notice("You weld [src] back together."))
+			return TRUE
+
 
 /// Take damage if a variable is exceeded. Damage is equal to temp/limit * heat/limit.
 /// The damage multiplier is treated as 1 if something is being ignored while the other one is exceeded.
@@ -196,7 +209,7 @@
 		RegisterSignal(holding, COMSIG_QDELETING, PROC_REF(unregister_holding))
 
 	SSair.start_processing_machine(src)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)
@@ -248,18 +261,5 @@
 
 	UnregisterSignal(holding, COMSIG_QDELETING)
 	holding = null
-
-
-/obj/machinery/portable_atmospherics/welder_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(user.combat_mode)
-		return FALSE //We're attacking the machine.
-
-	if(atom_integrity < max_integrity)
-		to_chat(user, span_notice("You begin welding [src] back together..."))
-		if(I.use_tool(src, user, 3 SECONDS, volume=50))
-			update_integrity(max_integrity)
-			to_chat(user, span_notice("You weld [src] back together."))
-			return TRUE
 
 #undef PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT

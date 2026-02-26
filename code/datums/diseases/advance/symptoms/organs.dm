@@ -149,17 +149,17 @@
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	var/status = ORGAN_ORGANIC
+	var/organtype = ORGAN_ORGANIC
 	if(A.infectable_biotypes & MOB_ROBOTIC)
-		status = null //if the disease is capable of interfacing with robotics, it is allowed to heal mechanical organs
+		organtype = null //if the disease is capable of interfacing with robotics, it is allowed to heal mechanical organs
 	if(A.stage >= 4)
-		M.adjustOrganLoss(ORGAN_SLOT_APPENDIX, -1, required_status = status)
-		M.adjustOrganLoss(ORGAN_SLOT_STOMACH, -1, required_status = status)
-		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1, required_status = status)
-		M.adjustOrganLoss(ORGAN_SLOT_HEART, -1, required_status = status)
-		M.adjustOrganLoss(ORGAN_SLOT_LIVER, -1, required_status = status)
-		M.adjustOrganLoss(ORGAN_SLOT_TAIL, -1, required_status = status)
-		M.adjustOrganLoss(ORGAN_SLOT_WINGS, -1, required_status = status)
+		M.adjustOrganLoss(ORGAN_SLOT_APPENDIX, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_STOMACH, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_HEART, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_LIVER, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_TAIL, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_WINGS, -1, required_organ_flag = organtype)
 		if(curing)
 			for(var/datum/disease/D in M.diseases)
 				if(istype(D, /datum/disease/appendicitis) || istype(D, /datum/disease/heart_failure))

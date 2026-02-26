@@ -334,7 +334,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)
-		if(I.is_hot())
+		if(I.get_temperature())
 			to_chat(target, span_userdanger("You suddenly feel very hot"))
 			target.adjust_bodytemperature(50)
 			GiveHint(target)

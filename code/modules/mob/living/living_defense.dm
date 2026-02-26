@@ -32,7 +32,7 @@
 			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor
 
-/// Get the armour value for a specific damage type, targetting a particular zone.
+/// Get the armour value for a specific damage type, targeting a particular zone.
 /// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
 /// type: The damage type to test for. Must not be null.
 /// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.
@@ -134,7 +134,7 @@
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
 				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
-			if(!incapacitated(IGNORE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
+			if(!INCAPACITATED_IGNORING(src, INCAPABLE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
 				hitpush = FALSE
 		else
 			return 1
@@ -166,6 +166,7 @@
 		to_chat(user, span_notice("You don't want to risk hurting [src]!"))
 		return FALSE
 	grippedby(user)
+	update_incapacitated()
 
 //proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/user, instant = FALSE)
@@ -369,11 +370,12 @@
 		adjustFireLoss(shock_damage)
 	else
 		adjustStaminaLoss(shock_damage)
-	visible_message(
-		span_danger("[src] was shocked by \the [source]!"), \
-		span_userdanger("You feel a powerful shock coursing through your body!"), \
-		span_hear("You hear a heavy electrical crack.") \
-	)
+	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
+		visible_message(
+			span_danger("[src] was shocked by \the [source]!"), \
+			span_userdanger("You feel a powerful shock coursing through your body!"), \
+			span_hear("You hear a heavy electrical crack.") \
+		)
 	return shock_damage
 
 /mob/living/emp_act(severity)
@@ -382,13 +384,6 @@
 		return
 	for(var/obj/O in contents)
 		O.emp_act(severity)
-
-///Called whenever a mob is hit with any electric baton to handle jittering and stuttering
-/mob/living/proc/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
-	if(!user.combat_mode)
-		return
-	apply_damage(initial(batong.force), initial(batong.damtype), affecting, armour_block)
-	playsound(src, initial(batong.hitsound), batong.get_clamped_volume(), TRUE)
 
 /*
  * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.

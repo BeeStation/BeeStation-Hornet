@@ -71,7 +71,7 @@
 /obj/item/sticky_note_pile/MouseDrop(atom/over_object)
 	. = ..()
 	var/mob/living/L = usr
-	if(!istype(L) || L.incapacitated() || !Adjacent(L))
+	if(!istype(L) || L.incapacitated || !Adjacent(L))
 		return
 
 	if(over_object == L)

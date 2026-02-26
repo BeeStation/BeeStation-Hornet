@@ -374,7 +374,7 @@
 
 /datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustToxLoss(3 * REM * delta_time)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
@@ -649,6 +649,7 @@
 	name = "Runic Golem"
 	id = SPECIES_GOLEM_RUNIC
 	sexes = FALSE
+	speedmod = 0
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH) //no mutcolors
 	prefix = "Runic"
@@ -672,21 +673,28 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cult
 	)
 
+/datum/species/golem/runic/spec_death(gibbed, mob/living/carbon/human/body)
+
+	for(var/obj/item/item in body.get_equipped_items(INCLUDE_POCKETS))
+		body.dropItemToGround(item)
+	body.visible_message(span_danger("[body] dissolves into a pile of blood, leaving behind a strange stone."))
+	var/obj/item/soulstone/new_stone = new(body.drop_location())
+	new_stone.init_shade(body)
+	new /obj/effect/decal/cleanable/blood/splatter(get_turf(body))
+	body.dust()
+
 /datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
 	. = ..()
 	// Create our species specific spells here.
 	// Note we link them to the mob, not the mind,
 	// so they're not moved around on mindswaps
 	jaunt = new(grant_to)
-	jaunt.start_cooldown()
 	jaunt.Grant(grant_to)
 
 	abyssal_gaze = new(grant_to)
-	abyssal_gaze.start_cooldown()
 	abyssal_gaze.Grant(grant_to)
 
 	dominate = new(grant_to)
-	dominate.start_cooldown()
 	dominate.Grant(grant_to)
 
 /datum/species/golem/runic/on_species_loss(mob/living/carbon/C)
@@ -699,13 +707,13 @@
 
 /datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(istype(chem, /datum/reagent/water/holywater))
-		H.adjustFireLoss(4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustFireLoss(4 * REM * delta_time)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 
 	if(chem.type == /datum/reagent/fuel/unholywater)
-		H.adjustBruteLoss(-4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
-		H.adjustFireLoss(-4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustBruteLoss(-4 * REM * delta_time)
+		H.adjustFireLoss(-4 * REM * delta_time)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
@@ -962,7 +970,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	if(resistance_flags & ON_FIRE)
 		return
 
-	if(P.is_hot())
+	if(P.get_temperature())
 		visible_message(span_danger("[src] bursts into flames!"))
 		fire_act()
 

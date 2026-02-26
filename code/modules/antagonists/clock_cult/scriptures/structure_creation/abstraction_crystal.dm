@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	previous_health = health
 
 	// We were forcibly moved out of the crystal's range, lets break the crystal
-	if(incapacitated() || get_dist(src, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
+	if(incapacitated || get_dist(src, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
 		linked_crystal.deconstruct(FALSE)
 	return ..()
 /*

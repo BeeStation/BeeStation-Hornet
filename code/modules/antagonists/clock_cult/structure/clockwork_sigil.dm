@@ -13,7 +13,7 @@
 	/// How long you have to stand on the sigil before it activates
 	var/effect_charge_time = 0 SECONDS
 	/// The atom that this sigil is currently affecting
-	var/affected_atom
+	var/atom/movable/affected_atom
 	/// Color while inactive
 	var/idle_color = COLOR_WHITE
 	/// Color faded to while someone stands on top
@@ -36,6 +36,10 @@
 		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/destructible/clockwork/sigil/Destroy()
+	affected_atom = null
+	return ..()
 
 /**
  * Somebody is interacting with the sigil with their hands, lets break it
@@ -72,13 +76,14 @@
  */
 /obj/structure/destructible/clockwork/sigil/proc/on_exited(datum/source, atom/movable/target_atom)
 	SIGNAL_HANDLER
+	if(affected_atom != target_atom)
+		return
 
-	if(affected_atom == target_atom)
-		affected_atom = null
-		animate(src, color = idle_color, alpha = initial(alpha), time = 5)
-		if(active_timer)
-			deltimer(active_timer)
-			active_timer = null
+	affected_atom = null
+	animate(src, color = idle_color, alpha = initial(alpha), time = 0.5 SECONDS)
+	if(active_timer)
+		deltimer(active_timer)
+		active_timer = null
 
 /**
  * Basic checks to see if the target atom can be affected by this sigil
@@ -132,7 +137,7 @@
 /**
  * We failed to apply the effects to the target atom
  * Reset timer and affected atom, then play a failure animation
- * When inhereting this, call . = ..() at the END
+ * When inhereting this, call ..() at the END
  */
 /obj/structure/destructible/clockwork/sigil/proc/on_fail()
 	// Reset timer and affected atom

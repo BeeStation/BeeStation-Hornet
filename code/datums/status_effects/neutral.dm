@@ -116,11 +116,15 @@
 		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
 		for(var/datum/action/spell/spell in rewarded.actions)
 			spell.reset_spell_cooldown()
-		rewarded.adjustBruteLoss(-25)
-		rewarded.adjustFireLoss(-25)
-		rewarded.adjustToxLoss(-25, FALSE, TRUE)
-		rewarded.adjustOxyLoss(-25)
-		rewarded.adjustCloneLoss(-25)
+
+		var/need_mob_update = FALSE
+		need_mob_update += rewarded.adjustBruteLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustFireLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustToxLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustOxyLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustCloneLoss(-25, updating_health = FALSE)
+		if(need_mob_update)
+			rewarded.updatehealth()
 
 /datum/status_effect/bugged //Lets another mob hear everything you can
 	id = "bugged"

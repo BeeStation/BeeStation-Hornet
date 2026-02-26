@@ -130,6 +130,7 @@
 		temp_damage = 0
 	else
 		temp_damage *= damage_coeff[damagetype]
+
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
 		visible_message(span_warning("[src] looks unharmed!"))
 		return FALSE

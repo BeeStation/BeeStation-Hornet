@@ -47,6 +47,7 @@ SUBSYSTEM_DEF(persistence)
 	save_photo_persistence()
 	save_custom_outfits()
 	save_delamination_counter()
+	save_gamemode_execution()
 
 /datum/controller/subsystem/persistence/proc/load_poly()
 	for(var/mob/living/simple_animal/parrot/Poly/stupid_bird in GLOB.alive_mob_list)

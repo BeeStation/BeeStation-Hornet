@@ -209,6 +209,7 @@
 #define span_subheaderannouncementtext(str) ("<span class='subheader_announcement_text'>" + (str) + "</span>")
 #define span_suicide(str) ("<span class='suicide'>" + (str) + "</span>")
 #define span_tinydanger(str) ("<span class='tinydanger'>" + (str) + "</span>")
+#define span_traitorobjective(str) ("<span class='traitor_objective'>" + str + "</span>")
 #define span_umbraemphasis(str) ("<span class='umbra_emphasis'>" + (str) + "</span>")
 #define span_unconscious(str) ("<span class='unconscious'>" + (str) + "</span>")
 #define span_userdanger(str) ("<span class='userdanger'>" + (str) + "</span>")

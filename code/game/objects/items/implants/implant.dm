@@ -14,6 +14,7 @@
 	var/implant_color = "b"
 	var/allow_multiple = FALSE
 	var/uses = -1
+	var/implant_flags = NONE
 
 
 /obj/item/implant/proc/trigger(emote, mob/living/carbon/source)
@@ -31,8 +32,6 @@
 /obj/item/implant/item_action_slot_check(slot, mob/user)
 	return user == imp_in
 
-
-
 /obj/item/implant/proc/can_be_implanted_in(mob/living/target) // for human-only and other special requirements
 	return TRUE
 
@@ -45,13 +44,13 @@
 /mob/living/simple_animal/can_be_implanted()
 	return healable //Applies to robots and most non-organics, exceptions can override.
 
-/obj/item/implant/proc/on_implanted(mob/user)
+/obj/item/implant/proc/on_implanted(mob/living/user)
 
 //What does the implant do upon injection?
 //return 1 if the implant injects
 //return 0 if there is no room for implant / it fails
 /obj/item/implant/proc/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
-	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, args) & COMPONENT_STOP_IMPLANTING)
+	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, user, target, silent, force) & COMPONENT_STOP_IMPLANTING)
 		return
 	LAZYINITLIST(target.implants)
 	if(!force && (!target.can_be_implanted() || !can_be_implanted_in(target)))
@@ -100,7 +99,7 @@
 	return TRUE
 
 /obj/item/implant/proc/transfer_implant(mob/living/user, mob/living/target)
-	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, args) & COMPONENT_STOP_IMPLANTING)
+	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, user, target) & COMPONENT_STOP_IMPLANTING)
 		return
 	LAZYINITLIST(target.implants)
 	if(!force && (!target.can_be_implanted() || !can_be_implanted_in(target)))
@@ -118,7 +117,7 @@
 	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, target, user, TRUE, FALSE)
 	return TRUE
 
-/obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0)
+/obj/item/implant/proc/removed(mob/living/source, silent = FALSE, destroyed = FALSE)
 	moveToNullspace()
 	imp_in = null
 	source.implants -= src
@@ -128,12 +127,12 @@
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
 
-	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source, silent, special)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source, silent, destroyed)
 	return TRUE
 
 /obj/item/implant/Destroy()
 	if(imp_in)
-		removed(imp_in)
+		removed(imp_in, destroyed = TRUE)
 	return ..()
 
 /obj/item/implant/proc/get_data()

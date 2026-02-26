@@ -105,3 +105,91 @@
 2026-02-16:
   EvilDragonfiend:
   - bugfix: Captain now can write a manuscript of Research Director - it was missing.
+2026-02-19:
+  mrmanlikesbt:
+  - bugfix: Player keybinds are now sanitized. What this really means is that people
+      who played before combat-mode no longer cause 2 runtimes every time they press
+      1.
+  ? mrmanlikesbt, LemonInTheDark, mc-oofert, MrMelbert, Kylerace, Ben10Omintrix, Jacquerel,
+    ninjanomnom, vinylspiders, Mothblocks, Hatterhat, Kapu1178, JohnFulpWillard, Iamgoofball,
+    DATA-xPUNGED, Absolucy, SmArtKar, grungussuss, lelandkemble, san7890, Arkatos1
+  : - refactor: Refactored basic mob AI code
+    - refactor: Refactored mice to be basic mobs instead of simple animals
+    - rscadd: Feeding a mouse cheese will attract MORE MICE
+    - rscadd: Mice can now play music on synthesizers
+    - rscadd: Mice can now be tamed
+    - code_imp: Renamed "/datum/targetting_datum" to "/datum/targeting_strategy"
+    - code_imp: Refactored mob incapacitation to use a cached incapacitated state
+        instead of recomputing every time it's used
+    - spellcheck: Replaced all instances of "targetting" with "targeting"
+2026-02-20:
+  r1ks-iwnl:
+  - balance: Maintenance pumpup pen spawn rate has been heavily reduced.
+2026-02-22:
+  mrmanlikesbt:
+  - bugfix: Fixed there being no dynamic storytellers (the testmerge version define
+      was still active)
+  mrmanlikesbt, Absolucy, SyncIt21:
+  - code_imp: Subtypes of [/obj/item/storage] no longer delete their base storage
+      datum, instead, the base storage datum isn't made in the first place. This saves
+      ~0.1 seconds of init time
+  - code_imp: Material storage boxes now make use of the amount argument when initializing
+      stacks. This saves ~0.1 seconds of init time when they are present
+  - bugfix: Fixed item stacks sometimes having a zero amount
+  rkz, Azlan/SomeAngryMiner, Baystation Coders:
+  - rscadd: SMES are now emissive
+  - rscadd: PACMAN generators now have thermodynamics, animations, emit smoke when
+      overheated, and the uranium one now does special radiating
+  rkz, Mothblocks, VinylSpiders, Melbert, Jacquerel:
+  - bugfix: cryocells/medbots will no longer attempt to endlessly heal carbons with
+      robotic limbs
+  - refactor: fixed many instances of updatehealth() either being called needlessly
+      or not at all within on_mob_life() and in various other parts of the code
+  - refactor: damage procs now return useful information--the actual net change in
+      damage on the mob. added a unit test for this
+  - bugfix: Regenerating mobs no longer stop regenerating no matter hit with what.
+  - bugfix: Pressure damage is now properly modified by a mob's brute damage modifier.
+  - bugfix: Fixes some occasions which some effects (explodable worn items) won't
+      respond to hits.
+  - refactor: Refactored core code related to mobs sustaining damage.
+  - bugfix: Fixes holy water exiting your system at double the rate on metabolism
+  - bugfix: Holy Water no longer spams cultists with big text every time, it's much
+      more tame now
+  - refactor: Refactored zombies to use the regenerator component. Now they'll have
+      a slight glow/animation when the regeneration actually kicks in.
+  rkz, ghommie, colovorat, winter:
+  - tweak: lclick with batons will stun, rclick with them will harm
+  - rscdel: removes snowflakey stunbaton shoves (rclick)
+  - balance: implements code to prevent dual-wielding bypassing baton click cooldown
+  - refactor: all batontypes now are typed under the same parent
+  - tweak: TENTATIVE, all batons obey the same click cooldown code
+  - bugfix: reagents that were supposed to provide resistance to stunning hits for
+      the past 6 years by batons now actually do so
+  - rscadd: being electrocuted will forcesay the mob, much like glorfing
+  - rscadd: batons now produce light when on, about the same as a cigarette
+  - rscadd: batons will now flicker between off/on when emp'd, rather than a base
+      cell charge reduction
+2026-02-23:
+  Isaac, Sunshine214:
+  - rscadd: Constructs now drop their soulstone upon death instead of fully dying
+  - rscadd: Cult Golem shells accept soulstones that transfer a soul into them, giving
+      them special abilities
+  - rscadd: Cult Golems drop their soulstone upon death
+  - rscadd: Ability to transfer soulstones into soulless and dead bodies,  both regular
+      and purified soulstones
+  - rscadd: Cult Golem shells can be made in the altar structure or in your hands
+      with 10 runed metal
+  - rscdel: You can no longer make cult golems via xenobiology, they can only be acquired
+      by blood cultists
+  - balance: Nerfs the Cult Golem Jaunt, reducing their cooldown in return
+  r1ks-iwnl:
+  - bugfix: Fixed mining scanner not showing ore past line of sight
+2026-02-24:
+  mrmanlikesbt:
+  - bugfix: Fixed AI core construction being able to make infinite AIs
+2026-02-25:
+  mrmanlikesbt:
+  - bugfix: Fixed dynamic sometimes picking humans for malfunctioning AI
+  rkz, Absolucy, san7890:
+  - server: standardized CI to use ubuntu-24.04, rather than a mix of latest and 22.04
+  - server: adds error message to hook install

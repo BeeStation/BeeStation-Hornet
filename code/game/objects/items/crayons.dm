@@ -523,8 +523,8 @@
 	custom_price = 15
 
 /obj/item/storage/crayons/Initialize(mapload)
-	. = ..()
 	create_storage(canhold = list(/obj/item/toy/crayon))
+	return ..()
 
 /obj/item/storage/crayons/PopulateContents()
 	new /obj/item/toy/crayon/red(src)
