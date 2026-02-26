@@ -1239,6 +1239,11 @@
 	dir = 8
 	},
 /area/tdome/tdomeobserve)
+"acM" = (
+/obj/machinery/seed_extractor,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/holding)
 "acN" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/handcuffs,
@@ -1745,8 +1750,8 @@
 /area/tdome/tdomeadmin)
 "adZ" = (
 /obj/effect/turf_decal/weather/dirt,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/structure/sign/poster/contraband/cc64k_ad{
 	pixel_y = -32
 	},
@@ -2074,6 +2079,7 @@
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "aeH" = (
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -4490,7 +4496,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/effect/decal/cleanable/glass,
 /obj/structure/holosign/barrier/engineering{
 	pixel_y = 5
@@ -5205,7 +5211,7 @@
 "amZ" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
 "ana" = (
@@ -6248,7 +6254,7 @@
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/security/loaded,
 /obj/item/melee/energy/sword/saber/green,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -6932,7 +6938,7 @@
 	},
 /area/tdome/tdomeadmin)
 "arE" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/centcom/ferry)
 "arF" = (
@@ -7121,10 +7127,10 @@
 "asg" = (
 /obj/effect/turf_decal/weather/dirt/corner,
 /obj/structure/closet/crate/large,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
@@ -8702,6 +8708,11 @@
 	dir = 8
 	},
 /area/centcom/supplypod/loading/two)
+"awj" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/holding)
 "awk" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
@@ -9523,6 +9534,7 @@
 "ayM" = (
 /obj/structure/table/wood/bar,
 /obj/structure/safe/floor,
+/obj/item/seeds/cherry/bomb,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "ayN" = (
@@ -10319,7 +10331,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/wood,
 /area/centcom/control)
 "aAT" = (
@@ -10887,7 +10899,7 @@
 /obj/structure/closet/crate/large{
 	pixel_x = 3
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "aCl" = (
@@ -11877,7 +11889,7 @@
 /area/wizard_station)
 "aEZ" = (
 /obj/structure/table_frame,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
@@ -12342,7 +12354,7 @@
 "aGk" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
 "aGl" = (
@@ -13362,7 +13374,7 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "aIJ" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "aIK" = (
@@ -14564,7 +14576,7 @@
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "aLI" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/structure/lattice,
 /turf/open/floor/plating{
 	icon_state = "foam_plating"
@@ -15537,6 +15549,11 @@
 	dir = 8
 	},
 /area/tdome/tdomeadmin)
+"aOl" = (
+/obj/machinery/plantgenes/seedvault,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/holding)
 "aOm" = (
 /turf/open/floor/iron/white,
 /area/ctf)
@@ -15815,7 +15832,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "aOU" = (
@@ -19217,7 +19234,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/wood,
 /area/centcom/control)
 "aXr" = (
@@ -19239,7 +19256,7 @@
 /obj/item/chair/foldable,
 /obj/item/chair/foldable,
 /obj/item/chair/foldable,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/iron/dark/smooth_large,
 /area/syndicate_mothership/control)
 "aXt" = (
@@ -19911,7 +19928,7 @@
 /area/centcom/control)
 "aZg" = (
 /obj/structure/table,
-/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/seeds/pumpkin/blumpkin,
 /obj/item/paper/guides/jobs/hydroponics,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -20508,7 +20525,7 @@
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/security/loaded,
 /obj/item/melee/energy/sword/saber/green,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -20895,7 +20912,7 @@
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/security/loaded,
 /obj/item/melee/energy/sword/saber/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -22195,7 +22212,7 @@
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/security/loaded,
 /obj/item/melee/energy/sword/saber/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -22876,7 +22893,7 @@
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/security/loaded,
 /obj/item/melee/energy/sword/saber/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -23386,7 +23403,7 @@
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/security/loaded,
 /obj/item/melee/energy/sword/saber/green,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -48082,13 +48099,13 @@ aaa
 aaa
 aRk
 aNd
-aaT
-aaT
-aaT
+awj
+awj
+awj
 aeH
-aaT
-aaT
-aaT
+awj
+awj
+awj
 aNd
 aQI
 aVA
@@ -49110,9 +49127,9 @@ aaa
 aaa
 aRk
 aNd
-aaT
+aOl
 aZg
-aaT
+acM
 aaT
 aXl
 acp
