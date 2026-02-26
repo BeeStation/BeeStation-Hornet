@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex, Input, BlockQuote, Divider, Icon, Dimmer } from '../components';
+import { Box, Button, Dimmer, Divider, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
 export const PlantEditor = (props) => {

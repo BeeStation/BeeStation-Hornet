@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex, Input, BlockQuote, Divider, Icon, Dimmer, ProgressBar } from '../components';
+import { Box, Button, Divider, Flex, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const SeedEditor = (props) => {

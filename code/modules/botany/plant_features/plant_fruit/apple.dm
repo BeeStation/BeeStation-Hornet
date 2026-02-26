@@ -12,7 +12,7 @@
 	mutations = list(/datum/plant_feature/fruit/apple/gold = 20)
 
 /*
- Gold Apple
+	Gold Apple
 */
 /datum/plant_feature/fruit/apple/gold
 	species_name = "malum aurum"
