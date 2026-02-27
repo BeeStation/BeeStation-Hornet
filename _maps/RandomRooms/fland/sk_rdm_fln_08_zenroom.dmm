@@ -121,12 +121,12 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "O" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/item/seeds/tea/astra,
 /turf/open/floor/wood,
 /area/template_noop)
 "Q" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/item/seeds/tea,
 /obj/machinery/light{
 	dir = 8

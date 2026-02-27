@@ -25,7 +25,7 @@
 /turf/open/floor/plating,
 /area/tdome/arena)
 "ah" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/plating,
 /area/tdome/arena)
 "ai" = (
@@ -247,7 +247,7 @@
 /area/tdome/arena)
 "hK" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -255,7 +255,7 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "DH" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
@@ -272,7 +272,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/tdome/arena)
 "Ls" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
@@ -281,7 +281,7 @@
 /area/tdome/arena)
 "LA" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
@@ -290,13 +290,13 @@
 /area/tdome/arena)
 "MF" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/tdome/arena)
 "OA" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4

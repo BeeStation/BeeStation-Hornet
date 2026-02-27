@@ -98,11 +98,11 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "x" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/iron,
 /area/template_noop)
 "z" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -144,7 +144,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "M" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -156,21 +156,21 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/seeds/tower,
+/obj/item/plant_seeds/preset/tower,
 /obj/item/seeds/watermelon,
 /obj/item/seeds/wheat,
 /obj/item/seeds/sugarcane,
 /obj/item/seeds/orange,
 /obj/item/seeds/grape,
 /obj/item/seeds/cocoapod,
-/obj/item/seeds/banana,
+/obj/item/plant_seeds/preset/banana,
 /obj/item/seeds/apple,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
 "R" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/template_noop)
 "U" = (
@@ -186,7 +186,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "Y" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/grass,
 /area/template_noop)

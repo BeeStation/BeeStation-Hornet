@@ -5,7 +5,7 @@
 /datum/unit_test/hydroponics_extractor_storage
 
 /datum/unit_test/hydroponics_extractor_storage/Run()
-	var/obj/machinery/seed_extractor/extractor = allocate(/obj/machinery/seed_extractor)
+	var/obj/machinery/seeder/extractor = allocate(/obj/machinery/seeder)
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 
 	var/obj/item/storage/bag/plants/storage = allocate(/obj/item/storage/bag/plants)

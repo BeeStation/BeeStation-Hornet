@@ -43,7 +43,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
