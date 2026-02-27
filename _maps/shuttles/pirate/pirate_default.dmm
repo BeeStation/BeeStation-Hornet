@@ -633,8 +633,8 @@
 	pixel_x = 1;
 	pixel_y = -10
 	},
-/obj/item/plant_tray/soil{
-	self_sustaining = 1
+/obj/item/plant_tray/soil/priate{
+	gain_weeds = 0
 	},
 /obj/item/seeds/wheat,
 /obj/machinery/door/window/eastright{
