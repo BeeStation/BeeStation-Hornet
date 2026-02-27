@@ -703,7 +703,8 @@
 		limb.icon = icon_husk
 		limb.icon_state = "[husk_type]_husk_[body_zone]"
 		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
-		icon_exists(limb.icon, limb.icon_state, scream = TRUE) //Prints a stack trace on the first failure of a given iconstate.
+		if(!icon_exists(limb.icon, limb.icon_state))
+			stack_trace("No such icon: '[limb.icon]' state '[limb.icon_state]'") //Prints a stack trace on the first failure of a given iconstate.
 		. += limb
 		if(aux_zone) //Hand shit
 			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
@@ -722,7 +723,8 @@
 		limb.icon_state = "[limb_id]_[body_zone]"
 	. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 
-	icon_exists(limb.icon, limb.icon_state, TRUE) //Prints a stack trace on the first failure of a given iconstate.
+	if(!icon_exists(limb.icon, limb.icon_state))
+		stack_trace("No such icon: '[limb.icon]' state '[limb.icon_state]'")
 
 	. += limb
 
