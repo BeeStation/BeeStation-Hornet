@@ -3122,6 +3122,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/cryopods)
 "aup" = (
@@ -9150,13 +9153,9 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "aYW" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/cryopods)
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "aYY" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron/dark,
@@ -11298,6 +11297,7 @@
 /area/medical/sleeper)
 "bld" = (
 /obj/structure/bodycontainer/morgue,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "blf" = (
@@ -11496,6 +11496,7 @@
 /obj/machinery/camera/directional/west{
 	c_tag = "Morgue"
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "bmq" = (
@@ -21360,9 +21361,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/medbay/central)
 "cEJ" = (
@@ -21715,6 +21714,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -23392,7 +23394,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
-/turf/open/floor/plating,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "dtU" = (
 /obj/structure/cable/yellow{
@@ -23474,9 +23477,6 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 4
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/chemistry)
@@ -23932,14 +23932,6 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "MedbayFoyer";
-	name = "Medbay Doors Control";
-	normaldoorcontrol = 1;
-	pixel_x = 25;
-	pixel_y = 24
-	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
 "dHv" = (
@@ -24282,8 +24274,8 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
 "dQJ" = (
-/obj/machinery/door/airlock{
-	name = "Dressing Room"
+/obj/machinery/door/airlock/public/glass{
+	name = "Dormitory"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line,
@@ -24902,12 +24894,14 @@
 /turf/open/floor/iron/tech/grid,
 /area/bridge)
 "eeD" = (
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/bot,
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "0-8"
 	},
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/iron/freezer,
+/turf/open/floor/iron/tech,
 /area/crew_quarters/cryopods)
 "eeJ" = (
 /obj/structure/reagent_dispensers/peppertank{
@@ -25453,6 +25447,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
@@ -29709,6 +29706,15 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"glN" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
+/obj/machinery/computer/cryopod{
+	pixel_y = 25
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/cryopods)
 "glS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -33454,6 +33460,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 10
 	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
 "hUa" = (
@@ -33479,6 +33486,11 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	frequency = 1485;
+	name = "Station Intercom (Medbay)";
+	pixel_y = 26
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
@@ -33627,11 +33639,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "hXH" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
-/area/maintenance/department/crew_quarters/dorms)
+/area/maintenance/department/cargo)
 "hXI" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -40519,8 +40529,15 @@
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "kPx" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
+/obj/machinery/door/airlock/public/glass{
+	name = "Cryogenic Lounge"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/freezer,
 /area/crew_quarters/cryopods)
 "kPN" = (
 /turf/closed/wall/r_wall,
@@ -40536,6 +40553,9 @@
 	dir = 5
 	},
 /obj/structure/window/reinforced/tinted/frosted/spawner/directional,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "kQZ" = (
@@ -41056,14 +41076,13 @@
 /area/science/mixing)
 "lbk" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/light_switch{
 	pixel_x = 25;
 	pixel_y = -25
 	},
-/turf/open/floor/iron/freezer,
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/tech,
 /area/crew_quarters/cryopods)
 "lbC" = (
 /obj/structure/lattice,
@@ -47712,6 +47731,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "nZn" = (
@@ -52082,20 +52104,14 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "pPi" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/crew_quarters/dorms)
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/cryopods)
 "pPv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -52617,6 +52633,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "qcz" = (
@@ -53669,6 +53688,7 @@
 /obj/item/grenade/chem_grenade,
 /obj/item/screwdriver,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/chemistry)
 "qBy" = (
@@ -54869,9 +54889,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/syndicate_sat)
 "rbX" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "rcd" = (
@@ -54975,14 +54993,12 @@
 /obj/machinery/camera/directional/west{
 	c_tag = "Dormitory - Cryogenics"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/cryopod{
-	pixel_y = 25
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/food_or_drink/donkpockets,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/cryopods)
 "rfi" = (
@@ -56827,11 +56843,6 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "rSE" = (
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
-	pixel_y = 26
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -56840,6 +56851,14 @@
 	departmentType = 1;
 	name = "Medbay RC";
 	pixel_x = -32
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch for the medbay foyer.";
+	id = "MedbayFoyer";
+	name = "Medbay Doors Control";
+	normaldoorcontrol = 1;
+	pixel_x = 5;
+	pixel_y = 24
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
@@ -60933,6 +60952,12 @@
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
 /turf/open/floor/iron/dark/smooth_half,
 /area/engine/gravity_generator)
+"tJG" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/crew_quarters/dorms)
 "tJL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -62187,6 +62212,21 @@
 	},
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
+"uoJ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/crew_quarters/dorms)
 "uoQ" = (
 /obj/effect/landmark/start/assistant,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -62397,11 +62437,14 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "usN" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/turf/open/floor/plating,
-/area/maintenance/department/crew_quarters/dorms)
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/cryopods)
 "utc" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass,
@@ -62676,6 +62719,9 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/tinted/frosted/spawner/directional,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "uBe" = (
@@ -62870,17 +62916,10 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "uHf" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Cryogenic Lounge"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/crew_quarters/cryopods)
 "uHm" = (
 /obj/structure/disposalpipe/segment,
@@ -63737,7 +63776,8 @@
 /obj/machinery/cryopod{
 	dir = 4
 	},
-/turf/open/floor/iron/freezer,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/tech,
 /area/crew_quarters/cryopods)
 "vdW" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -64428,6 +64468,10 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"vvz" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/iron,
+/area/maintenance/department/cargo)
 "vvB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -66078,6 +66122,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"wgD" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/maintenance/department/crew_quarters/dorms)
 "wgE" = (
 /obj/effect/turf_decal/tile/brown/fourcorners,
 /obj/effect/turf_decal/trimline/yellow,
@@ -66606,9 +66654,6 @@
 /area/engine/engineering)
 "wrt" = (
 /obj/machinery/light/warm/directional/south,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -69647,7 +69692,9 @@
 "xFs" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/iron/freezer,
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/tech,
 /area/crew_quarters/cryopods)
 "xGm" = (
 /obj/structure/sign/poster/random{
@@ -70115,6 +70162,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -93209,7 +93259,7 @@ bzC
 bva
 nNq
 wgz
-bDi
+aYW
 bva
 bDi
 bDi
@@ -97849,7 +97899,7 @@ chy
 lhE
 bDi
 bUe
-bDi
+mMc
 bBX
 bBX
 bBX
@@ -111392,11 +111442,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aiS
 aiS
 kzk
 kzk
-vdV
+glN
 vdV
 kzk
 aww
@@ -111650,10 +111700,10 @@ aiT
 aiT
 aiT
 aiS
-aiS
-kzk
+tJG
+pPi
 rfe
-aun
+usN
 aun
 kPx
 aww
@@ -111907,7 +111957,7 @@ haw
 atK
 haw
 haw
-kqy
+uoJ
 kzk
 eeD
 lbk
@@ -112167,7 +112217,7 @@ aiS
 riH
 kzk
 kzk
-aYW
+kzk
 kzk
 kzk
 aww
@@ -112423,7 +112473,7 @@ aaa
 aiS
 riH
 sbk
-sbk
+wgD
 rbX
 atn
 uUW
@@ -112679,9 +112729,9 @@ aaa
 aaa
 aiS
 ldq
-pPi
-usN
-hXH
+kqy
+sbk
+sbk
 atn
 oul
 awB
@@ -114499,7 +114549,7 @@ aEj
 pEa
 aFi
 aFi
-aFi
+hXH
 aEj
 aaa
 aaa
@@ -115796,7 +115846,7 @@ aEl
 aaa
 aaa
 aEl
-aFi
+hXH
 bjE
 aFi
 aEj
@@ -120435,7 +120485,7 @@ aEj
 aEj
 aEl
 aEj
-vSj
+vvz
 bom
 aEj
 bkF
