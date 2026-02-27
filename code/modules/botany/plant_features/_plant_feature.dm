@@ -190,6 +190,8 @@
 
 ///Used to adjust our genetic budget, contains logic for overdrawing our budget
 /datum/plant_feature/proc/adjust_genetic_budget(amount, datum/source)
+	if(!parent)
+		return
 	remaining_genetic_budget += amount
 //Need management
 	if(!SSbotany.previous_needs["[parent.species_id]"])

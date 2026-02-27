@@ -12,6 +12,8 @@
 
 /datum/plant_trait/refraction/New(datum/plant_feature/_parent, _grid_x, _grid_y, _level)
 	. = ..()
+	if(!length(SSbotany.refraction_reagents))
+		return
 	grid_x = _grid_x
 	grid_y = _grid_y
 	level = _level || GRID_MAX_ACCURACY

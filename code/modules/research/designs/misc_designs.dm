@@ -197,6 +197,7 @@
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
+//TODO: Add designs for all the new botany machines -Racc
 /datum/design/tray_maker
 	name = "Hydroponic Plumbing Constructor"
 	desc = "A plumbing tool for botany equipment."
