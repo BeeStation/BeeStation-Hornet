@@ -14181,6 +14181,9 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/chair/office,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
 /turf/open/floor/iron/tech,
 /area/crew_quarters/heads/cmo)
 "bEN" = (
@@ -14441,6 +14444,10 @@
 /obj/item/toy/plush/moth/lovers{
 	name = "Anxious Moth Plushie";
 	desc = "An Adorable Mothplushie, it seems to be radiating a terribly demented aura"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1;
+	hide = 0
 	},
 /turf/open/floor/iron/tech,
 /area/crew_quarters/heads/cmo)
@@ -25360,7 +25367,7 @@
 /obj/item/melee/baton/cattleprod{
 	preload_cell_type = /obj/item/stock_parts/cell/high
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/iron/tech,
@@ -26287,11 +26294,11 @@
 	specialfunctions = 4
 	},
 /obj/effect/landmark/xeno_spawn,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 6
 	},
 /turf/open/floor/iron/tech,
 /area/crew_quarters/heads/cmo)
