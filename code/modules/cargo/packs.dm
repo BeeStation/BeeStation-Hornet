@@ -50,6 +50,17 @@
 	else if(HAS_TRAIT(SSstation, STATION_TRAIT_STRONG_SUPPLY_LINES))
 		. *= 0.8
 
+/// Returns a human-readable list of item names in this pack for UI display.
+/datum/supply_pack/proc/get_contents_readable()
+	var/list/readable = list()
+	if(!contains)
+		return readable
+	for(var/item_path in contains)
+		if(ispath(item_path))
+			var/atom/A = item_path
+			readable += initial(A.name)
+	return readable
+
 /datum/supply_pack/proc/fill(obj/structure/closet/crate/C)
 	if (admin_spawned)
 		for(var/item in contains)

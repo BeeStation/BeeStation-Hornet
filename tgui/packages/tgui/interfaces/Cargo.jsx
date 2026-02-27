@@ -3,9 +3,11 @@ import {
   AnimatedNumber,
   Box,
   Button,
+  Collapsible,
   Flex,
   LabeledList,
   Section,
+  Stack,
   Table,
   Tabs,
 } from '../components';
@@ -14,8 +16,8 @@ import { Window } from '../layouts';
 
 export const Cargo = (props) => {
   return (
-    <Window width={780} height={750}>
-      <Window.Content scrollable>
+    <Window width={1050} height={750}>
+      <Window.Content>
         <CargoContent />
       </Window.Content>
     </Window>
@@ -29,41 +31,52 @@ export const CargoContent = (props) => {
   const cart = data.cart || [];
   const requests = data.requests || [];
   return (
-    <Box>
-      <CargoStatus />
-      <Section fitted>
-        <Tabs>
-          <Tabs.Tab
-            icon="list"
-            selected={tab === 'catalog'}
-            onClick={() => setTab('catalog')}
-          >
-            Catalog
-          </Tabs.Tab>
-          <Tabs.Tab
-            icon="envelope"
-            textColor={tab !== 'requests' && requests.length > 0 && 'yellow'}
-            selected={tab === 'requests'}
-            onClick={() => setTab('requests')}
-          >
-            Requests ({requests.length})
-          </Tabs.Tab>
-          {!requestonly && (
+    <Flex height="100%">
+      {/* Left panel - main content */}
+      <Flex.Item grow={1} basis={0} style={{ overflow: 'auto' }} mr={1}>
+        <CargoStatus />
+        <Section fitted>
+          <Tabs>
             <Tabs.Tab
-              icon="shopping-cart"
-              textColor={tab !== 'cart' && cart.length > 0 && 'yellow'}
-              selected={tab === 'cart'}
-              onClick={() => setTab('cart')}
+              icon="list"
+              selected={tab === 'catalog'}
+              onClick={() => setTab('catalog')}
             >
-              Checkout ({cart.length})
+              Catalog
             </Tabs.Tab>
-          )}
-        </Tabs>
-      </Section>
-      {tab === 'catalog' && <CargoCatalog />}
-      {tab === 'requests' && <CargoRequests />}
-      {tab === 'cart' && <CargoCart />}
-    </Box>
+            <Tabs.Tab
+              icon="envelope"
+              textColor={tab !== 'requests' && requests.length > 0 && 'yellow'}
+              selected={tab === 'requests'}
+              onClick={() => setTab('requests')}
+            >
+              Requests ({requests.length})
+            </Tabs.Tab>
+            {!requestonly && (
+              <Tabs.Tab
+                icon="shopping-cart"
+                textColor={tab !== 'cart' && cart.length > 0 && 'yellow'}
+                selected={tab === 'cart'}
+                onClick={() => setTab('cart')}
+              >
+                Orders ({cart.length})
+              </Tabs.Tab>
+            )}
+          </Tabs>
+        </Section>
+        {tab === 'catalog' && <CargoCatalog />}
+        {tab === 'requests' && <CargoRequests />}
+        {tab === 'cart' && <CargoCart />}
+      </Flex.Item>
+      {/* Right panel - batch cart */}
+      <Flex.Item
+        basis="320px"
+        shrink={0}
+        style={{ overflow: 'auto' }}
+      >
+        <BatchPanel />
+      </Flex.Item>
+    </Flex>
   );
 };
 
@@ -183,6 +196,7 @@ export const CargoCatalog = (props) => {
                     <Button
                       fontFamily="verdana"
                       fluid
+                      icon={express ? 'add' : 'cart-plus'}
                       tooltip={pack.desc}
                       tooltipPosition="left"
                       disabled={
@@ -193,7 +207,7 @@ export const CargoCatalog = (props) => {
                           pack.supply > 0)
                       }
                       onClick={() =>
-                        act('add', {
+                        act(express ? 'add' : 'batch_add', {
                           id: pack.id,
                         })
                       }
@@ -239,50 +253,95 @@ const CargoRequests = (props) => {
       {requests.length > 0 && (
         <Table>
           {requests.map((request) => (
-            <Table.Row key={request.id} className="candystripe">
-              <Table.Cell collapsing color="label">
-                #{request.id}
-              </Table.Cell>
-              <Table.Cell>{request.object}</Table.Cell>
-              <Table.Cell>
-                <b>{request.orderer}</b>
-              </Table.Cell>
-              <Table.Cell width="25%">
-                <i>{request.reason}</i>
-              </Table.Cell>
-              <Table.Cell fontFamily="verdana" collapsing textAlign="right">
-                {formatMoney(request.cost)} cr
-              </Table.Cell>
-              <Table.Cell fontFamily="verdana" collapsing textAlign="right">
-                Stock: {request.supply}
-              </Table.Cell>
-              {(!requestonly || can_send) && can_approve_requests && (
-                <Table.Cell collapsing>
-                  <Button
-                    icon="check"
-                    color="good"
-                    onClick={() =>
-                      act('approve', {
-                        id: request.id,
-                      })
-                    }
-                  />
-                  <Button
-                    icon="times"
-                    color="bad"
-                    onClick={() =>
-                      act('deny', {
-                        id: request.id,
-                      })
-                    }
-                  />
-                </Table.Cell>
-              )}
-            </Table.Row>
+            <RequestEntry
+              key={request.id}
+              request={request}
+              requestonly={requestonly}
+              can_send={can_send}
+              can_approve_requests={can_approve_requests}
+            />
           ))}
         </Table>
       )}
     </Section>
+  );
+};
+
+const RequestEntry = (props) => {
+  const { act } = useBackend();
+  const { request, requestonly, can_send, can_approve_requests } = props;
+  const [expanded, setExpanded] = useSharedState(
+    'req_expand_' + request.id,
+    false,
+  );
+  const contents = request.contents || [];
+  return (
+    <>
+      <Table.Row key={request.id} className="candystripe">
+        <Table.Cell collapsing>
+          {contents.length > 0 && (
+            <Button
+              icon={expanded ? 'chevron-down' : 'chevron-right'}
+              color="transparent"
+              compact
+              onClick={() => setExpanded(!expanded)}
+            />
+          )}
+        </Table.Cell>
+        <Table.Cell collapsing color="label">
+          #{request.id}
+        </Table.Cell>
+        <Table.Cell>{request.object}</Table.Cell>
+        <Table.Cell>
+          <b>{request.orderer}</b>
+        </Table.Cell>
+        <Table.Cell width="25%">
+          <i>{request.reason}</i>
+        </Table.Cell>
+        <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+          {formatMoney(request.cost)} cr
+        </Table.Cell>
+        <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+          Stock: {request.supply}
+        </Table.Cell>
+        {(!requestonly || can_send) && can_approve_requests && (
+          <Table.Cell collapsing>
+            <Button
+              icon="check"
+              color="good"
+              onClick={() =>
+                act('approve', {
+                  id: request.id,
+                })
+              }
+            />
+            <Button
+              icon="times"
+              color="bad"
+              onClick={() =>
+                act('deny', {
+                  id: request.id,
+                })
+              }
+            />
+          </Table.Cell>
+        )}
+      </Table.Row>
+      {expanded &&
+        contents.map((item, idx) => (
+          <Table.Row key={request.id + '_c_' + idx}>
+            <Table.Cell collapsing />
+            <Table.Cell collapsing />
+            <Table.Cell
+              colSpan={6}
+              color="label"
+              style={{ paddingLeft: '1.5em' }}
+            >
+              • {item}
+            </Table.Cell>
+          </Table.Row>
+        ))}
+    </>
   );
 };
 
@@ -317,38 +376,12 @@ const CargoCart = (props) => {
   const { requestonly, away, docked, location, can_send } = data;
   const cart = data.cart || [];
   return (
-    <Section title="Current Cart" buttons={<CargoCartButtons />}>
-      {cart.length === 0 && <Box color="label">Nothing in cart</Box>}
+    <Section title="Current Orders" buttons={<CargoCartButtons />}>
+      {cart.length === 0 && <Box color="label">No orders placed</Box>}
       {cart.length > 0 && (
         <Table>
           {cart.map((entry) => (
-            <Table.Row key={entry.id} className="candystripe">
-              <Table.Cell collapsing color="label">
-                #{entry.id}
-              </Table.Cell>
-              <Table.Cell>{entry.object}</Table.Cell>
-              <Table.Cell collapsing>
-                {!!entry.paid && <b>[Paid Privately]</b>}
-              </Table.Cell>
-              <Table.Cell fontFamily="verdana" collapsing textAlign="right">
-                {formatMoney(entry.cost)} cr
-              </Table.Cell>
-              <Table.Cell fontFamily="verdana" collapsing textAlign="right">
-                Stock: {entry.supply}
-              </Table.Cell>
-              <Table.Cell collapsing>
-                {can_send && (
-                  <Button
-                    icon="minus"
-                    onClick={() =>
-                      act('remove', {
-                        id: entry.id,
-                      })
-                    }
-                  />
-                )}
-              </Table.Cell>
-            </Table.Row>
+            <CartEntry key={entry.id} entry={entry} can_send={can_send} />
           ))}
         </Table>
       )}
@@ -368,5 +401,251 @@ const CargoCart = (props) => {
         </Box>
       )}
     </Section>
+  );
+};
+
+const CartEntry = (props) => {
+  const { act } = useBackend();
+  const { entry, can_send } = props;
+  const [expanded, setExpanded] = useSharedState(
+    'cart_expand_' + entry.id,
+    false,
+  );
+  const contents = entry.contents || [];
+  return (
+    <>
+      <Table.Row key={entry.id} className="candystripe">
+        <Table.Cell collapsing>
+          {contents.length > 0 && (
+            <Button
+              icon={expanded ? 'chevron-down' : 'chevron-right'}
+              color="transparent"
+              compact
+              onClick={() => setExpanded(!expanded)}
+            />
+          )}
+        </Table.Cell>
+        <Table.Cell collapsing color="label">
+          #{entry.id}
+        </Table.Cell>
+        <Table.Cell>{entry.object}</Table.Cell>
+        <Table.Cell collapsing>
+          {!!entry.paid && <b>[Paid Privately]</b>}
+        </Table.Cell>
+        <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+          {formatMoney(entry.cost)} cr
+        </Table.Cell>
+        <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+          Stock: {entry.supply}
+        </Table.Cell>
+        <Table.Cell collapsing>
+          {can_send && (
+            <Button
+              icon="minus"
+              onClick={() =>
+                act('remove', {
+                  id: entry.id,
+                })
+              }
+            />
+          )}
+        </Table.Cell>
+      </Table.Row>
+      {expanded &&
+        contents.map((item, idx) => (
+          <Table.Row key={entry.id + '_c_' + idx}>
+            <Table.Cell collapsing />
+            <Table.Cell collapsing />
+            <Table.Cell
+              colSpan={5}
+              color="label"
+              style={{ paddingLeft: '1.5em' }}
+            >
+              • {item}
+            </Table.Cell>
+          </Table.Row>
+        ))}
+    </>
+  );
+};
+
+const BatchPanel = (props) => {
+  const { act, data } = useBackend();
+  const [batchTab, setBatchTab] = useSharedState('batchTab', 'items');
+  const batch = data.batch || {};
+  const batchItems = batch.items || [];
+  const totalCost = batch.total_cost || 0;
+  const itemCount = batch.item_count || 0;
+  const crates = batch.crates || [];
+  const { requestonly } = data;
+
+  return (
+    <Section
+      title="Batch Order"
+      fill
+      buttons={
+        <Button
+          icon="trash"
+          color="transparent"
+          disabled={batchItems.length === 0}
+          tooltip="Clear batch"
+          onClick={() => act('batch_clear')}
+        />
+      }
+    >
+      <Tabs>
+        <Tabs.Tab
+          icon="boxes-stacked"
+          selected={batchTab === 'items'}
+          onClick={() => setBatchTab('items')}
+        >
+          Items ({itemCount})
+        </Tabs.Tab>
+        <Tabs.Tab
+          icon="box"
+          selected={batchTab === 'crates'}
+          onClick={() => setBatchTab('crates')}
+        >
+          Crates ({crates.length})
+        </Tabs.Tab>
+      </Tabs>
+      {batchTab === 'items' && <BatchItemsList />}
+      {batchTab === 'crates' && <BatchCrateReadout />}
+      {batchItems.length > 0 && (
+        <Box mt={2}>
+          <Box
+            fontFamily="verdana"
+            bold
+            textAlign="center"
+            mb={1}
+            fontSize="14px"
+          >
+            Total: {formatMoney(totalCost)} cr ({itemCount}{' '}
+            {itemCount === 1 ? 'item' : 'items'})
+          </Box>
+          <Button
+            fluid
+            color="green"
+            icon="check"
+            textAlign="center"
+            style={{
+              lineHeight: '28px',
+              padding: '0 12px',
+            }}
+            content={requestonly ? 'Submit Request' : 'Confirm Batch Order'}
+            onClick={() => act('batch_confirm')}
+          />
+        </Box>
+      )}
+    </Section>
+  );
+};
+
+const BatchItemsList = (props) => {
+  const { act, data } = useBackend();
+  const batch = data.batch || {};
+  const batchItems = batch.items || [];
+
+  if (batchItems.length === 0) {
+    return (
+      <Box color="label" textAlign="center" mt={2}>
+        Add items from the catalog to build a batch order.
+      </Box>
+    );
+  }
+
+  return (
+    <Table>
+      {batchItems.map((item) => (
+        <Table.Row key={item.pack_id} className="candystripe">
+          <Table.Cell>{item.name}</Table.Cell>
+          <Table.Cell collapsing textAlign="center">
+            <Stack align="center" inline>
+              <Stack.Item>
+                <Button
+                  icon="minus"
+                  compact
+                  onClick={() =>
+                    act('batch_remove', {
+                      id: item.pack_id,
+                    })
+                  }
+                />
+              </Stack.Item>
+              <Stack.Item
+                fontFamily="verdana"
+                bold
+                style={{
+                  minWidth: '24px',
+                  textAlign: 'center',
+                }}
+              >
+                {item.quantity}
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  icon="plus"
+                  compact
+                  onClick={() =>
+                    act('batch_add', {
+                      id: item.pack_id,
+                    })
+                  }
+                />
+              </Stack.Item>
+            </Stack>
+          </Table.Cell>
+          <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+            {formatMoney(item.entry_cost)} cr
+          </Table.Cell>
+          <Table.Cell collapsing>
+            <Button
+              icon="times"
+              color="bad"
+              compact
+              onClick={() =>
+                act('batch_remove_all', {
+                  id: item.pack_id,
+                })
+              }
+            />
+          </Table.Cell>
+        </Table.Row>
+      ))}
+    </Table>
+  );
+};
+
+const BatchCrateReadout = (props) => {
+  const { data } = useBackend();
+  const batch = data.batch || {};
+  const crates = batch.crates || [];
+
+  if (crates.length === 0) {
+    return (
+      <Box color="label" textAlign="center" mt={2}>
+        No crates to display. Add items to the batch first.
+      </Box>
+    );
+  }
+
+  return (
+    <Box>
+      {crates.map((crate, idx) => (
+        <Collapsible
+          key={idx}
+          title={crate.crate_name + ' (' + crate.count + ')'}
+          color="transparent"
+        >
+          <Box ml={2}>
+            {crate.contents.map((item, cidx) => (
+              <Box key={cidx} color="label">
+                • {item}
+              </Box>
+            ))}
+          </Box>
+        </Collapsible>
+      ))}
+    </Box>
   );
 };

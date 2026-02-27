@@ -23,6 +23,8 @@
 		homing beacons, mail, or machinery housing any form of artificial intelligence."
 	//If you're being raided by pirates, what do you tell the crew?
 	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
+	/// The current batch of items being assembled before confirming an order.
+	var/list/batch = list()
 
 /datum/computer_file/program/budgetorders/proc/get_export_categories()
 	return EXPORT_CARGO
@@ -116,7 +118,8 @@
 			"supply" = SO.pack.current_supply,
 			"id" = SO.id,
 			"orderer" = SO.orderer,
-			"paid" = !isnull(SO.paying_account) //paid by requester
+			"paid" = !isnull(SO.paying_account), //paid by requester
+			"contents" = SO.pack.get_contents_readable()
 		))
 
 	data["requests"] = list()
@@ -127,10 +130,110 @@
 			"supply" = SO.pack.current_supply,
 			"orderer" = SO.orderer,
 			"reason" = SO.reason,
-			"id" = SO.id
+			"id" = SO.id,
+			"contents" = SO.pack.get_contents_readable()
 		))
 
+	// Batch data
+	data["batch"] = get_batch_data()
+
 	return data
+
+/// Returns the batch items list and crate breakdown for the UI.
+/datum/computer_file/program/budgetorders/proc/get_batch_data()
+	var/list/batch_data = list()
+	batch_data["items"] = list()
+	batch_data["total_cost"] = 0
+	batch_data["crates"] = list()
+	batch_data["item_count"] = 0
+
+	if(!length(batch))
+		return batch_data
+
+	var/total_cost = 0
+	var/total_items = 0
+	for(var/list/entry in batch)
+		var/pack_id = entry["pack_id"]
+		var/quantity = entry["quantity"]
+		var/datum/supply_pack/pack = SSsupply.supply_packs[pack_id]
+		if(!pack)
+			continue
+		var/entry_cost = pack.cost * quantity
+		if(self_paid)
+			entry_cost = round(entry_cost * 1.1)
+		total_cost += entry_cost
+		total_items += quantity
+		batch_data["items"] += list(list(
+			"pack_id" = "[pack_id]",
+			"name" = pack.name,
+			"cost" = pack.cost,
+			"quantity" = quantity,
+			"entry_cost" = entry_cost,
+			"small_item" = pack.small_item,
+			"crate_name" = pack.crate_name,
+			"supply" = pack.current_supply
+		))
+
+	batch_data["total_cost"] = total_cost
+	batch_data["item_count"] = total_items
+	batch_data["crates"] = calculate_crate_breakdown()
+	return batch_data
+
+/// Calculates how the current batch would be broken down into crates.
+/datum/computer_file/program/budgetorders/proc/calculate_crate_breakdown()
+	var/list/crates = list()
+	var/list/small_items = list()
+	var/list/regular_items = list()
+
+	for(var/list/entry in batch)
+		var/pack_id = entry["pack_id"]
+		var/quantity = entry["quantity"]
+		var/datum/supply_pack/pack = SSsupply.supply_packs[pack_id]
+		if(!pack)
+			continue
+		if(pack.small_item)
+			small_items += list(list("name" = pack.name, "crate_name" = pack.crate_name, "quantity" = quantity))
+		else
+			for(var/i in 1 to quantity)
+				regular_items += list(list("name" = pack.name, "crate_name" = pack.crate_name))
+
+	for(var/list/item in regular_items)
+		crates += list(list(
+			"crate_name" = item["crate_name"],
+			"contents" = list(item["name"]),
+			"count" = 1
+		))
+
+	if(length(small_items))
+		var/list/small_queue = list()
+		for(var/list/item in small_items)
+			for(var/i in 1 to item["quantity"])
+				small_queue += list(list("name" = item["name"], "crate_name" = item["crate_name"]))
+
+		var/list/by_crate_type = list()
+		for(var/list/item in small_queue)
+			var/ctype = item["crate_name"]
+			if(!by_crate_type[ctype])
+				by_crate_type[ctype] = list()
+			by_crate_type[ctype] += list(item["name"])
+
+		for(var/ctype in by_crate_type)
+			var/list/items_of_type = by_crate_type[ctype]
+			var/crate_count = 0
+			while(length(items_of_type) > 0)
+				var/list/crate_contents = list()
+				var/take_count = min(10, length(items_of_type))
+				for(var/i in 1 to take_count)
+					crate_contents += items_of_type[1]
+					items_of_type.Cut(1, 2)
+				crate_count++
+				crates += list(list(
+					"crate_name" = "[ctype] (Small Items #[crate_count])",
+					"contents" = crate_contents,
+					"count" = length(crate_contents)
+				))
+
+	return crates
 
 /datum/computer_file/program/budgetorders/ui_act(action, params, datum/tgui/ui)
 	if(..())
@@ -275,6 +378,126 @@
 			. = TRUE
 		if("toggleprivate")
 			self_paid = !self_paid
+			. = TRUE
+		if("batch_add")
+			var/id = text2path(params["id"])
+			var/datum/supply_pack/pack = SSsupply.supply_packs[id]
+			if(!istype(pack))
+				return
+			if((pack.hidden && (pack.contraband && !contraband) || pack.DropPodOnly))
+				return
+			for(var/list/entry in batch)
+				if(entry["pack_id"] == id)
+					entry["quantity"] += 1
+					. = TRUE
+					return
+			batch += list(list("pack_id" = id, "quantity" = 1))
+			. = TRUE
+		if("batch_remove")
+			var/id = text2path(params["id"])
+			for(var/list/entry in batch)
+				if(entry["pack_id"] == id)
+					entry["quantity"] -= 1
+					if(entry["quantity"] <= 0)
+						batch -= list(entry)
+					. = TRUE
+					break
+		if("batch_set_quantity")
+			var/id = text2path(params["id"])
+			var/quantity = text2num(params["quantity"])
+			if(!quantity || quantity < 0)
+				return
+			quantity = clamp(round(quantity), 1, 20)
+			for(var/list/entry in batch)
+				if(entry["pack_id"] == id)
+					entry["quantity"] = quantity
+					. = TRUE
+					break
+		if("batch_remove_all")
+			var/id = text2path(params["id"])
+			for(var/list/entry in batch)
+				if(entry["pack_id"] == id)
+					batch -= list(entry)
+					. = TRUE
+					break
+		if("batch_clear")
+			batch.Cut()
+			. = TRUE
+		if("batch_confirm")
+			if(!length(batch))
+				return
+			var/name = "*None Provided*"
+			var/rank = "*None Provided*"
+			var/ckey = usr.ckey
+			if(ishuman(usr))
+				var/mob/living/carbon/human/H = usr
+				name = H.get_authentification_name()
+				rank = H.get_assignment(hand_first = TRUE)
+			else if(issilicon(usr))
+				name = usr.real_name
+				rank = "Silicon"
+
+			var/datum/bank_account/account
+			if(self_paid && ishuman(usr))
+				var/obj/item/card/id/id_card = get_buyer_id(usr)
+				if(!istype(id_card))
+					computer.say("No ID card detected.")
+					return
+				if(istype(id_card, /obj/item/card/id/departmental_budget))
+					computer.say("The application rejects [id_card].")
+					return
+				account = id_card.registered_account
+				if(!istype(account))
+					computer.say("Invalid bank account.")
+					return
+
+			var/reason = ""
+			if((requestonly && !self_paid) || !(get_buyer_id(usr)))
+				reason = stripped_input("Reason:", name, "")
+				if(isnull(reason) || ..())
+					return
+
+			if(!self_paid && ishuman(usr) && !account)
+				var/obj/item/card/id/id_card = get_buyer_id(usr)
+				if(!istype(id_card))
+					computer.say("No ID card detected.")
+					return
+				var/access = id_card.GetAccess()
+				if(!(computer.obj_flags & EMAGGED))
+					for(var/list/entry in batch)
+						var/datum/supply_pack/pack = SSsupply.supply_packs[entry["pack_id"]]
+						if(pack?.access_budget && !(pack.access_budget in access))
+							computer.say("Insufficient access on [id_card] for [pack.name].")
+							return
+				if(istype(id_card, /obj/item/card/id/departmental_budget))
+					computer.say("The application rejects [id_card].")
+					return
+				else
+					account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+					if(isnull(account))
+						computer.say("The application failed to identify [id_card].")
+						return
+					else if(SSeconomy.is_nonstation_account(account))
+						computer.say("The application rejects [id_card].")
+						return
+
+			var/turf/T = get_turf(src)
+			for(var/list/entry in batch)
+				var/pack_id = entry["pack_id"]
+				var/quantity = entry["quantity"]
+				var/datum/supply_pack/pack = SSsupply.supply_packs[pack_id]
+				if(!pack)
+					continue
+				for(var/i in 1 to quantity)
+					var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
+					SO.generateRequisition(T)
+					if((requestonly && !self_paid) || !(get_buyer_id(usr)))
+						SSsupply.requestlist += SO
+					else
+						SSsupply.shoppinglist += SO
+						if(self_paid)
+							computer.say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
+			batch.Cut()
 			. = TRUE
 	if(.)
 		post_signal("supply")
