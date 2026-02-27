@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_pack/engineering/bsa/P = SSsupply.supply_packs[/datum/supply_pack/engineering/bsa]
+	var/datum/cargo_crate/station_goal/bsa/P = SSsupply.cargo_crates[/datum/cargo_crate/station_goal/bsa]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_cannon/check_completion()

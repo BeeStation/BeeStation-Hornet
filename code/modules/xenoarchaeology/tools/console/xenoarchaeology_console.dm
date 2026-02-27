@@ -93,9 +93,9 @@
 				qdel(console_order)
 				continue
 			data["active_request"] += list(list(
-				"object" = console_order.pack.name,
-				"cost" = console_order.pack.get_cost(),
-				"supply" = console_order.pack.current_supply,
+				"object" = console_order.pack_name,
+				"cost" = console_order.pack_cost,
+				"supply" = get_product_supply(console_order.pack),
 				"orderer" = console_order.orderer,
 				"reason" = console_order.reason,
 				"id" = console_order.id
@@ -165,7 +165,6 @@
 			current_pack.cost += seller?.get_price(item)
 			current_pack.contains += seller?.buy_stock(item)
 			current_order = new /datum/supply_order(current_pack, name, rank, ckey, "Research Material Requisition", budget)
-			current_order.generateRequisition(get_turf(src))
 			SSsupply.shoppinglist += current_order
 			console_orders[current_order] = current_pack
 		//Radio shit

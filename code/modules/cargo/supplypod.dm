@@ -606,7 +606,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 	if (single_order)
 		if (istype(single_order, /datum/supply_order))
 			var/datum/supply_order/SO = single_order
-			SO.generate(pod)
+			var/obj/structure/closet/crate/express_crate = SO.generate(pod)
+			if(express_crate)
+				express_crate.name = "Express Order #[SO.id] - [SO.pack_name]"
+				SO.generateManifest(express_crate, "EXPRESS-[SO.id]", 1, 1)
 		else if (istype(single_order, /atom/movable))
 			var/atom/movable/O = single_order
 			O.forceMove(pod)

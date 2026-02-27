@@ -1,0 +1,97 @@
+Core Goal
+Shift the station’s economy so that Cargo becomes the central acquisition hub, replacing departmental fabrication while keeping gameplay loops fun, balanced, and interdependent.
+1. Remove Station-side Fabrication
+What gets removed(from the station only)
+Department lathes
+Autolathes
+Robotics fabs
+Ore silo
+Why this matters
+Forces departments to rely on Cargo for materials and items.
+Reduces departmental self-sufficiency and restores interdepartmental trade.
+Prevents silo-based quasi-infinite resources, ensuring scarcity is a given.
+Required follow-up systems
+Stronger cargo ordering
+More reliable delivery infrastructure
+Adjusted roundstart supplies so departments aren’t crippled
+2. Rebuild Cargo as a True Department
+Structural changes
+Cargo becomes a full department with its own identity and gameplay loop.
+Quartermaster receives golden knuckledusters (because i love those).
+HOP will be mostly untouched by all of this.
+Will happen according to lore:
+Cargo Lore
+Two ways we can go: Cargo as a contractor, or cargo as a station-inherent department, like science or command.
+Cargo as a station-inherent department:
+Cargo is a department directly employed by NT and station admin as a whole.
+Working as actual cargo staff on the station itself.
+This means NT’s hold over the station and it’s resources is more solid, making the other companies present reliant on NT selling them the gear they use.
+This puts the other companies in a quite weak position. Did they sign off their right to purchase from others when they leased the station area they inhabit?
+Prolly needs to be determined per-company. Medbay would be almost subservient, while engineering would kind of expect it.
+Cargo as a third party contractor
+Possibly a subsidiary of NT?
+Space amazon?
+Why would we, an NT station, be selling plasma to space amazon?
+Why would space amazon sell us NT-proprietary things like the NPS guns?
+Will need more thinking. Likely will require security reworks regarding how they get some of their gear. I like the idea of security needing to directly requisition armory gear from their parent company, but for now it will do if we just sell it via cargo. Call it a deal.
+Mechanical changes
+All previously department-fabricated items become purchasable through Cargo.
+All ore/material acquisition routes are consolidated into Cargo’s purchasing system.
+Job-console will need adjusting, same as the sign up screen etc.
+3. Overhaul Cargo Purchasing
+New ordering model
+Replace crate-based ordering with item-by-item selection.
+Cargo staff create a list of individual items.
+System automatically:
+Determines crate count
+Bundles items into crates
+Calculates cost and shipping time
+I have this idea in my head that basically goes like:
+Crates can have 10 items max.
+Each item has a crate type that it wants, or can specify one at least. Freezers for meat, etc.
+The crates you are sent each have different values in their return.
+If you select items, it will start telling you what crates will be included. If you for example have 9 screwdrivers you will have a single crate. Add one banana, and a fridge crate will be added solely for that. If you then add 9 apples, they get put in the same crate.
+Prices will dynamically become cheaper/pricier the more you order in a batch, to a limit. So a single screwdriver will cost say, 10 credits or something:
+Batch purchase gets a 200 credit fine/surcharge/whatever that shrinks if you buy more things, up to maybe 20 items in a batch. Then it will be a direct price to price thing. Any more items will get start reducing the total price up to a 20% bulk discount
+Additionally, a score will be calculated based on how efficiently the crates are filled out. If you have a low average crate fill, meaning like 5 different types of crates with only a single item each, the score will be lower, and the price will go up.
+Benefits
+More granular control
+Less clutter
+Easier balancing of costs and supply chains
+Implementation notes
+UI must support batch orders
+Crate breakdown should be visible before confirmation
+Pricing must be consistent and logical
+4. Improve Cargo Logistics
+Mulebot overhaul, If i can manage it, prolly not
+Make mulebots actually usable:
+Better pathfinding?
+More reliable delivery?
+Maybe have them be able to carry items directly?
+Department card ordering
+This was brought up. What improvements would we like to see here?
+5. Rebalance Station Resources
+Roundstart adjustments
+Increase baseline supplies for critical departments:
+Example: Medbay gets a bit more stuff, tool-storage gets less, etc.
+Lavaland ore changes
+Remove all ores except plasma.
+Plasma is:
+A sellable export
+A valuable station resource
+If total removal is too harsh:
+Make other ores rare, not absent.
+6. Economic & Gameplay Balancing
+What needs tuning
+Cargo budget scaling
+Bounties
+Item pricing
+Plasma value, Resource values
+Departmental starting stock
+Crate/manifest values
+Why this matters
+Keeps departments functional without fabrication
+Ensures mining still has purpose (plasma export)
+
+
+

@@ -93,6 +93,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
 	var/list/misc_contents = list() //list of lists of items that each box will contain
 	var/list/misc_costs = list() //list of overall costs sustained by each buyer.
+	var/list/misc_orders = list() // list of lists of supply_order datums per owner for combo manifests
 	if(!SSsupply.shoppinglist.len)
 		return
 
@@ -104,12 +105,132 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 				continue
 			empty_turfs += T
 
+	// Generate a unique batch code for this entire shipment
+	var/batch_code = generate_batch_code()
+
+	// First pass: process payments and sort into regular crates vs small item groups
+	// Also expand batch orders into individual sub-orders
+	var/list/regular_orders = list() // list of supply_order datums that get their own crate
 	var/value = 0
 	var/purchases = 0
 	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 		if(!empty_turfs.len)
 			break
-		var/price = SO.pack.get_cost()
+
+		// Handle batch orders by expanding them into individual items
+		if(istype(SO, /datum/supply_order/batch))
+			var/datum/supply_order/batch/BO = SO
+			var/datum/bank_account/D
+			if(BO.paying_account)
+				D = BO.paying_account
+			else
+				D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+
+			// Calculate actual cost at purchase time
+			var/batch_total = 0
+			var/list/valid_entries = list()
+			for(var/list/entry in BO.entries)
+				var/datum/product = entry["pack"]
+				var/quantity = entry["quantity"]
+				var/entry_cost = entry["cost"]
+				// Check stock for each entry
+				var/available = min(quantity, get_product_supply(product))
+				if(available <= 0)
+					continue
+				var/cost_for_entry = entry_cost * available
+				if(BO.paying_account)
+					cost_for_entry = round(cost_for_entry * 1.1)
+				batch_total += cost_for_entry
+				valid_entries += list(list("pack" = product, "quantity" = available, "cost" = entry_cost))
+
+			if(!length(valid_entries))
+				continue
+
+			// Try to charge the full batch
+			if(D)
+				if(!D.adjust_money(-batch_total))
+					if(BO.paying_account)
+						D.bank_card_talk("Batch order #[BO.id] rejected due to lack of funds. Credits required: [batch_total]")
+					continue
+
+			if(BO.paying_account)
+				D.bank_card_talk("Batch order #[BO.id] has shipped. [batch_total] credits have been charged to your bank account.")
+				var/datum/bank_account/department/cargo = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+				// Cargo gets the handling fee (difference between charged amount and base cost)
+				var/base_cost = 0
+				for(var/list/ve in valid_entries)
+					base_cost += ve["cost"] * ve["quantity"]
+				cargo.adjust_money(batch_total - base_cost)
+
+			value += batch_total
+			SSsupply.shoppinglist -= BO
+			SSsupply.orderhistory += BO
+
+			// Now expand each valid entry into individual sub-orders for crate generation
+			for(var/list/ventry in valid_entries)
+				var/datum/product = ventry["pack"]
+				var/quantity = ventry["quantity"]
+				adjust_product_supply(product, -quantity)
+
+				var/p_small = FALSE
+				var/p_name = ""
+				var/p_access = null
+				var/p_dangerous = FALSE
+				var/p_cost = ventry["cost"]
+				if(istype(product, /datum/cargo_item))
+					var/datum/cargo_item/item = product
+					p_small = item.small_item
+					p_name = item.name
+					p_access = item.access
+					p_dangerous = item.dangerous
+				else if(istype(product, /datum/cargo_crate))
+					var/datum/cargo_crate/crate = product
+					p_small = crate.small_item
+					p_name = crate.name
+					p_access = crate.access
+					p_dangerous = crate.dangerous
+				else if(istype(product, /datum/supply_pack))
+					var/datum/supply_pack/legacy = product
+					p_small = legacy.small_item
+					p_name = legacy.name
+					p_access = legacy.access
+					p_dangerous = legacy.dangerous
+
+				for(var/i in 1 to quantity)
+					// Create a temporary sub-order for crate generation
+					var/datum/supply_order/sub = new(product, BO.orderer, BO.orderer_rank, BO.orderer_ckey, BO.reason, BO.paying_account)
+					if(p_small)
+						var/list/item_contents = get_pack_contains(product)
+						var/owner_key = BO.paying_account ? D.account_holder : "Cargo"
+						if(!miscboxes[owner_key])
+							if(BO.paying_account)
+								miscboxes[owner_key] = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs), BO.paying_account)
+							else
+								miscboxes[owner_key] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
+							misc_contents[owner_key] = list()
+							miscboxes[owner_key].req_access = list()
+							misc_orders[owner_key] = list()
+						for(var/item in item_contents)
+							misc_contents[owner_key] += item
+						misc_costs[owner_key] += p_cost
+						misc_order_num[owner_key] = "[misc_order_num[owner_key]]#[sub.id]  "
+						misc_orders[owner_key] += sub
+						if(!BO.paying_account && p_access)
+							miscboxes[owner_key].req_access |= p_access
+					else
+						regular_orders += sub
+
+					SSblackbox.record_feedback("nested tally", "cargo_imports", 1, list("[p_cost]", "[p_name]"))
+					investigate_log("Batch order #[BO.id] sub-item ([p_name], placed by [key_name(BO.orderer_ckey)]), paid by [D.account_holder] has shipped.", INVESTIGATE_CARGO)
+					if(p_dangerous)
+						message_admins("\A [p_name] from batch order by [ADMIN_LOOKUPFLW(BO.orderer_ckey)], paid by [D.account_holder] has shipped.")
+					purchases++
+			continue
+
+		// Regular (non-batch) order handling
+		if(!empty_turfs.len)
+			break
+		var/price = SO.pack_cost
 		var/datum/bank_account/D
 		if(SO.paying_account) //Someone paid out of pocket
 			D = SO.paying_account
@@ -122,61 +243,146 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 					D.bank_card_talk("Cargo order #[SO.id] rejected due to lack of funds. Credits required: [price]")
 				continue
 		//No stock
-		if(SO.pack.current_supply <= 0)
+		if(get_product_supply(SO.pack) <= 0)
 			continue
 
-		SO.pack.current_supply --
+		adjust_product_supply(SO.pack, -1)
 
 		if(SO.paying_account)
 			D.bank_card_talk("Cargo order #[SO.id] has shipped. [price] credits have been charged to your bank account.")
 			var/datum/bank_account/department/cargo = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-			cargo.adjust_money(price - SO.pack.get_cost()) //Cargo gets the handling fee
-		value += SO.pack.get_cost()
+			cargo.adjust_money(price - SO.pack_cost) //Cargo gets the handling fee
+		value += SO.pack_cost
 		SSsupply.shoppinglist -= SO
 		SSsupply.orderhistory += SO
 
-		if(SO.pack.small_item) //small_item means it gets piled in the miscbox
-			if(SO.paying_account)
-				if(!miscboxes.len || !miscboxes[D.account_holder]) //if there's no miscbox for this person
-					miscboxes[D.account_holder] = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs), SO.paying_account)
-					miscboxes[D.account_holder].name = "small items crate - purchased by [D.account_holder]"
-					misc_contents[D.account_holder] = list()
-					miscboxes[D.account_holder].req_access = list()
-				for (var/item in SO.pack.contains)
-					misc_contents[D.account_holder] += item
-				misc_costs[D.account_holder] += SO.pack.cost
-				misc_order_num[D.account_holder] = "[misc_order_num[D.account_holder]]#[SO.id]  "
-			else //No private payment, so we just stuff it all into a generic crate
-				if(!miscboxes.len || !miscboxes["Cargo"])
-					miscboxes["Cargo"] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
-					miscboxes["Cargo"].name = "small items crate"
-					misc_contents["Cargo"] = list()
-					miscboxes["Cargo"].req_access = list()
-				for (var/item in SO.pack.contains)
-					misc_contents["Cargo"] += item
-					//new item(miscboxes["Cargo"])
-				if(SO.pack.access)
-					miscboxes["Cargo"].req_access |= SO.pack.access
-				misc_order_num["Cargo"] = "[misc_order_num["Cargo"]]#[SO.id]  "
+		if(SO.pack_small_item) //small_item means it gets piled in the miscbox
+			var/list/item_contents = get_pack_contains(SO.pack)
+			var/owner_key = SO.paying_account ? D.account_holder : "Cargo"
+			if(!miscboxes[owner_key])
+				if(SO.paying_account)
+					miscboxes[owner_key] = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs), SO.paying_account)
+				else
+					miscboxes[owner_key] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
+				misc_contents[owner_key] = list()
+				miscboxes[owner_key].req_access = list()
+				misc_orders[owner_key] = list()
+			for(var/item in item_contents)
+				misc_contents[owner_key] += item
+			misc_costs[owner_key] += SO.pack_cost
+			misc_order_num[owner_key] = "[misc_order_num[owner_key]]#[SO.id]  "
+			misc_orders[owner_key] += SO
+			if(!SO.paying_account && SO.pack_access)
+				miscboxes[owner_key].req_access |= SO.pack_access
 		else
-			SO.generate(pick_n_take(empty_turfs))
+			regular_orders += SO
 
-		SSblackbox.record_feedback("nested tally", "cargo_imports", 1, list("[SO.pack.get_cost()]", "[SO.pack.name]"))
-		investigate_log("Order #[SO.id] ([SO.pack.name], placed by [key_name(SO.orderer_ckey)]), paid by [D.account_holder] has shipped.", INVESTIGATE_CARGO)
-		if(SO.pack.dangerous)
-			message_admins("\A [SO.pack.name] ordered by [ADMIN_LOOKUPFLW(SO.orderer_ckey)], paid by [D.account_holder] has shipped.")
+		SSblackbox.record_feedback("nested tally", "cargo_imports", 1, list("[SO.pack_cost]", "[SO.pack_name]"))
+		investigate_log("Order #[SO.id] ([SO.pack_name], placed by [key_name(SO.orderer_ckey)]), paid by [D.account_holder] has shipped.", INVESTIGATE_CARGO)
+		if(SO.pack_dangerous)
+			message_admins("\A [SO.pack_name] ordered by [ADMIN_LOOKUPFLW(SO.orderer_ckey)], paid by [D.account_holder] has shipped.")
 		purchases++
 
-	for(var/I in miscboxes)
-		var/datum/supply_order/SO = new/datum/supply_order()
-		SO.id = misc_order_num[I]
-		SO.generateCombo(miscboxes[I], I, misc_contents[I], misc_costs[I])
-		qdel(SO)
+	// Count total crates for naming
+	var/total_crates = length(regular_orders) + length(miscboxes)
+	var/crate_num = 0
+
+	// Generate regular crates with batch naming and per-crate manifests
+	for(var/datum/supply_order/SO in regular_orders)
+		if(!empty_turfs.len)
+			break
+		crate_num++
+		var/obj/structure/closet/crate/C = SO.generate(pick_n_take(empty_turfs))
+		if(C)
+			C.name = "Batch [batch_code] - Crate [crate_num]/[total_crates]"
+			SO.generateManifest(C, batch_code, crate_num, total_crates)
+
+	// Generate combo crates for small items with batch naming
+	for(var/owner_key in miscboxes)
+		crate_num++
+		var/obj/structure/closet/crate/miscbox = miscboxes[owner_key]
+		for(var/item_path in misc_contents[owner_key])
+			new item_path(miscbox)
+		miscbox.name = "Batch [batch_code] - Crate [crate_num]/[total_crates]"
+		// Use the first order in this group to generate the combo manifest
+		if(length(misc_orders[owner_key]))
+			var/datum/supply_order/first_order = misc_orders[owner_key][1]
+			first_order.generateComboManifest(miscbox, batch_code, crate_num, total_crates, owner_key, misc_order_num[owner_key])
+
+	// Generate the master shipment manifest paper on the shuttle floor
+	if(purchases && length(empty_turfs))
+		generate_shipment_manifest(pick(empty_turfs), batch_code, regular_orders, miscboxes, misc_order_num, misc_orders, total_crates)
 
 	var/datum/bank_account/cargo_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	investigate_log("[purchases] orders in this shipment, worth [value] credits. [cargo_budget.account_balance] credits left.", INVESTIGATE_CARGO)
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
+
+/// Generates the master shipment manifest paper listing all orders in this batch.
+/obj/docking_port/mobile/supply/proc/generate_shipment_manifest(turf/T, batch_code, list/regular_orders, list/miscboxes, list/misc_order_num, list/misc_orders, total_crates)
+	var/obj/item/paper/manifest_paper = new(T)
+	manifest_paper.name = "shipment manifest - Batch [batch_code]"
+
+	var/text = "<h2>[command_name()] Shipment Manifest</h2>"
+	text += "<hr/>"
+	text += "<b>Batch Order: [batch_code]</b><br/>"
+	text += "Total Crates: [total_crates]<br/>"
+	text += "Destination: [GLOB.station_name]<br/>"
+	text += "<hr/>"
+
+	var/crate_num = 0
+
+	// List regular orders
+	for(var/datum/supply_order/SO in regular_orders)
+		crate_num++
+		text += "<b>Crate [crate_num]/[total_crates] — Order #[SO.id]</b><br/>"
+		text += "Item: [SO.pack_name]<br/>"
+		text += "Ordered by: [SO.orderer] ([SO.orderer_rank])<br/>"
+		if(SO.paying_account)
+			text += "Paid by: [SO.paying_account.account_holder]<br/>"
+		if(SO.reason)
+			text += "Reason: [SO.reason]<br/>"
+		// List expected contents
+		var/list/contents_readable = list()
+		if(istype(SO.pack, /datum/cargo_item))
+			var/datum/cargo_item/item = SO.pack
+			contents_readable = item.get_contents_readable()
+		else if(istype(SO.pack, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = SO.pack
+			contents_readable = crate.get_contents_readable()
+		else if(istype(SO.pack, /datum/supply_pack))
+			var/datum/supply_pack/legacy = SO.pack
+			contents_readable = legacy.get_contents_readable()
+		if(length(contents_readable))
+			text += "Contents: "
+			text += "<ul>"
+			for(var/item_name in contents_readable)
+				text += "<li>[item_name]</li>"
+			text += "</ul>"
+		text += "<br/>"
+
+	// List grouped small item crates
+	for(var/owner_key in miscboxes)
+		crate_num++
+		text += "<b>Crate [crate_num]/[total_crates] — Grouped Small Items</b><br/>"
+		text += "Orders: [misc_order_num[owner_key]]<br/>"
+		if(owner_key != "Cargo")
+			text += "Paid by: [owner_key]<br/>"
+		// List the individual orders in this group
+		if(misc_orders[owner_key])
+			text += "Contents: "
+			text += "<ul>"
+			for(var/datum/supply_order/SO in misc_orders[owner_key])
+				text += "<li>[SO.pack_name] (Order #[SO.id])</li>"
+			text += "</ul>"
+		text += "<br/>"
+
+	text += "<hr/>"
+	text += "<h4>Stamp below to confirm receipt of shipment:</h4>"
+
+	manifest_paper.add_raw_text(text)
+	manifest_paper.update_appearance()
+	return manifest_paper
 
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)

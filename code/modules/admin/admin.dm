@@ -575,12 +575,21 @@
 	if(!check_rights(R_SPAWN))
 		return
 
-	var/chosen = pick_closest_path(object, make_types_fancy(subtypesof(/datum/supply_pack)))
+	// Build a combined list of all cargo product types
+	var/list/all_types = subtypesof(/datum/cargo_item) + subtypesof(/datum/cargo_crate) + subtypesof(/datum/supply_pack)
+	var/chosen = pick_closest_path(object, make_types_fancy(all_types))
 	if(!chosen)
 		return
-	var/datum/supply_pack/S = new chosen
-	S.admin_spawned = TRUE
-	S.generate(get_turf(usr))
+
+	// Locate the product in the catalogue, or create a temporary instance
+	var/list/product_data = SSsupply.get_product(chosen)
+	var/datum/product
+	if(product_data)
+		product = product_data["datum"]
+	else
+		product = new chosen()
+	var/datum/supply_order/temp_order = new(product, "Admin", "Admin", usr.ckey, "Admin spawned")
+	temp_order.generate(get_turf(usr))
 
 	log_admin("[key_name(usr)] spawned cargo pack [chosen] at [AREACOORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Cargo") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

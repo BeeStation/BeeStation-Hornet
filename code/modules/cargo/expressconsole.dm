@@ -53,24 +53,66 @@
 	to_chat(user,span_notice("You change the routing protocols, allowing the Supply Pod to land anywhere on the station."))
 	packin_up()
 
-/obj/machinery/computer/cargo/express/proc/packin_up() // oh shit, I'm sorry
-	meme_pack_data = list() // sorry for what?
-	for(var/pack in SSsupply.supply_packs) // our quartermaster taught us not to be ashamed of our supply packs
-		var/datum/supply_pack/P = SSsupply.supply_packs[pack]  // specially since they're such a good price and all
-		if(!meme_pack_data[P.group]) // yeah, I see that, your quartermaster gave you good advice
-			meme_pack_data[P.group] = list( // it gets cheaper when I return it
-				"name" = P.group, // mmhm
-				"packs" = list()  // sometimes, I return it so much, I rip the manifest
-			) // see, my quartermaster taught me a few things too
-		if((P.hidden) || (P.special)) // like, how not to rip the manifest
-			continue// by using someone else's crate
-		if(!((obj_flags & EMAGGED) || contraband) && P.contraband) // will you show me?
-			continue // i'd be right happy to
+/obj/machinery/computer/cargo/express/proc/packin_up()
+	meme_pack_data = list()
+
+	// Cargo items
+	for(var/item_type in SSsupply.cargo_items)
+		var/datum/cargo_item/item = SSsupply.cargo_items[item_type]
+		if(!meme_pack_data[item.category])
+			meme_pack_data[item.category] = list(
+				"name" = item.category,
+				"packs" = list()
+			)
+		if(item.hidden || item.DropPodOnly)
+			continue
+		if(!((obj_flags & EMAGGED) || contraband) && item.contraband)
+			continue
+		meme_pack_data[item.category]["packs"] += list(list(
+			"name" = item.name,
+			"cost" = item.get_cost(),
+			"id" = item_type,
+			"desc" = item.desc || item.name,
+			"supply" = item.current_supply
+		))
+
+	// Cargo crates
+	for(var/crate_type in SSsupply.cargo_crates)
+		var/datum/cargo_crate/crate = SSsupply.cargo_crates[crate_type]
+		if(!meme_pack_data[crate.category])
+			meme_pack_data[crate.category] = list(
+				"name" = crate.category,
+				"packs" = list()
+			)
+		if(crate.hidden || crate.special || crate.DropPodOnly)
+			continue
+		if(!((obj_flags & EMAGGED) || contraband) && crate.contraband)
+			continue
+		meme_pack_data[crate.category]["packs"] += list(list(
+			"name" = crate.name,
+			"cost" = crate.get_cost(),
+			"id" = crate_type,
+			"desc" = crate.desc || crate.name,
+			"supply" = crate.current_supply
+		))
+
+	// Legacy supply packs (backwards compat)
+	for(var/pack in SSsupply.supply_packs)
+		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
+		if(!meme_pack_data[P.group])
+			meme_pack_data[P.group] = list(
+				"name" = P.group,
+				"packs" = list()
+			)
+		if(P.hidden || P.special || P.DropPodOnly)
+			continue
+		if(!((obj_flags & EMAGGED) || contraband) && P.contraband)
+			continue
 		meme_pack_data[P.group]["packs"] += list(list(
 			"name" = P.name,
 			"cost" = P.get_cost(),
 			"id" = pack,
-			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
+			"desc" = P.desc || P.name,
 			"supply" = P.current_supply
 		))
 
@@ -155,9 +197,10 @@
 			if(usingBeacon && !(beacon && (isturf(beacon.loc) || ismob(beacon.loc))))
 				return
 			var/id = text2path(params["id"])
-			var/datum/supply_pack/pack = SSsupply.supply_packs[id]
-			if(!istype(pack))
+			var/list/product_info = SSsupply.get_product(id)
+			if(!product_info)
 				return
+			var/datum/product = product_info["datum"]
 			var/name = "*None Provided*"
 			var/rank = "*None Provided*"
 			var/ckey = usr.ckey
@@ -170,13 +213,13 @@
 				rank = "Silicon"
 			var/reason = ""
 			var/list/empty_turfs
-			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason)
+			var/datum/supply_order/SO = new(product, name, rank, ckey, reason)
 			var/points_to_check
 			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				points_to_check = D.account_balance
 			if(!(obj_flags & EMAGGED))
-				if(SO.pack.get_cost() <= points_to_check && SO.pack.current_supply >= 0)
+				if(SO.pack_cost <= points_to_check && get_product_supply(SO.pack) >= 0)
 					var/LZ
 					if (istype(beacon) && usingBeacon)//prioritize beacons over landing in cargobay
 						LZ = get_turf(beacon)
@@ -193,17 +236,17 @@
 							CHECK_TICK
 						if(empty_turfs?.len)
 							LZ = pick(empty_turfs)
-					if (SO.pack.get_cost() <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
+					if (SO.pack_cost <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
 						new /obj/effect/pod_landingzone(LZ, podType, SO)
-						investigate_log("Order #[SO.id] [SO.pack.name], placed by [key_name(SO.orderer_ckey)], paid by [D.account_holder] has been launched to [loc_name(LZ)].", INVESTIGATE_CARGO)
+						investigate_log("Order #[SO.id] [SO.pack_name], placed by [key_name(SO.orderer_ckey)], paid by [D.account_holder] has been launched to [loc_name(LZ)].", INVESTIGATE_CARGO)
 						COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
-						D.adjust_money(-SO.pack.get_cost())
-						SO.pack.current_supply --
+						D.adjust_money(-SO.pack_cost)
+						adjust_product_supply(SO.pack, -1)
 						SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
 						. = TRUE
 						update_icon()
 			else
-				if(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS) <= points_to_check && SO.pack.current_supply >= 0) // bulk discount :^)
+				if(SO.pack_cost * (0.72*MAX_EMAG_ROCKETS) <= points_to_check && get_product_supply(SO.pack) >= 0) // bulk discount :^)
 					landingzone = GLOB.areas_by_type[pick(GLOB.the_station_areas)]  //override default landing zone
 					for(var/turf/open/floor/T in landingzone.get_contained_turfs())
 						if(T.is_blocked_turf())
@@ -211,15 +254,14 @@
 						LAZYADD(empty_turfs, T)
 						CHECK_TICK
 					if(empty_turfs && empty_turfs.len)
-						D.adjust_money(-(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS)))
-						SO.pack.current_supply --
+						D.adjust_money(-(SO.pack_cost * (0.72*MAX_EMAG_ROCKETS)))
+						adjust_product_supply(SO.pack, -1)
 						SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
-						SO.generateRequisition(get_turf(src))
 						for(var/i in 1 to MAX_EMAG_ROCKETS)
 							var/LZ = pick(empty_turfs)
 							LAZYREMOVE(empty_turfs, LZ)
 							new /obj/effect/pod_landingzone(LZ, podType, SO)
-							investigate_log("Order #[SO.id] [SO.pack.name], has been randomly launched to [loc_name(LZ)] by [key_name(SO.orderer_ckey)] using an emagged express supply console.", INVESTIGATE_CARGO)
+							investigate_log("Order #[SO.id] [SO.pack_name], has been randomly launched to [loc_name(LZ)] by [key_name(SO.orderer_ckey)] using an emagged express supply console.", INVESTIGATE_CARGO)
 							COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN/2)
 							. = TRUE
 							update_icon()

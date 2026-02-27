@@ -16,7 +16,7 @@
 	).Join("\n")
 
 /datum/station_goal/bluespace_tap/on_report()
-	var/datum/supply_pack/engineering/bluespace_tap/P = SSsupply.supply_packs[/datum/supply_pack/engineering/bluespace_tap]
+	var/datum/cargo_crate/station_goal/bluespace_tap/P = SSsupply.cargo_crates[/datum/cargo_crate/station_goal/bluespace_tap]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_tap/check_completion()

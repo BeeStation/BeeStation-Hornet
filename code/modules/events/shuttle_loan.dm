@@ -109,7 +109,7 @@
 		var/list/shuttle_spawns = list()
 		switch(dispatch_type)
 			if(HIJACK_SYNDIE)
-				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/emergency/specialops]
+				var/datum/cargo_crate/event/specialops/pack = SSsupply.cargo_crates[/datum/cargo_crate/event/specialops]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
@@ -120,7 +120,7 @@
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
 
 			if(RUSKY_PARTY)
-				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/service/party]
+				var/datum/cargo_crate/event/party/pack = SSsupply.cargo_crates[/datum/cargo_crate/event/party]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
@@ -132,7 +132,7 @@
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear/russian)
 
 			if(SPIDER_GIFT)
-				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/emergency/specialops]
+				var/datum/cargo_crate/event/specialops/pack = SSsupply.cargo_crates[/datum/cargo_crate/event/specialops]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider)
@@ -169,18 +169,14 @@
 
 			if(DEPARTMENT_RESUPPLY)
 				var/list/crate_types = list(
-					/datum/supply_pack/emergency/equipment,
-					/datum/supply_pack/security/supplies,
-					/datum/supply_pack/organic/food,
-					/datum/supply_pack/emergency/weedcontrol,
-					/datum/supply_pack/engineering/tools,
-					/datum/supply_pack/engineering/engiequipment,
-					/datum/supply_pack/science/robotics,
-					/datum/supply_pack/science/plasma,
-					/datum/supply_pack/medical/supplies
-					)
+					/datum/cargo_crate/event/department_emergency,
+					/datum/cargo_crate/event/department_security,
+					/datum/cargo_crate/event/department_food,
+					/datum/cargo_crate/event/department_tools,
+					/datum/cargo_crate/event/department_medical,
+				)
 				for(var/crate in crate_types)
-					var/datum/supply_pack/pack = SSsupply.supply_packs[crate]
+					var/datum/cargo_crate/pack = SSsupply.cargo_crates[crate]
 					pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				for(var/i in 1 to 5)
@@ -192,7 +188,7 @@
 				for(var/i in 1 to 6)
 					shuttle_spawns.Add(pick(prob(5) ? naughtypizza : nicepizza))
 			if(ITS_HIP_TO)
-				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]
+				var/datum/cargo_crate/event/beekeeping/pack = SSsupply.cargo_crates[/datum/cargo_crate/event/beekeeping]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/bee_terrorist)

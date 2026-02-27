@@ -39,54 +39,76 @@
 	var/orderer_rank
 	var/orderer_ckey
 	var/reason
-	var/datum/supply_pack/pack
+	/// The product being ordered. Can be /datum/cargo_item, /datum/cargo_crate, or /datum/supply_pack (legacy).
+	var/datum/pack
 	var/datum/bank_account/paying_account
 
-/datum/supply_order/New(datum/supply_pack/pack, orderer, orderer_rank, orderer_ckey, reason, paying_account)
+	// Cached values for display — set from the product datum at order creation time
+	var/pack_name = ""
+	var/pack_cost = 0
+	var/pack_access = null
+	var/pack_dangerous = FALSE
+	var/pack_small_item = FALSE
+
+/datum/supply_order/New(datum/product, orderer, orderer_rank, orderer_ckey, reason, paying_account)
 	id = SSsupply.ordernum++
-	src.pack = pack
+	src.pack = product
 	src.orderer = orderer
 	src.orderer_rank = orderer_rank
 	src.orderer_ckey = orderer_ckey
 	src.reason = reason
 	src.paying_account = paying_account
+	// Cache display values
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		pack_name = item.name
+		pack_cost = item.get_cost()
+		pack_access = item.access
+		pack_dangerous = item.dangerous
+		pack_small_item = item.small_item
+	else if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		pack_name = crate.name
+		pack_cost = crate.get_cost()
+		pack_access = crate.access
+		pack_dangerous = crate.dangerous
+	else if(istype(product, /datum/supply_pack))
+		var/datum/supply_pack/legacy = product
+		pack_name = legacy.name
+		pack_cost = legacy.get_cost()
+		pack_access = legacy.access
+		pack_dangerous = legacy.dangerous
+		pack_small_item = legacy.small_item
 
-/datum/supply_order/proc/generateRequisition(turf/T)
-	var/obj/item/paper/requisition_paper  = new(T)
+/// Generate a unique batch order code (e.g. "#513-X131-T")
+/proc/generate_batch_code()
+	var/num_part = rand(100, 9999)
+	var/static/list/alpha_chars = list("A","B","C","D","E","F","G","H","J","K","L","M","N","P","Q","R","S","T","U","V","W","X","Y","Z")
+	var/mid = "[pick(alpha_chars)][rand(100, 999)]"
+	var/tail = pick(alpha_chars)
+	return "#[num_part]-[mid]-[tail]"
 
-	requisition_paper.name = "requisition form - #[id] ([pack.name])"
-	var/requisition_text = "<h2>[GLOB.station_name] Supply Requisition</h2>"
-	requisition_text += "<hr/>"
-	requisition_text += "Order #[id]<br/>"
-	requisition_text += "Item: [pack.name]<br/>"
-	requisition_text += "Access Restrictions: [get_access_desc(pack.access)]<br/>"
-	requisition_text += "Requested by: [orderer]<br/>"
-	if(paying_account)
-		requisition_text += "Paid by: [paying_account.account_holder]<br/>"
-	requisition_text += "Rank: [orderer_rank]<br/>"
-	requisition_text += "Comment: [reason]<br/>"
-
-	requisition_paper.add_raw_text(requisition_text)
-	requisition_paper.update_appearance()
-	return requisition_paper
-
-/datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, owner, packname, cost) //generates-the-manifests.
-	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, id, cost)
+/// Generate a shipping manifest paper placed inside a crate.
+/// This lists the crate's actual contents and is stampable.
+/datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, batch_code, crate_index, total_crates)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, id, pack_cost)
 
 	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
 
-	manifest_paper.name = "shipping manifest - [packname?"#[id] ([pack.name])":"(Grouped Item Crate)"]"
+	manifest_paper.name = "shipping manifest - [batch_code] Crate [crate_index]/[total_crates]"
 
 	var/manifest_text = "<h2>[command_name()] Shipping Manifest</h2>"
 	manifest_text += "<hr/>"
-	if(owner && !(owner == "Cargo"))
-		manifest_text += "Direct purchase from [owner]<br/>"
-		manifest_paper.name += " - Purchased by [owner]"
-	manifest_text += "Order[packname?"":"s"]: [id]<br/>"
+	manifest_text += "Batch Order: [batch_code]<br/>"
+	manifest_text += "Crate [crate_index] of [total_crates]<br/>"
+	manifest_text += "Order #[id] - [pack_name]<br/>"
 	manifest_text += "Destination: [station_name]<br/>"
-	if(packname)
-		manifest_text += "Item: [packname]<br/>"
-	manifest_text += "Contents: <br/>"
+	if(paying_account)
+		manifest_text += "Purchased by: [paying_account.account_holder]<br/>"
+	manifest_text += "Ordered by: [orderer] ([orderer_rank])<br/>"
+	if(reason)
+		manifest_text += "Reason: [reason]<br/>"
+	manifest_text += "<br/>Contents: <br/>"
 	manifest_text += "<ul>"
 	for(var/atom/movable/AM in C.contents - manifest_paper)
 		if((manifest_paper.errors & MANIFEST_ERROR_CONTENTS))
@@ -116,21 +138,177 @@
 
 	return manifest_paper
 
+/// Generate a combo crate manifest for grouped small items.
+/datum/supply_order/proc/generateComboManifest(obj/structure/closet/crate/C, batch_code, crate_index, total_crates, owner, order_ids)
+	var/total_cost = 0
+	for(var/atom/movable/AM in C.contents)
+		total_cost += 50 // rough per-item cost for combo crates
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, order_ids, total_cost)
+
+	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
+
+	manifest_paper.name = "shipping manifest - [batch_code] Crate [crate_index]/[total_crates]"
+
+	var/manifest_text = "<h2>[command_name()] Shipping Manifest</h2>"
+	manifest_text += "<hr/>"
+	manifest_text += "Batch Order: [batch_code]<br/>"
+	manifest_text += "Crate [crate_index] of [total_crates] (Grouped Small Items)<br/>"
+	manifest_text += "Orders: [order_ids]<br/>"
+	manifest_text += "Destination: [station_name]<br/>"
+	if(owner && owner != "Cargo")
+		manifest_text += "Purchased by: [owner]<br/>"
+	manifest_text += "<br/>Contents: <br/>"
+	manifest_text += "<ul>"
+	for(var/atom/movable/AM in C.contents - manifest_paper)
+		if((manifest_paper.errors & MANIFEST_ERROR_CONTENTS))
+			if(prob(50))
+				manifest_text += "<li>[AM.name]</li>"
+			else
+				continue
+		manifest_text += "<li>[AM.name]</li>"
+	manifest_text += "</ul>"
+	manifest_text += "<h4>Stamp below to confirm receipt of goods:</h4>"
+
+	manifest_paper.add_raw_text(manifest_text)
+
+	if(manifest_paper.errors & MANIFEST_ERROR_ITEM)
+		if(istype(C, /obj/structure/closet/crate/secure) || istype(C, /obj/structure/closet/crate/large))
+			manifest_paper.errors &= ~MANIFEST_ERROR_ITEM
+		else
+			var/lost = max(round(C.contents.len / 10), 1)
+			while(--lost >= 0)
+				qdel(pick(C.contents))
+
+	manifest_paper.update_appearance()
+	manifest_paper.forceMove(C)
+
+	C.manifest = manifest_paper
+	C.update_icon()
+
+	return manifest_paper
+
+/// Generate the crate and its contents at the given location. Does NOT name or add manifest — that's handled by the shuttle buy proc.
 /datum/supply_order/proc/generate(atom/A)
-	var/account_holder
-	if(paying_account)
-		account_holder = paying_account.account_holder
-	else
-		account_holder = "Cargo"
-	var/obj/structure/closet/crate/C = pack.generate(A, paying_account)
-	generateManifest(C, account_holder, pack, pack.cost)
+	var/obj/structure/closet/crate/C
+
+	if(istype(pack, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = pack
+		C = crate.generate(A, paying_account)
+	else if(istype(pack, /datum/cargo_item))
+		var/datum/cargo_item/item = pack
+		// For individual items, create a crate and put the item in it
+		if(paying_account && item.can_secure)
+			C = new /obj/structure/closet/crate/secure/owned(A, paying_account)
+		else
+			C = new item.crate_type(A)
+		if(item.access && !paying_account)
+			if(islist(item.access))
+				C.req_one_access = item.access
+			else
+				C.req_one_access = list(item.access)
+		new item.item_path(C)
+	else if(istype(pack, /datum/supply_pack))
+		// Legacy supply_pack
+		var/datum/supply_pack/legacy = pack
+		C = legacy.generate(A, paying_account)
+
 	return C
 
-/datum/supply_order/proc/generateCombo(miscbox, misc_own, misc_contents, misc_cost)
-	for (var/I in misc_contents)
-		new I(miscbox)
-	generateManifest(miscbox, misc_own, "", misc_cost)
-	return
+/**
+ * # Batch Supply Order
+ *
+ * Represents a confirmed batch order — multiple items bundled into a single
+ * entry on the shopping list / request list. The UI shows this as one row
+ * with expandable contents and crate count.
+ *
+ * When the supply shuttle processes this order, it expands the entries into
+ * individual crates (regular items) and grouped combo crates (small items).
+ */
+/datum/supply_order/batch
+	/// List of entries in this batch. Each entry is list("pack" = datum, "quantity" = num)
+	var/list/entries = list()
+	/// Total cost of the batch (pre-computed at creation time)
+	var/total_cost = 0
+	/// Total number of individual items in the batch
+	var/total_items = 0
+	/// Number of crates this batch will produce
+	var/crate_count = 0
+	/// Whether this batch is self-paid
+	var/self_paid_batch = FALSE
+
+/datum/supply_order/batch/New(list/batch_entries, orderer, orderer_rank, orderer_ckey, reason, paying_account, is_self_paid = FALSE)
+	id = SSsupply.ordernum++
+	src.orderer = orderer
+	src.orderer_rank = orderer_rank
+	src.orderer_ckey = orderer_ckey
+	src.reason = reason
+	src.paying_account = paying_account
+	self_paid_batch = is_self_paid
+
+	// Process batch entries — each is list("pack_id" = type_path, "quantity" = num)
+	var/cost_sum = 0
+	var/item_sum = 0
+	var/small_count = 0
+	var/regular_count = 0
+	for(var/list/raw_entry in batch_entries)
+		var/pack_id = raw_entry["pack_id"]
+		var/quantity = raw_entry["quantity"]
+		var/list/product_info = SSsupply.get_product(pack_id)
+		if(!product_info)
+			continue
+		var/datum/product = product_info["datum"]
+		var/p_cost = 0
+		var/p_small = FALSE
+		if(istype(product, /datum/cargo_item))
+			var/datum/cargo_item/item = product
+			p_cost = item.get_cost()
+			p_small = item.small_item
+		else if(istype(product, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = product
+			p_cost = crate.get_cost()
+			p_small = crate.small_item
+		else if(istype(product, /datum/supply_pack))
+			var/datum/supply_pack/legacy = product
+			p_cost = legacy.get_cost()
+			p_small = legacy.small_item
+		var/entry_cost = p_cost * quantity
+		if(is_self_paid)
+			entry_cost = round(entry_cost * 1.1)
+		cost_sum += entry_cost
+		item_sum += quantity
+		entries += list(list("pack" = product, "quantity" = quantity, "cost" = p_cost))
+		if(p_small)
+			small_count += quantity
+		else
+			regular_count += quantity
+
+	total_cost = cost_sum
+	total_items = item_sum
+	// Calculate crate count: regular items get 1 crate each, small items group into crates of 10
+	crate_count = regular_count + CEILING(small_count, 10)
+
+	// Set display values for the base datum
+	pack_name = "Batch Order ([total_items] items, [crate_count] crate\s)"
+	pack_cost = total_cost
+
+/// Returns a human-readable list of item names and quantities for UI display
+/datum/supply_order/batch/proc/get_batch_contents_readable()
+	var/list/readable = list()
+	for(var/list/entry in entries)
+		var/datum/product = entry["pack"]
+		var/quantity = entry["quantity"]
+		var/p_name = ""
+		if(istype(product, /datum/cargo_item))
+			var/datum/cargo_item/item = product
+			p_name = item.name
+		else if(istype(product, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = product
+			p_name = crate.name
+		else if(istype(product, /datum/supply_pack))
+			var/datum/supply_pack/legacy = product
+			p_name = legacy.name
+		readable += "[p_name] x[quantity]"
+	return readable
 
 #undef MANIFEST_ERROR_CHANCE
 #undef MANIFEST_ERROR_NAME

@@ -46,11 +46,11 @@
 
 
 /datum/station_goal/dna_vault/on_report()
-	var/datum/supply_pack/P = SSsupply.supply_packs[/datum/supply_pack/engineering/dna_vault]
+	var/datum/cargo_crate/station_goal/dna_vault/P = SSsupply.cargo_crates[/datum/cargo_crate/station_goal/dna_vault]
 	P.special_enabled = TRUE
 
-	P = SSsupply.supply_packs[/datum/supply_pack/engineering/dna_probes]
-	P.special_enabled = TRUE
+	var/datum/cargo_crate/station_goal/dna_probes/P2 = SSsupply.cargo_crates[/datum/cargo_crate/station_goal/dna_probes]
+	P2.special_enabled = TRUE
 
 /datum/station_goal/dna_vault/check_completion()
 	if(..())

@@ -275,6 +275,7 @@ const RequestEntry = (props) => {
     false,
   );
   const contents = request.contents || [];
+  const isBatch = request.is_batch;
   return (
     <>
       <Table.Row key={request.id} className="candystripe">
@@ -291,7 +292,23 @@ const RequestEntry = (props) => {
         <Table.Cell collapsing color="label">
           #{request.id}
         </Table.Cell>
-        <Table.Cell>{request.object}</Table.Cell>
+        <Table.Cell>
+          {isBatch ? (
+            <Box>
+              <Box bold color="good">
+                {request.object}
+              </Box>
+              <Box color="label" fontSize="11px">
+                {request.crate_count}{' '}
+                {request.crate_count === 1 ? 'crate' : 'crates'} &bull;{' '}
+                {request.total_items}{' '}
+                {request.total_items === 1 ? 'item' : 'items'}
+              </Box>
+            </Box>
+          ) : (
+            request.object
+          )}
+        </Table.Cell>
         <Table.Cell>
           <b>{request.orderer}</b>
         </Table.Cell>
@@ -301,9 +318,12 @@ const RequestEntry = (props) => {
         <Table.Cell fontFamily="verdana" collapsing textAlign="right">
           {formatMoney(request.cost)} cr
         </Table.Cell>
-        <Table.Cell fontFamily="verdana" collapsing textAlign="right">
-          Stock: {request.supply}
-        </Table.Cell>
+        {!isBatch && (
+          <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+            Stock: {request.supply}
+          </Table.Cell>
+        )}
+        {isBatch && <Table.Cell collapsing />}
         {(!requestonly || can_send) && can_approve_requests && (
           <Table.Cell collapsing>
             <Button
@@ -412,6 +432,7 @@ const CartEntry = (props) => {
     false,
   );
   const contents = entry.contents || [];
+  const isBatch = entry.is_batch;
   return (
     <>
       <Table.Row key={entry.id} className="candystripe">
@@ -428,16 +449,35 @@ const CartEntry = (props) => {
         <Table.Cell collapsing color="label">
           #{entry.id}
         </Table.Cell>
-        <Table.Cell>{entry.object}</Table.Cell>
+        <Table.Cell>
+          {isBatch ? (
+            <Box>
+              <Box bold color="good">
+                {entry.object}
+              </Box>
+              <Box color="label" fontSize="11px">
+                {entry.crate_count}{' '}
+                {entry.crate_count === 1 ? 'crate' : 'crates'} &bull;{' '}
+                {entry.total_items}{' '}
+                {entry.total_items === 1 ? 'item' : 'items'}
+              </Box>
+            </Box>
+          ) : (
+            entry.object
+          )}
+        </Table.Cell>
         <Table.Cell collapsing>
           {!!entry.paid && <b>[Paid Privately]</b>}
         </Table.Cell>
         <Table.Cell fontFamily="verdana" collapsing textAlign="right">
           {formatMoney(entry.cost)} cr
         </Table.Cell>
-        <Table.Cell fontFamily="verdana" collapsing textAlign="right">
-          Stock: {entry.supply}
-        </Table.Cell>
+        {!isBatch && (
+          <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+            Stock: {entry.supply}
+          </Table.Cell>
+        )}
+        {isBatch && <Table.Cell collapsing />}
         <Table.Cell collapsing>
           {can_send && (
             <Button

@@ -98,26 +98,90 @@
 	data["message"] = message
 	data["cart"] = list()
 	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
+		if(istype(SO, /datum/supply_order/batch))
+			var/datum/supply_order/batch/BO = SO
+			data["cart"] += list(list(
+				"object" = BO.pack_name,
+				"cost" = BO.total_cost,
+				"id" = BO.id,
+				"orderer" = BO.orderer,
+				"paid" = !isnull(BO.paying_account),
+				"contents" = BO.get_batch_contents_readable(),
+				"is_batch" = TRUE,
+				"crate_count" = BO.crate_count,
+				"total_items" = BO.total_items
+			))
+			continue
+		var/list/contents_readable = list()
+		var/order_cost = 0
+		var/order_supply = 0
+		if(istype(SO.pack, /datum/cargo_item))
+			var/datum/cargo_item/item = SO.pack
+			contents_readable = item.get_contents_readable()
+			order_cost = item.get_cost()
+			order_supply = item.current_supply
+		else if(istype(SO.pack, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = SO.pack
+			contents_readable = crate.get_contents_readable()
+			order_cost = crate.get_cost()
+			order_supply = crate.current_supply
+		else if(istype(SO.pack, /datum/supply_pack))
+			var/datum/supply_pack/legacy = SO.pack
+			contents_readable = legacy.get_contents_readable()
+			order_cost = legacy.get_cost()
+			order_supply = legacy.current_supply
 		data["cart"] += list(list(
-			"object" = SO.pack.name,
-			"cost" = SO.pack.get_cost(),
-			"supply" = SO.pack.current_supply,
+			"object" = SO.pack_name,
+			"cost" = order_cost,
+			"supply" = order_supply,
 			"id" = SO.id,
 			"orderer" = SO.orderer,
-			"paid" = !isnull(SO.paying_account), //paid by requester
-			"contents" = SO.pack.get_contents_readable()
+			"paid" = !isnull(SO.paying_account),
+			"contents" = contents_readable
 		))
 
 	data["requests"] = list()
 	for(var/datum/supply_order/SO in SSsupply.requestlist)
+		if(istype(SO, /datum/supply_order/batch))
+			var/datum/supply_order/batch/BO = SO
+			data["requests"] += list(list(
+				"object" = BO.pack_name,
+				"cost" = BO.total_cost,
+				"orderer" = BO.orderer,
+				"reason" = BO.reason,
+				"id" = BO.id,
+				"contents" = BO.get_batch_contents_readable(),
+				"is_batch" = TRUE,
+				"crate_count" = BO.crate_count,
+				"total_items" = BO.total_items
+			))
+			continue
+		var/list/req_contents = list()
+		var/req_cost = 0
+		var/req_supply = 0
+		if(istype(SO.pack, /datum/cargo_item))
+			var/datum/cargo_item/item = SO.pack
+			req_contents = item.get_contents_readable()
+			req_cost = item.get_cost()
+			req_supply = item.current_supply
+		else if(istype(SO.pack, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = SO.pack
+			req_contents = crate.get_contents_readable()
+			req_cost = crate.get_cost()
+			req_supply = crate.current_supply
+		else if(istype(SO.pack, /datum/supply_pack))
+			var/datum/supply_pack/legacy = SO.pack
+			req_contents = legacy.get_contents_readable()
+			req_cost = legacy.get_cost()
+			req_supply = legacy.current_supply
 		data["requests"] += list(list(
-			"object" = SO.pack.name,
-			"cost" = SO.pack.get_cost(),
-			"supply" = SO.pack.current_supply,
+			"object" = SO.pack_name,
+			"cost" = req_cost,
+			"supply" = req_supply,
 			"orderer" = SO.orderer,
 			"reason" = SO.reason,
 			"id" = SO.id,
-			"contents" = SO.pack.get_contents_readable()
+			"contents" = req_contents
 		))
 
 	// Batch data
@@ -142,23 +206,45 @@
 	for(var/list/entry in batch)
 		var/pack_id = entry["pack_id"]
 		var/quantity = entry["quantity"]
-		var/datum/supply_pack/pack = SSsupply.supply_packs[pack_id]
-		if(!pack)
+		var/list/product_info = SSsupply.get_product(pack_id)
+		if(!product_info)
 			continue
-		var/entry_cost = pack.get_cost() * quantity
+		var/datum/product = product_info["datum"]
+		var/p_cost = 0
+		var/p_name = ""
+		var/p_small = FALSE
+		var/p_supply = 0
+		if(istype(product, /datum/cargo_item))
+			var/datum/cargo_item/item = product
+			p_cost = item.get_cost()
+			p_name = item.name
+			p_small = item.small_item
+			p_supply = item.current_supply
+		else if(istype(product, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = product
+			p_cost = crate.get_cost()
+			p_name = crate.name
+			p_small = crate.small_item
+			p_supply = crate.current_supply
+		else if(istype(product, /datum/supply_pack))
+			var/datum/supply_pack/legacy = product
+			p_cost = legacy.get_cost()
+			p_name = legacy.name
+			p_small = legacy.small_item
+			p_supply = legacy.current_supply
+		var/entry_cost = p_cost * quantity
 		if(self_paid)
 			entry_cost = round(entry_cost * 1.1)
 		total_cost += entry_cost
 		total_items += quantity
 		batch_data["items"] += list(list(
 			"pack_id" = "[pack_id]",
-			"name" = pack.name,
-			"cost" = pack.get_cost(),
+			"name" = p_name,
+			"cost" = p_cost,
 			"quantity" = quantity,
 			"entry_cost" = entry_cost,
-			"small_item" = pack.small_item,
-			"crate_name" = pack.crate_name,
-			"supply" = pack.current_supply
+			"small_item" = p_small,
+			"supply" = p_supply
 		))
 
 	batch_data["total_cost"] = total_cost
@@ -174,27 +260,43 @@
 /obj/machinery/computer/cargo/proc/calculate_crate_breakdown()
 	var/list/crates = list()
 	// Separate small items and regular crate items
-	var/list/small_items = list() // list of lists: (name, crate_name, quantity)
+	var/list/small_items = list() // list of lists: (name, quantity)
 	var/list/regular_items = list()
 
 	for(var/list/entry in batch)
 		var/pack_id = entry["pack_id"]
 		var/quantity = entry["quantity"]
-		var/datum/supply_pack/pack = SSsupply.supply_packs[pack_id]
-		if(!pack)
+		var/list/product_info = SSsupply.get_product(pack_id)
+		if(!product_info)
 			continue
-		if(pack.small_item)
-			small_items += list(list("name" = pack.name, "crate_name" = pack.crate_name, "quantity" = quantity))
+		var/datum/product = product_info["datum"]
+		var/p_small = FALSE
+		var/p_name = ""
+		if(istype(product, /datum/cargo_item))
+			var/datum/cargo_item/item = product
+			p_small = item.small_item
+			p_name = item.name
+		else if(istype(product, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = product
+			p_small = crate.small_item
+			p_name = crate.name
+		else if(istype(product, /datum/supply_pack))
+			var/datum/supply_pack/legacy = product
+			p_small = legacy.small_item
+			p_name = legacy.name
+		if(p_small)
+			small_items += list(list("name" = p_name, "quantity" = quantity))
 		else
-			// Each non-small pack gets its own crate(s)
 			for(var/i in 1 to quantity)
-				regular_items += list(list("name" = pack.name, "crate_name" = pack.crate_name))
+				regular_items += list(p_name)
 
 	// Regular items: each gets its own crate
-	for(var/list/item in regular_items)
+	var/crate_index = 0
+	for(var/item_name in regular_items)
+		crate_index++
 		crates += list(list(
-			"crate_name" = item["crate_name"],
-			"contents" = list(item["name"]),
+			"crate_name" = "Crate [crate_index]",
+			"contents" = list(item_name),
 			"count" = 1
 		))
 
@@ -203,31 +305,22 @@
 		var/list/small_queue = list()
 		for(var/list/item in small_items)
 			for(var/i in 1 to item["quantity"])
-				small_queue += list(list("name" = item["name"], "crate_name" = item["crate_name"]))
+				small_queue += item["name"]
 
-		// Group by crate type, then pack into crates of 10
-		var/list/by_crate_type = list()
-		for(var/list/item in small_queue)
-			var/ctype = item["crate_name"]
-			if(!by_crate_type[ctype])
-				by_crate_type[ctype] = list()
-			by_crate_type[ctype] += list(item["name"])
-
-		for(var/ctype in by_crate_type)
-			var/list/items_of_type = by_crate_type[ctype]
-			var/crate_count = 0
-			while(length(items_of_type) > 0)
-				var/list/crate_contents = list()
-				var/take_count = min(10, length(items_of_type))
-				for(var/i in 1 to take_count)
-					crate_contents += items_of_type[1]
-					items_of_type.Cut(1, 2)
-				crate_count++
-				crates += list(list(
-					"crate_name" = "[ctype] (Small Items #[crate_count])",
-					"contents" = crate_contents,
-					"count" = length(crate_contents)
-				))
+		var/crate_count = 0
+		while(length(small_queue) > 0)
+			var/list/crate_contents = list()
+			var/take_count = min(10, length(small_queue))
+			for(var/i in 1 to take_count)
+				crate_contents += small_queue[1]
+				small_queue.Cut(1, 2)
+			crate_count++
+			crate_index++
+			crates += list(list(
+				"crate_name" = "Crate [crate_index] (Small Items #[crate_count])",
+				"contents" = crate_contents,
+				"count" = length(crate_contents)
+			))
 
 	return crates
 
@@ -235,6 +328,48 @@
 	var/list/data = list()
 	data["requestonly"] = requestonly
 	data["supplies"] = list()
+
+	// --- Cargo items ---
+	for(var/item_type in SSsupply.cargo_items)
+		var/datum/cargo_item/item = SSsupply.cargo_items[item_type]
+		if(!data["supplies"][item.category])
+			data["supplies"][item.category] = list(
+				"name" = item.category,
+				"packs" = list()
+			)
+		if((item.hidden && !(obj_flags & EMAGGED)) || (item.contraband && !contraband) || item.DropPodOnly)
+			continue
+		data["supplies"][item.category]["packs"] += list(list(
+			"name" = item.name,
+			"cost" = item.get_cost(),
+			"id" = item_type,
+			"supply" = item.current_supply,
+			"desc" = item.desc || item.name,
+			"small_item" = item.small_item,
+			"access" = item.access
+		))
+
+	// --- Cargo crates (show under "Packs" or their own category) ---
+	for(var/crate_type in SSsupply.cargo_crates)
+		var/datum/cargo_crate/crate = SSsupply.cargo_crates[crate_type]
+		if(!data["supplies"][crate.category])
+			data["supplies"][crate.category] = list(
+				"name" = crate.category,
+				"packs" = list()
+			)
+		if((crate.hidden && !(obj_flags & EMAGGED)) || (crate.contraband && !contraband) || (crate.special && !crate.special_enabled) || crate.DropPodOnly)
+			continue
+		data["supplies"][crate.category]["packs"] += list(list(
+			"name" = crate.name,
+			"cost" = crate.get_cost(),
+			"id" = crate_type,
+			"supply" = crate.current_supply,
+			"desc" = crate.desc || crate.name,
+			"small_item" = crate.small_item,
+			"access" = crate.access
+		))
+
+	// --- Legacy supply packs (backwards compat, if any remain) ---
 	for(var/pack in SSsupply.supply_packs)
 		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
 		if(!data["supplies"][P.group])
@@ -249,7 +384,7 @@
 			"cost" = P.get_cost(),
 			"id" = pack,
 			"supply" = P.current_supply,
-			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
+			"desc" = P.desc || P.name,
 			"small_item" = P.small_item,
 			"access" = P.access
 		))
@@ -295,10 +430,31 @@
 			if(!COOLDOWN_FINISHED(src, order_cooldown))
 				return
 			var/id = text2path(params["id"])
-			var/datum/supply_pack/pack = SSsupply.supply_packs[id]
-			if(!istype(pack))
+			var/list/product_info = SSsupply.get_product(id)
+			if(!product_info)
 				return
-			if((pack.hidden && !(obj_flags & EMAGGED)) || (pack.contraband && !contraband) || pack.DropPodOnly)
+			var/datum/product = product_info["datum"]
+
+			// Visibility checks
+			var/p_hidden = FALSE
+			var/p_contraband = FALSE
+			var/p_droppod = FALSE
+			if(istype(product, /datum/cargo_item))
+				var/datum/cargo_item/item = product
+				p_hidden = item.hidden
+				p_contraband = item.contraband
+				p_droppod = item.DropPodOnly
+			else if(istype(product, /datum/cargo_crate))
+				var/datum/cargo_crate/crate = product
+				p_hidden = crate.hidden
+				p_contraband = crate.contraband
+				p_droppod = crate.DropPodOnly
+			else if(istype(product, /datum/supply_pack))
+				var/datum/supply_pack/legacy = product
+				p_hidden = legacy.hidden
+				p_contraband = legacy.contraband
+				p_droppod = legacy.DropPodOnly
+			if((p_hidden && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
 				return
 
 			var/name = "*None Provided*"
@@ -333,9 +489,7 @@
 					to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
 					return
 
-			var/turf/T = get_turf(src)
-			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
-			SO.generateRequisition(T)
+			var/datum/supply_order/SO = new(product, name, rank, ckey, reason, account)
 			if(requestonly && !self_paid)
 				SSsupply.requestlist += SO
 			else
@@ -381,10 +535,30 @@
 			if(!COOLDOWN_FINISHED(src, order_cooldown))
 				return
 			var/id = text2path(params["id"])
-			var/datum/supply_pack/pack = SSsupply.supply_packs[id]
-			if(!istype(pack))
+			var/list/product_info = SSsupply.get_product(id)
+			if(!product_info)
 				return
-			if((pack.hidden && !(obj_flags & EMAGGED)) || (pack.contraband && !contraband) || pack.DropPodOnly)
+			var/datum/product = product_info["datum"]
+			// Visibility checks
+			var/p_hidden = FALSE
+			var/p_contraband = FALSE
+			var/p_droppod = FALSE
+			if(istype(product, /datum/cargo_item))
+				var/datum/cargo_item/item = product
+				p_hidden = item.hidden
+				p_contraband = item.contraband
+				p_droppod = item.DropPodOnly
+			else if(istype(product, /datum/cargo_crate))
+				var/datum/cargo_crate/crate = product
+				p_hidden = crate.hidden
+				p_contraband = crate.contraband
+				p_droppod = crate.DropPodOnly
+			else if(istype(product, /datum/supply_pack))
+				var/datum/supply_pack/legacy = product
+				p_hidden = legacy.hidden
+				p_contraband = legacy.contraband
+				p_droppod = legacy.DropPodOnly
+			if((p_hidden && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
 				return
 			// Check if this pack is already in the batch, if so increment quantity
 			for(var/list/entry in batch)
@@ -460,23 +634,14 @@
 					to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
 					return
 
-			var/turf/T = get_turf(src)
-			// Create individual orders for each item in the batch
-			for(var/list/entry in batch)
-				var/pack_id = entry["pack_id"]
-				var/quantity = entry["quantity"]
-				var/datum/supply_pack/pack = SSsupply.supply_packs[pack_id]
-				if(!pack)
-					continue
-				for(var/i in 1 to quantity)
-					var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
-					SO.generateRequisition(T)
-					if(requestonly && !self_paid)
-						SSsupply.requestlist += SO
-					else
-						SSsupply.shoppinglist += SO
-						if(self_paid)
-							say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
+			// Create a single batch order containing all items
+			var/datum/supply_order/batch/BO = new(batch, name, rank, ckey, reason, account, self_paid)
+			if(requestonly && !self_paid)
+				SSsupply.requestlist += BO
+			else
+				SSsupply.shoppinglist += BO
+				if(self_paid)
+					say("Batch order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
 			if(requestonly && message_cooldown < world.time)
 				radio.talk_into(src, "A new batch order has been requested.", RADIO_CHANNEL_SUPPLY)
 				message_cooldown = world.time + 30 SECONDS
@@ -494,3 +659,41 @@
 
 	var/datum/signal/status_signal = new(list("command" = command))
 	frequency.post_signal(src, status_signal)
+
+/// Helper: get current_supply from any product datum type
+/proc/get_product_supply(datum/product)
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		return item.current_supply
+	if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		return crate.current_supply
+	if(istype(product, /datum/supply_pack))
+		var/datum/supply_pack/legacy = product
+		return legacy.current_supply
+	return 0
+
+/// Helper: adjust current_supply on any product datum type
+/proc/adjust_product_supply(datum/product, amount)
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		item.current_supply += amount
+	else if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		crate.current_supply += amount
+	else if(istype(product, /datum/supply_pack))
+		var/datum/supply_pack/legacy = product
+		legacy.current_supply += amount
+
+/// Helper: get the list of content types from any product datum type (for small_item grouping)
+/proc/get_pack_contains(datum/product)
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		return list(item.item_path)
+	if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		return crate.contains
+	if(istype(product, /datum/supply_pack))
+		var/datum/supply_pack/legacy = product
+		return legacy.contains
+	return list()

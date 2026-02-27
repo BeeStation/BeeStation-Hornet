@@ -115,7 +115,6 @@
 	name = "Research Material Listing"
 	desc = "Contains potentially hazardous materials, or ridiculous ties."
 	hidden = TRUE
-	crate_name = "research material container"
 	crate_type = /obj/structure/closet/crate/science
 	max_supply = 1
 	current_supply = 1
