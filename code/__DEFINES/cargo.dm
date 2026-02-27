@@ -213,3 +213,39 @@ GLOBAL_LIST_INIT(podstyles, list(\
 	),\
 ))
 
+// ============================================================
+// Batch order pricing constants, the single source of truth.
+// Tweak these to rebalance batch ordering across the codebase.
+// ============================================================
+
+/// Flat surcharge for batch orders (credits). Shrinks linearly to 0 as item count rises.
+#define BATCH_SURCHARGE_MAX 200
+/// Item count at which the batch surcharge reaches 0.
+#define BATCH_SURCHARGE_ITEMS_ZERO 10
+/// Item count where the bulk discount starts kicking in.
+#define BATCH_BULK_DISCOUNT_START 10
+/// Item count where the bulk discount reaches its maximum.
+#define BATCH_BULK_DISCOUNT_CAP 40
+/// Maximum bulk discount as a fraction (0.20 = 20%).
+#define BATCH_BULK_DISCOUNT_MAX 0.30
+// Per-type crate costs for batch orders (credits). Fully refunded when crate is sent back.
+// These also mirror each crate type's custom_price so export value stays in sync.
+#define BATCH_CRATE_COST_STANDARD 200
+#define BATCH_CRATE_COST_LARGE 250
+#define BATCH_CRATE_COST_INTERNALS 225
+#define BATCH_CRATE_COST_MEDICAL 250
+#define BATCH_CRATE_COST_RADIATION 250
+#define BATCH_CRATE_COST_SECURE 400
+#define BATCH_CRATE_COST_SECURE_GEAR 400
+#define BATCH_CRATE_COST_SECURE_HYDRO 400
+#define BATCH_CRATE_COST_SECURE_WEAPON 450
+#define BATCH_CRATE_COST_SECURE_PLASMA 450
+#define BATCH_CRATE_COST_ENGINEERING 800
+#define BATCH_CRATE_COST_ENGINEERING_ELEC 850
+#define BATCH_CRATE_COST_SECURE_ENGI 1000
+/// Maximum slots (capacity) that fit in a single crate.
+#define BATCH_CRATE_MAX_ITEMS 10
+/// How many crate slots a bulky (non-small) item occupies.
+#define BATCH_BULKY_ITEM_SLOTS 3
+/// Self-paid (personal purchase) surcharge as a whole-number percentage (10 = 10%).
+#define BATCH_SELF_PAID_PCT 10

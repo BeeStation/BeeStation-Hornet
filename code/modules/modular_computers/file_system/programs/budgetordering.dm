@@ -74,6 +74,7 @@
 //Otherwise static data, that is being applied in ui_data as the crates visible and buyable are not static
 	data["requestonly"] = requestonly
 	data["supplies"] = list()
+	data["batch_constants"] = get_batch_pricing_constants()
 
 	// Cargo items
 	for(var/item_type in SSsupply.cargo_items)
@@ -211,19 +212,26 @@
 
 	return data
 
-/// Returns the batch items list and crate breakdown for the UI.
+/// Returns the batch items list, crate breakdown, and pricing modifiers for the UI.
 /datum/computer_file/program/budgetorders/proc/get_batch_data()
 	var/list/batch_data = list()
 	batch_data["items"] = list()
 	batch_data["total_cost"] = 0
+	batch_data["base_cost"] = 0
 	batch_data["crates"] = list()
 	batch_data["item_count"] = 0
+	batch_data["surcharge"] = 0
+	batch_data["bulk_discount_pct"] = 0
+	batch_data["crate_cost"] = 0
+	batch_data["self_paid_pct"] = 0
+	batch_data["avg_crate_fill"] = 0
 
 	if(!length(batch))
 		return batch_data
 
-	var/total_cost = 0
+	var/base_cost = 0
 	var/total_items = 0
+	var/list/temp_entries = list()
 	for(var/list/entry in batch)
 		var/pack_id = entry["pack_id"]
 		var/quantity = entry["quantity"]
@@ -231,112 +239,58 @@
 		if(!product_info)
 			continue
 		var/datum/product = product_info["datum"]
-		var/p_cost = 0
-		var/p_name = ""
-		var/p_small = FALSE
-		var/p_supply = 0
-		if(istype(product, /datum/cargo_item))
-			var/datum/cargo_item/item = product
-			p_cost = item.cost
-			p_name = item.name
-			p_small = item.small_item
-			p_supply = item.current_supply
-		else if(istype(product, /datum/cargo_crate))
-			var/datum/cargo_crate/crate = product
-			p_cost = crate.cost
-			p_name = crate.name
-			p_small = crate.small_item
-			p_supply = crate.current_supply
-		else if(istype(product, /datum/supply_pack))
-			var/datum/supply_pack/legacy = product
-			p_cost = legacy.cost
-			p_name = legacy.name
-			p_small = legacy.small_item
-			p_supply = legacy.current_supply
-		var/entry_cost = p_cost * quantity
-		if(self_paid)
-			entry_cost = round(entry_cost * 1.1)
-		total_cost += entry_cost
+		var/p_cost = get_product_cost(product)
+		var/p_name = get_product_name(product)
+		var/p_crate_type = get_product_crate_type(product)
+		var/p_supply = get_product_supply(product)
+		var/entry_base = p_cost * quantity
+		base_cost += entry_base
 		total_items += quantity
+		temp_entries += list(list("pack" = product, "quantity" = quantity, "cost" = p_cost))
 		batch_data["items"] += list(list(
 			"pack_id" = "[pack_id]",
 			"name" = p_name,
 			"cost" = p_cost,
 			"quantity" = quantity,
-			"entry_cost" = entry_cost,
-			"small_item" = p_small,
+			"entry_cost" = entry_base,
+			"crate_type" = get_crate_type_name(p_crate_type),
 			"supply" = p_supply
 		))
 
-	batch_data["total_cost"] = total_cost
+	batch_data["base_cost"] = base_cost
 	batch_data["item_count"] = total_items
-	batch_data["crates"] = calculate_crate_breakdown()
-	return batch_data
 
-/// Calculates how the current batch would be broken down into crates.
-/datum/computer_file/program/budgetorders/proc/calculate_crate_breakdown()
-	var/list/crates = list()
-	var/list/small_items = list()
-	var/list/regular_items = list()
-
-	for(var/list/entry in batch)
-		var/pack_id = entry["pack_id"]
-		var/quantity = entry["quantity"]
-		var/list/product_info = SSsupply.get_product(pack_id)
-		if(!product_info)
-			continue
-		var/datum/product = product_info["datum"]
-		var/p_small = FALSE
-		var/p_name = ""
-		if(istype(product, /datum/cargo_item))
-			var/datum/cargo_item/item = product
-			p_small = item.small_item
-			p_name = item.name
-		else if(istype(product, /datum/cargo_crate))
-			var/datum/cargo_crate/crate = product
-			p_small = crate.small_item
-			p_name = crate.name
-		else if(istype(product, /datum/supply_pack))
-			var/datum/supply_pack/legacy = product
-			p_small = legacy.small_item
-			p_name = legacy.name
-		if(p_small)
-			small_items += list(list("name" = p_name, "quantity" = quantity))
-		else
-			for(var/i in 1 to quantity)
-				regular_items += list(p_name)
-
-	var/crate_index = 0
-	for(var/item_name in regular_items)
-		crate_index++
-		crates += list(list(
-			"crate_name" = "Crate [crate_index]",
-			"contents" = list(item_name),
-			"count" = 1
+	// Calculate crate breakdown
+	var/list/crate_data = calculate_batch_crates(temp_entries)
+	var/list/ui_crates = list()
+	var/crate_idx = 0
+	for(var/list/crate in crate_data)
+		crate_idx++
+		ui_crates += list(list(
+			"crate_name" = "Crate [crate_idx]: [crate["crate_name"]]",
+			"contents" = crate["items"],
+			"count" = crate["count"],
+			"slots_used" = crate["slots_used"],
+			"crate_type_name" = crate["crate_name"],
+			"crate_cost" = crate["crate_cost"]
 		))
+	batch_data["crates"] = ui_crates
 
-	if(length(small_items))
-		var/list/small_queue = list()
-		for(var/list/item in small_items)
-			for(var/i in 1 to item["quantity"])
-				small_queue += item["name"]
+	// Calculate pricing modifiers
+	var/list/modifiers = calculate_batch_pricing(base_cost, total_items, crate_data, self_paid)
+	batch_data["surcharge"] = modifiers["surcharge"]
+	batch_data["bulk_discount_pct"] = round(modifiers["bulk_discount"] * 100, 0.1)
+	batch_data["crate_cost"] = modifiers["crate_cost"]
+	batch_data["self_paid_pct"] = self_paid ? BATCH_SELF_PAID_PCT : 0
+	batch_data["total_cost"] = modifiers["final_cost"]
 
-		var/crate_count = 0
-		while(length(small_queue) > 0)
-			var/list/crate_contents = list()
-			var/take_count = min(10, length(small_queue))
-			for(var/i in 1 to take_count)
-				crate_contents += small_queue[1]
-				small_queue.Cut(1, 2)
-			crate_count++
-			crate_index++
-			crates += list(list(
-				"crate_name" = "Crate [crate_index] (Small Items #[crate_count])",
-				"contents" = crate_contents,
-				"count" = length(crate_contents)
-			))
+	if(length(crate_data))
+		var/total_fill = 0
+		for(var/list/crate in crate_data)
+			total_fill += crate["slots_used"]
+		batch_data["avg_crate_fill"] = round((total_fill / length(crate_data)) / BATCH_CRATE_MAX_ITEMS * 100, 1)
 
-	return crates
+	return batch_data
 
 /datum/computer_file/program/budgetorders/ui_act(action, params, datum/tgui/ui)
 	if(..())
@@ -358,6 +312,7 @@
 				usr.investigate_log("called the supply shuttle.", INVESTIGATE_CARGO)
 				computer.say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
 				SSshuttle.moveShuttle("supply", "supply_home", TRUE)
+				generate_order_summary(get_turf(computer))
 			. = TRUE
 		if("loan")
 			if(!SSshuttle.shuttle_loan)
@@ -381,6 +336,11 @@
 			if(!product_info)
 				return
 			var/datum/product = product_info["datum"]
+
+			// Stock check — cannot order more than available supply
+			if(get_product_supply(product) <= 0)
+				computer.say("Out of stock.")
+				return
 
 			// Visibility checks
 			var/p_hidden = FALSE
@@ -511,6 +471,16 @@
 			if(!product_info)
 				return
 			var/datum/product = product_info["datum"]
+			// Stock check — cannot add more than available supply
+			var/available_stock = get_product_supply(product)
+			var/already_in_batch = 0
+			for(var/list/existing in batch)
+				if(existing["pack_id"] == id)
+					already_in_batch = existing["quantity"]
+					break
+			if(already_in_batch >= available_stock)
+				computer.say("Not enough stock available.")
+				return
 			var/p_hidden = FALSE
 			var/p_contraband = FALSE
 			var/p_droppod = FALSE
@@ -552,7 +522,12 @@
 			var/quantity = text2num(params["quantity"])
 			if(!quantity || quantity < 0)
 				return
-			quantity = clamp(round(quantity), 1, 20)
+			// Clamp to stock limit
+			var/list/product_info = SSsupply.get_product(id)
+			var/max_stock = 20
+			if(product_info)
+				max_stock = get_product_supply(product_info["datum"])
+			quantity = clamp(round(quantity), 1, max_stock)
 			for(var/list/entry in batch)
 				if(entry["pack_id"] == id)
 					entry["quantity"] = quantity

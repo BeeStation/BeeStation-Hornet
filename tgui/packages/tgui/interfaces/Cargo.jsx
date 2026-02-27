@@ -134,6 +134,8 @@ export const CargoCatalog = (props) => {
   const { express, canOrder = true } = props;
   const { act, data } = useBackend();
   const { self_paid, app_cost, points } = data;
+  const bc = data.batch_constants || {};
+  const selfPaidMult = 1 + (bc.self_paid_pct || 10) / 100;
   const supplies = Object.values(data.supplies);
   const [activeSupplyName, setActiveSupplyName] = useSharedState(
     'supply',
@@ -201,6 +203,7 @@ export const CargoCatalog = (props) => {
                       tooltipPosition="left"
                       disabled={
                         !canOrder ||
+                        pack.supply <= 0 ||
                         (express &&
                           points &&
                           points < pack.cost &&
@@ -214,7 +217,7 @@ export const CargoCatalog = (props) => {
                     >
                       {formatMoney(
                         self_paid || app_cost
-                          ? Math.round(pack.cost * 1.1)
+                          ? Math.round(pack.cost * selfPaidMult)
                           : pack.cost,
                       )}
                       {' cr'}
@@ -515,8 +518,14 @@ const BatchPanel = (props) => {
   const batch = data.batch || {};
   const batchItems = batch.items || [];
   const totalCost = batch.total_cost || 0;
+  const baseCost = batch.base_cost || 0;
   const itemCount = batch.item_count || 0;
   const crates = batch.crates || [];
+  const surcharge = batch.surcharge || 0;
+  const bulkDiscountPct = batch.bulk_discount_pct || 0;
+  const crateCost = batch.crate_cost || 0;
+  const selfPaidPct = batch.self_paid_pct || 0;
+  const avgCrateFill = batch.avg_crate_fill || 0;
   const { requestonly } = data;
 
   return (
@@ -548,11 +557,57 @@ const BatchPanel = (props) => {
         >
           Crates ({crates.length})
         </Tabs.Tab>
+        <Tabs.Tab
+          icon="calculator"
+          selected={batchTab === 'pricing'}
+          onClick={() => setBatchTab('pricing')}
+        >
+          Pricing
+        </Tabs.Tab>
       </Tabs>
       {batchTab === 'items' && <BatchItemsList />}
       {batchTab === 'crates' && <BatchCrateReadout />}
+      {batchTab === 'pricing' && <BatchPricingBreakdown />}
       {batchItems.length > 0 && (
         <Box mt={2}>
+          {/* Compact pricing summary always visible */}
+          <Box
+            fontSize="11px"
+            color="label"
+            mb={1}
+            style={{
+              background: 'rgba(0,0,0,0.2)',
+              padding: '6px 8px',
+              borderRadius: '3px',
+            }}
+          >
+            <Box>
+              Base: {formatMoney(baseCost)} cr
+              {surcharge > 0 && (
+                <Box as="span" color="bad" ml={1}>
+                  +{formatMoney(surcharge)} surcharge
+                </Box>
+              )}
+            </Box>
+            {bulkDiscountPct > 0 && (
+              <Box color="good">
+                Bulk discount: -{bulkDiscountPct.toFixed(1)}%
+              </Box>
+            )}
+            {crateCost > 0 && (
+              <Box>
+                Crates: +{formatMoney(crateCost)} cr
+                <Box as="span" color="label" ml={1}>
+                  (refunded on return)
+                </Box>
+              </Box>
+            )}
+            {selfPaidPct > 0 && (
+              <Box color="average">
+                Personal purchase: +{selfPaidPct}%
+              </Box>
+            )}
+          </Box>
           <Box
             fontFamily="verdana"
             bold
@@ -561,7 +616,8 @@ const BatchPanel = (props) => {
             fontSize="14px"
           >
             Total: {formatMoney(totalCost)} cr ({itemCount}{' '}
-            {itemCount === 1 ? 'item' : 'items'})
+            {itemCount === 1 ? 'item' : 'items'}, {crates.length}{' '}
+            {crates.length === 1 ? 'crate' : 'crates'})
           </Box>
           <Button
             fluid
@@ -598,7 +654,19 @@ const BatchItemsList = (props) => {
     <Table>
       {batchItems.map((item) => (
         <Table.Row key={item.pack_id} className="candystripe">
-          <Table.Cell>{item.name}</Table.Cell>
+          <Table.Cell>
+            {item.name}
+            <Box fontSize="10px" color="label">
+              {item.crate_type}
+              {' · Stock: '}
+              <Box
+                as="span"
+                color={item.supply <= 0 ? 'bad' : item.quantity >= item.supply ? 'average' : 'good'}
+              >
+                {item.supply}
+              </Box>
+            </Box>
+          </Table.Cell>
           <Table.Cell collapsing textAlign="center">
             <Stack align="center" inline>
               <Stack.Item>
@@ -615,6 +683,7 @@ const BatchItemsList = (props) => {
               <Stack.Item
                 fontFamily="verdana"
                 bold
+                color={item.quantity > item.supply ? 'bad' : undefined}
                 style={{
                   minWidth: '24px',
                   textAlign: 'center',
@@ -626,6 +695,7 @@ const BatchItemsList = (props) => {
                 <Button
                   icon="plus"
                   compact
+                  disabled={item.quantity >= item.supply}
                   onClick={() =>
                     act('batch_add', {
                       id: item.pack_id,
@@ -660,6 +730,8 @@ const BatchCrateReadout = (props) => {
   const { data } = useBackend();
   const batch = data.batch || {};
   const crates = batch.crates || [];
+  const bc = data.batch_constants || {};
+  const maxSlots = bc.crate_max_items || 10;
 
   if (crates.length === 0) {
     return (
@@ -671,21 +743,129 @@ const BatchCrateReadout = (props) => {
 
   return (
     <Box>
-      {crates.map((crate, idx) => (
-        <Collapsible
-          key={idx}
-          title={crate.crate_name + ' (' + crate.count + ')'}
-          color="transparent"
-        >
-          <Box ml={2}>
-            {crate.contents.map((item, cidx) => (
-              <Box key={cidx} color="label">
-                • {item}
+      {crates.map((crate, idx) => {
+        const slotsUsed = crate.slots_used || crate.count;
+        return (
+          <Collapsible
+            key={idx}
+            title={
+              'Crate ' +
+              (idx + 1) +
+              ': (' +
+              slotsUsed +
+              '/' +
+              maxSlots +
+              ' slots' +
+              (slotsUsed >= maxSlots ? ' ✓' : '') +
+              ') - ' +
+              formatMoney(crate.crate_cost) +
+              ' cr deposit'
+            }
+            color={
+              slotsUsed >= maxSlots * 0.8
+                ? 'good'
+                : slotsUsed >= maxSlots * 0.4
+                  ? 'average'
+                  : 'bad'
+            }
+          >
+            <Box ml={2}>
+              {crate.contents.map((item, cidx) => (
+                <Box key={cidx} color="label">
+                  - {item}
+                </Box>
+              ))}
+              <Box mt={1} fontSize="10px" color="label" italic>
+                Fill: {slotsUsed}/{maxSlots} slots -{' '}
+                {slotsUsed >= maxSlots * 0.8
+                  ? 'Efficient'
+                  : slotsUsed >= maxSlots * 0.4
+                    ? 'Fair'
+                    : 'Wasteful'}
+                {' '}| Crate deposit: {formatMoney(crate.crate_cost)} cr
               </Box>
-            ))}
+            </Box>
+          </Collapsible>
+        );
+      })}
+    </Box>
+  );
+};
+
+const BatchPricingBreakdown = (props) => {
+  const { data } = useBackend();
+  const batch = data.batch || {};
+  const baseCost = batch.base_cost || 0;
+  const totalCost = batch.total_cost || 0;
+  const itemCount = batch.item_count || 0;
+  const surcharge = batch.surcharge || 0;
+  const bulkDiscountPct = batch.bulk_discount_pct || 0;
+  const crateCost = batch.crate_cost || 0;
+  const selfPaidPct = batch.self_paid_pct || 0;
+  const avgCrateFill = batch.avg_crate_fill || 0;
+  const crates = batch.crates || [];
+  const bc = data.batch_constants || {};
+  const crateCosts = bc.crate_costs || {};
+
+  if (itemCount === 0) {
+    return (
+      <Box color="label" textAlign="center" mt={2}>
+        Add items to see pricing breakdown.
+      </Box>
+    );
+  }
+
+  return (
+    <Box>
+      <LabeledList>
+        <LabeledList.Item label="Base Item Cost">
+          {formatMoney(baseCost)} cr
+        </LabeledList.Item>
+        <LabeledList.Item
+          label="Batch Surcharge"
+          color={surcharge > 0 ? 'bad' : 'good'}
+        >
+          {surcharge > 0
+            ? '+' + formatMoney(surcharge) + ' cr'
+            : `None (${bc.surcharge_items_zero}+ items)`}
+          <Box fontSize="10px" color="label">
+            Starts at {bc.surcharge_max} cr, drops to 0 at{' '}
+            {bc.surcharge_items_zero}+ items
           </Box>
-        </Collapsible>
-      ))}
+        </LabeledList.Item>
+        <LabeledList.Item
+          label="Bulk Discount"
+          color={bulkDiscountPct > 0 ? 'good' : 'label'}
+        >
+          {bulkDiscountPct > 0
+            ? '-' + bulkDiscountPct.toFixed(1) + '%'
+            : `None (need ${bc.bulk_discount_start}+ items)`}
+          <Box fontSize="10px" color="label">
+            Up to {bc.bulk_discount_max_pct}% off at{' '}
+            {bc.bulk_discount_cap}+ items
+          </Box>
+        </LabeledList.Item>
+        <LabeledList.Item
+          label="Crate Deposits"
+          color={crateCost > 0 ? 'label' : 'good'}
+        >
+          {crateCost > 0 ? '+' + formatMoney(crateCost) + ' cr' : 'None'}
+          <Box fontSize="10px" color="good">
+            Fully refunded when crates are sent back
+          </Box>
+        </LabeledList.Item>
+        {selfPaidPct > 0 && (
+          <LabeledList.Item label="Personal Purchase" color="average">
+            +{selfPaidPct}%
+          </LabeledList.Item>
+        )}
+        <LabeledList.Divider />
+        <LabeledList.Item label="Final Total" bold>
+          <Box fontSize="14px" bold>
+            {formatMoney(totalCost)} cr
+          </Box>
+        </LabeledList.Item>
+      </LabeledList>
     </Box>
   );
 };

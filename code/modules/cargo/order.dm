@@ -222,19 +222,40 @@
  * with expandable contents and crate count.
  *
  * When the supply shuttle processes this order, it expands the entries into
- * individual crates (regular items) and grouped combo crates (small items).
+ * individual crates grouped by crate type, with up to 10 items per crate.
+ *
+ * ## Pricing Model
+ * - **Base item costs**: Sum of each item's cost × quantity.
+ * - **Batch surcharge**: Flat fee that shrinks linearly as you add
+ *   items, reaching 0 at BATCH_SURCHARGE_ITEMS_ZERO items.
+ * - **Bulk discount**: After BATCH_BULK_DISCOUNT_START items, the total
+ *   gets a discount that grows up to BATCH_BULK_DISCOUNT_MAX at
+ *   BATCH_BULK_DISCOUNT_CAP+ items.
+ * - **Crate cost**: Each crate in the order costs a per-type fee (see BATCH_CRATE_COST_* defines).
+ *   Fully refunded when the crate is sent back on the shuttle.
+ * - **Self-paid surcharge**: BATCH_SELF_PAID_PCT% on top of the final price.
  */
 /datum/supply_order/batch
 	/// List of entries in this batch. Each entry is list("pack" = datum, "quantity" = num)
 	var/list/entries = list()
-	/// Total cost of the batch (pre-computed at creation time)
+	/// Total cost of the batch (after all modifiers, pre-computed at creation time)
 	var/total_cost = 0
+	/// Base cost before modifiers
+	var/base_cost = 0
 	/// Total number of individual items in the batch
 	var/total_items = 0
 	/// Number of crates this batch will produce
 	var/crate_count = 0
 	/// Whether this batch is self-paid
 	var/self_paid_batch = FALSE
+	/// The batch surcharge amount applied
+	var/surcharge = 0
+	/// The bulk discount multiplier (0 to BATCH_BULK_DISCOUNT_MAX)
+	var/bulk_discount = 0
+	/// The total crate cost applied
+	var/crate_cost = 0
+
+// Batch pricing #defines now live in code/__DEFINES/cargo.dm
 
 /datum/supply_order/batch/New(list/batch_entries, orderer, orderer_rank, orderer_ckey, reason, paying_account, is_self_paid = FALSE)
 	id = SSsupply.ordernum++
@@ -248,8 +269,6 @@
 	// Process batch entries — each is list("pack_id" = type_path, "quantity" = num)
 	var/cost_sum = 0
 	var/item_sum = 0
-	var/small_count = 0
-	var/regular_count = 0
 	for(var/list/raw_entry in batch_entries)
 		var/pack_id = raw_entry["pack_id"]
 		var/quantity = raw_entry["quantity"]
@@ -257,35 +276,24 @@
 		if(!product_info)
 			continue
 		var/datum/product = product_info["datum"]
-		var/p_cost = 0
-		var/p_small = FALSE
-		if(istype(product, /datum/cargo_item))
-			var/datum/cargo_item/item = product
-			p_cost = item.get_cost()
-			p_small = item.small_item
-		else if(istype(product, /datum/cargo_crate))
-			var/datum/cargo_crate/crate = product
-			p_cost = crate.get_cost()
-			p_small = crate.small_item
-		else if(istype(product, /datum/supply_pack))
-			var/datum/supply_pack/legacy = product
-			p_cost = legacy.get_cost()
-			p_small = legacy.small_item
-		var/entry_cost = p_cost * quantity
-		if(is_self_paid)
-			entry_cost = round(entry_cost * 1.1)
-		cost_sum += entry_cost
+		var/p_cost = get_product_cost(product)
+		cost_sum += p_cost * quantity
 		item_sum += quantity
 		entries += list(list("pack" = product, "quantity" = quantity, "cost" = p_cost))
-		if(p_small)
-			small_count += quantity
-		else
-			regular_count += quantity
 
-	total_cost = cost_sum
+	base_cost = cost_sum
 	total_items = item_sum
-	// Calculate crate count: regular items get 1 crate each, small items group into crates of 10
-	crate_count = regular_count + CEILING(small_count, 10)
+
+	// Calculate crate breakdown by type and count
+	var/list/crate_data = calculate_batch_crates(entries)
+	crate_count = length(crate_data)
+
+	// Calculate pricing modifiers
+	var/list/modifiers = calculate_batch_pricing(base_cost, total_items, crate_data, is_self_paid)
+	surcharge = modifiers["surcharge"]
+	bulk_discount = modifiers["bulk_discount"]
+	crate_cost = modifiers["crate_cost"]
+	total_cost = modifiers["final_cost"]
 
 	// Set display values for the base datum
 	pack_name = "Batch Order ([total_items] items, [crate_count] crate\s)"
@@ -297,18 +305,206 @@
 	for(var/list/entry in entries)
 		var/datum/product = entry["pack"]
 		var/quantity = entry["quantity"]
-		var/p_name = ""
-		if(istype(product, /datum/cargo_item))
-			var/datum/cargo_item/item = product
-			p_name = item.name
-		else if(istype(product, /datum/cargo_crate))
-			var/datum/cargo_crate/crate = product
-			p_name = crate.name
-		else if(istype(product, /datum/supply_pack))
-			var/datum/supply_pack/legacy = product
-			p_name = legacy.name
-		readable += "[p_name] x[quantity]"
+		readable += "[get_product_name(product)] x[quantity]"
 	return readable
+
+// ============================================================================
+// BATCH PRICING HELPERS — shared between order creation and UI preview
+// ============================================================================
+
+/// Get the cost of a product datum
+/proc/get_product_cost(datum/product)
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		return item.get_cost()
+	if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		return crate.get_cost()
+	if(istype(product, /datum/supply_pack))
+		var/datum/supply_pack/legacy = product
+		return legacy.get_cost()
+	return 0
+
+/// Get the name of a product datum
+/proc/get_product_name(datum/product)
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		return item.name
+	if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		return crate.name
+	if(istype(product, /datum/supply_pack))
+		var/datum/supply_pack/legacy = product
+		return legacy.name
+	return "Unknown"
+
+/// Get the crate_type path of a product datum
+/proc/get_product_crate_type(datum/product)
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		return item.crate_type
+	if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		return crate.crate_type
+	if(istype(product, /datum/supply_pack))
+		var/datum/supply_pack/legacy = product
+		return legacy.crate_type
+	return /obj/structure/closet/crate
+
+/// Get whether a product datum is a small item (TRUE) or bulky (FALSE)
+/proc/get_product_small_item(datum/product)
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		return item.small_item
+	if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		return crate.small_item
+	if(istype(product, /datum/supply_pack))
+		var/datum/supply_pack/legacy = product
+		return legacy.small_item
+	return FALSE
+
+/// Get how many crate slots a single unit of a product occupies.
+/proc/get_product_crate_slots(datum/product)
+	return get_product_small_item(product) ? 1 : BATCH_BULKY_ITEM_SLOTS
+
+/// Get the display name of a crate type path
+/proc/get_crate_type_name(crate_type_path)
+	if(!crate_type_path)
+		return "Standard Crate"
+	var/obj/structure/closet/crate/C = crate_type_path
+	return initial(C.name)
+
+/// Get the batch deposit cost for a given crate type path.
+/// Returns the crate's custom_price (which mirrors the per-type define), falling back to BATCH_CRATE_COST_STANDARD.
+/proc/get_crate_type_cost(crate_type_path)
+	if(!crate_type_path)
+		return BATCH_CRATE_COST_STANDARD
+	var/obj/structure/closet/crate/C = crate_type_path
+	var/price = initial(C.custom_price)
+	return price ? price : BATCH_CRATE_COST_STANDARD
+
+/// Calculate the crate breakdown for a batch of entries.
+/// Groups items by their crate_type, packing by slot usage (small items = 1 slot, bulky = BATCH_BULKY_ITEM_SLOTS).
+/// Returns a list of assoc lists: ("crate_type" = path, "crate_name" = string, "items" = list of names, "count" = num, "slots_used" = num)
+/proc/calculate_batch_crates(list/entries)
+	// Group items by crate_type, keeping per-item slot cost
+	var/list/type_groups = list() // crate_type_path => list("crate_type", "items" = list of list("name", "slots"))
+	for(var/list/entry in entries)
+		var/datum/product = entry["pack"]
+		var/quantity = entry["quantity"]
+		var/crate_type = get_product_crate_type(product)
+		var/p_name = get_product_name(product)
+		var/slots_per = get_product_crate_slots(product)
+		if(!type_groups["[crate_type]"])
+			type_groups["[crate_type]"] = list("crate_type" = crate_type, "items" = list())
+		var/list/group = type_groups["[crate_type]"]
+		for(var/i in 1 to quantity)
+			group["items"] += list(list("name" = p_name, "slots" = slots_per))
+
+	// Now split each group into crates by slot capacity (BATCH_CRATE_MAX_ITEMS slots per crate)
+	var/list/crates = list()
+	for(var/type_key in type_groups)
+		var/list/group = type_groups[type_key]
+		var/crate_type = group["crate_type"]
+		var/crate_display_name = get_crate_type_name(crate_type)
+		var/crate_unit_cost = get_crate_type_cost(crate_type)
+		var/list/items = group["items"]
+		var/list/current_crate_items = list()
+		var/current_slots = 0
+		for(var/list/item_info in items)
+			var/item_slots = item_info["slots"]
+			// If adding this item would exceed capacity, start a new crate
+			// (unless the crate is empty — always allow at least one item)
+			if(current_slots + item_slots > BATCH_CRATE_MAX_ITEMS && length(current_crate_items))
+				crates += list(list(
+					"crate_type" = crate_type,
+					"crate_name" = crate_display_name,
+					"items" = current_crate_items,
+					"count" = length(current_crate_items),
+					"slots_used" = current_slots,
+					"crate_cost" = crate_unit_cost
+				))
+				current_crate_items = list()
+				current_slots = 0
+			current_crate_items += item_info["name"]
+			current_slots += item_slots
+		// Don't forget the last crate
+		if(length(current_crate_items))
+			crates += list(list(
+				"crate_type" = crate_type,
+				"crate_name" = crate_display_name,
+				"items" = current_crate_items,
+				"count" = length(current_crate_items),
+				"slots_used" = current_slots,
+				"crate_cost" = crate_unit_cost
+			))
+
+	return crates
+
+/// Returns all batch pricing constants for the UI so descriptions stay in sync.
+/proc/get_batch_pricing_constants()
+	return list(
+		"surcharge_max"            = BATCH_SURCHARGE_MAX,
+		"surcharge_items_zero"     = BATCH_SURCHARGE_ITEMS_ZERO,
+		"bulk_discount_start"      = BATCH_BULK_DISCOUNT_START,
+		"bulk_discount_cap"        = BATCH_BULK_DISCOUNT_CAP,
+		"bulk_discount_max_pct"    = round(BATCH_BULK_DISCOUNT_MAX * 100),
+		"crate_max_items"          = BATCH_CRATE_MAX_ITEMS,
+		"bulky_item_slots"         = BATCH_BULKY_ITEM_SLOTS,
+		"self_paid_pct"            = BATCH_SELF_PAID_PCT,
+		"crate_costs"              = list(
+			"crate"                    = BATCH_CRATE_COST_STANDARD,
+			"large crate"              = BATCH_CRATE_COST_LARGE,
+			"internals crate"          = BATCH_CRATE_COST_INTERNALS,
+			"medical crate"            = BATCH_CRATE_COST_MEDICAL,
+			"radiation crate"          = BATCH_CRATE_COST_RADIATION,
+			"secure crate"             = BATCH_CRATE_COST_SECURE,
+			"gear crate"               = BATCH_CRATE_COST_SECURE_GEAR,
+			"secure hydroponics crate" = BATCH_CRATE_COST_SECURE_HYDRO,
+			"weapons crate"            = BATCH_CRATE_COST_SECURE_WEAPON,
+			"plasma crate"             = BATCH_CRATE_COST_SECURE_PLASMA,
+			"secure engineering crate" = BATCH_CRATE_COST_SECURE_ENGI,
+			"engineering crate"        = BATCH_CRATE_COST_ENGINEERING,
+		),
+	)
+
+/// Calculate all batch pricing modifiers.
+/// Returns an assoc list with surcharge, bulk_discount, crate_cost, and final_cost.
+/proc/calculate_batch_pricing(base_cost, total_items, list/crate_data, is_self_paid = FALSE)
+	var/list/result = list()
+
+	// 1. Batch surcharge: shrinks to 0 at BATCH_SURCHARGE_ITEMS_ZERO items
+	var/surcharge_val = 0
+	if(total_items > 0)
+		var/surcharge_factor = clamp(1 - (total_items / BATCH_SURCHARGE_ITEMS_ZERO), 0, 1)
+		surcharge_val = round(BATCH_SURCHARGE_MAX * surcharge_factor)
+	result["surcharge"] = surcharge_val
+
+	// 2. Bulk discount: kicks in above BATCH_BULK_DISCOUNT_START items
+	var/bulk_discount_pct = 0
+	if(total_items > BATCH_BULK_DISCOUNT_START)
+		var/excess = total_items - BATCH_BULK_DISCOUNT_START
+		var/range = BATCH_BULK_DISCOUNT_CAP - BATCH_BULK_DISCOUNT_START
+		bulk_discount_pct = clamp(excess / range, 0, 1) * BATCH_BULK_DISCOUNT_MAX
+	result["bulk_discount"] = bulk_discount_pct
+
+	// 3. Crate cost: per-type fee per crate, refunded when the crate is sent back
+	var/crate_cost_total = 0
+	for(var/list/crate in crate_data)
+		crate_cost_total += crate["crate_cost"]
+	result["crate_cost"] = crate_cost_total
+
+	// 4. Calculate final cost
+	var/modified = base_cost
+	modified += surcharge_val                         // Add flat surcharge
+	modified *= (1 - bulk_discount_pct)               // Apply bulk discount
+	modified += crate_cost_total                       // Add crate costs
+	if(is_self_paid)
+		modified *= 1 + (BATCH_SELF_PAID_PCT / 100)    // Self-paid surcharge
+	result["final_cost"] = round(modified)
+
+	return result
 
 #undef MANIFEST_ERROR_CHANCE
 #undef MANIFEST_ERROR_NAME

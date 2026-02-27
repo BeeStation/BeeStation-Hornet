@@ -3,7 +3,7 @@
 	have to do the stuff i mentioned first and then mirror the details yet again by selecting them respectivly independently from the rest of the sprite in the x axis.
 	You may also have to adjust the position of the sprite to match the crate in DM.*/
 /obj/structure/closet/crate
-	name = "crate"
+	name = "plain crate"
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/storage/crates.dmi'
 	icon_state = "crate"
@@ -25,7 +25,7 @@
 	drag_slowdown = 0
 	imacrate = TRUE
 	breakout_time = 20 SECONDS
-	custom_price = 500
+	custom_price = BATCH_CRATE_COST_STANDARD
 	var/mob/living/resident //The vampire owner of this crate (or coffin)
 	var/pry_lid_timer = 25 SECONDS //The time it takes to pry this open with a crowbar
 	var/crate_climb_time = 20
@@ -171,6 +171,7 @@
 	desc = "An internals crate."
 	name = "internals crate"
 	icon_state = "o2_crate"
+	custom_price = BATCH_CRATE_COST_INTERNALS
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
@@ -195,6 +196,7 @@
 	desc = "A medical crate."
 	name = "medical crate"
 	icon_state = "medical_crate"
+	custom_price = BATCH_CRATE_COST_MEDICAL
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
@@ -260,6 +262,7 @@
 	desc = "A crate with a radiation sign on it."
 	name = "radiation crate"
 	icon_state = "radiation_crate"
+	custom_price = BATCH_CRATE_COST_RADIATION
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
@@ -269,10 +272,12 @@
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
 	icon_state = "engi_crate"
+	custom_price = BATCH_CRATE_COST_ENGINEERING
 
 /obj/structure/closet/crate/engineering/electrical
 	icon_state = "engi_e_crate"
 	icon_door = "engi_crate"
+	custom_price = BATCH_CRATE_COST_ENGINEERING_ELEC
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of an RCD."

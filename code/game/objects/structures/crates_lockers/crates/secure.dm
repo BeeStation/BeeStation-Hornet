@@ -9,6 +9,7 @@
 	var/tamperproof = 0
 	icon_door = "crate"
 	damage_deflection = 20
+	custom_price = BATCH_CRATE_COST_SECURE
 
 /datum/armor/crate_secure
 	melee = 30
@@ -39,18 +40,21 @@
 	name = "weapons crate"
 	icon_state = "weapon_crate"
 	icon_door = "weapon_crate"
+	custom_price = BATCH_CRATE_COST_SECURE_WEAPON
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
 	name = "plasma crate"
 	icon_state = "plasma_crate"
 	icon_door = "plasma_crate"
+	custom_price = BATCH_CRATE_COST_SECURE_PLASMA
 
 /obj/structure/closet/crate/secure/gear
 	desc = "A secure gear crate."
 	name = "gear crate"
 	icon_state = "secgear_crate"
 	icon_door = "secgear_crate"
+	custom_price = BATCH_CRATE_COST_SECURE_GEAR
 
 /obj/structure/closet/crate/secure/gear/debug
 	name = "debug crate"
@@ -109,6 +113,7 @@
 	name = "secure hydroponics crate"
 	icon_state = "hydro_secure_crate"
 	icon_door = "hydro_secure_crate"
+	custom_price = BATCH_CRATE_COST_SECURE_HYDRO
 
 /obj/structure/closet/crate/secure/freezer //for consistency with other "freezer" closets/crates
 	desc = "An insulated crate with a lock on it, used to secure perishables."
@@ -130,6 +135,7 @@
 	name = "secure engineering crate"
 	icon_state = "engi_secure_crate"
 	icon_door = "engi_secure_crate"
+	custom_price = BATCH_CRATE_COST_SECURE_ENGI
 
 /obj/structure/closet/crate/secure/science
 	name = "secure science crate"

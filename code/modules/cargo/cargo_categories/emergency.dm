@@ -10,14 +10,14 @@
 /datum/cargo_item/emergency/oxygen_tank
 	name = "Emergency Oxygen Tank"
 	item_path = /obj/item/tank/internals/emergency_oxygen
-	cost = 200
+	cost = 50
 	max_supply = 10
 	small_item = TRUE
 
 /datum/cargo_item/emergency/breath_mask
 	name = "Breath Mask"
 	item_path = /obj/item/clothing/mask/breath
-	cost = 150
+	cost = 10
 	max_supply = 10
 	small_item = TRUE
 
@@ -32,6 +32,6 @@
 	name = "Bio Hood"
 	desc = "A level-3 biohazard hood."
 	item_path = /obj/item/clothing/head/bio_hood
-	cost = 400
+	cost = 500
 	max_supply = 5
 	small_item = TRUE

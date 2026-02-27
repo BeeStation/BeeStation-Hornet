@@ -89,11 +89,6 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 		sell()
 
 /obj/docking_port/mobile/supply/proc/buy()
-	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all small_item orders grouped
-	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
-	var/list/misc_contents = list() //list of lists of items that each box will contain
-	var/list/misc_costs = list() //list of overall costs sustained by each buyer.
-	var/list/misc_orders = list() // list of lists of supply_order datums per owner for combo manifests
 	if(!SSsupply.shoppinglist.len)
 		return
 
@@ -108,16 +103,16 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	// Generate a unique batch code for this entire shipment
 	var/batch_code = generate_batch_code()
 
-	// First pass: process payments and sort into regular crates vs small item groups
-	// Also expand batch orders into individual sub-orders
-	var/list/regular_orders = list() // list of supply_order datums that get their own crate
+	// Collect all generated crates from batch and non-batch orders
+	var/list/all_generated_crates = list() // list of assoc: ("crate" = obj, "order" = supply_order)
 	var/value = 0
 	var/purchases = 0
+
 	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 		if(!empty_turfs.len)
 			break
 
-		// Handle batch orders by expanding them into individual items
+		// Handle batch orders — group items by crate_type, max 10 per crate
 		if(istype(SO, /datum/supply_order/batch))
 			var/datum/supply_order/batch/BO = SO
 			var/datum/bank_account/D
@@ -126,25 +121,28 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 			else
 				D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 
-			// Calculate actual cost at purchase time
-			var/batch_total = 0
+			// Check stock and build valid entries
 			var/list/valid_entries = list()
+			var/base_cost_sum = 0
+			var/total_valid_items = 0
 			for(var/list/entry in BO.entries)
 				var/datum/product = entry["pack"]
 				var/quantity = entry["quantity"]
 				var/entry_cost = entry["cost"]
-				// Check stock for each entry
 				var/available = min(quantity, get_product_supply(product))
 				if(available <= 0)
 					continue
-				var/cost_for_entry = entry_cost * available
-				if(BO.paying_account)
-					cost_for_entry = round(cost_for_entry * 1.1)
-				batch_total += cost_for_entry
+				base_cost_sum += entry_cost * available
+				total_valid_items += available
 				valid_entries += list(list("pack" = product, "quantity" = available, "cost" = entry_cost))
 
 			if(!length(valid_entries))
 				continue
+
+			// Recalculate pricing with batch modifiers based on what's actually available
+			var/list/crate_data = calculate_batch_crates(valid_entries)
+			var/list/pricing = calculate_batch_pricing(base_cost_sum, total_valid_items, crate_data, BO.self_paid_batch)
+			var/batch_total = pricing["final_cost"]
 
 			// Try to charge the full batch
 			if(D)
@@ -156,75 +154,82 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 			if(BO.paying_account)
 				D.bank_card_talk("Batch order #[BO.id] has shipped. [batch_total] credits have been charged to your bank account.")
 				var/datum/bank_account/department/cargo = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-				// Cargo gets the handling fee (difference between charged amount and base cost)
-				var/base_cost = 0
-				for(var/list/ve in valid_entries)
-					base_cost += ve["cost"] * ve["quantity"]
-				cargo.adjust_money(batch_total - base_cost)
+				// Cargo gets the difference between what was charged and base cost
+				cargo.adjust_money(batch_total - base_cost_sum)
 
 			value += batch_total
 			SSsupply.shoppinglist -= BO
 			SSsupply.orderhistory += BO
 
-			// Now expand each valid entry into individual sub-orders for crate generation
+			// Deduct stock
 			for(var/list/ventry in valid_entries)
 				var/datum/product = ventry["pack"]
 				var/quantity = ventry["quantity"]
 				adjust_product_supply(product, -quantity)
 
-				var/p_small = FALSE
-				var/p_name = ""
-				var/p_access = null
-				var/p_dangerous = FALSE
-				var/p_cost = ventry["cost"]
-				if(istype(product, /datum/cargo_item))
-					var/datum/cargo_item/item = product
-					p_small = item.small_item
-					p_name = item.name
-					p_access = item.access
-					p_dangerous = item.dangerous
-				else if(istype(product, /datum/cargo_crate))
-					var/datum/cargo_crate/crate = product
-					p_small = crate.small_item
-					p_name = crate.name
-					p_access = crate.access
-					p_dangerous = crate.dangerous
-				else if(istype(product, /datum/supply_pack))
-					var/datum/supply_pack/legacy = product
-					p_small = legacy.small_item
-					p_name = legacy.name
-					p_access = legacy.access
-					p_dangerous = legacy.dangerous
+			// Generate crates grouped by crate_type (slot-based packing)
+			for(var/list/crate_info in crate_data)
+				if(!length(empty_turfs))
+					break
+				var/crate_type_path = crate_info["crate_type"]
+				var/list/item_names = crate_info["items"]
+				var/obj/structure/closet/crate/C
+				if(BO.paying_account)
+					C = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs), BO.paying_account)
+				else
+					C = new crate_type_path(pick_n_take(empty_turfs))
 
-				for(var/i in 1 to quantity)
-					// Create a temporary sub-order for crate generation
-					var/datum/supply_order/sub = new(product, BO.orderer, BO.orderer_rank, BO.orderer_ckey, BO.reason, BO.paying_account)
-					if(p_small)
-						var/list/item_contents = get_pack_contains(product)
-						var/owner_key = BO.paying_account ? D.account_holder : "Cargo"
-						if(!miscboxes[owner_key])
-							if(BO.paying_account)
-								miscboxes[owner_key] = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs), BO.paying_account)
-							else
-								miscboxes[owner_key] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
-							misc_contents[owner_key] = list()
-							miscboxes[owner_key].req_access = list()
-							misc_orders[owner_key] = list()
-						for(var/item in item_contents)
-							misc_contents[owner_key] += item
-						misc_costs[owner_key] += p_cost
-						misc_order_num[owner_key] = "[misc_order_num[owner_key]]#[sub.id]  "
-						misc_orders[owner_key] += sub
-						if(!BO.paying_account && p_access)
-							miscboxes[owner_key].req_access |= p_access
-					else
-						regular_orders += sub
-
-					SSblackbox.record_feedback("nested tally", "cargo_imports", 1, list("[p_cost]", "[p_name]"))
-					investigate_log("Batch order #[BO.id] sub-item ([p_name], placed by [key_name(BO.orderer_ckey)]), paid by [D.account_holder] has shipped.", INVESTIGATE_CARGO)
+				// Fill the crate with actual items from the valid entries for this crate type
+				var/items_to_fill = length(item_names)
+				var/items_filled = 0
+				for(var/list/ventry in valid_entries)
+					if(items_filled >= items_to_fill)
+						break
+					var/datum/product = ventry["pack"]
+					if(get_product_crate_type(product) != crate_type_path)
+						continue
+					var/remaining_from_entry = ventry["quantity"]
+					if(remaining_from_entry <= 0)
+						continue
+					var/take = min(remaining_from_entry, items_to_fill - items_filled)
+					ventry["quantity"] -= take
+					items_filled += take
+					var/p_name = get_product_name(product)
+					var/p_access = null
+					var/p_dangerous = FALSE
+					if(istype(product, /datum/cargo_item))
+						var/datum/cargo_item/item = product
+						p_access = item.access
+						p_dangerous = item.dangerous
+						for(var/i in 1 to take)
+							new item.item_path(C)
+					else if(istype(product, /datum/cargo_crate))
+						var/datum/cargo_crate/crate = product
+						p_access = crate.access
+						p_dangerous = crate.dangerous
+						for(var/i in 1 to take)
+							crate.fill(C)
+					else if(istype(product, /datum/supply_pack))
+						var/datum/supply_pack/legacy = product
+						p_access = legacy.access
+						p_dangerous = legacy.dangerous
+						for(var/i in 1 to take)
+							legacy.fill(C)
+					// Apply access to crate if needed (only for non-personal purchases)
+					if(!BO.paying_account && p_access)
+						if(islist(p_access))
+							C.req_one_access |= p_access
+						else
+							C.req_one_access |= list(p_access)
+					SSblackbox.record_feedback("nested tally", "cargo_imports", take, list("[ventry["cost"]]", "[p_name]"))
+					investigate_log("Batch order #[BO.id] sub-item ([p_name] x[take], placed by [key_name(BO.orderer_ckey)]), paid by [D.account_holder] has shipped.", INVESTIGATE_CARGO)
 					if(p_dangerous)
-						message_admins("\A [p_name] from batch order by [ADMIN_LOOKUPFLW(BO.orderer_ckey)], paid by [D.account_holder] has shipped.")
-					purchases++
+						message_admins("\A [p_name] x[take] from batch order by [ADMIN_LOOKUPFLW(BO.orderer_ckey)], paid by [D.account_holder] has shipped.")
+					purchases += take
+
+				// Create a temporary sub-order for manifest generation
+				var/datum/supply_order/sub = new(valid_entries[1]["pack"], BO.orderer, BO.orderer_rank, BO.orderer_ckey, BO.reason, BO.paying_account)
+				all_generated_crates += list(list("crate" = C, "order" = sub))
 			continue
 
 		// Regular (non-batch) order handling
@@ -234,7 +239,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 		var/datum/bank_account/D
 		if(SO.paying_account) //Someone paid out of pocket
 			D = SO.paying_account
-			price *= 1.1 //TODO make this customizable by the quartermaster
+			price *= 1 + (BATCH_SELF_PAID_PCT / 100) // Self-paid surcharge
 		else
 			D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 		if(D)
@@ -256,26 +261,10 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 		SSsupply.shoppinglist -= SO
 		SSsupply.orderhistory += SO
 
-		if(SO.pack_small_item) //small_item means it gets piled in the miscbox
-			var/list/item_contents = get_pack_contains(SO.pack)
-			var/owner_key = SO.paying_account ? D.account_holder : "Cargo"
-			if(!miscboxes[owner_key])
-				if(SO.paying_account)
-					miscboxes[owner_key] = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs), SO.paying_account)
-				else
-					miscboxes[owner_key] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
-				misc_contents[owner_key] = list()
-				miscboxes[owner_key].req_access = list()
-				misc_orders[owner_key] = list()
-			for(var/item in item_contents)
-				misc_contents[owner_key] += item
-			misc_costs[owner_key] += SO.pack_cost
-			misc_order_num[owner_key] = "[misc_order_num[owner_key]]#[SO.id]  "
-			misc_orders[owner_key] += SO
-			if(!SO.paying_account && SO.pack_access)
-				miscboxes[owner_key].req_access |= SO.pack_access
-		else
-			regular_orders += SO
+		// Generate the crate for this single order
+		var/obj/structure/closet/crate/C = SO.generate(pick_n_take(empty_turfs))
+		if(C)
+			all_generated_crates += list(list("crate" = C, "order" = SO))
 
 		SSblackbox.record_feedback("nested tally", "cargo_imports", 1, list("[SO.pack_cost]", "[SO.pack_name]"))
 		investigate_log("Order #[SO.id] ([SO.pack_name], placed by [key_name(SO.orderer_ckey)]), paid by [D.account_holder] has shipped.", INVESTIGATE_CARGO)
@@ -283,106 +272,20 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 			message_admins("\A [SO.pack_name] ordered by [ADMIN_LOOKUPFLW(SO.orderer_ckey)], paid by [D.account_holder] has shipped.")
 		purchases++
 
-	// Count total crates for naming
-	var/total_crates = length(regular_orders) + length(miscboxes)
+	// Name and add manifests to all generated crates
+	var/total_crates = length(all_generated_crates)
 	var/crate_num = 0
-
-	// Generate regular crates with batch naming and per-crate manifests
-	for(var/datum/supply_order/SO in regular_orders)
-		if(!empty_turfs.len)
-			break
+	for(var/list/crate_entry in all_generated_crates)
 		crate_num++
-		var/obj/structure/closet/crate/C = SO.generate(pick_n_take(empty_turfs))
-		if(C)
-			C.name = "Batch [batch_code] - Crate [crate_num]/[total_crates]"
-			SO.generateManifest(C, batch_code, crate_num, total_crates)
-
-	// Generate combo crates for small items with batch naming
-	for(var/owner_key in miscboxes)
-		crate_num++
-		var/obj/structure/closet/crate/miscbox = miscboxes[owner_key]
-		for(var/item_path in misc_contents[owner_key])
-			new item_path(miscbox)
-		miscbox.name = "Batch [batch_code] - Crate [crate_num]/[total_crates]"
-		// Use the first order in this group to generate the combo manifest
-		if(length(misc_orders[owner_key]))
-			var/datum/supply_order/first_order = misc_orders[owner_key][1]
-			first_order.generateComboManifest(miscbox, batch_code, crate_num, total_crates, owner_key, misc_order_num[owner_key])
-
-	// Generate the master shipment manifest paper on the shuttle floor
-	if(purchases && length(empty_turfs))
-		generate_shipment_manifest(pick(empty_turfs), batch_code, regular_orders, miscboxes, misc_order_num, misc_orders, total_crates)
+		var/obj/structure/closet/crate/C = crate_entry["crate"]
+		var/datum/supply_order/SO = crate_entry["order"]
+		C.name = "Batch [batch_code] - Crate [crate_num]/[total_crates]"
+		SO.generateManifest(C, batch_code, crate_num, total_crates)
 
 	var/datum/bank_account/cargo_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	investigate_log("[purchases] orders in this shipment, worth [value] credits. [cargo_budget.account_balance] credits left.", INVESTIGATE_CARGO)
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
-
-/// Generates the master shipment manifest paper listing all orders in this batch.
-/obj/docking_port/mobile/supply/proc/generate_shipment_manifest(turf/T, batch_code, list/regular_orders, list/miscboxes, list/misc_order_num, list/misc_orders, total_crates)
-	var/obj/item/paper/manifest_paper = new(T)
-	manifest_paper.name = "shipment manifest - Batch [batch_code]"
-
-	var/text = "<h2>[command_name()] Shipment Manifest</h2>"
-	text += "<hr/>"
-	text += "<b>Batch Order: [batch_code]</b><br/>"
-	text += "Total Crates: [total_crates]<br/>"
-	text += "Destination: [GLOB.station_name]<br/>"
-	text += "<hr/>"
-
-	var/crate_num = 0
-
-	// List regular orders
-	for(var/datum/supply_order/SO in regular_orders)
-		crate_num++
-		text += "<b>Crate [crate_num]/[total_crates] — Order #[SO.id]</b><br/>"
-		text += "Item: [SO.pack_name]<br/>"
-		text += "Ordered by: [SO.orderer] ([SO.orderer_rank])<br/>"
-		if(SO.paying_account)
-			text += "Paid by: [SO.paying_account.account_holder]<br/>"
-		if(SO.reason)
-			text += "Reason: [SO.reason]<br/>"
-		// List expected contents
-		var/list/contents_readable = list()
-		if(istype(SO.pack, /datum/cargo_item))
-			var/datum/cargo_item/item = SO.pack
-			contents_readable = item.get_contents_readable()
-		else if(istype(SO.pack, /datum/cargo_crate))
-			var/datum/cargo_crate/crate = SO.pack
-			contents_readable = crate.get_contents_readable()
-		else if(istype(SO.pack, /datum/supply_pack))
-			var/datum/supply_pack/legacy = SO.pack
-			contents_readable = legacy.get_contents_readable()
-		if(length(contents_readable))
-			text += "Contents: "
-			text += "<ul>"
-			for(var/item_name in contents_readable)
-				text += "<li>[item_name]</li>"
-			text += "</ul>"
-		text += "<br/>"
-
-	// List grouped small item crates
-	for(var/owner_key in miscboxes)
-		crate_num++
-		text += "<b>Crate [crate_num]/[total_crates] — Grouped Small Items</b><br/>"
-		text += "Orders: [misc_order_num[owner_key]]<br/>"
-		if(owner_key != "Cargo")
-			text += "Paid by: [owner_key]<br/>"
-		// List the individual orders in this group
-		if(misc_orders[owner_key])
-			text += "Contents: "
-			text += "<ul>"
-			for(var/datum/supply_order/SO in misc_orders[owner_key])
-				text += "<li>[SO.pack_name] (Order #[SO.id])</li>"
-			text += "</ul>"
-		text += "<br/>"
-
-	text += "<hr/>"
-	text += "<h4>Stamp below to confirm receipt of shipment:</h4>"
-
-	manifest_paper.add_raw_text(text)
-	manifest_paper.update_appearance()
-	return manifest_paper
 
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)

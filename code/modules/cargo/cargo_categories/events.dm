@@ -7,7 +7,7 @@
 
 /datum/cargo_crate/event
 	category = "Events"
-	hidden = TRUE
+	special = TRUE
 
 /datum/cargo_crate/event/specialops
 	name = "Special Ops Supplies"
