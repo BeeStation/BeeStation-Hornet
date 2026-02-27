@@ -13,7 +13,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/computer/card
 	var/mode = 0
 	var/printing = null
-	var/department_bitflag = FALSE // FALSE = All department, or department bitflag. Only access for that department will be shown
+	var/department_bitflag = NONE // NONE = All department, or department bitflag. Only access for that department will be shown
 	var/available_paycheck_departments = list()
 	var/target_paycheck = ACCOUNT_SRV_ID
 
@@ -550,7 +550,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 					else
 						if((ACCESS_HOP in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
-							region_access |= DEPT_BITFLAG_SRV
+							region_access |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
 							region_access_payment |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
 						if((ACCESS_HOS in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
 							region_access |= DEPT_BITFLAG_SEC
@@ -578,13 +578,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(authenticated)
 					var/access_type = text2num(href_list["access_target"])
 					var/access_allowed = text2num(href_list["allowed"])
-					if(access_type in (istype(src, /obj/machinery/computer/card/centcom)?get_all_centcom_access() : get_all_accesses()))
+					if(!is_centcom && (access_type in get_all_centcom_admin_access()))
+						log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
+						return
+					if(access_allowed == 1)
+						inserted_modify_id.access |= access_type
+						log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+					else
 						inserted_modify_id.access -= access_type
 						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
-						if(access_allowed == 1)
-							inserted_modify_id.access |= access_type
-							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
-						playsound(src, "terminal_type", 50, FALSE)
+					playsound(src, "terminal_type", 50, FALSE)
 		if ("assign")
 			if (authenticated == 2)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account
@@ -620,20 +623,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else
-					var/datum/job/jobdatum
-					if(!istype(src, /obj/machinery/computer/card/centcom)) // station level
-						jobdatum = SSjob.GetJob(t1)
-						if(!jobdatum)
-							to_chat(usr, span_warning("No log exists for this job."))
-							stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
-							updateUsrDialog()
-							return
-
-						inserted_modify_id.access -= get_all_accesses()
-						inserted_modify_id.access |= jobdatum.get_access()
-					else // centcom level
-						inserted_modify_id.access -= get_all_centcom_access()
-						inserted_modify_id.access |= get_centcom_access(t1)
+					var/datum/job/jobdatum = SSjob.GetJob(t1)
+					if(!jobdatum)
+						to_chat(usr, span_warning("No log exists for this job."))
+						stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
+						updateUsrDialog()
+						return
+					inserted_modify_id.access -= get_all_accesses()
+					inserted_modify_id.access |= jobdatum.get_access()
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment

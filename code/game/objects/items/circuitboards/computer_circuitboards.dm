@@ -32,7 +32,7 @@
 	build_path = /obj/machinery/computer/card/minor
 	var/counting = 1
 	var/list/dept_list = list(
-		0,
+		NONE, // This means ALL department - don't be scared.
 		DEPT_BITFLAG_SEC,
 		DEPT_BITFLAG_MED,
 		DEPT_BITFLAG_SCI,

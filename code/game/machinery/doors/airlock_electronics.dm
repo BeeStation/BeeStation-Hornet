@@ -35,6 +35,7 @@
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
 		if(!length(each_dept.access_list) || each_dept.access_filter)
 			continue
+
 		var/list/accesses = list()
 		for(var/access in each_dept.access_list)
 			if (get_access_desc(access))

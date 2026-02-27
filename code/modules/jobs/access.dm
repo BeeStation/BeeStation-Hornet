@@ -162,24 +162,20 @@
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
 
 /proc/get_all_accesses()
-	var/static/list/access_list
-	if(!access_list)
-		access_list = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT,
-							ACCESS_MEDICAL, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_RD,
-							ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_CHEMISTRY, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_MAINT_TUNNELS,
-							ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD,
-							ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_HEADS, ACCESS_CAPTAIN, ACCESS_ALL_PERSONAL_LOCKERS,
-							ACCESS_TECH_STORAGE, ACCESS_CHAPEL_OFFICE, ACCESS_ATMOSPHERICS, ACCESS_KITCHEN,
-							ACCESS_BAR, ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_ROBOTICS, ACCESS_CARGO, ACCESS_CONSTRUCTION, ACCESS_AUX_BASE,
-							ACCESS_HYDROPONICS, ACCESS_SERVICE, ACCESS_LIBRARY, ACCESS_LAWYER, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_QM, ACCESS_EXPLORATION, ACCESS_SURGERY,
-							ACCESS_THEATRE, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_MAILSORTING, ACCESS_WEAPONS,
-							ACCESS_MECH_MINING, ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_SECURITY, ACCESS_MECH_MEDICAL,
-							ACCESS_VAULT, ACCESS_MINING_STATION, ACCESS_XENOBIOLOGY, ACCESS_CE, ACCESS_HOP, ACCESS_HOS, ACCESS_RC_ANNOUNCE,
-							ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINISAT, ACCESS_NETWORK, ACCESS_CLONING, ACCESS_RD_SERVER)
-	return access_list.Copy()
+	var/list/access_list = list() // do not do this as a static - SSdepartment might return a modified station access list
+	for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_STATIONS))
+		access_list += dept_datum.access_list
+	return access_list
 
 /proc/get_all_centcom_access()
-	return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE, ACCESS_CENT_TELEPORTER, ACCESS_CENT_CAPTAIN, ACCESS_CENT_BAR)
+	var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_CENTCOM)[1]
+	return dept_datum.access_list.Copy()
+
+/proc/get_all_centcom_admin_access() // exists to filter some href exploit. feel free to remove this if there's a better solution
+	var/list/access_list = list()
+	for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_CENTCOM + DEPT_BITFLAG_OTHER))
+		access_list += dept_datum.access_list
+	return access_list
 
 /proc/get_ert_access(class)
 	switch(class)
@@ -200,6 +196,7 @@
 
 /proc/get_every_access()
 	return get_all_accesses() + get_all_centcom_access() + get_all_syndicate_access() + get_all_away_access() + ACCESS_BLOODCULT + ACCESS_CLOCKCULT
+
 
 GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_SERVICE]" = "Service",
@@ -273,15 +270,16 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_MECH_SCIENCE]" = "Science Mech Access",
 	"[ACCESS_MECH_ENGINE]" = "Engineering Mech Access",
 	"[ACCESS_AUX_BASE]" = "Auxiliary Base",
-	"[ACCESS_CENT_GENERAL]" = "Code Grey",
-	"[ACCESS_CENT_THUNDER]" = "Code Yellow",
-	"[ACCESS_CENT_STORAGE]" = "Code Orange",
-	"[ACCESS_CENT_LIVING]" = "Code Green",
-	"[ACCESS_CENT_MEDICAL]" = "Code White",
-	"[ACCESS_CENT_TELEPORTER]" = "Code Blue",
-	"[ACCESS_CENT_SPECOPS]" = "Code Black",
-	"[ACCESS_CENT_CAPTAIN]" = "Code Gold",
-	"[ACCESS_CENT_BAR]" = "Code Scotch",
+	"[ACCESS_CENT_GENERAL]" = "Code Grey (General)",
+	"[ACCESS_CENT_THUNDER]" = "Code Yellow (Thunder)",
+	"[ACCESS_CENT_STORAGE]" = "Code Orange (Storage)",
+	"[ACCESS_CENT_LIVING]" = "Code Green (Service)",
+	"[ACCESS_CENT_MEDICAL]" = "Code White (Medical)",
+	"[ACCESS_CENT_TELEPORTER]" = "Code Blue (Teleporter)",
+	"[ACCESS_CENT_SPECOPS]" = "Code Black (SpecOps)",
+	"[ACCESS_CENT_CAPTAIN]" = "Code Gold (Executive)",
+	"[ACCESS_CENT_BAR]" = "Code Scotch (Bar)",
+	"[ACCESS_PRISONER]" = "Prisoner",
 	"[ACCESS_SYNDICATE]" = "Syndicate",
 	"[ACCESS_SYNDICATE_LEADER]" = "Syndicate Leader",
 	"[ACCESS_AWAY_GENERIC1]" = "Away generic 1",

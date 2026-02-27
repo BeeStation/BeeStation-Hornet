@@ -39,7 +39,7 @@
 	else
 		minor = TRUE
 		if((ACCESS_HOP in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
-			region_access |= DEPT_BITFLAG_SRV
+			region_access |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
 		if((ACCESS_HOS in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
 			region_access |= DEPT_BITFLAG_SEC
 		if((ACCESS_CMO in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
@@ -171,19 +171,15 @@
 				if(minor)
 					return
 				var/datum/job/jobdatum
-				if(!is_centcom) // station level
-					jobdatum = SSjob.GetJob(target)
-					if(!jobdatum)
-						to_chat(usr, span_warning("No log exists for this job."))
-						stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
-						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
-						return
+				jobdatum = SSjob.GetJob(target)
+				if(!jobdatum)
+					to_chat(usr, span_warning("No log exists for this job."))
+					stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
+					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+					return
 
-					target_id_card.access -= get_all_accesses()
-					target_id_card.access |= jobdatum.get_access()
-				else // centcom level
-					target_id_card.access -= get_all_centcom_access()
-					target_id_card.access |= get_centcom_access(target)
+				target_id_card.access -= get_all_accesses()
+				target_id_card.access |= jobdatum.get_access()
 
 				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
 
@@ -198,26 +194,28 @@
 			if(!authenticated)
 				return
 			var/access_type = text2num(params["access_target"])
-			if(access_type in (is_centcom ? get_all_centcom_access() : get_all_accesses()))
-				if(access_type in target_id_card.access)
-					target_id_card.access -= access_type
-					log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-				else
-					target_id_card.access |= access_type
-					log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-				playsound(computer, "terminal_type", 50, FALSE)
-				return TRUE
+			if(!is_centcom && (access_type in get_all_centcom_admin_access()))
+				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
+				return
+			if(access_type in target_id_card.access)
+				target_id_card.access -= access_type
+				log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			else
+				target_id_card.access |= access_type
+				log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			playsound(computer, "terminal_type", 50, FALSE)
+			return TRUE
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access |= (is_centcom ? get_all_centcom_access() : get_all_accesses())
+			target_id_card.access |= (is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses())
 			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access.Cut()
+			target_id_card.access -= (is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses())
 			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE

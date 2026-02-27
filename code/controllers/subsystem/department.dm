@@ -221,7 +221,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_HOP,
 		ACCESS_CAPTAIN,
 		ACCESS_VAULT,
-		)
+	)
 
 	pref_category_name = DEPT_NAME_COMMAND
 	pref_category_order = DEPT_PREF_ORDER_COMMAND
@@ -248,6 +248,7 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_JANITOR,
 				JOB_NAME_MIME,
 				JOB_NAME_CLOWN,
+				JOB_NAME_STAGEMAGICIAN,
 				)
 
 	access_group_name = "General"
@@ -263,7 +264,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_THEATRE,
 		ACCESS_LAWYER,
 		ACCESS_SERVICE,
-		)
+	)
 
 
 	pref_category_name = DEPT_NAME_SERVICE
@@ -286,8 +287,6 @@ SUBSYSTEM_DEF(department)
 	jobs = list(JOB_NAME_ASSISTANT,
 				JOB_NAME_GIMMICK,
 				JOB_NAME_BARBER,
-				JOB_NAME_STAGEMAGICIAN,
-				JOB_NAME_PSYCHIATRIST,
 				JOB_NAME_VIP,
 				JOB_NAME_CHAPLAIN,
 				JOB_NAME_CURATOR,
@@ -332,7 +331,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_CARGO,
 		ACCESS_QM,
 		ACCESS_VAULT,
-		)
+	)
 
 
 	pref_category_name = DEPT_NAME_CARGO
@@ -372,7 +371,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_RD,
 		ACCESS_NETWORK,
 		ACCESS_RD_SERVER,
-		)
+	)
 
 	pref_category_name = DEPT_NAME_SCIENCE
 	pref_category_order = DEPT_PREF_ORDER_SCIENCE
@@ -411,7 +410,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_TCOMSAT,
 		ACCESS_MINISAT,
 		ACCESS_CE,
-		)
+	)
 
 	pref_category_name = DEPT_NAME_ENGINEERING
 	pref_category_order = DEPT_PREF_ORDER_ENGINEERING
@@ -451,7 +450,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_SURGERY,
 		ACCESS_MECH_MEDICAL,
 		ACCESS_CMO,
-		)
+	)
 
 	pref_category_name = DEPT_NAME_MEDICAL
 	pref_category_order = DEPT_PREF_ORDER_MEDICAL
@@ -492,7 +491,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_COURT,
 		ACCESS_MECH_SECURITY,
 		ACCESS_HOS,
-		)
+	)
 
 	pref_category_name = DEPT_NAME_SECURITY
 	pref_category_order = DEPT_PREF_ORDER_SECURITY
