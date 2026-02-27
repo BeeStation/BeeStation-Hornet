@@ -81,14 +81,21 @@
 		var/datum/cargo_item/item = SSsupply.cargo_items[item_type]
 		if(!is_visible_pack(user, item.contraband) || item.hidden)
 			continue
-		if(!data["supplies"][item.category])
-			data["supplies"][item.category] = list(
-				"name" = item.category,
-				"packs" = list()
-			)
 		if(item.DropPodOnly)
 			continue
-		data["supplies"][item.category]["packs"] += list(list(
+		var/cat = item.category || "Uncategorized"
+		var/subcat = item.subcategory || "General"
+		if(!data["supplies"][cat])
+			data["supplies"][cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!data["supplies"][cat]["subcategories"][subcat])
+			data["supplies"][cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = item.name,
 			"cost" = item.cost,
 			"supply" = item.current_supply,
@@ -102,14 +109,21 @@
 		var/datum/cargo_crate/crate = SSsupply.cargo_crates[crate_type]
 		if(!is_visible_pack(user, crate.contraband) || crate.hidden)
 			continue
-		if(!data["supplies"][crate.category])
-			data["supplies"][crate.category] = list(
-				"name" = crate.category,
-				"packs" = list()
-			)
 		if((crate.special && !crate.special_enabled) || crate.DropPodOnly)
 			continue
-		data["supplies"][crate.category]["packs"] += list(list(
+		var/cat = crate.category || "Uncategorized"
+		var/subcat = crate.subcategory || "General"
+		if(!data["supplies"][cat])
+			data["supplies"][cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!data["supplies"][cat]["subcategories"][subcat])
+			data["supplies"][cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = crate.name,
 			"cost" = crate.cost,
 			"supply" = crate.current_supply,
@@ -123,14 +137,21 @@
 		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
 		if(!is_visible_pack(user, P.contraband) || P.hidden)
 			continue
-		if(!data["supplies"][P.group])
-			data["supplies"][P.group] = list(
-				"name" = P.group,
-				"packs" = list()
-			)
 		if((P.hidden && (P.contraband && !contraband) || (P.special && !P.special_enabled) || P.DropPodOnly))
 			continue
-		data["supplies"][P.group]["packs"] += list(list(
+		var/cat = P.group || "Uncategorized"
+		var/subcat = P.subgroup || "General"
+		if(!data["supplies"][cat])
+			data["supplies"][cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!data["supplies"][cat]["subcategories"][subcat])
+			data["supplies"][cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = P.name,
 			"cost" = P.cost,
 			"supply" = P.current_supply,

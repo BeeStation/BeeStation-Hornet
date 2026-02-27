@@ -59,16 +59,23 @@
 	// Cargo items
 	for(var/item_type in SSsupply.cargo_items)
 		var/datum/cargo_item/item = SSsupply.cargo_items[item_type]
-		if(!meme_pack_data[item.category])
-			meme_pack_data[item.category] = list(
-				"name" = item.category,
-				"packs" = list()
-			)
 		if(item.hidden || item.DropPodOnly)
 			continue
 		if(!((obj_flags & EMAGGED) || contraband) && item.contraband)
 			continue
-		meme_pack_data[item.category]["packs"] += list(list(
+		var/cat = item.category || "Uncategorized"
+		var/subcat = item.subcategory || "General"
+		if(!meme_pack_data[cat])
+			meme_pack_data[cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!meme_pack_data[cat]["subcategories"][subcat])
+			meme_pack_data[cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		meme_pack_data[cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = item.name,
 			"cost" = item.get_cost(),
 			"id" = item_type,
@@ -79,16 +86,23 @@
 	// Cargo crates
 	for(var/crate_type in SSsupply.cargo_crates)
 		var/datum/cargo_crate/crate = SSsupply.cargo_crates[crate_type]
-		if(!meme_pack_data[crate.category])
-			meme_pack_data[crate.category] = list(
-				"name" = crate.category,
-				"packs" = list()
-			)
 		if(crate.hidden || crate.special || crate.DropPodOnly)
 			continue
 		if(!((obj_flags & EMAGGED) || contraband) && crate.contraband)
 			continue
-		meme_pack_data[crate.category]["packs"] += list(list(
+		var/cat = crate.category || "Uncategorized"
+		var/subcat = crate.subcategory || "General"
+		if(!meme_pack_data[cat])
+			meme_pack_data[cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!meme_pack_data[cat]["subcategories"][subcat])
+			meme_pack_data[cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		meme_pack_data[cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = crate.name,
 			"cost" = crate.get_cost(),
 			"id" = crate_type,
@@ -99,16 +113,23 @@
 	// Legacy supply packs (backwards compat)
 	for(var/pack in SSsupply.supply_packs)
 		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
-		if(!meme_pack_data[P.group])
-			meme_pack_data[P.group] = list(
-				"name" = P.group,
-				"packs" = list()
-			)
 		if(P.hidden || P.special || P.DropPodOnly)
 			continue
 		if(!((obj_flags & EMAGGED) || contraband) && P.contraband)
 			continue
-		meme_pack_data[P.group]["packs"] += list(list(
+		var/cat = P.group || "Uncategorized"
+		var/subcat = P.subgroup || "General"
+		if(!meme_pack_data[cat])
+			meme_pack_data[cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!meme_pack_data[cat]["subcategories"][subcat])
+			meme_pack_data[cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		meme_pack_data[cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = P.name,
 			"cost" = P.get_cost(),
 			"id" = pack,

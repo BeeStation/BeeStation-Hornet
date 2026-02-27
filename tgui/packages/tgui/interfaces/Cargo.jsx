@@ -1,10 +1,12 @@
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState, useSharedState } from '../backend';
 import {
   AnimatedNumber,
   Box,
   Button,
   Collapsible,
   Flex,
+  Icon,
+  Input,
   LabeledList,
   Section,
   Stack,
@@ -13,6 +15,31 @@ import {
 } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
+
+/**
+ * Parses the new nested supplies data from the backend into a flat list
+ * of { categoryName, subcategoryName, packs[] } entries, plus a grouped
+ * structure for the sidebar.
+ */
+const parseSupplies = (rawSupplies) => {
+  const categories = [];
+  for (const catData of Object.values(rawSupplies)) {
+    const subcategories = Object.values(catData.subcategories || {}).sort(
+      (a, b) => a.name.localeCompare(b.name),
+    );
+    const totalPacks = subcategories.reduce(
+      (sum, sub) => sum + (sub.packs?.length || 0),
+      0,
+    );
+    categories.push({
+      name: catData.name,
+      subcategories,
+      totalPacks,
+    });
+  }
+  categories.sort((a, b) => a.name.localeCompare(b.name));
+  return categories;
+};
 
 export const Cargo = (props) => {
   return (
@@ -33,40 +60,55 @@ export const CargoContent = (props) => {
   return (
     <Flex height="100%">
       {/* Left panel - main content */}
-      <Flex.Item grow={1} basis={0} style={{ overflow: 'auto' }} mr={1}>
-        <CargoStatus />
-        <Section fitted>
-          <Tabs>
-            <Tabs.Tab
-              icon="list"
-              selected={tab === 'catalog'}
-              onClick={() => setTab('catalog')}
-            >
-              Catalog
-            </Tabs.Tab>
-            <Tabs.Tab
-              icon="envelope"
-              textColor={tab !== 'requests' && requests.length > 0 && 'yellow'}
-              selected={tab === 'requests'}
-              onClick={() => setTab('requests')}
-            >
-              Requests ({requests.length})
-            </Tabs.Tab>
-            {!requestonly && (
+      <Flex.Item
+        grow={1}
+        basis={0}
+        mr={1}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}
+      >
+        <Box shrink={0}>
+          <CargoStatus />
+          <Section fitted>
+            <Tabs>
               <Tabs.Tab
-                icon="shopping-cart"
-                textColor={tab !== 'cart' && cart.length > 0 && 'yellow'}
-                selected={tab === 'cart'}
-                onClick={() => setTab('cart')}
+                icon="list"
+                selected={tab === 'catalog'}
+                onClick={() => setTab('catalog')}
               >
-                Orders ({cart.length})
+                Catalog
               </Tabs.Tab>
-            )}
-          </Tabs>
-        </Section>
-        {tab === 'catalog' && <CargoCatalog />}
-        {tab === 'requests' && <CargoRequests />}
-        {tab === 'cart' && <CargoCart />}
+              <Tabs.Tab
+                icon="envelope"
+                textColor={
+                  tab !== 'requests' && requests.length > 0 && 'yellow'
+                }
+                selected={tab === 'requests'}
+                onClick={() => setTab('requests')}
+              >
+                Requests ({requests.length})
+              </Tabs.Tab>
+              {!requestonly && (
+                <Tabs.Tab
+                  icon="shopping-cart"
+                  textColor={tab !== 'cart' && cart.length > 0 && 'yellow'}
+                  selected={tab === 'cart'}
+                  onClick={() => setTab('cart')}
+                >
+                  Orders ({cart.length})
+                </Tabs.Tab>
+              )}
+            </Tabs>
+          </Section>
+        </Box>
+        <Box style={{ flexGrow: 1, overflow: 'hidden', height: '100%' }}>
+          {tab === 'catalog' && <CargoCatalog />}
+          {tab === 'requests' && <CargoRequests />}
+          {tab === 'cart' && <CargoCart />}
+        </Box>
       </Flex.Item>
       {/* Right panel - batch cart */}
       <Flex.Item
@@ -136,17 +178,66 @@ export const CargoCatalog = (props) => {
   const { self_paid, app_cost, points } = data;
   const bc = data.batch_constants || {};
   const selfPaidMult = 1 + (bc.self_paid_pct || 10) / 100;
-  const supplies = Object.values(data.supplies);
-  const [activeSupplyName, setActiveSupplyName] = useSharedState(
-    'supply',
-    supplies[0]?.name,
+
+  const categories = parseSupplies(data.supplies || {});
+
+  // Track which category is expanded in the sidebar
+  const [expandedCategory, setExpandedCategory] = useSharedState(
+    'expandedCat',
+    categories[0]?.name,
   );
-  const activeSupply = supplies.find((supply) => {
-    return supply.name === activeSupplyName;
-  });
+  // Track the active subcategory (what's shown in the main panel)
+  const [activeSubcatKey, setActiveSubcatKey] = useSharedState(
+    'activeSubcat',
+    categories[0]?.subcategories[0]?.name,
+  );
+  // Track the parent category of the active subcategory (for display)
+  const [activeCatKey, setActiveCatKey] = useSharedState(
+    'activeCat',
+    categories[0]?.name,
+  );
+
+  const [searchText, setSearchText] = useLocalState('catalogSearch', '');
+
+  // Find the active subcategory's packs
+  const activeCategory = categories.find((c) => c.name === activeCatKey);
+  const activeSubcategory = activeCategory?.subcategories.find(
+    (s) => s.name === activeSubcatKey,
+  );
+  const activePacks = activeSubcategory?.packs || [];
+
+  // Helper to select a subcategory
+  const selectSubcategory = (catName, subName) => {
+    setActiveCatKey(catName);
+    setActiveSubcatKey(subName);
+    setExpandedCategory(catName);
+  };
+
+  // When searching, collect matching packs across all categories/subcategories
+  const isSearching = searchText.length >= 2;
+  const searchLower = searchText.toLowerCase();
+  const searchResults = isSearching
+    ? categories.flatMap((cat) =>
+        cat.subcategories.flatMap((sub) =>
+          (sub.packs || [])
+            .filter(
+              (pack) =>
+                pack.name.toLowerCase().includes(searchLower) ||
+                (pack.desc && pack.desc.toLowerCase().includes(searchLower)),
+            )
+            .map((pack) => ({
+              ...pack,
+              category: cat.name,
+              subcategory: sub.name,
+            })),
+        ),
+      )
+    : [];
+
   return (
     <Section
       title="Catalog"
+      fill
       buttons={
         !express && (
           <>
@@ -161,72 +252,238 @@ export const CargoCatalog = (props) => {
         )
       }
     >
-      <Flex>
-        <Flex.Item ml={-1} mr={1}>
-          <Tabs vertical>
-            {supplies.map((supply) => (
-              <Tabs.Tab
-                key={supply.name}
-                selected={supply.name === activeSupplyName}
-                onClick={() => setActiveSupplyName(supply.name)}
-              >
-                {supply.name} ({supply.packs.length})
-              </Tabs.Tab>
-            ))}
-          </Tabs>
+      <Flex direction="column" height="100%">
+        <Flex.Item shrink={0} mb={1}>
+          <Input
+            fluid
+            placeholder="Search all items..."
+            value={searchText}
+            onInput={(e, value) => setSearchText(value)}
+          />
         </Flex.Item>
-        <Flex.Item grow={1} basis={0}>
-          <Table>
-            {activeSupply?.packs.map((pack) => {
-              const tags = [];
-              if (pack.small_item) {
-                tags.push('Small');
-              }
-              if (pack.access) {
-                tags.push('Restricted');
-              }
-              return (
-                <Table.Row key={pack.name} className="candystripe">
-                  <Table.Cell>{pack.name}</Table.Cell>
-                  <Table.Cell collapsing color="label" textAlign="right">
-                    {tags.join(', ')}
-                  </Table.Cell>
-                  <Table.Cell collapsing color="label" textAlign="right">
-                    Stock: {pack.supply}
-                  </Table.Cell>
-                  <Table.Cell collapsing textAlign="right">
-                    <Button
-                      fontFamily="verdana"
-                      fluid
-                      icon={express ? 'add' : 'cart-plus'}
-                      tooltip={pack.desc}
-                      tooltipPosition="left"
-                      disabled={
-                        !canOrder ||
-                        pack.supply <= 0 ||
-                        (express &&
-                          points &&
-                          points < pack.cost &&
-                          pack.supply > 0)
-                      }
-                      onClick={() =>
-                        act(express ? 'add' : 'batch_add', {
-                          id: pack.id,
-                        })
-                      }
-                    >
-                      {formatMoney(
-                        self_paid || app_cost
-                          ? Math.round(pack.cost * selfPaidMult)
-                          : pack.cost,
-                      )}
-                      {' cr'}
-                    </Button>
-                  </Table.Cell>
-                </Table.Row>
-              );
-            })}
-          </Table>
+        <Flex.Item grow={1} style={{ overflow: 'hidden' }}>
+          {isSearching ? (
+            <Box height="100%" style={{ overflow: 'auto' }}>
+              <Box color="label" mb={1}>
+                {searchResults.length} result
+                {searchResults.length !== 1 && 's'} for &quot;{searchText}
+                &quot;
+              </Box>
+              <Table>
+                {searchResults.map((pack) => {
+                  const tags = [];
+                  if (pack.small_item) {
+                    tags.push('Small');
+                  }
+                  if (pack.access) {
+                    tags.push('Restricted');
+                  }
+                  return (
+                    <Table.Row key={pack.id} className="candystripe">
+                      <Table.Cell>
+                        {pack.name}
+                        <Box fontSize="10px" color="label">
+                          {pack.category}
+                          {pack.subcategory && ' › ' + pack.subcategory}
+                        </Box>
+                      </Table.Cell>
+                      <Table.Cell collapsing color="label" textAlign="right">
+                        {tags.join(', ')}
+                      </Table.Cell>
+                      <Table.Cell collapsing color="label" textAlign="right">
+                        Stock: {pack.supply}
+                      </Table.Cell>
+                      <Table.Cell collapsing textAlign="right">
+                        <Button
+                          fontFamily="verdana"
+                          fluid
+                          icon={express ? 'add' : 'cart-plus'}
+                          tooltip={pack.desc}
+                          tooltipPosition="left"
+                          disabled={
+                            !canOrder ||
+                            pack.supply <= 0 ||
+                            (express &&
+                              points &&
+                              points < pack.cost &&
+                              pack.supply > 0)
+                          }
+                          onClick={() =>
+                            act(express ? 'add' : 'batch_add', {
+                              id: pack.id,
+                            })
+                          }
+                        >
+                          {formatMoney(
+                            self_paid || app_cost
+                              ? Math.round(pack.cost * selfPaidMult)
+                              : pack.cost,
+                          )}
+                          {' cr'}
+                        </Button>
+                      </Table.Cell>
+                    </Table.Row>
+                  );
+                })}
+              </Table>
+            </Box>
+          ) : (
+            <Flex height="100%" style={{ overflow: 'hidden' }}>
+              {/* Sidebar with category/subcategory hierarchy */}
+              <Flex.Item
+                mr={1}
+                shrink={0}
+                style={{
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
+                  minWidth: '200px',
+                  maxWidth: '220px',
+                }}
+              >
+                {categories.map((cat) => {
+                  const isExpanded = expandedCategory === cat.name;
+                  return (
+                    <Box key={cat.name} mb={0.5}>
+                      <Button
+                        fluid
+                        color={
+                          activeCatKey === cat.name
+                            ? 'transparent'
+                            : 'transparent'
+                        }
+                        bold
+                        style={{
+                          padding: '4px 6px',
+                          background:
+                            activeCatKey === cat.name
+                              ? 'rgba(255,255,255,0.07)'
+                              : 'none',
+                        }}
+                        onClick={() =>
+                          setExpandedCategory(
+                            isExpanded ? null : cat.name,
+                          )
+                        }
+                      >
+                        <Icon
+                          name={isExpanded ? 'chevron-down' : 'chevron-right'}
+                          mr={1}
+                        />
+                        {cat.name}
+                        <Box
+                          as="span"
+                          color="label"
+                          ml={1}
+                          fontSize="10px"
+                        >
+                          ({cat.totalPacks})
+                        </Box>
+                      </Button>
+                      {isExpanded &&
+                        cat.subcategories.map((sub) => {
+                          const isActive =
+                            activeCatKey === cat.name &&
+                            activeSubcatKey === sub.name;
+                          return (
+                            <Button
+                              key={sub.name}
+                              fluid
+                              color={isActive ? 'good' : 'transparent'}
+                              style={{
+                                padding: '2px 6px 2px 22px',
+                                fontSize: '12px',
+                              }}
+                              onClick={() =>
+                                selectSubcategory(cat.name, sub.name)
+                              }
+                            >
+                              {sub.name}
+                              <Box
+                                as="span"
+                                color="label"
+                                ml={1}
+                                fontSize="10px"
+                              >
+                                ({sub.packs?.length || 0})
+                              </Box>
+                            </Button>
+                          );
+                        })}
+                    </Box>
+                  );
+                })}
+              </Flex.Item>
+              {/* Main pack list */}
+              <Flex.Item grow={1} basis={0} style={{ overflow: 'auto' }}>
+                {activeSubcategory && (
+                  <Box color="label" mb={1} fontSize="11px">
+                    {activeCatKey} › {activeSubcatKey} (
+                    {activePacks.length}{' '}
+                    {activePacks.length === 1 ? 'item' : 'items'})
+                  </Box>
+                )}
+                <Table>
+                  {activePacks.map((pack) => {
+                    const tags = [];
+                    if (pack.small_item) {
+                      tags.push('Small');
+                    }
+                    if (pack.access) {
+                      tags.push('Restricted');
+                    }
+                    return (
+                      <Table.Row key={pack.name} className="candystripe">
+                        <Table.Cell>{pack.name}</Table.Cell>
+                        <Table.Cell
+                          collapsing
+                          color="label"
+                          textAlign="right"
+                        >
+                          {tags.join(', ')}
+                        </Table.Cell>
+                        <Table.Cell
+                          collapsing
+                          color="label"
+                          textAlign="right"
+                        >
+                          Stock: {pack.supply}
+                        </Table.Cell>
+                        <Table.Cell collapsing textAlign="right">
+                          <Button
+                            fontFamily="verdana"
+                            fluid
+                            icon={express ? 'add' : 'cart-plus'}
+                            tooltip={pack.desc}
+                            tooltipPosition="left"
+                            disabled={
+                              !canOrder ||
+                              pack.supply <= 0 ||
+                              (express &&
+                                points &&
+                                points < pack.cost &&
+                                pack.supply > 0)
+                            }
+                            onClick={() =>
+                              act(express ? 'add' : 'batch_add', {
+                                id: pack.id,
+                              })
+                            }
+                          >
+                            {formatMoney(
+                              self_paid || app_cost
+                                ? Math.round(pack.cost * selfPaidMult)
+                                : pack.cost,
+                            )}
+                            {' cr'}
+                          </Button>
+                        </Table.Cell>
+                      </Table.Row>
+                    );
+                  })}
+                </Table>
+              </Flex.Item>
+            </Flex>
+          )}
         </Flex.Item>
       </Flex>
     </Section>
@@ -241,6 +498,8 @@ const CargoRequests = (props) => {
   return (
     <Section
       title="Active Requests"
+      fill
+      scrollable
       buttons={
         !requestonly && (
           <Button
@@ -399,7 +658,7 @@ const CargoCart = (props) => {
   const { requestonly, away, docked, location, can_send } = data;
   const cart = data.cart || [];
   return (
-    <Section title="Current Orders" buttons={<CargoCartButtons />}>
+    <Section title="Current Orders" fill scrollable buttons={<CargoCartButtons />}>
       {cart.length === 0 && <Box color="label">No orders placed</Box>}
       {cart.length > 0 && (
         <Table>

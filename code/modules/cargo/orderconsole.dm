@@ -280,14 +280,21 @@
 	// --- Cargo items ---
 	for(var/item_type in SSsupply.cargo_items)
 		var/datum/cargo_item/item = SSsupply.cargo_items[item_type]
-		if(!data["supplies"][item.category])
-			data["supplies"][item.category] = list(
-				"name" = item.category,
-				"packs" = list()
-			)
 		if((item.hidden && !(obj_flags & EMAGGED)) || (item.contraband && !contraband) || item.DropPodOnly)
 			continue
-		data["supplies"][item.category]["packs"] += list(list(
+		var/cat = item.category || "Uncategorized"
+		var/subcat = item.subcategory || "General"
+		if(!data["supplies"][cat])
+			data["supplies"][cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!data["supplies"][cat]["subcategories"][subcat])
+			data["supplies"][cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = item.name,
 			"cost" = item.get_cost(),
 			"id" = item_type,
@@ -300,14 +307,21 @@
 	// --- Cargo crates (show under "Packs" or their own category) ---
 	for(var/crate_type in SSsupply.cargo_crates)
 		var/datum/cargo_crate/crate = SSsupply.cargo_crates[crate_type]
-		if(!data["supplies"][crate.category])
-			data["supplies"][crate.category] = list(
-				"name" = crate.category,
-				"packs" = list()
-			)
 		if((crate.hidden && !(obj_flags & EMAGGED)) || (crate.contraband && !contraband) || (crate.special && !crate.special_enabled) || crate.DropPodOnly)
 			continue
-		data["supplies"][crate.category]["packs"] += list(list(
+		var/cat = crate.category || "Uncategorized"
+		var/subcat = crate.subcategory || "General"
+		if(!data["supplies"][cat])
+			data["supplies"][cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!data["supplies"][cat]["subcategories"][subcat])
+			data["supplies"][cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = crate.name,
 			"cost" = crate.get_cost(),
 			"id" = crate_type,
@@ -320,14 +334,21 @@
 	// --- Legacy supply packs (backwards compat, if any remain) ---
 	for(var/pack in SSsupply.supply_packs)
 		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
-		if(!data["supplies"][P.group])
-			data["supplies"][P.group] = list(
-				"name" = P.group,
-				"packs" = list()
-			)
 		if((P.hidden && !(obj_flags & EMAGGED)) || (P.contraband && !contraband) || (P.special && !P.special_enabled) || P.DropPodOnly)
 			continue
-		data["supplies"][P.group]["packs"] += list(list(
+		var/cat = P.group || "Uncategorized"
+		var/subcat = P.subgroup || "General"
+		if(!data["supplies"][cat])
+			data["supplies"][cat] = list(
+				"name" = cat,
+				"subcategories" = list()
+			)
+		if(!data["supplies"][cat]["subcategories"][subcat])
+			data["supplies"][cat]["subcategories"][subcat] = list(
+				"name" = subcat,
+				"packs" = list()
+			)
+		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
 			"name" = P.name,
 			"cost" = P.get_cost(),
 			"id" = pack,

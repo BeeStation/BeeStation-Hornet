@@ -15,6 +15,7 @@
 /datum/supply_pack
 	var/name = "Crate"
 	var/group = ""
+	var/subgroup = ""
 	var/hidden = FALSE
 	var/contraband = FALSE
 	var/current_supply

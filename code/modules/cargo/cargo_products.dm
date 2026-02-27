@@ -93,6 +93,8 @@
 	var/item_path
 	/// Category this item appears under (e.g. "Engineering", "Medical")
 	var/category = ""
+	/// Subcategory within the parent category (e.g. "Tools", "Equipment"). If empty, items appear under a "General" subcategory.
+	var/subcategory = ""
 	/// Description shown in the UI. Defaults to item's desc if unset.
 	var/desc = ""
 	/// Base cost in cargo credits
@@ -158,6 +160,8 @@
 	var/name = "Crate"
 	/// UI category. Defaults to "Packs".
 	var/category = "Packs"
+	/// Subcategory within the parent category (e.g. "Science", "Engineering"). If empty, items appear under a "General" subcategory.
+	var/subcategory = ""
 	/// Description shown in the UI
 	var/desc = ""
 	/// Base cost
