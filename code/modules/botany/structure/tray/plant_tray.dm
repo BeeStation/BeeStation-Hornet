@@ -160,13 +160,13 @@
 		return
 	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 
-/obj/item/plant_tray/proc/add_feature_indicator(datum/_source, datum/feature, datum/feature_list)
+/obj/item/plant_tray/proc/add_feature_indicator(datum/_source, datum/feature, list/feature_list)
 	if(!feature_list["[ref(feature)]"])
 		feature_list["[ref(feature)]"] = list()
 	feature_list["[ref(feature)]"] |= "[ref(_source)]"
 	update_indicators()
 
-/obj/item/plant_tray/proc/remove_feature_indicator(datum/_source, datum/feature, datum/feature_list)
+/obj/item/plant_tray/proc/remove_feature_indicator(datum/_source, datum/feature, list/feature_list)
 	if(feature_list["[ref(feature)]"])
 		feature_list["[ref(feature)]"] -= "[ref(_source)]"
 	if(!length(feature_list["[ref(feature)]"]))
