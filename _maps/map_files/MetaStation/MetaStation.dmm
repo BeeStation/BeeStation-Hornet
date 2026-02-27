@@ -8391,6 +8391,7 @@
 "btk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/hydroponics)
 "btu" = (
@@ -15748,7 +15749,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/segment{
-	dir = 10
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/hydroponics)
@@ -22338,7 +22339,6 @@
 "eSS" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/hydroponics)
 "eST" = (
@@ -30147,14 +30147,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/catwalk_floor/iron,
 /area/hallway/secondary/service)
 "hGA" = (
@@ -30677,7 +30671,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark,
 /area/hydroponics/garden/monastery)
 "hNL" = (
@@ -36470,7 +36463,6 @@
 "jKY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/chem_pile,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/hydroponics)
 "jLF" = (
@@ -43961,7 +43953,6 @@
 /obj/effect/turf_decal/bot,
 /obj/item/plant_tray,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/hydroponics)
 "mwR" = (
@@ -54790,6 +54781,10 @@
 /obj/machinery/vending/tool,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"qjD" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/white,
+/area/hydroponics)
 "qjF" = (
 /obj/structure/table,
 /obj/item/ai_module/core/full/asimov,
@@ -56307,6 +56302,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/hydroponics)
 "qLU" = (
@@ -65731,6 +65727,9 @@
 /obj/effect/turf_decal/bot,
 /obj/item/plant_tray,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron/white,
 /area/hydroponics)
 "uev" = (
@@ -112964,7 +112963,7 @@ vBL
 iXr
 oha
 uet
-bUg
+qjD
 btk
 qLT
 iBh
