@@ -15,6 +15,8 @@
 	var/gain_weeds = TRUE
 	///Tray component
 	var/datum/component/planter/tray_component
+	///Our random offset value
+	var/list/starting_offset = list(-2, 2, -5, 5)
 //Effects
 	var/atom/movable/plant_tray_reagents/tray_reagents
 	var/icon/mask
@@ -59,6 +61,9 @@
 	harvest = new(src, "#0f0", 1)
 	need = new(src, "#ff9100", 2)
 	problem = new(src, "#f00", 3)
+//Apply our starting offset
+	pixel_x = rand(starting_offset[1], starting_offset[2])
+	pixel_y = rand(starting_offset[3], starting_offset[4])
 
 /obj/item/plant_tray/process(delta_time)
 	//Need to update this semi-constantly so it works with plumbing
@@ -70,6 +75,19 @@
 		vis_contents |= need
 	else if(!length(needy_features))
 		vis_contents -= need
+
+/obj/item/plant_tray/wrench_act(mob/living/user, obj/item/tool)
+	//Wrench behaviour for plumbing stuff
+	..()
+	default_unfasten_wrench(user, tool)
+	. = TRUE
+	//Visual fluff
+	if(anchored)
+		pixel_x = 0
+		pixel_y = 0
+		return
+	pixel_x = rand(starting_offset[1], starting_offset[2])
+	pixel_y = rand(starting_offset[3], starting_offset[4])
 
 /obj/item/plant_tray/attackby(obj/item/I, mob/living/user, params)
 	. = ..()

@@ -7,6 +7,7 @@
 	icon_state = "pc"
 	base_icon_state = "pc"
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
+	smoothing_flags = NONE
 	///List of linked machines
 	var/list/machines = list()
 	///List of assembled machine options

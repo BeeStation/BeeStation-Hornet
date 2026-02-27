@@ -10,6 +10,9 @@
 	///Do we show extra information
 	var/advanced = TRUE
 
+/obj/item/plant_scanner/Initialize(mapload)
+	. = ..()
+
 /obj/item/plant_scanner/interact(mob/user)
 	. = ..()
 	advanced = !advanced

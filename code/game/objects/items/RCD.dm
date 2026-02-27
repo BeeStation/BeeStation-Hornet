@@ -1148,6 +1148,8 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/construction/plumbing/botany
 	name = "Hydroponic Plumbing Constructor"
 	desc = "An expertly modified RCD outfitted to construct hydroponic machinery."
+	icon = 'icons/obj/hydroponics/features/generic.dmi'
+	icon_state = "tray_maker"
 
 //This is intentionally worse than the generic plumbing device. 'Should' encourage department team work
 /obj/item/construction/plumbing/botany/set_plumbing_designs()
