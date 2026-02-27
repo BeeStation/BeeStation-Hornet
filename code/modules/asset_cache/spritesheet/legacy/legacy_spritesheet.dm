@@ -1,3 +1,4 @@
+
 // spritesheet implementation - coalesces various icons into a single .png file
 // and uses CSS to select icons out of that file - saves on transferring some
 // 1400-odd individual PNG files
@@ -7,6 +8,7 @@
 #define SPRSZ_ICON 2
 #define SPRSZ_STRIPPED 3
 
+/// Deprecated: Use /datum/asset/spritesheet_batched where possible
 /datum/asset/spritesheet
 	_abstract = /datum/asset/spritesheet
 	cross_round_cachable = TRUE
@@ -22,9 +24,8 @@
 	/// If this asset should be fully loaded on new
 	/// Defaults to false so we can process this stuff nicely
 	var/load_immediately = FALSE
-	VAR_PRIVATE
-		// Kept in state so that the result is the same, even when the files are created, for this run
-		should_refresh = null
+	// Kept in state so that the result is the same, even when the files are created, for this run
+	VAR_PRIVATE/should_refresh = null
 
 /datum/asset/spritesheet/proc/should_load_immediately()
 #ifdef DO_NOT_DEFER_ASSETS
@@ -32,6 +33,7 @@
 #else
 	return load_immediately
 #endif
+
 
 /datum/asset/spritesheet/should_refresh()
 	if (..())
@@ -106,16 +108,17 @@
 	for(var/size_id in sizes)
 		var/size = sizes[size_id]
 		var/file_path = size[SPRSZ_STRIPPED]
-		var/file_hash = rustg_hash_file("md5", file_path)
+		var/file_hash = rustg_hash_file(RUSTG_HASH_MD5, file_path)
 		SSassets.transport.register_asset("[name]_[size_id].png", file_path, file_hash=file_hash)
-	var/res_name = "spritesheet_[name].css"
-	var/fname = "data/spritesheets/[res_name]"
-	fdel(fname)
+	var/css_name = "spritesheet_[name].css"
+	var/file_directory = "data/spritesheets/[css_name]"
+	fdel(file_directory)
 	var/css = generate_css()
-	rustg_file_write(css, fname)
-	var/css_hash = rustg_hash_string("md5", css)
-	SSassets.transport.register_asset(res_name, fcopy_rsc(fname), file_hash=css_hash)
-	fdel(fname)
+	rustg_file_write(css, file_directory)
+	var/css_hash = rustg_hash_string(RUSTG_HASH_MD5, css)
+	SSassets.transport.register_asset(css_name, fcopy_rsc(file_directory), file_hash=css_hash)
+
+	fdel(file_directory)
 
 	if (CONFIG_GET(flag/cache_assets) && cross_round_cachable)
 		write_to_cache()
@@ -161,21 +164,22 @@
 			continue
 
 		// save flattened version
-		var/fname = "data/spritesheets/[name]_[size_id].png"
-		fcopy(size[SPRSZ_ICON], fname)
-		var/error = rustg_dmi_strip_metadata(fname)
+		var/png_name = "[name]_[size_id].png"
+		var/file_directory = "data/spritesheets/[png_name]"
+		fcopy(size[SPRSZ_ICON], file_directory)
+		var/error = rustg_dmi_strip_metadata(file_directory)
 		if(length(error))
-			stack_trace("Failed to strip [name]_[size_id].png: [error]")
-		size[SPRSZ_STRIPPED] = icon(fname)
-		fdel(fname)
+			stack_trace("Failed to strip [png_name]: [error]")
+		size[SPRSZ_STRIPPED] = icon(file_directory)
+		fdel(file_directory)
 
 /datum/asset/spritesheet/proc/generate_css()
 	var/list/out = list()
 
 	for (var/size_id in sizes)
 		var/size = sizes[size_id]
-		var/icon/tiny = size[SPRSZ_ICON]
-		out += ".[name][size_id]{display:inline-block;width:[tiny.Width()]px;height:[tiny.Height()]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repeat: no-repeat;}"
+		var/list/dimensions = get_icon_dimensions(size[SPRSZ_ICON])
+		out += ".[name][size_id]{display:inline-block;width:[dimensions["width"]]px;height:[dimensions["height"]]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repeat:no-repeat;}"
 
 	for (var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
@@ -183,11 +187,12 @@
 		var/idx = sprite[SPR_IDX]
 		var/size = sizes[size_id]
 
-		var/icon/tiny = size[SPRSZ_ICON]
+		var/list/tiny_dimensions = get_icon_dimensions(size[SPRSZ_ICON])
 		var/icon/big = size[SPRSZ_STRIPPED]
-		var/per_line = big.Width() / tiny.Width()
-		var/x = (idx % per_line) * tiny.Width()
-		var/y = round(idx / per_line) * tiny.Height()
+		// big width won't be cached ever
+		var/per_line = big.Width() / tiny_dimensions["width"]
+		var/x = (idx % per_line) * tiny_dimensions["width"]
+		var/y = round(idx / per_line) * tiny_dimensions["height"]
 
 		out += ".[name][size_id].[sprite_id]{background-position:-[x]px -[y]px;}"
 
@@ -203,30 +208,31 @@
 	return read_css_from_cache() && read_data_from_cache()
 
 /datum/asset/spritesheet/proc/read_css_from_cache()
-	var/replaced_css = file2text(css_cache_filename())
+	var/replaced_css = rustg_file_read(css_cache_filename())
 
 	var/regex/find_background_urls = regex(@"background-image:url\('%(.+?)%'\)", "g")
 	while (find_background_urls.Find(replaced_css))
 		var/asset_id = find_background_urls.group[1]
 		var/file_path = "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]"
 		// Hashing it here is a *lot* faster.
-		var/hash = rustg_hash_file("md5", file_path)
+		var/hash = rustg_hash_file(RUSTG_HASH_MD5, file_path)
 		var/asset_cache_item = SSassets.transport.register_asset(asset_id, file_path, file_hash=hash)
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
 		replaced_css = replacetext(replaced_css, find_background_urls.match, "background-image:url('[asset_url]')")
 		LAZYADD(cached_spritesheets_needed, asset_id)
 
-	var/replaced_css_filename = "data/spritesheets/spritesheet_[name].css"
-	var/css_hash = rustg_hash_string("md5", replaced_css)
+	var/finalized_name = "spritesheet_[name].css"
+	var/replaced_css_filename = "data/spritesheets/[finalized_name]"
+	var/css_hash = rustg_hash_string(RUSTG_HASH_MD5, replaced_css)
 	rustg_file_write(replaced_css, replaced_css_filename)
-	SSassets.transport.register_asset("spritesheet_[name].css", replaced_css_filename, file_hash=css_hash)
+	SSassets.transport.register_asset(finalized_name, replaced_css_filename, file_hash=css_hash)
 
 	fdel(replaced_css_filename)
 
 	return TRUE
 
 /datum/asset/spritesheet/proc/read_data_from_cache()
-	var/json = json_decode(file2text(data_cache_filename()))
+	var/json = json_decode(rustg_file_read(data_cache_filename()))
 
 	if (islist(json["sprites"]))
 		sprites = json["sprites"]
@@ -281,21 +287,24 @@
 /datum/asset/spritesheet/proc/create_spritesheets()
 	CRASH("create_spritesheets() not implemented for [type]!")
 
-/datum/asset/spritesheet/proc/Insert(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
+/datum/asset/spritesheet/proc/Insert(sprite_name, icon/inserted_icon, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
 	if(should_load_immediately())
-		queuedInsert(sprite_name, I, icon_state, dir, frame, moving)
+		queuedInsert(sprite_name, inserted_icon, icon_state, dir, frame, moving)
 	else
 		to_generate += list(args.Copy())
 
-// LEMON NOTE
-// A GOON CODER SAYS BAD ICON ERRORS CAN BE THROWN BY THE "ICON CACHE"
-// APPARENTLY IT MAKES ICONS IMMUTABLE
-// LOOK INTO USING THE MUTABLE APPEARANCE PATTERN HERE
-/datum/asset/spritesheet/proc/queuedInsert(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
-	I = icon(I, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
-	if (!I || !length(icon_states(I)))  // that direction or state doesn't exist
+/datum/asset/spritesheet/proc/queuedInsert(sprite_name, icon/inserted_icon, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
+#ifdef UNIT_TESTS
+	if (inserted_icon && icon_state && !icon_exists(inserted_icon, icon_state)) // check the base icon prior to extracting the state we want
+		stack_trace("Tried to insert nonexistent icon_state '[icon_state]' from [inserted_icon] into spritesheet [name] ([type])")
 		return
-	var/size_id = "[I.Width()]x[I.Height()]"
+#endif
+	inserted_icon = icon(inserted_icon, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
+	if (!inserted_icon || !length(icon_states(inserted_icon)))  // that direction or state doesn't exist
+		return
+
+	var/list/dimensions = get_icon_dimensions(inserted_icon)
+	var/size_id = "[dimensions["width"]]x[dimensions["height"]]"
 	var/size = sizes[size_id]
 
 	if (sprites[sprite_name])
@@ -303,28 +312,34 @@
 
 	if (size)
 		var/position = size[SPRSZ_COUNT]++
+		// Icons are essentially representations of files + modifications
+		// Because of this, byond keeps them in a cache. It does this in a really dumb way tho
+		// It's essentially a FIFO queue. So after we do icon() some amount of times, our old icons go out of cache
+		// When this happens it becomes impossible to modify them, trying to do so will instead throw a
+		// "bad icon" error.
+		// What we're doing here is ensuring our icon is in the cache by refreshing it, so we can modify it w/o runtimes.
 		var/icon/sheet = size[SPRSZ_ICON]
 		var/icon/sheet_copy = icon(sheet)
 		size[SPRSZ_STRIPPED] = null
-		sheet_copy.Insert(I, icon_state=sprite_name)
+		sheet_copy.Insert(inserted_icon, icon_state=sprite_name)
 		size[SPRSZ_ICON] = sheet_copy
 
 		sprites[sprite_name] = list(size_id, position)
 	else
-		sizes[size_id] = size = list(1, I, null)
+		sizes[size_id] = size = list(1, inserted_icon, null)
 		sprites[sprite_name] = list(size_id, 0)
 
-/datum/asset/spritesheet/proc/InsertAll(prefix, icon/I, list/directions)
+/datum/asset/spritesheet/proc/InsertAll(prefix, icon/inserted_icon, list/directions)
 	if (length(prefix))
 		prefix = "[prefix]-"
 
 	if (!directions)
 		directions = list(SOUTH)
 
-	for (var/icon_state_name in icon_states(I))
+	for (var/icon_state_name in icon_states(inserted_icon))
 		for (var/direction in directions)
 			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]-" : ""
-			Insert("[prefix][prefix2][icon_state_name]", I, icon_state=icon_state_name, dir=direction)
+			Insert("[prefix][prefix2][icon_state_name]", inserted_icon, icon_state=icon_state_name, dir=direction)
 
 /datum/asset/spritesheet/proc/css_tag()
 	return {"<link rel="stylesheet" href="[css_filename()]" />"}
@@ -365,8 +380,12 @@
 #undef SPRSZ_ICON
 #undef SPRSZ_STRIPPED
 
+/// Spritesheet that only uses simple PNGs and CSS keys. See `assets` variable.
+/// Deprecated: Use /datum/asset/spritesheet_batched where possible
 /datum/asset/spritesheet/simple
 	_abstract = /datum/asset/spritesheet/simple
+	/// Associative list of icon keys (CSS class names) -> PNG filepaths (single quote!)
+	/// File paths MUST be PNGs
 	var/list/assets
 
 /datum/asset/spritesheet/simple/create_spritesheets()
