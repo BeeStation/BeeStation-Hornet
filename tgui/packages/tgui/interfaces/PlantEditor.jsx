@@ -22,7 +22,9 @@ export const PlantEditor = (props) => {
           <Flex direction={'column'} height={'100%'}>
             {/* World building fluff top banner */}
             <Flex.Item>
-              <Section textAlign={'center'}>Plant Analyzer [Version 7.20.4.5]</Section>
+              <Section textAlign={'center'}>
+                Plant Analyzer [Version 7.20.4.5]
+              </Section>
             </Flex.Item>
             <Flex direction={'row'}>
               {/* Feature tab*/}
@@ -40,8 +42,11 @@ export const PlantEditor = (props) => {
                         <Flex.Item>
                           {plant_feature_data.length
                             ? plant_feature_data.map((feature_data) => (
-                              <PlantFeaturePanel feature={feature_data} key={feature_data} />
-                            ))
+                                <PlantFeaturePanel
+                                  feature={feature_data}
+                                  key={feature_data}
+                                />
+                              ))
                             : '...'}
                         </Flex.Item>
                         <Divider />
@@ -57,7 +62,10 @@ export const PlantEditor = (props) => {
                             </Flex.Item>
                           ) : (
                             <Flex.Item>
-                              <Button width={'100%'} className="plant__button--display">
+                              <Button
+                                width={'100%'}
+                                className="plant__button--display"
+                              >
                                 {'No Disk Inserted'}
                               </Button>
                             </Flex.Item>
@@ -70,7 +78,9 @@ export const PlantEditor = (props) => {
               </Flex.Item>
               {/* Inspection panel*/}
               <Flex.Item width={'100%'}>
-                <Section>{current_feature ? <InspectionPanel /> : ' ... '}</Section>
+                <Section>
+                  {current_feature ? <InspectionPanel /> : ' ... '}
+                </Section>
               </Flex.Item>
             </Flex>
             {/* World building fluff top banner */}
@@ -103,7 +113,12 @@ const DiskEmptyTab = (props) => {
       <Button className="plant__button--display" width={'100%'}>
         Empty Disk
       </Button>
-      <Button className="plant__button" icon={'eject'} tooltip={'Eject Disk'} onClick={() => act('remove_disk')} />
+      <Button
+        className="plant__button"
+        icon={'eject'}
+        tooltip={'Eject Disk'}
+        onClick={() => act('remove_disk')}
+      />
     </Flex>
   );
 };
@@ -146,7 +161,8 @@ const DiskFeatureTab = (props) => {
         className="plant__button"
         width={'100%'}
         onClick={() => act('select_feature', { key: feature['key'] })}
-        selected={feature['key'] === current_feature}>
+        selected={feature['key'] === current_feature}
+      >
         {`${feature['name']}`}
       </Button>
       <Button
@@ -176,10 +192,14 @@ const InspectionPanel = (props) => {
         <Button className="plant__button--display--beacon" width={'100%'}>
           {current_feature_data.map((data_set) =>
             data_set['data_title'] ? (
-              <PlantDataInstance title={data_set['data_title']} body={data_set['data_field']} key={data_set} />
+              <PlantDataInstance
+                title={data_set['data_title']}
+                body={data_set['data_field']}
+                key={data_set}
+              />
             ) : (
               <Divider key={data_set} />
-            )
+            ),
           )}
         </Button>
       </Flex.Item>
@@ -197,7 +217,9 @@ const InspectionPanel = (props) => {
             />
           ))
         ) : (
-          <Button className="plant__button--display--beacon">No Traits Found</Button>
+          <Button className="plant__button--display--beacon">
+            No Traits Found
+          </Button>
         )}
       </Flex.Item>
     </Flex>
@@ -255,17 +277,31 @@ const PlantFeaturePanel = (props) => {
       <Button
         className="plant__button"
         width={'100%'}
-        onClick={saving_feature ? null : () => act('select_feature', { key: feature['key'] })}
-        selected={feature['key'] === current_feature}>
+        onClick={
+          saving_feature
+            ? null
+            : () => act('select_feature', { key: feature['key'] })
+        }
+        selected={feature['key'] === current_feature}
+      >
         {`${feature['name']}`}
       </Button>
       <Button
-        className={feature['key'] === current_feature ? 'plant__button--beacon' : 'plant__button'}
+        className={
+          feature['key'] === current_feature
+            ? 'plant__button--beacon'
+            : 'plant__button'
+        }
         verticalAlignContent={'middle'}
         icon={saving_feature ? 'save' : 'search'}
         tooltip="Save Feature"
         disabled={!feature['can_copy']}
-        onClick={() => act('save_feature', { key: feature['key'], force: saving_feature ? 1 : 0 })}
+        onClick={() =>
+          act('save_feature', {
+            key: feature['key'],
+            force: saving_feature ? 1 : 0,
+          })
+        }
       />
     </Flex>
   );

@@ -1,5 +1,12 @@
 import { useBackend } from '../backend';
-import { Box, Button, Divider, Flex, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const SeedEditor = (props) => {
@@ -22,7 +29,9 @@ export const SeedEditor = (props) => {
           <Flex direction={'column'} height={'100%'}>
             {/* World building fluff top banner */}
             <Flex.Item>
-              <Section textAlign={'center'}>Seed Sequencer [Version 4.1.1.9]</Section>
+              <Section textAlign={'center'}>
+                Seed Sequencer [Version 4.1.1.9]
+              </Section>
             </Flex.Item>
             {/* Top banner, contains plant name & genetic stability */}
             <Flex.Item>
@@ -36,13 +45,16 @@ export const SeedEditor = (props) => {
                     color={'#ffff77'}
                     textColor={
                       current_feature_genetic_budget
-                        ? current_feature_genetic_budget - current_feature_remaining_genetic_budget <= 0
+                        ? current_feature_genetic_budget -
+                            current_feature_remaining_genetic_budget <=
+                          0
                           ? '#252517ff'
                           : '#ffff77'
                         : '#ffff77'
                     }
                     maxValue={current_feature_genetic_budget || 1}
-                    value={current_feature_remaining_genetic_budget || 0}>
+                    value={current_feature_remaining_genetic_budget || 0}
+                  >
                     {current_feature_remaining_genetic_budget || 0}
                   </ProgressBar>
                 </Section>
@@ -59,8 +71,11 @@ export const SeedEditor = (props) => {
                       <Flex.Item>
                         {seeds_feature_data.length
                           ? seeds_feature_data.map((feature_data) => (
-                            <PlantFeaturePanel feature={feature_data} key={feature_data} />
-                          ))
+                              <PlantFeaturePanel
+                                feature={feature_data}
+                                key={feature_data}
+                              />
+                            ))
                           : '...'}
                       </Flex.Item>
                       <Divider />
@@ -76,7 +91,10 @@ export const SeedEditor = (props) => {
                           </Flex.Item>
                         ) : (
                           <Flex.Item>
-                            <Button width={'100%'} className="plant__button--display">
+                            <Button
+                              width={'100%'}
+                              className="plant__button--display"
+                            >
                               {'No Disk Inserted'}
                             </Button>
                           </Flex.Item>
@@ -87,7 +105,9 @@ export const SeedEditor = (props) => {
                 </Flex.Item>
                 {/* Inspection panel */}
                 <Flex.Item width={'100%'}>
-                  <Section>{current_feature ? <InspectionPanel /> : ' ... '}</Section>
+                  <Section>
+                    {current_feature ? <InspectionPanel /> : ' ... '}
+                  </Section>
                 </Flex.Item>
               </Flex>
             </Flex.Item>
@@ -122,7 +142,12 @@ const DiskEmptyTab = (props) => {
       <Button className="plant__button--display" width={'100%'}>
         Empty Disk
       </Button>
-      <Button className="plant__button" icon={'eject'} tooltip={'Eject Disk'} onClick={() => act('remove_disk')} />
+      <Button
+        className="plant__button"
+        icon={'eject'}
+        tooltip={'Eject Disk'}
+        onClick={() => act('remove_disk')}
+      />
     </Flex>
   );
 };
@@ -135,7 +160,8 @@ const DiskTraitTab = (props) => {
       <Button
         className="plant__button"
         verticalAlignContent={'middle'}
-        onClick={() => act('add_trait', { key: data_set['trait_ref'] })}>
+        onClick={() => act('add_trait', { key: data_set['trait_ref'] })}
+      >
         +
       </Button>
       <PlantTraitInstance
@@ -171,7 +197,8 @@ const DiskFeatureTab = (props) => {
         className="plant__button"
         width={'100%'}
         onClick={() => act('select_feature', { key: feature['key'] })}
-        selected={feature['key'] === current_feature}>
+        selected={feature['key'] === current_feature}
+      >
         {`${feature['name']}`}
       </Button>
       <Button
@@ -225,10 +252,14 @@ const InspectionPanel = (props) => {
         <Button className="plant__button--display" width={'100%'}>
           {current_feature_data.map((data_set) =>
             data_set['data_title'] ? (
-              <PlantDataInstance title={data_set['data_title']} body={data_set['data_field']} key={data_set} />
+              <PlantDataInstance
+                title={data_set['data_title']}
+                body={data_set['data_field']}
+                key={data_set}
+              />
             ) : (
               <Divider key={data_set} />
-            )
+            ),
           )}
         </Button>
       </Flex.Item>
@@ -273,7 +304,8 @@ const PlantFeaturePanel = (props) => {
         className="plant__button"
         width={'100%'}
         onClick={() => act('select_feature', { key: feature['key'] })}
-        selected={feature['key'] === current_feature}>
+        selected={feature['key'] === current_feature}
+      >
         {`${feature['name']}`}
       </Button>
       <Button

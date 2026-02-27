@@ -154,8 +154,8 @@ export const PlantDictionary = (props) => {
                             Object.entries(chapters[selected_chapter]).map(
                               ([entry_key, entry]) =>
                                 entry['name']
-                                  .toLowerCase()
-                                  .includes(searchText.toLowerCase()) ? (
+                                  ?.toLowerCase()
+                                  .includes(searchText?.toLowerCase()) ? (
                                   <Entry
                                     key={entry_key}
                                     title={entry['name']}
