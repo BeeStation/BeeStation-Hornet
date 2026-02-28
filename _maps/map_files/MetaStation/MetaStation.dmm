@@ -28509,7 +28509,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/junction{
+/obj/structure/disposalpipe/sorting/mail/destination/hydroponics{
 	dir = 8
 	},
 /turf/open/floor/plating,

@@ -18271,7 +18271,6 @@
 /area/storage/tools)
 "eTa" = (
 /obj/structure/grille,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/rust,
 /area/maintenance/starboard/fore)
 "eTm" = (
@@ -30336,7 +30335,6 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/plasticflaps/opaque,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hydroponics)
 "jND" = (
@@ -50995,7 +50993,6 @@
 "sqr" = (
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/mapping_helpers/tile_breaker,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
 "sqz" = (
@@ -61961,17 +61958,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"wPx" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/disposalpipe/sorting/mail/destination/hydroponics{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "wPG" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -105217,7 +105203,7 @@ uYF
 orW
 cVb
 cVb
-wPx
+xdh
 eTa
 sqr
 jNr
