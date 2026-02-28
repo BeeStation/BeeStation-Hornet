@@ -58,6 +58,9 @@
 	if(istype(owner.current.loc, /obj/structure/closet) || istype(owner.current.loc, /obj/machinery))
 		shielded = TRUE
 
+	if(istype(owner.current.buckled, /obj/machinery/stasis))
+		shielded = TRUE
+
 	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
 		if(istype(get_area(owner.current), whereami))
 			shielded = TRUE
@@ -68,7 +71,6 @@
 	if(shielded)
 		if(current_vitae >= VAMPIRE_SOL_SHIELD_THRESHOLD)
 			AdjustBloodVolume(-sol_burn_calculated / 2)
-			playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 		if(shielded != were_shielded)
 			to_chat(owner.current, span_cultbold("This area's shielding affords acceptable safety. <b>Don't worry, blood won't drain below [VAMPIRE_SOL_SHIELD_THRESHOLD].</b>"), type = MESSAGE_TYPE_WARNING)
 	else if(!is_in_torpor())
