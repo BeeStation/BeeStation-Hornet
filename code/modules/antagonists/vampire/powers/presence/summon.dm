@@ -77,8 +77,8 @@
 	var/mob/living/source_vampire
 	/// The move loop handling our movement
 	var/datum/move_loop/move_loop
-	/// How long between each step (slow, staggering movement)
-	var/step_delay = 1.5 SECONDS
+	/// How long between each step
+	var/step_delay = 0.6 SECONDS
 
 /datum/status_effect/summoned/on_creation(mob/living/new_owner, set_duration, mob/living/vampire)
 	if(isnum_safe(set_duration))
@@ -152,7 +152,7 @@
 		to_chat(owner, span_awe("You have arrived before [source_vampire]..."))
 		to_chat(source_vampire, span_notice("[owner] has arrived before you."))
 		// Brief stun when arriving so we don’t look weird with the movespeed
-		owner.Stun(2 SECONDS)
+		owner.Stun(4 SECONDS)
 		qdel(src)
 		return
 
