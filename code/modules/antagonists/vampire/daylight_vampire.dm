@@ -58,7 +58,7 @@
 	if(istype(owner.current.loc, /obj/structure/closet) || istype(owner.current.loc, /obj/machinery))
 		shielded = TRUE
 
-	if(istype(owner.current.buckled, /obj/machinery/stasis))
+	if(IS_IN_STASIS(owner.current)))
 		shielded = TRUE
 
 	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
