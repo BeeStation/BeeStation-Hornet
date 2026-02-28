@@ -800,9 +800,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			balloon_alert(user, "remove the other components!")
 			return
 		attacking_item.play_tool_sound(src, user, 20, volume=20)
-		new /obj/item/stack/sheet/iron( get_turf(src.loc), steel_sheet_cost )
+		if(steel_sheet_cost > 0)
+			new /obj/item/stack/sheet/iron(drop_location(), steel_sheet_cost)
 		user.balloon_alert(user, "disassembled")
-		relay_qdel()
 		qdel(src)
 		return
 
@@ -844,10 +844,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	stored_pai_card = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 	update_appearance()
-
-// Used by processor to relay qdel() to machinery type.
-/obj/item/modular_computer/proc/relay_qdel()
-	return
 
 // Perform adjacency checks on our physical counterpart, if any.
 /obj/item/modular_computer/Adjacent(atom/neighbor)

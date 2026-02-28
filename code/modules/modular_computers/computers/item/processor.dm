@@ -37,8 +37,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	integrity_failure = machinery_computer.integrity_failure
 	base_power_usage = machinery_computer.base_power_usage
 
-/obj/item/modular_computer/processor/relay_qdel()
+/obj/item/modular_computer/processor/Destroy()
 	qdel(machinery_computer)
+	return..()
 
 /obj/item/modular_computer/processor/update_icon()
 	if(machinery_computer)
