@@ -503,6 +503,20 @@
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
 
+/**
+ * This is where the vitae/blood transfer happens. We use a pipeline system:
+ * 1. Calculate the fundamental amount of BLOOD we want to remove from the target this tick(feed_amount), influenced by the vampires level.
+ * 2. Apply various multipliers based on the situation (Fatal feeds get sped up, nonsilents get slowed down.)
+ * 3. Cap the maximum amount of blood we can take in one tick/ensure that we don't take more blood than the target has (blood_to_take).
+ * 4. Remove the blood from the target.
+ * 5. Shift the vampire's body temperature toward the target's based on how much blood.
+ * 6. This is the juicy part: The value of the blood we take is not 1:1 for the vampire:
+ * 		- If the target is dead, it's worth less because it's not fresh. (We gain only a third of the blood's value as vitae)
+ * 		- If the target is not human, it's worth much less because ew. (We gain only a tenth of the blood's value as vitae)
+ * 		- If the vampire is frenzied, it's worth less because they're a messy eater. (We gain only half of the blood's value as vitae)
+ * 7. Give the vampire their blood, and if the victim is a vampire, take it from them as well.
+ * 8. Done!
+**/
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/mob/living/living_owner = owner
 	var/feed_amount = 50 + (level_current * 2)
@@ -524,18 +538,35 @@
 	// ((vamp_blood_volume * vamp_temp) + (target_blood_volume * target_temp)) / (vamp_blood_volume + blood_to_take)
 	owner.bodytemperature = ((vampiredatum_power.current_vitae * owner.bodytemperature) + (blood_to_take * target.bodytemperature)) / (vampiredatum_power.current_vitae + blood_to_take)
 
-	// Penalty for dead blood(at least it's still human, right?)
+	//////////
+	////////// Blood was drunk. Convert it into vitae of appropriate value
+	//////////
+
+	var/vitae_absorbed = blood_to_take * 10 // Base conversion rate is 10 vitae per blood.
+
+	// Penalties
+
+	// Penalty for dead blood(at least it's still humanoidish, right?)
 	if(target.stat == DEAD)
-		blood_to_take /= 3
+		blood_to_take /= 8
 	// Penalty for non-human blood
 	if(!ishuman(target))
-		blood_to_take /= 10
+		blood_to_take /= 9
 	// Penalty for frenzy(messy eater)
 	if(vampiredatum_power.frenzied)
 		blood_to_take /= 2
 
-	// Give vampire the blood^
-	var/vitae_absorbed = blood_to_take * 4
+	// Bonuses
+
+	// The VIP has the juiciest blood on the station
+	if(HAS_TRAIT(target, TRAIT_VIP))
+		vitae_absorbed *= 2
+	// Command/captains are also juicy because of their leadership and authority
+	if(HAS_TRAIT(target, TRAIT_DISK_VERIFIER))
+		vitae_absorbed *= 1.5
+	// Security personnel are also pretty juicy, because they are well paid and trained
+	if(HAS_TRAIT(target, TRAIT_SECURITY))
+		vitae_absorbed *= 1.25
 
 	/// Tracking of the vitae goal
 	if(target.client)
