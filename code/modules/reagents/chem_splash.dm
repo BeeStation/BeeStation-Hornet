@@ -24,7 +24,7 @@
 	for(var/datum/reagents/R in reactants)
 		R.trans_to(splash_holder, R.total_volume, threatscale, 1, 1)
 
-	holder.chem_temp = max(holder.chem_temp + extra_heat, TCMB) // Average temperature of reagents + extra heat.
+	splash_holder.chem_temp = max(splash_holder.chem_temp + extra_heat, TCMB) // Average temperature of reagents + extra heat.
 	splash_holder.handle_reactions() // React them now.
 
 	if(splash_holder.total_volume && affected_range >= 0)	//The possible reactions didnt use up all reagents, so we spread it around.
