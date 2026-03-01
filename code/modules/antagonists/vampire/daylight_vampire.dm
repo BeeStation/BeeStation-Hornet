@@ -83,6 +83,8 @@
 	were_shielded = shielded
 
 /datum/antagonist/vampire/proc/burn_and_kill()
+	if(!owner?.current)
+		return
 	// We can resist it as long as we have blood.
 	if(current_vitae >= 25)
 		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
@@ -128,7 +130,9 @@
  * - Sol being over, dealt with by /sunlight/process() [vampire_daylight.dm]
 **/
 /datum/antagonist/vampire/proc/check_begin_torpor()
-	var/mob/living/carbon/carbon_owner = owner.current
+	var/mob/living/carbon/carbon_owner = owner?.current
+	if(!carbon_owner)
+		return
 	var/total_damage = carbon_owner.getBruteLoss() + carbon_owner.getFireLoss()
 	if(total_damage < 10)
 		return
@@ -148,7 +152,9 @@
 		torpor_end()
 		return
 
-	var/mob/living/carbon/user = owner.current
+	var/mob/living/carbon/user = owner?.current
+	if(!user)
+		return
 
 	var/total_brute = user.getBruteLoss()
 	var/total_burn = user.getFireLoss()
