@@ -13762,6 +13762,12 @@
 	},
 /turf/open/floor/iron,
 /area/science/mixing)
+"hrz" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/medical/genetics)
 "hrH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
@@ -15332,12 +15338,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
-"ijI" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/medical/genetics)
 "ijN" = (
 /obj/structure/chair/stool/directional/west,
 /obj/effect/decal/cleanable/dirt,
@@ -43323,16 +43323,12 @@
 	pixel_x = 3;
 	pixel_y = -5
 	},
-/obj/structure/window/reinforced/spawner/directional/west{
-	pixel_y = 0;
-	pixel_x = -2
-	},
-/obj/effect/mapping_helpers/foodpreserver,
 /obj/item/food/grown/banana,
 /obj/structure/flora/ausbushes/ppflowers{
 	pixel_x = 13;
 	pixel_y = -2
 	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "yaN" = (
@@ -187156,7 +187152,7 @@ gVA
 dZZ
 gFx
 pDj
-ijI
+hrz
 yaL
 dZZ
 tpg
