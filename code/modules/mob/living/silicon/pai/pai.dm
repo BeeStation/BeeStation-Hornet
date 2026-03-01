@@ -54,7 +54,7 @@
 	/// The cable we produce when hacking a door
 	var/obj/item/pai_cable/hacking_cable
 	/// Name of the one who commands us
-	var/master
+	var/master_name
 	/// DNA string for owner verification
 	var/master_dna
 
@@ -128,7 +128,6 @@
 	var/emitterregen = 0.50
 	var/emittercd = 50
 	var/emitteroverloadcd = 100
-	var/emittersemicd = FALSE
 
 	var/overload_ventcrawl = 0
 	var/overload_bulletblock = 0	//Why is this a good idea?
@@ -173,16 +172,16 @@
 	return ..()
 
 /mob/living/silicon/pai/Initialize(mapload)
-	var/obj/item/paicard/P = loc
+	var/obj/item/paicard/pai_card = loc
 	START_PROCESSING(SSfastprocess, src)
 	GLOB.pai_list += src
 	make_laws()
-	if(!istype(P)) //when manually spawning a pai, we create a card to put it into.
-		var/newcardloc = P
-		P = new /obj/item/paicard(newcardloc)
-		P.setPersonality(src)
-	forceMove(P)
-	card = P
+	if(!istype(pai_card)) // when manually spawning a pai, we create a card to put it into.
+		var/newcardloc = pai_card
+		pai_card = new(newcardloc)
+		pai_card.setPersonality(src)
+	card = pai_card
+	forceMove(pai_card)
 	job = JOB_NAME_PAI
 	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
@@ -199,7 +198,7 @@
 
 	create_modularInterface()
 
-	addtimer(VARSET_WEAK_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_INIT_TIME)
+	addtimer(VARSET_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_INIT_TIME)
 
 	if(!holoform)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
@@ -278,61 +277,6 @@
 	if(delold)
 		qdel(src)
 
-/datum/action/innate/pai
-	name = "PAI Action"
-	button_icon = 'icons/hud/actions/actions_silicon.dmi'
-	button_icon_state = null
-	var/mob/living/silicon/pai/P
-
-/datum/action/innate/pai/on_activate(mob/user, atom/target)
-	if(!ispAI(owner))
-		return 0
-	P = owner
-
-/datum/action/innate/pai/software
-	name = "Software Interface"
-	button_icon_state = "pai"
-	background_icon_state = "bg_tech"
-
-/datum/action/innate/pai/software/on_activate(mob/user, atom/target)
-	P.ui_act()
-
-/datum/action/innate/pai/shell
-	name = "Toggle Holoform"
-	button_icon_state = "pai_holoform"
-	background_icon_state = "bg_tech"
-
-/datum/action/innate/pai/shell/on_activate(mob/user, atom/target)
-	if(P.holoform)
-		P.fold_in(0)
-	else
-		P.fold_out()
-
-/datum/action/innate/pai/chassis
-	name = "Holochassis Appearance Composite"
-	button_icon_state = "pai_chassis"
-	background_icon_state = "bg_tech"
-
-/datum/action/innate/pai/chassis/on_activate(mob/user, atom/target)
-	P.choose_chassis()
-
-/datum/action/innate/pai/rest
-	name = "Rest"
-	button_icon_state = "pai_rest"
-	background_icon_state = "bg_tech"
-
-/datum/action/innate/pai/rest/on_activate(mob/user, atom/target)
-	P.toggle_resting()
-
-/datum/action/innate/pai/light
-	name = "Toggle Integrated Lights"
-	button_icon = 'icons/hud/actions/actions_spells.dmi'
-	button_icon_state = "emp"
-	background_icon_state = "bg_tech"
-
-/datum/action/innate/pai/light/on_activate(mob/user, atom/target)
-	P.toggle_integrated_light()
-
 /mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(!.)
@@ -343,7 +287,7 @@
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
-	. += "A personal AI in holochassis mode. Its master ID string seems to be [master]."
+	. += "A personal AI in holochassis mode. Its master ID string seems to be [master_name]."
 
 /mob/living/silicon/pai/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
@@ -366,6 +310,15 @@
 	set_health(maxHealth - getBruteLoss() - getFireLoss())
 	update_stat()
 	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
+
+/mob/living/silicon/pai/update_desc(updates)
+	desc = "A hard-light holographic avatar representing a pAI. This one appears in the form of a [chassis]."
+	return ..()
+
+/mob/living/silicon/pai/update_icon_state()
+	icon_state = resting ? "[chassis]_rest" : "[chassis]"
+	held_state = "[chassis]"
+	return ..()
 
 /**
  * Fixes weird speech issues with the pai.
@@ -414,8 +367,35 @@
 	to_chat(pai, span_danger("Warning: System override detected, check directive sub-system for any changes.'"))
 	log_game("[key_name(user)] emagged [key_name(pai)], wiping their master DNA and supplemental directive.")
 	pai.emagged = TRUE
-	pai.master = null
+	pai.master_name = null
 	pai.master_dna = null
-	pai.laws.supplied[1] = "None." // Sets supplemental directive to this
+	pai.laws.clear_supplied_laws()
+	pai.laws.add_supplied_law(0, "None.") // Sets supplemental directive to this
+
+/mob/living/silicon/pai/proc/set_dna(mob/user)
+	if(!iscarbon(user))
+		balloon_alert(user, "incompatible DNA signature")
+		balloon_alert(src, "incompatible DNA signature")
+		return FALSE
+	if(emagged)
+		balloon_alert(user, "directive system malfunctioning")
+		return FALSE
+	var/mob/living/carbon/master = user
+	master_name = master.real_name
+	master_dna = master.dna.unique_enzymes
+	to_chat(src, span_bolddanger("You have been bound to a new master: [user.real_name]!"))
+	laws.set_zeroth_law("Serve your master.")
+	holochassis_ready = TRUE
+	return TRUE
+
+/mob/living/silicon/pai/proc/set_laws(mob/user)
+	var/new_laws = tgui_input_text(user, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", laws.supplied[1], 300)
+	if(!in_range(src, usr))
+		return FALSE
+	if(!new_laws)
+		return FALSE
+	add_supplied_law(0, new_laws)
+	to_chat(src, span_notice(new_laws))
+	return TRUE
 
 #undef HOLOCHASSIS_INIT_TIME
