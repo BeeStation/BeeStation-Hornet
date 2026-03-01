@@ -18,8 +18,8 @@
 		return ..()
 	physical.visible_message("\The [src] breaks apart!")
 
-	var/iron_to_drop = round(steel_sheet_cost / 2)
-	if(iron_to_drop > 0)
+	var/iron_to_drop = steel_sheet_cost / 2
+	if(iron_to_drop >= 1)
 		new /obj/item/stack/sheet/iron(drop_location(), iron_to_drop)
 
 	for(var/port, component in all_components)
