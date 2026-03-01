@@ -1,0 +1,2 @@
+/mob/living/simple_animal/chicken/turkey : /mob/living/simple_animal/turkey{@OLD}
+/obj/item/paicard : /obj/item/pai_card{@OLD}
