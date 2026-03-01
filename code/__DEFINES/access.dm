@@ -71,6 +71,15 @@
 /// Room and launching.
 #define ACCESS_AUX_BASE 72
 
+// Exclusive access
+// Box : 11000
+// Meta : 12000
+#define ACCESS_META_VACANT 12000
+#define ACCESS_META_COMMISSARY 12001
+// Delta : 13000
+// and so on...
+
+
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.
 	Mostly for admin fun times.*/

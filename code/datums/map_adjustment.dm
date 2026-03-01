@@ -26,6 +26,10 @@
 /datum/map_adjustment/proc/on_mapping_init()
 	return
 
+/// called upon SSdepartment initialization. Override this proc to change.
+/datum/map_adjustment/proc/on_department_init()
+	return
+
 /// called upon job datum creation. Override this proc to change.
 /datum/map_adjustment/proc/job_change()
 	return
@@ -53,3 +57,11 @@
 		job.base_access -= access_to_remove
 	if(access_to_give)
 		job.base_access |= access_to_give
+
+/// * department_name<string/DEPARTMENT_DEFINES> : Department name macros from department.dm
+/// * access_to_give<number/ACCESS_DEFINES, list/[ACCESS_DEFINES]> : gives exclusive access(es) to the department in this station map
+/datum/map_adjustment/proc/change_department_access(department_type, list/access_to_give)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	PROTECTED_PROC(TRUE)
+	var/datum/department_group/dept = SSdepartment.get_department_by_dept_id(department_type)
+	dept.access_list |= access_to_give
