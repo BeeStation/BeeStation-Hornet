@@ -209,7 +209,7 @@
 /datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional, params)
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
-		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
+		var/obj/item/organ/wings/wings = carbon_user.get_organ_slot(ORGAN_SLOT_WINGS)
 		if(istype(wings) && wings.flight_level >= WINGS_FLYING)
 			return TRUE
 	return FALSE
