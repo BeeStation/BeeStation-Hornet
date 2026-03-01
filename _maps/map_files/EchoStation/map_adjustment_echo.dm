@@ -16,7 +16,6 @@
 
 /datum/map_adjustment/echo_station/job_change()
 	change_job_position(JOB_NAME_COOK, 1)
-	change_job_position(JOB_NAME_PARAMEDIC, 1)
 	change_job_position(JOB_NAME_GENETICIST, 1)
 	change_job_position(JOB_NAME_CHEMIST, 1)
 	change_job_position(JOB_NAME_JANITOR, 1)
