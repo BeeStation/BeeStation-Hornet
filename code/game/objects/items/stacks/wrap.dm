@@ -13,10 +13,9 @@
 	singular_name = "wrapping paper"
 
 /obj/item/stack/wrapping_paper/use(used, transfer, check = TRUE)
-	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)
-		new /obj/item/c_tube(T)
+		new /obj/item/c_tube(drop_location())
 
 /obj/item/stack/wrapping_paper/small
 	desc = "Wrap packages with this festive paper to make gifts. This roll looks a bit skimpy."
