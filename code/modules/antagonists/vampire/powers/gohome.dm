@@ -76,10 +76,12 @@
 	playsound(get_turf(owner), 'sound/effects/singlebeat.ogg', beat_volume, 1)
 
 /datum/action/vampire/gohome/proc/teleport_to_coffin(mob/living/carbon/user)
-	var/turf/current_turf = get_turf(owner)
+	if(!user)
+		return
+	var/turf/current_turf = get_turf(user)
 	// If we aren't in the dark, anyone watching us will cause us to drop out stuff
 	if(!QDELETED(current_turf?.lighting_object) && current_turf.get_lumcount() >= 0.2)
-		for(var/mob/living/watcher in viewers(world.view, get_turf(owner)) - owner)
+		for(var/mob/living/watcher in viewers(world.view, current_turf) - user)
 			if(QDELETED(watcher.client) || watcher.client?.is_afk() || watcher.stat != CONSCIOUS)
 				continue
 			if(watcher.has_unlimited_silicon_privilege)
@@ -87,8 +89,8 @@
 			if(watcher.is_blind())
 				continue
 			if(!IS_VAMPIRE(watcher) && !IS_VASSAL(watcher))
-				for(var/obj/item/item in owner)
-					owner.dropItemToGround(item, TRUE)
+				for(var/obj/item/item in user)
+					user.dropItemToGround(item, TRUE)
 				break
 	user.uncuff()
 
@@ -103,8 +105,8 @@
 	new new_mob(current_turf)
 	/// TELEPORT: Move to Coffin & Close it!
 	user.set_resting(TRUE, TRUE, FALSE)
-	do_teleport(owner, vampiredatum_power.coffin, channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE)
-	vampiredatum_power.coffin.close(owner)
+	do_teleport(user, vampiredatum_power.coffin, channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE)
+	vampiredatum_power.coffin.close(user)
 	vampiredatum_power.coffin.take_contents()
 	playsound(vampiredatum_power.coffin.loc, vampiredatum_power.coffin.close_sound, 15, 1, -3)
 
