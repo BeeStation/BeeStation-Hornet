@@ -1305,12 +1305,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"aGk" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/medical/genetics)
 "aGn" = (
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
@@ -15338,6 +15332,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
+"ijI" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/medical/genetics)
 "ijN" = (
 /obj/structure/chair/stool/directional/west,
 /obj/effect/decal/cleanable/dirt,
@@ -187156,7 +187156,7 @@ gVA
 dZZ
 gFx
 pDj
-aGk
+ijI
 yaL
 dZZ
 tpg
