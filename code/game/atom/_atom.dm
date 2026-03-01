@@ -118,7 +118,8 @@
 
 	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
 	var/list/eye_users
-
+	/// same as 'eye_users', but mobs, instead of client.
+	var/list/eye_mobs
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
 
@@ -126,6 +127,7 @@
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes eye users who use this, and resets their eye
   * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
@@ -134,6 +136,9 @@
   * * clears the light object
   */
 /atom/Destroy()
+	for(var/mob/each_mob as anything in eye_mobs)
+		each_mob.reset_perspective()
+	eye_mobs = null
 	for(var/client/each_client as anything in eye_users)
 		eye_users -= each_client
 		if(isnull(each_client.mob))
