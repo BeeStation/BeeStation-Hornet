@@ -59,3 +59,12 @@
 /obj/item/vending_refill/hydroseeds
 	machine_name = "MegaSeed Servitor"
 	icon_state = "refill_plant"
+
+/*
+	Tutorial Variant
+*/
+/obj/machinery/vending/hydroseeds/tutorial
+
+/obj/machinery/vending/hydroseeds/tutorial/Initialize(mapload)
+	. = ..()
+	new /obj/item/sticker/sticky_note/tutorial/substrate(src)

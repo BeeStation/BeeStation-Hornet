@@ -1,7 +1,7 @@
 #define RAD_GAIN_MOD 0.01
 
 /obj/machinery/plant_machine/plant_mutator
-	name = "plant mutator"
+	name = "irradiator kiln"
 	desc = "A large kiln designed to safely expose plants to radiation."
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "mutator"
@@ -57,6 +57,13 @@
 		return
 	stored_rads += radiation.intensity * RAD_GAIN_MOD * delta_time
 	ui_update()
+
+/obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	context.add_left_click_item_action("Insert Plant", /obj/item/shovel/spade)
+	context.add_left_click_item_action("Insert Disk", /obj/item/disk/plant_disk)
 
 //Insert
 /obj/machinery/plant_machine/plant_mutator/attackby(obj/item/C, mob/user)

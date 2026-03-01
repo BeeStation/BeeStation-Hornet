@@ -33,6 +33,13 @@
 		icon = 'icons/obj/hydroponics/equipment.dmi'
 		icon_state = "dnamod"
 
+/obj/machinery/plant_machine/plant_analyser/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	context.add_left_click_item_action("Insert Plant", /obj/item/shovel/spade)
+	context.add_left_click_item_action("Insert Disk", /obj/item/disk/plant_disk)
+
 /obj/machinery/plant_machine/plant_analyser/attackby(obj/item/C, mob/user)
 //Disk
 	if(istype(C, /obj/item/disk/plant_disk) && !disk)

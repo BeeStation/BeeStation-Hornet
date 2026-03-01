@@ -121,6 +121,8 @@
 	seeds--
 	if(seeds <= 0)
 		qdel(src)
+	else if(user)
+		balloon_alert(user, "[seeds] seeds remain")
 	//Mouse offset
 	if(!plant_component?.use_mouse_offset)
 		return

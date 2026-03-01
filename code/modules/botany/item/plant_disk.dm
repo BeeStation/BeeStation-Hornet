@@ -14,8 +14,3 @@
 	else if(istype(saved, /datum/plant_feature))
 		var/datum/plant_feature/feature = saved
 		name = "[name] - [feature.name]([feature.species_name])"
-
-
-
-/obj/item/disk/plant_disk/test
-	saved = new /datum/plant_trait/seperated_contents()

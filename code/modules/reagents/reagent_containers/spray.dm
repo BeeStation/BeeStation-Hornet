@@ -25,6 +25,7 @@
 	volume = 250
 	possible_transfer_amounts = list(5,10)
 	var/spray_sound = 'sound/effects/spray2.ogg'
+	//TODO: Add support for applying reagents to plants, sprays apply to the plant directly - Racc
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
 	. = ..()

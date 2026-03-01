@@ -1,18 +1,3 @@
-// Plant analyzer
-/obj/item/plant_scanner
-	name = "plant analyzer"
-	desc = "A scanner used to evaluate a plant's various areas of growth."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "hydro"
-	inhand_icon_state = "analyzer"
-	worn_icon_state = "plantanalyzer"
-	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_BELT
-	belt_icon_state = "plant_analyzer"
-	custom_materials = list(/datum/material/iron=30, /datum/material/glass=20)
-
 // *************************************
 // Hydroponics Tools
 // *************************************

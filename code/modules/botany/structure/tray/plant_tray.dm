@@ -78,6 +78,14 @@
 	else if(!length(needy_features))
 		vis_contents -= need
 
+/obj/item/plant_tray/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	context.add_right_click_tool_action("Plant Seeds", TOOL_SEED)
+	context.add_left_click_item_action("Check Alerts", /obj/item/plant_scanner)
+	context.add_left_click_item_action("Fill Tray", /obj/item/substrate_bag)
+
 /obj/item/plant_tray/wrench_act(mob/living/user, obj/item/tool)
 	//Wrench behaviour for plumbing stuff
 	..()

@@ -18,3 +18,9 @@
 /obj/item/plant_item/attack_hand(mob/user, modifiers)
 	. = ..()
 	return FALSE //This item can't be picked up, only with a spade
+
+/obj/item/plant_item/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	context.add_left_click_item_action("Move", /obj/item/shovel/spade)

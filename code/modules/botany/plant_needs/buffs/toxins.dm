@@ -9,6 +9,7 @@
 	/datum/reagent/toxin/acid = 1, /datum/reagent/toxin/acid/fluacid = 0.5, /datum/reagent/toxin/plantbgone = 0.5, /datum/reagent/napalm = 1, /datum/reagent/toxin/plantbgone/weedkiller = 5,
 	/datum/reagent/toxin/pestkiller = 5)
 	auto_threshold = TRUE
+	nectar_buff_duration = 0 SECONDS
 
 /datum/plant_need/reagent/buff/toxin/New(datum/plant_feature/_parent)
 	need_description = "This plant is susceptible to toxic reagents, which will damage the plant for [GENERIC_TOXIN_DAMAGE] health."

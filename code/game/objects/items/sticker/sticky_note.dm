@@ -48,6 +48,17 @@
 	UnregisterSignal(my_paper, COMSIG_ATOM_UPDATE_OVERLAYS)
 
 /*
+	Tutorial variant
+*/
+/obj/item/sticker/sticky_note/tutorial
+
+/obj/item/sticker/sticky_note/tutorial/Initialize(mapload)
+	. = ..()
+	afterattack(loc, loc, TRUE)
+	pixel_y = rand(-8, 8)
+	pixel_x = rand(-8, 8)
+
+/*
 	Dispenser for sticky notes
 */
 /obj/item/sticky_note_pile

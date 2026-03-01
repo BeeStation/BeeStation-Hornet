@@ -33,6 +33,12 @@
 	QDEL_NULL(beaker)
 	return ..()
 
+/obj/machinery/biogenerator/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	context.add_left_click_item_action("Insert Plant", /obj/item/shovel/spade)
+
 /obj/machinery/biogenerator/contents_explosion(severity, target)
 	..()
 	if(beaker)
@@ -328,7 +334,7 @@
 	data["beaker"] = beaker ? TRUE : FALSE
 	data["biomass"] = points
 	data["processing"] = processing
-	if(locate(/obj/item/food/grown) in contents)
+	if(length(mulchables))
 		data["can_process"] = TRUE
 	else
 		data["can_process"] = FALSE

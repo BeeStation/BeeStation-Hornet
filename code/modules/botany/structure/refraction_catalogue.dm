@@ -28,6 +28,12 @@
 	///Inserted disk we're saving data too
 	var/obj/item/disk/plant_disk/disk
 
+/obj/machinery/refraction_catalogue/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	context.add_left_click_item_action("Seedify Produce", /obj/item/food/grown)
+
 /obj/machinery/refraction_catalogue/attackby(obj/item/C, mob/user)
 //Disk
 	if(istype(C, /obj/item/disk/plant_disk) && !disk)

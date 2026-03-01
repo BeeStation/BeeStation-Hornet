@@ -456,3 +456,10 @@
 	title = "Service Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Service"
 	dye_color = DYE_GREEN
+
+/obj/item/book/manual/wiki/hydroponics
+	name = "Botany Field Guide"
+	icon_state ="botany"
+	author = "Yamato"
+	title = "Botany Field Guide"
+	page_link = "User:Racc-Off/botany"

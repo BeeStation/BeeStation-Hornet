@@ -3,7 +3,7 @@
 */
 /obj/item/plant_scanner
 	name = "plant scanner"
-	desc = "A portble device used to scan and analyse plants.\n<span class='notice'>Use in-hand to enable / disable advanced scan.</span>"
+	desc = "A portble device used to scan and analyse plants. Also works on plant trays.\n<span class='notice'>Use in-hand to enable / disable advanced scan.</span>"
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "plant_scanner"
 	inhand_icon_state = "analyzer"
@@ -19,10 +19,17 @@
 /obj/item/plant_scanner/Initialize(mapload)
 	. = ..()
 
+/obj/item/plant_scanner/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	context.add_attack_self_action("[advanced ? "Disable" : "Enable"] /Advanced Scan")
+
 /obj/item/plant_scanner/interact(mob/user)
 	. = ..()
 	advanced = !advanced
 	to_chat(user, span_notice("Advanced scan [advanced ? "enabled" : "disabled"]."))
+	playsound(src, 'sound/effects/fastbeep.ogg', 35)
 
 /obj/item/plant_scanner/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
