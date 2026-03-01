@@ -152,7 +152,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 						greentexters |= C
 
 	for (var/client/C in greentexters)
-		C.process_greentext()
+		C.give_award(/datum/award/achievement/misc/greentext, C.mob)
 
 
 
