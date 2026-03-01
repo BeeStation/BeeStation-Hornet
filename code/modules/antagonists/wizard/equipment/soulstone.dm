@@ -84,7 +84,7 @@
 		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
-			S.icon_state = "shade_angelic"
+			S.icon_state = "shade_holy"
 			S.name = "Purified [S.real_name]"
 
 /obj/item/soulstone/proc/hot_potato(mob/living/user)
