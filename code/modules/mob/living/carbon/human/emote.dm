@@ -195,8 +195,8 @@
 
 /datum/emote/living/carbon/human/wing/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	H.Togglewings()
+	var/mob/living/carbon/carbon_user = user
+	carbon_user.Togglewings()
 
 /datum/emote/living/carbon/human/wing/select_message_type(mob/user, intentional)
 	. = ..()
@@ -210,11 +210,11 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
 		var/obj/item/organ/wings/wings = carbon_user.get_organ_slot(ORGAN_SLOT_WINGS)
-		if(istype(wings) && wings.flight_level >= WINGS_FLYING)
+		if(istype(wings))
 			return TRUE
 	return FALSE
 
-/mob/living/carbon/human/proc/Togglewings()
+/mob/living/carbon/proc/Togglewings()
 	if(!dna || !dna.species)
 		return FALSE
 	var/obj/item/organ/wings/wings = get_organ_slot(ORGAN_SLOT_WINGS)
@@ -224,7 +224,6 @@
 		if(wings.toggleopen(src))
 			return TRUE
 	return FALSE
-
 
 /datum/emote/living/carbon/human/fart
 	key = "fart"
