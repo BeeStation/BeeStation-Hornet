@@ -871,7 +871,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			create_mob_hud()
 
 
-/mob/dead/observer/set_mob_eye(atom/new_eye)
+/mob/dead/observer/set_mob_eye_to(atom/new_eye)
 	. = ..()
 	if(!. || !client)
 		return
@@ -895,7 +895,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/cancel_camera_ghosts()
 	set name = "Cancel Camera View"
 	set category = "Ghost"
-	set_mob_eye(MOB_EYE_SELF)
+	set_mob_eye_to(MOB_EYE_SELF)
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 
 /mob/dead/observer/verb/observe()
@@ -903,7 +903,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	if(observetarget) // stop observing
-		set_mob_eye(MOB_EYE_SELF)
+		set_mob_eye_to(MOB_EYE_SELF)
 		return
 
 	var/list/creatures = getpois()
@@ -919,7 +919,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && ismob(mob_eye))
 		observetarget = mob_eye
-		set_mob_eye(observetarget)
+		set_mob_eye_to(observetarget)
 
 /mob/dead/observer/verb/register_pai_candidate()
 	set category = "Ghost"

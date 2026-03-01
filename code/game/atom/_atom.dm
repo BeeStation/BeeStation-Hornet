@@ -137,14 +137,14 @@
   */
 /atom/Destroy()
 	for(var/mob/each_mob as anything in eye_mobs)
-		each_mob.set_mob_eye(MOB_EYE_SELF)
+		each_mob.set_mob_eye_to(MOB_EYE_SELF)
 	eye_mobs = null
 	for(var/client/each_client as anything in eye_users)
 		eye_users -= each_client
 		if(isnull(each_client.mob))
 			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
 			continue
-		each_client.mob.set_mob_eye(MOB_EYE_SELF)
+		each_client.mob.set_mob_eye_to(MOB_EYE_SELF)
 	eye_users = null
 
 	if (chat_messages)

@@ -4,4 +4,4 @@
 	if(focus == new_focus)
 		return
 	focus = new_focus
-	set_mob_eye(focus) //Maybe this should be done manually? You figure it out, reader
+	set_mob_eye_to(focus) //Maybe this should be done manually? You figure it out, reader

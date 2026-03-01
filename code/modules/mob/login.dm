@@ -59,10 +59,10 @@
 	client.images = list()
 	if(!current_mob_eye) // in case when your mob isn't ready for client eye
 		_on_setting_mob_eye(get_my_eye())
-	// set_client_eye() is important here, because your eye doesn't know if you're using them as your eye
+	// set_client_eye_to() is important here, because your eye doesn't know if you're using them as your eye
 	// FALSE when weakref doesn't exist, to prevent using their current eye
 	client.perspective = EYE_PERSPECTIVE
-	client.set_client_eye(current_mob_eye)
+	client.set_client_eye_to(current_mob_eye)
 	client.set_right_click_menu_mode(shift_to_open_context_menu)
 
 	if(!hud_used)
@@ -103,7 +103,7 @@
 
 	if (key != client.key)
 		key = client.key
-	// set_mob_eye(MOB_EYE_SELF) // DO NOT REVIVE. Bee code works differently.
+	// set_mob_eye_to(MOB_EYE_SELF) // DO NOT REVIVE. Bee code works differently.
 
 	if(loc)
 		loc.on_log(TRUE)

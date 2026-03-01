@@ -119,7 +119,7 @@
 	actions.Cut()
 	for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
 		camerachunk.remove(eyeobj)
-	user.set_mob_eye(MOB_EYE_SELF)
+	user.set_mob_eye_to(MOB_EYE_SELF)
 	if(user.client)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
@@ -224,7 +224,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	if(user.client)
 		if(eyeobj.visible_icon)
 			user.client.images += camera_sprite_for_observers
-		user.set_mob_eye(eyeobj)
+		user.set_mob_eye_to(eyeobj)
 		if(should_supress_view_changes)
 			user.client.view_size.supress()
 		for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
@@ -236,7 +236,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	SIGNAL_HANDLER
 
 	camera_observers -= user
-	user.set_mob_eye(MOB_EYE_SELF)
+	user.set_mob_eye_to(MOB_EYE_SELF)
 	if(user.client)
 		for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
 			camerachunk.single_remove(eyeobj, user.client)
@@ -265,7 +265,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	eyeobj.name = "Camera Eye ([user.name])"
 	RevealCameraMob()
 	user.remote_control = eyeobj
-	user.set_mob_eye(eyeobj)
+	user.set_mob_eye_to(eyeobj)
 	if(should_supress_view_changes )
 		user.client.view_size.supress()
 	eyeobj.setLoc(get_turf(eyeobj)) // This forcefully puts camera noise. I hate this exists here, but necessary.

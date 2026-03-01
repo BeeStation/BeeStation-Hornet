@@ -96,7 +96,7 @@
 			to_chat(user, span_warning("[src]'s indicator light turns red and its brainwave activity alarm beeps softly. Perhaps you should check [newbrain] again."))
 			playsound(src, "sound/weapons/smg_empty_alarm.ogg", 5, TRUE)
 
-		brainmob.set_mob_eye(MOB_EYE_SELF)
+		brainmob.set_mob_eye_to(MOB_EYE_SELF)
 		brain = newbrain
 		brain.organ_flags |= ORGAN_FROZEN
 
@@ -132,7 +132,7 @@
 		brainmob.forceMove(brain) //Throw mob into brain.
 		brainmob.set_stat(DEAD)
 		brainmob.emp_damage = 0
-		brainmob.set_mob_eye(MOB_EYE_SELF) //so the brainmob follows the brain organ instead of the mmi. And to update our vision
+		brainmob.set_mob_eye_to(MOB_EYE_SELF) //so the brainmob follows the brain organ instead of the mmi. And to update our vision
 		brainmob.remove_from_alive_mob_list() //Get outta here
 		brainmob.add_to_dead_mob_list()
 		brain.brainmob = brainmob //Set the brain to use the brainmob

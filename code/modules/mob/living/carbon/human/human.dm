@@ -108,7 +108,7 @@
 		INVOKE_ASYNC(C, TYPE_PROC_REF(/obj/vehicle/sealed/car, RunOver), src)
 	spreadFire(AM)
 
-/mob/living/carbon/human/set_mob_eye(atom/new_eye, force_reset = FALSE)
+/mob/living/carbon/human/set_mob_eye_to(atom/new_eye, force_reset = FALSE)
 	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases
 		update_fullscreen()
 		return

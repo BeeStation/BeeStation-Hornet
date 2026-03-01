@@ -116,7 +116,7 @@
 		A.forceMove(active_dummy.loc)
 		if(ismob(A))
 			var/mob/M = A
-			M.set_mob_eye(MOB_EYE_SELF)
+			M.set_mob_eye_to(MOB_EYE_SELF)
 
 /obj/effect/dummy/chameleon
 	name = ""

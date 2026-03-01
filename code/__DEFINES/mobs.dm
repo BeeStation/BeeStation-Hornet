@@ -699,7 +699,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// Short enough that you can inspect over tables (bartender checking age)
 #define ID_EXAMINE_DISTANCE 3
 
-/// Sets mob eye to themselves. This exists because set_mob_eye(src) is a bad idea.
+/// Sets mob eye to themselves. This exists because set_mob_eye_to(src) is a bad idea.
 #define MOB_EYE_SELF 1
 
 // a janky code that restricts you using these DM flags. No, you shouldn't use these.

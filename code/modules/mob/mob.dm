@@ -39,7 +39,7 @@
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	for(var/mob/dead/observe as anything in observers)
-		observe.set_mob_eye(MOB_EYE_SELF)
+		observe.set_mob_eye_to(MOB_EYE_SELF)
 	qdel(hud_used)
 	for(var/cc in client_colours)
 		qdel(cc)
@@ -494,24 +494,24 @@
 /mob/proc/get_my_eye()
 	return src
 
-/// We do not use this version : use 'set_mob_eye(MOB_EYE_SELF)' proc instead.
+/// We do not use this version : use 'set_mob_eye_to(MOB_EYE_SELF)' proc instead.
 /// This proc still exists to warn coders.
 /mob/proc/reset_perspective()
 	PRIVATE_PROC(TRUE) // NO. DO NOT USE THIS. YOU ARE DOING A PORT WRONG.
 	SHOULD_NOT_OVERRIDE(TRUE)
-	set_mob_eye(MOB_EYE_SELF) // just in case
+	set_mob_eye_to(MOB_EYE_SELF) // just in case
 
 /* 		Instruction of porting:
 Do the things below instead of using reset_perspective()
 ------------------------------------
 /mob/proc/makes_my_eye_different()
-	reset_perspective() => set_mob_eye(MOB_EYE_SELF)
-	reset_perspective(null) => set_mob_eye(MOB_EYE_SELF)
-	reset_perspective(camera) => set_mob_eye(camera)
+	reset_perspective() => set_mob_eye_to(MOB_EYE_SELF)
+	reset_perspective(null) => set_mob_eye_to(MOB_EYE_SELF)
+	reset_perspective(camera) => set_mob_eye_to(camera)
 ------------------------------------*/
 
 /// Makes a mob's eye a thing. Typically, a mob themselves.
-/mob/proc/set_mob_eye(atom/new_eye)
+/mob/proc/set_mob_eye_to(atom/new_eye)
 	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
 	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
 	if(isnull(computer_id)) // "var/lastKnownIP" doesn't work for debug environment
@@ -522,10 +522,10 @@ Do the things below instead of using reset_perspective()
 		client.perspective = EYE_PERSPECTIVE
 
 	if(new_eye == src) // do not use when 'mob == src'
-		stack_trace("The proc received 'new_eye' as src. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye(MOB_EYE_SELF)'")
+		stack_trace("The proc received 'new_eye' as src. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
 		new_eye = get_my_eye()
 	else if(isnull(new_eye))
-		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye(MOB_EYE_SELF)'")
+		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
 		new_eye = get_my_eye()
 	else if(new_eye == MOB_EYE_SELF)
 		new_eye = get_my_eye()
@@ -549,7 +549,7 @@ Do the things below instead of using reset_perspective()
 
 	current_mob_eye = new_eye
 	if(client)
-		client.set_client_eye(current_mob_eye)
+		client.set_client_eye_to(current_mob_eye)
 
 	if(isatom(new_eye))
 		LAZYADD(new_eye.eye_mobs, src)
@@ -956,7 +956,7 @@ Do the things below instead of using reset_perspective()
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
 	set category = "OOC"
-	set_mob_eye(MOB_EYE_SELF)
+	set_mob_eye_to(MOB_EYE_SELF)
 	unset_machine()
 
 //suppress the .click/dblclick macros so people can't use them to identify the location of items or aimbot

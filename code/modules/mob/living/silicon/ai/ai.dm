@@ -898,7 +898,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/get_my_eye()
 	return multicam_on ? GLOB.ai_camera_room_landmark : eyeobj || src
 
-/mob/living/silicon/ai/set_mob_eye(atom/new_eye)
+/mob/living/silicon/ai/set_mob_eye_to(atom/new_eye)
 	. = ..()
 	if(!.)
 		return

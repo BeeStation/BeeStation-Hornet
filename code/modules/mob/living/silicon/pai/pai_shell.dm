@@ -79,7 +79,7 @@
 	if(ispickedupmob(loc))
 		var/obj/item/mob_holder/MH = loc
 		MH.release()
-	set_mob_eye(card)
+	set_mob_eye_to(card)
 	var/turf/T = drop_location()
 	card.forceMove(T)
 	forceMove(card)
@@ -128,7 +128,7 @@
 		return FALSE
 	forceMove(get_turf(card))
 	card.forceMove(src)
-	set_mob_eye(MOB_EYE_SELF)
+	set_mob_eye_to(MOB_EYE_SELF)
 	set_light_on(FALSE)
 	update_appearance(UPDATE_ICON_STATE)
 	visible_message(span_boldnotice("[src] appears in a flash of light!"))
