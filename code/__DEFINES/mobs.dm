@@ -705,3 +705,4 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 // a janky code that restricts you using these DM flags. No, you shouldn't use these.
 #define MOB_PERSPECTIVE you_are_doing_something_wrong()
 #define EDGE_PERSPECTIVE you_are_doing_something_wrong()
+// "EYE_PERSPECTIVE" is the thing we only use.
