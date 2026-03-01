@@ -13,7 +13,7 @@
 
 /datum/quirk/badback/on_process()
 	var/mob/living/carbon/human/H = quirk_target
-	if(H.back && istype(H.back, /obj/item/storage/backpack))
+	if(istype(H.back, /obj/item/storage/backpack))
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "back_pain", /datum/mood_event/back_pain)
 	else
 		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "back_pain")
@@ -221,11 +221,11 @@
 			if(JOB_NAME_SHAFTMINER)
 				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 
-	if(!heirloom_type)
-		heirloom_type = pick(
+	heirloom_type ||= pick(
 		/obj/item/toy/cards/deck,
 		/obj/item/lighter,
-		/obj/item/dice/d20)
+		/obj/item/dice/d20,
+	)
 	heirloom = new heirloom_type(get_turf(quirk_target))
 	var/list/slots = list(
 		"in your left pocket" = ITEM_SLOT_LPOCKET,
