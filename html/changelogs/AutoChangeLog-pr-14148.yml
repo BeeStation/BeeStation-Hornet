@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - config: the repository's dynamic storyteller config is now up to date with the
+      live server
