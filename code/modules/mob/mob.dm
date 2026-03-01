@@ -568,13 +568,13 @@
 	face_atom(examinify)
 
 	// Show nearby mobs that we're examining something
-	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
-		for(var/mob/M in viewers(4, src))
-			if(M == src || !M.client || M.is_blind())
+	if(isliving(src) && stat < UNCONSCIOUS && !istype(examinify, /atom/movable/screen) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/viewer in viewers(4, src))
+			if(viewer == src || !viewer.client || viewer.is_blind())
 				continue
-			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+			if(!viewer.client.prefs?.read_player_preference(/datum/preference/toggle/examine_messages))
 				continue
-			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+			to_chat(viewer, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
 
 	var/list/result = examinify.examine_base(src, TRUE)
 	var/atom_title = examinify.examine_title(src, thats = TRUE)
@@ -596,13 +596,13 @@
 	face_atom(examinify)
 
 	// Show nearby mobs that we're examining something
-	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
-		for(var/mob/M in viewers(4, src))
-			if(M == src || !M.client || M.is_blind())
+	if(isliving(src) && stat < UNCONSCIOUS && !istype(examinify, /atom/movable/screen) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/viewer in viewers(4, src))
+			if(viewer == src || !viewer.client || viewer.is_blind())
 				continue
-			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+			if(!viewer.client.prefs?.read_player_preference(/datum/preference/toggle/examine_messages))
 				continue
-			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+			to_chat(viewer, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
 
 	var/result_combined
 	if(client)
