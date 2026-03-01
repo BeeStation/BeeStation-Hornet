@@ -55,7 +55,7 @@
 	// Lockers
 	if(istype(human_owner.loc, /obj/structure/closet))
 		var/obj/structure/closet/closet = human_owner.loc
-		addtimer(CALLBACK(src, PROC_REF(break_closet), closet), 1)
+		closet.bust_open()
 		closet.visible_message(
 			span_warning("[closet] tears apart as [human_owner] bashes it open from within!"),
 			span_warning("[closet] tears apart as you bash it open from within!")
@@ -89,13 +89,6 @@
 	if(used)
 		check_witnesses()
 	return used
-
-// This is its own proc because its done twice, to repeat code copypaste.
-/datum/action/vampire/targeted/brawn/proc/break_closet(obj/structure/closet/closet)
-	closet.welded = FALSE
-	closet.locked = FALSE
-	closet.broken = TRUE
-	closet.open()
 
 /datum/action/vampire/targeted/brawn/proc/escape_puller()
 	if(!owner.pulledby)
@@ -174,7 +167,7 @@
 			return FALSE
 		target_closet.visible_message(span_danger("[target_closet] breaks open as [carbon_owner] bashes it!"))
 
-		INVOKE_ASYNC(src, PROC_REF(break_closet), target_closet)
+		target_closet.bust_open()
 		playsound(get_turf(carbon_owner), 'sound/effects/grillehit.ogg', 80, TRUE, -1)
 		check_witnesses()
 	// Airlocks
@@ -202,7 +195,7 @@
 			else // If not Brujah then just make the vampire wait a second...
 				carbon_owner.Stun(1 SECONDS)
 
-			carbon_owner.Stun(10)
+			carbon_owner.Stun(1 SECONDS)
 			carbon_owner.do_attack_animation(target_airlock, ATTACK_EFFECT_SMASH)
 			playsound(get_turf(target_airlock), 'sound/effects/bang.ogg', 30, 1, -1)
 			if(brujah && level_current >= 3 && target_airlock.locked)

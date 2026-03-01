@@ -251,12 +251,6 @@
 
 	return TRUE
 
-	// It's a proc cuz we need to call this asynchronously from lifetick
-/datum/antagonist/vampire/proc/provide_clan_selector()
-	if(!is_type_in_list(/datum/action/vampire/clanselect, powers))
-		grant_power(new /datum/action/vampire/clanselect)
-		return
-
 /datum/antagonist/vampire/proc/get_rank_string()
 	switch(vampire_level)
 		if(0 to 1)
@@ -333,3 +327,27 @@
 /datum/antagonist/vampire/proc/free_all_vassals()
 	for(var/datum/antagonist/vassal/all_vassals in vassals)
 		all_vassals.owner.remove_antag_datum(/datum/antagonist/vassal)
+
+/// Checks to see if an entity counts as a "watcher" for a masquerade breach
+/datum/antagonist/vampire/proc/is_masq_watcher(mob/living/watcher, recursion = 1)
+	if(!isliving(watcher) || QDELING(watcher))
+		return FALSE
+	if(!watcher.mind || !watcher.client || watcher.client.is_afk())
+		return FALSE
+	if(HAS_MIND_TRAIT(watcher, TRAIT_VAMPIRE_ALIGNED))
+		return FALSE
+	if((FACTION_VAMPIRE in watcher.faction) || (REF(owner.current) in watcher.faction))
+		return FALSE
+	if(watcher.has_unlimited_silicon_privilege)
+		return FALSE
+	if(watcher.stat != CONSCIOUS)
+		return FALSE
+	if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
+		return FALSE
+	if(watcher in owner.current?.holoparasites())
+		return FALSE
+	if(recursion > 0)
+		var/datum/mind/master = watcher.mind.enslaved_to
+		if(master?.current)
+			return .(master.current, recursion - 1)
+	return TRUE

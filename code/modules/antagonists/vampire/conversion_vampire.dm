@@ -37,8 +37,8 @@
 		return FALSE
 
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(conversion_target)
-	var/mob/living/vassal_master = conversion_target.mind.enslaved_to
-	if((vassaldatum && !vassaldatum.master.broke_masquerade) || (vassal_master && vassal_master != owner.current))
+	var/datum/mind/vassal_master = conversion_target.mind.enslaved_to
+	if((vassaldatum && !vassaldatum.master.broke_masquerade) || (vassal_master && vassal_master != owner))
 		living_vampire.balloon_alert(living_vampire, "enslaved to someone else.")
 		return FALSE
 
@@ -49,7 +49,9 @@
 	return TRUE
 
 /datum/antagonist/vampire/proc/make_vassal(mob/living/conversion_target)
-	if(IS_VASSAL(conversion_target))
+	var/datum/antagonist/vassal/already_vassal = IS_VASSAL(conversion_target)
+	if(already_vassal)
+		already_vassal.silent = TRUE
 		conversion_target.mind.remove_antag_datum(/datum/antagonist/vassal)
 
 	// Set the master, then give the datum.
@@ -57,7 +59,7 @@
 	vassaldatum.master = src
 	conversion_target.mind.add_antag_datum(vassaldatum, ruleset = spawning_ruleset)
 
-	message_admins("[conversion_target] has become a vassal, and is enslaved to [owner.current].")
-	log_objective("[conversion_target] has become a vassal, and is enslaved to [owner.current].")
+	message_admins("[ADMIN_LOOKUPFLW(conversion_target)] has become a vassal, and is enslaved to [ADMIN_LOOKUPFLW(owner.current)].")
+	log_objective("[key_name(conversion_target)] has become a vassal, and is enslaved to [key_name(owner.current)].")
 
 	return TRUE

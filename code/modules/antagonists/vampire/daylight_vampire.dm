@@ -27,73 +27,73 @@
 **/
 /datum/antagonist/vampire/proc/handle_sol()
 	SIGNAL_HANDLER
-	if(!owner?.current)
+	var/mob/living/current = owner.current
+	if(QDELETED(current))
 		return
 
 	// Give Sol debuff if not in a coffin
-	if(!istype(owner.current.loc, /obj/structure/closet/crate/coffin))
-		owner.current.apply_status_effect(/datum/status_effect/vampire_sol)
+	if(!istype(current.loc, /obj/structure/closet/crate/coffin))
+		current.apply_status_effect(/datum/status_effect/vampire_sol)
 	else
 		// Try to remove Sol debuff
-		owner.current.remove_status_effect(/datum/status_effect/vampire_sol)
+		current.remove_status_effect(/datum/status_effect/vampire_sol)
 
 		// Try to enter torpor if we're not in a frenzy or staked
-		if(frenzied)
+		if(current.has_status_effect(/datum/status_effect/frenzy))
 			if(COOLDOWN_FINISHED(src, vampire_spam_sol_burn))
-				to_chat(owner.current, span_userdanger("You are in a frenzy! You cannot enter Torpor until you have enough blood."))
+				to_chat(current, span_userdanger("You are in a frenzy! You cannot enter Torpor until you have enough blood."))
 				COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL)
 			return
 		if(check_if_staked())
 			if(COOLDOWN_FINISHED(src, vampire_spam_sol_burn))
-				to_chat(owner.current, span_userdanger("You are staked! Remove the offending weapon from your heart before sleeping."))
+				to_chat(current, span_userdanger("You are staked! Remove the offending weapon from your heart before sleeping."))
 				COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL)
 			return
 		if(!is_in_torpor())
 			torpor_begin()
-			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
+			SEND_SIGNAL(current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
 			return
 
 	var/shielded = FALSE
 
-	if(istype(owner.current.loc, /obj/structure/closet) || istype(owner.current.loc, /obj/machinery))
+	if(istype(current.loc, /obj/structure/closet) || istype(current.loc, /obj/machinery))
 		shielded = TRUE
 
-	if(IS_IN_STASIS(owner.current))
+	if(IS_IN_STASIS(current))
 		shielded = TRUE
 
-	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
-		if(istype(get_area(owner.current), whereami))
-			shielded = TRUE
-			break
+	if(is_type_in_list(get_area(current) in VAMPIRE_SOL_SHIELDED))
+		shielded = TRUE
 
 	var/sol_burn_calculated = VAMPIRE_SOL_BURN / (min(2, 1 + (humanity / 10)))
 
 	if(shielded)
 		if(current_vitae >= VAMPIRE_SOL_SHIELD_THRESHOLD)
-			AdjustBloodVolume(-sol_burn_calculated / 2)
+			adjust_blood_volume(-sol_burn_calculated / 2)
 		if(shielded != were_shielded)
-			to_chat(owner.current, span_cultbold("This area's shielding affords acceptable safety. <b>Don't worry, blood won't drain below [VAMPIRE_SOL_SHIELD_THRESHOLD].</b>"), type = MESSAGE_TYPE_WARNING)
+			to_chat(current, span_cultbold("This area's shielding affords acceptable safety. <b>Don't worry, blood won't drain below [VAMPIRE_SOL_SHIELD_THRESHOLD].</b>"), type = MESSAGE_TYPE_WARNING)
 	else if(!is_in_torpor())
 		playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
-		AdjustBloodVolume(-sol_burn_calculated)
+		adjust_blood_volume(-sol_burn_calculated)
 		if(shielded != were_shielded)
-			to_chat(owner.current, span_narsiesmall("IT BURNS!"), type = MESSAGE_TYPE_WARNING)
+			to_chat(current, span_narsiesmall("IT BURNS!"), type = MESSAGE_TYPE_WARNING)
 		burn_and_kill()
 
 	were_shielded = shielded
 
 /datum/antagonist/vampire/proc/burn_and_kill()
-	if(!owner?.current)
+	var/mob/living/current = owner.current
+	if(QDELETED(current))
 		return
 	// We can resist it as long as we have blood.
 	if(current_vitae >= 25)
-		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+		current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 	else
 		if(owner.current.stat == CONSCIOUS)
-			owner.current.apply_damage(20, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-			owner.current.emote("scream")
+			current.apply_damage(20, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+			current.emote("scream")
 		else
-			owner.current.apply_damage(50, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+			current.apply_damage(50, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
 	SIGNAL_HANDLER
@@ -153,7 +153,7 @@
 		return
 
 	var/mob/living/carbon/user = owner?.current
-	if(!user)
+	if(QDELETED(user))
 		return
 
 	var/total_brute = user.getBruteLoss()

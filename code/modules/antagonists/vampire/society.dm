@@ -45,17 +45,19 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	prince = TRUE
 
 	for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
-		to_chat(vampire.owner.current, span_narsiesmall("[owner.current] has claimed the role of Prince!"))
+		to_chat(vampire.owner.current, span_narsiesmall("[owner.name] has claimed the role of Prince!"))
 
 	grant_power(new /datum/action/vampire/targeted/scourgify)
 
 	var/datum/objective/vampire/prince/prince_objective = new()
 	objectives += prince_objective
 	owner.announce_objectives()
+	update_static_data_for_all_viewers()
 
-	message_admins("[owner.current] has received the role of Vampire Prince. ([get_princely_score()] princely score, with [my_clan?.princely_score_bonus]/[min(50, owner.current?.client?.get_exp_living(TRUE) / 60) / 10] clan/hour bonus.)")
-	log_game("[owner.current] has become the Vampire Prince. ([get_princely_score()] princely score, with [my_clan?.princely_score_bonus]/[min(50, owner.current?.client?.get_exp_living(TRUE) / 60) / 10] clan/hour bonus.)")
+	message_admins("[ADMIN_LOOKUPFLW(owner.current)] has received the role of Vampire Prince. ([get_princely_score()] princely score, with [my_clan?.princely_score_bonus]/[min(50, owner.current?.client?.get_exp_living(TRUE) / 60) / 10] clan/hour bonus.)")
+	log_game("[key_name(owner.current)] has become the Vampire Prince. ([get_princely_score()] princely score, with [my_clan?.princely_score_bonus]/[min(50, owner.current?.client?.get_exp_living(TRUE) / 60) / 10] clan/hour bonus.)")
 
+	update_static_data_for_all_viewers() // ensure our new objective shows up in the UI immediately if its open
 	tgui_alert(owner.current, "Congratulations, you have been chosen for Princedom.\nPlease note that this entails a certain responsibility. Your job, now, is to keep order, and to enforce the masquerade.", "Welcome, my Prince.", list("I understand"), 30 SECONDS, TRUE)
 
 /**
@@ -74,10 +76,11 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	owner.announce_objectives()
 
 	for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
-		to_chat(vampire.owner.current, span_cultbigbold("Under authority of the Prince, [owner.current] has been raised to the duty of the Scourge!"))
+		to_chat(vampire.owner.current, span_cultbigbold("Under authority of the Prince, [owner.name] has been raised to the duty of the Scourge!"))
 
-	message_admins("[owner.current] has been made a Scourge of the Vampires!")
-	log_game("[owner.current] has become a Scourge of the Vampires.")
+	message_admins("[ADMIN_LOOKUPFLW(owner.current)] has been made a Scourge of the Vampires!")
+	log_game("[key_name(owner.current)] has become a Scourge of the Vampires.")
+	update_static_data_for_all_viewers() // ensure our new objective shows up in the UI immediately if its open
 
 /**
  * Returns the princyness of this vampire.

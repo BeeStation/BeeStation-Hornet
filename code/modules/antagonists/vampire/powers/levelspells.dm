@@ -101,20 +101,23 @@
 	. = ..()
 	var/mob/living/living_target = target_atom
 
-	if(IS_VASSAL(living_target)) // We don't need to ask a lowly vassal.
+	var/datum/antagonist/vassal/vassal_target = IS_VASSAL(living_target)
+	if(vassal_target) // We don't need to ask a lowly vassal.
+		var/datum/vampire_clan/masterclan_type = vampiredatum_power.my_clan.type
+		if(!masterclan_type) // How did a caitiff get prince, bro. Select a clan first at least...
+			owner.balloon_alert(owner, "select clan first!")
+			deactivate_power()
+			return
+
+		vassal_target.silent = TRUE // so we don't get the annoying deconversion message
 		living_target.mind.remove_antag_datum(/datum/antagonist/vassal)
 
 		// Make, then give the datum
 		var/datum/antagonist/vampire/scourgedatum = new(living_target.mind)
+		scourgedatum.should_forge_objectives = FALSE // they only get the scourge objective
 		living_target.mind.add_antag_datum(scourgedatum)
 
 		// Pull them into our clan
-		var/datum/vampire_clan/masterclan_type = vampiredatum_power.my_clan.type
-
-		if(!masterclan_type) // How did a caitiff get prince, bro. Fine.
-			owner.balloon_alert(owner, "select clan first!")
-			deactivate_power()
-
 		scourgedatum.my_clan = new masterclan_type(scourgedatum)
 		scourgedatum.my_clan.on_apply()
 
@@ -126,12 +129,12 @@
 		target_ref = WEAKREF(IS_VAMPIRE(living_target))
 
 		tgui_alert_async(living_target,
-		message = "Your Prince has selected you as their enforcer. Should you accept, you will receive the rank of 'Scourge', be bound to their authority, and increase in power considerably.",
-		title = "Scourge Offer",
-		buttons = list("Accept", "Refuse"),
-		callback = CALLBACK(src, PROC_REF(handle_choice)),
-		timeout = cooldown_time - 5 SECONDS,
-		autofocus = TRUE
+			message = "Your Prince has selected you as their enforcer. Should you accept, you will receive the rank of 'Scourge', be bound to their authority, and increase in power considerably.",
+			title = "Scourge Offer",
+			buttons = list("Accept", "Refuse"),
+			callback = CALLBACK(src, PROC_REF(handle_choice)),
+			timeout = cooldown_time - 5 SECONDS,
+			autofocus = TRUE
 		)
 
 	addtimer(CALLBACK(src, PROC_REF(choice_timeout)), cooldown_time)

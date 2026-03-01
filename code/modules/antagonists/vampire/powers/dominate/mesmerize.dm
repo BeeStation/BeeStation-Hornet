@@ -95,7 +95,7 @@
 		return FALSE
 
 	// Already mesmerized?
-	if(HAS_TRAIT_FROM(living_target, TRAIT_MUTE, TRAIT_MESMERIZED))
+	if(living_target.has_status_effect(/datum/status_effect/mesmerized))
 		owner.balloon_alert(owner, "[living_target] is already in a hypnotic gaze.")
 		return FALSE
 
@@ -121,14 +121,8 @@
 
 	//Actually mesmerize them now
 	var/power_time = 9 SECONDS + level_current * 1.5 SECONDS
-
-	if(level_current >= 2)
-		ADD_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
-
-	living_target.Immobilize(power_time)
-	living_target.next_move = world.time + power_time // <--- Use direct change instead. We want an unmodified delay to their next move
-	living_target.notransform = TRUE // <--- Fuck it. We tried using next_move, but they could STILL resist. We're just doing a hard freeze.
-	addtimer(CALLBACK(src, PROC_REF(end_mesmerize), living_target), power_time)
+	var/should_mute = level_current >= 2
+	living_target.apply_status_effect(/datum/status_effect/mesmerized, owner, power_time, should_mute)
 
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 
@@ -148,11 +142,40 @@
 	. = ..()
 	target_ref = null
 
-/datum/action/vampire/targeted/mesmerize/proc/end_mesmerize(mob/living/living_target)
-	living_target.notransform = FALSE
-	REMOVE_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
+/datum/status_effect/mesmerized
+	id = "mesmerized"
+	duration = 15 SECONDS
+	tick_interval = STATUS_EFFECT_NO_TICK
+	alert_type = null
+	/// The mob that mesmerized the victim.
+	var/mob/living/caster
+	/// Traits given to the mesmerized victim.
+	var/list/mesmerized_traits = list(
+		TRAIT_HANDS_BLOCKED,
+		TRAIT_IMMOBILIZED,
+		TRAIT_INCAPACITATED,
+	)
 
-	to_chat(living_target, span_hypnophrase("With the spell waning, so does your memory of being mesmerized."), type = MESSAGE_TYPE_WARNING)
+/datum/status_effect/mesmerized/Destroy()
+	. = ..()
+	caster = null
 
-	if (living_target in view(6, get_turf(owner)))
-		living_target.balloon_alert(owner, "snapped out of [living_target.p_their()] trance!")
+/datum/status_effect/mesmerized/on_creation(mob/living/new_owner, mob/living/caster, duration, should_mute)
+	src.caster = caster
+	src.duration = duration
+	if(should_mute)
+		mesmerized_traits += TRAIT_MUTE
+	return ..()
+
+/datum/status_effect/mesmerized/on_apply()
+	owner.add_client_colour(/datum/client_colour/glass_colour/pink)
+	owner.add_traits(mesmerized_traits, TRAIT_STATUS_EFFECT(id))
+	to_chat(owner, span_awe("[caster]'s eyes glitter so beautifully... You're mesmerized!"), type = MESSAGE_TYPE_COMBAT)
+	return TRUE
+
+/datum/status_effect/mesmerized/on_remove()
+	owner.remove_client_colour(/datum/client_colour/glass_colour/pink)
+	owner.remove_traits(mesmerized_traits, TRAIT_STATUS_EFFECT(id))
+	to_chat(owner, span_awe(span_big("With the spell waning, so does your memory of being mesmerized.")), type = MESSAGE_TYPE_COMBAT)
+	if(caster in view(6, get_turf(owner)))
+		owner.balloon_alert(caster, "snapped out of [owner.p_their()] trance!")

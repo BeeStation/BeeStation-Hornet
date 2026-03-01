@@ -30,7 +30,7 @@
 		owner.balloon_alert(owner, "[carbon_target] is mindless.")
 		return FALSE
 
-	if(IS_VAMPIRE(carbon_target) || IS_VASSAL(carbon_target) || IS_CURATOR(carbon_target))
+	if(HAS_MIND_TRAIT(carbon_target, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(carbon_target))
 		owner.balloon_alert(owner, "immune to your presence.")
 		return FALSE
 
@@ -69,16 +69,14 @@
 /datum/status_effect/entranced/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
-	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/entranced)
 	owner.set_jitter_if_lower(duration)
 	owner.add_client_colour(/datum/client_colour/glass_colour/pink)
 	return TRUE
 
 /datum/status_effect/entranced/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/entranced)
 	owner.remove_client_colour(/datum/client_colour/glass_colour/pink)
 	to_chat(owner, span_awe("Your mind clears and you regain your focus."))

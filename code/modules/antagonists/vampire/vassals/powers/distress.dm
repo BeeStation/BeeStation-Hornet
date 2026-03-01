@@ -14,7 +14,7 @@
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(owner)
 
 	owner.balloon_alert(owner, "you call out for your master!")
-	to_chat(vassaldatum.master.owner, span_userdanger("[owner], your loyal vassal, is desperately calling for aid at [get_area(owner)]!"))
+	to_chat(vassaldatum.master.owner, span_userdanger("[owner.name], your loyal vassal, is desperately calling for aid at [get_area(owner)]!"))
 
 	var/mob/living/living_owner = owner
 	living_owner.adjustBruteLoss(10)

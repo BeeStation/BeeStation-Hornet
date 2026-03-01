@@ -1,5 +1,5 @@
 /// Runs from COMSIG_LIVING_LIFE, handles Vampire constant processes.
-/datum/antagonist/vampire/proc/LifeTick(delta_time, times_fired)
+/datum/antagonist/vampire/proc/life_tick(delta_time, times_fired)
 	SIGNAL_HANDLER
 
 	// Weirdness shield
@@ -9,44 +9,49 @@
 		INVOKE_ASYNC(src, PROC_REF(handle_death))
 		return
 
+	var/mob/living/current = owner.current
+	if(QDELETED(current))
+		return
+
 	// Handle Torpor
 	if(is_in_torpor())
 		check_end_torpor()
 
 	// Deduct Blood
-	if(owner.current.stat == CONSCIOUS && !HAS_TRAIT(owner.current, TRAIT_IMMOBILIZED) && !HAS_TRAIT(owner.current, TRAIT_NODEATH))
-		INVOKE_ASYNC(src, PROC_REF(AdjustBloodVolume), -VAMPIRE_PASSIVE_BLOOD_DRAIN)
+	if(current.stat == CONSCIOUS && !HAS_TRAIT(current, TRAIT_IMMOBILIZED) && !HAS_TRAIT(current, TRAIT_NODEATH))
+		adjust_blood_volume(-VAMPIRE_PASSIVE_BLOOD_DRAIN)
 
 	// Healing
-	if(handle_healing() && !istype(owner, /mob/living/simple_animal/hostile))
+	if(handle_healing() && !istype(current, /mob/living/simple_animal/hostile))
 		if((COOLDOWN_FINISHED(src, vampire_spam_healing)) && current_vitae > 0)
 			to_chat(owner.current, span_notice("The power of your blood knits your wounds..."))
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
 
-	var/area/current_area = get_area(owner.current)
+	var/area/current_area = get_area(current)
 	if(istype(current_area, /area/chapel) && humanity <= 2)
 		to_chat(owner, span_warning("Your inhuman nature is rejected by a holy presence!"))
-		owner.current.adjustFireLoss(10)
-		owner.current.adjust_fire_stacks(4)
-		owner.current.ignite_mob()
+		current.adjustFireLoss(10)
+		current.adjust_fire_stacks(4)
+		current.ignite_mob()
 
 	// Standard Updates
 
 	// Clan specific stuff
 	if(my_clan)
-		INVOKE_ASYNC(my_clan, TYPE_PROC_REF(/datum/vampire_clan, handle_clan_life))
-	else
-		INVOKE_ASYNC(src, PROC_REF(provide_clan_selector))
+		my_clan.handle_clan_life()
+	else if(!(locate(/datum/action/vampire/clanselect) in powers))
+		grant_power(new /datum/action/vampire/clanselect)
 
 	// Handle blood
-	INVOKE_ASYNC(src, PROC_REF(handle_blood), delta_time)
+	handle_blood(delta_time)
 
 	// Check for Final Death
-	INVOKE_ASYNC(src, PROC_REF(check_final_death))
+	if(check_final_death())
+		return
 
 	// Set our body's blood_volume to mimick our vampire one (if we aren't using the Masquerade power)
-	INVOKE_ASYNC(src, PROC_REF(update_blood))
-	INVOKE_ASYNC(src, PROC_REF(update_hud))
+	update_blood()
+	update_hud()
 
 /**
  * Assuming you aren't Masquerading and your species has blood
@@ -64,7 +69,7 @@
 /**
  * Pretty simple, add a value to the vampire's blood volume
 **/
-/datum/antagonist/vampire/proc/AdjustBloodVolume(value)
+/datum/antagonist/vampire/proc/adjust_blood_volume(value)
 	current_vitae = clamp(current_vitae + value, 0, max_vitae)
 
 /**
@@ -135,7 +140,7 @@
 	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
 		var/vitaecost = (brute_heal * 0.5 + burn_heal) * vitaecost_multiplier * healing_multiplier
 		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
-		AdjustBloodVolume(-vitaecost)
+		adjust_blood_volume(-vitaecost)
 		return TRUE
 
 	// Revive them if dead and there is no damage left to heal, just in case we are not in torpor because of some wackyness.
@@ -155,7 +160,7 @@
 		return FALSE
 	for(var/missing_limb in missing) //Find ONE Limb and regenerate it.
 		carbon_owner.regenerate_limb(missing_limb, FALSE)
-		AdjustBloodVolume(-limb_regen_cost)
+		adjust_blood_volume(-limb_regen_cost)
 		var/obj/item/bodypart/missing_bodypart = carbon_owner.get_bodypart(missing_limb)
 		missing_bodypart.brute_dam = 60
 		to_chat(carbon_owner, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
@@ -279,12 +284,14 @@
 
 /datum/antagonist/vampire/proc/check_final_death()
 	if(owner.current.stat <= UNCONSCIOUS)
-		return
+		return FALSE
 
 	// Fire Damage? (above double health)
 	if(owner.current.getFireLoss() >= (owner.current.maxHealth * 2.5))
 		final_death()
-		return
+		return TRUE
+
+	return FALSE
 
 /// dust
 /datum/antagonist/vampire/proc/final_death(skip_destruction = FALSE)

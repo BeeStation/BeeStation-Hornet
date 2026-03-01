@@ -24,7 +24,7 @@
 	. = ..()
 	to_chat(owner, span_notice("You withdraw your supernatural presence."), type = MESSAGE_TYPE_INFO)
 
-/datum/action/vampire/awe/UsePower()
+/datum/action/vampire/awe/use_power()
 	. = ..()
 	for(var/mob/living/victim in oviewers(aura, owner))
 		if(!can_affect(victim))
@@ -45,7 +45,7 @@
 		return FALSE
 	if(victim.is_blind() || HAS_TRAIT(victim, TRAIT_NEARSIGHT))
 		return FALSE
-	if(IS_VAMPIRE(victim) || IS_VASSAL(victim) || IS_CURATOR(victim))
+	if(HAS_MIND_TRAIT(victim, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(victim))
 		return FALSE
 	return TRUE
 

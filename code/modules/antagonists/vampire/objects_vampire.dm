@@ -168,7 +168,7 @@
 
 /// Attempt Unbuckle
 /obj/structure/vampire/vassalrack/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
-	if(IS_VAMPIRE(user) || IS_VASSAL(user))
+	if(HAS_MIND_TRAIT(user, TRAIT_VAMPIRE_ALIGNED))
 		return ..()
 
 	if(buckled_mob == user)
@@ -253,14 +253,14 @@
 
 		is_torturing = TRUE
 		living_target.Paralyze(1 SECONDS)
-		vampiredatum.AdjustBloodVolume(-TORTURE_BLOOD_HALF_COST)
+		vampiredatum.adjust_blood_volume(-TORTURE_BLOOD_HALF_COST)
 
 		if(!do_torture(living_vampire, living_target, held_item))
 			is_torturing = FALSE
 			return
 		is_torturing = FALSE
 
-		vampiredatum.AdjustBloodVolume(-TORTURE_BLOOD_HALF_COST)
+		vampiredatum.adjust_blood_volume(-TORTURE_BLOOD_HALF_COST)
 		convert_progress--
 
 		if(convert_progress > 0)
@@ -285,7 +285,7 @@
 			return
 
 		// Make our target into a vassal
-		vampiredatum.AdjustBloodVolume(-TORTURE_CONVERSION_COST)
+		vampiredatum.adjust_blood_volume(-TORTURE_CONVERSION_COST)
 		vampiredatum.make_vassal(living_target)
 
 		// Find Mind Implant & Destroy
@@ -307,7 +307,7 @@
 
 		var/obj/item/bodypart/selected_bodypart = pick(target.bodyparts)
 		target.visible_message(
-			span_danger("[user] performs a ritual, spilling some of [target]'s blood from their [selected_bodypart.name]!"),
+			span_danger("[user] performs a ritual, spilling some of [target]'s blood from [target.p_their()] [selected_bodypart.name]!"),
 			span_userdanger("[user] performs a ritual, spilling some blood from your [selected_bodypart.name]!"))
 
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "scream")
@@ -325,7 +325,7 @@
 		return FALSE
 	vassilization_offered = TRUE
 
-	to_chat(user, span_notice("[target] has been given the opportunity for servitude. You await their decision..."))
+	to_chat(user, span_notice("[target] has been given the opportunity for servitude. You await [target.p_their()] decision..."))
 	var/alert_response = tgui_alert(
 		user = target, \
 		message = "You are being tortured! Do you want to give in and pledge your undying loyalty to [user]? \n\
@@ -381,7 +381,7 @@
 /obj/structure/vampire/candelabrum/attack_hand(mob/living/user, list/modifiers)
 	if(!..())
 		return
-	if(anchored && (IS_VASSAL(user) || IS_VAMPIRE(user)))
+	if(anchored && (HAS_MIND_TRAIT(user, TRAIT_VAMPIRE_ALIGNED)))
 		toggle()
 	return ..()
 
@@ -402,9 +402,9 @@
 		return
 	for(var/mob/living/carbon/nearby_people in viewers(7, src))
 		/// We don't want vampires or vassals affected by this
-		if(IS_VASSAL(nearby_people) || IS_VAMPIRE(nearby_people) || IS_CURATOR(nearby_people))
+		if(HAS_MIND_TRAIT(nearby_people, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(nearby_people))
 			continue
-		nearby_people.adjust_hallucinations(10 SECONDS)
+		nearby_people.set_hallucinations_if_lower(10 SECONDS)
 		SEND_SIGNAL(nearby_people, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
 
 /// Blood Throne - Allows Vampires to remotely speak with their vassals. - Code (Mostly) stolen from comfy chairs (armrests) and chairs (layers)

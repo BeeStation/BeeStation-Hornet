@@ -24,7 +24,7 @@
 
 // WIN CONDITIONS?
 /datum/objective/vampire/ego/lair/check_completion()
-	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
+	var/datum/antagonist/vampire/vampire_datum = owner.has_antag_datum(/datum/antagonist/vampire)
 	if(!vampire_datum)
 		return FALSE
 
@@ -61,9 +61,9 @@
 	return ..()
 
 /datum/objective/vampire/ego/department_vassal/proc/get_vassal_occupations()
-	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
+	var/datum/antagonist/vampire/vampire_datum = owner.has_antag_datum(/datum/antagonist/vampire)
 	if(!length(vampire_datum?.vassals))
-		return FALSE
+		return null
 
 	var/list/all_vassal_jobs = list()
 	for(var/datum/antagonist/vassal/vassal_datum in vampire_datum.vassals)
@@ -111,7 +111,7 @@
 
 // WIN CONDITIONS?
 /datum/objective/vampire/ego/bigplaces/check_completion()
-	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
+	var/datum/antagonist/vampire/vampire_datum = owner.has_antag_datum(/datum/antagonist/vampire)
 	if(!vampire_datum)
 		return FALSE
 
@@ -145,7 +145,7 @@
 	explanation_text = "[initial(explanation_text)] Keep [target_amount] organic hearts close at hand. They shall be symbols of your dominion."
 
 /datum/objective/vampire/hedonism/heartthief/check_completion()
-	if(!owner.current)
+	if(QDELETED(owner.current))
 		return FALSE
 
 	var/list/all_items = owner.current.get_contents()
@@ -175,9 +175,7 @@
 	explanation_text = "[initial(explanation_text)] Consume at least [target_amount] units of blood to sate your ravenous thirst."
 
 /datum/objective/vampire/hedonism/gourmand/check_completion()
-	if(!owner?.current?.mind)
-		return FALSE
-	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/vampiredatum = owner.has_antag_datum(/datum/antagonist/vampire)
 	if(!vampiredatum)
 		return FALSE
 	var/stolen_blood = vampiredatum.total_blood_drank
@@ -196,9 +194,7 @@
 	explanation_text = "[initial(explanation_text)] Drain a mortal completely, letting their lifeblood become your sustenance and their body fall cold and spent."
 
 /datum/objective/vampire/hedonism/thirster/check_completion()
-	if(!owner?.current?.mind)
-		return FALSE
-	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/vampiredatum = owner.has_antag_datum(/datum/antagonist/vampire)
 	if(!vampiredatum)
 		return FALSE
 
@@ -223,5 +219,6 @@
 	explanation_text = "You crave the blood of your sire! Obey and protect them at all costs!"
 
 /datum/objective/vampire/vassal/check_completion()
-	var/datum/antagonist/vassal/vassal_datum = IS_VASSAL(owner.current)
-	return vassal_datum.master?.owner?.current?.stat != DEAD
+	var/datum/antagonist/vassal/vassal_datum = owner.has_antag_datum(/datum/antagonist/vassal)
+	var/mob/living/master = vassal_datum.master?.owner?.current
+	return !QDELETED(master) && master.stat != DEAD

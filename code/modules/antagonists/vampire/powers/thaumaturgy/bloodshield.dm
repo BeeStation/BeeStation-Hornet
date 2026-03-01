@@ -34,8 +34,7 @@
 /datum/action/vampire/bloodshield/deactivate_power()
 	. = ..()
 	to_chat(owner, span_notice("Blood shield couldn't be activated as your off hand is full."))
-	if(blood_shield)
-		QDEL_NULL(blood_shield)
+	QDEL_NULL(blood_shield)
 
 /**
  *	# Blood Shield
@@ -57,5 +56,5 @@
 
 /obj/item/shield/vampire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/datum/antagonist/vampire/vampire = IS_VAMPIRE(owner)
-	vampire?.AdjustBloodVolume(-15)
+	vampire?.adjust_blood_volume(-15)
 	return ..()

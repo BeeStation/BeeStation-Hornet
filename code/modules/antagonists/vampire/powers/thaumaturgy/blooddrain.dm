@@ -26,7 +26,8 @@
 
 	var/obj/projectile/magic/blood_drain/drain = new(living_owner.loc)
 	drain.firer = living_owner
-	drain.fired_from = src
+	drain.fired_from = living_owner
+	drain.original = target_atom
 	drain.def_zone = ran_zone(living_owner.get_combat_bodyzone())
 	drain.preparePixelProjectile(target_atom, living_owner)
 	INVOKE_ASYNC(drain, TYPE_PROC_REF(/obj/projectile, fire))
@@ -89,13 +90,20 @@
 	. = ..()
 
 /datum/status_effect/blood_drain/on_apply()
-	. = ..()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/life_drain)
+	return TRUE
 
 /datum/status_effect/blood_drain/on_remove()
-	. = ..()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/life_drain)
-	end_drain()
+	if(spell)
+		spell.active_effect = null
+		spell.deactivate_power()
+		spell.start_cooldown()
+		spell = null
+	if(!QDELETED(drain_beam))
+		qdel(drain_beam)
+	drain_beam = null
+	vampire = null
 
 /datum/status_effect/blood_drain/tick()
 	if(!iscarbon(owner) || owner.stat > HARD_CRIT) //If they're dead or non-humanoid, this spell fails
@@ -125,11 +133,5 @@
 
 /datum/status_effect/blood_drain/proc/end_drain()
 	SIGNAL_HANDLER
-	spell.active_effect = null
-	spell.deactivate_power()
-	spell.start_cooldown()
-	if(QDELING(src))
-		return
-	if(!QDELETED(drain_beam))
-		QDEL_NULL(drain_beam)
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)

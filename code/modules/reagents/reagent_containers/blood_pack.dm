@@ -116,19 +116,19 @@
 
 	if(victim != attacker)
 		attacker.visible_message(
-			span_notice("[attacker] puts the [src] up to [victim]'s mouth."),
-			span_notice("You put the [src] up to [victim]'s mouth."))
+			span_notice("[attacker] puts \the [src] up to [victim]'s mouth."),
+			span_notice("You put \the [src] up to [victim]'s mouth."))
 		if(!do_after(attacker, 5 SECONDS, victim))
 			return
 		attacker.visible_message(
-			span_notice("[attacker] forces [victim] to drink from the [src]."),
-			span_notice("You force [victim] to drink from the [src]."))
+			span_notice("[attacker] forces [victim] to drink from \the [src]."),
+			span_notice("You force [victim] to drink from \the [src]."))
 
 		reagents.trans_to(victim, to_feed, transfered_by = attacker, method = INGEST)
 
 		// I would add more flavor, but I don't want to make this an antag check
 		if(vampiredatum?.my_clan?.blood_drink_type != VAMPIRE_DRINK_SNOBBY)
-			vampiredatum?.AdjustBloodVolume(to_feed / 4)
+			vampiredatum?.adjust_blood_volume(to_feed / 4)
 		playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
 		return TRUE
 
@@ -137,18 +137,18 @@
 		return TRUE
 
 	attacker.visible_message(
-			span_notice("[victim] puts the [src] up to their mouth."),
-			span_notice("You put the [src] up to your mouth."))
+			span_notice("[victim] puts \the [src] up to [victim.p_their()] mouth."),
+			span_notice("You put \the [src] up to your mouth."))
 
 	if(!do_after(victim, 5 SECONDS, attacker, timed_action_flags = IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_drink), victim, attacker)))
 		return
 
 	victim.visible_message(
-		span_notice("[victim] sucks the contents out of the [src]!"),
-		span_notice("You feed from the [src]."))
+		span_notice("[victim] sucks the contents out of \the [src]!"),
+		span_notice("You feed from \the [src]."))
 
 	reagents.trans_to(victim, to_feed, transfered_by = attacker, method = INGEST)
-	vampiredatum?.AdjustBloodVolume(to_feed / 4)
+	vampiredatum?.adjust_blood_volume(to_feed / 4)
 	playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
 
 	return TRUE
@@ -156,7 +156,7 @@
 /obj/item/reagent_containers/blood/proc/can_drink(mob/living/victim, mob/living/attacker)
 	if(!canconsume(victim, attacker))
 		return FALSE
-	if(!reagents || !reagents.total_volume)
+	if(!reagents?.total_volume)
 		to_chat(victim, span_warning("[src] is empty!"))
 		return FALSE
 	return TRUE
