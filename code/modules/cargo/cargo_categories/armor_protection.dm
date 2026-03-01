@@ -44,6 +44,32 @@
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 
+/datum/cargo_item/armor_body/swat_suit
+	name = "SWAT Suit"
+	item_path = /obj/item/clothing/suit/space/swat
+	cost = 2000
+	max_supply = 2
+	access = ACCESS_ARMORY
+	access_budget = ACCESS_ARMORY
+
+/datum/cargo_item/armor_body/combat_gloves
+	name = "Combat Gloves"
+	item_path = /obj/item/clothing/gloves/tackler/combat
+	cost = 600
+	max_supply = 4
+	small_item = TRUE
+	access = ACCESS_ARMORY
+	access_budget = ACCESS_ARMORY
+
+/datum/cargo_item/armor_body/assault_belt
+	name = "Assault Belt"
+	item_path = /obj/item/storage/belt/military/assault
+	cost = 700
+	max_supply = 4
+	small_item = TRUE
+	access = ACCESS_ARMORY
+	access_budget = ACCESS_ARMORY
+
 // =============================================================================
 // HELMETS & SHIELDS
 // =============================================================================
@@ -69,6 +95,15 @@
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 
+/datum/cargo_item/armor_head/swat_helmet
+	name = "SWAT Helmet"
+	item_path = /obj/item/clothing/head/helmet/swat/nanotrasen
+	cost = 1200
+	max_supply = 2
+	small_item = TRUE
+	access = ACCESS_ARMORY
+	access_budget = ACCESS_ARMORY
+
 /datum/cargo_item/armor_head/justice_helmet
 	name = "Justice Helmet"
 	item_path = /obj/item/clothing/head/helmet/toggleable/justice
@@ -84,38 +119,30 @@
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 
-/datum/cargo_item/armor_head/barrier
+// =============================================================================
+// FORTIFICATIONS & DEPLOYABLES
+// =============================================================================
+
+/datum/cargo_item/armor_deploy
+	category = "Armor & Protection"
+	subcategory = "Fortifications & Deployables"
+	access_budget = ACCESS_SECURITY
+
+/datum/cargo_item/armor_deploy/barrier
 	name = "Security Barrier"
 	item_path = /obj/item/security_barricade
 	cost = 200
 	max_supply = 10
 	small_item = TRUE
 
-/datum/cargo_item/armor_head/wall_flash_box
+/datum/cargo_item/armor_deploy/wall_flash_box
 	name = "Wall Flash Unit"
 	item_path = /obj/item/storage/box/wall_flash
 	cost = 350
 	max_supply = 6
 	small_item = TRUE
 
-/datum/cargo_item/armor_head/exileimp_box
-	name = "Exile Implant Kit"
-	item_path = /obj/item/storage/box/exileimp
-	cost = 2500
-	max_supply = 1
-	small_item = TRUE
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/armor_head/mindshield_lockbox
-	name = "Mindshield Implant Lockbox"
-	item_path = /obj/item/storage/lockbox/loyalty
-	cost = 3500
-	max_supply = 2
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/armor_head/barricade_capsule
+/datum/cargo_item/armor_deploy/barricade_capsule
 	name = "Barricade Capsule"
 	item_path = /obj/item/survivalcapsule/barricade
 	cost = 1200
@@ -124,7 +151,7 @@
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 
-/datum/cargo_item/armor_head/checkpoint_capsule
+/datum/cargo_item/armor_deploy/checkpoint_capsule
 	name = "Checkpoint Capsule"
 	item_path = /obj/item/survivalcapsule/capsule_checkpoint
 	cost = 1500
@@ -133,7 +160,7 @@
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 
-/datum/cargo_item/armor_head/bluespace_anchor
+/datum/cargo_item/armor_deploy/bluespace_anchor
 	name = "Bluespace Anchor"
 	item_path = /obj/item/bluespace_anchor
 	cost = 3000
@@ -262,6 +289,15 @@
 	small_item = TRUE
 	access_budget = ACCESS_SECURITY
 
+/datum/cargo_item/armor_hazard/swat_mask
+	name = "SWAT Gas Mask"
+	item_path = /obj/item/clothing/mask/gas/sechailer/swat
+	cost = 500
+	max_supply = 4
+	small_item = TRUE
+	access = ACCESS_ARMORY
+	access_budget = ACCESS_ARMORY
+
 // =============================================================================
 // ARMOR & PROTECTION CRATES
 // =============================================================================
@@ -272,49 +308,6 @@
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 	crate_type = /obj/structure/closet/crate/secure/weapon
-
-/datum/cargo_crate/armor/swat
-	name = "SWAT Equipment Crate"
-	desc = "Contains two full sets of SWAT gear: helmets, suits, masks, belts, and gloves."
-	cost = 10000
-	max_supply = 1
-	contains = list(
-		/obj/item/clothing/head/helmet/swat/nanotrasen,
-		/obj/item/clothing/head/helmet/swat/nanotrasen,
-		/obj/item/clothing/suit/space/swat,
-		/obj/item/clothing/suit/space/swat,
-		/obj/item/clothing/mask/gas/sechailer/swat,
-		/obj/item/clothing/mask/gas/sechailer/swat,
-		/obj/item/storage/belt/military/assault,
-		/obj/item/storage/belt/military/assault,
-		/obj/item/clothing/gloves/tackler/combat,
-		/obj/item/clothing/gloves/tackler/combat,
-	)
-
-/datum/cargo_crate/armor/implants
-	name = "Chemical Implant Kit"
-	cost = 2000
-	max_supply = 2
-	small_item = TRUE
-	contains = list(/obj/item/storage/box/chemimp)
-
-/datum/cargo_crate/armor/exileimp
-	name = "Exile Implant Kit"
-	cost = 2500
-	max_supply = 1
-	contains = list(/obj/item/storage/box/exileimp)
-
-/datum/cargo_crate/armor/mindshield
-	name = "Mindshield Implant Lockbox"
-	cost = 3500
-	max_supply = 2
-	contains = list(/obj/item/storage/lockbox/loyalty)
-
-/datum/cargo_crate/armor/bluespace_anchor
-	name = "Bluespace Anchor"
-	cost = 3000
-	max_supply = 1
-	contains = list(/obj/item/bluespace_anchor)
 
 // --- Contraband Armor ---
 

@@ -103,6 +103,64 @@
 	small_item = TRUE
 
 // =============================================================================
+// IMPLANTS
+// =============================================================================
+
+/datum/cargo_item/medical_implants
+	category = "Medical Supplies"
+	subcategory = "Implants"
+	access_budget = ACCESS_MEDICAL
+
+/datum/cargo_item/medical_implants/chem_implant_case
+	name = "Chemical Implant Case"
+	item_path = /obj/item/implantcase/chem
+	cost = 300
+	max_supply = 10
+	small_item = TRUE
+
+/datum/cargo_item/medical_implants/exile_implant_case
+	name = "Exile Implant Case"
+	item_path = /obj/item/implantcase/exile
+	cost = 500
+	max_supply = 5
+	small_item = TRUE
+	access = ACCESS_ARMORY
+	access_budget = ACCESS_ARMORY
+
+// =============================================================================
+// IMPLANT KITS
+// =============================================================================
+
+/datum/cargo_item/medical_implant_kits
+	category = "Medical Supplies"
+	subcategory = "Implant Kits"
+
+/datum/cargo_item/medical_implant_kits/chemimp_kit
+	name = "Chemical Implant Kit"
+	item_path = /obj/item/storage/box/chemimp
+	cost = 1500
+	max_supply = 3
+	small_item = TRUE
+	access_budget = ACCESS_MEDICAL
+
+/datum/cargo_item/medical_implant_kits/exileimp_kit
+	name = "Exile Implant Kit"
+	item_path = /obj/item/storage/box/exileimp
+	cost = 2500
+	max_supply = 2
+	small_item = TRUE
+	access = ACCESS_ARMORY
+	access_budget = ACCESS_ARMORY
+
+/datum/cargo_item/medical_implant_kits/mindshield_lockbox
+	name = "Mindshield Implant Lockbox"
+	item_path = /obj/item/storage/lockbox/loyalty
+	cost = 3500
+	max_supply = 2
+	access = ACCESS_ARMORY
+	access_budget = ACCESS_ARMORY
+
+// =============================================================================
 // MEDICAL EQUIPMENT
 // =============================================================================
 
@@ -148,6 +206,20 @@
 	item_path = /obj/item/survivalcapsule/medical
 	cost = 1500
 	max_supply = 2
+	small_item = TRUE
+
+/datum/cargo_item/medical_equip/implanter
+	name = "Implanter"
+	item_path = /obj/item/implanter
+	cost = 200
+	max_supply = 5
+	small_item = TRUE
+
+/datum/cargo_item/medical_equip/implantpad
+	name = "Implant Pad"
+	item_path = /obj/item/implantpad
+	cost = 200
+	max_supply = 3
 	small_item = TRUE
 
 // =============================================================================
