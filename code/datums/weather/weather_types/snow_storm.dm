@@ -24,6 +24,6 @@
 	barometer_predictable = TRUE
 
 
-/datum/weather/snow_storm/weather_act(mob/living/L)
+/datum/weather/snow_storm/weather_act_mob(mob/living/L)
 	L.adjust_bodytemperature(-rand(5,15))
 

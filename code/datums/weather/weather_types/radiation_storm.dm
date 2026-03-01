@@ -54,7 +54,7 @@
 	GLOB.rad_storm_sounds += playlist
 	return ..()
 
-/datum/weather/rad_storm/weather_act(mob/living/living)
+/datum/weather/rad_storm/weather_act_mob(mob/living/living)
 
 	if(!ishuman(living))
 		return

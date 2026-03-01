@@ -70,9 +70,7 @@
 	if(human_to_check.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		return TRUE
 
-/datum/weather/ash_storm/weather_act(mob/living/L)
-	if(!can_weather_act(L))
-		return
+/datum/weather/ash_storm/weather_act_mob(mob/living/L)
 	L.adjustFireLoss(4)
 
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.

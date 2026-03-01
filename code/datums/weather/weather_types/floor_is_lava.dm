@@ -23,7 +23,7 @@
 	immunity_type = TRAIT_LAVA_IMMUNE
 
 
-/datum/weather/floor_is_lava/weather_act(mob/living/L)
+/datum/weather/floor_is_lava/weather_act_mob(mob/living/L)
 	if(issilicon(L))
 		return
 	if(istype(L.buckled, /obj/structure/bed))
