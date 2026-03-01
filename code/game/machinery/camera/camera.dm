@@ -205,7 +205,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 			thisemp = emped //Take note of which EMP this proc is for
 			for(var/mob/each_mob as anything in eye_mobs)
 				each_mob.unset_machine()
-				each_mob.reset_perspective()
+				each_mob.set_mob_eye(MOB_EYE_SELF)
 				to_chat(each_mob, "The screen bursts into static.")
 
 /obj/machinery/camera/emp_reset()
@@ -477,7 +477,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	//I guess that doesn't matter since they can't use it anyway?
 	for(var/mob/each_mob as anything in eye_mobs)
 		each_mob.unset_machine()
-		each_mob.reset_perspective()
+		each_mob.set_mob_eye(MOB_EYE_SELF)
 		to_chat(each_mob, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/can_use()

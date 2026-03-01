@@ -1007,7 +1007,7 @@
 	brain_obj.set_mecha(src)
 	add_occupant(brain_mob)//Note this forcemoves the brain into the mech to allow relaymove
 	mecha_flags |= SILICON_PILOT
-	brain_mob.reset_perspective(src)
+	brain_mob.set_mob_eye(src)
 	brain_mob.remote_control = src
 	brain_mob.update_mouse_pointer()
 	setDir(dir_in)
@@ -1067,7 +1067,7 @@
 		var/obj/item/mmi/mmi = mob_container
 		if(mmi.brainmob)
 			ejector.forceMove(mmi)
-			ejector.reset_perspective()
+			ejector.set_mob_eye(MOB_EYE_SELF)
 			remove_occupant(ejector)
 		mmi.set_mecha(null)
 		mmi.update_appearance()

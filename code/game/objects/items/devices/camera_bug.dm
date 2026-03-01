@@ -70,7 +70,7 @@
 		return 0
 	return 1
 /obj/item/camera_bug/on_unset_machine(mob/user)
-	user.reset_perspective()
+	user.set_mob_eye(MOB_EYE_SELF)
 
 /obj/item/camera_bug/proc/get_cameras()
 	if( world.time > (last_net_update + 100))
@@ -214,7 +214,7 @@
 				return
 			track_mode = BUGMODE_MONITOR
 			current = camera
-			usr.reset_perspective()
+			usr.set_mob_eye(MOB_EYE_SELF)
 			interact()
 	if("track" in href_list)
 		var/list/seen = get_seens()
@@ -257,7 +257,7 @@
 			current = camera
 			spawn(6)
 				if(src.check_eye(usr))
-					usr.reset_perspective(camera)
+					usr.set_mob_eye(camera)
 					interact()
 				else
 					usr.unset_machine()

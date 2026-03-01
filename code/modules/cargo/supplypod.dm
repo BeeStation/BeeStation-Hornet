@@ -611,7 +611,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 			var/atom/movable/O = single_order
 			O.forceMove(pod)
 	for (var/mob/living/mob_in_pod in pod) //If there are any mobs in the supplypod, we want to set their view to the pod_landingzone. This is so that they can see where they are about to land
-		mob_in_pod.reset_perspective(src)
+		mob_in_pod.set_mob_eye(src)
 	if(pod.effectStun) //If effectStun is true, stun any mobs caught on this pod_landingzone until the pod gets a chance to hit them
 		for (var/mob/living/target_living in get_turf(src))
 			target_living.Stun(pod.delays[POD_TRANSIT]+10, ignore_canstun = TRUE)//you ain't goin nowhere, kid.
@@ -635,7 +635,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/pod_landingzone)
 		pod.add_filter("motionblur",1,list("type"="motion_blur", "x"=0, "y"=3))
 	pod.forceMove(drop_location())
 	for (var/mob/living/M in pod) //Remember earlier (initialization) when we moved mobs into the pod_landingzone so they wouldnt get lost in nullspace? Time to get them out
-		M.reset_perspective(null)
+		M.set_mob_eye(MOB_EYE_SELF)
 	var/angle = effectCircle ? rand(0,360) : rand(70,110) //The angle that we can come in from
 	pod.pixel_x = cos(angle)*32*length(smoke_effects) //Use some ADVANCED MATHEMATICS to set the animated pod's position to somewhere on the edge of a circle with the center being the target
 	pod.pixel_z = sin(angle)*32*length(smoke_effects)

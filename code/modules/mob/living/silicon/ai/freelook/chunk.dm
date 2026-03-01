@@ -103,7 +103,7 @@
 	var/list/newly_obscured_turfs = visibleTurfs - updated_visible_turfs
 
 	for(var/mob/camera/ai_eye/client_eye as anything in seenby)
-		for(var/client/each_client as anything in client_eye.eye_users)
+		for(var/client/each_client as anything in client_eye.eye_users) // TO-DO: replace into eye_mobs
 			each_client.images -= active_static_images
 
 	for(var/turf/visible_turf as anything in newly_visible_turfs)
@@ -137,7 +137,7 @@
 	changed = FALSE
 
 	for(var/mob/camera/ai_eye/client_eye as anything in seenby)
-		for(var/client/each_client as anything in client_eye.eye_users)
+		for(var/client/each_client as anything in client_eye.eye_users) // TO-DO: replace into eye_mobs
 			each_client.images += active_static_images
 
 /// Create a new camera chunk, since the chunks are made as they are needed.

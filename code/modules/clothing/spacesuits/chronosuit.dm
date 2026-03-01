@@ -56,7 +56,7 @@
 	camera = new /obj/effect/chronos_cam(user)
 	camera.holder = user
 	camera.chronosuit = src
-	user.reset_perspective(camera)
+	user.set_mob_eye(camera)
 	user.set_machine(camera)
 	user.remote_control = camera
 
@@ -105,7 +105,7 @@
 		if(camera)
 			camera.remove_target_ui()
 			camera.forceMove(user)
-			user.reset_perspective(camera)
+			user.set_mob_eye(camera)
 		teleport_now.update_buttons()
 
 /obj/item/clothing/suit/space/chronos/proc/chronowalk(atom/location)
@@ -238,7 +238,7 @@
 			REMOVE_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 			helmet.suit = null
 			helmet = null
-		user.reset_perspective()
+		user.set_mob_eye(MOB_EYE_SELF)
 		user.set_machine()
 		user.remote_control = null
 		if(camera)
@@ -282,7 +282,7 @@
 		if(loc == user || (user.client && user.client.eye != src))
 			forceMove(user.drop_location())
 			user.set_machine(src)
-			user.reset_perspective(src)
+			user.set_mob_eye(src)
 		var/atom/step = get_step(src, direction)
 		if(step)
 			if((step.x <= TRANSITIONEDGE) || (step.x >= (world.maxx - TRANSITIONEDGE - 1)) || (step.y <= TRANSITIONEDGE) || (step.y >= (world.maxy - TRANSITIONEDGE - 1)))
@@ -292,7 +292,7 @@
 				forceMove(step)
 			if((x == holder.x) && (y == holder.y) && (z == holder.z))
 				forceMove(user)
-				user.reset_perspective(user)
+				user.set_mob_eye(MOB_EYE_SELF)
 				remove_target_ui()
 			else if(!target_ui)
 				create_target_ui()
@@ -303,7 +303,7 @@
 		qdel(src)
 
 /obj/effect/chronos_cam/on_unset_machine(mob/user)
-	user.reset_perspective()
+	user.set_mob_eye(MOB_EYE_SELF)
 
 /obj/effect/chronos_cam/Destroy()
 	if(holder)

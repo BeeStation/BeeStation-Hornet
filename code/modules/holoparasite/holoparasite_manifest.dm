@@ -18,7 +18,7 @@
 		attached_to_summoner = TRUE
 		update_summoner_attachment()
 		new /obj/effect/temp_visual/holoparasite/phase(loc)
-		reset_perspective()
+		set_mob_eye(MOB_EYE_SELF)
 		setup_barriers()
 		if(emissive)
 			set_light_on(TRUE)

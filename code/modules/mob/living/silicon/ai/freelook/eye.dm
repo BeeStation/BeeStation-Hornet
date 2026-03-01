@@ -82,7 +82,7 @@
 		if(use_static)
 			ai.camera_visibility(src)
 		if(!ai.multicam_on)
-			ai.reset_perspective(src)
+			ai.set_mob_eye(src)
 		update_ai_detect_hud()
 		//Holopad
 		if(istype(ai.current_holopad, /obj/machinery/holopad))

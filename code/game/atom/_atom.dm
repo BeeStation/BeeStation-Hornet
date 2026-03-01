@@ -117,8 +117,8 @@
 	VAR_PRIVATE/_emissive_count = 0
 
 	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
-	var/list/eye_users
-	/// same as 'eye_users', but mobs, instead of client.
+	var/list/eye_users // TO-DO: replace into eye_mobs
+	/// same as 'eye_users', but mobs, instead of client. SHOULD BE USED CAREFULLY
 	var/list/eye_mobs
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
@@ -137,14 +137,14 @@
   */
 /atom/Destroy()
 	for(var/mob/each_mob as anything in eye_mobs)
-		each_mob.reset_perspective()
+		each_mob.set_mob_eye(MOB_EYE_SELF)
 	eye_mobs = null
 	for(var/client/each_client as anything in eye_users)
 		eye_users -= each_client
 		if(isnull(each_client.mob))
 			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
 			continue
-		each_client.mob.reset_perspective()
+		each_client.mob.set_mob_eye(MOB_EYE_SELF)
 	eye_users = null
 
 	if (chat_messages)

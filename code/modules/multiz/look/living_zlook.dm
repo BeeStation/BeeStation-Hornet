@@ -24,7 +24,7 @@
 	// Handle none/failure
 	if(direction == LOOKING_DIRECTION_NONE || !can_look_direction(direction))
 		looking_direction = LOOKING_DIRECTION_NONE
-		reset_perspective()
+		set_mob_eye(MOB_EYE_SELF)
 		return
 	// Automatic attempts should not trigger the cooldown
 	if(!automatic)
@@ -52,7 +52,7 @@
 			to_chat(src, span_warning("You can't see through the [looking_direction == LOOKING_DIRECTION_UP ? "ceiling above" : "floor below"] you."))
 		set_look_direction(LOOKING_DIRECTION_NONE)
 		return FALSE
-	reset_perspective(base)
+	set_mob_eye(base)
 	return TRUE
 
 /mob/living/verb/look_up_short()

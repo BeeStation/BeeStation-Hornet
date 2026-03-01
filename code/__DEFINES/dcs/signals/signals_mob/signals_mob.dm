@@ -38,8 +38,8 @@
 	#define MOVE_ARG_DIRECTION 2
 /// From base of /client/Move()
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
-/// From base of /mob/proc/reset_perspective() : ()
-#define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"
+/// From base of /mob/proc/set_mob_eye() : (atom/new_eye, atom/old_eye)
+#define COMSIG_MOB_SET_MOB_EYE "mob_set_mob_eye"
 ///from base of obj/allowed(mob/M): (/obj) returns ACCESS_ALLOWED if mob has id access to the obj
 #define COMSIG_MOB_TRIED_ACCESS "tried_access"
 	#define ACCESS_ALLOWED (1<<0)
