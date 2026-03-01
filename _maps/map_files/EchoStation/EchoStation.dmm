@@ -1305,6 +1305,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"aGk" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/medical/genetics)
 "aGn" = (
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
@@ -7970,6 +7976,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/landmark/start/geneticist,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/medical/genetics)
 "esn" = (
@@ -18485,7 +18492,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
 "jWU" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/medical/genetics)
 "jWV" = (
@@ -18968,13 +18975,14 @@
 	dir = 2
 	},
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "cloningfoyer";
-	name = "Cloning Lab";
-	req_access_txt = "5"
+	name = "Genetics Lab"
 	},
-/turf/open/floor/iron/white/side{
+/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/medical/genetics,
+/obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
+/turf/open/floor/iron/white,
 /area/medical/genetics)
 "kkA" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -20692,6 +20700,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/requests_console/auto_name/directional/west,
 /turf/open/floor/iron/white,
 /area/medical/genetics)
 "liQ" = (
@@ -28166,8 +28175,11 @@
 	pixel_y = 1;
 	req_access_txt = "9"
 	},
-/obj/structure/flora/ausbushes/brflowers,
-/turf/open/floor/grass,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = 1;
+	pixel_y = -3
+	},
+/turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "pDe" = (
 /obj/item/radio/intercom{
@@ -43058,10 +43070,6 @@
 	color = "#596479";
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_x = 32;
-	pixel_y = -3
-	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
 "xTK" = (
@@ -43307,11 +43315,25 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/storage)
 "yaL" = (
-/obj/structure/window/reinforced/spawner/directional/west,
 /mob/living/carbon/monkey,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/open/floor/grass,
+/obj/structure/window/reinforced/spawner/directional/north{
+	pixel_y = 1
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/obj/structure/window/reinforced/spawner/directional/west{
+	pixel_y = 0;
+	pixel_x = -2
+	},
+/obj/effect/mapping_helpers/foodpreserver,
+/obj/item/food/grown/banana,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 13;
+	pixel_y = -2
+	},
+/turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "yaN" = (
 /obj/machinery/libraryscanner,
@@ -43444,6 +43466,7 @@
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
 "yib" = (
+/obj/machinery/holopad,
 /turf/open/floor/iron/white,
 /area/medical/genetics)
 "yik" = (
@@ -43561,7 +43584,6 @@
 /turf/closed/wall/r_wall,
 /area/science/lab)
 "ylj" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/vending/wardrobe/gene_wardrobe,
 /turf/open/floor/iron/white,
 /area/medical/genetics)
@@ -187134,7 +187156,7 @@ gVA
 dZZ
 gFx
 pDj
-yib
+aGk
 yaL
 dZZ
 tpg
