@@ -1057,7 +1057,7 @@
 /obj/structure/table/wood,
 /obj/item/screwdriver,
 /obj/item/hatchet,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/template_noop)
 "rk" = (

@@ -38,7 +38,7 @@
 	/// current user's DNA
 	var/userDNA
 	/// The card we inhabit
-	var/obj/item/paicard/card
+	var/obj/item/pai_card/card
 	/// Are we hacking a door?
 	var/hacking = FALSE
 	/// The progress for hacking
@@ -88,7 +88,7 @@
 
 	var/encryptmod = FALSE
 	var/holoform = FALSE
-	var/canholo = TRUE
+	var/can_holo = TRUE
 	var/can_transmit = TRUE
 	var/can_receive = TRUE
 	var/chassis = "repairbot"
@@ -172,14 +172,14 @@
 	return ..()
 
 /mob/living/silicon/pai/Initialize(mapload)
-	var/obj/item/paicard/pai_card = loc
+	var/obj/item/pai_card/pai_card = loc
 	START_PROCESSING(SSfastprocess, src)
 	GLOB.pai_list += src
 	make_laws()
 	if(!istype(pai_card)) // when manually spawning a pai, we create a card to put it into.
 		var/newcardloc = pai_card
 		pai_card = new(newcardloc)
-		pai_card.setPersonality(src)
+		pai_card.set_personality(src)
 	card = pai_card
 	forceMove(pai_card)
 	job = JOB_NAME_PAI
@@ -269,11 +269,11 @@
 	return ..(M, be_close, no_dexterity, no_tk, need_hands, TRUE) //Resting is just an aesthetic feature for them.
 
 /mob/proc/makePAI(delold)
-	var/obj/item/paicard/card = new /obj/item/paicard(get_turf(src))
+	var/obj/item/pai_card/card = new /obj/item/pai_card(get_turf(src))
 	var/mob/living/silicon/pai/pai = new /mob/living/silicon/pai(card)
 	pai.ckey = ckey
 	pai.name = name
-	card.setPersonality(pai)
+	card.set_personality(pai)
 	if(delold)
 		qdel(src)
 
@@ -320,6 +320,14 @@
 	held_state = "[chassis]"
 	return ..()
 
+/mob/living/silicon/pai/set_stat(new_stat)
+	. = ..()
+	update_stat()
+
+/mob/living/silicon/pai/on_knockedout_trait_loss(datum/source)
+	set_stat(CONSCIOUS)
+	update_stat()
+
 /**
  * Fixes weird speech issues with the pai.
  *
@@ -341,7 +349,7 @@
 
 	return ..()
 
-/obj/item/paicard/attackby(obj/item/used, mob/user, params)
+/obj/item/pai_card/attackby(obj/item/used, mob/user, params)
 	if(pai && (istype(used, /obj/item/encryptionkey) || used.tool_behaviour == TOOL_SCREWDRIVER))
 		if(!pai.encryptmod)
 			to_chat(user, span_alert("Encryption Key ports not configured."))
@@ -358,10 +366,10 @@
 		return TRUE
 	return ..()
 
-/obj/item/paicard/should_emag(mob/user)
+/obj/item/pai_card/should_emag(mob/user)
 	return !!pai
 
-/obj/item/paicard/on_emag(mob/user) // Emag to wipe the master DNA and supplemental directive
+/obj/item/pai_card/on_emag(mob/user) // Emag to wipe the master DNA and supplemental directive
 	..()
 	to_chat(user, span_notice("You override [pai]'s directive system, clearing its master string and supplied directive."))
 	to_chat(pai, span_danger("Warning: System override detected, check directive sub-system for any changes.'"))
@@ -396,6 +404,53 @@
 		return FALSE
 	add_supplied_law(0, new_laws)
 	to_chat(src, span_notice(new_laws))
+	return TRUE
+
+/**
+ * Toggles the ability of the pai to enter holoform
+ *
+ * @returns {boolean} - TRUE if successful, FALSE if not.
+ */
+/mob/living/silicon/pai/proc/toggle_holo()
+	balloon_alert(src, "holomatrix [can_holo ? "disabled" : "enabled"]")
+	can_holo = !can_holo
+	return TRUE
+
+/**
+ * Toggles the radio settings on and off.
+ *
+ * @param {string} option - The option being toggled.
+ */
+/mob/living/silicon/pai/proc/toggle_radio(option)
+	// it can't be both so if we know it's not transmitting it must be receiving.
+	var/transmitting = option == "transmit"
+	var/transmit_holder = (transmitting ? WIRE_TX : WIRE_RX)
+	if(transmitting)
+		can_transmit = !can_transmit
+	else //receiving
+		can_receive = !can_receive
+	radio.wires.cut(transmit_holder)//wires.cut toggles cut and uncut states
+	transmit_holder = (transmitting ? can_transmit : can_receive) //recycling can be fun!
+	balloon_alert(src, "[transmitting ? "outgoing" : "incoming"] radio [transmit_holder ? "enabled" : "disabled"]")
+	return TRUE
+
+/**
+ * Wipes the current pAI on the card.
+ *
+ * @param {mob} user - The user performing the action.
+ *
+ * @returns {boolean} - TRUE if successful, FALSE if not.
+ */
+/mob/living/silicon/pai/proc/wipe_pai(mob/user)
+	if(tgui_alert(user, "Are you certain you wish to delete the current personality? This action cannot be undone.", "Personality Wipe", list("Yes", "No")) != "Yes")
+		return FALSE
+	to_chat(src, span_warning("You feel yourself slipping away from reality."))
+	to_chat(src, span_danger("Byte by byte you lose your sense of self."))
+	to_chat(src, span_userdanger("Your mental faculties leave you."))
+	to_chat(src, span_rose("oblivion... "))
+	balloon_alert(user, "personality wiped")
+	playsound(src, 'sound/machines/buzz-two.ogg', 30, TRUE)
+	qdel(src)
 	return TRUE
 
 #undef HOLOCHASSIS_INIT_TIME

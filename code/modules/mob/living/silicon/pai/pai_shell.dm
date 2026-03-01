@@ -104,7 +104,7 @@
 		balloon_alert(src, "emitter repair incomplete")
 		return FALSE
 
-	if(!canholo && !force)
+	if(!can_holo && !force)
 		balloon_alert(src, "emitters are disabled")
 		return FALSE
 

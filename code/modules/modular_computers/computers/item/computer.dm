@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// If the device starts with its ringer on
 	var/init_ringer_on = TRUE
 	/// Stored pAI card
-	var/obj/item/paicard/stored_pai_card
+	var/obj/item/pai_card/stored_pai_card
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
 	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
@@ -776,7 +776,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			return
 
 	// Insert a pAI card
-	if(can_store_pai && !stored_pai_card && istype(attacking_item, /obj/item/paicard))
+	if(can_store_pai && !stored_pai_card && istype(attacking_item, /obj/item/pai_card))
 		if(!user.transferItemToLoc(attacking_item, src))
 			return
 		stored_pai_card = attacking_item
