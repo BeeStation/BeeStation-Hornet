@@ -39,7 +39,7 @@
 	},
 /obj/structure/table,
 /obj/item/stack/sheet/mineral/copper,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (

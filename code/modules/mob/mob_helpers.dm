@@ -41,6 +41,48 @@
 		zone = pick_weight(list(BODY_ZONE_HEAD = 1, BODY_ZONE_CHEST = 1, BODY_ZONE_L_ARM = 4, BODY_ZONE_R_ARM = 4, BODY_ZONE_L_LEG = 4, BODY_ZONE_R_LEG = 4))
 	return zone
 
+/**
+ * More or less ran_zone, but only returns bodyzones that the mob /actually/ has.
+ *
+ * * blacklisted_parts - allows you to specify zones that will not be chosen. eg: list(BODY_ZONE_CHEST, BODY_ZONE_R_LEG)
+ * * * !!!! blacklisting BODY_ZONE_CHEST is really risky since it's the only bodypart guarunteed to ALWAYS exists  !!!!
+ * * * !!!! Only do that if you're REALLY CERTAIN they have limbs, otherwise we'll CRASH() !!!!
+ *
+ * * ran_zone has a base prob(80) to return the base_zone (or if null, BODY_ZONE_CHEST) vs something in our generated list of limbs.
+ * * this probability is overriden when either blacklisted_parts contains BODY_ZONE_CHEST and we aren't passed a base_zone (since the default fallback for ran_zone would be the chest in that scenario), or if even_weights is enabled.
+ * * you can also manually adjust this probability by altering base_probability
+ *
+ * * even_weights - ran_zone has a 40% chance (after the prob(80) mentioned above) of picking a limb, vs the torso & head which have an additional 10% chance.
+ * * Setting even_weight to TRUE will make it just a straight up pick() between all possible bodyparts.
+ *
+ */
+/mob/proc/get_random_valid_zone(base_zone, base_probability = 80, list/blacklisted_parts, even_weights, bypass_warning)
+	return BODY_ZONE_CHEST //even though they don't really have a chest, let's just pass the default of check_zone to be safe.
+
+/mob/living/carbon/get_random_valid_zone(base_zone, base_probability = 80, list/blacklisted_parts, even_weights, bypass_warning)
+	var/list/limbs = list()
+	for(var/obj/item/bodypart/part as anything in bodyparts)
+		var/limb_zone = part.body_zone //cache the zone since we're gonna check it a ton.
+		if(limb_zone in blacklisted_parts)
+			continue
+		if(even_weights)
+			limbs[limb_zone] = 1
+			continue
+		if(limb_zone == BODY_ZONE_CHEST || limb_zone == BODY_ZONE_HEAD)
+			limbs[limb_zone] = 1
+		else
+			limbs[limb_zone] = 4
+
+	if(base_zone && !(check_zone(base_zone) in limbs))
+		base_zone = null //check if the passed zone is infact valid
+
+	var/chest_blacklisted
+	if((BODY_ZONE_CHEST in blacklisted_parts))
+		chest_blacklisted = TRUE
+		if(bypass_warning && !limbs.len)
+			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
+	return (((chest_blacklisted && !base_zone) || even_weights) ? pick_weight(limbs) : ran_zone(base_zone, base_probability, limbs))
+
 ///Would this zone be above the neck
 /proc/above_neck(zone)
 	var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES)
@@ -70,174 +112,6 @@
 		else
 			. += "*"
 	return sanitize(.)
-
-/**
-  * Makes you speak like you're drunk
-  */
-/proc/slur(phrase)
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/newletter = ""
-	var/rawchar = ""
-	for(var/i = 1, i <= leng, i += length(rawchar))
-		rawchar = newletter = phrase[i]
-		if(rand(1, 3) == 3)
-			var/lowerletter = LOWER_TEXT(newletter)
-			if(lowerletter == "o")
-				newletter = "u"
-			else if(lowerletter == "s")
-				newletter = "ch"
-			else if(lowerletter == "a")
-				newletter = "ah"
-			else if(lowerletter == "u")
-				newletter = "oo"
-			else if(lowerletter == "c")
-				newletter = "k"
-		if(rand(1, 20) == 20)
-			if(newletter == " ")
-				newletter = "...huuuhhh..."
-			else if(newletter == ".")
-				newletter = " *BURP*."
-		switch(rand(1, 20))
-			if(1)
-				newletter += "'"
-			if(2)
-				newletter += "[newletter]"
-			if(3)
-				newletter += "[newletter][newletter]"
-			if(4 to 20)
-				pass()
-		. += "[newletter]"
-	return sanitize(.)
-
-/// Makes you talk like you got cult stunned, which is slurring but with some dark messages
-/proc/cultslur(phrase) // Inflicted on victims of a stun talisman
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/newletter = ""
-	var/rawchar = ""
-	for(var/i = 1, i <= leng, i += length(rawchar))
-		rawchar = newletter = phrase[i]
-		if(rand(1, 2) == 2)
-			var/lowerletter = LOWER_TEXT(newletter)
-			if(lowerletter == "o")
-				newletter = "u"
-			else if(lowerletter == "t")
-				newletter = "ch"
-			else if(lowerletter == "a")
-				newletter = "ah"
-			else if(lowerletter == "u")
-				newletter = "oo"
-			else if(lowerletter == "c")
-				newletter = " NAR "
-			else if(lowerletter == "s")
-				newletter = " SIE "
-		if(rand(1, 4) == 4)
-			if(newletter == " ")
-				newletter = " no hope... "
-			else if(newletter == "H")
-				newletter = " IT COMES... "
-
-		switch(rand(1, 15))
-			if(1)
-				newletter = "'"
-			if(2)
-				newletter += "agn"
-			if(3)
-				newletter = "fth"
-			if(4)
-				newletter = "nglu"
-			if(5)
-				newletter = "glor"
-			if(6 to 15)
-				pass()
-		. += newletter
-	return sanitize(.)
-
-/proc/clockslur(phrase) // cultslur but for clock
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/newletter = ""
-	var/rawchar = ""
-	for(var/i = 1, i <= leng, i += length(rawchar))
-		rawchar = newletter = phrase[i]
-		if(rand(1, 2) == 2)
-			var/lowerletter = LOWER_TEXT(newletter)
-			if(lowerletter == "o")
-				newletter = "u"
-			else if(lowerletter == "t")
-				newletter = "tch"
-			else if(lowerletter == "a")
-				newletter = "ah"
-			else if(lowerletter == "u")
-				newletter = "oo"
-			else if(lowerletter == "r")
-				newletter = " RAT "
-			else if(lowerletter == "e")
-				newletter = " VAR "
-		if(rand(1, 4) == 4)
-			if(newletter == " ")
-				newletter = " the brass... "
-			else if(newletter == "H")
-				newletter = " CLOCK TICKS... "
-
-		switch(rand(1, 15))
-			if(1)
-				newletter = "'"
-			if(2)
-				newletter += "cht"
-			if(3)
-				newletter = "tik"
-			if(4)
-				newletter = "kth"
-			if(5)
-				newletter = "toc"
-			if(6 to 15)
-				pass()
-		. += newletter
-	return sanitize(.)
-
-///Adds stuttering to the message passed in
-/proc/stutter(phrase)
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/newletter = ""
-	var/rawchar
-	for(var/i = 1, i <= leng, i += length(rawchar))
-		rawchar = newletter = phrase[i]
-		if(prob(80) && !(LOWER_TEXT(newletter) in list("a", "e", "i", "o", "u", " ")))
-			if(prob(10))
-				newletter = "[newletter]-[newletter]-[newletter]-[newletter]"
-			else if(prob(20))
-				newletter = "[newletter]-[newletter]-[newletter]"
-			else if (prob(5))
-				newletter = ""
-			else
-				newletter = "[newletter]-[newletter]"
-		. += newletter
-	return sanitize(.)
-
-///Convert a message to derpy speak
-/proc/derpspeech(message, stuttering)
-	message = replacetext(message, " am ", " ")
-	message = replacetext(message, " is ", " ")
-	message = replacetext(message, " are ", " ")
-	message = replacetext(message, "help", "halp")
-	message = replacetext(message, "grief", "grife")
-	message = replacetext(message, "space", "spess")
-	message = replacetext(message, "carp", "crap")
-	message = replacetext(message, "reason", "raisin")
-	if(prob(50))
-		message = uppertext(message)
-		message += "[stutter(pick("!", "!!", "!!!"))]"
-	if(!stuttering && prob(15))
-		message = stutter(message)
-	return message
-
 
 /**
   * Turn text into complete gibberish!
@@ -382,7 +256,7 @@
 		else
 			dam = 0
 		if((brute_heal > 0 && (affecting.brute_dam > 0 || (H.is_bleeding() && H.has_mechanical_bleeding()))) || (burn_heal > 0 && affecting.burn_dam > 0))
-			if(affecting.heal_damage(brute_heal, burn_heal, 0, BODYTYPE_ROBOTIC))
+			if(affecting.heal_damage(brute_heal, burn_heal, required_bodytype = BODYTYPE_ROBOTIC))
 				H.update_damage_overlays()
 			if (brute_heal > 0 && H.is_bleeding() && H.has_mechanical_bleeding())
 				H.cauterise_wounds(0.4)
@@ -423,6 +297,40 @@
 	if(usr)
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
+
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(offer_control_get_config(M))
+
+	if(candidate)
+		M.give_control_to_mob(candidate)
+		return TRUE
+	else
+		to_chat(M, "There were no ghosts willing to take control.")
+		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
+		return FALSE
+
+/proc/offer_control_persistently(mob/M)
+	to_chat(M, "Control of your mob has been offered to dead players.")
+	if(usr)
+		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
+		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
+
+	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(offer_control_get_config(M))
+	poll.on_signup = CALLBACK(M, TYPE_PROC_REF(/mob, give_control_to_mob))
+
+/mob/proc/give_control_to_mob(datum/candidate_poll/persistent/source, list/candidates)
+	for (var/mob/controller in candidates)
+		ghostize(FALSE)
+		key = controller.key
+		// Did not login
+		if (!client)
+			continue
+		source.end_poll()
+
+		to_chat(src, "Your mob has been taken over by a ghost!")
+		message_admins("[key_name_admin(controller)] has taken control of ([ADMIN_LOOKUPFLW(src)])")
+		return
+
+/proc/offer_control_get_config(mob/M)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
 	if(M.mind && M.mind.assigned_role)
@@ -434,25 +342,14 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		question = poll_message,
-		check_jobban = ban_key,
-		poll_time = 10 SECONDS,
-		jump_target = M,
-		alert_pic = M,
-	)
-
-	if(candidate)
-		M.ghostize(FALSE)
-		M.key = candidate.key
-
-		to_chat(M, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(candidate)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
-		return TRUE
-	else
-		to_chat(M, "There were no ghosts willing to take control.")
-		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
-		return FALSE
+	var/datum/poll_config/config = new()
+	config.question = poll_message
+	config.check_jobban = ban_key
+	config.role_name_text = M.real_name
+	config.poll_time = 10 SECONDS
+	config.jump_target = M
+	config.alert_pic = M
+	return config
 
 ///Clicks a random nearby mob with the source from this mob
 /mob/proc/click_random_mob()
@@ -515,15 +412,6 @@
 
 /mob/proc/has_mouth()
 	return FALSE
-
-/**
-  * Examine text for traits shared by multiple types.
-  *
-  * I wish examine was less copypasted. (oranges say, be the change you want to see buddy)
-  */
-/mob/proc/common_trait_examine()
-	if(HAS_TRAIT(src, TRAIT_DISSECTED))
-		. += "[span_notice("This body has been dissected and analyzed. It is no longer worth experimenting on.")]<br>"
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
@@ -588,7 +476,7 @@
  * Head/Chest target: Damage/kill target
  */
 /mob/proc/get_combat_bodyzone(atom/target = null, precise = FALSE, zone_context = BODYZONE_CONTEXT_COMBAT)
-	// Just grab whatever bodyzone they were targetting
+	// Just grab whatever bodyzone they were targeting
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
 		if (!precise)
 			return check_zone(zone_selected)

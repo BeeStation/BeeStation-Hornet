@@ -1,9 +1,9 @@
 /datum/action/vampire
 	name = "Vampiric Gift"
 	desc = "A vampiric gift."
-	button_icon = 'icons/vampires/actions_vampire.dmi'
+	background_icon = 'icons/vampires/actions_vampire.dmi'
 	background_icon_state = "vamp_power_off"
-	icon_icon = 'icons/vampires/actions_vampire.dmi'
+	button_icon = 'icons/vampires/actions_vampire.dmi'
 	button_icon_state = "power_feed"
 	buttontooltipstyle = "cult"
 	transparent_when_unavailable = TRUE
@@ -134,7 +134,7 @@
 		to_chat(carbon_owner, span_warning("You can't do this while you are unconcious!"))
 		return FALSE
 	// Incapacitated?
-	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && carbon_owner.incapacitated(IGNORE_RESTRAINTS, IGNORE_GRAB))
+	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && INCAPACITATED_IGNORING(carbon_owner, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		to_chat(carbon_owner, span_warning("Not while you're incapacitated!"))
 		return FALSE
 	// Constant Cost (out of blood)

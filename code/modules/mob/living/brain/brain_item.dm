@@ -19,7 +19,7 @@
 	low_threshold = 45
 	high_threshold = 120
 
-	organ_traits = list(TRAIT_ADVANCEDTOOLUSER)
+	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP)
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
@@ -118,7 +118,7 @@
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
 		if(brain_owner.mind)
 			transfer_identity(brain_owner)
-			if(brain_owner.mind.current)
+			if(brain_owner.mind.current && !decoy_override)
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 	brain_owner.update_hair()
@@ -232,7 +232,7 @@
 		owner.death()
 		brain_death = TRUE
 
-/obj/item/organ/brain/check_damage_thresholds(mob/M)
+/obj/item/organ/brain/check_damage_thresholds()
 	. = ..()
 	//if we're not more injured than before, return without gambling for a trauma
 	if(damage <= prev_damage)
@@ -280,7 +280,17 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
-	organ_traits = null
+	organ_traits = list(TRAIT_CAN_STRIP)
+
+/obj/item/organ/brain/primitive
+	name = "primitive brain"
+	desc = "This juicy piece of meat has a clearly underdeveloped frontal lobe."
+	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP, TRAIT_PRIMITIVE)
+
+/obj/item/organ/brain/primate
+	name = "primate brain"
+	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
+	organ_traits = list(TRAIT_CAN_STRIP, TRAIT_PRIMITIVE) // No advanced tool usage.
 
 /obj/item/organ/brain/diona
 	name = "diona nymph"
@@ -299,11 +309,10 @@
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN
 	zone = BODY_ZONE_CHEST
-	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	base_icon_state = "posibrain"
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
@@ -408,6 +417,9 @@
 	add_trauma_to_traumas(actual_trauma)
 	if(owner)
 		actual_trauma.owner = owner
+		if(SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_TRAUMA, trauma, resilience) & COMSIG_CARBON_BLOCK_TRAUMA)
+			qdel(actual_trauma)
+			return null
 		actual_trauma.on_gain()
 	if(resilience)
 		actual_trauma.resilience = resilience

@@ -7,7 +7,7 @@
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
-	item_state = "defibunit"
+	inhand_icon_state = "defibunit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
@@ -115,7 +115,7 @@
 	. = ..()
 	if(ismob(loc))
 		var/mob/M = loc
-		if(!M.incapacitated() && istype(over_object, /atom/movable/screen/inventory/hand))
+		if(!M.incapacitated && istype(over_object, /atom/movable/screen/inventory/hand))
 			var/atom/movable/screen/inventory/hand/H = over_object
 			M.putItemFromInventoryInHandIfPossible(src, H.held_index)
 
@@ -259,7 +259,7 @@
 	name = "compact defibrillator"
 	desc = "A belt-equipped defibrillator that can be rapidly deployed."
 	icon_state = "defibcompact"
-	item_state = "defibcompact"
+	inhand_icon_state = "defibcompact"
 	worn_icon_state = "defibcompact"
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
@@ -305,7 +305,7 @@
 	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
+	inhand_icon_state = "defibpaddles0"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 
@@ -402,7 +402,7 @@
 /obj/item/shockpaddles/update_icon_state()
 	var/wielded = ISWIELDED(src)
 	icon_state = "[base_icon_state][wielded]"
-	item_state = icon_state
+	inhand_icon_state = icon_state
 	if(cooldown)
 		icon_state = "[base_icon_state][wielded]_cooldown"
 	return ..()
@@ -661,7 +661,7 @@
 						var/overall_damage = total_brute + total_burn + H.getToxLoss() + H.getOxyLoss()
 						var/mobhealth = H.health
 						H.adjustOxyLoss((mobhealth - HALFWAYCRITDEATH) * (H.getOxyLoss() / overall_damage), 0)
-						H.adjustToxLoss((mobhealth - HALFWAYCRITDEATH) * (H.getToxLoss() / overall_damage), 0)
+						H.adjustToxLoss((mobhealth - HALFWAYCRITDEATH) * (H.getToxLoss() / overall_damage), 0, TRUE) // force tox heal for toxin lovers too
 						H.adjustFireLoss((mobhealth - HALFWAYCRITDEATH) * (total_burn / overall_damage), 0)
 						H.adjustBruteLoss((mobhealth - HALFWAYCRITDEATH) * (total_brute / overall_damage), 0)
 					H.updatehealth() // Previous "adjust" procs don't update health, so we do it manually.
@@ -698,7 +698,7 @@
 	name = "cyborg defibrillator paddles"
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
+	inhand_icon_state = "defibpaddles0"
 	req_defib = FALSE
 
 /obj/item/shockpaddles/cyborg/attack(mob/M, mob/user)
@@ -719,7 +719,7 @@
 	combat = TRUE
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
+	inhand_icon_state = "defibpaddles0"
 
 /obj/item/shockpaddles/syndicate/cyborg
 	req_defib = FALSE

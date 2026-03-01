@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	///pretend this is moles
 	var/volume = 0
 	/// color it looks in containers etc
-	var/color = "#000000" // rgb: 0, 0, 0
+	var/color = COLOR_BLACK
 	/// intensity of color provided, dyes or things that should work like a dye will more strongly affect the final color of a reagent
 	var/color_intensity = 1
 	// default = I am not sure this shit + CHEMICAL_NOT_SYNTH
@@ -58,10 +58,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/metabolite
 	/// above this overdoses happen
 	var/overdose_threshold = 0
-	/// above this amount addictions start
-	var/addiction_threshold = 0
-	/// increases as addiction gets worse
-	var/addiction_stage = 0
 	// What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
 	var/process_flags = ORGANIC
 	/// You fucked up and this is now triggering its overdose effects, purge that shit quick.
@@ -72,6 +68,17 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/reagent_weight = 1
 	///is it currently metabolizing
 	var/metabolizing = FALSE
+	///Assoc list with key type of addiction this reagent feeds, and value amount of addiction points added per unit of reagent metabolzied (which means * REAGENTS_METABOLISM every life())
+	var/list/addiction_types = null
+	/// The affected organ_flags, if the reagent damages/heals organ damage of an affected mob.
+	/// See "Organ defines for carbon mobs" in /code/_DEFINES/surgery.dm
+	var/affected_organ_flags = ORGAN_ORGANIC
+	/// The affected bodytype, if the reagent damages/heals bodyparts (Brute/Fire) of an affected mob.
+	/// See "Bodytype defines" in /code/_DEFINES/mobs.dm
+	var/affected_bodytype = BODYTYPE_ORGANIC
+	/// The affected biotype, if the reagent damages/heals toxin damage of an affected mob.
+	/// See "Mob bio-types flags" in /code/_DEFINES/mobs.dm
+	var/affected_biotype = MOB_ORGANIC
 
 	///The default reagent container for the reagent, used for icon generation
 	var/obj/item/reagent_containers/default_container = /obj/item/reagent_containers/cup/bottle
@@ -113,15 +120,39 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/expose_turf(turf/exposed_turf, volume)
 	SHOULD_CALL_PARENT(TRUE)
 
-/// Called from [/datum/reagents/proc/metabolize]
+/**
+ * Ticks on mob Life() for as long as the reagent remains in the mob's reagents.
+ *
+ * Usage: Parent should be called first using . = ..()
+ *
+ * Exceptions: If the holder var needs to be accessed, call the parent afterward that as it can become null if the reagent is fully removed.
+ *
+ * Returns: UPDATE_MOB_HEALTH only if you need to update the health of a mob (this is only needed when damage is dealt to the mob)
+ *
+ * Arguments
+ * * mob/living/carbon/affected_mob - the mob which the reagent currently is inside of
+ * * delta_time - the time in server seconds between proc calls (when performing normally it will be 2)
+ * * times_fired - the number of times the owner's Life() tick has been called aka The number of times SSmobs has fired
+ *
+ */
 /datum/reagent/proc/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	SHOULD_CALL_PARENT(TRUE)
 	current_cycle++
 
-	if(!QDELETED(holder))
-		if(metabolite)
-			holder.add_reagent(metabolite, metabolization_rate * affected_mob.metabolism_efficiency * METABOLITE_RATE * delta_time)
-		holder.remove_reagent(type, metabolization_rate * affected_mob.metabolism_efficiency * delta_time) //By default it slowly disappears.
+	if(isnull(holder))
+		return
+
+	var/metabolizing_out = metabolization_rate * delta_time
+	if(!(chemical_flags & REAGENT_UNAFFECTED_BY_METABOLISM))
+		if(chemical_flags & REAGENT_REVERSE_METABOLISM)
+			metabolizing_out /= affected_mob.metabolism_efficiency
+		else
+			metabolizing_out *= affected_mob.metabolism_efficiency
+
+	if(metabolite)
+		holder.add_reagent(metabolite, metabolizing_out * METABOLITE_RATE)
+
+	holder.remove_reagent(type, metabolizing_out) //By default it slowly disappears.
 
 ///Called after a reagent is transfered
 /datum/reagent/proc/on_transfer(atom/A, method = TOUCH, trans_volume)
@@ -136,6 +167,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /// Called when this reagent is removed while inside a mob
 /datum/reagent/proc/on_mob_delete(mob/living/carbon/affected_mob)
 	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(affected_mob, COMSIG_CLEAR_MOOD_EVENT, "[type]_overdose")
 	REMOVE_TRAITS_IN(affected_mob, "base:[type]")
 
 /// Called when this reagent first starts being metabolized by a liver
@@ -175,27 +207,3 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/overdose_start(mob/living/carbon/affected_mob)
 	to_chat(affected_mob, span_userdanger("You feel like you took too much of [name]!"))
 	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
-
-/// Called when addiction hits stage1, see [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/addiction_act_stage1(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_light, name)
-	if(prob(30))
-		to_chat(affected_mob, span_notice("You feel like having some [name] right about now."))
-
-/// Called when addiction hits stage2, see [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/addiction_act_stage2(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_medium, name)
-	if(prob(30))
-		to_chat(affected_mob, span_notice("You feel like you need [name]. You just can't get enough."))
-
-/// Called when addiction hits stage3, see [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/addiction_act_stage3(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_severe, name)
-	if(prob(30))
-		to_chat(affected_mob, span_danger("You have an intense craving for [name]."))
-
-/// Called when addiction hits stage4, see [/datum/reagents/proc/metabolize]
-/datum/reagent/proc/addiction_act_stage4(mob/living/carbon/affected_mob)
-	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_critical, name)
-	if(prob(30))
-		to_chat(affected_mob, span_boldannounce("You're not feeling good at all! You really need some [name]."))

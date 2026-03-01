@@ -66,21 +66,21 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("You are now dashing to your target.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Fire Kinetic Accelerator"
-	icon_icon = 'icons/obj/guns/energy.dmi'
+	button_icon = 'icons/obj/guns/energy.dmi'
 	button_icon_state = "kineticgun"
 	chosen_message = span_colossus("You are now shooting your kinetic accelerator.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Transform Weapon"
-	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "cleaving_saw"
 	chosen_message = span_colossus("You are now transforming your weapon.")
 	chosen_attack_num = 3
@@ -118,7 +118,7 @@ Difficulty: Medium
 	icon_state = "ka_tracer"
 	range = MINER_DASH_RANGE
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	var/adjustment_amount = amount * 0.1
 	if(world.time + adjustment_amount > next_move)
 		changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly

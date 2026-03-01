@@ -121,11 +121,11 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	equip_cooldown = 10
+	equip_cooldown = 20
 	name = "217-D Heavy Plasma Cutter"
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
 	icon_state = "mecha_plasmacutter"
-	item_state = "plasmacutter"
+	inhand_icon_state = "plasmacutter"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	energy_drain = 30
@@ -193,17 +193,17 @@
 	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	to_chat(source, "[icon2html(src, source)]<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
-				continue
+		if(!M.can_hear())
+			continue
 		var/turf/turf_check = get_turf(M)
 		if(isspaceturf(turf_check) && !turf_check.Adjacent(src)) //in space nobody can hear you honk.
 			continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.stuttering += 20
-		M.adjustEarDamage(0, 30)
+		M.adjust_stutter(40 SECONDS)
+		var/obj/item/organ/ears/ears = M.get_organ_slot(ORGAN_SLOT_EARS)
+		if(ears)
+			ears.adjustEarDamage(0, 30)
 		M.Paralyze(60)
 		if(prob(30))
 			M.Stun(200)

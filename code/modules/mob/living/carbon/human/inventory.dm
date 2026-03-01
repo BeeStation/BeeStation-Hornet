@@ -1,5 +1,22 @@
-/mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
-	return dna.species.can_equip(I, slot, disable_warning, src, bypass_equip_delay_self)
+
+/**
+ * Used to return a list of equipped items on a human mob; does not by default include held items, see include_flags
+ *
+ * Argument(s):
+ * * Optional - include_flags, (see obj.flags.dm) describes which optional things to include or not (pockets, accessories, held items)
+ */
+/mob/living/carbon/human/get_equipped_items(include_flags = NONE)
+	var/list/items = ..()
+	if(!(include_flags & INCLUDE_POCKETS))
+		items -= list(l_store, r_store, s_store)
+	if((include_flags & INCLUDE_ACCESSORIES) && w_uniform)
+		var/obj/item/clothing/under/worn_under = w_uniform
+		for (var/accessory in worn_under.attached_accessories)
+			items += worn_under.attached_accessories[accessory]
+	return items
+
+/mob/living/carbon/human/can_equip(obj/item/equip_target, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+	return dna.species.can_equip(equip_target, slot, disable_warning, src, bypass_equip_delay_self, ignore_equipped)
 
 // Return the item currently in the slot ID
 /mob/living/carbon/human/get_item_by_slot(slot_id)
@@ -200,6 +217,7 @@
 	//Item is handled and in slot, valid to call callback, for this proc should always be true
 	if(!not_handled)
 		has_equipped(I, slot, initial)
+		hud_used?.update_locked_slots()
 
 		// Send a signal for when we equip an item that used to cover our feet/shoes. Used for bloody feet
 		if((I.body_parts_covered & FEET) || (I.flags_inv | I.transparent_protection) & HIDESHOES)
@@ -220,12 +238,10 @@
 		. += thing?.slowdown
 
 /mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
-	var/index = get_held_index_of_item(I)
 	. = ..(I, force, newloc, no_move, invdrop, was_thrown) //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
-	if(index && !QDELETED(src) && dna.species.mutanthands) //hand freed, fill with claws, skip if we're getting deleted.
-		put_in_hand(new dna.species.mutanthands(), index)
+	var/not_handled = FALSE //if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
 	if(I == wear_suit)
 		if(s_store && invdrop)
 			dropItemToGround(s_store, TRUE) //It makes no sense for your suit storage to stay on you if you drop your suit.
@@ -299,10 +315,18 @@
 		s_store = null
 		if(!QDELETED(src))
 			update_suit_storage()
+	else
+		not_handled = TRUE
 
 	// Send a signal for when we unequip an item that used to cover our feet/shoes. Used for bloody feet
 	if((I.body_parts_covered & FEET) || (I.flags_inv | I.transparent_protection) & HIDESHOES)
 		SEND_SIGNAL(src, COMSIG_CARBON_UNEQUIP_SHOECOVER, I, force, newloc, no_move, invdrop, silent)
+
+	if(not_handled)
+		return
+
+	update_obscured_slots(I.flags_inv)
+	hud_used?.update_locked_slots()
 
 /mob/living/carbon/human/toggle_internals(obj/item/tank, is_external = FALSE)
 	// Just close the tank if it's the one the mob already has open.
@@ -386,7 +410,7 @@
 		qdel(I)
 
 /mob/living/carbon/human/proc/smart_equip_targeted(slot_type = ITEM_SLOT_BELT, slot_item_name = "belt")
-	if(incapacitated())
+	if(incapacitated)
 		return
 	var/obj/item/thing = get_active_held_item()
 	var/obj/item/equipped_item = get_item_by_slot(slot_type)

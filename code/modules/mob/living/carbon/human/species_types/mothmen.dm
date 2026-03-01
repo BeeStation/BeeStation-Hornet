@@ -9,7 +9,6 @@
 	name = "\improper Mothman"
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
-	bodyflag = FLAG_MOTH
 	species_traits = list(
 		LIPS,
 		HAS_MARKINGS
@@ -48,28 +47,26 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/moth/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.moth_first)]"
-
-	if(lastname)
-		. += " [lastname]"
-	else
-		. += " [pick(GLOB.moth_last)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
-
 /datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustToxLoss(3 * REM * delta_time)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return FALSE
 	return ..()
-/datum/species/moth/check_species_weakness(obj/item/weapon, mob/living/attacker)
-	if(istype(weapon, /obj/item/melee/flyswatter))
-		return 9 //flyswatters deal 10x damage to moths
-	return 0
+
+/datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+	. = ..()
+	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
+
+/datum/species/moth/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
+
+/datum/species/moth/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
+
+	if(istype(attacking_item, /obj/item/melee/flyswatter))
+		damage_mods += 10 // Yes, a 10x damage modifier
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
 	return 'sound/emotes/moth/mothlaugh.ogg'
@@ -96,7 +93,7 @@
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "wrap_0"
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/cocoon/on_activate()
 	var/mob/living/carbon/H = owner
@@ -117,7 +114,7 @@
 		if(!ismoth(H))
 			to_chat(H, span_warning("You have lost your mandibles and cannot weave anymore!."))
 			return
-		if(H.incapacitated())
+		if(H.incapacitated)
 			to_chat(H, span_warning("You cannot weave a cocoon in your current state."))
 			return
 		if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))

@@ -488,6 +488,8 @@
 		SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
 		if(isnull(SSticker.admin_delay_notice))
 			return
+		if(SSticker.reboot_timer)
+			SSticker.cancel_reboot(usr)
 		for(var/client/admin in GLOB.admins)
 			if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel && SSticker.current_state == GAME_STATE_FINISHED)
 				admin.tgui_panel.give_br_popup()
@@ -517,7 +519,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/datum/admins/proc/spawn_atom()
+/datum/admins/proc/spawn_atom(input as null|text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
@@ -525,7 +527,9 @@
 	if(!check_rights(R_SPAWN))
 		return
 
-	var/chosen = pick_closest_path(tgui_input_text(usr, "Spawn an atom:", "Spawn"))
+	if (!input)
+		input = tgui_input_text(usr, "Spawn an atom:", "Spawn")
+	var/chosen = pick_closest_path(input)
 	if(!chosen)
 		return
 	var/turf/T = get_turf(usr)

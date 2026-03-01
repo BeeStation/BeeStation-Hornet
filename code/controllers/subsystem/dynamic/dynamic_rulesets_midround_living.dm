@@ -47,12 +47,11 @@
 
 	// See if they actually want to play this role
 	var/previous_chosen_candidates = length(chosen_candidates)
-	chosen_candidates = SSpolling.poll_candidates(
-		group = chosen_candidates,
-		poll_time = 30 SECONDS,
-		role_name_text = name,
-		alert_pic = get_poll_icon(),
-	)
+	var/datum/poll_config/config = new()
+	config.role_name_text = name
+	config.poll_time = 30 SECONDS
+	config.alert_pic = get_poll_icon()
+	chosen_candidates = SSpolling.poll_candidates(config, chosen_candidates)
 
 	if(!length(chosen_candidates))
 		message_admins("DYNAMIC: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
@@ -158,7 +157,7 @@
 	. = ..()
 	for(var/mob/living/carbon/candidate in candidates)
 		// Don't draft incompatible species
-		if(candidate.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+		if(HAS_TRAIT(candidate, TRAIT_NOT_TRANSMORPHIC))
 			candidates -= candidate
 			continue
 
@@ -241,12 +240,11 @@
 
 	// See if they actually want to play this role
 	var/previous_chosen_candidates = length(chosen_candidates)
-	chosen_candidates = SSpolling.poll_candidates(
-		group = chosen_candidates,
-		poll_time = 30 SECONDS,
-		role_name_text = name,
-		alert_pic = get_poll_icon(),
-	)
+	var/datum/poll_config/config = new
+	config.poll_time = 30 SECONDS
+	config.role_name_text = name
+	config.alert_pic = get_poll_icon()
+	chosen_candidates = SSpolling.poll_candidates(config, chosen_candidates)
 
 	if(!length(chosen_candidates))
 		message_admins("DYNAMIC: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")

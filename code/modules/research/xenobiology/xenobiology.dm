@@ -355,7 +355,7 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, span_notice("You activate [src]. You start feeling colder!"))
-			user.ExtinguishMob()
+			user.extinguish_mob()
 			user.adjust_fire_stacks(-20)
 			user.reagents.add_reagent(/datum/reagent/consumable/frostoil,4)
 			user.reagents.add_reagent(/datum/reagent/medicine/cryoxadone,5)
@@ -680,7 +680,7 @@
 /obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			user.dna.features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F")
+			user.dna.features["mcolor"] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
 			user.updateappearance(mutcolor_update = TRUE)
 			if(istype(species,/datum/species/oozeling/luminescent))
 				var/datum/species/oozeling/luminescent/lum_species = species
@@ -825,16 +825,15 @@
 
 	balloon_alert(user, "offering...")
 	being_used = TRUE
-	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(
-		question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!",
-		check_jobban = ROLE_SENTIENCE,
-		poll_time = 10 SECONDS,
-		checked_target = dumb_mob,
-		ignore_category = POLL_IGNORE_SENTIENCE_POTION,
-		alert_pic = dumb_mob,
-		role_name_text = "intelligence potion",
-		chat_text_border_icon = src,
-	)
+	var/datum/poll_config/config = new()
+	config.question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!"
+	config.check_jobban = ROLE_SENTIENCE
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_SENTIENCE_POTION
+	config.alert_pic = dumb_mob
+	config.role_name_text = "intelligence potion"
+	config.chat_text_border_icon = src
+	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(config, dumb_mob)
 	on_poll_concluded(user, dumb_mob, chosen_one)
 
 /// Assign the chosen ghost to the mob
@@ -883,7 +882,7 @@
 	var/prompted = 0
 	var/animal_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/transference/afterattack(mob/living/switchy_mob, mob/user, proximity)
+/obj/item/slimepotion/transference/afterattack(mob/living/switchy_mob, mob/living/user, proximity)
 	if(!proximity)
 		return
 	if(prompted || !isliving(switchy_mob))
@@ -1048,7 +1047,7 @@
 
 	to_chat(user, span_notice("You slather the red gunk over [thingy], making it faster."))
 	thingy.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	thingy.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
+	thingy.add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
 	ADD_TRAIT(thingy, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
 	qdel(src)
 	return FALSE
@@ -1075,7 +1074,7 @@
 	to_chat(user, span_notice("You slather the blue gunk over [clothing], fireproofing it."))
 	clothing.name = "fireproofed [clothing.name]"
 	clothing.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	clothing.add_atom_colour("#000080", FIXED_COLOUR_PRIORITY)
+	clothing.add_atom_colour(COLOR_NAVY, FIXED_COLOUR_PRIORITY)
 	clothing.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing.heat_protection = clothing.body_parts_covered
 	clothing.resistance_flags |= FIRE_PROOF
@@ -1241,7 +1240,7 @@
 	singular_name = "floor tile"
 	desc = "Through a series of micro-teleports these tiles let people move at incredible speeds."
 	icon_state = "tile-bluespace"
-	item_state = "tile-bluespace"
+	inhand_icon_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
 	mats_per_unit = list(/datum/material/iron=500)
@@ -1258,7 +1257,7 @@
 	singular_name = "floor tile"
 	desc = "Time seems to flow very slowly around these tiles."
 	icon_state = "tile_sepia"
-	item_state = "tile-sepia"
+	inhand_icon_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
 	mats_per_unit = list(/datum/material/iron=500)

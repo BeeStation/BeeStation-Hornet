@@ -16,6 +16,10 @@
 	bolts = FALSE
 	var/static/mutable_appearance/nest_overlay = mutable_appearance('icons/mob/alien.dmi', "nestoverlay", LYING_MOB_LAYER)
 
+/obj/structure/bed/nest/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_DANGEROUS_BUCKLE, INNATE_TRAIT)
+
 /obj/structure/bed/nest/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
 	if(has_buckled_mobs())
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
@@ -51,7 +55,7 @@
 			add_fingerprint(user)
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/M, mob/living/user, check_loc = TRUE)
-	if(!ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.incapacitated() || M.buckled)
+	if(!ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.incapacitated || M.buckled)
 		return
 
 	if(M.get_organ_by_type(/obj/item/organ/alien/plasmavessel))

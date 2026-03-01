@@ -52,14 +52,13 @@
 		qdel(src)
 		return
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = ROLE_IMAGINARY_FRIEND,
-		poll_time = 10 SECONDS,
-		checked_target = owner,
-		jump_target = owner,
-		role_name_text = "[owner]'s imaginary friend",
-		alert_pic = owner,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_IMAGINARY_FRIEND
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s imaginary friend"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		friend.key = candidate.key
 		friend_initialized = TRUE
@@ -134,8 +133,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	return ..()
 
 /mob/camera/imaginary_friend/proc/setup_friend()
-	var/gender = pick(MALE, FEMALE)
-	real_name = owner.dna.species.random_name(gender)
+	gender = pick(MALE, FEMALE)
+	real_name = generate_random_name_species_based(gender, FALSE, /datum/species/human)
 	name = real_name
 	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
 
@@ -177,7 +176,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 		to_chat(src, span_hear("You hear a distant voice in your head..."))
 		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[say_quote(speech_args[SPEECH_MESSAGE])]")]"))
 
-/mob/camera/imaginary_friend/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/camera/imaginary_friend/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
 	if (!message)
 		return
 
@@ -207,7 +206,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), MA, list(owner.client), 30)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), MA, list(owner.client), 30)
 
 	if(owner_chat_map || friend_chat_map)
 		var/list/hearers = list()
@@ -270,7 +269,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 /datum/action/innate/imaginary_join
 	name = "Join"
 	desc = "Join your owner, following them from inside their mind."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "join"
 
@@ -281,7 +280,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 /datum/action/innate/imaginary_hide
 	name = "Hide"
 	desc = "Hide yourself from your owner's sight."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "hide"
 

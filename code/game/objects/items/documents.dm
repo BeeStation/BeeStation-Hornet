@@ -3,7 +3,7 @@
 	desc = "\"Top Secret\" documents."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_generic"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
@@ -11,6 +11,10 @@
 	layer = MOB_LAYER
 	pressure_resistance = 2
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/documents/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /obj/item/documents/nanotrasen
 	desc = "\"Top Secret\" Nanotrasen documents, filled with complex diagrams and lists of names, dates and coordinates."

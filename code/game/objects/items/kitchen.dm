@@ -57,12 +57,12 @@
 		icon_state = "fork"
 		forkload = null
 
-	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, simplified_probability = 30))
+	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
-		return eyestab(M,user)
-	else
-		return ..()
+		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
+			return TRUE
+	return ..()
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"

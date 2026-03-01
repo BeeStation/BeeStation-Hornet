@@ -21,7 +21,7 @@
 	// Organs are put in nullspace, but this breaks circuit interactions
 	forceMove(receiver)
 
-/obj/item/organ/cyberimp/bci/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
+/obj/item/organ/cyberimp/bci/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced = null, message_range = 7, datum/saymode/saymode = null)
 	if (owner)
 		// Otherwise say_dead will be called.
 		// It's intentional that a circuit for a dead person does not speak from the shell.
@@ -73,7 +73,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 /datum/action/innate/bci_action
 	name = "Action"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "power_green"
 
@@ -210,7 +210,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 /datum/action/innate/bci_charge_action
 	name = "Check BCI Charge"
 	check_flags = NONE
-	icon_icon = 'icons/obj/power.dmi'
+	button_icon = 'icons/obj/power.dmi'
 	button_icon_state = "cell"
 
 	var/obj/item/circuit_component/bci_core/circuit_component

@@ -2,7 +2,7 @@
 	name = "mousetrap"
 	desc = "A handy little spring-loaded trap for catching pesty rodents."
 	icon_state = "mousetrap"
-	item_state = "mousetrap"
+	inhand_icon_state = "mousetrap"
 	custom_materials = list(/datum/material/iron=100)
 	attachable = TRUE
 	var/armed = FALSE
@@ -113,7 +113,7 @@
 			if(affecting.receive_damage(1, 0))
 				H.update_damage_overlays()
 	else if(ismouse(target))
-		var/mob/living/simple_animal/mouse/M = target
+		var/mob/living/basic/mouse/M = target
 		visible_message(span_boldannounce("SPLAT!"))
 		M.splat()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)

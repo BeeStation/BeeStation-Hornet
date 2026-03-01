@@ -10,7 +10,7 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "plutonium_core"
 	base_icon_state = "plutonium_core"
-	item_state = "plutoniumcore"
+	inhand_icon_state = "plutoniumcore"
 
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	layer = ABOVE_MOB_LAYER
@@ -20,6 +20,7 @@
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/trackable)
 
 /obj/item/nuke_core/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -49,7 +50,7 @@
 	desc = "Solid container for radioactive objects."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
-	item_state = "tile"
+	inhand_icon_state = "tile"
 	lefthand_file = 'icons/mob/inhands/misc/sheets_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/sheets_righthand.dmi'
 	var/obj/item/nuke_core/core
@@ -92,7 +93,7 @@
 	desc = "A screwdriver with an ultra thin tip that's carefully designed to boost screwing speed."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "screwdriver_nuke"
-	item_state = "screwdriver_nuke"
+	inhand_icon_state = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
 	greyscale_config_inhand_left = null
@@ -128,7 +129,11 @@
 	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
 	icon_state = "supermatter_sliver"
 	base_icon_state = "supermatter_sliver"
-	item_state = "supermattersliver"
+	inhand_icon_state = "supermattersliver"
+
+/obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return
@@ -159,7 +164,7 @@
 	..()
 	if(!iscarbon(user))
 		return FALSE
-	var/mob/victim = user
+	var/mob/living/victim = user
 	user.visible_message(span_danger("[victim] reaches out and tries to pick up [src]. [victim.p_their()] body starts to glow and bursts into flames before flashing into dust!"),\
 			span_userdanger("You reach for [src] with your hands. That was dumb."),\
 			span_italics("Everything suddenly goes silent."))
@@ -233,7 +238,7 @@
 
 /obj/item/hemostat/supermatter/update_icon_state()
 	icon_state = "supermatter_tongs[sliver ? "_loaded" : null]"
-	//item_state = "supermatter_tongs[sliver ? "_loaded" : null]"
+	//inhand_icon_state = "supermatter_tongs[sliver ? "_loaded" : null]"
 	return ..()
 
 /obj/item/hemostat/supermatter/afterattack(atom/O, mob/user, proximity)
@@ -251,9 +256,9 @@
 		update_icon()
 	..()
 
-/obj/item/hemostat/supermatter/proc/Consume(atom/movable/AM, mob/user)
-	if(ismob(AM))
-		var/mob/victim = AM
+/obj/item/hemostat/supermatter/proc/Consume(atom/movable/AM, mob/living/user)
+	if(isliving(AM))
+		var/mob/living/victim = AM
 		victim.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 		victim.dust()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")

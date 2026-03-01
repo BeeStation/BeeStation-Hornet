@@ -117,7 +117,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	name = "sugarcane"
 	desc = "Sickly sweet."
 	icon_state = "sugarcane"
-	filling_color = "#FFD700"
+	filling_color = COLOR_GOLD
 	bite_consumption_mod = 2
 	foodtypes = VEGETABLES | SUGAR
 	distill_reagent = /datum/reagent/consumable/ethanol/rum

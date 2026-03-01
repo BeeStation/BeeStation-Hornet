@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 
 // Returns a new bounty of random type, but does not add it to GLOB.bounties_list.
 /proc/random_bounty()
-	switch(rand(1, 13))
+	switch(rand(1, 14))
 		if(1)
 			var/subtype = pick(subtypesof(/datum/bounty/item/assistant))
 			return new subtype
@@ -124,6 +124,9 @@ GLOBAL_LIST_EMPTY(bounties_list)
 		if(13)
 			var/subtype = pick(subtypesof(/datum/bounty/item/botany))
 			return new subtype
+		if(14)
+			var/subtype = pick(subtypesof(/datum/bounty/manuscript))
+			return new subtype
 
 // Called lazily at startup to populate GLOB.bounties_list with random bounties.
 /proc/setup_bounties()
@@ -151,7 +154,9 @@ GLOBAL_LIST_EMPTY(bounties_list)
 	var/list/easy_add_list_strict_types = list(/datum/bounty/reagent/simple_drink = 1,
 											/datum/bounty/reagent/complex_drink = 1,
 											/datum/bounty/reagent/chemical_simple = 1,
-											/datum/bounty/reagent/chemical_complex = 1)
+											/datum/bounty/reagent/chemical_complex = 1,
+											/datum/bounty/manuscript/assistant = 1,
+											/datum/bounty/manuscript = 3)
 
 	for(var/the_strict_type in easy_add_list_strict_types)
 		for(var/i in 1 to easy_add_list_strict_types[the_strict_type])

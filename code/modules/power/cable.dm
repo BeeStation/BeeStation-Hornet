@@ -1,12 +1,12 @@
 GLOBAL_LIST_INIT(cable_colors, list(
-	"yellow" = "#ffff00",
+	"yellow" = COLOR_YELLOW,
 	"green" = "#00aa00",
 	"blue" = "#1919c8",
-	"pink" = "#ff3cc8",
+	"pink" = COLOR_LIGHT_PINK,
 	"orange" = "#ff8000",
-	"cyan" = "#00ffff",
-	"white" = "#ffffff",
-	"red" = "#ff0000"
+	"cyan" = COLOR_CYAN,
+	"white" = COLOR_WHITE,
+	"red" = COLOR_RED
 	))
 
 
@@ -41,7 +41,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	icon_state = "0-1"
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	flags_1 = STAT_UNIQUE_1
 	var/d1 = 0   // cable direction 1 (see above)
 	var/d2 = 1   // cable direction 2 (see above)
@@ -54,11 +54,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	)
 
 	var/cable_color = "red"
-	color = "#ff0000"
+	color = COLOR_RED
 
 /obj/structure/cable/yellow
 	cable_color = "yellow"
-	color = "#ffff00"
+	color = COLOR_YELLOW
 
 /obj/structure/cable/green
 	cable_color = "green"
@@ -70,7 +70,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/pink
 	cable_color = "pink"
-	color = "#ff3cc8"
+	color = COLOR_LIGHT_PINK
 
 /obj/structure/cable/orange
 	cable_color = "orange"
@@ -78,11 +78,11 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/cyan
 	cable_color = "cyan"
-	color = "#00ffff"
+	color = COLOR_CYAN
 
 /obj/structure/cable/white
 	cable_color = "white"
-	color = "#ffffff"
+	color = COLOR_WHITE
 
 // the power cable object
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
@@ -104,12 +104,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if(cable_colors[cable_color])
 		cable_color = cable_colors[cable_color]
 	update_icon()
+	if(isturf(loc))
+		var/turf/turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
 
-/obj/structure/cable/Destroy()					// called when a cable is deleted
+/obj/structure/cable/Destroy() // called when a cable is deleted
 	if(powernet)
-		cut_cable_from_powernet()				// update the powernets
-	GLOB.cable_list -= src							//remove it from global cable list
-	return ..()									// then go ahead and delete the cable
+		cut_cable_from_powernet() // update the powernets
+	GLOB.cable_list -= src //remove it from global cable list
+	return ..() // then go ahead and delete the cable
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -193,7 +196,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	else
 		return 0
 
-/obj/structure/cable/singularity_pull(S, current_size)
+/obj/structure/cable/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
@@ -485,7 +488,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (
 	gender = NEUTER //That's a cable coil sounds better than that's some cable coils
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
-	item_state = "coil"
+	inhand_icon_state = "coil"
 	novariants = FALSE
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -547,7 +550,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 ///////////////////////////////////
 
 /obj/item/stack/cable_coil/update_icon()
-	icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
+	icon_state = "[initial(inhand_icon_state)][amount < 3 ? amount : ""]"
 	name = "cable [amount < 3 ? "piece" : "coil"]"
 	color = null
 	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
@@ -788,14 +791,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/red
 	cable_color = "red"
-	color = "#ff0000"
+	color = COLOR_RED
 
 /obj/item/stack/cable_coil/red/one
 	amount = 1
 
 /obj/item/stack/cable_coil/yellow
 	cable_color = "yellow"
-	color = "#ffff00"
+	color = COLOR_YELLOW
 
 /obj/item/stack/cable_coil/blue
 	cable_color = "blue"
@@ -815,14 +818,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/cyan
 	cable_color = "cyan"
-	color = "#00ffff"
+	color = COLOR_CYAN
 
 /obj/item/stack/cable_coil/white
 	cable_color = "white"
 
 /obj/item/stack/cable_coil/random
 	cable_color = null
-	color = "#ffffff"
+	color = COLOR_WHITE
 
 
 /obj/item/stack/cable_coil/random/five
@@ -843,11 +846,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/cut/red
 	cable_color = "red"
-	color = "#ff0000"
+	color = COLOR_RED
 
 /obj/item/stack/cable_coil/cut/yellow
 	cable_color = "yellow"
-	color = "#ffff00"
+	color = COLOR_YELLOW
 
 /obj/item/stack/cable_coil/cut/blue
 	cable_color = "blue"
@@ -867,11 +870,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/cut/cyan
 	cable_color = "cyan"
-	color = "#00ffff"
+	color = COLOR_CYAN
 
 /obj/item/stack/cable_coil/cut/white
 	cable_color = "white"
 
 /obj/item/stack/cable_coil/cut/random
 	cable_color = null
-	color = "#ffffff"
+	color = COLOR_WHITE

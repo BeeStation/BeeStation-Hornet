@@ -57,6 +57,8 @@
 	var/light_system = STATIC_LIGHT
 	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
 	var/light_on = TRUE
+	/// How many tiles "up" this light is. 1 is typical, should only really change this if it's a floor light
+	var/light_height = LIGHTING_HEIGHT
 	///Bitflags to determine lighting-related atom properties.
 	var/light_flags = NONE
 
@@ -909,6 +911,10 @@
 /atom/proc/setClosed()
 	return
 
+///Called after the atom is 'tamed' for type-specific operations, Usually called by the tameable component but also other things.
+/atom/proc/tamed(mob/living/tamer, obj/item/food)
+	return
+
 /**
   * Used to attempt to charge an object with a payment component.
   *
@@ -916,15 +922,6 @@
   */
 /atom/proc/attempt_charge(atom/sender, atom/target, extra_fees = 0)
 	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
-
-/**
-* Instantiates the AI controller of this atom. Override this if you want to assign variables first.
-*
-* This will work fine without manually passing arguments.
-+*/
-/atom/proc/InitializeAIController()
-	if(ai_controller)
-		ai_controller = new ai_controller(src)
 
 ///Setter for the "base_pixel_x" var to append behavior related to it's changing
 /atom/proc/set_base_pixel_x(new_value)

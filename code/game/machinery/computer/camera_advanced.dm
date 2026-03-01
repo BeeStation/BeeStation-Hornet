@@ -136,7 +136,7 @@
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if( (machine_stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.is_blind() || user.incapacitated() )
+	if( (machine_stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.is_blind() || user.incapacitated )
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
@@ -334,7 +334,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/on_activate()
@@ -346,7 +346,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/on_activate()
@@ -391,7 +391,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 
 /datum/action/innate/camera_multiz_up
 	name = "Move up a floor"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_up"
 
 /datum/action/innate/camera_multiz_up/on_activate()
@@ -406,7 +406,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 
 /datum/action/innate/camera_multiz_down
 	name = "Move down a floor"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_down"
 
 /datum/action/innate/camera_multiz_down/on_activate()

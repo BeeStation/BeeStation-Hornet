@@ -166,7 +166,7 @@
 	if(QDELETED(src))
 		return FALSE
 
-	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && calling_holopad.is_operational && user.loc == calling_holopad.loc
+	. = !QDELETED(user) && !user.incapacitated && !QDELETED(calling_holopad) && calling_holopad.is_operational && user.loc == calling_holopad.loc
 
 	if(.)
 		if(!connected_holopad)
@@ -181,7 +181,7 @@
 
 /datum/action/innate/end_holocall
 	name = "End Holocall"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 	var/datum/holocall/hcall
 

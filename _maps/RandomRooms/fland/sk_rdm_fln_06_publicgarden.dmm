@@ -3,7 +3,7 @@
 /turf/template_noop/closed,
 /area/template_noop)
 "d" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
@@ -27,10 +27,8 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
@@ -75,16 +73,6 @@
 	},
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron,
-/area/template_noop)
-"s" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -142,8 +130,8 @@
 	name = "Public Garden Maintenance";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
 "K" = (
@@ -218,7 +206,7 @@ a
 (2,1,1) = {"
 W
 G
-s
+d
 d
 d
 d

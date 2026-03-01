@@ -51,7 +51,7 @@ Difficulty: Hard
 	pixel_x = -32
 	base_pixel_x = -32
 	del_on_death = TRUE
-	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
+	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
@@ -78,28 +78,28 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Triple Charge"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("You are now triple charging at the target you click on.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/hallucination_charge
 	name = "Hallucination Charge"
-	icon_icon = 'icons/effects/bubblegum.dmi'
+	button_icon = 'icons/effects/bubblegum.dmi'
 	button_icon_state = "smack ya one"
 	chosen_message = span_colossus("You are now charging with hallucinations at the target you click on.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/hallucination_surround
 	name = "Surround Target"
-	icon_icon = 'icons/turf/walls/wall.dmi'
+	button_icon = 'icons/turf/walls/wall.dmi'
 	button_icon_state = "wall-0"
 	chosen_message = span_colossus("You are now surrounding the target you click on with hallucinations.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blood_warp
 	name = "Blood Warp"
-	icon_icon = 'icons/effects/blood.dmi'
+	button_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "floor1"
 	chosen_message = span_colossus("You are now warping to blood around your clicked position.")
 	chosen_attack_num = 4
@@ -181,7 +181,7 @@ Difficulty: Hard
 	SSmove_manager.stop_looping(src)
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
-	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
+	animate(D, alpha = 0, color = COLOR_RED, transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.7
@@ -298,7 +298,7 @@ Difficulty: Hard
 		return FALSE
 
 	var/obj/effect/temp_visual/decoy/DA = new /obj/effect/temp_visual/decoy(loc,src)
-	DA.color = "#FF0000"
+	DA.color = COLOR_RED
 	var/oldtransform = DA.transform
 	DA.transform = matrix()*2
 	animate(DA, alpha = 255, color = initial(DA.color), transform = oldtransform, time = 3)
@@ -398,7 +398,7 @@ Difficulty: Hard
 	if(useoriginal)
 		charge(chargeat, delay, chargepast)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(. > 0 && prob(25))
 		var/obj/effect/decal/cleanable/blood/gibs/bubblegum/B = new /obj/effect/decal/cleanable/blood/gibs/bubblegum(loc)
@@ -553,7 +553,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life(delta_time = SSMOBS_DT, times_fired)
 	return
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	return
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/OpenFire()
@@ -587,7 +587,7 @@ Difficulty: Hard
 	color = "#C80000"
 	density = FALSE
 	faction = list(FACTION_MINING, FACTION_BOSS)
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()

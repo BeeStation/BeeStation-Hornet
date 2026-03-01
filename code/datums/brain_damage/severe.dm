@@ -129,18 +129,19 @@
 		return
 
 	var/sleep_chance = 1
+	var/drowsy = !!owner.has_status_effect(/datum/status_effect/drowsiness)
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		sleep_chance += 2
-	if(owner.drowsyness)
+	if(drowsy)
 		sleep_chance += 3
 
 	if(DT_PROB(0.5 * sleep_chance, delta_time))
 		to_chat(owner, span_warning("You fall asleep."))
-		owner.Sleeping(60)
+		owner.Sleeping(6 SECONDS)
 
-	else if(!owner.drowsyness && DT_PROB(sleep_chance, delta_time))
+	else if(!drowsy && DT_PROB(sleep_chance, delta_time))
 		to_chat(owner, span_warning("You feel tired..."))
-		owner.drowsyness += 10
+		owner.adjust_drowsiness(20 SECONDS)
 
 /datum/brain_trauma/severe/monophobia
 	name = "Monophobia"
@@ -193,7 +194,7 @@
 			else
 				to_chat(owner, span_warning("You can't stop shaking..."))
 
-			owner.dizziness += 20
+			owner.set_dizzy_if_lower(20 SECONDS)
 			owner.set_jitter_if_lower(20 SECONDS)
 
 		if(3, 4)

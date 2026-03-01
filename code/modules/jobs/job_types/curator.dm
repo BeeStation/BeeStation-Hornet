@@ -32,6 +32,9 @@
 		/area/construction/mining/aux_base
 	)
 
+	// The power that curator can write a manuscript as any job is written in 'manuscript_writing.dm'
+	// manuscript_jobs = list()
+
 /datum/outfit/job/curator
 	name = JOB_NAME_CURATOR
 	jobtype = /datum/job/curator

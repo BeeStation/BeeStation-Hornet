@@ -14,7 +14,6 @@
 	speak_chance = 1
 	icon = 'icons/mob/cult.dmi'
 	speed = 0
-	spacewalk = TRUE
 	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
@@ -41,6 +40,8 @@
 	var/playstyle_string = span_bigbold("You are a generic construct!") + "<b> Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/master = null
 	var/seeking = FALSE
+	var/original_name = null // The original name of the person, passed down by /proc/makeNewConstruct(mob/living/simple_animal/hostile/construct/
+	var/original_real_name = null
 	var/can_repair_constructs = FALSE
 	var/can_repair_self = FALSE
 	/// Theme controls color. THEME_CULT is red THEME_WIZARD is purple and THEME_HOLY is blue
@@ -52,9 +53,29 @@
 	usable_legs = 0
 	usable_hands = 0
 
+/mob/living/simple_animal/hostile/construct/death(gibbed)
+	if(!mind)
+		return ..()
+	var/obj/item/soulstone/stone = /obj/item/soulstone/anybody
+	switch(theme)
+		if(THEME_CULT)
+			stone = /obj/item/soulstone
+		if(THEME_WIZARD)
+			stone = /obj/item/soulstone/mystic
+		if(THEME_HOLY)
+			stone = /obj/item/soulstone/anybody/purified
+		else
+			stone = /obj/item/soulstone/anybody
+	if(original_name)
+		name = original_name //set the names so init_shade() uses the right one. I know this is spagetti, but the other solution was adding even more params to init_shade
+	if(original_real_name)
+		real_name = original_real_name
+	stone = new stone(drop_location())
+	stone.init_shade(src)
+	return ..()
+
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
 	for(var/spell in construct_spells)
 		var/datum/action/new_spell = new spell(src)
 		new_spell.Grant(src)
@@ -438,7 +459,7 @@
 		for(var/X in C.bodyparts)
 			var/obj/item/bodypart/BP = X
 			if(BP.body_part != HEAD && BP.body_part != CHEST)
-				if(BP.dismemberable)
+				if(BP.bodypart_flags & BODYPART_UNREMOVABLE)
 					parts += BP
 				else
 					undismembermerable_limbs++
@@ -490,7 +511,7 @@
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	var/tracking = FALSE
 	var/mob/living/simple_animal/hostile/construct/the_construct
 
@@ -526,7 +547,7 @@
 /datum/action/innate/seek_prey
 	name = "Seek the Harvest"
 	desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"

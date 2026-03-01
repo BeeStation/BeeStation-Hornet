@@ -80,6 +80,7 @@
 		add_to_dead_mob_list()
 	else
 		add_to_alive_mob_list()
+	update_incapacitated()
 	set_focus(src)
 	prepare_huds()
 	for(var/v in GLOB.active_alternate_appearances)
@@ -103,6 +104,7 @@
   * This is simply "mob_"+ a global incrementing counter that goes up for every mob
   */
 /mob/GenerateTag()
+	. = ..()
 	tag = "mob_[next_mob_id++]"
 
 /**
@@ -345,9 +347,21 @@
 		return ITEM_SLOT_HANDS
 	return null
 
-///Is the mob incapacitated
-/mob/proc/incapacitated(flags)
-	return
+/// Called whenever anything that modifes incapacitated is ran, updates it and sends a signal if it changes
+/// Returns TRUE if anything changed, FALSE otherwise
+/mob/proc/update_incapacitated()
+	SIGNAL_HANDLER
+	var/old_incap = incapacitated
+	incapacitated = build_incapacitated()
+	if(old_incap == incapacitated)
+		return FALSE
+
+	SEND_SIGNAL(src, COMSIG_MOB_INCAPACITATE_CHANGED, old_incap, incapacitated)
+	return TRUE
+
+/// Returns an updated incapacitated bitflag. If a flag is set it means we're incapacitated in that case
+/mob/proc/build_incapacitated()
+	return NONE
 
 /**
   * This proc is called whenever someone clicks an inventory ui slot.
@@ -390,7 +404,7 @@
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE)
 	if(!istype(W))
 		return FALSE
-	if(!W.mob_can_equip(src, null, slot, disable_warning, bypass_equip_delay_self))
+	if(!W.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self))
 		if(qdel_on_fail)
 			qdel(W)
 		else if(!disable_warning)
@@ -456,7 +470,7 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot)
-	if(W.mob_can_equip(src, null, slot, TRUE, TRUE))
+	if(W.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot)
 	else
@@ -534,6 +548,16 @@
 	set name = "Examine"
 	set category = "IC"
 
+	INVOKE_ASYNC(src, PROC_REF(run_examinate), examinify)
+
+/mob/proc/external_examinate(atom/examinify)
+	INVOKE_ASYNC(src, PROC_REF(run_external_examinate), examinify)
+
+/// Examine the atom provided when it is worn by someone else
+/mob/proc/run_external_examinate(atom/examinify)
+	if(QDELETED(examinify))
+		return
+
 	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
@@ -542,6 +566,44 @@
 		return
 
 	face_atom(examinify)
+
+	// Show nearby mobs that we're examining something
+	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/M in viewers(4, src))
+			if(M == src || !M.client || M.is_blind())
+				continue
+			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+				continue
+			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+
+	var/list/result = examinify.examine_base(src, TRUE)
+	var/atom_title = examinify.examine_title(src, thats = TRUE)
+	var/rendered = (atom_title ? "[span_slightly_larger(separator_hr("[atom_title]."))]" : "") + jointext(result, "<br>")
+
+	to_chat(src, examine_block(span_infoplain(rendered)))
+
+/mob/proc/run_examinate(atom/examinify)
+	if(QDELETED(examinify))
+		return
+
+	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
+
+	if(is_blind() && !blind_examine_check(examinify)) //blind people see things differently (through touch)
+		return
+
+	face_atom(examinify)
+
+	// Show nearby mobs that we're examining something
+	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/M in viewers(4, src))
+			if(M == src || !M.client || M.is_blind())
+				continue
+			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+				continue
+			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+
 	var/result_combined
 	if(client)
 		LAZYINITLIST(client.recent_examines)
@@ -567,12 +629,35 @@
 	to_chat(src, examine_block(span_infoplain(result_combined)))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
-/mob/proc/blind_examine_check(atom/examined_thing)
+//This is a proc for worn item examines. See /obj/item/proc/get_examine_line
+/mob/proc/can_examine_in_detail(atom/examinify, silent = FALSE)
+	var/turf/inspecting_location = get_turf(examinify)
+	if (!inspecting_location)
+		if (!silent)
+			to_chat(src, span_warning("You can't see that!"))
+		return FALSE
+	// Allow examine from up to 4 tiles away
+	if(!(src in viewers(4, inspecting_location)))
+		if(!silent)
+			to_chat(src, span_warning("You are too far away!"))
+		return FALSE
+	if(is_blind())
+		//blind_examine_check has some funky item movement stuff going on, so we just block blind examines
+		if(!silent)
+			to_chat(src, span_warning("You can't make out any of the details!"))
+		return FALSE
+	if(inspecting_location.get_lumcount() < LIGHTING_TILE_IS_DARK && !has_nightvision())
+		if(!silent)
+			to_chat(src, span_warning("You can't make those out!"))
+		return FALSE
 	return TRUE
+
+/mob/proc/blind_examine_check(atom/examined_thing)
+	return TRUE //The non-living will always succeed at this check.
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
-	if(!Adjacent(examined_thing) || incapacitated())
+	if(!Adjacent(examined_thing) || incapacitated)
 		to_chat(src, span_warning("Something is there, but you can't see it!"))
 		return FALSE
 
@@ -725,7 +810,7 @@
 	if(ismecha(loc))
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	var/obj/item/I = get_active_held_item()
@@ -786,6 +871,9 @@
 			if(!check_respawn_delay())
 				if(tgui_alert_async(usr, "Note, respawning is only allowed as another character. You have been dead for [DisplayTimeText(usr.get_respawn_time(), 1)] out of a required [DisplayTimeText(CONFIG_GET(number/respawn_delay), 1)].", "Respawn Unavailable", list("Okay"), timeout = 80) != "Respawn")
 					return
+			//Adds a confirmation check to prevent players from accidentally DNRing
+			if(tgui_alert(usr, "Are you sure you want to Respawn? Your old body will become unrevivable, and you must respawn as a new character!", "Respawn", list("Yes", "No")) != "Yes")
+				return
 
 		if(RESPAWN_FLAG_FREE)
 			pass() // Normal respawn

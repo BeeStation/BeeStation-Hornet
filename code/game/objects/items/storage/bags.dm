@@ -36,7 +36,7 @@
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
-	item_state = "trashbag"
+	inhand_icon_state = "trashbag"
 	worn_icon_state = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
@@ -85,6 +85,12 @@
 		else
 			icon_state = "[initial(icon_state)]"
 	return ..()
+
+/obj/item/storage/bag/trash/filled/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(1, 7))
+		new /obj/effect/spawner/random/trash/garbage(src)
+	update_icon_state()
 
 /obj/item/storage/bag/trash/cyborg
 	insertable = FALSE
@@ -293,7 +299,7 @@
 	actions_types = list(/datum/action/item_action/portaseeder_dissolve)
 
 /obj/item/storage/bag/plants/portaseeder/proc/dissolve_contents()
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)

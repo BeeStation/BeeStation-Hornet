@@ -3,7 +3,7 @@
 	desc = "A small authentication device, to be inserted into a firearm receiver to allow operation. NT safety regulations require all new designs to incorporate one."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "firing_pin"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("pokes")
@@ -122,7 +122,7 @@
 /obj/item/firing_pin/clown
 	name = "hilarious firing pin"
 	desc = "Advanced clowntech that can convert any firearm into a far more useful object."
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	fail_message = span_warning("HONK!")
 	force_replace = TRUE
 
@@ -192,7 +192,7 @@
 /obj/item/firing_pin/paywall
 	name = "paywall firing pin"
 	desc = "A firing pin with a built-in configurable paywall."
-	color = "#FFD700"
+	color = COLOR_GOLD
 	fail_message = ""
 	var/list/gun_owners = list() //list of people who've accepted the license prompt. If this is the multi-payment pin, then this means they accepted the waiver that each shot will cost them money
 	var/payment_amount //how much gets paid out to license yourself to the gun

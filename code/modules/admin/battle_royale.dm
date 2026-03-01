@@ -59,9 +59,9 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/nullrod/tribal_knife,
 		/obj/item/nullrod/fedora,
 		/obj/item/nullrod/godhand,
-		/obj/item/melee/baton/loaded,
+		/obj/item/melee/baton/security/loaded,
 		/obj/item/melee/chainofcommand/tailwhip/kitty,
-		/obj/item/melee/classic_baton,
+		/obj/item/melee/baton,
 		/obj/item/melee/ghost_sword,
 		/obj/item/melee/powerfist,
 		/obj/item/storage/firstaid/advanced,
@@ -323,12 +323,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/list/participants = SSpolling.poll_ghost_candidates(
-		question = "Would you like to partake in BATTLE ROYALE?",
-		poll_time = 30 SECONDS,
-		role_name_text = "battle royale player",
-		alert_pic = /obj/item/claymore,
-	)
+	var/datum/poll_config/config = new()
+	config.question = "Would you like to partake in BATTLE ROYALE?"
+	config.poll_time = 30 SECONDS
+	config.role_name_text = "battle royale player"
+	config.alert_pic = /obj/item/claymore
+	var/list/participants = SSpolling.poll_ghost_candidates(config)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()

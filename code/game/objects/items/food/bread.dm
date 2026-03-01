@@ -293,7 +293,7 @@
 	desc = "Bon appetit!"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = "baguette"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 8,
@@ -323,7 +323,7 @@
 	desc = "Alas, it is limited."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "garlicbread"
-	item_state = null
+	inhand_icon_state = null
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 6,

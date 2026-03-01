@@ -15,7 +15,7 @@
 	gender = NEUTER
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	worn_icon_state = "paper"
 	custom_fire_overlay = "paper_onfire_overlay"
@@ -292,7 +292,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(!usr.can_read(src) || INCAPACITATED_IGNORING(usr, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
@@ -321,7 +321,7 @@
 		return
 	. += span_warning("You cannot read it!")
 
-/obj/item/paper/ui_status(mob/user,/datum/ui_state/state)
+/obj/item/paper/ui_status(mob/user, /datum/ui_state/state)
 		// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
@@ -329,7 +329,7 @@
 		return UI_UPDATE
 	if(!in_range(user, src))
 		return UI_CLOSE
-	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(user) && !IsAdminGhost(user)))
+	if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read
@@ -362,7 +362,7 @@
 		if(user.is_holding(I)) //checking if they're holding it in case TK is involved
 			user.dropItemToGround(I)
 		user.adjust_fire_stacks(1)
-		user.IgniteMob()
+		user.ignite_mob()
 		return
 
 	if(user.is_holding(src)) //no TK shit here.

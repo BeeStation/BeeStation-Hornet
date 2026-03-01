@@ -19,7 +19,7 @@
 	desc = "Hey, why are you viewing this?!! Please let CentCom know about this odd occurrence."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-blue"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	var/uses = 1
 
 /obj/item/choice_beacon/attack_self(mob/user)
@@ -82,7 +82,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		var/list/temp_list = typesof(/obj/item/storage/box/hero)
 		for(var/V in temp_list)
 			var/atom/A = V
@@ -217,7 +217,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		var/list/temp_list = typesof(/obj/item/storage/box/magic)
 		for(var/V in temp_list)
 			var/atom/A = V
@@ -353,7 +353,7 @@
 	return ..()
 
 /obj/item/clothing/head/hats/tophat/bluespace/container_resist(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("You can't get out while you're restrained like this!"))
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
@@ -403,7 +403,7 @@
 	name = "Upgrade Wand"
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "nothingwand"
-	item_state = "wand"
+	inhand_icon_state = "wand"
 	w_class = WEIGHT_CLASS_SMALL
 	var/used = FALSE
 
@@ -450,7 +450,7 @@
 /obj/item/choice_beacon/pet/mouse
 	name = "mouse delivery beacon"
 	default_name = "Jerry"
-	mob_choice = /mob/living/simple_animal/mouse
+	mob_choice = /mob/living/basic/mouse
 
 /obj/item/choice_beacon/pet/corgi
 	name = "corgi delivery beacon"

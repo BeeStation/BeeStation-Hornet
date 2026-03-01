@@ -139,7 +139,7 @@
 	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "tea_empty"
 	base_icon_state = "tea"
-	item_state = "coffee"
+	inhand_icon_state = "coffee"
 	spillable = TRUE
 
 /obj/item/reagent_containers/cup/glass/mug/update_icon_state()
@@ -175,7 +175,7 @@
 	desc = "A bottle of water filled at an old Earth bottling facility."
 	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "smallbottle"
-	item_state = "bottle"
+	inhand_icon_state = "bottle"
 	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5)//see desc, don't think about it too hard
 	custom_materials = list(/datum/material/plastic=1000)
 	volume = 50
@@ -360,7 +360,7 @@
 	desc = "A cheap, mass produced style of cup, typically used at parties. They never seem to come out red, for some reason..."
 	icon = 'icons/obj/drinks/colo.dmi'
 	icon_state = "colocup"
-	item_state = "colocup"
+	inhand_icon_state = "colocup"
 	custom_materials = list(/datum/material/plastic = 1000)
 	possible_transfer_amounts = list(5, 10, 15, 20)
 	volume = 20

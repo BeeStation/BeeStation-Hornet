@@ -57,8 +57,17 @@ have ways of interacting with a specific mob and control it.
 	return ..() //Run parent at end
 
 /datum/ai_controller/monkey/UnpossessPawn(destroy)
-	UnregisterSignal(pawn, list(COMSIG_ATOM_WAS_ATTACKED, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_LIVING_START_PULL,\
-	COMSIG_LIVING_TRY_SYRINGE,  COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_MOB_MOVESPEED_UPDATED))
+	if(!isnull(pawn))
+		UnregisterSignal(pawn, list(
+			COMSIG_ATOM_WAS_ATTACKED,
+			COMSIG_ATOM_BULLET_ACT,
+			COMSIG_ATOM_HITBY,
+			COMSIG_LIVING_START_PULL,
+			COMSIG_LIVING_TRY_SYRINGE,
+			COMSIG_CARBON_CUFF_ATTEMPTED,
+			COMSIG_MOB_MOVESPEED_UPDATED,
+		))
+
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
 	return ..() //Run parent at end
 
@@ -71,12 +80,24 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 	AddComponent(/datum/component/connect_loc_behalf, pawn, loc_connections)
 
-/datum/ai_controller/monkey/able_to_run()
+/datum/ai_controller/monkey/on_stat_changed(mob/living/source, new_stat)
 	. = ..()
+	update_able_to_run()
+
+/datum/ai_controller/monkey/setup_able_to_run()
+	. = ..()
+	RegisterSignal(pawn, COMSIG_MOB_INCAPACITATE_CHANGED, PROC_REF(update_able_to_run))
+
+/datum/ai_controller/monkey/clear_able_to_run()
+	UnregisterSignal(pawn, list(COMSIG_MOB_INCAPACITATE_CHANGED, COMSIG_MOB_STATCHANGE))
+	return ..()
+
+/datum/ai_controller/monkey/get_able_to_run()
 	var/mob/living/living_pawn = pawn
 
-	if(IS_DEAD_OR_INCAP(living_pawn))
-		return FALSE
+	if(INCAPACITATED_IGNORING(living_pawn, INCAPABLE_RESTRAINTS|INCAPABLE_STASIS|INCAPABLE_GRAB) || living_pawn.stat > CONSCIOUS)
+		return AI_UNABLE_TO_RUN
+	return ..()
 
 ///re-used behavior pattern by monkeys for finding a weapon
 /datum/ai_controller/monkey/proc/TryFindWeapon()

@@ -7,7 +7,7 @@
 //Chef
 /obj/item/clothing/head/utility/chefhat
 	name = "chef's hat"
-	item_state = "chefhat"
+	inhand_icon_state = "chefhat"
 	icon_state = "chef"
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
@@ -30,7 +30,7 @@
 	name = "captain's hat"
 	desc = "It's good being the king."
 	icon_state = "captain"
-	item_state = "that"
+	inhand_icon_state = "that"
 	flags_inv = 0
 	armor_type = /datum/armor/hats_caphat
 	strip_delay = 60
@@ -56,7 +56,7 @@
 	icon_state = "capcap"
 	dog_fashion = null
 
-/obj/item/clothing/head/caphat/beret
+/obj/item/clothing/head/hats/caphat/beret
 	name = "captain's beret"
 	desc = "For the Captains known for their sense of fashion."
 	icon_state = "beret_badge"
@@ -108,7 +108,7 @@
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
 	armor_type = /datum/armor/fedora_det_hat
 	icon_state = "detective"
-	item_state = "det_hat"
+	inhand_icon_state = "det_hat"
 	var/candy_cooldown = 0
 	var/adjusted = FALSE
 	var/adjustable = TRUE
@@ -127,11 +127,9 @@
 	bleed = 20
 
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
-	. = ..()
-
 	create_storage(storage_type = /datum/storage/pockets/small/fedora/detective)
-
 	new /obj/item/reagent_containers/cup/glass/flask/det(src)
+	return ..()
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
 	. = ..()
@@ -155,7 +153,7 @@
 		flip(user)
 
 /obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
-	if(!user.incapacitated() && adjustable == TRUE)
+	if(!user.incapacitated && adjustable == TRUE)
 		adjusted = !adjusted
 		if(adjusted)
 			worn_icon_state = aura_icon_on
@@ -188,7 +186,7 @@
 
 /obj/item/clothing/head/beret/color
 	name = "white beret"
-	greyscale_colors = "#ffffff"
+	greyscale_colors = COLOR_WHITE
 
 /obj/item/clothing/head/beret/rainbow
 	name = "rainbow beret"
@@ -291,7 +289,7 @@
 	name = "warden's campaign hat"
 	desc = "A special armored campaign hat with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "wardendrill"
-	item_state = null
+	inhand_icon_state = null
 	dog_fashion = null
 	var/mode = DRILL_DEFAULT
 

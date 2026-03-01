@@ -9,7 +9,7 @@
 	name = "engineering scanner goggles"
 	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, and the T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
 	icon_state = "trayson-meson"
-	item_state = "trayson-meson"
+	inhand_icon_state = "trayson-meson"
 	actions_types = list(/datum/action/item_action/toggle_mode)
 
 	vision_flags = NONE
@@ -25,7 +25,7 @@
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/clothing/glasses/meson/engine/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -53,7 +53,8 @@
 		if(H.glasses == src)
 			H.update_sight()
 
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
+	update_mob()
 	update_action_buttons()
 
 /obj/item/clothing/glasses/meson/engine/attack_self(mob/user)
@@ -86,14 +87,14 @@
 				pic = new('icons/turf/overlays.dmi', place, "greenOverlay", AREA_LAYER)
 			else
 				pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
-			flick_overlay(pic, list(user.client), 8)
+			flick_overlay_global(pic, list(user.client), 8)
 
-/obj/item/clothing/glasses/meson/engine/update_icon()
+/obj/item/clothing/glasses/meson/engine/update_icon_state()
+	. = ..()
 	icon_state = "trayson-[mode]"
-	update_mob()
 
 /obj/item/clothing/glasses/meson/engine/proc/update_mob()
-	item_state = icon_state
+	inhand_icon_state = icon_state
 	if(isliving(loc))
 		var/mob/living/user = loc
 		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
@@ -104,7 +105,7 @@
 /obj/item/clothing/glasses/meson/engine/tray //atmos techs have lived far too long without tray goggles while those damned engineers get their dual-purpose gogles all to themselves
 	name = "optical t-ray scanner"
 	icon_state = "trayson-t-ray"
-	item_state = "trayson-t-ray"
+	inhand_icon_state = "trayson-t-ray"
 	desc = "Used by engineering staff to see underfloor objects such as cables and pipes."
 	range = 2
 
@@ -118,7 +119,7 @@
 /obj/item/clothing/glasses/meson/engine/shuttle
 	name = "shuttle region scanner"
 	icon_state = "trayson-shuttle"
-	item_state = "trayson-shuttle"
+	inhand_icon_state = "trayson-shuttle"
 	desc = "Used to see the boundaries of shuttle regions."
 
 	modes = list(MODE_NONE = MODE_SHUTTLE, MODE_SHUTTLE = MODE_NONE)

@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
 	score_achievement_type = /datum/award/score/swarmer_beacon_score
 	faction = list(FACTION_MINING, FACTION_BOSS, FACTION_SWARMER)
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	stop_automated_movement = TRUE
 	wander = FALSE
 	layer = BELOW_MOB_LAYER
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 			new createtype(loc)
 
 
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(. > 0 && world.time > call_help_cooldown)
 		call_help_cooldown = world.time + call_help_cooldown_amt
@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	maxHealth = 20
 	wander = TRUE
 	faction = list(FACTION_SWARMER, FACTION_MINING)
-	weather_immunities = list("ash") //wouldn't be fun otherwise
+	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE)
 	AIStatus = AI_ON
 	ranged_cooldown_time = 20
 	melee_damage = 15

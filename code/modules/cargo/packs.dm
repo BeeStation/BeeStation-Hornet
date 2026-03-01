@@ -415,23 +415,18 @@
 
 /datum/supply_pack/security/secpistol_ammo
 	name = "x200 LAW - NPS ammo Crate"
-	desc = "A box of x200 LAW; steel-cartridged low velocity ammo for law enforcement firearms, and 3 twelve-packs alongside. Requires Security access to open."
-	cost = 950
+	desc = "A box of x200 LAW; steel-cartridged low velocity ammo for law enforcement firearms. Contains a total of 16 lethal bullets, 2 magazines worth. Requires Security access to open."
+	cost = 600
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/x200law,
-					/obj/item/ammo_box/pouch/x200law,
-					/obj/item/ammo_box/pouch/x200law,
-					/obj/item/ammo_box/pouch/x200law)
+	contains = list(/obj/item/ammo_box/x200law)
 	crate_name = "ammo crate"
 
 /datum/supply_pack/security/secpistol_mags
-	name = "NPS-10 magazines Crate"
-	desc = "Three standard issue NPS-10 compatible magazines for law enforcement firearms. Does not come pre-loaded. Requires Security access to open."
-	cost = 1200
+	name = "NPS-10 spare magazine"
+	desc = "A spare magazine for the standard issue NPS-10 firearm. Does not come pre-loaded. Requires Security access to open."
+	cost = 450
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/magazine/x200law/empty,
-					/obj/item/ammo_box/magazine/x200law/empty,
-					/obj/item/ammo_box/magazine/x200law/empty)
+	contains = list(/obj/item/ammo_box/magazine/x200law/empty)
 	crate_name = "magazine crate"
 
 /datum/supply_pack/security/taser
@@ -605,9 +600,9 @@
 	desc = "Arm the Civil Protection Forces with three stun batons. Batteries included. Requires Security access to open."
 	cost = 900
 	max_supply = 4
-	contains = list(/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded)
+	contains = list(/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded)
 	crate_name = "stun baton crate"
 
 /datum/supply_pack/security/wall_flash
@@ -1334,7 +1329,7 @@
 /datum/supply_pack/engineering/shuttle_construction
 	name = "Shuttle Construction Kit"
 	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars!"
-	cost = 5000
+	cost = 7500
 	max_supply = 2
 	contains = list(
 		/obj/machinery/portable_atmospherics/canister/plasma,
@@ -1349,7 +1344,8 @@
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
 		/obj/item/circuitboard/machine/shuttle/heater,
-		/obj/item/circuitboard/machine/shuttle/heater
+		/obj/item/circuitboard/machine/shuttle/heater,
+		/obj/item/survivalcapsule/shuttle_husk
 		)
 	crate_name = "shuttle construction crate"
 	crate_type = /obj/structure/closet/crate/large
@@ -1898,27 +1894,29 @@
 	desc = "Contains a little bit of everything needed to stock a medbay or to form your own."
 	cost = 2000
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/cup/bottle/charcoal,
-					/obj/item/reagent_containers/cup/bottle/epinephrine,
-					/obj/item/reagent_containers/cup/bottle/morphine,
-					/obj/item/reagent_containers/cup/bottle/toxin,
-					/obj/item/reagent_containers/cup/beaker/large,
-					/obj/item/reagent_containers/pill/insulin,
-					/obj/item/stack/medical/gauze,
-					/obj/item/storage/box/beakers,
-					/obj/item/storage/box/medsprays,
-					/obj/item/storage/box/syringes,
-					/obj/item/storage/box/bodybags,
-					/obj/item/storage/firstaid/regular,
-					/obj/item/storage/firstaid/o2,
-					/obj/item/storage/firstaid/toxin,
-					/obj/item/storage/firstaid/brute,
-					/obj/item/storage/firstaid/fire,
-					/obj/item/defibrillator/loaded,
-					/obj/item/reagent_containers/blood/OMinus,
-					/obj/item/storage/pill_bottle/mining,
-					/obj/item/reagent_containers/pill/neurine,
-					/obj/item/vending_refill/medical)
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/charcoal,
+		/obj/item/reagent_containers/cup/bottle/epinephrine,
+		/obj/item/reagent_containers/cup/bottle/morphine,
+		/obj/item/reagent_containers/cup/bottle/toxin,
+		/obj/item/reagent_containers/cup/beaker/large,
+		/obj/item/reagent_containers/pill/insulin,
+		/obj/item/stack/medical/gauze,
+		/obj/item/storage/box/beakers,
+		/obj/item/storage/box/medsprays,
+		/obj/item/storage/box/syringes,
+		/obj/item/storage/box/bodybags,
+		/obj/item/storage/firstaid/regular,
+		/obj/item/storage/firstaid/o2,
+		/obj/item/storage/firstaid/toxin,
+		/obj/item/storage/firstaid/brute,
+		/obj/item/storage/firstaid/fire,
+		/obj/item/defibrillator/loaded,
+		/obj/item/reagent_containers/blood/OMinus,
+		/obj/item/storage/pill_bottle/mining,
+		/obj/item/reagent_containers/pill/neurine,
+		/obj/item/vending_refill/medical,
+	)
 	crate_name = "medical supplies crate"
 
 /datum/supply_pack/medical/supplies/fill(obj/structure/closet/crate/C)
@@ -2339,7 +2337,7 @@
 
 /datum/supply_pack/service/carpet_exotic
 	name = "Exotic Carpet Crate"
-	desc = "Exotic carpets straight from Space Russia, for all your decorating needs. Contains 100 tiles each of 8 different flooring patterns."
+	desc = "Exotic carpets straight from Space Russia, for all your decorating needs. Contains 100 tiles each of 10 different flooring patterns."
 	cost = 2000
 	max_supply = 3
 	contains = list(/obj/item/stack/tile/carpet/blue/fifty,
@@ -2354,6 +2352,8 @@
 					/obj/item/stack/tile/carpet/purple/fifty,
 					/obj/item/stack/tile/carpet/red/fifty,
 					/obj/item/stack/tile/carpet/red/fifty,
+					/obj/item/stack/tile/carpet/olive/fifty,
+					/obj/item/stack/tile/carpet/olive/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/eighties/fifty,
@@ -3094,7 +3094,8 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 					/obj/item/clothing/mask/gas/syndicate,
 					/obj/item/clothing/neck/necklace/dope,
-					/obj/item/vending_refill/donksoft)
+					/obj/item/vending_refill/donksoft,
+					/obj/item/clothing/neck/cloak/fakehalo)
 	crate_name = "crate"
 
 /datum/supply_pack/costumes_toys/foamforce
@@ -3380,6 +3381,21 @@
 		plush_nomoth = pick(_temporary_list_plush_nomoth)
 		new plush_nomoth(C)
 
+/datum/supply_pack/costumes_toys/ducks
+	name = "Rubber Duck Crate"
+	desc = "A crate filled with 5 adorable rubber ducks!"
+	cost = 2000
+	max_supply = 5
+	contains = list(
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+		/obj/item/bikehorn/rubberducky,
+	)
+	crate_name = "duck crate"
+	crate_type = /obj/structure/closet/crate/wooden
+
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -3566,7 +3582,8 @@
 					/obj/item/book/manual/random/,
 					/obj/item/book/random,
 					/obj/item/book/random,
-					/obj/item/book/random)
+					/obj/item/book/random,
+					/obj/item/book/manuscript)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/paper

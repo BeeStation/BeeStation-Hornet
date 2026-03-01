@@ -308,13 +308,13 @@
 	animate(summoned, 10 SECONDS, alpha = 155)
 
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		check_jobban = ROLE_HERETIC,
-		poll_time = 10 SECONDS,
-		jump_target = summoned,
-		role_name_text = summoned.real_name,
-		alert_pic = summoned,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_HERETIC
+	config.poll_time = 10 SECONDS
+	config.jump_target = summoned
+	config.role_name_text = summoned.real_name
+	config.alert_pic = summoned
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		loc.balloon_alert(user, "Ritual failed, no ghosts")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
@@ -461,6 +461,7 @@
 /datum/heretic_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!can_be_invoked(heretic_datum))
+		to_chat(user, span_warning("You need at least 3 sacrifices to invoke this ritual!"))
 		return FALSE
 
 	// Remove all non-dead humans from the atoms list.

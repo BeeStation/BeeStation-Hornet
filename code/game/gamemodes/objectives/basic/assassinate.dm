@@ -15,6 +15,9 @@
 /datum/objective/assassinate/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
 
+/datum/objective/assassinate/get_tracking_target(atom/source)
+	return target?.current
+
 /datum/objective/assassinate/internal
 	var/stolen = 0 		//Have we already eliminated this target?
 

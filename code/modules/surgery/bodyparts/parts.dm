@@ -29,7 +29,7 @@
 	if(cavity_item)
 		cavity_item.forceMove(drop_location())
 		cavity_item = null
-	..()
+	return ..()
 
 /obj/item/bodypart/chest/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -47,25 +47,25 @@
 	limb_id = "teratoma"
 
 /obj/item/bodypart/chest/alien
-	icon = 'icons/mob/species/alien/bodyparts.dmi'
-	icon_static = 'icons/mob/species/alien/bodyparts.dmi'
+	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_chest"
 	limb_id = BODYPART_ID_ALIEN
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
 	is_dimorphic = FALSE //All of them are girls
 	should_draw_greyscale = FALSE
-	dismemberable = 0
+	bodypart_flags = BODYPART_UNREMOVABLE
 	max_damage = 500
 	acceptable_bodytype = BODYTYPE_HUMANOID
 
 /obj/item/bodypart/chest/larva
-	icon = 'icons/mob/species/alien/bodyparts.dmi'
-	icon_static = 'icons/mob/species/alien/bodyparts.dmi'
+	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "larva_chest"
 	limb_id = BODYPART_ID_LARVA
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	dismemberable = 0
+	bodypart_flags = BODYPART_UNREMOVABLE
 	max_damage = 50
 	bodytype = BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_ORGANIC
 	acceptable_bodytype = BODYTYPE_LARVA_PLACEHOLDER
@@ -164,14 +164,14 @@
 	icon_state = "teratoma_l_arm"
 
 /obj/item/bodypart/arm/left/alien
-	icon = 'icons/mob/species/alien/bodyparts.dmi'
-	icon_static = 'icons/mob/species/alien/bodyparts.dmi'
+	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_l_arm"
 	limb_id = BODYPART_ID_ALIEN
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
 	px_x = 0
 	px_y = 0
-	dismemberable = FALSE
+	bodypart_flags = BODYPART_UNREMOVABLE
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE
@@ -269,14 +269,14 @@
 	limb_id = "teratoma"
 
 /obj/item/bodypart/arm/right/alien
-	icon = 'icons/mob/species/alien/bodyparts.dmi'
-	icon_static = 'icons/mob/species/alien/bodyparts.dmi'
+	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_r_arm"
 	limb_id = BODYPART_ID_ALIEN
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
 	px_x = 0
 	px_y = 0
-	dismemberable = FALSE
+	bodypart_flags = BODYPART_UNREMOVABLE
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE
@@ -365,14 +365,14 @@
 	limb_id = "teratoma"
 
 /obj/item/bodypart/leg/left/alien
-	icon = 'icons/mob/species/alien/bodyparts.dmi'
-	icon_static = 'icons/mob/species/alien/bodyparts.dmi'
+	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_l_leg"
 	limb_id = BODYPART_ID_ALIEN
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
 	px_x = 0
 	px_y = 0
-	dismemberable = FALSE
+	bodypart_flags = BODYPART_UNREMOVABLE
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE
@@ -463,14 +463,14 @@
 	limb_id = "teratoma"
 
 /obj/item/bodypart/leg/right/alien
-	icon = 'icons/mob/species/alien/bodyparts.dmi'
-	icon_static = 'icons/mob/species/alien/bodyparts.dmi'
+	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_r_leg"
 	limb_id = BODYPART_ID_ALIEN
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
 	px_x = 0
 	px_y = 0
-	dismemberable = FALSE
+	bodypart_flags = BODYPART_UNREMOVABLE
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE

@@ -41,15 +41,14 @@
 		return
 	user.visible_message(span_warning("[src] powers up!"))
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = ROLE_MONKEY_HELMET,
-		poll_time = 10 SECONDS,
-		checked_target = user,
-		ignore_category = POLL_IGNORE_MONKEY_HELMET,
-		jump_target = user,
-		role_name_text = "mind magnified monkey",
-		alert_pic = src,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_MONKEY_HELMET
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_MONKEY_HELMET
+	config.jump_target = user
+	config.role_name_text = "mind magnified monkey"
+	config.alert_pic = src
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, user)
 
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter), or monkey has died
 	if(QDELETED(src) || !user || magnification || user.stat)

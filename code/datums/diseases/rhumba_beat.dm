@@ -22,7 +22,7 @@
 	switch(stage)
 		if(2)
 			if(DT_PROB(26, delta_time))
-				affected_mob.adjustFireLoss(5, FALSE)
+				affected_mob.adjustFireLoss(5)
 			if(DT_PROB(0.5, delta_time))
 				to_chat(affected_mob, "<span class='danger'>You feel strange...</span>")
 		if(3)
@@ -36,7 +36,7 @@
 			if(DT_PROB(10, delta_time))
 				if(prob(50))
 					affected_mob.adjust_fire_stacks(2)
-					affected_mob.IgniteMob()
+					affected_mob.ignite_mob()
 				else
 					affected_mob.emote("gasp")
 					to_chat(affected_mob, span_danger("You feel a burning beat inside..."))

@@ -16,7 +16,7 @@
 	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	user.Stun(200)
 	user.visible_message(span_suicide("[user] jams [src] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!"))
-	user.adjust_blurriness(6)
+	user.adjust_eye_blur(12 SECONDS)
 	if(eyes)
 		eyes.apply_organ_damage(rand(6,8))
 	sleep(10)
@@ -70,7 +70,7 @@
 		if(H.is_eyes_covered())
 			return
 		visible_message(span_danger("\The [src] hits [H] in the eye!"))
-		H.adjust_blurriness(6)
+		H.adjust_eye_blur(12 SECONDS)
 		eyes.apply_organ_damage(rand(6,8))
 		H.Paralyze(40)
 		H.emote("scream")

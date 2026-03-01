@@ -25,30 +25,31 @@
 		return
 	else if(option == "Yourself")
 		hierophant_message("[user] has elected themselves to become the Eminence. Interact with [src] to object.", span="<span=large_brass>")
-		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed), user), 600, TIMER_STOPPABLE)
+		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed), user), 1 MINUTES, TIMER_STOPPABLE)
 	else if(option == "A ghost")
 		hierophant_message("[user] has elected for a ghost to become the Eminence. Interact with [src] to object.")
-		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed)), 600, TIMER_STOPPABLE)
+		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed)), 1 MINUTES, TIMER_STOPPABLE)
 	vote_active = TRUE
 
-/obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/eminence)
+/obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/living/eminence)
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-			role = /datum/role_preference/roundstart/clock_cultist,
-			check_jobban = ROLE_SERVANT_OF_RATVAR,
-			poll_time = 10 SECONDS,
-			jump_target = src,
-			role_name_text = "eminence",
-			alert_pic = /mob/living/simple_animal/eminence,
-		)
+		var/datum/poll_config/config = new()
+		config.role = /datum/role_preference/roundstart/clock_cultist
+		config.check_jobban = ROLE_SERVANT_OF_RATVAR
+		config.poll_time = 10 SECONDS
+		config.jump_target = src
+		config.role_name_text = "eminence"
+		config.alert_pic = /mob/living/simple_animal/eminence
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 		if(candidate)
 			eminence = candidate
 	else
 		eminence.dust()
-	if(!(eminence?.client))
+
+	if(!eminence?.client)
 		hierophant_message("The Eminence remains in slumber, for now, try waking it again soon.")
 		used = FALSE
 		return

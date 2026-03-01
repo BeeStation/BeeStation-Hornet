@@ -7,18 +7,10 @@
 	microwave_riggable = FALSE
 	var/reusable = TRUE
 	var/used = FALSE
-	var/roll_in_progress = FALSE
-
-/obj/item/dice/d20/fate/stealth
-	name = "d20"
-	desc = "A die with twenty sides. The preferred die to throw at the GM."
+	COOLDOWN_DECLARE(roll_cd)
 
 /obj/item/dice/d20/fate/one_use
 	reusable = FALSE
-
-/obj/item/dice/d20/fate/one_use/stealth
-	name = "d20"
-	desc = "A die with twenty sides. The preferred die to throw at the GM."
 
 /obj/item/dice/d20/fate/cursed
 	name = "cursed Die of Fate"
@@ -28,23 +20,44 @@
 	rigged = DICE_TOTALLY_RIGGED
 	rigged_value = 1
 
+/obj/item/dice/d20/fate/cursed/one_use
+	reusable = FALSE
+
+/obj/item/dice/d20/fate/stealth
+	name = "d20"
+	desc = "A die with twenty sides. The preferred die to throw at the GM."
+
+/obj/item/dice/d20/fate/stealth/one_use
+	reusable = FALSE
+
+/obj/item/dice/d20/fate/stealth/cursed
+	rigged = DICE_TOTALLY_RIGGED
+	rigged_value = 1
+
+/obj/item/dice/d20/fate/stealth/cursed/one_use
+	reusable = FALSE
+
 /obj/item/dice/d20/fate/diceroll(mob/user)
-	. = ..()
-	if(roll_in_progress)
+	if(!COOLDOWN_FINISHED(src, roll_cd))
 		to_chat(user, span_warning("The dice is already channeling its power! Be patient!"))
 		return
 
-	if(!used)
-		if(!ishuman(user) || !user.mind)
-			to_chat(user, span_warning("You feel the magic of the dice is restricted to ordinary humans!"))
-			return
+	. = ..()
+	if(used)
+		return
 
-		if(!reusable)
-			used = TRUE
-		roll_in_progress = TRUE
-		var/turf/selected_turf = get_turf(src)
-		selected_turf.visible_message(span_userdanger("[src] flares briefly."))
-		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
+	if(!ishuman(user) || !user.mind)
+		to_chat(user, span_warning("You feel the magic of the dice is restricted to ordinary humans!"))
+		return
+
+	if(!reusable)
+		used = TRUE
+
+	var/turf/selected_turf = get_turf(src)
+	selected_turf.visible_message(span_userdanger("[src] flares briefly."))
+
+	addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
+	COOLDOWN_START(src, roll_cd, 2.5 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	. = ..()
@@ -152,13 +165,13 @@
 			A.setup_master(user)
 			servant_mind.transfer_to(H)
 
-			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-				role = ROLE_WIZARD,
-				poll_time = 15 SECONDS,
-				jump_target = H,
-				role_name_text = "[user.real_name] magical servant?",
-				alert_pic = H,
-			)
+			var/datum/poll_config/config = new()
+			config.role = ROLE_WIZARD
+			config.poll_time = 15 SECONDS
+			config.jump_target = H
+			config.role_name_text = "[user.real_name] magical servant?"
+			config.alert_pic = H
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			if(candidate)
 				H.key = candidate.key
 				message_admins("[ADMIN_LOOKUPFLW(candidate)] was spawned as Dice Servant")
@@ -187,8 +200,6 @@
 			//Free wizard!
 			selected_turf.visible_message(span_userdanger("Magic flows out of [src] and into [user]!"))
 			user.mind.add_antag_datum(/datum/antagonist/wizard)
-	//roll is completed, allow others players to roll the dice
-	roll_in_progress = FALSE
 
 /datum/outfit/butler
 	name = "Butler"

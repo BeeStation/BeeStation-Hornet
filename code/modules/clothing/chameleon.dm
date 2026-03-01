@@ -2,7 +2,7 @@
 
 /datum/action/item_action/chameleon/drone/randomise
 	name = "Randomise Headgear"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "random"
 
 /datum/action/item_action/chameleon/drone/randomise/on_activate(mob/user, atom/target)
@@ -17,7 +17,7 @@
 
 /datum/action/item_action/chameleon/drone/togglehatmask
 	name = "Toggle Headgear Mode"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 
 /datum/action/item_action/chameleon/drone/togglehatmask/New(master)
 	..()
@@ -243,7 +243,7 @@
 			if(initial(picked_item.greyscale_config_inhand_right))
 				I.righthand_file = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config_inhand_right), initial(picked_item.greyscale_colors))
 		I.worn_icon_state = initial(picked_item.worn_icon_state)
-		I.item_state = initial(picked_item.item_state)
+		I.inhand_icon_state = initial(picked_item.inhand_icon_state)
 		if(!keepname)
 			I.name = initial(picked_item.name)
 		I.desc = initial(picked_item.desc)
@@ -295,6 +295,8 @@
 				comp.update_id_display()
 			keepname = TRUE // do not change PDA name unnecesarily
 			update_mob_hud(item_holder)
+		REMOVE_TRAIT(I, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON)
+		ADD_VALUE_TRAIT(I, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON, initial(picked_item.type), PRIORITY_CHAMELEON_MIMIC)
 
 /datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
@@ -347,7 +349,6 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-
 /datum/armor/under_chameleon
 	melee = 10
 	bullet = 10
@@ -376,7 +377,7 @@
 	desc = "A tough jumpsuit woven from alloy threads. It can take on the appearance of other jumpsuits."
 	icon = 'icons/obj/clothing/under/color.dmi'
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
-	item_state = "engi_suit"
+	inhand_icon_state = "engi_suit"
 	greyscale_colors = null
 	greyscale_config = null
 	greyscale_config_inhand_left = null
@@ -386,7 +387,7 @@
 /obj/item/clothing/under/chameleon/envirosuit/ratvar
 	name = "ratvarian engineer's envirosuit"
 	desc = "A tough envirosuit woven from alloy threads. It can take on the appearance of other jumpsuits."
-	item_state = "engineer_envirosuit"
+	inhand_icon_state = "engineer_envirosuit"
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)
 	. = ..()
@@ -434,13 +435,12 @@
 	icon_state = "armor"
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
-	item_state = "armor"
+	inhand_icon_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
 	armor_type = /datum/armor/suit_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/suit_chameleon
 	melee = 10
@@ -493,12 +493,11 @@
 	name = "Optical Meson Scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
-	item_state = "meson"
+	inhand_icon_state = "meson"
 	resistance_flags = NONE
 	armor_type = /datum/armor/glasses_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/glasses_chameleon
 	melee = 10
@@ -548,21 +547,20 @@
 	name = "welding goggles"
 	desc = "Protects the eyes from welders; approved by the mad scientist association."
 	icon_state = "welding-g"
-	item_state = "welding-g"
+	inhand_icon_state = "welding-g"
 	flash_protect = 3
 
 /obj/item/clothing/gloves/chameleon
 	desc = "These gloves provide protection against electric shock."
 	name = "insulated gloves"
 	icon_state = "yellow"
-	item_state = "ygloves"
+	inhand_icon_state = "ygloves"
 	worn_icon_state = "ygloves"
 
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/gloves_chameleon
 	melee = 10
@@ -616,7 +614,7 @@
 	name = "combat gloves"
 	desc = "These tactical gloves are fireproof and shock resistant."
 	icon_state = "cgloves"
-	item_state = "combatgloves"
+	inhand_icon_state = "combatgloves"
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
 	strip_delay = 80
@@ -625,7 +623,6 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/chameleon_combat
-
 
 /datum/armor/chameleon_combat
 	melee = 10
@@ -648,7 +645,6 @@
 	armor_type = /datum/armor/head_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/head_chameleon
 	melee = 5
@@ -697,7 +693,7 @@
 /obj/item/clothing/head/chameleon/envirohelm
 	name = "plasma envirosuit helmet"
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
-	item_state = "mime_envirohelm"
+	inhand_icon_state = "mime_envirohelm"
 	resistance_flags = FIRE_PROOF
 	strip_delay = 80
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
@@ -713,7 +709,7 @@
 	name = "ratvarian engineer's envirosuit helmet"
 	desc = "A tough envirohelm woven from alloy threads. It can take on the appearance of other headgear."
 	//icon_state = "engineer_envirohelm"
-	item_state = "engineer_envirohelm"
+	inhand_icon_state = "engineer_envirohelm"
 	flash_protect = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/head/chameleon/drone
@@ -734,7 +730,7 @@
 
 /datum/action/item_action/chameleon/tongue_change
 	name = "Tongue Change"
-	icon_icon = 'icons/obj/surgery.dmi'
+	button_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "tonguebone"
 	var/static/list/tongue_list
 
@@ -772,7 +768,7 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow." //More accurate
 	icon_state = "gas_alt"
-	item_state = "gas_alt"
+	inhand_icon_state = "gas_alt"
 	resistance_flags = NONE
 	armor_type = /datum/armor/mask_chameleon
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
@@ -784,7 +780,6 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 	var/datum/action/item_action/chameleon/tongue_change/tongue_action
-
 
 /datum/armor/mask_chameleon
 	melee = 5
@@ -884,7 +879,6 @@
 	armor_type = /datum/armor/shoes_chameleon
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
 
 /datum/armor/shoes_chameleon
 	melee = 10
@@ -1059,7 +1053,7 @@
 /obj/item/radio/headset/chameleon/bowman
 	name = "bowman headset"
 	icon_state = "syndie_headset"
-	item_state = "syndie_headset"
+	inhand_icon_state = "syndie_headset"
 	bang_protect = 3
 
 /obj/item/modular_computer/tablet/pda/preset/chameleon
@@ -1140,7 +1134,6 @@
 	icon_state = "blacktie"
 	resistance_flags = NONE
 	armor_type = /datum/armor/neck_chameleon
-
 
 /datum/armor/neck_chameleon
 	fire = 50

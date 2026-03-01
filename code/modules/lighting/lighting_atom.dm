@@ -10,7 +10,7 @@
 // The proc you should always use to set the light of this atom.
 // Nonesensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
-/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE, l_on)
+/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE, l_on, l_height)
 	if(l_range > 0 && l_range < MINIMUM_USEFUL_LIGHT_RANGE)
 		l_range = MINIMUM_USEFUL_LIGHT_RANGE //Brings the range up to 1.4, which is just barely brighter than the soft lighting that surrounds players.
 
@@ -28,6 +28,9 @@
 
 	if(!isnull(l_on))
 		set_light_on(l_on)
+
+	if(!isnull(l_height))
+		set_light_height(l_height)
 
 	update_light()
 
@@ -174,6 +177,17 @@
 	. = light_on
 	light_on = new_value
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_LIGHT_ON, .)
+
+/// Setter for the height of our light
+/atom/proc/set_light_height(new_value)
+	if(new_value == light_height)
+		return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_HEIGHT, new_value) & COMPONENT_BLOCK_LIGHT_UPDATE)
+		return
+	. = light_height
+	light_height = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_LIGHT_HEIGHT, .)
+	return .
 
 /// Setter for the light flags of this atom.
 /atom/proc/set_light_flags(new_value)

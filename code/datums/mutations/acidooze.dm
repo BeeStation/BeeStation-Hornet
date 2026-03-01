@@ -24,7 +24,7 @@
 	desc = "Keep away from children, paperwork, and children doing paperwork."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "bloodhand_left"
-	item_state = "fleshtostone"
+	inhand_icon_state = "fleshtostone"
 	var/static/base_acid_volume = 15
 	var/static/base_blood_cost = 20
 	var/static/icon_left = "bloodhand_left"
@@ -39,7 +39,7 @@
 /obj/item/melee/touch_attack/mutation/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || !isoozeling(user))
 		return
-	if(!target || user.incapacitated())
+	if(!target || user.incapacitated)
 		return FALSE
 	var/acid_volume = base_acid_volume
 	var/blood_cost = base_blood_cost

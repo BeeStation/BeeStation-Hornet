@@ -1,5 +1,5 @@
 /// The darkness threshold for space dragon when choosing a color
-#define DARKNESS_THRESHOLD		50
+#define REJECT_DARK_COLOUR_THRESHOLD 20
 
 /**
  * # Space Dragon
@@ -25,7 +25,6 @@
 	desc = "A vile, leviathan-esque creature that flies in the most unnatural way. Looks slightly similar to a space carp."
 	maxHealth = 350
 	health = 350
-	spacewalk = TRUE
 	combat_mode = TRUE
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
@@ -89,7 +88,7 @@
 	gust.Grant(src)
 	small_sprite = new
 	small_sprite.Grant(src)
-	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	add_traits(list(TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_SPACEWALK), INNATE_TRAIT)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
@@ -221,8 +220,8 @@
 		to_chat(src, span_warning("Not a valid color, please try again."))
 		color_selection()
 		return
-	var/temp_hsv = RGBtoHSV(chosen_color)
-	if(ReadHSV(temp_hsv)[3] < DARKNESS_THRESHOLD)
+	var/list/skin_hsv = rgb2hsv(chosen_color)
+	if(skin_hsv[3] < REJECT_DARK_COLOUR_THRESHOLD)
 		to_chat(src, span_danger("Invalid color. Your color is not bright enough."))
 		color_selection()
 		return
@@ -312,8 +311,8 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_fire_line(turf/T)
 	var/list/hit_list = list()
 	hit_list += src
-	new /obj/effect/hotspot(T)
-	T.hotspot_expose(700,50,1)
+	new /obj/effect/hotspot/bright(T)
+	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(L.faction_check_mob(src) && L != src)
 			hit_list += L
@@ -460,7 +459,7 @@
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
+	button_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "gust_attack"
 	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 
@@ -478,4 +477,4 @@
 	start_cooldown()
 	return TRUE
 
-#undef DARKNESS_THRESHOLD
+#undef REJECT_DARK_COLOUR_THRESHOLD

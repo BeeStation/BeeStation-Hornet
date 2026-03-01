@@ -29,3 +29,5 @@
 
 /** Environment related */
 #define ALERT_GRAVITY "gravity"
+#define ALERT_FIRE "fire"
+#define ALERT_TEMPERATURE "temp"

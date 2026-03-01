@@ -18,6 +18,7 @@
 	shift_underlay_only = FALSE
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "pump"
+	vent_movement = NONE
 	///Pressure that the pump will reach when on
 	var/target_pressure = ONE_ATMOSPHERE
 
@@ -107,8 +108,12 @@
 		to_chat(user, span_warning("You cannot unwrench [src], turn it off first!"))
 		return FALSE
 
-/obj/machinery/atmospherics/components/binary/pump/can_crawl_through()
-	return on // If a pump is off, it'll block even when not powered
+/obj/machinery/atmospherics/components/binary/pump/set_on(active)
+	. = ..()
+	if(active)
+		vent_movement |= VENTCRAWL_ALLOWED
+	else
+		vent_movement &= ~VENTCRAWL_ALLOWED
 
 /obj/machinery/atmospherics/components/binary/pump/layer2
 	piping_layer = 2

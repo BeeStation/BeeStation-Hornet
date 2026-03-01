@@ -59,7 +59,7 @@ Bonus
 
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
 	if(damage)
-		M.take_overall_damage(brute = rand(15,25), required_status = BODYTYPE_ORGANIC)
+		M.take_overall_damage(brute = rand(15,25), required_bodytype = BODYTYPE_ORGANIC)
 	if(!ishuman(M))
 		return
 	var/mob/living/carbon/human/H = M
@@ -158,7 +158,7 @@ Bonus
 	var/get_damage = rand(6,10)
 	if(M.mob_biotypes & MOB_UNDEAD)
 		return //this symptom wont work on the undead.
-	M.take_overall_damage(brute = get_damage, required_status = BODYTYPE_ORGANIC)
+	M.take_overall_damage(brute = get_damage, required_bodytype = BODYTYPE_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
 	if(zombie)

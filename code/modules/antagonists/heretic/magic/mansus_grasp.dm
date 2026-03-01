@@ -2,7 +2,7 @@
 	name = "Mansus Grasp"
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "mansus_grasp"
 	sound = 'sound/items/welder.ogg'
 
@@ -37,12 +37,14 @@
 
 	var/mob/living/living_hit = victim
 	living_hit.apply_damage(10, BRUTE)
-	if(iscarbon(victim))
-		var/mob/living/carbon/carbon_hit = victim
-		carbon_hit.silent = 3 SECONDS
-		carbon_hit.slurring = 7 SECONDS
-		carbon_hit.AdjustKnockdown(5 SECONDS)
-		carbon_hit.adjustStaminaLoss(80)
+	if(!iscarbon(victim))
+		return TRUE
+
+	var/mob/living/carbon/carbon_hit = victim
+
+	carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	carbon_hit.AdjustKnockdown(5 SECONDS)
+	carbon_hit.adjustStaminaLoss(80)
 
 	return TRUE
 
@@ -61,7 +63,7 @@
 		Causes knockdown, minor bruises, and major stamina damage. \
 		It gains additional beneficial effects as you expand your knowledge of the Mansus."
 	icon_state = "mansus_grasp"
-	item_state = "mansus_grasp"
+	inhand_icon_state = "mansus_grasp"
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
 	. = ..()
@@ -82,7 +84,7 @@
 	. = span_notice("[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!")
 	remove_hand_with_no_refund(user)
 
-/obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/user)
+/obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	var/datum/action/spell/touch/mansus_grasp/source = spell_which_made_us?.resolve()

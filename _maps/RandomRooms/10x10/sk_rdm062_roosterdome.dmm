@@ -66,7 +66,7 @@
 /turf/open/floor/engine,
 /area/template_noop)
 "al" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "as" = (
@@ -148,7 +148,7 @@
 /area/template_noop)
 "aH" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "aI" = (
@@ -189,7 +189,7 @@
 "aP" = (
 /obj/structure/table,
 /obj/item/storage/box/mousetraps,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
 	},
@@ -207,12 +207,12 @@
 /area/template_noop)
 "aS" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "aT" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "aU" = (

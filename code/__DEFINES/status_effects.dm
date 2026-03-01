@@ -1,11 +1,11 @@
 
 //! **These are all the different status effects. Use the paths for each effect in the defines.**
 
-/// if it allows multiple instances of the effect
+///if it allows multiple instances of the effect
 #define STATUS_EFFECT_MULTIPLE 0
-/// if it allows only one, preventing new instances
+///if it allows only one, preventing new instances
 #define STATUS_EFFECT_UNIQUE 1
-/// if it allows only one, but new instances replace
+///if it allows only one, but new instances replace
 #define STATUS_EFFECT_REPLACE 2
 /// if it only allows one, and new instances just instead refresh the timer
 #define STATUS_EFFECT_REFRESH 3
@@ -32,7 +32,7 @@
 /// Similar speed to STATUS_EFFECT_FAST_PROCESS, but uses a high priority subsystem (SSpriority_effects)
 #define STATUS_EFFECT_PRIORITY 2
 
-//Necropolis
+//several flags for the Necropolis curse status effect
 ///makes the edges of the target's screen obscured
 #define CURSE_BLINDING (1<<0)
 ///causes gradual damage
@@ -41,16 +41,27 @@
 #define CURSE_GRASPING (1<<2)
 
 //Incapacitated status effect flags
-/// If the incapacitated status effect will ignore a mob in restraints (handcuffs)
-#define IGNORE_RESTRAINTS (1<<0)
-/// If the incapacitated status effect will ignore a mob in stasis (stasis beds)
-#define IGNORE_STASIS (1<<1)
-/// If the incapacitated status effect will ignore a mob being agressively grabbed
-#define IGNORE_GRAB (1<<2)
+/// If the mob is normal incapacitated. Should never need this, just avoids issues if we ever overexpand this
+#define TRADITIONAL_INCAPACITATED (1<<0)
+/// If the incapacitated status effect is being caused by restraints (handcuffs)
+#define INCAPABLE_RESTRAINTS (1<<1)
+/// If the incapacitated status effect is being caused by stasis (stasis beds)
+#define INCAPABLE_STASIS (1<<2)
+/// If the incapacitated status effect is being caused by being agressively grabbed
+#define INCAPABLE_GRAB (1<<3)
+
+/// Checks to see if a mob would be incapacitated even while ignoring some types
+/// Does this by inverting the passed in flags and seeing if we're still incapacitated
+#define INCAPACITATED_IGNORING(mob, flags) (mob.incapacitated & ~(flags))
+
+/// Max amounts of fire stacks a mob can get
+#define MAX_FIRE_STACKS 20
+/// If a mob has a higher threshold than this, the icon shown will be increased to the big fire icon.
+#define MOB_BIG_FIRE_STACK_THRESHOLD 3
 
 // Grouped effect sources, see also code/__DEFINES/traits.dm
-#define STASIS_MACHINE_EFFECT "stasis_machine"
 
+#define STASIS_MACHINE_EFFECT "stasis_machine"
 #define STASIS_ADMIN "stasis_admin"
 
 // Stasis helpers
@@ -92,15 +103,60 @@
 // - Ex: set_stutter_if_lower(10 SECONDS) will set stuttering to ten seconds if no stuttering or less than ten seconds of stuttering exists
 // - Ex: set_jitter_if_lower(20 SECONDS) will do nothing if more than twenty seconds of jittering already exists
 
+#define adjust_stutter(duration) adjust_timed_status_effect(duration, /datum/status_effect/speech/stutter)
+#define adjust_stutter_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/speech/stutter, up_to)
+#define set_stutter(duration) set_timed_status_effect(duration, /datum/status_effect/speech/stutter)
+#define set_stutter_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/speech/stutter, TRUE)
+
+#define adjust_derpspeech(duration) adjust_timed_status_effect(duration, /datum/status_effect/speech/stutter/derpspeech)
+#define adjust_derpspeech_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/speech/stutter/derpspeech, up_to)
+#define set_derpspeech(duration) set_timed_status_effect(duration, /datum/status_effect/speech/stutter/derpspeech)
+#define set_derpspeech_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/speech/stutter/derpspeech, TRUE)
+
+#define adjust_slurring(duration) adjust_timed_status_effect(duration, /datum/status_effect/speech/slurring/generic)
+#define adjust_slurring_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/speech/slurring/generic, up_to)
+#define set_slurring(duration) set_timed_status_effect(duration, /datum/status_effect/speech/slurring/generic)
+#define set_slurring_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/speech/slurring/generic, TRUE)
+
+#define adjust_dizzy(duration) adjust_timed_status_effect(duration, /datum/status_effect/dizziness)
+#define adjust_dizzy_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/dizziness, up_to)
+#define set_dizzy(duration) set_timed_status_effect(duration, /datum/status_effect/dizziness)
+#define set_dizzy_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/dizziness, TRUE)
+
 #define adjust_jitter(duration) adjust_timed_status_effect(duration, /datum/status_effect/jitter)
 #define adjust_jitter_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/jitter, up_to)
 #define set_jitter(duration) set_timed_status_effect(duration, /datum/status_effect/jitter)
 #define set_jitter_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/jitter, TRUE)
 
+#define adjust_confusion(duration) adjust_timed_status_effect(duration, /datum/status_effect/confusion)
+#define adjust_confusion_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/confusion, up_to)
+#define set_confusion(duration) set_timed_status_effect(duration, /datum/status_effect/confusion)
+#define set_confusion_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/confusion, TRUE)
+
+#define adjust_drugginess(duration) adjust_timed_status_effect(duration, /datum/status_effect/drugginess)
+#define adjust_drugginess_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/drugginess, up_to)
+#define set_drugginess(duration) set_timed_status_effect(duration, /datum/status_effect/drugginess)
+#define set_drugginess_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/drugginess, TRUE)
+
+#define adjust_silence(duration) adjust_timed_status_effect(duration, /datum/status_effect/silenced)
+#define adjust_silence_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/silenced, up_to)
+#define set_silence(duration) set_timed_status_effect(duration, /datum/status_effect/silenced)
+#define set_silence_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/silenced, TRUE)
+
 #define adjust_hallucinations(duration) adjust_timed_status_effect(duration, /datum/status_effect/hallucination)
 #define adjust_hallucinations_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/hallucination, up_to)
 #define set_hallucinations(duration) set_timed_status_effect(duration, /datum/status_effect/hallucination)
 #define set_hallucinations_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/hallucination, TRUE)
+
+#define adjust_drowsiness(duration) adjust_timed_status_effect(duration, /datum/status_effect/drowsiness)
+#define adjust_drowsiness_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/drowsiness, up_to)
+#define set_drowsiness(duration) set_timed_status_effect(duration, /datum/status_effect/drowsiness)
+#define set_drowsiness_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/drowsiness, TRUE)
+
+#define adjust_eye_blur(duration) adjust_timed_status_effect(duration, /datum/status_effect/eye_blur)
+#define adjust_eye_blur_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/eye_blur, up_to)
+#define set_eye_blur(duration) set_timed_status_effect(duration, /datum/status_effect/eye_blur)
+#define set_eye_blur_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/eye_blur, TRUE)
 
 #define adjust_pacifism(duration) adjust_timed_status_effect(duration, /datum/status_effect/pacify)
 #define set_pacifism(duration) set_timed_status_effect(duration, /datum/status_effect/pacify)
