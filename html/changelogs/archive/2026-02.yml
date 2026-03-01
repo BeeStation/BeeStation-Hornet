@@ -193,3 +193,13 @@
   rkz, Absolucy, san7890:
   - server: standardized CI to use ubuntu-24.04, rather than a mix of latest and 22.04
   - server: adds error message to hook install
+2026-02-26:
+  r1ks-iwnl:
+  - bugfix: Fixes sarin poisoning through gloves.
+2026-02-28:
+  r1ks-iwnl:
+  - bugfix: Fixes binary vitals jumpsuit sensor option
+  - bugfix: Fixes crew monitor status icons showing incorrectly
+  r1ks-iwnl, lessthnthree:
+  - tweak: Supermatter surge will happen only with a Chief Engineer or 2 other engineering
+      staff present.
