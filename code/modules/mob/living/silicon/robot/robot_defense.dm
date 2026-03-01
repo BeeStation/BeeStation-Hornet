@@ -48,7 +48,6 @@
 		damage *= 1.1
 	damage = round(damage / 2) // borgs receive half damage
 	adjustBruteLoss(damage)
-	updatehealth()
 
 	return
 
@@ -70,27 +69,56 @@
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
-		IgniteMob()
+		ignite_mob()
 
 
 /mob/living/silicon/robot/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	switch(severity)
-		if(1)
-			Stun(160)
-		if(2)
-			Stun(60)
+	trigger_malfunction(TRUE)
+
+/mob/living/silicon/robot/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/static)
+	if(affect_silicon)
+		trigger_malfunction(FALSE)
+		return ..()
+
+///Sensors are overwhelmed by EMP/flash
+/mob/living/silicon/robot/proc/trigger_malfunction(major_malfunction = FALSE)
+
+	//Apply the basic slowdown status effect regardless of what caused the malfunction
+	apply_status_effect(/datum/status_effect/cyborg_malfunction)
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
+
+	//If the malfunction was caused by EMP instead of simply flash, there's a bit more to it
+	if(major_malfunction)
+
+		//Scramble equipped items
+		for(var/obj/O in held_items)
+			if(prob(60))
+				uneq_module(O)
+				activate_module(pick(model.modules))
+
+		//Randomizes locked state and compounds it with cover potentially swinging open for an overall 25% chance for cover to fly open
+		if(!opened)
+			locked = pick(TRUE, FALSE)
+			if(!locked)
+				opened = pick(TRUE, FALSE)
+
+	update_icons()
 
 /mob/living/silicon/robot/proc/should_emag(atom/target, mob/user)
 	SIGNAL_HANDLER
 	if(target == user || user == src)
 		return TRUE // signal is inverted
-	if(!opened)//Cover is closed
-		return !locked
 	if(world.time < emag_cooldown)
 		return TRUE
+	if(has_status_effect(/datum/status_effect/cyborg_malfunction))
+		return FALSE //Malfunctions simplify the process for gameplay reasons
+	if(!opened)
+		if(!locked) //Tell the player what went wrong instead of just leaving them in the dark
+			to_chat(user, span_notice("You need to pry the cover open first!"))
+		return !locked
 	if(wiresexposed)
 		to_chat(user, span_warning("You must unexpose the wires first!"))
 		return TRUE
@@ -107,7 +135,7 @@
 		else
 			hacker.use_charge()
 
-	if(!opened && locked) //Cover is closed
+	if(!has_status_effect(/datum/status_effect/cyborg_malfunction) && !opened && locked) //Cover is locked closed, and the cyborg isn't already compromised
 		to_chat(user, span_notice("You emag the cover lock."))
 		locked = FALSE
 		if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
@@ -119,7 +147,7 @@
 	addtimer(CALLBACK(src, PROC_REF(after_emag), user), 1)
 
 /mob/living/silicon/robot/proc/after_emag(mob/user)
-	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
+	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/malf_ai))
 		to_chat(src, span_danger("ALERT: Foreign software execution prevented."))
 		logevent("ALERT: Foreign software execution prevented.")
 		to_chat(connected_ai, span_danger("ALERT: Cyborg unit \[[src]] successfully defended against subversion."))
@@ -139,7 +167,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] emagged cyborg [ADMIN_LOOKUPFLW(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")
+	GLOB.lawchanges.Add("[time] <B>:</B> [key_name(user)] emagged [name]([key])")
 	to_chat(src, span_danger("ALERT: Foreign software detected."))
 	logevent("ALERT: Foreign software detected.")
 	sleep(0.5 SECONDS)
@@ -164,7 +192,8 @@
 	create_access_card(get_all_syndicate_access())
 
 /mob/living/silicon/robot/proc/after_emag_shell(mob/user)
-	ResetModule()
+	ResetModel()
+	Stun(12 SECONDS, TRUE)
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
@@ -187,29 +216,8 @@
 			if (stat != DEAD)
 				adjustBruteLoss(30)
 
-/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj, def_zone)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj, def_zone)
 	. = ..()
 	updatehealth()
 	if(prob(75) && Proj.damage > 0)
 		spark_system.start()
-
-/mob/living/silicon/robot/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= (maxHealth * 0.5))
-		if(getOxyLoss() > (maxHealth * 0.5))
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= (maxHealth * 0.5))
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-
-
-/mob/living/silicon/robot/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= (maxHealth * 0.5))
-		if(getOxyLoss() > (maxHealth * 0.5))
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= (maxHealth * 0.5))
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)

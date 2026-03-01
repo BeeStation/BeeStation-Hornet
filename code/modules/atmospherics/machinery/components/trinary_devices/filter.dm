@@ -12,9 +12,15 @@
 	///What gases are we filtering, by typepath
 	var/list/filter_type = list()
 
+/obj/machinery/atmospherics/components/trinary/filter/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("Maximize transfer rate")
+
 /obj/machinery/atmospherics/components/trinary/filter/CtrlClick(mob/user)
 	if(can_interact(user))
 		on = !on
+		balloon_alert(user, "turned [on ? "on" : "off"]")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
 	return ..()
@@ -22,7 +28,8 @@
 /obj/machinery/atmospherics/components/trinary/filter/AltClick(mob/user)
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
-		balloon_alert(user, "You set the transfer rate to [transfer_rate] L/s.")
+		investigate_log("was set to [transfer_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
+		balloon_alert(user, "volume output set to [transfer_rate] L/s")
 		update_icon()
 		ui_update()
 	return
@@ -244,13 +251,8 @@
 	filter_type = list(/datum/gas/hypernoblium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/no2
-	name = "nitryl filter"
-	filter_type = list(/datum/gas/nitryl)
-
-/obj/machinery/atmospherics/components/trinary/filter/atmos/stimulum
-	name = "stimulum filter"
-	filter_type = list(/datum/gas/stimulum)
-
+	name = "nitrium filter"
+	filter_type = list(/datum/gas/nitrium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/pluoxium
 	name = "pluoxium filter"
@@ -298,8 +300,8 @@
 	filter_type = list(/datum/gas/hypernoblium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/no2
-	name = "nitryl filter"
-	filter_type = list(/datum/gas/nitryl)
+	name = "nitrium filter"
+	filter_type = list(/datum/gas/nitrium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/pluoxium
 	name = "pluoxium filter"

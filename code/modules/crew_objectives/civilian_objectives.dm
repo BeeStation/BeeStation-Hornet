@@ -159,7 +159,7 @@
 	if(..())
 		return TRUE
 	var/num_mice = 0
-	for(var/mob/living/simple_animal/mouse/M in GLOB.alive_mob_list)
+	for(var/mob/living/basic/mouse/M in GLOB.alive_mob_list)
 		if((M.z in SSmapping.levels_by_trait(ZTRAIT_STATION)))
 			num_mice++
 	return num_mice <= target_amount
@@ -190,7 +190,7 @@
 	if(!owner?.current)
 		return FALSE
 	var/list/uniqueslips = list()
-	for(var/obj/item/modular_computer/tablet/pda/clown/PDA in owner.current.get_contents())
+	for(var/obj/item/modular_computer/tablet/pda/preset/clown/PDA in owner.current.get_contents())
 		for(var/H in PDA.slip_victims)
 			uniqueslips |= H
 	return length(uniqueslips) >= target_amount

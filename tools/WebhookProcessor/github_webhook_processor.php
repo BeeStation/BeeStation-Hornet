@@ -646,6 +646,7 @@ function get_pr_code_friendliness($payload, $oldbalance = null){
 		'Refactor' => 10,
 		'Code Improvement' => 2,
 		'Grammar and Formatting' => 1,
+		'Quality of Life' => 1,
 		'Priority: High' => 15,
 		'Priority: CRITICAL' => 20,
 		'Unit Tests' => 6,
@@ -845,17 +846,15 @@ function checkchangelog($payload, $compile = true) {
 					$currentchangelogblock[] = array('type' => 'tweak', 'body' => $item);
 				}
 				break;
-			case 'soundadd':
-				if($item != 'added a new sound thingy') {
-					$tags[] = 'Sound';
-					$currentchangelogblock[] = array('type' => 'soundadd', 'body' => $item);
+			case 'qol':
+				if($item != 'made something easier to use') {
+					$tags[] = 'Quality of Life';
+					$currentchangelogblock[] = array('type' => 'qol', 'body' => $item);
 				}
-				break;
-			case 'sounddel':
-				if($item != 'removed an old sound thingy') {
+			case 'sound':
+				if($item != 'added/modified/removed audio or sound effects') {
 					$tags[] = 'Sound';
-					$tags[] = 'Removal';
-					$currentchangelogblock[] = array('type' => 'sounddel', 'body' => $item);
+					$currentchangelogblock[] = array('type' => 'sound', 'body' => $item);
 				}
 				break;
 			case 'add':
@@ -874,17 +873,10 @@ function checkchangelog($payload, $compile = true) {
 					$currentchangelogblock[] = array('type' => 'rscdel', 'body' => $item);
 				}
 				break;
-			case 'imageadd':
-				if($item != 'added some icons and images') {
+			case 'image':
+				if($item != 'added/modified/removed some icons or images') {
 					$tags[] = 'Sprites';
-					$currentchangelogblock[] = array('type' => 'imageadd', 'body' => $item);
-				}
-				break;
-			case 'imagedel':
-				if($item != 'deleted some icons and images') {
-					$tags[] = 'Sprites';
-					$tags[] = 'Removal';
-					$currentchangelogblock[] = array('type' => 'imagedel', 'body' => $item);
+					$currentchangelogblock[] = array('type' => 'image', 'body' => $item);
 				}
 				break;
 			case 'typo':
@@ -900,9 +892,6 @@ function checkchangelog($payload, $compile = true) {
 					$tags[] = 'Balance/Rebalance';
 					$currentchangelogblock[] = array('type' => 'balance', 'body' => $item);
 				}
-				break;
-			case 'tgs':
-				$currentchangelogblock[] = array('type' => 'tgs', 'body' => $item);
 				break;
 			case 'code_imp':
 			case 'code':

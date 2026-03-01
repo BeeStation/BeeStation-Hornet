@@ -1,5 +1,6 @@
 import { multiline } from 'common/string';
-import { FeatureToggle, CheckboxInput } from '../base';
+
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const chat_bankcard: FeatureToggle = {
   name: 'Enable Income Updates',
@@ -116,4 +117,20 @@ export const chat_radio: FeatureToggle = {
   description: 'Hear all radio messages while adminned.',
   component: CheckboxInput,
   important: true,
+};
+
+export const examine_messages: FeatureToggle = {
+  name: 'Enable Examine Messages',
+  category: 'CHAT',
+  subcategory: 'IC',
+  description: "Receive 'player examined x' examine messages in chat.",
+  component: CheckboxInput,
+};
+
+export const whole_word_examine_links: FeatureToggle = {
+  name: 'Whole Word Examine Links',
+  category: 'CHAT',
+  subcategory: 'IC',
+  description: 'Use whole word examine links instead of an appended [?].',
+  component: CheckboxInput,
 };

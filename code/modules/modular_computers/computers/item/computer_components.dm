@@ -61,6 +61,7 @@
 	if(enabled && !use_power())
 		shutdown_computer()
 	update_icon()
+	ui_update()
 	return TRUE
 
 /// This isn't the "uninstall fully" proc, it just makes the computer lose all its references to the component
@@ -77,5 +78,13 @@
 	for(var/i in all_components)
 		var/obj/component = all_components[i]
 		if(component.name == name)
+			return component
+	return null
+
+/// Checks all hardware pieces to determine if name type, if yes, returns the hardware piece, otherwise returns null
+/obj/item/modular_computer/proc/find_hardware_by_type(device_type)
+	for(var/i in all_components)
+		var/obj/item/computer_hardware/component = all_components[i]
+		if(component.device_type == device_type)
 			return component
 	return null

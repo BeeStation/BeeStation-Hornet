@@ -23,9 +23,10 @@
 	usr.name = O.name
 	usr.control_object = O
 	O.AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
+	O.AddElement(/datum/element/weather_listener, /datum/weather/rad_storm, ZTRAIT_STATION, GLOB.rad_storm_sounds)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/proc/release()
+/proc/release_obj()
 	set name = "Release Obj"
 	set category = "Object"
 	//usr.loc = get_turf(usr)
@@ -43,6 +44,7 @@
 			H.name = H.get_visible_name()
 
 	usr.control_object.RemoveElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
+	usr.control_object.RemoveElement(/datum/element/weather_listener, /datum/weather/rad_storm, ZTRAIT_STATION, GLOB.rad_storm_sounds)
 	usr.forceMove(get_turf(usr.control_object))
 	usr.control_object = null
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -52,5 +54,5 @@
 	set category = "Debug"
 	set name = "Give Possessing Verbs"
 	M.add_verb(/proc/possess)
-	M.add_verb(/proc/release)
+	M.add_verb(/proc/release_obj)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Possessing Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

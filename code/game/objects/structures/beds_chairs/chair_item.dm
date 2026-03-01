@@ -5,15 +5,14 @@
 	desc = "Basic brawl essential."
 	icon = 'icons/obj/beds_chairs/chairs.dmi'
 	icon_state = "chair_toppled"
-	item_state = "chair"
+	inhand_icon_state = "chair"
 	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ISWEAPON
 	force = 8
 	throwforce = 10
-	block_upgrade_walk = 1
-	block_power = 20
+
 	throw_range = 3
 	hitsound = 'sound/items/trayhit1.ogg'
 	custom_materials = list(/datum/material/iron = 2000)
@@ -78,7 +77,7 @@
 	name = "fancy chair"
 	desc = "Meeting brawl essential."
 	icon_state = "chair_fancy_toppled"
-	item_state = "chair_fancy"
+	inhand_icon_state = "chair_fancy"
 	hitsound = 'sound/items/trayhit2.ogg'
 	custom_materials = list(/datum/material/iron = 3000)
 	origin_type = /obj/structure/chair/fancy
@@ -91,7 +90,7 @@
 	name = "stool"
 	desc = "The last line of defense."
 	icon_state = "stool_toppled"
-	item_state = "stool"
+	inhand_icon_state = "stool"
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
 
@@ -99,14 +98,14 @@
 	name = "bar stool"
 	desc = "Bar brawl essential."
 	icon_state = "bar_toppled"
-	item_state = "stool_bar"
+	inhand_icon_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
 
 /obj/item/chair/stool/bamboo
 	name = "bamboo stool"
 	desc = "The apex of the bar brawl experience."
 	icon_state = "bamboo_stool_toppled"
-	item_state = "stool_bamboo"
+	inhand_icon_state = "stool_bamboo"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/stool/bamboo
 	custom_materials = null
@@ -119,7 +118,7 @@
 	name = "wooden chair"
 	desc = "Fancy brawl essential."
 	icon_state = "wooden_chair_toppled"
-	item_state = "woodenchair"
+	inhand_icon_state = "woodenchair"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -140,11 +139,10 @@
 	name = "plastic chair"
 	desc = "Be the reclaimer of your name." //bury the light deep withiiiiiiiiiiiiiiiiin
 	icon_state = "plastic_chair_toppled"
-	item_state = "plastic_chair"
+	inhand_icon_state = "plastic_chair"
 	force = 3//have you ever been hit by a plastic chair? those aren't as bad as a metal or a wood one!
 	throwforce = 6
-	block_upgrade_walk = 1
-	block_power = 10
+
 	throw_range = 4
 	origin_type = /obj/structure/chair/fancy/plastic
 	hitsound = 'sound/weapons/genhit1.ogg'

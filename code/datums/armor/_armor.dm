@@ -41,7 +41,6 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 	VAR_PROTECTED/fire = 0
 	VAR_PROTECTED/laser = 0
 	VAR_PROTECTED/melee = 0
-	VAR_PROTECTED/rad = 0
 	VAR_PROTECTED/stamina = 0
 	//VAR_PROTECTED/wound = 0
 
@@ -201,18 +200,6 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 	return TRUE
 
 /**
- * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.
- *
- * Arguments:
- * * armor_value - Number we're converting
- */
-/proc/armor_to_protection_class(armor_value)
-	if (armor_value < 0)
-		. = "-"
-	. += "\Roman[round(abs(armor_value), 10) / 10]"
-	return .
-
-/**
  * Returns the client readable name of an armor type
  *
  * Arguments:
@@ -240,8 +227,6 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 			return "LASER"
 		if(MELEE)
 			return "MELEE"
-		if(RAD)
-			return "RAD"
 		if(STAMINA)
 			return "STAMINA"
 		/*

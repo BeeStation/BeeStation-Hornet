@@ -35,7 +35,7 @@
  * Will also be called if the assembly holder is attached to a plasma (internals) tank or welding fuel (dispenser) tank.
  */
 
-/obj/item/assembly/proc/on_attach(var/obj/structure/reagent_dispensers/T)
+/obj/item/assembly/proc/on_attach(obj/structure/reagent_dispensers/T)
 	if(!holder && connected)
 		holder = connected.holder
 	if(T)

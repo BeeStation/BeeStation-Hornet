@@ -510,7 +510,7 @@ Middleware can inject its own data at several points, such as providing new UI a
 Role preferences are separate from antagonist datums and ban roles, but are connected. You can define a new role preference easily:
 
 ```
-/datum/role_preference/antagonist/changeling
+/datum/role_preference/roundstart/changeling
 	name = "Changeling"
 	description = "A highly intelligent alien predator that is capable of altering their \
 	shape to flawlessly resemble a human.\n\
@@ -525,9 +525,9 @@ Defining a `preview_outfit` with an outfit typepath will make the icon preview a
 
 You can also override `get_preview_icon()` to set a specific icon, look at other examples for more.
 
-Using this preference is a simple matter of checking `client.role_preference_enabled(/datum/role_preference/antagonist/changeling)`
+Using this preference is a simple matter of checking `client.role_preference_enabled(/datum/role_preference/roundstart/changeling)`
 
-The parent type (`/datum/role_preference/antagonist`) determines what category it will show under. See `GLOB.role_preference_categories` for a list of categories.
+The parent type (`/datum/role_preference/roundstart`) determines what category it will show under. See `GLOB.role_preference_categories` for a list of categories.
 
 ## Species
 

@@ -30,7 +30,7 @@
 	needs_update = TRUE
 	SSlighting.objects_queue += src
 
-/atom/movable/lighting_object/Destroy(var/force)
+/atom/movable/lighting_object/Destroy(force)
 	if (force)
 		SSlighting.objects_queue -= src
 		if (loc != myturf)
@@ -152,7 +152,7 @@
 
 	if (myturf.above)
 		if(myturf.above.shadower)
-			myturf.above.shadower.copy_lighting(src, myturf.loc)
+			myturf.above.shadower.copy_lighting(src, myturf.loc, myturf)
 		else
 			myturf.above.update_mimic()
 
@@ -167,7 +167,7 @@
 /atom/movable/lighting_object/singularity_act()
 	return
 
-/atom/movable/lighting_object/singularity_pull()
+/atom/movable/lighting_object/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/lighting_object/blob_act()
@@ -181,6 +181,6 @@
 	return
 
 // Override here to prevent things accidentally moving around overlays.
-/atom/movable/lighting_object/forceMove(atom/destination, var/no_tp=FALSE, var/harderforce = FALSE)
+/atom/movable/lighting_object/forceMove(atom/destination, no_tp=FALSE, harderforce = FALSE)
 	if(harderforce)
 		. = ..()

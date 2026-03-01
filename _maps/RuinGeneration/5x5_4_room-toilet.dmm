@@ -41,7 +41,7 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 

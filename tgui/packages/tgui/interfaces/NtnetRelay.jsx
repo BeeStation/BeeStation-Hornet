@@ -1,5 +1,11 @@
 import { useBackend } from '../backend';
-import { Box, Button, ProgressBar, Section, AnimatedNumber } from '../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const NtnetRelay = (props) => {
@@ -19,9 +25,14 @@ export const NtnetRelay = (props) => {
               content={enabled ? 'ENABLED' : 'DISABLED'}
               onClick={() => act('toggle')}
             />
-          }>
+          }
+        >
           {!dos_crashed ? (
-            <ProgressBar value={dos_overload} minValue={0} maxValue={dos_capacity}>
+            <ProgressBar
+              value={dos_overload}
+              minValue={0}
+              maxValue={dos_capacity}
+            >
               <AnimatedNumber value={dos_overload} /> GQ
               {' / '}
               {dos_capacity} GQ
@@ -31,10 +42,12 @@ export const NtnetRelay = (props) => {
               <Box fontSize="20px">NETWORK BUFFER OVERFLOW</Box>
               <Box fontSize="16px">OVERLOAD RECOVERY MODE</Box>
               <Box>
-                This system is suffering temporary outage due to overflow of traffic buffers. Until buffered traffic is
-                processed, all further requests will be dropped. Frequent occurrences of this error may indicate insufficient
-                hardware capacity of your network. Please contact your network planning department for instructions on how to
-                resolve this issue.
+                This system is suffering temporary outage due to overflow of
+                traffic buffers. Until buffered traffic is processed, all
+                further requests will be dropped. Frequent occurrences of this
+                error may indicate insufficient hardware capacity of your
+                network. Please contact your network planning department for
+                instructions on how to resolve this issue.
               </Box>
               <Box fontSize="20px" color="bad">
                 ADMINISTRATOR OVERRIDE
@@ -42,7 +55,13 @@ export const NtnetRelay = (props) => {
               <Box fontSize="16px" color="bad">
                 CAUTION - DATA LOSS MAY OCCUR
               </Box>
-              <Button icon="signal" content="PURGE BUFFER" mt={1} color="bad" onClick={() => act('restart')} />
+              <Button
+                icon="signal"
+                content="PURGE BUFFER"
+                mt={1}
+                color="bad"
+                onClick={() => act('restart')}
+              />
             </Box>
           )}
         </Section>

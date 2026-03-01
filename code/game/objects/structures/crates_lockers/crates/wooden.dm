@@ -8,6 +8,7 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
+	custom_price = 220
 
 /obj/structure/closet/crate/wooden/toy
 	name = "toy box"
@@ -15,7 +16,6 @@
 
 /obj/structure/closet/crate/wooden/toy/PopulateContents()
 	. = ..()
-	new	/obj/item/megaphone/clown(src)
 	new	/obj/item/reagent_containers/cup/soda_cans/canned_laughter(src)
 	new /obj/item/pneumatic_cannon/pie(src)
 	new /obj/item/food/pie/cream(src)

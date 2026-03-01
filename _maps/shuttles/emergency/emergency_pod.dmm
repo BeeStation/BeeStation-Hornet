@@ -10,7 +10,7 @@
 /area/shuttle/escape)
 "c" = (
 /obj/structure/grille,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "d" = (

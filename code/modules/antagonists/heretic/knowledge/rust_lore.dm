@@ -74,7 +74,7 @@
 		/mob/living/simple_animal/bot,
 		/obj/item/storage/secure/safe/caps_spare,
 		/obj/machinery/door,
-		/obj/vehicle/sealed/mecha
+		/obj/vehicle/sealed/mecha,
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.combat_mode && !is_type_in_typecache(target, always_hit_typecache))
@@ -123,10 +123,10 @@
 
 	var/turf/mover_turf = get_turf(source)
 	if(HAS_TRAIT(mover_turf, TRAIT_RUSTY))
-		ADD_TRAIT(source, TRAIT_STUNRESISTANCE, type)
+		ADD_TRAIT(source, TRAIT_BATON_RESISTANCE, type)
 		return
 
-	REMOVE_TRAIT(source, TRAIT_STUNRESISTANCE, type)
+	REMOVE_TRAIT(source, TRAIT_BATON_RESISTANCE, type)
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].
@@ -141,12 +141,17 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	source.adjustBruteLoss(-2, FALSE)
-	source.adjustFireLoss(-2, FALSE)
-	source.adjustToxLoss(-2, FALSE, forced = TRUE)
-	source.adjustOxyLoss(-0.5, FALSE)
-	source.adjustStaminaLoss(-2)
-	source.AdjustAllImmobility(-5)
+	// Heals all damage + Stamina
+	var/need_mob_update = FALSE
+	need_mob_update += source.adjustBruteLoss(-2, updating_health = FALSE)
+	need_mob_update += source.adjustFireLoss(-2, updating_health = FALSE)
+	need_mob_update += source.adjustToxLoss(-2, updating_health = FALSE, forced = TRUE) // Slimes are people too
+	need_mob_update += source.adjustOxyLoss(-0.5, updating_health = FALSE)
+	need_mob_update += source.adjustStaminaLoss(-2, updating_stamina = FALSE)
+	if(need_mob_update)
+		source.updatehealth()
+	// Reduces duration of stuns/etc
+	source.AdjustAllImmobility(-0.5 SECONDS)
 
 /datum/heretic_knowledge/rust_mark
 	name = "Mark of Rust"
@@ -341,11 +346,14 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	source.adjustBruteLoss(-4, FALSE)
-	source.adjustFireLoss(-4, FALSE)
-	source.adjustToxLoss(-4, FALSE, forced = TRUE)
-	source.adjustOxyLoss(-4, FALSE)
-	source.adjustStaminaLoss(-20)
+	var/need_mob_update = FALSE
+	need_mob_update += source.adjustBruteLoss(-4, updating_health = FALSE)
+	need_mob_update += source.adjustFireLoss(-4, updating_health = FALSE)
+	need_mob_update += source.adjustToxLoss(-4, updating_health = FALSE, forced = TRUE)
+	need_mob_update += source.adjustOxyLoss(-4, updating_health = FALSE)
+	need_mob_update += source.adjustStaminaLoss(-20, updating_stamina = FALSE)
+	if(need_mob_update)
+		source.updatehealth()
 
 /**
  * #Rust spread datum
@@ -369,7 +377,7 @@
 		/turf/closed/indestructible,
 		/turf/open/space,
 		/turf/open/lava,
-		/turf/open/chasm
+		/turf/open/chasm,
 	))
 
 /datum/rust_spread/New(loc)
@@ -417,7 +425,7 @@
 		if((nearby_turf in rusted_turfs) || is_type_in_typecache(nearby_turf, blacklisted_turfs))
 			continue
 
-		for(var/turf/line_turf as anything in getline(nearby_turf, centre))
+		for(var/turf/line_turf as anything in get_line(nearby_turf, centre))
 			if(get_dist(nearby_turf, line_turf) <= 1)
 				edge_turfs |= nearby_turf
 		CHECK_TICK

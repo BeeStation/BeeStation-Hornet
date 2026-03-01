@@ -25,6 +25,10 @@
 					this["short_desc"] = MS.short_desc
 					this["flavor_text"] = MS.flavour_text
 					this["important_info"] = MS.important_info
+				else if(istype(spawner_obj, /datum/candidate_poll))
+					var/datum/candidate_poll/poll = spawner_obj
+					this["desc"] = "Sign up to be a [poll.config.role_name_text]."
+					this["short_desc"] = "Sign up to be a [poll.config.role_name_text]."
 				else
 					var/atom/movable/O = spawner_obj
 					if(isslime(O))
@@ -53,10 +57,16 @@
 		return
 	var/atom/movable/MS = pick(spawnerlist)
 	if(!istype(MS) || !(MS in GLOB.poi_list))
+		if (istype(MS, /datum/candidate_poll) && action == "spawn")
+			var/datum/candidate_poll/poll = MS
+			poll.sign_up(usr, FALSE, skip_confirmation = TRUE)
+			return TRUE
 		return
 	switch(action)
 		if("jump")
 			if(MS)
+				if (isdatum(MS))
+					return
 				usr.forceMove(get_turf(MS))
 				. = TRUE
 		if("spawn")

@@ -19,7 +19,7 @@
 		Refresh(H)
 
 /obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
-	..()
+	. = ..()
 	if(istype(H))
 		Refresh(H)
 
@@ -82,8 +82,7 @@
 	flight_level = WINGS_FLYING
 	wing_type = "Robot"
 	wingsound = 'sound/items/change_jaws.ogg'
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/wings/cybernetic/emp_act(severity)
 	. = ..()
@@ -132,7 +131,7 @@
 	desc = "A pair of moth wings. They look robust enough to fly in an atmosphere"
 	flight_level = WINGS_FLYING
 
-/obj/item/organ/wings/moth/on_life()
+/obj/item/organ/wings/moth/on_life(delta_time, times_fired)
 	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
@@ -233,7 +232,7 @@
 /datum/action/innate/flight
 	name = "Toggle Flight"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "flight"
 
 /datum/action/innate/flight/on_activate()

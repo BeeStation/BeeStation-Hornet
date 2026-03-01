@@ -1,0 +1,445 @@
+2023-02-01:
+  EvilDragonfiend:
+  - admin: welding/unwelding an airlock will be logged
+  - code_imp: changed a long var declaration from a single line into multiple lines
+      for better readability
+  - code_imp: added exclusive station trait system. it is modularizing, so it does
+      nothing currently.
+  RKz, TemporalOroboros:
+  - code_imp: Reagent exposure proc names now accurately describe their function.
+  - refactor: Reagent exposure code is less istype dependent.
+  - code_imp: Reagent exposure methods are now bitflags. There have been some additional
+      changes to reflect and take advantage of this.
+  itsmeow:
+  - rscadd: Added name and job searching to the PDA Messenger contacts panel.
+  - tweak: PDA message inputs are now TGUI-based.
+  - tweak: When inputting a new PDA ringtone, the old one will be in the input text
+      box already.
+  - code_imp: Improved some PDA messenger code.
+  - code_imp: TGUI text inputs now properly autofocus text.
+  - rscadd: Added the "Look Up" and "Look Down" Multi-Z verbs, with keybinds L (up)
+      and ; (down).
+  - rscadd: Added zmove keybinds, F for up, C for down.
+  - rscadd: Added the Combustion Jetpack crate, an engineering crate that includes
+      the combustion jetpack, which can move up and down in gravity as well as function
+      in space like a normal jetpack. It burns a plasma-oxygen mix and is refillable
+      (ideally at a ~50% ratio).
+  - rscadd: Added z-level changing buttons to the advanced camera console.
+  - balance: Zfalls now do more damage per level fallen, and felinids falling more
+      than one level will still take damage, but reduced. Damage is also mostly applied
+      to legs and split between the rest of the body in the case of missing or broken
+      legs.
+  - code_imp: Refactored multi-z sound code slightly.
+  - tweak: Using an RCD on open space (above another z-level) will now place floors.
+  - tweak: Placing lattices on open space no longer requires pixelhunting.
+  - tweak: Tweaked failure messages for Move Upwards/Move Down verbs.
+  - bugfix: Fixed zfalls stating that you fell one more z-level than you actually
+      did.
+  - bugfix: Fixed sound breaking when changing z-levels.
+  - bugfix: Fixed various z-level changes not registering.
+  - bugfix: You can no longer move up and down through catwalks, and you also cannot
+      "float" up while in gravity.
+  - bugfix: Fixed the move up/down animations being reversed.
+  - code_imp: Removed a broken old deconstruction hint for catwalks.
+  - bugfix: Fixed a runtime caused by zfalls.
+  - bugfix: Fixed zfalls stopping midair after one level.
+  - bugfix: Fixed AI camera static not updating when you move up and down.
+  - bugfix: Fixed the removal of a lattice or catwalk under someone not triggering
+      a zfall.
+  - rscadd: Added jetpack and wing multiz flight. Regular jetpacks are not capable
+      of enough thrust to resist gravity.
+  - tweak: Moving up and down in space only takes 1 second, while in-gravity flight,
+      etc take 3 seconds.
+  - code_imp: Slightly optimized gravity code for ztrait-style gravity.
+  - rscadd: Added the "rocket jetpack", a jetpack designed for in-gravity flight,
+      that burns plasma and oxygen.
+  - bugfix: Fixed nightmare multiz jaunting
+  - tweak: Falling is no longer instant, there is a period of 0.2s between zlevels
+      (you can even move onto a solid tile to "break" your fall)
+  - tweak: You can now move during all types of zmove except for climbing (which is
+      disabled currently).
+2023-02-02:
+  Rukofamicom:
+  - bugfix: fixed a runtime caused by lavaland swarmers
+  - balance: Cyborgs are no longer able to repair themselves and must seek assistance
+      from others
+  - tweak: All cyborg modules now have access to a welding tool
+  - tweak: Cyborg repairs are now repeated automatically without the need to spam
+      click
+2023-02-03:
+  Rukofamicom:
+  - bugfix: Fixes cyborg mini-welder icon.
+  itsmeow:
+  - tweak: Prevented multiple Space Pirates spawning in a round.
+2023-02-04:
+  Crossedfall:
+  - bugfix: The away mission map list correctly populates again.
+  CydiaLamiales:
+  - rscadd: Added Autodrobes to Box, Meta and Pubby.
+  Shiraizawa:
+  - bugfix: Engineer goggles wont give meson lighting effects in their off state anymore.
+  - bugfix: Tying and untying bandanas will give the proper notice to people seeing
+      it
+  dwasint:
+  - bugfix: opening game prefs no longer deepfrys the game
+2023-02-05:
+  CydiaLamiales:
+  - rscadd: Added a small bit of text indicating AIs should Ahelp before using the
+      "Wipe-Core" verb
+  - tweak: Instead of being dusted, plasmaman helmets now have their lamps broken
+      when hit with the Light Eater
+  - rscadd: Added the ability to repair broken plasmaman helmet lamps with light bulbs
+  PestoVerde322:
+  - rscadd: Adds a desk bell, so you can let the service industry know how much you
+      truly care about their hearing, alongside a new distinct sound for it!.
+  Rukofamicom:
+  - bugfix: Cyborgs now have properly functioning emissive lights again
+  Shiraizawa:
+  - balance: Decreased the snowball effect of fear build-up from (stress x10)% to
+      (stress x5)%. Your stress levels build up faster with each fainting now, which
+      leads to a higher chance of a heartattack
+  - bugfix: You wont faint immediately after waking up from a faint caused by a phobia
+  - bugfix: The message for fainting from a phobia will actually be visible for the
+      one fainting now
+  - bugfix: fixed anomalies spawning inside walls
+2023-02-06:
+  CydiaLamiales:
+  - rscadd: Added research for a Suit Storage Unit circuit board
+  - rscadd: Added the ability to build and deconstruct Suit Storage Units
+  - rscadd: Added machine parts to the Suit Storage Unit
+  - rscadd: Added the ability to crowbar open and pry the items out of a depowered
+      Suit Storage Unit on harm intent
+  - balance: Suit storage unit's decontamination damage is lower by default when unhacked
+  Kit_Katz, RKz:
+  - rscadd: Added new customization options for apids. Color is now selectable from
+      a pallette, and three customization options have been added for stripes, antenna,
+      and bodymarkings
+  - imageadd: entirely new APID sprites for sprite_accessories, including stripes,
+      antenna, and bodymarkings
+  Kit_Katz, Zams/zeskorion, Kat/itsmeowdev, Racc-Off:
+  - rscadd: Added Glowstation, the first Terrestrial map.
+  - rscadd: Added lavaproof lattice (unusable by players)
+  - tweak: Lavaland's lifeless moon is now a habitable yet frozen. shattered rock
+  - rscadd: Added extreme cold warning sign
+  - rscadd: Added number turf decals 0-1, 2-9
+  - rscadd: Added a "tundra" terraingen preset
+  - rscadd: Added "icecavern" and "lavacavern" cave presets
+  - tweak: Ice cavern rocks no longer spawn plasma when broken
+  - code_imp: Mappers can now colorize pet slimes
+  - bugfix: You can no longer slip from ice when walking on a catwalk
+  - tweak: MultiZ pipes no longer disappear when under the floor
+  - tweak: maintroomcode now allows the implementation of maintrooms to be pulled
+      from a list for more specific room variety
+  PestoVerde322:
+  - rscadd: Added cloth recipes craft time
+  - rscadd: Added the mail bag and bandana to cloth recipes
+  - bugfix: fixed the double bedsheet crafting output and empty sandbag icon
+  - bugfix: fixed durathread recipes using cloth recipes, somehow
+  Rukofamicom:
+  - tweak: Pierced realities are more incomprehensible to the fragile minds of the
+      average space station worker, and also fade from existence much quicker.
+  itsmeow:
+  - balance: Space Dragons are no longer forced to open rifts within a timer.
+  - balance: Space Dragons can continue creating rifts, and no longer receives a slowdown
+      if one is destroyed while charging.
+  - bugfix: If the Space Dragon is qdeleted without dying, it will now register as
+      a loss for the rifts.
+  - bugfix: Fixed the Space Dragon roundend report showing a double "Space Dragon
+      was assisted by"
+2023-02-07:
+  spockye:
+  - bugfix: fixed /turf/closed/mineral/random/snowmountain/cavern
+  - bugfix: fixed /turf/closed/mineral/snowmountain
+  - bugfix: fixed /turf/closed/mineral/snowmountain/cavern
+  - bugfix: fixes a few mapping errors on Glow station
+2023-02-08:
+  BriggsIDP:
+  - rscadd: Adds a function to curtains - blocking light.
+  CydiaLamiales:
+  - bugfix: IPCs who become changelings now properly have their medical records updated
+      and no longer spawn bald
+  - tweak: doubled the extrapolation speed of the Virus Extrapolator
+  EvilDragonfiend:
+  - tweak: Station traits are now chosen with more equalised randomness.
+  Rukofamicom:
+  - balance: Adjusted spider stats with a focus on reducing their ability to snowball
+      through sheer numbers and increasing their reliance on venom instead of brute
+      force.
+  - balance: Spiders are now immune to the vacuum and cold of space.
+  - tweak: Broodmothers can no longer heal, but have more venom, damage and health
+  - tweak: Nurses can no longer reproduce, but have slightly more health
+  - tweak: Guards are now the slow tanky choice instead of tarantulas.
+  - bugfix: fixed an exploit with spider egg clusters and enriched spawns
+  - rscdel: Spiders are no longer available for science department traitors.
+  - tweak: Farting now has a cooldown.
+  githubuser4141:
+  - balance: The MK-II Ripley isn't completely inferior compared to the Firefighter
+      - there's a reason to make it now! You should see more MK-II's after if this
+      change goes through which is (probably?) good.
+  itsmeow:
+  - rscadd: Added a role preference for Pirate Crew polls (it previously used the
+      Traitor preference). Be sure to enable it!
+  - rscadd: Added Swarmers to Dynamic's midround pool.
+  - rscadd: Added Morph to Dynamic's midround pool.
+  - bugfix: Dynamic Nightmare will now properly use its new role preference.
+  - bugfix: Sentience potions, morph, nightmare, and swarmers random events will now
+      properly poll using their preference rather than xenomorphs.
+  - bugfix: Fixed Space Dragon not being included in the default antagonist ban role
+      list.
+  - bugfix: Fixed Morphs always receiving the "non antag" notification despite being
+      antag.
+  - admin: Bans for swarmers will now prevent taking empty swarmer shells.
+  - admin: Bans for Space Pirates will now prevent taking pirate sleepers.
+  - code_imp: Cleaned up a lot of unnecessary code in Dynamic.
+2023-02-09:
+  EvilDragonfiend:
+  - bugfix: quirk saving is hotfixed
+  spockye:
+  - rscadd: Ports techfloor_corners and techfloor_edges
+2023-02-10:
+  EvilDragonfiend:
+  - code_imp: fixed some RPD code
+  - rscadd: added more debug items
+  - code_imp: made debugging items better
+  - code_imp: made the debug outfit better
+  - code_imp: changed some item paths from 'obj/.../admin' to 'obj/.../debug'
+  - tweak: admin RCD is now ranged
+  - code_imp: fixed some code that didn't use random pill shape correctly
+  - rscdel: weirdly implemented pill image folder
+  - code_imp: medicine_containers image asset that is used by chemmaster tgui. old
+      pill asset list is removed.
+  - tweak: chem master will now use more wider pill & patch options
+  - imagedel: removed unused pill image (pill0) which is actually a duplication of
+      a pill image(pill18). also arranged pill image order.
+  - imageadd: angry pill, sad pill, and question pill (random pick one)... new pill
+      colours - pink, indigo, red, orange, etc... and pill example dummy image.
+  - imageadd: blank patch sprites
+2023-02-11:
+  Rukofamicom:
+  - imageadd: New sprites for the delimber and hallucination anomalies
+  itsmeow:
+  - bugfix: Fixed GlowStation arrivals.
+  - bugfix: Fixed GlowStation parsing errors.
+2023-02-12:
+  PowerfulBacon:
+  - code_imp: Adds current map to metric tracking
+2023-02-13:
+  EvilDragonfiend:
+  - rscadd: deadchat will be sent to discord as well as long as a round ended.
+  - config: New config line - discord_ooc_channel. used to determine which discord
+      channel OOC messages will be sent to.
+  - server: Sending OOC message to discord now includes dead chats (after round finished
+      only). OOC Discord message will describe whether the message is OOC or deadchat,
+      and which server it was sent from.
+  RKz, lizardqueenlexi:
+  - bugfix: Alternative steps will now show on Operating Computers! We technically
+      have had this feature for the last 3 years, it just wasn't displaying correctly.
+  Rukofamicom:
+  - bugfix: Motorized wheelchairs now drain power cells as intended instead of dozens
+      of times per second when a directional key is held down.
+  - rscadd: Motorized wheelchairs now play a soft beep and alert when the installed
+      power cell reaches 25% charge
+  - bugfix: Ability icons no longer go blank after cooldown completion
+  - bugfix: fixed a bug where broodmothers did not kill certain mobs when feeding
+      on them
+  - bugfix: fixed an exploit that allowed broodmothers to feed on the same target
+      multiple times
+  - tweak: Broodmothers now drain all blood from their victims when feeding.
+  benbot16:
+  - rscadd: Conveyors may now be linked to conveyor switches using a multitool.
+  - rscadd: Using a screwdriver on a conveyor switch will now toggle it between one-way
+      and two-way mode.
+  itsmeow:
+  - bugfix: Fixed multiz movement exploit.
+  - admin: Added logging to purchases and uses of Malf AI modules.
+2023-02-14:
+  EvilDragonfiend:
+  - bugfix: fixed quirk resetting issue in a certain situation
+  benbot16:
+  - rscadd: Adds package sorting disposals pipes to RPDs and disposals dispensers.
+      These sort wrapped and unwrapped objects.
+2023-02-15:
+  RKz:
+  - tweak: Fixes minor oversight in GlowStation atmos. Gas miner pumps are now in
+      Atmospherics, rather than outside on the planet's surface
+  itsmeow:
+  - balance: Heartbreaker is no longer always murderbone, instead being non-lethal
+      date ruining 85% of the time.
+  - tweak: Valentine's messages are now big and bold for clarity.
+  - bugfix: Fixed valentine's protect objectives always failing.
+  - bugfix: Fixed valentine's not setting players with the "in love" status effect.
+  - bugfix: Fixed valentine's not properly getting the gender of the described player
+      in greentexts.
+  - bugfix: You can no longer select yourself as a valentine.
+  - bugfix: Non-crew can no longer be valentines.
+  - bugfix: Fixed valentine's not properly assigning silicon laws.
+  - tweak: Clarified the valentine's announcement, saying that you can choose a valentine
+      with the card.
+  - tweak: Valentine's cards no longer require you to use a pen, instead just using
+      it in hand to select your valentine.
+  - tweak: You can now cancel your selection of a valentine.
+  - rscdel: Removed particularly sexual or LRP valentine's messages.
+  - rscadd: Added an antag HUD icon for the valentine's antagonist.
+  - rscadd: Added an antag HUD icon for the heartbreaker antagonist.
+2023-02-16:
+  EvilDragonfiend:
+  - code_imp: added a missing comment in bank account variable
+  - code_imp: GLOB.exploration_points is removed, and replaced by account system
+  - code_imp: ID card no longer holds mining points.
+  - tweak: Bank account now holds mining points, and other exceptional currency like
+      exploration points.
+  - tweak: exploration points are now saved into sci budget account.
+  - rscadd: Shared Mining Account budget for golems.
+  - rscadd: Lavaland golems will get a mining card when they spawn. All golem cards
+      will have "Shared Mining Account" instead of having their personal account for
+      each golem, and mining points will be shared as well.
+  - rscadd: new vv to ID card - add mining points.
+  - rscadd: new vv to exploration vendor - add exploration points.
+  - code_imp: re-path'ed some unclear paths (mining id card is now pathed as /golem)
+  - bugfix: science budget card will properly get exploration points instead of the
+      wrong type - mining points when exploration team completed their mission.
+  HowToLoLu:
+  - bugfix: Lizard tails no longer ignore dna when regenerating organs.
+2023-02-18:
+  TonesofBones, Heepox, Naevi, Racc-off, PowerfulBacon:
+  - rscadd: FIVE brand new Splash screens!
+2023-02-19:
+  Ivniinvi:
+  - admin: Added a Lawyer ERT, accessible in the Create a Central Command Response
+      Team menu.
+  PowerfulBacon:
+  - bugfix: Fixes polls not properly displaying
+  Rukofamicom:
+  - code_imp: Checks for role bans, ghost role toggles and ghost role cooldowns have
+      been moved from spawners to client code for easier use in determining ghost
+      role eligibility
+  - bugfix: Spider eggs, carp portals and other playable mobs now respect role bans,
+      ghost role toggles and ghost role cooldowns.
+  spockye:
+  - rscdel: removes suit storage units from bridge (corgstation)
+  - rscadd: adds wood lining to most wood tiles (corgstation)
+  - rscadd: adds wood lining around most grass (corgstation)
+2023-02-20:
+  CydiaLamiales - Code, Naevi - Sprites:
+  - rscadd: Added Chief Engineer, Station Engineer and Atmospheric Technician jumpskirts
+  - imageadd: Added icons for engineering department suitskirts
+  Dejaku51:
+  - code_imp: Removed one way to crash the game by admins using Fat sucker
+2023-02-21:
+  CydiaLamiales:
+  - rscadd: Added the Durathread Jumpskirt, which shares the armor values with the
+      Durathread Jumpsuit but doesn't cover up the legs
+  - rscadd: Added the crafting recipes for jumpskirts out of Cloth and Durathread
+  - spellcheck: Capitalized the crafting recipe for the hoodie
+  Naevi:
+  - imageadd: Fixed the sprites of Medbay and Science skirts
+  Rukofamicom:
+  - bugfix: Revenants can no longer rest because it is pointless to do so as a revenant.
+      Coincidentally revenants will no longer be able to accidentally turn off their
+      ability to travel between Z-levels on glowstation because this is how they were
+      doing that.
+  spockye:
+  - bugfix: fixed pubbystation chapel windows
+  - bugfix: fixed random pubbystation tiles having 1e+006 Heat capacity
+  - bugfix: fixed random pubbystation maintenance tiles having luminosity set to 2
+  - bugfix: fixed wrong access_txt on the artifact containment windoor (FlandStation)
+2023-02-22:
+  EvilDragonfiend:
+  - tweak: wild magic apprentice will not learn soul tap/binding soul spells
+  - bugfix: wild magic apprentice will not learn the certain spells again
+  - bugfix: wild magic apprentice will not learn spells that are blacklisted by spells
+      that you learned already
+  Penwin0:
+  - bugfix: Fixes a runtime with security records consoles
+2023-02-23:
+  CydiaLamiales:
+  - rscadd: Added the sensible suit to the Curadrobe
+  PowerfulBacon:
+  - bugfix: Cosmic space bedsheet is now a movable light
+  Rukofamicom:
+  - rscadd: The boop emote utilized by IPCs/silicons now has a noise
+  - bugfix: fixed a variable typo in viper spiders - they can no longer lay webs instantly.
+  itsmeow:
+  - rscadd: Re-added the Clown's ability to upload a honk virus to airlocks with their
+      PDA.
+2023-02-24:
+  spockye:
+  - bugfix: fixed wooden lining error /Glowstation
+  - bugfix: fixed illegal corner /Glowstation
+2023-02-25:
+  Bobbanz1:
+  - bugfix: Fixes an issue bots have where they randomly get stuck while trying to
+      navigate up a bot elevator.
+  BriggsIDP:
+  - rscadd: Tower caps - [50% carbon]
+  - rscadd: Steel caps - [20% iron]
+  - rscadd: Rice - [10% Silicon]
+  - rscadd: Combustible Lemon - [10% sulfur, 10% charcoal 10% Saltpeter]
+  - rscadd: Redbeet - [2% Sodium]
+  - rscadd: Tea aspera - [2% Fluorine]
+  - rscadd: Tea astra - [2% Fluorine]
+  - rscadd: Poppy - [15% Morphine]
+  - rscadd: Moonflower - [8% Acetone]
+  - rscadd: New Watermelon mutation > Ballolon - [20% Oxygen, 20% Hydrogen]
+  - rscadd: New Grass mutation > Shamrocks - [10% nitrogen]
+  - rscadd: New 0.001% for a four leaf clover from a Shamrocks harvest
+  - rscadd: Sprites for Shamrock, clover and Ballolon (growing.dmi, growing_fruits.dmi,
+      harvest.dmi, seeds.dmi, items_and_weapons.dmi)
+  CydiaLamiales:
+  - bugfix: Fixed the Shamrock and the Ballolon plants being invisible
+  - imageadd: Added inhand sprites for the Ballolon
+  - imagedel: Removed the old ballolon plant sprite
+  - spellcheck: Capitalized the Shamrock and the Ballolon plants
+  EvilDragonfiend:
+  - tweak: Nanotrasen Space-Coin market(CRAB-17) will now teleport for every 140 HP
+      it loses to a random station area. swiping a card on it will lower its estimated
+      teleport hp threshold by 30.
+  - tweak: CRAB-17 will siphon 1%~3% credits of your bank account.
+  - tweak: CRAB-17 will now steal latejoined people's money.
+  - tweak: CRAB-17 machine will not self-destruct in 8 minutes anymore.
+  - code_imp: fixed some bad code in CRAB-17
+  Imaginos16, imsynthex:
+  - imageadd: added TG's Trasen-Knox HUD
+  - code_imp: human HUD active hand icons can now be separate for each hand
+  - tweak: midnight is now the default theme instead of clockwork
+  MatiAvanti:
+  - rscadd: Added Nanite restricted acccess
+  - rscadd: Added Power Cell swapping.
+  - rscdel: Removed Nanite restricted acccess (one feature per PR they say)
+  PowerfulBacon:
+  - tweak: Cargo stock is now limited and now replenishes supply over time. You can
+      no longer mass purchase large quanitites of the same item in a short period
+      of time.
+  - balance: Reduces amount of starting medkits in medical
+  - balance: Reduces amount of starting weapons in armoury
+  - tweak: Sleeper is no longer capable of producing chemicals. It needs beakers from
+      chemistry in order to function. Sleepers will display the name of the dominant
+      chem inside beakers, so you can get creative and hide poisons inside it.
+  - tweak: Sleeper upgrades improve injection efficiency. (5 units used for every
+      10 units injected)
+  - code_imp: Moved some supply related variables away from SSshuttle and into the
+      new supply subsystem.
+  - balance: The station now starts with 50000 credits instead of 25000 distributed.
+      This means that each budget will start with ~6000 credits instead of ~3000
+  - balance: Mjolnir can only be picked up by wizards.
+  - balance: Mjolnir can be thrown with immeasurable strength.
+  - bugfix: Fixes continuous subsystems being affected by anomalously long wait times.
+  Rukofamicom:
+  - code_imp: Added a new subtype of labcoat used by doctors, and shifted the CMO,
+      paramedic and brig physician typepaths into this subtype
+  - tweak: All doctor labcoats can now store medkits in their suit storage slot
+  - tweak: Medkits are now bulky items that cannot be stored in bags, with exception
+      to the syndicate combat medkit.
+  - bugfix: Paramedics can now add the EMT Labcoat from the beecoin shop to their
+      loadout. Geneticists and Chemists have lost access to this loadout option.
+  Tsar-Salat:
+  - tweak: BYOND member variant-ghosts can now display their accessories just like
+      normal ghosts. No Corgi's though, sorry Bacon.
+  spockye:
+  - bugfix: fixed rouge wire in kilo ai sat
+  - bugfix: fixed missing wire in kilo ai upload
+  - bugfix: fixed missing nearstation in kilo space
+  - bugfix: fixed rouge wire in kilo sci shuttle dock
+2023-02-28:
+  benbot16:
+  - bugfix: APC icon states now update properly

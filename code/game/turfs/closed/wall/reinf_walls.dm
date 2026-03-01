@@ -30,7 +30,6 @@
 	energy = 20
 	bomb = 10
 	bio = 100
-	rad = 100
 	fire = 80
 	acid = 70
 
@@ -50,6 +49,29 @@
 			return span_notice("The bolts anchoring the support rods have been <i>loosened</i>, but are still <b>welded</b> firmly to the girder.")
 		if(SHEATH)
 			return span_notice("The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.")
+
+/turf/closed/wall/r_wall/add_context_self(datum/screentip_context/context, mob/user)
+	switch (d_state)
+		if (INTACT)
+			context.add_left_click_tool_action("Deconstruct", TOOL_WIRECUTTER)
+		if (SUPPORT_LINES)
+			context.add_left_click_tool_action("Deconstruct", TOOL_SCREWDRIVER)
+			context.add_left_click_tool_action("Construct", TOOL_WIRECUTTER)
+		if (COVER)
+			context.add_left_click_tool_action("Deconstruct", TOOL_WELDER)
+			context.add_left_click_tool_action("Construct", TOOL_SCREWDRIVER)
+		if (CUT_COVER)
+			context.add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
+			context.add_left_click_tool_action("Construct", TOOL_WELDER)
+		if (ANCHOR_BOLTS)
+			context.add_left_click_tool_action("Deconstruct", TOOL_WRENCH)
+			context.add_left_click_tool_action("Construct", TOOL_SCREWDRIVER)
+		if (SUPPORT_RODS)
+			context.add_left_click_tool_action("Deconstruct", TOOL_WELDER)
+			context.add_left_click_tool_action("Construct", TOOL_WRENCH)
+		if (SHEATH)
+			context.add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
+			context.add_left_click_tool_action("Construct", TOOL_WELDER)
 
 /turf/closed/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)

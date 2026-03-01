@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+		<!-- prettier-ignore -->
+		<script type="text/javascript">
+			function topic(n){if(location.hostname==='127.0.0.1'&&location.search!=='?external'){var r="?",e=0;if(n){for(var t in n)if(Object.prototype.hasOwnProperty.call(n,t)){e++>0&&(r+="&");var o=n[t];null==o&&(o=""),r+=encodeURIComponent(t)+"="+encodeURIComponent(o)}}if(window.cef_to_byond){cef_to_byond("byond://"+r);return}if(r.length<2048){location.href="byond://"+r;return}var i=new XMLHttpRequest;i.open("GET",r),i.send()}};
+			function db(success) {
+				var indexedDB = window.indexedDB || window.msIndexedDB;
+				var req = indexedDB.open("<!--- SERVER --->", 1);
+				req.onupgradeneeded = function () {
+					req.result.createObjectStore("login");
+				};
+				req.onsuccess = success;
+			}
+			function getItem(name, withValue) {
+				if(window.domainStorage && !!window.domainStorage.getItem) {
+					withValue(window.domainStorage.getItem(name))
+				} else {
+					db(function (event) {
+						var req = event.target.result.transaction("login", "readwrite").objectStore("login").get(name);
+						req.onsuccess = function (event2) { withValue(event2.target.result) }
+					});
+				}
+			}
+			function setItem(name, value) {
+				if(window.domainStorage && !!window.domainStorage.getItem) {
+					window.domainStorage.setItem(name, value)
+				} else {
+					db(function (event) { event.target.result.transaction("login", "readwrite").objectStore("login").put(value, name) });
+				}
+			}
+			function removeItem(name) {
+				if(window.domainStorage && !!window.domainStorage.getItem) {
+					window.domainStorage.removeItem(name)
+				} else {
+					db(function (event) { event.target.result.transaction("login", "readwrite").objectStore("login").delete(name) });
+				}
+			}
+
+			function login_listener(type, token) {
+				var byondStore = window.domainStorage && !!window.domainStorage.getItem;
+				if (type === 'store') {
+					setItem('session_token', token);
+				} else if (type === 'login') {
+					getItem('session_token', function (value) {
+						if (typeof value === 'string' && value.length > 0 && value.length <= 128) {
+							topic({ session_token: value });
+						}
+					});
+				} else if (type === 'clear') {
+					removeItem('session_token');
+				}
+			}
+			topic({ seeker_port: location.port });
+    	</script>
+	</head>
+</html>

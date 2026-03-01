@@ -8,8 +8,9 @@
 	var/list/T = list()
 
 	for (var/obj/machinery/camera/C in L)
-		var/list/tempnetwork = C.network&src.network
-		if (tempnetwork.len)
+		if(!(is_station_level(C.z) || is_mining_level(C.z)))
+			continue
+		if (L.len)
 			T["[C.c_tag][(C.can_use() ? null : " (Deactivated)")]"] = C
 
 	return T
@@ -131,7 +132,7 @@
 		return
 	if(ai_tracking_target) //if there is already a tracking going when this gets called makes sure the old tracking gets stopped before we register the new signals
 		ai_stop_tracking()
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(tracking_target_qdeleted))
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(tracking_target_qdeleted))
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(ai_actual_track))
 	ai_tracking_target = target
 	eyeobj.setLoc(get_turf(target)) //on the first call of this we obviously need to jump to the target ourselfs else we would go there only after they moved once
@@ -141,8 +142,8 @@
 	SIGNAL_HANDLER
 	ai_stop_tracking()
 
-/mob/living/silicon/ai/proc/ai_stop_tracking(var/reacquire_failed = FALSE) //stops ai tracking
-	UnregisterSignal(ai_tracking_target, COMSIG_PARENT_QDELETING)
+/mob/living/silicon/ai/proc/ai_stop_tracking(reacquire_failed = FALSE) //stops ai tracking
+	UnregisterSignal(ai_tracking_target, COMSIG_QDELETING)
 	UnregisterSignal(ai_tracking_target, COMSIG_MOVABLE_MOVED)
 	ai_tracking_target = null
 	if(reacquire_timer)

@@ -60,7 +60,7 @@
 /obj/structure/emergency_shield/invoker
 	name = "Invoker's Shield"
 	desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals."
-	color = "#FF0000"
+	color = COLOR_RED
 	max_integrity = 20
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
@@ -509,7 +509,7 @@
 	shieldstate = SHIELD_SETUPFIELDS
 	active_power_usage = 0
 
-/obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
+/obj/machinery/power/shieldwallgen/atmos/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/simple_rotation)
 
@@ -648,7 +648,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 /obj/machinery/shieldwall/atmos
 	name = "holofield wall"
 	desc = "An energy shield capable of blocking gas movement."
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/holosigns.dmi'
 	icon_state = "holofield"
 	density = FALSE
 	can_atmos_pass = ATMOS_PASS_NO

@@ -8,7 +8,8 @@
 
 /obj/item/reagent_containers/cup/soda_cans
 	name = "soda can"
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/soda.dmi'
+	icon_state_preview = "cola"
 	reagent_flags = NONE
 	spillable = FALSE
 	custom_price = PAYCHECK_MEDIUM * 0.9
@@ -17,6 +18,7 @@
 	volume = 30
 	throwforce = 12 // set to 0 upon being opened. Have you ever been domed by a soda can? Those things fucking hurt
 	/// If the can hasn't been opened yet, this is the measure of how fizzed up it is from being shaken or thrown around. When opened, this is rolled as a percentage chance to burst
+	custom_price = 25
 	var/fizziness = 0
 
 /obj/item/reagent_containers/cup/soda_cans/random/Initialize(mapload)
@@ -245,7 +247,7 @@
 	name = "Monkey Energy"
 	desc = "Unleash the ape!"
 	icon_state = "monkey_energy"
-	item_state = "monkey_energy"
+	inhand_icon_state = "monkey_energy"
 	list_reagents = list(/datum/reagent/consumable/monkey_energy = 50)
 	drink_type = SUGAR | JUNKFOOD
 

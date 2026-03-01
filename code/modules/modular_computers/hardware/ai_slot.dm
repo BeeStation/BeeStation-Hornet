@@ -1,12 +1,13 @@
 /obj/item/computer_hardware/ai_slot
 	name = "intelliCard interface slot"
 	desc = "A module allowing this computer to interface with most common intelliCard modules. Necessary for some programs to run properly."
-	power_usage = 100 //W
+	power_usage = 10 // Watts per second
 	icon_state = "card_mini"
 	w_class = WEIGHT_CLASS_SMALL
 	device_type = MC_AI
 	expansion_hw = TRUE
-
+	can_hack = FALSE
+	custom_price = PAYCHECK_MEDIUM * 4
 	var/obj/item/aicard/stored_card
 	var/locked = FALSE
 

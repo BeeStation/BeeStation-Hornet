@@ -35,7 +35,7 @@ icon/MinColors(icon)
 icon/MaxColors(icon)
 	The icon is blended with a second icon where the maximum of each RGB pixel is the result.
 	Opacity may increase, as if the icons were blended with ICON_OR. You may supply a color in place of an icon.
-icon/Opaque(background = "#000000")
+icon/Opaque(background = COLOR_BLACK)
 	All alpha values are set to 255 throughout the icon. Transparent pixels become black, or whatever background color you specify.
 icon/BecomeAlphaMask()
 	You can convert a simple grayscale icon into an alpha mask to use with other icons very easily with this proc.
@@ -60,55 +60,41 @@ RGB isn't the only way to represent color. Sometimes it's more useful to work wi
 	* The value of a color determines how bright it is. A high-value color is vivid, moderate value is dark,
 	and no value at all is black.
 
-Just as BYOND uses "#rrggbb" to represent RGB values, a similar format is used for HSV: "#hhhssvv". The hue is three
-hex digits because it ranges from 0 to 0x5FF.
+While rgb is typically stored in the #rrggbb" format (with optional "aa" on the end), HSV never needs to be displayed.
+Most procs that work in HSV "space" will simply accept RGB inputs and convert them in place using rgb2num(color, space = COLORSPACE_HSV).
 
-	* 0 to 0xFF - red to yellow
-	* 0x100 to 0x1FF - yellow to green
-	* 0x200 to 0x2FF - green to cyan
-	* 0x300 to 0x3FF - cyan to blue
-	* 0x400 to 0x4FF - blue to magenta
-	* 0x500 to 0x5FF - magenta to red
+That said, if you want to manually modify these values rgb2hsv() will hand you back a list in the format list(hue, saturation, value, alpha).
+Converting back is simple, just a hsv2rgb(hsv) call
 
-Knowing this, you can figure out that red is "#000ffff" in HSV format, which is hue 0 (red), saturation 255 (as colorful as possible),
-value 255 (as bright as possible). Green is "#200ffff" and blue is "#400ffff".
+Hue ranges from 0 to 360 (it's in degrees of a color wheel)
+Saturation ranges from 0 to 100
+Value ranges from 0 to 100
 
-More than one HSV color can match the same RGB color.
+Knowing this, you can figure out that red is list(0, 100, 100) in HSV format, which is hue 0 (red), saturation 100 (as colorful as possible),
+value 255 (as bright as possible). Green is list(120, 100, 100) and blue is list(240, 100, 100).
+
+It is worth noting that while we do not have helpers for them currently, these same ideas apply to all of byond's color spaces
+HSV (hue saturation value), HSL (hue satriation luminosity) and HCY (hue chroma luminosity)
 
 Here are some procs you can use for color management:
 
-ReadRGB(rgb)
-	Takes an RGB string like "#ffaa55" and converts it to a list such as list(255,170,85). If an RGBA format is used
-	that includes alpha, the list will have a fourth item for the alpha value.
-hsv(hue, sat, val, apha)
-	Counterpart to rgb(), this takes the values you input and converts them to a string in "#hhhssvv" or "#hhhssvvaa"
-	format. Alpha is not included in the result if null.
-ReadHSV(rgb)
-	Takes an HSV string like "#100FF80" and converts it to a list such as list(256,255,128). If an HSVA format is used that
-	includes alpha, the list will have a fourth item for the alpha value.
-RGBtoHSV(rgb)
-	Takes an RGB or RGBA string like "#ffaa55" and converts it into an HSV or HSVA color such as "#080aaff".
-HSVtoRGB(hsv)
-	Takes an HSV or HSVA string like "#080aaff" and converts it into an RGB or RGBA color such as "#ff55aa".
 BlendRGB(rgb1, rgb2, amount)
 	Blends between two RGB or RGBA colors using regular RGB blending. If amount is 0, the first color is the result;
 	if 1, the second color is the result. 0.5 produces an average of the two. Values outside the 0 to 1 range are allowed as well.
-	The returned value is an RGB or RGBA color.
-BlendHSV(hsv1, hsv2, amount)
-	Blends between two HSV or HSVA colors using HSV blending, which tends to produce nicer results than regular RGB
+	Returns an RGB or RGBA string
+BlendHSV(rgb1, rgb2, amount)
+	Blends between two RGB or RGBA colors using HSV blending, which tends to produce nicer results than regular RGB
 	blending because the brightness of the color is left intact. If amount is 0, the first color is the result; if 1,
 	the second color is the result. 0.5 produces an average of the two. Values outside the 0 to 1 range are allowed as well.
-	The returned value is an HSV or HSVA color.
-BlendRGBasHSV(rgb1, rgb2, amount)
-	Like BlendHSV(), but the colors used and the return value are RGB or RGBA colors. The blending is done in HSV form.
+	Returns an RGB or RGBA string
 HueToAngle(hue)
 	Converts a hue to an angle range of 0 to 360. Angle 0 is red, 120 is green, and 240 is blue.
 AngleToHue(hue)
 	Converts an angle to a hue in the valid range.
-RotateHue(hsv, angle)
-	Takes an HSV or HSVA value and rotates the hue forward through red, green, and blue by an angle from 0 to 360.
-	(Rotating red by 60° produces yellow.) The result is another HSV or HSVA color with the same saturation and value
-	as the original, but a different hue.
+RotateHue(rgb, angle)
+	Takes an RGB or RGBA value and rotates the hue forward through red, green, and blue by an angle from 0 to 360.
+	(Rotating red by 60° produces yellow.)
+	Returns an RGB or RGBA string
 GrayScale(rgb)
 	Takes an RGB or RGBA color and converts it to grayscale. Returns an RGB or RGBA string.
 ColorTone(rgb, tone)
@@ -229,7 +215,7 @@ world
 /icon/proc/ColorTone(tone)
 	GrayScale()
 
-	var/list/TONE = ReadRGB(tone)
+	var/list/TONE = rgb2num(tone)
 	var/gray = round(TONE[1]*0.3 + TONE[2]*0.59 + TONE[3]*0.11, 1)
 
 	var/icon/upper = (255-gray) ? new(src) : null
@@ -258,8 +244,8 @@ world
 	else
 		// solid color
 		I = new(src)
-		I.Blend("#000000", ICON_OVERLAY)
-		I.SwapColor("#000000", null)
+		I.Blend(COLOR_BLACK, ICON_OVERLAY)
+		I.SwapColor(COLOR_BLACK, null)
 		I.Blend(icon, ICON_OVERLAY)
 	var/icon/J = new(src)
 	J.Opaque()
@@ -267,7 +253,7 @@ world
 	Blend(I, ICON_OR)
 
 // make this icon fully opaque--transparent pixels become black
-/icon/proc/Opaque(background = "#000000")
+/icon/proc/Opaque(background = COLOR_BLACK)
 	SwapColor(null, background)
 	MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,0, 0,0,0,1)
 
@@ -283,249 +269,28 @@ world
 
 /icon/proc/AddAlphaMask(mask)
 	var/icon/M = new(mask)
-	M.Blend("#ffffff", ICON_SUBTRACT)
+	M.Blend(COLOR_WHITE, ICON_SUBTRACT)
 	// apply mask
 	Blend(M, ICON_ADD)
 
-/*
-	HSV format is represented as "#hhhssvv" or "#hhhssvvaa"
+/// Converts an rgb color into a list storing hsva
+/// Exists because it's useful to have a guarenteed alpha value
+/proc/rgb2hsv(rgb)
+	var/list/hsv = rgb2num(rgb, COLORSPACE_HSV)
+	if(length(hsv) < 4)
+		hsv += 255 // Max alpha, just to make life easy
+	return hsv
 
-	Hue ranges from 0 to 0x5ff (1535)
-
-		0x000 = red
-		0x100 = yellow
-		0x200 = green
-		0x300 = cyan
-		0x400 = blue
-		0x500 = magenta
-
-	Saturation is from 0 to 0xff (255)
-
-		More saturation = more color
-		Less saturation = more gray
-
-	Value ranges from 0 to 0xff (255)
-
-		Higher value means brighter color
- */
-
-/proc/ReadRGB(rgb)
-	if(!rgb)
-		return
-
-	// interpret the HSV or HSVA value
-	var/i=1,start=1
-	if(text2ascii(rgb) == 35) ++start // skip opening #
-	var/ch,which=0,r=0,g=0,b=0,alpha=0,usealpha
-	var/digits=0
-	for(i=start, i<=length(rgb), ++i)
-		ch = text2ascii(rgb, i)
-		if(ch < 48 || (ch > 57 && ch < 65) || (ch > 70 && ch < 97) || ch > 102)
-			break
-		++digits
-		if(digits == 8)
-			break
-
-	var/single = digits < 6
-	if(digits != 3 && digits != 4 && digits != 6 && digits != 8)
-		return
-	if(digits == 4 || digits == 8)
-		usealpha = 1
-	for(i=start, digits>0, ++i)
-		ch = text2ascii(rgb, i)
-		if(ch >= 48 && ch <= 57)
-			ch -= 48
-		else if(ch >= 65 && ch <= 70)
-			ch -= 55
-		else if(ch >= 97 && ch <= 102)
-			ch -= 87
-		else
-			break
-		--digits
-		switch(which)
-			if(0)
-				r = (r << 4) | ch
-				if(single)
-					r |= r << 4
-					++which
-				else if(!(digits & 1))
-					++which
-			if(1)
-				g = (g << 4) | ch
-				if(single)
-					g |= g << 4
-					++which
-				else if(!(digits & 1))
-					++which
-			if(2)
-				b = (b << 4) | ch
-				if(single)
-					b |= b << 4
-					++which
-				else if(!(digits & 1))
-					++which
-			if(3)
-				alpha = (alpha << 4) | ch
-				if(single)
-					alpha |= alpha << 4
-
-	. = list(r, g, b)
-	if(usealpha)
-		. += alpha
-
-/proc/ReadHSV(hsv)
-	if(!hsv)
-		return
-
-	// interpret the HSV or HSVA value
-	var/i=1,start=1
-	if(text2ascii(hsv) == 35)
-		++start // skip opening #
-	var/ch,which=0,hue=0,sat=0,val=0,alpha=0,usealpha
-	var/digits=0
-	for(i=start, i<=length(hsv), ++i)
-		ch = text2ascii(hsv, i)
-		if(ch < 48 || (ch > 57 && ch < 65) || (ch > 70 && ch < 97) || ch > 102)
-			break
-		++digits
-		if(digits == 9)
-			break
-	if(digits > 7)
-		usealpha = 1
-	if(digits <= 4)
-		++which
-	if(digits <= 2)
-		++which
-	for(i=start, digits>0, ++i)
-		ch = text2ascii(hsv, i)
-		if(ch >= 48 && ch <= 57)
-			ch -= 48
-		else if(ch >= 65 && ch <= 70)
-			ch -= 55
-		else if(ch >= 97 && ch <= 102)
-			ch -= 87
-		else
-			break
-		--digits
-		switch(which)
-			if(0)
-				hue = (hue << 4) | ch
-				if(digits == (usealpha ? 6 : 4))
-					++which
-			if(1)
-				sat = (sat << 4) | ch
-				if(digits == (usealpha ? 4 : 2))
-					++which
-			if(2)
-				val = (val << 4) | ch
-				if(digits == (usealpha ? 2 : 0))
-					++which
-			if(3)
-				alpha = (alpha << 4) | ch
-
-	. = list(hue, sat, val)
-	if(usealpha)
-		. += alpha
-
-/proc/HSVtoRGB(hsv)
-	if(!hsv)
-		return "#000000"
-	var/list/HSV = ReadHSV(hsv)
-	if(!HSV)
-		return "#000000"
-
-	var/hue = HSV[1]
-	var/sat = HSV[2]
-	var/val = HSV[3]
-
-	// Compress hue into easier-to-manage range
-	hue -= hue >> 8
-	if(hue >= 0x5fa)
-		hue -= 0x5fa
-
-	var/hi,mid,lo,r,g,b
-	hi = val
-	lo = round((255 - sat) * val / 255, 1)
-	mid = lo + round(abs(round(hue, 510) - hue) * (hi - lo) / 255, 1)
-	if(hue >= 765)
-		if(hue >= 1275) {r=hi;  g=lo;  b=mid}
-		else if(hue >= 1020) {r=mid; g=lo;  b=hi }
-		else {r=lo;  g=mid; b=hi }
-	else
-		if(hue >= 510) {r=lo;  g=hi;  b=mid}
-		else if(hue >= 255) {r=mid; g=hi;  b=lo }
-		else {r=hi;  g=mid; b=lo }
-
-	return (HSV.len > 3) ? rgb(r,g,b,HSV[4]) : rgb(r,g,b)
-
-/proc/RGBtoHSV(rgb)
-	if(!rgb)
-		return "#0000000"
-	var/list/RGB = ReadRGB(rgb)
-	if(!RGB)
-		return "#0000000"
-
-	var/r = RGB[1]
-	var/g = RGB[2]
-	var/b = RGB[3]
-	var/hi = max(r,g,b)
-	var/lo = min(r,g,b)
-
-	var/val = hi
-	var/sat = hi ? round((hi-lo) * 255 / hi, 1) : 0
-	var/hue = 0
-
-	if(sat)
-		var/dir
-		var/mid
-		if(hi == r)
-			if(lo == b) {hue=0; dir=1; mid=g}
-			else {hue=1535; dir=-1; mid=b}
-		else if(hi == g)
-			if(lo == r) {hue=512; dir=1; mid=b}
-			else {hue=511; dir=-1; mid=r}
-		else if(hi == b)
-			if(lo == g) {hue=1024; dir=1; mid=r}
-			else {hue=1023; dir=-1; mid=g}
-		hue += dir * round((mid-lo) * 255 / (hi-lo), 1)
-
-	return hsv(hue, sat, val, (RGB.len>3 ? RGB[4] : null))
-
-/proc/hsv(hue, sat, val, alpha)
-	if(hue < 0 || hue >= 1536)
-		hue %= 1536
-	if(hue < 0)
-		hue += 1536
-	if((hue & 0xFF) == 0xFF)
-		++hue
-		if(hue >= 1536)
-			hue = 0
-	if(sat < 0)
-		sat = 0
-	if(sat > 255)
-		sat = 255
-	if(val < 0)
-		val = 0
-	if(val > 255)
-		val = 255
-	. = "#"
-	. += TO_HEX_DIGIT(hue >> 8)
-	. += TO_HEX_DIGIT(hue >> 4)
-	. += TO_HEX_DIGIT(hue)
-	. += TO_HEX_DIGIT(sat >> 4)
-	. += TO_HEX_DIGIT(sat)
-	. += TO_HEX_DIGIT(val >> 4)
-	. += TO_HEX_DIGIT(val)
-	if(!isnull(alpha))
-		if(alpha < 0)
-			alpha = 0
-		if(alpha > 255)
-			alpha = 255
-		. += TO_HEX_DIGIT(alpha >> 4)
-		. += TO_HEX_DIGIT(alpha)
+/// Converts a list storing hsva into an rgb color
+/proc/hsv2rgb(hsv)
+	if(length(hsv) < 3)
+		return COLOR_BLACK
+	if(length(hsv) == 3)
+		return rgb(hsv[1], hsv[2], hsv[3], space = COLORSPACE_HSV)
+	return rgb(hsv[1], hsv[2], hsv[3], hsv[4], space = COLORSPACE_HSV)
 
 /*
-	Smooth blend between HSV colors
+	Smooth blend between RGB colors interpreted as HSV
 
 	amount=0 is the first color
 	amount=1 is the second color
@@ -534,63 +299,7 @@ world
 	amount<0 or amount>1 are allowed
  */
 /proc/BlendHSV(hsv1, hsv2, amount)
-	var/list/HSV1 = ReadHSV(hsv1)
-	var/list/HSV2 = ReadHSV(hsv2)
-
-	// add missing alpha if needed
-	if(HSV1.len < HSV2.len)
-		HSV1 += 255
-	else if(HSV2.len < HSV1.len)
-		HSV2 += 255
-	var/usealpha = HSV1.len > 3
-
-	// normalize hsv values in case anything is screwy
-	if(HSV1[1] > 1536)
-		HSV1[1] %= 1536
-	if(HSV2[1] > 1536)
-		HSV2[1] %= 1536
-	if(HSV1[1] < 0)
-		HSV1[1] += 1536
-	if(HSV2[1] < 0)
-		HSV2[1] += 1536
-	if(!HSV1[3]) {HSV1[1] = 0; HSV1[2] = 0}
-	if(!HSV2[3]) {HSV2[1] = 0; HSV2[2] = 0}
-
-	// no value for one color means don't change saturation
-	if(!HSV1[3])
-		HSV1[2] = HSV2[2]
-	if(!HSV2[3])
-		HSV2[2] = HSV1[2]
-	// no saturation for one color means don't change hues
-	if(!HSV1[2])
-		HSV1[1] = HSV2[1]
-	if(!HSV2[2])
-		HSV2[1] = HSV1[1]
-
-	// Compress hues into easier-to-manage range
-	HSV1[1] -= HSV1[1] >> 8
-	HSV2[1] -= HSV2[1] >> 8
-
-	var/hue_diff = HSV2[1] - HSV1[1]
-	if(hue_diff > 765)
-		hue_diff -= 1530
-	else if(hue_diff <= -765)
-		hue_diff += 1530
-
-	var/hue = round(HSV1[1] + hue_diff * amount, 1)
-	var/sat = round(HSV1[2] + (HSV2[2] - HSV1[2]) * amount, 1)
-	var/val = round(HSV1[3] + (HSV2[3] - HSV1[3]) * amount, 1)
-	var/alpha = usealpha ? round(HSV1[4] + (HSV2[4] - HSV1[4]) * amount, 1) : null
-
-	// normalize hue
-	if(hue < 0 || hue >= 1530)
-		hue %= 1530
-	if(hue < 0)
-		hue += 1530
-	// decompress hue
-	hue += round(hue / 255)
-
-	return hsv(hue, sat, val, alpha)
+	return hsv_gradient(amount, 0, hsv1, 1, hsv2, "loop")
 
 /*
 	Smooth blend between RGB colors
@@ -602,25 +311,7 @@ world
 	amount<0 or amount>1 are allowed
  */
 /proc/BlendRGB(rgb1, rgb2, amount)
-	var/list/RGB1 = ReadRGB(rgb1)
-	var/list/RGB2 = ReadRGB(rgb2)
-
-	// add missing alpha if needed
-	if(RGB1.len < RGB2.len)
-		RGB1 += 255
-	else if(RGB2.len < RGB1.len)
-		RGB2 += 255
-	var/usealpha = RGB1.len > 3
-
-	var/r = round(RGB1[1] + (RGB2[1] - RGB1[1]) * amount, 1)
-	var/g = round(RGB1[2] + (RGB2[2] - RGB1[2]) * amount, 1)
-	var/b = round(RGB1[3] + (RGB2[3] - RGB1[3]) * amount, 1)
-	var/alpha = usealpha ? round(RGB1[4] + (RGB2[4] - RGB1[4]) * amount, 1) : null
-
-	return isnull(alpha) ? rgb(r, g, b) : rgb(r, g, b, alpha)
-
-/proc/BlendRGBasHSV(rgb1, rgb2, amount)
-	return HSVtoRGB(RGBtoHSV(rgb1), RGBtoHSV(rgb2), amount)
+	return rgb_gradient(amount, 0, rgb1, 1, rgb2, "loop")
 
 /proc/HueToAngle(hue)
 	// normalize hsv in case anything is screwy
@@ -641,52 +332,39 @@ world
 	hue += round(hue / 255)
 	return hue
 
-
 // positive angle rotates forward through red->green->blue
-/proc/RotateHue(hsv, angle)
-	var/list/HSV = ReadHSV(hsv)
+/proc/RotateHue(rgb, angle)
+	var/list/HSV = rgb2hsv(rgb)
 
-	// normalize hsv in case anything is screwy
-	if(HSV[1] >= 1536)
-		HSV[1] %= 1536
+	angle %= 360
+
+	HSV[1] = round(HSV[1] + angle)
+
+	HSV[1] %= 360
+
 	if(HSV[1] < 0)
-		HSV[1] += 1536
+		HSV[1] += 360
 
-	// Compress hue into easier-to-manage range
-	HSV[1] -= HSV[1] >> 8
-
-	if(angle < 0 || angle >= 360)
-		angle -= 360 * round(angle / 360)
-	HSV[1] = round(HSV[1] + angle * (1530/360), 1)
-
-	// normalize hue
-	if(HSV[1] < 0 || HSV[1] >= 1530)
-		HSV[1] %= 1530
-	if(HSV[1] < 0)
-		HSV[1] += 1530
-	// decompress hue
-	HSV[1] += round(HSV[1] / 255)
-
-	return hsv(HSV[1], HSV[2], HSV[3], (HSV.len > 3 ? HSV[4] : null))
+	return hsv2rgb(HSV)
 
 // Convert an rgb color to grayscale
 /proc/GrayScale(rgb)
-	var/list/RGB = ReadRGB(rgb)
+	var/list/RGB = rgb2num(rgb)
 	var/gray = RGB[1]*0.3 + RGB[2]*0.59 + RGB[3]*0.11
 	return (RGB.len > 3) ? rgb(gray, gray, gray, RGB[4]) : rgb(gray, gray, gray)
 
 // Change grayscale color to black->tone->white range
 /proc/ColorTone(rgb, tone)
-	var/list/RGB = ReadRGB(rgb)
-	var/list/TONE = ReadRGB(tone)
+	var/list/RGB = rgb2num(rgb)
+	var/list/TONE = rgb2num(tone)
 
 	var/gray = RGB[1]*0.3 + RGB[2]*0.59 + RGB[3]*0.11
 	var/tone_gray = TONE[1]*0.3 + TONE[2]*0.59 + TONE[3]*0.11
 
 	if(gray <= tone_gray)
-		return BlendRGB("#000000", tone, gray/(tone_gray || 1))
+		return BlendRGB(COLOR_BLACK, tone, gray/(tone_gray || 1))
 	else
-		return BlendRGB(tone, "#ffffff", (gray-tone_gray)/((255-tone_gray) || 1))
+		return BlendRGB(tone, COLOR_WHITE, (gray-tone_gray)/((255-tone_gray) || 1))
 
 
 //Used in the OLD chem colour mixing algorithm
@@ -710,210 +388,188 @@ world
 
 //Returns color multiplied by amount, in hex format
 /proc/MultiplyHexColor(color, amount)
-	var/list/rgb = ReadRGB(color)
+	var/list/rgb = rgb2num(color)
 	return rgb(round(rgb[1]*amount), round(rgb[2]*amount), round(rgb[3]*amount))
 
 // Creates a single icon from a given /atom or /image.  Only the first argument is required.
-/proc/getFlatIcon(image/A, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE)
-	//Define... defines.
-	var/static/icon/flat_template = icon('icons/effects/effects.dmi', "nothing")
+/proc/getFlatIcon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE, parentcolor, override_plane = null, ignore_overlays = FALSE)
+	var/static/icon/flat_template = icon('icons/blanks/32x32.dmi', "nothing")
 
-	#define BLANK icon(flat_template)
-	#define SET_SELF(SETVAR) do { \
-		var/icon/SELF_ICON=icon(icon(curicon, curstate, base_icon_dir),"",SOUTH,no_anim?1:null); \
-		if(A.alpha<255) { \
-			SELF_ICON.Blend(rgb(255,255,255,A.alpha),ICON_MULTIPLY);\
-		} \
-		if(A.color) { \
-			if(islist(A.color)){ \
-				SELF_ICON.MapColors(arglist(A.color))} \
-			else{ \
-				SELF_ICON.Blend(A.color,ICON_MULTIPLY)} \
-		} \
-		##SETVAR=SELF_ICON;\
-		} while (0)
-	#define INDEX_X_LOW 1
-	#define INDEX_X_HIGH 2
-	#define INDEX_Y_LOW 3
-	#define INDEX_Y_HIGH 4
+	if(!appearance || appearance.alpha <= 0)
+		return icon(flat_template)
 
-	#define flatX1 flat_size[INDEX_X_LOW]
-	#define flatX2 flat_size[INDEX_X_HIGH]
-	#define flatY1 flat_size[INDEX_Y_LOW]
-	#define flatY2 flat_size[INDEX_Y_HIGH]
-	#define addX1 add_size[INDEX_X_LOW]
-	#define addX2 add_size[INDEX_X_HIGH]
-	#define addY1 add_size[INDEX_Y_LOW]
-	#define addY2 add_size[INDEX_Y_HIGH]
-
-	if(!A || A.alpha <= 0)
-		return BLANK
-
-	var/noIcon = FALSE
 	if(start)
 		if(!defdir)
-			defdir = A.dir
+			defdir = appearance.dir
 		if(!deficon)
-			deficon = A.icon
+			deficon = appearance.icon
 		if(!defstate)
-			defstate = A.icon_state
+			defstate = appearance.icon_state
 		if(!defblend)
-			defblend = A.blend_mode
+			defblend = appearance.blend_mode
 
-	var/curicon = A.icon || deficon
-	var/curstate = A.icon_state || defstate
+	var/curicon = appearance.icon || deficon
+	var/curstate = appearance.icon_state || defstate
+	var/curdir = (!appearance.dir || appearance.dir == SOUTH) ? defdir : appearance.dir
 
-	if(!((noIcon = (!curicon))))
+	var/render_icon = curicon
+
+	if (render_icon)
 		var/curstates = icon_states(curicon)
 		if(!(curstate in curstates))
-			if("" in curstates)
+			if ("" in curstates)
 				curstate = ""
 			else
-				noIcon = TRUE // Do not render this object.
+				render_icon = FALSE
 
-	var/curdir
-	var/base_icon_dir	//We'll use this to get the icon state to display if not null BUT NOT pass it to overlays as the dir we have
-
-	//These should use the parent's direction (most likely)
-	if(!A.dir || A.dir == SOUTH)
-		curdir = defdir
-	else
-		curdir = A.dir
+	var/base_icon_dir //We'll use this to get the icon state to display if not null BUT NOT pass it to overlays as the dir we have
 
 	//Try to remove/optimize this section ASAP, CPU hog.
 	//Determines if there's directionals.
-	if(!noIcon && curdir != SOUTH)
-		var/exist = FALSE
-		var/static/list/checkdirs = list(NORTH, EAST, WEST)
-		for(var/i in checkdirs)		//Not using GLOB for a reason.
-			if(length(icon_states(icon(curicon, curstate, i))))
-				exist = TRUE
-				break
-		if(!exist)
+	if(render_icon && curdir != SOUTH)
+		if (
+			!length(icon_states(icon(curicon, curstate, NORTH))) \
+			&& !length(icon_states(icon(curicon, curstate, EAST))) \
+			&& !length(icon_states(icon(curicon, curstate, WEST))) \
+		)
 			base_icon_dir = SOUTH
-	//
 
 	if(!base_icon_dir)
 		base_icon_dir = curdir
 
-	ASSERT(!BLEND_DEFAULT)		//I might just be stupid but lets make sure this define is 0.
+	var/curblend = appearance.blend_mode || defblend
 
-	var/curblend = A.blend_mode || defblend
-
-	if(A.overlays.len || A.underlays.len)
-		var/icon/flat = BLANK
+	if(!ignore_overlays && (appearance.overlays.len || appearance.underlays.len))
+		var/icon/flat = icon(flat_template)
 		// Layers will be a sorted list of icons/overlays, based on the order in which they are displayed
 		var/list/layers = list()
 		var/image/copy
 		// Add the atom's icon itself, without pixel_x/y offsets.
-		if(!noIcon)
-			copy = image(icon=curicon, icon_state=curstate, layer=A.layer, dir=base_icon_dir)
-			copy.color = A.color
-			copy.alpha = A.alpha
-			copy.blend_mode = curblend
-			layers[copy] = A.layer
+		if(render_icon)
+			if (isnull(override_plane) || override_plane == appearance.plane)
+				copy = image(icon=curicon, icon_state=curstate, layer=appearance.layer, dir=base_icon_dir)
+				copy.color = appearance.color
+				copy.alpha = appearance.alpha
+				copy.blend_mode = curblend
+				layers += copy
 
 		// Loop through the underlays, then overlays, sorting them into the layers list
 		for(var/process_set in 0 to 1)
-			var/list/process = process_set? A.overlays : A.underlays
-			for(var/i in 1 to process.len)
+			var/list/process = process_set ? appearance.overlays : appearance.underlays
+			process = process.Copy()
+			var/i = 1
+			while (i < length(process))
+				if (i > 10000)
+					CRASH("Number of overlays/underlays exceeded 10000, infinite loop possible. Aborting to avoid server crash.")
 				var/image/current = process[i]
+				i++
+				process += process_set ? current.overlays : current.underlays
 				if(!current)
 					continue
-				if(current.plane != FLOAT_PLANE && current.plane != A.plane)
-					continue
-				var/current_layer = current.layer
-				if(current_layer < 0)
-					if(current_layer <= -1000)
-						return flat
-					current_layer = process_set + A.layer + current_layer / 1000
+				if (!isnull(override_plane))
+					if(current.plane != override_plane)
+						continue
+				else
+					if(current.plane != FLOAT_PLANE && current.plane != appearance.plane)
+						continue
 
-				for(var/p in 1 to layers.len)
-					var/image/cmp = layers[p]
-					if(current_layer < layers[cmp])
-						layers.Insert(p, current)
-						break
-				layers[current] = current_layer
-
-		//sortTim(layers, GLOBAL_PROC_REF(cmp_image_layer_asc))
+				BINARY_INSERT(current, layers, /image, current, layer, COMPARE_KEY)
 
 		var/icon/add // Icon of overlay being added
 
-		// Current dimensions of flattened icon
-		var/list/flat_size = list(1, flat.Width(), 1, flat.Height())
-		// Dimensions of overlay being added
-		var/list/add_size[4]
+		var/flatX1 = 1
+		var/flatX2 = flat.Width()
+		var/flatY1 = 1
+		var/flatY2 = flat.Height()
 
-		for(var/V in layers)
-			var/image/I = V
-			if(I.alpha == 0)
+		var/addX1 = 0
+		var/addX2 = 0
+		var/addY1 = 0
+		var/addY2 = 0
+
+		if(appearance.color)
+			if(islist(appearance.color))
+				flat.MapColors(arglist(appearance.color))
+			else
+				flat.Blend(appearance.color, ICON_MULTIPLY)
+
+		if(parentcolor && !(appearance.appearance_flags & RESET_COLOR))
+			if(islist(parentcolor))
+				flat.MapColors(arglist(parentcolor))
+			else
+				flat.Blend(parentcolor, ICON_MULTIPLY)
+
+		var/next_parentcolor = appearance.color || parentcolor
+
+		for(var/image/layer_image as anything in layers)
+			if(layer_image.alpha == 0)
 				continue
 
-			if(I == copy) // 'I' is an /image based on the object being flattened.
+			if(layer_image == copy) // 'layer_image' is an /image based on the object being flattened.
 				curblend = BLEND_OVERLAY
-				add = icon(I.icon, I.icon_state, base_icon_dir)
+				add = icon(layer_image.icon, layer_image.icon_state, base_icon_dir)
+				if(appearance.color)
+					if(islist(appearance.color))
+						add.MapColors(arglist(appearance.color))
+					else
+						add.Blend(appearance.color, ICON_MULTIPLY)
 			else // 'I' is an appearance object.
-				add = getFlatIcon(image(I), curdir, curicon, curstate, curblend, FALSE, no_anim)
+				add = getFlatIcon(appearance = image(layer_image), defdir = curdir, deficon = curicon, defstate = curstate, defblend = curblend, start = FALSE, no_anim = no_anim, parentcolor = next_parentcolor, override_plane = override_plane, ignore_overlays = TRUE)
+
 			if(!add)
 				continue
-			// Find the new dimensions of the flat icon to fit the added overlay
-			add_size = list(
-				min(flatX1, I.pixel_x+1),
-				max(flatX2, I.pixel_x+add.Width()),
-				min(flatY1, I.pixel_y+1),
-				max(flatY2, I.pixel_y+add.Height())
-			)
 
-			if(flat_size ~! add_size)
+			// Find the new dimensions of the flat icon to fit the added overlay
+			addX1 = min(flatX1, layer_image.pixel_x + 1)
+			addX2 = max(flatX2, layer_image.pixel_x + add.Width())
+			addY1 = min(flatY1, layer_image.pixel_y + 1)
+			addY2 = max(flatY2, layer_image.pixel_y + add.Height())
+
+			if (
+				addX1 != flatX1 \
+				&& addX2 != flatX2 \
+				&& addY1 != flatY1 \
+				&& addY2 != flatY2 \
+			)
 				// Resize the flattened icon so the new icon fits
 				flat.Crop(
-				addX1 - flatX1 + 1,
-				addY1 - flatY1 + 1,
-				addX2 - flatX1 + 1,
-				addY2 - flatY1 + 1
+					addX1 - flatX1 + 1,
+					addY1 - flatY1 + 1,
+					addX2 - flatX1 + 1,
+					addY2 - flatY1 + 1
 				)
-				flat_size = add_size.Copy()
+
+				flatX1 = addX1
+				flatX2 = addY1
+				flatY1 = addX2
+				flatY2 = addY2
 
 			// Blend the overlay into the flattened icon
-			flat.Blend(add, blendMode2iconMode(curblend), I.pixel_x + 2 - flatX1, I.pixel_y + 2 - flatY1)
+			flat.Blend(add, blendMode2iconMode(curblend), layer_image.pixel_x + 2 - flatX1, layer_image.pixel_y + 2 - flatY1)
 
-		if(A.color)
-			if(islist(A.color))
-				flat.MapColors(arglist(A.color))
-			else
-				flat.Blend(A.color, ICON_MULTIPLY)
-
-		if(A.alpha < 255)
-			flat.Blend(rgb(255, 255, 255, A.alpha), ICON_MULTIPLY)
+		if(appearance.alpha < 255)
+			flat.Blend(rgb(255, 255, 255, appearance.alpha), ICON_MULTIPLY)
 
 		if(no_anim)
 			//Clean up repeated frames
 			var/icon/cleaned = new /icon()
 			cleaned.Insert(flat, "", SOUTH, 1, 0)
-			. = cleaned
+			return cleaned
 		else
-			. = icon(flat, "", SOUTH)
-	else	//There's no overlays.
-		if(!noIcon)
-			SET_SELF(.)
+			return icon(flat, "", SOUTH)
+	else if (render_icon) // There's no overlays.
+		var/icon/final_icon = icon(icon(curicon, curstate, base_icon_dir), "", SOUTH, no_anim ? TRUE : null)
 
-	//Clear defines
-	#undef flatX1
-	#undef flatX2
-	#undef flatY1
-	#undef flatY2
-	#undef addX1
-	#undef addX2
-	#undef addY1
-	#undef addY2
+		if (appearance.alpha < 255)
+			final_icon.Blend(rgb(255,255,255, appearance.alpha), ICON_MULTIPLY)
 
-	#undef INDEX_X_LOW
-	#undef INDEX_X_HIGH
-	#undef INDEX_Y_LOW
-	#undef INDEX_Y_HIGH
+		if (appearance.color)
+			if (islist(appearance.color))
+				final_icon.MapColors(arglist(appearance.color))
+			else
+				final_icon.Blend(appearance.color, ICON_MULTIPLY)
 
-	#undef BLANK
-	#undef SET_SELF
+		return final_icon
 
 /proc/getStillIcon(atom/A, directionless = TRUE)//By whoever that guy below me is, I just kind of stole it and changed it a bit lol
 	var/icon/overlayIcon = new /icon()
@@ -1153,7 +809,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if(job)
 		job.equip(body, TRUE, FALSE, outfit_override = outfit_override)
 	if(outfit)
-		body.equipOutfit(outfit_override,visualsOnly = TRUE)
+		body.equipOutfit(outfit_override,visuals_only = TRUE)
 
 	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
 	COMPILE_OVERLAYS(body)
@@ -1311,7 +967,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
  * * sourceonly - if TRUE, only generate the asset and send back the asset url, instead of tags that display the icon to players
  * * extra_clases - string of extra css classes to use when returning the icon string
  */
-/proc/icon2html(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE)
+/proc/icon2html(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null)
 	if (!thing)
 		return
 
@@ -1320,7 +976,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if (!target)
 		return
 	if (target == world)
-		target = GLOB.clients
+		target = GLOB.clients_unsafe
 
 	var/list/targets
 	if (!islist(target))
@@ -1342,7 +998,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 				SSassets.transport.send_assets(thing2, name)
 			if(sourceonly)
 				return SSassets.transport.get_asset_url(name)
-			return "<img class='icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
+			return "<img class='[extra_classes] icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
 
 		//its either an atom, image, or mutable_appearance, we want its icon var
 		icon2collapse = thing.icon
@@ -1382,7 +1038,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		SSassets.transport.send_assets(client_target, key)
 	if(sourceonly)
 		return SSassets.transport.get_asset_url(key)
-	return "<img class='icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
+	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
 
 /proc/icon2base64html(thing)
 	if (!thing)
@@ -1430,10 +1086,27 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	return icon2html(I, target, sourceonly = sourceonly)
 
 //Returns TRUE if the given iconstate is located in the given file, otherwise returns false.
-/proc/icon_exists(file, state)
-	var/list/states = icon_states(file)
-	if(states.Find(state))
+/proc/icon_exists(file, state, scream)
+	var/static/list/icon_states_cache = list()
+	if(icon_states_cache[file]?[state])
 		return TRUE
+
+	if(icon_states_cache[file]?[state] == FALSE)
+		return FALSE
+
+	var/list/states = icon_states(file)
+
+	if(!icon_states_cache[file])
+		icon_states_cache[file] = list()
+
+	if(state in states)
+		icon_states_cache[file][state] = TRUE
+		return TRUE
+	else
+		icon_states_cache[file][state] = FALSE
+		if(scream)
+			stack_trace("Icon Lookup for state: [state] in file [file] failed.")
+		return FALSE
 
 /**
  * Center's an image.
@@ -1472,13 +1145,13 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	return image_to_center
 
 ///Flickers an overlay on an atom
-/proc/flick_overlay_static(overlay_image, atom/source, duration)
+/atom/proc/flick_overlay_static(overlay_image, duration)
 	set waitfor = FALSE
-	if(!source || !overlay_image)
+	if(!overlay_image)
 		return
-	source.add_overlay(overlay_image)
+	add_overlay(overlay_image)
 	sleep(duration)
-	source.cut_overlay(overlay_image)
+	cut_overlay(overlay_image)
 
 ///Perform a shake on an atom, resets its position afterwards
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)

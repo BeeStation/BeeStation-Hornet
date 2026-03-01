@@ -3,14 +3,14 @@ import { Icon, ProgressBar, Tabs } from '../components';
 import { Window } from '../layouts';
 
 const directionToIcon = {
-  'north': 0,
-  'northeast': 45,
-  'east': 90,
-  'southeast': 135,
-  'south': 180,
-  'southwest': 225,
-  'west': 270,
-  'northwest': 315,
+  north: 0,
+  northeast: 45,
+  east: 90,
+  southeast: 135,
+  south: 180,
+  southwest: 225,
+  west: 270,
+  northwest: 315,
 };
 
 export const BluespaceLocator = (props) => {
@@ -19,14 +19,21 @@ export const BluespaceLocator = (props) => {
     <Window width={300} height={300}>
       <Window.Content scrollable>
         <Tabs>
-          <Tabs.Tab selected={tab === 'implant'} onClick={() => setTab('implant')}>
+          <Tabs.Tab
+            selected={tab === 'implant'}
+            onClick={() => setTab('implant')}
+          >
             Implants
           </Tabs.Tab>
-          <Tabs.Tab selected={tab === 'beacon'} onClick={() => setTab('beacon')}>
+          <Tabs.Tab
+            selected={tab === 'beacon'}
+            onClick={() => setTab('beacon')}
+          >
             Teleporter Beacons
           </Tabs.Tab>
         </Tabs>
-        {(tab === 'beacon' && <TeleporterBeacons />) || (tab === 'implant' && <TrackingImplants />)}
+        {(tab === 'beacon' && <TeleporterBeacons />) ||
+          (tab === 'implant' && <TrackingImplants />)}
       </Window.Content>
     </Window>
   );
@@ -79,7 +86,8 @@ const SignalLocator = (props) => {
         red: [0, trackingrange / 3],
         yellow: [trackingrange / 3, 2 * (trackingrange / 3)],
         green: [2 * (trackingrange / 3), trackingrange],
-      }}>
+      }}
+    >
       {name}
       <Icon ml={2} name="arrow-up" rotation={direction} />
     </ProgressBar>

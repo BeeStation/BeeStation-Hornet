@@ -50,18 +50,24 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
 	user.visible_message(span_notice("A tear in reality appears above the altar!"))
-	var/list/candidates = poll_ghost_candidates("Do you wish to be summoned as a Holy Carp?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYCARP)
-	if(!length(candidates))
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_HOLY_SUMMONED
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_HOLYCARP
+	config.jump_target = religious_tool
+	config.role_name_text = "holy carp"
+	config.alert_pic = /mob/living/simple_animal/hostile/carp
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+	if(!candidate)
 		new /obj/effect/gibspawner/generic(altar_turf)
 		user.visible_message(span_warning("The carp pool was not strong enough to bring forth a space carp."))
 		GLOB.religious_sect?.adjust_favor(400, user)
 		return NOT_ENOUGH_PLAYERS
-	var/mob/dead/observer/selected = pick_n_take(candidates)
-	var/datum/mind/M = new /datum/mind(selected.key)
+	var/datum/mind/M = new /datum/mind(candidate.key)
 	var/carp_species = pick(/mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp)
 	var/mob/living/simple_animal/hostile/carp = new carp_species(altar_turf)
 	carp.name = "Holy Space-Carp ([rand(1,999)])"
-	carp.key = selected.key
+	carp.key = candidate.key
 	carp.sentience_act()
 	carp.maxHealth += 100
 	carp.health += 100

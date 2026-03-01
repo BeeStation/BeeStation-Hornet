@@ -4,7 +4,6 @@
 	gender = FEMALE //All xenos are girls!!
 	dna = null
 	faction = list(FACTION_ALIEN)
-	ventcrawler = VENTCRAWLER_ALWAYS
 	sight = SEE_MOBS
 	see_in_dark = 4
 	verb_say = "hisses"
@@ -28,6 +27,9 @@
 
 	create_bodyparts() //initialize bodyparts
 	create_internal_organs()
+
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
 	return ..()
 
 /mob/living/carbon/alien/create_internal_organs()
@@ -81,7 +83,7 @@ Des: Gives the client of the alien an image on each infected mob.
 	for(var/i in GLOB.mob_living_list)
 		var/mob/living/L = i
 		if(HAS_TRAIT(L, TRAIT_XENO_HOST))
-			var/obj/item/organ/body_egg/alien_embryo/A = L.getorgan(/obj/item/organ/body_egg/alien_embryo)
+			var/obj/item/organ/body_egg/alien_embryo/A = L.get_organ_by_type(/obj/item/organ/body_egg/alien_embryo)
 			if(A)
 				var/I = image('icons/mob/alien.dmi', loc = L, icon_state = "infected[A.stage]")
 				client.images += I

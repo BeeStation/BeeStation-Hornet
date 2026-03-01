@@ -136,7 +136,7 @@
 		QDEL_LIST(L)
 	return ..()
 
-/mob/camera/ai_eye/proc/move_camera_by_click(var/atom/target)
+/mob/camera/ai_eye/proc/move_camera_by_click(atom/target)
 	if((ai.multicam_on || (ai.client.eye == src)) && (get_virtual_z_level() == target.get_virtual_z_level()))
 		if(ai.ai_tracking_target)
 			ai.ai_stop_tracking()
@@ -206,7 +206,7 @@
 	set category = "AI Commands"
 	set name = "Toggle Camera Acceleration"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")

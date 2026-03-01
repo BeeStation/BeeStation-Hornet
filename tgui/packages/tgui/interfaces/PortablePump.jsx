@@ -1,12 +1,20 @@
 import { useBackend } from '../backend';
-import { Section, LabeledList, Button, NumberInput } from '../components';
+import { Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 import { PortableBasicInfo } from './common/PortableAtmos';
 
 export const PortablePump = (props) => {
   const { act, data } = useBackend();
 
-  const { direction, connected, holding, target_pressure, default_pressure, min_pressure, max_pressure } = data;
+  const {
+    direction,
+    connected,
+    holding,
+    target_pressure,
+    default_pressure,
+    min_pressure,
+    max_pressure,
+  } = data;
 
   const pump_or_port = connected ? 'Port' : 'Pump';
   const area_or_tank = holding ? 'Tank' : 'Area';
@@ -19,11 +27,16 @@ export const PortablePump = (props) => {
           title="Pumping"
           buttons={
             <Button
-              content={direction ? area_or_tank + ' → ' + pump_or_port : pump_or_port + ' → ' + area_or_tank}
+              content={
+                direction
+                  ? area_or_tank + ' → ' + pump_or_port
+                  : pump_or_port + ' → ' + area_or_tank
+              }
               color={!direction && !holding ? 'caution' : null}
               onClick={() => act('direction')}
             />
-          }>
+          }
+        >
           <LabeledList>
             <LabeledList.Item label="Output">
               <NumberInput

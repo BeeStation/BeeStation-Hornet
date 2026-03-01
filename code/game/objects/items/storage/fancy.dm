@@ -75,7 +75,7 @@
 	icon = 'icons/obj/food/donuts.dmi'
 	icon_state = "donutbox"
 	base_icon_state = "donutbox"
-	spawn_type = /obj/item/food/donut/premade
+	spawn_type = /obj/item/food/donut/plain
 	spawn_count = 6
 	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
@@ -116,7 +116,7 @@
 
 /obj/item/storage/fancy/egg_box
 	icon = 'icons/obj/food/containers.dmi'
-	item_state = "eggbox"
+	inhand_icon_state = "eggbox"
 	icon_state = "eggbox"
 	base_icon_state = "eggbox"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
@@ -126,6 +126,7 @@
 	spawn_type = /obj/item/food/egg
 	spawn_count = 12
 	contents_tag = "egg"
+	custom_price = 25
 
 /obj/item/storage/fancy/egg_box/Initialize(mapload)
 	. = ..()
@@ -141,7 +142,7 @@
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candlebox5"
 	base_icon_state = "candlebox"
-	item_state = "candlebox5"
+	inhand_icon_state = "candlebox5"
 	worn_icon_state = "cigpack"
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 2
@@ -161,7 +162,7 @@
 	desc = "The most popular brand of cigarettes, sponsors of the Space Olympics."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig"
-	item_state = "cigpacket"
+	inhand_icon_state = "cigpacket"
 	base_icon_state = "cig"
 	worn_icon_state = "cigpack"
 	w_class = WEIGHT_CLASS_TINY
@@ -170,6 +171,7 @@
 	spawn_type = /obj/item/clothing/mask/cigarette/space_cigarette
 	spawn_count = 6
 	contents_tag = "cigarette"
+	custom_price = 15
 	//Special handling for cig overlays
 	var/display_cigs = TRUE
 
@@ -184,6 +186,8 @@
 
 /obj/item/storage/fancy/cigarettes/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	var/obj/item/lighter = locate(/obj/item/lighter) in contents
 	if(lighter)
 		quick_remove_item(lighter, user)
@@ -276,6 +280,7 @@
 	icon_state = "carp"
 	base_icon_state = "carp"
 	spawn_type = /obj/item/clothing/mask/cigarette/carp
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	name = "cigarette packet"
@@ -283,6 +288,7 @@
 	icon_state = "syndie"
 	base_icon_state = "syndie"
 	spawn_type = /obj/item/clothing/mask/cigarette/syndicate
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
@@ -290,6 +296,7 @@
 	icon_state = "midori"
 	base_icon_state = "midori"
 	spawn_type = /obj/item/clothing/mask/cigarette/rollie/nicotine
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name = "\improper Shady Jim's Super Slims packet"
@@ -297,6 +304,7 @@
 	icon_state = "shadyjim"
 	base_icon_state = "shadyjim"
 	spawn_type = /obj/item/clothing/mask/cigarette/shadyjims
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_xeno
 	name = "\improper Xeno Filtered packet"
@@ -329,6 +337,7 @@
 	contents_tag = "rolling paper"
 	spawn_count = 10
 	spawn_type = /obj/item/rollingpaper
+	custom_price = 15
 
 /obj/item/storage/fancy/rollingpapers/Initialize(mapload)
 	. = ..()
@@ -399,7 +408,7 @@
 	name = "heart-shaped box"
 	desc = "A heart-shaped box for holding tiny chocolates."
 	icon = 'icons/obj/food/containers.dmi'
-	item_state = "chocolatebox"
+	inhand_icon_state = "chocolatebox"
 	icon_state = "chocolatebox"
 	base_icon_state = "chocolatebox"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'

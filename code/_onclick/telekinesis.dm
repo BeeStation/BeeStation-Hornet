@@ -82,10 +82,11 @@
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
 	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL | ISWEAPON
-	//item_state = null
+	//inhand_icon_state = null
 	w_class = WEIGHT_CLASS_GIGANTIC
 
 	plane = ABOVE_HUD_PLANE
+	layer = HUD_LAYER
 
 	var/atom/movable/focus = null
 	var/mob/living/carbon/tk_user = null

@@ -9,7 +9,6 @@
 	dir = NONE
 	var/obj/structure/disposalpipe/last_pipe
 	var/obj/structure/disposalpipe/current_pipe
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	var/datum/gas_mixture/gas	// gas used to flush, will appear at exit point
 	var/active = FALSE			// true if the holder is moving, otherwise inactive
 	var/count = 1000			// can travel 1000 steps before going inactive (in case of loops)
@@ -70,14 +69,14 @@
 	if(our_loop)
 		RegisterSignal(our_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(pre_move))
 		RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(try_expel))
-		RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, PROC_REF(movement_stop))
+		RegisterSignal(our_loop, COMSIG_QDELETING, PROC_REF(movement_stop))
 		current_pipe = loc
 
 /obj/structure/disposalholder/proc/pre_move(datum/move_loop/source)
 	SIGNAL_HANDLER
 	last_pipe = loc
 
-/obj/structure/disposalholder/proc/try_expel(datum/move_loop/source, succeed, visual_delay)
+/obj/structure/disposalholder/proc/try_expel(datum/move_loop/source, result, visual_delay)
 	SIGNAL_HANDLER
 	if(current_pipe || !active)
 		return
@@ -135,7 +134,7 @@
 
 // called when player tries to move while in a pipe
 /obj/structure/disposalholder/relaymove(mob/living/user, direction)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	for(var/mob/M as() in hearers(5, get_turf(src)))
 		M.show_message("<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>", MSG_AUDIBLE)

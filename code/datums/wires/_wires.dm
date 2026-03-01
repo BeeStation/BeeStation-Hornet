@@ -11,8 +11,7 @@
 		if(A.attachable)
 			return TRUE
 
-/atom
-	var/datum/wires/wires = null
+/atom/var/datum/wires/wires = null
 
 /atom/proc/attempt_wire_interaction(mob/user)
 	if(!wires)

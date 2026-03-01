@@ -1,9 +1,10 @@
 /obj/machinery/portable_atmospherics/pump
 	name = "portable air pump"
 	desc = "It's a small portable air pump, capable of siphoning or pumping gasses into its surroundings. It has a decent internal gas storage, and a slot for external tanks. It can be wrenched to a connection port to join it into the pipe net."
-	icon_state = "psiphon:0"
+	icon_state = "siphon"
+	base_icon_state = "siphon"
 	density = TRUE
-
+	volume = 1000
 
 	///Is the machine on?
 	var/on = FALSE
@@ -12,9 +13,7 @@
 	///Player configurable, sets what's the release pressure
 	var/target_pressure = ONE_ATMOSPHERE
 
-	volume = 1000
-
-/obj/machinery/portable_atmospherics/pump/ComponentInitialize()
+/obj/machinery/portable_atmospherics/pump/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/portable_pump))
 
@@ -23,14 +22,16 @@
 	local_turf.assume_air(air_contents)
 	return ..()
 
-/obj/machinery/portable_atmospherics/pump/update_icon()
-	icon_state = "psiphon:[on]"
+/obj/machinery/portable_atmospherics/pump/update_icon_state()
+	icon_state = "[base_icon_state]_[on]"
+	return ..()
 
-	cut_overlays()
+/obj/machinery/portable_atmospherics/pump/update_overlays()
+	. = ..()
 	if(holding)
-		add_overlay("siphon-open")
+		. += "siphon-open"
 	if(connected_port)
-		add_overlay("siphon-connector")
+		. += "siphon-connector"
 
 /obj/machinery/portable_atmospherics/pump/process_atmos()
 	if(take_atmos_damage())
@@ -73,7 +74,7 @@
 	if(prob(100 / severity))
 		direction = PUMP_OUT
 	target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)
 	. = ..()
@@ -162,7 +163,7 @@
 			if(holding)
 				replace_tank(usr, FALSE)
 				. = TRUE
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/portable_atmospherics/pump/unregister_holding()
 	on = FALSE
@@ -214,6 +215,7 @@
 
 	if(COMPONENT_TRIGGERED_BY(turn_on, port))
 		attached_pump.on = TRUE
+		SSair.start_processing_machine(attached_pump)
 		if(attached_pump.holding && (attached_pump.direction == PUMP_IN))
 			investigate_log("[parent.get_creator()] started a transfer into [attached_pump.holding].", INVESTIGATE_ATMOS)
 	if(COMPONENT_TRIGGERED_BY(turn_off, port))
@@ -225,3 +227,4 @@
 	if(COMPONENT_TRIGGERED_BY(target_pressure, port))
 		attached_pump.target_pressure = clamp(round(target_pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
 		investigate_log("a portable pump was set to [attached_pump.target_pressure] kPa by [parent.get_creator()].", INVESTIGATE_ATMOS)
+	attached_pump.update_appearance()

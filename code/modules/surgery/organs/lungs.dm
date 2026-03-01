@@ -54,7 +54,7 @@
 	var/SA_sleep_min = 5
 	var/BZ_trip_balls_min = 0.1 //BZ gas
 	var/BZ_brain_damage_min = 1
-	var/gas_stimulation_min = 0.002 //Nitryl and Stimulum
+	var/gas_stimulation_min = 0.002 //nitrium and Freon
 
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
@@ -86,7 +86,9 @@
 	// This may look weird, but uh, organ code is weird, so we FIRST check to see if this organ is going into a NEW person.
 	// If it is going into a new person, ..() will ensure that organ is Remove()d first, and we won't run into any issues with duplicate signals.
 	var/new_owner = QDELETED(owner) || owner != M
-	..()
+	. = ..()
+	if(!.)
+		return .
 	if(new_owner)
 		RegisterSignal(M, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath))
 
@@ -129,9 +131,9 @@
 	LAZYREMOVE(thrown_alerts, alert_category)
 
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-//TODO: add lung damage = less oxygen gains
+	//TODO: add lung damage = less oxygen gains
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
-	if(H.status_flags & GODMODE)
+	if(HAS_TRAIT(H, TRAIT_GODMODE))
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return
@@ -237,7 +239,7 @@
 				H.reagents.add_reagent(danger_reagent,1)
 			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
-			H.apply_damage_type(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
+			H.apply_damage(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"], spread_damage = TRUE)
 			throw_alert_for(H, alert_category, alert_type)
 		else
 			clear_alert_for(H, alert_category)
@@ -271,41 +273,33 @@
 
 		var/bz_pp = PP(breath, /datum/gas/bz)
 		if(bz_pp > BZ_brain_damage_min)
-			H.hallucination += 10
+			H.adjust_hallucinations(20 SECONDS)
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,5)
 			if(prob(33))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 
 		else if(bz_pp > BZ_trip_balls_min)
-			H.hallucination += 5
+			H.adjust_hallucinations(10 SECONDS)
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
 
-	// Nitryl
-		var/nitryl_pp = PP(breath,/datum/gas/nitryl)
-		if (prob(nitryl_pp))
-			to_chat(H, span_alert("Your mouth feels like it's burning!"))
-		if (nitryl_pp >40)
-			H.emote("gasp")
-			H.adjustFireLoss(10)
-			if (prob(nitryl_pp/2))
-				to_chat(H, span_alert("Your throat closes up!"))
-				H.silent = max(H.silent, 3)
-		else
-			H.adjustFireLoss(nitryl_pp/4)
-		gas_breathed = PP(breath,/datum/gas/nitryl)
-		if (gas_breathed > gas_stimulation_min)
-			H.reagents.add_reagent(/datum/reagent/nitryl,1)
+	// Nitrium
+		var/nitrium_pp = PP(breath, /datum/gas/nitrium)
+		if (prob(nitrium_pp) && nitrium_pp > 15)
+			H.adjustOrganLoss(ORGAN_SLOT_LUNGS, nitrium_pp * 0.1)
+			to_chat(H, span_notice("You feel a burning sensation in your chest"))
+		gas_breathed = PP(breath, /datum/gas/nitrium)
+		if (nitrium_pp > 5)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrium)
+			H.reagents.add_reagent(/datum/reagent/nitrium, max(0, 4 - existing))
+		if (nitrium_pp > 10)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/nitrosyl_plasmide)
+			H.reagents.add_reagent(/datum/reagent/nitrosyl_plasmide, max(0, 4 - existing))
+			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Triggers overdose message primarily, so players aren't stuck in extreme slowdown for too long.
 
-		REMOVE_MOLES(/datum/gas/nitryl, breath, gas_breathed)
-
-	// Stimulum
-		gas_breathed = PP(breath,/datum/gas/stimulum)
-		if (gas_breathed > gas_stimulation_min)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
-			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
-		REMOVE_MOLES(/datum/gas/stimulum, breath, gas_breathed)
+		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
 
 		handle_breath_temperature(breath, H)
+
 	return TRUE
 
 /obj/item/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
@@ -330,11 +324,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/cold_modifier = H.dna.species.coldmod
 		if(breath_temperature < cold_level_3_threshold)
-			H.apply_damage_type(cold_level_3_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(cold_level_3_damage*cold_modifier, cold_damage_type, spread_damage = TRUE)
 		if(breath_temperature > cold_level_3_threshold && breath_temperature < cold_level_2_threshold)
-			H.apply_damage_type(cold_level_2_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(cold_level_2_damage*cold_modifier, cold_damage_type, spread_damage = TRUE)
 		if(breath_temperature > cold_level_2_threshold && breath_temperature < cold_level_1_threshold)
-			H.apply_damage_type(cold_level_1_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(cold_level_1_damage*cold_modifier, cold_damage_type, spread_damage = TRUE)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
@@ -342,11 +336,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/heat_modifier = H.dna.species.heatmod
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
-			H.apply_damage_type(heat_level_1_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(heat_level_1_damage*heat_modifier, heat_damage_type, spread_damage = TRUE)
 		if(breath_temperature > heat_level_2_threshold && breath_temperature < heat_level_3_threshold)
-			H.apply_damage_type(heat_level_2_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(heat_level_2_damage*heat_modifier, heat_damage_type, spread_damage = TRUE)
 		if(breath_temperature > heat_level_3_threshold)
-			H.apply_damage_type(heat_level_3_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(heat_level_3_damage*heat_modifier, heat_damage_type, spread_damage = TRUE)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [hot_message] in your [name]!"))
@@ -364,8 +358,8 @@
 		failed = FALSE
 	return
 
-/obj/item/organ/lungs/get_availability(datum/species/S)
-	return !(TRAIT_NOBREATH in S.species_traits)
+/obj/item/organ/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantlungs
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"
@@ -386,8 +380,7 @@
 	name = "cybernetic lungs"
 	desc = "A cybernetic version of the lungs found in traditional humanoid entities. Allows for greater intakes of oxygen than organic lungs, requiring slightly less pressure."
 	icon_state = "lungs-c"
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = 1.1 * STANDARD_ORGAN_THRESHOLD
 	safe_breath_min = 13
 	safe_breath_max = 100
@@ -420,7 +413,12 @@
 	name = "apid lungs"
 	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure environments."
 	icon_state = "lungs"
-	safe_breath_min = 8
+	safe_breath_min = 1 // If oxygen is present, they can breathe
+	gas_max = list(
+		/datum/gas/carbon_dioxide = 45,
+		/datum/gas/plasma = 10,
+		/datum/gas/bz = 10
+	)
 
 /obj/item/organ/lungs/ashwalker
 	name = "ash walker lungs"
@@ -430,7 +428,7 @@
 	safe_breath_max = 20
 	gas_max = list(
 		/datum/gas/carbon_dioxide = 45,
-		/datum/gas/plasma = MOLES_GAS_VISIBLE
+		/datum/gas/plasma = 1
 	)
 
 /obj/item/organ/lungs/diona

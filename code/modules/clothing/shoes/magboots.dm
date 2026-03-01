@@ -1,28 +1,22 @@
 /obj/item/clothing/shoes/magboots
-	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle. Walking carefully lets the user gain better traction."
 	name = "magboots"
 	icon_state = "magboots0"
-	item_state = "magboots"
-	var/magboot_state = "magboots"
-	var/magpulse = 0
-	var/slowdown_active = 2
+	inhand_icon_state = "magboots"
 	armor_type = /datum/armor/shoes_magboots
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
+	clothing_traits = list(TRAIT_NEGATES_GRAVITY)
+	var/magboot_state = "magboots"
+	var/magpulse = 0
+	var/slowdown_active = 2
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_FEET)
 		update_gravity_trait(user)
-	else
-		REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
-
-/obj/item/clothing/shoes/magboots/dropped(mob/user)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, type)
-
 
 /datum/armor/shoes_magboots
 	bio = 90
@@ -38,19 +32,19 @@
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/living/user)
 	if(magpulse)
+		clothing_flags &= ~NOSLIP_ALL_WALKING
 		clothing_flags &= ~NOSLIP
 		slowdown = SHOES_SLOWDOWN
 	else
+		clothing_flags |= NOSLIP_ALL_WALKING
 		clothing_flags |= NOSLIP
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
 	update_gravity_trait(user)
 	user.refresh_gravity()
+	user.update_equipment_speed_mods()
 	update_action_buttons()
-
-/obj/item/clothing/shoes/magboots/negates_gravity()
-	return isspaceturf(get_turf(src)) ? FALSE : magpulse //We don't mimick gravity on space turfs
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -72,6 +66,10 @@
 	slowdown_active = SHOES_SLOWDOWN
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+/obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /obj/item/clothing/shoes/magboots/syndie
 	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
@@ -96,23 +94,14 @@
 	energy = 25
 	bomb = 50
 	bio = 30
-	rad = 30
 	fire = 90
 	acid = 50
 	stamina = 30
 	bleed = 40
 
-/obj/item/clothing/shoes/magboots/commando/attack_self(mob/user) //Code for the passive no-slip of the commando magboots to always apply, kind of a shit code solution though.
+/obj/item/clothing/shoes/magboots/commando/attack_self(mob/user)
 	. = ..()
-	if(magpulse)
-		slowdown = SHOES_SLOWDOWN
-	else
-		slowdown = slowdown_active
-	magpulse = !magpulse
-	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, span_notice("You [magpulse ? "enable" : "disable"] the mag-pulse traction system."))
-	user.update_inv_shoes()
-	update_action_buttons()
+	clothing_flags |= NOSLIP
 
 /obj/item/clothing/shoes/magboots/crushing
 	desc = "Normal looking magboots that are altered to increase magnetic pull to crush anything underfoot."

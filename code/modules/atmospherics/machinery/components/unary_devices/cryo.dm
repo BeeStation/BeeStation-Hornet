@@ -40,7 +40,6 @@
 	var/message_cooldown
 	var/breakout_time = 300
 	fair_market_price = 10
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 
 	/// Reference to the datum connector we're using to interface with the pipe network
 	var/datum/gas_machine_connector/internal_connector
@@ -50,7 +49,6 @@
 
 /datum/armor/unary_cryo_cell
 	energy = 100
-	rad = 100
 	fire = 30
 	acid = 30
 
@@ -85,6 +83,10 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Efficiency at <b>[efficiency*100]%</b>.")
+
+/obj/machinery/cryo_cell/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("[state_open ? "Close" : "Open"] door")
 
 /obj/machinery/cryo_cell/Destroy()
 	QDEL_NULL(radio)
@@ -217,13 +219,13 @@
 
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant.on_fire) //Extinguish occupant, happens after the occupant is healed and ejected.
-		mob_occupant.ExtinguishMob()
+		mob_occupant.extinguish_mob()
 	if(!check_nap_violations())
 		return
 	if(mob_occupant.stat == DEAD) // We don't bother with dead people.
 		return
 
-	if(mob_occupant.health >= mob_occupant.getMaxHealth()) // Don't bother with fully healed people.
+	if(mob_occupant.get_organic_health() >= mob_occupant.getMaxHealth()) // Don't bother with fully healed people.
 		on = FALSE
 		update_icon()
 		playsound(src, 'sound/machines/cryo_warning.ogg', volume) // Bug the doctors.
@@ -326,11 +328,11 @@
 		. += "[src] seems empty."
 
 /obj/machinery/cryo_cell/MouseDrop_T(mob/target, mob/user)
-	if(user.incapacitated() || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
+	if(user.incapacitated || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
 		return
 	if(isliving(target))
 		var/mob/living/L = target
-		if(L.incapacitated())
+		if(L.incapacitated)
 			close_machine(target)
 	else
 		user.visible_message("<b>[user]</b> starts shoving [target] inside [src].", span_notice("You start shoving [target] inside [src]."))

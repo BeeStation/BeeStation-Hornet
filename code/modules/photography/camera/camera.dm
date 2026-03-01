@@ -6,7 +6,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	desc = "A polaroid camera."
 	icon_state = "camera"
-	item_state = "camera"
+	inhand_icon_state = "camera"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	light_system = MOVABLE_LIGHT //Used as a flash here.
@@ -18,6 +18,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_NECK
 	custom_materials = list(/datum/material/iron = 50, /datum/material/glass = 150)
+	custom_price = 25
 	var/flash_enabled = TRUE
 	var/state_on = "camera"
 	var/state_off = "camera_off"
@@ -48,7 +49,7 @@
 			// put detactable atom list here
 			/mob/dead/observer,
 			/mob/living/simple_animal/revenant,
-			/mob/living/simple_animal/hostile/floor_cluwne
+			/mob/living/simple_animal/hostile/floor_cluwne,
 		))
 
 /obj/item/camera/attack_self(mob/user)

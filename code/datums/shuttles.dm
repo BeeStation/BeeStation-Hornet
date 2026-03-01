@@ -319,6 +319,12 @@
 	credit_cost = 10000
 	danger_level = SHUTTLE_DANGER_SUBPAR
 
+/datum/map_template/shuttle/emergency/medbay
+	suffix = "medbay"
+	name = "Medical Emergencies Escape Shuttle"
+	description = "The M.E.E.S. is a shuttle built for medical care, featuring a large, well-equipped medical center to tend to many crew members during the trip to Central Command."
+	credit_cost = 10000
+
 /datum/map_template/shuttle/emergency/funnypod
 	suffix = "funnypod"
 	name = "Comically Large Escape Pod"
@@ -379,6 +385,12 @@
 	credit_cost = 2000
 	description = "The gold standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
 
+/datum/map_template/shuttle/emergency/card
+	suffix = "card"
+	name = "Card Station Emergency Shuttle"
+	credit_cost = 4000
+	description = "A standard pattern exfiltration shuttle, equipped with a medbay, brig and an aft engineering section. It's upgraded engines ensure the smoothest and quickest ride."
+
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
 	name = "Snappop(tm)!"
@@ -412,12 +424,6 @@
 	name = "Kilo Station Emergency Shuttle"
 	credit_cost = 5000
 	description = "A fully functional shuttle including a complete infirmary, storage facilties and regular amenities."
-
-/datum/map_template/shuttle/emergency/corg
-	suffix = "corg"
-	name = "Corg Station Emergency Shuttle"
-	credit_cost = 4000
-	description = "A smaller shuttle with area for cargo, medical and security personnel."
 
 /datum/map_template/shuttle/emergency/fland
 	suffix = "fland"
@@ -592,10 +598,6 @@
 	suffix = "kilo"
 	name = "supply shuttle (Kilo)"
 
-/datum/map_template/shuttle/cargo/corg
-	suffix = "corg"
-	name = "supply shuttle (Corg)"
-
 /datum/map_template/shuttle/cargo/birdboat
 	suffix = "birdboat"
 	name = "supply shuttle (Birdboat)"
@@ -654,10 +656,6 @@
 	suffix = "box"
 	name = "labour shuttle (Box)"
 
-/datum/map_template/shuttle/arrival/corg
-	suffix = "corg"
-	name = "arrival shuttle (Corg)"
-
 /datum/map_template/shuttle/infiltrator/basic
 	suffix = "basic"
 	name = "basic syndicate infiltrator"
@@ -710,9 +708,9 @@
 	name = "exploration shuttle"
 	can_be_bought = FALSE
 
-/datum/map_template/shuttle/exploration/corg
-	suffix = "corg"
-	name = "corg exploration shuttle"
+/datum/map_template/shuttle/exploration/card
+	suffix = "card"
+	name = "card exploration shuttle"
 
 /datum/map_template/shuttle/exploration/delta
 	suffix = "delta"
@@ -734,13 +732,25 @@
 	suffix = "kilo"
 	name = "labour shuttle (Kilo)"
 
-/datum/map_template/shuttle/labour/corg
-	suffix = "corg"
-	name = "labour shuttle (Corg)"
-
 /datum/map_template/shuttle/arrival/delta
 	suffix = "delta"
 	name = "arrival shuttle (Delta)"
+
+/datum/map_template/shuttle/arrival/card
+	suffix = "card"
+	name = "arrival shuttle (Card)"
+
+/datum/map_template/shuttle/cargo/card
+	suffix = "card"
+	name = "cargo ferry (Card)"
+
+/datum/map_template/shuttle/mining/card
+	suffix = "card"
+	name = "mining shuttle (Card)"
+
+/datum/map_template/shuttle/labour/card
+	suffix = "card"
+	name = "labour shuttle (Card)"
 
 /datum/map_template/shuttle/arrival/kilo
 	suffix = "kilo"
@@ -821,10 +831,6 @@
 /datum/map_template/shuttle/tram
 	port_id = "tram"
 	can_be_bought = FALSE
-
-/datum/map_template/shuttle/tram/corg
-	suffix = "corg"
-	name = "corgstation transport shuttle"
 
 //---------cargo_fland.dmm
 /datum/map_template/shuttle/cargo/fland

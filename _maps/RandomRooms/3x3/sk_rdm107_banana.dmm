@@ -16,8 +16,8 @@
 "n" = (
 /obj/item/clothing/shoes/clown_shoes,
 /obj/item/stack/ore/bananium,
-/obj/effect/spawner/lootdrop/clowntrap,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap/clowntrap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating{
 	broken = 1
 	},

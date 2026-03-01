@@ -125,6 +125,8 @@
 /datum/asset/spritesheet_batched/proc/insert_icon(sprite_name, datum/universal_icon/entry)
 	if(!istext(sprite_name) || !length(sprite_name))
 		CRASH("Invalid sprite_name \"[sprite_name]\" given to insert_icon()! Providing non-strings will break icon generation.")
+	if(!istype(entry))
+		CRASH("Invalid type provided to insert_icon()! Value: [entry] (type: [entry?.type])")
 	entries[sprite_name] = entry.to_list()
 
 /datum/asset/spritesheet_batched/register()

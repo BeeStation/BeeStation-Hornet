@@ -77,8 +77,9 @@
 
 /obj/item/trash/can/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-4,4)
-	pixel_y = rand(-4,4)
+	if(!pixel_y && !pixel_x)
+		pixel_x = rand(-4,4)
+		pixel_y = rand(-4,4)
 
 ///canned foods
 
@@ -93,8 +94,9 @@
 
 /obj/item/trash/canned/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-4,4)
-	pixel_y = rand(-4,4)
+	if(!pixel_y && !pixel_x)
+		pixel_x = rand(-4,4)
+		pixel_y = rand(-4,4)
 	if(maint)
 		maint_overlay = "can_maint"
 		add_overlay(maint_overlay)

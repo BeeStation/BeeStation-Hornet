@@ -10,37 +10,37 @@
 #define MALF_AI_ROLL_CRIT_CHANCE 5
 
 GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
-		/obj/machinery/field/containment,
-		/obj/machinery/power/supermatter_crystal,
-		/obj/machinery/gravity_generator,
-		/obj/machinery/doomsday_device,
-		/obj/machinery/nuclearbomb,
-		/obj/machinery/nuclearbomb/selfdestruct,
-		/obj/machinery/nuclearbomb/syndicate,
-		/obj/machinery/syndicatebomb,
-		/obj/machinery/syndicatebomb/badmin,
-		/obj/machinery/syndicatebomb/badmin/clown,
-		/obj/machinery/syndicatebomb/empty,
-		/obj/machinery/syndicatebomb/self_destruct,
-		/obj/machinery/syndicatebomb/training,
-		/obj/machinery/atmospherics/pipe/layer_manifold,
-		/obj/machinery/atmospherics/pipe/multiz,
-		/obj/machinery/atmospherics/pipe/smart,
-		/obj/machinery/atmospherics/pipe/smart/manifold, //mapped one
-		/obj/machinery/atmospherics/pipe/smart/manifold4w, //mapped one
-		/obj/machinery/atmospherics/pipe/color_adapter,
-		/obj/machinery/atmospherics/pipe/bridge_pipe,
-		/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-		/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
-		/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
-		/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
-		/obj/machinery/atmospherics/components/tank,
-		/obj/machinery/atmospherics/components/unary/portables_connector,
-		/obj/machinery/atmospherics/components/unary/passive_vent,
-		/obj/machinery/atmospherics/components/unary/heat_exchanger,
-		/obj/machinery/atmospherics/components/binary/valve,
-		/obj/machinery/portable_atmospherics/canister,
-	)))
+	/obj/machinery/field/containment,
+	/obj/machinery/power/supermatter_crystal,
+	/obj/machinery/gravity_generator,
+	/obj/machinery/doomsday_device,
+	/obj/machinery/nuclearbomb,
+	/obj/machinery/nuclearbomb/selfdestruct,
+	/obj/machinery/nuclearbomb/syndicate,
+	/obj/machinery/syndicatebomb,
+	/obj/machinery/syndicatebomb/badmin,
+	/obj/machinery/syndicatebomb/badmin/clown,
+	/obj/machinery/syndicatebomb/empty,
+	/obj/machinery/syndicatebomb/self_destruct,
+	/obj/machinery/syndicatebomb/training,
+	/obj/machinery/atmospherics/pipe/layer_manifold,
+	/obj/machinery/atmospherics/pipe/multiz,
+	/obj/machinery/atmospherics/pipe/smart,
+	/obj/machinery/atmospherics/pipe/smart/manifold, //mapped one
+	/obj/machinery/atmospherics/pipe/smart/manifold4w, //mapped one
+	/obj/machinery/atmospherics/pipe/color_adapter,
+	/obj/machinery/atmospherics/pipe/bridge_pipe,
+	/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+	/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
+	/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
+	/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
+	/obj/machinery/atmospherics/components/tank,
+	/obj/machinery/atmospherics/components/unary/portables_connector,
+	/obj/machinery/atmospherics/components/unary/passive_vent,
+	/obj/machinery/atmospherics/components/unary/heat_exchanger,
+	/obj/machinery/atmospherics/components/binary/valve,
+	/obj/machinery/portable_atmospherics/canister,
+)))
 
 GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	desc = "You aren't entirely sure what this does, but it's very beepy and boopy."
 	background_icon_state = "bg_tech_blue"
 	button_icon_state = null
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
 	/// The owner AI, so we don't have to typecast every time
 	var/mob/living/silicon/ai/owner_AI
@@ -370,7 +370,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		L.investigate_log("has been dusted by a doomsday device.", INVESTIGATE_DEATHS)
 		L.dust()
 	to_chat(world, span_bold("The AI cleansed the station of life with the Doomsday device!"))
-	SSticker.force_ending = 1
+	SSticker.force_ending = FORCE_END_ROUND
 
 /// Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
 /datum/ai_module/malf/destructive/lockdown
@@ -427,7 +427,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/ranged/override_machine/on_activate(mob/user, atom/target)
 	. = ..()
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(!ismachinery(target))
 		target.balloon_alert(user, "can't animate")
@@ -515,7 +515,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/ranged/overload_machine/on_activate(mob/user, atom/target)
 	. = ..()
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(!ismachinery(target))
 		target.balloon_alert(user, "can't overload")
@@ -595,7 +595,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 			if(isspaceturf(victim_turf) && !victim_turf.Adjacent(found_intercom)) //Prevents getting honked in space
 				continue
 			if(honk_victim.soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 30, deafen_pwr = 60)) //Ear protection will prevent these effects
-				honk_victim.jitteriness = max(honk_victim.jitteriness, 120 SECONDS)
+				honk_victim.adjust_jitter(120 SECONDS)
 				to_chat(honk_victim, span_clown("HOOOOONK!"))
 
 /// Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
@@ -649,7 +649,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		C.images -= I
 
 /mob/living/silicon/ai/proc/can_place_transformer(datum/action/innate/ai/place_transformer/action)
-	if(!eyeobj || !isturf(loc) || incapacitated() || !action)
+	if(!eyeobj || !isturf(loc) || incapacitated || !action)
 		return
 	var/turf/middle = get_turf(eyeobj)
 	var/list/turfs = list(middle, locate(middle.x - 1, middle.y, middle.z), locate(middle.x + 1, middle.y, middle.z))
@@ -1019,7 +1019,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 	var/mob/living/silicon/ai/ai_clicker = user
 
-	if(ai_clicker.incapacitated())
+	if(ai_clicker.incapacitated)
 		return FALSE
 
 	if(!ai_clicker.can_see(target))
@@ -1098,7 +1098,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		return FALSE
 	var/mob/living/silicon/ai/ai_clicker = user
 
-	if(ai_clicker.incapacitated() || !isturf(ai_clicker.loc))
+	if(ai_clicker.incapacitated || !isturf(ai_clicker.loc))
 		return FALSE
 
 	var/turf/turf = get_turf(target)
@@ -1123,7 +1123,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	COOLDOWN_START(src, time_til_next_tilt, roll_over_cooldown)
 
 /datum/action/innate/ai/ranged/core_tilt/proc/do_roll_over(mob/living/silicon/ai/ai_clicker, picked_dir)
-	if(ai_clicker.incapacitated() || !isturf(ai_clicker.loc)) // prevents bugs where the ai is carded and rolls
+	if(ai_clicker.incapacitated || !isturf(ai_clicker.loc)) // prevents bugs where the ai is carded and rolls
 		return
 
 	var/turf/target = get_step(ai_clicker, picked_dir) // in case we moved we pass the dir not the target turf
@@ -1135,7 +1135,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /// Used in our radial menu, state-checking proc after the radial menu sleeps
 /datum/action/innate/ai/ranged/core_tilt/proc/radial_check(mob/living/silicon/ai/user)
-	if(QDELETED(user) || user.incapacitated() || user.stat == DEAD || uses <= 0)
+	if(QDELETED(user) || user.incapacitated || user.stat == DEAD || uses <= 0)
 		return FALSE
 	return TRUE
 
@@ -1173,7 +1173,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	if(!user || !isAI(user))
 		return FALSE
 
-	if(ai_clicker.incapacitated())
+	if(ai_clicker.incapacitated)
 		return FALSE
 
 	if(!istype(target, /obj/machinery/vending))
@@ -1225,7 +1225,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /// Used in our radial menu, state-checking proc after the radial menu sleeps
 /datum/action/innate/ai/ranged/remote_vendor_tilt/proc/radial_check(mob/living/silicon/ai/user, obj/machinery/vending/clicked_vendor)
-	if(QDELETED(user) || user.incapacitated() || user.stat == DEAD)
+	if(QDELETED(user) || user.incapacitated || user.stat == DEAD)
 		return FALSE
 
 	if(QDELETED(clicked_vendor))

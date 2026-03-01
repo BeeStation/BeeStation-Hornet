@@ -15,7 +15,7 @@
 	species = "lime"
 	plantname = "Lime Tree"
 	product = /obj/item/food/grown/citrus/lime
-	lifespan = 55
+	lifespan = 220
 	endurance = 50
 	yield = 4
 	potency = 15
@@ -39,7 +39,7 @@
 	species = "orange"
 	plantname = "Orange Tree"
 	product = /obj/item/food/grown/citrus/orange
-	lifespan = 60
+	lifespan = 240
 	endurance = 50
 	yield = 5
 	potency = 20
@@ -66,7 +66,7 @@
 	species = "lemon"
 	plantname = "Lemon Tree"
 	product = /obj/item/food/grown/citrus/lemon
-	lifespan = 55
+	lifespan = 220
 	endurance = 45
 	yield = 4
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
@@ -95,7 +95,7 @@
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	lifespan = 55
+	lifespan = 220
 	endurance = 45
 	yield = 4
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05, /datum/reagent/sulfur = 0.1, /datum/reagent/medicine/charcoal = 0.1, /datum/reagent/saltpetre = 0.1)
@@ -159,7 +159,7 @@
 	species = "orange"
 	plantname = "Extradimensional Orange Tree"
 	product = /obj/item/food/grown/citrus/orange_3d
-	lifespan = 60
+	lifespan = 240
 	endurance = 50
 	yield = 5
 	potency = 20

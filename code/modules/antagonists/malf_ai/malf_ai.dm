@@ -38,6 +38,9 @@
 	add_law_zero()
 	owner.current.grant_language(/datum/language/codespeak, source = LANGUAGE_MALF)
 
+	var/datum/atom_hud/data/hackyhud = GLOB.huds[DATA_HUD_HACKED_APC]
+	hackyhud.add_hud_to(owner.current)
+
 	return ..()
 
 /datum/antagonist/malf_ai/on_removal()
@@ -52,19 +55,7 @@
 
 /// Generates a complete set of malf AI objectives up to the traitor objective limit.
 /datum/antagonist/malf_ai/proc/forge_objectives()
-	if(prob(PROB_SPECIAL))
-		forge_special_objective()
-
-	var/objective_limit = CONFIG_GET(number/traitor_objectives_amount)
-	var/objective_count = length(objectives)
-
-	// for(in...to) loops iterate inclusively, so to reach objective_limit we need to loop to objective_limit - 1
-	// This does not give them 1 fewer objectives than intended.
-	for(var/i in objective_count to objective_limit - 1)
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = owner
-		kill_objective.find_target()
-		objectives += kill_objective
+	forge_special_objective()
 
 	var/datum/objective/survive/malf/dont_die_objective = new
 	dont_die_objective.owner = owner
@@ -72,7 +63,7 @@
 
 /// Generates a special objective and adds it to the objective list.
 /datum/antagonist/malf_ai/proc/forge_special_objective()
-	var/special_pick = rand(1,4)
+	var/special_pick = rand(1,3)
 	switch(special_pick)
 		if(1)
 			var/datum/objective/block/block_objective = new
@@ -86,30 +77,18 @@
 			var/datum/objective/robot_army/robot_objective = new
 			robot_objective.owner = owner
 			objectives += robot_objective
-		if(4) //Protect and strand a target
-			var/datum/objective/protect/yandere_one = new
-			yandere_one.owner = owner
-			objectives += yandere_one
-			yandere_one.find_target()
-			var/datum/objective/maroon/yandere_two = new
-			yandere_two.owner = owner
-			yandere_two.target = yandere_one.target
-			yandere_two.update_explanation_text() // normally called in find_target()
-			objectives += yandere_two
 
 /datum/antagonist/malf_ai/greet()
 	var/list/msg = list()
 
-	msg += span_alertsyndie("You are the [owner.special_role].")
-	msg += span_alertsyndie("Use :t to communicate on a secure channel with Syndicate Agents.")
-	msg += span_alertsyndie("Hack APCs to gain processing time which you can use to unlock powerful Malfunction Abilities.")
-
-	ui_interact(owner.current)
+	msg += span_userdanger("You are the [owner.special_role].")
+	msg += span_warning("Use :t to communicate on a secure channel with Syndicate Agents.")
+	msg += span_warning("Hack APCs to gain processing time which you can use to unlock powerful Malfunction Abilities.")
 
 	if(malf_sound)
 		owner.current.playsound_local(get_turf(owner.current), malf_sound, vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
-	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
+	to_chat(owner.current, examine_block(msg.Join("\n")))
 
 /datum/antagonist/malf_ai/proc/handle_hearing(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
@@ -159,12 +138,6 @@
 	if(!malf_ai.malf_picker)
 		malf_ai.add_malf_picker()
 
-/datum/antagonist/malf_ai/ui_data(mob/living/silicon/ai/malf_ai)
-	var/list/data = list()
-	data["processingTime"] = malf_ai.malf_picker.processing_time
-	data["compactMode"] = module_picker_compactmode
-	return data
-
 /datum/antagonist/malf_ai/ui_static_data(mob/living/silicon/ai/malf_ai)
 	var/list/data = list()
 
@@ -177,50 +150,7 @@
 	data["goal"] = malfunction_flavor["goal"]
 	data["objectives"] = get_objectives()
 
-	//module picker data
-
-	data["categories"] = list()
-	if(malf_ai.malf_picker)
-		for(var/category in malf_ai.malf_picker.possible_modules)
-			var/list/cat = list(
-				"name" = category,
-				"items" = (category == malf_ai.malf_picker.selected_cat ? list() : null))
-			for(var/module in malf_ai.malf_picker.possible_modules[category])
-				var/datum/ai_module/mod = malf_ai.malf_picker.possible_modules[category][module]
-				cat["items"] += list(list(
-					"name" = mod.name,
-					"cost" = mod.cost,
-					"desc" = mod.description,
-				))
-			data["categories"] += list(cat)
-
 	return data
-
-/datum/antagonist/malf_ai/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	. = ..()
-	if(.)
-		return
-	if(!isAI(usr))
-		return
-	var/mob/living/silicon/ai/malf_ai = usr
-	switch(action)
-		//module picker actions
-		if("buy")
-			var/item_name = params["name"]
-			var/list/buyable_items = list()
-			for(var/category in malf_ai.malf_picker.possible_modules)
-				buyable_items += malf_ai.malf_picker.possible_modules[category]
-			for(var/key in buyable_items)
-				var/datum/ai_module/malf/valid_mod = buyable_items[key]
-				if(valid_mod.name == item_name)
-					malf_ai.malf_picker.purchase_module(malf_ai, valid_mod)
-					return TRUE
-		if("select")
-			malf_ai.malf_picker.selected_cat = params["category"]
-			return TRUE
-		if("compact_toggle")
-			module_picker_compactmode = !module_picker_compactmode
-			return TRUE
 
 /datum/antagonist/malf_ai/roundend_report()
 	var/list/result = list()

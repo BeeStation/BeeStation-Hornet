@@ -2,11 +2,9 @@
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "\improper Apid"
 	id = SPECIES_APID
-	bodyflag = FLAG_APID
-	default_color = "FFE800"
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
-	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
 	hair_color = "fixedmutcolor"
 	attack_verb = "slash"
@@ -17,20 +15,22 @@
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutantwings = /obj/item/organ/wings/bee
 	mutanttongue = /obj/item/organ/tongue/bee
-	burnmod = 1.5
-	toxmod = 1.5
-	staminamod = 1.25
+	mutant_organs = list(/obj/item/organ/apid_stinger)
+	brutemod = 0.8
+	toxmod = 0.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = /datum/mutation/wax_saliva
 	var/cold_cycle = 0
 
-	species_chest = /obj/item/bodypart/chest/apid
-	species_head = /obj/item/bodypart/head/apid
-	species_l_arm = /obj/item/bodypart/l_arm/apid
-	species_r_arm = /obj/item/bodypart/r_arm/apid
-	species_l_leg = /obj/item/bodypart/l_leg/apid
-	species_r_leg = /obj/item/bodypart/r_leg/apid
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/apid,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/apid,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/apid,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/apid,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/apid,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/apid
+	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
@@ -42,7 +42,7 @@
 			to_chat(H, span_warning("The cold is making you feel tired..."))
 		switch(cold_cycle)
 			if(5 to 10)
-				H.drowsyness++
+				H.adjust_drowsiness(2 SECONDS)
 			if(10 to INFINITY)
 				H.SetSleeping(50) // Should be 5 seconds
 				cold_cycle = 0 // Resets the cycle, they have a chance to get out after waking up
@@ -50,25 +50,19 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/random_name(gender, unique, lastname, attempts)
-	if(gender == MALE)
-		. =  "[pick(GLOB.apid_names_male)]"
-	else
-		. =  "[pick(GLOB.apid_names_female)]"
+/datum/species/apid/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+	. = ..()
+	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
-	if(lastname)
-		. += " [lastname]"
-	else
-		. +=  " [pick(GLOB.apid_names_last)]"
+/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, attempts+1)
+/datum/species/apid/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
 
-/datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
-	if(istype(weapon, /obj/item/melee/flyswatter))
-		return 29 //Bees get x30 damage from flyswatters
-	return 0
+	if(istype(attacking_item, /obj/item/melee/flyswatter))
+		damage_mods += 30 // Yes, a 30x damage modifier
 
 /datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
@@ -116,6 +110,12 @@
 			SPECIES_PERK_ICON = "wind",
 			SPECIES_PERK_NAME = "Dashing!",
 			SPECIES_PERK_DESC = "Apids can use their wings to quickly dash forward in a flurry of buzzing!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "skull-crossbones",
+			SPECIES_PERK_NAME = "Stinger",
+			SPECIES_PERK_DESC = "Apids have stingers loaded with anti-coagulant venom, don't kick the hive!",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

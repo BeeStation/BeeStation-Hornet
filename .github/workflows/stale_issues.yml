@@ -6,12 +6,13 @@ on:
 
 jobs:
   stale:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/stale@v9
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-label: 'Stale'
+        stale-issue-label: 'Stale'
+        stale-pr-label: 'Stale'
         exempt-issue-labels: 'Triaged'
         exempt-pr-labels: 'Triaged'
         days-before-issue-stale: 210

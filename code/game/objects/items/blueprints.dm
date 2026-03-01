@@ -52,10 +52,13 @@
 	var/legend = FALSE	//Viewing the wire legend
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/areaeditor/blueprints/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/areaeditor/blueprints/Destroy()
 	clear_viewer()
 	return ..()
-
 
 /obj/item/areaeditor/blueprints/attack_self(mob/user)
 	. = ..()
@@ -183,11 +186,14 @@
 /obj/item/areaeditor/proc/edit_area()
 	var/area/A = get_area(usr)
 	var/prevname = "[A.name]"
-	var/str = stripped_input(usr,"New area name:", "Area Creation", "", MAX_NAME_LEN)
-	if(!str || !length(str) || str==prevname) //cancel
+	var/str = tgui_input_text(usr,"New area name:", "Area Creation", "", MAX_NAME_LEN)
+	if(!str || !length(str)) // no input so we return
+		to_chat(usr, span_warning("You need to enter something!"))
 		return
-	if(length(str) > 50)
-		to_chat(usr, span_warning("The given name is too long.  The area's name is unchanged."))
+	if(str==prevname) // no change
+		return
+	if(CHAT_FILTER_CHECK(str)) // check for forbidden words
+		to_chat(usr, span_warning("The given name contains prohibited word(s)."))
 		return
 
 	rename_area(A, str)

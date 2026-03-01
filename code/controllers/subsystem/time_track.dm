@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(time_track)
 	name = "Time Tracking"
 	wait = 100
-	init_order = INIT_ORDER_TIMETRACK
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 
 	var/time_dilation_current = 0
@@ -44,7 +43,7 @@ SUBSYSTEM_DEF(time_track)
 #endif
 
 /datum/controller/subsystem/time_track/Initialize()
-	GLOB.perf_log = "[GLOB.log_directory]/perf-[GLOB.round_id ? GLOB.round_id : "NULL"]-[SSmapping.config?.map_name].csv"
+	GLOB.perf_log = "[GLOB.log_directory]/perf-[GLOB.round_id ? GLOB.round_id : "NULL"]-[SSmapping.current_map?.map_name].csv"
 #ifdef SENDMAPS_PROFILE
 	world.Profile(PROFILE_RESTART, type = "sendmaps")
 	//Need to do the sendmaps stuff in its own file, since it works different then everything else
@@ -125,7 +124,7 @@ SUBSYSTEM_DEF(time_track)
 	log_perf(
 		list(
 			world.time,
-			length(GLOB.clients),
+			length(GLOB.clients_unsafe),
 			time_dilation_current,
 			time_dilation_avg_fast,
 			time_dilation_avg,

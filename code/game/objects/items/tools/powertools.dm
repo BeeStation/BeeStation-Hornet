@@ -16,6 +16,7 @@
 	var/action_off = "honk1"
 	var/action_on = "honk2"
 	var/powertool_hitsound = 'sound/vox_fem/honk.ogg'
+	custom_price = 50
 
 
 /datum/armor/item_powertool
@@ -31,6 +32,7 @@
 		w_class_on = w_class, \
 		clumsy_check = FALSE)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+	tool_behaviour = tool_act_off
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -40,7 +42,7 @@
 /obj/item/powertool/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
 
-	tool_behaviour = (active ? tool_act_off : tool_act_on)
+	tool_behaviour = (active ? tool_act_on : tool_act_off)
 	if(user)
 		balloon_alert(user, "attached [active ? "[action_off]" : "[action_on]"]")
 	playsound(user ? user : src, 'sound/items/change_jaws.ogg', 50, TRUE)
@@ -53,7 +55,7 @@
 	name = "hand drill"
 	desc = "A simple powered hand drill. It's fitted with a screw bit."
 	icon_state = "drill"
-	item_state = "drill"
+	inhand_icon_state = "drill"
 	worn_icon_state = "drill"
 
 	force = 8 //might or might not be too high, subject to change
@@ -67,8 +69,8 @@
 
 	tool_act_off = TOOL_SCREWDRIVER
 	tool_act_on = TOOL_WRENCH
-	action_off = "screw driver"
-	action_on = "bolt driver"
+	action_off = "bolt driver"
+	action_on = "screw driver"
 
 /obj/item/powertool/hand_drill/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
@@ -84,7 +86,7 @@
 	desc = "A set of jaws of life, compressed through the magic of science. It's fitted with a prying head."
 	usesound = 'sound/items/jaws_pry.ogg'
 	icon_state = "jaws"
-	item_state = "jawsoflife"
+	inhand_icon_state = "jawsoflife"
 	worn_icon_state = "jawsoflife"
 
 	force = 15
@@ -94,8 +96,8 @@
 
 	tool_act_off = TOOL_CROWBAR
 	tool_act_on = TOOL_WIRECUTTER
-	action_off = "prying jaws"
-	action_on = "cutting jaws"
+	action_on = "prying jaws"
+	action_off = "cutting jaws"
 
 /obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()

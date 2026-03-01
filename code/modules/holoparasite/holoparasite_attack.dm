@@ -24,14 +24,14 @@
 	if(!is_manifested() && combat_mode)
 		to_chat(src, span_dangerbold("You must be manifested to interact with or attack things!"))
 		return
-	if(SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
 		return
 	if(target == src)
 		to_chat(src, span_dangerbold("You can't attack yourself!"))
 		return
 	if(dextrous && isitem(target))
 		. = target.attack_hand(src)
-		update_inv_hands()
+		update_held_items()
 	else
 		if(combat_mode)
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
@@ -40,12 +40,12 @@
 					. = living_target.grabbedby(src)
 				else
 					. = target.attack_hand(src)
-				update_inv_hands()
+				update_held_items()
 			else
 				. = harm_attack(target)
 		else
 			. = target.attack_hand(src)
-			update_inv_hands()
+			update_held_items()
 
 	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target)
 

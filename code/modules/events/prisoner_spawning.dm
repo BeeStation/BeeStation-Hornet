@@ -18,7 +18,11 @@
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/candidates = get_candidates(ROLE_PRISONER, /datum/role_preference/midround_ghost/prisoner)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_PRISONER
+	config.role_name_text = "prisoner"
+	config.alert_pic = /obj/item/card/id/prisoner
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/result = spawn_prisoners(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
@@ -27,7 +31,7 @@
 
 /proc/spawn_prisoners(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/job_check = 0
-	for (var/mob/H in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+	for (var/mob/H in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
 		if(H.mind)
 			var/datum/mind/M = H.mind
 			if (M.assigned_role == JOB_NAME_SECURITYOFFICER || M.assigned_role == JOB_NAME_HEADOFSECURITY)
@@ -57,7 +61,7 @@
 	player_mind.special_role = ROLE_PRISONER
 	var/datum/antagonist/prisoner/A = new()
 	player_mind.add_antag_datum(A)
-	var/outfit = /datum/outfit/prisoner
+	var/outfit = /datum/outfit/escapedprisoner
 	S.equipOutfit(outfit)
 
 	new /obj/effect/pod_landingzone(landing_turf, pod)

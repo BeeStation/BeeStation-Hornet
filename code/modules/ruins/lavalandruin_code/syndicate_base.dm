@@ -13,7 +13,6 @@
 					/obj/item/assembly/health = 5,
 					/obj/item/assembly/infra = 5,
 					/obj/item/grenade/chem_grenade = 5,
-					/obj/item/grenade/chem_grenade/large = 5,
 					/obj/item/grenade/chem_grenade/pyro = 5,
 					/obj/item/grenade/chem_grenade/cryo = 5,
 					/obj/item/grenade/chem_grenade/adv_release = 5,

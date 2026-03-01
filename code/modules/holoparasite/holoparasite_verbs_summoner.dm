@@ -90,7 +90,7 @@
 		to_chat(src, span_warning("The provided notes contain forbidden words."))
 		return
 	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparas_to_set)
-		to_chat(holopara, EXAMINE_BLOCK(span_holoparasite("[span_bigbold("Your summoner has changed your notes:")]<br>[sanitize(new_notes)]")))
+		to_chat(holopara, examine_block(span_holoparasite("[span_bigbold("Your summoner has changed your notes:")]<br>[sanitize(new_notes)]")))
 		holopara.notes = new_notes
 
 /mob/living/proc/holoparasite_lock()

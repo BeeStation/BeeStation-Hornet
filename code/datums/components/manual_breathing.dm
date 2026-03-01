@@ -13,7 +13,7 @@
 
 /datum/action/breathe
 	name = "Inhale"
-	icon_icon = 'icons/hud/actions/actions_hive.dmi'
+	button_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "add"									//Feel free to replace
 	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/emote/next_emote = "inhale"
@@ -36,7 +36,7 @@
 		return COMPONENT_INCOMPATIBLE
 
 	var/mob/living/carbon/C = parent
-	L = C.getorganslot(ORGAN_SLOT_LUNGS)
+	L = C.get_organ_slot(ORGAN_SLOT_LUNGS)
 
 	if(L)
 		START_PROCESSING(SSdcs, src)
@@ -55,14 +55,14 @@
 	RegisterSignal(parent, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(check_added_organ))
 	RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(check_removed_organ))
 	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(restart))
-	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(pause))
+	RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(pause))
 
 /datum/component/manual_breathing/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOB_EMOTE)
 	UnregisterSignal(parent, COMSIG_CARBON_GAIN_ORGAN)
 	UnregisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN)
 	UnregisterSignal(parent, COMSIG_LIVING_REVIVE)
-	UnregisterSignal(parent, COMSIG_MOB_DEATH)
+	UnregisterSignal(parent, COMSIG_LIVING_DEATH)
 
 /datum/component/manual_breathing/proc/restart()
 	SIGNAL_HANDLER
@@ -83,7 +83,7 @@
 			to_chat(C, span_userdanger("You begin to suffocate, you need to [next_text]!"))
 			warn_dying = TRUE
 
-		L.applyOrganDamage(damage_rate * delta_time)
+		L.apply_organ_damage(damage_rate * delta_time)
 		C.losebreath += 0.8
 	else if(world.time > (last_breath + check_every))
 		if(!warn_grace)

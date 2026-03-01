@@ -33,7 +33,11 @@ const SI_SYMBOLS = [
 const SI_BASE_INDEX = SI_SYMBOLS.indexOf(' ');
 
 // Formats a number to a human readable form, with a custom unit
-export const formatSiUnit = (value: number, minBase1000 = -SI_BASE_INDEX, unit = ''): string => {
+export const formatSiUnit = (
+  value: number,
+  minBase1000 = -SI_BASE_INDEX,
+  unit = '',
+): string => {
   if (!isFinite(value)) {
     return value.toString();
   }
@@ -41,7 +45,8 @@ export const formatSiUnit = (value: number, minBase1000 = -SI_BASE_INDEX, unit =
   const realBase10 = Math.floor(Math.log10(Math.abs(value)));
   const base10 = Math.max(minBase1000 * 3, realBase10);
   const base1000 = Math.floor(base10 / 3);
-  const symbol = SI_SYMBOLS[Math.min(base1000 + SI_BASE_INDEX, SI_SYMBOLS.length - 1)];
+  const symbol =
+    SI_SYMBOLS[Math.min(base1000 + SI_BASE_INDEX, SI_SYMBOLS.length - 1)];
 
   const scaledValue = value / Math.pow(1000, base1000);
 
@@ -115,7 +120,11 @@ const SI_BASE_TEN_UNITS = [
 ] as const;
 
 // Converts a number to a string with SI base 10 units
-export const formatSiBaseTenUnit = (value: number, minBase1000 = 0, unit = ''): string => {
+export const formatSiBaseTenUnit = (
+  value: number,
+  minBase1000 = 0,
+  unit = '',
+): string => {
   if (!isFinite(value)) {
     return 'NaN';
   }
@@ -136,7 +145,10 @@ export const formatSiBaseTenUnit = (value: number, minBase1000 = 0, unit = ''): 
  * Formats decisecond count into HH:MM:SS display by default
  * "short" format does not pad and adds hms suffixes
  */
-export const formatTime = (val: number, formatType: 'short' | 'default' = 'default'): string => {
+export const formatTime = (
+  val: number,
+  formatType: 'short' | 'default' = 'default',
+): string => {
   const totalSeconds = Math.floor(val / 10);
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);

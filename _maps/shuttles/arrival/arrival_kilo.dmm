@@ -21,7 +21,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "af" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
@@ -98,7 +98,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "ao" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /obj/structure/shuttle/engine/heater{
 	dir = 8
@@ -149,7 +149,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/grass,
 /area/shuttle/arrival)
 "aA" = (

@@ -10,11 +10,17 @@
 	name = null
 	icon = 'icons/obj/power.dmi'
 	anchored = TRUE
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
+
+/obj/machinery/power/Initialize(mapload)
+	. = ..()
+	if(isturf(loc))
+		var/turf/turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
 
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
@@ -41,10 +47,9 @@
 		powernet.load += amount
 
 /obj/machinery/power/proc/surplus()
-	if(powernet)
-		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
-	else
+	if(!powernet)
 		return 0
+	return powernet.avail - powernet.load
 
 /obj/machinery/power/proc/avail(amount)
 	if(powernet)
@@ -163,6 +168,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(machine_stat & BROKEN)
+		update_appearance()
 		return
 	if(powered(power_channel))
 		if(machine_stat & NOPOWER)
@@ -177,7 +183,7 @@
 	update_appearance()
 
 // connect the machine to a powernet if a node cable is present on the turf
-/obj/machinery/power/proc/connect_to_network(var/turf/turf = loc)
+/obj/machinery/power/proc/connect_to_network(turf/turf = loc)
 	var/turf/T = turf
 	if(!T || !istype(T))
 		return FALSE
@@ -430,9 +436,9 @@
 
 	if (isarea(power_source))
 		var/area/source_area = power_source
-		source_area.use_power(drained_energy/GLOB.CELLRATE)
+		source_area.use_power(drained_energy)
 	else if (istype(power_source, /datum/powernet))
-		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
+		var/drained_power = drained_energy
 		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
 	else if (istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)

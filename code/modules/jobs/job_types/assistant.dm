@@ -7,15 +7,13 @@ Assistant
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	supervisors = "absolutely everyone"
 	faction = "Station"
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = -1
 	selection_color = "#dddddd"
 	antag_rep = 7
 
 	outfit = /datum/outfit/job/assistant
 
 	base_access = list()	//See /datum/job/assistant/get_access()
-	extra_access = list()	//See /datum/job/assistant/get_access()
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
@@ -28,15 +26,39 @@ Assistant
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
 
+	// For some reason, they have the knowledge in these jobs...
+	manuscript_jobs = list(
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_JANITOR,
+		JOB_NAME_CARGOTECHNICIAN,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_CHEMIST,
+		JOB_NAME_SCIENTIST
+	)
+
+/datum/job/assistant/get_spawn_position_count()
+	// Outside of minpop, there are infinite assistants
+	if (SSjob.initial_players_to_assign >= MINPOP_JOB_LIMIT)
+		return -1
+	return ..()
+
 /datum/job/assistant/get_access()
 	. = ..()
-	if(CONFIG_GET(flag/assistants_have_maint_access) || !CONFIG_GET(flag/jobs_have_minimal_access)) //Config has assistant maint access set
+	if(CONFIG_GET(flag/assistants_have_maint_access)) //Config has assistant maint access set
 		. |= ACCESS_MAINT_TUNNELS
+	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= list(ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_AUX_BASE)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_BARTENDER, ACCESS_BAR)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_BARTENDER, ACCESS_JANITOR)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_COOK, ACCESS_KITCHEN)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_BOTANIST, ACCESS_HYDROPONICS)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_CLOWN, ACCESS_THEATRE)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_CURATOR, ACCESS_LIBRARY)
 
 /datum/outfit/job/assistant
 	name = JOB_NAME_ASSISTANT
 	jobtype = /datum/job/assistant
-	belt = /obj/item/modular_computer/tablet/pda/assistant
+	belt = /obj/item/modular_computer/tablet/pda/preset/assistant
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -63,10 +85,10 @@ Assistant
 	..()
 	give_grey_suit(H)
 
-/datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visuals_only)
 	..()
 
 	// This outfit is used by the assets SS, which is ran before the atoms SS
 	if (SSatoms.initialized == INITIALIZATION_INSSATOMS)
 		H.w_uniform?.update_greyscale()
-		H.update_inv_w_uniform()
+		H.update_worn_undersuit()

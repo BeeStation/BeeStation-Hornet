@@ -24,6 +24,8 @@
 
 /// Called when a successful zimpact (landing) occurs
 /mob/living/proc/ZImpactDamage(turf/T, levels)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, T) & NO_Z_IMPACT_DAMAGE)
+		return
 	apply_general_zimpact_damage(T, levels)
 
 /// Generic proc for most living things taking fall damage. Will attempt splitting between legs, if the mob has any.

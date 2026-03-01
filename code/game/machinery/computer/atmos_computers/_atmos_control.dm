@@ -113,6 +113,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 	data["maxOutput"] = MAX_OUTPUT_PRESSURE
 	data["control"] = control
 	data["reconnecting"] = reconnecting
+	data += return_atmos_handbooks()
 	return data
 
 /obj/machinery/computer/atmos_control/ui_data(mob/user)

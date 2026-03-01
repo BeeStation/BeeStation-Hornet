@@ -166,9 +166,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "mH" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 4
 	},
@@ -424,9 +422,6 @@
 /turf/open/floor/wood,
 /area/shuttle/hunter)
 "wv" = (
-/obj/structure/cable/yellow{
-	icon_state = "9-10"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/weldingtool{
@@ -434,6 +429,9 @@
 	pixel_y = 11
 	},
 /obj/effect/mapping_helpers/tile_breaker,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "xq" = (
@@ -549,6 +547,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "AY" = (
@@ -651,7 +652,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
-/obj/machinery/pipe_dispenser,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "Hk" = (
@@ -729,11 +729,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-6"
-	},
 /obj/effect/decal/cleanable/oil,
 /obj/effect/mapping_helpers/tile_breaker,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "KB" = (
@@ -972,7 +972,7 @@
 /area/shuttle/hunter)
 "TM" = (
 /obj/structure/cable/yellow{
-	icon_state = "4-9"
+	icon_state = "1-4"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)

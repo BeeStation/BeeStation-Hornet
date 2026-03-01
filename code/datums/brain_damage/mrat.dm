@@ -12,7 +12,14 @@
 
 /datum/brain_trauma/special/imaginary_friend/mrat/get_ghost()
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollMentorCandidatesForMob("Do you want to play as [owner]'s mentor rat?", ROLE_IMAGINARY_FRIEND, null, 7.5 SECONDS, friend, POLL_IGNORE_MRAT)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_IMAGINARY_FRIEND
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_MRAT
+	config.jump_target = friend
+	config.role_name_text = "[owner]'s mentor rat"
+	config.alert_pic = owner
+	var/list/mob/dead/observer/candidates = SSpolling.poll_mentor_ghost_candidates(config)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		friend.key = C.key
@@ -25,7 +32,7 @@
 		I.add_kick_action()
 
 		friend_initialized = TRUE
-		to_chat(owner, span_notice("You have acquired the mentor rat [friend.key], ask them any question you like. They will leave your presence when they are done."))
+		to_chat(owner, span_notice("You have acquired the mentor rat [C.client?.display_name_chat() || C.key], ask them any question you like. They will leave your presence when they are done."))
 	else
 		to_chat(owner, span_warning("No mentor responded to your request. Try again later."))
 		qdel(src)
@@ -144,7 +151,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 /datum/action/innate/mrat_costume
 	name = "Change Appearance"
 	desc = "Shape your appearance to whatever you desire."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "ninja_phase"
 
@@ -157,7 +164,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 /datum/action/innate/mrat_leave
 	name = "Leave"
 	desc = "Leave and return to your ghost form."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "beam_up"
 
@@ -174,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 /datum/action/innate/mrat_kick
 	name = "Remove Mentor"
 	desc = "Removes your mentor."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "beam_up"
 	var/mob/camera/imaginary_friend/mrat/friend

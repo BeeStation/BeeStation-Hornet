@@ -3,7 +3,7 @@
 	desc = "Don't shine it in your eyes!"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	worn_icon_state = "pen"
 	var/pointer_icon_state
 	flags_1 = CONDUCT_1
@@ -79,10 +79,10 @@
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
-		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
+		to_chat(user, span_warning("Your fingers can't press the button!"))
 		return
 	add_fingerprint(user)
-	
+
 	//nothing happens if the battery is drained
 	if(recharge_locked)
 		to_chat(user, span_notice("You point [src] at [target], but it's still charging."))
@@ -111,20 +111,12 @@
 
 	//robots
 	else if(iscyborg(target))
-		var/mob/living/silicon/robot/S = target
-		log_combat(user, S, "shone in the sensors", src)
+		var/mob/living/silicon/robot/R = target
+		log_combat(user, R, "shone in the sensors", src)
 		//chance to actually hit the eyes depends on internal component
 		if(prob(effectchance * diode.rating))
-			S.flash_act(affect_silicon = 1)
-			if(S.last_flashed + FLASHED_COOLDOWN < world.time)
-				S.last_flashed = world.time
-				S.Paralyze(5 SECONDS)
-				to_chat(S, span_danger("Your sensors were overloaded by a laser!"))
-				outmsg = span_notice("You overload [S] by shining [src] at [S.p_their()] sensors.")
-			else
-				outmsg = span_warning("You attempt to overload [S]'s sensors with the flash, but their defense protocols mitigate the effect!")
-		else
-			outmsg = span_warning("You fail to overload [S] by shining [src] at [S.p_their()] sensors!")
+			R.flash_act(affect_silicon = TRUE)
+			outmsg = span_notice("You overload [R] by shining [src] at [R.p_their()] sensors.")
 
 	//cameras
 	else if(istype(target, /obj/machinery/camera))
@@ -138,7 +130,7 @@
 
 	// For luring whatever mobs that are "interested" in laser pointers
 	for(var/mob/M as() in viewers(1,targloc))
-		if(M.incapacitated())
+		if(M.incapacitated)
 			return
 		var/mob/living/carbon/human/H = M
 		if(iscatperson(H) && !H.is_blind()) //catpeople!
@@ -165,16 +157,16 @@
 
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
-	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)
+	var/mutable_appearance/laser = mutable_appearance('icons/obj/projectiles.dmi', pointer_icon_state, 10)
 	var/list/modifiers = params2list(params)
 	if(modifiers)
 		if(LAZYACCESS(modifiers, ICON_X))
-			I.pixel_x = (text2num(LAZYACCESS(modifiers, ICON_X)) - 16)
+			laser.pixel_x = (text2num(LAZYACCESS(modifiers, ICON_X)) - 16)
 		if(LAZYACCESS(modifiers, ICON_Y))
-			I.pixel_y = (text2num(LAZYACCESS(modifiers, ICON_Y)) - 16)
+			laser.pixel_y = (text2num(LAZYACCESS(modifiers, ICON_Y)) - 16)
 	else
-		I.pixel_x = target.pixel_x + rand(-5,5)
-		I.pixel_y = target.pixel_y + rand(-5,5)
+		laser.pixel_x = target.pixel_x + rand(-5,5)
+		laser.pixel_y = target.pixel_y + rand(-5,5)
 
 	if(outmsg)
 		to_chat(user, outmsg)
@@ -190,7 +182,7 @@
 			to_chat(user, span_warning("[src]'s battery is overused, it needs time to recharge!"))
 			recharge_locked = TRUE
 
-	flick_overlay_view(I, targloc, 10)
+	targloc.flick_overlay_view(laser, 1 SECONDS)
 	icon_state = "pointer"
 
 /obj/item/laser_pointer/process(delta_time)

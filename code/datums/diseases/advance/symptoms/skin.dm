@@ -48,14 +48,14 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.skin_tone == "albino")
 			return
-		if(H.dna.features["mcolor"] == "EEE")
+		if(H.dna.features["mcolor"] == COLOR_VERY_LIGHT_GRAY)
 			return
 		switch(A.stage)
 			if(5)
 				if(H.dna.species.use_skintones)
 					H.skin_tone = "albino"
 				else if(MUTCOLORS in H.dna.species.species_traits)
-					H.dna.features["mcolor"] = "EEE" //pure white.
+					H.dna.features["mcolor"] = COLOR_VERY_LIGHT_GRAY
 				H.regenerate_icons()
 			else
 				H.visible_message(span_notice("[H] looks a bit pale."), span_notice("Your skin suddenly appears lighter."))
@@ -110,7 +110,7 @@ BONUS
 		if(H.dna.species.use_skintones)
 			cachedcolor = H.skin_tone
 		else if(MUTCOLORS in H.dna.species.species_traits)
-			cachedcolor	= H.dna.features["mcolor"]
+			cachedcolor = H.dna.features["mcolor"]
 
 /datum/symptom/revitiligo/Activate(datum/disease/advance/A)
 	if(!..())
@@ -120,14 +120,14 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.skin_tone == "african2")
 			return
-		if(H.dna.features["mcolor"] == "000")
+		if(H.dna.features["mcolor"] == COLOR_BLACK)
 			return
 		switch(A.stage)
 			if(5)
 				if(H.dna.species.use_skintones)
 					H.skin_tone = "african2"
 				else if(MUTCOLORS in H.dna.species.species_traits)
-					H.dna.features["mcolor"] = "000" //pure black.
+					H.dna.features["mcolor"] = COLOR_BLACK
 				H.regenerate_icons()
 			else
 				H.visible_message(span_notice("[H] looks a bit dark."), span_notice("Your skin suddenly appears darker."))
@@ -235,7 +235,7 @@ Thresholds
 	if(A.transmission >= 6) //higher damage
 		power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
-/datum/symptom/spiked/Activate(var/datum/disease/advance/A)
+/datum/symptom/spiked/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/carbon/H = A.affected_mob
@@ -332,7 +332,7 @@ Thresholds
 						pustule.diseases += D
 				pustule.pellets = popped
 				pustule.variance = rand(50, 200)
-				pustule.fire_casing(T, M, (get_turf(M)))
+				pustule.fire_casing(T, M, fired_from = M)
 				pustules -= popped
 				M.visible_message(span_warning("[popped] pustules on [M]'s body burst open!"))
 

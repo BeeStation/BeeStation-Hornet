@@ -4,6 +4,8 @@
 	var/list/namecounts = list()
 	var/list/pois = list()
 	for(var/mob/M in mobs)
+		if(istype(M, /mob/dead/new_player/pre_auth)) // don't show preauth players in orbit panel
+			continue
 		if(skip_mindless && (!M.mind && !M.ckey))
 			if(!isbot(M) && !iscameramob(M) && !ismegafauna(M))
 				continue
@@ -48,7 +50,9 @@
 		moblist.Add(M)
 	for(var/mob/dead/observer/M in sortmob)
 		moblist.Add(M)
-	for(var/mob/dead/new_player/M in sortmob)
+	for(var/mob/dead/new_player/authenticated/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/dead/new_player/pre_auth/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/carbon/monkey/M in sortmob)
 		moblist.Add(M)

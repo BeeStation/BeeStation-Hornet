@@ -94,7 +94,7 @@
 /turf/open/floor/iron/freezer,
 /area/shuttle/transport)
 "o" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/transport)

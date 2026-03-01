@@ -10,7 +10,7 @@ particles like bonfires.
 	var/obj/effect/abstract/particle_holder/master_holder
 
 /// priority is in descending order so 10 is the highest 1 is the lowest
-/atom/proc/add_emitter(obj/emitter/updatee, particle_key, priority = 10, var/lifespan = null, burst_mode = FALSE)
+/atom/proc/add_emitter(obj/emitter/updatee, particle_key, priority = 10, lifespan = null, burst_mode = FALSE)
 
 	priority = clamp(priority, 1, 10)
 
@@ -33,6 +33,8 @@ particles like bonfires.
 			remove_emitter(particle_key, TRUE)
 		else
 			addtimer(CALLBACK(src, PROC_REF(remove_emitter), particle_key), lifespan)
+
+	return new_emitter
 
 /atom/proc/remove_emitter(particle_key, burst_mode = FALSE)
 	if(!particle_key)

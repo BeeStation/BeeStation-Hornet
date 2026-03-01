@@ -68,28 +68,60 @@ GLOBAL_LIST_EMPTY(diona_pbody_list)
 
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
-	"Cyan" = "00ffff",
-	"Dark Green" = "0ab432",
-	"Dark Teal" = "5ea699",
-	"Denim Blue" = "3399ff",
-	"Gray" = "979497",
-	"Green" = "97ee63",
-	"Lavender" = "d1acff",
-	"Maroon" = "9c3030",
-	"Orange" = "f69c28",
-	"Orchid Purple" = "ee82ee",
-	"Powder Blue" = "95e5ff",
-	"Purple" = "a42df7",
-	"Red" = "ff3131",
-	"Rose" = "ff92b6",
-	"Royal Blue" = "5860f5",
-	"Sandy Yellow" = "ffefa5",
-	"Sea Green" = "37835b",
-	"Spring Green" = "00fa9a",
-	"Yellow" = "fbdf56",
+	"Cyan" = "#00ffff",
+	"Dark Green" = "#0ab432",
+	"Dark Teal" = "#5ea699",
+	"Denim Blue" = "#3399ff",
+	"Gray" = "#979497",
+	"Green" = "#97ee63",
+	"Lavender" = "#d1acff",
+	"Maroon" = "#9c3030",
+	"Orange" = "#f69c28",
+	"Orchid Purple" = "#ee82ee",
+	"Powder Blue" = "#95e5ff",
+	"Purple" = "#a42df7",
+	"Red" = "#ff3131",
+	"Rose" = "#ff92b6",
+	"Royal Blue" = "#5860f5",
+	"Sandy Yellow" = "#ffefa5",
+	"Sea Green" = "#37835b",
+	"Spring Green" = "#00fa9a",
+	"Yellow" = "#fbdf56",
 ))
 
-GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list("ghost")) //stores the ghost forms that support directional sprites
+//stores the ghost forms that support directional sprites
+GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list(
+	"catghost",
+	"ghost_black",
+	"ghost_blazeit",
+	"ghost_blue",
+	"ghost_camo",
+	"ghost_cyan",
+	"ghost_dblue",
+	"ghost_dcyan",
+	"ghost_dgreen",
+	"ghost_dpink",
+	"ghost_dred",
+	"ghost_dyellow",
+	"ghost_fire",
+	"ghost_funkypurp",
+	"ghost_green",
+	"ghost_grey",
+	"ghost_mellow",
+	"ghost_pink",
+	"ghost_pinksherbert",
+	"ghost_purpleswirl",
+	"ghost_rainbow",
+	"ghost_red",
+	"ghost_yellow",
+	"ghost",
+	"ghostian",
+	"ghostian2",
+	"ghostking",
+	"skeleghost",
+))
+
+//stores the ghost forms that support hair and other such things
 GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost",
 	"ghost_red",
@@ -114,8 +146,8 @@ GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost_pinksherbert",
 	"ghost_blazeit",
 	"ghost_mellow",
-	"ghost_camo",))
-	//stores the ghost forms that support hair and other such things
+	"ghost_camo",
+))
 
 GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	":thinking:",
@@ -207,17 +239,15 @@ GLOBAL_LIST_INIT(jumpsuitlist, list(
 
 // What we show to the user
 GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(
-	UPLINK_IMPLANT_WITH_PRICE,
 	UPLINK_PDA,
-	UPLINK_PEN,
 	UPLINK_RADIO,
+	UPLINK_PEN
 ))
 // What is actually saved; if the uplink implant price changes, it won't affect save files then
 GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(
-	UPLINK_IMPLANT,
 	UPLINK_PDA,
-	UPLINK_PEN,
 	UPLINK_RADIO,
+	UPLINK_PEN
 ))
 
 	//Female Uniforms
@@ -254,6 +284,8 @@ GLOBAL_LIST_INIT(greek_letters, world.file2list("strings/greek_letters.txt"))
 GLOBAL_LIST_INIT(phonetic_alphabet, world.file2list("strings/phonetic_alphabet.txt"))
 
 GLOBAL_LIST_INIT(numbers_as_words, world.file2list("strings/numbers_as_words.txt"))
+
+GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/wisdoms.txt"))
 
 /proc/generate_number_strings()
 	var/list/L[198]
@@ -325,6 +357,17 @@ GLOBAL_LIST_INIT(pAI_faces_icons, list(
 	"What" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-what"),
 ))
 
+GLOBAL_LIST_INIT(accents, list(
+	"British" = BRITISH_TALK_FILE,
+	"Canadian" = CANADIAN_TALK_FILE,
+	"French" = FRENCH_TALK_FILE,
+	"Swedish" = SWEDISH_TALK_FILE,
+	"Italian" = ITALIAN_TALK_FILE,
+	"Scottish" = SCOTTISH_TALK_FILE,
+	"Medieval" = MEDIEVAL_SPEECH_FILE,
+	"Roadman" = ROADMAN_TALK_FILE,
+))
+
 GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/storage/fancy/cigarettes/cigpack_midori,
@@ -335,7 +378,8 @@ GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes/dromedaryco,
 	/obj/item/storage/fancy/cigarettes/cigars,
 	/obj/item/storage/fancy/cigarettes/cigars/cohiba,
-	/obj/item/storage/fancy/cigarettes/cigars/havana
+	/obj/item/storage/fancy/cigarettes/cigars/havana,
+	/obj/item/clothing/mask/vape
 ))
 
 GLOBAL_LIST_INIT(alcoholic_bottles, list(

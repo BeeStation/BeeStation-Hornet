@@ -1,7 +1,10 @@
 SUBSYSTEM_DEF(lighting)
 	name = "Lighting"
 	wait = 2
-	init_order = INIT_ORDER_LIGHTING
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+		/datum/controller/subsystem/mapping,
+	)
 	flags = SS_TICKER
 	var/static/list/sources_queue = list() // List of lighting sources queued for update.
 	var/static/list/corners_queue = list() // List of lighting corners queued for update.
@@ -20,10 +23,9 @@ SUBSYSTEM_DEF(lighting)
 
 /datum/controller/subsystem/lighting/Initialize()
 	if(!initialized)
-		if (CONFIG_GET(flag/starlight))
-			for(var/area/A as anything in GLOB.areas)
-				if (A.dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-					A.luminosity = 0
+		for(var/area/A as anything in GLOB.areas)
+			if (A.dynamic_lighting == DYNAMIC_LIGHTING_ENABLED)
+				A.luminosity = 0
 
 		create_all_lighting_objects()
 		initialized = TRUE
@@ -31,6 +33,19 @@ SUBSYSTEM_DEF(lighting)
 	fire(FALSE, TRUE)
 
 	return SS_INIT_SUCCESS
+
+/proc/create_all_lighting_objects()
+	for(var/area/A as anything in GLOB.areas)
+		if(!IS_DYNAMIC_LIGHTING(A))
+			continue
+
+		for(var/turf/T as anything in A.get_contained_turfs())
+			if(T.fullbright_type)
+				continue
+
+			new/atom/movable/lighting_object(T)
+			CHECK_TICK
+		CHECK_TICK
 
 /datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
 	MC_SPLIT_TICK_INIT(3)

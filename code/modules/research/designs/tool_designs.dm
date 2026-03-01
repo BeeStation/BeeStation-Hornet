@@ -310,3 +310,13 @@
 	build_path = /obj/item/wirebrush/advanced
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/rcl
+	name = "Rapid Cable Layer"
+	desc = "A device that can lay down cables quickly, as well as recolor them. Still requires insulation."
+	id = "rcl"
+	build_path = /obj/item/rcl
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 30000, /datum/material/glass = 4000)
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING

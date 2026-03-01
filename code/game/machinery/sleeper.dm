@@ -10,6 +10,7 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	density = FALSE
+	obj_flags = BLOCKS_CONSTRUCTION
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/sleeper
 	clicksound = 'sound/machines/pda_button1.ogg'
@@ -37,7 +38,6 @@
 	var/synthesizing = FALSE
 	var/scrambled_chems = FALSE //Are chem buttons scrambled? used as a warning
 	var/enter_message = span_notice("<b>You feel cool air surround you. You go numb as your senses turn inward.</b>")
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	fair_market_price = 5
 
 /obj/machinery/sleeper/Initialize(mapload)
@@ -83,7 +83,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		I += M.rating
 
-	max_vials = 5 + E
+	max_vials = initial(max_vials) - 1 + E
 	efficiency = initial(efficiency) * sqrt(I)
 	available_chems = list()
 
@@ -376,7 +376,11 @@
 		/datum/reagent/medicine/oculine = 100,
 		/datum/reagent/medicine/inacusiate = 100,
 		/datum/reagent/medicine/mannitol = 100)
+	max_vials = 7
 	synthesizing = TRUE
+
+/obj/machinery/sleeper/clockwork/RefreshParts()
+	return // nah
 
 /obj/machinery/sleeper/old
 	icon_state = "oldpod"

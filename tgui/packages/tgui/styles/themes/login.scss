@@ -1,0 +1,131 @@
+@use 'sass:color';
+@use 'sass:meta';
+@use '../functions.scss' as *;
+
+$generic: #484455;
+$accent: #4f56a5;
+$accent-2: #ffbf00;
+$title-bar-height: 48px;
+
+@use '../colors.scss' with (
+  $fg-map-keys: (),
+  $bg-map-keys: (),
+  $primary: $accent
+);
+@use '../base.scss' with (
+  $color-bg: #333333,
+  $color-bg-section: #1a1a1a,
+  $color-bg-grad-spread: 0%,
+  $border-radius: 0px
+);
+
+.theme-login {
+  // Components
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': black,
+      'border-radius': 0.16em,
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
+  );
+  .Button--color--default {
+    box-sizing: content-box;
+    border: 1px solid #100f0edd;
+  }
+  .Button--color--default:focus {
+    border: 1px solid #404040;
+    transition:
+      color 100ms,
+      background-color 100ms,
+      border 100ms;
+  }
+  @include meta.load-css(
+    '../components/ColorSelectBox.scss',
+    $with: ('color-default': color.scale($generic, $lightness: -20%))
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('color-default-fill': $accent-2, 'background-color': black)
+  );
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('title-background-color': black, 'title-text-color': $accent-2)
+  );
+  .Section__title {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    box-shadow: 0 0 4px #100f0eaa;
+  }
+  .Section {
+    box-shadow: 0 0 4px 4px #100f0edd;
+  }
+
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: (
+      'border-color': #100f0edd,
+      'background-color': black,
+      'input-height': 30px,
+      'font-size': 12px
+    )
+  );
+  .Input {
+    transition: border-color 0.05s linear;
+  }
+  .Input:focus-within {
+    border-color: #404040;
+  }
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css(
+    '../layouts/Window.scss',
+    $with: ('title-bar-height': $title-bar-height)
+  );
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: (
+      'background-color': black,
+      'text-color': white,
+      'shadow-color': #ffff0021,
+      'shadow-color-core': $accent-2,
+      'shadow-core-height': 3px,
+      'title-bar-height': $title-bar-height
+    )
+  );
+  .TitleBar__title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  @include meta.load-css('../layouts/PopupWindow.scss');
+
+  .Layout__content {
+    background-image: none;
+  }
+
+  .Button--color--blurple {
+    transition:
+      color 50ms,
+      background-color 50ms;
+    background-color: #5865f2;
+    color: white;
+    &:hover {
+      transition:
+        color 0ms,
+        background-color 0ms;
+    }
+    &:focus {
+      transition:
+        color 100ms,
+        background-color 100ms;
+    }
+    &:hover {
+      background-color: lighten(#5865f2, 30%);
+      color: white;
+    }
+  }
+}

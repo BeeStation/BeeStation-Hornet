@@ -6,6 +6,7 @@
 /obj/item/circuit_component/textcase
 	display_name = "Text Case"
 	desc = "A component that makes its input uppercase or lowercase."
+	category = "String"
 
 	var/datum/port/input/option/textcase_options
 

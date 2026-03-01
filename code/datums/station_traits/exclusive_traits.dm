@@ -5,28 +5,27 @@
 		if there are 3 traits and these have weight 100, all of them will appear.
 */
 
-// this is an example for an exclusive station trait
-/datum/station_trait/special_jobs
-	name = "Special Jobs"
-	trait_type = STATION_TRAIT_ABSTRACT
+/datum/station_trait/job
+	name = "Special Job"
+	trait_type = STATION_TRAIT_EXCLUSIVE
 	weight = 0
 	show_in_report = TRUE
 	report_message = "We opened a slot for a special job. We expect their duty can fit the station."
-	var/chosen_job
+	abstract_type = /datum/station_trait/job
 
-/datum/station_trait/special_jobs/New()
-	if(!chosen_job)
+	var/datum/job/job_to_add
+
+/datum/station_trait/job/New()
+	if(!job_to_add)
 		return
 
-	. = ..()
-	var/datum/job/J = SSjob.GetJob(chosen_job)
-	J.total_positions += 1
-	J.spawn_positions += 1
+	var/datum/job/job = SSjob.GetJobType(job_to_add)
+	job.total_positions++
+	return ..()
 
 /* subtype example:
-/datum/station_trait/special_jobs/barber
-	trait_type = STATION_TRAIT_EXCLUSIVE
+/datum/station_trait/job/barber
+	name = "Barber"
 	weight = 33
-	chosen_job = JOB_BARBER
-// barber will have a 33% chance to appear for each round
+	job_to_add = /datum/job/gimmick/barber
 */

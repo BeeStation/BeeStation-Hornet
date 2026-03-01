@@ -6,7 +6,7 @@
 	species = "potato"
 	plantname = "Potato Plants"
 	product = /obj/item/food/grown/potato
-	lifespan = 30
+	lifespan = 120
 	maturation = 10
 	production = 1
 	yield = 4
@@ -35,7 +35,7 @@
 	bite_consumption_mod = 100
 
 /obj/item/food/grown/potato/attackby(obj/item/W, mob/user, params)
-	if(W.is_sharp())
+	if(W.get_sharpness())
 		to_chat(user, span_notice("You cut the potato into wedges with [W]."))
 		var/obj/item/food/grown/potato/wedges/Wedges = new /obj/item/food/grown/potato/wedges
 		remove_item_from_storage(user)

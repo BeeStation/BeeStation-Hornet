@@ -3,7 +3,7 @@
 	desc = "Some rods. Can be used for building or something."
 	singular_name = "iron rod"
 	icon_state = "rods"
-	item_state = "rods"
+	inhand_icon_state = "rods"
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 9
@@ -35,6 +35,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 
 	update_icon()
 	AddElement(/datum/element/openspace_item_click_handler)
+
+/obj/item/stack/rods/add_context_self(datum/screentip_context/context, mob/user)
+	context.use_cache()
+	context.add_left_click_tool_action("Weld into sheet", TOOL_WELDER)
 
 /obj/item/stack/rods/get_recipes()
 	return GLOB.rod_recipes

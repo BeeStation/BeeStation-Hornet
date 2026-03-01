@@ -36,18 +36,19 @@
 				processed_food.reagents.clear_reagents()
 				what.reagents.copy_to(processed_food, what.reagents.total_volume, multiplier = 1 / cached_multiplier)
 
-	if (ismob(what))
-		var/mob/themob = what
+	if (isliving(what))
+		var/mob/living/themob = what
 		themob.gib(TRUE,TRUE,TRUE)
 	else
 		qdel(what)
 
-/obj/machinery/processor/proc/select_recipe(X)
-	for (var/type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
-		var/datum/food_processor_process/recipe = new type()
-		if (!istype(X, recipe.input) || !istype(src, recipe.required_machine))
-			continue
-		return recipe
+/obj/machinery/processor/proc/select_recipe(input_item)
+	var/most_specific_type = /atom
+	for (var/datum/food_processor_process/recipe as anything in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
+		var/recipe_input = initial(recipe.input)
+		if (istype(src, initial(recipe.required_machine)) && istype(input_item, recipe_input) && ispath(recipe_input, most_specific_type))
+			most_specific_type = recipe_input
+			. = new recipe()
 
 /obj/machinery/processor/attackby(obj/item/O, mob/living/user, params)
 	if(processing)

@@ -5,8 +5,8 @@
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
-	total_positions = 0
-	spawn_positions = 1
+	total_positions = 1
+	latejoin_allowed = FALSE
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
@@ -20,8 +20,8 @@
 /datum/job/cyborg/get_access() // no point of calling parent proc
 	return list()
 
-/datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
-	if(visualsOnly)
+/datum/job/cyborg/equip(mob/living/carbon/human/H, visuals_only = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
+	if(visuals_only)
 		CRASH("dynamic preview is unsupported")
 	return H.Robotize(FALSE, latejoin)
 

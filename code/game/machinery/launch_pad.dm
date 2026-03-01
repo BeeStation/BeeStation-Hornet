@@ -39,7 +39,7 @@
 	MA.icon = 'icons/effects/effects.dmi'
 	MA.icon_state = "launchpad_target"
 	MA.layer = ABOVE_OPEN_TURF_LAYER
-	MA.plane = 0
+	MA.plane = GAME_PLANE
 	holder.appearance = MA
 
 	update_indicator()
@@ -284,6 +284,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 		to_chat(user, span_notice("You link [src] to [L]."))
 	else
 		return ..()
+
+/obj/machinery/launchpad/briefcase/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	context.use_cache()
+	context.add_attack_hand_action("Pickup")
+	context.add_left_click_item_action("Link", /obj/item/launchpad_remote)
 
 //Briefcase item that contains the launchpad.
 /obj/item/storage/briefcase/launchpad

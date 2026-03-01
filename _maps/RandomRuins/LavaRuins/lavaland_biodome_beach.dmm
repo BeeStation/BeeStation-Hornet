@@ -152,9 +152,10 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aF" = (
-/obj/machinery/vending/boozeomat{
-	set_obj_flags = "EMAGGED";
-	req_access_txt = "0"
+/obj/machinery/vending/boozeomat,
+/obj/effect/mapping_helpers/atom_injector/obj_flag{
+	inject_flags = 1;
+	target_type = /obj/machinery/vending/boozeomat
 	},
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
@@ -289,12 +290,8 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bA" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/bikehorn/airhorn,
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/regular,
@@ -302,12 +299,8 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "bB" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/chair/stool,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
@@ -320,17 +313,13 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bG" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/megaphone,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "bH" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/mob_spawn/human/beach/alive/lifeguard,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
@@ -368,17 +357,11 @@
 /area/ruin/powered/beach)
 "bQ" = (
 /obj/structure/flora/ausbushes/reedbush,
-/turf/open/floor/plating/beach/coastline_t,
-/area/ruin/powered/beach)
-"bR" = (
-/turf/open/floor/plating/beach/coastline_t,
+/turf/open/floor/plating/beach/water,
 /area/ruin/powered/beach)
 "bS" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/beach/coastline_t,
-/area/ruin/powered/beach)
-"bT" = (
-/turf/open/floor/plating/beach/coastline_b,
+/turf/open/floor/plating/beach/water,
 /area/ruin/powered/beach)
 "bU" = (
 /turf/open/floor/plating/beach/water,
@@ -710,7 +693,7 @@ lM
 bW
 ad
 bQ
-bT
+bU
 bW
 bW
 bW
@@ -741,8 +724,8 @@ mh
 mh
 bW
 ap
-bR
-bT
+bU
+bU
 bU
 ct
 bW
@@ -773,8 +756,8 @@ ar
 ar
 cg
 bN
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -806,7 +789,7 @@ ar
 bJ
 ar
 bS
-bT
+bU
 bU
 bU
 bU
@@ -837,8 +820,8 @@ ar
 ar
 ar
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -869,8 +852,8 @@ ar
 ar
 bJ
 bE
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -901,8 +884,8 @@ ap
 ar
 ar
 bO
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -933,8 +916,8 @@ bx
 ar
 bJ
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bV
@@ -965,8 +948,8 @@ ar
 ar
 ar
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -997,8 +980,8 @@ ar
 ar
 bJ
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1029,8 +1012,8 @@ ar
 ar
 bK
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1061,8 +1044,8 @@ ar
 ar
 bJ
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1093,8 +1076,8 @@ ar
 bE
 ar
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1125,8 +1108,8 @@ ar
 ar
 bJ
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1157,8 +1140,8 @@ ar
 ar
 ar
 ar
-bR
-bT
+bU
+bU
 bU
 bV
 bU
@@ -1189,8 +1172,8 @@ ar
 bF
 ar
 bz
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1221,8 +1204,8 @@ ar
 ch
 ar
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1253,8 +1236,8 @@ bA
 bG
 bL
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1285,8 +1268,8 @@ bB
 bH
 bM
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1317,8 +1300,8 @@ ar
 ar
 ar
 bP
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1349,8 +1332,8 @@ ar
 ar
 bJ
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1381,8 +1364,8 @@ aZ
 ar
 ar
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1414,7 +1397,7 @@ ar
 ar
 ar
 bS
-bT
+bU
 bU
 bU
 bU
@@ -1445,8 +1428,8 @@ ar
 ar
 cs
 ar
-bR
-bT
+bU
+bU
 bU
 bU
 bU
@@ -1477,8 +1460,8 @@ mh
 mh
 bW
 ap
-bR
-bT
+bU
+bU
 bU
 ct
 bW
@@ -1509,8 +1492,8 @@ jF
 lM
 bW
 bN
-bR
-bT
+bU
+bU
 bW
 bW
 bW

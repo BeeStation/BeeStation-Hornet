@@ -101,17 +101,71 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //airlock helpers
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
+	late = TRUE
+	/// If TRUE we will apply to every windoor in the loc if we can't find an airlock.
+	var/apply_to_windoors = FALSE
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		log_mapping("[src] spawned outside of mapload!")
 		return
+
 	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
 	if(!airlock)
+		if(apply_to_windoors)
+			var/any_found = FALSE
+			for(var/obj/machinery/door/window/windoor in loc)
+				payload(windoor)
+				any_found = TRUE
+			if(!any_found)
+				log_mapping("[src] failed to find an airlock at [AREACOORD(src)], AND no windoors were found.")
+			return
+
 		log_mapping("[src] failed to find an airlock at [AREACOORD(src)]")
-	else
-		payload(airlock)
+		return
+
+	payload(airlock)
+
+/obj/effect/mapping_helpers/airlock/LateInitialize()
+	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
+	if(!airlock)
+		qdel(src)
+		return
+	if(airlock.cyclelinkeddir)
+		airlock.cyclelinkairlock()
+	if(airlock.closeOtherId)
+		airlock.update_other_id()
+	if(airlock.abandoned)
+		var/outcome = rand(1,100)
+		switch(outcome)
+			if(1 to 9)
+				var/turf/here = get_turf(src)
+				for(var/turf/closed/T in range(2, src))
+					here.PlaceOnTop(T.type)
+					qdel(airlock)
+					qdel(src)
+					return
+				here.PlaceOnTop(/turf/closed/wall)
+				qdel(airlock)
+				qdel(src)
+				return
+			if(9 to 11)
+				airlock.lights = FALSE
+				// These do not use airlock.bolt() because we want to pretend it was always locked. That means no sound effects.
+				airlock.locked = TRUE
+			if(12 to 15)
+				airlock.locked = TRUE
+			if(16 to 23)
+				airlock.welded = TRUE
+			if(24 to 30)
+				airlock.panel_open = TRUE
+	if(airlock.cut_ai_wire)
+		airlock.wires.cut(WIRE_AI)
+	if(airlock.autoname)
+		airlock.name = get_area_name(src, TRUE)
+	airlock.update_appearance()
+	qdel(src)
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
 	return
@@ -134,6 +188,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi/payload(obj/machinery/door/airlock/airlock)
 	if(airlock.closeOtherId)
 		log_mapping("[src] at [AREACOORD(src)] tried to set [airlock] closeOtherId, but it's already set!")
+	else if(!cycle_id)
+		log_mapping("[src] at [AREACOORD(src)] doesn't have a cycle_id to assign to [airlock]!")
 	else
 		airlock.closeOtherId = cycle_id
 
@@ -149,7 +205,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 
 /obj/effect/mapping_helpers/airlock/unres
-	name = "airlock unresctricted side helper"
+	name = "airlock unrestricted side helper"
 	icon_state = "airlock_unres_helper"
 
 /obj/effect/mapping_helpers/airlock/unres/payload(obj/machinery/door/airlock/airlock)
@@ -164,6 +220,71 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] at [AREACOORD(src)] tried to make [airlock] abandoned but it's already abandoned!")
 	else
 		airlock.abandoned = TRUE
+
+/obj/effect/mapping_helpers/airlock/welded
+	name = "airlock welded helper"
+	icon_state = "airlock_welded"
+
+/obj/effect/mapping_helpers/airlock/welded/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.welded)
+		log_mapping("[src] at [AREACOORD(src)] tried to make [airlock] welded but it's already welded closed!")
+	airlock.welded = TRUE
+
+/obj/effect/mapping_helpers/airlock/cutaiwire
+	name = "airlock cut ai wire helper"
+	icon_state = "airlock_cutaiwire"
+
+/obj/effect/mapping_helpers/airlock/cutaiwire/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.cut_ai_wire)
+		log_mapping("[src] at [AREACOORD(src)] tried to cut the ai wire on [airlock] but it's already cut!")
+	else
+		airlock.cut_ai_wire = TRUE
+
+/obj/effect/mapping_helpers/airlock/autoname
+	name = "airlock autoname helper"
+	icon_state = "airlock_autoname"
+
+/obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.autoname)
+		log_mapping("[src] at [AREACOORD(src)] tried to autoname the [airlock] but it's already autonamed!")
+	else
+		airlock.autoname = TRUE
+
+/obj/effect/mapping_helpers/airlock/note_placer
+	name = "Airlock Note Placer"
+	icon_state = "airlocknoteplacer"
+
+	/// Custom note name
+	var/note_name
+	/// For writing out custom notes without creating an extra paper subtype
+	var/note_info
+	/// Premade notes, for example: /obj/item/paper/guides/antag/nuke_instructions
+	var/obj/item/paper/note_path
+
+/obj/effect/mapping_helpers/airlock/note_placer/payload(obj/machinery/door/airlock/airlock)
+	if(note_path && !ispath(note_path, /obj/item/paper)) //don't put non-paper in the paper slot thank you
+		log_mapping("[src] at [x],[y] had an improper note_path path, could not place paper note.")
+		return
+
+	if(note_path)
+		var/obj/item/paper/paper = new note_path(src)
+		airlock.note = paper
+		paper.forceMove(airlock)
+		airlock.update_appearance()
+		return
+
+	if(note_info)
+		var/obj/item/paper/paper = new /obj/item/paper(src)
+		if(note_name)
+			paper.name = note_name
+		paper.add_raw_text(sanitize(note_info))
+		paper.update_appearance()
+		airlock.note = paper
+		paper.forceMove(airlock)
+		airlock.update_appearance()
+		return
+
+	log_mapping("[src] at [x],[y] had no note_path or note_info, cannot place paper note.")
 
 //air alarm helpers
 /obj/effect/mapping_helpers/airalarm
@@ -187,7 +308,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/mapping_helpers/airalarm/LateInitialize()
-	. = ..()
 	var/obj/machinery/airalarm/target = locate(/obj/machinery/airalarm) in loc
 
 	if(isnull(target))
@@ -198,9 +318,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 	if(target.tlv_cold_room)
 		target.set_tlv_cold_room()
+	if(target.tlv_kitchen)
+		target.set_tlv_kitchen()
 	if(target.tlv_no_checks)
 		target.set_tlv_no_checks()
-	if(target.tlv_no_checks && target.tlv_cold_room)
+	if(target.tlv_no_checks + target.tlv_cold_room + target.tlv_kitchen > 1)
 		CRASH("Tried to apply incompatible air alarm threshold helpers!")
 
 	if(target.syndicate_access)
@@ -215,9 +337,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		target.give_all_access()
 	if(target.syndicate_access + target.away_general_access + target.engine_access + target.mixingchamber_access + target.all_access > 1)
 		CRASH("Tried to combine incompatible air alarm access helpers!")
-
-	if(target.air_sensor_chamber_id)
-		target.setup_chamber_link()
 
 	target.update_icon()
 	qdel(src)
@@ -295,6 +414,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s tlv to cold_room but it's already changed!")
 	target.tlv_cold_room = TRUE
 
+/obj/effect/mapping_helpers/airalarm/tlv_kitchen
+	name = "airalarm kitchen tlv helper"
+	icon_state = "airalarm_tlv_kitchen_helper"
+
+/obj/effect/mapping_helpers/airalarm/tlv_kitchen/payload(obj/machinery/airalarm/target)
+	if(target.tlv_kitchen)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s tlv to kitchen but it's already changed!")
+	target.tlv_kitchen = TRUE
+
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks
 	name = "airalarm no checks tlv helper"
 	icon_state = "airalarm_tlv_no_checks_helper"
@@ -328,31 +457,124 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] failed to find air alarm at [AREACOORD(src)].")
 	qdel(src)
 
-//APC helpers
+/obj/effect/mapping_helpers/airalarm/surgery
+	name = "airalarm surgery helper"
+	icon_state = "airalarm_surgery_helper"
+
+/obj/effect/mapping_helpers/airalarm/surgery/LateInitialize()
+	var/obj/machinery/airalarm/target = locate() in loc
+	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in target?.my_area?.air_scrubbers)
+		scrubber.filter_types |= /datum/gas/nitrous_oxide
+		scrubber.set_widenet(TRUE)
+	return ..()
+
+//apc helpers
 /obj/effect/mapping_helpers/apc
+	desc = "You shouldn't see this. Report it please."
+	late = TRUE
 
 /obj/effect/mapping_helpers/apc/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		log_mapping("[src] spawned outside of mapload!")
-		return
-	var/obj/machinery/power/apc/apc = locate(/obj/machinery/power/apc) in loc
-	if(!apc)
-		log_mapping("[src] failed to find an APC at [AREACOORD(src)]")
-	else
-		payload(apc)
+		return INITIALIZE_HINT_QDEL
 
-/obj/effect/mapping_helpers/apc/proc/payload(obj/machinery/power/apc/payload)
+	var/obj/machinery/power/apc/target = locate(/obj/machinery/power/apc) in loc
+	if(isnull(target))
+		var/area/target_area = get_area(src)
+		log_mapping("[src] failed to find an apc at [AREACOORD(src)] ([target_area.type]).")
+	else
+		payload(target)
+
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/mapping_helpers/apc/LateInitialize()
+	var/obj/machinery/power/apc/target = locate(/obj/machinery/power/apc) in loc
+
+	if(isnull(target))
+		qdel(src)
+		return
+	if(target.cut_ai_wire)
+		target.wires.cut(WIRE_AI)
+	if(target.unlocked)
+		target.unlock()
+	if(target.syndicate_access)
+		target.give_syndicate_access()
+	if(target.away_general_access)
+		target.give_away_general_access()
+	if(target.no_charge)
+		target.set_no_charge()
+	if(target.full_charge)
+		target.set_full_charge()
+	if(target.syndicate_access && target.away_general_access)
+		CRASH("Tried to combine non-combinable syndicate_access and away_general_access APC helpers!")
+	if(target.no_charge && target.full_charge)
+		CRASH("Tried to combine non-combinable no_charge and full_charge APC helpers!")
+	target.update_appearance()
+	qdel(src)
+
+/obj/effect/mapping_helpers/apc/proc/payload(obj/machinery/power/apc/target)
 	return
 
-/obj/effect/mapping_helpers/apc/discharged
-	name = "apc zero change helper"
-	icon_state = "apc_nopower"
+/obj/effect/mapping_helpers/apc/cut_ai_wire
+	name = "apc AI wire mended helper"
+	icon_state = "apc_cut_AIwire_helper"
 
-/obj/effect/mapping_helpers/apc/discharged/payload(obj/machinery/power/apc/apc)
-	var/obj/item/stock_parts/cell/C = apc.get_cell()
-	C.charge = 0
-	C.update_icon()
+/obj/effect/mapping_helpers/apc/cut_ai_wire/payload(obj/machinery/power/apc/target)
+	if(target.cut_ai_wire)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to mend the AI wire on the [target] but it's already cut!")
+	target.cut_ai_wire = TRUE
+
+/obj/effect/mapping_helpers/apc/syndicate_access
+	name = "apc syndicate access helper"
+	icon_state = "apc_syndicate_access_helper"
+
+/obj/effect/mapping_helpers/apc/syndicate_access/payload(obj/machinery/power/apc/target)
+	if(target.syndicate_access)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to adjust [target]'s access to syndicate but it's already changed!")
+	target.syndicate_access = TRUE
+
+/obj/effect/mapping_helpers/apc/away_general_access
+	name = "apc away access helper"
+	icon_state = "apc_away_general_access_helper"
+
+/obj/effect/mapping_helpers/apc/away_general_access/payload(obj/machinery/power/apc/target)
+	if(target.away_general_access)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to adjust [target]'s access to away_general but it's already changed!")
+	target.away_general_access = TRUE
+
+/obj/effect/mapping_helpers/apc/unlocked
+	name = "apc unlocked interface helper"
+	icon_state = "apc_unlocked_interface_helper"
+
+/obj/effect/mapping_helpers/apc/unlocked/payload(obj/machinery/power/apc/target)
+	if(target.unlocked)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to unlock the [target] but it's already unlocked!")
+	target.unlocked = TRUE
+
+/obj/effect/mapping_helpers/apc/no_charge
+	name = "apc no charge helper"
+	icon_state = "apc_no_charge_helper"
+
+/obj/effect/mapping_helpers/apc/no_charge/payload(obj/machinery/power/apc/target)
+	if(target.no_charge)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to set [target]'s charge to 0 but it's already at 0!")
+	target.no_charge = TRUE
+
+/obj/effect/mapping_helpers/apc/full_charge
+	name = "apc full charge helper"
+	icon_state = "apc_full_charge_helper"
+
+/obj/effect/mapping_helpers/apc/full_charge/payload(obj/machinery/power/apc/target)
+	if(target.full_charge)
+		var/area/apc_area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to set [target]'s charge to 100 but it's already at 100!")
+	target.full_charge = TRUE
 
 
 //needs to do its thing before spawn_rivers() is called
@@ -366,45 +588,223 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/turf/T = get_turf(src)
 	T.flags_1 |= NO_LAVA_GEN_1
 
-//This helper applies components to things on the map directly.
-/obj/effect/mapping_helpers/component_injector
-	name = "Component Injector"
+CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
+
+///Helpers used for injecting stuff into atoms on the map.
+/obj/effect/mapping_helpers/atom_injector
+	name = "Atom Injector"
+	icon_state = "injector"
 	late = TRUE
+	///Will inject into all fitting the criteria if false, otherwise first found.
+	var/first_match_only = TRUE
+	///Will inject into atoms of this type.
 	var/target_type
+	///Will inject into atoms with this name.
 	var/target_name
-	var/component_type
 
 //Late init so everything is likely ready and loaded (no warranty)
-/obj/effect/mapping_helpers/component_injector/LateInitialize()
-	if(!ispath(component_type,/datum/component))
-		CRASH("Wrong component type in [type] - [component_type] is not a component")
-	var/turf/T = get_turf(src)
-	for(var/atom/A in T.GetAllContents())
-		if(A == src)
-			continue
-		if(target_name && A.name != target_name)
-			continue
-		if(target_type && !istype(A,target_type))
-			continue
-		var/cargs = build_args()
-		A._AddComponent(cargs)
-		qdel(src)
+/obj/effect/mapping_helpers/atom_injector/LateInitialize()
+	if(!check_validity())
 		return
+	var/turf/target_turf = get_turf(src)
+	var/matches_found = 0
+	for(var/atom/atom_on_turf as anything in target_turf.GetAllContents())
+		if(atom_on_turf == src)
+			continue
+		if(target_name && atom_on_turf.name != target_name)
+			continue
+		if(target_type && !istype(atom_on_turf, target_type))
+			continue
+		inject(atom_on_turf)
+		matches_found++
+		if(first_match_only)
+			qdel(src)
+			return
+	if(!matches_found)
+		stack_trace(generate_stack_trace())
+	qdel(src)
 
-/obj/effect/mapping_helpers/component_injector/proc/build_args()
-	return list(component_type)
+///Checks if whatever we are trying to inject with is valid
+/obj/effect/mapping_helpers/atom_injector/proc/check_validity()
+	return TRUE
 
-/obj/effect/mapping_helpers/component_injector/infective
-	name = "Infective Injector"
-	icon_state = "component_infective"
-	component_type = /datum/component/infective
-	var/disease_type
+///Injects our stuff into the atom
+/obj/effect/mapping_helpers/atom_injector/proc/inject(atom/target)
+	return
 
-/obj/effect/mapping_helpers/component_injector/infective/build_args()
-	if(!ispath(disease_type,/datum/disease))
-		CRASH("Wrong disease type passed in.")
-	var/datum/disease/D = new disease_type()
-	return list(component_type,D)
+///Generates text for our stack trace
+/obj/effect/mapping_helpers/atom_injector/proc/generate_stack_trace()
+	. = "[name] found no targets at ([x], [y], [z]). First Match Only: [first_match_only ? "true" : "false"] target type: [target_type] | target name: [target_name]"
+
+/obj/effect/mapping_helpers/atom_injector/obj_flag
+	name = "Obj Flag Injector"
+	icon_state = "objflag_helper"
+	var/inject_flags = NONE
+
+/obj/effect/mapping_helpers/atom_injector/obj_flag/inject(atom/target)
+	if(!isobj(target))
+		return
+	var/obj/obj_target = target
+	obj_target.obj_flags |= inject_flags
+
+///This helper applies components to things on the map directly.
+/obj/effect/mapping_helpers/atom_injector/component_injector
+	name = "Component Injector"
+	icon_state = "component"
+	///Typepath of the component.
+	var/component_type
+	///Arguments for the component.
+	var/list/component_args = list()
+
+/obj/effect/mapping_helpers/atom_injector/component_injector/check_validity()
+	if(!ispath(component_type, /datum/component))
+		CRASH("Wrong component type in [type] - [component_type] is not a component")
+	return TRUE
+
+/obj/effect/mapping_helpers/atom_injector/component_injector/inject(atom/target)
+	var/arguments = list(component_type)
+	arguments += component_args
+	target._AddComponent(arguments)
+
+/obj/effect/mapping_helpers/atom_injector/component_injector/generate_stack_trace()
+	. = ..()
+	. += " | component type: [component_type] | component arguments: [list2params(component_args)]"
+
+///This helper applies elements to things on the map directly.
+/obj/effect/mapping_helpers/atom_injector/element_injector
+	name = "Element Injector"
+	icon_state = "element"
+	///Typepath of the element.
+	var/element_type
+	///Arguments for the element.
+	var/list/element_args = list()
+
+/obj/effect/mapping_helpers/atom_injector/element_injector/check_validity()
+	if(!ispath(element_type, /datum/element))
+		CRASH("Wrong element type in [type] - [element_type] is not a element")
+	return TRUE
+
+/obj/effect/mapping_helpers/atom_injector/element_injector/inject(atom/target)
+	var/arguments = list(element_type)
+	arguments += element_args
+	target._AddElement(arguments)
+
+/obj/effect/mapping_helpers/atom_injector/element_injector/generate_stack_trace()
+	. = ..()
+	. += " | element type: [element_type] | element arguments: [list2params(element_args)]"
+
+///This helper applies traits to things on the map directly.
+/obj/effect/mapping_helpers/atom_injector/trait_injector
+	name = "Trait Injector"
+	icon_state = "trait"
+	///Name of the trait, in the lower-case text (NOT the upper-case define) form.
+	var/trait_name
+
+/obj/effect/mapping_helpers/atom_injector/trait_injector/check_validity()
+	if(!istext(trait_name))
+		CRASH("Wrong trait in [type] - [trait_name] is not a trait")
+	if(!GLOB.trait_name_map)
+		GLOB.trait_name_map = generate_trait_name_map()
+	if(!GLOB.trait_name_map.Find(trait_name))
+		stack_trace("Possibly wrong trait in [type] - [trait_name] is not a trait in the global trait list")
+	return TRUE
+
+/obj/effect/mapping_helpers/atom_injector/trait_injector/inject(atom/target)
+	ADD_TRAIT(target, trait_name, MAPPING_HELPER_TRAIT)
+
+/obj/effect/mapping_helpers/atom_injector/trait_injector/generate_stack_trace()
+	. = ..()
+	. += " | trait name: [trait_name]"
+
+///Fetches an external dmi and applies to the target object
+/obj/effect/mapping_helpers/atom_injector/custom_icon
+	name = "Custom Icon Injector"
+	icon_state = "icon"
+	///This is the var tha will be set with the fetched icon. In case you want to set some secondary icon sheets like inhands and such.
+	var/target_variable = "icon"
+	///This should return raw dmi in response to http get request. For example: "https://github.com/tgstation/SS13-sprites/raw/master/mob/medu.dmi?raw=true"
+	var/icon_url
+	///The icon file we fetched from the http get request.
+	var/icon_file
+
+/obj/effect/mapping_helpers/atom_injector/custom_icon/check_validity()
+	var/static/icon_cache = list()
+	var/static/query_in_progress = FALSE //We're using a single tmp file so keep it linear.
+	if(query_in_progress)
+		UNTIL(!query_in_progress)
+	if(icon_cache[icon_url])
+		icon_file = icon_cache[icon_url]
+		return TRUE
+	log_asset("Custom Icon Helper fetching dmi from: [icon_url]")
+	var/datum/http_request/request = new()
+	var/file_name = "tmp/custom_map_icon.dmi"
+	request.prepare(RUSTG_HTTP_METHOD_GET, icon_url, "", "", file_name)
+	query_in_progress = TRUE
+	request.begin_async()
+	UNTIL(request.is_complete())
+	var/datum/http_response/response = request.into_response()
+	if(response.errored || response.status_code != 200)
+		query_in_progress = FALSE
+		CRASH("Failed to fetch mapped custom icon from url [icon_url], code: [response.status_code], error: [response.error]")
+	var/icon/new_icon = new(file_name)
+	icon_cache[icon_url] = new_icon
+	query_in_progress = FALSE
+	icon_file = new_icon
+	return TRUE
+
+/obj/effect/mapping_helpers/atom_injector/custom_icon/inject(atom/target)
+	if(IsAdminAdvancedProcCall())
+		return
+	target.vars[target_variable] = icon_file
+
+/obj/effect/mapping_helpers/atom_injector/custom_icon/generate_stack_trace()
+	. = ..()
+	. += " | target variable: [target_variable] | icon url: [icon_url]"
+
+///Fetches an external sound and applies to the target object
+/obj/effect/mapping_helpers/atom_injector/custom_sound
+	name = "Custom Sound Injector"
+	icon_state = "sound"
+	///This is the var that will be set with the fetched sound.
+	var/target_variable = "hitsound"
+	///This should return raw sound in response to http get request. For example: "https://github.com/tgstation/tgstation/blob/master/sound/misc/bang.ogg?raw=true"
+	var/sound_url
+	///The sound file we fetched from the http get request.
+	var/sound_file
+
+/obj/effect/mapping_helpers/atom_injector/custom_sound/check_validity()
+	var/static/sound_cache = list()
+	var/static/query_in_progress = FALSE //We're using a single tmp file so keep it linear.
+	if(query_in_progress)
+		UNTIL(!query_in_progress)
+	if(sound_cache[sound_url])
+		sound_file = sound_cache[sound_url]
+		return TRUE
+	log_asset("Custom Sound Helper fetching sound from: [sound_url]")
+	var/datum/http_request/request = new()
+	var/file_name = "tmp/custom_map_sound.ogg"
+	request.prepare(RUSTG_HTTP_METHOD_GET, sound_url, "", "", file_name)
+	query_in_progress = TRUE
+	request.begin_async()
+	UNTIL(request.is_complete())
+	var/datum/http_response/response = request.into_response()
+	if(response.errored || response.status_code != 200)
+		query_in_progress = FALSE
+		CRASH("Failed to fetch mapped custom sound from url [sound_url], code: [response.status_code], error: [response.error]")
+	var/sound/new_sound = new(file_name)
+	sound_cache[sound_url] = new_sound
+	query_in_progress = FALSE
+	sound_file = new_sound
+	return TRUE
+
+/obj/effect/mapping_helpers/atom_injector/custom_sound/inject(atom/target)
+	if(IsAdminAdvancedProcCall())
+		return
+	target.vars[target_variable] = sound_file
+
+/obj/effect/mapping_helpers/atom_injector/custom_sound/generate_stack_trace()
+	. = ..()
+	. += " | target variable: [target_variable] | sound url: [sound_url]"
 
 /obj/effect/mapping_helpers/dead_body_placer
 	name = "Dead Body placer"
@@ -741,10 +1141,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	icon_state = "Comment"
 	layer = TEXT_EFFECT_UI_LAYER
 
-/obj/effect/mapping_helpers/Mapper_Comment/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_QDEL
-
 //loads crate shelves with crates on mapload. Done via a helper because of linters
 /obj/effect/mapping_helpers/crate_shelf_loader
 	icon_state = "crate_putter"
@@ -765,3 +1161,42 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	CRASH("Failed to find a crate shelf at [AREACOORD(src)] or the crate_type is undefined")
 
 
+//it must be done before decomposition component is added.
+INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
+
+/obj/effect/mapping_helpers/foodpreserver
+	name = "food preserving helper"
+	icon_state = "preserved"
+
+/obj/effect/mapping_helpers/foodpreserver/Initialize(mapload)
+	. = ..()
+	var/turf/T = get_turf(src)
+	for(var/obj/item/food/preservee in T.contents)
+		preservee.preserved_food = TRUE
+	for(var/obj/structure/closet/closet in T.contents)
+		for(var/obj/item/food/preservee in closet.contents)
+			preservee.preserved_food = TRUE
+
+/obj/effect/mapping_helpers/broken_floor
+	name = "broken floor"
+	icon = 'icons/turf/damaged.dmi'
+	icon_state = "damaged1"
+	layer = ABOVE_NORMAL_TURF_LAYER
+	late = TRUE
+
+/obj/effect/mapping_helpers/broken_floor/LateInitialize()
+	var/turf/open/floor/floor = get_turf(src)
+	floor.break_tile()
+	qdel(src)
+
+/obj/effect/mapping_helpers/burnt_floor
+	name = "burnt floor"
+	icon = 'icons/turf/damaged.dmi'
+	icon_state = "floorscorched1"
+	layer = ABOVE_NORMAL_TURF_LAYER
+	late = TRUE
+
+/obj/effect/mapping_helpers/burnt_floor/LateInitialize()
+	var/turf/open/floor/floor = get_turf(src)
+	floor.burn_tile()
+	qdel(src)

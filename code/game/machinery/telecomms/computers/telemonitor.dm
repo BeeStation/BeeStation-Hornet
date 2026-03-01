@@ -1,28 +1,15 @@
-
 /*
 	Telecommunications Monitoring Console displays the status of the telecommunications network it's connected to.
 */
-
 
 /obj/machinery/computer/telecomms/monitor
 	name = "telecommunications monitoring console"
 	icon_screen = "comm_monitor"
 	desc = "Monitors the details of the telecommunications network it's synced with."
 	circuit = /obj/item/circuitboard/computer/comm_monitor
-	network_id = __NETWORK_SERVER // if its connected to the default one we will ignore it
-	var/network = "NULL"		// the network to probe
-	var/list/servers = list()	// the servers in the network
 
-
-/obj/machinery/computer/telecomms/monitor/Initialize(mapload)
-	. = ..()
-	update_network()
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
-
-/obj/machinery/computer/telecomms/monitor/Destroy()
-	. = ..()
-	UnregisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE)
-
+	/// The network to monitor
+	network_id = "tcommsat"
 
 /obj/machinery/computer/telecomms/monitor/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -31,57 +18,47 @@
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
-/obj/machinery/computer/telecomms/monitor/ui_act(action, params)
+/obj/machinery/computer/telecomms/monitor/ui_data(mob/user)
+	var/list/data = list()
+
+	data["network_id"] = network_id
+	data["current_time"] = world.time
+
+	data["servers"] = list()
+	for(var/obj/machinery/telecomms/machine as anything in GLOB.telecomms_list)
+		if(!istype(machine, /obj/machinery/telecomms))
+			continue
+		if(machine.network != network_id)
+			continue
+
+		// Get thermal data from server component
+		var/temperature = machine.get_temperature()
+		var/efficiency = machine.get_efficiency()
+		var/overheat_temp = machine.get_overheat_temperature()
+		var/overheated = (machine.machine_stat & OVERHEATED) ? TRUE : FALSE
+
+		// Calculate last_update based on machine status - offline machines show stale timestamp
+		var/last_update = world.time
+		if(machine.machine_stat & (NOPOWER|BROKEN))
+			last_update = world.time - 100 // 10 seconds ago = shows as offline
+
+		data["servers"] += list(list(
+			"name" = machine.name,
+			"sender_id" = machine.id,
+			"temperature" = temperature,
+			"overheat_temperature" = overheat_temp,
+			"efficiency" = efficiency,
+			"last_update" = last_update,
+			"overheated" = overheated,
+		))
+	return data
+
+/obj/machinery/computer/telecomms/monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
-	if(action == "change_network")
-		network = params["network_name"]
-		update_network()
-		return TRUE
-	if(action == "delete_server")
-		servers -= params["server_id"]
 
-/obj/machinery/computer/telecomms/monitor/ui_data(mob/user)
-	var/list/data = list()
-	data["network_id"] = network
-	data["current_time"] = world.time
-	data["servers"] = servers
-
-	return data
-
-/obj/machinery/computer/telecomms/monitor/process()
-	get_server_status()
-
-/obj/machinery/computer/telecomms/monitor/proc/get_server_status()
-	if(network_id == __NETWORK_SERVER)
-		return
-	var/data = list()
-	data["type"] = PACKET_TYPE_PING
-	ntnet_send(data, network_id)
-
-/obj/machinery/computer/telecomms/monitor/proc/ntnet_receive(datum/source, datum/netdata/data)
-	if(data.data["type"] != PACKET_TYPE_THERMALDATA)
-		return // we only want thermal data
-	servers[data.sender_id] = data.data
-	servers[data.sender_id]["last_update"] = world.time
-	servers[data.sender_id]["sender_id"] = data.sender_id
-
-/obj/machinery/computer/telecomms/monitor/proc/update_network()
-	servers = list()
-	if(!network || network == "NULL")
-		return
-	var/new_network_id = NETWORK_NAME_COMBINE(__NETWORK_SERVER, network) // should result in something like SERVER.TCOMMSAT
-	var/area/A = get_area(src)
-	if(A)
-		if(!A.network_root_id)
-			log_telecomms("Area '[A.name]([REF(A)])' has no network network_root_id, force assigning in object [src]([REF(src)])")
-			SSnetworks.lookup_area_root_id(A)
-			new_network_id = NETWORK_NAME_COMBINE(A.network_root_id, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
-		else
-			log_telecomms("Created [src]([REF(src)] in nullspace, assuming network to be in station")
-			new_network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
-	new_network_id = simple_network_name_fix(new_network_id) // make sure the network name is valid
-	var/datum/ntnet/new_network = SSnetworks.create_network_simple(new_network_id)
-	new_network.move_interface(GetComponent(/datum/component/ntnet_interface), new_network_id, network_id)
-	network_id = new_network_id
+	switch(action)
+		if("change_network")
+			network_id = params["network_name"]
+			. = TRUE

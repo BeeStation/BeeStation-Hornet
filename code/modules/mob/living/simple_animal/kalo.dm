@@ -9,10 +9,9 @@
 	held_state = "lizard"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	can_be_held = TRUE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST, MOB_REPTILE)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST |  MOB_REPTILE
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	see_in_dark     = 5
 	speak_chance    = 1
@@ -35,6 +34,10 @@
 	maxbodytemp = 800
 	var/obj/item/food/movement_target
 	mobchatspan = "centcom"
+
+/mob/living/simple_animal/kalo/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/kalo/Destroy()
 	movement_target = null

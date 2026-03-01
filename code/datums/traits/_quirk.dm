@@ -36,8 +36,8 @@
 	quirk_holder.quirks += src
 	if(process)
 		START_PROCESSING(SSquirks, src)
-	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, PROC_REF(handle_holder_del))
-	RegisterSignal(quirk_target, COMSIG_PARENT_QDELETING, PROC_REF(handle_mob_del))
+	RegisterSignal(quirk_holder, COMSIG_QDELETING, PROC_REF(handle_holder_del))
+	RegisterSignal(quirk_target, COMSIG_QDELETING, PROC_REF(handle_mob_del))
 	if(!is_valid_quirk_target(quirk_target)) //at this point the quirk is saved to the mind
 		return
 
@@ -53,9 +53,9 @@
 		STOP_PROCESSING(SSquirks, src)
 	if(quirk_holder)
 		remove()
-		UnregisterSignal(quirk_holder, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(quirk_holder, COMSIG_QDELETING)
 		if(!QDELETED(quirk_target))
-			UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(quirk_target, COMSIG_QDELETING)
 			to_chat(quirk_target, lose_text)
 		quirk_holder.quirks -= src
 		if(mob_trait)
@@ -67,7 +67,7 @@
 
 /* Don't use this, use the mind's transfer_to proc instead */
 /datum/quirk/proc/transfer_mob(mob/living/to_mob)
-	UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(quirk_target, COMSIG_QDELETING)
 	if(is_valid_quirk_target(quirk_target))
 		if(mob_trait)
 			REMOVE_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)
@@ -75,7 +75,7 @@
 	quirk_target = to_mob
 	if(process)
 		START_PROCESSING(SSquirks, src)
-	RegisterSignal(quirk_target, COMSIG_PARENT_QDELETING, PROC_REF(handle_mob_del))
+	RegisterSignal(quirk_target, COMSIG_QDELETING, PROC_REF(handle_mob_del))
 	if(is_valid_quirk_target(quirk_target))
 		if(mob_trait)
 			ADD_TRAIT(to_mob, mob_trait, ROUNDSTART_TRAIT)
@@ -96,7 +96,7 @@
 
 /datum/quirk/proc/handle_mob_del()
 	SIGNAL_HANDLER
-	UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(quirk_target, COMSIG_QDELETING)
 	STOP_PROCESSING(SSquirks, src)
 	quirk_target = null
 

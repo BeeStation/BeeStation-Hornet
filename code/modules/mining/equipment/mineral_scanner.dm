@@ -4,7 +4,7 @@
 	name = "manual mining scanner"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "miningmanual"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	worn_icon_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -45,7 +45,7 @@
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. This one has an extended range.\nIt has a speaker that can be toggled with <b>alt+click</b>"
 	name = "advanced automatic mining scanner"
 	icon_state = "adv_mining0"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -134,7 +134,7 @@
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE
 	layer = FLASH_LAYER
-	icon = 'icons/effects/ore_visuals.dmi'
+	icon = 'icons/effects/ore_visuals.dmi' //the icon states here have a 1 alpha pixel on all corners to make it render outside line of sight
 	appearance_flags = NONE //to avoid having TILE_BOUND in the flags, so that the 480x480 icon states let you see it no matter where you are
 	duration = 35
 	pixel_x = -224
@@ -147,7 +147,7 @@
 /obj/effect/temp_visual/mining_scanner
 	plane = FULLSCREEN_PLANE
 	layer = FLASH_LAYER
-	icon = 'icons/effects/mining_scanner.dmi'
+	icon = 'icons/effects/mining_scanner.dmi' //the icon state here has a 1 alpha pixel on all corners to make it render outside line of sight
 	appearance_flags = NONE
 	pixel_x = -224
 	pixel_y = -224

@@ -4,15 +4,16 @@
  */
 
 @use 'sass:color';
-@use '../base.scss';
-@use '../colors.scss';
+@use '../base';
+@use '../colors';
 
-$text-color: rgba(255, 255, 255, 0.75) !default;
-$background-color: #363636 !default;
-$shadow-color-core: #161616 !default;
-$shadow-color: rgba(0, 0, 0, 0.1) !default;
+$text-color: hsla(0, 0%, 100%, 0.75) !default;
+$background-color: hsl(0, 0%, 21.2%) !default;
+$shadow-color-core: hsl(0, 0%, 8.6%) !default;
+$shadow-color: hsla(0, 0%, 0%, 0.1) !default;
 $shadow-core-height: 1px !default;
 $shadow-height: 2px !default;
+$title-bar-height: 32px !default;
 
 .TitleBar {
   background-color: $background-color;
@@ -27,12 +28,16 @@ $shadow-height: 2px !default;
 .TitleBar__clickable {
   color: color.change($text-color, $alpha: 0.5);
   background-color: $background-color;
-  transition: color 250ms ease-out, background-color 250ms ease-out;
+  transition:
+    color 250ms ease-out,
+    background-color 250ms ease-out;
 
   &:hover {
     color: rgba(255, 255, 255, 1);
-    background-color: #cc0000;
-    transition: color 0ms, background-color 0ms;
+    background-color: hsl(0, 100%, 40%);
+    transition:
+      color 0ms,
+      background-color 0ms;
   }
 }
 
@@ -45,8 +50,8 @@ $shadow-height: 2px !default;
   color: $text-color;
   font-size: 14px;
   font-size: base.rem(14px);
-  line-height: 31px;
-  line-height: base.rem(31px);
+  line-height: $title-bar-height - 1;
+  line-height: base.rem($title-bar-height - 1);
   white-space: nowrap;
   pointer-events: none;
 }
@@ -62,8 +67,8 @@ $shadow-height: 2px !default;
   top: 0;
   left: 0;
   right: 0;
-  height: 32px;
-  height: base.rem(32px);
+  height: $title-bar-height;
+  height: base.rem($title-bar-height);
 }
 
 .TitleBar__statusIcon {
@@ -74,8 +79,8 @@ $shadow-height: 2px !default;
   transition: color 0.5s;
   font-size: 20px;
   font-size: base.rem(20px);
-  line-height: 32px !important;
-  line-height: base.rem(32px) !important;
+  line-height: $title-bar-height !important;
+  line-height: base.rem($title-bar-height) !important;
 }
 
 .TitleBar__close {
@@ -84,12 +89,12 @@ $shadow-height: 2px !default;
   right: 0;
   width: 45px;
   width: base.rem(45px);
-  height: 32px + $shadow-core-height;
-  height: base.rem(32px + $shadow-core-height);
+  height: $title-bar-height + $shadow-core-height;
+  height: base.rem($title-bar-height + $shadow-core-height);
   font-size: 20px;
   font-size: base.rem(20px);
-  line-height: 31px + $shadow-core-height;
-  line-height: base.rem(31px + $shadow-core-height);
+  line-height: $title-bar-height - 1 + $shadow-core-height;
+  line-height: base.rem($title-bar-height - 1 + $shadow-core-height);
   text-align: center;
 }
 

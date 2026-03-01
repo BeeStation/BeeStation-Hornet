@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "grenade"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	worn_icon_state = "grenade"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -92,7 +92,7 @@
 
 		return
 
-	if (active)
+	if (active || (dud_flags & GRENADE_USED))
 		return
 	if(!botch_check(user)) // if they botch the prime, it'll be handled in botch_check
 		preprime(user)
@@ -114,13 +114,14 @@
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, 1)
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
+	det_time *= (0.1 * (rand(6, 14))) //between 60% and 140% of set time
 	SEND_SIGNAL(src, COMSIG_GRENADE_ARMED, det_time, delayoverride)
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 /obj/item/grenade/proc/prime(mob/living/lanced_by)
+	active = FALSE
 	if (dud_flags)
-		active = FALSE
-		update_icon()
+		update_appearance()
 		return FALSE
 
 	dud_flags |= GRENADE_USED // Don't detonate if we have already detonated.
@@ -128,6 +129,7 @@
 		shrapnel_initialized = TRUE
 		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_radius)
 
+	update_appearance()
 	SEND_SIGNAL(src, COMSIG_GRENADE_PRIME, lanced_by)
 	if(ex_heavy || ex_light || ex_flame)
 		explosion(loc, 0, ex_heavy, ex_light, flame_range = ex_flame)
@@ -157,7 +159,7 @@
 /obj/item/grenade/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], setting it off! What a shot!"))

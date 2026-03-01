@@ -20,15 +20,8 @@
 	if(is_type_in_list(controller.pawn, baby_types))
 		return
 
-	var/datum/weakref/weak_target = controller.blackboard[BB_BABIES_TARGET]
-	var/atom/target = weak_target?.resolve()
-
 	// Find target
-	if(!target || QDELETED(target))
-		controller.queue_behavior(/datum/ai_behavior/find_partner, BB_BABIES_TARGET, BB_BABIES_PARTNER_TYPES, BB_BABIES_CHILD_TYPES)
-		return
-
-	// Do target
-	if(target)
+	if(controller.blackboard_key_exists(BB_BABIES_TARGET))
 		controller.queue_behavior(/datum/ai_behavior/make_babies, BB_BABIES_TARGET, BB_BABIES_CHILD_TYPES)
 		return SUBTREE_RETURN_FINISH_PLANNING
+	controller.queue_behavior(/datum/ai_behavior/find_partner, BB_BABIES_TARGET, BB_BABIES_PARTNER_TYPES, BB_BABIES_CHILD_TYPES)

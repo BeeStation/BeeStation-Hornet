@@ -17,12 +17,12 @@
 	implements = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 100)
 	time = 16
 
-/datum/surgery_step/extract_core/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_core/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to extract a core from [target]..."),
 		"[user] begins to extract a core from [target].",
 		"[user] begins to extract a core from [target].")
 
-/datum/surgery_step/extract_core/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_core/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/mob/living/simple_animal/slime/slime = target
 	if(slime.cores > 0)
 		slime.cores--
@@ -35,9 +35,9 @@
 			item.sparkly = TRUE
 		if(slime.cores <= 0)
 			slime.icon_state = "[slime.colour] baby slime dead-nocore"
-			return 1
+			return ..()
 		else
 			return 0
 	else
 		to_chat(user, span_warning("There aren't any cores left in [target]!"))
-		return 1
+		return ..()

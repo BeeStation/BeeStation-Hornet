@@ -4,12 +4,14 @@
  * @license MIT
  */
 
+import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import { Component, createRef } from 'react';
-import { Box } from './Box';
-import { isEscape, KEY } from 'common/keys';
 
-export const toInputValue = (value) => (typeof value !== 'number' && typeof value !== 'string' ? '' : String(value));
+import { Box } from './Box';
+
+export const toInputValue = (value) =>
+  typeof value !== 'number' && typeof value !== 'string' ? '' : String(value);
 
 export class Input extends Component {
   constructor(props) {
@@ -114,11 +116,29 @@ export class Input extends Component {
   render() {
     const { props } = this;
     // Input only props
-    const { selfClear, onInput, onChange, onEnter, value, maxLength, placeholder, autoFocus, ...boxProps } = props;
+    const {
+      selfClear,
+      onInput,
+      onChange,
+      onEnter,
+      value,
+      maxLength,
+      placeholder,
+      autoFocus,
+      ...boxProps
+    } = props;
     // Box props
     const { className, fluid, monospace, ...rest } = boxProps;
     return (
-      <Box className={classes(['Input', fluid && 'Input--fluid', monospace && 'Input--monospace', className])} {...rest}>
+      <Box
+        className={classes([
+          'Input',
+          fluid && 'Input--fluid',
+          monospace && 'Input--monospace',
+          className,
+        ])}
+        {...rest}
+      >
         <div className="Input__baseline">.</div>
         <input
           ref={this.inputRef}

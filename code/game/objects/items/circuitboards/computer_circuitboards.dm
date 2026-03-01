@@ -146,9 +146,9 @@
 	name = "Hypernoblium Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
 
-/obj/item/circuitboard/computer/atmos_control/nitryl_tank
-	name = "Nitryl Supply Control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/nitryl_tank
+/obj/item/circuitboard/computer/atmos_control/nitrium_tank
+	name = "Nitrium Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/nitrium_tank
 
 /obj/item/circuitboard/computer/atmos_control/pluoxium_tank
 	name = "Pluoxium Supply Control (Computer Board)"
@@ -205,6 +205,7 @@
 	name = "solar control (Computer Board)"  //name fixed 250810
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/solar_control
+	custom_price = 150
 
 /obj/item/circuitboard/computer/stationalert
 	name = "station alerts console (Computer Board)"

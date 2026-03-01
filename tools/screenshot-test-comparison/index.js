@@ -75,7 +75,7 @@ for (const filename of fs.readdirSync(artifactsDirectory)) {
 			screenshotNew.width !== screenshotCompare.width
 			|| screenshotNew.height !== screenshotCompare.height
 		) {
-			console.error(`${screenshotName} has different dimensions from the known screenshot`)
+			console.error(`${screenshotName} has different dimensions from the known screenshot. Please download the artifacts from the test run by pressing the 'summary' button in the top left.`)
 			fail(screenshotName, fullPathScreenshotName, fullPathCompareScreenshot)
 			continue
 		}
@@ -91,7 +91,7 @@ for (const filename of fs.readdirSync(artifactsDirectory)) {
 		)
 
 		if (diffResult) {
-			console.error(`${screenshotName} differs from the known screenshot`)
+			console.error(`${screenshotName} differs from the known screenshot. Please download the artifacts from the test run by pressing the 'summary' button in the top left.`)
 			fail(screenshotName, fullPathScreenshotName, fullPathCompareScreenshot, diff)
 		}
 	}

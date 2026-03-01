@@ -6,6 +6,7 @@
 	icon_state = "arrow"
 	throwforce = 3 //good luck hitting someone with the pointy end of the arrow
 	throw_speed = 3
+	custom_price = 50
 
 /obj/item/ammo_casing/caseless/arrow/wood
 	name = "wooden arrow"

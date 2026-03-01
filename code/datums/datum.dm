@@ -33,9 +33,9 @@
 	  *
 	  * Lazy associated list in the structure of `signal:registree/list of registrees`
 	  */
-	var/list/comp_lookup
+	var/list/_listen_lookup
 	/// Lazy associated list in the structure of `signals:proctype` that are run when the datum receives that signal
-	var/list/list/datum/callback/signal_procs
+	var/list/list/datum/callback/_signal_procs
 
 	/// Datum level flags
 	var/datum_flags = NONE
@@ -71,6 +71,8 @@
 #ifdef DATUMVAR_DEBUGGING_MODE
 	var/list/cached_vars
 #endif
+	///The layout pref we take from the player looking at this datum's UI to know what layout to give.
+	var/datum/preference/choiced/layout_prefs_used = /datum/preference/choiced/tgui_layout
 
 /**
  * Called when a href for this datum is clicked
@@ -137,7 +139,7 @@
 ///Only override this if you know what you're doing. You do not know what you're doing
 ///This is a threat
 /datum/proc/clear_signal_refs()
-	var/list/lookup = comp_lookup
+	var/list/lookup = _listen_lookup
 	if(lookup)
 		for(var/sig in lookup)
 			var/list/comps = lookup[sig]
@@ -147,10 +149,10 @@
 			else
 				var/datum/component/comp = comps
 				comp.UnregisterSignal(src, sig)
-		comp_lookup = lookup = null
+		_listen_lookup = lookup = null
 
-	for(var/target in signal_procs)
-		UnregisterSignal(target, signal_procs[target])
+	for(var/target in _signal_procs)
+		UnregisterSignal(target, _signal_procs[target])
 
 #ifdef DATUMVAR_DEBUGGING_MODE
 /datum/proc/save_vars()

@@ -6,9 +6,9 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
-	exp_requirements = 120
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chaplain
 
 	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
@@ -32,6 +32,11 @@
 		/area/crew_quarters/theatre
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_CHAPLAIN,
+		JOB_NAME_BOTANIST // in a sense of religion
+	)
+
 /datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(!M.client || on_dummy)
@@ -44,7 +49,7 @@
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
-		B.item_state = GLOB.bible_item_state
+		B.inhand_icon_state = GLOB.bible_inhand_icon_state
 		to_chat(H, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		H.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
 		GLOB.religious_sect?.on_conversion(H)
@@ -102,7 +107,7 @@
 		if("weeaboo","kawaii")
 			B.name = pick("Fanfiction Compendium","Japanese for Dummies","The Manganomicon","Establishing Your O.T.P")
 		else
-			B.name = "The Holy Book of [new_religion]"
+			B.name = preference_source?.prefs?.read_character_preference(/datum/preference/name/bible) || "The Holy Book of [new_religion]"
 
 	GLOB.religion = new_religion
 	GLOB.bible_name = B.name
@@ -118,7 +123,7 @@
 	jobtype = /datum/job/chaplain
 
 	id = /obj/item/card/id/job/chaplain
-	belt = /obj/item/modular_computer/tablet/pda/chaplain
+	belt = /obj/item/modular_computer/tablet/pda/preset/chaplain
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	backpack_contents = list(

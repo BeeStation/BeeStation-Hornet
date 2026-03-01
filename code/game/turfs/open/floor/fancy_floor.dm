@@ -129,6 +129,7 @@
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 
 /turf/open/floor/grass/no_border
+	layer = TURF_LAYER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	smoothing_flags = NONE
@@ -163,20 +164,20 @@
 	floor_tile = /obj/item/stack/tile/fairygrass
 	light_range = 2
 	light_power = 0.80
-	light_color = "#33CCFF"
-	color = "#33CCFF"
+	light_color = COLOR_BLUE_LIGHT
+	color = COLOR_BLUE_LIGHT
 
 /turf/open/floor/grass/fairy/white
 	name = "white fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/white
-	light_color = "#FFFFFF"
-	color = "#FFFFFF"
+	light_color = COLOR_WHITE
+	color = COLOR_WHITE
 
 /turf/open/floor/grass/fairy/red
 	name = "red fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/red
-	light_color = "#FF3333"
-	color = "#FF3333"
+	light_color = COLOR_RED_LIGHT
+	color = COLOR_RED_LIGHT
 
 /turf/open/floor/grass/fairy/orange
 	name = "orange fairygrass patch"
@@ -397,6 +398,14 @@
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_RED)
 	floor_tile = /obj/item/stack/tile/carpet/red
 
+/turf/open/floor/carpet/olive
+	icon = 'icons/turf/floors/carpet_olive.dmi'
+	icon_state = "carpet_olive-255"
+	base_icon_state = "carpet_olive"
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_OLIVE)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_OLIVE)
+	floor_tile = /obj/item/stack/tile/carpet/olive
+
 /turf/open/floor/carpet/royalblack
 	icon = 'icons/turf/floors/carpet_royalblack.dmi'
 	icon_state = "carpet_royalblack-255"
@@ -510,7 +519,6 @@
 	name = "concrete"
 	icon_state = "conc_smooth"
 	desc = "Cement Das Conk Creet Baybee."
-	footstep = FOOTSTEP_GENERIC_HEAVY
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY

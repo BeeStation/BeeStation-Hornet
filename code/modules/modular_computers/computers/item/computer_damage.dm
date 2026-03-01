@@ -21,13 +21,11 @@
 		physical.visible_message("\The [src] breaks apart!")
 		var/turf/newloc = get_turf(src)
 		new /obj/item/stack/sheet/iron(newloc, round(steel_sheet_cost/2))
-		for(var/C in all_components)
-			var/obj/item/computer_hardware/H = all_components[C]
-			if(QDELETED(H))
-				continue
-			uninstall_component(H)
-			H.forceMove(newloc)
-			if(prob(25))
-				H.take_damage(rand(10,30), BRUTE, 0, 0)
+		for(var/port in all_components)
+			var/obj/item/computer_hardware/component = all_components[port]
+			if(prob(MC_PART_DROP_CHANCE))
+				uninstall_component(component)	// Lets not just delete all components like that
+			else
+				qdel(component)
 	relay_qdel()
 	qdel(src)

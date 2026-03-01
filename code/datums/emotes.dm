@@ -87,8 +87,10 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if((emote_type & EMOTE_ANIMATED) && emote_length > 0)
-		var/image/I = image(overlay_icon, user, overlay_icon_state, ABOVE_MOB_LAYER, 0, overlay_x_offset, overlay_y_offset)
-		flick_overlay_view(I, user, emote_length)
+		var/mutable_appearance/emote_image = mutable_appearance(overlay_icon, overlay_icon_state, ABOVE_MOB_LAYER)
+		emote_image.pixel_x = overlay_x_offset
+		emote_image.pixel_y = overlay_y_offset
+		user.flick_overlay_view(emote_image, emote_length)
 
 	var/tmp_sound = get_sound(user)
 	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown") && !TIMER_COOLDOWN_CHECK(user, type))
@@ -252,7 +254,7 @@
 	. = msg
 	if(!muzzle_ignore && user.is_muzzled() && (emote_type & EMOTE_AUDIBLE))
 		return "makes a [pick("strong ", "weak ", "")]noise."
-	if(user.mind?.miming && message_mime)
+	if(HAS_TRAIT(user, TRAIT_MIMING) && message_mime)
 		. = message_mime
 	if(isalienadult(user) && message_alien)
 		. = message_alien
@@ -277,7 +279,6 @@
 	return replacetext(message_param, "%t", params)
 
 /datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE, params)
-	. = TRUE
 	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
 		return FALSE
 	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
@@ -300,10 +301,10 @@
 			to_chat(user, span_warning("You cannot use your hands to [key] right now!"))
 			return FALSE
 
-	if(isliving(user))
-		var/mob/living/L = user
-		if(HAS_TRAIT(L, TRAIT_EMOTEMUTE))
-			return FALSE
+	if(HAS_TRAIT(user, TRAIT_EMOTEMUTE))
+		return FALSE
+
+	return TRUE
 
 /**
  * Check to see if the user should play a sound when performing the emote.
@@ -318,9 +319,9 @@
 	if(emote_type & EMOTE_AUDIBLE && !hands_use_check)
 		if(ishuman(user))
 			var/mob/living/carbon/human/loud_mouth = user
-			if(loud_mouth.mind?.miming) // vow of silence prevents outloud noises
+			if(HAS_TRAIT(loud_mouth, TRAIT_MIMING)) // vow of silence prevents outloud noises
 				return FALSE
-			if(!loud_mouth.getorganslot(ORGAN_SLOT_TONGUE))
+			if(!loud_mouth.get_organ_slot(ORGAN_SLOT_TONGUE))
 				return FALSE
 
 	if(only_forced_audio && intentional)
@@ -336,30 +337,33 @@
 *
 * Returns TRUE if it was able to run the emote, FALSE otherwise.
 */
-/mob/proc/manual_emote(text) //Just override the song and dance
-	. = TRUE
-	if(stat != CONSCIOUS)
-		return
-
+/atom/proc/manual_emote(text)
 	if(!text)
 		CRASH("Someone passed nothing to manual_emote(), fix it")
 
 	log_message(text, LOG_EMOTE)
-
-	var/ghost_text = "<b>[src]</b> [text]"
-
-	var/origin_turf = get_turf(src)
-	if(client)
-		for(var/mob/ghost as anything in GLOB.dead_mob_list)
-			if(!ghost.client || isnewplayer(ghost))
-				continue
-			if(ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(ghost in viewers(origin_turf, null)))
-				if(mind || ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
-					ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
-				else
-					ghost.show_message("[ghost_text]")
-
 	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+	return TRUE
+
+/mob/manual_emote(text)
+	if (stat != CONSCIOUS)
+		return FALSE
+	. = ..()
+	if (!.)
+		return FALSE
+	if (!client)
+		return TRUE
+	var/ghost_text = "<b>[src]</b> [text]"
+	var/origin_turf = get_turf(src)
+	for(var/mob/ghost as anything in GLOB.dead_mob_list)
+		if(!ghost.client || isnewplayer(ghost))
+			continue
+		if(ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(ghost in viewers(origin_turf, null)))
+			if(mind || ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
+				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
+			else
+				ghost.show_message("[ghost_text]")
+	return TRUE
 
 /**
  * Returns a boolean based on whether or not the string contains a comma or an apostrophe,

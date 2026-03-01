@@ -87,7 +87,7 @@
 	// New sleepers
 	for(var/i in found - sleepers)
 		var/mob/living/L = i
-		L.add_atom_colour("#800080", TEMPORARY_COLOUR_PRIORITY)
+		L.add_atom_colour(COLOR_PURPLE, TEMPORARY_COLOUR_PRIORITY)
 		L.visible_message(span_revennotice("A strange purple glow wraps itself around [L] as [L.p_they()] suddenly fall[L.p_s()] unconscious."),
 			span_revendanger("[desc]"))
 		// Don't let them sit suround unconscious forever
@@ -101,7 +101,7 @@
 	// Missing sleepers
 	for(var/i in sleepers - found)
 		var/mob/living/L = i
-		L.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#800080")
+		L.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_PURPLE)
 		L.visible_message(span_revennotice("The glow from [L] fades away."))
 		L.grab_ghost()
 
@@ -136,23 +136,21 @@
 	laws = "1. Serve drinks.\n\
 		2. Talk to patrons.\n\
 		3. Don't get messed up in their affairs."
-	status_flags = GODMODE // Please don't punch the barkeeper
+	status_flags = NONE
 	unique_name = FALSE // disables the (123) number suffix
 	initial_language_holder = /datum/language_holder/universal
 
 /mob/living/simple_animal/drone/snowflake/bardrone/Initialize(mapload)
 	. = ..()
 	access_card.access |= ACCESS_CENT_BAR
-	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
-	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
-
+	add_traits(list(TRAIT_BARMASTER, TRAIT_SOMMELIER, TRAIT_GODMODE), ROUNDSTART_TRAIT) // Please don't punch the barkeeper
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid
 	gold_core_spawnable = NO_SPAWN
 	name = "Barmaid"
 	desc = "A barmaid, a maiden found in a bar."
 	pass_flags = PASSTABLE
-	status_flags = GODMODE
+	status_flags = NONE
 	unique_name = FALSE
 	AIStatus = AI_OFF
 	stop_automated_movement = TRUE
@@ -164,8 +162,7 @@
 	access_card.access = get_all_accesses()
 	access_card.access |= ACCESS_CENT_BAR
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
-	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
+	add_traits(list(TRAIT_BARMASTER, TRAIT_SOMMELIER, TRAIT_GODMODE), ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Destroy()
 	qdel(access_card)
@@ -316,7 +313,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 
 /mob/living/simple_animal/hostile/bear/fightpit/Initialize(mapload)
 	. = ..()
-	var/multiplier = max(round(length(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1), 1)
+	var/multiplier = max(round(length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1), 1)
 	maxHealth *= multiplier
 	health *= multiplier
 	melee_damage *= multiplier

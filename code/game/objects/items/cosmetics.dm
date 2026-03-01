@@ -106,6 +106,7 @@
 	icon_state = "razor"
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = 15
 	var/extended = 1
 
 /obj/item/razor/suicide_act(mob/living/carbon/user)
@@ -128,7 +129,7 @@
 	if(!ishuman(M) || extended != 1 || user.combat_mode)
 		return ..()
 	var/mob/living/carbon/human/H = M
-	// Must be targetting the head
+	// Must be targeting the head
 	if (!user.is_zone_selected(BODY_ZONE_HEAD) && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 		return ..()
 	if(!H.get_bodypart(BODY_ZONE_HEAD))
@@ -228,7 +229,7 @@
 		H.hair_style = new_style
 		H.update_hair()
 
-/obj/item/razor/proc/new_facial_hairstyle(mob/living/carbon/human/H, mob/user, var/mirror)
+/obj/item/razor/proc/new_facial_hairstyle(mob/living/carbon/human/H, mob/user, mirror)
 	if(H == user && !mirror)
 		to_chat(user, span_warning("You need a mirror to properly style your own facial hair!"))
 		return

@@ -5,7 +5,6 @@
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	exp_requirements = 120
@@ -36,13 +35,18 @@
 		/area/storage/tech
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_ROBOTICIST,
+		JOB_NAME_MEDICALDOCTOR // because they have a surgery bed in the robotics for some reason...
+	)
+
 /datum/outfit/job/roboticist
 	name = JOB_NAME_ROBOTICIST
 	jobtype = /datum/job/roboticist
 
 	id = /obj/item/card/id/job/roboticist
 	belt = /obj/item/storage/belt/utility/full
-	l_pocket = /obj/item/modular_computer/tablet/pda/roboticist
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/roboticist
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
 	suit = /obj/item/clothing/suit/toggle/labcoat
@@ -52,3 +56,11 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
 
 	pda_slot = ITEM_SLOT_LPOCKET
+
+/datum/outfit/job/roboticist/mod
+	name = "Roboticist (MODsuit)"
+	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/standard
+	suit = null
+	mask = /obj/item/clothing/mask/breath
+	internals_slot = ITEM_SLOT_SUITSTORE

@@ -16,7 +16,7 @@
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && ishuman(user)) // Give them a visual blush effect if they're human
+	if(ishuman(user)) // Give them a visual blush effect if they're human
 		var/mob/living/carbon/human/human_user = user
 		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
 		human_user.update_body()
@@ -108,12 +108,9 @@
 		message_simple = S.deathmessage
 	. = ..()
 	message_simple = initial(message_simple)
-	if(!user.can_speak_vocal() || user.getOxyLoss() >= 50)
+	if(!user.can_speak() || user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
-	var/mob/living/carbon/carbon_user = user
-	// For masks that give unique death sounds
-	if(istype(carbon_user) && isclothing(carbon_user.wear_mask) && carbon_user.wear_mask.unique_death)
-		playsound(carbon_user, carbon_user.wear_mask.unique_death, 200, TRUE, TRUE)
+	if (SEND_SIGNAL(user, COMSIG_MOB_DEATHGASP, params, type_override, intentional) & COMSIG_MOB_CANCEL_DEATHGASP_SOUND)
 		return
 	if(user.deathsound)
 		playsound(user, user.deathsound, 200, TRUE, TRUE)
@@ -123,20 +120,6 @@
 	key_third_person = "drools"
 	message = "drools"
 	emote_type = EMOTE_VISIBLE
-
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps"
-	emote_type = EMOTE_VISIBLE
-	cooldown = 2 SECONDS
-
-/datum/emote/living/jump/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	if(!isliving(user))
-		return
-	var/mob/living/living = user
-	living.do_jump_animation()
 
 /datum/emote/living/faint
 	key = "faint"
@@ -162,7 +145,7 @@
 	. = ..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 		if(H.Togglewings())
 			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
 		// play moth flutter noise if moth wing
@@ -229,24 +212,6 @@
 	message = "grimaces"
 	emote_type = EMOTE_VISIBLE
 
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps"
-	hands_use_check = TRUE
-	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
-
-/datum/emote/living/jump/run_emote(mob/living/user, params, type_override, intentional)
-	. = ..()
-	animate(user, pixel_y = user.pixel_y + 4, time = 0.1 SECONDS)
-	animate(pixel_y = user.pixel_y - 4, time = 0.1 SECONDS)
-	if(iscarbon(user))
-		var/mob/living/carbon/jumps_till_drops = user
-		jumps_till_drops.adjustStaminaLoss(10, forced = TRUE)
-
-/datum/emote/living/jump/get_sound(mob/living/user)
-	return 'sound/weapons/thudswoosh.ogg'
-
 /datum/emote/living/kiss
 	key = "kiss"
 	key_third_person = "kisses"
@@ -265,16 +230,15 @@
 	vary = TRUE
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
-	. = ..()
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		return !C.silent
+	return ..() && user.can_speak(allow_mimes = TRUE)
 
 /datum/emote/living/laugh/get_sound(mob/living/user)
-	if(!iscarbon(user) || user.mind?.miming)
+	if(!iscarbon(user))
 		return
-	var/mob/living/carbon/H = user
-	return H.dna?.species?.get_laugh_sound(H)
+	if(HAS_TRAIT(user, TRAIT_MIMING))
+		return
+	var/mob/living/carbon/carbon_user = user
+	return carbon_user.dna?.species?.get_laugh_sound(carbon_user)
 
 /datum/emote/living/look
 	key = "look"
@@ -326,9 +290,9 @@
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) //Humans get specialized scream.
 	sound_wall_ignore = TRUE
 
-/datum/emote/living/scream/select_message_type(mob/user, intentional)
+/datum/emote/living/scream/select_message_type(mob/user, message, intentional)
 	. = ..()
-	if(!intentional && isanimal(user))
+	if(!intentional && isanimal_or_basicmob(user))
 		return "makes a loud and pained whimper."
 
 /datum/emote/living/scowl
@@ -522,7 +486,7 @@
 	if(QDELETED(user))
 		return FALSE
 
-	if(user.client && user.client.prefs.muted & MUTE_IC)
+	if(user.client && (user.client.player_details.muted & MUTE_IC))
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 
@@ -722,6 +686,7 @@
 	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/whistle
+	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime)
 	key="whistle"
 	key_third_person="whistle"
 	message = "whistles a few notes"
@@ -748,7 +713,7 @@
 		return FALSE
 	if(islizard(user))
 		var/mob/living/carbon/human/H = user
-		return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+		return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /// Breathing required + audible emotes
 

@@ -18,6 +18,7 @@
 	shift_underlay_only = FALSE
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "pump"
+	vent_movement = NONE
 	///Pressure that the pump will reach when on
 	var/target_pressure = ONE_ATMOSPHERE
 
@@ -27,9 +28,15 @@
 		/obj/item/circuit_component/atmos_pump,
 	))
 
+/obj/machinery/atmospherics/components/binary/pump/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("Maximize target pressure")
+
 /obj/machinery/atmospherics/components/binary/pump/CtrlClick(mob/user)
 	if(can_interact(user))
 		set_on(!on)
+		balloon_alert(user, "turned [on ? "on" : "off"]")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
 	return ..()
@@ -37,7 +44,8 @@
 /obj/machinery/atmospherics/components/binary/pump/AltClick(mob/user)
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
-		balloon_alert(user, "You set the target pressure to [target_pressure] kPa.")
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
+		balloon_alert(user, "pressure output set to [target_pressure] kPa")
 		update_icon()
 		ui_update()
 	return
@@ -100,8 +108,12 @@
 		to_chat(user, span_warning("You cannot unwrench [src], turn it off first!"))
 		return FALSE
 
-/obj/machinery/atmospherics/components/binary/pump/can_crawl_through()
-	return on // If a pump is off, it'll block even when not powered
+/obj/machinery/atmospherics/components/binary/pump/set_on(active)
+	. = ..()
+	if(active)
+		vent_movement |= VENTCRAWL_ALLOWED
+	else
+		vent_movement &= ~VENTCRAWL_ALLOWED
 
 /obj/machinery/atmospherics/components/binary/pump/layer2
 	piping_layer = 2

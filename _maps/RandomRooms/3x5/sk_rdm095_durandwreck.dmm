@@ -70,7 +70,7 @@
 /area/template_noop)
 "l" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/template_noop)

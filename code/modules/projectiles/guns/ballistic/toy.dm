@@ -2,7 +2,7 @@
 	name = "foam force SMG"
 	desc = "A prototype three-round burst toy submachine gun. Ages 8 and up."
 	icon_state = "saber"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	force = 0
@@ -15,6 +15,7 @@
 	weapon_weight = WEAPON_LIGHT
 	burst_size = 3
 	fire_delay = 3 // Slightly worse than the actual sabre
+	custom_price = 75
 
 /obj/item/gun/ballistic/automatic/toy/update_icon()
 	. = ..()
@@ -69,11 +70,6 @@
 	. = ..()
 	add_overlay("[icon_state]_toy")
 
-/obj/item/gun/ballistic/shotgun/toy/process_chamber(empty_chamber = 0)
-	..()
-	if(chambered && !chambered.BB)
-		qdel(chambered)
-
 /obj/item/gun/ballistic/shotgun/toy/unrestricted
 	pin = /obj/item/firing_pin
 
@@ -82,13 +78,14 @@
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamcrossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	worn_icon_state = "gun"
 	worn_icon = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	fire_sound = 'sound/items/syringeproj.ogg'
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 75
 
 /obj/item/gun/ballistic/automatic/c20r/toy //This is the syndicate variant with syndicate firing pin and riot darts.
 	name = "donksoft SMG"
