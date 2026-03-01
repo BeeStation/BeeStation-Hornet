@@ -519,6 +519,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /// USE "mob.set_mob_eye_to(MOB_EYE_SELF)" - YOU HAVE NO REASON TO USE THIS.
 /// BeeStation eye system is different. You always use 'set_mob_eye_to(MOB_EYE_SELF)' proc.
+/// This proc still exists to warn coders.
 /client/proc/set_eye(atom/new_eye)
 	PRIVATE_PROC(TRUE) // NO. DO NOT USE THIS. Check below:
 /* 		Instruction of porting:
@@ -533,7 +534,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 ------------------------------------ */
 
 /// Sets a client eye into given new eye. This is intended not to be used. You should use 'set_mob_eye_to(thing)'
-/// The only reason why it got the underbar is to prevent coders use set_eye() and force them to read this.
 /client/proc/set_client_eye_to(atom/new_eye)
 	_on_setting_client_eye(new_eye, eye || src?.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
 
