@@ -17,6 +17,10 @@
 	///UI logic, what seed are we looking at
 	var/focused_seeds
 
+/obj/machinery/seeder/Initialize(mapload)
+	. = ..()
+	shake()
+
 /obj/machinery/seeder/attackby(obj/item/C, mob/user)
 	var/obj/item/food/grown/fruit = C
 	if(!istype(C, /obj/item/plant_seeds) && !istype(fruit))
@@ -36,7 +40,9 @@
 //Turn fruit into seeds
 	C.forceMove(get_turf(src))
 	seedify(C, seed_amount)
+	playsound(src, 'sound/machines/juicer.ogg', 30)
 	to_chat(user, "<span class='notice'>[seed_amount] seeds created!</span>")
+	shake()
 
 /obj/machinery/seeder/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -86,6 +92,12 @@
 			if(stored_seeds_amount[species_id] <= 0 && focused_seeds == ref(seeds))
 				focused_seeds = null
 			ui_update()
+
+/obj/machinery/seeder/proc/shake(shakes = 5)
+	animate(src, pixel_x = 0, pixel_y = 0, time = 0 SECONDS, loop = shakes)
+	for(var/index in 1 to 10)
+		animate(pixel_x = rand(-1, 1), pixel_y = rand(-1, 1), time = 0.05 SECONDS)
+	animate(pixel_x = 0, pixel_y = 0, time = 0.05 SECONDS)
 
 ///proc used to transform produce into seeds
 /proc/seedify(obj/produce, _seed_amount)

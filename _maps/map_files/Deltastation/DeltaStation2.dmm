@@ -54329,8 +54329,8 @@
 /area/quartermaster/exploration_prep)
 "mSG" = (
 /obj/structure/table/reinforced,
-/obj/item/plant_analyzer,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
+/obj/item/plant_scanner,
 /obj/item/radio,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,

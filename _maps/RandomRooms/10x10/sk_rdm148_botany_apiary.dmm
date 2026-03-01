@@ -47,7 +47,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/shovel/spade,
 /obj/item/cultivator{
 	pixel_x = 6

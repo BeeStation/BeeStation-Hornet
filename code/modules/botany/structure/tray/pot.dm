@@ -8,6 +8,7 @@
 	interaction_flags_item = INTERACT_ITEM_ATTACK_HAND_PICKUP
 	layer_offset = 1.2
 	gain_weeds = FALSE
+	use_substrate = FALSE
 
 /obj/item/plant_tray/pot/Initialize(mapload)
 	icon_state = "pot"

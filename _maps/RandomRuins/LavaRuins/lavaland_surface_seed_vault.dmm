@@ -726,7 +726,7 @@
 /area/ruin/powered/seedvault)
 "Io" = (
 /obj/structure/table,
-/obj/item/plant_analyzer{
+/obj/item/plant_scanner{
 	pixel_y = 1
 	},
 /turf/open/floor/pod,

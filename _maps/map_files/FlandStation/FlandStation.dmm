@@ -3024,7 +3024,7 @@
 /turf/open/floor/iron/techmaint,
 /area/science/mixing)
 "aNR" = (
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -4307,7 +4307,7 @@
 	},
 /obj/structure/rack,
 /obj/item/analyzer,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/healthanalyzer{
 	pixel_x = 4;
 	pixel_y = -4
@@ -10753,7 +10753,7 @@
 "cVU" = (
 /obj/structure/table,
 /obj/item/storage/bag/plants/portaseeder,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/grass,
 /area/hydroponics/garden)

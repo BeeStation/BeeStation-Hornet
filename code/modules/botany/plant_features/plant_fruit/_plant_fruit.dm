@@ -154,7 +154,7 @@
 
 /datum/plant_feature/fruit/proc/build_fruit()
 //Fruit setup
-	var/obj/item/food/grown/new_fruit = new fruit_product(parent.plant_item)
+	var/obj/item/food/grown/new_fruit = new fruit_product(parent.plant_item, TRUE)
 	if(istype(new_fruit))
 		new_fruit.seed = null //Otherwise this will overwrite our inherited genes
 	new_fruit.create_reagents(total_volume)

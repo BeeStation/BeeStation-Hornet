@@ -1,8 +1,8 @@
 /obj/machinery/plant_machine/plant_analyser
 	name = "plant analyzer"
 	desc = "An advanced device designed to analyse plant genetic makeup."
-	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "dnamod"
+	icon = 'icons/obj/hydroponics/features/generic.dmi'
+	icon_state = "analyzer_open"
 	density = TRUE
 	pass_flags = PASSTABLE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
@@ -26,6 +26,13 @@
 	///Last 'command' for UI stuff
 	var/last_command = ""
 
+/obj/machinery/plant_machine/plant_analyser/Initialize(mapload)
+	. = ..()
+	// OOOOH YEAAAAAH I REMEMBER! REMEMBER WHEN? YEAAAAAAAH
+	if(prob(1))
+		icon = 'icons/obj/hydroponics/equipment.dmi'
+		icon_state = "dnamod"
+
 /obj/machinery/plant_machine/plant_analyser/attackby(obj/item/C, mob/user)
 //Disk
 	if(istype(C, /obj/item/disk/plant_disk) && !disk)
@@ -42,6 +49,7 @@
 		plant_component = null
 		current_feature = null
 		current_feature_ref = null
+		icon_state = "analyzer_open"
 		ui_update()
 		return
 	//Insert plant from spade
@@ -65,6 +73,8 @@
 	plant_item.forceMove(src)
 	inserted_plant = plant_item
 	plant_component = plant
+	icon_state = "analyzer"
+	playsound(src, 'sound/machines/click.ogg', 30)
 	ui_update()
 
 /obj/machinery/plant_machine/plant_analyser/attack_hand_secondary(mob/user, list/modifiers)

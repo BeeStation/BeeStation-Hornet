@@ -210,5 +210,3 @@
 		plant_needs -= need
 		overdraw_needs -= REF(source)
 		qdel(need)
-
-//TODO: new plant tray maker sprite - Racc

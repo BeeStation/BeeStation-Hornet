@@ -11536,7 +11536,7 @@
 	pixel_y = -1;
 	pixel_x = -4
 	},
-/obj/item/plant_analyzer{
+/obj/item/plant_scanner{
 	pixel_x = 6;
 	pixel_y = -1
 	},
@@ -80029,7 +80029,7 @@
 "rvB" = (
 /obj/structure/wall_closet/hydro/directional/south,
 /obj/item/storage/bag/plants/portaseeder,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
@@ -87972,7 +87972,7 @@
 /area/hallway/primary/aft)
 "tmj" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /turf/open/floor/grass,
 /area/security/prison)
 "tmk" = (

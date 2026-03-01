@@ -2,7 +2,7 @@
 
 /obj/machinery/plant_machine/plant_mutator
 	name = "plant mutator"
-	desc = "An advanced device designed to gawk gawk."
+	desc = "A large kiln designed to safely expose plants to radiation."
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "mutator"
 	density = TRUE
@@ -18,6 +18,11 @@
 	var/datum/component/irradiated/radiation
 	///How much rads we've saved up
 	var/stored_rads = 0
+
+	///Refence to our working animation effect overlay thing
+	var/obj/effect/mutator_working/rad_ghost
+	/// Cuz the soundbyte isnt very long
+	var/datum/looping_sound/microwave/soundloop
 
 	///The plant we're michael-waving
 	var/obj/item/plant
@@ -40,6 +45,12 @@
 	START_PROCESSING(SSobj, src)
 	var/obj/item/irradiated_rock/rock = new(get_turf(src))
 	attackby(rock)
+	rad_ghost = new(src)
+	soundloop = new(src,  FALSE)
+
+/obj/machinery/plant_machine/plant_mutator/Destroy()
+	. = ..()
+	QDEL_NULL(soundloop)
 
 /obj/machinery/plant_machine/plant_mutator/process(delta_time)
 	if(!radiation)
@@ -222,6 +233,9 @@
 				body_feature.current_stage = 0
 			qdel(feature)
 			working = TRUE
+			icon_state = "mutator_on"
+			vis_contents |= rad_ghost
+			soundloop.start()
 			addtimer(CALLBACK(src, PROC_REF(reset_working)), working_time)
 			current_feature_ref = ref(new_feature)
 			current_feature = new_feature
@@ -229,6 +243,9 @@
 
 /obj/machinery/plant_machine/plant_mutator/proc/reset_working()
 	working = FALSE
+	icon_state = "mutator"
+	vis_contents -= rad_ghost
+	soundloop.stop()
 	ui_update()
 
 //Circuitboard
@@ -239,11 +256,36 @@
 	req_components = list(/obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/capacitor = 1, /obj/item/stock_parts/scanning_module = 1)
 
 /*
+	Effect for mutator working
+*/
+/obj/effect/mutator_working
+	icon = 'icons/obj/hydroponics/features/generic.dmi'
+	icon_state = "mutator_effect"
+	color = "#5eff0069"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/mutator_working/Initialize(mapload)
+	. = ..()
+//Emmisive
+	var/mutable_appearance/emissive = emissive_appearance(icon, icon_state)
+	add_overlay(emissive)
+//Bump up the size
+	var/matrix/n_transform = transform
+	n_transform.Scale(1.5, 1.5)
+	transform = n_transform
+//Wave filter
+	add_filter("wavy", 1, wave_filter(1, 0.1, 1, 1, WAVE_SIDEWAYS))
+	//Animation
+	var/filter = get_filter("wavy")
+	animate(filter, offset = 1, time = 1 SECONDS, loop = -1)
+	animate(offset = 0, time = 0 SECONDS)
+
+/*
 
 */
 /obj/item/irradiated_rock
 	name = "debris"
-	desc = "A piece of cement broken away from its original structure."
+	desc = "A piece of cement broken away from its original structure. It's still warm with the energy of an artificial sun."
 	icon_state = "skub"
 
 /obj/item/irradiated_rock/Initialize(mapload)

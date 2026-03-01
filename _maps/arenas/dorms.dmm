@@ -69,7 +69,7 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/cultivator,
 /turf/open/floor/iron,
 /area/tdome/arena)

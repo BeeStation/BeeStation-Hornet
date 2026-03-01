@@ -22749,11 +22749,11 @@
 /area/medical/morgue)
 "fSP" = (
 /obj/structure/rack,
-/obj/item/plant_analyzer{
+/obj/item/plant_scanner{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/cultivator,
 /obj/item/cultivator,
 /obj/effect/decal/cleanable/dirt,
@@ -72725,7 +72725,7 @@
 	pixel_x = -30
 	},
 /obj/item/shovel/spade,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/cultivator{
 	pixel_x = 6
 	},

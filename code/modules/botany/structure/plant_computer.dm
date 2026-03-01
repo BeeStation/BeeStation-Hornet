@@ -1,8 +1,9 @@
 #define PC_LINK_RANGE 3
 
+//TODO: Make a bunch of plant stickers spawn on this randomly - Racc
 /obj/machinery/computer/plant_machine_controller
 	name = "hydroponics machine terminal"
-	desc = "A proprietary terminal made by Yamato to control Yamato machines."
+	desc = "A proprietary terminal made by Yamato to control Yamato machines. It's clearly an older design."
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "pc"
 	base_icon_state = "pc"
@@ -21,6 +22,13 @@
 /obj/machinery/computer/plant_machine_controller/Initialize(mapload)
 	. = ..()
 	desc += span_notice("\nAlt-click to resync nearby machines.")
+	//Attach some stickers randomly for fun
+	var/list/stickers = list(/obj/item/sticker/series_2/flower, /obj/item/sticker/series_2/banana, /obj/item/sticker/series_2/tomato)
+	for(var/obj/item/sticker/sticker as anything in stickers)
+		var/obj/item/sticker/new_sticker = new sticker(loc)
+		new_sticker.afterattack(src, src, TRUE)
+		new_sticker.pixel_y = rand(-8, 8)
+		new_sticker.pixel_x = rand(-8, 8)
 
 /obj/machinery/computer/plant_machine_controller/LateInitialize()
 	. = ..()

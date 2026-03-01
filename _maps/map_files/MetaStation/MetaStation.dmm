@@ -20712,6 +20712,18 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
+"eoz" = (
+/obj/effect/turf_decal/tile/steelgrid/diagonal{
+	dir = 4;
+	alpha = 255
+	},
+/obj/effect/turf_decal/trimline/green/filled/warning{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/iron,
+/area/hydroponics)
 "eoA" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -23121,6 +23133,11 @@
 	dir = 1
 	},
 /area/gateway)
+"fir" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/iron/white,
+/area/hydroponics)
 "fiu" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -32012,7 +32029,7 @@
 /area/maintenance/aft)
 "iln" = (
 /obj/structure/table,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
@@ -34123,6 +34140,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
+/obj/effect/landmark/start/botanist,
 /turf/open/floor/iron,
 /area/hydroponics)
 "iVc" = (
@@ -34304,6 +34322,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron,
 /area/hydroponics/garden/monastery)
 "iXP" = (
@@ -37722,8 +37741,7 @@
 	alpha = 255
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/structure/reagent_dispensers/watertank/high,
-/obj/item/reagent_containers/cup/bucket,
+/obj/machinery/vending/hydronutrients,
 /turf/open/floor/iron,
 /area/hydroponics)
 "kjs" = (
@@ -39631,6 +39649,7 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "kSN" = (
+/obj/effect/landmark/start/botanist,
 /turf/open/floor/iron,
 /area/hydroponics/garden/monastery)
 "kTa" = (
@@ -46899,7 +46918,6 @@
 /area/medical/break_room)
 "nyK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron,
 /area/hydroponics/garden/monastery)
 "nyQ" = (
@@ -53417,7 +53435,7 @@
 "pML" = (
 /obj/item/cultivator,
 /obj/item/crowbar,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/reagent_containers/cup/bucket,
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -53620,6 +53638,9 @@
 /obj/effect/decal/cleanable/chem_pile,
 /obj/item/cigbutt/cigarbutt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/item/reagent_containers/cup/bucket,
+/obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron,
 /area/hydroponics/garden/monastery)
 "pQP" = (
@@ -54783,6 +54804,7 @@
 /area/engine/atmos)
 "qjD" = (
 /obj/structure/disposalpipe/segment,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron/white,
 /area/hydroponics)
 "qjF" = (
@@ -59579,6 +59601,10 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"rVq" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/open/floor/iron/white,
+/area/hydroponics)
 "rVx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -71984,9 +72010,8 @@
 	dir = 4;
 	alpha = 255
 	},
-/obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/turf_decal/bot_white,
-/obj/item/reagent_containers/cup/bucket,
+/obj/machinery/vending/hydroseeds,
 /turf/open/floor/iron,
 /area/hydroponics)
 "wmI" = (
@@ -76218,6 +76243,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/aft)
+"xKf" = (
+/obj/effect/turf_decal/tile/steelgrid/diagonal{
+	dir = 4;
+	alpha = 255
+	},
+/obj/effect/turf_decal/trimline/green/filled/warning,
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/iron,
+/area/hydroponics)
 "xKt" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/bottle/spaceacillin{
@@ -78020,7 +78054,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "ykZ" = (
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/shovel/spade,
 /obj/item/hatchet,
 /obj/item/cultivator,
@@ -111679,7 +111713,7 @@ ubF
 sJk
 veR
 mcE
-mcE
+eoz
 eUm
 ovj
 hes
@@ -112447,9 +112481,9 @@ hnL
 hiq
 xVl
 ejd
-oha
+xKf
 nqI
-pvH
+fir
 bUg
 hnF
 ovj
@@ -113221,7 +113255,7 @@ bYj
 vTS
 iTX
 pvH
-bUg
+rVq
 qEn
 ovj
 gpV

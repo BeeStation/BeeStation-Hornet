@@ -44,7 +44,7 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
-/obj/item/food/grown/Initialize(mapload)
+/obj/item/food/grown/Initialize(mapload, skip_genes)
 	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1) //This happens first else the component already inits
@@ -55,7 +55,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 	//Make sure maploaded produce loads with it's traits & genes
-	if(!seed || !mapload)
+	if(!seed || skip_genes)
 		return
 	var/obj/item/plant_seeds/new_seed = new seed(src)
 	//Traits - This doesn't cover modifications added by body & root traits, sue me

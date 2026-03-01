@@ -4369,7 +4369,7 @@
 	dir = 4
 	},
 /obj/item/plant_tray,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/plant_seeds/preset/eggy_plant,
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)

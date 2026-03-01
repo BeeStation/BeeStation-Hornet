@@ -4,6 +4,7 @@
 	use_indicators = FALSE
 	plumbing = FALSE
 	density = FALSE
+	use_substrate = FALSE
 
 /obj/item/plant_tray/soil/priate
 

@@ -108,7 +108,7 @@
 	pixel_y = 32
 	},
 /obj/item/plant_tray/soil,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4

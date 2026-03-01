@@ -22,6 +22,8 @@
 	var/icon/mask
 	//Mostly used for subtypes, like pots
 	var/layer_offset = 0
+	///Do we use the substrate sprites?
+	var/use_substrate = TRUE
 //Tray indicators
 	var/use_indicators = TRUE
 	///Indicator for when the plant is ready to harvest
@@ -138,6 +140,8 @@
 
 ///Helpers to handle substrate vvisuals
 /obj/item/plant_tray/proc/add_substrate(_substrate)
+	if(!use_substrate)
+		return
 	var/datum/plant_subtrate/substrate = tray_component.substrate
 	underlays += substrate?.substrate_appearance
 
