@@ -103,7 +103,7 @@
 
 	var/datum/antagonist/vassal/vassal_target = IS_VASSAL(living_target)
 	if(vassal_target) // We don't need to ask a lowly vassal.
-		var/datum/vampire_clan/masterclan_type = vampiredatum_power.my_clan.type
+		var/datum/vampire_clan/masterclan_type = vampiredatum_power.my_clan?.type
 		if(!masterclan_type) // How did a caitiff get prince, bro. Select a clan first at least...
 			owner.balloon_alert(owner, "select clan first!")
 			deactivate_power()
