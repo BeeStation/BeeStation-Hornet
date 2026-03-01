@@ -2010,7 +2010,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/glass/reinforced,
 /area/template_noop)
 "EG" = (

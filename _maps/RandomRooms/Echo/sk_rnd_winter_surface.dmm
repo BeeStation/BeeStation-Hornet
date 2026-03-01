@@ -2168,7 +2168,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/item/stack/marker_beacon/thirty,
 /obj/item/gps,
 /obj/item/gps,
