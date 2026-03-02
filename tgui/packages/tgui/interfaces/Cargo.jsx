@@ -158,12 +158,16 @@ export const CargoCatalog = (props) => {
 
   const [searchText, setSearchText] = useLocalState('catalogSearch', '');
 
+  // DEBUG: typing "@everything" in the search bar shows every item
+  const isDebugShowAll = searchText.trim().toLowerCase() === '@everything';
+
   // Only show results when actively searching (minimum 2 characters)
-  const isSearching = searchText.length >= 2;
+  const isSearching = isDebugShowAll || searchText.length >= 2;
   const searchLower = searchText.toLowerCase();
   const searchResults = isSearching
     ? allPacks.filter(
         (pack) =>
+          isDebugShowAll ||
           pack.name.toLowerCase().includes(searchLower) ||
           (pack.desc && pack.desc.toLowerCase().includes(searchLower)),
       )
@@ -199,10 +203,15 @@ export const CargoCatalog = (props) => {
         <Flex.Item grow={1} style={{ overflow: 'hidden' }}>
           {isSearching ? (
             <Box height="100%" style={{ overflow: 'auto' }}>
-              <Box color="label" mb={1}>
+              <Box color={isDebugShowAll ? 'orange' : 'label'} mb={1}>
+                {isDebugShowAll && (
+                  <><Icon name="bug" mr={1} />DEBUG: </>
+                )}
                 {searchResults.length} result
-                {searchResults.length !== 1 && 's'} for &quot;{searchText}
-                &quot;
+                {searchResults.length !== 1 && 's'}
+                {isDebugShowAll
+                  ? ' (showing all entries)'
+                  : <> for &quot;{searchText}&quot;</>}
               </Box>
               {searchResults.length === 0 && (
                 <Box color="label" textAlign="center" mt={4}>
@@ -276,10 +285,9 @@ export const CargoCatalog = (props) => {
               direction="column"
               align="center"
               justify="center"
-              style={{ opacity: 0.6 }}
             >
-              <Icon name="database" size={4} color="label" mb={2} />
-              <Box color="label" fontSize="16px" bold mb={1}>
+              <Icon name="database" size={4} color="label" mb={3} />
+              <Box color="label" fontSize="16px" bold mb={2}>
                 Query database for entry listings
               </Box>
               <Box color="label" fontSize="12px">
