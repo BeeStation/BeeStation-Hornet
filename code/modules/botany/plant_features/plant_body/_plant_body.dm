@@ -38,8 +38,10 @@
 	var/seeds = 1
 
 ///Growth cycle
-	var/growth_stages = 3
-	var/current_stage
+	///How many growth stages this plant has, including mature - mostly used for icon logic
+	var/growth_stages = 4
+	var/current_stage = 1
+	///How long it takes this body / the plant to fully mature
 	var/growth_time = 1 SECONDS
 	var/growth_time_elapsed = 0
 
@@ -54,11 +56,14 @@
 	var/use_mouse_offset = FALSE
 	///Icon for when we're out of yields
 	var/wither_state
+	///Prefix for our growth states
+	var/grow_prefix
+	//TODO: growth stage sprite for all plants - Racc
 
 /datum/plant_feature/body/New(datum/component/plant/_parent)
 //Appearance bullshit
 	//Body appearance
-	feature_appearance = mutable_appearance(icon, icon_state)
+	feature_appearance = mutable_appearance(icon, "[grow_prefix ? "[grow_prefix]-[current_stage]" : "[icon_state]"]")
 	body_appearance = new()
 	body_appearance.appearance = feature_appearance
 	body_appearance.vis_flags = VIS_INHERIT_ID
@@ -85,6 +90,7 @@
 
 /datum/plant_feature/body/process(delta_time)
 	var/obj/item/plant_tray/tray = parent.plant_item.loc
+//Stat logic
 	if(health <= initial(health)*0.5 && istype(tray))
 		tray.add_feature_indicator(src, src, tray.problem_features)
 	else if(istype(tray))
@@ -97,11 +103,17 @@
 	//If needs aren't met, we start taking % damage, but this source can't kill us, just weakens
 	if(!SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT) && !check_needs(delta_time))
 		adjust_health(health*BODY_NEEDLESS_DAMAGE*-1)
+		return
 //Growth
 	if(growth_time_elapsed < growth_time)
 		growth_time_elapsed += delta_time SECONDS
 		growth_time_elapsed = min(growth_time, growth_time_elapsed)
+		//Stage transistions
+		var/old_stage = current_stage
 		current_stage = max(1, FLOOR((growth_time_elapsed/growth_time)*growth_stages, 1))
+		if(current_stage > old_stage)
+			growth_step(current_stage)
+		body_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : grow_prefix ? "[grow_prefix]-[current_stage]" : "[icon_state]"
 		//If our parent is eager to be an adult, used for pre-existing plants
 		if(parent?.skip_growth)
 			growth_time_elapsed = growth_time
@@ -166,6 +178,15 @@
 	if(!tray_component)
 		return
 	tray_component.plant_slots += slot_size
+
+/datum/plant_feature/body/proc/growth_step(step)
+	//Generic bounce animation, good for sprite transition
+	var/matrix/o_transform = parent.plant_item.transform
+	var/matrix/n_transform = matrix(parent.plant_item.transform)
+	n_transform.Scale(0.5, 1.5)
+	n_transform.Translate(0, 8)
+	animate(parent.plant_item, transform = n_transform, time = 0.05 SECONDS, easing = LINEAR_EASING)
+	animate(transform = o_transform, time = 0.35 SECONDS, easing = ELASTIC_EASING)
 
 /datum/plant_feature/body/proc/setup_fruit(skip_growth)
 	if(current_stage < growth_stages)

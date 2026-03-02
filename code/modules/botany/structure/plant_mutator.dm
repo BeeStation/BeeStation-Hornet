@@ -52,6 +52,11 @@
 	. = ..()
 	QDEL_NULL(soundloop)
 
+/obj/machinery/plant_machine/plant_mutator/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	playsound(src, 'sound/effects/glassknock.ogg', 35, TRUE)
+	to_chat(user, span_danger("[src] can be controlled with a hydroponics mechine terminal.\nA plant can be inserted into [src] using a spade."))
+
 /obj/machinery/plant_machine/plant_mutator/process(delta_time)
 	if(!radiation)
 		return
@@ -59,11 +64,14 @@
 	ui_update()
 
 /obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
-	. = ..()
 	if(!isliving(user))
 		return
 	context.add_left_click_item_action("Insert Plant", /obj/item/shovel/spade)
 	context.add_left_click_item_action("Insert Disk", /obj/item/disk/plant_disk)
+	if(catalyst)
+		context.add_right_click_action("Remove Catalyst")
+	else
+		context.add_left_click_action("Insert Catalyst")
 
 //Insert
 /obj/machinery/plant_machine/plant_mutator/attackby(obj/item/C, mob/user)
@@ -75,6 +83,10 @@
 		C.forceMove(src)
 		catalyst = C
 		ui_update()
+		return
+	else if(!radiation && !catalyst)
+		playsound(src, 'sound/machines/terminal_error.ogg', 60)
+		say("ERROR: Sample lacks sufficient radioactivity!")
 		return
 //Spade / Plant
 	if(!istype(C, /obj/item/shovel/spade))
@@ -254,6 +266,15 @@
 	vis_contents -= rad_ghost
 	soundloop.stop()
 	ui_update()
+
+/*
+	Tutorial variant
+*/
+/obj/machinery/plant_machine/plant_mutator/tutorial
+
+/obj/machinery/plant_machine/plant_mutator/tutorial/Initialize(mapload)
+	. = ..()
+	new /obj/item/sticker/sticky_note/tutorial/catalyst(src)
 
 //Circuitboard
 /obj/item/circuitboard/machine/plant_mutator

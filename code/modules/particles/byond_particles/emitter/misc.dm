@@ -31,3 +31,31 @@
 
 /particles/confetti/taser
 	color = generator("color", "#ffea00", "#ff00bf", UNIFORM_RAND)
+
+/*
+	Plant confetti
+*/
+//leaves
+/obj/emitter/confetti/leaves
+	particles = new/particles/confetti/leaves
+
+/particles/confetti/leaves
+	icon_state = list("leaf_1", "leaf_2", "leaf_3")
+	color = "#FFF"
+	velocity = generator("box", list(-10, 10, -10), list(10, 10, 10), NORMAL_RAND)
+	position =  generator("box", list(-10, 5, -10), list(10, -5, 10), NORMAL_RAND)
+	friction = 0.5
+
+//dust
+/obj/emitter/plant_dust/Initialize(mapload, time, _color)
+	. = ..()
+	particles = new/particles/confetti/plant_dust
+	add_filter("blur", 1, list(type="blur", size=1.5))
+
+/particles/confetti/plant_dust
+	icon = 'icons/effects/particles/smoke.dmi'
+	icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
+	velocity = generator("box", list(-5, -5, -5), list(5, 5, 5), NORMAL_RAND)
+	friction = 0.23
+	gravity = list(0, 0, 0)
+	color = "#ffffff50"

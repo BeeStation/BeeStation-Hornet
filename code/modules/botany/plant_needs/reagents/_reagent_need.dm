@@ -11,7 +11,7 @@
 	. = ..()
 	success_threshold = auto_threshold ? 1 / length(reagent_needs) : success_threshold
 	var/old_desc = need_description
-	need_description = "This plant([parent.name]) [buff ? "uses" : "needs"]"
+	need_description = "This plant([parent.name]) [buff ? "optionally needs" : "needs"]"
 	var/reagent_index = 1
 	for(var/datum/reagent/reagent as anything in reagent_needs)
 		need_description = "[need_description] [reagent_needs[reagent]]u of [initial(reagent.name)][reagent_index < length(reagent_needs) ? ", " : ""]"

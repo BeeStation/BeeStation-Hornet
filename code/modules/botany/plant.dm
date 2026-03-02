@@ -14,6 +14,8 @@
 	var/skip_growth
 	///How much we reward we give when scanned, discovery points. Nothing really changes this, but it's here for the future in case certain traits or features buff it
 	var/discovery_reward = 500
+	///used to stop weird interactions with spades
+	var/spading = FALSE
 
 //Appearance
 	///Used to toggle if we want to use body feature's appearances. You can toggle this off if you want to make something with an existing appearance a plant
@@ -54,11 +56,12 @@
 	SIGNAL_HANDLER
 
 //Spade interaction, allows us to dig up plants
-	if(istype(item, /obj/item/shovel/spade))
+	if(istype(item, /obj/item/shovel/spade) && !spading)
 		INVOKE_ASYNC(src, PROC_REF(async_catch_attackby), item, user, params)
 
 /datum/component/plant/proc/async_catch_attackby(obj/item, mob/living/user, params)
 	playsound(plant_item, 'sound/effects/shovel_dig.ogg', 60)
+	spading = TRUE
 	if(do_after(user, 2.5 SECONDS, plant_item))
 		//Remove the plant from it's old home
 		var/atom/movable/AM = plant_item.loc
@@ -68,8 +71,9 @@
 		SEND_SIGNAL(src, COMSIG_PLANT_UPROOTED, user, item, plant_item.loc)
 		plant_item.forceMove(item)
 		item.vis_contents += plant_item
-		RegisterSignal(item, COMSIG_ITEM_AFTERATTACK, PROC_REF(catch_spade_attack))
-		RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(catch_moved))
+		RegisterSignal(item, COMSIG_ITEM_AFTERATTACK, PROC_REF(catch_spade_attack), TRUE)
+		RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(catch_moved), TRUE)
+		spading = FALSE
 		return TRUE
 
 //Follow up for spade interaction

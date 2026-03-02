@@ -2593,7 +2593,7 @@
 	alpha = 255
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/plant_machine/plant_mutator,
+/obj/machinery/plant_machine/plant_mutator/tutorial,
 /turf/open/floor/iron,
 /area/holodeck/debug)
 "BF" = (

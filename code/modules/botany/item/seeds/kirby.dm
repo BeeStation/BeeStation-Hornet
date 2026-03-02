@@ -1,13 +1,3 @@
-//Apple
-/obj/item/plant_seeds/preset/kirby/apple
-	name = "apple seeds"
-	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby, /datum/plant_feature/fruit/apple)
-
-/obj/item/plant_seeds/preset/kirby/other
-	name = "orange seeds"
-	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby, /datum/plant_feature/fruit/orange)
-
-
 /*
 	Seeds used for plant pots
 */

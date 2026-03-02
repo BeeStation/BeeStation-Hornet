@@ -93,7 +93,7 @@
 	name = "thistle bush"
 	icon_state = "big_fingers_2"
 
-//TODO: Make this its own thing - Racc
+//TODO: Make this its own thing, own sprite - Racc
 /datum/plant_feature/body/bush_vine/nettle/kudzu
 	name = "kudzu vine"
 

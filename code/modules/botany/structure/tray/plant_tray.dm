@@ -79,7 +79,6 @@
 		vis_contents -= need
 
 /obj/item/plant_tray/add_context_self(datum/screentip_context/context, mob/user)
-	. = ..()
 	if(!isliving(user))
 		return
 	context.add_right_click_tool_action("Plant Seeds", TOOL_SEED)
@@ -101,6 +100,7 @@
 
 /obj/item/plant_tray/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
+	//TODO: Using a spade on a tray gives a radial menu for plants to remove - Racc
 //Ported legacy code from old trays
 	//Composting
 	if(IS_EDIBLE(I) || istype(I, /obj/item/reagent_containers/pill))

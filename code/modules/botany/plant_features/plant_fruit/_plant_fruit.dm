@@ -97,7 +97,7 @@
 		//Visuals
 		if(!fruit_effect) //This can be null when we fuck around with bunching
 			continue
-		if(!skip_animation) //Need to animate before we can offload, so don't change this to an early return
+		if(!skip_animation) //Need to animate before we can offload
 			var/matrix/new_transform = matrix(o_transform[timer])
 			var/progress = min(1, max(0.1, abs(growth_timers[timer]-growth_time) / growth_time))
 			new_transform.Scale(progress, progress)

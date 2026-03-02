@@ -33,12 +33,20 @@
 		icon = 'icons/obj/hydroponics/equipment.dmi'
 		icon_state = "dnamod"
 
-/obj/machinery/plant_machine/plant_analyser/add_context_self(datum/screentip_context/context, mob/user)
+/obj/machinery/plant_machine/plant_analyser/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
+	playsound(src, 'sound/effects/glassknock.ogg', 35, TRUE)
+	to_chat(user, span_danger("[src] can be controlled with a hydroponics mechine terminal.\nA plant can be inserted into [src] using a spade."))
+
+/obj/machinery/plant_machine/plant_analyser/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
 		return
 	context.add_left_click_item_action("Insert Plant", /obj/item/shovel/spade)
 	context.add_left_click_item_action("Insert Disk", /obj/item/disk/plant_disk)
+	if(disk)
+		context.add_right_click_action("Remove Plant Disk")
+	else
+		context.add_left_click_action("Insert Plant Disk")
 
 /obj/machinery/plant_machine/plant_analyser/attackby(obj/item/C, mob/user)
 //Disk

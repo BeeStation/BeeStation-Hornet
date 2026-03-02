@@ -28,6 +28,11 @@
 	if(do_mask)
 		fruit_effect.add_filter("tuber_mask", 1, alpha_mask_filter(icon = tuber_mask, flags = MASK_INVERSE))
 
+/datum/plant_feature/body/tuber/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest)
+	. = ..()
+	if(yields <= 0)
+		qdel(parent.plant_item)
+
 /*
 	Grass Tuber
 */

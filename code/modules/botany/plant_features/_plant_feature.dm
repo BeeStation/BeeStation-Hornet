@@ -80,6 +80,10 @@
 	for(var/datum/plant_need/need as anything in plant_needs)
 		plant_needs -= need
 		qdel(need)
+	//Remove ourselves from a trays concern when self immolating - Only happens with admin fuckery and tubers
+	var/obj/item/plant_tray/tray = parent?.plant_item?.loc
+	if(istype(tray))
+		tray.remove_feature_indicator(tray, src, tray.needy_features)
 	return ..()
 
 //Used to get dialogue / text for hand-held plant scanner - This is like get_ui_data() but it has more information about specific things you'd want to know on the fly

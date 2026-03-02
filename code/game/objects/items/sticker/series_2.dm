@@ -10,7 +10,7 @@
 	. += ..()
 
 /obj/item/sticker/series_2/generate_unusual()
-	var/obj/emitter/emitter = pick(list(/obj/emitter/flies, /obj/emitter/sparkle, /obj/emitter/rain))
+	var/obj/emitter/emitter = pick(list(/obj/emitter/flies, /obj/emitter/sparkle, /obj/emitter/fire_smoke))
 	if(prob(1))
 		playsound(src, 'sound/effects/audience-ooh.ogg', 50)
 		add_emitter(emitter, "unusual", 10)
