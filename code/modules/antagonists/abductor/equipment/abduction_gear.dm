@@ -441,7 +441,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	worn_icon_state = "classic_baton"
 
 	force = 7
-	stamina_damage = 140
 
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
@@ -471,9 +470,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		return
 	mode = (mode+1)%BATON_MODES
 	var/txt
+	//Reset stamina damage to baseline
+	stamina_damage = initial(stamina_damage)
 	switch(mode)
 		if(BATON_STUN)
 			txt = "stunning"
+			stamina_damage = 140
 		if(BATON_SLEEP)
 			txt = "sleep inducement"
 		if(BATON_CUFF)
@@ -537,7 +539,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			target.set_confusion_if_lower(10 SECONDS)
 			target.set_stutter_if_lower(16 SECONDS)
 			SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-			target.Paralyze(knockdown_time * (HAS_TRAIT(target, TRAIT_BATON_RESISTANCE) ? 0.1 : 1))
+			target.adjustStaminaLoss(stamina_damage)
+			target.Knockdown(knockdown_time * (HAS_TRAIT(target, TRAIT_BATON_RESISTANCE) ? 0.1 : 1))
 		if(BATON_SLEEP)
 			SleepAttack(target,user)
 		if(BATON_CUFF)
