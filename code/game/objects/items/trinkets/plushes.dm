@@ -516,7 +516,7 @@
 	. = ..()
 	if(!greyscale_colors)
 		// Generate a random valid lizard color for our plushie friend
-		var/generated_lizard_color = "#" + random_color()
+		var/generated_lizard_color = ready_random_color()
 		var/list/lizard_hsv = rgb2hsv(generated_lizard_color)
 
 		// If our color is too dark, use the classic green lizard plush color

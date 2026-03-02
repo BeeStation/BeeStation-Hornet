@@ -1,18 +1,24 @@
 // Flags for the obj_flags var on /obj
 
-
+/// Object has been affected by a cryptographic sequencer (EMAG) disabling it or causing other malicious effects
 #define EMAGGED (1<<0)
-#define IN_USE (1<<1)  //! If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-#define CAN_BE_HIT (1<<2)  //! can this be bludgeoned by items?
+/// If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
+#define IN_USE (1<<1)
+/// Can this be bludgeoned by items
+#define CAN_BE_HIT (1<<2)
 #define BEING_SHOCKED (1<<3)  //! Whether this thing is currently (already) being shocked by a tesla
 #define DANGEROUS_POSSESSION (1<<4)  //! Admin possession yes/no
-#define UNIQUE_RENAME (1<<6)  //! can you customize the description/name of the thing?
+/// Can you customize the description/name of the thing
+#define UNIQUE_RENAME (1<<6)
 #define USES_TGUI (1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
 #define OBJ_EMPED (1<<8)  //! Object is affected by EMP
 #define SCANNED (1<<9)  //! Object has been scanned by the prison_scanner
-#define BLOCKS_CONSTRUCTION (1<<10) //! Does this object prevent things from being built on it?
-#define BLOCKS_CONSTRUCTION_DIR (1<<11) //! Does this object prevent same-direction things from being built on it?
-#define IGNORE_DENSITY (1<<12) //! Can we ignore density when building on this object? (for example, directional windows and grilles)
+/// Does this object prevent things from being built on it
+#define BLOCKS_CONSTRUCTION (1<<10)
+/// Does this object prevent same-direction things from being built on it
+#define BLOCKS_CONSTRUCTION_DIR (1<<11)
+/// Can we ignore density when building on this object (for example, directional windows and grilles)
+#define IGNORE_DENSITY (1<<12)
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -44,22 +50,24 @@
 #define IMMUTABLE_SLOW (1<<10)
 /// Is this item in the storage item, such as backpack? used for tooltips
 #define IN_STORAGE (1<<11)
+//Tool commonly used for surgery: won't attack targets in an active surgical operation (in case of mistakes)
+#define SURGICAL_TOOL (1<<12)
 /// This item unlocks illegal tech
-#define ILLEGAL (1<<12)
+#define ILLEGAL (1<<13)
 /// If dropped, it wont have a randomized pixel_x/pixel_y
-#define NO_PIXEL_RANDOM_DROP (1<<13)
+#define NO_PIXEL_RANDOM_DROP (1<<14)
 /// If the item was thrown and shouldn't have the drop_item animation applied
-#define WAS_THROWN (1<<14)
+#define WAS_THROWN (1<<15)
 /// If this item should hit living mobs when used on harm intent
-#define ISWEAPON (1<<15)
+#define ISWEAPON (1<<16)
 /// Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
-#define NO_WORN_SLOWDOWN (1<<16)
+#define NO_WORN_SLOWDOWN (1<<17)
 /// If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
-#define HAND_ITEM (1<<17)
+#define HAND_ITEM (1<<18)
 /// Can be equipped on digitigrade legs.
-#define IGNORE_DIGITIGRADE (1<<18)
+#define IGNORE_DIGITIGRADE (1<<19)
 /// No blood overlay is allowed to appear on this item, and it cannot gain blood DNA forensics
-#define NO_BLOOD_ON_ITEM (1<<19)
+#define NO_BLOOD_ON_ITEM (1<<20)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -89,7 +97,8 @@
 #define MASKEXTENDRANGE (1<<11)
 /// Moths cannot eat clothing with that flag
 #define NOTCONSUMABLE (1<<12)
-#define SURGICAL_TOOL (1<<20)
+/// prevents from placing on plasmaman helmet or modsuit hat holder
+#define STACKABLE_HELMET_EXEMPT (1<<15)
 /// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
 #define CASTING_CLOTHES (1<<13)
 /// Headgear/helmet allows internals

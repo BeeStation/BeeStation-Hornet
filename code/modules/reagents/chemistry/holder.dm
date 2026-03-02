@@ -362,52 +362,54 @@
 	return amount
 
 /**
-  * Triggers metabolizing the reagents in this holder
-  *
-  * Arguments:
-  * * mob/living/carbon/C - The mob to metabolize in, if null it uses [/datum/reagents/var/my_atom]
-  * * can_overdose - Allows overdosing
-  * * liverless - Stops reagents that aren't set as [/datum/reagent/var/self_consuming] from metabolizing
-  */
+ * Triggers metabolizing for all the reagents in this holder
+ *
+ * Arguments:
+ * * mob/living/carbon/carbon - The mob to metabolize in, if null it uses [/datum/reagents/var/my_atom]
+ * * delta_time - the time in server seconds between proc calls (when performing normally it will be 2)
+ * * times_fired - the number of times the owner's life() tick has been called aka The number of times SSmobs has fired
+ * * can_overdose - Allows overdosing
+ * * liverless - Stops reagents that aren't set as [/datum/reagent/var/self_consuming] from metabolizing
+ */
 /datum/reagents/proc/metabolize(mob/living/carbon/owner, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE)
-	if(owner?.dna?.species && (NOREAGENTS in owner.dna.species.species_traits))
+	if(owner?.dna?.species && (TRAIT_NOREAGENTS in owner.dna.species.inherent_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
 	if(owner)
 		expose_temperature(owner.bodytemperature, 0.25)
-	var/need_mob_update = 0
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		if(QDELETED(R.holder))
+
+	var/need_mob_update = FALSE
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		if(QDELETED(reagent.holder))
 			continue
 
 		if(!owner)
-			owner = R.holder.my_atom
+			owner = reagent.holder.my_atom
 
-		if(owner && R)
-			if(owner.reagent_check(R, delta_time, times_fired)) //Most relevant to Humans, this handles species-specific chem interactions.
+		if(owner && reagent)
+			if(owner.reagent_check(reagent, delta_time, times_fired)) //Most relevant to Humans, this handles species-specific chem interactions.
 				return
-			if(liverless && !R.self_consuming) //need to be metabolized
+			if(liverless && !reagent.self_consuming) //need to be metabolized
 				continue
 
-			if(!R.metabolizing)
-				R.metabolizing = TRUE
-				R.on_mob_metabolize(owner)
+			if(!reagent.metabolizing)
+				reagent.metabolizing = TRUE
+				reagent.on_mob_metabolize(owner)
 
 			if(can_overdose)
-				if(R.overdose_threshold)
-					if(R.volume >= R.overdose_threshold && !R.overdosed)
-						R.overdosed = TRUE
-						need_mob_update += R.overdose_start(owner)
-						log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
+				if(reagent.overdose_threshold)
+					if(reagent.volume >= reagent.overdose_threshold && !reagent.overdosed)
+						reagent.overdosed = TRUE
+						need_mob_update += reagent.overdose_start(owner)
+						log_game("[key_name(owner)] has started overdosing on [reagent.name] at [reagent.volume] units.")
 
-					for(var/addiction in R.addiction_types)
-						owner.mind?.add_addiction_points(addiction, R.addiction_types[addiction] * REAGENTS_METABOLISM)
+					for(var/addiction in reagent.addiction_types)
+						owner.mind?.add_addiction_points(addiction, reagent.addiction_types[addiction] * REAGENTS_METABOLISM)
 
-				if(R.overdosed)
-					need_mob_update += R.overdose_process(owner, delta_time, times_fired)
+				if(reagent.overdosed)
+					need_mob_update += reagent.overdose_process(owner, delta_time, times_fired)
 
-			need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
+			need_mob_update += reagent.on_mob_life(owner, delta_time, times_fired)
 
 	if(owner && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
 		owner.updatehealth()

@@ -24,11 +24,29 @@
 #define ORGAN_UNREMOVABLE (1<<8)
 /// Can't be seen by scanners, doesn't anger body purists
 #define ORGAN_HIDDEN (1<<9)
+/// Has the organ already been inserted inside someone
+#define ORGAN_VIRGIN (1<<10)
+/// This is an external organ, not an inner one. Used in several checks.
+#define ORGAN_EXTERNAL (1<<13)
 
 /// Helper to figure out if a limb is organic
 #define IS_ORGANIC_LIMB(limb) (limb.bodytype & BODYTYPE_ORGANIC)
 /// Helper to figure out if a limb is robotic
 #define IS_ROBOTIC_LIMB(limb) (limb.bodytype & BODYTYPE_ROBOTIC)
+
+DEFINE_BITFIELD(organ_flags, list(
+	"ORGAN_ORGANIC" = ORGAN_ORGANIC,
+	"ORGAN_ROBOTIC" = ORGAN_ROBOTIC,
+	"ORGAN_MINERAL" = ORGAN_MINERAL,
+	"ORGAN_FROZEN" = ORGAN_FROZEN,
+	"ORGAN_FAILING" = ORGAN_FAILING,
+	"ORGAN_EMP" = ORGAN_EMP,
+	"ORGAN_VITAL" = ORGAN_VITAL,
+	"ORGAN_EDIBLE" = ORGAN_EDIBLE,
+	"ORGAN_UNREMOVABLE" = ORGAN_UNREMOVABLE,
+	"ORGAN_HIDDEN" = ORGAN_HIDDEN,
+	"ORGAN_VIRGIN" = ORGAN_VIRGIN,
+))
 
 // Flags for the bodypart_flags var on /obj/item/bodypart
 /// Bodypart cannot be dismembered or amputated
@@ -41,3 +59,13 @@
 // Bodypart change blocking flags
 ///Bodypart does not get replaced during set_species()
 #define BP_BLOCK_CHANGE_SPECIES (1<<0)
+
+/// When the surgery step fails :(
+#define SURGERY_STEP_FAIL -1
+
+#define BODYZONE_STYLE_DEFAULT 0
+#define BODYZONE_STYLE_MEDICAL 1
+
+#define BODYZONE_CONTEXT_COMBAT 0
+#define BODYZONE_CONTEXT_INJECTION 1
+#define BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING 2

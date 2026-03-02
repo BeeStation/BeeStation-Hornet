@@ -722,6 +722,7 @@
 				player_client.prefs.read_character_preference(/datum/preference/choiced/species),
 			)
 	dna.update_dna_identity()
+	updateappearance()
 
 /mob/living/silicon/ai/apply_prefs_job(client/player_client, datum/job/job)
 	apply_pref_name(/datum/preference/name/ai, player_client) // This proc already checks if the player is appearance banned.

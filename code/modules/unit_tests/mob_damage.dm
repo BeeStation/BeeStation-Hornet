@@ -358,21 +358,21 @@
 	if(!test_apply_damage(dummy, 1, expected = 0, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_ORGANIC))
 		TEST_FAIL("ABOVE FAILURE: plasmaman took damage with biotypes = MOB_ORGANIC")
 
-	// Now if we specify MOB_INORGANIC the damage should get applied.
-	if(!test_apply_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_INORGANIC))
-		TEST_FAIL("ABOVE FAILURE: plasmaman did not take damage with biotypes = MOB_INORGANIC")
+	// Now if we specify MOB_MINERAL the damage should get applied.
+	if(!test_apply_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_MINERAL))
+		TEST_FAIL("ABOVE FAILURE: plasmaman did not take damage with biotypes = MOB_MINERAL")
 
 	// Transform back to human
 	dummy.set_species(/datum/species/human)
 
 	// We have 2 damage presently.
 	// Try to heal it; let's specify MOB_MINERAL, which should no longer work because we have changed back to a human.
-	if(!test_apply_damage(dummy, -2, expected = 0, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_INORGANIC))
-		TEST_FAIL("ABOVE FAILURE: human took damage with biotypes = MOB_INORGANIC")
+	if(!test_apply_damage(dummy, -2, expected = 0, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_MINERAL))
+		TEST_FAIL("ABOVE FAILURE: human took damage with biotypes = MOB_MINERAL")
 
 	// Force heal some of the damage. When forced = TRUE the damage/healing gets applied no matter what.
-	if(!test_apply_damage(dummy, -1, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_INORGANIC, forced = TRUE))
-		TEST_FAIL("ABOVE FAILURE: human did not get healed when biotypes = MOB_INORGANIC and forced = TRUE")
+	if(!test_apply_damage(dummy, -1, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_MINERAL, forced = TRUE))
+		TEST_FAIL("ABOVE FAILURE: human did not get healed when biotypes = MOB_MINERAL and forced = TRUE")
 
 	// Now heal the rest of it with the correct biotype. Make sure that this works. We should have 0 damage afterwards.
 	if(!test_apply_damage(dummy, -1, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_ORGANIC))

@@ -3,7 +3,10 @@
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
-	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS)
+	inherent_traits = list(
+		TRAIT_AGENDER,
+		TRAIT_MUTANT_COLORS
+	)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
@@ -11,14 +14,16 @@
 	allow_numbers_in_name = TRUE
 	inert_mutation = /datum/mutation/spores
 
-	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
-
 	mutantbrain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = COLOR_WHITE)
-	hair_color = "fixedmutcolor"
+	mutant_bodyparts = list(
+		"psyphoza_cap" = "Portobello",
+		"body_size" = "Normal",
+		"mcolor" = COLOR_WHITE
+	)
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/psyphoza,
@@ -29,15 +34,12 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/psyphoza
 	)
 
-	//Fire bad!
-	burnmod = 1.25
-
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 	//Reference to psychic highlight action
 	var/datum/action/item_action/organ_action/psychic_highlight/PH
 
-/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	PH = locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions
 	ADD_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
@@ -229,7 +231,7 @@
 	if(!eyes && istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		//eyes
-		eyes = locate(/obj/item/organ/eyes) in H.internal_organs
+		eyes = locate(/obj/item/organ/eyes) in H.organs
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		if(eyes)

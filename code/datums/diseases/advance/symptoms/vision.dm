@@ -28,6 +28,7 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	required_organ = ORGAN_SLOT_EYES
 	prefixes = list("Eye ")
 	bodies = list("Blind")
 	suffixes = list(" Blindness")
@@ -52,34 +53,35 @@ Bonus
 		remove_eyes = TRUE
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
+
 	var/mob/living/carbon/M = A.affected_mob
 	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
-	if(eyes)
-		switch(A.stage)
-			if(1, 2)
-				if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
-					to_chat(M, span_warning("Your eyes itch."))
-			if(3, 4)
-				to_chat(M, span_boldwarning("Your eyes burn!"))
-				M.set_eye_blur_if_lower(20 SECONDS)
-				eyes.apply_organ_damage(1)
-			else
-				M.set_eye_blur_if_lower(40 SECONDS)
-				eyes.apply_organ_damage(5)
-				if(eyes.damage >= 10)
-					M.become_nearsighted(EYE_DAMAGE)
-				if(prob(eyes.damage - 10 + 1))
-					if(!remove_eyes)
-						if(!M.is_blind())
-							if(M.stat != DEAD)
-								to_chat(M, span_userdanger("You go blind!"))
-							eyes.apply_organ_damage(eyes.maxHealth)
-					else
-						M.visible_message(span_warning("[M]'s eyes fall out of their sockets!"), span_userdanger("Your eyes fall out of their sockets!"))
-						eyes.Remove(M)
-						eyes.forceMove(get_turf(M))
+	switch(A.stage)
+		if(1, 2)
+			if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
+				to_chat(M, span_warning("Your eyes itch."))
+		if(3, 4)
+			to_chat(M, span_boldwarning("Your eyes burn!"))
+			M.set_eye_blur_if_lower(20 SECONDS)
+			eyes.apply_organ_damage(1)
+		else
+			M.set_eye_blur_if_lower(40 SECONDS)
+			eyes.apply_organ_damage(5)
+			if(eyes.damage >= 10)
+				M.become_nearsighted(EYE_DAMAGE)
+			if(prob(eyes.damage - 10 + 1))
+				if(!remove_eyes)
+					if(!M.is_blind())
+						if(M.stat != DEAD)
+							to_chat(M, span_userdanger("You go blind!"))
+						eyes.apply_organ_damage(eyes.maxHealth)
 				else
-					if(M.stat != DEAD)
-						to_chat(M, span_userdanger("Your eyes burn horrifically!"))
+					M.visible_message(span_warning("[M]'s eyes fall out of their sockets!"), span_userdanger("Your eyes fall out of their sockets!"))
+					eyes.Remove(M)
+					eyes.forceMove(get_turf(M))
+			else
+				if(M.stat != DEAD)
+					to_chat(M, span_userdanger("Your eyes burn horrifically!"))

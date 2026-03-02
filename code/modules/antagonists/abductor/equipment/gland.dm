@@ -25,6 +25,7 @@
 /obj/item/organ/heart/gland/Initialize(mapload)
 	. = ..()
 	icon_state = pick(list("health", "spider", "slime", "emp", "species", "egg", "vent", "mindshock", "viral"))
+	AddElement(/datum/element/update_icon_blocker)
 
 /obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
@@ -79,7 +80,7 @@
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/heart/gland/Remove(mob/living/carbon/gland_owner, special = FALSE, pref_load = FALSE)
+/obj/item/organ/heart/gland/on_mob_remove(mob/living/carbon/gland_owner, special, movement_flags)
 	. = ..()
 	active = FALSE
 	if(initial(uses) == 1)
@@ -89,19 +90,16 @@
 	hud.remove_from_hud(gland_owner)
 	clear_mind_control()
 
-/obj/item/organ/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/heart/gland/on_mob_insert(mob/living/carbon/gland_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return
 
-	if(special != 2 && uses) // Special 2 means abductor surgery
+	if(!(movement_flags & FROM_ABDUCTOR_SURGERY) && uses)
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	hud.add_to_hud(gland_owner)
 	update_gland_hud()
 
 /obj/item/organ/heart/gland/on_life(delta_time, times_fired)
-	SHOULD_CALL_PARENT(FALSE)
 	if(!beating)
 		// alien glands are immune to stopping.
 		beating = TRUE
@@ -144,12 +142,12 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/heart/gland/slime/on_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/slime/on_mob_insert(mob/living/carbon/gland_owner)
 	. = ..()
 	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
-/obj/item/organ/heart/gland/slime/on_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/slime/on_mob_remove(mob/living/carbon/gland_owner)
 	. = ..()
 	if(!owner) // Add null check
 		return
@@ -203,7 +201,7 @@
 
 /obj/item/organ/heart/gland/pop/activate()
 	to_chat(owner, span_notice("You feel unlike yourself."))
-	randomize_human(owner, TRUE)
+	randomize_human(owner)
 	var/species = pick(list(/datum/species/human, /datum/species/lizard, /datum/species/moth, /datum/species/fly))
 	owner.set_species(species)
 
@@ -313,11 +311,11 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/heart/gland/electric/on_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/electric/on_mob_insert(mob/living/carbon/gland_owner)
 	. = ..()
 	ADD_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/heart/gland/electric/on_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/electric/on_mob_remove(mob/living/carbon/gland_owner)
 	. = ..()
 	REMOVE_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 

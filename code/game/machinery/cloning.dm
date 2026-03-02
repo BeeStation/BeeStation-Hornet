@@ -615,7 +615,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 				BP.forceMove(src)
 				unattached_flesh += BP
 
-	for(var/o in H.internal_organs)
+	for(var/o in H.organs)
 		var/obj/item/organ/organ = o
 		if(!istype(organ) || (organ.organ_flags & ORGAN_VITAL))
 			continue

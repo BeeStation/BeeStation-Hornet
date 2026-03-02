@@ -27,16 +27,18 @@
 	glasses = /obj/item/clothing/glasses/regular/circle
 
 /datum/outfit/waldo/post_equip(mob/living/carbon/human/H, visuals_only=FALSE)
+	H.w_uniform?.update_greyscale()
+	H.update_worn_undersuit()
 	if(visuals_only)
 		return
 	H.fully_replace_character_name(null,"Waldo")
 	H.eye_color = COLOR_BLACK
 	H.gender = MALE
 	H.skin_tone = "caucasian3"
-	H.hair_style = "Business Hair 3"
-	H.facial_hair_style = "Shaved"
+	H.hairstyle = "Business Hair 3"
+	H.facial_hairstyle = "Shaved"
 	H.hair_color = COLOR_BLACK
-	H.facial_hair_color = H.hair_color
+	H.facial_hair_color = COLOR_BLACK
 	H.update_body()
 
 	var/list/no_drops = list()
@@ -45,10 +47,10 @@
 	no_drops += H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	no_drops += H.get_item_by_slot(ITEM_SLOT_HEAD)
 	no_drops += H.get_item_by_slot(ITEM_SLOT_EYES)
-	for(var/i in no_drops)
-		var/obj/item/I = i
-		ADD_TRAIT(I, TRAIT_NODROP, CURSED_ITEM_TRAIT)
-	var/datum/action/spell/aoe/knock/waldos_key = new /datum/action/spell/aoe/knock/
+	for(var/obj/item/trait_needed as anything in no_drops)
+		ADD_TRAIT(trait_needed, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+
+	var/datum/action/spell/aoe/knock/waldos_key = new /datum/action/spell/aoe/knock
 	waldos_key.Grant(H)
 
 /datum/outfit/synthetic
@@ -60,7 +62,7 @@
 	if(visuals_only)
 		return
 	var/obj/item/organ/eyes/robotic/glow/eyes = new()
-	eyes.Insert(H, drop_if_replaced = FALSE)
+	eyes.Insert(H, movement_flags = DELETE_IF_REPLACED)
 
 /datum/outfit/synthetic/leader
 	name = "Factory Error Synth Leader"

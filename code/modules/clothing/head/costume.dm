@@ -174,12 +174,15 @@
 	icon_state = "carp_helm"
 	inhand_icon_state = "syndicate"
 	armor_type = /datum/armor/carp_hood_spaceproof
-	cold_protection = HEAD
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACIALHAIR //facial hair will clip with the helm, this'll need a dynamic_fhair_suffix at some point.
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL|SNUG_FIT|STACKABLE_HELMET_EXEMPT
 	body_parts_covered = HEAD
+	resistance_flags = NONE
+	flash_protect = 2
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	light_system = NO_LIGHT_SUPPORT
 	light_range = 0 //luminosity when on
 	actions_types = list()
@@ -241,7 +244,7 @@
 	body_parts_covered = HEAD
 	clothing_flags = THICKMATERIAL | SNUG_FIT
 	flags_inv = HIDEHAIR|HIDEEARS
-	dynamic_hair_suffix = ""
+
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"

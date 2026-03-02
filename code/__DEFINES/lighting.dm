@@ -130,6 +130,8 @@ GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 	lighting_effect.appearance = /obj/effect/fullbright/starlight
 	return lighting_effect
 
+/// Luminosity source for IPC screens, snowflake I know
+#define LUM_SOURCE_IPC_SCREEN (1 << 5)
 /// Innate lum source that cannot be removed
 #define LUM_SOURCE_INNATE (1 << 4)
 /// Luminosity source for glasses

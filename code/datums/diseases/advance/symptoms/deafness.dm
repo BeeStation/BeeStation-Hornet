@@ -1,20 +1,11 @@
-/*
-//////////////////////////////////////
-
-Deafness
-
-	Slightly noticeable.
-	Lowers resistance.
-	Decreases stage speed slightly.
-	Decreases transmittablity.
-	Intense Level.
-
-Bonus
-	Causes intermittent loss of hearing.
-
-//////////////////////////////////////
+/**Deafness
+ * Slightly decreases stealth
+ * Lowers Resistance
+ * Slightly decreases stage speed
+ * Decreases transmissibility
+ * Intense level
+ * Bonus: Causes intermittent loss of hearing.
 */
-
 /datum/symptom/deafness
 
 	name = "Deafness"
@@ -28,6 +19,7 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	required_organ = ORGAN_SLOT_EARS
 	prefixes = list("Aural ")
 	bodies = list("Ear")
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
@@ -47,6 +39,10 @@ Bonus
 		suppress_warning = TRUE
 	if(A.resistance >= 9) //permanent deafness
 		causes_permanent_deafness = TRUE
+
+/datum/symptom/deafness/End(datum/disease/advance/advanced_disease)
+	REMOVE_TRAIT(advanced_disease.affected_mob, TRAIT_DEAF, DISEASE_TRAIT)
+	return ..()
 
 /datum/symptom/deafness/Activate(datum/disease/advance/advanced_disease)
 	. = ..()

@@ -206,7 +206,7 @@
 		var/obj/item/organ/heart = new_body.get_organ_slot(ORGAN_SLOT_HEART)
 		if(!heart)
 			// damn you, heartless bastard!!
-			for(var/obj/item/organ/organ in new_body.internal_organs)
+			for(var/obj/item/organ/organ in new_body.organs)
 				organ.apply_organ_damage(rand(20, 40), organ.maxHealth - 1)
 		else
 			heart.apply_organ_damage(rand(20, 40), heart.maxHealth - 1)
@@ -266,7 +266,7 @@
 	SIGNAL_HANDLER
 	if(!death_two_electric_boogaloo || !is_active() || HAS_TRAIT(source, TRAIT_NODEATH))
 		return
-	if(IS_IN_STASIS(source))
+	if(HAS_TRAIT(source, TRAIT_STASIS))
 		// Your disintegration is delayed... for now.
 		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
 			if(holopara.stat == DEAD)

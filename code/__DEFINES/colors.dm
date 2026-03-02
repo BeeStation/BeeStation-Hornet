@@ -56,11 +56,16 @@
 
 #define COLOR_OLIVE "#808000"
 #define COLOR_VIBRANT_LIME "#00FF00"
+#define COLOR_SERVICE_LIME "#58C800"
+#define COLOR_JADE "#5EFB6E"
+#define COLOR_EMERALD "#00CC66"
 #define COLOR_PALE_GREEN "#20e28e"
 #define COLOR_LIME "#32CD32"
+#define COLOR_DARK_LIME "#00aa00"
+#define COLOR_VERY_PALE_LIME_GREEN "#DDFFD3"
+#define COLOR_VERY_DARK_LIME_GREEN "#003300"
 #define COLOR_GREEN "#008000"
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964A"
-#define COLOR_VERY_DARK_LIME_GREEN "#003300"
 
 #define COLOR_CYAN "#00FFFF"
 #define COLOR_DARK_CYAN "#00A2FF"
@@ -196,8 +201,6 @@
 #define COLOR_DISPLAY_YELLOW "#FFF743"
 #define COLOR_DISPLAY_GREEN "#3CF046"
 
-#define DEFAULT_HEX_COLOR_LEN 6
-
 // check "chat-light-theme.scss" and "chat-dark-theme.scss"
 GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(
 	"cfc_red",
@@ -232,6 +235,8 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define DEFAULT_ASAY_COLOR COLOR_MOSTLY_PURE_RED
 /// The default color for Byond Member / ADMIN OOC, used as a fallback when the preference is not enabled
 #define DEFAULT_BONUS_OOC_COLOR "#c43b23"
+
+#define DEFAULT_HEX_COLOR_LEN 6
 
 // Some defines for accessing specific entries in color matrices.
 
@@ -272,3 +277,5 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define COLOR_GNOME_WHITE "#e8e8e8"
 #define COLOR_GNOME_GREY "#a9a9a9"
 #define COLOR_GNOME_BLACK "#303030"
+
+#define HUSK_COLOR_TONE rgb(96, 88, 80)

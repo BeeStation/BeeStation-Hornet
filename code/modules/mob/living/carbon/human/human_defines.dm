@@ -4,36 +4,48 @@
 	pressure_resistance = 25
 	can_buckle = TRUE
 	buckle_lying = 0
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
 	/// or other bodyparts may block the emissive elements of it.
 	blocks_emissive = EMISSIVE_BLOCK_NONE
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 
 	///Hair color
 	var/hair_color = COLOR_BLACK
 	///Hair style
-	var/hair_style = "Bald"
-	///Colour used for the hair gradient.
-	var/gradient_color = COLOR_BLACK
-	///Style used for the hair gradient.
-	var/gradient_style = "None"
+	var/hairstyle = "Bald"
+	//Colours used for hair and facial hair gradients.
+	var/list/grad_color = list(
+		COLOR_BLACK, //Hair Gradient Color
+		COLOR_BLACK, //Facial Hair Gradient Color
+	)
+	///Styles used for hair and facial hair gradients.
+	var/list/grad_style = list(
+		"None", //Hair Gradient Style
+		"None", //Facial Hair Gradient Style
+	)
 	///Facial hair colour
 	var/facial_hair_color = COLOR_BLACK
 	///Facial hair style
-	var/facial_hair_style = "Shaved"
+	var/facial_hairstyle = "Shaved"
 	//Eye colour
 	var/eye_color = COLOR_BLACK
 	var/skin_tone = "caucasian1"	//Skin tone
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
-	var/lip_color = "white"
-	var/age = 30		//Player's age
+	var/lip_color = COLOR_WHITE
+
+	var/age = 30 //Player's age
+
+	/// Which body type to use
+	var/physique = MALE
+
 	//consider updating /mob/living/carbon/human/copy_clothing_prefs() if adding more of these
-	var/underwear = "Nude"	//Which underwear the player wants
+	var/underwear = "Nude" //Which underwear the player wants
 	var/underwear_color = COLOR_BLACK
 	var/undershirt = "Nude" //Which undershirt the player wants
 	var/socks = "Nude" //Which socks the player wants
-	var/backbag = DBACKPACK		//Which backpack type the player has chosen.
-	var/jumpsuit_style = PREF_SUIT		//suit/skirt
+	var/backbag = DBACKPACK //Which backpack type the player has chosen.
+	var/jumpsuit_style = PREF_SUIT //suit/skirt
 
 	//Equipment slots
 	var/obj/item/clothing/wear_suit = null

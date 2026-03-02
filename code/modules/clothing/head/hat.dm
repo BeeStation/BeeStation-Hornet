@@ -77,7 +77,7 @@
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
-	dynamic_hair_suffix = ""
+
 	dog_fashion = /datum/dog_fashion/head/nurse
 
 /obj/item/clothing/head/hats/bowler
@@ -85,7 +85,6 @@
 	desc = "Gentleman, elite aboard!"
 	icon_state = "bowler"
 	inhand_icon_state = null
-	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/costume/bearpelt
 	name = "bear pelt hat"
@@ -117,7 +116,7 @@
 	name = "jester hat"
 	desc = "A hat with bells, to add some merriness to the suit."
 	icon_state = "jester_hat"
-	dynamic_hair_suffix = ""
+
 
 /obj/item/clothing/head/costume/jester/alt
 	icon_state = "jester2"

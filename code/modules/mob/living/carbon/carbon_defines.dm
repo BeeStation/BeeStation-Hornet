@@ -9,13 +9,16 @@
 	num_hands = 0 //Populated on init through list/bodyparts
 	usable_hands = 0 //Populated on init through list/bodyparts
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
-	/// List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
-	var/list/internal_organs = list()
-	/// Same as above, but stores "slot ID" - "organ" pairs for easy access.
-	var/list/internal_organs_slot = list()
-	/// Whether or not the mob is handcuffed
+	// STOP_OVERLAY_UPDATE_BODY_PARTS is removed after we call update_body_parts() during init.
+	living_flags = STOP_OVERLAY_UPDATE_BODY_PARTS
+	///List of [/obj/item/organ] in the mob. They don't go in the contents for some reason I don't want to know.
+	var/list/obj/item/organ/organs = list()
+	///Same as [above][/mob/living/carbon/var/organs], but stores "slot ID" - "organ" pairs for easy access.
+	var/list/organs_slot = list()
+
+	///Whether or not the mob is handcuffed
 	var/obj/item/handcuffed = null
-	/// Same as handcuffs but for legs. Bear traps use this.
+	///Same as handcuffs but for legs. Bear traps use this.
 	var/obj/item/legcuffed = null
 
 	/// Measure of how disgusted we are. See DISGUST_LEVEL_GROSS and friends
@@ -53,7 +56,9 @@
 
 	var/tinttotal = 0	// Total level of visualy impairing items
 
-	var/list/icon_render_keys = list()
+	/// Gets filled up in [/datum/species/proc/replace_body].
+	/// Will either contain a list of typepaths if nothing has been created yet,
+	/// or a list of the body part objects.
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,
 		/obj/item/bodypart/head,
@@ -63,11 +68,11 @@
 		/obj/item/bodypart/leg/left
 	)
 
-	//Gets filled up in create_bodyparts()
+	/// A collection of arms (or actually whatever the fug /bodyparts you monsters use to wreck my systems)
+	var/list/hand_bodyparts = list()
 
-	var/list/hand_bodyparts = list() //a collection of arms (or actually whatever the fug /bodyparts you monsters use to wreck my systems)
-
-
+	///A cache of bodypart = icon to prevent excessive icon creation.
+	var/list/icon_render_keys = list()
 	var/static/list/limb_icon_cache = list()
 
 	/// Used to temporarily increase severity of / apply a new damage overlay (the red ring around the ui / screen).
@@ -91,4 +96,8 @@
 	var/visual_only_organs = FALSE
 
 	/// A bitfield of "bodytypes", updated by /obj/item/bodypart/proc/synchronize_bodytypes()
-	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
+	var/bodytype = BODYTYPE_ORGANIC
+
+	/// A bitfield of "bodyshapes", updated by /obj/item/bodypart/proc/synchronize_bodyshapes()
+	var/bodyshape = BODYSHAPE_HUMANOID
+

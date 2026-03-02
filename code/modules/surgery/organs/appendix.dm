@@ -1,7 +1,7 @@
 /obj/item/organ/appendix
 	name = "appendix"
 	icon_state = "appendix"
-	visual = FALSE
+
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_APPENDIX
 
@@ -33,14 +33,14 @@
 /obj/item/organ/appendix/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantappendix
 
-/obj/item/organ/appendix/on_remove(mob/living/carbon/organ_owner)
+/obj/item/organ/appendix/on_mob_remove(mob/living/carbon/organ_owner)
 	. = ..()
 	for(var/datum/disease/appendicitis/A in organ_owner.diseases)
 		A.cure()
 		inflamed = TRUE
 	update_icon()
 
-/obj/item/organ/appendix/on_insert(mob/living/carbon/organ_owner)
+/obj/item/organ/appendix/on_mob_insert(mob/living/carbon/organ_owner)
 	. = ..()
 	if(inflamed)
 		organ_owner.ForceContractDisease(new /datum/disease/appendicitis(), FALSE, TRUE)

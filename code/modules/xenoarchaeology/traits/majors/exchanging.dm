@@ -55,8 +55,8 @@
 		victim_a.heal_damage_type(a_damage*1, damage_type) //Heal
 		victim_b.heal_damage_type(b_damage*1, damage_type)
 
-		victim_a.apply_damage(b_damage, damage_type) //Apply
-		victim_b.apply_damage(a_damage, damage_type)
+		victim_a.apply_damage(b_damage, damage_type, spread_damage = TRUE) //Apply
+		victim_b.apply_damage(a_damage, damage_type, spread_damage = TRUE)
 
 		victim_a.updatehealth()
 		victim_b.updatehealth()

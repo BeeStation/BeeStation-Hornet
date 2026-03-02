@@ -162,13 +162,13 @@
 
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
-	var/image/holder = hud_list[HEALTH_HUD]
-	if(holder)
-		holder.icon_state = "hud[RoundHealth(src)]"
-		var/icon/I = icon(icon, icon_state, dir)
-		holder.pixel_y = I.Height() - world.icon_size
-	else
+	var/image/holder = hud_list?[HEALTH_HUD]
+	if (isnull(holder))
 		CRASH("[src] does not have a HEALTH_HUD but updates it!")
+
+	holder.icon_state = "hud[RoundHealth(src)]"
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
 
 //for carbon suit sensors
 /mob/living/carbon/med_hud_set_health()
@@ -177,67 +177,66 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
 	SIGNAL_HANDLER
-	var/image/holder = hud_list[STATUS_HUD]
-	if(holder)
-		var/icon/I = icon(icon, icon_state, dir)
-		holder.pixel_y = I.Height() - world.icon_size
-		if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
-			holder.icon_state = "huddead"
-		else
-			holder.icon_state = "hudhealthy"
-	else
+	var/image/holder = hud_list?[STATUS_HUD]
+	if (isnull(holder))
 		CRASH("[src] does not have a HEALTH_HUD but updates it!")
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
+		holder.icon_state = "huddead"
+	else
+		holder.icon_state = "hudhealthy"
 
 /mob/living/carbon/med_hud_set_status()
-	var/image/holder = hud_list[STATUS_HUD]
-	if(holder)
-		var/icon/I = icon(icon, icon_state, dir)
-		var/virus_threat = check_virus()
-		holder.pixel_y = I.Height() - world.icon_size
-		if(HAS_TRAIT(src, TRAIT_XENO_HOST))
-			holder.icon_state = "hudxeno"
-		else if(stat == DEAD)
-			if(!get_organ_by_type(/obj/item/organ/brain) || (!key && !get_ghost(FALSE, TRUE)))
-				holder.icon_state = "huddead-permanent"
-				return
-			if(tod)
-				var/tdelta = round(world.time - timeofdeath)
-				if(tdelta < (DEFIB_TIME_LIMIT * 10))
-					if(!client && key)
-						holder.icon_state = "huddefib-ssd"
-						return
-					holder.icon_state = "huddefib"
-					return
-			if(!client && key)
-				holder.icon_state = "huddead-ssd"
-				return
-			holder.icon_state = "huddead"
-		else if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
-			holder.icon_state = "huddefib"
-		else
-			switch(virus_threat)
-				if(DISEASE_PANDEMIC)
-					holder.icon_state = "hudill6"
-				if(DISEASE_BIOHAZARD)
-					holder.icon_state = "hudill5"
-				if(DISEASE_DANGEROUS)
-					holder.icon_state = "hudill4"
-				if(DISEASE_HARMFUL)
-					holder.icon_state = "hudill3"
-				if(DISEASE_MEDIUM)
-					holder.icon_state = "hudill2"
-				if(DISEASE_MINOR)
-					holder.icon_state = "hudill1"
-				if(DISEASE_NONTHREAT)
-					holder.icon_state = "hudill0"
-				if(DISEASE_POSITIVE)
-					holder.icon_state = "hudbuff"
-				if(DISEASE_BENEFICIAL)
-					holder.icon_state = "hudbuff2"
-				if(null)
-					holder.icon_state = "hudhealthy"
-	else
+	var/image/holder = hud_list?[STATUS_HUD]
+	if (isnull(holder))
 		CRASH("[src] does not have a HEALTH_HUD but updates it!")
+
+	var/icon/I = icon(icon, icon_state, dir)
+	var/virus_threat = check_virus()
+	holder.pixel_y = I.Height() - world.icon_size
+	if(HAS_TRAIT(src, TRAIT_XENO_HOST))
+		holder.icon_state = "hudxeno"
+	else if(stat == DEAD)
+		if(!get_organ_by_type(/obj/item/organ/brain) || (!key && !get_ghost(FALSE, TRUE)))
+			holder.icon_state = "huddead-permanent"
+			return
+		if(tod)
+			var/tdelta = round(world.time - timeofdeath)
+			if(tdelta < (DEFIB_TIME_LIMIT * 10))
+				if(!client && key)
+					holder.icon_state = "huddefib-ssd"
+					return
+				holder.icon_state = "huddefib"
+				return
+		if(!client && key)
+			holder.icon_state = "huddead-ssd"
+			return
+		holder.icon_state = "huddead"
+	else if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		holder.icon_state = "huddefib"
+	else
+		switch(virus_threat)
+			if(DISEASE_PANDEMIC)
+				holder.icon_state = "hudill6"
+			if(DISEASE_BIOHAZARD)
+				holder.icon_state = "hudill5"
+			if(DISEASE_DANGEROUS)
+				holder.icon_state = "hudill4"
+			if(DISEASE_HARMFUL)
+				holder.icon_state = "hudill3"
+			if(DISEASE_MEDIUM)
+				holder.icon_state = "hudill2"
+			if(DISEASE_MINOR)
+				holder.icon_state = "hudill1"
+			if(DISEASE_NONTHREAT)
+				holder.icon_state = "hudill0"
+			if(DISEASE_POSITIVE)
+				holder.icon_state = "hudbuff"
+			if(DISEASE_BENEFICIAL)
+				holder.icon_state = "hudbuff2"
+			if(null)
+				holder.icon_state = "hudhealthy"
 
 
 /***********************************************

@@ -4,7 +4,7 @@
 	desc = "There are three parts to the ear. Inner, middle and outer. Only one of these parts should be normally visible."
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EARS
-	visual = FALSE
+
 	gender = PLURAL
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -67,34 +67,64 @@
 	icon_state = "kitty"
 	visual = TRUE
 	bang_protect = -2
+	//preference = "feature_human_ears"
 
-/obj/item/organ/ears/cat/on_insert(mob/living/carbon/human/ear_owner)
-	. = ..()
-	if(istype(ear_owner) && ear_owner.dna)
-		color = ear_owner.hair_color
-		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
-		ear_owner.update_body()
+	dna_block = DNA_EARS_BLOCK
 
-/obj/item/organ/ears/cat/on_remove(mob/living/carbon/human/ear_owner)
-	. = ..()
-	if(istype(ear_owner) && ear_owner.dna)
-		color = ear_owner.hair_color
-		ear_owner.dna.features["ears"] = "None"
-		ear_owner.dna.species.mutant_bodyparts -= "ears"
-		ear_owner.update_body()
+	bodypart_overlay = /datum/bodypart_overlay/mutant/cat_ears
+
+/// Bodypart overlay for the horrible cat ears
+/datum/bodypart_overlay/mutant/cat_ears
+	layers = EXTERNAL_FRONT | EXTERNAL_BEHIND
+	color_source = ORGAN_COLOR_HAIR
+	feature_key = "ears"
+
+	/// Layer upon which we add the inner ears overlay
+	var/inner_layer = EXTERNAL_FRONT
+
+/datum/bodypart_overlay/mutant/cat_ears/get_global_feature_list()
+	return SSaccessories.ears_list
+
+/datum/bodypart_overlay/mutant/cat_ears/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
+	var/mob/living/carbon/human/human = bodypart_owner.owner
+	if(!istype(human))
+		return TRUE
+	if((human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))
+		return FALSE
+	return TRUE
+
+/datum/bodypart_overlay/mutant/cat_ears/get_image(image_layer, obj/item/bodypart/limb)
+	var/mutable_appearance/base_ears = ..()
+	base_ears.color = (dye_color || draw_color)
+
+	// Only add inner ears on the inner layer
+	if(image_layer != bitflag_to_layer(inner_layer))
+		return base_ears
+
+	// Construct image of inner ears, apply to base ears as an overlay
+	feature_key += "inner"
+	var/mutable_appearance/inner_ears = ..()
+	feature_key = initial(feature_key)
+	var/mutable_appearance/ear_holder = mutable_appearance(layer = image_layer)
+	ear_holder.overlays += base_ears
+	ear_holder.overlays += inner_ears
+	return ear_holder
+
+/datum/bodypart_overlay/mutant/cat_ears/color_image(image/overlay, layer, obj/item/bodypart/limb)
+	return // We color base ears manually above in get_image
 
 /obj/item/organ/ears/penguin
 	name = "penguin ears"
 	desc = "The source of a penguin's happy feet."
 	var/datum/component/waddle
 
-/obj/item/organ/ears/penguin/on_insert(mob/living/carbon/human/ear_owner)
+/obj/item/organ/ears/penguin/on_mob_insert(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("You suddenly feel like you've lost your balance."))
 		waddle = ear_owner.AddComponent(/datum/component/waddling)
 
-/obj/item/organ/ears/penguin/on_remove(mob/living/carbon/human/ear_owner)
+/obj/item/organ/ears/penguin/on_mob_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("Your sense of balance comes back to you."))

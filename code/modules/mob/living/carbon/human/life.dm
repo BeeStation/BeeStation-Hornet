@@ -27,7 +27,7 @@
 	if(QDELETED(src))
 		return FALSE
 
-	if(!IS_IN_STASIS(src))
+	if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
 		if(stat != DEAD)
 			if(undergoing_cardiac_arrest())
 				//heart attack stuff
@@ -78,37 +78,33 @@
 	return ..()
 
 /mob/living/carbon/human/breathe()
-	if(!dna.species.breathe(src))
-		..()
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH))
+		return ..()
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
+	var/obj/item/organ/lungs/human_lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
+	if(human_lungs)
+		return human_lungs.check_breath(breath, src)
 
-	var/L = get_organ_slot(ORGAN_SLOT_LUNGS)
+	if(health >= crit_threshold)
+		adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
+	else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
+		adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
-	if(!L)
-		if(health >= crit_threshold)
-			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
-			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
+	failed_last_breath = TRUE
 
-		failed_last_breath = 1
+	var/datum/species/human_species = dna.species
 
-		var/datum/species/S = dna.species
-
-		if(S.breathid == GAS_O2)
+	switch(human_species.breathid)
+		if(GAS_O2)
 			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
-		else if(S.breathid == GAS_PLASMA)
+		if(GAS_PLASMA)
 			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_plas)
-		else if(S.breathid == "co2")
+		if(GAS_CO2)
 			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
-		else if(S.breathid == "n2")
+		if(GAS_N2)
 			throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
-
-		return FALSE
-	else
-		if(istype(L, /obj/item/organ/lungs))
-			var/obj/item/organ/lungs/lun = L
-			lun.check_breath(breath,src)
+	return FALSE
 
 /// Environment handlers for species
 /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)

@@ -17566,6 +17566,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
+"jzX" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/turf/open/floor/iron/dark/side{
+	dir = 4
+	},
+/area/hallway/primary/fore)
 "jAN" = (
 /obj/machinery/conveyor{
 	id = "QMLoad2"
@@ -17758,26 +17767,6 @@
 "jFU" = (
 /turf/open/floor/glass/reinforced/plasma,
 /area/maintenance/department/eva)
-"jFY" = (
-/obj/structure/table/reinforced,
-/obj/item/toy/figure/qm{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/melee/baton/deputy{
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron/dark,
-/area/quartermaster/qm)
 "jGc" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
@@ -32215,6 +32204,26 @@
 	},
 /turf/open/floor/iron/half,
 /area/engine/engineering)
+"rKz" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/figure/qm{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/melee/baton/deputy{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera/directional/north,
+/turf/open/floor/iron/dark,
+/area/quartermaster/qm)
 "rKN" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -41460,11 +41469,6 @@
 /obj/item/clothing/under/rank/prisoner,
 /turf/open/floor/iron,
 /area/security/prison)
-"xay" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/white,
-/area/science/robotics)
 "xaM" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -42598,16 +42602,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
-"xHA" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/machinery/vending/deputy,
-/turf/open/floor/iron/dark/side{
-	dir = 4
-	},
-/area/hallway/primary/fore)
 "xHG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -121868,7 +121862,7 @@ jMv
 pFV
 pFV
 jMv
-jFY
+rKz
 swS
 gwg
 vqE
@@ -188704,7 +188698,7 @@ uAn
 fnY
 sQp
 rmI
-xHA
+jzX
 rgL
 nYV
 mMC
@@ -191761,7 +191755,7 @@ qmd
 ohi
 qPj
 cZy
-xay
+ueQ
 obp
 xiY
 fyy

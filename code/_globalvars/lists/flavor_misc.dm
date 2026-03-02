@@ -1,92 +1,38 @@
 //Preferences stuff
 	//Hairstyles
-GLOBAL_LIST_EMPTY(hair_styles_list)			//stores /datum/sprite_accessory/hair indexed by name
-GLOBAL_LIST_EMPTY(hair_styles_male_list)		//stores only hair names
-GLOBAL_LIST_EMPTY(hair_styles_female_list)	//stores only hair names
-GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_male_list)	//stores only hair names
-GLOBAL_LIST_EMPTY(facial_hair_styles_female_list)	//stores only hair names
-	//Underwear
-GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
-GLOBAL_LIST_EMPTY(underwear_m)	//stores only underwear name
-GLOBAL_LIST_EMPTY(underwear_f)	//stores only underwear name
-	//Undershirts
-GLOBAL_LIST_EMPTY(undershirt_list) 	//stores /datum/sprite_accessory/undershirt indexed by name
-GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
-GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
-	//Socks
-GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
 /// Body sizes. The names (keys) are what is actually stored in the database. Don't get crazy with changing them.
 GLOBAL_LIST_INIT(body_sizes, list(
 	"Normal" = BODY_SIZE_NORMAL,
 	"Short" = BODY_SIZE_SHORT,
 	"Tall" = BODY_SIZE_TALL
 ))
-	//Lizard Bits (all datum lists indexed by name)
-GLOBAL_LIST_EMPTY(body_markings_list)
-GLOBAL_LIST_EMPTY(tails_list_lizard)
-GLOBAL_LIST_EMPTY(animated_tails_list_lizard)
-GLOBAL_LIST_EMPTY(snouts_list)
-GLOBAL_LIST_EMPTY(horns_list)
-GLOBAL_LIST_EMPTY(frills_list)
-GLOBAL_LIST_EMPTY(spines_list)
-GLOBAL_LIST_EMPTY(legs_list)
-GLOBAL_LIST_EMPTY(animated_spines_list)
-
-	//Mutant Human bits
-GLOBAL_LIST_EMPTY(tails_list_human)
-GLOBAL_LIST_EMPTY(animated_tails_list_human)
-GLOBAL_LIST_EMPTY(tails_roundstart_list_human)
-GLOBAL_LIST_EMPTY(ears_list)
-GLOBAL_LIST_EMPTY(wings_list)
-GLOBAL_LIST_EMPTY(wings_open_list)
-GLOBAL_LIST_EMPTY(moth_wings_list)
-GLOBAL_LIST_EMPTY(moth_wings_roundstart_list)//this lacks the blacklisted wings such as burned, clockwork and angel
-GLOBAL_LIST_EMPTY(moth_antennae_list)
-GLOBAL_LIST_EMPTY(moth_antennae_roundstart_list)//this lacks the blacklisted antennae such as burned, clockwork and angel
-GLOBAL_LIST_EMPTY(moth_markings_list)
-GLOBAL_LIST_EMPTY(moth_markings_roundstart_list)//this lacks the blacklisted markings such as burned, clockwork and angel
-GLOBAL_LIST_EMPTY(moth_wingsopen_list)
-GLOBAL_LIST_EMPTY(caps_list)
-GLOBAL_LIST_EMPTY(ipc_screens_list)
-GLOBAL_LIST_EMPTY(ipc_antennas_list)
-GLOBAL_LIST_EMPTY(ipc_chassis_list)
-GLOBAL_LIST_EMPTY(insect_type_list)
-GLOBAL_LIST_EMPTY(apid_antenna_list)
-GLOBAL_LIST_EMPTY(apid_stripes_list)
-GLOBAL_LIST_EMPTY(apid_headstripes_list)
-GLOBAL_LIST_EMPTY(psyphoza_cap_list)
-GLOBAL_LIST_EMPTY(diona_leaves_list)
-GLOBAL_LIST_EMPTY(diona_thorns_list)
-GLOBAL_LIST_EMPTY(diona_flowers_list)
-GLOBAL_LIST_EMPTY(diona_moss_list)
-GLOBAL_LIST_EMPTY(diona_mushroom_list)
-GLOBAL_LIST_EMPTY(diona_antennae_list)
-GLOBAL_LIST_EMPTY(diona_eyes_list)
-GLOBAL_LIST_EMPTY(diona_pbody_list)
-
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
-	"Cyan" = "#00ffff",
-	"Dark Green" = "#0ab432",
-	"Dark Teal" = "#5ea699",
-	"Denim Blue" = "#3399ff",
-	"Gray" = "#979497",
-	"Green" = "#97ee63",
-	"Lavender" = "#d1acff",
-	"Maroon" = "#9c3030",
-	"Orange" = "#f69c28",
-	"Orchid Purple" = "#ee82ee",
-	"Powder Blue" = "#95e5ff",
-	"Purple" = "#a42df7",
 	"Red" = "#ff3131",
-	"Rose" = "#ff92b6",
-	"Royal Blue" = "#5860f5",
+	"Maroon" = "#9c3030",
+	"Burnt Orange" = "#cc4400",
+	"Orange" = "#f69c28",
+	"Yellow" = "#fbdf56",
 	"Sandy Yellow" = "#ffefa5",
+	"Green" = "#97ee63",
+	"Dark Green" = "#0ab432",
 	"Sea Green" = "#37835b",
 	"Spring Green" = "#00fa9a",
-	"Yellow" = "#fbdf56",
+	"Dark Teal" = "#5ea699",
+	"Pink" = "#ff99cc",
+	"Rose" = "#ff92b6",
+	"Dark Fuschia" = "#cc0066",
+	"Purple" = "#a42df7",
+	"Orchid Purple" = "#ee82ee",
+	"Lavender" = "#d1acff",
+	"Gray" = "#979497",
+	"White" = "#f2f2f2",
+	"Cyan Blue" = "#00ffff",
+	"Powder Blue" = "#95e5ff",
+	"Blue" = "#3399ff",
+	"Denim Blue" = "#3399ff",
+	"Dark Blue" = "#6666ff",
+	"Royal Blue" = "#5860f5"
 ))
 
 //stores the ghost forms that support directional sprites
@@ -148,6 +94,7 @@ GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost_mellow",
 	"ghost_camo",
 ))
+
 
 GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	":thinking:",

@@ -28,8 +28,8 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
-		if(H.dna && H.dna.species && (NO_UNDERWEAR in H.dna.species.species_traits))
-			to_chat(user, span_warning("You are not capable of wearing underwear."))
+		if(HAS_TRAIT(H, TRAIT_NO_UNDERWEAR))
+			to_chat(H, span_warning("You are not capable of wearing underwear."))
 			return
 
 		var/choice = input(user, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in list("Underwear","Underwear Color","Undershirt","Socks")
@@ -38,7 +38,7 @@
 			return
 		switch(choice)
 			if("Underwear")
-				var/new_undies = input(user, "Select your underwear", "Changing")  as null|anything in GLOB.underwear_list
+				var/new_undies = input(user, "Select your underwear", "Changing")  as null|anything in SSaccessories.underwear_list
 				if(new_undies)
 					H.underwear = new_undies
 			if("Underwear Color")
@@ -46,11 +46,11 @@
 				if(new_underwear_color)
 					H.underwear_color = sanitize_hexcolor(new_underwear_color)
 			if("Undershirt")
-				var/new_undershirt = input(user, "Select your undershirt", "Changing") as null|anything in GLOB.undershirt_list
+				var/new_undershirt = input(user, "Select your undershirt", "Changing") as null|anything in SSaccessories.undershirt_list
 				if(new_undershirt)
 					H.undershirt = new_undershirt
 			if("Socks")
-				var/new_socks = input(user, "Select your socks", "Changing") as null|anything in GLOB.socks_list
+				var/new_socks = input(user, "Select your socks", "Changing") as null|anything in SSaccessories.socks_list
 				if(new_socks)
 					H.socks= new_socks
 

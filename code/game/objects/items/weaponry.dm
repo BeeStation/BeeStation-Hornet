@@ -903,10 +903,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/table_smacks_left = 3
 
 /obj/item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
-	if(ishuman(M))
-		var/mob/living/carbon/human/L = M
-		if(L && L.dna && L.dna.species)
-			L.dna.species.stop_wagging_tail(M)
+	if(iscarbon(M))
+		var/mob/living/carbon/potential_tailed = M
+		potential_tailed.unwag_tail()
 	user.do_attack_animation(M)
 
 	var/slap_volume = 50

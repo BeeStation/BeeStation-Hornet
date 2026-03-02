@@ -27,14 +27,14 @@
 	return OXYLOSS
 
 /obj/item/clothing/gloves/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
+	. = ..()
+	if(isinhands)
 		return
 
 	if(damaged_clothes)
 		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedgloves", item_layer)
 	if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-		var/mutable_appearance/bloody_hands = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", item_layer)
+		var/mutable_appearance/bloody_hands = mutable_appearance('icons/effects/blood.dmi', "gloveblood", item_layer)
 		bloody_hands.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
 		. += bloody_hands
 

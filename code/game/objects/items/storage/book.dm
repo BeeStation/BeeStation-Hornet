@@ -133,9 +133,8 @@
 
 	var/mob/living/carbon/human/H = L
 
-	for(var/X in H.bodyparts)
-		var/obj/item/bodypart/BP = X
-		if(!IS_ORGANIC_LIMB(BP))
+	for(var/obj/item/bodypart/bodypart as anything in H.bodyparts)
+		if(!IS_ORGANIC_LIMB(bodypart))
 			to_chat(user, span_warning("[src.deity_name] refuses to heal this metallic taint!"))
 			return 0
 

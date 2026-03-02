@@ -109,7 +109,7 @@
 	var/mob/living/carbon/human/affected_human = affected_carbon
 	if(affected_human.gender == MALE)
 		to_chat(affected_human, span_warning("Your chin itches."))
-		affected_human.facial_hair_style = "Beard (Full)"
+		affected_human.facial_hairstyle = "Beard (Full)"
 		affected_human.update_body_parts()
 	//Only like gross food
 	var/obj/item/organ/tongue/tongue = affected_carbon.get_organ_slot(ORGAN_SLOT_TONGUE)
@@ -253,7 +253,7 @@
 	if(affected_carbon.stat >= SOFT_CRIT)
 		return
 
-	var/obj/item/organ/organ = pick(affected_carbon.internal_organs)
+	var/obj/item/organ/organ = pick(affected_carbon.organs)
 	if(organ.low_threshold)
 		to_chat(affected_carbon, organ.low_threshold_passed)
 		return

@@ -219,7 +219,6 @@
 	flags_inv = NONE
 	icon_state = "cage"
 	inhand_icon_state = null
-	dynamic_hair_suffix = ""
 	worn_y_offset = 7
 
 /obj/item/clothing/head/helmet/chaplain/ancient

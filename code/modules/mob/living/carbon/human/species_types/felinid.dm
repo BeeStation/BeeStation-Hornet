@@ -1,16 +1,18 @@
 //Subtype of human
 /datum/species/human/felinid
-	name = "\improper Felinid"
+	name = "Felinid"
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
-
-	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
-	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
-
-	mutantears = /obj/item/organ/ears/cat
-	mutant_organs = list(/obj/item/organ/tail/cat)
+	mutant_bodyparts = list("body_size" = "Normal")
 	mutanttongue = /obj/item/organ/tongue/cat
-	inherent_traits = list(TRAIT_HATED_BY_DOGS)
+	mutantears = /obj/item/organ/ears/cat
+	mutant_organs = list(
+		/obj/item/organ/tail/cat = "Cat",
+	)
+	inherent_traits = list(
+		TRAIT_USES_SKINTONES,
+		TRAIT_HATED_BY_DOGS,
+		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
@@ -18,37 +20,16 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/human/felinid/qualifies_for_rank(rank, list/features)
-	return TRUE
+/datum/species/human/felinid/on_species_gain(mob/living/carbon/carbon_being, datum/species/old_species, pref_load, regenerate_icons)
+	if(ishuman(carbon_being))
+		var/mob/living/carbon/human/target_human = carbon_being
 
-//Curiosity killed the cat's wagging tail.
-/datum/species/human/felinid/spec_death(gibbed, mob/living/carbon/human/H)
-	if(H)
-		stop_wagging_tail(H)
+		//Force ears/tails for felinids
+		target_human.dna.features["tail_cat"] = "Cat"
+		target_human.dna.features["ears"] = "Cat"
 
-/datum/species/human/felinid/spec_stun(mob/living/carbon/human/H,amount)
-	if(H)
-		stop_wagging_tail(H)
-	. = ..()
-
-/datum/species/human/felinid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(!pref_load)			//Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
-			if(H.dna.features["tail_human"] == "None")
-				H.dna.features["tail_human"] = "Cat"
-			if(H.dna.features["ears"] == "None")
-				H.dna.features["ears"] = "Cat"
-		if(H.dna.features["ears"] == "Cat")
-			var/obj/item/organ/ears/cat/ears = new
-			ears.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
-		else
-			mutantears = /obj/item/organ/ears
-		if(H.dna.features["tail_human"] == "Cat")
-			var/obj/item/organ/tail/cat/tail = new
-			tail.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
-		else
-			mutant_organs = list()
+		var/obj/item/organ/ears/cat/ears = new(FALSE, target_human.dna.features["ears"])
+		ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
 	return ..()
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
@@ -61,11 +42,17 @@
 			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
 			to_chat(M, span_notice("[sick_message]"))
 		if(prob(15))
-			if(locate(/obj/item/organ/stomach) in M.internal_organs)
-				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
+			if(locate(/obj/item/organ/stomach) in M.organs)
+				var/obj/item/organ/stomach/cat_stomach = M.organs_slot[ORGAN_SLOT_STOMACH]
 				cat_stomach.apply_organ_damage(15)
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere
+
+/datum/species/human/felinid/randomize_features(mob/living/carbon/human/human_mob)
+	var/list/features = ..()
+	features["ears"] = "Cat"
+	features["tail_cat"] = "Cat"
+	return features
 
 /proc/mass_purrbation()
 	for(var/M in GLOB.mob_list)
@@ -107,15 +94,14 @@
 	if(!silent)
 		to_chat(H, "You are no longer a cat.")
 
-/datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human)
-	human.hair_style = "Hime Cut"
-	human.hair_color = COLOR_PINK
-	human.update_hair()
+/datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human_for_preview)
+	human_for_preview.set_haircolor(COLOR_PINK, update = FALSE) // pink
+	human_for_preview.set_hairstyle("Hime Cut", update = TRUE)
 
-	var/obj/item/organ/ears/cat/cat_ears = human.get_organ_by_type(/obj/item/organ/ears/cat)
+	var/obj/item/organ/ears/cat/cat_ears = human_for_preview.get_organ_by_type(/obj/item/organ/ears/cat)
 	if (cat_ears)
-		cat_ears.color = human.hair_color
-		human.update_body()
+		cat_ears.color = human_for_preview.hair_color
+		human_for_preview.update_body()
 
 /datum/species/human/felinid/get_species_description()
 	return "Felinids are one of the many types of bespoke genetic \

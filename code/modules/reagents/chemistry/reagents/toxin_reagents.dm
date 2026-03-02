@@ -166,7 +166,7 @@
 	if(HAS_TRAIT_FROM(affected_mob, TRAIT_FAT, OBESITY))
 		affected_mob.client?.give_award(/datum/award/achievement/misc/mintgib, affected_mob)
 		affected_mob.investigate_log("has been gibbed by consuming [src] while fat.", INVESTIGATE_DEATHS)
-		affected_mob.gib()
+		affected_mob.inflate_gib()
 
 /datum/reagent/toxin/carpotoxin
 	name = "Carpotoxin"

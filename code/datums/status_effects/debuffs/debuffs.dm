@@ -201,13 +201,13 @@
 	. = ..()
 	if(!.)
 		return
-	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_STASIS), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/grouped/stasis/tick(seconds_between_ticks)
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
-	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_STASIS), TRAIT_STATUS_EFFECT(id))
 	update_time_of_death()
 	owner.update_incapacitated()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
@@ -1314,84 +1314,6 @@
 	desc = "There is a thick cloud of smoke here, breathing it could have consequences!"
 	icon_state = "smoke"
 
-/datum/status_effect/ling_transformation
-	id = "ling_transformation"
-	status_type = STATUS_EFFECT_REPLACE
-	alert_type = null
-	/// The DNA that the status effect transforms the target into.
-	var/datum/dna/target_dna
-	/// The target's original DNA, which will be restored upon 'curing' them.
-	var/datum/dna/original_dna
-	/// How much "charge" the transformation has left. It's randomly set upon creation,
-	/// and ticks down every second if there's mutadone in the target's system.
-	var/charge_left
-	/// Whether the transformation has already been applied or not (i.e is this a new transformation, or an old one being transferred?)
-	var/already_applied = FALSE
-
-/datum/status_effect/ling_transformation/on_creation(mob/living/new_owner, datum/dna/target_dna, datum/dna/original_dna, already_applied = FALSE)
-	if(!iscarbon(new_owner) || QDELETED(target_dna))
-		qdel(src)
-		return
-	src.target_dna = new target_dna.type
-	target_dna.copy_dna(src.target_dna)
-	charge_left = rand(45, 90)
-	if(original_dna)
-		src.original_dna = new original_dna.type
-		original_dna.copy_dna(src.original_dna)
-	src.already_applied = already_applied
-	return ..()
-
-/datum/status_effect/ling_transformation/on_apply()
-	. = ..()
-	if(!target_dna)
-		qdel(src)
-		return
-	var/mob/living/carbon/carbon_owner = owner
-	if(original_dna?.compare_dna(target_dna)) // Cleanly handle someone being transform stung back into their original identity
-		qdel(src)
-		return
-	else if(!original_dna)
-		original_dna = new carbon_owner.dna.type
-		carbon_owner.dna.copy_dna(original_dna)
-	RegisterSignal(owner, COMSIG_CARBON_TRANSFORMED, PROC_REF(on_transformation))
-	if(!already_applied)
-		apply_dna(target_dna)
-		to_chat(owner, span_warning("You don't feel like yourself anymore..."))
-
-/datum/status_effect/ling_transformation/on_remove()
-	. = ..()
-	if(QDELETED(owner) || !original_dna)
-		return
-	apply_dna(original_dna)
-	to_chat(owner, span_notice("You feel like yourself again!"))
-	UnregisterSignal(owner, COMSIG_CARBON_TRANSFORMED)
-
-/datum/status_effect/ling_transformation/tick()
-	. = ..()
-	if(owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
-		charge_left--
-		if(prob(4))
-			to_chat(owner, span_notice("You begin to feel slightly more like yourself..."))
-	if(charge_left <= 0)
-		qdel(src)
-
-/datum/status_effect/ling_transformation/proc/apply_dna(datum/dna/dna)
-	var/mob/living/carbon/carbon_owner = owner
-	if(!carbon_owner || !istype(carbon_owner))
-		return
-	dna.transfer_identity(carbon_owner, transfer_SE = TRUE)
-	carbon_owner.real_name = carbon_owner.dna.real_name
-	carbon_owner.updateappearance(mutcolor_update = TRUE)
-	carbon_owner.domutcheck()
-
-/datum/status_effect/ling_transformation/proc/on_transformation(mob/living/carbon/source, mob/living/carbon/new_body)
-	SIGNAL_HANDLER
-	if(!istype(source) || !istype(new_body))
-		return
-	var/datum/status_effect/ling_transformation/new_effect = new_body.apply_status_effect(/datum/status_effect/ling_transformation, target_dna, original_dna, TRUE)
-	if(new_effect)
-		new_effect.charge_left = charge_left
-
 /// Staggered can occur most often via tackles.
 /datum/status_effect/staggered
 	id = "staggered"
@@ -1439,3 +1361,117 @@
 	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
 	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
+
+/// Transforms a carbon mob into a new DNA for a set amount of time,
+/// then turns them back to how they were before transformation.
+/datum/status_effect/temporary_transformation
+	id = "temp_dna_transformation"
+	tick_interval = -1
+	duration = 1 MINUTES // set in on creation, this just needs to be any value to process
+	alert_type = null
+	/// A reference to a COPY of the DNA that the mob will be transformed into.
+	var/datum/dna/new_dna
+	/// A reference to a COPY of the DNA of the mob prior to transformation.
+	var/datum/dna/old_dna
+	/// How much "charge" the transformation has left. It's randomly set upon creation,
+	/// and ticks down every second if there's clonexadone in the target's system.
+	var/charge_left
+	//if we are a changeling transformation
+	var/changeling_type = FALSE
+
+/datum/status_effect/temporary_transformation/Destroy()
+	. = ..() // parent must be called first, so we clear DNA refs AFTER transforming back... yeah i know
+	QDEL_NULL(new_dna)
+	QDEL_NULL(old_dna)
+
+/datum/status_effect/temporary_transformation/on_creation(mob/living/new_owner, new_duration = 1 MINUTES, datum/dna/dna_to_copy)
+	src.duration = (new_duration == INFINITY) ? -1 : new_duration
+	src.new_dna = new()
+	src.old_dna = new()
+	charge_left = rand(20, 45)
+	dna_to_copy.copy_dna(new_dna)
+	return ..()
+
+/datum/status_effect/temporary_transformation/on_apply()
+	if(!iscarbon(owner))
+		return FALSE
+
+	var/mob/living/carbon/transforming = owner
+	if(!transforming.has_dna())
+		return FALSE
+
+	// Save the old DNA
+	transforming.dna.copy_dna(old_dna)
+	// Makes them into the new DNA
+	new_dna.transfer_identity(transforming)
+	transforming.real_name = new_dna.real_name
+	transforming.name = transforming.get_visible_name()
+	transforming.updateappearance(mutcolor_update = TRUE)
+	transforming.domutcheck()
+	return TRUE
+
+/datum/status_effect/temporary_transformation/on_remove()
+	var/mob/living/carbon/transforming = owner
+
+	if(!QDELING(owner)) // Don't really need to do appearance stuff if we're being deleted
+		old_dna.transfer_identity(transforming)
+		transforming.updateappearance(mutcolor_update = TRUE)
+		transforming.domutcheck()
+
+	transforming.real_name = old_dna.real_name // Name is fine though
+	transforming.name = transforming.get_visible_name()
+
+/datum/status_effect/temporary_transformation/trans_sting
+	/// Tracks the time left on the effect when the owner last died. Used to pause the effect.
+	var/time_before_pause = -1
+	/// Signals which we react to to determine if we should pause the effect.
+	var/static/list/update_on_signals = list(
+		COMSIG_MOB_STATCHANGE,
+		SIGNAL_ADDTRAIT(TRAIT_STASIS),
+		SIGNAL_REMOVETRAIT(TRAIT_STASIS),
+		SIGNAL_ADDTRAIT(TRAIT_DEATHCOMA),
+		SIGNAL_REMOVETRAIT(TRAIT_DEATHCOMA),
+	)
+
+/datum/status_effect/temporary_transformation/trans_sting/on_apply()
+	. = ..()
+	if(!.)
+		return
+	RegisterSignals(owner, update_on_signals, PROC_REF(pause_effect))
+	pause_effect(owner) // for if we sting a dead guy
+
+/datum/status_effect/temporary_transformation/trans_sting/on_remove()
+	. = ..()
+	UnregisterSignal(owner, update_on_signals)
+
+/datum/status_effect/temporary_transformation/trans_sting/proc/pause_effect(mob/living/source)
+	SIGNAL_HANDLER
+
+	// Pause if we're dead, appear dead, or in stasis
+	if(source.stat == DEAD || HAS_TRAIT(source, TRAIT_DEATHCOMA) || HAS_TRAIT(source, TRAIT_STASIS))
+		if(duration == -1)
+			return // Already paused
+
+		time_before_pause = duration - world.time
+		duration = -1
+
+	// Resume if we're none of the above and also were paused
+	else if(time_before_pause != -1)
+		duration = time_before_pause + world.time
+		time_before_pause = -1
+
+/datum/status_effect/temporary_transformation/changeling
+	id = "dna_transformation"
+	duration = -1 //infinite duration
+	tick_interval = 5 SECONDS
+	changeling_type = TRUE
+
+/datum/status_effect/temporary_transformation/changeling/tick()
+	. = ..()
+	//If the user has clonexadone in them, after about a minute they will remove the status effect and revert back to their original DNA.
+	if(owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
+		charge_left--
+		if(prob(4))
+			to_chat(owner, span_notice("You begin to feel slightly more like yourself..."))
+	if(charge_left <= 0)
+		qdel(src)

@@ -865,6 +865,16 @@
 		UNTYPED_LIST_ADD(keys, key)
 	return keys
 
+/// Turns an associative list into a flat list of keys, but for sprite accessories, respecting the locked variable
+/proc/assoc_to_keys_features(list/input)
+	var/list/keys = list()
+	for(var/key in input)
+		var/datum/sprite_accessory/value = input[key]
+		if(value?.locked)
+			continue
+		UNTYPED_LIST_ADD(keys, key)
+	return keys
+
 /// Checks if a value is contained in an associative list's values
 /proc/assoc_contains_value(list/input, check_for)
 	for(var/key in input)

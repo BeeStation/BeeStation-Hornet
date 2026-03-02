@@ -363,7 +363,10 @@
 
 		var/obj/item/temp = typepath
 		var/datum/vending_product/new_record = new /datum/vending_product()
-		new_record.name = initial(temp.name)
+		var/new_name = initial(temp.name)
+		if(isnull(new_name))
+			message_admins("[temp] item had a null name when built in vending inventory in [src]. Fix your product categories!")
+		new_record.name = new_name
 		new_record.product_path = typepath
 		if(!start_empty)
 			new_record.amount = amount

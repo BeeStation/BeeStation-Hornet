@@ -47,17 +47,10 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 			current_organ.Remove(src, special = TRUE) //Please don't somehow kill our dummy
 			SSwardrobe.stash_object(current_organ)
 
-	/*
-	for(var/obj/item/organ/external/organ in internal_organs)
-		if(organ.type in current_species.external_organs)
-			organ.Remove(src)
-			SSwardrobe.stash_object(organ)
-	*/
-
 //Instead of just deleting our equipment, we save what we can and reinsert it into SSwardrobe's store
 //Hopefully this makes preference reloading not the worst thing ever
 /mob/living/carbon/human/dummy/delete_equipment()
-	var/list/items_to_check = get_all_worn_items(INCLUDE_HELD)
+	var/list/items_to_check = get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)
 	var/list/to_nuke = list() //List of items queued for deletion, can't qdel them before iterating their contents in case they hold something
 	///Travel to the bottom of the contents chain, expanding it out
 	for(var/i = 1; i <= length(items_to_check); i++) //Needs to be a c style loop since it can expand
@@ -84,6 +77,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 		qdel(delete)
 
 /mob/living/carbon/human/dummy/has_equipped(obj/item/item, slot, initial = FALSE)
+	item.item_flags |= PICKED_UP
 	return item.visual_equipped(src, slot, initial)
 
 /mob/living/carbon/human/dummy/proc/wipe_state()
@@ -94,9 +88,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	icon_state = initial(icon_state)
 
 /mob/living/carbon/human/dummy/setup_human_dna()
-	create_dna(src)
-	randomize_human(src)
-	dna.initialize_dna(skip_index = TRUE) //Skip stuff that requires full round init.
+	randomize_human_normie(src, randomize_mutations = FALSE, update_body = FALSE)
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)
@@ -114,6 +106,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 		GLOB.dummy_mob_list += D
 	else
 		D.regenerate_icons() //they were cut in wipe_state()
+		D.update_body_parts(update_limb_data = TRUE)
 	D.in_use = TRUE
 	return D
 
@@ -170,20 +163,27 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /mob/living/carbon/human/dummy/remove_from_alive_mob_list()
 	return
 
+/*
+/// Takes in an accessory list and returns the first entry from that list, ensuring that we dont return SPRITE_ACCESSORY_NONE in the process.
+/proc/get_consistent_feature_entry(list/accessory_feature_list)
+	var/consistent_entry = (accessory_feature_list- SPRITE_ACCESSORY_NONE)[1]
+	ASSERT(!isnull(consistent_entry))
+	return consistent_entry
+*/
+
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
-	target.create_dna()
-	target.dna.features["body_markings"] = "None"
-	target.dna.features["ears"] = "Cat"
-	target.dna.features["ethcolor"] = GLOB.color_list_ethereal["Cyan"]
+	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
+	target.dna.features["ethcolor"] = COLOR_WHITE
+	target.dna.features["lizard_markings"] = "None"
+	target.dna.features["ears"] = "None"
 	target.dna.features["frills"] = "None"
 	target.dna.features["horns"] = "None"
-	target.dna.features["mcolor"] = "#44cc44"
 	target.dna.features["moth_antennae"] = "Plain"
 	target.dna.features["moth_markings"] = "None"
 	target.dna.features["moth_wings"] = "Plain"
 	target.dna.features["snout"] = "Round"
 	target.dna.features["spines"] = "None"
-	target.dna.features["tail_human"] = "Cat"
+	target.dna.features["tail_cat"] = "Cat" // it's a lie
 	target.dna.features["tail_lizard"] = "Smooth"
 	target.dna.features["apid_stripes"] = "thick"
 	target.dna.features["apid_headstripes"] = "thick"
@@ -201,6 +201,17 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["diona_antennae"] = "None"
 	target.dna.features["diona_eyes"] = "None"
 	target.dna.features["diona_pbody"] = "None"
+	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
+	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
+	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency
+	var/static/consistent_UF
+	var/static/consistent_UI
+	if(isnull(consistent_UF) || isnull(consistent_UI))
+		consistent_UF = target.dna.unique_features
+		consistent_UI = target.dna.unique_identity
+	else
+		target.dna.unique_features = consistent_UF
+		target.dna.unique_identity = consistent_UI
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent

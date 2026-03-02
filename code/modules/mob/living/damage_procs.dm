@@ -1,4 +1,3 @@
-
 /**
  * Applies damage to this mob.
  *
@@ -71,7 +70,7 @@
 					update_damage_overlays()
 				damage_dealt = actual_hit.get_damage() - delta // See above
 			else
-				damage_dealt = adjustFireLoss(damage_amount, forced = forced)
+				damage_dealt = -1 * adjustFireLoss(damage_amount, forced = forced)
 		if(TOX)
 			damage_dealt = -1 * adjustToxLoss(damage_amount, forced = forced)
 		if(OXY)
@@ -182,8 +181,7 @@
 		total_damage += apply_damage(brain, BRAIN, def_zone, blocked)
 	return total_damage
 
-
-
+/// applies various common status effects or common hardcoded mob effects
 /mob/living/proc/apply_effect(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE)
 	var/hit_percent = (100-blocked)/100
 	if(!effect || (hit_percent <= 0))
@@ -287,16 +285,6 @@
 	if(!forced)
 		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return FALSE
-		/*
-		if (required_respiration_type)
-			var/obj/item/organ/internal/lungs/affected_lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
-			if(isnull(affected_lungs))
-				if(!(mob_respiration_type & required_respiration_type))  // if the mob has no lungs, use mob_respiration_type
-					return FALSE
-			else
-				if(!(affected_lungs.respiration_type & required_respiration_type)) // otherwise use the lungs' respiration_type
-					return FALSE
-		*/
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_OXY_DAMAGE, OXY, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return FALSE
 	return TRUE
@@ -316,16 +304,6 @@
 	if(!forced)
 		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return FALSE
-
-		/*
-		var/obj/item/organ/internal/lungs/affected_lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
-		if(isnull(affected_lungs))
-			if(!(mob_respiration_type & required_respiration_type))
-				return FALSE
-		else
-			if(!(affected_lungs.respiration_type & required_respiration_type))
-				return FALSE
-		*/
 	. = oxyloss
 	oxyloss = amount
 	. -= oxyloss
@@ -334,11 +312,12 @@
 	if(updating_health)
 		updatehealth()
 
+
 /mob/living/proc/getToxLoss()
 	return toxloss
 
-/mob/living/proc/can_adjust_tox_loss(amount, forced, required_biotype)
-	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE) || !(mob_biotypes & required_biotype)))
+/mob/living/proc/can_adjust_tox_loss(amount, forced, required_biotype = ALL)
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE) || !(mob_biotypes & required_biotype))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_TOX_DAMAGE, TOX, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return FALSE
@@ -372,7 +351,7 @@
 	return fireloss
 
 /mob/living/proc/can_adjust_fire_loss(amount, forced, required_bodytype)
-	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE)))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_BURN_DAMAGE, BURN, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return FALSE
@@ -391,7 +370,7 @@
 
 /mob/living/proc/setFireLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype = ALL)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
-		return
+		return 0
 	. = fireloss
 	fireloss = amount
 	. -= fireloss

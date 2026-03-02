@@ -1,9 +1,6 @@
 /datum/emote/living/carbon/human
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 
-/// The time it takes for the crying visual to be removed
-#define CRY_DURATION 12.8 SECONDS
-
 /datum/emote/living/carbon/human/cry
 	key = "cry"
 	key_third_person = "cries"
@@ -12,23 +9,10 @@
 
 /datum/emote/living/carbon/human/cry/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && ishuman(user)) // Give them a visual crying effect if they're human
-		var/mob/living/carbon/human/human_user = user
-		ADD_TRAIT(human_user, TRAIT_CRYING, "[type]")
-		human_user.update_body()
-
-		// Use a timer to remove the effect after the defined duration has passed
-		var/list/key_emotes = GLOB.emote_list["cry"]
-		for(var/datum/emote/living/carbon/human/cry/human_emote in key_emotes)
-			// The existing timer restarts if it is already running
-			addtimer(CALLBACK(human_emote, PROC_REF(end_visual), human_user), CRY_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
-
-/datum/emote/living/carbon/human/cry/proc/end_visual(mob/living/carbon/human/human_user)
-	if(!QDELETED(human_user))
-		REMOVE_TRAIT(human_user, TRAIT_CRYING, "[type]")
-		human_user.update_body()
-
-#undef CRY_DURATION
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	QDEL_IN(human_user.give_emote_overlay(/datum/bodypart_overlay/simple/emote/cry), 12.8 SECONDS)
 
 /datum/emote/living/carbon/human/dap
 	key = "dap"
@@ -165,27 +149,32 @@
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
-	message = "wags their tail"
+	message = "their tail."
 	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/wag/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/tail/tail = H?.get_organ_slot(ORGAN_SLOT_TAIL)
-	if(!tail)
-		return
-	tail.toggle_wag(H)
-
-/datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
-	var/mob/living/carbon/human/H = user
-	return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+	var/obj/item/organ/tail/oranges_accessory = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	//I am so sorry my son
+	//We bypass helpers here cause we already have the tail
+	if(oranges_accessory.wag_flags & WAG_WAGGING) //We verified the tail exists in can_run_emote()
+		oranges_accessory.stop_wag(user)
+	else
+		oranges_accessory.start_wag(user)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/tail/tail = H.get_organ_slot(ORGAN_SLOT_TAIL)
-	if(tail?.is_wagging(H))
-		. = null
+	var/obj/item/organ/tail/oranges_accessory = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(oranges_accessory.wag_flags & WAG_WAGGING)
+		. = "stops wagging " + message
+	else
+		. = "wags " + message
+
+/datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check, intentional)
+	var/obj/item/organ/tail/tail = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(tail?.wag_flags & WAG_ABLE)
+		return ..()
+	return FALSE
 
 /datum/emote/living/carbon/human/wing
 	key = "wing"
@@ -195,40 +184,23 @@
 
 /datum/emote/living/carbon/human/wing/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	H.Togglewings()
+	var/obj/item/organ/wings/wings = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+	if(isnull(wings))
+		CRASH("[type] ran on a mob that has no wings!")
+	if(wings.wings_open)
+		wings.close_wings()
+	else
+		wings.open_wings()
 
 /datum/emote/living/carbon/human/wing/select_message_type(mob/user, intentional)
-	. = ..()
-	var/mob/living/carbon/human/H = user
-	if((H.dna.species.mutant_bodyparts["wings"]) || (H.dna.species.mutant_bodyparts["moth_wings"]))
-		. = "opens " + message
-	else
-		. = "closes " + message
+	var/obj/item/organ/wings/wings = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+	var/emote_verb = wings.wings_open ? "closes" : "opens"
+	return "[emote_verb] [message]"
 
-/datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional, params)
-	var/mob/living/carbon/human/H = user
-	if(H.dna && H.dna.species)
-		if(H.dna.features["wings"] != "None")
-			return TRUE
-		if(H.dna.features["moth_wings"] != "None")
-			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-			if(istype(wings))
-				if(wings.flight_level >= WINGS_FLYING)
-					return TRUE
-	return FALSE
-
-/mob/living/carbon/human/proc/Togglewings()
-	if(!dna || !dna.species)
+/datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!istype(user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS), /obj/item/organ/wings))
 		return FALSE
-	var/obj/item/organ/wings/wings = get_organ_slot(ORGAN_SLOT_WINGS)
-	if(istype(wings))
-		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
-			return FALSE
-		if(wings.toggleopen(src))
-			return TRUE
-	return FALSE
-
+	return ..()
 
 /datum/emote/living/carbon/human/fart
 	key = "fart"

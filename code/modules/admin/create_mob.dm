@@ -10,86 +10,71 @@
 
 	user << browse(create_panel_helper(create_mob_html), "window=create_mob;size=425x475")
 
-/proc/randomize_human(mob/living/carbon/human/H, unique = FALSE)
-	H.gender = pick(MALE, FEMALE)
-	H.real_name = H.generate_random_mob_name()
-	H.name = H.real_name
-	H.underwear = random_underwear(H.gender)
-	H.socks = random_socks(H.gender)
-	H.undershirt = random_undershirt(H.undershirt)
-	H.underwear_color = "#[random_color()]"
-	H.skin_tone = pick(GLOB.skin_tones)
-	H.eye_color = random_eye_color()
-	H.dna.blood_type = random_blood_type()
+/**
+ * Fully randomizes everything about a human, including DNA and name.
+ */
+/proc/randomize_human(mob/living/carbon/human/human, randomize_mutations = FALSE)
+	human.gender = human.dna.species.sexes ? pick(MALE, FEMALE, PLURAL) : PLURAL
+	human.physique = human.gender
+	human.real_name = human.generate_random_mob_name()
+	human.name = human.get_visible_name()
+	human.set_hairstyle(random_hairstyle(human.gender), update = FALSE)
+	human.set_facial_hairstyle(random_facial_hairstyle(human.gender), update = FALSE)
+	human.set_haircolor("#[random_color()]", update = FALSE)
+	human.set_facial_haircolor(human.hair_color, update = FALSE)
+	human.eye_color = random_eye_color()
+	human.skin_tone = pick(GLOB.skin_tones)
+	human.dna.species.randomize_active_underwear_only(human)
+	// Needs to be called towards the end to update all the UIs just set above
+	human.dna.initialize_dna(newblood_type = random_blood_type(), create_mutation_blocks = randomize_mutations, randomize_features = TRUE)
+	// Snowflake stuff (ethereals)
+	human.dna.species.spec_updatehealth(human)
+	human.updateappearance(mutcolor_update = TRUE)
 
-	// Things that we should be more careful about to make realistic characters
-	H.hair_style = random_hair_style(H.gender)
-	H.facial_hair_style = random_facial_hair_style(H.gender)
-	// Randomized humans get more unique hair styles than the preference editor
-	// since they are usually important characters, and as we know from anime
-	// important characters always have colourful hair
-	if (unique)
-		H.hair_color = "#[random_color()]"
-		H.facial_hair_color = H.hair_color
-		var/list/rgb_list = rgb2num(H.hair_color)
-		var/list/hsl = rgb2hsl(rgb_list[1], rgb_list[2], rgb_list[3])
-		hsl[1] = CLAMP01(hsl[1] + (rand(-6, 6)/360))
-		hsl[2] = CLAMP01(hsl[2] + (rand(-4, 4)/100))
-		hsl[3] = CLAMP01(hsl[3] + (rand(-2, 2)/100))
-		rgb_list = hsl2rgb(hsl[1], hsl[2], hsl[3])
-		H.gradient_color = copytext(rgb(rgb_list[1], rgb_list[2], rgb_list[3]), 2)
+/**
+ * Randomizes a human, but produces someone who looks exceedingly average (by most standards).
+ *
+ * (IE, no wacky hair styles / colors)
+ */
+/proc/randomize_human_normie(mob/living/carbon/human/human, randomize_mutations = FALSE, update_body = TRUE)
+	// Sorry enbys but statistically you are not average enough
+	human.gender = human.dna.species.sexes ? pick(MALE, FEMALE) : PLURAL
+	human.physique = human.gender
+	human.real_name = human.generate_random_mob_name()
+	human.name = human.get_visible_name()
+	human.eye_color= random_eye_color()
+	human.skin_tone = pick(GLOB.skin_tones)
+	// No underwear generation handled here
+	var/picked_color = random_hair_color()
+	human.set_haircolor(picked_color, update = FALSE)
+	human.set_facial_haircolor(picked_color, update = FALSE)
+	var/datum/sprite_accessory/hairstyle = SSaccessories.hairstyles_list[random_hairstyle(human.gender)]
+	if(hairstyle && hairstyle.natural_spawn && !hairstyle.locked)
+		human.set_hairstyle(hairstyle.name, update = FALSE)
+	var/datum/sprite_accessory/facial_hair = SSaccessories.facial_hairstyles_list[random_facial_hairstyle(human.gender)]
+	if(facial_hair && facial_hair.natural_spawn && !facial_hair.locked)
+		human.set_facial_hairstyle(facial_hair.name, update = FALSE)
+
+	// Gradient colour - initialize as list
+	if(!human.grad_color)
+		human.grad_color = list()
+	if(!human.grad_style)
+		human.grad_style = list()
+
+	// Gradient colour
+	if (prob(40))
+		human.grad_color[GRADIENT_HAIR_KEY] = human.hair_color
 	else
-		// Copy the behaviour of the preferences selection
-		// Hair colour
-		switch (H.gender)
+		switch (human.gender)
 			if (MALE)
-				H.hair_color = pick(GLOB.natural_hair_colours)
+				human.grad_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours)
 			else
-				if (prob(10))
-					H.hair_color = pick(GLOB.female_dyed_hair_colours)
-				else
-					H.hair_color = pick(GLOB.natural_hair_colours)
-		// Gradient colour
-		if (prob(40))
-			H.gradient_color = H.hair_color
-		else
-			switch (H.gender)
-				if (MALE)
-					H.gradient_color = pick(GLOB.secondary_dye_hair_colours)
-				else
-					H.gradient_color = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
-		// Facial hair colour
-		H.facial_hair_color = H.hair_color
-	var/datum/sprite_accessory/gradient_style = pick_default_accessory(GLOB.hair_gradients_list, required_gender = H.gender)
-	H.gradient_style = gradient_style.name
+				human.grad_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
+	var/datum/sprite_accessory/gradient_style = pick_default_accessory(SSaccessories.hair_gradients_list, required_gender = human.gender)
+	human.grad_style[GRADIENT_HAIR_KEY] = gradient_style.name
 
-	// Mutant randomizing, doesn't affect the mob appearance unless it's the specific mutant.
-	H.dna.features["mcolor"] = "#[random_color()]"
-	H.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
-	H.dna.features["tail_lizard"] = pick(GLOB.tails_list_lizard)
-	H.dna.features["snout"] = pick(GLOB.snouts_list)
-	H.dna.features["horns"] = pick(GLOB.horns_list)
-	H.dna.features["frills"] = pick(GLOB.frills_list)
-	H.dna.features["spines"] = pick(GLOB.spines_list)
-	H.dna.features["body_markings"] = pick(GLOB.body_markings_list)
-	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_roundstart_list)
-	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_roundstart_list)
-	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_roundstart_list)
-	H.dna.features["apid_antenna"] = pick(GLOB.apid_antenna_list)
-	H.dna.features["apid_stripes"] = pick(GLOB.apid_stripes_list)
-	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)
-	H.dna.features["body_model"] = H.gender
-	H.dna.features["psyphoza_cap"] = pick(GLOB.psyphoza_cap_list)
-	H.dna.features["diona_leaves"] = pick(GLOB.diona_leaves_list)
-	H.dna.features["diona_thorns"] = pick(GLOB.diona_thorns_list)
-	H.dna.features["diona_flowers"] = pick(GLOB.diona_flowers_list)
-	H.dna.features["diona_moss"] = pick(GLOB.diona_moss_list)
-	H.dna.features["diona_mushroom"] = pick(GLOB.diona_mushroom_list)
-	H.dna.features["diona_antennae"] = pick(GLOB.diona_antennae_list)
-	H.dna.features["diona_eyes"] = pick(GLOB.diona_eyes_list)
-	H.dna.features["diona_pbody"] = pick(GLOB.diona_pbody_list)
-
-	H.update_body()
-	H.update_hair()
-	H.dna.species.spec_updatehealth(H)
-
+	// Normal DNA init stuff, these can generally be wacky but we care less, they're aliens after all
+	human.dna.initialize_dna(newblood_type = random_blood_type(), create_mutation_blocks = randomize_mutations, randomize_features = TRUE)
+	human.dna.species.spec_updatehealth(human)
+	if(update_body)
+		human.updateappearance(mutcolor_update = TRUE)

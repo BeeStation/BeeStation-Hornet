@@ -119,7 +119,7 @@
 	to_chat(carbon_parent, span_userdanger("You have to keep pumping your blood!"))
 	COOLDOWN_START(src, heart_timer, MANUAL_HEART_GRACE_PERIOD) //give two full seconds before losing more blood
 	if(add_colour)
-		carbon_parent.add_client_colour(/datum/client_colour/cursed_heart_blood)
+		carbon_parent.add_client_colour(/datum/client_colour/manual_heart_blood)
 		add_colour = FALSE
 
 ///If a new heart is added, start processing.
@@ -158,7 +158,7 @@
 	name = "Pump your blood"
 	cooldown_time = 2 SECONDS
 	check_flags = NONE
-	button_icon = 'icons/obj/surgery.dmi'
+	button_icon = 'icons/obj/medical/organs/organs.dmi'
 	button_icon_state = "cursedheart-off"
 
 /datum/action/manual_heart/on_activate(mob/user, atom/target, trigger_flags)

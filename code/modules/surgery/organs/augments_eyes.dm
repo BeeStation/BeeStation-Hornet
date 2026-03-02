@@ -20,10 +20,9 @@
 	var/HUD_type
 	var/HUD_trait
 
-/obj/item/organ/cyberimp/eyes/hud/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, pref_load = FALSE)
+/obj/item/organ/cyberimp/eyes/hud/on_mob_insert(mob/living/carbon/eye_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return
+
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		H.add_hud_to(eye_owner)
@@ -31,7 +30,7 @@
 		ADD_TRAIT(eye_owner, HUD_trait, ORGAN_TRAIT)
 	return ..()
 
-/obj/item/organ/cyberimp/eyes/hud/Remove(mob/living/carbon/eye_owner, special = FALSE, pref_load = FALSE)
+/obj/item/organ/cyberimp/eyes/hud/on_mob_remove(mob/living/carbon/eye_owner, special, movement_flags)
 	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]

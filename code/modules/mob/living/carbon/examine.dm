@@ -138,9 +138,9 @@
 			. += "[t_He] look[p_s()] extremely disgusted."
 
 	var/apparent_blood_volume = blood_volume
-	if(ishuman(src))
-		var/mob/living/carbon/human/human_us = src // gross istypesrc but easier than refactoring even further for now
-		if(human_us.dna.species.use_skintones && human_us.skin_tone == "albino")
+	if(HAS_TRAIT(src, TRAIT_USES_SKINTONES) && ishuman(src))
+		var/mob/living/carbon/human/husrc = src // gross istypesrc but easier than refactoring even further for now
+		if(husrc.skin_tone == "albino")
 			apparent_blood_volume -= (BLOOD_VOLUME_NORMAL * 0.25) // knocks you down a few pegs
 	switch(apparent_blood_volume)
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
@@ -428,7 +428,7 @@
 	. = list()
 
 	var/list/cybers = list()
-	for(var/obj/item/organ/cyberimp/cyberimp in internal_organs)
+	for(var/obj/item/organ/cyberimp/cyberimp in organs)
 		if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
 			cybers += cyberimp.examine_title(user)
 	if(length(cybers))

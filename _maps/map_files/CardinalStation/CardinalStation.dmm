@@ -3717,10 +3717,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
-"aPU" = (
-/mob/living/basic/mouse/brown/tom,
-/turf/open/floor/wood,
-/area/security/prison)
 "aPW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -4899,23 +4895,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
-"bcu" = (
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/trimline/red/line{
-	dir = 5
-	},
-/obj/machinery/camera/directional/east,
-/obj/effect/turf_decal/tile/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/vending/deputy,
-/turf/open/floor/iron,
-/area/hallway/upper/primary/starboard)
 "bcv" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
@@ -8450,6 +8429,14 @@
 /obj/item/clothing/accessory/armband/cargo,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/warehouse)
+"bPg" = (
+/obj/effect/decal/cleanable/robot_debris{
+	icon_state = "gib4";
+	pixel_x = 14;
+	pixel_y = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "bPj" = (
 /obj/structure/closet/bombcloset/security,
 /obj/structure/reagent_dispensers/peppertank/directional/north,
@@ -18339,15 +18326,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/maintenance/club)
-"dTJ" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/decal/cleanable/robot_debris{
-	icon_state = "gib4";
-	pixel_x = 14;
-	pixel_y = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "dUa" = (
 /obj/structure/fluff/hedge/opaque{
 	pixel_y = 5
@@ -19325,6 +19303,22 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
+"egs" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 5
+	},
+/obj/machinery/camera/directional/east,
+/obj/effect/turf_decal/tile/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hallway/upper/primary/starboard)
 "egt" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/end{
@@ -49946,6 +49940,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"kUK" = (
+/mob/living/basic/mouse/brown/tom,
+/turf/open/floor/wood,
+/area/security/prison)
 "kUQ" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/camera/directional/south,
@@ -66430,13 +66428,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/nanite)
-"oCx" = (
-/obj/structure/table/wood,
-/obj/item/razor/straightrazor{
-	pixel_x = 11
-	},
-/turf/open/floor/concrete/slab,
-/area/crew_quarters/barbershop)
 "oCA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -75286,6 +75277,12 @@
 	dir = 1
 	},
 /area/hallway/primary/aft)
+"qwB" = (
+/obj/machinery/requests_console/auto_name/directional/west{
+	announcementConsole = 1
+	},
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
 "qwC" = (
 /obj/effect/turf_decal/trimline/dark/line{
 	dir = 1
@@ -85832,6 +85829,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/breakroom)
+"sMo" = (
+/obj/structure/table/wood,
+/turf/open/floor/concrete/slab,
+/area/crew_quarters/barbershop)
 "sMs" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
@@ -92192,14 +92193,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
-"ugX" = (
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
-	pixel_x = -30
-	},
-/turf/open/floor/carpet/orange,
-/area/quartermaster/qm)
 "uhf" = (
 /obj/structure/railing{
 	dir = 8
@@ -140477,7 +140470,7 @@ wfG
 uDV
 vUM
 stt
-oCx
+sMo
 mgS
 lfm
 asP
@@ -141244,7 +141237,7 @@ pDL
 fmT
 mgc
 tNq
-dTJ
+bPg
 uDV
 mmW
 nZj
@@ -148938,7 +148931,7 @@ qkz
 qkz
 ilI
 pUT
-ugX
+qwB
 fQw
 sfi
 tDc
@@ -149385,7 +149378,7 @@ phD
 gig
 phD
 phD
-bcu
+egs
 avc
 tRM
 avc
@@ -153244,7 +153237,7 @@ rbX
 dbk
 ibw
 qaf
-aPU
+kUK
 mEr
 bGY
 wDq

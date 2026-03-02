@@ -75,19 +75,21 @@
 
 /datum/reagent/consumable/ethanol/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with ethanol isn't quite as good as fuel.
 	. = ..()
-	if(!isliving(exposed_mob))
+
+	if(!(method in list(TOUCH, VAPOR, PATCH)))
 		return
 
-	if(method in list(TOUCH, VAPOR, PATCH))
-		exposed_mob.adjust_fire_stacks(reac_volume / 15)
+	exposed_mob.adjust_fire_stacks(reac_volume / 15)
 
-		if(iscarbon(exposed_mob))
-			var/mob/living/carbon/exposed_carbon = exposed_mob
-			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+	if(!iscarbon(exposed_mob))
+		return
 
-			for(var/datum/surgery/surgery in exposed_carbon.surgeries)
-				surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
-				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+
+	for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
+		// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 
 /datum/reagent/consumable/ethanol/beer
 	name = "Beer"
@@ -226,17 +228,17 @@
 
 	if(DT_PROB(2.5, delta_time))
 		var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
-		if(affected_mob.is_blind())
-			if(istype(eyes))
+		if(eyes && IS_ORGANIC_ORGAN(eyes)) // doesn't affect robotic eyes
+			if(affected_mob.is_blind())
 				eyes.Remove(affected_mob)
 				eyes.forceMove(get_turf(affected_mob))
 				to_chat(affected_mob, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
 				affected_mob.emote("scream")
 				affected_mob.adjustBruteLoss(15, required_bodytype = affected_bodytype)
-		else
-			to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
-			eyes.apply_organ_damage(eyes.maxHealth)
-			affected_mob.emote("scream")
+			else
+				to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
+				eyes.apply_organ_damage(eyes.maxHealth)
+				affected_mob.emote("scream")
 
 	if(DT_PROB(1.5, delta_time))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
@@ -2712,14 +2714,12 @@
 	if(DT_PROB(10, delta_time))
 		affected_human.age += 1
 		if(affected_human.age > 70)
-			affected_human.facial_hair_color = "#CCCCCC"
-			affected_human.hair_color = "#CCCCCC"
-			affected_human.update_hair()
+			affected_human.set_facial_haircolor("#cccccc", update = FALSE)
+			affected_human.set_haircolor("#cccccc", update = TRUE)
 			if(affected_human.age > 100)
 				affected_human.become_nearsighted(type)
 				if(affected_human.gender == MALE)
-					affected_human.facial_hair_style = "Beard (Very Long)"
-					affected_human.update_hair()
+					affected_human.set_facial_hairstyle("Beard (Very Long)", update = TRUE)
 
 				if(affected_human.age > 969) //Best not let people get older than this or i might incur G-ds wrath
 					affected_human.visible_message(span_notice("[affected_human] becomes older than any man should be.. and crumbles into dust!"))

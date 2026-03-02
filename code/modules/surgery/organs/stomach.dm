@@ -1,7 +1,7 @@
 /obj/item/organ/stomach
 	name = "stomach"
 	icon_state = "stomach"
-	visual = FALSE
+
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_STOMACH
@@ -91,7 +91,7 @@
 			disgusted.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
 			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
-/obj/item/organ/stomach/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/stomach/Remove(mob/living/carbon/M, special, movement_flags)
 	var/mob/living/carbon/human/H = owner
 	if(istype(H))
 		H.clear_alert("disgust")
@@ -115,16 +115,16 @@
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/stomach/battery/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
-	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
+	RegisterSignal(receiver, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
 
-/obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
-	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
-		owner.nutrition = 0
-		owner.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
+/obj/item/organ/stomach/battery/on_mob_insert(mob/living/carbon/stomach_owner, special, movement_flags)
+	UnregisterSignal(stomach_owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
+	if(!HAS_TRAIT(stomach_owner, TRAIT_NOHUNGER) && HAS_TRAIT(stomach_owner, TRAIT_POWERHUNGRY))
+		stomach_owner.nutrition = 0
+		stomach_owner.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
 	return ..()
 
 /obj/item/organ/stomach/battery/proc/charge(datum/source, amount, repairs)
@@ -184,11 +184,11 @@
 	max_charge = 2500 //same as upgraded cell
 	charge = 2500
 
-/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special, movement_flags)
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 	return ..()
 
-/obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0)
 	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
 	return ..()
 

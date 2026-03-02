@@ -203,7 +203,7 @@
 	return
 
 
-/obj/machinery/door/proc/try_to_crowbar(obj/item/acting_object, mob/user, forced = FALSE)
+/obj/machinery/door/proc/try_to_crowbar(obj/item/acting_object, mob/user)
 	return
 
 /obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
@@ -212,23 +212,22 @@
 		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
-	if(user.combat_mode || HAS_TRAIT(tool, TRAIT_DOOR_PRYER))
+	if(user.combat_mode)
 		return
-	try_to_crowbar(tool, user)
+
+	var/forced_open = HAS_TRAIT(tool, TRAIT_DOOR_PRYER) ? TRUE : FALSE
+	try_to_crowbar(tool, user, forced_open)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/door/attackby(obj/item/attacking_item, mob/living/user, params)
-	if(!user.combat_mode && HAS_TRAIT(attacking_item, TRAIT_DOOR_PRYER))
-		try_to_crowbar(attacking_item, user, forced = TRUE)
+/obj/machinery/door/attackby(obj/item/I, mob/living/user, params)
+	if(!user.combat_mode && istype(I, /obj/item/fireaxe))
+		try_to_crowbar(I, user, FALSE)
 		return TRUE
-	else if(!user.combat_mode && istype(attacking_item, /obj/item/fireaxe))
-		try_to_crowbar(attacking_item, user, forced = FALSE)
-		return TRUE
-	else if(attacking_item.item_flags & NOBLUDGEON || user.combat_mode)
+	else if(I.item_flags & NOBLUDGEON || user.combat_mode)
 		return ..()
-	else if(!user.combat_mode && istype(attacking_item, /obj/item/stack/sheet/wood))
+	else if(!user.combat_mode && istype(I, /obj/item/stack/sheet/wood))
 		return ..() // we need this so our can_barricade element can be called using COMSIG_ATOM_ATTACKBY
-	else if(try_to_activate_door(attacking_item, user))
+	else if(try_to_activate_door(I, user))
 		return TRUE
 	return ..()
 
@@ -237,9 +236,8 @@
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/crowbar_act_secondary(mob/living/user, obj/item/tool)
-	if(HAS_TRAIT(tool, TRAIT_DOOR_PRYER))
-		return
-	try_to_crowbar(tool, user)
+	var/forced_open = HAS_TRAIT(tool, TRAIT_DOOR_PRYER) ? TRUE : FALSE
+	try_to_crowbar(tool, user, forced_open)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)

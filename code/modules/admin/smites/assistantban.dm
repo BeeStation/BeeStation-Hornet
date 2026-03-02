@@ -55,7 +55,7 @@
 	icon_living = "banassist"
 	icon_dead = "banassist"
 	icon_gib = "banassist"
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 1
 	speed = 0

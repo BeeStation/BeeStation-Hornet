@@ -60,11 +60,13 @@
 
 // Called when we take burn or brute damage, pass it to the shell instead
 /mob/living/silicon/pai/proc/on_shell_damaged(datum/hurt, type, amount, forced)
+	SIGNAL_HANDLER
 	take_holo_damage(amount)
 	return COMPONENT_IGNORE_CHANGE
 
 /// Called when we take stamina damage, pass it to the shell instead
 /mob/living/silicon/pai/proc/on_shell_weakened(datum/hurt, type, amount, forced)
+	SIGNAL_HANDLER
 	take_holo_damage(amount * ((forced) ? 1 : 0.25))
 	return COMPONENT_IGNORE_CHANGE
 

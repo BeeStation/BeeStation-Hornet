@@ -5,9 +5,9 @@
 	slot_flags = ITEM_SLOT_MASK
 	strip_delay = 40
 	equip_delay_other = 40
+	visor_vars_to_toggle = NONE
 	custom_price = 25
 	var/modifies_speech = FALSE
-	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
@@ -40,7 +40,7 @@
 	return default_name
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands)
 		if(body_parts_covered & HEAD)
 			if(damaged_clothes)
@@ -57,34 +57,17 @@
 		M.update_worn_mask()
 
 //Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
-/obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/user)
-	if(user && user.incapacitated)
-		return
-	mask_adjusted = !mask_adjusted
-	if(!mask_adjusted)
-		icon_state = initial(icon_state)
-		gas_transfer_coefficient = initial(gas_transfer_coefficient)
-		clothing_flags |= visor_flags
-		flags_inv |= visor_flags_inv
-		flags_cover |= visor_flags_cover
-		to_chat(user, span_notice("You push \the [src] back into place."))
-		slot_flags = initial(slot_flags)
-	else
-		icon_state += "_up"
-		to_chat(user, span_notice("You push \the [src] out of the way."))
-		gas_transfer_coefficient = null
-		clothing_flags &= ~visor_flags
-		flags_inv &= ~visor_flags_inv
-		flags_cover &= ~visor_flags_cover
+/obj/item/clothing/mask/visor_toggling(mob/living/user)
+	. = ..()
+	if(up)
 		if(adjusted_flags)
 			slot_flags = adjusted_flags
-	if(!istype(user))
-		return
-	if(user.wear_mask == src)
-		user.wear_mask_update(src, toggle_off = mask_adjusted)
-	if(loc == user)
-		// Update action button icon for adjusted mask, if someone is holding it.
-		user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
+	else
+		slot_flags = initial(slot_flags)
+
+/obj/item/clothing/mask/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][up ? "_up" : ""]"
 
 /obj/item/clothing/mask/compile_monkey_icon()
 	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing

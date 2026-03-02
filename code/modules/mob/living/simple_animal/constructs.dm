@@ -3,7 +3,7 @@
 	real_name = "Construct"
 	desc = ""
 	gender = NEUTER
-	mob_biotypes = MOB_INORGANIC
+	mob_biotypes = NONE
 	speak_emote = list("hisses")
 	response_help_continuous = "thinks better of touching"
 	response_help_simple = "think better of touching"
@@ -459,7 +459,7 @@
 		for(var/X in C.bodyparts)
 			var/obj/item/bodypart/BP = X
 			if(BP.body_part != HEAD && BP.body_part != CHEST)
-				if(BP.bodypart_flags & BODYPART_UNREMOVABLE)
+				if(!(BP.bodypart_flags & BODYPART_UNREMOVABLE))
 					parts += BP
 				else
 					undismembermerable_limbs++

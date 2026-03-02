@@ -2,46 +2,50 @@
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
-	sexes = 0 //no sex for bug/plant people!
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		AGENDER,
-		NOHUSK,
-		NO_UNDERWEAR,
-		NOSOCKS,
-		NOEYESPRITES,
-	)
+	sexes = FALSE //no sex for bug/plant people!
 	inherent_traits = list(
+		TRAIT_AGENDER,
 		TRAIT_BEEFRIEND,
+		TRAIT_MUTANT_COLORS,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADHEALER,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NOHUSK
 	)
-	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
-	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
-	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
+	inherent_biotypes = MOB_HUMANOID|MOB_ORGANIC|MOB_BUG
+	mutant_bodyparts = list(
+		"diona_leaves",
+		"diona_thorns",
+		"diona_flowers",
+		"diona_moss",
+		"diona_mushroom",
+		"diona_antennae",
+		"diona_eyes",
+		"diona_pbody"
+	)
+	mutant_organs = list(
+		/obj/item/organ/nymph_organ/r_arm,
+		/obj/item/organ/nymph_organ/l_arm,
+		/obj/item/organ/nymph_organ/l_leg,
+		/obj/item/organ/nymph_organ/r_leg,
+		/obj/item/organ/nymph_organ/chest
+	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
-	attack_verb = "slash"
-	attack_sound = 'sound/emotes/diona/hit.ogg'
-	burnmod = 1.25
 	heatmod = 1.5
-	brutemod = 0.8
-	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
-	speedmod = 1.2 // Dionae are slow.
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
-	deathsound = "sound/emotes/diona/death.ogg"
+	death_sound = "sound/emotes/diona/death.ogg"
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
@@ -70,10 +74,11 @@
 	var/informed_nymph = FALSE //If the user was informed that they can release a nymph via food.
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
 	if(H.nutrition < NUTRITION_LEVEL_STARVING)
-		H.take_overall_damage(1,0)
+		H.take_overall_damage(brute = 1, required_bodytype = BODYTYPE_ORGANIC)
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(/datum/status_effect/planthealing)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
@@ -148,23 +153,23 @@
 	QDEL_NULL(H)
 	return
 
-/datum/species/diona/on_species_gain(mob/living/carbon/human/H)
+/datum/species/diona/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	split_ability = new
-	split_ability.Grant(H)
+	split_ability.Grant(C)
 	partition_ability = new
-	partition_ability.Grant(H)
+	partition_ability.Grant(C)
 
-/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
+/datum/species/diona/on_species_loss(mob/living/carbon/C, datum/species/new_species, pref_load)
 	. = ..()
-	split_ability.Remove(H)
+	split_ability.Remove(C)
 	QDEL_NULL(split_ability)
-	partition_ability.Remove(H)
+	partition_ability.Remove(C)
 	QDEL_NULL(partition_ability)
 	qdel(drone_ref)
-	for(var/status_effect as anything in H.status_effects)
+	for(var/status_effect as anything in C.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
-			H.remove_status_effect(/datum/status_effect/planthealing)
+			C.remove_status_effect(/datum/status_effect/planthealing)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
@@ -279,7 +284,7 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "nymph"
 
-/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)
+/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	if(istype(organ_owner, /mob/living/carbon/human/dummy) || special)
 		return
@@ -294,10 +299,6 @@
 	QDEL_NULL(body_part)
 	QDEL_NULL(src)
 	organ_owner.update_body()
-
-/obj/item/organ/nymph_organ/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
-	Remove(C, FALSE)
-	forceMove(LB)
 
 /obj/item/organ/nymph_organ/r_arm
 	zone = BODY_ZONE_R_ARM

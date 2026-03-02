@@ -7,21 +7,25 @@
 	relevant_mutant_bodypart = "ipc_screen"
 
 /datum/preference/choiced/ipc_screen/init_possible_values()
-	var/list/values = list()
+	return assoc_to_keys_features(SSaccessories.ipc_screens_list)
 
-	for (var/screen_name in GLOB.ipc_screens_list)
-		var/datum/sprite_accessory/screen = GLOB.ipc_screens_list[screen_name]
+/datum/preference/choiced/ipc_screen/icon_for(value)
+	var/static/datum/universal_icon/ipc_head
 
-		var/datum/universal_icon/icon_with_screen = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
-		if (screen_name != FEATURE_NONE)
-			var/datum/universal_icon/screen_icon = uni_icon(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
-			icon_with_screen.blend_icon(screen_icon, ICON_OVERLAY)
-		icon_with_screen.scale(64, 64)
-		icon_with_screen.crop(15, 64 - 31, 15 + 31, 64)
+	if (isnull(ipc_head))
+		ipc_head = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 
-		values[screen.name] = icon_with_screen
+	var/datum/sprite_accessory/screen = SSaccessories.ipc_screens_list[value]
+	var/datum/universal_icon/icon_with_screen = ipc_head.copy()
 
-	return values
+	if (value != FEATURE_NONE)
+		var/datum/universal_icon/screen_icon = uni_icon(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
+		icon_with_screen.blend_icon(screen_icon, ICON_OVERLAY)
+
+	icon_with_screen.scale(64, 64)
+	icon_with_screen.crop(15, 64 - 31, 15 + 31, 64)
+
+	return icon_with_screen
 
 /datum/preference/choiced/ipc_screen/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["ipc_screen"] = value
@@ -62,23 +66,27 @@
 	relevant_mutant_bodypart = "ipc_antenna"
 
 /datum/preference/choiced/ipc_antenna/init_possible_values()
-	var/list/values = list()
+	return assoc_to_keys_features(SSaccessories.ipc_antennas_list)
 
-	for (var/antenna_name in GLOB.ipc_antennas_list)
-		var/datum/sprite_accessory/antenna = GLOB.ipc_antennas_list[antenna_name]
+/datum/preference/choiced/ipc_antenna/icon_for(value)
+	var/static/datum/universal_icon/ipc_head
 
-		var/datum/universal_icon/icon_with_antennae = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
-		if (antenna.icon_state != "none")
-			// weird snowflake shit
-			var/side = (antenna_name == "Light" || antenna_name == "Drone Eyes") ? "FRONT" : "ADJ"
-			var/datum/universal_icon/antenna_icon = uni_icon(antenna.icon, "m_ipc_antenna_[antenna.icon_state]_[side]", dir = SOUTH)
-			icon_with_antennae.blend_icon(antenna_icon, ICON_OVERLAY)
-		icon_with_antennae.scale(64, 64)
-		icon_with_antennae.crop(15, 64 - 31, 15 + 31, 64)
+	if (isnull(ipc_head))
+		ipc_head = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 
-		values[antenna.name] = icon_with_antennae
+	var/datum/sprite_accessory/antenna = SSaccessories.ipc_antennas_list[value]
+	var/datum/universal_icon/icon_with_antennae = ipc_head.copy()
 
-	return values
+	if (antenna.icon_state != "none")
+		// weird snowflake shit
+		var/side = (value == "Light" || value == "Drone Eyes") ? "FRONT" : "ADJ"
+		var/datum/universal_icon/antenna_icon = uni_icon(antenna.icon, "m_ipc_antenna_[antenna.icon_state]_[side]", dir = SOUTH)
+		icon_with_antennae.blend_icon(antenna_icon, ICON_OVERLAY)
+
+	icon_with_antennae.scale(64, 64)
+	icon_with_antennae.crop(15, 64 - 31, 15 + 31, 64)
+
+	return icon_with_antennae
 
 /datum/preference/choiced/ipc_antenna/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["ipc_antenna"] = value
@@ -114,8 +122,10 @@
 	relevant_mutant_bodypart = "ipc_chassis"
 
 /datum/preference/choiced/ipc_chassis/init_possible_values()
-	var/list/values = list()
-	var/list/body_parts = list(
+	return assoc_to_keys_features(SSaccessories.ipc_chassis_list)
+
+/datum/preference/choiced/ipc_chassis/icon_for(value)
+	var/static/list/body_parts = list(
 		BODY_ZONE_HEAD,
 		BODY_ZONE_CHEST,
 		BODY_ZONE_L_ARM,
@@ -125,16 +135,14 @@
 		BODY_ZONE_L_LEG,
 		BODY_ZONE_R_LEG,
 	)
-	for (var/chassis_name in GLOB.ipc_chassis_list)
-		var/datum/sprite_accessory/chassis = GLOB.ipc_chassis_list[chassis_name]
-		var/datum/universal_icon/icon_with_chassis = uni_icon('icons/effects/effects.dmi', "nothing")
 
-		for (var/body_part in body_parts)
-			icon_with_chassis.blend_icon(uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
+	var/datum/sprite_accessory/chassis = SSaccessories.ipc_chassis_list[value]
+	var/datum/universal_icon/icon_with_chassis = uni_icon('icons/effects/effects.dmi', "nothing")
 
-		values[chassis.name] = icon_with_chassis
+	for (var/body_part in body_parts)
+		icon_with_chassis.blend_icon(uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	return values
+	return icon_with_chassis
 
 /datum/preference/choiced/ipc_chassis/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["ipc_chassis"] = value

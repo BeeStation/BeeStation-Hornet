@@ -4,7 +4,7 @@
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
-	visual = FALSE
+
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LIVER
@@ -28,31 +28,30 @@
 #define HAS_PAINFUL_TOXIN 2
 
 /obj/item/organ/liver/on_life(delta_time, times_fired)
-	var/mob/living/carbon/C = owner
-	..() //perform general on_life()
-	if(istype(C))
-		if(!(organ_flags & ORGAN_FAILING) && !HAS_TRAIT(C, TRAIT_NOMETABOLISM))//can't process reagents with a failing liver
+	. = ..()
 
-			var/provide_pain_message = HAS_NO_TOXIN
-			if(filterToxins && !HAS_TRAIT(owner, TRAIT_TOXINLOVER))
-				//handle liver toxin filtration
-				for(var/datum/reagent/toxin/T in C.reagents.reagent_list)
-					var/thisamount = C.reagents.get_reagent_amount(T.type)
-					if (thisamount && thisamount <= toxTolerance)
-						C.reagents.remove_reagent(T.type, 0.5 * delta_time)
-					else
-						damage += (thisamount * toxLethality * delta_time)
-						if(provide_pain_message != HAS_PAINFUL_TOXIN)
-							provide_pain_message = T.silent_toxin ? HAS_SILENT_TOXIN : HAS_PAINFUL_TOXIN
+	if(!(organ_flags & ORGAN_FAILING) || !HAS_TRAIT(owner, TRAIT_LIVERLESS_METABOLISM))
 
-			//metabolize reagents
-			C.reagents.metabolize(C, delta_time, times_fired, can_overdose=TRUE)
+		var/provide_pain_message = HAS_NO_TOXIN
+		if(filterToxins && !HAS_TRAIT(owner, TRAIT_TOXINLOVER))
+			//handle liver toxin filtration
+			for(var/datum/reagent/toxin/T in owner.reagents.reagent_list)
+				var/thisamount = owner.reagents.get_reagent_amount(T.type)
+				if (thisamount && thisamount <= toxTolerance)
+					owner.reagents.remove_reagent(T.type, 0.5 * delta_time)
+				else
+					damage += (thisamount * toxLethality * delta_time)
+					if(provide_pain_message != HAS_PAINFUL_TOXIN)
+						provide_pain_message = T.silent_toxin ? HAS_SILENT_TOXIN : HAS_PAINFUL_TOXIN
 
-			if(provide_pain_message && damage > 10 && DT_PROB(damage/6, delta_time)) //the higher the damage the higher the probability
-				to_chat(C, span_warning("You feel a dull pain in your abdomen."))
+		//metabolize reagents
+		owner.reagents.metabolize(owner, delta_time, times_fired, can_overdose=TRUE)
 
-		else //for when our liver's failing
-			C.liver_failure(delta_time, times_fired)
+		if(provide_pain_message && damage > 10 && DT_PROB(damage/6, delta_time)) //the higher the damage the higher the probability
+			to_chat(owner, span_warning("You feel a dull pain in your abdomen."))
+
+	else //for when our liver's failing
+		owner.liver_failure(delta_time, times_fired)
 
 	if(damage > maxHealth)//cap liver damage
 		damage = maxHealth
