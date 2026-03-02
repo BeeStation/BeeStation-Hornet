@@ -5,3 +5,8 @@
 2026-03-02:
   Absolucy:
   - bugfix: Digital clocks now process on the correct subsystem.
+  Tsar-Salat:
+  - bugfix: stamina damagetype does stuff again
+  - bugfix: abductor baton stuns paralyze again
+  - server: damage unit test supports simplemobs, as well as the stamina and cloneloss
+      damagetypes
