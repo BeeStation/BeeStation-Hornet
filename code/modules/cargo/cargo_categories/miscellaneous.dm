@@ -1,8 +1,9 @@
 /**
  * # Miscellaneous Cargo Items
  *
- * Office supplies, art supplies, instruments, religious items, and other odds & ends.
- * Split into Office Supplies, Arts & Crafts, Religious, and Furnishings.
+ * Office supplies, art supplies, instruments, religious items, party supplies,
+ * and other odds & ends.
+ * Split into Office Supplies, Arts & Crafts, Religious, Party Supplies, and Contraband.
  */
 
 // =============================================================================
@@ -207,6 +208,40 @@
 		/obj/item/clothing/neck/crucifix/rosary,
 		/obj/item/clothing/suit/hooded/chaplain_hoodie,
 		/obj/item/clothing/suit/hooded/chaplain_hoodie,
+	)
+
+// =============================================================================
+// PARTY SUPPLIES
+// =============================================================================
+
+/datum/cargo_crate/misc_party
+	category = "Miscellaneous"
+	subcategory = "Party Supplies"
+
+/datum/cargo_crate/misc_party/party
+	name = "Party Supplies Crate"
+	desc = "Contains drinks, glasses, a shaker, glowsticks, and a party capsule."
+	cost = 2000
+	max_supply = 2
+	contains = list(
+		/obj/item/storage/box/drinkingglasses,
+		/obj/item/reagent_containers/cup/glass/shaker,
+		/obj/item/reagent_containers/cup/glass/bottle/patron,
+		/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
+		/obj/item/reagent_containers/cup/glass/bottle/ale,
+		/obj/item/reagent_containers/cup/glass/bottle/ale,
+		/obj/item/reagent_containers/cup/glass/bottle/beer,
+		/obj/item/reagent_containers/cup/glass/bottle/beer,
+		/obj/item/reagent_containers/cup/glass/bottle/beer,
+		/obj/item/reagent_containers/cup/glass/bottle/beer,
+		/obj/item/flashlight/glowstick,
+		/obj/item/flashlight/glowstick/red,
+		/obj/item/flashlight/glowstick/blue,
+		/obj/item/flashlight/glowstick/cyan,
+		/obj/item/flashlight/glowstick/orange,
+		/obj/item/flashlight/glowstick/yellow,
+		/obj/item/flashlight/glowstick/pink,
+		/obj/item/survivalcapsule/party,
 	)
 
 // =============================================================================

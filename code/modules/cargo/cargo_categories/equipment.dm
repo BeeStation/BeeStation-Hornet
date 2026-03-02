@@ -1,8 +1,9 @@
 /**
- * # Tools Cargo Items
+ * # Equipment Cargo Items
  *
- * Hand tools, engineering tools, hydroponics tools, janitorial tools, and utility items.
- * Split into Hand Tools, Engineering Tools, Janitorial, Hydroponics Tools, and Forensics.
+ * Handheld gear, portable equipment, tools, and personal devices.
+ * Split into Hand Tools, Engineering Tools, Janitorial, Hydroponics Tools,
+ * Forensics & Detection, Cargo & Service, EVA & Mobility, and Tool Packs.
  */
 
 // =============================================================================
@@ -10,7 +11,7 @@
 // =============================================================================
 
 /datum/cargo_item/tools_hand
-	category = "Tools"
+	category = "Equipment"
 	subcategory = "Hand Tools"
 
 /datum/cargo_item/tools_hand/screwdriver
@@ -81,7 +82,7 @@
 // =============================================================================
 
 /datum/cargo_item/tools_engineering
-	category = "Tools"
+	category = "Equipment"
 	subcategory = "Engineering Tools"
 	access_budget = ACCESS_ENGINE_EQUIP
 
@@ -149,11 +150,11 @@
 	small_item = TRUE
 
 // =============================================================================
-// JANITORIAL TOOLS
+// JANITORIAL
 // =============================================================================
 
 /datum/cargo_item/tools_janitor
-	category = "Tools"
+	category = "Equipment"
 	subcategory = "Janitorial"
 	access_budget = ACCESS_JANITOR
 
@@ -230,7 +231,7 @@
 // =============================================================================
 
 /datum/cargo_item/tools_hydro
-	category = "Tools"
+	category = "Equipment"
 	subcategory = "Hydroponics Tools"
 	access_budget = ACCESS_HYDROPONICS
 
@@ -280,7 +281,7 @@
 // =============================================================================
 
 /datum/cargo_item/tools_forensics
-	category = "Tools"
+	category = "Equipment"
 	subcategory = "Forensics & Detection"
 	access_budget = ACCESS_SECURITY
 
@@ -316,11 +317,11 @@
 	access_budget = FALSE
 
 // =============================================================================
-// CARGO & SERVICE TOOLS
+// CARGO & SERVICE
 // =============================================================================
 
 /datum/cargo_item/tools_cargo
-	category = "Tools"
+	category = "Equipment"
 	subcategory = "Cargo & Service"
 
 /datum/cargo_item/tools_cargo/stamp
@@ -373,12 +374,33 @@
 	access_budget = ACCESS_MINING
 
 // =============================================================================
-// TOOL PACKS (CRATES)
+// EVA & MOBILITY
+// =============================================================================
+
+/datum/cargo_item/equipment_eva
+	category = "Equipment"
+	subcategory = "EVA & Mobility"
+	access_budget = ACCESS_ENGINE_EQUIP
+
+/datum/cargo_item/equipment_eva/jetpack
+	name = "CO2 Jetpack"
+	item_path = /obj/item/tank/jetpack/carbondioxide
+	cost = 1500
+	max_supply = 3
+
+/datum/cargo_item/equipment_eva/jetpack_combustion
+	name = "Combustion Jetpack"
+	item_path = /obj/item/tank/jetpack/combustion
+	cost = 2000
+	max_supply = 2
+
+// =============================================================================
+// EQUIPMENT PACKS (CRATES)
 // =============================================================================
 
 /datum/cargo_crate/tools
-	category = "Tools"
-	subcategory = "Tool Packs"
+	category = "Equipment"
+	subcategory = "Equipment Packs"
 
 /datum/cargo_crate/tools/janitor
 	name = "Janitorial Supplies Crate"

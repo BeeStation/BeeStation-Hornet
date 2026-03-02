@@ -1,8 +1,8 @@
 /**
- * # Machines & Equipment Cargo Items
+ * # Machinery Cargo Items
  *
- * Large machinery, generators, vehicles, atmospheric equipment, and engine construction kits.
- * Split into Generators & Power, Atmospheric Equipment, Vehicles, Engine Construction, and Mech & Robotics.
+ * Large machinery, generators, vehicles, atmospheric machinery, engine construction kits, and mechs.
+ * Split into Generators & Power, Atmospheric Machinery, Vehicles, Engine Construction, and Mech & Robotics.
  */
 
 // =============================================================================
@@ -10,7 +10,7 @@
 // =============================================================================
 
 /datum/cargo_item/machines_power
-	category = "Machines & Equipment"
+	category = "Machinery"
 	subcategory = "Generators & Power"
 	access_budget = ACCESS_ENGINE_EQUIP
 
@@ -29,12 +29,12 @@
 	max_supply = 4
 
 // =============================================================================
-// ATMOSPHERIC EQUIPMENT
+// ATMOSPHERIC MACHINERY
 // =============================================================================
 
 /datum/cargo_item/machines_atmos
-	category = "Machines & Equipment"
-	subcategory = "Atmospheric Equipment"
+	category = "Machinery"
+	subcategory = "Atmospheric Machinery"
 	access_budget = ACCESS_ENGINE_EQUIP
 
 /datum/cargo_item/machines_atmos/portable_pump
@@ -51,24 +51,12 @@
 	max_supply = 4
 	crate_type = /obj/structure/closet/crate/large
 
-/datum/cargo_item/machines_atmos/jetpack
-	name = "CO2 Jetpack"
-	item_path = /obj/item/tank/jetpack/carbondioxide
-	cost = 1500
-	max_supply = 3
-
-/datum/cargo_item/machines_atmos/jetpack_combustion
-	name = "Combustion Jetpack"
-	item_path = /obj/item/tank/jetpack/combustion
-	cost = 2000
-	max_supply = 2
-
 // =============================================================================
 // VEHICLES
 // =============================================================================
 
 /datum/cargo_item/machines_vehicles
-	category = "Machines & Equipment"
+	category = "Machinery"
 	subcategory = "Vehicles"
 
 /datum/cargo_item/machines_vehicles/lawnmower
@@ -79,7 +67,7 @@
 	max_supply = 2
 
 /datum/cargo_crate/machines_vehicles
-	category = "Machines & Equipment"
+	category = "Machinery"
 	subcategory = "Vehicles"
 
 /datum/cargo_crate/machines_vehicles/atv
@@ -120,7 +108,7 @@
 // =============================================================================
 
 /datum/cargo_crate/machines_engine
-	category = "Machines & Equipment"
+	category = "Machinery"
 	subcategory = "Engine Construction"
 	access_budget = ACCESS_ENGINE
 	crate_type = /obj/structure/closet/crate/engineering
@@ -278,7 +266,7 @@
 // =============================================================================
 
 /datum/cargo_crate/machines_mech
-	category = "Machines & Equipment"
+	category = "Machinery"
 	subcategory = "Mech & Robotics"
 	access_budget = ACCESS_ENGINE_EQUIP
 	crate_type = /obj/structure/closet/crate/engineering
