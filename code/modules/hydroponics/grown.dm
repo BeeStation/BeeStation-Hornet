@@ -54,17 +54,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	make_dryable()
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
-	//Make sure maploaded produce loads with it's traits & genes
+//Make sure maploaded produce loads with it's traits & genes
 	if(!seed || skip_genes)
 		return
 	var/obj/item/plant_seeds/new_seed = new seed(src)
-	//Traits - This doesn't cover modifications added by body & root traits, sue me
+//Traits - This doesn't cover modifications added by body & root traits, sue me - This is imperfect, but this should rarely ever happen outside basic mapping or admin stuff
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in new_seed.plant_features
+	//pre-flight grab reagent stuff from the fruit so SOME traits work properly
+	reagents?.maximum_volume = fruit_feature?.total_volume
+	//Add the traits from each feature, most will bounce off
 	for(var/datum/plant_trait/trait as anything in fruit_feature?.plant_traits)
 		trait.copy(src)
 	var/trait_scale = max(fruit_feature.trait_power * 0.3, 1)
 	transform.Scale(trait_scale, trait_scale)
-	//Add genes
+//Add genes
 	if(!SSbotany.gene_cache["[new_seed.species_id]"])
 		var/list/plant_genes = list()
 		for(var/datum/plant_feature/gene as anything in new_seed.plant_features)

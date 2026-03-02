@@ -15,6 +15,7 @@
 
 /datum/plant_need/reagent/buff/robust/remove_buff(__delta_time)
 	. = ..()
+	//TODO: make this turn off after the harvest signal - Racc
 	var/datum/plant_feature/body/body_feature = parent
 	if(!istype(body_feature))
 		return

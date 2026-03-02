@@ -101,6 +101,24 @@
 
 /obj/item/plant_tray/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
+//Ported legacy code from old trays
+	//Composting
+	if(IS_EDIBLE(I) || istype(I, /obj/item/reagent_containers/pill))
+		visible_message(span_notice("[user] composts [I], spreading it through [src]"))
+		I.reagents?.trans_to(src, I.reagents.total_volume, transfered_by = user)
+		SEND_SIGNAL(I, COMSIG_ITEM_ON_COMPOSTED, user)
+		qdel(I)
+	//Syringe
+	if(istype(I, /obj/item/reagent_containers/syringe))
+		var/obj/item/reagent_containers/syringe/syr = I
+		visible_message(span_notice("[user] injects [src] with [syr]"))
+		I.reagents?.trans_to(src, syr.amount_per_transfer_from_this, transfered_by = user)
+	//Sprays
+	else if(istype(I, /obj/item/reagent_containers/spray))
+		var/obj/item/reagent_containers/spray/spray = I
+		visible_message(span_notice("[user] sprays [src] with [I]"))
+		playsound(src, 'sound/effects/spray3.ogg', 50, 1, -6)
+		I.reagents?.trans_to(src, spray.amount_per_transfer_from_this, transfered_by = user)
 	//Quick feedback
 	update_reagents()
 

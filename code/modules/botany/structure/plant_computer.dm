@@ -1,6 +1,5 @@
 #define PC_LINK_RANGE 3
 
-//TODO: Make a bunch of plant stickers spawn on this randomly - Racc
 /obj/machinery/computer/plant_machine_controller
 	name = "hydroponics machine terminal"
 	desc = "A proprietary terminal made by Yamato to control Yamato machines. It's clearly an older design."

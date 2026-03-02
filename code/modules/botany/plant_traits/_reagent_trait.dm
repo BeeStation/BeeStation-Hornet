@@ -36,9 +36,14 @@
 	RegisterSignal(parent.parent, COMSIG_FRUIT_BUILT, PROC_REF(catch_fruit))
 
 /datum/plant_trait/reagent/copy(datum/plant_feature/_parent, datum/plant_trait/_trait)
-	//Support for custom reagents traits made with fast reagents
+//Support for custom reagents traits made with fast reagents
 	var/datum/plant_trait/reagent/new_trait = _trait || new type(_parent, reagent, volume_percentage, TRUE)
-	return new_trait
+	. = new_trait
+//Special sauce for maploaded fruits
+	if(!istype(_parent, /obj/item))
+		return
+	new_trait.parent = _parent
+	new_trait.catch_fruit(src, new_trait.parent)
 
 /datum/plant_trait/reagent/get_id()
 	return "[reagent]-[volume_percentage]"

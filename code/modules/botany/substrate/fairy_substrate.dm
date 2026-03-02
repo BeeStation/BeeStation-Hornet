@@ -1,6 +1,6 @@
 /*
 	Fairy Substrate
-		idk do something cool
+		Upgrade to basic substrates, allows all plants
 */
 
 /datum/plant_subtrate/fairy
