@@ -38,7 +38,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	base_power_usage = machinery_computer.base_power_usage
 
 /obj/item/modular_computer/processor/Destroy()
-	qdel(machinery_computer)
+	if(!QDELETED(machinery_computer))
+		QDEL_NULL(machinery_computer)
 	return..()
 
 /obj/item/modular_computer/processor/update_icon()
