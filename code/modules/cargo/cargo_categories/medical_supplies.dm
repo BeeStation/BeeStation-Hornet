@@ -268,20 +268,3 @@
 		/obj/item/clothing/mask/breath,
 	)
 	crate_type = /obj/structure/closet/crate/internals
-
-// --- Contraband Emergency ---
-
-/datum/cargo_crate/medical/specialops
-	name = "Special Ops Supplies"
-	cost = 5000
-	max_supply = 1
-	contraband = TRUE
-	contains = list(
-		/obj/item/storage/box/emps,
-		/obj/item/grenade/smokebomb,
-		/obj/item/grenade/smokebomb,
-		/obj/item/grenade/smokebomb,
-		/obj/item/pen/paralytic,
-		/obj/item/grenade/chem_grenade/incendiary,
-	)
-	crate_type = /obj/structure/closet/crate/internals

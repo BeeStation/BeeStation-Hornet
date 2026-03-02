@@ -101,32 +101,3 @@
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 	crate_type = /obj/structure/closet/crate/secure/weapon
-
-// --- Contraband Armor ---
-
-/datum/cargo_crate/armor/syndieclothes
-	name = "Syndicate Surplus Clothing"
-	cost = 6000
-	max_supply = 1
-	contraband = TRUE
-	contains = list(
-		/obj/item/clothing/under/syndicate,
-		/obj/item/clothing/under/syndicate,
-		/obj/item/clothing/under/syndicate,
-		/obj/item/clothing/shoes/combat,
-		/obj/item/clothing/shoes/combat,
-		/obj/item/clothing/shoes/combat,
-		/obj/item/clothing/mask/balaclava,
-		/obj/item/clothing/mask/balaclava,
-		/obj/item/clothing/mask/balaclava,
-		/obj/item/clothing/gloves/tackler/combat,
-		/obj/item/clothing/gloves/tackler/combat,
-		/obj/item/clothing/gloves/tackler/combat,
-		/obj/item/clothing/head/hats/hos/beret/syndicate,
-		/obj/item/clothing/head/hats/hos/beret/syndicate,
-		/obj/item/clothing/head/hats/hos/beret/syndicate,
-		/obj/item/clothing/suit/armor/vest,
-		/obj/item/clothing/suit/armor/vest,
-		/obj/item/clothing/suit/armor/vest,
-	)
-	crate_type = /obj/structure/closet/crate/internals

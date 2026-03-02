@@ -2710,6 +2710,7 @@
 #include "code\modules\cargo\cargo_categories\clothing.dm"
 #include "code\modules\cargo\cargo_categories\components_parts.dm"
 #include "code\modules\cargo\cargo_categories\consumables.dm"
+#include "code\modules\cargo\cargo_categories\contraband.dm"
 #include "code\modules\cargo\cargo_categories\events.dm"
 #include "code\modules\cargo\cargo_categories\livestock.dm"
 #include "code\modules\cargo\cargo_categories\machinery.dm"
