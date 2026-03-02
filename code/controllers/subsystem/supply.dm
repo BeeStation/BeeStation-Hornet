@@ -66,6 +66,9 @@ SUBSYSTEM_DEF(supply)
 				item.desc = initial(A.desc)
 			// Re-randomize supply since New() already did it but max_supply may have changed
 			item.current_supply = rand(0, rand(1, item.max_supply))
+			// Duplicate check — warn if this path is already in the catalogue
+			if(catalogue[path])
+				stack_trace("Duplicate cargo catalogue entry for path '[path]' from cargo_list [list_type]. Overwriting previous entry.")
 			// Use item_path as the catalogue key (valid type path, works with text2path)
 			cargo_items[path] = item
 			catalogue[path] = list("type" = "item", "datum" = item)
@@ -76,6 +79,8 @@ SUBSYSTEM_DEF(supply)
 		var/datum/cargo_item/item = new item_type()
 		if(!item.item_path)
 			continue
+		if(catalogue[item_type])
+			stack_trace("Duplicate cargo catalogue entry for type '[item_type]'. Overwriting previous entry.")
 		cargo_items[item_type] = item
 		catalogue[item_type] = list("type" = "item", "datum" = item)
 
@@ -84,6 +89,8 @@ SUBSYSTEM_DEF(supply)
 		var/datum/cargo_crate/crate = new crate_type()
 		if(!crate.contains)
 			continue
+		if(catalogue[crate_type])
+			stack_trace("Duplicate cargo catalogue entry for type '[crate_type]'. Overwriting previous entry.")
 		cargo_crates[crate_type] = crate
 		catalogue[crate_type] = list("type" = "crate", "datum" = crate)
 
