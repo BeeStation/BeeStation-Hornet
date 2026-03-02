@@ -1,0 +1,7 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: stamina damagetype does stuff again
+  - bugfix: abductor baton stuns paralyze again
+  - server: damage unit test supports simplemobs, as well as the stamina and cloneloss
+      damagetypes
