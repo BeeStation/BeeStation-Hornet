@@ -5,7 +5,7 @@
 */
 
 /datum/map_adjustment/delta_station
-	map_file_name = "DeltaStation.dmm"
+	map_file_name = "DeltaStation2.dmm"
 
 /datum/map_adjustment/delta_station/on_department_init()
 	ADD_MAP_ACCESS(/datum/map_exclusive_access/psychotherapy)

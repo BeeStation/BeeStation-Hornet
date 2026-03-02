@@ -13,7 +13,7 @@
 #include "..\..\_maps\map_files\BoxStation\map_adjustment_box.dm"
 #include "..\..\_maps\map_files\CardinalStation\map_adjustment_cardinal.dm"
 // RIP Corg station
-#include "..\..\_maps\map_files\DeltaStation\map_adjustment_delta.dm"
+#include "..\..\_maps\map_files\Deltastation\map_adjustment_delta.dm" // it is Deltastation, not Delta"S"tation.
 #include "..\..\_maps\map_files\EchoStation\map_adjustment_echo.dm"
 #include "..\..\_maps\map_files\FlandStation\map_adjustment_fland.dm"
 #include "..\..\_maps\map_files\MetaStation\map_adjustment_meta.dm"
