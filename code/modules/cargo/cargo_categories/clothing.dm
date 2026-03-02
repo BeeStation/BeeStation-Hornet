@@ -343,6 +343,74 @@
 	max_supply = 5
 	small_item = TRUE
 
+// --- Security Formal ---
+
+/datum/cargo_item/clothing_formal/sec_officer_formal
+	name = "Security Officer Formal Uniform"
+	item_path = /obj/item/clothing/under/rank/security/officer/formal
+	cost = 150
+	max_supply = 2
+	access_budget = ACCESS_SECURITY
+
+/datum/cargo_item/clothing_formal/sec_officer_jacket
+	name = "Blue Officer Jacket"
+	item_path = /obj/item/clothing/suit/jacket/officer/blue
+	cost = 150
+	max_supply = 2
+	access_budget = ACCESS_SECURITY
+
+/datum/cargo_item/clothing_formal/sec_officer_beret
+	name = "Navy Officer Beret"
+	item_path = /obj/item/clothing/head/beret/sec/navyofficer
+	cost = 75
+	max_supply = 2
+	access_budget = ACCESS_SECURITY
+	small_item = TRUE
+
+/datum/cargo_item/clothing_formal/sec_warden_formal
+	name = "Warden Formal Uniform"
+	item_path = /obj/item/clothing/under/rank/security/warden/formal
+	cost = 150
+	max_supply = 1
+	access_budget = ACCESS_SECURITY
+
+/datum/cargo_item/clothing_formal/sec_warden_jacket
+	name = "Tan Warden Jacket"
+	item_path = /obj/item/clothing/suit/jacket/warden/tan
+	cost = 150
+	max_supply = 1
+	access_budget = ACCESS_SECURITY
+
+/datum/cargo_item/clothing_formal/sec_warden_beret
+	name = "Navy Warden Beret"
+	item_path = /obj/item/clothing/head/beret/sec/navywarden
+	cost = 75
+	max_supply = 1
+	access_budget = ACCESS_SECURITY
+	small_item = TRUE
+
+/datum/cargo_item/clothing_formal/sec_hos_formal
+	name = "Head of Security Formal Uniform"
+	item_path = /obj/item/clothing/under/rank/security/head_of_security/formal
+	cost = 150
+	max_supply = 1
+	access_budget = ACCESS_SECURITY
+
+/datum/cargo_item/clothing_formal/sec_hos_jacket
+	name = "Blue HoS Jacket"
+	item_path = /obj/item/clothing/suit/jacket/hos/blue
+	cost = 150
+	max_supply = 1
+	access_budget = ACCESS_SECURITY
+
+/datum/cargo_item/clothing_formal/sec_hos_beret
+	name = "Navy HoS Beret"
+	item_path = /obj/item/clothing/head/hats/hos/beret/navyhos
+	cost = 75
+	max_supply = 1
+	access_budget = ACCESS_SECURITY
+	small_item = TRUE
+
 // =============================================================================
 // COLLECTIBLE HATS
 // =============================================================================
@@ -506,28 +574,6 @@
 /datum/cargo_crate/clothing
 	category = "Clothing"
 	subcategory = "Clothing Packs"
-
-/datum/cargo_crate/clothing/securityclothes
-	name = "Security Formal Wear"
-	desc = "Contains formal uniforms and accessories for Security, Warden, and HoS."
-	cost = 1500
-	max_supply = 2
-	access_budget = ACCESS_SECURITY
-	contains = list(
-		/obj/item/clothing/under/rank/security/officer/formal,
-		/obj/item/clothing/under/rank/security/officer/formal,
-		/obj/item/clothing/suit/jacket/officer/blue,
-		/obj/item/clothing/suit/jacket/officer/blue,
-		/obj/item/clothing/head/beret/sec/navyofficer,
-		/obj/item/clothing/head/beret/sec/navyofficer,
-		/obj/item/clothing/under/rank/security/warden/formal,
-		/obj/item/clothing/suit/jacket/warden/tan,
-		/obj/item/clothing/head/beret/sec/navywarden,
-		/obj/item/clothing/under/rank/security/head_of_security/formal,
-		/obj/item/clothing/suit/jacket/hos/blue,
-		/obj/item/clothing/head/hats/hos/beret/navyhos,
-	)
-	crate_type = /obj/structure/closet/crate/secure/gear
 
 /datum/cargo_crate/clothing/contraband
 	name = "Contraband Crate"

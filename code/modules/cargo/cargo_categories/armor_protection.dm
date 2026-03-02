@@ -224,6 +224,73 @@
 	category = "Armor & Protection"
 	subcategory = "Hazard Protection"
 
+// --- Hard Hats ---
+
+/datum/cargo_item/armor_hazard/hardhat_yellow
+	name = "Hard Hat"
+	item_path = /obj/item/clothing/head/utility/hardhat
+	cost = 150
+	max_supply = 5
+	small_item = TRUE
+
+/datum/cargo_item/armor_hazard/hardhat_orange
+	name = "Orange Hard Hat"
+	item_path = /obj/item/clothing/head/utility/hardhat/orange
+	cost = 150
+	max_supply = 5
+	small_item = TRUE
+
+/datum/cargo_item/armor_hazard/hardhat_red
+	name = "Firefighter Helmet"
+	item_path = /obj/item/clothing/head/utility/hardhat/red
+	cost = 300
+	max_supply = 4
+	small_item = TRUE
+
+/datum/cargo_item/armor_hazard/hardhat_white
+	name = "White Hard Hat"
+	item_path = /obj/item/clothing/head/utility/hardhat/white
+	cost = 300
+	max_supply = 3
+	small_item = TRUE
+
+/datum/cargo_item/armor_hazard/hardhat_dblue
+	name = "Dark Blue Hard Hat"
+	item_path = /obj/item/clothing/head/utility/hardhat/dblue
+	cost = 150
+	max_supply = 5
+	small_item = TRUE
+
+/datum/cargo_item/armor_hazard/hardhat_atmos
+	name = "Atmospheric Firefighting Helmet"
+	item_path = /obj/item/clothing/head/utility/hardhat/atmos
+	cost = 400
+	max_supply = 3
+	small_item = TRUE
+
+/datum/cargo_item/armor_hazard/hardhat_welding
+	name = "Welding Hard Hat"
+	item_path = /obj/item/clothing/head/utility/hardhat/welding
+	cost = 250
+	max_supply = 4
+	small_item = TRUE
+
+/datum/cargo_item/armor_hazard/hardhat_welding_orange
+	name = "Orange Welding Hard Hat"
+	item_path = /obj/item/clothing/head/utility/hardhat/welding/orange
+	cost = 250
+	max_supply = 4
+	small_item = TRUE
+
+/datum/cargo_item/armor_hazard/hardhat_welding_white
+	name = "White Welding Hard Hat"
+	item_path = /obj/item/clothing/head/utility/hardhat/welding/white
+	cost = 350
+	max_supply = 3
+	small_item = TRUE
+
+// --- Hazard Suits ---
+
 /datum/cargo_item/armor_hazard/biosuit
 	name = "Biosuit"
 	desc = "A level-3 biohazard suit."
