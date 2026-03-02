@@ -19,3 +19,5 @@
 #include "..\..\_maps\map_files\MetaStation\map_adjustment_meta.dm"
 #include "..\..\_maps\map_files\KiloStation\map_adjustment_kilo.dm"
 #include "..\..\_maps\map_files\RadStation\map_adjustment_rad.dm"
+
+#undef ADD_MAP_ACCESS
