@@ -16,7 +16,104 @@ import {
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
-export const Cargo = (props) => {
+// --- Constants ---
+
+const MIN_SEARCH_LENGTH = 2;
+const DEBUG_SEARCH_KEYWORD = '@everything';
+
+/** Threshold ratios for crate fill efficiency labels. */
+const CRATE_FILL_GOOD = 0.8;
+const CRATE_FILL_FAIR = 0.4;
+
+/** Shared inline styles extracted to avoid re-creation on every render. */
+const STYLES = {
+  leftPanel: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
+  },
+  contentArea: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    height: '100%',
+  },
+  rightPanel: {
+    overflow: 'auto',
+  },
+  scrollable: {
+    overflow: 'auto',
+  },
+  confirmButton: {
+    lineHeight: '28px',
+    padding: '0 12px',
+  },
+  pricingSummary: {
+    background: 'rgba(0,0,0,0.2)',
+    padding: '6px 8px',
+    borderRadius: '3px',
+  },
+  quantityDisplay: {
+    minWidth: '24px',
+    textAlign: 'center',
+  },
+  expandedRow: {
+    paddingLeft: '1.5em',
+  },
+};
+
+// --- Helpers ---
+
+/** Returns a simple plural suffix: "1 crate" vs "2 crates". */
+const pluralize = (count, singular, plural) =>
+  `${count} ${count === 1 ? singular : plural || singular + 's'}`;
+
+/**
+ * Returns a crate fill efficiency label and color based on slot usage ratio.
+ */
+const getCrateFillInfo = (slotsUsed, maxSlots) => {
+  const ratio = slotsUsed / maxSlots;
+  if (ratio >= CRATE_FILL_GOOD) {
+    return { label: 'Efficient', color: 'good' };
+  }
+  if (ratio >= CRATE_FILL_FAIR) {
+    return { label: 'Fair', color: 'average' };
+  }
+  return { label: 'Wasteful', color: 'bad' };
+};
+
+/**
+ * Renders a batch order summary (crate/item counts) used in both
+ * RequestEntry and CartEntry.
+ */
+const BatchLabel = ({ object, crateCount, totalItems }) => (
+  <Box>
+    <Box bold color="good">
+      {object}
+    </Box>
+    <Box color="label" fontSize="11px">
+      {pluralize(crateCount, 'crate')} &bull; {pluralize(totalItems, 'item')}
+    </Box>
+  </Box>
+);
+
+/**
+ * Renders the expandable content rows for batch order details, shared by
+ * RequestEntry and CartEntry.
+ */
+const ExpandedContentsRows = ({ parentId, contents, colSpan }) =>
+  contents.map((item, idx) => (
+    <Table.Row key={`${parentId}_c_${idx}`}>
+      <Table.Cell collapsing />
+      <Table.Cell collapsing />
+      <Table.Cell colSpan={colSpan} color="label" style={STYLES.expandedRow}>
+        • {item}
+      </Table.Cell>
+    </Table.Row>
+  ));
+
+// --- Components ---
+
+export const Cargo = () => {
   return (
     <Window width={1050} height={750}>
       <Window.Content>
@@ -26,25 +123,16 @@ export const Cargo = (props) => {
   );
 };
 
-export const CargoContent = (props) => {
-  const { act, data } = useBackend();
+export const CargoContent = () => {
+  const { data } = useBackend();
   const [tab, setTab] = useSharedState('tab', 'catalog');
   const { requestonly } = data;
   const cart = data.cart || [];
   const requests = data.requests || [];
   return (
     <Flex height="100%">
-      {/* Left panel - main content */}
-      <Flex.Item
-        grow={1}
-        basis={0}
-        mr={1}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-        }}
-      >
+      {/* Left panel — main content */}
+      <Flex.Item grow={1} basis={0} mr={1} style={STYLES.leftPanel}>
         <Box shrink={0}>
           <CargoStatus />
           <Section fitted>
@@ -79,25 +167,21 @@ export const CargoContent = (props) => {
             </Tabs>
           </Section>
         </Box>
-        <Box style={{ flexGrow: 1, overflow: 'hidden', height: '100%' }}>
+        <Box style={STYLES.contentArea}>
           {tab === 'catalog' && <CargoCatalog />}
           {tab === 'requests' && <CargoRequests />}
           {tab === 'cart' && <CargoCart />}
         </Box>
       </Flex.Item>
-      {/* Right panel - batch cart */}
-      <Flex.Item
-        basis="320px"
-        shrink={0}
-        style={{ overflow: 'auto' }}
-      >
+      {/* Right panel — batch cart */}
+      <Flex.Item basis="320px" shrink={0} style={STYLES.rightPanel}>
         <BatchPanel />
       </Flex.Item>
     </Flex>
   );
 };
 
-const CargoStatus = (props) => {
+const CargoStatus = () => {
   const { act, data } = useBackend();
   const {
     away,
@@ -125,21 +209,24 @@ const CargoStatus = (props) => {
     >
       <LabeledList>
         <LabeledList.Item label="Shuttle">
-          {(docked && !requestonly && can_send && (
+          {docked && !requestonly && can_send ? (
             <Button content={location} onClick={() => act('send')} />
-          )) ||
-            location}
+          ) : (
+            location
+          )}
         </LabeledList.Item>
         <LabeledList.Item label="CentCom Message">{message}</LabeledList.Item>
         {!!loan && !requestonly && (
           <LabeledList.Item label="Loan">
-            {(!loan_dispatched && (
+            {loan_dispatched ? (
+              <Box color="bad">Loaned to Centcom</Box>
+            ) : (
               <Button
                 content="Loan Shuttle"
                 disabled={!(away && docked)}
                 onClick={() => act('loan')}
               />
-            )) || <Box color="bad">Loaned to Centcom</Box>}
+            )}
           </LabeledList.Item>
         )}
       </LabeledList>
@@ -155,14 +242,13 @@ export const CargoCatalog = (props) => {
   const selfPaidMult = 1 + (bc.self_paid_pct || 10) / 100;
 
   const allPacks = data.supplies || [];
-
   const [searchText, setSearchText] = useLocalState('catalogSearch', '');
 
-  // DEBUG: typing "@everything" in the search bar shows every item
-  const isDebugShowAll = searchText.trim().toLowerCase() === '@everything';
+  // DEBUG: typing the debug keyword in the search bar shows every item
+  const isDebugShowAll =
+    searchText.trim().toLowerCase() === DEBUG_SEARCH_KEYWORD;
 
-  // Only show results when actively searching (minimum 2 characters)
-  const isSearching = isDebugShowAll || searchText.length >= 2;
+  const isSearching = isDebugShowAll || searchText.length >= MIN_SEARCH_LENGTH;
   const searchLower = searchText.toLowerCase();
   const searchResults = isSearching
     ? allPacks.filter(
@@ -302,7 +388,7 @@ export const CargoCatalog = (props) => {
   );
 };
 
-const CargoRequests = (props) => {
+const CargoRequests = () => {
   const { act, data } = useBackend();
   const { requestonly, can_send, can_approve_requests } = data;
   const requests = data.requests || [];
@@ -352,7 +438,7 @@ const RequestEntry = (props) => {
   const isBatch = request.is_batch;
   return (
     <>
-      <Table.Row key={request.id} className="candystripe">
+      <Table.Row className="candystripe">
         <Table.Cell collapsing>
           {contents.length > 0 && (
             <Button
@@ -368,17 +454,11 @@ const RequestEntry = (props) => {
         </Table.Cell>
         <Table.Cell>
           {isBatch ? (
-            <Box>
-              <Box bold color="good">
-                {request.object}
-              </Box>
-              <Box color="label" fontSize="11px">
-                {request.crate_count}{' '}
-                {request.crate_count === 1 ? 'crate' : 'crates'} &bull;{' '}
-                {request.total_items}{' '}
-                {request.total_items === 1 ? 'item' : 'items'}
-              </Box>
-            </Box>
+            <BatchLabel
+              object={request.object}
+              crateCount={request.crate_count}
+              totalItems={request.total_items}
+            />
           ) : (
             request.object
           )}
@@ -392,58 +472,44 @@ const RequestEntry = (props) => {
         <Table.Cell fontFamily="verdana" collapsing textAlign="right">
           {formatMoney(request.cost)} cr
         </Table.Cell>
-        {!isBatch && (
+        {isBatch ? (
+          <Table.Cell collapsing />
+        ) : (
           <Table.Cell fontFamily="verdana" collapsing textAlign="right">
             Stock: {request.supply}
           </Table.Cell>
         )}
-        {isBatch && <Table.Cell collapsing />}
         {(!requestonly || can_send) && can_approve_requests && (
           <Table.Cell collapsing>
             <Button
               icon="check"
               color="good"
-              onClick={() =>
-                act('approve', {
-                  id: request.id,
-                })
-              }
+              onClick={() => act('approve', { id: request.id })}
             />
             <Button
               icon="times"
               color="bad"
-              onClick={() =>
-                act('deny', {
-                  id: request.id,
-                })
-              }
+              onClick={() => act('deny', { id: request.id })}
             />
           </Table.Cell>
         )}
       </Table.Row>
-      {expanded &&
-        contents.map((item, idx) => (
-          <Table.Row key={request.id + '_c_' + idx}>
-            <Table.Cell collapsing />
-            <Table.Cell collapsing />
-            <Table.Cell
-              colSpan={6}
-              color="label"
-              style={{ paddingLeft: '1.5em' }}
-            >
-              • {item}
-            </Table.Cell>
-          </Table.Row>
-        ))}
+      {expanded && (
+        <ExpandedContentsRows
+          parentId={request.id}
+          contents={contents}
+          colSpan={6}
+        />
+      )}
     </>
   );
 };
 
-const CargoCartButtons = (props) => {
+const CargoCartButtons = () => {
   const { act, data } = useBackend();
   const { requestonly, can_send, can_approve_requests } = data;
   const cart = data.cart || [];
-  const total = cart.reduce((total, entry) => total + entry.cost, 0);
+  const total = cart.reduce((sum, entry) => sum + entry.cost, 0);
   if (requestonly || !can_send || !can_approve_requests) {
     return null;
   }
@@ -451,8 +517,7 @@ const CargoCartButtons = (props) => {
     <>
       <Box inline mx={1}>
         {cart.length === 0 && 'Cart is empty'}
-        {cart.length === 1 && '1 item'}
-        {cart.length >= 2 && cart.length + ' items'}{' '}
+        {cart.length >= 1 && pluralize(cart.length, 'item')}{' '}
         {total > 0 && `(${formatMoney(total)} cr)`}
       </Box>
       <Button
@@ -465,12 +530,17 @@ const CargoCartButtons = (props) => {
   );
 };
 
-const CargoCart = (props) => {
+const CargoCart = () => {
   const { act, data } = useBackend();
   const { requestonly, away, docked, location, can_send } = data;
   const cart = data.cart || [];
   return (
-    <Section title="Current Orders" fill scrollable buttons={<CargoCartButtons />}>
+    <Section
+      title="Current Orders"
+      fill
+      scrollable
+      buttons={<CargoCartButtons />}
+    >
       {cart.length === 0 && <Box color="label">No orders placed</Box>}
       {cart.length > 0 && (
         <Table>
@@ -481,17 +551,16 @@ const CargoCart = (props) => {
       )}
       {cart.length > 0 && !requestonly && (
         <Box mt={2}>
-          {(away === 1 && docked === 1 && (
+          {away === 1 && docked === 1 ? (
             <Button
               color="green"
-              style={{
-                lineHeight: '28px',
-                padding: '0 12px',
-              }}
+              style={STYLES.confirmButton}
               content="Confirm the order"
               onClick={() => act('send')}
             />
-          )) || <Box opacity={0.5}>Shuttle in {location}.</Box>}
+          ) : (
+            <Box opacity={0.5}>Shuttle in {location}.</Box>
+          )}
         </Box>
       )}
     </Section>
@@ -509,7 +578,7 @@ const CartEntry = (props) => {
   const isBatch = entry.is_batch;
   return (
     <>
-      <Table.Row key={entry.id} className="candystripe">
+      <Table.Row className="candystripe">
         <Table.Cell collapsing>
           {contents.length > 0 && (
             <Button
@@ -525,17 +594,11 @@ const CartEntry = (props) => {
         </Table.Cell>
         <Table.Cell>
           {isBatch ? (
-            <Box>
-              <Box bold color="good">
-                {entry.object}
-              </Box>
-              <Box color="label" fontSize="11px">
-                {entry.crate_count}{' '}
-                {entry.crate_count === 1 ? 'crate' : 'crates'} &bull;{' '}
-                {entry.total_items}{' '}
-                {entry.total_items === 1 ? 'item' : 'items'}
-              </Box>
-            </Box>
+            <BatchLabel
+              object={entry.object}
+              crateCount={entry.crate_count}
+              totalItems={entry.total_items}
+            />
           ) : (
             entry.object
           )}
@@ -546,44 +609,34 @@ const CartEntry = (props) => {
         <Table.Cell fontFamily="verdana" collapsing textAlign="right">
           {formatMoney(entry.cost)} cr
         </Table.Cell>
-        {!isBatch && (
+        {isBatch ? (
+          <Table.Cell collapsing />
+        ) : (
           <Table.Cell fontFamily="verdana" collapsing textAlign="right">
             Stock: {entry.supply}
           </Table.Cell>
         )}
-        {isBatch && <Table.Cell collapsing />}
         <Table.Cell collapsing>
           {can_send && (
             <Button
               icon="minus"
-              onClick={() =>
-                act('remove', {
-                  id: entry.id,
-                })
-              }
+              onClick={() => act('remove', { id: entry.id })}
             />
           )}
         </Table.Cell>
       </Table.Row>
-      {expanded &&
-        contents.map((item, idx) => (
-          <Table.Row key={entry.id + '_c_' + idx}>
-            <Table.Cell collapsing />
-            <Table.Cell collapsing />
-            <Table.Cell
-              colSpan={5}
-              color="label"
-              style={{ paddingLeft: '1.5em' }}
-            >
-              • {item}
-            </Table.Cell>
-          </Table.Row>
-        ))}
+      {expanded && (
+        <ExpandedContentsRows
+          parentId={entry.id}
+          contents={contents}
+          colSpan={5}
+        />
+      )}
     </>
   );
 };
 
-const BatchPanel = (props) => {
+const BatchPanel = () => {
   const { act, data } = useBackend();
   const [batchTab, setBatchTab] = useSharedState('batchTab', 'items');
   const batch = data.batch || {};
@@ -596,7 +649,6 @@ const BatchPanel = (props) => {
   const bulkDiscountPct = batch.bulk_discount_pct || 0;
   const crateCost = batch.crate_cost || 0;
   const selfPaidPct = batch.self_paid_pct || 0;
-  const avgCrateFill = batch.avg_crate_fill || 0;
   const { requestonly } = data;
 
   return (
@@ -641,16 +693,12 @@ const BatchPanel = (props) => {
       {batchTab === 'pricing' && <BatchPricingBreakdown />}
       {batchItems.length > 0 && (
         <Box mt={2}>
-          {/* Compact pricing summary always visible */}
+          {/* Compact pricing summary — always visible */}
           <Box
             fontSize="11px"
             color="label"
             mb={1}
-            style={{
-              background: 'rgba(0,0,0,0.2)',
-              padding: '6px 8px',
-              borderRadius: '3px',
-            }}
+            style={STYLES.pricingSummary}
           >
             <Box>
               Base: {formatMoney(baseCost)} cr
@@ -686,19 +734,15 @@ const BatchPanel = (props) => {
             mb={1}
             fontSize="14px"
           >
-            Total: {formatMoney(totalCost)} cr ({itemCount}{' '}
-            {itemCount === 1 ? 'item' : 'items'}, {crates.length}{' '}
-            {crates.length === 1 ? 'crate' : 'crates'})
+            Total: {formatMoney(totalCost)} cr ({pluralize(itemCount, 'item')},{' '}
+            {pluralize(crates.length, 'crate')})
           </Box>
           <Button
             fluid
             color="green"
             icon="check"
             textAlign="center"
-            style={{
-              lineHeight: '28px',
-              padding: '0 12px',
-            }}
+            style={STYLES.confirmButton}
             content={requestonly ? 'Submit Request' : 'Confirm Batch Order'}
             onClick={() => act('batch_confirm')}
           />
@@ -708,7 +752,7 @@ const BatchPanel = (props) => {
   );
 };
 
-const BatchItemsList = (props) => {
+const BatchItemsList = () => {
   const { act, data } = useBackend();
   const batch = data.batch || {};
   const batchItems = batch.items || [];
@@ -732,7 +776,13 @@ const BatchItemsList = (props) => {
               {' · Stock: '}
               <Box
                 as="span"
-                color={item.supply <= 0 ? 'bad' : item.quantity >= item.supply ? 'average' : 'good'}
+                color={
+                  item.supply <= 0
+                    ? 'bad'
+                    : item.quantity >= item.supply
+                      ? 'average'
+                      : 'good'
+                }
               >
                 {item.supply}
               </Box>
@@ -755,10 +805,7 @@ const BatchItemsList = (props) => {
                 fontFamily="verdana"
                 bold
                 color={item.quantity > item.supply ? 'bad' : undefined}
-                style={{
-                  minWidth: '24px',
-                  textAlign: 'center',
-                }}
+                style={STYLES.quantityDisplay}
               >
                 {item.quantity}
               </Stack.Item>
@@ -797,7 +844,7 @@ const BatchItemsList = (props) => {
   );
 };
 
-const BatchCrateReadout = (props) => {
+const BatchCrateReadout = () => {
   const { data } = useBackend();
   const batch = data.batch || {};
   const crates = batch.crates || [];
@@ -816,29 +863,17 @@ const BatchCrateReadout = (props) => {
     <Box>
       {crates.map((crate, idx) => {
         const slotsUsed = crate.slots_used || crate.count;
+        const fill = getCrateFillInfo(slotsUsed, maxSlots);
+        const isFull = slotsUsed >= maxSlots;
         return (
           <Collapsible
             key={idx}
             title={
-              'Crate ' +
-              (idx + 1) +
-              ': (' +
-              slotsUsed +
-              '/' +
-              maxSlots +
-              ' slots' +
-              (slotsUsed >= maxSlots ? ' ✓' : '') +
-              ') - ' +
-              formatMoney(crate.crate_cost) +
-              ' cr deposit'
+              `Crate ${idx + 1}: (${slotsUsed}/${maxSlots} slots` +
+              `${isFull ? ' ✓' : ''}) - ` +
+              `${formatMoney(crate.crate_cost)} cr deposit`
             }
-            color={
-              slotsUsed >= maxSlots * 0.8
-                ? 'good'
-                : slotsUsed >= maxSlots * 0.4
-                  ? 'average'
-                  : 'bad'
-            }
+            color={fill.color}
           >
             <Box ml={2}>
               {crate.contents.map((item, cidx) => (
@@ -847,12 +882,7 @@ const BatchCrateReadout = (props) => {
                 </Box>
               ))}
               <Box mt={1} fontSize="10px" color="label" italic>
-                Fill: {slotsUsed}/{maxSlots} slots -{' '}
-                {slotsUsed >= maxSlots * 0.8
-                  ? 'Efficient'
-                  : slotsUsed >= maxSlots * 0.4
-                    ? 'Fair'
-                    : 'Wasteful'}
+                Fill: {slotsUsed}/{maxSlots} slots - {fill.label}
                 {' '}| Crate deposit: {formatMoney(crate.crate_cost)} cr
               </Box>
             </Box>
@@ -863,7 +893,7 @@ const BatchCrateReadout = (props) => {
   );
 };
 
-const BatchPricingBreakdown = (props) => {
+const BatchPricingBreakdown = () => {
   const { data } = useBackend();
   const batch = data.batch || {};
   const baseCost = batch.base_cost || 0;
@@ -873,10 +903,7 @@ const BatchPricingBreakdown = (props) => {
   const bulkDiscountPct = batch.bulk_discount_pct || 0;
   const crateCost = batch.crate_cost || 0;
   const selfPaidPct = batch.self_paid_pct || 0;
-  const avgCrateFill = batch.avg_crate_fill || 0;
-  const crates = batch.crates || [];
   const bc = data.batch_constants || {};
-  const crateCosts = bc.crate_costs || {};
 
   if (itemCount === 0) {
     return (
