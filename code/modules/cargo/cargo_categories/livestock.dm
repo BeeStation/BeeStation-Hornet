@@ -8,21 +8,12 @@
 // INDIVIDUAL ITEMS
 // =============================================================================
 
-/datum/cargo_item/livestock
-
-/datum/cargo_item/livestock/dog_bone
-	name = "Dog Bone"
-	item_path = /obj/item/dog_bone
-	cost = 100
-	max_supply = 5
+/datum/cargo_list/livestock
 	small_item = TRUE
-
-/datum/cargo_item/livestock/monkey_cubes
-	name = "Monkey Cube Box"
-	item_path = /obj/item/storage/box/monkeycubes
-	cost = 800
-	max_supply = 3
-	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/dog_bone, "cost" = 100, "max_supply" = 5),
+		list("path" = /obj/item/storage/box/monkeycubes, "cost" = 800, "max_supply" = 3),
+	)
 
 // =============================================================================
 // ANIMAL CRATES

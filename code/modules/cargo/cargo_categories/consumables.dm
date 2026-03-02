@@ -158,231 +158,55 @@
 // ALCOHOLIC DRINKS
 // =============================================================================
 
-/datum/cargo_item/consumables_alcohol
+/datum/cargo_list/consumables_alcohol
 	small_item = TRUE
-
-/datum/cargo_item/consumables_alcohol/beer
-	name = "Bottle of Beer"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/beer
-	cost = 50
-	max_supply = 12
-
-/datum/cargo_item/consumables_alcohol/ale
-	name = "Bottle of Ale"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/ale
-	cost = 60
-	max_supply = 10
-
-/datum/cargo_item/consumables_alcohol/wine
-	name = "Bottle of Wine"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/wine
-	cost = 120
-	max_supply = 6
-
-/datum/cargo_item/consumables_alcohol/whiskey
-	name = "Bottle of Whiskey"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/whiskey
-	cost = 150
-	max_supply = 4
-
-/datum/cargo_item/consumables_alcohol/vodka
-	name = "Bottle of Vodka"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/vodka
-	cost = 100
-	max_supply = 6
-
-/datum/cargo_item/consumables_alcohol/rum
-	name = "Bottle of Rum"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/rum
-	cost = 120
-	max_supply = 6
-
-/datum/cargo_item/consumables_alcohol/gin
-	name = "Bottle of Gin"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/gin
-	cost = 100
-	max_supply = 6
-
-/datum/cargo_item/consumables_alcohol/tequila
-	name = "Bottle of Tequila"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/tequila
-	cost = 120
-	max_supply = 4
-
-/datum/cargo_item/consumables_alcohol/cognac
-	name = "Bottle of Cognac"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/cognac
-	cost = 150
-	max_supply = 4
-
-/datum/cargo_item/consumables_alcohol/vermouth
-	name = "Bottle of Vermouth"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/vermouth
-	cost = 100
-	max_supply = 4
-
-/datum/cargo_item/consumables_alcohol/kahlua
-	name = "Bottle of Kahlua"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/kahlua
-	cost = 120
-	max_supply = 4
-
-/datum/cargo_item/consumables_alcohol/patron
-	name = "Bottle of Patron"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/patron
-	cost = 200
-	max_supply = 3
-
-/datum/cargo_item/consumables_alcohol/goldschlager
-	name = "Bottle of Goldschlager"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/goldschlager
-	cost = 200
-	max_supply = 3
-
-/datum/cargo_item/consumables_alcohol/absinthe
-	name = "Bottle of Absinthe"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/absinthe
-	cost = 200
-	max_supply = 3
-
-/datum/cargo_item/consumables_alcohol/champagne
-	name = "Bottle of Champagne"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/champagne
-	cost = 250
-	max_supply = 3
-
-/datum/cargo_item/consumables_alcohol/sake
-	name = "Bottle of Sake"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/sake
-	cost = 120
-	max_supply = 4
-
-/datum/cargo_item/consumables_alcohol/applejack
-	name = "Bottle of Applejack"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/applejack
-	cost = 100
-	max_supply = 4
-
-/datum/cargo_item/consumables_alcohol/cider
-	name = "Bottle of Hard Cider"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/hcider
-	cost = 80
-	max_supply = 6
-
-/datum/cargo_item/consumables_alcohol/grappa
-	name = "Bottle of Grappa"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/grappa
-	cost = 150
-	max_supply = 4
+	entries = list(
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/beer, "cost" = 50, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/ale, "cost" = 60, "max_supply" = 10),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/wine, "cost" = 120, "max_supply" = 6),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/whiskey, "cost" = 150, "max_supply" = 4),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/vodka, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/rum, "cost" = 120, "max_supply" = 6),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/gin, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/tequila, "cost" = 120, "max_supply" = 4),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/cognac, "cost" = 150, "max_supply" = 4),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/vermouth, "cost" = 100, "max_supply" = 4),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/kahlua, "cost" = 120, "max_supply" = 4),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/patron, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/goldschlager, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/absinthe, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/champagne, "cost" = 250, "max_supply" = 3),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/sake, "cost" = 120, "max_supply" = 4),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/applejack, "cost" = 100, "max_supply" = 4),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/hcider, "cost" = 80, "max_supply" = 6),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/grappa, "cost" = 150, "max_supply" = 4),
+	)
 
 // =============================================================================
 // NON-ALCOHOLIC DRINKS
 // =============================================================================
 
-/datum/cargo_item/consumables_softdrinks
+/datum/cargo_list/consumables_softdrinks
 	small_item = TRUE
-
-/datum/cargo_item/consumables_softdrinks/bottle_nothing
-	name = "Bottle of Nothing"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing
-	cost = 50
-	max_supply = 3
-
-/datum/cargo_item/consumables_softdrinks/cola
-	name = "Can of Space Cola"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/cola
-	cost = 25
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/lemon_lime
-	name = "Can of Lemon-Lime"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/lemon_lime
-	cost = 25
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/dr_gibb
-	name = "Can of Dr. Gibb"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/dr_gibb
-	cost = 25
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/space_up
-	name = "Can of Space-Up"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/space_up
-	cost = 25
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/starkist
-	name = "Can of Star-kist"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/starkist
-	cost = 25
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/space_mountain_wind
-	name = "Can of Space Mountain Wind"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/space_mountain_wind
-	cost = 25
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/sodawater
-	name = "Can of Soda Water"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/sodawater
-	cost = 15
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/tonic
-	name = "Can of Tonic Water"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/tonic
-	cost = 15
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/sol_dry
-	name = "Can of Sol Dry"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/sol_dry
-	cost = 25
-	max_supply = 12
-
-/datum/cargo_item/consumables_softdrinks/grey_bull
-	name = "Can of Grey Bull"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/grey_bull
-	cost = 40
-	max_supply = 8
-
-/datum/cargo_item/consumables_softdrinks/monkey_energy
-	name = "Can of Monkey Energy"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/monkey_energy
-	cost = 40
-	max_supply = 8
-
-/datum/cargo_item/consumables_softdrinks/pwr_game
-	name = "Can of Pwr Game"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/pwr_game
-	cost = 30
-	max_supply = 10
-
-/datum/cargo_item/consumables_softdrinks/shamblers
-	name = "Can of Shambler's Juice"
-	item_path = /obj/item/reagent_containers/cup/soda_cans/shamblers
-	cost = 30
-	max_supply = 10
-
-/datum/cargo_item/consumables_softdrinks/grenadine
-	name = "Bottle of Grenadine"
-	item_path = /obj/item/reagent_containers/cup/glass/bottle/grenadine
-	cost = 50
-	max_supply = 6
-
-/datum/cargo_item/consumables_softdrinks/drinking_glasses
-	name = "Box of Drinking Glasses"
-	item_path = /obj/item/storage/box/drinkingglasses
-	cost = 80
-	max_supply = 4
-
-/datum/cargo_item/consumables_softdrinks/shaker
-	name = "Cocktail Shaker"
-	item_path = /obj/item/reagent_containers/cup/glass/shaker
-	cost = 60
-	max_supply = 4
+	entries = list(
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing, "cost" = 50, "max_supply" = 3),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/cola, "cost" = 25, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/lemon_lime, "cost" = 25, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/dr_gibb, "cost" = 25, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/space_up, "cost" = 25, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/starkist, "cost" = 25, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/space_mountain_wind, "cost" = 25, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/sodawater, "cost" = 15, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/tonic, "cost" = 15, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/sol_dry, "cost" = 25, "max_supply" = 12),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/grey_bull, "cost" = 40, "max_supply" = 8),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/monkey_energy, "cost" = 40, "max_supply" = 8),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/pwr_game, "cost" = 30, "max_supply" = 10),
+		list("path" = /obj/item/reagent_containers/cup/soda_cans/shamblers, "cost" = 30, "max_supply" = 10),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/grenadine, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/storage/box/drinkingglasses, "cost" = 80, "max_supply" = 4),
+		list("path" = /obj/item/reagent_containers/cup/glass/shaker, "cost" = 60, "max_supply" = 4),
+	)
 
 /datum/cargo_crate/consumables_softdrinks
 
@@ -456,31 +280,13 @@
 // HYDROPONICS SUPPLIES
 // =============================================================================
 
-/datum/cargo_item/consumables_hydro
+/datum/cargo_list/consumables_hydro
 	access_budget = ACCESS_HYDROPONICS
-
-/datum/cargo_item/consumables_hydro/potted_plant
-	name = "Random Potted Plant"
-	item_path = /obj/item/kirbyplants/random
-	cost = 120
-	max_supply = 8
-	small_item = TRUE
-
-/datum/cargo_item/consumables_hydro/dog_bone
-	name = "Dog Bone"
-	item_path = /obj/item/dog_bone
-	cost = 100
-	max_supply = 5
-	small_item = TRUE
-	access_budget = FALSE
-
-/datum/cargo_item/consumables_hydro/monkey_cubes
-	name = "Monkey Cube Box"
-	item_path = /obj/item/storage/box/monkeycubes
-	cost = 800
-	max_supply = 3
-	small_item = TRUE
-	access_budget = FALSE
+	entries = list(
+		list("path" = /obj/item/kirbyplants/random, "cost" = 120, "max_supply" = 8, "small_item" = TRUE),
+		list("path" = /obj/item/dog_bone, "cost" = 100, "max_supply" = 5, "small_item" = TRUE, "access_budget" = FALSE),
+		list("path" = /obj/item/storage/box/monkeycubes, "cost" = 800, "max_supply" = 3, "small_item" = TRUE, "access_budget" = FALSE),
+	)
 
 /datum/cargo_crate/consumables_hydro
 	access_budget = ACCESS_HYDROPONICS

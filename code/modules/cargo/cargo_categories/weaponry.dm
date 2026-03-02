@@ -9,246 +9,66 @@
 // MELEE WEAPONS
 // =============================================================================
 
-/datum/cargo_item/weaponry_melee
+/datum/cargo_list/weaponry_melee
 	access_budget = ACCESS_SECURITY
-
-/datum/cargo_item/weaponry_melee/baton
-	name = "Stun Baton"
-	item_path = /obj/item/melee/baton/security/loaded
-	cost = 750
-	max_supply = 4
 	small_item = TRUE
-
-/datum/cargo_item/weaponry_melee/combat_knife
-	name = "Combat Knife"
-	item_path = /obj/item/knife/combat
-	cost = 700
-	max_supply = 4
-	small_item = TRUE
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_melee/scythe
-	name = "Scythe"
-	item_path = /obj/item/scythe
-	cost = 300
-	max_supply = 3
-	small_item = TRUE
-	access_budget = FALSE
+	entries = list(
+		list("path" = /obj/item/melee/baton/security/loaded, "cost" = 750, "max_supply" = 4),
+		list("path" = /obj/item/knife/combat, "cost" = 700, "max_supply" = 4, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/scythe, "cost" = 300, "max_supply" = 3, "access_budget" = FALSE),
+	)
 
 // =============================================================================
 // RANGED WEAPONS
 // =============================================================================
 
-/datum/cargo_item/weaponry_ranged
+/datum/cargo_list/weaponry_ranged
 	access_budget = ACCESS_SECURITY
-
-/datum/cargo_item/weaponry_ranged/taser
-	name = "Taser"
-	item_path = /obj/item/gun/ballistic/taser
-	cost = 900
-	max_supply = 4
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ranged/sec_pistol
-	name = "Security Pistol"
-	item_path = /obj/item/gun/ballistic/automatic/pistol/security
-	cost = 1200
-	max_supply = 4
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ranged/dragnet
-	name = "DRAGnet Gun"
-	item_path = /obj/item/gun/energy/e_gun/dragnet
-	cost = 2000
-	max_supply = 3
-	small_item = TRUE
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_ranged/energy_gun
-	name = "Energy Gun"
-	item_path = /obj/item/gun/energy/e_gun
-	cost = 3500
-	max_supply = 3
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_ranged/laser_gun
-	name = "Laser Gun"
-	item_path = /obj/item/gun/energy/laser
-	cost = 2500
-	max_supply = 4
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_ranged/riot_shotgun
-	name = "Riot Shotgun"
-	item_path = /obj/item/gun/ballistic/shotgun/riot
-	cost = 2500
-	max_supply = 4
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_ranged/combat_shotgun
-	name = "Combat Shotgun"
-	item_path = /obj/item/gun/ballistic/shotgun/automatic/combat
-	cost = 3000
-	max_supply = 3
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_ranged/wt550
-	name = "WT-550 Auto Rifle"
-	item_path = /obj/item/gun/ballistic/automatic/wt550
-	cost = 3000
-	max_supply = 3
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_ranged/flamethrower
-	name = "Flamethrower"
-	item_path = /obj/item/flamethrower/full
-	cost = 2000
-	max_supply = 2
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-	dangerous = TRUE
+	entries = list(
+		list("path" = /obj/item/gun/ballistic/taser, "cost" = 900, "max_supply" = 4, "small_item" = TRUE),
+		list("path" = /obj/item/gun/ballistic/automatic/pistol/security, "cost" = 1200, "max_supply" = 4, "small_item" = TRUE, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/gun/energy/e_gun/dragnet, "cost" = 2000, "max_supply" = 3, "small_item" = TRUE, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/gun/energy/e_gun, "cost" = 3500, "max_supply" = 3, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/gun/energy/laser, "cost" = 2500, "max_supply" = 4, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/gun/ballistic/shotgun/riot, "cost" = 2500, "max_supply" = 4, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/gun/ballistic/shotgun/automatic/combat, "cost" = 3000, "max_supply" = 3, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/gun/ballistic/automatic/wt550, "cost" = 3000, "max_supply" = 3, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/flamethrower/full, "cost" = 2000, "max_supply" = 2, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY, "dangerous" = TRUE),
+	)
 
 // =============================================================================
 // AMMUNITION
 // =============================================================================
 
-/datum/cargo_item/weaponry_ammo
+/datum/cargo_list/weaponry_ammo
 	access_budget = ACCESS_SECURITY
-
-/datum/cargo_item/weaponry_ammo/taser_cartridge_box
-	name = "Taser Cartridge Box"
-	item_path = /obj/item/ammo_box/taser
-	cost = 500
-	max_supply = 4
 	small_item = TRUE
-
-/datum/cargo_item/weaponry_ammo/taser_cell
-	name = "Taser Cell"
-	item_path = /obj/item/ammo_casing/taser
-	cost = 200
-	max_supply = 6
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ammo/sec_pistol_ammo
-	name = ".200 Law Ammo Box"
-	item_path = /obj/item/ammo_box/x200law
-	cost = 1200
-	max_supply = 3
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ammo/sec_pistol_mag
-	name = ".200 Law Magazine"
-	item_path = /obj/item/ammo_box/magazine/x200law/empty
-	cost = 400
-	max_supply = 5
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ammo/dumdum_ammo
-	name = ".38 Dum-Dum Ammo"
-	item_path = /obj/item/ammo_box/c38/dumdum
-	cost = 1000
-	max_supply = 2
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ammo/match_ammo
-	name = ".38 Match Ammo"
-	item_path = /obj/item/ammo_box/c38/match
-	cost = 700
-	max_supply = 2
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ammo/wt550_mag
-	name = "WT-550 9mm Magazine"
-	item_path = /obj/item/ammo_box/magazine/wt550m9
-	cost = 800
-	max_supply = 6
-	small_item = TRUE
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_ammo/firing_pin_box
-	name = "Firing Pin Box"
-	item_path = /obj/item/storage/box/firingpins
-	cost = 800
-	max_supply = 4
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ammo/firing_pin_paywall
-	name = "Paywall Firing Pin Box"
-	item_path = /obj/item/storage/box/firingpins/paywall
-	cost = 1000
-	max_supply = 3
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_ammo/bandolier
-	name = "Bandolier"
-	item_path = /obj/item/storage/belt/bandolier
-	cost = 500
-	max_supply = 4
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
+	entries = list(
+		list("path" = /obj/item/ammo_box/taser, "cost" = 500, "max_supply" = 4),
+		list("path" = /obj/item/ammo_casing/taser, "cost" = 200, "max_supply" = 6),
+		list("path" = /obj/item/ammo_box/x200law, "cost" = 1200, "max_supply" = 3, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/ammo_box/magazine/x200law/empty, "cost" = 400, "max_supply" = 5, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/ammo_box/c38/dumdum, "cost" = 1000, "max_supply" = 2, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/ammo_box/c38/match, "cost" = 700, "max_supply" = 2, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/ammo_box/magazine/wt550m9, "cost" = 800, "max_supply" = 6, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/storage/box/firingpins, "cost" = 800, "max_supply" = 4, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/storage/box/firingpins/paywall, "cost" = 1000, "max_supply" = 3, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/storage/belt/bandolier, "cost" = 500, "max_supply" = 4, "small_item" = FALSE, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+	)
 
 // =============================================================================
 // GRENADES & EXPLOSIVES
 // =============================================================================
 
-/datum/cargo_item/weaponry_grenades
+/datum/cargo_list/weaponry_grenades
 	access_budget = ACCESS_SECURITY
-
-/datum/cargo_item/weaponry_grenades/stingbang
-	name = "Stingbang Grenade"
-	item_path = /obj/item/grenade/stingbang
-	cost = 600
-	max_supply = 4
-	access = ACCESS_ARMORY
 	small_item = TRUE
-
-/datum/cargo_item/weaponry_grenades/stingbang_box
-	name = "Stingbang Grenade Box"
-	item_path = /obj/item/storage/box/stingbangs
-	cost = 2000
-	max_supply = 2
-	access = ACCESS_ARMORY
-	small_item = TRUE
-
-/datum/cargo_item/weaponry_grenades/smart_mine
-	name = "Smart Stun Mine"
-	item_path = /obj/item/deployablemine/smartstun
-	cost = 1200
-	max_supply = 4
-	small_item = TRUE
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
-
-/datum/cargo_item/weaponry_grenades/stun_mine
-	name = "Stun Mine"
-	item_path = /obj/item/deployablemine/stun
-	cost = 700
-	max_supply = 6
-	small_item = TRUE
-	access = ACCESS_ARMORY
-	access_budget = ACCESS_ARMORY
+	entries = list(
+		list("path" = /obj/item/grenade/stingbang, "cost" = 600, "max_supply" = 4, "access" = ACCESS_ARMORY),
+		list("path" = /obj/item/storage/box/stingbangs, "cost" = 2000, "max_supply" = 2, "access" = ACCESS_ARMORY),
+		list("path" = /obj/item/deployablemine/smartstun, "cost" = 1200, "max_supply" = 4, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+		list("path" = /obj/item/deployablemine/stun, "cost" = 700, "max_supply" = 6, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
+	)
 
 // =============================================================================
 // WEAPONRY CRATES

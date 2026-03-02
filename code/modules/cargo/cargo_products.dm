@@ -242,3 +242,50 @@
 			else if(ismovable(item))
 				var/atom/movable/MA = item
 				MA.forceMove(C)
+
+// =============================================================================
+// CARGO LIST — compact list-based definition for bulk item registration
+// =============================================================================
+
+/**
+ * # Cargo List
+ *
+ * Compact definition of multiple cargo items sharing common properties.
+ * Each subtype defines a list of entries that get expanded into individual
+ * /datum/cargo_item instances at init time by SSsupply.
+ *
+ * Vars set on the /datum/cargo_list act as DEFAULTS for all entries.
+ * Individual entries can override any field via their assoc list keys.
+ *
+ * Entry format (assoc list):
+ *   list("path" = /obj/item/..., "cost" = 25, "max_supply" = 12)
+ *   list("path" = /obj/item/..., "name" = "Custom Name", "cost" = 50)
+ *   list("path" = /obj/item/..., "cost" = 1500, "access" = ACCESS_ARMORY)
+ *
+ * If "name" is omitted, it auto-fills from initial(path.name).
+ * If "cost" is omitted, it defaults to 400.
+ * If "max_supply" is omitted, it defaults to 5.
+ */
+/datum/cargo_list
+	/// Default: is this a small item?
+	var/small_item = FALSE
+	/// Default: access required to open delivered crate
+	var/access = null
+	/// Default: access required for department budget ordering
+	var/access_budget = FALSE
+	/// Default: is this contraband?
+	var/contraband = FALSE
+	/// Default: is this hidden?
+	var/hidden = FALSE
+	/// Default: is this dangerous (admin alert)?
+	var/dangerous = FALSE
+	/// Default: only available via express drop pod?
+	var/DropPodOnly = FALSE
+	/// Default: crate type to deliver in
+	var/crate_type = /obj/structure/closet/crate
+	/// Default: can be secured on personal purchase?
+	var/can_secure = TRUE
+	/// The list of item entries. Each entry is an assoc list.
+	/// REQUIRED key: "path" (type path of the item to deliver)
+	/// OPTIONAL keys: "name", "cost", "max_supply", and any override matching a var above.
+	var/list/entries = null

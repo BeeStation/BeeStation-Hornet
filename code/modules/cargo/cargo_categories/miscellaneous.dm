@@ -10,56 +10,17 @@
 // OFFICE SUPPLIES
 // =============================================================================
 
-/datum/cargo_item/misc_office
-
-/datum/cargo_item/misc_office/toner
-	name = "Toner Cartridge"
-	item_path = /obj/item/toner
-	cost = 50
-	max_supply = 10
+/datum/cargo_list/misc_office
 	small_item = TRUE
-
-/datum/cargo_item/misc_office/toner_large
-	name = "Large Toner Cartridge"
-	item_path = /obj/item/toner/large
-	cost = 100
-	max_supply = 8
-	small_item = TRUE
-
-/datum/cargo_item/misc_office/pen
-	name = "Pen"
-	item_path = /obj/item/pen
-	cost = 5
-	max_supply = 15
-	small_item = TRUE
-
-/datum/cargo_item/misc_office/paper_bin
-	name = "Paper Bin"
-	item_path = /obj/item/paper_bin
-	cost = 30
-	max_supply = 8
-	small_item = TRUE
-
-/datum/cargo_item/misc_office/camera_film
-	name = "Camera Film"
-	item_path = /obj/item/camera_film
-	cost = 50
-	max_supply = 6
-	small_item = TRUE
-
-/datum/cargo_item/misc_office/wrapping_paper
-	name = "Wrapping Paper"
-	item_path = /obj/item/stack/wrapping_paper
-	cost = 50
-	max_supply = 6
-	small_item = TRUE
-
-/datum/cargo_item/misc_office/fountain_pen_box
-	name = "Fountain Pen Box"
-	item_path = /obj/item/storage/box/fountainpens
-	cost = 500
-	max_supply = 3
-	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/toner, "cost" = 50, "max_supply" = 10),
+		list("path" = /obj/item/toner/large, "cost" = 100, "max_supply" = 8),
+		list("path" = /obj/item/pen, "cost" = 5, "max_supply" = 15),
+		list("path" = /obj/item/paper_bin, "cost" = 30, "max_supply" = 8),
+		list("path" = /obj/item/camera_film, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/stack/wrapping_paper, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/storage/box/fountainpens, "cost" = 500, "max_supply" = 3),
+	)
 
 /datum/cargo_crate/misc_office
 
@@ -111,14 +72,11 @@
 // ARTS & CRAFTS
 // =============================================================================
 
-/datum/cargo_item/misc_arts
-
-/datum/cargo_item/misc_arts/fish_case
-	name = "Random Fish Case"
-	item_path = /obj/item/storage/fish_case/random
-	cost = 500
-	max_supply = 5
+/datum/cargo_list/misc_arts
 	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/storage/fish_case/random, "cost" = 500, "max_supply" = 5),
+	)
 
 /datum/cargo_crate/misc_arts
 

@@ -32,7 +32,46 @@ SUBSYSTEM_DEF(supply)
 			continue
 		supply_packs[P.type] = P
 
-	// --- Initialize cargo items ---
+	// --- Expand cargo lists into cargo items ---
+	for(var/list_type in subtypesof(/datum/cargo_list))
+		var/datum/cargo_list/CL = new list_type()
+		if(!CL.entries || !length(CL.entries))
+			qdel(CL)
+			continue
+		for(var/list/entry in CL.entries)
+			var/path = entry["path"]
+			if(!path)
+				continue
+			var/datum/cargo_item/item = new()
+			item.item_path = path
+			item.name = entry["name"]  // may be null — New() already auto-filled, so override only if provided
+			item.cost = entry["cost"] || 400
+			item.max_supply = entry["max_supply"] || 5
+			item.small_item = ("small_item" in entry) ? entry["small_item"] : CL.small_item
+			item.access = ("access" in entry) ? entry["access"] : CL.access
+			item.access_budget = ("access_budget" in entry) ? entry["access_budget"] : CL.access_budget
+			item.contraband = ("contraband" in entry) ? entry["contraband"] : CL.contraband
+			item.hidden = ("hidden" in entry) ? entry["hidden"] : CL.hidden
+			item.dangerous = ("dangerous" in entry) ? entry["dangerous"] : CL.dangerous
+			item.DropPodOnly = ("DropPodOnly" in entry) ? entry["DropPodOnly"] : CL.DropPodOnly
+			item.crate_type = ("crate_type" in entry) ? entry["crate_type"] : CL.crate_type
+			item.can_secure = ("can_secure" in entry) ? entry["can_secure"] : CL.can_secure
+			// Re-fill name/desc from item_path if entry didn't provide a name
+			// (New() already ran, but we overwrote name above, so re-derive if null)
+			if(!item.name && item.item_path)
+				var/atom/A = item.item_path
+				item.name = initial(A.name)
+			if(!item.desc && item.item_path)
+				var/atom/A = item.item_path
+				item.desc = initial(A.desc)
+			// Re-randomize supply since New() already did it but max_supply may have changed
+			item.current_supply = rand(0, rand(1, item.max_supply))
+			// Use item_path as the catalogue key (valid type path, works with text2path)
+			cargo_items[path] = item
+			catalogue[path] = list("type" = "item", "datum" = item)
+		qdel(CL)
+
+	// --- Initialize cargo items (legacy subtypes not yet converted to cargo_list) ---
 	for(var/item_type in subtypesof(/datum/cargo_item))
 		var/datum/cargo_item/item = new item_type()
 		if(!item.item_path)

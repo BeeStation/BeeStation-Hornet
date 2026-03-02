@@ -9,91 +9,29 @@
 // SHEETS (Individual)
 // =============================================================================
 
-/datum/cargo_item/materials_sheets
-
-/datum/cargo_item/materials_sheets/iron50
-	name = "Iron Sheets (50)"
-	item_path = /obj/item/stack/sheet/iron/fifty
-	cost = 500
-	max_supply = 10
-	crate_type = /obj/structure/closet/crate/engineering
-
-/datum/cargo_item/materials_sheets/glass50
-	name = "Glass Sheets (50)"
-	item_path = /obj/item/stack/sheet/glass/fifty
-	cost = 500
-	max_supply = 10
-	crate_type = /obj/structure/closet/crate/engineering
-
-/datum/cargo_item/materials_sheets/plasteel20
-	name = "Plasteel Sheets (20)"
-	item_path = /obj/item/stack/sheet/plasteel/twenty
-	cost = 1500
-	max_supply = 5
-	crate_type = /obj/structure/closet/crate/engineering
-
-/datum/cargo_item/materials_sheets/plasteel50
-	name = "Plasteel Sheets (50)"
-	item_path = /obj/item/stack/sheet/plasteel/fifty
-	cost = 3500
-	max_supply = 3
-	crate_type = /obj/structure/closet/crate/engineering
-
-/datum/cargo_item/materials_sheets/wood50
-	name = "Wood Planks (50)"
-	item_path = /obj/item/stack/sheet/wood/fifty
-	cost = 400
-	max_supply = 8
-
-/datum/cargo_item/materials_sheets/cardboard50
-	name = "Cardboard Sheets (50)"
-	item_path = /obj/item/stack/sheet/cardboard/fifty
-	cost = 200
-	max_supply = 8
-
-/datum/cargo_item/materials_sheets/copper20
-	name = "Copper Sheets (20)"
-	item_path = /obj/item/stack/sheet/mineral/copper/twenty
-	cost = 400
-	max_supply = 5
-	crate_type = /obj/structure/closet/crate/engineering
-
-/datum/cargo_item/materials_sheets/copper50
-	name = "Copper Sheets (50)"
-	item_path = /obj/item/stack/sheet/mineral/copper/fifty
-	cost = 900
-	max_supply = 3
-	crate_type = /obj/structure/closet/crate/engineering
-
-/datum/cargo_item/materials_sheets/plastic50
-	name = "Plastic Sheets (50)"
-	item_path = /obj/item/stack/sheet/plastic/fifty
-	cost = 400
-	max_supply = 8
-
-/datum/cargo_item/materials_sheets/sandstone30
-	name = "Sandstone Blocks (50)"
-	item_path = /obj/item/stack/sheet/mineral/sandstone/fifty
-	cost = 200
-	max_supply = 8
+/datum/cargo_list/materials_sheets
+	entries = list(
+		list("path" = /obj/item/stack/sheet/iron/fifty, "name" = "Iron Sheets (50)", "cost" = 500, "max_supply" = 10, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/stack/sheet/glass/fifty, "name" = "Glass Sheets (50)", "cost" = 500, "max_supply" = 10, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/stack/sheet/plasteel/twenty, "name" = "Plasteel Sheets (20)", "cost" = 1500, "max_supply" = 5, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/stack/sheet/plasteel/fifty, "name" = "Plasteel Sheets (50)", "cost" = 3500, "max_supply" = 3, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/stack/sheet/wood/fifty, "name" = "Wood Planks (50)", "cost" = 400, "max_supply" = 8),
+		list("path" = /obj/item/stack/sheet/cardboard/fifty, "name" = "Cardboard Sheets (50)", "cost" = 200, "max_supply" = 8),
+		list("path" = /obj/item/stack/sheet/mineral/copper/twenty, "name" = "Copper Sheets (20)", "cost" = 400, "max_supply" = 5, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/stack/sheet/mineral/copper/fifty, "name" = "Copper Sheets (50)", "cost" = 900, "max_supply" = 3, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/stack/sheet/plastic/fifty, "name" = "Plastic Sheets (50)", "cost" = 400, "max_supply" = 8),
+		list("path" = /obj/item/stack/sheet/mineral/sandstone/fifty, "name" = "Sandstone Blocks (50)", "cost" = 200, "max_supply" = 8),
+	)
 
 // =============================================================================
 // FLOOR TILES
 // =============================================================================
 
-/datum/cargo_item/materials_tiles
-
-/datum/cargo_item/materials_tiles/carpet_standard
-	name = "Standard Carpet Tiles (50)"
-	item_path = /obj/item/stack/tile/carpet/fifty
-	cost = 200
-	max_supply = 6
-
-/datum/cargo_item/materials_tiles/carpet_black
-	name = "Black Carpet Tiles (50)"
-	item_path = /obj/item/stack/tile/carpet/black/fifty
-	cost = 200
-	max_supply = 6
+/datum/cargo_list/materials_tiles
+	entries = list(
+		list("path" = /obj/item/stack/tile/carpet/fifty, "name" = "Standard Carpet Tiles (50)", "cost" = 200, "max_supply" = 6),
+		list("path" = /obj/item/stack/tile/carpet/black/fifty, "name" = "Black Carpet Tiles (50)", "cost" = 200, "max_supply" = 6),
+	)
 
 /datum/cargo_crate/materials_tiles
 
@@ -211,32 +149,11 @@
 // DISPENSERS
 // =============================================================================
 
-/datum/cargo_item/materials_dispensers
-
-/datum/cargo_item/materials_dispensers/foamtank
-	name = "Foam Dispenser Tank"
-	item_path = /obj/structure/reagent_dispensers/foamtank
-	cost = 1000
-	max_supply = 2
+/datum/cargo_list/materials_dispensers
 	crate_type = /obj/structure/closet/crate/large
-
-/datum/cargo_item/materials_dispensers/fueltank
-	name = "Welding Fuel Tank"
-	item_path = /obj/structure/reagent_dispensers/fueltank
-	cost = 800
-	max_supply = 3
-	crate_type = /obj/structure/closet/crate/large
-
-/datum/cargo_item/materials_dispensers/watertank
-	name = "Water Dispenser Tank"
-	item_path = /obj/structure/reagent_dispensers/watertank
-	cost = 600
-	max_supply = 3
-	crate_type = /obj/structure/closet/crate/large
-
-/datum/cargo_item/materials_dispensers/hightank
-	name = "High-Capacity Water Tank"
-	item_path = /obj/structure/reagent_dispensers/watertank/high
-	cost = 1200
-	max_supply = 2
-	crate_type = /obj/structure/closet/crate/large
+	entries = list(
+		list("path" = /obj/structure/reagent_dispensers/foamtank, "cost" = 1000, "max_supply" = 2),
+		list("path" = /obj/structure/reagent_dispensers/fueltank, "cost" = 800, "max_supply" = 3),
+		list("path" = /obj/structure/reagent_dispensers/watertank, "cost" = 600, "max_supply" = 3),
+		list("path" = /obj/structure/reagent_dispensers/watertank/high, "cost" = 1200, "max_supply" = 2),
+	)

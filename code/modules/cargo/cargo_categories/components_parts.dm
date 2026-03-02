@@ -9,85 +9,31 @@
 // ELECTRONICS
 // =============================================================================
 
-/datum/cargo_item/components_electronics
+/datum/cargo_list/components_electronics
 	access_budget = ACCESS_RESEARCH
-
-/datum/cargo_item/components_electronics/prox_sensor
-	name = "Proximity Sensor"
-	item_path = /obj/item/assembly/prox_sensor
-	cost = 50
-	max_supply = 10
 	small_item = TRUE
-
-/datum/cargo_item/components_electronics/igniter
-	name = "Igniter"
-	item_path = /obj/item/assembly/igniter
-	cost = 30
-	max_supply = 10
-	small_item = TRUE
-
-/datum/cargo_item/components_electronics/timer
-	name = "Timer"
-	item_path = /obj/item/assembly/timer
-	cost = 30
-	max_supply = 10
-	small_item = TRUE
-
-/datum/cargo_item/components_electronics/inducer_sci
-	name = "Science Inducer"
-	item_path = /obj/item/inducer/sci/with_cell
-	cost = 600
-	max_supply = 3
-	small_item = TRUE
-
-/datum/cargo_item/components_electronics/rped
-	name = "Rapid Part Exchange Device"
-	item_path = /obj/item/storage/part_replacer/cargo
-	cost = 1500
-	max_supply = 2
-	small_item = TRUE
-
-/datum/cargo_item/components_electronics/mod_core
-	name = "Standard MOD Core"
-	item_path = /obj/item/mod/core/standard
-	cost = 1000
-	max_supply = 4
-	small_item = TRUE
-
-/datum/cargo_item/components_electronics/monkey_helmet
-	name = "Monkey Sentience Helmet"
-	item_path = /obj/item/clothing/head/helmet/monkey_sentience_helmet
-	cost = 1000
-	max_supply = 4
-	small_item = TRUE
-
-/datum/cargo_item/components_electronics/tech_disk
-	name = "Random Research Disk"
-	item_path = /obj/item/disk/tech_disk/research/random
-	cost = 2000
-	max_supply = 3
-	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/assembly/prox_sensor, "cost" = 50, "max_supply" = 10),
+		list("path" = /obj/item/assembly/igniter, "cost" = 30, "max_supply" = 10),
+		list("path" = /obj/item/assembly/timer, "cost" = 30, "max_supply" = 10),
+		list("path" = /obj/item/inducer/sci/with_cell, "cost" = 600, "max_supply" = 3),
+		list("path" = /obj/item/storage/part_replacer/cargo, "cost" = 1500, "max_supply" = 2),
+		list("path" = /obj/item/mod/core/standard, "cost" = 1000, "max_supply" = 4),
+		list("path" = /obj/item/clothing/head/helmet/monkey_sentience_helmet, "cost" = 1000, "max_supply" = 4),
+		list("path" = /obj/item/disk/tech_disk/research/random, "cost" = 2000, "max_supply" = 3),
+	)
 
 // =============================================================================
 // STOCK PARTS
 // =============================================================================
 
-/datum/cargo_item/components_stock
+/datum/cargo_list/components_stock
 	access_budget = ACCESS_ENGINE_EQUIP
-
-/datum/cargo_item/components_stock/high_cell
-	name = "High-Capacity Power Cell"
-	item_path = /obj/item/stock_parts/cell/high
-	cost = 400
-	max_supply = 5
 	small_item = TRUE
-
-/datum/cargo_item/components_stock/fuel_rod
-	name = "Fuel Rod"
-	item_path = /obj/item/fuel_rod
-	cost = 350
-	max_supply = 8
-	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/stock_parts/cell/high, "cost" = 400, "max_supply" = 5),
+		list("path" = /obj/item/fuel_rod, "cost" = 350, "max_supply" = 8),
+	)
 
 // =============================================================================
 // SCIENCE PACKS (Crates)

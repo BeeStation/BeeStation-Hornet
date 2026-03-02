@@ -9,54 +9,33 @@
 // GENERATORS & POWER
 // =============================================================================
 
-/datum/cargo_item/machines_power
+/datum/cargo_list/machines_power
 	access_budget = ACCESS_ENGINE_EQUIP
-
-/datum/cargo_item/machines_power/pacman
-	name = "P.A.C.M.A.N. Generator"
-	item_path = /obj/machinery/power/port_gen/pacman
-	cost = 2000
-	max_supply = 2
-	crate_type = /obj/structure/closet/crate/engineering/electrical
-
-/datum/cargo_item/machines_power/shield_generator
-	name = "Portable Shield Generator"
-	item_path = /obj/machinery/shieldgen
-	cost = 1500
-	max_supply = 4
+	entries = list(
+		list("path" = /obj/machinery/power/port_gen/pacman, "cost" = 2000, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
+		list("path" = /obj/machinery/shieldgen, "cost" = 1500, "max_supply" = 4),
+	)
 
 // =============================================================================
 // ATMOSPHERIC MACHINERY
 // =============================================================================
 
-/datum/cargo_item/machines_atmos
+/datum/cargo_list/machines_atmos
 	access_budget = ACCESS_ENGINE_EQUIP
-
-/datum/cargo_item/machines_atmos/portable_pump
-	name = "Portable Air Pump"
-	item_path = /obj/machinery/portable_atmospherics/pump
-	cost = 1000
-	max_supply = 4
 	crate_type = /obj/structure/closet/crate/large
-
-/datum/cargo_item/machines_atmos/portable_scrubber
-	name = "Portable Air Scrubber"
-	item_path = /obj/machinery/portable_atmospherics/scrubber
-	cost = 1000
-	max_supply = 4
-	crate_type = /obj/structure/closet/crate/large
+	entries = list(
+		list("path" = /obj/machinery/portable_atmospherics/pump, "cost" = 1000, "max_supply" = 4),
+		list("path" = /obj/machinery/portable_atmospherics/scrubber, "cost" = 1000, "max_supply" = 4),
+	)
 
 // =============================================================================
 // VEHICLES
 // =============================================================================
 
-/datum/cargo_item/machines_vehicles
-
-/datum/cargo_item/machines_vehicles/lawnmower
-	name = "Lawnmower"
-	item_path = /obj/vehicle/ridden/lawnmower
-	cost = 800
-	max_supply = 2
+/datum/cargo_list/machines_vehicles
+	entries = list(
+		list("path" = /obj/vehicle/ridden/lawnmower, "cost" = 800, "max_supply" = 2),
+	)
 
 /datum/cargo_crate/machines_vehicles
 
