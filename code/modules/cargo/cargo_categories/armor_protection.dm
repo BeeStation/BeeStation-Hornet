@@ -125,7 +125,7 @@
 
 /datum/cargo_item/armor_deploy
 	category = "Armor & Protection"
-	subcategory = "Fortifications & Deployables"
+	subcategory = "Fortification/Deployable"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/armor_deploy/barrier
