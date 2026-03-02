@@ -11,8 +11,6 @@
 // =============================================================================
 
 /datum/cargo_item/refills_wardrobe
-	category = "Vending Refills"
-	subcategory = "Wardrobe Refills"
 
 /datum/cargo_item/refills_wardrobe/autodrobe
 	name = "AutoDrobe Refill"
@@ -154,8 +152,6 @@
 // =============================================================================
 
 /datum/cargo_item/refills_dept
-	category = "Vending Refills"
-	subcategory = "Department Vendors"
 
 /datum/cargo_item/refills_dept/sectech
 	name = "SecTech Vendor Refill"
@@ -215,8 +211,6 @@
 // =============================================================================
 
 /datum/cargo_item/refills_food
-	category = "Vending Refills"
-	subcategory = "Food & Drink Vendors"
 
 /datum/cargo_item/refills_food/boozeomat
 	name = "Booze-O-Mat Refill"
@@ -267,8 +261,6 @@
 // =============================================================================
 
 /datum/cargo_item/refills_general
-	category = "Vending Refills"
-	subcategory = "General Vendors"
 
 /datum/cargo_item/refills_general/cigarette
 	name = "Cigarette Vendor Refill"
@@ -305,8 +297,6 @@
 // =============================================================================
 
 /datum/cargo_item/refills_hydro
-	category = "Vending Refills"
-	subcategory = "Hydroponics Vendors"
 
 /datum/cargo_item/refills_hydro/hydroseeds
 	name = "Seed Vendor Refill"

@@ -9,8 +9,6 @@
 
 // --- Bluespace Artillery ---
 /datum/cargo_crate/station_goal/
-	category = "Miscellaneous"
-	subcategory = "Station Goals"
 
 /datum/cargo_crate/station_goal/bsa
 	name = "Bluespace Artillery Parts"

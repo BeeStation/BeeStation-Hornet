@@ -11,8 +11,6 @@
 // =============================================================================
 
 /datum/cargo_crate/consumables_food
-	category = "Consumables"
-	subcategory = "Food & Cooking"
 	crate_type = /obj/structure/closet/crate/freezer
 
 /datum/cargo_crate/consumables_food/food
@@ -171,8 +169,6 @@
 // =============================================================================
 
 /datum/cargo_item/consumables_alcohol
-	category = "Consumables"
-	subcategory = "Alcoholic Drinks"
 	small_item = TRUE
 
 /datum/cargo_item/consumables_alcohol/beer
@@ -294,8 +290,6 @@
 // =============================================================================
 
 /datum/cargo_item/consumables_softdrinks
-	category = "Consumables"
-	subcategory = "Non-Alcoholic Drinks"
 	small_item = TRUE
 
 /datum/cargo_item/consumables_softdrinks/bottle_nothing
@@ -401,8 +395,6 @@
 	max_supply = 4
 
 /datum/cargo_crate/consumables_softdrinks
-	category = "Consumables"
-	subcategory = "Non-Alcoholic Drinks"
 
 /datum/cargo_crate/consumables_softdrinks/soda
 	name = "Soda Crate"
@@ -425,8 +417,6 @@
 // =============================================================================
 
 /datum/cargo_crate/consumables_seeds
-	category = "Consumables"
-	subcategory = "Seeds"
 	access_budget = ACCESS_HYDROPONICS
 	crate_type = /obj/structure/closet/crate/hydroponics
 
@@ -480,8 +470,6 @@
 // =============================================================================
 
 /datum/cargo_item/consumables_hydro
-	category = "Consumables"
-	subcategory = "Hydroponics Supplies"
 	access_budget = ACCESS_HYDROPONICS
 
 /datum/cargo_item/consumables_hydro/potted_plant
@@ -508,8 +496,6 @@
 	access_budget = FALSE
 
 /datum/cargo_crate/consumables_hydro
-	category = "Consumables"
-	subcategory = "Hydroponics Packs"
 	access_budget = ACCESS_HYDROPONICS
 	crate_type = /obj/structure/closet/crate/hydroponics
 

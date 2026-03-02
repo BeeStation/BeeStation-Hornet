@@ -10,8 +10,6 @@
 // =============================================================================
 
 /datum/cargo_item/materials_sheets
-	category = "Materials"
-	subcategory = "Sheets"
 
 /datum/cargo_item/materials_sheets/iron50
 	name = "Iron Sheets (50)"
@@ -84,8 +82,6 @@
 // =============================================================================
 
 /datum/cargo_item/materials_tiles
-	category = "Materials"
-	subcategory = "Floor Tiles"
 
 /datum/cargo_item/materials_tiles/carpet_standard
 	name = "Standard Carpet Tiles (50)"
@@ -100,8 +96,6 @@
 	max_supply = 6
 
 /datum/cargo_crate/materials_tiles
-	category = "Materials"
-	subcategory = "Floor Tiles"
 
 /datum/cargo_crate/materials_tiles/carpet_exotic
 	name = "Exotic Carpet Crate"
@@ -136,8 +130,6 @@
 // =============================================================================
 
 /datum/cargo_crate/materials_bulk
-	category = "Materials"
-	subcategory = "Bulk Packs"
 
 /datum/cargo_crate/materials_bulk/iron250
 	name = "Bulk Iron Crate (250)"
@@ -170,8 +162,6 @@
 // =============================================================================
 
 /datum/cargo_crate/materials_canisters
-	category = "Materials"
-	subcategory = "Canisters"
 	access_budget = ACCESS_ATMOSPHERICS
 
 /datum/cargo_crate/materials_canisters/oxygen
@@ -231,8 +221,6 @@
 // =============================================================================
 
 /datum/cargo_item/materials_dispensers
-	category = "Materials"
-	subcategory = "Dispensers"
 
 /datum/cargo_item/materials_dispensers/foamtank
 	name = "Foam Dispenser Tank"

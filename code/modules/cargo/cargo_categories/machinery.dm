@@ -10,8 +10,6 @@
 // =============================================================================
 
 /datum/cargo_item/machines_power
-	category = "Machinery"
-	subcategory = "Generators & Power"
 	access_budget = ACCESS_ENGINE_EQUIP
 
 /datum/cargo_item/machines_power/pacman
@@ -33,8 +31,6 @@
 // =============================================================================
 
 /datum/cargo_item/machines_atmos
-	category = "Machinery"
-	subcategory = "Atmospheric Machinery"
 	access_budget = ACCESS_ENGINE_EQUIP
 
 /datum/cargo_item/machines_atmos/portable_pump
@@ -56,8 +52,6 @@
 // =============================================================================
 
 /datum/cargo_item/machines_vehicles
-	category = "Machinery"
-	subcategory = "Vehicles"
 
 /datum/cargo_item/machines_vehicles/lawnmower
 	name = "Lawnmower"
@@ -67,8 +61,6 @@
 	max_supply = 2
 
 /datum/cargo_crate/machines_vehicles
-	category = "Machinery"
-	subcategory = "Vehicles"
 
 /datum/cargo_crate/machines_vehicles/atv
 	name = "ATV Crate"
@@ -108,8 +100,6 @@
 // =============================================================================
 
 /datum/cargo_crate/machines_engine
-	category = "Machinery"
-	subcategory = "Engine Construction"
 	access_budget = ACCESS_ENGINE
 	crate_type = /obj/structure/closet/crate/engineering
 
@@ -266,8 +256,6 @@
 // =============================================================================
 
 /datum/cargo_crate/machines_mech
-	category = "Machinery"
-	subcategory = "Mech & Robotics"
 	access_budget = ACCESS_ENGINE_EQUIP
 	crate_type = /obj/structure/closet/crate/engineering
 

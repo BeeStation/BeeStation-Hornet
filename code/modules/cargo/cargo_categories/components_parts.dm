@@ -10,8 +10,6 @@
 // =============================================================================
 
 /datum/cargo_item/components_electronics
-	category = "Components & Parts"
-	subcategory = "Electronics"
 	access_budget = ACCESS_RESEARCH
 
 /datum/cargo_item/components_electronics/prox_sensor
@@ -75,8 +73,6 @@
 // =============================================================================
 
 /datum/cargo_item/components_stock
-	category = "Components & Parts"
-	subcategory = "Stock Parts"
 	access_budget = ACCESS_ENGINE_EQUIP
 
 /datum/cargo_item/components_stock/high_cell
@@ -98,8 +94,6 @@
 // =============================================================================
 
 /datum/cargo_crate/components_packs
-	category = "Components & Parts"
-	subcategory = "Science Packs"
 	access_budget = ACCESS_RESEARCH
 	crate_type = /obj/structure/closet/crate/science
 

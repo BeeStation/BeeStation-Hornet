@@ -11,8 +11,6 @@
 // =============================================================================
 
 /datum/cargo_item/tools_hand
-	category = "Equipment"
-	subcategory = "Hand Tools"
 
 /datum/cargo_item/tools_hand/screwdriver
 	name = "Screwdriver"
@@ -82,8 +80,6 @@
 // =============================================================================
 
 /datum/cargo_item/tools_engineering
-	category = "Equipment"
-	subcategory = "Engineering Tools"
 	access_budget = ACCESS_ENGINE_EQUIP
 
 /datum/cargo_item/tools_engineering/utility_belt
@@ -154,8 +150,6 @@
 // =============================================================================
 
 /datum/cargo_item/tools_janitor
-	category = "Equipment"
-	subcategory = "Janitorial"
 	access_budget = ACCESS_JANITOR
 
 /datum/cargo_item/tools_janitor/mop
@@ -231,8 +225,6 @@
 // =============================================================================
 
 /datum/cargo_item/tools_hydro
-	category = "Equipment"
-	subcategory = "Hydroponics Tools"
 	access_budget = ACCESS_HYDROPONICS
 
 /datum/cargo_item/tools_hydro/hatchet
@@ -281,8 +273,6 @@
 // =============================================================================
 
 /datum/cargo_item/tools_forensics
-	category = "Equipment"
-	subcategory = "Forensics & Detection"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/tools_forensics/detective_scanner
@@ -321,8 +311,6 @@
 // =============================================================================
 
 /datum/cargo_item/tools_cargo
-	category = "Equipment"
-	subcategory = "Cargo & Service"
 
 /datum/cargo_item/tools_cargo/stamp
 	name = "Rubber Stamp"
@@ -378,8 +366,6 @@
 // =============================================================================
 
 /datum/cargo_item/equipment_eva
-	category = "Equipment"
-	subcategory = "EVA & Mobility"
 	access_budget = ACCESS_ENGINE_EQUIP
 
 /datum/cargo_item/equipment_eva/jetpack
@@ -399,8 +385,6 @@
 // =============================================================================
 
 /datum/cargo_crate/tools
-	category = "Equipment"
-	subcategory = "Equipment Packs"
 
 /datum/cargo_crate/tools/janitor
 	name = "Janitorial Supplies Crate"

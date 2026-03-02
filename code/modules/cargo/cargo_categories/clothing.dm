@@ -10,8 +10,6 @@
 // =============================================================================
 
 /datum/cargo_item/clothing_costumes
-	category = "Clothing"
-	subcategory = "Costumes"
 
 // --- Wizard ---
 
@@ -191,8 +189,6 @@
 // =============================================================================
 
 /datum/cargo_item/clothing_formal
-	category = "Clothing"
-	subcategory = "Formal Wear"
 
 /datum/cargo_item/clothing_formal/black_tango
 	name = "Black Tango Dress"
@@ -416,8 +412,6 @@
 // =============================================================================
 
 /datum/cargo_item/clothing_collectible
-	category = "Clothing"
-	subcategory = "Collectible Hats"
 	small_item = TRUE
 
 /datum/cargo_item/clothing_collectible/chef
@@ -545,8 +539,6 @@
 // =============================================================================
 
 /datum/cargo_item/clothing_uniforms
-	category = "Clothing"
-	subcategory = "Uniforms & Work Wear"
 
 /datum/cargo_item/clothing_uniforms/hazardvest
 	name = "Hazard Vest"
@@ -572,8 +564,6 @@
 // =============================================================================
 
 /datum/cargo_crate/clothing
-	category = "Clothing"
-	subcategory = "Clothing Packs"
 
 /datum/cargo_crate/clothing/contraband
 	name = "Contraband Crate"

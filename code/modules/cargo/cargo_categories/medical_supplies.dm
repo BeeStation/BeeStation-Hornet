@@ -10,8 +10,6 @@
 // =============================================================================
 
 /datum/cargo_item/medical_firstaid
-	category = "Medical Supplies"
-	subcategory = "First Aid"
 	access_budget = ACCESS_MEDICAL
 
 /datum/cargo_item/medical_firstaid/firstaid_regular
@@ -70,8 +68,6 @@
 // =============================================================================
 
 /datum/cargo_item/medical_pharma
-	category = "Medical Supplies"
-	subcategory = "Pharmaceuticals"
 	access_budget = ACCESS_MEDICAL
 
 /datum/cargo_item/medical_pharma/synthflesh
@@ -107,8 +103,6 @@
 // =============================================================================
 
 /datum/cargo_item/medical_implants
-	category = "Medical Supplies"
-	subcategory = "Implants"
 	access_budget = ACCESS_MEDICAL
 
 /datum/cargo_item/medical_implants/chem_implant_case
@@ -132,8 +126,6 @@
 // =============================================================================
 
 /datum/cargo_item/medical_implant_kits
-	category = "Medical Supplies"
-	subcategory = "Implant Kits"
 
 /datum/cargo_item/medical_implant_kits/chemimp_kit
 	name = "Chemical Implant Kit"
@@ -165,8 +157,6 @@
 // =============================================================================
 
 /datum/cargo_item/medical_equip
-	category = "Medical Supplies"
-	subcategory = "Equipment"
 	access_budget = ACCESS_MEDICAL
 
 /datum/cargo_item/medical_equip/defibrillator
@@ -227,8 +217,6 @@
 // =============================================================================
 
 /datum/cargo_item/medical_emergency
-	category = "Medical Supplies"
-	subcategory = "Emergency"
 
 /datum/cargo_item/medical_emergency/oxygen_tank
 	name = "Emergency Oxygen Tank"
@@ -306,8 +294,6 @@
 // =============================================================================
 
 /datum/cargo_crate/medical
-	category = "Medical Supplies"
-	subcategory = "Medical Packs"
 	access_budget = ACCESS_MEDICAL
 	crate_type = /obj/structure/closet/crate/medical
 

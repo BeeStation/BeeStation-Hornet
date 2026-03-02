@@ -282,19 +282,7 @@
 		var/datum/cargo_item/item = SSsupply.cargo_items[item_type]
 		if((item.hidden && !(obj_flags & EMAGGED)) || (item.contraband && !contraband) || item.DropPodOnly)
 			continue
-		var/cat = item.category || "Uncategorized"
-		var/subcat = item.subcategory || "General"
-		if(!data["supplies"][cat])
-			data["supplies"][cat] = list(
-				"name" = cat,
-				"subcategories" = list()
-			)
-		if(!data["supplies"][cat]["subcategories"][subcat])
-			data["supplies"][cat]["subcategories"][subcat] = list(
-				"name" = subcat,
-				"packs" = list()
-			)
-		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
+		data["supplies"] += list(list(
 			"name" = item.name,
 			"cost" = item.get_cost(),
 			"id" = item_type,
@@ -304,24 +292,12 @@
 			"access" = item.access
 		))
 
-	// --- Cargo crates (show under "Packs" or their own category) ---
+	// --- Cargo crates ---
 	for(var/crate_type in SSsupply.cargo_crates)
 		var/datum/cargo_crate/crate = SSsupply.cargo_crates[crate_type]
 		if((crate.hidden && !(obj_flags & EMAGGED)) || (crate.contraband && !contraband) || (crate.special && !crate.special_enabled) || crate.DropPodOnly)
 			continue
-		var/cat = crate.category || "Uncategorized"
-		var/subcat = crate.subcategory || "General"
-		if(!data["supplies"][cat])
-			data["supplies"][cat] = list(
-				"name" = cat,
-				"subcategories" = list()
-			)
-		if(!data["supplies"][cat]["subcategories"][subcat])
-			data["supplies"][cat]["subcategories"][subcat] = list(
-				"name" = subcat,
-				"packs" = list()
-			)
-		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
+		data["supplies"] += list(list(
 			"name" = crate.name,
 			"cost" = crate.get_cost(),
 			"id" = crate_type,
@@ -336,19 +312,7 @@
 		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
 		if((P.hidden && !(obj_flags & EMAGGED)) || (P.contraband && !contraband) || (P.special && !P.special_enabled) || P.DropPodOnly)
 			continue
-		var/cat = P.group || "Uncategorized"
-		var/subcat = P.subgroup || "General"
-		if(!data["supplies"][cat])
-			data["supplies"][cat] = list(
-				"name" = cat,
-				"subcategories" = list()
-			)
-		if(!data["supplies"][cat]["subcategories"][subcat])
-			data["supplies"][cat]["subcategories"][subcat] = list(
-				"name" = subcat,
-				"packs" = list()
-			)
-		data["supplies"][cat]["subcategories"][subcat]["packs"] += list(list(
+		data["supplies"] += list(list(
 			"name" = P.name,
 			"cost" = P.get_cost(),
 			"id" = pack,

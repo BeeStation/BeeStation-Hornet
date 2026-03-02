@@ -8,8 +8,6 @@
 /datum/cargo_product
 	/// Display name in the cargo console UI
 	var/name = "Product"
-	/// Category this product appears under in the UI (e.g. "Engineering", "Emergency")
-	var/category = ""
 	/// Description shown in the UI
 	var/desc = ""
 	/// Base cost in cargo credits
@@ -91,10 +89,6 @@
 	var/name
 	/// The item type path this cargo item delivers
 	var/item_path
-	/// Category this item appears under (e.g. "Engineering", "Medical")
-	var/category = ""
-	/// Subcategory within the parent category (e.g. "Tools", "Equipment"). If empty, items appear under a "General" subcategory.
-	var/subcategory = ""
 	/// Description shown in the UI. Defaults to item's desc if unset.
 	var/desc = ""
 	/// Base cost in cargo credits
@@ -129,6 +123,10 @@
 	if(!name && item_path)
 		var/atom/A = item_path
 		name = initial(A.name)
+	// Auto-fill desc from the item's in-game description if not set
+	if(!desc && item_path)
+		var/atom/A = item_path
+		desc = initial(A.desc)
 
 /// Get the effective cost after station traits
 /datum/cargo_item/proc/get_cost()
@@ -151,17 +149,10 @@
  * Represents a pre-assembled crate order — a fixed bundle of items delivered together.
  * Used for station goals, special event packs, and any multi-item package that
  * logically belongs in a single crate.
- *
- * In the UI, all cargo_crate datums appear under the "Packs" category by default,
- * but can specify their own category.
  */
 /datum/cargo_crate
 	/// Display name
 	var/name = "Crate"
-	/// UI category. Defaults to "Packs".
-	var/category = "Packs"
-	/// Subcategory within the parent category (e.g. "Science", "Engineering"). If empty, items appear under a "General" subcategory.
-	var/subcategory = ""
 	/// Description shown in the UI
 	var/desc = ""
 	/// Base cost
@@ -200,6 +191,9 @@
 /datum/cargo_crate/New()
 	. = ..()
 	current_supply = rand(0, rand(1, max_supply))
+	// Auto-fill desc with the crate's name if not set (crates have multiple items, so item desc doesn't apply)
+	if(!desc)
+		desc = name
 
 /// Get the effective cost after station traits
 /datum/cargo_crate/proc/get_cost()

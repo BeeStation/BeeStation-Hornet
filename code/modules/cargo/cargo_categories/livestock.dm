@@ -9,8 +9,6 @@
 // =============================================================================
 
 /datum/cargo_item/livestock
-	category = "Livestock"
-	subcategory = "Animals"
 
 /datum/cargo_item/livestock/dog_bone
 	name = "Dog Bone"
@@ -31,8 +29,6 @@
 // =============================================================================
 
 /datum/cargo_crate/livestock
-	category = "Livestock"
-	subcategory = "Animals"
 	crate_type = /obj/structure/closet/crate/critter
 
 /datum/cargo_crate/livestock/parrot

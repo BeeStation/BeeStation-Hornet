@@ -10,8 +10,6 @@
 // =============================================================================
 
 /datum/cargo_item/weaponry_melee
-	category = "Weaponry"
-	subcategory = "Melee"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/weaponry_melee/baton
@@ -43,8 +41,6 @@
 // =============================================================================
 
 /datum/cargo_item/weaponry_ranged
-	category = "Weaponry"
-	subcategory = "Ranged"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/weaponry_ranged/taser
@@ -126,8 +122,6 @@
 // =============================================================================
 
 /datum/cargo_item/weaponry_ammo
-	category = "Weaponry"
-	subcategory = "Ammunition"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/weaponry_ammo/taser_cartridge_box
@@ -220,8 +214,6 @@
 // =============================================================================
 
 /datum/cargo_item/weaponry_grenades
-	category = "Weaponry"
-	subcategory = "Grenades & Explosives"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/weaponry_grenades/stingbang
@@ -263,8 +255,6 @@
 // =============================================================================
 
 /datum/cargo_crate/weaponry
-	category = "Weaponry"
-	subcategory = "Weapon Packs"
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 	crate_type = /obj/structure/closet/crate/secure/weapon

@@ -6,8 +6,6 @@
  */
 
 /datum/cargo_crate/event
-	category = "Miscellaneous"
-	subcategory = "Events"
 	special = TRUE
 
 /datum/cargo_crate/event/specialops

@@ -11,8 +11,6 @@
 // =============================================================================
 
 /datum/cargo_item/misc_office
-	category = "Miscellaneous"
-	subcategory = "Office Supplies"
 
 /datum/cargo_item/misc_office/toner
 	name = "Toner Cartridge"
@@ -64,8 +62,6 @@
 	small_item = TRUE
 
 /datum/cargo_crate/misc_office
-	category = "Miscellaneous"
-	subcategory = "Office Supplies"
 
 /datum/cargo_crate/misc_office/paper
 	name = "Office Supply Crate"
@@ -118,8 +114,6 @@
 // =============================================================================
 
 /datum/cargo_item/misc_arts
-	category = "Miscellaneous"
-	subcategory = "Arts & Crafts"
 
 /datum/cargo_item/misc_arts/fish_case
 	name = "Random Fish Case"
@@ -129,8 +123,6 @@
 	small_item = TRUE
 
 /datum/cargo_crate/misc_arts
-	category = "Miscellaneous"
-	subcategory = "Arts & Crafts"
 
 /datum/cargo_crate/misc_arts/artsupply
 	name = "Art Supply Crate"
@@ -191,8 +183,6 @@
 // =============================================================================
 
 /datum/cargo_crate/misc_religious
-	category = "Miscellaneous"
-	subcategory = "Religious"
 
 /datum/cargo_crate/misc_religious/religious_supplies
 	name = "Religious Supplies Crate"
@@ -215,8 +205,6 @@
 // =============================================================================
 
 /datum/cargo_crate/misc_party
-	category = "Miscellaneous"
-	subcategory = "Party Supplies"
 
 /datum/cargo_crate/misc_party/party
 	name = "Party Supplies Crate"
@@ -249,8 +237,6 @@
 // =============================================================================
 
 /datum/cargo_crate/misc_contraband
-	category = "Miscellaneous"
-	subcategory = "Contraband"
 
 /datum/cargo_crate/misc_contraband/contraband
 	name = "Contraband Crate"

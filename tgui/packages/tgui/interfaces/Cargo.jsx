@@ -16,31 +16,6 @@ import {
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
-/**
- * Parses the new nested supplies data from the backend into a flat list
- * of { categoryName, subcategoryName, packs[] } entries, plus a grouped
- * structure for the sidebar.
- */
-const parseSupplies = (rawSupplies) => {
-  const categories = [];
-  for (const catData of Object.values(rawSupplies)) {
-    const subcategories = Object.values(catData.subcategories || {}).sort(
-      (a, b) => a.name.localeCompare(b.name),
-    );
-    const totalPacks = subcategories.reduce(
-      (sum, sub) => sum + (sub.packs?.length || 0),
-      0,
-    );
-    categories.push({
-      name: catData.name,
-      subcategories,
-      totalPacks,
-    });
-  }
-  categories.sort((a, b) => a.name.localeCompare(b.name));
-  return categories;
-};
-
 export const Cargo = (props) => {
   return (
     <Window width={1050} height={750}>
@@ -179,58 +154,18 @@ export const CargoCatalog = (props) => {
   const bc = data.batch_constants || {};
   const selfPaidMult = 1 + (bc.self_paid_pct || 10) / 100;
 
-  const categories = parseSupplies(data.supplies || {});
-
-  // Track which category is expanded in the sidebar
-  const [expandedCategory, setExpandedCategory] = useSharedState(
-    'expandedCat',
-    categories[0]?.name,
-  );
-  // Track the active subcategory (what's shown in the main panel)
-  const [activeSubcatKey, setActiveSubcatKey] = useSharedState(
-    'activeSubcat',
-    categories[0]?.subcategories[0]?.name,
-  );
-  // Track the parent category of the active subcategory (for display)
-  const [activeCatKey, setActiveCatKey] = useSharedState(
-    'activeCat',
-    categories[0]?.name,
-  );
+  const allPacks = data.supplies || [];
 
   const [searchText, setSearchText] = useLocalState('catalogSearch', '');
 
-  // Find the active subcategory's packs
-  const activeCategory = categories.find((c) => c.name === activeCatKey);
-  const activeSubcategory = activeCategory?.subcategories.find(
-    (s) => s.name === activeSubcatKey,
-  );
-  const activePacks = activeSubcategory?.packs || [];
-
-  // Helper to select a subcategory
-  const selectSubcategory = (catName, subName) => {
-    setActiveCatKey(catName);
-    setActiveSubcatKey(subName);
-    setExpandedCategory(catName);
-  };
-
-  // When searching, collect matching packs across all categories/subcategories
+  // Only show results when actively searching (minimum 2 characters)
   const isSearching = searchText.length >= 2;
   const searchLower = searchText.toLowerCase();
   const searchResults = isSearching
-    ? categories.flatMap((cat) =>
-        cat.subcategories.flatMap((sub) =>
-          (sub.packs || [])
-            .filter(
-              (pack) =>
-                pack.name.toLowerCase().includes(searchLower) ||
-                (pack.desc && pack.desc.toLowerCase().includes(searchLower)),
-            )
-            .map((pack) => ({
-              ...pack,
-              category: cat.name,
-              subcategory: sub.name,
-            })),
-        ),
+    ? allPacks.filter(
+        (pack) =>
+          pack.name.toLowerCase().includes(searchLower) ||
+          (pack.desc && pack.desc.toLowerCase().includes(searchLower)),
       )
     : [];
 
@@ -256,7 +191,7 @@ export const CargoCatalog = (props) => {
         <Flex.Item shrink={0} mb={1}>
           <Input
             fluid
-            placeholder="Search all items..."
+            placeholder="Search supplies..."
             value={searchText}
             onInput={(e, value) => setSearchText(value)}
           />
@@ -269,6 +204,13 @@ export const CargoCatalog = (props) => {
                 {searchResults.length !== 1 && 's'} for &quot;{searchText}
                 &quot;
               </Box>
+              {searchResults.length === 0 && (
+                <Box color="label" textAlign="center" mt={4}>
+                  <Icon name="search" size={2} mb={2} />
+                  <br />
+                  No matching entries found. Try a different query.
+                </Box>
+              )}
               <Table>
                 {searchResults.map((pack) => {
                   const tags = [];
@@ -282,10 +224,11 @@ export const CargoCatalog = (props) => {
                     <Table.Row key={pack.id} className="candystripe">
                       <Table.Cell>
                         {pack.name}
-                        <Box fontSize="10px" color="label">
-                          {pack.category}
-                          {pack.subcategory && ' › ' + pack.subcategory}
-                        </Box>
+                        {pack.desc && (
+                          <Box fontSize="10px" color="label">
+                            {pack.desc}
+                          </Box>
+                        )}
                       </Table.Cell>
                       <Table.Cell collapsing color="label" textAlign="right">
                         {tags.join(', ')}
@@ -328,160 +271,21 @@ export const CargoCatalog = (props) => {
               </Table>
             </Box>
           ) : (
-            <Flex height="100%" style={{ overflow: 'hidden' }}>
-              {/* Sidebar with category/subcategory hierarchy */}
-              <Flex.Item
-                mr={1}
-                shrink={0}
-                style={{
-                  overflowY: 'auto',
-                  overflowX: 'hidden',
-                  minWidth: '200px',
-                  maxWidth: '220px',
-                }}
-              >
-                {categories.map((cat) => {
-                  const isExpanded = expandedCategory === cat.name;
-                  return (
-                    <Box key={cat.name} mb={0.5}>
-                      <Button
-                        fluid
-                        color={
-                          activeCatKey === cat.name
-                            ? 'transparent'
-                            : 'transparent'
-                        }
-                        bold
-                        style={{
-                          padding: '4px 6px',
-                          background:
-                            activeCatKey === cat.name
-                              ? 'rgba(255,255,255,0.07)'
-                              : 'none',
-                        }}
-                        onClick={() =>
-                          setExpandedCategory(
-                            isExpanded ? null : cat.name,
-                          )
-                        }
-                      >
-                        <Icon
-                          name={isExpanded ? 'chevron-down' : 'chevron-right'}
-                          mr={1}
-                        />
-                        {cat.name}
-                        <Box
-                          as="span"
-                          color="label"
-                          ml={1}
-                          fontSize="10px"
-                        >
-                          ({cat.totalPacks})
-                        </Box>
-                      </Button>
-                      {isExpanded &&
-                        cat.subcategories.map((sub) => {
-                          const isActive =
-                            activeCatKey === cat.name &&
-                            activeSubcatKey === sub.name;
-                          return (
-                            <Button
-                              key={sub.name}
-                              fluid
-                              color={isActive ? 'good' : 'transparent'}
-                              style={{
-                                padding: '2px 6px 2px 22px',
-                                fontSize: '12px',
-                              }}
-                              onClick={() =>
-                                selectSubcategory(cat.name, sub.name)
-                              }
-                            >
-                              {sub.name}
-                              <Box
-                                as="span"
-                                color="label"
-                                ml={1}
-                                fontSize="10px"
-                              >
-                                ({sub.packs?.length || 0})
-                              </Box>
-                            </Button>
-                          );
-                        })}
-                    </Box>
-                  );
-                })}
-              </Flex.Item>
-              {/* Main pack list */}
-              <Flex.Item grow={1} basis={0} style={{ overflow: 'auto' }}>
-                {activeSubcategory && (
-                  <Box color="label" mb={1} fontSize="11px">
-                    {activeCatKey} › {activeSubcatKey} (
-                    {activePacks.length}{' '}
-                    {activePacks.length === 1 ? 'item' : 'items'})
-                  </Box>
-                )}
-                <Table>
-                  {activePacks.map((pack) => {
-                    const tags = [];
-                    if (pack.small_item) {
-                      tags.push('Small');
-                    }
-                    if (pack.access) {
-                      tags.push('Restricted');
-                    }
-                    return (
-                      <Table.Row key={pack.name} className="candystripe">
-                        <Table.Cell>{pack.name}</Table.Cell>
-                        <Table.Cell
-                          collapsing
-                          color="label"
-                          textAlign="right"
-                        >
-                          {tags.join(', ')}
-                        </Table.Cell>
-                        <Table.Cell
-                          collapsing
-                          color="label"
-                          textAlign="right"
-                        >
-                          Stock: {pack.supply}
-                        </Table.Cell>
-                        <Table.Cell collapsing textAlign="right">
-                          <Button
-                            fontFamily="verdana"
-                            fluid
-                            icon={express ? 'add' : 'cart-plus'}
-                            tooltip={pack.desc}
-                            tooltipPosition="left"
-                            disabled={
-                              !canOrder ||
-                              pack.supply <= 0 ||
-                              (express &&
-                                points &&
-                                points < pack.cost &&
-                                pack.supply > 0)
-                            }
-                            onClick={() =>
-                              act(express ? 'add' : 'batch_add', {
-                                id: pack.id,
-                              })
-                            }
-                          >
-                            {formatMoney(
-                              self_paid || app_cost
-                                ? Math.round(pack.cost * selfPaidMult)
-                                : pack.cost,
-                            )}
-                            {' cr'}
-                          </Button>
-                        </Table.Cell>
-                      </Table.Row>
-                    );
-                  })}
-                </Table>
-              </Flex.Item>
+            <Flex
+              height="100%"
+              direction="column"
+              align="center"
+              justify="center"
+              style={{ opacity: 0.6 }}
+            >
+              <Icon name="database" size={4} color="label" mb={2} />
+              <Box color="label" fontSize="16px" bold mb={1}>
+                Query database for entry listings
+              </Box>
+              <Box color="label" fontSize="12px">
+                Use the search bar above to find supplies by name or
+                description.
+              </Box>
             </Flex>
           )}
         </Flex.Item>

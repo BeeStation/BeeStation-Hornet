@@ -10,8 +10,6 @@
 // =============================================================================
 
 /datum/cargo_item/armor_body
-	category = "Armor & Protection"
-	subcategory = "Body Armor"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/armor_body/armor_vest
@@ -75,8 +73,6 @@
 // =============================================================================
 
 /datum/cargo_item/armor_head
-	category = "Armor & Protection"
-	subcategory = "Helmets & Shields"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/armor_head/helmet
@@ -124,8 +120,6 @@
 // =============================================================================
 
 /datum/cargo_item/armor_deploy
-	category = "Armor & Protection"
-	subcategory = "Fortification/Deployable"
 	access_budget = ACCESS_SECURITY
 
 /datum/cargo_item/armor_deploy/barrier
@@ -174,8 +168,6 @@
 // =============================================================================
 
 /datum/cargo_item/armor_space
-	category = "Armor & Protection"
-	subcategory = "Space & EVA"
 
 /datum/cargo_item/armor_space/space_suit
 	name = "Space Suit"
@@ -221,8 +213,6 @@
 // =============================================================================
 
 /datum/cargo_item/armor_hazard
-	category = "Armor & Protection"
-	subcategory = "Hazard Protection"
 
 // --- Hard Hats ---
 
@@ -370,8 +360,6 @@
 // =============================================================================
 
 /datum/cargo_crate/armor
-	category = "Armor & Protection"
-	subcategory = "Armor Packs"
 	access = ACCESS_ARMORY
 	access_budget = ACCESS_ARMORY
 	crate_type = /obj/structure/closet/crate/secure/weapon

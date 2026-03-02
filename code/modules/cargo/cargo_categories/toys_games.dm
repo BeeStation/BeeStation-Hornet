@@ -10,8 +10,6 @@
 // =============================================================================
 
 /datum/cargo_item/toys
-	category = "Toys & Games"
-	subcategory = "Toys"
 	small_item = TRUE
 
 /datum/cargo_item/toys/toy_sword
@@ -207,8 +205,6 @@
 // =============================================================================
 
 /datum/cargo_item/foamforce
-	category = "Toys & Games"
-	subcategory = "Foam Force"
 
 /datum/cargo_item/foamforce/shotgun
 	name = "Foam Dart Shotgun"
@@ -283,8 +279,6 @@
 // =============================================================================
 
 /datum/cargo_item/chess
-	category = "Toys & Games"
-	subcategory = "Chess"
 
 // --- White Pieces ---
 
@@ -367,8 +361,6 @@
 // =============================================================================
 
 /datum/cargo_item/plushies
-	category = "Toys & Games"
-	subcategory = "Plushies"
 	small_item = TRUE
 
 /datum/cargo_item/plushies/carp
@@ -526,8 +518,6 @@
 // =============================================================================
 
 /datum/cargo_item/plushies_moth
-	category = "Toys & Games"
-	subcategory = "Plushies (Moth)"
 	small_item = TRUE
 
 /datum/cargo_item/plushies_moth/default
@@ -673,8 +663,6 @@
 // =============================================================================
 
 /datum/cargo_item/mech_figures
-	category = "Toys & Games"
-	subcategory = "Mech Figures"
 	small_item = TRUE
 
 /datum/cargo_item/mech_figures/ripley
@@ -784,8 +772,6 @@
 // =============================================================================
 
 /datum/cargo_item/crew_figures
-	category = "Toys & Games"
-	subcategory = "Crew Figures"
 	small_item = TRUE
 
 /datum/cargo_item/crew_figures/assistant

@@ -63,19 +63,7 @@
 			continue
 		if(!((obj_flags & EMAGGED) || contraband) && item.contraband)
 			continue
-		var/cat = item.category || "Uncategorized"
-		var/subcat = item.subcategory || "General"
-		if(!meme_pack_data[cat])
-			meme_pack_data[cat] = list(
-				"name" = cat,
-				"subcategories" = list()
-			)
-		if(!meme_pack_data[cat]["subcategories"][subcat])
-			meme_pack_data[cat]["subcategories"][subcat] = list(
-				"name" = subcat,
-				"packs" = list()
-			)
-		meme_pack_data[cat]["subcategories"][subcat]["packs"] += list(list(
+		meme_pack_data += list(list(
 			"name" = item.name,
 			"cost" = item.get_cost(),
 			"id" = item_type,
@@ -90,19 +78,7 @@
 			continue
 		if(!((obj_flags & EMAGGED) || contraband) && crate.contraband)
 			continue
-		var/cat = crate.category || "Uncategorized"
-		var/subcat = crate.subcategory || "General"
-		if(!meme_pack_data[cat])
-			meme_pack_data[cat] = list(
-				"name" = cat,
-				"subcategories" = list()
-			)
-		if(!meme_pack_data[cat]["subcategories"][subcat])
-			meme_pack_data[cat]["subcategories"][subcat] = list(
-				"name" = subcat,
-				"packs" = list()
-			)
-		meme_pack_data[cat]["subcategories"][subcat]["packs"] += list(list(
+		meme_pack_data += list(list(
 			"name" = crate.name,
 			"cost" = crate.get_cost(),
 			"id" = crate_type,
@@ -117,19 +93,7 @@
 			continue
 		if(!((obj_flags & EMAGGED) || contraband) && P.contraband)
 			continue
-		var/cat = P.group || "Uncategorized"
-		var/subcat = P.subgroup || "General"
-		if(!meme_pack_data[cat])
-			meme_pack_data[cat] = list(
-				"name" = cat,
-				"subcategories" = list()
-			)
-		if(!meme_pack_data[cat]["subcategories"][subcat])
-			meme_pack_data[cat]["subcategories"][subcat] = list(
-				"name" = subcat,
-				"packs" = list()
-			)
-		meme_pack_data[cat]["subcategories"][subcat]["packs"] += list(list(
+		meme_pack_data += list(list(
 			"name" = P.name,
 			"cost" = P.get_cost(),
 			"id" = pack,
