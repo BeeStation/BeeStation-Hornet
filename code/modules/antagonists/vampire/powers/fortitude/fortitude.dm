@@ -90,7 +90,7 @@
 	user.physiology.stamina_mod *= resistance * 2 // Stamina resistance is half as effective because they have it inherently.
 	user.physiology.burn_mod *= calculated_burn_resist // they get burn resistance, but way less
 
-/datum/action/vampire/fortitude/UsePower()
+/datum/action/vampire/fortitude/use_power()
 	. = ..()
 	if(!.)
 		return

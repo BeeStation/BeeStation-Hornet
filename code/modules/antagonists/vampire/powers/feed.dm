@@ -68,15 +68,7 @@
 	// Check if we are seen while feeding, from the vampire's POV
 	if(currently_feeding)
 		for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE, owner) - target)
-			if(!watcher.client)
-				continue
-			if(watcher.has_unlimited_silicon_privilege)
-				continue
-			if(watcher.stat != CONSCIOUS)
-				continue
-			if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
-				continue
-			if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
+			if(!vampiredatum_power.is_masq_watcher(watcher))
 				continue
 
 			if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
@@ -92,15 +84,7 @@
 
 		//from the victim's POV
 		for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE, target))
-			if(!watcher.client)
-				continue
-			if(watcher.has_unlimited_silicon_privilege)
-				continue
-			if(watcher.stat != CONSCIOUS)
-				continue
-			if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
-				continue
-			if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
+			if(!vampiredatum_power.is_masq_watcher(watcher))
 				continue
 
 			if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
@@ -185,7 +169,7 @@
 	// Mice
 	if(istype(feed_target, /mob/living/basic/mouse))
 		to_chat(owner, span_warning("You recoil at the taste of a lesser lifeform."))
-		vampiredatum_power.AdjustBloodVolume(FEED_BLOOD_FROM_MICE)
+		vampiredatum_power.adjust_blood_volume(FEED_BLOOD_FROM_MICE)
 		power_activated_sucessfully()
 		feed_target.death()
 		return
@@ -222,9 +206,9 @@
 
 		feed_target.Stun(feed_time, TRUE)
 		feed_target.become_blind(TRAIT_FEED, /atom/movable/screen/fullscreen/blind/feed, FALSE)
-		feed_target.add_traits(list(TRAIT_DEAF), TRAIT_FEED)
+		ADD_TRAIT(feed_target, TRAIT_DEAF, TRAIT_FEED)
 
-		to_chat(feed_target, span_hypnophrase("You suddenly fall into a deep trance..."), type = MESSAGE_TYPE_WARNING)
+		to_chat(feed_target, span_awe("You suddenly fall into a deep trance..."), type = MESSAGE_TYPE_WARNING)
 		owner.balloon_alert(owner, "subdued! starting feed...")
 
 		// Do the pre-feed.
@@ -320,12 +304,12 @@
 
 		to_chat(owner, span_bighypnophrase("eugh.. garlic..."))
 
-		living_owner.Stun(50)
+		living_owner.Stun(5 SECONDS)
 		living_owner.adjust_dizzy(10 SECONDS)
-		living_owner.adjust_jitter(15)
+		living_owner.adjust_jitter(1.5 SECONDS)
 		living_owner.adjust_eye_blur(5 SECONDS)
 
-		smacked.Unconscious(10)
+		smacked.Unconscious(1 SECONDS)
 		smacked.throw_at(target_turf, 2, 1, spin = TRUE)
 		playsound(smacked, 'sound/weapons/cqchit2.ogg', 80)
 		deactivate_power()
@@ -336,14 +320,13 @@
 		feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
 
 		// Normally removed traits are done. Now we give the victim a lil something to remember us by.
-		ADD_TRAIT(feed_target, TRAIT_FEED_MARKED, TRAIT_FEED_MARKS)
-		addtimer(TRAIT_CALLBACK_REMOVE(feed_target, TRAIT_FEED_MARKED, TRAIT_FEED_MARKS), rand(5 MINUTES, 10 MINUTES))
+		feed_target.apply_status_effect(/datum/status_effect/feed_marked)
 	else
 		owner.balloon_alert(owner, "combat feed requires aggressive grab!")
 		deactivate_power()
 		return FALSE
 
-/datum/action/vampire/targeted/feed/UsePower()
+/datum/action/vampire/targeted/feed/use_power()
 	var/mob/living/user = owner
 
 	var/mob/living/feed_target = target_ref?.resolve()
@@ -467,7 +450,12 @@
 
 		if(feed_target.stat != DEAD && silent_feed)
 			to_chat(owner, span_notice("<i>[feed_target.p_They()] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
-			to_chat(feed_target, span_bighypnophrase("You wake from your trance. Everything is so... hazy..."))
+			if(!IS_VASSAL(feed_target))
+				to_chat(feed_target, span_awe(span_reallybig("You wake from your trance. Everything is so... hazy... You don't remember the last few moments...")), type = MESSAGE_TYPE_INFO)
+				to_chat(feed_target, span_warning(" * You do not remember that you have been fed on, the identity of the person who just fed on you, or the fact that they are a vampire."), type = MESSAGE_TYPE_INFO)
+				to_chat(feed_target, span_notice(" * If you already knew this person was a vampire from before your current encounter with them, however, you retain memory of that."), type = MESSAGE_TYPE_INFO)
+			else
+				to_chat(feed_target, span_awe(span_reallybig("You wake from your trance. Everything is so... hazy...")), type = MESSAGE_TYPE_INFO)
 			if(feed_target.blood_volume >= BLOOD_VOLUME_OKAY)
 				to_chat(feed_target, span_announce("You feel dizzy, but it will probably pass by itself!"))
 
@@ -572,12 +560,12 @@
 	if(target.client)
 		vampiredatum_power.vitae_goal_progress += vitae_absorbed
 
-	vampiredatum_power.AdjustBloodVolume(vitae_absorbed)
+	vampiredatum_power.adjust_blood_volume(vitae_absorbed)
 
 	// Diablerie takes vitae directly
 	if(IS_VAMPIRE(target))
 		var/datum/antagonist/vampire/vampire_target = IS_VAMPIRE(target)
-		vampire_target.AdjustBloodVolume(- (blood_to_take * 4))
+		vampire_target.adjust_blood_volume(- (blood_to_take * 4))
 
 	// Transfer the target's reagents into the vampire's blood
 	if(target.reagents?.total_volume)
@@ -620,3 +608,31 @@
 	render_target = "blind_fullscreen_overlay"
 	layer = BLIND_LAYER
 	plane = FULLSCREEN_PLANE
+
+/datum/status_effect/feed_marked
+	id = "feed marked"
+	tick_interval = STATUS_EFFECT_NO_TICK
+	processing_speed = STATUS_EFFECT_NORMAL_PROCESS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+	remove_on_fullheal = TRUE
+
+/datum/status_effect/feed_marked/on_apply()
+	if(!iscarbon(owner))
+		return FALSE
+	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	return TRUE
+
+/datum/status_effect/feed_marked/on_remove()
+	UnregisterSignal(owner, COMSIG_ATOM_EXAMINE)
+
+/datum/status_effect/feed_marked/on_creation(mob/living/new_owner, ...)
+	duration = rand(5 MINUTES, 10 MINUTES)
+	return ..()
+
+/datum/status_effect/feed_marked/refresh(effect, ...)
+	duration = max(duration, world.time + rand(5 MINUTES, 10 MINUTES))
+
+/datum/status_effect/feed_marked/proc/on_examine(atom/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	examine_list += span_warning("There are two strange punctures on [owner.p_their()] neck.")

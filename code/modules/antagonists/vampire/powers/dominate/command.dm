@@ -89,7 +89,7 @@
 		return FALSE
 
 	// Already commanded?
-	if(HAS_TRAIT_FROM(living_target, TRAIT_PACIFISM, TRAIT_COMMANDED))
+	if(living_target.has_status_effect(/datum/status_effect/commanded))
 		owner.balloon_alert(owner, "[living_target] is already compelled!")
 		return FALSE
 
@@ -131,15 +131,7 @@
 			deactivate_power()
 			return
 
-	ADD_TRAIT(living_target, TRAIT_PACIFISM, TRAIT_COMMANDED)
-	brainwash(living_target, brainwash_list, owner)
-
-	message_admins("[ADMIN_LOOKUPFLW(owner)] used the COMMAND ability on [ADMIN_LOOKUPFLW(living_target)], commanding them to [command].")
-	log_game("[key_name(owner)] used the command ability on [living_target], commanding them to [command].")
-
-	living_target.Immobilize(2 SECONDS, TRUE)
-	to_chat(living_target, span_narsie("[command]!"), type = MESSAGE_TYPE_WARNING)
-	addtimer(CALLBACK(src, PROC_REF(end_command), living_target), power_time)
+	living_target.apply_status_effect(/datum/status_effect/commanded, owner, command, power_time)
 
 	if(power_time_adjusted)
 		power_time *= 2
@@ -149,7 +141,7 @@
 
 /datum/action/vampire/targeted/command/proc/get_single_word_command()
 	. = TRUE
-	var/command = tgui_input_text(owner, "What would you like to command?", "Input a command", "STOP", timeout = 2 MINUTES)
+	var/command = tgui_input_text(owner, "What would you like to command?", "Input a command", "STOP", encode = FALSE, timeout = 2 MINUTES)
 	if(QDELETED(src))
 		return FALSE
 	if(CHAT_FILTER_CHECK(command))
@@ -158,8 +150,13 @@
 	if(findtext(command, " "))
 		to_chat(owner, span_warning("Please only input a single word."))
 		return FALSE
-	if(length(command)  > 7)
+	if(length_char(command) > 7)
 		to_chat(owner, span_warning("Command too long!"))
+		return FALSE
+	// qol to avoid confusion
+	if(copytext(command, 1, 5) == "kill" || copytext(command, 1, 7) == "murder" || copytext(command, 1, 8) == "suicide" || copytext(command, 1, 4) == "die")
+		owner.balloon_alert(owner, "that won't work!")
+		to_chat(owner, span_warning(" * Remember, victims will be pacified for the duration of the command!"))
 		return FALSE
 
 	return(command)
@@ -180,8 +177,58 @@
 	. = ..()
 	target_ref = null
 
-/datum/action/vampire/targeted/command/proc/end_command(mob/living/living_target)
-	REMOVE_TRAIT(living_target, TRAIT_PACIFISM, TRAIT_COMMANDED)
-	unbrainwash(living_target)
+/datum/status_effect/commanded
+	id = "commanded"
+	duration = 1 MINUTES
+	tick_interval = STATUS_EFFECT_NO_TICK
+	on_remove_on_mob_delete = TRUE
+	alert_type = null
+	/// The vampire that casted this command.
+	var/mob/living/caster
+	/// The actual command used for the objective.
+	var/command
+	/// The brainwash objectives, so we can unbrainwash when it ends.
+	var/list/directives
 
-	owner.balloon_alert(owner, "[living_target] snapped out of [living_target.p_their()] trance!")
+/datum/status_effect/commanded/on_creation(mob/living/new_owner, mob/living/caster, command, duration)
+	src.caster = caster
+	src.command = command
+	if(duration)
+		src.duration = duration
+	return ..()
+
+/datum/status_effect/commanded/on_apply()
+	ADD_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
+	directives = brainwash(owner, "[command]!", "[caster.real_name]'s Command")
+
+	// make sure they have a moment to realize what's going on
+	owner.Immobilize(2 SECONDS, TRUE)
+	to_chat(owner, "<br>" + span_awe("<font size='15'>[command]!</font>") + "<br>", type = MESSAGE_TYPE_WARNING)
+
+	// also log it.
+	message_admins("[ADMIN_LOOKUPFLW(caster)] used the COMMAND ability on [ADMIN_LOOKUPFLW(owner)], commanding them to [command].")
+	log_game("[key_name(caster)] used the command ability on [key_name(owner)], commanding them to [command].")
+
+	/* owner.AddElement(/datum/element/relay_attackers)
+	RegisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_attacked)) */
+	return TRUE
+
+/datum/status_effect/commanded/on_remove()
+	/* UnregisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED) */
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
+	unbrainwash(owner, directives)
+	directives = null
+	owner.balloon_alert(caster, "[owner] snapped out of [owner.p_their()] trance!")
+	caster = null
+
+/* /datum/status_effect/commanded/proc/on_attacked(datum/source, atom/attacker, attack_flags)
+	SIGNAL_HANDLER
+	if(attacker != caster || !(attack_flags & ATTACKER_DAMAGING_ATTACK))
+		return
+	if(owner.pulledby == caster)
+		caster.stop_pulling()
+	owner.SetAllImmobility(0)
+	if(caster.Adjacent(owner)) // give them a split second to run away
+		caster.Stun(0.5 SECONDS, TRUE)
+	to_chat(owner, span_awe(span_reallybig("You quickly come back to your senses as you're hit by [attacker]!")))
+	qdel(src) */

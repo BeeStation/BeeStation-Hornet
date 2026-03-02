@@ -21,12 +21,17 @@
 		owner.balloon_alert(owner, "you are incapacitated...")
 		return FALSE
 
+	var/mob/living/living_owner = owner
+	if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD) && living_owner.blood_volume <= BLOOD_VOLUME_OKAY)
+		owner.balloon_alert(owner, "not enough blood!")
+		return FALSE
+
 /datum/action/vampire/recuperate/activate_power()
 	. = ..()
 	to_chat(owner, span_notice("Your muscles clench as your master's immortal blood mixes with your own, knitting your wounds."))
 	owner.balloon_alert(owner, "recuperate turned on.")
 
-/datum/action/vampire/recuperate/UsePower()
+/datum/action/vampire/recuperate/use_power()
 	. = ..()
 	if(!. || !currently_active)
 		return
@@ -52,6 +57,10 @@
 		return FALSE
 	if(owner.incapacitated)
 		owner.balloon_alert(owner, "too exhausted...")
+		return FALSE
+	var/mob/living/living_owner = owner
+	if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD) && living_owner.blood_volume <= BLOOD_VOLUME_OKAY)
+		owner.balloon_alert(owner, "not enough blood!")
 		return FALSE
 	return TRUE
 

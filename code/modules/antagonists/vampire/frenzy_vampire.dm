@@ -18,16 +18,15 @@
 	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/frenzy
 
-	/// Boolean on whether they were an AdvancedToolUser, to give the trait back upon exiting.
-	var/was_tooluser = FALSE
 	/// We give stamina resistance when we have the frenzy status effect. Let's keep track of it
 	var/previous_stamina_mod
 	/// The stored vampire antag datum
 	var/datum/antagonist/vampire/vampiredatum
 
-	var/static/frenzy_traits = list(
-		TRAIT_MUTE,
+	var/list/frenzy_traits = list(
 		TRAIT_DEAF,
+		TRAIT_DISCOORDINATED_TOOL_USER,
+		TRAIT_MUTE,
 		TRAIT_STUNIMMUNE,
 	)
 
@@ -55,7 +54,7 @@
 	// Alert them
 	vampiredatum.disable_all_powers(forced = TRUE)
 	vampiredatum.adjust_humanity(-2)
-	to_chat(carbon_owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
+	to_chat(carbon_owner, span_userdanger("<font size='10'>BLOOD! YOU NEED BLOOD NOW!</font>"))
 	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly aggressively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
 	carbon_owner.balloon_alert(carbon_owner, "you enter a frenzy!")
 
@@ -66,10 +65,7 @@
 		human_owner.physiology.stamina_mod *= 0.4
 
 	// Traits
-	carbon_owner.add_traits(frenzy_traits, TRAIT_VAMPIRE)
-	if(!HAS_TRAIT(carbon_owner, TRAIT_ADVANCEDTOOLUSER))
-		was_tooluser = TRUE
-		ADD_TRAIT(carbon_owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
+	carbon_owner.add_traits(frenzy_traits, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/frenzy/on_remove()
 	. = ..()
@@ -90,15 +86,13 @@
 		human_owner.physiology.stamina_mod = previous_stamina_mod
 
 	// Traits
-	carbon_owner.remove_traits(frenzy_traits, TRAIT_VAMPIRE)
-	if(was_tooluser)
-		REMOVE_TRAIT(carbon_owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
-		was_tooluser = FALSE
+	carbon_owner.remove_traits(frenzy_traits, TRAIT_STATUS_EFFECT(id))
 
 
 /datum/status_effect/frenzy/tick()
 	var/mob/living/carbon/carbon_owner = owner
-	if(!vampiredatum?.frenzied)
+	if(!vampiredatum || vampiredatum.current_vitae >= FRENZY_THRESHOLD_EXIT)
+		qdel(src)
 		return
 	carbon_owner.adjustFireLoss(0.75)
 	carbon_owner.set_jitter_if_lower(10 SECONDS)

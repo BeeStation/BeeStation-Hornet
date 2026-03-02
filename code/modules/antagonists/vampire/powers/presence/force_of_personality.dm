@@ -21,7 +21,7 @@
 	. = ..()
 	to_chat(owner, span_notice("You withdraw your authoritative presence."), type = MESSAGE_TYPE_INFO)
 
-/datum/action/vampire/force_of_personality/UsePower()
+/datum/action/vampire/force_of_personality/use_power()
 	. = ..()
 	for(var/mob/living/victim in oviewers(aura_range, owner))
 		if(!can_affect(victim))
@@ -42,7 +42,7 @@
 		return FALSE
 	if(victim.is_blind() || HAS_TRAIT(victim, TRAIT_NEARSIGHT))
 		return FALSE
-	if(IS_VAMPIRE(victim) || IS_VASSAL(victim) || IS_CURATOR(victim))
+	if(HAS_MIND_TRAIT(victim, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(victim))
 		return FALSE
 	return TRUE
 

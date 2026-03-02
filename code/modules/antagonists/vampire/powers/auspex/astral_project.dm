@@ -14,5 +14,10 @@
 
 /datum/action/vampire/astral_projection/activate_power()
 	. = ..()
-	owner.ghostize(TRUE)
+	var/mob/dead/observer/ghost = owner.ghostize(can_reenter_corpse = TRUE)
+	// cool name + color to make it obvious you're astral projecting
+	var/ghost_name = "Astral Shade of [ghost.name]"
+	ghost.name = ghost_name
+	ghost.deadchat_name = ghost_name
+	ghost.add_filter("astral_projection", 1, outline_filter(size = 1, color = COLOR_BLOOD))
 	deactivate_power()

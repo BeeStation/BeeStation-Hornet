@@ -43,7 +43,7 @@
 	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED | IGNORE_HELD_ITEM)))
 		teleport_to_coffin(owner)
 
-/datum/action/vampire/gohome/UsePower()
+/datum/action/vampire/gohome/use_power()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -76,7 +76,7 @@
 	playsound(get_turf(owner), 'sound/effects/singlebeat.ogg', beat_volume, 1)
 
 /datum/action/vampire/gohome/proc/teleport_to_coffin(mob/living/carbon/user)
-	if(!user)
+	if(QDELETED(user))
 		return
 	var/turf/current_turf = get_turf(user)
 	// If we aren't in the dark, anyone watching us will cause us to drop out stuff
@@ -88,9 +88,8 @@
 				continue
 			if(watcher.is_blind())
 				continue
-			if(!IS_VAMPIRE(watcher) && !IS_VASSAL(watcher))
-				for(var/obj/item/item in user)
-					user.dropItemToGround(item, TRUE)
+			if(!HAS_MIND_TRAIT(watcher, TRAIT_VAMPIRE_ALIGNED))
+				user.unequip_everything()
 				break
 	user.uncuff()
 

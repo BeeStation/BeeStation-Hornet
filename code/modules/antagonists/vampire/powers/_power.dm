@@ -159,7 +159,7 @@
 /datum/action/vampire/proc/activate_power()
 	currently_active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
-		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
+		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(use_power))
 
 	owner.log_message("used [src][vitaecost != 0 ? " at the cost of [vitaecost]" : ""].", LOG_ATTACK, color="red")
 	update_buttons()
@@ -179,7 +179,7 @@
 	update_buttons()
 
 /// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
-/datum/action/vampire/proc/UsePower()
+/datum/action/vampire/proc/use_power()
 	if(!continue_active()) // We can't afford the Power? Deactivate it.
 		deactivate_power()
 		return FALSE
@@ -189,7 +189,7 @@
 		return TRUE
 	else
 		if(vampiredatum_power)
-			vampiredatum_power.AdjustBloodVolume(-constant_vitaecost)
+			vampiredatum_power.adjust_blood_volume(-constant_vitaecost)
 		else
 			var/mob/living/living_owner = owner
 			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
@@ -213,15 +213,7 @@
 // If there's a mortal in line of sight, we get a masq infraction
 /datum/action/vampire/proc/check_witnesses(mob/living/target)
 	for(var/mob/living/watcher in oviewers(6, owner) - target)
-		if(!watcher.client)
-			continue
-		if(watcher.has_unlimited_silicon_privilege)
-			continue
-		if(watcher.stat != CONSCIOUS)
-			continue
-		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
-			continue
-		if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
+		if(!vampiredatum_power.is_masq_watcher(watcher))
 			continue
 
 		if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))

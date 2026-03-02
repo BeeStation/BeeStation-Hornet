@@ -25,6 +25,8 @@
 	var/obj/projectile/magic/arcane_barrage/vampire/bolt = new(living_owner.loc)
 	bolt.vampire_power = src
 	bolt.firer = living_owner
+	bolt.fired_from = living_owner
+	bolt.original = target_atom
 	bolt.def_zone = ran_zone(living_owner.get_combat_bodyzone())
 	bolt.preparePixelProjectile(target_atom, living_owner)
 	INVOKE_ASYNC(bolt, TYPE_PROC_REF(/obj/projectile, fire))
@@ -43,21 +45,22 @@
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
 	var/datum/action/vampire/targeted/bloodbolt/vampire_power
 
+/obj/projectile/magic/arcane_barrage/vampire/Destroy()
+	. = ..()
+	vampire_power = null
+
 /obj/projectile/magic/arcane_barrage/vampire/on_hit(atom/target_atom)
 	new /obj/effect/gibspawner/generic(target_atom.loc)
 	if(istype(target_atom, /obj/structure/closet))
 		var/obj/structure/closet/hit_closet = target_atom
-		hit_closet.welded = FALSE
-		hit_closet.locked = FALSE
-		hit_closet.broken = TRUE
-		hit_closet.update_appearance()
+		hit_closet.bust_open()
 		qdel(src)
 		return BULLET_ACT_HIT
 
 	if(istype(target_atom, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/airlock = target_atom
 		airlock.unbolt()
-		airlock.open()
+		airlock.open(forced = TRUE)
 		qdel(src)
 		return BULLET_ACT_HIT
 
@@ -68,7 +71,7 @@
 		living_target.emote("screams")
 		living_target.set_jitter(6 SECONDS)
 		living_target.Unconscious(3 SECONDS)
-		visible_message(span_danger("[living_target]'s wounds spray boiling hot blood!"), "<span class='userdanger'>Oh god it burns!</span>")
+		visible_message(span_danger("[living_target]'s wounds spray boiling hot blood!"), span_userdanger("Oh god it burns!"))
 		qdel(src)
 		return BULLET_ACT_HIT
 	. = ..()
