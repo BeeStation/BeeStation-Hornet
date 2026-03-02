@@ -388,7 +388,6 @@
 
 /datum/cargo_crate/tools/janitor
 	name = "Janitorial Supplies Crate"
-	desc = "Contains a full set of janitorial supplies."
 	cost = 1500
 	max_supply = 2
 	access_budget = ACCESS_JANITOR
@@ -411,7 +410,6 @@
 
 /datum/cargo_crate/tools/forensics
 	name = "Forensics Crate"
-	desc = "Contains a detective scanner, evidence bags, camera, tape recorder, chalk, and a hat."
 	cost = 2000
 	max_supply = 2
 	access_budget = ACCESS_SECURITY
@@ -427,7 +425,6 @@
 
 /datum/cargo_crate/tools/hydro_supplies
 	name = "Hydroponics Supply Crate"
-	desc = "Contains Plant-B-Gone sprays, ammonia bottles, a hatchet, cultivator, plant analyzer, gloves, apron, and gene disks."
 	cost = 1500
 	max_supply = 2
 	access_budget = ACCESS_HYDROPONICS
@@ -447,7 +444,6 @@
 
 /datum/cargo_crate/tools/minerkit
 	name = "Mining Conscription Kit"
-	desc = "A duffelbag containing mining equipment for conscripted miners."
 	cost = 2000
 	max_supply = 2
 	access_budget = ACCESS_MINING

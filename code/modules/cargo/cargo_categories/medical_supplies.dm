@@ -262,7 +262,6 @@
 
 /datum/cargo_item/medical_emergency/metalfoam
 	name = "Metal Foam Grenades"
-	desc = "A box of metal foam grenades for quick hull repair."
 	item_path = /obj/item/storage/box/metalfoam
 	cost = 300
 	max_supply = 3
@@ -284,7 +283,6 @@
 
 /datum/cargo_item/medical_emergency/atmos_watertank
 	name = "Atmos Firefighting Tank"
-	desc = "A backpack water tank for atmospherics firefighting."
 	item_path = /obj/item/watertank/atmos
 	cost = 1500
 	max_supply = 2
@@ -299,7 +297,6 @@
 
 /datum/cargo_crate/medical/bloodpacks
 	name = "Blood Pack Crate"
-	desc = "Contains fifteen random blood packs."
 	cost = 3000
 	max_supply = 2
 	contains = list(
@@ -323,7 +320,6 @@
 
 /datum/cargo_crate/medical/chemical
 	name = "Chemistry Crate"
-	desc = "Contains a variety of chemical reagent bottles, science goggles, a dropper, and beakers."
 	cost = 2500
 	max_supply = 2
 	access_budget = ACCESS_CHEMISTRY
@@ -348,7 +344,6 @@
 
 /datum/cargo_crate/medical/supplies
 	name = "Medical Supplies Crate"
-	desc = "A comprehensive medical resupply containing reagent bottles, beakers, syringes, body bags, first aid kits, a defibrillator, blood, and more."
 	cost = 5000
 	max_supply = 1
 	contains = list(
@@ -379,7 +374,6 @@
 
 /datum/cargo_crate/medical/surgery
 	name = "Surgery Crate"
-	desc = "Contains a surgical duffelbag, sterilizine spray, and a roller bed."
 	cost = 3500
 	max_supply = 2
 	access = ACCESS_SURGERY
@@ -392,7 +386,6 @@
 
 /datum/cargo_crate/medical/implants
 	name = "Medical Implant Crate"
-	desc = "Contains a duffelbag of medical implants."
 	cost = 3000
 	max_supply = 2
 	access = ACCESS_MEDICAL
@@ -400,7 +393,6 @@
 
 /datum/cargo_crate/medical/virology
 	name = "Virology Crate"
-	desc = "Contains virology supplies: a monkey cube, mutagen, formaldehyde, synaptizine, beakers, and a figurine."
 	cost = 2000
 	max_supply = 2
 	access_budget = ACCESS_VIROLOGY
@@ -415,7 +407,6 @@
 
 /datum/cargo_crate/medical/virus
 	name = "Virus Crate"
-	desc = "Contains a selection of disease cultures for virology research."
 	cost = 3000
 	max_supply = 1
 	access = ACCESS_VIROLOGY
@@ -432,7 +423,6 @@
 
 /datum/cargo_crate/medical/randomvirus
 	name = "Utility Virus Crate"
-	desc = "Contains five utility virology samples."
 	cost = 3500
 	max_supply = 1
 	access = ACCESS_VIROLOGY
@@ -450,7 +440,6 @@
 
 /datum/cargo_crate/medical/emergency_equip
 	name = "Emergency Equipment Crate"
-	desc = "Contains two floorbots, two medbots, and five sets of internals."
 	cost = 3500
 	max_supply = 2
 	contains = list(
@@ -475,7 +464,6 @@
 
 /datum/cargo_crate/medical/specialops
 	name = "Special Ops Supplies"
-	desc = "A crate of dubiously-legal tactical equipment."
 	cost = 5000
 	max_supply = 1
 	contraband = TRUE

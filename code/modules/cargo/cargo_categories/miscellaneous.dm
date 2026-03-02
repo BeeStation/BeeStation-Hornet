@@ -65,7 +65,6 @@
 
 /datum/cargo_crate/misc_office/paper
 	name = "Office Supply Crate"
-	desc = "Contains a filing cabinet, pens, paper, folders, clipboards, stamps, a laser pointer, and sticky notes."
 	cost = 800
 	max_supply = 3
 	contains = list(
@@ -94,7 +93,6 @@
 
 /datum/cargo_crate/misc_office/book_crate
 	name = "Book Crate"
-	desc = "Contains a codex gigas, random manuals, random books, and a manuscript."
 	cost = 1000
 	max_supply = 2
 	contains = list(
@@ -126,7 +124,6 @@
 
 /datum/cargo_crate/misc_arts/artsupply
 	name = "Art Supply Crate"
-	desc = "Contains easels, canvases, rainbow crayons, and sticker refills."
 	cost = 1000
 	max_supply = 2
 	contains = list(
@@ -146,7 +143,6 @@
 
 /datum/cargo_crate/misc_arts/aquarium_kit
 	name = "Aquarium Starter Kit"
-	desc = "Contains a fish catalog, fish cases, fish feed, aquarium props, and an aquarium kit."
 	cost = 2000
 	max_supply = 2
 	contains = list(
@@ -162,7 +158,6 @@
 
 /datum/cargo_crate/misc_arts/bigband
 	name = "Big Band Instrument Crate"
-	desc = "Contains a violin, guitar, glockenspiel, accordion, saxophone, trombone, recorder, harmonica, and a piano."
 	cost = 2500
 	max_supply = 1
 	contains = list(
@@ -186,7 +181,6 @@
 
 /datum/cargo_crate/misc_religious/religious_supplies
 	name = "Religious Supplies Crate"
-	desc = "Contains holy water, bibles, a rosary, and chaplain hoodies."
 	cost = 1000
 	max_supply = 2
 	access_budget = ACCESS_CHAPEL_OFFICE
@@ -208,7 +202,6 @@
 
 /datum/cargo_crate/misc_party/party
 	name = "Party Supplies Crate"
-	desc = "Contains drinks, glasses, a shaker, glowsticks, and a party capsule."
 	cost = 2000
 	max_supply = 2
 	contains = list(
@@ -240,7 +233,6 @@
 
 /datum/cargo_crate/misc_contraband/contraband
 	name = "Contraband Crate"
-	desc = "A crate of illicit goods, drugs, and Syndicate paraphernalia."
 	cost = 5000
 	max_supply = 1
 	contraband = TRUE
@@ -268,7 +260,6 @@
 
 /datum/cargo_crate/misc_contraband/specialops
 	name = "Special Ops Supplies"
-	desc = "A crate of dubiously-legal tactical equipment."
 	cost = 5000
 	max_supply = 1
 	contraband = TRUE
@@ -284,7 +275,6 @@
 
 /datum/cargo_crate/misc_contraband/syndieclothes
 	name = "Syndicate Surplus Clothing"
-	desc = "A crate of surplus Syndicate-style tactical clothing and armor."
 	cost = 6000
 	max_supply = 1
 	contraband = TRUE
@@ -312,7 +302,6 @@
 
 /datum/cargo_crate/misc_contraband/syndicate
 	name = "Syndicate Surplus Crate"
-	desc = "A crate of Syndicate surplus goods. Contents are a mystery."
 	cost = 20000
 	max_supply = 1
 	contraband = TRUE

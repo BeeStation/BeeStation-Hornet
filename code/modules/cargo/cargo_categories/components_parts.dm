@@ -99,7 +99,6 @@
 
 /datum/cargo_crate/components_packs/plasma
 	name = "Plasma Assembly Crate"
-	desc = "Contains three plasma tanks, igniters, proximity sensors, and timers."
 	cost = 2500
 	max_supply = 2
 	access = ACCESS_TOX_STORAGE
@@ -122,7 +121,6 @@
 
 /datum/cargo_crate/components_packs/robotics
 	name = "Robotics Assembly Crate"
-	desc = "Contains proximity sensors, first aid kits, health analyzers, hard hats, toolboxes, and cleanbot assemblies."
 	cost = 2500
 	max_supply = 2
 	access_budget = ACCESS_ROBOTICS
@@ -146,7 +144,6 @@
 
 /datum/cargo_crate/components_packs/recharging
 	name = "Cyborg Recharger Kit"
-	desc = "Contains the parts to construct a cyborg recharging station."
 	cost = 1500
 	max_supply = 2
 	access_budget = ACCESS_ROBOTICS
@@ -162,7 +159,6 @@
 
 /datum/cargo_crate/components_packs/shieldwalls
 	name = "Shield Wall Generator Crate"
-	desc = "Contains four shield wall generators."
 	cost = 4000
 	max_supply = 1
 	access = ACCESS_RESEARCH
@@ -176,7 +172,6 @@
 
 /datum/cargo_crate/components_packs/transfer_valves
 	name = "Tank Transfer Valves"
-	desc = "Contains two tank transfer valves."
 	cost = 4000
 	max_supply = 1
 	access = ACCESS_RD
@@ -190,7 +185,6 @@
 
 /datum/cargo_crate/components_packs/xenobio
 	name = "Xenobiology Startup Kit"
-	desc = "Contains grey slime extracts, plasma syringes, and circuit boards to start a xenobiology lab."
 	cost = 4000
 	max_supply = 1
 	access = ACCESS_XENOBIOLOGY
@@ -207,7 +201,6 @@
 
 /datum/cargo_crate/components_packs/fuel_rods
 	name = "Fuel Rod Crate"
-	desc = "Contains five fuel rods for reactor use."
 	cost = 2000
 	max_supply = 3
 	access = ACCESS_ENGINE

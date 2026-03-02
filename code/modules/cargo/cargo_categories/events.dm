@@ -10,7 +10,6 @@
 
 /datum/cargo_crate/event/specialops
 	name = "Special Ops Supplies"
-	desc = "A crate of special operations equipment."
 	cost = 4000
 	contains = list(
 		/obj/item/storage/backpack/duffelbag/syndie/surgery,
@@ -21,7 +20,6 @@
 
 /datum/cargo_crate/event/party
 	name = "Party Supplies"
-	desc = "A crate of party supplies."
 	cost = 2000
 	contains = list(
 		/obj/item/reagent_containers/cup/glass/bottle/vodka,
@@ -34,7 +32,6 @@
 
 /datum/cargo_crate/event/department_emergency
 	name = "Emergency Equipment"
-	desc = "A crate of emergency equipment."
 	contains = list(
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/emergency_oxygen,
@@ -46,7 +43,6 @@
 
 /datum/cargo_crate/event/department_security
 	name = "Security Supplies"
-	desc = "A crate of security supplies."
 	contains = list(
 		/obj/item/restraints/handcuffs,
 		/obj/item/restraints/handcuffs,
@@ -56,7 +52,6 @@
 
 /datum/cargo_crate/event/department_food
 	name = "Food Supplies"
-	desc = "A crate of food supplies."
 	contains = list(
 		/obj/item/reagent_containers/condiment/flour,
 		/obj/item/reagent_containers/condiment/flour,
@@ -66,7 +61,6 @@
 
 /datum/cargo_crate/event/department_tools
 	name = "Tool Supplies"
-	desc = "A crate of engineering tools."
 	contains = list(
 		/obj/item/storage/toolbox/electrical,
 		/obj/item/storage/toolbox/electrical,
@@ -76,7 +70,6 @@
 
 /datum/cargo_crate/event/department_medical
 	name = "Medical Supplies"
-	desc = "A crate of medical supplies."
 	contains = list(
 		/obj/item/storage/firstaid/regular,
 		/obj/item/storage/firstaid/regular,
@@ -86,7 +79,6 @@
 
 /datum/cargo_crate/event/beekeeping
 	name = "Beekeeping Starter Kit"
-	desc = "A complete beekeeping kit."
 	contains = list(
 		/obj/structure/beebox/unwrenched,
 		/obj/item/queen_bee/bought,

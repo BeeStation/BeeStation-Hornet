@@ -15,7 +15,6 @@
 
 /datum/cargo_crate/consumables_food/food
 	name = "Food Supplies Crate"
-	desc = "Contains basic cooking ingredients: flour, rice, milk, soy milk, salt, pepper, eggs, enzyme, sugar, meat, and bananas."
 	cost = 1500
 	max_supply = 3
 	contains = list(
@@ -36,7 +35,6 @@
 
 /datum/cargo_crate/consumables_food/pizza
 	name = "Pizza Crate"
-	desc = "Contains five assorted pizzas."
 	cost = 1500
 	max_supply = 3
 	contains = list(
@@ -53,7 +51,6 @@
 
 /datum/cargo_crate/consumables_food/chef_exotic
 	name = "Exotic Meats Crate"
-	desc = "Contains an assortment of exotic meats for the discerning chef."
 	cost = 2000
 	max_supply = 2
 	contains = list(
@@ -73,7 +70,6 @@
 
 /datum/cargo_crate/consumables_food/fruits
 	name = "Fresh Fruit Crate"
-	desc = "Contains an assortment of fresh fruits."
 	cost = 1000
 	max_supply = 3
 	contains = list(
@@ -87,7 +83,6 @@
 
 /datum/cargo_crate/consumables_food/vegetables
 	name = "Fresh Vegetable Crate"
-	desc = "Contains an assortment of fresh vegetables."
 	cost = 1000
 	max_supply = 3
 	contains = list(
@@ -103,7 +98,6 @@
 
 /datum/cargo_crate/consumables_food/cream_pie
 	name = "Cream Pie Crate"
-	desc = "Contains a duffelbag full of cream pies."
 	cost = 800
 	max_supply = 3
 	contains = list(/obj/item/storage/backpack/duffelbag/clown/cream_pie)
@@ -111,7 +105,6 @@
 
 /datum/cargo_crate/consumables_food/grill
 	name = "Grill Crate"
-	desc = "Contains a grill, coal, and a Monkey Energy soda."
 	cost = 1000
 	max_supply = 2
 	contains = list(
@@ -123,7 +116,6 @@
 
 /datum/cargo_crate/consumables_food/grillfuel
 	name = "Grill Fuel Crate"
-	desc = "Contains coal and a Monkey Energy soda."
 	cost = 400
 	max_supply = 4
 	contains = list(
@@ -134,7 +126,6 @@
 
 /datum/cargo_crate/consumables_food/beefbroth
 	name = "Beef Broth Crate"
-	desc = "Contains ten cans of beef broth."
 	cost = 500
 	max_supply = 4
 	contains = list(
@@ -153,7 +144,6 @@
 
 /datum/cargo_crate/consumables_food/donkpockets
 	name = "Deluxe Donk Pocket Crate"
-	desc = "Contains an assortment of specialty Donk Pockets."
 	cost = 1000
 	max_supply = 3
 	contains = list(
@@ -398,7 +388,6 @@
 
 /datum/cargo_crate/consumables_softdrinks/soda
 	name = "Soda Crate"
-	desc = "Contains an assortment of refreshing soft drinks."
 	cost = 500
 	max_supply = 4
 	contains = list(
@@ -422,7 +411,6 @@
 
 /datum/cargo_crate/consumables_seeds/seeds
 	name = "Seed Crate"
-	desc = "Contains an assortment of basic crop seeds."
 	cost = 1000
 	max_supply = 3
 	contains = list(
@@ -444,7 +432,6 @@
 
 /datum/cargo_crate/consumables_seeds/exoticseeds
 	name = "Exotic Seed Crate"
-	desc = "Contains exotic and rare seeds including nettles, dionaea, mushrooms, and random varieties."
 	cost = 2000
 	max_supply = 2
 	contains = list(
@@ -501,7 +488,6 @@
 
 /datum/cargo_crate/consumables_hydro/beekeeping_suits
 	name = "Beekeeper Suits Crate"
-	desc = "Contains two sets of beekeeper suits and hoods."
 	cost = 800
 	max_supply = 2
 	contains = list(
@@ -513,7 +499,6 @@
 
 /datum/cargo_crate/consumables_hydro/beekeeping_fullkit
 	name = "Beekeeping Starter Kit"
-	desc = "Contains a bee box, honey frames, a queen bee, beekeeper suit, and a flyswatter."
 	cost = 2500
 	max_supply = 1
 	contains = list(

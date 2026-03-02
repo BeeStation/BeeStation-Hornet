@@ -283,14 +283,12 @@
 
 /datum/cargo_item/armor_hazard/biosuit
 	name = "Biosuit"
-	desc = "A level-3 biohazard suit."
 	item_path = /obj/item/clothing/suit/bio_suit
 	cost = 500
 	max_supply = 5
 
 /datum/cargo_item/armor_hazard/biohood
 	name = "Bio Hood"
-	desc = "A level-3 biohazard hood."
 	item_path = /obj/item/clothing/head/bio_hood
 	cost = 500
 	max_supply = 5
@@ -298,14 +296,12 @@
 
 /datum/cargo_item/armor_hazard/bomb_suit
 	name = "Bomb Suit"
-	desc = "A suit designed for safe handling of explosive devices."
 	item_path = /obj/item/clothing/suit/utility/bomb_suit
 	cost = 400
 	max_supply = 3
 
 /datum/cargo_item/armor_hazard/bomb_hood
 	name = "Bomb Hood"
-	desc = "A protective hood for bomb disposal."
 	item_path = /obj/item/clothing/head/utility/bomb_hood
 	cost = 300
 	max_supply = 3
@@ -313,7 +309,6 @@
 
 /datum/cargo_item/armor_hazard/fire_suit
 	name = "Firefighter Suit"
-	desc = "A suit designed for firefighting operations."
 	item_path = /obj/item/clothing/suit/utility/fire/firefighter
 	cost = 400
 	max_supply = 5
@@ -368,7 +363,6 @@
 
 /datum/cargo_crate/armor/syndieclothes
 	name = "Syndicate Surplus Clothing"
-	desc = "A crate of surplus Syndicate-style tactical clothing and armor."
 	cost = 6000
 	max_supply = 1
 	contraband = TRUE

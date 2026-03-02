@@ -261,7 +261,6 @@
 
 /datum/cargo_crate/weaponry/ammo
 	name = "Ammunition Crate"
-	desc = "Contains WT550 magazines, lethal/rubber shotgun shells, and specialty .38 rounds."
 	cost = 4000
 	max_supply = 2
 	contains = list(
@@ -280,7 +279,6 @@
 
 /datum/cargo_crate/weaponry/fire
 	name = "Incendiary Weapons Crate"
-	desc = "Contains a flamethrower, plasma tanks, and incendiary grenades."
 	cost = 6000
 	max_supply = 1
 	dangerous = TRUE
@@ -297,7 +295,6 @@
 
 /datum/cargo_crate/weaponry/trackingimp
 	name = "Tracking Implant Crate"
-	desc = "Contains a tracking implant kit and tracking .38 rounds."
 	cost = 3000
 	max_supply = 2
 	contains = list(
@@ -309,7 +306,6 @@
 
 /datum/cargo_crate/weaponry/russian
 	name = "Russian Surplus Crate"
-	desc = "A crate of Russian military surplus. Random contents."
 	cost = 7500
 	max_supply = 1
 	contains = list(
@@ -333,7 +329,6 @@
 
 /datum/cargo_crate/weaponry/western
 	name = "Western Arms Crate"
-	desc = "A crate of Wild West themed firearms and accessories. Random contents."
 	cost = 7500
 	max_supply = 1
 	contains = list(
@@ -355,7 +350,6 @@
 
 /datum/cargo_crate/weaponry/supplies
 	name = "Security Supplies Crate"
-	desc = "Contains boxes of flashbangs, tear gas, flashes, and handcuffs."
 	cost = 3000
 	max_supply = 2
 	access_budget = ACCESS_SECURITY

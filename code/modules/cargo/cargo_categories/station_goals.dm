@@ -12,7 +12,6 @@
 
 /datum/cargo_crate/station_goal/bsa
 	name = "Bluespace Artillery Parts"
-	desc = "The pride of Nanotrasen Naval Command. Contains all circuit boards needed to construct BSA artillery."
 	cost = 15000
 	max_supply = 1
 	special = TRUE
@@ -28,7 +27,6 @@
 
 /datum/cargo_crate/station_goal/dna_vault
 	name = "DNA Vault Parts"
-	desc = "Contains the DNA Vault circuit board and five DNA probes."
 	cost = 12000
 	max_supply = 1
 	special = TRUE
@@ -44,7 +42,6 @@
 
 /datum/cargo_crate/station_goal/dna_probes
 	name = "DNA Vault Samplers"
-	desc = "Contains five DNA probes for use in the DNA vault."
 	cost = 3000
 	max_supply = 4
 	special = TRUE
@@ -61,7 +58,6 @@
 
 /datum/cargo_crate/station_goal/bluespace_tap
 	name = "Bluespace Harvester Parts"
-	desc = "Contains the Bluespace Harvester circuit board and instruction manual."
 	cost = 15000
 	max_supply = 1
 	special = TRUE
@@ -74,7 +70,6 @@
 
 /datum/cargo_crate/station_goal/shuttle_engine
 	name = "Shuttle Engine Crate"
-	desc = "Through advanced bluespace-shenanigans, our engineers have managed to fit an entire shuttle engine into one tiny little crate. Requires CE access to open."
 	cost = 5000
 	max_supply = 2
 	access = ACCESS_CE

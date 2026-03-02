@@ -567,7 +567,6 @@
 
 /datum/cargo_crate/clothing/contraband
 	name = "Contraband Crate"
-	desc = "A crate of illicit goods, drugs, and Syndicate paraphernalia."
 	cost = 5000
 	max_supply = 1
 	contraband = TRUE

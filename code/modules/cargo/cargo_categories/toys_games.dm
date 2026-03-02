@@ -26,7 +26,6 @@
 
 /datum/cargo_item/toys/batong
 	name = "Batong"
-	desc = "A cheap plastic imitation of a stunbaton."
 	item_path = /obj/item/toy/batong
 	cost = 50
 	max_supply = 5
@@ -208,21 +207,18 @@
 
 /datum/cargo_item/foamforce/shotgun
 	name = "Foam Dart Shotgun"
-	desc = "A foam dart shotgun for office warfare."
 	item_path = /obj/item/gun/ballistic/shotgun/toy
 	cost = 200
 	max_supply = 8
 
 /datum/cargo_item/foamforce/pistol
 	name = "Foam Dart Pistol"
-	desc = "A foam dart pistol. Pew pew!"
 	item_path = /obj/item/gun/ballistic/automatic/toy/pistol
 	cost = 300
 	max_supply = 6
 
 /datum/cargo_item/foamforce/pistol_mag
 	name = "Foam Dart Pistol Magazine"
-	desc = "An extra magazine for foam dart pistols."
 	item_path = /obj/item/ammo_box/magazine/toy/pistol
 	cost = 50
 	max_supply = 10
@@ -230,7 +226,6 @@
 
 /datum/cargo_item/foamforce/lasertag_pins
 	name = "Laser Tag Firing Pins"
-	desc = "A box of laser tag firing pins."
 	item_path = /obj/item/storage/box/lasertagpins
 	cost = 500
 	max_supply = 3

@@ -14,7 +14,6 @@
 
 /datum/cargo_item/machines_power/pacman
 	name = "P.A.C.M.A.N. Generator"
-	desc = "A portable generator that runs on plasma sheets."
 	item_path = /obj/machinery/power/port_gen/pacman
 	cost = 2000
 	max_supply = 2
@@ -55,7 +54,6 @@
 
 /datum/cargo_item/machines_vehicles/lawnmower
 	name = "Lawnmower"
-	desc = "A riding lawnmower for keeping the station grounds tidy."
 	item_path = /obj/vehicle/ridden/lawnmower
 	cost = 800
 	max_supply = 2
@@ -64,7 +62,6 @@
 
 /datum/cargo_crate/machines_vehicles/atv
 	name = "ATV Crate"
-	desc = "An all-terrain vehicle for rapid traversal, complete with biker gear."
 	cost = 2400
 	max_supply = 2
 	contains = list(
@@ -79,7 +76,6 @@
 
 /datum/cargo_crate/machines_vehicles/bicycle
 	name = "Bicycle Crate"
-	desc = "Contains one bicycle."
 	cost = 1000
 	max_supply = 2
 	contains = list(/obj/vehicle/ridden/bicycle)
@@ -89,7 +85,6 @@
 
 /datum/cargo_crate/machines_vehicles/mule
 	name = "MULEbot Crate"
-	desc = "Contains a MULEbot delivery robot."
 	cost = 2000
 	max_supply = 2
 	contains = list(/mob/living/simple_animal/bot/mulebot)
@@ -105,7 +100,6 @@
 
 /datum/cargo_crate/machines_engine/emitter
 	name = "Emitter Crate"
-	desc = "Contains two emitters for singularity engine construction."
 	cost = 3000
 	max_supply = 2
 	access = ACCESS_ENGINE
@@ -117,7 +111,6 @@
 
 /datum/cargo_crate/machines_engine/field_gen
 	name = "Field Generator Crate"
-	desc = "Contains two field generators."
 	cost = 3000
 	max_supply = 2
 	contains = list(
@@ -127,7 +120,6 @@
 
 /datum/cargo_crate/machines_engine/grounding_rods
 	name = "Grounding Rod Crate"
-	desc = "Contains four grounding rods for tesla engine setups."
 	cost = 2500
 	max_supply = 2
 	contains = list(
@@ -140,7 +132,6 @@
 
 /datum/cargo_crate/machines_engine/particle_accelerator
 	name = "Particle Accelerator Crate"
-	desc = "Contains all parts to construct a particle accelerator."
 	cost = 5000
 	max_supply = 1
 	access = ACCESS_ENGINE
@@ -157,7 +148,6 @@
 
 /datum/cargo_crate/machines_engine/nuclear_reactor
 	name = "Nuclear Reactor Crate"
-	desc = "Contains all parts and boards to construct an RBMK reactor."
 	cost = 8000
 	max_supply = 1
 	access = ACCESS_ENGINE
@@ -178,7 +168,6 @@
 
 /datum/cargo_crate/machines_engine/singularity_gen
 	name = "Singularity Generator Crate"
-	desc = "Contains a singularity generator."
 	cost = 5000
 	max_supply = 1
 	access = ACCESS_ENGINE
@@ -187,7 +176,6 @@
 
 /datum/cargo_crate/machines_engine/solar
 	name = "Solar Panel Crate"
-	desc = "Contains 21 solar assemblies, a solar control board, a tracker, and instructions."
 	cost = 3000
 	max_supply = 3
 	contains = list(
@@ -220,7 +208,6 @@
 
 /datum/cargo_crate/machines_engine/supermatter_shard
 	name = "Supermatter Shard Crate"
-	desc = "Contains a supermatter crystal shard. Handle with extreme caution."
 	cost = 10000
 	max_supply = 1
 	access = ACCESS_CE
@@ -231,7 +218,6 @@
 
 /datum/cargo_crate/machines_engine/tesla_coils
 	name = "Tesla Coil Crate"
-	desc = "Contains four tesla coils."
 	cost = 3000
 	max_supply = 2
 	contains = list(
@@ -244,7 +230,6 @@
 
 /datum/cargo_crate/machines_engine/tesla_gen
 	name = "Tesla Generator Crate"
-	desc = "Contains a tesla generator."
 	cost = 5000
 	max_supply = 1
 	access = ACCESS_ENGINE
@@ -261,7 +246,6 @@
 
 /datum/cargo_crate/machines_mech/ripley
 	name = "Ripley APLU Parts Crate"
-	desc = "Contains all parts needed to construct a Ripley APLU mech."
 	cost = 5000
 	max_supply = 1
 	contains = list(
@@ -281,7 +265,6 @@
 
 /datum/cargo_crate/machines_mech/conveyor
 	name = "Conveyor Belt Crate"
-	desc = "Contains a stack of conveyor belts, a switch construct, and an instruction manual."
 	cost = 1000
 	max_supply = 3
 	contains = list(
@@ -292,7 +275,6 @@
 
 /datum/cargo_crate/machines_mech/shuttle_construction
 	name = "Shuttle Construction Crate"
-	desc = "Contains everything needed to construct a custom shuttle."
 	cost = 15000
 	max_supply = 1
 	access = ACCESS_CE

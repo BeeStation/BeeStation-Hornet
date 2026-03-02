@@ -99,7 +99,6 @@
 
 /datum/cargo_crate/materials_tiles/carpet_exotic
 	name = "Exotic Carpet Crate"
-	desc = "Contains a wide variety of exotic colored carpet tiles."
 	cost = 2000
 	max_supply = 2
 	contains = list(
@@ -133,7 +132,6 @@
 
 /datum/cargo_crate/materials_bulk/iron250
 	name = "Bulk Iron Crate (250)"
-	desc = "Contains 250 iron sheets."
 	cost = 2000
 	max_supply = 4
 	contains = list(
@@ -146,7 +144,6 @@
 
 /datum/cargo_crate/materials_bulk/glass250
 	name = "Bulk Glass Crate (250)"
-	desc = "Contains 250 glass sheets."
 	cost = 2000
 	max_supply = 4
 	contains = list(
@@ -166,7 +163,6 @@
 
 /datum/cargo_crate/materials_canisters/oxygen
 	name = "Oxygen Canister"
-	desc = "Contains a canister of oxygen."
 	cost = 1500
 	max_supply = 3
 	contains = list(/obj/machinery/portable_atmospherics/canister/oxygen)
@@ -174,7 +170,6 @@
 
 /datum/cargo_crate/materials_canisters/nitrogen
 	name = "Nitrogen Canister"
-	desc = "Contains a canister of nitrogen."
 	cost = 1500
 	max_supply = 3
 	contains = list(/obj/machinery/portable_atmospherics/canister/nitrogen)
@@ -182,7 +177,6 @@
 
 /datum/cargo_crate/materials_canisters/carbon_dioxide
 	name = "Carbon Dioxide Canister"
-	desc = "Contains a canister of carbon dioxide."
 	cost = 2000
 	max_supply = 2
 	access = ACCESS_ATMOSPHERICS
@@ -191,7 +185,6 @@
 
 /datum/cargo_crate/materials_canisters/nitrous_oxide
 	name = "Nitrous Oxide Canister"
-	desc = "Contains a canister of nitrous oxide."
 	cost = 2500
 	max_supply = 2
 	access = ACCESS_ATMOSPHERICS
@@ -200,7 +193,6 @@
 
 /datum/cargo_crate/materials_canisters/bz
 	name = "BZ Canister"
-	desc = "Contains a canister of BZ gas."
 	cost = 5000
 	max_supply = 1
 	access = ACCESS_ATMOSPHERICS
@@ -210,7 +202,6 @@
 
 /datum/cargo_crate/materials_canisters/water_vapor
 	name = "Water Vapor Canister"
-	desc = "Contains a canister of water vapor."
 	cost = 1500
 	max_supply = 2
 	contains = list(/obj/machinery/portable_atmospherics/canister/water_vapor)
