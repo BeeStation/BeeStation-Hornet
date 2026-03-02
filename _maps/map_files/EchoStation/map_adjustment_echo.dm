@@ -28,3 +28,6 @@
 /datum/map_adjustment/echo_station/on_mapping_init()
 	exclude_tagger_destination("Virology")
 	exclude_tagger_destination("Law Office")
+
+///datum/map_adjustment/echo_station/on_department_init()
+//	ADD_MAP_ACCESS(/datum/map_exclusive_access/psychotherapy) // We do not have Psychotherapy in Echo
