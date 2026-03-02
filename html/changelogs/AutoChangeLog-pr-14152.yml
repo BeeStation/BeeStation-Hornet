@@ -1,4 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Digital clocks now process on the correct subsystem.

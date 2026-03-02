@@ -2,3 +2,6 @@
   mrmanlikesbt:
   - config: the repository's dynamic storyteller config is now up to date with the
       live server
+2026-03-02:
+  Absolucy:
+  - bugfix: Digital clocks now process on the correct subsystem.
