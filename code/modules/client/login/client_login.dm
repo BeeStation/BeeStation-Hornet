@@ -160,9 +160,9 @@
 			metabalance_cached = 0
 			antag_token_count_cached = 0
 		//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
-		init_client_prefs()
 		if(QDELETED(src))
 			return FALSE
+		init_client_prefs()
 		setup_player_details()
 
 		if(fexists(roundend_report_file()))
