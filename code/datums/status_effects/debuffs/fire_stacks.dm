@@ -166,12 +166,7 @@
 
 /**
  * Proc that handles damage dealing and all special effects
- *
- * Arguments:
- * - seconds_between_ticks
- *
  */
-
 /datum/status_effect/fire_handler/fire_stacks/proc/deal_damage(delta_time)
 	owner.on_fire_stack(delta_time, src)
 
