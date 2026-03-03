@@ -10,3 +10,7 @@
   - bugfix: abductor baton stuns paralyze again
   - server: damage unit test supports simplemobs, as well as the stamina and cloneloss
       damagetypes
+2026-03-03:
+  WhiskeyMarten:
+  - rscadd: Made Geneticist and Paramedic available on Echostation. Geneticist is
+      locked to 1 slot.
