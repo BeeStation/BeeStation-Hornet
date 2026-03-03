@@ -167,7 +167,10 @@
 /datum/weather/proc/recursive_weather_protection_check(atom/to_check)
 	return HAS_TRAIT(to_check, TRAIT_WEATHER_IMMUNE) || (immunity_type && HAS_TRAIT(to_check, immunity_type))
 
-/datum/weather/proc/weather_act_mob(mob/living/L) //What effect does this weather have on the hapless mob?
+/**
+ * Affects the mob with whatever the weather does
+ */
+/datum/weather/proc/weather_act_mob(mob/living/living)
 	return
 
 /// * [Func A] If list/newly_given_areas = null, It will update area overlays to new weather stage overlay. Typically called by this datum itself.

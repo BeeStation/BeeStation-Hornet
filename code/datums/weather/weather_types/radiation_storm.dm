@@ -54,20 +54,17 @@
 	GLOB.rad_storm_sounds += playlist
 	return ..()
 
-/datum/weather/rad_storm/weather_act_mob(mob/living/living)
+/datum/weather/floor_is_lava/can_weather_act_mob(mob/living/mob_to_check)
+	if(!ishuman(mob_to_check))
+		return FALSE
+	if(HAS_TRAIT(mob_to_check, TRAIT_RADIMMUNE))
+		return FALSE
+	if(SSradiation.wearing_rad_protected_clothing(mob_to_check))
+		return FALSE
+	return ..()
 
-	if(!ishuman(living))
-		return
-
-	var/mob/living/carbon/human/human = living
-
-	if(HAS_TRAIT(human, TRAIT_RADIMMUNE))
-		return
-
-	if(SSradiation.wearing_rad_protected_clothing(human))
-		return
-
-	SSradiation.irradiate(human, intensity = rand(1, 5))
+/datum/weather/rad_storm/weather_act_mob(mob/living/victim)
+	SSradiation.irradiate(victim, intensity = rand(1, 5))
 
 /datum/weather/rad_storm/end()
 	GLOB.rad_storm_sounds -= playlist

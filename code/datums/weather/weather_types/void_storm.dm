@@ -21,9 +21,9 @@
 	perpetual = TRUE
 
 /datum/weather/void_storm/can_weather_act_mob(mob/living/mob_to_check)
-	. = ..()
 	if(IS_HERETIC_OR_MONSTER(mob_to_check))
 		return FALSE
+	return ..()
 
 /datum/weather/void_storm/weather_act_mob(mob/living/victim)
 	var/need_mob_update = FALSE
