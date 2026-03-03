@@ -162,12 +162,18 @@
 	desc = "A tribal armor plate, crafted from animal bone. A heavier variation of standard bone armor."
 	armor_type = /datum/armor/cloak_bone
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/bone
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
+	heat_protection = CHEST | GROIN | LEGS | FEET | ARMS
+	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
-
+	transparent_protection = HIDEGLOVES | HIDESUITSTORAGE | HIDEJUMPSUIT | HIDESHOES
+	allowed = list(
+		/obj/item/spear/bonespear,
+		/obj/item/claymore/bone,
+		/obj/item/fireaxe/boneaxe,
+		/obj/item/knife/combat/bone,
+		/obj/item/gun/ballistic/bow/ashen,
+	)
 
 /datum/armor/cloak_bone
 	melee = 40
