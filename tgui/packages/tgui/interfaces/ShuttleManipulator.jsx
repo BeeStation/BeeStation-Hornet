@@ -7,7 +7,7 @@ import { Window } from '../layouts';
 export const ShuttleManipulator = (props) => {
   const [tab, setTab] = useLocalState('tab', 1);
   return (
-    <Window width={800} height={600}>
+    <Window width={800} height={600} theme="admin">
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
