@@ -175,6 +175,14 @@
 	msg += span_cult("Petting various animals: [length(owner_vamp.humanity_trackgain_petted)] of [owner_vamp.humanity_petting_goal].")
 	msg += span_cult("Looking at art: [length(owner_vamp.humanity_trackgain_art)] of [owner_vamp.humanity_art_goal].")
 
+	var/frenzy_modifier = owner_vamp.get_frenzy_humanity_modifier()
+	var/frenzy_enter = FRENZY_THRESHOLD_ENTER + frenzy_modifier
+	var/frenzy_exit = FRENZY_THRESHOLD_EXIT + frenzy_modifier
+	msg += span_cult("\n<b>Due to your current humanity score, your frenzy thresholds are adjusted as follows:</b>")
+	msg += span_cult("\nYou will enter frenzy when you sink below <b>[frenzy_enter]</b>, and will only be sated above <b>[frenzy_exit]</b>.")
+	if(owner_vamp.humanity < 7)
+		msg += span_cult("<i>Your lack of humanity makes the Beast harder to control. (+[frenzy_modifier] from low humanity)</i>")
+
 	to_chat(usr, examine_block(msg.Join("\n")))
 
 /// Update Blood Counter + Rank Counter

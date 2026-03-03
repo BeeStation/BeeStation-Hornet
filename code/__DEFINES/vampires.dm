@@ -13,8 +13,10 @@
 #define TORTURE_CONVERSION_COST 50
 /// Once blood is this low, will enter a Frenzy
 #define FRENZY_THRESHOLD_ENTER 25
-/// Once blood is this high, will exit the Frenzy. Intentionally high, we want to kill the person we feed off of
-#define FRENZY_THRESHOLD_EXIT 500
+/// Once blood is this high, will exit the Frenzy.
+#define FRENZY_THRESHOLD_EXIT 250
+/// How much the frenzy thresholds increase per point of humanity below 10. A 0-humanity vampire gets +250 to both enter/exit thresholds.
+#define FRENZY_HUMANITY_MODIFIER_PER_POINT 25
 /// How much blood drained from the vampire each lifetick
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
 /// The number that incoming levels are divided by when comitting the Amaranth. Example: 2 would divide the victims level by 2, and give that to the diablerist

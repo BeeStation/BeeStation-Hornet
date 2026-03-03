@@ -73,6 +73,14 @@
 	current_vitae = clamp(current_vitae + value, 0, max_vitae)
 
 /**
+ * Returns the frenzy threshold modifier based on humanity.
+ * Lower humanity = higher modifier, making frenzy trigger at higher blood levels.
+ * At 10 humanity: +0, at 7 humanity (default): +75, at 0 humanity: +250
+**/
+/datum/antagonist/vampire/proc/get_frenzy_humanity_modifier()
+	return max(0, (10 - humanity) * FRENZY_HUMANITY_MODIFIER_PER_POINT)
+
+/**
  * Runs on the vampire's lifetick.
  * Heal clone, brain, brute and burn damage.
  *
@@ -251,8 +259,11 @@
 	if(!isoozeling(owner.current))
 		owner.current.set_nutrition(min(current_vitae, NUTRITION_LEVEL_WELL_FED))
 
+	// Calculate humanity-adjusted frenzy thresholds
+	var/frenzy_modifier = get_frenzy_humanity_modifier()
+
 	// Try and exit frenzy
-	if(current_vitae >= FRENZY_THRESHOLD_EXIT && frenzied)
+	if(current_vitae >= (FRENZY_THRESHOLD_EXIT + frenzy_modifier) && frenzied)
 		owner.current.remove_status_effect(/datum/status_effect/frenzy)
 
 	// Blood is low, lets show some effects
@@ -260,14 +271,15 @@
 		owner.current.set_jitter_if_lower(6 SECONDS)
 
 	// Enter frenzy if our blood is low enough
-	if(current_vitae < FRENZY_THRESHOLD_ENTER && !frenzied)
+	if(current_vitae < (FRENZY_THRESHOLD_ENTER + frenzy_modifier) && !frenzied)
 		owner.current.apply_status_effect(/datum/status_effect/frenzy)
 
-	// Warn them at low blood
-	if(current_vitae < VAMPIRE_LOW_BLOOD_WARNING && !low_blood_alerted)
-		to_chat(owner.current, span_narsiesmall("Care now. Your vitae runs low!"), type = MESSAGE_TYPE_WARNING)
+	// Warn them at low blood - warning scales with the frenzy threshold so it always comes before frenzy
+	var/adjusted_warning = FRENZY_THRESHOLD_ENTER + frenzy_modifier + VAMPIRE_LOW_BLOOD_WARNING
+	if(current_vitae < adjusted_warning && !low_blood_alerted)
+		to_chat(owner.current, span_narsiesmall("Care now. Your vitae runs low! The Beast stirs at [FRENZY_THRESHOLD_ENTER + frenzy_modifier] blood..."), type = MESSAGE_TYPE_WARNING)
 		low_blood_alerted = TRUE
-	else if(current_vitae > VAMPIRE_LOW_BLOOD_WARNING)
+	else if(current_vitae > adjusted_warning)
 		low_blood_alerted = FALSE
 
 	// The more blood, the better the regeneration

@@ -91,7 +91,7 @@
 
 /datum/status_effect/frenzy/tick()
 	var/mob/living/carbon/carbon_owner = owner
-	if(!vampiredatum || vampiredatum.current_vitae >= FRENZY_THRESHOLD_EXIT)
+	if(!vampiredatum || vampiredatum.current_vitae >= (FRENZY_THRESHOLD_EXIT + vampiredatum.get_frenzy_humanity_modifier()))
 		qdel(src)
 		return
 	carbon_owner.adjustFireLoss(0.75)
