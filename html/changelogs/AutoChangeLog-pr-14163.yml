@@ -1,0 +1,5 @@
+author: WhiskeyMarten
+delete-after: true
+changes:
+  - rscadd: Made Geneticist and Paramedic available on Echostation. Geneticist is
+      locked to 1 slot.
