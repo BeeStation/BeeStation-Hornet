@@ -157,7 +157,7 @@
 	bleed = 50
 
 /obj/item/clothing/suit/hooded/cloak/bone
-	name = "Heavy bone armor"
+	name = "heavy bone armor"
 	icon_state = "hbonearmor"
 	desc = "A tribal armor plate, crafted from animal bone. A heavier variation of standard bone armor."
 	armor_type = /datum/armor/cloak_bone
