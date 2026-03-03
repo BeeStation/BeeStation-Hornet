@@ -165,8 +165,13 @@
  * Spawn a body for the chosen candidate
  */
 /datum/dynamic_ruleset/midround/ghost/proc/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/mob/living/carbon/human/new_body = makeBody(chosen_mob)
-	new_body.clean_dna()
+	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
+	player_mind.active = TRUE
+
+	var/mob/living/carbon/human/new_body = new()
+	player_mind.transfer_to(new_body)
+	SSjob.SendToLateJoin(new_body)
+
 	return new_body
 
 /**
@@ -233,7 +238,7 @@
 
 	has_made_leader = TRUE
 
-	var/datum/antagonist/nukeop/leader/leader_datum = new
+	var/datum/antagonist/nukeop/leader/leader_datum = new()
 	team = leader_datum.nuke_team
 	new_character.mind.add_antag_datum(leader_datum, ruleset = src)
 
@@ -258,9 +263,8 @@
 	blob_icon.Blend(icon('icons/mob/blob.dmi', "blob_core_overlay"), ICON_OVERLAY)
 	return blob_icon
 
-/datum/dynamic_ruleset/midround/ghost/blob/generate_ruleset_body(mob/dead/observer/chosen_ghost)
-	var/mob/camera/blob/body = chosen_ghost.become_overmind()
-	return body
+/datum/dynamic_ruleset/midround/ghost/blob/generate_ruleset_body(mob/dead/observer/chosen_mob)
+	return chosen_mob.become_overmind()
 
 //////////////////////////////////////////////
 //                                          //
@@ -280,11 +284,11 @@
 	return /mob/living/carbon/alien/larva
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/obj/vent = pick_n_take(spawn_locations)
+	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
+	player_mind.active = TRUE
 
-	var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
-	new_xeno.forceMove(vent)
-	new_xeno.key = chosen_mob.key
+	var/mob/living/carbon/alien/larva/new_xeno = new(pick_n_take(spawn_locations))
+	player_mind.transfer_to(new_xeno)
 
 	return new_xeno
 
@@ -357,7 +361,6 @@
 	var/mob/living/carbon/human/ninja_body = new(pick(spawn_locations))
 	ninja_body.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
 	ninja_body.name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
-	ninja_body.dna.update_dna_identity()
 	player_mind.transfer_to(ninja_body)
 
 	return ninja_body
@@ -491,8 +494,7 @@
 	player_mind.active = TRUE
 
 	var/turf/spawnable_turf = get_non_holy_tile_from_list(spawn_locations)
-	if(!spawnable_turf)
-		spawnable_turf = pick(spawn_locations)
+	spawnable_turf ||= pick(spawn_locations)
 
 	var/mob/living/simple_animal/revenant/revenant_body = new(spawnable_turf)
 	player_mind.transfer_to(revenant_body)
@@ -522,9 +524,7 @@
 	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
 	player_mind.active = TRUE
 
-	var/obj/vent = pick(spawn_locations)
-	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/broodmother_body = new(vent.loc)
-	broodmother_body.forceMove(vent)
+	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/broodmother_body = new(pick(spawn_locations))
 	player_mind.transfer_to(broodmother_body)
 	broodmother_body.fed += 3
 	broodmother_body.lay_eggs.update_buttons()
