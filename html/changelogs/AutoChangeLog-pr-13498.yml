@@ -1,5 +1,0 @@
-author: mrmanlikesbt, Kapu
-delete-after: true
-changes:
-  - bugfix: Fixed explosions being able to destroy turfs that have a structure on
-      top of them (mainly windows and doors)

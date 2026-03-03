@@ -14,3 +14,6 @@
   WhiskeyMarten:
   - rscadd: Made Geneticist and Paramedic available on Echostation. Geneticist is
       locked to 1 slot.
+  mrmanlikesbt, Kapu:
+  - bugfix: Fixed explosions being able to destroy turfs that have a structure on
+      top of them (mainly windows and doors)
