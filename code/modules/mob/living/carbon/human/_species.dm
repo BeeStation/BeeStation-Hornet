@@ -2231,7 +2231,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
 	var/obj/item/organ/tail/tail = H?.get_organ_slot(ORGAN_SLOT_TAIL)
-	tail?.set_wagging(H, FALSE)
+	if(istype(tail))
+		tail.set_wagging(H, FALSE)
 
 ///////////////
 //FLIGHT SHIT//
