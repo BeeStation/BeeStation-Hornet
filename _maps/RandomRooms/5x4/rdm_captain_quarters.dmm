@@ -148,7 +148,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/structure/fireplace,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "Y" = (

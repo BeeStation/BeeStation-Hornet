@@ -163,7 +163,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 		return FALSE
 	// This code is the absolute fucking worst, I want it to go die in a fire
 	// Seriously, why
-	if(screenmob.client.prefs?.character_preview_view) // Changing HUDs clears the screen, we need to reregister then.
+	var/wants_preview = screenmob.client.prefs?.character_preview_view && (screenmob.client in screenmob.client.prefs?.character_preview_view.viewing_clients)
+	if(wants_preview) // Changing HUDs clears the screen, we need to reregister then.
 		screenmob.client.prefs.character_preview_view.unregister_from_client(screenmob.client)
 
 	screenmob.client.screen = list()
@@ -243,7 +244,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	else if (viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
 
-	if(screenmob.client.prefs?.character_preview_view) // Changing HUDs clears the screen, we need to reregister then.
+	// Changing HUDs clears the screen, we need to reregister then (but only if we are viewing it already)
+	if (wants_preview)
 		screenmob.client.prefs.character_preview_view.register_to_client(screenmob.client)
 
 	return TRUE

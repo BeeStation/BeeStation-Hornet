@@ -27,7 +27,7 @@
 
 /datum/surgery_step/revive
 	name = "shock body"
-	implements = list(/obj/item/shockpaddles = 100, /obj/item/melee/baton = 75, /obj/item/gun/energy = 60)
+	implements = list(/obj/item/shockpaddles = 100, /obj/item/melee/baton/security = 75, /obj/item/gun/energy = 60)
 	repeatable = TRUE
 	time = 120
 	success_sound = 'sound/magic/lightningbolt.ogg'
@@ -40,8 +40,8 @@
 		if((S.req_defib && !S.defib.powered) || !ISWIELDED(S) || S.cooldown || S.busy)
 			to_chat(user, span_warning("You need to wield both paddles, and [S.defib] must be powered!"))
 			return FALSE
-	if(istype(tool, /obj/item/melee/baton))
-		var/obj/item/melee/baton/batong = tool
+	if(istype(tool, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/batong = tool
 		if(!batong.damtype != STAMINA)
 			to_chat(user, span_warning("[batong] needs to be active!"))
 			return FALSE

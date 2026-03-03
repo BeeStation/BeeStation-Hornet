@@ -1,7 +1,7 @@
 /particles/stink_lines
 	icon = 'icons/effects/particles/shapes.dmi'
 	icon_state = list("line")
-	color = generator("color", "#808000", "#806900", NORMAL_RAND)
+	color = generator("color", COLOR_OLIVE, "#806900", NORMAL_RAND)
 	spawning = 0.3
 	lifespan = 30
 	fade = 10

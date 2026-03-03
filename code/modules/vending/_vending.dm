@@ -252,6 +252,13 @@
 /obj/machinery/vending/can_speak()
 	return !shut_up
 
+/obj/machinery/vending/emp_act(severity)
+	. = ..()
+	var/datum/language_holder/vending_languages = get_language_holder()
+	var/datum/wires/vending/vending_wires = wires
+	// if the language wire got pulsed during an EMP, this will make sure the language_iterator is synched correctly
+	vending_languages.selected_language = vending_languages.spoken_languages[vending_wires.language_iterator]
+
 //Better would be to make constructable child
 /obj/machinery/vending/RefreshParts()
 	if(!component_parts)
@@ -1032,7 +1039,7 @@
 		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 		return FALSE
 	if (R.amount <= 0)
-		say("Sold out of [R.name].")
+		speak("Sold out of [R.name].")
 		flick(icon_deny,src)
 		vend_ready = TRUE
 		return FALSE
@@ -1042,12 +1049,12 @@
 			var/mob/living/L = usr
 			C = L.get_idcard(TRUE)
 		if(!C)
-			say("No card found.")
+			speak("No card found.")
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return FALSE
 		else if (!C.registered_account)
-			say("No account found.")
+			speak("No account found.")
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return FALSE
@@ -1057,7 +1064,7 @@
 		if(LAZYLEN(R.returned_products))
 			price_to_use = 0 //returned items are free
 		if(price_to_use && !account.adjust_money(-price_to_use))
-			say("You do not possess the funds to purchase [R.name].")
+			speak("You do not possess the funds to purchase [R.name].")
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return FALSE
@@ -1073,7 +1080,8 @@
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
 	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
-		say(vend_reply)
+		var/vend_response = vend_reply || "Thank you for shopping with [src]!"
+		speak(vend_response)
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
 	use_power(500 WATT)
@@ -1257,13 +1265,13 @@
 /obj/machinery/vending/custom/canLoadItem(obj/item/I, mob/user)
 	. = FALSE
 	if(I.flags_1 & HOLOGRAM_1)
-		say("This vendor cannot accept nonexistent items.")
+		speak("This vendor cannot accept nonexistent items.")
 		return
 	if(loaded_items >= max_loaded_items)
-		say("There are too many items in stock.")
+		speak("There are too many items in stock.")
 		return
 	if(isstack(I))
-		say("Loose items may cause problems, try to use it inside wrapping paper.")
+		speak("Loose items may cause problems, try to use it inside wrapping paper.")
 		return
 	if(I.custom_price)
 		return TRUE
@@ -1341,7 +1349,7 @@
 							additional_message += "No ID card found. "
 						if(!C?.registered_account)
 							additional_message += "No account found. "
-						say("[additional_message]Not enough funds to purchase [S.name].")
+						speak("[additional_message]Not enough funds to purchase [S.name].")
 						flick(icon_deny,src)
 						vend_ready = TRUE
 						return
@@ -1369,7 +1377,7 @@
 	loaded_items--
 	use_power(500 WATT)
 	if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
-		say("Thank you for buying local and purchasing [bought_item]!")
+		speak("Thank you for buying local and purchasing [bought_item]!")
 		COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))
 		last_shopper = REF(usr)
 	vend_ready = TRUE
@@ -1383,7 +1391,7 @@
 			C = H.get_idcard(TRUE)
 			if(C?.registered_account)
 				private_a = C.registered_account
-				say("\The [src] has been linked to [C].")
+				speak("\The [src] has been linked to [C].")
 
 	if(compartmentLoadAccessCheck(user))
 		if(istype(I, /obj/item/pen))

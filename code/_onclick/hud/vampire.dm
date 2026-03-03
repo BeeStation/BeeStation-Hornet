@@ -70,7 +70,7 @@
 					valuecolor = "#FFFFCC"
 				else
 					sunlight_display.icon_state = "[initial(sunlight_display.icon_state)]_night"
-					valuecolor = "#FFFFFF"
+					valuecolor = COLOR_WHITE
 		sunlight_display.maptext = FORMAT_VAMPIRE_SUNLIGHT_TEXT( \
 			valuecolor, \
 			(SSsunlight.time_til_cycle >= 60) ? "[round(SSsunlight.time_til_cycle / 60, 1)] m" : "[round(SSsunlight.time_til_cycle, 1)] s" \

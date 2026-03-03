@@ -157,7 +157,7 @@
 	. = ..()
 	for(var/mob/living/carbon/candidate in candidates)
 		// Don't draft incompatible species
-		if(candidate.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+		if(HAS_TRAIT(candidate, TRAIT_NOT_TRANSMORPHIC))
 			candidates -= candidate
 			continue
 

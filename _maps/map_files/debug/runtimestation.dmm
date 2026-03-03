@@ -2456,11 +2456,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"GV" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/engine/atmos)
 "Ha" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -7060,7 +7055,7 @@ ah
 XU
 az
 Jo
-GV
+kO
 kO
 Xp
 ah

@@ -78,9 +78,11 @@
 #define FLASH_LIGHT_RANGE 3.8
 
 /// Uses vis_overlays to leverage caching so that very few new items need to be made for the overlay. For anything that doesn't change outline or opaque area much or at all.
-#define EMISSIVE_BLOCK_GENERIC 1
+#define EMISSIVE_BLOCK_GENERIC 0
 /// Uses a dedicated render_target object to copy the entire appearance in real time to the blocking layer. For things that can change in appearance a lot from the base state, like humans.
-#define EMISSIVE_BLOCK_UNIQUE 2
+#define EMISSIVE_BLOCK_UNIQUE 1
+/// Don't block any emissives. Useful for things like, pieces of paper?
+#define EMISSIVE_BLOCK_NONE 2
 
 /// A globaly cached version of [EMISSIVE_COLOR] for quick access. Indexed by alpha value
 GLOBAL_LIST_INIT(emissive_color, new(256))
@@ -99,23 +101,14 @@ GLOBAL_LIST_INIT(emissive_color, new(256))
 /// A globaly cached version of [EM_BLOCKER_MATRIX] for quick access.
 GLOBAL_LIST_INIT(em_blocker_matrix, EM_BLOCKER_MATRIX)
 
-/// Returns the red part of a #RRGGBB hex sequence as number
-#define GETREDPART(hexa) hex2num(copytext(hexa, 2, 4))
-
-/// Returns the green part of a #RRGGBB hex sequence as number
-#define GETGREENPART(hexa) hex2num(copytext(hexa, 4, 6))
-
-/// Returns the blue part of a #RRGGBB hex sequence as number
-#define GETBLUEPART(hexa) hex2num(copytext(hexa, 6, 8))
-
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \
 do { \
 	if (source.light_color) { \
-		var/__light_color = source.light_color; \
-		source.lum_r = GETREDPART(__light_color) / 255; \
-		source.lum_g = GETGREENPART(__light_color) / 255; \
-		source.lum_b = GETBLUEPART(__light_color) / 255; \
+		var/list/color_parts = rgb2num(source.light_color); \
+		source.lum_r = color_parts[1] / 255; \
+		source.lum_g = color_parts[2] / 255; \
+		source.lum_b = color_parts[3] / 255; \
 	} else { \
 		source.lum_r = 1; \
 		source.lum_g = 1; \

@@ -305,6 +305,7 @@
 		view_size = new(src, getScreenSize(mob))
 	view_size.resetFormat()
 	view_size.setZoomMode()
+	view_size.apply()
 	fit_viewport()
 
 	if(first_run)

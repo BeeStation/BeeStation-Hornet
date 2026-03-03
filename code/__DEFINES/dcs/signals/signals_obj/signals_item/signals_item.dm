@@ -74,7 +74,6 @@
 #define COMSIG_TABLET_CHANGE_RINGTONE "comsig_tablet_change_ringtone"
 	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
 
-
 // /obj/item/radio signals
 #define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//! called from base of /obj/item/radio/proc/set_frequency(): (list/args)
 #define COMSIG_RADIO_MESSAGE "radio_message"					//! called from radio subtype procs in /obj/item/radio/talk_into(): (mob/living/user, treated_message, channel, list/message_mods)
@@ -121,3 +120,6 @@
 
 ///from base of /item/canvas/ui_act(), "change_color" action: (chosen_color, color_index)
 #define COMSIG_PAINTING_TOOL_PALETTE_COLOR_CHANGED "painting_tool_palette_color_changed"
+
+/// Called by poison paper when a user applies it (atom/target, mob/living/user)
+#define COMSIG_POISON_PAPER_APPLIED "posion_paper_applied"

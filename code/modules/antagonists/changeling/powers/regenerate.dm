@@ -46,14 +46,14 @@
 	check_flags = NONE
 	ignores_fakedeath = TRUE
 
-/datum/action/changeling/limbsnake/sting_action(mob/user)
+/datum/action/changeling/limbsnake/sting_action(mob/living/user)
 	..()
 	var/mob/living/carbon/C = user
 	var/list/parts = list()
 	for(var/Zim in C.bodyparts)
 		var/obj/item/bodypart/BP = Zim
 		if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
-			if(BP.dismemberable)
+			if(!(BP.bodypart_flags & BODYPART_UNREMOVABLE))
 				parts += BP
 	if(!LAZYLEN(parts))
 		to_chat(user, span_notice("We don't have any limbs to detach."))
@@ -90,7 +90,6 @@
 	response_disarm_simple = "shoo"
 	response_harm_continuous = "steps on"
 	response_harm_simple = "step on"
-	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
@@ -103,3 +102,7 @@
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
 	discovery_points = 1000
+
+/mob/living/simple_animal/hostile/poison/limbsnake/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)

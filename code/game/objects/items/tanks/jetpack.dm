@@ -58,7 +58,7 @@
 
 
 /obj/item/tank/jetpack/proc/cycle(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	if(!on)
@@ -230,6 +230,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_SUITSTORE
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+/obj/item/tank/jetpack/oxygen/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"

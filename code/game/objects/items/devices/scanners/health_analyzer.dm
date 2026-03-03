@@ -88,7 +88,7 @@
  * tochat - Whether to immediately post the result into the chat of the user, otherwise it will return the results.
  */
 /proc/healthscan(mob/user, mob/living/target, mode = SCANNER_VERBOSE, advanced = FALSE, tochat = TRUE)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	// the final list of strings to render
@@ -169,8 +169,8 @@
 		if(istype(ears))
 			if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, GENETIC_MUTATION))
 				render_list += "<span class='alert ml-2'>Subject is genetically deaf.\n</span>"
-			//else if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, EAR_DAMAGE))
-			//	render_list += "<span class='alert ml-2'>Subject is deaf from ear damage.\n</span>"
+			else if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, EAR_DAMAGE))
+				render_list += "<span class='alert ml-2'>Subject is deaf from ear damage.\n</span>"
 			else if(HAS_TRAIT(carbontarget, TRAIT_DEAF))
 				render_list += "<span class='alert ml-2'>Subject is deaf.\n</span>"
 			else
@@ -281,7 +281,6 @@
 			|| targetspecies.mutantheart != initial(targetspecies.mutantheart) \
 			|| targetspecies.mutanteyes != initial(targetspecies.mutanteyes) \
 			|| targetspecies.mutantears != initial(targetspecies.mutantears) \
-			|| targetspecies.mutanthands != initial(targetspecies.mutanthands) \
 			|| targetspecies.mutanttongue != initial(targetspecies.mutanttongue) \
 			|| targetspecies.mutantliver != initial(targetspecies.mutantliver) \
 			|| targetspecies.mutantstomach != initial(targetspecies.mutantstomach) \
@@ -369,7 +368,7 @@
 		var/mob/living/carbon/carbontarget = target
 		var/cyberimp_detect
 		for(var/obj/item/organ/cyberimp/cyberimp in carbontarget.internal_organs)
-			if(cyberimp.status == ORGAN_ROBOTIC && !cyberimp.syndicate_implant)
+			if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
 				cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.examine_title(user)]" : ", [cyberimp.examine_title(user)]"]"
 		if(cyberimp_detect)
 			render_list += "<span class='notice ml-1'>Detected cybernetic modifications:</span>\n"
@@ -383,7 +382,7 @@
 		return(jointext(render_list, ""))
 
 /proc/chemscan(mob/living/user, mob/living/target)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	if(istype(target) && target.reagents)
@@ -429,12 +428,10 @@
 		*/
 
 		// Addictions
-		if(target.reagents.addiction_list.len)
-			render_list += "<span class='boldannounce ml-1'>Subject is addicted to the following reagents:</span>\n"
-			for(var/datum/reagent/R in target.reagents.addiction_list)
-				render_list += "<span class='alert ml-2'>[R.name]</span>\n"
-		else
-			render_list += "<span class='notice ml-1'>Subject is not addicted to any reagents.</span>\n"
+		if(LAZYLEN(target.mind?.active_addictions))
+			render_list += "<span class='boldannounce ml-1'>Subject is addicted to the following types of drug:</span><br>"
+			for(var/datum/addiction/addiction_type as anything in target.mind.active_addictions)
+				render_list += "<span class='alert ml-2'>[initial(addiction_type.name)]</span><br>"
 
 		// we handled the last <br> so we don't need handholding
 		to_chat(user, examine_block(jointext(render_list, "")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)

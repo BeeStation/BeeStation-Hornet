@@ -74,7 +74,6 @@ Slimecrossing Weapons
 
 	block_power = 75
 	canblock = TRUE
-	block_flags = BLOCKING_PROJECTILE
 	max_integrity = 1000 //This one isn't getting destroyed easily
 
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?

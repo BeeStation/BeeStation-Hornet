@@ -77,7 +77,7 @@
 	SIGNAL_HANDLER
 	last_pipe = loc
 
-/obj/structure/disposalholder/proc/try_expel(datum/move_loop/source, succeed, visual_delay)
+/obj/structure/disposalholder/proc/try_expel(datum/move_loop/source, result, visual_delay)
 	SIGNAL_HANDLER
 	if(current_pipe || !active)
 		return
@@ -135,7 +135,7 @@
 
 // called when player tries to move while in a pipe
 /obj/structure/disposalholder/relaymove(mob/living/user, direction)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	for(var/mob/M as() in hearers(5, get_turf(src)))
 		M.show_message("<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>", MSG_AUDIBLE)

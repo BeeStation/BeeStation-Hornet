@@ -23,7 +23,7 @@
 	item_flags = ISWEAPON
 
 	canblock = TRUE
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE //For purely balance reasons this one does not get unblockable
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY //For purely balance reasons this one does not get unblockable
 
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_LARGE

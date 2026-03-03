@@ -126,7 +126,7 @@
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
@@ -283,7 +283,7 @@
 /mob/living/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(on_fire)
-		ExtinguishMob()
+		extinguish_mob()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	if(pulling)
 		pulling.lighteater_act(light_eater)

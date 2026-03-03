@@ -1,7 +1,6 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
-	bodyflag = FLAG_OOZELING
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
@@ -38,17 +37,6 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/oozeling,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/oozeling
 	)
-
-/datum/species/oozeling/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.oozeling_first_names)]"
-	if(lastname)
-		. += " [lastname]"
-	else
-		. += " [pick(GLOB.oozeling_last_names)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
@@ -212,7 +200,7 @@
 			target.visible_message(span_notice("[user] extingushes [target] with a hug!"), span_boldnotice("[user] extingushes you with a hug!"), span_italics("You hear a fire sizzle out."))
 			target.fire_stacks = max(target.fire_stacks - 5, 0)
 			if(target.fire_stacks <= 0)
-				target.ExtinguishMob()
+				target.extinguish_mob()
 		else
 			target.visible_message(span_notice("[target] wriggles out of [user]'s close hug!"), span_notice("You wriggle out of [user]'s close hug."))
 

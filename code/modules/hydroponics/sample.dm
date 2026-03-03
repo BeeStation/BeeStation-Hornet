@@ -3,7 +3,7 @@
 	icon_state = "sample-empty"
 	potency = -1
 	yield = -1
-	var/sample_color = "#FFFFFF"
+	var/sample_color = COLOR_WHITE
 
 /obj/item/seeds/sample/Initialize(mapload)
 	. = ..()

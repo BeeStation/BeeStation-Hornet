@@ -96,7 +96,7 @@
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff"
 	inhand_icon_state = "coil"
-	color = "#ff0000"
+	color = COLOR_RED
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
@@ -105,10 +105,10 @@
 	custom_price = 15
 
 /obj/item/restraints/handcuffs/cable/red
-	color = "#ff0000"
+	color = COLOR_RED
 
 /obj/item/restraints/handcuffs/cable/yellow
-	color = "#ffff00"
+	color = COLOR_YELLOW
 
 /obj/item/restraints/handcuffs/cable/blue
 	color = "#1919c8"
@@ -123,7 +123,7 @@
 	color = "#ff8000"
 
 /obj/item/restraints/handcuffs/cable/cyan
-	color = "#00ffff"
+	color = COLOR_CYAN
 
 /obj/item/restraints/handcuffs/cable/white
 	color = null
@@ -338,9 +338,15 @@
 	inhand_icon_state = "bola"
 	lefthand_file = 'icons/mob/inhands/weapons/thrown_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/thrown_righthand.dmi'
-	breakouttime = 2 SECONDS//easy to apply, easy to break out of
+	slowdown = 0
+	var/knockdown = 2 SECONDS
 	gender = NEUTER
-	var/knockdown = 0
+
+/obj/item/restraints/legcuffs/bola/Destroy()
+	. = ..()
+	if(isliving(loc))
+		var/mob/living/bola_mob = loc
+		bola_mob.remove_status_effect(/datum/status_effect/bola)
 
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(!..())
@@ -358,17 +364,17 @@
   * Arguments:
   * * C - the carbon that we will try to ensnare
   */
-/obj/item/restraints/legcuffs/bola/proc/ensnare(mob/living/carbon/C)
-	if(!C.legcuffed && C.num_legs >= 2)
-		visible_message(span_danger("\The [src] ensnares [C]!"))
-		C.legcuffed = src
-		forceMove(C)
-		C.update_equipment_speed_mods()
-		C.update_worn_legcuffs()
+/obj/item/restraints/legcuffs/bola/proc/ensnare(mob/living/carbon/target)
+	if(!target.legcuffed && target.num_legs >= 2)
+		visible_message(span_danger("\The [src] ensnares [target]!"))
+		target.legcuffed = src
+		forceMove(target)
+		target.update_worn_legcuffs()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-		to_chat(C, span_userdanger("\The [src] ensnares you!"))
+		to_chat(target, span_userdanger("\The [src] ensnares you!"))
 		if(knockdown)
-			C.Knockdown(knockdown)
+			target.Knockdown(knockdown)
+			target.apply_status_effect(/datum/status_effect/bola, knockdown, src) //When status effect ends, bola is automatically dropped
 		playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical//traitor variant
@@ -376,15 +382,14 @@
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
 	inhand_icon_state = "bola_r"
-	breakouttime = 7 SECONDS
-	knockdown = 2 SECONDS
+	knockdown = 7 SECONDS
 
 /obj/item/restraints/legcuffs/bola/watcher //tribal bola for tribal lizards
 	name = "watcher Bola"
 	desc = "A Bola made from the stretchy sinew of fallen watchers."
 	icon_state = "bola_watcher"
 	inhand_icon_state = "bola_watcher"
-	breakouttime = 4.5 SECONDS
+	knockdown = 4.5 SECONDS
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"
@@ -392,19 +397,7 @@
 	icon_state = "ebola"
 	inhand_icon_state = "ebola"
 	hitsound = 'sound/weapons/taserhit.ogg'
-	w_class = WEIGHT_CLASS_SMALL
-	breakouttime = 6 SECONDS
-
-/obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
-	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))
-	B.spring_trap(C, ignore_movetypes = TRUE)
-	qdel(src)
-
-/obj/item/restraints/legcuffs/bola/energy/emp_act(severity)
-	if(prob(25 * severity))
-		return
-	do_sparks(1, TRUE, src)
-	qdel(src)
+	knockdown = 3 SECONDS
 
 /obj/item/restraints/legcuffs/bola/gonbola
 	name = "gonbola"
@@ -412,8 +405,7 @@
 	icon_state = "gonbola"
 	icon_state_preview = "gonbola_preview"
 	inhand_icon_state = "bola_r"
-	breakouttime = 30 SECONDS
-	slowdown = 0
+	knockdown = 7 SECONDS
 	var/datum/status_effect/gonbola_pacify/effect_reference
 
 /obj/item/restraints/legcuffs/bola/gonbola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)

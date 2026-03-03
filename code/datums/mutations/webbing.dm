@@ -7,16 +7,6 @@
 	instability = 15
 	power_path = /datum/action/spell/lay_genetic_web
 
-/datum/mutation/human/webbing/on_acquiring(mob/living/carbon/human/owner)
-	if(..())
-		return
-	ADD_TRAIT(owner, TRAIT_WEB_WEAVER, GENETIC_MUTATION)
-
-/datum/mutation/human/webbing/on_losing(mob/living/carbon/human/owner)
-	if(..())
-		return
-	REMOVE_TRAIT(owner, TRAIT_WEB_WEAVER, GENETIC_MUTATION)
-
 // In the future this could be unified with the spider's web action
 /datum/action/spell/lay_genetic_web
 	name = "Lay Web"

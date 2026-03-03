@@ -79,6 +79,28 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/heads/hop, /area/security/nuke_storage)
 
+	manuscript_jobs = list(
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_BARTENDER,
+		JOB_NAME_BOTANIST,
+		JOB_NAME_COOK,
+		JOB_NAME_JANITOR,
+		JOB_NAME_MIME,
+		JOB_NAME_CLOWN,
+
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_BARBER,
+		JOB_NAME_STAGEMAGICIAN,
+		// JOB_NAME_CHAPLAIN, // holy knowledge is only allowed to people in religion
+		JOB_NAME_CURATOR,
+		JOB_NAME_LAWYER,
+		JOB_NAME_PRISONER,
+
+		JOB_NAME_QUARTERMASTER,
+		JOB_NAME_CARGOTECHNICIAN,
+		JOB_NAME_SHAFTMINER
+	)
+
 // Special handling to avoid lighting up the entirety of supply whenever there's a HoP.
 /datum/job/head_of_personnel/areas_to_light_up(minimal_access = TRUE)
 	return minimal_lightup_areas | GLOB.command_lightup_areas
@@ -96,7 +118,7 @@
 	head = /obj/item/clothing/head/hats/hopcap
 	backpack_contents = list(
 		/obj/item/storage/box/ids=1,
-		/obj/item/melee/classic_baton/police/telescopic=1
+		/obj/item/melee/baton/telescopic=1
 	)
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)

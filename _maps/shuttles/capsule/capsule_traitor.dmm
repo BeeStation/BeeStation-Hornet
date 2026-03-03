@@ -6,7 +6,7 @@
 "b" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -74,7 +74,7 @@
 "n" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/item/clothing/glasses/sunglasses/advanced,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -159,7 +159,7 @@
 "B" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},

@@ -108,7 +108,7 @@
 				to_chat(user, span_notice("You fill the balloon with the contents of [I]."))
 				I.reagents.trans_to(src, 10, transfered_by = user)
 				update_icon()
-	else if(I.is_sharp())
+	else if(I.get_sharpness())
 		balloon_burst()
 	else
 		return ..()
@@ -293,6 +293,8 @@
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
 	icon_state = "e_sword"
+	base_icon_state = "e_sword"
+	inhand_icon_state = "e_sword"
 	icon = 'icons/obj/transforming_energy.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
@@ -338,9 +340,12 @@
 
 /obj/item/toy/sword/update_icon_state()
 	. = ..()
-	var/last_part = HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) ? "_on[saber_color ? "_[saber_color]" : null]" : null
-	icon_state = "[initial(icon_state)][last_part]"
-	inhand_icon_state = "[initial(inhand_icon_state)][last_part]"
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+		icon_state = "[base_icon_state]_on_[saber_color]" // "esword_on_red"
+		inhand_icon_state = icon_state
+	else
+		icon_state = base_icon_state
+		inhand_icon_state = base_icon_state
 
 /obj/item/toy/sword/multitool_act(mob/living/user, obj/item/tool)
 	if(hacked)
@@ -396,7 +401,7 @@
 /obj/item/toy/batong
 	name = "batong"
 	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
 	inhand_icon_state = "baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
@@ -506,7 +511,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 	canblock = TRUE
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	item_flags = ISWEAPON
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_SURFACE
@@ -1092,7 +1097,7 @@
 /obj/item/toy/cards/cardhand/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 

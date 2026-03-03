@@ -51,16 +51,16 @@
 
 	// Change Name
 	prev_name = user.name
-	var/newname = user.dna.species.random_name()
+	var/newname = generate_random_name_species_based(user.gender, TRUE, user.dna.species)
 	user.real_name = newname
 	user.name = newname
 
 	// Change Appearance
 	user.gender = pick(MALE, FEMALE, PLURAL)
-	user.skin_tone = random_skin_tone()
+	user.skin_tone = pick(GLOB.skin_tones)
 	user.hair_style = random_hair_style(user.gender)
 	user.facial_hair_style = pick(random_facial_hair_style(user.gender), "Shaved")
-	user.hair_color = random_short_color()
+	user.hair_color = "#[random_color()]"
 	user.facial_hair_color = user.hair_color
 	user.underwear = random_underwear(user.gender)
 	user.undershirt = random_undershirt(user.gender)

@@ -96,7 +96,7 @@ Possible to do for anyone motivated enough:
 /obj/machinery/holopad/tutorial/attack_hand(mob/user, list/modifiers)
 	if(!istype(user))
 		return
-	if(user.incapacitated() || !is_operational)
+	if(user.incapacitated || !is_operational)
 		return
 	if(replay_mode)
 		replay_stop()
@@ -189,7 +189,7 @@ Possible to do for anyone motivated enough:
 	if(!istype(user))
 		return
 
-	if(outgoing_call || user.incapacitated() || !is_operational)
+	if(outgoing_call || user.incapacitated || !is_operational)
 		return
 
 	user.set_machine(src)
@@ -560,7 +560,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return FALSE
 
 /obj/machinery/holopad/proc/validate_user(mob/living/user)
-	if(QDELETED(user) || user.incapacitated() || !user.client)
+	if(QDELETED(user) || user.incapacitated || !user.client)
 		return FALSE
 	return TRUE
 

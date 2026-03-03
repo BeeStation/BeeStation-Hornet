@@ -9,11 +9,6 @@ Ask Mothblocks if they're around
 /// Chance of you hair starting to fall out every second when over threshold
 #define RAD_MOB_HAIRLOSS_PROB 7.5
 
-/// How much stored radiation to check for mutation
-#define RAD_MOB_MUTATE 90
-/// Chance of randomly mutating every second when over threshold
-#define RAD_MOB_MUTATE_PROB 0.5
-
 /// How much stored radiation to check for vomitting
 #define RAD_MOB_VOMIT 60
 /// Chance per second of vomitting

@@ -21,8 +21,10 @@
 			dexterity.internal_storage = null
 			update_inv_internal_storage()
 
-/mob/living/simple_animal/hostile/holoparasite/incapacitated(flags)
-	return !can_use_abilities || ..()
+/mob/living/simple_animal/hostile/holoparasite/build_incapacitated(flags)
+	if(!can_use_abilities)
+		return ..()
+	return NONE
 
 /mob/living/simple_animal/hostile/holoparasite/can_put_in_hand(item, hand_index)
 	return can_use_abilities && ..()
@@ -30,7 +32,7 @@
 /mob/living/simple_animal/hostile/holoparasite/put_in_hand_check(obj/item/item)
 	return can_use_abilities && ..()
 
-/mob/living/simple_animal/hostile/holoparasite/get_equipped_items(include_pockets = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/get_equipped_items(include_flags = NONE)
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity))
 		return
