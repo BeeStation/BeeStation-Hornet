@@ -20,7 +20,7 @@
 	. = ..()
 	clan_owner.grant_power(new /datum/action/vampire/voice_of_domination)
 
-/// A weaker, controlled Voice of God for vampires with the Dominate discipline.
+/// Tiny ability datum just to get vampies a voice of god power
 /datum/action/vampire/voice_of_domination
 	name = "Voice of Domination"
 	desc = "Speak with an overwhelmingly dominant voice, forcing mortals to briefly obey your command."
@@ -54,6 +54,6 @@
 	if(QDELETED(src) || QDELETED(owner) || !command)
 		return
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 100, TRUE, 3)
-	var/command_cooldown = voice_of_god(uppertext(command), owner, list("demands", "commands"), base_multiplier = 2)
+	var/command_cooldown = voice_of_god(command, owner, list("colossus","commands"), base_multiplier = 2)
 	cooldown_time = max(command_cooldown, 60 SECONDS)
-	. = ..() // sets currently_active, logs, starts cooldown
+	. = ..()
