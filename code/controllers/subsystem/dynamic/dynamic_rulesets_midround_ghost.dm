@@ -165,11 +165,8 @@
  * Spawn a body for the chosen candidate
  */
 /datum/dynamic_ruleset/midround/ghost/proc/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
-
 	var/mob/living/carbon/human/new_body = new()
-	player_mind.transfer_to(new_body)
+	new_body.key = chosen_mob.key
 	SSjob.SendToLateJoin(new_body)
 
 	return new_body
@@ -284,11 +281,8 @@
 	return /mob/living/carbon/alien/larva
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
-
 	var/mob/living/carbon/alien/larva/new_xeno = new(pick_n_take(spawn_locations))
-	player_mind.transfer_to(new_xeno)
+	new_xeno.key = chosen_mob.key
 
 	return new_xeno
 
@@ -327,11 +321,8 @@
 	return /mob/living/simple_animal/hostile/space_dragon
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
-
 	var/mob/living/simple_animal/hostile/space_dragon/dragon_body = new(pick(spawn_locations))
-	player_mind.transfer_to(dragon_body)
+	dragon_body.key = chosen_mob
 
 	playsound(dragon_body, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	priority_announce("It appears a lifeform with magical traces is approaching [station_name()], please stand-by.", "Lifesign Alert")
@@ -355,13 +346,9 @@
 	return /obj/item/energy_katana
 
 /datum/dynamic_ruleset/midround/ghost/ninja/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
-
 	var/mob/living/carbon/human/ninja_body = new(pick(spawn_locations))
-	ninja_body.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
-	ninja_body.name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
-	player_mind.transfer_to(ninja_body)
+	ninja_body.fully_replace_character_name(null, "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]")
+	ninja_body.key = chosen_mob.key
 
 	return ninja_body
 
@@ -387,12 +374,9 @@
 			spawn_locations += potential_spawn
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
-
 	var/mob/living/carbon/human/nightmare_body = new(pick(spawn_locations))
 	nightmare_body.set_species(/datum/species/shadow/nightmare)
-	player_mind.transfer_to(nightmare_body)
+	nightmare_body.key = chosen_mob.key
 
 	playsound(nightmare_body, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 
@@ -425,7 +409,7 @@
 
 	if(!has_made_leader)
 		has_made_leader = TRUE
-		team = new
+		team = new()
 
 		new_character.mind.add_antag_datum(/datum/antagonist/abductor/scientist, team, ruleset = src)
 	else
@@ -490,14 +474,11 @@
 		return ..()
 
 /datum/dynamic_ruleset/midround/ghost/revenant/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
+	var/turf/chosen_turf = get_non_holy_tile_from_list(spawn_locations)
+	chosen_turf ||= pick(spawn_locations)
 
-	var/turf/spawnable_turf = get_non_holy_tile_from_list(spawn_locations)
-	spawnable_turf ||= pick(spawn_locations)
-
-	var/mob/living/simple_animal/revenant/revenant_body = new(spawnable_turf)
-	player_mind.transfer_to(revenant_body)
+	var/mob/living/simple_animal/revenant/revenant_body = new(chosen_turf)
+	revenant_body.key = chosen_mob.key
 
 	return revenant_body
 
@@ -521,20 +502,18 @@
 	return /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
 
 /datum/dynamic_ruleset/midround/ghost/spiders/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
-
 	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/broodmother_body = new(pick(spawn_locations))
-	player_mind.transfer_to(broodmother_body)
 	broodmother_body.fed += 3
 	broodmother_body.lay_eggs.update_buttons()
+
+	broodmother_body.key = chosen_mob.key
 
 	return broodmother_body
 
 /datum/dynamic_ruleset/midround/ghost/spiders/finish_setup(mob/new_character)
 	. = ..()
 	if(!team)
-		team = new
+		team = new()
 		team.directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
 
 	var/datum/antagonist/spider/spider_antag = new_character.mind.has_antag_datum(/datum/antagonist/spider)
@@ -576,11 +555,8 @@
 	return /mob/living/simple_animal/hostile/swarmer
 
 /datum/dynamic_ruleset/midround/ghost/swarmer/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
-
 	var/mob/living/simple_animal/hostile/swarmer/swarmer_body = new(pick(spawn_locations))
-	player_mind.transfer_to(swarmer_body)
+	swarmer_body.key = chosen_mob.key
 
 	return swarmer_body
 
@@ -611,11 +587,8 @@
 	return /mob/living/simple_animal/hostile/morph
 
 /datum/dynamic_ruleset/midround/ghost/morph/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/datum/mind/player_mind = new /datum/mind(chosen_mob.key)
-	player_mind.active = TRUE
-
 	var/mob/living/simple_animal/hostile/morph/morph_body = new(pick(spawn_locations))
-	player_mind.transfer_to(morph_body)
+	morph_body.key = chosen_mob.key
 
 	SEND_SOUND(morph_body, sound('sound/magic/mutate.ogg'))
 
