@@ -174,5 +174,5 @@
 /atom/movable/screen/alert/status_effect/summoned
 	name = "Summoned"
 	desc = "You are being compelled to approach someone. You cannot resist."
-	icon_state = "mind_control"
+	icon_state = "vampire_summon"
 

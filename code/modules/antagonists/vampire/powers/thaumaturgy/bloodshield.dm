@@ -1,7 +1,7 @@
 /datum/action/vampire/bloodshield
 	name = "Thaumaturgy: Blood Shield"
 	desc = "Create a Blood shield to protect yourself from damage."
-	button_icon_state = "power_thaumaturgy"
+	button_icon_state = "power_bloodshield"
 	background_icon_state_on = "tremere_power_gold_on"
 	background_icon_state_off = "tremere_power_gold_off"
 	power_explanation = "Activating Thaumaturgy will temporarily give you a Blood Shield.\n\
