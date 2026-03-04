@@ -1,0 +1,4 @@
+author: rkz, zephyr
+delete-after: true
+changes:
+  - server: autogenerates python path
