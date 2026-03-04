@@ -17,3 +17,6 @@
   mrmanlikesbt, Kapu:
   - bugfix: Fixed explosions being able to destroy turfs that have a structure on
       top of them (mainly windows and doors)
+2026-03-04:
+  rkz, zephyr:
+  - server: autogenerates python path
