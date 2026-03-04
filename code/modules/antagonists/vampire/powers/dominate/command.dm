@@ -5,7 +5,7 @@
  */
 /datum/action/vampire/targeted/command
 	name = "Command"
-	desc = "Dominate the mind of a mortal with a simple command."
+	desc = "Dominate the mind of a mortal with a simple verbal command."
 	button_icon_state = "power_command"
 	power_explanation = "Click any player to attempt to compell them.\n\
 		If your target is already commanded or a Curator, you will fail.\n\
