@@ -28,21 +28,25 @@
 
 /obj/machinery/plant_machine/plant_analyser/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
 	// OOOOH YEAAAAAH I REMEMBER! REMEMBER WHEN? YEAAAAAAAH
 	if(prob(1))
 		icon = 'icons/obj/hydroponics/equipment.dmi'
 		icon_state = "dnamod"
 
+/obj/machinery/plant_machine/plant_analyser/proc/catch_pause(datum/source)
+	SIGNAL_HANDLER
+
+	return TRUE
+
 /obj/machinery/plant_machine/plant_analyser/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-	playsound(src, 'sound/effects/glassknock.ogg', 35, TRUE)
+	playsound(src, 'sound/effects/glassknock.ogg', 15, TRUE)
 	to_chat(user, span_danger("[src] can be controlled with a hydroponics mechine terminal.\nA plant can be inserted into [src] using a spade."))
 
 /obj/machinery/plant_machine/plant_analyser/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
 		return
-	context.add_left_click_item_action("Insert Plant", /obj/item/shovel/spade)
-	context.add_left_click_item_action("Insert Disk", /obj/item/disk/plant_disk)
 	if(disk)
 		context.add_right_click_action("Remove Plant Disk")
 	else
@@ -59,7 +63,7 @@
 	if(!istype(C, /obj/item/shovel/spade))
 		return ..()
 	//Return plant to spade, to remove it
-	if(inserted_plant && plant_component.async_catch_attackby(C, user))
+	if(inserted_plant && !length(C.contents) && plant_component.async_catch_attackby(C, user))
 		inserted_plant = null
 		plant_component = null
 		current_feature = null
@@ -68,6 +72,9 @@
 		ui_update()
 		return
 	//Insert plant from spade
+	if(inserted_plant)
+		to_chat(user, span_warning("There's already a plant inside [src]!"))
+		return
 	var/datum/component/plant/plant
 	var/obj/item/plant_item
 	for(var/obj/item/potential_plant in C.contents)
@@ -81,7 +88,7 @@
 	//Don't let immature plants through
 	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant.plant_features
 	if(body_feature?.current_stage < body_feature?.growth_stages)
-		playsound(src, 'sound/machines/terminal_error.ogg', 60)
+		playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 		say("ERROR: Plant specimen is not fully mature!")
 		return
 	C.vis_contents -= plant_item
@@ -143,7 +150,7 @@
 /obj/machinery/plant_machine/plant_analyser/ui_act(action, params)
 	if(..())
 		return
-	playsound(src, get_sfx("keyboard"), 30, TRUE)
+	playsound(controller, get_sfx("keyboard"), 30, TRUE)
 	switch(action)
 		if("select_feature")
 			current_feature_ref = current_feature_ref == params["key"] ? null : params["key"]

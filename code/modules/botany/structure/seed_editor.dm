@@ -22,18 +22,16 @@
 
 /obj/machinery/plant_machine/seed_editor/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-	playsound(src, 'sound/effects/glassknock.ogg', 35, TRUE)
+	playsound(src, 'sound/effects/glassknock.ogg', 15, TRUE)
 	to_chat(user, span_danger("[src] can be controlled with a hydroponics mechine terminal."))
 
 /obj/machinery/plant_machine/seed_editor/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
 		return
-	context.add_left_click_item_action("Insert Seeds", /obj/item/plant_seeds)
-	context.add_left_click_item_action("Insert Disk", /obj/item/disk/plant_disk)
-	if(disk)
-		context.add_right_click_action("Remove Plant Disk")
+	if(disk || seeds)
+		context.add_right_click_action("Remove Seed / Plant Disk")
 	else
-		context.add_left_click_action("Insert Plant Disk")
+		context.add_left_click_action("Insert Seed / Plant Disk")
 
 /obj/machinery/plant_machine/seed_editor/attackby(obj/item/C, mob/user)
 	//insert disk
@@ -151,7 +149,7 @@
 			var/datum/plant_trait/trait = locate(params["key"])
 			for(var/datum/plant_trait/local_trait as anything in current_feature.plant_traits)
 				if(!local_trait.allow_multiple && local_trait.get_id() == trait.get_id())
-					playsound(src, 'sound/machines/terminal_error.ogg', 60)
+					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition cannot support multiple of selected trait!")
 					return
 			//Add the trait
@@ -159,7 +157,7 @@
 			if(!QDELING(new_trait))
 				current_feature.plant_traits += new_trait
 			else
-				playsound(src, 'sound/machines/terminal_error.ogg', 60)
+				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Seed composition not compatible with selected trait!")
 				return
 			//Reset the species ID
@@ -173,17 +171,17 @@
 			for(var/datum/plant_feature/current_feature as anything in seeds.plant_features)
 				//Does this plant already have this kind of feature>
 				if(current_feature.feature_catagories & feature.feature_catagories) //If you want to have multiple features of the same type on one plant, this is one of the things stopping you
-					playsound(src, 'sound/machines/terminal_error.ogg', 60)
+					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition cannot fit selected feature!")
 					return
 				//Is this feature blacklisted from another feature
 				if(is_type_in_typecache(feature, current_feature.blacklist_features) || is_type_in_typecache(current_feature, feature.blacklist_features))
-					playsound(src, 'sound/machines/terminal_error.ogg', 60)
+					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition not compatible with selected feature!")
 					return
 				//If a feature has a whitelist, are we in it?
 				if(length(current_feature.whitelist_features) && !is_type_in_typecache(feature, current_feature.whitelist_features) || length(feature.whitelist_features) && !is_type_in_typecache(current_feature, feature.whitelist_features))
-					playsound(src, 'sound/machines/terminal_error.ogg', 60)
+					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition not compatible with selected feature!")
 					return
 		//Special compatibility checking
@@ -192,11 +190,11 @@
 			var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in seeds.plant_features //Might create overhead if they spam it and we later add 5 million unique features
 			//These are arranged to be a little more readable, dont sweat efficiency
 			if(istype(fruit_feature) && !body_feature)
-				playsound(src, 'sound/machines/terminal_error.ogg', 60)
+				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Seed composition does not contain a supporting body for this feature!")
 				return
 			if((istype(fruit_feature) && body_feature) && fruit_feature.fruit_size > body_feature.upper_fruit_size)
-				playsound(src, 'sound/machines/terminal_error.ogg', 60)
+				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Seed composition's body feature doesn't support this feature!")
 				return
 		//Good to go, slap that bad boy on

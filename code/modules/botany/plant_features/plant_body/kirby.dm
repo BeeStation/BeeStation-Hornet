@@ -9,11 +9,16 @@
 	yields = PLANT_BODY_YIELD_SMALL
 	yield_cooldown_time = PLANT_BODY_YIELD_TIME_MEDIUM
 	max_harvest = PLANT_BODY_HARVEST_SMALL
+	growth_time = PLANT_BODY_GROWTH_FAST
 
 /datum/plant_feature/body/kirby/New(datum/component/plant/_parent)
 	name = "[capitalize(pick(GLOB.adjectives))] [pick(GLOB.first_names)]"
 	_parent?.plant_item?.name = name
 	return ..()
+
+/datum/plant_feature/body/kirbyd/growth_step(step)
+	. = ..()
+	parent.plant_item.add_emitter(/obj/emitter/plant_dust, "dust", 10, lifespan = 20)
 
 //tall
 /datum/plant_feature/body/kirby/tall
@@ -32,6 +37,7 @@
 /datum/plant_feature/body/kirby/birch
 	icon_state = "plant-26"
 	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	mutations = list(/datum/plant_feature/body/tree/birch)
 
 //tree
 /datum/plant_feature/body/kirby/tree
@@ -47,6 +53,7 @@
 /datum/plant_feature/body/kirby/cherry
 	icon_state = "plant-10"
 	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	mutations = list(/datum/plant_feature/body/tree/cherry)
 
 //floor_foliage
 /datum/plant_feature/body/kirby/floor_foliage

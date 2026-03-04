@@ -6,7 +6,7 @@
 	icon = 'icons/obj/hydroponics/features/fruit.dmi'
 	icon_state = "apple"
 	feature_catagories = PLANT_FEATURE_FRUIT
-	plant_needs = list(/datum/plant_need/reagent/water, /datum/plant_need/reagent/buff/pests, /datum/plant_need/reagent/buff/robust)
+	plant_needs = list(/datum/plant_need/reagent/water, /datum/plant_need/reagent/buff/pests)
 	trait_type_shortcut = /datum/plant_feature/fruit
 	genetic_budget = 2
 
@@ -45,9 +45,12 @@
 	var/list/fast_reagents = list()
 
 /datum/plant_feature/fruit/New(datum/component/plant/_parent)
+#ifdef LOWMEMORYMODE
+	growth_time *= 0.1
+#endif
 	. = ..()
 	if(colour_overlay)
-		var/mutable_appearance/coloured_parts =  mutable_appearance(icon, colour_overlay, color = islist(colour_override) ? "#fff" : colour_override)
+		var/mutable_appearance/coloured_parts = mutable_appearance(icon, colour_overlay, color = islist(colour_override) ? "#fff" : colour_override)
 		feature_appearance.add_overlay(coloured_parts)
 	else
 		feature_appearance.color = islist(colour_override) ? "#fff" : colour_override
@@ -87,8 +90,8 @@
 		var/obj/effect/fruit_effect = visual_fruits[timer]
 		//Archive the transform to preserve stuff done by body features
 		o_transform[timer] = o_transform[timer] || fruit_effect.transform
-		//If this is the first time it's being process, shrink it down and reval the alpha
-		if(growth_timers[timer] == growth_time)
+		//If this is the first time it's being process, shrink it down and reveal the alpha
+		if(growth_timers[timer] == growth_time || !growth_timers[timer])
 			fruit_effect.alpha = 255
 			fruit_effect.transform = skip_animation ?  fruit_effect.transform.Scale(1, 1) : fruit_effect.transform.Scale(0.1, 0.1)
 		growth_timers[timer] -= delta_time SECONDS
@@ -167,6 +170,7 @@
 	new_fruit.AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[parent.species_id]"], parent.species_id)
 	fruits += new_fruit
 	SEND_SIGNAL(parent, COMSIG_FRUIT_BUILT, new_fruit) //Used when we're done prepping the fruit and we want to add stuff to it, like reagents
+	SEND_SIGNAL(parent, COMSIG_FRUIT_BUILT_POST, new_fruit) //Essentially the same as before, but for things that come after reagents
 	return new_fruit
 
 /datum/plant_feature/fruit/proc/catch_attack_hand(datum/source, mob/user)

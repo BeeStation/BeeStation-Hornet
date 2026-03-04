@@ -37,7 +37,11 @@
 */
 //leaves
 /obj/emitter/confetti/leaves
-	particles = new/particles/confetti/leaves
+	particles = new/particles/confetti/leaves("#64A344")
+
+/obj/emitter/confetti/leaves/proc/set_colour(colour = "#64A344")
+	QDEL_NULL(particles)
+	particles = new/particles/confetti/leaves(colour)
 
 /particles/confetti/leaves
 	icon_state = list("leaf_1", "leaf_2", "leaf_3")
@@ -45,6 +49,10 @@
 	velocity = generator("box", list(-10, 10, -10), list(10, 10, 10), NORMAL_RAND)
 	position =  generator("box", list(-10, 5, -10), list(10, -5, 10), NORMAL_RAND)
 	friction = 0.5
+
+/particles/confetti/leaves/New(_colour)
+	. = ..()
+	color = _colour
 
 //dust
 /obj/emitter/plant_dust/Initialize(mapload, time, _color)

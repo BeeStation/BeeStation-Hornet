@@ -290,6 +290,12 @@
 		)
 	)
 
+/obj/item/storage/bag/plants/pre_attack(atom/A, mob/living/user, params)
+	. = ..()
+	//Storage fucks up our interactions with plants otherwise
+	if(A.GetComponent(/datum/component/plant))
+		return FALSE
+
 ////////
 
 /obj/item/storage/bag/plants/portaseeder

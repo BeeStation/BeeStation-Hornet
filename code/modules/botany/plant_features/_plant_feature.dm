@@ -164,8 +164,8 @@
 
 /datum/plant_feature/proc/check_needs(_delta_time)
 	. = TRUE
-	if(SEND_SIGNAL(parent.plant_item.loc, COMSIG_PLANT_NEEDS_PAUSE, parent) && length(plant_needs))
-		return
+	if(SEND_SIGNAL(parent.plant_item.loc, COMSIG_PLANT_NEEDS_PAUSE, parent))
+		return FALSE
 	for(var/datum/plant_need/need as anything in plant_needs)
 		if(ispath(need))
 			continue

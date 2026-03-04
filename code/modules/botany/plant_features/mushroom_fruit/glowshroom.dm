@@ -8,7 +8,7 @@
 	colour_overlay = "glow_colour"
 	colour_override = "#a6ff00"
 	fruit_product = /obj/item/food/grown/mushroom/glowshroom
-	total_volume = PLANT_FRUIT_VOLUME_SMALL
+	total_volume = PLANT_FRUIT_VOLUME_MICRO
 	growth_time = PLANT_FRUIT_GROWTH_FAST
 	plant_traits = list(/datum/plant_trait/fruit/biolight/green)
 	fast_reagents = list(/datum/reagent/uranium/radium = PLANT_REAGENT_SMALL, /datum/reagent/phosphorus = PLANT_REAGENT_SMALL)

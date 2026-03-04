@@ -17,6 +17,9 @@
 	RegisterSignal(my_paper, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(handle_paper))
 	return ..()
 
+/obj/item/sticker/sticky_note/generate_unusual()
+	return
+
 /obj/item/sticker/sticky_note/Destroy()
 	. = ..()
 	UnregisterSignal(my_paper, COMSIG_ATOM_UPDATE_OVERLAYS)

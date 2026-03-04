@@ -11,7 +11,7 @@
 
 /obj/item/sticker/series_2/generate_unusual()
 	var/obj/emitter/emitter = pick(list(/obj/emitter/flies, /obj/emitter/sparkle, /obj/emitter/fire_smoke))
-	if(prob(1))
+	if(prob(0.1)) //rarer because I said so...
 		playsound(src, 'sound/effects/audience-ooh.ogg', 50)
 		add_emitter(emitter, "unusual", 10)
 		is_unusual = TRUE

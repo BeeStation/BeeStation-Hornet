@@ -9,7 +9,7 @@
 	///Do we allow our substrate to be changed?
 	var/allow_substrate_change = TRUE
 	///How much do we visually offset the plant when planting it
-	var/visual_upset = 16
+	var/list/visual_upset = list(0, 16)
 	///How much we offset entering plant's layer - used to make pots work
 	var/layer_upset = 0
 	///Do we gain weeds over time?
@@ -21,7 +21,7 @@
 	///List of plants stored in us
 	var/list/plants = list()
 
-/datum/component/planter/Initialize(_visual_upset, _layer_upset, _gain_weeds)
+/datum/component/planter/Initialize(list/_visual_upset, _layer_upset, _gain_weeds)
 	. = ..()
 	visual_upset = _visual_upset || visual_upset
 	layer_upset = _layer_upset || layer_upset
@@ -69,8 +69,12 @@
 	if(istype(I, /obj/item/shovel/spade) && !length(plants) && allow_substrate_change)
 		INVOKE_ASYNC(src, PROC_REF(async_spade_action), attacker)
 		return
-	else if(length(plants))
-		to_chat(attacker, span_warning("You can't clear [parent]'s substrate whil it still contains plants!"))
+	else if(istype(I, /obj/item/shovel/spade) && length(plants))
+		to_chat(attacker, span_warning("You can't clear [parent]'s substrate while it still contains plants!"))
+	//special code selecting specific plants to uproot, helps when visiblity is sucky
+	if(istype(I, /obj/item/shovel/spade) && length(plants) > 1)
+		INVOKE_ASYNC(src, PROC_REF(async_spade_options), attacker, I)
+		return
 //Let people fill trays with reagents by hand
 	var/obj/obj_parent = parent
 	if(!IS_EDIBLE(I) && !istype(I, /obj/item/reagent_containers) || obj_parent.reagents?.flags & REFILLABLE)
@@ -89,6 +93,24 @@
 		return
 	set_substrate(null)
 
+/datum/component/planter/proc/async_spade_options(mob/user, obj/item/I)
+	var/list/pick_plants = list()
+	var/list/pick_links = list()
+	for(var/datum/component/plant/plant as anything in plants)
+		var/image/image = new()
+		//Get an icon
+		var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant.plant_features //Garunteed, or it should be...
+		var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant.plant_features //here's the backup, mostly for MUSHROOMS
+		//Link it all up
+		image.appearance = body_feature.icon_state != "" ? body_feature?.feature_appearance : fruit_feature.feature_appearance
+		pick_plants["[plant.plant_item]([length(pick_plants)])"] = image
+		pick_links["[plant.plant_item]([length(pick_links)])"] = plant
+	var/result = show_radial_menu(user, parent, pick_plants)
+	if(!result)
+		return
+	var/datum/component/plant/plant = pick_links[result]
+	I.afterattack(plant.plant_item, user)
+
 /datum/component/planter/proc/catch_examine(datum/source, mob/looker, list/examine_text)
 	SIGNAL_HANDLER
 
@@ -106,7 +128,8 @@
 //Visuals
 	entering.layer += layer_upset
 	//Add visuals, move the plant upwards to make it look like it's inside us
-	entering.pixel_y += visual_upset
+	entering.pixel_x += visual_upset[1]
+	entering.pixel_y += visual_upset[2]
 //Records
 	plants |= plant_comp
 	RegisterSignal(entering, COMSIG_QDELETING, PROC_REF(catch_qdel))
@@ -118,7 +141,8 @@
 	if(!plant_comp)
 		return
 	exiting.layer -= layer_upset
-	exiting.pixel_y -= visual_upset
+	exiting.pixel_x -= visual_upset[1]
+	exiting.pixel_y -= visual_upset[2]
 	plants -= plant_comp
 	UnregisterSignal(exiting, COMSIG_QDELETING)
 

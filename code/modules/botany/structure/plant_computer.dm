@@ -34,6 +34,11 @@
 	locate_machines()
 	selected_entry = ref(pick(SSbotany.chapters["features"]))
 
+/obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
+	if(!isliving(user))
+		return
+	context.add_alt_click_action("Re-Link Nearby Machines")
+
 /obj/machinery/computer/plant_machine_controller/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	var/result = show_radial_menu(user, src, machine_options)
@@ -129,6 +134,10 @@
 	icon_state = "pc"
 
 /obj/machinery/computer/plant_machine_controller/proc/locate_machines()
+	//Reset our machines
+	for(var/obj/machinery/plant_machine/machine as anything in machines)
+		machine.controller = null
+	machines = list()
 	//Link machines
 	for(var/obj/machinery/machine in range(PC_LINK_RANGE, src))
 		if(machine_options["[machine]"])
@@ -136,6 +145,8 @@
 		if(!istype(machine, /obj/machinery/plant_machine))
 			continue
 		var/obj/machinery/plant_machine/plant_machine = machine
+		if(plant_machine.controller) //Don't steal someone's baby
+			continue
 		plant_machine.controller = src
 		machines |= machine
 		RegisterSignal(plant_machine, COMSIG_QDELETING, PROC_REF(catch_qdel))

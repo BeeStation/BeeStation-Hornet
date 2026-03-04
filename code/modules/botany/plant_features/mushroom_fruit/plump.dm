@@ -8,7 +8,7 @@
 	colour_overlay = "plump_colour"
 	colour_override = "#d375ff"
 	fruit_product = /obj/item/food/grown/mushroom/plumphelmet
-	total_volume = PLANT_FRUIT_VOLUME_SMALL
+	total_volume = PLANT_FRUIT_VOLUME_MICRO
 	growth_time = PLANT_FRUIT_GROWTH_FAST
 
 /*
@@ -18,7 +18,7 @@
 	species_name = "ingredior fungus"
 	fruit_product = /obj/item/food/grown/mushroom/plumphelmet
 	plant_traits = list(/datum/plant_trait/fruit/killer/friendly/walking)
-	total_volume = PLANT_FRUIT_VOLUME_SMALL
+	total_volume = PLANT_FRUIT_VOLUME_MICRO
 	growth_time = PLANT_FRUIT_GROWTH_FAST
 
 

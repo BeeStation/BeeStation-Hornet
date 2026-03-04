@@ -1597,6 +1597,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/item/stack/ducts/fifty,
 /turf/open/floor/iron,
 /area/storage/primary)
 "nv" = (
@@ -2383,6 +2384,7 @@
 	pixel_x = 32;
 	pixel_y = -32
 	},
+/obj/item/stack/ducts/fifty,
 /turf/open/floor/iron,
 /area/holodeck/debug)
 "zd" = (
@@ -4055,6 +4057,10 @@
 	},
 /turf/open/floor/iron,
 /area/medical/medbay)
+"XH" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/holofloor/plating,
+/area/holodeck/debug)
 "XO" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -7652,9 +7658,9 @@ yz
 CA
 yz
 SG
-qT
-qT
-qT
+XH
+XH
+XH
 Zb
 Zp
 pe
@@ -7746,7 +7752,7 @@ Kt
 SG
 qT
 qT
-qT
+XH
 Zb
 Zp
 pe
@@ -7838,7 +7844,7 @@ ka
 SG
 qT
 qT
-qT
+XH
 FR
 vm
 pe
@@ -7930,7 +7936,7 @@ ZZ
 SG
 qT
 qT
-qT
+XH
 Zb
 vm
 pe
@@ -8022,7 +8028,7 @@ kM
 SG
 qT
 qT
-qT
+XH
 bV
 vm
 Vk
@@ -8114,7 +8120,7 @@ Si
 SG
 qT
 qT
-qT
+XH
 Zb
 Wo
 tM
@@ -8206,7 +8212,7 @@ LI
 SG
 qT
 qT
-qT
+XH
 Zb
 vm
 tM
@@ -8298,7 +8304,7 @@ AN
 hs
 qT
 qT
-qT
+XH
 Zb
 vm
 tM
@@ -8390,7 +8396,7 @@ ZH
 SG
 qT
 qT
-qT
+XH
 FR
 vm
 tM
@@ -8482,7 +8488,7 @@ Ry
 SG
 qT
 qT
-qT
+XH
 Zb
 Zp
 tM
@@ -8574,7 +8580,7 @@ Cn
 SG
 qT
 qT
-qT
+XH
 Zb
 Zp
 tM
@@ -8664,9 +8670,9 @@ Di
 Bq
 Yj
 SG
-qT
-qT
-qT
+XH
+XH
+XH
 Zb
 vm
 tM

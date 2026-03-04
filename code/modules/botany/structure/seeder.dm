@@ -9,7 +9,7 @@
 	icon_state = "seeder"
 	density = TRUE
 	///Upper amount of seeds we can make
-	var/seed_amount = 3
+	var/seed_amount = 3 //TODO: consider adding an upgrade for this - Racc
 	///Our stored seeds index'd by species id
 	var/list/stored_seeds = list()
 	///Seed amount, also index'd by species id - We do this to avoid having a billion instances of the same seed stored away
@@ -23,8 +23,30 @@
 
 /obj/machinery/seeder/attackby(obj/item/C, mob/user)
 	var/obj/item/food/grown/fruit = C
-	if(!istype(C, /obj/item/plant_seeds) && !istype(fruit))
-		return ..()
+//Turn spade plant into seeds
+	if(istype(C, /obj/item/shovel/spade))
+		//Insert plant from spade
+		var/datum/component/plant/plant
+		var/obj/item/plant_item
+		for(var/obj/item/potential_plant in C.contents)
+			plant = potential_plant.GetComponent(/datum/component/plant)
+			plant_item = potential_plant
+			if(!C)
+				continue
+			break
+		if(!plant)
+			return ..()
+		//Don't let immature plants through
+		var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant.plant_features
+		if(body_feature?.current_stage < body_feature?.growth_stages)
+			to_chat(user, span_warning("[plant_item] isn't mature enough to bear seeds!"))
+			return
+		C.vis_contents -= plant_item
+		plant_item.forceMove(get_turf(src))
+		seedify(plant_item, seed_amount)
+		playsound(src, 'sound/machines/juicer.ogg', 30)
+		to_chat(user, "<span class='notice'>[seed_amount] seeds created!</span>")
+		shake()
 //Store seeds
 	if(istype(C, /obj/item/plant_seeds))
 		var/obj/item/plant_seeds/seeds = C
@@ -38,11 +60,12 @@
 		seeds.forceMove(src)
 		return
 //Turn fruit into seeds
-	C.forceMove(get_turf(src))
-	seedify(C, seed_amount)
-	playsound(src, 'sound/machines/juicer.ogg', 30)
-	to_chat(user, "<span class='notice'>[seed_amount] seeds created!</span>")
-	shake()
+	if(istype(fruit))
+		C.forceMove(get_turf(src))
+		seedify(C, seed_amount)
+		playsound(src, 'sound/machines/juicer.ogg', 30)
+		to_chat(user, "<span class='notice'>[seed_amount] seeds created!</span>")
+		shake()
 
 /obj/machinery/seeder/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -101,15 +124,24 @@
 
 ///proc used to transform produce into seeds
 /proc/seedify(obj/produce, _seed_amount)
-	//General genes
-	var/list/genes = list()
-	SEND_SIGNAL(produce, COMSIG_PLANT_GET_GENES, genes)
-	if(!length(genes))
-		return
-	//Features
-	var/list/features = genes[PLANT_GENE_INDEX_FEATURES]
-	//species ID
-	var/species_id = genes[PLANT_GENE_INDEX_ID]
+	var/datum/component/plant/plant_component = produce.GetComponent(/datum/component/plant)
+	var/species_id
+	var/list/features
+//Food items
+	if(!plant_component)
+		//General genes
+		var/list/genes = list()
+		SEND_SIGNAL(produce, COMSIG_PLANT_GET_GENES, genes)
+		if(!length(genes))
+			return
+		//Features
+		features = genes[PLANT_GENE_INDEX_FEATURES]
+		//species ID
+		species_id = genes[PLANT_GENE_INDEX_ID]
+	else
+		features = plant_component.plant_features
+		species_id = plant_component.species_id
+//Plants
 	//Impart onto seeds
 	if(!length(features))
 		return
@@ -119,3 +151,5 @@
 		var/obj/item/plant_seeds/seeds = food_item?.seed_base || /obj/item/plant_seeds //If the grown item in question is a real food item, we get to use the seed_base feature, and fuck porting it to regular items
 		seeds = new seeds(produce.loc, features, species_id)
 	qdel(produce)
+
+

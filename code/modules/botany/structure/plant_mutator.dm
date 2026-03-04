@@ -42,6 +42,7 @@
 
 /obj/machinery/plant_machine/plant_mutator/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
 	START_PROCESSING(SSobj, src)
 	var/obj/item/irradiated_rock/rock = new(get_turf(src))
 	attackby(rock)
@@ -52,9 +53,14 @@
 	. = ..()
 	QDEL_NULL(soundloop)
 
+/obj/machinery/plant_machine/plant_mutator/proc/catch_pause(datum/source)
+	SIGNAL_HANDLER
+
+	return TRUE
+
 /obj/machinery/plant_machine/plant_mutator/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-	playsound(src, 'sound/effects/glassknock.ogg', 35, TRUE)
+	playsound(src, 'sound/effects/glassknock.ogg', 15, TRUE)
 	to_chat(user, span_danger("[src] can be controlled with a hydroponics mechine terminal.\nA plant can be inserted into [src] using a spade."))
 
 /obj/machinery/plant_machine/plant_mutator/process(delta_time)
@@ -66,8 +72,6 @@
 /obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
 		return
-	context.add_left_click_item_action("Insert Plant", /obj/item/shovel/spade)
-	context.add_left_click_item_action("Insert Disk", /obj/item/disk/plant_disk)
 	if(catalyst)
 		context.add_right_click_action("Remove Catalyst")
 	else
@@ -85,7 +89,7 @@
 		ui_update()
 		return
 	else if(!radiation && !catalyst)
-		playsound(src, 'sound/machines/terminal_error.ogg', 60)
+		playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 		say("ERROR: Sample lacks sufficient radioactivity!")
 		return
 //Spade / Plant
@@ -162,7 +166,7 @@
 /obj/machinery/plant_machine/plant_mutator/ui_act(action, params)
 	if(..())
 		return
-	playsound(src, get_sfx("keyboard"), 30, TRUE)
+	playsound(controller, get_sfx("keyboard"), 30, TRUE)
 	switch(action)
 		if("select_feature")
 			current_feature_ref = current_feature_ref == params["key"] ? null : params["key"]
@@ -191,16 +195,16 @@
 			confirm_radiation = FALSE
 			ui_update()
 			if(!catalyst)
-				playsound(src, 'sound/machines/terminal_error.ogg', 60)
+				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: No catalyst inserted!")
 				return
 			if(stored_rads <= 0)
-				playsound(src, 'sound/machines/terminal_error.ogg', 60)
+				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Catalyst lacks adequate radioactivity!")
 				return
 			var/datum/plant_feature/feature = locate(current_feature_ref)
 			if(!length(feature.mutations))
-				playsound(src, 'sound/machines/terminal_error.ogg', 60)
+				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Feature lacks genetic avenues!")
 				return
 			//Check compatibility
@@ -208,7 +212,7 @@
 			//Tax radiation
 			var/tax = feature.mutations[new_feature] || 1
 			if(stored_rads-tax <= 0)
-				playsound(src, 'sound/machines/terminal_error.ogg', 60)
+				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Catalyst lacks adequate radioactivity, operation requires [tax] Roentgen!")
 				return
 			stored_rads -= tax
@@ -217,13 +221,13 @@
 			for(var/datum/plant_feature/current_feature as anything in plant_component.plant_features-feature)
 				//Is this feature blacklisted from another feature
 				if(is_type_in_typecache(new_feature, current_feature.blacklist_features) || is_type_in_typecache(current_feature, new_feature.blacklist_features))
-					playsound(src, 'sound/machines/terminal_error.ogg', 60)
+					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition not compatible with selected feature!")
 					qdel(new_feature)
 					return
 				//If a feature has a whitelist, are we in it?
 				if(length(current_feature.whitelist_features) && !is_type_in_typecache(new_feature, current_feature.whitelist_features) || length(new_feature.whitelist_features) && !is_type_in_typecache(current_feature, new_feature.whitelist_features))
-					playsound(src, 'sound/machines/terminal_error.ogg', 60)
+					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition not compatible with selected feature!")
 					qdel(new_feature)
 					return

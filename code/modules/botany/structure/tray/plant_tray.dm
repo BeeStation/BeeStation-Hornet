@@ -17,6 +17,8 @@
 	var/datum/component/planter/tray_component
 	///Our random offset value
 	var/list/starting_offset = list(-2, 2, -5, 5)
+	///Plant offset to properly line things up
+	var/list/plant_offset = list(-2, 14)
 //Effects
 	var/atom/movable/plant_tray_reagents/tray_reagents
 	var/icon/mask
@@ -44,7 +46,7 @@
 		AddComponent(/datum/component/plumbing/tank, FALSE)
 		AddComponent(/datum/component/simple_rotation)
 //Tray component setup
-	tray_component = AddComponent(/datum/component/planter, 14, layer_offset, gain_weeds)
+	tray_component = AddComponent(/datum/component/planter, plant_offset, layer_offset, gain_weeds)
 	RegisterSignal(tray_component, COMSIG_PLANTER_UPDATE_SUBSTRATE_SETUP, PROC_REF(remove_substrate))
 	RegisterSignal(tray_component, COMSIG_PLANTER_UPDATE_SUBSTRATE, PROC_REF(add_substrate))
 //Build effects
@@ -78,12 +80,18 @@
 	else if(!length(needy_features))
 		vis_contents -= need
 
+/obj/item/plant_tray/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	playsound(src, 'sound/effects/glassknock.ogg', 15, TRUE)
+	to_chat(user, span_danger("Harvest plants by clicking on them!\nYou need plant scanner to check weed level, and alert descriptions."))
+
 /obj/item/plant_tray/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
 		return
 	context.add_right_click_tool_action("Plant Seeds", TOOL_SEED)
 	context.add_left_click_item_action("Check Alerts", /obj/item/plant_scanner)
 	context.add_left_click_item_action("Fill Tray", /obj/item/substrate_bag)
+	context.add_alt_click_action("Rotate Plumbing")
 
 /obj/item/plant_tray/wrench_act(mob/living/user, obj/item/tool)
 	//Wrench behaviour for plumbing stuff
@@ -100,7 +108,6 @@
 
 /obj/item/plant_tray/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	//TODO: Using a spade on a tray gives a radial menu for plants to remove - Racc
 //Ported legacy code from old trays
 	//Composting
 	if(IS_EDIBLE(I) || istype(I, /obj/item/reagent_containers/pill))

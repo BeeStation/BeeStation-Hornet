@@ -1,5 +1,5 @@
-//Plant loses 10% of current health per tick
-#define BODY_NEEDLESS_DAMAGE 0.025
+//Plant loses 1% of current health per tick
+#define BODY_NEEDLESS_DAMAGE 0.01
 
 /datum/plant_feature/body
 	species_name = "testus testium"
@@ -7,7 +7,7 @@
 	icon = 'icons/obj/hydroponics/features/body.dmi'
 	icon_state = "tree"
 	plant_needs = list(/datum/plant_need/reagent/water, /datum/plant_need/reagent/buff/heal/tier_1, /datum/plant_need/reagent/buff/heal/tier_2, /datum/plant_need/reagent/buff/heal/tier_3,
-	/datum/plant_need/reagent/buff/toxin)
+	/datum/plant_need/reagent/buff/toxin,  /datum/plant_need/reagent/buff/robust)
 	feature_catagories = PLANT_FEATURE_BODY
 	trait_type_shortcut = /datum/plant_feature/body
 
@@ -57,13 +57,17 @@
 	///Icon for when we're out of yields
 	var/wither_state
 	///Prefix for our growth states
-	var/grow_prefix
+	var/growth_prefix
 	//TODO: growth stage sprite for all plants - Racc
 
 /datum/plant_feature/body/New(datum/component/plant/_parent)
+#ifdef LOWMEMORYMODE
+	growth_time *= 0.1
+	yield_cooldown_time *= 0.1
+#endif
 //Appearance bullshit
 	//Body appearance
-	feature_appearance = mutable_appearance(icon, "[grow_prefix ? "[grow_prefix]-[current_stage]" : "[icon_state]"]")
+	feature_appearance = mutable_appearance(icon, "[growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"]")
 	body_appearance = new()
 	body_appearance.appearance = feature_appearance
 	body_appearance.vis_flags = VIS_INHERIT_ID
@@ -101,7 +105,9 @@
 	if(yields <= 0)
 		return
 	//If needs aren't met, we start taking % damage, but this source can't kill us, just weakens
-	if(!SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT) && !check_needs(delta_time))
+	if(SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT) && !parent?.skip_growth)
+		return
+	if(!check_needs(delta_time) && !parent?.skip_growth)
 		adjust_health(health*BODY_NEEDLESS_DAMAGE*-1)
 		return
 //Growth
@@ -113,7 +119,7 @@
 		current_stage = max(1, FLOOR((growth_time_elapsed/growth_time)*growth_stages, 1))
 		if(current_stage > old_stage)
 			growth_step(current_stage)
-		body_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : grow_prefix ? "[grow_prefix]-[current_stage]" : "[icon_state]"
+		body_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"
 		//If our parent is eager to be an adult, used for pre-existing plants
 		if(parent?.skip_growth)
 			growth_time_elapsed = growth_time
@@ -122,7 +128,7 @@
 		if(current_stage >= growth_stages)
 			SEND_SIGNAL(src, COMSIG_PLANT_GROW_FINAL)
 //Harvests
-	if(current_stage >= growth_stages && COOLDOWN_FINISHED(src, yield_cooldown_time) && !length(fruit_overlays) && yields > 0)
+	if(current_stage >= growth_stages && COOLDOWN_FINISHED(src, yield_cooldown) && !length(fruit_overlays) && yields > 0)
 		setup_fruit(parent?.skip_growth)
 		parent?.skip_growth = FALSE //We can happily set this to false here in any case without issues
 
@@ -205,14 +211,13 @@
 
 ///Position and manipulate fruit overlays
 /datum/plant_feature/body/proc/apply_fruit_overlay(obj/effect/fruit_effect, offset_x, offset_y)
-	fruit_effect.pixel_x = offset_x-16
+	fruit_effect.pixel_x = offset_x-17
 	fruit_effect.pixel_y = offset_y-16
 	if(prob(50)) //50% chance for fruit to be mirrored
 		fruit_effect.transform = fruit_effect.transform.Scale(-1, 1)
-		fruit_effect.pixel_x -= 1 //If your sprite is formatted correctly, this will recenter the stem after the flip
+		fruit_effect.pixel_x += 1 //If your sprite is formatted correctly, this will recenter the stem after the flip
 	parent.plant_item.vis_contents += fruit_effect
 	fruit_overlays += fruit_effect
-	return
 
 /datum/plant_feature/body/proc/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest = FALSE)
 	SIGNAL_HANDLER

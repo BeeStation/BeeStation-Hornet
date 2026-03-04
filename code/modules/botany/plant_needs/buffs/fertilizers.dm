@@ -5,6 +5,8 @@
 	need_description = "Improves plant's next harvest by half its max harvest, apply before a harvest starts growing."
 	reagent_needs = list(/datum/reagent/plantnutriment/robustharvestnutriment = 5, /datum/reagent/saltpetre = 2, /datum/reagent/plantnutriment/slimenutriment = 1, /datum/reagent/ammonia = 5)
 	auto_threshold = TRUE
+	///Latch for keeping the buff on - Turns the buff off AFTER the plant has a harvest
+	var/buff_override = FALSE
 
 /datum/plant_need/reagent/buff/robust/apply_buff(__delta_time)
 	. = ..()
@@ -12,14 +14,22 @@
 	if(!istype(body_feature))
 		return
 	body_feature.max_harvest += max(1, initial(body_feature.max_harvest) / 2)
+	buff_override = TRUE
+	RegisterSignal(parent.parent, COMSIG_PLANT_REQUEST_FRUIT, PROC_REF(remove_buff_override))
 
 /datum/plant_need/reagent/buff/robust/remove_buff(__delta_time)
+	if(buff_override)
+		return
 	. = ..()
-	//TODO: make this turn off after the harvest signal - Racc
 	var/datum/plant_feature/body/body_feature = parent
 	if(!istype(body_feature))
 		return
 	body_feature.max_harvest -= max(1, initial(body_feature.max_harvest) / 2)
+
+/datum/plant_need/reagent/buff/robust/proc/remove_buff_override()
+	SIGNAL_HANDLER
+
+	buff_override = FALSE
 
 /*
 	Generic healing template

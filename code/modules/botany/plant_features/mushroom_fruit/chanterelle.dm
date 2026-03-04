@@ -7,7 +7,7 @@
 	icon_state = "chanterelle"
 	fruit_product = /obj/item/food/grown/mushroom/chanterelle
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment)
-	total_volume = PLANT_FRUIT_VOLUME_SMALL
+	total_volume = PLANT_FRUIT_VOLUME_MICRO
 	growth_time = PLANT_FRUIT_GROWTH_FAST
 	mutations = list(/datum/plant_feature/fruit/mushroom/chanterelle/jupiter)
 

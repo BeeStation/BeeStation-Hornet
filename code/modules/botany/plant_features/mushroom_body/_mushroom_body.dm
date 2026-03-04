@@ -11,6 +11,7 @@
 	yield_cooldown_time = PLANT_BODY_YIELD_TIME_FAST
 	max_harvest = PLANT_BODY_HARVEST_SMALL
 	slot_size = PLANT_BODY_SLOT_SIZE_MICRO
+	growth_time = PLANT_BODY_GROWTH_VERY_FAST
 	genetic_budget = 1
 	//Mushrooms have no needs
 	plant_needs = list()

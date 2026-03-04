@@ -5,6 +5,8 @@
 	species_name = "aureum culmus"
 	name = "corn stalk"
 	icon_state = "corn_stalk"
+	growth_prefix = "stalk"
+	growth_stages = 3
 	use_mouse_offset = TRUE
 	overlay_positions = list(list(17, 16))
 	yields = PLANT_BODY_YIELD_MICRO
@@ -12,11 +14,19 @@
 	max_harvest = PLANT_BODY_HARVEST_MICRO
 	upper_fruit_size = PLANT_FRUIT_SIZE_SMALL
 	slot_size = PLANT_BODY_SLOT_SIZE_SMALL
+	growth_time = PLANT_BODY_GROWTH_VERY_FAST
 	seeds = 5
 
 /datum/plant_feature/body/corn_stalk/apply_fruit_overlay(obj/effect/fruit_effect, offset_x, offset_y)
 	. = ..()
 	fruit_effect.transform = fruit_effect.transform.Scale(1, -1)
+	fruit_effect.pixel_y -= 1
+
+/datum/plant_feature/body/corn_stalk/growth_step(step)
+	. = ..()
+	playsound(parent.plant_item, 'sound/effects/rustle.ogg', 30, TRUE)
+	parent.plant_item.add_emitter(/obj/emitter/plant_dust, "dust", 10, lifespan = 20)
+
 
 /*
 	Rice Stalk
@@ -34,6 +44,7 @@
 	species_name = "bracchium aurum"
 	name = "wheat stalk"
 	icon_state = "wheat_stalk"
+	growth_stages = 2
 	overlay_positions = list(list(17, 16))
 
 /*
@@ -53,8 +64,11 @@
 	species_name = "stipula flos"
 	name = "flower stem"
 	icon_state = "flower_stalk"
+	growth_stages = 1
 	overlay_positions = list(list(17, 8))
 	random_plant = TRUE
+	slot_size = PLANT_BODY_SLOT_SIZE_MICRO
+	whitelist_features = list(/datum/plant_feature/fruit/flower, /datum/plant_feature/roots)
 
 /*
 	Ground Stalk
@@ -63,6 +77,8 @@
 	species_name = "terra arbore"
 	name = "ground stalk"
 	icon_state = "vine_ground"
+	growth_prefix = "bush"
+	growth_stages = 2 //This is inherited as 2, this is a safety
 	draw_below_water = FALSE
 	overlay_positions = list(list(23, 7))
 	random_plant = TRUE

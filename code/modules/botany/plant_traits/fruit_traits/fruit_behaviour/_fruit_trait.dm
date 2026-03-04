@@ -18,7 +18,7 @@
 	. = ..()
 	if(!parent?.parent)
 		return
-	RegisterSignal(parent.parent, COMSIG_FRUIT_BUILT, PROC_REF(catch_fruit))
+	RegisterSignal(parent.parent, COMSIG_FRUIT_BUILT_POST, PROC_REF(catch_fruit))
 
 /datum/plant_trait/fruit/copy(datum/plant_feature/_parent, datum/plant_trait/_trait)
 	. = ..()
