@@ -33,7 +33,7 @@
 #define VAMPIRE_LOW_BLOOD_WARNING 300
 
 /// How much blood drained from the vampire each tick during sol
-#define VAMPIRE_SOL_BURN 30
+#define VAMPIRE_SOL_BURN 15
 /// We don't go below this threshold when in a shielded area during sol
 #define VAMPIRE_SOL_SHIELD_THRESHOLD 500
 
