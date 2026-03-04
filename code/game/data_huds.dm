@@ -227,11 +227,14 @@
 	for(var/obj/item/implant/implant in implants)
 		if(istype(implant, /obj/item/implant/tracking))
 			set_hud_image_state(IMPTRACK_HUD, "hud_imp_tracking")
+			set_hud_image_active(IMPTRACK_HUD)
 		else if(istype(implant, /obj/item/implant/chem))
 			set_hud_image_state(IMPCHEM_HUD, "hud_imp_chem")
+			set_hud_image_active(IMPCHEM_HUD)
 
 	if(has_mindshield_hud_icon())
 		set_hud_image_state(IMPLOYAL_HUD, "hud_imp_loyal")
+		set_hud_image_active(IMPLOYAL_HUD)
 
 /mob/living/proc/has_mindshield_hud_icon()
 	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
