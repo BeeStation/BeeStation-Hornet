@@ -450,12 +450,7 @@
 
 		if(feed_target.stat != DEAD && silent_feed)
 			to_chat(owner, span_notice("<i>[feed_target.p_They()] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
-			if(!IS_VASSAL(feed_target))
-				to_chat(feed_target, span_awe(span_reallybig("You wake from your trance. Everything is so... hazy... You don't remember the last few moments...")), type = MESSAGE_TYPE_INFO)
-				to_chat(feed_target, span_warning(" * You do not remember that you have been fed on, the identity of the person who just fed on you, or the fact that they are a vampire."), type = MESSAGE_TYPE_INFO)
-				to_chat(feed_target, span_notice(" * If you already knew this person was a vampire from before your current encounter with them, however, you retain memory of that."), type = MESSAGE_TYPE_INFO)
-			else
-				to_chat(feed_target, span_awe(span_reallybig("You wake from your trance. Everything is so... hazy...")), type = MESSAGE_TYPE_INFO)
+			to_chat(feed_target, span_awe(span_reallybig("You wake from your trance. Everything is so... hazy...")), type = MESSAGE_TYPE_INFO)
 			if(feed_target.blood_volume >= BLOOD_VOLUME_OKAY)
 				to_chat(feed_target, span_announce("You feel dizzy, but it will probably pass by itself!"))
 
