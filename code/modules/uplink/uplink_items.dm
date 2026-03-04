@@ -2673,7 +2673,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/mob_lasso/traitor
 	cost = 3
 	surplus = 0
-	disabled = TRUE	// #11346 Currently in a broken state, lasso'd mobs will never unregister a target once they have locked onto one, making them unusable.
 
 /datum/uplink_item/support/nukielawnmower
 	name = "Syndicate Organism Shredder"
