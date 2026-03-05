@@ -27,7 +27,6 @@
 /obj/item/paper_bin/Initialize(mapload)
 	. = ..()
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
-	AddElement(/datum/element/drag_pickup)
 	if(mapload)
 		var/obj/item/pen/pen = locate(/obj/item/pen) in loc
 		if(pen && !bin_pen)
@@ -41,7 +40,7 @@
 	var/obj/item/paper/paper = new papertype(src)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		if(prob(30))
-			paper.info = "<font face=\"[CRAYON_FONT]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
+			paper.add_raw_text("<font face=\"[CRAYON_FONT]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>")
 			paper.AddComponent(/datum/component/honkspam)
 	return paper
 
