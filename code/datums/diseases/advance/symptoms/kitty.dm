@@ -89,7 +89,7 @@
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/toxoplasmosis)
 
 /datum/symptom/toxoplasmosis/proc/Pounce(mob/living/cat, mob/living/carbon/human/H)
-	if(iscat(cat)
+	if(iscat(cat))
 		H.throw_at(cat, get_dist(cat, H), 2)
 		if(get_dist(cat, H) > 1)
 			return
