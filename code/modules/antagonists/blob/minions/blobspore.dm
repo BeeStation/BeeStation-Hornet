@@ -101,13 +101,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/Destroy()
+/mob/living/simple_animal/hostile/blob/blobspore/death()
 	if(factory)
 		factory.spores -= src
-		factory = null
-	if(corpse)
-		corpse.forceMove(loc)
-		corpse = null
+	corpse?.forceMove(loc)
+	corpse = null
 	return ..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/update_icons()
