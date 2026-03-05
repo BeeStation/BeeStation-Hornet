@@ -223,7 +223,8 @@
 /mob/living/simple_animal/chicken/Initialize(mapload)
 	. = ..()
 	GLOB.total_chickens++
-	AddElement(/datum/element/animal_variety, "chicken", pick("brown","black","white"), TRUE)
+	if(!istype(src, /mob/living/simple_animal/chicken/turkey))
+		AddElement(/datum/element/animal_variety, "chicken", pick("brown","black","white"), TRUE)
 	AddComponent(/datum/component/egg_layer,\
 		/obj/item/food/egg,\
 		list(/obj/item/food/grown/wheat),\
