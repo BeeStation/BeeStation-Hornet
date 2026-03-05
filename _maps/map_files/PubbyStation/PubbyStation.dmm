@@ -24791,6 +24791,7 @@
 /area/syndicate_sat)
 "eaS" = (
 /obj/effect/light_emitter/red_energy_sword,
+/obj/item/kirbyplants/random,
 /turf/open/indestructible/sound/pool{
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
@@ -65357,6 +65358,7 @@
 /obj/effect/turf_decal/guideline/guideline_mid/red{
 	dir = 1
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
 "vKR" = (
