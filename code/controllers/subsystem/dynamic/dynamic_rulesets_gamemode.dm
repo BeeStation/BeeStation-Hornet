@@ -147,6 +147,15 @@
 	restricted_roles = list(JOB_NAME_CYBORG)
 	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT | REQUIRED_POP_ALLOW_UNREADY
 
+/datum/dynamic_ruleset/gamemode/malf/trim_candidates()
+	. = ..()
+	var/datum/job/ai/ai_job = SSjob.GetJob(JOB_NAME_AI)
+	for(var/mob/candidate in candidates)
+		// Must have enough hours to play AI
+		if(ai_job.required_playtime_remaining(candidate.client))
+			candidates -= candidate
+			continue
+
 /datum/dynamic_ruleset/gamemode/malf/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
