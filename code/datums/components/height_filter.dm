@@ -11,8 +11,7 @@
 	RegisterSignal(parent, COMSIG_CARBON_HEIGHT_UPDATE, PROC_REF(update_displacement))
 	RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE, PROC_REF(translate_dir))
 //Populate textures
-	var/list/directions = GLOB.cardinals
-	for(var/direction as anything in directions)
+	for(var/direction as anything in GLOB.cardinals)
 		//We have to convert the keys to strings because... keys
 		displacement_textures["[direction]"] = icon(_icon, _state, direction)
 //Apply effects
