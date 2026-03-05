@@ -1,7 +1,7 @@
 /datum/action/vampire/targeted/bloodboil
 	name = "Thaumaturgy: Boil Blood"
 	desc = "Boil the target's blood inside their body."
-	button_icon_state = "power_thaumaturgy"
+	button_icon_state = "power_bloodboil"
 	background_icon_state_on = "tremere_power_bronze_on"
 	background_icon_state_off = "tremere_power_bronze_off"
 	power_explanation = "Afflict a debilitating status effect on a target within range, causing them to suffer bloodloss, burn damage, and slowing them down.\n\
