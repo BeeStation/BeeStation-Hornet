@@ -10,6 +10,8 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	flags_1 =  CONDUCT_1
 	w_class = WEIGHT_CLASS_BULKY
+	///what kind of magic is this
+	var/school = SCHOOL_EVOCATION
 	var/antimagic_flags = MAGIC_RESISTANCE
 	var/max_charges = 6
 	var/charges = 0

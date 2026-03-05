@@ -56,6 +56,10 @@ require only minor tweaks.
 #define ZTRAIT_ASHSTORM "Weather_Ashstorm"
 #define ZTRAIT_ACIDRAIN "Weather_Acidrain"
 #define ZTRAIT_VOIDSTORM "Weather_Voidstorm"
+
+/// boolean - does this z prevent phasing
+#define ZTRAIT_NOPHASE "No Phase"
+
 /// number - bombcap is multiplied by this before being applied to bombs
 #define ZTRAIT_BOMBCAP_MULTIPLIER "Bombcap Multiplier"
 
@@ -78,23 +82,26 @@ require only minor tweaks.
 /// string - type path of the z-level's baseturf (defaults to space)
 #define ZTRAIT_BASETURF "Baseturf"
 
-/// default trait definitions, used by SSmapping
-#define ZTRAITS_CENTCOM list(ZTRAIT_CENTCOM = TRUE)
+// default trait definitions, used by SSmapping
+///Z level traits for CentCom
+#define ZTRAITS_CENTCOM list(ZTRAIT_CENTCOM = TRUE, ZTRAIT_NOPHASE = TRUE)
+///Z level traits for Space Station 13
 #define ZTRAITS_STATION list(ZTRAIT_LINKAGE = SELFLOOPING, ZTRAIT_STATION = TRUE)
+///Z level traits for Deep Space
 #define ZTRAITS_SPACE list(ZTRAIT_LINKAGE = SELFLOOPING, ZTRAIT_DYNAMIC_LEVEL = TRUE)
+///Z level traits for Lavaland
 #define ZTRAITS_LAVALAND list(\
 	ZTRAIT_MINING = TRUE, \
+	ZTRAIT_ASHSTORM = TRUE, \
 	ZTRAIT_LAVA_RUINS = TRUE, \
 	ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
-	ZTRAIT_ASHSTORM = TRUE, \
 	ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
+
 #define ZTRAITS_DEBUG list(ZTRAIT_DEBUG = TRUE)
+
 #define DL_NAME "name"
 #define DL_TRAITS "traits"
 #define DECLARE_LEVEL(NAME, TRAITS) list(DL_NAME = NAME, DL_TRAITS = TRAITS)
-
-/// boolean - does this z prevent phasing
-#define ZTRAIT_NOPHASE "No Phase"
 
 
 /// must correspond to _basemap.dm for things to work correctly
@@ -109,7 +116,7 @@ require only minor tweaks.
 #define CAMERA_LOCK_REEBE 8
 
 /// Reserved/Transit turf type
-#define RESERVED_TURF_TYPE /turf/open/space/basic			//What the turf is when not being used
+#define RESERVED_TURF_TYPE /turf/open/space/basic //What the turf is when not being used
 
 //Ruin Generation
 
@@ -161,7 +168,7 @@ require only minor tweaks.
 #define STARLIGHT_MODE_CYCLE "cycle"
 
 //Individual defines
-#define CLUSTER_CHECK_NONE				0  			//No checks are done, cluster as much as possible
+#define CLUSTER_CHECK_NONE 0 //No checks are done, cluster as much as possible
 #define CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
 #define CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
 #define CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
@@ -174,7 +181,7 @@ require only minor tweaks.
 #define CLUSTER_CHECK_ALL_ATOMS			20 //Don't let ANY atoms cluster same and different types
 
 //All
-#define CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
+#define CLUSTER_CHECK_ALL 30 //Don't let anything cluster, like, at all
 
 // Ruin generation
 #define OPEN_CONNECTION 1

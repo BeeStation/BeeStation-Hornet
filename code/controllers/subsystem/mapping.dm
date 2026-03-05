@@ -62,6 +62,9 @@ SUBSYSTEM_DEF(mapping)
 	///List in the form: list(z level num = max generator gravity in that z level OR the gravity level trait)
 	var/list/gravity_by_z_level = list()
 
+	/// list of traits and their associated z leves
+	var/list/z_trait_levels = list()
+
 	//Echo surface level templates
 	var/list/echo_surface_templates = list()
 

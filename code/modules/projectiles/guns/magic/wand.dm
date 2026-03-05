@@ -4,6 +4,7 @@
 	ammo_type = /obj/item/ammo_casing/magic
 	icon_state = "nothingwand"
 	inhand_icon_state = "nothingwand"
+	base_icon_state = "nothingwand"
 	w_class = WEIGHT_CLASS_SMALL
 	weapon_weight = WEAPON_LIGHT
 	max_charges = 5
@@ -13,8 +14,9 @@
 	. = ..()
 	. += "Has [charges] charge\s remaining."
 
-/obj/item/gun/magic/wand/update_icon()
-	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
+/obj/item/gun/magic/wand/update_icon_state()
+	icon_state = "[initial(icon_state)][charges ? null : "-drained"]"
+	return ..()
 
 /obj/item/gun/magic/wand/attack(atom/target, mob/living/user)
 	if(target == user)
@@ -42,7 +44,7 @@
 		return
 	else
 		. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/magic/wand/shoot_with_empty_chamber(mob/living/user)
 	. = ..()
@@ -64,6 +66,7 @@
 /obj/item/gun/magic/wand/drain
 	name = "wand of drain vitality"
 	desc = "This dark wand saps the very life force from your target, slowing them and eventually transferring their life essence to you. Requires you to remain within range to be effective."
+	school = SCHOOL_NECROMANCY
 	fire_sound = 'sound/magic/wandodeath.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/drain
 	icon_state = "drainwand"
@@ -87,6 +90,7 @@
 /obj/item/gun/magic/wand/healing
 	name = "wand of healing"
 	desc = "This wand uses healing magics to heal some wounds. They are rarely utilized within the Wizard Federation for some reason."
+	school = SCHOOL_RESTORATION
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "healwand"
@@ -99,6 +103,7 @@
 /obj/item/gun/magic/wand/icy_blast
 	name = "wand of icy blast"
 	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
+	school = SCHOOL_EVOCATION
 	ammo_type = /obj/item/ammo_casing/magic/icy_blast
 	icon_state = "icewand"
 	inhand_icon_state = "icewand"
@@ -111,6 +116,7 @@
 /obj/item/gun/magic/wand/teleport
 	name = "wand of teleportation"
 	desc = "This wand will warp targets to somewhere else nearby. Great for clean get-away or a firm \"Get away!\"."
+	school = SCHOOL_TRANSLOCATION
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	icon_state = "telewand"
@@ -143,6 +149,7 @@
 /obj/item/gun/magic/wand/firebolt
 	name = "wand of fire bolt"
 	desc = "This wand shoots scorching balls of fire that ignite anyone they hit. Not as powerful as a proper fireball but still very dangerous."
+	school = SCHOOL_EVOCATION
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/firebolt
 	icon_state = "firewand"
