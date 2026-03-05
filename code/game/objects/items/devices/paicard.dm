@@ -174,7 +174,7 @@
 	var/mob/living/silicon/pai/new_pai = new(src)
 	new_pai.name = candidate.name || pick(GLOB.ninja_names)
 	new_pai.real_name = new_pai.name
-	pai.ckey = candidate.ckey
+	new_pai.ckey = candidate.ckey
 	set_personality(new_pai)
 	candidate.ready = FALSE
 	SSpai.candidates[candidate.ckey] = candidate
