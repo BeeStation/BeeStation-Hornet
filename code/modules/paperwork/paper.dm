@@ -401,9 +401,9 @@
 	// Handle stamping items.
 	if(writing_stats["interaction_mode"] == MODE_STAMPING)
 		to_chat(user, span_notice("You ready your stamp over the paper! "))
-		if(!ui_interact(user))
-			//The paper window is 400x500
-			stamp(rand(0, 400), rand(0, 500), rand(0, 360), P.icon_state)
+		if(!user.can_read(src))
+			//The paper's stampable window area is assumed approx 300x400
+			add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), rand(0, 360), writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
 			user.visible_message(span_notice("[user] blindly stamps [src] with \the [P.name]!"))
 			to_chat(user, span_notice("You stamp [src] with \the [P.name] the best you can!"))
 		else
