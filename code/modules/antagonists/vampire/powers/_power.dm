@@ -189,7 +189,7 @@
 		return TRUE
 	else
 		if(vampiredatum_power)
-			vampiredatum_power.adjust_blood_volume(-constant_vitaecost)
+			vampiredatum_power.adjust_vitae(-constant_vitaecost)
 		else
 			var/mob/living/living_owner = owner
 			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))

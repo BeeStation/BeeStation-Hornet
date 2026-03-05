@@ -253,14 +253,14 @@
 
 		is_torturing = TRUE
 		living_target.Paralyze(1 SECONDS)
-		vampiredatum.adjust_blood_volume(-TORTURE_BLOOD_HALF_COST)
+		vampiredatum.adjust_vitae(-TORTURE_BLOOD_HALF_COST)
 
 		if(!do_torture(living_vampire, living_target, held_item))
 			is_torturing = FALSE
 			return
 		is_torturing = FALSE
 
-		vampiredatum.adjust_blood_volume(-TORTURE_BLOOD_HALF_COST)
+		vampiredatum.adjust_vitae(-TORTURE_BLOOD_HALF_COST)
 		convert_progress--
 
 		if(convert_progress > 0)
@@ -285,7 +285,7 @@
 			return
 
 		// Make our target into a vassal
-		vampiredatum.adjust_blood_volume(-TORTURE_CONVERSION_COST)
+		vampiredatum.adjust_vitae(-TORTURE_CONVERSION_COST)
 		vampiredatum.make_vassal(living_target)
 
 		// Find Mind Implant & Destroy

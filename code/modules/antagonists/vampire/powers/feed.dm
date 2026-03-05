@@ -169,7 +169,7 @@
 	// Mice
 	if(istype(feed_target, /mob/living/basic/mouse))
 		to_chat(owner, span_warning("You recoil at the taste of a lesser lifeform."))
-		vampiredatum_power.adjust_blood_volume(FEED_BLOOD_FROM_MICE)
+		vampiredatum_power.adjust_vitae(FEED_BLOOD_FROM_MICE)
 		power_activated_sucessfully()
 		feed_target.death()
 		return
@@ -502,7 +502,7 @@
 **/
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/mob/living/living_owner = owner
-	var/feed_amount = 50 + (level_current * 2)
+	var/feed_amount = 50
 
 	// If we are already at fatal, we speed up more.
 	if(feed_fatal)
@@ -521,6 +521,10 @@
 	// ((vamp_blood_volume * vamp_temp) + (target_blood_volume * target_temp)) / (vamp_blood_volume + blood_to_take)
 	owner.bodytemperature = ((vampiredatum_power.current_vitae * owner.bodytemperature) + (blood_to_take * target.bodytemperature)) / (vampiredatum_power.current_vitae + blood_to_take)
 
+	// Penalty for frenzy(messy eater)
+	if(vampiredatum_power.frenzied)
+		blood_to_take /= 2
+
 	//////////
 	////////// Blood was drunk. Convert it into vitae of appropriate value
 	//////////
@@ -531,13 +535,10 @@
 
 	// Penalty for dead blood(at least it's still humanoidish, right?)
 	if(target.stat == DEAD)
-		blood_to_take /= 8
+		vitae_absorbed /= 10
 	// Penalty for non-human blood
 	if(!ishuman(target))
-		blood_to_take /= 9
-	// Penalty for frenzy(messy eater)
-	if(vampiredatum_power.frenzied)
-		blood_to_take /= 2
+		vitae_absorbed /= 12
 
 	// Bonuses
 
@@ -555,12 +556,12 @@
 	if(target.client)
 		vampiredatum_power.vitae_goal_progress += vitae_absorbed
 
-	vampiredatum_power.adjust_blood_volume(vitae_absorbed)
+	vampiredatum_power.adjust_vitae(vitae_absorbed)
 
 	// Diablerie takes vitae directly
 	if(IS_VAMPIRE(target))
 		var/datum/antagonist/vampire/vampire_target = IS_VAMPIRE(target)
-		vampire_target.adjust_blood_volume(- (blood_to_take * 4))
+		vampire_target.adjust_vitae(- (blood_to_take * 4))
 
 	// Transfer the target's reagents into the vampire's blood
 	if(target.reagents?.total_volume)
