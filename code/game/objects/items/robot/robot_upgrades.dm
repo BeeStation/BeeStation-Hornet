@@ -364,7 +364,7 @@
 	return ..()
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
-	playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
+	playsound(cyborg, 'sound/effects/turbolift/turbolift-close.ogg', 90)
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
 	update_appearance()
