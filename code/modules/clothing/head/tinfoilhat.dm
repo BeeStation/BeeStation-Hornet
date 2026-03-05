@@ -15,25 +15,28 @@
 	stamina = 50
 
 /obj/item/clothing/head/costume/foilhat/equipped(mob/living/carbon/human/user, slot)
-	..()
+	. = ..()
 	user.sec_hud_set_implants()
-	if(slot == ITEM_SLOT_HEAD)
-		if(paranoia)
-			QDEL_NULL(paranoia)
-		paranoia = new()
-		DISABLE_BITFIELD(paranoia.trauma_flags, TRAUMA_CLONEABLE)
+	if(!(slot & ITEM_SLOT_HEAD))
+		return
+	if(paranoia)
+		QDEL_NULL(paranoia)
+	paranoia = new()
+	DISABLE_BITFIELD(paranoia.trauma_flags, TRAUMA_CLONEABLE)
 
-		user.gain_trauma(paranoia, TRAUMA_RESILIENCE_MAGIC)
-		to_chat(user, span_warning("As you don the foiled hat, an entire world of conspiracy theories and seemingly insane ideas suddenly rush into your mind. What you once thought unbelievable suddenly seems.. undeniable. Everything is connected and nothing happens just by accident. You know too much and now they're out to get you. "))
+	RegisterSignal(user, COMSIG_HUMAN_SUICIDE_ACT, PROC_REF(call_suicide))
 
-		psychic_overlay = mutable_appearance()
-		psychic_overlay.appearance = user.appearance
-		psychic_overlay.plane = ANTI_PSYCHIC_PLANE
-		user.add_overlay(psychic_overlay)
+	user.gain_trauma(paranoia, TRAUMA_RESILIENCE_MAGIC)
+	to_chat(user, span_warning("As you don the foiled hat, an entire world of conspiracy theories and seemingly insane ideas suddenly rush into your mind. What you once thought unbelievable suddenly seems.. undeniable. Everything is connected and nothing happens just by accident. You know too much and now they're out to get you. "))
+
+	psychic_overlay = mutable_appearance()
+	psychic_overlay.appearance = user.appearance
+	psychic_overlay.plane = ANTI_PSYCHIC_PLANE
+	user.add_overlay(psychic_overlay)
 
 /obj/item/clothing/head/costume/foilhat/MouseDrop(atom/over_object)
 	//God Im sorry
-	if(usr)
+	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		if(src == C.head)
 			to_chat(C, span_userdanger("Why would you want to take this off? Do you want them to get into your mind?!"))
@@ -41,9 +44,12 @@
 	return ..()
 
 /obj/item/clothing/head/costume/foilhat/dropped(mob/user)
-	..()
+	. = ..()
 	if(paranoia)
 		QDEL_NULL(paranoia)
+
+	UnregisterSignal(user, COMSIG_HUMAN_SUICIDE_ACT)
+
 	if(isliving(user))
 		var/mob/living/L = user
 		L.sec_hud_set_implants()
@@ -104,3 +110,24 @@
 	for(var/X in actions)
 		var/datum/action/A=X
 		A.update_buttons()
+
+/obj/item/clothing/head/costume/foilhat/proc/call_suicide(datum/source)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(suicide_act), source) //SIGNAL_HANDLER doesn't like things waiting; INVOKE_ASYNC bypasses that
+	return OXYLOSS
+
+/obj/item/clothing/head/costume/foilhat/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] gets a crazed look in [user.p_their()] eyes! [capitalize(user.p_they())] [user.p_have()] witnessed the truth, and try to commit suicide!"))
+	var/static/list/conspiracy_line = list(
+		";THEY'RE HIDING CAMERAS IN THE CEILINGS! THEY WITNESS EVERYTHING WE DO!!",
+		";HOW CAN I LIVE IN A WORLD WHERE MY FATE AND EXISTENCE IS DECIDED BY A GROUP OF INDIVIDUALS?!!",
+		";THEY'RE TOYING WITH ALL OF YOUR MINDS AND TREATING YOU AS EXPERIMENTS!!",
+		";THEY HIRE ASSISTANTS WITHOUT DOING BACKGROUND CHECKS!!",
+		";WE LIVE IN A ZOO AND WE ARE THE ONES BEING OBSERVED!!",
+		";WE REPEAT OUR LIVES DAILY WITHOUT FURTHER QUESTIONS!!"
+	)
+	user.say(pick(conspiracy_line), forced=type)
+	var/obj/item/organ/brain/brain = user.get_organ_slot(ORGAN_SLOT_BRAIN)
+	if(brain)
+		brain.damage = BRAIN_DAMAGE_DEATH
+	return OXYLOSS

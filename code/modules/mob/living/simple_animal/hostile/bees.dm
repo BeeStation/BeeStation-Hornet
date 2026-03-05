@@ -222,6 +222,9 @@
 			beehome = BB
 			break // End loop after the first compatible find.
 
+/mob/living/simple_animal/hostile/poison/bees/will_escape_storage()
+	return TRUE
+
 /mob/living/simple_animal/hostile/poison/bees/toxin/Initialize(mapload)
 	. = ..()
 	var/datum/reagent/R = pick(typesof(/datum/reagent/toxin))
@@ -252,6 +255,8 @@
 /mob/living/simple_animal/hostile/poison/bees/queen/pollinate()
 	return
 
+/mob/living/simple_animal/hostile/poison/bees/queen/will_escape_storage()
+	return FALSE
 
 /mob/living/simple_animal/hostile/poison/bees/proc/reagent_incompatible(mob/living/simple_animal/hostile/poison/bees/B)
 	if(!B)
@@ -269,6 +274,11 @@
 	icon = 'icons/mob/bees.dmi'
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
+/obj/item/queen_bee/suicide_act(mob/user)
+	user.visible_message(span_suicide("[user] eats [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.say("IT'S HIP TO EAT BEES!")
+	qdel(src)
+	return TOXLOSS
 
 /obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))

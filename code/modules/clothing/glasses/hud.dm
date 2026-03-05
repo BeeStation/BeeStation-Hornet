@@ -117,6 +117,20 @@
 	glitching_hud.transform = M
 	glitching_hud.filters = filter(type="motion_blur", x=rand(1, 3))
 
+/obj/item/clothing/glasses/hud/suicide_act(mob/user)
+	if(user.is_blind() || !isliving(user))
+		return ..()
+	var/mob/living/living_user = user
+	user.visible_message(span_suicide("[user] looks through [src] and looks overwhelmed with the information! It looks like [user.p_theyre()] trying to commit suicide!"))
+	if(living_user.getOrganLoss(ORGAN_SLOT_BRAIN) >= BRAIN_DAMAGE_SEVERE)
+		var/mob/thing = pick((/mob in view()) - user)
+		if(thing)
+			user.say("VALID MAN IS WANTER, ARREST HE!!")
+			user.pointed(thing)
+		else
+			user.say("WHY IS THERE A BAR ON MY HEAD?!!")
+	return OXYLOSS
+
 /obj/item/clothing/glasses/hud/health
 	name = "health scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
