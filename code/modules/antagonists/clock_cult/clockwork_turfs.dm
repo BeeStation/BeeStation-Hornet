@@ -146,8 +146,12 @@
 	return
 
 /turf/closed/wall/clockwork/mech_melee_attack(obj/vehicle/sealed/mecha/mecha_attacker, mob/living/user)
-	..()
-	return 0
+	SHOULD_CALL_PARENT(FALSE) //Me when I cant call grandparent so I shit out snowflake code hmmnngmg
+	. = 0 // immune
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha_attacker)
+	mecha_attacker.do_attack_animation(src)
+	playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
+	mecha_attacker.visible_message(span_warning("[mecha_attacker] bounces off [src]!"), span_warning("You bounce off [src]!"), null, COMBAT_MESSAGE_RANGE)
 
 /turf/closed/wall/clockwork/update_icon()
 	. = ..()
