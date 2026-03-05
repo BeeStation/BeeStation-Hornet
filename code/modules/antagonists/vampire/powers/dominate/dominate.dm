@@ -57,3 +57,4 @@
 	var/command_cooldown = voice_of_god(command, owner, list("colossus","commands"), base_multiplier = 2)
 	cooldown_time = max(command_cooldown, 60 SECONDS)
 	. = ..()
+	deactivate_power()

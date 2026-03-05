@@ -62,7 +62,7 @@
 	if(IS_IN_STASIS(current))
 		shielded = TRUE
 
-	if(is_type_in_list(get_area(current) in VAMPIRE_SOL_SHIELDED))
+	if(is_type_in_list(get_area(current), VAMPIRE_SOL_SHIELDED))
 		shielded = TRUE
 
 	var/sol_burn_calculated = VAMPIRE_SOL_BURN / (min(2, 1 + (humanity / 10)))
