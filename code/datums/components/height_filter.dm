@@ -1,5 +1,7 @@
 /datum/component/height_filter
+	///What textures we use for the displacement filter
 	var/list/displacement_textures = list()
+	///Strength of the displacement filter, generally you should set this on your species using their height variables
 	var/intensity = 1
 
 /datum/component/height_filter/Initialize(_icon, _state, _intensity)
@@ -9,7 +11,7 @@
 	RegisterSignal(parent, COMSIG_CARBON_HEIGHT_UPDATE, PROC_REF(update_displacement))
 	RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE, PROC_REF(translate_dir))
 //Populate textures
-	var/list/directions = list(NORTH, SOUTH, EAST, WEST)
+	var/list/directions = GLOB.cardinals
 	for(var/direction as anything in directions)
 		//We have to convert the keys to strings because... keys
 		displacement_textures["[direction]"] = icon(_icon, _state, direction)
@@ -19,7 +21,7 @@
 	target.add_filter("height_cutoff_fix", 1, layering_filter(icon = displacement_textures["[NORTH]"], color = "#ffffff00"))
 	update_displacement(src, target)
 
-/datum/component/height_filter/Destroy(force=FALSE, silent=FALSE)
+/datum/component/height_filter/Destroy()
 	. = ..()
 	var/mob/living/carbon/target = parent
 	if(!target) //Stop a naughty runtime associated with ghosts > select equipment
