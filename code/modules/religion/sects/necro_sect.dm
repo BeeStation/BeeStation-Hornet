@@ -124,6 +124,7 @@
 	config.jump_target = religious_tool
 	config.role_name_text = "holy summoned undead"
 	config.alert_pic = /mob/living/carbon/human/species/skeleton
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		to_chat(user, span_warning("The soul pool is empty..."))

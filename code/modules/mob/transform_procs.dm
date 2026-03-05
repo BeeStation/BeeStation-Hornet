@@ -564,6 +564,7 @@
 	config.jump_target = src
 	config.role_name_text = name
 	config.alert_pic = src
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(candidate)
 		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")

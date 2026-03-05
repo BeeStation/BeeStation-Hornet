@@ -349,6 +349,7 @@
 	config.poll_time = 10 SECONDS
 	config.jump_target = M
 	config.alert_pic = M
+	config.amount_to_pick = 1
 	return config
 
 ///Clicks a random nearby mob with the source from this mob

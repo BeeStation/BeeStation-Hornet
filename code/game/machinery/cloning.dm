@@ -292,6 +292,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	config.jump_target = H
 	config.role_name_text = "[H.real_name]'s experimental clone?"
 	config.alert_pic = H
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, H)
 	if(candidate)
 		H.key = candidate.key

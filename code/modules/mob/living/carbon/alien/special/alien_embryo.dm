@@ -91,6 +91,7 @@
 	config.jump_target = owner
 	config.role_name_text = "alien larva"
 	config.alert_pic = /mob/living/carbon/alien/larva
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 	if(QDELETED(src) || QDELETED(owner))

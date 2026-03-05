@@ -28,6 +28,7 @@
 	config.ignore_category = POLL_IGNORE_CLOCKWORK_HELPER
 	config.role_name_text = "clockwork marauder"
 	config.alert_pic = /mob/living/simple_animal/hostile/clockwork_marauder
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		invoker.balloon_alert(invoker, "no available ghosts!")

@@ -54,6 +54,7 @@
 	config.jump_target = src
 	config.role_name_text = "[summoner.name]'s [real_name], a [theme.name]"
 	config.alert_pic = /mob/living/simple_animal/hostile/holoparasite
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	being_reset = FALSE
 	if(!candidate)

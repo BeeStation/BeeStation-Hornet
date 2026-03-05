@@ -676,6 +676,7 @@
 	config.jump_target = M
 	config.role_name_text = "ghost possession"
 	config.alert_pic = M
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, M)
 	if(M.stat == DEAD)//boo.
 		return

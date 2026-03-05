@@ -48,6 +48,7 @@
 	config.jump_target = user
 	config.role_name_text = "mind magnified monkey"
 	config.alert_pic = src
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, user)
 
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter), or monkey has died

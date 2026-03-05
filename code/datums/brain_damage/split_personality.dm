@@ -40,6 +40,7 @@
 	config.jump_target = owner
 	config.role_name_text = "[owner]'s split personality"
 	config.alert_pic = owner
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		stranger_backseat.key = candidate.key
@@ -223,6 +224,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	config.jump_target = owner
 	config.role_name_text = "[owner]'s brainwashed mind"
 	config.alert_pic = owner
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		stranger_backseat.key = candidate.key

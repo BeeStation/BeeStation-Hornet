@@ -187,6 +187,7 @@
 		config.jump_target = user
 		config.role_name_text = "contractor support unit for [user.real_name]"
 		config.alert_pic = user
+		config.amount_to_pick = 1
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 		if(candidate)

@@ -48,6 +48,7 @@
 	config.jump_target = component_parent?.parent
 	config.role_name_text = "[component_parent?.parent]"
 	config.alert_pic = component_parent?.parent
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = component_parent?.parent)
 	if(candidate && component_parent?.parent)
 		if(istype(candidate) && candidate.ckey)

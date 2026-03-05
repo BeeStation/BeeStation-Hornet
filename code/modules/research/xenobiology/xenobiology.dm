@@ -833,6 +833,7 @@
 	config.alert_pic = dumb_mob
 	config.role_name_text = "intelligence potion"
 	config.chat_text_border_icon = src
+	config.amount_to_pick = 1
 	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(config, dumb_mob)
 	on_poll_concluded(user, dumb_mob, chosen_one)
 

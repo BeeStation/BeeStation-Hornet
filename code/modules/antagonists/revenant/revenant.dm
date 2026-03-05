@@ -512,6 +512,7 @@
 		config.jump_target = revenant
 		config.role_name_text = "revenant"
 		config.alert_pic = revenant
+		config.amount_to_pick = 1
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 		if(!candidate)
 			qdel(revenant)

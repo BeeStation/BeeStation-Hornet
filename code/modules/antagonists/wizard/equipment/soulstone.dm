@@ -442,6 +442,7 @@
 		config.jump_target = T
 		config.role_name_text = "shade"
 		config.alert_pic = /mob/living/simple_animal/shade
+		config.amount_to_pick = 1
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, T)
 
 		if(candidate)

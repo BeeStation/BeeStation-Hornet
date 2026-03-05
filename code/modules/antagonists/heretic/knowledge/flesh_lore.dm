@@ -168,6 +168,7 @@
 		config.jump_target = soon_to_be_ghoul
 		config.role_name_text = "voiceless dead"
 		config.alert_pic = soon_to_be_ghoul
+		config.amount_to_pick = 1
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = soon_to_be_ghoul)
 		if(!candidate)
 			loc.balloon_alert(user, "Ritual failed, no ghosts")

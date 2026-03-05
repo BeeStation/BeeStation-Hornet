@@ -75,6 +75,7 @@
 			config.jump_target = H
 			config.role_name_text = "[href_list["school"]] apprentice"
 			config.alert_pic = H
+			config.amount_to_pick = 1
 			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			currently_polling_ghosts = FALSE
 
@@ -160,6 +161,7 @@
 	config.jump_target = user
 	config.role_name_text = "reinforcement [special_role_name]"
 	config.alert_pic = poll_alert_pic || src
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	currently_polling_ghosts = FALSE
 
@@ -288,6 +290,7 @@
 	config.jump_target = user
 	config.role_name_text = initial(demon_type.name)
 	config.alert_pic = /mob/living/simple_animal/hostile/imp/slaughter
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	currently_polling_ghosts = FALSE
 

@@ -69,6 +69,7 @@
 				config.jump_target = living_target
 				config.role_name_text = "inactive clock cultist"
 				config.alert_pic = living_target
+				config.amount_to_pick = 1
 
 				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, living_target)
 				if(candidate)

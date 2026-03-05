@@ -42,6 +42,7 @@
 		config.jump_target = src
 		config.role_name_text = "eminence"
 		config.alert_pic = /mob/living/simple_animal/eminence
+		config.amount_to_pick = 1
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 		if(candidate)

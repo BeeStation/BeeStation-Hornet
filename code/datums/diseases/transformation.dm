@@ -93,6 +93,7 @@
 	config.jump_target = affected_mob
 	config.alert_pic = affected_mob
 	config.role_name_text = affected_mob.name
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, affected_mob)
 	if(candidate)
 		affected_mob.key = candidate.key

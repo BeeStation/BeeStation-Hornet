@@ -2249,6 +2249,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 				config.jump_target = src
 				config.role_name_text = "lazarus revived mob"
 				config.alert_pic = src
+				config.amount_to_pick = 1
 				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					src.key = candidate.key

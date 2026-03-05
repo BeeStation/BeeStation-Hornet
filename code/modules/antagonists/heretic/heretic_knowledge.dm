@@ -314,6 +314,7 @@
 	config.jump_target = summoned
 	config.role_name_text = summoned.real_name
 	config.alert_pic = summoned
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		loc.balloon_alert(user, "Ritual failed, no ghosts")

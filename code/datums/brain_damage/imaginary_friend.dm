@@ -58,6 +58,7 @@
 	config.jump_target = owner
 	config.role_name_text = "[owner]'s imaginary friend"
 	config.alert_pic = owner
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		friend.key = candidate.key

@@ -171,6 +171,7 @@
 			config.jump_target = H
 			config.role_name_text = "[user.real_name] magical servant?"
 			config.alert_pic = H
+			config.amount_to_pick = 1
 			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			if(candidate)
 				H.key = candidate.key

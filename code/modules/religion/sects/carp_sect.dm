@@ -57,6 +57,7 @@
 	config.jump_target = religious_tool
 	config.role_name_text = "holy carp"
 	config.alert_pic = /mob/living/simple_animal/hostile/carp
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		new /obj/effect/gibspawner/generic(altar_turf)

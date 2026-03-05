@@ -657,6 +657,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 		config.jump_target = mob_to_revive
 		config.role_name_text = "inactive blood cultist"
 		config.alert_pic = mob_to_revive
+		config.amount_to_pick = 1
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = mob_to_revive)
 		if(candidate)
 			mob_to_revive.ghostize(FALSE)

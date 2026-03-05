@@ -144,6 +144,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				config.jump_target = src
 				config.role_name_text = "lavaland elite"
 				config.alert_pic = src
+				config.amount_to_pick = 1
 				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					audible_message(span_boldwarning("The stirring sounds increase in volume!"))
@@ -312,6 +313,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			config.jump_target = E
 			config.role_name_text = "enslaved lavaland elite"
 			config.alert_pic = E
+			config.amount_to_pick = 1
 			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			if(candidate)
 				E.key = candidate.key

@@ -538,6 +538,7 @@
 	config.jump_target = user
 	config.role_name_text = "blade spirit"
 	config.alert_pic = user
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, user)
 
 	if(candidate)
