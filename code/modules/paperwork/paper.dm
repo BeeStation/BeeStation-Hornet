@@ -406,7 +406,7 @@
 			add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), rand(0, 360), writing_stats["stamp_icon_state"], stamp_icon_state = writing_stats["stamp_icon_state"])
 			user.visible_message(span_notice("[user] blindly stamps [src] with \the [attacking_item]!"))
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-			update_appearance()
+			update_appearance()//THIS MIGHT BE USELESS
 			update_static_data_for_all_viewers()
 		else // CHECK THE WINDOW AREA!!!!!
 			to_chat(user, span_notice("You ready your stamp over the paper! "))
