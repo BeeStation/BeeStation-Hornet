@@ -531,7 +531,7 @@
 	possessed = TRUE
 
 	var/datum/poll_config/config = new(
-		question = "Do you want to play as the spirit of [user?.real_name]'s blade?",
+		question = "Do you want to play as the spirit of [user.real_name]'s blade?",
 		check_jobban = ROLE_SPECTRAL_BLADE,
 		poll_time = 10 SECONDS,
 		ignore_category = POLL_IGNORE_SPECTRAL_BLADE,
