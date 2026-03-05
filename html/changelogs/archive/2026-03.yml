@@ -1,0 +1,22 @@
+2026-03-01:
+  mrmanlikesbt:
+  - config: the repository's dynamic storyteller config is now up to date with the
+      live server
+2026-03-02:
+  Absolucy:
+  - bugfix: Digital clocks now process on the correct subsystem.
+  Tsar-Salat:
+  - bugfix: stamina damagetype does stuff again
+  - bugfix: abductor baton stuns paralyze again
+  - server: damage unit test supports simplemobs, as well as the stamina and cloneloss
+      damagetypes
+2026-03-03:
+  WhiskeyMarten:
+  - rscadd: Made Geneticist and Paramedic available on Echostation. Geneticist is
+      locked to 1 slot.
+  mrmanlikesbt, Kapu:
+  - bugfix: Fixed explosions being able to destroy turfs that have a structure on
+      top of them (mainly windows and doors)
+2026-03-04:
+  rkz, zephyr:
+  - server: autogenerates python path
