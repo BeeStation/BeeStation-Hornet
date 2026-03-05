@@ -335,7 +335,7 @@
 		var/datum/brain_trauma/BT = X
 		if(!istype(BT, brain_trauma_type))
 			continue
-		if(special_method && CHECK_BITFIELD(BT.trauma_flags, TRAUMA_SPECIAL_CURE_PROOF))
+		if(special_method && (BT.trauma_flags & TRAUMA_SPECIAL_CURE_PROOF))
 			continue
 		if(BT.resilience > resilience)
 			continue
@@ -347,7 +347,7 @@
 		var/datum/brain_trauma/BT = X
 		if(!istype(BT, brain_trauma_type))
 			continue
-		if(special_method && CHECK_BITFIELD(BT.trauma_flags, TRAUMA_SPECIAL_CURE_PROOF))
+		if(special_method && (BT.trauma_flags & TRAUMA_SPECIAL_CURE_PROOF))
 			continue
 		if(BT.resilience > resilience)
 			continue
@@ -443,7 +443,7 @@
 	var/list/datum/brain_trauma/possible_traumas = list()
 	for(var/T in subtypesof(brain_trauma_type))
 		var/datum/brain_trauma/BT = T
-		if(can_gain_trauma(BT, resilience) && !CHECK_BITFIELD(initial(BT.trauma_flags), TRAUMA_NOT_RANDOM))
+		if(can_gain_trauma(BT, resilience) && !(initial(BT.trauma_flags) & TRAUMA_NOT_RANDOM))
 			possible_traumas += BT
 
 	if(!LAZYLEN(possible_traumas))

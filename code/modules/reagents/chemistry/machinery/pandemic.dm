@@ -80,7 +80,7 @@
 	var/list/virus_list = blood.get_diseases()
 	var/index = 1
 	for(var/datum/disease/virus in virus_list)
-		if(CHECK_BITFIELD(virus.visibility_flags, HIDDEN_PANDEMIC))
+		if(virus.visibility_flags & HIDDEN_PANDEMIC)
 			continue
 
 		var/list/this = list()
@@ -144,7 +144,7 @@
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 
 /obj/machinery/computer/pandemic/update_icon()
-	if(CHECK_BITFIELD(machine_stat, BROKEN))
+	if(machine_stat & BROKEN)
 		icon_state = (beaker ? "pand1_b" : "pand0_b")
 		return
 
@@ -259,9 +259,9 @@
 			. = TRUE
 
 /obj/machinery/computer/pandemic/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/reagent_containers) && !CHECK_BITFIELD(item.item_flags, ABSTRACT) && item.is_open_container())
+	if(istype(item, /obj/item/reagent_containers) && !(item.item_flags & ABSTRACT) && item.is_open_container())
 		. = TRUE //no afterattack
-		if(CHECK_BITFIELD(machine_stat, (NOPOWER|BROKEN)))
+		if(machine_stat & (NOPOWER|BROKEN))
 			return
 		if(!QDELETED(beaker))
 			to_chat(user, span_warning("A container is already loaded into [src]!"))

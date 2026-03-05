@@ -295,10 +295,10 @@
 	status = !status
 	if(status)
 		balloon_alert(user, "You close the fuel tank.")
-		DISABLE_BITFIELD(reagents.flags, OPENCONTAINER)
+		reagents.flags &= ~OPENCONTAINER
 	else
 		balloon_alert(user, "You can now attach, modify and refuel [src].")
-		ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
+		reagents.flags |= OPENCONTAINER
 	add_fingerprint(user)
 
 /obj/item/weldingtool/proc/flamethrower_rods(obj/item/I, mob/user)

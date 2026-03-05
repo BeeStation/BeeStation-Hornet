@@ -7,7 +7,7 @@
 	return ..()
 
 /mob/living/carbon/could_speak_language(datum/language/language_path)
-	if(CHECK_BITFIELD(initial(language_path.flags), TONGUELESS_SPEECH))
+	if(initial(language_path.flags) & TONGUELESS_SPEECH)
 		return TRUE
 	var/obj/item/organ/tongue/spoken_with = get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(spoken_with)

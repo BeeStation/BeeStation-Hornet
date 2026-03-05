@@ -35,7 +35,7 @@
 			return FALSE
 
 /datum/dynamic_ruleset/midround/ghost/select_player()
-	var/mob/candidate = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/candidate = (ruleset_flags & SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= candidate
 
 	if(!isobserver(candidate))

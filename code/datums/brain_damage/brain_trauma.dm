@@ -26,7 +26,7 @@
 	return ..()
 
 /datum/brain_trauma/proc/on_clone()
-	if(CHECK_BITFIELD(trauma_flags, TRAUMA_CLONEABLE))
+	if(trauma_flags & TRAUMA_CLONEABLE)
 		return new type
 
 //Called on life ticks

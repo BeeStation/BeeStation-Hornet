@@ -136,10 +136,10 @@
 		// Are we allowed security?
 		var/datum/job/job = SSjob.GetJob(mind.assigned_role)
 		if (istype(job, /datum/job))
-			if (!sec_allowed && CHECK_BITFIELD(job.departments, DEPT_BITFLAG_SEC))
+			if (!sec_allowed && (job.departments & DEPT_BITFLAG_SEC))
 				continue
 			// Are they a head?
-			if (CHECK_BITFIELD(job.departments, DEPT_BITFLAG_COM))
+			if (job.departments & DEPT_BITFLAG_COM)
 				continue
 		// Mind is a target
 		var/is_target = FALSE

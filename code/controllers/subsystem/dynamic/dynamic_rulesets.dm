@@ -100,7 +100,7 @@
 /datum/dynamic_ruleset/proc/success()
 	SHOULD_CALL_PARENT(TRUE)
 	executed_at = world.time - SSticker.round_start_time
-	if (CHECK_BITFIELD(ruleset_flags, SHOULD_PROCESS_RULESET))
+	if (ruleset_flags & SHOULD_PROCESS_RULESET)
 		SSdynamic.rulesets_to_process += src
 
 /**
@@ -164,7 +164,7 @@
  * If we have the SHOULD_USE_ANTAG_REP flag, take antag_rep into account.
  */
 /datum/dynamic_ruleset/proc/select_player()
-	var/mob/selected_player = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/selected_player = (ruleset_flags & SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= selected_player
 	return selected_player
 

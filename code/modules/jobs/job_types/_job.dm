@@ -537,17 +537,17 @@
 	. = minimal_lightup_areas.Copy()
 	if(!minimal_access)
 		. |= lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_COM))
+	if(departments & DEPT_BITFLAG_COM)
 		. |= GLOB.command_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_ENG))
+	if(departments & DEPT_BITFLAG_ENG)
 		. |= GLOB.engineering_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_MED))
+	if(departments & DEPT_BITFLAG_MED)
 		. |= GLOB.medical_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SCI))
+	if(departments & DEPT_BITFLAG_SCI)
 		. |= GLOB.science_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_CAR))
+	if(departments & DEPT_BITFLAG_CAR)
 		. |= GLOB.supply_lightup_areas
-	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SEC))
+	if(departments & DEPT_BITFLAG_SEC)
 		. |= GLOB.security_lightup_areas
 
 /datum/job/proc/available_in_days(client/C)

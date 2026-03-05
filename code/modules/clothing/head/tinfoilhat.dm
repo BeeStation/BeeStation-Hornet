@@ -22,7 +22,7 @@
 	if(paranoia)
 		QDEL_NULL(paranoia)
 	paranoia = new()
-	DISABLE_BITFIELD(paranoia.trauma_flags, TRAUMA_CLONEABLE)
+	paranoia.trauma_flags &= ~TRAUMA_CLONEABLE
 
 	RegisterSignal(user, COMSIG_HUMAN_SUICIDE_ACT, PROC_REF(call_suicide))
 

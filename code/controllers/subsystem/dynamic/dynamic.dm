@@ -520,7 +520,7 @@ SUBSYSTEM_DEF(dynamic)
 	// Deal with the NO_OTHER_RULESETS flag
 	if(no_other_rulesets)
 		for(var/datum/dynamic_ruleset/supplementary/ruleset in executed_supplementary_rulesets)
-			if(CHECK_BITFIELD(ruleset.ruleset_flags, NO_OTHER_RULESETS))
+			if(ruleset.ruleset_flags & NO_OTHER_RULESETS)
 				continue
 
 			var/are_we_forced = FALSE
@@ -666,13 +666,13 @@ SUBSYSTEM_DEF(dynamic)
 
 	// Check for bitflags
 	for(var/datum/dynamic_ruleset/other_ruleset in applied_rulesets)
-		if(CHECK_BITFIELD(other_ruleset.ruleset_flags, HIGH_IMPACT_RULESET) && CHECK_BITFIELD(ruleset.ruleset_flags, HIGH_IMPACT_RULESET))
+		if((other_ruleset.ruleset_flags & HIGH_IMPACT_RULESET) && (ruleset.ruleset_flags & HIGH_IMPACT_RULESET))
 			return TRUE
 
-		if(CHECK_BITFIELD(other_ruleset.ruleset_flags, NO_OTHER_RULESETS))
+		if(other_ruleset.ruleset_flags & NO_OTHER_RULESETS)
 			return TRUE
 
-		if(other_ruleset.type == ruleset.type && CHECK_BITFIELD(other_ruleset.ruleset_flags, CANNOT_REPEAT))
+		if(other_ruleset.type == ruleset.type && (other_ruleset.ruleset_flags & CANNOT_REPEAT))
 			return TRUE
 
 	return FALSE
@@ -992,7 +992,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/executed_rulesets = executed_supplementary_rulesets | midround_executed_rulesets | gamemode_executed_rulesets
 
 	for(var/datum/dynamic_ruleset/ruleset in executed_rulesets)
-		if(CHECK_BITFIELD(ruleset.ruleset_flags, HIGH_IMPACT_RULESET))
+		if(ruleset.ruleset_flags & HIGH_IMPACT_RULESET)
 			ruleset.round_result()
 			if(SSticker.news_report)
 				return

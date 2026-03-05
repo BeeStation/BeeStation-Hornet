@@ -156,7 +156,7 @@
 
 /obj/item/ammo_casing/shotgun/dart/noreact/Initialize(mapload)
 	. = ..()
-	ENABLE_BITFIELD(reagents.flags, NO_REACT)
+	reagents.flags |= NO_REACT
 
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."

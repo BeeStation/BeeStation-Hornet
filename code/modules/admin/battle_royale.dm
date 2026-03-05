@@ -205,7 +205,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	GLOB.enter_allowed = TRUE
 
 	//BR finished? Let people play as borgs/golems again
-	ENABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
+	GLOB.ghost_role_flags |= (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS)
 
 	GLOB.battle_royale = null
 
@@ -273,7 +273,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	GLOB.enter_allowed = FALSE
 
 	//Don't let anyone join as posibrains/golems etc
-	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
+	GLOB.ghost_role_flags &= ~(GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS)
 
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		to_chat(world, span_boldannounce("Battle Royale: Waiting for server to be ready..."))

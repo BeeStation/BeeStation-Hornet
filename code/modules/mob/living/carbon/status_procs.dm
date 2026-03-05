@@ -33,7 +33,7 @@
 		if(special_method)
 			for(var/T in B.traumas)
 				var/datum/brain_trauma/trauma = T
-				if(CHECK_BITFIELD(trauma.trauma_flags, TRAUMA_SPECIAL_CURE_PROOF))
+				if(trauma.trauma_flags & TRAUMA_SPECIAL_CURE_PROOF)
 					continue
 				. += trauma
 		else

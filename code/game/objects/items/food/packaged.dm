@@ -29,7 +29,7 @@
 /obj/item/food/canned/proc/open_can(mob/user)
 	to_chat(user, "You pull back the tab of \the [src].")
 	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)
-	ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
+	reagents.flags |= OPENCONTAINER
 
 /obj/item/food/canned/attack_self(mob/user)
 	if(!is_drainable())
