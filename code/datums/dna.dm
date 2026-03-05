@@ -25,7 +25,8 @@
 	if(istype(new_holder))
 		holder = new_holder
 	//Add our size stuff so we can simulate short people
-	height_displacement = holder?.AddComponent(/datum/component/height_filter, 'icons/effects/64x64.dmi', species?.height_icon_state)
+	if(species?.height_icon_state)
+		height_displacement = holder?.AddComponent(/datum/component/height_filter, 'icons/effects/64x64.dmi', species.height_icon_state)
 	update_body_size()
 
 /datum/dna/Destroy()
