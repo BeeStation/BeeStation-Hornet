@@ -435,14 +435,15 @@
 	chosen_ghost = T.get_ghost(TRUE,TRUE) //Try to grab original owner's ghost first
 
 	if(!chosen_ghost || !chosen_ghost.client) //Failing that, we grab a ghosts
-		var/datum/poll_config/config = new()
-		config.check_jobban = ROLE_CULTIST
-		config.poll_time = 10 SECONDS
-		config.ignore_category = POLL_IGNORE_CULT_SHADE
-		config.jump_target = T
-		config.role_name_text = "shade"
-		config.alert_pic = /mob/living/simple_animal/shade
-		config.amount_to_pick = 1
+		var/datum/poll_config/config = new(
+			check_jobban = ROLE_CULTIST,
+			poll_time = 10 SECONDS,
+			ignore_category = POLL_IGNORE_CULT_SHADE,
+			jump_target = T,
+			role_name_text = "shade",
+			alert_pic = /mob/living/simple_animal/shade,
+			amount_to_pick = 1,
+		)
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, T)
 
 		if(candidate)

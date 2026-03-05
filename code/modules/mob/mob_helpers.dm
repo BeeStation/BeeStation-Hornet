@@ -342,14 +342,15 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/datum/poll_config/config = new()
-	config.question = poll_message
-	config.check_jobban = ban_key
-	config.role_name_text = M.real_name
-	config.poll_time = 10 SECONDS
-	config.jump_target = M
-	config.alert_pic = M
-	config.amount_to_pick = 1
+	var/datum/poll_config/config = new(
+		question = poll_message,
+		check_jobban = ban_key,
+		role_name_text = M.real_name,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		alert_pic = M,
+		amount_to_pick = 1,
+	)
 	return config
 
 ///Clicks a random nearby mob with the source from this mob

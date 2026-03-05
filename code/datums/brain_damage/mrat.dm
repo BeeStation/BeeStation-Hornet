@@ -12,14 +12,15 @@
 
 /datum/brain_trauma/special/imaginary_friend/mrat/get_ghost()
 	set waitfor = FALSE
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_IMAGINARY_FRIEND
-	config.poll_time = 10 SECONDS
-	config.ignore_category = POLL_IGNORE_MRAT
-	config.jump_target = friend
-	config.role_name_text = "[owner]'s mentor rat"
-	config.alert_pic = owner
-	config.amount_to_pick = 1
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_IMAGINARY_FRIEND,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_MRAT,
+		jump_target = friend,
+		role_name_text = "[owner]'s mentor rat",
+		alert_pic = owner,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_mentor_ghost_candidates(config)
 	if(!candidate)
 		to_chat(owner, span_warning("No mentor responded to your request. Try again later."))

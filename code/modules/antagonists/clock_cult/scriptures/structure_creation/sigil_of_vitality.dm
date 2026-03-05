@@ -61,15 +61,16 @@
 			if(living_target.mind)
 				living_target.mind.grab_ghost(TRUE)
 			else
-				var/datum/poll_config/config = new()
-				config.question = "Do you want to play as a [living_target.name], an inactive clock cultist?"
-				config.role = /datum/role_preference/roundstart/clock_cultist
-				config.check_jobban = ROLE_SERVANT_OF_RATVAR
-				config.poll_time = 10 SECONDS
-				config.jump_target = living_target
-				config.role_name_text = "inactive clock cultist"
-				config.alert_pic = living_target
-				config.amount_to_pick = 1
+				var/datum/poll_config/config = new(
+					question = "Do you want to play as a [living_target.name], an inactive clock cultist?",
+					role = /datum/role_preference/roundstart/clock_cultist,
+					check_jobban = ROLE_SERVANT_OF_RATVAR,
+					poll_time = 10 SECONDS,
+					jump_target = living_target,
+					role_name_text = "inactive clock cultist",
+					alert_pic = living_target,
+					amount_to_pick = 1,
+				)
 
 				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, living_target)
 				if(candidate)

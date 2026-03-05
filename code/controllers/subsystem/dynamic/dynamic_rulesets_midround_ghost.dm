@@ -88,14 +88,15 @@
 	SSdynamic.midround_executed_rulesets -= src
 
 /datum/dynamic_ruleset/midround/ghost/proc/make_persistent(silent)
-	var/datum/poll_config/config = new()
-	config.role_name_text = initial(antag_datum.name)
-	config.alert_pic = get_poll_icon()
-	config.check_candidate = CALLBACK(src, PROC_REF(is_allowed))
-	config.silent = silent
-	config.include_in_spawners = TRUE
-	config.requires_confirmation = TRUE
-	config.can_hide = TRUE
+	var/datum/poll_config/config = new(
+		role_name_text = initial(antag_datum.name),
+		alert_pic = get_poll_icon(),
+		check_candidate = CALLBACK(src, PROC_REF(is_allowed)),
+		silent = silent,
+		include_in_spawners = TRUE,
+		requires_confirmation = TRUE,
+		can_hide = TRUE,
+	)
 	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(config)
 	poll.on_signup = CALLBACK(src, PROC_REF(check_ready))
 	src.poll = poll
@@ -152,9 +153,10 @@
 	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 	log_dynamic("MIDROUND: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 
-	var/datum/poll_config/config = new()
-	config.role_name_text = initial(antag_datum.name)
-	config.alert_pic = get_poll_icon()
+	var/datum/poll_config/config = new(
+		role_name_text = initial(antag_datum.name),
+		alert_pic = get_poll_icon(),
+	)
 	candidates = SSpolling.poll_ghost_candidates(config)
 
 	if(length(candidates) >= drafted_players_amount)
