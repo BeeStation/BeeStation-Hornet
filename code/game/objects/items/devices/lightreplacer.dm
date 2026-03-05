@@ -143,25 +143,28 @@
 			to_chat(user, span_warning("\The [src] is full!"))
 			return
 
-		to_chat(user, span_notice("You fill \the [src] with lights from \the [S]. " + status_string() + ""))
+		to_chat(user, span_notice("You fill \the [src] with lights from \the [S]. [status_string()]"))
 
 /obj/item/lightreplacer/should_emag(mob/user)
 	return emaggable && ..()
 
 /obj/item/lightreplacer/on_emag(mob/user)
-	..()
-	playsound(src.loc, "sparks", 100, 1)
-	name = "shortcircuited [initial(name)]"
-	update_icon()
+	. = ..()
+	playsound(src, "sparks", 100, TRUE)
+	update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
-	to_chat(user, status_string())
+	to_chat(user, span_notice(status_string()))
+
+/obj/item/lightreplacer/update_name(updates)
+	. = ..()
+	name = (obj_flags & EMAGGED) ? "shortcircuited [initial(name)]" : initial(name)
 
 /obj/item/lightreplacer/update_icon_state()
+	. = ..()
 	icon_state = "lightreplacer[(obj_flags & EMAGGED ? 1 : 0)]"
-	return ..()
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."

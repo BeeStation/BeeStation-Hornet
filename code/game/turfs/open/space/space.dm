@@ -73,7 +73,7 @@
 
 	var/area/A = loc
 	if(IS_DYNAMIC_LIGHTING(A))
-		overlays += GLOB.starlight_overlay
+		add_overlay(GLOB.starlight_overlay)
 
 	if(requires_activation)
 		SSair.add_to_active(src, TRUE)

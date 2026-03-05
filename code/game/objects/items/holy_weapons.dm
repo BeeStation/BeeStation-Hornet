@@ -234,9 +234,9 @@
 			"Force Weapon" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "swordon"),
 			"Hanzo Steel" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "katana"),
 			"Extradimensional Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "multiverse"),
-			"Light Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "swordblue"),
-			"Dark Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "swordred"),
-			"Nautical Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "cutlass1"),
+			"Light Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_sword_on_blue"),
+			"Dark Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_sword_on_red"),
+			"Nautical Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_cutlass_on"),
 			"UNREAL SORD" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "sord"),
 			"Reaper Scythe" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "scythe1"),
 			"High Frequency Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "hfrequency1"),
@@ -254,11 +254,11 @@
 			"Carp-Sie Plushie" = image(icon = 'icons/obj/plushes.dmi', icon_state = "carpplush"),
 			"Monk's Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "bostaff0"),
 			"Arrythmic Knife" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "crysknife"),
-			"Unholy Pitchfork" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pitchfork0"),
+			"Unholy Pitchfork" = image(icon = 'icons/obj/weapons/spear.dmi', icon_state = "pitchfork0"),
 			"Egyptian Staff" = image(icon = 'icons/obj/guns/magic.dmi', icon_state = "pharoah_sceptre"),
 			"Hypertool" = image(icon = 'icons/obj/device.dmi', icon_state = "hypertool"),
 			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear"),
-			"Rainbow Knife" = image(icon = 'icons/obj/slimecrossing.dmi', icon_state = "rainbowknife")
+			"Rainbow Knife" = image(icon = 'icons/obj/knives.dmi', icon_state = "rainbowknife")
 		)
 
 	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
