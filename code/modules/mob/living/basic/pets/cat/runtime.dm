@@ -24,7 +24,7 @@
 
 /mob/living/basic/pet/cat/runtime/Initialize(mapload)
 	. = ..()
-	register_family = CALLBACK(src, PROC_REF(Write_Memory))
+	register_family = CALLBACK(src, PROC_REF(write_memory))
 	SSticker.OnRoundend(register_family)
 	if(mapload)
 		read_memory()
@@ -61,7 +61,7 @@
 	post_birth_callback = null
 	return ..()
 
-/mob/living/basic/pet/cat/runtime/Write_Memory(dead, gibbed)
+/mob/living/basic/pet/cat/runtime/write_memory(dead, gibbed)
 	. = ..()
 	if(!.)
 		return

@@ -371,7 +371,7 @@
 		var/turf/target = get_turf(loc)
 		if(target)
 			new /mob/living/basic/pet/dog/corgi/puppy/ian(target)
-			Write_Memory(FALSE)
+			write_memory(FALSE)
 			return INITIALIZE_HINT_QDEL
 	else if(age == record_age)
 		icon_state = "old_corgi"
@@ -394,7 +394,7 @@
 
 /mob/living/basic/pet/dog/corgi/ian/death()
 	if(!memory_saved)
-		Write_Memory(TRUE)
+		write_memory(TRUE)
 	return ..()
 
 /mob/living/basic/pet/dog/corgi/ian/narsie_act()
@@ -404,7 +404,7 @@
 	investigate_log("has been gibbed and replaced with Nars-Ian by Nar'Sie.", INVESTIGATE_DEATHS)
 	gib()
 
-/mob/living/basic/pet/dog/corgi/ian/Write_Memory(dead, gibbed)
+/mob/living/basic/pet/dog/corgi/ian/write_memory(dead, gibbed)
 	. = ..()
 	if(!.)
 		return
@@ -453,7 +453,7 @@
 ///Checks whether Ian has survived the round or not
 /mob/living/basic/pet/dog/corgi/ian/proc/check_ian_survival()
 	if(!stat && !memory_saved)
-		Write_Memory(FALSE)
+		write_memory(FALSE)
 
 //NARS-IAN! SQ-Q-QooEglor-r'EEn-nl-luEEEf-f-fth-h
 /mob/living/basic/pet/dog/corgi/narsie

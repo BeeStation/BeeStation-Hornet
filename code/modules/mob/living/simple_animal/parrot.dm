@@ -912,7 +912,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 /mob/living/simple_animal/parrot/Poly/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		Write_Memory(FALSE)
+		write_memory(FALSE)
 		memory_saved = TRUE
 	..()
 
@@ -920,7 +920,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(HAS_TRAIT(src, TRAIT_DONT_WRITE_MEMORY))
 		return ..() // Don't read memory either.
 	if(!memory_saved)
-		Write_Memory(TRUE)
+		write_memory(TRUE)
 	if(rounds_survived == longest_survival || rounds_survived == longest_deathstreak || prob(0.666))
 		var/mob/living/simple_animal/parrot/Poly/ghost/G = new(loc)
 		if(mind)
@@ -949,7 +949,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!islist(speech_buffer))
 		speech_buffer = list()
 
-/mob/living/simple_animal/parrot/Poly/Write_Memory(dead)
+/mob/living/simple_animal/parrot/Poly/write_memory(dead)
 	. = ..()
 	if(!.)
 		return
