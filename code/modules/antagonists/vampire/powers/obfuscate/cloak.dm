@@ -6,25 +6,25 @@
 		Additionally, while Cloak is active, you are completely invisible to silicons."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
-	vitaecost = 50
-	constant_vitaecost = 1
+	vitaecost = 20
+	constant_vitaecost = 0.75
 	sol_multiplier = 2.5
 	cooldown_time = 5 SECONDS
 	var/cloaklevel = 20
 
 /datum/action/vampire/cloak/two
-	vitaecost = 40
-	constant_vitaecost = 2
+	vitaecost = 20
+	constant_vitaecost = 1
 	cloaklevel = 15
 
 /datum/action/vampire/cloak/three
-	vitaecost = 30
-	constant_vitaecost = 3
+	vitaecost = 20
+	constant_vitaecost = 1.25
 	cloaklevel = 10
 
 /datum/action/vampire/cloak/four
 	vitaecost = 20
-	constant_vitaecost = 4
+	constant_vitaecost = 1.5
 	cloaklevel = 5
 
 /// Must have nobody around to see the cloak
@@ -39,7 +39,6 @@
 	. = ..()
 	check_witnesses()
 	var/mob/living/user = owner
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/cloak)
 	user.AddElement(/datum/element/digital_camo)
 	user.balloon_alert(user, "cloak turned on.")
 	animate(owner, alpha = cloaklevel, time = 1 SECONDS)
@@ -59,9 +58,5 @@
 
 	animate(user, alpha = 255, time = 1 SECONDS)
 	user.RemoveElement(/datum/element/digital_camo)
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/cloak)
 	user.balloon_alert(user, "cloak turned off.")
 	return ..()
-
-/datum/movespeed_modifier/cloak
-	multiplicative_slowdown = 1.5

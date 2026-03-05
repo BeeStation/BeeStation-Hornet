@@ -30,9 +30,9 @@
 						At level 4: Gain complete stun immunity."
 	power_flags = BP_AM_TOGGLE | BP_AM_COSTLESS_UNCONSCIOUS
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED
-	vitaecost = 50
+	vitaecost = 20
 	cooldown_time = 5 SECONDS
-	constant_vitaecost = 1
+	constant_vitaecost = 0.75
 
 	var/resistance = 0.8
 
@@ -45,15 +45,15 @@
 	var/calculated_burn_resist // do not touch
 
 /datum/action/vampire/fortitude/two
-	vitaecost = 40
-	constant_vitaecost = 2
+	vitaecost = 20
+	constant_vitaecost = 1
 	resistance = 0.6
 	pierce = TRUE
 	push = TRUE
 
 /datum/action/vampire/fortitude/three
-	vitaecost = 30
-	constant_vitaecost = 3
+	vitaecost = 20
+	constant_vitaecost = 1.25
 	resistance = 0.4
 	pierce = TRUE
 	push = TRUE
@@ -61,7 +61,7 @@
 
 /datum/action/vampire/fortitude/four
 	vitaecost = 20
-	constant_vitaecost = 4
+	constant_vitaecost = 1.5
 	resistance = 0.3
 	pierce = TRUE
 	push = TRUE

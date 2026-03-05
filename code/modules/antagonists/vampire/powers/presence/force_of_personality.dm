@@ -7,8 +7,8 @@
 						Targets must be able to see you to be affected."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY
-	vitaecost = 30
-	constant_vitaecost = 2
+	vitaecost = 20
+	constant_vitaecost = 1
 	cooldown_time = 10 SECONDS
 	/// The range of the aura in tiles, this is further than the actual effect just so we can hit them with the status effect before they even get close enough.
 	var/aura_range = 7
