@@ -769,7 +769,7 @@
 		message_admins("Admin logout: [key_name(src)]")
 		return
 
-	if(!logout && CONFIG_GET(flag/announce_admin_login) && (prefs.toggles & ANNOUNCE_LOGIN))
+	if(!logout && CONFIG_GET(flag/announce_admin_login))
 		message_admins("Admin login: [key_name(src)]")
 		return
 
