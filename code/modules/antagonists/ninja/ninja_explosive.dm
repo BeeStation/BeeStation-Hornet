@@ -73,6 +73,11 @@
 		return
 	if (isnull(ninja))
 		return
+	var/datum/antagonist/ninja/ninja_antag = IS_SPACE_NINJA(ninja)
+	if (isnull(ninja_antag))
+		return
+	var/datum/objective/plant_explosive/objective = locate() in ninja_antag.objectives
+	objective?.completed = TRUE
 
 /**
  * check_loc
