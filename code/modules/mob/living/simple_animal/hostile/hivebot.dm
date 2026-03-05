@@ -30,11 +30,8 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 
 	footstep_type = FOOTSTEP_MOB_CLAW
-	hardattacks = TRUE
-
-/mob/living/simple_animal/hostile/hivebot/Initialize(mapload)
-	. = ..()
 	death_message = "[src] blows apart!"
+	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "hivebot"
