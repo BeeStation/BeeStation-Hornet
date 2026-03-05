@@ -364,7 +364,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		parts += "[GLOB.TAB]Survival Rate: <B>[popcount[POPCOUNT_SURVIVORS]] ([PERCENT(popcount[POPCOUNT_SURVIVORS]/total_players)]%)</B>"
 		if(SSblackbox.first_death)
 			var/list/ded = SSblackbox.first_death
-			if(ded.len)
+			if(length(ded))
 				parts += "[GLOB.TAB]First Death: <b>[ded["name"]], [ded["role"]], at [ded["area"]]. Damage taken: [ded["damage"]].[ded["last_words"] ? " Their last words were: \"[ded["last_words"]]\"" : ""]</b>"
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
@@ -850,7 +850,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 				discordmsg += "- **[antag_name]**:\n"
 
 	var/list/ded = SSblackbox.first_death
-	if(ded)
+	if(length(ded))
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
 		var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
 		discordmsg += "[last_words]\n"
