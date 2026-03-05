@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(vsociety)
 	name = "Vampire Society"
-	wait = 10 MINUTES * 2	// For some reason this actually fires at HALF this time.
-	flags = SS_NO_INIT | SS_BACKGROUND | SS_TICKER
+	wait = 10 MINUTES	// For some reason this actually fires at HALF this time.
+	flags = SS_NO_INIT | SS_BACKGROUND
 	can_fire = FALSE
 
 	// Are we currently polling?
