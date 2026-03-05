@@ -693,7 +693,7 @@
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		var/damage = take_damage(4, BRUTE, MELEE, 1)
+		var/damage = take_damage(4, BRUTE, MELEE, 1, get_dir(src, user))
 		user.visible_message(span_danger("[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]"), null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)

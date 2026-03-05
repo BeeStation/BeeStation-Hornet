@@ -19,7 +19,11 @@
 	low_threshold = 45
 	high_threshold = 120
 
-	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP)
+	organ_traits = list(
+		TRAIT_ADVANCEDTOOLUSER,
+		//TRAIT_LITERATE,
+		TRAIT_CAN_STRIP
+	)
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
@@ -282,10 +286,15 @@
 	icon_state = "brain-x"
 	organ_traits = list(TRAIT_CAN_STRIP)
 
-/obj/item/organ/brain/primitive
+/obj/item/organ/brain/primitive //No like books and stompy metal men
 	name = "primitive brain"
 	desc = "This juicy piece of meat has a clearly underdeveloped frontal lobe."
-	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP, TRAIT_PRIMITIVE)
+	organ_traits = list(
+		TRAIT_ADVANCEDTOOLUSER,
+		TRAIT_CAN_STRIP,
+		TRAIT_PRIMITIVE, // No literacy
+	)
+
 
 /obj/item/organ/brain/primate
 	name = "primate brain"
