@@ -101,7 +101,7 @@
 		for(var/obj/item/paper/the_paper as anything in bin.papers) // Search for the first blank sheet of paper, then toss it in
 			if(stored_paper >= max_paper)
 				break
-			if(LAZYLEN(the_paper.raw_text_inputs)) // Uh oh, paper has words!
+			if(the_paper.get_total_length()) // Uh oh, paper has words!
 				continue
 			num_to_add++
 			stored_paper++
