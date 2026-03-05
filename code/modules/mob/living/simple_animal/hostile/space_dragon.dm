@@ -171,10 +171,15 @@
 	empty_contents()
 	..()
 	update_dragon_overlay()
+	UnregisterSignal(small_sprite, COMSIG_ACTION_TRIGGER)
 
 /mob/living/simple_animal/hostile/space_dragon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	var/was_dead = stat == DEAD
 	. = ..()
 	update_dragon_overlay()
+
+	if (was_dead)
+		RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(update_dragon_overlay))
 
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
 	set waitfor = FALSE

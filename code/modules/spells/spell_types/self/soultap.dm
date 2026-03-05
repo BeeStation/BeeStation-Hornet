@@ -52,6 +52,7 @@
 		ADD_TRAIT(user, TRAIT_NO_SOUL, MAGIC_TRAIT)
 
 		user.visible_message(("<span class='danger'>[user] suddenly dies!</span>"), ignored_mobs = user)
+		user.investigate_log("has been killed by soul tap.", INVESTIGATE_DEATHS)
 		user.death()
 
 	// If the next tap will kill us, give us a heads-up

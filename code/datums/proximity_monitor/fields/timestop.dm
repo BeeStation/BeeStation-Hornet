@@ -19,40 +19,41 @@
 	var/check_holy = FALSE
 	///if true, immune atoms moving ends the timestop instead of duration.
 	var/channelled = FALSE
+	/// hides time icon effect and mutes sound
+	var/hidden = FALSE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 
-/obj/effect/timestop/Initialize(mapload, radius, time, list/immune_atoms, start = TRUE)	//Immune atoms assoc list atom = TRUE
+/obj/effect/timestop/Initialize(mapload, radius, time, list/immune_atoms, start = TRUE) //Immune atoms assoc list atom = TRUE
 	. = ..()
 	if(!isnull(time))
 		duration = time
 	if(!isnull(radius))
 		freezerange = radius
+	if(silent)
+		hidden = TRUE
+		alpha = 0
 	for(var/A in immune_atoms)
 		immune[A] = TRUE
-	for(var/mob/living/L in GLOB.player_list)
-		if(locate(/datum/action/spell.timestop) in L.actions) //People who can stop time are immune to its effects
-			immune[L] = TRUE
-	for(var/mob/living/simple_animal/hostile/holoparasite/G in GLOB.holoparasites)
-		if(G?.summoner?.current)
-			if(((locate(/datum/action/spell/timestop) in G.summoner.current.actions))) //It would only make sense that a person's stand would also be immune.
-				immune[G] = TRUE
-			if(((locate(/datum/action/spell/timestop) in G.actions))) //It would only make sense that a person's stand would also be immune.
-				immune[G.summoner.current] = TRUE
-				for(var/mob/living/simple_animal/hostile/holoparasite/GG in GLOB.holoparasites)
-					if(G.summoner == GG.summoner)
-						immune[GG] = TRUE
+	for(var/mob/living/to_check in GLOB.player_list)
+		if(HAS_TRAIT(to_check, TRAIT_TIME_STOP_IMMUNE))
+			immune[to_check] = TRUE
+	for(var/mob/living/simple_animal/hostile/holoparasite/stand in GLOB.holoparasites)
+		if(stand?.summoner?.current && HAS_TRAIT(stand.summoner, TRAIT_TIME_STOP_IMMUNE)) //It would only make sense that a person's stand would also be immune.
+			immune[stand] = TRUE
 	if(start)
-		timestop()
+		INVOKE_ASYNC(src, PROC_REF(timestop))
 
 /obj/effect/timestop/Destroy()
 	QDEL_NULL(chronofield)
-	playsound(src, 'sound/magic/timeparadox2.ogg', 75, TRUE, frequency = -1) //reverse!
+	if(!hidden)
+		playsound(src, 'sound/magic/timeparadox2.ogg', 75, TRUE, frequency = -1) //reverse!
 	return ..()
 
 /obj/effect/timestop/proc/timestop()
 	target = get_turf(src)
-	playsound(src, 'sound/magic/timeparadox2.ogg', 75, 1, -1)
+	if(!hidden)
+		playsound(src, 'sound/magic/timeparadox2.ogg', 75, 1, -1)
 	chronofield = new(src, freezerange, TRUE, immune, check_anti_magic, check_holy, channelled)
 	if(!channelled)
 		QDEL_IN(src, duration)
