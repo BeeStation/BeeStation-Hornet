@@ -60,7 +60,6 @@
 	else // it's spawned but someone occupied already
 		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something Interesting!")
 
-
 /mob/living/get_spawner_desc()
 	return "Become [name]."
 

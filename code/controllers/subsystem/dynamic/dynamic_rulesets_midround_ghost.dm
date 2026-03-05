@@ -157,9 +157,8 @@
 	config.alert_pic = get_poll_icon()
 	candidates = SSpolling.poll_ghost_candidates(config)
 
-	if(length(candidates) >= drafted_players_amount)
-		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
-		log_dynamic("[length(candidates)] player\s volunteered for the ruleset [src].")
+	message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
+	log_dynamic("[length(candidates)] player\s volunteered for the ruleset [src].")
 
 /**
  * Spawn a body for the chosen candidate

@@ -420,7 +420,7 @@
 	if(holder)
 		holder.associate(src)
 		to_chat(src, get_message_output("memo"))
-		adminGreet()
+		admin_greet()
 
 /client/proc/set_client_age_from_db()
 	if(IsAdminAdvancedProcCall())
