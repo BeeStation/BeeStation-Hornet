@@ -32,9 +32,9 @@
 	var/list/datum/brain_trauma/traumas = list()
 
 	/// Variance in brain traits added by subtypes
-	var/variant_traits_added
+	var/list/variant_traits_added
 	/// Variance in brain traits removed by subtypes
-	var/variant_traits_removed
+	var/list/variant_traits_removed
 
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
 

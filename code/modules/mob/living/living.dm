@@ -430,7 +430,7 @@
 	if(!..())
 		return FALSE
 	log_message("points at [pointing_at]", LOG_EMOTE)
-	visible_message("<span class='infoplain'>[span_name("[src]")] points at [pointing_at].</span>", span_notice("You point at [pointing_at]."))
+	visible_message(span_infoplain("[span_name("[src]")] points at [pointing_at]."), span_notice("You point at [pointing_at]."))
 
 
 /mob/living/verb/succumb(whispered as null)
@@ -2269,11 +2269,9 @@ GLOBAL_LIST_EMPTY(fire_appearances)
  * This base definition only contains a trait and comsig to stop memory from being (over)written.
  * Specific behavior is defined on subtypes that use it.
  */
-/mob/living/proc/Write_Memory(dead, gibbed)
+/mob/living/proc/write_memory(dead, gibbed)
 	SHOULD_CALL_PARENT(TRUE)
-	if(HAS_TRAIT(src, TRAIT_DONT_WRITE_MEMORY)) //always prevent data from being written.
-		return FALSE
-	return TRUE
+	return !HAS_TRAIT(src, TRAIT_DONT_WRITE_MEMORY) //always prevent data from being written.
 
 /// Admin only proc for giving a certain speech impediment to this mob
 /mob/living/proc/admin_give_speech_impediment(mob/admin)
