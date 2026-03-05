@@ -168,6 +168,16 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
+	// At this point in client Click() code we have passed the 1/10 sec check and little else
+	// We don't even know if it's a middle click
+	if(world.time <= usr.next_move)
+		return TRUE
+
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_STASIS))
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
+
 	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
@@ -291,16 +301,11 @@
 	icon_state = "backpack_close"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/component/master = null
-
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
 	master_ref = WEAKREF(new_master)
-	//if (master && !istype(master))
-	//	CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
 
 /atom/movable/screen/close/Click()
 	var/datum/storage/storage = master_ref?.resolve()
@@ -464,10 +469,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	. = ..()
 	master_ref = WEAKREF(new_master)
 
-/atom/movable/screen/storage/attackby(location, control, params)
+/atom/movable/screen/storage/Click(location, control, params)
 	var/datum/storage/storage_master = master_ref?.resolve()
 	if(!istype(storage_master))
 		return FALSE
+
+	if(world.time <= usr.next_move)
+		return TRUE
+	if(usr.incapacitated)
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)

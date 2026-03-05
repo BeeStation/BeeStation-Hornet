@@ -370,10 +370,6 @@
   * on the item in the slot if the users active hand is empty
   */
 /mob/proc/attack_ui(slot, params)
-	if(world.time <= usr.next_move)
-		return FALSE
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return FALSE
 	var/obj/item/W = get_active_held_item()
 	if(istype(W))
 		//IF HELD TRY APPLY TO SLOT
@@ -1561,7 +1557,6 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
 	. = stat
 	stat = new_stat
-	update_action_buttons_icon(TRUE)
 
 /mob/key_down(key, client/client, full_key)
 	..()

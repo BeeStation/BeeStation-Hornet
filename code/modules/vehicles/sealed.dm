@@ -1,5 +1,5 @@
 /obj/vehicle/sealed
-	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 | NO_DIRECT_ACCESS_FROM_CONTENTS_1
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	var/enter_delay = 2 SECONDS
 	var/mouse_pointer
 

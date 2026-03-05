@@ -162,16 +162,12 @@
 	SIGNAL_HANDLER
 	mobility_flags &= ~(MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
 	on_handsblocked_start()
-	if (active_storage)
-		active_storage.hide_contents(src)
-	update_action_buttons_icon(TRUE)
 
 /// Called when [TRAIT_HANDS_BLOCKED] is removed from the mob.
 /mob/living/proc/on_handsblocked_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
 	on_handsblocked_end()
-	update_action_buttons_icon(TRUE)
 
 
 /// Called when [TRAIT_UI_BLOCKED] is added to the mob.
@@ -206,7 +202,6 @@
 	SIGNAL_HANDLER
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_INCAPACITATED)
 	update_appearance()
-	update_action_buttons_icon(TRUE)
 	update_incapacitated()
 
 /// Called when [TRAIT_INCAPACITATED] is removed from the mob.
@@ -214,7 +209,6 @@
 	SIGNAL_HANDLER
 	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_INCAPACITATED)
 	update_appearance()
-	update_action_buttons_icon(TRUE)
 	update_incapacitated()
 
 /// Called when [TRAIT_RESTRAINED] is added to the mob.
