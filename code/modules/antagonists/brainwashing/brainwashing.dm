@@ -119,6 +119,10 @@
 	if(owner.antag_hud_icon_state == "brainwash")
 		set_antag_hud(owner.current, null)
 
+/datum/antagonist/brainwashed/on_mindshield(mob/implanter)
+	unbrainwash(owner.current)
+	return COMPONENT_MINDSHIELD_DECONVERTED
+
 /datum/antagonist/brainwashed/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/C = new_owner.current
 	if(!istype(C))

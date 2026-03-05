@@ -16,5 +16,17 @@
 /// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
 #define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
 
-/// called on implants, after an implant has been removed: (mob/living/source, silent, removed)
+/// called on implants, after an implant has been removed: (mob/living/source, silent, destroyed)
 #define COMSIG_IMPLANT_REMOVED "implant_removed"
+
+/// called as a mindshield is implanted: (mob/user)
+#define COMSIG_PRE_MINDSHIELD_IMPLANT "pre_mindshield_implant"
+	/// Did they successfully get mindshielded?
+	#define COMPONENT_MINDSHIELD_PASSED (NONE)
+	/// Did they resist the mindshield?
+	#define COMPONENT_MINDSHIELD_RESISTED (1<<0)
+
+/// called once a mindshield is implanted: (mob/user)
+#define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
+	/// Are we the reason for deconversion?
+	#define COMPONENT_MINDSHIELD_DECONVERTED (1<<0)

@@ -155,6 +155,11 @@
 			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.update_body()
 
+/datum/antagonist/cult/on_mindshield(mob/implanter)
+	if(!silent)
+		to_chat(owner.current, span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
+	return
+
 /datum/antagonist/cult/master/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current = owner.current

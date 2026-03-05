@@ -23,6 +23,11 @@
 /datum/antagonist/vassal/antag_panel_data()
 	return "Master : [master.owner.name]"
 
+/datum/antagonist/vassal/pre_mindshield(mob/implanter, mob/living/mob_override)
+	if(!silent)
+		to_chat(owner.current, span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
+	return COMPONENT_MINDSHIELD_RESISTED
+
 /datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current

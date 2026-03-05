@@ -24,8 +24,6 @@
 	var/speech_action_icon_state = "link_speech"
 	/// The icon background for the speech action handed out.
 	var/speech_action_background_icon_state = "bg_alien"
-	/// The border icon state for the speech action handed out.
-	var/speech_action_overlay_state = "bg_alien_border"
 	/// The master's linking action, which allows them to link people to the network.
 	var/datum/action/linker_action
 	/// The master's speech action. The owner of the link shouldn't lose this as long as the link remains.
@@ -40,13 +38,11 @@
 	linker_action_path,
 	link_message,
 	unlink_message,
+	signals_which_destroy_us,
+	datum/callback/post_unlink_callback,
 	speech_action_icon = 'icons/hud/actions/actions_slime.dmi',
 	speech_action_icon_state = "link_speech",
 	speech_action_background_icon_state = "bg_alien",
-	speech_action_overlay_state = "bg_alien_border",
-	// Optional
-	signals_which_destroy_us,
-	datum/callback/post_unlink_callback,
 	)
 
 	if(!isliving(parent))
@@ -79,7 +75,7 @@
 
 	to_chat(owner, span_boldnotice("You establish a [network_name], allowing you to link minds to communicate telepathically."))
 
-/datum/component/mind_linker/Destroy(force)
+/datum/component/mind_linker/Destroy(force, silent)
 	for(var/mob/living/remaining_mob as anything in linked_mobs)
 		unlink_mob(remaining_mob)
 	linked_mobs.Cut()
@@ -104,6 +100,10 @@
 /datum/component/mind_linker/proc/link_mob(mob/living/to_link)
 	if(QDELETED(to_link) || to_link.stat == DEAD)
 		return FALSE
+	if(HAS_TRAIT(to_link, TRAIT_MINDSHIELD)) // Mindshield implant - no dice
+		return FALSE
+	if(to_link.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
+		return FALSE
 	if(linked_mobs[to_link])
 		return FALSE
 
@@ -121,7 +121,7 @@
 	new_link.Grant(to_link)
 
 	linked_mobs[to_link] = new_link
-	RegisterSignals(to_link, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(unlink_mob))
+	RegisterSignals(to_link, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MINDSHIELD_IMPLANTED), PROC_REF(unlink_mob))
 
 	return TRUE
 
@@ -140,7 +140,7 @@
 	to_chat(to_unlink, span_warning(unlink_message))
 	post_unlink_callback?.Invoke(to_unlink)
 
-	UnregisterSignal(to_unlink, list(COMSIG_LIVING_DEATH))
+	UnregisterSignal(to_unlink, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MINDSHIELD_IMPLANTED))
 
 	var/datum/action/innate/linked_speech/old_link = linked_mobs[to_unlink]
 	linked_mobs -= to_unlink
@@ -171,6 +171,7 @@
 	button_icon_state = "link_speech"
 	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
+	overlay_icon_state = "bg_alien_border"
 
 /datum/action/innate/linked_speech/New(Target)
 	. = ..()
@@ -186,10 +187,11 @@
 	button_icon_state = linker.speech_action_icon_state
 	background_icon_state = linker.speech_action_background_icon_state
 
-/datum/action/innate/linked_speech/is_available()
+/datum/action/innate/linked_speech/IsAvailable(feedback = FALSE)
 	return ..() && (owner.stat != DEAD)
 
-/datum/action/innate/linked_speech/on_activate(mob/user, atom/target)
+/datum/action/innate/linked_speech/Activate()
+
 	var/datum/component/mind_linker/linker = target
 	var/mob/living/linker_parent = linker.parent
 

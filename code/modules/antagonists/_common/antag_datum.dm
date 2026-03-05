@@ -115,6 +115,16 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
 	return
 
+/// This is called when the antagonist is being mindshielded.
+/datum/antagonist/proc/pre_mindshield(mob/implanter, mob/living/mob_override)
+	SIGNAL_HANDLER
+	return COMPONENT_MINDSHIELD_PASSED
+
+/// This is called when the antagonist is successfully mindshielded.
+/datum/antagonist/proc/on_mindshield(mob/implanter, mob/living/mob_override)
+	SIGNAL_HANDLER
+	return
+
 //Assign default team and creates one for one of a kind team antagonists
 /datum/antagonist/proc/create_team(datum/team/team)
 	return
@@ -137,6 +147,8 @@ GLOBAL_LIST(admin_antag_list)
 			info_button?.trigger()
 	apply_innate_effects()
 	give_antag_moodies()
+	RegisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT, .proc/pre_mindshield)
+	RegisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED, .proc/on_mindshield)
 	if(is_banned(owner.current) && replace_banned)
 		replace_banned_player()
 	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
@@ -193,6 +205,8 @@ GLOBAL_LIST(admin_antag_list)
 		if(!silent && owner.current)
 			farewell()
 		owner.current.update_action_buttons()
+	UnregisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT)
+	UnregisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED)
 	var/datum/team/team = get_team()
 	if(team)
 		team.remove_member(owner)

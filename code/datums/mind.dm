@@ -179,6 +179,7 @@
 
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFERRED, old_current)
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
+	
 	// Update SSD indicators
 	if(isliving(old_current))
 		old_current.med_hud_set_status()
