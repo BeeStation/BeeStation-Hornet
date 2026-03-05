@@ -141,7 +141,6 @@
 	if(owner.maxHealth)
 		var/health_ratio = owner.health / owner.maxHealth
 
-
 		if(health_ratio > 0.8)
 			var/healing = -0.2
 			if((locate(/obj/structure/bed) in owner.loc))
@@ -151,10 +150,10 @@
 					healing -= 0.1
 
 			var/need_mob_update = FALSE
-			need_mob_update += owner.adjustBruteLoss(healing, updating_health = FALSE)
-			need_mob_update += owner.adjustFireLoss(healing, updating_health = FALSE)
-			need_mob_update += owner.adjustToxLoss(healing * 0.5, updating_health = FALSE, forced = TRUE)
-			need_mob_update += owner.adjustStaminaLoss(healing, updating_health = FALSE)
+			need_mob_update += owner.adjustBruteLoss(healing, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
+			need_mob_update += owner.adjustFireLoss(healing, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
+			need_mob_update += owner.adjustToxLoss(healing * 0.5, updating_health = FALSE, forced = TRUE, required_biotype = MOB_ORGANIC)
+			need_mob_update += owner.adjustStaminaLoss(healing, updating_stamina = FALSE)
 			if(need_mob_update)
 				owner.updatehealth()
 
@@ -358,9 +357,12 @@
 	for(var/obj/item/his_grace/HG in owner.held_items)
 		qdel(src)
 		return
-	owner.adjustBruteLoss(0.1)
-	owner.adjustFireLoss(0.1)
-	owner.adjustToxLoss(0.2, TRUE, TRUE)
+	var/need_mob_update
+	need_mob_update = owner.adjustBruteLoss(0.04 * seconds_between_ticks, updating_health = FALSE)
+	need_mob_update += owner.adjustFireLoss(0.04 * seconds_between_ticks, updating_health = FALSE)
+	need_mob_update += owner.adjustToxLoss(0.08 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
+	if(need_mob_update)
+		owner.updatehealth()
 
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
 	id = "cult_ghost"
@@ -1233,7 +1235,8 @@
 
 /datum/status_effect/ants/tick(seconds_between_ticks)
 	var/mob/living/carbon/human/victim = owner
-	victim.adjustBruteLoss(max(0.1, round((ants_remaining * 0.004),0.1))) //Scales with # of ants (lowers with time). Roughly 10 brute over 50 seconds.
+	var/need_mob_update
+	need_mob_update = victim.adjustBruteLoss(max(0.1, round((ants_remaining * 0.0016) * seconds_between_ticks, 0.1)), updating_health = FALSE) //Scales with # of ants (lowers with time). Roughly 10 brute over 50 seconds.
 	if(victim.stat <= SOFT_CRIT) //Makes sure people don't scratch at themselves while they're in a critical condition
 		if(prob(15))
 			switch(rand(1,2))
@@ -1246,20 +1249,22 @@
 				if (1 to 8) //16% Chance
 					var/obj/item/bodypart/head/hed = victim.get_bodypart(BODY_ZONE_HEAD)
 					to_chat(victim, span_danger("You scratch at the ants on your scalp!"))
-					hed.receive_damage(1,0)
+					need_mob_update += hed.receive_damage(brute = 0.4 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if (9 to 29) //40% chance
 					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
 					to_chat(victim, span_danger("You scratch at the ants on your arms!"))
-					arm.receive_damage(3,0)
+					need_mob_update += arm.receive_damage(brute = 1.2 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if (30 to 49) //38% chance
 					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
 					to_chat(victim, span_danger("You scratch at the ants on your leg!"))
-					leg.receive_damage(3,0)
+					need_mob_update += leg.receive_damage(brute = 1.2 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if(50) // 2% chance
 					to_chat(victim, span_danger("You rub some ants away from your eyes!"))
 					victim.set_eye_blur_if_lower(6 SECONDS)
 					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
 	ants_remaining--
+	if(need_mob_update)
+		victim.updatehealth()
 	if(ants_remaining <= 0 || victim.stat >= HARD_CRIT)
 		victim.remove_status_effect(/datum/status_effect/ants) //If this person has no more ants on them or are dead, they are no longer affected.
 

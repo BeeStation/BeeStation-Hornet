@@ -427,7 +427,7 @@ Difficulty: Hard
 		if(spawned_beacon && loc == spawned_beacon.loc && did_reset)
 			arena_trap(src)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(src && . && !blinking)
 		wander = TRUE

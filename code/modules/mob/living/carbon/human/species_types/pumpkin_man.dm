@@ -121,7 +121,7 @@
 	//Check if the item is sharp - give owner a random face if applicable
 	var/mob/living/carbon/human/M = _source
 	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
-	if(_item.is_sharp() && istype(head) && !_user.combat_mode && _user.is_zone_selected(BODY_ZONE_HEAD))
+	if(_item.get_sharpness() && istype(head) && !_user.combat_mode && _user.is_zone_selected(BODY_ZONE_HEAD))
 		to_chat(_user, span_notice("You begin to carve a face into [_source]..."))
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))

@@ -173,6 +173,7 @@
 	. = ..()
 
 	create_storage(storage_type = /datum/storage/pockets/shoes)
+
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."

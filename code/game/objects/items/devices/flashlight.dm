@@ -344,7 +344,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 			add_emitter(/obj/emitter/flare_smoke, "smoke", 9)
 		START_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/flare/is_hot()
+/obj/item/flashlight/flare/get_temperature()
 	return on * heat
 
 /obj/item/flashlight/flare/torch

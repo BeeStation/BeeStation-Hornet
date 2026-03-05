@@ -118,7 +118,7 @@
 		to_chat(user, span_notice("You try to pet [src], but it has no stuffing. Aww..."))
 
 /obj/item/toy/plush/attackby(obj/item/I, mob/living/user, params)
-	if(I.is_sharp())
+	if(I.get_sharpness())
 		if(!grenade)
 			if(!stuffed)
 				to_chat(user, span_warning("You already murdered it!"))

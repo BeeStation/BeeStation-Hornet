@@ -132,7 +132,7 @@
 	. = ..()
 
 /obj/item/coin/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(0, user)
 	else
 		return ..()

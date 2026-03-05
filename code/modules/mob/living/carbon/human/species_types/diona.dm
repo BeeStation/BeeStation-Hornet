@@ -110,7 +110,7 @@
 	//Dionae heal and eat radiation for a living.
 	source.adjust_nutrition(intensity * 0.1 * delta_time)
 	if(intensity > 50)
-		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_status = BODYTYPE_ORGANIC)
+		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
 		source.adjustToxLoss(-2 * delta_time)
 		source.adjustOxyLoss(-1 * delta_time)
 

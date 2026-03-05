@@ -855,7 +855,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/melee/classic_baton/retractible_stun/bounty{
+/obj/item/melee/baton/telescopic/contractor_baton{
 	pixel_x = 13
 	},
 /obj/item/camera_bug{

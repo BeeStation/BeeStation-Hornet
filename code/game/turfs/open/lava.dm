@@ -65,8 +65,8 @@
 	if(burn_stuff(AM))
 		START_PROCESSING(SSobj, src)
 
-/turf/open/lava/process(seconds_per_tick)
-	if(!burn_stuff(null, seconds_per_tick))
+/turf/open/lava/process(delta_time)
+	if(!burn_stuff(null, delta_time))
 		checked_atoms = null
 		return PROCESS_KILL
 
@@ -123,7 +123,7 @@
 #define LAVA_BE_BURNING 2
 
 ///Proc that sets on fire something or everything on the turf that's not immune to lava. Returns TRUE to make the turf start processing.
-/turf/open/lava/proc/burn_stuff(atom/movable/to_burn, seconds_per_tick = 1)
+/turf/open/lava/proc/burn_stuff(atom/movable/to_burn, delta_time = 1)
 	if(is_safe())
 		return FALSE
 
@@ -136,7 +136,7 @@
 			if(LAVA_BE_IGNORING)
 				continue
 			if(LAVA_BE_BURNING)
-				if(!do_burn(burn_target, seconds_per_tick))
+				if(!do_burn(burn_target, delta_time))
 					continue
 		. = TRUE
 
@@ -183,7 +183,7 @@
 #undef LAVA_BE_PROCESSING
 #undef LAVA_BE_BURNING
 
-/turf/open/lava/proc/do_burn(atom/movable/burn_target, seconds_per_tick = 1)
+/turf/open/lava/proc/do_burn(atom/movable/burn_target, delta_time = 1)
 	if(QDELETED(burn_target))
 		return FALSE
 
@@ -197,7 +197,7 @@
 			burn_obj.resistance_flags &= ~FIRE_PROOF
 		if(burn_obj.get_armor_rating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
 			burn_obj.set_armor_rating(FIRE, 50)
-		burn_obj.fire_act(temperature_damage, 1000 * seconds_per_tick)
+		burn_obj.fire_act(temperature_damage, 1000 * delta_time)
 		if(istype(burn_obj, /obj/structure/closet))
 			for(var/burn_content in burn_target)
 				burn_stuff(burn_content)
@@ -208,9 +208,9 @@
 		if(!HAS_TRAIT_FROM(burn_living, TRAIT_NO_EXTINGUISH, TURF_TRAIT))
 			burn_living.AddElement(/datum/element/perma_fire_overlay)
 			ADD_TRAIT(burn_living, TRAIT_NO_EXTINGUISH, TURF_TRAIT)
-		burn_living.adjust_fire_stacks(lava_firestacks * seconds_per_tick)
+		burn_living.adjust_fire_stacks(lava_firestacks * delta_time)
 		burn_living.ignite_mob()
-		burn_living.adjustFireLoss(lava_damage * seconds_per_tick)
+		burn_living.adjustFireLoss(lava_damage * delta_time)
 		return TRUE
 
 	return FALSE

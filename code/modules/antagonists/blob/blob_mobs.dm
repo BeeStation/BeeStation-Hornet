@@ -296,7 +296,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 		healing.color = overmind.blobstrain.complementary_color
 	flick_overlay_view(healing, 0.8 SECONDS)
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(updating_health)
 		update_health_hud()

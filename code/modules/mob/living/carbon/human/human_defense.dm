@@ -436,18 +436,16 @@
 	//Don't go further if the shock was blocked/too weak.
 	if(!.)
 		return
-	//Note we both check that the user is in cardiac arrest and can actually heartattack
-	//If they can't, they're missing their heart and this would runtime
-	if(undergoing_cardiac_arrest() && can_heartattack() && !(flags & SHOCK_ILLUSION))
-		if(shock_damage * siemens_coeff >= 1 && prob(25))
+	if(!(flags & SHOCK_ILLUSION))
+		if(shock_damage * siemens_coeff >= 5)
+			force_say()
+		//Note we both check that the user is in cardiac arrest and can actually heartattack
+		//If they can't, they're missing their heart and this would runtime
+		if(undergoing_cardiac_arrest() && can_heartattack() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 			if(heart.Restart() && stat == CONSCIOUS)
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
-
-/mob/living/carbon/human/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
-	. = ..()
-	force_say(src) //Cut them off if they were talking
 
 /mob/living/carbon/human/emp_act(severity)
 	. = ..()
@@ -820,13 +818,13 @@
  * Used by fire code to damage worn items.
  *
  * Arguments:
- * - seconds_per_tick
+ * - delta_time
  * - times_fired
  * - stacks: Current amount of firestacks
  *
  */
 
-/mob/living/carbon/human/proc/burn_clothing(seconds_per_tick, stacks)
+/mob/living/carbon/human/proc/burn_clothing(delta_time, stacks)
 	var/list/burning_items = list()
 	var/covered = check_covered_slots()
 	//HEAD//
@@ -875,15 +873,15 @@
 			burning_items |= burnable_item
 
 	for(var/obj/item/burning in burning_items)
-		burning.fire_act((stacks * 25 * seconds_per_tick)) //damage taken is reduced to 2% of this value by fire_act()
+		burning.fire_act((stacks * 25 * delta_time)) //damage taken is reduced to 2% of this value by fire_act()
 
-/mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+/mob/living/carbon/human/on_fire_stack(delta_time, datum/status_effect/fire_handler/fire_stacks/fire_handler)
 	SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)
-	burn_clothing(seconds_per_tick, fire_handler.stacks)
+	burn_clothing(delta_time, fire_handler.stacks)
 	var/no_protection = FALSE
 	if(dna && dna.species)
-		no_protection = dna.species.handle_fire(src, seconds_per_tick, no_protection)
-	fire_handler.harm_human(seconds_per_tick, no_protection)
+		no_protection = dna.species.handle_fire(src, delta_time, no_protection)
+	fire_handler.harm_human(delta_time, no_protection)
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))

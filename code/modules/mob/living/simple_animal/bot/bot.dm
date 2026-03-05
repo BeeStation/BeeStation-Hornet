@@ -262,7 +262,7 @@
 	else
 		. += "[src] is in pristine condition."
 
-/mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(amount>0 && prob(10))
 		new /obj/effect/decal/cleanable/oil(loc)
 	return ..()

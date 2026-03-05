@@ -106,7 +106,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
 
-/obj/item/match/is_hot()
+/obj/item/match/get_temperature()
 	return lit * heat
 
 /obj/item/match/firebrand
@@ -380,7 +380,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		log_game("[src] that contains fuel was lit by the environment - Last touched by [src.fingerprintslast]!")
 	light()
 
-/obj/item/clothing/mask/cigarette/is_hot()
+/obj/item/clothing/mask/cigarette/get_temperature()
 	return lit * heat
 
 // Cigarette brands.
@@ -682,7 +682,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	return mutable_appearance(icon, "lighter_overlay_[overlay_state][lit ? "-on" : ""]")
 
 /obj/item/lighter/ignition_effect(atom/A, mob/user)
-	if(is_hot())
+	if(get_temperature())
 		. = span_rose("With a single flick of [user.p_their()] wrist, [user] smoothly lights [A] with [src]. Damn [user.p_theyre()] cool.")
 
 /obj/item/lighter/proc/set_lit(new_lit)
@@ -774,7 +774,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/lighter/process()
 	open_flame()
 
-/obj/item/lighter/is_hot()
+/obj/item/lighter/get_temperature()
 	return lit * heat
 
 
@@ -821,7 +821,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	return lighter_overlay
 
 /obj/item/lighter/greyscale/ignition_effect(atom/A, mob/user)
-	if(is_hot())
+	if(get_temperature())
 		. = span_notice("After some fiddling, [user] manages to light [A] with [src].")
 
 
@@ -985,7 +985,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
 					reagents.remove_any(REAGENTS_METABOLISM)
 				if(reagents.get_reagent_amount(/datum/reagent/fuel))
 					//HOT STUFF
-					C.fire_stacks = 2
+					C.adjust_fire_stacks(2)
 					C.ignite_mob()
 
 				if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)) // the plasma explodes when exposed to fire

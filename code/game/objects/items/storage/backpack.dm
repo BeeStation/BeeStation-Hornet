@@ -24,8 +24,9 @@
 	custom_price = 50
 
 /obj/item/storage/backpack/Initialize(mapload)
-	. = ..()
-	create_storage(max_slots = 25, max_specific_storage = WEIGHT_CLASS_LARGE, max_total_storage = 28)
+	if(!istype(atom_storage))
+		create_storage(max_slots = 25, max_specific_storage = WEIGHT_CLASS_LARGE, max_total_storage = 28)
+	return ..()
 
 /*
  * Backpack Types
@@ -56,9 +57,9 @@
 	inhand_icon_state = "clownpack"
 
 /obj/item/storage/backpack/holding/Initialize(mapload)
-	. = ..()
 	create_storage(max_specific_storage = WEIGHT_CLASS_GIGANTIC, max_total_storage = 70, max_slots = 30, storage_type = /datum/storage/bag_of_holding)
 	atom_storage.allow_big_nesting = TRUE
+	return ..()
 
 /obj/item/storage/backpack/holding/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is jumping into [src]! It looks like [user.p_theyre()] trying to commit suicide."))
@@ -93,12 +94,12 @@
 	acid = 100
 
 /obj/item/storage/backpack/hammerspace/Initialize(mapload)
-	. = ..()
 	create_storage(max_specific_storage = WEIGHT_CLASS_GIGANTIC, max_total_storage = 1000, max_slots = 200, storage_type = /datum/storage/bag_of_holding)
 	atom_storage.allow_big_nesting = TRUE
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.allow_quick_empty = TRUE
 	atom_storage.numerical_stacking = TRUE
+	return ..()
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"

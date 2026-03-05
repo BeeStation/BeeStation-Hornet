@@ -82,7 +82,7 @@
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
-			if(I.is_sharp() || I.force >= 10)
+			if(I.get_sharpness() || I.force >= 10)
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)
 				add_splatter_floor(location)
@@ -103,11 +103,8 @@
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
-		if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
-			batong_act(I, user, affecting, armour_block)
-
 		var/dismember_limb = FALSE
-		var/weapon_sharpness = I.is_sharp()
+		var/weapon_sharpness = I.get_sharpness()
 
 		if(((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
 			dismember_limb = TRUE
@@ -472,15 +469,6 @@
 		if(prob(20))
 			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
-/mob/living/carbon/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
-	. = ..()
-	adjust_stutter(batong.active_force / 2) //0.5 seconds of stuttering speech for every 10 stamina damage
-	do_stun_animation()
-	if(ismonkey(src))
-		emote("screech")
-	else
-		emote("scream")
-
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	var/list/reflist = list(intensity) // Need to wrap this in a list so we can pass a reference
 	SEND_SIGNAL(src, COMSIG_CARBON_SOUNDBANG, reflist)
@@ -533,26 +521,33 @@
 	if(ears && !HAS_TRAIT(src, TRAIT_DEAF))
 		. = TRUE
 
-/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced, required_biotype)
+	if(!forced && HAS_TRAIT(src, TRAIT_NOBREATH))
+		amount = min(amount, 0) //Prevents oxy damage but not healing
+
 	. = ..()
-	if(isnull(.))
-		return
-	if(. <= 50)
-		if(getOxyLoss() > 50)
+	check_passout()
+
+/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced, required_biotype)
+	. = ..()
+	check_passout()
+
+/**
+* Check to see if we should be passed out from oxyloss
+*/
+/mob/living/carbon/proc/check_passout()
+	var/mob_oxyloss = getOxyLoss()
+	if(mob_oxyloss >= 50)
+		if(!HAS_TRAIT_FROM(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT))
 			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= 50)
+	else if(mob_oxyloss < 50)
 		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 
-
-/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= 50)
-		if(getOxyLoss() > 50)
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= 50)
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+/mob/living/carbon/get_organic_health()
+	. = health
+	for (var/obj/item/bodypart/limb as anything in bodyparts)
+		if (!IS_ORGANIC_LIMB(limb))
+			. += (limb.brute_dam * limb.body_damage_coeff) + (limb.burn_dam * limb.body_damage_coeff)
 
 /mob/living/carbon/bullet_act(obj/projectile/P, def_zone, piercing_hit)
 	var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))

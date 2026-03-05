@@ -67,9 +67,7 @@
 			spawned = new /obj/item/storage/belt/sabre/carbon_fiber(redeemer)
 
 		if("NPS-10")
-			spawned = new /obj/item/storage/box/gearvend
-			new /obj/item/gun/ballistic/automatic/pistol/security(spawned)
-			new /obj/item/ammo_box/magazine/x200law(spawned)
+			spawned = new /obj/item/gun/ballistic/automatic/pistol/security(redeemer)
 
 	// We spawned a box, populated it. Now we put it into the redeemer's hands.
 	if(!redeemer.put_in_hands(spawned))

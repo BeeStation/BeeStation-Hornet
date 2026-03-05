@@ -40,7 +40,7 @@
 		/obj/item/grenade/clusterbuster/smoke = 15,
 		/obj/item/clothing/under/chameleon = 13,
 		/obj/item/storage/toolbox/syndicate = 12,
-		/obj/item/melee/classic_baton/telescopic = 12,
+		/obj/item/melee/baton/telescopic = 12,
 		/obj/item/melee/baton = 11,
 		/obj/item/book/granter/action/spell/smoke = 10,
 		/obj/item/book/granter/action/spell/blind = 10,

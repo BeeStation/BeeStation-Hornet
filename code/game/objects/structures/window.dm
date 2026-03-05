@@ -847,8 +847,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 
 
 /obj/structure/window/paperframe/attackby(obj/item/W, mob/living/user)
-	if(W.is_hot())
-		fire_act(W.is_hot())
+	if(W.get_temperature())
+		fire_act(W.get_temperature())
 		return
 	if(user.combat_mode)
 		return ..()

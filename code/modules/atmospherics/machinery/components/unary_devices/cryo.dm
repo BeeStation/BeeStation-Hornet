@@ -225,7 +225,7 @@
 	if(mob_occupant.stat == DEAD) // We don't bother with dead people.
 		return
 
-	if(mob_occupant.health >= mob_occupant.getMaxHealth()) // Don't bother with fully healed people.
+	if(mob_occupant.get_organic_health() >= mob_occupant.getMaxHealth()) // Don't bother with fully healed people.
 		on = FALSE
 		update_icon()
 		playsound(src, 'sound/machines/cryo_warning.ogg', volume) // Bug the doctors.

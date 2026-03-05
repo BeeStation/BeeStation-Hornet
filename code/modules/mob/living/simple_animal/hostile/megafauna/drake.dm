@@ -381,7 +381,7 @@ Difficulty: Medium
 		return
 	..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && (swooping & SWOOP_INVULNERABLE))
 		return FALSE
 	return ..()

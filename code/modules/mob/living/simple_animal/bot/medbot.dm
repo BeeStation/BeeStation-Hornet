@@ -629,7 +629,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 					break
 
 		if(!treat_behaviour) //If they don't need any of that they're probably cured!
-			if(C.maxHealth - C.health < heal_threshold)
+			if(C.maxHealth - C.get_organic_health() < heal_threshold)
 				to_chat(src, span_notice("[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)"))
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
 			var/message = pick(messagevoice)

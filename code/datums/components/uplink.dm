@@ -1,14 +1,17 @@
 #define PEN_ROTATIONS 2
 
+GLOBAL_LIST_EMPTY(uplinks)
+
 /**
  * Uplinks
  *
- * All /obj/item(s) have a hidden_uplink var. By default it's null. Give the item one with 'new(src') (it must be in it's contents). Then add 'uses.'
- * Use whatever conditionals you want to check that the user has an uplink, and then call interact() on their uplink.
- * You might also want the uplink menu to open if active. Check if the uplink is 'active' and then interact() with it.
+ * All /obj/item(s) can be given an uplink. Give the item one with AddComponent(/datum/component/uplink, mind)
+ * Use whatever conditionals you want to check that the user has an uplink
+ * This component will handle UI interactions.
 **/
 /datum/component/uplink
-	dupe_mode = COMPONENT_DUPE_UNIQUE
+	dupe_mode = COMPONENT_DUPE_ALLOWED
+	can_transfer = TRUE
 	var/name = "syndicate uplink"
 	var/active = FALSE
 	var/lockable = TRUE
@@ -16,9 +19,10 @@
 	var/allow_restricted = TRUE
 	var/telecrystals
 	var/selected_cat
-	var/owner = null
+	// Antag datum of the owner
+	var/datum/mind/owner = null
 	var/uplink_flag
-	var/datum/uplink_purchase_log/purchase_log
+	var/datum/uplink_log/uplink_log
 	var/list/uplink_items
 	var/hidden_crystals = 0
 	var/unlock_text
@@ -28,16 +32,64 @@
 	var/compact_mode = FALSE
 	var/debug = FALSE
 	var/non_traitor_allowed = TRUE
+	// Tied to uplink rather than mind since generally traitors only have 1 uplink
+	// and tying it to anything else is difficult due to how much uses an uplink
+	var/reputation = REPUTATION_TRAITOR_START
+	var/directive_flags = NONE
+	/// How long until we get a personal objective
+	var/next_personal_objective_time = 0
+	/// TC multiplier for completed directives
+	var/directive_tc_multiplier = 1
+	/// If true then this component will be transfered to the owner's mind when the
+	/// parent is destroyed, allowing the owner to re-activate the uplink in another
+	/// location.
+	var/persistent = FALSE
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
+/datum/component/uplink/Initialize(datum/mind/_owner,
+		_lockable = TRUE,
+		_enabled = FALSE,
+		uplink_flag = UPLINK_TRAITORS,
+		starting_tc = TELECRYSTALS_DEFAULT,
+		_reputation = REPUTATION_TRAITOR_START,
+		directive_flags = NONE
+		)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
+	if (_owner && !istype(_owner))
+		CRASH("Uplink initialized with a key instead of a /datum/mind.")
 
+	if(_owner)
+		owner = _owner
+		LAZYINITLIST(GLOB.uplink_logs_by_key)
+		if(GLOB.uplink_logs_by_key[owner.key])
+			uplink_log = GLOB.uplink_logs_by_key[owner.key]
+		else
+			uplink_log = new(owner.key, src)
+	lockable = _lockable
+	active = _enabled
+	reputation = _reputation
+	src.uplink_flag = uplink_flag
+	src.directive_flags = directive_flags
+	update_items()
+	telecrystals = starting_tc
+	if(!lockable)
+		active = TRUE
+		locked = FALSE
+
+	previous_attempts = list()
+
+	// We need to start running this now
+	SSdirectives.can_fire = TRUE
+	next_personal_objective_time = SSdirectives.get_next_personal_objective_time()
+	GLOB.uplinks += src
+
+/datum/component/uplink/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(stay_alive))
 	if(istype(parent, /obj/item/implant))
 		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, PROC_REF(implant_activation))
 		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanting))
@@ -50,35 +102,44 @@
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
 
-	if(_owner)
-		owner = _owner
-		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
-		else
-			purchase_log = new(owner, src)
-	lockable = _lockable
-	active = _enabled
-	src.uplink_flag = uplink_flag
-	update_items()
-	telecrystals = starting_tc
-	if(!lockable)
-		active = TRUE
-		locked = FALSE
+/datum/component/uplink/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_ATOM_ATTACKBY)
+	UnregisterSignal(parent, COMSIG_ITEM_ATTACK_SELF)
+	UnregisterSignal(parent, COMSIG_QDELETING)
+	UnregisterSignal(parent, COMSIG_IMPLANT_ACTIVATED)
+	UnregisterSignal(parent, COMSIG_IMPLANT_IMPLANTING)
+	UnregisterSignal(parent, COMSIG_IMPLANT_OTHER)
+	UnregisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK)
+	UnregisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE)
+	UnregisterSignal(parent, COMSIG_RADIO_MESSAGE)
+	UnregisterSignal(parent, COMSIG_PEN_ROTATED)
 
-	previous_attempts = list()
+/datum/component/uplink/PostTransfer()
+	if(!isitem(parent))
+		return COMPONENT_INCOMPATIBLE
 
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
 	lockable |= U.lockable
 	active |= U.active
 	uplink_flag |= U.uplink_flag
 	telecrystals += U.telecrystals
-	if(purchase_log && U.purchase_log)
-		purchase_log.MergeWithAndDel(U.purchase_log)
+	if(uplink_log && U.uplink_log)
+		uplink_log.MergeWithAndDel(U.uplink_log)
 
 /datum/component/uplink/Destroy()
-	purchase_log = null
+	uplink_log = null
+	GLOB.uplinks -= src
+	if (persistent)
+		stack_trace("Persistent uplink was deleted.")
 	return ..()
+
+/datum/component/uplink/proc/stay_alive()
+	SIGNAL_HANDLER
+	if (!persistent)
+		return
+	// Enter the ether
+	ClearFromParent()
+	parent = null
 
 /datum/component/uplink/proc/update_items()
 	var/updated_items
@@ -117,14 +178,14 @@
 			//Check that the uplink item is refundable
 			//Check that the uplink is valid
 			//Check that the uplink has purchased this item (Sales can be refunded as the path relates to the old one)
-			var/hash = purchase_log.hash_purchase(UI, UI.cost)
-			var/datum/uplink_purchase_entry/UPE = purchase_log.purchase_log[hash]
+			var/hash = uplink_log.hash_purchase(UI, UI.cost)
+			var/datum/uplink_purchase_entry/UPE = uplink_log.uplink_log[hash]
 			if(I.type == path && UI.can_be_refunded(I, src) && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
 				UPE.amount_purchased --
 				if(!UPE.amount_purchased)
-					purchase_log.purchase_log.Remove(hash)
+					uplink_log.uplink_log.Remove(hash)
 				telecrystals += cost
-				purchase_log.total_spent -= cost
+				uplink_log.total_spent -= cost
 				to_chat(user, span_notice("[I] refunded."))
 				qdel(I)
 				return
@@ -152,9 +213,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Uplink", name)
-		// This UI is only ever opened by one person,
-		// and never is updated outside of user input.
-		ui.set_autoupdate(FALSE)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /datum/component/uplink/ui_data(mob/user)
@@ -164,6 +223,8 @@
 	data["telecrystals"] = telecrystals
 	data["lockable"] = lockable
 	data["compactMode"] = compact_mode
+	data["reputation"] = reputation
+	data += SSdirectives.get_uplink_data(src)
 	return data
 
 /datum/component/uplink/ui_static_data(mob/user)
@@ -202,7 +263,8 @@
 				"cost" = I.cost,
 				"desc" = I.desc,
 				"is_illegal" = I.illegal_tech,
-				"are_contents_illegal" = I.contents_are_illegal_tech
+				"are_contents_illegal" = I.contents_are_illegal_tech,
+				"reputation" = I.reputation_required
 			))
 		data["categories"] += list(cat)
 	return data
@@ -221,17 +283,21 @@
 				MakePurchase(usr, I)
 				return TRUE
 		if("lock")
-			active = FALSE
-			locked = TRUE
-			telecrystals += hidden_crystals
-			hidden_crystals = 0
-			SStgui.close_uis(src)
+			lock()
 		if("select")
 			selected_cat = params["category"]
 			return TRUE
 		if("compact_toggle")
 			compact_mode = !compact_mode
 			return TRUE
+		if ("directive_action")
+			SSdirectives.directive_action(src, usr)
+			return TRUE
+
+/datum/component/uplink/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/radar_assets),
+	)
 
 /datum/component/uplink/proc/MakePurchase(mob/user, datum/uplink_item/U)
 	if(!istype(U))
@@ -240,6 +306,8 @@
 		return
 
 	if(telecrystals < U.cost || U.limited_stock == 0)
+		return
+	if (reputation < U.reputation_required)
 		return
 	telecrystals -= U.cost
 
@@ -258,20 +326,19 @@
 	SIGNAL_HANDLER
 
 	var/obj/item/implant/implant = parent
-	locked = FALSE
+	unlock()
 	interact(null, implant.imp_in)
 
-/datum/component/uplink/proc/implanting(datum/source, list/arguments)
+/datum/component/uplink/proc/implanting(datum/source, mob/user, mob/living/target)
 	SIGNAL_HANDLER
 
-	var/mob/user = arguments[2]
-	owner = user?.key
-	if(owner && !purchase_log)
-		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+	owner = target?.mind
+	if(owner && !uplink_log)
+		LAZYINITLIST(GLOB.uplink_logs_by_key)
+		if(GLOB.uplink_logs_by_key[owner.key])
+			uplink_log = GLOB.uplink_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner, src)
+			uplink_log = new(owner.key, src)
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	SIGNAL_HANDLER
@@ -295,7 +362,7 @@
 			failsafe()
 			return COMPONENT_STOP_RINGTONE_CHANGE
 		return
-	locked = FALSE
+	unlock()
 	interact(null, user)
 	to_chat(user, span_hear("The computer softly beeps."))
 	return COMPONENT_STOP_RINGTONE_CHANGE
@@ -311,7 +378,7 @@
 		if(frequency == failsafe_code)
 			failsafe()
 		return
-	locked = FALSE
+	unlock()
 	if(ismob(master.loc))
 		interact(null, master.loc)
 
@@ -327,7 +394,7 @@
 		if(failsafe_code && findtext(LOWER_TEXT(message_to_use), LOWER_TEXT(failsafe_code)))
 			failsafe()
 		return
-	locked = FALSE
+	unlock()
 	interact(null, user)
 	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
 
@@ -342,7 +409,7 @@
 		popleft(previous_attempts)
 
 	if(compare_list(previous_attempts, unlock_code))
-		locked = FALSE
+		unlock()
 		previous_attempts.Cut()
 		master.degrees = 0
 		interact(null, user)
@@ -362,11 +429,11 @@
 		unlock_note = "<B>Uplink Degrees:</B> [english_list(unlock_code)] ([P.name])."
 
 /datum/component/uplink/proc/generate_code()
-	if(istype(parent,/obj/item/modular_computer/tablet))
+	if(istype(parent, /obj/item/modular_computer/tablet))
 		return "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
-	else if(istype(parent,/obj/item/radio))
+	else if(istype(parent, /obj/item/radio))
 		return "[pick(GLOB.phonetic_alphabet)]"
-	else if(istype(parent,/obj/item/pen))
+	else if(istype(parent, /obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)
 			L += rand(1, 360)
@@ -380,5 +447,20 @@
 		return
 	explosion(T,1,2,3)
 	qdel(parent) //Alternatively could brick the uplink.
+
+/datum/component/uplink/proc/unlock()
+	locked = FALSE
+	// Lock any other uplinks that are on the same item
+	for (var/datum/component/uplink/uplink in parent.GetComponents(/datum/component/uplink))
+		if (uplink == src)
+			continue
+		uplink.lock()
+
+/datum/component/uplink/proc/lock()
+	active = FALSE
+	locked = TRUE
+	telecrystals += hidden_crystals
+	hidden_crystals = 0
+	SStgui.close_uis(src)
 
 #undef PEN_ROTATIONS

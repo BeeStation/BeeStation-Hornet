@@ -23,7 +23,7 @@
 	boot_delay = 8 SECONDS
 
 	var/noloot = FALSE
-	var/baton_type = /obj/item/melee/baton
+	var/baton_type = /obj/item/melee/baton/security
 	var/mob/living/carbon/target
 	var/oldtarget_name
 	var/threatlevel = FALSE

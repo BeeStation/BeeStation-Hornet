@@ -35251,7 +35251,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/airalarm/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral{
@@ -41608,6 +41607,9 @@
 "ioZ" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/light{
+	dir = 2
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/cryopods)
 "ipl" = (
@@ -122310,7 +122312,7 @@ gko
 nFf
 qJI
 mPm
-hjk
+fYE
 hjk
 eHg
 fYE

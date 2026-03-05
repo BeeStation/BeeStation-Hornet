@@ -85,10 +85,6 @@
 /// The mob is a spooky phantasm or an evil ghast of such nature.
 #define MOB_SPIRIT (1 << 9)
 
-//Organ defines for carbon mobs
-#define ORGAN_ORGANIC 1
-#define ORGAN_ROBOTIC 2
-
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
@@ -410,7 +406,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 #define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
 #define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
-#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
 // Eye protection
 // THese values are additive to determine your overall flash protection.

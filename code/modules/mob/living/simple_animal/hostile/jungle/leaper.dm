@@ -126,9 +126,10 @@
 	taste_mult = 1.3
 
 /datum/reagent/toxin/leaper_venom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
 	if(volume >= 10)
-		M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
-	..()
+		if(M.adjustToxLoss(5 * REM * delta_time, updating_health = FALSE))
+			. = UPDATE_MOB_HEALTH
 
 /obj/effect/temp_visual/leaper_crush
 	name = "grim tidings"
@@ -182,7 +183,7 @@
 	. = ..()
 	update_icons()
 
-/mob/living/simple_animal/hostile/jungle/leaper/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/jungle/leaper/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(prob(33) && !ckey)
 		ranged_cooldown = 0 //Keeps em on their toes instead of a constant rotation
 	..()

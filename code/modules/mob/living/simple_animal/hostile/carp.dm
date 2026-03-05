@@ -1,5 +1,3 @@
-#define REGENERATION_DELAY 60  // After taking damage, how long it takes for automatic regeneration to begin for megacarps (ty robustin!)
-
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
@@ -139,22 +137,16 @@
 	obj_damage = 80
 	melee_damage = 20
 
-	var/regen_cooldown = 0
-
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"
 	melee_damage += rand(10,20) //this is on initialize so even with rng the damage will be consistent
 	maxHealth += rand(30,60)
 	move_to_delay = rand(3,7)
+	AddComponent(/datum/component/regenerator)
 
 /mob/living/simple_animal/hostile/carp/megacarp/make_tameable()
 	return
-
-/mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(.)
-		regen_cooldown = world.time + REGENERATION_DELAY
 
 /mob/living/simple_animal/hostile/carp/megacarp/Login()
 	. = ..()
@@ -164,11 +156,6 @@
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/megacarp)
 	can_buckle = TRUE
 	buckle_lying = 0
-
-/mob/living/simple_animal/hostile/carp/megacarp/Life(delta_time = SSMOBS_DT, times_fired)
-	. = ..()
-	if(regen_cooldown < world.time)
-		heal_overall_damage(2 * delta_time)
 
 /mob/living/simple_animal/hostile/carp/cayenne
 	name = "Cayenne"
@@ -293,5 +280,3 @@
 	. = ..()
 	if(mind)
 		. += span_notice("This one seems to be self-aware.")
-
-#undef REGENERATION_DELAY

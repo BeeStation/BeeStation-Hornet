@@ -256,7 +256,7 @@
 		else
 			dam = 0
 		if((brute_heal > 0 && (affecting.brute_dam > 0 || (H.is_bleeding() && H.has_mechanical_bleeding()))) || (burn_heal > 0 && affecting.burn_dam > 0))
-			if(affecting.heal_damage(brute_heal, burn_heal, 0, BODYTYPE_ROBOTIC))
+			if(affecting.heal_damage(brute_heal, burn_heal, required_bodytype = BODYTYPE_ROBOTIC))
 				H.update_damage_overlays()
 			if (brute_heal > 0 && H.is_bleeding() && H.has_mechanical_bleeding())
 				H.cauterise_wounds(0.4)

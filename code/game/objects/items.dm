@@ -611,7 +611,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return GetAllContents() - src
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
-
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	SHOULD_NOT_SLEEP(TRUE)
 
@@ -709,7 +708,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = (attackforce * 0.8)
 
 		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
-		else if(I.is_sharp())
+		else if(I.get_sharpness())
 			attackforce = I.w_class * 2
 
 		//And if it's a blunt weapon, blocking takes the worst outcome between weight and damage bonuses
@@ -997,7 +996,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum) & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
 		return
 
-	if(is_hot() && isliving(hit_atom))
+	if(get_temperature() && isliving(hit_atom))
 		var/mob/living/L = hit_atom
 		L.ignite_mob()
 	var/itempush = 1
@@ -1086,10 +1085,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/mob/owner = loc
 	owner.update_clothing(slot_flags | owner.get_slot_by_item(src))
 
-/obj/item/proc/is_hot()
+/obj/item/proc/get_temperature()
 	return heat
 
-/obj/item/proc/is_sharp()
+/obj/item/proc/get_sharpness()
 	return sharpness
 
 /obj/item/proc/get_dismember_sound()
@@ -1111,7 +1110,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		location.hotspot_expose(flame_heat, 5)
 
 /obj/item/proc/ignition_effect(atom/A, mob/user)
-	if(is_hot())
+	if(get_temperature())
 		. = span_notice("[user] lights [A] with [src].")
 	else
 		. = ""
@@ -1470,7 +1469,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * * discover_after - if the item will be discovered after being chomped (FALSE will usually mean it was swallowed, TRUE will usually mean it was bitten into and discovered)
  */
 /obj/item/proc/on_accidental_consumption(mob/living/carbon/victim, mob/living/carbon/user, obj/item/source_item, discover_after = TRUE)
-	if(is_sharp() && force >= 5) //if we've got something sharp with a decent force (ie, not plastic)
+	if(get_sharpness() && force >= 5) //if we've got something sharp with a decent force (ie, not plastic)
 		INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "scream")
 		victim.visible_message(span_warning("[victim] looks like [victim.p_theyve()] just bit something they shouldn't have!"), \
 							span_boldwarning("OH GOD! Was that a crunch? That didn't feel good at all!!"))
