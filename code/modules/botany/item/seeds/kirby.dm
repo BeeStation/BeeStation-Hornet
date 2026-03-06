@@ -5,10 +5,13 @@
 	name = "designer seeds"
 
 /obj/item/plant_seeds/preset/kirby/tall_berries
-	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/tall, /datum/plant_feature/fruit/berry)
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/tall, /datum/plant_feature/fruit/berry/red)
+
+/obj/item/plant_seeds/preset/kirby/tall_berries/cousin
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/tall/cousin, /datum/plant_feature/fruit/berry/red)
 
 /obj/item/plant_seeds/preset/kirby/bushy_berries
-	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/bushy, /datum/plant_feature/fruit/berry)
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/bushy, /datum/plant_feature/fruit/berry/red)
 
 /obj/item/plant_seeds/preset/kirby/birch
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/birch)
@@ -27,3 +30,33 @@
 
 /obj/item/plant_seeds/preset/kirby/floor_foliage
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/floor_foliage)
+
+/obj/item/plant_seeds/preset/kirby/pretender
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/pretender)
+
+/obj/item/plant_seeds/preset/kirby/shielded
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/shielded)
+
+/obj/item/plant_seeds/preset/kirby/pandora
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/pandora)
+
+/obj/item/plant_seeds/preset/kirby/sticks
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/sticks/cousin, /datum/plant_feature/fruit/flower/pink)
+
+/obj/item/plant_seeds/preset/kirby/sticks/cousin
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/sticks, /datum/plant_feature/fruit/flower)
+
+/obj/item/plant_seeds/preset/kirby/sticks/not_tomato
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/not_tomato)
+
+/obj/item/plant_seeds/preset/kirby/sticks/hair
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/hair)
+
+/obj/item/plant_seeds/preset/kirby/sticks/wood
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/wood)
+
+/obj/item/plant_seeds/preset/kirby/sticks/wood/cousin
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/wood/cousin)
+
+/obj/item/plant_seeds/preset/kirby/sticks/wood/sharp
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/sharp)

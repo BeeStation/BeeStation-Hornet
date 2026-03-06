@@ -679,7 +679,7 @@ export const ReagentGridAlt = (props) => {
                   <br />
                   <Button
                     className="plant__button--beacon"
-                    icon="search-minus"
+                    icon="save"
                     fontSize="18px"
                     color="grey"
                     onClick={() => {

@@ -28,6 +28,10 @@
 	///Inserted disk we're saving data too
 	var/obj/item/disk/plant_disk/disk
 
+/obj/machinery/refraction_catalogue/Initialize(mapload)
+	. = ..()
+	new /obj/item/sticker/sticky_note/tutorial/refraction(src)
+
 /obj/machinery/refraction_catalogue/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()
 	if(!isliving(user))

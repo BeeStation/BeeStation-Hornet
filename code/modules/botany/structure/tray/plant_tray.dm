@@ -51,12 +51,12 @@
 	RegisterSignal(tray_component, COMSIG_PLANTER_UPDATE_SUBSTRATE, PROC_REF(add_substrate))
 //Build effects
 	//mask for plants
-	mask = icon('icons/obj/hydroponics/features/generic.dmi', "[icon_state]_mask")
+	mask = icon(icon, "[icon_state]_mask")
 	//Reagents, for reagents
 	tray_reagents = new(src, icon_state, layer)
 	vis_contents += tray_reagents
 	//Bottom most underlay
-	underlays += mutable_appearance('icons/obj/hydroponics/features/generic.dmi', "[icon_state]_bottom", layer-0.1)
+	underlays += mutable_appearance(icon, "[icon_state]_bottom", layer-0.1)
 //reagents
 	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 //Build tray indicatos
@@ -143,7 +143,7 @@
 //Visuals
 	//Masking
 	if(plant_component?.draw_below_water)
-		arrived.add_filter("plant_tray_mask", 1, alpha_mask_filter(y = -14, icon = mask, flags = MASK_INVERSE))
+		arrived.add_filter("plant_tray_mask", 1, alpha_mask_filter(y = -plant_offset[2], icon = mask, flags = MASK_INVERSE))
 
 //When a plant is uprooted / ceases to exist
 /obj/item/plant_tray/Exited(atom/movable/gone, direction)

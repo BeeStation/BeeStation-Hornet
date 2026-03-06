@@ -12,7 +12,10 @@
 	growth_time = PLANT_BODY_GROWTH_FAST
 
 /datum/plant_feature/body/kirby/New(datum/component/plant/_parent)
-	name = "[capitalize(pick(GLOB.adjectives))] [pick(GLOB.first_names)]"
+	if(prob(1)) //Small chance for easter egg names
+		name = pick(list("Ashley", "Blerp", "Pigeon", "Bacon", "TSL", "Cee Cee"))
+	else
+		name = "[capitalize(pick(GLOB.adjectives))] [pick(GLOB.first_names)]"
 	_parent?.plant_item?.name = name
 	return ..()
 
@@ -25,7 +28,7 @@
 	icon_state = "plant-06-1"
 	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
 
-/datum/plant_feature/body/kirby/tall/pale
+/datum/plant_feature/body/kirby/tall/cousin
 	icon_state = "plant-06"
 
 //bushy
@@ -58,4 +61,54 @@
 //floor_foliage
 /datum/plant_feature/body/kirby/floor_foliage
 	icon_state = "plant-01"
+	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+
+//pretender
+/datum/plant_feature/body/kirby/pretender
+	icon_state = "plant-31"
+	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+
+//shielded
+/datum/plant_feature/body/kirby/shielded
+	icon_state = "plant-32"
+	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	draw_below_water = FALSE
+
+//pandora
+/datum/plant_feature/body/kirby/pandora
+	icon_state = "plant-09"
+	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+
+//sticks
+/datum/plant_feature/body/kirby/sticks
+	icon_state = "plant-18"
+	overlay_positions = list(list(12, 19), list(18, 25))
+	draw_below_water = FALSE
+
+/datum/plant_feature/body/kirby/sticks/cousin
+	icon_state = "plant-18-1"
+
+//not_tomato
+/datum/plant_feature/body/kirby/not_tomato
+	icon_state = "plant-30"
+	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	draw_below_water = FALSE
+
+//not_tomato
+/datum/plant_feature/body/kirby/hair
+	icon_state = "plant-29"
+	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	draw_below_water = FALSE
+
+//wood
+/datum/plant_feature/body/kirby/wood
+	icon_state = "plant-02"
+	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+
+/datum/plant_feature/body/kirby/wood/cousin
+	icon_state = "plant-02-1"
+
+//sharp
+/datum/plant_feature/body/kirby/sharp
+	icon_state = "plant-05"
 	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))

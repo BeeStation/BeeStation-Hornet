@@ -1,6 +1,7 @@
 /obj/item/plant_tray/pot
 	name = "plant pot"
-	icon_state = "pot_random"
+	icon = 'icons/obj/hydroponics/features/pots.dmi'
+	icon_state = "pot"
 	use_indicators = FALSE
 	plumbing = FALSE
 	density = FALSE
@@ -9,10 +10,11 @@
 	layer_offset = 1.2
 	gain_weeds = FALSE
 	use_substrate = FALSE
+	plant_offset = list(0, 12)
 
 /obj/item/plant_tray/pot/Initialize(mapload)
-	icon_state = "pot"
 	. = ..()
+	icon_state = "pot_[rand(1, 6)]"
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
 //Special tray stuff
@@ -75,7 +77,3 @@
 		feature.plant_traits += trait
 	//Update species ID to reflect new traits
 	plant_component.compile_species_id()
-//Needs
-	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
-		for(var/datum/plant_need/need as anything in feature.plant_needs)
-			need.fufill_need(src)

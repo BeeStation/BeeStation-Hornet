@@ -26,9 +26,6 @@
 	. = ..()
 	setup_parent(_parent)
 	buff_appearance = mutable_appearance('icons/obj/hydroponics/features/generic.dmi', "buff", color = buff_color)
-	var/matrix/n_transform = matrix()
-	n_transform.Turn(rand(-90, 90))
-	buff_appearance.transform = n_transform
 
 /datum/plant_need/proc/setup_parent(_parent)
 	parent = _parent

@@ -16,6 +16,9 @@
 	fast_reagents = list(/datum/reagent/medicine/kelotane = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/flower/poppy)
 
+/datum/plant_feature/fruit/flower/pink
+	colour_override = "#ffc5e5"
+
 /*
 	Poppy
 */

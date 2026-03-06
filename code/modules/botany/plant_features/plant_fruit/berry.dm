@@ -13,6 +13,9 @@
 	growth_time = PLANT_FRUIT_GROWTH_VERY_FAST
 	mutations = list(/datum/plant_feature/fruit/berry/glow = 5)
 
+/datum/plant_feature/fruit/berry/red
+	colour_override = "#ff0037"
+
 /*
 	Glow Berry
 */

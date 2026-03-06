@@ -42,6 +42,9 @@
 
 /obj/machinery/plant_machine/plant_mutator/Initialize(mapload)
 	. = ..()
+#ifdef LOWMEMORYMODE
+	stored_rads = 100
+#endif
 	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
 	START_PROCESSING(SSobj, src)
 	var/obj/item/irradiated_rock/rock = new(get_turf(src))
