@@ -8,7 +8,7 @@
 	/// What the invoker says after using successfully applying the effects
 	var/after_use_text
 	/// Internal action for this scripture
-	var/datum/action/spell/pointed/slab/action
+	var/datum/action/cooldown/spell/pointed/slab/action
 	/// Slab empowerment scriptures apply a progress bar to the slab to show how much time they have left
 	var/datum/progressbar/progress_bar
 	/// Some effects take time to apply. Lets keep track of whether or not we're currently apply effects so count_down() won't cut us off.
@@ -80,7 +80,7 @@
 
 /**
  * Make sure we can interact with the target and then apply effects
- * Called from /datum/action/spell/pointed/slab/InterceptClickOn()
+ * Called from /datum/action/cooldown/spell/pointed/slab/InterceptClickOn()
  */
 /datum/clockcult/scripture/slab/proc/click_on(atom/clicked_on)
 	if(!invoker.can_interact_with(clicked_on))
@@ -134,9 +134,9 @@
 	currently_applying_effects = TRUE
 	return TRUE
 
-/datum/action/spell/pointed/slab
+/datum/action/cooldown/spell/pointed/slab
 	/// The scripture that this action will invoke
 	var/datum/clockcult/scripture/slab/parent_scripture
 
-/datum/action/spell/pointed/slab/InterceptClickOn(mob/living/clicker, params, atom/target)
+/datum/action/cooldown/spell/pointed/slab/InterceptClickOn(mob/living/clicker, params, atom/target)
 	INVOKE_ASYNC(parent_scripture, TYPE_PROC_REF(/datum/clockcult/scripture/slab, click_on), target)

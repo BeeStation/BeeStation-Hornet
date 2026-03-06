@@ -259,7 +259,7 @@
 	button_icon_state = "grow"
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
-/datum/action/nymph/evolve/on_activate(mob/user, atom/target)
+/datum/action/nymph/evolve/activate(atom/target)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
 	if(!isnymph(nymph))
 		return
@@ -283,7 +283,7 @@
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
-/datum/action/nymph/SwitchFrom/pre_activate(mob/user, atom/target)
+/datum/action/nymph/SwitchFrom/pre_activate(atom/target)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
 	var/mob/living/carbon/human/drone_diona = nymph.drone_parent
 	if(!isnymph(nymph))
@@ -298,7 +298,7 @@
 		return FALSE
 	. = ..()
 
-/datum/action/nymph/SwitchFrom/on_activate(mob/user, atom/target)
+/datum/action/nymph/SwitchFrom/activate(atom/target)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
 	var/mob/living/carbon/human/drone_diona = nymph.drone_parent
 	SwitchFrom(nymph, drone_diona)

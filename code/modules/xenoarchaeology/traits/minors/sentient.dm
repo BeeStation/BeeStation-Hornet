@@ -72,7 +72,7 @@
 	var/atom/movable/movable = component_parent.parent
 	movable.buckle_mob(movable, TRUE)
 	//Action
-	var/datum/action/spell/pointed/artifact_senitent_action/P = new /datum/action/spell/pointed/artifact_senitent_action(component_parent?.parent, component_parent)
+	var/datum/action/cooldown/spell/pointed/artifact_senitent_action/P = new /datum/action/cooldown/spell/pointed/artifact_senitent_action(component_parent?.parent, component_parent)
 	P.Grant(sentience)
 	//Display traits to sentience
 	to_chat(sentience, span_notice("Your traits are: \n"))
@@ -122,7 +122,7 @@
 	trait?.setup_sentience(ckey)
 
 //Action for sentience
-/datum/action/spell/pointed/artifact_senitent_action
+/datum/action/cooldown/spell/pointed/artifact_senitent_action
 	name = "Trigger Artifact"
 	desc = "Select a target to activate your artifact on."
 	cast_range = 1
@@ -134,16 +134,16 @@
 	///Ref to the artifact we're handling
 	var/datum/component/xenoartifact/sentient_artifact
 
-/datum/action/spell/pointed/artifact_senitent_action/New(Target, datum/component/xenoartifact/artifact)
+/datum/action/cooldown/spell/pointed/artifact_senitent_action/New(Target, datum/component/xenoartifact/artifact)
 	. = ..()
 	sentient_artifact = artifact
 	cast_range = sentient_artifact?.target_range
 
-/datum/action/spell/pointed/artifact_senitent_action/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/artifact_senitent_action/cast(mob/living/cast_on)
 	. = ..()
 	if(!sentient_artifact || sentient_artifact.use_cooldown_timer)
 		if(sentient_artifact?.use_cooldown_timer)
-			to_chat(user, "<span class='warning'>The artifact is still cooling down, wait [timeleft(sentient_artifact.use_cooldown_timer)/10] seconds!</span>")
+			to_chat(cast_on, "<span class='warning'>The artifact is still cooling down, wait [timeleft(sentient_artifact.use_cooldown_timer)/10] seconds!</span>")
 		return
 	sentient_artifact.register_target(target)
 	sentient_artifact.trigger()

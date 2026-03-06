@@ -13,7 +13,7 @@
 	/// The description of the entry
 	var/desc
 	/// The type of spell that the entry grants (typepath)
-	var/datum/action/spell/spell_type
+	var/datum/action/cooldown/spell/spell_type
 	/// What category the entry falls in
 	var/category
 	/// How many book charges does the spell take
@@ -85,7 +85,7 @@
  * Return TRUE if the purchase was successful, FALSE otherwise
  */
 /datum/spellbook_entry/proc/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	var/datum/action/spell/existing = locate(spell_type) in user.actions
+	var/datum/action/cooldown/spell/existing = locate(spell_type) in user.actions
 	if(existing)
 		var/before_name = existing.name
 		if(!existing.level_spell())
@@ -103,7 +103,7 @@
 		return TRUE
 
 	//No same spell found - just learn it
-	var/datum/action/spell/new_spell = new spell_type(user.mind || user)
+	var/datum/action/cooldown/spell/new_spell = new spell_type(user.mind || user)
 	new_spell.Grant(user)
 	to_chat(user, ("<span class='notice'>You have learned [new_spell.name].</span>"))
 
@@ -142,7 +142,7 @@
 	if(!book.refunds_allowed)
 		return FALSE
 
-	for(var/datum/action/spell/other_spell in user.actions)
+	for(var/datum/action/cooldown/spell/other_spell in user.actions)
 		if(initial(spell_type.name) == initial(other_spell.name))
 			return TRUE
 
@@ -158,7 +158,7 @@
  * Return -1 on failure, or return the point value of the refund on success
  */
 /datum/spellbook_entry/proc/refund_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	for(var/datum/action/spell/to_refund in user.actions)
+	for(var/datum/action/cooldown/spell/to_refund in user.actions)
 		if(initial(spell_type.name) != initial(to_refund.name))
 			continue
 

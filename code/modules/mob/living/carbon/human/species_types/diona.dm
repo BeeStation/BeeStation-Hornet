@@ -189,7 +189,7 @@
 /datum/action/diona/split/is_available()
 	return ..() && isdiona(owner)
 
-/datum/action/diona/split/on_activate(mob/user, atom/target)
+/datum/action/diona/split/activate(atom/target)
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(user, 8 SECONDS, user, hidden = TRUE))
@@ -258,7 +258,7 @@
 	cooldown_time = 5 MINUTES
 	var/ability_partition_cooldow
 
-/datum/action/diona/partition/on_activate(mob/user, atom/target)
+/datum/action/diona/partition/activate(atom/target)
 	var/mob/living/carbon/human/H = owner
 	start_cooldown()
 	H.nutrition = NUTRITION_LEVEL_STARVING

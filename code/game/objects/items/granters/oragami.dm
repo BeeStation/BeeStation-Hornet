@@ -21,13 +21,15 @@
 	check_flags = NONE
 
 /datum/action/innate/origami/on_activate()
-	to_chat(owner, "<span class='notice'>You will now fold origami planes.</span>")
-	button_icon_state = "origami_on"
+	to_chat(owner, span_notice("You will now fold origami planes."))
 	active = TRUE
-	update_buttons()
+	build_all_button_icons(UPDATE_BUTTON_ICON)
 
 /datum/action/innate/origami/on_deactivate(mob/user, atom/target)
-	to_chat(owner, "<span class='notice'>You will no longer fold origami planes.</span>")
-	button_icon_state = "origami_off"
+	to_chat(owner, span_notice("You will no longer fold origami planes."))
 	active = FALSE
-	update_buttons()
+	build_all_button_icons(UPDATE_BUTTON_ICON)
+
+/datum/action/innate/origami/apply_button_icon(atom/movable/screen/movable/action_button/current_button, force)
+	button_icon_state = "origami_[active ? "on":"off"]"
+	return ..()

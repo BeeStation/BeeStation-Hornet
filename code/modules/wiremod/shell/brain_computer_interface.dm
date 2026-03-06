@@ -69,7 +69,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 /obj/item/circuit_component/equipment_action/bci/update_action()
 	bci_action.name = button_name.value
 	bci_action.button_icon_state = "[replacetextEx(LOWER_TEXT(icon_options.value), " ", "_")]"
-	bci_action.update_buttons()
+	bci_action.build_all_button_icons()
 
 /datum/action/innate/bci_action
 	name = "Action"
@@ -220,7 +220,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 	src.circuit_component = circuit_component
 
-	update_buttons()
+	build_all_button_icons()
 
 	START_PROCESSING(SSobj, src)
 
@@ -238,7 +238,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/on_activate(mob/user, atom/target)
+/datum/action/innate/bci_charge_action/activate(atom/target)
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if (isnull(cell))
@@ -248,14 +248,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 		to_chat(owner, span_info("You can recharge it by using a cyborg recharging station."))
 
 /datum/action/innate/bci_charge_action/process(delta_time)
-	update_buttons()
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
 
-/datum/action/innate/bci_charge_action/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+/datum/action/innate/bci_charge_action/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
 	. = ..()
-	if(!.)
-		return
-	if(status_only)
-		return
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 	button.maptext = cell ? MAPTEXT("[cell.percent()]%") : ""
 

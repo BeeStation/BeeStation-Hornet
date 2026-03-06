@@ -5,6 +5,7 @@
 	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "smallqueen"
 	background_icon_state = "bg_alien"
+	overlay_icon_state = "bg_alien_border"
 	var/small = FALSE
 	var/small_icon
 	var/small_icon_state
@@ -33,6 +34,7 @@
 	small_icon = 'icons/mob/jungle/arachnid.dmi'
 	small_icon_state = "arachnid_mini"
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
 
 /datum/action/small_sprite/space_dragon
 	small_icon = 'icons/mob/carp.dmi'
@@ -40,7 +42,7 @@
 	button_icon = 'icons/mob/carp.dmi'
 	button_icon_state = "carp"
 
-/datum/action/small_sprite/on_activate(mob/user, atom/target)
+/datum/action/small_sprite/activate(atom/target)
 	if(!small)
 		var/image/I = image(icon = small_icon, icon_state = small_icon_state, loc = owner)
 		I.override = TRUE

@@ -275,7 +275,7 @@ Burning extracts:
 	if(!isliving(user))
 		return
 	user.visible_message(span_danger("[src] absorbs [user], transforming [user.p_them()] into a slime!"))
-	var/datum/action/spell/shapeshift/slime_form/transform = new(user.mind || user)
+	var/datum/action/cooldown/spell/shapeshift/slime_form/transform = new(user.mind || user)
 	transform.remove_on_restore = TRUE
 	transform.Grant(user)
 	transform.on_cast(user, user)

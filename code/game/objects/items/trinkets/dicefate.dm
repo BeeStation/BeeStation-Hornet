@@ -176,9 +176,8 @@
 				H.key = candidate.key
 				message_admins("[ADMIN_LOOKUPFLW(candidate)] was spawned as Dice Servant")
 
-			var/datum/action/spell/summonmob/S = new
-			S.target_mob = H
-			S.Grant(user)
+			var/datum/action/cooldown/spell/summon_mob/summon_servant = new(user.mind || user, H)
+			summon_servant.Grant(user)
 
 		if(17)
 			//Tator Kit
@@ -209,23 +208,41 @@
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
 
-/datum/action/spell/summonmob
+/datum/action/cooldown/spell/summon_mob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
-	cooldown_time = 30 SECONDS
-	invocation = "JE VES"
-	invocation_type = INVOCATION_WHISPER
-
-	var/mob/living/target_mob
 	button_icon_state = "summons"
 
-/datum/action/spell/summonmob/on_cast(mob/user, atom/target)
-	. = ..()
+	school = SCHOOL_CONJURATION
+	cooldown_time = 10 SECONDS
 
-	if(!target_mob)
+	invocation = "JE VES"
+	invocation_type = INVOCATION_WHISPER
+	spell_requirements = NONE
+	spell_max_level = 0 //cannot be improved
+
+	smoke_type = /datum/effect_system/smoke_spread
+	smoke_amt = 2
+
+	var/datum/weakref/summon_weakref
+
+/datum/action/cooldown/spell/summon_mob/New(Target, mob/living/summoned_mob)
+	. = ..()
+	if(summoned_mob)
+		summon_weakref = WEAKREF(summoned_mob)
+
+/datum/action/cooldown/spell/summon_mob/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/to_summon = summon_weakref?.resolve()
+	if(QDELETED(to_summon))
+		to_chat(cast_on, span_warning("You can't seem to summon your servant - it seems they've vanished from reality, or never existed in the first place..."))
 		return
-	var/turf/Start = get_turf(owner)
-	for(var/direction in GLOB.alldirs)
-		var/turf/selected_turf = get_step(Start,direction)
-		if(!selected_turf.density)
-			target_mob.Move(selected_turf)
+
+	do_teleport(
+		to_summon,
+		get_turf(cast_on),
+		precision = 1,
+		asoundin = 'sound/effects/magic/wand_teleport.ogg',
+		asoundout = 'sound/effects/magic/wand_teleport.ogg',
+		channel = TELEPORT_CHANNEL_MAGIC,
+	)

@@ -7,7 +7,7 @@
  * The two spells that sound most problematic with this is mindswap and lichdom,
  * but soul tap requires clothes for mindswap and lichdom takes your soul.
  */
-/datum/action/spell/tap
+/datum/action/cooldown/spell/tap
 	name = "Soul Tap"
 	desc = "Fuel your spells using your own soul!"
 	button_icon_state = "soultap"
@@ -22,7 +22,7 @@
 	/// The amount of health we take on tap
 	var/tap_health_taken = 20
 
-/datum/action/spell/tap/can_cast_spell(feedback = TRUE)
+/datum/action/cooldown/spell/tap/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -35,15 +35,15 @@
 
 	return TRUE
 
-/datum/action/spell/tap/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/tap/is_valid_spell(mob/user, atom/target)
 	return isliving(user) && !HAS_TRAIT(owner, TRAIT_NO_SOUL)
 
-/datum/action/spell/tap/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/tap/on_cast(mob/living/user, atom/target)
 	. = ..()
 	user.maxHealth -= tap_health_taken
 	user.health = min(user.health, user.maxHealth)
 
-	for(var/datum/action/spell/spell in user.actions)
+	for(var/datum/action/cooldown/spell/spell in user.actions)
 		spell.reset_spell_cooldown()
 
 	// If the tap took all of our life, we die and lose our soul!

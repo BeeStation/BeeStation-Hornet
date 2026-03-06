@@ -181,7 +181,7 @@
 	cooldown_time = 10 SECONDS
 	var/jumpspeed = 1
 
-/datum/action/item_action/organ_action/use/bee_dash/on_activate(mob/user, atom/target)
+/datum/action/item_action/organ_action/use/bee_dash/activate(atom/target)
 	var/mob/living/carbon/L = owner
 	var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in L.internal_organs
 	var/jumpdistance = wings.jumpdist

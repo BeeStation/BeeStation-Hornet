@@ -1,7 +1,8 @@
-/datum/action/spell/pointed/cleave
+/datum/action/cooldown/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
 	background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "cleave"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
@@ -17,10 +18,10 @@
 	/// The radius of the cleave effect
 	var/cleave_radius = 1
 
-/datum/action/spell/pointed/cleave/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/cleave/is_valid_spell(mob/user, atom/target)
 	return ..() && ishuman(target)
 
-/datum/action/spell/pointed/cleave/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/cleave/on_cast(mob/user, atom/target)
 	. = ..()
 	var/list/mob/living/carbon/human/nearby = list(target)
 	for(var/mob/living/carbon/human/nearby_human in range(cleave_radius, target))
@@ -48,7 +49,7 @@
 
 	return TRUE
 
-/datum/action/spell/pointed/cleave/long
+/datum/action/cooldown/spell/pointed/cleave/long
 	name = "Lesser Cleave"
 	cooldown_time = 60 SECONDS
 

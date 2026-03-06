@@ -1,9 +1,8 @@
-/datum/action/spell/telepathy
+/datum/action/cooldown/spell/list_target/telepathy
 	name = "Telepathy"
 	desc = "Telepathically transmits a message to the target."
 	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_transmit"
-	requires_target = TRUE
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	antimagic_flags = NONE
@@ -17,7 +16,7 @@
 	/// Only dedicated for revenants
 	var/use_runechat_telepathy = FALSE
 
-/datum/action/spell/telepathy/pre_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/list_target/telepathy/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -30,31 +29,30 @@
 		reset_spell_cooldown()
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/spell/telepathy/is_valid_spell(mob/user, atom/target)
-	return ..() && isliving(target)
-
-/datum/action/spell/telepathy/on_cast(mob/living/user, mob/living/target)
+/datum/action/cooldown/spell/list_target/telepathy/cast(mob/living/user, mob/living/cast_on)
 	. = ..()
 	message = user.treat_message_min(message)
-	log_directed_talk(owner, target, message, LOG_SAY, name)
+	log_directed_talk(owner, cast_on, message, LOG_SAY, name)
 
 	var/formatted_message = "<span class='[telepathy_span]'>[message]</span>"
 
-	to_chat(owner, "<span class='[bold_telepathy_span]'>You transmit to [target]:</span> [formatted_message]")
-	to_chat(target, "<span class='[bold_telepathy_span]'>You hear something behind you talking...</span> [formatted_message]")
+	to_chat(owner, "<span class='[bold_telepathy_span]'>You transmit to [cast_on]:</span> [formatted_message]")
+	to_chat(cast_on, "<span class='[bold_telepathy_span]'>You hear something behind you talking...</span> [formatted_message]")
 	if(use_runechat_telepathy)
-		owner.create_private_chat_message(message="...[message]",
-									message_language = /datum/language/metalanguage,
-									hearers=list(owner, target))
+		owner.create_private_chat_message(
+			message="...[message]",
+			message_language = /datum/language/metalanguage,
+			hearers=list(owner, cast_on)
+		)
 	else
-		target.balloon_alert(target, "You hear a voice in your head...")
+		cast_on.balloon_alert(cast_on, "You hear a voice in your head...")
 	for(var/mob/dead/ghost as anything in GLOB.dead_mob_list)
 		if(!isobserver(ghost))
 			continue
 
 		var/from_link = FOLLOW_LINK(ghost, owner)
 		var/from_mob_name = "<span class='[bold_telepathy_span]'>[owner] [src]:</span>"
-		var/to_link = FOLLOW_LINK(ghost, target)
-		var/to_mob_name = "<span class='name'>[target]</span>"
+		var/to_link = FOLLOW_LINK(ghost, cast_on)
+		var/to_mob_name = "<span class='name'>[cast_on]</span>"
 
 		to_chat(ghost, "[from_link] [from_mob_name] [formatted_message] [to_link] [to_mob_name]")

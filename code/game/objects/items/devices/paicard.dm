@@ -23,6 +23,7 @@
 
 /obj/item/paicard/Initialize(mapload)
 	SSpai.pai_card_list += src
+	ADD_TRAIT(src, TRAIT_CASTABLE_LOC, INNATE_TRAIT)
 	. = ..()
 	update_icon()
 

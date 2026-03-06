@@ -527,7 +527,7 @@
 	broodmother_body.forceMove(vent)
 	player_mind.transfer_to(broodmother_body)
 	broodmother_body.fed += 3
-	broodmother_body.lay_eggs.update_buttons()
+	broodmother_body.lay_eggs.build_all_button_icons()
 
 	return broodmother_body
 

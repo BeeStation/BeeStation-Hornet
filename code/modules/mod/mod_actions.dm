@@ -1,5 +1,6 @@
 /datum/action/item_action/mod
 	background_icon_state = "bg_mod"
+	overlay_icon_state = "bg_mod_border"
 	button_icon = 'icons/hud/actions/actions_mod.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
 	/// Whether this action is intended for the AI. Stuff breaks a lot if this is done differently.
@@ -62,11 +63,14 @@
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
 
-/datum/action/item_action/mod/activate/on_activate(mob/user, atom/target, trigger_flags)
+/datum/action/item_action/mod/activate/trigger(trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(!(trigger_flags & TRIGGER_SECONDARY_ACTION) && !ready)
 		ready = TRUE
 		button_icon_state = "activate-ready"
-		update_buttons()
+		build_all_button_icons()
 		addtimer(CALLBACK(src, PROC_REF(reset_ready)), 3 SECONDS)
 		return
 	var/obj/item/mod/control/mod = target
@@ -77,7 +81,7 @@
 /datum/action/item_action/mod/activate/proc/reset_ready()
 	ready = FALSE
 	button_icon_state = initial(button_icon_state)
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/item_action/mod/activate/ai
 	ai_action = TRUE
@@ -87,7 +91,7 @@
 	desc = "Toggle a MODsuit module."
 	button_icon_state = "module"
 
-/datum/action/item_action/mod/module/on_activate(mob/user, atom/target)
+/datum/action/item_action/mod/module/activate(atom/target)
 	var/obj/item/mod/control/mod = target
 	mod.quick_module(usr)
 
@@ -99,7 +103,7 @@
 	desc = "Open the MODsuit's panel."
 	button_icon_state = "panel"
 
-/datum/action/item_action/mod/panel/on_activate(mob/user, atom/target)
+/datum/action/item_action/mod/panel/activate(atom/target)
 	var/obj/item/mod/control/mod = target
 	mod.ui_interact(usr)
 
@@ -158,14 +162,14 @@
 		return
 	return ..()
 
-/datum/action/item_action/mod/pinned_module/on_activate(mob/user, atom/target)
+/datum/action/item_action/mod/pinned_module/activate(atom/target)
 	module.on_select()
 
-/datum/action/item_action/mod/pinned_module/apply_icon(atom/movable/screen/movable/action_button/current_button, force)
-	. = ..(current_button, force = TRUE)
+/datum/action/item_action/mod/pinned_module/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force)
+	. = ..()
 	if(override)
 		return
-	var/obj/item/mod/control/mod = master
+	var/obj/item/mod/control/mod = target
 	if(module == mod.selected_module)
 		current_button.add_overlay(image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_selected", layer = FLOAT_LAYER-0.1))
 	else if(module.active)
@@ -181,13 +185,13 @@
 /datum/action/item_action/mod/pinned_module/proc/module_interacted_with(datum/source)
 	SIGNAL_HANDLER
 
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/item_action/mod/pinned_module/proc/cooldown_started(datum/source, cooldown_time)
 	SIGNAL_HANDLER
 
 	deltimer(cooldown_timer)
-	update_buttons()
+	build_all_button_icons()
 	if (cooldown_time == 0)
 		return
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(update_buttons), UPDATE_BUTTON_OVERLAY), cooldown_time + 1, TIMER_STOPPABLE)

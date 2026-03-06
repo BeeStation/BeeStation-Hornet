@@ -493,10 +493,10 @@
 // Used when a player's in control of a minebot.
 
 /datum/action/innate/minedrone
-	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
+	overlay_icon_state = "bg_default_border"
 
 /// Toggles a minebot's inbuilt meson scanners.
 /datum/action/innate/minedrone/toggle_meson_vision

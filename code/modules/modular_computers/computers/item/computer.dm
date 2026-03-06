@@ -662,7 +662,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	set_light_on(using_flashlight)
 	update_appearance()
 	// Show the light_on overlay on top of the action button icon
-	update_action_buttons(force = TRUE) //force it because we added an overlay, not changed its icon
+	update_item_action_buttons(force = TRUE) //force it because we added an overlay, not changed its icon
 	return TRUE
 
 /**

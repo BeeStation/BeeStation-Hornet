@@ -1066,7 +1066,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
-/datum/action/innate/deploy_shell/on_activate(mob/user, atom/target)
+/datum/action/innate/deploy_shell/activate(atom/target)
 	var/mob/living/silicon/ai/AI = owner
 	if(!AI)
 		return
@@ -1079,7 +1079,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
-/datum/action/innate/deploy_last_shell/on_activate(mob/user, atom/target)
+/datum/action/innate/deploy_last_shell/activate(atom/target)
 	if(!owner)
 		return
 	if(last_used_shell)

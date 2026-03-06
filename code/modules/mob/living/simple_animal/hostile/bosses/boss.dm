@@ -43,7 +43,7 @@
 
 
 //Action datum for bosses
-//Override Trigger() as shown below to do things
+//Override trigger() as shown below to do things
 /datum/action/boss
 	check_flags = AB_CHECK_CONSCIOUS //Incase the boss is given a player
 	var/boss_cost = 100 //Cost of usage for the boss' AI 1-100
@@ -53,7 +53,7 @@
 	var/needs_target = TRUE //Does the boss need to have a target? (Only matters for the AI)
 	var/say_when_triggered = "" //What does the boss Say() when the ability triggers?
 
-/datum/action/boss/on_activate(mob/user, atom/target)
+/datum/action/boss/activate(atom/target)
 	if(!istype(boss, boss_type))
 		return 0
 	if(!boss.atb)

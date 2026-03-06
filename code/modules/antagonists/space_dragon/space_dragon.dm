@@ -11,14 +11,18 @@
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
 	var/datum/action/innate/summon_rift/rift_ability
-	/// The innate ability to use wavespeak
-	var/datum/action/innate/wavespeak/wavespeak_ability
 	/// A list of all of the rifts created by Space Dragon.  Used for setting them all to infinite carp spawn when Space Dragon wins, and removing them when Space Dragon dies.
 	var/list/obj/structure/carp_rift/rift_list = list()
 	/// How many rifts have been successfully charged
 	var/rifts_charged = 0
 	/// Whether or not Space Dragon has completed their objective, and thus triggered the ending sequence.
 	var/objective_complete = FALSE
+	/// What mob to spawn from ghosts using this dragon's rifts
+	var/minion_to_spawn = /mob/living/simple_animal/hostile/carp/advanced
+	/// What AI mobs to spawn from this dragon's rifts
+	var/ai_to_spawn = /mob/living/simple_animal/hostile/carp
+	/// Wavespeak mind linker, to allow telepathy between dragon and carps
+	var/datum/component/mind_linker/wavespeak
 	/// What areas are we allowed to place rifts in?
 	var/list/chosen_rift_areas = list()
 
@@ -34,15 +38,17 @@
 		"You've existed for so long, you have forgotten your purpose. The sight of an intruder in your endless claim of the void of space re-kindles the magic within you. Place rifts and summon an army to snuff out another light intruding in your domain.")
 
 /datum/antagonist/space_dragon/proc/forge_objectives()
-	// Areas that will prove challenging for the dragon and provocative to the crew.
-	var/list/area/allowed_areas = typecacheof(list(
-		/area/crew_quarters/heads/captain,
-		/area/crew_quarters/heads/hop,
-		/area/bridge,
-		/area/engine,
-		/area/security,
-		/area/science,
-	))
+	var/static/list/area/allowed_areas
+	if(!allowed_areas)
+		// Areas that will prove challenging for the dragon and provocative to the crew.
+		var/list/area/allowed_areas = typecacheof(list(
+			/area/crew_quarters/heads/captain,
+			/area/crew_quarters/heads/hop,
+			/area/bridge,
+			/area/engine,
+			/area/security,
+			/area/science,
+		))
 	// Things included above that we do NOT want
 	var/list/area/blocked_areas = typecacheof(list(
 		/area/bridge/showroom,
@@ -71,39 +77,60 @@
 		chosen_rift_areas += chosen_rift_area
 		area_names += initial(chosen_rift_area.name)
 
-	var/datum/objective/summon_carp/summon = new()
+	var/datum/objective/summon_carp/summon = new
 	objectives += summon
-	summon.dragon = src
-
-	summon.explanation_text = "Summon 3 rifts in order to flood the station with carp. Your possible rift locations are:\n - [english_list(area_names, "ERROR", "\n - ", "\n - ")]."
-	log_objective(owner, summon.explanation_text)
+	summon.owner = owner
+	summon.update_explanation_text()
 
 /datum/antagonist/space_dragon/on_gain()
 	forge_objectives()
-	. = ..()
 	rift_ability = new
-	rift_ability.Grant(owner.current)
-	wavespeak_ability = new
-	wavespeak_ability.Grant(owner.current)
-	owner.current.faction |= FACTION_CARP
-	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
-	RegisterSignal(owner.current, COMSIG_LIVING_DEATH, PROC_REF(destroy_rifts))
-	RegisterSignal(owner.current, COMSIG_QDELETING, PROC_REF(destroy_rifts))
+	owner.special_role = ROLE_SPACE_DRAGON
 	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
 		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
 		S.can_summon_rifts = TRUE
+	return ..()
+
+/datum/antagonist/space_dragon/apply_innate_effects(mob/living/mob_override)
+	var/mob/living/antag = mob_override || owner.current
+	RegisterSignal(antag, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
+	RegisterSignal(antag, COMSIG_LIVING_DEATH, PROC_REF(destroy_rifts))
+	antag.faction |= FACTION_CARP
+	// Give the ability over if we have one
+	rift_ability?.Grant(antag)
+	wavespeak = antag.AddComponent( \
+		/datum/component/mind_linker, \
+		network_name = "Wavespeak", \
+		chat_color = "#635BAF", \
+		signals_which_destroy_us = list(COMSIG_LIVING_DEATH), \
+		speech_action_icon = 'icons/mob/actions/actions_space_dragon.dmi', \
+		speech_action_icon_state = "wavespeak", \
+	)
+	RegisterSignal(wavespeak, COMSIG_QDELETING, PROC_REF(clear_wavespeak))
 
 /datum/antagonist/space_dragon/on_removal()
-	. = ..()
-	rift_ability.Remove(owner.current)
-	owner.current.faction -= FACTION_CARP
-	UnregisterSignal(owner.current, COMSIG_LIVING_LIFE)
-	UnregisterSignal(owner.current, COMSIG_LIVING_DEATH)
-	rift_list = null
+	owner.special_role = null
+	return ..()
+
+/datum/antagonist/space_dragon/remove_innate_effects(mob/living/mob_override)
+	var/mob/living/antag = mob_override || owner.current
+	UnregisterSignal(antag, COMSIG_LIVING_LIFE)
+	UnregisterSignal(antag, COMSIG_LIVING_DEATH)
+	antag.faction -= FACTION_CARP
+	rift_ability?.Remove(antag)
+	QDEL_NULL(wavespeak)
 
 /datum/antagonist/space_dragon/Destroy()
 	rift_list = null
+	carp = null
+	QDEL_NULL(rift_ability)
+	QDEL_NULL(wavespeak)
+	chosen_rift_areas.Cut()
 	return ..()
+
+/datum/antagonist/space_dragon/proc/clear_wavespeak()
+	SIGNAL_HANDLER
+	wavespeak = null
 
 /**
   * Sets up Space Dragon's victory for completing the objectives.
@@ -117,10 +144,10 @@
 	objective_complete = TRUE
 	permanent_empower()
 	var/datum/objective/summon_carp/main_objective = locate() in objectives
-	if(main_objective)
-		main_objective.completed = TRUE
-	priority_announce("A large amount of lifeforms have been detected approaching [station_name()] at extreme speeds. Remaining crew are advised to evacuate as soon as possible.", "Central Command Wildlife Observations")
-	sound_to_playing_players('sound/creatures/space_dragon_roar.ogg')
+	main_objective?.completed = TRUE
+	priority_announce("A large amount of lifeforms have been detected approaching [station_name()] at extreme speeds. \
+		Remaining crew are advised to evacuate as soon as possible.", "Central Command Wildlife Observations", has_important_message = TRUE)
+	sound_to_playing_players('sound/creatures/space_dragon_roar.ogg', volume = 75)
 	for(var/obj/structure/carp_rift/rift in rift_list)
 		rift.carp_stored = 999999
 		rift.time_charged = rift.max_charge
@@ -186,8 +213,19 @@
 	rift_list.Cut()
 
 /datum/objective/summon_carp
-	var/datum/antagonist/space_dragon/dragon
 	explanation_text = "Summon 3 rifts in order to flood the station with carp. Your possible rift locations are: (ERROR)."
+
+/datum/objective/summon_carp/update_explanation_text()
+	var/datum/antagonist/space_dragon/dragon_owner = owner.has_antag_datum(/datum/antagonist/space_dragon)
+	if(isnull(dragon_owner))
+		return
+
+	var/list/converted_names = list()
+	for(var/area/possible_area as anything in dragon_owner.chosen_rift_areas)
+		converted_names += possible_area.get_original_area_name()
+
+	explanation_text = initial(explanation_text)
+	explanation_text += " Your possible rift locations are: [english_list(converted_names)]"
 
 /datum/antagonist/space_dragon/roundend_report()
 	var/list/parts = list()
@@ -207,27 +245,15 @@
 	else
 		parts += span_redtextbig("The [name] has failed!")
 	if(length(carp))
-		parts += span_header("The [name] was assisted by:")
-		parts += printplayerlist(carp)
+		parts += "<br><span class='header'>The [name] was assisted by:</span>"
+		parts += "<ul class='playerlist'>"
+		var/list/players_to_carp_taken = list()
+		for(var/datum/mind/carpy as anything in carp)
+			players_to_carp_taken[carpy.key] += 1
+		var/list = ""
+		for(var/carp_user in players_to_carp_taken)
+			list += "<li><b>[carp_user]<b>, who played <b>[players_to_carp_taken[carp_user]]</b> space carps.</li>"
+		parts += list
+		parts += "</ul>"
+
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
-
-/datum/action/innate/wavespeak
-	name = "Carp Wavespeak"
-	desc = "Communicate through wavespeak."
-	background_icon_state = "bg_default"
-	button_icon = 'icons/hud/actions/actions_space_dragon.dmi'
-	button_icon_state = "wavespeak"
-	check_flags = AB_CHECK_CONSCIOUS
-
-/datum/action/innate/wavespeak/is_available()
-	if(!("carp" in owner.faction))
-		return FALSE
-	return ..()
-
-/datum/action/innate/wavespeak/on_activate()
-	// This is filtered, treated, and logged in carp_talk
-	var/input = stripped_input(usr, "Enter wavespeak message.", "Carp Wavespeak", "")
-	if(!input || !is_available() || !isliving(owner))
-		return
-	var/mob/living/L = owner
-	L.carp_talk(input)

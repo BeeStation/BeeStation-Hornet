@@ -127,11 +127,10 @@
 	icon_state = "purple"
 	inhand_icon_state = "glasses"
 	emissive_state = "meson_emissive"
-	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/glasses_science
-	clothing_traits = list(TRAIT_REAGENT_SCANNER)
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_RESEARCH_SCANNER)
 
 
 /datum/armor/glasses_science
@@ -593,6 +592,7 @@
 	name = "Scan"
 	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
 	background_icon_state = "bg_clock"
+	overlay_icon_state = "bg_clock_border"
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "scan"
 

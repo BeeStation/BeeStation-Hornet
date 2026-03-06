@@ -133,7 +133,7 @@
 	name = "Open [martial_art.name] Guide:"
 */
 
-/datum/action/martial_info/on_activate(mob/user, atom/target)
+/datum/action/martial_info/activate(atom/target)
 	ui_interact(owner)
 
 /datum/action/martial_info/is_available(feedback = FALSE)

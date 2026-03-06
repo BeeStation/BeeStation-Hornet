@@ -46,7 +46,7 @@
 	//button_icon_state = "wrassle_slam" (There is no such icon yet)
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/slam/on_activate(mob/user, atom/target)
+/datum/action/slam/activate(atom/target)
 	owner.visible_message(span_danger("[owner] prepares to BODY SLAM!"), "<b><i>Your next attack will be a BODY SLAM.</i></b>")
 	owner.mind.martial_art.streak = "slam"
 
@@ -55,7 +55,7 @@
 	//button_icon_state = "wrassle_throw" (There is no such icon yet)
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/throw_wrassle/on_activate(mob/user, atom/target)
+/datum/action/throw_wrassle/activate(atom/target)
 	owner.visible_message(span_danger("[owner] prepares to THROW!"), "<b><i>Your next attack will be a THROW.</i></b>")
 	owner.mind.martial_art.streak = "throw"
 
@@ -64,7 +64,7 @@
 	//button_icon_state = "wrassle_kick" (There is no such icon yet)
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/kick/on_activate(mob/user, atom/target)
+/datum/action/kick/activate(atom/target)
 	owner.visible_message(span_danger("[owner] prepares to KICK!"), "<b><i>Your next attack will be a KICK.</i></b>")
 	owner.mind.martial_art.streak = "kick"
 
@@ -73,7 +73,7 @@
 	//button_icon_state = "wrassle_strike" (There is no such icon yet)
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/strike/on_activate(mob/user, atom/target)
+/datum/action/strike/activate(atom/target)
 	owner.visible_message(span_danger("[owner] prepares to STRIKE!"), "<b><i>Your next attack will be a STRIKE.</i></b>")
 	owner.mind.martial_art.streak = "strike"
 
@@ -82,7 +82,7 @@
 	//button_icon_state = "wrassle_drop" (There is no such icon yet)
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/drop/on_activate(mob/user, atom/target)
+/datum/action/drop/activate(atom/target)
 	owner.visible_message(span_danger("[owner] prepares to LEG DROP!"), "<b><i>Your next attack will be a LEG DROP.</i></b>")
 	owner.mind.martial_art.streak = "drop"
 

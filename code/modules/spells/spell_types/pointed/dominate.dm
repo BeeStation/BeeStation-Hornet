@@ -1,8 +1,9 @@
-/datum/action/spell/pointed/dominate
+/datum/action/cooldown/spell/pointed/dominate
 	name = "Dominate"
 	desc = "This spell dominates the mind of a lesser creature to the will of Nar'Sie, \
 		allying it only to her direct followers."
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
 	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "dominate"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
@@ -17,7 +18,7 @@
 	cast_range = 7
 	active_msg = "You prepare to dominate the mind of a target..."
 
-/datum/action/spell/pointed/dominate/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/dominate/is_valid_spell(mob/user, atom/target)
 	if(!isliving(target))
 		return FALSE
 
@@ -35,7 +36,7 @@
 
 	return TRUE
 
-/datum/action/spell/pointed/dominate/on_cast(mob/user, mob/living/simple_animal/target)
+/datum/action/cooldown/spell/pointed/dominate/on_cast(mob/user, mob/living/simple_animal/target)
 	. = ..()
 	if(target.can_block_magic(antimagic_flags))
 		to_chat(target, "<span class='warning'>Your feel someone attempting to subject your mind to terrible machinations!</span>")

@@ -82,7 +82,7 @@
 
 	var/spellnum = 1
 	for(var/datum/action/spell as anything in actions)
-		if(!(type in construct_spells))
+		if(!(spell.type in construct_spells))
 			continue
 
 		var/pos = 2 + spellnum * 31
@@ -120,35 +120,44 @@
 			. += span_warning("<b>[t_He] look[t_s] severely dented!</b>")
 	. += "</span>"
 
-/mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
-	if(isconstruct(M)) //is it a construct?
-		var/mob/living/simple_animal/hostile/construct/C = M
-		if(!C.can_repair_constructs || (C == src && !C.can_repair_self))
+/mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/user, list/modifiers)
+	if(!isconstruct(user))
+		if(src != user)
 			return ..()
-		if(theme != C.theme)
-			return ..()
-		if(health < maxHealth)
-			adjustHealth(-5)
-			if(src != M)
-				Beam(M, icon_state="sendbeam", time = 4)
-				M.visible_message(span_danger("[M] repairs some of \the <b>[src]'s</b> dents."), \
-						   span_cult("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
-			else
-				M.visible_message(span_danger("[M] repairs some of [p_their()] own dents."), \
-						   span_cult("You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health."))
-		else
-			if(src != M)
-				to_chat(M, span_cult("You cannot repair <b>[src]'s</b> dents, as [p_they()] [p_have()] none!"))
-			else
-				to_chat(M, span_cult("You cannot repair your own dents, as you have none!"))
-	else if(src != M)
+		return
+
+	var/mob/living/simple_animal/hostile/construct/doll = user
+	if(!doll.can_repair_constructs || (doll == src && !doll.can_repair_self))
 		return ..()
+	if(theme != doll.theme)
+		return ..()
+
+	if(health >= maxHealth)
+		if(src != doll)
+			to_chat(doll, span_cult("You cannot repair <b>[src]'s</b> dents, as [p_they()] [p_have()] none!"))
+		else
+			to_chat(doll, span_cult("You cannot repair your own dents, as you have none!"))
+		return
+
+	adjustHealth(-5)
+	if(src == user)
+		user.visible_message(
+			span_danger("[user] repairs some of [p_their()] own dents."),
+			span_cult("You repair some of your own dents, leaving you at <b>[user.health]/[user.maxHealth]</b> health.")
+		)
+		return
+
+	Beam(user, icon_state="sendbeam", time = 4)
+	user.visible_message(
+		span_danger("[user] repairs some of \the <b>[src]'s</b> dents."),
+		span_cult("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.")
+	)
 
 /mob/living/simple_animal/hostile/construct/narsie_act()
 	return
 
 /mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
-	return 0
+	return FALSE
 
 /////////////////Juggernaut///////////////
 /mob/living/simple_animal/hostile/construct/juggernaut
@@ -174,8 +183,8 @@
 	mob_size = MOB_SIZE_LARGE
 	force_threshold = 10
 	construct_spells = list(
-						/datum/action/spell/forcewall/cult,
-		/datum/action/spell/basic_projectile/juggernaut,
+						/datum/action/cooldown/spell/forcewall/cult,
+		/datum/action/cooldown/spell/basic_projectile/juggernaut,
 		/datum/action/innate/cult/create_rune/wall,
 	)
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand heavy punishment, \
@@ -241,7 +250,7 @@
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_spells = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/shift,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, \
@@ -263,7 +272,7 @@
 	. = ..()
 
 	if(. && isnum(prev_stat))
-		var/datum/action/spell/jaunt/ethereal_jaunt/shift/jaunt = locate() in actions
+		var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/jaunt = locate() in actions
 		if(!jaunt)
 			return
 		var/mob/living/L = target
@@ -279,7 +288,7 @@
 			total_refund += attack_refund
 
 		jaunt.reduce_cooldown(total_refund)
-		jaunt.update_buttons()
+		jaunt.build_all_button_icons()
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -288,7 +297,7 @@
 /mob/living/simple_animal/hostile/construct/wraith/angelic
 	theme = THEME_HOLY
 	construct_spells = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/shift/angelic,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/angelic,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	loot = list(/obj/item/ectoplasm/angelic)
@@ -297,7 +306,7 @@
 /mob/living/simple_animal/hostile/construct/wraith/mystic
 	theme = THEME_WIZARD
 	construct_spells = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/shift/mystic,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/mystic,
 		/datum/action/innate/cult/create_rune/tele,
 	)
 	loot = list(/obj/item/ectoplasm/mystic)
@@ -324,11 +333,11 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_spells = list(
-		/datum/action/spell/conjure/cult_floor,
-		/datum/action/spell/conjure/cult_wall,
-		/datum/action/spell/conjure/soulstone,
-		/datum/action/spell/conjure/construct/lesser,
-		/datum/action/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/cult_floor,
+		/datum/action/cooldown/spell/conjure/cult_wall,
+		/datum/action/cooldown/spell/conjure/soulstone,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, \
@@ -387,9 +396,9 @@
 	chat_color = "#AED2FF"
 	loot = list(/obj/item/ectoplasm/angelic)
 	construct_spells = list(
-		/datum/action/spell/conjure/soulstone/purified,
-		/datum/action/spell/conjure/construct/lesser,
-		/datum/action/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/soulstone/purified,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 
@@ -397,21 +406,21 @@
 	theme = THEME_WIZARD
 	loot = list(/obj/item/ectoplasm/mystic)
 	construct_spells = list(
-		/datum/action/spell/conjure/cult_floor,
-		/datum/action/spell/conjure/cult_wall,
-		/datum/action/spell/conjure/soulstone/mystic,
-		/datum/action/spell/conjure/construct/lesser,
-		/datum/action/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/cult_floor,
+		/datum/action/cooldown/spell/conjure/cult_wall,
+		/datum/action/cooldown/spell/conjure/soulstone/mystic,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 
 /mob/living/simple_animal/hostile/construct/artificer/noncult
 	construct_spells = list(
-		/datum/action/spell/conjure/cult_floor,
-		/datum/action/spell/conjure/cult_wall,
-		/datum/action/spell/conjure/soulstone/noncult,
-		/datum/action/spell/conjure/construct/lesser,
-		/datum/action/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/cult_floor,
+		/datum/action/cooldown/spell/conjure/cult_wall,
+		/datum/action/cooldown/spell/conjure/soulstone/noncult,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
 		/datum/action/innate/cult/create_rune/revive,
 	)
 
@@ -430,8 +439,8 @@
 	attack_verb_simple = "butcher"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_spells = list(
-		/datum/action/spell/aoe/area_conversion,
-		/datum/action/spell/forcewall/cult,
+		/datum/action/cooldown/spell/aoe/area_conversion,
+		/datum/action/cooldown/spell/forcewall/cult,
 	)
 	playstyle_string = "<B>You are a Harvester. You are incapable of directly killing humans, but your attacks will remove their limbs: \
 						Bring those who still cling to this world of illusion back to the Geometer so they may know Truth. Your form and any you are pulling can pass through runed walls effortlessly.</B>"
@@ -509,6 +518,8 @@
 	name = "Seek your Master"
 	desc = "You and your master share a soul-link that informs you of their location"
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
+
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
 	button_icon = 'icons/hud/actions/actions_cult.dmi'
@@ -549,6 +560,8 @@
 	desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
 	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
+
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
 

@@ -977,8 +977,8 @@
 	var/label = ""
 	var/time_left = max(next_use_time - world.time, 0)
 	if (cooldown_time)
-		if(istype(src, /datum/action/spell))
-			var/datum/action/spell/spell = src
+		if(istype(src, /datum/action/cooldown/spell))
+			var/datum/action/cooldown/spell/spell = src
 			label = "Spell Level: [spell.spell_level]/[spell.spell_max_level], Spell Cooldown: [(spell.cooldown_time/10)] Seconds, Can be cast in [(time_left/10)]"
 		else
 			label = "Action Cooldown: [(cooldown_time/10)] Seconds,  Can be cast in [(time_left/10)]"
@@ -1561,7 +1561,7 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
 	. = stat
 	stat = new_stat
-	update_action_buttons_icon(TRUE)
+	update_mob_action_buttons(TRUE)
 
 /mob/key_down(key, client/client, full_key)
 	..()

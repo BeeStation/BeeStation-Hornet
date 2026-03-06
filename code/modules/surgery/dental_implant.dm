@@ -33,7 +33,7 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/on_activate(mob/user, atom/target)
+/datum/action/item_action/hands_free/activate_pill/activate(atom/target)
 	to_chat(owner, span_warning("You grit your teeth and burst the implanted [target.name]!"))
 	log_combat(owner, null, "swallowed an implanted pill", target)
 	var/obj/item/item_target = target

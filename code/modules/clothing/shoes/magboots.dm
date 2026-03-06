@@ -44,7 +44,7 @@
 	update_gravity_trait(user)
 	user.refresh_gravity()
 	user.update_equipment_speed_mods()
-	update_action_buttons()
+	update_item_action_buttons()
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()

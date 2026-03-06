@@ -9,6 +9,7 @@
 	name = "Summon Rift"
 	desc = "Summon a rift to bring forth a horde of space carp."
 	background_icon_state = "bg_default"
+	overlay_icon_state = "bg_default_border"
 	button_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "carp_rift"
 
@@ -85,6 +86,8 @@
 	var/last_carp_inc = 0
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
 	var/list/ckey_list = list()
+	/// Gravity aura for the rift, makes all turfs nearby forced grav.
+	var/datum/proximity_monitor/advanced/gravity/warns_on_entrance/gravity_aura
 
 
 /datum/armor/structure_carp_rift
@@ -95,7 +98,19 @@
 
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
+
+	gravity_aura = new(
+		/* host = */src,
+		/* range = */15,
+		/* ignore_if_not_on_turf = */TRUE,
+		/* gravity = */1,
+	)
+
 	START_PROCESSING(SSobj, src)
+
+/obj/structure/carp_rift/Destroy()
+	QDEL_NULL(gravity_aura)
+	return ..()
 
 /obj/structure/carp_rift/examine(mob/user)
 	. = ..()
@@ -174,7 +189,7 @@
 	if(time_charged >= max_charge)
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
-		priority_announce("Spatial object has reached peak energy charge in [initial(A.name)], please stand-by.", "Central Command Wildlife Observations")
+		priority_announce("Spatial object has reached peak energy charge in [initial(A.name)], please stand-by.", "Central Command Wildlife Observations", has_important_message = TRUE)
 		atom_integrity = INFINITY
 		icon_state = "carp_rift_charged"
 		set_light_color(LIGHT_COLOR_DIM_YELLOW)
@@ -220,15 +235,19 @@
 			to_chat(user, span_warning("You've already become a carp using this rift! Either wait for a backlog of carp spawns or until the next rift!"))
 			return FALSE
 		is_listed = TRUE
-	var/carp_ask = alert("Become a carp?", "Help bring forth the horde?", "Yes", "No")
-	if(carp_ask == "No" || !src || QDELETED(src) || QDELETED(user))
+	var/carp_ask = tgui_alert(user, "Become a carp?", "Carp Rift", list("Yes", "No"))
+	if(carp_ask != "Yes" || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(carp_stored <= 0)
 		to_chat(user, span_warning("The rift already summoned enough carp!"))
 		return FALSE
-	var/mob/living/simple_animal/hostile/carp/advanced/newcarp = new(loc)
-	var/datum/action/innate/wavespeak/wave_action = new
-	wave_action.Grant(newcarp)
+
+	if(isnull(dragon))
+		return
+	var/mob/living/newcarp = new dragon.minion_to_spawn(loc)
+	newcarp.faction = dragon.owner.current.faction
+	dragon.wavespeak?.link_mob(newcarp)
+
 	if(!is_listed)
 		ckey_list += user.ckey
 	newcarp.key = user.key

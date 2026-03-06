@@ -3,24 +3,24 @@
  *
  * Cone spells shoot off as a cone from the caster.
  */
-/datum/action/spell/cone
+/datum/action/cooldown/spell/cone
 	/// This controls how many levels the cone has. Increase this value to make a bigger cone.
 	var/cone_levels = 3
 	/// This value determines if the cone penetrates walls.
 	var/respect_density = FALSE
 
-/datum/action/spell/cone/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/cone/on_cast(mob/user, atom/target)
 	. = ..()
 	var/list/cone_turfs = get_cone_turfs(get_turf(user), user.dir, cone_levels)
 	SEND_SIGNAL(src, COMSIG_SPELL_CONE_ON_CAST, cone_turfs, user)
 	make_cone(cone_turfs, user)
 
-/datum/action/spell/cone/proc/make_cone(list/cone_turfs, atom/caster)
+/datum/action/cooldown/spell/cone/proc/make_cone(list/cone_turfs, atom/caster)
 	for(var/list/turf_list in cone_turfs)
 		do_cone_effects(turf_list, caster)
 
 /// This proc does obj, mob and turf cone effects on all targets in the passed list.
-/datum/action/spell/cone/proc/do_cone_effects(list/target_turf_list, atom/caster, level = 1)
+/datum/action/cooldown/spell/cone/proc/do_cone_effects(list/target_turf_list, atom/caster, level = 1)
 	SEND_SIGNAL(src, COMSIG_SPELL_CONE_ON_LAYER_EFFECT, target_turf_list, caster, level)
 	for(var/turf/target_turf as anything in target_turf_list)
 		if(QDELETED(target_turf)) //if turf is no longer there
@@ -37,19 +37,19 @@
 				do_mob_cone_effect(movable_content, level)
 
 ///This proc deterimines how the spell will affect turfs.
-/datum/action/spell/cone/proc/do_turf_cone_effect(turf/target_turf, atom/caster, level)
+/datum/action/cooldown/spell/cone/proc/do_turf_cone_effect(turf/target_turf, atom/caster, level)
 	return
 
 ///This proc deterimines how the spell will affect objects.
-/datum/action/spell/cone/proc/do_obj_cone_effect(obj/target_obj, atom/caster, level)
+/datum/action/cooldown/spell/cone/proc/do_obj_cone_effect(obj/target_obj, atom/caster, level)
 	return
 
 ///This proc deterimines how the spell will affect mobs.
-/datum/action/spell/cone/proc/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
+/datum/action/cooldown/spell/cone/proc/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
 	return
 
 ///This proc creates a list of turfs that are hit by the cone.
-/datum/action/spell/cone/proc/get_cone_turfs(turf/starter_turf, dir_to_use, cone_levels = 3)
+/datum/action/cooldown/spell/cone/proc/get_cone_turfs(turf/starter_turf, dir_to_use, cone_levels = 3)
 	var/list/turfs_to_return = list()
 	var/turf/turf_to_use = starter_turf
 	var/turf/left_turf
@@ -111,7 +111,7 @@
  *
  * Return a number - the TOTAL width of the cone at the passed level.
  */
-/datum/action/spell/cone/proc/calculate_cone_shape(current_level)
+/datum/action/cooldown/spell/cone/proc/calculate_cone_shape(current_level)
 	// Default formula: (1 (innate) -> 3 -> 5 -> 5 -> 7 -> 7 -> 9 -> 9 -> ...)
 	return current_level + (current_level % 2) + 1
 
@@ -122,12 +122,12 @@
  * gradually / with a delay, instead of affecting the entire
  * cone area at once.
  */
-/datum/action/spell/cone/staggered
+/datum/action/cooldown/spell/cone/staggered
 
 	/// The delay between each cone level triggering.
 	var/delay_between_level = 0.2 SECONDS
 
-/datum/action/spell/cone/staggered/make_cone(list/cone_turfs, atom/caster)
+/datum/action/cooldown/spell/cone/staggered/make_cone(list/cone_turfs, atom/caster)
 	var/level_counter = 0
 	for(var/list/turf_list in cone_turfs)
 		level_counter++

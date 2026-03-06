@@ -170,7 +170,7 @@
 	name = "Toggle Safety"
 	background_icon = null
 
-/datum/action/item_action/artifact_pincher_mode/on_activate(mob/user, atom/target)
+/datum/action/item_action/artifact_pincher_mode/activate(atom/target)
 	. = ..()
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
@@ -190,7 +190,7 @@
 	desc = "A ring that allows the wearer to swap places with another person they can see."
 	icon_state = "ring"
 	inhand_icon_state = "ring"
-	actions_types = list(/datum/action/spell/pointed/swap_places)
+	actions_types = list(/datum/action/cooldown/spell/pointed/swap_places)
 
 /obj/item/clothing/gloves/translocation_ring/item_action_slot_check(slot, mob/user)
 	return slot == ITEM_SLOT_GLOVES

@@ -28,7 +28,7 @@
 		to_chat(on_who, ("<span class='notice'>You are no longer prepared to sting.</span>"))
 	update_buttons()
 
-/datum/action/item_action/organ_action/use/bee_sting/on_activate(mob/user, atom/target)
+/datum/action/item_action/organ_action/use/bee_sting/activate(atom/target)
 	if(!owner.Adjacent(target))
 		owner.balloon_alert(owner, "Your stinger can't reach that far!")
 		return FALSE

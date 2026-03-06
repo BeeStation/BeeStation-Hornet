@@ -5,10 +5,10 @@
 	quality = POSITIVE
 	text_gain_indication = "<span class='notice'>Your skin feels webby.</span>"
 	instability = 15
-	power_path = /datum/action/spell/lay_genetic_web
+	power_path = /datum/action/cooldown/spell/lay_genetic_web
 
 // In the future this could be unified with the spider's web action
-/datum/action/spell/lay_genetic_web
+/datum/action/cooldown/spell/lay_genetic_web
 	name = "Lay Web"
 	desc = "Drops a web. Only you will be able to traverse your web easily, making it pretty good for keeping you safe."
 	button_icon = 'icons/hud/actions/actions_animal.dmi'
@@ -22,7 +22,7 @@
 	/// The path of web that we create
 	var/web_path = /obj/structure/spider/stickyweb
 
-/datum/action/spell/lay_genetic_web/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/lay_genetic_web/on_cast(mob/user, atom/target)
 	var/turf/web_spot = user.loc
 	if(!isturf(web_spot) || (locate(web_path) in web_spot))
 		to_chat(user, ("<span class='warning'>You can't lay webs here!</span>"))

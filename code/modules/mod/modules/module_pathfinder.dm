@@ -214,6 +214,7 @@
 	desc = "Recall a MODsuit anyplace, anytime."
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_mod"
+	overlay_icon_state = "bg_mod_border"
 	button_icon = 'icons/hud/actions/actions_mod.dmi'
 	button_icon_state = "recall"
 	/// The cooldown for the recall.
@@ -225,8 +226,11 @@
 		qdel(src)
 		return
 
-/datum/action/item_action/mod_recall/on_activate()
-	var/obj/item/implant/mod/implant = master
+/datum/action/item_action/mod_recall/trigger(trigger_flags)
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/implant/mod/implant = target
 	if(!COOLDOWN_FINISHED(src, recall_cooldown))
 		implant.balloon_alert(implant.imp_in, "on cooldown!")
 		return

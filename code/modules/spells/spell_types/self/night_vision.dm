@@ -1,5 +1,5 @@
 //Toggle Night Vision
-/datum/action/spell/night_vision
+/datum/action/cooldown/spell/night_vision
 	name = "Toggle Nightvision"
 	desc = "Toggle your nightvision mode."
 
@@ -9,14 +9,14 @@
 	/// The span the "toggle" message uses when sent to the user
 	var/toggle_span = "notice"
 
-/datum/action/spell/night_vision/New(Target)
+/datum/action/cooldown/spell/night_vision/New(Target)
 	. = ..()
 	name = "[name] \[ON\]"
 
-/datum/action/spell/night_vision/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/night_vision/is_valid_spell(mob/user, atom/target)
 	return isliving(user)
 
-/datum/action/spell/night_vision/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/night_vision/on_cast(mob/living/user, atom/target)
 	. = ..()
 	to_chat(user, "<span class='[toggle_span]'>You toggle your night vision.</span>")
 

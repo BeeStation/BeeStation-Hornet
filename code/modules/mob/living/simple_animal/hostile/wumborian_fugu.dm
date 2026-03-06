@@ -63,8 +63,9 @@
 	E.trigger()
 
 /datum/action/innate/fugu
-	button_icon_state = null
 	button_icon = 'icons/hud/actions/actions_animal.dmi'
+	background_icon_state = "bg_fugu"
+	overlay_icon_state = "bg_fugu_border"
 
 /datum/action/innate/fugu/expand
 	name = "Inflate"

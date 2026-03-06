@@ -627,6 +627,8 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
+	
 	button_icon_state = "bloodspear"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0

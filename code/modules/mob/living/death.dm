@@ -95,7 +95,7 @@
 
 	SetSleeping(0, 0)
 
-	update_action_buttons_icon()
+	update_mob_action_buttons()
 	update_health_hud()
 
 	med_hud_set_health()

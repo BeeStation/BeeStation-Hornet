@@ -15,6 +15,6 @@
 		return FALSE
 	return TRUE
 
-/datum/action/push_weights/on_activate(mob/user, atom/target)
+/datum/action/push_weights/activate(atom/target)
 	weightpress.perform_workout(owner)
 

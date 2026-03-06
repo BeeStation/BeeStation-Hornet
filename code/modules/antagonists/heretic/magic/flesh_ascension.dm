@@ -1,8 +1,9 @@
-/datum/action/spell/shapeshift/shed_human_form
+/datum/action/cooldown/spell/shapeshift/shed_human_form
 	name = "Shed form"
 	desc = "Shed your fragile form, become one with the arms, become one with the emperor. \
 		Causes heavy amounts of brain damage and sanity loss to nearby mortals."
 	background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "worm_ascend"
 
@@ -20,7 +21,7 @@
 	/// The radius around us that we cause brain damage / sanity damage to.
 	var/scare_radius = 9
 
-/datum/action/spell/shapeshift/shed_human_form/do_shapeshift(mob/living/caster)
+/datum/action/cooldown/spell/shapeshift/shed_human_form/do_shapeshift(mob/living/caster)
 	// When we transform into the worm, everyone nearby gets freaked out
 	for(var/mob/living/carbon/human/nearby_human in view(scare_radius, caster))
 		if(IS_HERETIC_OR_MONSTER(nearby_human) || nearby_human == caster)
@@ -35,19 +36,20 @@
 
 	return ..()
 
-/datum/action/spell/shapeshift/shed_human_form/do_unshapeshift(mob/living/simple_animal/hostile/heretic_summon/armsy/caster)
+/datum/action/cooldown/spell/shapeshift/shed_human_form/do_unshapeshift(mob/living/simple_animal/hostile/heretic_summon/armsy/caster)
 	if(istype(caster))
 		segment_length = caster.get_length()
 
 	return ..()
 
-/datum/action/spell/shapeshift/shed_human_form/create_shapeshift_mob(atom/loc)
+/datum/action/cooldown/spell/shapeshift/shed_human_form/create_shapeshift_mob(atom/loc)
 	return new shapeshift_type(loc, TRUE, segment_length)
 
-/datum/action/spell/worm_contract
+/datum/action/cooldown/spell/worm_contract
 	name = "Force Contract"
 	desc = "Forces your body to contract onto a single tile."
 	background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "worm_contract"
 
@@ -57,9 +59,9 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
-/datum/action/spell/worm_contract/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/worm_contract/is_valid_spell(mob/user, atom/target)
 	return istype(user, /mob/living/simple_animal/hostile/heretic_summon/armsy)
 
-/datum/action/spell/worm_contract/on_cast(mob/living/simple_animal/hostile/heretic_summon/armsy/user, atom/target)
+/datum/action/cooldown/spell/worm_contract/on_cast(mob/living/simple_animal/hostile/heretic_summon/armsy/user, atom/target)
 	. = ..()
 	user.contract_next_chain_into_single_tile()

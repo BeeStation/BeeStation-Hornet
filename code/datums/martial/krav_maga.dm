@@ -12,7 +12,7 @@
 	button_icon_state = "neckchop"
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/neck_chop/on_activate(mob/user, atom/target)
+/datum/action/neck_chop/activate(atom/target)
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return

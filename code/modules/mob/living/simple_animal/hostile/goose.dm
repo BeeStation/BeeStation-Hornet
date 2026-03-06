@@ -188,7 +188,7 @@
 /datum/action/vomit/is_available()
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/retaliate/goose/vomit)
 
-/datum/action/vomit/on_activate(mob/user, atom/target)
+/datum/action/vomit/activate(atom/target)
 	var/mob/living/simple_animal/hostile/retaliate/goose/vomit/vomit = owner
 	if(!vomit.vomiting)
 		vomit.vomit_prestart(vomit.vomitTimeBonus + 25)

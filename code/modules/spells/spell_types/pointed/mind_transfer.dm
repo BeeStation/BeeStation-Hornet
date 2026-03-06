@@ -1,4 +1,4 @@
-/datum/action/spell/pointed/mind_transfer
+/datum/action/cooldown/spell/pointed/mind_transfer
 	name = "Mind Swap"
 	desc = "This spell allows the user to switch bodies with a target next to him."
 	button_icon_state = "mindswap"
@@ -35,7 +35,7 @@
 		/mob/living/simple_animal/hostile/megafauna,
 	))
 
-/datum/action/spell/pointed/mind_transfer/can_cast_spell(feedback = TRUE)
+/datum/action/cooldown/spell/pointed/mind_transfer/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -47,44 +47,48 @@
 		return FALSE
 	return TRUE
 
-/datum/action/spell/pointed/mind_transfer/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/mind_transfer/is_valid_target(atom/cast_on)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	if (target == user)
-		to_chat(user, "<span class='warning'>You cannot swap mind with yourself!</span>")
+	if (cast_on == owner)
+		to_chat(owner, "<span class='warning'>You cannot swap mind with yourself!</span>")
 		return FALSE
-	if(!isliving(target))
+
+	if(!isliving(cast_on))
 		to_chat(owner, "<span class='warning'>You can only swap minds with living beings!</span>")
 		return FALSE
-	if(is_type_in_typecache(target, blacklisted_mobs))
+
+	if(is_type_in_typecache(cast_on, blacklisted_mobs))
 		to_chat(owner, "<span class='warning'>This creature is too [pick("powerful", "strange", "arcane", "obscene")] to control!</span>")
 		return FALSE
-	if(isholopara(target))
-		var/mob/living/simple_animal/hostile/holoparasite/stand = target
+
+	if(isholopara(cast_on))
+		var/mob/living/simple_animal/hostile/holoparasite/stand = cast_on
 		if(stand.summoner && stand.summoner == owner)
-			to_chat(owner, "<span class='warning'>Swapping minds with your own guardian would just put you back into your own head!</span>")
+			to_chat(owner, span_warning("Swapping minds with your own guardian would just put you back into your own head!"))
 			return FALSE
-	var/mob/living/living_target = target
+
+	var/mob/living/living_target = cast_on
 	if(living_target.stat == DEAD)
-		to_chat(owner, "<span class='warning'>You don't particularly want to be dead!</span>")
+		to_chat(owner, span_warning("You don't particularly want to be dead!"))
 		return FALSE
 	if(!living_target.mind && target_requires_mind)
-		to_chat(owner, "<span class='warning'>[living_target.p_Theyve()] doesn't appear to have a mind to swap into!</span>")
+		to_chat(owner, span_warning("[living_target.p_Theyve()] doesn't appear to have a mind to swap into!"))
 		return FALSE
 	if(!living_target.key && target_requires_key)
-		to_chat(owner, "<span class='warning'>[living_target.p_Theyve()] appear[living_target.p_s()] to be catatonic! \
-			Not even magic can affect [living_target.p_their()] vacant mind.</span>")
+		to_chat(owner, span_warning("[living_target.p_They()] appear[living_target.p_s()] to be catatonic! \
+			Not even magic can affect [living_target.p_their()] vacant mind."))
 		return FALSE
 
 	return TRUE
 
-/datum/action/spell/pointed/mind_transfer/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/pointed/mind_transfer/cast(mob/living/cast_on)
 	. = ..()
-	swap_minds(user, target)
+	swap_minds(owner, cast_on)
 
-/datum/action/spell/pointed/mind_transfer/proc/swap_minds(mob/living/caster, mob/living/cast_on)
+/datum/action/cooldown/spell/pointed/mind_transfer/proc/swap_minds(mob/living/caster, mob/living/cast_on)
 
 	var/mob/living/to_swap = cast_on
 	if(isholopara(cast_on))

@@ -123,7 +123,7 @@ transformative extracts:
 
 /obj/item/slimecross/transformative/green/do_effect(mob/living/simple_animal/slime/S)
 	..()
-	var/datum/action/spell/oozeling_evolve/transform = new(S)
+	var/datum/action/cooldown/spell/oozeling_evolve/transform = new(S)
 	transform.Grant(S)
 
 /obj/item/slimecross/transformative/pink

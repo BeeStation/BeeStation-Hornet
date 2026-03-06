@@ -4,8 +4,8 @@
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_slime.dmi'
-	button_icon_state = null
 	background_icon_state = "bg_alien"
+	overlay_icon_state = "bg_alien_border"
 	var/needs_growth = NO_GROWTH_NEEDED
 
 /datum/action/innate/slime/is_available()

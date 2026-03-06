@@ -38,19 +38,19 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/oozeling
 	)
 
-/datum/species/oozeling/on_species_loss(mob/living/carbon/C)
-	if(regenerate_limbs)
-		regenerate_limbs.Remove(C)
-	..()
-
-/datum/species/oozeling/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
-	if(ishuman(C))
+/datum/species/oozeling/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species)
+	. = ..()
+	if(ishuman(new_jellyperson))
 		regenerate_limbs = new
-		regenerate_limbs.Grant(C)
+		regenerate_limbs.Grant(new_jellyperson)
+
+/datum/species/oozeling/on_species_loss(mob/living/carbon/former_jellyperson)
+	if(regenerate_limbs)
+		regenerate_limbs.Remove(former_jellyperson)
+
+	return ..()
 
 /datum/species/oozeling/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	..()
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
 		return
 
@@ -58,6 +58,7 @@
 		H.blood_volume += 2.5 * delta_time
 		H.adjustBruteLoss(2.5 * delta_time)
 		to_chat(H, span_danger("You feel empty!"))
+
 	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 			H.blood_volume += 5 * delta_time
@@ -94,12 +95,16 @@
 					to_chat(H, span_danger("Your ooze melts away rapidly in the water vapor!"))
 			if(H.blood_volume <= 672 && GET_MOLES(/datum/gas/plasma, environment) >= 1)
 				H.blood_volume += 15
-	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
-		to_chat(H, span_danger("You feel drained!"))
+
+	if(H.blood_volume < BLOOD_VOLUME_OKAY)
+		if(DT_PROB(2.5, delta_time))
+			to_chat(H, span_danger("You feel drained!"))
+
 	if(H.blood_volume < BLOOD_VOLUME_OKAY)
 		Cannibalize_Body(H)
+
 	if(regenerate_limbs)
-		regenerate_limbs.update_buttons()
+		regenerate_limbs.build_all_button_icons()
 
 /datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_OOZELING_NO_CANNIBALIZE))
@@ -127,16 +132,20 @@
 	button_icon_state = "slimeheal"
 	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
+	overlay_icon_state = "bg_alien_border"
 
-/datum/action/innate/regenerate_limbs/is_available()
-	if(..())
-		var/mob/living/carbon/human/H = owner
-		var/list/limbs_to_heal = H.get_missing_limbs()
-		if(limbs_to_heal.len && H.blood_volume >= BLOOD_VOLUME_OKAY+80)
-			return TRUE
+/datum/action/innate/regenerate_limbs/is_available(feedback = FALSE)
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/carbon/human/H = owner
+	var/list/limbs_to_heal = H.get_missing_limbs()
+	if(!length(limbs_to_heal))
 		return FALSE
+	if(H.blood_volume >= BLOOD_VOLUME_OKAY+80)
+		return TRUE
 
-/datum/action/innate/regenerate_limbs/on_activate()
+/datum/action/innate/regenerate_limbs/activate()
 	var/mob/living/carbon/human/H = owner
 	if(DOING_INTERACTION(H, DOAFTER_SOURCE_REGEN_LIMBS))
 		return
@@ -144,12 +153,12 @@
 	if(!LAZYLEN(limbs_to_heal))
 		to_chat(H, span_notice("You feel intact enough as it is."))
 		return
-	to_chat(H, span_notice("You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]..."))
-	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
+	to_chat(H, span_notice("You focus intently on your missing [length(limbs_to_heal) >= 2 ? "limbs" : "limb"]..."))
+	if(H.blood_volume >= 80*length(limbs_to_heal)+BLOOD_VOLUME_OKAY)
 		if(do_after(H, 6 SECONDS, target = H, interaction_key = DOAFTER_SOURCE_REGEN_LIMBS))
 			H.regenerate_limbs()
-			H.blood_volume -= 80*limbs_to_heal.len
-			H.nutrition -= 20*limbs_to_heal.len
+			H.blood_volume -= 80*length(limbs_to_heal)
+			H.nutrition -= 20*length(limbs_to_heal)
 			to_chat(H, span_notice("...and after a moment you finish reforming!"))
 		else
 			to_chat(H, span_warning("...but you must stay still in order to focus on regenerating!"))

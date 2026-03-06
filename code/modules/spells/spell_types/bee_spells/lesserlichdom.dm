@@ -1,4 +1,4 @@
-/datum/action/spell/lesserlichdom
+/datum/action/cooldown/spell/lesserlichdom
 	name = "Lesser Bind Soul"
 	desc = "A weak version of the dark necromantic pact that can forever bind your soul to an \
 	item of your choosing. So long as both your body and the item remain \
@@ -13,7 +13,7 @@
 	cooldown_time = 10 SECONDS
 	button_icon_state = "skeleton"
 
-/datum/action/spell/lesserlichdom/can_cast_spell(feedback = TRUE)
+/datum/action/cooldown/spell/lesserlichdom/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -26,10 +26,10 @@
 
 	return TRUE
 
-/datum/action/spell/lesserlichdom/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/lesserlichdom/is_valid_spell(mob/user, atom/target)
 	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL)
 
-/datum/action/spell/lesserlichdom/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/lesserlichdom/on_cast(mob/user, atom/target)
 	. = ..()
 	var/list/hand_items = list()
 	if(iscarbon(user))

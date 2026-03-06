@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 /datum/antagonist/wizard/on_removal()
 	// Currently removes all spells regardless of innate or not. Could be improved.
-	for(var/datum/action/spell/spell in owner.current.actions)
+	for(var/datum/action/cooldown/spell/spell in owner.current.actions)
 		if(spell.owner == owner)
 			qdel(spell)
 			owner.current.actions -= spell
@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	if(H.age < wiz_age)
 		H.age = wiz_age
 	H.equipOutfit(outfit_type)
-	var/datum/action/spell/new_spell = new /datum/action/spell/teleport/area_teleport/wizard(owner)
+	var/datum/action/cooldown/spell/new_spell = new /datum/action/cooldown/spell/teleport/area_teleport/wizard(owner)
 	new_spell.Grant(owner.current)
 
 /datum/antagonist/wizard/greet()
@@ -219,9 +219,9 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	switch(school)
 		if(APPRENTICE_DESTRUCTION)
 			spells_to_grant = list(
-				/datum/action/spell/teleport/area_teleport/wizard/apprentice,
-				/datum/action/spell/aoe/magic_missile,
-				/datum/action/spell/pointed/projectile/fireball,
+				/datum/action/cooldown/spell/teleport/area_teleport/wizard/apprentice,
+				/datum/action/cooldown/spell/aoe/magic_missile,
+				/datum/action/cooldown/spell/pointed/projectile/fireball,
 			)
 			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned powerful, \
@@ -229,8 +229,8 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 		if(APPRENTICE_BLUESPACE)
 			spells_to_grant = list(
-				/datum/action/spell/teleport/area_teleport/wizard,
-				/datum/action/spell/jaunt/ethereal_jaunt,
+				/datum/action/cooldown/spell/teleport/area_teleport/wizard,
+				/datum/action/cooldown/spell/jaunt/ethereal_jaunt,
 			)
 			items_to_grant = list(
 				/obj/item/gun/magic/wand/teleport,
@@ -241,9 +241,9 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 		if(APPRENTICE_HEALING)
 			spells_to_grant = list(
-				/datum/action/spell/teleport/area_teleport/wizard/apprentice,
-				/datum/action/spell/charge,
-				/datum/action/spell/forcewall,
+				/datum/action/cooldown/spell/teleport/area_teleport/wizard/apprentice,
+				/datum/action/cooldown/spell/charge,
+				/datum/action/cooldown/spell/forcewall,
 			)
 			items_to_grant = list(
 				/obj/item/gun/magic/wand/healing,
@@ -254,9 +254,9 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 		if(APPRENTICE_ROBELESS)
 			spells_to_grant = list(
-				/datum/action/spell/teleport/area_teleport/wizard/apprentice,
-				/datum/action/spell/aoe/knock,
-				/datum/action/spell/pointed/mind_transfer,
+				/datum/action/cooldown/spell/teleport/area_teleport/wizard/apprentice,
+				/datum/action/cooldown/spell/aoe/knock,
+				/datum/action/cooldown/spell/pointed/mind_transfer,
 			)
 			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned stealthy, \
@@ -289,7 +289,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 			to_chat(owner, span_bold("Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned special spells that aren't available to standard apprentices."))
 
 	for(var/spell_type in spells_to_grant)
-		var/datum/action/spell/new_spell = new spell_type(owner)
+		var/datum/action/cooldown/spell/new_spell = new spell_type(owner)
 		new_spell.Grant(owner.current)
 
 	for(var/item_type in items_to_grant)
@@ -334,11 +334,11 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 		H.equip_to_slot_or_del(new master_mob.back.type, ITEM_SLOT_BACK)
 
 	//Operation: Fuck off and scare people
-	var/datum/action/spell/jaunt/ethereal_jaunt/jaunt = new(owner)
+	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/jaunt = new(owner)
 	jaunt.Grant(H)
-	var/datum/action/spell/teleport/area_teleport/wizard/teleport = new(owner)
+	var/datum/action/cooldown/spell/teleport/area_teleport/wizard/teleport = new(owner)
 	teleport.Grant(H)
-	var/datum/action/spell/teleport/radius_turf/blink/blink = new(owner)
+	var/datum/action/cooldown/spell/teleport/radius_turf/blink/blink = new(owner)
 	blink.Grant(H)
 
 /datum/antagonist/wizard/proc/update_wiz_icons_added(mob/living/wiz,join = TRUE)
@@ -364,11 +364,11 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 		return
 	var/mob/living/living_current = owner.current
 
-	var/datum/action/spell/jaunt/ethereal_jaunt/jaunt = new(owner)
+	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/jaunt = new(owner)
 	jaunt.Grant(living_current)
-	var/datum/action/spell/aoe/magic_missile/missile = new(owner)
+	var/datum/action/cooldown/spell/aoe/magic_missile/missile = new(owner)
 	missile.Grant(living_current)
-	var/datum/action/spell/pointed/projectile/fireball/fireball = new(owner)
+	var/datum/action/cooldown/spell/pointed/projectile/fireball/fireball = new(owner)
 	fireball.Grant(living_current)
 
 	var/obj/item/implant/exile/exiled = new /obj/item/implant/exile(living_current)

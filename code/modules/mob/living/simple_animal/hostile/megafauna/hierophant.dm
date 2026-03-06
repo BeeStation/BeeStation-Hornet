@@ -724,7 +724,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "[span_hierophantwarning("You collect [src], reattaching it to the club!")]")
 				H.beacon = null
-				user.update_action_buttons_icon()
+				user.update_mob_action_buttons()
 				qdel(src)
 			else
 				H.timer = world.time

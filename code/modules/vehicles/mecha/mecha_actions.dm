@@ -19,7 +19,7 @@
 	name = "Eject From Mech"
 	button_icon_state = "mech_eject"
 
-/datum/action/vehicle/sealed/mecha/mech_eject/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_eject/activate(atom/target)
 	if(!chassis || !(owner in chassis.occupants))
 		return
 	chassis.container_resist(owner)
@@ -28,20 +28,20 @@
 	name = "Toggle Internal Airtank Usage"
 	button_icon_state = "mech_internals_off"
 
-/datum/action/vehicle/sealed/mecha/mech_toggle_internals/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_toggle_internals/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	chassis.use_internal_tank = !chassis.use_internal_tank
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
 	chassis.balloon_alert(owner, "Now taking air from the [chassis.use_internal_tank ? "internal airtank" : "environment"].")
 	chassis.log_message("Now taking air from [chassis.use_internal_tank?"internal airtank":"environment"].", LOG_MECHA)
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/vehicle/sealed/mecha/mech_cycle_equip
 	name = "Cycle Equipment"
 	button_icon_state = "mech_cycle_equip_off"
 
-/datum/action/vehicle/sealed/mecha/mech_cycle_equip/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_cycle_equip/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 
@@ -59,7 +59,7 @@
 		chassis.balloon_alert(owner, "[chassis.selected] selected.")
 		send_byjax(chassis.occupants,"exosuit.browser","eq_list",chassis.get_equipment_list())
 		button_icon_state = "mech_cycle_equip_on"
-		update_buttons()
+		build_all_button_icons()
 		return
 	var/number = 0
 	for(var/equipment in available_equipment)
@@ -75,7 +75,7 @@
 			chassis.balloon_alert(owner, "Switched to [chassis.selected].")
 			button_icon_state = "mech_cycle_equip_on"
 		send_byjax(chassis.occupants,"exosuit.browser","eq_list",chassis.get_equipment_list())
-		update_buttons()
+		build_all_button_icons()
 		return
 
 
@@ -83,7 +83,7 @@
 	name = "Toggle Lights"
 	button_icon_state = "mech_lights_off"
 
-/datum/action/vehicle/sealed/mecha/mech_toggle_lights/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_toggle_lights/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	if(!(chassis.mecha_flags & HAS_LIGHTS))
@@ -97,13 +97,13 @@
 	chassis.set_light_on(chassis.mecha_flags & LIGHTS_ON)
 	chassis.balloon_alert(owner, "Toggled lights [(chassis.mecha_flags & LIGHTS_ON) ? "on" : "off"].")
 	chassis.log_message("Toggled lights [(chassis.mecha_flags & LIGHTS_ON)?"on":"off"].", LOG_MECHA)
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/vehicle/sealed/mecha/mech_view_stats
 	name = "View Stats"
 	button_icon_state = "mech_view_stats"
 
-/datum/action/vehicle/sealed/mecha/mech_view_stats/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_view_stats/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	var/datum/browser/popup = new(owner , "exosuit")
@@ -115,7 +115,7 @@
 	name = "Toggle Strafing. Disabled when Alt is held."
 	button_icon_state = "strafe"
 
-/datum/action/vehicle/sealed/mecha/strafe/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/strafe/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 
@@ -136,7 +136,7 @@
 
 	for(var/occupant in occupants)
 		var/datum/action/action = LAZYACCESSASSOC(occupant_actions, occupant, /datum/action/vehicle/sealed/mecha/strafe)
-		action?.update_buttons()
+		action?.build_all_button_icons()
 
 //////////////////////////////////////// Specific Ability Actions  ///////////////////////////////////////////////
 //Need to be granted by the mech type, Not default abilities.
@@ -145,14 +145,14 @@
 	name = "Toggle an energy shield that blocks all attacks from the faced direction at a heavy power cost."
 	button_icon_state = "mech_defense_mode_off"
 
-/datum/action/vehicle/sealed/mecha/mech_defense_mode/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_defense_mode/activate(atom/target)
 	SEND_SIGNAL(chassis, COMSIG_MECHA_ACTION_TRIGGER, owner, args) //Signal sent to the mech, to be handed to the shield. See durand.dm for more details
 
 /datum/action/vehicle/sealed/mecha/mech_overload_mode
 	name = "Toggle leg actuators overload"
 	button_icon_state = "mech_overload_off"
 
-/datum/action/vehicle/sealed/mecha/mech_overload_mode/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_overload_mode/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	/*if(!isnull(forced_state))
@@ -169,13 +169,13 @@
 		chassis.movedelay = initial(chassis.movedelay)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
 		chassis.balloon_alert(owner, "Disabled leg actuators overload.")
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/vehicle/sealed/mecha/mech_smoke
 	name = "Smoke"
 	button_icon_state = "mech_smoke"
 
-/datum/action/vehicle/sealed/mecha/mech_smoke/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_smoke/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	if(!TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_SMOKE) && chassis.smoke_charges>0)
@@ -187,7 +187,7 @@
 	name = "Zoom"
 	button_icon_state = "mech_zoom_off"
 
-/datum/action/vehicle/sealed/mecha/mech_zoom/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_zoom/activate(atom/target)
 
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
@@ -201,13 +201,13 @@
 			SEND_SOUND(owner, sound('sound/mecha/imag_enh.ogg',volume=50))
 		else
 			owner.client.view_size.resetToDefault() //Let's not let this stack shall we?
-		update_buttons()
+		build_all_button_icons()
 
 /datum/action/vehicle/sealed/mecha/mech_switch_damtype
 	name = "Reconfigure arm microtool arrays"
 	button_icon_state = "mech_damtype_brute"
 
-/datum/action/vehicle/sealed/mecha/mech_switch_damtype/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_switch_damtype/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	var/new_damtype
@@ -224,16 +224,16 @@
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(chassis, 'sound/mecha/mechmove01.ogg', 50, TRUE)
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/vehicle/sealed/mecha/mech_toggle_phasing
 	name = "Toggle Phasing"
 	button_icon_state = "mech_phasing_off"
 
-/datum/action/vehicle/sealed/mecha/mech_toggle_phasing/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/mecha/mech_toggle_phasing/activate(atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
 	chassis.balloon_alert(owner, "[chassis.phasing ? "Enabled" : "Disabled"] phasing")
-	update_buttons()
+	build_all_button_icons()

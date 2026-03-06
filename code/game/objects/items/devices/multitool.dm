@@ -147,7 +147,7 @@
 	name = "Toggle AI detector HUD"
 	check_flags = NONE
 
-/datum/action/item_action/toggle_multitool/on_activate(mob/user, atom/target)
+/datum/action/item_action/toggle_multitool/activate(atom/target)
 	if(target)
 		var/obj/item/multitool/ai_detect/M = target
 		M.toggle_hud(owner)

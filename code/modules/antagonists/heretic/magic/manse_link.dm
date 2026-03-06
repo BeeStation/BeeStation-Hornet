@@ -1,8 +1,9 @@
-/datum/action/spell/pointed/manse_link
+/datum/action/cooldown/spell/pointed/manse_link
 	name = "Manse Link"
 	desc = "This spell allows you to pierce through reality and connect minds to one another \
 		via your Mansus Link. All minds connected to your Mansus Link will be able to communicate discreetly across great distances."
 	background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "mansus_link"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
@@ -20,19 +21,19 @@
 	/// The time it takes to link to a mob.
 	var/link_time = 6 SECONDS
 
-/datum/action/spell/pointed/manse_link/New(Target)
+/datum/action/cooldown/spell/pointed/manse_link/New(Target)
 	. = ..()
 	if(!istype(Target, /datum/component/mind_linker))
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		qdel(src)
 
-/datum/action/spell/pointed/manse_link/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/manse_link/is_valid_spell(mob/user, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	return isliving(target)
 
-/datum/action/spell/pointed/manse_link/pre_cast(mob/living/cast_on, atom/target)
+/datum/action/cooldown/spell/pointed/manse_link/pre_cast(mob/living/cast_on, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -44,7 +45,7 @@
 /**
 * The actual process of linking [linkee] to our network.
 */
-/datum/action/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
+/datum/action/cooldown/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
 	var/datum/component/mind_linker/linker = master
 	if(linkee.stat == DEAD)
 		to_chat(owner, ("<span class='warning'>They're dead!</span>"))

@@ -872,7 +872,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all touch spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/touch))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/touch))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_aoe()
@@ -880,8 +880,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all aoe spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/aoe))
-		if(ispath(power, /datum/action/spell/aoe/revenant))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/aoe))
+		if(ispath(power, /datum/action/cooldown/spell/aoe/revenant))
 			continue
 		GRANT_ACTION_MOB(power, mob)
 
@@ -890,7 +890,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all revenant aoe spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/aoe/revenant))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/aoe/revenant))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_cone()
@@ -898,7 +898,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all cone spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/cone))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/cone))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_conjure()
@@ -906,7 +906,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all conjure spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/conjure))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/conjure))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_conjure_item()
@@ -914,7 +914,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all conjure item spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/conjure_item))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/conjure_item))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_jaunt()
@@ -922,7 +922,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all jaunt spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/jaunt))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/jaunt))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_pointed()
@@ -930,7 +930,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all pointed spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/pointed))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/pointed))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_projectile()
@@ -938,7 +938,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all projectile spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/basic_projectile))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/basic_projectile))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_shapeshift()
@@ -946,7 +946,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all shapeshift spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/shapeshift))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/shapeshift))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/give_all_spells_teleport()
@@ -954,7 +954,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Give all teleport spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/teleport))
+	for (var/datum/action/cooldown/spell/power as anything in subtypesof(/datum/action/cooldown/spell/teleport))
 		GRANT_ACTION_MOB(power, mob)
 
 /client/proc/remove_all_spells()
@@ -962,8 +962,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Remove all spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for (var/datum/action/spell/power as anything in mob.actions)
-		if(istype(power, /datum/action/spell))
+	for (var/datum/action/cooldown/spell/power as anything in mob.actions)
+		if(istype(power, /datum/action/cooldown/spell))
 			power.Remove(mob)
 
 /client/proc/give_all_action_mutations()

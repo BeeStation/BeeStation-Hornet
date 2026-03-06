@@ -637,13 +637,14 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 /datum/action/report
 	name = "Show roundend report"
 	button_icon_state = "round_end"
+	show_to_observers = FALSE
 
-/datum/action/report/on_activate()
+/datum/action/report/trigger(trigger_flags)
 	if(owner && GLOB.common_report && SSticker.current_state == GAME_STATE_FINISHED)
 		SSticker.show_roundend_report(owner.client, FALSE)
 
-/datum/action/report/is_available()
-	return 1
+/datum/action/report/is_available(feedback = FALSE)
+	return TRUE
 
 /datum/action/report/Topic(href,href_list)
 	if(usr != owner)

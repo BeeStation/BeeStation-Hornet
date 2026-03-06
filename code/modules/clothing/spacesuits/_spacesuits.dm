@@ -70,9 +70,7 @@
 		return
 
 	//The icon's may look differently due to overlays being applied asynchronously
-	for(var/X in actions)
-		var/datum/action/A=X
-		A.update_buttons()
+	update_item_action_buttons()
 
 /obj/item/clothing/head/helmet/space/equipped(mob/user, slot)
 	. = ..()
@@ -308,7 +306,7 @@
 	if(toggler)
 		to_chat(toggler, span_notice("You turn [thermal_on ? "on" : "off"] \the [src]'s thermal regulator."))
 
-	update_action_buttons()
+	update_item_action_buttons()
 
 /obj/item/clothing/suit/space/ui_action_click(mob/user, actiontype)
 	toggle_spacesuit(user)

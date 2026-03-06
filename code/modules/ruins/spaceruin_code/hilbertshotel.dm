@@ -330,7 +330,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	desc = "Stop looking through the bluespace peephole."
 	button_icon_state = "cancel_peephole"
 
-/datum/action/peepholeCancel/on_activate(mob/user, atom/target)
+/datum/action/peepholeCancel/activate(atom/target)
 	to_chat(owner, span_warning("You move away from the peephole."))
 	owner.reset_perspective()
 	owner.clear_fullscreen("remote_view", 0)

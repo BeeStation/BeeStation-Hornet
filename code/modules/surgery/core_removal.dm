@@ -18,9 +18,13 @@
 	time = 16
 
 /datum/surgery_step/extract_core/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to extract a core from [target]..."),
-		"[user] begins to extract a core from [target].",
-		"[user] begins to extract a core from [target].")
+	display_results(
+		user,
+		target,
+		span_notice("You begin to extract a core from [target]..."),
+		span_notice("[user] begins to extract a core from [target]."),
+		span_notice("[user] begins to extract a core from [target]."),
+	)
 
 /datum/surgery_step/extract_core/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/mob/living/simple_animal/slime/slime = target

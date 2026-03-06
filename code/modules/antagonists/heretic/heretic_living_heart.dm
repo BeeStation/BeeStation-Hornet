@@ -105,7 +105,7 @@
 	return ..()
 */
 
-/datum/action/track_target/on_activate(mob/user, atom/target)
+/datum/action/track_target/activate(atom/target)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 	if(!LAZYLEN(heretic_datum.sac_targets))

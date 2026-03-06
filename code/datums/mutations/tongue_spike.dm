@@ -4,27 +4,26 @@
 	quality = POSITIVE
 	text_gain_indication = ("<span class='notice'>Your feel like you can throw your voice.</span>")
 	instability = 15
-	power_path = /datum/action/spell/tongue_spike
+	power_path = /datum/action/cooldown/spell/tongue_spike
 
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/action/spell/tongue_spike
+/datum/action/cooldown/spell/tongue_spike
 	name = "Launch spike"
 	desc = "Shoot your tongue out in the direction you're facing, embedding it and dealing damage until they remove it."
 	button_icon = 'icons/hud/unused/actions_genetic.dmi'
 	button_icon_state = "spike"
-	mindbound = FALSE
 	cooldown_time = 10 SECONDS
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 	/// The type-path to what projectile we spawn to throw at someone.
 	var/spike_path = /obj/item/hardened_spike
 
-/datum/action/spell/tongue_spike/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/tongue_spike/is_valid_spell(mob/user, atom/target)
 	return iscarbon(user)
 
-/datum/action/spell/tongue_spike/on_cast(mob/living/carbon/user, atom/target)
+/datum/action/cooldown/spell/tongue_spike/on_cast(mob/living/carbon/user, atom/target)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_NODISMEMBER))
 		to_chat(user, ("<span class='notice'>You concentrate really hard, but nothing happens.</span>"))
@@ -88,11 +87,11 @@
 	text_gain_indication = ("<span class='notice'>Your feel like you can really connect with people by throwing your voice.</span>")
 	instability = 15
 	locked = TRUE
-	power_path = /datum/action/spell/tongue_spike/chem
+	power_path = /datum/action/cooldown/spell/tongue_spike/chem
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/action/spell/tongue_spike/chem
+/datum/action/cooldown/spell/tongue_spike/chem
 	name = "Launch chem spike"
 	desc = "Shoot your tongue out in the direction you're facing, \
 		embedding it for a very small amount of damage. \
@@ -158,7 +157,7 @@
 	if(!istype(master, /obj/item/hardened_spike/chem))
 		qdel(src)
 
-/datum/action/send_chems/on_activate(mob/user, atom/target)
+/datum/action/send_chems/activate(atom/target)
 	if(!ishuman(owner) || !owner.reagents)
 		return FALSE
 	var/mob/living/carbon/human/transferer = owner

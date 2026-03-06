@@ -189,7 +189,7 @@
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
-/datum/action/item_action/organ_action/psychic_highlight/on_activate(mob/user, atom/target)
+/datum/action/item_action/organ_action/psychic_highlight/activate(atom/target)
 	if(!owner || !check_head())
 		return
 	//Reveal larger area of sense
@@ -415,7 +415,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_visual/on_activate(mob/user, atom/target)
+/datum/action/change_psychic_visual/activate(atom/target)
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
 	psychic_overlay?.cycle_visuals()
@@ -444,11 +444,11 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_auto/on_activate(mob/user, atom/target)
+/datum/action/change_psychic_auto/activate(atom/target)
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
 	update_buttons()
 
-/datum/action/change_psychic_auto/is_available()
+/datum/action/change_psychic_auto/is_available(feedback = FALSE)
 	. = ..()
 	if(psychic_action?.auto_sense)
 		return FALSE
@@ -479,7 +479,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_texture/on_activate(mob/user, atom/target)
+/datum/action/change_psychic_texture/activate(atom/target)
 	psychic_overlay = psychic_overlay || owner?.screens["psychic_highlight"]
 	psychic_overlay?.cycle_textures()
 	blind_overlay = blind_overlay || owner?.screens["blind"]

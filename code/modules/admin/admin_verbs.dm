@@ -750,7 +750,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		to_chat(usr, ("<span class='warning'>The intended spell recipient no longer exists.</span>"))
 		return
 	var/list/spell_list = list()
-	for(var/datum/action/spell/to_add as anything in subtypesof(/datum/action/spell))
+	for(var/datum/action/cooldown/spell/to_add as anything in subtypesof(/datum/action/cooldown/spell))
 		var/spell_name = initial(to_add.name)
 		if(spell_name == "Spell") // abstract or un-named spells should be skipped.
 			continue
@@ -763,7 +763,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/chosen_spell = tgui_input_list(usr, "Choose the spell to give to [spell_recipient]", "ABRAKADABRA", sort_list(spell_list))
 	if(isnull(chosen_spell))
 		return
-	var/datum/action/spell/spell_path = which == "Typepath" ? chosen_spell : spell_list[chosen_spell]
+	var/datum/action/cooldown/spell/spell_path = which == "Typepath" ? chosen_spell : spell_list[chosen_spell]
 	if(!ispath(spell_path))
 		return
 
@@ -776,7 +776,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[key_name(usr)] gave [key_name(spell_recipient)] the spell [chosen_spell][robeless ? " (Forced robeless)" : ""].")
 	message_admins("[key_name_admin(usr)] gave [key_name_admin(spell_recipient)] the spell [chosen_spell][robeless ? " (Forced robeless)" : ""].")
 
-	var/datum/action/spell/new_spell = new spell_path(spell_recipient.mind || spell_recipient)
+	var/datum/action/cooldown/spell/new_spell = new spell_path(spell_recipient.mind || spell_recipient)
 
 	if(robeless)
 		new_spell.spell_requirements &= ~SPELL_REQUIRES_WIZARD_GARB
@@ -793,7 +793,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set desc = "Remove a spell from the selected mob."
 	var/mob/removal_target = T
 	var/list/target_spell_list = list()
-	for(var/datum/action/spell/spell in removal_target.actions)
+	for(var/datum/action/cooldown/spell/spell in removal_target.actions)
 		target_spell_list[spell.name] = spell
 
 	if(!length(target_spell_list))
@@ -802,7 +802,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/chosen_spell = tgui_input_list(usr, "Choose the spell to remove from [removal_target]", "ABRAKADABRA", sort_list(target_spell_list))
 	if(isnull(chosen_spell))
 		return
-	var/datum/action/spell/to_remove = target_spell_list[chosen_spell]
+	var/datum/action/cooldown/spell/to_remove = target_spell_list[chosen_spell]
 	if(!istype(to_remove))
 		return
 
@@ -1014,7 +1014,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	var/header = "<tr><th>Name</th> <th>Requirements</th>"
 	var/all_requirements = list()
-	for(var/datum/action/spell/spell as anything in typesof(/datum/action/spell))
+	for(var/datum/action/cooldown/spell/spell as anything in typesof(/datum/action/cooldown/spell))
 		if(initial(spell.name) == "Spell")
 			continue
 

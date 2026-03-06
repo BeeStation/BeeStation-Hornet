@@ -50,6 +50,7 @@
 	range = 8
 	icon_state = "spark"
 	color = COLOR_YELLOW
+	embedding = null
 
 /obj/projectile/bullet/pellet
 	var/tile_dropoff = 0.75
@@ -95,6 +96,7 @@
 	name = "incapacitating pellet"
 	damage = 4
 	stamina = 15
+	embedding = null
 
 /obj/projectile/bullet/pellet/Range()
 	..()

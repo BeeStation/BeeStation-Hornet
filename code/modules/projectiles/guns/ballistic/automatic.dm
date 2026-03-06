@@ -54,7 +54,7 @@
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
-	update_action_buttons()
+	update_item_action_buttons()
 	autofire_target = null
 
 /obj/item/gun/ballistic/automatic/c20r

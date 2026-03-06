@@ -1,4 +1,4 @@
-/datum/action/spell/conjure
+/datum/action/cooldown/spell/conjure
 	sound = 'sound/items/welder.ogg'
 	school = SCHOOL_CONJURATION
 
@@ -16,7 +16,10 @@
 	/// If TRUE, no two summons can be spawned in the same turf.
 	var/summon_respects_prev_spawn_points = TRUE
 
-/datum/action/spell/conjure/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/conjure/is_valid_target(atom/cast_on)
+	return isturf(cast_on.loc)
+
+/datum/action/cooldown/spell/conjure/cast(atom/cast_on)
 	. = ..()
 	var/list/to_summon_in = list()
 	for(var/turf/summon_turf in range(summon_radius, user))
@@ -34,17 +37,27 @@
 			to_summon_in -= spawn_place
 
 		if(ispath(summoned_object_type, /turf))
-			spawn_place.ChangeTurf(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+			if(isclosedturf(spawn_place))
+				spawn_place.ChangeTurf(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+				return
+			if(ispath(summoned_object_type, /turf/closed))
+				if (spawn_place.overfloor_placed)
+					spawn_place.ChangeTurf(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+				else
+					spawn_place.PlaceOnTop(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+				return
+			var/turf/open/open_turf = spawn_place
+			open_turf.replace_floor(summoned_object_type, flags = CHANGETURF_INHERIT_AIR)
+			return
 
-		else
-			var/atom/summoned_object = new summoned_object_type(spawn_place)
+		var/atom/summoned_object = new summoned_object_type(spawn_place)
 
-			summoned_object.flags_1 |= ADMIN_SPAWNED_1
-			if(summon_lifespan > 0)
-				QDEL_IN(summoned_object, summon_lifespan)
+		summoned_object.flags_1 |= ADMIN_SPAWNED_1
+		if(summon_lifespan > 0)
+			QDEL_IN(summoned_object, summon_lifespan)
 
-			post_summon(summoned_object, user)
+		post_summon(summoned_object, cast_on)
 
 /// Called on atoms summoned after they are created, allows extra variable editing and such of created objects
-/datum/action/spell/conjure/proc/post_summon(atom/summoned_object, atom/cast_on)
+/datum/action/cooldown/spell/conjure/proc/post_summon(atom/summoned_object, atom/cast_on)
 	return

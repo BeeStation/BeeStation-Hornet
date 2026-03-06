@@ -605,3 +605,15 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// returns a name of the area. some subtype area needs to return different value.
 /area/proc/get_navigation_area_name()
 	return navigation_area_name || name
+
+/**
+ * Returns the name of an area, with the original name if the area name has been changed.
+ *
+ * If an area has not been renamed, returns the area name. If it has been modified (by blueprints or other means)
+ * returns the current name, as well as the initial value, in the format of [Current Location Name (Original Name)]
+ */
+
+/area/proc/get_original_area_name()
+	if(name == initial(name))
+		return name
+	return "[name] ([initial(name)])"

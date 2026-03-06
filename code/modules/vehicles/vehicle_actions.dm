@@ -116,7 +116,7 @@
 	desc = "Climb out of your vehicle!"
 	button_icon_state = "car_eject"
 
-/datum/action/vehicle/sealed/climb_out/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/climb_out/activate(atom/target)
 	if(istype(vehicle_entered_target))
 		vehicle_entered_target.mob_try_exit(owner, owner)
 
@@ -128,7 +128,7 @@
 	desc = "Take your key out of the vehicle's ignition"
 	button_icon_state = "car_removekey"
 
-/datum/action/vehicle/sealed/remove_key/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/remove_key/activate(atom/target)
 	vehicle_entered_target.remove_key(owner)
 
 //CLOWN CAR ACTION DATUMS
@@ -137,31 +137,26 @@
 	desc = "Honk your classy horn."
 	button_icon_state = "car_horn"
 	var/hornsound = 'sound/items/carhorn.ogg'
-	cooldown_time = 2 SECONDS
 
-/datum/action/vehicle/sealed/horn/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/horn/trigger(trigger_flags)
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_CAR_HONK))
+		return
+	TIMER_COOLDOWN_START(src, COOLDOWN_CAR_HONK, 2 SECONDS)
 	vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] loudly honks!"))
-	to_chat(owner, span_notice("You press the vehicle's horn."))
+	to_chat(owner, span_notice("You press [vehicle_entered_target]'s horn."))
+	if(istype(vehicle_target.inserted_key, /obj/item/bikehorn))
+		vehicle_target.inserted_key.attack_self(owner) //The bikehorn plays a sound instead
+		return
 	playsound(vehicle_entered_target, hornsound, 75)
-	start_cooldown()
 
-/datum/action/vehicle/sealed/horn/clowncar/on_activate(mob/user, atom/target)
-	vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] loudly honks!"))
-	to_chat(owner, span_notice("You press the vehicle's horn."))
-	start_cooldown()
-	if(vehicle_target.inserted_key)
-		vehicle_target.inserted_key.attack_self(owner) //The key plays a sound
-	else
-		playsound(vehicle_entered_target, hornsound, 75)
-
-/datum/action/vehicle/sealed/DumpKidnappedMobs
+/datum/action/vehicle/sealed/dump_kidnapped_mobs
 	name = "Dump kidnapped mobs"
 	desc = "Dump all objects and people in your car on the floor."
 	button_icon_state = "car_dump"
 
-/datum/action/vehicle/sealed/DumpKidnappedMobs/on_activate(mob/user, atom/target)
+/datum/action/vehicle/sealed/dump_kidnapped_mobs/trigger(trigger_flags)
 	vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] starts dumping the people inside of it."))
-	vehicle_entered_target.DumpSpecificMobs(VEHICLE_CONTROL_KIDNAPPED)
+	vehicle_entered_target.dump_specific_mobs(VEHICLE_CONTROL_KIDNAPPED)
 
 
 /datum/action/vehicle/sealed/RollTheDice
@@ -169,103 +164,123 @@
 	desc = "Press one of those colorful buttons on your display panel!"
 	button_icon_state = "car_rtd"
 
-/datum/action/vehicle/sealed/RollTheDice/on_activate(mob/user, atom/target)
-	if(istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
-		var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
-		C.RollTheDice(owner)
+/datum/action/vehicle/sealed/roll_the_dice/trigger(trigger_flags)
+	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
+		return
+	var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
+	C.roll_the_dice(owner)
 
-/datum/action/vehicle/sealed/Cannon
+/datum/action/vehicle/sealed/cannon
 	name = "Toggle siege mode"
 	desc = "Destroy them with their own fodder"
 	button_icon_state = "car_cannon"
 
-/datum/action/vehicle/sealed/Cannon/on_activate(mob/user, atom/target)
-	if(istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
-		var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
-		if(C.cannonbusy)
-			to_chat(owner, span_notice("Please wait for the vehicle to finish its current action first."))
-		C.ToggleCannon()
+/datum/action/vehicle/sealed/cannon/trigger(trigger_flags)
+	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
+		return
+	var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
+	C.toggle_cannon(owner)
 
-/datum/action/vehicle/sealed/Thank
+/datum/action/vehicle/sealed/thank
 	name = "Thank the Clown car Driver"
 	desc = "They're just doing their job."
 	button_icon_state = "car_thanktheclown"
-	cooldown_time = 6 SECONDS
+	COOLDOWN_DECLARE(thank_time_cooldown)
 
-/datum/action/vehicle/sealed/Thank/on_activate(mob/user, atom/target)
-	if(istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
-		var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
-		var/mob/living/carbon/human/clown = pick(C.return_drivers())
-		owner.say("Thank you for the fun ride, [clown.name]!")
-		start_cooldown()
-		C.ThanksCounter()
+/datum/action/vehicle/sealed/thank/trigger(trigger_flags)
+	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
+		return
+	if(!COOLDOWN_FINISHED(src, thank_time_cooldown))
+		return
+	COOLDOWN_START(src, thank_time_cooldown, 6 SECONDS)
+	var/obj/vehicle/sealed/car/clowncar/clown_car = vehicle_entered_target
+	var/list/mob/drivers = clown_car.return_drivers()
+	if(!length(drivers))
+		to_chat(owner, span_danger("You prepare to thank the driver, only to realize that they don't exist."))
+		return
+	var/mob/clown = pick(drivers)
+	owner.say("Thank you for the fun ride, [clown.name]!")
+	clown_car.increment_thanks_counter()
 
 /datum/action/vehicle/ridden/scooter/skateboard/ollie
 	name = "Ollie"
 	desc = "Get some air! Land on a table to do a gnarly grind."
 	button_icon_state = "skateboard_ollie"
-	///Cooldown to next jump
-	cooldown_time = 0.5 SECONDS
+	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/vehicle/ridden/scooter/skateboard/ollie/on_activate(mob/user, atom/target)
-	var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
-	if (V.grinding)
+/datum/action/vehicle/ridden/scooter/skateboard/ollie/trigger(trigger_flags)
+	. = ..()
+	if(!.)
 		return
-	var/mob/living/L = owner
-	var/turf/landing_turf = get_step(V.loc, V.dir)
+	var/obj/vehicle/ridden/scooter/skateboard/vehicle = vehicle_target
+	if (vehicle.grinding)
+		return
+	var/mob/living/rider = owner
+	var/turf/landing_turf = get_step(vehicle.loc, vehicle.dir)
 	var/multiplier = 1
-	if(HAS_TRAIT(L, TRAIT_PROSKATER))
+	if(HAS_TRAIT(rider, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	L.adjustStaminaLoss(V.instability * multiplier * 2)
-	if (L.getStaminaLoss() >= 100)
+	rider.adjustStaminaLoss(vehicle.instability * multiplier * 2)
+	if (rider.getStaminaLoss() >= 100)
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
-		V.unbuckle_mob(L)
-		L.throw_at(landing_turf, 2, 2)
-		L.Paralyze(multiplier * 40)
-		V.visible_message(span_danger("[L] misses the landing and falls on [L.p_their()] face!"))
-	else
-		L.spin(4, 1)
-		animate(L, pixel_y = -6, time = 4)
-		animate(V, pixel_y = -6, time = 3)
-		playsound(V, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
-		passtable_on(L, VEHICLE_TRAIT)
-		V.pass_flags |= PASSTABLE
-		L.Move(landing_turf, vehicle_target.dir)
-		passtable_off(L, VEHICLE_TRAIT)
-		V.pass_flags &= ~PASSTABLE
-	if(locate(/obj/structure/table) in V.loc.contents)
-		V.grinding = TRUE
-		V.icon_state = "[V.board_icon]-grind"
-		addtimer(CALLBACK(V, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, grind)), 2)
-	start_cooldown()
+		vehicle.unbuckle_mob(rider)
+		rider.throw_at(landing_turf, 2, 2)
+		rider.Paralyze(multiplier * 40)
+		vehicle.visible_message(span_danger("[rider] misses the landing and falls on [rider.p_their()] face!"))
+		return
+	if(locate(/obj/structure/table) in vehicle.loc.contents)
+		vehicle.grinding = TRUE
+		vehicle.icon_state = "[vehicle.board_icon]-grind"
+		addtimer(CALLBACK(vehicle, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, grind)), 0.2 SECONDS)
+	rider.spin(spintime = 4, speed = 1)
+	animate(rider, pixel_y = -6, time = 4)
+	animate(vehicle, pixel_y = -6, time = 3)
+	playsound(vehicle, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
+	passtable_on(rider, VEHICLE_TRAIT)
+	passtable_on(vehicle, VEHICLE_TRAIT)
+	rider.Move(landing_turf, vehicle_target.dir)
+	passtable_off(rider, VEHICLE_TRAIT)
+	passtable_off(vehicle, VEHICLE_TRAIT)
 
-/datum/action/vehicle/ridden/scooter/skateboard/kflip
+/datum/action/vehicle/ridden/scooter/skateboard/kickflip
 	name = "Kick Flip"
 	desc = "Do a sweet kickflip to dismount... in style."
 	button_icon_state = "skateboard_ollie"
+	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/vehicle/ridden/scooter/skateboard/kflip/on_activate(mob/user, atom/target)
-	var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
-	var/mob/living/L = owner
+/datum/action/vehicle/ridden/scooter/skateboard/kickflip/trigger(trigger_flags)
+	var/obj/vehicle/ridden/scooter/skateboard/board = vehicle_target
+	var/mob/living/rider = owner
+
 	var/multiplier = 1
-	if(HAS_TRAIT(L, TRAIT_PROSKATER))
+	if(HAS_TRAIT(rider, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	L.adjustStaminaLoss(V.instability * multiplier)
-	if (L.getStaminaLoss() >= 100)
+	rider.adjustStaminaLoss(board.instability * multiplier)
+	if (rider.getStaminaLoss() >= 100)
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
-		V.unbuckle_mob(L)
-		L.Paralyze(50 * multiplier)
+		board.unbuckle_mob(rider)
+		rider.Paralyze(50 * multiplier)
 		if(prob(15))
-			V.visible_message(span_userdanger("You smack against the board, hard."), span_danger("[L] misses the landing and falls on [L.p_their()] face!"))
-			L.emote("scream")
-			L.adjustBruteLoss(10)  // thats gonna leave a mark
+			board.visible_message(
+				span_userdanger("You smack against the board, hard."),
+				span_danger("[rider] misses the landing and falls on [rider.p_their()] face!")
+			)
+			rider.emote("scream")
+			rider.adjustBruteLoss(10)  // thats gonna leave a mark
 			return
-		V.visible_message(span_userdanger("You fall flat onto the board!"), span_danger("[L] misses the landing and falls on [L.p_their()] face!"))
-	else
-		L.visible_message(span_notice("[L] does a sick kickflip and catches [L.p_their()] board in midair."), span_notice("You do a sick kickflip, catching the board in midair! Stylish."))
-		playsound(V, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
-		L.spin(4, 1)
-		animate(L, pixel_y = -6, time = 4)
-		animate(V, pixel_y = -6, time = 3)
-		V.unbuckle_mob(L)
-		addtimer(CALLBACK(V, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, pick_up_board), L), 2)
+		board.visible_message(
+			span_userdanger("You fall flat onto the board!"),
+			span_danger("[rider] misses the landing and falls on [rider.p_their()] face!")
+		)
+		return
+
+	rider.visible_message(
+		span_notice("[rider] does a sick kickflip and catches [rider.p_their()] board in midair."),
+		span_notice("You do a sick kickflip, catching the board in midair! Stylish.")
+	)
+	playsound(board, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
+	rider.spin(spintime = 4, speed = 1)
+	animate(rider, pixel_y = -6, time = 0.4 SECONDS)
+	animate(board, pixel_y = -6, time = 0.3 SECONDS)
+	board.unbuckle_mob(rider)
+	addtimer(CALLBACK(board, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, pick_up_board), rider), 1 SECONDS)

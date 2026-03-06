@@ -1,4 +1,4 @@
-/datum/action/spell/touch/smite
+/datum/action/cooldown/spell/touch/smite
 	name = "Smite"
 	desc = "This spell charges your hand with an unholy energy \
 		that can be used to cause a touched victim to violently explode."
@@ -15,14 +15,14 @@
 	hand_path = /obj/item/melee/touch_attack/smite
 
 /// Smite is pretty extravagant, so whenever we get casted, we blind everyone nearby.
-/datum/action/spell/touch/smite/proc/blind_everyone_nearby(mob/living/victim, atom/center)
+/datum/action/cooldown/spell/touch/smite/proc/blind_everyone_nearby(mob/living/victim, atom/center)
 	do_sparks(sparks_amt, FALSE, get_turf(victim))
 	for(var/mob/living/nearby_spectator in view(center, 7))
 		if(nearby_spectator == center)
 			continue
 		nearby_spectator.flash_act(affect_silicon = FALSE)
 
-/datum/action/spell/touch/smite/on_antimagic_triggered(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/smite/on_antimagic_triggered(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
 	caster.visible_message(
 		span_warning("The feedback blows [caster]'s arm off!"),
 		span_userdanger("The spell bounces from [victim]'s skin back into your arm!"),
@@ -34,7 +34,7 @@
 	caster.flash_act()
 	blind_everyone_nearby(caster, caster)
 
-/datum/action/spell/touch/smite/cast_on_hand_hit(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/smite/cast_on_hand_hit(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
 	blind_everyone_nearby(victim, caster)
 
 	if(ishuman(victim))

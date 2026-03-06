@@ -1,4 +1,4 @@
-/datum/action/spell/emp
+/datum/action/cooldown/spell/emp
 	name = "Emplosion"
 	desc = "This spell causes an EMP in an area."
 	button_icon_state = "emp"
@@ -11,11 +11,11 @@
 	/// The light radius of the EMP
 	var/emp_light = 3
 
-/datum/action/spell/emp/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/emp/on_cast(mob/user, atom/target)
 	. = ..()
 	empulse(get_turf(user), emp_heavy, emp_light)
 
-/datum/action/spell/emp/disable_tech
+/datum/action/cooldown/spell/emp/disable_tech
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
 	sound = 'sound/magic/disable_tech.ogg'

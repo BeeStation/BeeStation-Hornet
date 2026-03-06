@@ -6,7 +6,7 @@
 	toggleable = TRUE
 	var/stealthy = FALSE
 
-/datum/action/changeling/sting/on_activate(mob/user, atom/target)
+/datum/action/changeling/sting/activate(atom/target)
 	set_sting(user)
 
 /datum/action/changeling/sting/on_deactivate(mob/user, atom/target)
@@ -77,7 +77,7 @@
 /datum/action/changeling/sting/transformation/is_available()
 	return ..() && owner.mind.has_antag_datum(/datum/antagonist/changeling)
 
-/datum/action/changeling/sting/transformation/on_activate(mob/user, atom/target)
+/datum/action/changeling/sting/transformation/activate(atom/target)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	selected_dna = changeling.select_dna()
 	if(!selected_dna)

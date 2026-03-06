@@ -1,4 +1,4 @@
-/datum/action/spell/conjure_item/spellpacket
+/datum/action/cooldown/spell/conjure_item/spellpacket
 	name = "Thrown Lightning"
 	desc = "Forged from eldrich energies, a packet of pure power, \
 		known as a spell packet will appear in your hand, that - when thrown - will stun the target."
@@ -8,11 +8,12 @@
 	spell_max_level = 1
 
 	item_type = /obj/item/spellpacket/lightningbolt
+	requires_hands = TRUE
 
-/datum/action/spell/conjure_item/spellpacket/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/conjure_item/spellpacket/is_valid_spell(mob/user, atom/target)
 	return ..() && istype(user, /mob/living/carbon)
 
-/datum/action/spell/conjure_item/spellpacket/on_cast(mob/living/carbon/user, atom/target)
+/datum/action/cooldown/spell/conjure_item/spellpacket/on_cast(mob/living/carbon/user, atom/target)
 	. = ..()
 	user.throw_mode_on(THROW_MODE_TOGGLE)
 

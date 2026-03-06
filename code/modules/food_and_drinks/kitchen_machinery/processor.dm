@@ -198,13 +198,15 @@
 			AM.forceMove(src)
 
 /obj/machinery/processor/slime/process_food(datum/food_processor_process/recipe, atom/movable/what)
-	var/mob/living/simple_animal/slime/S = what
-	if (istype(S))
-		var/C = S.cores
-		for(var/i in 1 to (C+rating_amount-1))
-			var/obj/item/slime_extract/item = new S.coretype(drop_location())
-			if(S.transformeffects & SLIME_EFFECT_GOLD)
-				item.sparkly = TRUE
-			adjust_item_drop_location(item)
-			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
-	..()
+	var/mob/living/simple_animal/slime/processed_slime = what
+	if (!istype(processed_slime))
+		return
+
+	var/core_count = processed_slime.cores
+	for(var/i in 1 to (core_count+rating_amount-1))
+		var/obj/item/slime_extract/item = new processed_slime.coretype(drop_location())
+		if(processed_slime.transformeffects & SLIME_EFFECT_GOLD)
+			item.sparkly = TRUE
+		adjust_item_drop_location(item)
+		SSblackbox.record_feedback("tally", "slime_core_harvested", 1, processed_slime.colour)
+	return ..()

@@ -9,19 +9,19 @@
  *
  * Refreshes uses on our spell granter, or make it quicker to read if it's already infinite use
  */
-/obj/item/book/granter/action/spell/proc/on_magic_charge(datum/source, datum/action/spell/spell, mob/living/caster)
+/obj/item/book/granter/action/spell/proc/on_magic_charge(datum/source, datum/action/cooldown/spell/spell, mob/living/caster)
 	SIGNAL_HANDLER
 
 	// What're the odds someone uses 2000 uses of an infinite use book?
 	if(uses >= INFINITY - 2000)
-		to_chat(caster, ("<span class='notice'>This book is infinite use and can't be recharged, \
-			yet the magic has improved it somehow...</span>"))
+		to_chat(caster, span_notice("This book is infinite use and can't be recharged, \
+			yet the magic has improved it somehow..."))
 		pages_to_mastery = max(pages_to_mastery - 1, 1)
 		return COMPONENT_ITEM_CHARGED|COMPONENT_ITEM_BURNT_OUT
 
 	if(prob(80))
 		caster.dropItemToGround(src, TRUE)
-		visible_message(("<span class='warning'>[src] catches fire and burns to ash!</span>"))
+		visible_message(span_warning("[src] catches fire and burns to ash!"))
 		new /obj/effect/decal/cleanable/ash(drop_location())
 		qdel(src)
 		return COMPONENT_ITEM_BURNT_OUT
@@ -34,26 +34,27 @@
 		CRASH("Someone attempted to learn [type], which did not have an spell set.")
 	if(locate(granted_action) in user.actions)
 		if(IS_WIZARD(user))
-			to_chat(user, ("<span class='warning'>You're already far more versed in the spell [action_name] \
-				than this flimsy how-to book can provide!</span>"))
+			to_chat(user, span_warning("You're already far more versed in the spell [action_name] \
+				than this flimsy how-to book can provide!"))
 		else
-			to_chat(user, ("<span class='warning'>You've already know the spell [action_name]!</span>"))
+			to_chat(user, span_warning("You've already know the spell [action_name]!"))
 		return FALSE
 	return TRUE
 
 /obj/item/book/granter/action/spell/on_reading_start(mob/living/user)
-	to_chat(user, ("<span class='notice'>You start reading about casting [action_name]...</span>"))
+	to_chat(user, span_notice("You start reading about casting [action_name]..."))
+	return TRUE
 
 /obj/item/book/granter/action/spell/on_reading_finished(mob/living/user)
-	to_chat(user, ("<span class='notice'>You feel like you've experienced enough to cast [action_name]!</span>"))
-	var/datum/action/spell/new_spell = new granted_action(user.mind || user)
+	to_chat(user, span_notice("You feel like you've experienced enough to cast [action_name]!"))
+	var/datum/action/cooldown/spell/new_spell = new granted_action(user.mind || user)
 	new_spell.Grant(user)
 	user.log_message("learned the spell [action_name] ([new_spell])", LOG_ATTACK, color = "orange")
 	if(uses <= 0)
-		user.visible_message(("<span class='warning'>[src] glows dark for a second!</span>"))
+		user.visible_message(span_warning("[src] glows dark for a second!"))
 
 /obj/item/book/granter/action/spell/recoil(mob/living/user)
-	user.visible_message(("<span class='warning'>[src] glows in a black light!</span>"))
+	user.visible_message(span_warning("[src] glows in a black light!"))
 
 /// Simple granter that's replaced with a random spell granter on Initialize.
 /obj/item/book/granter/action/spell/random
@@ -82,8 +83,8 @@
 
 	var/static/list/spell_options
 	if(!spell_options)
-		spell_options = subtypesof(/datum/action/spell)
-		for(var/datum/action/spell/spell as anything in spell_options)
+		spell_options = subtypesof(/datum/action/cooldown/spell)
+		for(var/datum/action/cooldown/spell/spell as anything in spell_options)
 			if(initial(spell.school) in blacklisted_schools)
 				spell_options -= spell
 			if(initial(spell.name) == "Spell") // Abstract types

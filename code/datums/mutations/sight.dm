@@ -40,7 +40,7 @@
 	instability = 25
 	locked = TRUE
 	traits = TRAIT_THERMAL_VISION
-	power_path = /datum/action/spell/thermal_vision
+	power_path = /datum/action/cooldown/spell/thermal_vision
 
 /datum/mutation/human/thermal/on_losing(mob/living/carbon/human/owner)
 	if(..())
@@ -54,7 +54,7 @@
 
 /datum/mutation/human/thermal/modify()
 	. = ..()
-	var/datum/action/spell/thermal_vision/to_modify = .
+	var/datum/action/cooldown/spell/thermal_vision/to_modify = .
 	if(!istype(to_modify)) // null or invalid
 		return
 
@@ -62,43 +62,42 @@
 	to_modify.thermal_duration = 10 * GET_MUTATION_POWER(src)
 
 
-/datum/action/spell/thermal_vision
+/datum/action/cooldown/spell/thermal_vision
 	name = "Activate Thermal Vision"
 	desc = "You can see thermal signatures, at the cost of your eyesight."
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
 	button_icon_state = "augmented_eyesight"
-	toggleable = TRUE
 
 	cooldown_time = 25 SECONDS
 	spell_requirements = NONE
-	mindbound = FALSE
+
 	/// How much eye damage is given on cast
 	var/eye_damage = 10
 	/// The duration of the thermal vision
 	var/thermal_duration = 10 SECONDS
 
-/datum/action/spell/thermal_vision/Remove(mob/living/remove_from)
+/datum/action/cooldown/spell/thermal_vision/Remove(mob/living/remove_from)
 	REMOVE_TRAIT(remove_from, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
 	remove_from.update_sight()
 	return ..()
 
-/datum/action/spell/thermal_vision/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/thermal_vision/is_valid_spell(mob/user, atom/target)
 	return isliving(user) && !HAS_TRAIT(user, TRAIT_THERMAL_VISION)
 
-/datum/action/spell/thermal_vision/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/thermal_vision/cast(mob/living/cast_on)
 	. = ..()
-	ADD_TRAIT(user, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
-	user.update_sight()
-	to_chat(user, ("<span class='info'>You focus your eyes intensely, as your vision becomes filled with heat signatures.</span>"))
+	ADD_TRAIT(cast_on, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
+	cast_on.update_sight()
+	to_chat(cast_on, span_info("You focus your eyes intensely, as your vision becomes filled with heat signatures."))
 	addtimer(CALLBACK(src, PROC_REF(deactivate)), thermal_duration)
 
-/datum/action/spell/thermal_vision/on_deactivate(mob/user, mob/cast_on)
+/datum/action/cooldown/spell/thermal_vision/deactivate(mob/living/cast_on)
 	if(QDELETED(cast_on) || !HAS_TRAIT_FROM(cast_on, TRAIT_THERMAL_VISION, GENETIC_MUTATION))
 		return
 
 	REMOVE_TRAIT(cast_on, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
 	cast_on.update_sight()
-	to_chat(cast_on, ("<span class='info'>You blink a few times, your vision returning to normal as a dull pain settles in your eyes.</span>"))
+	to_chat(cast_on, span_info("You blink a few times, your vision returning to normal as a dull pain settles in your eyes."))
 
 	if(iscarbon(cast_on))
 		var/mob/living/carbon/carbon_cast_on = cast_on

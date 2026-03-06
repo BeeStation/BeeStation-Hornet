@@ -1,7 +1,8 @@
-/datum/action/spell/vow_of_silence
+/datum/action/cooldown/spell/vow_of_silence
 	name = "Speech"
 	desc = "Make (or break) a vow of silence."
 	background_icon_state = "bg_mime"
+	overlay_icon_state = "bg_mime_border"
 	button_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "mime_speech"
 
@@ -19,7 +20,7 @@
 	REMOVE_TRAIT(remove_from, TRAIT_MIMING, "[type]")
 	SEND_SIGNAL(remove_from, COMSIG_CLEAR_MOOD_EVENT, "vow")
 
-/datum/action/spell/vow_of_silence/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/vow_of_silence/on_cast(mob/user, atom/target)
 	. = ..()
 	if(HAS_TRAIT_FROM(user, TRAIT_MIMING, "[type]"))
 		to_chat(user, span_notice("You break your vow of silence."))
@@ -29,4 +30,4 @@
 		to_chat(user, span_notice("You make a vow of silence."))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "vow")
 		ADD_TRAIT(user, TRAIT_MIMING, "[type]")
-	user.update_action_buttons_icon()
+	user.update_mob_action_buttons()

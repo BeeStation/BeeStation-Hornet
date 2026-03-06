@@ -703,7 +703,8 @@
 		dat += "[custom_data ? ",\n[custom_data]" : ""]"
 	return dat
 
-/obj/structure/closet/proc/on_magic_unlock(datum/source, datum/action/spell/aoe/knock/spell, mob/living/caster)
+/// Signal proc for [COMSIG_ATOM_MAGICALLY_UNLOCKED]. Unlock and open up when we get knock casted.
+/obj/structure/closet/proc/on_magic_unlock(datum/source, datum/action/cooldown/spell/aoe/knock/spell, atom/caster)
 	SIGNAL_HANDLER
 
 	locked = FALSE

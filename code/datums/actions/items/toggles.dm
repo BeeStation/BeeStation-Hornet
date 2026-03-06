@@ -46,7 +46,7 @@
 	button_icon = 'icons/hud/actions/actions_spacesuit.dmi'
 	button_icon_state = "thermal_off"
 
-/datum/action/item_action/toggle_spacesuit/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
+/datum/action/item_action/toggle_spacesuit/apply_button_icon(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
 	var/obj/item/clothing/suit/space/suit = master
 	if(istype(suit))
 		button_icon_state = "thermal_[suit.thermal_on ? "on" : "off"]"
@@ -98,22 +98,6 @@
 /datum/action/item_action/storage_gather_mode
 	name = "Switch gathering mode"
 	desc = "Switches the gathering mode of a storage object."
-	button_icon = 'icons/hud/actions/actions_items.dmi'
-	button_icon_state = "storage_gather_switch"
-
-/datum/action/item_action/storage_gather_mode/apply_icon(atom/movable/screen/movable/action_button/current_button)
-	. = ..()
-	var/obj/item/item_target = master
-	var/old_layer = item_target.layer
-	var/old_plane = item_target.plane
-	item_target.layer = FLOAT_LAYER //AAAH
-	item_target.plane = FLOAT_PLANE //^ what that guy said
-	current_button.cut_overlays()
-	current_button.add_overlay(master)
-	item_target.layer = old_layer
-	item_target.plane = old_plane
-	current_button.appearance_cache = item_target.appearance
-
-
-/datum/action/item_action/equip_unequip_TED_Gun
-	name = "Activate/Deactivate TED Gun"
+	background_icon = 'icons/hud/actions/actions_items.dmi'
+	background_icon_state = "storage_gather_switch"
+	overlay_icon_state = "bg_tech_border"

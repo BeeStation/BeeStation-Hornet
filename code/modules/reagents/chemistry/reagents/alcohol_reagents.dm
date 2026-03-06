@@ -1149,7 +1149,13 @@
 	UnregisterSignal(metabolizer, COMSIG_LIVING_BLOOD_CRAWL_PRE_CONSUMED)
 
 /// Prevents the imbiber from being dragged into a pool of blood by a slaughter demon.
-/datum/reagent/consumable/ethanol/demonsblood/proc/pre_bloodcrawl_consumed(mob/living/source, datum/action/spell/jaunt/bloodcrawl/crawl, mob/living/jaunter, obj/effect/decal/cleanable/blood)
+/datum/reagent/consumable/ethanol/demonsblood/proc/pre_bloodcrawl_consumed(
+	mob/living/source,
+	datum/action/cooldown/spell/jaunt/bloodcrawl/crawl,
+	mob/living/jaunter,
+	obj/effect/decal/cleanable/blood,
+)
+
 	SIGNAL_HANDLER
 
 	var/turf/jaunt_turf = get_turf(jaunter)
@@ -1186,7 +1192,12 @@
 	UnregisterSignal(metabolizer, COMSIG_LIVING_BLOOD_CRAWL_CONSUMED)
 
 /// If eaten by a slaughter demon, the demon will regret it.
-/datum/reagent/consumable/ethanol/devilskiss/proc/on_bloodcrawl_consumed(mob/living/source, datum/action/spell/jaunt/bloodcrawl/crawl, mob/living/jaunter)
+/datum/reagent/consumable/ethanol/devilskiss/proc/on_bloodcrawl_consumed(
+	mob/living/source,
+	datum/action/cooldown/spell/jaunt/bloodcrawl/crawl,
+	mob/living/jaunter,
+)
+
 	SIGNAL_HANDLER
 
 	. = COMPONENT_STOP_CONSUMPTION
@@ -3019,7 +3030,7 @@
 	overdose_threshold = 50
 	metabolization_rate = 0.5
 
-	var/datum/action/spell/power = /datum/action/spell/basic_projectile/weak
+	var/datum/action/cooldown/spell/power = /datum/action/cooldown/spell/basic_projectile/weak
 
 /datum/glass_style/drinking_glass/sarsaparilliansunset
 	required_drink_type = /datum/reagent/consumable/ethanol/sarsaparilliansunset
@@ -3050,7 +3061,7 @@
 		power.Remove(affected_mob)
 		QDEL_NULL(power)
 
-/datum/action/spell/basic_projectile/weak
+/datum/action/cooldown/spell/basic_projectile/weak
 	name = "Fire Upchuck"
 	desc = "You can feel heat rising from your stomach"
 	projectile_range = 20

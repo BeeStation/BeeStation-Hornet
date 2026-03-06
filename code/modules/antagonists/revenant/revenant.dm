@@ -75,22 +75,22 @@
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	// more rev abilities are in 'revenant_abilities.dm'
 	// Starting spells
-	var/datum/action/spell/night_vision/revenant/night_vision = new(src)
+	var/datum/action/cooldown/spell/night_vision/revenant/night_vision = new(src)
 	night_vision.Grant(src)
 	var/datum/action/revenant_phase_shift/revenant_phase_shift = new(src)
 	revenant_phase_shift.Grant(src)
-	var/datum/action/spell/telepathy/revenant/telepathy = new(src)
+	var/datum/action/cooldown/spell/list_target/telepathy/revenant/telepathy = new(src)
 	telepathy.Grant(src)
-	var/datum/action/spell/teleport/area_teleport/revenant/revenant_teleport = new(src)
+	var/datum/action/cooldown/spell/teleport/area_teleport/revenant/revenant_teleport = new(src)
 	revenant_teleport.Grant(src)
 	// Starting spells that start locked
-	var/datum/action/spell/aoe/revenant/overload/overload = new(src)
+	var/datum/action/cooldown/spell/aoe/revenant/overload/overload = new(src)
 	overload.Grant(src)
-	var/datum/action/spell/aoe/revenant/defile/defile = new(src)
+	var/datum/action/cooldown/spell/aoe/revenant/defile/defile = new(src)
 	defile.Grant(src)
-	var/datum/action/spell/aoe/revenant/blight/blight = new(src)
+	var/datum/action/cooldown/spell/aoe/revenant/blight/blight = new(src)
 	blight.Grant(src)
-	var/datum/action/spell/aoe/revenant/malfunction/malfunction = new(src)
+	var/datum/action/cooldown/spell/aoe/revenant/malfunction/malfunction = new(src)
 	malfunction.Grant(src)
 	name = generate_random_mob_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
@@ -153,7 +153,7 @@
 		to_chat(src, span_revenboldnotice("You can move again!"))
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
 		essence = min(essence + (essence_regen_amount * delta_time), essence_regen_cap)
-		update_action_buttons_icon() //because we update something required by our spells in life, we need to update our buttons
+		update_mob_action_buttons() //because we update something required by our spells in life, we need to update our buttons
 	update_spooky_icon()
 	update_health_hud()
 	..()
@@ -234,12 +234,12 @@
 						span_revendanger("As \the [W] passes through you, you feel your essence draining away!"))
 		adjustBruteLoss(25) //hella effective
 		inhibited = TRUE
-		update_action_buttons_icon()
+		update_mob_action_buttons()
 		addtimer(CALLBACK(src, PROC_REF(reset_inhibit)), 30)
 
 /mob/living/simple_animal/revenant/proc/reset_inhibit()
 	inhibited = FALSE
-	update_action_buttons_icon()
+	update_mob_action_buttons()
 
 /mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && !revealed)
@@ -368,7 +368,7 @@
 	if(essence_excess < essence_cost)
 		return FALSE
 	essence_excess -= essence_cost
-	update_action_buttons_icon()
+	update_mob_action_buttons
 	return TRUE
 
 /mob/living/simple_animal/revenant/proc/change_essence_amount(essence_amt, silent = FALSE, source = null)
@@ -381,7 +381,7 @@
 	if(essence_amt > 0)
 		essence_accumulated = max(0, essence_accumulated+essence_amt)
 		essence_excess = max(0, essence_excess+essence_amt)
-	update_action_buttons_icon()
+	update_mob_action_buttons
 	if(!silent)
 		if(essence_amt > 0)
 			to_chat(src, span_revennotice("Gained [essence_amt]E[source ? " from [source]":""]."))

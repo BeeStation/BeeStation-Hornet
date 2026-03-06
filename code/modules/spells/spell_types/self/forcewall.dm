@@ -1,4 +1,4 @@
-/datum/action/spell/forcewall
+/datum/action/cooldown/spell/forcewall
 	name = "Forcewall"
 	desc = "Create a magical barrier that only you can pass through."
 	button_icon_state = "shield"
@@ -15,7 +15,7 @@
 	/// The typepath to the wall we create on cast.
 	var/wall_type = /obj/effect/forcefield/wizard
 
-/datum/action/spell/forcewall/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/forcewall/on_cast(mob/user, atom/target)
 	. = ..()
 	new wall_type(get_turf(owner), owner)
 
@@ -27,10 +27,11 @@
 		new wall_type(get_step(owner, NORTH), owner, antimagic_flags)
 		new wall_type(get_step(owner, SOUTH), owner, antimagic_flags)
 
-/datum/action/spell/forcewall/cult
+/datum/action/cooldown/spell/forcewall/cult
 	name = "Shield"
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire."
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
 	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "cultforcewall"
 
@@ -39,10 +40,11 @@
 
 	wall_type = /obj/effect/forcefield/cult
 
-/datum/action/spell/forcewall/mime
+/datum/action/cooldown/spell/forcewall/mime
 	name = "Invisible Blockade"
 	desc = "Form an invisible three tile wide blockade."
 	background_icon_state = "bg_mime"
+	overlay_icon_state = "bg_mime_border"
 	button_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "invisible_blockade"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
@@ -61,6 +63,6 @@
 
 	wall_type = /obj/effect/forcefield/mime/advanced
 
-/datum/action/spell/forcewall/mime/pre_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/forcewall/mime/pre_cast(mob/user, atom/target)
 	. = ..()
 	invocation = ("<span class='notice'><b>[user]</b> looks as if a blockade is in front of [user.p_them()].</span>")

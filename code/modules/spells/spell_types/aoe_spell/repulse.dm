@@ -1,4 +1,4 @@
-/datum/action/spell/aoe/repulse
+/datum/action/cooldown/spell/aoe/repulse
 	/// The max throw range of the repulsioon.
 	var/max_throw = 5
 	/// A visual effect to be spawned on people who are thrown away.
@@ -6,7 +6,24 @@
 	/// The moveforce of the throw done by the repulsion.
 	var/repulse_force = MOVE_FORCE_EXTREMELY_STRONG
 
-/datum/action/spell/aoe/repulse/get_things_to_cast_on(atom/center)
+/datum/action/cooldown/spell/aoe/repulse/get_caster_from_target(atom/target)
+	if(istype(target.loc, /obj/structure/closet))
+		return target
+
+	return ..()
+
+/datum/action/cooldown/spell/aoe/repulse/is_valid_target(atom/cast_on)
+	return ..() || istype(cast_on.loc, /obj/structure/closet)
+
+/datum/action/cooldown/spell/aoe/repulse/cast(atom/cast_on)
+	if(istype(cast_on.loc, /obj/structure/closet))
+		var/obj/structure/closet/open_closet = cast_on.loc
+		open_closet.open(force = TRUE)
+		open_closet.visible_message(span_warning("[open_closet] suddenly flies open!"))
+
+	return ..()
+
+/datum/action/cooldown/spell/aoe/repulse/get_things_to_cast_on(atom/center)
 	var/list/things = list()
 	for(var/atom/movable/nearby_movable in view(aoe_radius, center))
 		if(nearby_movable == owner || nearby_movable == center)
@@ -18,7 +35,7 @@
 
 	return things
 
-/datum/action/spell/aoe/repulse/cast_on_thing_in_aoe(atom/movable/victim, atom/caster)
+/datum/action/cooldown/spell/aoe/repulse/cast_on_thing_in_aoe(atom/movable/victim, atom/caster)
 	if(ismob(victim))
 		var/mob/victim_mob = victim
 		if(victim_mob.can_block_magic(antimagic_flags))
@@ -44,9 +61,15 @@
 			to_chat(victim, ("<span class='userdanger'>You're thrown back by [caster]!</span>"))
 
 		// So stuff gets tossed around at the same time.
-		victim.safe_throw_at(throwtarget, ((clamp((max_throw - (clamp(dist_from_caster - 2, 0, dist_from_caster))), 3, max_throw))), 1, caster, force = repulse_force)
+		victim.safe_throw_at(
+			target = throwtarget,
+			range = clamp((max_throw - (clamp(dist_from_caster - 2, 0, dist_from_caster))), 3, max_throw),
+			speed = 1,
+			thrower = ismob(caster) ? caster : null,
+			force = repulse_force,
+		)
 
-/datum/action/spell/aoe/repulse/wizard
+/datum/action/cooldown/spell/aoe/repulse/wizard
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	button_icon_state = "repulse"
@@ -60,10 +83,11 @@
 	cooldown_time = 40 SECONDS
 	cooldown_reduction_per_rank = 6.25 SECONDS
 
-/datum/action/spell/aoe/repulse/xeno
+/datum/action/cooldown/spell/aoe/repulse/xeno
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	background_icon_state = "bg_alien"
+	overlay_icon_state = "bg_alien_border"
 	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "tailsweep"
 	sound = 'sound/magic/tail_swing.ogg'
@@ -77,7 +101,7 @@
 
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 
-/datum/action/spell/aoe/repulse/xeno/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/aoe/repulse/xeno/on_cast(mob/user, atom/target)
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_caster = user
 		playsound(get_turf(carbon_caster), 'sound/voice/hiss5.ogg', 80, TRUE, TRUE)

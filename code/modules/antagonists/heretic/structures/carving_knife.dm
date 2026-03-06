@@ -131,6 +131,7 @@
 	name = "Rune Break"
 	desc = "Destroys all runes carved by this blade."
 	background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
 	button_icon_state = "rune_break"
 	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 
@@ -156,7 +157,7 @@
 	if(!length(target_sword.current_runes))
 		return FALSE
 
-/datum/action/item_action/rune_shatter/on_activate(mob/user, atom/target)
+/datum/action/item_action/rune_shatter/activate(atom/target)
 	owner.playsound_local(get_turf(owner), 'sound/magic/blind.ogg', 50, TRUE)
 	var/obj/item/melee/rune_carver/target_sword = target
 	QDEL_LIST(target_sword.current_runes)

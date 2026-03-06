@@ -634,7 +634,7 @@
 
 	// Performs a soul tap on living targets hit.
 	// Takes away max health, but refreshes their spell cooldowns (if any)
-	var/datum/action/spell/tap/tap = new(src)
+	var/datum/action/cooldown/spell/tap/tap = new(src)
 	if(tap.is_valid_spell(target, target))
 		tap.on_cast(target, target)
 

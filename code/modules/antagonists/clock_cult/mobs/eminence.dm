@@ -39,12 +39,12 @@
 
 	var/mob/living/selected_mob = null
 
-	var/datum/action/spell/eminence/reebe/spell_reebe
-	var/datum/action/spell/eminence/station/spell_station
-	var/datum/action/spell/eminence/servant_warp/spell_servant_warp
-	var/datum/action/spell/eminence/mass_recall/mass_recall
-	var/datum/action/spell/eminence/linked_abscond/linked_abscond
-	var/datum/action/spell/eminence/trigger_event/trigger_event
+	var/datum/action/cooldown/spell/eminence/reebe/spell_reebe
+	var/datum/action/cooldown/spell/eminence/station/spell_station
+	var/datum/action/cooldown/spell/eminence/servant_warp/spell_servant_warp
+	var/datum/action/cooldown/spell/eminence/mass_recall/mass_recall
+	var/datum/action/cooldown/spell/eminence/linked_abscond/linked_abscond
+	var/datum/action/cooldown/spell/eminence/trigger_event/trigger_event
 
 /mob/living/simple_animal/eminence/ClickOn(atom/A, params)
 	. = ..()

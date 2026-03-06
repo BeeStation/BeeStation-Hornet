@@ -5,19 +5,18 @@
 	locked = TRUE
 	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
 	instability = 30
-	power_path = /datum/action/spell/overload
+	power_path = /datum/action/cooldown/spell/overload
 	species_allowed = list(SPECIES_ETHEREAL)
 
-/datum/action/spell/overload
+/datum/action/cooldown/spell/overload
 	name = "Overload"
 	desc = "Concentrate to make your skin energize."
 	spell_requirements = null
 	cooldown_time = 60 SECONDS
 	button_icon_state = "blind"
-	mindbound = FALSE
 	var/max_distance = 4
 
-/datum/action/spell/overload/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/overload/on_cast(mob/user, atom/target)
 	. = ..()
 	if(!isethereal(user))
 		return
@@ -30,5 +29,5 @@
 
 /datum/mutation/overload/modify()
 	if(power_path)
-		var/datum/action/spell/overload/S = power_path
+		var/datum/action/cooldown/spell/overload/S = power_path
 		S.max_distance = 4 * GET_MUTATION_POWER(src)

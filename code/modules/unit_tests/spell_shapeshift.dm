@@ -5,10 +5,10 @@
 
 /datum/unit_test/shapeshift_spell_validity/Run()
 
-	var/list/types_to_test = subtypesof(/datum/action/spell/shapeshift)
+	var/list/types_to_test = subtypesof(/datum/action/cooldown/spell/shapeshift)
 
 	for(var/spell_type in types_to_test)
-		var/datum/action/spell/shapeshift/shift = new spell_type()
+		var/datum/action/cooldown/spell/shapeshift/shift = new spell_type()
 		if(!LAZYLEN(shift.possible_shapes))
 			TEST_FAIL("Shapeshift spell: [shift] ([spell_type]) did not have any possible shapeshift options.")
 
@@ -18,7 +18,7 @@
 
 		qdel(shift)
 
-#define TRIGGER_RESET_COOLDOWN(spell) spell.reset_next_use_time(); spell.trigger()
+#define TRIGGER_RESET_COOLDOWN(spell) spell.next_use_time = 0; spell.trigger();
 
 /**
  * Validates that shapeshift spells put the mob in another mob, as they should.
@@ -30,9 +30,9 @@
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
 	dummy.mind_initialize()
 
-	for(var/spell_type in subtypesof(/datum/action/spell/shapeshift))
+	for(var/spell_type in subtypesof(/datum/action/cooldown/spell/shapeshift))
 		// Test all shapeshifts as if they were on the mob's body
-		var/datum/action/spell/shapeshift/bodybound_shift = new spell_type(dummy)
+		var/datum/action/cooldown/spell/shapeshift/bodybound_shift = new spell_type(dummy)
 		bodybound_shift.Grant(dummy)
 		if(LAZYLEN(bodybound_shift.possible_shapes) > 1)
 			for(var/forced_shape in bodybound_shift.possible_shapes)
@@ -44,7 +44,7 @@
 		qdel(bodybound_shift)
 
 		// And test all shapeshifts as if they were on the mob's mind
-		var/datum/action/spell/shapeshift/mindbound_shift = new spell_type(dummy.mind)
+		var/datum/action/cooldown/spell/shapeshift/mindbound_shift = new spell_type(dummy.mind)
 		mindbound_shift.Grant(dummy)
 		if(LAZYLEN(mindbound_shift.possible_shapes) > 1)
 			for(var/forced_shape in mindbound_shift.possible_shapes)
@@ -55,7 +55,7 @@
 
 		qdel(mindbound_shift)
 
-/datum/unit_test/shapeshift_spell/proc/test_spell(mob/living/carbon/human/dummy, datum/action/spell/shapeshift/shift, forced_shape)
+/datum/unit_test/shapeshift_spell/proc/test_spell(mob/living/carbon/human/dummy, datum/action/cooldown/spell/shapeshift/shift, forced_shape)
 	if(forced_shape)
 		shift.shapeshift_type = forced_shape
 
@@ -84,7 +84,7 @@
 
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
 
-	var/datum/action/spell/shapeshift/wizard/shift = new(dummy)
+	var/datum/action/cooldown/spell/shapeshift/wizard/shift = new(dummy)
 	shift.shapeshift_type = shift.possible_shapes[1]
 	shift.Grant(dummy)
 	dummy.mind_initialize() //Jank, but needed
@@ -114,9 +114,9 @@
 /datum/unit_test/shapeshift_health
 
 /datum/unit_test/shapeshift_health/Run()
-	for(var/spell_type in subtypesof(/datum/action/spell/shapeshift))
+	for(var/spell_type in subtypesof(/datum/action/cooldown/spell/shapeshift))
 		var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
-		var/datum/action/spell/shapeshift/shift_spell = new spell_type(dummy)
+		var/datum/action/cooldown/spell/shapeshift/shift_spell = new spell_type(dummy)
 		shift_spell.Grant(dummy)
 		shift_spell.shapeshift_type = shift_spell.possible_shapes[1]
 

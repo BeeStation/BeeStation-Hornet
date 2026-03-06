@@ -114,7 +114,7 @@
 		to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("Bounty claimed.")]")
 		playsound(owner, 'sound/weapons/shotgunshot.ogg', 75, 0)
 		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
-		for(var/datum/action/spell/spell in rewarded.actions)
+		for(var/datum/action/cooldown/spell/spell in rewarded.actions)
 			spell.reset_spell_cooldown()
 
 		var/need_mob_update = FALSE

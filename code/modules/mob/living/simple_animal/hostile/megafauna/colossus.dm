@@ -880,7 +880,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /datum/action/exit_possession/is_available()
 	return ..() && isfloorturf(owner.loc)
 
-/datum/action/exit_possession/on_activate(mob/user, atom/target)
+/datum/action/exit_possession/activate(atom/target)
 	var/obj/structure/closet/stasis/stasis = locate() in owner
 	if(!stasis)
 		CRASH("[type] did not find a stasis closet thing in the owner.")

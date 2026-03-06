@@ -445,12 +445,13 @@ GLOBAL_LIST(admin_antag_list)
 /datum/action/antag_info
 	name = "Open Special Role Information:"
 	button_icon_state = "round_end"
+	show_to_observers = FALSE
 
 /datum/action/antag_info/New(master)
 	. = ..()
 	name = "Open [master] Information"
 
-/datum/action/antag_info/on_activate(mob/user, atom/target)
+/datum/action/antag_info/activate(atom/target)
 	target.ui_interact(owner)
 
 /datum/action/antag_info/is_available(feedback = FALSE)

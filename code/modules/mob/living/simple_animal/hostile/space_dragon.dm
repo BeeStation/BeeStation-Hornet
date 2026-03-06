@@ -23,8 +23,8 @@
 /mob/living/simple_animal/hostile/space_dragon
 	name = "Space Dragon"
 	desc = "A vile, leviathan-esque creature that flies in the most unnatural way. Looks slightly similar to a space carp."
-	maxHealth = 350
-	health = 350
+	maxHealth = 400
+	health = 400
 	combat_mode = TRUE
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
@@ -313,7 +313,7 @@
   * Arguments:
   * * turf/T - The turf to trigger the effects on.
   */
-/mob/living/simple_animal/hostile/space_dragon/proc/dragon_fire_line(turf/T)
+/mob/living/simple_animal/hostile/space_dragon/proc/dragon_fire_line(turf/fire_turf)
 	var/list/hit_list = list()
 	hit_list += src
 	new /obj/effect/hotspot/bright(T)
@@ -344,7 +344,7 @@
   */
 /mob/living/simple_animal/hostile/space_dragon/proc/eat(atom/movable/A)
 	if(A?.loc != src)
-		playsound(src, 'sound/magic/demon_attack1.ogg', 100, TRUE)
+		playsound(src, 'sound/magic/demon_attack1.ogg', 60, TRUE)
 		visible_message(span_warning("[src] swallows [A] whole!"))
 		A.forceMove(src)
 		return TRUE
@@ -471,7 +471,7 @@
 /datum/action/gust_attack/is_available()
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/space_dragon)
 
-/datum/action/gust_attack/on_activate(mob/user, atom/target)
+/datum/action/gust_attack/activate(atom/target)
 	var/mob/living/simple_animal/hostile/space_dragon/S = owner
 	if(S.using_special)
 		return FALSE

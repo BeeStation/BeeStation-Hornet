@@ -155,7 +155,7 @@
 
 /datum/mood_event/hope_lavaland
 	description = span_nicegreen("What a peculiar emblem. It makes me feel hopeful for my future.")
-	mood_change = 5
+	mood_change = 10
 
 /datum/mood_event/holy_consumption
 	description = "Truly, that was the food of the Divine!"

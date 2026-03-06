@@ -5,6 +5,8 @@
 	button_icon_state = "draw"
 	buttontooltipstyle = "cult"
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
+
 	default_button_position = "6:157,4:-2"
 
 /datum/action/item_action/cult_dagger/Grant(mob/grant_to)
@@ -14,7 +16,7 @@
 
 	return ..()
 
-/datum/action/item_action/cult_dagger/on_activate(mob/user, atom/target)
+/datum/action/item_action/cult_dagger/activate(atom/target)
 	for(var/obj/item/held_item as anything in owner.held_items) // In case we were already holding a dagger
 		if(istype(held_item, /obj/item/melee/cultblade/dagger))
 			held_item.attack_self(owner)

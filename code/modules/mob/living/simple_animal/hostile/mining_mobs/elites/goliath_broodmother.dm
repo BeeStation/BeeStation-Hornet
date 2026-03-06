@@ -25,8 +25,8 @@
 	icon_aggro = "broodmother"
 	icon_dead = "egg_sac"
 	icon_gib = "syndicate_gib"
-	maxHealth = 400
-	health = 400
+	maxHealth = 500
+	health = 500
 	melee_damage = 30
 	armour_penetration = 30
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -129,7 +129,7 @@
 		children_list += newchild
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/rage()
-	ranged_cooldown = world.time + 70
+	ranged_cooldown = world.time + 100
 	playsound(src,'sound/spookoween/insane_low_laugh.ogg', 200, 1)
 	visible_message(span_warning("[src] starts picking up speed!"))
 	color = COLOR_RED
@@ -225,11 +225,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/broodmoth
 // Broodmother's loot: Broodmother Tongue
 /obj/item/crusher_trophy/broodmother_tongue
 	name = "broodmother tongue"
-	desc = "The tongue of a broodmother.  If attached a certain way, makes for a suitable crusher trophy."
+	desc = "The tongue of a broodmother. If attached a certain way, makes for a suitable crusher trophy.  It also feels very spongey, I wonder what would happen if you squeezed it?..."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "broodmother_tongue"
 	denied_type = /obj/item/crusher_trophy/broodmother_tongue
 	bonus_value = 10
+	/// Time at which the item becomes usable again
+	var/use_time
 
 /obj/item/crusher_trophy/broodmother_tongue/effect_desc()
 	return "mark detonation to have a <b>[bonus_value]%</b> chance to summon a patch of goliath tentacles at the target's location"
@@ -237,6 +239,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/broodmoth
 /obj/item/crusher_trophy/broodmother_tongue/on_mark_detonation(mob/living/target, mob/living/user)
 	if(rand(1, 100) <= bonus_value && target.stat != DEAD)
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(get_turf(target), user)
+
+/obj/item/crusher_trophy/broodmother_tongue/attack_self(mob/user)
+	if(!isliving(user))
+		return
+	var/mob/living/living_user = user
+	if(use_time > world.time)
+		to_chat(living_user, "<b>The tongue looks dried out. You'll need to wait longer to use it again.</b>")
+		return
+	else if("lava" in living_user.weather_immunities)
+		to_chat(living_user, "<b>You stare at the tongue. You don't think this is any use to you.</b>")
+		return
+	living_user.weather_immunities |= "lava"
+	to_chat(living_user, "<b>You squeeze the tongue, and some transluscent liquid shoots out all over you.</b>")
+	addtimer(CALLBACK(src, .proc/remove_lavaproofing, living_user), 10 SECONDS)
+	use_time = world.time + 60 SECONDS
+
+/obj/item/crusher_trophy/broodmother_tongue/proc/remove_lavaproofing(mob/living/user)
+	user.weather_immunities -= "lava"
 
 #undef TENTACLE_PATCH
 #undef SPAWN_CHILDREN

@@ -84,7 +84,7 @@
 		user.wear_mask_update(src, toggle_off = mask_adjusted)
 	if(loc == user)
 		// Update action button icon for adjusted mask, if someone is holding it.
-		user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
+		user.update_mob_action_buttons() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
 
 /obj/item/clothing/mask/compile_monkey_icon()
 	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing

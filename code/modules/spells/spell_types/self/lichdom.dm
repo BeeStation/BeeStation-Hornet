@@ -1,4 +1,4 @@
-/datum/action/spell/lichdom
+/datum/action/cooldown/spell/lichdom
 	name = "Bind Soul"
 	desc = "A spell that binds your soul to an item in your hands. \
 		Binding your soul to an item will turn you into an immortal Lich. \
@@ -15,7 +15,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_OFF_CENTCOM|SPELL_REQUIRES_MIND
 	spell_max_level = 1
 
-/datum/action/spell/lichdom/can_cast_spell(feedback = TRUE)
+/datum/action/cooldown/spell/lichdom/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -28,10 +28,10 @@
 
 	return TRUE
 
-/datum/action/spell/lichdom/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/lichdom/is_valid_spell(mob/user, atom/target)
 	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL)
 
-/datum/action/spell/lichdom/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/lichdom/on_cast(mob/living/user, atom/target)
 	var/obj/item/marked_item = user.get_active_held_item()
 	if(!marked_item || marked_item.item_flags & ABSTRACT)
 		return

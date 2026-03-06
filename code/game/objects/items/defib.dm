@@ -193,7 +193,7 @@
 		remove_paddles(user)
 
 	update_icon()
-	update_action_buttons()
+	update_item_action_buttons()
 
 /obj/item/defibrillator/proc/make_paddles()
 	return new paddle_type(src)

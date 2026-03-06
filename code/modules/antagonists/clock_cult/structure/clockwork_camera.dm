@@ -22,7 +22,7 @@
 		return
 	if(warping)
 		button_icon_state = "warp_down"
-		owner.update_action_buttons_icon()
+		owner.update_mob_action_buttons()
 		warping = FALSE
 		return
 	var/mob/living/M = owner
@@ -38,14 +38,14 @@
 	do_sparks(5, TRUE, get_turf(cam))
 	warping = TRUE
 	button_icon_state = "warp_cancel"
-	owner.update_action_buttons_icon()
+	owner.update_mob_action_buttons()
 	var/mob/previous_mob = owner
 	if(do_after(M, 50, target=target_loc, extra_checks=CALLBACK(src, PROC_REF(special_check))))
 		try_warp_servant(M, target_loc, 50, FALSE)
 		var/obj/machinery/computer/camera_advanced/console = cam.origin
 		console.remove_eye_control(M)
 	button_icon_state = "warp_down"
-	previous_mob.update_action_buttons_icon()
+	previous_mob.update_mob_action_buttons()
 	warping = FALSE
 
 /datum/action/innate/clockcult/warp/proc/special_check()

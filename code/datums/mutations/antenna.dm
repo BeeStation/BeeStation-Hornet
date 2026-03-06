@@ -46,22 +46,21 @@
 	quality = POSITIVE
 	text_gain_indication = "<span class='notice'>You hear distant voices at the corners of your mind.</span>"
 	text_lose_indication = "<span class='notice'>The distant voices fade.</span>"
-	power_path = /datum/action/spell/pointed/mindread
+	power_path = /datum/action/cooldown/spell/pointed/mindread
 	instability = 40
 	difficulty = 8
 	locked = TRUE
 
-/datum/action/spell/pointed/mindread
+/datum/action/cooldown/spell/pointed/mindread
 	name = "Mindread"
 	desc = "Read the target's mind."
 	button_icon_state = "mindread"
 	cooldown_time = 5 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	antimagic_flags = MAGIC_RESISTANCE_MIND
-	mindbound = FALSE
 	ranged_mousepointer = 'icons/effects/mouse_pointers/mindswap_target.dmi'
 
-/datum/action/spell/pointed/mindread/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/mindread/is_valid_spell(mob/user, atom/target)
 	if(!isliving(target))
 		return FALSE
 	var/mob/living/living_cast_on = target
@@ -74,7 +73,7 @@
 
 	return TRUE
 
-/datum/action/spell/pointed/mindread/on_cast(mob/living/user, mob/living/target)
+/datum/action/cooldown/spell/pointed/mindread/on_cast(mob/living/user, mob/living/target)
 	. = ..()
 	if(target.can_block_magic(MAGIC_RESISTANCE_MIND, 0))
 		to_chat(owner, ("<span class='warning'>As you reach into [target]'s mind, \

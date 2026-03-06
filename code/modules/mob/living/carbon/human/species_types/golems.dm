@@ -477,7 +477,7 @@
 	prefix = "Bluespace"
 	special_names = list("Crystal", "Polycrystal")
 
-	var/datum/action/innate/unstable_teleport/unstable_teleport
+	var/datum/action/cooldown/unstable_teleport/unstable_teleport
 	var/teleport_cooldown = 100
 	var/last_teleport = 0
 
@@ -525,37 +525,28 @@
 		unstable_teleport.Remove(C)
 	..()
 
-/datum/action/innate/unstable_teleport
+/datum/action/cooldown/unstable_teleport
 	name = "Unstable Teleport"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "jaunt"
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
-	var/cooldown = 150
-	var/last_teleport = 0
+	cooldown_time = 17.5 SECONDS
 
-/datum/action/innate/unstable_teleport/is_available()
-	if(..())
-		if(world.time > last_teleport + cooldown)
-			return 1
-		return 0
-
-/datum/action/innate/unstable_teleport/on_activate()
+/datum/action/cooldown/unstable_teleport/activate()
 	var/mob/living/carbon/human/H = owner
 	H.visible_message(span_warning("[H] starts vibrating!"), span_danger("You start charging your bluespace core..."))
-	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
-	addtimer(CALLBACK(src, PROC_REF(teleport), H), 15)
+	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(teleport), H), 1.5 SECONDS)
+	return TRUE
 
-/datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
+/datum/action/cooldown/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
+	start_cooldown()
 	H.visible_message(span_warning("[H] disappears in a shower of sparks!"), span_danger("You teleport!"))
 	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(10, 0, src)
 	spark_system.attach(H)
 	spark_system.start()
 	do_teleport(H, get_turf(H), 12, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
-	last_teleport = world.time
-	update_buttons() //action icon looks unavailable
-	//action icon looks available again
-	addtimer(CALLBACK(src, PROC_REF(update_buttons)), cooldown + 5)
 
 
 //honk
@@ -658,11 +649,11 @@
 	inherent_factions = list(FACTION_CULT)
 	species_language_holder = /datum/language_holder/golem/runic
 	/// A ref to our jaunt spell that we get on species gain.
-	var/datum/action/spell/jaunt/ethereal_jaunt/shift/golem/jaunt
+	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/golem/jaunt
 	/// A ref to our gaze spell that we get on species gain.
-	var/datum/action/spell/pointed/abyssal_gaze/abyssal_gaze
+	var/datum/action/cooldown/spell/pointed/abyssal_gaze/abyssal_gaze
 	/// A ref to our dominate spell that we get on species gain.
-	var/datum/action/spell/pointed/dominate/dominate
+	var/datum/action/cooldown/spell/pointed/dominate/dominate
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/cult,
@@ -1314,9 +1305,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	)
 
 	/// A ref to our "throw snowball" spell we get on species gain.
-	var/datum/action/spell/conjure_item/snowball/snowball
+	var/datum/action/cooldown/spell/conjure_item/snowball/snowball
 	/// A ref to our cryobeam spell we get on species gain.
-	var/datum/action/spell/pointed/projectile/cryo/cryo
+	var/datum/action/cooldown/spell/pointed/projectile/cryo/cryo
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/snow,

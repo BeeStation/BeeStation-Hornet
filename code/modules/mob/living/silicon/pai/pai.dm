@@ -284,7 +284,7 @@
 	button_icon_state = null
 	var/mob/living/silicon/pai/P
 
-/datum/action/innate/pai/on_activate(mob/user, atom/target)
+/datum/action/innate/pai/activate(atom/target)
 	if(!ispAI(owner))
 		return 0
 	P = owner
@@ -293,16 +293,18 @@
 	name = "Software Interface"
 	button_icon_state = "pai"
 	background_icon_state = "bg_tech"
+	overlay_icon_state = "bg_tech_border"
 
-/datum/action/innate/pai/software/on_activate(mob/user, atom/target)
+/datum/action/innate/pai/software/activate(atom/target)
 	P.ui_act()
 
 /datum/action/innate/pai/shell
 	name = "Toggle Holoform"
 	button_icon_state = "pai_holoform"
 	background_icon_state = "bg_tech"
+	overlay_icon_state = "bg_tech_border"
 
-/datum/action/innate/pai/shell/on_activate(mob/user, atom/target)
+/datum/action/innate/pai/shell/activate(atom/target)
 	if(P.holoform)
 		P.fold_in(0)
 	else
@@ -312,16 +314,18 @@
 	name = "Holochassis Appearance Composite"
 	button_icon_state = "pai_chassis"
 	background_icon_state = "bg_tech"
+	overlay_icon_state = "bg_tech_border"
 
-/datum/action/innate/pai/chassis/on_activate(mob/user, atom/target)
+/datum/action/innate/pai/chassis/activate(atom/target)
 	P.choose_chassis()
 
 /datum/action/innate/pai/rest
 	name = "Rest"
 	button_icon_state = "pai_rest"
 	background_icon_state = "bg_tech"
+	overlay_icon_state = "bg_tech_border"
 
-/datum/action/innate/pai/rest/on_activate(mob/user, atom/target)
+/datum/action/innate/pai/rest/activate(atom/target)
 	P.toggle_resting()
 
 /datum/action/innate/pai/light
@@ -329,8 +333,9 @@
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "emp"
 	background_icon_state = "bg_tech"
+	overlay_icon_state = "bg_tech_border"
 
-/datum/action/innate/pai/light/on_activate(mob/user, atom/target)
+/datum/action/innate/pai/light/activate(atom/target)
 	P.toggle_integrated_light()
 
 /mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)

@@ -5,7 +5,7 @@
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
-	power_path = /datum/action/spell/spores
+	power_path = /datum/action/cooldown/spell/spores
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
@@ -13,7 +13,7 @@
 		/datum/species/psyphoza,
 	)
 
-/datum/action/spell/spores
+/datum/action/cooldown/spell/spores
 	name = "Release Spores"
 	desc = "A rare genome that forces the subject to evict spores from their pores."
 	school = "evocation"
@@ -24,7 +24,7 @@
 	button_icon_state = "smoke"
 	mindbound = FALSE
 
-/datum/action/spell/spores/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/spores/on_cast(mob/user, atom/target)
 	. = ..()
 	//Setup reagents
 	var/datum/reagents/holder = new()

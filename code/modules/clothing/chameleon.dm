@@ -5,7 +5,7 @@
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "random"
 
-/datum/action/item_action/chameleon/drone/randomise/on_activate(mob/user, atom/target)
+/datum/action/item_action/chameleon/drone/randomise/activate(atom/target)
 	// Damn our lack of abstract interfeces
 	if (istype(target, /obj/item/clothing/head/chameleon/drone))
 		var/obj/item/clothing/head/chameleon/drone/X = target
@@ -27,7 +27,7 @@
 	if (istype(master, /obj/item/clothing/mask/chameleon/drone))
 		button_icon_state = "drone_camogear_mask"
 
-/datum/action/item_action/chameleon/drone/togglehatmask/on_activate(mob/user, atom/target)
+/datum/action/item_action/chameleon/drone/togglehatmask/activate(atom/target)
 	// No point making the code more complicated if no non-drone
 	// is ever going to use one of these
 
@@ -80,7 +80,7 @@
 		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 	outfit_options = standard_outfit_options
 
-/datum/action/chameleon_outfit/on_activate(mob/user, atom/target)
+/datum/action/chameleon_outfit/activate(atom/target)
 	return select_outfit(user)
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
@@ -180,6 +180,8 @@
 
 /datum/action/item_action/chameleon/change/proc/initialize_disguises()
 	name = "Change [chameleon_name] Appearance"
+	build_all_button_icons()
+
 	chameleon_blacklist |= typecacheof(master.type)
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
@@ -225,7 +227,7 @@
 
 		var/obj/item/thing = master
 		thing.update_slot_icon()
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE, mob/item_holder=null)
 	var/keepname = FALSE
@@ -314,7 +316,7 @@
 	var/mob/living/carbon/human/card_holding_human = card_holder
 	card_holding_human.sec_hud_set_ID()
 
-/datum/action/item_action/chameleon/change/on_activate(mob/user, atom/target)
+/datum/action/item_action/chameleon/change/activate(atom/target)
 	select_look(owner)
 	return 1
 
@@ -748,7 +750,7 @@
 		temporary_list[tongue_name] = found_item
 	tongue_list = sort_list(temporary_list)
 
-/datum/action/item_action/chameleon/tongue_change/on_activate(mob/user, atom/target)
+/datum/action/item_action/chameleon/tongue_change/activate(atom/target)
 	if(!isitem(target))
 		return FALSE
 	var/obj/item/clothing/mask/target_mask = target

@@ -1,10 +1,13 @@
-/obj/projectile/bullet/neurotoxin
+/obj/projectile/neurotoxin
 	name = "neurotoxin spit"
 	icon_state = "neurotoxin"
 	damage = 5
 	damage_type = TOX
+	nodamage = FALSE
+	flag = "bio"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/neurotoxin
 
-/obj/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/neurotoxin/on_hit(atom/target, blocked = FALSE)
 	if(isalien(target))
 		paralyze = 0
 		nodamage = TRUE
@@ -13,3 +16,6 @@
 		if(H.can_inject())
 			H.adjustStaminaLoss(40)
 	return ..()
+
+/obj/projectile/neurotoxin/damaging //for ai controlled aliums
+	damage = 30

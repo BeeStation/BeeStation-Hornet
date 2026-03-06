@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	name = "AI Action"
 	desc = "You aren't entirely sure what this does, but it's very beepy and boopy."
 	background_icon_state = "bg_tech_blue"
-	button_icon_state = null
+	overlay_icon_state = "bg_tech_blue_border"
 	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
 	/// The owner AI, so we don't have to typecast every time
@@ -72,13 +72,12 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		return FALSE
 	. = ..()
 
-/datum/action/innate/ai/on_activate(mob/user, atom/target)
-	SHOULD_CALL_PARENT(TRUE)
+/datum/action/innate/ai/trigger(trigger_flags)
 	. = ..()
 	if(auto_use_uses)
 		adjust_uses(-1)
-	if(uses)
-		start_cooldown()
+	if(cooldown_period)
+		COOLDOWN_START(owner_AI, malf_cooldown, cooldown_period)
 	user.log_message("activated malf module [name]", LOG_GAME)
 
 /datum/action/innate/ai/New()
@@ -92,7 +91,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	uses += amt
 
 	update_desc()
-	update_buttons()
+	build_all_button_icons()
 
 	if(!silent && uses)
 		to_chat(owner, span_notice("[name] now has <b>[uses]</b> use[uses > 1 ? "s" : ""] remaining."))
@@ -105,14 +104,13 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 /datum/action/innate/ai/ranged
 	name = "Ranged AI Action"
 	auto_use_uses = FALSE //This is so we can do the thing and disable/enable freely without having to constantly add uses
-	requires_target = TRUE
-	unset_after_click = TRUE
+	click_action = TRUE
 
 /datum/action/innate/ai/ranged/adjust_uses(amt, silent)
 	uses += amt
 
 	update_desc()
-	update_buttons()
+	build_all_button_icons()
 
 	if(!silent && uses)
 		to_chat(owner, span_notice("[name] now has <b>[uses]</b> use\s remaining."))
@@ -172,8 +170,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	auto_use_uses = FALSE
 	var/device_active = FALSE
 
-/datum/action/innate/ai/nuke_station/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/nuke_station/activate()
 	var/turf/T = get_turf(owner)
 	if(!istype(T) || !is_station_level(T.z))
 		to_chat(owner, span_warning("You cannot activate the doomsday device while off-station!"))
@@ -390,8 +387,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "lockdown"
 	uses = 1
 
-/datum/action/innate/ai/lockdown/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/lockdown/activate()
 	for(var/obj/machinery/door/airlock in GLOB.airlocks)
 		if(QDELETED(airlock) || !is_station_level(airlock.z))
 			continue
@@ -425,38 +421,38 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	enable_text = span_notice("You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.")
 	disable_text = span_notice("You release your hold on the powernet.")
 
-/datum/action/innate/ai/ranged/override_machine/on_activate(mob/user, atom/target)
-	. = ..()
-	if(user.incapacitated)
+/datum/action/innate/ai/ranged/override_machine/do_ability(mob/living/clicker, atom/clicked_on)
+	if(clicker.incapacitated)
+		unset_ranged_ability(clicker)
 		return FALSE
-	if(!ismachinery(target))
-		target.balloon_alert(user, "can't animate")
-		to_chat(user, span_warning("You can only animate machines!"))
+	if(!ismachinery(clicked_on))
+		clicked_on.balloon_alert(clicker, "can't animate")
+		to_chat(clicker, span_warning("You can only animate machines!"))
 		return FALSE
-	var/obj/machinery/clicked_machine = target
+	var/obj/machinery/clicked_machine = clicked_on
 
 	if(istype(clicked_machine, /obj/machinery/porta_turret_cover)) //clicking on a closed turret will attempt to override the turret itself instead of the animated/abstract cover.
 		var/obj/machinery/porta_turret_cover/clicked_turret = clicked_machine
 		clicked_machine = clicked_turret.parent_turret
 
 	if((clicked_machine.resistance_flags & INDESTRUCTIBLE) || is_type_in_typecache(clicked_machine, GLOB.blacklisted_malf_machines))
-		to_chat(user, span_warning("That machine can't be overridden!"))
+		to_chat(clicker, span_warning("That machine can't be overridden!"))
 		return FALSE
 
-	user.playsound_local(user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
+	clicker.playsound_local(clicker, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
 
 	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
-	addtimer(CALLBACK(src, PROC_REF(animate_machine), user, clicked_machine), 5 SECONDS) //kabeep!
-	to_chat(user, span_danger("Sending override signal..."))
+	addtimer(CALLBACK(src, PROC_REF(animate_machine), clicker, clicked_machine), 5 SECONDS) //kabeep!
+	to_chat(clicker, span_danger("Sending override signal..."))
 	adjust_uses(-1) //adjust after we unset the active ability since we may run out of charges, thus deleting the ability
 
 	return TRUE
 
-/datum/action/innate/ai/ranged/override_machine/proc/animate_machine(mob/user, obj/machinery/to_animate)
+/datum/action/innate/ai/ranged/override_machine/proc/animate_machine(mob/living/clicker, obj/machinery/to_animate)
 	if(QDELETED(to_animate))
 		return
 
-	new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(to_animate), to_animate, user, TRUE)
+	new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(to_animate), to_animate, clicker, TRUE)
 
 /// Destroy RCDs: Detonates all non-cyborg RCDs on the station.
 /datum/ai_module/malf/destructive/destroy_rcd
@@ -473,16 +469,15 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	desc = "Detonate all non-cyborg RCDs on the station."
 	button_icon_state = "detonate_rcds"
 	uses = 1
-	cooldown_time = 10 SECONDS
+	cooldown_period = 10 SECONDS
 
-/datum/action/innate/ai/destroy_rcds/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/destroy_rcds/activate()
 	for(var/I in GLOB.rcd_list)
 		if(!istype(I, /obj/item/construction/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			var/obj/item/construction/rcd/RCD = I
 			RCD.detonate_pulse()
 	to_chat(owner, span_danger("RCD detonation pulse emitted."))
-	user.playsound_local(user, 'sound/machines/twobeep.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/twobeep.ogg', 50, 0)
 
 /// Overload Machine: Allows the AI to overload a machine, detonating it after a delay. Two uses per purchase.
 /datum/ai_module/malf/destructive/overload_machine
@@ -513,13 +508,13 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	if(!QDELETED(to_explode)) //to check if the explosion killed it before we try to delete it
 		qdel(to_explode)
 
-/datum/action/innate/ai/ranged/overload_machine/on_activate(mob/user, atom/target)
-	. = ..()
-	if(user.incapacitated)
+/datum/action/innate/ai/ranged/overload_machine/do_ability(mob/living/clicker, atom/clicked_on)
+	if(clicker.incapacitated)
+		unset_ranged_ability(clicker)
 		return FALSE
 	if(!ismachinery(target))
-		target.balloon_alert(user, "can't overload")
-		to_chat(user, span_warning("You can only overload machines!"))
+		target.balloon_alert(clicker, "can't overload")
+		to_chat(clicker, span_warning("You can only overload machines!"))
 		return FALSE
 	var/obj/machinery/clicked_machine = target
 
@@ -528,15 +523,15 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		clicked_machine = clicked_turret.parent_turret
 
 	if((clicked_machine.resistance_flags & INDESTRUCTIBLE) || is_type_in_typecache(clicked_machine, GLOB.blacklisted_malf_machines))
-		to_chat(user, span_warning("You cannot overload that device!"))
+		to_chat(clicker, span_warning("You cannot overload that device!"))
 		return FALSE
 
-	user.playsound_local(user, "sound/effects/sparks1.ogg", 50, 0)
+	clicker.playsound_local(clicker, "sound/effects/sparks1.ogg", 50, 0)
 	adjust_uses(-1)
 
 	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
-	addtimer(CALLBACK(src, PROC_REF(detonate_machine), user, clicked_machine), 5 SECONDS) //kaboom!
-	to_chat(user, span_danger("Overcharging machine..."))
+	addtimer(CALLBACK(src, PROC_REF(detonate_machine), clicker, clicked_machine), 5 SECONDS) //kaboom!
+	to_chat(clicker, span_danger("Overcharging machine..."))
 	return TRUE
 
 /// Blackout: Overloads a random number of lights across the station. Three uses.
@@ -555,8 +550,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	uses = 3
 	auto_use_uses = FALSE
 
-/datum/action/innate/ai/blackout/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/blackout/activate()
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
 		if(prob(30 * apc.overload))
 			apc.overload_lighting()
@@ -583,8 +577,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "intercom"
 	uses = 2
 
-/datum/action/innate/ai/honk/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/honk/activate()
 	to_chat(owner, span_clown("The intercom system plays your prepared file as commanded."))
 	for(var/obj/item/radio/intercom/found_intercom as anything in GLOB.intercoms_list)
 		if(!found_intercom.is_on() || !found_intercom.get_listening() || found_intercom.wires.is_cut(WIRE_RX)) //Only operating intercoms play the honk
@@ -623,8 +616,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		var/image/I = image("icon" = 'icons/turf/overlays.dmi')
 		LAZYADD(turfOverlays, I)
 
-/datum/action/innate/ai/place_transformer/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/place_transformer/activate()
 	if(!owner_AI.can_place_transformer(src) || placing_transformer)
 		return
 	placing_transformer = TRUE
@@ -693,8 +685,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "break_air_alarms"
 	uses = 1
 
-/datum/action/innate/ai/break_air_alarms/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/break_air_alarms/activate()
 	for(var/obj/machinery/airalarm/AA in GLOB.air_alarms)
 		if(!is_station_level(AA.z))
 			continue
@@ -720,8 +711,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "break_fire_alarms"
 	uses = 1
 
-/datum/action/innate/ai/break_fire_alarms/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/break_fire_alarms/activate()
 	for(var/obj/machinery/firealarm/bellman in GLOB.machines)
 		if(!is_station_level(bellman.z))
 			continue
@@ -752,8 +742,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	auto_use_uses = FALSE
 	cooldown_time = 3 SECONDS
 
-/datum/action/innate/ai/reactivate_cameras/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/reactivate_cameras/activate()
 	var/fixed_cameras = 0
 	for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		if(!uses)
@@ -867,8 +856,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	auto_use_uses = FALSE
 	var/obj/machinery/ai_voicechanger/voice_changer_machine
 
-/datum/action/innate/ai/voice_changer/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/voice_changer/activate()
 	if(!voice_changer_machine)
 		voice_changer_machine = new(owner_AI)
 	voice_changer_machine.ui_interact(usr)
@@ -1002,8 +990,8 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	disable_text = span_notice("You unload your syndicate software package.")
 	ranged_mousepointer = 'icons/effects/mouse_pointers/supplypod_target.dmi'
 
-/datum/action/innate/ai/ranged/emag/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/ranged/emag/do_ability(mob/living/clicker, atom/clicked_on)
+
 	// Only things with of or subtyped of any of these types may be remotely emagged
 	var/static/list/compatable_typepaths = list(
 		/obj/machinery,
@@ -1014,47 +1002,47 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		/mob/living/silicon,
 	)
 
-	if(!isAI(user))
+	if(!isAI(clicker))
 		return FALSE
 
-	var/mob/living/silicon/ai/ai_clicker = user
+	var/mob/living/silicon/ai/ai_clicker = clicker
 
 	if(ai_clicker.incapacitated)
 		return FALSE
 
 	if(!ai_clicker.can_see(target))
-		target.balloon_alert(ai_clicker, "can't see!")
+		ai_clicker.balloon_alert(ai_clicker, "can't see!")
 		return FALSE
 
-	if(ismachinery(target))
-		var/obj/machinery/clicked_machine = target
+	if(ismachinery(clicked_on))
+		var/obj/machinery/clicked_machine = clicked_on
 		if(!clicked_machine.is_operational)
 			clicked_machine.balloon_alert(ai_clicker, "not operational!")
 			return FALSE
 
-	if(!(is_type_in_list(target, compatable_typepaths)))
-		target.balloon_alert(ai_clicker, "incompatable!")
+	if(!(is_type_in_list(clicked_on, compatable_typepaths)))
+		clicked_on.balloon_alert(ai_clicker, "incompatable!")
 		return FALSE
 
-	if(istype(target, /obj/machinery/door/airlock)) // I HATE THIS CODE SO MUCHHH
-		var/obj/machinery/door/airlock/clicked_airlock = target
+	if(istype(clicked_on, /obj/machinery/door/airlock)) // I HATE THIS CODE SO MUCHHH
+		var/obj/machinery/door/airlock/clicked_airlock = clicked_on
 		if(!clicked_airlock.canAIControl(ai_clicker))
 			clicked_airlock.balloon_alert(ai_clicker, "unable to interface!")
 			return FALSE
 
-	if(istype(target, /obj/machinery/airalarm))
-		var/obj/machinery/airalarm/alarm = target
+	if(istype(clicked_on, /obj/machinery/airalarm))
+		var/obj/machinery/airalarm/alarm = clicked_on
 		if(alarm.aidisabled)
 			alarm.balloon_alert(ai_clicker, "unable to interface!")
 			return FALSE
 
-	if(istype(target, /obj/machinery/power/apc))
-		var/obj/machinery/power/apc/clicked_apc = target
+	if(istype(clicked_on, /obj/machinery/power/apc))
+		var/obj/machinery/power/apc/clicked_apc = clicked_on
 		if(clicked_apc.aidisabled)
 			clicked_apc.balloon_alert(ai_clicker, "unable to interface!")
 			return FALSE
 
-	target.use_emag(ai_clicker)
+	clicked_on.use_emag(ai_clicker)
 	var/obj/target_obj = target
 	if(!(target_obj?.obj_flags & EMAGGED))
 		to_chat(ai_clicker, span_warning("Hostile software insertion failed!"))
@@ -1088,20 +1076,20 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	/// On top of [roll_over_time], how long does it take for the ability to cooldown?
 	var/roll_over_cooldown = MALF_AI_ROLL_COOLDOWN
 
-/datum/action/innate/ai/ranged/core_tilt/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/ranged/core_tilt/do_ability(mob/living/clicker, atom/clicked_on)
+
 	if(!COOLDOWN_FINISHED(src, time_til_next_tilt))
-		user.balloon_alert(user, "on cooldown!")
+		clicker.balloon_alert(clicker, "on cooldown!")
 		return FALSE
 
-	if(!isAI(user))
+	if(!isAI(clicker))
 		return FALSE
-	var/mob/living/silicon/ai/ai_clicker = user
+	var/mob/living/silicon/ai/ai_clicker = clicker
 
 	if(ai_clicker.incapacitated || !isturf(ai_clicker.loc))
 		return FALSE
 
-	var/turf/turf = get_turf(target)
+	var/turf/turf = get_turf(clicked_on)
 	if(isnull(turf))
 		return FALSE
 
@@ -1167,20 +1155,19 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	enable_text = span_notice("You prepare to wobble any vendors you see.")
 	disable_text = span_notice("You stop focusing on tipping vendors.")
 
-/datum/action/innate/ai/ranged/remote_vendor_tilt/on_activate(mob/user, atom/target)
-	. = ..()
-	var/mob/living/silicon/ai/ai_clicker = user
-	if(!user || !isAI(user))
+/datum/action/innate/ai/ranged/remote_vendor_tilt/do_ability(mob/living/clicker, atom/clicked_on)
+	var/mob/living/silicon/ai/ai_clicker = clicker
+	if(!clicker || !isAI(clicker))
 		return FALSE
 
 	if(ai_clicker.incapacitated)
 		return FALSE
 
-	if(!istype(target, /obj/machinery/vending))
-		target.balloon_alert(ai_clicker, "not a vendor!")
+	if(!istype(clicked_on, /obj/machinery/vending))
+		clicked_on.balloon_alert(ai_clicker, "not a vendor!")
 		return FALSE
 
-	var/obj/machinery/vending/clicked_vendor = target
+	var/obj/machinery/vending/clicked_vendor = clicked_on
 
 	if(clicked_vendor.tilted)
 		clicked_vendor.balloon_alert(ai_clicker, "already tilted!")
@@ -1254,8 +1241,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "fake_alert"
 	uses = 1
 
-/datum/action/innate/ai/fake_alert/on_activate(mob/user, atom/target)
-	. = ..()
+/datum/action/innate/ai/fake_alert/activate()
 	var/list/events_to_chose = list()
 	for(var/datum/round_event_control/E in SSevents.control)
 		if(!E.can_malf_fake_alert)

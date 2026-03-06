@@ -3,6 +3,7 @@
 	icon_state = "cbbolt"
 	damage = 5
 	bleed_force = BLEED_SCRATCH
+	embedding = null
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
 

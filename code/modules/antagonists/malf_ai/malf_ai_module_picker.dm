@@ -139,7 +139,7 @@
 			else //Adding uses to an existing module
 				action.uses += initial(action.uses)
 				action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
-				action.update_buttons()
+				action.build_all_button_icons()
 	processing_time -= AM.cost
 	AI.log_message("purchased malf module [AM.name] (NEW PROCESSING: [processing_time])", LOG_GAME)
 	SSblackbox.record_feedback("nested tally", "malfunction_modules_bought", 1, list("[initial(AM.name)]", "[AM.cost]"))

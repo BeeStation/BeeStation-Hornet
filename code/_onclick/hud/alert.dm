@@ -16,13 +16,17 @@
 	if(!category || QDELETED(src))
 		return
 
+	var/datum/weakref/master_ref
+	if(isdatum(new_master))
+		master_ref = WEAKREF(new_master)
 	var/atom/movable/screen/alert/thealert
 	if(alerts[category])
 		thealert = alerts[category]
 		if(thealert.override_alerts)
-			return 0
-		if(new_master && new_master != thealert.master)
-			WARNING("[src] threw alert [category] with new_master [new_master] while already having that alert with master [thealert.master]")
+			return thealert
+		if(master_ref && thealert.master_ref && master_ref != thealert.master_ref)
+			var/datum/current_master = thealert.master_ref.resolve()
+			WARNING("[src] threw alert [category] with new_master [new_master] while already having that alert with master [current_master]")
 
 			clear_alert(category)
 			return .()
@@ -34,7 +38,7 @@
 				clear_alert(category)
 				return .()
 			else //no need to update
-				return 0
+				return thealert
 	else
 		thealert = new type()
 		thealert.override_alerts = override
@@ -51,7 +55,7 @@
 		new_master.layer = old_layer
 		new_master.plane = old_plane
 		thealert.icon_state = "template" // We'll set the icon to the client's ui pref in reorganize_alerts()
-		thealert.master = new_master
+		thealert.master_ref = master_ref
 	else
 		thealert.icon_state = "[initial(thealert.icon_state)][severity]"
 		thealert.severity = severity
@@ -106,8 +110,9 @@
 	var/alerttooltipstyle = ""
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 	var/mob/owner //Alert owner
-	/// The thing that this alert is showing
-	var/obj/master
+
+	/// Boolean. If TRUE, the Click() proc will attempt to Click() on the master first if there is a master.
+	var/click_master = TRUE
 
 /atom/movable/screen/alert/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
@@ -238,10 +243,10 @@ or something covering your eyes."
 	var/command
 
 /atom/movable/screen/alert/mind_control/Click()
-	var/mob/living/L = usr
-	if(L != owner)
+	. = ..()
+	if(!.)
 		return
-	to_chat(L, span_mindcontrol("[command]"))
+	to_chat(owner, span_mindcontrol("[command]"))
 
 /atom/movable/screen/alert/embeddedobject
 	name = "Embedded Object"
@@ -251,9 +256,13 @@ or something covering your eyes."
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/embeddedobject/Click()
-	if(isliving(usr) && usr == owner)
-		var/mob/living/carbon/M = usr
-		return M.help_shake_act(M)
+	. = ..()
+	if(!.)
+		return
+
+	var/mob/living/carbon/carbon_owner = owner
+
+	return carbon_owner.help_shake_act(carbon_owner)
 
 /atom/movable/screen/alert/negative
 	name = "Negative Gravity"
@@ -285,15 +294,17 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/fire/Click()
-	if(!isliving(owner))
-		return
+	. = ..()
+	if(!.)
+		return FALSE
+
 	var/mob/living/living_owner = owner
 	if(!living_owner.can_resist())
-		return
+		return FALSE
 
 	living_owner.changeNext_move(CLICK_CD_RESIST)
 	if(!(living_owner.mobility_flags & MOBILITY_MOVE))
-		return
+		return FALSE
 
 	return handle_stop_drop_roll(owner)
 
@@ -349,9 +360,12 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/succumb/Click()
-	if (isobserver(usr))
+	. = ..()
+	if(!.)
 		return
+
 	var/mob/living/living_owner = owner
+
 	var/last_whisper = tgui_input_text(usr, "Do you have any last words?", "Goodnight, Sweet Prince")
 	if (isnull(last_whisper) || !CAN_SUCCUMB(living_owner))
 		return
@@ -613,7 +627,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	var/atom/target = null
 
 /atom/movable/screen/alert/hackingapc/Click()
-	if(!usr || !usr.client || usr != owner)
+	. = ..()
+	if(!.)
 		return
 
 	var/mob/living/silicon/ai/ai_owner = owner
@@ -639,8 +654,10 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/notify_cloning/Click()
-	if(!usr || !usr.client || usr != owner)
+	. = ..()
+	if(!.)
 		return
+
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
@@ -650,15 +667,20 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	icon_state = "template"
 	timeout = 30 SECONDS
 	clickable_glow = TRUE
-	var/atom/target = null
+	/// Weakref to the target atom to use the action on
+	var/datum/weakref/target_ref
 	var/action = NOTIFY_JUMP
 
 /atom/movable/screen/alert/notify_action/Click()
-	if(!usr || !usr.client || usr != owner)
+	. = ..()
+	if(!.)
 		return
-	if(!target)
+
+	var/atom/target = target_ref?.resolve()
+	if(isnull(target) || !isobserver(owner) || target == owner)
 		return
-	var/mob/dead/observer/ghost_owner = usr
+
+	var/mob/dead/observer/ghost_owner = owner
 	if(!istype(ghost_owner))
 		return
 	//Any actions that cause you to jump to the target turf
@@ -853,7 +875,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 //OBJECT-BASED
 
-/atom/movable/screen/alert/restrained/buckled
+/atom/movable/screen/alert/buckled
 	name = "Buckled"
 	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
 	icon_state = ALERT_BUCKLED
@@ -862,28 +884,41 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 /atom/movable/screen/alert/restrained/handcuffed
 	name = "Handcuffed"
 	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. Click the alert to free yourself."
+	click_master = FALSE
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/legcuffed
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
+	click_master = FALSE
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/Click()
-	var/mob/living/living_mob = usr
-	if(!istype(living_mob) || !living_mob.can_resist() || living_mob != owner)
+	. = ..()
+	if(!.)
 		return
-	living_mob.changeNext_move(CLICK_CD_RESIST)
-	if((living_mob.mobility_flags & MOBILITY_MOVE) && (living_mob.last_special <= world.time))
-		return living_mob.resist_restraints()
 
-/atom/movable/screen/alert/restrained/buckled/Click()
-	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist() || L != owner)
+	var/mob/living/living_owner = owner
+
+	if(!living_owner.can_resist())
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.last_special <= world.time)
-		return L.resist_buckle()
+
+	living_owner.changeNext_move(CLICK_CD_RESIST)
+	if((living_owner.mobility_flags & MOBILITY_MOVE) && (living_owner.last_special <= world.time))
+		return living_owner.resist_restraints()
+
+/atom/movable/screen/alert/buckled/Click()
+	. = ..()
+	if(!.)
+		return
+
+	var/mob/living/living_owner = owner
+
+	if(!living_owner.can_resist())
+		return
+	living_owner.changeNext_move(CLICK_CD_RESIST)
+	if(living_owner.last_special <= world.time)
+		return living_owner.resist_buckle()
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
@@ -924,19 +959,24 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 /mob/var/list/alerts = list() // contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
 
 /atom/movable/screen/alert/Click(location, control, params)
+	SHOULD_CALL_PARENT(TRUE)
+
+	..()
 	if(!usr || !usr.client)
-		return
+		return FALSE
+	if(usr != owner)
+		return FALSE
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, span_boldnotice("[name] - [span_info(desc)]"))
-		return
-	if(usr != owner)
-		return
-	if(master)
-		return usr.client.Click(master, location, control, params)
+		return FALSE
+	var/datum/our_master = master_ref?.resolve()
+	if(our_master && click_master)
+		return usr.client.Click(our_master, location, control, params)
 
 /atom/movable/screen/alert/Destroy()
 	severity = 0
+	master_ref = null
 	owner = null
 	screen_loc = ""
 	return ..()

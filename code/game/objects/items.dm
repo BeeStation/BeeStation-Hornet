@@ -100,7 +100,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/min_cold_protection_temperature
 
 	/// List of /datum/action's that this item has.
-	var/list/actions
+	var/list/datum/action/actions
 	/// List of paths of action datums to give to the item on New().
 	var/list/actions_types
 
@@ -156,7 +156,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER //the icon to indicate this object is being dragged
 
 	/// Used for when things get stuck in you and need to be surgically removed. See [/datum/embedding_behavior]
-	var/list/embedding = NONE
+	var/list/embedding
 
 	/// For flags such as GLASSESCOVERSEYES to show which slots this item can cover. See _DEFINES/inventory.dm
 	var/flags_cover = 0
@@ -1544,12 +1544,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * Updates all action buttons associated with this item
  *
  * Arguments:
- * * status_only - Update only current availability status of the buttons to show if they are ready or not to use
+ * * update_flags - Which flags of the action should we update
  * * force - Force buttons update even if the given button icon state has not changed
  */
-/obj/item/proc/update_action_buttons(status_only = FALSE, force = FALSE)
+/obj/item/proc/update_item_action_buttons(update_flags = ALL, force = FALSE)
 	for(var/datum/action/current_action as anything in actions)
-		current_action.update_buttons(status_only, force)
+		current_action.build_all_button_icons(update_flags, force)
+
 /**
  * * An interrupt for offering an item to other people, called mainly from [/mob/living/carbon/proc/give], in case you want to run your own offer behavior instead.
  *

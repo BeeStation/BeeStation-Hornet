@@ -37,7 +37,7 @@
 		to_chat(target, span_notice("You feel a sense of peace and security. You are now protected from brainwashing."))
 	return TRUE
 
-/obj/item/implant/mindshield/removed(mob/target, silent = FALSE, special = FALSE)
+/obj/item/implant/mindshield/removed(mob/target, silent = FALSE, destroyed = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE

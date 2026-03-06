@@ -11,7 +11,7 @@
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	ranged = TRUE
-	obj_damage = 5
+	obj_damage = 30
 	vision_range = 6
 	aggro_vision_range = 18
 	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station, we'll make sure they can smash minerals fine below.
@@ -41,7 +41,7 @@
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
 			var/elite_remove = alert("Re-enter the tumor?", "Despawn yourself?", "Yes", "No")
-			if(elite_remove != "Yes" || !src || QDELETED(src))
+			if(elite_remove == "No" || QDELETED(src) || !Adjacent(T))
 				return
 			T.mychild = null
 			T.activity = TUMOR_INACTIVE
@@ -52,6 +52,9 @@
 	if(ismineralturf(target))
 		var/turf/closed/mineral/M = target
 		M.gets_drilled()
+	if(istype(target, /obj/mecha))
+		var/obj/mecha/M = target
+		M.take_damage(50, BRUTE, "melee", 1)
 
 //Elites can't talk (normally)!
 /mob/living/simple_animal/hostile/asteroid/elite/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
@@ -68,16 +71,49 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	button_icon = 'icons/hud/actions/actions_elites.dmi'
 	button_icon_state = null
 	background_icon_state = "bg_default"
+	overlay_icon_state = "bg_default_border"
+	///The displayed message into chat when this attack is selected
 	var/chosen_message
+	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
+
+/datum/action/innate/elite_attack/create_button()
+	var/atom/movable/screen/movable/action_button/button = ..()
+	button.maptext = ""
+	button.maptext_x = 6
+	button.maptext_y = 2
+	button.maptext_width = 24
+	button.maptext_height = 12
+	return button
+
+/datum/action/innate/elite_attack/process()
+	if(isnull(owner))
+		STOP_PROCESSING(SSfastprocess, src)
+		qdel(src)
+		return
+
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
+
+/datum/action/innate/elite_attack/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+	if(!istype(owner))
+		button.maptext = ""
+		return
+
+	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
+	if(timeleft == 0)
+		button.maptext = ""
+	else
+		button.maptext = MAPTEXT("<b>[round(timeleft/10, 0.1)]</b>")
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
+		elite_owner = L
+		START_PROCESSING(SSfastprocess, src)
 		return ..()
 	return FALSE
 
-/datum/action/innate/elite_attack/on_activate()
-	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+/datum/action/innate/elite_attack/activate()
 	elite_owner.chosen_attack = chosen_attack_num
 	to_chat(elite_owner, chosen_message)
 
@@ -203,8 +239,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	. = ..()
 	if(istype(I, /obj/item/organ/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
 		var/obj/item/organ/regenerative_core/core = I
-		if(!core.preserved)
-			return
 		visible_message(span_boldwarning("As [user] drops the core into [src], [src] appears to swell."))
 		icon_state = "advanced_tumor"
 		boosted = TRUE
@@ -274,7 +308,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	mychild.revive(HEAL_ALL)
 	if(boosted)
 		times_won++
-		mychild.maxHealth = mychild.maxHealth * 0.5
+		mychild.maxHealth = mychild.maxHealth * 0.4
 		mychild.health = mychild.maxHealth
 	if(times_won == 1)
 		mychild.playsound_local(get_turf(mychild), 'sound/effects/magic.ogg', 40, 0)
@@ -319,13 +353,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				user.visible_message(span_notice("It appears [E] is unable to be revived right now.  Perhaps try again later."))
 				using = FALSE
 				return
-		E.faction = list(FACTION_NEUTRAL)
+		E.faction = list("[REF(user)]")
 		E.revive(HEAL_ALL)
 		user.visible_message(span_notice("[user] stabs [E] with [src], reviving it."))
 		E.playsound_local(get_turf(E), 'sound/effects/magic.ogg', 40, 0)
 		to_chat(E, span_userdanger("You have been revived by [user].  While you can't speak to them, you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk."))
 		to_chat(E, span_bigbold("Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!"))
-		E.maxHealth = E.maxHealth * 0.5
+		E.maxHealth = E.maxHealth * 0.4
 		E.health = E.maxHealth
 		E.desc = "[E.desc]  However, this one appears appears less wild in nature, and calmer around people."
 		E.sentience_type = SENTIENCE_ORGANIC

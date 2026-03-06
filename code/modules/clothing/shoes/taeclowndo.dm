@@ -1,9 +1,9 @@
 /obj/item/clothing/shoes/clown_shoes/taeclowndo
 	actions_types = list(
-		/datum/action/spell/conjure_item/summon_pie,
-		/datum/action/spell/pointed/banana_peel,
-		/datum/action/spell/touch/megahonk,
-		/datum/action/spell/touch/bspie,
+		/datum/action/cooldown/spell/conjure_item/summon_pie,
+		/datum/action/cooldown/spell/pointed/banana_peel,
+		/datum/action/cooldown/spell/touch/megahonk,
+		/datum/action/cooldown/spell/touch/bspie,
 	)
 
 //we only want to grant the powers to true clowns, not those fakers that remove their clumsiness

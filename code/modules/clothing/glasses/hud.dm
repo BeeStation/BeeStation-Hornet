@@ -397,11 +397,11 @@
 	darkness_view = 8
 	flash_protect = FLASH_PROTECTION_WELDER
 	vision_correction = 1
-	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
+	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER, TRAIT_RESEARCH_SCANNER)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
 	resistance_flags = INDESTRUCTIBLE
-	actions_types = list(/datum/action/item_action/toggle,/datum/action/item_action/toggle_research_scanner)
+	actions_types = list(/datum/action/item_action/toggle)
 	var/xray = TRUE
 
 /obj/item/clothing/glasses/hud/debug/attack_self(mob/user)

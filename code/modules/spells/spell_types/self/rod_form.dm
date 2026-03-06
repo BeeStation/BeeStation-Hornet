@@ -1,7 +1,7 @@
 /// The base distance a wizard rod will go without upgrades.
 #define BASE_WIZ_ROD_RANGE 13
 
-/datum/action/spell/rod_form
+/datum/action/cooldown/spell/rod_form
 	name = "Rod Form"
 	desc = "Take on the form of an immovable rod, destroying all in your path. \
 		Purchasing this spell multiple times will also increase the rod's damage and travel range."
@@ -24,7 +24,7 @@
 	/// The damage bonus applied to the rod on cast
 	var/rod_damage_bonus = 0
 
-/datum/action/spell/rod_form/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/rod_form/on_cast(mob/user, atom/target)
 	. = ..()
 	// The destination turf of the rod - just a bit over the max range we calculated, for safety
 	var/turf/distant_turf = get_ranged_target_turf(get_turf(user), user.dir, (rod_max_distance + 2))
@@ -39,7 +39,7 @@
 		rod_damage_bonus,
 	)
 
-/datum/action/spell/rod_form/level_spell(bypass_cap = FALSE)
+/datum/action/cooldown/spell/rod_form/level_spell(bypass_cap = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -48,7 +48,7 @@
 	rod_damage_bonus += damage_per_spell_rank
 	return TRUE
 
-/datum/action/spell/rod_form/delevel_spell()
+/datum/action/cooldown/spell/rod_form/delevel_spell()
 	. = ..()
 	if(!.)
 		return FALSE

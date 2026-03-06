@@ -1,9 +1,10 @@
-/datum/action/spell/pointed/void_phase
+/datum/action/cooldown/spell/pointed/void_phase
 	name = "Void Phase"
 	desc = "Let's you blink to your pointed destination, causes 3x3 aoe damage bubble \
 		around your pointed destination and your current location. \
 		It has a minimum range of 3 tiles and a maximum range of 9 tiles."
 	background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "voidblink"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
@@ -21,7 +22,7 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/action/spell/pointed/void_phase/pre_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/void_phase/pre_cast(mob/user, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -30,7 +31,7 @@
 		user.balloon_alert(owner, "too close!")
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/spell/pointed/void_phase/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/void_phase/on_cast(mob/user, atom/target)
 	. = ..()
 	var/turf/source_turf = get_turf(user)
 	var/turf/targeted_turf = get_turf(target)

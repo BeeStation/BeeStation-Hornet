@@ -12,7 +12,7 @@
 	COOLDOWN_DECLARE(box_cooldown)
 
 ///Handles opening and closing the box.
-/datum/action/item_action/agent_box/Trigger(trigger_flags)
+/datum/action/item_action/agent_box/trigger(trigger_flags)
 	. = ..()
 	if(!.)
 		return FALSE

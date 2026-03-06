@@ -1,5 +1,5 @@
 // This could probably be an aoe spell but it's a little cursed, so I'm not touching it
-/datum/action/spell/spacetime_dist
+/datum/action/cooldown/spell/spacetime_dist
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, \
 		randomizing the layout and making proper movement impossible. The strings vibrate..."
@@ -20,14 +20,14 @@
 	/// A lazylist of all scramble effects this spell has created.
 	var/list/effects
 
-/datum/action/spell/spacetime_dist/Destroy()
+/datum/action/cooldown/spell/spacetime_dist/Destroy()
 	QDEL_LAZYLIST(effects)
 	return ..()
 
-/datum/action/spell/spacetime_dist/can_cast_spell(feedback = TRUE)
+/datum/action/cooldown/spell/spacetime_dist/can_cast_spell(feedback = TRUE)
 	return ..() && ready
 
-/datum/action/spell/spacetime_dist/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/spacetime_dist/on_cast(mob/user, atom/target)
 	. = ..()
 	var/list/turf/to_switcharoo = get_targets_to_scramble(user)
 	if(!length(to_switcharoo))
@@ -49,12 +49,12 @@
 		LAZYADD(effects, effect_a)
 		LAZYADD(effects, effect_b)
 
-/datum/action/spell/spacetime_dist/post_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/spacetime_dist/post_cast(mob/user, atom/target)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(clean_turfs)), duration)
 
 /// Callback which cleans up our effects list after the duration expires.
-/datum/action/spell/spacetime_dist/proc/clean_turfs()
+/datum/action/cooldown/spell/spacetime_dist/proc/clean_turfs()
 	QDEL_LAZYLIST(effects)
 	ready = TRUE
 
@@ -64,7 +64,7 @@
  * Returns an assoc list of [turf] to [turf]. These pairs are what turfs are
  * swapped between one another when the cast is done.
  */
-/datum/action/spell/spacetime_dist/proc/get_targets_to_scramble(atom/center)
+/datum/action/cooldown/spell/spacetime_dist/proc/get_targets_to_scramble(atom/center)
 	// Get turfs around the center
 	var/list/turfs = spiral_range_turfs(scramble_radius, center)
 	if(!length(turfs))

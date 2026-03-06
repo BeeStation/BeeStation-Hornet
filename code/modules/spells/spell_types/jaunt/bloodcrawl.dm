@@ -3,10 +3,11 @@
  *
  * Lets the caster enter and exit pools of blood.
  */
-/datum/action/spell/jaunt/bloodcrawl
+/datum/action/cooldown/spell/jaunt/bloodcrawl
 	name = "Blood Crawl"
 	desc = "Allows you to phase in and out of existance via pools of blood."
 	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
 	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "bloodcrawl"
 
@@ -21,20 +22,42 @@
 	/// If TRUE, we equip "blood crawl" hands to the jaunter to prevent using items
 	var/equip_blood_hands = TRUE
 
-/datum/action/spell/jaunt/bloodcrawl/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/Grant(mob/grant_to)
 	. = ..()
-	for(var/obj/effect/decal/cleanable/blood_nearby in range(blood_radius, get_turf(user)))
-		if(blood_nearby.can_bloodcrawl_in())
-			return do_bloodcrawl(blood_nearby, user)
+	RegisterSignal(grant_to, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 
-	reset_spell_cooldown()
-	to_chat(user, ("<span class='warning'>There must be a nearby source of blood!</span>"))
+/datum/action/cooldown/spell/jaunt/bloodcrawl/Remove(mob/remove_from)
+	. = ..()
+	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
+
+/datum/action/cooldown/spell/jaunt/bloodcrawl/can_cast_spell(feedback = TRUE)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(find_nearby_blood(get_turf(owner)))
+		return TRUE
+	if(feedback)
+		to_chat(owner, span_warning("There must be a nearby source of blood!"))
+	return FALSE
+
+/datum/action/cooldown/spell/jaunt/bloodcrawl/cast(mob/living/cast_on)
+	. = ..()
+	// Should always return something because we checked that in can_cast_spell before arriving here
+	var/obj/effect/decal/cleanable/blood_nearby = find_nearby_blood(get_turf(cast_on))
+	do_bloodcrawl(blood_nearby, cast_on)
+
+/// Returns a nearby blood decal, or null if there aren't any
+/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/find_nearby_blood(turf/origin)
+	for(var/obj/effect/decal/cleanable/blood_nearby in range(blood_radius, origin))
+		if(blood_nearby.can_bloodcrawl_in())
+			return blood_nearby
+	return null
 
 /**
  * Attempts to enter or exit the passed blood pool.
  * Returns TRUE if we successfully entered or exited said pool, FALSE otherwise
  */
-/datum/action/spell/jaunt/bloodcrawl/proc/do_bloodcrawl(obj/effect/decal/cleanable/blood, mob/living/jaunter)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/do_bloodcrawl(obj/effect/decal/cleanable/blood, mob/living/jaunter)
 	if(is_jaunting(jaunter))
 		. = try_exit_jaunt(blood, jaunter)
 	else
@@ -42,16 +65,16 @@
 
 	if(!.)
 		reset_spell_cooldown()
-		to_chat(jaunter, ("<span class='warning'>You are unable to blood crawl!</span>"))
+		to_chat(jaunter, span_warning("You are unable to blood crawl!"))
 
 /**
  * Attempts to enter the passed blood pool.
  * If forced is TRUE, it will override enter_blood_time.
  */
-/datum/action/spell/jaunt/bloodcrawl/proc/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
 	if(!forced)
 		if(enter_blood_time > 0 SECONDS)
-			blood.visible_message(("<span class='warning'>[jaunter] starts to sink into [blood]!</span>"))
+			blood.visible_message(span_warning("[jaunter] starts to sink into [blood]!"))
 			if(!do_after(jaunter, enter_blood_time, target = blood))
 				return FALSE
 
@@ -65,6 +88,7 @@
 		jaunter.notransform = FALSE
 		return FALSE
 
+	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 	if(equip_blood_hands && iscarbon(jaunter))
 		jaunter.drop_all_held_items()
 		// Give them some bloody hands to prevent them from doing things
@@ -75,7 +99,7 @@
 		jaunter.put_in_hands(left_hand)
 		jaunter.put_in_hands(right_hand)
 
-	blood.visible_message(("<span class='warning'>[jaunter] sinks into [blood]!</span>"))
+	blood.visible_message(span_warning("[jaunter] sinks into [blood]!"))
 	playsound(jaunt_turf, 'sound/magic/enter_blood.ogg', 50, TRUE, -1)
 	jaunter.extinguish_mob()
 
@@ -86,39 +110,43 @@
  * Attempts to Exit the passed blood pool.
  * If forced is TRUE, it will override exit_blood_time, and if we're currently consuming someone.
  */
-/datum/action/spell/jaunt/bloodcrawl/proc/try_exit_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/try_exit_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
 	if(!forced)
 		if(jaunter.notransform)
-			to_chat(jaunter, ("<span class='warning'>You cannot exit yet!!</span>"))
+			to_chat(jaunter, span_warning("You cannot exit yet!!"))
 			return FALSE
 
 		if(exit_blood_time > 0 SECONDS)
-			blood.visible_message(("<span class='warning'>[blood] starts to bubble...</span>"))
+			blood.visible_message(span_warning("[blood] starts to bubble..."))
 			if(!do_after(jaunter, exit_blood_time, target = blood))
 				return FALSE
 
 	if(!exit_jaunt(jaunter, get_turf(blood)))
 		return FALSE
 
-	if(equip_blood_hands && iscarbon(jaunter))
-		for(var/obj/item/bloodcrawl/blood_hand in jaunter.held_items)
-			jaunter.temporarilyRemoveItemFromInventory(blood_hand, force = TRUE)
-			qdel(blood_hand)
-
-	blood.visible_message(("<span class='boldwarning'>[jaunter] rises out of [blood]!</span>"))
+	blood.visible_message(span_boldwarning("[jaunter] rises out of [blood]!"))
 	return TRUE
 
-/datum/action/spell/jaunt/bloodcrawl/exit_jaunt(mob/living/unjaunter, turf/loc_override)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/exit_jaunt(mob/living/unjaunter, turf/loc_override)
 	. = ..()
 	if(!.)
 		return
 
 	exit_blood_effect(unjaunter)
 
+/datum/action/cooldown/spell/jaunt/bloodcrawl/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
+	exit_blood_effect(unjaunter)
+	if(equip_blood_hands && iscarbon(unjaunter))
+		for(var/obj/item/bloodcrawl/blood_hand in unjaunter.held_items)
+			unjaunter.temporarilyRemoveItemFromInventory(blood_hand, force = TRUE)
+			qdel(blood_hand)
+	return ..()
+
 /// Adds an coloring effect to mobs which exit blood crawl.
-/datum/action/spell/jaunt/bloodcrawl/proc/exit_blood_effect(mob/living/exited)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/proc/exit_blood_effect(mob/living/exited)
 	var/turf/landing_turf = get_turf(exited)
-	playsound(landing_turf, 'sound/magic/exit_blood.ogg', 50, TRUE, -1)
+	playsound(landing_turf, 'sound/effects/magic/exit_blood.ogg', 50, TRUE, -1)
 
 	// Make the mob have the color of the blood pool it came out of
 	var/obj/effect/decal/cleanable/came_from = locate() in landing_turf
@@ -128,20 +156,20 @@
 
 	exited.add_atom_colour(new_color, TEMPORARY_COLOUR_PRIORITY)
 	// ...but only for a few seconds
-	addtimer(CALLBACK(exited, TYPE_PROC_REF(/atom, remove_atom_colour), TEMPORARY_COLOUR_PRIORITY, new_color), 6 SECONDS)
+	addtimer(CALLBACK(exited, TYPE_PROC_REF(/atom/, remove_atom_colour), TEMPORARY_COLOUR_PRIORITY, new_color), 6 SECONDS)
 
 /**
  * Slaughter demon's blood crawl
  * Allows the blood crawler to consume people they are dragging.
  */
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon
 	name = "Voracious Blood Crawl"
 	desc = "Allows you to phase in and out of existance via pools of blood. If you are dragging someone in critical or dead, \
 		they will be consumed by you, fully healing you."
 	/// The sound played when someone's consumed.
 	var/consume_sound = 'sound/magic/demon_consume.ogg'
 
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter)
 	// Save this before the actual jaunt
 	var/atom/coming_with = jaunter.pulling
 
@@ -159,8 +187,8 @@
 
 	if(victim.stat == CONSCIOUS)
 		jaunt_turf.visible_message(
-			("<span class='warning'>[victim] kicks free of [blood] just before entering it!</span>"),
-			blind_message = ("<span class='notice'>You hear splashing and struggling.</span>"),
+			span_warning("[victim] kicks free of [blood] just before entering it!"),
+			blind_message = span_notice("You hear splashing and struggling."),
 		)
 		return FALSE
 
@@ -170,8 +198,8 @@
 	victim.forceMove(jaunter)
 	victim.emote("scream")
 	jaunt_turf.visible_message(
-		("<span class='boldwarning'>[jaunter] drags [victim] into [blood]!</span>"),
-		blind_message = ("<span class='notice'>You hear a splash.</span>"),
+		span_boldwarning("[jaunter] drags [victim] into [blood]!"),
+		blind_message = span_notice("You hear a splash."),
 	)
 
 	jaunter.notransform = TRUE
@@ -184,7 +212,7 @@
  * Consumes the [victim] from the [jaunter], fully healing them
  * and calling [proc/on_victim_consumed] if successful.
  */
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/proc/consume_victim(mob/living/victim, mob/living/jaunter)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/proc/consume_victim(mob/living/victim, mob/living/jaunter)
 	on_victim_start_consume(victim, jaunter)
 
 	for(var/i in 1 to 3)
@@ -202,27 +230,29 @@
 
 	// No defib possible after laughter
 	victim.apply_damage(1000, BRUTE)
+	if(victim.stat != DEAD)
+		victim.investigate_log("has been killed by being consumed by a slaugter demon.", INVESTIGATE_DEATHS)
 	victim.death()
 	on_victim_consumed(victim, jaunter)
 
 /**
  * Called when a victim starts to be consumed.
  */
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
-	to_chat(jaunter, ("<span class='danger'>You begin to feast on [victim]... You can not move while you are doing this.</span>"))
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
+	to_chat(jaunter, span_danger("You begin to feast on [victim]... You can not move while you are doing this."))
 
 /**
  * Called when a victim is successfully consumed.
  */
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_consumed(mob/living/victim, mob/living/jaunter)
-	to_chat(jaunter, ("<span class='danger'>You devour [victim]. Your health is fully restored.</span>"))
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/proc/on_victim_consumed(mob/living/victim, mob/living/jaunter)
+	to_chat(jaunter, span_danger("You devour [victim]. Your health is fully restored."))
 	qdel(victim)
 
 /**
  * Laughter demon's blood crawl
  * All mobs consumed are revived after the demon is killed.
  */
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny
 	name = "Friendly Blood Crawl"
 	desc = "Allows you to phase in and out of existance via pools of blood. If you are dragging someone in critical or dead - I mean, \
 		sleeping, when entering a blood pool, they will be invited to a party and fully heal you!"
@@ -231,23 +261,23 @@
 	// Keep the people we hug!
 	var/list/mob/living/consumed_mobs = list()
 
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/Destroy()
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Destroy()
 	consumed_mobs.Cut()
 	return ..()
 
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/Grant(mob/grant_to)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Grant(mob/grant_to)
 	. = ..()
 	if(owner)
 		RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/Remove(mob/living/remove_from)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Remove(mob/living/remove_from)
 	UnregisterSignal(remove_from, COMSIG_LIVING_DEATH)
 	return ..()
 
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_start_consume(mob/living/victim, mob/living/jaunter)
 	to_chat(jaunter, ("<span class='clown'>You invite [victim] to your party! You can not move while you are doing this.</span>"))
 
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_consumed(mob/living/victim, mob/living/jaunter)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/on_victim_consumed(mob/living/victim, mob/living/jaunter)
 	to_chat(jaunter, ("<span class='clown'>[victim] joins your party! Your health is fully restored.</span>"))
 	consumed_mobs += victim
 	RegisterSignal(victim, COMSIG_MOB_STATCHANGE, PROC_REF(on_victim_statchange))
@@ -258,7 +288,7 @@
  *
  * If our demon is deleted or destroyed, expel all of our consumed mobs
  */
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_death(datum/source)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_death(datum/source)
 	SIGNAL_HANDLER
 
 	var/turf/release_turf = get_turf(source)
@@ -271,8 +301,8 @@
 		// Heals them back to state one
 		if(!friend.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE))
 			continue
-		playsound(release_turf, consumed_mobs, 50, TRUE, -1)
-		to_chat(friend, ("<span class='clown'>You leave [source]'s warm embrace, and feel ready to take on the world.</span>"))
+		friend.playsound_local(release_turf, 'sound/effects/magic/exit_blood.ogg', 50, TRUE, -1)
+		to_chat(friend, span_clown("You leave [source]'s warm embrace, and feel ready to take on the world."))
 
 
 /**
@@ -282,14 +312,14 @@
  * changed stat. If they're no longer dead (because they were dead when
  * swallowed), eject them so they can't rip their way out from the inside.
  */
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_victim_statchange(mob/living/victim, new_stat)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_victim_statchange(mob/living/victim, new_stat)
 	SIGNAL_HANDLER
 
 	if(new_stat == DEAD)
 		return
 	// Someone we've eaten has spontaneously revived; maybe regen coma, maybe a changeling
 	victim.forceMove(get_turf(victim))
-	victim.visible_message(("<span class='warning'>[victim] falls out of the air, covered in blood, with a confused look on their face.</span>"))
+	victim.visible_message(span_warning("[victim] falls out of the air, covered in blood, with a confused look on their face."))
 	exit_blood_effect(victim)
 
 	consumed_mobs -= victim
@@ -298,7 +328,7 @@
 /**
  * Handle signal from a consumed mob being deleted. Clears any references.
  */
-/datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_victim_deleted(datum/source)
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/proc/on_victim_deleted(datum/source)
 	SIGNAL_HANDLER
 
 	consumed_mobs -= source

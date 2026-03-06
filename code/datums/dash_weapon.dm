@@ -56,7 +56,7 @@
 	var/obj/spot_two = new phasein(final_turf, user.dir) // Use where ninja actually ended up
 	spot_one.Beam(spot_two, beam_effect, time = beam_length)
 	playsound(final_turf, dash_sound, 25, TRUE) // Play sound where ninja ended up
-	owner?.update_action_buttons_icon()
+	owner?.update_mob_action_buttons()
 
 	if (max_charges > 0 && current_charges == max_charges)
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
@@ -104,7 +104,7 @@
 
 	if(!owner)
 		return
-	owner.update_action_buttons_icon()
+	owner.update_mob_action_buttons()
 	dashing_item.balloon_alert(owner, "[current_charges]/[max_charges] dash charges")
 	if (current_charges != max_charges)
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)

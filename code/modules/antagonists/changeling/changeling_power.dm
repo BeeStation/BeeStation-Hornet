@@ -5,8 +5,8 @@
 /datum/action/changeling
 	name = "Prototype Sting - Debug button, ahelp this"
 	background_icon_state = "bg_changeling"
+	overlay_icon_state = "bg_changeling_border"
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
-	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	var/needs_button = TRUE//for passive abilities like hivemind that dont need a button
 	var/helptext = "" // Details
@@ -29,10 +29,10 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(needs_button)
 		Grant(user)//how powers are added rather than the checks in mob.dm
 
-/datum/action/changeling/is_available()
+/datum/action/changeling/is_available(feedback = FALSE)
 	return ..() && owner.mind && owner.mind.has_antag_datum(/datum/antagonist/changeling)
 
-/datum/action/changeling/on_activate(mob/user, atom/target)
+/datum/action/changeling/activate(atom/target)
 	try_to_sting(user)
 
 /datum/action/changeling/proc/try_to_sting(mob/living/user, mob/living/target)

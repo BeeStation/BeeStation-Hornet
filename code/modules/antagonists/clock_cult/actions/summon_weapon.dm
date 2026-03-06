@@ -1,5 +1,5 @@
 // We don't use conjure because it has limitations
-/datum/action/spell/summon_weapon
+/datum/action/cooldown/spell/summon_weapon
 	name = "Summon Weapon"
 	desc = "Summons your weapon from across time and space."
 	cooldown_time = 20 SECONDS
@@ -13,7 +13,7 @@
 	/// The item to summon
 	var/datum/weakref/marked_item
 
-/datum/action/spell/summon_weapon/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/summon_weapon/on_cast(mob/user, atom/target)
 	. = ..()
 	var/obj/item_to_retrieve = marked_item?.resolve()
 

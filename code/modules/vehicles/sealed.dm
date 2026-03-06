@@ -1,5 +1,5 @@
 /obj/vehicle/sealed
-	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 | NO_DIRECT_ACCESS_FROM_CONTENTS_1
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	var/enter_delay = 2 SECONDS
 	var/mouse_pointer
 
@@ -121,10 +121,10 @@
 	inserted_key = null
 
 /obj/vehicle/sealed/Destroy()
-	DumpMobs()
+	dump_mobs()
 	return ..()
 
-/obj/vehicle/sealed/proc/DumpMobs(randomstep = TRUE)
+/obj/vehicle/sealed/proc/dump_mobs(randomstep = TRUE)
 	for(var/i in occupants)
 		mob_exit(i, null, randomstep)
 		if(iscarbon(i))
@@ -132,7 +132,7 @@
 			Carbon.Paralyze(40)
 			Carbon.uncuff()
 
-/obj/vehicle/sealed/proc/DumpSpecificMobs(flag, randomstep = TRUE)
+/obj/vehicle/sealed/proc/dump_specific_mobs(flag, randomstep = TRUE)
 	for(var/i in occupants)
 		if(!(occupants[i] & flag))
 			continue
