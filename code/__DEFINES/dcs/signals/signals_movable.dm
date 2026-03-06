@@ -1,13 +1,6 @@
-// Format:
+// Atom movable signals. Format:
 // When the signal is called: (signal arguments)
 // All signals send the source datum of the signal as the first argument
-
-/// From base of area/Entered(): (area/entered)
-#define COMSIG_MOVABLE_ENTERED_AREA "movable_entered_area"
-/// From base of area/Exited(): (area/left)
-#define COMSIG_MOVABLE_EXITED_AREA "movable_exited_area"
-
-// /atom/movable signals
 
 ///from base of atom/movable/Moved(): (/atom)
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
@@ -100,3 +93,5 @@
 /// From base of datum/element/movetype_handler/on_movement_type_trait_loss: (flag, old_movement_type)
 #define COMSIG_MOVETYPE_FLAG_DISABLED "movetype_flag_disabled"
 
+/// From base of area/Exited(): (area/left, direction)
+#define COMSIG_MOVABLE_EXITED_AREA "movable_exited_area"

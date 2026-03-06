@@ -91,8 +91,6 @@
 				O.gen_amount_goal()
 				objectives += O
 				log_objective(owner, O.explanation_text)
-			else
-				break
 	var/datum/objective/O = new /datum/objective/survive()
 	O.owner = owner
 	objectives += O
@@ -133,4 +131,5 @@
 	log_admin("[key_name(admin)] has ninja'd [key_name(new_owner)].")
 
 /datum/objective/plant_explosive
+	name = "plant explosive"
 	var/area/detonation_location

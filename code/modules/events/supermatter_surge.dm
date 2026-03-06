@@ -39,6 +39,8 @@
 		return FALSE
 	if(GLOB.main_supermatter_engine.get_status() == SUPERMATTER_INACTIVE)
 		return FALSE
+	if(!SSjob.has_minimum_jobs(crew_threshold = 2, jobs = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN), head_jobs = list(JOB_NAME_CHIEFENGINEER)))
+		return FALSE
 
 /datum/round_event/supermatter_surge
 	announceWhen = 4

@@ -49,7 +49,7 @@
 /area/template_noop)
 "j" = (
 /obj/structure/bed/double/maint,
-/obj/item/bedsheet/random/double,
+/obj/item/bedsheet/double/random,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (

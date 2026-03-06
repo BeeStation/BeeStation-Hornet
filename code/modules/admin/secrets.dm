@@ -323,9 +323,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Monkeyize All Humans"))
-			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-				spawn(0)
-					H.monkeyize()
+			for(var/mob/living/carbon/human/human_mob as anything in GLOB.human_list)
+				INVOKE_ASYNC(human_mob, TYPE_PROC_REF(/mob/living/carbon, monkeyize))
 			ok = 1
 
 		if("allspecies")
@@ -341,8 +340,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			log_admin("[key_name(usr)] turned all humans into [result]", 1)
 			message_admins("\blue [key_name_admin(usr)] turned all humans into [result]")
 			var/newtype = GLOB.species_list[result]
-			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-				H.set_species(newtype)
+			for(var/mob/living/carbon/human/human_mob as anything in GLOB.human_list)
+				human_mob.set_species(newtype)
 
 		if("tripleAI")
 			if(!check_rights(R_FUN))

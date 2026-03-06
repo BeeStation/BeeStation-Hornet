@@ -6232,6 +6232,19 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
+"apF" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/energy/sword/saber/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/arena)
 "apH" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
@@ -11108,20 +11121,6 @@
 	pixel_y = 12
 	},
 /turf/open/floor/iron/dark,
-/area/syndicate_mothership/control)
-"aCM" = (
-/obj/structure/table/reinforced{
-	color = "#c1b6a5"
-	},
-/obj/item/phone{
-	pixel_y = 12;
-	pixel_x = -7
-	},
-/obj/item/paicard{
-	pixel_x = 5;
-	pixel_y = 2
-	},
-/turf/open/floor/wood/big,
 /area/syndicate_mothership/control)
 "aCN" = (
 /turf/open/floor/plating,
@@ -17354,11 +17353,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
-"aSN" = (
-/obj/structure/mop_bucket,
-/obj/item/mop,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aSO" = (
 /obj/structure/railing,
 /obj/structure/table,
@@ -20230,6 +20224,22 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ctf)
+"bba" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/rag,
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "bbB" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/ice/smooth,
@@ -20490,6 +20500,19 @@
 /obj/structure/window/reinforced/tinted/spawner/directional/east,
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
+"deG" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/energy/sword/saber/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/arena_source)
 "diw" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -20776,19 +20799,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
-"fzW" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/red,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/security/loaded,
-/obj/item/melee/energy/sword/saber/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/tdome/arena_source)
 "fAt" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 4
@@ -20846,33 +20856,12 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/centcom/control)
-"gdN" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/red,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/security/loaded,
-/obj/item/melee/energy/sword/saber/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "geF" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
-"gfJ" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/mop_bucket,
-/turf/open/floor/plating/broken,
-/area/syndicate_mothership/control)
 "ggJ" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -20890,6 +20879,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
+"goT" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/energy/sword/saber/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/tdome/arena_source)
 "gto" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -20910,6 +20912,20 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
+/area/syndicate_mothership/control)
+"gAF" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/phone{
+	pixel_y = 12;
+	pixel_x = -7
+	},
+/obj/item/pai_card{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/turf/open/floor/wood/big,
 /area/syndicate_mothership/control)
 "gFf" = (
 /obj/structure/lattice/catwalk,
@@ -21282,19 +21298,6 @@
 /mob/living/simple_animal/chicken,
 /turf/open/floor/grass,
 /area/centcom/holding)
-"icO" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/security/loaded,
-/obj/item/melee/energy/sword/saber/green,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "ieM" = (
 /obj/machinery/vending/boozeomat,
 /turf/closed/indestructible/syndicate,
@@ -21456,19 +21459,6 @@
 	},
 /turf/open/lava/airless,
 /area/wizard_station)
-"iQG" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/security/loaded,
-/obj/item/melee/energy/sword/saber/green,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/tdome/arena_source)
 "iUu" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/effect/mapping_helpers/Mapper_Comment{
@@ -22141,19 +22131,6 @@
 /obj/structure/window/reinforced/tinted/spawner/directional/east,
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
-"mUx" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/security/loaded,
-/obj/item/melee/energy/sword/saber/green,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeadmin)
 "ncu" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -22216,6 +22193,19 @@
 /obj/effect/decal/cleanable/insectguts,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"nsr" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/energy/sword/saber/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "nsv" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/storage/bluespace,
@@ -22656,19 +22646,6 @@
 /obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /turf/open/floor/plating,
 /area/centcom/evac)
-"qvZ" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/suit/armor/tdome/red,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/baton/security/loaded,
-/obj/item/melee/energy/sword/saber/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/tdome/tdomeadmin)
 "qyl" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/paint,
@@ -22897,6 +22874,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"rYB" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/energy/sword/saber/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/tdome/arena)
 "seY" = (
 /obj/structure/spacevine,
 /turf/open/floor/plating/dirt/jungle,
@@ -22947,6 +22937,11 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"spS" = (
+/obj/structure/mop_bucket,
+/obj/item/mop,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "sql" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/plating/dirt/jungle,
@@ -23394,6 +23389,19 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
+"vKF" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/energy/sword/saber/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/tdomeadmin)
 "vLZ" = (
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/turf_decal/tile/dark_blue/corner_ramp{
@@ -23562,22 +23570,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
-"xaD" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/rag,
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "xho" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/tile_breaker,
@@ -23660,6 +23652,14 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/evac)
+"xJl" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mop_bucket,
+/turf/open/floor/plating/broken,
+/area/syndicate_mothership/control)
 "xJP" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/corporate,
@@ -34419,7 +34419,7 @@ afs
 aaE
 aaE
 aku
-gfJ
+xJl
 nft
 aku
 axA
@@ -36995,7 +36995,7 @@ aaE
 aku
 aku
 aYR
-aCM
+gAF
 ahr
 aqO
 aLq
@@ -52730,7 +52730,7 @@ aXk
 aXx
 aNm
 aNd
-aSN
+spS
 apV
 aTr
 aNd
@@ -63285,12 +63285,12 @@ aEp
 aas
 aZn
 hDc
-gdN
-gdN
-gdN
-gdN
-gdN
-qvZ
+rYB
+rYB
+rYB
+rYB
+rYB
+nsr
 aIv
 aQn
 abd
@@ -69965,7 +69965,7 @@ aOb
 aSE
 aMH
 aYj
-xaD
+bba
 hDc
 aIM
 aBX
@@ -70995,12 +70995,12 @@ aEp
 aPt
 aZn
 hDc
-icO
-icO
-icO
-icO
-icO
-mUx
+apF
+apF
+apF
+apF
+apF
+vKF
 aIv
 aiJ
 aaR
@@ -81106,12 +81106,12 @@ aaa
 aaa
 aab
 aab
-fzW
-fzW
-fzW
-fzW
-fzW
-fzW
+goT
+goT
+goT
+goT
+goT
+goT
 aab
 aaa
 aaa
@@ -88816,12 +88816,12 @@ aaa
 aaa
 aab
 aab
-iQG
-iQG
-iQG
-iQG
-iQG
-iQG
+deG
+deG
+deG
+deG
+deG
+deG
 aab
 aaa
 aaa
