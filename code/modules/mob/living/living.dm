@@ -2420,7 +2420,7 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 				visible_message(span_boldwarning("[src] readies \the [ciweapon] with a tightened grip!"))
 		else
 			if(issilicon(src))
-				visible_message(span_boldwarning("<b>[src] shifts its armour plating into a defensive stance!"))
+				visible_message(span_boldwarning("[src] shifts its armour plating into a defensive stance!"))
 			if(ishuman(src))
 				visible_message(span_boldwarning("[src] raises [p_their()] fists!"))
 			if(isalien(src))
