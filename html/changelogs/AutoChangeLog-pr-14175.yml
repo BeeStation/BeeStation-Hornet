@@ -1,8 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - code_imp: Poll configs now use constructors instead of manually setting the config's
-      parameters
-  - bugfix: Fixed several ghost polls not working
-  - bugfix: Fixed xenomorphs and spiders not having the vent overlay when spawning
-      inside of a vent
