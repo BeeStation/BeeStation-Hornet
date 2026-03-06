@@ -51,11 +51,6 @@
 	QDEL_LIST(diseases)
 	return ..()
 
-/mob/living/update_overlays()
-	. = ..()
-	if(combat_indicator)
-		. += GLOB.combat_indicator_overlay
-
 /mob/living/proc/can_bumpslam()
 	REMOVE_TRAIT(src, TRAIT_NO_BUMP_SLAM, type)
 
@@ -2345,13 +2340,14 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
 	return TRUE
 
-//#define COMBAT_NOTICE_COOLDOWN (10 SECONDS)
-GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
+/obj/effect/overlay/combat_indicator
+    icon = 'icons/misc/combat_indicator.dmi'
+    icon_state = "combat"
+    layer = FLY_LAYER
+    appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
+    mouse_opacity = 0
 
-/proc/GenerateCombatOverlay()
-	var/mutable_appearance/combat_indicator = mutable_appearance('icons/misc/combat_indicator.dmi', "combat", FLY_LAYER)
-	combat_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
-	return combat_indicator
+GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, new)
 
 /**
  * Called whenever a mob's stat changes.
@@ -2431,7 +2427,7 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 	apply_status_effect(/datum/status_effect/grouped/surrender, src)
 	log_message("<font color='red'>[src] has turned ON the combat indicator!</font>", LOG_ATTACK)
 	RegisterSignal(src, COMSIG_MOB_STATCHANGE , PROC_REF(ci_on_stat_change))
-	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+	vis_contents += GLOB.combat_indicator_vis
 
 /**
  * Called whenever a mob disables CI. Or when they die or fall unconscious.
@@ -2448,7 +2444,7 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 	else
 		log_message("<font color='cyan'>[src] has turned OFF the combat indicator!</font>", LOG_ATTACK)
 	UnregisterSignal(src, COMSIG_MOB_STATCHANGE)
-	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+	vis_contents -= GLOB.combat_indicator_vis
 
 /**
  * Called whenever a mob enters a vehicle/sealed, after everything else.
@@ -2467,7 +2463,7 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 		return
 	if (user.combat_indicator && !combat_indicator_vehicle) // Finally, if all conditions prior are not met, and the mob has CI enabled and the vehicle doesn't, enable CI.
 		combat_indicator_vehicle = TRUE
-		update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+		vis_contents += GLOB.combat_indicator_vis
 
 /**
  * Called whenever a mob exits a vehicle/sealed, after everything else.
@@ -2494,6 +2490,6 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 					break
 		if (!has_occupant_with_ci)
 			combat_indicator_vehicle = FALSE
-			update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+			vis_contents -= GLOB.combat_indicator_vis
 
 //#undef COMBAT_NOTICE_COOLDOWN

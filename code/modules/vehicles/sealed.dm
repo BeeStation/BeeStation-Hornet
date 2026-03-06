@@ -20,11 +20,6 @@
 	if(istype(E))
 		E.vehicle_entered_target = src
 
-/obj/vehicle/sealed/update_overlays()
-	. = ..()
-	if(combat_indicator_vehicle)
-		. += GLOB.combat_indicator_overlay
-
 /**
  * Called whenever a mob inside a vehicle/sealed/ toggles CI status.
  *

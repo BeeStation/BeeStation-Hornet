@@ -104,8 +104,6 @@
 
 	stop_pulling()
 
-	cut_overlay(GLOB.combat_indicator_overlay)
-
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_DEATH, src, gibbed)
 

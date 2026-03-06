@@ -563,7 +563,7 @@
 		add_overlay(eye_lights)
 
 	if(combat_indicator)
-		add_overlay(GLOB.combat_indicator_overlay)
+		vis_contents += GLOB.combat_indicator_vis
 
 	if(opened)
 		if(wiresexposed)
