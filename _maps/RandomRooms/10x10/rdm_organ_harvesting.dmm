@@ -91,7 +91,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "nU" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)

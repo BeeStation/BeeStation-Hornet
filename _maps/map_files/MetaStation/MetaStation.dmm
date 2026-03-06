@@ -10924,7 +10924,7 @@
 /area/medical/patients_rooms)
 "bPT" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/wood,
 /area/library)
 "bPV" = (
@@ -11630,7 +11630,7 @@
 	pixel_x = -13;
 	pixel_y = 9
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 5
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
@@ -17474,7 +17474,7 @@
 /obj/item/poster/random_official,
 /obj/item/poster/random_official,
 /obj/item/poster/random_official,
-/obj/item/paicard{
+/obj/item/pai_card{
 	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
 	name = "Nanotrasen-brand personal AI device exhibit"
 	},
@@ -21917,7 +21917,7 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4
 	},
 /obj/item/storage/secure/briefcase,
@@ -37428,7 +37428,7 @@
 /area/science/server)
 "kaJ" = (
 /obj/structure/table,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
@@ -56651,7 +56651,7 @@
 "qPk" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/structure/table/wood,
 /obj/machinery/door/poddoor/shutters{
 	id = "barcounter";
@@ -59572,7 +59572,7 @@
 /obj/structure/sign/poster/official/xenoarchaeology{
 	pixel_y = -32
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = -7
 	},
 /obj/item/book/manual/wiki/xenoarchaeology{

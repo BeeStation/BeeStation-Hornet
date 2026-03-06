@@ -7,7 +7,7 @@
 	. = ..()
 	switch(sentience_retention)
 		if (SENTIENCE_RETAIN)
-			if (playable)	//so the alert goes through for observing ghosts
+			if (playable) //so the alert goes through for observing ghosts
 				set_playable(playable_bantype)
 		if (SENTIENCE_FORCE)
 			set_playable(playable_bantype)
@@ -58,7 +58,6 @@
 			"[name] has appeared!",
 			source=src,
 		)
-
 
 /mob/living/get_spawner_desc()
 	return "Become [name]."

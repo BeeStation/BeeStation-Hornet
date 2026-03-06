@@ -66,6 +66,8 @@
 	switch(action)
 		if("jump")
 			if(mob_spawner)
+				if (!isatom(mob_spawner))
+					return
 				usr.forceMove(get_turf(mob_spawner))
 				. = TRUE
 		if("spawn")

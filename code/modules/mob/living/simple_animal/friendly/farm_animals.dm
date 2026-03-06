@@ -262,7 +262,7 @@
 	else
 		STOP_PROCESSING(SSobj, src)
 
-/mob/living/simple_animal/chicken/turkey
+/mob/living/simple_animal/turkey
 	name = "\improper turkey"
 	desc = "it's that time again."
 	icon_state = "turkey_plain"

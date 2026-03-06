@@ -82,7 +82,7 @@
 	var/obj/item/organ/tongue/abductor/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
 	T.mothership = "[team.name]"
 
-	H.real_name = "[team.name] [sub_role]"
+	H.fully_replace_character_name(null, "[team.name] [sub_role]")
 	H.equipOutfit(outfit)
 
 	//Teleport to ship
@@ -148,7 +148,7 @@
 		name = "Mothership [pick_n_take(left_team_names)]"
 	else
 		name = "No.[team_number] Mothership [pick(GLOB.greek_letters)]"
-	add_objective(new/datum/objective/experiment)
+	add_objective(new /datum/objective/experiment)
 
 /datum/team/abductor_team/is_solo()
 	return FALSE

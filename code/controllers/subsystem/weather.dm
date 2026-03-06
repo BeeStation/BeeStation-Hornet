@@ -18,8 +18,8 @@ SUBSYSTEM_DEF(weather)
 		if(our_event.aesthetic || our_event.stage != MAIN_STAGE)
 			continue
 		for(var/mob/act_on as anything in GLOB.mob_living_list)
-			if(our_event.can_weather_act(act_on))
-				our_event.weather_act(act_on)
+			if(our_event.can_weather_act_mob(act_on))
+				our_event.weather_act_mob(act_on)
 
 	// start random weather on relevant levels
 	for(var/z in eligible_zlevels)
