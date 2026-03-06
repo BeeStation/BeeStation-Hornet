@@ -29,17 +29,17 @@
 /mob/living/silicon/pai/attack_hand(mob/living/carbon/human/user, modifiers)
 	if(user.combat_mode)
 		user.do_attack_animation(src)
-		if (user.name == master)
-			visible_message("<span class='notice'>Responding to its master's touch, [src] disengages its holochassis emitter, rapidly losing coherence.</span>")
+		if (user.name == master_name)
+			visible_message(span_notice("Responding to its master's touch, [src] disengages its holochassis emitter, rapidly losing coherence."))
 			if(do_after(user, 1 SECONDS, TRUE, src))
 				fold_in()
 				if(user.put_in_hands(card))
-					user.visible_message("<span class='notice'>[user] promptly scoops up [user.p_their()] pAI's card.</span>")
+					user.visible_message(span_notice("[user] promptly scoops up [user.p_their()] pAI's card."))
 		else
-			visible_message("<span class='danger'>[user] stomps on [src]!.</span>")
+			visible_message(span_danger("[user] stomps on [src]!."))
 			take_holo_damage(2)
 	else
-		visible_message("<span class='notice'>[user] gently pats [src] on the head, eliciting an off-putting buzzing from its holographic field.</span>")
+		visible_message(span_notice("[user] gently pats [src] on the head, eliciting an off-putting buzzing from its holographic field."))
 
 /mob/living/silicon/pai/bullet_act(obj/projectile/Proj)
 	if(Proj.stun)

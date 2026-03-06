@@ -46,7 +46,7 @@
 		heal_target(living_target)
 	else
 		drain_target(living_target)
-	. = ..()
+	return ..()
 
 /obj/structure/destructible/clockwork/sigil/vitality/proc/heal_target(mob/living/living_target)
 	if(living_target.stat == DEAD)
