@@ -286,12 +286,14 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_EXPERIMENTAL_CLONE
-	config.poll_time = 30 SECONDS
-	config.jump_target = H
-	config.role_name_text = "[H.real_name]'s experimental clone?"
-	config.alert_pic = H
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_EXPERIMENTAL_CLONE,
+		poll_time = 30 SECONDS,
+		jump_target = H,
+		role_name_text = "[H.real_name]'s experimental clone?",
+		alert_pic = H,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, H)
 	if(candidate)
 		H.key = candidate.key
