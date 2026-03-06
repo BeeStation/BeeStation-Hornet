@@ -21,7 +21,7 @@
 	damage = 0,
 	damagetype = BRUTE,
 	def_zone = null,
-	blocked = FALSE,
+	blocked = 0,
 	forced = FALSE,
 	spread_damage = FALSE,
 	sharpness = NONE,
@@ -71,7 +71,7 @@
 					update_damage_overlays()
 				damage_dealt = actual_hit.get_damage() - delta // See above
 			else
-				damage_dealt = adjustFireLoss(damage_amount, forced = forced)
+				damage_dealt = -1 * adjustFireLoss(damage_amount, forced = forced)
 		if(TOX)
 			damage_dealt = -1 * adjustToxLoss(damage_amount, forced = forced)
 		if(OXY)
