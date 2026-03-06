@@ -1,8 +1,20 @@
-import { BooleanLike } from 'common/react';
+import { useState } from 'react';
+import {
+  BlockQuote,
+  Box,
+  Button,
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 
-import { useBackend, useLocalState } from '../backend';
-import { BlockQuote, Box, Button, Section, Stack, Tabs } from '../components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import {
+  Objective,
+  ObjectivePrintout,
+} from './common/Objectives';
 
 const hereticRed = {
   color: '#e03c3c',
@@ -44,12 +56,6 @@ type KnowledgeInfo = {
   learnedKnowledge: Knowledge[];
 };
 
-type Objective = {
-  count: number;
-  name: string;
-  explanation: string;
-};
-
 type Info = {
   charges: number;
   total_sacrifices: number;
@@ -57,7 +63,10 @@ type Info = {
   objectives: Objective[];
 };
 
-const IntroductionSection = () => {
+const IntroductionSection = (props) => {
+  const { data } = useBackend<Info>();
+  const { objectives } = data;
+
   return (
     <Stack justify="space-evenly" height="100%" width="100%">
       <Stack.Item grow>
@@ -72,7 +81,13 @@ const IntroductionSection = () => {
             <InformationSection />
             <Stack.Divider />
 
-            <ObjectivePrintout />
+            <Stack.Item>
+              <ObjectivePrintout
+                fill
+                titleMessage="In order to ascend, you have these tasks to fulfill:"
+                objectives={objectives}
+              />
+            </Stack.Item>
           </Stack>
         </Section>
       </Stack.Item>
@@ -141,17 +156,17 @@ const GuideSection = () => {
         <Stack.Item>
           - Follow your <span style={hereticRed}>Living Heart</span> to find
           your targets. Bring them back to a&nbsp;
-          <span style={hereticGreen}>transmutation rune</span> in critical&nbsp;
-          or worse condition to&nbsp;
+          <span style={hereticGreen}>transmutation rune</span> in critical or
+          worse condition to&nbsp;
           <span style={hereticRed}>sacrifice</span> them for&nbsp;
           <span style={hereticBlue}>knowledge points</span>. The Mansus{' '}
           <b>ONLY</b> accepts targets pointed to by the&nbsp;
           <span style={hereticRed}>Living Heart</span>.
         </Stack.Item>
         <Stack.Item>
-          - Make yourself a <span style={hereticYellow}>focus</span> to be&nbsp;
-          able to cast various advanced spells to assist you in acquire&nbsp;
-          harder and harder sacrifices.
+          - Make yourself a <span style={hereticYellow}>focus</span> to be able
+          to cast various advanced spells to assist you in acquiring harder and
+          harder sacrifices.
         </Stack.Item>
         <Stack.Item>
           - Create an item to use as a&nbsp;
@@ -203,28 +218,6 @@ const InformationSection = (props) => {
           You have made a total of&nbsp;
           <b>{total_sacrifices || 0}</b>&nbsp;
           <span style={hereticRed}>sacrifices</span>.
-        </Stack.Item>
-      </Stack>
-    </Stack.Item>
-  );
-};
-
-const ObjectivePrintout = (props) => {
-  const { data } = useBackend<Info>();
-  const { objectives } = data;
-  return (
-    <Stack.Item>
-      <Stack vertical fill>
-        <Stack.Item bold>
-          In order to ascend, you have these tasks to fulfill:
-        </Stack.Item>
-        <Stack.Item>
-          {(!objectives && 'None!') ||
-            objectives.map((objective) => (
-              <Stack.Item key={objective.count}>
-                {objective.count}: {objective.explanation}
-              </Stack.Item>
-            ))}
         </Stack.Item>
       </Stack>
     </Stack.Item>
@@ -322,7 +315,7 @@ export const AntagInfoHeretic = (props) => {
   const { data } = useBackend<Info>();
   const { ascended } = data;
 
-  const [currentTab, setTab] = useLocalState('currentTab', 0);
+  const [currentTab, setTab] = useState(0);
 
   return (
     <Window width={675} height={625} theme="neutral">

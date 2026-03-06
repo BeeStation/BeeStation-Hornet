@@ -1,5 +1,3 @@
-import { BooleanLike } from 'common/react';
-import { sanitizeText } from 'tgui/sanitize';
 
 import { useBackend, useLocalState } from '../backend';
 import {
@@ -25,6 +23,7 @@ import {
   sort_thresholds,
   threshold_title,
 } from './common/Holoparasite';
+import { Objective, ObjectivePrintout } from './common/Objectives';
 
 /**
  * The current tab of the summoner info section.
@@ -35,29 +34,6 @@ enum SummonerTab {
   Allies,
   ExtraInfo,
 }
-
-type Objective = {
-  /**
-   * The number objective this is (in order of the objectives list).
-   */
-  count: number;
-  /**
-   * The name of the objective.
-   */
-  name: string;
-  /**
-   * The explanation text of the objective.
-   */
-  explanation: string;
-  /**
-   * Whether the objective is complete or not.
-   */
-  complete: BooleanLike;
-  /**
-   * Whether the objective is optional or not.
-   */
-  optional: BooleanLike;
-};
 
 /**
  * A list of teams that the summoner is on, and the allies on each team.
@@ -198,25 +174,12 @@ const ObjectiveInfo = (_props) => {
   }
   return (
     <Section scrollable>
-      <Stack vertical height="115px">
-        <Stack.Item bold>Your summoner&apos;s current objectives:</Stack.Item>
-        {objectives.map((objective) => (
-          <Stack.Item key={objective.count}>
-            #{objective.count}:{' '}
-            {!!objective.optional && (
-              <Box inline textColor="green">
-                Optional:
-              </Box>
-            )}{' '}
-            <span
-              // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{
-                __html: sanitizeText(objective.explanation, false),
-              }}
-            />
-          </Stack.Item>
-        ))}
-      </Stack>
+      <Box height="115px">
+        <ObjectivePrintout
+          objectives={objectives}
+          titleMessage="Your summoner's current objectives"
+        />
+      </Box>
     </Section>
   );
 };

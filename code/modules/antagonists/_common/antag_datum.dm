@@ -71,7 +71,9 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/Destroy()
 	GLOB.antagonists -= src
-	if(owner)
+	if(!owner)
+		stack_trace("Destroy()ing antagonist datum when it has no owner.")
+	else
 		LAZYREMOVE(owner.antag_datums, src)
 	owner = null
 	return ..()
@@ -130,18 +132,14 @@ GLOBAL_LIST(admin_antag_list)
 
 //button for antags to review their descriptions/info
 /datum/action/antag_info
-	name = "Open Antag Information:"
+	name = "Open Special Role Information:"
 	button_icon_state = "round_end"
 
 /datum/action/antag_info/New(target)
 	. = ..()
-	name += " [target]"
+	name = "Open [target] Information:"
 
 /datum/action/antag_info/on_activate(mob/user, atom/target, trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
 	target.ui_interact(owner)
 
 /datum/action/antag_info/is_available(feedback = FALSE)
@@ -172,7 +170,8 @@ GLOBAL_LIST(admin_antag_list)
 ///Called by the transfer_to() mind proc after the mind (mind.current and new_character.mind) has moved but before the player (key and client) is transfered.
 /datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	SHOULD_CALL_PARENT(TRUE)
-	remove_innate_effects(old_body)
+	if(old_body)
+		remove_innate_effects(old_body)
 	if(old_body?.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
 		old_body.remove_from_current_living_antags()
 	var/datum/action/antag_info/info_button = info_button_ref?.resolve()
@@ -260,17 +259,20 @@ GLOBAL_LIST(admin_antag_list)
 ///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/proc/on_removal()
 	SHOULD_CALL_PARENT(TRUE)
-	remove_innate_effects()
+	if(!owner)
+		CRASH("Antag datum with no owner.")
+
+	if(owner.current)
+		remove_innate_effects()
 	clear_antag_moodies()
 	if(info_button_ref)
 		QDEL_NULL(info_button_ref)
-	if(owner)
-		LAZYREMOVE(owner.antag_datums, src)
-		if(!LAZYLEN(owner.antag_datums))
-			owner.current.remove_from_current_living_antags()
-		if(!silent && owner.current)
-			farewell()
-		owner.current.update_action_buttons()
+	LAZYREMOVE(owner.antag_datums, src)
+	if(!LAZYLEN(owner.antag_datums) && owner.current)
+		owner.current.remove_from_current_living_antags()
+	if(!silent && owner.current)
+		farewell()
+	owner.current.update_action_buttons()
 	var/datum/team/team = get_team()
 	if(team)
 		team.remove_member(owner)

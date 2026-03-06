@@ -1,4 +1,4 @@
-import { BooleanLike } from 'common/react';
+
 import {
   Box,
   Collapsible,
@@ -10,22 +10,14 @@ import {
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { Objective } from './common/Objectives';
 
 type Data = {
   color: string;
   description: string;
   effects: string;
   name: string;
-  objectives: Objectives[];
-};
-
-type Objectives = {
-  count: number;
-  name: string;
-  explanation: string;
-  complete: BooleanLike;
-  was_uncompleted: BooleanLike;
-  reward: number;
+  objectives: Objective[];
 };
 
 const BLOB_COLOR = '#556b2f';
