@@ -688,7 +688,7 @@
 
 /datum/status_effect/dna_melt
 	id = "dna_melt"
-	duration = 600
+	duration = 60 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/dna_melt
 	var/kill_either_way = FALSE //no amount of removing mutations is gonna save you now

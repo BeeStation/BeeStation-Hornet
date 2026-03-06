@@ -5,7 +5,7 @@
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	worn_icon_state = "baguette"
-	item_flags = ABSTRACT | ISWEAPON
+	item_flags = ISWEAPON
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	canblock = TRUE	//God blocking is actual aids to deal with, I am sorry for putting this here
 

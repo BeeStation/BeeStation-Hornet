@@ -101,7 +101,7 @@
 	if(chassis.is_currently_ejecting)
 		return FALSE
 	if(chassis.equipment_disabled)
-		to_chat(chassis.occupants, "<span=warn>Error -- Equipment control unit is unresponsive.</span>")
+		to_chat(chassis.occupants, span_warning("Error -- Equipment control unit is unresponsive."))
 		return FALSE
 	if(TIMER_COOLDOWN_CHECK(chassis, COOLDOWN_MECHA_EQUIPMENT))
 		return FALSE
@@ -116,7 +116,7 @@
 /**
  * Cooldown proc variant for using do_afters between activations instead of timers
  * Example of usage is mech drills, rcds
- * arguments:
+ * Arguments:
  * * target: targetted atom for action activation
  * * user: occupant to display do after for
  * * interaction_key: interaction key to pass to [/proc/do_after]
