@@ -9,7 +9,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/holopad,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "cH" = (
@@ -86,9 +85,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/port_gen/pacman,
 /obj/item/stack/sheet/mineral/plasma/five,
 /obj/item/wrench,
+/obj/machinery/power/port_gen/pacman,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "mi" = (
@@ -471,10 +470,10 @@
 /obj/item/multitool,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/gps/mining,
+/obj/item/stack/sheet/mineral/plasma/five,
 /obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light/small,
-/obj/item/stack/sheet/mineral/plasma/ten,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "PA" = (
@@ -542,10 +541,7 @@
 /area/template_noop)
 "SA" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/secure/weapon{
-	name = "Contraband crate";
-	desc = "A secure Contraband crate, so security can't legally raid your findings."
-	},
+/obj/structure/closet/crate/secure/weapon,
 /obj/item/firing_pin/clown,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /turf/open/floor/mineral/plastitanium,
