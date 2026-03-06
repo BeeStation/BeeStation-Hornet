@@ -28,7 +28,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 			var/auto_observe = params["auto_observe"]
 			var/atom/poi = SSpoints_of_interest.get_poi_atom_by_ref(ref)
 
-			if((ismob(poi) && !SSpoints_of_interest.is_valid_poi(poi, CALLBACK(src, .proc/validate_mob_poi))) \
+			if((ismob(poi) && !SSpoints_of_interest.is_valid_poi(poi, CALLBACK(src, PROC_REF(validate_mob_poi)))) \
 				|| !SSpoints_of_interest.is_valid_poi(poi)
 			)
 				to_chat(usr, "<span class='notice'>That point of interest is no longer valid.</span>")
@@ -39,7 +39,8 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 			user.reset_perspective(null)
 			user.orbiting_ref = ref
 			if (auto_observe)
-				user.do_observe(poi)
+				if (poi != user)
+					user.do_observe(poi)
 			return TRUE
 		if ("refresh")
 			ui.send_full_update()
@@ -77,7 +78,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 		insert_icon("job-icon-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
 
 /datum/orbit_menu/ui_static_data(mob/user)
-	var/list/new_mob_pois = SSpoints_of_interest.get_mob_pois(CALLBACK(src, .proc/validate_mob_poi), append_dead_role = FALSE)
+	var/list/new_mob_pois = SSpoints_of_interest.get_mob_pois(CALLBACK(src, PROC_REF(validate_mob_poi)), append_dead_role = FALSE)
 	var/list/new_other_pois = SSpoints_of_interest.get_other_pois()
 	var/is_admin = user?.client?.holder
 

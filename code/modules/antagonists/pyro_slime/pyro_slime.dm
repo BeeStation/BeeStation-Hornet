@@ -5,6 +5,7 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
+	banning_key = ROLE_PYROCLASTIC_SLIME
 
 /datum/antagonist/pyro_slime/on_gain()
 	forge_objectives()

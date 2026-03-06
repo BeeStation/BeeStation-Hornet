@@ -54,6 +54,7 @@
 #define ROLE_PRISONER "Prisoner"
 #define ROLE_WIZARD_APPRENTICE "Apprentice"
 #define ROLE_VAMPIRE "Vampire"
+#define ROLE_VENUS_HUMAN_TRAP "Venus Human Trap"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
@@ -78,7 +79,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_OBSESSED,
 	ROLE_SPACE_DRAGON,
 	ROLE_INTERNAL_AFFAIRS,
-	ROLE_GANG,
 	ROLE_HOLOPARASITE,
 	ROLE_TERATOMA,
 	ROLE_SPIDER,

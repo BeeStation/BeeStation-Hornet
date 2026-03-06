@@ -4,6 +4,7 @@
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	show_in_antagpanel = FALSE
+	banning_key = ROLE_BLOB
 	/// The blob core that this minion is attached to
 	var/datum/weakref/overmind
 

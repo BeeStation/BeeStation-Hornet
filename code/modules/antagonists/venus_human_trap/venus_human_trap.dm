@@ -5,6 +5,7 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
+	banning_key = ROLE_VENUS_HUMAN_TRAP
 
 /datum/antagonist/venus_human_trap/on_gain()
 	forge_objectives()
