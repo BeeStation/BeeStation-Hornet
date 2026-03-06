@@ -7,7 +7,7 @@
 	show_name_in_check_antagonists = TRUE
 	antagpanel_category = ANTAG_GROUP_ABOMINATIONS
 	ui_name = "AntagInfoMorph"
-	required_living_playtime = 4
+	required_living_playtime = 0
 
 //It does nothing! (Besides tracking)//Scratch that, it does something now at least
 

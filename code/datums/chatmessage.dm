@@ -614,7 +614,7 @@
 		balloon_alert(hearer, (hearer == src && self_message) || message, show_in_chat = show_in_chat)
 
 /datum/chatmessage/balloon_alert
-	tgt_color = "#ffffff" //default color
+	tgt_color = COLOR_WHITE //default color
 
 /datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color, offset_x, offset_y)
 	if (!istype(target))

@@ -102,7 +102,7 @@
 	if(world.time <= usr.next_move)
 		return 1
 
-	if(usr.incapacitated(IGNORE_STASIS))
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_STASIS))
 		return 1
 
 	if(ismob(usr))
@@ -138,7 +138,7 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
-	if(usr.incapacitated() || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(usr.incapacitated || (isobserver(usr) && !IsAdminGhost(usr)))
 		return TRUE
 	var/area/A = get_area(usr)
 	if(!A.outdoors)
@@ -195,7 +195,7 @@
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
-			if(hud?.mymob.incapacitated())
+			if(hud?.mymob.incapacitated)
 				inv_item.apply_outline(COLOR_RED_GRAY)
 			else
 				inv_item.apply_outline()
@@ -229,9 +229,9 @@
 	item_overlay.alpha = 92
 
 	if(!user.can_equip(holding, slot_id, TRUE, bypass_equip_delay_self = TRUE))
-		item_overlay.color = "#FF0000"
+		item_overlay.color = COLOR_RED
 	else
-		item_overlay.color = "#00ff00"
+		item_overlay.color = COLOR_VIBRANT_LIME
 
 	cut_overlay(object_overlay)
 	object_overlay = item_overlay
@@ -272,7 +272,7 @@
 		return TRUE
 	if(world.time <= user.next_move)
 		return TRUE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 	if (ismecha(user.loc)) // stops inventory actions in a mech
 		return TRUE
@@ -658,26 +658,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	screen_loc = ui_internal
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/atom/movable/screen/healths/blob/naut
-	name = "health"
-	icon = 'icons/mob/blob.dmi'
-	icon_state = "nauthealth"
-
-/atom/movable/screen/healths/blob/naut/core
+/atom/movable/screen/healths/blob/overmind
 	name = "overmind health"
+	icon = 'icons/mob/blob.dmi'
 	icon_state = "corehealth"
-	screen_loc = ui_health
-
-/atom/movable/screen/healths/clock
-	icon = 'icons/hud/actions/action_generic.dmi'
-	icon_state = "bg_clock"
-	screen_loc = ui_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/clock/gear
-	icon = 'icons/mob/clockwork_mobs.dmi'
-	icon_state = "bg_gear"
-	screen_loc = ui_internal
+	screen_loc = ui_blobbernaut_overmind_health
 
 /atom/movable/screen/healths/revenant
 	name = "essence"

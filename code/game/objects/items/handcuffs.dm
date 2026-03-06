@@ -96,7 +96,7 @@
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff"
 	inhand_icon_state = "coil"
-	color = "#ff0000"
+	color = COLOR_RED
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
@@ -105,10 +105,10 @@
 	custom_price = 15
 
 /obj/item/restraints/handcuffs/cable/red
-	color = "#ff0000"
+	color = COLOR_RED
 
 /obj/item/restraints/handcuffs/cable/yellow
-	color = "#ffff00"
+	color = COLOR_YELLOW
 
 /obj/item/restraints/handcuffs/cable/blue
 	color = "#1919c8"
@@ -123,7 +123,7 @@
 	color = "#ff8000"
 
 /obj/item/restraints/handcuffs/cable/cyan
-	color = "#00ffff"
+	color = COLOR_CYAN
 
 /obj/item/restraints/handcuffs/cable/white
 	color = null

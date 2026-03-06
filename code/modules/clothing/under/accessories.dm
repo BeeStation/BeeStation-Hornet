@@ -205,6 +205,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentCom. To receive such a medal is the highest honor and as such, very few exist. This medal is almost never awarded to anybody but commanders."
@@ -271,13 +275,13 @@
 	name = "blue armband"
 	desc = "A fancy blue armband!"
 	icon_state = "medband"
-	color = "#0000ff"
+	color = COLOR_BLUE
 
 /obj/item/clothing/accessory/armband/green
 	name = "green armband"
 	desc = "A fancy green armband!"
 	icon_state = "medband"
-	color = "#00ff00"
+	color = COLOR_VIBRANT_LIME
 
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"

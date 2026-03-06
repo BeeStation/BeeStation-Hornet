@@ -15,13 +15,13 @@
 
 /datum/reagent/thermite/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/nitroglycerin
 	name = "Nitroglycerin"
 	description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
-	color = "#808080" // rgb: 128, 128, 128
+	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "oil"
 
@@ -29,7 +29,7 @@
 	name = "Stabilizing Agent"
 	description = "Keeps unstable chemicals stable. This does not work on everything."
 	reagent_state = LIQUID
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	chemical_flags = NONE
 	taste_description = "metal"
 
@@ -46,8 +46,8 @@
 /datum/reagent/clf3/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjust_fire_stacks(2 * REM * delta_time)
-	affected_mob.adjustFireLoss(0.3 * max(affected_mob.fire_stacks, 1) * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustFireLoss(0.3 * max(affected_mob.fire_stacks, 1) * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/clf3/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -102,7 +102,7 @@
 	name = "Black Powder"
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
-	color = "#000000"
+	color = COLOR_BLACK
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	taste_description = "salt"
@@ -170,8 +170,8 @@
 /datum/reagent/phlogiston/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjust_fire_stacks(1 * REM * delta_time)
-	affected_mob.adjustFireLoss(0.3 * max(affected_mob.fire_stacks, 0.15) * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustFireLoss(0.3 * max(affected_mob.fire_stacks, 0.15) * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/napalm
 	name = "Napalm"
@@ -291,13 +291,13 @@
 	if(isoozeling(affected_mob))
 		shock_timer = 0 //immune to shocks
 		affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-		affected_mob.adjustStaminaLoss(-2 * REM * delta_time, updating_health = FALSE)
+		if(affected_mob.adjustStaminaLoss(-2 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype))
+			. = UPDATE_MOB_HEALTH
 
 		if(isluminescent(affected_mob))
 			var/mob/living/carbon/human/affected_human = affected_mob
 			var/datum/species/oozeling/luminescent/luminescent_species = affected_human.dna.species
 			luminescent_species.extract_cooldown = max(luminescent_species.extract_cooldown - 20 * REM * delta_time, 0)
-		return UPDATE_MOB_HEALTH
 
 /datum/reagent/teslium/energized_jelly/overdose_process(mob/living/carbon/affected_mob)
 	. = ..()

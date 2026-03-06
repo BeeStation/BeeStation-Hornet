@@ -3,8 +3,7 @@
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
-	status = ORGAN_ROBOTIC
-	organ_flags = NONE
+	organ_flags = ORGAN_ROBOTIC // weird?
 	beating = TRUE
 	var/true_name = "baseline placebo referencer"
 
@@ -349,7 +348,7 @@
 /obj/item/organ/heart/gland/chem/activate()
 	var/chem_to_add = pick(possible_reagents)
 	owner.reagents.add_reagent(chem_to_add, 2)
-	owner.adjustToxLoss(-2, TRUE, TRUE)
+	owner.adjustToxLoss(-2, forced = TRUE)
 	..()
 
 /obj/item/organ/heart/gland/plasma

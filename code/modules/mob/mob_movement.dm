@@ -276,10 +276,9 @@
 				if(salt)
 					to_chat(L, span_warning("[salt] bars your passage!"))
 					return
-				if(stepTurf.flags_1 & NOJAUNT_1)
-					if(!is_reebe(loccheck.z))
-						to_chat(L, span_warning("Some strange aura is blocking the way."))
-						return
+				if((stepTurf.flags_1 & NOJAUNT_1) && !is_on_reebe(loccheck))
+					to_chat(L, span_warning("Some strange aura is blocking the way."))
+					return
 				if(stepTurf.is_holy())
 					to_chat(L, span_warning("Holy energies block your path!"))
 					return

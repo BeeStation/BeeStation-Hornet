@@ -3,7 +3,7 @@
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	banning_key = ROLE_OBSESSED
-	required_living_playtime = 4
+	required_living_playtime = 0
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.

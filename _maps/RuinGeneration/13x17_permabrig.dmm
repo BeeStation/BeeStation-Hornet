@@ -441,7 +441,7 @@
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "UG" = (
-/mob/living/simple_animal/mouse/brown/Tom,
+/mob/living/basic/mouse/brown/tom,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "VE" = (

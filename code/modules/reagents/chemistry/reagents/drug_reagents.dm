@@ -22,7 +22,7 @@
 
 /datum/reagent/drug/space_drugs/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(15 * REM * delta_time)
+	affected_mob.set_drugginess(30 SECONDS * REM * delta_time)
 	if(isturf(affected_mob.loc) && !isspaceturf(affected_mob.loc) && !HAS_TRAIT(affected_mob, TRAIT_IMMOBILIZED) && DT_PROB(5, delta_time))
 		step(affected_mob, pick(GLOB.cardinals))
 
@@ -57,6 +57,7 @@
 		to_chat(affected_mob, span_notice(pick("You feel relaxed.", "You feel calmed.", "You feel alert.", "You feel rugged.")))
 
 	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "smoked", /datum/mood_event/smoked, name)
+	affected_mob.remove_status_effect(/datum/status_effect/jitter)
 	affected_mob.AdjustStun(-50  * REM * delta_time)
 	affected_mob.AdjustKnockdown(-50 * REM * delta_time)
 	affected_mob.AdjustUnconscious(-50 * REM * delta_time)
@@ -66,9 +67,11 @@
 
 /datum/reagent/drug/nicotine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustToxLoss(0.1 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustOxyLoss(1.1 * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustToxLoss(0.1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustOxyLoss(1.1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/crank
 	name = "Crank"
@@ -96,15 +99,17 @@
 	affected_mob.AdjustImmobilized(-20 * REM * delta_time)
 	affected_mob.AdjustParalyzed(-20 * REM * delta_time)
 	affected_mob.adjustToxLoss(0.75 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustStaminaLoss(-18 * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustStaminaLoss(-18 * REM * delta_time, updating_stamina = FALSE))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/crank/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time)
-	affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustBruteLoss(2 * REM * delta_time, updating_health = FALSE, required_status = BODYTYPE_ORGANIC)
-	return UPDATE_MOB_HEALTH
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time)
+	need_mob_update += affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
+	need_mob_update += affected_mob.adjustBruteLoss(2 * REM * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/krokodil
 	name = "Krokodil"
@@ -119,19 +124,21 @@
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")))
-	if(current_cycle == 35)
+	if(current_cycle == 36)
 		if(!istype(affected_mob.dna.species, /datum/species/human/krokodil_addict))
 			to_chat(affected_mob, span_userdanger("Your skin falls off!"))
-			affected_mob.adjustBruteLoss(50 * REM, updating_health = FALSE) // holy shit your skin just FELL THE FUCK OFF
+			var/mob/living/carbon/human/affected_human = affected_mob
+			affected_human.facial_hair_style = "Shaved"
+			affected_human.hair_style = "Bald"
 			affected_mob.set_species(/datum/species/human/krokodil_addict)
-			if(affected_mob.adjustBruteLoss(50 * REM, updating_health = FALSE)) // holy shit your skin just FELL THE FUCK OFF
+			if(affected_mob.adjustBruteLoss(50 * REM, updating_health = FALSE, required_bodytype = affected_bodytype)) // holy shit your skin just FELL THE FUCK OFF
 				return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/krokodil/overdose_process(mob/living/affected_mob, delta_time, times_fired)
 	. = ..()
-	var/need_mob_update = FALSE
-	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.25 * REM * delta_time)
-	need_mob_update += affected_mob.adjustToxLoss(0.25 * REM * delta_time, updating_health = FALSE)
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.25 * REM * delta_time, required_organ_flag = affected_organ_flags)
+	need_mob_update = affected_mob.adjustToxLoss(0.25 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
@@ -168,12 +175,11 @@
 	affected_mob.AdjustUnconscious(-40 * REM * delta_time)
 	affected_mob.AdjustParalyzed(-40 * REM * delta_time)
 	affected_mob.AdjustImmobilized(-40 * REM * delta_time)
-	affected_mob.adjustStaminaLoss(-40 * REM * delta_time, updating_health = FALSE)
-	affected_mob.drowsyness = max(affected_mob.drowsyness - (60 * REM * delta_time), 0)
+	affected_mob.set_drowsiness_if_lower(-8 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(4 SECONDS * REM * delta_time)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
-
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.adjustStaminaLoss(-40 * REM * delta_time, updating_stamina = FALSE))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/methamphetamine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -188,9 +194,11 @@
 		affected_mob.visible_message(span_danger("[affected_mob]'s hands flip out and flail everywhere!"))
 		affected_mob.drop_all_held_items()
 
-	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, (rand(5, 10) / 10) * REM * delta_time)
-	return UPDATE_MOB_HEALTH
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, (rand(5, 10) / 10) * REM * delta_time, required_organ_flag = affected_organ_flags)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/bath_salts
 	name = "Bath Salts"
@@ -222,14 +230,17 @@
 	if(DT_PROB(2.5, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")))
 
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustStaminaLoss(-5 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time, required_organ_flag = affected_organ_flags)
+	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
+	if(need_mob_update)
+		. = UPDATE_MOB_HEALTH
+
 	if(!HAS_TRAIT(affected_mob, TRAIT_IMMOBILIZED) && !ismovable(affected_mob.loc))
 		for(var/i = 1 to 2)
 			step(affected_mob, pick(GLOB.cardinals))
 
-	affected_mob.adjustStaminaLoss(-5 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time)
-	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
-	return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/bath_salts/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -259,13 +270,14 @@
 	if(DT_PROB(2.5, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")))
 
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustStaminaLoss(-18 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	if(DT_PROB(30, delta_time))
 		affected_mob.losebreath++
-		affected_mob.adjustOxyLoss(1, updating_health = FALSE)
-
-	affected_mob.adjustStaminaLoss(-18 * REM * delta_time, updating_health = FALSE)
-	affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+		need_mob_update += affected_mob.adjustOxyLoss(1, FALSE, required_biotype = affected_biotype)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/happiness
 	name = "Happiness"
@@ -290,7 +302,8 @@
 	affected_mob.remove_status_effect(/datum/status_effect/jitter)
 	affected_mob.remove_status_effect(/datum/status_effect/confusion)
 	affected_mob.disgust = 0
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * REM * delta_time)
+	if(affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * REM * delta_time, required_organ_flag = affected_organ_flags))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/happiness/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -306,7 +319,8 @@
 				affected_mob.emote("sway")
 				affected_mob.set_dizzy_if_lower(50 SECONDS)
 
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5 * REM * delta_time)
+	if(affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5 * REM * delta_time, required_organ_flag = affected_organ_flags))
+		return UPDATE_MOB_HEALTH
 
 //I had to do too much research on this to make this a thing. Hopefully the FBI won't kick my door down.
 /datum/reagent/drug/ketamine
@@ -327,7 +341,7 @@
 		if(10)
 			to_chat(affected_mob, span_warning("You start to feel tired..."))
 		if(11 to 25)
-			affected_mob.drowsyness += 1 * REM * delta_time
+			affected_mob.adjust_drowsiness(2 SECONDS * REM * delta_time)
 		if(26 to INFINITY)
 			affected_mob.Sleeping(60 * REM * delta_time)
 
@@ -335,7 +349,7 @@
 	affected_mob.adjust_confusion(-3 SECONDS * REM * delta_time)
 	affected_mob.adjust_jitter(-10 SECONDS * REM * delta_time)
 	affected_mob.disgust -= 3 * REM * delta_time
-	//Ketamine is also a dissociative anasthetic which means Hallucinations!
+	//Ketamine is also a dissociative anesthetic which means Hallucinations!
 	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/carbon/affected_mob)
@@ -359,6 +373,7 @@
 /datum/reagent/drug/nooartrium
 	name = "Nooartrium"
 	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
+	addiction_types = list(/datum/addiction/medicine = 12)
 	overdose_threshold = 25
 	color = "#280000"
 	self_consuming = TRUE //No pesky liver shenanigans
@@ -369,7 +384,7 @@
 		TRAIT_NOHARDCRIT,
 		TRAIT_NOSOFTCRIT,
 		TRAIT_STABLEHEART,
-		TRAIT_STUNRESISTANCE,
+		TRAIT_BATON_RESISTANCE,
 		TRAIT_NOSTAMCRIT,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 	)

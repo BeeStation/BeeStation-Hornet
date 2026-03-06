@@ -16,7 +16,7 @@
 	antag_moodlet = /datum/mood_event/focused
 	antagpanel_category = ANTAG_GROUP_ERT
 	banning_key = ROLE_ERT
-	required_living_playtime = 2
+	required_living_playtime = 1
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security

@@ -6,7 +6,7 @@
 	show_in_antagpanel = FALSE
 	banning_key = ROLE_BLOB
 	ui_name = "AntagInfoBlob"
-	required_living_playtime = 4
+	required_living_playtime = 0
 
 	/// Action to release a blob infection
 	var/datum/action/innate/blobpop/pop_action

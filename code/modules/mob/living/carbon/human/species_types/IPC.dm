@@ -231,25 +231,6 @@
 	H.visible_message(span_notice("[H] unplugs from the [target]."), span_notice("You unplug from the [target]."))
 	return
 
-/datum/species/ipc/spec_attacked_by(obj/item/item, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/ipc)
-	//Need to make sure it wasn't blocked somehow
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(istype(item, /obj/item/melee/baton) && item.damtype == STAMINA)
-		if(!affecting)
-			affecting = ipc.bodyparts[1]
-		var/hit_area = parse_zone(affecting.body_zone)
-		var/def_zone = affecting.body_zone
-
-		//We check STAMINA armor because it's still a stun baton, but we are converting it to burn damage because it's a conductive robot that is immune to STAMINA.
-		var/armor_block = ipc.run_armor_check(affecting, STAMINA, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"),item.armour_penetration)
-
-		//All in all this does 16.5 burn damage to an IPC if using a standard 40 stamina stun baton.
-		ipc.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
-		apply_damage((item.force/4), BURN, def_zone, armor_block, ipc)
-
 /datum/species/ipc/proc/mechanical_revival(mob/living/carbon/human/H)
 
 	H.notify_ghost_cloning("You have been repaired!")

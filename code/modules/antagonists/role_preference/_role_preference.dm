@@ -14,6 +14,8 @@
 	var/preview_outfit
 	/// Role preference path to use the icon of, if we're duplicating another.
 	var/use_icon
+	/// The default state for being enabled or disabled
+	var/default_enabled = TRUE
 
 /// Creates an icon from the preview outfit.
 /// Custom implementors of `get_preview_icon` should use this, as the
@@ -56,15 +58,18 @@
 	category = ROLE_PREFERENCE_CATEGORY_ROUNDSTART
 	abstract_type = /datum/role_preference/roundstart
 	per_character = TRUE
+	default_enabled = TRUE
 
 /// Includes living dynamic midround assignments (does not apply to conversion antags).
 /datum/role_preference/midround
 	category = ROLE_PREFERENCE_CATEGORY_MIDROUND
 	abstract_type = /datum/role_preference/midround
 	per_character = TRUE
+	default_enabled = TRUE
 
 /// Includes roundstart antagonists
-/datum/role_preference/latejoin
-	category = ROLE_PREFERENCE_CATEGORY_LATEJOIN
-	abstract_type = /datum/role_preference/latejoin
+/datum/role_preference/supplementary
+	category = ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY
+	abstract_type = /datum/role_preference/supplementary
 	per_character = TRUE
+	default_enabled = TRUE

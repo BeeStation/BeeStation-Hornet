@@ -54,7 +54,7 @@
 						span_userdanger("[A] scratches your face with their claws!"))
 	D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
 	D.adjust_confusion(8 SECONDS)
-	D.blur_eyes(5)
+	D.set_eye_blur_if_lower(10 SECONDS)
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 	playsound(get_turf(D), 'sound/weapons/slash.ogg', 100, TRUE, -1)
 

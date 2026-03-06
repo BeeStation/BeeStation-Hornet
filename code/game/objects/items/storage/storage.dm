@@ -14,7 +14,8 @@
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
-	create_storage(storage_type = storage_type)
+	if(!istype(atom_storage))
+		create_storage(storage_type = storage_type)
 
 	if(empty)
 		return

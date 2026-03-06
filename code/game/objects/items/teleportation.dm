@@ -126,6 +126,7 @@
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
 	active_portal_pairs = list()
+	AddElement(/datum/element/trackable)
 
 /obj/item/hand_tele/pre_attack(atom/target, mob/user, params)
 	if(try_dispel_portal(target, user))
@@ -185,7 +186,7 @@
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
 	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
-	if (!t1 || user.get_active_held_item() != src || user.incapacitated())
+	if (!t1 || user.get_active_held_item() != src || user.incapacitated)
 		return
 	if(active_portal_pairs.len >= max_portal_pairs)
 		user.show_message(span_notice("\The [src] is recharging!"))

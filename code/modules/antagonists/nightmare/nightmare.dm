@@ -6,7 +6,7 @@
 	banning_key = ROLE_NIGHTMARE
 	ui_name = "AntagInfoNightmare"
 	show_name_in_check_antagonists = TRUE
-	required_living_playtime = 4
+	required_living_playtime = 0
 
 /datum/antagonist/nightmare/greet()
 	. = ..()

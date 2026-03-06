@@ -113,7 +113,7 @@
 			if(affecting.receive_damage(1, 0))
 				H.update_damage_overlays()
 	else if(ismouse(target))
-		var/mob/living/simple_animal/mouse/M = target
+		var/mob/living/basic/mouse/M = target
 		visible_message(span_boldannounce("SPLAT!"))
 		M.splat()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)

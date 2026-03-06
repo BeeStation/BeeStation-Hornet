@@ -52,7 +52,7 @@
 	show_to_ghosts = TRUE
 	banning_key = ROLE_SPIDER
 	ui_name = "AntagInfoSpider"
-	required_living_playtime = 2
+	required_living_playtime = 0
 	var/datum/team/spiders/spider_team
 
 /datum/antagonist/spider/create_team(datum/team/spiders/new_team)

@@ -61,7 +61,7 @@
 			if(overmind)
 				heal_effect.color = overmind.blobstrain.complementary_color
 			else
-				heal_effect.color = "#000000"
+				heal_effect.color = COLOR_BLACK
 		adjustHealth(-maxHealth*BLOBMOB_HEALING_MULTIPLIER)
 
 /mob/living/simple_animal/hostile/blob/fire_act(exposed_temperature, exposed_volume)

@@ -6,7 +6,7 @@
 	antagpanel_category = ANTAG_GROUP_HORRORS
 	banning_key = ROLE_REVENANT
 	// TODO: ui_name = "AntagInfoRevenant"
-	required_living_playtime = 4
+	required_living_playtime = 0
 
 /datum/antagonist/revenant/greet()
 	owner.announce_objectives()

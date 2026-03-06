@@ -104,7 +104,7 @@
 			master_wizard.create_wiz_team()
 		new_apprentice.wiz_team = master_wizard.wiz_team
 		master_wizard.wiz_team.add_member(apprentice_body.mind)
-	apprentice_body.mind.add_antag_datum(new_apprentice)
+	apprentice_body.mind.add_antag_datum(new_apprentice, ruleset = master_wizard?.spawning_ruleset)
 
 	apprentice_body.mind.assigned_role = "Apprentice"
 	apprentice_body.mind.special_role = "apprentice"
@@ -185,7 +185,7 @@
 	new_op.nukeop_outfit = outfit
 
 	var/datum/antagonist/nukeop/creator_op = user?.has_antag_datum(/datum/antagonist/nukeop, TRUE)
-	nukie_body.mind.add_antag_datum(new_op, creator_op?.get_team())
+	nukie_body.mind.add_antag_datum(new_op, creator_op?.get_team(), creator_op?.spawning_ruleset)
 	nukie_body.mind.special_role = special_role_name
 
 	var/obj/structure/closet/supplypod/pod = setup_pod()
@@ -250,7 +250,7 @@
 
 	var/datum/antagonist/nukeop/new_borg = new()
 	new_borg.send_to_spawnpoint = FALSE
-	borg.mind.add_antag_datum(new_borg, creator_op.get_team())
+	borg.mind.add_antag_datum(new_borg, creator_op.get_team(), creator_op?.spawning_ruleset)
 	borg.mind.special_role = special_role_name
 
 	var/obj/structure/closet/supplypod/pod = setup_pod()
@@ -308,10 +308,15 @@
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/chosen_client, turf/forced_turf, datum/mind/user)
 	var/mob/living/simple_animal/hostile/imp/slaughter/demon = new demon_type(forced_turf)
 	new /obj/effect/dummy/phased_mob(forced_turf, demon)
+	var/datum/dynamic_ruleset/spawning_ruleset = null
+	for (var/datum/antagonist/antagonist in user.antag_datums)
+		if (antagonist.spawning_ruleset)
+			spawning_ruleset = antagonist.spawning_ruleset
+			break
 	demon.key = chosen_client.key
 	demon.mind.assigned_role = demon.name
 	demon.mind.special_role = demon.name
-	demon.mind.add_antag_datum(antag_type)
+	demon.mind.add_antag_datum(antag_type, ruleset = spawning_ruleset)
 	to_chat(demon, span_bold("You are currently not currently in the same plane of existence as the station. Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc."))
 
 /obj/item/antag_spawner/slaughter_demon/laughter

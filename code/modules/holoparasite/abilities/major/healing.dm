@@ -47,7 +47,7 @@
 	purge_toxins = (master_stats.defense >= 3)
 	heal_amt = CEILING(max(master_stats.potential * 0.8, 2) + 3, 0.5)
 	effect_heal_amt = CEILING(max(master_stats.potential * 0.85, 1), 1)
-	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REAGENTS_EFFECT_MULTIPLIER, 0.5)
+	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REM, 0.5)
 
 /datum/holoparasite_ability/major/healing/remove()
 	..()
@@ -164,7 +164,7 @@
 		if(istype(eyes))
 			eyes.apply_organ_damage(-actual_heal_amt)
 		target.adjust_blindness(-actual_effect_heal_amt)
-		target.adjust_blurriness(-actual_effect_heal_amt)
+		target.adjust_eye_blur(-actual_effect_heal_amt * 2)
 		target.adjust_disgust(-actual_effect_heal_amt)
 		target.adjust_dizzy(-actual_effect_heal_amt * 2) //Status's used to tick every 2 seconds before conversion to status effects, so we double them
 		target.adjust_confusion(-actual_effect_heal_amt * 2)

@@ -60,18 +60,18 @@
 #define BRUTELOSS (1<<0)
 #define FIRELOSS (1<<1)
 #define TOXLOSS (1<<2)
-#define OXYLOSS (1<<3)
-#define SHAME (1<<4)
-#define MANUAL_SUICIDE (1<<5) //suicide_act will do the actual killing.
-#define MANUAL_SUICIDE_NONLETHAL (1<<6) //when the suicide is conditionally lethal
+#define CLONELOSS (1<<3)
+#define OXYLOSS (1<<4)
+#define STAMINALOSS (1<<5)
+#define SHAME (1<<6)
+#define MANUAL_SUICIDE (1<<7) //suicide_act will do the actual killing.
+#define MANUAL_SUICIDE_NONLETHAL (1<<8) //when the suicide is conditionally lethal
 
 #define EFFECT_STUN "stun"
 #define EFFECT_KNOCKDOWN "knockdown"
 #define EFFECT_UNCONSCIOUS "unconscious"
 #define EFFECT_PARALYZE "paralyze"
 #define EFFECT_IMMOBILIZE "immobilize"
-#define EFFECT_EYE_BLUR "eye_blur"
-#define EFFECT_DROWSY "drowsy"
 
 //Bitflags defining which status effects could be or are inflicted on a mob
 #define CANSTUN (1<<0)
@@ -317,3 +317,11 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define ENERGY_SHIELD_EMP_VULNERABLE (1 << 3)
 /// Energy shield starts at 0 health
 #define ENERGY_SHIELD_DEPLETE_EQUIP (1 << 4)
+
+/// Return values used in item/melee/baton/baton_attack.
+/// Does a normal item attack.
+#define BATON_DO_NORMAL_ATTACK 1
+/// The attack has been stopped. Either because the user was clumsy or the attack was blocked.
+#define BATON_ATTACK_DONE 2
+/// The baton attack is still going. baton_effect() is called.
+#define BATON_ATTACKING 3

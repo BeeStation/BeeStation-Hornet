@@ -117,7 +117,8 @@
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	tool_behaviour = TOOL_WELDER
 	weapon_weight = WEAPON_LIGHT
-	fire_rate = 0.5 
+	resistance_flags = FIRE_PROOF
+	fire_rate = 0.5
 	automatic = 1
 	toolspeed = 0.7 //plasmacutters can be used as welders, and are faster than standard welders
 	var/progress_flash_divisor = 10  //copypasta is best pasta
@@ -194,7 +195,7 @@
 	else
 		. = ..(amount=1)
 
-/obj/item/gun/energy/plasmacutter/is_hot()
+/obj/item/gun/energy/plasmacutter/get_temperature()
 	if(use(1))
 		return heat_weld
 	return heat

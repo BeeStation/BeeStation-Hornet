@@ -9,7 +9,7 @@
 	 */
 	var/notes = ""
 	/// The accent color of the holoparasite being built.
-	var/accent_color = "#FFFFFF"
+	var/accent_color = COLOR_WHITE
 	/// The maximum amount of points the user can spend on the holoparasite.
 	var/max_points = 20
 	/// The current amount of available points the user can spend on the holoparasite.
@@ -195,7 +195,7 @@
 			var/color = params["color"]
 			if(!istext(color) || length(color) != 7)
 				return
-			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
+			var/new_accent_color = sanitize_hexcolor(color, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
 			if(is_color_dark_with_saturation(new_accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
 				to_chat(usr, span_warning("Selected accent color is too dark!"))
 				return

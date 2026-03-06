@@ -33,3 +33,6 @@
 #define CLOCKCULT_PREFIX_EMINENCE 2
 #define CLOCKCULT_PREFIX_MASTER 1
 #define CLOCKCULT_PREFIX_RECRUIT 0
+
+/// Helper macro to check if an atom is on Reebe virtual z-level
+#define is_on_reebe(atom) atom.get_virtual_z_level() == REEBE_VIRTUAL_Z
