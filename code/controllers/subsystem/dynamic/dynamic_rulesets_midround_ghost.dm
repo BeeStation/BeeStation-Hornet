@@ -282,7 +282,9 @@
 	return /mob/living/carbon/alien/larva
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/mob/living/carbon/alien/larva/new_xeno = new(pick_n_take(spawn_locations))
+	var/mob/living/carbon/alien/larva/new_xeno = new()
+	new_xeno.move_into_vent(pick_n_take(spawn_locations))
+
 	new_xeno.key = chosen_mob.key
 
 	return new_xeno
@@ -503,7 +505,9 @@
 	return /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
 
 /datum/dynamic_ruleset/midround/ghost/spiders/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/broodmother_body = new(pick(spawn_locations))
+	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/broodmother_body = new()
+	broodmother_body.move_into_vent(pick_n_take(spawn_locations))
+
 	broodmother_body.fed += 3
 	broodmother_body.lay_eggs.update_buttons()
 
