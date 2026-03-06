@@ -22,7 +22,7 @@ map corgstation
 endmap
 
 map pubbystation
-	maxplayers 50
+	minplayers 15
 	votable
 endmap
 
