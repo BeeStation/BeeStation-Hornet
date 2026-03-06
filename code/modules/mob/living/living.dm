@@ -2415,7 +2415,7 @@ GLOBAL_VAR_INIT(combat_indicator_overlay, GenerateCombatOverlay())
 		if(get_active_held_item())
 			ciweapon = get_active_held_item()
 			if(istype(ciweapon, /obj/item/gun))
-				visible_message(span_boldwarning("[src] raises \the [ciweapon] with their finger on the trigger!"))
+				visible_message(span_boldwarning("[src] raises \the [ciweapon] with [p_their()] finger on the trigger!"))
 			else
 				visible_message(span_boldwarning("[src] readies \the [ciweapon] with a tightened grip!"))
 		else
