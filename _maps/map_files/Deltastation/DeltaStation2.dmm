@@ -22956,6 +22956,23 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"djE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/button/shieldwallgen/directional/east{
+	color = "#00ff00";
+	pixel_y = 2;
+	id = "HolofieldDock";
+	pixel_x = 26
+	},
+/obj/machinery/button/door/directional/east{
+	pixel_y = -6;
+	id = "Explodockdoors";
+	pixel_x = 26
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "djF" = (
 /turf/closed/wall/r_wall,
 /area/science/nanite)
@@ -42913,6 +42930,12 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/main)
+"iNc" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-22"
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "iNg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -48270,7 +48293,8 @@
 /area/crew_quarters/dorms)
 "kJv" = (
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
-	dir = 1
+	dir = 1;
+	id = "HolofieldDock"
 	},
 /obj/structure/fans/tiny/invisible,
 /obj/structure/cable/yellow{
@@ -48279,7 +48303,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/open/floor/plating,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Explodockdoors"
+	},
+/turf/open/floor/iron/large,
 /area/hallway/secondary/entry)
 "kJx" = (
 /obj/structure/table/wood,
@@ -53017,13 +53044,16 @@
 /area/holodeck/rec_center)
 "mvd" = (
 /obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
-	id = 2
+	id = "HolofieldDock"
 	},
 /obj/structure/fans/tiny/invisible,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/turf/open/floor/plating,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Explodockdoors"
+	},
+/turf/open/floor/iron/large,
 /area/hallway/secondary/entry)
 "mve" = (
 /obj/effect/decal/cleanable/dirt,
@@ -66495,6 +66525,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "reP" = (
@@ -84964,6 +84995,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
+"xpw" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light/floor,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "xpy" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -116214,7 +116251,7 @@ cYD
 aaO
 aeR
 aft
-aeb
+iNc
 agj
 aaO
 uVR
@@ -116983,10 +117020,10 @@ aaO
 aaO
 aaO
 aaO
-xtq
+djE
 aeb
 reN
-agk
+xpw
 aaO
 aaO
 aaO

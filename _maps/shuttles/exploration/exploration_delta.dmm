@@ -80,13 +80,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/wall_closet/tool/directional/north,
-/obj/item/multitool,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/storage/toolbox/mechanical,
 /obj/machinery/atmospherics/components/binary/valve/layer2{
 	dir = 8
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ir" = (
@@ -165,7 +163,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/tank/air,
+/obj/machinery/atmospherics/components/tank/air{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "qi" = (
@@ -216,10 +216,6 @@
 "sz" = (
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/item/radio/intercom{
-	frequency = 1453;
-	pixel_y = 24
 	},
 /obj/machinery/gear_requisition/exploration,
 /obj/machinery/button/door/directional/west{
@@ -283,11 +279,6 @@
 /obj/item/storage/firstaid,
 /obj/item/reagent_containers/medspray/silver_sulf,
 /obj/item/reagent_containers/medspray/synthflesh,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"vi" = (
-/obj/structure/extinguisher_cabinet/directional/south,
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "zN" = (
@@ -376,7 +367,8 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/shieldwallgen/atmos{
-	id = "HolofieldExplo"
+	id = "HolofieldExplo";
+	anchored = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	id = "exploshutters"
@@ -494,7 +486,8 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/shieldwallgen/atmos{
 	dir = 1;
-	id = "HolofieldExplo"
+	id = "HolofieldExplo";
+	anchored = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	id = "exploshutters"
@@ -549,7 +542,13 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/layer_manifold/general/hidden/layer2{
+/obj/structure/wall_closet/tool/directional/north,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool,
+/obj/item/storage/belt/utility{
+	pixel_y = -3
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible/layer2{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
@@ -627,7 +626,7 @@ SA
 ts
 qi
 rQ
-vi
+SA
 Ax
 jR
 SA
