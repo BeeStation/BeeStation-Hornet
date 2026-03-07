@@ -118,6 +118,8 @@
 
 /datum/config_entry/number/arrivals_shuttle_dock_window	//Time from when a player late joins on the arrivals shuttle to when the shuttle docks on the station
 	config_entry_value = 55
+	integer = FALSE
+	min_val = 30
 
 /datum/config_entry/flag/arrivals_shuttle_require_undocked	//Require the arrivals shuttle to be undocked before latejoiners can join
 

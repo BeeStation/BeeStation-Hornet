@@ -194,7 +194,7 @@
 /obj/item/paper_bin/bundlenatural
 	name = "natural paper bundle"
 	desc = "A bundle of paper created using traditional methods."
-	icon_state = null
+	icon_state = "paper_bundle"
 	papertype = /obj/item/paper/natural
 	resistance_flags = FLAMMABLE
 	bin_overlay_string = "paper_bundle_overlay"
@@ -211,6 +211,11 @@
 /obj/item/paper_bin/bundlenatural/dump_contents(atom/droppoint)
 	. = ..()
 	qdel(src)
+
+/obj/item/paper_bin/bundlenatural/update_icon_state()
+	. = ..()
+	icon_state = null
+	// We need this null after it gets spawned so a crafting menu icon exists and so it doesn't interfere with the paper overlay
 
 /obj/item/paper_bin/bundlenatural/update_overlays()
 	bin_overlay = mutable_appearance(icon, bin_overlay_string)
