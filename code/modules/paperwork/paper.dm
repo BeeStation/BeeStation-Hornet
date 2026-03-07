@@ -493,94 +493,9 @@
 /obj/item/paper/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		/**
-		 * these signals are for checking whether the ui viewer is holding a writing tool.
-		 * (whether they are holding a writing tool matters for the state of the ui)
-		 *
-		 * we have to do this rigamarole, rather than just checking on ui_data calls,
-		 * because if we set this ui to autoupdate, it causes weird rendering issues.
-		 * rather than figure out why those are happening, it was easier to just turn off autoupdate.
-		 */
-		RegisterSignals(user, list(
-			COMSIG_MOB_UNEQUIPPED_ITEM,
-			COMSIG_MOB_EQUIPPED_ITEM,
-			COMSIG_MOB_SWAP_HANDS,
-			COMSIG_MOB_TRANSFORMING_ITEM, // specifically for pens
-		), PROC_REF(viewer_writing_state_change))
-		var/list/writing_info = get_viewer_writing_implement_details(user)
-		if(writing_info)
-			add_writer(user, writing_info, update = FALSE)
-
 		ui = new(user, src, "PaperSheet", name)
-		if(!ui.open())
-			ui_close(user)
-		// please see the above comment if you want to re-enable autoupdate
-		ui.set_autoupdate(FALSE)
-
-/obj/item/paper/ui_close(mob/user)
-	. = ..()
-	if(LAZYACCESS(writers, REF(user)))
-		remove_writer(user, update = FALSE)
-	UnregisterSignal(user, list(
-		COMSIG_MOB_UNEQUIPPED_ITEM,
-		COMSIG_MOB_EQUIPPED_ITEM,
-		COMSIG_MOB_SWAP_HANDS,
-		COMSIG_MOB_TRANSFORMING_ITEM,
-	))
-
-/// Generically check if we are holding a writing tool to update our writer status
-/obj/item/paper/proc/viewer_writing_state_change(mob/living/source)
-	SIGNAL_HANDLER
-
-	var/list/writing_info = get_viewer_writing_implement_details(source)
-	if(writing_info)
-		if(!LAZYACCESS(writers, REF(source)))
-			add_writer(source, writing_info)
-
-	else
-		if(LAZYACCESS(writers, REF(source)))
-			remove_writer(source)
-
-/// Add passed mob with passed writing info to the list of writers, then updates their ui
-/obj/item/paper/proc/add_writer(mob/living/user, list/writing_info, update = TRUE)
-	PRIVATE_PROC(TRUE)
-	set waitfor = FALSE
-
-	LAZYSET(writers, REF(user), writing_info)
-	if(update)
-		ui_interact(user)
-
-/// Remove passed mob from the list of writers, then updates their ui
-/obj/item/paper/proc/remove_writer(mob/living/user, update = TRUE)
-	PRIVATE_PROC(TRUE)
-	set waitfor = FALSE
-
-	LAZYREMOVE(writers, REF(user))
-	if(update)
-		ui_interact(user)
-
-/obj/item/paper/proc/get_viewer_writing_implement_details(mob/living/user)
-	if(istype(loc, /obj/structure/noticeboard))
-		var/obj/structure/noticeboard/noticeboard = loc
-		if(!noticeboard.allowed(user))
-			return null
-
-	var/obj/item/holding = user.get_active_held_item()
-	. = holding?.get_writing_implement_details()
-
-	// Use a clipboard's pen, if applicable
-	if(istype(loc, /obj/item/clipboard))
-		var/obj/item/clipboard/clipboard = loc
-		. ||= clipboard.pen?.get_writing_implement_details()
-
-	return .
-
-/obj/item/paper/ui_data(mob/user)
-	var/list/data = list()
-
-	data["held_item_details"] = LAZYACCESS(writers, REF(user))
-
-	return data
+		ui.open()
+		ui.set_autoupdate(TRUE)// Check if this holds true
 
 /obj/item/paper/ui_static_data(mob/user)
 	var/list/static_data = list()
