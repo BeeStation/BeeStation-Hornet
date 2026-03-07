@@ -20,6 +20,11 @@
 	///Last 'command' for UI stuff
 	var/last_command = ""
 
+/obj/machinery/plant_machine/seed_editor/examine(mob/user)
+	. = ..()
+	. += span_notice("[src] can be used to edit seed genetics.")
+	. += span_warning("[src] is not capable of saving genes.")
+
 /obj/machinery/plant_machine/seed_editor/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	playsound(src, 'sound/effects/glassknock.ogg', 15, TRUE)

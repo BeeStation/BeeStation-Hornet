@@ -156,11 +156,20 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
 
+/obj/item/shovel/spade/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	name = "spade ([arrived])"
+	icon_state = "spade_dirt"
+	arrived.pixel_y += 24
+
 /obj/item/shovel/spade/Exited(atom/movable/leaving, direction)
 	. = ..()
 	var/datum/component/plant/plant_comp = leaving.GetComponent(/datum/component/plant)
 	if(!plant_comp)
 		return
+	name = "spade"
+	icon_state = "spade"
+	leaving.pixel_y -= 24
 //Fruit - Don't allow people to game spade's pause function
 	//Deleted all fruit
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_comp.plant_features

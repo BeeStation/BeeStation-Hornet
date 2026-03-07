@@ -2994,7 +2994,7 @@
 	pixel_y = 5
 	},
 /obj/item/book/manual/wiki/plumbing,
-/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/hydroponics/tutorial,
 /turf/open/floor/iron,
 /area/holodeck/debug)
 "GN" = (

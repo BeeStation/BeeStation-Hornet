@@ -2,7 +2,7 @@
 	Mycelium, generic body for mushrooms
 */
 /datum/plant_feature/body/mushroom
-	species_name = "testus testium"
+	species_name = "fungus corporis"
 	name = "mycelium"
 	icon_state = ""
 	layer_offset = 0

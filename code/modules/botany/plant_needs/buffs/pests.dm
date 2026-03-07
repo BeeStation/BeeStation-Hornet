@@ -4,7 +4,7 @@
 */
 /datum/plant_need/reagent/buff/pests
 	need_description = "Wards off pests usually attracted to this plant's sweet aroma."
-	reagent_needs = list(/datum/reagent/toxin/pestkiller = 5, /datum/reagent/toxin = 1, /datum/reagent/consumable/ethanol = 3, /datum/reagent/fluorine = 1, /datum/reagent/chlorine = 1, /datum/reagent/diethylamine = 1,
+	reagent_needs = list(/datum/reagent/toxin/pestkiller = 3, /datum/reagent/toxin = 1, /datum/reagent/consumable/ethanol = 3, /datum/reagent/fluorine = 1, /datum/reagent/chlorine = 1, /datum/reagent/diethylamine = 1,
 	/datum/reagent/phosphorus = 1, /datum/reagent/diethylamine = 0.5)
 	auto_threshold = TRUE
 	debuff = TRUE
@@ -80,7 +80,7 @@
 
 /datum/plant_need/reagent/buff/pests/apply_buff(__delta_time)
 	. = ..()
-	pest_level -= (pest_build_up*__delta_time)*2 //pests are removed twice as fast as they build up
+	pest_level -= (pest_build_up*__delta_time)*10 //pests are removed faster than they build up
 	pest_level = max(pest_level, 0)
 
 /datum/plant_need/reagent/buff/pests/remove_buff(__delta_time)

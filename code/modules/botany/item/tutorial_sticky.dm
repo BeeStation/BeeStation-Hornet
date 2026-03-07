@@ -4,7 +4,7 @@
 /obj/item/sticker/sticky_note/tutorial/substrate
 	custom_text = "Substrate is in back, in crate, please don't throw away this time.\n\
 	\n\
-	- James"
+	- Billy Bob Johnson"
 
 /*
 	catalyst sticky, don't remove the catalyst
@@ -15,7 +15,7 @@
 	Apparently it's expensive, and our sample is really small. If you remove it, it will lose all its radioactivity and become a useless rock.\n\
 	Unless you can get better radioactive material, DON'T fuck with it. I'm serious.\n\
 	\n\
-	- James"
+	- Billy Bob Johnson"
 
 /*
 	Refraction matrix sticky, complicated
@@ -32,3 +32,18 @@
 	Stable refractions will cause the plant to produce the relvent reagent.\n\
 	\n\
 	This feature is WIP"
+
+/*
+	Botany guide sticky, summary
+*/
+/obj/item/sticker/sticky_note/tutorial/book
+	custom_text = "Everything has been moved in.\n\
+	We've been lent several pieces of Yamato equipment, try not to break anything.\n\
+	\n\
+	The seed sequencer can be used to edit seed genes. It's write only, so you can't extract DNA from seeds.\n\
+	\n\
+	The plant analyser can be used to archive plant genes. It's read only, so you can't modify a plant's DNA.\n\
+	\n\
+	The irradiator kiln can be used to rapidly mutate plant cells. Don't get in the kiln, I'm serious.\n\
+	\n\
+	- Billy Bob Johnson"

@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	/// Is this reagent consumed by plant trays? - Most reagents have this set to 0, as plants have a need datum or two that will actively consume it
 	var/tray_consumed = 0
 	/// What percentage of tray weeds to we remove
-	var/weed_kill = 0.3
+	var/weed_kill = 0
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()

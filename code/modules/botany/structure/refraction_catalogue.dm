@@ -5,7 +5,8 @@
 	icon_state = "refractor"
 	density = TRUE
 	anchored = FALSE
-	pass_flags = PASSTABLE
+	pass_flags_self = PASSSTRUCTURE
+	pass_flags = NONE
 	//interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 
 	//TODO: sampling reagents also helps reveal other reagents, reduces nearby reagents obscuration - Racc
@@ -79,6 +80,7 @@
 			grid_y = params["grid_y"]
 		if("upload_coords")
 			if(!SSbotany.refraction_coords["[list_accuracy]"]["[grid_x]:[grid_y]"])
+				say("For testing purposes, you choose an unstable grid square, this will not save to disk. Try again!")
 				return //TODO: Does it matter if the UI doesnt update here? - Racc
 			if(disk.saved)
 				QDEL_NULL(disk.saved)

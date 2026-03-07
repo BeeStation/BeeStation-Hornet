@@ -7,6 +7,8 @@
 	density = TRUE
 	interaction_flags_item = NONE
 	layer = OBJ_LAYER
+	pass_flags_self = PASSSTRUCTURE
+	pass_flags = NONE
 	///Reagents volume
 	var/buffer = 200
 	///Do we want the plumbing shit?
@@ -108,6 +110,7 @@
 
 /obj/item/plant_tray/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
+	//TODO: move this over to the component - Racc
 //Ported legacy code from old trays
 	//Composting
 	if(IS_EDIBLE(I) || istype(I, /obj/item/reagent_containers/pill))
@@ -125,6 +128,7 @@
 		var/obj/item/reagent_containers/spray/spray = I
 		visible_message(span_notice("[user] sprays [src] with [I]"))
 		playsound(src, 'sound/effects/spray3.ogg', 50, 1, -6)
+		//TODO: Case where it's empty - Racc
 		I.reagents?.trans_to(src, spray.amount_per_transfer_from_this, transfered_by = user)
 	//Quick feedback
 	update_reagents()

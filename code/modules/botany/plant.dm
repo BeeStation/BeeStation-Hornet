@@ -76,6 +76,8 @@
 		RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(catch_moved), TRUE)
 		spading = FALSE
 		return TRUE
+	else
+		spading = FALSE
 
 //Follow up for spade interaction
 /datum/component/plant/proc/catch_spade_attack(datum/source, atom/target, mob/user, params)

@@ -37,15 +37,15 @@
 		if(!plant)
 			return ..()
 		//Don't let immature plants through
+		var/new_seed_amount = seed_amount
 		var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant.plant_features
 		if(body_feature?.current_stage < body_feature?.growth_stages)
-			to_chat(user, span_warning("[plant_item] isn't mature enough to bear seeds!"))
-			return
+			new_seed_amount = 1
 		C.vis_contents -= plant_item
 		plant_item.forceMove(get_turf(src))
-		seedify(plant_item, seed_amount)
+		seedify(plant_item, new_seed_amount)
 		playsound(src, 'sound/machines/juicer.ogg', 30)
-		to_chat(user, "<span class='notice'>[seed_amount] seeds created!</span>")
+		to_chat(user, "<span class='notice'>[new_seed_amount] seeds created!</span>")
 		shake()
 //Store seeds
 	if(istype(C, /obj/item/plant_seeds))

@@ -1,5 +1,6 @@
 /*
 	Kirby base
+	//TODO: Monstera for Twiggy - Racc
 */
 /datum/plant_feature/body/kirby
 	species_name = "genus plantae"

@@ -34,6 +34,11 @@
 		icon = 'icons/obj/hydroponics/equipment.dmi'
 		icon_state = "dnamod"
 
+/obj/machinery/plant_machine/plant_analyser/examine(mob/user)
+	. = ..()
+	. += span_notice("[src] can be used to read and save plant genetics.")
+	. += span_warning("[src] is not capable of editing genes.")
+
 /obj/machinery/plant_machine/plant_analyser/proc/catch_pause(datum/source)
 	SIGNAL_HANDLER
 

@@ -71,8 +71,7 @@
 		return
 	else if(istype(I, /obj/item/shovel/spade) && length(plants))
 		to_chat(attacker, span_warning("You can't clear [parent]'s substrate while it still contains plants!"))
-	//special code selecting specific plants to uproot, helps when visiblity is sucky
-	if(istype(I, /obj/item/shovel/spade) && length(plants) > 1)
+		//special code selecting specific plants to uproot, helps when visiblity is sucky
 		INVOKE_ASYNC(src, PROC_REF(async_spade_options), attacker, I)
 		return
 //Let people fill trays with reagents by hand
