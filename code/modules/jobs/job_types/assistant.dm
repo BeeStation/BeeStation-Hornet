@@ -43,7 +43,7 @@ Assistant
 	return ..()
 
 /datum/job/assistant/get_access()
-	return FALSE
+	return base_access.Copy()
 
 /datum/outfit/job/assistant
 	name = JOB_NAME_ASSISTANT
