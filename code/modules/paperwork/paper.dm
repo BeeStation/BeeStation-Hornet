@@ -242,8 +242,8 @@
 		bold,
 	)
 
-	field_data_datum.field_data = new_input_datum;
-	field_data_datum.is_signature = is_signature;
+	field_data_datum.field_data = new_input_datum
+	field_data_datum.is_signature = is_signature
 
 	return TRUE
 
@@ -265,7 +265,7 @@
  */
 /obj/item/paper/proc/add_stamp(stamp_class, stamp_x, stamp_y, rotation, stamp_icon_state, stamp_icon = 'icons/obj/bureaucracy.dmi')
 	var/new_stamp_datum = new /datum/paper_stamp(stamp_class, stamp_x, stamp_y, rotation)
-	LAZYADD(raw_stamp_data, new_stamp_datum);
+	LAZYADD(raw_stamp_data, new_stamp_datum)
 
 	if(LAZYLEN(stamp_cache) > MAX_PAPER_STAMPS_OVERLAYS)
 		return
@@ -646,7 +646,7 @@
 				to_chat(src, span_warning("You can't stamp with the [holding]!"))
 				return TRUE
 
-			var/stamp_class = stamp_info["stamp_class"];
+			var/stamp_class = stamp_info["stamp_class"]
 
 			// If the paper is on an unwritable noticeboard, this usually shouldn't be possible.
 			if(istype(loc, /obj/structure/noticeboard))
@@ -713,7 +713,7 @@
 			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_FUN))
 
 			log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
-			to_chat(user, "You have added to your paper masterpiece!");
+			to_chat(user, "You have added to your paper masterpiece!")
 
 			update_static_data_for_all_viewers()
 			update_appearance()
@@ -805,7 +805,7 @@
 	advanced_html = _advanced_html
 
 /datum/paper_input/proc/make_copy()
-	return new /datum/paper_input(raw_text, font, colour, bold, advanced_html);
+	return new /datum/paper_input(raw_text, font, colour, bold, advanced_html)
 
 /datum/paper_input/proc/to_list()
 	return list(
