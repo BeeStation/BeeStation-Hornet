@@ -163,7 +163,7 @@
 	illustration = "survival"
 	desc = "A compact box that is designed to hold specific emergency supplies"
 	w_class = WEIGHT_CLASS_SMALL //So the roundstart box takes up less space.
-	var/mask_type = /obj/item/clothing/mask/breath
+	var/mask_type = /obj/item/clothing/mask/gas/old
 	var/internal_type = /obj/item/tank/internals/emergency_oxygen
 	var/medipen_type = /obj/item/reagent_containers/hypospray/medipen
 

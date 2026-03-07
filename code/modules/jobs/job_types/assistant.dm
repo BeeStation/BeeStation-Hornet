@@ -43,22 +43,15 @@ Assistant
 	return ..()
 
 /datum/job/assistant/get_access()
-	. = ..()
-	if(CONFIG_GET(flag/assistants_have_maint_access)) //Config has assistant maint access set
-		. |= ACCESS_MAINT_TUNNELS
-	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= list(ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_AUX_BASE)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_BARTENDER, ACCESS_BAR)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_BARTENDER, ACCESS_JANITOR)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_COOK, ACCESS_KITCHEN)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_BOTANIST, ACCESS_HYDROPONICS)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_CLOWN, ACCESS_THEATRE)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_CURATOR, ACCESS_LIBRARY)
+	return FALSE
 
 /datum/outfit/job/assistant
 	name = JOB_NAME_ASSISTANT
 	jobtype = /datum/job/assistant
 	belt = /obj/item/modular_computer/tablet/pda/preset/assistant
+	gloves = /obj/item/clothing/gloves/color/fyellow/old
+	r_hand = /obj/item/storage/toolbox/mechanical
+	r_pocket = /obj/item/multitool
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H)
 	..()
