@@ -198,11 +198,12 @@
 	update_appearance()
 
 /obj/item/clipboard/preloaded
-	var/list/papers_to_add = list(/obj/item/paper,/obj/item/paper,/obj/item/paper) //Default to 3 sheets of blank paper
+	var/list/papers_to_add = list(/obj/item/paper, /obj/item/paper, /obj/item/paper) //Default to 3 sheets of blank paper
 
 /obj/item/clipboard/preloaded/Initialize(mapload)
 	//Fill the clipboard with new papers
-	for(var/obj/item/paper/paper in papers_to_add) //this fails
+	for(var/papers_added in papers_to_add) //this fails
+		var/obj/item/paper = new papers_added(src)
 		if(!toppaper_ref)
 			toppaper_ref = WEAKREF(paper)
 
