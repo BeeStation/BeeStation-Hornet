@@ -403,7 +403,7 @@ const InspectionPanelFeature = (props) => {
                         chapters['features']['/datum/plant_feature/roots'][
                           plant_key
                         ]['stats']['name']
-                      } (mutates into)`}
+                      } (mutates from)`}
                 </Button>
               ))
             ) : (
