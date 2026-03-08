@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		else
 			var/mob/living/mob = target
 			mob.attack_animal(src)
-			mob.adjustStaminaLoss(25) // Why did it use shocking, that's ass
+			mob.adjustStaminaLoss(40) // Why did it use shocking, that's ass
 		return TRUE
 	else
 		return ..()
