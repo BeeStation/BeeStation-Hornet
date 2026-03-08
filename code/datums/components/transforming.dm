@@ -126,7 +126,7 @@
  * Also starts the [transform_cooldown] if we have a set [transform_cooldown_time].
  *
  * source - the item being transformed / parent
- * user - the mob transforming the item (can be null)
+ * user - the mob transforming the item
  *
  * returns TRUE.
  */

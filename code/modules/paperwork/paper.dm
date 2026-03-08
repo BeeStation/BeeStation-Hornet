@@ -67,9 +67,6 @@
 	///If TRUE, staff can read paper everywhere, but usually from requests panel.
 	var/request_state = FALSE
 
-	/// Assoc Lazylist of REF()s to mobs that are viewing the paper while holding a writing tool to what that tool's writing implement details are
-	VAR_FINAL/list/writers
-
 /obj/item/paper/Initialize(mapload)
 	. = ..()
 	if (!mapload)
