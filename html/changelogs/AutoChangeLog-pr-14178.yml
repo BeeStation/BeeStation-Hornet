@@ -1,4 +1,0 @@
-author: Isaacnml
-delete-after: true
-changes:
-  - bugfix: Exploration blackbox objectives can be tracked by GPS/Hardsuits once again
