@@ -276,6 +276,18 @@
 	limb_id = "golem"
 	dmg_overlay_type = null
 
+/obj/item/bodypart/leg/left/golem/gold
+
+/obj/item/bodypart/leg/right/golem/gold
+
+/obj/item/bodypart/leg/left/golem/copper
+
+/obj/item/bodypart/leg/right/golem/copper
+
+/obj/item/bodypart/leg/left/golem/copper
+
+/obj/item/bodypart/leg/right/golem/copper
+
 ///
 /obj/item/bodypart/head/golem/alloy
 	is_dimorphic = FALSE
