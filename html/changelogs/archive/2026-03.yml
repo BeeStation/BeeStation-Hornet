@@ -78,3 +78,6 @@
   - bugfix: Fixed some nullrod variants not having icons on the radial menu variant
       select
   - bugfix: Fixed the ninja plant explosive always failing
+2026-03-08:
+  Isaacnml:
+  - bugfix: Exploration blackbox objectives can be tracked by GPS/Hardsuits once again
