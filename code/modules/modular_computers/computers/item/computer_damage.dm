@@ -14,18 +14,17 @@
 
 
 /obj/item/modular_computer/deconstruct(disassembled = TRUE)
-	break_apart()
+	if(flags_1 & NODECONSTRUCT_1)
+		return ..()
+	physical.visible_message("\The [src] breaks apart!")
 
-/obj/item/modular_computer/proc/break_apart()
-	if(!(flags_1 & NODECONSTRUCT_1))
-		physical.visible_message("\The [src] breaks apart!")
-		var/turf/newloc = get_turf(src)
-		new /obj/item/stack/sheet/iron(newloc, round(steel_sheet_cost/2))
-		for(var/port in all_components)
-			var/obj/item/computer_hardware/component = all_components[port]
-			if(prob(MC_PART_DROP_CHANCE))
-				uninstall_component(component)	// Lets not just delete all components like that
-			else
-				qdel(component)
-	relay_qdel()
-	qdel(src)
+	var/iron_to_drop = steel_sheet_cost / 2
+	if(iron_to_drop >= 1)
+		new /obj/item/stack/sheet/iron(drop_location(), iron_to_drop)
+
+	for(var/port, component in all_components)
+		if(prob(MC_PART_DROP_CHANCE))
+			uninstall_component(component)	// Lets not just delete all components like that
+		else
+			qdel(component)
+	return ..()

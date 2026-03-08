@@ -14,7 +14,7 @@
 			"name" = "Devices & Kits",
 			"icon" = "toolbox",
 			"products" = list(
-					/obj/item/paicard = 2,
+					/obj/item/pai_card = 2,
 					/obj/item/modular_computer/laptop = 3,
 					/obj/item/modular_computer/tablet = 3,
 					/obj/item/storage/box/tablet4dummies = 6,

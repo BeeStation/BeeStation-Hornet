@@ -320,7 +320,7 @@
 	return FALSE
 
 /obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, params)
-	if(istype(attacking_item, /obj/item/paicard))
+	if(istype(attacking_item, /obj/item/pai_card))
 		if(!open)
 			balloon_alert(user, "cover closed!")
 			return FALSE

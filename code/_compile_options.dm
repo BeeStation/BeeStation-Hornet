@@ -26,6 +26,8 @@
 #define FIND_REF_NO_CHECK_TICK
 #endif //ifdef GC_FAILURE_HARD_LOOKUP
 
+// Log references in their own file, rather then in runtimes.log
+//#define REFERENCE_TRACKING_LOG_APART
 #endif //ifdef REFERENCE_TRACKING
 
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
@@ -67,7 +69,23 @@
 #define REFERENCE_TRACKING
 // actually look for refs
 #define GC_FAILURE_HARD_LOOKUP
+// Log references in their own file
+#define REFERENCE_TRACKING_LOG_APART
 #endif // REFERENCE_DOING_IT_LIVE
+
+/// Sets up the reftracker to be used locally, to hunt for hard deletions
+/// Errors are logged to [log_dir]/harddels.log
+//#define REFERENCE_TRACKING_STANDARD
+#ifdef REFERENCE_TRACKING_STANDARD
+// compile the backend
+#define REFERENCE_TRACKING
+// actually look for refs
+#define GC_FAILURE_HARD_LOOKUP
+// spend ALL our time searching, not just part of it
+#define FIND_REF_NO_CHECK_TICK
+// Log references in their own file
+#define REFERENCE_TRACKING_LOG_APART
+#endif // REFERENCE_TRACKING_STANDARD
 
 #ifdef REFERENCE_TRACKING_FAST
 #define REFERENCE_TRACKING

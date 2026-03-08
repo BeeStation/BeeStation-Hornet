@@ -585,7 +585,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(!isnull(E.lighting_alpha))
 			lighting_alpha = E.lighting_alpha
 
-	if(client.eye != src)
+	if(client.eye && client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
@@ -928,6 +928,13 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		QDEL_NULL(legcuffed)
 		set_handcuffed(null)
 		update_handcuffed()
+
+	// clear bodypart stamina since stam_damage_coeff causes setStaminaLoss(0) to insufficient heal (coefficient-adjusted total < raw total)
+	if(heal_flags & HEAL_STAM)
+		for(var/obj/item/bodypart/BP as anything in bodyparts)
+			if(BP.stamina_dam)
+				BP.heal_damage(0, 0, BP.stamina_dam, forced = TRUE)
+		update_stamina()
 
 	return ..()
 

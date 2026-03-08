@@ -365,7 +365,7 @@
 
 /datum/reagent/fuel/unholywater/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		exposed_mob.reagents.add_reagent(type,reac_volume/4)
+		exposed_mob.reagents?.add_reagent(type,reac_volume/4)
 		return
 	return ..()
 
