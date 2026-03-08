@@ -4,6 +4,9 @@
 /obj/item/plant_seeds/preset/kirby
 	name = "designer seeds"
 
+/*
+	Traditional Kirbies
+*/
 /obj/item/plant_seeds/preset/kirby/tall_berries
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/tall, /datum/plant_feature/fruit/berry/red)
 
@@ -46,17 +49,20 @@
 /obj/item/plant_seeds/preset/kirby/sticks/cousin
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/sticks, /datum/plant_feature/fruit/flower)
 
-/obj/item/plant_seeds/preset/kirby/sticks/not_tomato
+/obj/item/plant_seeds/preset/kirby/not_tomato
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/not_tomato)
 
-/obj/item/plant_seeds/preset/kirby/sticks/hair
+/obj/item/plant_seeds/preset/kirby/hair
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/hair)
 
-/obj/item/plant_seeds/preset/kirby/sticks/wood
+/obj/item/plant_seeds/preset/kirby/wood
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/wood)
 
-/obj/item/plant_seeds/preset/kirby/sticks/wood/cousin
+/obj/item/plant_seeds/preset/kirby/wood/cousin
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/wood/cousin)
 
-/obj/item/plant_seeds/preset/kirby/sticks/wood/sharp
+/obj/item/plant_seeds/preset/kirby/sharp
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/sharp)
+
+/obj/item/plant_seeds/preset/kirby/alien
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/alien, /datum/plant_feature/fruit/flower/spiral)

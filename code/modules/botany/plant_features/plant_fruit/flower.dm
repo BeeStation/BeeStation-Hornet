@@ -19,6 +19,10 @@
 /datum/plant_feature/fruit/flower/pink
 	colour_override = "#ffc5e5"
 
+/datum/plant_feature/fruit/flower/yellow
+	colour_override = "#fff23f"
+
+
 /*
 	Poppy
 */
@@ -114,6 +118,15 @@
 	fruit_product = /obj/item/food/grown/flower/moonflower
 	fast_reagents = list(/datum/reagent/consumable/ethanol/moonshine = PLANT_REAGENT_MEDIUM, /datum/reagent/acetone = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/flower/sun)
+
+/*
+	Spiral
+*/
+/datum/plant_feature/fruit/flower/spiral
+	species_name = "sol flos"
+	name = "spiral flower"
+	icon_state = "spiral"
+	fruit_product = null
 
 /*
 	Rainbow Flower

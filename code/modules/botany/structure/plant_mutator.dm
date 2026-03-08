@@ -197,13 +197,9 @@
 			last_command = "per kiln heat -f -k -m [params["key"]]"
 			confirm_radiation = FALSE
 			ui_update()
-			if(!catalyst)
-				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
-				say("ERROR: No catalyst inserted!")
-				return
 			if(stored_rads <= 0)
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
-				say("ERROR: Catalyst lacks adequate radioactivity!")
+				say("ERROR: Coil lacks adequate radioactivity!")
 				return
 			var/datum/plant_feature/feature = locate(current_feature_ref)
 			if(!length(feature.mutations))
@@ -216,7 +212,7 @@
 			var/tax = feature.mutations[new_feature] || 1
 			if(stored_rads-tax <= 0)
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
-				say("ERROR: Catalyst lacks adequate radioactivity, operation requires [tax] Roentgen!")
+				say("ERROR: Coil lacks adequate radioactivity, operation requires [tax] Roentgen!")
 				return
 			stored_rads -= tax
 			//Flight checks

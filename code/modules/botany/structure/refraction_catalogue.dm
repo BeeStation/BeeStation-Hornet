@@ -79,6 +79,10 @@
 			grid_x = params["grid_x"]
 			grid_y = params["grid_y"]
 		if("upload_coords")
+			if(!disk)
+				playsound(src, 'sound/machines/terminal_error.ogg', 60)
+				say("ERROR: No disk inserted!")
+				return
 			if(!SSbotany.refraction_coords["[list_accuracy]"]["[grid_x]:[grid_y]"])
 				say("For testing purposes, you choose an unstable grid square, this will not save to disk. Try again!")
 				return //TODO: Does it matter if the UI doesnt update here? - Racc

@@ -113,3 +113,14 @@
 /datum/plant_feature/body/kirby/sharp
 	icon_state = "plant-05"
 	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+
+//alien
+/datum/plant_feature/body/kirby/alien
+	icon_state = "plant-13"
+	overlay_positions = list(list(16, 22))
+
+/datum/plant_feature/body/kirby/alien/apply_fruit_overlay(obj/effect/fruit_effect, offset_x, offset_y)
+	fruit_effect.pixel_x = offset_x-17
+	fruit_effect.pixel_y = offset_y-16
+	parent.plant_item.vis_contents += fruit_effect
+	fruit_overlays += fruit_effect
