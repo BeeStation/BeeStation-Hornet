@@ -1,6 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - tweak: Improved species height code
-  - rscadd: Added support for directions in species height code
-  - rscadd: Added support for unique maps in species height code
