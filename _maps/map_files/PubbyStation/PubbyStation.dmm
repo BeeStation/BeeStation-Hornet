@@ -8351,51 +8351,48 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "aVh" = (
-/obj/structure/table/glass,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_y = 22
-	},
-/obj/item/reagent_containers/cup/glass/bottle/beer/syndicate,
-/obj/item/reagent_containers/cup/glass/bottle/champagne{
-	step_x = 12;
-	step_y = 8
-	},
-/obj/item/reagent_containers/cup/glass/bottle/hcider{
-	step_x = -9
-	},
+/obj/structure/table/reinforced,
 /obj/item/reagent_containers/cup/glass/bottle/goldschlager{
-	step_x = 5
+	pixel_y = 17
+	},
+/obj/item/reagent_containers/cup/glass/bottle/sake{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/bottle/applejack{
+	pixel_y = 5
 	},
 /obj/item/reagent_containers/cup/glass/bottle/fernet{
-	step_x = -4
+	pixel_x = 14;
+	pixel_y = 8
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/obj/item/reagent_containers/cup/glass/bottle/moonshine{
+	pixel_x = 9;
+	pixel_y = -1
+	},
+/turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "aVi" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/bottle/molotov,
-/obj/item/reagent_containers/cup/glass/bottle/trappist{
-	step_x = 9;
-	step_y = 3
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/bottle/patron{
+	pixel_y = 3
 	},
-/obj/item/reagent_containers/cup/glass/bottle/vermouth{
-	step_x = -9
+/obj/item/reagent_containers/cup/glass/bottle/beer/light{
+	pixel_y = 8;
+	pixel_x = -5
 	},
-/obj/item/reagent_containers/cup/glass/bottle/wine{
-	step_x = -5;
-	step_y = 5
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
+	pixel_y = 2;
+	pixel_x = -10
 	},
-/obj/item/reagent_containers/cup/glass/bottle/grappa{
-	step_x = 16;
-	step_y = 5
+/obj/item/reagent_containers/cup/glass/bottle/hcider{
+	pixel_x = 7;
+	pixel_y = 10
 	},
-/obj/item/reagent_containers/cup/glass/bottle/grenadine{
-	step_x = -11
+/obj/item/reagent_containers/cup/glass/bottle/blazaam{
+	pixel_x = 8;
+	pixel_y = 3
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "aVj" = (
 /obj/machinery/disposal/bin,
@@ -12271,11 +12268,6 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/surgery)
-"bsl" = (
-/obj/structure/sign/warning/vacuum/external,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/hallway/secondary/entry)
 "bst" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -19223,24 +19215,27 @@
 /turf/closed/wall,
 /area/crew_quarters/bar)
 "cpb" = (
-/obj/structure/table/glass,
-/obj/machinery/light/small{
-	dir = 1
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium{
+	pixel_x = 5;
+	pixel_y = 6
 	},
-/obj/item/reagent_containers/cup/glass/bottle/lizardwine{
-	step_x = 7
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
+	pixel_y = 4
 	},
-/obj/item/reagent_containers/cup/glass/bottle/kahlua{
-	step_x = -8
+/obj/item/reagent_containers/cup/glass/bottle/trappist{
+	pixel_y = -1;
+	pixel_x = 9
 	},
-/obj/item/reagent_containers/cup/glass/bottle/rum{
-	step_y = 8
+/obj/item/reagent_containers/cup/glass/bottle/gin{
+	pixel_y = 6;
+	pixel_x = -15
 	},
-/obj/item/reagent_containers/cup/glass/bottle/sake,
-/obj/machinery/camera/directional/north{
-	c_tag = "Bar - Main Hall"
+/obj/item/reagent_containers/cup/glass/bottle/tequila{
+	pixel_y = 0;
+	pixel_x = -9
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "cpc" = (
 /obj/machinery/chem_dispenser/drinks,
@@ -32482,6 +32477,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/effect/landmark/start/randommaint/psychiatrist,
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "idG" = (
@@ -36189,6 +36185,7 @@
 /turf/open/floor/wood,
 /area/syndicate_sat)
 "jOX" = (
+/obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
 /area/hallway/secondary/entry)
 "jPg" = (
@@ -47115,6 +47112,7 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
+/obj/effect/landmark/start/randommaint/psychiatrist,
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
 "oRP" = (
@@ -64420,11 +64418,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hor)
-"xee" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/sign/warning/vacuum/external,
-/turf/open/floor/plating,
-/area/hallway/secondary/exit/departure_lounge)
 "xef" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -83796,7 +83789,7 @@ aaa
 aaa
 aHA
 aKy
-xee
+mni
 aKy
 aHA
 aaa
@@ -83804,7 +83797,7 @@ aaa
 aaa
 aHA
 aKy
-xee
+mni
 qIC
 aHA
 aaa
@@ -87422,9 +87415,9 @@ aZx
 jzz
 cuC
 vdd
-aYG
+jzz
 aZx
-bsl
+aZx
 btL
 aZx
 aaa
@@ -87938,7 +87931,7 @@ kDu
 baK
 baK
 baK
-bsl
+aZx
 xcc
 aZx
 aYG
