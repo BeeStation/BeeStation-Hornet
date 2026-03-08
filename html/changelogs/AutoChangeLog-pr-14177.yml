@@ -1,0 +1,7 @@
+author: Fikou, r1ks-iwnl
+delete-after: true
+changes:
+  - balance: Removed healing amplification from BDM's trophy.
+  - bugfix: Fixed BDM trophy damage overlay making you near blind if you have oxy
+      damage.
+  - bugfix: Fixed BDM trophy making you unconscious if you have 5 or more oxy damage.
