@@ -264,7 +264,6 @@
 	if(!(upgrade_type in power_lottery[H]))
 		return
 	. = TRUE
-	var/datum/species/S = H.dna.species
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, span_notice("You feel resistant to airborne toxins."))
@@ -277,15 +276,15 @@
 			ADD_TRAIT(H, TRAIT_NOBREATH, "dna_vault")
 		if(VAULT_FIREPROOF)
 			to_chat(H, span_notice("You feel fireproof."))
-			S.burnmod = 0.5
+			H.physiology.burn_mod = 0.5
 			ADD_TRAIT(H, TRAIT_RESISTHEAT, "dna_vault")
 			ADD_TRAIT(H, TRAIT_NOFIRE, "dna_vault")
 		if(VAULT_STUNTIME)
 			to_chat(H, span_notice("Nothing can keep you down for long."))
-			S.stunmod = 0.5
+			H.physiology.stun_mod = 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, span_notice("You feel tough."))
-			S.armor = 30
+			H.physiology.damage_resistance = 30
 			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "dna_vault")
 		if(VAULT_SPEED)
 			to_chat(H, span_notice("Your legs feel faster."))

@@ -28,7 +28,7 @@
 	mutant_organs = list(/obj/item/organ/adamantine_resonator)
 	mutanttongue = /obj/item/organ/tongue/golem
 	speedmod = 2
-	armor = 55
+	damage_modifier = 55
 	siemens_coeff = 0
 	punchdamage = 11
 	no_equip_flags = ITEM_SLOT_MASK | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
@@ -169,7 +169,7 @@
 	name = "Diamond Golem"
 	id = SPECIES_GOLEM_DIAMOND
 	fixed_mut_color = COLOR_CYAN
-	armor = 70 //up from 55
+	damage_modifier = 70 //up from 55
 	meat = /obj/item/stack/ore/diamond
 	info_text = "As a " + span_danger("Diamond Golem") + ", you are more resistant than the average golem."
 	prefix = "Diamond"
@@ -182,7 +182,7 @@
 	id = SPECIES_GOLEM_GOLD
 	fixed_mut_color = "#cccc00"
 	speedmod = 1
-	armor = 25 //down from 55
+	damage_modifier = 25 //down from 55
 	meat = /obj/item/stack/ore/gold
 	info_text = "As a " + span_danger("Gold Golem") + ", you are faster but less resistant than the average golem."
 	prefix = "Golden"
@@ -216,7 +216,7 @@
 	id = SPECIES_GOLEM_COPPER
 	fixed_mut_color = "#d95802"
 	speedmod = 1.5
-	armor = 30
+	damage_modifier = 30
 	meat = /obj/item/stack/ore/copper
 	siemens_coeff = 1 //set as conductive, next line sets shock immunity
 	inherent_traits = list(
@@ -269,7 +269,6 @@
 	fixed_mut_color = COLOR_WHITE
 	meat = /obj/item/stack/ore/titanium
 	info_text = "As a " + span_danger("Titanium Golem") + ", you are immune to ash storms, and slightly more resistant to burn damage."
-	burnmod = 0.9
 	prefix = "Titanium"
 	special_names = list("Dioxide")
 
@@ -288,7 +287,6 @@
 	fixed_mut_color = "#888888"
 	meat = /obj/item/stack/ore/titanium
 	info_text = "As a " + span_danger("Plastitanium Golem") + ", you are immune to both ash storms and lava, and slightly more resistant to burn damage."
-	burnmod = 0.8
 	prefix = "Plastitanium"
 	special_names = null
 
@@ -346,8 +344,7 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER
 	)
-	armor = 30
-	burnmod = 1.25
+	damage_modifier = 30
 	heatmod = 1.5
 	info_text = "As a " + span_danger("Wood Golem") + ", you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"
@@ -403,9 +400,7 @@
 	id = SPECIES_GOLEM_SAND
 	fixed_mut_color = "#ffdc8f"
 	meat = /obj/item/stack/ore/glass //this is sand
-	armor = 0
-	burnmod = 3 //melts easily
-	brutemod = 0.25
+	damage_modifier = 0
 	info_text = "As a " + span_danger("Sand Golem") + ", you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
 	attack_sound = 'sound/effects/shovel_dig.ogg'
 	prefix = "Sand"
@@ -434,9 +429,7 @@
 	id = SPECIES_GOLEM_GLASS
 	fixed_mut_color = "#5a96b4aa" //transparent body
 	meat = /obj/item/shard
-	armor = 0
-	brutemod = 3 //very fragile
-	burnmod = 0.25
+	damage_modifier = 0
 	info_text = "As a " + span_danger("Glass Golem") + ", you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
 	attack_sound = 'sound/effects/glassbr2.ogg'
 	prefix = "Glass"
@@ -665,12 +658,12 @@
 	var/datum/action/spell/pointed/dominate/dominate
 
 	bodypart_overrides = list(
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/cult,
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/cult,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/cult,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/cult,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/cult,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cult
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/runic,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/runic,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/runic,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/runic,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/runic,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/runic
 	)
 
 /datum/species/golem/runic/spec_death(gibbed, mob/living/carbon/human/body)
@@ -724,7 +717,7 @@
 	info_text = span_boldalloy("As a " + span_danger("Clockwork Golem") + ", you are faster than other types of golems. On death, you will break down into scrap.")
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
-	armor = 20 //Reinforced, but much less so to allow for fast movement
+	damage_modifier = 20 //Reinforced, but much less so to allow for fast movement
 	attack_verb = "smash"
 	attack_sound = 'sound/magic/clockwork/anima_fragment_attack.ogg'
 	sexes = FALSE
@@ -785,7 +778,7 @@
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 	)
-	armor = 15 //Balance reasons make this armor weak
+	damage_modifier = 15 //Balance reasons make this armor weak
 	no_equip_flags = NONE
 	has_corpse = TRUE
 	random_eligible = FALSE
@@ -812,8 +805,7 @@
 		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
-	armor = 15 //feels no pain, but not too resistant
-	burnmod = 2 // don't get burned
+	damage_modifier = 15 //feels no pain, but not too resistant
 	speedmod = 1 // not as heavy as stone
 	punchdamage = 6
 	prefix = "Cloth"
@@ -1093,8 +1085,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	attack_sound = 'sound/weapons/whip.ogg'
 	miss_sound = 'sound/weapons/etherealmiss.ogg'
 	fixed_mut_color = null
-	armor = 25
-	burnmod = 1.25
+	damage_modifier = 25
 	heatmod = 2
 	speedmod = 1.5
 	punchdamage = 6
@@ -1293,8 +1284,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	name = "Snow Golem"
 	id = SPECIES_GOLEM_SNOW
 	fixed_mut_color = null //custom sprites
-	armor = 45 //down from 55
-	burnmod = 3 //melts easily
+	damage_modifier = 45 //down from 55
 	info_text = "As a " + span_danger("Snow Golem") + ", you are extremely vulnerable to burn damage, but you can generate snowballs and shoot cryokinetic beams. You will also turn to snow when dying, preventing any form of recovery."
 	prefix = "Snow"
 	special_names = list("Flake", "Blizzard", "Storm")
