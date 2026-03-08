@@ -30,6 +30,9 @@
 	///Fruit size for body compatibility
 	var/fruit_size = PLANT_FRUIT_SIZE_SMALL
 
+	//TODO: Go through and apply this to each fruit datum - Racc
+	///Is our icon uneven? Aka if it needs to be shifted back into place when mirrored
+	var/icon_uneven = FALSE
 	///Colour override for greyscale fruits
 	var/colour_override ="#fff"
 	///Colourable features, if we don't colour the whole thing
@@ -152,12 +155,17 @@
 		fruit_effect.appearance = bunch ? bunch_appearance : feature_appearance
 		if(islist(colour_override))
 			fruit_effect.color = pick(colour_override)
+		if(prob(50)) //50% chance for fruit to be mirrored
+			fruit_effect.transform = fruit_effect.transform.Scale(-1, 1)
+			fruit_effect.pixel_x += icon_uneven ? 1 : 0
 		fruit_effect.alpha = 0 //Fruits shouldn't fuck with alpha, use colour instead - Make the alpha 0 until we start animating
 		fruit_effect.vis_flags = VIS_INHERIT_ID
 		_visual_fruits += fruit_effect
 		visual_fruits["[fruit_index]"] = fruit_effect
 
 /datum/plant_feature/fruit/proc/build_fruit()
+	if(!fruit_product)
+		return
 //Fruit setup
 	var/obj/item/food/grown/new_fruit = new fruit_product(parent.plant_item, TRUE)
 	if(istype(new_fruit))

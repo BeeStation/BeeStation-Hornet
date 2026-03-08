@@ -5,6 +5,7 @@
 	species_name = "frumentum flavum"
 	name = "corn"
 	icon_state = "corn"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/corn
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = PLANT_REAGENT_MEDIUM)

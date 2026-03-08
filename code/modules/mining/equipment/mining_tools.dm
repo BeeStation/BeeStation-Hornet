@@ -160,7 +160,8 @@
 	. = ..()
 	name = "spade ([arrived])"
 	icon_state = "spade_dirt"
-	arrived.pixel_y += 24
+	arrived.pixel_y += 11
+	arrived.pixel_x += 5
 
 /obj/item/shovel/spade/Exited(atom/movable/leaving, direction)
 	. = ..()
@@ -169,7 +170,8 @@
 		return
 	name = "spade"
 	icon_state = "spade"
-	leaving.pixel_y -= 24
+	leaving.pixel_y -= 11
+	leaving.pixel_x += 5
 //Fruit - Don't allow people to game spade's pause function
 	//Deleted all fruit
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_comp.plant_features

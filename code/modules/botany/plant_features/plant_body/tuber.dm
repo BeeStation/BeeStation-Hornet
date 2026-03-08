@@ -31,6 +31,7 @@
 
 /datum/plant_feature/body/tuber/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest)
 	. = ..()
+	//TODO:Remove self from tray lights - R
 	if(yields <= 0)
 		qdel(parent.plant_item)
 

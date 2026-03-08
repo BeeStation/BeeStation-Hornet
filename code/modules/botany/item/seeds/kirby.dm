@@ -66,3 +66,6 @@
 
 /obj/item/plant_seeds/preset/kirby/alien
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/alien, /datum/plant_feature/fruit/flower/spiral)
+
+/obj/item/plant_seeds/preset/kirby/monstera
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/monstera)

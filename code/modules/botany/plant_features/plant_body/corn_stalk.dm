@@ -81,4 +81,5 @@
 	growth_stages = 2 //This is inherited as 2, this is a safety
 	draw_below_water = FALSE
 	overlay_positions = list(list(23, 7))
+	yields = 1
 	random_plant = TRUE

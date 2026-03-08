@@ -213,9 +213,6 @@
 /datum/plant_feature/body/proc/apply_fruit_overlay(obj/effect/fruit_effect, offset_x, offset_y)
 	fruit_effect.pixel_x = offset_x-17
 	fruit_effect.pixel_y = offset_y-16
-	if(prob(50)) //50% chance for fruit to be mirrored
-		fruit_effect.transform = fruit_effect.transform.Scale(-1, 1)
-		fruit_effect.pixel_x += 1 //If your sprite is formatted correctly, this will recenter the stem after the flip
 	parent.plant_item.vis_contents += fruit_effect
 	fruit_overlays += fruit_effect
 

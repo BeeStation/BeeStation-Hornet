@@ -1,6 +1,5 @@
 /*
 	Kirby base
-	//TODO: Monstera for Twiggy - Racc
 */
 /datum/plant_feature/body/kirby
 	species_name = "genus plantae"
@@ -13,10 +12,7 @@
 	growth_time = PLANT_BODY_GROWTH_FAST
 
 /datum/plant_feature/body/kirby/New(datum/component/plant/_parent)
-	if(prob(1)) //Small chance for easter egg names
-		name = pick(list("Ashley", "Blerp", "Pigeon", "Bacon", "TSL", "Cee Cee"))
-	else
-		name = "[capitalize(pick(GLOB.adjectives))] [pick(GLOB.first_names)]"
+	name = "[capitalize(pick(GLOB.adjectives))] [pick(GLOB.first_names)]"
 	_parent?.plant_item?.name = name
 	return ..()
 
@@ -27,7 +23,7 @@
 //tall
 /datum/plant_feature/body/kirby/tall
 	icon_state = "plant-06-1"
-	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	overlay_positions = list(list(16, 23), list(20, 21), list(14, 20), list(17, 17), list(21, 16), list(14, 14), list(15, 19), list(20, 10))
 
 /datum/plant_feature/body/kirby/tall/cousin
 	icon_state = "plant-06"
@@ -35,7 +31,7 @@
 //bushy
 /datum/plant_feature/body/kirby/bushy
 	icon_state = "plant-08"
-	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	overlay_positions = list(list(16, 20), list(21, 19), list(15, 16), list(23, 14), list(19, 12),)
 
 //birch
 /datum/plant_feature/body/kirby/birch
@@ -124,3 +120,14 @@
 	fruit_effect.pixel_y = offset_y-16
 	parent.plant_item.vis_contents += fruit_effect
 	fruit_overlays += fruit_effect
+
+//monstera
+/datum/plant_feature/body/kirby/monstera
+	icon_state = "monstera"
+	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	draw_below_water = FALSE
+
+/datum/plant_feature/body/kirby/monstera/New(datum/component/plant/_parent)
+	. = ..()
+	name = "Ashley II"
+	_parent?.plant_item?.name = name
