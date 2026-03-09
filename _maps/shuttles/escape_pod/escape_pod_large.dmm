@@ -1,17 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "h" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/obj/item/storage/pod{
-	pixel_x = -24
-	},
-/obj/item/toy/batong,
-/obj/item/clothing/head/costume/kitty,
-/turf/open/floor/mineral/titanium/blue,
+/obj/structure/window/reinforced/shuttle,
+/obj/structure/grille,
+/turf/open/floor/plating,
 /area/shuttle/pod_1)
 "r" = (
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark,
+/area/shuttle/pod_1)
+"s" = (
+/obj/structure/window/reinforced/shuttle,
+/obj/structure/grille,
+/turf/open/space/basic,
 /area/shuttle/pod_1)
 "u" = (
 /obj/structure/grille,
@@ -19,25 +19,30 @@
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "A" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
+/obj/item/storage/pod{
+	pixel_x = -24
 	},
-/obj/item/radio/intercom{
-	pixel_x = 30
-	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/iron/dark,
 /area/shuttle/pod_1)
 "B" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "C" = (
 /obj/machinery/computer/shuttle_flight/monastery_shuttle,
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/iron/dark,
 /area/shuttle/pod_1)
 "H" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/wall_closet/fire/directional/south,
+/obj/item/radio,
+/obj/item/clothing/head/soft/sec/brig_physician,
+/obj/effect/spawner/random/trash/food_packaging,
+/obj/item/radio,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "J" = (
@@ -50,12 +55,19 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "L" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "M" = (
@@ -68,6 +80,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/radio/intercom/directional/north,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "O" = (
@@ -81,7 +98,7 @@
 	width = 5;
 	id = "pod1"
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/iron/dark,
 /area/shuttle/pod_1)
 "W" = (
 /turf/template_noop,
@@ -93,26 +110,26 @@
 
 (1,1,1) = {"
 W
-B
+h
 B
 u
-B
 Z
+W
 "}
 (2,1,1) = {"
 B
 B
 J
 L
-h
+B
 Z
 "}
 (3,1,1) = {"
-u
+s
 C
 r
 r
-r
+A
 O
 "}
 (4,1,1) = {"
@@ -120,14 +137,14 @@ B
 B
 M
 H
-A
+B
 Z
 "}
 (5,1,1) = {"
 W
-B
+h
 B
 u
-B
 Z
+W
 "}
