@@ -761,14 +761,6 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/security/main)
-"aeW" = (
-/mob/living/simple_animal/hostile/syndicate/melee/sword/space/stormtrooper,
-/obj/item/stack/rods/five,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "aeY" = (
 /obj/machinery/power/apc{
 	areastring = "/area/ai_monitored/turret_protected/AIsatextAP";
@@ -1064,6 +1056,14 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/security/execution)
+"agm" = (
+/mob/living/simple_animal/hostile/syndicate/melee{
+	desc = "Its his Birthday today";
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	minbodytemp = 0
+	},
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/syndicate_sat)
 "agn" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1666,9 +1666,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "akw" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -2574,14 +2572,6 @@
 	},
 /turf/open/space,
 /area/solar/port)
-"ard" = (
-/obj/structure/lattice,
-/obj/effect/turf_decal/sand/plating,
-/obj/item/shard,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "ari" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -3656,13 +3646,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
 /area/engine/engineering)
-"axJ" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/harebell,
-/turf/open/floor/iron/dark,
-/area/chapel/main/monastery)
 "axN" = (
 /obj/structure/dresser,
 /turf/open/floor/carpet/royalblue,
@@ -4991,14 +4974,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"aEM" = (
-/obj/structure/flora/rock,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/lattice,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "aEN" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/PDAs{
@@ -5667,9 +5642,7 @@
 "aIa" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "aIb" = (
 /obj/structure/sign/warning/securearea{
 	pixel_y = 32
@@ -6650,14 +6623,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"aMI" = (
-/obj/structure/lattice,
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/barricade/wooden,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "aML" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -7725,11 +7690,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/tech/grid,
 /area/quartermaster/warehouse)
-"aRo" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/extinguisher_cabinet/directional/south,
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "aRp" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "qm_warehouse";
@@ -7958,10 +7918,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"aSq" = (
-/obj/structure/extinguisher_cabinet/directional/west,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "aSt" = (
 /obj/structure/flora/junglebush/c,
 /turf/open/floor/grass,
@@ -10773,22 +10729,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"bis" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet/directional/south,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "bit" = (
 /obj/machinery/door/airlock/research{
 	name = "Mech Bay"
@@ -11294,11 +11234,13 @@
 /turf/open/floor/circuit,
 /area/science/server)
 "blN" = (
-/obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/trap/trigger/reusable/random,
+/obj/effect/trap/trigger/reusable/random,
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "blP" = (
 /obj/effect/landmark/event_spawn,
 /obj/item/beacon,
@@ -11371,9 +11313,7 @@
 "bmn" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "bmp" = (
 /obj/structure/bodycontainer/morgue,
 /obj/machinery/light/small{
@@ -13898,13 +13838,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/sleeper)
-"bDs" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
-	dir = 4
-	},
-/obj/machinery/rnd/server,
-/turf/open/floor/circuit,
-/area/science/server)
 "bDy" = (
 /turf/closed/wall,
 /area/medical/exam_room)
@@ -15207,9 +15140,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "bOs" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/r_wall,
@@ -15264,25 +15195,19 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "bPa" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "bPb" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "bPc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -15696,9 +15621,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "bRC" = (
 /obj/structure/lattice,
 /turf/open/space,
@@ -15980,14 +15903,6 @@
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
 /turf/open/floor/iron/dark/smooth_half,
 /area/engine/gravity_generator)
-"bTp" = (
-/obj/effect/trap/nexus/trickyspawner/shitsec{
-	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "bTq" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -16221,9 +16136,7 @@
 "bUv" = (
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "bUw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -16288,9 +16201,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "bVi" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
@@ -19141,9 +19052,7 @@
 /area/tcommsat/server)
 "cno" = (
 /turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "cnp" = (
 /obj/machinery/camera/preset/toxins{
 	c_tag = "Bomb Testing Asteroid Aft";
@@ -19603,16 +19512,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"cqG" = (
-/obj/structure/lattice/catwalk,
-/obj/effect/mapping_helpers/Mapper_Comment{
-	name = "Syndi Asteroid";
-	desc = "You can have engaging stories if people just cheese the story, if they dare try it im turning their power fantasy into a rescue Op for Medbay"
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "cqV" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -19847,15 +19746,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/chapel/office)
-"csL" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space/stormtrooper,
-/obj/item/stack/rods/five,
-/obj/item/shard,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "csR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -19905,9 +19795,7 @@
 /obj/structure/lattice,
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "ctr" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -20123,6 +20011,10 @@
 	},
 /turf/open/floor/iron/chapel,
 /area/chapel/main/monastery)
+"cuL" = (
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "cuM" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -20369,7 +20261,8 @@
 /area/engine/engineering)
 "cww" = (
 /obj/structure/table/wood,
-/obj/item/food/grown/flower/geranium,
+/obj/item/food/grown/flower/forgetmenot,
+/obj/item/food/grown/flower/forgetmenot,
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "cwx" = (
@@ -20874,6 +20767,11 @@
 /obj/effect/turf_decal/edges/borderfloor,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
+"cBC" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/geranium,
+/turf/open/floor/iron/dark,
+/area/chapel/main/monastery)
 "cBT" = (
 /obj/structure/chair{
 	dir = 4
@@ -21142,14 +21040,6 @@
 /obj/item/flashlight/lantern,
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/main/monastery)
-"cFJ" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/lattice,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "cFO" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -21236,9 +21126,7 @@
 "cHJ" = (
 /obj/effect/landmark/carpspawn,
 /turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "cHK" = (
 /turf/open/indestructible/sound/pool/end,
 /area/syndicate_sat)
@@ -21454,14 +21342,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
-"cOK" = (
-/obj/machinery/porta_turret/syndicate/energy/heavy{
-	target_cyborgs = 1
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "cOO" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -21535,14 +21415,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"cQQ" = (
-/obj/structure/lattice,
-/obj/structure/barricade/wooden,
-/obj/structure/barricade/wooden/crude,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "cRi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -21921,14 +21793,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"cXN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/closet/bombcloset,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark/smooth_large,
-/area/security/main)
 "cXW" = (
 /obj/structure/grille,
 /obj/structure/disposalpipe/segment,
@@ -21951,6 +21815,12 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/surgery)
+"cZp" = (
+/obj/effect/trap/nexus/trickyspawner/shitsec{
+	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "cZs" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -22533,12 +22403,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"dkN" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "dkT" = (
 /obj/machinery/door/airlock{
 	name = "Custodial Closet"
@@ -22765,6 +22629,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
+"doS" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/rack,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/yellow{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/electrical,
+/turf/open/floor/iron,
+/area/tcommsat/computer)
 "dpb" = (
 /obj/machinery/door/airlock{
 	name = "Zen Garden"
@@ -23070,6 +22947,14 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"dvd" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/Mapper_Comment{
+	name = "Syndi Asteroid";
+	desc = "You can have engaging stories if people just cheese the story, if they dare try it im turning their power fantasy into a rescue Op for Medbay"
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "dvp" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -23213,6 +23098,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
+"dzT" = (
+/obj/item/storage/bag/construction,
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "dzV" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/delivery/red,
@@ -23437,6 +23328,12 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/open/floor/plating,
 /area/engine/engineering)
+"dGG" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/lattice,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "dGP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -23450,6 +23347,12 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/dark/smooth_half,
 /area/engine/gravity_generator)
+"dGQ" = (
+/obj/structure/lattice,
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/barricade/wooden,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "dGX" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -23506,6 +23409,9 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"dIu" = (
+/turf/closed/wall/r_wall,
+/area/science/robotics/mechbay)
 "dIY" = (
 /obj/machinery/computer/bank_machine,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -23567,6 +23473,13 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
+"dLW" = (
+/obj/machinery/rnd/server,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
+/turf/open/floor/circuit,
+/area/science/server)
 "dMf" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/yellow/fourcorners,
@@ -24346,9 +24259,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "ecX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -24651,17 +24562,6 @@
 /obj/item/storage/photo_album/HoS,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
-"ejP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/trap/nexus/trickyspawner/shitsec{
-	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "ejQ" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
@@ -24819,9 +24719,7 @@
 /area/medical/sleeper)
 "ent" = (
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "enE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -25744,14 +25642,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
-"eIm" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/plating,
-/area/maintenance/department/cargo)
 "eID" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -27348,6 +27238,12 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
+"fvH" = (
+/mob/living/simple_animal/hostile/syndicate/melee/sword/space/stormtrooper,
+/obj/item/stack/rods/five,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "fwi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -28122,6 +28018,13 @@
 "fRs" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/hor)
+"fRw" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/harebell,
+/turf/open/floor/iron/dark,
+/area/chapel/main/monastery)
 "fRG" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -28553,6 +28456,19 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
+"gaq" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/ears/earmuffs,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/turf/open/floor/iron/techmaint,
+/area/syndicate_sat)
 "gaA" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -28736,6 +28652,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/showroomfloor,
 /area/science/lab)
+"gga" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "ggh" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
@@ -28782,6 +28702,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"gie" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "giI" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "27"
@@ -28937,13 +28865,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
-"gnq" = (
-/obj/structure/flora/rock/pile,
-/obj/effect/trap/trigger/reusable/random,
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "gnT" = (
 /obj/machinery/door/airlock{
 	name = "Starboard Emergency Storage";
@@ -30614,13 +30535,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
-"hch" = (
-/obj/machinery/rnd/server,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 6
-	},
-/turf/open/floor/circuit,
-/area/science/server)
 "hdl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -31138,6 +31052,13 @@
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
+"hsN" = (
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 4
+	},
+/obj/machinery/rnd/server,
+/turf/open/floor/circuit,
+/area/science/server)
 "hsO" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 6
@@ -31886,9 +31807,7 @@
 "hLB" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "hLD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -32076,6 +31995,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
+"hQo" = (
+/obj/structure/flora/rock,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/lattice,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "hQz" = (
 /obj/structure/closet/emcloset/anchored,
 /turf/open/floor/plating,
@@ -32382,6 +32307,13 @@
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/science/shuttledock)
+"hVS" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space/stormtrooper,
+/obj/item/stack/rods/five,
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "hVZ" = (
 /obj/machinery/newscaster{
 	pixel_x = 32
@@ -32464,14 +32396,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
-"hXY" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/plating,
-/area/maintenance/department/cargo)
 "hYa" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
@@ -32581,6 +32505,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
+"hZZ" = (
+/obj/effect/trap/trigger/reusable/random,
+/obj/effect/trap/trigger/reusable/random,
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "ial" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners,
 /obj/machinery/atmospherics/components/binary/pump{
@@ -33173,9 +33102,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "imB" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/engine,
@@ -33465,9 +33392,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "iuH" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/vending/donksofttoyvendor{
@@ -34168,15 +34093,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
-"iJy" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet/directional/west,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "iKb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -34268,6 +34184,15 @@
 /obj/effect/turf_decal/edges/techfloor/corners,
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
+"iMf" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/trap/nexus/trickyspawner/shitsec{
+	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "iNp" = (
 /obj/machinery/computer/security/telescreen/toxins{
 	dir = 4
@@ -34711,9 +34636,7 @@
 	},
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "jbY" = (
 /mob/living/carbon/human/species/moth,
 /turf/open/floor/wood,
@@ -34898,9 +34821,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "jgr" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Library"
@@ -35152,9 +35073,7 @@
 "jmb" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "jmf" = (
 /obj/item/stamp{
 	pixel_x = -3;
@@ -35845,11 +35764,6 @@
 /obj/effect/turf_decal/tile/brown/fourcorners,
 /turf/open/floor/monotile/dark,
 /area/chapel/office)
-"jAd" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/structure/extinguisher_cabinet/directional/south,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "jAf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -36585,9 +36499,7 @@
 /obj/structure/flora/rock,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "jRG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -37233,9 +37145,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "kgy" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/dropper,
@@ -37250,9 +37160,7 @@
 "kgL" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "kgO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -37303,6 +37211,11 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/science/mixing)
+"khz" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "khE" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -37569,14 +37482,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/security/checkpoint/supply)
-"kmD" = (
-/obj/item/storage/bag/construction,
-/obj/item/shard,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "kmF" = (
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -37751,9 +37656,7 @@
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "kqW" = (
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/turf_decal/siding/wood{
@@ -38708,9 +38611,7 @@
 /obj/structure/flora/rock,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "kJn" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/light,
@@ -38791,14 +38692,6 @@
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
-"kLD" = (
-/obj/effect/turf_decal/edges/borderfloor/black/full,
-/mob/living/simple_animal/hostile/syndicate/civilian{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
-	},
-/turf/open/floor/iron/dark,
-/area/syndicate_sat)
 "kLT" = (
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
@@ -39053,7 +38946,7 @@
 	color = "#704431"
 	},
 /obj/structure/platform/white/stair_cutoff{
-	dir = 4;
+	dir = 1;
 	color = "#704431"
 	},
 /obj/structure/disposalpipe/segment{
@@ -39183,9 +39076,7 @@
 "kUf" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "kUk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -39257,12 +39148,6 @@
 /obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
-"kVz" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/extinguisher_cabinet/directional/south,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "kVB" = (
 /obj/machinery/computer/arcade/amputation,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -39829,14 +39714,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/medbay/central)
-"liz" = (
-/obj/item/stack/rods/five,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/lattice,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "liG" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -39952,19 +39829,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
-"llc" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/ears/earmuffs,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
-	pixel_x = 9;
-	pixel_y = -3
-	},
-/turf/open/floor/iron/techmaint,
-/area/syndicate_sat)
 "lle" = (
 /obj/machinery/requests_console{
 	department = "Atmospherics";
@@ -40136,9 +40000,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "lry" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -40150,6 +40012,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
+"lrH" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "lrI" = (
 /obj/structure/sink{
 	dir = 8;
@@ -40491,9 +40359,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/airless,
 /area/chapel/office)
-"lzL" = (
-/turf/closed/wall/r_wall,
-/area/science/robotics/mechbay)
 "lAf" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -40747,12 +40612,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"lGx" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/forgetmenot,
-/obj/item/food/grown/flower/forgetmenot,
-/turf/open/floor/iron/dark,
-/area/chapel/main/monastery)
 "lGG" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
@@ -41655,9 +41514,7 @@
 "meb" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "mee" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -41767,6 +41624,13 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
+"mha" = (
+/obj/machinery/rnd/server,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
+/turf/open/floor/circuit,
+/area/science/server)
 "mhj" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -41989,9 +41853,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "mkQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -42093,6 +41955,13 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/main/monastery)
+"mmF" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/trap/nexus/trickyspawner/shitsec{
+	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "mmX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -42138,15 +42007,6 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
-"moR" = (
-/obj/structure/flora/rock/pile,
-/obj/effect/trap/nexus/trickyspawner/shitsec{
-	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "moU" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Chapel"
@@ -42916,13 +42776,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/medical/cmo,
 /turf/open/floor/iron/tech,
 /area/crew_quarters/heads/cmo)
-"mKY" = (
-/obj/machinery/rnd/server,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
-	},
-/turf/open/floor/circuit,
-/area/science/server)
 "mLl" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/yellow/anticorner{
@@ -43620,11 +43473,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
-"nej" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/extinguisher_cabinet/directional/south,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "neT" = (
 /obj/machinery/light/small,
 /obj/item/radio/intercom{
@@ -44222,12 +44070,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"nso" = (
-/obj/effect/turf_decal/siding/thinplating/dark,
-/obj/effect/turf_decal/trimline/red/warning,
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/iron/dark,
-/area/syndicate_sat)
 "nsy" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -44347,19 +44189,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"nuO" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/rack,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow{
-	pixel_x = -1;
-	pixel_y = 3
-	},
-/obj/item/storage/toolbox/electrical,
-/turf/open/floor/iron,
-/area/tcommsat/computer)
 "nuQ" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/department/cargo)
@@ -45273,6 +45102,14 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/security/main)
+"nPb" = (
+/obj/effect/turf_decal/edges/borderfloor/black/full,
+/mob/living/simple_animal/hostile/syndicate/civilian{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	minbodytemp = 0
+	},
+/turf/open/floor/iron/dark,
+/area/syndicate_sat)
 "nPh" = (
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
@@ -45690,9 +45527,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "nZn" = (
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /turf/open/floor/iron/dark,
@@ -45800,12 +45635,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/library)
-"oaW" = (
-/obj/effect/trap/trigger/reusable/random,
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "oaY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -46049,9 +45878,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "ojR" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Shuttle Dock";
@@ -46458,14 +46285,18 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "orC" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
+"orD" = (
+/obj/structure/lattice,
+/obj/effect/turf_decal/sand/plating,
+/obj/item/shard,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "orH" = (
 /turf/closed/wall/r_wall,
 /area/security)
@@ -46597,6 +46428,20 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
+"ovU" = (
+/obj/effect/turf_decal/edges/borderfloor/black/full,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	name = "Anti-Cheese";
+	desc = "Wanted this to be a neat hub for midrounds and maybe tators but seems factions would have to be applied manually via admins to make it functional for regular traitors"
+	},
+/turf/open/floor/iron/dark,
+/area/syndicate_sat)
 "owg" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -48332,9 +48177,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "pji" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -48623,6 +48466,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"ppH" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "ppQ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -48918,15 +48770,6 @@
 	},
 /turf/open/floor/plating,
 /area/syndicate_sat)
-"pvu" = (
-/obj/structure/lattice/catwalk,
-/obj/effect/trap/nexus/trickyspawner/shitsec{
-	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "pvT" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -49483,9 +49326,7 @@
 /area/maintenance/department/engine)
 "pKi" = (
 /turf/closed/mineral/random/high_chance,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "pKt" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -49532,6 +49373,12 @@
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/open/floor/iron/tech/grid,
 /area/bridge)
+"pKP" = (
+/obj/machinery/porta_turret/syndicate/energy/heavy{
+	target_cyborgs = 1
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/chapel/asteroid/monastery)
 "pKY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -49539,9 +49386,7 @@
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/pod/dark,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "pLp" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -49779,13 +49624,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
 /area/syndicate_sat)
-"pTI" = (
-/obj/effect/trap/trigger/reusable/random,
-/obj/effect/trap/trigger/reusable/random,
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "pTM" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -49977,20 +49815,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
-"pXF" = (
-/obj/effect/turf_decal/edges/borderfloor/black/full,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	name = "Anti-Cheese";
-	desc = "Wanted this to be a neat hub for midrounds and maybe tators but seems factions would have to be applied manually via admins to make it functional for regular traitors"
-	},
-/turf/open/floor/iron/dark,
-/area/syndicate_sat)
 "pXQ" = (
 /obj/structure/chair/stool,
 /obj/effect/turf_decal/stripes/white/line{
@@ -50398,9 +50222,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "qfZ" = (
 /obj/machinery/door/poddoor{
 	id = "sm_vent";
@@ -50479,9 +50301,7 @@
 "qho" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "qhq" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
@@ -50528,9 +50348,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "qhL" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -50598,6 +50416,15 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
+"qiX" = (
+/obj/effect/turf_decal/edges/borderfloor/black/full,
+/mob/living/simple_animal/hostile/syndicate/melee{
+	desc = "Its his Birthday today";
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	minbodytemp = 0
+	},
+/turf/open/floor/iron/dark,
+/area/syndicate_sat)
 "qji" = (
 /turf/open/floor/iron/white/textured_large,
 /area/medical/virology)
@@ -50675,9 +50502,7 @@
 "qkE" = (
 /obj/structure/flora/ash/stem_shroom,
 /turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "qkM" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
@@ -50804,9 +50629,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "qnk" = (
 /turf/closed/wall,
 /area/hallway/primary/fore)
@@ -51108,6 +50931,15 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
+"qvU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/trap/nexus/trickyspawner/shitsec{
+	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "qwa" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "AI Core"
@@ -52304,9 +52136,7 @@
 	},
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "qZF" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -52435,9 +52265,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "rdF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -52482,13 +52310,6 @@
 /obj/machinery/light,
 /turf/open/floor/engine,
 /area/engine/engineering)
-"reg" = (
-/obj/structure/barricade/wooden,
-/obj/structure/barricade/wooden/crude,
-/turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "reV" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -52897,9 +52718,7 @@
 "roP" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "rpj" = (
 /obj/structure/mirror/directional/north,
 /obj/structure/sink{
@@ -52978,9 +52797,7 @@
 	},
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "rqS" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 8
@@ -53787,10 +53604,10 @@
 	},
 /area/chapel/main/monastery)
 "rKf" = (
-/turf/closed/mineral,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/obj/structure/flora/rock/pile,
+/obj/effect/trap/trigger/reusable/random,
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "rKr" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -54011,9 +53828,7 @@
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "rPK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54370,9 +54185,7 @@
 	},
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "rWv" = (
 /obj/machinery/ai_slipper{
 	uses = 8
@@ -55562,9 +55375,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "szv" = (
 /obj/machinery/airalarm/directional/north,
 /obj/structure/cable/yellow{
@@ -55707,9 +55518,7 @@
 	picked_color = "Burgundy"
 	},
 /turf/open/space/basic,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "sDK" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -56266,6 +56075,13 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
+"sRW" = (
+/obj/structure/flora/rock/pile,
+/obj/effect/trap/nexus/trickyspawner/shitsec{
+	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "sSb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -56518,9 +56334,7 @@
 /area/quartermaster/office)
 "sYt" = (
 /turf/closed/mineral/random/low_chance,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "sYE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -56702,6 +56516,22 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
+"tca" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "tcg" = (
 /obj/machinery/light/small{
 	brightness = 3;
@@ -57006,6 +56836,14 @@
 /obj/item/ai_module/supplied/freeform,
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/turret_protected/ai_upload)
+"tjy" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "tjC" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -57067,6 +56905,10 @@
 /obj/item/multitool,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
+"tlV" = (
+/obj/effect/trap/trigger/reusable/random,
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "tlY" = (
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -57888,9 +57730,7 @@
 	name = "WARNING: Station Limits"
 	},
 /turf/closed/wall/rust,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "tGT" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58062,13 +57902,7 @@
 "tLW" = (
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
-"tMx" = (
-/obj/structure/extinguisher_cabinet/directional/south,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
+/area/chapel/asteroid/monastery)
 "tMF" = (
 /obj/machinery/camera/motion/directional/south{
 	c_tag = "Armoury"
@@ -58693,9 +58527,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "ucu" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -58928,14 +58760,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/tech,
 /area/science/robotics/lab)
-"uic" = (
-/mob/living/simple_animal/hostile/syndicate/melee{
-	desc = "Its his Birthday today";
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/syndicate_sat)
 "uik" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -58951,16 +58775,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics)
-"ujh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/trap/trigger/reusable/random,
-/obj/effect/trap/trigger/reusable/random,
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "ujz" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -59542,15 +59356,6 @@
 	color = "a7a6a3"
 	},
 /area/science/explab)
-"uxR" = (
-/obj/effect/turf_decal/edges/borderfloor/black/full,
-/mob/living/simple_animal/hostile/syndicate/melee{
-	desc = "Its his Birthday today";
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
-	},
-/turf/open/floor/iron/dark,
-/area/syndicate_sat)
 "uxX" = (
 /obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
@@ -59727,6 +59532,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/storage/primary)
+"uCw" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "uCS" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "aux_base_shutters";
@@ -59857,10 +59667,11 @@
 	pixel_x = -24
 	},
 /obj/machinery/turretid{
-	control_area = "/area/chapel/asteroid/monastery";
+	control_area = /area/chapel/asteroid/monastery;
 	name = "Perimeter Defense Controls";
 	pixel_x = 5;
-	pixel_y = -24
+	pixel_y = -24;
+	req_access = null
 	},
 /turf/open/floor/wood,
 /area/syndicate_sat)
@@ -60527,9 +60338,7 @@
 "vak" = (
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "vaC" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/atmospherics,
@@ -61430,6 +61239,11 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/crew_quarters/heads/cmo)
+"vxA" = (
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "vxC" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -61785,9 +61599,7 @@
 	target_cyborgs = 1
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "vHw" = (
 /obj/structure/transit_tube,
 /obj/effect/turf_decal/stripes/line{
@@ -61882,9 +61694,7 @@
 "vIl" = (
 /obj/structure/flora/ash/cacti,
 /turf/open/floor/plating/asteroid/airless,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "vIK" = (
 /obj/structure/chair{
 	dir = 4
@@ -62386,9 +62196,7 @@
 "vVi" = (
 /obj/structure/flora/rock,
 /turf/closed/mineral,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "vVQ" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/engine,
@@ -62415,16 +62223,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"vXx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/trap/trigger/reusable/random,
-/obj/effect/trap/trigger/reusable/random,
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "vXy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -62836,9 +62634,7 @@
 /obj/effect/decal/remains/human,
 /obj/item/pickaxe/mini,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "wgu" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -63197,17 +62993,6 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/medbay/central)
-"woa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/trap/nexus/trickyspawner/shitsec{
-	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
 "woc" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -63448,6 +63233,12 @@
 /obj/structure/bookcase/random/fiction,
 /turf/open/floor/carpet,
 /area/syndicate_sat)
+"wte" = (
+/obj/item/stack/rods/five,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/lattice,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "wtF" = (
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -63469,6 +63260,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"wuC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/trap/trigger/reusable/random,
+/obj/effect/trap/trigger/reusable/random,
+/turf/open/floor/plating/asteroid/planetary,
+/area/chapel/asteroid/monastery)
 "wuM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -63587,6 +63386,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"wyZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/closet/bombcloset,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark/smooth_large,
+/area/security/main)
 "wzI" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -63606,6 +63413,12 @@
 	},
 /turf/open/floor/iron/tech,
 /area/tcommsat/computer)
+"wAr" = (
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/effect/turf_decal/trimline/red/warning,
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/open/floor/iron/dark,
+/area/syndicate_sat)
 "wAx" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -63917,9 +63730,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "wHo" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -65122,9 +64933,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/broken,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "xfU" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -65171,6 +64980,11 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark/textured,
 /area/security/brig/dock)
+"xgU" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "xhj" = (
 /turf/open/floor/carpet/red,
 /area/library/lounge)
@@ -65194,9 +65008,7 @@
 "xhP" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/mineral,
-/area/chapel/asteroid{
-	name = "Abandond Asteroid"
-	})
+/area/chapel/asteroid/monastery)
 "xii" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -66296,6 +66108,10 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"xJA" = (
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "xJE" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -66584,6 +66400,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
+"xQJ" = (
+/obj/structure/lattice,
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plating/asteroid/airless,
+/area/chapel/asteroid/monastery)
 "xRe" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -79910,7 +79732,7 @@ cfm
 ooo
 cfm
 cwj
-lGx
+cww
 cfm
 fIT
 fIT
@@ -85540,8 +85362,8 @@ bOw
 bOw
 cfm
 cfm
-cww
-axJ
+cBC
+fRw
 cfm
 jmq
 rPg
@@ -87238,7 +87060,7 @@ afI
 loV
 pZE
 hTH
-cXN
+wyZ
 afX
 aic
 gmx
@@ -88806,7 +88628,7 @@ atv
 dOD
 kPN
 hNV
-aRo
+khz
 gSH
 gSH
 gSH
@@ -91129,7 +90951,7 @@ fKz
 rlV
 aDZ
 aDZ
-aSq
+xJA
 rlV
 aDZ
 sLZ
@@ -92695,7 +92517,7 @@ aVS
 bgi
 brK
 aDZ
-tMx
+cuL
 aAN
 biY
 biY
@@ -94984,7 +94806,7 @@ awR
 axp
 aHO
 aJm
-kVz
+lrH
 aKT
 acv
 aLL
@@ -96036,7 +95858,7 @@ bfp
 bgk
 kiz
 aDZ
-nej
+uCw
 bja
 bnA
 blj
@@ -96118,7 +95940,7 @@ hQz
 clw
 jUg
 pKt
-nuO
+doS
 tlw
 clw
 qMu
@@ -102180,7 +102002,7 @@ aAN
 aAN
 qdt
 eXO
-bis
+tca
 anX
 aMa
 aNy
@@ -102356,12 +102178,12 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -102610,16 +102432,16 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
 pKi
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 aaa
 aaa
 cFB
@@ -102701,7 +102523,7 @@ mhj
 gPT
 mhj
 jeO
-iJy
+ppH
 mhj
 wCZ
 nzk
@@ -102867,16 +102689,16 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 pKi
 sYt
 sYt
 sYt
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -102975,7 +102797,7 @@ sLZ
 bdo
 bsg
 aDZ
-jAd
+xgU
 bBo
 bks
 rPB
@@ -103124,17 +102946,17 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
 pKi
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -103380,15 +103202,15 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 pKi
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 pKi
 pKi
@@ -103636,19 +103458,19 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 pKi
 pKi
 sYt
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 cno
 cno
 aaa
@@ -103892,22 +103714,22 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
 pKi
-rKf
+cyM
 sYt
 sYt
-rKf
-rKf
-blN
+cyM
+cyM
+jHe
 aaa
 aaa
 aaa
@@ -104149,21 +103971,21 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 pKi
-rKf
+cyM
 sYt
-rKf
+cyM
 sYt
-rKf
+cyM
 pKi
-rKf
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -104405,22 +104227,22 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
 sYt
 pKi
 pKi
 sYt
-rKf
-rKf
+cyM
+cyM
 qkE
 cno
 aaa
@@ -104662,23 +104484,23 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 pKi
 pKi
 pKi
-rKf
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
+cyM
 pKi
-rKf
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 cno
 cno
 aaa
@@ -104918,25 +104740,25 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 qho
 cno
 aaa
@@ -105175,26 +104997,26 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
-rKf
-sYt
-sYt
-pKi
-pKi
-rKf
-sYt
+cyM
+cyM
 sYt
 sYt
 pKi
+pKi
+cyM
+sYt
+sYt
+sYt
+pKi
 sYt
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -105207,7 +105029,7 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -105432,27 +105254,27 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 sYt
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 sYt
 sYt
-rKf
+cyM
 pKi
 pKi
 sYt
 sYt
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -105461,11 +105283,11 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -105545,8 +105367,8 @@ bju
 bgI
 rMw
 bju
-lzL
-lzL
+dIu
+dIu
 bkt
 bkt
 bkt
@@ -105690,39 +105512,39 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 pKi
-sYt
-sYt
-pKi
-rKf
-rKf
-sYt
-sYt
-rKf
-rKf
-pKi
-rKf
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-rKf
-rKf
 sYt
 sYt
 pKi
-rKf
+cyM
+cyM
+sYt
+sYt
+cyM
+cyM
+pKi
+cyM
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+cyM
+cyM
+sYt
+sYt
+pKi
+cyM
 aaa
 aaa
 aaa
@@ -105802,8 +105624,8 @@ bfA
 bgJ
 tbw
 rPa
-lzL
-hch
+dIu
+dLW
 pFo
 pFo
 bmU
@@ -105947,20 +105769,20 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 pKi
 pKi
 pKi
 sYt
-rKf
+cyM
 pKi
-rKf
+cyM
 sYt
 sYt
-rKf
+cyM
 sYt
 sYt
 sYt
@@ -105973,14 +105795,14 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
 sYt
 pKi
 pKi
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -106059,7 +105881,7 @@ beI
 beI
 tXr
 beI
-lzL
+dIu
 bjv
 bmT
 bmT
@@ -106206,33 +106028,33 @@ aaa
 aaa
 cFB
 aaa
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 pKi
 pKi
-rKf
+cyM
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 sYt
 sYt
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
-rKf
+cyM
 pKi
 pKi
 sYt
@@ -106315,10 +106137,10 @@ gHi
 gHi
 gHi
 peM
-eIm
+tjy
 nuQ
-mKY
-bDs
+mha
+hsN
 blM
 apx
 bnT
@@ -106465,35 +106287,35 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 pKi
 sYt
-rKf
+cyM
 pKi
 pKi
-rKf
+cyM
 pKi
 pKi
-rKf
+cyM
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 pKi
 sYt
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -106572,7 +106394,7 @@ bbE
 bbE
 bbE
 aEj
-hXY
+gie
 nuQ
 bjw
 bjw
@@ -106724,32 +106546,32 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 sYt
 sYt
 sYt
 pKi
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 cFB
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -106982,20 +106804,20 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -107003,9 +106825,9 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -107242,17 +107064,17 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
 pKi
 pKi
 pKi
 sYt
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -107503,14 +107325,14 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 pKi
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -107763,11 +107585,11 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -107782,9 +107604,9 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 cno
 aaa
 aaa
@@ -108023,7 +107845,7 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -108039,9 +107861,9 @@ aaa
 aaa
 aaa
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 cno
 cno
 aaa
@@ -108287,19 +108109,19 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
 sYt
-rKf
+cyM
 cno
 aaa
 aaa
@@ -108543,16 +108365,16 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 pKi
 pKi
 pKi
@@ -108801,18 +108623,18 @@ aaa
 aaa
 aaa
 qho
-blN
+jHe
 qkE
-rKf
+cyM
 aaa
 aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 pKi
 sYt
-rKf
+cyM
 pKi
 pKi
 cno
@@ -109066,7 +108888,7 @@ cFB
 aaa
 aaa
 aaa
-rKf
+cyM
 pKi
 sYt
 sYt
@@ -109324,8 +109146,8 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 sYt
@@ -109582,8 +109404,8 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 aaa
@@ -112135,13 +111957,13 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 cno
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 fqs
 aaa
 aaa
@@ -112389,25 +112211,25 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 pKi
 sYt
 cno
 sYt
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 sYt
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -112425,7 +112247,7 @@ cno
 cno
 cno
 qkE
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -112645,7 +112467,7 @@ aaa
 sYt
 sYt
 cno
-rKf
+cyM
 sYt
 sYt
 kCL
@@ -112656,15 +112478,15 @@ veN
 kCL
 xBp
 kCL
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -112678,12 +112500,12 @@ aaa
 aaa
 jHe
 cno
-rKf
+cyM
 vIl
 cno
 vVi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -112897,14 +112719,14 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
+cyM
 cno
-rKf
+cyM
 sYt
-rKf
+cyM
 xBp
 jGJ
 pUn
@@ -112920,10 +112742,10 @@ xBp
 xBp
 kCL
 pKi
-rKf
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -112934,13 +112756,13 @@ aaa
 aaa
 cno
 cno
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 cno
-rKf
+cyM
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -113153,15 +112975,15 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 pKi
 sYt
-blN
+jHe
 sYt
-rKf
-rKf
+cyM
+cyM
 vrZ
 iHv
 jXh
@@ -113180,7 +113002,7 @@ pKi
 pKi
 sYt
 sYt
-rKf
+cyM
 fqs
 pWb
 mau
@@ -113188,16 +113010,16 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
+cyM
 cHJ
 cno
 pKi
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -113408,17 +113230,17 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 pKi
 pKi
 sYt
 cno
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 kCL
 xBp
 xBp
@@ -113437,24 +113259,24 @@ pKi
 pKi
 pKi
 sYt
-rKf
-rKf
+cyM
+cyM
 aaa
 mau
 pWb
 pWb
-rKf
+cyM
 pKi
-rKf
+cyM
 sYt
 sYt
 sYt
 cno
-blN
-rKf
+jHe
+cyM
 pKi
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -113663,20 +113485,20 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 pKi
 pKi
 sYt
-rKf
-rKf
+cyM
+cyM
 cno
 qho
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 sYt
 kCL
@@ -113694,20 +113516,20 @@ sYt
 sYt
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
 pWb
-rKf
+cyM
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 qho
 cno
-rKf
+cyM
 sYt
 sYt
 pKi
@@ -113924,18 +113746,18 @@ sYt
 sYt
 pKi
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 cno
 cno
 cno
-rKf
-rKf
+cyM
+cyM
 bUv
 bUv
-cOK
-rKf
+pKP
+cyM
 sYt
 sYt
 ent
@@ -113948,25 +113770,25 @@ nsa
 kCL
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 pKi
 pKi
-rKf
+cyM
 cno
 cno
-rKf
+cyM
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -114180,14 +114002,14 @@ sYt
 sYt
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 cno
 cno
-blN
-rKf
-rKf
-rKf
+jHe
+cyM
+cyM
+cyM
 jRr
 bUv
 ent
@@ -114201,28 +114023,28 @@ ent
 ent
 ent
 jbz
-oaW
+tlV
 ent
 ent
 ent
 ent
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 cno
 aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
 pKi
-rKf
+cyM
 cno
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -114432,12 +114254,12 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 pKi
-rKf
-rKf
-blN
+cyM
+cyM
+jHe
 qkE
 cno
 pKi
@@ -114466,17 +114288,17 @@ qmQ
 qmQ
 qmQ
 qmQ
-rKf
+cyM
 cno
 aaa
 aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
-rKf
+cyM
 cno
 aaa
 aaa
@@ -114691,7 +114513,7 @@ aaa
 aaa
 sYt
 sYt
-rKf
+cyM
 qho
 cno
 cno
@@ -114712,7 +114534,7 @@ bmn
 bmn
 bmn
 bmn
-pvu
+mmF
 bmn
 bmn
 lqX
@@ -114723,14 +114545,14 @@ bmn
 bmn
 bmn
 bmn
-rKf
+cyM
 qho
 aaa
 aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
 aaa
@@ -114946,8 +114768,8 @@ aaa
 aaa
 aaa
 fqs
-rKf
-rKf
+cyM
+cyM
 cno
 cno
 cno
@@ -114957,7 +114779,7 @@ pKi
 pKi
 xfH
 rVW
-woa
+iMf
 bVh
 bVh
 bVh
@@ -114980,8 +114802,8 @@ bVh
 bVh
 bVh
 bVh
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -115202,12 +115024,12 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 cno
-blN
-rKf
-rKf
+jHe
+cyM
+cyM
 pKi
 pKi
 pKi
@@ -115237,8 +115059,8 @@ ent
 ent
 ent
 ent
-rKf
-rKf
+cyM
+cyM
 vIl
 cno
 aaa
@@ -115459,12 +115281,12 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 qkE
 cno
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 pKi
 pKi
 ent
@@ -115495,8 +115317,8 @@ ent
 ent
 ent
 kJi
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -115716,11 +115538,11 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 cno
 cno
-rKf
-rKf
+cyM
+cyM
 qmQ
 bPb
 qmQ
@@ -115747,13 +115569,13 @@ qmQ
 qmQ
 qmQ
 qmQ
-ejP
+qvU
 qmQ
 bRA
 bRA
 bRA
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -115973,11 +115795,11 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 cno
 cno
-rKf
-rKf
+cyM
+cyM
 bmn
 bmn
 bmn
@@ -116009,8 +115831,8 @@ bmn
 bmn
 bmn
 bmn
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -116230,11 +116052,11 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 cno
 qkE
-rKf
-rKf
+cyM
+cyM
 bVh
 bVh
 bVh
@@ -116266,8 +116088,8 @@ bVh
 bVh
 oqV
 oqV
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -116487,26 +116309,26 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 cno
 cno
-rKf
-rKf
-bTp
+cyM
+cyM
+cZp
 ent
 ent
 ent
 ent
 ent
 ent
-pTI
+hZZ
 ent
 kgL
 ent
 ent
 ent
 ent
-bTp
+cZp
 ent
 ent
 ent
@@ -116523,8 +116345,8 @@ ent
 ent
 ent
 rdz
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -116744,19 +116566,19 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 qkE
 cno
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 ent
 ent
 ent
 ent
 ent
 hLB
-pTI
+hZZ
 ent
 ent
 ent
@@ -116780,8 +116602,8 @@ ent
 ent
 ent
 roP
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -117001,19 +116823,19 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 cno
 cno
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 qmQ
 qmQ
 qmQ
 bPb
 qmQ
 qmQ
-ujh
+blN
 qmQ
 qmQ
 qmQ
@@ -117037,8 +116859,8 @@ qmQ
 qmQ
 qmQ
 qmQ
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
@@ -117258,32 +117080,16 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 cno
 qkE
-rKf
+cyM
 bmn
 bmn
 bmn
 bmn
 bmn
-cqG
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-bmn
-pvu
+dvd
 bmn
 bmn
 bmn
@@ -117294,8 +117100,24 @@ bmn
 bmn
 bmn
 bmn
-rKf
-rKf
+bmn
+bmn
+bmn
+bmn
+bmn
+mmF
+bmn
+bmn
+bmn
+bmn
+bmn
+bmn
+bmn
+bmn
+bmn
+bmn
+cyM
+cyM
 cno
 aaa
 aaa
@@ -117514,11 +117336,11 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 cno
 cno
-rKf
+cyM
 bVh
 bVh
 bVh
@@ -117527,7 +117349,7 @@ bVh
 bVh
 bVh
 jfT
-vXx
+wuC
 bVh
 bVh
 bVh
@@ -117551,8 +117373,8 @@ bVh
 bVh
 bVh
 bVh
-rKf
-rKf
+cyM
+cyM
 qkE
 aaa
 aaa
@@ -117563,7 +117385,7 @@ aaa
 aaa
 cno
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -117775,7 +117597,7 @@ sYt
 qho
 cno
 cno
-rKf
+cyM
 ent
 ent
 ent
@@ -117784,19 +117606,10 @@ ent
 ent
 ent
 ent
-pTI
+hZZ
 ent
 ent
-bTp
-ent
-ent
-ent
-ent
-ent
-ent
-ent
-ent
-ent
+cZp
 ent
 ent
 ent
@@ -117808,9 +117621,18 @@ ent
 ent
 ent
 ent
-rKf
-rKf
-rKf
+ent
+ent
+ent
+ent
+ent
+ent
+ent
+ent
+ent
+cyM
+cyM
+cyM
 cno
 aaa
 aaa
@@ -117820,7 +117642,7 @@ aaa
 aaa
 cno
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -118028,11 +117850,11 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 qkE
-blN
-rKf
+jHe
+cyM
 ent
 ent
 ent
@@ -118041,7 +117863,7 @@ ent
 ent
 ent
 ent
-pTI
+hZZ
 mkL
 rdz
 ent
@@ -118066,8 +117888,8 @@ ent
 ent
 cti
 rPE
-rKf
-rKf
+cyM
+cyM
 tLW
 aaa
 aaa
@@ -118075,10 +117897,10 @@ aaa
 aaa
 aaa
 cno
-blN
+jHe
 sYt
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -118286,11 +118108,11 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 wHn
-rKf
-rKf
+cyM
+cyM
 qmQ
 bPb
 qmQ
@@ -118324,18 +118146,18 @@ ecP
 pKY
 kqQ
 pKY
-rKf
-rKf
+cyM
+cyM
 cno
 aaa
 aaa
 aaa
 aaa
 qkE
-rKf
+cyM
 sYt
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -118544,14 +118366,12 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 ent
 ent
-rKf
+cyM
 bmn
-pvu
-bmn
-bmn
+mmF
 bmn
 bmn
 bmn
@@ -118571,25 +118391,27 @@ bmn
 bmn
 bmn
 bmn
-pvu
+bmn
+bmn
+mmF
 bmn
 bmn
 bmn
 bmn
 bmn
-cOK
-rKf
+pKP
+cyM
 kUf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 cno
 cno
 aaa
 aaa
 aaa
 cno
-rKf
+cyM
 sYt
 pKi
 sYt
@@ -118801,15 +118623,15 @@ cFB
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 ent
 ucn
 bVh
 szu
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 vHc
 szu
 bVh
@@ -118833,23 +118655,23 @@ bVh
 bVh
 bVh
 xfH
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
 pKi
-rKf
-rKf
-blN
+cyM
+cyM
+jHe
 aaa
 aaa
 aaa
 qho
-rKf
+cyM
 pKi
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -119058,28 +118880,28 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 ent
 jmb
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
 sYt
 sYt
-rKf
+cyM
 sYt
-rKf
+cyM
 sYt
-rKf
+cyM
 sYt
 ent
 ent
 ent
-oaW
+tlV
 ent
 ent
 ent
@@ -119091,22 +118913,22 @@ ent
 ent
 roP
 ent
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 pKi
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 cno
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 pKi
 sYt
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -119314,32 +119136,32 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 ent
 ent
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
-rKf
-rKf
-rKf
-sYt
-sYt
+cyM
+cyM
+cyM
 sYt
 sYt
 sYt
-rKf
-rKf
-cOK
+sYt
+sYt
+cyM
+cyM
+pKP
 lxx
 qNc
 ent
-rKf
+cyM
 aIa
 ent
 jmb
@@ -119349,18 +119171,18 @@ mkL
 ent
 ent
 bUv
-rKf
-rKf
+cyM
+cyM
 pKi
 sYt
 sYt
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
 aaa
@@ -119570,34 +119392,34 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 jmb
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
 pKi
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 sYt
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 wLL
 dll
 dAQ
-gnq
-sYt
 rKf
+sYt
+cyM
 ent
 sYt
 meb
@@ -119606,18 +119428,18 @@ ent
 ent
 bUv
 bUv
-rKf
-rKf
+cyM
+cyM
 pKi
-rKf
+cyM
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
 aaa
@@ -119827,24 +119649,24 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 ent
 meb
 ent
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 sYt
@@ -119852,31 +119674,31 @@ sYt
 xBp
 sWX
 xBp
-rKf
-rKf
+cyM
+cyM
 sYt
 ent
 sYt
 sYt
 ent
-moR
+sRW
 bUv
 bUv
-rKf
-rKf
+cyM
+cyM
 sYt
 pKi
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 qia
 aht
 aht
 pWb
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -120084,27 +119906,27 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 wfX
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 pKi
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 sYt
 pKi
-rKf
-rKf
+cyM
+cyM
 pKi
-rKf
-rKf
+cyM
+cyM
 kCL
 kCL
 llm
@@ -120118,22 +119940,22 @@ sYt
 sYt
 sYt
 bUv
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 pKi
 sYt
-rKf
+cyM
 aht
 aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -120340,45 +120162,45 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 pKi
 pKi
 sYt
 sYt
 pKi
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 xBp
 rsD
 llm
 eLV
 xBp
-rKf
+cyM
 sYt
 sYt
 ent
 ent
 ent
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
-rKf
+cyM
 sYt
 pKi
 pKi
@@ -120598,26 +120420,26 @@ aaa
 aaa
 aaa
 xhP
-rKf
+cyM
 sYt
 sYt
 sYt
-rKf
+cyM
 pKi
 pKi
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 sYt
 pKi
 pKi
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 xBp
 aEe
@@ -120635,11 +120457,11 @@ xBp
 xBp
 xBp
 kCL
-rKf
+cyM
 sYt
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 mau
 aaa
@@ -120853,26 +120675,26 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 pKi
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
 pKi
 sYt
 pKi
 pKi
 sYt
-rKf
+cyM
 sYt
-rKf
+cyM
 kCL
 xBp
 xBp
@@ -120895,7 +120717,7 @@ xBp
 sYt
 sYt
 pKi
-rKf
+cyM
 aaa
 aaa
 pWb
@@ -121110,26 +120932,26 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 sYt
 sYt
-rKf
+cyM
 sYt
 sYt
 sYt
 sYt
-rKf
+cyM
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
-rKf
+cyM
 xBp
 fXI
 fXI
@@ -121150,10 +120972,10 @@ gMR
 wGV
 xBp
 sYt
-rKf
+cyM
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 pWb
 aaa
@@ -121367,15 +121189,15 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 sYt
 sYt
@@ -121392,7 +121214,7 @@ sRb
 hLI
 hXJ
 nOz
-pXF
+ovU
 fea
 pqJ
 dNO
@@ -121407,10 +121229,10 @@ lfF
 vto
 xBp
 sYt
-rKf
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 aaa
 pWb
 aaa
@@ -121624,24 +121446,24 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
-rKf
+cyM
 pKi
 sYt
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 pKi
 sYt
 sYt
-rKf
+cyM
 xBp
 iCc
 hcf
@@ -121664,9 +121486,9 @@ kMk
 xBp
 kCL
 kCL
-rKf
+cyM
 sYt
-rKf
+cyM
 aaa
 aaa
 aht
@@ -121881,24 +121703,24 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
-rKf
+cyM
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 pKi
 sYt
-rKf
-rKf
+cyM
+cyM
 xBp
 xBp
 xBp
@@ -121922,9 +121744,9 @@ eZL
 jPu
 cva
 kCL
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 aaa
 pWb
 aaa
@@ -122138,24 +121960,24 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 sYt
-rKf
+cyM
 pKi
 pKi
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 xBp
 iCc
 eRH
@@ -122180,7 +122002,7 @@ wwy
 sKT
 kCL
 kCL
-rKf
+cyM
 aaa
 aaa
 pWb
@@ -122395,9 +122217,9 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 sYt
 sYt
@@ -122405,14 +122227,14 @@ pKi
 pKi
 sYt
 sYt
-rKf
+cyM
 pKi
 sYt
 pKi
-rKf
+cyM
 sYt
 sYt
-rKf
+cyM
 xBp
 xBp
 xBp
@@ -122437,8 +122259,8 @@ iKq
 xAW
 jPu
 xBp
-rKf
-rKf
+cyM
+cyM
 aaa
 aht
 aht
@@ -122652,23 +122474,23 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 pKi
 pKi
 pKi
-rKf
+cyM
 sYt
-rKf
+cyM
 pKi
 sYt
-rKf
+cyM
 sYt
 xBp
 iCc
@@ -122676,8 +122498,8 @@ hcf
 jhp
 iBB
 iBB
-uic
-nso
+agm
+wAr
 mxW
 upE
 pyl
@@ -122695,7 +122517,7 @@ mxW
 rgM
 kCL
 kCL
-rKf
+cyM
 cno
 qho
 aaa
@@ -122909,10 +122731,10 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
-rKf
+cyM
 sYt
 sYt
 sYt
@@ -122952,9 +122774,9 @@ rtN
 dHA
 rAW
 xBp
-rKf
+cyM
 cno
-rKf
+cyM
 cno
 aaa
 kCs
@@ -123166,25 +122988,25 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
 sYt
-rKf
+cyM
 sYt
 pKi
-rKf
-rKf
+cyM
+cyM
 pKi
 pKi
-rKf
-rKf
+cyM
+cyM
 sYt
 xBp
 oIY
@@ -123211,7 +123033,7 @@ jvp
 xBp
 sYt
 sYt
-rKf
+cyM
 cno
 aaa
 kCs
@@ -123423,25 +123245,25 @@ aaa
 cFB
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
 sYt
 sYt
-rKf
+cyM
 pKi
 pKi
 sYt
 pKi
 sYt
-rKf
+cyM
 sYt
 kCL
 xBp
@@ -123466,9 +123288,9 @@ iBo
 jdD
 jvp
 xBp
-rKf
+cyM
 sYt
-rKf
+cyM
 cno
 aaa
 kCs
@@ -123680,27 +123502,27 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 sYt
-rKf
+cyM
 sYt
 sYt
 sYt
-rKf
+cyM
 pKi
-rKf
-rKf
+cyM
+cyM
 pKi
 sYt
 sYt
-rKf
+cyM
 xBp
 wta
 puJ
@@ -123723,9 +123545,9 @@ mxW
 dHA
 jvp
 xBp
-rKf
+cyM
 sYt
-rKf
+cyM
 xon
 aaa
 kCs
@@ -123938,26 +123760,26 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 sYt
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 sYt
 sYt
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 sYt
 sYt
-rKf
+cyM
 xBp
 hiJ
 bsu
@@ -123972,7 +123794,7 @@ odJ
 xBp
 vUg
 mhl
-llc
+gaq
 mhl
 xBp
 ffG
@@ -123982,8 +123804,8 @@ uQE
 xBp
 xBp
 kCL
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 kCs
@@ -124196,25 +124018,25 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 sYt
 sYt
-rKf
-rKf
-sYt
-sYt
-sYt
+cyM
+cyM
 sYt
 sYt
 sYt
 sYt
-rKf
-rKf
 sYt
 sYt
-rKf
-rKf
+sYt
+cyM
+cyM
+sYt
+sYt
+cyM
+cyM
 xBp
 nzi
 rFe
@@ -124232,7 +124054,7 @@ mxf
 leo
 hXE
 xBp
-kLD
+nPb
 arO
 foJ
 mdc
@@ -124240,7 +124062,7 @@ fWy
 iuH
 xBp
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -124455,23 +124277,23 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
 pKi
 pKi
 pKi
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
-rKf
+cyM
 xBp
 dtV
 fdA
@@ -124715,20 +124537,20 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
 pKi
 pKi
 pKi
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
 xBp
 vnZ
 lFk
@@ -124748,12 +124570,12 @@ egX
 xBp
 iKq
 mxW
-uxR
+qiX
 mpR
 fqw
 kKI
 xBp
-rKf
+cyM
 pKi
 aaa
 aaa
@@ -124977,14 +124799,14 @@ aaa
 aaa
 aaa
 qia
-rKf
-rKf
+cyM
+cyM
 pKi
-rKf
+cyM
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 sYt
 xBp
 xBp
@@ -125010,8 +124832,8 @@ hnf
 kNA
 nbp
 xBp
-rKf
-rKf
+cyM
+cyM
 pKi
 aaa
 aaa
@@ -125235,14 +125057,14 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
 aaa
-blN
-rKf
+jHe
+cyM
 xBp
 nSK
 dDs
@@ -125252,12 +125074,12 @@ vMC
 uHl
 xBp
 sYt
-rKf
-rKf
-rKf
-csL
-rKf
-rKf
+cyM
+cyM
+cyM
+hVS
+cyM
+cyM
 sYt
 xBp
 kKI
@@ -125499,7 +125321,7 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 xBp
 vDQ
 xBp
@@ -125508,13 +125330,13 @@ hEM
 iYw
 diz
 xBp
-rKf
-rKf
-aeW
-dkN
-dkN
-rKf
-rKf
+cyM
+cyM
+fvH
+gga
+gga
+cyM
+cyM
 sYt
 xBp
 rTo
@@ -125526,7 +125348,7 @@ wud
 xBp
 oYz
 kCL
-rKf
+cyM
 pKi
 cFB
 aaa
@@ -125756,7 +125578,7 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 kCL
 xBp
 xBp
@@ -125765,12 +125587,12 @@ ylJ
 jOD
 tYg
 xBp
-rKf
-rKf
-rKf
-kmD
-aEM
-rKf
+cyM
+cyM
+cyM
+dzT
+hQo
+cyM
 kCL
 xBp
 kCL
@@ -126014,20 +125836,20 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
+cyM
+cyM
 kCL
 xBp
 xBp
 xBp
 xBp
 kCL
-rKf
-rKf
-aMI
-liz
-cFJ
-rKf
+cyM
+cyM
+dGQ
+wte
+dGG
+cyM
 xBp
 cHK
 nct
@@ -126042,7 +125864,7 @@ hAD
 sOM
 kCL
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -126272,18 +126094,18 @@ aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
 cno
-cQQ
-ard
-rKf
+xQJ
+orD
+cyM
 sYt
 xBp
 oBL
@@ -126298,9 +126120,9 @@ xBp
 qhB
 tKw
 kCL
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -126530,17 +126352,17 @@ aaa
 aaa
 aaa
 cno
-rKf
-rKf
-rKf
-rKf
-rKf
-blN
+cyM
+cyM
+cyM
+cyM
+cyM
+jHe
 cno
 cno
-reg
-rKf
-rKf
+vxA
+cyM
+cyM
 sYt
 xBp
 cHK
@@ -126555,9 +126377,9 @@ kCL
 khP
 pNJ
 kCL
-rKf
+cyM
 pKi
-rKf
+cyM
 aaa
 aaa
 aaa
@@ -126788,17 +126610,17 @@ aaa
 aaa
 aaa
 cno
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
 cHJ
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 kCL
 xBp
 xBp
@@ -126807,14 +126629,14 @@ xBp
 xBp
 xBp
 kCL
-rKf
+cyM
 kCL
 kCL
 kCL
 kCL
 pKi
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -127045,33 +126867,33 @@ aaa
 aaa
 aaa
 cno
-rKf
+cyM
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
 pKi
-rKf
-pKi
-pKi
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
 pKi
 pKi
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
 pKi
-rKf
-rKf
-rKf
+pKi
+pKi
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -127310,25 +127132,25 @@ aaa
 aaa
 aaa
 tGQ
-rKf
+cyM
 aaa
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 aaa
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
 aaa
 cno
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
-rKf
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -127576,16 +127398,16 @@ aaa
 aaa
 aaa
 aaa
-rKf
+cyM
 aaa
 aaa
-blN
+jHe
 cno
-rKf
-rKf
+cyM
+cyM
 cno
-rKf
-rKf
+cyM
+cyM
 aaa
 aaa
 aaa
@@ -127840,9 +127662,9 @@ aaa
 aaa
 cno
 tGQ
-blN
+jHe
 cno
-rKf
+cyM
 aaa
 aaa
 aaa
