@@ -1,17 +1,16 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "h" = (
-/obj/structure/window/reinforced/shuttle,
-/obj/structure/grille,
-/turf/open/floor/plating,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/pod_1)
-"r" = (
+"o" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/shuttle/pod_1)
-"s" = (
-/obj/structure/window/reinforced/shuttle,
-/obj/structure/grille,
-/turf/open/space/basic,
+"r" = (
+/obj/item/storage/pod{
+	pixel_x = -24
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/pod_1)
 "u" = (
 /obj/structure/grille,
@@ -19,10 +18,9 @@
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "A" = (
-/obj/item/storage/pod{
-	pixel_x = -24
-	},
-/turf/open/floor/iron/dark,
+/obj/structure/window/reinforced/shuttle,
+/obj/structure/grille,
+/turf/open/space/basic,
 /area/shuttle/pod_1)
 "B" = (
 /turf/closed/wall/mineral/titanium,
@@ -100,6 +98,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/pod_1)
+"R" = (
+/obj/structure/window/reinforced/shuttle,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/shuttle/pod_1)
 "W" = (
 /turf/template_noop,
 /area/template_noop)
@@ -110,7 +113,7 @@
 
 (1,1,1) = {"
 W
-h
+R
 B
 u
 Z
@@ -118,31 +121,31 @@ W
 "}
 (2,1,1) = {"
 B
-B
+h
 J
 L
-B
+h
 Z
 "}
 (3,1,1) = {"
-s
-C
-r
-r
 A
+C
+o
+o
+r
 O
 "}
 (4,1,1) = {"
 B
-B
+h
 M
 H
-B
+h
 Z
 "}
 (5,1,1) = {"
 W
-h
+R
 B
 u
 Z
