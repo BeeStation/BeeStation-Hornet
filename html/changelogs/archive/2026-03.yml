@@ -96,6 +96,8 @@
       you
   - balance: Ranged swarmers (red ones) now shoot less lethal ammo instead of just
       lasers
+  PatienceStPim:
+  - bugfix: Lizards and psyphozas can get their mutations unlocked again
   Tsar-Salat:
   - refactor: species damage mods are now limb-based
   - bugfix: damage mods work again, IPCs ignore stamina damage
