@@ -2704,6 +2704,7 @@
 #include "code\modules\cargo\bounties\slime.dm"
 #include "code\modules\cargo\bounties\special.dm"
 #include "code\modules\cargo\bounties\virus.dm"
+#include "code\modules\cargo\bounties\genetics.dm"
 #include "code\modules\cargo\exports\item_price.dm"
 #include "code\modules\cargo\exports\large_objects.dm"
 #include "code\modules\cargo\exports\manifest.dm"
