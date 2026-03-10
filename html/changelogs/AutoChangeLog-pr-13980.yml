@@ -1,7 +1,0 @@
-author: Isaac
-delete-after: true
-changes:
-  - balance: Melee swarmers now deal stamina damage instead of straight up shocking
-      you
-  - balance: Ranged swarmers (red ones) now shoot less lethal ammo instead of just
-      lasers

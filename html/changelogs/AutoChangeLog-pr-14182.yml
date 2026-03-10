@@ -1,5 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - refactor: species damage mods are now limb-based
-  - bugfix: damage mods work again, IPCs ignore stamina damage
