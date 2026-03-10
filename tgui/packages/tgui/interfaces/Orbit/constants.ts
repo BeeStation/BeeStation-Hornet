@@ -46,12 +46,7 @@ export const DEPARTMENT2COLOR: Record<string, Department> = {
   },
   science: {
     color: 'pink',
-    trims: [
-      'Exploration Crew',
-      'Research Director',
-      'Roboticist',
-      'Scientist',
-    ],
+    trims: ['Exploration Crew', 'Research Director', 'Roboticist', 'Scientist'],
   },
   security: {
     color: 'red',
