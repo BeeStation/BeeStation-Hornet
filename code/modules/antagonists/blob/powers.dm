@@ -195,14 +195,16 @@
 	var/icon/blobbernaut_icon = icon(icon, "blobbernaut")
 	blobbernaut_icon.Blend(blobstrain.color, ICON_MULTIPLY)
 	var/image/blobbernaut_image = image(blobbernaut_icon)
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_BLOB
-	config.poll_time = 20 SECONDS
-	config.ignore_category = POLL_IGNORE_BLOB
-	config.alert_pic = blobbernaut_image
-	config.jump_target = factory
-	config.role_name_text = "blobbernaut"
-	config.chat_text_border_icon = blobbernaut_image
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_BLOB,
+		poll_time = 20 SECONDS,
+		ignore_category = POLL_IGNORE_BLOB,
+		alert_pic = blobbernaut_image,
+		jump_target = factory,
+		role_name_text = "blobbernaut",
+		chat_text_border_icon = blobbernaut_image,
+		amount_to_pick = 1,
+	)
 	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(config, factory)
 	on_poll_concluded(factory, chosen_one)
 

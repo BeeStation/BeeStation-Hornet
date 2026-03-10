@@ -65,21 +65,24 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 	var/current_body_size = BODY_SIZE_NORMAL
 	//Holder for the displacement appearance, related to species height
-	var/icon/height_displacement
+	var/datum/component/height_filter/height_displacement
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
-	height_displacement = icon('icons/effects/64x64.dmi', "height_displacement")
+	//Add our size stuff so we can simulate short people
+	if(species?.height_icon_state)
+		height_displacement = holder?.AddComponent(/datum/component/height_filter, 'icons/effects/64x64.dmi', species.height_icon_state)
+	update_body_size()
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
 		var/mob/living/carbon/cholder = holder
 		if(cholder?.dna == src)
 			cholder.dna = null
-	holder?.remove_filter("species_height_displacement")
-	holder = null
 	QDEL_NULL(height_displacement)
+	holder = null
+
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -514,18 +517,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/list/heights = species?.get_species_height()
 	if((!holder || !features["body_size"] || !length(heights)) && !force)
 		return
-
 	var/desired_size = heights[features["body_size"]]
-
 	if(desired_size == current_body_size && !force)
 		return
-
-	//Weird little fix - if height < 0, our guy gets cut off!! We can fix this by layering an invisible 64x64 icon, aka the displacement
-	holder.remove_filter("height_cutoff_fix")
-	holder.add_filter("height_cutoff_fix", 1, layering_filter(icon = height_displacement, color = "#ffffff00"))
-	//Build / setup displacement filter
-	holder.remove_filter("species_height_displacement")
-	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(icon = height_displacement, y = 8, size = desired_size))
+	SEND_SIGNAL(src, COMSIG_CARBON_HEIGHT_UPDATE, desired_size)
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return

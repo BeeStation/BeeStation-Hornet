@@ -21,6 +21,12 @@
   rkz, zephyr:
   - server: autogenerates python path
 2026-03-06:
+  mrmanlikesbt:
+  - code_imp: Poll configs now use constructors instead of manually setting the config's
+      parameters
+  - bugfix: Fixed several ghost polls not working
+  - bugfix: Fixed xenomorphs and spiders not having the vent overlay when spawning
+      inside of a vent
   mrmanlikesbt, rkz, Ghommie, SmArtKar, Pickle-Coding, grungussuss, LemonInTheDark, Floofies, vinylspiders, san7890:
   - code_imp: 'Added an easy define for reference tracking: REFERENCE_TRACKING_STANDARD'
   - admin: Removed the SMES deletion admin message. Player deconstruction still sends
@@ -72,3 +78,15 @@
   - bugfix: Fixed some nullrod variants not having icons on the radial menu variant
       select
   - bugfix: Fixed the ninja plant explosive always failing
+2026-03-08:
+  DrDuckedGoose:
+  - tweak: Improved species height code
+  - rscadd: Added support for directions in species height code
+  - rscadd: Added support for unique maps in species height code
+  Fikou, r1ks-iwnl:
+  - balance: Removed healing amplification from BDM's trophy.
+  - bugfix: Fixed BDM trophy damage overlay making you near blind if you have oxy
+      damage.
+  - bugfix: Fixed BDM trophy making you unconscious if you have 5 or more oxy damage.
+  Isaacnml:
+  - bugfix: Exploration blackbox objectives can be tracked by GPS/Hardsuits once again

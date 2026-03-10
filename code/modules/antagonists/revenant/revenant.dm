@@ -505,13 +505,15 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/datum/poll_config/config = new()
-		config.question = "Do you want to be [revenant.name] (reforming)?"
-		config.check_jobban = ROLE_REVENANT
-		config.poll_time = 10 SECONDS
-		config.jump_target = revenant
-		config.role_name_text = "revenant"
-		config.alert_pic = revenant
+		var/datum/poll_config/config = new(
+			question = "Do you want to be [revenant.name] (reforming)?",
+			check_jobban = ROLE_REVENANT,
+			poll_time = 10 SECONDS,
+			jump_target = revenant,
+			role_name_text = "revenant",
+			alert_pic = revenant,
+			amount_to_pick = 1,
+		)
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 		if(!candidate)
 			qdel(revenant)
