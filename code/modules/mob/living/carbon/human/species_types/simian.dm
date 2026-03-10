@@ -13,6 +13,7 @@
 		LIPS,
 		NOSOCKS,
 		MUTCOLORS,
+		HAIR,
 	)
 
 	bodypart_overrides = list(
