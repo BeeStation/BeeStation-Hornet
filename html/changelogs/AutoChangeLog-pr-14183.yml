@@ -1,0 +1,4 @@
+author: PatienceStPim
+delete-after: true
+changes:
+  - bugfix: Scanners not working after injecting enzymes in genetics

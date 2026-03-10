@@ -90,3 +90,14 @@
   - bugfix: Fixed BDM trophy making you unconscious if you have 5 or more oxy damage.
   Isaacnml:
   - bugfix: Exploration blackbox objectives can be tracked by GPS/Hardsuits once again
+2026-03-10:
+  Isaac:
+  - balance: Melee swarmers now deal stamina damage instead of straight up shocking
+      you
+  - balance: Ranged swarmers (red ones) now shoot less lethal ammo instead of just
+      lasers
+  PatienceStPim:
+  - bugfix: Lizards and psyphozas can get their mutations unlocked again
+  Tsar-Salat:
+  - refactor: species damage mods are now limb-based
+  - bugfix: damage mods work again, IPCs ignore stamina damage

@@ -925,7 +925,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				to_chat(src, span_notice("Oh, I actually feel quite alright!")) //you thought
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
-					H.physiology.damage_resistance = -20000
+					H.physiology.damage_resistance -= 20000 //you thought
 			if(5)
 				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 				reagents.add_reagent(/datum/reagent/aslimetoxin, 10)
