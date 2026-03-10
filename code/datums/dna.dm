@@ -512,26 +512,35 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /datum/dna/stored/remove_mutation_group(list/group)
 	return
 
-/////////////////////////// DNA MOB-PROCS //////////////////////
 /datum/dna/proc/update_body_size(force)
+	if(!height_displacement)
+		return
 	var/list/heights = species?.get_species_height()
 	if((!holder || !features["body_size"] || !length(heights)) && !force)
 		return
 	var/desired_size = heights[features["body_size"]]
 	if(desired_size == current_body_size && !force)
 		return
-	SEND_SIGNAL(src, COMSIG_CARBON_HEIGHT_UPDATE, desired_size)
+	SEND_SIGNAL(holder, COMSIG_CARBON_HEIGHT_UPDATE, desired_size)
 
+/datum/dna/proc/update_species(_species)
+	species = _species
+	// Update our height filters
+	QDEL_NULL(height_displacement)
+	if(species?.height_icon_state)
+		height_displacement = holder?.AddComponent(/datum/component/height_filter, 'icons/effects/64x64.dmi', species.height_icon_state)
+	update_body_size(TRUE)
+
+/////////////////////////// DNA MOB-PROCS //////////////////////
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
 
 /mob/living/brain/set_species(datum/species/mrace, icon_update = 1)
 	if(mrace)
 		if(ispath(mrace))
-			stored_dna.species = new mrace()
+			stored_dna.update_species(new mrace())
 		else
 			stored_dna.species = mrace //not calling any species update procs since we're a brain, not a monkey/human
-
 
 /mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	if(QDELETED(src))
@@ -548,7 +557,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 		dna.species.on_species_loss(src, new_race, pref_load)
 		var/datum/species/old_species = dna.species
-		dna.species = new_race
+		dna.update_species(new_race)
 
 		dna.species.on_species_gain(src, old_species, pref_load)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
@@ -623,7 +632,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	dna = new /datum/dna(src)
 	if(!dna.species)
 		var/rando_race = pick(get_selectable_species())
-		dna.species = new rando_race()
+		dna.update_species(new rando_race())
 
 //proc used to update the mob's appearance after its dna UI has been changed
 /mob/living/carbon/proc/updateappearance(icon_update = TRUE, mutcolor_update = FALSE, mutations_overlay_update = FALSE)

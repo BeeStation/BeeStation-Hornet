@@ -79,7 +79,7 @@
 	var/burn_modifier = 1
 	/// Stamina damage gets multiplied by this on receive_damage()
 	var/stamina_modifier = 1
-	
+
 	// Damage reduction variables for damage handled on the limb level. Handled after worn armor.
 	/// Amount subtracted from brute damage inflicted on the limb.
 	var/brute_reduction = 0
@@ -117,12 +117,18 @@
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
 
+	/// Bit flags of items we can't equip due to this limb, like not being able to equip glasses, hats, or earpieces because this head limb is a swolen pumpkin of meat
+	var/item_restriction_flags = NONE
+	/// Reason we explain to the user for these restrictions
+	var/restriction_context
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
 		RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_gain))
 		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_loss))
 	name = "[limb_id] [parse_zone(body_zone)]"
+	restriction_context = restriction_context || "That wont fit on [src]!"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
@@ -528,6 +534,7 @@
 				SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE),
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
+			UnregisterSignal(old_owner, COMSIG_CLOTHING_RESTRICTION_CHECK, PROC_REF(catch_clothing_restriction_check))
 	if(owner)
 		if(held_index)
 			owner.on_added_hand(src, held_index)
@@ -546,6 +553,7 @@
 				needs_update_disabled = FALSE
 			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_loss))
 			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_gain))
+			RegisterSignal(owner, COMSIG_CLOTHING_RESTRICTION_CHECK, PROC_REF(catch_clothing_restriction_check))
 
 		if(needs_update_disabled)
 			update_disabled()
@@ -806,3 +814,13 @@
 		owner.update_body_parts()
 	else
 		update_icon_dropped()
+
+/// Return true to prevent equipping
+/obj/item/bodypart/proc/catch_clothing_restriction_check(datum/source, _flags, list/_context_list)
+	SIGNAL_HANDLER
+
+	if(!item_restriction_flags)
+		return
+	if(item_restriction_flags & _flags)
+		_context_list += restriction_context
+		return TRUE

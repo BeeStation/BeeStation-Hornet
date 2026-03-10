@@ -57,11 +57,14 @@
 
 	/// Which hand?
 	var/hand_index
+	/// Which hand side
+	var/left_side = TRUE
 
 /datum/strippable_item/hand/get_item(atom/source)
 	if(!ismob(source))
 		return null
 
+	update_index(source)
 	var/mob/mob_source = source
 	return mob_source.get_item_for_held_index(hand_index)
 
@@ -124,7 +127,22 @@
 	if(!ismob(source))
 		return FALSE
 
-	return finish_unequip_mob(item, source, user)
+	. = finish_unequip_mob(item, source, user)
+
+	update_index(source)
+
+/// Used to cycle to the next hand on that side that has an item, relevant for mobs with multiple hands
+/datum/strippable_item/hand/proc/update_index(mob/victim)
+	var/index = 1
+	for(var/hand as anything in victim.held_items)
+		if(hand && index % 2 && left_side)
+			break
+		if(hand && !(index % 2) && !left_side)
+			break
+		index += 1
+	if(index > victim.held_items.len)
+		index = initial(hand_index)
+	hand_index = index
 
 /datum/strippable_item/hand/left
 	key = STRIPPABLE_ITEM_LHAND
@@ -133,3 +151,4 @@
 /datum/strippable_item/hand/right
 	key = STRIPPABLE_ITEM_RHAND
 	hand_index = 2
+	left_side = FALSE

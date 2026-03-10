@@ -9,6 +9,8 @@
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
 
+	restriction_flags = RESTRICTION_SHOES
+
 	armor_type = /datum/armor/clothing_shoes
 	slowdown = SHOES_SLOWDOWN
 	strip_delay = 1 SECONDS

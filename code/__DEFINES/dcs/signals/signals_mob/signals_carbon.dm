@@ -81,3 +81,5 @@
 
 ///Called when you want to update a carbon's height with the height_filter element - update_displacement(intensity, dir_override)
 #define COMSIG_CARBON_HEIGHT_UPDATE "COMSIG_CARBON_HEIGHT_UPDATE"
+
+#define COMSIG_CLOTHING_RESTRICTION_CHECK "COMSIG_CLOTHING_RESTRICTION_CHECK"
