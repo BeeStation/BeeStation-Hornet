@@ -2341,11 +2341,11 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	return TRUE
 
 /obj/effect/overlay/combat_indicator
-    icon = 'icons/misc/combat_indicator.dmi'
-    icon_state = "combat"
-    layer = FLY_LAYER
-    appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
-    mouse_opacity = 0
+	icon = 'icons/misc/combat_indicator.dmi'
+	icon_state = "combat"
+	layer = FLY_LAYER
+	appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
+	mouse_opacity = 0
 
 GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, new)
 
