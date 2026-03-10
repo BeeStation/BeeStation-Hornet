@@ -13,6 +13,8 @@
 	var/icon_static = 'icons/mob/human/bodyparts.dmi'
 	///The icon for husked limbs
 	VAR_PROTECTED/icon_husk = 'icons/mob/human/bodyparts.dmi'
+	///Do we use dual icons for segmented colouring?
+	var/segmented_color = FALSE
 	///The type of husk for building an iconstate
 	var/husk_type = "humanoid"
 	layer = BELOW_MOB_LAYER //so it isn't hidden behind objects when on the floor
@@ -686,8 +688,8 @@
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return
 	for(var/image/img as anything in standing)
-		img.pixel_x = px_x
-		img.pixel_y = px_y
+		img?.pixel_x = px_x
+		img?.pixel_y = px_y
 	add_overlay(standing)
 
 /obj/item/bodypart/proc/get_limb_icon(dropped)
@@ -737,7 +739,7 @@
 	if(!should_draw_greyscale || !icon_greyscale)
 		limb.icon = icon_static
 	//Case for dual use, aka using coloured segments
-	if(icon_greyscale && icon_static)
+	if(icon_greyscale && icon_static && segmented_color)
 		limb.icon = icon_static
 		coloured_limb = image(icon_greyscale, is_dimorphic ? "[limb_id]_[body_zone]_[limb_gender]" : "[limb_id]_[body_zone]", CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
 
