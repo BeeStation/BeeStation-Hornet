@@ -2581,7 +2581,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] are weak to brute damage.",
 		))
 
-	if(initial(fake_chest.brute_modifier) < 1)
+	else if(initial(fake_chest.brute_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
@@ -2598,7 +2598,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] are weak to fire and burn damage.",
 		))
 
-	if(initial(fake_chest.burn_modifier) > 1)
+	else if(initial(fake_chest.burn_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
@@ -2607,7 +2607,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		))
 
 	//Toxin related
-	if(initial(fake_chest.burn_modifier) < 1)
+	if(toxmod > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "biohazard",
@@ -2615,7 +2615,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] are weak to toxins and toxin damage.",
 		))
 
-	if(toxmod < 1)
+	else if(toxmod < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "biohazard",
@@ -2647,7 +2647,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] are vulnerable to being shocked.",
 		))
 
-	if(siemens_coeff < 1)
+	else if(siemens_coeff < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
