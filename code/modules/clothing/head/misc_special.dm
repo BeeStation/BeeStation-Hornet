@@ -15,7 +15,7 @@
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
 	inhand_icon_state = "welding"
-	clothing_flags = SNUG_FIT
+	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
 	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2

@@ -822,6 +822,7 @@
 #include "code\datums\components\grillable.dm"
 #include "code\datums\components\ground_sinking.dm"
 #include "code\datums\components\haircolor_clothes.dm"
+#include "code\datums\components\hat_stabilizer.dm"
 #include "code\datums\components\height_filter.dm"
 #include "code\datums\components\heirloom.dm"
 #include "code\datums\components\honkspam.dm"
