@@ -726,10 +726,20 @@
 			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		return .
 
-	////This is the MEAT of limb icon code
+//This is the MEAT of limb icon code
 	limb.icon = icon_greyscale
+
+	var/image/coloured_limb
+	var/image/coloured_aux
+
+	//Limb
+	//Case for typical use
 	if(!should_draw_greyscale || !icon_greyscale)
 		limb.icon = icon_static
+	//Case for dual use, aka using coloured segments
+	if(icon_greyscale && icon_static)
+		limb.icon = icon_static
+		coloured_limb = image(icon_greyscale, is_dimorphic ? "[limb_id]_[body_zone]_[limb_gender]" : "[limb_id]_[body_zone]", CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
 
 	if(is_dimorphic) //Does this type of limb have sexual dimorphism?
 		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
@@ -740,20 +750,33 @@
 	icon_exists(limb.icon, limb.icon_state, TRUE) //Prints a stack trace on the first failure of a given iconstate.
 
 	. += limb
+	. += coloured_limb
 
+	//Aux
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		. += aux
 		. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
+	if(aux_zone && icon_greyscale && icon_static)
+		coloured_aux = image(icon_greyscale, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
+		. += coloured_aux
 
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
-	if(draw_color)
+	if(!draw_color)
+		return
+	if(coloured_limb)
+		coloured_limb.color = draw_color
+	else
 		limb.color = draw_color
-		if(aux_zone)
-			aux.color = draw_color
+	if(!aux_zone)
+		return
+	if(coloured_aux)
+		coloured_aux.color = draw_color
+	else
+		aux.color = draw_color
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	SHOULD_CALL_PARENT(TRUE)

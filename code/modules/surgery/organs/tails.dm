@@ -113,3 +113,21 @@
 										"spines" = species.mutant_bodyparts["waggingspines"])
 		species.mutant_bodyparts -= list("waggingtail_lizard", "waggingspines")
 	H.update_body()
+
+/obj/item/organ/tail/monkey
+	name = "monkey tail"
+	desc = "Somewhere, a monkey just became an ape."
+	tail_type = "Monkey"
+	organ_traits = list(TRAIT_LIGHT_LANDING)
+
+/obj/item/organ/tail/monkey/on_insert(mob/living/carbon/human/tail_owner)
+	. = ..()
+	if(istype(tail_owner) && tail_owner.dna)
+		tail_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
+		tail_owner.update_body()
+
+/obj/item/organ/tail/monkey/on_remove(mob/living/carbon/human/tail_owner)
+	. = ..()
+	if(istype(tail_owner) && tail_owner.dna)
+		tail_owner.dna.species.mutant_bodyparts -= "tail_human"
+		tail_owner.update_body()
