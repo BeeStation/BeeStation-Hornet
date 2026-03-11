@@ -2023,11 +2023,6 @@
 	color_src = null
 	locked = TRUE
 
-/datum/sprite_accessory/tails/human/monkey/simian
-	name = "Simian"
-	icon_state = "simian"
-	color_src = MUTCOLORS
-
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
@@ -2086,6 +2081,11 @@
 	icon_state = "cat"
 	hasinner = 1
 	color_src = HAIR
+
+/datum/sprite_accessory/ears/koala
+	name = "Koala"
+	icon_state = "koala"
+	color_src = MUTCOLORS
 
 /datum/sprite_accessory/wings/none
 	name = "None"

@@ -127,3 +127,21 @@
 	name = "trichomes"
 	icon_state = "diona_ears"
 	desc = "A pair of plant matter based ears."
+
+/obj/item/organ/ears/koala
+	name = "koala ears"
+	visual = TRUE
+	bang_protect = -2
+
+/obj/item/organ/ears/koala/on_insert(mob/living/carbon/human/ear_owner)
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
+		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Koala"
+		ear_owner.update_body()
+
+/obj/item/organ/ears/koala/on_remove(mob/living/carbon/human/ear_owner)
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
+		ear_owner.dna.features["ears"] = "None"
+		ear_owner.dna.species.mutant_bodyparts -= "ears"
+		ear_owner.update_body()

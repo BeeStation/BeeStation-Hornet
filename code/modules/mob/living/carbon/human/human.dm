@@ -1292,5 +1292,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 	race = /datum/species/psyphoza
 
 
-/mob/living/carbon/human/species/simian
-	race = /datum/species/simian
+/mob/living/carbon/human/species/koa
+	race = /datum/species/koa
