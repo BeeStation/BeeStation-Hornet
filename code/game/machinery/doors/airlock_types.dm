@@ -488,6 +488,7 @@
 
 /obj/machinery/door/airlock/cult
 	name = "cult airlock"
+	desc = span_cult("A heavy airlock inscribed with shifting, rhythmic runes. Just looking at it gives you a sense of dread, best to avert your gaze.")
 	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/cult/runed/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
@@ -517,23 +518,28 @@
 /obj/machinery/door/airlock/cult/hasPower()
 	return TRUE
 
-/obj/machinery/door/airlock/cult/allowed(mob/living/L)
+/obj/machinery/door/airlock/cult/allowed(mob/living/target)
 	if(!density)
 		return 1
-	if(friendly || IS_CULTIST(L) || istype(L, /mob/living/simple_animal/shade) || isconstruct(L))
+	if(friendly || IS_CULTIST(target) || isshade(target) || isconstruct(target)) // Are they a cultist?, if so open the door
 		if(!stealthy)
 			new openingoverlaytype(loc)
 		return 1
-	else
-		if(!stealthy)
-			new /obj/effect/temp_visual/cult/sac(loc)
-			var/atom/throwtarget
-			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-			SEND_SOUND(L, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
-			flash_color(L, flash_color="#960000", flash_time=20)
-			L.Paralyze(40)
-			L.throw_at(throwtarget, 5, 1,src)
+	var/datum/weakref/W = WEAKREF(target)
+	if(GLOB.cult_airlock_cooldown[W] && GLOB.cult_airlock_cooldown[W] > world.time) // They aren't a cultist, check for antimagic and trigger cooldown
 		return 0
+	GLOB.cult_airlock_cooldown[W] = world.time + 5 SECONDS // Fully aware this also places a cooldown upon bumping, i dont mind it however, just looking at the airlock will yeet you
+	var/anti_magic_source = target.can_block_magic(MAGIC_RESISTANCE_HOLY)
+	if(anti_magic_source)
+		return 0
+	if(!stealthy)
+		new /obj/effect/temp_visual/cult/sac(loc)
+		var/atom/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(target, src)))
+		SEND_SOUND(target, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
+		flash_color(target, flash_color="#960000", flash_time=20)
+		target.Knockdown(4 SECONDS)
+		target.throw_at(throwtarget, 5, 1) // Yeeet
+	return 0
 
 /obj/machinery/door/airlock/cult/proc/conceal()
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
@@ -585,7 +591,7 @@
 
 /obj/machinery/door/airlock/cult/weak
 	name = "brittle cult airlock"
-	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
+	desc = span_cult("An airlock hastily corrupted by blood magic, it is unusually brittle in this state. You feel a sense of dread just by looking it, best avert your gaze.")
 	normal_integrity = 150
 	damage_deflection = 5
 	armor_type = /datum/armor/none

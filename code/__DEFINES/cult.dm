@@ -12,6 +12,9 @@
 #define BLOOD_BARRAGE_COST 300
 #define BLOOD_BEAM_COST 500
 #define IRON_TO_CONSTRUCT_SHELL_CONVERSION 50
+
+GLOBAL_LIST_INIT(cult_airlock_cooldown, list())
+
 // misc
 #define SOULS_TO_REVIVE 3
 #define BLOODCULT_EYE COLOR_RED
