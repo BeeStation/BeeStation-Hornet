@@ -98,11 +98,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/pod_1)
-"R" = (
-/obj/structure/window/reinforced/shuttle,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/pod_1)
 "W" = (
 /turf/template_noop,
 /area/template_noop)
@@ -113,7 +108,7 @@
 
 (1,1,1) = {"
 W
-R
+B
 B
 u
 Z
@@ -145,7 +140,7 @@ Z
 "}
 (5,1,1) = {"
 W
-R
+B
 B
 u
 Z
