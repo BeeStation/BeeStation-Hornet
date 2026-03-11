@@ -13,6 +13,9 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	custom_price = 50
 
+/obj/item/clothing/head/bio_hood/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
 
 /datum/armor/head_bio_hood
 	bio = 100

@@ -84,8 +84,10 @@
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
 	visor_toggling()
-	AddComponent(/datum/component/hat_stabilizer)
 	update_appearance()
+
+/obj/item/clothing/head/helmet/space/plasmaman/add_stabilizer(loose_hat = FALSE)
+	..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
@@ -106,7 +108,6 @@
 		helmet_on = FALSE
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 	update_icon()
-	update_button_icons(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
 	update_overlays()
@@ -133,7 +134,6 @@
 		smile_color = crayon.paint_color
 		to_chat(user, "You draw a smiley on the helmet visor.")
 		update_appearance()
-		update_button_icons(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/user, slot)
 	. = ..()
@@ -188,7 +188,6 @@
 
 	update_icon()
 	user.update_worn_head() //So the mob overlay updates
-	update_button_icons(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/smash_headlamp()
 	if(!lamp_functional)
@@ -202,7 +201,6 @@
 	lamp_functional = FALSE
 	update_icon()
 	usr.update_worn_head() //So the mob overlay updates
-	update_button_icons(usr)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()
@@ -322,14 +320,6 @@
 	name = "white envirosuit helmet with top hat"
 	desc = "A generic white envirohelm with a top-hat affixed to the top"
 	greyscale_colors = "#E6E6E6#A349A4#E6E6E6"
-
-/obj/item/clothing/head/helmet/space/plasmaman/bartender/Initialize(mapload)
-	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
-	attached_hat = hat
-	hat.forceMove(src)
-	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/gold
 	name = "designer envirosuit helmet"
@@ -647,14 +637,6 @@
 	inhand_icon_state = "clown_mark2"
 	visor_state = "clown_visor_mk2"
 
-/obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
-	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
-	attached_hat = hat
-	hat.forceMove(src)
-	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
-
 // The Protective helmet variants
 /obj/item/clothing/head/helmet/space/plasmaman/protective
 	name = "protective envirosuit helmet"
@@ -829,11 +811,3 @@
 	name = "white envirosuit helmet with top hat"
 	desc = "A special containment helmet designed for the bartenders, with a top-hat affixed to the top."
 	greyscale_colors = "#E6E6E6#A349A4"
-
-/obj/item/clothing/head/helmet/space/plasmaman/protective/bartender/Initialize(mapload)
-	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
-	attached_hat = hat
-	hat.forceMove(src)
-	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
