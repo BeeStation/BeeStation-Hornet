@@ -1,8 +1,8 @@
 /datum/bounty/genetics
 	reward = 1000
 	var/shipped = FALSE
-	var/datum/mutation/mutation
-	var/admin_only = list(/datum/mutation/elvis,
+	var/datum/mutation/bounty_mutation
+	var/static/excluded_mutations = list(/datum/mutation/elvis,
 		/datum/mutation/bad_dna,
 		/datum/mutation/thermal/x_ray,
 		/datum/mutation/laser_eyes,
@@ -11,10 +11,13 @@
 
 /datum/bounty/genetics/New()
 	..()
-	mutation = pick(GLOB.all_mutations - admin_only)
-	name = "Data Disk ([mutation.name])"
-	description = "Central Command is requesting a data disk containing the nucleotide sequence of a [mutation.name] mutation for experimental research"
-	reward +=  mutation.difficulty * 500
+	var/static/mutation_pools
+	if(!length(mutation_pools))
+		mutation_pools = GLOB.all_mutations - excluded_mutations
+	bounty_mutation = pick_n_take(mutation_pools)
+	name = "Data Disk ([bounty_mutation.name])"
+	description = "Central Command is requesting a data disk containing the nucleotide sequence of a [bounty_mutation.name] mutation for experimental research"
+	reward += bounty_mutation.difficulty * 500
 
 /datum/bounty/genetics/completion_string()
 	return shipped ? "Shipped" : "Not Shipped"
@@ -22,15 +25,15 @@
 /datum/bounty/genetics/can_claim()
 	return ..() && shipped
 
-/datum/bounty/genetics/applies_to(obj/item/disk/data/O)
+/datum/bounty/genetics/applies_to(obj/item/disk/data/disk)
 	if(shipped)
 		return FALSE
-	if(O.flags_1 & HOLOGRAM_1)
+	if(disk.flags_1 & HOLOGRAM_1)
 		return FALSE
-	if(!istype(O, /obj/item/disk/data))
+	if(!istype(disk, /obj/item/disk/data))
 		return FALSE
-	for(var/datum/mutation/stored in O.mutations)
-		if(mutation == stored.type)
+	for(var/datum/mutation/each_mutation in disk.mutations)
+		if(bounty_mutation == each_mutation.type)
 			return TRUE
 	return FALSE
 
