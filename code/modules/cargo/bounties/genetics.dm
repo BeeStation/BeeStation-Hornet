@@ -37,14 +37,14 @@
 			return TRUE
 	return FALSE
 
-/datum/bounty/genetics/ship(obj/item/disk/data/O)
-	if(!applies_to(O))
+/datum/bounty/genetics/ship(obj/item/disk/data/disk)
+	if(!applies_to(disk))
 		return
 	shipped = TRUE
 
 /datum/bounty/genetics/compatible_with(datum/other_bounty)
 	if(!istype(other_bounty, /datum/bounty/genetics))
 		return TRUE
-	var/datum/bounty/genetics/M = other_bounty
-	return M.mutation != mutation
+	var/datum/bounty/genetics/o_bounty = other_bounty
+	return o_bounty.bounty_mutation != bounty_mutation
 
