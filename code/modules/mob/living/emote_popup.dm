@@ -3,7 +3,7 @@
 	icon_state = "combat"
 	layer = FLY_LAYER
 	plane = GAME_PLANE
-	appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
+	appearance_flags = APPEARANCE_UI | KEEP_APART
 	mouse_opacity = 0
 
 /**
