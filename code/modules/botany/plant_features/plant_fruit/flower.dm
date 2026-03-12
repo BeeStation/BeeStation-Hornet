@@ -6,6 +6,7 @@
 	species_name = "oblivisci flos"
 	name = "forget me not"
 	icon_state = "flower_1"
+	icon_uneven = TRUE
 	//colour_overlay = "flower_1_colour"
 	random_plant = TRUE
 	fruit_product = /obj/item/food/grown/flower/forgetmenot

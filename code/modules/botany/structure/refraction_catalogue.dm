@@ -7,9 +7,7 @@
 	anchored = FALSE
 	pass_flags_self = PASSSTRUCTURE
 	pass_flags = NONE
-	//interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 
-	//TODO: sampling reagents also helps reveal other reagents, reduces nearby reagents obscuration - Racc
 	//TODO: - The code for this and all UIs needs to be improved probably - Racc
 
 	var/selected_reagent
@@ -29,9 +27,16 @@
 	///Inserted disk we're saving data too
 	var/obj/item/disk/plant_disk/disk
 
+	///Refernece to our screen effect
+	var/obj/effect/hydroponics_screen/screen
+
+	///
+	var/list/sampled_reagents = list()
+
 /obj/machinery/refraction_catalogue/Initialize(mapload)
 	. = ..()
 	new /obj/item/sticker/sticky_note/tutorial/refraction(src)
+	screen = new(src, "refractor_on")
 
 /obj/machinery/refraction_catalogue/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()
@@ -39,13 +44,42 @@
 		return
 	context.add_left_click_item_action("Seedify Produce", /obj/item/food/grown)
 
+/obj/machinery/refraction_catalogue/RefreshParts()
+	. = ..()
+	//TODO: - Racc
+	var/total_rating = 0
+	for(var/obj/item/stock_parts/S in component_parts)
+		total_rating += S.rating
+	return total_rating
+
 /obj/machinery/refraction_catalogue/attackby(obj/item/C, mob/user)
 //Disk
 	if(istype(C, /obj/item/disk/plant_disk) && !disk)
 		C.forceMove(src)
 		disk = C
-		ui_update()
-		return
+//Reagent container, for sampling
+	else if(istype(C, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/container = C
+		if(!length(container.reagents.reagent_list))
+			to_chat(user, span_warning("[container] is empty!"))
+			return
+		var/length_check = 0
+		for(var/datum/reagent/reagent as anything in container.reagents.reagent_list)
+		//Flight checks
+			if(!SSbotany.refraction_reagents["[list_accuracy]"]["[reagent.type]"])
+				continue
+			if(reagent.type in sampled_reagents)
+				continue
+		//Log the reagent
+			sampled_reagents += "[reagent.type]"
+			length_check += 1
+		if(!length_check)
+			say("ERROR: Unable to sequence sample. Refraction index not present.")
+			playsound(src, 'sound/machines/terminal_error.ogg', 60)
+			return
+		to_chat(user, span_notice("You sample reagents from [container]."))
+		playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+	ui_update()
 
 /obj/machinery/refraction_catalogue/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
@@ -64,9 +98,11 @@
 
 /obj/machinery/refraction_catalogue/ui_data(mob/user)
 	var/list/data = list()
-	data["reagent_data"] = SSbotany.refraction_reagents["[list_accuracy]"]
+	data["all_reagent_data"] = SSbotany.refraction_reagents["[list_accuracy]"]
+	data["reagent_data"] = SSbotany.refraction_reagents["[list_accuracy]"]-sampled_reagents
 	data["selected_reagent"] = selected_reagent
 	data["accuracy"] = accuracy
+	data["sampled_reagents"] = SSbotany.refraction_reagents["[list_accuracy]"]&sampled_reagents
 	return data
 
 /obj/machinery/refraction_catalogue/ui_act(action, params)
@@ -85,10 +121,11 @@
 				return
 			if(!SSbotany.refraction_coords["[list_accuracy]"]["[grid_x]:[grid_y]"])
 				say("For testing purposes, you choose an unstable grid square, this will not save to disk. Try again!")
-				return //TODO: Does it matter if the UI doesnt update here? - Racc
+				return
 			if(disk.saved)
 				QDEL_NULL(disk.saved)
 			var/datum/plant_trait/refraction/trait = new(null, grid_x, grid_y, list_accuracy)
 			disk.set_saved(trait)
+	screen.flash()
 	ui_update()
 

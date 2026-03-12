@@ -28,7 +28,7 @@ export const PlantMutator = (props) => {
     port_traits,
   } = data;
   return (
-    <Window width={600} height={500} theme="plant_menu">
+    <Window width={600} height={515} theme="plant_menu">
       <Window.Content scrollable={1}>
         {working ? (
           <Dimmer className={'Dimmer--super'}>
@@ -127,6 +127,9 @@ export const PlantMutator = (props) => {
               <Box />
             </Flex.Item>
             <Flex.Item>
+              <Box height={'20px'} />
+            </Flex.Item>
+            <Flex.Item>
               <Section textAlign={'start'} mb={'-5px'}>
                 <Box>Yamato OS [Version 19.89.3.5]</Box>
                 <Box>© 2554 Yamato. All Rights Reserved.</Box>
@@ -174,6 +177,11 @@ const InspectionPanel = (props) => {
   const { current_feature_data, current_feature_traits } = data;
   return (
     <Flex direction="column">
+      <Box
+        className={'scrollbox'}
+        height={'300px'}
+        overflowY="scroll"
+      >
       {/* base feature information, stats */}
       <Flex.Item>
         <Button className="plant__button--display--beacon" width={'100%'}>
@@ -208,6 +216,7 @@ const InspectionPanel = (props) => {
           </Button>
         )}
       </Flex.Item>
+      </Box>
     </Flex>
   );
 };

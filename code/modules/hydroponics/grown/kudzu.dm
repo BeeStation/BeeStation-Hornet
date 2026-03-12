@@ -1,7 +1,7 @@
 /obj/item/plant_seeds/preset/kudzu
 	name = "kudzu seeds"
 	name_override = "kudzu"
-	plant_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/bush_vine/nettle/kudzu, /datum/plant_feature/fruit/kudzu)
+	plant_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/bush_vine/kudzu, /datum/plant_feature/fruit/kudzu)
 	//list of space vine mutations
 	var/list/mutations = list()
 

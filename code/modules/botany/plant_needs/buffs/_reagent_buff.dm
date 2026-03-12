@@ -1,4 +1,3 @@
-//TODO: Add an indicator when buffs are 'on' - Racc
 /datum/plant_need/reagent/buff
 	buff = TRUE
 

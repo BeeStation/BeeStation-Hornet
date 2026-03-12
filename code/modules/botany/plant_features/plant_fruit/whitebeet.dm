@@ -5,6 +5,7 @@
 	species_name = "beta album"
 	name = "whitebeet"
 	icon_state = "parsnip"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/whitebeet
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/consumable/sugar = PLANT_REAGENT_SMALL)

@@ -1,4 +1,3 @@
-//TODO: Consider giving these unique stats, and sprites - Racc
 /*
 	Tree
 */
@@ -8,7 +7,7 @@
 	icon_state = "tree"
 	growth_prefix = "tree"
 	growth_stages = 4
-	overlay_positions = list(list(14, 18), list(21, 20), list(20, 26), list(13, 25), list(16, 22))
+	overlay_positions = list(list(16, 30), list(9, 26), list(22, 24), list(15, 22), list(11, 17), list(21, 16))
 	yields = PLANT_BODY_YIELD_LARGE
 	yield_cooldown_time = PLANT_BODY_YIELD_TIME_MEDIUM
 	max_harvest = PLANT_BODY_HARVEST_MEDIUM
@@ -38,7 +37,7 @@
 /datum/plant_feature/body/tree/birch
 	icon_state = "birch"
 	growth_prefix = "birch"
-	overlay_positions = list(list(10, 17), list(23, 16), list(13, 22), list(20, 22), list(17, 20)) //TODO: - Racc
+	overlay_positions = list(list(7, 30), list(13, 25), list(23, 23), list(28, 19), list(13, 15))
 	mutations = list(/datum/plant_feature/body/tree/mini)
 	particle_leaf_colour = "#ffbb00"
 
@@ -48,7 +47,7 @@
 /datum/plant_feature/body/tree/cherry
 	icon_state = "cherry"
 	growth_prefix = "cherry"
-	overlay_positions = list(list(10, 17), list(23, 16), list(13, 22), list(20, 22), list(17, 20)) //TODO: - Racc
+	overlay_positions = list(list(7, 30), list(13, 25), list(23, 23), list(28, 19), list(13, 15))
 	mutations = list(/datum/plant_feature/body/tree/mini)
 	particle_leaf_colour = "#ffacf1"
 
@@ -61,7 +60,7 @@
 	icon_state = "bush"
 	growth_stages = 3
 	growth_time = PLANT_BODY_GROWTH_MEDIUM
-	overlay_positions = list(list(10, 17), list(23, 16), list(13, 22), list(20, 22), list(17, 20))
+	overlay_positions = list(list(17, 23), list(11, 20), list(23, 15), list(11, 13))
 	mutations = list(/datum/plant_feature/body/tree/sparse)
 
 /datum/plant_feature/body/tree/mini/cherry
@@ -85,7 +84,7 @@
 	icon_state = "menace"
 	growth_prefix = "birch"
 	growth_stages = 3
-	overlay_positions = list(list(11, 20), list(16, 30), list(23, 23), list(8, 31))
+	overlay_positions = list()
 	mutations = list(/datum/plant_feature/body/tree/gum)
 
 /*
@@ -98,7 +97,7 @@
 	wither_state = "menace"
 	growth_prefix = "birch"
 	growth_stages = 3
-	overlay_positions = list(list(16, 18), list(21, 19, list(12, 20), list(21, 24)))
+	overlay_positions = list(list(19, 12), list(9, 23), list(3, 21), list(10, 30), list(15, 27), list(21, 28), list(27, 30))
 	mutations = list(/datum/plant_feature/body/tree/palm)
 
 /*
@@ -109,7 +108,7 @@
 	name = "palm tree"
 	icon = 'icons/obj/hydroponics/features/body_tall.dmi'
 	icon_state = "palm"
-	overlay_positions = list(list(16, 18), list(21, 19, list(12, 20), list(21, 24)))
+	overlay_positions = list(list(14, 28), list(19, 26))
 	mutations = list(/datum/plant_feature/body/tree)
 
 /datum/plant_feature/body/tree/palm/banana

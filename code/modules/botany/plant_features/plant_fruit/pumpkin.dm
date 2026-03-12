@@ -6,6 +6,7 @@
 	species_name = "cucurbita magna"
 	name = "pumpkin"
 	icon_state = "pumpkin"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/pumpkin
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment/large, /datum/plant_trait/reagent/fruit/vitamin/large)
 	total_volume = PLANT_FRUIT_VOLUME_LARGE

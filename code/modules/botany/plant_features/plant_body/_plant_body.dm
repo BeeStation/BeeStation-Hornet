@@ -58,7 +58,6 @@
 	var/wither_state
 	///Prefix for our growth states
 	var/growth_prefix
-	//TODO: growth stage sprite for all plants - Racc
 
 /datum/plant_feature/body/New(datum/component/plant/_parent)
 #ifdef LOWMEMORYMODE
@@ -199,6 +198,8 @@
 		return
 	var/list/visual_fruits = list()
 	SEND_SIGNAL(parent, COMSIG_PLANT_REQUEST_FRUIT, max_harvest, visual_fruits, skip_growth)
+	if(!length(overlay_positions)) //Don't bother trying to do visuals if this plant doesn't support it
+		return
 	var/list/available_positions = overlay_positions.Copy()
 	for(var/obj/effect/fruit_effect as anything in visual_fruits)
 		if(!length(available_positions))

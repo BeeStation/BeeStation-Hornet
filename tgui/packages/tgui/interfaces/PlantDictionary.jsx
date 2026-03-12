@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const PlantDictionary = (props) => {
   const { act, data } = useBackend();
-  const { chapters, selected_chapter, selected_entry, selected_type_shortcut } =
+  const { chapters, selected_chapter, selected_entry, selected_type_shortcut, last_command } =
     data;
   const [searchText, setSearchText] = useLocalState('searchText', '');
   return (
@@ -176,6 +176,11 @@ export const PlantDictionary = (props) => {
                 {/* Inspection Panel */}
                 <Flex.Item width={'70%'}>
                   <Section>
+                    <Box
+                      className={'scrollbox'}
+                      height={'570px'}
+                      overflowY="scroll"
+                    >
                     <Box mb={'-10px'} />
                     {selected_chapter === 'features' ? (
                       selected_entry && selected_type_shortcut ? (
@@ -240,6 +245,7 @@ export const PlantDictionary = (props) => {
                     ) : (
                       ''
                     )}
+                    </Box>
                   </Section>
                 </Flex.Item>
               </Flex>
@@ -258,7 +264,7 @@ export const PlantDictionary = (props) => {
                 <br />
                 <Box>
                   {'C:\\Users\\admin>'}
-                  {'e'}
+                  {last_command}
                   <span className={'terminal'}>|</span>
                 </Box>
               </Section>

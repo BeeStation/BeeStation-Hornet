@@ -171,7 +171,7 @@
 	name = "spade"
 	icon_state = "spade"
 	leaving.pixel_y -= 11
-	leaving.pixel_x += 5
+	leaving.pixel_x -= 5
 //Fruit - Don't allow people to game spade's pause function
 	//Deleted all fruit
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_comp.plant_features

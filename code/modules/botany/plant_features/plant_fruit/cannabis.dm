@@ -5,6 +5,7 @@
 	species_name = "alta folium"
 	name = "cannabis" //All cannabis leafs have the same name, only observant people will tell them apart
 	icon_state = "cannabis"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/cannabis
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL

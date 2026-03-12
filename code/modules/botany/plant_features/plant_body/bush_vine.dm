@@ -119,7 +119,7 @@
 	growth_prefix = "fern"
 	growth_stages = 3
 	draw_below_water = FALSE
-	overlay_positions = list(list(24, 6))
+	overlay_positions = list(list(11, 15), list(20, 14), list(15, 9), list(9, 8))
 	mutations = list(/datum/plant_feature/body/bush_vine/nettle/death)
 	layer_offset = 0
 	slot_size = PLANT_BODY_SLOT_SIZE_MEDIUM
@@ -132,9 +132,19 @@
 	name = "thistle bush"
 	icon_state = "big_fingers_2"
 
-//TODO: Make this its own thing, own sprite - Racc
-/datum/plant_feature/body/bush_vine/nettle/kudzu
+/*
+	Ivy
+*/
+/datum/plant_feature/body/bush_vine/kudzu
+	species_name = "aculeatum hedera"
 	name = "kudzu vine"
+	icon_state = "kudzu"
+	growth_prefix = "fern"
+	growth_stages = 3
+	draw_below_water = FALSE
+	overlay_positions = list(list(12, 15), list(20, 14), list(16, 8), list(25, 7))
+	layer_offset = 0
+	slot_size = PLANT_BODY_SLOT_SIZE_SMALL
 
 /*
 	Cannabis bush
@@ -157,4 +167,4 @@
 	name = "tea bush"
 	icon_state = "bush_2"
 	draw_below_water = FALSE
-	overlay_positions = list(list(24, 6))
+	overlay_positions = list(list(17, 23), list(11, 20), list(23, 15), list(11, 13))

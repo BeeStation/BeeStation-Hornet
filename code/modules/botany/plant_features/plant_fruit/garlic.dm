@@ -5,6 +5,7 @@
 	species_name = "allium clamare"
 	name = "garlic"
 	icon_state = "garlic"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/garlic
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment)
 	fast_reagents = list(/datum/reagent/consumable/garlic = PLANT_REAGENT_MEDIUM)

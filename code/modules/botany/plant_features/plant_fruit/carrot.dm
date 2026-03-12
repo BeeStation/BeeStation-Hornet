@@ -5,6 +5,7 @@
 	species_name = "carota solis"
 	name = "carrot"
 	icon_state = "carrot"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/carrot
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/medicine/oculine = PLANT_REAGENT_MEDIUM)

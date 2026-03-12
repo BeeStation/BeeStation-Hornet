@@ -5,6 +5,7 @@
 	species_name = "pepo magna"
 	name = "watermelon"
 	icon_state = "watermelon"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/watermelon
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment/large, /datum/plant_trait/reagent/fruit/vitamin/large)
 	fast_reagents = list(/datum/reagent/water = PLANT_REAGENT_MEDIUM)

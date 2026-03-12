@@ -10,6 +10,7 @@
 	/datum/reagent/toxin/pestkiller = 1.5)
 	auto_threshold = TRUE
 	nectar_buff_duration = 0 SECONDS
+	do_buff_appearance = FALSE
 
 /datum/plant_need/reagent/buff/toxin/New(datum/plant_feature/_parent)
 	need_description = "This plant is susceptible to toxic reagents, which will damage the plant for [GENERIC_TOXIN_DAMAGE] health."

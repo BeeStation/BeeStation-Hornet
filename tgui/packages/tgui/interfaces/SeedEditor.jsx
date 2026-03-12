@@ -23,7 +23,7 @@ export const SeedEditor = (props) => {
     current_feature_remaining_genetic_budget,
   } = data;
   return (
-    <Window width={600} height={500} theme="plant_menu">
+    <Window width={600} height={530} theme="plant_menu">
       <Window.Content scrollable={1}>
         <Box m={'-3px'} height={'100%'}>
           <Flex direction={'column'} height={'100%'}>
@@ -112,6 +112,9 @@ export const SeedEditor = (props) => {
               </Flex>
             </Flex.Item>
             {/* World building fluff top banner */}
+            <Flex.Item>
+              <Box height={'20px'} />
+            </Flex.Item>
             <Flex.Item height={'100%'}>
               <Box />
             </Flex.Item>
@@ -247,6 +250,11 @@ const InspectionPanel = (props) => {
   const { current_feature_data, current_feature_traits } = data;
   return (
     <Flex direction="column">
+      <Box
+        className={'scrollbox'}
+        height={'300px'}
+        overflowY="scroll"
+      >
       {/* base feature information, stats */}
       <Flex.Item>
         <Button className="plant__button--display" width={'100%'}>
@@ -280,6 +288,7 @@ const InspectionPanel = (props) => {
           <Button className="plant__button--display">No Traits Found</Button>
         )}
       </Flex.Item>
+      </Box>
     </Flex>
   );
 };

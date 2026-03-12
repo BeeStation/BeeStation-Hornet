@@ -5,6 +5,7 @@
 	species_name = "purus calidum"
 	name = "chili"
 	icon_state = "chili"
+	icon_uneven = TRUE
 	colour_override = "#f00"
 	fruit_product = /obj/item/food/grown/chili
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)

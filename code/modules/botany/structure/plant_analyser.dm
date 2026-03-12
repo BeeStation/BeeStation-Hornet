@@ -6,6 +6,7 @@
 	density = TRUE
 	pass_flags = PASSTABLE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
+	circuit = /obj/item/circuitboard/machine/plant_analyser
 
 	///Plant we're curently editing
 	var/obj/inserted_plant
@@ -26,9 +27,13 @@
 	///Last 'command' for UI stuff
 	var/last_command = ""
 
+	///Refernece to our screen effect
+	var/obj/effect/hydroponics_screen/screen
+
 /obj/machinery/plant_machine/plant_analyser/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
+	screen = new(src, "analyzer_on")
 	// OOOOH YEAAAAAH I REMEMBER! REMEMBER WHEN? YEAAAAAAAH
 	if(prob(1))
 		icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -161,6 +166,7 @@
 			current_feature_ref = current_feature_ref == params["key"] ? null : params["key"]
 			current_feature = locate(current_feature_ref)
 			last_command = "pit feature select -m [params["key"]]"
+			screen.flash()
 			ui_update()
 		if("save_trait")
 			if(!disk)
@@ -174,6 +180,7 @@
 				return
 			disk.set_saved(trait.copy())
 			last_command = "per reader write -f -m [params["key"]]"
+			screen.flash()
 			ui_update()
 		if("save_feature")
 			//Disk flight checks
@@ -189,12 +196,14 @@
 				playsound(src, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Feature composition too complex to copy!")
 				saving_feature = FALSE
+				screen.flash()
 				ui_update()
 				return
 			//Fix focus
 			if(current_feature_ref != params["key"])
 				current_feature_ref = params["key"]
 				current_feature = locate(current_feature_ref)
+				screen.flash()
 				ui_update()
 			//If this plant doesn't have any traits, save it straight to disk - force flag means we're done drafting and want to properly save
 			if(!length(current_feature.plant_traits) || params["force"])
@@ -209,6 +218,7 @@
 				disk.set_saved(feature)
 				saving_feature = FALSE
 				last_command = "per reader write -f -m [params["key"]]"
+				screen.flash()
 				ui_update()
 				return
 			//Otherwise, enable drafting phase
@@ -226,6 +236,7 @@
 				save_excluded_traits_ref += params["key"]
 				save_excluded_traits += trait.type
 			last_command = "pit trait toggle -l -m [params["key"]]"
+			screen.flash()
 			ui_update()
 		if("remove_feature") //For disk
 			var/datum/plant_feature/feature = locate(params["key"])
@@ -236,12 +247,14 @@
 				current_feature = null
 			qdel(feature)
 			last_command = "pit feature remove -f -m [params["key"]]"
+			screen.flash()
 			ui_update()
 		if("remove_trait") //For disk
 			var/datum/plant_trait/trait = locate(params["key"])
 			disk?.set_saved(null)
 			qdel(trait)
 			last_command = "pit trait remove -f -m [params["key"]]"
+			screen.flash()
 			ui_update()
 		if("remove_disk")
 			//Fix focus
@@ -252,6 +265,7 @@
 			disk.forceMove(get_turf(src))
 			disk = null
 			last_command = "per reader eject -f"
+			screen.flash()
 			ui_update()
 
 	return TRUE
@@ -262,3 +276,10 @@
 	icon_state = "service"
 	build_path = /obj/machinery/plant_machine/plant_analyser
 	req_components = list(/obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 1)
+
+/datum/design/board/plant_analyser
+	name = "Plant Analyser Board"
+	id = "plant_analyser_board"
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+	build_path = /obj/item/circuitboard/machine/plant_analyser
+	category = list ("initial", "Misc. Machinery")

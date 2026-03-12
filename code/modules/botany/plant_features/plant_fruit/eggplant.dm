@@ -5,6 +5,7 @@
 	species_name = "aubergine purpura"
 	name = "eggplant"
 	icon_state = "eggplant"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/eggplant
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL

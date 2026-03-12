@@ -6,6 +6,7 @@
 	species_name = "spinis fructificatio"
 	name = "cactus"
 	icon_state = "cactus"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/ash_flora/cactus_fruit
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin, /datum/plant_trait/fruit/spikey)
 	fast_reagents = list(/datum/reagent/consumable/vitfro = PLANT_REAGENT_MEDIUM)

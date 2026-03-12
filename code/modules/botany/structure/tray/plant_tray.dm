@@ -39,6 +39,8 @@
 	//Indicator for when the plant has 'problem'
 	var/obj/effect/tray_indicator/problem
 	var/list/problem_features = list()
+	///Tray direction
+	var/obj/effect/tray_direction/direction
 
 /obj/item/plant_tray/Initialize(mapload)
 	. = ..()
@@ -59,6 +61,9 @@
 	vis_contents += tray_reagents
 	//Bottom most underlay
 	underlays += mutable_appearance(icon, "[icon_state]_bottom", layer-0.1)
+	//Direction
+	direction = new(src)
+	vis_contents += direction
 //reagents
 	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 //Build tray indicatos
@@ -71,6 +76,15 @@
 	pixel_x = rand(starting_offset[1], starting_offset[2])
 	pixel_y = rand(starting_offset[3], starting_offset[4])
 
+/obj/item/plant_tray/Destroy(force)
+	. = ..()
+	QDEL_NULL(mask)
+	QDEL_NULL(tray_reagents)
+	QDEL_NULL(direction)
+	QDEL_NULL(harvest)
+	QDEL_NULL(need)
+	QDEL_NULL(problem)
+
 /obj/item/plant_tray/process(delta_time)
 	//Need to update this semi-constantly so it works with plumbing
 	update_reagents()
@@ -81,6 +95,15 @@
 		vis_contents |= need
 	else if(!length(needy_features))
 		vis_contents -= need
+
+/obj/item/plant_tray/setDir(ndir)
+	if(ndir == dir || !plumbing)
+		return ..()
+	direction.dir = dir
+	direction.alpha = 255
+	animate(direction, alpha = 0, time = 1.3 SECONDS)
+	return ..()
+
 
 /obj/item/plant_tray/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -110,26 +133,6 @@
 
 /obj/item/plant_tray/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	//TODO: move this over to the component - Racc
-//Ported legacy code from old trays
-	//Composting
-	if(IS_EDIBLE(I) || istype(I, /obj/item/reagent_containers/pill))
-		visible_message(span_notice("[user] composts [I], spreading it through [src]"))
-		I.reagents?.trans_to(src, I.reagents.total_volume, transfered_by = user)
-		SEND_SIGNAL(I, COMSIG_ITEM_ON_COMPOSTED, user)
-		qdel(I)
-	//Syringe
-	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/syr = I
-		visible_message(span_notice("[user] injects [src] with [syr]"))
-		I.reagents?.trans_to(src, syr.amount_per_transfer_from_this, transfered_by = user)
-	//Sprays
-	else if(istype(I, /obj/item/reagent_containers/spray))
-		var/obj/item/reagent_containers/spray/spray = I
-		visible_message(span_notice("[user] sprays [src] with [I]"))
-		playsound(src, 'sound/effects/spray3.ogg', 50, 1, -6)
-		//TODO: Case where it's empty - Racc
-		I.reagents?.trans_to(src, spray.amount_per_transfer_from_this, transfered_by = user)
 	//Quick feedback
 	update_reagents()
 

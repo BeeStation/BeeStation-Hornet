@@ -74,17 +74,37 @@
 		//special code selecting specific plants to uproot, helps when visiblity is sucky
 		INVOKE_ASYNC(src, PROC_REF(async_spade_options), attacker, I)
 		return
-//Let people fill trays with reagents by hand
+//Ported legacy code from old trays
 	var/obj/obj_parent = parent
-	if(!IS_EDIBLE(I) && !istype(I, /obj/item/reagent_containers) || obj_parent.reagents?.flags & REFILLABLE)
-		return
 	var/obj/item/reagent_containers/reagent_source = I
-	if(!reagent_source.reagents.total_volume) //It aint got no gas in it
+	if(istype(reagent_source, /obj/item/reagent_containers) && reagent_source.reagents.total_volume <= 0)
 		to_chat(attacker, span_warning("[reagent_source] is empty!"))
 		return
-	//Transfer reagents
-	reagent_source.reagents.trans_to(parent, reagent_source.amount_per_transfer_from_this, transfered_by = attacker)
-	to_chat(attacker, span_notice("You add [reagent_source.amount_per_transfer_from_this]u from [reagent_source] to [parent]!"))
+	//Composting
+	if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/pill))
+		obj_parent.visible_message(span_notice("[attacker] composts [reagent_source], spreading it through [obj_parent]"))
+		reagent_source.reagents?.trans_to(obj_parent, reagent_source.reagents.total_volume, transfered_by = attacker)
+		SEND_SIGNAL(reagent_source, COMSIG_ITEM_ON_COMPOSTED, attacker)
+		qdel(reagent_source)
+	//Syringe
+	else if(istype(reagent_source, /obj/item/reagent_containers/syringe))
+		var/obj/item/reagent_containers/syringe/syr = reagent_source
+		obj_parent.visible_message(span_notice("[attacker] injects [obj_parent] with [syr]"))
+		reagent_source.reagents?.trans_to(obj_parent, syr.amount_per_transfer_from_this, transfered_by = attacker)
+	//Sprays
+	else if(istype(reagent_source, /obj/item/reagent_containers/spray))
+		var/obj/item/reagent_containers/spray/spray = reagent_source
+		obj_parent.visible_message(span_notice("[attacker] sprays [obj_parent] with [reagent_source]"))
+		playsound(obj_parent)
+		reagent_source.reagents?.trans_to(obj_parent, spray.amount_per_transfer_from_this, transfered_by = attacker)
+	//Let people fill trays with reagents by hand, non legacy
+	else if(istype(reagent_source, /obj/item/reagent_containers))
+		if(!reagent_source.reagents.total_volume) //It aint got no gas in it
+			to_chat(attacker, span_warning("[reagent_source] is empty!"))
+			return
+		//Transfer reagents
+		reagent_source.reagents.trans_to(parent, reagent_source.amount_per_transfer_from_this, transfered_by = attacker)
+		to_chat(attacker, span_notice("You add [reagent_source.amount_per_transfer_from_this]u from [reagent_source] to [parent]!"))
 
 /datum/component/planter/proc/async_spade_action(mob/user)
 	playsound(parent, 'sound/effects/shovel_dig.ogg', 60)

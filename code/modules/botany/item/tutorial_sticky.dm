@@ -31,6 +31,9 @@
 	\n\
 	Stable refractions will cause the plant to produce the relvent reagent.\n\
 	\n\
+	You can also sample reagents from reagent containers to instantly reveal a stable refraction. This\n\
+	will also reveal nearby stable refractions.\n\
+	\n\
 	This feature is WIP"
 
 /*

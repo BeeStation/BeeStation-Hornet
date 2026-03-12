@@ -5,6 +5,7 @@
 	species_name = "faba anima"
 	name = "soybean"
 	icon_state = "pod"
+	icon_uneven = TRUE
 	colour_override = "#95d94d"
 	fruit_product = /obj/item/food/grown/soybeans
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)

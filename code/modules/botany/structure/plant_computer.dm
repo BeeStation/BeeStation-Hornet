@@ -8,19 +8,28 @@
 	base_icon_state = "pc"
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	smoothing_flags = NONE
+	circuit = /obj/item/circuitboard/computer/plant_machine_controller
 	///List of linked machines
 	var/list/machines = list()
 	///List of assembled machine options
 	var/list/machine_options = list()
 	var/list/option_links = list()
 
+	///Navigation
 	var/selected_chapter = "features"
 	var/selected_entry
 	var/selected_type_shortcut
 
+	///Refernece to our screen effect
+	var/obj/effect/hydroponics_screen/screen
+
+	///Last 'command' for UI stuff
+	var/last_command = ""
+
 /obj/machinery/computer/plant_machine_controller/Initialize(mapload)
 	. = ..()
 	desc += span_notice("\nAlt-click to resync nearby machines.")
+	screen = new(src, "pc_on")
 	//Attach some stickers randomly for fun
 	var/list/stickers = list(/obj/item/sticker/series_2/flower, /obj/item/sticker/series_2/banana, /obj/item/sticker/series_2/tomato)
 	for(var/obj/item/sticker/sticker as anything in stickers)
@@ -46,6 +55,7 @@
 		return
 	var/obj/machinery/machine = option_links[result]
 	machine.ui_interact(user)
+	screen.flash()
 
 /obj/machinery/computer/plant_machine_controller/AltClick(mob/user)
 	. = ..()
@@ -62,6 +72,9 @@
 /obj/machinery/computer/plant_machine_controller/ui_static_data(mob/user)
 	. = ..()
 	var/list/data = list()
+	//last command, cosmetic
+	data["last_command"] = last_command
+	//Chapters, seperate content
 	data["chapters"] = list("plants" = list(), "features" = list(), "traits" = list())
 	//Features
 	for(var/datum/plant_feature/feature as anything in SSbotany.chapters["features"])
@@ -110,10 +123,14 @@
 			var/datum/plant_feature/feature = locate(params["key"])
 			if(istype(feature))
 				selected_type_shortcut = "[feature.trait_type_shortcut]"
+			last_command = "pit entry select -m [params["key"]]"
+			screen.flash()
 			ui_update()
 		if("select_chapter")
 			selected_chapter = params["key"]
 			selected_entry = null
+			last_command = "pit chapter select -m [params["key"]]"
+			screen.flash()
 			ui_update()
 		if("select_link")
 			selected_entry = params["key"]
@@ -123,6 +140,8 @@
 				selected_type_shortcut = "[feature.trait_type_shortcut]"
 			//Chapter
 			selected_chapter = params["chapter"]
+			last_command = "pit seek select -m [params["key"]]"
+			screen.flash()
 			ui_update()
 
 /obj/machinery/computer/plant_machine_controller/ratvar_act()
@@ -175,5 +194,20 @@
 
 	if(get_dist(src, source) > PC_LINK_RANGE)
 		machines -= source
+
+//Circuitboard
+/obj/item/circuitboard/computer/plant_machine_controller
+	name = "hydroponics machine terminal (Computer Board)"
+	icon_state = "service"
+	build_path = /obj/machinery/computer/plant_machine_controller
+
+/datum/design/board/plant_machine_controller
+	name = "Computer Design (Hydroponics Machine Terminal)"
+	desc = "The circuit board for a hydroponics machine terminal, used to control Yamato machines in hydroponics."
+	id = "plant_machine_controller_console"
+	build_path = /obj/item/circuitboard/computer/plant_machine_controller
+	category = list ("Hydroponics Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 
 #undef PC_LINK_RANGE

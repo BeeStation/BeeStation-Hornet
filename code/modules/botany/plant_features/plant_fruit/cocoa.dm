@@ -5,6 +5,7 @@
 	species_name = "cocos delectamentum"
 	name = "cocoa"
 	icon_state = "pod"
+	icon_uneven = TRUE
 	colour_override = "#d0703d"
 	fruit_product = /obj/item/food/grown/cocoapod
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment)

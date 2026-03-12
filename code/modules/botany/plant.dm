@@ -2,7 +2,7 @@
 	The plant component is basically a central hub for plant features to send signals from
 	The majority of implementation should happen in the plant feature datums
 */
-//TODO: add some botany achievments - Racc
+//TODO: add some botany achievments after / during TM - Racc
 
 /datum/component/plant
 	///The object acting as our plant

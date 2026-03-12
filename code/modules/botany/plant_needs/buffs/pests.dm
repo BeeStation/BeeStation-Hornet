@@ -9,6 +9,7 @@
 	auto_threshold = TRUE
 	debuff = TRUE
 	nectar_buff_duration = 15 SECONDS
+	do_buff_appearance = FALSE
 
 	///How fast pests build up per tick
 	var/pest_build_up = 0.05

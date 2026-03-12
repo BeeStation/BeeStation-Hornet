@@ -4,8 +4,8 @@
 /datum/plant_feature/fruit/wheat
 	species_name = "triticum aurum"
 	name = "wheat"
-	icon_state = "corn-2"
-	colour_override = "#d8d86d"
+	icon_state = "wheat"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/wheat
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment)
 	total_volume = PLANT_FRUIT_VOLUME_MICRO

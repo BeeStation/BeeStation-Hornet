@@ -4,14 +4,14 @@ import { Window } from '../layouts';
 
 export const SeedStorage = (props) => {
   const { act, data } = useBackend();
-  const { seeds, focused_seeds } = data;
+  const { seeds, focused_seeds, last_command } = data;
   return (
     <Window width={600} height={700} theme="plant_menu">
       <Window.Content scrollable={1}>
         <Box height={'100%'} width={'100%'} m={'-3px'}>
           <Flex direction={'column'} height={'100%'} width={'100%'}>
             {/* Seed tuff */}
-            <Flex.Item>
+            <Flex.Item height={'100%'}>
               <Flex direction={'row'} width={'100%'}>
                 {/* Seed browser */}
                 <Flex.Item width={'40%'}>
@@ -30,22 +30,28 @@ export const SeedStorage = (props) => {
                   </Section>
                 </Flex.Item>
                 {/* Inspection panel */}
-                <Flex.Item width={'60%'}>
+                <Flex.Item width={'60%'} height={'100%'}>
                   <Section>
-                    <Box mb={'-10px'} />
-                    {focused_seeds['key'] && seeds[focused_seeds['species_id']]
-                      ? Object.entries(
-                          seeds[focused_seeds['species_id']]['features'],
-                        ).map(([feature_key, feature]) => (
-                          <Box key={feature_key}>
-                            <InspectionPanel
-                              key={feature_key}
-                              current_feature_data={feature['data']}
-                              current_feature_traits={feature['traits']}
-                            />
-                          </Box>
-                        ))
-                      : ''}
+                    <Box
+                      className={'scrollbox'}
+                      height={'550px'}
+                      overflowY="scroll"
+                    >
+                      <Box mb={'-10px'} />
+                      {focused_seeds['key'] && seeds[focused_seeds['species_id']]
+                        ? Object.entries(
+                            seeds[focused_seeds['species_id']]['features'],
+                          ).map(([feature_key, feature]) => (
+                            <Box key={feature_key}>
+                              <InspectionPanel
+                                key={feature_key}
+                                current_feature_data={feature['data']}
+                                current_feature_traits={feature['traits']}
+                              />
+                            </Box>
+                          ))
+                        : ''}
+                    </Box>
                   </Section>
                 </Flex.Item>
               </Flex>
@@ -64,7 +70,7 @@ export const SeedStorage = (props) => {
                 <br />
                 <Box>
                   {'C:\\Users\\admin>'}
-                  {'e'}
+                  {last_command}
                   <span className={'terminal'}>|</span>
                 </Box>
               </Section>

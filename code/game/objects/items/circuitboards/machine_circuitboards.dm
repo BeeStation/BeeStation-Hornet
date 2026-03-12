@@ -1331,16 +1331,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
 
-//TODO: - Racc
-/obj/item/circuitboard/machine/plantgenes/vault
-	name = "Plant DNA manipulator (Abductor Machine Board)"
-	icon_state = "abductor_mod"
-	// It wasn't made by actual abductors race, so no abductor tech here.
-	def_components = list(
-		/obj/item/stock_parts/manipulator = /obj/item/stock_parts/manipulator/femto,
-		/obj/item/stock_parts/micro_laser = /obj/item/stock_parts/micro_laser/quadultra,
-		/obj/item/stock_parts/scanning_module = /obj/item/stock_parts/scanning_module/triphasic)
-
 /obj/item/circuitboard/machine/clockwork
 	name = "clockwork board (Report This)"
 	icon_state = "clock_mod"

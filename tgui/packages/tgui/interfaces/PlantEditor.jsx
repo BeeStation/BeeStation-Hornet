@@ -15,7 +15,7 @@ export const PlantEditor = (props) => {
     last_command,
   } = data;
   return (
-    <Window width={600} height={500} theme="plant_menu">
+    <Window width={600} height={480} theme="plant_menu">
       <Window.Content scrollable={1}>
         {saving_feature ? <Dimmer /> : ''}
         <Box m={'-3px'} height={'100%'}>
@@ -84,6 +84,9 @@ export const PlantEditor = (props) => {
               </Flex.Item>
             </Flex>
             {/* World building fluff top banner */}
+            <Flex.Item>
+              <Box height={'20px'} />
+            </Flex.Item>
             <Flex.Item height={'100%'}>
               <Box />
             </Flex.Item>
@@ -187,6 +190,11 @@ const InspectionPanel = (props) => {
   const { current_feature_data, current_feature_traits } = data;
   return (
     <Flex direction="column">
+      <Box
+        className={'scrollbox'}
+        height={'300px'}
+        overflowY="scroll"
+      >
       {/* base feature information, stats */}
       <Flex.Item>
         <Button className="plant__button--display--beacon" width={'100%'}>
@@ -222,6 +230,7 @@ const InspectionPanel = (props) => {
           </Button>
         )}
       </Flex.Item>
+      </Box>
     </Flex>
   );
 };

@@ -9,12 +9,14 @@
 
 //Blood
 /datum/plant_need/reagent/blood
+	need_description = "This plant has acquired a taste for blood..."
 	reagent_needs = list(/datum/reagent/blood = 0.3)
 	success_threshold = 1
 	overdraw_need = TRUE
 
 //Milk
 /datum/plant_need/reagent/milk
+	need_description = "This plant wants milk."
 	reagent_needs = list(/datum/reagent/consumable/milk = 0.3)
 	success_threshold = 1
 	overdraw_need = TRUE

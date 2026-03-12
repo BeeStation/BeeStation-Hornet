@@ -19,13 +19,13 @@
 	COOLDOWN_DECLARE(nectar_timer)
 	var/nectar_buff_duration = 60 SECONDS
 	///Buff overlay
-	var/mutable_appearance/buff_appearance
-	var/buff_color = "#f700ff"
+	var/obj/effect/plant_buff/buff_appearance
+	var/do_buff_appearance = TRUE
 
 /datum/plant_need/New(datum/plant_feature/_parent)
 	. = ..()
 	setup_parent(_parent)
-	buff_appearance = mutable_appearance('icons/obj/hydroponics/features/generic.dmi', "buff", color = buff_color)
+	buff_appearance = new(src)
 
 /datum/plant_need/proc/setup_parent(_parent)
 	parent = _parent
@@ -61,9 +61,38 @@
 
 /datum/plant_need/proc/apply_buff(__delta_time)
 	//Buff visuals
-	parent.parent?.plant_item.add_overlay(buff_appearance)
+	if(do_buff_appearance)
+		parent.parent?.plant_item.vis_contents |= buff_appearance
+		parent.parent?.plant_item.add_filter("buff_outline", 1, outline_filter(1, "#fbffc1cb"))
+		var/outline_filter = parent.parent?.plant_item.get_filter("buff_outline")
+		animate(outline_filter, color = "#fbffc12c", time = 1.3 SECONDS, loop = -1)
+		animate(color = "#fbffc1cb", time = 1.3 SECONDS)
 	return
 
 /datum/plant_need/proc/remove_buff(__delta_time)
-	parent.parent?.plant_item.cut_overlay(buff_appearance)
+	if(do_buff_appearance)
+		parent.parent?.plant_item.vis_contents -= buff_appearance
+		parent.parent?.plant_item.remove_filter("buff_outline")
 	return
+
+/*
+	Buffed effect
+*/
+/obj/effect/plant_buff
+	vis_flags = VIS_INHERIT_ID
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	pixel_x = -16
+	pixel_y = 28
+	///Reference to our ray mask
+	var/icon/ray_mask
+
+/obj/effect/plant_buff/Initialize(mapload)
+	. = ..()
+	ray_mask = icon('icons/effects/64x64.dmi', "ray mask")
+
+	add_filter("rays", 1, rays_filter(32, "#fbffc1e7"))
+	add_filter("mask", 2, alpha_mask_filter(0, 0, ray_mask, null, MASK_INVERSE))
+
+	var/ray_filter = get_filter("rays")
+	animate(ray_filter, offset = 100, time = 100 SECONDS, loop = -1)

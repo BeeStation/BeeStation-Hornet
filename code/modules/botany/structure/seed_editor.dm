@@ -6,6 +6,7 @@
 	density = TRUE
 	pass_flags = PASSTABLE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
+	circuit = /obj/item/circuitboard/machine/seed_editor
 
 	///Inserted seeds we're editing
 	var/obj/item/plant_seeds/seeds
@@ -227,3 +228,10 @@
 	icon_state = "service"
 	build_path = /obj/machinery/plant_machine/seed_editor
 	req_components = list(/obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/capacitor = 1, /obj/item/stock_parts/scanning_module = 1)
+
+/datum/design/board/seed_editor
+	name = "Seed Editor Board"
+	id = "seed_editor_board"
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+	build_path = /obj/item/circuitboard/machine/seed_editor
+	category = list ("initial", "Misc. Machinery")

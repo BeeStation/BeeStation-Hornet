@@ -106,19 +106,18 @@ class ReagentGrid extends Component {
 
   render() {
     const { act } = useBackend();
-    const { reagent_data, selected_reagent, accuracy } = this.props;
+    const { reagent_data, selected_reagent, accuracy, sampled_reagents, all_reagent_data } = this.props;
 
     return (
       <Flex height="100.1%" width="100%" direction="column">
         <Section height="100%" width="100%">
-          This is a prototype for the plant reagent system, like all the UIs, it
-          is unfinished and subject to change via your feedback
+           {' WIP UI '}
           <br />
-          {`${this.dynamicXOffset} : ${this.svgPosition.x} : ${this.svgPosition.x + Math.round(this.dynamicXOffset / 10) * 10} : ${this.gridRestPosition.x}`}
-          <br />
-          {`${this.dynamicYOffset} : ${this.svgPosition.y} : ${this.svgPosition.y + this.dynamicYOffset} : ${this.gridRestPosition.y}`}
-          <br />
-          {`${this.selected_reagent}`}
+          {`${this.hovered_reagent ? all_reagent_data[this.hovered_reagent]["GRID_REAGENT_NAME"] : "No Data"}`}
+          {' '}
+          {`${Math.floor((this.svgPosition.y + this.dynamicYOffset) / 10)}`}
+          {' : '}
+          {`${Math.floor((this.svgPosition.x + this.dynamicXOffset) / 10)}`}
           <Button
             className="plant__button--beacon"
             position="absolute"
@@ -306,7 +305,43 @@ class ReagentGrid extends Component {
                         <path
                           d={`M 1 1 L 4 1 L 1 4 L 1 1`}
                           fill="none"
-                          stroke="#f2ff82"
+                          stroke="#f3ff88"
+                          stroke-width="0.5"
+                        />
+                      </pattern>
+                    </defs>
+                    {/* Cloud fill Pattern Alt */}
+                    <defs>
+                      <pattern
+                        x={-this.dynamicXOffset - 5}
+                        y={-this.dynamicYOffset - 5}
+                        id="square_fill_alt"
+                        width={10}
+                        height={10}
+                        patternUnits="userSpaceOnUse"
+                      >
+                        <path
+                          d={`M 1 1 L 4 1 L 1 4 L 1 1`}
+                          fill="none"
+                          stroke="#7a5178"
+                          stroke-width="0.4"
+                        />
+                      </pattern>
+                    </defs>
+                    {/* Reagent Dot Patter */}
+                    <defs>
+                      <pattern
+                        x={-this.dynamicXOffset - 5}
+                        y={-this.dynamicYOffset - 5}
+                        id="reagent_dot"
+                        width={10}
+                        height={10}
+                        patternUnits="userSpaceOnUse"
+                      >
+                        <path
+                          d={`M 1 1 L 4 1 L 1 4 L 1 1`}
+                          fill="none"
+                          stroke="#59ffd5"
                           stroke-width="0.5"
                         />
                       </pattern>
@@ -385,8 +420,246 @@ class ReagentGrid extends Component {
                         this.hovered_reagent = null;
                       }}
                     />
-                    {/* Reagent clouds */}
+{/* MASKING for non sampled Reagent clouds */}
+                    <mask id="BLACKOUT" mask-type="luminance">
                     {Object.entries(reagent_data).map(
+                      ([data_list_key, data_list]) => (
+                        <>
+                          {/* probability square */}
+                            <rect
+                            pointer-events="none"
+                            width={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            height={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][0] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][1] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            fill={'white'}
+                          />
+                        </>
+                      ),
+                    )}
+                    {Object.entries(sampled_reagents).map(
+                      ([data_list_key, data_list]) => (
+                        <>
+                          {/* probability square */}
+                            <rect
+                            pointer-events="none"
+                            width={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            height={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][0] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][1] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            fill={'black'}
+                          />
+                        </>
+                      ),
+                    )}
+                    </mask>
+{/* MASKING for dots */}
+                    <mask id="BLACKOUT_DOTS" mask-type="luminance">
+                    {Object.entries(reagent_data).map(
+                      ([data_list_key, data_list]) => (
+                        <>
+                          {/* probability square */}
+                            <rect
+                            pointer-events="none"
+                            width={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            height={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][0] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][1] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            fill={'black'}
+                          />
+                        </>
+                      ),
+                    )}
+                    {Object.entries(sampled_reagents).map(
+                      ([data_list_key, data_list]) => (
+                        <>
+                          {/* probability square */}
+                            <rect
+                            pointer-events="none"
+                            width={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            height={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][0] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][1] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            fill={'white'}
+                          />
+                        </>
+                      ),
+                    )}
+                    </mask>
+{/* Reagent clouds sampled */}
+                    {Object.entries(sampled_reagents).map(
                       ([data_list_key, data_list]) => (
                         <>
                           {/* probability square */}
@@ -439,7 +712,265 @@ class ReagentGrid extends Component {
                               ) *
                                 10
                             }
+                            fill={'url(#square_fill_alt)'}
+                            rx={data_list['GRID_REAGENT_SIZE'] * 2 + 5}
+                            stroke={`${this.checkReagent(selected_reagent, data_list_key) ? '"#59ffd5"' : '#00000000'}`}
+                            strokeWidth={0.5}
+                          />
+                          {/* select / hover square */}
+                          <rect
+                            pointer-events="none"
+                            width={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            height={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][0] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][1] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            fill={'#ffffff00'}
+                            stroke={`${this.checkReagent(selected_reagent, data_list_key) ? '#59ffd5' : '#00000000'}`}
+                            strokeWidth={0.5}
+                          />
+                          {/* selection square */}
+                          <rect
+                            width={
+                              (Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) /
+                                this.hitbox_scale) *
+                              10
+                            }
+                            height={
+                              (Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) /
+                                this.hitbox_scale) *
+                              10
+                            }
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][0] - accuracy,
+                                0,
+                              ) *
+                                10 +
+                              ((Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) /
+                                2) *
+                                10 -
+                                ((Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) /
+                                  this.hitbox_scale) *
+                                  10) /
+                                  2)
+                            }
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][1] - accuracy,
+                                0,
+                              ) *
+                                10 +
+                              ((Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) /
+                                2) *
+                                10 -
+                                ((Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) /
+                                  this.hitbox_scale) *
+                                  10) /
+                                  2)
+                            }
+                            opacity={0}
+                            onMouseEnter={() => {
+                              this.setHovered(data_list_key);
+                            }}
+                            onMouseLeave={() => {
+                              this.setHovered(null);
+                            }}
+                          />
+                        </>
+                      ),
+                    )}
+{/* Reagent clouds non sampled */}
+                    {Object.entries(reagent_data).map(
+                      ([data_list_key, data_list]) => (
+                        <>
+                          {/* probability square */}
+                          <rect
+                            mask={'url(#BLACKOUT)'}
+                            pointer-events="none"
+                            width={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            height={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][0] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][1] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
                             fill={'url(#square_fill)'}
+                            rx={data_list['GRID_REAGENT_SIZE'] * 2 + 5}
+                            stroke={`${this.checkReagent(selected_reagent, data_list_key) ? '#ffff77' : '#00000000'}`}
+                            strokeWidth={0.5}
+                          />
+                          <rect
+                            pointer-events="none"
+                            width={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            height={
+                              Math.max(
+                                data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                1,
+                              ) * 10
+                            }
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][0] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5 -
+                              Math.floor(
+                                Math.max(
+                                  data_list['GRID_REAGENT_SIZE'] - accuracy,
+                                  1,
+                                ) / 2,
+                              ) *
+                                10 +
+                              Math.max(
+                                data_list['REAGENT_OFFSET'][1] - accuracy,
+                                0,
+                              ) *
+                                10
+                            }
+                            fill={'none'}
                             rx={data_list['GRID_REAGENT_SIZE'] * 2 + 5}
                             stroke={`${this.checkReagent(selected_reagent, data_list_key) ? '#ffff77' : '#00000000'}`}
                             strokeWidth={0.5}
@@ -588,7 +1119,64 @@ class ReagentGrid extends Component {
                         </>
                       ),
                     )}
-                    {/* Crosshair */}
+{/* Reagent dots for SAMPLED AND UNSAMPLED */}
+                    {/* Un sampled */}
+                    {Object.entries(reagent_data).map(
+                      ([data_list_key, data_list]) => (
+                        <>
+                          {/* location dot */}
+                          <rect
+                            mask={'url(#BLACKOUT_DOTS)'}
+                            width={10}
+                            height={10}
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5}
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5}
+                            fill={'url(#reagent_dot)'}
+                            stroke={`${this.checkReagent(selected_reagent, data_list_key) ? '#59ffd5' : '#00000000'}`}
+                            strokeWidth={0.5}
+                            onMouseEnter={() => {
+                              this.setHovered(data_list_key);
+                            }}
+                          />
+                        </>
+                      ),
+                    )}
+                    {/* Sampled */}
+                    {Object.entries(sampled_reagents).map(
+                      ([data_list_key, data_list]) => (
+                        <>
+                          {/* location dot */}
+                          <rect
+                            mask={'url(#BLACKOUT_DOTS)'}
+                            width={10}
+                            height={10}
+                            stroke-width="0.5"
+                            x={
+                              data_list['GRID_REAGENT_POSITION'][0] * 10 -
+                              this.dynamicXOffset -
+                              5}
+                            y={
+                              data_list['GRID_REAGENT_POSITION'][1] * 10 -
+                              this.dynamicYOffset -
+                              5}
+                            fill={'url(#reagent_dot)'}
+                            stroke={`${this.checkReagent(selected_reagent, data_list_key) ? '#59ffd5' : '#00000000'}`}
+                            strokeWidth={0.5}
+                            onMouseEnter={() => {
+                              this.setHovered(data_list_key);
+                            }}
+                          />
+                        </>
+                      ),
+                    )}
+{/* Crosshair */}
                     <rect
                       pointer-events="none"
                       x={this.svgPosition.x - (this.dynamicXOffset % 10) - 5.2}
@@ -648,7 +1236,7 @@ class ReagentGrid extends Component {
 
 export const ReagentGridAlt = (props) => {
   const { act, data } = useBackend();
-  const { reagent_data, selected_reagent, accuracy } = data;
+  const { reagent_data, selected_reagent, accuracy, sampled_reagents, all_reagent_data } = data;
   return (
     <Window width={900} height={830} theme="plant_menu">
       <Window.Content scrollable={0}>
@@ -662,6 +1250,8 @@ export const ReagentGridAlt = (props) => {
                 reagent_data={reagent_data}
                 selected_reagent={selected_reagent}
                 accuracy={accuracy}
+                sampled_reagents={sampled_reagents}
+                all_reagent_data={all_reagent_data}
               />
             </Flex.Item>
             {/* Data */}
@@ -669,13 +1259,13 @@ export const ReagentGridAlt = (props) => {
               <Flex.Item>
                 <Section width="100%">
                   {selected_reagent
-                    ? reagent_data[selected_reagent]['GRID_REAGENT_NAME']
-                    : 'Lorem'}
+                    ? all_reagent_data[selected_reagent]['GRID_REAGENT_NAME']
+                    : 'No Data'}
                 </Section>
               </Flex.Item>
               <Flex.Item height="100%">
                 <Section height="100%" width="100%">
-                  {selected_reagent}
+                  {`Probability Size: ${selected_reagent ? all_reagent_data[selected_reagent]['GRID_REAGENT_SIZE'] : 'No Data'}`}
                   <br />
                   <Button
                     className="plant__button--beacon"

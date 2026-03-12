@@ -5,6 +5,7 @@
 	species_name = "citrus uvam"
 	name = "lemon"
 	icon_state = "citrus"
+	icon_uneven = TRUE
 	colour_override = "#ffe600"
 	fruit_product = /obj/item/food/grown/citrus/lemon
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)

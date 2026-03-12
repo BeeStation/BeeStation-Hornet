@@ -6,6 +6,7 @@
 	name = "banana"
 	icon_state = "banana"
 	bunch_icon = "banana_bunch"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/banana
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin/large,
 	/datum/plant_trait/fruit/slippery)

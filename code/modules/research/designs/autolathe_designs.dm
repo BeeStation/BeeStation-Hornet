@@ -453,27 +453,11 @@
 	category = list("initial","Misc", "Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/plant_analyzer_board
-	name = "Plant Analyzer Board"
-	id = "plant_analyzer_board"
-	build_type = AUTOLATHE | PROTOLATHE
-	build_path = /obj/item/circuitboard/machine/plant_analyser
-	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
-	category = list("initial", "Misc")
-
 /datum/design/plant_mutator_board
 	name = "Plant Mutator Board"
 	id = "plant_mutator_board"
 	build_type = AUTOLATHE | PROTOLATHE
 	build_path = /obj/item/circuitboard/machine/plant_mutator
-	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
-	category = list("initial", "Misc")
-
-/datum/design/seed_editor_board
-	name = "Seed Editor Board"
-	id = "seed_editor_board"
-	build_type = AUTOLATHE | PROTOLATHE
-	build_path = /obj/item/circuitboard/machine/seed_editor
 	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
 	category = list("initial", "Misc")
 

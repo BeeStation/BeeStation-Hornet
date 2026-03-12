@@ -1,6 +1,5 @@
 #define TEMPORARY_OVERLAY_DURATION 2 SECONDS
 
-//TODO: refacvtor the temp overlay code to be cleaner. Also make examining this thing do temp overlays - Racc
 /datum/component/plumbing
 	///Index with "1" = /datum/ductnet/theductpointingnorth etc. "1" being the num2text from NORTH define
 	var/list/datum/ductnet/ducts = list()
@@ -8,9 +7,6 @@
 	var/datum/reagents/reagents
 	///TRUE ///TRUE if we wanna add proper pipe overlays under our parent object. this is pretty good if i may so so myself
 	var/use_overlays = TRUE
-	///List of temporary overlays that pop up briefly when we're rotated
-	var/list/temporary_overlays = list()
-	var/temporary_overlay_timer
 	///Whether our tile is covered and we should hide our ducts
 	var/tile_covered = FALSE
 	///directions in which we act as a supplier
@@ -37,7 +33,6 @@
 	RegisterSignal(parent, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, PROC_REF(toggle_active))
 	RegisterSignal(parent, COMSIG_OBJ_HIDE, PROC_REF(hide))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)
-	RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE, PROC_REF(catch_dir))
 
 	if(start)
 		//timer 0 so it can finish returning initialize, after which we're added to the parent.
@@ -251,23 +246,6 @@
 
 	tile_covered = should_hide
 	AM.update_appearance()
-
-/datum/component/plumbing/proc/catch_dir(datum/source, old_dir, new_dir)
-	SIGNAL_HANDLER
-
-	var/atom/movable/movable_parent = parent
-	temporary_overlays += create_overlays(movable_parent, movable_parent.overlays, TRUE, movable_parent.layer+1)
-	if(temporary_overlay_timer)
-		deltimer(temporary_overlay_timer)
-	temporary_overlay_timer = addtimer(CALLBACK(src, PROC_REF(clean_temp_overlays)), TEMPORARY_OVERLAY_DURATION, TIMER_STOPPABLE)
-
-/datum/component/plumbing/proc/clean_temp_overlays()
-	var/atom/movable/movable_parent = parent
-	for(var/image as anything in temporary_overlays)
-		movable_parent.overlays -= image
-		temporary_overlays -= image
-		qdel(image)
-	temporary_overlay_timer = null
 
 #undef TEMPORARY_OVERLAY_DURATION
 

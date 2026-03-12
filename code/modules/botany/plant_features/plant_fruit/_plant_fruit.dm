@@ -30,7 +30,6 @@
 	///Fruit size for body compatibility
 	var/fruit_size = PLANT_FRUIT_SIZE_SMALL
 
-	//TODO: Go through and apply this to each fruit datum - Racc
 	///Is our icon uneven? Aka if it needs to be shifted back into place when mirrored
 	var/icon_uneven = FALSE
 	///Colour override for greyscale fruits
@@ -187,6 +186,8 @@
 	SIGNAL_HANDLER
 
 	var/obj/item/plant_tray/tray = parent?.plant_item?.loc
+	if(!length(fruits) && user)
+		to_chat(user, span_warning("You need a spade to move [parent?.plant_item]!"))
 	if(!length(fruits) || SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT))
 		return
 	var/list/temp_fruits = list()

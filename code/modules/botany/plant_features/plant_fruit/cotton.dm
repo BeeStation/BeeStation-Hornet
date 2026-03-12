@@ -6,6 +6,7 @@
 	species_name = "bombacio mollis"
 	name = "cotton"
 	icon_state = "cotton"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/grown/cotton
 	total_volume = 0
 	growth_time = PLANT_FRUIT_GROWTH_FAST

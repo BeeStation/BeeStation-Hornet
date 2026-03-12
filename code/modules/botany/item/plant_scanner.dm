@@ -15,6 +15,8 @@
 	custom_materials = list(/datum/material/iron=30, /datum/material/glass=20)
 	///Do we show extra information
 	var/advanced = TRUE
+	///Refernece to our screen effect
+	var/obj/effect/hydroponics_screen/screen
 
 /obj/item/plant_scanner/Initialize(mapload)
 	. = ..()
@@ -23,7 +25,9 @@
 	. = ..()
 	if(!isliving(user))
 		return
-	context.add_attack_self_action("[advanced ? "Disable" : "Enable"] /Advanced Scan")
+	context.add_attack_self_action("[advanced ? "Disable" : "Enable"] Advanced Scan")
+
+	screen = new(src, "plant_scanner_on")
 
 /obj/item/plant_scanner/interact(mob/user)
 	. = ..()
@@ -35,6 +39,7 @@
 	. = ..()
 	if(!proximity_flag)
 		return
+	screen.flash()
 	var/scan_dialogue = ""
 	//This code is kinda samey but it's easier to read
 //Tray

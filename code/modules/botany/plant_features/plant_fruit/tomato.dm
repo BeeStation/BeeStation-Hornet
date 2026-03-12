@@ -5,6 +5,7 @@
 	species_name = "lycopersicum solanum"
 	name = "tomato"
 	icon_state = "tomato"
+	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/tomato
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
 	/datum/plant_trait/fruit/liquid_contents)
