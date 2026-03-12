@@ -28168,7 +28168,7 @@
 /area/maintenance/department/science/xenobiology)
 "pDc" = (
 /obj/machinery/light,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/door/window/westleft{
 	dir = 1;
 	name = "Monkey Pen";
@@ -43315,7 +43315,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/storage)
 "yaL" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},

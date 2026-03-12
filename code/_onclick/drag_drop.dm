@@ -178,3 +178,5 @@
 	drag_start = 0
 	drag_details = null
 
+#undef LENIENCY_DISTANCE
+#undef LENIENCY_TIME
