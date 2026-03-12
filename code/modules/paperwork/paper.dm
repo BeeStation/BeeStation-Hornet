@@ -209,7 +209,7 @@
 	else if(is_date)
 		field_text = "[time2text(world.timeofday, "DD/MM")]/[CURRENT_STATION_YEAR]"
 	else if(is_time)
-		field_text = time2text(world.timeofday, "hh:mm") //idk about this
+		field_text = station_time_timestamp()
 
 	var/field_font = is_signature ? SIGNATURE_FONT : font
 
