@@ -253,6 +253,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// If applied to a mob, nearby dogs will have a small chance to nonharmfully harass said mob
 #define TRAIT_HATED_BY_DOGS "hated_by_dogs"
 #define TRAIT_BALLMER_SCIENTIST "ballmer_scientist"
+/// Mob has gotten an armor buff from adamantine extract
+#define TRAIT_ADAMANTINE_EXTRACT_ARMOR "adamantine_extract_armor"
 
 /// Revenants draining you only get a very small benefit.
 #define TRAIT_WEAK_SOUL "weak_soul"

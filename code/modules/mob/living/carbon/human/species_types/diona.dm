@@ -27,10 +27,7 @@
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	attack_verb = "slash"
 	attack_sound = 'sound/emotes/diona/hit.ogg'
-	burnmod = 1.25
 	heatmod = 1.5
-	brutemod = 0.8
-	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP

@@ -223,7 +223,7 @@
 			var/orbit_link
 			if (source && action == NOTIFY_ORBIT)
 				orbit_link = " <a href='byond://?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
-			to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""][orbit_link]"))
+			to_chat(O, span_ghostalert("[message][enter_link ? " [enter_link]" : ""][orbit_link]"))
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound, volume = notify_volume))
 			if(flashwindow)
@@ -342,13 +342,15 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/datum/poll_config/config = new()
-	config.question = poll_message
-	config.check_jobban = ban_key
-	config.role_name_text = M.real_name
-	config.poll_time = 10 SECONDS
-	config.jump_target = M
-	config.alert_pic = M
+	var/datum/poll_config/config = new(
+		question = poll_message,
+		check_jobban = ban_key,
+		role_name_text = M.real_name,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		alert_pic = M,
+		amount_to_pick = 1,
+	)
 	return config
 
 ///Clicks a random nearby mob with the source from this mob

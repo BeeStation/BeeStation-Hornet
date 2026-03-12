@@ -73,9 +73,9 @@
 	if(ishuman(parent))
 		var/mob/living/carbon/human/H = parent
 		finalarmor = armor
-		if(H.dna.species.armor + armor > 35) //anything higher than this seems a bit much for a level 0 symptom
-			finalarmor = max(0, (35 - H.dna.species.armor)) //don't make high armor species invinceable, but don't lower their armor if their armor is too high already
-		H.dna.species.armor += finalarmor
+		if(H.physiology.damage_resistance + armor > 35) //anything higher than this seems a bit much for a level 0 symptom
+			finalarmor = max(0, (35 - H.physiology.damage_resistance)) //don't make high armor species invinceable, but don't lower their armor if their armor is too high already
+		H.physiology.damage_resistance += finalarmor
 
 /datum/component/spikes/proc/checkdiseasecure(datum/source, diseaseid)
 	SIGNAL_HANDLER
@@ -90,4 +90,4 @@
 		return
 	if(ishuman(parent) && armor)
 		var/mob/living/carbon/human/H = parent
-		H.dna.species.armor -= finalarmor
+		H.physiology.damage_resistance -= finalarmor

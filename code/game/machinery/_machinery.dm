@@ -878,34 +878,37 @@
 	for(var/atom/atom_part in old_components)
 		qdel(atom_part)
 
-/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
-	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_SCREWDRIVER)
-		I.play_tool_sound(src, 50)
-		if(!panel_open)
-			panel_open = TRUE
+/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
+	if((flags_1 & NODECONSTRUCT_1) || screwdriver.tool_behaviour != TOOL_SCREWDRIVER)
+		return FALSE
+
+	screwdriver.play_tool_sound(src, 50)
+	panel_open = !panel_open
+	if(panel_open)
+		if(icon_state_open)
 			icon_state = icon_state_open
-			set_machine_stat(machine_stat | MAINT)
-			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
-		else
-			panel_open = FALSE
+		set_machine_stat(machine_stat | MAINT)
+		to_chat(user, span_notice("You open the maintenance hatch of [src]."))
+	else
+		if(icon_state_closed)
 			icon_state = icon_state_closed
-			set_machine_stat(machine_stat & ~MAINT)
-			to_chat(user, span_notice("You close the maintenance hatch of [src]."))
-		return TRUE
-	return FALSE
+		set_machine_stat(machine_stat & ~MAINT)
+		to_chat(user, span_notice("You close the maintenance hatch of [src]."))
+	return TRUE
 
 /**
  * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
  */
 /obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/wrench, turns = 1)
+	if(!panel_open || wrench.tool_behaviour != TOOL_WRENCH)
+		return FALSE
+
 	turns *= -90
-	if(panel_open && wrench.tool_behaviour == TOOL_WRENCH)
-		wrench.play_tool_sound(src, 50)
-		setDir(turn(dir,turns))
-		to_chat(user, span_notice("You rotate [src]."))
-		SEND_SIGNAL(src, COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH, user, wrench)
-		return TRUE
-	return FALSE
+	wrench.play_tool_sound(src, 50)
+	setDir(turn(dir, turns))
+	to_chat(user, span_notice("You rotate [src]."))
+	SEND_SIGNAL(src, COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH, user, wrench)
+	return TRUE
 
 /obj/proc/can_be_unfasten_wrench(mob/user, silent) //if we can unwrench this object; returns SUCCESSFUL_UNFASTEN and FAILED_UNFASTEN, which are both TRUE, or CANT_UNFASTEN, which isn't.
 	if(!(isfloorturf(loc) || istype(loc, /turf/open/indestructible)) && !anchored)

@@ -741,15 +741,17 @@
 	return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
 /obj/item/melee/baton/security/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	// Special handling stamina-immune species
+	// Special handling for stamina-immune limbs
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.dna?.species && H.dna.species.staminamod == 0)
+		var/target_zone = user ? user.get_combat_bodyzone(H) : target.get_random_valid_zone()
+		var/obj/item/bodypart/affecting = H.get_bodypart(target_zone)
+		if(!affecting)
+			affecting = H.bodyparts[1]
+
+		// Check if the limb is stamina-immune
+		if(affecting && affecting.stamina_modifier == 0)
 			// take burn damage from electrical shock instead of stamina
-			var/target_zone = user ? user.get_combat_bodyzone(H) : BODY_ZONE_CHEST
-			var/obj/item/bodypart/affecting = H.get_bodypart(target_zone)
-			if(!affecting)
-				affecting = H.bodyparts[1]
 			var/armor_block = H.run_armor_check(affecting, STAMINA, armour_penetration = armour_penetration)
 
 			// Electrocute and deal burn damage (force/4)
@@ -779,10 +781,10 @@
  * For stun batons, this is minimal - just a brief trait to prevent rapid double-batoning.
  */
 /obj/item/melee/baton/security/additional_effects_non_cyborg(mob/living/target, mob/living/user)
-	// Brief anti-double-baton trait (1 second)
+	// Brief anti-double-baton trait (0.75 second)
 	var/user_ref = REF(user)
 	ADD_TRAIT(target, TRAIT_IWASBATONED, user_ref)
-	addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_IWASBATONED, user_ref), 1 SECONDS)
+	addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_IWASBATONED, user_ref), 0.75 SECONDS)
 
 /obj/item/melee/baton/security/get_wait_description()
 	if(!cell)

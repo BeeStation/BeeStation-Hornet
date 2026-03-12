@@ -1,7 +1,7 @@
 /datum/species/snail
 	name = "Snailperson"
 	plural_form = "Snailpeople"
-	id = SPECIES_SNAILPERSON
+	id = SPECIES_SNAIL
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,4), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 	species_traits = list(
 		MUTCOLORS,
@@ -11,7 +11,6 @@
 	)
 	attack_verb = "slap"
 	coldmod = 0.5 //snails only come out when its cold and wet
-	burnmod = 1.5
 	speedmod = 2
 	punchdamage = 3
 	siemens_coeff = 2 //snails are mostly water
