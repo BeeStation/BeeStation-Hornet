@@ -488,7 +488,7 @@
 
 /obj/machinery/door/airlock/cult
 	name = "cult airlock"
-	desc = span_cult("A heavy airlock inscribed with shifting, rhythmic runes. Just looking at it gives you a sense of dread, best to avert your gaze.")
+	desc = span_cult("A heavy airlock inscribed with shifting, rhythmic runes.")
 	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/cult/runed/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
@@ -500,6 +500,7 @@
 	var/friendly = FALSE
 	var/stealthy = FALSE
 	allow_repaint = FALSE
+	var/static/list/cultdoor_punish_cooldown = list()
 
 /obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
@@ -507,6 +508,13 @@
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
 	return (IS_CULTIST(user) && !isAllPowerCut())
+
+/obj/machinery/door/airlock/cult/examine(mob/user)
+	var/original_desc = desc
+	if(!stealthy && !IS_CULTIST(user))
+		desc += " [span_cult("Just looking at it gives you a sense of dread, best to avert your gaze.")]" // You might wanna stop looking at the airlock bud
+	. = ..()
+	desc = original_desc // Im not sure if this is correct, otherwise you'd get repeating text
 
 /obj/machinery/door/airlock/cult/on_break()
 	if(!panel_open)
@@ -520,26 +528,41 @@
 
 /obj/machinery/door/airlock/cult/allowed(mob/living/target)
 	if(!density)
-		return 1
-	if(friendly || IS_CULTIST(target) || isshade(target) || isconstruct(target)) // Are they a cultist?, if so open the door
+		return TRUE
+	if(friendly || IS_CULTIST(target) || isshade(target) || isconstruct(target))
 		if(!stealthy)
 			new openingoverlaytype(loc)
-		return 1
-	var/datum/weakref/W = WEAKREF(target)
-	if(GLOB.cult_airlock_cooldown[W] && GLOB.cult_airlock_cooldown[W] > world.time) // They aren't a cultist, check for antimagic and trigger cooldown
-		return 0
-	GLOB.cult_airlock_cooldown[W] = world.time + 5 SECONDS // Fully aware this also places a cooldown upon bumping, i dont mind it however, just looking at the airlock will yeet you
+		return TRUE
+	on_denied(target)
+	return FALSE
+
+/obj/machinery/door/airlock/cult/proc/on_denied(mob/living/target)
 	var/anti_magic_source = target.can_block_magic(MAGIC_RESISTANCE_HOLY)
 	if(anti_magic_source)
-		return 0
+		return FALSE
+	var/datum/weakref/target_ref = WEAKREF(target)
+	if(cultdoor_punish_cooldown[target_ref] && cultdoor_punish_cooldown[target_ref] > world.time)
+		return FALSE
+	cultdoor_punish_cooldown[target_ref] = world.time + 10 SECONDS // Maybe this prevents cult doors from being spammed in hallways?
 	if(!stealthy)
 		new /obj/effect/temp_visual/cult/sac(loc)
 		var/atom/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(target, src)))
-		SEND_SOUND(target, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
-		flash_color(target, flash_color="#960000", flash_time=20)
 		target.Knockdown(4 SECONDS)
-		target.throw_at(throwtarget, 5, 1) // Yeeet
-	return 0
+		target.throw_at(throwtarget, 5, 1) // Yeet
+		SEND_SOUND(target, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
+		flash_color(target, flash_color = "#960000", flash_time = 20)
+	return TRUE
+
+/obj/machinery/door/airlock/cult/on_mouse_enter(client/player)
+	if(stealthy)
+		return ..()
+	var/mob/living/onlooker = player.mob
+	if(!istype(onlooker))
+		return ..()
+	if(!IS_CULTIST(onlooker) && !isshade(onlooker) && !isconstruct(onlooker))
+		if(on_denied(onlooker))
+			to_chat(onlooker, span_cultlarge("The runes glow blood-red as you gaze upon the door."))
+	return ..()
 
 /obj/machinery/door/airlock/cult/proc/conceal()
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
