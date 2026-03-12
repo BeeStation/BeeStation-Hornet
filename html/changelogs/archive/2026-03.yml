@@ -98,6 +98,7 @@
       lasers
   PatienceStPim:
   - bugfix: Lizards and psyphozas can get their mutations unlocked again
+  - bugfix: Scanners not working after injecting enzymes in genetics
   Tsar-Salat:
   - refactor: species damage mods are now limb-based
   - bugfix: damage mods work again, IPCs ignore stamina damage
