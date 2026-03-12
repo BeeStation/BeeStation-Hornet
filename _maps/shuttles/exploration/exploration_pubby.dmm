@@ -9,6 +9,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "cH" = (
@@ -167,7 +168,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/overspace,
 /area/shuttle/exploration)
 "sE" = (
 /obj/machinery/modular_computer/console/preset/engineering{
@@ -259,6 +260,13 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"vF" = (
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/item/beacon,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
 "zN" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
 /obj/effect/turf_decal/stripes/line,
@@ -317,7 +325,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/closed/wall/mineral/titanium,
+/turf/closed/wall/mineral/titanium/overspace,
 /area/shuttle/exploration)
 "Hf" = (
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
@@ -526,7 +534,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/fakespace,
 /area/shuttle/exploration)
 "Vj" = (
 /obj/machinery/door/poddoor/shutters/window{
@@ -562,7 +570,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/fakespace,
 /area/shuttle/exploration)
 "Yi" = (
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
@@ -676,7 +684,7 @@ OE
 po
 cg
 rQ
-rQ
+vF
 vc
 IS
 tq
