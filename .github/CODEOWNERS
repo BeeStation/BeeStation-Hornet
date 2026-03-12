@@ -36,7 +36,7 @@ Dockerfile @crossedfall
 /tools/MapTileAggregator.py @itsmeow
 /code/modules/admin/player_panel.dm @itsmeow
 /code/modules/tgui_input/ @itsmeow
-/tgui/packages/tgui/interfaces/PlayerPanel.js @itsmeow
+/tgui/packages/tgui/interfaces/PlayerPanel.jsx @itsmeow
 /code/modules/multiz/ @itsmeow
 /code/modules/client/login/ @itsmeow
 /code/modules/client/preferences/ @itsmeow
@@ -48,3 +48,7 @@ Dockerfile @crossedfall
 # mrmanlikesbt
 
 /code/controllers/subsystem/dynamic @mrmanlikesbt
+
+# tsar-salat
+
+/code/datums/audio @Tsar-Salat

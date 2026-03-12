@@ -264,7 +264,6 @@ GLOBAL_LIST_INIT(audio_jukebox_tracks, list(
 	/datum/audio/track/rimward_cruise,
 	/datum/audio/track/space_oddity,
 	/datum/audio/track/thunderdome,
-	/datum/audio/track/torch,
 	/datum/audio/track/torn,
 	/datum/audio/track/treacherous_voyage,
 	/datum/audio/track/voidsent,

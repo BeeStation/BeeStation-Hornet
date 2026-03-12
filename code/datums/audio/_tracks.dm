@@ -1,3 +1,5 @@
+// The following is taken from Baystation 12 as of June 19th, 2024
+
 /datum/audio/track/absconditus
 	source = 'sound/music/traitor.ogg'
 	title = "Absconditus"
@@ -254,13 +256,6 @@
 	license = /datum/license/cc_by_nc_sa_3_0
 	url = "https://www.newgrounds.com/audio/listen/312622"
 
-/datum/audio/track/torch
-	source = 'sound/music/Torch.ogg'
-	title = "Torch: A Light in the Darkness"
-	author = "L. Luke Leimer/LorenLuke"
-	license = /datum/license/cc_by_nc_sa_3_0
-	url = "https://soundcloud.com/luke-leimer/torch-a-light-in-the-darkness"
-
 /datum/audio/track/torn
 	source = 'sound/music/europa/Macamoto_-_05_-_Torn.ogg'
 	title = "Torn"
@@ -296,3 +291,19 @@
 	author = "A Drop A Day"
 	license = /datum/license/cc_by_sa_3_0
 	url = "https://soundcloud.com/adrop_aday/14-wild-encounters"
+
+//Bee-specific tracks below
+
+/datum/audio/track/thelongdark
+	source = 'sound/music/TheLongDark.ogg'
+	title = "The Long Dark"
+	author = "Scott Buckley"
+	license = /datum/license/cc_by_4_0
+	url = "https://soundcloud.com/scottbuckley/the-long-dark-cc-by"
+
+/datum/audio/track/filaments
+	source = 'sound/music/filaments.ogg'
+	title = "Filaments (Patros15 Remix)"
+	author = "Scott Buckley, remixed by Patros15"
+	license = /datum/license/cc_by_nc_3_0
+	url = "https://soundcloud.com/patros15/scott-buckley-filaments-patros15-remix"
