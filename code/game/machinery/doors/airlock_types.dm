@@ -614,7 +614,7 @@
 
 /obj/machinery/door/airlock/cult/weak
 	name = "brittle cult airlock"
-	desc = span_cult("An airlock hastily corrupted by blood magic, it is unusually brittle in this state. You feel a sense of dread just by looking it, best avert your gaze.")
+	desc = span_cult("An airlock hastily corrupted by blood magic, it is unusually brittle in this state.")
 	normal_integrity = 150
 	damage_deflection = 5
 	armor_type = /datum/armor/none
