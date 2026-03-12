@@ -268,7 +268,15 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
 	if(prefs?.read_player_preference(/datum/preference/toggle/sound_lobby))
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+		if(ispath(SSticker.login_music, /datum/audio))
+			var/datum/audio/track = get_audio_datum(SSticker.login_music)
+			if(track)
+				var/sound/S = track.get_sound()
+				S.volume = vol
+				SEND_SOUND(src, S)
+				to_chat(src, track.get_info())
+		else
+			SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC))
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.

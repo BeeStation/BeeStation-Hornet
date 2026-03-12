@@ -12,10 +12,8 @@
 	COOLDOWN_DECLARE(jukebox_error_cd)
 	/// Cooldown between being allowed to play another song
 	COOLDOWN_DECLARE(jukebox_song_cd)
-	/// TimerID to when the current song ends
-	var/song_timerid
 	/// The actual music player datum that handles the music
-	var/datum/jukebox/music_player
+	var/datum/audio_jukebox/music_player
 
 /obj/machinery/jukebox/Initialize(mapload)
 	. = ..()
@@ -32,18 +30,18 @@
 
 /obj/machinery/jukebox/examine(mob/user)
 	. = ..()
-	if(music_player.active_song_sound)
-		. += span_notice("Now playing: [music_player.selection.song_name]")
+	if(music_player.playing)
+		. += span_notice("Now playing: [music_player.get_current_track_name()]")
 
 /obj/machinery/jukebox/wrench_act(mob/living/user, obj/item/tool)
-	if(!isnull(music_player.active_song_sound))
+	if(music_player.playing)
 		return NONE
 
 	if(default_unfasten_wrench(user, tool) == SUCCESSFUL_UNFASTEN)
 		return TRUE
 
 /obj/machinery/jukebox/update_icon_state()
-	icon_state = "[base_icon_state][music_player.active_song_sound ? "-active" : null]"
+	icon_state = "[base_icon_state][music_player.playing ? "-active" : null]"
 	return ..()
 
 /obj/machinery/jukebox/attack_hand_secondary(mob/user, list/modifiers)
@@ -63,7 +61,7 @@
 		balloon_alert(user, "access denied!")
 		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 20, TRUE)
 		return UI_CLOSE
-	if(!length(music_player.songs))
+	if(!length(music_player.tracks))
 		to_chat(user,span_warning("Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue."))
 		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
@@ -83,41 +81,33 @@
 	if(.)
 		return
 
-	var/mob/user = ui.user
 	switch(action)
 		if("toggle")
-			toggle_playing(user)
+			toggle_playing(ui.user)
 			return TRUE
 
-		if("select_track")
-			if(!isnull(music_player.active_song_sound))
-				to_chat(user, span_warning("Error: You cannot change the song until the current one is over."))
+		if("next")
+			music_player.Next()
+			return TRUE
+
+		if("last")
+			music_player.Last()
+			return TRUE
+
+		if("track")
+			if(music_player.playing)
+				to_chat(ui.user, span_warning("Error: You cannot change the song while one is playing."))
 				return TRUE
-
-			var/datum/track/new_song = music_player.songs[params["track"]]
-			if(QDELETED(src) || !istype(new_song, /datum/track))
-				return TRUE
-
-			music_player.selection = new_song
+			music_player.Track(params["index"])
 			return TRUE
 
-		if("set_volume")
-			var/new_volume = params["volume"]
-			if(new_volume == "reset" || new_volume == "max")
-				music_player.set_volume_to_max()
-			else if(new_volume == "min")
-				music_player.set_new_volume(0)
-			else if(isnum(text2num(new_volume)))
-				music_player.set_new_volume(text2num(new_volume))
-			return TRUE
-
-		if("loop")
-			music_player.sound_loops = !!params["looping"]
+		if("volume")
+			music_player.Volume(params["volume"])
 			return TRUE
 
 ///If a song is playing, cut it. If none is playing, and the cooldown is up, start the queued track.
 /obj/machinery/jukebox/proc/toggle_playing(mob/user)
-	if(!isnull(music_player.active_song_sound))
+	if(music_player.playing)
 		stop_music()
 		return
 	if(COOLDOWN_FINISHED(src, jukebox_song_cd))
@@ -129,27 +119,20 @@
 		COOLDOWN_START(src, jukebox_error_cd, 15 SECONDS)
 
 /obj/machinery/jukebox/proc/activate_music()
-	if(!isnull(music_player.active_song_sound))
+	if(music_player.playing)
 		return FALSE
 
-	music_player.start_music()
+	music_player.Play()
 	update_use_power(ACTIVE_POWER_USE)
-	update_appearance(UPDATE_ICON_STATE)
-	if(!music_player.sound_loops)
-		song_timerid = addtimer(CALLBACK(src, PROC_REF(stop_music)), music_player.selection.song_length, TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	return TRUE
 
 /obj/machinery/jukebox/proc/stop_music()
-	if(!isnull(song_timerid))
-		deltimer(song_timerid)
-
-	music_player.unlisten_all()
+	music_player.Stop()
 
 	if(!QDELING(src))
 		COOLDOWN_START(src, jukebox_song_cd, 10 SECONDS)
 		playsound(src,'sound/machines/terminal_off.ogg', 50, TRUE)
 		update_use_power(IDLE_POWER_USE)
-		update_appearance(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/machinery/jukebox/on_set_is_operational(old_value)
@@ -198,7 +181,7 @@
 
 /obj/machinery/jukebox/disco/process()
 	var/dance_num = rand(1, 4) //all will do the same dance
-	for(var/mob/living/dancer in music_player.get_active_listeners())
+	for(var/mob/living/dancer in music_player.listeners)
 		if(!(dancer.mobility_flags & MOBILITY_MOVE))
 			continue
 		if(HAS_TRAIT(dancer, TRAIT_DISCO_DANCER))
@@ -244,7 +227,7 @@
 
 /obj/machinery/jukebox/disco/proc/lights_spin()
 	for(var/i in 1 to 25)
-		if(QDELETED(src) || isnull(music_player.active_song_sound))
+		if(QDELETED(src) || !music_player.playing)
 			return
 		var/obj/effect/overlay/sparkles/S = new /obj/effect/overlay/sparkles(src)
 		S.alpha = 0
@@ -263,7 +246,7 @@
 	for(var/s in sparkles)
 		var/obj/effect/overlay/sparkles/reveal = s
 		reveal.alpha = 255
-	while(!isnull(music_player.active_song_sound))
+	while(music_player.playing)
 		for(var/g in spotlights) // The multiples reflects custom adjustments to each colors after dozens of tests
 			var/obj/item/flashlight/spotlight/glow = g
 			if(QDELETED(glow))
@@ -331,7 +314,7 @@
 					glow.even_cycle = !glow.even_cycle
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
 			INVOKE_ASYNC(src, PROC_REF(hierofunk))
-		sleep(music_player.selection.song_beat)
+		sleep(1 SECONDS)
 		if(QDELETED(src))
 			return
 

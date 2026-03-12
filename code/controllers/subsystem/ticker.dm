@@ -1,4 +1,3 @@
-#define ROUND_START_MUSIC_LIST "strings/round_start_sounds.txt"
 GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
@@ -89,60 +88,11 @@ SUBSYSTEM_DEF(ticker)
 	var/reboot_timer = null
 
 /datum/controller/subsystem/ticker/Initialize()
-	var/list/byond_sound_formats = list(
-		"mid"  = TRUE,
-		"midi" = TRUE,
-		"mod"  = TRUE,
-		"it"   = TRUE,
-		"s3m"  = TRUE,
-		"xm"   = TRUE,
-		"oxm"  = TRUE,
-		"wav"  = TRUE,
-		"ogg"  = TRUE,
-		"raw"  = TRUE,
-		"wma"  = TRUE,
-		"aiff" = TRUE
-	)
-
-	var/list/provisional_title_music = flist("[global.config.directory]/title_music/sounds/")
-	var/list/music = list()
-	var/use_rare_music = prob(1)
-
-	for(var/S in provisional_title_music)
-		var/lower = LOWER_TEXT(S)
-		var/list/L = splittext(lower,"+")
-		switch(L.len)
-			if(3) //rare+MAP+sound.ogg or MAP+rare.sound.ogg -- Rare Map-specific sounds
-				if(use_rare_music)
-					if(L[1] == "rare" && L[2] == SSmapping.current_map.map_name)
-						music += S
-					else if(L[2] == "rare" && L[1] == SSmapping.current_map.map_name)
-						music += S
-			if(2) //rare+sound.ogg or MAP+sound.ogg -- Rare sounds or Map-specific sounds
-				if((use_rare_music && L[1] == "rare") || (L[1] == SSmapping.current_map.map_name))
-					music += S
-			if(1) //sound.ogg -- common sound
-				if(L[1] == "exclude")
-					continue
-				music += S
-
-	var/old_login_music = trim(rustg_file_read("data/last_round_lobby_music.txt"))
-	if(music.len > 1)
-		music -= old_login_music
-
-	for(var/S in music)
-		var/list/L = splittext(S,".")
-		if(L.len >= 2)
-			var/ext = LOWER_TEXT(L[L.len]) //pick the real extension, no 'honk.ogg.exe' nonsense here
-			if(byond_sound_formats[ext])
-				continue
-		music -= S
-
-	if(!length(music))
-		music = world.file2list(ROUND_START_MUSIC_LIST, "\n")
-		login_music = pick(music)
-	else
-		login_music = "[global.config.directory]/title_music/sounds/[pick(music)]"
+	var/list/available = GLOB.audio_jukebox_tracks.Copy()
+	if(length(available) > 1)
+		var/old_login_music = text2path(trim(rustg_file_read("data/last_round_lobby_music.txt")))
+		available -= old_login_music
+	login_music = pick(available)
 
 
 	if(!GLOB.syndicate_code_phrase)
@@ -849,6 +799,4 @@ SUBSYSTEM_DEF(ticker)
 	gather_newscaster() //called here so we ensure the log is created even upon admin reboot
 	save_admin_data()
 	update_everything_flag_in_db()
-	rustg_file_append(login_music, "data/last_round_lobby_music.txt")
-
-#undef ROUND_START_MUSIC_LIST
+	rustg_file_append("[login_music]", "data/last_round_lobby_music.txt")

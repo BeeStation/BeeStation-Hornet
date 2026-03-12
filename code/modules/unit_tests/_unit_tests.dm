@@ -62,6 +62,7 @@
 #include "mob_damage.dm"
 #include "modsuit.dm"
 #include "mouse_bite_cable.dm"
+#include "music_test.dm"
 #include "mutant_hands_consistency.dm"
 #include "mutant_organs.dm"
 #include "organs.dm"

@@ -304,7 +304,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/response = tgui_alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
-		ghostize(FALSE,SENTIENCE_RETAIN)						//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
+		ghostize(FALSE,SENTIENCE_RETAIN)
+
+/mob/dead/new_player/verb/next_lobby_track()
+	set name = "Play Different Lobby Track"
+	set category = "OOC"
+
+	if(!client.prefs?.read_player_preference(/datum/preference/toggle/sound_lobby))
+		return
+	var/list/all_tracks = GLOB.audio_jukebox_tracks
+	if (!length(all_tracks))
+		return
+	var/datum/audio/track/track = get_audio_datum(pick(all_tracks))
+	if (!track)
+		return
+	SEND_SOUND(src, track.get_sound())
+	to_chat(src, track.get_info())
 
 /mob/camera/verb/ghost()
 	set category = "OOC"

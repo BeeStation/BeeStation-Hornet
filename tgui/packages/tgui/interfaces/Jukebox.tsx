@@ -13,74 +13,71 @@ import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-type Song = {
-  name: string;
-  length: number;
-  beat: number;
+type Track = {
+  track: string;
+  author: string;
+  index: number;
 };
 
 type Data = {
-  active: BooleanLike;
-  looping: BooleanLike;
+  playing: BooleanLike;
   volume: number;
-  track_selected: string | null;
-  songs: Song[];
+  track: string;
+  author: string;
+  tracks: Track[];
 };
 
 export const Jukebox = () => {
   const { act, data } = useBackend<Data>();
-  const { active, looping, track_selected, volume, songs } = data;
+  const { playing, track, author, volume, tracks } = data;
 
-  const songs_sorted: Song[] = sortBy(songs, (song: Song) => song.name);
-  const song_selected: Song | undefined = songs.find(
-    (song) => song.name === track_selected,
-  );
+  const tracks_sorted: Track[] = sortBy(tracks, (t: Track) => t.track);
 
   return (
-    <Window width={370} height={313}>
+    <Window width={370} height={340}>
       <Window.Content>
         <Section
           title="Song Player"
           buttons={
             <>
               <Button
-                icon={active ? 'pause' : 'play'}
-                selected={active}
+                icon="backward"
+                disabled={!!playing}
+                onClick={() => act('last')}
+              />
+              <Button
+                icon={playing ? 'pause' : 'play'}
+                selected={playing}
                 onClick={() => act('toggle')}
               >
-                {active ? 'Stop' : 'Play'}
+                {playing ? 'Stop' : 'Play'}
               </Button>
-              <Button.Checkbox
-                icon={'arrow-rotate-left'}
-                disabled={active}
-                checked={looping}
-                onClick={() => act('loop', { looping: !looping })}
-              >
-                Repeat
-              </Button.Checkbox>
+              <Button
+                icon="forward"
+                disabled={!!playing}
+                onClick={() => act('next')}
+              />
             </>
           }
         >
           <LabeledList>
+            <LabeledList.Item label="Current Track">
+              {track || 'None'}
+              {author ? ` — ${author}` : ''}
+            </LabeledList.Item>
             <LabeledList.Item label="Track Selected">
               <Dropdown
                 width="240px"
-                options={songs_sorted.map((song) => song.name)}
-                disabled={!!active}
-                selected={song_selected?.name || 'Select a Track'}
-                onSelected={(value) =>
-                  act('select_track', {
-                    track: value,
-                  })
-                }
+                options={tracks_sorted.map((t) => t.track)}
+                disabled={!!playing}
+                selected={track || 'Select a Track'}
+                onSelected={(value) => {
+                  const selected = tracks.find((t) => t.track === value);
+                  if (selected) {
+                    act('track', { index: selected.index });
+                  }
+                }}
               />
-            </LabeledList.Item>
-            <LabeledList.Item label="Track Length">
-              {song_selected?.length || 'No Track Selected'}
-            </LabeledList.Item>
-            <LabeledList.Item label="Track Beat">
-              {song_selected?.beat || 'No Track Selected'}
-              {song_selected?.beat === 1 ? ' beat' : ' beats'}
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -98,7 +95,7 @@ export const Jukebox = () => {
                   step={1}
                   stepPixelSize={1}
                   onChange={(e, value) =>
-                    act('set_volume', {
+                    act('volume', {
                       volume: value,
                     })
                   }
@@ -111,8 +108,8 @@ export const Jukebox = () => {
                   color="transparent"
                   icon="fast-backward"
                   onClick={() =>
-                    act('set_volume', {
-                      volume: 'min',
+                    act('volume', {
+                      volume: -1,
                     })
                   }
                 />
@@ -124,21 +121,8 @@ export const Jukebox = () => {
                   color="transparent"
                   icon="fast-forward"
                   onClick={() =>
-                    act('set_volume', {
-                      volume: 'max',
-                    })
-                  }
-                />
-                <Button
-                  fluid
-                  position="absolute"
-                  top="34px"
-                  right="-22px"
-                  color="transparent"
-                  icon="undo"
-                  onClick={() =>
-                    act('set_volume', {
-                      volume: 'reset',
+                    act('volume', {
+                      volume: -2,
                     })
                   }
                 />
