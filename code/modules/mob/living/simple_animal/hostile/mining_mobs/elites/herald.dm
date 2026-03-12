@@ -58,7 +58,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/become_ghost()
 	icon_state = "herald_ghost"
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/send_speech(message_raw, message_range, obj/source, bubble_type, list/spans, datum/language/message_language, list/message_mods, forced, tts_message, list/tts_filter)
+/mob/living/simple_animal/hostile/asteroid/elite/herald/send_speech(message_raw, message_range, obj/source, bubble_type, list/spans, datum/language/message_language, list/message_mods, forced)
 	. = ..()
 	if(stat != CONSCIOUS)
 		return

@@ -274,17 +274,18 @@
 			active_players++
 	return active_players
 
-/proc/makeBody(mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
-	if(!G_found || !G_found.key)
+///Uses stripped down and bastardized code from respawn character
+/proc/make_body(mob/dead/observer/ghost_player)
+	if(!ghost_player || !ghost_player.key)
 		return
 
 	//First we spawn a dude.
-	var/mob/living/carbon/human/new_character = new//The mob being spawned.
+	var/mob/living/carbon/human/new_character = new //The mob being spawned.
 	SSjob.SendToLateJoin(new_character)
 
-	G_found.client.prefs.apply_prefs_to(new_character)
+	ghost_player.client.prefs.safe_transfer_prefs_to(new_character)
 	new_character.dna.update_dna_identity()
-	new_character.key = G_found.key
+	new_character.key = ghost_player.key
 
 	return new_character
 

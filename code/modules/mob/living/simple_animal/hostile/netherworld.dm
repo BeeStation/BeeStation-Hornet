@@ -207,7 +207,7 @@
 		'sound/ai/default/aimalf.ogg'
 	) //hahahaha fuck you code divers // No, fuck you cunt!
 
-/mob/living/simple_animal/hostile/netherworld/migo/send_speech(message_raw, message_range, obj/source, bubble_type, list/spans, datum/language/message_language, list/message_mods, forced, tts_message, list/tts_filter)
+/mob/living/simple_animal/hostile/netherworld/migo/send_speech(message_raw, message_range, obj/source, bubble_type, list/spans, datum/language/message_language, list/message_mods, forced)
 	. = ..()
 	if(stat != CONSCIOUS)
 		return

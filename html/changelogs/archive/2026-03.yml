@@ -20,3 +20,85 @@
 2026-03-04:
   rkz, zephyr:
   - server: autogenerates python path
+2026-03-06:
+  mrmanlikesbt:
+  - code_imp: Poll configs now use constructors instead of manually setting the config's
+      parameters
+  - bugfix: Fixed several ghost polls not working
+  - bugfix: Fixed xenomorphs and spiders not having the vent overlay when spawning
+      inside of a vent
+  mrmanlikesbt, rkz, Ghommie, SmArtKar, Pickle-Coding, grungussuss, LemonInTheDark, Floofies, vinylspiders, san7890:
+  - code_imp: 'Added an easy define for reference tracking: REFERENCE_TRACKING_STANDARD'
+  - admin: Removed the SMES deletion admin message. Player deconstruction still sends
+      an admin message though
+  - spellcheck: Taser cartridges and heavy bone armor now follow naming conventions
+      (they're no longer capitalized)
+  - bugfix: Fixed color weirdness/bugs when being spawned in as a human from being
+      a ghost
+  - bugfix: Fixed plates spawning their shards inside of walls when thrown at them
+  - bugfix: Fixed emitters not requiring power
+  - bugfix: Fixed the SMES panel open overlay
+  - bugfix: Fixed a runtime when non humanoids tried to use the *wing emote
+  - bugfix: Fixed not being able to jump to things on the spawner panel
+  - bugfix: Fixed runtimes when having the Multilingual quirk set to random
+  - bugfix: Fixed tablets runtiming when destroyed
+  - bugfix: Fixed revenants spawning in with human names
+  - bugfix: Fixed cryo grenades being able to cool their contents to below 2.7 kelvin
+  - bugfix: Fixed light eaters making a blunt sound when slashing creatures
+  - bugfix: Fixed nightmares being able to shadow walk into lit environments
+  - bugfix: Fixed nightmares being able to shadow walk over glass floors
+  - bugfix: Fixed turkeys looking like chickens
+  - bugfix: Fixed the PAI holochassis going on cooldown forever
+  - bugfix: Fixed PAIs not being able to change their holochassis form
+  - bugfix: Fixed PAIs never being able to wake up if they fall unconscious
+  - bugfix: Fixed the NTNet Diagnostics and Monitoring app
+  - bugfix: Fixed diona nymphs chittering when using a pre-defined emote
+  - bugfix: Fixed mechs not being immune to ash storms
+  - bugfix: Fixed MMIs and positronic brains not getting the "You survived!" beecoin
+      reward at roundend
+  - bugfix: Fixed dead or otherwise unconscious people showing displaying a "John
+      Nanotrasen looks at Jane Syndicate" message.
+  - bugfix: Fixed the malf AI roundend report displaying "The name has failed/succeeded"
+  - bugfix: Fixed various missing typepaths in random maintenance rooms. This means
+      that one maintenance room is no longer spaced (it still is, but the windows
+      are actually there now)
+  - bugfix: Fixed the MOD longfall module
+  - bugfix: Fixed the mime's vow of silence. Additionally, once you break it your
+      vow, you will lose your mime powers forever.
+  - bugfix: Fixed the french beret not applying the french accent to its wearer
+  - bugfix: Fixed not being able to throw clockcult weapons
+  - bugfix: Fixed various UIs using the new computer theme.
+  - bugfix: Fixed bone armor not being able to hold bone weapons
+  - bugfix: Fixed monkeys not taking damage when burning
+  - bugfix: Fixed abductors and ninjas having their crew character's name show up
+      in the round end screen
+  - bugfix: Fixed the first death message showing up in the round end discord message
+      even if nobody died
+  - bugfix: Fixed a hard delete with the connect_loc element
+  - bugfix: Fixed some nullrod variants not having icons on the radial menu variant
+      select
+  - bugfix: Fixed the ninja plant explosive always failing
+2026-03-08:
+  DrDuckedGoose:
+  - tweak: Improved species height code
+  - rscadd: Added support for directions in species height code
+  - rscadd: Added support for unique maps in species height code
+  Fikou, r1ks-iwnl:
+  - balance: Removed healing amplification from BDM's trophy.
+  - bugfix: Fixed BDM trophy damage overlay making you near blind if you have oxy
+      damage.
+  - bugfix: Fixed BDM trophy making you unconscious if you have 5 or more oxy damage.
+  Isaacnml:
+  - bugfix: Exploration blackbox objectives can be tracked by GPS/Hardsuits once again
+2026-03-10:
+  Isaac:
+  - balance: Melee swarmers now deal stamina damage instead of straight up shocking
+      you
+  - balance: Ranged swarmers (red ones) now shoot less lethal ammo instead of just
+      lasers
+  PatienceStPim:
+  - bugfix: Lizards and psyphozas can get their mutations unlocked again
+  - bugfix: Scanners not working after injecting enzymes in genetics
+  Tsar-Salat:
+  - refactor: species damage mods are now limb-based
+  - bugfix: damage mods work again, IPCs ignore stamina damage

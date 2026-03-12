@@ -281,11 +281,12 @@ Works together with spawning an observer, noted above.
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
 
-			//If we cannot re-enter we note the time of conceptual death in player details.
-			if(can_reenter_corpse)
-				ghost.client?.player_details.time_of_death = ghost.mind?.current ? mind.current.timeofdeath : world.time
-			else
-				ghost.client.player_details.time_of_death = world.time
+			var/recordable_time = world.time
+			var/mob/living/former_mob = ghost.mind?.current
+			if(isliving(former_mob))
+				recordable_time = former_mob.timeofdeath
+
+			ghost.client?.player_details.time_of_death = recordable_time
 
 			return ghost
 
