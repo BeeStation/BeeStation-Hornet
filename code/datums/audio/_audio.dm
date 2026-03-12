@@ -1,17 +1,15 @@
 /// Global cache of audio datum instances, keyed by type path.
 /// Use get_audio_datum() to access.
-var/global/list/datum/audio/_audio_cache
+GLOBAL_LIST_EMPTY(audio_cache)
 
 /// Returns a cached /datum/audio instance for the given type path, creating it if needed.
 /proc/get_audio_datum(audio_path)
 	if (!ispath(audio_path, /datum/audio))
 		return null
-	if (!_audio_cache)
-		_audio_cache = list()
-	if (_audio_cache[audio_path])
-		return _audio_cache[audio_path]
+	if (GLOB.audio_cache[audio_path])
+		return GLOB.audio_cache[audio_path]
 	var/datum/audio/instance = new audio_path
-	_audio_cache[audio_path] = instance
+	GLOB.audio_cache[audio_path] = instance
 	return instance
 
 /datum/audio
