@@ -141,6 +141,7 @@
 			return
 		else
 			tearer.balloon_alert(tearer, "interrupted!")
+			return
 
 /// TODO: check if switch statements work with istype()
 /datum/action/vampire/targeted/brawn/brash/check_valid_target(atom/target_atom)
