@@ -419,8 +419,6 @@
 			add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), rand(0, 360), writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
 			user.visible_message(span_notice("[user] blindly stamps [src] with \the [attacking_item]!"))
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-			update_appearance()//THIS MIGHT BE USELESS
-			update_static_data_for_all_viewers()
 		else
 			to_chat(user, span_notice("You ready your stamp over the paper! "))
 			ui_interact(user)
@@ -492,7 +490,7 @@
 	if(!ui)
 		ui = new(user, src, "PaperSheet", name)
 		ui.open()
-		ui.set_autoupdate(TRUE)// Check if this holds true
+		ui.set_autoupdate(TRUE)
 
 /obj/item/paper/ui_static_data(mob/user)
 	var/list/static_data = list()
