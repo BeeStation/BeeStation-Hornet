@@ -4,10 +4,12 @@
 	var/datum/mutation/bounty_mutation
 	var/static/excluded_mutations = list(/datum/mutation/elvis,
 		/datum/mutation/bad_dna,
-		/datum/mutation/thermal/x_ray,
+		/datum/mutation/thermal,
 		/datum/mutation/laser_eyes,
 		/datum/mutation/thermal,
-		/datum/mutation/stoner) //Stoner is locked behind beach bums and will probably never be seen
+		/datum/mutation/stoner, //Stoner is locked behind beach bums and will probably never be seen
+		/datum/mutation/human,
+		/datum/mutation/human/thermal)
 
 /datum/bounty/genetics/New()
 	..()
