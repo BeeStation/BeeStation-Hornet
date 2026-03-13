@@ -153,8 +153,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/client_image_holder)
 /obj/effect/client_image_holder/proc/generate_image()
 	var/image/created = image(image_icon, src, image_state, image_layer, dir = src.dir)
 	created.plane = image_plane
-	created.pixel_w = image_pixel_x
-	created.pixel_z = image_pixel_y
+	created.pixel_x = image_pixel_x
+	created.pixel_y = image_pixel_y
 	if(image_color)
 		created.color = image_color
 	return created

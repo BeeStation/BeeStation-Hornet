@@ -69,22 +69,16 @@
  * Adds an offset to the mob's pixel position.
  *
  * * source: The source of the offset, a string
- * * w_add: pixel_w offset
  * * x_add: pixel_x offset
  * * y_add: pixel_y offset
- * * z_add: pixel_z offset
  * * animate: If TRUE, the mob will animate to the new position. If FALSE, it will instantly move.
  */
-/mob/living/proc/add_offsets(source, w_add, x_add, y_add, z_add, animate = TRUE)
+/mob/living/proc/add_offsets(source, x_add, y_add, animate = TRUE)
 	LAZYINITLIST(offsets)
-	if(isnum(w_add))
-		LAZYSET(offsets[PIXEL_W_OFFSET], source, w_add)
 	if(isnum(x_add))
 		LAZYSET(offsets[PIXEL_X_OFFSET], source, x_add)
 	if(isnum(y_add))
 		LAZYSET(offsets[PIXEL_Y_OFFSET], source, y_add)
-	if(isnum(z_add))
-		LAZYSET(offsets[PIXEL_Z_OFFSET], source, z_add)
 	update_offsets(animate)
 
 /**
@@ -108,30 +102,22 @@
  * Returns TRUE if the mob's position has changed, FALSE otherwise.
  */
 /mob/living/proc/update_offsets(animate = FALSE)
-	var/new_w = base_pixel_w
 	var/new_x = base_pixel_x
 	var/new_y = base_pixel_y
-	var/new_z = base_pixel_z
 
-	for(var/offset_key in LAZYACCESS(offsets, PIXEL_W_OFFSET))
-		new_w += offsets[PIXEL_W_OFFSET][offset_key]
 	for(var/offset_key in LAZYACCESS(offsets, PIXEL_X_OFFSET))
 		new_x += offsets[PIXEL_X_OFFSET][offset_key]
 	for(var/offset_key in LAZYACCESS(offsets, PIXEL_Y_OFFSET))
 		new_y += offsets[PIXEL_Y_OFFSET][offset_key]
-	for(var/offset_key in LAZYACCESS(offsets, PIXEL_Z_OFFSET))
-		new_z += offsets[PIXEL_Z_OFFSET][offset_key]
 
-	if(new_w == pixel_w && new_x == pixel_x && new_y == pixel_y && new_z == pixel_z)
+	if(new_x == pixel_x && new_y == pixel_y)
 		return FALSE
 
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_OFFSETS, new_x, new_y, new_w, new_z, animate)
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_OFFSETS, new_x, new_y, animate)
 
 	if(!animate)
-		pixel_w = new_w
 		pixel_x = new_x
 		pixel_y = new_y
-		pixel_z = new_z
 		return TRUE
 
 	// ensures the floating animation doesn't mess with our animation
@@ -140,10 +126,8 @@
 		addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_NO_FLOATING_ANIM, UPDATE_OFFSET_TRAIT), 0.3 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 	animate(src,
-		pixel_w = new_w,
 		pixel_x = new_x,
 		pixel_y = new_y,
-		pixel_z = new_z,
 		flags = ANIMATION_PARALLEL,
 		time = UPDATE_TRANSFORM_ANIMATION_TIME,
 	)

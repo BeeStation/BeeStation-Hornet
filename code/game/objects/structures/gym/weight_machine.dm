@@ -12,8 +12,8 @@
 	var/mutable_appearance/overlay
 	var/weight_type = /obj/item/barbell/stacklifting
 
-	///How much we shift the user's pixel z when using the weight machine.
-	var/pixel_shift_z = -3
+	///How much we shift the user's pixel y when using the weight machine.
+	var/pixel_shift_y = -3
 
 	///The weight action we give to people that buckle themselves to us.
 	var/datum/action/push_weights/weight_action
@@ -108,9 +108,9 @@
 		return FALSE
 	var/mob/living/user = buckled_mobs[1]
 	flick("[base_icon_state]-u", src)
-	animate(user, pixel_z = user.pixel_z + pixel_shift_z, time = 4, flags = SINE_EASING)
-	animate(pixel_z = user.pixel_z - pixel_shift_z, time = 4, flags = SINE_EASING)
+	animate(user, pixel_y = pixel_shift_y, time = 0.4 SECONDS, SINE_EASING)
 	playsound(user, 'sound/machines/creak.ogg', 60, TRUE)
+	animate(pixel_y = user.base_pixel_y, time = 0.4 SECONDS, SINE_EASING)
 
 	return TRUE
 
@@ -123,7 +123,7 @@
 	icon = 'icons/obj/fitness.dmi'
 	icon_state = "benchpress"
 	base_icon_state = "benchpress"
-	pixel_shift_z = 5
+	pixel_shift_y = 5
 	weight_type = /obj/item/barbell
 
 /obj/item/barbell

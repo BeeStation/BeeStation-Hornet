@@ -11,15 +11,5 @@
 	base_pixel_x = x; \
 	base_pixel_y = y;
 
-#define SET_BASE_VISUAL_PIXEL(w, z) \
-	pixel_w = w; \
-	base_pixel_w = w; \
-	pixel_z = z; \
-	base_pixel_z = z;
-
-#define _SET_BASE_PIXEL_VISUAL_NO_OFFSET(w, z) \
-	base_pixel_w = w; \
-	base_pixel_z = z;
-
 /// Much like [SET_BASE_PIXEL], except it will not effect pixel offsets in mapping programs
 #define SET_BASE_PIXEL_NOMAP(x, y) MAP_SWITCH(SET_BASE_PIXEL(x, y), _SET_BASE_PIXEL_NO_OFFSET(x, y))

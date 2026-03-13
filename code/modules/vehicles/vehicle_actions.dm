@@ -225,10 +225,10 @@
 		V.visible_message(span_danger("[L] misses the landing and falls on [L.p_their()] face!"))
 	else
 		L.spin(4, 1)
-		animate(L, pixel_z = 6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
-		animate(pixel_z = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
-		animate(V, pixel_z = 6, time = 0.3 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
-		animate(pixel_z = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
+		animate(L, pixel_y = 6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(pixel_y = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
+		animate(V, pixel_y = 6, time = 0.3 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(pixel_y = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 		playsound(V, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
 		passtable_on(L, VEHICLE_TRAIT)
 		V.pass_flags |= PASSTABLE

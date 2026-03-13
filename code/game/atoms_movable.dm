@@ -1062,7 +1062,7 @@
 			attack_image.pixel_x = rand(11,15)
 
 		if(!direction) // Attacked self?!
-			attack_image.pixel_z = 16
+			attack_image.pixel_y = 16
 
 	if(!attack_image)
 		return
@@ -1070,7 +1070,7 @@
 	var/atom/movable/flick_visual/attack = attacked_atom.flick_overlay_view(attack_image, 1 SECONDS)
 	var/matrix/copy_transform = new(transform)
 	// And animate the attack!
-	animate(attack, alpha = 175, transform = copy_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
+	animate(attack, alpha = 175, transform = copy_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, time = 0.3 SECONDS)
 	animate(time = 0.1 SECONDS)
 	animate(alpha = 0, time = 0.3 SECONDS, easing = CIRCULAR_EASING|EASE_OUT)
 

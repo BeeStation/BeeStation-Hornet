@@ -1,4 +1,4 @@
-// #define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
+#define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
 // #define QUICKSTART // uncomment this to start the round immidiately when ready and automatically spawn players with debug outfit
 
 // uncomment this for a map you need to use

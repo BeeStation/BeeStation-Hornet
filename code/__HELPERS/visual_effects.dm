@@ -6,8 +6,8 @@
  * This is just so you can apply the animation to things which can be animated but are not movables (like images)
  */
 #define DO_FLOATING_ANIM(target) \
-	animate(target, pixel_z = 2, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE); \
-	animate(pixel_z = -2, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(target, pixel_y = 2, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE); \
+	animate(pixel_y = -2, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
 
 /**
  * Stops the passed atom / image from appearing floating
@@ -16,16 +16,16 @@
  * This is just so you can apply the animation to things which can be animated but are not movables (like images)
  */
 #define STOP_FLOATING_ANIM(target) \
-	var/__final_pixel_z = 0; \
+	var/__final_pixel_y = 0; \
 	if(ismovable(target)) { \
 		var/atom/movable/__movable_target = target; \
-		__final_pixel_z += __movable_target.base_pixel_z; \
+		__final_pixel_y += __movable_target.base_pixel_y; \
 	}; \
 	if(isliving(target)) { \
 		var/mob/living/__living_target = target; \
-		__final_pixel_z += __living_target.has_offset(pixel = PIXEL_Z_OFFSET); \
+		__final_pixel_y += __living_target.has_offset(pixel = PIXEL_Y_OFFSET); \
 	}; \
-	animate(target, pixel_z = __final_pixel_z, time = 1 SECONDS)
+	animate(target, pixel_y = __final_pixel_y, time = 1 SECONDS)
 
 /// The duration of the animate call in mob/living/update_transform
 #define UPDATE_TRANSFORM_ANIMATION_TIME (0.2 SECONDS)

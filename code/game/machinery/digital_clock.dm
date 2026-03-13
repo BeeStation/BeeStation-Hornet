@@ -135,22 +135,22 @@
 	var/return_overlays = list()
 
 	var/mutable_appearance/minute_one_overlay = mutable_appearance('icons/obj/digital_clock.dmi', "+[station_minute_one]")
-	minute_one_overlay.pixel_w = 0
+	minute_one_overlay.pixel_x = 0
 	return_overlays += minute_one_overlay
 
 	var/mutable_appearance/minute_tenth_overlay = mutable_appearance('icons/obj/digital_clock.dmi', "+[station_minute_tenth]")
-	minute_tenth_overlay.pixel_w = -4
+	minute_tenth_overlay.pixel_x = -4
 	return_overlays += minute_tenth_overlay
 
 	var/mutable_appearance/separator = mutable_appearance('icons/obj/digital_clock.dmi', "+separator")
 	return_overlays += separator
 
 	var/mutable_appearance/hour_one_overlay = mutable_appearance('icons/obj/digital_clock.dmi', "+[station_hours_one]")
-	hour_one_overlay.pixel_w = -10
+	hour_one_overlay.pixel_x = -10
 	return_overlays += hour_one_overlay
 
 	var/mutable_appearance/hour_tenth_overlay = mutable_appearance('icons/obj/digital_clock.dmi', "+[station_hours_tenth]")
-	hour_tenth_overlay.pixel_w = -14
+	hour_tenth_overlay.pixel_x = -14
 	return_overlays += hour_tenth_overlay
 
 	return return_overlays

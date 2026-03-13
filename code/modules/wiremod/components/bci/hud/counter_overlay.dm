@@ -61,9 +61,9 @@
 	counter.plane = ABOVE_LIGHTING_PLANE
 
 	if(!isnull(image_pixel_x.value))
-		counter.pixel_w = image_pixel_x.value
+		counter.pixel_x = image_pixel_x.value
 	if(!isnull(image_pixel_y.value))
-		counter.pixel_z = image_pixel_y.value
+		counter.pixel_y = image_pixel_y.value
 
 	counter_appearance = WEAKREF(owner.add_alt_appearance(
 		/datum/atom_hud/alternate_appearance/basic/one_person,

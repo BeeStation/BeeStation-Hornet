@@ -443,7 +443,6 @@
 		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
 		I.pixel_y = target.pixel_y
-		I.pixel_z = target.pixel_z
 		if(istype(target, /obj/item/stack))
 			var/obj/item/stack/S = target
 			S.use(1)
@@ -511,7 +510,6 @@
 	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
-	D.pixel_z = target.pixel_z
 	if(do_after(src, 10 SECONDS, target))
 		to_chat(src, span_info("Dismantling complete."))
 		var/atom/Tsec = target.drop_location()
@@ -521,7 +519,6 @@
 		var/obj/effect/temp_visual/swarmer/disintegration/N = new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y
-		N.pixel_z = target.pixel_z
 		target.dump_contents()
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target

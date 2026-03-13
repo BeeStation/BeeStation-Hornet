@@ -395,8 +395,8 @@
 	if(owner.mob_size < MOB_SIZE_LARGE)
 		return FALSE
 	marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
-	marked_underlay.pixel_w = -owner.pixel_x
-	marked_underlay.pixel_z = -owner.pixel_y
+	marked_underlay.pixel_x = -owner.pixel_x
+	marked_underlay.pixel_y = -owner.pixel_y
 	owner.underlays += marked_underlay
 	return TRUE
 
@@ -1433,6 +1433,6 @@
 /// Helper proc that causes the mob to do a stagger animation.
 /// Doesn't change significantly, just meant to represent swaying back and forth
 /mob/living/proc/do_stagger_animation()
-	animate(src, pixel_w = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
-	animate(pixel_w = -6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE)
-	animate(pixel_w = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(src, pixel_x = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = -6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_x = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)

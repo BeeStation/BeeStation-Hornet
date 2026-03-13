@@ -136,7 +136,7 @@
 	flags_1 = NODECONSTRUCT_1
 
 /obj/structure/chair/mime/post_buckle_mob(mob/living/M)
-	M.add_offsets(type, z_add = 5)
+	M.add_offsets(type, y_add = 5)
 
 /obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
 	M.remove_offsets(type)
@@ -365,7 +365,7 @@
 	anchored = FALSE
 
 /obj/structure/chair/foldable/post_buckle_mob(mob/living/M)
-	M.add_offsets(type, z_add = 2)
+	M.add_offsets(type, y_add = 2)
 	anchored = TRUE
 
 /obj/structure/chair/foldable/post_unbuckle_mob(mob/living/M)
