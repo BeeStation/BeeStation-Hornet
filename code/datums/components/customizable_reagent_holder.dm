@@ -162,6 +162,9 @@
 			atom_parent.add_overlay(filling)
 			atom_parent.add_overlay(top_overlay)
 			return
+		if(CUSTOM_INGREDIENT_ICON_FILL)
+			if (top_overlay)
+				filling.color = mix_color(filling.color)
 				atom_parent.cut_overlay(top_overlay)
 			top_overlay = filling
 		if(CUSTOM_INGREDIENT_ICON_LINE)
