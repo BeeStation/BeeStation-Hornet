@@ -27,7 +27,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "d" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot_red/right,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -36,7 +36,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "e" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot_red/left,
 /turf/open/floor/iron,
 /area/template_noop)

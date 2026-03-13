@@ -16,7 +16,7 @@
 /area/template_noop)
 "g" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating{
 	broken = 1
 	},

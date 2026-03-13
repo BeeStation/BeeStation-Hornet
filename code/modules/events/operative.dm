@@ -23,11 +23,13 @@
 	if(!spawn_locs.len)
 		return MAP_ERROR
 
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_OPERATIVE
-	config.poll_time = 30 SECONDS
-	config.role_name_text = "lone operative"
-	config.alert_pic = /obj/machinery/nuclearbomb/selfdestruct
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_OPERATIVE,
+		poll_time = 30 SECONDS,
+		role_name_text = "lone operative",
+		alert_pic = /obj/machinery/nuclearbomb/selfdestruct,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		return NOT_ENOUGH_PLAYERS

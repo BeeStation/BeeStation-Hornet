@@ -323,7 +323,7 @@
 /obj/effect/mine/pickup/bloodbath
 	name = "Red Orb"
 	desc = "You feel angry just looking at it."
-	duration = 1200 //2min
+	duration = 2 MINUTES
 	color = COLOR_RED
 	var/mob/living/doomslayer
 	var/obj/item/chainsaw/doomslayer/chainsaw

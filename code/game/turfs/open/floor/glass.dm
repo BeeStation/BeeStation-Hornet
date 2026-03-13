@@ -17,6 +17,8 @@
 	overfloor_placed = FALSE
 	z_flags = Z_MIMIC_DEFAULTS
 
+	var/are_we_lit = FALSE
+
 /turf/open/floor/glass/broken_states()
 	return GLOB.glass_turf_damage
 
@@ -26,17 +28,17 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/open/floor/glass/LateInitialize()
-	setup_glow()
-
-/turf/open/floor/glass/Destroy()
-	. = ..()
-	UnregisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE)
-
-/turf/open/floor/glass/proc/setup_glow()
-	if(!ispath(get_z_base_turf(), /turf/open/space)) // We ain't the bottom brother
+	var/turf/base_turf = get_z_base_turf()
+	if(!ispath(base_turf, /turf/open/space)) // We ain't the bottom brother
 		return
+	are_we_lit = TRUE
 
-	overlays += GLOB.starlight_overlay
+	add_overlay(GLOB.starlight_overlay)
+
+/turf/open/floor/glass/get_lumcount(minlum = 0, maxlum = 1)
+	if(are_we_lit)
+		return TRUE
+	return ..()
 
 /turf/open/floor/glass/make_plating()
 	return
@@ -48,11 +50,6 @@
 	icon_state = "reinf_glass-0"
 	base_icon_state = "reinf_glass"
 	floor_tile = /obj/item/stack/tile/rglass
-
-/*
-/turf/open/floor/glass/reinforced/icemoon
-	initial_gas_mix = ICEMOON_DEFAULT_ATMOS
-*/
 
 /turf/open/floor/glass/airless
 	initial_gas_mix = AIRLESS_ATMOS
