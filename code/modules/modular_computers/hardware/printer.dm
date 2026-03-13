@@ -105,7 +105,7 @@
 				continue
 			num_to_add++
 			stored_paper++
-			LAZYREMOVE(bin.papers, the_paper)
+			bin.papers.Remove(the_paper)
 			qdel(the_paper)
 
 		bin.update_appearance()

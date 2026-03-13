@@ -105,8 +105,7 @@
 		bin_pen = null
 		update_appearance()
 	else if(LAZYLEN(papers))
-		var/obj/item/paper/top_paper = papers[papers.len]
-		papers.Remove(top_paper)
+		var/obj/item/paper/top_paper = pop(papers)
 		top_paper.add_fingerprint(user)
 		top_paper.forceMove(user.loc)
 		user.put_in_hands(top_paper)
