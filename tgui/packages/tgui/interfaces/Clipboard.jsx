@@ -11,14 +11,8 @@ import { Window } from '../layouts';
 
 export const Clipboard = (props) => {
   const { act, data } = useBackend();
-  const {
-    pen,
-    integrated_pen,
-    top_paper,
-    top_paper_ref,
-    paper,
-    paper_ref,
-  } = data;
+  const { pen, integrated_pen, top_paper, top_paper_ref, paper, paper_ref } =
+    data;
   return (
     <Window title="Clipboard" width={400} height={500}>
       <Window.Content backgroundColor="#704D25" scrollable>
@@ -34,7 +28,7 @@ export const Clipboard = (props) => {
                 {pen}
               </LabeledList.Item>
             </LabeledList>
-          ) : (integrated_pen ? (
+          ) : integrated_pen ? (
             <Box color="white" align="center">
               There is a pen integrated into the clipboard&apos;s clip.
             </Box>
@@ -42,7 +36,7 @@ export const Clipboard = (props) => {
             <Box color="white" align="center">
               No pen attached!
             </Box>
-          ))}
+          )}
         </Section>
         <Divider />
         {top_paper ? (
