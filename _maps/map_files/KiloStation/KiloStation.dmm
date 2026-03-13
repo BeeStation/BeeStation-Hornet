@@ -1213,24 +1213,6 @@
 "alV" = (
 /turf/closed/wall/r_wall/rust,
 /area/ai_monitored/turret_protected/aisat_interior)
-"alX" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/quartermaster/exploration_prep)
 "amo" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/crossing,
@@ -5909,23 +5891,6 @@
 "bmy" = (
 /turf/closed/wall,
 /area/crew_quarters/bar/atrium)
-"bmB" = (
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/requests_console{
-	department = "Robotics";
-	departmentType = 2;
-	name = "Robotics RC";
-	pixel_x = 30;
-	receive_ore_updates = 1
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "bmF" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
@@ -12005,17 +11970,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"cDa" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 1
-	},
-/obj/machinery/computer/xenoarchaeology_console{
-	dir = 4
-	},
-/obj/item/paicard,
-/turf/open/floor/iron/showroomfloor,
-/area/science/explab)
 "cDj" = (
 /obj/structure/table_frame/wood,
 /mob/living/simple_animal/hostile/asteroid/basilisk{
@@ -12936,6 +12890,23 @@
 	broken = 1
 	},
 /area/maintenance/port/aft)
+"cKO" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/item/taperecorder{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/aicard,
+/obj/item/pai_card{
+	pixel_x = 6
+	},
+/obj/item/radio/intercom{
+	pixel_y = 22
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hor)
 "cKU" = (
 /obj/structure/table,
 /obj/item/stack/package_wrap,
@@ -14077,28 +14048,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"cYd" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/condiment/peppermill{
-	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
-	pixel_x = -8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
-	pixel_x = -8;
-	pixel_y = 12
-	},
-/obj/item/paicard{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar/atrium)
 "cYj" = (
 /obj/machinery/status_display/evac{
 	pixel_y = 32
@@ -15304,6 +15253,12 @@
 /obj/item/crowbar/red,
 /turf/open/floor/iron,
 /area/security/brig)
+"dtn" = (
+/obj/structure/table/wood,
+/obj/item/pai_card,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "dts" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -18835,6 +18790,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/shuttledock)
+"eyz" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/item/wallframe/camera,
+/obj/structure/table/wood,
+/obj/item/melee/baton/security/cattleprod,
+/obj/item/flashlight/lamp,
+/obj/item/clothing/glasses/blindfold,
+/obj/item/clothing/mask/muzzle,
+/turf/open/floor/iron/dark,
+/area/security/brig)
 "eyM" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -19437,17 +19402,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
-"eLx" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/lab)
 "eLH" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L9"
@@ -21883,9 +21837,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"fBx" = (
-/turf/open/floor/iron,
-/area/engine/break_room)
 "fBY" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -22835,6 +22786,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
+"fTw" = (
+/obj/machinery/rnd/production/circuit_imprinter,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/engine/break_room)
 "fTD" = (
 /obj/machinery/suit_storage_unit/cmo,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -23603,16 +23562,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard)
-"ggu" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/item/wallframe/camera,
-/obj/structure/table/wood,
-/obj/item/melee/baton/security/cattleprod,
-/obj/item/flashlight/lamp,
-/obj/item/clothing/glasses/blindfold,
-/obj/item/clothing/mask/muzzle,
-/turf/open/floor/iron/dark,
-/area/security/brig)
 "ggI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -33574,19 +33523,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
-"jzm" = (
-/obj/machinery/doppler_array/research{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/science/mixing)
 "jzn" = (
 /obj/structure/table,
 /obj/item/folder{
@@ -35896,6 +35832,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/janitor)
+"knL" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/lab)
 "knO" = (
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/camera/directional/east{
@@ -36297,6 +36244,18 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"kvi" = (
+/obj/structure/table,
+/obj/item/folder{
+	pixel_x = -4
+	},
+/obj/item/pai_card,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/fitness/recreation)
 "kvm" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 8;
@@ -38424,18 +38383,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/disposal)
-"llh" = (
-/obj/structure/table,
-/obj/item/folder{
-	pixel_x = -4
-	},
-/obj/item/paicard,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/fitness/recreation)
 "llr" = (
 /obj/structure/displaycase/labcage,
 /obj/effect/turf_decal/box,
@@ -48598,12 +48545,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/atmos)
-"oJf" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/rnd/production/protolathe/department/engineering,
-/obj/effect/turf_decal/stripes/end,
-/turf/open/floor/iron,
-/area/engine/break_room)
 "oJj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -52127,12 +52068,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
-"pTa" = (
-/obj/structure/table/wood,
-/obj/item/paicard,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "pTb" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west{
@@ -52587,6 +52522,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
+"qby" = (
+/obj/machinery/doppler_array/research{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/science/mixing)
 "qbC" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
@@ -52789,6 +52737,23 @@
 "qei" = (
 /turf/closed/mineral/random/labormineral,
 /area/docking/arrival)
+"qeo" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/requests_console{
+	department = "Robotics";
+	departmentType = 2;
+	name = "Robotics RC";
+	pixel_x = 30;
+	receive_ore_updates = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "qeq" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
@@ -56815,6 +56780,24 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
+"rxK" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/mob/living/simple_animal/turkey{
+	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/quartermaster/exploration_prep)
 "rxP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event_spawn,
@@ -61112,6 +61095,28 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"sUO" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/condiment/peppermill{
+	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/pai_card{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/atrium)
 "sVy" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -63180,23 +63185,6 @@
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/quartermaster/warehouse)
-"tFf" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/taperecorder{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/aicard,
-/obj/item/paicard{
-	pixel_x = 6
-	},
-/obj/item/radio/intercom{
-	pixel_y = 22
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hor)
 "tFp" = (
 /obj/structure/reagent_dispensers/nutriment/fat/oil,
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -65910,6 +65898,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/hydroponics)
+"uGY" = (
+/turf/open/floor/iron,
+/area/engine/break_room)
 "uHa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -73400,6 +73391,12 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/port)
+"wYx" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/rnd/production/protolathe/department/engineering,
+/obj/effect/turf_decal/stripes/end,
+/turf/open/floor/iron,
+/area/engine/break_room)
 "wYK" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/siding/wood{
@@ -74194,14 +74191,6 @@
 	burnt = 1
 	},
 /area/maintenance/fore)
-"xjk" = (
-/obj/machinery/rnd/production/circuit_imprinter,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/engine/break_room)
 "xjw" = (
 /obj/structure/bed{
 	dir = 8
@@ -75417,6 +75406,17 @@
 	burnt = 1
 	},
 /area/maintenance/port/fore)
+"xDI" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 1
+	},
+/obj/machinery/computer/xenoarchaeology_console{
+	dir = 4
+	},
+/obj/item/pai_card,
+/turf/open/floor/iron/showroomfloor,
+/area/science/explab)
 "xDL" = (
 /obj/item/radio/intercom{
 	pixel_x = -28
@@ -93989,7 +93989,7 @@ wPj
 gcw
 aSL
 bLd
-llh
+kvi
 uDc
 xec
 tLV
@@ -95057,7 +95057,7 @@ njG
 uoK
 njG
 giB
-ggu
+eyz
 njG
 aaa
 aaa
@@ -102456,7 +102456,7 @@ cHV
 cHW
 aqg
 cRo
-pTa
+dtn
 iTC
 vzn
 buE
@@ -112263,9 +112263,9 @@ ifd
 awN
 cuJ
 xuX
-xjk
-oJf
-fBx
+fTw
+wYx
+uGY
 vvF
 mUV
 iGe
@@ -112737,7 +112737,7 @@ gYq
 hCi
 snt
 wou
-cYd
+sUO
 qjA
 ajt
 dxY
@@ -114007,7 +114007,7 @@ cFi
 cFi
 aZS
 uJl
-bmB
+qeo
 dZj
 daU
 fHL
@@ -115306,7 +115306,7 @@ aZi
 hot
 pPB
 bVz
-eLx
+knL
 dQi
 eFy
 aGj
@@ -115806,7 +115806,7 @@ hIq
 gCq
 lWL
 bdi
-tFf
+cKO
 cdP
 aVJ
 aVJ
@@ -117579,7 +117579,7 @@ aaa
 acm
 aWY
 aWY
-cDa
+xDI
 fNM
 mYe
 iZp
@@ -118366,7 +118366,7 @@ uSg
 jeo
 ait
 uFO
-alX
+rxK
 ffh
 hLB
 cEm
@@ -119672,7 +119672,7 @@ iQx
 uwT
 kcw
 beH
-jzm
+qby
 ltD
 eiR
 bbN

@@ -47,10 +47,11 @@
 
 	// See if they actually want to play this role
 	var/previous_chosen_candidates = length(chosen_candidates)
-	var/datum/poll_config/config = new()
-	config.role_name_text = name
-	config.poll_time = 30 SECONDS
-	config.alert_pic = get_poll_icon()
+	var/datum/poll_config/config = new(
+		role_name_text = name,
+		poll_time = 30 SECONDS,
+		alert_pic = get_poll_icon(),
+	)
 	chosen_candidates = SSpolling.poll_candidates(config, chosen_candidates)
 
 	if(!length(chosen_candidates))

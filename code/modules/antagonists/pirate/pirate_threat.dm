@@ -49,11 +49,12 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_SPACE_PIRATE
-	config.poll_time = 15 SECONDS
-	config.role_name_text = "pirate crew"
-	config.alert_pic = /obj/item/stack/sheet/mineral/gold
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_SPACE_PIRATE,
+		poll_time = 15 SECONDS,
+		role_name_text = "pirate crew",
+		alert_pic = /obj/item/stack/sheet/mineral/gold,
+	)
 	var/list/candidates = SSpolling.poll_ghost_candidates(config)
 	shuffle_inplace(candidates)
 

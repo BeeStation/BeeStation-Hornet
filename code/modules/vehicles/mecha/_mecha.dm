@@ -225,7 +225,8 @@
 	diag_hud_set_mechstat()
 	update_appearance()
 
-	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
+	become_hearing_sensitive(trait_source = INNATE_TRAIT)
+	add_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE), INNATE_TRAIT) //stormy weather (keeps rainin' all the time)
 
 	AddElement(/datum/element/atmos_sensitive)
 	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE)

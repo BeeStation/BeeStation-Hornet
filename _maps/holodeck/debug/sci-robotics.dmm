@@ -94,6 +94,20 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
+"s" = (
+/obj/structure/table,
+/obj/item/mmi,
+/obj/item/mmi{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/mmi{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/item/pai_card,
+/turf/open/floor/iron,
+/area/template_noop)
 "t" = (
 /obj/structure/table,
 /obj/item/storage/backpack/duffelbag/med/implant,
@@ -131,12 +145,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"A" = (
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/template_noop)
 "B" = (
 /obj/structure/table,
 /obj/item/bodypart/chest/robot{
@@ -162,6 +170,12 @@
 "C" = (
 /obj/vehicle/sealed/mecha/combat/marauder/seraph,
 /obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"D" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/template_noop)
 "E" = (
@@ -199,20 +213,6 @@
 "K" = (
 /obj/vehicle/sealed/mecha/working/clarke,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"L" = (
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/mmi{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/mmi{
-	pixel_x = 4;
-	pixel_y = 8
-	},
-/obj/item/paicard,
 /turf/open/floor/iron,
 /area/template_noop)
 "M" = (
@@ -288,7 +288,7 @@
 (1,1,1) = {"
 a
 a
-A
+D
 Q
 G
 a
@@ -374,7 +374,7 @@ k
 a
 M
 B
-L
+s
 a
 t
 a

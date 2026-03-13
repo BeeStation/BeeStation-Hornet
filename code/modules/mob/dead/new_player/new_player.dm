@@ -17,7 +17,7 @@
 /mob/dead/new_player/Initialize(mapload)
 	if(client && SSticker.state == GAME_STATE_STARTUP)
 		var/atom/movable/screen/splash/S = new(null, client, TRUE, TRUE)
-		S.Fade(TRUE)
+		S.fade(TRUE)
 
 	if(length(GLOB.newplayer_start))
 		forceMove(pick(GLOB.newplayer_start))
@@ -374,7 +374,7 @@
 		SSjob.SendToLateJoin(character)
 		if(!arrivals_docked)
 			var/atom/movable/screen/splash/Spl = new(null, character.client, TRUE)
-			Spl.Fade(TRUE)
+			Spl.fade(TRUE)
 			character.playsound_local(get_turf(character), 'sound/voice/welcomeBee.ogg', 50)
 
 		character.update_parallax_teleport()

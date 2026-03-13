@@ -687,6 +687,11 @@
 "cx" = (
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
+"cy" = (
+/obj/structure/rack,
+/obj/item/melee/baton,
+/turf/open/floor/iron,
+/area/ruin/space/derelict/bridge/access)
 "cz" = (
 /obj/structure/rack,
 /obj/machinery/light/small{
@@ -1271,11 +1276,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
-"eC" = (
-/obj/structure/table,
-/obj/item/paicard,
-/turf/open/floor/iron,
-/area/ruin/space/derelict/bridge)
 "eD" = (
 /obj/structure/chair/stool,
 /turf/open/floor/iron,
@@ -4014,14 +4014,14 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
-"qQ" = (
-/obj/structure/rack,
-/obj/item/melee/baton,
-/turf/open/floor/iron,
-/area/ruin/space/derelict/bridge/access)
 "rK" = (
 /turf/template_noop,
 /area/ruin/space/derelict/medical)
+"sD" = (
+/obj/structure/table,
+/obj/item/pai_card,
+/turf/open/floor/iron,
+/area/ruin/space/derelict/bridge)
 "tS" = (
 /turf/template_noop,
 /area/ruin/unpowered/no_grav)
@@ -4154,7 +4154,7 @@
 "Vz" = (
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/hallway/primary/port)
-"Zv" = (
+"VF" = (
 /obj/structure/frame/computer{
 	dir = 1
 	},
@@ -10404,7 +10404,7 @@ ax
 bz
 bE
 bE
-Zv
+VF
 cd
 cf
 ci
@@ -11202,7 +11202,7 @@ bj
 bj
 bj
 cs
-qQ
+cy
 cK
 cx
 cT
@@ -12116,7 +12116,7 @@ cs
 dK
 ea
 ea
-eC
+sD
 eb
 eS
 fh
