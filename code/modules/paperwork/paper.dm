@@ -293,7 +293,6 @@
 	..()
 
 /obj/item/paper/update_icon_state()
-	. = ..()
 	if(LAZYLEN(raw_text_inputs) && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
 	else
