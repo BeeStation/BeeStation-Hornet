@@ -52,9 +52,9 @@
 /obj/machinery/modular_fabricator/autolathe/ui_static_data(mob/user)
 	var/list/data = ..()
 
-	if(hacked && istype(stored_research, /datum/techweb/autounlocking))
-		var/datum/techweb/autounlocking/autounlocking_web = stored_research
-		data["items"] += handle_designs(autounlocking_web.hacked_designs)
+	if(hacked)
+		var/datum/techweb/autounlocking/autolathe/autolathe_web = stored_research
+		data["items"] += handle_designs(autolathe_web.hacked_designs)
 
 	return data
 

@@ -61,7 +61,6 @@
 	var/minimum_construction_time = 3.5 SECONDS
 
 	// Techweb crap
-
 	/// Ref to our internal techweb. Set to the typepath of your desired techweb (irrelevant if use_station_research is TRUE).
 	var/datum/techweb/stored_research = /datum/techweb/autounlocking
 	/// If TRUE, we connect to the science techweb instead of creating our own
@@ -70,7 +69,6 @@
 	var/list/imported_designs
 
 	// The vars below are only used if use_station_research is TRUE
-
 	/// Made so we dont call addtimer() 40,000 times in on_techweb_update(). only allows addtimer() to be called on the first update.
 	var/techweb_updating = FALSE
 	/// The types of designs this fabricator can print.
@@ -395,7 +393,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			begin_process()
 			. = TRUE
 
-/obj/machinery/modular_fabricator/proc/add_to_queue(queue_list, design_id, amount, repeat=null)
+/obj/machinery/modular_fabricator/proc/add_to_queue(queue_list, design_id, amount, repeat)
 	if(queue_list["[design_id]"])
 		queue_list["[design_id]"]["amount"] += amount
 		if(queue_list["[design_id]"]["amount"] <= 0)
@@ -403,8 +401,16 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		return
 	if(amount <= 0)
 		return
+
+	var/is_valid_design = stored_research.researched_designs[design_id]
+	is_valid_design ||= imported_designs[design_id]
+	is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[design_id]
+	if(!is_valid_design)
+		return
+
 	//Check if the item uses custom materials
-	var/datum/design/requested_item = stored_research.isDesignResearchedID(design_id)
+	var/datum/design/requested_item = SSresearch.techweb_design_by_id(design_id)
+
 	var/datum/material/used_material = repeat
 	if(!istype(used_material))
 		for(var/MAT in requested_item.materials)
@@ -462,12 +468,18 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	operating = TRUE
 	//Doubles as protection from bad things and makes sure we can still make the item.
 	being_built = stored_research.isDesignResearchedID(requested_design_id)
-	if(!being_built)
+
+	var/is_valid_design = stored_research.researched_designs[requested_design_id]
+	is_valid_design ||= imported_designs[requested_design_id]
+	is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[requested_design_id]
+	if(!is_valid_design)
 		playsound(src, 'sound/machines/buzz-two.ogg', 50)
 		say("Unknown design requested, removing from queue.")
 		item_queue -= requested_design_id
-		addtimer(CALLBACK(src, PROC_REF(restart_process)), 50)
+		addtimer(CALLBACK(src, PROC_REF(restart_process)), 5 SECONDS)
 		return
+
+	being_built = SSresearch.techweb_design_by_id(requested_design_id)
 
 	var/multiplier = 1
 	var/is_stack = ispath(being_built.build_path, /obj/item/stack)
