@@ -52,12 +52,14 @@
 		qdel(src)
 		return
 
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_IMAGINARY_FRIEND
-	config.poll_time = 10 SECONDS
-	config.jump_target = owner
-	config.role_name_text = "[owner]'s imaginary friend"
-	config.alert_pic = owner
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_IMAGINARY_FRIEND,
+		poll_time = 10 SECONDS,
+		jump_target = owner,
+		role_name_text = "[owner]'s imaginary friend",
+		alert_pic = owner,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		friend.key = candidate.key

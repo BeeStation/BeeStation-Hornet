@@ -2267,13 +2267,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		else
 			target_hostile.attack_same = FALSE //Will only attack non-passive mobs
 			if(prob(10)) //chance of sentience without loyaltyAdd commentMore actions
-				var/datum/poll_config/config = new()
-				config.question = "Do you want to play as \a [src] being revived by [reviver]?"
-				config.check_jobban = ROLE_SENTIENCE
-				config.poll_time = 15 SECONDS
-				config.jump_target = src
-				config.role_name_text = "lazarus revived mob"
-				config.alert_pic = src
+				var/datum/poll_config/config = new(
+					question = "Do you want to play as \a [src] being revived by [reviver]?",
+					check_jobban = ROLE_SENTIENCE,
+					poll_time = 15 SECONDS,
+					jump_target = src,
+					role_name_text = "lazarus revived mob",
+					alert_pic = src,
+					amount_to_pick = 1,
+				)
 				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					src.key = candidate.key
