@@ -535,17 +535,14 @@
 	if(isliving(bumper))
 		var/mob/living/victim = bumper
 		if(!allowed(victim))
-			deny_effect(victim)
-
-/obj/machinery/door/airlock/cult/proc/deny_effect(mob/living/victim)
-	if(stealthy)
-		return
-	new /obj/effect/temp_visual/cult/sac(loc)
-	var/atom/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(victim, src)))
-	SEND_SOUND(victim, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
-	flash_color(victim, flash_color="#960000", flash_time=20)
-	victim.Knockdown(4 SECONDS) // This will still stun you if you hit a wall
-	victim.throw_at(throwtarget, 5, 1, src)
+			if(stealthy)
+				return
+			new /obj/effect/temp_visual/cult/sac(loc)
+			var/atom/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(victim, src)))
+			SEND_SOUND(victim, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
+			flash_color(victim, flash_color="#960000", flash_time=20)
+			victim.Knockdown(4 SECONDS) // This will still stun you if you hit a wall
+			victim.throw_at(throwtarget, 5, 1, src)
 
 /obj/machinery/door/airlock/cult/proc/conceal()
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
