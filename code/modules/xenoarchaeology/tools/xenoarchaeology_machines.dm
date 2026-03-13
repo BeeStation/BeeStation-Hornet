@@ -12,7 +12,7 @@
 
 /obj/machinery/xenoarchaeology_machine/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, INNATE_TRAIT)
 
 /obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
 	if(user.combat_mode || (I.item_flags & ABSTRACT))

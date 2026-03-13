@@ -21,7 +21,7 @@
 
 /obj/item/sticker/artifact_tracker/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, INNATE_TRAIT)
 	radio = new /obj/item/radio/headset/headset_sci(src)
 	return INITIALIZE_HINT_LATELOAD
 

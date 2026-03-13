@@ -1,6 +1,5 @@
 // common trait sources
 #define TRAIT_GENERIC "generic"
-#define GENERIC_ITEM_TRAIT "generic_item"
 #define UNCONSCIOUS_TRAIT "unconscious"
 #define EYE_DAMAGE "eye_damage"
 #define EAR_DAMAGE "ear_damage"

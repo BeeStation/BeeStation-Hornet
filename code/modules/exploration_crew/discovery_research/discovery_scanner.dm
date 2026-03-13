@@ -11,7 +11,7 @@
 
 /obj/item/discovery_scanner/Initialize(mapload)
 	..()
-	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, INNATE_TRAIT)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/discovery_scanner/LateInitialize()
@@ -29,15 +29,15 @@
 	. += span_notice("[src] has unlimited range.")
 	. += span_notice("Science goggles can help detect researchable items.")
 
-/obj/item/discovery_scanner/attack_atom(obj/O, mob/living/user)
-	if(istype(O, /obj/machinery/computer/rdconsole))
-		to_chat(user, span_notice("You link [src] to [O]."))
-		var/obj/machinery/computer/rdconsole/rdconsole = O
-		linked_techweb = rdconsole.stored_research
-		return
-	return ..()
+/obj/item/discovery_scanner/attack_atom(obj/attacked_atom, mob/living/user)
+	if(!istype(attacked_atom, /obj/machinery/computer/rdconsole))
+		return ..()
+
+	to_chat(user, span_notice("You link [src] to [attacked_atom]."))
+	var/obj/machinery/computer/rdconsole/rdconsole = attacked_atom
+	linked_techweb = rdconsole.stored_research
 
 /obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable)
 	to_chat(user, span_notice("You begin scanning [discoverable.parent]..."))
-	if(do_after(user, 50, target=get_turf(user), interaction_key = REF(discoverable.parent)))
+	if(do_after(user, 5 SECONDS, target=get_turf(user), interaction_key = REF(discoverable.parent)))
 		discoverable.discovery_scan(linked_techweb, user)
