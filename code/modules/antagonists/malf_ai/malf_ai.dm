@@ -171,10 +171,11 @@
 	result += objectives_text
 
 	if(malf_ai_won)
-		result += span_greentext("The name was successful!")
+		result += span_greentext("The [name] was successful!")
 	else
-		result += span_redtext("The name has failed!")
-		SEND_SOUND(owner.current, 'sound/ambience/ambifailure.ogg')
+		result += span_redtext("The [name] has failed!")
+		if(owner.current)
+			SEND_SOUND(owner.current, 'sound/ambience/ambifailure.ogg')
 
 	return result.Join("<br>")
 

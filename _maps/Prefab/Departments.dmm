@@ -1506,7 +1506,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
 "JZ" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/space)
 "Kb" = (

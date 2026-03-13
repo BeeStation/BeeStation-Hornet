@@ -340,7 +340,7 @@
 /turf/open/floor/carpet/purple,
 /area/template_noop)
 "Xb" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)

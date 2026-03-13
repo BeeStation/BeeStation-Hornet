@@ -3571,7 +3571,7 @@
 	pixel_x = 6;
 	pixel_y = 1
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = -9;
 	pixel_y = -1
 	},
@@ -5533,7 +5533,7 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -24899,7 +24899,7 @@
 /area/engine/atmos)
 "hBS" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/machinery/camera/directional/north,
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/cafeteria_red,
@@ -29453,7 +29453,7 @@
 	pixel_x = 25;
 	pixel_y = 8
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/wood/big,
 /area/crew_quarters/locker)
 "jul" = (

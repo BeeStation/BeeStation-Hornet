@@ -37,7 +37,7 @@ enum Tab {
   ViewStationTraits,
 }
 
-const FutureStationTraitsPage = (props) => {
+const FutureStationTraitsPage = () => {
   const { act, data } = useBackend<StationTraitsData>();
   const { future_station_traits } = data;
 
@@ -225,7 +225,12 @@ export const StationTraitsPanel = (props) => {
   }
 
   return (
-    <Window title="Modify Station Traits" height={500} width={500}>
+    <Window
+      title="Modify Station Traits"
+      height={500}
+      width={500}
+      theme="admin"
+    >
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab
