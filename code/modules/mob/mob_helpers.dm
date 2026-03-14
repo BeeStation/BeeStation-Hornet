@@ -141,8 +141,8 @@
 	var/client/C = M.client
 	var/oldx = C.pixel_x
 	var/oldy = C.pixel_y
-	var/max = strength*world.icon_size
-	var/min = -(strength*world.icon_size)
+	var/max = strength*ICON_SIZE_ALL
+	var/min = -(strength*ICON_SIZE_ALL)
 
 	for(var/i in 0 to duration-1)
 		if (i == 0)

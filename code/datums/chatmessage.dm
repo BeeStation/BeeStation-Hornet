@@ -242,8 +242,8 @@
 	if (current_z_idx >= CHAT_LAYER_MAX_Z)
 		current_z_idx = 0
 
-	var/bound_height = world.icon_size
-	var/bound_width = world.icon_size
+	var/bound_height = ICON_SIZE_Y
+	var/bound_width = ICON_SIZE_X
 	if(ismovable(message_loc))
 		var/atom/movable/AM = message_loc
 		bound_height = AM.bound_height
@@ -645,7 +645,7 @@
 	// Register client who owns this message
 	var/client/owned_by = owner.client
 
-	var/bound_width = world.icon_size
+	var/bound_width = ICON_SIZE_X
 	if (ismovable(target))
 		var/atom/movable/movable_source = target
 		bound_width = movable_source.bound_width
@@ -691,7 +691,7 @@
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
-	animate(group.message, alpha = 255, pixel_y = (group.message.pixel_y + world.icon_size) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
+	animate(group.message, alpha = 255, pixel_y = (group.message.pixel_y + ICON_SIZE_Y) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
 
 	LAZYADD(message_loc.balloon_alerts, src)
 

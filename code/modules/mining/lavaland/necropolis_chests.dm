@@ -524,16 +524,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 	setDir(user.dir)
 
 	user.forceMove(src)
-	user.notransform = TRUE
-	ADD_TRAIT(user, TRAIT_GODMODE, "[type]")
+	user.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), REF(src))
 
 	can_destroy = FALSE
 
 	addtimer(CALLBACK(src, PROC_REF(unvanish), user), 10 SECONDS)
 
 /obj/effect/immortality_talisman/proc/unvanish(mob/user)
-	REMOVE_TRAIT(user, TRAIT_GODMODE, "[type]")
-	user.notransform = FALSE
+	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), REF(src))
 	user.forceMove(get_turf(src))
 
 	user.visible_message(span_danger("[user] pops back into reality!"))

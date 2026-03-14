@@ -115,9 +115,12 @@
 		to_chat(H, span_warning("Your mind is spread too thin! You have too many bodies already."))
 		return
 
-	H.visible_message(span_notice("[owner] gains a look of concentration while standing perfectly still."), span_notice("You focus intently on moving your body while standing perfectly still..."))
+	H.visible_message(
+		span_notice("[owner] gains a look of concentration while standing perfectly still."),
+		span_notice("You focus intently on moving your body while standing perfectly still..."),
+	)
 
-	H.notransform = TRUE
+	ADD_TRAIT(H, TRAIT_NO_TRANSFORM, REF(src))
 
 	if(do_after(owner, delay = 6 SECONDS, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
@@ -127,7 +130,7 @@
 	else
 		to_chat(H, span_warning("...but fail to stand perfectly still!"))
 
-	H.notransform = FALSE
+	REMOVE_TRAIT(H, TRAIT_NO_TRANSFORM, REF(src))
 
 /datum/action/innate/split_body/proc/make_dupe()
 	var/mob/living/carbon/human/H = owner
@@ -152,7 +155,7 @@
 		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE, TRUE) //The trues are to copy activation as well
 
 	H.blood_volume *= 0.45
-	H.notransform = 0
+	REMOVE_TRAIT(H, TRAIT_NO_TRANSFORM, REF(src))
 
 	var/datum/species/oozeling/slime/origin_datum = H.dna.species
 	origin_datum.bodies |= spare
@@ -161,8 +164,10 @@
 	spare_datum.bodies = origin_datum.bodies
 
 	H.mind.transfer_to(spare)
-	spare.visible_message(span_warning("[H] distorts as a new body \"steps out\" of [H.p_them()]."), span_notice("...and after a moment of disorentation, you're besides yourself!"))
-
+	spare.visible_message(
+		span_warning("[H] distorts as a new body \"steps out\" of [H.p_them()]."),
+		span_notice("...and after a moment of disorentation, you're besides yourself!"),
+	)
 
 /datum/action/innate/swap_body
 	name = "Swap Body"

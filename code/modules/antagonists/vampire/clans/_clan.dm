@@ -199,7 +199,7 @@
 		options[initial(vassal_path.name)] = vassal_path
 
 		var/datum/radial_menu_choice/option = new
-		option.image = image(icon = 'icons/mob/hud.dmi', icon_state = initial(vassal_path.vassal_hud_name))
+		option.image = image(icon = 'icons/mob/huds/hud.dmi', icon_state = initial(vassal_path.antag_hud_name))
 		option.info = "[span_boldnotice(initial(vassal_path.name))]\n[span_cult(initial(vassal_path.vassal_description))]"
 		radial_display[initial(vassal_path.name)] = option
 

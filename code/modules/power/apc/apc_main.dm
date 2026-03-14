@@ -24,8 +24,6 @@
 
 	light_power = 0.85
 
-
-
 	FASTDMM_PROP(\
 		set_instance_vars(\
 			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
@@ -190,8 +188,8 @@
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
 	prepare_huds()
-	for(var/datum/atom_hud/hacked_apc/apc_hud in GLOB.huds)
-		apc_hud.add_to_hud(src)
+	var/datum/atom_hud/hacked_apc/apc_hud = GLOB.huds[DATA_HUD_HACKED_APC]
+	apc_hud.add_atom_to_hud(src)
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src

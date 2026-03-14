@@ -131,6 +131,15 @@
 	alpha = 150
 	rad_insulation = RAD_LIGHT_INSULATION
 
+/obj/structure/holosign/barrier/atmos/Initialize(mapload)
+	. = ..()
+	air_update_turf(TRUE, TRUE)
+	AddElement(/datum/element/give_turf_traits, string_list(list(TRAIT_FIREDOOR_STOP)))
+
+/obj/structure/holosign/barrier/atmos/Destroy()
+	air_update_turf(TRUE, FALSE)
+	return ..()
+
 /obj/structure/holosign/barrier/atmos/proc/clearview_transparency()
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 25
@@ -148,24 +157,6 @@
 	desc = "A really robust holographic barrier resembling a blast door. Though it does not prevent solid objects from passing through, gas is kept out."
 	icon_state = "holo_blastlock"
 	max_integrity = 500
-
-
-/obj/structure/holosign/barrier/atmos/Initialize(mapload)
-	. = ..()
-	var/turf/local = get_turf(loc)
-	ADD_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
-	air_update_turf(TRUE, TRUE)
-
-/obj/structure/holosign/barrier/atmos/Destroy()
-	var/turf/local = get_turf(loc)
-	REMOVE_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
-	air_update_turf(TRUE, FALSE)
-	return ..()
-
-/obj/structure/holosign/barrier/atmos/Move(atom/newloc, direct)
-	var/turf/local = get_turf(loc)
-	REMOVE_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
-	return ..()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"

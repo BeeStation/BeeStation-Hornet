@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		current_page = WRAP(current_page + 1,1,pages+1)
 		update_screen_objects()
 
-/datum/radial_menu/proc/show_to(mob/M)
+/datum/radial_menu/proc/show_to(mob/M, offset_x = 0, offset_y = 0)
 	if(current_user)
 		hide()
 	if(!M.client || !anchor)
@@ -324,9 +324,14 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	current_user = M.client
 	//Blank
 	menu_holder = image(icon='icons/effects/effects.dmi',loc=anchor,icon_state="nothing", layer = RADIAL_BACKGROUND_LAYER)
+	menu_holder.pixel_x = offset_x
+	menu_holder.pixel_y = offset_y
+
 	menu_holder.plane = ABOVE_HUD_PLANE
-	menu_holder.appearance_flags |= KEEP_APART
-	menu_holder.vis_contents += elements + close_button
+	menu_holder.appearance_flags |= KEEP_APART|RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM
+	menu_holder.vis_contents += elements
+	if(!isnull(close_button))
+		menu_holder.vis_contents += close_button
 	current_user.images += menu_holder
 
 /datum/radial_menu/proc/hide()

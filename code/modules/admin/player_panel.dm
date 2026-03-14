@@ -334,5 +334,5 @@
 	// Scale it up
 	transform.scale(16, 16)
 
-	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
-		insert_icon("antag-hud-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
+	for (var/icon_state_name in icon_states('icons/mob/huds/antag_hud.dmi'))
+		insert_icon("antag-hud-[icon_state_name]", uni_icon('icons/mob/huds/antag_hud.dmi', icon_state_name, transform=transform))

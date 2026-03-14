@@ -67,7 +67,7 @@
 		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, identifier)
 		var/image/forbearance = image('icons/effects/genetics.dmi', mob_parent, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(mob_parent.layer, MUTATIONS_LAYER))
 		forbearance.plane = mob_parent.plane
-		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessedAware, "magic_protection_[identifier]", forbearance)
+		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessed_aware, "magic_protection_[identifier]", forbearance)
 		mob_parent.update_alt_appearances()
 
 	else
@@ -110,7 +110,7 @@
 		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, identifier)
 		var/image/forbearance = image('icons/effects/genetics.dmi', mob_parent, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(mob_parent.layer, MUTATIONS_LAYER))
 		forbearance.plane = mob_parent.plane
-		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessedAware, "magic_protection_[identifier]", forbearance)
+		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessed_aware, "magic_protection_[identifier]", forbearance)
 		mob_parent.update_alt_appearances()
 
 	if(!alert_caster_on_equip)

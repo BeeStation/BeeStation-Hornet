@@ -768,30 +768,30 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 //Interface for using DrawBox() to draw 1 pixel on a coordinate.
 //Returns the same icon specifed in the argument, but with the pixel drawn
-/proc/DrawPixel(icon/I,colour,drawX,drawY)
-	if(!I)
-		return 0
+/proc/DrawPixel(icon/icon_to_use, colour, draw_x, draw_y)
+	if(!icon_to_use)
+		return FALSE
 
-	var/Iwidth = I.Width()
-	var/Iheight = I.Height()
+	var/icon_width = icon_to_use.Width()
+	var/icon_height = icon_to_use.Height()
 
-	if(drawX > Iwidth || drawX <= 0)
-		return 0
-	if(drawY > Iheight || drawY <= 0)
-		return 0
+	if(draw_x > icon_width || draw_x <= 0)
+		return FALSE
+	if(draw_y > icon_height || draw_y <= 0)
+		return FALSE
 
-	I.DrawBox(colour,drawX, drawY)
-	return I
+	icon_to_use.DrawBox(colour, draw_x, draw_y)
+	return icon_to_use
 
 
 //Interface for easy drawing of one pixel on an atom.
-/atom/proc/DrawPixelOn(colour, drawX, drawY)
-	var/icon/I = new(icon)
-	var/icon/J = DrawPixel(I, colour, drawX, drawY)
-	if(J) //Only set the icon if it succeeded, the icon without the pixel is 1000x better than a black square.
-		icon = J
-		return J
-	return 0
+/atom/proc/DrawPixelOn(colour, draw_x, draw_y)
+	var/icon/icon_one = new(icon)
+	var/icon/result = DrawPixel(icon_one, colour, draw_x, draw_y)
+	if(result) //Only set the icon if it succeeded, the icon without the pixel is 1000x better than a black square.
+		icon = result
+		return result
+	return FALSE
 
 /// # If you already have a human and need to get its flat icon, call `get_flat_existing_human_icon()` instead.
 /// For creating consistent icons for human looking simple animals.
@@ -1048,7 +1048,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		var/icon/I = thing
 		var/icon_base64 = icon2base64(I)
 
-		if (I.Height() > world.icon_size || I.Width() > world.icon_size)
+		if (I.Height() > ICON_SIZE_Y || I.Width() > ICON_SIZE_X)
 			var/icon_md5 = rustg_hash_string(RUSTG_HASH_MD5, icon_base64)
 			icon_base64 = bicon_cache[icon_md5]
 			if (!icon_base64) // Doesn't exist yet, make it.
@@ -1109,7 +1109,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		return FALSE
 
 /**
- * Center's an image.
+ * Center's an image. Only run this on float overlays and not physical
  * Requires:
  * The Image
  * The x dimension of the icon file used in the image
@@ -1124,19 +1124,19 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if(!x_dimension || !y_dimension)
 		return
 
-	if((x_dimension == world.icon_size) && (y_dimension == world.icon_size))
+	if((x_dimension == ICON_SIZE_X) && (y_dimension == ICON_SIZE_Y))
 		return image_to_center
 
 	//Offset the image so that it's bottom left corner is shifted this many pixels
 	//This makes it infinitely easier to draw larger inhands/images larger than world.iconsize
 	//but still use them in game
-	var/x_offset = -((x_dimension / world.icon_size) - 1) * (world.icon_size * 0.5)
-	var/y_offset = -((y_dimension / world.icon_size) - 1) * (world.icon_size * 0.5)
+	var/x_offset = -((x_dimension / ICON_SIZE_X) - 1) * (ICON_SIZE_X * 0.5)
+	var/y_offset = -((y_dimension / ICON_SIZE_Y) - 1) * (ICON_SIZE_Y * 0.5)
 
-	//Correct values under world.icon_size
-	if(x_dimension < world.icon_size)
+	//Correct values under icon_size
+	if(x_dimension < ICON_SIZE_X)
 		x_offset *= -1
-	if(y_dimension < world.icon_size)
+	if(y_dimension < ICON_SIZE_Y)
 		y_offset *= -1
 
 	image_to_center.pixel_x = x_offset
@@ -1153,15 +1153,14 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	sleep(duration)
 	cut_overlay(overlay_image)
 
-///Perform a shake on an atom, resets its position afterwards
-/atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
+/// Perform a shake on an atom, resets its position afterwards
+/atom/proc/Shake(pixelshiftx = 2, pixelshifty = 2, duration = 2.5 SECONDS, shake_interval = 0.02 SECONDS)
 	var/initialpixelx = pixel_x
 	var/initialpixely = pixel_y
-	var/shiftx = rand(-pixelshiftx,pixelshiftx)
-	var/shifty = rand(-pixelshifty,pixelshifty)
-	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
-	pixel_x = initialpixelx
-	pixel_y = initialpixely
+	animate(src, pixel_x = initialpixelx + rand(-pixelshiftx,pixelshiftx), pixel_y = initialpixelx + rand(-pixelshifty,pixelshifty), time = shake_interval, flags = ANIMATION_PARALLEL)
+	for (var/i in 3 to ((duration / shake_interval))) // Start at 3 because we already applied one, and need another to reset
+		animate(pixel_x = initialpixelx + rand(-pixelshiftx,pixelshiftx), pixel_y = initialpixely + rand(-pixelshifty,pixelshifty), time = shake_interval)
+	animate(pixel_x = initialpixelx, pixel_y = initialpixely, time = shake_interval)
 
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)

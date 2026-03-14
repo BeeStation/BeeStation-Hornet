@@ -42,14 +42,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/mob/observetarget = null	//The target mob that the ghost is observing. Used as a reference in logout()
 	var/ghost_hud_enabled = 1 //did this ghost disable the on-screen HUD?
-	var/data_huds_on = 0 //Are data HUDs currently enabled?
+	var/data_huds_on = FALSE //Are data HUDs currently enabled?
 	var/ai_hud_on = FALSE //Is the AI Viewrange HUD currently enabled?
 	var/health_scan = FALSE //Are health scans currently enabled?
 	var/gas_scan = FALSE //Are gas scans currently enabled?
 	var/virus_scan = FALSE //Are virus extrapolator scans currently enabled?
 	var/genetics_scan = FALSE //Are genetic scans currently enabled?
 	var/nanite_scan = FALSE //Are nanite scans currently enabled?
-	var/list/datahuds = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_HACKED_APC) //list of data HUDs shown to ghosts.
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
 	//These variables store hair data if the ghost originates from a species with head and/or facial hair.
@@ -71,6 +70,14 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	// of the mob
 	var/deadchat_name
 	var/datum/orbit_menu/orbit_menu
+
+	var/static/list/observer_hud_traits = list(
+		TRAIT_SECURITY_HUD,
+		TRAIT_MEDICAL_HUD,
+		TRAIT_DIAGNOSTIC_HUD,
+		TRAIT_BOT_PATH_HUD,
+		TRAIT_HACKED_APC_HUD,
+	)
 
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -140,22 +147,18 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 	add_to_dead_mob_list()
 
-	for(var/v in GLOB.active_alternate_appearances)
-		if(!v)
-			continue
-		var/datum/atom_hud/alternate_appearance/AA = v
-		AA.onNewMob(src)
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		alt_hud.apply_to_new_mob(src)
 
 	. = ..()
 
 	grant_all_languages()
 	show_data_huds()
-	data_huds_on = 1
+	data_huds_on = TRUE
 
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
-	ADD_TRAIT(src, TRAIT_SECURITY_HUD, ref(src))
 
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts) //we only add it when observing
 
@@ -452,7 +455,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/list/icon_dimensions = get_icon_dimensions(target.icon)
 	var/orbitsize = (icon_dimensions["width"] + icon_dimensions["height"]) * 0.5
-	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	orbitsize -= (orbitsize/ICON_SIZE_X)*(ICON_SIZE_Y*0.25)
 
 	var/rot_seg
 
@@ -706,11 +709,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/show_ai_hud()
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_AI_DETECT]
-	H.add_hud_to(src)
+	H.show_to(src)
 
 /mob/dead/observer/proc/remove_ai_hud()
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_AI_DETECT]
-	H.remove_hud_from(src)
+	H.hide_from(src)
 
 /mob/dead/observer/verb/toggle_ai_hud()
 	set name = "Toggle AI HUD"
@@ -727,88 +730,63 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		ai_hud_on = TRUE
 
 /mob/dead/observer/proc/show_data_huds()
-	for(var/hudtype in datahuds)
-		var/datum/atom_hud/H = GLOB.huds[hudtype]
-		H.add_hud_to(src)
+	add_traits(observer_hud_traits, REF(src))
 
 /mob/dead/observer/proc/remove_data_huds()
-	for(var/hudtype in datahuds)
-		var/datum/atom_hud/H = GLOB.huds[hudtype]
-		H.remove_hud_from(src)
+	remove_traits(observer_hud_traits, REF(src))
 
 /mob/dead/observer/verb/toggle_data_huds()
 	set name = "Toggle Sec/Med/Diag HUD"
 	set desc = "Toggles whether you see medical/security/diagnostic HUDs"
 	set category = "Ghost"
 
-	if(data_huds_on) //remove old huds
-		remove_data_huds()
-		to_chat(src, span_notice("Data HUDs disabled."))
-		data_huds_on = 0
-	else
+	data_huds_on = !data_huds_on
+	if(data_huds_on)
 		show_data_huds()
 		to_chat(src, span_notice("Data HUDs enabled."))
-		data_huds_on = 1
+	else
+		remove_data_huds()
+		to_chat(src, span_notice("Data HUDs disabled."))
 
 /mob/dead/observer/verb/toggle_health_scan()
 	set name = "Toggle Health Scan"
 	set desc = "Toggles whether you health-scan living beings on click"
 	set category = "Ghost"
 
-	if(health_scan) //remove old huds
-		to_chat(src, span_notice("Health scan disabled."))
-		health_scan = FALSE
-	else
-		to_chat(src, span_notice("Health scan enabled."))
-		health_scan = TRUE
+	health_scan = !health_scan
+	to_chat(src, span_notice("Health scan [health_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/toggle_gas_scan()
 	set name = "Toggle Gas Scan"
 	set desc = "Toggles whether you analyze gas contents on click"
 	set category = "Ghost"
 
-	if(gas_scan)
-		to_chat(src, span_notice("Gas scan disabled."))
-		gas_scan = FALSE
-	else
-		to_chat(src, span_notice("Gas scan enabled."))
-		gas_scan = TRUE
+	gas_scan = !gas_scan
+	to_chat(src, span_notice("Gas scan [health_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/toggle_virus_scan()
 	set name = "Toggle Virus Scan"
 	set desc = "Toggles whether you scan for viruses on click"
 	set category = "Ghost"
 
-	if(virus_scan)
-		to_chat(src, span_notice("Virus scan disabled."))
-		virus_scan = FALSE
-	else
-		to_chat(src, span_notice("Virus scan enabled."))
-		virus_scan = TRUE
+	virus_scan = !virus_scan
+	to_chat(src, span_notice("Virus scan [health_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/toggle_genetics_scan()
 	set name = "Toggle Genetics Scan"
 	set desc = "Toggles whether you can scan the genetics of a living beings on click"
 	set category = "Ghost"
 
-	if(genetics_scan)
-		to_chat(src, span_notice("Genetics scan disabled."))
-		genetics_scan = FALSE
-	else
-		to_chat(src, span_notice("Genetics scan enabled."))
-		genetics_scan = TRUE
+	genetics_scan = !genetics_scan
+	to_chat(src, span_notice("Genetics scan [health_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/toggle_nanite_scan()
 	set name = "Toggle Nanite Scan"
 	set desc = "Toggles whether you can scan the nanties of a living beings on click"
 	set category = "Ghost"
 
-	if(nanite_scan)
-		to_chat(src, span_notice("Nanite scan disabled."))
-		nanite_scan = FALSE
-	else
-		to_chat(src, span_notice("Nanite scan enabled."))
-		nanite_scan = TRUE
+	nanite_scan = !nanite_scan
+	to_chat(src, span_notice("Nanite scan [health_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/restore_ghost_appearance()
 	set name = "Restore Ghost Character"

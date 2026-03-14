@@ -58,15 +58,18 @@
 
 	QDEL_NULL(counter_appearance)
 	var/image/counter = image(icon = 'icons/hud/screen_bci.dmi', icon_state = "hud_numbers", loc = owner)
-	if(image_pixel_x.value)
+	counter.plane = ABOVE_LIGHTING_PLANE
+
+	if(!isnull(image_pixel_x.value))
 		counter.pixel_x = image_pixel_x.value
-	if(image_pixel_y.value)
+	if(!isnull(image_pixel_y.value))
 		counter.pixel_y = image_pixel_y.value
 
 	counter_appearance = WEAKREF(owner.add_alt_appearance(
 		/datum/atom_hud/alternate_appearance/basic/one_person,
 		"counter_overlay_[REF(src)]",
 		counter,
+		null,
 		owner,
 	))
 

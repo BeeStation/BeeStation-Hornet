@@ -12,7 +12,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
-	hud_possible = list(ANTAG_HUD)
 	pressure_resistance = 8
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	throwforce = 10
@@ -85,13 +84,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	///prevents area creation spam
 	var/create_area_cooldown
-	/**
-	  * Magic var that stops you moving and interacting with anything
-	  *
-	  * Set when you're being turned into something else and also used in a bunch of places
-	  * it probably shouldn't really be
-	  */
-	var/notransform = null	//Carbon
 
 	/// Is the mob blind
 	var/eye_blind = 0		//Carbon

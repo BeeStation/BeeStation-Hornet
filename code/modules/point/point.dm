@@ -23,17 +23,17 @@
 	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
 
 	/// Set position
-	var/final_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x
-	var/final_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y
+	var/final_x = (tile.x - our_tile.x) * ICON_SIZE_X + pointed_atom.pixel_x
+	var/final_y = (tile.y - our_tile.y) * ICON_SIZE_Y + pointed_atom.pixel_y
 	var/list/modifiers = params2list(params)
 	if(!length(modifiers) || !LAZYACCESS(modifiers, SCREEN_LOC))
-		animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
+		animate(visual, pixel_x = (tile.x - our_tile.x) * ICON_SIZE_X + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * ICON_SIZE_Y + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
 		return
 	else
 		var/list/actual_view = getviewsize(M.client ? M.client.view : world.view)
 		var/list/split_coords = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
-		final_x = (text2num(splittext(split_coords[1], ":")[1]) - actual_view[1] / 2) * world.icon_size + (text2num(splittext(split_coords[1], ":")[2]) - world.icon_size)
-		final_y = (text2num(splittext(split_coords[2], ":")[1]) - actual_view[2] / 2) * world.icon_size + (text2num(splittext(split_coords[2], ":")[2]) - world.icon_size)
+		final_x = (text2num(splittext(split_coords[1], ":")[1]) - actual_view[1] / 2) * ICON_SIZE_X + (text2num(splittext(split_coords[1], ":")[2]) - ICON_SIZE_X)
+		final_y = (text2num(splittext(split_coords[2], ":")[1]) - actual_view[2] / 2) * ICON_SIZE_Y + (text2num(splittext(split_coords[2], ":")[2]) - ICON_SIZE_Y)
 	//
 
 	/// Set rotation

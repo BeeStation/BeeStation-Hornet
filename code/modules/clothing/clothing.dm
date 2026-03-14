@@ -1,9 +1,3 @@
-#define SENSORS_OFF 0
-#define SENSORS_BINARY 1
-#define SENSORS_VITALS 2
-#define SENSORS_TRACKING 3
-#define SENSOR_CHANGE_DELAY 1.5 SECONDS
-
 #define MOTH_EATING_CLOTHING_DAMAGE 15
 
 /obj/item/clothing
@@ -124,7 +118,7 @@
 /obj/item/food/clothing/proc/after_eat(mob/eater)
 	var/resolved_item = clothing.resolve()
 
-	if(istype(resolved_item, /obj/item/clothing))
+	if(isclothing(resolved_item))
 		var/obj/item/clothing/resolved_clothing = resolved_item
 		resolved_clothing.take_damage(MOTH_EATING_CLOTHING_DAMAGE, sound_effect = FALSE, damage_flag = CONSUME)
 		return
@@ -150,20 +144,20 @@
 		moth_snack.clothing = WEAKREF(src)
 	moth_snack.attack(target, user, params)
 
-/obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, repairable_by))
+/obj/item/clothing/attackby(obj/item/attacking_item, mob/user, params)
+	if(!istype(attacking_item, repairable_by))
 		return ..()
 
 	switch(damaged_clothes)
 		if(CLOTHING_PRISTINE)
 			return..()
 		if(CLOTHING_DAMAGED)
-			var/obj/item/stack/cloth_repair = W
+			var/obj/item/stack/cloth_repair = attacking_item
 			cloth_repair.use(1)
 			repair(user, params)
 			return TRUE
 		if(CLOTHING_SHREDDED)
-			var/obj/item/stack/cloth_repair = W
+			var/obj/item/stack/cloth_repair = attacking_item
 			if(cloth_repair.amount < 3)
 				to_chat(user, span_warning("You require 3 [cloth_repair.name] to repair [src]."))
 				return TRUE
@@ -267,7 +261,7 @@
 		return
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	for(var/trait in clothing_traits)
-		REMOVE_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
+		REMOVE_CLOTHING_TRAIT(user, trait)
 
 	if(LAZYLEN(user_vars_remembered))
 		for(var/variable in user_vars_remembered)
@@ -284,7 +278,7 @@
 		if(iscarbon(user) && LAZYLEN(zones_disabled))
 			RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(bristle))
 		for(var/trait in clothing_traits)
-			ADD_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
+			ADD_CLOTHING_TRAIT(user, trait)
 		if (LAZYLEN(user_vars_to_edit))
 			for(var/variable in user_vars_to_edit)
 				if(variable in user.vars)
@@ -313,6 +307,48 @@
 		return
 
 	wearer.update_clothing(slot_flags)
+
+/**
+ * Inserts a trait (or multiple traits) into the clothing traits list
+ *
+ * If worn, then we will also give the wearer the trait as if equipped
+ *
+ * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
+ */
+/obj/item/clothing/proc/attach_clothing_traits(trait_or_traits)
+	if(!islist(trait_or_traits))
+		trait_or_traits = list(trait_or_traits)
+
+	// Use a temporary list so we don't mutate the cached version
+	clothing_traits = LAZYLISTDUPLICATE(clothing_traits)
+	LAZYOR(clothing_traits, trait_or_traits)
+	if(clothing_traits) // because we might be null
+		clothing_traits = string_list(clothing_traits)
+	var/mob/wearer = loc
+	if(istype(wearer) && (wearer.get_slot_by_item(src) & slot_flags))
+		for(var/new_trait in trait_or_traits)
+			ADD_CLOTHING_TRAIT(wearer, new_trait)
+
+/**
+ * Removes a trait (or multiple traits) from the clothing traits list
+ *
+ * If worn, then we will also remove the trait from the wearer as if unequipped
+ *
+ * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
+ */
+/obj/item/clothing/proc/detach_clothing_traits(trait_or_traits)
+	if(!islist(trait_or_traits))
+		trait_or_traits = list(trait_or_traits)
+
+	// Use a temporary list so we don't mutate the cached version
+	clothing_traits = LAZYLISTDUPLICATE(clothing_traits)
+	LAZYREMOVE(clothing_traits, trait_or_traits)
+	if(clothing_traits) // because we might be null
+		clothing_traits = string_list(clothing_traits)
+	var/mob/wearer = loc
+	if(istype(wearer))
+		for(var/new_trait in trait_or_traits)
+			REMOVE_CLOTHING_TRAIT(wearer, new_trait)
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
@@ -546,67 +582,6 @@ BLIND	 // can't see anything
 	female_clothing_icon = fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
 
-/obj/item/clothing/under/proc/set_sensors(mob/user)
-	var/mob/M = user
-	if(M.stat)
-		return
-	if(!can_use(M))
-		return
-	if(src.has_sensor == LOCKED_SENSORS)
-		to_chat(user, span_warning("The controls are locked."))
-		return FALSE
-	if(src.has_sensor == BROKEN_SENSORS)
-		to_chat(user, span_warning("The sensors have shorted out!"))
-		return FALSE
-	if(src.has_sensor <= NO_SENSORS)
-		to_chat(user, span_warning("This suit does not have any sensors."))
-		return FALSE
-
-	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
-	var/switchMode = tgui_input_list(M, "Select a sensor mode", "Suit Sensors", modes, modes[sensor_mode + 1])
-	if(isnull(switchMode))
-		return
-	if(get_dist(user, src) > 1)
-		to_chat(user, span_warning("You have moved too far away!"))
-		return
-
-	var/sensor_selection = modes.Find(switchMode) - 1
-	if (src.loc == user)
-		switch(sensor_selection)
-			if(SENSORS_OFF)
-				to_chat(user, span_notice("You disable your suit's remote sensing equipment."))
-			if(SENSORS_BINARY)
-				to_chat(user, span_notice("Your suit will now only report whether you are alive or dead."))
-			if(SENSORS_VITALS)
-				to_chat(user, span_notice("Your suit will now only report your exact vital lifesigns."))
-			if(SENSORS_TRACKING)
-				to_chat(user, span_notice("Your suit will now report your exact vital lifesigns as well as your coordinate position."))
-		update_sensors(sensor_selection)
-	else if(istype(src.loc, /mob))
-		var/mob/living/carbon/human/wearer = src.loc
-		wearer.visible_message(span_notice("[user] tries to set [wearer]'s sensors."), \
-						span_warning("[user] is trying to set your sensors."), null, COMBAT_MESSAGE_RANGE)
-		if(do_after(user, SENSOR_CHANGE_DELAY, wearer))
-			switch(sensor_selection)
-				if(SENSORS_OFF)
-					wearer.visible_message(span_warning("[user] disables [wearer]'s remote sensing equipment."), \
-						span_warning("[user] disables your remote sensing equipment."), null, COMBAT_MESSAGE_RANGE)
-				if(SENSORS_BINARY)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to binary."), \
-						span_notice("[user] turns your remote sensors to binary."), null, COMBAT_MESSAGE_RANGE)
-				if(SENSORS_VITALS)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to track vitals."), \
-						span_notice("[user] turns your remote sensors to track vitals."), null, COMBAT_MESSAGE_RANGE)
-				if(SENSORS_TRACKING)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to maximum."), \
-						span_notice("[user] turns your remote sensors to maximum."), null, COMBAT_MESSAGE_RANGE)
-			update_sensors(sensor_selection)
-			log_combat(user, wearer, "changed sensors to [switchMode]")
-	if(ishuman(loc) || ismonkey(loc))
-		var/mob/living/carbon/human/H = loc
-		if(H.w_uniform == src)
-			H.update_suit_sensors()
-
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
 		return FALSE
@@ -697,11 +672,5 @@ BLIND	 // can't see anything
 		return
 	if (!is_mining_level(T.z))
 		return . * high_pressure_multiplier
-
-#undef SENSORS_OFF
-#undef SENSORS_BINARY
-#undef SENSORS_VITALS
-#undef SENSORS_TRACKING
-#undef SENSOR_CHANGE_DELAY
 
 #undef MOTH_EATING_CLOTHING_DAMAGE

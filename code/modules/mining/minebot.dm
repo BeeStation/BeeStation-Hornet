@@ -7,7 +7,7 @@
 	name = "minebot"
 	desc = "A small robot used to support miners. It can be set to search and collect loose ore, mine any ore it detects, or help fend off wildlife. It is equipped with a mining drill and kinetic accelerator, with mounting points for a plasma cutter."
 	gender = NEUTER
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
 	icon_dead = "mining_drone_disabled"

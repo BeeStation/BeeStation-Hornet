@@ -236,7 +236,7 @@
 	var/static/list/careful_edits = list("bound_x", "bound_y", "bound_width", "bound_height")
 	if(var_name in banned_edits)
 		return FALSE	//PLEASE no.
-	if((var_name in careful_edits) && (var_value % world.icon_size) != 0)
+	if((var_name in careful_edits) && (var_value % ICON_SIZE_ALL) != 0)
 		return FALSE
 
 	switch(var_name)
@@ -353,7 +353,7 @@
 	if(!. || !isliving(A))
 		return
 	var/mob/living/L = A
-	set_pull_offsets(L, grab_state)
+	set_pull_offsets(L, grab_state, animate = FALSE)
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -601,6 +601,11 @@
 		move_stacks = 0 //setting it to 0 so that we dont get every movable with negative move_stacks runtiming on every movement
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs)
+
+	if(old_loc)
+		SEND_SIGNAL(old_loc, COMSIG_ATOM_ABSTRACT_EXITED, src, movement_dir)
+	if(loc)
+		SEND_SIGNAL(loc, COMSIG_ATOM_ABSTRACT_ENTERED, src, old_loc, old_locs)
 
 	// Z-Mimic hook
 	if (bound_overlay)
@@ -1057,7 +1062,7 @@
 			attack_image.pixel_x = rand(11,15)
 
 		if(!direction) // Attacked self?!
-			attack_image.pixel_z = 16
+			attack_image.pixel_y = 16
 
 	if(!attack_image)
 		return
@@ -1065,7 +1070,7 @@
 	var/atom/movable/flick_visual/attack = attacked_atom.flick_overlay_view(attack_image, 1 SECONDS)
 	var/matrix/copy_transform = new(transform)
 	// And animate the attack!
-	animate(attack, alpha = 175, transform = copy_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
+	animate(attack, alpha = 175, transform = copy_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, time = 0.3 SECONDS)
 	animate(time = 0.1 SECONDS)
 	animate(alpha = 0, time = 0.3 SECONDS, easing = CIRCULAR_EASING|EASE_OUT)
 

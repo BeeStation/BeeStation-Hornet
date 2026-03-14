@@ -48,6 +48,7 @@
 		AddComponent(/datum/component/mood)
 
 	GLOB.human_list += src
+	add_traits(list(TRAIT_CAN_MOUNT_HUMANS, TRAIT_CAN_MOUNT_CYBORGS), INNATE_TRAIT)
 
 /mob/living/carbon/human/proc/setup_physiology()
 	physiology = new()
@@ -1061,14 +1062,13 @@
 	return buckle_mob(target, TRUE, TRUE, RIDER_NEEDS_ARMS)
 
 
-/mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
-	if(!is_type_in_typecache(target, can_ride_typecache))
-		target.visible_message(span_warning("[target] really can't seem to mount [src]."))
-		return
-
-	if(!force)//humans are only meant to be ridden through piggybacking and special cases
-		return
-
+/mob/living/carbon/human/is_buckle_possible(mob/living/target, force, check_loc)
+	if(!HAS_TRAIT(target, TRAIT_CAN_MOUNT_HUMANS))
+		target.visible_message(span_warning("[target] really can't seem to mount [src]..."))
+		return FALSE
+	// if you don't invoke it with forced, IE via piggyback / fireman, always fail
+	if(!force)
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/updatehealth()

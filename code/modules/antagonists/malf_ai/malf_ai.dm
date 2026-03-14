@@ -6,6 +6,7 @@
 	roundend_category = "traitors"
 	antagpanel_category = "Malfunctioning AI"
 	banning_key = ROLE_MALF
+	antag_hud_name = "traitor"
 	ui_name = "AntagInfoMalf"
 	required_living_playtime = 8
 	///the name of the antag flavor this traitor has.
@@ -39,7 +40,7 @@
 	owner.current.grant_language(/datum/language/codespeak, source = LANGUAGE_MALF)
 
 	var/datum/atom_hud/data/hackyhud = GLOB.huds[DATA_HUD_HACKED_APC]
-	hackyhud.add_hud_to(owner.current)
+	hackyhud.show_to(owner.current)
 
 	return ..()
 
@@ -108,8 +109,6 @@
 	if(should_give_codewords)
 		RegisterSignal(datum_owner, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
-	add_antag_hud(ANTAG_HUD_TRAITOR, "traitor", datum_owner)
-
 /datum/antagonist/malf_ai/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 
@@ -118,9 +117,7 @@
 	if(istype(datum_owner))
 		datum_owner.hack_software = FALSE
 
-	UnregisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
-
-	remove_antag_hud(ANTAG_HUD_TRAITOR, datum_owner)
+	UnregisterSignal(datum_owner, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/antagonist/malf_ai/proc/add_law_zero()
 	var/mob/living/silicon/ai/malf_ai = owner.current

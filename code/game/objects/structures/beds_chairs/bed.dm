@@ -15,6 +15,7 @@
 	anchored = TRUE
 	can_buckle = TRUE
 	buckle_lying = 90
+	buckle_dir = SOUTH
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	integrity_failure = 0.35
@@ -25,13 +26,8 @@
 
 // dir check for buckle_lying state
 /obj/structure/bed/Initialize(mapload)
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
-	dir_changed(new_dir = dir)
 	. = ..()
-
-/obj/structure/bed/Destroy()
-	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
-	return ..()
+	update_buckle_vars(dir)
 
 /obj/structure/bed/examine(mob/user)
 	. = ..()
@@ -42,26 +38,24 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(buildstacktype)
 			new buildstacktype(loc,buildstackamount)
-	..()
+	return ..()
 
-/obj/structure/bed/attack_paw(mob/user)
-	return attack_hand(user)
+/obj/structure/bed/attack_paw(mob/user, list/modifiers)
+	return attack_hand(user, modifiers)
 
 /obj/structure/bed/wrench_act_secondary(mob/living/user, obj/item/weapon)
-	if(flags_1&NODECONSTRUCT_1)
-		return TRUE
-	..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return FALSE
 	weapon.play_tool_sound(src)
 	deconstruct(disassembled = TRUE)
 	return TRUE
 
-/obj/structure/bed/proc/dir_changed(datum/source, old_dir, new_dir)
-	SIGNAL_HANDLER
-	switch(new_dir)
-		if(WEST, SOUTH)
-			buckle_lying = 90
-		if(EAST, NORTH)
-			buckle_lying = 270
+/obj/structure/bed/setDir(newdir)
+	. = ..()
+	update_buckle_vars(newdir)
+
+/obj/structure/bed/proc/update_buckle_vars(newdir)
+	buckle_lying = newdir & NORTHEAST ? 270 : 90
 
 /*
  * Roller beds
@@ -90,9 +84,6 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	set_density(TRUE)
 	icon_state = "up"
-	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
-	//Push them up from the normal lying position
-	M.pixel_y = M.base_pixel_y
 
 /obj/structure/bed/roller/Moved()
 	. = ..()
@@ -102,8 +93,6 @@
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	set_density(FALSE)
 	icon_state = "down"
-	//Set them back down to the normal lying position
-	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
 
 //Dog bed
 
@@ -185,17 +174,18 @@
 	///The mob who buckled to this bed second, to avoid other mobs getting pixel-shifted before they unbuckles.
 	var/mob/living/goldilocks
 
-/obj/structure/bed/double/post_buckle_mob(mob/living/M)
-	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
-	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
-		M.pixel_y = M.base_pixel_y + 6
-		goldilocks = M
-		RegisterSignal(goldilocks, COMSIG_QDELETING, PROC_REF(goldilocks_deleted))
+/obj/structure/bed/double/post_buckle_mob(mob/living/target)
+	. = ..()
+	if(length(buckled_mobs) > 1 && !goldilocks) // Push the second buckled mob a bit higher from the normal lying position
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(goldilocks_deleted))
+		target.pixel_y += 6
+		goldilocks = target
 
-/obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
-	M.pixel_y = base_pixel_y + M.body_position_pixel_y_offset
-	if(M == goldilocks)
-		UnregisterSignal(goldilocks, COMSIG_QDELETING)
+/obj/structure/bed/double/post_unbuckle_mob(mob/living/target)
+	. = ..()
+	if(target == goldilocks)
+		UnregisterSignal(target, COMSIG_QDELETING)
+		target.pixel_y -= 6
 		goldilocks = null
 
 //Called when the signal is raised, removes the reference

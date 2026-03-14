@@ -1,5 +1,3 @@
-///LAVA
-
 /turf/open/lava
 	name = "lava"
 	desc = "Looks painful to step in. Don't mine down."
@@ -30,15 +28,33 @@
 	var/immunity_resistance_flags = LAVA_PROOF
 	/// the temperature that this turf will attempt to heat/cool gasses too in a heat exchanger, in kelvin
 	var/lava_temperature = 5000
+	/// Whether the immerse element has been added yet or not
+	var/immerse_added = FALSE
 	/// Lazy list of atoms that we've checked that can/cannot burn
 	var/list/checked_atoms = null
 
+/turf/open/lava/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_inited))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_LAVA_STOPPED), PROC_REF(drop_contents_into_lava))
+
 /turf/open/lava/Destroy()
 	checked_atoms = null
+	UnregisterSignal(src, list(COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, SIGNAL_REMOVETRAIT(TRAIT_LAVA_STOPPED)))
 	for(var/mob/living/leaving_mob in contents)
 		leaving_mob.RemoveElement(/datum/element/perma_fire_overlay)
 		REMOVE_TRAIT(leaving_mob, TRAIT_NO_EXTINGUISH, TURF_TRAIT)
 	return ..()
+
+///We lazily add the immerse element when something is spawned or crosses this turf and not before.
+/turf/open/lava/proc/on_atom_inited(datum/source, atom/movable/movable)
+	SIGNAL_HANDLER
+	if(burn_stuff(movable))
+		START_PROCESSING(SSobj, src)
+	if(immerse_added || is_type_in_typecache(movable, GLOB.immerse_ignored_movable))
+		return
+	AddElement(/datum/element/immerse, "immerse", 215)
+	immerse_added = TRUE
 
 /turf/open/lava/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
@@ -52,6 +68,9 @@
 
 /turf/open/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
+	if(!immerse_added && !is_type_in_typecache(arrived, GLOB.immerse_ignored_movable))
+		AddElement(/datum/element/immerse, "immerse", 215)
+		immerse_added = TRUE
 	if(burn_stuff(arrived))
 		START_PROCESSING(SSobj, src)
 
@@ -95,25 +114,13 @@
 	return TRUE
 
 /turf/open/lava/get_heat_capacity()
-	. = 700000
+	return 700000
 
 /turf/open/lava/get_temperature()
-	. = lava_temperature
+	return lava_temperature
 
 /turf/open/lava/take_temperature(temp)
-
-/turf/open/lava/proc/is_safe()
-	//if anything matching this typecache is found in the lava, we don't burn things
-	var/static/list/lava_safeties_typecache = typecacheof(list(
-		/obj/structure/lattice/catwalk,
-		/obj/structure/stone_tile,
-	))
-	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
-	for(var/obj/structure/stone_tile/S in found_safeties)
-		if(S.fallen)
-			LAZYREMOVE(found_safeties, S)
-	return LAZYLEN(found_safeties)
-
+	return
 
 ///Generic return value of the can_burn_stuff() proc. Does nothing.
 #define LAVA_BE_IGNORING 0
@@ -124,7 +131,7 @@
 
 ///Proc that sets on fire something or everything on the turf that's not immune to lava. Returns TRUE to make the turf start processing.
 /turf/open/lava/proc/burn_stuff(atom/movable/to_burn, delta_time = 1)
-	if(is_safe())
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
 		return FALSE
 
 	LAZYSETLEN(checked_atoms, 0)
@@ -215,12 +222,22 @@
 
 	return FALSE
 
-/turf/open/lava/airless
-	initial_gas_mix = AIRLESS_ATMOS
-
+/**
+ * Called when a lava stopper is removed and its contents need to be subjected to the lava underneath.
+ */
+/turf/open/lava/proc/drop_contents_into_lava()
+	SIGNAL_HANDLER
+	balloon_alert_to_viewers("[pick("splash","pshhhh","hiss","blorble")]!")
+	playsound(src, 'sound/items/match_strike.ogg', 15, TRUE)
+	for(var/atom/movable/each_content as anything in contents)
+		on_atom_inited(src, each_content)
+	return TRUE
 
 /turf/open/lava/can_cross_safely(atom/movable/crossing)
-	return /*HAS_TRAIT(src, TRAIT_LAVA_STOPPED) || HAS_TRAIT(crossing, immunity_trait ) ||*/ HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
+	return HAS_TRAIT(src, TRAIT_LAVA_STOPPED) || HAS_TRAIT(crossing, immunity_trait) || HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
+
+/turf/open/lava/airless
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/lava/smooth
 	name = "lava"

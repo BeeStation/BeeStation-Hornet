@@ -13,23 +13,18 @@
 	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_MECH_MEDICAL)
 	pivot_step = TRUE
 
-/obj/vehicle/sealed/mecha/medical/odysseus/moved_inside(mob/living/carbon/human/H)
+/obj/vehicle/sealed/mecha/odysseus/moved_inside(mob/living/carbon/human/human)
 	. = ..()
-	if(. && !HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
-		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		hud.add_hud_to(H)
-		ADD_TRAIT(H, TRAIT_MEDICAL_HUD, VEHICLE_TRAIT)
+	if(!.)
+		return
+	ADD_TRAIT(human, TRAIT_MEDICAL_HUD, VEHICLE_TRAIT)
 
-/obj/vehicle/sealed/mecha/medical/odysseus/remove_occupant(mob/living/carbon/human/H)
-	if(isliving(H) && HAS_TRAIT_FROM(H, TRAIT_MEDICAL_HUD, VEHICLE_TRAIT))
-		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		hud.remove_hud_from(H)
-		REMOVE_TRAIT(H, TRAIT_MEDICAL_HUD, VEHICLE_TRAIT)
+/obj/vehicle/sealed/mecha/odysseus/remove_occupant(mob/living/carbon/human/human)
+	REMOVE_TRAIT(human, TRAIT_MEDICAL_HUD, VEHICLE_TRAIT)
 	return ..()
 
-/obj/vehicle/sealed/mecha/medical/odysseus/mmi_moved_inside(obj/item/mmi/M, mob/user)
+/obj/vehicle/sealed/mecha/odysseus/mmi_moved_inside(obj/item/mmi/MMI, mob/user)
 	. = ..()
-	if(. && !HAS_TRAIT(M, TRAIT_MEDICAL_HUD))
-		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		var/mob/living/brain/B = M.brainmob
-		hud.add_hud_to(B)
+	if(!. || isnull(MMI.brainmob))
+		return
+	ADD_TRAIT(MMI.brainmob, TRAIT_MEDICAL_HUD, VEHICLE_TRAIT)

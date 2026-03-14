@@ -111,10 +111,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	visible_message("[user] rips [src] in a single, decisive motion!" )
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
 
-	var/obj/structure/sign/poster/ripped/R = new(loc)
-	R.pixel_y = pixel_y
-	R.pixel_x = pixel_x
-	R.add_fingerprint(user)
+	var/obj/structure/sign/poster/ripped/torn_poster = new(loc)
+	torn_poster.pixel_y = pixel_y
+	torn_poster.pixel_x = pixel_x
+	torn_poster.add_fingerprint(user)
 	qdel(src)
 
 /obj/structure/sign/poster/proc/roll_and_drop(loc)

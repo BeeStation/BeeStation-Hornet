@@ -19,7 +19,7 @@
 	if(!.)
 		return FALSE
 
-	if(owner.notransform)
+	if(HAS_TRAIT(owner, TRAIT_NO_TRANSFORM))
 		return FALSE
 	if(!get_turf(owner))
 		return FALSE

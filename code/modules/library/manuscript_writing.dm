@@ -96,7 +96,7 @@
 	writing = FALSE
 
 	// puts a job hud like a sticker on the book. Good to recognise
-	add_overlay(image(icon='icons/mob/hud.dmi', icon_state="hud[get_hud_by_jobname(booked_job.title)]", pixel_x = 12, pixel_y = -8, layer = src.layer+0.1))
+	add_overlay(image(icon='icons/mob/huds/hud.dmi', icon_state="hud[get_hud_by_jobname(booked_job.title)]", pixel_x = 12, pixel_y = -8, layer = src.layer+0.1))
 
 	// Preventing antag book mass production
 	writing_cooldown_list[FAST_REF(user.mind)] = REALTIMEOFDAY + BOOKWRITING_COOLDOWN_TIME

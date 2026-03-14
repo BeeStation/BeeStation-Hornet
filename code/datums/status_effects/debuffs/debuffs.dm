@@ -392,13 +392,13 @@
 		hammer_synced = new_hammer_synced
 
 /datum/status_effect/crusher_mark/on_apply()
-	if(owner.mob_size >= MOB_SIZE_LARGE)
-		marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
-		marked_underlay.pixel_x = -owner.pixel_x
-		marked_underlay.pixel_y = -owner.pixel_y
-		owner.underlays += marked_underlay
-		return TRUE
-	return FALSE
+	if(owner.mob_size < MOB_SIZE_LARGE)
+		return FALSE
+	marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
+	marked_underlay.pixel_x = -owner.pixel_x
+	marked_underlay.pixel_y = -owner.pixel_y
+	owner.underlays += marked_underlay
+	return TRUE
 
 /datum/status_effect/crusher_mark/Destroy()
 	hammer_synced = null
@@ -1031,7 +1031,7 @@
 
 /datum/status_effect/cyborg_malfunction
 	id = "cyborg_malfunction"
-	duration = MALFUNCTION_DURATION
+	duration = 30 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/generic_malfunction
 	status_type = STATUS_EFFECT_REFRESH
 
@@ -1053,7 +1053,7 @@
 
 /datum/status_effect/cyborg_malfunction/vine
 	id = "cyborg_malfunction_vine"
-	duration = MALFUNCTION_DURATION_VINE
+	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/malfunction_vine
 
 /atom/movable/screen/alert/status_effect/malfunction_vine
@@ -1228,7 +1228,7 @@
 /datum/status_effect/ants/proc/ants_washed()
 	SIGNAL_HANDLER
 	owner.remove_status_effect(/datum/status_effect/ants)
-	//return COMPONENT_CLEANED
+	return COMPONENT_CLEANED
 
 /datum/status_effect/ants/get_examine_text()
 	return span_warning("[owner.p_They()] [owner.p_are()] covered in ants!")
@@ -1433,9 +1433,6 @@
 /// Helper proc that causes the mob to do a stagger animation.
 /// Doesn't change significantly, just meant to represent swaying back and forth
 /mob/living/proc/do_stagger_animation()
-	var/normal_pos = base_pixel_x + body_position_pixel_x_offset
-	var/jitter_right = normal_pos + 4
-	var/jitter_left = normal_pos - 4
-	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
-	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
-	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
+	animate(src, pixel_x = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = -6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_x = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)

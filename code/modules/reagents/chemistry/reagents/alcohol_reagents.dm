@@ -252,7 +252,7 @@
 	name = "Vodka"
 	description = "Number one drink AND fueling choice for Russians worldwide."
 	color = "#0064C8" // rgb: 0, 100, 200
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL | REAGENT_CLEANS
 	boozepwr = 65
 	taste_description = "grain alcohol"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/vodka

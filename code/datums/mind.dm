@@ -55,14 +55,18 @@
 	/// Martial art on this mind
 	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art
-	var/list/antag_datums
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
-	var/holy_role = NONE //is this person a chaplain or admin role allowed to use bibles, Any rank besides 'NONE' allows for this.
-	var/isAntagTarget = FALSE
-	var/no_cloning_at_all = FALSE
 
-	var/datum/mind/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
+	/// List of antag datums on this mind
+	var/list/antag_datums
+	/// This mind's antag HUD
+	var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antag_hud = null
+	/// The icon state of our most recently gained antag datum. Used for the player panel
+	var/antag_hud_icon_state = null
+	/// Is this person a chaplain or admin role allowed to use bibles, Any rank besides 'NONE' allows for this.
+	var/holy_role = NONE
+
+	/// If this mind's master is another mob (i.e. adamantine golems)
+	var/datum/mind/enslaved_to
 	var/unconvertable = FALSE
 	var/late_joiner = FALSE
 
@@ -105,6 +109,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
+	QDEL_NULL(antag_hud)
 	QDEL_LIST(antag_datums)
 	set_current(null)
 	return ..()
@@ -129,8 +134,8 @@
 		SStgui.on_transfer(current, new_character)
 
 	if(key)
-		if(new_character.key != key)					//if we're transferring into a body with a key associated which is not ours
-			new_character.ghostize(TRUE,SENTIENCE_ERASE)						//we'll need to ghostize so that key isn't mobless.
+		if(new_character.key != key) //if we're transferring into a body with a key associated which is not ours
+			new_character.ghostize(TRUE,SENTIENCE_ERASE) //we'll need to ghostize so that key isn't mobless.
 	else
 		key = new_character.key
 		var/client/found_client = GLOB.directory[ckey(key)]
@@ -138,10 +143,9 @@
 			src.display_name = found_client.display_name()
 			src.display_name_chat = found_client.display_name_chat()
 
-	if(new_character.mind)								//disassociate any mind curently in our new body's mind variable
+	if(new_character.mind) //disassociate any mind curently in our new body's mind variable
 		new_character.mind.set_current(null)
 
-	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(old_current)
 		//transfer anyone observing the old character to the new one
@@ -159,7 +163,9 @@
 		temp_holder.transfer_mind_languages(old_holder)
 
 	set_current(new_character) //associate ourself with our new body
-	new_character.mind = src							//and associate our new body with ourself
+	QDEL_NULL(antag_hud)
+	new_character.mind = src //and associate our new body with ourself
+	antag_hud = new_character.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/antagonist_hud, "combo_hud", src)
 
 	for(var/datum/quirk/T as() in quirks) //Retarget all traits this mind has
 		T.transfer_mob(new_character)
@@ -169,7 +175,6 @@
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
-	transfer_antag_huds(hud_to_transfer) //Inherit the antag HUD
 	transfer_martial_arts(new_character) //Todo: Port this proc
 	RegisterSignal(new_character, COMSIG_LIVING_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
@@ -709,6 +714,8 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.set_current(src)
+	// There's nowhere else to set this up, mind code makes me depressed
+	mind.antag_hud = add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/antagonist_hud, "combo_hud", mind)
 
 /mob/living/carbon/mind_initialize()
 	..()

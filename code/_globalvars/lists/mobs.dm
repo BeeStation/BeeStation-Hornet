@@ -86,8 +86,6 @@ GLOBAL_LIST_INIT_TYPED(species_prototypes, /datum/species, init_species_prototyp
 		species_list[species_type] = new species_type()
 	return species_list
 
-GLOBAL_LIST_EMPTY(sentient_disease_instances)
-
 GLOBAL_LIST_EMPTY(latejoin_ai_cores)
 
 GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)

@@ -213,8 +213,6 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 				return ERROR_SOUL_DEPARTED
 			if(G.suiciding) // The ghost came from a body that is suiciding.
 				return ERROR_SUICIDED_BODY
-		if(clonemind.no_cloning_at_all) // nope.
-			return ERROR_UNCLONABLE
 		current_insurance = insurance
 	attempting = TRUE //One at a time!!
 	countdown.start()

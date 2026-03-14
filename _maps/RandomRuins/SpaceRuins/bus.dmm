@@ -87,11 +87,6 @@
 /obj/item/clothing/head/cone,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
-"av" = (
-/obj/structure/table,
-/obj/item/pai_card,
-/turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
 "aw" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating/asteroid/airless,
@@ -198,10 +193,6 @@
 /obj/effect/decal/cleanable/robot_debris/old,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
-"aQ" = (
-/obj/item/reagent_containers/cup/rag,
-/turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
 "aR" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/decal/cleanable/oil,
@@ -300,6 +291,10 @@
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
+"tw" = (
+/obj/item/rag,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
 "Ao" = (
 /obj/structure/fluff/bus/passable,
 /obj/effect/decal/cleanable/dirt,
@@ -320,6 +315,11 @@
 /area/ruin/unpowered/no_grav)
 "EG" = (
 /obj/item/food/meatball,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"NJ" = (
+/obj/structure/table,
+/obj/item/pai_card,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "RI" = (
@@ -516,7 +516,7 @@ aj
 ao
 jx
 aJ
-aQ
+tw
 ad
 aX
 ad
@@ -753,7 +753,7 @@ aa
 aa
 aa
 ad
-av
+NJ
 aH
 ad
 ad

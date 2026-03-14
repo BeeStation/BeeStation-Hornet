@@ -50,6 +50,9 @@
 		if(INCAPACITATED_IGNORING(pawn_mob, INCAPABLE_STASIS) && pawn.pulledby)
 			return FALSE
 
+	if(HAS_TRAIT(pawn, TRAIT_NO_TRANSFORM))
+		return FALSE
+
 	return TRUE
 
 ///Anything to do before moving; any checks if the pawn should be able to move should be placed in allowed_to_move() and called by this proc

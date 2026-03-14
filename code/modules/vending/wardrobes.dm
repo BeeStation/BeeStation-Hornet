@@ -339,7 +339,7 @@
 		/obj/item/clothing/suit/apron/purple_bartender = 2,
 		/obj/item/clothing/head/soft/black = 2,
 		/obj/item/clothing/shoes/sneakers/black = 2,
-		/obj/item/reagent_containers/cup/rag = 2,
+		/obj/item/rag = 2,
 		/obj/item/storage/box/beanbag = 1,
 		/obj/item/clothing/suit/armor/vest/alt = 1,
 		/obj/item/circuitboard/machine/dish_drive = 1,
@@ -378,7 +378,7 @@
 					/obj/item/clothing/under/rank/civilian/chef/skirt = 2,
 					/obj/item/clothing/under/rank/civilian/altchef = 1,
 					/obj/item/clothing/head/utility/chefhat = 3,
-					/obj/item/reagent_containers/cup/rag = 1,
+					/obj/item/rag = 1,
 					/obj/item/clothing/suit/hooded/wintercoat = 2,
 	)
 	premium = list(

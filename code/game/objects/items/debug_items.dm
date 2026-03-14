@@ -342,23 +342,18 @@
 		TRAIT_BARMASTER,
 		TRAIT_SURGEON,
 		TRAIT_METALANGUAGE_KEY_ALLOWED,
-		TRAIT_SPACEWALK
+		TRAIT_SPACEWALK,
+		TRAIT_MEDICAL_HUD,
+		TRAIT_SECURITY_HUD,
+		TRAIT_DIAGNOSTIC_HUD,
+		TRAIT_BOT_PATH_HUD,
 	)
-	var/spacewalk_initial
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
-	for(var/each in traits_to_give)
-		ADD_TRAIT(user, each, "debug")
+	user.add_traits(traits_to_give, "debug")
 	grant_all_languages(source = "debug")
 	user.grant_language(/datum/language/metalanguage, source = "debug")
-
-	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	hud.add_hud_to(user)
-	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	hud.add_hud_to(user)
-	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.add_hud_to(user)
 
 	if(!isliving(user))
 		user.update_sight()
@@ -373,21 +368,11 @@
 	if(orb)
 		return
 
-	for(var/each in traits_to_give)
-		REMOVE_TRAIT(user, each, "debug")
+	user.remove_traits(traits_to_give, "debug")
 	user.remove_all_languages("debug")
 	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
 	user.see_override = initial(user.see_override)
 	user.update_sight()
-
-	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.remove_hud_from(user)
-	if(!HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
-		hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		hud.remove_hud_from(user)
-	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
-		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		hud.remove_hud_from(user)
 
 // kinda works like hilbert, but not really
 /obj/item/map_template_diver

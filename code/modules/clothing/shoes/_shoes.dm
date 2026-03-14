@@ -60,7 +60,7 @@
 /obj/item/clothing/shoes/proc/restore_offsets(mob/user)
 	equipped_before_drop = FALSE
 	user.pixel_y -= offset
-	worn_y_dimension = world.icon_size
+	worn_y_dimension = ICON_SIZE_Y
 
 /obj/item/clothing/shoes/dropped(mob/user)
 	..()

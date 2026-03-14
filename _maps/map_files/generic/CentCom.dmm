@@ -2167,22 +2167,6 @@
 	dir = 4
 	},
 /area/tdome/tdomeobserve)
-"aeQ" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/reagent_containers/cup/rag,
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/tdome/tdomeobserve)
 "aeR" = (
 /obj/effect/turf_decal/tile/steelgrid,
 /obj/effect/turf_decal/siding/thinplating_new/corner,
@@ -11138,20 +11122,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
-"aCM" = (
-/obj/structure/table/reinforced{
-	color = "#c1b6a5"
-	},
-/obj/item/phone{
-	pixel_y = 12;
-	pixel_x = -7
-	},
-/obj/item/pai_card{
-	pixel_x = 5;
-	pixel_y = 2
-	},
-/turf/open/floor/wood/big,
-/area/syndicate_mothership/control)
 "aCN" = (
 /turf/open/floor/plating,
 /area/centcom/ferry)
@@ -17383,11 +17353,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
-"aSN" = (
-/obj/structure/mopbucket,
-/obj/item/mop,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/holding)
 "aSO" = (
 /obj/structure/railing,
 /obj/structure/table,
@@ -20259,6 +20224,22 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ctf)
+"bba" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/rag,
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/tdome/tdomeobserve)
 "bbB" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/ice/smooth,
@@ -20881,14 +20862,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
-"gfJ" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/mopbucket,
-/turf/open/floor/plating/broken,
-/area/syndicate_mothership/control)
 "ggJ" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -20939,6 +20912,20 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
+/area/syndicate_mothership/control)
+"gAF" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/phone{
+	pixel_y = 12;
+	pixel_x = -7
+	},
+/obj/item/pai_card{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/turf/open/floor/wood/big,
 /area/syndicate_mothership/control)
 "gFf" = (
 /obj/structure/lattice/catwalk,
@@ -22950,6 +22937,11 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
+"spS" = (
+/obj/structure/mop_bucket,
+/obj/item/mop,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/holding)
 "sql" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/plating/dirt/jungle,
@@ -23660,6 +23652,14 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/evac)
+"xJl" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mop_bucket,
+/turf/open/floor/plating/broken,
+/area/syndicate_mothership/control)
 "xJP" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/corporate,
@@ -34419,7 +34419,7 @@ afs
 aaE
 aaE
 aku
-gfJ
+xJl
 nft
 aku
 axA
@@ -36995,7 +36995,7 @@ aaE
 aku
 aku
 aYR
-aCM
+gAF
 ahr
 aqO
 aLq
@@ -52730,7 +52730,7 @@ aXk
 aXx
 aNm
 aNd
-aSN
+spS
 apV
 aTr
 aNd
@@ -69965,7 +69965,7 @@ aOb
 aSE
 aMH
 aYj
-aeQ
+bba
 hDc
 aIM
 aBX

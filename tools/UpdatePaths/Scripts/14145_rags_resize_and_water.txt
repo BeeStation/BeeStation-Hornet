@@ -1,0 +1,5 @@
+/turf/open/water/air/station : /turf/open/water/air{@OLD}
+/turf/open/water/jungle : /turf/open/water{@OLD}
+/obj/item/reagent_containers/cup/rag : /obj/item/rag{@OLD}
+/mob/living/@SUBTYPES{resize = @ANY} : /mob/living/@SUBTYPES{@OLD;resize=@SKIP;initial_size=@OLD:resize}
+/obj/structure/mopbucket : /obj/structure/mop_bucket{@OLD}

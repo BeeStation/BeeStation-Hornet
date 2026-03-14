@@ -471,7 +471,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	var/mob/living/carbon/last_user
 
 /obj/item/warpwhistle/proc/interrupted(mob/living/carbon/user)
-	if(!user || QDELETED(src) || user.notransform)
+	if(!user || QDELETED(src) || HAS_TRAIT(user, TRAIT_NO_TRANSFORM))
 		on_cooldown = FALSE
 		return TRUE
 	return FALSE

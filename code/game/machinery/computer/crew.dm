@@ -218,7 +218,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/valid_refs = list()
 
-	for(var/mob/living/carbon/human/tracked_human as () in GLOB.suit_sensors_list)
+	for(var/mob/living/carbon/human/tracked_human as anything in GLOB.suit_sensors_list)
 		if(!tracked_human)
 			stack_trace("Null reference in suit sensors list")
 			GLOB.suit_sensors_list -= tracked_human
@@ -243,7 +243,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Determine if this person is using nanites for sensors,
 		// in which case the sensors are always set to full detail
-		var/nanite_sensors = HAS_TRAIT(tracked_human, TRAIT_NANITE_SENSORS)
+		var/nanite_sensors = HAS_TRAIT_FROM(tracked_human, TRAIT_TRACKED_SENSORS, NANITES_TRAIT)
 
 		// Check for a uniform if not using nanites
 		var/obj/item/clothing/under/uniform = tracked_human.w_uniform

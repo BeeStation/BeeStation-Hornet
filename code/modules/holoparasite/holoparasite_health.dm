@@ -23,20 +23,16 @@
 		hud_used.healths.icon_state = "health7"
 
 /mob/living/simple_animal/hostile/holoparasite/med_hud_set_health()
-	var/image/holder = hud_list[HEALTH_HUD]
 	if(summoner?.current)
-		holder.icon_state = "hud[RoundHealth(summoner.current)]"
+		set_hud_image_state(HEALTH_HUD, "hud[RoundHealth(summoner.current)]")
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_HEALTH, holder)
 
 /mob/living/simple_animal/hostile/holoparasite/med_hud_set_status()
-	var/image/holder = hud_list[STATUS_HUD]
 	if(summoner?.current)
-		var/icon/I = icon(icon, icon_state, dir)
-		holder.pixel_y = I.Height() - world.icon_size
 		if(summoner.current.stat == DEAD)
-			holder.icon_state = "huddead"
+			set_hud_image_state(STATUS_HUD, "huddead")
 		else
-			holder.icon_state = "hudhealthy"
+			set_hud_image_state(STATUS_HUD, "hudhealthy")
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_STATUS, holder)
 
 /mob/living/simple_animal/hostile/holoparasite/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)

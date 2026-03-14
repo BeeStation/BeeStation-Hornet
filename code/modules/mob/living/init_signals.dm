@@ -6,6 +6,11 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DEATHCOMA), PROC_REF(on_deathcoma_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DEATHCOMA), PROC_REF(on_deathcoma_trait_loss))
 
+	RegisterSignals(src, list(
+		SIGNAL_ADDTRAIT(TRAIT_FAKEDEATH),
+		SIGNAL_REMOVETRAIT(TRAIT_FAKEDEATH),
+	), PROC_REF(update_medhud_on_signal))
+
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), PROC_REF(on_immobilized_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED), PROC_REF(on_immobilized_trait_loss))
 
@@ -33,8 +38,6 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_loss))
 
-
-
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
 		SIGNAL_REMOVETRAIT(TRAIT_CRITICAL_CONDITION),
@@ -46,7 +49,6 @@
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movement_type_flag_enabled))
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_DISABLED, PROC_REF(on_movement_type_flag_disabled))
 
-
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_UNDENSE), SIGNAL_REMOVETRAIT(TRAIT_UNDENSE)), PROC_REF(undense_changed))
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NEGATES_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_NEGATES_GRAVITY)), PROC_REF(on_negate_gravity))
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNORING_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_IGNORING_GRAVITY)), PROC_REF(on_ignore_gravity))
@@ -57,6 +59,11 @@
 		SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+	RegisterSignal(src, COMSIG_MOVABLE_EDIT_UNIQUE_IMMERSE_OVERLAY, PROC_REF(edit_immerse_overlay))
+
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_BASIC_HEALTH_HUD_VISIBLE), PROC_REF(add_to_basic_health_hud))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_BASIC_HEALTH_HUD_VISIBLE), PROC_REF(remove_from_basic_health_hud))
 
 ///Called when TRAIT_KNOCKEDOUT is added to the mob.
 /mob/living/proc/on_knockedout_trait_gain(datum/source)
@@ -79,6 +86,12 @@
 /mob/living/proc/on_deathcoma_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_DEATHCOMA)
+
+/// Updates medhud when receiving relevant signals.
+/mob/living/proc/update_medhud_on_signal(datum/source)
+	SIGNAL_HANDLER
+	med_hud_set_health()
+	med_hud_set_status()
 
 /// Called when [TRAIT_NEGATES_GRAVITY] is gained or lost
 /mob/living/proc/on_negate_gravity(datum/source)
@@ -104,10 +117,27 @@
 	SIGNAL_HANDLER
 	refresh_gravity()
 
+/mob/living/proc/edit_immerse_overlay(datum/source, atom/movable/immerse_mask/effect_relay)
+	SIGNAL_HANDLER
+	effect_relay.transform = effect_relay.transform.Scale(1 / current_size)
+	effect_relay.transform = effect_relay.transform.Turn(-lying_angle)
+
 /// Called when [TRAIT_UNDENSE] is gained or lost
 /mob/living/proc/undense_changed(datum/source)
 	SIGNAL_HANDLER
 	update_density()
+
+/// When gaining [TRAIT_BASIC_HEALTH_HUD_VISIBLE], add to the basic health hud
+/mob/living/proc/add_to_basic_health_hud(datum/source)
+	SIGNAL_HANDLER
+	var/datum/atom_hud/data/human/medical/basic/hud = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
+	hud.add_atom_to_hud(src)
+
+/// When losing [TRAIT_BASIC_HEALTH_HUD_VISIBLE], remove from the basic health hud
+/mob/living/proc/remove_from_basic_health_hud(datum/source)
+	SIGNAL_HANDLER
+	var/datum/atom_hud/data/human/medical/basic/hud = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
+	hud.remove_atom_from_hud(src)
 
 ///Called when TRAIT_IMMOBILIZED is added to the mob.
 /mob/living/proc/on_immobilized_trait_gain(datum/source)

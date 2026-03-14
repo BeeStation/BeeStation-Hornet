@@ -246,15 +246,13 @@
 
 /// Updates the nanite volume bar visible in diagnostic HUDs
 /datum/component/nanites/proc/set_nanite_bar(remove = FALSE)
-	var/image/holder = host_mob.hud_list[DIAG_NANITE_FULL_HUD]
-	var/icon/I = icon(host_mob.icon, host_mob.icon_state, host_mob.dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = null
 	if(remove || stealth)
+		host_mob.set_hud_image_inactive(DIAG_NANITE_FULL_HUD)
 		return //bye icon
 	var/nanite_percent = (nanite_volume / max_nanites) * 100
 	nanite_percent = clamp(CEILING(nanite_percent, 10), 10, 100)
-	holder.icon_state = "nanites[nanite_percent]"
+	host_mob.set_hud_image_state(DIAG_NANITE_FULL_HUD, "nanites[nanite_percent]")
+	host_mob.set_hud_image_active(DIAG_NANITE_FULL_HUD)
 
 /datum/component/nanites/proc/on_emp(datum/source, severity)
 	SIGNAL_HANDLER

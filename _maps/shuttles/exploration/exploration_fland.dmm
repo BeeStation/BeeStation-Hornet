@@ -203,6 +203,18 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
+"gH" = (
+/obj/structure/table/reinforced,
+/obj/item/rag{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/glass/shaker{
+	pixel_x = 4;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "gM" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
@@ -506,6 +518,22 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
+"wa" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/light/small,
+/obj/structure/closet/crate/critter,
+/mob/living/simple_animal/turkey{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	dir = 4;
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/exploration)
 "wo" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular{
@@ -565,22 +593,6 @@
 "zG" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Ab" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/light/small,
-/obj/structure/closet/crate/critter,
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	dir = 4;
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Ai" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -963,18 +975,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"TD" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/rag{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/cup/glass/shaker{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Uh" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -1185,7 +1185,7 @@ zC
 XF
 LM
 cN
-Ab
+wa
 nG
 hQ
 Cj
@@ -1309,7 +1309,7 @@ Sw
 nG
 Tf
 wo
-TD
+gH
 dL
 nG
 Xo

@@ -69,8 +69,8 @@
 		return FALSE
 	if(!new_loc || !direct)
 		return FALSE
-	if(mob.notransform)
-		return FALSE	//This is sota the goto stop mobs from moving var
+	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
+		return FALSE //This is sota the goto stop mobs from moving var
 	if(mob.control_object)
 		return Move_object(direct)
 	if(!isliving(mob))

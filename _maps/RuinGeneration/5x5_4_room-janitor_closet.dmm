@@ -18,7 +18,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "l" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop/cyborg,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,

@@ -2,13 +2,17 @@
 	see_invisible = SEE_INVISIBLE_LIVING
 	sight = 0
 	see_in_dark = 2
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ANTAG_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
 	pressure_resistance = 10
 	chat_color = "#CCCCCC"	//The say color of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
 
 	hud_type = /datum/hud/living
 
-	var/resize = 1 //Badminnery resize
+	///Tracks the scale of the mob transformation matrix in relation to its identity. Use update_transform(resize) to change it.
+	var/current_size = RESIZE_DEFAULT_SIZE
+	///How the mob transformation matrix is scaled on init.
+	var/initial_size = RESIZE_DEFAULT_SIZE
+
 	var/lastattacker = null
 	var/lastattackerckey = null
 
@@ -45,8 +49,11 @@
 	VAR_PROTECTED/lying_angle = 0
 	/// Value of lying lying_angle before last change. TODO: Remove the need for this.
 	var/lying_prev = 0
+	/// Does the mob rotate when lying
+	var/rotate_on_lying = FALSE
+	///Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
+	var/last_special = 0
 
-	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 	var/timeofdeath = 0
 
 	/// Helper vars for quick access to firestacks, these should be updated every time firestacks are adjusted
@@ -164,13 +171,16 @@
 	var/playable = FALSE
 	var/flavor_text = FLAVOR_TEXT_NONE
 
-	///The y amount a mob's sprite should be offset due to the current position they're in (e.g. lying down moves your sprite down)
-	var/body_position_pixel_x_offset = 0
-	///The x amount a mob's sprite should be offset due to the current position they're in
-	var/body_position_pixel_y_offset = 0
+	///The height offset of a mob's maptext due to their current size.
+	var/body_maptext_height_offset = 0
 
 	/// What our current gravity state is. Used to avoid duplicate animates and such
 	var/gravity_state = null
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
+
+	/// Lazylists of pixel offsets this mob is currently using
+	/// Modify this via add_offsets and remove_offsets,
+	/// NOT directly (and definitely avoid modifying offsets directly)
+	VAR_PRIVATE/list/offsets

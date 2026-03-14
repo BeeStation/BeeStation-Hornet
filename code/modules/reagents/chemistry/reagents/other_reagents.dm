@@ -188,7 +188,7 @@
 	name = "Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha)
-	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL // because we want to give it to oozelings
+	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | REAGENT_CLEANS // because we want to give it to oozelings
 	taste_description = "water"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
@@ -275,7 +275,7 @@
 	name = "Holy Water"
 	description = "Water blessed by some deity."
 	color = "#E0E8EF" // rgb: 224, 232, 239
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST|REAGENT_UNAFFECTED_BY_METABOLISM
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | REAGENT_UNAFFECTED_BY_METABOLISM | REAGENT_CLEANS
 	self_consuming = TRUE //divine intervention won't be limited by the lack of a liver
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/holywater
 
@@ -1179,7 +1179,7 @@
 	name = "Space Cleaner"
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite! Not safe for consumption. If ingested, contact poison control immediately"
 	color = "#A5F0EE" // rgb: 165, 240, 238
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | REAGENT_CLEANS
 	taste_description = "sourness"
 	addiction_types = list(/datum/addiction/stimulants = 14)
 	reagent_weight = 0.6 //so it sprays further
@@ -1934,15 +1934,13 @@
 		if(200 to INFINITY)
 			newsize = 3.5 * RESIZE_DEFAULT_SIZE
 
-	affected_mob.resize = newsize/current_size
+	affected_mob.update_transform(newsize/current_size)
 	current_size = newsize
-	affected_mob.update_transform()
 
 /datum/reagent/growthserum/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	affected_mob.resize = RESIZE_DEFAULT_SIZE / current_size
+	affected_mob.update_transform(RESIZE_DEFAULT_SIZE / current_size)
 	current_size = RESIZE_DEFAULT_SIZE
-	affected_mob.update_transform()
 
 /datum/reagent/plastic_polymers
 	name = "Plastic Polymers"

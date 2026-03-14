@@ -2,11 +2,11 @@
 	name = "valentine"
 	roundend_category = "valentines" //there's going to be a ton of them so put them in separate category
 	show_in_antagpanel = FALSE
-	prevent_roundtype_conversion = FALSE
 	replace_banned = FALSE
 	var/datum/mind/date
 	banning_key = UNBANNABLE_ANTAGONIST
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
+	antag_hud_name = "valentine"
 
 /datum/antagonist/valentine/proc/forge_objectives()
 	var/datum/objective/protect/protect_objective = new
@@ -55,19 +55,3 @@
 		return span_greentextbig("[owner.name] protected their date, [date.name]!")
 	else
 		return span_redtextbig("[owner.name] failed to protect their date, [date.name]!")
-
-/datum/antagonist/valentine/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Give valentine appearance on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/valhud = GLOB.huds[ANTAG_HUD_VALENTINE]
-	valhud.join_hud(owner.current)
-	if(!owner.antag_hud_icon_state)
-		set_antag_hud(owner.current, "valentine")
-
-/datum/antagonist/valentine/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/valhud = GLOB.huds[ANTAG_HUD_VALENTINE]
-	valhud.leave_hud(owner.current)
-	if(owner.antag_hud_icon_state == "valentine")
-		set_antag_hud(owner.current, null)

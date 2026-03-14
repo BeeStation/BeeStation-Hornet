@@ -9,7 +9,7 @@
 /datum/antagonist/vassal/discordant
 	name = "\improper Discordant Vassal"
 	show_in_antagpanel = FALSE
-	vassal_hud_name = "vassal5"
+	antag_hud_name = "vassal5"
 	special_type = DISCORDANT_VASSAL
 	vassal_description = "Discordant Vassals are exclusively created by Brujah Vampires. \
 		They are typically ex-leaders (or similar persons of authority,) who have imposed their will upon others. \

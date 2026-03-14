@@ -70,7 +70,7 @@
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "aP" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_x = -4;
 	pixel_y = 9
 	},

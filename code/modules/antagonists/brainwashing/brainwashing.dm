@@ -69,17 +69,18 @@
 
 /datum/antagonist/brainwashed
 	name = "Brainwashed Victim"
-	banning_key = ROLE_BRAINWASHED
+	ui_name = "AntagInfoBrainwashed"
 	roundend_category = "brainwashed victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
-	ui_name = "AntagInfoBrainwashed"
+	antag_hud_name = "brainwash"
+	banning_key = ROLE_BRAINWASHED
 	required_living_playtime = 0
 
 /datum/antagonist/brainwashed/on_gain()
 	owner.current.log_message("has been brainwashed!", LOG_ATTACK, color="#960000")
-	. = ..()
+	return ..()
 
 /datum/antagonist/brainwashed/on_removal()
 	owner.current.log_message("is no longer brainwashed!", LOG_ATTACK, color="#960000")
@@ -102,22 +103,6 @@
 	to_chat(owner, span_warning("Your mind suddenly clears..."))
 	to_chat(owner, "<big>[span_warning("<b>You feel the weight of the Directives disappear! You no longer have to obey them.</b>")]</big>")
 	owner.announce_objectives()
-
-/datum/antagonist/brainwashed/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Give traitor appearance on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
-	traitorhud.join_hud(owner.current)
-	if(!owner.antag_hud_icon_state)
-		set_antag_hud(owner.current, "brainwash")
-
-/datum/antagonist/brainwashed/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
-	traitorhud.leave_hud(owner.current)
-	if(owner.antag_hud_icon_state == "brainwash")
-		set_antag_hud(owner.current, null)
 
 /datum/antagonist/brainwashed/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/C = new_owner.current

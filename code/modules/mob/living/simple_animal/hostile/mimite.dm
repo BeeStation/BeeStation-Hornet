@@ -73,33 +73,35 @@
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
 	GLOB.all_mimites += src
-	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
+	var/image/I = image(icon = 'icons/mob/huds/hud.dmi', icon_state = "hud_mimite", layer = DATA_HUD_PLANE, loc = src)
 	I.alpha = 200
 	I.appearance_flags = RESET_ALPHA
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/mimites, "hudcultist", I)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/mimites, "hud_mimite", I)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/mimite/examine(mob/user)
-	if(morphed && replicate && venthunt)
-		. = form.examine(user)
-		if(get_dist(user,src)<=4)
-			. += span_warning("It doesn't look quite right...")
-	else
-		. = ..()
+	if(!morphed || !replicate || !venthunt)
+		return ..()
+
+	. = form.examine(user)
+	if(get_dist(user, src) <= 4)
+		. += span_warning("It doesn't look quite right...")
 
 /mob/living/simple_animal/hostile/mimite/med_hud_set_health()
+	//we hide medical hud while morphed
 	if(morphed && !isliving(form))
-		var/image/holder = hud_list[HEALTH_HUD]
-		holder.icon_state = null
-		return //we hide medical hud while morphed
-	..()
+		set_hud_image_inactive(HEALTH_HUD)
+		return
+	. = ..()
+	set_hud_image_active(HEALTH_HUD)
 
 /mob/living/simple_animal/hostile/mimite/med_hud_set_status()
+	//we hide medical hud while morphed
 	if(morphed && !isliving(form))
-		var/image/holder = hud_list[STATUS_HUD]
-		holder.icon_state = null
-		return //we hide medical hud while morphed
-	..()
+		set_hud_image_inactive(STATUS_HUD)
+		return
+	. = ..()
+	set_hud_image_active(STATUS_HUD)
 
 /mob/living/simple_animal/hostile/mimite/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
 	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))

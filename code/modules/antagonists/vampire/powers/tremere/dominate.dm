@@ -133,7 +133,7 @@
 
 		carbon_target.Immobilize(power_time)
 		carbon_target.next_move = world.time + power_time
-		carbon_target.notransform = TRUE
+		ADD_TRAIT(living_target, TRAIT_NO_TRANSFORM, TRAIT_MESMERIZED)
 		addtimer(CALLBACK(src, PROC_REF(end_mesmerize), living_target, owner), power_time)
 
 	if(issilicon(living_target))
@@ -142,9 +142,8 @@
 		owner.balloon_alert(owner, "temporarily shut [silicon_target] down.")
 
 /datum/action/vampire/targeted/tremere/proc/end_mesmerize(mob/living/living_target)
-	living_target.notransform = FALSE
 	living_target.cure_blind(TRAIT_MESMERIZED)
-	REMOVE_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
+	living_target.remove_traits(list(TRAIT_MUTE, TRAIT_NO_TRANSFORM), TRAIT_MESMERIZED)
 
 	if(living_target in view(6, get_turf(owner)))
 		living_target.balloon_alert(owner, "snapped out of [living_target.p_their()] trance!")

@@ -191,9 +191,8 @@
 		return
 	if(A.orbit_datum?.parent == A) // orbiting what you're orbiting causes runtime
 		return
-	var/icon/I = icon(A.icon, A.icon_state, A.dir)
-	var/orbitsize = (I.Width()+I.Height())*0.5
-	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	var/orbitsize = (A.get_cached_width() + A.get_cached_height()) * 0.5
+	orbitsize -= (orbitsize/ICON_SIZE_X)*(ICON_SIZE_Y*0.25)
 	orbit(A, orbitsize)
 
 /atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE)

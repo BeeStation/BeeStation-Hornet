@@ -28,13 +28,6 @@
 	desc = "The time until Sol rises, when this happens solar flares will bombard the station heavily weakening you. Sleep in a coffin to avoid this!"
 	icon_state = "sunlight"
 	screen_loc = UI_SUNLIGHT_DISPLAY
-#ifdef VAMPIRE_TESTING
-	var/datum/controller/subsystem/sunlight/sunlight_subsystem
-
-/atom/movable/screen/vampire/sunlight_counter/New(loc, ...)
-	. = ..()
-	sunlight_subsystem = SSsunlight
-#endif
 
 /// Update Blood Counter + Rank Counter
 /datum/antagonist/vampire/proc/update_hud()

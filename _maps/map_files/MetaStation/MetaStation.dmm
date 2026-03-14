@@ -2431,24 +2431,6 @@
 	luminosity = 2
 	},
 /area/security/nuke_storage)
-"azI" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/shaker{
-	pixel_x = -7;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/rag{
-	pixel_x = -6;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/requests_console/auto_name/directional/east,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 9
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar/lounge)
 "azU" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/telescreen/prison{
@@ -10922,11 +10904,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
-"bPT" = (
-/obj/structure/table/wood,
-/obj/item/pai_card,
-/turf/open/floor/wood,
-/area/library)
 "bPV" = (
 /obj/structure/destructible/cult/tome/library,
 /obj/machinery/newscaster{
@@ -11624,20 +11601,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
-"bUH" = (
-/obj/structure/table,
-/obj/item/storage/crayons{
-	pixel_x = -13;
-	pixel_y = 9
-	},
-/obj/item/pai_card{
-	pixel_x = 5
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/locker)
 "bUJ" = (
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
@@ -12128,6 +12091,17 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"cca" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/item/pai_card,
+/obj/structure/table/wood,
+/obj/machinery/door/poddoor/shutters{
+	id = "barcounter";
+	name = "Bar Counter Shutters"
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/lounge)
 "ccg" = (
 /obj/structure/bed/dogbed,
 /mob/living/basic/pet/dog/pug{
@@ -17461,25 +17435,6 @@
 	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
-"dip" = (
-/obj/structure/table/wood,
-/obj/machinery/button/door{
-	id = "corporate_privacy";
-	name = "corporate showroom shutters control";
-	pixel_x = 28;
-	req_access_txt = "19"
-	},
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/item/pai_card{
-	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
-	name = "Nanotrasen-brand personal AI device exhibit"
-	},
-/turf/open/floor/carpet/blue,
-/area/bridge/showroom/corporate)
 "diw" = (
 /obj/effect/turf_decal/box/red,
 /obj/structure/closet/gun_locker{
@@ -21912,24 +21867,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"eHA" = (
-/obj/structure/table,
-/obj/item/taperecorder{
-	pixel_x = -3
-	},
-/obj/item/pai_card{
-	pixel_x = 4
-	},
-/obj/item/storage/secure/briefcase,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/tile/black/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/heads/hor)
 "eHS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -24728,6 +24665,20 @@
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"fGh" = (
+/obj/structure/table,
+/obj/item/storage/crayons{
+	pixel_x = -13;
+	pixel_y = 9
+	},
+/obj/item/pai_card{
+	pixel_x = 5
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/locker)
 "fGk" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/segment{
@@ -36632,6 +36583,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/space/basic,
 /area/space/nearstation)
+"jML" = (
+/obj/structure/table/wood,
+/obj/item/pai_card,
+/turf/open/floor/wood,
+/area/library)
 "jMN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -37426,14 +37382,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
-"kaJ" = (
-/obj/structure/table,
-/obj/item/pai_card,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/science/research)
 "kaR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -42592,6 +42540,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"lXn" = (
+/obj/structure/mop_bucket,
+/turf/open/floor/plating,
+/area/maintenance/starboard/secondary)
 "lXq" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Escape";
@@ -45735,6 +45687,24 @@
 /obj/structure/sign/warning/explosives,
 /turf/closed/wall/r_wall,
 /area/science/explab)
+"mZd" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/shaker{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/obj/item/rag{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/requests_console/auto_name/directional/east,
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/lounge)
 "mZk" = (
 /obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty{
 	pixel_x = -4;
@@ -45868,6 +45838,26 @@
 	},
 /turf/open/floor/iron,
 /area/vacant_room/commissary)
+"naY" = (
+/obj/structure/table,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/xenoarchaeology{
+	pixel_y = -32
+	},
+/obj/item/pai_card{
+	pixel_x = -7
+	},
+/obj/item/book/manual/wiki/xenoarchaeology{
+	pixel_x = -6
+	},
+/obj/item/sticky_note_pile{
+	pixel_y = 3;
+	pixel_x = 8
+	},
+/turf/open/floor/iron/dark,
+/area/science/explab)
 "nbd" = (
 /obj/effect/turf_decal/tile/dark{
 	dir = 1
@@ -49076,6 +49066,14 @@
 	},
 /turf/open/floor/iron,
 /area/medical/break_room)
+"okQ" = (
+/obj/structure/table,
+/obj/item/pai_card,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/science/research)
 "okX" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -49753,6 +49751,24 @@
 /obj/effect/turf_decal/trimline/blue/filled/warning,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"ouB" = (
+/obj/structure/table,
+/obj/item/taperecorder{
+	pixel_x = -3
+	},
+/obj/item/pai_card{
+	pixel_x = 4
+	},
+/obj/item/storage/secure/briefcase,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/heads/hor)
 "ouC" = (
 /obj/machinery/status_display/evac{
 	pixel_y = 32
@@ -56648,17 +56664,6 @@
 "qPb" = (
 /turf/open/floor/iron/dark/textured,
 /area/security/interrogation_room)
-"qPk" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/item/pai_card,
-/obj/structure/table/wood,
-/obj/machinery/door/poddoor/shutters{
-	id = "barcounter";
-	name = "Bar Counter Shutters"
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar/lounge)
 "qPm" = (
 /obj/effect/landmark/prisonspawn,
 /obj/effect/turf_decal/siding/wideplating_new,
@@ -59564,26 +59569,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"rTa" = (
-/obj/structure/table,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/sign/poster/official/xenoarchaeology{
-	pixel_y = -32
-	},
-/obj/item/pai_card{
-	pixel_x = -7
-	},
-/obj/item/book/manual/wiki/xenoarchaeology{
-	pixel_x = -6
-	},
-/obj/item/sticky_note_pile{
-	pixel_y = 3;
-	pixel_x = 8
-	},
-/turf/open/floor/iron/dark,
-/area/science/explab)
 "rTh" = (
 /obj/item/storage/secure/safe{
 	name = "evidence safe";
@@ -65256,10 +65241,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"tTN" = (
-/obj/structure/mopbucket,
-/turf/open/floor/plating,
-/area/maintenance/starboard/secondary)
 "tUe" = (
 /obj/machinery/light{
 	dir = 1
@@ -77051,6 +77032,25 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"xWv" = (
+/obj/structure/table/wood,
+/obj/machinery/button/door{
+	id = "corporate_privacy";
+	name = "corporate showroom shutters control";
+	pixel_x = 28;
+	req_access_txt = "19"
+	},
+/obj/item/poster/random_official,
+/obj/item/poster/random_official,
+/obj/item/poster/random_official,
+/obj/item/poster/random_official,
+/obj/item/poster/random_official,
+/obj/item/pai_card{
+	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
+	name = "Nanotrasen-brand personal AI device exhibit"
+	},
+/turf/open/floor/carpet/blue,
+/area/bridge/showroom/corporate)
 "xWD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -99215,7 +99215,7 @@ pAL
 bwc
 oue
 yby
-bPT
+jML
 bzE
 bzE
 mAL
@@ -106684,7 +106684,7 @@ bZk
 cFX
 lDD
 goW
-kaJ
+okQ
 cgd
 chj
 ciC
@@ -106930,7 +106930,7 @@ aaf
 bLv
 bNk
 iJC
-dip
+xWv
 bRG
 bSI
 bUb
@@ -111066,7 +111066,7 @@ cqL
 crQ
 cte
 jYt
-eHA
+ouB
 jUG
 lKh
 cSd
@@ -112809,7 +112809,7 @@ axC
 tYL
 eCt
 qfX
-bUH
+fGh
 abG
 fHB
 qdp
@@ -113633,7 +113633,7 @@ qjm
 mpi
 uro
 svS
-rTa
+naY
 cgq
 lal
 jVZ
@@ -114654,7 +114654,7 @@ fmU
 cNi
 aPE
 ovj
-tTN
+lXn
 hFP
 sNb
 ara
@@ -115402,7 +115402,7 @@ oAa
 jxH
 jyz
 ktW
-qPk
+cca
 tVR
 aNh
 eIf
@@ -116430,7 +116430,7 @@ kne
 iSv
 jxH
 nmC
-azI
+mZd
 iRK
 oGV
 sJh

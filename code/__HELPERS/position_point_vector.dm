@@ -66,7 +66,8 @@
 /datum/position/proc/return_point()
 	return new /datum/point(src)
 
-/datum/point		//A precise point on the map in absolute pixel locations based on world.icon_size. Pixels are FROM THE EDGE OF THE MAP!
+/// A precise point on the map in absolute pixel locations based on world.icon_size. Pixels are FROM THE EDGE OF THE MAP!
+/datum/point
 	var/x = 0
 	var/y = 0
 	var/z = 0
@@ -99,11 +100,11 @@
 
 /datum/point/proc/initialize_location(tile_x, tile_y, tile_z, p_x = 0, p_y = 0)
 	if(!isnull(tile_x))
-		x = ((tile_x - 1) * world.icon_size) + world.icon_size / 2 + p_x + 1
-		x = ((tile_x - 1) * world.icon_size) + world.icon_size * 0.5 + p_x + 1
+		x = ((tile_x - 1) * ICON_SIZE_X) + ICON_SIZE_X / 2 + p_x + 1
+		x = ((tile_x - 1) * ICON_SIZE_X) + ICON_SIZE_X * 0.5 + p_x + 1
 	if(!isnull(tile_y))
-		y = ((tile_y - 1) * world.icon_size) + world.icon_size / 2 + p_y + 1
-		y = ((tile_y - 1) * world.icon_size) + world.icon_size * 0.5 + p_y + 1
+		y = ((tile_y - 1) * ICON_SIZE_Y) + ICON_SIZE_Y / 2 + p_y + 1
+		y = ((tile_y - 1) * ICON_SIZE_Y) + ICON_SIZE_Y * 0.5 + p_y + 1
 	if(!isnull(tile_z))
 		z = tile_z
 
@@ -117,19 +118,19 @@
 	AM.pixel_y = return_py()
 
 /datum/point/proc/return_turf()
-	return locate(CEILING(x / world.icon_size, 1), CEILING(y / world.icon_size, 1), z)
+	return locate(CEILING(x / ICON_SIZE_X, 1), CEILING(y / ICON_SIZE_Y, 1), z)
 
 /datum/point/proc/return_coordinates()		//[turf_x, turf_y, z]
-	return list(CEILING(x / world.icon_size, 1), CEILING(y / world.icon_size, 1), z)
+	return list(CEILING(x / ICON_SIZE_X, 1), CEILING(y / ICON_SIZE_Y, 1), z)
 
 /datum/point/proc/return_position()
 	return new /datum/position(src)
 
 /datum/point/proc/return_px()
-	return MODULUS(x, world.icon_size) - 16 - 1
+	return MODULUS(x, ICON_SIZE_X) - 16 - 1
 
 /datum/point/proc/return_py()
-	return MODULUS(y, world.icon_size) - 16 - 1
+	return MODULUS(y, ICON_SIZE_Y) - 16 - 1
 
 /datum/point/vector
 	var/speed = 32				//pixels per iteration
@@ -155,9 +156,9 @@
 
 /datum/point/vector/proc/set_location(tile_x, tile_y, tile_z, p_x = 0, p_y = 0)
 	if(!isnull(tile_x))
-		x = ((tile_x - 1) * world.icon_size) + world.icon_size * 0.5 + p_x + 1
+		x = ((tile_x - 1) * ICON_SIZE_X) + ICON_SIZE_X * 0.5 + p_x + 1
 	if(!isnull(tile_y))
-		y = ((tile_y - 1) * world.icon_size) + world.icon_size * 0.5 + p_y + 1
+		y = ((tile_y - 1) * ICON_SIZE_Y) + ICON_SIZE_Y * 0.5 + p_y + 1
 	if(!isnull(tile_z))
 		z = tile_z
 

@@ -42,11 +42,13 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	return tab_data
 
+#define SERVER_HOPPER_TRAIT "server_hopper"
+
 /mob/dead/proc/server_hop()
 	set category = "OOC"
 	set name = "Server Hop"
 	set desc= "Jump to the other server"
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM)) // in case the round is ending and a cinematic is already playing we don't wanna clash with that (yes i know)
 		return
 	var/list/csa = CONFIG_GET(keyed_list/server_hop)
 	var/pick
@@ -71,9 +73,9 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	to_chat(C, span_notice("Sending you to [pick]."))
 	new /atom/movable/screen/splash(null, C)
 
-	notransform = TRUE
-	sleep(29)	//let the animation play
-	notransform = FALSE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, SERVER_HOPPER_TRAIT)
+	sleep(2.9 SECONDS) //let the animation play
+	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, SERVER_HOPPER_TRAIT)
 
 	if(!C)
 		return
@@ -81,6 +83,8 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	winset(src, null, "command=.options") //other wise the user never knows if byond is downloading resources
 
 	C << link("[addr]")
+
+#undef SERVER_HOPPER_TRAIT
 
 /**
  * updates the Z level for dead players

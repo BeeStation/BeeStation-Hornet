@@ -37,7 +37,7 @@
 		if(prob(90))
 			mutationcap = max(1, (mutationcap - stability))
 	if(mutations <= mutationcap)
-		resize = 1.1
+		update_transform(1.1)
 		maxHealth += 5
 		health = maxHealth += 1
 		melee_damage += 2

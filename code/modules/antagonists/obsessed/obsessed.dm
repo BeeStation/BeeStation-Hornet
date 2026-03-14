@@ -6,6 +6,7 @@
 	required_living_playtime = 0
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
+	antag_hud_name = "obsessed"
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
 	var/datum/brain_trauma/special/obsessed/trauma
 
@@ -55,16 +56,8 @@
 
 /datum/antagonist/obsessed/Destroy()
 	if(trauma)
-		qdel(trauma)
-	. = ..()
-
-/datum/antagonist/obsessed/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/current = mob_override || owner.current
-	update_obsession_icons_added(current)
-
-/datum/antagonist/obsessed/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/current = mob_override || owner.current
-	update_obsession_icons_removed(current)
+		QDEL_NULL(trauma)
+	return ..()
 
 /datum/antagonist/obsessed/proc/forge_objectives(datum/mind/obsession_mind)
 	var/list/objectives_left = list("spendtime", "polaroid", "hug")
@@ -153,13 +146,3 @@
 		report += span_redtextbig("The [name] has failed!")
 
 	return report.Join("<br>")
-
-/datum/antagonist/obsessed/proc/update_obsession_icons_added(mob/living/carbon/human/obsessed)
-	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
-	creephud.join_hud(obsessed)
-	set_antag_hud(obsessed, "obsessed")
-
-/datum/antagonist/obsessed/proc/update_obsession_icons_removed(mob/living/carbon/human/obsessed)
-	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
-	creephud.leave_hud(obsessed)
-	set_antag_hud(obsessed, null)

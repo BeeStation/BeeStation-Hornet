@@ -456,8 +456,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/falling_meteor)
 	icon_state = contained_meteor.icon_state
 	var/matrix/M = new()
 	M.Scale(3, 3)
-	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
-	M.Translate(0, world.icon_size * 7)
+	M.Translate(-1.5 * ICON_SIZE_X, -1.5 * ICON_SIZE_Y)
+	M.Translate(0, ICON_SIZE_Y * 7)
 	transform = M
 	INVOKE_ASYNC(src, PROC_REF(fall_animation))
 
@@ -516,5 +516,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/falling_meteor)
 	color = list(0, 0, 0, 0, 0, 0, 0, 0, 0)
 	var/matrix/M = matrix()
 	M.Scale(3, 3)
-	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
+	M.Translate(-1.5 * ICON_SIZE_X, -1.5 * ICON_SIZE_Y)
 	transform = M

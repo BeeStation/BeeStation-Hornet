@@ -35,11 +35,11 @@
 	var/icon/final_icon = render_preview_outfit(/datum/outfit/medical_doctor_changeling_preview)
 	var/icon/split_icon = render_preview_outfit(/datum/outfit/job/engineer)
 
-	final_icon.Shift(WEST, world.icon_size / 2)
-	final_icon.Shift(EAST, world.icon_size / 2)
+	final_icon.Shift(WEST, ICON_SIZE_ALL / 2)
+	final_icon.Shift(EAST, ICON_SIZE_ALL / 2)
 
-	split_icon.Shift(EAST, world.icon_size / 2)
-	split_icon.Shift(WEST, world.icon_size / 2)
+	split_icon.Shift(EAST, ICON_SIZE_ALL / 2)
+	split_icon.Shift(WEST, ICON_SIZE_ALL / 2)
 
 	final_icon.Blend(split_icon, ICON_OVERLAY)
 
@@ -142,7 +142,7 @@
 	// Otherwise, the R gets cut off.
 	final_icon.Scale(64, 64)
 
-	var/icon/rev_head_icon = icon('icons/mob/hud.dmi', "rev_head")
+	var/icon/rev_head_icon = icon('icons/mob/huds/hud.dmi', "rev_head")
 	rev_head_icon.Scale(48, 48)
 	rev_head_icon.Crop(1, 1, 64, 64)
 	rev_head_icon.Shift(EAST, 10)
@@ -213,8 +213,8 @@
 	var/icon/background = icon(foreground)
 	background.Blend(rgb(206, 206, 206, 220), ICON_MULTIPLY)
 
-	final_icon.Blend(background, ICON_OVERLAY, -world.icon_size / 4, 0)
-	final_icon.Blend(background, ICON_OVERLAY, world.icon_size / 4, 0)
+	final_icon.Blend(background, ICON_OVERLAY, -ICON_SIZE_X / 4, 0)
+	final_icon.Blend(background, ICON_OVERLAY, ICON_SIZE_X / 4, 0)
 	final_icon.Blend(foreground, ICON_OVERLAY, 0, 0)
 
 	return finish_preview_icon(final_icon)

@@ -2,8 +2,6 @@
 
 	if(movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
-	if((lube & NO_SLIP_ON_CATWALK) && (locate(/obj/structure/lattice/catwalk) in get_turf(src)))
-		return FALSE
 	if(!(lube & SLIDE_ICE))
 		log_combat(src, (O ? O : get_turf(src)), "slipped on the", null, ((lube & SLIDE) ? "(LUBE)" : null))
 	return loc.handle_slip(src, knockdown_amount, O, lube, paralyze, force_drop)

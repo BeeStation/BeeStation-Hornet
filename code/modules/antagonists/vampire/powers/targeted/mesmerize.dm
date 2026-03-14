@@ -114,7 +114,7 @@
 
 	living_target.Immobilize(power_time)
 	living_target.next_move = world.time + power_time // <--- Use direct change instead. We want an unmodified delay to their next move
-	living_target.notransform = TRUE // <--- Fuck it. We tried using next_move, but they could STILL resist. We're just doing a hard freeze.
+	ADD_TRAIT(living_target, TRAIT_NO_TRANSFORM, TRAIT_MESMERIZED) // <--- Fuck it. We tried using next_move, but they could STILL resist. We're just doing a hard freeze.
 	addtimer(CALLBACK(src, PROC_REF(end_mesmerize), living_target), power_time)
 
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
@@ -136,8 +136,7 @@
 	target_ref = null
 
 /datum/action/vampire/targeted/mesmerize/proc/end_mesmerize(mob/living/living_target)
-	living_target.notransform = FALSE
-	REMOVE_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
+	living_target.remove_traits(list(TRAIT_MUTE, TRAIT_NO_TRANSFORM), TRAIT_MESMERIZED)
 
 	if (living_target in view(6, get_turf(owner)))
 		living_target.balloon_alert(owner, "snapped out of [living_target.p_their()] trance!")

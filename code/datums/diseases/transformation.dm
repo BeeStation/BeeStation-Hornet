@@ -59,9 +59,9 @@
 			to_chat(affected_mob, pick(stage5))
 		if(QDELETED(affected_mob))
 			return
-		if(affected_mob.notransform)
+		if(HAS_TRAIT_FROM(affected_mob, TRAIT_NO_TRANSFORM, REF(src)))
 			return
-		affected_mob.notransform = 1
+		ADD_TRAIT(affected_mob, TRAIT_NO_TRANSFORM, REF(src))
 		affected_mob.unequip_everything()
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
 		if(istype(new_mob))

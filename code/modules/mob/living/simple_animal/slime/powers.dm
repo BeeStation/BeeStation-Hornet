@@ -110,27 +110,39 @@
 		return FALSE
 	return TRUE
 
-/mob/living/simple_animal/slime/proc/Feedon(mob/living/M)
-	M.unbuckle_all_mobs(force=1) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
-	if(M.buckle_mob(src, force=TRUE))
-		layer = M.layer+0.01 //appear above the target mob
-		M.visible_message(span_danger("[name] has latched onto [M]!"), \
-						span_userdanger("[name] has latched onto [M]!"))
-		if(colour == SLIME_TYPE_GREEN && istype(get_turf(M), /turf/open/floor/grass))
+#define FEEDING_OFFSET "feeding"
+
+/mob/living/simple_animal/slime/proc/Feedon(mob/living/target_mob)
+	target_mob.unbuckle_all_mobs(force = TRUE) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
+	if(target_mob.buckle_mob(src, force = TRUE))
+		add_offsets(FEEDING_OFFSET, y_add = target_mob.mob_size <= MOB_SIZE_SMALL ? 0 : 3)
+		layer = MOB_ABOVE_PIGGYBACK_LAYER //appear above the target mob
+		target_mob.visible_message(
+			span_danger("[name] latches onto [target_mob]!"),
+			span_userdanger("[name] latches onto [target_mob]!"),
+			visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
+		)
+		to_chat(src, span_notice("<i>I start feeding on [target_mob]...</i>"))
+		balloon_alert(src, "feeding started")
+		if(colour == SLIME_TYPE_GREEN && istype(get_turf(target_mob), /turf/open/floor/grass))
 			special_mutation = TRUE
 			special_mutation_type = SLIME_TYPE_DARK_GREEN
-			M.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
+			target_mob.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
-		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
+		balloon_alert(src, "latch failed!")
 
-/mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living=1)
-	if(buckled)
-		if(!living)
-			to_chat(src, span_warning(pick("This subject is incompatible", "This subject does not have life energy", "This subject is empty", "I am not satisified", "I can not feed from this subject", "I do not feel nourished", "This subject is not food")))
-		if(!silent)
-			visible_message(span_warning("[src] has let go of [buckled]!"), span_notice("<i>I stopped feeding.</i>"))
-		layer = initial(layer)
-		buckled.unbuckle_mob(src,force=TRUE)
+/mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE)
+	if(!buckled)
+		return
+
+	if(!silent)
+		visible_message(span_warning("[src] has let go of [buckled]!"), span_notice("<i>I stopped feeding.</i>"))
+		balloon_alert(src, "feeding stopped")
+	remove_offsets(FEEDING_OFFSET)
+	layer = initial(layer)
+	buckled.unbuckle_mob(src,force=TRUE)
+
+#undef FEEDING_OFFSET
 
 /mob/living/simple_animal/slime/verb/Evolve()
 	set category = "Slime"

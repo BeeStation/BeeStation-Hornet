@@ -41,26 +41,21 @@
 	box.dump_box_contents()
 	return ..()
 
-/obj/vehicle/sealed/mecha/working/clarke/moved_inside(mob/living/carbon/human/H)
+/obj/vehicle/sealed/mecha/working/clarke/moved_inside(mob/living/carbon/human/human)
 	. = ..()
-	if(. && !HAS_TRAIT(H, TRAIT_DIAGNOSTIC_HUD))
-		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-		hud.add_hud_to(H)
-		ADD_TRAIT(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT)
+	if(!.)
+		return
+	human.add_traits(list(TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD), VEHICLE_TRAIT)
 
-/obj/vehicle/sealed/mecha/working/clarke/remove_occupant(mob/living/carbon/H)
-	if(isliving(H) && HAS_TRAIT_FROM(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT))
-		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-		hud.remove_hud_from(H)
-		REMOVE_TRAIT(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT)
+/obj/vehicle/sealed/mecha/working/clarke/remove_occupant(mob/living/carbon/human)
+	human.remove_traits(list(TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD), VEHICLE_TRAIT)
 	return ..()
 
-/obj/vehicle/sealed/mecha/working/clarke/mmi_moved_inside(obj/item/mmi/M, mob/user)
+/obj/vehicle/sealed/mecha/working/clarke/mmi_moved_inside(obj/item/mmi/MMI, mob/user)
 	. = ..()
-	if(.)
-		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-		var/mob/living/brain/B = M.brainmob
-		hud.add_hud_to(B)
+	if(!. || isnull(MMI.brainmob))
+		return
+	MMI.brainmob.add_traits(list(TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD), VEHICLE_TRAIT)
 
 /obj/vehicle/sealed/mecha/working/clarke/Move()
 	. = ..()
