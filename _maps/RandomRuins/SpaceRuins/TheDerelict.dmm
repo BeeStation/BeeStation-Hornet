@@ -568,13 +568,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/bridge/ai_upload)
-"bY" = (
-/obj/structure/frame/computer{
-	dir = 1
-	},
-/obj/item/circuitboard/computer/rdconsole,
-/turf/open/floor/iron/airless,
-/area/ruin/space/derelict/bridge/ai_upload)
 "bZ" = (
 /obj/structure/frame/computer{
 	dir = 8
@@ -1283,11 +1276,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
-"eC" = (
-/obj/structure/table,
-/obj/item/pai_card,
-/turf/open/floor/iron,
-/area/ruin/space/derelict/bridge)
 "eD" = (
 /obj/structure/chair/stool,
 /turf/open/floor/iron,
@@ -4029,6 +4017,11 @@
 "rK" = (
 /turf/template_noop,
 /area/ruin/space/derelict/medical)
+"sD" = (
+/obj/structure/table,
+/obj/item/pai_card,
+/turf/open/floor/iron,
+/area/ruin/space/derelict/bridge)
 "tS" = (
 /turf/template_noop,
 /area/ruin/unpowered/no_grav)
@@ -4161,6 +4154,13 @@
 "Vz" = (
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/hallway/primary/port)
+"VF" = (
+/obj/structure/frame/computer{
+	dir = 1
+	},
+/obj/item/circuitboard/computer/rdconsole/unlocked,
+/turf/open/floor/iron/airless,
+/area/ruin/space/derelict/bridge/ai_upload)
 "ZB" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -10404,7 +10404,7 @@ ax
 bz
 bE
 bE
-bY
+VF
 cd
 cf
 ci
@@ -12116,7 +12116,7 @@ cs
 dK
 ea
 ea
-eC
+sD
 eb
 eS
 fh

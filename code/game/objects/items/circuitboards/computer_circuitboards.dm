@@ -402,24 +402,55 @@
 /obj/item/circuitboard/computer/rdconsole
 	name = "R&D console (Computer Board)"
 	icon_state = "science"
-	build_path = /obj/machinery/computer/rdconsole/core
+	build_path = /obj/machinery/computer/rdconsole
+	req_access = list(ACCESS_TOX)
 
-/obj/item/circuitboard/computer/rdconsole/production
-	name = "R&D console - production only (Computer Board)"
-	build_path = /obj/machinery/computer/rdconsole/production
+	/// If FALSE, techweb nodes researched from this console are broadcasted to their respective radio channels.
+	var/silence_announcements = FALSE
+	/// Whether or not the console is locked. This var doesn't exist on the console level and is checked here.
+	var/locked = TRUE
 
-/obj/item/circuitboard/computer/rdconsole/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(build_path == /obj/machinery/computer/rdconsole/core)
-			name = "R&D Console - Robotics (Computer Board)"
-			build_path = /obj/machinery/computer/rdconsole/robotics
-			to_chat(user, span_notice("Access protocols successfully updated."))
-		else
-			name = "R&D Console (Computer Board)"
-			build_path = /obj/machinery/computer/rdconsole/core
-			to_chat(user, span_notice("Defaulting access protocols."))
-	else
+/obj/item/circuitboard/computer/rdconsole/unlocked
+	locked = FALSE
+
+/obj/item/circuitboard/computer/rdconsole/examine(mob/user)
+	. = ..()
+	. += span_info("The board is configured to [silence_announcements ? "silence" : "announce"] researched nodes on radio.")
+	. += span_notice("The board mode can be changed with a <b>multitool</b>.")
+	. += span_notice("The board is [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] with an ID that has research access.")
+
+/obj/item/circuitboard/computer/rdconsole/multitool_act(mob/living/user)
+	if(obj_flags & EMAGGED)
+		balloon_alert(user, "board mode is broken!")
+		return
+	silence_announcements = !silence_announcements
+	balloon_alert(user, "announcements [silence_announcements ? "enabled" : "disabled"]")
+	return TRUE
+
+/obj/item/circuitboard/computer/rdconsole/on_emag(mob/user)
+	if (locked)
+		to_chat(user, span_notice("You magnetically trigger the locking mechanism, causing it to unlock."))
+		locked = FALSE
+
+	silence_announcements = FALSE
+	if (!(obj_flags & EMAGGED)) // the check in question checks for the EMAGGED bitflag. no need to repeat messages
+		to_chat(user, span_notice("You overload the node announcement chip, forcing every node to be announced on the common channel."))
+	return ..()
+
+/obj/item/circuitboard/computer/rdconsole/attackby(obj/item/attacking_item, mob/living/user, params)
+	if (user.combat_mode || !isidcard(attacking_item))
 		return ..()
+	if (!check_access(attacking_item))
+		balloon_alert(user, "no access!")
+		return
+
+	locked = !locked
+	balloon_alert(user, locked ? "locked" : "unlocked")
+	user.visible_message(
+		message = span_notice("[user] unlocks \the [src] with \the [attacking_item]."),
+		self_message = span_notice("You unlock \the [src] with \the [attacking_item]."),
+		blind_message = span_hear("You hear a soft beep."),
+	)
 
 /obj/item/circuitboard/computer/rdservercontrol
 	name = "R&D server control (Computer Board)"

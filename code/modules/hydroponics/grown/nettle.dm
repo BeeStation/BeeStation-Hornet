@@ -97,7 +97,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/basic)
 	bite_consumption_mod = 4 // I guess if you really wanted to
 	force = 25
 	throwforce = 12
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/death)
 

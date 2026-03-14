@@ -16,15 +16,19 @@
 
 /obj/machinery/computer/operating/Initialize(mapload)
 	. = ..()
-	linked_techweb = SSresearch.science_tech
 	link_with_table()
+
+/obj/machinery/computer/operating/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/machinery/computer/operating/Destroy()
 	if(table?.computer == src)
 		table.computer = null
 	if(sbed?.op_computer == src)
 		sbed.op_computer = null
-	. = ..()
+	return ..()
 
 /obj/machinery/computer/operating/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/disk/surgery))
@@ -173,6 +177,10 @@
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/computer/operating)
 DEFINE_BUFFER_HANDLER(/obj/machinery/computer/operating)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "techweb connected")
+		linked_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
 	if(!istype(buffer, /obj/machinery/stasis))
 		to_chat(user, span_warning("You cannot link \the [buffer] to \the [src]."))
 		return NONE

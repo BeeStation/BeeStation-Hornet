@@ -30,9 +30,9 @@
 	var/list/mask_icon_states = list("map_editor")
 
 	///What rate do we convert custom price to discovery points to?
-	var/dp_rate = 0.1
+	var/dp_rate = 0.01
 	///What rate do we convert custom price to research points to?
-	var/rnd_rate = 0.5
+	var/rnd_rate = 0.05
 
 	///What traits flags are we associated with
 	var/trait_flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
