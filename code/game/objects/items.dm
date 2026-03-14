@@ -242,6 +242,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// How many charges get restored, when using this item to restore shield
 	var/added_shield = 0
 
+	/// What kind of restrictions are we associated with
+	var/restriction_flags = NONE
+
 /obj/item/Initialize(mapload)
 	if(attack_verb_continuous)
 		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
@@ -868,6 +871,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  */
 /obj/item/proc/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(!M)
+		return FALSE
+	var/list/context_list = list()
+	if(SEND_SIGNAL(M, COMSIG_CLOTHING_RESTRICTION_CHECK, restriction_flags, context_list))
+		//TODO: to_chat the context_list - Racc
 		return FALSE
 
 	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_equipped)

@@ -13,6 +13,8 @@
 	var/icon_static = 'icons/mob/human/bodyparts.dmi'
 	///The icon for husked limbs
 	VAR_PROTECTED/icon_husk = 'icons/mob/human/bodyparts.dmi'
+	///Do we use dual icons for segmented colouring?
+	var/segmented_color = FALSE
 	///The type of husk for building an iconstate
 	var/husk_type = "humanoid"
 	layer = BELOW_MOB_LAYER //so it isn't hidden behind objects when on the floor
@@ -79,7 +81,7 @@
 	var/burn_modifier = 1
 	/// Stamina damage gets multiplied by this on receive_damage()
 	var/stamina_modifier = 1
-	
+
 	// Damage reduction variables for damage handled on the limb level. Handled after worn armor.
 	/// Amount subtracted from brute damage inflicted on the limb.
 	var/brute_reduction = 0
@@ -117,12 +119,18 @@
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
 
+	/// Bit flags of items we can't equip due to this limb, like not being able to equip glasses, hats, or earpieces because this head limb is a swolen pumpkin of meat
+	var/item_restriction_flags = NONE
+	/// Reason we explain to the user for these restrictions
+	var/restriction_context
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
 		RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_gain))
 		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_loss))
 	name = "[limb_id] [parse_zone(body_zone)]"
+	restriction_context = restriction_context || "That wont fit on [src]!"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
@@ -528,6 +536,7 @@
 				SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE),
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
+			UnregisterSignal(old_owner, COMSIG_CLOTHING_RESTRICTION_CHECK, PROC_REF(catch_clothing_restriction_check))
 	if(owner)
 		if(held_index)
 			owner.on_added_hand(src, held_index)
@@ -546,6 +555,7 @@
 				needs_update_disabled = FALSE
 			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_loss))
 			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_gain))
+			RegisterSignal(owner, COMSIG_CLOTHING_RESTRICTION_CHECK, PROC_REF(catch_clothing_restriction_check))
 
 		if(needs_update_disabled)
 			update_disabled()
@@ -678,8 +688,8 @@
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return
 	for(var/image/img as anything in standing)
-		img.pixel_x = px_x
-		img.pixel_y = px_y
+		img?.pixel_x = px_x
+		img?.pixel_y = px_y
 	add_overlay(standing)
 
 /obj/item/bodypart/proc/get_limb_icon(dropped)
@@ -718,10 +728,20 @@
 			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		return .
 
-	////This is the MEAT of limb icon code
+//This is the MEAT of limb icon code
 	limb.icon = icon_greyscale
+
+	var/image/coloured_limb
+	var/image/coloured_aux
+
+	//Limb
+	//Case for typical use
 	if(!should_draw_greyscale || !icon_greyscale)
 		limb.icon = icon_static
+	//Case for dual use, aka using coloured segments
+	if(icon_greyscale && icon_static && segmented_color)
+		limb.icon = icon_static
+		coloured_limb = image(icon_greyscale, is_dimorphic ? "[limb_id]_[body_zone]_[limb_gender]" : "[limb_id]_[body_zone]", CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
 
 	if(is_dimorphic) //Does this type of limb have sexual dimorphism?
 		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
@@ -732,20 +752,33 @@
 	icon_exists(limb.icon, limb.icon_state, TRUE) //Prints a stack trace on the first failure of a given iconstate.
 
 	. += limb
+	. += coloured_limb
 
+	//Aux
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		. += aux
 		. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
+	if(aux_zone && icon_greyscale && icon_static)
+		coloured_aux = image(icon_greyscale, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
+		. += coloured_aux
 
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
-	if(draw_color)
+	if(!draw_color)
+		return
+	if(coloured_limb)
+		coloured_limb.color = draw_color
+	else
 		limb.color = draw_color
-		if(aux_zone)
-			aux.color = draw_color
+	if(!aux_zone)
+		return
+	if(coloured_aux)
+		coloured_aux.color = draw_color
+	else
+		aux.color = draw_color
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -806,3 +839,13 @@
 		owner.update_body_parts()
 	else
 		update_icon_dropped()
+
+/// Return true to prevent equipping
+/obj/item/bodypart/proc/catch_clothing_restriction_check(datum/source, _flags, list/_context_list)
+	SIGNAL_HANDLER
+
+	if(!item_restriction_flags)
+		return
+	if(item_restriction_flags & _flags)
+		_context_list += restriction_context
+		return TRUE

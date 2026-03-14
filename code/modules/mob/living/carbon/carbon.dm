@@ -968,6 +968,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/proc/on_added_hand(obj/item/bodypart/arm/new_hand, hand_index)
 	if(hand_index > hand_bodyparts.len)
 		hand_bodyparts.len = hand_index
+	if(hand_index > held_items.len)
+		held_items.len = hand_index
 	hand_bodyparts[hand_index] = new_hand
 
 /// Cleans up references to a hand when it is dismembered or deleted

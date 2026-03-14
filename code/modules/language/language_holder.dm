@@ -355,6 +355,16 @@ GLOBAL_LIST_INIT(prototype_language_holders, init_language_holder_prototypes())
 		/datum/language/monkey = list(LANGUAGE_ATOM),
 	)
 
+/datum/language_holder/koa
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/monkey = list(LANGUAGE_ATOM),
+	)
+	spoken_languages = list(
+		/datum/language/monkey = list(LANGUAGE_ATOM),
+		/datum/language/common = list(LANGUAGE_ATOM),
+	)
+
 /datum/language_holder/slime
 	understood_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),

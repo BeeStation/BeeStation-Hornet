@@ -19,3 +19,16 @@
 #define HAS_SENSORS 1
 /// Suit sensor is present and is forced to display information (used on prisoner jumpsuits)
 #define LOCKED_SENSORS 2
+
+/*
+	Bit flags for clothing restrictions
+*/
+#define RESTRICTION_SHOES (1<<0)
+#define RESTRICTION_EARS	(1<<1)
+#define RESTRICTION_GLASSES (1<<2)
+#define RESTRICTION_GLOVES (1<<3)
+#define RESTRICTION_HEAD (1<<4)
+#define RESTRICTION_MASK (1<<5)
+#define RESTRICTION_NECK (1<<6)
+#define RESTRICTION_SUIT (1<<7)
+#define RESTRICTION_UNDER (1<<8)
