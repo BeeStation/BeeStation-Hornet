@@ -140,3 +140,12 @@
 	end_sound = 1.5 SECONDS
 	mid_sounds = 'sound/machines/fan/fan_loop.ogg'
 	mid_length = 2 SECONDS
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/orbital_thruster
+	mid_sounds = list('sound/machines/thruster_loop.ogg' = 1)
+	mid_length = 4 SECONDS
+	volume = 100
+	pressure_affected = FALSE
+	vary = FALSE

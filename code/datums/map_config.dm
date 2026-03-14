@@ -63,12 +63,12 @@
 	/// Supercruise planet gravity
 	var/planet_mass = 15000
 
+	/// In case we are not planetary, which direction are we orbiting, to determine where the flames come from.
+	var/reentry_direction = SOUTH
+
 	//======
 	// Performance Settings
 	//======
-
-	/// Disable station level parallax. For levels which have no parallax background
-	var/no_station_parallax = FALSE
 
 /proc/load_map_config(filename = "next_map", foldername = DATA_DIRECTORY, default_to_box, delete_after, error_if_missing = TRUE)
 	if(IsAdminAdvancedProcCall())
@@ -166,6 +166,13 @@
 	else if (!isnull(temp))
 		log_world("map_config space_empty_levels is not a number!")
 		return
+
+	if("reentry_direction" in json)
+		var/direction_text = json["reentry_direction"]
+		if(istext(direction_text))
+			var/converted_dir = text2dir(direction_text)
+			if(converted_dir)
+				reentry_direction = converted_dir
 
 	if ("minetype" in json)
 		minetype = json["minetype"]

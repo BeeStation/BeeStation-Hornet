@@ -146,6 +146,10 @@
 	name = "Hypernoblium Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
 
+/obj/item/circuitboard/computer/atmos_control/fuelsupply_tank
+	name = "Formulated Hydrogen Fuel Supply Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/fuelsupply_tank
+
 /obj/item/circuitboard/computer/atmos_control/nitrium_tank
 	name = "Nitrium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/nitrium_tank
@@ -211,6 +215,11 @@
 	name = "station alerts console (Computer Board)"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/station_alert
+
+/obj/item/circuitboard/computer/orbital_height_control
+	name = "orbital height control console (Computer Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/orbital_height_control
 
 /obj/item/circuitboard/computer/teleporter
 	name = "teleporter console (Computer Board)"

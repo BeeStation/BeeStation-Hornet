@@ -3,6 +3,7 @@
 	"map_link": "metastation",
 	"map_path": "map_files/MetaStation",
 	"map_file": "MetaStation.dmm",
+	"reentry_direction": "NORTH",
 	"shuttles": {
 		"cargo": "cargo_box",
 		"ferry": "ferry_standard",
