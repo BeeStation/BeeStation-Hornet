@@ -102,3 +102,8 @@
   Tsar-Salat:
   - refactor: species damage mods are now limb-based
   - bugfix: damage mods work again, IPCs ignore stamina damage
+2026-03-14:
+  Isaacnml:
+  - balance: Cult doors no longer paralyze you upon being thrown, now they knock you
+      down
+  - bugfix: Cult doors will no longer throw you away just for looking at them
