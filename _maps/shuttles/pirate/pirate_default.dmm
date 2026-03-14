@@ -633,10 +633,9 @@
 	pixel_x = 1;
 	pixel_y = -10
 	},
-/obj/machinery/hydroponics/soil{
-	self_sustaining = 1
+/obj/item/plant_tray/soil/priate{
+	gain_weeds = 0
 	},
-/obj/item/seeds/wheat,
 /obj/machinery/door/window/eastright{
 	dir = 1;
 	req_access_txt = "180"
@@ -644,6 +643,10 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
+/obj/item/plant_seeds/preset/wheat,
+/obj/item/plant_seeds/preset/wheat,
+/obj/item/plant_seeds/preset/wheat,
+/obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/grass/no_border,
 /area/shuttle/pirate)
 "qF" = (

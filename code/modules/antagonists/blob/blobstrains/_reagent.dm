@@ -26,7 +26,6 @@
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "bad code and slime"
 
-
 /datum/reagent/blob/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	if(M.stat == DEAD || istype(M, /mob/living/simple_animal/hostile/blob))
 		return 0 //the dead, and blob mobs, don't cause reactions

@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
@@ -24,7 +24,7 @@
 "m" = (
 /obj/structure/table/glass,
 /obj/item/shovel/spade,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/cultivator{
 	pixel_x = 6
 	},
@@ -66,24 +66,24 @@
 /turf/template_noop/closed,
 /area/template_noop)
 "y" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/seeds/liberty,
 /turf/open/floor/grass,
 /area/template_noop)
 "z" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/seeds/ambrosia,
 /turf/open/floor/grass,
 /area/template_noop)
 "A" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/seeds/cabbage,
 /turf/open/floor/grass,
 /area/template_noop)
 "C" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
@@ -121,8 +121,8 @@
 /turf/template_noop,
 /area/template_noop)
 "L" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/bamboo,
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/bamboo,
 /turf/open/floor/grass,
 /area/template_noop)
 "N" = (
@@ -142,7 +142,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "O" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/seeds/carrot,
 /turf/open/floor/grass,
 /area/template_noop)

@@ -1057,7 +1057,7 @@
 	/obj/item/food,
 	/obj/item/reagent_containers/condiment,
 	/obj/item/reagent_containers/cup,
-	/obj/item/seeds,
+	/obj/item/plant_seeds,
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
 	/obj/item/clothing/mask/cigarette,

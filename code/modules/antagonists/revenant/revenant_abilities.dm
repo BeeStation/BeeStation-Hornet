@@ -428,10 +428,12 @@
 		shroom.add_atom_colour("#823abb", TEMPORARY_COLOUR_PRIORITY)
 		new /obj/effect/temp_visual/revenant(shroom.loc)
 		QDEL_IN(shroom, 10)
-	for(var/obj/machinery/hydroponics/tray in victim)
+	for(var/obj/tray in victim)
+		var/datum/component/planter/tray_comp = tray.GetComponent(/datum/component/planter)
+		if(!tray_comp)
+			continue
 		new /obj/effect/temp_visual/revenant(tray.loc)
-		tray.pestlevel = (rand(8, 10))
-		tray.weedlevel = (rand(8, 10))
+		tray_comp.weed_level = min(100, tray_comp.weed_level+(rand(10, 100)))
 
 /datum/action/spell/teleport/area_teleport/revenant
 	name = "Revenant Teleport"

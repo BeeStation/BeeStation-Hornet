@@ -1029,6 +1029,9 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 				return TRUE
 			return FALSE
 
+#define GENERIC_PLUMBING_RCD_COST 15
+#define GENERIC_PLUMBING_RCD_DELAY 20
+
 /obj/item/construction/plumbing
 	name = "Plumbing Constructor"
 	desc = "An expertly modified RCD outfitted to construct plumbing machinery."
@@ -1079,6 +1082,12 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	if(!choices.len)
 		for(var/A in plumbing_design_types)
 			var/obj/machinery/plumbing/M = A
+			if(!istype(M))
+				choices += list(initial(M.name) = image(icon = initial(M.icon), icon_state = initial(M.icon_state)))
+				name_to_type[initial(M.name)] = M
+				machinery_data["cost"][A] = GENERIC_PLUMBING_RCD_COST
+				machinery_data["delay"][A] = GENERIC_PLUMBING_RCD_DELAY
+				continue
 			if(initial(M.rcd_constructable))
 				choices += list(initial(M.name) = image(icon = initial(M.icon), icon_state = initial(M.icon_state)))
 				name_to_type[initial(M.name)] = M
@@ -1130,6 +1139,30 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	else
 		create_machine(A, user)
 
+#undef GENERIC_PLUMBING_RCD_COST
+#undef GENERIC_PLUMBING_RCD_DELAY
+
+/*
+	Botany variant
+*/
+/obj/item/construction/plumbing/botany
+	name = "Hydroponic Plumbing Constructor"
+	desc = "An expertly modified RCD outfitted to construct hydroponic machinery."
+	icon = 'icons/obj/hydroponics/features/generic.dmi'
+	icon_state = "tray_maker"
+
+//This is intentionally worse than the generic plumbing device. 'Should' encourage department team work
+/obj/item/construction/plumbing/botany/set_plumbing_designs()
+	plumbing_design_types = list(
+	/obj/machinery/plumbing/input = 5,
+	/obj/machinery/plumbing/output = 5,
+	/obj/machinery/plumbing/tank = 20,
+	/obj/item/plant_tray = 15
+)
+
+/*
+	Upgrades
+*/
 /obj/item/rcd_upgrade
 	name = "RCD advanced design disk"
 	desc = "It seems to be empty."
@@ -1153,6 +1186,9 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	desc = "It contains the design for chairs, stools, tables, and glass tables."
 	upgrade = RCD_UPGRADE_FURNISHING
 
+/*
+	UI
+*/
 /datum/action/item_action/pick_color
 	name = "Choose A Color"
 

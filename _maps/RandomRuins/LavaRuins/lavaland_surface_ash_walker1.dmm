@@ -416,7 +416,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "sG" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/structure/stone_tile/surrounding_tile/cracked,
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -498,7 +498,7 @@
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "xz" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 1;
 	icon_state = "cracked_surrounding1"
@@ -843,7 +843,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Ji" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/structure/stone_tile/surrounding/cracked,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1177,16 +1177,16 @@
 	dir = 4
 	},
 /obj/item/storage/bag/plants/portaseeder,
-/obj/item/seeds/tobacco/lavaland,
-/obj/item/seeds/cotton,
-/obj/item/seeds/glowshroom,
-/obj/item/seeds/glowshroom,
-/obj/item/seeds/bamboo,
-/obj/item/seeds/tower,
-/obj/item/seeds/bamboo,
-/obj/item/seeds/cotton,
-/obj/item/seeds/tower,
-/obj/item/seeds/tobacco/lavaland,
+/obj/item/plant_seeds/preset/tobacco,
+/obj/item/plant_seeds/preset/cotton,
+/obj/item/plant_seeds/preset/glowshroom,
+/obj/item/plant_seeds/preset/glowshroom,
+/obj/item/plant_seeds/preset/bamboo,
+/obj/item/plant_seeds/preset/tower,
+/obj/item/plant_seeds/preset/bamboo,
+/obj/item/plant_seeds/preset/cotton,
+/obj/item/plant_seeds/preset/tower,
+/obj/item/plant_seeds/preset/tobacco,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Wm" = (
@@ -1221,7 +1221,7 @@
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "XG" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/structure/stone_tile/block/cracked,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)

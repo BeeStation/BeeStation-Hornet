@@ -982,7 +982,8 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/hydroponics)
 "dp" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/diona_pod,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/ancientstation/hydroponics)
 "dq" = (
@@ -1200,19 +1201,13 @@
 /area/ruin/space/has_grav/ancientstation/hydroponics)
 "eq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/hydroponics)
 "er" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/seeds/flower/harebell,
-/obj/item/seeds/carrot,
-/obj/item/seeds/potato,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/flower/poppy,
-/obj/item/seeds/grape,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/hydroponics)
@@ -3888,6 +3883,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
+"um" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/ambrosia,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/ancientstation/hydroponics)
 "uE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -4059,6 +4059,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
+"zR" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/apple,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/ancientstation/hydroponics)
 "Ab" = (
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
@@ -4228,6 +4233,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/rnd)
+"EK" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/death_nettle,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/ancientstation/hydroponics)
 "EM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
@@ -4306,6 +4316,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation)
+"FS" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/meat,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/ancientstation/hydroponics)
 "Ga" = (
 /obj/structure/transit_tube/crossing/horizontal,
 /turf/template_noop,
@@ -4317,6 +4332,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/comm)
+"Gr" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/eggy_plant,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/ancientstation/hydroponics)
 "GP" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -4767,6 +4787,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation)
+"Td" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/banana,
+/turf/open/floor/grass,
+/area/ruin/space/has_grav/ancientstation/hydroponics)
 "Th" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair{
@@ -6558,7 +6583,7 @@ do
 dQ
 dQ
 dQ
-dp
+EK
 cQ
 gr
 gY
@@ -6602,11 +6627,11 @@ bz
 bN
 cn
 cS
-dp
+um
 dQ
 dQ
 dQ
-dp
+Gr
 cQ
 gs
 gY
@@ -6650,7 +6675,7 @@ bA
 bN
 cn
 cS
-dp
+um
 dQ
 ep
 eR
@@ -6746,7 +6771,7 @@ bz
 bN
 bN
 cS
-dp
+zR
 dQ
 er
 dQ
@@ -6794,7 +6819,7 @@ bA
 bN
 bN
 cS
-dp
+Td
 dQ
 dQ
 dQ
@@ -6846,7 +6871,7 @@ dr
 dQ
 dQ
 dQ
-dp
+FS
 cQ
 gu
 gY

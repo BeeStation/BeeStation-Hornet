@@ -17,6 +17,9 @@
 	RegisterSignal(my_paper, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(handle_paper))
 	return ..()
 
+/obj/item/sticker/sticky_note/generate_unusual()
+	return
+
 /obj/item/sticker/sticky_note/Destroy()
 	. = ..()
 	UnregisterSignal(my_paper, COMSIG_ATOM_UPDATE_OVERLAYS)
@@ -46,6 +49,17 @@
 		pixel_x = old_x
 		pixel_y = old_y
 	UnregisterSignal(my_paper, COMSIG_ATOM_UPDATE_OVERLAYS)
+
+/*
+	Tutorial variant
+*/
+/obj/item/sticker/sticky_note/tutorial
+
+/obj/item/sticker/sticky_note/tutorial/Initialize(mapload)
+	. = ..()
+	afterattack(loc, loc, TRUE)
+	pixel_y = rand(-8, 8)
+	pixel_x = rand(-8, 8)
 
 /*
 	Dispenser for sticky notes

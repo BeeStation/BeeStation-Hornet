@@ -91,6 +91,11 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	/// Icon state for fallback item displayed in a tourist's thought bubble for if this reagent had no associated glass_style datum.
 	var/fallback_icon_state
 
+	/// Is this reagent consumed by plant trays? - Most reagents have this set to 0, as plants have a need datum or two that will actively consume it
+	var/tray_consumed = 0
+	/// What percentage of tray weeds to we remove
+	var/weed_kill = 0
+
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()
 	holder = null
@@ -190,6 +195,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	SHOULD_CALL_PARENT(TRUE)
 	if(data)
 		src.data = data
+	RegisterSignal(holder, COMSIG_PLANTER_TICK_REAGENTS, PROC_REF(tray_tick))
 
 /// Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(data)
@@ -207,3 +213,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/overdose_start(mob/living/carbon/affected_mob)
 	to_chat(affected_mob, span_userdanger("You feel like you took too much of [name]!"))
 	SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
+
+/datum/reagent/proc/tray_tick(datum/source, datum/component/planter/tray, _delta_time)
+	SIGNAL_HANDLER
+
+	if(!tray || volume < tray_consumed)
+		return
+	tray.weed_level = tray.weed_level*(1-weed_kill)
+	holder?.remove_reagent(type, tray_consumed)
+	return TRUE

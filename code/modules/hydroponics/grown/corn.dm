@@ -1,22 +1,6 @@
 // Corn
-/obj/item/seeds/corn
-	name = "pack of corn seeds"
-	desc = "I don't mean to sound corny..."
-	icon_state = "seed-corn"
-	species = "corn"
-	plantname = "Corn Stalks"
-	product = /obj/item/food/grown/corn
-	maturation = 8
-	potency = 20
-	growthstages = 3
-	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
-	icon_grow = "corn-grow" // Uses one growth icons set for all the subtypes
-	icon_dead = "corn-dead" // Same for the dead icon
-	mutatelist = list(/obj/item/seeds/corn/snapcorn)
-	reagents_add = list(/datum/reagent/consumable/nutriment/fat/oil = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
-
 /obj/item/food/grown/corn
-	seed = /obj/item/seeds/corn
+	seed = /obj/item/plant_seeds/preset/corn
 	name = "ear of corn"
 	desc = "Needs some butter!"
 	icon_state = "corn"
@@ -53,18 +37,7 @@
 		return ..()
 
 // Snapcorn
-/obj/item/seeds/corn/snapcorn
-	name = "pack of snapcorn seeds"
-	desc = "Oh snap!"
-	icon_state = "seed-snapcorn"
-	species = "snapcorn"
-	plantname = "Snapcorn Stalks"
-	product = /obj/item/grown/snapcorn
-	mutatelist = list()
-	rarity = 10
-
 /obj/item/grown/snapcorn
-	seed = /obj/item/seeds/corn/snapcorn
 	name = "snap corn"
 	desc = "A cob with snap pops."
 	icon_state = "snapcorn"
@@ -76,9 +49,9 @@
 	var/snap_pops = 1
 	discovery_points = 300
 
-/obj/item/grown/snapcorn/add_juice()
-	..()
-	snap_pops = max(round(seed.potency/8), 1)
+/obj/item/grown/snapcorn/Initialize(mapload)
+	. = ..()
+	snap_pops = get_fruit_trait_power(src) * 3
 
 /obj/item/grown/snapcorn/attack_self(mob/user)
 	..()

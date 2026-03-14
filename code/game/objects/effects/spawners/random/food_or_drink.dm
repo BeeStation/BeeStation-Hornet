@@ -25,40 +25,38 @@
 	name = "seed spawner"
 	icon_state = "seed"
 	loot = list( // The same seeds in the Supply "Seeds Crate"
-		/obj/item/seeds/chili,
-		/obj/item/seeds/cotton,
-		/obj/item/seeds/berry,
-		/obj/item/seeds/corn,
-		/obj/item/seeds/eggplant,
-		/obj/item/seeds/tomato,
-		/obj/item/seeds/soya,
-		/obj/item/seeds/wheat,
-		/obj/item/seeds/wheat/rice,
-		/obj/item/seeds/carrot,
-		/obj/item/seeds/sunflower,
-		/obj/item/seeds/chanter,
-		/obj/item/seeds/potato,
-		/obj/item/seeds/sugarcane,
+		/obj/item/plant_seeds/preset/chili,
+		/obj/item/plant_seeds/preset/cotton,
+		/obj/item/plant_seeds/preset/berry,
+		/obj/item/plant_seeds/preset/corn,
+		/obj/item/plant_seeds/preset/eggplant,
+		/obj/item/plant_seeds/preset/tomato,
+		/obj/item/plant_seeds/preset/soybean,
+		/obj/item/plant_seeds/preset/wheat,
+		/obj/item/plant_seeds/preset/rice,
+		/obj/item/plant_seeds/preset/carrot,
+		/obj/item/plant_seeds/preset/sunflower,
+		/obj/item/plant_seeds/preset/chanterelle,
+		/obj/item/plant_seeds/preset/potato,
+		/obj/item/plant_seeds/preset/sugarcane,
 	)
 
 /obj/effect/spawner/random/food_or_drink/seed_rare
 	spawn_loot_count = 5
 	icon_state = "seed"
 	loot = list( // /obj/item/seeds/random is not a random seed, but an exotic seed.
-		/obj/item/seeds/random = 30,
-		/obj/item/seeds/liberty = 5,
-		/obj/item/seeds/dionapod = 5,
-		/obj/item/seeds/reishi = 5,
-		/obj/item/seeds/nettle/death = 1,
-		/obj/item/seeds/plump/walkingmushroom = 1,
-		/obj/item/seeds/cannabis/rainbow = 1,
-		/obj/item/seeds/cannabis/death = 1,
-		/obj/item/seeds/cannabis/white = 1,
-		/obj/item/seeds/cannabis/ultimate = 1,
-		/obj/item/seeds/kudzu = 1,
-		/obj/item/seeds/angel = 1,
-		/obj/item/seeds/glowshroom/glowcap = 1,
-		/obj/item/seeds/glowshroom/shadowshroom = 1,
+		/obj/item/plant_seeds/random = 30,
+		/obj/item/plant_seeds/preset/liberty = 5,
+		/obj/item/plant_seeds/preset/diona_pod = 5,
+		/obj/item/plant_seeds/preset/reishi = 5,
+		/obj/item/plant_seeds/preset/death_nettle = 1,
+		/obj/item/plant_seeds/preset/walking = 1,
+		/obj/item/plant_seeds/preset/rainbow_cannabis = 1,
+		/obj/item/plant_seeds/preset/omega_cannabis = 1,
+		/obj/item/plant_seeds/preset/kudzu = 1,
+		/obj/item/plant_seeds/preset/angel = 1,
+		/obj/item/plant_seeds/preset/glowcap = 1,
+		/obj/item/plant_seeds/preset/shadowshroom = 1,
 	)
 
 /obj/effect/spawner/random/food_or_drink/soup
@@ -174,10 +172,10 @@
 	name = "seed vault seeds"
 	icon_state = "seed"
 	loot = list(
-		/obj/item/seeds/gatfruit = 10,
-		/obj/item/seeds/cherry/bomb = 10,
-		/obj/item/seeds/berry/glow = 10,
-		/obj/item/seeds/sunflower/moonflower = 8,
+		/obj/item/plant_seeds/preset/gat = 10,
+		/obj/item/plant_seeds/preset/cherry_bomb = 10,
+		/obj/item/plant_seeds/preset/glow_berry = 10,
+		/obj/item/plant_seeds/preset/moonflower = 8,
 	)
 
 /obj/effect/spawner/random/food_or_drink/snack

@@ -611,7 +611,7 @@
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 1
 	},
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "iJ" = (
@@ -1213,7 +1213,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "tb" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "tf" = (

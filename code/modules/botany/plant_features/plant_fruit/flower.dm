@@ -1,0 +1,140 @@
+/*
+	Flower
+	Generic flower
+*/
+/datum/plant_feature/fruit/flower
+	species_name = "oblivisci flos"
+	name = "forget me not"
+	icon_state = "flower_1"
+	//colour_overlay = "flower_1_colour"
+	random_plant = TRUE
+	fruit_product = /obj/item/food/grown/flower/forgetmenot
+	plant_traits = list(/datum/plant_trait/nectar)
+	//colour_override = "#ffffff"
+	total_volume = PLANT_FRUIT_VOLUME_MICRO
+	growth_time = PLANT_FRUIT_GROWTH_VERY_FAST
+	fast_reagents = list(/datum/reagent/medicine/kelotane = PLANT_REAGENT_MEDIUM)
+	mutations = list(/datum/plant_feature/fruit/flower/poppy)
+
+/datum/plant_feature/fruit/flower/pink
+	colour_override = "#ffc5e5"
+
+/datum/plant_feature/fruit/flower/yellow
+	colour_override = "#fff23f"
+
+
+/*
+	Poppy
+*/
+/datum/plant_feature/fruit/flower/poppy
+	species_name = "flos ruber"
+	name = "poppy"
+	icon_state = "flower_3"
+	colour_overlay = "flower_3_colour"
+	fruit_product = /obj/item/food/grown/flower/poppy
+	colour_override = "#ee1e1e"
+	fast_reagents = list(/datum/reagent/medicine/bicaridine = PLANT_REAGENT_MEDIUM, /datum/reagent/medicine/morphine = PLANT_REAGENT_SMALL)
+	mutations = list(/datum/plant_feature/fruit/flower/geranium, /datum/plant_feature/fruit/flower/lily)
+
+
+/*
+	Geranium
+*/
+/datum/plant_feature/fruit/flower/geranium
+	species_name = "hyacinthum papaver"
+	name = "geranium"
+	icon_state = "flower_2"
+	colour_overlay = "flower_2_colour"
+	fruit_product = /obj/item/food/grown/flower/geranium
+	colour_override = "#33a4d8"
+	fast_reagents = list(/datum/reagent/medicine/bicaridine = PLANT_REAGENT_MEDIUM)
+	mutations = list(/datum/plant_feature/fruit/flower)
+
+/*
+	Harebell
+*/
+/datum/plant_feature/fruit/flower/harebell
+	species_name = "viriditas flos"
+	name = "harebell"
+	icon_state = "harebell"
+	fruit_product = /obj/item/food/grown/flower/harebell
+
+/*
+	Lily
+	See her everywhere in everything, dude
+*/
+/datum/plant_feature/fruit/flower/lily
+	species_name = "sol lilium"
+	name = "lily"
+	icon_state = "flower_2"
+	colour_overlay = "flower_2_colour"
+	fruit_product = /obj/item/food/grown/flower/lily
+	colour_override = "#ee601e"
+	fast_reagents = list(/datum/reagent/medicine/bicaridine = PLANT_REAGENT_MEDIUM)
+	mutations = list(/datum/plant_feature/fruit/flower/trumpet)
+
+/*
+	Spaceman's Trumpet
+*/
+/datum/plant_feature/fruit/flower/trumpet
+	species_name = "tubae flos"
+	name = "spaceman's trumpet"
+	icon_state = "trumpet"
+	fruit_product = /obj/item/food/grown/flower/trumpet
+	fast_reagents = list(/datum/reagent/medicine/polypyr = PLANT_REAGENT_MEDIUM)
+	mutations = list(/datum/plant_feature/fruit/flower/poppy)
+
+/*
+	Sun Flower
+*/
+/datum/plant_feature/fruit/flower/sun
+	species_name = "sol flos"
+	name = "sun flower"
+	icon_state = "sun"
+	fruit_product = /obj/item/grown/sunflower
+	fast_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = PLANT_REAGENT_MEDIUM)
+	mutations = list(/datum/plant_feature/fruit/flower/nova = 10)
+
+/*
+	Nova Flower
+*/
+/datum/plant_feature/fruit/flower/nova
+	species_name = "flos nova"
+	name = "nova flower"
+	icon_state = "sun_colour"
+	colour_override = "#ff4800"
+	fruit_product = /obj/item/grown/novaflower
+	fast_reagents = list(/datum/reagent/consumable/condensedcapsaicin = PLANT_REAGENT_MEDIUM, /datum/reagent/consumable/capsaicin = PLANT_REAGENT_MEDIUM)
+	mutations = list(/datum/plant_feature/fruit/flower/moon = 10)
+
+/*
+	Moon Flower
+*/
+/datum/plant_feature/fruit/flower/moon
+	species_name = "flos lunae"
+	name = "moon flower"
+	icon_state = "sun_colour"
+	colour_override = "#9c90e0"
+	fruit_product = /obj/item/food/grown/flower/moonflower
+	fast_reagents = list(/datum/reagent/consumable/ethanol/moonshine = PLANT_REAGENT_MEDIUM, /datum/reagent/acetone = PLANT_REAGENT_SMALL)
+	mutations = list(/datum/plant_feature/fruit/flower/sun)
+
+/*
+	Spiral
+*/
+/datum/plant_feature/fruit/flower/spiral
+	species_name = "sol flos"
+	name = "spiral flower"
+	icon_state = "spiral"
+	fruit_product = null
+
+/*
+	Rainbow Flower
+*/
+/datum/plant_feature/fruit/flower/rainbow
+	species_name = "iris flos"
+	name = "rainbow flower"
+	icon_state = "flower_1"
+	colour_overlay = "flower_1_colour"
+	fruit_product = /obj/item/food/grown/flower/rainbow
+	colour_override = list("#DA0000", "#FF9300", "#FFF200", "#A8E61D", "#00B7EF", "#DA00FF", "#1C1C1C", "#FFFFFF")

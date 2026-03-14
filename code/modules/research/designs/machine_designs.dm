@@ -260,14 +260,6 @@
 	category = list ("Hydroponics Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/board/hydroponics
-	name = "Machine Design (Hydroponics Tray Board)"
-	desc = "The circuit board for a hydroponics tray."
-	id = "hydro_tray"
-	build_path = /obj/item/circuitboard/machine/hydroponics
-	category = list ("Hydroponics Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
-
 /datum/design/board/destructive_analyzer
 	name = "Machine Design (Destructive Analyzer Board)"
 	desc = "The circuit board for a destructive analyzer."
@@ -395,14 +387,6 @@
 	build_path = /obj/item/circuitboard/machine/monkey_recycler
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
-
-/datum/design/board/seed_extractor
-	name = "Machine Design (Seed Extractor Board)"
-	desc = "The circuit board for a seed extractor."
-	id = "seed_extractor"
-	build_path = /obj/item/circuitboard/machine/seed_extractor
-	category = list ("Hydroponics Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/processor
 	name = "Machine Design (Food/Slime Processor Board)"

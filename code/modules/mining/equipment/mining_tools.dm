@@ -151,3 +151,41 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/shovel/spade/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
+
+/obj/item/shovel/spade/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	name = "spade ([arrived])"
+	icon_state = "spade_dirt"
+	arrived.pixel_y += 11
+	arrived.pixel_x += 5
+
+/obj/item/shovel/spade/Exited(atom/movable/leaving, direction)
+	. = ..()
+	var/datum/component/plant/plant_comp = leaving.GetComponent(/datum/component/plant)
+	if(!plant_comp)
+		return
+	name = "spade"
+	icon_state = "spade"
+	leaving.pixel_y -= 11
+	leaving.pixel_x += 5
+//Fruit - Don't allow people to game spade's pause function
+	//Deleted all fruit
+	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_comp.plant_features
+	if(!length(fruit_feature?.fruits))
+		return
+	for(var/obj/item/fruit as anything in fruit_feature?.fruits)
+		fruit_feature?.fruits -= fruit
+		qdel(fruit)
+	SEND_SIGNAL(plant_comp, COMSIG_PLANT_ACTION_HARVEST)
+//Body - Refund a yield since we just merc'd one
+	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant_comp.plant_features
+	body_feature.yields += 1
+
+/obj/item/shovel/spade/proc/catch_pause(datum/source)
+	SIGNAL_HANDLER
+
+	return TRUE

@@ -193,7 +193,18 @@
 	id = "diskplantgene"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
-	build_path = /obj/item/disk/plantgene
+	build_path = /obj/item/disk/plant_disk
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+//TODO: Add designs for all the new botany machines -Racc
+/datum/design/tray_maker
+	name = "Hydroponic Plumbing Constructor"
+	desc = "A plumbing tool for botany equipment."
+	id = "traymaker"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 75000, /datum/material/glass = 37500, /datum/material/plastic = 1000)
+	build_path = /obj/item/construction/plumbing/botany
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 

@@ -12,7 +12,7 @@
 			/obj/item/card,
 			/obj/item/clothing/mask/cigarette,
 			/obj/item/flashlight/pen,
-			/obj/item/seeds,
+			/obj/item/plant_seeds,
 			/obj/item/stack/medical,
 			/obj/item/toy/crayon,
 			/obj/item/coin,
