@@ -107,7 +107,7 @@
 	var/obj/projectile/magic/arcane_barrage/vampire/bolt = new(living_owner.loc)
 	bolt.vampire_power = src
 	bolt.firer = living_owner
-	bolt.def_zone = ran_zone(living_owner.get_combat_bodyzone())
+	bolt.def_zone = living_owner.get_random_valid_zone(living_owner.get_combat_bodyzone())
 	bolt.preparePixelProjectile(target_atom, living_owner)
 	INVOKE_ASYNC(bolt, TYPE_PROC_REF(/obj/projectile, fire))
 

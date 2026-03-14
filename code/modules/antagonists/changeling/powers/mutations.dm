@@ -21,10 +21,32 @@
 	var/weapon_type
 	var/weapon_name_simple
 
+/datum/action/changeling/weapon/Grant(mob/granted_to)
+	. = ..()
+	if (!owner || !req_human)
+		return
+	RegisterSignal(granted_to, COMSIG_HUMAN_MONKEYIZE, PROC_REF(became_monkey))
+
+/datum/action/changeling/weapon/Remove(mob/remove_from)
+	UnregisterSignal(remove_from, COMSIG_HUMAN_MONKEYIZE)
+	unequip_held(remove_from)
+	return ..()
+
+/// Remove weapons if we become a monkey
+/datum/action/changeling/weapon/proc/became_monkey(mob/source)
+	SIGNAL_HANDLER
+	unequip_held(source)
+
+/// Removes weapon if it exists, returns true if we removed something
+/datum/action/changeling/weapon/proc/unequip_held(mob/user)
+	var/found_weapon = FALSE
+	for(var/obj/item/held in user.held_items)
+		found_weapon = check_weapon(user, held) || found_weapon
+	return found_weapon
+
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
-	for(var/obj/item/I in user.held_items)
-		if(check_weapon(user, I))
-			return
+	if (unequip_held(user))
+		return
 	..(user, target)
 
 /datum/action/changeling/weapon/proc/check_weapon(mob/user, obj/item/hand_item)
@@ -32,17 +54,17 @@
 		user.temporarilyRemoveItemFromInventory(hand_item, TRUE) //DROPDEL will delete the item
 		if(!silent)
 			playsound(user, 'sound/effects/blobattack.ogg', 30, 1)
-			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_italics("You hear organic matter ripping and tearing!"))
+			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_hear("You hear organic matter ripping and tearing!"))
 		user.update_held_items()
-		return 1
+		return TRUE
 
 /datum/action/changeling/weapon/sting_action(mob/living/carbon/user)
 	var/obj/item/held = user.get_active_held_item()
 	if(held && !user.dropItemToGround(held))
-		to_chat(user, span_warning("[held] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!"))
+		user.balloon_alert(user, "hand occupied!")
 		return
 	if(!istype(user))
-		to_chat(user, span_warning("You can't do that in this state!"))
+		user.balloon_alert(user, "wrong shape!")
 		return
 	..()
 	var/limb_regen = 0
@@ -59,12 +81,6 @@
 		playsound(user, 'sound/effects/blobattack.ogg', 30, 1)
 	return W
 
-/datum/action/changeling/weapon/Remove(mob/user)
-	for(var/obj/item/I in user.held_items)
-		check_weapon(user, I)
-	..()
-
-
 //Parent to space suits and armor.
 /datum/action/changeling/suit
 	name = "Organic Suit"
@@ -79,6 +95,22 @@
 	var/helmet_name_simple = "     "
 	var/recharge_slowdown = 0
 	var/blood_on_castoff = 0
+
+/datum/action/changeling/suit/Grant(mob/granted_to)
+	. = ..()
+	if (!owner || !req_human)
+		return
+	RegisterSignal(granted_to, COMSIG_HUMAN_MONKEYIZE, PROC_REF(became_monkey))
+
+/datum/action/changeling/suit/Remove(mob/remove_from)
+	UnregisterSignal(remove_from, COMSIG_HUMAN_MONKEYIZE)
+	check_suit(remove_from)
+	return ..()
+
+/// Remove suit if we become a monkey
+/datum/action/changeling/suit/proc/became_monkey()
+	SIGNAL_HANDLER
+	check_suit(owner)
 
 /datum/action/changeling/suit/try_to_sting(mob/user, mob/target)
 	if(check_suit(user))
@@ -107,16 +139,12 @@
 		changeling.chem_recharge_slowdown -= recharge_slowdown
 		return 1
 
-/datum/action/changeling/suit/Remove(mob/user)
-	check_suit(user)
-	..()
-
 /datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
 	if(!user.canUnEquip(user.wear_suit))
-		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
+		user.balloon_alert(user, "body occupied!")
 		return
 	if(!user.canUnEquip(user.head))
-		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
+		user.balloon_alert(user, "head occupied!")
 		return
 	..()
 	user.dropItemToGround(user.head)
@@ -141,7 +169,7 @@
 	button_icon_state = "armblade"
 	chemical_cost = 20
 	dna_cost = 2
-	req_human = 1
+	req_human = TRUE
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 
@@ -212,7 +240,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
 	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 2
-	req_human = 1
+	req_human = TRUE
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
@@ -253,7 +281,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, span_warning("The [name] is not ready yet."))
+	user.balloon_alert(user, "nothing missing!")
 
 /obj/item/gun/magic/tentacle/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	var/obj/projectile/tentacle/tentacle_shot = chambered.BB //Gets the actual projectile we will fire
@@ -388,7 +416,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
 
 	suit_type = /obj/item/clothing/suit/space/changeling
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
@@ -482,7 +510,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 20
 	dna_cost = 2
-	req_human = 1
+	req_human = TRUE
 	recharge_slowdown = 0.125
 
 	suit_type = /obj/item/clothing/suit/armor/changeling

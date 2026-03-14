@@ -84,6 +84,10 @@
 #define MOB_REPTILE (1 << 8)
 /// The mob is a spooky phantasm or an evil ghast of such nature.
 #define MOB_SPIRIT (1 << 9)
+///The mob is a plant-based species, benefitting from light but suffering from darkness and plantkillers.
+//#define MOB_PLANT (1 << 10)
+///The mob is a goopy creature, probably coming from xenobiology.
+#define MOB_SLIME (1 << 11)
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
@@ -93,23 +97,30 @@
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
 
-//Bodytype defines for how things can be worn, surgery, and other misc things.
+//Bodytype defines for surgery, and other misc things.
 ///The limb is organic.
 #define BODYTYPE_ORGANIC (1<<0)
 ///The limb is robotic.
 #define BODYTYPE_ROBOTIC (1<<1)
-///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
-#define BODYTYPE_HUMANOID (1<<2)
-///The limb is digitigrade.
-#define BODYTYPE_DIGITIGRADE (1<<3)
-///The limb fits the monkey mold.
-#define BODYTYPE_MONKEY (1<<4)
-///The limb is snouted.
-//#define BODYTYPE_SNOUTED (1<<5)
 ///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
-#define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
+#define BODYTYPE_LARVA_PLACEHOLDER (1<<2)
 ///The limb is from a xenomorph.
-#define BODYTYPE_ALIEN (1<<7)
+#define BODYTYPE_ALIEN (1<<3)
+///The limb is from a golem
+#define BODYTYPE_GOLEM (1<<4)
+
+// Bodyshape defines for how things can be worn, i.e., what "shape" the mob sprite is
+///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
+#define BODYSHAPE_HUMANOID (1<<0)
+///The limb fits the monkey mold.
+#define BODYSHAPE_MONKEY (1<<1)
+///The limb is digitigrade.
+#define BODYSHAPE_DIGITIGRADE (1<<2)
+///The limb is snouted.
+#define BODYSHAPE_SNOUTED (1<<3)
+
+#define BODYTYPE_BIOSCRAMBLE_INCOMPATIBLE (BODYTYPE_ROBOTIC | BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_GOLEM)
+#define BODYTYPE_CAN_BE_BIOSCRAMBLED(bodytype) (!(bodytype & BODYTYPE_BIOSCRAMBLE_INCOMPATIBLE))
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -696,6 +707,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define NPC_DEFAULT_MIN_TEMP 250
 /// Default maximum body temperature mobs can exist in before taking damage
 #define NPC_DEFAULT_MAX_TEMP 350
+
+/// Checking flags for [/mob/proc/can_read()]
+#define READING_CHECK_LITERACY (1<<0)
+#define READING_CHECK_LIGHT (1<<1)
 
 /// Distance which you can see someone's ID card
 /// Short enough that you can inspect over tables (bartender checking age)

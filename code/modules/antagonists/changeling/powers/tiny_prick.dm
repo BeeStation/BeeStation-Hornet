@@ -101,14 +101,10 @@
 /datum/action/changeling/sting/transformation/sting_action(mob/living/user, mob/living/target)
 	log_combat(user, target, "stung", "transformation sting", " new identity is '[selected_dna.dna.real_name]'")
 	var/datum/dna/new_dna = selected_dna.dna
-	if(ismonkey(target))
-		to_chat(user, span_notice("Our genes cry out as we sting [target.name]!"))
 
 	var/mob/living/carbon/C = target
 	. = TRUE
 	if(istype(C))
-		if(ismonkey(C))
-			C = C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
 		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(/datum/status_effect/ling_transformation)
 		C.apply_status_effect(/datum/status_effect/ling_transformation, new_dna, istype(previous_transformation) ? previous_transformation.original_dna : null)
 	start_cooldown()
@@ -133,7 +129,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if((HAS_TRAIT(L, TRAIT_HUSK)) || !L.has_dna())
-			to_chat(user, span_warning("Our sting appears ineffective against its DNA."))
+			user.balloon_alert(user, "incompatible DNA!")
 			return 0
 	return 1
 
@@ -212,6 +208,16 @@
 	dna_cost = 1
 
 /datum/action/changeling/sting/blind/sting_action(mob/user, mob/living/carbon/target)
+	var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
+	if(!eyes)
+		user.balloon_alert(user, "no eyes!")
+		return FALSE
+
+	if(IS_ROBOTIC_ORGAN(eyes))
+		user.balloon_alert(user, "robotic eyes!")
+		return FALSE
+
+	..()
 	log_combat(user, target, "stung", "blind sting")
 	to_chat(target, span_danger("Your eyes burn horrifically!"))
 	target.become_nearsighted(EYE_DAMAGE)

@@ -59,7 +59,7 @@
 		/mob/living/carbon/human,
 		/mob/living/simple_animal/slime,
 		/mob/living/simple_animal/parrot,
-		/mob/living/carbon/monkey,
+		/mob/living/carbon/human/species/monkey,
 	))
 	var/lastpuke = 0
 

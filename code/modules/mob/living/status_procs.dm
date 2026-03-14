@@ -405,6 +405,17 @@
 		S = apply_status_effect(/datum/status_effect/staggered, amount)
 	return S
 
+///////////////////////// CLEAR STATUS /////////////////////////
+
+/mob/living/proc/adjust_status_effects_on_shake_up()
+	AdjustStun(-60)
+	AdjustKnockdown(-60)
+	AdjustUnconscious(-60)
+	AdjustSleeping(-100)
+	AdjustParalyzed(-60)
+	AdjustImmobilized(-60)
+
+
 ///////////////////////////////// FROZEN /////////////////////////////////////
 
 /mob/living/proc/IsFrozen()

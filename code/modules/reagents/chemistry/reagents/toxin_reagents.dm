@@ -121,18 +121,26 @@
 	toxpwr = 0
 	taste_description = "acid"
 
-/datum/reagent/toxin/lexorin/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
-	. = TRUE
-
-	if(HAS_TRAIT(C, TRAIT_NOBREATH))
-		. = FALSE
-
-	if(.)
-		C.adjustOxyLoss(5 * REM * delta_time, 0)
-		C.losebreath += 2 * REM * delta_time
+/datum/reagent/toxin/lexorin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(!HAS_TRAIT(affected_mob, TRAIT_NOBREATH))
+		affected_mob.adjustOxyLoss(5 * REM * delta_time, FALSE)
+		affected_mob.losebreath += 2 * REM * delta_time
+		. = UPDATE_MOB_HEALTH
 		if(DT_PROB(10, delta_time))
-			C.emote("gasp")
-	..()
+			affected_mob.emote("gasp")
+
+/datum/reagent/toxin/lexorin/on_mob_metabolize(mob/living/affected_mob)
+	. = ..()
+	RegisterSignal(affected_mob, COMSIG_CARBON_ATTEMPT_BREATHE, PROC_REF(block_breath))
+
+/datum/reagent/toxin/lexorin/on_mob_end_metabolize(mob/living/affected_mob)
+	. = ..()
+	UnregisterSignal(affected_mob, COMSIG_CARBON_ATTEMPT_BREATHE, PROC_REF(block_breath))
+
+/datum/reagent/toxin/lexorin/proc/block_breath(mob/living/source)
+	SIGNAL_HANDLER
+	return COMSIG_CARBON_BLOCK_BREATH
 
 /datum/reagent/toxin/slimejelly
 	name = "Slime Jelly"

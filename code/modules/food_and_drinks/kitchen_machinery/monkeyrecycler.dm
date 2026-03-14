@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(ismonkey(target))
 		stuff_monkey_in(target, user)
 
-/obj/machinery/monkey_recycler/proc/stuff_monkey_in(mob/living/carbon/monkey/target, mob/living/user)
+/obj/machinery/monkey_recycler/proc/stuff_monkey_in(mob/living/carbon/human/target, mob/living/user)
 	if(!istype(target))
 		return
 	if(target.stat == CONSCIOUS)
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		return
 	qdel(target)
 	to_chat(user, span_notice("You stuff the monkey into the machine."))
-	playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
+	playsound(src.loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 	use_power(500)

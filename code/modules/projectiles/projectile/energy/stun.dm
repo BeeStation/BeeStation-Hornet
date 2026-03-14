@@ -231,7 +231,7 @@
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(recalculate_distance))
 	RegisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(check_victim_movement))
 
-	//RegisterSignal(owner, COMSIG_CARBON_PRE_MISC_HELP, PROC_REF(someome_removing_taser))
+	RegisterSignal(owner, COMSIG_CARBON_PRE_MISC_HELP, PROC_REF(someome_removing_taser))
 	SEND_SIGNAL(owner, COMSIG_LIVING_MINOR_SHOCK)
 	if(!owner.has_status_effect(type))
 		// does not use the status effect api because we snowflake it a bit
@@ -316,7 +316,7 @@
 		playsound(owner, 'sound/effects/tableheadsmash.ogg', 75, TRUE)
 
 	// the actual stunning is here
-	var/obj/item/bodypart/affecting = owner.get_bodypart(ran_zone(def_zone))
+	var/obj/item/bodypart/affecting = owner.get_bodypart(owner.get_random_valid_zone(def_zone))
 	if(!affecting) //Not if we can't fucking do it buddy. Then we just do normal damage
 		owner.apply_damage((stamina_per_second * seconds_between_ticks) / 3, BURN)
 		return

@@ -243,38 +243,6 @@
 	. = ..()
 	linked_bola = null
 
-//OTHER DEBUFFS
-/datum/status_effect/strandling //get it, strand as in durathread strand + strangling = strandling hahahahahahahahahahhahahaha i want to die
-	id = "strandling"
-	status_type = STATUS_EFFECT_UNIQUE
-	alert_type = /atom/movable/screen/alert/status_effect/strandling
-
-/datum/status_effect/strandling/on_apply()
-	ADD_TRAIT(owner, TRAIT_MAGIC_CHOKE, TRAIT_STATUS_EFFECT(id))
-	return ..()
-
-/datum/status_effect/strandling/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_MAGIC_CHOKE, TRAIT_STATUS_EFFECT(id))
-	return ..()
-
-/atom/movable/screen/alert/status_effect/strandling
-	name = "Choking strand"
-	desc = "A magical strand of Durathread is wrapped around your neck, preventing you from breathing! Click this icon to remove the strand."
-	icon_state = "his_grace"
-	alerttooltipstyle = "hisgrace"
-	clickable_glow = TRUE
-
-/atom/movable/screen/alert/status_effect/strandling/Click(location, control, params)
-	. = ..()
-	if(usr != owner)
-		return
-	to_chat(owner, span_notice("You attempt to remove the durathread strand from around your neck."))
-	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
-		if(isliving(owner))
-			var/mob/living/L = owner
-			to_chat(owner, span_notice("You successfuly remove the durathread strand."))
-			L.remove_status_effect(/datum/status_effect/strandling)
-
 /datum/status_effect/syringe
 	id = "syringe"
 	status_type = STATUS_EFFECT_MULTIPLE

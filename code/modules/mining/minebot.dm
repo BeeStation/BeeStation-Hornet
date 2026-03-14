@@ -26,7 +26,7 @@
 	melee_damage = 15
 	obj_damage = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	healable = 0
+	mob_biotypes = MOB_ROBOTIC
 	deathmessage = "stops moving"
 	// AI stuff
 	check_friendly_fire = TRUE

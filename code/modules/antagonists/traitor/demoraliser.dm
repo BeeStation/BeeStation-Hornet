@@ -48,7 +48,7 @@
 		return
 	if(!should_demoralise(viewer))
 		return
-	if(!viewer.can_read(host))
+	if(!viewer.can_read(host, moods.reading_requirements, TRUE)) //if it's a text based demoralization datum, make sure the mob has the capability to read. if it's only an image, make sure it's just bright enough for them to see it.
 		return
 
 	if (is_special_character(viewer))
@@ -91,6 +91,8 @@
 	var/datum/mood_event/crew_mood
 	/// Text to display to a head of staff upon receiving this mood
 	var/authority_notification
+	/// For literacy checks
+	var/reading_requirements = READING_CHECK_LIGHT
 	/// Mood datum to apply to a head of staff or security
 	var/datum/mood_event/authority_mood
 

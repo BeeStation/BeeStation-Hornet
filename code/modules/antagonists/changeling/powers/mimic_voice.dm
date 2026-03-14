@@ -5,7 +5,7 @@
 	helptext = "Will turn your voice into the name that you enter."
 	chemical_cost = 0
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
 
 // Fake Voice
 /datum/action/changeling/mimicvoice/sting_action(mob/living/user)

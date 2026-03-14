@@ -5,7 +5,6 @@
 	sexes = FALSE
 	species_traits = list(
 		NOEYESPRITES,
-		NOZOMBIE,
 		MUTCOLORS,
 		REVIVESBYHEALING,
 		NOHUSK,
@@ -27,6 +26,7 @@
 		TRAIT_NOSOFTCRIT,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_NO_ZOMBIFY,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
@@ -47,7 +47,6 @@
 	clonemod = 0
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
-	species_gibs = GIB_TYPE_ROBOTIC
 	attack_sound = 'sound/items/trayhit1.ogg'
 	allow_numbers_in_name = TRUE
 	deathsound = "sound/voice/borg_deathsound.ogg"

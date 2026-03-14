@@ -5,7 +5,7 @@
 	button_icon_state = "last_resort"
 	chemical_cost = 20
 	dna_cost = 0
-	req_human = 1
+	req_human = TRUE
 	check_flags = NONE
 	ignores_fakedeath = TRUE
 

@@ -228,6 +228,9 @@
 
 /obj/machinery/computer/scan_consolenew/AltClick(mob/user)
 	// Make sure the user can interact with the machine.
+	. = ..()
+	if(!can_interact(user))
+		return
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	eject_disk(user)
@@ -1635,7 +1638,12 @@
 			scanner_occupant.real_name = buffer_slot["name"]
 			scanner_occupant.name = buffer_slot["name"]
 			scanner_occupant.dna.unique_enzymes = buffer_slot["UE"]
-			scanner_occupant.dna.blood_type = buffer_slot["blood_type"]
+			// Handle both datum (new) and string (old buffer data) blood types
+			var/blood_type_data = buffer_slot["blood_type"]
+			if(istext(blood_type_data))
+				scanner_occupant.dna.blood_type = get_blood_type(blood_type_data)
+			else
+				scanner_occupant.dna.blood_type = blood_type_data
 			. = TRUE
 
 	if(.)

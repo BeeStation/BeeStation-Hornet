@@ -6,7 +6,6 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	desc = "A sentient bluespace crystallization of someone's willpower, this being will forever protect and serve its host, standing guard until the last embers of their life are extinguished."
 	speak_emote = list("emanates", "radiates")
 	gender = NEUTER
-	mob_biotypes = MOB_INORGANIC
 	bubble_icon = "guardian"
 	response_help_continuous = "passes through"
 	response_help_simple = "pass through"
@@ -35,14 +34,14 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	attack_verb_simple = "punch"
 	maxHealth = INFINITY // The spirit itself is invincible
 	health = INFINITY
-	healable = FALSE // Don't bruise pack the holopara!
+	mob_biotypes = MOB_BEAST
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // How much damage from each damage type we transfer to the owner
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 40
 	melee_damage = 15
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/holoparasite
-	dextrous_hud_type = /datum/hud/holoparasite
+	//dextrous_hud_type = /datum/hud/holoparasite
 	chat_color = COLOR_WHITE
 	mobchatspan = "holoparasite"
 	faction = list()
@@ -51,7 +50,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	/**
 	 * The name of the holoparasite, formatted with the [accent_color] in a <font> tag.
-	 * Automatically set by [set_name()].
+	 * Automatically set by [set_new_name()].
 	 */
 	var/color_name
 	/// Notes left by the summoner of the holoparasite.
@@ -121,7 +120,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	set_accent_color(_accent_color || pick(GLOB.color_list_rainbow), silent = TRUE)
 	set_theme(_theme)
 	if(length(_name))
-		set_name(_name, internal = TRUE)
+		set_new_name(_name, internal = TRUE)
 	if(length(_notes))
 		notes = _notes
 	set_summoner(_summoner)

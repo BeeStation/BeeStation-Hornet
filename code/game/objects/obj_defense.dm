@@ -30,17 +30,14 @@
 		visible_message(span_danger("[src] is hit by \a [P][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		..(user, 1)
-		if(density)
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
-		else
-			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
-		user.visible_message(span_danger("[user] smashes [src]!"), span_danger("You smash [src]!"), null, COMBAT_MESSAGE_RANGE)
-		return 1
-	return 0
+	..()
+	if(density)
+		playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	else
+		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
+	var/damage = take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
+	user.visible_message(span_danger("[user] smashes [src][damage ? "" : ", without leaving a mark"]!"), span_danger("You smash [src][damage ? "" : ", without leaving a mark"]!"), null, COMBAT_MESSAGE_RANGE)
+	return TRUE
 
 /obj/blob_act(obj/structure/blob/B)
 	if (!..())

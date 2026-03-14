@@ -6,20 +6,19 @@
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
 // The values here should add up to 1.
 // Hands and feet have 2.5%, arms and legs 7.5%, each of the torso parts has 15% and the head has 30%
-#define THERMAL_PROTECTION_HEAD			0.3
-#define THERMAL_PROTECTION_CHEST		0.15
-#define THERMAL_PROTECTION_GROIN		0.15
-#define THERMAL_PROTECTION_LEG_LEFT		0.075
-#define THERMAL_PROTECTION_LEG_RIGHT	0.075
-#define THERMAL_PROTECTION_FOOT_LEFT	0.025
-#define THERMAL_PROTECTION_FOOT_RIGHT	0.025
-#define THERMAL_PROTECTION_ARM_LEFT		0.075
-#define THERMAL_PROTECTION_ARM_RIGHT	0.075
-#define THERMAL_PROTECTION_HAND_LEFT	0.025
-#define THERMAL_PROTECTION_HAND_RIGHT	0.025
+#define THERMAL_PROTECTION_HEAD 0.3
+#define THERMAL_PROTECTION_CHEST 0.15
+#define THERMAL_PROTECTION_GROIN 0.15
+#define THERMAL_PROTECTION_LEG_LEFT 0.075
+#define THERMAL_PROTECTION_LEG_RIGHT 0.075
+#define THERMAL_PROTECTION_FOOT_LEFT 0.025
+#define THERMAL_PROTECTION_FOOT_RIGHT 0.025
+#define THERMAL_PROTECTION_ARM_LEFT 0.075
+#define THERMAL_PROTECTION_ARM_RIGHT 0.075
+#define THERMAL_PROTECTION_HAND_LEFT 0.025
+#define THERMAL_PROTECTION_HAND_RIGHT 0.025
 
 /mob/living/carbon/human/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
 	if(notransform)
 		return
 
@@ -27,33 +26,23 @@
 	if(QDELETED(src))
 		return FALSE
 
+	//Body temperature stability and damage
+	dna.species.handle_body_temperature(src, delta_time, times_fired)
 	if(!IS_IN_STASIS(src))
 		if(stat != DEAD)
-			if(undergoing_cardiac_arrest())
-				//heart attack stuff
-				var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+			//heart attack stuff
+			handle_heart(delta_time, times_fired)
+			//handles liver failure effects, if we lack a liver
+			handle_liver(delta_time, times_fired)
 
-				if(we_breath)
-					adjustOxyLoss(4 * delta_time)
-					Unconscious(80)
-
-				// Tissues die without blood circulation, machines burn without coolant circulation
-				if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
-					adjustFireLoss(0.5 * delta_time)
-				else
-					adjustBruteLoss(1 * delta_time)
-			handle_liver()
-
-		//Body temperature stability and damage
-		dna.species.handle_body_temperature(src, delta_time, times_fired)
-
-		dna.species.spec_life(src, delta_time, times_fired) // for mutantraces
+		// for special species interactions
+		dna.species.spec_life(src, delta_time, times_fired)
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 
 	if(stat != DEAD)
-		return 1
+		return TRUE
 
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
@@ -302,6 +291,21 @@
 		if(CH.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE
 	return ..()
+
+/mob/living/carbon/human/proc/handle_heart(delta_time, times_fired)
+	var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+
+	if(!undergoing_cardiac_arrest())
+		return
+
+	if(we_breath)
+		adjustOxyLoss(4 * delta_time)
+		Unconscious(80)
+	// Tissues die without blood circulation, machines burn without coolant circulation
+	if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+		adjustFireLoss(0.5 * delta_time)
+	else
+		adjustBruteLoss(1 * delta_time)
 
 #undef THERMAL_PROTECTION_HEAD
 #undef THERMAL_PROTECTION_CHEST

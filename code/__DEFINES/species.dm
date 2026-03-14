@@ -12,6 +12,7 @@
 #define SPECIES_LIZARD_ASH "ashwalker"
 #define SPECIES_NIGHTMARE "nightmare"
 #define SPECIES_MONKEY "monkey"
+#define SPECIES_MONKEY_HOLODECK "monkey_holodeck"
 #define SPECIES_MOTH "moth"
 #define SPECIES_OOZELING "oozeling"
 #define SPECIES_LUMINESCENT "lum"

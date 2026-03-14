@@ -29,16 +29,16 @@
 	return zone
 
 /**
-  * Return the zone or randomly, another valid zone
-  *
-  * probability controls the chance it chooses the passed in zone, or another random zone
-  * defaults to 80
-  */
-/proc/ran_zone(zone, probability = 80)
+ * Return the zone or randomly, another valid zone
+ *
+ * probability controls the chance it chooses the passed in zone, or another random zone
+ * defaults to 80
+ */
+/proc/ran_zone(zone, probability = 80, list/weighted_list)
 	if(prob(probability))
 		zone = check_zone(zone)
 	else
-		zone = pick_weight(list(BODY_ZONE_HEAD = 1, BODY_ZONE_CHEST = 1, BODY_ZONE_L_ARM = 4, BODY_ZONE_R_ARM = 4, BODY_ZONE_L_LEG = 4, BODY_ZONE_R_LEG = 4))
+		zone = pick_weight(weighted_list ? weighted_list : list(BODY_ZONE_HEAD = 1, BODY_ZONE_CHEST = 1, BODY_ZONE_L_ARM = 4, BODY_ZONE_R_ARM = 4, BODY_ZONE_L_LEG = 4, BODY_ZONE_R_LEG = 4))
 	return zone
 
 /**
@@ -87,9 +87,9 @@
 /proc/above_neck(zone)
 	var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES)
 	if(zones.Find(zone))
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 /**
   * Convert random parts of a passed in message to stars
   *

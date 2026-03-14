@@ -38,7 +38,8 @@
 	var/obj/item/clothing/glasses/glasses = null //only used by humans.
 	var/obj/item/clothing/ears = null //only used by humans.
 
-	var/datum/dna/dna = null // Carbon
+	/// Carbon, you should really only be accessing this through has_dna() but it's your life
+	var/datum/dna/dna = null
 	var/datum/mind/last_mind = null //last mind to control this mob, for blood-based cloning
 
 	var/failed_last_breath = 0 //This is used to determine if the mob failed a breath. If they did fail a brath, they will attempt to breathe each tick, otherwise just once per 4 ticks.
@@ -91,4 +92,7 @@
 	var/visual_only_organs = FALSE
 
 	/// A bitfield of "bodytypes", updated by /obj/item/bodypart/proc/synchronize_bodytypes()
-	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
+	var/bodytype = BODYTYPE_ORGANIC
+
+	/// A bitfield of "bodyshapes", updated by /obj/item/bodypart/proc/synchronize_bodyshapes()
+	var/bodyshape = BODYSHAPE_HUMANOID

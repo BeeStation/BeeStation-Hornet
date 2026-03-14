@@ -93,33 +93,10 @@
 	worn_icon_state = "rapid"
 	item_flags = ISWEAPON
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
-	var/warcry = "AT"
 
-/obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
-	var/mob/living/M = loc
-	if(get_dist(A, M) <= 1)
-		if(isliving(A) && M.combat_mode)
-			M.changeNext_move(CLICK_CD_RAPID)
-			if(warcry)
-				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
-
-	else if(M.combat_mode)
-		for(var/mob/living/L in oview(1, M))
-			L.attack_hand(M)
-			M.changeNext_move(CLICK_CD_RAPID)
-			if(warcry)
-				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
-			break
-	.= FALSE
-
-/obj/item/clothing/gloves/rapid/attack_self(mob/user)
-	var/input = stripped_input(user,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
-	if(input == "*me") //If they try to do a *me emote it will stop the attack to prompt them for an emote then they can walk away and enter the emote for a punch from far away
-		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry cannot contain *me."))
-	else if(CHAT_FILTER_CHECK(input))
-		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry contains prohibited word(s)."))
-	else if(input)
-		warcry = input
+/obj/item/clothing/gloves/rapid/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/punchcooldown)
 
 /obj/item/clothing/gloves/color/white/magic
 	name = "white gloves"

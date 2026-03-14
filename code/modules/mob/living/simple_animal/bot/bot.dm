@@ -5,7 +5,6 @@
 	gender = NEUTER
 	mob_biotypes = MOB_ROBOTIC
 	wander = FALSE
-	healable = 0
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_PATH_HUD = HUD_LIST_LIST) //Diagnostic HUD views
@@ -372,7 +371,9 @@
 			..()
 
 /mob/living/simple_animal/bot/AltClick(mob/user)
-	..()
+	. = ..()
+	if(!can_interact(user))
+		return
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	togglelock(user)

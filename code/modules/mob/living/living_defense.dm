@@ -100,12 +100,10 @@
 		SEND_SOUND(src, sound('sound/misc/ui_toggleoffcombat.ogg', volume = 25)) //Slightly modified version of the above
 
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(istype(AM, /obj/item))
-		var/obj/item/I = AM
-		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
-		var/dtype = BRUTE
-		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, blocked, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
+	if(isitem(AM))
+		var/obj/item/thrown_item = AM
+		var/zone = get_random_valid_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
+		var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, blocked, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 		if(nosell_hit)
 			skipcatch = TRUE
 			hitpush = FALSE
@@ -113,34 +111,25 @@
 		if(blocked)
 			return TRUE
 
-		if (I.throwforce > 0) //If the weapon's throwforce is greater than zero...
-			if (I.throwhitsound) //...and throwhitsound is defined...
-				playsound(loc, I.throwhitsound, volume, 1, -1) //...play the weapon's throwhitsound.
-			else if(I.hitsound) //Otherwise, if the weapon's hitsound is defined...
-				playsound(loc, I.hitsound, volume, 1, -1) //...play the weapon's hitsound.
-			else if(!I.throwhitsound) //Otherwise, if throwhitsound isn't defined...
-				playsound(loc, 'sound/weapons/genhit.ogg',volume, 1, -1) //...play genhit.ogg.
+		var/mob/thrown_by = thrown_item.thrownby?.resolve()
+		if(thrown_by)
+			log_combat(thrown_by, src, "threw and hit", thrown_item, important = thrown_item.force)
+		if(nosell_hit)
+			return ..()
+		visible_message(span_danger("[src] is hit by [thrown_item]!"), \
+						span_userdanger("You're hit by [thrown_item]!"))
+		if(!thrown_item.throwforce)
+			return
+		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration, "", silent = FALSE)
+		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, sharpness = thrown_item.get_sharpness())
+		if(QDELETED(src)) //Damage can delete the mob.
+			return
+		if(!INCAPACITATED_IGNORING(src, INCAPABLE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
+			hitpush = FALSE
+		return ..()
 
-		else if(!I.throwhitsound && I.throwforce > 0) //Otherwise, if the item doesn't have a throwhitsound and has a throwforce greater than zero...
-			playsound(loc, 'sound/weapons/genhit.ogg', volume, 1, -1)//...play genhit.ogg
-		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
-			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
-		if(!blocked)
-			visible_message(span_danger("[src] is hit by [I]!"), \
-							span_userdanger("You're hit by [I]!"))
-			var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
-			apply_damage(I.throwforce, dtype, zone, armor)
-
-			var/mob/thrown_by = I.thrownby?.resolve()
-			if(thrown_by)
-				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
-			if(!INCAPACITATED_IGNORING(src, INCAPABLE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
-				hitpush = FALSE
-		else
-			return 1
-	else
-		playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
-	..(AM, skipcatch, hitpush, blocked, throwingdatum)
+	playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1) //Item sounds are handled in the item itself
+	return ..()
 
 /mob/living/fire_act()
 	. = ..()
@@ -276,7 +265,7 @@
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
 
-/mob/living/attack_paw(mob/living/carbon/monkey/user, list/modifiers)
+/mob/living/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
@@ -288,11 +277,11 @@
 	if (!user.combat_mode)
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='notice'>You don't want to hurt anyone!</span>")
+		to_chat(user, span_warning("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
-		to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
+		to_chat(user, span_warning("You can't bite with your mouth covered!"))
 		return FALSE
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 	log_combat(user, src, "attacked")
@@ -344,6 +333,13 @@
 						span_notice("[user] caresses you with its scythe-like arm."), null, null, user)
 		to_chat(user, span_notice("You caress [src] with your scythe-like arm."))
 		return FALSE
+
+/mob/living/attack_hulk(mob/living/carbon/human/user)
+	..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning("You don't want to hurt [src]!"))
+		return FALSE
+	return TRUE
 
 /mob/living/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))

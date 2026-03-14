@@ -303,8 +303,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		handle_automated_speech(1) //assured speak/emote
 	return
 
-/mob/living/simple_animal/parrot/attack_paw(mob/living/carbon/monkey/M)
-	return attack_hand(M)
+/mob/living/simple_animal/parrot/attack_paw(mob/living/carbon/human/user, list/modifiers)
+	return attack_hand(user, modifiers)
 
 /mob/living/simple_animal/parrot/attack_alien(mob/living/carbon/alien/M)
 	return attack_hand(M)

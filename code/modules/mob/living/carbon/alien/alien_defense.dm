@@ -51,12 +51,12 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	return attack_alien(L)
 
-/mob/living/carbon/alien/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/carbon/alien/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	if(!..())
 		return
 	if(stat != DEAD)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
-		apply_damage(rand(3), BRUTE, affecting)
+		var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(user.get_combat_bodyzone(src)))
+		apply_damage(rand(1, 3), BRUTE, affecting)
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
@@ -77,7 +77,7 @@ In all, this is a lot like the monkey code. /N
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message(span_danger("[user] punches [src]!"), \
 				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
+		var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(user.get_combat_bodyzone(src)))
 		apply_damage(user.dna.species.punchdamage, BRUTE, affecting)
 		log_combat(user, src, "attacked", user)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)

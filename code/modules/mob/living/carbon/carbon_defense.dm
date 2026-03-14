@@ -193,28 +193,30 @@
 	return FALSE
 
 
-/mob/living/carbon/attack_paw(mob/living/carbon/human/M, modifiers)
+/mob/living/carbon/attack_paw(mob/living/carbon/human/user, list/modifiers)
 
-	if(try_inject(M, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
+	if(try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 		for(var/thing in diseases)
 			var/datum/disease/D = thing
 			if((D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN) && prob(85))
-				M.ContactContractDisease(D)
+				user.ContactContractDisease(D)
 
-	for(var/thing in M.diseases)
+	for(var/thing in user.diseases)
 		var/datum/disease/D = thing
 		if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
 			ContactContractDisease(D)
 
-	if(!M.combat_mode)
-		help_shake_act(M)
+	if(!user.combat_mode)
+		help_shake_act(user)
 		return FALSE
 
-	if(..() && can_inject(M, get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK | INJECT_TRY_SHOW_ERROR_MESSAGE)) //successful monkey bite.
-		for(var/thing in M.diseases)
+	if(..()) //successful monkey bite.
+		for(var/thing in user.diseases)
 			var/datum/disease/D = thing
+			if(D.spread_flags & (DISEASE_SPREAD_SPECIAL | DISEASE_SPREAD_NON_CONTAGIOUS))
+				continue
 			ForceContractDisease(D)
-		return 1
+		return TRUE
 
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
@@ -238,7 +240,7 @@
 		return dam_zone
 	var/obj/item/bodypart/affecting
 	if(dam_zone && attacker.client)
-		affecting = get_bodypart(ran_zone(dam_zone))
+		affecting = get_bodypart(get_random_valid_zone(dam_zone))
 	else
 		var/list/things_to_ruin = shuffle(bodyparts.Copy())
 		for(var/B in things_to_ruin)
@@ -330,70 +332,69 @@
 	if(should_stun)
 		Paralyze(60)
 
-/mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
+/mob/living/carbon/proc/help_shake_act(mob/living/carbon/helper)
 	if(on_fire)
-		to_chat(M, span_warning("You can't put [p_them()] out with just your bare hands!"))
+		to_chat(helper, span_warning("You can't put [p_them()] out with just your bare hands!"))
 		return
 
-	if(M == src && check_self_for_injuries())
+	if(SEND_SIGNAL(src, COMSIG_CARBON_PRE_MISC_HELP, helper) & COMPONENT_BLOCK_MISC_HELP)
+		return
+
+	if(helper == src)
+		check_self_for_injuries()
 		return
 
 	if(body_position == LYING_DOWN)
 		if(buckled)
-			to_chat(M, span_warning("You need to unbuckle [src] first to do that!"))
+			to_chat(helper, span_warning("You need to unbuckle [src] first to do that!"))
 			return
-		M.visible_message(span_notice("[M] shakes [src] trying to get [p_them()] up!"), \
+		helper.visible_message(span_notice("[helper] shakes [src] trying to get [p_them()] up!"), \
 						span_notice("You shake [src] trying to get [p_them()] up!"))
-	else if(M.is_zone_selected(BODY_ZONE_CHEST))
-		M.visible_message(span_notice("[M] hugs [src] to make [p_them()] feel better!"), \
+	else if(helper.is_zone_selected(BODY_ZONE_CHEST))
+		helper.visible_message(span_notice("[helper] hugs [src] to make [p_them()] feel better!"), \
 					span_notice("You hug [src] to make [p_them()] feel better!"))
 
 		// Warm them up with hugs
-		share_bodytemperature(M)
-		if(bodytemperature > M.bodytemperature)
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, src) // Hugger got a warm hug
+		share_bodytemperature(helper)
+		if(bodytemperature > helper.bodytemperature)
+			SEND_SIGNAL(helper, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, src) // Hugger got a warm hug
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/hug) // Reciver always gets a mood for being hugged
 		else
-			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, M) // You got a warm hug
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, helper) // You got a warm hug
 
 		// Let people know if they hugged someone really warm or really cold
-		if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT || M.has_status_effect(/datum/status_effect/vampire_sol))
-			to_chat(src, span_warning("It feels like [M] is over heating as [M.p_they()] hug[M.p_s()] you."))
-		else if(M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-			to_chat(src, span_warning("It feels like [M] is freezing as [M.p_they()] hug[M.p_s()] you."))
+		if(helper.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT || helper.has_status_effect(/datum/status_effect/vampire_sol))
+			to_chat(src, span_warning("It feels like [helper] is over heating as [helper.p_they()] hug[helper.p_s()] you."))
+		else if(helper.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+			to_chat(src, span_warning("It feels like [helper] is freezing as [helper.p_they()] hug[helper.p_s()] you."))
 
 		if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT || has_status_effect(/datum/status_effect/vampire_sol))
-			to_chat(M, span_warning("It feels like [src] is over heating as you hug [p_them()]."))
+			to_chat(helper, span_warning("It feels like [src] is over heating as you hug [p_them()]."))
 		else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-			to_chat(M, span_warning("It feels like [src] is freezing as you hug [p_them()]."))
+			to_chat(helper, span_warning("It feels like [src] is freezing as you hug [p_them()]."))
 
-		if(HAS_TRAIT(M, TRAIT_FRIENDLY))
-			var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
+		if(HAS_TRAIT(helper, TRAIT_FRIENDLY))
+			var/datum/component/mood/mood = helper.GetComponent(/datum/component/mood)
 			if (mood.sanity >= SANITY_GREAT)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/besthug, M)
+				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/besthug, helper)
 			else if (mood.sanity >= SANITY_DISTURBED)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
-		for(var/datum/brain_trauma/trauma in M.get_traumas())
-			trauma.on_hug(M, src)
-	else if(M.is_zone_selected(BODY_ZONE_HEAD))
-		M.visible_message(span_notice("[M] pats [src] on the head."), \
+				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, helper)
+	else if(helper.is_zone_selected(BODY_ZONE_HEAD))
+		helper.visible_message(span_notice("[helper] pats [src] on the head."), \
 					span_notice("You pat [src] on the head."))
-		for(var/datum/brain_trauma/trauma in M.get_traumas())
-			trauma.on_hug(M, src)
-	else if((M.is_zone_selected(BODY_ZONE_L_ARM)) || (M.is_zone_selected(BODY_ZONE_R_ARM)))
-		if(!get_bodypart(check_zone(M.get_combat_bodyzone(src))))
-			to_chat(M, span_warning("[src] does not have a [M.get_combat_bodyzone(src) == BODY_ZONE_L_ARM ? "left" : "right"] arm!"))
+	else if((helper.is_zone_selected(BODY_ZONE_L_ARM)) || (helper.is_zone_selected(BODY_ZONE_R_ARM)))
+		if(!get_bodypart(check_zone(helper.get_combat_bodyzone(src))))
+			to_chat(helper, span_warning("[src] does not have a [helper.get_combat_bodyzone(src) == BODY_ZONE_L_ARM ? "left" : "right"] arm!"))
 		else
-			M.visible_message(span_notice("[M] shakes [src]'s hand."), \
+			helper.visible_message(span_notice("[helper] shakes [src]'s hand."), \
 						span_notice("You shake [src]'s hand."))
-	else if(M.is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE))
-		to_chat(M, span_warning("ERP is not allowed on this server!"))
-	AdjustStun(-60)
-	AdjustKnockdown(-60)
-	AdjustUnconscious(-60)
-	AdjustSleeping(-100)
-	AdjustParalyzed(-60)
-	AdjustImmobilized(-60)
+	else if(helper.is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE))
+		to_chat(helper, span_warning("ERP is not allowed on this server!"))
+
+	SEND_SIGNAL(src, COMSIG_CARBON_HELP_ACT, helper)
+	SEND_SIGNAL(helper, COMSIG_CARBON_HELPED, src)
+
+	adjust_status_effects_on_shake_up()
 	set_resting(FALSE)
 	if(body_position != STANDING_UP && !resting && !buckled && !HAS_TRAIT(src, TRAIT_FLOORED))
 		get_up(TRUE)
@@ -572,9 +573,7 @@
 	var/dam_zone = dismembering_strike(user, affected_zone)
 	if(!dam_zone) //Dismemberment successful
 		return TRUE
-	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(affected_zone))
 	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
 	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
 	// Apply bleeding
@@ -591,9 +590,8 @@
 	var/dam_zone = dismembering_strike(M, affected_zone)
 	if(!dam_zone) //Dismemberment successful
 		return TRUE
-	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
+
+	var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(affected_zone))
 	var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
 	apply_damage(M.melee_damage, M.melee_damage_type, affecting, armor)
 	// Apply bleeding
@@ -601,17 +599,6 @@
 		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
 		var/hit_amount = (100 - armour_block) / 100
 		add_bleeding(M.melee_damage * 0.1 * hit_amount)
-
-/mob/living/carbon/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block())
-		target.visible_message(span_warning("[target] blocks [user]'s grab!"), \
-						span_userdanger("You block [user]'s grab!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, span_warning("Your grab at [target] was blocked!"))
-		return FALSE
-	if(attacker_style?.grab_act(user,target) == MARTIAL_ATTACK_SUCCESS)
-		return TRUE
-	target.grabbedby(user)
-	return TRUE
 
 /mob/living/carbon/proc/check_block()
 	if(mind)

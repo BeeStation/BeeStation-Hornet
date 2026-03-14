@@ -803,6 +803,10 @@
 	set category = "Object"
 	set src = usr
 
+	INVOKE_ASYNC(src, PROC_REF(execute_mode))
+
+///proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called
+/mob/proc/execute_mode()
 	if(isnewplayer(src))
 		return
 
@@ -1030,15 +1034,63 @@
 	if(.)
 		client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
 
-/mob/proc/swap_hand()
+/mob/proc/swap_hand(held_index)
+	SHOULD_NOT_OVERRIDE(TRUE) // Override perform_hand_swap instead
+
 	var/obj/item/held_item = get_active_held_item()
-	if(SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
+	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
 		to_chat(src, span_warning("Your other hand is too busy holding [held_item]."))
 		return FALSE
+
+	var/result = perform_hand_swap(held_index)
+	if (result)
+		SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS)
+
+	return result
+
+/// Performs the actual ritual of swapping hands, such as setting the held index variables
+/mob/proc/perform_hand_swap(held_index)
+	PROTECTED_PROC(TRUE)
+	if (!HAS_TRAIT(src, TRAIT_CAN_HOLD_ITEMS))
+		return FALSE
+
+	if(!held_index)
+		held_index = (active_hand_index % held_items.len) + 1
+
+	if(!isnum(held_index))
+		CRASH("You passed [held_index] into swap_hand instead of a number. WTF man")
+
+	var/previous_index = active_hand_index
+	active_hand_index = held_index
+	if(hud_used)
+		var/atom/movable/screen/inventory/hand/held_location
+		held_location = hud_used.hand_slots["[previous_index]"]
+		if(!isnull(held_location))
+			held_location.update_appearance()
+		held_location = hud_used.hand_slots["[held_index]"]
+		if(!isnull(held_location))
+			held_location.update_appearance()
+	refresh_self_screentips()
 	return TRUE
 
-/mob/proc/activate_hand(selhand)
-	return
+/mob/proc/activate_hand(selected_hand)
+	if (!HAS_TRAIT(src, TRAIT_CAN_HOLD_ITEMS))
+		return
+
+	if(!selected_hand)
+		selected_hand = active_hand_index
+	else if(istext(selected_hand))
+		selected_hand = LOWER_TEXT(selected_hand)
+		if(selected_hand == "right" || selected_hand == "r")
+			selected_hand = 2
+		if(selected_hand == "left" || selected_hand == "l")
+			selected_hand = 1
+
+	if(selected_hand != active_hand_index)
+		swap_hand(selected_hand)
+
+	// _queue_verb requires a client, so when we don't have it (AI controlled mob) we don't use it
+	client ? mode() : execute_mode()
 
 /mob/proc/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //For sec bot threat assessment
 	return 0
@@ -1195,12 +1247,23 @@
 /mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
 	if(IsAdminGhost(src))
 		return TRUE
+	//Return early. we do not need to check that we are on adjacent turfs (i.e we are inside a closet)
+	if (treat_mob_as_adjacent && src == A.loc)
+		return TRUE
+	if (Adjacent(A))
+		return TRUE
 	var/datum/dna/mob_dna = has_dna()
 	if(mob_dna?.check_mutation(/datum/mutation/telekinesis) && tkMaxRangeCheck(src, A))
 		return TRUE
-	if(treat_mob_as_adjacent && src == A.loc)
-		return TRUE
-	return Adjacent(A)
+
+	//range check
+	if(!interaction_range) // If you don't have extra length, GO AWAY
+		return FALSE
+	var/turf/our_turf = get_turf(src)
+	var/turf/their_turf = get_turf(A)
+	if (!our_turf || !their_turf)
+		return FALSE
+	return ISINRANGE(their_turf.x, our_turf.x - interaction_range, our_turf.x + interaction_range) && ISINRANGE(their_turf.y, our_turf.y - interaction_range, our_turf.y + interaction_range)
 
 ///Can the mob use Topic to interact with machines
 /mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
@@ -1427,18 +1490,16 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 /mob/proc/has_nightvision()
 	return see_in_dark >= NIGHTVISION_FOV_RANGE
 
-///Can this mob read (is literate and not blind)
-/mob/proc/can_read(obj/O)
-	if(is_blind())
-		to_chat(src, span_warning("You are blind and can't read anything!"))
-		return FALSE
-		//to_chat(src, span_warning("As you are trying to read [O], you suddenly feel very stupid!"))
-	if(!is_literate())
-		to_chat(src, span_warning("You try to read [O], but can't comprehend any of it."))
+/// Can this mob read
+/mob/proc/can_read(atom/viewed_atom, reading_check_flags = (READING_CHECK_LITERACY|READING_CHECK_LIGHT), silent = FALSE)
+	if((reading_check_flags & READING_CHECK_LITERACY) && !is_literate())
+		if(!silent)
+			to_chat(src, span_warning("You try to read [viewed_atom], but can't comprehend any of it."))
 		return FALSE
 
-	if(!has_light_nearby() && !has_nightvision())
-		to_chat(src, span_warning("It's too dark in here to read!"))
+	if((reading_check_flags & READING_CHECK_LIGHT) && !has_light_nearby() && !has_nightvision())
+		if(!silent)
+			to_chat(src, span_warning("It's too dark in here to read!"))
 		return FALSE
 
 	return TRUE

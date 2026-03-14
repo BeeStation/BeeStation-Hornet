@@ -185,9 +185,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	playsound(src, knocksound, 50, 1)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/obj/structure/window/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
+/obj/structure/window/attack_hulk(mob/living/carbon/human/user)
 	if(!can_be_reached(user))
-		return 1
+		return
 	. = ..()
 
 /obj/structure/window/attack_hand(mob/living/user, list/modifiers)

@@ -164,7 +164,7 @@ There are several things that need to be remembered:
 		var/icon_file = 'icons/mob/clothing/under/default.dmi'
 		if(!uniform_overlay)
 			//Currently doesn't work with GAGS
-			//if((dna?.species.bodytype & BODYTYPE_DIGITIGRADE) && (uniform.supports_variations & CLOTHING_DIGITIGRADE_VARIATION))
+			//if((dna?.species.bodyshape & BODYSHAPE_DIGITIGRADE) && (uniform.supports_variations & CLOTHING_DIGITIGRADE_VARIATION))
 			//	icon_file = 'icons/mob/human/species/misc/digitigrade.dmi'
 			uniform_overlay = uniform.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE, override_state = target_overlay)
 
@@ -484,7 +484,7 @@ There are several things that need to be remembered:
 
 		var/icon_file = DEFAULT_SUIT_FILE
 
-		if(bodytype & BODYTYPE_DIGITIGRADE)
+		if(bodyshape & BODYSHAPE_DIGITIGRADE)
 			if(wear_suit.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION)
 				icon_file = DIGITIGRADE_SUIT_FILE
 

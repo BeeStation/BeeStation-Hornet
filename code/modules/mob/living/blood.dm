@@ -260,14 +260,6 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (bleed.bleed_rate <= 0)
 		stop_holding_wounds()
 
-/mob/living/carbon/monkey/handle_blood()
-	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
-		//Blood regeneration if there is some space
-		if(blood_volume < BLOOD_VOLUME_NORMAL)
-			blood_volume += 0.1 // regenerate blood VERY slowly
-			if(blood_volume < BLOOD_VOLUME_OKAY)
-				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
-
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood(delta_time, times_fired)
 	if(mind && IS_VAMPIRE(src)) // vampires should not be affected by blood
@@ -462,10 +454,6 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /mob/living/simple_animal/get_blood_id()
 	if(blood_volume)
-		return /datum/reagent/blood
-
-/mob/living/carbon/monkey/get_blood_id()
-	if(!(HAS_TRAIT(src, TRAIT_HUSK)))
 		return /datum/reagent/blood
 
 /mob/living/carbon/human/get_blood_id()

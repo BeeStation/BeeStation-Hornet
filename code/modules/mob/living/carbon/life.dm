@@ -23,13 +23,7 @@
 			handle_blood(delta_time, times_fired)
 
 		if(stat != DEAD) //Handle brain damage
-			for(var/T in get_traumas())
-				var/datum/brain_trauma/BT = T
-				BT.on_life(delta_time, times_fired)
-
-		if(stat != DEAD && has_dna())
-			for(var/datum/mutation/HM as() in dna.mutations)
-				HM.on_life(delta_time, times_fired)
+			handle_brain_damage(delta_time, times_fired)
 
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
@@ -76,8 +70,10 @@
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe(delta_time, times_fired)
 	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
-	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
+	if(SEND_SIGNAL(src, COMSIG_CARBON_ATTEMPT_BREATHE) & COMSIG_CARBON_BLOCK_BREATH)
 		return
+
+	SEND_SIGNAL(src, COMSIG_CARBON_PRE_BREATHE)
 
 	var/datum/gas_mixture/environment
 	if(loc)
@@ -86,7 +82,7 @@
 	var/datum/gas_mixture/breath
 
 	if(!get_organ_slot(ORGAN_SLOT_BREATHING_TUBE))
-		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || !lungs || lungs.organ_flags & ORGAN_FAILING)
+		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby?.grab_state >= GRAB_KILL) || (lungs?.organ_flags & ORGAN_FAILING))
 			losebreath++  //You can't breath at all when in critical or when being choked, so you're going to miss a breath
 
 		else if(health <= crit_threshold)
@@ -509,7 +505,7 @@
 
 ///Decides if the liver is failing or not.
 /mob/living/carbon/proc/handle_liver(delta_time, times_fired)
-	if(!dna)
+	if(isnull(has_dna()))
 		return
 	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
 	if(!liver)
@@ -528,6 +524,15 @@
 	adjustToxLoss(2 * delta_time, TRUE,  TRUE)
 	if(DT_PROB(15, delta_time))
 		to_chat(src, span_warning("You feel a stabbing pain in your abdomen!"))
+
+////////////////
+//BRAIN DAMAGE//
+////////////////
+
+/mob/living/carbon/proc/handle_brain_damage(delta_time, times_fired)
+	for(var/T in get_traumas())
+		var/datum/brain_trauma/BT = T
+		BT.on_life(delta_time, times_fired)
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//

@@ -21,7 +21,6 @@
 	maxHealth = INFINITY
 	do_not_show_health_on_stat_panel = TRUE // showing their health info is confusing
 	plane = GHOST_PLANE
-	healable = FALSE
 	sight = SEE_SELF
 	throwforce = 0
 	see_in_dark = NIGHTVISION_FOV_RANGE

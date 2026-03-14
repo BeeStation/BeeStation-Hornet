@@ -236,7 +236,7 @@
 		H.update_worn_undersuit()
 		H.update_worn_oversuit()
 	if(ismonkey(loc))
-		var/mob/living/carbon/monkey/H = loc
+		var/mob/living/carbon/human/species/monkey/H = loc
 		H.update_worn_undersuit()
 
 /obj/item/clothing/under/proc/remove_accessory(mob/user)

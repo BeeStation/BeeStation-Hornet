@@ -154,19 +154,25 @@
 	name = "Monkified"
 	desc = "A strange genome, believed to be what differentiates monkeys from humans."
 	quality = NEGATIVE
-	mobtypes_allowed = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	remove_on_aheal = FALSE
 	locked = TRUE //Species specific, keep out of actual gene pool
 	var/datum/species/original_species = /datum/species/human
+	var/original_name
 
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
-	original_species = owner.dna.species.type
-	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
+	if(!ismonkey(owner))
+		original_species = owner.dna.species.type
+		original_name = owner.real_name
+		owner.fully_replace_character_name(null, "monkey ([rand(1,999)])")
+	. = owner.monkeyize()
 
-/datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
-	if(istype(owner) && owner.stat != DEAD && !..())
-		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
+/datum/mutation/race/on_losing(mob/living/carbon/human/owner)
+	if(owner && owner.stat != DEAD && (owner.dna.mutations.Remove(src)) && ismonkey(owner))
+		owner.fully_replace_character_name(null, original_name)
+		. = owner.humanize(original_species)
 
 /datum/mutation/glow
 	name = "Glowy"

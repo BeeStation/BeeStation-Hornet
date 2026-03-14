@@ -49,16 +49,15 @@
 	if(!L.combat_mode)
 		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
 
-/mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		..(user, 1)
-		adjustBruteLoss(rand(10, 15))
-		playsound(loc, "punch", 25, 1, -1)
-		visible_message(span_danger("[user] punches [src]!"), \
-				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, span_danger("You punch [src]!"))
-		return 1
-	return 0
+/mob/living/silicon/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
+	if(!.)
+		return
+	adjustBruteLoss(rand(10, 15))
+	playsound(loc, "punch", 25, 1, -1)
+	visible_message(span_danger("[user] punches [src]!"), \
+			span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("You punch [src]!"))
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/silicon/attack_hand(mob/living/carbon/human/user, modifiers)

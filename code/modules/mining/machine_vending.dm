@@ -191,6 +191,22 @@
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
 
+/obj/machinery/gear_requisition/AltClick(mob/user)
+	if(!user.canUseTopic(src, issilicon(user)))
+		return
+	if(!inserted_id)
+		to_chat(user, span_warning("There's no ID card in the console!"))
+	if(inserted_id)
+		inserted_id.forceMove(drop_location())
+		if(!issilicon(user) && Adjacent(user))
+			user.put_in_hands(inserted_id)
+			inserted_id = null
+			user.visible_message(
+				span_notice("[user] gets an ID card from the console."),
+				span_notice("You get the ID card from the console.")
+			)
+			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+
 /obj/machinery/gear_requisition/mining
 	name = "mining equipment vendor"
 	desc = "An equipment vendor for miners, points collected at an ore redemption machine can be spent here."

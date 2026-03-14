@@ -19,7 +19,7 @@
 	minbodytemp = 0
 	maxHealth = 150
 	health = 150
-	healable = 0
+	mob_biotypes = MOB_BEAST
 	obj_damage = 50
 	melee_damage = 20
 	melee_damage_type = BURN //Did you know morphs are highly acidic blobs?

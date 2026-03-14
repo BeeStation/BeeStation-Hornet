@@ -582,79 +582,80 @@
 	return
 
 /obj/machinery/can_interact(mob/user)
-	var/silicon = issilicon(user)
-	var/admin_ghost = IsAdminGhost(user)
-
 	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
 
 	if(SEND_SIGNAL(user, COMSIG_TRY_USE_MACHINE, src) & COMPONENT_CANT_USE_MACHINE_INTERACT)
 		return FALSE
 
-	if(panel_open && !(interaction_flags_machine & INTERACT_MACHINE_OPEN)) // Check if we can interact with an open panel machine, if the panel is open
-		if(!silicon || !(interaction_flags_machine & INTERACT_MACHINE_OPEN_SILICON))
+
+	if(IsAdminGhost(user))
+		return TRUE //the Gods have unlimited power and do not care for things such as range or blindness
+
+	if(!isliving(user))
+		return FALSE //no ghosts allowed, sorry
+
+	if(!issilicon(user) && !user.can_hold_items())
+		return FALSE //spiders gtfo
+
+	if(issilicon(user)) // If we are a silicon, make sure the machine allows silicons to interact with it
+		if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON))
 			return FALSE
 
-	if(silicon || admin_ghost) // If we are an AI or adminghsot, make sure the machine allows silicons to interact
-		if(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON)
-			return TRUE
-
-	var/is_dextrous = FALSE
-	if(isanimal(user))
-		var/mob/living/simple_animal/user_as_animal = user
-		if (user_as_animal.dextrous)
-			is_dextrous = TRUE
-
-	if(is_dextrous || user.can_hold_items()) // If we are a living mob with hand slots or a dextrous simple animal.
-		var/mob/living/L = user
-
-		if(interaction_flags_machine & INTERACT_MACHINE_REQUIRES_SILICON) // First make sure the machine doesn't require silicon interaction
+		if(panel_open && !(interaction_flags_machine & INTERACT_MACHINE_OPEN) && !(interaction_flags_machine & INTERACT_MACHINE_OPEN_SILICON))
 			return FALSE
 
-		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
-			var/mob/living/carbon/C = L
-			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(/datum/mutation/telekinesis)))
-				return FALSE
+		return user.can_interact_with(src) //AIs don't care about petty mortal concerns like needing to be next to a machine to use it, but borgs do care somewhat
 
-		if(L.incapacitated) // Finally make sure we aren't incapacitated
-			return FALSE
-
-	else // If we aren't a silicon, living, or admin ghost, bad!
+	. = ..()
+	if(!.)
 		return FALSE
 
-	return TRUE // If we pass all these checks, woohoo! We can interact
+	if((interaction_flags_machine & INTERACT_MACHINE_REQUIRES_SIGHT) && user.is_blind())
+		to_chat(user, span_warning("This machine requires sight to use."))
+		return FALSE
+
+	// machines have their own lit up display screens and LED buttons so we don't need to check for light
+	if((interaction_flags_machine & INTERACT_MACHINE_REQUIRES_LITERACY) && !user.can_read(src, READING_CHECK_LITERACY))
+		return FALSE
+
+	if(panel_open && !(interaction_flags_machine & INTERACT_MACHINE_OPEN))
+		return FALSE
+
+	if(interaction_flags_machine & INTERACT_MACHINE_REQUIRES_SILICON) //if the user was a silicon, we'd have returned out earlier, so the user must not be a silicon
+		return FALSE
+
+	return TRUE // If we passed all of those checks, woohoo! We can interact with this machine.
 
 /obj/machinery/proc/check_nap_violations()
 	if(!SSeconomy.full_ancap)
 		return TRUE
-	if(occupant && !state_open)
-		if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
-			var/obj/item/card/id/I = H.get_idcard(TRUE)
-			if(I)
-				var/datum/bank_account/insurance = I.registered_account
-				if(!insurance)
-					say("[market_verb] NAP Violation: No bank account found.")
-					nap_violation(H)
-					return FALSE
-				else
-					if(!insurance.adjust_money(-fair_market_price))
-						say("[market_verb] NAP Violation: Unable to pay.")
-						nap_violation(H)
-						return FALSE
+	if(!occupant || state_open)
+		return TRUE
+	var/mob/living/carbon/occupant_mob = occupant
+	var/obj/item/card/id/occupant_id = occupant_mob.get_idcard(TRUE)
+	if(!occupant_id)
+		say("[market_verb] NAP Violation: No ID card found.")
+		nap_violation(occupant_mob)
+		return FALSE
+	var/datum/bank_account/insurance = occupant_id.registered_account
+	if(!insurance)
+		say("[market_verb] NAP Violation: No bank account found.")
+		nap_violation(occupant_mob)
+		return FALSE
+	else
+		if(!insurance.adjust_money(-fair_market_price))
+			say("[market_verb] NAP Violation: Unable to pay.")
+			nap_violation(occupant_mob)
+			return FALSE
 
-					// each department (seller_department) will earn the profit
-					if(fair_market_price && seller_department)
-						var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
-						if(length(dept_list))
-							fair_market_price = round(fair_market_price/length(dept_list))
-							for(var/datum/bank_account/department/D in dept_list)
-								D.adjust_money(fair_market_price)
-			else
-				say("[market_verb] NAP Violation: No ID card found.")
-				nap_violation(H)
-				return FALSE
-	return TRUE
+		// each department (seller_department) will earn the profit
+		if(fair_market_price && seller_department)
+			var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+			if(length(dept_list))
+				fair_market_price = round(fair_market_price/length(dept_list))
+				for(var/datum/bank_account/department/D in dept_list)
+					D.adjust_money(fair_market_price)
 
 /obj/machinery/proc/nap_violation(mob/violator)
 	return
@@ -687,14 +688,28 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-/obj/machinery/attack_paw(mob/living/user)
+/obj/machinery/attack_paw(mob/living/user, list/modifiers)
 	if(!user.combat_mode)
 		return attack_hand(user)
-	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		var/damage = take_damage(4, BRUTE, MELEE, 1)
-		user.visible_message(span_danger("[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]"), null, null, COMBAT_MESSAGE_RANGE)
+
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+	var/damage = take_damage(damage_amount = 4, damage_type = BRUTE, damage_flag = MELEE, sound_effect = TRUE, attack_dir = get_dir(user, src))
+
+	var/hit_with_what_noun = "paws"
+	var/obj/item/bodypart/arm/arm = user.get_active_hand()
+	if(!isnull(arm))
+		hit_with_what_noun = arm.appendage_noun // hit with "their hand"
+		if(user.usable_hands > 1)
+			hit_with_what_noun += plural_s(hit_with_what_noun) // hit with "their hands"
+
+	user.visible_message(
+		span_danger("[user] smashes [src] with [user.p_their()] [hit_with_what_noun][damage ? "." : ", without leaving a mark!"]"),
+		span_danger("You smash [src] with your [hit_with_what_noun][damage ? "." : ", without leaving a mark!"]"),
+		span_hear("You hear a [damage ? "smash" : "thud"]."),
+		COMBAT_MESSAGE_RANGE,
+	)
+	return TRUE
 
 /obj/machinery/attack_robot(mob/user)
 	if(isAI(user))
@@ -759,18 +774,20 @@
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
 
-/obj/machinery/proc/default_pry_open(obj/item/tool)
-	. = !(state_open || panel_open || is_operational || (flags_1 & NODECONSTRUCT_1)) && tool.tool_behaviour == TOOL_CROWBAR
-	if(.)
-		tool.play_tool_sound(src, 50)
-		visible_message(span_notice("[usr] pries open \the [src]."), span_notice("You pry open \the [src]."))
-		open_machine()
+/obj/machinery/proc/default_pry_open(obj/item/I)
+	. = !(state_open || panel_open || is_operational || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
+	if(!.)
+		return
+	I.play_tool_sound(src, 50)
+	visible_message(span_notice("[usr] pries open \the [src]."), span_notice("You pry open \the [src]."))
+	open_machine()
 
-/obj/machinery/proc/default_deconstruction_crowbar(obj/item/tool, ignore_panel = FALSE)
-	. = (panel_open || ignore_panel) && !(flags_1 & NODECONSTRUCT_1) && tool.tool_behaviour == TOOL_CROWBAR
-	if(.)
-		tool.play_tool_sound(src, 50)
-		deconstruct(TRUE)
+/obj/machinery/proc/default_deconstruction_crowbar(obj/item/I, ignore_panel = 0)
+	. = (panel_open || ignore_panel) && !(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_CROWBAR
+	if(!.)
+		return
+	I.play_tool_sound(src, 50)
+	deconstruct(TRUE)
 
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(flags_1 & NODECONSTRUCT_1)
@@ -782,7 +799,8 @@
 	spawn_frame(disassembled)
 
 	for(var/obj/item/I in component_parts)
-		I.forceMove(loc)
+		I.forceMove(loc
+		)
 	LAZYCLEARLIST(component_parts)
 	return ..()
 

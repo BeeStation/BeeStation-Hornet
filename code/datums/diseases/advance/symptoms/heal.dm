@@ -640,7 +640,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = /datum/blood_type/universal
+		H.dna.blood_type = get_blood_type("U")
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())

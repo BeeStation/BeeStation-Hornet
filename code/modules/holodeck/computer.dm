@@ -278,6 +278,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(
 				RegisterSignal(holo_effect_product, COMSIG_PREQDELETED, PROC_REF(remove_from_holo_lists))
 			if(islist(holo_effect_product))
 				for(var/atom/atom_product as anything in holo_effect_product)
+					spawned += atom_product
 					RegisterSignal(atom_product, COMSIG_PREQDELETED, PROC_REF(remove_from_holo_lists))
 			continue
 
@@ -312,6 +313,8 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(
 	UnregisterSignal(holo_atom, COMSIG_PREQDELETED)
 	var/turf/target_turf = get_turf(holo_atom)
 	for(var/atom/movable/atom_contents as anything in holo_atom) //make sure that things inside of a holoitem are moved outside before destroying it
+		if(atom_contents.flags_1 & HOLOGRAM_1) //hologram in hologram is fine
+			continue
 		atom_contents.forceMove(target_turf)
 
 	if(!silent)

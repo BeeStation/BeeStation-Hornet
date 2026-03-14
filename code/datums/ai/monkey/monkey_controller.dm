@@ -27,9 +27,6 @@ have ways of interacting with a specific mob and control it.
 		BB_MONKEY_GUN_WORKED = TRUE,
 		BB_SONG_LINES = MONKEY_SONG,
 	)
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
 	idle_behavior = /datum/idle_behavior/idle_monkey
 
 /datum/ai_controller/monkey/angry
@@ -39,6 +36,7 @@ have ways of interacting with a specific mob and control it.
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return
 	set_blackboard_key(BB_MONKEY_AGGRESSIVE, TRUE) //Angry cunt
+	set_trip_mode(mode = FALSE)
 
 /datum/ai_controller/monkey/TryPossessPawn(atom/new_pawn)
 	if(!isliving(new_pawn))
@@ -53,7 +51,6 @@ have ways of interacting with a specific mob and control it.
 	RegisterSignal(new_pawn, COMSIG_MOB_MOVESPEED_UPDATED, PROC_REF(update_movespeed))
 
 	movement_delay = living_pawn.cached_multiplicative_slowdown
-	AddComponent(/datum/component/connect_loc_behalf, new_pawn, loc_connections)
 	return ..() //Run parent at end
 
 /datum/ai_controller/monkey/UnpossessPawn(destroy)
@@ -68,24 +65,17 @@ have ways of interacting with a specific mob and control it.
 			COMSIG_MOB_MOVESPEED_UPDATED,
 		))
 
-	qdel(GetComponent(/datum/component/connect_loc_behalf))
 	return ..() //Run parent at end
-
-// Stops sentient monkeys from being knocked over like weak dunces.
-/datum/ai_controller/monkey/on_sentience_gained()
-	. = ..()
-	qdel(GetComponent(/datum/component/connect_loc_behalf))
 
 /datum/ai_controller/monkey/on_sentience_lost()
 	. = ..()
-	AddComponent(/datum/component/connect_loc_behalf, pawn, loc_connections)
+	set_trip_mode(mode = TRUE)
 
 /datum/ai_controller/monkey/on_stat_changed(mob/living/source, new_stat)
 	. = ..()
 	update_able_to_run()
 
 /datum/ai_controller/monkey/setup_able_to_run()
-	. = ..()
 	RegisterSignal(pawn, COMSIG_MOB_INCAPACITATE_CHANGED, PROC_REF(update_able_to_run))
 
 /datum/ai_controller/monkey/clear_able_to_run()
@@ -98,6 +88,13 @@ have ways of interacting with a specific mob and control it.
 	if(INCAPACITATED_IGNORING(living_pawn, INCAPABLE_RESTRAINTS|INCAPABLE_STASIS|INCAPABLE_GRAB) || living_pawn.stat > CONSCIOUS)
 		return AI_UNABLE_TO_RUN
 	return ..()
+
+/datum/ai_controller/monkey/proc/set_trip_mode(mode = TRUE)
+	var/mob/living/carbon/regressed_monkey = pawn
+	var/brain = regressed_monkey.get_organ_slot(ORGAN_SLOT_BRAIN)
+	if(istype(brain, /obj/item/organ/brain/primate)) // In case we are a monkey AI in a human brain by who was previously controlled by a client but it now not by some marvel
+		var/obj/item/organ/brain/primate/monkeybrain = brain
+		monkeybrain.tripping = mode
 
 ///re-used behavior pattern by monkeys for finding a weapon
 /datum/ai_controller/monkey/proc/TryFindWeapon()
@@ -169,14 +166,6 @@ have ways of interacting with a specific mob and control it.
 		if(I.throwforce && I.throwforce < living_pawn.health && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
-
-/datum/ai_controller/monkey/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER
-	var/mob/living/living_pawn = pawn
-	if(!IS_DEAD_OR_INCAP(living_pawn) && isliving(arrived))
-		var/mob/living/in_the_way_mob = arrived
-		in_the_way_mob.knockOver(living_pawn)
-		return
 
 /datum/ai_controller/monkey/proc/on_startpulling(datum/source, atom/movable/puller, state, force)
 	SIGNAL_HANDLER

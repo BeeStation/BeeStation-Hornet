@@ -312,7 +312,8 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 
 /obj/machinery/firealarm/attack_hand(mob/user, list/modifiers)
 	if(buildstage != 2)
-		return ..()
+		return
+	. = ..()
 	add_fingerprint(user)
 	play_click_sound("button")
 	var/area/A = get_area(src)

@@ -80,7 +80,7 @@
 	var/turf/spawn_loc = get_turf(owner)
 	if(!spawn_loc)
 		spawn_loc = get_turf(src)
-	var/mob/living/carbon/monkey/spawned_monkey = new(spawn_loc)
+	var/mob/living/carbon/human/species/monkey/spawned_monkey = new(spawn_loc)
 
 	for(var/obj/item/organ/insertable in src)
 		insertable.Insert(spawned_monkey, 1)
@@ -93,8 +93,8 @@
 		if(changeling_datum.can_absorb_dna(owner))
 			changeling_datum.add_new_profile(owner)
 
-		var/datum/action/changeling/humanform/hf = new()
-		changeling_datum.purchased_powers[hf.type] = hf
+		var/datum/action/changeling/lesserform/transform = new()
+		changeling_datum.purchased_powers[transform.type] = transform
 		changeling_datum.regain_powers()
 		spawned_monkey.key = origin.key
 	owner.investigate_log("has been gibbed by a changeling egg burst.", INVESTIGATE_DEATHS)

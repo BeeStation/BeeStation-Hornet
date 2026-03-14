@@ -165,13 +165,13 @@
 
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user)
 	if(!I || !user)
-		return 0
+		return FALSE
 
 	var/obj/item/bodypart/affecting
 	if(user == src)
 		affecting = get_bodypart(check_zone(user.get_combat_bodyzone(src))) //stabbing yourself always hits the right target
 	else
-		affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
+		affecting = get_bodypart(get_random_valid_zone(user.get_combat_bodyzone(src)))
 	var/target_area = parse_zone(check_zone(user.get_combat_bodyzone(src))) //our intended target
 
 	if(affecting)
@@ -189,39 +189,37 @@
 
 
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		var/hulk_verb = pick("smash","pummel")
-		if(check_shields(user, 15, "the [hulk_verb]ing"))
-			return
-		..(user, 1)
-		playsound(loc, user.dna.species.attack_sound, 25, TRUE, -1)
-		visible_message(span_danger("[user] [hulk_verb]ed [src]!"), \
-					span_userdanger("[user] [hulk_verb]ed [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
-		to_chat(user, span_danger("You [hulk_verb] [src]!"))
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-		apply_damage(20, BRUTE, affecting, armor_block)
-		return 1
+	. = ..()
+	if(!.)
+		return
+	var/hulk_verb = pick("smash","pummel")
+	if(check_shields(user, 15, "the [hulk_verb]ing", attack_type = UNARMED_ATTACK))
+		return
+	if(check_block()) //everybody is kung fu fighting
+		return
+	playsound(loc, user.dna.species.attack_sound, 25, TRUE, -1)
+	visible_message(
+		span_danger("[user] [hulk_verb]ed [src]!"),
+		span_userdanger("[user] [hulk_verb]ed [src]!"),
+		span_hear("You hear a sickening sound of flesh hitting flesh!"),
+	null,
+	user
+	)
+	to_chat(user, span_danger("You [hulk_verb] [src]!"))
+	var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(user.get_combat_bodyzone(src)))
+	var/armor_block = run_armor_check(affecting, MELEE,"","",10)
+	apply_damage(20, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/attack_hand(mob/user, modifiers)
-	if(..())	//to allow surgery to return properly.
+/mob/living/carbon/human/attack_hand(mob/user, list/modifiers)
+	if(..()) //to allow surgery to return properly.
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.dna.species.spec_attack_hand(H, src, null, modifiers)
 
-/mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/user, list/modifiers)
-	if(check_shields(user, 0, "the [user.name]", UNARMED_ATTACK))
-		visible_message(span_danger("[user] attempts to touch [src]!"), \
-						span_danger("[user] attempts to touch you!"), span_hear("You hear a swoosh!"), null, user)
-		to_chat(user, span_warning("You attempt to touch [src]!"))
-		return 0
+/mob/living/carbon/human/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/obj/item/bodypart/affecting = get_bodypart(user.get_random_valid_zone(dam_zone))
 
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
@@ -240,9 +238,12 @@
 
 	if(try_inject(user, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
 		if(..()) //successful monkey bite, this handles disease contraction.
-			var/damage = rand(1, 3)
-			if(stat != DEAD)
-				apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
+			var/damage = melee_damage
+			if(!damage)
+				return FALSE
+			if(check_shields(user, damage, "the [user.name]"))
+				return FALSE
+			apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
 		return TRUE
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/user, list/modifiers)
@@ -265,9 +266,7 @@
 		else
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			log_combat(user, src, "tackled")
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-			if(!affecting)
-				affecting = get_bodypart(BODY_ZONE_CHEST)
+			var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(user.get_combat_bodyzone(src)))
 			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
 			apply_damage(45, STAMINA, affecting, armor_block)
 			visible_message(span_danger("[user] tackles [src] down!"), \
@@ -278,9 +277,19 @@
 	if(user.combat_mode)
 		if (w_uniform)
 			w_uniform.add_fingerprint(user)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
+		var/damage = melee_damage
+		if(!damage)
+			playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
+			visible_message(
+				span_danger("[user] lunges at [src]!"), \
+				span_userdanger("[user] lunges at you!"),
+				span_hear("You hear a swoosh!"),
+				null,
+				user
+			)
+			to_chat(user, span_danger("You lunge at [src]!"))
+			return FALSE
+		var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(user.get_combat_bodyzone(src)))
 		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
 
 		playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
@@ -290,21 +299,21 @@
 		log_combat(user, src, "attacked", user)
 		if(!dismembering_strike(user, user.get_combat_bodyzone(src))) //Dismemberment successful
 			return TRUE
-		apply_damage(20, BRUTE, affecting, armor_block)
+		apply_damage(melee_damage, BRUTE, affecting, armor_block)
 
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	. = ..()
 	if(!.)
 		return //successful larva bite.
-	var/damage = rand(1, 3)
+	var/damage = melee_damage
+	if(!damage)
+		return
 	if(check_shields(L, damage, "the [L.name]"))
 		return FALSE
 	if(stat != DEAD)
 		L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
+		var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(L.get_combat_bodyzone(src)))
 		var/armor_block = run_armor_check(affecting, MELEE)
 		apply_damage(damage, BRUTE, affecting, armor_block)
 
@@ -312,9 +321,9 @@
 	. = ..()
 	if(!.)
 		return //successful slime attack
-	var/damage = 20
+	var/damage = melee_damage
 	if(M.is_adult)
-		damage = 30
+		damage = melee_damage
 
 	if(M.transformeffects & SLIME_EFFECT_RED)
 		damage *= 1.1
@@ -326,9 +335,7 @@
 	if(!dam_zone) //Dismemberment successful
 		return TRUE
 
-	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-	if(!affecting)
-		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(dam_zone))
 	var/armor_block = run_armor_check(affecting, MELEE)
 	apply_damage(damage, BRUTE, affecting, armor_block)
 
@@ -411,7 +418,7 @@
 		return
 	show_message(span_userdanger("The blob attacks you!"))
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
+	var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(dam_zone))
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 
@@ -621,27 +628,16 @@
 			. = rand(-1000, 1000)
 	..()
 
-/mob/living/carbon/human/help_shake_act(mob/living/carbon/M)
-	if(!istype(M))
+/mob/living/carbon/human/help_shake_act(mob/living/carbon/helper)
+	if(!istype(helper))
 		return
 
-	if(src == M)
-		if(has_status_effect(/datum/status_effect/strandling))
-			to_chat(src, span_notice("You attempt to remove the durathread strand from around your neck."))
-			if(do_after(src, 35, src, timed_action_flags = IGNORE_HELD_ITEM))
-				to_chat(src, span_notice("You succesfuly remove the durathread strand."))
-				remove_status_effect(/datum/status_effect/strandling)
-			return
-		check_self_for_injuries()
+	if(wear_suit)
+		wear_suit.add_fingerprint(helper)
+	else if(w_uniform)
+		w_uniform.add_fingerprint(helper)
 
-
-	else
-		if(wear_suit)
-			wear_suit.add_fingerprint(M)
-		else if(w_uniform)
-			w_uniform.add_fingerprint(M)
-
-		..()
+	return ..()
 
 /mob/living/carbon/human/check_self_for_injuries()
 	if(stat >= UNCONSCIOUS)

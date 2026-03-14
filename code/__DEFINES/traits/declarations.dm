@@ -46,6 +46,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HUSK "husk"
 #define TRAIT_BADDNA "baddna"
 #define TRAIT_CLUMSY "clumsy"
+/// Trait that means you are capable of holding items in some form
+#define TRAIT_CAN_HOLD_ITEMS "can_hold_items"
+/// Trait which lets you clamber over a barrier
+#define TRAIT_FENCE_CLIMBER "can_climb_fences"
 //means that you can't use weapons with normal trigger guards.
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"
 #define TRAIT_FINGERPRINT_PASSTHROUGH "fingerprint_passthrough"
@@ -57,6 +61,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PACIFISM "pacifism"
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
+/// Makes it so the mob can use guns regardless of tool user status
+#define TRAIT_GUN_NATURAL "gunnatural"
 /// Causes death-like unconsciousness
 #define TRAIT_DEATHCOMA "deathcoma"
 #define TRAIT_FAKEDEATH "fakedeath" //Makes the owner appear as dead to most forms of medical examination
@@ -99,11 +105,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SECURITY "security_member"
 /// Prevents plasmamen from self-igniting
 #define TRAIT_NOSELFIGNITION "no_selfignition"
-#define TRAIT_NOGUNS			"no_guns"
+#define TRAIT_NOGUNS "no_guns"
+/// Humans with this trait won't get bloody hands, nor bloody feet
+#define TRAIT_NO_BLOOD_OVERLAY "no_blood_overlay"
+/// Humans with this trait cannot have underwear
+#define TRAIT_NO_UNDERWEAR "no_underwear"
+/// Humans with this trait cannot get augmentation surgery
+#define TRAIT_NO_AUGMENTS "no_augments"
 ///This carbon doesn't get hungry
 #define TRAIT_NOHUNGER "no_hunger"
 ///This carbon doesn't bleed
 #define TRAIT_NOBLOOD "noblood"
+/// Humans with this trait cannot be turned into zombies
+#define TRAIT_NO_ZOMBIFY "no_zombify"
 /// Carbons with this trait can't have their DNA copied by diseases nor changelings
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
 // This race can't become a vampire, changeling antagonist or be copied by a changeling.
@@ -177,7 +191,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SURGEON           "surgeon" //Grants access to all surgeries
 #define TRAIT_ABDUCTOR_SURGEON  "abductor-surgery-training" //Grants access to all surgeries except for certain blacklisted ones
 #define	TRAIT_STRONG_GRABBER	"strong_grabber"
-#define	TRAIT_MAGIC_CHOKE		"magic_choke"
 #define TRAIT_SOOTHED_THROAT    "soothed-throat"
 #define TRAIT_LAW_ENFORCEMENT_METABOLISM "law-enforcement-metabolism"
 #define TRAIT_MEDICAL_METABOLISM "medical-metabolism"
@@ -243,6 +256,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Mob has gotten an armor buff from adamantine extract
 #define TRAIT_ADAMANTINE_EXTRACT_ARMOR "adamantine_extract_armor"
 
+/// Revenants draining you only get a very small benefit.
+#define TRAIT_WEAK_SOUL "weak_soul"
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
 /// Whether we're sneaking, from the alien sneak ability.

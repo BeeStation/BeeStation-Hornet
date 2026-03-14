@@ -41,7 +41,7 @@
 /**
  * Sets the new name of the holoparasite.
  */
-/mob/living/simple_animal/hostile/holoparasite/proc/set_name(new_name, silent = FALSE, internal = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/proc/set_new_name(new_name, silent = FALSE, internal = FALSE)
 	. = TRUE
 	if(!istext(new_name))
 		return FALSE

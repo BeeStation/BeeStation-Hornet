@@ -114,6 +114,7 @@
 		"ethcolor" = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)],
 		"tail_lizard" = pick(GLOB.tails_list_lizard),
 		"tail_human" = "None",
+		"tail_monkey" = "None",
 		"wings" = "None",
 		"snout" = pick(GLOB.snouts_list),
 		"horns" = pick(GLOB.horns_list),

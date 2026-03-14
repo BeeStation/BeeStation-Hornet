@@ -1,18 +1,19 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
+	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_SLIME
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
 		HAIR,
 		FACEHAIR,
-		NOAUGMENTS
 	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_NO_AUGMENTS
 	)
 	hair_color = "mutcolor"
 	hair_alpha = 150

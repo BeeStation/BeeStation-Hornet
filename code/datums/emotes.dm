@@ -103,11 +103,6 @@
 
 	msg = replace_pronoun(user, msg)
 
-	if(isliving(user))
-		var/mob/living/L = user
-		for(var/obj/item/implant/I in L.implants)
-			I.trigger(key, L)
-
 	if(!msg)
 		return
 

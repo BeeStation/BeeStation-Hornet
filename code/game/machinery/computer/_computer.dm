@@ -13,6 +13,7 @@
 	max_integrity = 200
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_computer
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_SET_MACHINE|INTERACT_MACHINE_REQUIRES_LITERACY
 	clicksound = "keyboard"
 	light_system = STATIC_LIGHT
 	light_range = 1
@@ -175,6 +176,13 @@
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)
+
+/obj/machinery/computer/AltClick(mob/user)
+	. = ..()
+	if(!can_interact(user))
+		return
+	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational)
+		return
 
 /obj/machinery/computer/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
 	context.use_cache()

@@ -12,6 +12,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, SIGNAL_UPDATETRAIT(TRAIT_OVERRIDE_SKIN_COLOUR), PROC_REF(_signal_body_part_update))
+	ADD_TRAIT(src, TRAIT_CAN_HOLD_ITEMS, INNATE_TRAIT) // Carbons are assumed to be innately capable of having arms, we check their arms count instead
 
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
@@ -24,44 +25,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	remove_from_all_data_huds()
 	QDEL_NULL(dna)
 	GLOB.carbon_list -= src
-
-/mob/living/carbon/swap_hand(held_index)
-	. = ..()
-	if(!.)
-		var/obj/item/held_item = get_active_held_item()
-		to_chat(usr, span_warning("Your other hand is too busy holding [held_item]."))
-		return
-
-	if(!held_index)
-		held_index = (active_hand_index % held_items.len)+1
-
-	var/oindex = active_hand_index
-	active_hand_index = held_index
-	if(hud_used)
-		var/atom/movable/screen/inventory/hand/H
-		H = hud_used.hand_slots["[oindex]"]
-		if(H)
-			H.update_icon()
-		H = hud_used.hand_slots["[held_index]"]
-		if(H)
-			H.update_icon()
-	refresh_self_screentips()
-
-/mob/living/carbon/activate_hand(selhand) //l/r OR 1-held_items.len
-	if(!selhand)
-		selhand = (active_hand_index % held_items.len)+1
-
-	if(istext(selhand))
-		selhand = LOWER_TEXT(selhand)
-		if(selhand == "right" || selhand == "r")
-			selhand = 2
-		if(selhand == "left" || selhand == "l")
-			selhand = 1
-
-	if(selhand != active_hand_index)
-		swap_hand(selhand)
-	else
-		mode() // Activate held item
 
 /mob/living/carbon/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/surgery/operations as anything in surgeries)
@@ -226,7 +189,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/Topic(href, href_list)
 	..()
-	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
+	if(href_list["embedded_object"])
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
 			return
@@ -439,6 +402,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!has_mouth())
 		return 1
 
+	var/starting_dir = dir
 	if(!blood && (nutrition < 100))
 		if(message)
 			visible_message(
@@ -492,7 +456,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(location)
 				location.add_vomit_floor(src, toxic, purge)//toxic barf looks different
 
-		location = get_step(location, dir)
+		location = get_step(location, starting_dir)
 		if (location?.is_blocked_turf())
 			break
 	if(need_mob_update) // so we only have to call updatehealth() once as opposed to n times
@@ -992,6 +956,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands + 1)
 
 	synchronize_bodytypes()
+	synchronize_bodyshapes()
 
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
@@ -1010,6 +975,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands - 1)
 
 	synchronize_bodytypes()
+	synchronize_bodyshapes()
 
 /mob/living/carbon/proc/create_internal_organs()
 	for(var/X in internal_organs)

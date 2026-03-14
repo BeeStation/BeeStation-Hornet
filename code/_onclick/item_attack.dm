@@ -59,7 +59,9 @@
 		if (after_attack_secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || after_attack_secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
 			return TRUE
 
-	return afterattack(target, user, TRUE, params)
+	var/afterattack_result = afterattack(target, user, TRUE, params)
+
+	return afterattack_result & TRUE //this is really stupid but its needed because afterattack can return TRUE | FLAGS.
 
 
 /// Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.

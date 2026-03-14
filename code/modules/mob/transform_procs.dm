@@ -1,475 +1,78 @@
 #define TRANSFORMATION_DURATION 22
 
-/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE, keep_original_species = FALSE)
+/mob/living/carbon/proc/monkeyize(instant = FALSE)
 	if (notransform || transformation_timer)
 		return
 
-	var/list/missing_bodyparts_zones = get_missing_limbs()
-	var/list/int_organs = list()
-	var/obj/item/cavity_object
-
-	var/obj/item/bodypart/chest/CH = get_bodypart(BODY_ZONE_CHEST)
-	if(CH.cavity_item)
-		cavity_object = CH.cavity_item
-		CH.cavity_item = null
-
-	if(tr_flags & TR_KEEPITEMS)
-		unequip_everything()
-
-	//Make mob invisible and spawn animation
-	notransform = TRUE
-	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
-	icon = null
-	cut_overlays()
-	invisibility = INVISIBILITY_MAXIMUM
-
-	if(!skip_animation)
-		new /obj/effect/temp_visual/monkeyify(loc)
-
-		transformation_timer = TRUE
-		sleep(TRANSFORMATION_DURATION)
-		transformation_timer = FALSE
-
-	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
-
-	// Make it be able to be turned back into a human with mutadone
-	O.natural = FALSE
-	O.check_if_natural()
-	// hash the original name?
-	if(tr_flags & TR_HASHNAME)
-		O.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
-		O.real_name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
-
-	//handle DNA and other attributes
-	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
-	O.set_species(/datum/species/monkey)
-	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(/datum/mutation/race))
-	O.updateappearance(icon_update=0)
-
-	//store original species
-	if(keep_original_species)
-		for(var/datum/mutation/race/M in O.dna.mutations)
-			if(!isnull(dna.species))
-				M.original_species = dna.species.type
-			break //Can't be more than one monkified in a DNA set so, no need to continue the loop
-
-	if(suiciding)
-		O.set_suicide(suiciding)
-	O.set_combat_mode(TRUE)
-
-	//keep viruses?
-	if (tr_flags & TR_KEEPVIRUS)
-		O.diseases = diseases
-		diseases = list()
-		for(var/thing in O.diseases)
-			var/datum/disease/D = thing
-			D.affected_mob = O
-
-	//keep damage?
-	if (tr_flags & TR_KEEPDAMAGE)
-		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
-		O.setOxyLoss(getOxyLoss(), 0)
-		O.setCloneLoss(getCloneLoss(), 0)
-		O.adjustFireLoss(getFireLoss(), 0)
-		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
-		O.updatehealth()
-		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
-		if(irradiated_component)
-			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
-
-	//move implants to new mob
-	if(tr_flags & TR_KEEPIMPLANTS)
-		for(var/obj/item/implant/IMP as anything in implants)
-			IMP.transfer_implant(src, O)
-
-	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
-	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
-			var/obj/item/organ/I = X
-			I.Remove(O, 1)
-
-		if(mind)
-			mind.transfer_to(O)
-			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
-			if(changeling)
-				var/datum/action/changeling/humanform/hf = new
-				changeling.purchased_powers[hf.type] = hf
-				changeling.regain_powers()
-
-		for(var/X in internal_organs)
-			var/obj/item/organ/I = X
-			int_organs += I
-			I.Remove(src, 1)
-
-		for(var/X in int_organs)
-			var/obj/item/organ/I = X
-			I.Insert(O, 1)
-
-	var/obj/item/bodypart/chest/torso = O.get_bodypart(BODY_ZONE_CHEST)
-	if(cavity_object)
-		torso.cavity_item = cavity_object //cavity item is given to the new chest
-		cavity_object.forceMove(O)
-
-	for(var/missing_zone in missing_bodyparts_zones)
-		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
-		BP.drop_limb(1)
-		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
-				var/obj/item/organ/G = X
-				if(BP.body_zone == check_zone(G.zone))
-					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
-						continue //so headless changelings don't lose their brain when transforming
-					qdel(G) //we lose the organs in the missing limbs
-		qdel(BP)
-
-	//transfer mind if we didn't yet
-	if(mind)
-		mind.transfer_to(O)
-		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			var/datum/action/changeling/humanform/hf = new
-			changeling.purchased_powers[hf.type] = hf
-			changeling.regain_powers()
-
-
-	//if we have an AI, transfer it; if we don't, make sure the new thing doesn't either
-	if(tr_flags & TR_KEEPAI)
-		if(ai_controller)
-			ai_controller.PossessPawn(O)
-		else if(O.ai_controller)
-			QDEL_NULL(O.ai_controller)
-
-	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now a monkey.</B>")
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
-
-	for(var/A in loc.vars)
-		if(loc.vars[A] == src)
-			loc.vars[A] = O
-
-	O.update_sight()
-	transfer_observers_to(O, TRUE)
-
-	. = O
-
-	qdel(src)
-
-//Mostly same as monkey but turns target into teratoma
-
-/mob/living/carbon/proc/teratomize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
-	if (notransform || transformation_timer)
+	if(ismonkey(src))
 		return
-	//Handle items on mob
 
-	//first organs
-	var/list/int_organs = list()
-	var/list/missing_bodyparts_zones = get_missing_limbs()
-
-	var/obj/item/cavity_object
-
-	var/obj/item/bodypart/chest/CH = get_bodypart(BODY_ZONE_CHEST)
-	if(CH.cavity_item)
-		cavity_object = CH.cavity_item
-		CH.cavity_item = null
-
-	if(tr_flags & TR_KEEPITEMS)
-		unequip_everything()
+	if(instant)
+		finish_monkeyize()
+		return
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
-	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
+	Stun(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
+
+	var/obj/effect = new /obj/effect/temp_visual/monkeyify(loc)
+	effect.invisibility = INVISIBILITY_MAXIMUM
 	invisibility = INVISIBILITY_MAXIMUM
 
-	new /obj/effect/temp_visual/monkeyify(loc)
+	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_monkeyize)), TRANSFORMATION_DURATION, TIMER_UNIQUE)
 
-	transformation_timer = TRUE
-	sleep(TRANSFORMATION_DURATION)
-	transformation_timer = FALSE
-
-	var/mob/living/carbon/monkey/tumor/O = new /mob/living/carbon/monkey/tumor( loc )
-
-	// hash the original name?
-	if(tr_flags & TR_HASHNAME)
-		O.name = "living teratoma ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
-		O.real_name = "living teratoma ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
-
-	//handle DNA and other attributes
-	dna.transfer_identity(O)
-	O.updateappearance(icon_update=0)
-
-	if(tr_flags & TR_KEEPSE)
-		O.dna.mutation_index = dna.mutation_index
-		O.dna.set_se(1, GET_INITIALIZED_MUTATION(/datum/mutation/race))
-
-	if(suiciding)
-		O.set_suicide(suiciding)
-	O.set_combat_mode(TRUE)
-
-	//keep viruses?
-	if (tr_flags & TR_KEEPVIRUS)
-		O.diseases = diseases
-		diseases = list()
-		for(var/thing in O.diseases)
-			var/datum/disease/D = thing
-			D.affected_mob = O
-
-	//keep damage?
-	if (tr_flags & TR_KEEPDAMAGE)
-		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
-		O.setOxyLoss(getOxyLoss(), 0)
-		O.setCloneLoss(getCloneLoss(), 0)
-		O.adjustFireLoss(getFireLoss(), 0)
-		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
-		O.updatehealth()
-		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
-		if(irradiated_component)
-			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
-
-	//move implants to new mob
-	if(tr_flags & TR_KEEPIMPLANTS)
-		for(var/obj/item/implant/IMP as anything in implants)
-			IMP.transfer_implant(src, O)
-
-	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
-	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
-			var/obj/item/organ/I = X
-			I.Remove(O, 1)
-
-		if(mind)
-			mind.transfer_to(O)
-			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
-			if(changeling)
-				var/datum/action/changeling/humanform/hf = new
-				changeling.purchased_powers[hf.type] = hf
-				changeling.regain_powers()
-
-		for(var/X in internal_organs)
-			var/obj/item/organ/I = X
-			int_organs += I
-			I.Remove(src, 1)
-
-		for(var/X in int_organs)
-			var/obj/item/organ/I = X
-			I.Insert(O, 1)
-
-	var/obj/item/bodypart/chest/torso = O.get_bodypart(BODY_ZONE_CHEST)
-	if(cavity_object)
-		torso.cavity_item = cavity_object //cavity item is given to the new chest
-		cavity_object.forceMove(O)
-
-	for(var/missing_zone in missing_bodyparts_zones)
-		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
-		BP.drop_limb(1)
-		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
-				var/obj/item/organ/G = X
-				if(BP.body_zone == check_zone(G.zone))
-					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
-						continue //so headless changelings don't lose their brain when transforming
-					qdel(G) //we lose the organs in the missing limbs
-		qdel(BP)
-
-	//transfer mind if we didn't yet
-	if(mind)
-		mind.transfer_to(O)
-		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			var/datum/action/changeling/humanform/hf = new
-			changeling.purchased_powers[hf.type] = hf
-			changeling.regain_powers()
-
-
-	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now a living teratoma.</B>")
-
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
-
-	for(var/A in loc.vars)
-		if(loc.vars[A] == src)
-			loc.vars[A] = O
-
-	transfer_observers_to(O, TRUE)
-
-	. = O
-
-	qdel(src)
+/mob/living/carbon/proc/finish_monkeyize()
+	transformation_timer = null
+	notransform = FALSE
+	icon = initial(icon)
+	invisibility = 0
+	set_species(/datum/species/monkey)
+	to_chat(src, span_boldnotice("You are now \a [dna.species.name]."))
+	name = LOWER_TEXT(dna.species.name)
+	regenerate_icons()
+	set_name()
+	SEND_SIGNAL(src, COMSIG_HUMAN_MONKEYIZE)
+	uncuff()
+	return src
 
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, datum/species/original_species, species = /datum/species/human)
+/mob/living/carbon/proc/humanize(species = /datum/species/human, instant = FALSE)
 	if (notransform || transformation_timer)
 		return
 
-	var/list/int_organs = list()
+	if(!ismonkey(src))
+		return
 
-	var/list/missing_bodyparts_zones = get_missing_limbs()
-
-	var/obj/item/cavity_object
-
-	var/obj/item/bodypart/chest/CH = get_bodypart(BODY_ZONE_CHEST)
-	if(CH.cavity_item)
-		cavity_object = CH.cavity_item
-		CH.cavity_item = null
-
-	//now the rest
-	if (tr_flags & TR_KEEPITEMS)
-		unequip_everything()
+	if(instant)
+		finish_humanize(species)
+		return
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
-	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
-
+	Stun(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
+
+	var/obj/effect = new /obj/effect/temp_visual/monkeyify/humanify(loc)
+	effect.invisibility = INVISIBILITY_MAXIMUM
 	invisibility = INVISIBILITY_MAXIMUM
-	new /obj/effect/temp_visual/monkeyify/humanify(loc)
+	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_humanize), species), TRANSFORMATION_DURATION, TIMER_UNIQUE)
 
-	transformation_timer = TRUE
-	sleep(TRANSFORMATION_DURATION)
-	transformation_timer = FALSE
-
-	var/mob/living/carbon/human/O = new( loc )
-	for(var/obj/item/C in O.loc)
-		if(C.anchored)
-			continue
-		O.equip_to_appropriate_slot(C)
-
-	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
-	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(/datum/mutation/race))
-	//Reset offsets to match human settings, in-case they have been changed
-	O.dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
-	O.updateappearance(mutcolor_update=1)
-
-	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
-		O.real_name = generate_random_mob_name()
-		O.dna.generate_unique_enzymes(O)
-	else
-		O.real_name = O.dna.real_name
-	O.name = O.real_name
-
-	if(suiciding)
-		O.set_suicide(suiciding)
-
-	//keep viruses?
-	if (tr_flags & TR_KEEPVIRUS)
-		O.diseases = diseases
-		diseases = list()
-		for(var/thing in O.diseases)
-			var/datum/disease/D = thing
-			D.affected_mob = O
-		O.med_hud_set_status()
-
-	//keep damage?
-	if (tr_flags & TR_KEEPDAMAGE)
-		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
-		O.setOxyLoss(getOxyLoss(), 0)
-		O.setCloneLoss(getCloneLoss(), 0)
-		O.adjustFireLoss(getFireLoss(), 0)
-		O.adjustOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
-		O.updatehealth()
-		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
-		if(irradiated_component)
-			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
-
-	//move implants to new mob
-	if(tr_flags & TR_KEEPIMPLANTS)
-		for(var/obj/item/implant/IMP as anything in implants)
-			IMP.transfer_implant(src, O)
-
-	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
-			var/obj/item/organ/I = X
-			I.Remove(O, 1)
-
-		if(mind)
-			mind.transfer_to(O)
-			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
-			if(changeling)
-				for(var/datum/action/changeling/humanform/HF in changeling.purchased_powers)
-					changeling.purchased_powers -= HF.type
-					changeling.regain_powers()
-
-		for(var/X in internal_organs)
-			var/obj/item/organ/I = X
-			int_organs += I
-			I.Remove(src, 1)
-
-		for(var/X in int_organs)
-			var/obj/item/organ/I = X
-			I.Insert(O, 1)
-
-
-	var/obj/item/bodypart/chest/torso = get_bodypart(BODY_ZONE_CHEST)
-	if(cavity_object)
-		torso.cavity_item = cavity_object //cavity item is given to the new chest
-		cavity_object.forceMove(O)
-
-	for(var/missing_zone in missing_bodyparts_zones)
-		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
-		BP.drop_limb(1)
-		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
-				var/obj/item/organ/G = X
-				if(BP.body_zone == check_zone(G.zone))
-					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
-						continue //so headless changelings don't lose their brain when transforming
-					qdel(G) //we lose the organs in the missing limbs
-		qdel(BP)
-
-	if(mind)
-		mind.transfer_to(O)
-		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			for(var/datum/action/changeling/humanform/HF in changeling.purchased_powers)
-				changeling.purchased_powers -= HF.type
-				changeling.regain_powers()
-
-	//if we have an AI, transfer it; if we don't, make sure the new thing doesn't either
-	if(tr_flags & TR_KEEPAI)
-		if(ai_controller)
-			ai_controller.PossessPawn(O)
-		else if(O.ai_controller)
-			QDEL_NULL(O.ai_controller)
-
-	if(keep_original_species && isnull(original_species))
-		original_species = /datum/species/human
-
-	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
-		if(isnull(O.dna.species))
-			O.set_species(/datum/species/human)
-		else
-			O.set_species(O.dna.species)
-	else
-		if(keep_original_species)
-			if(isnull(original_species) || !ispath(original_species, /datum/species))
-				O.set_species(/datum/species/human)
-			else
-				O.set_species(original_species)
-		else
-			O.set_species(species)
-
-	O.set_combat_mode(FALSE)
-	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
-
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
-
-	transfer_observers_to(O, TRUE)
-
-	. = O
-
-	for(var/A in loc.vars)
-		if(loc.vars[A] == src)
-			loc.vars[A] = O
-
-	qdel(src)
+/mob/living/carbon/proc/finish_humanize(species = /datum/species/human)
+	transformation_timer = null
+	notransform = FALSE
+	icon = initial(icon)
+	invisibility = 0
+	set_species(species)
+	to_chat(src, span_boldnotice("You are now \a [dna.species.name]."))
+	dna.update_body_size(TRUE)
+	regenerate_icons()
+	SEND_SIGNAL(src, COMSIG_MONKEY_HUMANIZE)
+	return src
 
 //A common proc to start an -ize transformation
 /mob/living/carbon/proc/pre_transform(delete_items = FALSE)
@@ -488,6 +91,35 @@
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
+
+/mob/living/carbon/proc/teratomize()
+	if (notransform || transformation_timer)
+		return
+
+	if(isteratoma(src))
+		return
+
+	//Make mob invisible and spawn animation
+	notransform = TRUE
+	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
+	icon = null
+	cut_overlays()
+	invisibility = INVISIBILITY_MAXIMUM
+
+	new /obj/effect/temp_visual/monkeyify(loc)
+
+	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_teratomize)), TRANSFORMATION_DURATION, TIMER_UNIQUE)
+
+/mob/living/carbon/proc/finish_teratomize()
+	transformation_timer = null
+	to_chat(src, "<B>You are now a disgusting little cancer baby.</B>")
+	notransform = FALSE
+	icon = initial(icon)
+	invisibility = 0
+	set_species(/datum/species/monkey/teratoma)
+	uncuff()
+	regenerate_icons()
+	return src
 
 /mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
 	return pre_transform() ? null : ..()

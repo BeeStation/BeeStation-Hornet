@@ -13,7 +13,7 @@
 	var/chemical_cost = 0 // negative chemical cost is for passive abilities (chemical glands)
 	var/dna_cost = -1 //cost of the sting in dna points. 0 = auto-purchase (see changeling.dm), -1 = cannot be purchased
 	var/req_dna = 0  //amount of dna needed to use this ability. Changelings always have atleast 1
-	var/req_human = 0 //if you need to be human to use this ability
+	var/req_human = FALSE //if you need to be human to use this ability
 	var/req_absorbs = 0 //similar to req_dna, but only gained from absorbing, not DNA sting
 	var/ignores_fakedeath = FALSE // usable with the FAKEDEATH flag
 
@@ -28,9 +28,6 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		SSblackbox.record_feedback("tally", "changeling_power_purchase", 1, name)
 	if(needs_button)
 		Grant(user)//how powers are added rather than the checks in mob.dm
-
-/datum/action/changeling/is_available()
-	return ..() && owner.mind && owner.mind.has_antag_datum(/datum/antagonist/changeling)
 
 /datum/action/changeling/on_activate(mob/user, atom/target)
 	try_to_sting(user)
@@ -50,32 +47,28 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 /datum/action/changeling/proc/sting_feedback(mob/living/user, mob/living/target)
 	return FALSE
 
-//Fairly important to remember to return 1 on success >.<
-/datum/action/changeling/proc/can_sting(mob/living/user, mob/living/target)
-	if (!is_available(user))
+// Fairly important to remember to return 1 on success >.< // Return TRUE not 1 >.<
+/datum/action/changeling/proc/can_sting(mob/living/user, mob/target)
+	if(!can_be_used_by(user))
 		return FALSE
-	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
+	var/datum/antagonist/changeling/changeling = IS_CHANGELING(user)
+	if(changeling.chem_charges < chemical_cost)
+		user.balloon_alert(user, "needs [chemical_cost] chemicals!")
 		return FALSE
-	if(req_human && !ishuman(user))
-		to_chat(user, span_warning("We cannot do that in this form!"))
-		return FALSE
-	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(c.chem_charges < chemical_cost)
-		to_chat(user, span_warning("We require at least [chemical_cost] unit\s of chemicals to do that!"))
-		return FALSE
-	if(c.absorbed_count < req_dna)
-		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
+	if(changeling.absorbed_count < req_dna)
+		user.balloon_alert(user, "needs [req_dna] dna sample\s!")
 		return FALSE
 	if((HAS_TRAIT(user, TRAIT_DEATHCOMA)) && (!ignores_fakedeath))
-		to_chat(user, span_warning("We are incapacitated."))
+		user.balloon_alert(user, "playing dead!")
 		return FALSE
 	return TRUE
 
 /datum/action/changeling/proc/can_be_used_by(mob/living/user)
-	if(!user || QDELETED(user))
+	if(QDELETED(user))
 		return 0
-	if(!ishuman(user) && !ismonkey(user))
+	if(!ishuman(user))
 		return FALSE
-	if(req_human && !ishuman(user))
+	if(req_human && ismonkey(user))
+		user.balloon_alert(user, "become human!")
 		return FALSE
 	return TRUE

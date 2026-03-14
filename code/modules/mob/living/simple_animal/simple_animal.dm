@@ -50,9 +50,6 @@
 	var/minbodytemp = 250
 	var/maxbodytemp = 350
 
-	//Healable by medical stacks? Defaults to yes.
-	var/healable = 1
-
 	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
 	var/list/weather_immunities
 
@@ -108,7 +105,6 @@
 	var/attacked_sound = "punch" //Played when someone punches the creature
 
 	var/dextrous = FALSE //If the creature has, and can use, hands
-	var/dextrous_hud_type = /datum/hud/dextrous
 
 	///If the creature should have an innate TRAIT_MOVE_FLYING trait added on init that is also toggled off/on on death/revival.
 	var/is_flying_animal = FALSE
@@ -164,6 +160,7 @@
 	if(no_flying_animation)
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 	if(dextrous)
+		AddElement(/datum/element/dextrous, hud_type = hud_type)
 		AddComponent(/datum/component/personal_crafting)
 		add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP), ROUNDSTART_TRAIT)
 	if(is_flying_animal)
@@ -431,8 +428,6 @@
 		nest.spawned_mobs -= src
 		nest = null
 	drop_loot()
-	if(dextrous)
-		drop_all_held_items()
 	if(!gibbed)
 		if(deathsound || deathmessage || !del_on_death)
 			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
@@ -566,45 +561,6 @@
 
 /mob/living/simple_animal/get_idcard(hand_first)
 	return access_card
-
-/mob/living/simple_animal/can_hold_items(obj/item/I)
-	return dextrous && ..()
-
-/mob/living/simple_animal/activate_hand(selhand)
-	if(!dextrous)
-		return ..()
-	if(!selhand)
-		selhand = (active_hand_index % held_items.len)+1
-	if(istext(selhand))
-		selhand = LOWER_TEXT(selhand)
-		if(selhand == "right" || selhand == "r")
-			selhand = 2
-		if(selhand == "left" || selhand == "l")
-			selhand = 1
-	if(selhand != active_hand_index)
-		swap_hand(selhand)
-	else
-		mode()
-
-/mob/living/simple_animal/swap_hand(hand_index)
-	. = ..()
-	if(!.)
-		return
-	if(!dextrous)
-		return
-	if(!hand_index)
-		hand_index = (active_hand_index % held_items.len)+1
-	var/oindex = active_hand_index
-	active_hand_index = hand_index
-	if(hud_used)
-		var/atom/movable/screen/inventory/hand/H
-		H = hud_used.hand_slots["[hand_index]"]
-		if(H)
-			H.update_icon()
-		H = hud_used.hand_slots["[oindex]"]
-		if(H)
-			H.update_icon()
-	refresh_self_screentips()
 
 /mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE)
 	. = ..(I, del_on_fail, merge_stacks)

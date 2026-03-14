@@ -30,7 +30,7 @@
 
 	return parent_turret.attack_ai(user)
 
-/obj/machinery/porta_turret_cover/attack_hand(mob/user, modifiers)
+/obj/machinery/porta_turret_cover/attack_hand(mob/user, list/modifiers)
 	return ..() || parent_turret.attack_hand(user, modifiers)
 
 
@@ -78,7 +78,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 /obj/machinery/porta_turret_cover/attack_animal(mob/living/simple_animal/user)
 	parent_turret.attack_animal(user)
 
-/obj/machinery/porta_turret_cover/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
+/obj/machinery/porta_turret_cover/attack_hulk(mob/living/carbon/human/user)
 	return parent_turret.attack_hulk(user)
 
 /obj/machinery/porta_turret_cover/can_be_overridden()

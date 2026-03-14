@@ -442,8 +442,15 @@
 /obj/item/organ/tongue/slime/get_possible_languages()
 	return ..() + /datum/language/slime
 
+/obj/item/organ/tongue/monkey
+	name = "primitive tongue"
+	desc = "For aggressively chimpering. And consuming bananas."
+	say_mod = "chimpers"
+	liked_foodtypes = MEAT | FRUIT | BUGS
+	disliked_foodtypes = CLOTH
+
 /obj/item/organ/tongue/moth
-	name = "mothic tongue"
+	name = "moth tongue"
 	desc = "It's long and noodly."
 	say_mod = "flutters"
 	icon_state = "tonguemoth"

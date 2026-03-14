@@ -131,7 +131,7 @@
 	UnregisterSignal(oven_tray, COMSIG_MOVABLE_MOVED)
 	update_baking_audio()
 
-/obj/machinery/oven/attack_hand(mob/user, modifiers)
+/obj/machinery/oven/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	open = !open
 	if(open)

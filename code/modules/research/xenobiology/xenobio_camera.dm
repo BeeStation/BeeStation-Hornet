@@ -241,7 +241,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/monkey/food = new /mob/living/carbon/monkey(remote_eye.loc, TRUE, owner)
+			var/mob/living/carbon/human/species/monkey/food = new /mob/living/carbon/human/species/monkey(remote_eye.loc, TRUE, owner)
 			if (!QDELETED(food))
 				X.monkeys--
 				X.monkeys = round(X.monkeys, 0.1)		//Prevents rounding errors
@@ -269,7 +269,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 		to_chat(owner, span_notice("There is no connected monkey recycler.  Use a multitool to link one."))
 		return
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
-		for(var/mob/living/carbon/monkey/M in remote_eye.loc)
+		for(var/mob/living/carbon/human/species/monkey/M in remote_eye.loc)
 			if(M.stat)
 				M.visible_message("[M] vanishes as [M.p_theyre()] reclaimed for recycling!")
 				recycler.use_power(500)
@@ -364,7 +364,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	..()
 
 //Pick up monkey
-/mob/living/carbon/monkey/CtrlClick(mob/user)
+/mob/living/carbon/human/species/monkey/CtrlClick(mob/user)
 	SEND_SIGNAL(user, COMSIG_XENO_MONKEY_CLICK_CTRL, src)
 	..()
 
@@ -452,7 +452,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/area/turfarea = get_area(T)
 	if(turfarea.name == E.allowed_area || (turfarea.area_flags & XENOBIOLOGY_COMPATIBLE))
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/monkey/food = new /mob/living/carbon/monkey(T, TRUE, C)
+			var/mob/living/carbon/human/species/monkey/food = new /mob/living/carbon/human/species/monkey(T, TRUE, C)
 			if (!QDELETED(food))
 				X.monkeys--
 				X.monkeys = round(X.monkeys, 0.1)		//Prevents rounding errors
@@ -461,10 +461,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 			to_chat(C, "[X] needs to have at least 1 monkey stored. Currently has [X.monkeys] monkeys stored.")
 
 //Pick up monkey
-/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/monkey/M)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/human/M)
 	SIGNAL_HANDLER
-
-	if(!GLOB.cameranet.checkTurfVis(M.loc))
+	if(!ismonkey(M))
+		return
+	if(!isturf(M.loc) || !GLOB.cameranet.checkTurfVis(M.loc))
 		to_chat(user, span_warning("Target is not near a camera. Cannot proceed."))
 		return
 	var/mob/living/C = user

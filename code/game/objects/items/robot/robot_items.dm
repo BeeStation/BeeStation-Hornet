@@ -96,6 +96,7 @@
 		if(1)
 			if(M.health >= 0)
 				if(ishuman(M))
+					M.adjust_status_effects_on_shake_up()
 					if(M.body_position == LYING_DOWN)
 						user.visible_message(span_notice("[user] shakes [M] trying to get [M.p_them()] up!"), \
 										span_notice("You shake [M] trying to get [M.p_them()] up!"))
@@ -115,7 +116,7 @@
 		if(2)
 			if(scooldown < world.time)
 				if(M.health >= 0)
-					if(ishuman(M)||ismonkey(M))
+					if(ishuman(M))
 						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
 						user.visible_message(span_userdanger("[user] electrocutes [M] with [user.p_their()] touch!"), \
 							span_danger("You electrocute [M] with your touch!"))
@@ -684,6 +685,12 @@
 	icon_state = "shield0"
 	START_PROCESSING(SSfastprocess, src)
 	host = loc
+	RegisterSignal(host, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+
+/obj/item/borg/projectile_dampen/proc/on_death(datum/source, gibbed)
+	SIGNAL_HANDLER
+
+	deactivate_field()
 
 /obj/item/borg/projectile_dampen/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -752,10 +759,6 @@
 	deactivate_field()
 	update_appearance()
 	to_chat(user, span_boldnotice("[src] deactivates itself."))
-
-/obj/item/borg/projectile_dampen/on_mob_death()
-	deactivate_field()
-	. = ..()
 
 /obj/item/borg/projectile_dampen/process(delta_time)
 	process_recharge(delta_time)

@@ -59,7 +59,3 @@
 /datum/brain_trauma/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
-
-//Called when hugging. expand into generally interacting, where future coders could switch the intent?
-/datum/brain_trauma/proc/on_hug(mob/living/hugger, mob/living/hugged)
-	return

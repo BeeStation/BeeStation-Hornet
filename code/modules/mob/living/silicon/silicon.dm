@@ -44,7 +44,7 @@
 	var/updating = FALSE //portable camera camerachunk update
 
 	var/hack_software = FALSE //Will be able to use hacking actions
-	var/interaction_range = 7			//wireless control range
+	interaction_range = 7 //wireless control range
 	///The reference to the built-in tablet that borgs carry.
 	var/obj/item/modular_computer/tablet/integrated/modularInterface
 

@@ -197,7 +197,12 @@
 			if("slime")
 				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob )
 			if("monkey")
-				M.change_mob_type( /mob/living/carbon/monkey , null, null, delmob )
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					H.dna.add_mutation(/datum/mutation/race, MUT_NORMAL)
+					H.dna.activate_mutation(/datum/mutation/race)
+				else
+					M.change_mob_type( /mob/living/carbon/human/species/monkey , null, null, delmob )
 			if("robot")
 				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob )
 			if("cat")
@@ -425,9 +430,9 @@
 		if(!check_rights(R_SPAWN))
 			return
 
-		var/mob/living/carbon/monkey/Mo = locate(href_list["humanone"])
-		if(!istype(Mo))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/monkey.")
+		var/mob/living/carbon/human/Mo = locate(href_list["humanone"])
+		if(!ismonkey(Mo))
+			to_chat(usr, "This can only be used on monkeys.")
 			return
 
 		log_admin("[key_name(src.owner)] attempting to humanize [key_name(Mo)].")

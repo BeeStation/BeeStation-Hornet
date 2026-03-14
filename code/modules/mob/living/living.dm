@@ -1199,7 +1199,7 @@
 	return
 
 /mob/living/can_hold_items(obj/item/I)
-	return usable_hands && ..()
+	return ..() && HAS_TRAIT(src, TRAIT_CAN_HOLD_ITEMS) && usable_hands
 
 /mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
 	if(!(mobility_flags & MOBILITY_UI) && !floor_okay)
@@ -1222,8 +1222,11 @@
 	return TRUE
 
 /mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
-	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !ISADVANCEDTOOLUSER(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, span_warning("You are unable to fire this!"))
+		return FALSE
+	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && (!ISADVANCEDTOOLUSER(src) && !HAS_TRAIT(src, TRAIT_GUN_NATURAL)))
+		to_chat(src, span_warning("You try to fire [G], but can't use the trigger!"))
 		return FALSE
 	return TRUE
 
@@ -1349,7 +1352,7 @@
 				/mob/living/simple_animal/pet/cat/cak,
 				/mob/living/simple_animal/chick,
 				/mob/living/simple_animal/slime/random,
-				/mob/living/carbon/monkey,
+				/mob/living/carbon/human/species/monkey,
 				/mob/living/carbon/alien/humanoid/hunter,
 				/mob/living/carbon/alien/humanoid/sentinel,
 				/mob/living/simple_animal/hostile/alien/maid,
@@ -1593,7 +1596,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	C.Paralyze(40)
 
 /mob/living/can_be_pulled()
-	return ..() && !(buckled && buckled.buckle_prevents_pull)
+	return ..() && !(buckled?.buckle_prevents_pull)
 
 
 /// Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment.
@@ -1780,6 +1783,12 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	var/obj/item/mob_holder/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
 	L.visible_message(span_warning("[L] scoops up [src]!"))
 	L.put_in_hands(holder)
+
+/mob/living/proc/set_name()
+	if(identifier == 0)
+		identifier = rand(1, 999)
+	name = "[name] ([identifier])"
+	real_name = name
 
 /mob/living/proc/mob_try_pickup(mob/living/user)
 	if(!ishuman(user))

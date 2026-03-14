@@ -3,7 +3,7 @@
 // This code allows for airlocks to be controlled externally by setting an id_tag (disables ID access)
 /obj/machinery/door/airlock
 	opens_with_door_remote = TRUE
-	
+
 	idle_power_usage = 100 WATT
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 
@@ -15,7 +15,7 @@
 	locked = FALSE
 	update_appearance()
 	stoplag(0.2 SECONDS)
-	open(forced = TRUE)
+	open(FORCING_DOOR_CHECKS)
 	locked = TRUE
 	update_appearance()
 

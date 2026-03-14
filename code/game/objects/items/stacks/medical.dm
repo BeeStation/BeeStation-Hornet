@@ -54,7 +54,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 	if(isanimal(M))
 		var/mob/living/simple_animal/critter = M
-		if(!(critter.healable))
+		if(critter.mob_biotypes & (MOB_ROBOTIC|MOB_INORGANIC|MOB_SPIRIT))
 			to_chat(user, span_notice("You cannot use [src] on [M]!"))
 			return
 		if(critter.health == critter.maxHealth)

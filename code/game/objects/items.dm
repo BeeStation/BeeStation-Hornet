@@ -531,7 +531,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 					C.update_damage_overlays()
 
-	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))		//See if we're supposed to auto pickup.
+	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP)) //See if we're supposed to auto pickup.
 		return
 
 	//Heavy gravity makes picking up things very slow.
@@ -784,6 +784,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	SEND_SIGNAL(user, COMSIG_LIVING_PICKED_UP_ITEM, src)
 	item_flags |= PICKED_UP
 	if(item_flags & WAS_THROWN)
 		item_flags &= ~WAS_THROWN
@@ -1161,8 +1162,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				battery.explode()
 			else
 				explosion(src, 0, 0, 3, 4)
-
-/obj/item/proc/on_mob_death(mob/living/L, gibbed)
 
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
 	return TRUE

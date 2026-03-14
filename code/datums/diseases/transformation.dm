@@ -5,7 +5,7 @@
 	spread_flags = DISEASE_SPREAD_SPECIAL
 	cure_text = "A coder's love (theoretical)."
 	agent = "Shenanigans"
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/alien)
+	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)
 	danger = DISEASE_BIOHAZARD
 	stage_prob = 5
 	visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC

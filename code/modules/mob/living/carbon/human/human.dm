@@ -782,8 +782,8 @@
 
 /mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
 	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
-		for(var/datum/mutation/human/existing_mutation in dna.mutations)
-			if(existing_mutation.quality != POSITIVE)
+		for(var/datum/mutation/existing_mutation in dna.mutations)
+			if(existing_mutation.quality != POSITIVE && existing_mutation.remove_on_aheal)
 				dna.remove_mutation(existing_mutation.name)
 
 	if(heal_flags & HEAL_TEMP)
@@ -1127,12 +1127,18 @@
 
 /mob/living/carbon/human/species
 	var/race = null
+	var/use_random_name = TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/Initialize(mapload, specific_race)
 	. = ..()
 	set_species(race || specific_race)
+
+/mob/living/carbon/human/species/set_species(datum/species/mrace, icon_update, pref_load)
+	. = ..()
+	if(use_random_name)
+		fully_replace_character_name(real_name, generate_random_mob_name())
 
 /mob/living/carbon/human/species/abductor
 	race = /datum/species/abductor

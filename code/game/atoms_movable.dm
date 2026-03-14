@@ -635,8 +635,6 @@
 // You probably want CanPass()
 /atom/movable/Cross(atom/movable/AM)
 	. = TRUE
-	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSS, AM)
-	SEND_SIGNAL(AM, COMSIG_MOVABLE_CROSS_OVER, src)
 	return CanPass(AM, get_dir(src, AM))
 
 ///default byond proc that is deprecated for us in lieu of signals. do not call

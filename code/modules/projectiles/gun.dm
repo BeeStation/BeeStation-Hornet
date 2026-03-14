@@ -381,9 +381,11 @@
 						target_brain.Remove(user) //Rip you, unlucky
 						target_brain.forceMove(get_turf(user))
 				else
+					var/target_zone = user.get_random_valid_zone(blacklisted_parts = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM), even_weights = TRUE, bypass_warning = TRUE)
+					if(!target_zone)
+						return
 					to_chat(user, span_userdanger("You shoot yourself in the foot with [src]!"))
-					var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-					process_fire(user, user, FALSE, params, shot_leg)
+					process_fire(user, user, FALSE, params, target_zone)
 					user.dropItemToGround(src, TRUE)
 				return TRUE
 

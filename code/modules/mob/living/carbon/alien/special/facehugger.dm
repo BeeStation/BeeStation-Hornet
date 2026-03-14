@@ -262,9 +262,6 @@
 	if(!istype(M) || M.stat == DEAD || M.get_organ_by_type(/obj/item/organ/alien/hivenode))
 		return FALSE
 
-	if(ismonkey(M))
-		return TRUE
-
 	var/mob/living/carbon/C = M
 	if(ishuman(C) && !(C.dna.species.no_equip_flags & ITEM_SLOT_MASK))
 		var/mob/living/carbon/human/H = C

@@ -6,7 +6,7 @@
 		if(NAMEOF(src, name), NAMEOF(src, real_name))
 			if(!istext(var_value) || !length(var_value) || length(var_value) > MAX_NAME_LEN)
 				return FALSE
-			set_name(var_value)
+			set_new_name(var_value)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		if(NAMEOF(src, theme))

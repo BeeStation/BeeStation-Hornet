@@ -109,12 +109,12 @@
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
-		LIPS,
-		NO_UNDERWEAR
+		LIPS
 	)
 	inherent_traits = list(
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_VIRUSIMMUNE,
+		TRAIT_NO_UNDERWEAR,
 	)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker

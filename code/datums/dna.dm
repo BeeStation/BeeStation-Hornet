@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	new_dna.update_body_size() //Must come after features.Copy()
 	// Mutations aren't gc managed, but they still aren't templates
 	// Let's do a proper copy
-	for(var/datum/mutation/human/mutation in mutations)
+	for(var/datum/mutation/mutation in mutations)
 		new_dna.add_mutation(mutation, mutation.class, mutation.timeout)
 
 /datum/dna/proc/compare_dna(datum/dna/other)
@@ -268,11 +268,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	mutation_index.Cut()
 	default_mutation_genes.Cut()
 	shuffle_inplace(mutations_temp)
-	if(ismonkey(holder))
-		mutations |= new /datum/mutation/race(MUT_NORMAL)
-		mutation_index[/datum/mutation/race] = GET_SEQUENCE(/datum/mutation/race)
-	else
-		mutation_index[/datum/mutation/race] = create_sequence(/datum/mutation/race, FALSE)
+	mutation_index[/datum/mutation/race] = create_sequence(/datum/mutation/race, FALSE)
 	default_mutation_genes[/datum/mutation/race] = mutation_index[/datum/mutation/race]
 	for(var/i in 2 to DNA_MUTATION_BLOCKS)
 		var/datum/mutation/M = mutations_temp[i]
@@ -546,20 +542,19 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			return
 		deathsound = new_race.deathsound
 
-		dna.species.on_species_loss(src, new_race, pref_load)
 		var/datum/species/old_species = dna.species
 		dna.species = new_race
 
+		dna.species.on_species_loss(src, new_race, pref_load)
+
 		dna.species.on_species_gain(src, old_species, pref_load)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
-		if(icon_update)
-			update_mutations_overlay()// no lizard with human hulk overlay please.
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()
 	if(icon_update)
 		update_hair()
-
+		update_mutations_overlay()// no lizard with human hulk overlay please.
 
 /mob/proc/has_dna()
 	return
@@ -739,8 +734,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		return
 
 	for(var/mutation in dna.mutation_index)
-		if(ismob(dna.check_block(mutation)))
-			return //we got monkeyized/humanized, this mob will be deleted, no need to continue.
+		dna.check_block(mutation)
 
 	update_mutations_overlay()
 

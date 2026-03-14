@@ -714,7 +714,7 @@
 /turf/open/floor/iron/techmaint,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "gQ" = (
-/mob/living/carbon/monkey{
+/mob/living/carbon/human/species/monkey{
 	faction = list("neutral","Syndicate")
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -1502,7 +1502,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/ruin/unpowered/syndicate_lava_base/starboard)
 "nQ" = (
-/mob/living/carbon/monkey{
+/mob/living/carbon/human/species/monkey{
 	faction = list("neutral","Syndicate")
 	},
 /obj/machinery/light/small/directional/south,
@@ -1872,7 +1872,7 @@
 /turf/open/floor/catwalk_floor,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "rB" = (
-/mob/living/carbon/monkey{
+/mob/living/carbon/human/species/monkey{
 	faction = list("neutral","Syndicate")
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{

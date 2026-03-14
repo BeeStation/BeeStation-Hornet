@@ -260,7 +260,7 @@ Difficulty: Hard
 		if(!faction_check_mob(L))
 			to_chat(L, span_userdanger("[src] rends you!"))
 			playsound(T, attack_sound, 100, 1, -1)
-			var/limb_to_hit = L.get_bodypart(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
+			var/limb_to_hit = L.get_bodypart(L.get_random_valid_zone(even_weights = TRUE))
 			L.apply_damage(10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
 	SLEEP_CHECK_DEATH(3)
 

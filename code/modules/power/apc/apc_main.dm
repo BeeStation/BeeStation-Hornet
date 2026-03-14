@@ -332,6 +332,9 @@
 		. += span_notice("Ctrl-Click the APC to switch the breaker [ operating ? "off" : "on"].")
 
 /obj/machinery/power/apc/AltClick(mob/user)
+	. = ..()
+	if(!can_interact(user))
+		return
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
 	else

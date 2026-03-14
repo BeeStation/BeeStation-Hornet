@@ -6156,7 +6156,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "bbT" = (
@@ -8220,7 +8220,7 @@
 /area/hallway/primary/central)
 "brl" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
 "brO" = (
@@ -56785,7 +56785,7 @@
 	pixel_y = 1;
 	req_access_txt = "9"
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -58747,7 +58747,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "rEJ" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/window/reinforced/spawner/directional/south{
 	pixel_y = 1
 	},
@@ -59239,7 +59239,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/engine/atmos)
 "rNQ" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "rNR" = (
@@ -64353,7 +64353,7 @@
 /obj/structure/window/reinforced/spawner/directional/south{
 	pixel_y = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/genetics)
 "tBm" = (

@@ -83,6 +83,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_state = "arcade"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "invaders"
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_SET_MACHINE
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
@@ -1246,6 +1247,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 SCREENTIP_ATTACK_HAND(/obj/machinery/computer/arcade/amputation, "Use")
 
 /obj/machinery/computer/arcade/amputation/attack_hand(mob/user, list/modifiers)
+	. = ..()
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/c_user = user

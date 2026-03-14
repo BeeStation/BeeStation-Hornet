@@ -242,7 +242,7 @@
 
 /datum/component/bloodysoles/feet/update_icon()
 	. = list()
-	if(!ishuman(wielder))
+	if(!ishuman(wielder) || HAS_TRAIT(wielder, TRAIT_NO_BLOOD_OVERLAY))
 		return
 	if(GET_ATOM_BLOOD_DNA_LENGTH(wielder))
 		bloody_feet.color = bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
@@ -255,10 +255,6 @@
 		wielder.update_worn_shoes()
 
 /datum/component/bloodysoles/feet/add_parent_to_footprint(obj/effect/decal/cleanable/blood/footprints/FP)
-	if(ismonkey(wielder))
-		FP.species_types |= "monkey"
-		return
-
 	if(!ishuman(wielder))
 		FP.species_types |= "unknown"
 		return

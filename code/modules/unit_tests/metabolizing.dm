@@ -3,7 +3,6 @@
 	SSmobs.pause()
 
 	var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human/consistent)
-	//var/mob/living/carbon/monkey/monkey = allocate(/mob/living/carbon/monkey)
 
 	//This should only be used for existing reagents which are coded like ass. Do NOT add new reagents to this list.
 	var/list/janky_reagents = list(
@@ -13,7 +12,6 @@
 
 	for (var/reagent_type in subtypesof(/datum/reagent) - janky_reagents)
 		test_reagent(human, reagent_type)
-	//	test_reagent(monkey, reagent_type) //These break fucking everything. If only they were species instead of carbons. Oh well.
 
 /datum/unit_test/metabolization/proc/test_reagent(mob/living/carbon/C, reagent_type)
 	C.reagents.add_reagent(reagent_type, 10)

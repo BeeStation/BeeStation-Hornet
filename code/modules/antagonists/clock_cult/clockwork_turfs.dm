@@ -115,8 +115,7 @@
 /turf/closed/wall/clockwork/attack_hulk(mob/user, does_attack_animation)
 	if(prob(10))
 		return ..()
-	to_chat(user, span_warning("Your slightly dent [src]."))
-	return
+	to_chat(user, span_warning("Your fists barely dent [src]. You need to try HARDER!"))
 
 //========Deconstruction Handled Here=======
 /turf/closed/wall/clockwork/deconstruction_hints(mob/user)

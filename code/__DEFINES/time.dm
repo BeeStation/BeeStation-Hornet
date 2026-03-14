@@ -16,14 +16,15 @@
 #define DECEMBER	12
 
 //Select holiday names -- If you test for a holiday in the code, make the holiday's name a define and test for that instead
-#define NEW_YEAR				"New Year"
-#define VALENTINES				"Valentine's Day"
-#define APRIL_FOOLS				"April Fool's Day"
-#define EASTER					"Easter"
-#define HALLOWEEN				"Halloween"
-#define CHRISTMAS				"Christmas"
-#define FESTIVE_SEASON			"Festive Season"
-#define GARBAGEDAY				"Garbage Day"
+#define NEW_YEAR "New Year"
+#define VALENTINES "Valentine's Day"
+#define APRIL_FOOLS "April Fool's Day"
+#define EASTER "Easter"
+#define HALLOWEEN "Halloween"
+#define CHRISTMAS "Christmas"
+#define FESTIVE_SEASON "Festive Season"
+#define GARBAGEDAY "Garbage Day"
+#define MONKEYDAY "Monkey Day"
 
 /*
 

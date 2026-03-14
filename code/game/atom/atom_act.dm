@@ -270,12 +270,8 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_EXTRAPOLATOR_ACT, user, extrapolator, dry_run, .)
 
 /// This atom has been hit by a hulkified mob in hulk mode (user)
-/atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+/atom/proc/attack_hulk(mob/living/carbon/human/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
-	if(does_attack_animation)
-		user.changeNext_move(CLICK_CD_MELEE)
-		log_combat(user, src, "punched", "hulk powers")
-		user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
 
 /**
  * attempts to fix something when duct tape is used on it.

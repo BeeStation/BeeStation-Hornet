@@ -1,39 +1,23 @@
 /mob/living/carbon/human/gib_animation()
 	if(!dna)
-		new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
+		new /obj/effect/temp_visual/gib_animation(loc)
 		return
-	switch(dna.species.species_gibs)
-		if(GIB_TYPE_HUMAN)
-			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
-		if(GIB_TYPE_ROBOTIC)
-			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
+	new /obj/effect/temp_visual/gib_animation(loc, dna.species.gib_anim)
 
 /mob/living/carbon/human/dust_animation()
 	if(!dna)
-		new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
+		new /obj/effect/temp_visual/dust_animation(loc)
 		return
-	switch(dna.species.species_gibs)
-		if(GIB_TYPE_HUMAN)
-			new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
-		if(GIB_TYPE_ROBOTIC)
-			new /obj/effect/temp_visual/dust_animation(loc, "dust-r")
+	new /obj/effect/temp_visual/dust_animation(loc, dna.species.dust_anim)
 
 /mob/living/carbon/human/spawn_gibs(with_bodyparts)
 	if(!dna)
 		new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
 		return
-	if(with_bodyparts)
-		switch(dna.species.species_gibs)
-			if(GIB_TYPE_HUMAN)
-				new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
-			if(GIB_TYPE_ROBOTIC)
-				new /obj/effect/gibspawner/robot(get_turf(src))
+	if(mob_biotypes & MOB_ROBOTIC)
+		new /obj/effect/gibspawner/robot(get_turf(src))
 	else
-		switch(dna.species.species_gibs)
-			if(GIB_TYPE_HUMAN)
-				new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
-			if(GIB_TYPE_ROBOTIC)
-				new /obj/effect/gibspawner/robot(get_turf(src))
+		new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
 
 /mob/living/carbon/human/spawn_dust(just_ash = FALSE)
 	if(!dna)
@@ -41,12 +25,10 @@
 		return
 	if(just_ash)
 		new /obj/effect/decal/cleanable/ash(loc)
+	else if(mob_biotypes & MOB_ROBOTIC)
+		new /obj/effect/decal/remains/robot(loc)
 	else
-		switch(dna.species.species_gibs)
-			if(GIB_TYPE_HUMAN)
-				new /obj/effect/decal/remains/human(loc)
-			if(GIB_TYPE_ROBOTIC)
-				new /obj/effect/decal/remains/robot(loc)
+		new /obj/effect/decal/remains/human(loc)
 
 /mob/living/carbon/human/death(gibbed)
 	if(stat == DEAD)

@@ -76,8 +76,6 @@
 		finish_action(controller, FALSE)
 		return
 
-
-
 	victim.visible_message(span_warning("[living_pawn] starts trying to take [target] from [victim]!"), span_danger("[living_pawn] tries to take [target]!"))
 
 	controller.set_blackboard_key(BB_MONKEY_PICKPOCKETING, TRUE)

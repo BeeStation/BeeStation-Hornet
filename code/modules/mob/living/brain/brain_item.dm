@@ -287,11 +287,6 @@
 	desc = "This juicy piece of meat has a clearly underdeveloped frontal lobe."
 	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP, TRAIT_PRIMITIVE)
 
-/obj/item/organ/brain/primate
-	name = "primate brain"
-	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
-	organ_traits = list(TRAIT_CAN_STRIP, TRAIT_PRIMITIVE) // No advanced tool usage.
-
 /obj/item/organ/brain/diona
 	name = "diona nymph"
 	desc = "A small mass of roots and plant matter, it looks to be moving."

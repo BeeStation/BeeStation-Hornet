@@ -81,8 +81,9 @@
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
-	cocoon_action.Remove(H)
-	QDEL_NULL(cocoon_action)
+	if(cocoon_action)
+		cocoon_action.Remove(H)
+		QDEL_NULL(cocoon_action)
 
 /datum/species/moth/spec_life(mob/living/carbon/human/H)
 	if(cocoon_action)
