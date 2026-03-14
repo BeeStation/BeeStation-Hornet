@@ -33,30 +33,32 @@
 #define ACCESS_CHEMISTRY 33
 #define ACCESS_BRIGPHYS 34
 #define ACCESS_HYDROPONICS 35
+// 36 Unassigned
 #define ACCESS_LIBRARY 37
 #define ACCESS_LAWYER 38
 #define ACCESS_VIROLOGY 39
 #define ACCESS_CMO 40
 #define ACCESS_QM 41
 #define ACCESS_COURT 42
+// 43 Unassigned
+// 44 Unassigned
 #define ACCESS_SURGERY 45
 #define ACCESS_THEATRE 46
 #define ACCESS_RESEARCH 47
 #define ACCESS_MINING 48
 #define ACCESS_EXPLORATION 49
 #define ACCESS_MAILSORTING 50
+// 51 Unassigned
+// 52 Unassigned
 #define ACCESS_VAULT 53
 #define ACCESS_MINING_STATION 54
 #define ACCESS_XENOBIOLOGY 55
 #define ACCESS_CE 56
 #define ACCESS_HOP 57
 #define ACCESS_HOS 58
-/// Request console announcements
-#define ACCESS_RC_ANNOUNCE 59
-/// Used for events which require at least two people to confirm them
-#define ACCESS_KEYCARD_AUTH 60
-/// has access to the entire telecomms satellite / machinery
-#define ACCESS_TCOMSAT 61
+#define ACCESS_RC_ANNOUNCE 59 /// Request console announcements
+#define ACCESS_KEYCARD_AUTH 60 /// Used for events which require at least two people to confirm them
+#define ACCESS_TCOMSAT 61 /// has access to the entire telecomms satellite / machinery
 #define ACCESS_GATEWAY 62
 #define ACCESS_SEC_DOORS 63 //! Outer brig doors, department security posts
 #define ACCESS_MINERAL_STOREROOM 64 //! For releasing minerals from the ORM
@@ -67,9 +69,51 @@
 #define ACCESS_SEC_RECORDS 69 //! Update security records
 #define ACCESS_RD_SERVER 70 //! Access to the R&D server room
 #define ACCESS_SERVICE 71
+#define ACCESS_AUX_BASE 72 /// Room and launching.
 
-/// Room and launching.
-#define ACCESS_AUX_BASE 72
+
+// ---- Exclusive access ----
+	// * Difference between Common[10000] group and map exclusive groups? :
+		// 	Even if the accesses are the same, the access names should be named differently.
+		// 	For example, Meta Commissary is named "Commissary (Bridge)"
+		//				 Box Commissary is named "Commissary (Cargo)"
+		//	Psychotherapy doesn't need to have different names, so it's in Common[10000] group
+	// * Sub group codes syntax:
+		// 00 : Vacant office
+		// 10 : Commissary
+		// 20 : Extra special room(i.e. Meta exhibit room)
+
+/***** Common: 10000    *****/
+#define ACCESS_ALLMAP_PSYCHOTHERAPY 10000 // Psychiatrist room
+
+/***** Box :  11000    *****/
+#define ACCESS_BOX_VACANT 11000 // at Arrival
+#define ACCESS_BOX_COMMISSARY 11010 // Next to Cargo
+
+/***** Meta : 12000    *****/
+#define ACCESS_META_VACANT 12000 // Next to Arrival
+#define ACCESS_META_COMMISSARY 12010 // Next to Bridge
+#define ACCESS_META_EXHIBIT 12020 // At South hallway
+
+/***** Delta: 13000    *****/
+#define ACCESS_DELTA_VACANT 13000 // Next to Library
+
+/***** Kilo : 14000    *****/
+#define ACCESS_KILO_COMMISSARY 14010 // Next to Janitor closet
+
+/***** Echo : 15000  (No extra room in Echo)    *****/
+/***** Rad :  16000    *****/
+#define ACCESS_RAD_VACANT 16000 // In front of West Commissary
+#define ACCESS_RAD_COMMISSARY_WEST 16010
+#define ACCESS_RAD_COMMISSARY_SOUTH 16011
+
+/***** Fland: 17000    *****/
+#define ACCESS_FLAND_COMMISSARY_MEDICAL 17010 // North one
+#define ACCESS_FLAND_COMMISSARY_GENERAL 17011 // South one
+
+/***** Cardinal: 18000   *****/
+
+
 
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.
@@ -81,6 +125,7 @@
 #define ACCESS_CENT_LIVING 105 //! Living quarters.
 #define ACCESS_CENT_STORAGE 106 //! Generic storage areas.
 #define ACCESS_CENT_TELEPORTER 107 //! Teleporter.
+// 108 Unassigned
 #define ACCESS_CENT_CAPTAIN 109 //! Captain's office/ID comp/AI.
 #define ACCESS_CENT_BAR 110 //! The non-existent CentCom Bar
 
