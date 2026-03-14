@@ -156,6 +156,11 @@
 
 	///If combat mode is on or not
 	var/combat_mode = FALSE
+	/// Is combat indicator enabled for this mob?
+	var/combat_indicator = FALSE
+	/// When is the next time this mob will be able to use flick_emote for combat indicator?
+	COOLDOWN_DECLARE(nextcombatpopup)
+	var/combat_notice_cooldown = 7 SECONDS
 
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE

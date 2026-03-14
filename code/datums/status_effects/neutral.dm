@@ -280,6 +280,40 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+//this effect gives the user an alert they can use to surrender quickly
+/datum/status_effect/grouped/surrender
+	id = "surrender"
+	duration = -1
+	tick_interval = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/surrender
+
+/atom/movable/screen/alert/status_effect/surrender
+	name = "Surrender"
+	desc = "Looks like you're in trouble now, bud. Click here to surrender. (Warning: You will be incapacitated.)"
+	icon_state = "surrender"
+
+/atom/movable/screen/alert/status_effect/surrender/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return
+
+	owner.emote("surrender")
+
+///For when you need to make someone be prompted for surrender, but not forever
+/datum/status_effect/surrender_timed
+	id = "surrender_timed"
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+
+/datum/status_effect/surrender_timed/on_apply()
+	owner.apply_status_effect(/datum/status_effect/grouped/surrender, REF(src))
+	return ..()
+
+/datum/status_effect/surrender_timed/on_remove()
+	owner.remove_status_effect(/datum/status_effect/grouped/surrender, REF(src))
+	return ..()
 
 /atom/movable/screen/alert/status_effect/morph_cooldown
 	name = "Chameleon Recharge"

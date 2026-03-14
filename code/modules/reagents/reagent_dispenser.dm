@@ -142,7 +142,7 @@
 				explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 6, flame_range = 8)
 	qdel(src)
 
-/obj/structure/reagent_dispensers/Moved(atom/old_loc, movement_dir)
+/obj/structure/reagent_dispensers/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(rig)
 		rig.on_move(old_loc, movement_dir)

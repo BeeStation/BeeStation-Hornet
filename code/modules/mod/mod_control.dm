@@ -205,7 +205,7 @@
 	var/datum/action/item_action/mod/pinned_module/pinned = action
 	give_item_action(action, pinned.pinner, slot_flags)
 
-/obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced = FALSE, list/old_locs)
+/obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!wearer || old_loc != wearer || loc == wearer)
 		return

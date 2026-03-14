@@ -150,3 +150,6 @@
 
 /// Signal sent when a blackboard key is cleared
 #define COMSIG_AI_BLACKBOARD_KEY_CLEARED(blackboard_key) "ai_blackboard_key_clear_[blackboard_key]"
+
+///Fired in combat_indicator.dm, used for syncing CI between mech and pilot
+#define COMSIG_MOB_CI_TOGGLED "mob_ci_toggled"

@@ -488,6 +488,9 @@ RESTRICTED_SUICIDE
 ## Uncomment to enable donator items in the cosmetic shop. Only works if a patreon list has been setup
 DONATOR_ITEMS
 
+## Uncomment to enable combat indicators when combat mode is enabled per-mob
+COMBAT_INDICATOR
+
 ## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
 SPARE_ENFORCE_COC
 
