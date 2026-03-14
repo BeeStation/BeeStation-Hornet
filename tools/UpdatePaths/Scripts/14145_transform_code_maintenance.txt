@@ -3,3 +3,6 @@
 /obj/item/reagent_containers/cup/rag : /obj/item/rag{@OLD}
 /mob/living/@SUBTYPES{resize = @ANY} : /mob/living/@SUBTYPES{@OLD;resize=@SKIP;initial_size=@OLD:resize}
 /obj/structure/mopbucket : /obj/structure/mop_bucket{@OLD}
+/obj/structure/closet/crate/secure/gear/debug : @DELETE
+/obj/structure/closet/crate/secure/gear/debug/cyborg : @DELETE
+/obj/structure/closet/crate/secure/gear/debug/mech : /obj/structure/closet/crate/secure/gear/debug_mech{@OLD}
