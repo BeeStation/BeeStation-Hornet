@@ -160,3 +160,9 @@
 #define PLASMIC_FUSION_MIDDLE_ENERGY_REFERENCE 1e6
 /// Increase this to cull unrobust fusions faster
 #define PLASMIC_FUSION_BUFFER_DIVISOR 1
+
+
+/// Toxic gas neutralization energy released from N2O and Toxic gas converting to CO2 and N2
+#define TOXIC_NEUTRALIZATION_ENERGY 250
+/// The maximum amount of toxic gas that can be neutralized per reaction tick.
+#define TOXIC_NEUTRALIZATION_MAX_RATE 5

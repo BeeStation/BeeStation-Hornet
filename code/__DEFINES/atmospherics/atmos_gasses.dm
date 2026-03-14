@@ -10,3 +10,4 @@
 #define GAS_TRITIUM "tritium"
 #define GAS_HYPER_NOBLIUM "hypernoblium"
 #define GAS_PLUOXIUM "pluoxium"
+#define GAS_TOXIC "toxic"
