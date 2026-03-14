@@ -614,7 +614,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/location_sanity = 0
 	while(spawned < to_spawn && location_sanity < 100)
 		var/precision = pick(5, 15 * max_amount)
-		var/turf/chosen_location = pick(get_safe_random_station_turfs())
+		var/turf/chosen_location = get_safe_random_station_turfs()
 		if(centered)
 			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
 		// We don't want them close to each other - at least 1 tile of seperation

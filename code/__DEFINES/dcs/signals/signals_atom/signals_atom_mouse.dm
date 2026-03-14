@@ -27,3 +27,5 @@
 	#define COMPONENT_NO_MOUSEDROP (1<<0)
 ///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
+/// From /atom/movable/screen/click(): (atom/target, atom/location, control, params, mob/user)
+#define COMSIG_SCREEN_ELEMENT_CLICK "screen_element_click"

@@ -261,12 +261,15 @@
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/leaning/Click()
-	var/mob/living/L = usr
-	if(!istype(L) || L != owner)
+	. = ..()
+	if(!.)
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.last_special <= world.time)
-		return L.stop_leaning()
+
+	var/mob/living/living_owner = owner
+
+	living_owner.changeNext_move(CLICK_CD_RESIST)
+	if(living_owner.last_special <= world.time)
+		return living_owner.stop_leaning()
 
 /datum/status_effect/leaning
 	id = "leaning"

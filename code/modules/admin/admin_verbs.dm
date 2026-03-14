@@ -637,6 +637,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		mob.mouse_opacity = initial(mob.mouse_opacity)
 
 	REMOVE_TRAIT(mob, TRAIT_ORBITING_FORBIDDEN, STEALTH_MODE_TRAIT)
+
 	log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
 	message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
 
@@ -902,36 +903,29 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Debug"
 	set desc = "(\"Amount of mobs to create\") Populate the world with test mobs."
 
-	if(amount > 0)
-		var/area/area
-		var/list/candidates
-		var/turf/open/floor/tile
-		var/j,k
-
-		for(var/i = 1 to amount)
-			j = 100
-
-			do
-				area = pick(GLOB.the_station_areas)
-
-				if(area)
-
-					candidates = get_area_turfs(area)
-
-					if(candidates.len)
-						k = 100
-
-						do
-							tile = pick(candidates)
-						while ((!tile || !istype(tile)) && --k > 0)
-
-						if(tile)
-							var/mob/living/carbon/human/hooman = new(tile)
-							if (give_minds == "Yes")
-								hooman.mind_initialize()
-							hooman.equipOutfit(pick(subtypesof(/datum/outfit)))
-							testing("Spawned test mob at [COORD(tile)]")
-			while(!area && --j > 0)
+	for (var/i in 1 to amount)
+		var/turf/tile = get_safe_random_station_turfs()
+		if(!tile)
+			to_chat(usr, span_warning("Failed to find valid spawn location for test mob [i]."))
+			continue
+		var/mob/living/carbon/human/hooman = new(tile)
+		var/outfit_type = pick(subtypesof(/datum/outfit))
+		if (give_minds == "Yes")
+			hooman.mind_initialize() // Required for orbit menu validation
+		hooman.equipOutfit(outfit_type)
+		if(hooman.mind)
+			// Try to match the outfit's job if it's a job outfit
+			var/datum/outfit/outfit = outfit_type
+			if(ispath(outfit, /datum/outfit/job))
+				var/datum/outfit/job/job_outfit = outfit
+				var/datum/job/job = SSjob.GetJobType(initial(job_outfit.jobtype))
+				if(job)
+					hooman.mind.assigned_role = job.title
+				else
+					hooman.mind.assigned_role = JOB_NAME_ASSISTANT
+			else
+				hooman.mind.assigned_role = JOB_NAME_ASSISTANT
+		testing("Spawned test mob at [get_area_name(tile, TRUE)] ([tile.x],[tile.y],[tile.z])")
 
 /client/proc/toggle_AI_interact()
 	set name = "Toggle Admin AI Interact"

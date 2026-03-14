@@ -3,7 +3,7 @@
 #define OBJECTIVE_BRAINWASH 2
 #define OBJECTIVE_HACK_AI 3
 
-/datum/antagonist/traitor/proc/forge_objectives()
+/datum/antagonist/traitor/forge_objectives()
 	var/list/valid_objectives = list()
 
 	// Lowpop switch: Traitor needs to farm TC instead of do acts of killing

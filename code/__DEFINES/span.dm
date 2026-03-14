@@ -27,6 +27,8 @@
 #define span_bighypnophrase(str) ("<span class='big hypnophrase'>" + (str) + "</span>")
 #define span_bignotice(str) ("<span class='big notice'>" + (str) + "</span>")
 #define span_bigslime(str) ("<span class='big slime'>" + (str) + "</span>")
+#define span_blob(str) ("<span class='blob'>" + (str) + "</span>")
+#define span_blobannounce(str) ("<span class='blobannounce'>" + (str) + "</span>")
 #define span_blue(str) ("<span class='blue'>" + (str) + "</span>")
 #define span_bluetext(str) ("<span class='bluetext'>" + (str) + "</span>")
 #define span_bold(str) ("<span class='bold'>" + (str) + "</span>")

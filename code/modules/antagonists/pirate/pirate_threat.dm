@@ -78,9 +78,17 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 				var/mob/M = candidates[1]
 				spawner.create(M.ckey)
 				candidates -= M
-				notify_ghosts("The pirate ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
+				notify_ghosts(
+					"The pirate ship has an object of interest: [M]!",
+					source=M,
+					header="Something's Interesting!"
+				)
 			else
-				notify_ghosts("The pirate ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
+				notify_ghosts(
+					"The pirate ship has an object of interest: [spawner]!",
+					source=spawner,
+					header="Something's Interesting!"
+				)
 
 //Shuttle equipment
 

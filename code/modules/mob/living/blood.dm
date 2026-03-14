@@ -131,13 +131,16 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/bleeding/Click(location, control, params)
-	var/mob/living/carbon/human/human = usr
-	if (!istype(human))
+	. = ..()
+	if(!.)
 		return
-	if (locate(/obj/item/offhand/bleeding_suppress) in human.held_items)
-		human.stop_holding_wounds()
+
+	var/mob/living/carbon/human/human_owner = owner
+
+	if (locate(/obj/item/offhand/bleeding_suppress) in human_owner.held_items)
+		human_owner.stop_holding_wounds()
 	else
-		human.hold_wounds()
+		human_owner.hold_wounds()
 
 /mob/living/carbon/proc/is_bandaged()
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))

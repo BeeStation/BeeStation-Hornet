@@ -499,7 +499,7 @@
 	info_button_ref = WEAKREF(info_button)
 	return info_button
 
-/datum/antagonist/vampire/proc/forge_objectives()
+/datum/antagonist/vampire/forge_objectives()
 	// Claim a Lair Objective
 	var/datum/objective/vampire/lair/lair_objective = new
 	lair_objective.owner = owner

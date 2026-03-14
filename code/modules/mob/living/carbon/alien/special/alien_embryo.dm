@@ -150,9 +150,8 @@ Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
 /obj/item/organ/body_egg/alien_embryo/AddInfectionImages()
 	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
-		if(alien.client)
-			var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
-			alien.client.images += I
+		var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
+		alien.client.images += I
 
 /*----------------------------------------
 Proc: RemoveInfectionImage(C)
@@ -160,9 +159,8 @@ Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
 /obj/item/organ/body_egg/alien_embryo/RemoveInfectionImages()
 	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
-		if(alien.client)
-			for(var/image/I in alien.client.images)
-				var/searchfor = "infected"
-				if(I.loc == owner && findtext(I.icon_state, searchfor, 1, length(searchfor) + 1))
-					alien.client.images -= I
-					qdel(I)
+		for(var/image/I in alien.client.images)
+			var/searchfor = "infected"
+			if(I.loc == owner && findtext(I.icon_state, searchfor, 1, length(searchfor) + 1))
+				alien.client.images -= I
+				qdel(I)

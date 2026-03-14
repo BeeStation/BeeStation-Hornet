@@ -2,9 +2,9 @@
 GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 /datum/antagonist/wizard
-	name = "Space Wizard"
+	name = "\improper Space Wizard"
 	roundend_category = "wizards/witches"
-	antagpanel_category = "Wizard"
+	antagpanel_category = ANTAG_GROUP_WIZARDS
 	banning_key = ROLE_WIZARD
 	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused

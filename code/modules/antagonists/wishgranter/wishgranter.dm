@@ -6,7 +6,7 @@
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
-/datum/antagonist/wishgranter/proc/forge_objectives()
+/datum/antagonist/wishgranter/forge_objectives()
 	var/datum/objective/elimination/highlander/elimination_objective = new
 	elimination_objective.owner = owner
 	objectives += elimination_objective

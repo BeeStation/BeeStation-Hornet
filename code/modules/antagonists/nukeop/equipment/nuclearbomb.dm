@@ -446,6 +446,11 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 			S.switch_mode_to(TRACK_INFILTRATOR)
 		countdown.start()
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+		notify_ghosts(
+			"A nuclear device has been armed in [get_area_name(src)]!",
+			source = src,
+			header = "Nuke Armed",
+		)
 
 		if(proper_bomb) // Why does this exist
 			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)

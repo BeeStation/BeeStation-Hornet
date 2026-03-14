@@ -139,7 +139,7 @@
 
 	//These are always reachable.
 	//User itself, current loc, and user inventory
-	if(HasDirectAccess(A))
+	if(A in DirectAccess())
 		if(W)
 			W.melee_attack_chain(src, A, params)
 		else
@@ -215,6 +215,7 @@
   * logically "in" anything adjacent to us.
   */
 /atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
+	var/list/direct_access = DirectAccess()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
 	var/list/closed = list()
@@ -228,7 +229,7 @@
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
 
-			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (ismovable(target) && target.flags_1 & IS_ONTOP_1) || target.loc?.atom_storage) //Directly accessible atoms
+			if(isturf(target) || isturf(target.loc) || (target in direct_access) || (ismovable(target) && target.flags_1 & IS_ONTOP_1) || target.loc?.atom_storage) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
@@ -244,35 +245,14 @@
 		checking = next
 	return FALSE
 
-/atom/movable/proc/HasDirectAccess(atom/target)
-	// We can always directly access ourselves
-	if (target == src)
-		return TRUE
-	// We can directly access our location if it lets us touch it from the contents
-	if (target == loc && !(target.flags_1 & NO_DIRECT_ACCESS_FROM_CONTENTS_1))
-		return TRUE
-	return FALSE
+/atom/movable/proc/DirectAccess()
+	return list(src, loc)
 
-/mob/HasDirectAccess(atom/target)
-	if (..())
-		return TRUE
-	if (istype(target, /atom/movable/screen))
-		return TRUE
-	// We can directly access things that are inside of us
-	if (target.loc == src)
-		return TRUE
-	return FALSE
+/mob/DirectAccess(atom/target)
+	return ..() + contents
 
-/mob/living/HasDirectAccess(atom/target)
-	if (..())
-		return TRUE
-	// We can directly access things that are recursively inside of us
-	var/atom/current = target
-	while (current && !isturf(current))
-		if (current == src)
-			return TRUE
-		current = current.loc
-	return FALSE
+/mob/living/DirectAccess(atom/target)
+	return ..() + GetAllContents()
 
 /atom/proc/AllowClick()
 	return FALSE

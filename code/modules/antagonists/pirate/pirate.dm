@@ -2,7 +2,7 @@
 	name = "Space Pirate"
 	banning_key = ROLE_SPACE_PIRATE
 	roundend_category = "space pirates"
-	antagpanel_category = "Pirate"
+	antagpanel_category = ANTAG_GROUP_PIRATES
 	show_to_ghosts = TRUE
 	required_living_playtime = 0
 	var/datum/team/pirate/crew

@@ -170,7 +170,7 @@
 
 	to_chat(choice, span_notice("Through divine intervention, you've gained a new vassal!"))
 
-/datum/antagonist/vassal/proc/forge_objectives()
+/datum/antagonist/vassal/forge_objectives()
 	var/datum/objective/vampire/vassal/vassal_objective = new
 	vassal_objective.owner = owner
 	objectives += vassal_objective

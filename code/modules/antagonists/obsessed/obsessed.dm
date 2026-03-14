@@ -66,7 +66,7 @@
 	var/mob/living/current = mob_override || owner.current
 	update_obsession_icons_removed(current)
 
-/datum/antagonist/obsessed/proc/forge_objectives(datum/mind/obsession_mind)
+/datum/antagonist/obsessed/forge_objectives(datum/mind/obsession_mind)
 	var/list/objectives_left = list("spendtime", "polaroid", "hug")
 	var/datum/objective/protect/obsessed/yandere = new
 	yandere.owner = owner

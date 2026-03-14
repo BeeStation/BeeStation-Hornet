@@ -286,6 +286,10 @@
 		return
 	apply_loadout_to_mob(H, M, preference_source, on_dummy)
 
+/// Return the outfit to use
+/datum/job/proc/get_outfit()
+	return outfit
+
 /proc/apply_loadout_to_mob(mob/living/carbon/human/H, mob/M, client/preference_source, on_dummy = FALSE)
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()

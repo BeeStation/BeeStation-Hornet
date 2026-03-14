@@ -415,7 +415,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(curselimit > 1)
 		to_chat(user, span_notice("We have exhausted our ability to curse the shuttle."))
 		return
-	if(locate(/obj/eldritch/narsie) in GLOB.poi_list)
+	if(locate(/obj/eldritch/narsie) in SSpoints_of_interest.narsies)
 		to_chat(user, span_warning("Nar'Sie is already on this plane, there is no delaying the end of all things."))
 		return
 

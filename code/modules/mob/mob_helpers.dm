@@ -167,6 +167,18 @@
 	firstname.Find(real_name)
 	return firstname.match
 
+/// Find the last name of a mob from the real name with regex
+/mob/proc/last_name()
+	var/static/regex/lasttname = new("\[^\\s-\]+$") //First word before whitespace or "-"
+	lasttname.Find(real_name)
+	return lasttname.match
+
+///Returns a mob's real name between brackets. Useful when you want to display a mob's name alongside their real name
+/mob/proc/get_realname_string()
+	if(real_name && real_name != name)
+		return " \[[real_name]\]"
+	return ""
+
 ///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
 /mob/proc/is_blind()
 	SHOULD_BE_PURE(TRUE)
@@ -199,79 +211,92 @@
   * The kitchen sink of notification procs
   *
   * Arguments:
-  * * message
-  * * ghost_sound sound to play
-  * * enter_link Href link to enter the ghost role being notified for
-  * * source The source of the notification
-  * * alert_overlay The alert overlay to show in the alert message
-  * * action What action to take upon the ghost interacting with the notification, defaults to NOTIFY_JUMP
-  * * flashwindow Flash the byond client window
-  * * ignore_key  Ignore keys if they're in the GLOB.poll_ignore list
-  * * header The header of the notifiaction
-  * * notify_suiciders If it should notify suiciders (who do not qualify for many ghost roles)
-  * * notify_volume How loud the sound should be to spook the user
-  */
-/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, atom/source = null, mutable_appearance/alert_overlay = null, action = NOTIFY_JUMP, flashwindow = TRUE, ignore_mapload = TRUE, ignore_key, header = null, notify_suiciders = TRUE, notify_volume = 100) //Easy notification of ghosts.
-	if(ignore_mapload && SSatoms.initialized != INITIALIZATION_INNEW_REGULAR)	//don't notify for objects created during a map load
+ * * message: The message displayed in chat.
+ * * source: The source of the notification. This is required for an icon
+ * * header: The title text to display on the icon tooltip.
+ * * alert_overlay: Optional. Create a custom overlay if you want, otherwise it will use the source
+ * * click_interact: If true, adds a link + clicking the icon will attack_ghost the source
+ * * custom_link: Optional. If you want to add a custom link to the chat notification
+ * * ghost_sound: sound to play
+ * * ignore_key: Ignore keys if they're in the GLOB.poll_ignore list
+ * * notify_volume: How loud the sound should be to spook the user
+ */
+/proc/notify_ghosts( //Easy notification of ghosts.
+	message,
+	atom/source,
+	header = "Something Interesting!",
+	mutable_appearance/alert_overlay,
+	click_interact = FALSE,
+	custom_link = "",
+	ghost_sound,
+	ignore_key,
+	notify_flags = NOTIFY_CATEGORY_DEFAULT,
+	notify_volume = 100,
+)
+	if(notify_flags & GHOST_NOTIFY_IGNORE_MAPLOAD && SSatoms.initialized != INITIALIZATION_INNEW_REGULAR) //don't notify for objects created during a map load
 		return
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(O.client)
-			if(!notify_suiciders && (O in GLOB.suicided_mob_list))
-				continue
-			if (ignore_key && (O.ckey in GLOB.poll_ignore[ignore_key]))
-				continue
-			var/orbit_link
-			if (source && action == NOTIFY_ORBIT)
-				orbit_link = " <a href='byond://?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
-			to_chat(O, span_ghostalert("[message][enter_link ? " [enter_link]" : ""][orbit_link]"))
-			if(ghost_sound)
-				SEND_SOUND(O, sound(ghost_sound, volume = notify_volume))
-			if(flashwindow)
-				window_flash(O.client)
-			if(source)
-				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("[REF(source)]_notify_action", /atom/movable/screen/alert/notify_action)
-				if(A)
-					var/ui_style = O.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
-					if(ui_style)
-						A.icon = ui_style2icon(ui_style)
-					if (header)
-						A.name = header
-					A.desc = message
-					A.action = action
-					A.target = source
-					if(!alert_overlay)
-						alert_overlay = new(source)
-					alert_overlay.layer = FLOAT_LAYER
-					alert_overlay.plane = FLOAT_PLANE
-					A.add_overlay(alert_overlay)
+
+	if(source)
+		if(isnull(alert_overlay))
+			alert_overlay = get_small_overlay(source)
+
+		alert_overlay.appearance_flags |= TILE_BOUND
+		alert_overlay.layer = FLOAT_LAYER
+		alert_overlay.plane = FLOAT_PLANE
+
+	for(var/mob/dead/observer/ghost in GLOB.player_list)
+		if(!(notify_flags & GHOST_NOTIFY_NOTIFY_SUICIDERS) && (ghost in GLOB.suicided_mob_list))
+			continue
+		if(ignore_key && (ghost.ckey in GLOB.poll_ignore[ignore_key]))
+			continue
+
+		if(notify_flags & GHOST_NOTIFY_FLASH_WINDOW)
+			window_flash(ghost.client)
+
+		if(ghost_sound)
+			SEND_SOUND(ghost, sound(ghost_sound, volume = notify_volume))
+
+		if(isnull(source))
+			to_chat(ghost, span_ghostalert(message))
+			continue
+
+		var/interact_link = click_interact ? " <a href='byond://?src=[REF(ghost)];play=[REF(source)]'>(Play)</a>" : ""
+		var/view_link = " <a href='byond://?src=[REF(ghost)];view=[REF(source)]'>(View)</a>"
+
+		to_chat(ghost, span_ghostalert("[message][custom_link][interact_link][view_link]"))
+
+		var/atom/movable/screen/alert/notify_action/toast = ghost.throw_alert(
+			category = "[REF(source)]_notify_action",
+			type = /atom/movable/screen/alert/notify_action,
+		)
+		toast.add_overlay(alert_overlay)
+		toast.click_interact = click_interact
+		toast.desc = "Click to [click_interact ? "play" : "view"]."
+		toast.name = header
+		toast.target_ref = WEAKREF(source)
 
 /**
   * Heal a robotic body part on a mob
   */
-/proc/item_heal_robotic(mob/living/carbon/human/H, mob/user, brute_heal, burn_heal, obj/item/bodypart/affecting)
-	if(affecting && (!IS_ORGANIC_LIMB(affecting)))
-		var/dam //changes repair text based on how much brute/burn was supplied
-		if(brute_heal > burn_heal)
-			dam = 1
+/proc/item_heal_robotic(mob/living/carbon/human/human, mob/user, brute_heal, burn_heal, obj/item/bodypart/affecting)
+	if(!affecting || IS_ORGANIC_LIMB(affecting))
+		to_chat(user, span_warning("[affecting] is already in good condition!"))
+		return FALSE
+	var/brute_damage = brute_heal > burn_heal //changes repair text based on how much brute/burn was supplied
+	if((brute_heal > 0 && (affecting.brute_dam > 0 || (human.is_bleeding() && human.has_mechanical_bleeding()))) || (burn_heal > 0 && affecting.burn_dam > 0))
+		if(affecting.heal_damage(brute_heal, burn_heal, required_bodytype = BODYTYPE_ROBOTIC))
+			human.update_damage_overlays()
+		if (brute_heal > 0 && human.is_bleeding() && human.has_mechanical_bleeding())
+			human.cauterise_wounds(0.4)
+			user.visible_message("[user] has fixed some of the dents on [human]'s [parse_zone(affecting.body_zone)], reducing [human.p_their()] leaking to [human.get_bleed_rate_string()].")
 		else
-			dam = 0
-		if((brute_heal > 0 && (affecting.brute_dam > 0 || (H.is_bleeding() && H.has_mechanical_bleeding()))) || (burn_heal > 0 && affecting.burn_dam > 0))
-			if(affecting.heal_damage(brute_heal, burn_heal, required_bodytype = BODYTYPE_ROBOTIC))
-				H.update_damage_overlays()
-			if (brute_heal > 0 && H.is_bleeding() && H.has_mechanical_bleeding())
-				H.cauterise_wounds(0.4)
-				user.visible_message("[user] has fixed some of the dents on [H]'s [parse_zone(affecting.body_zone)], reducing [H.p_their()] leaking to [H.get_bleed_rate_string()].")
-			else
-				user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
-					span_notice("You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)]."))
-			if((affecting.brute_dam <= 0 && brute_heal) && ((!H.is_bleeding()) && H.has_mechanical_bleeding()))
-				return FALSE //successful heal, but the target is at full health. Returns false to signal you can stop healing now
-			if(affecting.burn_dam <=0 && burn_heal)
-				return FALSE //same as above, but checking for burn damage instead
-			return TRUE //successful heal
-		else
-			to_chat(user, span_warning("[affecting] is already in good condition!"))
-			return FALSE
+			user.visible_message("[user] has fixed some of the [brute_damage ? "dents on" : "burnt wires in"] [human]'s [parse_zone(affecting.body_zone)].", \
+				span_notice("You fix some of the [brute_damage ? "dents on" : "burnt wires in"] [human == user ? "your" : "[human]'s"] [parse_zone(affecting.body_zone)]."))
+		if((affecting.brute_dam <= 0 && brute_heal) && ((!human.is_bleeding()) && human.has_mechanical_bleeding()))
+			return FALSE //successful heal, but the target is at full health. Returns false to signal you can stop healing now
+		if(affecting.burn_dam <=0 && burn_heal)
+			return FALSE //same as above, but checking for burn damage instead
+		return TRUE //successful heal
 
 ///Is the passed in mob an admin ghost
 /proc/IsAdminGhost(mob/user)

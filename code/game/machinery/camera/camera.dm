@@ -478,7 +478,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
 	//I guess that doesn't matter since they can't use it anyway?
 	for(var/mob/O in GLOB.player_list)
-		if (O.client && O.client.eye == src)
+		if (O.client.eye == src)
 			O.unset_machine()
 			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")

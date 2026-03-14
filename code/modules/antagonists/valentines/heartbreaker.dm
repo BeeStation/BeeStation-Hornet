@@ -6,7 +6,7 @@
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
-/datum/antagonist/heartbreaker/proc/forge_objectives()
+/datum/antagonist/survivalist/forge_objectives()
 	if(prob(30)) // rare chance to get martyr, really ruin those dates!
 		var/datum/objective/heartbroken/murder/O = new
 		O.owner = owner

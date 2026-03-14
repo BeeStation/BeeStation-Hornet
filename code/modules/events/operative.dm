@@ -24,7 +24,7 @@
 		return MAP_ERROR
 
 	var/datum/poll_config/config = new(
-		check_jobban = ROLE_OPERATIVE,
+		check_jobban = ROLE_NUCLEAR_OPERATIVE,
 		poll_time = 30 SECONDS,
 		role_name_text = "lone operative",
 		alert_pic = /obj/machinery/nuclearbomb/selfdestruct,

@@ -85,6 +85,13 @@
 /// The maximum (and optimal) number of sacrifice targets a heretic should roll.
 #define HERETIC_MAX_SAC_TARGETS 4
 
+/// Forces the blob to place the core where they currently are, ignoring any checks.
+#define BLOB_FORCE_PLACEMENT -1
+/// Normal blob placement, does the regular checks to make sure the blob isn't placing itself in an invalid location
+#define BLOB_NORMAL_PLACEMENT 0
+/// Selects a random location for the blob to be placed.
+#define BLOB_RANDOM_PLACEMENT 1
+
 //Cult Construct defines
 
 #define CONSTRUCT_JUGGERNAUT "Juggernaut"
@@ -261,6 +268,23 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// and that we cannot continue the round without issue if they were
 /// simply removed or swapped.
 #define ANTAGONIST_LEAVE_KEEP 2
+
+/// Antag panel groups
+#define ANTAG_GROUP_ABDUCTORS "Abductors"
+#define ANTAG_GROUP_ABOMINATIONS "Extradimensional Abominations"
+#define ANTAG_GROUP_ARACHNIDS "Arachnid Infestation"
+#define ANTAG_GROUP_ASHWALKERS "Ash Walkers"
+#define ANTAG_GROUP_BIOHAZARDS "Biohazards"
+#define ANTAG_GROUP_CLOWNOPS "Clown Operatives"
+#define ANTAG_GROUP_ERT "Emergency Response Team"
+#define ANTAG_GROUP_HORRORS "Eldritch Horrors"
+#define ANTAG_GROUP_LEVIATHANS "Spaceborne Leviathans"
+#define ANTAG_GROUP_NINJAS "Ninja Clan"
+#define ANTAG_GROUP_OVERGROWTH "Invasive Overgrowth"
+#define ANTAG_GROUP_PIRATES "Pirate Crew"
+#define ANTAG_GROUP_SYNDICATE "Syndicate"
+#define ANTAG_GROUP_WIZARDS "Wizard Federation"
+#define ANTAG_GROUP_XENOS "Xenomorph Infestation"
 
 // Steal Directive Flags
 // ------------------------------------

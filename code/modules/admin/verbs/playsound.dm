@@ -225,10 +225,9 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 	log_admin("[key_name(src)] stopped all currently playing sounds.")
 	message_admins("[key_name_admin(src)] stopped all currently playing sounds.")
 	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			SEND_SOUND(M, sound(null))
-			var/client/C = M.client
-			C?.tgui_panel?.stop_music()
+		SEND_SOUND(M, sound(null))
+		var/client/C = M.client
+		C?.tgui_panel?.stop_music()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stop All Playing Sounds") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 #undef SHELLEO_ERRORLEVEL

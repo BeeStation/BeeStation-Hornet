@@ -94,7 +94,7 @@
 //ACTION DATUMS
 
 /datum/action/vehicle
-	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_vehicle.dmi'
 	button_icon_state = null
 	var/obj/vehicle/vehicle_target
@@ -104,7 +104,7 @@
 	return ..()
 
 /datum/action/vehicle/sealed
-	check_flags = AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	var/obj/vehicle/sealed/vehicle_entered_target
 
 /datum/action/vehicle/sealed/Destroy()

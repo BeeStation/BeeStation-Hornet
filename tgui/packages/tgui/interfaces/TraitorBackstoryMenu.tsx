@@ -12,13 +12,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 import { AntagInfoTraitorContent } from './AntagInfoTraitor';
-
-type Objective = {
-  count: number;
-  name: string;
-  explanation: string;
-  complete: boolean;
-};
+import { Objective } from './common/Objectives';
 
 type Backstory = {
   name: string;

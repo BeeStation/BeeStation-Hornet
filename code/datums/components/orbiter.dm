@@ -1,7 +1,11 @@
 /datum/component/orbiter
 	can_transfer = TRUE
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
+	/// Assoc list of all orbiters -> their initial matrix
 	var/list/current_orbiters
+	/// Assoc list of orbiters -> their orbiting parameters
+	var/list/orbiter_params
+	/// Movement tracker used to check when our owner moves
 	var/datum/movement_detector/tracker
 
 //radius: range to orbit at, radius of the circle formed by orbiting (in pixels)
@@ -14,6 +18,7 @@
 		return COMPONENT_INCOMPATIBLE
 
 	current_orbiters = list()
+	orbiter_params = list()
 
 	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 
@@ -39,6 +44,7 @@
 	for(var/i in current_orbiters)
 		end_orbit(i)
 	current_orbiters = null
+	orbiter_params = null
 	return ..()
 
 /datum/component/orbiter/InheritComponent(datum/component/orbiter/newcomp, original, atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
@@ -52,8 +58,11 @@
 		// It is important to transfer the signals so we don't get locked to the new orbiter component for all time
 		newcomp.UnregisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED)
 		RegisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
+
 	current_orbiters += newcomp.current_orbiters
+	orbiter_params += newcomp.orbiter_params
 	newcomp.current_orbiters = null
+	newcomp.orbiter_params = null
 
 /datum/component/orbiter/PostTransfer()
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
@@ -66,6 +75,8 @@
 			orbiter.orbiting.end_orbit(orbiter, TRUE)
 		else
 			orbiter.orbiting.end_orbit(orbiter)
+
+	orbiter_params[orbiter] = args.Copy(2)
 	current_orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
 
@@ -111,6 +122,8 @@
 	if(istype(current_orbiters[orbiter],/matrix)) //This is ugly.
 		orbiter.transform = current_orbiters[orbiter]
 	current_orbiters -= orbiter
+	if(!refreshing)
+		orbiter_params -= orbiter
 	orbiter.stop_orbit(src)
 	orbiter.orbiting = null
 
@@ -118,6 +131,10 @@
 		var/mob/orbiter_mob = orbiter
 		orbiter_mob.updating_glide_size = TRUE
 		orbiter_mob.glide_size = 8
+
+		if(isobserver(orbiter))
+			var/mob/dead/observer/ghostie = orbiter
+			ghostie.orbiting_ref = null
 
 	REMOVE_TRAIT(orbiter, TRAIT_NO_FLOATING_ANIM, ORBITING_TRAIT)
 
@@ -199,14 +216,16 @@
 /atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE)
 	if(!istype(A) || !get_turf(A) || A == src)
 		return
+	orbit_target = A
 	if (HAS_TRAIT(A, TRAIT_ORBITING_FORBIDDEN))
-		// Stealth-mins have an empty name, don't want "You cannot orbit   at this time."
+		// Stealth-mins have an empty name, don't want "You cannot orbit x at this time."
 		to_chat(src, "<span class='notice'>You cannot orbit ["[A]" || "them"] at this time.</span>")
 		return
 
 	return A.AddComponent(/datum/component/orbiter, src, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 
 /atom/movable/proc/stop_orbit(datum/component/orbiter/orbits)
+	orbit_target = null
 	return // We're just a simple hook
 
 /// includes_everyone=FALSE: when an orbitted mob is a camera eye or something. That shouldn't transfer revenants.

@@ -396,7 +396,7 @@
 		var/datum/powernet/P = C.powernet
 		if(initialized_device && P.avail != 0)
 			src.device.activate()
-		..()
+	..()
 
 /obj/structure/grille/prison/atom_break()
 	var/turf/T = get_turf(src)

@@ -344,16 +344,27 @@
 	if(summon_objective.check_completion())
 		to_chat(cultist, span_cultlarge("\"I am already here. There is no need to try to summon me now.\""))
 		return FALSE
-	var/confirm_final = alert(cultist, "This is the FINAL step to summon Nar'Sie; it is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", "My life for Nar'Sie!", "No")
-	if(confirm_final == "No" || !confirm_final)
+	var/confirm_final = tgui_alert(cultist, "This is the FINAL step to summon Nar'Sie; it is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", list("My life for Nar'Sie!", "No"))
+	if(confirm_final == "No")
 		to_chat(cultist, span_cult("You decide to prepare further before scribing the rune."))
 		return
 	if(!check_if_in_ritual_site(cultist, cult_team))
 		return FALSE
-	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
+	priority_announce(
+		"Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!",
+		sender_override = "[command_name()] Higher Dimensional Affairs",
+		sound = ANNOUNCER_SPANOMALIES,
+	)
 
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))
 		LAZYADD(shields, new /obj/structure/emergency_shield/sanguine(shielded_turf))
+
+	notify_ghosts(
+		"[cultist] has begun scribing a Nar'Sie rune!",
+		source = cultist,
+		header = "Maranax Infirmux!",
+		notify_flags = NOTIFY_CATEGORY_NOFLASH,
+	)
 
 	return TRUE
 

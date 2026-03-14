@@ -16,7 +16,7 @@
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
 #define ROLE_TRAITOR "Traitor"
-#define ROLE_OPERATIVE "Nuclear Operative"
+#define ROLE_NUCLEAR_OPERATIVE "Nuclear Operative"
 #define ROLE_CLOWN_OPERATIVE "Clown Operative"
 #define ROLE_CHANGELING "Changeling"
 #define ROLE_WIZARD "Wizard"
@@ -28,6 +28,7 @@
 #define ROLE_SERVANT_OF_RATVAR "Servant of Ratvar"
 #define ROLE_HERETIC "Heretic"
 #define ROLE_BLOB "Blob"
+#define ROLE_BLOB_INFECTION "Blob Infection"
 #define ROLE_NINJA "Space Ninja"
 #define ROLE_ABDUCTOR "Abductor"
 #define ROLE_REVENANT "Revenant"
@@ -48,16 +49,17 @@
 #define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
 #define ROLE_SLAUGHTER_DEMON	"Slaughter Demon"
 #define ROLE_CONTRACTOR_SUPPORT_UNIT "Contractor Support Unit"
-#define ROLE_PYRO_SLIME "Pyroclastic Anomaly Slime"
+#define ROLE_PYROCLASTIC_SLIME "Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET "Sentient Monkey"
 #define ROLE_PRISONER "Prisoner"
 #define ROLE_WIZARD_APPRENTICE "Apprentice"
 #define ROLE_VAMPIRE "Vampire"
+#define ROLE_VENUS_HUMAN_TRAP "Venus Human Trap"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_TRAITOR,
-	ROLE_OPERATIVE,
+	ROLE_NUCLEAR_OPERATIVE,
 	ROLE_CLOWN_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
@@ -77,7 +79,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_OBSESSED,
 	ROLE_SPACE_DRAGON,
 	ROLE_INTERNAL_AFFAIRS,
-	ROLE_GANG,
 	ROLE_HOLOPARASITE,
 	ROLE_TERATOMA,
 	ROLE_SPIDER,

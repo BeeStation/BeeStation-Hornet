@@ -21,14 +21,6 @@
 		return
 	give_mind(user)
 
-/mob/living/Topic(href, href_list)
-	if(..())
-		return
-	if(href_list["activate"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost) && playable)
-			give_mind(ghost)
-
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
 		return FALSE
@@ -53,12 +45,19 @@
 	playable = TRUE
 	playable_bantype = ban_type
 	if (!key)	//check if there is nobody already inhibiting this mob
-		notify_ghosts("[name] can be controlled", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
+		notify_ghosts(
+			"[name] can be controlled",
+			source=src,
+			ignore_key = poll_ignore_key
+		)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
-		AddElement(/datum/element/point_of_interest)
+		SSpoints_of_interest.make_point_of_interest(src)
 		SSmobs.update_spawners()
 	else // it's spawned but someone occupied already
-		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something Interesting!")
+		notify_ghosts(
+			"[name] has appeared!",
+			source=src,
+		)
 
 /mob/living/get_spawner_desc()
 	return "Become [name]."
