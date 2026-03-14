@@ -8,6 +8,10 @@
 
 /obj/item/robot_model/Initialize(mapload)
 	. = ..()
+	robot = loc
+	if(!istype(robot))
+		stack_trace("Robot model ([src]) initialized outside of a robot at [AREACOORD(robot)]! This should never happen, make sure this item is not map-placed.")
+		return INITIALIZE_HINT_QDEL
 	for(var/i in basic_modules)
 		var/obj/item/I = new i(src)
 		basic_modules += I
