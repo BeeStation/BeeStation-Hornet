@@ -31506,7 +31506,7 @@
 	dir = 1;
 	color = "#486091"
 	},
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/structure/bed/dogbed/runtime,
 /obj/item/storage/secure/safe{
 	pixel_x = -24

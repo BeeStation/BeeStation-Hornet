@@ -31,6 +31,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	slot_flags = ITEM_SLOT_EARS
 	dog_fashion = null
 	var/obj/item/encryptionkey/keyslot2 = null
+	var/callout_capable = FALSE
 
 /obj/item/radio/headset/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins putting \the [src]'s antenna up [user.p_their()] nose! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer!"))
@@ -62,6 +63,18 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	set_listening(TRUE)
 	recalculateChannels()
 	possibly_deactivate_in_loc()
+	if(callout_capable)
+		desc += " It has a network uplink which allows the user to quickly transmit commands to their comrades and amplifies their voice in low-pressure environments."
+		AddComponent(/datum/component/callouts, ITEM_SLOT_EARS, examine_text = span_info("Use ctrl-click to enable or disable callouts."))
+
+/obj/item/radio/headset/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot & ITEM_SLOT_EARS)
+		ADD_TRAIT(user, TRAIT_SPEECH_BOOSTER, CLOTHING_TRAIT)
+
+/obj/item/radio/headset/dropped(mob/living/carbon/human/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_SPEECH_BOOSTER, CLOTHING_TRAIT)
 
 /obj/item/radio/headset/proc/possibly_deactivate_in_loc()
 	if(ismob(loc))
@@ -254,6 +267,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "exploration_headset"
 	worn_icon_state = "mine_headset"
 	keyslot = new /obj/item/encryptionkey/headset_expteam
+	callout_capable = TRUE
 
 /obj/item/radio/headset/headset_cargo/shaft_miner
 	name = "mining radio headset"
@@ -261,6 +275,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "mine_headset"
 	worn_icon_state = "mine_headset"
 	keyslot = new /obj/item/encryptionkey/headset_mining
+	callout_capable = TRUE
 
 /obj/item/radio/headset/headset_srv
 	name = "service radio headset"
