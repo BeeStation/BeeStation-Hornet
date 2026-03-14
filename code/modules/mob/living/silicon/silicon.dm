@@ -293,7 +293,7 @@
 	currently_stating_laws = TRUE
 
 	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
-	say("[radiomod] Current Active Laws:", ignore_spam = TRUE, forced = "state laws")
+	say("[radiomod] Current Active Laws:", ignore_spam = TRUE, forced = "state laws", message_mods = list(MODE_SEQUENTIAL = TRUE))
 	S.client?.silicon_spam_grace()
 
 	for(var/law_index = 1 to length(laws_to_state))
@@ -308,7 +308,7 @@
 	currently_stating_laws = FALSE
 
 /mob/living/silicon/proc/state_singular_law(mob/living/silicon/silicon, law)
-	say("[radiomod] [law]", ignore_spam = TRUE, forced = "state laws")
+	say("[radiomod] [law]", ignore_spam = TRUE, forced = "state laws", message_mods = list(MODE_SEQUENTIAL = TRUE))
 	silicon.client?.silicon_spam_grace()
 
 /mob/living/silicon/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite

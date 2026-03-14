@@ -237,9 +237,7 @@ SUBSYSTEM_DEF(shuttle)
 	frequency.post_signal(src, status_signal)
 
 	log_game("[user ? key_name(user) : "An automated system"] has called the shuttle.")
-	if(user)
-		var/area/A = get_area(user)
-		deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] has called the shuttle at [span_name("[A.name]")]."), user)
+	deadchat_broadcast(" has called the shuttle at [span_name("[signal_origin.name]")].", span_name("[user.real_name]"), user, message_type=DEADCHAT_ANNOUNCEMENT)
 	if(call_reason)
 		SSblackbox.record_feedback("text", "shuttle_reason", 1, "[call_reason]")
 		log_game("Shuttle call reason: [call_reason]")
@@ -273,12 +271,14 @@ SUBSYSTEM_DEF(shuttle)
 	src.emergency = src.backup_shuttle
 
 /datum/controller/subsystem/shuttle/proc/cancelEvac(mob/user)
-	if(canRecall())
-		emergency.cancel(get_area(user))
-		log_game("[key_name(user)] has recalled the shuttle.")
-		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle.")
-		deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] has recalled the shuttle from [span_name("[get_area_name(user, TRUE)]")]."), user)
-		return 1
+	if(!canRecall())
+		return FALSE
+
+	emergency.cancel(get_area(user))
+	log_game("[key_name(user)] has recalled the shuttle.")
+	message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle.")
+	deadchat_broadcast(" has recalled the shuttle from [span_name("[get_area_name(user, TRUE)]")].", span_name("[user.real_name]"), user, message_type = DEADCHAT_ANNOUNCEMENT)
+	return TRUE
 
 /datum/controller/subsystem/shuttle/proc/canRecall()
 	if(!emergency || emergency.mode != SHUTTLE_CALL || emergencyNoRecall)
