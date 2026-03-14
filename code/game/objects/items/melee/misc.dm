@@ -611,11 +611,11 @@
 	embedding = list(
 		"embed_chance" = 100,
 		"fall_chance" = 0,
-		"rip_time" = 5 SECONDS, // this is actually 10 seconds because it gets multiplied by the w_class
+		"rip_time" = 2.5 SECONDS, // this is actually 5 seconds because it gets multiplied by the w_class
 	)
 
 	///Time it takes to embed the stake into someone's chest.
-	var/staketime = 12 SECONDS
+	var/staketime = 4 SECONDS
 
 /obj/item/stake/attack(mob/living/target, mob/living/user, params)
 	. = ..()
@@ -662,7 +662,7 @@
 	if(!tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE))
 		return
 
-	target.apply_damage(force * 5, BRUTE, BODY_ZONE_CHEST)
+	target.apply_damage(force * 2, BRUTE, BODY_ZONE_CHEST)
 
 	playsound(target, 'sound/effects/splat.ogg', 40, 1)
 	user.visible_message(
@@ -673,6 +673,11 @@
 	if(IS_VAMPIRE(target))
 		to_chat(target, span_userdanger("You have been staked! Your powers are useless while it's in your chest!"))
 		target.balloon_alert(target, "you have been staked!")
+
+/obj/item/stake/examine(mob/user)
+	. = ..()
+	. += span_notice("To stake someone: Target the chest, activate combat mode, and hit them.")
+	. += span_notice("* Hunter Tip: Remember that they can just pull it out if they are awake. Cuff them or kill them. A stake will stop them from reviving, not from regenerating. It will also stop all of their abilities.")
 
 ///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
 /obj/item/stake/proc/can_be_staked(mob/living/carbon/target)
@@ -690,7 +695,7 @@
 	force = 8
 	throwforce = 12
 	armour_penetration = 10
-	staketime = 8 SECONDS
+	staketime = 3 SECONDS
 
 /obj/item/stake/hardened/silver
 	name = "silver stake"
@@ -700,4 +705,4 @@
 	siemens_coefficient = 1
 	force = 9
 	armour_penetration = 25
-	staketime = 6 SECONDS
+	staketime = 2 SECONDS

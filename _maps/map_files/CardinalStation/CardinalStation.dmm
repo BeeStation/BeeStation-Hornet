@@ -3717,10 +3717,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
-"aPU" = (
-/mob/living/basic/mouse/brown/tom,
-/turf/open/floor/wood,
-/area/security/prison)
 "aPW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -15006,6 +15002,16 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/science/lobby)
+"deE" = (
+/obj/structure/table/wood,
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/open/floor/engine/cult,
+/area/library/lounge)
 "deH" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 9
@@ -62845,6 +62851,10 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/medical/medbay/central)
+"nJW" = (
+/mob/living/basic/mouse/brown/tom,
+/turf/open/floor/wood,
+/area/security/prison)
 "nKh" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall/r_wall,
@@ -91601,19 +91611,6 @@
 	dir = 1
 	},
 /area/engine/atmos)
-"uaN" = (
-/obj/structure/table/wood,
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/obj/item/book/codex_gigas{
-	pixel_y = 7
-	},
-/turf/open/floor/engine/cult,
-/area/library/lounge)
 "uaO" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -145848,7 +145845,7 @@ kAL
 ktD
 mjk
 due
-uaN
+deE
 ddF
 due
 tAC
@@ -153244,7 +153241,7 @@ rbX
 dbk
 ibw
 qaf
-aPU
+nJW
 mEr
 bGY
 wDq

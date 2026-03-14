@@ -53,7 +53,7 @@
 /datum/role_preference/supplementary/vampire
 	name = "Vampire"
 	description = "After your death, you awaken to see yourself as an undead monster. \n\
-		Scrape by Space Station 13, or take it over, vassalizing your way!"
+		Scrape by Space Station 13, or take it over, ruling from the shadows!"
 	antag_datum = /datum/antagonist/vampire
 
 /datum/role_preference/supplementary/vampire/get_preview_icon()

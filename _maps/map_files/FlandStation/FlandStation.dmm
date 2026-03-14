@@ -9553,15 +9553,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/carpet,
 /area/chapel/office)
-"cIP" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/obj/structure/destructible/cult/tome,
-/obj/item/book/codex_gigas,
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/wood,
-/area/library)
 "cIQ" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/iron/dark,
@@ -15746,6 +15737,27 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/bridge/meeting_room/council)
+"euo" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_x = -3;
+	pixel_y = 12
+	},
+/obj/item/melee/baton/security/cattleprod{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/blindfold{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/obj/item/wallframe/camera{
+	pixel_x = 3;
+	pixel_y = -2
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
 "eus" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/machinery/light/small{
@@ -46389,6 +46401,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"mCq" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/structure/destructible/cult/tome,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/wood,
+/area/library)
 "mCr" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/box/corners{
@@ -47289,27 +47309,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
-"mOG" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp{
-	pixel_x = -3;
-	pixel_y = 12
-	},
-/obj/item/melee/baton/security/cattleprod{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/blindfold{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/wallframe/camera{
-	pixel_x = 3;
-	pixel_y = -2
-	},
-/turf/open/floor/iron/dark,
-/area/security/main)
 "mOH" = (
 /obj/structure/sign/painting/library{
 	pixel_x = -32
@@ -50540,6 +50539,13 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
+"nHV" = (
+/mob/living/basic/mouse/gray,
+/obj/structure/lattice/catwalk,
+/obj/item/food/cheese/wheel,
+/obj/item/food/breadslice/creamcheese,
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "nHW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash/grille_or_waste,
@@ -67005,13 +67011,6 @@
 	},
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
-"slZ" = (
-/mob/living/basic/mouse/gray,
-/obj/structure/lattice/catwalk,
-/obj/item/food/cheese/wheel,
-/obj/item/food/breadslice/creamcheese,
-/turf/open/floor/plating,
-/area/maintenance/port/central)
 "sma" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -109701,7 +109700,7 @@ yjW
 mnJ
 fnP
 yfU
-cIP
+mCq
 bhz
 cZC
 yfU
@@ -122583,7 +122582,7 @@ gsN
 xAn
 wrM
 vUR
-mOG
+euo
 rGl
 jFK
 pYu
@@ -124074,7 +124073,7 @@ lHA
 jID
 jID
 jID
-slZ
+nHV
 jID
 aVq
 asn

@@ -251,6 +251,17 @@
 	antag_datum = /datum/antagonist/wizard
 	preview_outfit = /datum/outfit/wizard
 
+/datum/role_preference/roundstart/vampire
+	name = "Vampire"
+	description = "After your death, you awaken to see yourself as an undead monster. \n\
+		Scrape by Space Station 13, or take it over, ruling from the shadows!"
+	antag_datum = /datum/antagonist/vampire
+
+/datum/role_preference/roundstart/vampire/get_preview_icon()
+	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
+	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+	return finish_preview_icon(icon)
+
 /datum/role_preference/roundstart/malfunctioning_ai
 	name = "Malfunctioning AI"
 	description = "With a law zero to complete your objectives at all costs, combine your \

@@ -4069,6 +4069,16 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"aRY" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/item/wallframe/camera,
+/obj/structure/table/wood,
+/obj/item/melee/baton/security/cattleprod,
+/obj/item/flashlight/lamp,
+/obj/item/clothing/glasses/blindfold,
+/obj/item/clothing/mask/muzzle,
+/turf/open/floor/iron/dark,
+/area/security/brig)
 "aSb" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/decal/cleanable/dirt,
@@ -18845,16 +18855,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/shuttledock)
-"eyz" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/item/wallframe/camera,
-/obj/structure/table/wood,
-/obj/item/melee/baton/security/cattleprod,
-/obj/item/flashlight/lamp,
-/obj/item/clothing/glasses/blindfold,
-/obj/item/clothing/mask/muzzle,
-/turf/open/floor/iron/dark,
-/area/security/brig)
 "eyM" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -19279,26 +19279,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
-"eIf" = (
-/obj/structure/destructible/cult/tome/library,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/book/codex_gigas{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/flashlight/lantern{
-	pixel_x = 4
-	},
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/library)
 "eIg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -37983,6 +37963,22 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"ldI" = (
+/obj/structure/destructible/cult/tome/library,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/flashlight/lantern{
+	pixel_x = 4
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/library)
 "ldK" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -95060,7 +95056,7 @@ njG
 uoK
 njG
 giB
-eyz
+aRY
 njG
 aaa
 aaa
@@ -102726,7 +102722,7 @@ cIg
 blZ
 cIn
 buC
-eIf
+ldI
 odN
 buC
 sSG

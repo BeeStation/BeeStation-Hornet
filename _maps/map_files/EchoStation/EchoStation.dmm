@@ -2253,14 +2253,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"bbB" = (
-/obj/structure/destructible/cult/tome,
-/obj/item/book/codex_gigas,
-/obj/structure/light_construct{
-	dir = 4
-	},
-/turf/open/floor/carpet/royalblack,
-/area/library/abandoned)
 "bbG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -5015,6 +5007,26 @@
 "cIB" = (
 /turf/closed/wall/r_wall,
 /area/security/prison/shielded)
+"cJa" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/figure/qm{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/melee/baton/deputy{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera/directional/north,
+/turf/open/floor/iron/dark,
+/area/quartermaster/qm)
 "cJd" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	alpha = 180;
@@ -17787,26 +17799,6 @@
 "jFU" = (
 /turf/open/floor/glass/reinforced/plasma,
 /area/maintenance/department/eva)
-"jFY" = (
-/obj/structure/table/reinforced,
-/obj/item/toy/figure/qm{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/melee/baton/deputy{
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron/dark,
-/area/quartermaster/qm)
 "jGc" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
@@ -18037,6 +18029,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/medbay/central)
+"jLJ" = (
+/obj/structure/destructible/cult/tome,
+/obj/structure/light_construct{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/library/abandoned)
 "jLK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60193,7 +60192,7 @@ okk
 uLX
 btX
 aSS
-bbB
+jLJ
 iHW
 tBs
 qjT
@@ -121891,7 +121890,7 @@ jMv
 pFV
 pFV
 jMv
-jFY
+cJa
 swS
 gwg
 vqE
