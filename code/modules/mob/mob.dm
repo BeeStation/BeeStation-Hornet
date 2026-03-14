@@ -32,14 +32,14 @@
 	remove_from_disconnected_mob_list()
 
 	focus = null
+	current_mob_eye = null
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
 		progressbars = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
-	if(observers?.len)
-		for(var/mob/dead/observe as anything in observers)
-			observe.reset_perspective(null)
+	for(var/mob/dead/observe as anything in observers)
+		observe.set_mob_eye_to(MOB_EYE_SELF)
 	qdel(hud_used)
 	for(var/cc in client_colours)
 		qdel(cc)
@@ -490,51 +490,68 @@
 	storage.atom_storage.attempt_insert(item_to_equip)
 	return storage
 
-/**
- * Reset the attached clients perspective (viewpoint)
- *
- * reset_perspective(null) set eye to common default : mob on turf, loc otherwise
- * reset_perspective(thing) set the eye to the thing (if it's equal to current default reset to mob perspective)
- */
-/mob/proc/reset_perspective(atom/new_eye)
-	SHOULD_CALL_PARENT(TRUE)
-	/*
-	*In the future, this signal may need to be moved to the end of the proc, after the eye has been given a chance to fully updated.
-	*No issues atm, but if one occurs, try that solution first
-	*/
-	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
-	if(!client)
+/mob/proc/get_my_eye()
+	return src
+
+/// We do not use this version : use 'set_mob_eye_to(MOB_EYE_SELF)' proc instead.
+/// This proc still exists to warn coders.
+/mob/proc/reset_perspective()
+	PRIVATE_PROC(TRUE) // NO. DO NOT USE THIS. YOU ARE DOING A PORT WRONG.
+	SHOULD_NOT_OVERRIDE(TRUE)
+	set_mob_eye_to(MOB_EYE_SELF) // just in case
+
+/* 		Instruction of porting:
+Do the things below instead of using reset_perspective()
+------------------------------------
+/mob/proc/makes_my_eye_different()
+	reset_perspective() => set_mob_eye_to(MOB_EYE_SELF)
+	reset_perspective(null) => set_mob_eye_to(MOB_EYE_SELF)
+	reset_perspective(camera) => set_mob_eye_to(camera)
+------------------------------------*/
+
+/// Makes a mob's eye a thing. Typically, a mob themselves.
+/mob/proc/set_mob_eye_to(atom/new_eye)
+	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
+	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
+	if(isnull(computer_id)) // "var/lastKnownIP" doesn't work for debug environment
 		return
 
-	if(new_eye)
-		if(ismovable(new_eye))
-			//Set the new eye unless it's us
-			if(new_eye != src)
-				client.perspective = EYE_PERSPECTIVE
-				client.set_eye(new_eye)
-			else
-				client.set_eye(client.mob)
-				client.perspective = MOB_PERSPECTIVE
+	if(client && client.perspective != EYE_PERSPECTIVE)
+		stack_trace("something changed client's eye perspective. Current: [client.perspective]")
+		client.perspective = EYE_PERSPECTIVE
 
-		else if(isturf(new_eye))
-			//Set to the turf unless it's our current turf
-			if(new_eye != loc)
-				client.perspective = EYE_PERSPECTIVE
-				client.set_eye(new_eye)
-			else
-				client.set_eye(client.mob)
-				client.perspective = MOB_PERSPECTIVE
-		else
-			return TRUE //no setting eye to stupid things like areas or whatever
-	else
-		//Reset to common defaults: mob if on turf, otherwise current loc
-		if(isturf(loc))
-			client.set_eye(client.mob)
-			client.perspective = MOB_PERSPECTIVE
-		else
-			client.perspective = EYE_PERSPECTIVE
-			client.set_eye(loc)
+	if(new_eye == src) // do not use when 'mob == src'
+		stack_trace("The proc received 'new_eye' as src. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
+		new_eye = get_my_eye()
+	else if(isnull(new_eye))
+		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
+		new_eye = get_my_eye()
+	else if(new_eye == MOB_EYE_SELF)
+		new_eye = get_my_eye()
+	if(new_eye == current_mob_eye)
+		return // no need to do this
+
+	var/atom/old_eye = current_mob_eye
+
+	_on_setting_mob_eye(new_eye, old_eye)
+	// SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE, new_eye, old_eye) // wrong signal name
+	SEND_SIGNAL(src, COMSIG_MOB_SET_MOB_EYE, new_eye, old_eye)
 	return TRUE
+
+
+/mob/proc/_on_setting_mob_eye(atom/new_eye, atom/old_eye)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	PROTECTED_PROC(TRUE)
+
+	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
+		LAZYREMOVE(old_eye.eye_mobs, src)
+
+	current_mob_eye = new_eye
+	if(client)
+		client.set_client_eye_to(current_mob_eye)
+
+	if(isatom(new_eye))
+		LAZYADD(new_eye.eye_mobs, src)
 
 /**
   * Examine a mob
@@ -938,7 +955,7 @@
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
 	set category = "OOC"
-	reset_perspective(null)
+	set_mob_eye_to(MOB_EYE_SELF)
 	unset_machine()
 
 //suppress the .click/dblclick macros so people can't use them to identify the location of items or aimbot

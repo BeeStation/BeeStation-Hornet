@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// What bleed status effect should we apply?
 	var/bleed_effect = /datum/status_effect/bleeding
 
-	/// Do we try to prevent reset_perspective() from working?
+	/// Do we try to prevent set_mob_eye_to(MOB_EYE_SELF) from working?
 	var/prevent_perspective_change = FALSE
 
 	//Should we preload this species's organs?

@@ -871,32 +871,43 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(NAMEOF(src, can_respawn))
 			create_mob_hud()
 
-/mob/dead/observer/reset_perspective(atom/new_eye)
-	if(client)
-		if(ismob(client.eye) && (client.eye != src))
-			var/mob/target = client.eye
+
+/mob/dead/observer/set_mob_eye_to(atom/new_eye)
+	. = ..()
+	if(!. || !client)
+		return
+
+	if(observetarget) // from observe() proc
+		if(observetarget == new_eye) // observe target
+			if(observetarget.hud_used)
+				client.screen = list()
+				LAZYOR(observetarget.observers, src)
+				observetarget.hud_used.show_hud(observetarget.hud_used.hud_version, src)
+				to_chat(src, "<span class='notice'>You started observing [observetarget]</span>")
+
+		else // stop observing
+			to_chat(src, "<span class='notice'>You stopped observing [observetarget]</span>")
+			LAZYREMOVE(observetarget.observers, src)
 			observetarget = null
-			if(target.observers)
-				target.observers -= src
-				UNSETEMPTY(target.observers)
-	if(..())
-		if(hud_used)
-			client.screen = list()
-			hud_used.show_hud(hud_used.hud_version)
+	if(!new_eye && hud_used) // use my ghost hud
+		client.screen = list()
+		hud_used.show_hud(hud_used.hud_version)
 
 /mob/dead/observer/verb/cancel_camera_ghosts()
 	set name = "Cancel Camera View"
 	set category = "Ghost"
-	reset_perspective(null)
+	set_mob_eye_to(MOB_EYE_SELF)
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
 	set category = "Ghost"
 
-	var/list/creatures = getpois()
+	if(observetarget) // stop observing
+		set_mob_eye_to(MOB_EYE_SELF)
+		return
 
-	reset_perspective(null)
+	var/list/creatures = getpois()
 
 	var/eye_name = null
 
@@ -907,15 +918,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/mob/mob_eye = creatures[eye_name]
 	//Istype so we filter out points of interest that are not mobs
-	if(client && mob_eye && istype(mob_eye))
-		client.set_eye(mob_eye)
-		add_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
-		if(mob_eye.hud_used)
-			client.screen = list()
-			LAZYINITLIST(mob_eye.observers)
-			mob_eye.observers |= src
-			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
-			observetarget = mob_eye
+	if(client && mob_eye && ismob(mob_eye))
+		observetarget = mob_eye
+		set_mob_eye_to(observetarget)
 
 /mob/dead/observer/verb/register_pai_candidate()
 	set category = "Ghost"

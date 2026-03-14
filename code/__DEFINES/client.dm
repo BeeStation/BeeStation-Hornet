@@ -20,3 +20,6 @@ GLOBAL_VAR_INIT(byond_http, FALSE)
 
 GLOBAL_LIST_EMPTY(disconnected_mobs)
 GLOBAL_PROTECT(disconnected_mobs)
+
+/// necessary for set_eye() proc. This is used to compare a value
+#define CLIENT_OLD_EYE_NULL "some_magic_bullshit"

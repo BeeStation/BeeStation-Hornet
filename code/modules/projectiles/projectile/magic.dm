@@ -687,7 +687,6 @@
 		M.key = candidate.key
 
 		trauma.friend.key = oldkey
-		trauma.friend.reset_perspective(null)
 		trauma.friend.Show()
 		trauma.friend_initialized = TRUE
 
