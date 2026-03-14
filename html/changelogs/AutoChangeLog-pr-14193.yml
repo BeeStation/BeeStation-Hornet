@@ -1,0 +1,6 @@
+author: Isaacnml
+delete-after: true
+changes:
+  - balance: Cult doors no longer paralyze you upon being thrown, now they knock you
+      down
+  - bugfix: Cult doors will no longer throw you away just for looking at them
