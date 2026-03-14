@@ -223,10 +223,16 @@
 	inhand_icon_state = "bonearmor"
 	blood_overlay_type = "armor"
 	armor_type = /datum/armor/armor_bone
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
+	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS
 	slowdown = 0.1
 	clothing_flags = THICKMATERIAL
-
+	allowed = list(
+		/obj/item/spear/bonespear,
+		/obj/item/claymore/bone,
+		/obj/item/fireaxe/boneaxe,
+		/obj/item/knife/combat/bone,
+		/obj/item/gun/ballistic/bow/ashen,
+	)
 
 /datum/armor/armor_bone
 	melee = 35

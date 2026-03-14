@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
 		/obj/item/mmi,
-		/obj/item/paicard,
+		/obj/item/pai_card,
 		/obj/item/gun,
 		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,

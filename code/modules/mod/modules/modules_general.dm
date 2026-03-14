@@ -472,7 +472,7 @@
 	required_slots = list(ITEM_SLOT_FEET)
 
 /obj/item/mod/module/longfall/on_part_activation()
-	RegisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT,  PROC_REF(z_impact_react))
+	RegisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT, PROC_REF(z_impact_react))
 
 /obj/item/mod/module/longfall/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT)
