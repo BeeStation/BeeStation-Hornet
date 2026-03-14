@@ -695,6 +695,54 @@ h2.alert {
   margin: 10px 20px;
 }
 
+//RKz's cute staffwho colors (manually colorpicked from discord role colors, some adjustments used)
+
+//These must match the rank strings exactly to work
+
+.host {
+  color: hsl(27, 87.7%, 44.7%);
+}
+
+.headdev {
+  color: hsl(219, 100%, 58.6%);
+}
+
+.headmin {
+  color: hsl(358, 65.9%, 53.9%);
+}
+
+.s_codermin {
+  color: hsl(220, 44.5%, 41%);
+}
+
+.seniormin {
+  color: hsl(351, 86.6%, 53.1%);
+}
+
+.codermin {
+  color: hsl(227, 96.1%, 69.8%);
+}
+
+.admin {
+  color: hsl(338, 94.8%, 62.2%);
+}
+
+.moderator {
+  color: hsl(0, 78.9%, 72.2%);
+}
+
+.maintainer {
+  color: hsl(227, 100%, 83.1%);
+}
+
+.mentor {
+  color: hsl(140, 55.1%, 69.4%);
+}
+
+.localhost {
+  color: hsl(46, 98.8%, 68.2%);
+}
+
 .death_message {
   display: block;
   color: white;
