@@ -65,3 +65,5 @@
 	/// Format like list("north" = list(x, y, layer), ...)
 	/// Leave null to use defaults
 	var/list/ride_offsets
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/robot_model)

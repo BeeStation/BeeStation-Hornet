@@ -175,10 +175,6 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"G" = (
-/obj/structure/closet/crate/science/debug,
-/turf/open/floor/iron,
-/area/template_noop)
 "H" = (
 /obj/vehicle/sealed/mecha/combat/phazon,
 /obj/effect/turf_decal/bot,
@@ -286,7 +282,7 @@ a
 a
 A
 Q
-G
+a
 a
 a
 a
