@@ -151,12 +151,13 @@ DEFINE_BITFIELD(no_equip_flags, list(
 //flags for outfits that have mutantrace variants (try not to use this): Currently only needed if you're trying to add tight fitting bootyshorts
 //This system takes priority over Sprite Sheets.
 
+//Flags (actual flags, fucker ^) for /obj/item/var/supports_variations_flags
 ///No alternative sprites based on bodytype
-#define NO_VARIATION (1<<0)
+#define CLOTHING_NO_VARIATION (1<<0)
 ///Has a sprite for digitigrade legs specifically.
-#define DIGITIGRADE_VARIATION (1<<1)
+#define CLOTHING_DIGITIGRADE_VARIATION (1<<1)
 ///The sprite works fine for digitigrade legs as-is.
-#define DIGITIGRADE_VARIATION_NO_NEW_ICON (1<<2)
+#define CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON (1<<2)
 
 #define NOT_DIGITIGRADE				0
 #define FULL_DIGITIGRADE			1
@@ -212,7 +213,6 @@ GLOBAL_LIST_INIT(detective_vest_allowed, (list(
 	/obj/item/lighter,
 	/obj/item/melee/baton,
 	/obj/item/melee/tonfa,
-	/obj/item/melee/classic_baton/police,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/storage/fancy/cigarettes,
@@ -229,7 +229,7 @@ GLOBAL_LIST_INIT(security_vest_allowed, (list(
 	/obj/item/knife/combat,
 	/obj/item/melee/baton,
 	/obj/item/melee/tonfa,
-	/obj/item/melee/classic_baton/police/telescopic,
+	/obj/item/melee/baton/telescopic,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/storage/belt/sabre/carbon_fiber,
@@ -247,7 +247,7 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, (list(
 	/obj/item/lighter,
 	/obj/item/melee/baton,
 	/obj/item/melee/tonfa,
-	/obj/item/melee/classic_baton/police/telescopic,
+	/obj/item/melee/baton/telescopic,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,

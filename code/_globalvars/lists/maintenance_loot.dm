@@ -107,10 +107,6 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 		/obj/item/storage/wallet/random = 1,
 		) = 1,
 
-	list(//xenoartifacts
-		/obj/item/xenoartifact/maint = 1,
-		) = 2,
-
 	list(//construction and crafting
 		/obj/item/sign_backing = 1,
 		/obj/item/stack/cable_coil = 1,
@@ -135,7 +131,6 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 		/obj/item/grenade/chem_grenade/cleaner = 1,
 		/obj/item/reagent_containers/cup/beaker = 1,
 		/obj/item/reagent_containers/cup/rag = 1,
-		/obj/item/reagent_containers/hypospray/medipen/pumpup = 2,
 		/obj/item/reagent_containers/syringe = 1,
 		/obj/item/storage/box/matches = 1,
 		/obj/item/storage/fancy/cigarettes/dromedaryco = 1,
@@ -170,7 +165,7 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 	list(//tools
 		/obj/item/grenade/iedcasing = 1,
 		/obj/item/hatchet = 1,
-		/obj/item/melee/baton/cattleprod = 1,
+		/obj/item/melee/baton/security/cattleprod = 1,
 		/obj/item/multitool = 1,
 		/obj/item/pen/fountain = 1,
 		/obj/item/pen/screwdriver = 1,
@@ -241,6 +236,10 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 		/obj/item/food/monkeycube = 1,
 		) = 8,
 
+	list(//xenoartifacts
+		/obj/item/xenoartifact/maint = 1
+		) = 6,
+
 	list(//modsuits
 		/obj/effect/spawner/random/mod/maint = 3,
 		/obj/item/mod/construction/broken_core = 1,
@@ -274,7 +273,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		/obj/item/assembly/flash/memorizer = 1,
 		/obj/item/flashlight/flashdark = 1,
 		/obj/item/knife/kitchen = 1,
-		/obj/item/melee/baton/cattleprod/teleprod = 1,
+		/obj/item/melee/baton/security/cattleprod/teleprod = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/shield/buckler = 1,
 		/obj/item/throwing_star = 1,
@@ -311,6 +310,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		list(//medical chems
 			/obj/item/reagent_containers/hypospray/medipen/oxandrolone = 1,
 			/obj/item/reagent_containers/hypospray/medipen/salacid = 1,
+			/obj/item/reagent_containers/hypospray/medipen/pumpup = 1,
 			/obj/item/reagent_containers/syringe/contraband/methamphetamine = 1,
 			) = 1,
 		) = 1,

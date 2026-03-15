@@ -44,7 +44,7 @@
 	var/list/values = list()
 
 	for (var/ghost_form in GLOB.ghost_forms)
-		values[ghost_form] = uni_icon('icons/mob/mob.dmi', ghost_form)
+		values[ghost_form] = uni_icon('icons/mob/observer.dmi', ghost_form)
 
 	return values
 

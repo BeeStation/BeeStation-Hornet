@@ -134,7 +134,7 @@
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE
 	layer = FLASH_LAYER
-	icon = 'icons/effects/ore_visuals.dmi'
+	icon = 'icons/effects/ore_visuals.dmi' //the icon states here have a 1 alpha pixel on all corners to make it render outside line of sight
 	appearance_flags = NONE //to avoid having TILE_BOUND in the flags, so that the 480x480 icon states let you see it no matter where you are
 	duration = 35
 	pixel_x = -224
@@ -147,7 +147,7 @@
 /obj/effect/temp_visual/mining_scanner
 	plane = FULLSCREEN_PLANE
 	layer = FLASH_LAYER
-	icon = 'icons/effects/mining_scanner.dmi'
+	icon = 'icons/effects/mining_scanner.dmi' //the icon state here has a 1 alpha pixel on all corners to make it render outside line of sight
 	appearance_flags = NONE
 	pixel_x = -224
 	pixel_y = -224

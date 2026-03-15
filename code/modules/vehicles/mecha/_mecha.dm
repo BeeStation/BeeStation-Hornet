@@ -225,10 +225,12 @@
 	diag_hud_set_mechstat()
 	update_appearance()
 
-	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
+	become_hearing_sensitive(trait_source = INNATE_TRAIT)
+	add_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE), INNATE_TRAIT) //stormy weather (keeps rainin' all the time)
 
 	AddElement(/datum/element/atmos_sensitive)
 	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE)
+	AddElement(/datum/element/hostile_machine)
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
 /obj/vehicle/sealed/mecha/proc/Eject()
@@ -448,7 +450,7 @@
 				cabin_air.pump_gas_to(t_air, cabin_pressure)
 
 	for(var/mob/living/occupant as anything in occupants)
-		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.
+		if(!enclosed && occupant?.incapacitated)  //no sides mean it's easy to just sorta fall out if you're incapacitated.
 			visible_message(span_warning("[occupant] tumbles out of the cockpit!"))
 			mob_exit(occupant) //bye bye
 			continue
@@ -505,8 +507,8 @@
 		return
 	for(var/mob/living/cookedalive as anything in occupants)
 		if(cookedalive.fire_stacks < 5)
-			cookedalive.fire_stacks += 1
-			cookedalive.IgniteMob()
+			cookedalive.adjust_fire_stacks(1)
+			cookedalive.ignite_mob()
 
 ///Displays a special speech bubble when someone inside the mecha speaks
 /obj/vehicle/sealed/mecha/proc/display_speech_bubble(datum/source, list/speech_args)
@@ -517,7 +519,7 @@
 			speech_bubble_recipients += listener.client
 
 	var/image/mech_speech = image('icons/mob/talk.dmi', src, "machine[say_test(speech_args[SPEECH_MESSAGE])]",MOB_LAYER+1)
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), mech_speech, speech_bubble_recipients, 3 SECONDS)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), mech_speech, speech_bubble_recipients, 3 SECONDS)
 
 /obj/vehicle/sealed/mecha/on_emag(mob/user)
 	..()
@@ -545,7 +547,7 @@
 	if(phasing)
 		balloon_alert(user, "not while [phasing]!")
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(construction_state)
 		balloon_alert(user, "end maintenance first!")
@@ -1075,7 +1077,7 @@
 
 
 /obj/vehicle/sealed/mecha/add_occupant(mob/M, control_flags)
-	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(mob_exit))
+	RegisterSignal(M, COMSIG_LIVING_DEATH, PROC_REF(mob_exit))
 	RegisterSignal(M, COMSIG_MOB_CLICKON, PROC_REF(on_mouseclick))
 	RegisterSignal(M, COMSIG_MOB_MIDDLECLICKON, PROC_REF(on_middlemouseclick)) //For AIs
 	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble))
@@ -1083,7 +1085,7 @@
 	update_appearance()
 
 /obj/vehicle/sealed/mecha/remove_occupant(mob/M)
-	UnregisterSignal(M, COMSIG_MOB_DEATH)
+	UnregisterSignal(M, COMSIG_LIVING_DEATH)
 	UnregisterSignal(M, COMSIG_MOB_CLICKON)
 	UnregisterSignal(M, COMSIG_MOB_MIDDLECLICKON)
 	UnregisterSignal(M, COMSIG_MOB_SAY)

@@ -30,7 +30,7 @@
 	description = "After your death, you awaken to see yourself as an undead monster. \n\
 		Scrape by Space Station 13, or take it over, vassalizing your way!"
 	antag_datum = /datum/antagonist/vampire
-	use_icon = /datum/role_preference/roundstart/vampire
+	use_icon = /datum/role_preference/supplementary/vampire
 
 /datum/role_preference/midround/obsessed
 	name = "Obsessed"
@@ -41,7 +41,7 @@
 
 /datum/role_preference/midround/obsessed/get_preview_icon()
 	var/mob/living/carbon/human/dummy/consistent/victim_dummy = new
-	victim_dummy.hair_color = "b96" // Brown
+	victim_dummy.hair_color = "#bb9966" // Brown
 	victim_dummy.hair_style = "Messy"
 	victim_dummy.update_hair()
 
@@ -68,6 +68,6 @@
 	suit = /obj/item/clothing/suit/apron
 
 /datum/outfit/obsessed/post_equip(mob/living/carbon/human/H)
-	for(var/obj/item/carried_item in H.get_equipped_items(TRUE))
+	for(var/obj/item/carried_item in H.get_equipped_items(INCLUDE_POCKETS))
 		carried_item.add_mob_blood(H)//Oh yes, there will be blood...
 	H.regenerate_icons()

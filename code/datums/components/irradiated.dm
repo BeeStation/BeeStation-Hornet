@@ -5,6 +5,7 @@
 
 #define RADIATION_GLOW_THRESHOLD 20
 #define RADIATION_ALERT_THRESHOLD 20
+#define RADIATION_MUTATE_THRESHOLD 75
 #define RADIATION_BURN_THRESHOLD 75
 
 #define RADIATION_BURN_SPLOTCH_DAMAGE 11
@@ -31,6 +32,7 @@
 
 	COOLDOWN_DECLARE(clean_cooldown)
 	COOLDOWN_DECLARE(last_tox_damage)
+	COOLDOWN_DECLARE(irradiated_mutation)
 
 /datum/component/irradiated/Initialize(intensity)
 	if (!CAN_IRRADIATE(parent))
@@ -119,6 +121,9 @@
 	if (intensity >= RADIATION_BURN_THRESHOLD && !trying_to_burn)
 		start_burn_splotch_timer()
 
+	if(intensity >= RADIATION_MUTATE_THRESHOLD && COOLDOWN_FINISHED(src, irradiated_mutation) && DT_PROB(5, delta_time))
+		mutate_human_parent(human_parent)
+
 	var/damage = min(RADIATION_TOX_DAMAGE_PER_INTENSITY * intensity * delta_time, RADIATION_MAX_TOX_DAMAGE)
 	if(!HAS_TRAIT(human_parent, TRAIT_TOXIMMUNE))
 		human_parent.adjustToxLoss(damage)
@@ -140,6 +145,14 @@
 
 	return FALSE
 
+/datum/component/irradiated/proc/mutate_human_parent(mob/living/carbon/human/human_parent)
+	COOLDOWN_START(src, irradiated_mutation, rand(45, 120) SECONDS)
+	if(prob(75)) //usually a mutation, sometimes a total appearance change instead
+		human_parent.easy_random_mutate()
+	else
+		human_parent.random_mutate_unique_features()
+		human_parent.random_mutate_unique_identity()
+
 /datum/component/irradiated/proc/start_burn_splotch_timer()
 	trying_to_burn = TRUE
 	addtimer(CALLBACK(src, PROC_REF(give_burn_splotches)), rand(RADIATION_BURN_INTERVAL_MIN, RADIATION_BURN_INTERVAL_MAX), TIMER_STOPPABLE)
@@ -156,12 +169,15 @@
 
 	start_burn_splotch_timer()
 
-	var/mob/living/carbon/human/human_parent = parent
-
 	if (should_halt_effects(parent))
 		return
 
-	var/obj/item/bodypart/affected_limb = human_parent.get_bodypart(ran_zone(probability = 0))
+	var/mob/living/carbon/human/human_parent = parent
+
+	var/obj/item/bodypart/affected_limb = human_parent.get_bodypart(human_parent.get_random_valid_zone())
+	if(QDELETED(affected_limb))
+		return
+
 	human_parent.visible_message(
 		span_boldwarning("[human_parent]'s [affected_limb.plaintext_zone] bubbles unnaturally, then bursts into blisters!"),
 		span_boldwarning("Your [affected_limb.plaintext_zone] bubbles unnaturally, then bursts into blisters!"),

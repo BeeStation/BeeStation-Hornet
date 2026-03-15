@@ -19,19 +19,20 @@
 		/obj/item/restraints/legcuffs/bola/energy = 7,
 		/obj/item/club = 5,
 		/obj/item/melee/tonfa = 5,
-		/obj/item/clothing/gloves/tackler = 5,
+		/obj/item/clothing/accessory/security_pager = 5,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses/advanced = 2,
+		/obj/item/coin/antagtoken = 1,
 	)
 	premium = list(
 		/obj/item/storage/belt/security/webbing = 5,
 		/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
-		/obj/item/coin/antagtoken = 1,
 		/obj/item/security_barricade = 4,
 		/obj/item/clothing/head/helmet/blueshirt = 1,
 		/obj/item/clothing/suit/armor/vest/blueshirt = 1,
 		/obj/item/grenade/stingbang = 1,
+		/obj/item/clothing/gloves/tackler = 5,
 	)
 	refill_canister = /obj/item/vending_refill/security
 	default_price = 100
@@ -66,9 +67,7 @@
 			spawned = new /obj/item/storage/belt/sabre/carbon_fiber(redeemer)
 
 		if("NPS-10")
-			spawned = new /obj/item/storage/box/gearvend
-			new /obj/item/gun/ballistic/automatic/pistol/security(spawned)
-			new /obj/item/ammo_box/magazine/x200law(spawned)
+			spawned = new /obj/item/gun/ballistic/automatic/pistol/security(redeemer)
 
 	// We spawned a box, populated it. Now we put it into the redeemer's hands.
 	if(!redeemer.put_in_hands(spawned))

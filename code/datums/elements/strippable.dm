@@ -237,13 +237,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!equipping.mob_can_equip(
-		source,
-		user,
-		item_slot,
-		disable_warning = TRUE,
-		bypass_equip_delay_self = TRUE,
-	))
+	if (!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		to_chat(user, span_warning("\The [equipping] doesn't fit in that place!"))
 		return FALSE
 
@@ -260,13 +254,7 @@
 	if(!do_after(user, get_equip_delay(equipping), source))
 		return FALSE
 
-	if(!equipping.mob_can_equip(
-		source,
-		user,
-		item_slot,
-		disable_warning = TRUE,
-		bypass_equip_delay_self = TRUE,
-	))
+	if (!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		return FALSE
 
 	if(!user.temporarilyRemoveItemFromInventory(equipping))

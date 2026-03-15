@@ -233,7 +233,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		return
 	user.electrocute_act(10, src)
 
-/obj/machinery/camera/singularity_pull(S, current_size)
+/obj/machinery/camera/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()

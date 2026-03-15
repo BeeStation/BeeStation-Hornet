@@ -74,6 +74,8 @@
 					span_warning("[user] fails to replaces [target]'s [parse_zone(target_zone)]!"))
 				tool.forceMove(target.loc)
 				return
+		if(tool.check_for_frankenstein(target))
+			tool.bodypart_flags |= BODYPART_IMPLANTED
 		display_results(user, target, span_notice("You successfully augment [target]'s [parse_zone(target_zone)]."),
 			"[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!",
 			"[user] successfully augments [target]'s [parse_zone(target_zone)]!")

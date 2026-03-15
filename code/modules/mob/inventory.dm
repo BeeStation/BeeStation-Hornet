@@ -51,46 +51,24 @@
 //Finds the first available (null) index OR all available (null) indexes in held_items based on a side.
 //Lefts: 1, 3, 5, 7...
 //Rights:2, 4, 6, 8...
-/mob/proc/get_empty_held_index_for_side(side = "left", all = FALSE)
-	var/start = 0
-	var/static/list/lefts = list("l" = TRUE,"L" = TRUE,"LEFT" = TRUE,"left" = TRUE)
-	var/static/list/rights = list("r" = TRUE,"R" = TRUE,"RIGHT" = TRUE,"right" = TRUE) //"to remain silent"
-	if(lefts[side])
-		start = 1
-	else if(rights[side])
-		start = 2
-	if(!start)
-		return FALSE
-	var/list/empty_indexes
-	for(var/i in start to length(held_items) step 2)
+/mob/proc/get_empty_held_index_for_side(side = LEFT_HANDS, all = FALSE)
+	var/list/empty_indexes = all ? list() : null
+	for(var/i in (side == LEFT_HANDS) ? 1 : 2 to held_items.len step 2)
 		if(!held_items[i])
 			if(!all)
 				return i
-			if(!empty_indexes)
-				empty_indexes = list()
 			empty_indexes += i
 	return empty_indexes
 
 
 //Same as the above, but returns the first or ALL held *ITEMS* for the side
-/mob/proc/get_held_items_for_side(side = "left", all = FALSE)
-	var/start = 0
-	var/static/list/lefts = list("l" = TRUE,"L" = TRUE,"LEFT" = TRUE,"left" = TRUE)
-	var/static/list/rights = list("r" = TRUE,"R" = TRUE,"RIGHT" = TRUE,"right" = TRUE) //"to remain silent"
-	if(lefts[side])
-		start = 1
-	else if(rights[side])
-		start = 2
-	if(!start)
-		return FALSE
-	var/list/holding_items
-	for(var/i in start to length(held_items) step 2)
+/mob/proc/get_held_items_for_side(side = LEFT_HANDS, all = FALSE)
+	var/list/holding_items = all ? list() : null
+	for(var/i in (side == LEFT_HANDS) ? 1 : 2 to held_items.len step 2)
 		var/obj/item/I = held_items[i]
 		if(I)
 			if(!all)
 				return I
-			if(!holding_items)
-				holding_items = list()
 			holding_items += I
 	return holding_items
 
@@ -202,11 +180,11 @@
 
 //Puts the item into the first available left hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/I)
-	return put_in_hand(I, get_empty_held_index_for_side("l"))
+	return put_in_hand(I, get_empty_held_index_for_side(LEFT_HANDS))
 
 //Puts the item into the first available right hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_r_hand(obj/item/I)
-	return put_in_hand(I, get_empty_held_index_for_side("r"))
+	return put_in_hand(I, get_empty_held_index_for_side(RIGHT_HANDS))
 
 /mob/proc/put_in_hand_check(obj/item/I)
 	return FALSE					//nonliving mobs don't have hands
@@ -256,9 +234,9 @@
 	if(put_in_active_hand(I, forced))
 		return TRUE
 
-	var/hand = get_empty_held_index_for_side("l")
+	var/hand = get_empty_held_index_for_side(LEFT_HANDS)
 	if(!hand)
-		hand =  get_empty_held_index_for_side("r")
+		hand =  get_empty_held_index_for_side(RIGHT_HANDS)
 	if(hand)
 		if(put_in_hand(I, hand, forced))
 			return TRUE
@@ -355,90 +333,31 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	return TRUE
 
-//Outdated but still in use apparently. This should at least be a human proc.
-//Daily reminder to murder this - Remie.
-/mob/living/proc/get_equipped_items(include_pockets = FALSE)
-	return
-
-/mob/living/carbon/get_equipped_items(include_pockets = FALSE)
+/**
+ * Used to return a list of equipped items on a mob; does not include held items (use get_all_gear)
+ *
+ * Argument(s):
+ * * Optional - include_flags, (see obj.flags.dm) describes which optional things to include or not (pockets, accessories, held items)
+ */
+/mob/proc/get_equipped_items(include_flags = NONE)
 	var/list/items = list()
-	if(back)
-		items += back
-	if(head)
-		items += head
-	if(wear_mask)
-		items += wear_mask
-	if(wear_neck)
-		items += wear_neck
-	if(handcuffed)
-		items += handcuffed
-	if(legcuffed)
-		items += legcuffed
-	return items
+	for(var/obj/item/item_contents in contents)
+		if(item_contents.item_flags & PICKED_UP)
+			if(!(include_flags & INCLUDE_PROSTHETICS) && HAS_TRAIT_FROM(item_contents, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)) //prostetic limbs are not equipped items, they are part of the body.
+				continue
+			if(!(include_flags & INCLUDE_ABSTRACT) && (item_contents.item_flags & ABSTRACT)) //not really flavoured as items
+				continue
+			items += item_contents
+	if (!(include_flags & INCLUDE_HELD))
+		items -= held_items
 
-/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE)
-	var/list/items = ..()
-	if(belt)
-		items += belt
-	if(ears)
-		items += ears
-	if(glasses)
-		items += glasses
-	if(gloves)
-		items += gloves
-	if(shoes)
-		items += shoes
-	if(wear_id)
-		items += wear_id
-	if(wear_suit)
-		items += wear_suit
-	if(w_uniform)
-		items += w_uniform
-	if(include_pockets)
-		if(l_store)
-			items += l_store
-		if(r_store)
-			items += r_store
-		if(s_store)
-			items += s_store
 	return items
 
 /mob/living/proc/unequip_everything()
-	var/list/items = list()
-	items |= get_equipped_items(TRUE)
+	var/list/items = get_equipped_items(INCLUDE_POCKETS)
 	for(var/I in items)
 		dropItemToGround(I)
 	drop_all_held_items()
-
-
-/mob/living/carbon/proc/check_obscured_slots(transparent_protection)
-	var/obscured = NONE
-	var/hidden_slots = NONE
-
-	for(var/obj/item/I in get_all_worn_items())
-		hidden_slots |= I.flags_inv
-		if(transparent_protection)
-			hidden_slots |= I.transparent_protection
-
-	if(hidden_slots & HIDENECK)
-		obscured |= ITEM_SLOT_NECK
-	if(hidden_slots & HIDEMASK)
-		obscured |= ITEM_SLOT_MASK
-	if(hidden_slots & HIDEEYES)
-		obscured |= ITEM_SLOT_EYES
-	if(hidden_slots & HIDEEARS)
-		obscured |= ITEM_SLOT_EARS
-	if(hidden_slots & HIDEGLOVES)
-		obscured |= ITEM_SLOT_GLOVES
-	if(hidden_slots & HIDEJUMPSUIT)
-		obscured |= ITEM_SLOT_ICLOTHING
-	if(hidden_slots & HIDESHOES)
-		obscured |= ITEM_SLOT_FEET
-	if(hidden_slots & HIDESUITSTORAGE)
-		obscured |= ITEM_SLOT_SUITSTORE
-
-	return obscured
-
 
 /obj/item/proc/equip_to_best_slot(mob/M, swap = FALSE, check_hand = TRUE)
 	if(check_hand && src != M.get_active_held_item())
@@ -519,7 +438,6 @@
 				path = /obj/item/bodypart/arm/right
 
 			var/obj/item/bodypart/BP = new path ()
-			BP.owner = src
 			BP.held_index = i
 			BP.try_attach_limb(src, TRUE)
 			hand_bodyparts[i] = BP
@@ -527,7 +445,7 @@
 
 //GetAllContenst that is reasonable and not stupid
 /mob/living/carbon/proc/get_all_gear()
-	var/list/processing_list = get_equipped_items(include_pockets = TRUE) + held_items
+	var/list/processing_list = get_equipped_items(INCLUDE_POCKETS | INCLUDE_ACCESSORIES | INCLUDE_HELD)
 	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list) )

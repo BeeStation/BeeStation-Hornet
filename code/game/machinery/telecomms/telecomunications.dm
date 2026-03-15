@@ -11,7 +11,6 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
 	light_color = LIGHT_COLOR_CYAN
-	network_id = __NETWORK_SERVER
 	/// /// list of machines this machine is linked to
 	var/list/links = list()
 	/**
@@ -109,8 +108,6 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 /obj/machinery/telecomms/Initialize(mapload)
 	. = ..()
 	server_component = AddComponent(/datum/component/server) // they generate heat
-	update_network() // we try to connect to NTnet
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 	GLOB.telecomms_list += src
 	if(mapload && autolinkers.len)
 		return INITIALIZE_HINT_LATELOAD
@@ -122,7 +119,6 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			add_automatic_link(telecomms_machine)
 
 /obj/machinery/telecomms/Destroy()
-	UnregisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE)
 	server_component = null
 	GLOB.telecomms_list -= src
 	for(var/obj/machinery/telecomms/comm in GLOB.telecomms_list)
@@ -154,41 +150,6 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			if(autolinker_id in machine_to_link.autolinkers)
 				add_new_link(machine_to_link)
 				return
-
-/obj/machinery/telecomms/proc/update_network()
-	var/area/A = get_area(src)
-	if(!network || network == "NULL" || !A)
-		return
-	var/new_network_id = NETWORK_NAME_COMBINE(__NETWORK_SERVER, network) // should result in something like SERVER.TCOMMSAT
-	if(!A.network_root_id)
-		log_telecomms("Area '[A.name]([REF(A)])' has no network network_root_id, force assigning in object [src]([REF(src)])")
-		SSnetworks.lookup_area_root_id(A)
-		new_network_id = NETWORK_NAME_COMBINE(A.network_root_id, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
-	else
-		log_telecomms("Created [src]([REF(src)] in nullspace, assuming network to be in station")
-		new_network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, new_network_id) // should result in something like SS13.SERVER.TCOMMSAT
-	new_network_id = simple_network_name_fix(new_network_id) // make sure the network name is valid
-	var/datum/ntnet/new_network = SSnetworks.create_network_simple(new_network_id)
-	new_network.move_interface(GetComponent(/datum/component/ntnet_interface), new_network_id, network_id)
-	network_id = new_network_id
-
-/obj/machinery/telecomms/proc/ntnet_receive(datum/source, datum/netdata/data)
-
-	//Check radio signal jamming
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS) || machine_stat & (BROKEN|NOPOWER|MAINT|EMPED))
-		return
-
-	switch(data.data["type"])
-		if(PACKET_TYPE_PING) // we respond to the ping with our status
-			var/list/send_data = list()
-			send_data["type"] = PACKET_TYPE_THERMALDATA
-			send_data["name"] = name
-			send_data["temperature"] = get_temperature()
-			send_data["overheat_temperature"] = get_overheat_temperature()
-			send_data["efficiency"] = get_efficiency()
-			send_data["overheated"] = (machine_stat & OVERHEATED)
-
-			ntnet_send(send_data, data.sender_id)
 
 /obj/machinery/telecomms/update_icon()
 	if(on)

@@ -300,6 +300,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/wirerod
 	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
+	icon = 'icons/obj/weapons/spear.dmi'
 	icon_state = "wiredrod"
 	inhand_icon_state = "rods"
 	flags_1 = CONDUCT_1
@@ -326,7 +327,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		to_chat(user, span_notice("You fasten the glass shard to the top of the rod with the cable."))
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(HAS_TRAIT(I, TRAIT_NODROP)))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
+		var/obj/item/melee/baton/security/cattleprod/P = new /obj/item/melee/baton/security/cattleprod
 
 		remove_item_from_storage(user)
 
@@ -628,7 +629,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/mounted_chainsaw/super
 	name = "mounted super energy chainsaw"
 	desc = "A super energy chainsaw that has replaced your arm."
-	force = 60
+	force = 45
 	armour_penetration = 75
 	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
@@ -646,7 +647,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/mounted_chainsaw/super/attack(mob/living/target)
 	..()
-	target.Knockdown(4)
+	target.Knockdown(1 SECONDS)
 
 /obj/item/statuebust
 	name = "bust"

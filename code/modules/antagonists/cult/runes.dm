@@ -57,7 +57,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = SIGIL_LAYER
-	color = RUNE_COLOR_RED
+	color = COLOR_RED
 
 	/// The name of the rune to cultists
 	var/cultist_name = "basic rune"
@@ -169,20 +169,18 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
 		if(plushsie?.invoker_charges > 0)
 			invokers += plushsie
-		for(var/mob/living/L in viewers(1, src))
-			if(IS_CULTIST(L))
-				if(L == user)
+		for(var/mob/living/cultist in viewers(1, src))
+			if(IS_CULTIST(cultist))
+				if(cultist == user)
 					continue
-				if(L.has_status_effect(/datum/status_effect/cultghost) && !allow_ghosts)
-					L.visible_message(span_warning("[L] appears to shudder as they fail to perform the ritual, their soul is too fragile!"), span_narsie("You do not possess a strong enough physical binding to activate this rune!"))
+				if(cultist.has_status_effect(/datum/status_effect/cultghost) && !allow_ghosts)
+					cultist.visible_message(span_warning("[cultist] appears to shudder as they fail to perform the ritual, their soul is too fragile!"), span_narsie("You do not possess a strong enough physical binding to activate this rune!"))
 					continue
-				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
-					if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)
-						continue
-				if(L.stat)
+				if(!cultist.can_speak(allow_mimes = TRUE))
 					continue
-				invokers += L
+				if(cultist.stat != CONSCIOUS)
+					continue
+				invokers += cultist
 	return invokers
 
 /obj/effect/rune/proc/invoke(list/invokers)
@@ -241,7 +239,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	req_cultists_text = "2 for conversion, 3 for living sacrifices and sacrifice targets."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
-	color = RUNE_COLOR_OFFER
+	color = COLOR_WHITE
 	req_cultists = 1
 	rune_in_use = FALSE
 
@@ -263,7 +261,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	rune_in_use = TRUE
 	visible_message(span_warning("[src] pulses blood red!"))
 	var/oldcolor = color
-	color = RUNE_COLOR_DARKRED
+	color = COLOR_DARK_RED
 	var/mob/living/L = pick(myriad_targets)
 
 	var/mob/living/F = invokers[1]
@@ -386,7 +384,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	cultist_desc = "allows cultists to prepare greater amounts of blood magic at far less of a cost."
 	invocation = "H'drak v'loso, mir'kanas verbot!"
 	icon_state = "3"
-	color = RUNE_COLOR_TALISMAN
+	color = COLOR_BLUE
 	construct_invoke = FALSE
 
 /obj/effect/rune/empower/invoke(list/invokers)
@@ -400,7 +398,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	cultist_desc = "warps everything above it to another chosen teleport rune."
 	invocation = "Sas'so c'arta forbici!"
 	icon_state = "2"
-	color = RUNE_COLOR_TELEPORT
+	color = COLOR_DARK_PURPLE
 	req_keyword = TRUE
 	light_power = 4
 	var/obj/effect/temp_visual/cult/portal/inner_portal //The portal "hint" for off-station teleportations
@@ -448,7 +446,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated || !actual_selected_rune)
 		fail_invoke()
 		return
 
@@ -529,7 +527,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
 	icon = 'icons/effects/96x96.dmi'
-	color = RUNE_COLOR_DARKRED
+	color = COLOR_DARK_RED
 	icon_state = "rune_large"
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
 	pixel_y = -32
@@ -572,7 +570,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	var/turf/T = get_turf(src)
 	sleep(40)
 	if(src)
-		color = RUNE_COLOR_RED
+		color = COLOR_RED
 	if(GLOB.celestial_gateway)
 		SEND_SOUND(world, 'sound/magic/clockwork/narsie_attack.ogg')
 		to_chat(world, span_ratvar("The dimensional veil is held shut by a powerful electric field."))
@@ -651,14 +649,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
-		var/datum/poll_config/config = new()
-		config.question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?"
-		config.role = /datum/role_preference/roundstart/blood_cultist
-		config.check_jobban = ROLE_CULTIST
-		config.poll_time = 10 SECONDS
-		config.jump_target = mob_to_revive
-		config.role_name_text = "inactive blood cultist"
-		config.alert_pic = mob_to_revive
+		var/datum/poll_config/config = new(
+			question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?",
+			role = /datum/role_preference/roundstart/blood_cultist,
+			check_jobban = ROLE_CULTIST,
+			poll_time = 10 SECONDS,
+			jump_target = mob_to_revive,
+			role_name_text = "inactive blood cultist",
+			alert_pic = mob_to_revive,
+			amount_to_pick = 1,
+		)
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = mob_to_revive)
 		if(candidate)
 			mob_to_revive.ghostize(FALSE)
@@ -679,7 +679,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	var/turf/T = get_turf(src)
 	if(QDELETED(user))
 		return FALSE
-	if(!Adjacent(user) || user.incapacitated())
+	if(!Adjacent(user) || user.incapacitated)
 		return FALSE
 	if(QDELETED(target_mob))
 		return FALSE
@@ -702,7 +702,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	cultist_desc = "when invoked, makes a temporary invisible wall to block passage. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "4"
-	color = RUNE_COLOR_DARKRED
+	color = COLOR_DARK_RED
 	can_atmos_pass = ATMOS_PASS_DENSITY
 	var/datum/timedevent/density_timer
 	var/recharging = FALSE
@@ -771,7 +771,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		shimmer.alpha = 60
 		shimmer.color = "#701414"
 		add_overlay(shimmer)
-		add_atom_colour(RUNE_COLOR_RED, FIXED_COLOUR_PRIORITY)
+		add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
 	else
 		cut_overlays()
 		add_atom_colour(RUNE_COLOR_MEDIUMRED, FIXED_COLOUR_PRIORITY)
@@ -784,7 +784,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	req_cultists = 2
 	invoke_damage = 10
 	icon_state = "3"
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 
 /obj/effect/rune/summon/invoke(list/invokers)
 	var/mob/living/user = invokers[1]
@@ -798,7 +798,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		var/mob/living/carbon/C = cultist_to_summon
 		if(C.handcuffed && cultist_to_summon.pulledby)
 			held_in_place = TRUE
-	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated)
 		return
 	if(!cultist_to_summon)
 		to_chat(user, span_cultitalic("You require a summoning target!"))
@@ -902,7 +902,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	icon_state = "7"
 	invoke_damage = 10
 	construct_invoke = FALSE
-	color = RUNE_COLOR_DARKRED
+	color = COLOR_DARK_RED
 	var/mob/living/affecting = null
 	var/ghost_limit = 1
 	var/ghosts = 0
@@ -981,7 +981,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 			new_human.dust()
 	else if(choice == "Ascend as a Dark Spirit")
 		affecting = user
-		affecting.add_atom_colour(RUNE_COLOR_DARKRED, ADMIN_COLOUR_PRIORITY)
+		affecting.add_atom_colour(COLOR_DARK_RED, ADMIN_COLOUR_PRIORITY)
 		affecting.visible_message(span_warning("[affecting] freezes statue-still, glowing an unearthly red."), \
 						span_cult("You see what lies beyond. All is revealed. In this form you find that your voice booms louder and you can mark targets for the entire cult"))
 		var/mob/dead/observer/G = affecting.ghostize(TRUE)
@@ -1007,7 +1007,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 			sleep(5)
 		CM.Remove(G)
 		GM.Remove(G)
-		affecting.remove_atom_colour(ADMIN_COLOUR_PRIORITY, RUNE_COLOR_DARKRED)
+		affecting.remove_atom_colour(ADMIN_COLOUR_PRIORITY, COLOR_DARK_RED)
 		affecting.grab_ghost()
 		affecting = null
 		rune_in_use = FALSE
@@ -1034,7 +1034,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	icon_state = "apoc"
 	pixel_x = -32
 	pixel_y = -32
-	color = RUNE_COLOR_DARKRED
+	color = COLOR_DARK_RED
 	req_cultists = 3
 	scribe_delay = 100
 	allow_ghosts = FALSE

@@ -54,7 +54,7 @@
 	))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
-	if(W.is_sharp())
+	if(W.get_sharpness())
 		user.show_message(span_notice("You make [plank_name] out of \the [src]!"), MSG_VISUAL)
 		var/seed_modifier = 0
 		if(seed)
@@ -210,7 +210,7 @@
 				add_overlay("bonfire_grill")
 			else
 				return ..()
-	if(W.is_hot())
+	if(W.get_temperature())
 		StartBurning()
 	if(grill)
 		if(!user.combat_mode && !(W.item_flags & ABSTRACT))
@@ -284,7 +284,7 @@
 		else if(isliving(A))
 			var/mob/living/L = A
 			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
-			L.IgniteMob()
+			L.ignite_mob()
 
 /obj/structure/bonfire/proc/Cook(delta_time = 2)
 	var/turf/current_location = get_turf(src)
@@ -294,7 +294,7 @@
 		else if(isliving(A)) //It's still a fire, idiot.
 			var/mob/living/L = A
 			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
-			L.IgniteMob()
+			L.ignite_mob()
 		else if(istype(A, /obj/item))
 			var/obj/item/grilled_item = A
 			SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, src, delta_time) //Not a big fan, maybe make this use fire_act() in the future.
@@ -309,6 +309,7 @@
 		Cook(delta_time)
 
 /obj/structure/bonfire/extinguish()
+	. = ..()
 	if(burning)
 		remove_emitter("fire")
 		remove_emitter("fire_spark")

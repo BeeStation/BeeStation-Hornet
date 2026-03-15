@@ -48,7 +48,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/head/utility/hardhat/cakehat/is_hot()
+/obj/item/clothing/head/utility/hardhat/cakehat/get_temperature()
 	return on * heat
 
 /obj/item/clothing/head/utility/hardhat/cakehat/energycake

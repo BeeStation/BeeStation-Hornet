@@ -9,7 +9,7 @@
 
 ///Checks if the user is incapacitated and cannot look up/down
 /mob/living/proc/can_look_direction()
-	return !(incapacitated(IGNORE_RESTRAINTS))
+	return !INCAPACITATED_IGNORING(src, INCAPABLE_RESTRAINTS)
 
 /// Tell the mob to attempt to look this direction until it's set back to NONE
 /mob/living/proc/set_attempted_looking_direction(direction)

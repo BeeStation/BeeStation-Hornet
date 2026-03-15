@@ -23,6 +23,7 @@
 		/obj/effect/collapse,
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/dummy/phased_mob,
+		/obj/effect/mapping_helpers
 	))
 
 /datum/component/chasm/Initialize(turf/target)

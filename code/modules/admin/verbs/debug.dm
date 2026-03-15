@@ -105,12 +105,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/confirm = input("[choice.ckey] isn't ghosting right now. Are you sure you want to yank him out of them out of their body and place them in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
 		if(confirm != "Yes")
 			return 0
-	var/obj/item/paicard/card = new(T)
+	var/obj/item/pai_card/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.name = capped_input(choice, "Enter your pAI name:", "pAI Name", "Personal AI")
 	pai.real_name = pai.name
 	pai.ckey = choice.ckey
-	card.setPersonality(pai)
+	card.set_personality(pai)
 	SSpai.candidates.Remove(SSpai.candidates[choice.ckey])
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -692,6 +692,23 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	queries.Cut()
 
 	message_admins("[key_name_admin(src)] ran [val] empty queries.")
+
+/client/proc/test_pathfinding()
+	set category = "Debug"
+	set name = "Toggle Pathfind Testing"
+	set desc = "Enables/Disables pathfinding testing action buttons"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Pathfind Testing")
+	log_admin("[key_name(src)] [holder.path_debug ? "disabled" : "enabled"] their pathfinding debug tools")
+	message_admins(span_adminnotice("[key_name_admin(src)] [holder.path_debug ? "disabled" : "enabled"] their pathfinding debug tools."))
+
+	if(!holder.path_debug)
+		holder.path_debug = new(holder)
+	else
+		QDEL_NULL(holder.path_debug)
 
 /client/proc/generate_ruin()
 	set category = "Debug"

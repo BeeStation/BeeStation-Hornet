@@ -20,7 +20,7 @@
 	armor_type = /datum/armor/machinery_atmospherics
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	flags_1 = STAT_UNIQUE_1
 	trade_flags = TRADE_NOT_SELLABLE // Adding this here just in case
 	///Check if the object can be unwrenched
@@ -101,6 +101,13 @@
 /obj/machinery/atmospherics/Initialize(mapload)
 	if(mapload && name != initial(name))
 		override_naming = TRUE
+	var/turf/turf_loc = null
+	if(isturf(loc))
+		turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
+
+	SSspatial_grid.add_grid_awareness(src, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
+	SSspatial_grid.add_grid_membership(src, turf_loc, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
 	if(init_processing)
 		SSair.start_processing_machine(src)
 	return ..()
@@ -523,7 +530,7 @@
 		L.ventcrawl_layer = piping_layer
 	return ..()
 
-/obj/machinery/atmospherics/singularity_pull(S, current_size)
+/obj/machinery/atmospherics/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
 	return ..()
@@ -532,12 +539,26 @@
 
 // Handles mob movement inside a pipenet
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
-	if(!(direction & initialize_directions) || !(direction in GLOB.cardinals_multiz)) //cant go this way.
+	if(!direction) //can't go this way.
 		return
 	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
 
-	var/obj/machinery/atmospherics/target_move = find_connecting(direction, user.ventcrawl_layer)
+	// We want to support holding two directions at once, so we do this
+	var/obj/machinery/atmospherics/target_move
+	for(var/canon_direction in GLOB.cardinals_multiz)
+		if(!(direction & canon_direction))
+			continue
+		var/obj/machinery/atmospherics/temp_target = find_connecting(canon_direction, user.ventcrawl_layer)
+		if(!temp_target)
+			continue
+		target_move = temp_target
+		// If you're at a fork with two directions held, we will always prefer the direction you didn't last use
+		// This way if you find a direction you've not used before, you take it, and if you don't, you take the other
+		if(user.last_vent_dir == canon_direction)
+			continue
+		user.last_vent_dir = canon_direction
+		break
 
 	if(!target_move)
 		// If we couldn't find a target to move to and we're ventcrawling, try to exit if this vent allows it
@@ -548,22 +569,28 @@
 	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
 		return
 	user.forceMove(target_move)
-	user.client.set_eye(target_move)  //Byond only updates the eye every tick, This smooths out the movement
 	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
 	if(pipenetdiff.len)
-		user.update_pipe_vision()
+		user.update_pipe_vision(full_refresh = TRUE)
 	if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 		user.last_played_vent = world.time
 		playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
-		if(prob(1))
-			audible_message(span_warning("You hear something crawling through the ducts..."))
 
 	//Would be great if this could be implemented when someone alt-clicks the image.
 	if (target_move.vent_movement & VENTCRAWL_ENTRANCE_ALLOWED)
 		user.handle_ventcrawl(target_move)
 		return
 
-	//PLACEHOLDER COMMENT FOR ME TO READD THE 1 (?) DS DELAY THAT WAS IMPLEMENTED WITH A... TIMER?
+	var/client/our_client = user.client
+	if(!our_client)
+		return
+	our_client.set_eye(target_move)
+	// Let's smooth out that movement with an animate yeah?
+	// If the new x is greater (move is left to right) we get a negative offset. vis versa
+	our_client.pixel_x = (x - target_move.x) * ICON_SIZE_X
+	our_client.pixel_y = (y - target_move.y) * ICON_SIZE_Y
+	animate(our_client, pixel_x = 0, pixel_y = 0, time = 0.05 SECONDS)
+	our_client.move_delay = world.time + 0.05 SECONDS
 
 /obj/machinery/atmospherics/AltClick(mob/living/L)
 	. = ..()

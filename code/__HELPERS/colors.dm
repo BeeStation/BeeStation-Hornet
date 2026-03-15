@@ -20,10 +20,8 @@
 		CRASH("Given non-HTML argument!")
 	else if(length_char(HTMLstring) != 7)
 		CRASH("Given non-hex symbols in argument!")
-	var/textr = copytext(HTMLstring, 2, 4)
-	var/textg = copytext(HTMLstring, 4, 6)
-	var/textb = copytext(HTMLstring, 6, 8)
-	return rgb(255 - hex2num(textr), 255 - hex2num(textg), 255 - hex2num(textb))
+	var/list/color = rgb2num(HTMLstring)
+	return rgb(255 - color[1], 255 - color[2], 255 - color[3])
 
 ///Flash a color on the client
 /proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)

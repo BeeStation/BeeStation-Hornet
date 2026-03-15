@@ -92,10 +92,10 @@ SUBSYSTEM_DEF(polling)
 
 	return poll_candidates(config, candidates)
 
-/*
-* Polls ghosts for a single target and returns one ghost
-* Used when you want to make a poll for something (Alien Embryo) and don't want multiple polls running for it at the same time
-*/
+/**
+ * Polls ghosts for a single target and returns one ghost
+ * Used when you want to make a poll for something (Alien Embryo) and don't want multiple polls running for it at the same time
+ */
 /datum/controller/subsystem/polling/proc/poll_ghosts_for_target(datum/poll_config/config, atom/movable/checked_target)
 	var/static/list/atom/movable/currently_polling_targets = list()
 	if(currently_polling_targets.Find(checked_target))
@@ -103,14 +103,14 @@ SUBSYSTEM_DEF(polling)
 	currently_polling_targets += checked_target
 	var/mob/chosen_one = poll_ghost_candidates(config)
 	currently_polling_targets -= checked_target
-	if(!checked_target || QDELETED(checked_target) || !checked_target.loc)
+	if(QDELETED(checked_target) || isnull(checked_target.loc))
 		return null
 	return chosen_one
 
-/*
-* Polls all ghosts for a list of targets
-* See `fun_balloon.dm`
-*/
+/**
+ * Polls all ghosts for a list of targets
+ * See `fun_balloon.dm`
+ */
 /datum/controller/subsystem/polling/proc/poll_ghosts_for_targets(datum/poll_config/config, list/checked_targets)
 	var/list/candidate_list = poll_ghost_candidates(config)
 	for(var/atom/movable/potential_target as anything in checked_targets)
@@ -120,9 +120,9 @@ SUBSYSTEM_DEF(polling)
 		return list()
 	return candidate_list
 
-/*
-* Polls all ghosted mentors
-*/
+/**
+ * Polls all ghosted mentors
+ */
 /datum/controller/subsystem/polling/proc/poll_mentor_ghost_candidates(datum/poll_config/config)
 	var/list/candidates = list()
 
@@ -180,9 +180,9 @@ SUBSYSTEM_DEF(polling)
 
 	return new_poll
 
-/*
-* Polls ghosts until someone accepts
-*/
+/**
+ * Polls ghosts until someone accepts
+ */
 /datum/controller/subsystem/polling/proc/poll_ghost_candidates_persistently(datum/poll_config/config)
 	var/list/candidates = list()
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))

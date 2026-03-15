@@ -18,6 +18,7 @@
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	initial_language_holder = /datum/language_holder/empty
+	retreat_distance = null //! retreat doesn't obey pass_flags, so won't work on blob mobs.
 	var/mob/camera/blob/overmind = null
 	var/obj/structure/blob/special/factory = null
 	var/independent = FALSE
@@ -49,7 +50,7 @@
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		adjustHealth(-maxHealth * BLOBMOB_HEALING_MULTIPLIER)
 
 /mob/living/simple_animal/hostile/blob/fire_act(exposed_temperature, exposed_volume)
@@ -64,12 +65,24 @@
 	if(istype(mover, /obj/structure/blob))
 		return TRUE
 
+///override to use astar/JPS instead of walk_to so we can take our blob pass_flags into account.
+/mob/living/simple_animal/hostile/blob/Goto(target, delay, minimum_distance)
+	if(prevent_goto_movement)
+		return FALSE
+	if(target == src.target)
+		approaching_target = TRUE
+	else
+		approaching_target = FALSE
+
+	SSmove_manager.jps_move(moving = src, chasing = target, delay = delay, repath_delay = 2 SECONDS, minimum_distance = minimum_distance, simulated_only = FALSE, skip_first = TRUE, timeout = 5 SECONDS, flags = MOVEMENT_LOOP_IGNORE_GLIDE)
+	return TRUE
+
 /mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
 	for(var/obj/structure/blob/B in range(1, src))
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
 	if(!overmind)
 		return ..()
 	if(CHAT_FILTER_CHECK(message))
@@ -205,13 +218,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance)
-	if(target == src.target)
-		approaching_target = TRUE
-	else
-		approaching_target = FALSE
-	SSmove_manager.hostile_jps_move(src, target,delay, minimum_distance = minimum_distance)
-
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
 	health = 15
@@ -270,28 +276,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		if(locate(/obj/structure/blob/special/node) in blobs_in_area)
 			adjustHealth(-maxHealth*BLOBMOB_BLOBBERNAUT_HEALING_NODE * delta_time)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src))
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 
 	if(!damagesources)
 		return
 
 	adjustHealth(maxHealth * BLOBMOB_BLOBBERNAUT_HEALTH_DECAY * damagesources * delta_time) //take 2.5% of max health as damage when not near the blob or if the naut has no factory, 5% if both
-	var/image/I = new('icons/mob/blob.dmi', src, "nautdamage", MOB_LAYER+0.01)
-	I.appearance_flags = RESET_COLOR
+	var/mutable_appearance/healing = mutable_appearance('icons/mob/blob.dmi', "nautdamage", MOB_LAYER+0.01)
+	healing.appearance_flags = RESET_COLOR
 
 	if(overmind)
-		I.color = overmind.blobstrain.complementary_color
+		healing.color = overmind.blobstrain.complementary_color
+	flick_overlay_view(healing, 0.8 SECONDS)
 
-	flick_overlay_view(I, src, 8)
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(updating_health)
 		update_health_hud()

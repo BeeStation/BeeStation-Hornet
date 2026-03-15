@@ -199,7 +199,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	if(skin_tone)
 		H.skin_tone = skin_tone
 	else
-		H.skin_tone = random_skin_tone()
+		H.skin_tone = pick(GLOB.skin_tones)
 	H.update_hair()
 	H.update_body()
 	if(outfit)
@@ -254,7 +254,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
-	mob_type = 	/mob/living/simple_animal/mouse
+	mob_type = /mob/living/basic/mouse
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/obj/machines/sleeper.dmi'

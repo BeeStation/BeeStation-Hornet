@@ -11,7 +11,6 @@
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
-	var/unique_death /// The unique sound effect of dying while wearing this
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if((clothing_flags & VOICEBOX_TOGGLABLE))
@@ -59,7 +58,7 @@
 
 //Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
 /obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/user)
-	if(user && user.incapacitated())
+	if(user && user.incapacitated)
 		return
 	mask_adjusted = !mask_adjusted
 	if(!mask_adjusted)

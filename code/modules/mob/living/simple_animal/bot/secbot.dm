@@ -19,11 +19,11 @@
 	window_name = "Automatic Security Unit v1.6"
 	allow_pai = 0
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
-	path_image_color = "#FF0000"
+	path_image_color = COLOR_RED
 	boot_delay = 8 SECONDS
 
 	var/noloot = FALSE
-	var/baton_type = /obj/item/melee/baton
+	var/baton_type = /obj/item/melee/baton/security
 	var/mob/living/carbon/target
 	var/oldtarget_name
 	var/threatlevel = FALSE
@@ -103,6 +103,14 @@
 	text_hack = "You overload [name]'s target identification system."
 	text_dehack = "You reboot [name] and restore the target identification."
 	text_dehack_fail = "[name] refuses to accept your authority!"
+
+/*
+/mob/living/simple_animal/bot/secbot/handle_atom_del(atom/deleting_atom)
+	if(deleting_atom == weapon)
+		weapon = null
+		update_appearance()
+	return ..()
+*/
 
 /mob/living/simple_animal/bot/secbot/ui_data(mob/user)
 	var/list/data = ..()
@@ -186,7 +194,7 @@
 				retaliate(Proj.firer)
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
 		return
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))

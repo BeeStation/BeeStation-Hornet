@@ -68,6 +68,7 @@ type WritingImplement = {
   font?: string;
   color?: string;
   use_bold?: boolean;
+  stamp_icon?: string;
   stamp_icon_state?: string;
   stamp_class?: string;
 };

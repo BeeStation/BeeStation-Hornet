@@ -35,7 +35,7 @@
 	/// singular version for player cows
 	var/self_tame_message = "let out a happy moo"
 
-	chat_color = "#FFFFFF"
+	chat_color = COLOR_WHITE
 
 /mob/living/basic/cow/Initialize(mapload)
 	AddComponent(/datum/component/tippable, \
@@ -63,10 +63,10 @@
 	var/static/list/food_types
 	if(!food_types)
 		food_types = src.food_types.Copy()
-	AddComponent(/datum/component/tameable, food_types = food_types, tame_chance = 25, bonus_tame_chance = 15, after_tame = CALLBACK(src, PROC_REF(tamed)))
+	AddComponent(/datum/component/tameable, food_types = food_types, tame_chance = 25, bonus_tame_chance = 15)
 	AddElement(/datum/element/basic_eating, 10, food_types)
 
-/mob/living/basic/cow/proc/tamed(mob/living/tamer)
+/mob/living/basic/cow/tamed(mob/living/tamer, atom/food)
 	buckle_lying = 0
 	visible_message("[src] [tame_message] as it seems to bond with [tamer].", "You [self_tame_message], recognizing [tamer] as your new pal.")
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/cow)

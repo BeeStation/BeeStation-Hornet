@@ -115,9 +115,9 @@
 	var/obj/item/organ/tongue/tongue = affected_carbon.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(!tongue)
 		return
-	tongue.liked_food = GROSS
-	tongue.disliked_food = NONE
-	tongue.toxic_food = ~GROSS
+	tongue.liked_foodtypes = GROSS
+	tongue.disliked_foodtypes = NONE
+	tongue.toxic_foodtypes = ~GROSS
 
 /datum/addiction/maintenance_drugs/withdrawal_enters_stage_3(mob/living/carbon/affected_carbon)
 	. = ..()
@@ -149,9 +149,9 @@
 	//restore tongue's tastes
 	var/obj/item/organ/tongue/tongue = affected_carbon.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(tongue)
-		tongue.liked_food = initial(tongue.liked_food)
-		tongue.disliked_food = initial(tongue.disliked_food)
-		tongue.toxic_food = initial(tongue.toxic_food)
+		tongue.liked_foodtypes = initial(tongue.liked_foodtypes)
+		tongue.disliked_foodtypes = initial(tongue.disliked_foodtypes)
+		tongue.toxic_foodtypes = initial(tongue.toxic_foodtypes)
 	if(!ishuman(affected_carbon))
 		return
 	var/mob/living/carbon/human/affected_human = affected_carbon

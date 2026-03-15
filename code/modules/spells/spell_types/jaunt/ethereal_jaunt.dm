@@ -30,7 +30,7 @@
 
 	var/turf/cast_turf = get_turf(.)
 	new jaunt_out_type(cast_turf, jaunter.dir)
-	jaunter.ExtinguishMob()
+	jaunter.extinguish_mob()
 	do_steam_effects(cast_turf)
 
 /datum/action/spell/jaunt/ethereal_jaunt/on_cast(mob/living/user, atom/target)
@@ -234,9 +234,10 @@
 
 /datum/action/spell/jaunt/ethereal_jaunt/shift/golem
 	name = "Runic Phase Shift"
-	cooldown_time = 80 SECONDS
+	cooldown_time = 40 SECONDS
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/cult/phase
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/cult/phase/out
+	jaunt_duration = 3 SECONDS
 
 
 /// The dummy that holds people jaunting. Maybe one day we can replace it.

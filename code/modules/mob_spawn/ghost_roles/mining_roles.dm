@@ -157,7 +157,7 @@
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
 	var/mob/living/carbon/human/species/diona/H = new_spawn
-	H.fully_replace_character_name(null, H.dna.species.random_name(gender))
+	H.fully_replace_character_name(null, generate_random_name_species_based(gender = gender, species_type = /datum/species/diona))
 	H.underwear = "Nude" //You're a plant, partner
 	H.update_body()
 
@@ -199,7 +199,7 @@
 		var/mob/living/carbon/human/H = new_spawn
 		H.underwear = "Nude"
 		H.update_body()
-		H.fully_replace_character_name(null, H.dna.species.random_name(gender))
+		H.fully_replace_character_name(null, generate_random_name_species_based(gender = gender, species_type = /datum/species/lizard))
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 

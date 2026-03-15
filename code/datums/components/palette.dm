@@ -29,10 +29,10 @@
 		return COMPONENT_INCOMPATIBLE
 
 	for(var/index in 1 to available_space)
-		colors += "#ffffff"
+		colors += COLOR_WHITE
 
 	src.colors = colors
-	src.selected_color = selected_color || "#ffffff"
+	src.selected_color = selected_color || COLOR_WHITE
 
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF_SECONDARY, PROC_REF(on_attack_self_secondary))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))

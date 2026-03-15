@@ -37,10 +37,10 @@ Key procs
 
 /datum/language_holder
 	/// Lazyassoclist of all understood languages
-	var/list/understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
+	var/list/understood_languages
 	/// Lazyassoclist of languages that can be spoken.
 	/// Tongue organ may also set limits beyond this list.
-	var/list/spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
+	var/list/spoken_languages
 	/// Lazyassoclist of blocked languages.
 	/// Used to prevent understanding and speaking certain languages, ie for certain mobs, mutations etc.
 	var/list/blocked_languages
@@ -57,12 +57,14 @@ Key procs
 /datum/language_holder/New(atom/new_owner)
 	if(new_owner)
 		if(QDELETED(new_owner))
-			CRASH("Langauge holder added to a qdeleting thing, what the fuck [text_ref(new_owner)]")
+			CRASH("Language holder added to a qdeleting thing, what the fuck [text_ref(new_owner)]")
 		if(!ismovable(new_owner))
 			CRASH("Language holder being added to a non-movable thing, this is invalid (was: [new_owner] / [new_owner.type])")
 
 	owner = new_owner
+
 	grant_language(/datum/language/metalanguage, language_flags = ALL, source = LANGUAGE_MIND) // Gets metalanguage that you can only understand
+
 	// If we have an owner, we'll set a default selected language
 	if(owner)
 		get_selected_language()
@@ -315,10 +317,14 @@ GLOBAL_LIST_INIT(prototype_language_holders, init_language_holder_prototypes())
 	)
 
 /datum/language_holder/oozeling
-	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
-			/datum/language/slime = list(LANGUAGE_ATOM))
-	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/slime = list(LANGUAGE_ATOM))
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/slime = list(LANGUAGE_ATOM)
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/slime = list(LANGUAGE_ATOM)
+	)
 
 /datum/language_holder/lightbringer
 	understood_languages = list(/datum/language/slime = list(LANGUAGE_ATOM))
@@ -347,16 +353,6 @@ GLOBAL_LIST_INIT(prototype_language_holders, init_language_holder_prototypes())
 	)
 	spoken_languages = list(
 		/datum/language/monkey = list(LANGUAGE_ATOM),
-	)
-
-/datum/language_holder/mushroom
-	understood_languages = list(
-		/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/mushroom = list(LANGUAGE_ATOM),
-	)
-	spoken_languages = list(
-		/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/mushroom = list(LANGUAGE_ATOM),
 	)
 
 /datum/language_holder/slime
@@ -516,14 +512,59 @@ GLOBAL_LIST_INIT(prototype_language_holders, init_language_holder_prototypes())
 		/datum/language/sylvan = list(LANGUAGE_ATOM)
 	)
 
-/datum/language_holder/empty
-	understood_languages = null
-	spoken_languages = null
+/datum/language_holder/syndicate
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/codespeak = list(LANGUAGE_ATOM)
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/codespeak = list(LANGUAGE_ATOM)
+	)
 
+/datum/language_holder/beachbum
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/beachbum = list(LANGUAGE_ATOM)
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/beachbum = list(LANGUAGE_ATOM)
+	)
+	selected_language = /datum/language/beachbum
+
+// Vending machines are extremely well-educated
+/datum/language_holder/speaking_machine
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/uncommon = list(LANGUAGE_ATOM),
+		/datum/language/machine = list(LANGUAGE_ATOM),
+		/datum/language/draconic = list(LANGUAGE_ATOM),
+		/datum/language/moffic = list(LANGUAGE_ATOM),
+		/datum/language/calcic = list(LANGUAGE_ATOM),
+		/datum/language/voltaic = list(LANGUAGE_ATOM),
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/uncommon = list(LANGUAGE_ATOM),
+		/datum/language/machine = list(LANGUAGE_ATOM),
+		/datum/language/draconic = list(LANGUAGE_ATOM),
+		/datum/language/moffic = list(LANGUAGE_ATOM),
+		/datum/language/calcic = list(LANGUAGE_ATOM),
+		/datum/language/voltaic = list(LANGUAGE_ATOM),
+	)
+
+// Given to atoms by default
+/datum/language_holder/atom_basic
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
+
+// Explicitly empty one for readability
+/datum/language_holder/empty
+
+// Has all the languages known (via "mind")
 /datum/language_holder/universal
-	understood_languages = null
-	spoken_languages = null
 
 /datum/language_holder/universal/New()
 	. = ..()
-	grant_all_languages()
+	grant_all_languages(source = LANGUAGE_MIND)

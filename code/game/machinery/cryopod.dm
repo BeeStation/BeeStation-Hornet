@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
 		/obj/item/mmi,
-		/obj/item/paicard,
+		/obj/item/pai_card,
 		/obj/item/gun,
 		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,
@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), mob_occupant)
 
 /obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
-	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your character will be automatically offered to other players.", "Leave Game", list("Yes", "No")) != "Yes")
 		if (target.client)
 			open_machine()
 			return
@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	offer_control_persistently(target)
 
 /obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
-	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your character will be automatically offered to other players.", "Leave Game", list("Yes", "No")) != "Yes")
 		if (target.client)
 			open_machine()
 			return
@@ -400,7 +400,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	name = initial(name)
 
 /obj/machinery/cryopod/MouseDrop_T(mob/living/target, mob/user)
-	if(!istype(target) || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
+	if(!istype(target) || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
 	if(!target.mind)
@@ -424,7 +424,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") != "Yes")
 			return
 
-	if(!target || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
+	if(!target || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 		//rerun the checks in case of shenanigans
 

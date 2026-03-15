@@ -112,8 +112,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		to_chat(user, span_userdanger("Your cooking skills are not up to the legendary Doublefry technique."))
 		return
 	// Handle pets
-	if(istype(weapon, /obj/item/clothing/head/mob_holder))
-		var/obj/item/clothing/head/mob_holder/P = weapon
+	if(ispickedupmob(weapon))
+		var/obj/item/mob_holder/P = weapon
 		QDEL_NULL(P.held_mob)	//just so the pet doesn't escape his incoming death
 	// Handle opening up the fryer with tools
 	if(default_deconstruction_screwdriver(user, "fryer_off", "fryer_off", weapon)) //where's the open maint panel icon?!

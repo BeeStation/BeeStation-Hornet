@@ -9,6 +9,7 @@
 	max_integrity = 250
 	density = FALSE
 	layer = ABOVE_WINDOW_LAYER
+	subsystem_type = /datum/controller/subsystem/processing/digital_clock
 	var/station_minutes
 	var/station_hours
 
@@ -79,14 +80,6 @@
 			new /obj/item/shard(loc)
 			new /obj/item/shard(loc)
 	qdel(src)
-
-/obj/machinery/digital_clock/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSdigital_clock, src)
-
-/obj/machinery/digital_clock/Destroy()
-	STOP_PROCESSING(SSdigital_clock, src)
-	return ..()
 
 /obj/machinery/digital_clock/process()
 	if(machine_stat & NOPOWER)

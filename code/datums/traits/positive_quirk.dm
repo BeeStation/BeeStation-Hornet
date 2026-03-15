@@ -13,7 +13,6 @@
 	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
 	icon = "wine-bottle"
 	quirk_value = 1
-	mob_trait = TRAIT_DRUNK_HEALING
 	gain_text = span_notice("You feel like a drink would do you good.")
 	lose_text = span_danger("You no longer feel like drinking would ease your pain.")
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
@@ -22,14 +21,14 @@
 	var/need_mob_update = FALSE
 	switch(quirk_target.get_drunk_amount())
 		if (6 to 40)
-			need_mob_update += quirk_target.adjustBruteLoss(-0.1 * delta_time, updating_health = FALSE)
-			need_mob_update += quirk_target.adjustFireLoss(-0.05 * delta_time, updating_health = FALSE)
+			need_mob_update += quirk_target.adjustBruteLoss(-0.1 * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
+			need_mob_update += quirk_target.adjustFireLoss(-0.05 * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
 		if (41 to 60)
-			need_mob_update += quirk_target.adjustBruteLoss(-0.4 * delta_time, updating_health = FALSE)
-			need_mob_update += quirk_target.adjustFireLoss(-0.2 * delta_time, updating_health = FALSE)
+			need_mob_update += quirk_target.adjustBruteLoss(-0.4 * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
+			need_mob_update += quirk_target.adjustFireLoss(-0.2 * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
 		if (61 to INFINITY)
-			need_mob_update += quirk_target.adjustBruteLoss(-0.8 * delta_time, updating_health = FALSE)
-			need_mob_update += quirk_target.adjustFireLoss(-0.4 * delta_time, updating_health = FALSE)
+			need_mob_update += quirk_target.adjustBruteLoss(-0.8 * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
+			need_mob_update += quirk_target.adjustFireLoss(-0.4 * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
 	if(need_mob_update)
 		quirk_target.updatehealth()
 
@@ -61,7 +60,6 @@
 	mob_trait = TRAIT_FRIENDLY
 	gain_text = span_notice("You want to hug someone.")
 	lose_text = span_danger("You no longer feel compelled to hug others.")
-	mood_quirk = TRUE
 	medical_record_text = "Patient demonstrates low-inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
 
 /datum/quirk/jolly
@@ -69,7 +67,6 @@
 	desc = "You sometimes just feel happy, for no reason at all."
 	icon = "grin"
 	quirk_value = 1
-	mob_trait = TRAIT_JOLLY
 	mood_quirk = TRUE
 	process = TRUE
 	medical_record_text = "Patient demonstrates constant euthymia irregular for environment. It's a bit much, to be honest."
@@ -109,32 +106,15 @@
 	medical_record_text = "Patient knows more than one language."
 	var/datum/language/known_language
 
-/datum/quirk/multilingual/proc/set_up_language()
-	var/datum/language_holder/LH = quirk_target.get_language_holder()
-	if(quirk_holder.assigned_role == JOB_NAME_CURATOR)
-		return
-	var/obj/item/organ/tongue/T = quirk_target.get_organ_slot(ORGAN_SLOT_TONGUE)
-	var/list/languages_possible = T.get_possible_languages()
-	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
-	languages_possible = languages_possible - LH.understood_languages
-	languages_possible = languages_possible - LH.spoken_languages
-	languages_possible = languages_possible - LH.blocked_languages
-	if(length(languages_possible))
-		known_language = pick(languages_possible)
-//Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
-
 /datum/quirk/multilingual/add()
 	known_language = read_choice_preference(/datum/preference/choiced/quirk/multilingual_language)
-	if(!known_language) // default to random
-		set_up_language()
-	var/datum/language_holder/LH = quirk_target.get_language_holder()
-	LH.grant_language(known_language, source = LANGUAGE_MULTILINGUAL)
+	known_language ||= pick(GLOB.multilingual_language_list)
+	quirk_target.grant_language(known_language, source = LANGUAGE_MULTILINGUAL)
 
 /datum/quirk/multilingual/remove()
 	if(!known_language)
 		return
-	var/datum/language_holder/LH = quirk_target.get_language_holder()
-	LH.remove_language(known_language, source = LANGUAGE_MULTILINGUAL)
+	quirk_target.remove_language(known_language, source = LANGUAGE_MULTILINGUAL)
 
 /datum/quirk/night_vision
 	name = "Night Vision"
@@ -224,10 +204,8 @@
 	desc = "For some reason you qualified for social welfare."
 	icon = "money-check-alt"
 	quirk_value = 1
-	mob_trait = TRAIT_NEET
 	gain_text = span_notice("You feel useless to society.")
 	lose_text = span_danger("You no longer feel useless to society.")
-	mood_quirk = TRUE
 	process = TRUE
 	medical_record_text = "Patient qualifies for social welfare."
 

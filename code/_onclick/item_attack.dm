@@ -180,8 +180,8 @@
 
 	return SECONDARY_ATTACK_CALL_NORMAL
 
-/obj/attackby(obj/item/I, mob/living/user, params)
-	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_atom(src, user, params))
+/obj/attackby(obj/item/attacking_item, mob/user, params)
+	return ..() || ((obj_flags & CAN_BE_HIT) && attacking_item.attack_atom(src, user, params))
 
 /mob/living/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(..())
@@ -273,7 +273,7 @@
 
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.
 /obj/item/proc/attack_atom(atom/attacked_atom, mob/living/user, params)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, attacked_atom, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_ATOM, attacked_atom, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 	if(item_flags & NOBLUDGEON)
 		return
@@ -305,8 +305,6 @@
 		return FALSE
 	var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
 	apply_damage(I.force, I.damtype, blocked = armour_block)
-	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
-		batong_act(I, user, null, armour_block)
 	if(I.damtype == BRUTE && prob(33))
 		I.add_mob_blood(src)
 		var/turf/location = get_turf(src)
@@ -316,7 +314,7 @@
 	return TRUE //successful attack
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
-	if(I.force < force_threshold || I.damtype == STAMINA || nonharmfulhit)
+	if(!attack_threshold_check(I.force, I.damtype, MELEE, FALSE) || nonharmfulhit)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
 	else
 		return ..()

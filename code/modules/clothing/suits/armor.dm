@@ -81,7 +81,7 @@
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	strip_delay = 80
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 
 /datum/armor/armor_hos
@@ -223,10 +223,16 @@
 	inhand_icon_state = "bonearmor"
 	blood_overlay_type = "armor"
 	armor_type = /datum/armor/armor_bone
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
+	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS
 	slowdown = 0.1
 	clothing_flags = THICKMATERIAL
-
+	allowed = list(
+		/obj/item/spear/bonespear,
+		/obj/item/claymore/bone,
+		/obj/item/fireaxe/boneaxe,
+		/obj/item/knife/combat/bone,
+		/obj/item/gun/ballistic/bow/ashen,
+	)
 
 /datum/armor/armor_bone
 	melee = 35
@@ -270,7 +276,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
 
-
 /datum/armor/armor_laserproof
 	melee = 10
 	bullet = 10
@@ -280,6 +285,10 @@
 	acid = 100
 	stamina = 40
 	bleed = 10
+
+/obj/item/clothing/suit/armor/laserproof/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!

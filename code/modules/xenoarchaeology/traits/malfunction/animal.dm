@@ -30,13 +30,13 @@
 	var/turf/T = get_turf(component_parent.parent)
 	var/mob/living/M = new summon_type(T)
 	summons += M
-	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(handle_death))
+	RegisterSignal(M, COMSIG_LIVING_DEATH, PROC_REF(handle_death))
 
 /datum/xenoartifact_trait/malfunction/animal/proc/handle_death(datum/source)
 	SIGNAL_HANDLER
 
 	summons -= source
-	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	UnregisterSignal(source, COMSIG_LIVING_DEATH)
 
 //carp variant
 /datum/xenoartifact_trait/malfunction/animal/carp
