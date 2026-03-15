@@ -336,8 +336,8 @@
 
 //Borgie battery tracking!
 /mob/living/silicon/robot/proc/diag_hud_set_borgcell()
-	if(cell)
-		set_hud_image_state(DIAG_BATT_HUD, "hudbatt[RoundDiagBar(cell.charge/cell.maxcharge)]")
+	if(QDELETED(cell) || cell.maxcharge == 0)
+		set_hud_image_state(DIAG_BATT_HUD, "hudnobatt")
 	else
 		var/chargelvl = cell.charge / cell.maxcharge
 		set_hud_image_state(DIAG_BATT_HUD, "hudbatt[RoundDiagBar(chargelvl)]")
