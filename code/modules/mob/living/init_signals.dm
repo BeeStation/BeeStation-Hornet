@@ -298,9 +298,9 @@
 /// Called when [TRAIT_TRACKED_SENSORS] is added to the mob.
 /mob/living/proc/add_to_suit_sensors(datum/source)
 	SIGNAL_HANDLER
-	GLOB.suit_sensors_list |= wearer
+	GLOB.suit_sensors_list |= src
 
 /// Called when [TRAIT_TRACKED_SENSORS] is removed from the mob.
 /mob/living/proc/remove_from_suit_sensors(datum/source)
 	SIGNAL_HANDLER
-	GLOB.suit_sensors_list -= wearer
+	GLOB.suit_sensors_list -= src
