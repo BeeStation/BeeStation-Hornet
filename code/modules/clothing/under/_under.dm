@@ -171,13 +171,6 @@
 			var/obj/item/clothing/accessory/accessory = attached_accessories[acc_slot]
 			accessory.on_uniform_equip(src, user)
 
-/obj/item/clothing/under/dropped(mob/user)
-	. = ..()
-	// we could still have TRAIT_TRACKED_SENSORS from nanites
-	if(user.get_item_by_slot(ITEM_SLOT_ICLOTHING) != src || HAS_TRAIT(user, TRAIT_TRACKED_SENSORS))
-		return
-	GLOB.suit_sensors_list -= user
-
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	if(user.stat != CONSCIOUS)
 		return
@@ -359,12 +352,6 @@
 	var/mob/living/carbon/human/wearer = loc
 	if(wearer.get_item_by_slot(ITEM_SLOT_ICLOTHING) != src)
 		return
-
-	// we could still have TRAIT_TRACKED_SENSORS from nanites at this point
-	if(HAS_TRAIT(wearer, TRAIT_TRACKED_SENSORS))
-		GLOB.suit_sensors_list |= wearer
-	else
-		GLOB.suit_sensors_list -= wearer
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()

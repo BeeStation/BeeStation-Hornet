@@ -65,6 +65,9 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_BASIC_HEALTH_HUD_VISIBLE), PROC_REF(add_to_basic_health_hud))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_BASIC_HEALTH_HUD_VISIBLE), PROC_REF(remove_from_basic_health_hud))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_TRACKED_SENSORS), PROC_REF(add_to_suit_sensors))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_TRACKED_SENSORS), PROC_REF(remove_from_suit_sensors))
+
 ///Called when TRAIT_KNOCKEDOUT is added to the mob.
 /mob/living/proc/on_knockedout_trait_gain(datum/source)
 	SIGNAL_HANDLER
@@ -291,3 +294,13 @@
 /mob/living/proc/on_movement_type_flag_disabled(datum/source, trait, flag, old_movement_type)
 	SIGNAL_HANDLER
 	update_movespeed(FALSE)
+
+/// Called when [TRAIT_TRACKED_SENSORS] is added to the mob.
+/mob/living/proc/add_to_suit_sensors(datum/source)
+	SIGNAL_HANDLER
+	GLOB.suit_sensors_list |= wearer
+
+/// Called when [TRAIT_TRACKED_SENSORS] is removed from the mob.
+/mob/living/proc/remove_from_suit_sensors(datum/source)
+	SIGNAL_HANDLER
+	GLOB.suit_sensors_list -= wearer
