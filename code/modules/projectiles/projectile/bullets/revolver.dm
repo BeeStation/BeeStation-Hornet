@@ -100,7 +100,7 @@
 /obj/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
 		var/mob/living/carbon/human/M = target
-		if(HAS_TRAIT(M, TRAIT_MIMING))
+		if(HAS_MIND_TRAIT(M, TRAIT_MIMING))
 			var/defense = M.getarmor(CHEST, BULLET, armour_penetration)
 			M.apply_damage(5, BRUTE, CHEST, defense)
 			M.visible_message(span_danger("A bullet wound appears in [M]'s chest!"), \

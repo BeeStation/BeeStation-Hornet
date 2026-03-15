@@ -23,7 +23,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "A" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
 	},

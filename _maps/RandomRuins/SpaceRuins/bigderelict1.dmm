@@ -1943,7 +1943,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/machinery/light,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,

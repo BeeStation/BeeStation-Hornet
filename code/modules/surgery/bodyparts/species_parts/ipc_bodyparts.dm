@@ -14,6 +14,10 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+
 /obj/item/bodypart/chest/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -31,6 +35,10 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+
 /obj/item/bodypart/arm/left/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -46,6 +54,10 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
 
 /obj/item/bodypart/arm/right/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -63,6 +75,10 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+
 /obj/item/bodypart/leg/left/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -79,6 +95,10 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+
 /obj/item/bodypart/leg/right/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
@@ -94,3 +114,7 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0

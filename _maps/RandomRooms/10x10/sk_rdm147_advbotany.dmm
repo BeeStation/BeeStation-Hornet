@@ -120,7 +120,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "H" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/item/storage/box/fakesyndiesuit,
 /obj/machinery/light/small{
 	dir = 1

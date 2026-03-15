@@ -202,7 +202,7 @@
 		//maybe better than a lame PAi after all
 		/obj/item/toy/plush/flushed = 5,
 		//rare, but not that much...
-		/obj/item/paicard = 2,
+		/obj/item/pai_card = 2,
 		//definetly better than the lame PAi
 		/obj/item/toy/plush/flushed/rainbow = 2,
 	)

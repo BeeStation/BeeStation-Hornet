@@ -80,7 +80,7 @@
 		"" = 18,
 		/obj/item/laser_pointer = 3,
 		/obj/item/storage/toolbox/mechanical = 2,
-		/obj/item/paicard = 5,
+		/obj/item/pai_card = 5,
 		/obj/item/nanite_remote = 3,
 		/obj/item/nanite_scanner = 3,
 		/obj/item/disk/tech_disk = 5,

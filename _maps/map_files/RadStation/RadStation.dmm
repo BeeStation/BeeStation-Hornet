@@ -7026,7 +7026,7 @@
 /area/security/prison)
 "cqL" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 8
 	},
@@ -26267,7 +26267,7 @@
 	},
 /obj/item/aicard,
 /obj/item/ai_module/reset,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4
 	},
 /obj/item/assembly/flash/handheld,
@@ -57632,7 +57632,7 @@
 /area/security/main)
 "tQR" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
 /area/vacant_room/office)
@@ -59189,7 +59189,7 @@
 /area/quartermaster/storage)
 "usv" = (
 /obj/structure/table/wood,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 6
 	},
 /obj/item/folder/blue{
@@ -61746,7 +61746,7 @@
 	pixel_y = 4
 	},
 /obj/item/aicard,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/item/storage/secure/briefcase,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32
@@ -63822,7 +63822,7 @@
 	pixel_x = -9;
 	pixel_y = 14
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 5;
 	pixel_y = 3
 	},
@@ -67412,7 +67412,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "xhH" = (
@@ -69339,7 +69339,7 @@
 /area/maintenance/department/science)
 "xMW" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/chicken/turkey,
+/mob/living/simple_animal/turkey,
 /turf/open/floor/grass,
 /area/hallway/primary/central)
 "xNd" = (
