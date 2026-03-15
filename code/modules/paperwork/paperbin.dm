@@ -59,12 +59,12 @@
 			movable_atom.pixel_y = rand(-3,3)
 		if(!movable_atom.pixel_x)
 			movable_atom.pixel_x = rand(-3,3)
-	LAZYNULL(papers)
+	papers.Cut()
 	update_appearance()
 
 /obj/item/paper_bin/fire_act(exposed_temperature, exposed_volume)
 	if(length(papers))
-		LAZYNULL(papers)
+		papers.Cut()
 		update_appearance()
 	..()
 
@@ -138,7 +138,7 @@
 		return ..()
 
 /obj/item/paper_bin/proc/at_overlay_limit()
-	return overlays.len >= MAX_ATOM_OVERLAYS
+	return overlays.len >= MAX_ATOM_OVERLAYS - 1
 
 /obj/item/paper_bin/examine(mob/user)
 	. = ..()
