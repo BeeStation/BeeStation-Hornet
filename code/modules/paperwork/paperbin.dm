@@ -63,7 +63,7 @@
 	update_appearance()
 
 /obj/item/paper_bin/fire_act(exposed_temperature, exposed_volume)
-	if(LAZYLEN(papers))
+	if(length(papers))
 		LAZYNULL(papers)
 		update_appearance()
 	..()
@@ -104,7 +104,7 @@
 		to_chat(user, "<span class='notice'>You take [pen] out of [src].</span>")
 		bin_pen = null
 		update_appearance()
-	else if(LAZYLEN(papers))
+	else if(length(papers))
 		var/obj/item/paper/top_paper = pop(papers)
 		top_paper.add_fingerprint(user)
 		top_paper.forceMove(user.loc)
@@ -157,7 +157,7 @@
 /obj/item/paper_bin/update_overlays()
 	. = ..()
 
-	total_paper = LAZYLEN(papers)
+	total_paper = length(papers)
 
 	if(bin_pen)
 		pen_overlay = mutable_appearance(bin_pen.icon, bin_pen.icon_state)
@@ -165,7 +165,7 @@
 	if(!bin_overlay)
 		bin_overlay = mutable_appearance(icon, bin_overlay_string)
 
-	if(LAZYLEN(papers))
+	if(length(papers))
 		for(var/paper_number in 1 to papers.len)
 			if(paper_number != papers.len && paper_number % PAPERS_PER_OVERLAY != 0) //only top paper and every nth paper get overlays
 				continue
@@ -227,7 +227,7 @@
 
 /obj/item/paper_bin/bundlenatural/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(!LAZYLEN(papers))
+	if(!length(papers))
 		deconstruct(FALSE)
 
 /obj/item/paper_bin/bundlenatural/deconstruct(disassembled)

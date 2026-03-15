@@ -88,7 +88,7 @@
 
 	if(istype(I, /obj/item/paper_bin))
 		var/obj/item/paper_bin/bin = I
-		if(!LAZYLEN(bin.papers))
+		if(!length(bin.papers))
 			balloon_alert(user, "empty bin!")
 			return FALSE
 
