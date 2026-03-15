@@ -161,15 +161,15 @@
 		. += accessory_appearance
 
 /obj/item/clothing/under/equipped(mob/user, slot)
-	..()
-	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
-		freshly_laundered = FALSE
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
-	// If we have an accessory, trigger equipepd behaviour
+	. = ..()
 	if (slot & slot_flags)
+		if(freshly_laundered)
+			freshly_laundered = FALSE
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
 		for (var/acc_slot in attached_accessories)
 			var/obj/item/clothing/accessory/accessory = attached_accessories[acc_slot]
 			accessory.on_uniform_equip(src, user)
+		update_wearer_status()
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	if(user.stat != CONSCIOUS)
