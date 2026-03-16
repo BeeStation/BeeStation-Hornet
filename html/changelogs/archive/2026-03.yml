@@ -125,3 +125,6 @@
         than using the pen that's currently attached to it. Congratulations!
     - bugfix: Hitting cancel when renaming a paper now actually cancels the operation.
     - code_imp: Added support for preventing a pen from being removed from a clipboard.
+2026-03-16:
+  DrDuckedGoose:
+  - bugfix: Fix Height Maps
