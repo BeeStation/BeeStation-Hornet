@@ -158,12 +158,10 @@ const VoteOptions = (props) => {
             <Stack.Item>
               <Button.Checkbox
                 width={19.5}
-                color={areWeAnonymous ? "green" : "red"}
+                color={areWeAnonymous ? 'green' : 'red'}
                 checked={areWeAnonymous}
-                content='Remain Anonymous'
-                onClick={() =>
-                  setAnonymous(!areWeAnonymous)
-                }
+                content="Remain Anonymous"
+                onClick={() => setAnonymous(!areWeAnonymous)}
               />
             </Stack.Item>
             {possibleVotes.map((option) => (
