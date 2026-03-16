@@ -23,7 +23,7 @@
 	if(isnum_safe(force_set))
 		SSticker.gametime_offset = force_set
 		return
-	SSticker.gametime_offset = rand(0, DECISECONDS_IN_DAY)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
+	SSticker.gametime_offset = rand(0, 24 HOURS)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
 	if(prob(50))
 		SSticker.gametime_offset = FLOOR(SSticker.gametime_offset, 3600)
 	else
