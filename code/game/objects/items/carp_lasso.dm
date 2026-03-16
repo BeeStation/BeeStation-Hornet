@@ -137,7 +137,6 @@
 
 /obj/item/mob_lasso/primal/init_whitelists(mapload)
 	whitelist_mob_cache[type] = typecacheof(list(
-		/mob/living/simple_animal/hostile/asteroid/goliath,
 		/mob/living/simple_animal/hostile/asteroid/goldgrub,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
 		/mob/living/simple_animal/hostile/asteroid/gutlunch,
