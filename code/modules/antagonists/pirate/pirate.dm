@@ -43,7 +43,7 @@
 
 /datum/antagonist/pirate/create_team(datum/team/pirate/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/pirate/P in GLOB.antagonists)
+		for(var/datum/antagonist/pirate/P as anything in GLOB.active_antagonists)
 			if(!P.owner)
 				continue
 			if(P.crew)

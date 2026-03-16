@@ -102,15 +102,16 @@ GLOBAL_VAR(antag_prototypes)
 		out += " - Special Statuses: [special_statuses]<br>"
 
 	//// Initializing antag panel texts ////
-	if(!GLOB.antag_prototypes)
+	if(!length(GLOB.antag_prototypes))
 		GLOB.antag_prototypes = list()
 		for(var/antag_type in subtypesof(/datum/antagonist))
-			var/datum/antagonist/A = new antag_type
-			var/cat_id = A.antagpanel_category
+			var/datum/antagonist/each_antag = new antag_type
+			GLOB.active_antagonists -= each_antag // This is automatically added by /datum/antagonist/New - manually removing this.
+			var/cat_id = each_antag.antagpanel_category
 			if(!GLOB.antag_prototypes[cat_id])
-				GLOB.antag_prototypes[cat_id] = list(A)
+				GLOB.antag_prototypes[cat_id] = list(each_antag)
 			else
-				GLOB.antag_prototypes[cat_id] += A
+				GLOB.antag_prototypes[cat_id] += each_antag
 	sortTim(GLOB.antag_prototypes,GLOBAL_PROC_REF(cmp_text_asc),associative=TRUE)
 
 	var/list/sections = list()

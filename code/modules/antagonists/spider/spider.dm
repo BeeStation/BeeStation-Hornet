@@ -54,7 +54,7 @@
 
 /datum/antagonist/spider/create_team(datum/team/spiders/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/spider/spooder in GLOB.antagonists)
+		for(var/datum/antagonist/spider/spooder as anything in GLOB.active_antagonists)
 			if(!spooder.owner || !spooder.spider_team)
 				continue
 			spider_team = spooder.spider_team //if we can find any existing team, use that one
