@@ -5,6 +5,7 @@
 	meat = /obj/item/food/meat/slab/monkey
 	species_language_holder = /datum/language_holder/koa
 	allow_numbers_in_name = TRUE
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-1), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 
@@ -37,14 +38,19 @@
 
 /datum/species/koa/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
-	C.pass_flags = PASSTABLE
+	C.pass_flags |= PASSTABLE
+	//Setup ears
 	C.dna.features["ears"] = "Koala" //Defaults to Cat otherwise
+	var/obj/item/organ/ears/koala/ears = new
+	ears.Insert(C, drop_if_replaced = FALSE, pref_load = pref_load)
+	//Set holder for hand index offsets
 	holder = C
 	//TODO: See proc below - Racc
 	//RegisterSignal(C, COMSIG_MOB_ITEM_AFTERATTACK_SECONDARY, PROC_REF(catch_secondary_attack))
 
 /datum/species/koa/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
+	C.pass_flags &= PASSTABLE
 	holder = null
 
 /datum/species/koa/get_item_offsets_for_index(obj/item/I)
