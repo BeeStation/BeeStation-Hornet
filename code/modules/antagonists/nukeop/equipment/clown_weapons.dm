@@ -22,9 +22,9 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/shoes/clown_shoes/combat/Initialize(mapload)
-	. = ..()
-
-	create_storage(storage_type = /datum/storage/pockets/shoes)
+	if(!istype(atom_storage))
+		create_storage(storage_type = /datum/storage/pockets/shoes)
+	return ..()
 
 /// Recharging rate in PPS (peels per second)
 #define BANANA_SHOES_RECHARGE_RATE 17
@@ -65,10 +65,8 @@
 	bleed = 40
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize(mapload)
-	. = ..()
-
 	create_storage(storage_type = /datum/storage/pockets/shoes)
-
+	. = ..()
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
 	bananium.insert_amount_mat(BANANA_SHOES_MAX_CHARGE, /datum/material/bananium)
 	START_PROCESSING(SSobj, src)

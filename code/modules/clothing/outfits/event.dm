@@ -22,6 +22,6 @@
 
 	H.hair_style = "Long Hair 3"
 	H.facial_hair_style = "Beard (Full)"
-	H.hair_color = "FFF"
-	H.facial_hair_color = "FFF"
+	H.hair_color = COLOR_WHITE
+	H.facial_hair_color = COLOR_WHITE
 	H.update_hair()

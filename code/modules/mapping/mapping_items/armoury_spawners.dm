@@ -50,16 +50,16 @@
 	icon_state = "sec"
 	loot = list(/obj/item/gun/ballistic/automatic/pistol/security, /obj/item/storage/belt/sabre/carbon_fiber)
 	fan_out_items = TRUE
-	minimum = 2
-	linear_scaling_rate = 1
+	minimum = 1
+	linear_scaling_rate = 0.5
 
 /obj/effect/loot_jobscale/armoury/pistol_ammo
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "sec"
-	loot = list(/obj/item/ammo_box/pouch/x200law)
+	loot = list(/obj/item/ammo_box/magazine/x200law)
 	fan_out_items = TRUE
-	minimum = 6
-	linear_scaling_rate = 2
+	minimum = 2
+	linear_scaling_rate = 1
 
 /obj/effect/loot_jobscale/armoury/pistol_ammo_box
 	icon = 'icons/obj/guns/projectile.dmi'
@@ -67,7 +67,7 @@
 	loot = list(/obj/item/ammo_box/x200law)
 	fan_out_items = TRUE
 	minimum = 1
-	linear_scaling_rate = 0.4
+	linear_scaling_rate = 0.5
 
 /obj/effect/loot_jobscale/armoury/tasers
 	icon = 'icons/obj/guns/projectile.dmi'

@@ -24,7 +24,7 @@
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
-	if(pockets)
+	if(!istype(atom_storage) && pockets)
 		create_storage(storage_type = /datum/storage/pockets/exo)
 
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)

@@ -119,7 +119,7 @@
 			SSfire_burning.processing -= src
 		qdel(src)
 
-/obj/item/food/attackby(obj/item/attacking_item, mob/living/user)
+/obj/item/food/attackby(obj/item/attacking_item, mob/user, params)
 	. = ..()
 	if(istype(attacking_item, /obj/item/pen))
 		var/target_name = tgui_input_text(user, "What would you like to name your masterpiece?", "Name:", name || "Food", MAX_MESSAGE_LEN)

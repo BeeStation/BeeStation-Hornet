@@ -58,9 +58,10 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 		return
 
 	// Recite the invokation text
-	if(length(invokation_text))
-		var/time_between_say = invokation_time / length(invokation_text)
-		recite(text_point = 1, wait_time = time_between_say, stop_at = length(invokation_text))
+	var/invokations_amount = length(invokation_text)
+	if(invokations_amount)
+		var/time_between_say = invokation_time / invokations_amount
+		recite(text_point = 1, wait_time = time_between_say, stop_at = invokations_amount)
 
 	if(do_after(invoker, invokation_time, target = invoker, extra_checks = CALLBACK(src, PROC_REF(can_invoke))))
 		on_invoke_success()
@@ -122,16 +123,17 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 	SHOULD_CALL_PARENT(TRUE)
 	dispose()
 
-/*
-* This isn't with on_invoke_end() because we don't want to call whatever logic we use whenever we for example, fail the do_after in try_to_invoke()
-*/
+/**
+ * This isn't with on_invoke_end() because we don't want to call whatever logic we use whenever we for example, fail the do_after in try_to_invoke()
+ */
 /datum/clockcult/scripture/proc/dispose()
 	SHOULD_CALL_PARENT(TRUE)
+	invoker = null
 	invoking_slab.invoking_scripture = null
 
-/*
-* A recursive proc that calls itself until all parts of invokation_text have been recited
-*/
+/**
+ * A recursive proc that calls itself until all parts of invokation_text have been recited
+ */
 /datum/clockcult/scripture/proc/recite(text_point, wait_time, stop_at = 0)
 	if(QDELETED(src))
 		return

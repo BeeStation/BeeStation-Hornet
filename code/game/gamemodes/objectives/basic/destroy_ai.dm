@@ -38,5 +38,8 @@
 		to_chat(admin, "No active AIs with minds")
 	update_explanation_text()
 
+/datum/objective/destroy/get_tracking_target(atom/source)
+	return target?.current
+
 /datum/objective/destroy/internal
 	var/stolen = FALSE 		//Have we already eliminated this target?

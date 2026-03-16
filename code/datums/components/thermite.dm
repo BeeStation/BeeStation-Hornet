@@ -95,5 +95,5 @@
 /datum/component/thermite/proc/attackby_react(datum/source, obj/item/thing, mob/user, params)
 	SIGNAL_HANDLER
 
-	if(thing.is_hot())
+	if(thing.get_temperature())
 		thermite_melt(user)

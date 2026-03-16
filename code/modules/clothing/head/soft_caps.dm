@@ -19,7 +19,7 @@
 		flip(user)
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
-	if(!user.incapacitated() && flippable == TRUE)
+	if(!user.incapacitated && flippable == TRUE)
 		flipped = !flipped
 		if(flipped)
 			icon_state = "[soft_color]soft_flipped"

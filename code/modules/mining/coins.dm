@@ -101,7 +101,7 @@
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
 		var/oldloc = loc
 		sleep(15)
-		if(loc == oldloc && user && !user.incapacitated())
+		if(loc == oldloc && user && !user.incapacitated)
 			user.visible_message("[user] has flipped [src]. It lands on [coinflip].", \
 							span_notice("You flip [src]. It lands on [coinflip]."), \
 							span_italics("You hear the clattering of loose change."))
@@ -132,7 +132,7 @@
 	. = ..()
 
 /obj/item/coin/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(0, user)
 	else
 		return ..()

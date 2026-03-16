@@ -21,7 +21,7 @@
 	description = "CentCom demands a stunprod to use against dissidents. Craft one, then ship it."
 	reward = 1300
 	wanted_types = list(
-		/obj/item/melee/baton/cattleprod = TRUE,
+		/obj/item/melee/baton/security/cattleprod = TRUE,
 	)
 
 /datum/bounty/item/assistant/soap

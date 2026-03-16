@@ -7,7 +7,7 @@
 	// Humans cursed to stay in the darkness, lest their life forces drain. They regain health in shadow and die in light.
 	name = "Shadow"
 	plural_form = "Shadowpeople"
-	id = SPECIES_SHADOWPERSON
+	id = SPECIES_SHADOW
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
 	species_traits = list(
@@ -104,8 +104,7 @@
 
 /datum/species/shadow/nightmare
 	name = "Nightmare"
-	id = "nightmare"
-	burnmod = 1.5
+	id = SPECIES_NIGHTMARE
 	no_equip_flags = ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
 	species_traits = list(
 		NO_UNDERWEAR,
@@ -252,7 +251,6 @@
 	icon_state = "arm_blade"
 	inhand_icon_state = "arm_blade"
 	force = 25
-
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
@@ -260,6 +258,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/light_eater/Initialize(mapload)
 	. = ..()
@@ -267,11 +266,11 @@
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	AddComponent(/datum/component/butchering, 80, 70)
 
-/obj/item/light_eater/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/light_eater/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
-	AM.lighteater_act(src)
+	target.lighteater_act(src)
 
 /atom/movable/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()

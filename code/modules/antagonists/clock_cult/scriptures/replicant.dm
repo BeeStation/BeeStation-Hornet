@@ -9,6 +9,6 @@
 	category = SPELLTYPE_SERVITUDE
 
 /datum/clockcult/scripture/replicant/on_invoke_success()
-	var/obj/item/clockwork/clockwork_slab/new_slab = new(get_turf(invoker))
-	invoker.put_in_hands(new_slab)
+	var/obj/item/clockwork/clockwork_slab/new_slab = new(invoker.drop_location())
+	invoker.put_in_inactive_hand(new_slab)
 	return ..()

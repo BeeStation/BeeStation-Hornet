@@ -55,16 +55,6 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
-
-	var/datum/objective/heretic_summon/summon_objective = new()
-	summon_objective.owner = our_heretic.owner
-	our_heretic.objectives += summon_objective
-
-	to_chat(user, span_hierophant("Undertaking the Path of Flesh, you are given another objective."))
-	our_heretic.owner.announce_objectives()
-
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
 	desc = "Your Mansus Grasp gains the ability to create a single ghoul out of corpse with a soul. \
@@ -171,13 +161,15 @@
 
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-		var/datum/poll_config/config = new()
-		config.question = "Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?"
-		config.check_jobban = ROLE_HERETIC
-		config.poll_time = 10 SECONDS
-		config.jump_target = soon_to_be_ghoul
-		config.role_name_text = "voiceless dead"
-		config.alert_pic = soon_to_be_ghoul
+		var/datum/poll_config/config = new(
+			question = "Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?",
+			check_jobban = ROLE_HERETIC,
+			poll_time = 10 SECONDS,
+			jump_target = soon_to_be_ghoul,
+			role_name_text = "voiceless dead",
+			alert_pic = soon_to_be_ghoul,
+			amount_to_pick = 1,
+		)
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = soon_to_be_ghoul)
 		if(!candidate)
 			loc.balloon_alert(user, "Ritual failed, no ghosts")

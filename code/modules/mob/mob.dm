@@ -80,6 +80,7 @@
 		add_to_dead_mob_list()
 	else
 		add_to_alive_mob_list()
+	update_incapacitated()
 	set_focus(src)
 	prepare_huds()
 	for(var/v in GLOB.active_alternate_appearances)
@@ -346,9 +347,21 @@
 		return ITEM_SLOT_HANDS
 	return null
 
-///Is the mob incapacitated
-/mob/proc/incapacitated(flags)
-	return
+/// Called whenever anything that modifes incapacitated is ran, updates it and sends a signal if it changes
+/// Returns TRUE if anything changed, FALSE otherwise
+/mob/proc/update_incapacitated()
+	SIGNAL_HANDLER
+	var/old_incap = incapacitated
+	incapacitated = build_incapacitated()
+	if(old_incap == incapacitated)
+		return FALSE
+
+	SEND_SIGNAL(src, COMSIG_MOB_INCAPACITATE_CHANGED, old_incap, incapacitated)
+	return TRUE
+
+/// Returns an updated incapacitated bitflag. If a flag is set it means we're incapacitated in that case
+/mob/proc/build_incapacitated()
+	return NONE
 
 /**
   * This proc is called whenever someone clicks an inventory ui slot.
@@ -454,29 +467,28 @@
 		qdel(W)
 	return FALSE
 
-// Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
-// Used in job equipping so shit doesn't pile up at the start loc.
-/mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot)
-	if(W.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
-		//Mob can equip.  Equip it.
-		equip_to_slot_or_del(W, slot)
+/// Convinience proc. Collects crap that fails to equip either onto the mob's back, or drops it.
+/// Used in job equipping so shit doesn't pile up at the start loc.
+/mob/living/carbon/human/proc/equip_or_collect(obj/item/item_to_equip, slot)
+	// First try and equip the item into the slot
+	if(slot && item_to_equip.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
+		equip_to_slot_or_del(item_to_equip, slot)
+		return
+
+	// Do I have a backpack?
+	var/obj/item/storage/storage
+	if(istype(back, /obj/item/storage))
+		storage = back
 	else
-		//Mob can't equip it.  Put it in a bag B.
-		// Do I have a backpack?
-		var/obj/item/storage/B
-		if(istype(back,/obj/item/storage))
-			//Mob is wearing backpack
-			B = back
-		else
-			//not wearing backpack.  Check if player holding box
-			if(!is_holding_item_of_type(/obj/item/storage/box)) //If not holding box, give box
-				B = new /obj/item/storage/box(null) // Null in case of failed equip.
-				if(!put_in_hands(B))
-					return // box could not be placed in players hands.  I don't know what to do here...
-			//Now, B represents a container we can insert W into.
-			if(B.atom_storage.can_insert(W))
-				B.atom_storage.attempt_insert(W)
-			return B
+		// Not wearing backpack. Check if player holding box
+		storage = is_holding_item_of_type(/obj/item/storage/box)
+		if(isnull(storage))
+			// If not holding box, give box
+			storage = new /obj/item/storage/box(get_turf(src))
+		put_in_hands(storage)
+
+	storage.atom_storage.attempt_insert(item_to_equip)
+	return storage
 
 /**
  * Reset the attached clients perspective (viewpoint)
@@ -555,13 +567,13 @@
 	face_atom(examinify)
 
 	// Show nearby mobs that we're examining something
-	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
-		for(var/mob/M in viewers(4, src))
-			if(M == src || !M.client || M.is_blind())
+	if(isliving(src) && stat < UNCONSCIOUS && !istype(examinify, /atom/movable/screen) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/viewer in viewers(4, src))
+			if(viewer == src || !viewer.client || viewer.is_blind())
 				continue
-			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+			if(!viewer.client.prefs?.read_player_preference(/datum/preference/toggle/examine_messages))
 				continue
-			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+			to_chat(viewer, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
 
 	var/list/result = examinify.examine_base(src, TRUE)
 	var/atom_title = examinify.examine_title(src, thats = TRUE)
@@ -583,13 +595,13 @@
 	face_atom(examinify)
 
 	// Show nearby mobs that we're examining something
-	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
-		for(var/mob/M in viewers(4, src))
-			if(M == src || !M.client || M.is_blind())
+	if(isliving(src) && stat < UNCONSCIOUS && !istype(examinify, /atom/movable/screen) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/viewer in viewers(4, src))
+			if(viewer == src || !viewer.client || viewer.is_blind())
 				continue
-			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+			if(!viewer.client.prefs?.read_player_preference(/datum/preference/toggle/examine_messages))
 				continue
-			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+			to_chat(viewer, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
 
 	var/result_combined
 	if(client)
@@ -644,7 +656,7 @@
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
-	if(!Adjacent(examined_thing) || incapacitated())
+	if(!Adjacent(examined_thing) || incapacitated)
 		to_chat(src, span_warning("Something is there, but you can't see it!"))
 		return FALSE
 
@@ -797,7 +809,7 @@
 	if(ismecha(loc))
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	var/obj/item/I = get_active_held_item()

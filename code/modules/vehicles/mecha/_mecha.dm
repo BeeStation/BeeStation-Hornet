@@ -225,10 +225,12 @@
 	diag_hud_set_mechstat()
 	update_appearance()
 
-	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
+	become_hearing_sensitive(trait_source = INNATE_TRAIT)
+	add_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE), INNATE_TRAIT) //stormy weather (keeps rainin' all the time)
 
 	AddElement(/datum/element/atmos_sensitive)
 	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE)
+	AddElement(/datum/element/hostile_machine)
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
 /obj/vehicle/sealed/mecha/proc/Eject()
@@ -448,7 +450,7 @@
 				cabin_air.pump_gas_to(t_air, cabin_pressure)
 
 	for(var/mob/living/occupant as anything in occupants)
-		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.
+		if(!enclosed && occupant?.incapacitated)  //no sides mean it's easy to just sorta fall out if you're incapacitated.
 			visible_message(span_warning("[occupant] tumbles out of the cockpit!"))
 			mob_exit(occupant) //bye bye
 			continue
@@ -545,7 +547,7 @@
 	if(phasing)
 		balloon_alert(user, "not while [phasing]!")
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(construction_state)
 		balloon_alert(user, "end maintenance first!")

@@ -365,7 +365,7 @@
 	atom_storage.set_holdable(list(
 		/obj/item/melee/baton,
 		/obj/item/melee/tonfa,
-		/obj/item/melee/classic_baton/police,
+		/obj/item/melee/baton,
 		/obj/item/grenade,
 		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/restraints/handcuffs,
@@ -375,7 +375,7 @@
 		/obj/item/food/donut,
 		/obj/item/knife/combat,
 		/obj/item/flashlight/seclite,
-		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/radio,
 		/obj/item/clothing/gloves,
 		/obj/item/restraints/legcuffs/bola,
@@ -391,13 +391,13 @@
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/ert/full/PopulateContents()
 	new /obj/item/shield/riot/tele(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/club(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)

@@ -212,7 +212,7 @@
 	pixel_x = 4;
 	pixel_y = 8
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/template_noop)
 "M" = (

@@ -113,8 +113,7 @@
 	zone = "head"
 	slot = "ears"
 	gender = PLURAL
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/ears/robot/emp_act(severity)
 	. = ..()

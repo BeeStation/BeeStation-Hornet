@@ -15,8 +15,8 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	var/alt_sound = null
 
 /obj/item/storage/part_replacer/Initialize(mapload)
-	. = ..()
 	create_storage(storage_type = /datum/storage/rped)
+	return ..()
 
 /obj/item/storage/part_replacer/pre_attack(obj/attacked_object, mob/living/user, params)
 	if(!istype(attacked_object, /obj/machinery) && !istype(attacked_object, /obj/structure/frame/machine))

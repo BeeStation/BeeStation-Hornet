@@ -20,6 +20,7 @@
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/trackable)
 
 /obj/item/nuke_core/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -129,6 +130,10 @@
 	icon_state = "supermatter_sliver"
 	base_icon_state = "supermatter_sliver"
 	inhand_icon_state = "supermattersliver"
+
+/obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return

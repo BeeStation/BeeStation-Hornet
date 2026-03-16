@@ -3,8 +3,9 @@
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
 	banning_key = ROLE_TRAITOR
-	required_living_playtime = 4
+	required_living_playtime = 2
 	antag_moodlet = /datum/mood_event/focused
+	faction = FACTION_SYNDICATE
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/special_role = ROLE_TRAITOR
@@ -12,6 +13,8 @@
 	var/employer = "The Syndicate"
 	var/datum/weakref/uplink_ref
 	var/datum/contractor_hub/contractor_hub
+	/// The backup code which, when typed into any PDA, will turn it into an uplink
+	var/backup_code = ""
 	/// If this specific traitor has been assigned codewords. This is not always true, because it varies by faction.
 	var/has_codewords = FALSE
 
@@ -47,7 +50,6 @@
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
 	objectives -= O
 
-
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
 
@@ -59,7 +61,6 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 	to_chat(owner.current, examine_block(msg.Join("\n")))
-
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
@@ -75,42 +76,75 @@
 	. = ..()
 	update_traitor_icons_added()
 	// Give codewords to the new mob on mind transfer.
-	if(mob_override && istype(faction) && faction.give_codewords)
+	if(mob_override)
 		give_codewords(mob_override)
+	RegisterSignal(SSdcs, COMSIG_GLOB_TABLET_CHANGE_RINGTONE, PROC_REF(check_backup_code))
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	update_traitor_icons_removed()
 	// Remove codewords from the old mob on mind transfer.
-	if(mob_override && istype(faction) && faction.give_codewords)
+	if(mob_override)
 		remove_codewords(mob_override)
+	UnregisterSignal(SSdcs, COMSIG_GLOB_TABLET_CHANGE_RINGTONE)
 
 /// Enables displaying codewords to this traitor.
 /datum/antagonist/traitor/proc/give_codewords(mob/living/mob_override)
-	if((!mob_override && !owner.current) || !istype(faction))
+	if((!mob_override && !owner.current))
 		return
 	has_codewords = TRUE
 	RegisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/antagonist/traitor/proc/remove_codewords(mob/living/mob_override)
-	if((!mob_override && !owner.current) || !istype(faction))
+	if((!mob_override && !owner.current))
 		return
 	has_codewords = FALSE
 	UnregisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
+/// When any code is typed, if our owner is typing it into a PDA then convert that PDA into an uplink
+/datum/antagonist/traitor/proc/check_backup_code(datum/source, obj/item/modular_computer/computer, mob/user, entered_code)
+	SIGNAL_HANDLER
+	if (user != owner.current)
+		return NONE
+	if (entered_code != backup_code)
+		return NONE
+	// Unlock the uplink
+	var/datum/component/uplink/uplink = uplink_ref.resolve()
+	if (!uplink)
+		return NONE
+	// Remove the uplink from the old location
+	if (uplink.parent != null)
+		var/uplink_parent = uplink.parent
+		uplink.ClearFromParent()
+		// De-activate the uplink implant
+		if (istype(uplink_parent, /obj/item/implant))
+			qdel(uplink_parent)
+	// Add the uplink to the new location and unlock
+	computer.TakeComponent(uplink)
+	uplink.unlock()
+	uplink.interact(null, user)
+	return COMPONENT_STOP_RINGTONE_CHANGE
+
 /datum/antagonist/traitor/proc/equip(silent = FALSE)
-	var/obj/item/uplink_loc = owner.equip_traitor(employer, silent, src)
-	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
-	if(uplink)
-		uplink_ref = WEAKREF(uplink)
+	var/obj/item/uplink_loc = owner.equip_traitor(src, employer, silent, src)
+	if (!uplink_loc)
+		return
+	for (var/datum/component/uplink/uplink in uplink_loc.GetComponents(/datum/component/uplink))
+		// Not our uplink
+		if (uplink.owner && uplink.owner != owner)
+			continue
+		uplink.persistent = TRUE
+		if(uplink)
+			uplink_ref = WEAKREF(uplink)
+		// Generate the emergency code for when you lose your uplink
+		backup_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
+		antag_memory += "Your backup code is <b>[backup_code]</b>. Type this into any PDA to access your uplink.<br>"
+		return
+	CRASH("Failed to find the uplink that we just equipped on the traitor")
 
 /datum/antagonist/traitor/antag_panel_data()
 	// Traitor Backstory
 	var/backstory_text = "<b>Traitor Backstory:</b><br>"
-	if(istype(faction))
-		backstory_text += "<b>Faction:</b> <span class='tooltip' style=\"font-size: 12px\">\[ [faction.name]<span class='tooltiptext' style=\"width: 320px; padding: 5px;\">[faction.description]</span> \]</span><br>"
-	else
-		backstory_text += "<font color='red'>No faction selected!</font><br>"
 	if(istype(backstory))
 		backstory_text += "<b>Backstory:</b> <span class='tooltip' style=\"font-size: 12px\">\[ [backstory.name]<span class='tooltiptext' style=\"width: 320px; padding: 5px;\">[backstory.description]</span> \]</span><br>"
 	else
@@ -129,8 +163,8 @@
 	var/effective_tc = 0
 	var/uplink_true = FALSE
 	var/purchases = ""
-	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-	var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[owner.key]
+	LAZYINITLIST(GLOB.uplink_logs_by_key)
+	var/datum/uplink_log/H = GLOB.uplink_logs_by_key[owner.key]
 	if(H)
 		TC_uses = H.total_spent
 		effective_tc = H.effective_amount
@@ -156,9 +190,11 @@
 
 	result += objectives_text
 
+	if (H)
+		result += "<br>"
+		result += H.render_directives()
+
 	var/backstory_text = "<br>"
-	if(istype(faction))
-		backstory_text += "<b>Faction:</b> <span class='tooltip_container' style=\"font-size: 12px\">\[ [faction.name]<span class='tooltip_hover' style=\"width: 320px; padding: 5px;\">[faction.description]</span> \]</span><br>"
 	if(istype(backstory))
 		backstory_text += "<b>Backstory:</b> <span class='tooltip_container' style=\"font-size: 12px\">\[ [backstory.name]<span class='tooltip_hover' style=\"width: 320px; padding: 5px;\">[backstory.description]</span> \]</span><br>"
 	else

@@ -33,7 +33,7 @@ Woods Sheets
 	return GLOB.wood_recipes
 
 /obj/item/stack/sheet/wood/attackby(obj/item/item, mob/user, params)
-	if(!item.is_sharp())
+	if(!item.get_sharpness())
 		return ..()
 	user.visible_message(
 		span_notice("[user] begins whittling [src] into a pointy object."),
