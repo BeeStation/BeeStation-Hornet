@@ -689,7 +689,7 @@ h2.alert {
   color: white;
   text-align: center;
   background-color: black;
-  border: 2px solid rgb(240, 160, 62);
+  border: 2px solid hsl(33, 86%, 59%);
   border-radius: 10px;
   padding: 10px;
   margin: 10px 20px;
@@ -697,14 +697,15 @@ h2.alert {
 
 .death_message {
   display: block;
-  color: hsl(0, 0%, 100%);
+  color: white;
   text-align: center;
   background-color: black;
-  border: 2px solid hsl(305, 86%, 59%);
+  border: 2px solid hsl(33, 86%, 59%);
   border-radius: 10px;
   padding: 10px;
   margin: 10px 20px;
 }
+
 .prisoner_message {
   font-family: 'Times New Roman', Times, serif;
   font-size: 20px;

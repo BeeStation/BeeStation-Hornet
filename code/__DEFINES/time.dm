@@ -1,5 +1,5 @@
-#define DECISECONDS_IN_DAY 864000	//number of deciseconds in a day
-#define MIDNIGHT_ROLLOVER		864000	//number of deciseconds in a day
+///number of deciseconds in a day
+#define MIDNIGHT_ROLLOVER 864000
 
 ///Returns the time that has passed since the game started
 #define STATION_TIME_PASSED(...) (world.time - SSticker.round_start_time)
