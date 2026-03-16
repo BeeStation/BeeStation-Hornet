@@ -14,7 +14,7 @@
 /atom/var/datum/wires/wires = null
 
 /atom/proc/attempt_wire_interaction(mob/user)
-	if(!wires)
+	if(isnull(wires))
 		return WIRE_INTERACTION_FAIL
 	if(!user.CanReach(src))
 		return WIRE_INTERACTION_FAIL
@@ -22,18 +22,26 @@
 	return WIRE_INTERACTION_BLOCK
 
 /datum/wires
-	var/atom/holder = null // The holder (atom that contains these wires).
-	var/holder_type = null // The holder's typepath (used to make wire colors common to all holders).
-	var/proper_name = "Unknown" // The display name for the wire set shown in station blueprints. Not used if randomize is true or it's an item NT wouldn't know about (Explosives/Nuke)
+	/// The holder (atom that contains these wires).
+	var/atom/holder = null
+	/// The holder's typepath (used for sanity checks to make sure the holder is the appropriate type for these wire sets).
+	var/holder_type = null
+	/// The display name for the wire set shown in station blueprints. Not shown in blueprints if randomize is TRUE or it's an item NT wouldn't know about (Explosives/Nuke). Also used in the hacking interface.
+	var/proper_name = "Unknown"
 
-	var/list/wires = list() // Dictionary of wires to colours.
-	var/list/cut_wires = list() // List of wires that have been cut.
-	var/list/colors = list() // Dictionary of colors to wire.
-	var/list/wire_to_colors = list() // Dictionary of colors to wire.
-	var/list/assemblies = list() // List of attached assemblies.
-	var/randomize = 0 // If every instance of these wires should be random.
-						// Prevents wires from showing up in station blueprints
-	var/list/labelled_wires = list() // Associative List of wires that have labels. Key = wire, Value = Bool (Revealed) [To be refactored into skills]
+	/// List of all wires.
+	var/list/wires
+	/// List of cut wires.
+	var/list/cut_wires
+	/// Dictionary of colours to wire.
+	var/list/colors
+	/// List of attached assemblies.
+	var/list/assemblies
+	/// Associative List of wires that have labels. Key = wire, Value = Bool (Revealed) [To be refactored into skills]
+	var/list/labelled_wires
+
+	/// If every instance of these wires should be random. Prevents wires from showing up in station blueprints.
+	var/randomize = FALSE
 
 /datum/wires/New(atom/holder)
 	..()
@@ -51,18 +59,14 @@
 		else
 			colors = GLOB.wire_color_directory[holder_type]
 
-	for (var/colour in colors)
-		var/wire = colors[colour]
-		wire_to_colors[wire] = colour
-
 /datum/wires/Destroy()
 	holder = null
 	//properly clear refs to avoid harddels & other problems
 	for(var/color in assemblies)
-		var/obj/item/assembly/assembly = assemblies[color]
+		var/obj/item/assembly/assembly = LAZYACCESS(assemblies, color)
 		assembly.holder = null
 		assembly.connected = null
-	LAZYCLEARLIST(assemblies)
+	LAZYNULL(assemblies)
 	return ..()
 
 /datum/wires/proc/add_duds(duds)
@@ -70,35 +74,38 @@
 		var/dud = WIRE_DUD_PREFIX + "[--duds]"
 		if(dud in wires)
 			continue
-		wires += dud
+		LAZYADD(wires, dud)
 
 /datum/wires/proc/randomize()
-	var/static/list/possible_colors = list(
-	"blue",
-	"brown",
-	"crimson",
-	"cyan",
-	"gold",
-	"grey",
-	"green",
-	"magenta",
-	"orange",
-	"pink",
-	"purple",
-	"red",
-	"silver",
-	"violet",
-	"white",
-	"yellow"
+	var/static/list/possible_colors
+	possible_colors ||= list(
+		"blue",
+		"brown",
+		"crimson",
+		"cyan",
+		"gold",
+		"grey",
+		"green",
+		"magenta",
+		"orange",
+		"pink",
+		"purple",
+		"red",
+		"silver",
+		"violet",
+		"white",
+		"yellow"
 	)
 
 	var/list/my_possible_colors = possible_colors.Copy()
 
 	for(var/wire in shuffle(wires))
-		colors[pick_n_take(my_possible_colors)] = wire
+		if(!length(my_possible_colors))
+			my_possible_colors = possible_colors.Copy()
+		LAZYSET(colors, pick_n_take(my_possible_colors), wire)
 
 /datum/wires/proc/shuffle_wires()
-	colors.Cut()
+	LAZYCLEARLIST(colors)
 	randomize()
 	ui_update()
 
@@ -107,18 +114,20 @@
 	ui_update()
 
 /datum/wires/proc/get_wire(color)
-	return colors[color]
+	return LAZYACCESS(colors, color)
 
 /datum/wires/proc/get_color_of_wire(wire_type)
-	return wire_to_colors[wire_type]
+	for(var/color, other_type in colors)
+		if(wire_type == other_type)
+			return color
 
 /datum/wires/proc/get_attached(color)
-	if(assemblies[color])
-		return assemblies[color]
+	if(LAZYACCESS(assemblies, color))
+		return LAZYACCESS(assemblies, color)
 	return null
 
 /datum/wires/proc/is_attached(color)
-	if(assemblies[color])
+	if(LAZYACCESS(assemblies, color))
 		return TRUE
 
 /datum/wires/proc/is_cut(wire)
@@ -128,7 +137,7 @@
 	return is_cut(get_wire(color))
 
 /datum/wires/proc/is_all_cut()
-	if(cut_wires.len == wires.len)
+	if(LAZYLEN(cut_wires) == LAZYLEN(wires))
 		return TRUE
 
 /datum/wires/proc/is_dud(wire)
@@ -141,10 +150,10 @@
 /// User may be null
 /datum/wires/proc/cut(wire, mob/user_or_null)
 	if(is_cut(wire))
-		cut_wires -= wire
+		LAZYREMOVE(cut_wires, wire)
 		on_cut(wire, user_or_null, mend = TRUE)
 	else
-		cut_wires += wire
+		LAZYADD(cut_wires, wire)
 		on_cut(wire, user_or_null, mend = FALSE)
 	ui_update()
 
@@ -153,7 +162,7 @@
 	ui_update()
 
 /datum/wires/proc/cut_random(mob/user_or_null)
-	cut(wires[rand(1, wires.len)], user_or_null)
+	cut(LAZYACCESS(wires, rand(1, LAZYLEN(wires))), user_or_null)
 	ui_update()
 
 /datum/wires/proc/cut_all(mob/user_or_null)
@@ -171,38 +180,37 @@
 	pulse(get_wire(color), user)
 	ui_update()
 
-/datum/wires/proc/pulse_assembly(obj/item/assembly/S)
-	for(var/color in assemblies)
-		if(S == assemblies[color])
+/datum/wires/proc/pulse_assembly(obj/item/assembly/assembly)
+	for(var/color, our_assembly in assemblies)
+		if(assembly == our_assembly)
 			pulse_color(color)
 			ui_update()
 			return TRUE
 
-/datum/wires/proc/attach_assembly(color, obj/item/assembly/S)
-	if(S && istype(S) && S.attachable && !is_attached(color))
-		assemblies[color] = S
-		S.forceMove(holder)
+/datum/wires/proc/attach_assembly(color, obj/item/assembly/assembly)
+	if(istype(assembly) && assembly.attachable && !is_attached(color))
+		LAZYSET(assemblies, color, assembly)
+		assembly.forceMove(holder)
 		/**
 		 * special snowflake check for machines
 		 * someone attached a signaler to the machines wires
 		 * move it to the machines component parts so it doesn't get moved out in dump_inventory_contents() which gets called a lot
 		 */
-		if(istype(holder, /obj/machinery))
+		if(ismachinery(holder))
 			var/obj/machinery/machine = holder
-			LAZYADD(machine.component_parts, S)
-		S.connected = src
-		S.on_attach() // Notify assembly that it is attached
+			LAZYADD(machine.component_parts, assembly)
+		assembly.connected = src
+		assembly.on_attach() // Notify assembly that it is attached
 		ui_update()
-		return S
+		return assembly
 
 /datum/wires/proc/detach_assembly(color)
-	var/obj/item/assembly/S = get_attached(color)
-	if(S && istype(S))
-		assemblies -= color
-		S.connected = null
-		S.on_detach() // Notify the assembly.  This should remove the reference to our holder
+	var/obj/item/assembly/assembly = get_attached(color)
+	if(istype(assembly))
+		LAZYREMOVE(assemblies, color)
+		assembly.on_detach() // Notify the assembly. This should remove the reference to our holder
 		ui_update()
-		return S
+		return assembly
 
 /datum/wires/proc/emp_pulse()
 	var/list/possible_wires = shuffle(wires)
@@ -237,12 +245,13 @@
 
 /datum/wires/proc/interact(mob/user)
 	if(!interactable(user))
-		return
+		return FALSE
 	ui_interact(user)
-	for(var/A in assemblies)
-		var/obj/item/I = assemblies[A]
-		if(istype(I) && I.on_found(user))
-			return
+	for(var/color, assembly in assemblies)
+		var/obj/item/assembly_item = assembly
+		if(istype(assembly_item) && assembly_item.on_found(user))
+			break
+	return TRUE
 
 /datum/wires/ui_host()
 	return holder
@@ -252,14 +261,13 @@
 		return ..()
 	return UI_CLOSE
 
-
 /datum/wires/ui_state(mob/user)
 	return GLOB.physical_state
 
 /datum/wires/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, "Wires", "Wires")
+		ui = new(user, src, "Wires", "[holder.name] Wires")
 		ui.open()
 
 /datum/wires/ui_data(mob/user)
@@ -283,7 +291,7 @@
 		var/wire_type = get_wire(color)
 		payload.Add(list(list(
 			"color" = color,
-			"wire" = (((reveal_wires || labelled_wires[wire_type]) && !is_dud_color(color)) ? wire_type : null),
+			"wire" = (((reveal_wires || LAZYACCESS(labelled_wires, wire_type)) && !is_dud_color(color)) ? wire_type : null),
 			"cut" = is_color_cut(color),
 			"attached" = is_attached(color)
 		)))
