@@ -48,7 +48,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/plating,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "e" = (
 /obj/machinery/light/floor,
@@ -188,10 +188,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/airlock/shuttle,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/door/airlock/shuttle/glass,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "B" = (
@@ -203,7 +203,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "C" = (
-/mob/living/simple_animal/chicken/turkey{
+/mob/living/simple_animal/turkey{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
 	health = 200;
@@ -258,7 +258,8 @@
 	name = "Exploration Shuttle Shutters";
 	pixel_y = 24
 	},
-/turf/open/floor/plating,
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "I" = (
 /turf/closed/wall/mineral/plastitanium,
@@ -312,7 +313,8 @@
 /obj/machinery/door/poddoor/shutters/window{
 	id = "exploration"
 	},
-/turf/open/floor/plating,
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "P" = (
 /obj/structure/chair/fancy/shuttle{

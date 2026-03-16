@@ -12,7 +12,6 @@
 	density = TRUE
 	base_power_usage = 500
 	max_hardware_size = 4
-	steel_sheet_cost = 10
 	light_strength = 2
 	max_integrity = 300
 	integrity_failure = 0.5
