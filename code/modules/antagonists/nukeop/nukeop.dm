@@ -139,7 +139,7 @@
 /datum/antagonist/nukeop/create_team(datum/team/nuclear/new_team)
 	if(!new_team)
 		if(!always_new_team)
-			for(var/datum/antagonist/nukeop/N as anything in GLOB.active_antagonists)
+			for(var/datum/antagonist/nukeop/N in GLOB.active_antagonists)
 				if(!N.owner)
 					continue
 				if(N.nuke_team)

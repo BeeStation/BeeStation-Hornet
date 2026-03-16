@@ -35,7 +35,7 @@
 
 /datum/antagonist/fugitive/create_team(datum/team/fugitive/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/fugitive/H as anything in GLOB.active_antagonists)
+		for(var/datum/antagonist/fugitive/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.fugitive_team)

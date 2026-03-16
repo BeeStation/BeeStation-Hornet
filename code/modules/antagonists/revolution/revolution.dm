@@ -58,7 +58,7 @@
 /datum/antagonist/rev/create_team(datum/team/revolution/new_team)
 	if(!new_team)
 		//For now only one revolution at a time
-		for(var/datum/antagonist/rev/head/H as anything in GLOB.active_antagonists)
+		for(var/datum/antagonist/rev/head/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.rev_team)
