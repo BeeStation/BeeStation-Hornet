@@ -44,14 +44,22 @@ SUBSYSTEM_DEF(zclear)
 	))
 
 /datum/controller/subsystem/zclear/Recover()
-	if(!islist(autowipe)) autowipe = list()
+	if(!islist(autowipe))
+		autowipe = list()
 	autowipe |= SSzclear.autowipe
-	if(!islist(free_levels)) free_levels = list()
+
+	if(!islist(free_levels))
+		free_levels = list()
 	free_levels |= SSzclear.free_levels
-	if(!islist(processing_levels)) processing_levels = list()
+
+	if(!islist(processing_levels))
+		processing_levels = list()
 	processing_levels |= SSzclear.processing_levels
-	if(!islist(ignored_atoms)) ignored_atoms = list()
+
+	if(!islist(ignored_atoms))
+		ignored_atoms = list()
 	ignored_atoms |= SSzclear.ignored_atoms
+
 	nullspaced_mobs |= SSzclear.nullspaced_mobs
 	docking_levels |= SSzclear.docking_levels
 	announced_zombie_levels |= SSzclear.announced_zombie_levels
@@ -72,21 +80,25 @@ SUBSYSTEM_DEF(zclear)
 	//Levels with mobs dead/alive
 	var/list/mob_levels = list()
 	//Check active mobs
-	for(var/mob/living/L as () in GLOB.mob_list)
+	for(var/mob/living/L as anything in GLOB.mob_list)
 		if(!L)
 			continue
 		//Dead mobs get sent to new ruins
-		if(L.ckey || L.mind || L.client)
-			var/turf/T = get_turf(L)
-			mob_levels["[T.z]"] = TRUE
-			if(L.stat != DEAD)
-				active_levels["[T.z]"] = TRUE
-				living_levels["[T.z]"] = TRUE
+		if(!L.ckey && !L.mind && !L.client)
+			continue
+
+		var/turf/T = get_turf(L)
+		if(isnull(T))
+			continue
+		mob_levels["[T.z]"] = TRUE
+		if(L.stat != DEAD)
+			active_levels["[T.z]"] = TRUE
+			living_levels["[T.z]"] = TRUE
 	//Check active nukes
 	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
 		if(bomb.timing)
 			active_levels["[bomb.z]"] = TRUE
-			living_levels["[bomb.z]"] = TRUE	//Dont perform mob saving actions on mobs about to be blown to smitherines.
+			living_levels["[bomb.z]"] = TRUE //Dont perform mob saving actions on mobs about to be blown to smitherines.
 	//Block z-clear from these levels.
 	for(var/atom/A as() in GLOB.zclear_blockers)
 		active_levels["[A.z]"] = TRUE
