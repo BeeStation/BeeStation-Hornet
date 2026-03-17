@@ -15,6 +15,7 @@
 
 /datum/plant_feature/fruit/berry/red
 	colour_override = "#ff0037"
+	dictionary_override = /datum/plant_feature/fruit/berry
 
 /*
 	Glow Berry
@@ -43,7 +44,7 @@
 */
 /datum/plant_feature/fruit/berry/death
 	species_name = "bacca mortem"
-	name = "poison berry"
+	name = "death berry"
 	fruit_product = /obj/item/food/grown/berries/poison
 	fast_reagents = list(/datum/reagent/toxin/coniine = PLANT_REAGENT_SMALL, /datum/reagent/toxin/staminatoxin = PLANT_REAGENT_MEDIUM)
 	colour_override = "#0dff00"

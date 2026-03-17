@@ -107,19 +107,26 @@ SUBSYSTEM_DEF(botany)
 		if(entry_feature.type == /datum/plant_feature || entry_feature.type == /datum/plant_feature/body || entry_feature.type == /datum/plant_feature/fruit || entry_feature.type == /datum/plant_feature/roots)
 			qdel(entry_feature)
 			continue
-		chapters["features"] += entry_feature
+		//Don't let kirbies through
+		if(istype(entry_feature.type, /datum/plant_feature/body/kirby))
+			qdel(entry_feature)
+			continue
+		//Handle dict override
+		if(entry_feature.dictionary_override && keyed_features["[entry_feature.dictionary_override]"])
+			continue
+		chapters["features"] |= entry_feature
 		keyed_features["[entry_feature.type]"] = "[ref(entry_feature)]"
 	//Build links
 		//Traits
 		for(var/datum/plant_trait/trait as anything in entry_feature.plant_traits)
 			dictionary_links["[trait.get_id()]"] = dictionary_links["[trait.get_id()]"] || list()
-			dictionary_links["[trait.get_id()]"] += "[ref(entry_feature)]"
+			dictionary_links["[trait.get_id()]"] |= "[ref(entry_feature)]"
 		//Mutations
 	for(var/datum/plant_feature/feature as anything in chapters["features"])
 		for(var/datum/plant_feature/mutation as anything in feature.mutations)
 			var/link_feature = keyed_features["[mutation]"]
 			dictionary_links[link_feature] = dictionary_links[link_feature] || list()
-			dictionary_links[link_feature] += "[ref(feature)]"
+			dictionary_links[link_feature] |= "[ref(feature)]"
 //Traits
 	chapters["traits"] = chapters["traits"] || list() //Race condition weirdness
 	var/list/traits = subtypesof(/datum/plant_trait)
@@ -132,6 +139,8 @@ SUBSYSTEM_DEF(botany)
 //Plants - This is a lie, it's actually got pre-made seeds
 	chapters["plants"] = list()
 	for(var/obj/item/plant_seeds/preset as anything in typesof(/obj/item/plant_seeds/preset))
+		if(istype(preset, /obj/item/plant_seeds/preset/kirby))
+			continue
 		var/obj/item/plant_seeds/seeds = new preset()
 		if(seeds.type == /obj/item/plant_seeds/preset)
 			qdel(seeds)
@@ -139,7 +148,7 @@ SUBSYSTEM_DEF(botany)
 		chapters["plants"] += seeds
 		//Build links
 		for(var/datum/plant_feature/feature as anything in seeds.plant_features)
-			var/link_feature = keyed_features["[feature.type]"]
+			var/link_feature = keyed_features["[feature.dictionary_override || feature.type]"]
 			dictionary_links[link_feature] = dictionary_links[link_feature] || list()
 			dictionary_links[link_feature] += "[ref(seeds)]"
 

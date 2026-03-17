@@ -19,9 +19,11 @@
 
 /datum/plant_feature/fruit/flower/pink
 	colour_override = "#ffc5e5"
+	dictionary_override = /datum/plant_feature/fruit/flower
 
 /datum/plant_feature/fruit/flower/yellow
 	colour_override = "#fff23f"
+	dictionary_override = /datum/plant_feature/fruit/flower
 
 
 /*

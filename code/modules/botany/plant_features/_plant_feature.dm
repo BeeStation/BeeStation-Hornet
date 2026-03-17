@@ -43,6 +43,9 @@
 	///Trait type shortcut
 	var/trait_type_shortcut = /datum/plant_feature
 
+	///What feature do we default to in the dictionary? leave blank for most cases. Only fill in for once in a case variants
+	var/dictionary_override
+
 //Appearance
 	var/icon = 'icons/obj/hydroponics/features/generic.dmi'
 	var/icon_state = ""

@@ -72,7 +72,7 @@
 		SEND_SIGNAL(src, COMSIG_PLANT_UPROOTED, user, item, plant_item.loc)
 		plant_item.forceMove(item)
 		item.vis_contents += plant_item
-		RegisterSignal(item, COMSIG_ITEM_AFTERATTACK, PROC_REF(catch_spade_attack), TRUE)
+		RegisterSignal(item, COMSIG_ITEM_PRE_ATTACK, PROC_REF(catch_spade_attack), TRUE)
 		RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(catch_moved), TRUE)
 		spading = FALSE
 		return TRUE
@@ -97,12 +97,13 @@
 		to_chat(user, "<span class='warning'>There's no room to plant [plant_item] here!</span>")
 		return
 	INVOKE_ASYNC(src, PROC_REF(catch_spade_attack_async), source, target, user)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/plant/proc/catch_spade_attack_async(obj/spade, obj/target, mob/user)
 	playsound(plant_item, 'sound/effects/shovel_dig.ogg', 60)
 	if(!do_after(user, 2.5 SECONDS, target))
 		return
-	UnregisterSignal(spade, COMSIG_ITEM_AFTERATTACK)
+	UnregisterSignal(spade, COMSIG_ITEM_PRE_ATTACK)
 	SEND_SIGNAL(src, COMSIG_PLANT_PLANTED, target)
 	plant_item.forceMove(target)
 	target.vis_contents += plant_item

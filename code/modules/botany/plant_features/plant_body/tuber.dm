@@ -49,3 +49,4 @@
 	layer_offset = 0
 	genetic_budget = 1
 	whitelist_features = list(/datum/plant_feature/fruit/grass, /datum/plant_feature/roots)
+	dictionary_override = /datum/plant_feature/body/tuber
