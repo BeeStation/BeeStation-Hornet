@@ -69,3 +69,9 @@
 
 /obj/item/plant_seeds/preset/kirby/monstera
 	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/monstera)
+
+/obj/item/plant_seeds/preset/kirby/orb
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/kirby/fries, /datum/plant_feature/fruit/flower/orb)
+
+/obj/item/plant_seeds/preset/kirby/cactus
+	plant_features = list(/datum/plant_feature/roots/dirt, /datum/plant_feature/body/tuber, /datum/plant_feature/fruit/cactus/kirby)

@@ -4,6 +4,7 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Divider,
   DraggableClickableControl,
   Flex,
   Section,
@@ -115,9 +116,9 @@ class ReagentGrid extends Component {
           <br />
           {`${this.hovered_reagent ? all_reagent_data[this.hovered_reagent]["GRID_REAGENT_NAME"] : "No Data"}`}
           {' '}
-          {`${Math.floor((this.svgPosition.y + this.dynamicYOffset) / 10)}`}
-          {' : '}
           {`${Math.floor((this.svgPosition.x + this.dynamicXOffset) / 10)}`}
+          {' : '}
+          {`${Math.floor((this.svgPosition.y + this.dynamicYOffset) / 10)}`}
           <Button
             className="plant__button--beacon"
             position="absolute"
@@ -1261,21 +1262,41 @@ export const ReagentGridAlt = (props) => {
                   {selected_reagent
                     ? all_reagent_data[selected_reagent]['GRID_REAGENT_NAME']
                     : 'No Data'}
+                  <Divider />
+                  {`Accuracy: ${selected_reagent ? 1/(all_reagent_data[selected_reagent]['GRID_REAGENT_SIZE']*all_reagent_data[selected_reagent]['GRID_REAGENT_SIZE'])*100+'%' : 'No Data'}`}
+                  <Button
+                    className="plant__button--beacon"
+                    icon="info"
+                    ml="15%"
+                    tooltip="Accuracy represents the likelihood of each grid coordinate being a stable refraction."
+                  />
+                  <Divider />
+                  <Button
+                    className="plant__button--beacon"
+                    icon="save"
+                    color="grey"
+                    width={'100%'}
+                    onClick={() => {
+                      act('upload_coords');
+                    }}
+                  >
+                    Compile Refraction Index
+                  </Button>
                 </Section>
               </Flex.Item>
               <Flex.Item height="100%">
                 <Section height="100%" width="100%">
-                  {`Probability Size: ${selected_reagent ? all_reagent_data[selected_reagent]['GRID_REAGENT_SIZE'] : 'No Data'}`}
-                  <br />
-                  <Button
-                    className="plant__button--beacon"
-                    icon="save"
-                    fontSize="18px"
-                    color="grey"
-                    onClick={() => {
-                      act('upload_coords');
-                    }}
-                  />
+                  Sampled Refractions
+                  <Divider />
+                  <Box
+                    className={'scrollbox'}
+                    height={'500px'}
+                    overflowY="scroll"
+                  >
+                    {Object.entries(sampled_reagents).map(([data_list_key]) => (
+                      <Button className="plant__button--beacon" key={data_list_key} width={'100%'}>{all_reagent_data[data_list_key]['GRID_REAGENT_NAME']}</Button>
+                      ))}
+                  </Box>
                 </Section>
               </Flex.Item>
             </Flex>
@@ -1290,7 +1311,7 @@ export const ReagentGridAlt = (props) => {
               <Box>© 2554 Yamato. All Rights Reserved.</Box>
               <br />
               <Box>
-                {'C:\\Users\\admin>'}e<span className={'terminal'}>|</span>
+                {'C:\\Users\\admin>'}TODO: - Racc<span className={'terminal'}>|</span>
               </Box>
             </Section>
           </Flex.Item>

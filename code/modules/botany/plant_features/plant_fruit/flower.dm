@@ -124,7 +124,7 @@
 	Spiral
 */
 /datum/plant_feature/fruit/flower/spiral
-	species_name = "sol flos"
+	species_name = "sol flos sp I"
 	name = "spiral flower"
 	icon_state = "spiral"
 	fruit_product = null
@@ -139,3 +139,20 @@
 	colour_overlay = "flower_1_colour"
 	fruit_product = /obj/item/food/grown/flower/rainbow
 	colour_override = list("#DA0000", "#FF9300", "#FFF200", "#A8E61D", "#00B7EF", "#DA00FF", "#1C1C1C", "#FFFFFF")
+
+/*
+	Orb
+*/
+/datum/plant_feature/fruit/flower/orb
+	species_name = "sol flos sp II"
+	name = "glow flower"
+	icon_state = "orb"
+	fruit_product = null
+	colour_override = "#FFF993"
+
+/datum/plant_feature/fruit/flower/orb/New(datum/component/plant/_parent)
+	. = ..()
+	var/mutable_appearance/emissive = emissive_appearance(icon, icon_state)
+	emissive.color = colour_override
+	emissive.filters += gauss_blur_filter(1)
+	feature_appearance.add_overlay(emissive)

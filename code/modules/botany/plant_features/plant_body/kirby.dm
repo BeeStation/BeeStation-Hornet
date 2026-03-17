@@ -131,3 +131,8 @@
 	. = ..()
 	name = "Ashley II"
 	_parent?.plant_item?.name = name
+
+//fries
+/datum/plant_feature/body/kirby/fries
+	icon_state = "plant-20"
+	overlay_positions = list(list(19, 19), list(9, 16), list(11, 9))
