@@ -120,7 +120,7 @@
 		target_mob.visible_message(
 			span_danger("[name] latches onto [target_mob]!"),
 			span_userdanger("[name] latches onto [target_mob]!"),
-			visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
+			visible_message_flags = list(ALWAYS_SHOW_SELF_MESSAGE),
 		)
 		to_chat(src, span_notice("<i>I start feeding on [target_mob]...</i>"))
 		balloon_alert(src, "feeding started")
