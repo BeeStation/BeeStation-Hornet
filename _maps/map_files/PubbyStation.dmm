@@ -22677,15 +22677,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
-"hQm" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/edges/borderfloor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/storage)
 "hQo" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -34203,7 +34194,6 @@
 /area/syndicate_sat)
 "lYH" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -38646,6 +38636,14 @@
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/carpet/grimy,
 /area/security)
+"nIK" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "nIQ" = (
 /obj/machinery/processor/slime,
 /turf/open/floor/iron/dark,
@@ -53862,6 +53860,15 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
+"txp" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "txJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -62643,13 +62650,6 @@
 "wFC" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
-"wFI" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/storage)
 "wFZ" = (
 /turf/closed/wall,
 /area/security/checkpoint/supply)
@@ -62831,7 +62831,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold/cyan/hidden,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "wJt" = (
@@ -63196,6 +63195,7 @@
 /obj/machinery/atmospherics/components/tank/air,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "wRF" = (
@@ -107767,11 +107767,11 @@ oUd
 kzO
 dpI
 qmc
-hQm
+txp
 lGD
-wFI
-wFI
 lYH
+lYH
+nIK
 taN
 hjs
 pgC
