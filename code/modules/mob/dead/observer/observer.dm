@@ -760,7 +760,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	gas_scan = !gas_scan
-	to_chat(src, span_notice("Gas scan [health_scan ? "enabled" :"disabled"]."))
+	to_chat(src, span_notice("Gas scan [gas_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/toggle_virus_scan()
 	set name = "Toggle Virus Scan"
@@ -768,7 +768,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	virus_scan = !virus_scan
-	to_chat(src, span_notice("Virus scan [health_scan ? "enabled" :"disabled"]."))
+	to_chat(src, span_notice("Virus scan [virus_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/toggle_genetics_scan()
 	set name = "Toggle Genetics Scan"
@@ -776,7 +776,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	genetics_scan = !genetics_scan
-	to_chat(src, span_notice("Genetics scan [health_scan ? "enabled" :"disabled"]."))
+	to_chat(src, span_notice("Genetics scan [genetics_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/toggle_nanite_scan()
 	set name = "Toggle Nanite Scan"
@@ -784,7 +784,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	nanite_scan = !nanite_scan
-	to_chat(src, span_notice("Nanite scan [health_scan ? "enabled" :"disabled"]."))
+	to_chat(src, span_notice("Nanite scan [nanite_scan ? "enabled" :"disabled"]."))
 
 /mob/dead/observer/verb/restore_ghost_appearance()
 	set name = "Restore Ghost Character"
