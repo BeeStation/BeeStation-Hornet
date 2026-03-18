@@ -16,7 +16,8 @@
 /obj/item/reagent_containers/cup/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!.) //if the bottle wasn't caught
-		smash(hit_atom, throwingdatum?.thrower, TRUE)
+		var/mob/thrower = throwingdatum?.get_thrower()
+		smash(hit_atom, thrower, TRUE)
 
 /obj/item/reagent_containers/cup/glass/proc/smash(atom/target, mob/thrower, ranged = FALSE)
 	if(!isGlass)
@@ -277,8 +278,9 @@
 		return
 	if(prob(flip_chance)) // landed upright
 		src.visible_message(span_notice("[src] lands upright!"))
-		if(throwingdatum?.thrower)
-			SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
+		var/mob/living/thrower = throwingdatum?.get_thrower()
+		if(istype(thrower))
+			SEND_SIGNAL(thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
 	else // landed on it's side
 		animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 

@@ -163,11 +163,13 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/datum/poll_config/config = new()
-	config.check_jobban = banning_key
-	config.poll_time = 10 SECONDS
-	config.jump_target = owner.current
-	config.role_name_text = name
+	var/datum/poll_config/config = new(
+		check_jobban = banning_key,
+		poll_time = 10 SECONDS,
+		jump_target = owner.current,
+		role_name_text = name,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = owner.current)
 	if(candidate)
 		owner.current.ghostize(FALSE)

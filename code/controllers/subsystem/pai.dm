@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(pai)
  * @pai - The card requesting assistance
  * @user - The player requesting a pAI
 */
-/datum/controller/subsystem/pai/proc/findPAI(obj/item/paicard/pai, mob/user)
+/datum/controller/subsystem/pai/proc/find_pai(obj/item/pai_card/pai, mob/user)
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, span_warning("Due to growing incidents of SELF corrupted independent artificial intelligences, freeform personality devices have been temporarily banned in this sector."))
 		return
@@ -132,7 +132,7 @@ SUBSYSTEM_DEF(pai)
 		to_chat(usr, span_warning("Your candidacy has been submitted, but pAI cards have been alerted too recently."))
 		return FALSE
 	submit_spam[usr.ckey] = TRUE
-	for(var/obj/item/paicard/paicard in pai_card_list)
+	for(var/obj/item/pai_card/paicard in pai_card_list)
 		if(!paicard.pai)
 			paicard.alertUpdate()
 	to_chat(usr, span_notice("Your pAI candidacy has been submitted!"))

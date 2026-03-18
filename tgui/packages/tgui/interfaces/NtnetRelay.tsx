@@ -1,3 +1,5 @@
+import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
@@ -8,13 +10,19 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const NtnetRelay = (props) => {
-  const { act, data } = useBackend();
+type Data = {
+  enabled: BooleanLike;
+  dos_capacity: number;
+  dos_overload: number;
+  dos_crashed: BooleanLike;
+};
 
+export const NtnetRelay = (props) => {
+  const { act, data } = useBackend<Data>();
   const { enabled, dos_capacity, dos_overload, dos_crashed } = data;
 
   return (
-    <Window width={400} height={300}>
+    <Window title="NtNet Quantum Relay" width={400} height={300}>
       <Window.Content>
         <Section
           title="Network Buffer"

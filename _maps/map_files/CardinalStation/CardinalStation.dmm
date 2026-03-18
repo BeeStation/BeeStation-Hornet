@@ -16506,7 +16506,7 @@
 /area/teleporter)
 "dwQ" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -55471,7 +55471,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/item/storage/firstaid/regular{
 	empty = 1;
 	name = "First-Aid (empty)"
@@ -72364,7 +72364,7 @@
 /obj/effect/spawner/random/techstorage/rnd_all,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/spawner/random/techstorage/medical_all,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_y = 4;
 	pixel_x = 17
 	},
@@ -73656,7 +73656,7 @@
 /obj/item/clothing/glasses/science,
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/camera/directional/west,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_y = 4;
 	pixel_x = 17
 	},
@@ -77537,7 +77537,7 @@
 /area/hallway/primary/starboard)
 "qVc" = (
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/machinery/light/small/directional/south,
 /obj/structure/sign/poster/official/random/directional/south,
 /obj/item/toy/cattoy,

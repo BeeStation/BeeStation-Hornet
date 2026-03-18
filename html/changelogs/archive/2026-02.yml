@@ -169,3 +169,37 @@
   - rscadd: batons now produce light when on, about the same as a cigarette
   - rscadd: batons will now flicker between off/on when emp'd, rather than a base
       cell charge reduction
+2026-02-23:
+  Isaac, Sunshine214:
+  - rscadd: Constructs now drop their soulstone upon death instead of fully dying
+  - rscadd: Cult Golem shells accept soulstones that transfer a soul into them, giving
+      them special abilities
+  - rscadd: Cult Golems drop their soulstone upon death
+  - rscadd: Ability to transfer soulstones into soulless and dead bodies,  both regular
+      and purified soulstones
+  - rscadd: Cult Golem shells can be made in the altar structure or in your hands
+      with 10 runed metal
+  - rscdel: You can no longer make cult golems via xenobiology, they can only be acquired
+      by blood cultists
+  - balance: Nerfs the Cult Golem Jaunt, reducing their cooldown in return
+  r1ks-iwnl:
+  - bugfix: Fixed mining scanner not showing ore past line of sight
+2026-02-24:
+  mrmanlikesbt:
+  - bugfix: Fixed AI core construction being able to make infinite AIs
+2026-02-25:
+  mrmanlikesbt:
+  - bugfix: Fixed dynamic sometimes picking humans for malfunctioning AI
+  rkz, Absolucy, san7890:
+  - server: standardized CI to use ubuntu-24.04, rather than a mix of latest and 22.04
+  - server: adds error message to hook install
+2026-02-26:
+  r1ks-iwnl:
+  - bugfix: Fixes sarin poisoning through gloves.
+2026-02-28:
+  r1ks-iwnl:
+  - bugfix: Fixes binary vitals jumpsuit sensor option
+  - bugfix: Fixes crew monitor status icons showing incorrectly
+  r1ks-iwnl, lessthnthree:
+  - tweak: Supermatter surge will happen only with a Chief Engineer or 2 other engineering
+      staff present.

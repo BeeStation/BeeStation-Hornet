@@ -53,7 +53,6 @@
 		/obj/item/stack/sheet/mineral/abductor	    = /datum/species/golem/alloy,
 		/obj/item/stack/sheet/wood	        		= /datum/species/golem/wood,
 		/obj/item/stack/ore/bluespace_crystal	    = /datum/species/golem/bluespace,
-		/obj/item/stack/sheet/runed_metal	        = /datum/species/golem/runic,
 		/obj/item/stack/medical/gauze	            = /datum/species/golem/cloth,
 		/obj/item/stack/sheet/cotton/cloth			= /datum/species/golem/cloth,
 		/obj/item/stack/sheet/mineral/adamantine	= /datum/species/golem/adamantine,
@@ -85,3 +84,48 @@
 /obj/item/golem_shell/servant
 	name = "incomplete servant golem shell"
 	shell_type = /obj/effect/mob_spawn/human/golem/servant
+
+//Special golem, made by cultists uses soulstones to transfer them into existance
+
+/obj/item/golem_shell/runic
+	name = "incomplete runic golem shell"
+	desc = "A hollow frame of heavy stone etched with pulsing red runes. It lacks a spark of life."
+	icon_state = "construct"
+
+/obj/item/golem_shell/runic/attack_hand(mob/user)
+	to_chat(user, span_warning("The shell is far too heavy to lift."))
+	return TRUE
+
+/obj/item/golem_shell/runic/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack))
+		to_chat(user, span_warning("The shell refuses the material you are putting on it.")) // Otherwise they could place metal into it and turn it into a regular golem
+		return TRUE
+	if(!istype(O, /obj/item/soulstone))
+		return ..()
+	if(!user || !user.Adjacent(src))
+		return TRUE
+	if(!IS_CULTIST(user))  // You're not a cultist, why are you even trying to place a soulstone
+		to_chat(user, span_warning("The runes refuse to answer your touch."))
+		return TRUE
+	var/obj/item/soulstone/soulshard = O
+	var/mob/living/simple_animal/shade/soul = soulshard.contained_shade
+	if(!soul)
+		to_chat(user, span_warning("The soulstone is empty. The runes remain dormant."))
+		return TRUE
+	if(!soul.mind)
+		to_chat(user, span_warning("The trapped soul is unstable and cannot inhabit the shell."))
+		return TRUE
+	var/old_name = replacetext(soul.real_name, "Shade of ", "") // We dont want a golem called "Shade of William"
+	user.visible_message(
+		span_cult("The runes flare in blood red as the soul is torn from the soulstone and bound into the shell!"))
+	var/mob/living/carbon/human/species/golem/blood_cult/golem = new(get_turf(src))
+	golem.update_body()
+	soul.mind.transfer_to(golem)
+	if(!IS_CULTIST(golem)) // Incase they somehow lost their antag datum, we give it again
+		golem.mind.add_antag_datum(/datum/antagonist/cult)
+	golem.real_name = old_name
+	golem.name = old_name
+	qdel(soul)
+	qdel(soulshard)
+	qdel(src) // Full cleanup
+	return TRUE
