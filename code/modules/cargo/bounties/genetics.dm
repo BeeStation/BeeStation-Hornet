@@ -2,7 +2,7 @@
 	reward = 1000
 	var/shipped = FALSE
 	var/datum/mutation/bounty_mutation
-	var/static/excluded_mutations = list(/datum/mutation/elvis,
+	var/static/list/excluded_mutations = list(/datum/mutation/elvis,
 		/datum/mutation/bad_dna,
 		/datum/mutation/thermal/x_ray,
 		/datum/mutation/laser_eyes,
@@ -12,8 +12,8 @@
 		/datum/mutation/human/thermal)
 
 /datum/bounty/genetics/New()
-	..()
-	var/static/mutation_pools
+	. = ..()
+	var/static/list/mutation_pools
 	if(!length(mutation_pools))
 		mutation_pools = GLOB.all_mutations - excluded_mutations
 	bounty_mutation = pick_n_take(mutation_pools)
