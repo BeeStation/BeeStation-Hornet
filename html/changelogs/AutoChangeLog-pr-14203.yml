@@ -1,0 +1,4 @@
+author: Isaacnml
+delete-after: true
+changes:
+  - spellcheck: Poison is spelled correctly upon failling the poison directive
