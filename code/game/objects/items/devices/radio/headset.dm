@@ -40,6 +40,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
 
+	if(callout_capable)
+		desc += " It has a network uplink which allows the user to quickly transmit commands to their comrades and amplifies their voice in low-pressure environments."
+
 	if(item_flags & PICKED_UP && loc == user)
 		// construction of frequency description
 		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
@@ -64,7 +67,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	recalculateChannels()
 	possibly_deactivate_in_loc()
 	if(callout_capable)
-		desc += " It has a network uplink which allows the user to quickly transmit commands to their comrades and amplifies their voice in low-pressure environments."
 		AddComponent(/datum/component/callouts, ITEM_SLOT_EARS, examine_text = span_info("Use ctrl-click to enable or disable callouts."))
 
 /obj/item/radio/headset/equipped(mob/living/carbon/human/user, slot)
