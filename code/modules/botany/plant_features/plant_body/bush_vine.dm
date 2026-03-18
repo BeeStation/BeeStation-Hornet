@@ -46,7 +46,6 @@
 	name = "berry bush"
 	icon_state = "bush_berry"
 	overlay_positions = list(list(17, 15), list(14, 17), list(21, 16), list(12, 10), list(17, 9), list(22, 9), list(15, 11), list(19, 19), list(12, 17))
-	random_plant = TRUE
 
 /*
 	Flower Bush
@@ -56,7 +55,6 @@
 	name = "flower bush"
 	icon_state = "bush_flower"
 	draw_below_water = FALSE
-	random_plant = TRUE
 	overlay_positions = list(list(10, 6), list(13, 7), list(17, 9), list(21, 8), list(24, 6), list(13, 5), list(21, 4))
 	slot_size = PLANT_BODY_SLOT_SIZE_MICRO
 	whitelist_features = list(/datum/plant_feature/fruit/flower, /datum/plant_feature/roots)
@@ -90,7 +88,6 @@
 	draw_below_water = FALSE
 	overlay_positions = list(list(15, 10), list(17, 11))
 	whitelist_features = list(/datum/plant_feature/fruit/ambrosia, /datum/plant_feature/roots)
-	random_plant = TRUE
 	///Used to keep track of how we're effecting fruit mirrors
 	var/fruit_mirror = 0
 

@@ -3,7 +3,7 @@
 	desc = "This gene causes roots to charge wires below this plant. This works through floor panels."
 	genetic_cost = 1
 	///Cable charge per sercond
-	var/cable_charge = 25000 //TODO: Make sure this is balanced
+	var/cable_charge = 25000 //TODO: Make sure this is balanced - Racc
 
 
 /datum/plant_trait/roots/conductive/setup_component_parent(datum/source)

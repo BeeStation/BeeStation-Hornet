@@ -462,6 +462,7 @@
 	icon_state ="botany"
 	author = "Yamato"
 	title = "Botany Field Guide"
+	//TODO: Temporary link - Racc
 	page_link = "User:Racc-Off/botany"
 
 /obj/item/book/manual/wiki/hydroponics/tutorial

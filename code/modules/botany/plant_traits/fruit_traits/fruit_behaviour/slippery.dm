@@ -10,7 +10,7 @@
 
 /datum/plant_trait/fruit/slippery/setup_fruit_parent()
 	. = ..()
-	if(is_type_in_typecache(fruit_parent, SSbotany.fruit_blacklist))
+	if(is_type_in_typecache(fruit_parent, SSbotany.slippery_blacklist))
 		return
 	slip_component = fruit_parent.AddComponent(/datum/component/slippery, 60, NONE, CALLBACK(src, PROC_REF(handle_slip), fruit_parent))
 

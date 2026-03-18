@@ -1,5 +1,3 @@
-#define TEMPORARY_OVERLAY_DURATION 2 SECONDS
-
 /datum/component/plumbing
 	///Index with "1" = /datum/ductnet/theductpointingnorth etc. "1" being the num2text from NORTH define
 	var/list/datum/ductnet/ducts = list()
@@ -100,12 +98,11 @@
 		reagents.trans_to(target.parent, amount, round_robin = TRUE)//we deal with alot of precise calculations so we round_robin=TRUE. Otherwise we get floating point errors, 1 != 1 and 2.5 + 2.5 = 6
 
 ///We create our luxurious piping overlays/underlays, to indicate where we do what. only called once if use_overlays = TRUE in Initialize()
-/datum/component/plumbing/proc/create_overlays(atom/movable/AM, list/overlays, force, force_layer)
+/datum/component/plumbing/proc/create_overlays(atom/movable/AM, list/overlays)
 
-	if((tile_covered || !use_overlays) && !force)
+	if((tile_covered || !use_overlays))
 		return
 
-	var/list/created_overlays = list()
 	for(var/D in GLOB.cardinals)
 		var/color
 		var/direction
@@ -129,15 +126,13 @@
 				direction = "west"
 
 		if(turn_connects)
-			I = image('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]", layer = force_layer || (AM.layer - 1))
+			I = image('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]", layer = AM.layer - 1)
 
 		else
-			I = image('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]-s", layer = force_layer ||(AM.layer - 1)) //color is not color as in the var, it's just the name
+			I = image('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]-s", layer = AM.layer - 1) //color is not color as in the var, it's just the name
 			I.dir = D
 
 		overlays += I
-		created_overlays += I
-	return created_overlays
 
 ///we stop acting like a plumbing thing and disconnect if we are, so we can safely be moved and stuff
 /datum/component/plumbing/proc/disable()
@@ -246,8 +241,6 @@
 
 	tile_covered = should_hide
 	AM.update_appearance()
-
-#undef TEMPORARY_OVERLAY_DURATION
 
 ///has one pipe input that only takes, example is manual output pipe
 /datum/component/plumbing/simple_demand

@@ -1,7 +1,6 @@
 /*
 	Tower-cap
 */
-//TODO: - Sprites
 /datum/plant_feature/fruit/mushroom/tower
 	species_name = "turrim fungus"
 	name = "tower-cap"
@@ -31,7 +30,6 @@
 /*
 	Steel-cap
 */
-//TODO: - Sprites
 /datum/plant_feature/fruit/mushroom/tower/steel
 	species_name = "ferro fungus"
 	name = "steel-cap"

@@ -2,7 +2,6 @@
 	species_name = "primum radices"
 	name = "roots"
 	feature_catagories = PLANT_FEATURE_ROOTS
-	random_plant = TRUE
 	trait_type_shortcut = /datum/plant_feature/roots
 	genetic_budget = 1
 	///Where can we pull reagents from
@@ -74,6 +73,7 @@
 /datum/plant_feature/roots/proc/setup_reagents(datum/source, list/reagent_holders, datum/requestor)
 	SIGNAL_HANDLER
 
+	//Roots support needs, but most wont have them
 	if(requestor != src && !check_needs())
 		return
 	var/atom/location = parent.plant_item?.loc

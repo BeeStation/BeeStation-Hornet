@@ -32,8 +32,13 @@
 //From /datum/plant_feature/proc/check_needs(): (datum/component/plant)
 #define COMSIG_PLANT_NEEDS_PAUSE "COMSIG_PLANT_NEEDS_PAUSE"
 
+//A couple places use this, it's just a buff condition
+//From /datum/plant_trait/nectar/proc/catch_bee(): no arguments, just the source
 #define COMSIG_PLANT_NECTAR_BUFF "COMSIG_PLANT_NECTAR_BUFF"
+//The floral gun also uses this
+//From /mob/living/simple_animal/hostile/poison/bees/proc/pollinate(): no arguments, just the source
 #define COMSIG_PLANT_BEE_BUFF "COMSIG_PLANT_BEE_BUFF"
+//From /datum/plant_trait/roots/carnivore/process(): (_delta_time)
 #define COMSIG_PLANT_CARNI_BUFF "COMSIG_PLANT_CARNI_BUFF"
 
 /*
@@ -42,7 +47,7 @@
 		Generic signals shared across all plant features
 */
 
-///From datum/plant_feature/proc/setup_parent(): ()
+///From datum/plant_feature/proc/setup_parent(): no arguments, just the source
 #define COMSIG_PF_ATTACHED_PARENT "COMSIG_PF_ATTACHED_PARENT"
 
 /*
@@ -50,37 +55,48 @@
 		Fruit signals refer to the fruit plant feature
 		Signals unique to fruit features
 */
+//From /datum/plant_feature/fruit/proc/build_fruit(): (obj/produce)
 #define COMSIG_FRUIT_PREPARE "COMSIG_FRUIT_PREPARE"
+//From /datum/plant_feature/fruit/proc/build_fruit(): (obj/produce)
 #define COMSIG_FRUIT_BUILT "COMSIG_FRUIT_BUILT"
+//From /datum/plant_feature/fruit/proc/build_fruit(): (obj/produce)
 #define COMSIG_FRUIT_BUILT_POST "COMSIG_FRUIT_BUILT_POST"
 
+/*
+	These are passed from activator traits to trigger plant traits, like gaseous
+*/
+//From fruit trait datums : ()
 #define COMSIG_FRUIT_ACTIVATE_NO_CONTEXT "COMSIG_FRUIT_ACTIVATE_GENERIC"
+//From fruit trait datums : (datum/trait, atom/target)
 #define COMSIG_FRUIT_ACTIVATE_TARGET "COMSIG_FRUIT_ACTIVATE_TARGET"
 
 /*
 	Seed Signals
 		Signals for seeds, mostly used for scalable / quick interactions with features
 */
+//From /datum/component/plant/proc/catch_spade_attack(): (datum/substrate)
 #define COMSIG_SEEDS_POLL_ROOT_SUBSTRATE "COMSIG_SEEDS_POLL_ROOT_SUBSTRATE"
+//From /obj/item/plant_seeds/proc/plant(): (obj/planter)
 #define COMSIG_SEEDS_POLL_TRAY_SIZE "COMSIG_PLANT_OCCUPY_TRAY"
 
 /*
 	Tray signals
 		Used for tray component
 */
+//From /datum/component/planter/proc/set_substrate(): (datum/substrate)
 #define COMSIG_PLANTER_UPDATE_SUBSTRATE_SETUP "COMSIG_PLANTER_UPDATE_SUBSTRATE_SETUP"
+//From /datum/component/planter/proc/set_substrate(): (datum/substrate)
 #define COMSIG_PLANTER_UPDATE_SUBSTRATE "COMSIG_PLANTER_UPDATE_SUBSTRATE"
+//From /datum/component/planter/process(): (datum/planter, _delta_time)
 #define COMSIG_PLANTER_TICK_REAGENTS "COMSIG_PLANTER_TICK_REAGENTS"
+//This is used in a couple places, but essentially just used to see if we pause some functionaility. Send from tray / plant location
+//From /datum/plant_feature/body/process(): No Arguments, just the source
 #define COMSIG_PLANTER_PAUSE_PLANT "COMSIG_PLANTER_PAUSE_PLANT"
 
 /*
 	Plant gene signals
 		Just used to fetch stuff from the gene element
 */
+//Used in a couple places to get a list of a thing's plant genes
+//From /proc/seedify(): (list/list_to_populate)
 #define COMSIG_PLANT_GET_GENES "COMSIG_PLANT_GET_GENES"
-
-/*
-	Trait signals
-		used for special conditions when traits are trying to pretend to be optimized
-*/
-#define COMSIG_ASSEMBLER_GET_OPERATIONS "COMSIG_ASSEMBLER_GET_OPERATIONS"

@@ -1,7 +1,6 @@
 /*
 	Liberty
 */
-//TODO: - Sprites
 /datum/plant_feature/fruit/mushroom/liberty
 	species_name = "libertatem fungus"
 	name = "liberty-cap"

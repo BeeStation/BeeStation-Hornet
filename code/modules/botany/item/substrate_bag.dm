@@ -16,6 +16,9 @@
 	var/datum/component/planter/tray_component = target.GetComponent(/datum/component/planter)
 	if(!tray_component)
 		return
+	if(length(tray_component.plants))
+		to_chat(user, span_warning("You can't change [target]'s substrate while there's plants inside!"))
+		return
 	if(!do_after(user, 2.3 SECONDS, target))
 		return
 	to_chat(user, "<span class='notice'>You fill [target] from [src]</span>")

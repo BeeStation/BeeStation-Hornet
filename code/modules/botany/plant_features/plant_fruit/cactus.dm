@@ -17,4 +17,5 @@
 	whitelist_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/tuber)
 
 /datum/plant_feature/fruit/cactus/kirby
+	species_name = "spinis fructificatio SP I"
 	icon_state = "cactus_1"

@@ -116,6 +116,7 @@
 	overlay_positions = list(list(16, 22))
 
 /datum/plant_feature/body/kirby/alien/apply_fruit_overlay(obj/effect/fruit_effect, offset_x, offset_y)
+	//Overwrite this so we don't inherit mirroring and other bullshit
 	fruit_effect.pixel_x = offset_x-17
 	fruit_effect.pixel_y = offset_y-16
 	parent.plant_item.vis_contents += fruit_effect

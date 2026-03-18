@@ -1,7 +1,6 @@
 /*
 	Reishi
 */
-//TODO: - Sprites
 /datum/plant_feature/fruit/mushroom/reishi
 	species_name = "orientalem fungus"
 	name = "reishi"

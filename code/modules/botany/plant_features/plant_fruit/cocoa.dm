@@ -12,7 +12,7 @@
 	fast_reagents = list(/datum/reagent/consumable/cocoa = PLANT_REAGENT_MEDIUM)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	growth_time = PLANT_FRUIT_GROWTH_FAST
-	mutations = list(/datum/plant_feature/fruit/cocoa)
+	mutations = list(/datum/plant_feature/fruit/cocoa/vanilla)
 
 /*
 	Vanilla

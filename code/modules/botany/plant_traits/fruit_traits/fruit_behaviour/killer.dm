@@ -9,7 +9,7 @@
 	///Are we already awakening
 	var/awakening = FALSE
 	///What kinda of mob do we awaken to be?
-	var/mob/living/awaken_mob = /mob/living/simple_animal/hostile/killertomato //Remake killer tomato into an ambiguous plant monster
+	var/mob/living/awaken_mob = /mob/living/simple_animal/hostile/killertomato
 
 /datum/plant_trait/fruit/killer/setup_fruit_parent()
 	. = ..()

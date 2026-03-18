@@ -13,7 +13,7 @@
 	var/list/blacklist = list()
 	//Traits we're exclusively compatible with - leave blank to allow this trait to work with all traits
 	var/list/whitelist = list()
-	///What kind of plant feature are we compatible with
+	///What kind of plant feature are we compatible with - Random traits will need this to be a specific type, so they know where to appear
 	var/plant_feature_compat = /datum/plant_feature
 //Trait editing properties
 	///Can this trait be copied

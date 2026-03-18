@@ -12,8 +12,8 @@ SUBSYSTEM_DEF(botany)
 	///List of discovered plant species
 	var/list/discovered_species = list()
 
-	///Blacklist of fruits that can't be slippery
-	var/list/fruit_blacklist = list(/obj/item/food/grown/banana)
+	///Blacklist of fruits that can't be slippery - Only used by banana, but will be a micro optimization in the future if we add more
+	var/list/slippery_blacklist = list(/obj/item/food/grown/banana)
 
 	///List of cached genes - list('species_id' = list(genes))
 	var/list/gene_cache = list()
@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(botany)
 
 /datum/controller/subsystem/botany/Initialize(timeofday)
 	build_dict()
-	fruit_blacklist = typecacheof(fruit_blacklist)
+	slippery_blacklist = typecacheof(slippery_blacklist)
 //Build overdraw need list
 	for(var/datum/plant_need/need as anything in subtypesof(/datum/plant_need))
 		if(initial(need.overdraw_need))
@@ -66,6 +66,7 @@ SUBSYSTEM_DEF(botany)
 		var/path = initial(trait.type)
 		if(path == /datum/plant_trait || path == /datum/plant_trait/fruit || path == /datum/plant_trait/body || path == /datum/plant_trait/roots || path == /datum/plant_trait/reagent)
 			continue
+		//Populate the random trait list, keyed by what type of feature the trait is compatible with
 		if(!random_traits["[initial(trait.plant_feature_compat)]"])
 			random_traits["[initial(trait.plant_feature_compat)]"] = list()
 		random_traits["[initial(trait.plant_feature_compat)]"] += trait
@@ -104,7 +105,7 @@ SUBSYSTEM_DEF(botany)
 	for(var/datum/plant_feature/feature as anything in features)
 		var/datum/plant_feature/entry_feature = new feature()
 		//Don't let abstract types through
-		if(entry_feature.type == /datum/plant_feature || entry_feature.type == /datum/plant_feature/body || entry_feature.type == /datum/plant_feature/fruit || entry_feature.type == /datum/plant_feature/roots)
+		if(entry_feature.type == /datum/plant_feature || entry_feature.type == /datum/plant_feature/body || entry_feature.type == /datum/plant_feature/fruit || entry_feature.type == /datum/plant_feature/roots || entry_feature.type == /datum/plant_feature/fruit/mushroom)
 			qdel(entry_feature)
 			continue
 		//Don't let kirbies through

@@ -7,8 +7,7 @@
 	name = "forget me not"
 	icon_state = "flower_1"
 	icon_uneven = TRUE
-	//colour_overlay = "flower_1_colour"
-	random_plant = TRUE
+	//colour_overlay = "flower_1_colour" //This and colour override are used to make flower's pretty. Keep as examples.
 	fruit_product = /obj/item/food/grown/flower/forgetmenot
 	plant_traits = list(/datum/plant_trait/nectar)
 	//colour_override = "#ffffff"

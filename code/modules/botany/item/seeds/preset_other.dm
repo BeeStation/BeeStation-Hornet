@@ -1,5 +1,5 @@
 /*
-	Seeds in here generally shouldn't acquireable unless some silly billy mapped in produce or something, usually used for crates and other 'packs'
+	Seeds in here generally shouldn't be acquireable unless some silly billy mapped in produce or something, usually used for crates and other 'packs'
 */
 
 //Harebell

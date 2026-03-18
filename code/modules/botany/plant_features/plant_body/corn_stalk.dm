@@ -55,7 +55,6 @@
 	name = "sunflower stalk"
 	icon_state = "sunflower_stalk"
 	overlay_positions = list(list(17, 16))
-	random_plant = TRUE
 
 /*
 	Flower Stalk
@@ -66,7 +65,6 @@
 	icon_state = "flower_stalk"
 	growth_stages = 1
 	overlay_positions = list(list(17, 8))
-	random_plant = TRUE
 	slot_size = PLANT_BODY_SLOT_SIZE_MICRO
 	whitelist_features = list(/datum/plant_feature/fruit/flower, /datum/plant_feature/roots)
 
@@ -82,4 +80,3 @@
 	draw_below_water = FALSE
 	overlay_positions = list(list(23, 7))
 	yields = 1
-	random_plant = TRUE

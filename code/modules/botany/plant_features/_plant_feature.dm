@@ -4,9 +4,6 @@
 	///The regular name
 	var/name = "test"
 
-	///Can this feature appear in random plants
-	var/random_plant = FALSE
-
 	///What category of feature/s are we? Mostly used for gene editing.
 	var/feature_catagories
 

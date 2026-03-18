@@ -19,5 +19,6 @@
 /datum/plant_feature/body/diona_pod/growth_step(step)
 	. = ..()
 	playsound(parent.plant_item, 'sound/effects/rustle.ogg', 30, TRUE)
-	parent.plant_item.add_emitter(/obj/emitter/confetti/leaves, "leaves", 10, lifespan = 20)
+	var/obj/emitter/confetti/leaves/particles = parent.plant_item.add_emitter(/obj/emitter/confetti/leaves, "leaves", 10, lifespan = 20)
+	particles.set_colour("#64A344")
 	parent.plant_item.add_emitter(/obj/emitter/plant_dust, "dust", 10, lifespan = 20)

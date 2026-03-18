@@ -3,7 +3,7 @@
 */
 /datum/plant_feature/fruit/cannabis
 	species_name = "alta folium"
-	name = "cannabis" //All cannabis leafs have the same name, only observant people will tell them apart
+	name = "cannabis" //All cannabis leafs have the same name, only observant people will tell their strains apart
 	icon_state = "cannabis"
 	icon_uneven = TRUE
 	fruit_product = /obj/item/food/grown/cannabis

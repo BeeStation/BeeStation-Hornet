@@ -31,8 +31,9 @@
 
 /datum/plant_feature/body/tuber/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest)
 	. = ..()
-	//TODO:Remove self from tray lights - R
 	if(yields <= 0)
+		//Remove ourselves from the tray to avoid issues before we kill ourselves, so it works as tradition
+		parent.plant_item.forceMove(get_turf(parent.plant_item))
 		qdel(parent.plant_item)
 
 /*
