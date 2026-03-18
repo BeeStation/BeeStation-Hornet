@@ -833,7 +833,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	// Unaccounted for antagonists
 	var/list/unaccounted_antagonists = list()
 	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
-		if (antagonist.spawning_ruleset || !antagonist.name)
+		if (antagonist.spawning_ruleset || !antagonist.name || !antagonist.owner)
 			continue
 		if (unaccounted_antagonists[antagonist.name])
 			unaccounted_antagonists[antagonist.name] = unaccounted_antagonists[antagonist.name] + 1
@@ -842,8 +842,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 	if (length(unaccounted_antagonists))
 		discordmsg += "Other Antagonists:\n"
-		for (var/antag_name in unaccounted_antagonists)
-			var/count = unaccounted_antagonists[antag_name]
+		for (var/antag_name, count in unaccounted_antagonists)
 			if (count > 1)
 				discordmsg += "- **[antag_name]** (x[count]):\n"
 			else

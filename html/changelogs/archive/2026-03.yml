@@ -128,3 +128,13 @@
 2026-03-16:
   DrDuckedGoose:
   - bugfix: Fix Height Maps
+2026-03-18:
+  mrmanlikesbt:
+  - bugfix: Fixed the roundend message sometimes not being sent to the discord OOC
+      channel
+  - rscadd: Players now have the option to remain anonymous when starting a vote.
+  - bugfix: Fixed being able to call a shuttle vote when it's unable to come.
+  - bugfix: Fixed the space dragon ruleset not putting the chosen player into the
+      dragon's body.
+  - tweak: Dynamic no longer sends a storyteller vote if there is only one storyteller
+      to vote for.
