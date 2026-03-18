@@ -16983,7 +16983,7 @@
 /area/hydroponics/garden/monastery)
 "fNA" = (
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -21059,6 +21059,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/trimline/brown/line,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
 "hjt" = (
@@ -22674,6 +22677,15 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
+"hQm" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "hQo" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -33258,6 +33270,9 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
 "lHa" = (
@@ -34186,6 +34201,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
+"lYH" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "lYK" = (
 /obj/machinery/field/generator,
 /obj/effect/turf_decal/bot,
@@ -44959,6 +44982,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
 "qmd" = (
@@ -52633,6 +52659,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
@@ -61367,6 +61396,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "wfh" = (
@@ -62611,6 +62643,13 @@
 "wFC" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
+"wFI" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "wFZ" = (
 /turf/closed/wall,
 /area/security/checkpoint/supply)
@@ -63767,16 +63806,14 @@
 /area/science/explab)
 "xdd" = (
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
+/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "xdh" = (
@@ -107487,8 +107524,8 @@ ylR
 ntg
 xTM
 mKx
-tfU
 xdd
+mAy
 kcS
 vjW
 jPw
@@ -107730,11 +107767,11 @@ oUd
 kzO
 dpI
 qmc
-qEl
+hQm
 lGD
-mzH
-mzH
-hrq
+wFI
+wFI
+lYH
 taN
 hjs
 pgC
