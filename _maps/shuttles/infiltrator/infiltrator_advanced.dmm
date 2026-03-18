@@ -1144,6 +1144,10 @@
 /area/shuttle/syndicate/hallway)
 "cN" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	id = "syndieshutters";
+	name = "blast Shutters"
+	},
 /turf/open/floor/plating,
 /area/shuttle/syndicate/bridge)
 "cO" = (
