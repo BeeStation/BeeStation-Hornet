@@ -40,7 +40,8 @@
 	lethal = 1;
 	name = "infiltrator turret controls";
 	req_access = null;
-	req_access_txt = "150"
+	req_access_txt = "150";
+	shoot_cyborgs = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)

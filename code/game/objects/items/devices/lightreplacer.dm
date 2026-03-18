@@ -236,14 +236,14 @@
 	if(!proximity && !bluespace_toggle)
 		return
 	var/list/light_targets = list()
-	if(istype(target_atom, /obj/machinery/light)) // Target lights directly
+	if(istype(target_atom, /obj/machinery/light)) // Target the light itself
 		light_targets += target_atom
-	else if(isturf(target_atom)) // Or target the turf the light is on
+	if(isturf(target_atom)) // Target the turf the light is on
 		for(var/obj/machinery/light/light_fixture in target_atom)
 			light_targets += light_fixture
-	else
+	if(!length(light_targets))
 		return
-	if(!length(light_targets) || !CanUse(user))
+	if(!CanUse(user))
 		to_chat(user, "\The [src]'s light blinks red.")
 		return
 	var/replaced_any = FALSE

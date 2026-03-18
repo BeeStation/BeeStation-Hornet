@@ -221,7 +221,7 @@
 ///Mister - Sprays water over an area.
 /obj/item/mod/module/mister
 	name = "\improper MOD water mister module"
-	desc = "A module containing a mister, able to spray it over areas, it has a small slot allowing for disk upgrades."
+	desc = "A module containing a mister, able to spray it over areas."
 	icon_state = "mister"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -239,7 +239,7 @@
 ///Resin Mister - Sprays resin over an area.
 /obj/item/mod/module/mister/atmos
 	name = "\improper MOD resin mister module"
-	desc = "An atmospheric resin mister, able to fix up areas quickly."
+	desc = "An atmospheric resin mister, able to fix up areas quickly, it has a small slot allowing for disk upgrades."
 	device = /obj/item/extinguisher/mini/nozzle/mod
 	volume = 250
 
