@@ -63,7 +63,7 @@
 		if(blood_type)
 			color = blood_type.blood_color
 
-/datum/reagent/blood/on_merge(list/mix_data)
+/datum/reagent/blood/on_merge(list/mix_data, new_total)
 	. = ..()
 	if(data && mix_data)
 		if(data["blood_DNA"] != mix_data["blood_DNA"])
@@ -158,8 +158,7 @@
 				disease.cure()
 		exposed_mob.disease_resistances |= data
 
-/datum/reagent/vaccine/on_merge(list/data)
-	. = ..()
+/datum/reagent/vaccine/on_merge(list/mix_data, new_total)
 	if(istype(data))
 		src.data |= data.Copy()
 

@@ -192,16 +192,16 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 		src.data = data
 
 /// Called when two reagents of the same are mixing.
-/datum/reagent/proc/on_merge(data)
-	SHOULD_CALL_PARENT(TRUE)
+/datum/reagent/proc/on_merge(list/mix_data, new_total)
+	return
 
 /// Called by [/datum/reagents/proc/conditional_update]
 /datum/reagent/proc/on_update(atom/A)
-	SHOULD_CALL_PARENT(TRUE)
+	return
 
 /// Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
 /datum/reagent/proc/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
-	SHOULD_CALL_PARENT(TRUE)
+	return
 
 /// Called when an overdose starts
 /datum/reagent/proc/overdose_start(mob/living/carbon/affected_mob)

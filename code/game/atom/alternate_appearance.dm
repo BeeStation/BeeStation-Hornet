@@ -185,9 +185,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /datum/atom_hud/alternate_appearance/basic/blessed_aware/mobShouldSee(mob/M)
 	if(M.mind?.holy_role)
 		return TRUE
-	if (IS_CULTIST(M))
-		return TRUE
-	if(isrevenant(M) || IS_WIZARD(M))
+	if (IS_CULTIST(M) || IS_WIZARD(M) || isrevenant(M))
 		return TRUE
 	if (HAS_TRAIT(M, TRAIT_SEE_ANTIMAGIC))
 		return TRUE

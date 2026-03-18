@@ -2473,28 +2473,27 @@
 	color = data["color"]
 	generate_data_info(data)
 
-/datum/reagent/consumable/ethanol/fruit_wine/on_merge(list/data, amount)
-	. = ..()
-	var/diff = (amount/volume)
+/datum/reagent/consumable/ethanol/fruit_wine/on_merge(list/mix_data, new_total)
+	var/diff = (new_total/volume)
 	if(diff < 1)
-		color = BlendRGB(color, data["color"], diff / 2) //The percentage difference over two, so that they take average if equal.
+		color = BlendRGB(color, mix_data["color"], diff / 2) //The percentage difference over two, so that they take average if equal.
 	else
-		color = BlendRGB(color, data["color"], 1 / diff / 2) //Adjust so it's always blending properly.
-	var/oldvolume = volume-amount
+		color = BlendRGB(color, mix_data["color"], 1 / diff / 2) //Adjust so it's always blending properly.
+	var/oldvolume = volume-new_total
 
-	var/list/cachednames = data["names"]
+	var/list/cachednames = mix_data["names"]
 	for(var/name in names | cachednames)
-		names[name] = ((names[name] * oldvolume) + (cachednames[name] * amount)) / volume
+		names[name] = ((names[name] * oldvolume) + (cachednames[name] * new_total)) / volume
 
-	var/list/cachedtastes = data["tastes"]
+	var/list/cachedtastes = mix_data["tastes"]
 	for(var/taste in tastes | cachedtastes)
-		tastes[taste] = ((tastes[taste] * oldvolume) + (cachedtastes[taste] * amount)) / volume
+		tastes[taste] = ((tastes[taste] * oldvolume) + (cachedtastes[taste] * new_total)) / volume
 
 	boozepwr *= oldvolume
-	var/newzepwr = data["boozepwr"] * amount
+	var/newzepwr = mix_data["boozepwr"] * new_total
 	boozepwr += newzepwr
 	boozepwr /= volume //Blending boozepwr to volume.
-	generate_data_info(data)
+	generate_data_info(mix_data)
 
 /datum/reagent/consumable/ethanol/fruit_wine/proc/generate_data_info(list/data)
 	//BYOND compiler bug means this must be an explicit constant
