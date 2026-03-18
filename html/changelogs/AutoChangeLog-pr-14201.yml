@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed the roundend message sometimes not being sent to the discord OOC
-      channel

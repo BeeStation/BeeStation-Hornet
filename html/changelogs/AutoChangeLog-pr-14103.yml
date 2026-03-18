@@ -1,9 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - rscadd: Players now have the option to remain anonymous when starting a vote.
-  - bugfix: Fixed being able to call a shuttle vote when it's unable to come.
-  - bugfix: Fixed the space dragon ruleset not putting the chosen player into the
-      dragon's body.
-  - tweak: Dynamic no longer sends a storyteller vote if there is only one storyteller
-      to vote for.
