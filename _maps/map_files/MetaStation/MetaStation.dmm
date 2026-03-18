@@ -45263,7 +45263,7 @@
 /area/crew_quarters/heads/cmo)
 "mRb" = (
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/item/radio/intercom{
 	pixel_x = 31;
 	pixel_y = -3

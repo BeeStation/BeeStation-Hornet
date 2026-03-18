@@ -18022,7 +18022,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "fZx" = (
-/mob/living/simple_animal/pet/cat/Proc{
+/mob/living/basic/pet/cat/_proc{
 	name = "Captain Snugglebottoms III Esquire"
 	},
 /obj/structure/bed/dogbed,
@@ -36121,7 +36121,7 @@
 	pixel_y = -2
 	},
 /obj/item/holosign_creator/medical,
-/mob/living/simple_animal/pet/cat/Runtime{
+/mob/living/basic/pet/cat/runtime{
 	density = 0;
 	dir = 8;
 	pixel_x = -4;

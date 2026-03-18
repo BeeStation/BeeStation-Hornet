@@ -1,0 +1,20 @@
+author: rkz, tralezab, san7890, Ben10Omintrix, Vekter, vinylspiders, SmArtKar
+delete-after: true
+changes:
+  - rscadd: Mining/Explo headsets now allow you to make callouts via pointing. You
+      can use them to communicate with fellow jobbers!
+  - rscadd: Mining headsets keep your voice loud and clear in low-pressure environments
+      (not vacuum!)
+  - rscadd: adds ~~sex~~ make children behavior to basic mob ai. Ian is no longer
+      gelded from his conversion from simplemob to basicmob
+  - rscadd: tailed_defender lizard trait is now on their brain
+  - rscadd: cultists can now convert pets to their side
+  - rscadd: adds support for renaming pets without collars. Ashwalkers have this by
+      default. (Goliaths aren't basicmobs though yet, sorry)
+  - bugfix: Basic Mobs are now able to deathgasp.
+  - refactor: refactors pet collars and cultist pets into elements
+  - refactor: cats are now basic pets. please report any bugs.
+  - rscadd: Added a new hostile variant of cats, "feral cats".
+  - rscadd: Added a new traitor item, "feral cat grenades". For 5 TC, you too can
+      throw a grenade at someone and make five cats maul them to death.
+  - bugfix: fixes a hard del with thrown items

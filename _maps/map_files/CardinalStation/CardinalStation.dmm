@@ -77537,7 +77537,7 @@
 /area/hallway/primary/starboard)
 "qVc" = (
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/machinery/light/small/directional/south,
 /obj/structure/sign/poster/official/random/directional/south,
 /obj/item/toy/cattoy,
