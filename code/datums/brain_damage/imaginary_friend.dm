@@ -247,7 +247,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 		return FALSE
 	abstract_move(owner)
 
-/mob/camera/imaginary_friend/pointed(atom/A as mob|obj|turf in view())
+/mob/camera/imaginary_friend/pointed(atom/A as mob|obj|turf in view(client.view, src))
 	if(!..())
 		return FALSE
 	to_chat(owner, "<b>[src]</b> points at [A].")

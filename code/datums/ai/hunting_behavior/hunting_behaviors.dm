@@ -106,7 +106,7 @@
 
 /datum/ai_behavior/hunt_target/finish_action(datum/ai_controller/controller, succeeded, hunting_target_key, hunting_cooldown_key)
 	. = ..()
-	if(succeeded)
+	if(succeeded && hunting_cooldown_key)
 		controller.set_blackboard_key(hunting_cooldown_key, world.time + hunt_cooldown)
 	else if(hunting_target_key)
 		controller.clear_blackboard_key(hunting_target_key)

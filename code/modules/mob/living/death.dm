@@ -74,6 +74,10 @@
 */
 /mob/living/proc/death(gibbed)
 	var/was_dead_before = stat == DEAD
+
+	if(!gibbed && (death_sound || death_message))
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
+
 	set_stat(DEAD)
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
 	unset_machine()
@@ -115,9 +119,6 @@
 		client.next_ghost_role_tick = client.next_ghost_role_tick || suiciding ? world.time + CONFIG_GET(number/ghost_role_cooldown) : world.time
 
 		INVOKE_ASYNC(client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/ghosts, src)
-
-	if(!gibbed && (deathsound || deathmessage))
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
 
 	if(mind?.current)
 		client?.tgui_panel?.give_dead_popup()

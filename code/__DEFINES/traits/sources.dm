@@ -57,6 +57,9 @@
 #define TRAIT_LEANING "leaning"
 #define TRAIT_REGEN_COMA "regencoma"
 
+/// Trait given to you by shapeshifting
+#define SHAPESHIFT_TRAIT "shapeshift_trait"
+
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
 #define STATUE_MUTE "statue"
