@@ -61,6 +61,14 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/prison/dark,
 /area/security/prison)
+"aaW" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "abf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -34193,7 +34201,9 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
 "lYH" = (
-/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/edges/borderfloor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -38636,14 +38646,6 @@
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/carpet/grimy,
 /area/security)
-"nIK" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/storage)
 "nIQ" = (
 /obj/machinery/processor/slime,
 /turf/open/floor/iron/dark,
@@ -53860,15 +53862,6 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
-"txp" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/edges/borderfloor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/storage)
 "txJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -54468,7 +54461,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/obj/structure/frame,
+/obj/structure/frame/machine,
 /obj/effect/decal/cleanable/xenoblood,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -66594,6 +66587,13 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
+"xPj" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "xPp" = (
 /obj/item/folder/blue,
 /obj/item/pen,
@@ -107767,11 +107767,11 @@ oUd
 kzO
 dpI
 qmc
-txp
+lYH
 lGD
-lYH
-lYH
-nIK
+xPj
+xPj
+aaW
 taN
 hjs
 pgC
