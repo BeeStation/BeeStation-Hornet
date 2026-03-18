@@ -629,7 +629,7 @@
 		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
 		self_appearance.alpha = 100
 		self_appearance.override = TRUE
-		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), owner)
+		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), null, owner)
 		can_see_self = TRUE
 	if (owner.alpha > 100 && can_see_self)
 		owner.remove_alt_appearance(REF(src))

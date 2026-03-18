@@ -88,6 +88,7 @@
 			/datum/atom_hud/alternate_appearance/basic/one_person,
 			"counter_overlay_[REF(src)]_[i]",
 			number,
+			null,
 			owner,
 		)))
 

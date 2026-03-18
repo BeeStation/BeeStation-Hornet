@@ -452,9 +452,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/love_heart/invisible)
 /obj/effect/temp_visual/love_heart/invisible/Initialize(mapload, mob/seer)
 	. = ..()
 	var/image/I = image(icon = 'icons/effects/effects.dmi', icon_state = "heart", layer = ABOVE_MOB_LAYER, loc = src)
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "heart", I, seer)
 	I.alpha = 255
 	I.appearance_flags = RESET_ALPHA
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "heart", I, null, seer)
 	animate(I, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/bleed
