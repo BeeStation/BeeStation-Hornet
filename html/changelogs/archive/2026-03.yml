@@ -102,3 +102,61 @@
   Tsar-Salat:
   - refactor: species damage mods are now limb-based
   - bugfix: damage mods work again, IPCs ignore stamina damage
+2026-03-14:
+  Isaacnml:
+  - balance: Cult doors no longer paralyze you upon being thrown, now they knock you
+      down
+  - bugfix: Cult doors will no longer throw you away just for looking at them
+2026-03-15:
+  ? r1ks-iwnl, GoldenAlpharex, cacogen, Superlagg, neopythagorean, SuperNovaa41, StrangeWeirdKitten,
+    Kocma-san, GreytideSkye, vinylspiders, norsvenska, 00-Steven, MrMelbert
+  : - rscadd: Added new keywords (%d, %date, %t, %time) for fields
+    - rscadd: You can now stamp papers while blind.
+    - spellcheck: Photocopier finally learned about %date and %time, and changed the
+        forms' fields to accommodate them.
+    - bugfix: Fixes preloaded clipboards
+    - bugfix: Clearing paper, like by splashing it with ethanol, actually resets its
+        icon state to the cleared version.
+    - bugfix: Photocopying no longer removes the stamp overlays from the original
+        paper, and actually copies them to the copy.
+    - bugfix: Paper that's on a clipboard doesn't need to be poked to realise that
+        its appearance has changed and to properly display it on a clipboard.
+    - bugfix: You finally figured that using a stamp on a clipboard was more important
+        than using the pen that's currently attached to it. Congratulations!
+    - bugfix: Hitting cancel when renaming a paper now actually cancels the operation.
+    - code_imp: Added support for preventing a pen from being removed from a clipboard.
+2026-03-16:
+  DrDuckedGoose:
+  - bugfix: Fix Height Maps
+2026-03-18:
+  Isaacnml:
+  - spellcheck: Poison is spelled correctly upon failling the poison directive
+  PatienceStPim:
+  - rscadd: Cargo now gets bounties for mutations.
+  mrmanlikesbt:
+  - bugfix: Fixed the roundend message sometimes not being sent to the discord OOC
+      channel
+  - rscadd: Players now have the option to remain anonymous when starting a vote.
+  - bugfix: Fixed being able to call a shuttle vote when it's unable to come.
+  - bugfix: Fixed the space dragon ruleset not putting the chosen player into the
+      dragon's body.
+  - tweak: Dynamic no longer sends a storyteller vote if there is only one storyteller
+      to vote for.
+  rkz, tralezab, san7890, Ben10Omintrix, Vekter, vinylspiders, SmArtKar:
+  - rscadd: Mining/Explo headsets now allow you to make callouts via pointing. You
+      can use them to communicate with fellow jobbers!
+  - rscadd: Mining headsets keep your voice loud and clear in low-pressure environments
+      (not vacuum!)
+  - rscadd: adds ~~sex~~ make children behavior to basic mob ai. Ian is no longer
+      gelded from his conversion from simplemob to basicmob
+  - rscadd: tailed_defender lizard trait is now on their brain
+  - rscadd: cultists can now convert pets to their side
+  - rscadd: adds support for renaming pets without collars. Ashwalkers have this by
+      default. (Goliaths aren't basicmobs though yet, sorry)
+  - bugfix: Basic Mobs are now able to deathgasp.
+  - refactor: refactors pet collars and cultist pets into elements
+  - refactor: cats are now basic pets. please report any bugs.
+  - rscadd: Added a new hostile variant of cats, "feral cats".
+  - rscadd: Added a new traitor item, "feral cat grenades". For 5 TC, you too can
+      throw a grenade at someone and make five cats maul them to death.
+  - bugfix: fixes a hard del with thrown items

@@ -20,3 +20,9 @@
 #define THEME_CULT "cult"
 #define THEME_WIZARD "wizard"
 #define THEME_HOLY "holy"
+
+///how many sacrifices we have used, cultists get 1 free revive at the start
+GLOBAL_VAR_INIT(sacrifices_used, -SOULS_TO_REVIVE)
+
+/// list of weakrefs to mobs OR minds that have been sacrificed
+GLOBAL_LIST(sacrificed)

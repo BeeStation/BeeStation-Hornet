@@ -3563,6 +3563,20 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"bay" = (
+/obj/structure/table,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow,
+/obj/machinery/recharger{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/pai_card{
+	pixel_x = -9;
+	pixel_y = -1
+	},
+/turf/open/floor/iron/dark,
+/area/science/misc_lab)
 "baA" = (
 /obj/machinery/computer/atmos_alert,
 /obj/effect/turf_decal/bot{
@@ -4700,11 +4714,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"bnV" = (
-/obj/item/caution,
-/obj/structure/mop_bucket,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "bnY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -5510,6 +5519,19 @@
 /area/science/research)
 "bzL" = (
 /obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white,
+/area/crew_quarters/heads/hor)
+"bzM" = (
+/obj/structure/rack,
+/obj/item/taperecorder{
+	pixel_x = -3
+	},
+/obj/item/pai_card{
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "bzN" = (
@@ -15342,14 +15364,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/storage/tech)
-"dMP" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/mop_bucket,
-/obj/item/mop,
-/turf/open/floor/plating,
-/area/maintenance/port)
 "dMZ" = (
 /obj/item/transfer_valve{
 	pixel_x = -5
@@ -16316,16 +16330,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
-"efb" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/rag,
-/obj/structure/noticeboard{
-	pixel_y = 29
-	},
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "efq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -16599,6 +16603,18 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"eni" = (
+/obj/structure/table/glass,
+/obj/item/pen,
+/obj/item/clothing/neck/stethoscope,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/mob/living/basic/pet/cat/runtime,
+/obj/item/book/manual/wiki/sopmedical,
+/obj/effect/turf_decal/tile/dark_blue,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/cmo)
 "enC" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -17725,13 +17741,6 @@
 	},
 /turf/open/floor/iron/half,
 /area/crew_quarters/dorms)
-"eJc" = (
-/obj/structure/mop_bucket,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/opposingcorners,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/iron,
-/area/maintenance/starboard/fore)
 "eJi" = (
 /turf/open/floor/engine,
 /area/engine/atmos)
@@ -23851,18 +23860,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
-"hfH" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/table/wood,
-/obj/machinery/light_switch/directional/east{
-	pixel_x = 25;
-	pixel_y = 8
-	},
-/obj/item/pai_card,
-/turf/open/floor/wood/big,
-/area/crew_quarters/locker)
 "hfL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/siding/wood{
@@ -24905,6 +24902,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"hBS" = (
+/obj/structure/table/wood,
+/obj/item/pai_card,
+/obj/machinery/camera/directional/north,
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "hBW" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/northright{
@@ -29445,6 +29449,18 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/prison,
 /area/security/prison)
+"juh" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/machinery/light_switch/directional/east{
+	pixel_x = 25;
+	pixel_y = 8
+	},
+/obj/item/pai_card,
+/turf/open/floor/wood/big,
+/area/crew_quarters/locker)
 "jul" = (
 /obj/structure/transit_tube/horizontal,
 /turf/open/floor/plating,
@@ -29892,6 +29908,11 @@
 /obj/machinery/camera/directional/west,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engineering)
+"jDU" = (
+/obj/item/caution,
+/obj/structure/mop_bucket,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "jDW" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -30977,6 +30998,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"jZJ" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/mop_bucket,
+/obj/item/mop,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "jZP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -32775,18 +32804,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
-"kNz" = (
-/obj/structure/table/glass,
-/obj/item/pen,
-/obj/item/clothing/neck/stethoscope,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/mob/living/simple_animal/pet/cat/Runtime,
-/obj/item/book/manual/wiki/sopmedical,
-/obj/effect/turf_decal/tile/dark_blue,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/cmo)
 "kNL" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -33800,6 +33817,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hop)
+"lko" = (
+/obj/structure/mop_bucket,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/iron,
+/area/maintenance/starboard/fore)
 "lkq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -39723,6 +39747,22 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"nHi" = (
+/obj/structure/chair/fancy/corp{
+	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "medpriv1";
+	name = "Psycology Shutters Control";
+	pixel_x = -27;
+	pixel_y = 1
+	},
+/mob/living/basic/pet/cat{
+	name = "Josito";
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/medical/exam_room)
 "nHr" = (
 /obj/structure/sign/painting/library{
 	pixel_x = 32
@@ -44300,22 +44340,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"pEg" = (
-/obj/structure/chair/fancy/corp{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "medpriv1";
-	name = "Psycology Shutters Control";
-	pixel_x = -27;
-	pixel_y = 1
-	},
-/mob/living/simple_animal/pet/cat{
-	name = "Josito";
-	dir = 4
-	},
-/turf/open/floor/carpet/green,
-/area/medical/exam_room)
 "pEC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -45589,20 +45613,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/xenobiology)
-"qht" = (
-/obj/structure/table,
-/obj/machinery/power/apc/auto_name/directional/south,
-/obj/structure/cable/yellow,
-/obj/machinery/recharger{
-	pixel_x = 6;
-	pixel_y = 1
-	},
-/obj/item/pai_card{
-	pixel_x = -9;
-	pixel_y = -1
-	},
-/turf/open/floor/iron/dark,
-/area/science/misc_lab)
 "qhB" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -50189,13 +50199,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/lobby)
-"rYE" = (
-/obj/structure/table/wood,
-/obj/item/pai_card,
-/obj/machinery/camera/directional/north,
-/obj/machinery/firealarm/directional/north,
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "rYJ" = (
 /obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/bot,
@@ -50631,6 +50634,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
+"sja" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/rag,
+/obj/structure/noticeboard{
+	pixel_y = 29
+	},
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "sjf" = (
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
@@ -55619,19 +55632,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"ugm" = (
-/obj/structure/rack,
-/obj/item/taperecorder{
-	pixel_x = -3
-	},
-/obj/item/pai_card{
-	pixel_x = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/heads/hor)
 "ugy" = (
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
@@ -84842,7 +84842,7 @@ cCB
 wFt
 sUs
 uXh
-hfH
+juh
 xgt
 eZl
 iOb
@@ -87411,7 +87411,7 @@ nxf
 wbo
 sqB
 aSg
-dMP
+jZJ
 dXE
 aSg
 pbd
@@ -101539,7 +101539,7 @@ eEJ
 vjJ
 lCY
 aJC
-rYE
+hBS
 fRF
 spz
 qsr
@@ -102310,7 +102310,7 @@ mUO
 jUv
 deN
 aJC
-efb
+sja
 rvC
 vqa
 czR
@@ -103372,7 +103372,7 @@ hhG
 lxI
 sQq
 wki
-pEg
+nHi
 oLA
 cXE
 iTK
@@ -105950,7 +105950,7 @@ iQJ
 bOt
 qiD
 iEs
-kNz
+eni
 wwM
 jCz
 raS
@@ -106488,7 +106488,7 @@ gUm
 ajx
 lSa
 nYD
-bnV
+jDU
 cNW
 cOe
 lQu
@@ -106933,7 +106933,7 @@ anf
 uCc
 rha
 alP
-eJc
+lko
 agr
 cDU
 aIp
@@ -112384,7 +112384,7 @@ eYh
 sxk
 eCl
 dhU
-qht
+bay
 xhG
 cOe
 gzE
@@ -112880,7 +112880,7 @@ bUq
 bvK
 bxl
 bys
-ugm
+bzM
 bya
 bCj
 dGF

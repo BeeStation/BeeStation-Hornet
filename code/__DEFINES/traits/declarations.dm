@@ -355,6 +355,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FISH_SAFE_STORAGE "fish_case" //Fish in this won't die
 #define TRAIT_FISH_CASE_COMPATIBILE "fish_case_compatibile" //Stuff that can go inside fish cases
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands" // The items needs two hands to be carried
+/// For living mobs. It signals that the mob shouldn't have their data written in an external json for persistence.
+#define TRAIT_DONT_WRITE_MEMORY "dont_write_memory"
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 #define TRAIT_ARTIFACT_IGNORE "artifact_ignore" //This item is compltely ignored by artifacts, this is different to anti-artifact
 #define TRAIT_IGNORE_EXPORT_SCAN "ignore_export_scan" //The export scanner can't scan this item
@@ -427,6 +429,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
 #define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
+
+///Trait given by /datum/element/relay_attacker
+#define TRAIT_RELAYING_ATTACKER "relaying_attacker"
 
 /// This mob can strip other mobs.
 #define TRAIT_CAN_STRIP "can_strip"
@@ -535,5 +540,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BOT_PATH_HUD "bot_path_hud"
 /// Shows malf hacked APCs
 #define TRAIT_HACKED_APC_HUD "hacked_apc_hud"
+
+///trait determines if this mob can breed given by /datum/component/breeding
+#define TRAIT_MOB_BREEDER "mob_breeder"
+///trait given to food that can be baked by /datum/component/bakeable
+#define TRAIT_BAKEABLE "bakeable"
+/// Trait given to mobs that have the basic eating element
+#define TRAIT_MOB_EATER "mob_eater"
+
+/// you're good with animals, such as with taming them
+#define TRAIT_BEAST_EMPATHY "beast_empathy"
+
+///Mobs with these trait do not get italicized/quiet speech when speaking in low pressure
+#define TRAIT_SPEECH_BOOSTER "speech_booster"
 
 // END TRAIT DEFINES

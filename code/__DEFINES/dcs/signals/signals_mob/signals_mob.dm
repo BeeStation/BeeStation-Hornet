@@ -18,6 +18,9 @@
 ///from base of mob/alt_click_on_secodary(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON_SECONDARY "mob_altclickon_secondary"
 
+/// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
+#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
+
 /// from /mob/proc/key_down(): (key, client/client, full_key)
 #define COMSIG_MOB_KEYDOWN "mob_key_down"
 

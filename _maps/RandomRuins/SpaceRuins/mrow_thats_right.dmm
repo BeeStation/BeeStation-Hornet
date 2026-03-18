@@ -37,10 +37,6 @@
 /obj/item/reagent_containers/spray/cleaner,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
-"ak" = (
-/obj/structure/mop_bucket,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/powered/cat_man)
 "al" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 6
@@ -211,13 +207,6 @@
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/powered/cat_man)
-"aR" = (
-/obj/structure/bed/dogbed{
-	name = "kitty bed"
-	},
-/mob/living/simple_animal/pet/cat/space,
-/turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/cat_man)
 "aS" = (
 /turf/open/floor/carpet,
@@ -787,6 +776,17 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/cat_man)
+"uV" = (
+/obj/structure/mop_bucket,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/powered/cat_man)
+"vS" = (
+/obj/structure/bed/dogbed{
+	name = "kitty bed"
+	},
+/mob/living/basic/pet/cat/space,
+/turf/open/floor/carpet,
+/area/ruin/space/has_grav/powered/cat_man)
 "Bj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -1163,7 +1163,7 @@ ad
 Eo
 Bm
 ad
-aR
+vS
 aS
 bp
 bx
@@ -1318,7 +1318,7 @@ mI
 mI
 ad
 ai
-ak
+uV
 ad
 ad
 ad

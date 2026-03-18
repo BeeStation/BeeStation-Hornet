@@ -1,5 +1,3 @@
-/// list of weakrefs to mobs OR minds that have been sacrificed
-GLOBAL_LIST(sacrificed)
 /// List of all teleport runes
 GLOBAL_LIST(teleport_runes)
 /// Assoc list of every rune that can be drawn by ritual daggers. [rune_name] = [typepath]
@@ -121,7 +119,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune)
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> [keyword]"
 
-/obj/effect/rune/attack_hand(mob/living/user)
+/obj/effect/rune/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -129,10 +127,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune)
 		to_chat(user, span_warning("You aren't able to understand the words of [src]."))
 		return
 	var/list/invokers = can_invoke(user)
-	if(invokers.len >= req_cultists)
+	if(length(invokers) >= req_cultists)
 		invoke(invokers)
 	else
-		to_chat(user, span_danger("You need [req_cultists - invokers.len] more adjacent cultists to use this rune in such a manner."))
+		to_chat(user, span_danger("You need [req_cultists - length(invokers)] more adjacent cultists to use this rune in such a manner."))
 		fail_invoke()
 
 /obj/effect/rune/attack_animal(mob/living/simple_animal/M)
@@ -261,7 +259,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	for(var/mob/living/M in T)
 		if(!IS_CULTIST(M))
 			myriad_targets |= M
-	if(!myriad_targets.len)
+	if(!length(myriad_targets))
 		fail_invoke()
 		log_game("Offer rune failed - no eligible targets")
 		return
@@ -290,7 +288,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
-	if(invokers.len < 2)
+	if(length(invokers) < 2)
 		for(var/M in invokers)
 			to_chat(M, span_danger("You need at least two invokers to convert [convertee]!"))
 		log_game("Offer rune failed - tried conversion with one invoker")
@@ -327,11 +325,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 		return FALSE
 	var/datum/antagonist/cult/C = first_invoker.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(!C)
-		return
+		return FALSE
 
+	if(SEND_SIGNAL(sacrificial, COMSIG_LIVING_CULT_SACRIFICED, invokers) & STOP_SACRIFICE)
+		return FALSE
 
 	var/big_sac = FALSE
-	if((((ishuman(sacrificial) || iscyborg(sacrificial)) && sacrificial.stat != DEAD) || C.cult_team.is_sacrifice_target(sacrificial.mind)) && invokers.len < 3)
+	if((((ishuman(sacrificial) || iscyborg(sacrificial)) && sacrificial.stat != DEAD) || C.cult_team.is_sacrifice_target(sacrificial.mind)) && length(invokers) < 3)
 		for(var/M in invokers)
 			to_chat(M, span_cultitalic("[sacrificial] is too greatly linked to the world! You need three acolytes!"))
 		log_game("Offer rune failed - not enough acolytes and target is living or sac target")
@@ -438,7 +438,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 		if(teleport_rune != src && !is_away_level(teleport_rune.z))
 			potential_runes[avoid_assoc_duplicate_keys(teleport_rune.listkey, teleportnames)] = teleport_rune
 
-	if(!potential_runes.len)
+	if(!length(potential_runes))
 		to_chat(user, span_warning("There are no valid runes to teleport to!"))
 		log_game("Teleport rune failed - no other teleport runes")
 		fail_invoke()
@@ -451,7 +451,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/teleport)
 		fail_invoke()
 		return
 
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/input_rune_key = tgui_input_list(user, "Rune to teleport to", "Teleportation Target", potential_runes) //we know what key they picked
+	if(isnull(input_rune_key))
+		return
+	if(isnull(potential_runes[input_rune_key]))
+		fail_invoke()
+		return
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated || !actual_selected_rune)
 		fail_invoke()
@@ -627,13 +632,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	for(var/mob/living/M in T.contents)
 		if(IS_CULTIST(M) && (M.stat == DEAD || !M.client || M.client.is_afk()))
 			potential_revive_mobs |= M
-	if(!potential_revive_mobs.len)
+	if(!length(potential_revive_mobs))
 		to_chat(user, span_cultitalic("There are no dead cultists on the rune!"))
 		log_game("Raise Dead rune failed - no cultists to revive")
 		fail_invoke()
 		return
-	if(potential_revive_mobs.len > 1)
-		mob_to_revive = input(user, "Choose a cultist to revive.", "Cultist to Revive") as null|anything in potential_revive_mobs
+	if(length(potential_revive_mobs) > 1)
+		mob_to_revive = tgui_input_list(user, "Cultist to revive", "Revive Cultist", potential_revive_mobs)
+		if(isnull(mob_to_revive))
+			return
 	else
 		mob_to_revive = potential_revive_mobs[1]
 	if(QDELETED(src) || !validness_checks(mob_to_revive, user))
@@ -799,7 +806,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
 		if(cult_mind.current?.stat != DEAD && !(cult_mind.current in invokers))
 			cultists |= cult_mind.current
-	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in cultists
+	if(length(cultists) <= 1)
+		to_chat(user, span_warning("There are no cultists to summon!"))
+		fail_invoke()
+		return
+	var/mob/living/cultist_to_summon = tgui_input_list(user, "Who do you wish to call to [src]?", "Followers of the Geometer", cultists)
 	var/held_in_place = FALSE
 	if(iscarbon(cultist_to_summon))
 		var/mob/living/carbon/C = cultist_to_summon
@@ -807,7 +818,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 			held_in_place = TRUE
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated)
 		return
-	if(!cultist_to_summon)
+	if(isnull(cultist_to_summon))
 		to_chat(user, span_cultitalic("You require a summoning target!"))
 		fail_invoke()
 		log_game("Summon Cultist rune failed - no target")
@@ -951,7 +962,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		for(var/mob/dead/observer/O in T)
 			if(O.client && !is_banned_from(O.ckey, ROLE_CULTIST) && !QDELETED(src) && !QDELETED(O))
 				ghosts_on_rune += O
-		if(!ghosts_on_rune.len)
+		if(!length(ghosts_on_rune))
 			to_chat(user, span_cultitalic("There are no spirits near [src]!"))
 			fail_invoke()
 			log_game("Manifest rune failed - no nearby ghosts")
@@ -1054,7 +1065,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	var/mob/living/user = invokers[1]
 	var/datum/antagonist/cult/user_antag = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	var/datum/objective/eldergod/summon_objective = locate() in user_antag.cult_team.objectives
-	if(summon_objective.summon_spots.len <= 1)
+	if(length(summon_objective.summon_spots) <= 1)
 		to_chat(user, span_cultlarge("Only one ritual site remains - it must be reserved for the final summoning!"))
 		return
 	if(!(place in summon_objective.summon_spots))
@@ -1068,7 +1079,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	for(var/mob/living/M in GLOB.player_list)
 		if(IS_CULTIST(M))
 			intensity++
-	intensity = max(60, 360 - (360*(intensity/GLOB.player_list.len + 0.3)**2)) //significantly lower intensity for "winning" cults
+	intensity = max(60, 360 - (360*(intensity/length(GLOB.player_list) + 0.3)**2)) //significantly lower intensity for "winning" cults
 	var/duration = intensity*10
 	playsound(T, 'sound/magic/enter_blood.ogg', 100, 1)
 	visible_message(span_warning("A colossal shockwave of energy bursts from the rune, disintegrating it in the process!"))
