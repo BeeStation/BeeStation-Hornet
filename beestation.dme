@@ -2693,6 +2693,7 @@
 #include "code\modules\cargo\bounties\chef.dm"
 #include "code\modules\cargo\bounties\core.dm"
 #include "code\modules\cargo\bounties\engineering.dm"
+#include "code\modules\cargo\bounties\genetics.dm"
 #include "code\modules\cargo\bounties\item.dm"
 #include "code\modules\cargo\bounties\manuscript_bounty.dm"
 #include "code\modules\cargo\bounties\mech.dm"
