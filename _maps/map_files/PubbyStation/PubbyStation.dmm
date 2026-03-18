@@ -25561,16 +25561,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"eCh" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "eCE" = (
 /obj/structure/tank_dispenser,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -94699,7 +94689,7 @@ chy
 chy
 chy
 chy
-eCh
+chy
 chy
 rdU
 oWu
