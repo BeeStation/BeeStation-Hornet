@@ -7204,10 +7204,14 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "cum" = (
-/obj/effect/turf_decal/siding/yellow,
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/airless,
-/area/space/nearstation)
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/engine/engine_room/external)
 "cuH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
@@ -10719,6 +10723,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
+"dIo" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "dIt" = (
 /obj/machinery/recycler,
 /obj/machinery/conveyor{
@@ -20257,14 +20273,6 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/chapel/asteroid/monastery)
-"gUI" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/tcommsat/computer)
 "gUV" = (
 /obj/machinery/computer/prisoner/gulag_teleporter_computer{
 	dir = 1
@@ -24837,6 +24845,17 @@
 	dir = 8
 	},
 /area/chapel/main/monastery)
+"iDc" = (
+/obj/machinery/button/door{
+	desc = "A remote control-switch for secure storage.";
+	id = "engsm";
+	name = "Radiation shutters Toggle";
+	pixel_y = 5;
+	req_access_txt = "11";
+	pixel_x = 7
+	},
+/turf/closed/wall/r_wall,
+/area/engine/supermatter)
 "iDi" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /obj/effect/turf_decal/stripes/line{
@@ -30281,15 +30300,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/miningdock)
-"kCa" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/edges/borderfloor,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/storage)
 "kCb" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -33305,6 +33315,14 @@
 "lHp" = (
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics/cloning)
+"lHr" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/tcommsat/computer)
 "lHw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -34582,11 +34600,12 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
 "mhU" = (
+/obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/engine/engine_room/external)
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "mib" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -36801,17 +36820,10 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "mXu" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/cargo)
+/obj/effect/turf_decal/siding/yellow,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/airless,
+/area/space/nearstation)
 "mXx" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/food_or_drink/donkpockets,
@@ -56018,16 +56030,11 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/engine/engine_room/external)
 "urS" = (
-/obj/machinery/button/door{
-	desc = "A remote control-switch for secure storage.";
-	id = "engsm";
-	name = "Radiation shutters Toggle";
-	pixel_y = 5;
-	req_access_txt = "11";
-	pixel_x = 7
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/engine/engine_room/external)
 "usf" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/secure/loot,
@@ -57098,13 +57105,6 @@
 	},
 /turf/open/floor/plating,
 /area/syndicate_sat)
-"uJV" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/storage)
 "uJW" = (
 /obj/machinery/computer/pandemic,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
@@ -58404,8 +58404,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
@@ -60597,15 +60596,6 @@
 /obj/effect/turf_decal/tile/brown/fourcorners,
 /turf/open/floor/monotile/dark,
 /area/chapel/office)
-"vQQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/engine/engine_room/external)
 "vRc" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
@@ -62656,6 +62646,15 @@
 "wFC" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
+"wFW" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint,
+/area/quartermaster/storage)
 "wFZ" = (
 /turf/closed/wall,
 /area/security/checkpoint/supply)
@@ -63814,7 +63813,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/iron/dark/smooth_large,
 /area/engine/engine_room/external)
 "xdh" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
@@ -97056,7 +97055,7 @@ nnx
 nnx
 bXh
 xTa
-gUI
+lHr
 xTa
 ble
 aMa
@@ -100142,12 +100141,12 @@ nnx
 dWI
 qHV
 hGM
-vQQ
-mhU
-xdd
-xdd
-qac
 cum
+xdd
+urS
+urS
+qac
+mXu
 nnx
 eDW
 hSG
@@ -100377,7 +100376,7 @@ wrY
 vOS
 dWP
 gXL
-urS
+iDc
 rtO
 izQ
 rtO
@@ -107514,7 +107513,7 @@ ylR
 ntg
 xTM
 mKx
-mXu
+dIo
 mAy
 kcS
 vjW
@@ -107757,10 +107756,10 @@ oUd
 kzO
 dpI
 qmc
-kCa
+wFW
 lGD
-uJV
-uJV
+mhU
+mhU
 lYH
 taN
 hjs
