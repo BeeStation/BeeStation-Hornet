@@ -13,6 +13,7 @@
 	var/active = FALSE
 	var/activationCost = 300
 	var/activationUpkeep = 50
+	var/disguise_name = "Engineering"
 	var/disguise = "engineer"
 	var/mob/listeningTo
 	var/static/list/signalCache = list( // list here all signals that should break the camouflage
@@ -87,7 +88,7 @@
 	src.user = user
 	savedName = user.name
 	user.name = friendlyName
-	user.model.name = capitalize("Engineering")
+	user.model.name = capitalize(disguise_name)
 	user.model.cyborg_base_icon = disguise
 	user.bubble_icon = "robot"
 	active = TRUE
