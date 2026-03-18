@@ -131,6 +131,8 @@
 2026-03-18:
   Isaacnml:
   - spellcheck: Poison is spelled correctly upon failling the poison directive
+  PatienceStPim:
+  - rscadd: Cargo now gets bounties for mutations.
   mrmanlikesbt:
   - bugfix: Fixed the roundend message sometimes not being sent to the discord OOC
       channel
