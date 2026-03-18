@@ -87,7 +87,7 @@
 	src.user = user
 	savedName = user.name
 	user.name = friendlyName
-	user.model.name = disguise
+	user.model.name = capitalize("Engineering")
 	user.model.cyborg_base_icon = disguise
 	user.bubble_icon = "robot"
 	active = TRUE
