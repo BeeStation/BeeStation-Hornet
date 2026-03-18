@@ -230,27 +230,33 @@
 	add_fingerprint(user)
 	return uses > 0
 
-/obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
+/obj/item/lightreplacer/afterattack(atom/target_atom, mob/user, proximity)
 	. = ..()
 
 	if(!proximity && !bluespace_toggle)
 		return
-	if(!isturf(T))
+	var/list/light_targets = list()
+	if(istype(target_atom, /obj/machinery/light)) // Target lights directly
+		light_targets += target_atom
+	else if(isturf(target_atom)) // Or target the turf the light is on
+		for(var/obj/machinery/light/light_fixture in target_atom)
+			light_targets += light_fixture
+	else
 		return
-
-	var/used = FALSE
-	for(var/atom/A in T)
-		if(!CanUse(U))
+	if(!length(light_targets) || !CanUse(user))
+		to_chat(user, "\The [src]'s light blinks red.")
+		return
+	var/replaced_any = FALSE
+	for(var/obj/machinery/light/light_fixture in light_targets)
+		if(!CanUse(user))
 			break
-		used = TRUE
-		if(istype(A, /obj/machinery/light))
-			if(!proximity)  // only beams if at a distance
-				U.Beam(A, icon_state = "rped_upgrade", time = 5)
-				playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-			ReplaceLight(A, U)
-
-	if(!used)
-		to_chat(U, "\The [src]'s refill light blinks red.")
+		replaced_any = TRUE
+		if(!proximity)
+			user.Beam(light_fixture, icon_state = "rped_upgrade", time = 5)
+			playsound(src, 'sound/items/pshoom.ogg', 40, 1)
+		ReplaceLight(light_fixture, user)
+	if(!replaced_any)
+		to_chat(user, "\The [src]'s refill light blinks red.")
 
 /obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)

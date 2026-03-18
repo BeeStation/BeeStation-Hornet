@@ -221,7 +221,7 @@
 ///Mister - Sprays water over an area.
 /obj/item/mod/module/mister
 	name = "\improper MOD water mister module"
-	desc = "A module containing a mister, able to spray it over areas."
+	desc = "A module containing a mister, able to spray it over areas, it has a small slot allowing for disk upgrades."
 	icon_state = "mister"
 	module_type = MODULE_ACTIVE
 	complexity = 2
