@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	. = ..()
 
 	if(callout_capable)
-		desc += " It has a network uplink which allows the user to quickly transmit commands to their comrades and amplifies their voice in low-pressure environments."
+		desc += span_notice("It has a network uplink which allows the user to quickly transmit commands to their comrades and amplifies their voice in low-pressure environments.")
 
 	if(item_flags & PICKED_UP && loc == user)
 		// construction of frequency description
