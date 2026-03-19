@@ -4957,6 +4957,7 @@
 /obj/item/paper_bin,
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "bFz" = (
@@ -11176,7 +11177,8 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/research{
-	name = "Xenobiology Lab"
+	name = "Xenobiology Lab";
+	req_one_access_txt = "49"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15002,11 +15004,15 @@
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics/cloning)
 "fgk" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 5
 	},
-/turf/open/floor/iron/white/textured_large,
-/area/medical/chemistry)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/red/warning{
+	dir = 5
+	},
+/turf/open/floor/iron/dark,
+/area/syndicate_sat)
 "fgn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -29670,7 +29676,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/research{
-	name = "Xenobiology Lab"
+	name = "Xenobiology Lab";
+	req_one_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -34690,12 +34697,13 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/item/extinguisher,
 /obj/machinery/light,
+/obj/item/extinguisher,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "mii" = (
@@ -43897,7 +43905,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research{
-	name = "Containment Pen Access"
+	name = "Containment Pen Access";
+	req_one_access_txt = "49"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -63250,15 +63259,11 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room/external)
 "wPJ" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 5
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/trimline/red/warning{
-	dir = 5
-	},
-/turf/open/floor/iron/dark,
-/area/syndicate_sat)
+/turf/open/floor/iron/white/textured_large,
+/area/medical/chemistry)
 "wPQ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -99719,7 +99724,7 @@ wYm
 iOM
 hhg
 hhg
-fgk
+wPJ
 pWk
 ery
 hyl
@@ -99976,7 +99981,7 @@ iSJ
 tsq
 qGZ
 fND
-fgk
+wPJ
 kXY
 eHl
 oUe
@@ -122752,7 +122757,7 @@ usf
 eYX
 twn
 mnH
-wPJ
+fgk
 mEw
 nCX
 kPy
