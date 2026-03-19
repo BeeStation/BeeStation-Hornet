@@ -9860,8 +9860,7 @@
 /area/security)
 "dqp" = (
 /obj/machinery/door/airlock/medical{
-	name = "Surgery";
-	req_access_txt = "45"
+	name = "Surgery"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
