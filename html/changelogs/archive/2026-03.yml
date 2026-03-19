@@ -160,3 +160,6 @@
   - rscadd: Added a new traitor item, "feral cat grenades". For 5 TC, you too can
       throw a grenade at someone and make five cats maul them to death.
   - bugfix: fixes a hard del with thrown items
+2026-03-19:
+  Isaacnml:
+  - bugfix: The syndicate has fixed their chameleon technology for engineering models
