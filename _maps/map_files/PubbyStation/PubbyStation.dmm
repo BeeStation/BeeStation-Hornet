@@ -4726,10 +4726,10 @@
 /turf/open/floor/iron/smooth_large,
 /area/bridge)
 "bBi" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/iron,
-/area/engine/engineering)
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/plating,
+/area/security/brig/dock)
 "bBp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -15003,10 +15003,10 @@
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics/cloning)
 "fgk" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/space/basic,
-/area/security/brig/dock)
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "fgn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -88617,7 +88617,7 @@ ilC
 oMG
 jix
 oMG
-fgk
+bBi
 oMG
 aDB
 kkW
@@ -101551,7 +101551,7 @@ azz
 kMc
 azE
 gwV
-bBi
+fgk
 thW
 klv
 eUq
@@ -101808,7 +101808,7 @@ ncv
 tPL
 dGp
 dGp
-bBi
+fgk
 kgT
 rFa
 mdj
