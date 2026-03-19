@@ -10070,7 +10070,6 @@
 "dtF" = (
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
@@ -10078,6 +10077,7 @@
 /obj/item/storage/backpack/duffelbag/sec/surgery{
 	pixel_y = 5
 	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "dtO" = (
@@ -42334,8 +42334,16 @@
 /obj/effect/loot_jobscale/medical/burn_kit,
 /obj/item/storage/firstaid/brute,
 /obj/item/stack/medical/gauze,
-/obj/machinery/iv_drip,
 /obj/item/reagent_containers/medspray/synthflesh,
+/obj/item/reagent_containers/blood/OPlus,
+/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/BPlus,
+/obj/item/reagent_containers/blood/BMinus,
+/obj/item/reagent_containers/blood/APlus,
+/obj/item/reagent_containers/blood/AMinus,
+/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/OMinus,
+/obj/structure/closet/crate/freezer,
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "pmw" = (
@@ -53566,6 +53574,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/iv_drip,
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "tpK" = (
@@ -60216,11 +60225,14 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "vIM" = (
-/obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
 /obj/machinery/computer/operating,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_y = 16;
+	pixel_x = -8
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "vIV" = (
@@ -66153,16 +66165,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/item/reagent_containers/blood/OMinus,
-/obj/item/reagent_containers/blood/OMinus,
-/obj/item/reagent_containers/blood,
-/obj/item/reagent_containers/blood/AMinus,
-/obj/item/reagent_containers/blood/APlus,
-/obj/item/reagent_containers/blood/BMinus,
-/obj/item/reagent_containers/blood/BPlus,
-/obj/item/reagent_containers/blood/OMinus,
-/obj/item/reagent_containers/blood/OPlus,
-/obj/structure/closet/crate/freezer,
+/obj/machinery/vending/medical,
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "xIe" = (
