@@ -429,6 +429,16 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"gr" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/mob/living/basic/pet/cat{
+	desc = "He demands you let him sleep";
+	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
 "gs" = (
 /obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/structure/frame,
@@ -594,13 +604,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1225,10 +1228,6 @@
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
 /area/template_noop)
-"tb" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
@@ -1361,6 +1360,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
+"vG" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "vH" = (
 /obj/structure/flora/rock/pile,
@@ -2071,6 +2074,13 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating/beach/water,
+/area/template_noop)
+"Gb" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "Gi" = (
 /turf/open/floor/plating/dirt/planetary,
@@ -3220,16 +3230,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
-/area/template_noop)
-"XZ" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/mob/living/simple_animal/pet/cat{
-	desc = "He demands you let him sleep";
-	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
-	},
-/turf/open/floor/wood,
 /area/template_noop)
 "Yc" = (
 /obj/structure/fence,
@@ -6730,9 +6730,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+Gb
+vG
+vG
 yT
 yT
 yT
@@ -6864,9 +6864,9 @@ gf
 bj
 PO
 HX
-iD
+Gb
 yW
-tb
+vG
 yT
 yT
 yT
@@ -6998,9 +6998,9 @@ gf
 gf
 gf
 HX
-iD
-tb
-tb
+Gb
+vG
+vG
 yT
 yT
 yT
@@ -7533,7 +7533,7 @@ gf
 gf
 gf
 gf
-XZ
+gr
 Du
 yT
 yT

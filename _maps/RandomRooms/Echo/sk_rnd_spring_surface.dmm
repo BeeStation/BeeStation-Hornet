@@ -485,6 +485,10 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
+"gJ" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "gL" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -646,13 +650,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1283,10 +1280,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
-/area/template_noop)
-"tb" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
@@ -2610,6 +2603,13 @@
 /obj/structure/fence,
 /turf/open/floor/plating/dirt/jungle/wasteland,
 /area/template_noop)
+"NT" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "Og" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /turf/open/floor/plating/dirt/planetary,
@@ -3107,6 +3107,16 @@
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
+"Vt" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/mob/living/basic/pet/cat{
+	desc = "He demands you let him sleep";
+	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
 "Vv" = (
 /obj/structure/fence/corner{
 	dir = 1
@@ -3294,16 +3304,6 @@
 /turf/open/floor/plating/beach/water{
 	dir = 1
 	},
-/area/template_noop)
-"XZ" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/mob/living/simple_animal/pet/cat{
-	desc = "He demands you let him sleep";
-	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
-	},
-/turf/open/floor/wood,
 /area/template_noop)
 "Yc" = (
 /obj/structure/fence,
@@ -6804,9 +6804,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+NT
+gJ
+gJ
 IM
 IM
 IM
@@ -6938,9 +6938,9 @@ gf
 bj
 PO
 FH
-iD
+NT
 yW
-tb
+gJ
 IM
 IM
 IM
@@ -7072,9 +7072,9 @@ gf
 gf
 gf
 FH
-iD
-tb
-tb
+NT
+gJ
+gJ
 IM
 IM
 IM
@@ -7607,7 +7607,7 @@ gf
 gf
 gf
 gf
-XZ
+Vt
 Du
 IM
 IM

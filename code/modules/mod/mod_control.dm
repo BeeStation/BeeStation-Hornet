@@ -461,6 +461,7 @@
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
 	RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 	RegisterSignal(wearer, COMSIG_SPECIES_GAIN, PROC_REF(on_species_gain))
+	RegisterSignal(wearer, COMSIG_MOB_CLICKON, PROC_REF(click_on))
 	update_charge_alert()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_equip()
@@ -468,7 +469,7 @@
 /obj/item/mod/control/proc/unset_wearer()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_unequip()
-	UnregisterSignal(wearer, list(COMSIG_ATOM_EXITED, COMSIG_SPECIES_GAIN))
+	UnregisterSignal(wearer, list(COMSIG_ATOM_EXITED, COMSIG_SPECIES_GAIN, COMSIG_MOB_CLICKON))
 	wearer.clear_alert("mod_charge")
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_UNSET, wearer)
 	wearer = null
@@ -527,7 +528,14 @@
 		forceMove(drop_location())
 		return
 
-/obj/item/mod/control/proc/quick_module(mob/user)
+/obj/item/mod/control/proc/click_on(mob/source, atom/A, list/modifiers)
+	SIGNAL_HANDLER
+
+	if (LAZYACCESS(modifiers, CTRL_CLICK) && LAZYACCESS(modifiers, source.client?.prefs.read_preference(/datum/preference/choiced/mod_select) || MIDDLE_CLICK))
+		INVOKE_ASYNC(src, PROC_REF(quick_module), source, get_turf(A))
+		return COMSIG_MOB_CANCEL_CLICKON
+
+/obj/item/mod/control/proc/quick_module(mob/user, anchor_override = null)
 	if(!length(modules))
 		return
 	var/list/display_names = list()
@@ -549,7 +557,9 @@
 	var/radial_anchor = src
 	if(istype(user.loc, /obj/effect/dummy/phased_mob))
 		radial_anchor = get_turf(user.loc) //they're phased out via some module, anchor the radial on the turf so it may still display
-	var/pick = show_radial_menu(user, radial_anchor, items, custom_check = FALSE, require_near = TRUE, tooltips = TRUE)
+	if (!isnull(anchor_override))
+		radial_anchor = anchor_override
+	var/pick = show_radial_menu(user, radial_anchor, items, custom_check = FALSE, require_near = isnull(anchor_override), tooltips = TRUE, user_space = !isnull(anchor_override))
 	if(!pick)
 		return
 	var/module_reference = display_names[pick]

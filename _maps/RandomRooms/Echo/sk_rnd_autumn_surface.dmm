@@ -36,6 +36,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
+"aA" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "aD" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/landmark/start/assistant,
@@ -76,6 +80,16 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
+/area/template_noop)
+"bg" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/mob/living/basic/pet/cat{
+	desc = "He demands you let him sleep";
+	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
+	},
+/turf/open/floor/wood,
 /area/template_noop)
 "bj" = (
 /obj/item/grown/log/tree,
@@ -121,6 +135,13 @@
 	},
 /obj/structure/table/wood,
 /turf/open/floor/wood,
+/area/template_noop)
+"bK" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "bP" = (
 /obj/machinery/power/smes,
@@ -606,13 +627,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1211,10 +1225,6 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
-"tb" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
@@ -3289,16 +3299,6 @@
 /turf/open/floor/plating/beach/water{
 	dir = 1
 	},
-/area/template_noop)
-"XZ" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/mob/living/simple_animal/pet/cat{
-	desc = "He demands you let him sleep";
-	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
-	},
-/turf/open/floor/wood,
 /area/template_noop)
 "Yc" = (
 /obj/structure/fence,
@@ -6804,9 +6804,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+bK
+aA
+aA
 Mg
 Mg
 Mg
@@ -6938,9 +6938,9 @@ gf
 bj
 PO
 FH
-iD
+bK
 yW
-tb
+aA
 Mg
 Mg
 Mg
@@ -7072,9 +7072,9 @@ gf
 gf
 gf
 FH
-iD
-tb
-tb
+bK
+aA
+aA
 Mg
 Mg
 Mg
@@ -7607,7 +7607,7 @@ gf
 gf
 gf
 gf
-XZ
+bg
 Du
 Mg
 Mg

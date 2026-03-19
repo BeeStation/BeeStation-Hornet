@@ -29,7 +29,7 @@
 			controller.set_blackboard_key(BB_PARTNER_SEARCH_TIMEOUT, world.time + FIND_PARTNER_COOLDOWN)
 			return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-		if(other.ckey) // yeaah, no
+		if(!HAS_TRAIT(other, TRAIT_MOB_BREEDER) || other.ckey)
 			continue
 
 		if(other.stat != CONSCIOUS) //Check if it's conscious FIRST.
