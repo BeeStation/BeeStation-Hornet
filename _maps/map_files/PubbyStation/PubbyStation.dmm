@@ -34996,6 +34996,7 @@
 	},
 /obj/item/clothing/glasses/welding,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/multitool,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
