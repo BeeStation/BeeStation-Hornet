@@ -7,7 +7,7 @@
 	name = "ash cactus"
 	icon_state = "cactus_lava"
 	icon_uneven = TRUE
-	seed_icon_state = "seed-cactus"
+	seed_icon_state = "seed-cactus_lava"
 	fruit_product = /obj/item/food/grown/ash_flora/cactus_fruit
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin, /datum/plant_trait/fruit/spikey)
 	fast_reagents = list(/datum/reagent/consumable/vitfro = PLANT_REAGENT_MEDIUM)
@@ -21,3 +21,4 @@
 	name = "cactus"
 	species_name = "spinis fructificatio sp."
 	icon_state = "cactus_1"
+	seed_icon_state = "seed-cactus"

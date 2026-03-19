@@ -22,7 +22,7 @@
 	species_name = "pepo sanctus"
 	name = "holy watermelon"
 	icon_state = "watermelon-2"
-	colour_override = "#ff0"
+	colour_override = "#ffff0a"
 	seed_icon_state = "seed-holymelon"
 	genetic_budget = 3
 	fruit_product = /obj/item/food/grown/holymelon

@@ -21,7 +21,7 @@
 	species_name = "lycopersicum caeruleum"
 	name = "blue tomato"
 	icon_state = "tomato-2"
-	colour_override = "#09f"
+	colour_override = "#00a2ff"
 	seed_icon_state = "seed-bluetomato"
 	fruit_product = /obj/item/food/grown/tomato/blue
 	fast_reagents = list(/datum/reagent/lube = PLANT_REAGENT_MEDIUM)

@@ -115,7 +115,6 @@
 /obj/machinery/computer/plant_machine_controller/ui_act(action, params)
 	if(..())
 		return
-	//playsound(src, get_sfx("keyboard"), 30, TRUE)
 	switch(action)
 		if("select_entry")
 			selected_entry = selected_entry == params["key"] ? null : params["key"]
