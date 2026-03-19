@@ -109,7 +109,7 @@ SUBSYSTEM_DEF(botany)
 			qdel(entry_feature)
 			continue
 		//Don't let kirbies through
-		if(istype(entry_feature.type, /datum/plant_feature/body/kirby))
+		if(istype(entry_feature, /datum/plant_feature/body/kirby))
 			qdel(entry_feature)
 			continue
 		//Handle dict override
@@ -140,10 +140,11 @@ SUBSYSTEM_DEF(botany)
 //Plants - This is a lie, it's actually got pre-made seeds
 	chapters["plants"] = list()
 	for(var/obj/item/plant_seeds/preset as anything in typesof(/obj/item/plant_seeds/preset))
-		if(istype(preset, /obj/item/plant_seeds/preset/kirby))
-			continue
 		var/obj/item/plant_seeds/seeds = new preset()
 		if(seeds.type == /obj/item/plant_seeds/preset)
+			qdel(seeds)
+			continue
+		if(istype(seeds, /obj/item/plant_seeds/preset/kirby))
 			qdel(seeds)
 			continue
 		chapters["plants"] += seeds

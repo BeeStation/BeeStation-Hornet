@@ -6,6 +6,7 @@
 	name = "tomato"
 	icon_state = "tomato"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-tomato"
 	fruit_product = /obj/item/food/grown/tomato
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
 	/datum/plant_trait/fruit/liquid_contents)
@@ -21,6 +22,7 @@
 	name = "blue tomato"
 	icon_state = "tomato-2"
 	colour_override = "#09f"
+	seed_icon_state = "seed-bluetomato"
 	fruit_product = /obj/item/food/grown/tomato/blue
 	fast_reagents = list(/datum/reagent/lube = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/tomato/bluespace = 20)
@@ -33,6 +35,7 @@
 	name = "bluespace tomato"
 	icon_state = "tomato-2"
 	colour_override = "#03dfe6"
+	seed_icon_state = "seed-bluespacetomato"
 	fruit_product = /obj/item/food/grown/tomato/blue/bluespace
 	genetic_budget = 4
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
@@ -56,6 +59,7 @@
 	name = "blood tomato"
 	icon_state = "tomato-2"
 	colour_override = "#8d1111"
+	seed_icon_state = "seed-bloodtomato"
 	fruit_product = /obj/item/food/grown/tomato/blood
 	fast_reagents = list(/datum/reagent/blood = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/tomato/killer = 10)
@@ -67,6 +71,7 @@
 	species_name = "lycopersicum rabidus"
 	name = "killer tomato"
 	icon_state = "killer_tomato"
+	seed_icon_state = "seed-killertomato"
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
 	/datum/plant_trait/fruit/liquid_contents, /datum/plant_trait/fruit/killer)
 	fruit_product = /obj/item/food/grown/tomato/killer
@@ -79,6 +84,7 @@
 	species_name = "lycopersicum amica"
 	name = "friendly tomato"
 	icon_state = "friendly_tomato"
+	seed_icon_state = "seed-friendlytomato"
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
 	/datum/plant_trait/fruit/liquid_contents, /datum/plant_trait/fruit/killer/friendly)
 	fruit_product = /obj/item/food/grown/tomato/friendly

@@ -5,6 +5,7 @@
 	species_name = "stella carduus"
 	name = "starthistle"
 	icon_state = "star"
+	seed_icon_state = "seed-starthistle"
 	fruit_product = /obj/item/plant_seeds/preset/starthistle
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
 	/datum/plant_trait/fruit/liquid_contents)
@@ -19,6 +20,7 @@
 	species_name = "galaxia carduus"
 	name = "galaxythistle"
 	icon_state = "galaxy"
+	seed_icon_state = "seed-galaxythistle"
 	fruit_product = /obj/item/food/grown/galaxythistle
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	growth_time = PLANT_FRUIT_GROWTH_FAST

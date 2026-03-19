@@ -6,6 +6,7 @@
 	name = "tea leaf"
 	icon_state = "tea"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-teaaspera"
 	fruit_product = /obj/item/food/grown/tea
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	growth_time = PLANT_FRUIT_GROWTH_VERY_FAST
@@ -20,6 +21,7 @@
 	name = "astra tea leaf"
 	icon_state = "tea_2"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-teaastra"
 	fruit_product = /obj/item/food/grown/tea/astra
 	fast_reagents = list(/datum/reagent/toxin/teapowder = PLANT_REAGENT_MEDIUM, /datum/reagent/fluorine = PLANT_REAGENT_MEDIUM, /datum/reagent/medicine/synaptizine = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/tea)

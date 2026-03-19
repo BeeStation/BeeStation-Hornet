@@ -6,6 +6,7 @@
 	name = "sugarcane"
 	icon_state = "sugar"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-sugarcane"
 	fruit_product = /obj/item/food/grown/sugarcane
 	total_volume = PLANT_FRUIT_VOLUME_MEDIUM
 	growth_time = PLANT_FRUIT_GROWTH_FAST
@@ -23,6 +24,7 @@
 	name = "bamboo"
 	icon_state = "bamboo"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-bamboo"
 	fruit_product = /obj/item/grown/log/bamboo
 	total_volume = 0
 	growth_time = PLANT_FRUIT_GROWTH_VERY_FAST

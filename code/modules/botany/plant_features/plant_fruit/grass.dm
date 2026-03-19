@@ -6,6 +6,7 @@
 	species_name = "gramen viridis"
 	name = "grass"
 	icon_state = "grass"
+	seed_icon_state = "seed-grass"
 	fruit_product = /obj/item/food/grown/grass
 	total_volume = 0
 	growth_time = PLANT_FRUIT_GROWTH_VERY_FAST
@@ -20,6 +21,7 @@
 	species_name = "gramen otium"
 	name = "carpet"
 	icon_state = "carpet"
+	seed_icon_state = "seed-carpet"
 	fruit_product = /obj/item/food/grown/grass/carpet
 	mutations = list(/datum/plant_feature/fruit/grass/shamrock = 5)
 
@@ -30,6 +32,7 @@
 	species_name = "gramen trifolium"
 	name = "shamrock"
 	icon_state = "shamrock"
+	seed_icon_state = "seed-shamrock"
 	fruit_product = /obj/item/food/grown/grass/shamrock
 	mutations = list(/datum/plant_feature/fruit/grass/fairy = 10)
 
@@ -40,6 +43,7 @@
 	species_name = "gramen mediocris"
 	name = "fairy grass"
 	icon_state = "fairy_grass"
+	seed_icon_state = "seed-fairygrass"
 	plant_traits = list(/datum/plant_trait/fruit/biolight/pink)
 	fruit_product = /obj/item/food/grown/grass/fairy
 	mutations = list(/datum/plant_feature/fruit/grass)

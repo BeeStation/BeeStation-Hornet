@@ -5,6 +5,7 @@
 	species_name = "folium aculeatum"
 	name = "nettle"
 	icon_state = "nettle"
+	seed_icon_state = "seed-nettle"
 	fruit_product = /obj/item/food/grown/nettle
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	growth_time = PLANT_FRUIT_GROWTH_FAST
@@ -18,5 +19,6 @@
 	species_name = "folium mortem"
 	name = "death nettle"
 	icon_state = "nettle_death"
+	seed_icon_state = "seed-deathnettle"
 	fruit_product = /obj/item/food/grown/nettle/death
 	fast_reagents = list(/datum/reagent/toxin/acid/fluacid = PLANT_REAGENT_MEDIUM)

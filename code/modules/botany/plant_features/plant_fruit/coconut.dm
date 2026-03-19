@@ -6,6 +6,7 @@
 	species_name = "dolor durum"
 	name = "coconut"
 	icon_state = "coconut"
+	seed_icon_state = "seed-coconut"
 	fruit_product = /obj/item/grown/coconut
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/consumable/coconutmilk = PLANT_REAGENT_MEDIUM)

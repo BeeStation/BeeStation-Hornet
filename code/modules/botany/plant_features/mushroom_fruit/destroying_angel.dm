@@ -5,6 +5,7 @@
 	species_name = "album mortis"
 	name = "destroying angel"
 	icon_state = "destroying_angel"
+	seed_icon_state = "mycelium-angel"
 	fruit_product = /obj/item/food/grown/mushroom/angel
 	total_volume = PLANT_FRUIT_VOLUME_MICRO
 	growth_time = PLANT_FRUIT_GROWTH_FAST
@@ -20,6 +21,7 @@
 	icon_state = "fly"
 	colour_overlay = "fly_colour"
 	colour_override = "#ff0000"
+	seed_icon_state = "mycelium-amanita"
 	fruit_product = /obj/item/food/grown/mushroom/amanita
 	total_volume = PLANT_FRUIT_VOLUME_MICRO
 	growth_time = PLANT_FRUIT_GROWTH_FAST

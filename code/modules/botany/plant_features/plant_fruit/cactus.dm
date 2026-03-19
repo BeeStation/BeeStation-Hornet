@@ -4,9 +4,10 @@
 */
 /datum/plant_feature/fruit/cactus
 	species_name = "spinis fructificatio"
-	name = "cactus"
+	name = "ash cactus"
 	icon_state = "cactus_lava"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-cactus"
 	fruit_product = /obj/item/food/grown/ash_flora/cactus_fruit
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin, /datum/plant_trait/fruit/spikey)
 	fast_reagents = list(/datum/reagent/consumable/vitfro = PLANT_REAGENT_MEDIUM)
@@ -17,5 +18,6 @@
 	whitelist_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/tuber)
 
 /datum/plant_feature/fruit/cactus/kirby
-	species_name = "spinis fructificatio SP I"
+	name = "cactus"
+	species_name = "spinis fructificatio sp."
 	icon_state = "cactus_1"

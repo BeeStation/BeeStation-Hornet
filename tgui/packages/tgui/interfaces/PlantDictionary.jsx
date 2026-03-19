@@ -400,15 +400,15 @@ const InspectionPanelFeature = (props) => {
                   {chapters['plants'][plant_key]
                     ? `${chapters['plants'][plant_key]['name']} (found in)`
                     : `${
-                        chapters['features']['/datum/plant_feature/fruit'][
+                        (chapters['features']['/datum/plant_feature/fruit'][
                           plant_key
-                        ]['stats']['name'] ||
-                        chapters['features']['/datum/plant_feature/body'][
+                        ] ? chapters['features']['/datum/plant_feature/fruit'][plant_key]['stats']['name'] : 0) ||
+                        (chapters['features']['/datum/plant_feature/body'][
                           plant_key
-                        ]['stats']['name'] ||
-                        chapters['features']['/datum/plant_feature/roots'][
+                        ] ? chapters['features']['/datum/plant_feature/body'][plant_key]['stats']['name'] : 0) ||
+                        (chapters['features']['/datum/plant_feature/roots'][
                           plant_key
-                        ]['stats']['name']
+                        ] ? chapters['features']['/datum/plant_feature/roots'][plant_key]['stats']['name'] : 0)
                       } (mutates from)`}
                 </Button>
               ))

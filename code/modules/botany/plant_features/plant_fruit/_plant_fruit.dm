@@ -46,6 +46,10 @@
 	///List of reagents this fruit has. Saves us making a unique trait for each one. (reagent = percentage)
 	var/list/fast_reagents = list()
 
+	///What seed icon does this fruit use
+	var/seed_icon = 'icons/obj/hydroponics/features/seeds.dmi'
+	var/seed_icon_state = "base"
+
 /datum/plant_feature/fruit/New(datum/component/plant/_parent)
 #ifdef LOWMEMORYMODE
 	growth_time *= 0.1
@@ -69,6 +73,11 @@
 	. = ..()
 	if(!catch_attack_hand(src, null) && parent)
 		SEND_SIGNAL(parent, COMSIG_PLANT_ACTION_HARVEST, src, null, TRUE)
+
+/datum/plant_feature/fruit/associate_seeds(obj/item/plant_seeds/seeds)
+	. = ..()
+	seeds.icon = seed_icon
+	seeds.icon_state = seed_icon_state
 
 /datum/plant_feature/fruit/get_scan_dialogue()
 	. = ..()

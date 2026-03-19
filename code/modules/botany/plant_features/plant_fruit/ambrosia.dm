@@ -6,6 +6,7 @@
 	name = "ambrosia vulgaris"
 	icon_state = "ambrosia"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-ambrosiavulgaris"
 	fruit_product = /obj/item/food/grown/ambrosia
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin, /datum/plant_trait/nectar)
 	fast_reagents = list(/datum/reagent/medicine/bicaridine = PLANT_REAGENT_SMALL, /datum/reagent/medicine/kelotane = PLANT_REAGENT_SMALL, /datum/reagent/drug/space_drugs = PLANT_REAGENT_SMALL, /datum/reagent/toxin = PLANT_REAGENT_SMALL)
@@ -22,6 +23,7 @@
 	name = "ambrosia deus"
 	icon_state = "ambrosia_2"
 	colour_override = "#075f6b"
+	seed_icon_state = "seed-ambrosiadeus"
 	fruit_product = /obj/item/food/grown/ambrosia/deus
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/medicine/synaptizine = PLANT_REAGENT_SMALL, /datum/reagent/medicine/omnizine = PLANT_REAGENT_SMALL, /datum/reagent/drug/space_drugs = PLANT_REAGENT_SMALL)
@@ -34,6 +36,7 @@
 	species_name = "folium aurum"
 	name = "ambrosia gaia"
 	icon_state = "ambrosia_2"
+	seed_icon_state = "seed-ambrosia_gaia"
 	fruit_product = /obj/item/food/grown/ambrosia/gaia
 	genetic_budget = 3
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)

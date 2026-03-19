@@ -74,9 +74,12 @@
 	growth_stages = 4
 	growth_prefix = "tree"
 	overlay_positions = list(list(10, 15), list(10, 21), list(11, 18), list(14, 20), list(13, 17), list(15, 15), list(13, 12), list(17, 16), list(25, 18), list(29, 14), list(25, 15), list(20, 10))
+	mutations = list(/datum/plant_feature/body/bush_vine/grape/cousin)
 
 /datum/plant_feature/body/bush_vine/grape/cousin
 	icon_state = "grape_vine"
+	name = "grape vine sp."
+	species_name = "uva arbor sp."
 
 /*
 	Ambrosia bush
@@ -121,13 +124,17 @@
 	layer_offset = 0
 	slot_size = PLANT_BODY_SLOT_SIZE_MEDIUM
 
-/datum/plant_feature/body/bush_vine/nettle/death //This is just a legacy thing, don't bother giving it a unique name or stats
-	name = "big_fingers_3"
+/datum/plant_feature/body/bush_vine/nettle/death //This is just a legacy thing dont bother with unique stats
+	name = "nettle bush sp."
+	species_name = "aculeatum rubi sp."
+	icon_state = "big_fingers_3"
 	mutations = list(/datum/plant_feature/body/bush_vine/nettle)
 
 /datum/plant_feature/body/bush_vine/nettle/thistle
 	name = "thistle bush"
+	species_name = "aculeatum rubi sp."
 	icon_state = "big_fingers_2"
+	mutations = list()
 
 /*
 	Ivy

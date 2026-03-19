@@ -6,6 +6,7 @@
 	name = "onion"
 	icon_state = "garlic"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-onion"
 	fruit_product = /obj/item/food/grown/onion
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
@@ -19,7 +20,8 @@
 	species_name = "cepa clamare"
 	name = "red onion"
 	icon_state = "garlic"
-	colour_override = "#ff004c"
+	colour_override = "#ffa1eb"
+	seed_icon_state = "seed-onionred"
 	fruit_product = /obj/item/food/grown/onion/red
 	fast_reagents = list(/datum/reagent/consumable/tearjuice = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/onion)

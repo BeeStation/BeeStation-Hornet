@@ -6,6 +6,7 @@
 	name = "carrot"
 	icon_state = "carrot"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-carrot"
 	fruit_product = /obj/item/food/grown/carrot
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/medicine/oculine = PLANT_REAGENT_MEDIUM)
@@ -20,6 +21,7 @@
 	species_name = "carota pastinaca"
 	name = "parsnip"
 	icon_state = "parsnip"
+	seed_icon_state = "seed-parsnip"
 	fruit_product = /obj/item/food/grown/parsnip
 	fast_reagents = list()
 	mutations = list(/datum/plant_feature/fruit/carrot)

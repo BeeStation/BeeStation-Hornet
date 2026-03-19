@@ -7,6 +7,7 @@
 	icon_state = "pod"
 	icon_uneven = TRUE
 	colour_override = "#7d9e48"
+	seed_icon_state = "seed-kudzu"
 	fruit_product = /obj/item/food/grown/kudzupod
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment)
 	fast_reagents = list(/datum/reagent/medicine/charcoal = PLANT_REAGENT_SMALL)

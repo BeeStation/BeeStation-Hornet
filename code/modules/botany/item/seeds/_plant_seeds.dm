@@ -4,7 +4,7 @@
 /obj/item/plant_seeds
 	name = "seeds"
 	icon = 'icons/obj/hydroponics/features/seeds.dmi'
-	icon_state = "base"
+	icon_state = "base" //Although fruit sets the icon state, roundstart seeds / preset will need it set for caching to work - Non-vendor seeds probably dont need this
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	tool_behaviour = TOOL_SEED

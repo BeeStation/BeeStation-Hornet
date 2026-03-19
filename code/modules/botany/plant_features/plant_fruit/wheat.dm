@@ -6,6 +6,7 @@
 	name = "wheat"
 	icon_state = "wheat"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-wheat"
 	fruit_product = /obj/item/food/grown/wheat
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment)
 	total_volume = PLANT_FRUIT_VOLUME_MICRO
@@ -20,6 +21,7 @@
 	name = "oat"
 	icon_state = "corn-2"
 	colour_override = "#48923e"
+	seed_icon_state = "seed-oat"
 	fruit_product = /obj/item/food/grown/oat
 	mutations = list(/datum/plant_feature/fruit/wheat/meat = 10)
 
@@ -31,5 +33,6 @@
 	name = "meat"
 	icon_state = "corn-2"
 	colour_override = "#ff0000"
+	seed_icon_state = "seed-meatwheat"
 	fruit_product = /obj/item/food/grown/meatwheat
 	mutations = list(/datum/plant_feature/fruit/wheat)

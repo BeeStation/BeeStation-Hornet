@@ -6,6 +6,7 @@
 	name = "cannabis" //All cannabis leafs have the same name, only observant people will tell their strains apart
 	icon_state = "cannabis"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-cannabis"
 	fruit_product = /obj/item/food/grown/cannabis
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
@@ -17,8 +18,10 @@
 */
 /datum/plant_feature/fruit/cannabis/death
 	species_name = "mors folium"
+	name = "cannabis sp."
 	icon_state = "cannabis-2"
 	colour_override = "#918181"
+	seed_icon_state = "seed-blackcannabis"
 	fruit_product = /obj/item/food/grown/cannabis/death
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/cyanide = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/cannabis/life = 10)
@@ -28,8 +31,10 @@
 */
 /datum/plant_feature/fruit/cannabis/life
 	species_name = "vita folium"
+	name = "cannabis sp."
 	icon_state = "cannabis-2"
 	colour_override = "#deecd3"
+	seed_icon_state = "seed-whitecannabis"
 	fruit_product = /obj/item/food/grown/cannabis/white
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM, /datum/reagent/medicine/omnizine = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/cannabis/rainbow = 15)
@@ -40,7 +45,9 @@
 /datum/plant_feature/fruit/cannabis/rainbow
 	species_name = "iris folium"
 	icon_state = "cannabis-2"
+	name = "cannabis sp."
 	colour_override = "#ff0000"
+	seed_icon_state = "seed-megacannabis"
 	fruit_product = /obj/item/food/grown/cannabis/rainbow
 	fast_reagents = list(/datum/reagent/toxin/mindbreaker = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/cannabis/omega = 20)
@@ -59,7 +66,9 @@
 /datum/plant_feature/fruit/cannabis/omega
 	species_name = "omega folium"
 	icon_state = "cannabis-2"
+	name = "cannabis sp."
 	colour_override = "#15ff00"
+	seed_icon_state = "seed-ocannabis"
 	genetic_budget = 4
 	fruit_product = /obj/item/food/grown/cannabis/ultimate
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MICRO, /datum/reagent/toxin/mindbreaker = PLANT_REAGENT_MICRO, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MICRO, /datum/reagent/mercury = PLANT_REAGENT_MICRO,

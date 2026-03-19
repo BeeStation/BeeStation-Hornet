@@ -6,6 +6,7 @@
 	name = "orange"
 	icon_state = "orange"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-orange"
 	fruit_product = /obj/item/food/grown/citrus/orange
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
@@ -19,6 +20,7 @@
 	species_name = "citrum veritas"
 	name = "extradimensional orange"
 	icon_state = "orange_3D"
+	seed_icon_state = "seed-orange_3D"
 	genetic_budget = 4
 	fruit_product = /obj/item/food/grown/citrus/orange_3d
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,

@@ -6,6 +6,7 @@
 	name = "watermelon"
 	icon_state = "watermelon"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-watermelon"
 	fruit_product = /obj/item/food/grown/watermelon
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment/large, /datum/plant_trait/reagent/fruit/vitamin/large)
 	fast_reagents = list(/datum/reagent/water = PLANT_REAGENT_MEDIUM)
@@ -22,6 +23,7 @@
 	name = "holy watermelon"
 	icon_state = "watermelon-2"
 	colour_override = "#ff0"
+	seed_icon_state = "seed-holymelon"
 	genetic_budget = 3
 	fruit_product = /obj/item/food/grown/holymelon
 	plant_traits = list(/datum/plant_trait/fruit/biolight/yellow)
@@ -36,7 +38,8 @@
 	species_name = "pepo volare"
 	name = "ballolon"
 	icon_state = "watermelon-2"
-	colour_override = "#ff0048"
+	colour_override = "#ad002b"
+	seed_icon_state = "seed-ballolon"
 	fruit_product = /obj/item/food/grown/ballolon
 	plant_traits = list(/datum/plant_trait/fruit/gaseous)
 	fast_reagents = list(/datum/reagent/hydrogen = PLANT_REAGENT_MEDIUM, /datum/reagent/oxygen = PLANT_REAGENT_MEDIUM)

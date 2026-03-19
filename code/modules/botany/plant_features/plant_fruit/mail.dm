@@ -5,6 +5,7 @@
 	species_name = "littera fructum"
 	name = "mail"
 	icon_state = "mail"
+	seed_icon_state = "seed-mail"
 	fruit_product = /obj/item/mail
 	growth_time = PLANT_FRUIT_GROWTH_SLOW
 	colour_override = list("#DA0000", "#FF9300", "#FFF200", "#A8E61D", "#00B7EF", "#DA00FF", "#1C1C1C", "#FFFFFF")

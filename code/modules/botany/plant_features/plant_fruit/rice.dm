@@ -6,6 +6,7 @@
 	name = "rice"
 	icon_state = "corn-2"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-rice"
 	fruit_product = /obj/item/food/grown/rice
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment)
 	fast_reagents = list(/datum/reagent/consumable/rice = PLANT_REAGENT_MEDIUM)

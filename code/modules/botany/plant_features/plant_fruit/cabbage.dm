@@ -7,6 +7,7 @@
 	name = "cabbage"
 	icon_state = "cabbage"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-cabbage"
 	fruit_product = /obj/item/food/grown/cabbage
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	total_volume = PLANT_FRUIT_VOLUME_MEDIUM
@@ -20,6 +21,7 @@
 	species_name = "brassica homo"
 	name = "diona pod"
 	icon_state = "invincible"
+	seed_icon_state = "seed-dionapod"
 	fruit_product = /mob/living/simple_animal/hostile/retaliate/nymph
 	can_copy = FALSE
 	can_remove = FALSE

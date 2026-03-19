@@ -7,6 +7,7 @@
 	icon_state = "citrus"
 	icon_uneven = TRUE
 	colour_override = "#ffe600"
+	seed_icon_state = "seed-lemon"
 	fruit_product = /obj/item/food/grown/citrus/lemon
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
@@ -21,6 +22,7 @@
 	name = "lime"
 	icon_state = "citrus"
 	colour_override = "#2bff00"
+	seed_icon_state = "seed-lime"
 	fruit_product = /obj/item/food/grown/citrus
 	mutations = list(/datum/plant_feature/fruit/lemon/combustible = 20)
 
@@ -32,6 +34,7 @@
 	name = "combustible lemon"
 	icon_state = "citrus"
 	colour_override = "#ff3c00"
+	seed_icon_state = "seed-firelemon"
 	fruit_product = /obj/item/food/grown/firelemon
 	plant_traits = list(/datum/plant_trait/fruit/temperature, /datum/plant_trait/fruit/liquid_contents/sensitive)
 	fast_reagents = list(/datum/reagent/sulfur = PLANT_REAGENT_SMALL, /datum/reagent/medicine/charcoal = PLANT_REAGENT_MEDIUM,

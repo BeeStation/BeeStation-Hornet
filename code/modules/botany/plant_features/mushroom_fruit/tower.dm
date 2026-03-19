@@ -7,6 +7,7 @@
 	icon_state = "tower"
 	colour_overlay = "tower_colour"
 	colour_override = "#57a02c"
+	seed_icon_state = "mycelium-tower"
 	fruit_product = /obj/item/grown/log
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	growth_time = PLANT_FRUIT_GROWTH_MEDIUM
@@ -34,6 +35,7 @@
 	species_name = "ferro fungus"
 	name = "steel-cap"
 	colour_override = "#ffee00"
+	seed_icon_state = "mycelium-steelcap"
 	fruit_product = /obj/item/grown/log/steel
 	fast_reagents = list(/datum/reagent/iron = PLANT_REAGENT_LARGE)
 	mutations = list(/datum/plant_feature/fruit/mushroom/tower)

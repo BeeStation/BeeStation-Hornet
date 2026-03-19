@@ -6,6 +6,7 @@
 	name = "eggplant"
 	icon_state = "eggplant"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-eggplant"
 	fruit_product = /obj/item/food/grown/eggplant
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
@@ -19,5 +20,6 @@
 	species_name = "aubergine ovum"
 	name = "egg-plant"
 	icon_state = "eggplant-2"
+	seed_icon_state = "seed-eggy"
 	fruit_product = /obj/item/food/grown/shell/eggy
 	mutations = list(/datum/plant_feature/fruit/eggplant)

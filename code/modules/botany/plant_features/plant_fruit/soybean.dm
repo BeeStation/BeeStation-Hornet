@@ -7,6 +7,7 @@
 	icon_state = "pod"
 	icon_uneven = TRUE
 	colour_override = "#95d94d"
+	seed_icon_state = "seed-soybean"
 	fruit_product = /obj/item/food/grown/soybeans
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = PLANT_REAGENT_MEDIUM)
@@ -22,6 +23,7 @@
 	name = "koibean"
 	icon_state = "pod"
 	colour_override = "#d4d94d"
+	seed_icon_state = "seed-koibean"
 	fruit_product = /obj/item/food/grown/koibeans
 	fast_reagents = list(/datum/reagent/toxin/carpotoxin = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/soybean)

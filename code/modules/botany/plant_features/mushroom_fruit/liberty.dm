@@ -6,7 +6,8 @@
 	name = "liberty-cap"
 	icon_state = "cap"
 	colour_overlay = "cap_colour"
-	colour_override = "#ff0"
+	colour_override = "#ffcf32"
+	seed_icon_state = "mycelium-liberty"
 	fruit_product = /obj/item/food/grown/mushroom/libertycap
 	total_volume = PLANT_FRUIT_VOLUME_MICRO
 	growth_time = PLANT_FRUIT_GROWTH_FAST

@@ -7,6 +7,7 @@
 	name = "forget me not"
 	icon_state = "flower_1"
 	icon_uneven = TRUE
+	seed_icon_state = "seed-forget_me_not"
 	//colour_overlay = "flower_1_colour" //This and colour override are used to make flower's pretty. Keep as examples.
 	fruit_product = /obj/item/food/grown/flower/forgetmenot
 	plant_traits = list(/datum/plant_trait/nectar)
@@ -33,8 +34,9 @@
 	name = "poppy"
 	icon_state = "flower_3"
 	colour_overlay = "flower_3_colour"
-	fruit_product = /obj/item/food/grown/flower/poppy
 	colour_override = "#ee1e1e"
+	seed_icon_state = "seed-poppy"
+	fruit_product = /obj/item/food/grown/flower/poppy
 	fast_reagents = list(/datum/reagent/medicine/bicaridine = PLANT_REAGENT_MEDIUM, /datum/reagent/medicine/morphine = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/flower/geranium, /datum/plant_feature/fruit/flower/lily)
 
@@ -47,8 +49,9 @@
 	name = "geranium"
 	icon_state = "flower_2"
 	colour_overlay = "flower_2_colour"
-	fruit_product = /obj/item/food/grown/flower/geranium
 	colour_override = "#33a4d8"
+	seed_icon_state = "seed-geranium"
+	fruit_product = /obj/item/food/grown/flower/geranium
 	fast_reagents = list(/datum/reagent/medicine/bicaridine = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/flower)
 
@@ -59,6 +62,7 @@
 	species_name = "viriditas flos"
 	name = "harebell"
 	icon_state = "harebell"
+	seed_icon_state = "seed-harebell"
 	fruit_product = /obj/item/food/grown/flower/harebell
 
 /*
@@ -70,8 +74,9 @@
 	name = "lily"
 	icon_state = "flower_2"
 	colour_overlay = "flower_2_colour"
-	fruit_product = /obj/item/food/grown/flower/lily
 	colour_override = "#ee601e"
+	seed_icon_state = "seed-lily"
+	fruit_product = /obj/item/food/grown/flower/lily
 	fast_reagents = list(/datum/reagent/medicine/bicaridine = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/flower/trumpet)
 
@@ -82,6 +87,7 @@
 	species_name = "tubae flos"
 	name = "spaceman's trumpet"
 	icon_state = "trumpet"
+	seed_icon_state = "seed-trumpet"
 	fruit_product = /obj/item/food/grown/flower/trumpet
 	fast_reagents = list(/datum/reagent/medicine/polypyr = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/flower/poppy)
@@ -93,6 +99,7 @@
 	species_name = "sol flos"
 	name = "sun flower"
 	icon_state = "sun"
+	seed_icon_state = "seed-sunflower"
 	fruit_product = /obj/item/grown/sunflower
 	fast_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/flower/nova = 10)
@@ -105,6 +112,7 @@
 	name = "nova flower"
 	icon_state = "sun_colour"
 	colour_override = "#ff4800"
+	seed_icon_state = "seed-novaflower"
 	fruit_product = /obj/item/grown/novaflower
 	fast_reagents = list(/datum/reagent/consumable/condensedcapsaicin = PLANT_REAGENT_MEDIUM, /datum/reagent/consumable/capsaicin = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/flower/moon = 10)
@@ -117,18 +125,10 @@
 	name = "moon flower"
 	icon_state = "sun_colour"
 	colour_override = "#9c90e0"
+	seed_icon_state = "seed-moonflower"
 	fruit_product = /obj/item/food/grown/flower/moonflower
 	fast_reagents = list(/datum/reagent/consumable/ethanol/moonshine = PLANT_REAGENT_MEDIUM, /datum/reagent/acetone = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/flower/sun)
-
-/*
-	Spiral
-*/
-/datum/plant_feature/fruit/flower/spiral
-	species_name = "sol flos sp I"
-	name = "spiral flower"
-	icon_state = "spiral"
-	fruit_product = null
 
 /*
 	Rainbow Flower
@@ -138,8 +138,19 @@
 	name = "rainbow flower"
 	icon_state = "flower_1"
 	colour_overlay = "flower_1_colour"
+	seed_icon_state = "seed-rainbowbunch"
 	fruit_product = /obj/item/food/grown/flower/rainbow
 	colour_override = list("#DA0000", "#FF9300", "#FFF200", "#A8E61D", "#00B7EF", "#DA00FF", "#1C1C1C", "#FFFFFF")
+
+/*
+	Spiral
+*/
+/datum/plant_feature/fruit/flower/spiral
+	species_name = "sol flos sp I"
+	name = "spiral flower"
+	icon_state = "spiral"
+	seed_icon_state = "seed-kirby"
+	fruit_product = null
 
 /*
 	Orb
@@ -148,8 +159,9 @@
 	species_name = "sol flos sp II"
 	name = "glow flower"
 	icon_state = "orb"
-	fruit_product = null
 	colour_override = "#FFF993"
+	seed_icon_state = "seed-kirby"
+	fruit_product = null
 
 /datum/plant_feature/fruit/flower/orb/New(datum/component/plant/_parent)
 	. = ..()
