@@ -62447,6 +62447,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = -28;
+	pixel_y = 6
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "wxD" = (
