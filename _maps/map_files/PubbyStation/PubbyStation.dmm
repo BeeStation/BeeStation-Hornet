@@ -1001,7 +1001,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "arg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -3603,7 +3603,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "bfN" = (
 /obj/structure/cable/yellow{
@@ -3669,7 +3669,6 @@
 	dir = 4
 	},
 /obj/structure/cable/cyan,
-/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "bhm" = (
@@ -4032,7 +4031,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "bmM" = (
 /obj/machinery/hydroponics/constructable,
@@ -7014,7 +7013,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/light/directional/south,
 /obj/machinery/power/apc/auto_name/directional/south,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "crI" = (
 /obj/machinery/power/apc{
@@ -10040,7 +10039,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "dtp" = (
 /obj/structure/sign/departments/xenobio{
@@ -12455,7 +12454,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "ena" = (
 /obj/item/clothing/under/costume/kimono,
@@ -14274,7 +14273,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "eTg" = (
 /obj/effect/turf_decal/siding/wood{
@@ -19343,9 +19342,12 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "gDi" = (
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable/yellow,
-/obj/structure/lattice/catwalk,
+/obj/machinery/power/smes/engineering{
+	pixel_x = 0.1;
+	pixel_y = 0.1;
+	output_level = 80000
+	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "gDK" = (
@@ -22356,7 +22358,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "PA2"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "hJq" = (
 /turf/open/floor/engine,
@@ -31581,7 +31583,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "kXy" = (
 /obj/machinery/door/airlock{
@@ -32628,10 +32630,10 @@
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai)
 "lpS" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/tcommsat/computer)
 "lqn" = (
@@ -34308,7 +34310,7 @@
 /obj/machinery/field/generator,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light/directional/north,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "lYS" = (
 /obj/machinery/computer/cargo/request{
@@ -41112,7 +41114,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "PA2"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "oKr" = (
 /obj/machinery/door/poddoor/preopen{
@@ -41214,7 +41216,7 @@
 /turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "oMm" = (
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "oMG" = (
 /turf/closed/wall/r_wall,
@@ -42048,7 +42050,7 @@
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /obj/item/circuitboard/machine/shuttle/heater,
 /obj/item/circuitboard/computer/shuttle/flight_control,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "peW" = (
 /obj/structure/cable/yellow{
@@ -42563,7 +42565,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "prh" = (
 /turf/open/floor/iron/cafeteria,
@@ -45487,7 +45489,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "qtl" = (
 /obj/structure/table/reinforced,
@@ -46864,7 +46866,7 @@
 	charge = 1.75e+006
 	},
 /obj/structure/cable/yellow,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "qTd" = (
 /obj/structure/disposalpipe/segment{
@@ -47717,7 +47719,7 @@
 /obj/machinery/camera/directional/west{
 	c_tag = "Engineering - Dock Storage"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "rmw" = (
 /obj/structure/cable/yellow{
@@ -48200,7 +48202,7 @@
 "rvy" = (
 /obj/machinery/field/generator,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "rvI" = (
 /obj/machinery/door/airlock/maintenance,
@@ -48276,7 +48278,7 @@
 	id = "PA";
 	name = "Shutter button"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "rwz" = (
 /obj/structure/chair/stool,
@@ -48938,7 +48940,7 @@
 	id = "PA2";
 	name = "Shutter button"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "rIS" = (
 /obj/machinery/navbeacon{
@@ -54034,10 +54036,11 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "tyS" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/iron,
-/area/engine/engineering)
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/iron/white/textured_large,
+/area/medical/chemistry)
 "tyW" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
@@ -54162,7 +54165,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "tBD" = (
 /obj/machinery/vending/cola,
@@ -60148,7 +60151,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "PA2"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "vHQ" = (
 /turf/open/floor/iron,
@@ -60476,7 +60479,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "vMV" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -61781,7 +61784,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "wlB" = (
 /obj/effect/turf_decal/tile/blue{
@@ -62021,14 +62024,11 @@
 /area/security/prison)
 "wqF" = (
 /obj/structure/closet/crate/radiation,
-/obj/effect/spawner/random/engineering/material_rare,
 /obj/effect/spawner/random/engineering/material_cheap,
 /obj/effect/spawner/random/engineering/material_cheap,
 /obj/effect/spawner/random/engineering/material_cheap,
-/obj/effect/spawner/random/engineering/material,
 /obj/item/survivalcapsule/shuttle_husk,
-/obj/effect/spawner/random/engineering/material,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/engine/engine_room/external)
 "wqJ" = (
 /obj/structure/flora/grass/jungle,
@@ -63259,11 +63259,10 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room/external)
 "wPJ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/iron/white/textured_large,
-/area/medical/chemistry)
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "wPQ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -81822,7 +81821,7 @@ nnx
 nnx
 nnx
 ajY
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -83692,7 +83691,7 @@ nnx
 nnx
 nnx
 nnx
-cJr
+nnx
 nnx
 nnx
 nnx
@@ -92872,7 +92871,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -95452,7 +95451,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -95525,7 +95524,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -99724,7 +99723,7 @@ wYm
 iOM
 hhg
 hhg
-wPJ
+tyS
 pWk
 ery
 hyl
@@ -99981,7 +99980,7 @@ iSJ
 tsq
 qGZ
 fND
-wPJ
+tyS
 kXY
 eHl
 oUe
@@ -101351,7 +101350,7 @@ nnx
 nnx
 jkp
 qrh
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -101557,7 +101556,7 @@ azz
 kMc
 azE
 gwV
-tyS
+wPJ
 thW
 klv
 eUq
@@ -101814,7 +101813,7 @@ ncv
 tPL
 dGp
 dGp
-tyS
+wPJ
 kgT
 rFa
 mdj
@@ -102373,7 +102372,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -103472,7 +103471,7 @@ iQE
 iQE
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -105289,7 +105288,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -107591,7 +107590,7 @@ iQE
 iQE
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -108867,7 +108866,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -109912,7 +109911,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -111984,7 +111983,6 @@ nnx
 nnx
 nnx
 nnx
-ajY
 nnx
 nnx
 nnx
@@ -111999,7 +111997,8 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
+nnx
 nnx
 nnx
 nnx
@@ -112927,7 +112926,7 @@ nnx
 nnx
 nnx
 nnx
-cJr
+nnx
 nnx
 nnx
 nnx
@@ -117278,7 +117277,7 @@ nnx
 nnx
 nnx
 nnx
-cJr
+vuQ
 nnx
 nnx
 nnx
@@ -119800,7 +119799,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -122524,7 +122523,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -123389,7 +123388,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
@@ -130221,7 +130220,7 @@ nnx
 nnx
 nnx
 nnx
-ajY
+nnx
 nnx
 nnx
 nnx
