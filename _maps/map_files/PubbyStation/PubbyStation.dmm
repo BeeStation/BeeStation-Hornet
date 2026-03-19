@@ -41958,7 +41958,7 @@
 	},
 /obj/item/paper/crumpled/bloody{
 	color = "#FF0000";
-	default_raw_text = "Your Station has been Supplied with Additional rienforcments and fortifications due to an increase in theft from independant merchants, Still remain vigilant in regards of combined Nanotrasen raids within the region";
+	default_raw_text = "Your Station has been Supplied with Additional rienforcments and fortifications due to an increase in theft from independant felind merchants, Still remain vigilant in regards of combined Nanotrasen raids within the region";
 	name = "Syndicate Notice"
 	},
 /turf/open/floor/iron/dark,
@@ -46615,7 +46615,7 @@
 	dir = 1
 	},
 /turf/open/space,
-/area/space/nearstation)
+/area/engine/atmos)
 "qPC" = (
 /obj/effect/landmark/loneops,
 /turf/open/space/basic,
@@ -61633,7 +61633,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/space/nearstation)
+/area/engine/atmos)
 "wgV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/bridge_pipe{
