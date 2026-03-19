@@ -163,3 +163,5 @@
 2026-03-19:
   Isaacnml:
   - bugfix: The syndicate has fixed their chameleon technology for engineering models
+  WhiskeyMarten:
+  - bugfix: Replaced improper marker beacons on Cardinal with the correct variant.
