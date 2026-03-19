@@ -15001,6 +15001,11 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics/cloning)
+"fgk" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "fgn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -35896,6 +35901,7 @@
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
 "mEH" = (
@@ -54020,10 +54026,11 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "tyS" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/iron,
-/area/engine/engineering)
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/iron/white/textured_large,
+/area/medical/chemistry)
 "tyW" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
@@ -63245,11 +63252,15 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room/external)
 "wPJ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 5
 	},
-/turf/open/floor/iron/white/textured_large,
-/area/medical/chemistry)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/red/warning{
+	dir = 5
+	},
+/turf/open/floor/iron/dark,
+/area/syndicate_sat)
 "wPQ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -99710,7 +99721,7 @@ wYm
 iOM
 hhg
 hhg
-wPJ
+tyS
 pWk
 ery
 hyl
@@ -99967,7 +99978,7 @@ iSJ
 tsq
 qGZ
 fND
-wPJ
+tyS
 kXY
 eHl
 oUe
@@ -101543,7 +101554,7 @@ azz
 kMc
 azE
 gwV
-tyS
+fgk
 thW
 klv
 eUq
@@ -101800,7 +101811,7 @@ ncv
 tPL
 dGp
 dGp
-tyS
+fgk
 kgT
 rFa
 mdj
@@ -122743,7 +122754,7 @@ usf
 eYX
 twn
 mnH
-hhI
+wPJ
 mEw
 nCX
 kPy
