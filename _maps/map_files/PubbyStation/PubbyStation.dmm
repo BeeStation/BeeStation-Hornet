@@ -17991,6 +17991,11 @@
 /obj/structure/sign/departments/minsky/research/genetics,
 /turf/closed/wall,
 /area/medical/genetics)
+"gds" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "gdG" = (
 /obj/machinery/light/small,
 /obj/structure/cable/yellow{
@@ -48959,7 +48964,8 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/science/mixing)
 "rJK" = (
-/obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /turf/open/floor/plating/airless,
 /area/chapel/dock)
 "rJU" = (
@@ -49398,6 +49404,7 @@
 	name = "Pod Docking Bay"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating/airless,
 /area/chapel/dock)
 "rPI" = (
@@ -66802,11 +66809,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"xQm" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "xQt" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/closet/radiation,
@@ -101543,7 +101545,7 @@ azz
 kMc
 azE
 gwV
-xQm
+gds
 thW
 klv
 eUq
@@ -101800,7 +101802,7 @@ ncv
 tPL
 dGp
 dGp
-xQm
+gds
 kgT
 rFa
 mdj
