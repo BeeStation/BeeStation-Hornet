@@ -1758,7 +1758,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/quartermaster/storage)
 "aCG" = (
 /obj/structure/flora/rock,
@@ -5110,7 +5110,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/tcommsat/computer)
 "bIt" = (
 /obj/structure/cable/yellow{
@@ -5390,7 +5390,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/plating/airless,
 /area/tcommsat/computer)
 "bPg" = (
 /obj/structure/cable/yellow{
@@ -5945,7 +5945,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/maintenance/department/cargo)
 "bYm" = (
 /obj/structure/flora/rock,
@@ -6639,7 +6639,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/science/shuttledock)
 "cmc" = (
 /obj/machinery/vending/wardrobe/law_wardrobe,
@@ -8214,7 +8214,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/ordnance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/science/mixing)
 "cNR" = (
 /obj/structure/chair{
@@ -15092,7 +15092,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/tcommsat/computer)
 "fhM" = (
 /obj/structure/cable{
@@ -17422,7 +17422,7 @@
 	name = "Escape Pod"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/crew_quarters/dorms)
 "fWr" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -17502,7 +17502,7 @@
 /obj/machinery/door/airlock/arrivals_external{
 	name = "Arrivals Airlock"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "fXC" = (
 /obj/structure/fluff/paper{
@@ -18305,7 +18305,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/chapel/dock)
 "gjH" = (
 /obj/effect/turf_decal/siding/thinplating/dark,
@@ -22592,7 +22592,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/maintenance/department/cargo)
 "hOB" = (
 /obj/structure/table/reinforced,
@@ -22928,7 +22928,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/quartermaster/storage)
 "hUF" = (
 /obj/structure/sink{
@@ -28802,7 +28802,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "kbL" = (
 /obj/structure/table,
@@ -31217,7 +31217,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "kSN" = (
 /obj/item/gps{
@@ -32477,7 +32477,7 @@
 "lmj" = (
 /obj/structure/closet/emcloset/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron/dark/smooth_large,
+/turf/open/floor/plating/airless,
 /area/engine/engineering)
 "lmq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -33180,7 +33180,7 @@
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 8
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/quartermaster/storage)
 "lCS" = (
 /obj/structure/cable/yellow{
@@ -33732,7 +33732,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/engine/engineering)
 "lNF" = (
 /obj/machinery/air_sensor/plasma_tank,
@@ -36664,7 +36664,7 @@
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "mRk" = (
 /obj/effect/turf_decal/stripes/line{
@@ -37412,7 +37412,7 @@
 /obj/effect/landmark/navigate_destination,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "ngR" = (
 /obj/machinery/atmospherics/components/tank/air,
@@ -37450,7 +37450,7 @@
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "nhx" = (
 /obj/machinery/computer/security/mining,
@@ -39709,7 +39709,7 @@
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 8
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/quartermaster/miningdock)
 "ogw" = (
 /obj/machinery/newscaster,
@@ -40211,7 +40211,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/crew_quarters/dorms)
 "oqs" = (
 /obj/structure/bookcase/random/nonfiction,
@@ -40835,7 +40835,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/engine/engineering)
 "oFs" = (
 /obj/machinery/firealarm{
@@ -44889,7 +44889,7 @@
 /area/chapel/main/monastery)
 "qjc" = (
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/crew_quarters/dorms)
 "qjk" = (
 /obj/structure/table/wood,
@@ -46391,7 +46391,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/ordnance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/science/mixing)
 "qLE" = (
 /obj/structure/extinguisher_cabinet{
@@ -47724,6 +47724,11 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
+"rmX" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "rnc" = (
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 8
@@ -47784,7 +47789,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/mapping_helpers/airlock/access/any/supply/general,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/quartermaster/miningdock)
 "roc" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -48956,11 +48961,11 @@
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/science/mixing)
 "rJK" = (
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/chapel/dock)
 "rJU" = (
 /obj/structure/cable/yellow{
@@ -49398,7 +49403,7 @@
 	name = "Pod Docking Bay"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/chapel/dock)
 "rPI" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/carbon_input{
@@ -49419,7 +49424,7 @@
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 8
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/quartermaster/storage)
 "rPX" = (
 /obj/effect/turf_decal/plaque{
@@ -51741,7 +51746,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/engine/engineering)
 "sJM" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -52128,7 +52133,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/science/shuttledock)
 "sQn" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -57643,7 +57648,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/effect/mapping_helpers/airlock/access/any/supply/general,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/quartermaster/miningdock)
 "uSe" = (
 /obj/structure/disposalpipe/segment,
@@ -60886,7 +60891,7 @@
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 8
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/maintenance/department/cargo)
 "vTm" = (
 /turf/closed/wall/r_wall,
@@ -62207,7 +62212,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/tcommsat/computer)
 "wud" = (
 /obj/structure/chair/office{
@@ -62409,7 +62414,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Port Docking Bay 2"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "wxi" = (
 /obj/structure/cable/yellow{
@@ -63778,11 +63783,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/main)
-"wZz" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "wZH" = (
 /turf/closed/wall,
 /area/quartermaster/miningdock)
@@ -63825,7 +63825,7 @@
 /area/security/main)
 "xbw" = (
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "xby" = (
 /obj/item/kirbyplants{
@@ -63874,7 +63874,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "xcm" = (
 /obj/structure/disposalpipe/segment{
@@ -63952,7 +63952,7 @@
 /obj/machinery/door/airlock/arrivals_external{
 	name = "Arrivals Airlock"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/hallway/secondary/entry)
 "xdD" = (
 /obj/machinery/camera/motion/directional/south{
@@ -65734,7 +65734,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/plating/airless,
 /area/science/shuttledock)
 "xCJ" = (
 /obj/machinery/light{
@@ -101543,7 +101543,7 @@ azz
 kMc
 azE
 gwV
-wZz
+rmX
 thW
 klv
 eUq
@@ -101800,7 +101800,7 @@ ncv
 tPL
 dGp
 dGp
-wZz
+rmX
 kgT
 rFa
 mdj
