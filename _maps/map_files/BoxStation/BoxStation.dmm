@@ -32793,7 +32793,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/item/book/manual/wiki/sopmedical,
 /obj/effect/turf_decal/tile/dark_blue,
 /turf/open/floor/iron/dark,
@@ -44344,7 +44344,7 @@
 	pixel_x = -27;
 	pixel_y = 1
 	},
-/mob/living/simple_animal/pet/cat{
+/mob/living/basic/pet/cat{
 	name = "Josito";
 	dir = 4
 	},

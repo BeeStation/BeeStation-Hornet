@@ -33,7 +33,10 @@
 		ShiftClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-		MiddleClickOn(A, params)
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			CtrlMiddleClickOn(A)
+		else
+			MiddleClickOn(A, params)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK))
 		AltClickOn(A)

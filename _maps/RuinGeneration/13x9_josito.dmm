@@ -14,7 +14,7 @@
 /area/ruin/unpowered)
 "i" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/cat{
+/mob/living/basic/pet/cat{
 	name = "Josito";
 	real_name = "Josito";
 	unique_name = 1
