@@ -15002,10 +15002,11 @@
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics/cloning)
 "fgk" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/iron,
-/area/engine/engineering)
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/iron/white/textured_large,
+/area/medical/chemistry)
 "fgn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -19336,10 +19337,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "gDi" = (
-/obj/machinery/power/smes{
-	charge = 5e+006;
-	output_level = 80000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/yellow,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
@@ -39349,6 +39347,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/unlocked,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "nXa" = (
@@ -49835,7 +49834,7 @@
 	dispense_type = /mob/living/carbon/human/species/ipc;
 	name = "Intergrated Chasis fabricator";
 	glass_cost = 50000;
-	iron_cost = 100000;
+	iron_cost = ssss;
 	break_message = "lets out a tiny alarm before falling dark.";
 	desc = "A large, bulky machine that whirs with activity, steam hisses from vents at its sides, a thin worn out label states 'Insert Glass and Iron to Produce Standard Enrichment Center Testing Doll NTAS3'";
 	end_create_message = "slams open, revealing a IPC Chasis!"
@@ -54026,11 +54025,10 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "tyS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/iron/white/textured_large,
-/area/medical/chemistry)
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "tyW" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
@@ -99721,7 +99719,7 @@ wYm
 iOM
 hhg
 hhg
-tyS
+fgk
 pWk
 ery
 hyl
@@ -99978,7 +99976,7 @@ iSJ
 tsq
 qGZ
 fND
-tyS
+fgk
 kXY
 eHl
 oUe
@@ -101554,7 +101552,7 @@ azz
 kMc
 azE
 gwV
-fgk
+tyS
 thW
 klv
 eUq
@@ -101811,7 +101809,7 @@ ncv
 tPL
 dGp
 dGp
-fgk
+tyS
 kgT
 rFa
 mdj
