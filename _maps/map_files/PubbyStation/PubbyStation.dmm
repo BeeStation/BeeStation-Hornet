@@ -5980,7 +5980,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/chem_heater,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/chemistry)
 "bZw" = (
@@ -14998,11 +15001,6 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/genetics/cloning)
-"fgk" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "fgn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -20369,8 +20367,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
+/obj/machinery/chem_heater,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/chemistry)
 "gVU" = (
@@ -23608,10 +23605,11 @@
 /turf/open/floor/iron/dark/textured,
 /area/security/brig/dock)
 "ifc" = (
-/obj/machinery/chem_heater,
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/chemistry)
 "ifi" = (
@@ -41048,12 +41046,9 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "oJo" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/siding/thinplating_new/light/end,
+/obj/machinery/chem_heater,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/chemistry)
 "oJy" = (
@@ -41322,8 +41317,10 @@
 /turf/open/floor/plating,
 /area/security/brig/medbay)
 "oRk" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/chemistry)
 "oRt" = (
@@ -54022,6 +54019,11 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"tyS" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/engine/engineering)
 "tyW" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
@@ -58777,6 +58779,9 @@
 /area/crew_quarters/heads/cmo)
 "vmH" = (
 /obj/machinery/holopad,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/chemistry)
 "vmR" = (
@@ -63241,7 +63246,7 @@
 /area/engine/engine_room/external)
 "wPJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 6
+	dir = 8
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/chemistry)
@@ -99190,7 +99195,7 @@ cSo
 wYm
 fpa
 cmy
-wPJ
+hhg
 oRk
 xwa
 wYo
@@ -99705,7 +99710,7 @@ wYm
 iOM
 hhg
 hhg
-hhg
+wPJ
 pWk
 ery
 hyl
@@ -99962,7 +99967,7 @@ iSJ
 tsq
 qGZ
 fND
-hhg
+wPJ
 kXY
 eHl
 oUe
@@ -101538,7 +101543,7 @@ azz
 kMc
 azE
 gwV
-fgk
+tyS
 thW
 klv
 eUq
@@ -101795,7 +101800,7 @@ ncv
 tPL
 dGp
 dGp
-fgk
+tyS
 kgT
 rFa
 mdj
