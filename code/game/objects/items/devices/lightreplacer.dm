@@ -252,8 +252,8 @@
 			break
 		replaced_any = TRUE
 		if(!proximity)
-			user.Beam(light_fixture, icon_state = "rped_upgrade", time = 5)
-			playsound(src, 'sound/items/pshoom.ogg', 40, 1)
+			user.Beam(light_fixture, icon_state = "rped_upgrade", time = 0.5 SECONDS)
+			playsound(src, 'sound/items/pshoom.ogg', 40, TRUE)
 		ReplaceLight(light_fixture, user)
 	if(!replaced_any)
 		to_chat(user, "\The [src]'s refill light blinks red.")

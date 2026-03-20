@@ -7,7 +7,8 @@
 	anchored = TRUE
 	///cat residing in this house
 	var/mob/living/resident_cat
-	var/exit_timer_id /// The timer details
+	/// The timer details
+	var/exit_timer_id
 
 /obj/structure/cat_house/Initialize(mapload)
 	. = ..()
@@ -16,8 +17,7 @@
 /obj/structure/cat_house/proc/enter_home(datum/source, mob/living/attacker)
 	SIGNAL_HANDLER
 
-	if(isnull(resident_cat) && istype(attacker, /mob/living/basic/pet/cat))
-		resident_cat = attacker
+	if(isnull(resident_cat) && iscat(attacker))
 		attacker.forceMove(src)
 		update_appearance(UPDATE_OVERLAYS)
 
@@ -36,18 +36,16 @@
 			deltimer(exit_timer_id)
 			exit_timer_id = null
 		attacker.forceMove(drop_location())
-		resident_cat = null
 		update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/cat_house/proc/eject_cat()
 	if(isnull(resident_cat))
 		return
-	var/mob/living/cat = resident_cat
-	cat.forceMove(drop_location())
+	resident_cat.forceMove(drop_location())
 
 /obj/structure/cat_house/Entered(atom/movable/mover)
 	. = ..()
-	if(!istype(mover, /mob/living/basic/pet/cat))
+	if(!iscat(mover))
 		return
 	if(isnull(resident_cat))
 		resident_cat = mover
@@ -65,9 +63,8 @@
 
 /obj/structure/cat_house/Destroy()
 	if(!isnull(resident_cat))
-		var/mob/living/cat = resident_cat
-		cat.forceMove(loc)
-	resident_cat = null
+		resident_cat.forceMove(loc)
+		resident_cat = null
 	if(exit_timer_id)
 		deltimer(exit_timer_id)
 		exit_timer_id = null
