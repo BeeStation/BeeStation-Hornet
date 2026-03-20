@@ -922,30 +922,28 @@
 		lying_angle_on_movement(direct)
 	if (buckled && buckled.loc != newloc) //not updating position
 		if (!buckled.anchored)
-			return buckled.Move(newloc, direct, glide_size)
-		else
-			return 0
+			buckled.moving_from_pull = moving_from_pull
+			. = buckled.Move(newloc, direct, glide_size)
+			buckled.moving_from_pull = null
+		return
 
 	var/old_direction = dir
-	var/turf/T = loc
+	var/turf/old_loc = loc
 
 	if(pulling)
 		update_pull_movespeed()
 
 	. = ..()
 
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1 && (pulledby != moving_from_pull))//separated from our puller and not in the middle of a diagonal move.
-		pulledby.stop_pulling()
-	else
-		if(isliving(pulledby))
-			var/mob/living/L = pulledby
-			L.set_pull_offsets(src, pulledby.grab_state)
+	if(moving_diagonally != FIRST_DIAG_STEP && isliving(pulledby))
+		var/mob/living/puller = pulledby
+		puller.set_pull_offsets(src, puller.grab_state)
 
 	if(active_storage && !((active_storage.parent?.resolve() in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE]) || CanReach(active_storage.parent?.resolve(),view_only = TRUE)))
 		active_storage.hide_contents(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
-		makeTrail(newloc, T, old_direction)
+		makeTrail(newloc, old_loc, old_direction)
 
 
 ///Called by mob Move() when the lying_angle is different than zero, to better visually simulate crawling.

@@ -92,15 +92,11 @@
  * M - The mob to be buckled to src
  * force - Set to TRUE to ignore src's can_buckle and M's can_buckle_to
  * check_loc - Set to FALSE to allow buckling from adjacent turfs, or TRUE if buckling is only allowed with src and M on the same turf.
- * buckle_mob_flags- Used for riding cyborgs and humans if we need to reserve an arm or two on either the rider or the ridden mob.
+ * buckle_mob_flags - Used for riding cyborgs and humans if we need to reserve an arm or two on either the rider or the ridden mob.
  */
-/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE, needs_anchored = FALSE)
+/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags = NONE)
 	if(!buckled_mobs)
 		buckled_mobs = list()
-
-	if(!anchored && needs_anchored)
-		to_chat(M, span_warning("Secure [src] first!"))
-		return FALSE
 
 	if(!is_buckle_possible(M, force, check_loc))
 		return FALSE
@@ -119,26 +115,21 @@
 			var/mob/living/L = M.pulledby
 			L.reset_pull_offsets(M, TRUE)
 
-	if (CanPass(M, get_dir(loc, M)))
-		M.Move(loc)
-	else
-		if (!check_loc && M.loc != loc)
-			M.forceMove(loc)
-
 	if(anchored)
 		ADD_TRAIT(M, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
 	if(!length(buckled_mobs))
 		RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	M.set_buckled(src)
+	buckled_mobs |= M
 
+	M.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/restrained/buckled)
+	M.set_glide_size(glide_size)
+
+	M.Move(loc)
 	if(buckle_dir == BUCKLE_MATCH_DIR)
 		M.setDir(dir)
 	else
 		M.setDir(buckle_dir)
-
-	buckled_mobs |= M
-	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
-	M.set_glide_size(glide_size)
 
 	//Something has unbuckled us
 	if(!M.buckled)
@@ -149,7 +140,7 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
 
-/obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, needs_anchored = FALSE)
+/obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags = NONE, needs_anchored = FALSE)
 	. = ..()
 	if(.)
 		if(resistance_flags & ON_FIRE) //Sets the mob on fire if you buckle them to a burning atom/movableect
@@ -174,7 +165,7 @@
 	. = buckled_mob
 	buckled_mob.set_buckled(null)
 	buckled_mob.set_anchored(initial(buckled_mob.anchored))
-	buckled_mob.clear_alert("buckled")
+	buckled_mob.clear_alert(ALERT_BUCKLED)
 	buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.cached_multiplicative_slowdown))
 	buckled_mobs -= buckled_mob
 	if(anchored)

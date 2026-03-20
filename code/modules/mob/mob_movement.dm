@@ -557,7 +557,7 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 			to_chat(feedback_to, span_warning("You couldn't move there!"))
 		return FALSE
 	if(!ventcrawling) //let this be handled in atmosmachinery.dm
-		forceMove(target)
+		return Move(target)
 	else
 		var/obj/machinery/atmospherics/pipe = loc
 		pipe.relaymove(src, dir)
