@@ -180,3 +180,5 @@
       should be placed at
   - code_imp: Light replacer afterattack is more readable and accepts hitting light
       fixtures directly
+  - bugfix: You can buckle onto objects if there's a directional window on the same
+      tile again
