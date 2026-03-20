@@ -252,7 +252,7 @@
 	if(!target.can_buckle_to && !force)
 		return FALSE
 
-	// Check if there's something blocking the way to buckle yourself
+	// Check if there's something blocking the way to buckle
 	var/turf/turf = get_turf(src)
 	if(turf.is_blocked_turf(source_atom = target, ignore_atoms = list(src)))
 		to_chat(target, span_warning("Something is in the way"))
