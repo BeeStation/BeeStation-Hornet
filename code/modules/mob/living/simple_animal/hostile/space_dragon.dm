@@ -72,8 +72,6 @@
 	var/tearing_wall = FALSE
 	/// Whether space dragon is swallowing a body currently
 	var/is_swallowing = FALSE
-	/// The ability to make your sprite smaller
-	var/datum/action/small_sprite/space_dragon/small_sprite
 	/// The color of the space dragon.
 	var/chosen_color
 	/// If the dragon is allowed to summon rifts or not
@@ -82,8 +80,6 @@
 
 /mob/living/simple_animal/hostile/space_dragon/Initialize(mapload)
 	. = ..()
-	small_sprite = new
-	small_sprite.Grant(src)
 	add_traits(list(TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_SPACEWALK), INNATE_TRAIT)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
@@ -175,15 +171,10 @@
 	empty_contents()
 	..()
 	update_dragon_overlay()
-	UnregisterSignal(small_sprite, COMSIG_ACTION_TRIGGER)
 
 /mob/living/simple_animal/hostile/space_dragon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
-	var/was_dead = stat == DEAD
 	. = ..()
 	update_dragon_overlay()
-
-	if (was_dead)
-		RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(update_dragon_overlay))
 
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
 	set waitfor = FALSE
@@ -244,8 +235,6 @@
   */
 /mob/living/simple_animal/hostile/space_dragon/proc/update_dragon_overlay()
 	cut_overlays()
-	if(small_sprite.small)
-		return
 	if(stat == DEAD)
 		var/mutable_appearance/overlay = mutable_appearance(icon, "overlay_dead")
 		overlay.appearance_flags = RESET_COLOR
@@ -417,12 +406,11 @@
 		addtimer(CALLBACK(src, PROC_REF(useGust), FALSE), 1.2 SECONDS)
 		return
 	pixel_y = 0
-	if(!small_sprite.small)
-		icon_state = "spacedragon_gust_2"
-		cut_overlays()
-		var/mutable_appearance/overlay = mutable_appearance(icon, "overlay_gust_2")
-		overlay.appearance_flags = RESET_COLOR
-		add_overlay(overlay)
+	icon_state = "spacedragon_gust_2"
+	cut_overlays()
+	var/mutable_appearance/overlay = mutable_appearance(icon, "overlay_gust_2")
+	overlay.appearance_flags = RESET_COLOR
+	add_overlay(overlay)
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
 	var/list/candidates_flung = list()
 	for (var/turf/epicenter in view(1, usr.loc))

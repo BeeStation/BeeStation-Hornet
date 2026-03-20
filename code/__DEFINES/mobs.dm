@@ -376,8 +376,19 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define JUDGE_IGNOREMONKEYS	(1<<4)
 
 #define SHADOW_SPECIES_LIGHT_THRESHOLD 0.25
-// Offsets defines
 
+#define COOLDOWN_UPDATE_SET_MELEE "set_melee"
+#define COOLDOWN_UPDATE_ADD_MELEE "add_melee"
+#define COOLDOWN_UPDATE_SET_RANGED "set_ranged"
+#define COOLDOWN_UPDATE_ADD_RANGED "add_ranged"
+#define COOLDOWN_UPDATE_SET_ENRAGE "set_enrage"
+#define COOLDOWN_UPDATE_ADD_ENRAGE "add_enrage"
+#define COOLDOWN_UPDATE_SET_CHASER "set_chaser"
+#define COOLDOWN_UPDATE_ADD_CHASER "add_chaser"
+#define COOLDOWN_UPDATE_SET_ARENA "set_arena"
+#define COOLDOWN_UPDATE_ADD_ARENA "add_arena"
+
+// Offsets defines
 #define OFFSET_UNIFORM "uniform"
 #define OFFSET_ID "id"
 #define OFFSET_GLOVES "gloves"
@@ -439,7 +450,13 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define PULL_PRONE_SLOWDOWN 1.5
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
-#define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define SLEEP_CHECK_DEATH(X, A) \
+	sleep(X); \
+	if(QDELETED(A)) return; \
+	if(ismob(A)) { \
+		var/mob/sleep_check_death_mob = A; \
+		if(sleep_check_death_mob.stat == DEAD) return; \
+	}
 
 #define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
 #define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)

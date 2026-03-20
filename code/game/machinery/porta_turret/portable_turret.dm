@@ -710,7 +710,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	check_should_process()
 	return TRUE
 
-/obj/machinery/porta_turret/InterceptClickOn(mob/living/clicker, params, atom/A)
+/obj/machinery/porta_turret/proc/InterceptClickOn(mob/living/clicker, params, atom/A)
 	if(!manual_control)
 		return FALSE
 	if(!can_interact(clicker))

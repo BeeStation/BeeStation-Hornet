@@ -1173,6 +1173,31 @@
 		to_chat(living, span_notice("You manage to get some of the ants off!"))
 		ant_covered.ants_remaining -= 10 // 5 Times more ants removed per second than just waiting in place
 
+/datum/status_effect/rebuked
+	id = "rebuked"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 30 SECONDS
+	tick_interval = 1 SECONDS
+	alert_type = null
+	/// By how much we should increase the attack cooldown
+	var/cd_increase = 2.5
+
+/datum/status_effect/rebuked/on_apply()
+	owner.next_move_modifier *= 2
+	if(ishostile(owner))
+		var/mob/living/simple_animal/hostile/simple_owner = owner
+		simple_owner.ranged_cooldown_time *= cd_increase
+	return TRUE
+
+/datum/status_effect/rebuked/on_remove()
+	. = ..()
+	if(QDELETED(owner))
+		return
+	owner.next_move_modifier *= 0.5
+	if(ishostile(owner))
+		var/mob/living/simple_animal/hostile/simple_owner = owner
+		simple_owner.ranged_cooldown_time /= cd_increase
+
 /datum/status_effect/smoke
 	id = "smoke"
 	duration = STATUS_EFFECT_PERMANENT
@@ -1327,3 +1352,47 @@
 	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
 	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
+
+/datum/status_effect/ice_block_talisman
+	id = "ice_block_talisman"
+	duration = 4 SECONDS
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = /atom/movable/screen/alert/status_effect/ice_block_talisman
+	/// Stored icon overlay for the hit mob, removed when effect is removed
+	var/icon/cube
+
+/datum/status_effect/ice_block_talisman/on_creation(mob/living/new_owner, set_duration)
+	if(isnum(set_duration))
+		duration = set_duration
+	return ..()
+
+/atom/movable/screen/alert/status_effect/ice_block_talisman
+	name = "Frozen Solid"
+	desc = "You're frozen inside an ice cube, and cannot move!"
+	icon_state = "frozen"
+
+/datum/status_effect/ice_block_talisman/on_apply()
+	RegisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(owner_moved))
+	if(!owner.stat)
+		to_chat(owner, span_userdanger("You become frozen in a cube!"))
+	cube = icon('icons/effects/freeze.dmi', "ice_cube")
+	var/list/icon_dimensions = get_icon_dimensions(owner.icon)
+	cube.Scale(icon_dimensions["width"], icon_dimensions["height"])
+	owner.add_overlay(cube)
+	return ..()
+
+/// Blocks movement from the status effect owner
+/datum/status_effect/ice_block_talisman/proc/owner_moved()
+	SIGNAL_HANDLER
+	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
+/datum/status_effect/ice_block_talisman/be_replaced()
+	owner.cut_overlay(cube)
+	UnregisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE)
+	return ..()
+
+/datum/status_effect/ice_block_talisman/on_remove()
+	if(!owner.stat)
+		to_chat(owner, span_notice("The cube melts!"))
+	owner.cut_overlay(cube)
+	UnregisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE)

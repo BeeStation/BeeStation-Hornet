@@ -78,9 +78,7 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
-	for(var/spell in construct_spells)
-		var/datum/action/new_spell = new spell(src)
-		new_spell.Grant(src)
+	grant_actions_by_list(construct_spells)
 
 	var/spellnum = 1
 	for(var/datum/action/spell as anything in actions)

@@ -15,9 +15,11 @@
 	icon_dead = "mook_dead"
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	SET_BASE_PIXEL(-16, -8)
-	maxHealth = 45
-	health = 45
-	melee_damage = 30
+	maxHealth = 150
+	health = 150
+	faction = list(FACTION_MINING, FACTION_NEUTRAL)
+	move_resist = MOVE_FORCE_VERY_STRONG
+	melee_damage = 10
 	ranged = TRUE
 	ranged_cooldown_time = 10
 	pass_flags_self = LETPASSTHROW
@@ -31,8 +33,19 @@
 
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 
+/mob/living/simple_animal/hostile/jungle/mook/Initialize(mapload)
+	. = ..()
+	AddElement(\
+		/datum/element/change_force_on_death,\
+		move_resist = MOVE_RESIST_DEFAULT,\
+	)
+
 /mob/living/simple_animal/hostile/jungle/mook/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+
+	if(.)
+		return TRUE
+
 	if(istype(mover, /mob/living/simple_animal/hostile/jungle/mook))
 		var/mob/living/simple_animal/hostile/jungle/mook/mook_moover = mover
 		if(mook_moover.attack_state == MOOK_ATTACK_ACTIVE && mook_moover.throwing)

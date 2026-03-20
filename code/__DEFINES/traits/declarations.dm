@@ -245,6 +245,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait that prevents you from being moved when pulled.
 #define TRAIT_NO_MOVE_PULL "no_move_pull"
 #define TRAIT_SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
+
+/// Whether we're sneaking, from the creature sneak ability.
+#define TRAIT_SNEAK "sneaking_creatures"
+
 /// If applied to a mob, nearby dogs will have a small chance to nonharmfully harass said mob
 #define TRAIT_HATED_BY_DOGS "hated_by_dogs"
 #define TRAIT_BALLMER_SCIENTIST "ballmer_scientist"
@@ -253,9 +257,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
-/// Whether we're sneaking, from the alien sneak ability.
-/// Maybe worth generalizing into a general "is sneaky" / "is stealth" trait in the future.
-#define TRAIT_ALIEN_SNEAK "sneaking_alien"
 /// The mob has an active mime vow of silence, and thus is unable to speak and has other mime things going on
 #define TRAIT_MIMING "miming"
 /// This mob is phased out of reality from magic, either a jaunt or rod form

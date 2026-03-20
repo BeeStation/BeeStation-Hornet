@@ -48,6 +48,7 @@
 #define COLOR_VIVID_RED "#FF3232"
 #define COLOR_SOFT_RED "#FA8282"
 #define COLOR_CULT_RED "#960000"
+#define COLOR_BUBBLEGUM_RED "#950A0A"
 /// Color used for default blood
 #define COLOR_BLOOD "#CC0000"
 

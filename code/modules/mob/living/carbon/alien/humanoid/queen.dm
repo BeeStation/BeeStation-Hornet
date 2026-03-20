@@ -18,6 +18,7 @@
 	. = ..()
 	// as a wise man once wrote: "pull over that ass too fat"
 	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	AddComponent(/datum/component/seethrough_mob)
 
 /mob/living/carbon/alien/humanoid/royal/can_inject(mob/user, target_zone, injection_flags)
 	return FALSE
@@ -61,12 +62,14 @@
 
 	real_name = src.name
 
-	var/datum/action/cooldown/spell/aoe/repulse/xeno/tail_whip = new(src)
-	tail_whip.Grant(src)
-	var/datum/action/small_sprite/queen/smallsprite = new(src)
-	smallsprite.Grant(src)
-	var/datum/action/cooldown/alien/promote/promotion = new(src)
-	promotion.Grant(src)
+	real_name = src.name
+
+	var/static/list/innate_actions = list(
+		/datum/action/cooldown/alien/promote,
+		/datum/action/cooldown/spell/aoe/repulse/xeno,
+	)
+	grant_actions_by_list(innate_actions)
+
 	return ..()
 
 /mob/living/carbon/alien/humanoid/royal/queen/create_internal_organs()

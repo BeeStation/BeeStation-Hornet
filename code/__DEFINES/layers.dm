@@ -164,10 +164,16 @@
 
 //---------- STANDARD -------------
 
-#define FLOOR_PLANE -7
+#define FLOOR_PLANE -8
 
-#define GAME_PLANE -4
-#define ABOVE_GAME_PLANE -3
+#define GAME_PLANE -7
+//#define GAME_PLANE_FOV_HIDDEN -6
+#define GAME_PLANE_UPPER -5
+//#define GAME_PLANE_UPPER_FOV_HIDDEN -4
+
+///Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
+#define ABOVE_GAME_NO_MOUSE_PLANE -3
+#define ABOVE_GAME_PLANE -2
 #define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
 
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals

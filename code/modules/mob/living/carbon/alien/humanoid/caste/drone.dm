@@ -6,8 +6,7 @@
 	icon_state = "aliend"
 
 /mob/living/carbon/alien/humanoid/drone/Initialize(mapload)
-	var/datum/action/cooldown/alien/evolve_to_praetorian/evolution = new(src)
-	evolution.Grant(src)
+	GRANT_ACTION(/datum/action/cooldown/alien/evolve_to_praetorian)
 	return ..()
 
 /mob/living/carbon/alien/humanoid/drone/create_internal_organs()

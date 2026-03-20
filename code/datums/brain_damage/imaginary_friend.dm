@@ -87,9 +87,6 @@
 	var/mob/living/carbon/owner
 	var/datum/brain_trauma/special/imaginary_friend/trauma
 
-	var/datum/action/innate/imaginary_join/join
-	var/datum/action/innate/imaginary_hide/hide
-
 /mob/camera/imaginary_friend/Login()
 	. = ..()
 	if(!. || !client)
@@ -115,10 +112,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 	setup_friend()
 
-	join = new
-	join.Grant(src)
-	hide = new
-	hide.Grant(src)
+	var/static/list/grantable_actions = list(
+		/datum/action/innate/imaginary_join,
+		/datum/action/innate/imaginary_hide,
+	)
+	grant_actions_by_list(grantable_actions)
 
 	// Update icon on turn
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(Show))
@@ -127,8 +125,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(owner_speech))
 
 /mob/camera/imaginary_friend/Destroy()
-	qdel(join)
-	qdel(hide)
 	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
 	if(owner)
 		UnregisterSignal(owner, COMSIG_MOB_SAY)

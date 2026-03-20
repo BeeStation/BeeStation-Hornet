@@ -60,6 +60,7 @@
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
+	. = ..()
 	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
 		return BULLET_ACT_FORCE_PIERCE

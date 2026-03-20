@@ -1,3 +1,5 @@
+#define COLOSSUS_ENRAGED (health <= maxHealth / 3)
+
 /*
 
 COLOSSUS
@@ -51,242 +53,109 @@ Difficulty: Very Hard
 	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
 	death_message = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/magic/demon_dies.ogg'
-	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
-							   /datum/action/innate/megafauna_attack/aoe_attack,
-							   /datum/action/innate/megafauna_attack/shotgun,
-							   /datum/action/innate/megafauna_attack/alternating_cardinals)
-	small_sprite_type = /datum/action/small_sprite/megafauna/colossus
-	var/invulnerable_finale = FALSE
+	/// Spiral shots ability
+	var/datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots/colossus/spiral_shots
+	/// Random shots ablity
+	var/datum/action/cooldown/mob_cooldown/projectile_attack/random_aoe/colossus/random_shots
+	/// Shotgun blast ability
+	var/datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/colossus/shotgun_blast
+	/// Directional shots ability
+	var/datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/alternating/colossus/dir_shots
+	/// Final attack ability
+	var/datum/action/cooldown/mob_cooldown/projectile_attack/colossus_final/colossus_final
+	/// Have we used DIE yet?
+	var/final_available = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT) //we don't want this guy to float, messes up his animations.
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT) //we don't want this guy to float, messes up his animations.
+	spiral_shots = new(src)
+	random_shots = new(src)
+	shotgun_blast = new(src)
+	dir_shots = new(src)
+	colossus_final = new(src)
+	spiral_shots.Grant(src)
+	random_shots.Grant(src)
+	shotgun_blast.Grant(src)
+	dir_shots.Grant(src)
+	colossus_final.Grant(src)
+	RegisterSignal(src, COMSIG_MOB_ABILITY_STARTED, PROC_REF(start_attack))
+	RegisterSignal(src, COMSIG_MOB_ABILITY_FINISHED, PROC_REF(finished_attack))
+	AddElement(/datum/element/projectile_shield)
 
-/datum/action/innate/megafauna_attack/spiral_attack
-	name = "Spiral Shots"
-	button_icon = 'icons/hud/actions/actions_items.dmi'
-	button_icon_state = "sniper_zoom"
-	chosen_message = span_colossus("You are now firing in a spiral.")
-	chosen_attack_num = 1
-
-/datum/action/innate/megafauna_attack/aoe_attack
-	name = "All Directions"
-	button_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "at_shield2"
-	chosen_message = span_colossus("You are now firing in all directions.")
-	chosen_attack_num = 2
-
-/datum/action/innate/megafauna_attack/shotgun
-	name = "Shotgun Fire"
-	button_icon = 'icons/obj/guns/projectile.dmi'
-	button_icon_state = "shotgun"
-	chosen_message = span_colossus("You are now firing shotgun shots where you aim.")
-	chosen_attack_num = 3
-
-/datum/action/innate/megafauna_attack/alternating_cardinals
-	name = "Alternating Shots"
-	button_icon = 'icons/obj/guns/projectile.dmi'
-	button_icon_state = "pistol"
-	chosen_message = span_colossus("You are now firing in alternating cardinal directions.")
-	chosen_attack_num = 4
+/mob/living/simple_animal/hostile/megafauna/colossus/Destroy()
+	RemoveElement(/datum/element/projectile_shield)
+	spiral_shots = null
+	random_shots = null
+	shotgun_blast = null
+	dir_shots = null
+	colossus_final = null
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
-	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
-	anger_modifier = clamp(((maxHealth - health)/20),0,20)
+	anger_modifier = clamp(((maxHealth - health) / 40), 0, 20)
 
-	if(client) //Player controlled handled a bit differently.
-		switch(chosen_attack)
-			if(1)
-				if(health <= maxHealth/10)
-					final_attack()
-				else
-					telegraph()
-					say("Judgment")
-					visible_message(span_colossus("\"<b>Judgment</b>\""))
-					select_spiral_attack()
-					ranged_cooldown = world.time + 30
-			if(2)
-				telegraph()
-				say("Wrath")
-				visible_message(span_colossus("\"<b>Wrath</b>\""))
-				random_shots()
-				ranged_cooldown = world.time + 30
-			if(3)
-				telegraph()
-				say("Retribution")
-				visible_message(span_colossus("\"<b>Retribution</b>\""))
-				blast()
-				ranged_cooldown = world.time + 30
-			if(4)
-				telegraph()
-				say("Lament")
-				visible_message(span_colossus("\"<b>Lament</b>\""))
-				alternating_dir_shots()
-				ranged_cooldown = world.time + 30
+	if(client)
 		return
 
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
 			visible_message(span_colossus("\"<b>You can't dodge.</b>\""))
+		ranged_cooldown = world.time + 3 SECONDS
 		telegraph()
-		dir_shots(GLOB.alldirs)
+		dir_shots.fire_in_directions(src, target, GLOB.alldirs)
 		move_to_delay = 3
 		return
 	else
 		move_to_delay = initial(move_to_delay)
 
-	switch(random_attack_num)
-		if(1)
-			select_spiral_attack()
-		if(2)
-			random_shots()
-		if(3)
-			blast()
-		if(4)
-			alternating_dir_shots()
-		if(5)
-			final_attack()
-
-	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
-		say("Die..")
-		visible_message(span_colossus("\"<b>Die..</b>\""))
-		random_attack_num = 5
-	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
-		say("Judgment")
-		visible_message(span_colossus("\"<b>Judgment</b>\""))
-		random_attack_num = 1
+	if(health <= maxHealth / 10 && final_available)
+		final_available = FALSE
+		colossus_final.trigger(target = target)
+	else if(prob(20 + anger_modifier)) //Major attack
+		spiral_shots.trigger(target = target)
+	else if(prob(20))
+		random_shots.trigger(target = target)
 	else
-		switch(rand(1, 3))
-			if(1)
-				say("Wrath")
-				visible_message(span_colossus("\"<b>Wrath</b>\""))
-				random_attack_num = 2
-			if(2)
-				say("Retribution")
-				visible_message(span_colossus("\"<b>Retribution</b>\""))
-				random_attack_num = 3
-			if(3)
-				say("Lament")
-				visible_message(span_colossus("\"<b>Lament</b>\""))
-				random_attack_num = 4
-	telegraph()
-	ranged_cooldown = world.time + 30
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.mind)
-			if(istype(H.mind.martial_art, /datum/martial_art/the_sleeping_carp))
-				. = TRUE
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
-	dir_shots(GLOB.diagonals)
-	sleep(10)
-	dir_shots(GLOB.cardinals)
-	sleep(10)
-	dir_shots(GLOB.diagonals)
-	sleep(10)
-	dir_shots(GLOB.cardinals)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
-	if(health <= maxHealth/3)
-		return double_spiral()
-	return spiral_shoot()
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	SLEEP_CHECK_DEATH(10)
-	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE, 16)
-	spiral_shoot(FALSE, 8)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
-	var/finale_counter = 10
-	var/turf/U = get_turf(src)
-	invulnerable_finale = TRUE
-	for(var/i in 1 to 20)
-		if(finale_counter > 4)
-			telegraph()
-			say("Die!!")
-			visible_message(span_colossus("\"<b>Die!</b>\""))
-			blast()
-		if(finale_counter > 1)
-			finale_counter--
-		for(var/T in RANGE_TURFS(12, U) - U)
-			if(prob(min(finale_counter, 2)))
-				shoot_projectile(T)
-		sleep(finale_counter + 1)
-	for(var/ii in 1 to 3)
-		telegraph()
-		say("Die")
-		visible_message(span_colossus("\"<b>Die..</b>\""))
-		random_shots()
-		finale_counter += 6
-		sleep(finale_counter)
-	for(var/iii in 1 to 4)
-		telegraph()
-		say("Die..")
-		visible_message(span_colossus("\"<b>Die..</b>\""))
-		invulnerable_finale = FALSE
-		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
-	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
-	var/counter = counter_start
-	for(var/i in 1 to 80)
-		if(negative)
-			counter--
+		if(prob(60 + anger_modifier))
+			shotgun_blast.trigger(target = target)
 		else
-			counter++
-		if(counter > 16)
-			counter = 1
-		if(counter < 1)
-			counter = 16
-		shoot_projectile(start_turf, counter * 22.5)
-		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, 1)
-		sleep(1)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum_safe(set_angle) && (!marker || marker == loc))
-		return
-	var/turf/startloc = get_turf(src)
-	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
-	P.preparePixelProjectile(marker, startloc)
-	P.firer = src
-	if(target)
-		P.original = target
-	P.fire(set_angle)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
-	var/turf/U = get_turf(src)
-	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)
-	for(var/T in RANGE_TURFS(12, U) - U)
-		if(prob(5))
-			shoot_projectile(T)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle)
-	var/turf/target_turf = get_turf(target)
-	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
-	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = get_angle(src, target_turf)
-	if(isnum_safe(set_angle))
-		angle_to_target = set_angle
-	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
-	for(var/i in colossus_shotgun_shot_angles)
-		shoot_projectile(target_turf, angle_to_target + i)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots(list/dirs)
-	if(!islist(dirs))
-		dirs = GLOB.alldirs.Copy()
-	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
-	for(var/d in dirs)
-		var/turf/E = get_step(src, d)
-		shoot_projectile(E)
+			dir_shots.trigger(target = target)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/telegraph()
-	for(var/mob/M in range(10,src))
-		if(M.client)
-			flash_color(M.client, "#C80000", 1)
-			shake_camera(M, 4, 3)
-	playsound(src, 'sound/magic/clockwork/narsie_attack.ogg', 200, 1)
+	for(var/mob/viewer as anything in viewers(10, src))
+		if(viewer.client)
+			flash_color(viewer.client, "#C80000", 1)
+			shake_camera(viewer, 4, 3)
+	playsound(src, 'sound/magic/clockwork/narsie_attack.ogg', 200, TRUE)
+
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/start_attack(mob/living/owner, datum/action/cooldown/activated)
+	SIGNAL_HANDLER
+	if(activated == spiral_shots)
+		spiral_shots.enraged = COLOSSUS_ENRAGED
+		telegraph()
+		icon_state = "eva_attack"
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "Judgement.", null, list("colossus", "yell"))
+	else if(activated == random_shots)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "Wrath.", null, list("colossus", "yell"))
+	else if(activated == shotgun_blast)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "Retribution.", null, list("colossus", "yell"))
+	else if(activated == dir_shots)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "Lament.", null, list("colossus", "yell"))
+
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/finished_attack(mob/living/owner, datum/action/cooldown/finished)
+	SIGNAL_HANDLER
+	if(finished == spiral_shots)
+		icon_state = initial(icon_state)
+
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/victim)
+	if(ishuman(victim))
+		var/mob/living/carbon/human/human_victim = victim
+		if(human_victim.mind)
+			if(istype(human_victim.mind.martial_art, /datum/martial_art/the_sleeping_carp))
+				. = TRUE
+		if (is_species(human_victim, /datum/species/golem/sand))
+			. = TRUE
 
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
@@ -295,7 +164,9 @@ Difficulty: Very Hard
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
 	light_system = MOVABLE_LIGHT
-	light_range = 2
+	light_range = 2.5
+	light_power = 1.2
+	light_color = "#ffff66"
 	duration = 8
 	var/target
 
@@ -304,17 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/at_shield)
 /obj/effect/temp_visual/at_shield/Initialize(mapload, new_target)
 	. = ..()
 	target = new_target
-	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/projectile/P)
-	if(!stat)
-		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
-		var/random_x = rand(-32, 32)
-		AT.pixel_x += random_x
-
-		var/random_y = rand(0, 72)
-		AT.pixel_y += random_y
-	return ..()
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
 
 /obj/projectile/colossus
 	name ="death bolt"
@@ -325,9 +186,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/at_shield)
 	eyeblur = 0
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
+	var/explode_hit_objects = TRUE
+
+/obj/projectile/colossus/can_hit_target(atom/target, direct_target = FALSE, ignore_loc = FALSE, cross_failed = FALSE)
+	if(isliving(target))
+		direct_target = TRUE
+	return ..(target, direct_target, ignore_loc, cross_failed)
 
 /obj/projectile/colossus/on_hit(atom/target, blocked = FALSE)
 	. = ..()
+	if(isliving(target))
+		var/mob/living/dust_mob = target
+		if(dust_mob.stat == DEAD)
+			dust_mob.investigate_log("has been deathed by a death bolt (colossus).", INVESTIGATE_DEATHS)
+			dust_mob.death()
+		return
+	if(!explode_hit_objects)
+		return
 	if(isturf(target) || isobj(target))
 		if(isobj(target))
 			SSexplosions.med_mov_atom += target
