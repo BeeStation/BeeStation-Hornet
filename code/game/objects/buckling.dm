@@ -252,8 +252,15 @@
 	if(!target.can_buckle_to && !force)
 		return FALSE
 
-	return TRUE
+	var/turf/source_turf = get_turf(src)
+	for(var/atom/movable/blocking_atom in source_turf)	// Check for blocking objects on the turf
+		if(blocking_atom == src || blocking_atom == target)
+			continue
+		if(blocking_atom.density) // Something is in the way that is dense, stop them from buckling
+			to_chat(target, span_warning("Something is in the way."))
+			return FALSE
 
+	return TRUE
 /**
   * Simple helper proc that runs a suite of checks to test whether it is possible or not for user to buckle target mob to src.
   *

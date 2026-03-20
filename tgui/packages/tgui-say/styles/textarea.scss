@@ -29,7 +29,7 @@
 
 @each $channel, $color in colors.$restricted-channel-map {
   .textarea-#{$channel} {
-    border-color: darken($color, 15%);
+    border-color: color.adjust($color, $lightness: -15%);
     &:focus-within {
       border-color: $color;
     }

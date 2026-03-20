@@ -1213,6 +1213,24 @@
 "alV" = (
 /turf/closed/wall/r_wall/rust,
 /area/ai_monitored/turret_protected/aisat_interior)
+"alX" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/mob/living/simple_animal/turkey{
+	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/quartermaster/exploration_prep)
 "amo" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/crossing,
@@ -11970,6 +11988,17 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
+"cDa" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 1
+	},
+/obj/machinery/computer/xenoarchaeology_console{
+	dir = 4
+	},
+/obj/item/pai_card,
+/turf/open/floor/iron/showroomfloor,
+/area/science/explab)
 "cDj" = (
 /obj/structure/table_frame/wood,
 /mob/living/simple_animal/hostile/asteroid/basilisk{
@@ -12890,23 +12919,6 @@
 	broken = 1
 	},
 /area/maintenance/port/aft)
-"cKO" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/taperecorder{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/aicard,
-/obj/item/pai_card{
-	pixel_x = 6
-	},
-/obj/item/radio/intercom{
-	pixel_y = 22
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hor)
 "cKU" = (
 /obj/structure/table,
 /obj/item/stack/package_wrap,
@@ -14048,6 +14060,28 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"cYd" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/condiment/peppermill{
+	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/pai_card{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar/atrium)
 "cYj" = (
 /obj/machinery/status_display/evac{
 	pixel_y = 32
@@ -15253,12 +15287,6 @@
 /obj/item/crowbar/red,
 /turf/open/floor/iron,
 /area/security/brig)
-"dtn" = (
-/obj/structure/table/wood,
-/obj/item/pai_card,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "dts" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -22786,14 +22814,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
-"fTw" = (
-/obj/machinery/rnd/production/circuit_imprinter,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/engine/break_room)
 "fTD" = (
 /obj/machinery/suit_storage_unit/cmo,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -31445,21 +31465,6 @@
 	broken = 1
 	},
 /area/maintenance/port)
-"iNh" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1;
-	color = "#486091"
-	},
-/mob/living/simple_animal/pet/cat/Runtime,
-/obj/structure/bed/dogbed/runtime,
-/obj/item/storage/secure/safe{
-	pixel_x = -24
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/crew_quarters/heads/cmo)
 "iNo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -35832,17 +35837,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/janitor)
-"knL" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/lab)
 "knO" = (
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/camera/directional/east{
@@ -36244,18 +36238,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"kvi" = (
-/obj/structure/table,
-/obj/item/folder{
-	pixel_x = -4
-	},
-/obj/item/pai_card,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/fitness/recreation)
 "kvm" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 8;
@@ -38084,6 +38066,21 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/security/prison)
+"lfg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1;
+	color = "#486091"
+	},
+/mob/living/basic/pet/cat/runtime,
+/obj/structure/bed/dogbed/runtime,
+/obj/item/storage/secure/safe{
+	pixel_x = -24
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/crew_quarters/heads/cmo)
 "lfi" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "atmos";
@@ -38383,6 +38380,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/disposal)
+"llh" = (
+/obj/structure/table,
+/obj/item/folder{
+	pixel_x = -4
+	},
+/obj/item/pai_card,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/fitness/recreation)
 "llr" = (
 /obj/structure/displaycase/labcage,
 /obj/effect/turf_decal/box,
@@ -38863,6 +38872,17 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"luw" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/lab)
 "luD" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
@@ -40440,6 +40460,14 @@
 	},
 /turf/open/floor/iron,
 /area/teleporter)
+"lXE" = (
+/obj/machinery/rnd/production/circuit_imprinter,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/engine/break_room)
 "lXJ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
@@ -48801,6 +48829,12 @@
 	burnt = 1
 	},
 /area/maintenance/central)
+"oMl" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/rnd/production/protolathe/department/engineering,
+/obj/effect/turf_decal/stripes/end,
+/turf/open/floor/iron,
+/area/engine/break_room)
 "oMo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -52068,6 +52102,12 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
+"pTa" = (
+/obj/structure/table/wood,
+/obj/item/pai_card,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "pTb" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west{
@@ -52522,19 +52562,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
-"qby" = (
-/obj/machinery/doppler_array/research{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/science/mixing)
 "qbC" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
@@ -52737,23 +52764,6 @@
 "qei" = (
 /turf/closed/mineral/random/labormineral,
 /area/docking/arrival)
-"qeo" = (
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/requests_console{
-	department = "Robotics";
-	departmentType = 2;
-	name = "Robotics RC";
-	pixel_x = 30;
-	receive_ore_updates = 1
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "qeq" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
@@ -56780,24 +56790,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
-"rxK" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/quartermaster/exploration_prep)
 "rxP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event_spawn,
@@ -61095,28 +61087,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"sUO" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/condiment/peppermill{
-	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
-	pixel_x = -8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
-	pixel_x = -8;
-	pixel_y = 12
-	},
-/obj/item/pai_card{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar/atrium)
 "sVy" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -61460,6 +61430,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
+"sZy" = (
+/turf/open/floor/iron,
+/area/engine/break_room)
 "sZA" = (
 /obj/structure/chair{
 	dir = 4
@@ -63185,6 +63158,23 @@
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/quartermaster/warehouse)
+"tFf" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/item/taperecorder{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/aicard,
+/obj/item/pai_card{
+	pixel_x = 6
+	},
+/obj/item/radio/intercom{
+	pixel_y = 22
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hor)
 "tFp" = (
 /obj/structure/reagent_dispensers/nutriment/fat/oil,
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -65008,6 +64998,19 @@
 "uoK" = (
 /turf/closed/wall/r_wall/rust,
 /area/security/brig)
+"uoO" = (
+/obj/machinery/doppler_array/research{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/science/mixing)
 "uoU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -65106,6 +65109,23 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"uqj" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/requests_console{
+	department = "Robotics";
+	departmentType = 2;
+	name = "Robotics RC";
+	pixel_x = 30;
+	receive_ore_updates = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "uqC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -65898,9 +65918,6 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/hydroponics)
-"uGY" = (
-/turf/open/floor/iron,
-/area/engine/break_room)
 "uHa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -73391,12 +73408,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/port)
-"wYx" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/rnd/production/protolathe/department/engineering,
-/obj/effect/turf_decal/stripes/end,
-/turf/open/floor/iron,
-/area/engine/break_room)
 "wYK" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/siding/wood{
@@ -75406,17 +75417,6 @@
 	burnt = 1
 	},
 /area/maintenance/port/fore)
-"xDI" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 1
-	},
-/obj/machinery/computer/xenoarchaeology_console{
-	dir = 4
-	},
-/obj/item/pai_card,
-/turf/open/floor/iron/showroomfloor,
-/area/science/explab)
 "xDL" = (
 /obj/item/radio/intercom{
 	pixel_x = -28
@@ -93989,7 +93989,7 @@ wPj
 gcw
 aSL
 bLd
-kvi
+llh
 uDc
 xec
 tLV
@@ -94734,7 +94734,7 @@ ocU
 lyb
 aPA
 idO
-iNh
+lfg
 wTy
 fTD
 tTH
@@ -102456,7 +102456,7 @@ cHV
 cHW
 aqg
 cRo
-dtn
+pTa
 iTC
 vzn
 buE
@@ -112263,9 +112263,9 @@ ifd
 awN
 cuJ
 xuX
-fTw
-wYx
-uGY
+lXE
+oMl
+sZy
 vvF
 mUV
 iGe
@@ -112737,7 +112737,7 @@ gYq
 hCi
 snt
 wou
-sUO
+cYd
 qjA
 ajt
 dxY
@@ -114007,7 +114007,7 @@ cFi
 cFi
 aZS
 uJl
-qeo
+uqj
 dZj
 daU
 fHL
@@ -115306,7 +115306,7 @@ aZi
 hot
 pPB
 bVz
-knL
+luw
 dQi
 eFy
 aGj
@@ -115806,7 +115806,7 @@ hIq
 gCq
 lWL
 bdi
-cKO
+tFf
 cdP
 aVJ
 aVJ
@@ -117579,7 +117579,7 @@ aaa
 acm
 aWY
 aWY
-xDI
+cDa
 fNM
 mYe
 iZp
@@ -118366,7 +118366,7 @@ uSg
 jeo
 ait
 uFO
-rxK
+alX
 ffh
 hLB
 cEm
@@ -119672,7 +119672,7 @@ iQx
 uwT
 kcw
 beH
-qby
+uoO
 ltD
 eiR
 bbN

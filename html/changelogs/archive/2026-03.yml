@@ -125,3 +125,43 @@
         than using the pen that's currently attached to it. Congratulations!
     - bugfix: Hitting cancel when renaming a paper now actually cancels the operation.
     - code_imp: Added support for preventing a pen from being removed from a clipboard.
+2026-03-16:
+  DrDuckedGoose:
+  - bugfix: Fix Height Maps
+2026-03-18:
+  Isaacnml:
+  - spellcheck: Poison is spelled correctly upon failling the poison directive
+  PatienceStPim:
+  - rscadd: Cargo now gets bounties for mutations.
+  mrmanlikesbt:
+  - bugfix: Fixed the roundend message sometimes not being sent to the discord OOC
+      channel
+  - rscadd: Players now have the option to remain anonymous when starting a vote.
+  - bugfix: Fixed being able to call a shuttle vote when it's unable to come.
+  - bugfix: Fixed the space dragon ruleset not putting the chosen player into the
+      dragon's body.
+  - tweak: Dynamic no longer sends a storyteller vote if there is only one storyteller
+      to vote for.
+  rkz, tralezab, san7890, Ben10Omintrix, Vekter, vinylspiders, SmArtKar:
+  - rscadd: Mining/Explo headsets now allow you to make callouts via pointing. You
+      can use them to communicate with fellow jobbers!
+  - rscadd: Mining headsets keep your voice loud and clear in low-pressure environments
+      (not vacuum!)
+  - rscadd: adds ~~sex~~ make children behavior to basic mob ai. Ian is no longer
+      gelded from his conversion from simplemob to basicmob
+  - rscadd: tailed_defender lizard trait is now on their brain
+  - rscadd: cultists can now convert pets to their side
+  - rscadd: adds support for renaming pets without collars. Ashwalkers have this by
+      default. (Goliaths aren't basicmobs though yet, sorry)
+  - bugfix: Basic Mobs are now able to deathgasp.
+  - refactor: refactors pet collars and cultist pets into elements
+  - refactor: cats are now basic pets. please report any bugs.
+  - rscadd: Added a new hostile variant of cats, "feral cats".
+  - rscadd: Added a new traitor item, "feral cat grenades". For 5 TC, you too can
+      throw a grenade at someone and make five cats maul them to death.
+  - bugfix: fixes a hard del with thrown items
+2026-03-19:
+  Isaacnml:
+  - bugfix: The syndicate has fixed their chameleon technology for engineering models
+  WhiskeyMarten:
+  - bugfix: Replaced improper marker beacons on Cardinal with the correct variant.

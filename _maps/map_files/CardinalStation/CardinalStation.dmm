@@ -607,20 +607,6 @@
 "agD" = (
 /turf/closed/wall/mineral,
 /area/quartermaster/miningoffice)
-"agK" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy";
-	pixel_x = 1
-	},
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "agQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -9199,6 +9185,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
+"bWv" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/small/directional/east,
+/obj/structure/sign/poster/official/pda_ad{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted,
+/turf/open/floor/iron/white,
+/area/science/lab)
 "bWD" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -11839,19 +11837,6 @@
 	},
 /turf/open/floor/prison,
 /area/ai_monitored/storage/eva)
-"cwQ" = (
-/obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "cwZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -13621,6 +13606,12 @@
 /obj/item/ai_module/core/full/hippocratic,
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai)
+"cQs" = (
+/obj/structure/marker_beacon/burgundy,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "cQx" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -16497,6 +16488,19 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/teleporter)
+"dwQ" = (
+/obj/structure/table/wood,
+/obj/item/pai_card,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/carpet,
+/area/crew_quarters/dorms)
 "dwV" = (
 /obj/machinery/camera/directional/north,
 /obj/machinery/status_display/evac/directional/north,
@@ -21926,13 +21930,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
-"eMK" = (
-/obj/item/radio/intercom/directional/east,
-/obj/machinery/modular_computer/console/preset/engineering{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/engine/storage_shared)
 "eMV" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/oven,
@@ -25806,6 +25803,17 @@
 /obj/machinery/light/floor,
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
+"fHP" = (
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
+/obj/structure/marker_beacon/burgundy,
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "fHT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/toxin{
@@ -31601,6 +31609,47 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
+"gRQ" = (
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime,
+/obj/machinery/light/small/directional/south,
+/obj/structure/sign/poster/official/random/directional/south,
+/obj/item/toy/cattoy,
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "pawprint";
+	pixel_y = 6;
+	pixel_x = 9;
+	name = "bloody pawprint";
+	desc = "Seems Runtime's been busy.";
+	paint_colour = "#981122"
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "pawprint";
+	pixel_y = 12;
+	pixel_x = 1;
+	name = "bloody pawprint";
+	desc = "Seems Runtime's been busy.";
+	paint_colour = "#981122"
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "pawprint";
+	pixel_y = 18;
+	pixel_x = 7;
+	name = "bloody pawprint";
+	desc = "Seems Runtime's been busy.";
+	paint_colour = "#981122"
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "pawprint";
+	pixel_y = 2;
+	pixel_x = 3;
+	name = "bloody pawprint";
+	desc = "Seems Runtime's been busy.";
+	paint_colour = "#981122"
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/cmo)
 "gRR" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat/service)
@@ -36223,6 +36272,13 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/quartermaster/sorting)
+"hTK" = (
+/obj/item/radio/intercom/directional/east,
+/obj/machinery/modular_computer/console/preset/engineering{
+	dir = 8
+	},
+/turf/open/floor/iron/tech,
+/area/engine/storage_shared)
 "hTO" = (
 /obj/structure/sign/poster/official/high_class_martini{
 	pixel_x = -32
@@ -37628,6 +37684,12 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/engineering)
+"ijc" = (
+/obj/machinery/doppler_array/research{
+	pixel_y = -1
+	},
+/turf/open/floor/iron/techmaint,
+/area/science/mixing)
 "ijh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset,
@@ -37674,19 +37736,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
-"ijT" = (
-/obj/structure/lattice,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "ikf" = (
 /obj/structure/table/reinforced,
 /obj/item/radio{
@@ -44316,17 +44365,6 @@
 	},
 /turf/open/floor/monotile/steel,
 /area/quartermaster/storage)
-"jIZ" = (
-/obj/structure/table,
-/obj/item/clothing/glasses/science,
-/obj/machinery/light_switch/directional/west,
-/obj/machinery/camera/directional/west,
-/obj/item/pai_card{
-	pixel_y = 4;
-	pixel_x = 17
-	},
-/turf/open/floor/iron/white,
-/area/science/lobby)
 "jJc" = (
 /obj/structure/fluff/rug{
 	pixel_y = -18;
@@ -44773,25 +44811,6 @@
 /obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
 /area/maintenance/club)
-"jNF" = (
-/obj/structure/cable/orange{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "jNG" = (
 /obj/machinery/computer/cargo/request,
 /obj/effect/turf_decal/bot,
@@ -48376,6 +48395,11 @@
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"kAK" = (
+/obj/structure/marker_beacon/burgundy,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space/nearstation)
 "kAL" = (
 /turf/open/floor/carpet/red,
 /area/library/lounge)
@@ -48786,6 +48810,17 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/maintenance/club)
+"kGM" = (
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/obj/structure/marker_beacon/burgundy,
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "kGR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48798,6 +48833,17 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"kGS" = (
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/obj/structure/marker_beacon/burgundy,
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "kHr" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -50951,6 +50997,27 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"lei" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 6
+	},
+/obj/machinery/button/door{
+	id = "robotics_shutters";
+	name = "Robotics Privacy Control";
+	req_access_txt = "29";
+	pixel_y = -34
+	},
+/obj/machinery/button/door{
+	pixel_y = -26;
+	id = "robos";
+	name = "Surgery Privacy Shutters";
+	req_access_txt = "29"
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/science/robotics/lab)
 "lej" = (
 /obj/effect/turf_decal/trimline/dark/warning{
 	dir = 4
@@ -52964,6 +53031,17 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
+"lBM" = (
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
+/obj/structure/marker_beacon/burgundy,
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "lBP" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
 	dir = 1
@@ -55417,6 +55495,38 @@
 "mgc" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
+"mgi" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/item/pai_card,
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/healthanalyzer,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/corner{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
@@ -60610,12 +60720,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
-"nmO" = (
-/obj/machinery/doppler_array/research{
-	pixel_y = -1
-	},
-/turf/open/floor/iron/techmaint,
-/area/science/mixing)
 "nmT" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -67986,25 +68090,6 @@
 	},
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/starboard)
-"oSk" = (
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "oSt" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8;
@@ -68196,27 +68281,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"oVH" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 6
-	},
-/obj/machinery/button/door{
-	id = "robotics_shutters";
-	name = "Robotics Privacy Control";
-	req_access_txt = "29";
-	pixel_y = -34
-	},
-/obj/machinery/button/door{
-	pixel_y = -26;
-	id = "robos";
-	name = "Surgery Privacy Shutters";
-	req_access_txt = "29"
-	},
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/science/robotics/lab)
 "oVJ" = (
 /obj/effect/turf_decal/trimline/red/line,
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -72313,6 +72377,17 @@
 /obj/effect/turf_decal/bot/right,
 /turf/open/floor/vault/rock,
 /area/science/mixing)
+"pNt" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/techstorage/rnd_all,
+/obj/machinery/airalarm/directional/north,
+/obj/effect/spawner/random/techstorage/medical_all,
+/obj/item/pai_card{
+	pixel_y = 4;
+	pixel_x = 17
+	},
+/turf/open/floor/circuit,
+/area/storage/tech)
 "pNz" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
@@ -72920,6 +72995,11 @@
 /obj/structure/window/spawner/directional/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
+"pUM" = (
+/obj/structure/lattice,
+/obj/structure/marker_beacon/burgundy,
+/turf/open/space/basic,
+/area/space/nearstation)
 "pUO" = (
 /obj/machinery/door/airlock/command{
 	name = "Customs Desk";
@@ -73594,6 +73674,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
+"qcN" = (
+/obj/structure/table,
+/obj/item/clothing/glasses/science,
+/obj/machinery/light_switch/directional/west,
+/obj/machinery/camera/directional/west,
+/obj/item/pai_card{
+	pixel_y = 4;
+	pixel_x = 17
+	},
+/turf/open/floor/iron/white,
+/area/science/lobby)
 "qcR" = (
 /obj/structure/lattice,
 /obj/structure/statue/sandstone/assistant{
@@ -77467,47 +77558,6 @@
 	},
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/starboard)
-"qVc" = (
-/obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
-/obj/machinery/light/small/directional/south,
-/obj/structure/sign/poster/official/random/directional/south,
-/obj/item/toy/cattoy,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "pawprint";
-	pixel_y = 6;
-	pixel_x = 9;
-	name = "bloody pawprint";
-	desc = "Seems Runtime's been busy.";
-	paint_colour = "#981122"
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "pawprint";
-	pixel_y = 12;
-	pixel_x = 1;
-	name = "bloody pawprint";
-	desc = "Seems Runtime's been busy.";
-	paint_colour = "#981122"
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "pawprint";
-	pixel_y = 18;
-	pixel_x = 7;
-	name = "bloody pawprint";
-	desc = "Seems Runtime's been busy.";
-	paint_colour = "#981122"
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "pawprint";
-	pixel_y = 2;
-	pixel_x = 3;
-	name = "bloody pawprint";
-	desc = "Seems Runtime's been busy.";
-	paint_colour = "#981122"
-	},
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/wood,
-/area/crew_quarters/heads/cmo)
 "qVf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -87279,25 +87329,6 @@
 /obj/machinery/computer/security/telescreen/entertainment/directional/south,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
-"teM" = (
-/obj/structure/cable/orange{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "teQ" = (
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 6
@@ -87331,38 +87362,6 @@
 	dir = 5
 	},
 /area/chapel/main)
-"tfa" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 8
-	},
-/obj/structure/rack,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/item/pai_card,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/healthanalyzer,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "tfc" = (
 /obj/structure/table/glass,
 /obj/item/kirbyplants/random{
@@ -90210,19 +90209,6 @@
 	dir = 1
 	},
 /area/hydroponics)
-"tKv" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "tKx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -92750,25 +92736,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/maintenance/club)
-"unb" = (
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "unf" = (
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
@@ -94468,17 +94435,6 @@
 /obj/structure/sign/poster/official/random/directional/west,
 /turf/open/floor/iron/smooth,
 /area/hallway/upper/primary/port)
-"uFY" = (
-/obj/structure/table/reinforced,
-/obj/effect/spawner/random/techstorage/rnd_all,
-/obj/machinery/airalarm/directional/north,
-/obj/effect/spawner/random/techstorage/medical_all,
-/obj/item/pai_card{
-	pixel_y = 4;
-	pixel_x = 17
-	},
-/turf/open/floor/circuit,
-/area/storage/tech)
 "uGh" = (
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 1
@@ -99013,6 +98969,11 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/solar/port/fore)
+"vDa" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon/burgundy,
+/turf/open/space/basic,
+/area/space/nearstation)
 "vDe" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -100369,6 +100330,11 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
+"vRp" = (
+/obj/structure/marker_beacon/burgundy,
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "vRu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -101105,18 +101071,6 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/hallway/secondary/command)
-"vZu" = (
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/light/small/directional/east,
-/obj/structure/sign/poster/official/pda_ad{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted,
-/turf/open/floor/iron/white,
-/area/science/lab)
 "vZv" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -102015,19 +101969,6 @@
 "wjI" = (
 /turf/open/floor/wood,
 /area/medical/exam_room)
-"wjJ" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "wjR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -107687,19 +107628,6 @@
 /obj/effect/turf_decal/siding/dark/corner,
 /turf/open/floor/noslip/dark,
 /area/security/nuke_storage)
-"xAR" = (
-/obj/structure/table/wood,
-/obj/item/pai_card,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/carpet,
-/area/crew_quarters/dorms)
 "xAW" = (
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/computer/station_alert{
@@ -110070,20 +109998,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
-"yap" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "yaz" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
@@ -120622,7 +120536,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -121644,7 +121558,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 hyT
 hyT
 vcV
@@ -121656,7 +121570,7 @@ vcV
 vcV
 hyT
 hyT
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -123180,7 +123094,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 vcV
 hyT
 hyT
@@ -123203,7 +123117,7 @@ wBU
 hyT
 hyT
 vcV
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -123755,7 +123669,7 @@ tWX
 hnm
 ePv
 nzj
-cwQ
+vDa
 qut
 pCT
 sDY
@@ -124205,7 +124119,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 vcV
 hyT
 hyT
@@ -124228,7 +124142,7 @@ wBU
 hyT
 hyT
 vcV
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -124264,7 +124178,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 lTQ
 nzj
 uLJ
@@ -125037,7 +124951,7 @@ ePv
 uLJ
 nzj
 ePv
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -125230,7 +125144,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 vcV
 hyT
 hyT
@@ -125253,7 +125167,7 @@ wBU
 hyT
 hyT
 vcV
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -125288,7 +125202,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 ePv
 nzj
 uLJ
@@ -125800,7 +125714,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 lTQ
 nzj
 uLJ
@@ -126061,7 +125975,7 @@ ePv
 uLJ
 nzj
 lTQ
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -126312,7 +126226,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 pfh
 nzj
 uLJ
@@ -126573,7 +126487,7 @@ hyT
 cIR
 nzj
 ePv
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -129222,7 +129136,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -129988,7 +129902,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 hzj
 nzj
 nzj
@@ -129998,7 +129912,7 @@ nzj
 nzj
 nzj
 hzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -130215,31 +130129,31 @@ qtR
 fVT
 hyT
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -131286,7 +131200,7 @@ vkV
 hyT
 hyT
 hzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -132010,7 +131924,7 @@ wnp
 wnp
 pKp
 avt
-nmO
+ijc
 fVT
 hyT
 nzj
@@ -132271,31 +132185,31 @@ qtR
 fVT
 hyT
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -132424,7 +132338,7 @@ vPU
 vPU
 ans
 nwu
-xAR
+dwQ
 ogW
 gZf
 bRG
@@ -132558,7 +132472,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 hzj
 nzj
 nzj
@@ -132568,7 +132482,7 @@ nzj
 nzj
 nzj
 hzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -133042,11 +132956,11 @@ hyT
 nzj
 nzj
 nzj
-tKv
+kAK
 nzj
 nzj
 nzj
-ijT
+pUM
 hyT
 hyT
 hyT
@@ -133334,7 +133248,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -133499,7 +133413,7 @@ tjF
 sEO
 aBp
 aXq
-uFY
+pNt
 ceJ
 uLi
 jJQ
@@ -133602,7 +133516,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -134369,7 +134283,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -135136,7 +135050,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -135150,7 +135064,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -136326,7 +136240,7 @@ wFG
 ivd
 xlC
 dNi
-jIZ
+qcN
 dOn
 uxF
 lPx
@@ -136696,7 +136610,7 @@ hyT
 vcV
 hyT
 hyT
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -138234,7 +138148,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -138387,7 +138301,7 @@ bID
 ocv
 dxD
 vbE
-vZu
+bWv
 uXh
 hzK
 xQY
@@ -139513,7 +139427,7 @@ hyT
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -140280,7 +140194,7 @@ hyT
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -140471,7 +140385,7 @@ fQd
 gmT
 kob
 rSv
-tfa
+mgi
 oHQ
 wfG
 uDV
@@ -141047,7 +140961,7 @@ cmx
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -141573,7 +141487,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -141825,7 +141739,7 @@ cmx
 vcV
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -142015,7 +141929,7 @@ dLe
 gTz
 qxw
 bQt
-oVH
+lei
 uDV
 hBa
 xuD
@@ -142077,7 +141991,7 @@ hyT
 hqZ
 aiL
 lun
-ijT
+pUM
 cmx
 vcV
 nzj
@@ -142092,14 +142006,14 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -142285,7 +142199,7 @@ uzp
 aUc
 lpy
 oyZ
-eMK
+hTK
 hth
 eVA
 nUS
@@ -143645,7 +143559,7 @@ nzj
 uLJ
 hzj
 kFe
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -145161,7 +145075,7 @@ uGH
 wrN
 gnL
 hyT
-ijT
+pUM
 cmx
 vcV
 nzj
@@ -145176,14 +145090,14 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -145423,7 +145337,7 @@ cmx
 vcV
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -145685,7 +145599,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -147966,7 +147880,7 @@ dGx
 dGx
 dGx
 pwd
-tKv
+kAK
 nzj
 nzj
 nzj
@@ -148994,7 +148908,7 @@ hRw
 hRw
 hRw
 hhZ
-tKv
+kAK
 nzj
 nzj
 nzj
@@ -150902,7 +150816,7 @@ nzj
 nzj
 nzj
 nzj
-ijT
+pUM
 hyT
 hGQ
 qfk
@@ -151567,7 +151481,7 @@ nzj
 nzj
 nzj
 nzj
-ijT
+pUM
 hyT
 aTm
 qDd
@@ -151577,7 +151491,7 @@ jFq
 lSo
 aTm
 hyT
-ijT
+pUM
 nzj
 nzj
 nzj
@@ -151930,7 +151844,7 @@ nzj
 nzj
 nzj
 nzj
-ijT
+pUM
 hyT
 qKB
 qfk
@@ -152081,7 +151995,7 @@ nzj
 hyT
 nzj
 nzj
-ijT
+pUM
 hyT
 aTm
 qDd
@@ -152091,7 +152005,7 @@ pRT
 kCk
 aTm
 hyT
-ijT
+pUM
 nzj
 nzj
 hyT
@@ -153628,7 +153542,7 @@ nzj
 nzj
 hyT
 xnC
-oSk
+kGM
 wTv
 hyT
 nzj
@@ -154643,7 +154557,7 @@ hXN
 nzj
 nzj
 nzj
-yap
+cQs
 xzB
 jmz
 clh
@@ -154670,7 +154584,7 @@ hyT
 hyT
 hyT
 hyT
-wjJ
+vRp
 nzj
 nzj
 nzj
@@ -155164,7 +155078,7 @@ qmb
 mJM
 jYs
 jYs
-unb
+lBM
 nzj
 nzj
 dBi
@@ -155176,7 +155090,7 @@ jNc
 dBi
 nzj
 nzj
-jNF
+kGS
 jYs
 jYs
 hRT
@@ -155671,7 +155585,7 @@ hPj
 nzj
 nzj
 nzj
-yap
+cQs
 soo
 aGq
 cNJ
@@ -155698,7 +155612,7 @@ hyT
 hyT
 hyT
 hyT
-wjJ
+vRp
 nzj
 nzj
 nzj
@@ -156712,7 +156626,7 @@ nzj
 nzj
 hyT
 xnC
-teM
+fHP
 wTv
 hyT
 nzj
@@ -158766,11 +158680,11 @@ nzj
 nzj
 nzj
 nzj
-wjJ
+vRp
 nzj
 nzj
 nzj
-wjJ
+vRp
 nzj
 nzj
 nzj
@@ -159656,7 +159570,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 vcV
 hyT
 hyT
@@ -159679,7 +159593,7 @@ xra
 hyT
 hyT
 vcV
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -160681,7 +160595,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 vcV
 hyT
 hyT
@@ -160704,7 +160618,7 @@ xra
 hyT
 hyT
 vcV
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -161022,7 +160936,7 @@ msb
 msb
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -161706,7 +161620,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 vcV
 hyT
 hyT
@@ -161729,7 +161643,7 @@ xra
 hyT
 hyT
 vcV
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -161810,7 +161724,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -162577,7 +162491,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -163254,7 +163168,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 hyT
 hyT
 vcV
@@ -163266,7 +163180,7 @@ vcV
 vcV
 hyT
 hyT
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -163344,7 +163258,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -163358,7 +163272,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -164106,7 +164020,7 @@ nME
 hyT
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -164288,7 +164202,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -164620,7 +164534,7 @@ aQX
 hyT
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -164866,7 +164780,7 @@ vMv
 gtw
 fRT
 agt
-qVc
+gRQ
 oNV
 wZS
 wZS
@@ -164904,7 +164818,7 @@ hyT
 vcV
 hyT
 hyT
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -166442,7 +166356,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -167190,7 +167104,7 @@ nzj
 hyT
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -167676,15 +167590,11 @@ nzj
 nzj
 nzj
 nzj
-ijT
+pUM
 nzj
 nzj
 nzj
-ijT
-nzj
-nzj
-nzj
-nzj
+pUM
 nzj
 nzj
 nzj
@@ -167696,7 +167606,6 @@ nzj
 nzj
 nzj
 nzj
-hyT
 nzj
 nzj
 nzj
@@ -167704,7 +167613,12 @@ nzj
 hyT
 nzj
 nzj
-cwQ
+nzj
+nzj
+hyT
+nzj
+nzj
+vDa
 nzj
 nzj
 nzj
@@ -167721,7 +167635,7 @@ hyT
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -168488,7 +168402,7 @@ hyT
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -169255,7 +169169,7 @@ nzj
 nzj
 nzj
 nzj
-cwQ
+vDa
 nzj
 nzj
 nzj
@@ -169590,13 +169504,13 @@ nzj
 nzj
 nzj
 nzj
-agK
+kAK
 kyU
 eAD
 gvL
 dyw
 kyU
-agK
+kAK
 nzj
 nzj
 nzj
