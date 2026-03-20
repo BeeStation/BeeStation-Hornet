@@ -28,16 +28,15 @@
 /// Other forbidden magics, such as heretic spells
 #define SCHOOL_FORBIDDEN "forbidden"
 
-// magical invocation types
-///Allows being able to cast the spell without saying anything.
+// Invocation types - what does the wizard need to do to invoke (cast) the spell?
+/// Allows being able to cast the spell without saying or doing anything.
 #define INVOCATION_NONE "none"
-///Forces the wizard to shout (and be able to) to cast the spell.
+/// Forces the wizard to shout the invocation to cast the spell.
 #define INVOCATION_SHOUT "shout"
-///Forces the wizard to emote (and be able to) to cast the spell.
-#define INVOCATION_EMOTE "emote"
-///Forces the wizard to whisper (and be able to) to cast the spell.
+/// Forces the wizard to whisper the invocation to cast the spell.
 #define INVOCATION_WHISPER "whisper"
-
+/// Forces the wizard to emote to cast the spell.
+#define INVOCATION_EMOTE "emote"
 
 // Bitflags for spell requirements
 /// Whether the spell requires wizard clothes to cast.
@@ -48,12 +47,11 @@
 /// Whether the spell can be cast by mobs who are brains / mmis.
 /// When applying, bear in mind most spells will not function for brains out of the box.
 #define SPELL_CASTABLE_AS_BRAIN (1 << 2)
-/// Whether the spell can be cast while phased, such as blood crawling, ethereal jaunting or using rod form.
-#define SPELL_CASTABLE_WHILE_PHASED (1 << 3)
+
 /// Whether the spell can be cast while the user has antimagic on them that corresponds to the spell's own antimagic flags.
 #define SPELL_REQUIRES_NO_ANTIMAGIC (1 << 4)
-/// Whether the spell can be cast on the centcom z level.
-#define SPELL_REQUIRES_OFF_CENTCOM (1 << 5)
+/// Whether the spell requires being on the station z-level to be cast.
+#define SPELL_REQUIRES_STATION (1 << 5)
 /// Whether the spell must be cast by someone with a mind datum.
 #define SPELL_REQUIRES_MIND (1 << 6)
 /// Whether the spell requires the caster have a mime vow (mindless mobs will succeed this check regardless).
@@ -64,13 +62,12 @@
 
 DEFINE_BITFIELD(spell_requirements, list(
 	"SPELL_CASTABLE_AS_BRAIN" = SPELL_CASTABLE_AS_BRAIN,
-	"SPELL_CASTABLE_WHILE_PHASED" = SPELL_CASTABLE_WHILE_PHASED,
 	"SPELL_CASTABLE_WITHOUT_INVOCATION" = SPELL_CASTABLE_WITHOUT_INVOCATION,
 	"SPELL_REQUIRES_HUMAN" = SPELL_REQUIRES_HUMAN,
 	"SPELL_REQUIRES_MIME_VOW" = SPELL_REQUIRES_MIME_VOW,
 	"SPELL_REQUIRES_MIND" = SPELL_REQUIRES_MIND,
 	"SPELL_REQUIRES_NO_ANTIMAGIC" = SPELL_REQUIRES_NO_ANTIMAGIC,
-	"SPELL_REQUIRES_OFF_CENTCOM" = SPELL_REQUIRES_OFF_CENTCOM,
+	"SPELL_REQUIRES_STATION" = SPELL_REQUIRES_STATION,
 	"SPELL_REQUIRES_WIZARD_GARB" = SPELL_REQUIRES_WIZARD_GARB,
 ))
 

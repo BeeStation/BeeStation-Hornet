@@ -23,7 +23,7 @@
 	base_icon_state = "banana_peel"
 	button_icon_state = "banana"
 
-/datum/action/cooldown/spell/pointed/banana_peel/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/banana_peel/cast(atom/cast_on)
 	. = ..()
 	if(get_dist(owner,target)>cast_range)
 		to_chat(owner, "<span class='notice'>\The [target] is too far away!</span>")

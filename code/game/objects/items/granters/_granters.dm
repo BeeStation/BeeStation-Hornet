@@ -57,7 +57,7 @@
 /// Called when the user starts to read the granter.
 /obj/item/book/granter/proc/on_reading_start(mob/living/user)
 	to_chat(user, ("<span class='notice'>You start reading [name]...</span>"))
-	TRUE
+	return TRUE
 
 /// Called when the reading is interrupted without finishing.
 /obj/item/book/granter/proc/on_reading_stopped(mob/living/user)

@@ -13,7 +13,7 @@
 	cast_range = 9
 	invocation = "FRO' BRT'TRO, DA!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_STATION
 	active_msg = "You prepare to swap locations with a target..."
 
 	smoke_type = /datum/effect_system/smoke_spread
@@ -69,14 +69,14 @@
 	to_chat(cast_on, span_userdanger("You feel space bending."))
 	if(ispath(smoke_type, /datum/effect_system/smoke_spread))
 		var/datum/effect_system/smoke_spread/smoke = new smoke_type()
-		smoke.set_up(smoke_amt, holder = owner, location = get_turf(owner))
+		smoke.set_up(smoke_amt, location = get_turf(owner))
 		smoke.start()
 	var/turf/target_location = get_turf(cast_on)
 	if(!isnull(second_target) && get_dist(owner, second_target) <= cast_range && !(cast_on == second_target))
 		to_chat(second_target, span_userdanger("You feel space bending."))
 		if(ispath(smoke_type, /datum/effect_system/smoke_spread))
 			var/datum/effect_system/smoke_spread/smoke = new smoke_type()
-			smoke.set_up(smoke_amt, holder = owner, location = get_turf(second_target))
+			smoke.set_up(smoke_amt, location = get_turf(second_target))
 			smoke.start()
 		var/turf/second_location = get_turf(second_target)
 		do_teleport(second_target, owner.loc, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)

@@ -189,7 +189,8 @@
 /atom/movable/screen/alert/status_effect/bloodchill
 	name = "Bloodchilled"
 	desc = "You feel a shiver down your spine after getting hit with a glob of cold blood. You'll move slower and get frostbite for a while!"
-	icon_state = "bloodchill"
+	use_user_hud_icon = TRUE
+	overlay_state = "bloodchill"
 
 /datum/status_effect/bloodchill
 	id = "bloodchill"
@@ -207,10 +208,6 @@
 /datum/status_effect/bloodchill/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/bloodchill)
 
-/atom/movable/screen/alert/status_effect/bloodchill
-	name = "Bloodchilled"
-	desc = "You feel a shiver down your spine after getting hit with a glob of cold blood. You'll move slower and get frostbite for a while!"
-	icon_state = "bloodchill"
 
 /datum/status_effect/bonechill
 	id = "bonechill"
@@ -236,7 +233,8 @@
 /atom/movable/screen/alert/status_effect/bonechill
 	name = "Bonechilled"
 	desc = "You feel a shiver down your spine after hearing the haunting noise of bone rattling. You'll move slower and get frostbite for a while!"
-	icon_state = "bloodchill"
+	use_user_hud_icon = TRUE
+	overlay_state = "bloodchill"
 
 /datum/status_effect/rebreathing
 	id = "rebreathing"
@@ -1025,7 +1023,7 @@
 
 /datum/status_effect/stabilized/lightpink/on_apply()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/lightpink)
-	ADD_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
+	ADD_TRAIT(owner, TRAIT_PACIFISM, STABILIZED_LIGHT_PINK_EXTRACT_TRAIT)
 	return ..()
 
 /datum/status_effect/stabilized/lightpink/tick(seconds_between_ticks)
@@ -1037,7 +1035,7 @@
 
 /datum/status_effect/stabilized/lightpink/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/lightpink)
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, STABILIZED_LIGHT_PINK_EXTRACT_TRAIT)
 
 /datum/status_effect/stabilized/adamantine
 	id = "stabilizedadamantine"

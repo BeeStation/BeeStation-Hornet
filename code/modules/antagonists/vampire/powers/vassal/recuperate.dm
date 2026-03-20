@@ -1,5 +1,5 @@
 /// Used by Vassals
-/datum/action/vampire/recuperate
+/datum/action/cooldown/vampire/recuperate
 	name = "Sanguine Recuperation"
 	desc = "Slowly heals you overtime using your master's blood, in exchange for some of your own blood and effort."
 	button_icon_state = "power_recup"
@@ -12,7 +12,7 @@
 	bloodcost = 1.5
 	cooldown_time = 10 SECONDS
 
-/datum/action/vampire/recuperate/can_use()
+/datum/action/cooldown/vampire/recuperate/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -21,12 +21,12 @@
 		owner.balloon_alert(owner, "you are incapacitated...")
 		return FALSE
 
-/datum/action/vampire/recuperate/activate_power()
+/datum/action/cooldown/vampire/recuperate/activate_power()
 	. = ..()
 	to_chat(owner, span_notice("Your muscles clench as your master's immortal blood mixes with your own, knitting your wounds."))
 	owner.balloon_alert(owner, "recuperate turned on.")
 
-/datum/action/vampire/recuperate/UsePower()
+/datum/action/cooldown/vampire/recuperate/UsePower()
 	. = ..()
 	if(!. || !currently_active)
 		return
@@ -47,7 +47,7 @@
 	if(istype(carbon_owner) && carbon_owner.is_bleeding())
 		carbon_owner.cauterise_wounds(-0.5)
 
-/datum/action/vampire/recuperate/continue_active()
+/datum/action/cooldown/vampire/recuperate/continue_active()
 	if(owner.stat == DEAD)
 		return FALSE
 	if(owner.incapacitated)
@@ -55,6 +55,6 @@
 		return FALSE
 	return TRUE
 
-/datum/action/vampire/recuperate/deactivate_power()
+/datum/action/cooldown/vampire/recuperate/deactivate_power()
 	owner.balloon_alert(owner, "recuperate turned off.")
 	return ..()

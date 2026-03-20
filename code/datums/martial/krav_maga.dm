@@ -29,7 +29,7 @@
 	button_icon_state = "legsweep"
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/leg_sweep/on_activate()
+/datum/action/leg_sweep/Activate()
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
@@ -46,7 +46,7 @@
 	button_icon_state = "lungpunch"
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/lung_punch/on_activate()
+/datum/action/lung_punch/Activate()
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return

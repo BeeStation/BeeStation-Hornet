@@ -12,6 +12,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	action_slots = ALL
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 1

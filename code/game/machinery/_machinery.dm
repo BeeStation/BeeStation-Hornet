@@ -759,17 +759,17 @@
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
 
-/obj/machinery/proc/default_pry_open(obj/item/I)
-	. = !(state_open || panel_open || is_operational || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
+/obj/machinery/proc/default_pry_open(obj/item/tool)
+	. = !(state_open || panel_open || is_operational || (flags_1 & NODECONSTRUCT_1)) && tool.tool_behaviour == TOOL_CROWBAR
 	if(.)
-		I.play_tool_sound(src, 50)
+		tool.play_tool_sound(src, 50)
 		visible_message(span_notice("[usr] pries open \the [src]."), span_notice("You pry open \the [src]."))
 		open_machine()
 
-/obj/machinery/proc/default_deconstruction_crowbar(obj/item/I, ignore_panel = 0)
-	. = (panel_open || ignore_panel) && !(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_CROWBAR
+/obj/machinery/proc/default_deconstruction_crowbar(obj/item/tool, ignore_panel = FALSE)
+	. = (panel_open || ignore_panel) && !(flags_1 & NODECONSTRUCT_1) && tool.tool_behaviour == TOOL_CROWBAR
 	if(.)
-		I.play_tool_sound(src, 50)
+		tool.play_tool_sound(src, 50)
 		deconstruct(TRUE)
 
 /obj/machinery/deconstruct(disassembled = TRUE)
@@ -860,34 +860,37 @@
 	for(var/atom/atom_part in old_components)
 		qdel(atom_part)
 
-/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
-	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_SCREWDRIVER)
-		I.play_tool_sound(src, 50)
-		if(!panel_open)
-			panel_open = TRUE
+/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
+	if((flags_1 & NODECONSTRUCT_1) || screwdriver.tool_behaviour != TOOL_SCREWDRIVER)
+		return FALSE
+
+	screwdriver.play_tool_sound(src, 50)
+	panel_open = !panel_open
+	if(panel_open)
+		if(icon_state_open)
 			icon_state = icon_state_open
-			set_machine_stat(machine_stat | MAINT)
-			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
-		else
-			panel_open = FALSE
+		set_machine_stat(machine_stat | MAINT)
+		to_chat(user, span_notice("You open the maintenance hatch of [src]."))
+	else
+		if(icon_state_closed)
 			icon_state = icon_state_closed
-			set_machine_stat(machine_stat & ~MAINT)
-			to_chat(user, span_notice("You close the maintenance hatch of [src]."))
-		return TRUE
-	return FALSE
+		set_machine_stat(machine_stat & ~MAINT)
+		to_chat(user, span_notice("You close the maintenance hatch of [src]."))
+	return TRUE
 
 /**
  * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
  */
 /obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/wrench, turns = 1)
+	if(!panel_open || wrench.tool_behaviour != TOOL_WRENCH)
+		return FALSE
+
 	turns *= -90
-	if(panel_open && wrench.tool_behaviour == TOOL_WRENCH)
-		wrench.play_tool_sound(src, 50)
-		setDir(turn(dir,turns))
-		to_chat(user, span_notice("You rotate [src]."))
-		SEND_SIGNAL(src, COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH, user, wrench)
-		return TRUE
-	return FALSE
+	wrench.play_tool_sound(src, 50)
+	setDir(turn(dir, turns))
+	to_chat(user, span_notice("You rotate [src]."))
+	SEND_SIGNAL(src, COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH, user, wrench)
+	return TRUE
 
 /obj/proc/can_be_unfasten_wrench(mob/user, silent) //if we can unwrench this object; returns SUCCESSFUL_UNFASTEN and FAILED_UNFASTEN, which are both TRUE, or CANT_UNFASTEN, which isn't.
 	if(!(isfloorturf(loc) || istype(loc, /turf/open/indestructible)) && !anchored)
@@ -1030,13 +1033,16 @@
 				. += "It appears heavily damaged."
 			if(0 to 25)
 				. += span_warning("It's falling apart!")
-	if(user.research_scanner && component_parts)
-		. += display_parts(user, TRUE)
 	if(GET_ATOM_BLOOD_DNA(src))
 		. += span_warning("It's smeared with blood!")
 
 /obj/machinery/examine_descriptor(mob/user)
 	return "machine"
+
+/obj/machinery/examine_more(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_RESEARCH_SCANNER) && component_parts)
+		. += display_parts(user, TRUE)
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()

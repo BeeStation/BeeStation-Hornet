@@ -21,6 +21,9 @@
  * is handled by the hotspot itself, specifically perform_exposure().
  */
 /turf/open/hotspot_expose(exposed_temperature, exposed_volume, soh)
+	if(exposed_temperature < TCMB)
+		exposed_temperature = TCMB
+		CRASH("[src].hotspot_expose() called with exposed_temperature < [TCMB]")
 	//If the air doesn't exist we just return false
 	var/list/air_gases = air?.gases
 	if(!air_gases)
@@ -440,11 +443,13 @@
 	var/turf/open/sound_turf = locate(average_x, average_y, average_Z)
 	if(sound)
 		sound.falloff_distance = drop_off_dist
+		sound.extra_range = drop_off_dist
 		if(sound_turf != current_sound_loc)
 			sound.parent = sound_turf
 		return
 	sound = new(sound_turf, TRUE)
 	sound.falloff_distance = drop_off_dist
+	sound.extra_range = drop_off_dist
 	current_sound_loc = sound_turf
 
 #undef MIN_SIZE_SOUND

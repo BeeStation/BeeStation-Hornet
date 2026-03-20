@@ -83,6 +83,3 @@
 
 /mob/living/simple_animal/drone/getBackSlot()
 	return ITEM_SLOT_DEX_STORAGE
-
-/mob/living/simple_animal/drone/getBeltSlot()
-	return ITEM_SLOT_DEX_STORAGE

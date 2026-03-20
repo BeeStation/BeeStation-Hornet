@@ -138,7 +138,7 @@
 	button_icon_state = "car_horn"
 	var/hornsound = 'sound/items/carhorn.ogg'
 
-/datum/action/vehicle/sealed/horn/trigger(trigger_flags)
+/datum/action/vehicle/sealed/horn/trigger(mob/clicker, trigger_flags)
 	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_CAR_HONK))
 		return
 	TIMER_COOLDOWN_START(src, COOLDOWN_CAR_HONK, 2 SECONDS)
@@ -154,7 +154,7 @@
 	desc = "Dump all objects and people in your car on the floor."
 	button_icon_state = "car_dump"
 
-/datum/action/vehicle/sealed/dump_kidnapped_mobs/trigger(trigger_flags)
+/datum/action/vehicle/sealed/dump_kidnapped_mobs/trigger(mob/clicker, trigger_flags)
 	vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] starts dumping the people inside of it."))
 	vehicle_entered_target.dump_specific_mobs(VEHICLE_CONTROL_KIDNAPPED)
 
@@ -164,7 +164,7 @@
 	desc = "Press one of those colorful buttons on your display panel!"
 	button_icon_state = "car_rtd"
 
-/datum/action/vehicle/sealed/roll_the_dice/trigger(trigger_flags)
+/datum/action/vehicle/sealed/roll_the_dice/trigger(mob/clicker, trigger_flags)
 	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		return
 	var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
@@ -175,7 +175,7 @@
 	desc = "Destroy them with their own fodder"
 	button_icon_state = "car_cannon"
 
-/datum/action/vehicle/sealed/cannon/trigger(trigger_flags)
+/datum/action/vehicle/sealed/cannon/trigger(mob/clicker, trigger_flags)
 	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		return
 	var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
@@ -187,7 +187,7 @@
 	button_icon_state = "car_thanktheclown"
 	COOLDOWN_DECLARE(thank_time_cooldown)
 
-/datum/action/vehicle/sealed/thank/trigger(trigger_flags)
+/datum/action/vehicle/sealed/thank/trigger(mob/clicker, trigger_flags)
 	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		return
 	if(!COOLDOWN_FINISHED(src, thank_time_cooldown))
@@ -208,7 +208,7 @@
 	button_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/vehicle/ridden/scooter/skateboard/ollie/trigger(trigger_flags)
+/datum/action/vehicle/ridden/scooter/skateboard/ollie/trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
@@ -248,7 +248,7 @@
 	button_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/vehicle/ridden/scooter/skateboard/kickflip/trigger(trigger_flags)
+/datum/action/vehicle/ridden/scooter/skateboard/kickflip/trigger(mob/clicker, trigger_flags)
 	var/obj/vehicle/ridden/scooter/skateboard/board = vehicle_target
 	var/mob/living/rider = owner
 

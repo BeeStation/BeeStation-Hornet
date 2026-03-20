@@ -1022,8 +1022,6 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		var/reqs = initial(spell.spell_requirements)
 		if(reqs & SPELL_CASTABLE_AS_BRAIN)
 			real_reqs += "Castable as brain"
-		if(reqs & SPELL_CASTABLE_WHILE_PHASED)
-			real_reqs += "Castable phased"
 		if(reqs & SPELL_REQUIRES_HUMAN)
 			real_reqs += "Must be human"
 		if(reqs & SPELL_REQUIRES_MIME_VOW)
@@ -1032,8 +1030,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			real_reqs += "Must have a mind"
 		if(reqs & SPELL_REQUIRES_NO_ANTIMAGIC)
 			real_reqs += "Must have no antimagic"
-		if(reqs & SPELL_REQUIRES_OFF_CENTCOM)
-			real_reqs += "Must be off central command z-level"
+		if(reqs & SPELL_REQUIRES_STATION)
+			real_reqs += "Must be on the station z-level"
 		if(reqs & SPELL_REQUIRES_WIZARD_GARB)
 			real_reqs += "Must have wizard clothes"
 

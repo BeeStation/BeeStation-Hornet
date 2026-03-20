@@ -40,10 +40,11 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	priority_announce(sentience_report,"[command_name()] Medium-Priority Update", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/ghost_role/sentience/spawn_role()
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_SENTIENT_ANIMAL
-	config.role_name_text = "sentient animal"
-	config.alert_pic = /mob/living/basic/pet/dog/corgi/ian
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_SENTIENT_ANIMAL,
+		role_name_text = "sentient animal",
+		alert_pic = /mob/living/basic/pet/dog/corgi/ian,
+	)
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS

@@ -9,11 +9,11 @@
 	/// This value determines if the cone penetrates walls.
 	var/respect_density = FALSE
 
-/datum/action/cooldown/spell/cone/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/cone/cast(atom/cast_on)
 	. = ..()
-	var/list/cone_turfs = get_cone_turfs(get_turf(user), user.dir, cone_levels)
-	SEND_SIGNAL(src, COMSIG_SPELL_CONE_ON_CAST, cone_turfs, user)
-	make_cone(cone_turfs, user)
+	var/list/cone_turfs = get_cone_turfs(get_turf(cast_on), cast_on.dir, cone_levels)
+	SEND_SIGNAL(src, COMSIG_SPELL_CONE_ON_CAST, cone_turfs, cast_on)
+	make_cone(cone_turfs, cast_on)
 
 /datum/action/cooldown/spell/cone/proc/make_cone(list/cone_turfs, atom/caster)
 	for(var/list/turf_list in cone_turfs)
@@ -32,9 +32,9 @@
 
 		for(var/atom/movable/movable_content as anything in target_turf)
 			if(isobj(movable_content))
-				do_obj_cone_effect(movable_content, level)
+				do_obj_cone_effect(movable_content, caster, level)
 			else if(isliving(movable_content))
-				do_mob_cone_effect(movable_content, level)
+				do_mob_cone_effect(movable_content, caster, level)
 
 ///This proc deterimines how the spell will affect turfs.
 /datum/action/cooldown/spell/cone/proc/do_turf_cone_effect(turf/target_turf, atom/caster, level)

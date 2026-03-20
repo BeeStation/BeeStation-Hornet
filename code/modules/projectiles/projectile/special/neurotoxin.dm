@@ -4,7 +4,7 @@
 	damage = 5
 	damage_type = TOX
 	nodamage = FALSE
-	flag = "bio"
+	armor_flag = BIO
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/neurotoxin
 
 /obj/projectile/neurotoxin/on_hit(atom/target, blocked = FALSE)

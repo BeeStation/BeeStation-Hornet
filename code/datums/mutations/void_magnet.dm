@@ -15,18 +15,17 @@
 		remove()
 		return
 
-	if(!curse.is_valid_spell(owner, null))
+	if(!curse.is_valid_target(owner))
 		return
 
 	//very rare, but enough to annoy you hopefully. + 0.5 probability for every 10 points lost in stability
 	if(DT_PROB((0.25 + ((100 - dna.stability) / 40)) * GET_MUTATION_SYNCHRONIZER(src), delta_time))
-		curse.on_cast(owner, null)
+		curse.cast(owner)
 
 /datum/action/cooldown/spell/void
 	name = "Convoke Void" //magic the gathering joke here
 	desc = "A rare genome that attracts odd forces not usually observed. May sometimes pull you in randomly."
 	button_icon_state = "void_magnet"
-	mindbound = FALSE
 	school = SCHOOL_EVOCATION
 	cooldown_time = 1 MINUTES
 
@@ -35,9 +34,9 @@
 	spell_requirements = NONE
 	antimagic_flags = NONE
 
-/datum/action/cooldown/spell/void/is_valid_spell(mob/user, atom/target)
-	return isturf(user.loc)
+/datum/action/cooldown/spell/void/is_valid_target(atom/cast_on)
+	return isturf(cast_on.loc)
 
-/datum/action/cooldown/spell/void/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/void/cast(atom/cast_on)
 	. = ..()
-	new /obj/effect/immortality_talisman/void(get_turf(user), user)
+	new /obj/effect/immortality_talisman/void(get_turf(cast_on), cast_on)

@@ -84,8 +84,8 @@
 		master.special_vassals[special_type] += 1
 
 	// Give powers
-	grant_power(new /datum/action/vampire/recuperate)
-	grant_power(new /datum/action/vampire/distress)
+	grant_power(new /datum/action/cooldown/vampire/recuperate)
+	grant_power(new /datum/action/cooldown/vampire/distress)
 
 	// Give objectives
 	forge_objectives()
@@ -101,7 +101,7 @@
 		owner.enslaved_to = null
 
 	// Remove powers
-	for(var/datum/action/vampire/power in powers)
+	for(var/datum/action/cooldown/vampire/power in powers)
 		powers -= power
 		power.Remove(owner.current)
 
@@ -109,7 +109,7 @@
 
 /datum/antagonist/vassal/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	for(var/datum/action/vampire/power in powers)
+	for(var/datum/action/cooldown/vampire/power in powers)
 		power.Remove(old_body)
 		power.Grant(new_body)
 

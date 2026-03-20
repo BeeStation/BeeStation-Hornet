@@ -635,8 +635,8 @@
 	// Performs a soul tap on living targets hit.
 	// Takes away max health, but refreshes their spell cooldowns (if any)
 	var/datum/action/cooldown/spell/tap/tap = new(src)
-	if(tap.is_valid_spell(target, target))
-		tap.on_cast(target, target)
+	if(tap.is_valid_target(target))
+		tap.cast(target)
 
 	qdel(tap)
 
@@ -669,13 +669,15 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/datum/poll_config/config = new()
-	config.question = poll_message
-	config.check_jobban = ban_key
-	config.poll_time = 10 SECONDS
-	config.jump_target = M
-	config.role_name_text = "ghost possession"
-	config.alert_pic = M
+	var/datum/poll_config/config = new(
+		question = poll_message,
+		check_jobban = ban_key,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		role_name_text = "ghost possession",
+		alert_pic = M,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, M)
 	if(M.stat == DEAD)//boo.
 		return

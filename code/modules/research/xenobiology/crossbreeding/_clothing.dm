@@ -45,10 +45,6 @@ Slimecrossing Armor
 	actions_types = list(/datum/action/item_action/change_prism_colour, /datum/action/item_action/place_light_prism)
 	var/glasses_color = COLOR_WHITE
 
-/obj/item/clothing/glasses/prism_glasses/item_action_slot_check(slot)
-	if(slot == ITEM_SLOT_EYES)
-		return TRUE
-
 /obj/structure/light_prism
 	name = "light prism"
 	desc = "A shining crystal of semi-solid light. Looks fragile."
@@ -75,7 +71,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	button_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "prismcolor"
 
-/datum/action/item_action/change_prism_colour/activate(atom/target)
+/datum/action/item_action/change_prism_colour/do_effect(trigger_flags)
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
 	var/new_color = tgui_color_picker(owner, "Choose the lens color:", "Color change",glasses.glasses_color)
 	if(!new_color)
@@ -87,7 +83,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	button_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "lightprism"
 
-/datum/action/item_action/place_light_prism/activate(atom/target)
+/datum/action/item_action/place_light_prism/do_effect(trigger_flags)
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
 	if(locate(/obj/structure/light_prism) in get_turf(owner))
 		to_chat(owner, span_warning("There isn't enough ambient energy to fabricate another light prism here."))

@@ -1217,7 +1217,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/mob/living/simple_animal/chicken/turkey{
+/mob/living/simple_animal/turkey{
 	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
 	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
 	health = 200;
@@ -12015,7 +12015,7 @@
 /obj/machinery/computer/xenoarchaeology_console{
 	dir = 4
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
 "cDj" = (
@@ -14092,7 +14092,7 @@
 	pixel_x = -8;
 	pixel_y = 12
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -31506,7 +31506,7 @@
 	dir = 1;
 	color = "#486091"
 	},
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/structure/bed/dogbed/runtime,
 /obj/item/storage/secure/safe{
 	pixel_x = -24
@@ -38418,7 +38418,7 @@
 /obj/item/folder{
 	pixel_x = -4
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -52112,7 +52112,7 @@
 /area/engine/atmos)
 "pTa" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -63188,7 +63188,7 @@
 	pixel_y = 6
 	},
 /obj/item/aicard,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 6
 	},
 /obj/item/radio/intercom{

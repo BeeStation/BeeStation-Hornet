@@ -34,10 +34,10 @@
 	unshift_owner()
 	return ..()
 
-/datum/action/cooldown/spell/shapeshift/is_valid_spell(mob/user, atom/target)
-	return isliving(user)
+/datum/action/cooldown/spell/shapeshift/is_valid_target(atom/cast_on)
+	return isliving(cast_on)
 
-/datum/action/cooldown/spell/shapeshift/pre_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/shapeshift/before_cast(mob/living/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -46,8 +46,8 @@
 		// If another shapeshift spell was casted while we're already shifted, they could technically go to do_unshapeshift().
 		// However, we don't really want people casting shapeshift A to un-shapeshift from shapeshift B,
 		// as it could cause bugs or unintended behavior. So we'll just stop them here.
-		if(is_shifted(user) && !is_type_in_list(user, possible_shapes))
-			to_chat(user, span_warning("This spell won't un-shapeshift you from this form!"))
+		if(is_shifted(cast_on) && !is_type_in_list(cast_on, possible_shapes))
+			to_chat(cast_on, span_warning("This spell won't un-shapeshift you from this form!"))
 			return . | SPELL_CANCEL_CAST
 
 		return
@@ -66,10 +66,10 @@
 			shape_names_to_image[shape_name] = image(icon = initial(path.icon), icon_state = initial(path.icon_state))
 
 	var/picked_type = show_radial_menu(
-		user,
-		user,
+		cast_on,
+		cast_on,
 		shape_names_to_image,
-		custom_check = CALLBACK(src, PROC_REF(check_menu), user),
+		custom_check = CALLBACK(src, PROC_REF(check_menu), cast_on),
 		radius = 38,
 	)
 
@@ -84,18 +84,18 @@
 	if(QDELETED(src) || QDELETED(owner) || !can_cast_spell(feedback = FALSE))
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/cooldown/spell/shapeshift/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/shapeshift/cast(mob/living/cast_on)
 	. = ..()
-	user.buckled?.unbuckle_mob(user, force = TRUE)
+	cast_on.buckled?.unbuckle_mob(cast_on, force = TRUE)
 
-	var/currently_ventcrawling = (user.movement_type & VENTCRAWLING)
+	var/currently_ventcrawling = (cast_on.movement_type & VENTCRAWLING)
 	var/mob/living/resulting_mob
 
 	// Do the shift back or forth
-	if(is_shifted(user))
-		resulting_mob = do_unshapeshift(user)
+	if(is_shifted(cast_on))
+		resulting_mob = do_unshapeshift(cast_on)
 	else
-		resulting_mob = do_shapeshift(user)
+		resulting_mob = do_shapeshift(cast_on)
 
 	// The shift is done, let's make sure they're in a valid state now
 	// If we're not ventcrawling, we don't need to mind
@@ -103,7 +103,7 @@
 		return
 
 	// We are ventcrawling - can our new form support ventcrawling?
-	if(HAS_TRAIT(user, VENTCRAWLER_ALWAYS) || HAS_TRAIT(user, VENTCRAWLER_NUDE))
+	if(HAS_TRAIT(resulting_mob, VENTCRAWLER_ALWAYS) || HAS_TRAIT(resulting_mob, VENTCRAWLER_NUDE))
 		return
 
 	// Uh oh. You've shapeshifted into something that can't fit into a vent, while ventcrawling.
@@ -157,6 +157,7 @@
 	// Make sure it's castable even in their new form.
 	pre_shift_requirements = spell_requirements
 	spell_requirements &= ~(SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_WIZARD_GARB)
+	ADD_TRAIT(new_shape, TRAIT_DONT_WRITE_MEMORY, SHAPESHIFT_TRAIT)
 
 	return new_shape
 

@@ -21,11 +21,14 @@
 	banning_key = ROLE_HERETIC
 	required_living_playtime = 4
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
+	antag_flags = parent_type::antag_flags | ANTAG_OBSERVER_VISIBLE_PANEL
+
+
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
 	var/heretic_path = HERETIC_PATH_START
-	/// A list of how many knowledge points this heretic CURRENTLY has. Used to research.
+	/// A sum of how many knowledge points this heretic CURRENTLY has. Used to research.
 	var/knowledge_points = 1
 	/// The time between gaining influence passively. The heretic gain +1 knowledge points every this duration of time.
 	var/passive_gain_timer = 20 MINUTES
@@ -35,7 +38,7 @@
 	var/living_heart_organ_slot = ORGAN_SLOT_HEART
 	/// A list of TOTAL how many sacrifices completed. (Includes high value sacrifices)
 	var/total_sacrifices = 0
-	/// A list of TOTAL how many high value sacrifices completed.
+	/// A list of TOTAL how many high value sacrifices completed. (Heads of staff)
 	var/high_value_sacrifices = 0
 	/// Weakrefs to the minds of monsters have been successfully summoned. Includes ghouls.
 	var/list/datum/weakref/monsters_summoned
@@ -196,7 +199,6 @@
 	return ..()
 
 /datum/antagonist/heretic/on_removal()
-
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		knowledge.on_lose(owner.current, src)
@@ -210,9 +212,10 @@
 	handle_clown_mutation(our_mob, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	our_mob.faction |= FACTION_HERETIC
 
-	RegisterSignals(our_mob, list(COMSIG_MOB_PRE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
+	RegisterSignals(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))
 	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(fix_influence_network))
+	RegisterSignal(our_mob, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(after_fully_healed))
 	update_heretic_icons_added()
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
@@ -221,10 +224,11 @@
 	our_mob.faction -= FACTION_HERETIC
 
 	UnregisterSignal(our_mob, list(
-		COMSIG_MOB_PRE_SPELL_CAST,
+		COMSIG_MOB_BEFORE_SPELL_CAST,
 		COMSIG_MOB_SPELL_ACTIVATED,
 		COMSIG_MOB_ITEM_AFTERATTACK,
-		COMSIG_MOB_LOGIN
+		COMSIG_MOB_LOGIN,
+		COMSIG_LIVING_POST_FULLY_HEAL
 	))
 	update_heretic_icons_removed()
 
@@ -359,6 +363,17 @@
 	SIGNAL_HANDLER
 
 	GLOB.reality_smash_track.rework_network()
+
+/// Signal proc for [COMSIG_LIVING_POST_FULLY_HEAL], when we get fullhealed / ahealed,
+/// all of our organs are "deleted" and regenerated (cause it's a full heal)
+/// which unfortunately means we lose our living heart.
+/// So, we'll give them some lee-way and give them back the living heart afterwards
+/// (Maybe put this behind only admin_revives only? Not sure.)
+/datum/antagonist/heretic/proc/after_fully_healed(mob/living/source, admin_revive)
+	SIGNAL_HANDLER
+
+	var/datum/heretic_knowledge/living_heart/heart_knowledge = get_knowledge(/datum/heretic_knowledge/living_heart)
+	heart_knowledge.on_research(source)
 
 /**
  * Create our objectives for our heretic.

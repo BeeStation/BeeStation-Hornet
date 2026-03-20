@@ -183,16 +183,16 @@
 /datum/action/item_action/update_linkedsurgery
 	name = "Update Surgical Implant"
 
-/datum/action/item_action/update_linkedsurgery/activate(atom/target)
+/datum/action/item_action/update_linkedsurgery/do_effect(trigger_flags)
 	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery))
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
 		var/old_surgeries_amount = length(I.advanced_surgeries)
 		I.update_surgery()
 		if(length(I.advanced_surgeries) > old_surgeries_amount)
-			to_chat(usr, span_notice("Surgical Implant updated."))
+			to_chat(owner, span_notice("Surgical Implant updated."))
 		else
-			to_chat(usr, span_notice("None of new surgical programs detected."))
-	return ..()
+			to_chat(owner, span_notice("None of new surgical programs detected."))
+	return TRUE
 
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth

@@ -116,12 +116,12 @@
 	var/circle = TRUE
 	effect_type = /obj/effect/particle_effect/smoke
 
-/datum/effect_system/smoke_spread/set_up(radius = 5, loca, circle = TRUE)
-	if(isturf(loca))
-		location = loca
+/datum/effect_system/smoke_spread/set_up(number = 5, location, cardinals_only = TRUE)
+	if(isturf(location))
+		src.location = location
 	else
-		location = get_turf(loca)
-	amount = radius
+		src.location = get_turf(location)
+	amount = number
 	src.circle = TRUE
 
 /datum/effect_system/smoke_spread/start()
@@ -192,8 +192,8 @@
 	for(var/obj/item/Item in T)
 		Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(radius = 5, loca, blast_radius = 0, circle = TRUE)
-	..(radius, loca, circle)
+/datum/effect_system/smoke_spread/freezing/set_up(number = 5, location, cardinals_only = TRUE, blast_radius = 0)
+	..(number, location, cardinals_only)
 	blast = blast_radius
 
 /datum/effect_system/smoke_spread/freezing/start()
@@ -279,14 +279,14 @@
 	chemholder = null
 	return ..()
 
-/datum/effect_system/smoke_spread/chem/set_up(datum/reagents/carry = null, radius = 1, loca, silent = FALSE, circle = TRUE)
-	if(isturf(loca))
-		location = loca
+/datum/effect_system/smoke_spread/chem/set_up(datum/reagents/carry = null, number = 1, location, silent = FALSE, cardinals_only = TRUE)
+	if(isturf(location))
+		src.location = location
 	else
-		location = get_turf(loca)
-	amount = radius
+		src.location = get_turf(location)
+	amount = number
 	carry.copy_to(chemholder, carry.total_volume)
-	src.circle = circle
+	src.circle = cardinals_only
 
 	if(!silent)
 		var/contained = ""
@@ -295,18 +295,19 @@
 		if(contained)
 			contained = "\[[contained]\]"
 
-		var/where = "[AREACOORD(location)]"
+		var/turf/smoke_loc = src.location
+		var/where = "[AREACOORD(smoke_loc)]"
 		if(carry.my_atom?.fingerprintslast) //Some reagents don't have a my_atom in some cases
 			var/mob/M = get_mob_by_ckey(carry.my_atom.fingerprintslast)
 			var/more = ""
 			if(M)
 				more = "[ADMIN_LOOKUPFLW(M)] "
 			if(!istype(carry.my_atom, /obj/machinery/plumbing))
-				message_admins("Smoke: ([ADMIN_VERBOSEJMP(location)])[contained]. Key: [more ? more : carry.my_atom.fingerprintslast].")
+				message_admins("Smoke: ([ADMIN_VERBOSEJMP(smoke_loc)])[contained]. Key: [more ? more : carry.my_atom.fingerprintslast].")
 			log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last touched by [carry.my_atom.fingerprintslast].")
 		else
 			if(!istype(carry.my_atom, /obj/machinery/plumbing))
-				message_admins("Smoke: ([ADMIN_VERBOSEJMP(location)])[contained]. No associated key.")
+				message_admins("Smoke: ([ADMIN_VERBOSEJMP(smoke_loc)])[contained]. No associated key.")
 			log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
 
 

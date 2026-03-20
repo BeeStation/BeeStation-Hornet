@@ -3,7 +3,7 @@
 	button_icon_state = "hierophant"
 	desc = "Transmit a message to your allies through the Hierophant."
 
-/datum/action/innate/clockcult/transmit/is_available()
+/datum/action/innate/clockcult/transmit/is_available(feedback = FALSE)
 	if(!IS_SERVANT_OF_RATVAR(owner))
 		Remove(owner)
 		return FALSE
@@ -11,7 +11,7 @@
 		return FALSE
 	. = ..()
 
-/datum/action/innate/clockcult/transmit/on_activate()
+/datum/action/innate/clockcult/transmit/Activate()
 	var/message = tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", "", encode = FALSE)
 	hierophant_message(message, owner, "<span class='brass'>")
 

@@ -273,7 +273,7 @@
 
 // Allows nurses to heal other spiders if they're adjacent
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/AttackingTarget()
-	if(DOING_INTERACTION(src, INTERACTION_SPIDER_KEY))
+	if(DOING_INTERACTION(src, DOAFTER_SOURCE_SPIDER))
 		return
 	var/mob/target_mob = target
 	if(!istype(target_mob))
@@ -469,7 +469,7 @@
 	desc = "Spin a web to slow down potential prey."
 	button_icon_state = "lay_web"
 
-/datum/action/innate/spider/lay_web/on_activate()
+/datum/action/innate/spider/lay_web/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
@@ -500,7 +500,7 @@
 	desc = "Use your massive size to prevent others from passing by you."
 	button_icon_state = "block"
 
-/datum/action/innate/spider/block/on_activate()
+/datum/action/innate/spider/block/Activate()
 
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider)) // Update_button is here to make an effect to the icon as if it were a pointed/projectile icon.
 		return
@@ -518,16 +518,16 @@
 		build_all_button_icons()
 		owner.visible_message(span_notice("[owner] loosens up and allows others to pass again."),span_notice("You are no longer blocking others from passing around you."))
 
-/datum/action/innate/spider/block/on_deactivate(mob/user, atom/target)
+/datum/action/innate/spider/block/Deactivate()
 	button_icon_state = "block"
 	build_all_button_icons()
 
-/datum/action/innate/spider/lay_web/is_available()
+/datum/action/innate/spider/lay_web/is_available(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	if(DOING_INTERACTION(owner, INTERACTION_SPIDER_KEY))
+	if(DOING_INTERACTION(owner, DOAFTER_SOURCE_SPIDER))
 		return FALSE
 	if(!isspider(owner))
 		return FALSE
@@ -551,7 +551,7 @@
 		Activate this ability and then click on an adjacent target to begin wrapping them."
 	background_icon_state = "bg_alien"
 	overlay_icon_state = "bg_alien_border"
-	button_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "wrap_0"
 	click_to_activate = TRUE
 	check_flags = AB_CHECK_CONSCIOUS
@@ -629,7 +629,7 @@
 	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must have a directive set and wrap a living being to do this."
 	button_icon_state = "lay_eggs"
 
-/datum/action/innate/spider/lay_eggs/is_available()
+/datum/action/innate/spider/lay_eggs/is_available(feedback = FALSE)
 	. = ..()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 		return FALSE
@@ -639,7 +639,7 @@
 		return TRUE
 	return FALSE
 
-/datum/action/innate/spider/lay_eggs/on_activate()
+/datum/action/innate/spider/lay_eggs/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/spider = owner
@@ -690,7 +690,7 @@
 	desc = "Send a command to all living spiders."
 	button_icon_state = "command"
 
-/datum/action/innate/spider/comm/is_available()
+/datum/action/innate/spider/comm/is_available(feedback = FALSE)
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
 /datum/action/innate/spider/comm/activate(atom/target)
@@ -800,14 +800,14 @@
 	button_icon_state = "directive"
 
 
-/datum/action/innate/spider/set_directive/is_available()
+/datum/action/innate/spider/set_directive/is_available(feedback = FALSE)
 	if(..())
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 			return FALSE
 		return TRUE
 
 
-/datum/action/innate/spider/set_directive/on_activate()
+/datum/action/innate/spider/set_directive/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 		return
 	if(!owner.mind)
@@ -828,4 +828,4 @@
 #undef LAYING_EGGS
 #undef MOVING_TO_TARGET
 #undef SPINNING_COCOON
-#undef INTERACTION_SPIDER_KEY
+#undef DOAFTER_SOURCE_SPIDER

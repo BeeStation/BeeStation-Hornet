@@ -109,7 +109,7 @@
 /mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, no_hands = FALSE, floor_okay=FALSE)
 	return FALSE
 
-/mob/living/basic/revenant/generate_random_mob_name()
+/mob/living/simple_animal/revenant/generate_random_mob_name()
 	var/list/built_name_strings = list()
 	built_name_strings += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
 	built_name_strings += " of "
@@ -368,7 +368,7 @@
 	if(essence_excess < essence_cost)
 		return FALSE
 	essence_excess -= essence_cost
-	update_mob_action_buttons
+	update_mob_action_buttons()
 	return TRUE
 
 /mob/living/simple_animal/revenant/proc/change_essence_amount(essence_amt, silent = FALSE, source = null)
@@ -381,7 +381,7 @@
 	if(essence_amt > 0)
 		essence_accumulated = max(0, essence_accumulated+essence_amt)
 		essence_excess = max(0, essence_excess+essence_amt)
-	update_mob_action_buttons
+	update_mob_action_buttons()
 	if(!silent)
 		if(essence_amt > 0)
 			to_chat(src, span_revennotice("Gained [essence_amt]E[source ? " from [source]":""]."))
@@ -505,13 +505,15 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/datum/poll_config/config = new()
-		config.question = "Do you want to be [revenant.name] (reforming)?"
-		config.check_jobban = ROLE_REVENANT
-		config.poll_time = 10 SECONDS
-		config.jump_target = revenant
-		config.role_name_text = "revenant"
-		config.alert_pic = revenant
+		var/datum/poll_config/config = new(
+			question = "Do you want to be [revenant.name] (reforming)?",
+			check_jobban = ROLE_REVENANT,
+			poll_time = 10 SECONDS,
+			jump_target = revenant,
+			role_name_text = "revenant",
+			alert_pic = revenant,
+			amount_to_pick = 1,
+		)
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 		if(!candidate)
 			qdel(revenant)

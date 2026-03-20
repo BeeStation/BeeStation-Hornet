@@ -50,19 +50,23 @@
 	desc = "Set up the mood for an interrogation."
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "noir_mode"
-	cooldown_time = 30 SECONDS
+	COOLDOWN_DECLARE(noirmode_cd)
+	var/noirmode_cooldown_time = 30 SECONDS
 
-/datum/action/item_action/noirmode/activate(atom/target)
-	var/area/A = get_area(user)
+/datum/action/item_action/noirmode/is_available(feedback = FALSE)
+	return ..() && COOLDOWN_FINISHED(src, noirmode_cd)
+
+/datum/action/item_action/noirmode/do_effect(trigger_flags)
+	var/area/A = get_area(owner)
 	if(!istype(A, /area/security/detectives_office) || !istype(A, /area/security/interrogation_room))
-		to_chat(user, "<span class='warning'>You can only use the noir ability in the detective's office or interrogation room.</span>")
+		to_chat(owner, "<span class='warning'>You can only use the noir ability in the detective's office or interrogation room.</span>")
 		return
 	var/list/mobs_to_iterate = mobs_in_area_type(list(A))
 	for(var/mob/living/L as() in mobs_to_iterate)
 		ADD_TRAIT(L, TRAIT_NOIR, TRAIT_GENERIC)
 		L.add_client_colour(/datum/client_colour/monochrome)
-		if(L == user)
+		if(L == owner)
 			to_chat(L, span_notice("The shadows overtake the room. They are in your realm now."))
 		else
 			to_chat(L, span_userdanger("The shadows overtake the room. An ominous feeling falls over you."))
-	start_cooldown()
+	COOLDOWN_START(src, noirmode_cd, noirmode_cooldown_time)

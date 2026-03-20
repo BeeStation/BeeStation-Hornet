@@ -24,18 +24,20 @@
 	icon_aggro = "legionnaire"
 	icon_dead = "legionnaire_dead"
 	icon_gib = "syndicate_gib"
+	health_doll_icon = "legionnaire"
 	maxHealth = 500
 	health = 500
 	melee_damage = 35
-	attack_verb_continuous = "slashes at"
-	attack_verb_simple = "slash at"
+	attack_verb_continuous = "slashes its arms at"
+	attack_verb_simple = "slash your arms at"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
 	speed = 1
 	move_to_delay = 3
 	mouse_opacity = MOUSE_OPACITY_ICON
-	deathsound = 'sound/magic/curse.ogg'
-	deathmessage = "'s arms reach out before it falls apart onto the floor, lifeless."
+	mob_biotypes = MOB_ORGANIC|MOB_UNDEAD
+	death_sound = 'sound/magic/curse.ogg'
+	death_message = "'s arms reach out before it falls apart onto the floor, lifeless."
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
 
 	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
@@ -96,12 +98,12 @@
 		if(SPEW_SMOKE)
 			spew_smoke()
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Move()Expand commentComment on line R101Resolved
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Move()
 	if(charging)
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/MiddleClickOn(atom/A)Expand commentComment on line R106Resolved
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/MiddleClickOn(atom/A)
 	. = ..()
 	if(!myhead)
 		return
@@ -248,7 +250,7 @@
 	speed = 0
 	move_to_delay = 2
 	del_on_death = TRUE
-	deathmessage = "crumbles away!"
+	death_message = "crumbles away!"
 	faction = list()
 	ranged = FALSE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/body = null

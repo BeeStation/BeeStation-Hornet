@@ -131,6 +131,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/bleeding/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return
 	var/mob/living/carbon/human/human = usr
 	if (!istype(human))
 		return

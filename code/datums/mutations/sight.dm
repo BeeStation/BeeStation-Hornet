@@ -81,8 +81,8 @@
 	remove_from.update_sight()
 	return ..()
 
-/datum/action/cooldown/spell/thermal_vision/is_valid_spell(mob/user, atom/target)
-	return isliving(user) && !HAS_TRAIT(user, TRAIT_THERMAL_VISION)
+/datum/action/cooldown/spell/thermal_vision/is_valid_target(atom/cast_on)
+	return isliving(cast_on) && !HAS_TRAIT(cast_on, TRAIT_THERMAL_VISION)
 
 /datum/action/cooldown/spell/thermal_vision/cast(mob/living/cast_on)
 	. = ..()

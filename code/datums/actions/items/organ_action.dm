@@ -2,8 +2,8 @@
 	name = "Organ Action"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/item_action/organ_action/is_available()
-	var/obj/item/organ/attached_organ = master
+/datum/action/item_action/organ_action/is_available(feedback = FALSE)
+	var/obj/item/organ/attached_organ = target
 	if(!attached_organ.owner)
 		return FALSE
 	return ..()
@@ -13,7 +13,7 @@
 
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
-	var/obj/item/organ/organ_target = master
+	var/obj/item/organ/organ_target = target
 	name = "Toggle [organ_target.name]"
 
 /datum/action/item_action/organ_action/use
@@ -21,5 +21,5 @@
 
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
-	var/obj/item/organ/organ_target = master
+	var/obj/item/organ/organ_target = target
 	name = "Use [organ_target.name]"

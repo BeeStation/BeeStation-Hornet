@@ -49,8 +49,8 @@ Difficulty: Very Hard
 	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
 	score_achievement_type = /datum/award/score/colussus_score
 	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
-	deathmessage = "disintegrates, leaving a glowing core in its wake."
-	deathsound = 'sound/magic/demon_dies.ogg'
+	death_message = "disintegrates, leaving a glowing core in its wake."
+	death_sound = 'sound/magic/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							   /datum/action/innate/megafauna_attack/aoe_attack,
 							   /datum/action/innate/megafauna_attack/shotgun,
@@ -877,7 +877,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "exit_possession"
 
-/datum/action/exit_possession/is_available()
+/datum/action/exit_possession/is_available(feedback = FALSE)
 	return ..() && isfloorturf(owner.loc)
 
 /datum/action/exit_possession/activate(atom/target)

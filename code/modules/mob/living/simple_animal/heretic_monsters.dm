@@ -27,7 +27,7 @@
 	movement_type = GROUND
 	pressure_resistance = 100
 	del_on_death = TRUE
-	deathmessage = "implodes into itself."
+	death_message = "implodes into itself."
 	faction = list(FACTION_HERETIC)
 	simple_mob_flags = SILENCE_RANGED_MESSAGE
 	/// Innate spells that are added when a beast is created.
@@ -76,7 +76,7 @@
 	button_icon_state = "binoculars"
 	background_icon_state = "bg_heretic"
 
-/datum/action/innate/hereticmob/change_sight_range/on_activate()
+/datum/action/innate/hereticmob/change_sight_range/Activate()
 	var/list/views = list()
 	for(var/i in 1 to 10)
 		views |= i

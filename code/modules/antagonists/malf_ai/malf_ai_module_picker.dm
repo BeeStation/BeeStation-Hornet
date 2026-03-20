@@ -12,7 +12,7 @@
 	else
 		CRASH("choose_modules action created with non module picker")
 
-/datum/action/innate/choose_modules/on_activate()
+/datum/action/innate/choose_modules/Activate()
 	module_picker.ui_interact(owner)
 
 /// The datum and interface for the malf unlock menu, which lets them choose actions to unlock.

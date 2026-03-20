@@ -265,7 +265,7 @@
 
 /datum/objective/vampire/tremere_power/check_completion()
 	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
-	for(var/datum/action/vampire/targeted/tremere/tremere_power in vampire_datum.powers)
+	for(var/datum/action/cooldown/vampire/targeted/tremere/tremere_power in vampire_datum.powers)
 		if(tremere_power.level_current >= 5)
 			return TRUE
 

@@ -27,10 +27,6 @@
 	QDEL_NULL(ion_trail)
 	return ..()
 
-/obj/item/tank/jetpack/item_action_slot_check(slot)
-	if(slot & slot_flags)
-		return TRUE
-
 /obj/item/tank/jetpack/equipped(mob/user, slot, initial)
 	. = ..()
 	if(on && !(slot & slot_flags))

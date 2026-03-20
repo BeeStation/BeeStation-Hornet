@@ -78,11 +78,6 @@
 	if(istype(dexterity))
 		return ITEM_SLOT_DEX_STORAGE
 
-/mob/living/simple_animal/hostile/holoparasite/getBeltSlot()
-	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
-	if(istype(dexterity))
-		return ITEM_SLOT_DEX_STORAGE
-
 /mob/living/simple_animal/hostile/holoparasite/update_held_items()
 	if(LAZYLEN(hand_overlays))
 		cut_overlay(hand_overlays)

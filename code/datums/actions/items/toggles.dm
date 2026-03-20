@@ -46,8 +46,8 @@
 	button_icon = 'icons/hud/actions/actions_spacesuit.dmi'
 	button_icon_state = "thermal_off"
 
-/datum/action/item_action/toggle_spacesuit/apply_button_icon(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
-	var/obj/item/clothing/suit/space/suit = master
+/datum/action/item_action/toggle_spacesuit/apply_button_icon(atom/movable/screen/movable/action_button/button, force)
+	var/obj/item/clothing/suit/space/suit = target
 	if(istype(suit))
 		button_icon_state = "thermal_[suit.thermal_on ? "on" : "off"]"
 
@@ -77,8 +77,8 @@
 /datum/action/item_action/jetpack_stabilization
 	name = "Toggle Jetpack Stabilization"
 
-/datum/action/item_action/jetpack_stabilization/is_available()
-	var/obj/item/tank/jetpack/linked_jetpack = master
+/datum/action/item_action/jetpack_stabilization/is_available(feedback = FALSE)
+	var/obj/item/tank/jetpack/linked_jetpack = target
 	if(!istype(linked_jetpack) || !linked_jetpack.on)
 		return FALSE
 	return ..()

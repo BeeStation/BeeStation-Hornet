@@ -19,23 +19,23 @@
 		return FALSE
 
 	// We call this here so we can get feedback if they try to cast it when they shouldn't.
-	if(!is_valid_spell(owner, owner))
+	if(!is_valid_target(owner, owner))
 		if(feedback)
 			to_chat(owner, span_warning("You do not possess a soul."))
 		return FALSE
 
 	return TRUE
 
-/datum/action/cooldown/spell/lesserlichdom/is_valid_spell(mob/user, atom/target)
-	return isliving(user) && !HAS_TRAIT(user, TRAIT_NO_SOUL)
+/datum/action/cooldown/spell/lesserlichdom/is_valid_target(atom/cast_on)
+	return isliving(cast_on) && !HAS_TRAIT(owner, TRAIT_NO_SOUL)
 
-/datum/action/cooldown/spell/lesserlichdom/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/lesserlichdom/cast(mob/living/cast_on)
 	. = ..()
 	var/list/hand_items = list()
-	if(iscarbon(user))
-		hand_items = list(user.get_active_held_item(),user.get_inactive_held_item())
+	if(iscarbon(cast_on))
+		hand_items = list(cast_on.get_active_held_item(), cast_on.get_inactive_held_item())
 	if(!length(hand_items))
-		to_chat(user, span_warning("You must hold an item you wish to make your phylactery..."))
+		to_chat(cast_on, span_warning("You must hold an item you wish to make your phylactery..."))
 		return
 
 	var/obj/item/marked_item
@@ -43,37 +43,37 @@
 	for(var/obj/item/item in hand_items)
 		// I ensouled the nuke disk once. But it's probably a really
 		// mean tactic, so probably should discourage it.
-		if((item.item_flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP) || SEND_SIGNAL(item, COMSIG_ITEM_IMBUE_SOUL, user))
+		if((item.item_flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP) || SEND_SIGNAL(item, COMSIG_ITEM_IMBUE_SOUL, cast_on))
 			continue
 		marked_item = item
-		to_chat(user, span_warning("You begin to focus your very being into [item]..."))
+		to_chat(cast_on, span_warning("You begin to focus your very being into [item]..."))
 		break
 
 	if(!marked_item)
-		to_chat(user, span_warning("None of the items you hold are suitable for emplacement of your fragile soul."))
+		to_chat(cast_on, span_warning("None of the items you hold are suitable for emplacement of your fragile soul."))
 		return
 
-	playsound(user, 'sound/effects/pope_entry.ogg', 100)
+	playsound(cast_on, 'sound/effects/pope_entry.ogg', 100)
 
-	if(!do_after(user, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
-		to_chat(user, span_warning("Your soul snaps back to your body as you stop ensouling [marked_item]!"))
+	if(!do_after(cast_on, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
+		to_chat(cast_on, span_warning("Your soul snaps back to your body as you stop ensouling [marked_item]!"))
 		return
 
 	marked_item.name = "lesser ensouled [marked_item.name]"
 	marked_item.desc += "\nA terrible aura surrounds this item, its very existence is offensive to life itself..."
 	marked_item.add_atom_colour("#187918", ADMIN_COLOUR_PRIORITY)
 
-	new /obj/item/lesserphylactery(marked_item, user.mind)
+	new /obj/item/lesserphylactery(marked_item, cast_on.mind)
 
-	to_chat(user, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!"))
+	to_chat(cast_on, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!"))
 
 	// No soul. You just sold it
-	ADD_TRAIT(user, TRAIT_NO_SOUL, LICH_TRAIT)
+	ADD_TRAIT(cast_on, TRAIT_NO_SOUL, LICH_TRAIT)
 
-	user.set_species(/datum/species/skeleton)
+	cast_on.set_species(/datum/species/skeleton)
 	// no robes spawn for a lesser spell
 	// you only get one phylactery.
-	src.Remove(user)
+	src.Remove(cast_on)
 
 /obj/item/lesserphylactery
 	name = "lesser phylactery"

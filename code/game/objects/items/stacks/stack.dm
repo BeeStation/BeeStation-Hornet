@@ -441,6 +441,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
 	if(created)
 		created.setDir(builder.dir)
+		SEND_SIGNAL(created, COMSIG_ATOM_CONSTRUCTED, builder)
 
 	// Use up the material
 	use(recipe.req_amount * multiplier)

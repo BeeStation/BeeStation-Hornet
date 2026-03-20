@@ -17,7 +17,7 @@
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
-/datum/action/cooldown/spell/touch/mansus_grasp/is_valid_spell(atom/cast_on)
+/datum/action/cooldown/spell/touch/mansus_grasp/is_valid_target(atom/cast_on)
 	return TRUE // This baby can hit anything
 
 /datum/action/cooldown/spell/touch/mansus_grasp/can_cast_spell(feedback = TRUE)

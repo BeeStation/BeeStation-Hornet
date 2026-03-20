@@ -11,12 +11,12 @@
 /datum/vampire_clan/tremere/New(mob/living/carbon/user)
 	. = ..()
 	vampiredatum.remove_nondefault_powers(return_levels = TRUE)
-	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
+	for(var/datum/action/cooldown/vampire/power as anything in vampiredatum.all_vampire_powers)
 		if((initial(power.purchase_flags) & TREMERE_CAN_BUY) && initial(power.level_current) == 1)
 			vampiredatum.grant_power(new power)
 
 /datum/vampire_clan/tremere/Destroy(force)
-	for(var/datum/action/vampire/power in vampiredatum.powers)
+	for(var/datum/action/cooldown/vampire/power in vampiredatum.powers)
 		if(power.purchase_flags & TREMERE_CAN_BUY)
 			vampiredatum.remove_power(power)
 	return ..()
@@ -28,11 +28,11 @@
 	// Purchase Power Prompt
 	var/list/options = list()
 	var/list/radial_display = list()
-	for(var/datum/action/vampire/targeted/tremere/power as anything in vampiredatum.powers)
+	for(var/datum/action/cooldown/vampire/targeted/tremere/power as anything in vampiredatum.powers)
 		if(!(power.purchase_flags & TREMERE_CAN_BUY) || isnull(power.upgraded_power))
 			continue
 
-		var/datum/action/vampire/targeted/tremere/upgrade = power.upgraded_power
+		var/datum/action/cooldown/vampire/targeted/tremere/upgrade = power.upgraded_power
 		options[upgrade.name] = power
 
 		var/datum/radial_menu_choice/option = new
@@ -58,8 +58,8 @@
 		if(!power_response || QDELETED(src) || QDELETED(user) || QDELETED(user))
 			return FALSE
 
-		var/datum/action/vampire/purchased_power = options[power_response]
-		var/datum/action/vampire/targeted/tremere/tremere_power = purchased_power
+		var/datum/action/cooldown/vampire/purchased_power = options[power_response]
+		var/datum/action/cooldown/vampire/targeted/tremere/tremere_power = purchased_power
 
 		if(isnull(tremere_power.upgraded_power))
 			user.balloon_alert(vampiredatum.owner.current, "cannot upgrade [power_response]!")
@@ -78,7 +78,7 @@
 		spend_rank(carbon_vassal)
 
 /datum/vampire_clan/tremere/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)
-	favorite_vassal.grant_power(new /datum/action/vampire/shapeshift/batform)
+	favorite_vassal.grant_power(new /datum/action/cooldown/vampire/shapeshift/batform)
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	. = ..()

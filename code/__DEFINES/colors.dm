@@ -47,6 +47,7 @@
 #define COLOR_SECURITY_RED "#CB0000"
 #define COLOR_VIVID_RED "#FF3232"
 #define COLOR_SOFT_RED "#FA8282"
+#define COLOR_CULT_RED "#960000"
 /// Color used for default blood
 #define COLOR_BLOOD "#CC0000"
 
@@ -272,3 +273,8 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define COLOR_GNOME_WHITE "#e8e8e8"
 #define COLOR_GNOME_GREY "#a9a9a9"
 #define COLOR_GNOME_BLACK "#303030"
+
+#define CM_COLOR_SAT_MIN 0.6
+#define CM_COLOR_SAT_MAX 0.7
+#define CM_COLOR_LUM_MIN 0.65
+#define CM_COLOR_LUM_MAX 0.75

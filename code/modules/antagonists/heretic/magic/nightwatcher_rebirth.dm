@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/aoe/fiery_rebirth
 	name = "Nightwatcher's Rebirth"
-	desc = "A spell that extinguishes you drains nearby heathens engulfed in flames of their life force, \
+	desc = "A spell that extinguishes you and drains nearby heathens engulfed in flames of their life force, \
 		healing you for each victim drained. Those in critical condition \
 		will have the last of their vitality drained, killing them."
 	background_icon_state = "bg_heretic"
@@ -15,8 +15,8 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
-/datum/action/cooldown/spell/aoe/fiery_rebirth/on_cast(mob/living/carbon/human/user, atom/target)
-	user.extinguish_mob()
+/datum/action/cooldown/spell/aoe/fiery_rebirth/cast(mob/living/carbon/human/cast_on)
+	cast_on.extinguish_mob()
 	return ..()
 
 /datum/action/cooldown/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)

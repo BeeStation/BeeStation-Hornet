@@ -25,7 +25,6 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 	antimagic_flags = NONE
-	mindbound = FALSE
 	hand_path = /obj/item/melee/touch_attack/shock
 	draw_message = ("<span class='notice'>You channel electricity into your hand.</span>")
 	drop_message = ("<span class='notice'>You let the electricity from your hand dissipate.</span>")

@@ -85,7 +85,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 	dog_fashion = /datum/dog_fashion/head/clown
 	var/list/mask_designs = list()
 
@@ -138,7 +138,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 	var/list/mask_designs = list()
 
 /obj/item/clothing/mask/gas/mime/Initialize(mapload)
@@ -219,7 +219,7 @@
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.25)
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 	dog_fashion = null
 	var/list/mask_designs = list()
 

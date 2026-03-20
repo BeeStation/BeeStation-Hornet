@@ -127,10 +127,11 @@
 	/// The promotion only takes plasma when completed, not on activation.
 	var/promotion_plasma_cost = 500
 
-/datum/action/cooldown/alien/promote/update_stat_status(list/stat)
-	stat[STAT_STATUS] = GENERATE_STAT_TEXT("PLASMA - [promotion_plasma_cost]")
+/datum/action/cooldown/alien/promote/set_statpanel_format()
+	. = ..()
+	return "[.] | PLASMA - [promotion_plasma_cost]"
 
-/datum/action/cooldown/alien/promote/is_available()
+/datum/action/cooldown/alien/promote/is_available(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -147,13 +148,13 @@
 /datum/action/cooldown/alien/promote/activate(atom/target)
 	var/obj/item/queen_promotion/existing_promotion = locate() in owner.held_items
 	if(existing_promotion)
-		to_chat(owner, ("<span class='noticealien'>You discard [existing_promotion].</span>"))
+		to_chat(owner, span_noticealien("You discard [existing_promotion]."))
 		owner.temporarilyRemoveItemFromInventory(existing_promotion)
 		qdel(existing_promotion)
 		return TRUE
 
 	if(!owner.get_empty_held_indexes())
-		to_chat(owner, ("<span class='warning'>You must have an empty hand before preparing the parasite.</span>"))
+		to_chat(owner, span_warning("You must have an empty hand before preparing the parasite."))
 		return FALSE
 
 	var/obj/item/queen_promotion/new_promotion = new(owner.loc)

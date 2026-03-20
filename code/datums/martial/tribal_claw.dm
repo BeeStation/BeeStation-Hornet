@@ -44,7 +44,7 @@
 					span_userdanger("[A] sweeps your legs with their tail!"))
 	var/datum/action/cooldown/spell/aoe/repulse/xeno/R = new
 	R.aoe_radius = 1
-	R.on_cast(A)
+	R.cast(A)
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/A, mob/living/D)

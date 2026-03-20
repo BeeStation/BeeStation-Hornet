@@ -1,4 +1,4 @@
-/datum/action/vampire/masquerade
+/datum/action/cooldown/vampire/masquerade
 	name = "Masquerade"
 	desc = "Feign the vital signs of a mortal, and escape both casual and medical notice as the monster you truly are."
 	button_icon_state = "power_human"
@@ -14,13 +14,13 @@
 	cooldown_time = 5 SECONDS
 	constant_bloodcost = 0.1
 
-/datum/action/vampire/masquerade/activate_power()
+/datum/action/cooldown/vampire/masquerade/activate_power()
 	. = ..()
 	var/mob/living/carbon/carbon_owner = owner
 	carbon_owner.balloon_alert(carbon_owner, "masquerade turned on.")
 	carbon_owner.apply_status_effect(/datum/status_effect/masquerade)
 
-/datum/action/vampire/masquerade/deactivate_power()
+/datum/action/cooldown/vampire/masquerade/deactivate_power()
 	. = ..()
 	var/mob/living/carbon/carbon_owner = owner
 	carbon_owner.balloon_alert(carbon_owner, "masquerade turned off.")

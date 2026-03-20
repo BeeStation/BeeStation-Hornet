@@ -1,21 +1,23 @@
-#define NO_GROWTH_NEEDED	0
-#define GROWTH_NEEDED		1
-
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	overlay_icon_state = "bg_alien_border"
-	var/needs_growth = NO_GROWTH_NEEDED
+	///Does the ability requires the slime to hit max growth?
+	var/needs_growth = FALSE
 
-/datum/action/innate/slime/is_available()
-	if(..())
-		var/mob/living/simple_animal/slime/S = owner
-		if(needs_growth == GROWTH_NEEDED)
-			if(S.amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-				return 1
-			return 0
-		return 1
+/datum/action/innate/slime/is_available(feedback = FALSE)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/living/simple_animal/slime/slime_owner = owner
+
+	if(needs_growth == TRUE)
+		if(slime_owner.amount_grown >= SLIME_EVOLUTION_THRESHOLD)
+			return TRUE
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/slime/verb/Feed()
 	set category = "Slime"
@@ -41,7 +43,7 @@
 	button_icon_state = "slimeeat"
 
 
-/datum/action/innate/slime/feed/on_activate()
+/datum/action/innate/slime/feed/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Feed()
 
@@ -158,9 +160,10 @@
 /datum/action/innate/slime/evolve
 	name = "Evolve"
 	button_icon_state = "slimegrow"
-	needs_growth = GROWTH_NEEDED
+	desc = "This will let you evolve from baby to adult slime."
+	needs_growth = TRUE
 
-/datum/action/innate/slime/evolve/on_activate()
+/datum/action/innate/slime/evolve/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Evolve()
 	if(S.is_adult)
@@ -224,9 +227,10 @@
 /datum/action/innate/slime/reproduce
 	name = "Reproduce"
 	button_icon_state = "slimesplit"
-	needs_growth = GROWTH_NEEDED
+	desc = "This will make you split into four slimes."
+	needs_growth = TRUE
 
-/datum/action/innate/slime/reproduce/on_activate()
+/datum/action/innate/slime/reproduce/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Reproduce()
 
@@ -285,5 +289,4 @@
 	do_teleport(src, get_turf(src), power, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 	powerlevel -= power
 
-#undef NO_GROWTH_NEEDED
-#undef GROWTH_NEEDED
+#undef TRUE

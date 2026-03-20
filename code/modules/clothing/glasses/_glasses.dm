@@ -137,10 +137,6 @@
 	fire = 80
 	acid = 100
 
-/obj/item/clothing/glasses/science/item_action_slot_check(slot)
-	if(slot == ITEM_SLOT_EYES)
-		return 1
-
 /obj/item/clothing/glasses/science/prescription
 	name = "prescription science goggles"
 	desc = "A crude combination between a pair of prescription glasses and the electronics of science goggles."
@@ -600,7 +596,7 @@
 	cooldown_time = 45 SECONDS
 	ranged_mousepointer = 'icons/effects/mouse_pointers/scan_target.dmi'
 
-/datum/action/scan/is_available()
+/datum/action/scan/is_available(feedback = FALSE)
 	return ..() && isliving(owner)
 
 /datum/action/scan/on_activate(atom/scanned)

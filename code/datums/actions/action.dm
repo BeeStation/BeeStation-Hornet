@@ -27,12 +27,14 @@
 	/// If TRUE, this action button will be shown to observers / other mobs who view from this action's owner's eyes.
 	/// Used in [/mob/proc/show_other_mob_action_buttons]
 	var/show_to_observers = TRUE
+	/// If observers can click this action at any time, regardless of the owner
+	var/allow_observer_click = FALSE
 
 	/// The style the button's tooltips appear to be
 	var/buttontooltipstyle = ""
 
 	/// This is the file for the BACKGROUND underlay icon of the button
-	var/background_icon = 'icons/hud/actions/backgrounds.dmi'
+	var/background_icon = 'icons/mob/actions/backgrounds.dmi'
 	/// This is the icon state state for the BACKGROUND underlay icon of the button
 	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
@@ -52,6 +54,8 @@
 
 	/// Toggles whether this action is usable or not
 	var/action_disabled = FALSE
+	/// Can this action be shared with our rider?
+	var/can_be_shared = TRUE
 
 /datum/action/New(Target)
 	link_to(Target)
@@ -103,14 +107,17 @@
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_INCAPACITATED)
-		RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), PROC_REF(update_status_on_signal))
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_IMMOBILE)
-		RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), PROC_REF(update_status_on_signal))
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_HANDS_BLOCKED)
-		RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(update_status_on_signal))
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_LYING)
 		RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(update_status_on_signal))
-
+	if(check_flags & AB_CHECK_PHASED)
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_MAGICALLY_PHASED), SIGNAL_REMOVETRAIT(TRAIT_MAGICALLY_PHASED)), PROC_REF(update_status_on_signal))
+	if(check_flags & AB_CHECK_OPEN_TURF)
+		RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 	if(owner_has_control)
 		RegisterSignal(grant_to, COMSIG_MOB_KEYDOWN, PROC_REF(keydown), override = TRUE)
 		give_action(grant_to)
@@ -123,7 +130,7 @@
 		if(!hud.mymob)
 			continue
 		hide_from(hud.mymob)
-	LAZYREMOVE(remove_from.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	LAZYREMOVE(remove_from?.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
 	UnregisterSignal(remove_from, COMSIG_MOB_KEYDOWN)
 
@@ -132,12 +139,12 @@
 	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
 	SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
 	UnregisterSignal(owner, COMSIG_QDELETING)
-	UnregisterSignal(owner, COMSIG_MOB_KEYDOWN)
 
 	// Clean up our check_flag signals
 	UnregisterSignal(owner, list(
 		COMSIG_LIVING_SET_BODY_POSITION,
 		COMSIG_MOB_STATCHANGE,
+		COMSIG_MOVABLE_MOVED,
 		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
 		SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
 		SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED),
@@ -155,8 +162,8 @@
 
 /// Actually triggers the effects of the action.
 /// Called when the on-screen button is clicked, for example.
-/datum/action/proc/trigger(trigger_flags)
-	if(!is_available(feedback = TRUE))
+/datum/action/proc/trigger(mob/clicker, trigger_flags)
+	if(!(trigger_flags & TRIGGER_FORCE_AVAILABLE) && !is_available(feedback = TRUE))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
@@ -170,6 +177,10 @@
 	if(!owner)
 		return FALSE
 	if(action_disabled)
+		return FALSE
+	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+		if (feedback)
+			owner.balloon_alert(owner, "[owner.stat == DEAD ? "dead" : "unconscious"]!")
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		if (feedback)
@@ -189,9 +200,13 @@
 			if (feedback)
 				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
-	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+	if((check_flags & AB_CHECK_PHASED) && HAS_TRAIT(owner, TRAIT_MAGICALLY_PHASED))
 		if (feedback)
-			owner.balloon_alert(owner, "unconscious!")
+			owner.balloon_alert(owner, "incorporeal!")
+		return FALSE
+	if((check_flags & AB_CHECK_OPEN_TURF) && !isopenturf(owner.loc))
+		if (feedback)
+			owner.balloon_alert(owner, "not enough space!")
 		return FALSE
 	return TRUE
 
@@ -215,6 +230,8 @@
 /datum/action/proc/build_button_icon(atom/movable/screen/movable/action_button/button, update_flags = ALL, force = FALSE)
 	if(!button)
 		return
+
+	button.actiontooltipstyle = buttontooltipstyle
 
 	if(update_flags & UPDATE_BUTTON_NAME)
 		update_button_name(button, force)
@@ -358,6 +375,7 @@
 /datum/action/proc/create_button()
 	var/atom/movable/screen/movable/action_button/button = new()
 	button.linked_action = src
+	button.allow_observer_click = allow_observer_click
 	build_button_icon(button, ALL, TRUE)
 	return button
 
@@ -398,7 +416,7 @@
 	build_all_button_icons(update_flag, forced)
 
 /// A general use signal proc that reacts to an event and updates JUST our button's status
-/datum/action/proc/update_status_on_signal(datum/source)
+/datum/action/proc/update_status_on_signal(datum/source, new_stat, old_stat)
 	SIGNAL_HANDLER
 
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
@@ -414,6 +432,16 @@
 /datum/action/proc/is_action_active(atom/movable/screen/movable/action_button/current_button)
 	return FALSE
 
+/datum/action/proc/begin_creating_bind(atom/movable/screen/movable/action_button/current_button, mob/user)
+	if(!current_button || user != owner)
+		return
+	if(!isnull(full_key))
+		full_key = null
+		update_button_status(current_button)
+		return
+	full_key = tgui_input_keycombo(user, "Please bind a key for this action.")
+	update_button_status(current_button)
+
 /datum/action/proc/keydown(mob/source, key, client/client, full_key)
 	SIGNAL_HANDLER
 	if(isnull(full_key) || full_key != src.full_key)
@@ -422,5 +450,5 @@
 		if(source.next_click > world.time)
 			return
 		else
-			source.next_click = world.time + CLICK_CD_RANGE
-	INVOKE_ASYNC(src, PROC_REF(Trigger))
+			source.next_click = world.time + CLICK_CD_ACTIVATE_ABILITY
+	INVOKE_ASYNC(src, PROC_REF(trigger))

@@ -77,7 +77,7 @@
 	button_icon = 'icons/mob/blob.dmi'
 	button_icon_state = "blob"
 
-/datum/action/innate/blobpop/on_activate()
+/datum/action/innate/blobpop/Activate()
 	var/mob/living/old_body = owner
 	if(!owner)
 		return

@@ -527,6 +527,7 @@ update_label("John Doe", "Clowny")
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
 	trade_flags = TRADE_NOT_SELLABLE | TRADE_CONTRABAND
+	action_slots = ALL
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
 	var/datum/action/item_action/chameleon/change/chameleon_action

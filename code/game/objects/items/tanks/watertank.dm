@@ -38,10 +38,6 @@
 /obj/item/watertank/ui_action_click(mob/user)
 	toggle_mister(user)
 
-/obj/item/watertank/item_action_slot_check(slot, mob/user)
-	if(slot == user.getBackSlot())
-		return 1
-
 /obj/item/watertank/on_reagent_change(changetype)
 	. = ..()
 	update_icon()
@@ -627,10 +623,6 @@
 
 /obj/item/reagent_containers/chemtank/ui_action_click()
 	toggle_injection()
-
-/obj/item/reagent_containers/chemtank/item_action_slot_check(slot, mob/user)
-	if(slot == ITEM_SLOT_BACK)
-		return 1
 
 /obj/item/reagent_containers/chemtank/proc/toggle_injection()
 	var/mob/living/carbon/human/user = usr

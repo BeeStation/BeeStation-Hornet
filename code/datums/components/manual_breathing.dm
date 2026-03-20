@@ -29,7 +29,7 @@
 	else
 		name = "Exhale"
 		button_icon_state = "remove"
-	update_buttons()
+	build_all_button_icons()
 
 /datum/component/manual_breathing/Initialize()
 	if(!iscarbon(parent))

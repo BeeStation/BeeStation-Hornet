@@ -409,6 +409,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 // Eye protection
 // THese values are additive to determine your overall flash protection.
+#define FLASH_PROTECTION_HYPER_SENSITIVE -2
 #define FLASH_PROTECTION_SENSITIVE -1
 #define FLASH_PROTECTION_NONE 0
 #define FLASH_PROTECTION_FLASH 1
@@ -455,8 +456,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 // Mob Playability Set By Admin Or Ghosting
 #define SENTIENCE_SKIP 0
-#define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
-#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+/// a player ghosting out of the mob will make the mob playable for others, if it was already playable
+#define SENTIENCE_RETAIN 1
+/// the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+#define SENTIENCE_FORCE 2
 #define SENTIENCE_ERASE 3
 
 //Flavor Text When Entering A Playable Mob

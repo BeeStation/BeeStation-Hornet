@@ -103,6 +103,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/datum/action/actions
 	/// List of paths of action datums to give to the item on New().
 	var/list/actions_types
+	///Slot flags in which this item grants actions. If null, defaults to the item's slot flags (so actions are granted when worn)
+	var/action_slots = null
 
 	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/flags_inv
@@ -443,9 +445,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!(item_flags & NOBLUDGEON) && !(item_flags & ISWEAPON) && force != 0)
 		.["hesitant"] = "You'll have to apply a conscious effort to harm someone with [src]."
 
-	if(!user.research_scanner)
-		return
+/obj/item/examine_descriptor(mob/user)
+	return "item"
 
+/obj/item/examine_more(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_RESEARCH_SCANNER))
+		. += research_scan(user)
+
+/obj/item/proc/research_scan(mob/user)
 	// Research prospects, including boostable nodes and point values.
 	// Deliver to a console to know whether the boosts have already been used.
 	var/list/research_msg = list("<font color='purple'>Research prospects:</font> ")
@@ -478,10 +486,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else
 		research_msg += "None"
 	research_msg += "."
-	. += research_msg.Join()
-
-/obj/item/examine_descriptor(mob/user)
-	return "item"
+	return research_msg.Join()
 
 /obj/item/interact(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_INTERACT, user))
@@ -489,7 +494,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/item/ui_act(action, params)
+/obj/item/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	add_fingerprint(usr)
 	return ..()
 
@@ -853,6 +858,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_BACKPACK || slot == ITEM_SLOT_LEGCUFFED) //these aren't true slots, so avoid granting actions there
 		return FALSE
+	if(!isnull(action_slots))
+		return (slot & action_slots)
+	else if (slot_flags)
+		return (slot & slot_flags)
 	return TRUE
 
 /**

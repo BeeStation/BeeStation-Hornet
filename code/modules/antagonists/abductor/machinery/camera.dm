@@ -72,13 +72,20 @@
 	name = "Send To"
 	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
+	///Is the amount of time required between uses
+	var/abductor_pad_cooldown = 8 SECONDS
+	///Is used to compare to world.time in order to determine if the action should early return
+	var/use_delay
 
-/datum/action/innate/teleport_in/on_activate()
-	if(!master || !iscarbon(owner))
+/datum/action/innate/teleport_in/Activate()
+	if(!target || !iscarbon(owner))
+		return
+	if(world.time < use_delay)
+		to_chat(owner, span_warning("You must wait [DisplayTimeText(use_delay - world.time)] to use the [target] again!"))
 		return
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
-	var/obj/machinery/abductor/pad/P = master
+	var/obj/machinery/abductor/pad/P = target
 	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
@@ -107,6 +114,8 @@
 	if (specimin_nearby && !agent_nearby)
 		to_chat(owner, span_warning("You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!"))
 		return
+
+	use_delay = (world.time + abductor_pad_cooldown)
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		P.PadToLoc(remote_eye.loc)
@@ -116,10 +125,10 @@
 	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_up"
 
-/datum/action/innate/teleport_out/on_activate()
-	if(!master || !iscarbon(owner))
+/datum/action/innate/teleport_out/Activate()
+	if(!target || !iscarbon(owner))
 		return
-	var/obj/machinery/abductor/console/console = master
+	var/obj/machinery/abductor/console/console = target
 
 	console.TeleporterRetrieve()
 
@@ -127,13 +136,18 @@
 	name = "Send Self"
 	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
+	var/teleport_self_cooldown = 9 SECONDS
+	var/use_delay
 
-/datum/action/innate/teleport_self/on_activate()
-	if(!master || !iscarbon(owner))
+/datum/action/innate/teleport_self/Activate()
+	if(!target || !iscarbon(owner))
+		return
+	if(world.time < use_delay)
+		to_chat(owner, span_warning("You can only teleport to one place at a time!"))
 		return
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
-	var/obj/machinery/abductor/pad/P = master
+	var/obj/machinery/abductor/pad/P = target
 	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
@@ -163,6 +177,8 @@
 		to_chat(owner, span_warning("You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!"))
 		return
 
+	use_delay = (world.time + teleport_self_cooldown)
+
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		P.MobToLoc(remote_eye.loc,C)
 
@@ -171,10 +187,10 @@
 	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_mode"
 
-/datum/action/innate/vest_mode_swap/on_activate()
-	if(!master || !iscarbon(owner))
+/datum/action/innate/vest_disguise_swap/Activate()
+	if(!target || !iscarbon(owner))
 		return
-	var/obj/machinery/abductor/console/console = master
+	var/obj/machinery/abductor/console/console = target
 	console.FlipVest()
 
 
@@ -183,10 +199,10 @@
 	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_disguise"
 
-/datum/action/innate/vest_disguise_swap/on_activate()
-	if(!master || !iscarbon(owner))
+/datum/action/innate/vest_disguise_swap/Activate()
+	if(!target || !iscarbon(owner))
 		return
-	var/obj/machinery/abductor/console/console = master
+	var/obj/machinery/abductor/console/console = target
 	console.SelectDisguise(remote=1)
 
 /datum/action/innate/set_droppoint
@@ -194,12 +210,12 @@
 	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "set_drop"
 
-/datum/action/innate/set_droppoint/on_activate()
-	if(!master || !iscarbon(owner))
+/datum/action/innate/set_droppoint/Activate()
+	if(!target || !iscarbon(owner))
 		return
 
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 
-	var/obj/machinery/abductor/console/console = master
+	var/obj/machinery/abductor/console/console = target
 	console.SetDroppoint(remote_eye.loc,owner)

@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 	), \
 	new /datum/stack_recipe/radial( \
 		title = "altar", \
-		result_type = /obj/structure/destructible/cult/talisman, \
+		result_type = /obj/structure/destructible/cult/item_dispenser/altar, \
 		req_amount = 3, \
 		time = 4 SECONDS, \
 		crafting_flags = CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, \
@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 	), \
 	new /datum/stack_recipe/radial( \
 		title = "archives", \
-		result_type = /obj/structure/destructible/cult/tome, \
+		result_type = /obj/structure/destructible/cult/item_dispenser/archives, \
 		req_amount = 3, \
 		time = 4 SECONDS, \
 		crafting_flags = CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, \
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 	), \
 	new /datum/stack_recipe/radial( \
 		title = "daemon forge", \
-		result_type = /obj/structure/destructible/cult/forge, \
+		result_type = /obj/structure/destructible/cult/item_dispenser/forge, \
 		req_amount = 3, \
 		time = 4 SECONDS, \
 		crafting_flags = CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, \

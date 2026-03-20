@@ -29,15 +29,15 @@
 	desc = "Teleport yourself to Reebe."
 	button_icon_state = "Abscond"
 
-/datum/action/cooldown/spell/eminence/reebe/cast(atom/cast_on)
+/datum/action/cooldown/spell/eminence/reebe/cast(mob/living/cast_on)
 	. = ..()
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
 	if(G)
-		user.abstract_move(get_turf(G))
-		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
-		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
+		cast_on.abstract_move(get_turf(G))
+		SEND_SOUND(cast_on, sound('sound/magic/magic_missile.ogg'))
+		flash_color(cast_on, flash_color = "#AF0AAF", flash_time = 25)
 	else
-		to_chat(user, span_warning("There is no Ark!"))
+		to_chat(cast_on, span_warning("There is no Ark!"))
 
 //=====Warp to station=====
 /datum/action/cooldown/spell/eminence/station
@@ -45,14 +45,14 @@
 	desc = "Teleport yourself to the station."
 	button_icon_state = "warp_down"
 
-/datum/action/cooldown/spell/eminence/station/cast(atom/cast_on)
+/datum/action/cooldown/spell/eminence/station/cast(mob/living/cast_on)
 	. = ..()
-	if(!is_station_level(user.z))
-		user.abstract_move(get_turf(pick(GLOB.generic_event_spawns)))
-		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
-		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
+	if(!is_station_level(cast_on.z))
+		cast_on.abstract_move(get_turf(pick(GLOB.generic_event_spawns)))
+		SEND_SOUND(cast_on, sound('sound/magic/magic_missile.ogg'))
+		flash_color(cast_on, flash_color = "#AF0AAF", flash_time = 25)
 	else
-		to_chat(user, span_warning("You're already on the station!"))
+		to_chat(cast_on, span_warning("You're already on the station!"))
 
 //=====Teleport to servant=====
 /datum/action/cooldown/spell/eminence/servant_warp
@@ -60,27 +60,27 @@
 	desc = "Teleport yourself to a specific servant."
 	button_icon_state = "Spatial Warp"
 
-/datum/action/cooldown/spell/eminence/servant_warp/cast(atom/cast_on)
+/datum/action/cooldown/spell/eminence/servant_warp/cast(mob/living/cast_on)
 	. = ..()
 	//Get a list of all servants
-	var/datum/mind/choice = input(user, "Select servant", "Warp to...", null) in GLOB.all_servants_of_ratvar //List targets spell might have been better, for now this will do
+	var/datum/mind/choice = input(cast_on, "Select servant", "Warp to...", null) in GLOB.all_servants_of_ratvar //List targets spell might have been better, for now this will do
 	var/mob/living/M
 	if(!choice)
 		return
 	M = choice.current
 	if(!isliving(M))
-		to_chat(user, span_warning("You cannot jump to them!"))
+		to_chat(cast_on, span_warning("You cannot jump to them!"))
 		return
 	if(!IS_SERVANT_OF_RATVAR(M))
-		to_chat(user, span_warning("They are no longer a servant of Rat'var!"))
+		to_chat(cast_on, span_warning("They are no longer a servant of Rat'var!"))
 		return
 	var/turf/T = get_turf(M)
 	if(SSmapping.level_trait(T.z, ZTRAIT_CENTCOM))
-		to_chat(user, span_warning("They are out of your reach!"))
+		to_chat(cast_on, span_warning("They are out of your reach!"))
 		return
-	user.forceMove(get_turf(T))
-	SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
-	flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
+	cast_on.forceMove(get_turf(T))
+	SEND_SOUND(cast_on, sound('sound/magic/magic_missile.ogg'))
+	flash_color(cast_on, flash_color = "#AF0AAF", flash_time = 25)
 
 //=====Mass Recall=====
 /datum/action/cooldown/spell/eminence/mass_recall
@@ -95,7 +95,7 @@
 		return
 
 	gateway.begin_mass_recall()
-	Remove(user)
+	Remove(cast_on)
 
 //=====Linked Abscond=====
 /datum/action/cooldown/spell/eminence/linked_abscond
@@ -118,14 +118,14 @@
 
 /datum/action/cooldown/spell/eminence/linked_abscond/cast(atom/cast_on)
 	. = ..()
-	var/mob/living/simple_animal/eminence/E = user
+	var/mob/living/simple_animal/eminence/E = owner
 	if(!istype(E))
 		to_chat(E, span_brass("You are not the Eminence! (This is a bug)"))
 		reset_spell_cooldown()
 		return FALSE
 	if(!E.selected_mob || !IS_SERVANT_OF_RATVAR(E.selected_mob))
 		E.selected_mob = null
-		to_chat(user, span_neovgre("You need to select a valid target by clicking on them."))
+		to_chat(owner, span_neovgre("You need to select a valid target by clicking on them."))
 		reset_spell_cooldown()
 		return FALSE
 	var/mob/living/L = E.selected_mob
@@ -157,7 +157,7 @@
 
 /datum/action/cooldown/spell/eminence/trigger_event/cast(atom/cast_on)
 	. = ..()
-	var/picked_event = input(user, "Pick an event to run", "Manipulate Reality", null) in list(
+	var/picked_event = input(owner, "Pick an event to run", "Manipulate Reality", null) in list(
 		"Anomaly",
 		"Brand Intelligence",
 		"Camera Failure",
@@ -178,8 +178,8 @@
 	//Get the picked event
 	for(var/datum/round_event_control/E in SSevents.control)
 		if(E.name == picked_event)
-			var/mob/living/simple_animal/eminence/eminence = user
+			var/mob/living/simple_animal/eminence/eminence = owner
 			INVOKE_ASYNC(eminence, TYPE_PROC_REF(/mob/living/simple_animal/eminence, run_global_event), E)
-			consume_cogs(user)
+			consume_cogs(owner)
 			return
 	reset_spell_cooldown()

@@ -45,8 +45,8 @@
 	remove_hand(remove_from)
 	return ..()
 
-// PreActivate is overridden to not check is_valid_target on the caster, as it makes less sense.
-/datum/action/cooldown/spell/touch/PreActivate(atom/target)
+// pre_activate is overridden to not check is_valid_target on the caster, as it makes less sense.
+/datum/action/cooldown/spell/touch/pre_activate(atom/target)
 	return Activate(target)
 
 /datum/action/cooldown/spell/touch/is_action_active(atom/movable/screen/movable/action_button/current_button)
@@ -54,11 +54,8 @@
 
 /datum/action/cooldown/spell/touch/set_statpanel_format()
 	. = ..()
-	if(!islist(.))
-		return
-
 	if(attached_hand)
-		.[PANEL_DISPLAY_STATUS] = "ACTIVE"
+		return "ACTIVE"
 
 /datum/action/cooldown/spell/touch/can_cast_spell(feedback = TRUE)
 	. = ..()
@@ -133,7 +130,7 @@
 	RegisterSignal(attached_hand, COMSIG_QDELETING, PROC_REF(on_hand_deleted))
 
 	// We can high five with our touch hand. It casts the spell on people. Radical
-	attached_hand.AddElement(/datum/element/high_fiver)
+	//attached_hand.AddElement(/datum/element/high_fiver)
 	RegisterSignal(attached_hand, COMSIG_ITEM_OFFER_TAKEN, PROC_REF(on_hand_taken))
 
 /// Unregisters all signal procs for the hand.

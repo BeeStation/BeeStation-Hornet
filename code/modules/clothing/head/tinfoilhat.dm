@@ -107,9 +107,7 @@
 	else
 		set_light(FALSE)
 
-	for(var/X in actions)
-		var/datum/action/A=X
-		A.update_buttons()
+	update_item_action_buttons()
 
 /obj/item/clothing/head/costume/foilhat/proc/call_suicide(datum/source)
 	SIGNAL_HANDLER

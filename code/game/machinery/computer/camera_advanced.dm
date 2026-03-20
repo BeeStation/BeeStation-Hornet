@@ -337,7 +337,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 
-/datum/action/innate/camera_off/on_activate()
+/datum/action/innate/camera_off/Activate()
 	if(!owner || !isliving(owner))
 		return
 	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
@@ -349,7 +349,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_jump"
 
-/datum/action/innate/camera_jump/on_activate()
+/datum/action/innate/camera_jump/Activate()
 	if(!owner || !isliving(owner))
 		return
 	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
@@ -394,7 +394,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_up"
 
-/datum/action/innate/camera_multiz_up/on_activate()
+/datum/action/innate/camera_multiz_up/Activate()
 	if(!owner || !isliving(owner))
 		return
 
@@ -409,7 +409,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_down"
 
-/datum/action/innate/camera_multiz_down/on_activate()
+/datum/action/innate/camera_multiz_down/Activate()
 	if(!owner || !isliving(owner))
 		return
 	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control

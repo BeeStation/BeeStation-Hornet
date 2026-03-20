@@ -9,7 +9,7 @@
  */
 /datum/component/living_heart
 	/// The action we create and give to our heart.
-	var/datum/action/track_target/action
+	var/datum/action/cooldown/track_target/action
 
 /datum/component/living_heart/Initialize()
 	if(!isorgan(parent))
@@ -17,8 +17,6 @@
 
 	var/obj/item/organ/organ_parent = parent
 	action = new(src)
-
-	action = new(organ_parent)
 	action.Grant(organ_parent.owner)
 
 /datum/component/living_heart/Destroy(force, silent)
@@ -67,7 +65,7 @@
  * The action associated with the living heart.
  * Allows a heretic to track sacrifice targets.
  */
-/datum/action/track_target
+/datum/action/cooldown/track_target
 	name = "Living Heartbeat"
 	desc = "LMB: Chose one of your sacrifice targets to track. RMB: Repeats last target you chose to track."
 	check_flags = AB_CHECK_CONSCIOUS
@@ -83,15 +81,17 @@
 	/// Whether the target radial is currently opened.
 	var/radial_open = FALSE
 
-/datum/action/track_target/Grant(mob/granted)
+/datum/action/cooldown/track_target/Grant(mob/granted)
 	if(!IS_HERETIC(granted))
 		return
+
 	return ..()
 
-/datum/action/track_target/is_available()
+/datum/action/cooldown/track_target/is_available(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return
+
 	if(!IS_HERETIC(owner))
 		return FALSE
 	if(radial_open)
@@ -99,15 +99,14 @@
 
 	return TRUE
 
-/*
-/datum/action/track_target/trigger(trigger_flags)
+/datum/action/cooldown/track_target/trigger(mob/clicker, trigger_flags, atom/target)
 	right_clicked = !!(trigger_flags & TRIGGER_SECONDARY_ACTION)
 	return ..()
-*/
 
-/datum/action/track_target/activate(atom/target)
+/datum/action/cooldown/track_target/activate(atom/target)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
+
 	if(!LAZYLEN(heretic_datum.sac_targets))
 		owner.balloon_alert(owner, "No targets, visit a rune")
 		start_cooldown(1 SECONDS)
@@ -115,6 +114,7 @@
 
 	var/list/targets_to_choose = list()
 	var/list/mob/living/carbon/tracked_targets = list()
+
 	for(var/datum/weakref/target_ref as anything in heretic_datum.sac_targets)
 		var/datum/mind/target_mind = target_ref.resolve()
 		if(!istype(target_mind) || !iscarbon(target_mind.current))
@@ -156,8 +156,9 @@
 			and invoke \"[sac_knowledge.name]\" to sacrifice them!"))
 
 	start_cooldown()
+	return TRUE
 
-/datum/action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
+/datum/action/cooldown/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
 	var/turf/owner_turf = get_turf(owner)
 	var/turf/tracked_turf = get_turf(tracked)
 	var/balloon_message = "Your target is "
@@ -175,7 +176,7 @@
 	owner.balloon_alert(owner, balloon_message)
 	return TRUE
 
-/datum/action/track_target/proc/distance_hint(turf/source, turf/target)
+/datum/action/cooldown/track_target/proc/distance_hint(turf/source, turf/target)
 	var/dist = get_dist(source, target)
 	var/dir = get_dir(source, target)
 	switch(dist)
@@ -189,7 +190,7 @@
 			return "very far away"
 
 /// Callback for the radial to ensure it's closed when not allowed.
-/datum/action/track_target/proc/check_menu()
+/datum/action/cooldown/track_target/proc/check_menu()
 	if(QDELETED(src))
 		return FALSE
 	if(!IS_HERETIC(owner))

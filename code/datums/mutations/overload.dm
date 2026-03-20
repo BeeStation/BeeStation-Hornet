@@ -16,13 +16,13 @@
 	button_icon_state = "blind"
 	var/max_distance = 4
 
-/datum/action/cooldown/spell/overload/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/overload/cast(atom/cast_on)
 	. = ..()
-	if(!isethereal(user))
+	if(!isethereal(cast_on))
 		return
 
-	var/list/mob/targets = oviewers(max_distance, get_turf(user))
-	to_chat(targets, "<span class='disarm'>[user] emits a blinding light!</span>")
+	var/list/mob/targets = oviewers(max_distance, get_turf(cast_on))
+	to_chat(targets, "<span class='disarm'>[cast_on] emits a blinding light!</span>")
 	for(var/mob/living/carbon/C in targets)
 		if(C.flash_act(1))
 			C.Paralyze(10 + (5*max_distance))

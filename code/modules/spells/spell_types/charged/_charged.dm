@@ -92,11 +92,8 @@
 
 /datum/action/cooldown/spell/charged/set_statpanel_format()
 	. = ..()
-	if(!islist(.))
-		return
-
 	if(currently_channeling)
-		.[PANEL_DISPLAY_STATUS] = "CHANNELING"
+		return "CHANNELING"
 
 /// Interrupts the chanelling effect, removing any overlay or sound playing (for the passed mob)
 /datum/action/cooldown/spell/charged/proc/stop_channel_effect(mob/for_who)

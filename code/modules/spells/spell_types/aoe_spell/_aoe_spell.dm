@@ -18,12 +18,12 @@
 /datum/action/cooldown/spell/aoe/cast(atom/cast_on)
 	. = ..()
 	// Get every atom around us to our aoe cast on
-	var/list/atom/things_to_cast_on = get_things_to_cast_on(user)
+	var/list/atom/things_to_cast_on = get_things_to_cast_on(cast_on)
 	// If we have a target limit, shuffle it (for fariness)
 	if(max_targets > 0)
 		things_to_cast_on = shuffle(things_to_cast_on)
 
-	SEND_SIGNAL(src, COMSIG_SPELL_AOE_ON_CAST, things_to_cast_on, user)
+	SEND_SIGNAL(src, COMSIG_SPELL_AOE_ON_CAST, things_to_cast_on, cast_on)
 
 	// Now go through and cast our spell where applicable
 	var/num_targets = 0
@@ -31,7 +31,7 @@
 		if(max_targets > 0 && num_targets >= max_targets)
 			continue
 
-		cast_on_thing_in_aoe(thing_to_target, user)
+		cast_on_thing_in_aoe(thing_to_target, cast_on)
 		num_targets++
 
 /**

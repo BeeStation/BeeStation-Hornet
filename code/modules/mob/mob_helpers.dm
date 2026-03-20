@@ -223,7 +223,7 @@
 			var/orbit_link
 			if (source && action == NOTIFY_ORBIT)
 				orbit_link = " <a href='byond://?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
-			to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""][orbit_link]"))
+			to_chat(O, span_ghostalert("[message][enter_link ? " [enter_link]" : ""][orbit_link]"))
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound, volume = notify_volume))
 			if(flashwindow)
@@ -238,7 +238,7 @@
 						A.name = header
 					A.desc = message
 					A.action = action
-					A.target = source
+					A.target_ref = WEAKREF(source)
 					if(!alert_overlay)
 						alert_overlay = new(source)
 					alert_overlay.layer = FLOAT_LAYER
@@ -342,13 +342,15 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/datum/poll_config/config = new()
-	config.question = poll_message
-	config.check_jobban = ban_key
-	config.role_name_text = M.real_name
-	config.poll_time = 10 SECONDS
-	config.jump_target = M
-	config.alert_pic = M
+	var/datum/poll_config/config = new(
+		question = poll_message,
+		check_jobban = ban_key,
+		role_name_text = M.real_name,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		alert_pic = M,
+		amount_to_pick = 1,
+	)
 	return config
 
 ///Clicks a random nearby mob with the source from this mob
@@ -591,3 +593,33 @@
 		if(ITEM_SLOT_SUITSTORE)
 			return /obj/item
 	return null
+
+/**
+ * Returns an associative list of the logs of a certain amount of lines spoken recently by this mob
+ * copy_amount - number of lines to return
+ * line_chance - chance to return a line, if you don't want just the most recent x lines
+ */
+/mob/proc/copy_recent_speech(copy_amount = LING_ABSORB_RECENT_SPEECH, line_chance = 100)
+	var/list/recent_speech = list()
+	var/list/say_log = list()
+	var/log_source = logging
+	for(var/log_type in log_source)
+		var/nlog_type = text2num(log_type)
+		if(nlog_type & LOG_SAY)
+			var/list/reversed = log_source[log_type]
+			if(islist(reversed))
+				say_log = reverse_range(reversed.Copy())
+				break
+
+	for(var/spoken_memory in say_log)
+		if(recent_speech.len >= copy_amount)
+			break
+		if(!prob(line_chance))
+			continue
+		recent_speech[spoken_memory] = splittext(say_log[spoken_memory], "\"", 1, 0, TRUE)[3]
+
+	var/list/raw_lines = list()
+	for (var/key in recent_speech)
+		raw_lines += recent_speech[key]
+
+	return raw_lines

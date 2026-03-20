@@ -76,8 +76,8 @@
 	name = "Infectious Zombie"
 	id = SPECIES_ZOMBIE_INFECTIOUS
 	examine_limb_id = SPECIES_ZOMBIE
-	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
+	damage_modifier = 20 // 120 damage to KO a zombie, which kills it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 	var/muthands_path = /obj/item/mutant_hand/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
@@ -103,8 +103,17 @@
 		TRAIT_STABLEHEART, // Replacement for noblood. Infectious zombies can bleed but don't need their heart.
 		TRAIT_STABLELIVER, // Not necessary but for consistency with above
 	)
+	// Infectious zombies have slow legs
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/zombie,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zombie,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/zombie,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/zombie,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/zombie/infectious,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zombie/infectious,
+	)
 
-/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/new_zombie, datum/species/old_species, pref_load)
+/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species, pref_load)
 	. = ..()
 
 	new_zombie.set_combat_mode(TRUE)
@@ -159,11 +168,20 @@
 /datum/species/zombie/infectious/viral
 	name = "\improper Infected Zombie"
 	id = "memezombiesfast"
-	armor = 0
+	damage_modifier = 0
 	speedmod = 0
 	inherent_biotypes = MOB_ORGANIC | MOB_UNDEAD |  MOB_HUMANOID //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 	muthands_path = /obj/item/mutant_hand/zombie/infectious
+
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/zombie,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zombie,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/zombie,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/zombie,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/zombie/viral,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zombie/viral
+	)
 
 // Your skin falls off
 /datum/species/human/krokodil_addict

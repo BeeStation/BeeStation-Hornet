@@ -15,8 +15,8 @@
 	///The obj marked for recall
 	var/obj/marked_item
 
-/datum/action/cooldown/spell/summonitem/is_valid_spell(mob/user, atom/target)
-	return isliving(user)
+/datum/action/cooldown/spell/summonitem/is_valid_target(atom/cast_on)
+	return isliving(cast_on)
 
 /// Set the passed object as our marked item
 /datum/action/cooldown/spell/summonitem/proc/mark_item(obj/to_mark)
@@ -38,17 +38,17 @@
 		to_chat(owner, ("<span class='boldwarning'>You sense your marked item has been destroyed!</span>"))
 	unmark_item()
 
-/datum/action/cooldown/spell/summonitem/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/summonitem/cast(mob/living/cast_on)
 	. = ..()
 	if(QDELETED(marked_item))
-		try_link_item(user)
+		try_link_item(cast_on)
 		return
 
-	if(marked_item == user.get_active_held_item())
-		try_unlink_item(user)
+	if(marked_item == cast_on.get_active_held_item())
+		try_unlink_item(cast_on)
 		return
 
-	try_recall_item(user)
+	try_recall_item(cast_on)
 
 /// If we don't have a marked item, attempts to mark the caster's held item.
 /datum/action/cooldown/spell/summonitem/proc/try_link_item(mob/living/caster)

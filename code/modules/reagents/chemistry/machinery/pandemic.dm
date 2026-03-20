@@ -211,7 +211,7 @@
 			var/id = get_virus_id_by_index(text2num(params["index"]))
 			var/datum/disease/advance/disease = SSdisease.archive_diseases[id]
 			if(istype(disease) && disease.mutable)
-				var/new_name = sanitize_name(html_encode(params["name"]))
+				var/new_name = sanitize_name(html_encode(params["name"]), allow_numbers = TRUE)
 				if(!new_name || ..())
 					return
 				disease.AssignName(new_name)

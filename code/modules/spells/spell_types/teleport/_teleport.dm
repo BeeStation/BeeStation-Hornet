@@ -21,11 +21,11 @@
 
 /datum/action/cooldown/spell/teleport/cast(atom/cast_on)
 	. = ..()
-	var/list/turf/destinations = get_destinations(user)
+	var/list/turf/destinations = get_destinations(cast_on)
 	if(!length(destinations))
 		CRASH("[type] failed to find a teleport destination.")
 
-	do_teleport(user, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel, teleport_mode = teleport_mode)
+	do_teleport(cast_on, pick(destinations), asoundout = post_teleport_sound, channel = teleport_channel, teleport_mode = teleport_mode)
 
 /// Gets a list of destinations that are valid
 /datum/action/cooldown/spell/teleport/proc/get_destinations(atom/center)
@@ -118,7 +118,7 @@
 	if(randomise_selection)
 		target_area = pick(GLOB.teleportlocs)
 	else
-		target_area = tgui_input_list(user, "Chose an area to teleport to.", "Teleport", GLOB.teleportlocs)
+		target_area = tgui_input_list(cast_on, "Chose an area to teleport to.", "Teleport", GLOB.teleportlocs)
 
 	if(QDELETED(src) || QDELETED(cast_on) || (owner && !can_cast_spell()))
 		return . | SPELL_CANCEL_CAST
@@ -127,10 +127,10 @@
 
 	last_chosen_area_name = target_area
 
-/datum/action/cooldown/spell/teleport/area_teleport/on_cast(mob/user, atom/target)
-	if(isliving(user))
-		var/mob/living/living_cast_on = user
-		living_cast_on.buckled?.unbuckle_mob(user, force = TRUE)
+/datum/action/cooldown/spell/teleport/area_teleport/cast(atom/cast_on)
+	if(isliving(cast_on))
+		var/mob/living/living_cast_on = cast_on
+		living_cast_on.buckled?.unbuckle_mob(cast_on, force = TRUE)
 	return ..()
 
 /datum/action/cooldown/spell/teleport/area_teleport/invocation(mob/living/invoker)

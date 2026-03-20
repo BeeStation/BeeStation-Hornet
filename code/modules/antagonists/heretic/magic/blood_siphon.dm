@@ -20,37 +20,37 @@
 /datum/action/cooldown/spell/pointed/blood_siphon/can_cast_spell(feedback = TRUE)
 	return ..() && isliving(owner)
 
-/datum/action/cooldown/spell/pointed/blood_siphon/is_valid_spell(mob/user, atom/target)
-	return ..() && isliving(target)
+/datum/action/cooldown/spell/pointed/blood_siphon/is_valid_target(atom/cast_on)
+	return ..() && isliving(cast_on)
 
-/datum/action/cooldown/spell/pointed/blood_siphon/on_cast(mob/living/user, mob/living/target)
+/datum/action/cooldown/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()
 	playsound(owner, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-	if(target.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+	if(cast_on.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 		owner.balloon_alert(owner, "spell blocked!")
-		target.visible_message(
-			span_danger("The spell bounces off of [target]!"),
+		cast_on.visible_message(
+			span_danger("The spell bounces off of [cast_on]!"),
 			span_danger("The spell bounces off of you!"),
 		)
 		return FALSE
 
-	target.visible_message(
-		span_danger("[target] turns pale as a red glow envelops [target.p_them()]!"),
+	cast_on.visible_message(
+		span_danger("[cast_on] turns pale as a red glow envelops [cast_on.p_them()]!"),
 		span_danger("You turn pale as a red glow enevelops you!"),
 	)
 
 	var/mob/living/living_owner = owner
-	target.adjustBruteLoss(20)
+	cast_on.adjustBruteLoss(20)
 	living_owner.adjustBruteLoss(-20)
 
-	if(!target.blood_volume || !living_owner.blood_volume)
+	if(!cast_on.blood_volume || !living_owner.blood_volume)
 		return TRUE
 
-	target.blood_volume -= 20
+	cast_on.blood_volume -= 20
 	if(living_owner.blood_volume < BLOOD_VOLUME_MAXIMUM) // we dont want to explode from casting
 		living_owner.blood_volume += 20
 
-	if(!iscarbon(target) || !iscarbon(owner))
+	if(!iscarbon(cast_on) || !iscarbon(owner))
 		return TRUE
 /* Missing wounds for this bit of code to work
 	var/mob/living/carbon/carbon_target = cast_on

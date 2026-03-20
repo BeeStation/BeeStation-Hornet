@@ -34,7 +34,7 @@
 	loot = list(/obj/item/ectoplasm)
 	del_on_death = TRUE
 	initial_language_holder = /datum/language_holder/construct
-	deathmessage = "collapses in a shattered heap."
+	death_message = "collapses in a shattered heap."
 	hardattacks = TRUE
 	var/list/construct_spells = list()
 	var/playstyle_string = span_bigbold("You are a generic construct!") + "<b> Your job is to not exist, and you should probably adminhelp this.</b>"
@@ -42,7 +42,9 @@
 	var/seeking = FALSE
 	var/original_name = null // The original name of the person, passed down by /proc/makeNewConstruct(mob/living/simple_animal/hostile/construct/
 	var/original_real_name = null
-	var/can_repair_constructs = FALSE
+	/// Whether this construct can repair other constructs or cult buildings.
+	var/can_repair = FALSE
+	/// Whether this construct can repair itself. Works independently of can_repair.
 	var/can_repair_self = FALSE
 	/// Theme controls color. THEME_CULT is red THEME_WIZARD is purple and THEME_HOLY is blue
 	var/theme = THEME_CULT
@@ -95,6 +97,8 @@
 	if(icon_state)
 		add_overlay("glow_[icon_state]_[theme]")
 
+	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_SPACEWALK), INNATE_TRAIT)
+
 /mob/living/simple_animal/hostile/construct/Login()
 	. = ..()
 	if(!. || !client)
@@ -127,7 +131,7 @@
 		return
 
 	var/mob/living/simple_animal/hostile/construct/doll = user
-	if(!doll.can_repair_constructs || (doll == src && !doll.can_repair_self))
+	if(!doll.can_repair || (doll == src && !doll.can_repair_self))
 		return ..()
 	if(theme != doll.theme)
 		return ..()
@@ -287,7 +291,7 @@
 		if(L.stat != DEAD && prev_stat != DEAD)
 			total_refund += attack_refund
 
-		jaunt.reduce_cooldown(total_refund)
+		jaunt.next_use_time = max(world.time, jaunt.next_use_time - total_refund)
 		jaunt.build_all_button_icons()
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
@@ -344,7 +348,7 @@
 		but you are able to construct fortifications, use magic missile, and repair allied constructs, shades, \
 		and yourself (by clicking on them). Additionally, <i>and most important of all,</i> you can create new constructs \
 		by producing soulstones to capture souls, and shells to place those soulstones into.</b>"
-	can_repair_constructs = TRUE
+	can_repair = TRUE
 	can_repair_self = TRUE
 
 /mob/living/simple_animal/hostile/construct/artificer/Found(atom/A) //what have we found here?
@@ -444,7 +448,7 @@
 	)
 	playstyle_string = "<B>You are a Harvester. You are incapable of directly killing humans, but your attacks will remove their limbs: \
 						Bring those who still cling to this world of illusion back to the Geometer so they may know Truth. Your form and any you are pulling can pass through runed walls effortlessly.</B>"
-	can_repair_constructs = TRUE
+	can_repair = TRUE
 
 
 /mob/living/simple_animal/hostile/construct/harvester/Bump(atom/AM)
@@ -531,7 +535,7 @@
 	the_construct = C
 	..()
 
-/datum/action/innate/seek_master/on_activate()
+/datum/action/innate/seek_master/Activate()
 	var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult)
 	if(!C)
 		return
@@ -565,7 +569,7 @@
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
 
-/datum/action/innate/seek_prey/on_activate()
+/datum/action/innate/seek_prey/Activate()
 	if(GLOB.narsie == null)
 		return
 	var/mob/living/simple_animal/hostile/construct/harvester/the_construct = owner

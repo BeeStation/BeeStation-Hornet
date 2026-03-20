@@ -13,7 +13,6 @@
 
 	invocation = "PI'RC' TH' M'ND."
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION | SPELL_REQUIRES_NO_ANTIMAGIC
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 
 	cast_range = 7
@@ -27,13 +26,14 @@
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		qdel(src)
 
-/datum/action/cooldown/spell/pointed/manse_link/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/manse_link/is_valid_target(atom/cast_on)
 	. = ..()
 	if(!.)
 		return FALSE
-	return isliving(target)
 
-/datum/action/cooldown/spell/pointed/manse_link/pre_cast(mob/living/cast_on, atom/target)
+	return isliving(cast_on)
+
+/datum/action/cooldown/spell/pointed/manse_link/before_cast(mob/living/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -46,22 +46,27 @@
 * The actual process of linking [linkee] to our network.
 */
 /datum/action/cooldown/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
-	var/datum/component/mind_linker/linker = master
+	var/datum/component/mind_linker/linker = target
 	if(linkee.stat == DEAD)
-		to_chat(owner, ("<span class='warning'>They're dead!</span>"))
+		to_chat(owner, span_warning("They're dead!"))
 		return FALSE
-	to_chat(owner, ("<span class='notice'>You begin linking [linkee]'s mind to yours...</span>"))
-	to_chat(linkee, ("<span class='warning'>You feel your mind being pulled somewhere... connected... intertwined with the very fabric of reality...</span>"))
-	if(!do_after(owner, link_time, linkee))
-		to_chat(owner, ("<span class='warning'>You fail to link to [linkee]'s mind.</span>"))
-		to_chat(linkee, ("<span class='warning'>The foreign presence leaves your mind.</span>"))
+
+	to_chat(owner, span_notice("You begin linking [linkee]'s mind to yours..."))
+	to_chat(linkee, span_warning("You feel your mind being pulled somewhere... connected... intertwined with the very fabric of reality..."))
+
+	if(!do_after(owner, link_time, linkee, hidden = TRUE))
+		to_chat(owner, span_warning("You fail to link to [linkee]'s mind."))
+		to_chat(linkee, span_warning("The foreign presence leaves your mind."))
 		return FALSE
+
 	if(QDELETED(src) || QDELETED(owner) || QDELETED(linkee))
 		return FALSE
+
 	if(!linker.link_mob(linkee))
-		to_chat(owner, ("<span class='warning'>You can't seem to link to [linkee]'s mind.</span>"))
-		to_chat(linkee, ("<span class='warning'>The foreign presence leaves your mind.</span>"))
+		to_chat(owner, span_warning("You can't seem to link to [linkee]'s mind."))
+		to_chat(linkee, span_warning("The foreign presence leaves your mind."))
 		return FALSE
+
 	return TRUE
 
 /datum/action/innate/mansus_speech
@@ -77,7 +82,7 @@
 	. = ..()
 	src.originator = originator
 
-/datum/action/innate/mansus_speech/on_activate()
+/datum/action/innate/mansus_speech/Activate()
 	var/mob/living/living_owner = owner
 	if(!originator?.linked_mobs[living_owner])
 		CRASH("Uh oh, a Mansus Link ([type]) got somehow called Activate() [isnull(originator) ? "without an originator Raw Prophet" : "without being in the originator's linked_mobs list"].")

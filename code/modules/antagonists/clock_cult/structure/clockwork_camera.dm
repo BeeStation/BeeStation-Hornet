@@ -9,12 +9,12 @@
 	button_icon_state = "warp_down"
 	var/warping = FALSE
 
-/datum/action/innate/clockcult/warp/is_available()
+/datum/action/innate/clockcult/warp/is_available(feedback = FALSE)
 	if(!IS_SERVANT_OF_RATVAR(owner) || owner.incapacitated)
 		return FALSE
 	return ..()
 
-/datum/action/innate/clockcult/warp/on_activate()
+/datum/action/innate/clockcult/warp/Activate()
 	if(!isliving(owner))
 		return
 	if(GLOB.gateway_opening)

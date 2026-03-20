@@ -78,7 +78,8 @@
 /datum/species/oozeling/slime/copy_properties_from(datum/species/oozeling/slime/old_species)
 	bodies = old_species.bodies
 
-/datum/species/oozeling/slime/spec_life(mob/living/carbon/human/H)
+/datum/species/oozeling/slime/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
 		if(DT_PROB(2.5, delta_time))
 			to_chat(H, span_notice("You feel very bloated!"))
@@ -86,8 +87,6 @@
 	else if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 		H.blood_volume += 1.5 * delta_time
 		H.adjust_nutrition(-1.25 * delta_time)
-
-	..()
 
 /datum/action/innate/split_body
 	name = "Split Body"
@@ -403,14 +402,14 @@
 
 /// Callback for /datum/component/action_item_overlay to find the slime extract from within the species
 /datum/action/innate/integrate_extract/proc/locate_extract()
-	var/datum/species/jelly/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = target
 	if(!istype(species))
 		return null
 
 	return species.current_extract
 
 /datum/action/innate/integrate_extract/update_button_name(atom/movable/screen/movable/action_button/button, force = FALSE)
-	var/datum/species/jelly/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = target
 	if(!istype(species) || !species.current_extract)
 		name = "Integrate Extract"
 		desc = "Eat a slime extract to use its properties."
@@ -421,7 +420,7 @@
 	return ..()
 
 /datum/action/innate/integrate_extract/apply_button_icon(atom/movable/screen/movable/action_button/current_button, force)
-	var/datum/species/jelly/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = target
 	if(!istype(species) || !species.current_extract)
 		button_icon_state = "slimeconsume"
 	else
@@ -431,7 +430,7 @@
 
 /datum/action/innate/integrate_extract/activate()
 	var/mob/living/carbon/human/human_owner = owner
-	var/datum/species/oozeling/luminescent/species = H.dna.species
+	var/datum/species/oozeling/luminescent/species = target
 	if(!istype(species))
 		return
 
@@ -473,7 +472,7 @@
 
 /// Callback for /datum/component/action_item_overlay to find the slime extract from within the species
 /datum/action/innate/use_extract/proc/locate_extract()
-	var/datum/species/jelly/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = target
 	if(!istype(species))
 		return null
 
@@ -484,7 +483,7 @@
 	if(!.)
 		return
 
-	var/datum/species/jelly/luminescent/species = target
+	var/datum/species/oozeling/luminescent/species = target
 	if(istype(species) && species.current_extract && (COOLDOWN_FINISHED(species, extract_cooldown)))
 		return TRUE
 	return FALSE
@@ -546,7 +545,7 @@
 	background_icon_state = "bg_alien"
 	overlay_icon_state = "bg_alien_border"
 
-/datum/action/innate/project_thought/on_activate()
+/datum/action/innate/project_thought/Activate()
 	var/mob/living/carbon/human/telepath = owner
 	if(telepath.stat == DEAD)
 		return

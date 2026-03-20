@@ -11,8 +11,8 @@
 	var/panel
 	/// The default cooldown applied when start_cooldown() is called
 	var/cooldown_time = 0
-	/// The default melee cooldown applied after the ability ends
-	var/melee_cooldown_time
+	/// The default melee cooldown applied after the ability ends. If set to null, copies cooldown_time.
+	var/melee_cooldown_time = 0
 	/// The actual next time the owner of this action can melee
 	var/next_melee_use_time = 0
 	/// Whether or not you want the cooldown for the ability to display in text form
@@ -20,7 +20,7 @@
 	/// Significant figures to round cooldown to
 	var/cooldown_rounding = 0.1
 	/// Shares cooldowns with other abiliies, bitflag
-	var/shared_cooldown
+	var/shared_cooldown = NONE
 	/// List of prerequisite actions that are used in this sequenced ability, you cannot put other sequenced abilities in this
 	var/list/sequence_actions
 	/// List of prerequisite actions that have been initialized
@@ -66,10 +66,10 @@
 /datum/action/cooldown/create_button()
 	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
-	button.maptext_x = 6
+	button.maptext_x = 4
 	button.maptext_y = 2
-	button.maptext_width = 24
-	button.maptext_height = 12
+	button.maptext_width = 32
+	button.maptext_height = 16
 	return button
 
 /datum/action/cooldown/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
@@ -154,7 +154,7 @@
 /datum/action/cooldown/proc/start_cooldown(override_cooldown_time, override_melee_cooldown_time)
 	// "Shared cooldowns" covers actions which are not the same type,
 	// but have the same cooldown group and are on the same mob
-	if(shared_cooldown)
+	if(shared_cooldown != NONE)
 		StartCooldownOthers(override_cooldown_time)
 
 	StartCooldownSelf(override_cooldown_time)
@@ -171,6 +171,9 @@
 		next_use_time = world.time + override_cooldown_time
 	else
 		next_use_time = world.time + cooldown_time
+	// Don't start a cooldown if we have a cooldown time of 0 seconds
+	if(next_use_time == world.time)
+		return
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
 	START_PROCESSING(SSfastprocess, src)
 
@@ -212,14 +215,14 @@
 	for(var/datum/action/cooldown/cd_action in owner.actions)
 		cd_action.disable()
 
-/datum/action/cooldown/trigger(trigger_flags, atom/target)
+/datum/action/cooldown/trigger(mob/clicker, trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	if(!owner)
 		return FALSE
 
-	var/mob/user = usr || owner
+	var/mob/user = clicker || owner
 
 	// If our cooldown action is a click_to_activate action:
 	// The actual action is activated on whatever the user clicks on -
@@ -244,30 +247,30 @@
 	// If our cooldown action is not a click_to_activate action:
 	// We can just continue on and use the action
 	// the target is the user of the action (often, the owner)
-	return PreActivate(user)
+	return pre_activate(user)
 
 /// Intercepts client owner clicks to activate the ability
-/datum/action/cooldown/proc/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/cooldown/proc/InterceptClickOn(mob/living/clicker, params, atom/target)
 	if(!is_available(feedback = TRUE))
 		return FALSE
 	if(!target)
 		return FALSE
 	// The actual action begins here
-	if(!PreActivate(target))
+	if(!pre_activate(target))
 		return FALSE
 
 	// And if we reach here, the action was complete successfully
 	if(unset_after_click)
-		unset_click_ability(caller, refund_cooldown = FALSE)
-	caller.next_click = world.time + click_cd_override
+		unset_click_ability(clicker, refund_cooldown = FALSE)
+	clicker.next_click = world.time + click_cd_override
 
 	return TRUE
 
 /// For signal calling
-/datum/action/cooldown/proc/PreActivate(atom/target)
-	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src) & COMPONENT_BLOCK_ABILITY_START)
+/datum/action/cooldown/proc/pre_activate(atom/target)
+	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src, target) & COMPONENT_BLOCK_ABILITY_START)
 		return
-	// Note, that PreActivate handles no cooldowns at all by default.
+	// Note, that pre_activate handles no cooldowns at all by default.
 	// Be sure to call start_cooldown() in Activate() where necessary.
 	. = Activate(target)
 	// There is a possibility our action (or owner) is qdeleted in Activate().
@@ -327,40 +330,29 @@
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
 	return TRUE
 
-/// Formats the action to be returned to the stat panel.
-/datum/action/cooldown/proc/set_statpanel_format()
-	if(!panel)
-		return null
+/datum/action/cooldown/get_stat_label()
+	return set_statpanel_format()
 
+/// Formats the cooldown action's status for the stat panel.
+/// Override this in subtypes to provide custom status text.
+/datum/action/cooldown/proc/set_statpanel_format()
 	var/time_remaining = max(next_use_time - world.time, 0)
 	var/time_remaining_in_seconds = round(time_remaining / 10, 0.1)
-	var/cooldown_time_in_seconds =  round(cooldown_time / 10, 0.1)
-
-	var/list/stat_panel_data = list()
-
-	// Pass on what panel we should be displayed in.
-	stat_panel_data[PANEL_DISPLAY_PANEL] = panel
-	// Also pass on the name of the spell, with some spacing
-	stat_panel_data[PANEL_DISPLAY_NAME] = " - [name]"
+	var/cooldown_time_in_seconds = round(cooldown_time / 10, 0.1)
 
 	// No cooldown time at all, just show the ability
 	if(cooldown_time_in_seconds <= 0)
-		stat_panel_data[PANEL_DISPLAY_STATUS] = ""
+		return "Activate"
 
 	// It's a toggle-active ability, show if it's active
-	else if(click_to_activate && owner.click_intercept == src)
-		stat_panel_data[PANEL_DISPLAY_STATUS] = "ACTIVE"
+	if(click_to_activate && owner?.click_intercept == src)
+		return "ACTIVE"
 
 	// It's on cooldown, show the cooldown
-	else if(time_remaining_in_seconds > 0)
-		stat_panel_data[PANEL_DISPLAY_STATUS] = "CD - [time_remaining_in_seconds]s / [cooldown_time_in_seconds]s"
+	if(time_remaining_in_seconds > 0)
+		return "CD - [time_remaining_in_seconds]s / [cooldown_time_in_seconds]s"
 
 	// It's not on cooldown, show that it is ready
-	else
-		stat_panel_data[PANEL_DISPLAY_STATUS] = "READY"
-
-	SEND_SIGNAL(src, COMSIG_ACTION_SET_STATPANEL, stat_panel_data)
-
-	return stat_panel_data
+	return "READY"
 
 #undef COOLDOWN_NO_DISPLAY_TIME

@@ -20,7 +20,7 @@
 		/mob/living/simple_animal/hostile/netherworld/migo = 2,
 		/obj/structure/spawner/nether = 0.3,
 		/obj/structure/destructible/cult/pylon = 2,
-		/obj/structure/destructible/cult/forge = 1,
+		/obj/structure/destructible/cult/item_dispenser/forge = 1,
 		/obj/effect/rune/blood_boil = 1,
 		/obj/effect/rune/empower = 1,
 		null = 140,

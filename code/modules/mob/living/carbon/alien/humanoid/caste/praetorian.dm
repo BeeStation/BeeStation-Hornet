@@ -26,7 +26,7 @@
 	button_icon_state = "alien_evolve_praetorian"
 	plasma_cost = 500
 
-/datum/action/cooldown/alien/evolve_to_queen/is_available()
+/datum/action/cooldown/alien/evolve_to_queen/is_available(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE

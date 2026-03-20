@@ -52,7 +52,8 @@
 /atom/movable/screen/alert/status_effect/in_love
 	name = "In Love"
 	desc = "You feel so wonderfully in love!"
-	icon_state = "in_love"
+	use_user_hud_icon = TRUE
+	overlay_state = "in_love"
 
 /datum/status_effect/in_love
 	id = "in_love"
@@ -261,6 +262,9 @@
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/leaning/Click()
+	. = ..()
+	if(!.)
+		return
 	var/mob/living/L = usr
 	if(!istype(L) || L != owner)
 		return

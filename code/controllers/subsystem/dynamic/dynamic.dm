@@ -1,8 +1,3 @@
-// If this is defined, then any storyteller configs which do not have
-// a 'Version' tag that match this value will not be loaded.
-// #define STORYTELLER_VERSION "GamemodeAntagonists"
-
-
 SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
@@ -153,9 +148,11 @@ SUBSYSTEM_DEF(dynamic)
 	 *
 	 * How midround rolling works is as follows:
 	 *
-	 * All midround rulesets have a specific severity. Light, Medium, or Heavy
-	 * At the start of the round, there is a 100% chance to choose a Light midround (Light Ruleset Chance)
-	 * As the round progresses, the Light Ruleset Chance decreases and the Medium/Heavy Ruleset Chance increases.
+	 * NOTICE: The values mentioned below are outdated, but midrounds still work the same
+	 *
+	 * All midround rulesets have a specific severity: Light, Medium, or Heavy.
+	 * At the start of the round, there is a 100% chance to choose a Light midround (Light Ruleset Chance).
+	 * As the round progresses, the Light Ruleset Chance decreases and the Medium and Heavy Ruleset Chances increase.
 	 *
 	 * The amount that the Light Ruleset Chance decreases every minute
 	 * is given to the Medium Ruleset Chance and Heavy Ruleset Chance.
@@ -164,11 +161,11 @@ SUBSYSTEM_DEF(dynamic)
 	 * Light Ruleset Chance decrease rate is given to the Medium Ruleset Chance is 75%.
 	 * The Heavy Ruleset Chance will receive the remainder, in this case, 25%
 	 *
-	 * When the round time reaches one hour the Light Ruleset Chance will reach 0%
-	 * and the Medium Ruleset Chance will start to decrease while the Heavy Ruleset Chance increases.
+	 * When the round time reaches one hour, the Light Ruleset Chance will reach 0%
+	 * and the Medium Ruleset Chance will start to decrease while the Heavy Ruleset Chance increases until it eventually reaches 100%.
 	 *
-	 * The rest is pretty simple, the chosen midround ruleset's severity is picked based off
-	 * the Light/Medium/Heavy Ruleset Chances and after that, we choose based off ruleset weights of that severity.
+	 * The rest is pretty simple, the chosen midround ruleset's severity is chosen based off
+	 * the Light/Medium/Heavy Ruleset Chances and after that, we choose the ruleset based off the configured ruleset weights.
 	 * Finally, we save up until we have enough points to execute our chosen midround ruleset and repeat the cycle.
 	 */
 
@@ -184,10 +181,10 @@ SUBSYSTEM_DEF(dynamic)
 	/// The Heavy Ratio is the remainder of the Medium Increase Ratio
 	/// These should always be on a range of 0 - 1. i.e: 0.25, 0.75, 1.0
 	var/midround_medium_increase_ratio = 1
-	/// The time at which midrounds can start rolling
+	/// The time at which midrounds start rolling and points begin being generated
 	var/midround_grace_period = 20 MINUTES
-	/// The amount of midround points given per minute for every type of player
-	/// The total midround points delta cannot be lower than 0, it always increases or stays the same
+	/// The amount of midround points given per minute for every type of player.
+	/// The total midround points delta can never be lower than 0, it always increases or stays the same
 	var/midround_living_delta = 0.04
 	var/midround_observer_delta = 0
 	var/midround_dead_delta = -0.3
@@ -386,13 +383,18 @@ SUBSYSTEM_DEF(dynamic)
  * Called at roundstart, set roundstart points and choose rulesets
  */
 /datum/controller/subsystem/dynamic/proc/select_roundstart_antagonists()
+	// No configured storyteller, let's pick a random one
+	if(!current_storyteller && length(dynamic_storyteller_jsons))
+		set_storyteller(pick(dynamic_storyteller_jsons))
+
 	set_roundstart_points()
 
+	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
 	log_dynamic("ROUNDSTART: Listing [length(supplementary_configured_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
+
 	if(!length(roundstart_candidates))
 		return TRUE
 
-	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
 	execute_gamemode_roundstart(gamemode_configured_rulesets)
 	execute_supplementary_roundstart_rulesets(supplementary_configured_rulesets)
 
@@ -574,10 +576,11 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Picks a ruleset to be executed. Does not execute the selected ruleset.
- * possible_rulesets: The rulesets to be selected from
- * ignore_points: If set to true, then we will not care about the point cost of this ruleset
- * ignore_candidates: If set to true, then we will not care about needing candidates and trim_candidates will not be called.
- * blacklist_types: If a list is provided, then rulesets whose type is in this list will be excluded.
+ * Arguments:
+ * - possible_rulesets: The rulesets to be selected from
+ * - ignore_points: If set to true, then we will not care about the point cost of this ruleset
+ * - ignore_candidates: If set to true, then we will not care about needing candidates and trim_candidates will not be called.
+ * - blacklist_types: If a list is provided, then rulesets whose type is in this list will be excluded.
  */
 /datum/controller/subsystem/dynamic/proc/pick_ruleset(list/possible_rulesets, ignore_points = FALSE, ignore_candidates = FALSE, list/blacklist_types = null)
 	var/list/remaining_to_pick = possible_rulesets.Copy()
@@ -1087,7 +1090,3 @@ SUBSYSTEM_DEF(dynamic)
 	if (flag & DYNAMIC_MIDROUND_HEAVY)
 		texts += "HEAVY"
 	return jointext(texts, " | ")
-
-#ifdef STORYTELLER_VERSION
-#undef STORYTELLER_VERSION
-#endif

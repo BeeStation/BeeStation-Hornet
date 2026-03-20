@@ -6,7 +6,7 @@
  * 	Level 3: Can be used through face protection
  * 	Level 5: Doesn't need to be facing you anymore
  */
-/datum/action/vampire/targeted/mesmerize
+/datum/action/cooldown/vampire/targeted/mesmerize
 	name = "Mesmerize"
 	desc = "Dominate the mind of a mortal who can see your eyes."
 	button_icon_state = "power_mez"
@@ -29,7 +29,7 @@
 	/// Reference to the target we've fed off of
 	var/datum/weakref/target_ref
 
-/datum/action/vampire/targeted/mesmerize/can_use()
+/datum/action/cooldown/vampire/targeted/mesmerize/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -46,7 +46,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/vampire/targeted/mesmerize/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/mesmerize/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -86,7 +86,7 @@
 		owner.balloon_alert(owner, "[living_target] is already in a hypnotic gaze.")
 		return FALSE
 
-/datum/action/vampire/targeted/mesmerize/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/mesmerize/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/living_target = target_atom
 	target_ref = WEAKREF(living_target)
@@ -119,7 +119,7 @@
 
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 
-/datum/action/vampire/targeted/mesmerize/continue_active()
+/datum/action/cooldown/vampire/targeted/mesmerize/continue_active()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -131,11 +131,11 @@
 	if(!living_target || !check_valid_target(living_target))
 		return FALSE
 
-/datum/action/vampire/targeted/mesmerize/deactivate_power()
+/datum/action/cooldown/vampire/targeted/mesmerize/deactivate_power()
 	. = ..()
 	target_ref = null
 
-/datum/action/vampire/targeted/mesmerize/proc/end_mesmerize(mob/living/living_target)
+/datum/action/cooldown/vampire/targeted/mesmerize/proc/end_mesmerize(mob/living/living_target)
 	living_target.notransform = FALSE
 	REMOVE_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
 

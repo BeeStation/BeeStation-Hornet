@@ -22,19 +22,19 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/action/cooldown/spell/pointed/void_phase/pre_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/void_phase/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	if(owner && get_dist(user, target) < min_cast_range)
-		user.balloon_alert(owner, "too close!")
+	if(owner && get_dist(get_turf(owner), get_turf(cast_on)) < min_cast_range)
+		cast_on.balloon_alert(owner, "too close!")
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/cooldown/spell/pointed/void_phase/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/void_phase/cast(atom/cast_on)
 	. = ..()
-	var/turf/source_turf = get_turf(user)
-	var/turf/targeted_turf = get_turf(target)
+	var/turf/source_turf = get_turf(owner)
+	var/turf/targeted_turf = get_turf(cast_on)
 
 	new /obj/effect/temp_visual/voidin(source_turf)
 	new /obj/effect/temp_visual/voidout(targeted_turf)
@@ -43,23 +43,27 @@
 	playsound(source_turf, 'sound/magic/voidblink.ogg', 60, FALSE)
 	playsound(targeted_turf, 'sound/magic/voidblink.ogg', 60, FALSE)
 
-	for(var/mob/living/living_mob in range(damage_radius, source_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
-			continue
-		living_mob.apply_damage(40, BRUTE)
-
-	for(var/mob/living/living_mob in range(damage_radius, targeted_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
-			continue
-		living_mob.apply_damage(40, BRUTE)
+	cause_aoe(source_turf, /obj/effect/temp_visual/voidin)
+	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout)
 
 	do_teleport(
-		user,
+		owner,
 		targeted_turf,
 		precision = 1,
 		no_effects = TRUE,
 		channel = TELEPORT_CHANNEL_MAGIC_SELF,
 	)
+
+/// Does the AOE effect of the blinka t the passed turf
+/datum/action/cooldown/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin)
+	new effect_type(target_turf)
+	playsound(target_turf, 'sound/effects/magic/voidblink.ogg', 60, FALSE)
+	for(var/mob/living/living_mob in range(damage_radius, target_turf))
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == owner)
+			continue
+		if(living_mob.can_block_magic(antimagic_flags))
+			continue
+		living_mob.apply_damage(40, BRUTE)
 
 /obj/effect/temp_visual/voidin
 	icon = 'icons/effects/96x96.dmi'

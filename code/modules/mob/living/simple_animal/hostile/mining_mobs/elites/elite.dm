@@ -40,7 +40,7 @@
 	if(istype(target, /obj/structure/elite_tumor))
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
-			var/elite_remove = alert("Re-enter the tumor?", "Despawn yourself?", "Yes", "No")
+			var/elite_remove = tgui_alert(usr,"Re-enter the tumor?", "Despawn yourself?", list("Yes", "No"))
 			if(elite_remove == "No" || QDELETED(src) || !Adjacent(T))
 				return
 			T.mychild = null
@@ -52,9 +52,9 @@
 	if(ismineralturf(target))
 		var/turf/closed/mineral/M = target
 		M.gets_drilled()
-	if(istype(target, /obj/mecha))
-		var/obj/mecha/M = target
-		M.take_damage(50, BRUTE, "melee", 1)
+	if(ismecha(target))
+		var/obj/vehicle/sealed/mecha/M = target
+		M.take_damage(50, BRUTE, MELEE, 1)
 
 //Elites can't talk (normally)!
 /mob/living/simple_animal/hostile/asteroid/elite/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
@@ -108,12 +108,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
-		elite_owner = L
 		START_PROCESSING(SSfastprocess, src)
 		return ..()
 	return FALSE
 
 /datum/action/innate/elite_attack/activate()
+	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	elite_owner.chosen_attack = chosen_attack_num
 	to_chat(elite_owner, chosen_message)
 
@@ -174,12 +174,14 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 30)
 					return
 				visible_message(span_boldwarning("Something within [src] stirs..."))
-				var/datum/poll_config/config = new()
-				config.check_jobban = ROLE_LAVALAND_ELITE
-				config.poll_time = 10 SECONDS
-				config.jump_target = src
-				config.role_name_text = "lavaland elite"
-				config.alert_pic = src
+				var/datum/poll_config/config = new(
+					check_jobban = ROLE_LAVALAND_ELITE,
+					poll_time = 10 SECONDS,
+					jump_target = src,
+					role_name_text = "lavaland elite",
+					alert_pic = src,
+					amount_to_pick = 1,
+				)
 				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					audible_message(span_boldwarning("The stirring sounds increase in volume!"))
@@ -340,12 +342,14 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(!E.key && !using)
 			using = TRUE //No ghost poll spam please.
 			user.visible_message(span_notice("[E] stirs briefly..."))
-			var/datum/poll_config/config = new()
-			config.check_jobban = ROLE_SENTIENCE
-			config.poll_time = 15 SECONDS
-			config.jump_target = E
-			config.role_name_text = "enslaved lavaland elite"
-			config.alert_pic = E
+			var/datum/poll_config/config = new(
+				check_jobban = ROLE_SENTIENCE,
+				poll_time = 15 SECONDS,
+				jump_target = E,
+				role_name_text = "enslaved lavaland elite",
+				alert_pic = E,
+				amount_to_pick = 1,
+			)
 			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			if(candidate)
 				E.key = candidate.key

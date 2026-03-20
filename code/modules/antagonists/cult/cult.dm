@@ -125,6 +125,8 @@
 		if(cult_team.cult_ascendent)
 			cult_team.ascend(current)
 
+	ADD_TRAIT(current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
+
 /datum/antagonist/cult/master/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current = owner.current
@@ -154,6 +156,8 @@
 		if (H.remove_overlay(HALO_LAYER))
 			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.update_body()
+
+	REMOVE_TRAIT(current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 
 /datum/antagonist/cult/on_mindshield(mob/implanter)
 	if(!silent)
@@ -202,6 +206,10 @@
 		if(istype(o, /obj/item/melee/cultblade/dagger) || istype(o, /obj/item/stack/sheet/runed_metal))
 			qdel(o)
 
+///Returns whether or not this datum is its team's leader.
+/datum/antagonist/cult/proc/is_cult_leader()
+	return (cult_team.cult_leader_datum == src)
+
 /datum/antagonist/cult/master
 	ignore_implant = TRUE
 	show_in_antagpanel = FALSE //Feel free to add this later
@@ -214,11 +222,15 @@
 	QDEL_NULL(reckoning)
 	QDEL_NULL(bloodmark)
 	QDEL_NULL(throwing)
+	if(!cult_team.cult_leader_datum)
+		return FALSE
+	cult_team.cult_leader_datum = null
 	return ..()
 
 /datum/antagonist/cult/master/on_gain()
 	. = ..()
 	var/mob/living/current = owner.current
+	cult_team.cult_leader_datum = src
 	set_antag_hud(current, "cultmaster")
 
 /datum/antagonist/cult/master/greet()
@@ -235,6 +247,8 @@
 
 	var/cult_vote_called = FALSE
 	var/mob/living/cult_master
+	///The cult leader
+	var/datum/antagonist/cult/cult_leader_datum
 	var/reckoning_complete = FALSE
 	var/cult_risen = FALSE
 	var/cult_ascendent = FALSE
@@ -315,24 +329,27 @@
 				++cultplayers
 			else
 				++alive
-	var/ratio = cultplayers/alive
+	ASSERT(cultplayers) //we shouldn't be here.
+	var/ratio = alive ? cultplayers/alive : 1
 	if(ratio > CULT_RISEN && !cult_risen)
-		for(var/datum/mind/B in members)
-			if(B.current)
-				SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
-				to_chat(B.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
+		for(var/datum/mind/mind as anything in members)
+			if(mind.current)
+				SEND_SOUND(mind.current, 'sound/hallucinations/i_see_you2.ogg')
+				to_chat(mind.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
-				addtimer(CALLBACK(src, PROC_REF(rise), B.current), 200)
+				addtimer(CALLBACK(src, PROC_REF(rise), mind.current), 200)
 		cult_risen = TRUE
+		log_game("The blood cult has risen with [cultplayers] players.")
 
 	if(ratio > CULT_ASCENDENT && !cult_ascendent)
-		for(var/datum/mind/B in members)
-			if(B.current)
-				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(B.current, span_cultlarge("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!"))
+		for(var/datum/mind/mind as anything in members)
+			if(mind.current)
+				SEND_SOUND(mind.current, 'sound/hallucinations/im_here1.ogg')
+				to_chat(mind.current, span_cultlarge("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!"))
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
-				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
+				addtimer(CALLBACK(src, PROC_REF(ascend), mind.current), 200)
 		cult_ascendent = TRUE
+		log_game("The blood cult has ascended with [cultplayers] players.")
 
 
 /datum/team/cult/proc/rise(cultist)

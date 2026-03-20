@@ -32,12 +32,12 @@ SUBSYSTEM_DEF(augury)
 
 	if(length(doombringers))
 		for(var/mob/dead/observer/observer in GLOB.player_list - observers_given_action)
-			var/datum/action/augury/action = new()
+			var/datum/action/innate/augury/action = new()
 			action.Grant(observer)
 			observers_given_action += observer
 	else
 		for(var/mob/dead/observer/observer in observers_given_action)
-			for(var/datum/action/augury/action in observer.actions)
+			for(var/datum/action/innate/augury/action in observer.actions)
 				qdel(action)
 			observers_given_action -= observer
 
@@ -48,20 +48,20 @@ SUBSYSTEM_DEF(augury)
 		if(biggest_doom && (!W.orbiting || W.orbiting.parent != biggest_doom))
 			W.check_orbitable(biggest_doom)
 
-/datum/action/augury
+/datum/action/innate/augury
 	name = "Auto Follow Debris"
 	button_icon = 'icons/obj/meteor.dmi'
 	button_icon_state = "flaming"
 
-/datum/action/augury/Destroy()
+/datum/action/innate/augury/Destroy()
 	if(owner)
 		SSaugury.watchers -= owner
 	return ..()
 
-/datum/action/augury/on_activate(at)
+/datum/action/innate/augury/Activate()
 	SSaugury.watchers += owner
 	to_chat(owner, span_notice("You are now auto-following debris."))
 
-/datum/action/augury/on_deactivate(mob/user, atom/target)
+/datum/action/innate/augury/Deactivate()
 	SSaugury.watchers -= owner
 	to_chat(owner, span_notice("You are no longer auto-following debris."))

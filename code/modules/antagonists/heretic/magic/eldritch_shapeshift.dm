@@ -17,5 +17,5 @@
 		/mob/living/simple_animal/hostile/carp,
 		/mob/living/simple_animal/bot/secbot,
 		/mob/living/simple_animal/pet/fox,
-		/mob/living/simple_animal/pet/cat,
+		/mob/living/basic/pet/cat,
 )

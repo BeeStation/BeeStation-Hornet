@@ -115,7 +115,7 @@
 
 	post_unlink_callback?.Invoke(to_unlink)
 
-	UnregisterSignal(to_unlink, list(COMSIG_LIVING_DEATH, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(to_unlink, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING))
 
 	var/datum/action/innate/linked_speech/old_link = linked_mobs[to_unlink]
 	linked_mobs -= to_unlink
@@ -149,7 +149,7 @@
 	// Customization related settings
 	network_name = "Mind Link",
 	chat_color = "#008CA2",
-	speech_action_icon = 'icons/mob/actions/actions_slime.dmi',
+	speech_action_icon = 'icons/hud/actions/actions_slime.dmi',
 	speech_action_icon_state = "link_speech",
 	speech_action_background_icon_state = "bg_alien",
 	speech_action_overlay_state = "bg_alien_border",

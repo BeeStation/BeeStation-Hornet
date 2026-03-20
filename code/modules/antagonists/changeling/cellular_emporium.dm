@@ -102,5 +102,5 @@
 	cellular_emporium = null
 	return ..()
 
-/datum/action/innate/cellular_emporium/on_activate()
+/datum/action/innate/cellular_emporium/Activate()
 	cellular_emporium.ui_interact(owner)

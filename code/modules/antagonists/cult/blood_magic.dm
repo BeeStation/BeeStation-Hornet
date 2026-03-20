@@ -1,32 +1,63 @@
+/// how many units of blood one charge of blood rites is worth
+#define USES_TO_BLOOD 2
+/// blood rites charges gained from sapping blood from a victim
+#define BLOOD_DRAIN_GAIN 50
+/// penalty for self healing, 1 point of damage * this # = charges required
+#define SELF_HEAL_PENALTY 1.65
+
 /datum/action/innate/cult/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
 	name = "Prepare Blood Magic"
 	button_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
+	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
+	/// If the magic has been enhanced somehow, likely due to a crimson medallion.
+	var/magic_enhanced = FALSE
 
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
 		qdel(X)
 	..()
 
-/datum/action/innate/cult/blood_magic/is_available()
+/datum/action/innate/cult/blood_magic/is_available(feedback = FALSE)
 	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/blood_magic/on_activate()
+/datum/action/innate/cult/blood_magic/proc/Positioning()
+	for(var/datum/hud/hud as anything in viewers)
+		var/our_view = hud.mymob?.client?.view || "15x15"
+		var/atom/movable/screen/movable/action_button/button = viewers[hud]
+		var/position = screen_loc_to_offset(button.screen_loc)
+		var/list/position_list = list()
+		for(var/possible_position in 1 to magic_enhanced ? ENHANCED_BLOODCHARGE : MAX_BLOODCHARGE)
+			position_list += possible_position
+		for(var/datum/action/innate/cult/blood_spell/blood_spell in spells)
+			if(blood_spell.positioned)
+				position_list.Remove(blood_spell.positioned)
+				continue
+			var/atom/movable/screen/movable/action_button/moving_button = blood_spell.viewers[hud]
+			if(!moving_button)
+				continue
+			var/first_available_slot = position_list[1]
+			var/our_x = position[1] + first_available_slot * ICON_SIZE_X // Offset any new buttons into our list
+			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
+			blood_spell.positioned = first_available_slot
+
+/datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE
-	if(locate(/obj/effect/rune/empower) in range(1, owner))
+	for(var/obj/effect/rune/empower/R in range(1, owner))
 		rune = TRUE
+		break
 	if(rune)
-		limit = MAX_BLOODCHARGE
-	if(spells.len >= limit)
+		limit = magic_enhanced ? ENHANCED_BLOODCHARGE : MAX_BLOODCHARGE
+	if(length(spells) >= limit)
 		if(rune)
-			to_chat(owner, span_cultitalic("You cannot store more than [MAX_BLOODCHARGE] spells. <b>Pick a spell to remove.</b>"))
+			to_chat(owner, span_cultitalic("You cannot store more than [limit] spells. <b>Pick a spell to remove.</b>"))
 		else
-			to_chat(owner, span_cultitalic("<b><u>You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spells without an empowering rune! Pick a spell to remove.</b></u>"))
+			to_chat(owner, span_cultbold("<i><u>You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spells without an empowering rune! Pick a spell to remove.</u></i>"))
 		var/nullify_spell = tgui_input_list(owner, "Spell to remove", "Current Spells", spells)
 		if(isnull(nullify_spell))
 			return
@@ -48,7 +79,7 @@
 			return
 		qdel(nullify_spell)
 	BS = possible_spells[entered_spell_name]
-	if(QDELETED(src) || owner.incapacitated || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (spells.len >= limit))
+	if(QDELETED(src) || owner.incapacitated || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
 	to_chat(owner,span_warning("You begin to carve unnatural symbols into your flesh!"))
 	SEND_SOUND(owner, sound('sound/weapons/slice.ogg',0,1,10))
@@ -57,13 +88,19 @@
 	else
 		to_chat(owner, span_cultitalic("You are already invoking blood magic!"))
 		return
-	if(do_after(owner, 100 - rune*60, target = owner))
+	var/spell_carving_timer = 10 SECONDS
+	if(rune)
+		spell_carving_timer = 4 SECONDS
+	if(magic_enhanced)
+		spell_carving_timer *= 0.5
+	if(do_after(owner, spell_carving_timer, target = owner))
 		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			H.bleed(40 - rune*32)
-		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
+			var/mob/living/carbon/human/human_owner = owner
+			human_owner.bleed(rune ? 8 : 40)
+		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner.mind)
 		new_spell.Grant(owner, src)
 		spells += new_spell
+		Positioning()
 		to_chat(owner, span_warning("Your wounds glow with power, you have prepared a [new_spell.name] invocation!"))
 	channeling = FALSE
 
@@ -78,7 +115,10 @@
 	var/base_desc //To allow for updating tooltips
 	var/invocation
 	var/health_cost = 0
+	/// Have we already been positioned into our starting location?
 	var/positioned = FALSE
+	/// If false, the spell will not delete after running out of charges
+	var/deletes_on_empty = TRUE
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
@@ -96,26 +136,26 @@
 		hand_magic = null
 	..()
 
-/datum/action/innate/cult/blood_spell/is_available()
-	if(!IS_CULTIST(owner) || owner.incapacitated  || !charges)
+/datum/action/innate/cult/blood_spell/is_available(feedback = FALSE)
+	if(!IS_CULTIST(owner) || owner.incapacitated || (!charges && deletes_on_empty))
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/blood_spell/on_activate()
-	if(magic_path) //If this spell flows from the hand
-		if(!hand_magic)
-			hand_magic = new magic_path(owner, src)
-			if(!owner.put_in_hands(hand_magic))
-				qdel(hand_magic)
-				hand_magic = null
-				to_chat(owner, span_warning("You have no empty hand for invoking blood magic!"))
-				return
-			to_chat(owner, span_notice("Your wounds glow as you invoke the [name]."))
-			return
-		if(hand_magic)
-			qdel(hand_magic)
-			hand_magic = null
-			to_chat(owner, span_warning("You snuff out the spell, saving it for later."))
+/datum/action/innate/cult/blood_spell/Activate()
+	if(!magic_path) // only concerned with spells that flow from the hand
+		return
+	if(hand_magic)
+		qdel(hand_magic)
+		hand_magic = null
+		to_chat(owner, span_warning("You snuff out the spell, saving it for later."))
+		return
+	hand_magic = new magic_path(owner, src)
+	if(!owner.put_in_hands(hand_magic))
+		qdel(hand_magic)
+		hand_magic = null
+		to_chat(owner, span_warning("You have no empty hand for invoking blood magic!"))
+		return
+	to_chat(owner, span_notice("Your wounds glow as you invoke the [name]."))
 
 
 //Cult Blood Spells
@@ -141,13 +181,14 @@
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/blood_spell/emp/on_activate()
-	owner.whisper(invocation, language = /datum/language/common)
+/datum/action/innate/cult/blood_spell/emp/Activate()
+	owner.whisper(invocation, language = /datum/language/common, forced = "cult invocation")
 	owner.visible_message(span_warning("[owner]'s hand flashes a bright blue!"), \
-						span_cultitalic("You speak the cursed words, emitting an EMP blast from your hand."))
-	empulse(owner, 2, 5, holy=TRUE)
+		span_cultitalic("You speak the cursed words, emitting an EMP blast from your hand."))
+	empulse(owner, 2, 5, holy = TRUE)
 	charges--
-	if(charges<=0)
+	SSblackbox.record_feedback("tally", "cult_spell_invoke", 1, "[name]")
+	if(charges <= 0)
 		qdel(src)
 
 /datum/action/innate/cult/blood_spell/shackles
@@ -178,7 +219,7 @@
 	/// The item given to the cultist when the spell is invoked. Typepath.
 	var/obj/item/summoned_type = /obj/item/melee/cultblade/dagger
 
-/datum/action/innate/cult/blood_spell/dagger/on_activate()
+/datum/action/innate/cult/blood_spell/dagger/Activate()
 	var/turf/owner_turf = get_turf(owner)
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message(span_warning("[owner]'s hand glows red for a moment."), \
@@ -191,6 +232,7 @@
 			span_cultitalic("A [summoned_blade] materializes at your feet."))
 	SEND_SOUND(owner, sound('sound/effects/magic.ogg', FALSE, 0, 25))
 	charges--
+	SSblackbox.record_feedback("tally", "cult_spell_invoke", 1, "[name]")
 	if(charges <= 0)
 		qdel(src)
 
@@ -200,9 +242,8 @@
 	button_icon_state = "horror"
 	charges = 4
 	check_flags = AB_CHECK_CONSCIOUS
-	requires_target = TRUE
-	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
-	disable_text = ("<span class='cult'>You dispel the magic...</span>")
+	enable_text = span_cult("You prepare to horrify a target...")
+	disable_text = span_cult("You dispel the magic...")
 
 /datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
 	var/turf/clicker_turf = get_turf(clicker)
@@ -218,24 +259,23 @@
 
 	return ..()
 
-/datum/action/innate/cult/blood_spell/horror/on_activate(mob/user, mob/living/target)
-	if (!istype(target))
-		return FALSE
-	target.set_hallucinations_if_lower(240 SECONDS)
-	SEND_SOUND(user, sound('sound/effects/ghost.ogg', FALSE, TRUE, 50))
+/datum/action/innate/cult/blood_spell/horror/do_ability(mob/living/clicker, mob/living/carbon/human/clicked_on)
+	clicked_on.set_hallucinations_if_lower(240 SECONDS)
+	SEND_SOUND(clicker, sound('sound/effects/ghost.ogg', FALSE, TRUE, 50))
 
-	var/image/sparkle_image = image('icons/effects/cult_effects.dmi', target, "bloodsparkles", ABOVE_MOB_LAYER)
-	target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", sparkle_image, NONE)
+	var/image/sparkle_image = image('icons/effects/cult_effects.dmi', clicked_on, "bloodsparkles", ABOVE_MOB_LAYER)
+	clicked_on.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", sparkle_image, NONE)
 
-	addtimer(CALLBACK(target, TYPE_PROC_REF(/atom, remove_alt_appearance), "cult_apoc", TRUE), 4 MINUTES, TIMER_OVERRIDE|TIMER_UNIQUE)
-	to_chat(user, span_cultbold("[target] has been cursed with living nightmares!"))
+	addtimer(CALLBACK(clicked_on, TYPE_PROC_REF(/atom, remove_alt_appearance), "cult_apoc", TRUE), 4 MINUTES, TIMER_OVERRIDE|TIMER_UNIQUE)
+	to_chat(clicker, span_cultbold("[clicked_on] has been cursed with living nightmares!"))
 
 	charges--
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
-	update_buttons()
+	build_all_button_icons()
+	SSblackbox.record_feedback("tally", "cult_spell_invoke", 1, "[name]")
 	if(charges <= 0)
-		to_chat(user, span_cult("You have exhausted the spell's power!"))
+		to_chat(clicker, span_cult("You have exhausted the spell's power!"))
 		qdel(src)
 
 	return TRUE
@@ -249,7 +289,7 @@
 	var/revealing = FALSE //if it reveals or not
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/blood_spell/veiling/on_activate()
+/datum/action/innate/cult/blood_spell/veiling/Activate()
 	if(!revealing)
 		owner.visible_message(span_warning("Thin grey dust falls from [owner]'s hand!"), \
 			span_cultitalic("You invoke the veiling spell, hiding nearby runes."))
@@ -263,6 +303,8 @@
 		for(var/obj/machinery/door/airlock/cult/AL in range(5, owner))
 			AL.conceal()
 		for(var/turf/open/floor/engine/cult/T in RANGE_TURFS(5,owner))
+			if(!T.realappearance)
+				continue
 			T.realappearance.alpha = 0
 		revealing = TRUE
 		name = "Reveal Runes"
@@ -280,15 +322,18 @@
 		for(var/obj/machinery/door/airlock/cult/AL in range(6, owner))
 			AL.reveal()
 		for(var/turf/open/floor/engine/cult/T in RANGE_TURFS(6,owner))
+			if(!T.realappearance)
+				continue
 			T.realappearance.alpha = initial(T.realappearance.alpha)
 		revealing = FALSE
 		name = "Conceal Runes"
 		button_icon_state = "gone"
+	SSblackbox.record_feedback("tally", "cult_spell_invoke", 1, "Conceal Runes")
 	if(charges<= 0)
 		qdel(src)
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/innate/cult/blood_spell/manipulation
 	name = "Blood Rites"
@@ -297,7 +342,7 @@
 	button_icon_state = "manip"
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
-
+	deletes_on_empty = FALSE
 
 // The "magic hand" items
 /obj/item/melee/blood_magic
@@ -309,7 +354,6 @@
 	icon_state = "disintegrate"
 	inhand_icon_state = "disintegrate"
 	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL
-
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 0
 	throw_range = 0
@@ -323,16 +367,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 
 /obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
-	if(!istype(spell, /datum/action/innate/cult/blood_spell))
-		return INITIALIZE_HINT_QDEL
-	source = spell
-	uses = source.charges
-	health_cost = source.health_cost
+	if(spell)
+		source = spell
+		uses = source.charges
+		health_cost = source.health_cost
 
 /obj/item/melee/blood_magic/Destroy()
 	if(!QDELETED(source))
-		if(uses <= 0)
-			source?.hand_magic = null
+		if(uses <= 0 && source.deletes_on_empty)
+			source.hand_magic = null
 			qdel(source)
 			source = null
 		else
@@ -340,8 +383,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			source.charges = uses
 			source.desc = source.base_desc
 			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-			source.update_buttons()
-	..()
+			source.build_all_button_icons()
+	return ..()
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)
@@ -352,6 +395,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 		qdel(src)
 		return
 	log_combat(user, M, "used a cult spell on", src, "")
+	SSblackbox.record_feedback("tally", "cult_spell_invoke", 1, "[name]")
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
 
@@ -369,7 +413,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	else if(source)
 		source.desc = source.base_desc
 		source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-		source.update_buttons()
+		source.build_all_button_icons()
 
 //Stun
 /obj/item/melee/blood_magic/stun
@@ -653,157 +697,245 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
 	. = ..()
-	. += "Blood spear, blood bolt barrage, and blood beam cost [BLOOD_SPEAR_COST], [BLOOD_BARRAGE_COST], and [BLOOD_BEAM_COST] charges respectively."
+	. += "Bloody halberd, blood bolt barrage, and blood beam cost [BLOOD_HALBERD_COST], [BLOOD_BARRAGE_COST], and [BLOOD_BEAM_COST] charges respectively."
 
+/**
+ * handles inhand use of blood rites on constructs, humans, or non-living blood sources
+ *
+ * see '/obj/item/melee/blood_magic/manipulator/proc/heal_construct' for construct/shade behavior
+ * see '/obj/item/melee/blood_magic/manipulator/proc/heal_cultist' for human cultist behavior
+ * see '/obj/item/melee/blood_magic/manipulator/proc/drain_victim' for human non-cultist behavior
+ * if any of the above procs return FALSE, '/obj/item/melee/blood_magic/afterattack' will not be called
+ *
+ * '/obj/item/melee/blood_magic/manipulator/proc/blood_draw' handles blood pools/trails and does not affect parent proc
+ */
 /obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
-	if(proximity)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			if(HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD))
-				to_chat(user,span_warning("Blood rites do not work on species with no blood!"))
-				return
-			if(IS_CULTIST(H))
-				if(H.stat == DEAD)
-					to_chat(user,span_warning("Only a revive rune can bring back the dead!"))
-					return
-				if(H.blood_volume < BLOOD_VOLUME_SAFE)
-					var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
-					if(uses*2 < restore_blood)
-						H.blood_volume += uses*2
-						to_chat(user,span_danger("You use the last of your blood rites to restore what blood you could!"))
-						uses = 0
-						return ..()
-					else
-						H.blood_volume = BLOOD_VOLUME_SAFE
-						uses -= round(restore_blood/2)
-						to_chat(user,span_warning("Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!"))
-				var/overall_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
-				if(overall_damage == 0)
-					to_chat(user,span_cult("That cultist doesn't require healing!"))
-				else
-					var/ratio = uses/overall_damage
-					if(H == user)
-						to_chat(user,span_cult("<b>Your blood healing is far less efficient when used on yourself!</b>"))
-						ratio *= 0.35 // Healing is half as effective if you can't perform a full heal
-						uses -= round(overall_damage) // Healing is 65% more "expensive" even if you can still perform the full heal
-					if(ratio>1)
-						ratio = 1
-						uses -= round(overall_damage)
-						H.visible_message(span_warning("[H] is fully healed by [H==user ? "[H.p_their()]":"[H]'s"]'s blood magic!"))
-					else
-						H.visible_message(span_warning("[H] is partially healed by [H==user ? "[H.p_their()]":"[H]'s"] blood magic."))
-						uses = 0
-					ratio *= -1
-					var/need_mob_update = FALSE
-					need_mob_update += H.adjustOxyLoss((overall_damage*ratio) * (H.getOxyLoss() / overall_damage), updating_health = FALSE)
-					need_mob_update += H.adjustToxLoss((overall_damage*ratio) * (H.getToxLoss() / overall_damage), updating_health = FALSE)
-					need_mob_update += H.adjustFireLoss((overall_damage*ratio) * (H.getFireLoss() / overall_damage), updating_health = FALSE)
-					need_mob_update += H.adjustBruteLoss((overall_damage*ratio) * (H.getBruteLoss() / overall_damage), updating_health = FALSE)
-					if(need_mob_update)
-						H.updatehealth()
-					playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25)
-					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
-					user.Beam(H, icon_state="sendbeam", time = 15)
-			else
-				if(H.stat == DEAD)
-					to_chat(user,span_warning("[H.p_Their()] blood has stopped flowing, you'll have to find another way to extract it."))
-					return
-				if(H.has_status_effect(/datum/status_effect/speech/slurring/cult))
-					to_chat(user,span_danger("[H.p_Their()] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
-					return
-				if(H.blood_volume > BLOOD_VOLUME_SAFE)
-					H.blood_volume -= 100
-					uses += 50
-					user.Beam(H, icon_state="drainbeam", time = 1 SECONDS)
-					playsound(get_turf(H), 'sound/magic/enter_blood.ogg', 50)
-					H.visible_message(span_danger("[user] has drained some of [H]'s blood!"))
-					to_chat(user,span_cultitalic("Your blood rite gains 50 charges from draining [H]'s blood."))
-					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
-				else
-					to_chat(user,span_danger("[H.p_Theyre()] missing too much blood - you cannot drain [H.p_them()] further!"))
-					return
-		if(isconstruct(target))
-			var/mob/living/simple_animal/M = target
-			var/missing = M.maxHealth - M.health
-			if(missing)
-				if(uses > missing)
-					M.adjustHealth(-missing)
-					M.visible_message(span_warning("[M] is fully healed by [user]'s blood magic!"))
-					uses -= missing
-				else
-					M.adjustHealth(-uses)
-					M.visible_message(span_warning("[M] is partially healed by [user]'s blood magic!"))
-					uses = 0
-				playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
-				user.Beam(M, icon_state="sendbeam", time = 1 SECONDS)
-		if(istype(target, /obj/effect/decal/cleanable/blood))
-			blood_draw(target, user)
-		..()
+	if(!proximity)
+		return
 
-/obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
-	var/temp = 0
-	var/turf/T = get_turf(target)
-	if(T)
-		for(var/obj/effect/decal/cleanable/blood/B in view(2, T))
-			if(B.blood_state == BLOOD_STATE_HUMAN)
-				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
-					temp += 30
-				else
-					temp += max((B.bloodiness**2)/800,1)
-				new /obj/effect/temp_visual/cult/turf/floor(get_turf(B))
-				qdel(B)
-		if(temp)
-			user.Beam(T, icon_state="drainbeam", time = 15)
-			new /obj/effect/temp_visual/cult/sparks(get_turf(user))
-			playsound(T, 'sound/magic/enter_blood.ogg', 50)
-			to_chat(user, span_cultitalic("Your blood rite has gained [round(temp)] charge\s from blood sources around you!"))
-			uses += max(1, round(temp))
-
-/obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
-	if(IS_CULTIST(user))
-		var/list/options = list("Blood Spear (150)", "Blood Bolt Barrage (300)", "Blood Beam (500)")
-		var/choice = input(user, "Choose a greater blood rite.", "Greater Blood Rites") as null|anything in options
-		if(!choice)
-			to_chat(user, span_cultitalic("You decide against conducting a greater blood rite."))
+	if((isconstruct(target) || isshade(target)) && !heal_construct(target, user))
+		return
+	if(istype(target, /obj/effect/decal/cleanable/blood) || istype(target, /obj/effect/decal/cleanable/blood/trail_holder) || isturf(target))
+		blood_draw(target, user)
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_bloodbag = target
+		if(HAS_TRAIT(human_bloodbag, TRAIT_NOBLOOD))
+			human_bloodbag.balloon_alert(user, "no blood!")
 			return
-		switch(choice)
-			if("Blood Spear (150)")
-				if(uses < BLOOD_SPEAR_COST)
-					to_chat(user, span_cultitalic("You need [BLOOD_SPEAR_COST] charges to perform this rite."))
-				else
-					uses -= BLOOD_SPEAR_COST
-					var/turf/T = get_turf(user)
-					qdel(src)
-					var/datum/action/innate/cult/spear/S = new(user)
-					var/obj/item/cult_spear/rite = new(T)
-					S.Grant(user, rite)
-					rite.spear_act = S
-					if(user.put_in_hands(rite))
-						to_chat(user, span_cultitalic("A [rite.name] appears in your hand!"))
-					else
-						user.visible_message(span_warning("A [rite.name] appears at [user]'s feet!"), \
-							span_cultitalic("A [rite.name] materializes at your feet."))
-			if("Blood Bolt Barrage (300)")
-				if(uses < BLOOD_BARRAGE_COST)
-					to_chat(user, span_cultitalic("You need [BLOOD_BARRAGE_COST] charges to perform this rite."))
-				else
-					var/obj/rite = new /obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/blood()
-					uses -= BLOOD_BARRAGE_COST
-					qdel(src)
-					if(user.put_in_hands(rite))
-						to_chat(user, span_cult("<b>Your hands glow with power!</b>"))
-					else
-						to_chat(user, span_cultitalic("You need a free hand for this rite!"))
-						qdel(rite)
-			if("Blood Beam (500)")
-				if(uses < BLOOD_BEAM_COST)
-					to_chat(user, span_cultitalic("You need [BLOOD_BEAM_COST] charges to perform this rite."))
-				else
-					var/obj/rite = new /obj/item/blood_beam()
-					uses -= BLOOD_BEAM_COST
-					qdel(src)
-					if(user.put_in_hands(rite))
-						to_chat(user, span_cultlarge("<b>Your hands glow with POWER OVERWHELMING!!!</b>"))
-					else
-						to_chat(user, span_cultitalic("You need a free hand for this rite!"))
-						qdel(rite)
+		if(human_bloodbag.stat == DEAD)
+			human_bloodbag.balloon_alert(user, "dead!")
+			return
+
+		if(IS_CULTIST(human_bloodbag) && !heal_cultist(human_bloodbag, user))
+			return
+		if(!IS_CULTIST(human_bloodbag) && !drain_victim(human_bloodbag, user))
+			return
+	..()
+
+/**
+ * handles blood rites usage on constructs
+ *
+ * will only return TRUE if some amount healing is done
+ */
+/obj/item/melee/blood_magic/manipulator/proc/heal_construct(atom/target, mob/living/carbon/human/user)
+	var/mob/living/basic/construct_thing = target
+	if(!IS_CULTIST(construct_thing))
+		return FALSE
+	var/missing_health = construct_thing.maxHealth - construct_thing.health
+	if(!missing_health)
+		to_chat(user,span_cult("That cultist doesn't require healing!"))
+		return FALSE
+	if(uses <= 0)
+		construct_thing.balloon_alert(user, "out of blood!")
+		return FALSE
+	if(uses > missing_health)
+		construct_thing.adjust_health(-missing_health)
+		construct_thing.visible_message(span_warning("[construct_thing] is fully healed by [user]'s blood magic!"))
+		uses -= missing_health
+	else
+		construct_thing.adjust_health(-uses)
+		construct_thing.visible_message(span_warning("[construct_thing] is partially healed by [user]'s blood magic!"))
+		uses = 0
+	playsound(get_turf(construct_thing), 'sound/magic/staff_healing.ogg', 25)
+	user.Beam(construct_thing, icon_state="sendbeam", time = 1 SECONDS)
+	return TRUE
+
+/**
+ * handles blood rites usage on human cultists
+ *
+ * first restores blood, then heals damage. healing damage is more expensive, especially if performed on oneself
+ * returns TRUE if some amount of blood is restored and/or damage is healed
+ */
+/obj/item/melee/blood_magic/manipulator/proc/heal_cultist(mob/living/carbon/human/human_bloodbag, mob/living/carbon/human/user)
+	if(uses <= 0)
+		human_bloodbag.balloon_alert(user, "out of blood!")
+		return FALSE
+
+	/// used to ensure the proc returns TRUE if we completely restore an undamaged persons blood
+	var/blood_donor = FALSE
+	if(human_bloodbag.blood_volume < BLOOD_VOLUME_SAFE)
+		var/blood_needed = BLOOD_VOLUME_SAFE - human_bloodbag.blood_volume
+		/// how much blood we are capable of restoring, based on spell charges
+		var/blood_bank = USES_TO_BLOOD * uses
+		if(blood_bank < blood_needed)
+			human_bloodbag.blood_volume += blood_bank
+			to_chat(user,span_danger("You use the last of your blood rites to restore what blood you could!"))
+			uses = 0
+			return TRUE
+		blood_donor = TRUE
+		human_bloodbag.blood_volume = BLOOD_VOLUME_SAFE
+		uses -= round(blood_needed / USES_TO_BLOOD)
+		to_chat(user,span_warning("Your blood rites have restored [human_bloodbag == user ? "your" : "[human_bloodbag.p_their()]"] blood to safe levels!"))
+
+	var/overall_damage = human_bloodbag.getBruteLoss() + human_bloodbag.getFireLoss() + human_bloodbag.getToxLoss() + human_bloodbag.getOxyLoss()
+	if(overall_damage == 0)
+		if(blood_donor)
+			return TRUE
+		to_chat(user,span_cult("That cultist doesn't require healing!"))
+		return FALSE
+	/// how much damage we can/will heal
+	var/damage_healed = -1 * min(uses, overall_damage)
+	/// how many spell charges will be consumed to heal said damage
+	var/healing_cost = damage_healed
+	if(human_bloodbag == user)
+		to_chat(user,span_cult("<b>Your blood healing is far less efficient when used on yourself!</b>"))
+		damage_healed = -1 * min(uses * (1 / SELF_HEAL_PENALTY), overall_damage)
+		healing_cost = damage_healed * SELF_HEAL_PENALTY
+	uses += round(healing_cost)
+	human_bloodbag.visible_message(span_warning("[human_bloodbag] is [uses == 0 ? "partially healed":"fully healed"] by [human_bloodbag == user ? "[human_bloodbag.p_their()]":"[human_bloodbag]'s"] blood magic!"))
+
+	var/need_mob_update = FALSE
+	need_mob_update += human_bloodbag.adjustOxyLoss(damage_healed * (human_bloodbag.getOxyLoss() / overall_damage), updating_health = FALSE)
+	need_mob_update += human_bloodbag.adjustToxLoss(damage_healed * (human_bloodbag.getToxLoss() / overall_damage), updating_health = FALSE)
+	need_mob_update += human_bloodbag.adjustFireLoss(damage_healed * (human_bloodbag.getFireLoss() / overall_damage), updating_health = FALSE)
+	need_mob_update += human_bloodbag.adjustBruteLoss(damage_healed * (human_bloodbag.getBruteLoss() / overall_damage), updating_health = FALSE)
+	if(need_mob_update)
+		human_bloodbag.updatehealth()
+	playsound(get_turf(human_bloodbag), 'sound/magic/staff_healing.ogg', 25)
+	new /obj/effect/temp_visual/cult/sparks(get_turf(human_bloodbag))
+	user.Beam(human_bloodbag, icon_state="sendbeam", time = 15)
+	return TRUE
+
+/**
+ * handles blood rites use on a non-cultist human
+ *
+ * returns TRUE if blood is successfully drained from the victim
+ */
+/obj/item/melee/blood_magic/manipulator/proc/drain_victim(mob/living/carbon/human/human_bloodbag, mob/living/carbon/human/user)
+	if(human_bloodbag.has_status_effect(/datum/status_effect/speech/slurring/cult))
+		to_chat(user,span_danger("[human_bloodbag.p_Their()] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
+		return FALSE
+	if(human_bloodbag.blood_volume <= BLOOD_VOLUME_SAFE)
+		to_chat(user,span_warning("[human_bloodbag.p_Theyre()] missing too much blood - you cannot drain [human_bloodbag.p_them()] further!"))
+		return FALSE
+	human_bloodbag.blood_volume -= BLOOD_DRAIN_GAIN * USES_TO_BLOOD
+	uses += BLOOD_DRAIN_GAIN
+	user.Beam(human_bloodbag, icon_state="drainbeam", time = 1 SECONDS)
+	playsound(get_turf(human_bloodbag), 'sound/magic/enter_blood.ogg', 50)
+	human_bloodbag.visible_message(span_danger("[user] drains some of [human_bloodbag]'s blood!"))
+	to_chat(user,span_cultitalic("Your blood rite gains 50 charges from draining [human_bloodbag]'s blood."))
+	new /obj/effect/temp_visual/cult/sparks(get_turf(human_bloodbag))
+	return TRUE
+
+/**
+ * handles blood rites use on turfs, blood pools, and blood trails
+ */
+/obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
+	var/blood_to_gain = 0
+	var/turf/our_turf = get_turf(target)
+	if(!our_turf)
+		return
+	for(var/obj/effect/decal/cleanable/blood/blood_around_us in range(our_turf,2))
+		if(blood_around_us.blood_state != BLOOD_STATE_HUMAN)
+			break
+		if(blood_around_us.bloodiness == 100) // Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
+			blood_to_gain += 30
+		else
+			blood_to_gain += max((blood_around_us.bloodiness**2)/800,1)
+		new /obj/effect/temp_visual/cult/turf/floor(get_turf(blood_around_us))
+		qdel(blood_around_us)
+	for(var/obj/effect/decal/cleanable/blood/trail_holder/trail_around_us in range(our_turf, 2))
+		if(trail_around_us.blood_state != BLOOD_STATE_HUMAN)
+			break
+		blood_to_gain += 5 //These don't get bloodiness, so we'll just increase this by a fixed value
+		new /obj/effect/temp_visual/cult/turf/floor(get_turf(trail_around_us))
+		qdel(trail_around_us)
+
+	if(!blood_to_gain)
+		return
+	user.Beam(our_turf,icon_state="drainbeam", time = 15)
+	new /obj/effect/temp_visual/cult/sparks(get_turf(user))
+	playsound(our_turf, 'sound/magic/enter_blood.ogg', 50)
+	to_chat(user, span_cultitalic("Your blood rite has gained [round(blood_to_gain)] charge\s from blood sources around you!"))
+	uses += max(1, round(blood_to_gain))
+
+/**
+ * handles untargeted use of blood rites
+ *
+ * allows user to trade in spell uses for equipment or spells
+ */
+/obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
+	var/static/list/spells = list(
+		"Bloody Halberd (150)" = image(icon = 'icons/obj/weapons/spear.dmi', icon_state = "occultpoleaxe0"),
+		"Blood Bolt Barrage (300)" = image(icon = 'icons/obj/weapons/guns/ballistic.dmi', icon_state = "arcane_barrage"),
+		"Blood Beam (500)" = image(icon = 'icons/obj/weapons/hand.dmi', icon_state = "disintegrate")
+		)
+	var/choice = show_radial_menu(user, src, spells, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE)
+	if(!check_menu(user))
+		to_chat(user, span_cultitalic("You decide against conducting a greater blood rite."))
+		return
+
+	switch(choice)
+		if("Bloody Halberd (150)")
+			if(uses < BLOOD_HALBERD_COST)
+				to_chat(user, span_cultitalic("You need [BLOOD_HALBERD_COST] charges to perform this rite."))
+				return
+			uses -= BLOOD_HALBERD_COST
+			var/turf/current_position = get_turf(user)
+			qdel(src)
+			var/datum/action/innate/cult/halberd/halberd_act_granted = new(user)
+			var/obj/item/melee/cultblade/halberd/rite = new(current_position)
+			halberd_act_granted.Grant(user, rite)
+			rite.halberd_act = halberd_act_granted
+			if(user.put_in_hands(rite))
+				to_chat(user, span_cultitalic("A [rite.name] appears in your hand!"))
+			else
+				user.visible_message(span_warning("A [rite.name] appears at [user]'s feet!"), \
+					span_cultitalic("A [rite.name] materializes at your feet."))
+
+		if("Blood Bolt Barrage (300)")
+			if(uses < BLOOD_BARRAGE_COST)
+				to_chat(user, span_cultitalic("You need [BLOOD_BARRAGE_COST] charges to perform this rite."))
+				return
+			var/obj/rite = new /obj/item/gun/magic/wand/arcane_barrage/blood()
+			uses -= BLOOD_BARRAGE_COST
+			qdel(src)
+			if(user.put_in_hands(rite))
+				to_chat(user, span_cult("<b>Your hands glow with power!</b>"))
+			else
+				to_chat(user, span_cultitalic("You need a free hand for this rite!"))
+				qdel(rite)
+
+		if("Blood Beam (500)")
+			if(uses < BLOOD_BEAM_COST)
+				to_chat(user, span_cultitalic("You need [BLOOD_BEAM_COST] charges to perform this rite."))
+				return
+			var/obj/rite = new /obj/item/blood_beam()
+			uses -= BLOOD_BEAM_COST
+			qdel(src)
+			if(user.put_in_hands(rite))
+				to_chat(user, span_cultlarge("<b>Your hands glow with POWER OVERWHELMING!!!</b>"))
+			else
+				to_chat(user, span_cultitalic("You need a free hand for this rite!"))
+				qdel(rite)
+
+/obj/item/melee/blood_magic/manipulator/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		CRASH("The Blood Rites manipulator radial menu was accessed by something other than a valid user.")
+	if(user.incapacitated || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
+#undef USES_TO_BLOOD
+#undef BLOOD_DRAIN_GAIN
+#undef SELF_HEAL_PENALTY

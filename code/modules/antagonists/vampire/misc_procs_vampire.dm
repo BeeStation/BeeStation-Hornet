@@ -1,8 +1,8 @@
 /**
  * Helper proc for adding a power
 **/
-/datum/antagonist/vampire/proc/grant_power(datum/action/vampire/power)
-	for(var/datum/action/vampire/current_powers as anything in powers)
+/datum/antagonist/vampire/proc/grant_power(datum/action/cooldown/vampire/power)
+	for(var/datum/action/cooldown/vampire/current_powers as anything in powers)
 		if(current_powers.type == power.type)
 			return FALSE
 	powers += power
@@ -14,7 +14,7 @@
 /**
  * Helper proc for removing a power
 **/
-/datum/antagonist/vampire/proc/remove_power(datum/action/vampire/power)
+/datum/antagonist/vampire/proc/remove_power(datum/action/cooldown/vampire/power)
 	if(power.currently_active)
 		power.deactivate_power()
 	powers -= power
@@ -93,7 +93,7 @@
 	vampire_level_unspent--
 
 /datum/antagonist/vampire/proc/remove_nondefault_powers(return_levels = FALSE)
-	for(var/datum/action/vampire/power as anything in powers)
+	for(var/datum/action/cooldown/vampire/power as anything in powers)
 		if(power.purchase_flags & VAMPIRE_DEFAULT_POWER)
 			continue
 		remove_power(power)
@@ -104,7 +104,7 @@
  * Helper proc to upgrade all powers and their cooldown time when ranking up
 **/
 /datum/antagonist/vampire/proc/level_up_powers()
-	for(var/datum/action/vampire/power as anything in powers)
+	for(var/datum/action/cooldown/vampire/power as anything in powers)
 		if(power.purchase_flags & TREMERE_CAN_BUY)
 			continue
 		power.upgrade_power()
@@ -113,7 +113,7 @@
  * Disables all Torpor exclusive powers, if forced is TRUE, disable all powers
 **/
 /datum/antagonist/vampire/proc/disable_all_powers(forced = FALSE)
-	for(var/datum/action/vampire/power as anything in powers)
+	for(var/datum/action/cooldown/vampire/power as anything in powers)
 		if(forced || ((power.check_flags & BP_CANT_USE_IN_TORPOR) && is_in_torpor()))
 			if(power.currently_active)
 				power.deactivate_power()

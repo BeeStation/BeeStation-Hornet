@@ -8,21 +8,23 @@
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/smoke_machine
 
-
-
-	var/efficiency = 10
+	///Divided against the amount of smoke to produce. Higher values equals lesser amount of reagents consumed to create smoke
+	var/efficiency = 20
+	///Is this machine on or off
 	var/on = FALSE
 	var/cooldown = 0
 	var/useramount = 30 // Last used amount
-	var/setting = 1 // displayed range is 3 * setting
-	var/max_range = 3 // displayed max range is 3 * max range
+	///Higher values mean larger smoke puffs but also more power & reagents consumed
+	var/setting = 1
+	///Max setting acheived from upgraded capacitors
+	var/max_range = 3
 
-/datum/effect_system/smoke_spread/chem/smoke_machine/set_up(datum/reagents/carry, setting=1, efficiency=10, loc, silent=FALSE, circle = TRUE)
-	amount = setting
+/datum/effect_system/smoke_spread/chem/smoke_machine/set_up(datum/reagents/carry, number = 1, efficiency = 10, location, silent = FALSE, cardinals_only = TRUE)
+	amount = number
 	carry.copy_to(chemholder, 20)
 	carry.remove_any(amount * 16 / efficiency)
-	location = loc
-	src.circle = circle
+	src.location = location
+	src.circle = cardinals_only
 
 /datum/effect_system/smoke_spread/chem/smoke_machine
 	effect_type = /obj/effect/particle_effect/smoke/chem/smoke_machine
@@ -52,6 +54,9 @@
 	return ..()
 
 /obj/machinery/smoke_machine/RefreshParts()
+	. = ..()
+
+	//new capacity to store reagents from matter bins
 	var/new_volume = REAGENTS_BASE_VOLUME
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		new_volume += REAGENTS_BASE_VOLUME * B.rating
@@ -61,9 +66,13 @@
 	if(new_volume < reagents.total_volume)
 		reagents.expose(loc, TOUCH) // if someone manages to downgrade it without deconstructing
 		reagents.clear_reagents()
+
+	//new efficiency from capacitors
 	efficiency = 9
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		efficiency += C.rating
+
+	//new maximum range
 	max_range = 1
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		max_range += M.rating

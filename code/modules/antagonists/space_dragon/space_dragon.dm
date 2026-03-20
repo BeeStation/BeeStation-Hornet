@@ -103,7 +103,7 @@
 		network_name = "Wavespeak", \
 		chat_color = "#635BAF", \
 		signals_which_destroy_us = list(COMSIG_LIVING_DEATH), \
-		speech_action_icon = 'icons/mob/actions/actions_space_dragon.dmi', \
+		speech_action_icon = 'icons/hud/actions/actions_space_dragon.dmi', \
 		speech_action_icon_state = "wavespeak", \
 	)
 	RegisterSignal(wavespeak, COMSIG_QDELETING, PROC_REF(clear_wavespeak))

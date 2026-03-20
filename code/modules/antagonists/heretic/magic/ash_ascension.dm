@@ -23,12 +23,12 @@
 	remove_from.remove_status_effect(/datum/status_effect/fire_ring)
 	return ..()
 
-/datum/action/cooldown/spell/fire_sworn/is_valid_spell(mob/user, atom/target)
-	return isliving(user)
+/datum/action/cooldown/spell/fire_sworn/is_valid_target(atom/cast_on)
+	return isliving(cast_on)
 
-/datum/action/cooldown/spell/fire_sworn/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/fire_sworn/cast(mob/living/cast_on)
 	. = ..()
-	user.apply_status_effect(/datum/status_effect/fire_ring, duration, fire_radius)
+	cast_on.apply_status_effect(/datum/status_effect/fire_ring, duration, fire_radius)
 
 /// Simple status effect for adding a ring of fire around a mob.
 /datum/status_effect/fire_ring
@@ -78,17 +78,18 @@
 	/// The radius the flames will go around the caster.
 	var/flame_radius = 4
 
-/datum/action/cooldown/spell/fire_cascade/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/fire_cascade/cast(atom/cast_on)
 	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(fire_cascade), get_turf(user), flame_radius)
+	INVOKE_ASYNC(src, PROC_REF(fire_cascade), get_turf(cast_on), flame_radius)
 
 /// Spreads a huge wave of fire in a radius around us, staggered between levels
 /datum/action/cooldown/spell/fire_cascade/proc/fire_cascade(atom/centre, flame_radius = 1)
 	for(var/i in 0 to flame_radius)
 		for(var/turf/nearby_turf as anything in spiral_range_turfs(i + 1, centre))
-			new /obj/effect/hotspot(nearby_turf)
+			var/obj/effect/hotspot/flame_tile = (locate() in nearby_turf) || new(nearby_turf)
+			flame_tile.alpha = 125
 			nearby_turf.hotspot_expose(750, 50, 1)
-			for(var/mob/living/fried_living in nearby_turf.contents - centre)
+			for(var/mob/living/fried_living in nearby_turf.contents - owner)
 				fried_living.apply_damage(5, BURN)
 
 		stoplag(0.3 SECONDS)
@@ -117,10 +118,10 @@
 	/// The length of the flame line spit out.
 	var/flame_line_length = 15
 
-/datum/action/cooldown/spell/pointed/ash_beams/is_valid_spell(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/ash_beams/is_valid_target(atom/cast_on)
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/ash_beams/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/pointed/ash_beams/cast(atom/target)
 	. = ..()
 	var/static/list/offsets = list(-25, -10, 0, 10, 25)
 	for(var/offset in offsets)

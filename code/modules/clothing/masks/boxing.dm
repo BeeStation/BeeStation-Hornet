@@ -6,7 +6,7 @@
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 
 /obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)

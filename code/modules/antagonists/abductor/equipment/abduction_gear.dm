@@ -79,10 +79,6 @@
 		H.update_worn_oversuit()
 	update_item_action_buttons()
 
-/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
-	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to activate the vest if he's actually wearing it.
-		return TRUE
-
 /obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
 	disguise = entry
 
@@ -446,6 +442,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	slot_flags = ITEM_SLOT_BELT
 
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	action_slots = ALL
 
 	cooldown = 0 SECONDS
 	stamina_damage = 0

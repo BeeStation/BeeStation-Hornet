@@ -37,11 +37,14 @@
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/activate(atom/target)
-	var/message = tgui_input_text(owner, "Resonate a message to all nearby golems.", "Resonate")
-	if(QDELETED(src) || QDELETED(owner) || !message)
-		return
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/do_effect(trigger_flags)
+	var/message = tgui_input_text(owner, "Resonate a message to all nearby golems", "Resonate", max_length = MAX_MESSAGE_LEN)
+	if(!message)
+		return FALSE
+	if(QDELETED(src) || QDELETED(owner))
+		return FALSE
 	owner.say(".x[message]")
+	return TRUE
 
 /obj/item/organ/vocal_cords/adamantine/handle_speech(message)
 	var/msg = span_resonate("[span_name("[owner.real_name]")] [span_message("resonates, \"[message]\"")]")

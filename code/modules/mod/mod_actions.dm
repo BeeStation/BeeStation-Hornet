@@ -15,7 +15,7 @@
 		background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 
 /datum/action/item_action/mod/Grant(mob/user)
-	var/obj/item/mod/control/mod = master
+	var/obj/item/mod/control/mod = target
 	if(ai_action && user != mod.ai_assistant)
 		return
 	else if(!ai_action && user == mod.ai_assistant)
@@ -23,14 +23,14 @@
 	return ..()
 
 /datum/action/item_action/mod/Remove(mob/user)
-	var/obj/item/mod/control/mod = master
+	var/obj/item/mod/control/mod = target
 	if(ai_action && user != mod.ai_assistant)
 		return
 	else if(!ai_action && user == mod.ai_assistant)
 		return
 	return ..()
 
-/datum/action/item_action/mod/on_activate(mob/user, atom/target, trigger_flags)
+/datum/action/item_action/mod/do_effect(trigger_flags)
 	if(!is_available(feedback = TRUE))
 		return FALSE
 	var/obj/item/mod/control/mod = target
@@ -44,7 +44,7 @@
 	desc = "LMB: Deploy/Undeploy part. RMB: Deploy/Undeploy full suit."
 	button_icon_state = "deploy"
 
-/datum/action/item_action/mod/deploy/on_activate(mob/user, atom/target, trigger_flags)
+/datum/action/item_action/mod/deploy/do_effect(trigger_flags)
 	var/obj/item/mod/control/mod = target
 	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
 		mod.quick_deploy(usr)
@@ -63,7 +63,7 @@
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
 
-/datum/action/item_action/mod/activate/trigger(trigger_flags)
+/datum/action/item_action/mod/activate/do_effect(trigger_flags)
 	. = ..()
 	if(!.)
 		return
@@ -91,7 +91,7 @@
 	desc = "Toggle a MODsuit module."
 	button_icon_state = "module"
 
-/datum/action/item_action/mod/module/activate(atom/target)
+/datum/action/item_action/mod/module/do_effect(trigger_flags)
 	var/obj/item/mod/control/mod = target
 	mod.quick_module(usr)
 
@@ -103,7 +103,7 @@
 	desc = "Open the MODsuit's panel."
 	button_icon_state = "panel"
 
-/datum/action/item_action/mod/panel/activate(atom/target)
+/datum/action/item_action/mod/panel/do_effect(trigger_flags)
 	var/obj/item/mod/control/mod = target
 	mod.ui_interact(usr)
 
@@ -162,7 +162,7 @@
 		return
 	return ..()
 
-/datum/action/item_action/mod/pinned_module/activate(atom/target)
+/datum/action/item_action/mod/pinned_module/do_effect(trigger_flags)
 	module.on_select()
 
 /datum/action/item_action/mod/pinned_module/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force)
@@ -185,13 +185,13 @@
 /datum/action/item_action/mod/pinned_module/proc/module_interacted_with(datum/source)
 	SIGNAL_HANDLER
 
-	build_all_button_icons()
+	build_all_button_icons(UPDATE_BUTTON_OVERLAY|UPDATE_BUTTON_STATUS)
 
 /datum/action/item_action/mod/pinned_module/proc/cooldown_started(datum/source, cooldown_time)
 	SIGNAL_HANDLER
 
 	deltimer(cooldown_timer)
-	build_all_button_icons()
+	build_all_button_icons(UPDATE_BUTTON_OVERLAY)
 	if (cooldown_time == 0)
 		return
-	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(update_buttons), UPDATE_BUTTON_OVERLAY), cooldown_time + 1, TIMER_STOPPABLE)
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(build_all_button_icons), UPDATE_BUTTON_OVERLAY), cooldown_time + 1, TIMER_STOPPABLE)

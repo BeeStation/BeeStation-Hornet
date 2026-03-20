@@ -8,7 +8,7 @@
 
 	school = SCHOOL_EVOCATION
 	cooldown_time = 30 SECONDS
-	spell_requirements = SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_OFF_CENTCOM
+	spell_requirements = SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_STATION
 	spell_max_level = 1
 
 	/// Weather we're ready to cast again yet or not
@@ -27,11 +27,16 @@
 /datum/action/cooldown/spell/spacetime_dist/can_cast_spell(feedback = TRUE)
 	return ..() && ready
 
-/datum/action/cooldown/spell/spacetime_dist/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/spacetime_dist/set_statpanel_format()
 	. = ..()
-	var/list/turf/to_switcharoo = get_targets_to_scramble(user)
+	if(!ready)
+		return "NOT READY"
+
+/datum/action/cooldown/spell/spacetime_dist/cast(atom/cast_on)
+	. = ..()
+	var/list/turf/to_switcharoo = get_targets_to_scramble(cast_on)
 	if(!length(to_switcharoo))
-		to_chat(user, "<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>")
+		to_chat(cast_on, span_warning("For whatever reason, the strings nearby aren't keen on being tangled."))
 		reset_spell_cooldown()
 		return
 
@@ -49,7 +54,7 @@
 		LAZYADD(effects, effect_a)
 		LAZYADD(effects, effect_b)
 
-/datum/action/cooldown/spell/spacetime_dist/post_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/spacetime_dist/after_cast()
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(clean_turfs)), duration)
 

@@ -65,13 +65,7 @@
 		atom_break()
 
 /obj/machinery/power/smes/Destroy()
-	if(SSticker.IsRoundInProgress())
-		var/turf/T = get_turf(src)
-		message_admins("SMES deleted at [ADMIN_VERBOSEJMP(T)]")
-		log_game("SMES deleted at [AREACOORD(T)]")
-		investigate_log("<font color='red'>deleted</font> at [AREACOORD(T)]", INVESTIGATE_ENGINES)
-	if(terminal)
-		disconnect_terminal()
+	disconnect_terminal()
 	return ..()
 
 /obj/machinery/power/smes/examine(user)
@@ -206,20 +200,43 @@
 
 	return ..()
 
-/obj/machinery/power/smes/wirecutter_act(mob/living/user, obj/item/I)
-	//disassembling the terminal
-	. = ..()
-	if(terminal && panel_open)
-		terminal.dismantle(user, I)
+/obj/machinery/power/smes/screwdriver_act(mob/living/user, obj/item/tool)
+	if(default_deconstruction_screwdriver(user, screwdriver = tool))
+		update_appearance(UPDATE_OVERLAYS)
 		return TRUE
 
+/obj/machinery/power/smes/wrench_act(mob/living/user, obj/item/tool)
+	if(!default_change_direction_wrench(user, tool))
+		return
 
-/obj/machinery/power/smes/default_deconstruction_crowbar(obj/item/crowbar/C)
-	if(istype(C) && terminal)
-		to_chat(usr, span_warning("You must first remove the power terminal!"))
+	disconnect_terminal()
+	for(var/obj/machinery/power/terminal/term in get_step(src, dir))
+		if(term && term.dir == REVERSE_DIR(dir))
+			terminal = term
+			terminal.master = src
+			to_chat(user, span_notice("Terminal found."))
+			set_machine_stat(machine_stat & ~BROKEN)
+			update_appearance(UPDATE_OVERLAYS)
+			return TRUE
+
+	to_chat(user, span_alert("No power terminal found."))
+
+/obj/machinery/power/smes/wirecutter_act(mob/living/user, obj/item/tool)
+	if(terminal && panel_open)
+		terminal.dismantle(user, tool)
+		return TRUE
+
+/obj/machinery/power/smes/crowbar_act(mob/living/user, obj/item/tool)
+	if(terminal)
+		balloon_alert(user, "remove the power terminal!")
 		return FALSE
 
-	return ..()
+	if(default_deconstruction_crowbar(tool))
+		var/turf/ground = get_turf(src)
+		message_admins("[src] has been deconstructed by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(ground)].")
+		user.log_message("deconstructed [src]", LOG_GAME)
+		investigate_log("deconstructed by [key_name(user)] at [AREACOORD(src)].", INVESTIGATE_ENGINES)
+		return TRUE
 
 // create a terminal object pointing towards the SMES
 // wires will attach to this

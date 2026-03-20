@@ -81,7 +81,7 @@
  * Called when we successfully turn a Vassal into a Favorite Vassal
  */
 /datum/vampire_clan/proc/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)
-	favorite_vassal.grant_power(new /datum/action/vampire/targeted/brawn)
+	favorite_vassal.grant_power(new /datum/action/cooldown/vampire/targeted/brawn)
 
 /datum/vampire_clan/proc/spend_rank(mob/living/carbon/carbon_vassal)
 	if(QDELETED(vampiredatum.owner?.current) || vampiredatum.vampire_level_unspent <= 0)
@@ -90,7 +90,7 @@
 	// Generate radial menu
 	var/list/options = list()
 	var/list/radial_display = list()
-	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
+	for(var/datum/action/cooldown/vampire/power as anything in vampiredatum.all_vampire_powers)
 		if((initial(power.purchase_flags) & VAMPIRE_CAN_BUY) && !(locate(power) in vampiredatum.powers))
 			options[initial(power.name)] = power
 
@@ -119,7 +119,7 @@
 			return FALSE
 
 		// Give power
-		var/datum/action/vampire/purchased_power = options[power_response]
+		var/datum/action/cooldown/vampire/purchased_power = options[power_response]
 		vampiredatum.grant_power(new purchased_power)
 
 		living_vampire.balloon_alert(living_vampire, "learned [power_response]!")

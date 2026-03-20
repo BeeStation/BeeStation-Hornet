@@ -182,7 +182,7 @@
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
 "afy" = (
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 5;
 	pixel_y = 1
 	},
@@ -893,7 +893,7 @@
 "auW" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance/two,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
 "avl" = (
@@ -1515,7 +1515,7 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/item/storage/secure/briefcase,
 /obj/item/storage/secure/safe{
 	pixel_x = 37;
@@ -2292,7 +2292,7 @@
 "bcb" = (
 /obj/item/aicard,
 /obj/item/ai_module/reset,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4
 	},
 /obj/item/assembly/flash/handheld,
@@ -3737,7 +3737,7 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/warehouse)
 "bTU" = (
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -3791,7 +3791,7 @@
 /obj/structure/closet,
 /obj/machinery/light/small,
 /obj/effect/spawner/random/maintenance/four,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
 "bXm" = (
@@ -4953,7 +4953,7 @@
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 17;
 	pixel_y = 1
 	},
@@ -9738,7 +9738,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/north,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 5;
 	pixel_y = 1
 	},
@@ -10445,7 +10445,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/random/maintenance/two,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/maint)
 "fHc" = (
@@ -11293,7 +11293,7 @@
 /area/crew_quarters/theatre/backstage)
 "gee" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 1;
 	pixel_y = 2
 	},
@@ -16775,7 +16775,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/wardrobe/pink,
 /obj/effect/turf_decal/bot,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "iZP" = (
@@ -18760,7 +18760,7 @@
 "kcK" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/two,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "kcL" = (
@@ -21769,7 +21769,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "lNV" = (
@@ -22507,7 +22507,7 @@
 /area/science/research)
 "mit" = (
 /obj/structure/table,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron/dark,
 /area/maintenance/department/crew_quarters/dorms)
 "mjt" = (
@@ -27267,7 +27267,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance/two,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "oYv" = (
@@ -28224,7 +28224,7 @@
 	req_one_access_txt = "1;4"
 	},
 /obj/structure/table,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = -14;
 	pixel_y = 2
 	},
@@ -30331,7 +30331,7 @@
 "qOn" = (
 /obj/structure/table/wood,
 /obj/item/soap/nanotrasen,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = -6;
 	pixel_y = 2
 	},
@@ -33231,7 +33231,7 @@
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/random/maintenance/four,
 /obj/item/melee/flyswatter,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/maintenance/department/science/central)
 "snC" = (
@@ -38128,7 +38128,7 @@
 /obj/structure/closet/wardrobe/grey,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "uYE" = (
@@ -39820,7 +39820,7 @@
 	dir = 1
 	},
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime{
+/mob/living/basic/pet/cat/runtime{
 	pixel_y = 4
 	},
 /obj/item/toy/plush/runtime{
@@ -40721,7 +40721,7 @@
 	alpha = 180
 	},
 /obj/structure/table/reinforced,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = -10;
 	pixel_y = 2
 	},

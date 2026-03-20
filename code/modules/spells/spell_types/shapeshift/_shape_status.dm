@@ -179,7 +179,7 @@
 				owner.blood_volume = caster_mob.blood_volume
 
 	for(var/datum/action/bodybound_action as anything in caster_mob.actions)
-		if(bodybound_action.get_master() != caster_mob)
+		if(bodybound_action.target != caster_mob)
 			continue
 		bodybound_action.Grant(owner)
 
@@ -191,9 +191,15 @@
 	// is no longer in control of the shapeshifted mob, such as mindswapping out of a shapeshift
 	if(!QDELETED(source_spell) && source_spell.owner == owner)
 		source_spell.Grant(caster_mob)
+	if(owner?.contents)
+		// Prevent round removal and consuming stuff when losing shapeshift
+		for(var/atom/movable/thing as anything in owner.contents)
+			if(thing == caster_mob)
+				continue
+			thing.forceMove(get_turf(owner))
 
 	for(var/datum/action/bodybound_action as anything in owner.actions)
-		if(bodybound_action.get_master() != caster_mob)
+		if(bodybound_action.target != caster_mob)
 			continue
 		bodybound_action.Grant(caster_mob)
 

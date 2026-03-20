@@ -10,9 +10,6 @@
 	max_ammo = 1
 	ammo_type = /obj/item/ammo_casing/a762/enchanted
 
-/obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
-	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage
-
 /obj/item/ammo_box/magazine/internal/leveraction
 	name = "lever action rifle internal magazine"
 	desc = "Why the fuck can you see this, this is meant to be IN the gun!"

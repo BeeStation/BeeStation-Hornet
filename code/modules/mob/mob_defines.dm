@@ -151,8 +151,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/datum/storage/active_storage
 	/// Active hud
 	var/datum/hud/hud_used = null
-	/// I have no idea tbh
-	var/research_scanner = FALSE
 
 	/// Is the mob throw intent on
 	var/throw_mode = THROW_MODE_DISABLED
@@ -182,13 +180,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	///Calls relay_move() to whatever this is set to when the mob tries to move
 	var/atom/movable/remote_control
 
-	/**
-	  * The sound made on death
-	  *
-	  * leave null for no sound. used for *deathgasp
-	  */
-	var/deathsound
-
 	///the current turf being examined in the stat panel
 	var/turf/listed_turf = null
 
@@ -202,7 +193,9 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/list/do_afters
 
 	///Allows a datum to intercept all click calls this mob is the source of
-	var/datum/click_intercept
+	var/datum/click_intercept = 0
+	///Time when the click was intercepted
+	var/click_intercept_time = 0
 
 	///The z level this mob is currently registered in
 	var/registered_z = null

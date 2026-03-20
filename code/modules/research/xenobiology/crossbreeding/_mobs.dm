@@ -47,9 +47,9 @@ Slimecrossing Mobs
 	spell_requirements = SPELL_REQUIRES_MIND
 
 //i think i hate this proc. abandon all hope ye who refactor here.
-/datum/action/cooldown/spell/oozeling_evolve/on_cast(mob/living/user)
-	..()
-	var/mob/living/simple_animal/slime/evolver = owner
+/datum/action/cooldown/spell/oozeling_evolve/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/simple_animal/slime/evolver = cast_on
 	var/colour = evolver.colour
 	var/ooze_colour = null
 	switch((colour))

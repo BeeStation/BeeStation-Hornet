@@ -27,10 +27,7 @@
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	attack_verb = "slash"
 	attack_sound = 'sound/emotes/diona/hit.ogg'
-	burnmod = 1.25
 	heatmod = 1.5
-	brutemod = 0.8
-	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
@@ -82,7 +79,7 @@
 		informed_nymph = TRUE
 		to_chat(H, span_warning("You feel sufficiently satiated to allow a nymph to split off from your gestalt!"))
 	if(partition_ability)
-		partition_ability.update_buttons()
+		partition_ability.build_all_button_icons()
 	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -186,16 +183,16 @@
 	check_flags = AB_CHECK_DEAD
 	var/Activated = FALSE
 
-/datum/action/diona/split/is_available()
+/datum/action/diona/split/is_available(feedback = FALSE)
 	return ..() && isdiona(owner)
 
 /datum/action/diona/split/activate(atom/target)
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
-	if(do_after(user, 8 SECONDS, user, hidden = TRUE))
-		if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
+	if(do_after(owner, 8 SECONDS, owner, hidden = TRUE))
+		if(INCAPACITATED_IGNORING(owner, INCAPABLE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
 			return FALSE
-		startSplitting(FALSE, user) //This runs when you manually activate the ability.
+		startSplitting(FALSE, owner) //This runs when you manually activate the ability.
 		return TRUE
 
 /datum/action/diona/split/proc/startSplitting(gibbed, mob/living/carbon/H)
@@ -255,18 +252,21 @@
 	background_icon_state = "bg_default"
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
-	cooldown_time = 5 MINUTES
-	var/ability_partition_cooldow
+	COOLDOWN_DECLARE(partition_cd)
+	var/partition_cooldown_time = 5 MINUTES
 
-/datum/action/diona/partition/activate(atom/target)
+/datum/action/diona/partition/trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return FALSE
 	var/mob/living/carbon/human/H = owner
-	start_cooldown()
+	COOLDOWN_START(src, partition_cd, partition_cooldown_time)
 	H.nutrition = NUTRITION_LEVEL_STARVING
 	playsound(H, 'sound/creatures/venus_trap_death.ogg', 25, 1)
 	new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
+	return TRUE
 
-/datum/action/diona/partition/is_available()
-	if(..())
+/datum/action/diona/partition/is_available(feedback = FALSE)
+	if(..() && COOLDOWN_FINISHED(src, partition_cd))
 		var/mob/living/carbon/human/H = owner
 		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 			return TRUE

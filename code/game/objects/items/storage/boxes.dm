@@ -121,8 +121,8 @@
 	alpha = 0
 
 /obj/item/storage/box/mime/attack_hand(mob/user, list/modifiers)
-	..()
-	if(HAS_TRAIT(user, TRAIT_MIMING))
+	. = ..()
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		alpha = 255
 
 /obj/item/storage/box/mime/Moved(oldLoc, dir)

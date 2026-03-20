@@ -35,7 +35,7 @@
 	move_to_delay = 5
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mouse_opacity = MOUSE_OPACITY_ICON
-	deathmessage = "explodes into gore!"
+	death_message = "explodes into gore!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 
 	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
@@ -176,7 +176,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	butcher_results = list()
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1)
-	deathmessage = "falls to the ground."
+	death_message = "falls to the ground."
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
 
@@ -247,16 +247,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/broodmoth
 	if(use_time > world.time)
 		to_chat(living_user, "<b>The tongue looks dried out. You'll need to wait longer to use it again.</b>")
 		return
-	else if("lava" in living_user.weather_immunities)
+	else if(HAS_TRAIT(living_user, TRAIT_LAVA_IMMUNE))
 		to_chat(living_user, "<b>You stare at the tongue. You don't think this is any use to you.</b>")
 		return
-	living_user.weather_immunities |= "lava"
+	ADD_TRAIT(living_user, TRAIT_LAVA_IMMUNE, type)
 	to_chat(living_user, "<b>You squeeze the tongue, and some transluscent liquid shoots out all over you.</b>")
-	addtimer(CALLBACK(src, .proc/remove_lavaproofing, living_user), 10 SECONDS)
+	addtimer(TRAIT_CALLBACK_REMOVE(user, TRAIT_LAVA_IMMUNE, type), 10 SECONDS)
 	use_time = world.time + 60 SECONDS
-
-/obj/item/crusher_trophy/broodmother_tongue/proc/remove_lavaproofing(mob/living/user)
-	user.weather_immunities -= "lava"
 
 #undef TENTACLE_PATCH
 #undef SPAWN_CHILDREN

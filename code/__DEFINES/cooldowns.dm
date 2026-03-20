@@ -56,6 +56,11 @@
 
 #define COOLDOWN_EMOTE_WINDOW "emote_window"
 
+//Shared cooldowns for actions
+#define MOB_SHARED_COOLDOWN_1 (1<<0)
+#define MOB_SHARED_COOLDOWN_2 (1<<1)
+#define MOB_SHARED_COOLDOWN_3 (1<<2)
+
 //TIMER COOLDOWN MACROS
 
 #define COMSIG_CD_STOP(cd_index) "cooldown_[cd_index]"

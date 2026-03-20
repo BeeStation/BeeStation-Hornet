@@ -3,7 +3,7 @@
 #define FEED_FRENZY_TIME 2 SECONDS
 #define FEED_BLOOD_FROM_MICE 25
 
-/datum/action/vampire/targeted/feed
+/datum/action/cooldown/vampire/targeted/feed
 	name = "Feed"
 	desc = "Feed blood off of a living creature."
 	button_icon_state = "power_feed"
@@ -29,7 +29,7 @@
 	/// Have we received a masquerade infraction for this current feed?
 	var/has_received_infraction = FALSE
 
-/datum/action/vampire/targeted/feed/can_use()
+/datum/action/cooldown/vampire/targeted/feed/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -43,7 +43,7 @@
 		owner.balloon_alert(owner, "mouth covered!")
 		return FALSE
 
-/datum/action/vampire/targeted/feed/continue_active()
+/datum/action/cooldown/vampire/targeted/feed/continue_active()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -55,7 +55,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/vampire/targeted/feed/check_valid_target(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/feed/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -101,7 +101,7 @@
 			target.balloon_alert(owner, "suit too thick!")
 			return FALSE
 
-/datum/action/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/feed_target = target_atom
 	target_ref = WEAKREF(feed_target)
@@ -139,7 +139,7 @@
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
 	feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
 
-/datum/action/vampire/targeted/feed/UsePower()
+/datum/action/cooldown/vampire/targeted/feed/UsePower()
 	var/mob/living/feed_target = target_ref?.resolve()
 	if(!feed_target)
 		power_activated_sucessfully()
@@ -214,7 +214,7 @@
 	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
 	feed_target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
 
-/datum/action/vampire/targeted/feed/deactivate_power()
+/datum/action/cooldown/vampire/targeted/feed/deactivate_power()
 	. = ..()
 	REMOVE_TRAITS_IN(owner, TRAIT_FEED)
 
@@ -236,7 +236,7 @@
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
 
-/datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
+/datum/action/cooldown/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/feed_amount = 15 + (level_current * 2)
 	var/blood_to_take = min(feed_amount * mult, target.blood_volume)
 
@@ -267,7 +267,7 @@
 	vampiredatum_power.total_blood_drank += blood_to_take
 	blood_taken += blood_to_take
 
-/datum/action/vampire/targeted/feed/proc/check_masquerade_infraction()
+/datum/action/cooldown/vampire/targeted/feed/proc/check_masquerade_infraction()
 	if (has_received_infraction)
 		return
 

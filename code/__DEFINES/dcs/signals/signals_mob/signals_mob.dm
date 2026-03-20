@@ -18,6 +18,9 @@
 ///from base of mob/alt_click_on_secodary(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON_SECONDARY "mob_altclickon_secondary"
 
+/// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
+#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
+
 /// from /mob/proc/key_down(): (key, client/client, full_key)
 #define COMSIG_MOB_KEYDOWN "mob_key_down"
 
@@ -126,6 +129,11 @@
 	#define COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 ///Called after a client connects to a mob and all UI elements have been setup
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
+//from base of client/MouseDown(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
+//from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEUP "client_mouseup"
+	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
 #define COMSIG_MOB_MOUSE_SCROLL_ON "comsig_mob_mouse_scroll_on"	//! from base of /mob/MouseWheelOn(): (atom/A, delta_x, delta_y, params)
 //from base of client/MouseUp(): (/client, object, location, control, params)
 #define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"

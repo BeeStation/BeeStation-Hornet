@@ -38,6 +38,7 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return
+	pawn = new_pawn
 	set_blackboard_key(BB_MONKEY_AGGRESSIVE, TRUE) //Angry cunt
 
 /datum/ai_controller/monkey/TryPossessPawn(atom/new_pawn)
@@ -45,7 +46,8 @@ have ways of interacting with a specific mob and control it.
 		return AI_CONTROLLER_INCOMPATIBLE
 
 	var/mob/living/living_pawn = new_pawn
-	living_pawn.AddElement(/datum/element/relay_attackers)
+	if(!HAS_TRAIT(living_pawn, TRAIT_RELAYING_ATTACKER))
+		living_pawn.AddElement(/datum/element/relay_attackers)
 	RegisterSignal(new_pawn, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_attacked))
 	RegisterSignal(new_pawn, COMSIG_LIVING_START_PULL, PROC_REF(on_startpulling))
 	RegisterSignal(new_pawn, COMSIG_LIVING_TRY_SYRINGE, PROC_REF(on_try_syringe))

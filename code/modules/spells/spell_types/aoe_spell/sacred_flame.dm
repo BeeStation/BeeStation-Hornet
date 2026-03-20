@@ -33,7 +33,7 @@
 	if(victim != caster)
 		to_chat(victim, ("<span class='warning'>You suddenly feel very flammable.</span>"))
 
-/datum/action/cooldown/spell/aoe/sacred_flame/on_cast(mob/living/user, atom/target)
+/datum/action/cooldown/spell/aoe/sacred_flame/cast(mob/living/cast_on)
 	. = ..()
-	user.ignite_mob()
-	to_chat(user, "<span class='danger'>You feel a roaring flame build up inside you!</span>")
+	cast_on.ignite_mob()
+	to_chat(cast_on, "<span class='danger'>You feel a roaring flame build up inside you!</span>")

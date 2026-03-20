@@ -10,9 +10,7 @@
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
-	species_allowed = list(
-		/datum/species/lizard,
-	)
+	species_allowed = list(SPECIES_LIZARD)
 
 /datum/mutation/firebreath/modify()
 	. = ..()
@@ -42,15 +40,15 @@
 	/// The range our user is thrown backwards after casting the spell
 	var/self_throw_range = 1
 
-/datum/action/cooldown/spell/cone/staggered/fire_breath/pre_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/cone/staggered/fire_breath/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	if(!iscarbon(user))
+	if(!iscarbon(cast_on))
 		return
 
-	var/mob/living/carbon/our_lizard = user
+	var/mob/living/carbon/our_lizard = cast_on
 	if(!our_lizard.is_mouth_covered())
 		return
 
@@ -58,12 +56,12 @@
 	our_lizard.ignite_mob()
 	to_chat(our_lizard, span_warning("Something in front of your mouth catches fire!"))
 
-/datum/action/cooldown/spell/cone/staggered/fire_breath/post_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/cone/staggered/fire_breath/after_cast(atom/cast_on)
 	. = ..()
-	if(!isliving(user))
+	if(!isliving(cast_on))
 		return
 
-	var/mob/living/living_cast_on = user
+	var/mob/living/living_cast_on = cast_on
 	// When casting, throw the caster backwards a few tiles.
 	var/original_dir = living_cast_on.dir
 	living_cast_on.throw_at(
@@ -90,6 +88,6 @@
 	target_mob.adjust_fire_stacks(max(2, 5 - level))
 	target_mob.ignite_mob()
 
-/datum/action/cooldown/spell/cone/staggered/firebreath/do_obj_cone_effect(obj/target_obj, atom/caster, level)
+/datum/action/cooldown/spell/cone/staggered/fire_breath/do_obj_cone_effect(obj/target_obj, atom/caster, level)
 	// Further out objects experience less exposed_temperature and exposed_volume
 	target_obj.fire_act(max(500, 900 - (100 * level)), max(50, 200 - (50 * level)))

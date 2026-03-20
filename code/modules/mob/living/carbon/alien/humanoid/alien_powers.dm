@@ -12,7 +12,6 @@ Doesn't work on other aliens/AI.*/
 	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "spell_default"
 	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
-	melee_cooldown_time = 0 SECONDS
 
 	/// How much plasma this action uses.
 	var/plasma_cost = 0
@@ -49,8 +48,9 @@ Doesn't work on other aliens/AI.*/
 
 	return TRUE
 
-/datum/action/cooldown/alien/update_stat_status(list/stat)
-	stat[STAT_STATUS] = GENERATE_STAT_TEXT("PLASMA - [plasma_cost]")
+/datum/action/cooldown/alien/set_statpanel_format()
+	. = ..()
+	return "[.] | PLASMA - [plasma_cost]"
 
 /datum/action/cooldown/alien/make_structure
 	/// The type of structure the action makes on use
@@ -129,7 +129,7 @@ Doesn't work on other aliens/AI.*/
 	if(!chosen_recipient)
 		return FALSE
 
-	var/to_whisper = tgui_input_text(owner, title = "Alien Whisper")
+	var/to_whisper = tgui_input_text(owner, title = "Alien Whisper", max_length = MAX_MESSAGE_LEN)
 	if(QDELETED(chosen_recipient) || QDELETED(src) || QDELETED(owner) || !is_available(feedback = TRUE) || !to_whisper)
 		return FALSE
 	if(chosen_recipient.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
@@ -186,7 +186,7 @@ Doesn't work on other aliens/AI.*/
 	return TRUE
 
 /datum/action/cooldown/alien/acid
-	requires_target = TRUE
+	click_to_activate = TRUE
 	unset_after_click = FALSE
 
 /datum/action/cooldown/alien/acid/corrosion

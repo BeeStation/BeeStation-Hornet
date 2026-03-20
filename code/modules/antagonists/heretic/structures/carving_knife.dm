@@ -147,17 +147,17 @@
 
 	return ..()
 
-/datum/action/item_action/rune_shatter/is_available()
+/datum/action/item_action/rune_shatter/is_available(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return
 	if(!IS_HERETIC_OR_MONSTER(owner))
 		return FALSE
-	var/obj/item/melee/rune_carver/target_sword = master
+	var/obj/item/melee/rune_carver/target_sword = target
 	if(!length(target_sword.current_runes))
 		return FALSE
 
-/datum/action/item_action/rune_shatter/activate(atom/target)
+/datum/action/item_action/rune_shatter/do_effect(trigger_flags)
 	owner.playsound_local(get_turf(owner), 'sound/magic/blind.ogg', 50, TRUE)
 	var/obj/item/melee/rune_carver/target_sword = target
 	QDEL_LIST(target_sword.current_runes)

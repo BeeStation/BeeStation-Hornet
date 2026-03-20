@@ -151,9 +151,6 @@
 	custom_price = 10000
 	max_demand = 10
 
-/obj/item/clothing/neck/necklace/memento_mori/item_action_slot_check(slot)
-	return slot == ITEM_SLOT_NECK
-
 /obj/item/clothing/neck/necklace/memento_mori/dropped(mob/user)
 	..()
 	if(active_owner)
@@ -193,15 +190,13 @@
 	name = "Memento Mori"
 	desc = "Bind your life to the pendant."
 
-/datum/action/item_action/hands_free/memento_mori/activate(atom/target)
-	var/obj/item/clothing/neck/necklace/memento_mori/MM = target
-	if(!MM.active_owner)
-		if(ishuman(owner))
-			MM.memento(owner)
-	else
-		to_chat(owner, span_warning("You try to free your lifeforce from the pendant..."))
-		if(do_after(owner, 40, target = owner))
-			MM.mori()
+/datum/action/item_action/hands_free/memento_mori/do_effect(trigger_flags)
+	var/obj/item/clothing/neck/necklace/memento_mori/memento = target
+	if(memento.active_owner || !ishuman(owner))
+		return FALSE
+	memento.memento(owner)
+	Remove(memento.active_owner) //Remove the action button, since there's no real use in having it now.
+	return TRUE
 
 //Wisp Lantern
 /obj/item/wisp_lantern
@@ -1255,6 +1250,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	attack_verb_simple = list("club", "beat", "pummel")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
+	action_slots = ALL
 	custom_price = 40000
 	max_demand = 2
 	var/power = 15 //Damage of the magic tiles
@@ -1354,7 +1350,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
 		var/datum/action/toggle = action
 		friendly_fire_check = !friendly_fire_check
-		toggle.update_buttons()
+		toggle.build_all_button_icons()
 		to_chat(user, span_warning("You toggle friendly fire [friendly_fire_check ? "off":"on"]!"))
 		return
 	if(timer > world.time)

@@ -28,9 +28,6 @@
 /obj/item/clothing/glasses/sunglasses/spy/ui_action_click(mob/user)
 	show_to_user(user)
 
-/obj/item/clothing/glasses/sunglasses/spy/item_action_slot_check(slot)
-	return slot & ITEM_SLOT_EYES
-
 /obj/item/clothing/glasses/sunglasses/spy/Destroy()
 	if(linked_bug)
 		linked_bug.linked_glasses = null

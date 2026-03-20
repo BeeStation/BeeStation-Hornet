@@ -31,8 +31,8 @@
 /datum/action/innate/dash/is_available(feedback = FALSE)
 	return ..() && (max_charges <= 0 || current_charges > 0)
 
-/datum/action/innate/dash/on_activate()
-	var/obj/item/dashing_item = master
+/datum/action/innate/dash/Activate()
+	var/obj/item/dashing_item = target
 	if(!istype(dashing_item))
 		return
 
@@ -77,8 +77,8 @@
 		if ((target.body_position == LYING_DOWN) || !target.density || user == target)
 			continue
 		// Slash through target
-		target.attackby(master, user)
-		user.do_item_attack_animation(target, used_item = master)
+		target.attackby(target, user)
+		user.do_item_attack_animation(target, used_item = target)
 		to_chat(target, span_userdanger("[user] dashes towards you faster than you can react!"))
 		// Push the attacked person back
 		target.Move(get_step(target, get_dir(user, target)))
@@ -95,7 +95,7 @@
 /datum/action/innate/dash/proc/charge()
 	current_charges = clamp(current_charges + 1, 0, max_charges)
 
-	var/obj/item/dashing_item = master
+	var/obj/item/dashing_item = target
 	if(!istype(dashing_item))
 		return
 

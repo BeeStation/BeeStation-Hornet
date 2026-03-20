@@ -3,10 +3,10 @@
 // Generic spell signals
 
 
-/// Sent from /datum/action/cooldown/spell/pre_cast() to the caster: (datum/action/spell/spell, mob/user, atom/target)
-#define COMSIG_MOB_PRE_SPELL_CAST "mob_spell_pre_cast"
-/// Sent from /datum/action/cooldown/spell/pre_cast() to the spell: (mob/user, atom/target)
-#define COMSIG_SPELL_PRE_CAST "spell_pre_cast"
+/// Sent from /datum/action/cooldown/spell/before_cast() to the caster: (datum/action/cooldown/spell/spell, atom/cast_on)
+#define COMSIG_MOB_BEFORE_SPELL_CAST "mob_spell_pre_cast"
+/// Sent from /datum/action/cooldown/spell/before_cast() to the spell: (atom/cast_on)
+#define COMSIG_SPELL_BEFORE_CAST "spell_pre_cast"
 	/// Return to prevent the spell cast from continuing.
 	#define SPELL_CANCEL_CAST (1 << 0)
 	/// Return from before cast signals to prevent the spell from giving off sound or invocation.

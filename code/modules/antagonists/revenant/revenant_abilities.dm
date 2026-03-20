@@ -246,12 +246,12 @@
 		reset_spell_cooldown()
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/cooldown/spell/aoe/revenant/post_cast(mob/living/simple_animal/revenant/user, atom/target)
+/datum/action/cooldown/spell/aoe/revenant/after_cast(mob/living/simple_animal/revenant/cast_on)
 	. = ..()
 	if(reveal_duration > 0 SECONDS)
-		user.reveal(reveal_duration)
+		cast_on.reveal(reveal_duration)
 	if(stun_duration > 0 SECONDS)
-		user.stun(stun_duration)
+		cast_on.stun(stun_duration)
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
 /datum/action/cooldown/spell/aoe/revenant/overload
@@ -444,15 +444,15 @@
 	cooldown_time = 10 SECONDS
 	spell_requirements = NONE
 
-/datum/action/cooldown/spell/teleport/area_teleport/revenant/on_cast(mob/user, atom/target)
-	if((isrevenant(user)))
-		var/mob/living/simple_animal/revenant/revenant = user
+/datum/action/cooldown/spell/teleport/area_teleport/revenant/cast(atom/cast_on)
+	. = ..()
+	if((isrevenant(cast_on)))
+		var/mob/living/simple_animal/revenant/revenant = cast_on
 
 		//If the revenant is currently recovering from casting an ability which stuns and forcibly reveals them
 		if(revenant.unreveal_time)
-			to_chat(user, span_warning("You can't pass through the incorporeal plane right now! You need to recover!"))
+			to_chat(revenant, span_warning("You can't pass through the incorporeal plane right now! You need to recover!"))
 			return
-	..()
 
 /datum/action/revenant_phase_shift
 	name = "Phase Shift"

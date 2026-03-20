@@ -39,4 +39,4 @@
 		Learning this spell makes you unable to learn Lesser Summon Gun."
 	button_icon_state = "arcane_barrage"
 
-	item_type = /obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage
+	item_type = /obj/item/gun/magic/wand/arcane_barrage

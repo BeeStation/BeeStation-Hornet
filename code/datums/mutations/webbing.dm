@@ -13,7 +13,6 @@
 	desc = "Drops a web. Only you will be able to traverse your web easily, making it pretty good for keeping you safe."
 	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "lay_web"
-	mindbound = FALSE
 	cooldown_time = 4 SECONDS //the same time to lay a web
 	spell_requirements = NONE
 
@@ -22,21 +21,21 @@
 	/// The path of web that we create
 	var/web_path = /obj/structure/spider/stickyweb
 
-/datum/action/cooldown/spell/lay_genetic_web/on_cast(mob/user, atom/target)
-	var/turf/web_spot = user.loc
+/datum/action/cooldown/spell/lay_genetic_web/cast(mob/living/cast_on)
+	. = ..()
+	var/turf/web_spot = cast_on.loc
 	if(!isturf(web_spot) || (locate(web_path) in web_spot))
-		to_chat(user, ("<span class='warning'>You can't lay webs here!</span>"))
+		to_chat(cast_on, ("<span class='warning'>You can't lay webs here!</span>"))
 		reset_spell_cooldown()
 		return FALSE
 
-	user.visible_message(
-		("<span class='notice'>[user] begins to secrete a sticky substance.</span>"),
+	cast_on.visible_message(
+		("<span class='notice'>[cast_on] begins to secrete a sticky substance.</span>"),
 		("<span class='notice'>You begin to lay a web.</span>"),
 	)
 
-	if(!do_after(user, webbing_time, target = web_spot))
-		to_chat(user, ("<span class='warning'>Your web spinning was interrupted!</span>"))
+	if(!do_after(cast_on))
+		to_chat(cast_on, ("<span class='warning'>Your web spinning was interrupted!</span>"))
 		return
 
-	new web_path(web_spot, user)
-	return ..()
+	new web_path(web_spot, cast_on)

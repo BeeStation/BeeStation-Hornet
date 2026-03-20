@@ -58,6 +58,8 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	var/uses = 0
 	/// If we automatically use up uses on each activation
 	var/auto_use_uses = TRUE
+	/// If applicable, the time in deciseconds we have to wait before using any more modules
+	var/cooldown_period = 0 SECONDS
 
 /datum/action/innate/ai/Grant(mob/living/player)
 	. = ..()
@@ -72,13 +74,13 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		return FALSE
 	. = ..()
 
-/datum/action/innate/ai/trigger(trigger_flags)
+/datum/action/innate/ai/trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(auto_use_uses)
 		adjust_uses(-1)
 	if(cooldown_period)
 		COOLDOWN_START(owner_AI, malf_cooldown, cooldown_period)
-	user.log_message("activated malf module [name]", LOG_GAME)
+	owner.log_message("activated malf module [name]", LOG_GAME)
 
 /datum/action/innate/ai/New()
 	. = ..()
@@ -513,7 +515,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		unset_ranged_ability(clicker)
 		return FALSE
 	if(!ismachinery(target))
-		target.balloon_alert(clicker, "can't overload")
+		clicker.balloon_alert(clicker, "can't overload")
 		to_chat(clicker, span_warning("You can only overload machines!"))
 		return FALSE
 	var/obj/machinery/clicked_machine = target
@@ -557,7 +559,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		else
 			apc.overload++
 	to_chat(owner, span_notice("Overcurrent applied to the powernet."))
-	user.playsound_local(user, "sound/effects/sparks1.ogg", 50, 0)
+	owner.playsound_local(owner, "sound/effects/sparks1.ogg", 50, 0)
 	adjust_uses(-1)
 	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return
@@ -691,7 +693,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 			continue
 		AA.obj_flags |= EMAGGED
 	to_chat(owner, span_notice("All air alarm safeties on the station have been overridden. Air alarms may now use extremely dangerous environmental modes."))
-	user.playsound_local(user, 'sound/machines/terminal_off.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
 /// Thermal Sensor Override: Unlocks the ability to disable all fire alarms from doing their job.
 /datum/ai_module/malf/utility/break_fire_alarms
@@ -722,7 +724,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 			continue
 		firelock.on_emag(owner_AI)
 	to_chat(owner, span_notice("All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized."))
-	user.playsound_local(user, 'sound/machines/terminal_off.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
 /// Reactivate Camera Network: Reactivates up to 20 cameras across the station.
 /datum/ai_module/malf/utility/reactivate_cameras
@@ -740,7 +742,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "reactivate_cameras"
 	uses = 20
 	auto_use_uses = FALSE
-	cooldown_time = 3 SECONDS
+	cooldown_period = 3 SECONDS
 
 /datum/action/innate/ai/reactivate_cameras/activate()
 	var/fixed_cameras = 0
@@ -753,7 +755,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 			fixed_cameras++
 			uses-- //Not adjust_uses() so it doesn't automatically delete or show a message
 	to_chat(owner, span_notice("Diagnostic complete! Cameras reactivated: <b>[fixed_cameras]</b>. Reactivations remaining: <b>[uses]</b>."))
-	user.playsound_local(user, 'sound/items/wirecutter.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, 0)
 	adjust_uses(0, TRUE) //Checks the uses remaining
 	if(QDELETED(src) || !uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return
@@ -1181,7 +1183,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		clicked_vendor.balloon_alert(ai_clicker, "inoperable!")
 		return FALSE
 
-	var/picked_dir_string = show_radial_menu(ai_clicker, clicked_vendor, GLOB.all_radial_directions, custom_check = CALLBACK(src, PROC_REF(radial_check), user, clicked_vendor))
+	var/picked_dir_string = show_radial_menu(ai_clicker, clicked_vendor, GLOB.all_radial_directions, custom_check = CALLBACK(src, PROC_REF(radial_check), clicker, clicked_vendor))
 	if(isnull(picked_dir_string))
 		return FALSE
 	var/picked_dir = text2dir(picked_dir_string)
@@ -1198,7 +1200,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 	adjust_uses(-1)
 
-	to_chat(user, span_danger("Tilting..."))
+	to_chat(clicker, span_danger("Tilting..."))
 	return TRUE
 
 /datum/action/innate/ai/ranged/remote_vendor_tilt/proc/do_vendor_tilt(obj/machinery/vending/vendor, turf/target)

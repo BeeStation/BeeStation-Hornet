@@ -186,12 +186,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "slime_down"
 
-/datum/action/innate/slime_place/on_activate()
-	if(!master || !isliving(owner))
+/datum/action/innate/slime_place/Activate()
+	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = master
+	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
@@ -206,12 +206,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "slime_up"
 
-/datum/action/innate/slime_pick_up/on_activate()
-	if(!master || !isliving(owner))
+/datum/action/innate/slime_pick_up/Activate()
+	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = master
+	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in remote_eye.loc)
@@ -232,12 +232,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "monkey_down"
 
-/datum/action/innate/feed_slime/on_activate()
-	if(!master || !isliving(owner))
+/datum/action/innate/feed_slime/Activate()
+	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = master
+	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		if(X.monkeys >= 1)
@@ -257,12 +257,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "monkey_up"
 
-/datum/action/innate/monkey_recycle/on_activate()
-	if(!master || !isliving(owner))
+/datum/action/innate/monkey_recycle/Activate()
+	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = master
+	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
 	if(!recycler)
@@ -285,8 +285,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "slime_scan"
 
-/datum/action/innate/slime_scan/on_activate()
-	if(!master || !isliving(owner))
+/datum/action/innate/slime_scan/Activate()
+	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
@@ -302,21 +302,21 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "slime_potion"
 
-/datum/action/innate/feed_potion/on_activate()
-	if(!master || !isliving(owner))
+/datum/action/innate/feed_potion/Activate()
+	if(!target || !isliving(owner))
 		return
 
 	var/mob/living/C = owner
 	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = master
+	var/obj/machinery/computer/camera_advanced/xenobio/xeno_console = target
 
-	if(QDELETED(X.current_potion))
+	if(QDELETED(xeno_console.current_potion))
 		to_chat(owner, span_warning("No potion loaded."))
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in remote_eye.loc)
-			X.current_potion.attack(S, C)
+			xeno_console.current_potion.attack(S, C)
 			break
 	else
 		to_chat(owner, span_warning("Target is not near a camera. Cannot proceed."))
@@ -326,14 +326,18 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "hotkey_help"
 
-/datum/action/innate/hotkey_help/on_activate()
-	if(!master || !isliving(owner))
+/datum/action/innate/hotkey_help/Activate()
+	if(!target || !isliving(owner))
 		return
-	to_chat(owner, "<b>Click shortcuts:</b>")
-	to_chat(owner, "Shift-click a slime to pick it up, or the floor to drop all held slimes.")
-	to_chat(owner, "Ctrl-click a slime to scan it.")
-	to_chat(owner, "Alt-click a slime to feed it a potion.")
-	to_chat(owner, "Ctrl-click or a dead monkey to recycle it, or the floor to place a new monkey.")
+
+	var/render_list = list()
+	render_list += "<b>Click shortcuts:</b>"
+	render_list += "&bull; Shift-click a slime to pick it up, or the floor to drop all held slimes."
+	render_list += "&bull; Ctrl-click a slime to scan it."
+	render_list += "&bull; Alt-click a slime to feed it a potion."
+	render_list += "&bull; Ctrl-click or a dead monkey to recycle it, or the floor to place a new monkey."
+
+	to_chat(owner, examine_block(jointext(render_list, "\n")))
 
 //
 // Alternate clicks for slime, monkey and open turf if using a xenobio console

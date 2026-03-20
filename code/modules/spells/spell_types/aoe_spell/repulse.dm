@@ -95,15 +95,16 @@
 	cooldown_time = 15 SECONDS
 	spell_requirements = NONE
 
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 	invocation_type = INVOCATION_NONE
 	antimagic_flags = NONE
 	aoe_radius = 2
 
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 
-/datum/action/cooldown/spell/aoe/repulse/xeno/on_cast(mob/user, atom/target)
-	if(iscarbon(user))
-		var/mob/living/carbon/carbon_caster = user
+/datum/action/cooldown/spell/aoe/repulse/xeno/cast(atom/cast_on)
+	if(iscarbon(cast_on))
+		var/mob/living/carbon/carbon_caster = cast_on
 		playsound(get_turf(carbon_caster), 'sound/voice/hiss5.ogg', 80, TRUE, TRUE)
 		carbon_caster.spin(6, 1)
 

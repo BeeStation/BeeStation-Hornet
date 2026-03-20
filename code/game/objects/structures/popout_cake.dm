@@ -168,7 +168,7 @@
 	var/obj/structure/popout_cake/cake = null
 
 
-/datum/action/item_action/pull_string/is_available()
+/datum/action/item_action/pull_string/is_available(feedback = FALSE)
 	if(..())
 		if(!cake.used_string)
 			return TRUE

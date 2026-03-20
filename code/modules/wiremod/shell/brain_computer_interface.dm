@@ -90,7 +90,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 	return ..()
 
-/datum/action/innate/bci_action/on_activate()
+/datum/action/innate/bci_action/Activate()
 	circuit_component.signal.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/bci_core

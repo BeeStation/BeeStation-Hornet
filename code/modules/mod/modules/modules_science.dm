@@ -29,11 +29,12 @@
 	var/explosion_detection_dist = 21
 
 /obj/item/mod/module/reagent_scanner/advanced/on_activation()
-	mod.wearer.research_scanner++
+	. = ..()
+	ADD_TRAIT(mod.wearer, TRAIT_RESEARCH_SCANNER, REF(src))
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 
 /obj/item/mod/module/reagent_scanner/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
-	mod.wearer.research_scanner--
+	REMOVE_TRAIT(mod.wearer, TRAIT_RESEARCH_SCANNER, REF(src))
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
 
 /obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(datum/source, turf/epicenter,

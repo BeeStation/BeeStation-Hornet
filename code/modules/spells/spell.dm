@@ -10,7 +10,7 @@
  * of the spell is able to cast the spell.
  * - [is_valid_target][/datum/action/cooldown/spell/is_valid_target] checks if the TARGET
  * THE SPELL IS BEING CAST ON is a valid target for the spell. NOTE: The CAST TARGET is often THE SAME as THE OWNER OF THE SPELL,
- * but is not always - depending on how [Pre Activate][/datum/action/cooldown/spell/PreActivate] is resolved.
+ * but is not always - depending on how [Pre Activate][/datum/action/cooldown/spell/pre_activate] is resolved.
  * - [try_invoke][/datum/action/cooldown/spell/try_invoke] is run in can_cast_spell to check if
  * the OWNER of the spell is able to say the current invocation.
  *
@@ -44,13 +44,12 @@
 	name = "Spell"
 	desc = "A wizard spell."
 	background_icon_state = "bg_spell"
-	button_icon = 'icons/mob/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "spell_default"
 	overlay_icon_state = "bg_spell_border"
 	active_overlay_icon_state = "bg_spell_border_active_red"
 	check_flags = AB_CHECK_CONSCIOUS
 	panel = "Spells"
-	melee_cooldown_time = 0 SECONDS
 
 	/// The sound played on cast.
 	var/sound = null
@@ -108,11 +107,11 @@
 		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_MUTE), SIGNAL_REMOVETRAIT(TRAIT_MUTE)), PROC_REF(update_status_on_signal))
 
 	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_status_on_signal))
-	owner.client?.stat_panel.send_message("check_spells")
+	//owner.client?.stat_panel.send_message("check_spells")
 
 /datum/action/cooldown/spell/Remove(mob/living/remove_from)
 
-	remove_from.client?.stat_panel.send_message("check_spells")
+	//remove_from.client?.stat_panel.send_message("check_spells")
 	UnregisterSignal(remove_from, list(
 		COMSIG_MOB_AFTER_EXIT_JAUNT,
 		COMSIG_MOB_ENTER_JAUNT,
@@ -136,8 +135,8 @@
 	return ..()
 
 // Where the cast chain starts
-/datum/action/cooldown/spell/PreActivate(atom/target)
-	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src) & COMPONENT_BLOCK_ABILITY_START)
+/datum/action/cooldown/spell/pre_activate(atom/target)
+	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src, target) & COMPONENT_BLOCK_ABILITY_START)
 		return FALSE
 	if(target == owner)
 		target = get_caster_from_target(target)
@@ -164,7 +163,7 @@
 		// No point in feedback here, as mindless mobs aren't players
 		return FALSE
 
-	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !HAS_TRAIT(owner, TRAIT_MIMING))
+	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !HAS_MIND_TRAIT(owner, TRAIT_MIMING))
 		// In the future this can be moved out of spell checks exactly
 		if(feedback)
 			to_chat(owner, span_warning("You must dedicate yourself to silence first!"))
@@ -177,18 +176,13 @@
 			to_chat(owner, span_warning("Some form of antimagic is preventing you from casting [src]!"))
 		return FALSE
 
-	if(!(spell_requirements & SPELL_CASTABLE_WHILE_PHASED) && HAS_TRAIT(owner, TRAIT_MAGICALLY_PHASED))
-		if(feedback)
-			to_chat(owner, span_warning("[src] cannot be cast unless you are completely manifested in the material plane!"))
-		return FALSE
-
 	if(!try_invoke(owner, feedback = feedback))
 		return FALSE
 
 	if(ishuman(owner))
 		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB)
 			var/mob/living/carbon/human/human_owner = owner
-			if(!(human_owner.wear_suit?.clothing_flags & CASTING_CLOTHES))
+			if(!(human_owner.wear_suit?.clothing_flags & CASTING_CLOTHES) && !ismonkey(human_owner)) // Monkeys don't need robes to cast as they are inherently imbued with power from the banana dimension
 				if(feedback)
 					to_chat(owner, span_warning("You don't feel strong enough without your robe!"))
 				return FALSE
@@ -198,11 +192,24 @@
 				return FALSE
 
 	else
-		// If the spell requires wizard equipment and we're not a human (can't wear robes or hats), that's just a given
-		if(spell_requirements & (SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_HUMAN))
+		// If you strictly need to be a human, well, goodbye.
+		if(spell_requirements & SPELL_REQUIRES_HUMAN)
 			if(feedback)
 				to_chat(owner, span_warning("[src] can only be cast by humans!"))
 			return FALSE
+
+		// Otherwise, we can check for contents if they have wizardly apparel. This isn't *quite* perfect, but it'll do, especially since many of the edge cases (gorilla holding a wizard hat) still more or less make sense.
+		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB)
+			var/any_casting = FALSE
+			for(var/obj/item/clothing/item in owner)
+				if(item.clothing_flags & CASTING_CLOTHES)
+					any_casting = TRUE
+					break
+
+			if(!any_casting)
+				if(feedback)
+					to_chat(owner, span_warning("You don't feel strong enough without your hat!"))
+				return FALSE
 
 		if(!(spell_requirements & SPELL_CASTABLE_AS_BRAIN) && isbrain(owner))
 			if(feedback)
@@ -286,6 +293,31 @@
 /datum/action/cooldown/spell/proc/before_cast(atom/cast_on)
 	SHOULD_CALL_PARENT(TRUE)
 
+	// Bonus invocation check done here:
+	// If the caster has no tongue and it's a verbal spell,
+	// Or has no hands and is a gesture spell - cancel it,
+	// and show a funny message that they tried
+	if(ishuman(owner) && !(spell_requirements & SPELL_CASTABLE_WITHOUT_INVOCATION))
+		var/mob/living/carbon/human/caster = owner
+		switch(invocation_type)
+			if(INVOCATION_WHISPER, INVOCATION_SHOUT)
+				if(!caster.get_organ_slot(ORGAN_SLOT_TONGUE))
+					invocation(caster)
+					to_chat(caster, span_warning("Your lack of tongue is making it difficult to say the correct words to cast [src]..."))
+					start_cooldown(2 SECONDS)
+					return SPELL_CANCEL_CAST
+
+			if(INVOCATION_EMOTE)
+				if(caster.usable_hands <= 0)
+					var/arm_describer = (caster.num_hands >= 2 ? "arms limply" : (caster.num_hands == 1 ? "arm wildly" : "arm stumps"))
+					caster.visible_message(
+						span_warning("[caster] wiggles around [caster.p_their()] [arm_describer]."),
+						ignored_mobs = caster,
+					)
+					to_chat(caster, span_warning("You can't position your hands correctly to invoke [src][caster.num_hands > 0 ? "" : ", as you have none"]..."))
+					start_cooldown(2 SECONDS)
+					return SPELL_CANCEL_CAST
+
 	var/sig_return = SEND_SIGNAL(src, COMSIG_SPELL_BEFORE_CAST, cast_on)
 	if(owner)
 		sig_return |= SEND_SIGNAL(owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, cast_on)
@@ -325,7 +357,7 @@
 		do_sparks(sparks_amt, FALSE, get_turf(owner))
 	if(ispath(smoke_type, /datum/effect_system/smoke_spread))
 		var/datum/effect_system/smoke_spread/smoke = new smoke_type()
-		smoke.set_up(smoke_amt, holder = owner, location = get_turf(owner))
+		smoke.set_up(number = smoke_amt, location = get_turf(owner))
 		smoke.start()
 
 	// Send signals last in case they delete the spell
@@ -455,3 +487,8 @@
 			return "Ludicrous "
 
 	return ""
+
+/datum/action/cooldown/spell/set_statpanel_format()
+	. = ..()
+	if(spell_max_level > 1)
+		return "Lv.[spell_level]/[spell_max_level] | [.]"

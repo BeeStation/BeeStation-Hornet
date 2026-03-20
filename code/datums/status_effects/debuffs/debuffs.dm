@@ -170,7 +170,8 @@
 /atom/movable/screen/alert/status_effect/asleep
 	name = "Asleep"
 	desc = "You've fallen asleep. Wait a bit and you should wake up. Unless you don't, considering how helpless you are."
-	icon_state = "asleep"
+	use_user_hud_icon = TRUE
+	overlay_state = "asleep"
 
 //STASIS
 /datum/status_effect/grouped/stasis
@@ -216,7 +217,8 @@
 /atom/movable/screen/alert/status_effect/stasis
 	name = "Stasis"
 	desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
-	icon_state = "stasis"
+	use_user_hud_icon = TRUE
+	overlay_state = "stasis"
 
 //BOLA TRACKING
 
@@ -552,7 +554,8 @@
 /atom/movable/screen/alert/status_effect/trance
 	name = "Trance"
 	desc = "Everything feels so distant, and you can feel your thoughts forming loops inside your head."
-	icon_state = "high"
+	use_user_hud_icon = TRUE
+	overlay_state = "high"
 
 /datum/status_effect/trance/tick(seconds_between_ticks)
 	if(stun)
@@ -684,11 +687,12 @@
 /atom/movable/screen/alert/status_effect/convulsing
 	name = "Shaky Hands"
 	desc = "You've been zapped with something and your hands can't stop shaking! You can't seem to hold on to anything."
-	icon_state = "convulsing"
+	use_user_hud_icon = TRUE
+	overlay_state = "convulsing"
 
 /datum/status_effect/dna_melt
 	id = "dna_melt"
-	duration = 600
+	duration = 60 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/dna_melt
 	var/kill_either_way = FALSE //no amount of removing mutations is gonna save you now
@@ -707,7 +711,8 @@
 /atom/movable/screen/alert/status_effect/dna_melt
 	name = "Genetic Breakdown"
 	desc = "I don't feel so good. Your body can't handle the mutations! You have one minute to remove your mutations, or you will be met with a horrible fate."
-	icon_state = "dna_melt"
+	use_user_hud_icon = TRUE
+	overlay_state = "dna_melt"
 
 /datum/status_effect/go_away
 	id = "go_away"
@@ -730,7 +735,8 @@
 /atom/movable/screen/alert/status_effect/go_away
 	name = "TO THE STARS AND BEYOND!"
 	desc = "I must go, my people need me!"
-	icon_state = "high"
+	use_user_hud_icon = TRUE
+	overlay_state = "high"
 
 //Clock cult
 /datum/status_effect/interdiction
@@ -930,57 +936,6 @@
 				thing.take_damage(100)
 	return ..()
 
-/datum/status_effect/corrosion_curse
-	id = "corrosion_curse"
-	status_type = STATUS_EFFECT_REPLACE
-	alert_type = null
-	tick_interval = 4 SECONDS
-
-/datum/status_effect/corrosion_curse/on_creation(mob/living/new_owner, ...)
-	. = ..()
-	to_chat(owner, span_userdanger("Your body starts to break apart!"))
-
-/datum/status_effect/corrosion_curse/tick(seconds_between_ticks)
-	. = ..()
-	if(!ishuman(owner))
-		return
-	var/mob/living/carbon/human/human_owner = owner
-	if (human_owner.IsSleeping())
-		return
-	var/chance = rand(0,100)
-	var/message = "Coder did fucky wucky U w U"
-	switch(chance)
-		if(0 to 10)
-			message = span_warning("You feel a lump build up in your throat.")
-			human_owner.vomit()
-		if(20 to 30)
-			message = span_warning("You feel feel very well.")
-			human_owner.set_dizzy_if_lower(100 SECONDS)
-			human_owner.set_jitter_if_lower(100 SECONDS)
-		if(30 to 40)
-			message = span_warning("You feel a sharp sting in your side.")
-			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 5)
-		if(40 to 50)
-			message = span_warning("You feel pricking around your heart.")
-			human_owner.adjustOrganLoss(ORGAN_SLOT_HEART, 5, 90)
-		if(50 to 60)
-			message = span_warning("You feel your stomach churning.")
-			human_owner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 5)
-		if(60 to 70)
-			message = span_warning("Your eyes feel like they're on fire.")
-			human_owner.adjustOrganLoss(ORGAN_SLOT_EYES, 10)
-		if(70 to 80)
-			message = span_warning("You hear ringing in your hears.")
-			human_owner.adjustOrganLoss(ORGAN_SLOT_EARS, 10)
-		if(80 to 90)
-			message = span_warning("Your ribcage feels tighter.")
-			human_owner.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10)
-		if(90 to 100)
-			message = span_warning("You feel your skull pressing down on your brain.")
-			human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 190)
-	if(prob(33)) //so the victim isn't spammed with messages every 3 seconds
-		to_chat(human_owner,message)
-
 /datum/status_effect/ghoul
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
@@ -996,7 +951,8 @@
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
 	desc = "You are a Ghoul! A eldritch monster reanimated to serve its master."
-	icon_state = "mind_control"
+	icon_state = "heretic_template"
+	overlay_state = "mind_control"
 
 /datum/status_effect/spanish
 	id = "spanish"
@@ -1110,78 +1066,6 @@
 	desc = "You have a redgrub infection, and can't reproduce or grow! If you don't find a source of heat, you will die!"
 	icon_state = "grub"
 
-/datum/status_effect/heretic_mark/void
-	effect_icon_state = "emark4"
-
-/datum/status_effect/heretic_mark/void/on_effect()
-	var/turf/open/turfie = get_turf(owner)
-	turfie.take_temperature(-40)
-	owner.adjust_bodytemperature(-20)
-	owner.adjust_silence(10 SECONDS)
-	return ..()
-
-/datum/status_effect/amok
-	id = "amok"
-	status_type = STATUS_EFFECT_REPLACE
-	remove_on_fullheal = TRUE
-	alert_type = null
-	duration = 10 SECONDS
-	tick_interval = 1 SECONDS
-
-/datum/status_effect/amok/on_apply(mob/living/afflicted)
-	. = ..()
-	to_chat(owner, span_boldwarning("You feel filled with a rage that is not your own!"))
-
-/datum/status_effect/amok/tick()
-	. = ..()
-	var/prev_combat_mode = owner.combat_mode
-	owner.set_combat_mode(TRUE)
-
-	var/list/mob/living/targets = list()
-	for(var/mob/living/potential_target in oview(owner, 1))
-		if(IS_HERETIC(potential_target) || potential_target.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
-			continue
-		targets += potential_target
-	if(LAZYLEN(targets))
-		owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself
-		owner.ClickOn(pick(targets))
-	owner.set_combat_mode(prev_combat_mode)
-
-/datum/status_effect/cloudstruck
-	id = "cloudstruck"
-	status_type = STATUS_EFFECT_REPLACE
-	remove_on_fullheal = TRUE
-	alert_type = null
-	duration = 3 SECONDS
-	on_remove_on_mob_delete = TRUE
-	///This overlay is applied to the owner for the duration of the effect.
-	var/mutable_appearance/mob_overlay
-
-/datum/status_effect/cloudstruck/on_creation(mob/living/new_owner, set_duration)
-	if(isnum(set_duration))
-		duration = set_duration
-	. = ..()
-
-/datum/status_effect/cloudstruck/on_apply()
-	mob_overlay = mutable_appearance('icons/effects/heretic.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
-	owner.overlays += mob_overlay
-	owner.update_icon()
-	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
-	return TRUE
-
-/datum/status_effect/cloudstruck/on_remove()
-	. = ..()
-	if(QDELETED(owner))
-		return
-	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
-	if(owner)
-		owner.overlays -= mob_overlay
-		owner.update_icon()
-
-/datum/status_effect/cloudstruck/Destroy()
-	. = ..()
-	QDEL_NULL(mob_overlay)
-
 //Deals with ants covering someone.
 /datum/status_effect/ants
 	id = "ants"
@@ -1271,10 +1155,14 @@
 /atom/movable/screen/alert/status_effect/ants
 	name = "Ants!"
 	desc = span_warning("JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!")
-	icon_state = "antalert"
+	use_user_hud_icon = TRUE
+	overlay_state = "antalert"
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/ants/Click()
+	. = ..()
+	if(!.)
+		return
 	var/mob/living/living = owner
 	if(!istype(living) || !living.can_resist() || living != owner)
 		return

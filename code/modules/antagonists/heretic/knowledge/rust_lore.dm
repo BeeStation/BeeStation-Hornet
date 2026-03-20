@@ -152,6 +152,9 @@
 		source.updatehealth()
 	// Reduces duration of stuns/etc
 	source.AdjustAllImmobility(-0.5 SECONDS)
+	// Heals blood loss
+	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
+		source.blood_volume += 2.5 * delta_time
 
 /datum/heretic_knowledge/rust_mark
 	name = "Mark of Rust"

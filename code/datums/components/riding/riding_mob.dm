@@ -5,6 +5,8 @@
 	var/can_be_driven = TRUE
 	/// If TRUE, this creature's abilities can be triggered by the rider while mounted
 	var/can_use_abilities = FALSE
+	/// unsharable abilities that we will force to be shared anyway
+	var/list/override_unsharable_abilities = list()
 	var/list/shared_action_buttons = list()
 
 /datum/component/riding/creature/Initialize(mob/living/riding_mob, force = FALSE, ride_check_flags = NONE, potion_boost = FALSE)
@@ -145,6 +147,8 @@
 	var/mob/living/ridden_creature = parent
 
 	for(var/datum/action/action as anything in ridden_creature.actions)
+		if(!action.can_be_shared && !is_type_in_list(action, override_unsharable_abilities))
+			continue
 		action.give_action(rider)
 
 /// Takes away the riding parent's abilities from the rider
@@ -156,7 +160,7 @@
 
 	for(var/datum/action/action as anything in ridden_creature.actions)
 		if(istype(action, /datum/action) && rider.click_intercept == action)
-			var/datum/action/cooldown_action = action
+			var/datum/action/cooldown/cooldown_action = action
 			cooldown_action.unset_click_ability(rider, refund_cooldown = TRUE)
 		action.hide_from(rider)
 

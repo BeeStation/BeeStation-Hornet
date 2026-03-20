@@ -31,7 +31,7 @@
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
-	deathsound = 'sound/creatures/space_dragon_roar.ogg'
+	death_sound = 'sound/creatures/space_dragon_roar.ogg'
 	icon = 'icons/mob/spacedragon.dmi'
 	icon_state = "spacedragon"
 	icon_living = "spacedragon"
@@ -50,7 +50,7 @@
 	ranged = TRUE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
-	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, its life estinguished."
+	death_message = "screeches as its wings turn to dust and it collapses on the floor, its life estinguished."
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
@@ -72,8 +72,6 @@
 	var/tearing_wall = FALSE
 	/// Whether space dragon is swallowing a body currently
 	var/is_swallowing = FALSE
-	/// The cooldown ability to use wing gust
-	var/datum/action/gust_attack/gust
 	/// The ability to make your sprite smaller
 	var/datum/action/small_sprite/space_dragon/small_sprite
 	/// The color of the space dragon.
@@ -84,8 +82,6 @@
 
 /mob/living/simple_animal/hostile/space_dragon/Initialize(mapload)
 	. = ..()
-	gust = new
-	gust.Grant(src)
 	small_sprite = new
 	small_sprite.Grant(src)
 	add_traits(list(TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_SPACEWALK), INNATE_TRAIT)
@@ -156,6 +152,14 @@
 	if(istype(target, /obj/vehicle/sealed/mecha))
 		var/obj/vehicle/sealed/mecha/M = target
 		M.take_damage(50, BRUTE, MELEE, 1)
+
+/mob/living/simple_animal/hostile/space_dragon/ranged_secondary_attack(atom/target, modifiers)
+	if(using_special)
+		return
+	using_special = TRUE
+	icon_state = "spacedragon_gust"
+	update_dragon_overlay()
+	useGust(0)
 
 /mob/living/simple_animal/hostile/space_dragon/Move()
 	if(!using_special)
@@ -316,9 +320,9 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_fire_line(turf/fire_turf)
 	var/list/hit_list = list()
 	hit_list += src
-	new /obj/effect/hotspot/bright(T)
-	T.hotspot_expose(700, 50, 1)
-	for(var/mob/living/L in T.contents)
+	new /obj/effect/hotspot/bright(fire_turf)
+	fire_turf.hotspot_expose(700, 50, 1)
+	for(var/mob/living/L in fire_turf.contents)
 		if(L.faction_check_mob(src) && L != src)
 			hit_list += L
 			start_carp_speedboost(L)
@@ -328,7 +332,7 @@
 		L.adjustFireLoss(30)
 		to_chat(L, span_userdanger("You're hit by [src]'s fire breath!"))
 	// deals damage to mechs
-	for(var/obj/vehicle/sealed/mecha/M in T.contents)
+	for(var/obj/vehicle/sealed/mecha/M in fire_turf.contents)
 		if(M in hit_list)
 			continue
 		hit_list += M
@@ -459,27 +463,5 @@
 		if(S in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(S, src)
 			to_chat(S, "[link] [rendered]")
-
-/datum/action/gust_attack
-	name = "Gust Attack"
-	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
-	background_icon_state = "bg_default"
-	button_icon = 'icons/hud/actions/actions_space_dragon.dmi'
-	button_icon_state = "gust_attack"
-	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
-
-/datum/action/gust_attack/is_available()
-	return ..() && istype(owner, /mob/living/simple_animal/hostile/space_dragon)
-
-/datum/action/gust_attack/activate(atom/target)
-	var/mob/living/simple_animal/hostile/space_dragon/S = owner
-	if(S.using_special)
-		return FALSE
-	S.using_special = TRUE
-	S.icon_state = "spacedragon_gust"
-	S.update_dragon_overlay()
-	S.useGust(TRUE)
-	start_cooldown()
-	return TRUE
 
 #undef REJECT_DARK_COLOUR_THRESHOLD

@@ -5,16 +5,17 @@
 	background_icon_state = "bg_mime"
 	overlay_icon_state = "bg_mime_border"
 	button_icon = 'icons/hud/actions/actions_mime.dmi'
-	button_icon_state = "finger_guns0"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
+	button_icon_state = "finger_guns"
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED
+	panel = "Mime"
 	sound = null
 
 	school = SCHOOL_MIME
 	cooldown_time = 30 SECONDS
 
-	invocation = ""
+	invocation = span_notice("<b>%CASTER</b> fires %PRONOUN_their finger gun!")
+	invocation_self_message = span_danger("You fire your finger gun!")
 	invocation_type = INVOCATION_EMOTE
-	invocation_self_message = ("<span class='danger'>You fire your finger gun!</span>")
 
 	spell_requirements = SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_MIME_VOW
 	antimagic_flags = NONE
@@ -34,15 +35,11 @@
 		var/mob/living/carbon/human/human_invoker = invoker
 		if(human_invoker.incapacitated)
 			if(feedback)
-				to_chat(invoker, ("<span class='warning'>You can't properly point your fingers while incapacitated.</span>"))
+				to_chat(human_invoker, span_warning("You can't properly point your fingers while incapacitated."))
 			return FALSE
 		if(human_invoker.get_active_held_item())
 			if(feedback)
-				to_chat(invoker, ("<span class='warning'>You can't properly fire your finger guns with something in your hand.</span>"))
+				to_chat(human_invoker, span_warning("You can't properly fire your finger guns with something in your hand."))
 			return FALSE
 
 	return ..()
-
-/datum/action/cooldown/spell/pointed/projectile/finger_guns/pre_cast(mob/user, atom/target)
-	. = ..()
-	invocation = "<span class='notice'><b>[user]</b> fires [user.p_their()] finger gun!</span>"

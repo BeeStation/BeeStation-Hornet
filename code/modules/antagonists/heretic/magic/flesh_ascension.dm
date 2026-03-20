@@ -59,9 +59,9 @@
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
-/datum/action/cooldown/spell/worm_contract/is_valid_spell(mob/user, atom/target)
-	return istype(user, /mob/living/simple_animal/hostile/heretic_summon/armsy)
+/datum/action/cooldown/spell/worm_contract/is_valid_target(atom/cast_on)
+	return istype(cast_on, /mob/living/simple_animal/hostile/heretic_summon/armsy)
 
-/datum/action/cooldown/spell/worm_contract/on_cast(mob/living/simple_animal/hostile/heretic_summon/armsy/user, atom/target)
+/datum/action/cooldown/spell/worm_contract/cast(mob/living/simple_animal/hostile/heretic_summon/armsy/user)
 	. = ..()
 	user.contract_next_chain_into_single_tile()

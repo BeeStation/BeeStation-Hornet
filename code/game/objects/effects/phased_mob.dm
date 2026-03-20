@@ -71,6 +71,7 @@
 	if (direction in GLOB.alldirs)
 		setDir(direction)
 	forceMove(newloc)
+
 /// Checks if the conditions are valid to be able to phase. Returns a turf destination if positive.
 /obj/effect/dummy/phased_mob/proc/phased_check(mob/living/user, direction)
 	RETURN_TYPE(/turf)
@@ -82,9 +83,9 @@
 	var/area/destination_area = newloc.loc
 	movedelay = world.time + movespeed
 	if(newloc.flags_1 & NOJAUNT_1)
-		to_chat(user, ("<span class='warning'>Some strange aura is blocking the way.</span>"))
+		to_chat(user, span_warning("Some strange aura is blocking the way."))
 		return
 	if(destination_area.teleport_restriction == TELEPORT_ALLOW_NONE || SSmapping.level_trait(newloc.z, ZTRAIT_NOPHASE))
-		to_chat(user, ("<span class='danger'>Some dull, universal force is blocking the way. It's overwhelmingly oppressive force feels dangerous.</span>"))
+		to_chat(user, span_danger("Some dull, universal force is blocking the way. It's overwhelmingly oppressive force feels dangerous."))
 		return
 	return newloc

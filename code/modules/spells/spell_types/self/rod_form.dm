@@ -13,7 +13,7 @@
 
 	invocation = "CLANG!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_OFF_CENTCOM
+	spell_requirements = SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_STATION
 
 	/// The extra distance we travel per additional spell level.
 	var/distance_per_spell_rank = 3
@@ -24,17 +24,17 @@
 	/// The damage bonus applied to the rod on cast
 	var/rod_damage_bonus = 0
 
-/datum/action/cooldown/spell/rod_form/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/rod_form/cast(atom/cast_on)
 	. = ..()
 	// The destination turf of the rod - just a bit over the max range we calculated, for safety
-	var/turf/distant_turf = get_ranged_target_turf(get_turf(user), user.dir, (rod_max_distance + 2))
+	var/turf/distant_turf = get_ranged_target_turf(get_turf(cast_on), cast_on.dir, (rod_max_distance + 2))
 
 	new /obj/effect/immovablerod/wizard(
-		get_turf(user),
+		get_turf(cast_on),
 		distant_turf,
 		null,
 		FALSE,
-		user,
+		cast_on,
 		rod_max_distance,
 		rod_damage_bonus,
 	)

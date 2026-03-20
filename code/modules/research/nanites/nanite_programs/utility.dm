@@ -366,7 +366,7 @@
 	name = _name
 	button_icon_state = "[_icon]_[_color]"
 
-/datum/action/innate/nanite_button/on_activate()
+/datum/action/innate/nanite_button/Activate()
 	program.press()
 
 /datum/action/innate/nanite_button/proc/update_icon(icon, color)

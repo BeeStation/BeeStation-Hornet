@@ -8,6 +8,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "entropic_plume"
+	sound = 'sound/magic/forcewall.ogg'
 
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 30 SECONDS
@@ -19,21 +20,19 @@
 	cone_levels = 5
 	respect_density = TRUE
 
-/datum/action/cooldown/spell/cone/staggered/entropic_plume/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/cone/staggered/entropic_plume/cast(atom/cast_on)
 	. = ..()
-	new /obj/effect/temp_visual/dir_setting/entropic(get_step(user, user.dir), user.dir)
+	new /obj/effect/temp_visual/dir_setting/entropic(get_step(cast_on, cast_on.dir), cast_on.dir)
 
 /datum/action/cooldown/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, atom/caster, level)
 	target_turf.rust_heretic_act()
 
 /datum/action/cooldown/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
-	if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
+	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
 		return
 	victim.apply_status_effect(/datum/status_effect/amok)
-	victim.apply_status_effect(/datum/status_effect/cloudstruck, (level * 1 SECONDS))
-	if(iscarbon(victim))
-		var/mob/living/carbon/carbon_victim = victim
-		carbon_victim.reagents?.add_reagent(/datum/reagent/eldritch, min(1, 6 - level))
+	victim.apply_status_effect(/datum/status_effect/cloudstruck, level * 1 SECONDS)
+	victim.reagents?.add_reagent(/datum/reagent/eldritch, max(1, 6 - level))
 
 /datum/action/cooldown/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
 	// At the first level (that isn't level 1) we will be small

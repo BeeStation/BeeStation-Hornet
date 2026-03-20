@@ -1,4 +1,4 @@
-/datum/action/vampire/shapeshift/batform
+/datum/action/cooldown/vampire/shapeshift/batform
 	name = "Bat Transformation"
 	desc = "Take on the shape of a space bat.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions on use."
 	power_explanation = "You take on the form of a bat and lose nearly all Vampire benefits, including your brutish strength.\n\
@@ -12,7 +12,7 @@
 	cooldown_time = 10 SECONDS
 	shapeshifted_mob = /mob/living/simple_animal/hostile/retaliate/bat/vampire
 
-/datum/action/vampire/shapeshift/batform/activate_power()
+/datum/action/cooldown/vampire/shapeshift/batform/activate_power()
 	for(var/obj/item/item in owner)
 		owner.dropItemToGround(item, TRUE)
 	. = ..()

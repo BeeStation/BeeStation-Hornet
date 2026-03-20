@@ -107,9 +107,7 @@
 	found.update_icon()
 	found.update_brightness()
 
-	for(var/X in found.actions)
-		var/datum/action/A = X
-		A.update_buttons()
+	found.update_item_action_buttons()
 	found.burn_pickup = TRUE
 
 /obj/effect/spawner/random/decoration/paint

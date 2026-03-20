@@ -72,7 +72,7 @@
 	desc = "Temporarily increases your size, and makes you significantly more dangerous and tough! Do not bully the fugu!"
 	button_icon_state = "expand"
 
-/datum/action/innate/fugu/expand/on_activate()
+/datum/action/innate/fugu/expand/Activate()
 	var/mob/living/simple_animal/hostile/asteroid/fugu/F = owner
 	if(F.wumbo)
 		to_chat(F, span_notice("YOU'RE ALREADY WUMBO!"))

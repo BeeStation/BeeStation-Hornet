@@ -44,10 +44,7 @@
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
 	//IPCs are extremely fragile, but do not go into softcrit and can be repaired with relative ease
-	burnmod = 1.5
-	brutemod = 1.5
 	clonemod = 0
-	staminamod = 0 //IPCs don't get tired
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
@@ -124,7 +121,7 @@
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
 
-/datum/action/innate/change_screen/on_activate()
+/datum/action/innate/change_screen/Activate()
 	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", GLOB.ipc_screens_list)
 	var/color_choice = tgui_color_picker(usr, "Which color do you want your screen to be?", "Color Change")
 	if(!screen_choice)

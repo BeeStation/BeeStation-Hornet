@@ -29,9 +29,6 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/psyphoza
 	)
 
-	//Fire bad!
-	burnmod = 1.25
-
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 	//Reference to psychic highlight action
@@ -199,7 +196,7 @@
 	if(BS)
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
-	update_buttons()
+	build_all_button_icons()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time) //Overwrite this line from the original to support my fucked up use
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
@@ -221,7 +218,7 @@
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
-	update_buttons()
+	build_all_button_icons()
 
 //Allows user to see images through walls - mostly for if this action is added to something without xray
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
@@ -446,7 +443,7 @@
 
 /datum/action/change_psychic_auto/activate(atom/target)
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
-	update_buttons()
+	build_all_button_icons()
 
 /datum/action/change_psychic_auto/is_available(feedback = FALSE)
 	. = ..()

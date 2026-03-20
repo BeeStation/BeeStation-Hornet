@@ -6,10 +6,10 @@
 	overlay_icon_state = "bg_demon_border"
 
 	buttontooltipstyle = "cult"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
 
-/datum/action/innate/cult/is_available()
+/datum/action/innate/cult/is_available(feedback = FALSE)
 	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
@@ -18,12 +18,18 @@
 	name = "Communion"
 	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
 	button_icon_state = "cult_comms"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/comm/on_activate()
-	var/input = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
-	if(!input || !is_available())
+/datum/action/innate/cult/comm/is_available(feedback = FALSE)
+	if(isshade(owner) && IS_CULTIST(owner))
+		return TRUE
+	return ..()
+
+/datum/action/innate/cult/comm/Activate()
+	var/input = tgui_input_text(usr, "Message to tell to the other acolytes", "Voice of Blood", max_length = MAX_MESSAGE_LEN)
+	if(!input || !is_available(feedback = TRUE))
 		return
+
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
 		return
@@ -31,13 +37,14 @@
 
 /datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
 	var/my_message
-	if(!message)
+	if(!message || !user.mind)
 		return
-	user.whisper("O bidai nabora se[pick("'","`")]sma!", language = /datum/language/common)
-	user.whisper(html_decode(message))
+	user.whisper("O bidai nabora se[pick("'","`")]sma!", language = /datum/language/common, forced = "cult invocation")
+	user.whisper(html_decode(message), filterproof = TRUE)
 	var/title = "Acolyte"
 	var/span = "srt_radio cult italic"
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/cult/master))
+	var/datum/antagonist/cult/cult_datum = user.mind.has_antag_datum(/datum/antagonist/cult)
+	if(cult_datum.is_cult_leader())
 		span = "cultlarge"
 		title = "Master"
 	else if(!ishuman(user))
@@ -47,13 +54,12 @@
 		return
 	message = user.treat_message_min(message)
 	my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
-		if(IS_CULTIST(M))
-			to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
-		else if(M in GLOB.dead_mob_list)
-			var/link = FOLLOW_LINK(M, user)
-			to_chat(M, "[link] [my_message]", type = MESSAGE_TYPE_RADIO)
+	for(var/mob/listener as anything in GLOB.player_list)
+		if(IS_CULTIST(listener))
+			to_chat(listener, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = listener == user)
+		else if(listener in GLOB.dead_mob_list)
+			var/link = FOLLOW_LINK(listener, user)
+			to_chat(listener, "[link] [my_message]", type = MESSAGE_TYPE_RADIO)
 
 	user.log_talk(message, LOG_SAY, tag="blood cult")
 
@@ -61,34 +67,34 @@
 	name = "Spiritual Communion"
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
 
-/datum/action/innate/cult/comm/spirit/is_available()
+/datum/action/innate/cult/comm/spirit/is_available(feedback = FALSE)
 	if(IS_CULTIST(owner.mind.current))
 		return TRUE
+	return ..()
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
 	var/my_message
 	if(!message)
 		return
 	my_message = "[span_srtradiocultboldtalic("The [user.name]: [message]")]"
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
-		if(IS_CULTIST(M))
-			to_chat(M, my_message)
-		else if(M in GLOB.dead_mob_list)
-			var/link = FOLLOW_LINK(M, user)
-			to_chat(M, "[link] [my_message]")
+	for(var/mob/player_list as anything in GLOB.player_list)
+		if(IS_CULTIST(player_list))
+			to_chat(player_list, my_message)
+		else if(player_list in GLOB.dead_mob_list)
+			var/link = FOLLOW_LINK(player_list, user)
+			to_chat(player_list, "[link] [my_message]")
 
 /datum/action/innate/cult/mastervote
 	name = "Assert Leadership"
 	button_icon_state = "cultvote"
 
-/datum/action/innate/cult/mastervote/is_available()
+/datum/action/innate/cult/mastervote/is_available(feedback = FALSE)
 	var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(!C || C.cult_team.cult_vote_called || !ishuman(owner))
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/mastervote/on_activate()
+/datum/action/innate/cult/mastervote/Activate()
 	var/choice = tgui_alert(owner, "The mantle of leadership is heavy. Success in this role requires an expert level of communication and experience. Are you sure?",, list("Yes", "No"))
 	if(choice == "Yes" && is_available())
 		var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
@@ -111,16 +117,17 @@
 		if(B.current && B.current != nominee && !B.current.incapacitated)
 			SEND_SOUND(B.current, 'sound/magic/exit_blood.ogg')
 			asked_cultists += B.current
-	var/datum/poll_config/config = new()
-	config.question = "[span_notice(nominee.name)] seeks to lead your cult, do you support [nominee.p_them()]?"
-	config.poll_time = 30 SECONDS
-	config.role_name_text = "cult master nomination"
-	config.custom_response_messages = list(
-		POLL_RESPONSE_SIGNUP = "You have pledged your allegience to [nominee].",
-		POLL_RESPONSE_ALREADY_SIGNED = "You have already pledged your allegience!",
-		POLL_RESPONSE_NOT_SIGNED = "You aren't nominated for this.",
-		POLL_RESPONSE_TOO_LATE_TO_UNREGISTER = "It's too late to unregister yourself, voting has already begun!",
-		POLL_RESPONSE_UNREGISTERED = "You have been removed your pledge to [nominee]."
+	var/datum/poll_config/config = new(
+		question = "[span_notice(nominee.name)] seeks to lead your cult, do you support [nominee.p_them()]?",
+		poll_time = 30 SECONDS,
+		role_name_text = "cult master nomination",
+		custom_response_messages = list(
+			POLL_RESPONSE_SIGNUP = "You have pledged your allegience to [nominee].",
+			POLL_RESPONSE_ALREADY_SIGNED = "You have already pledged your allegience!",
+			POLL_RESPONSE_NOT_SIGNED = "You aren't nominated for this.",
+			POLL_RESPONSE_TOO_LATE_TO_UNREGISTER = "It's too late to unregister yourself, voting has already begun!",
+			POLL_RESPONSE_UNREGISTERED = "You have been removed your pledge to [nominee].",
+		),
 	)
 	config.alert_pic = nominee
 	config.chat_text_border_icon = mutable_appearance('icons/effects/effects.dmi', "cult_master_logo")
@@ -160,7 +167,7 @@
 				to_chat(B.current,span_cultlarge("[nominee] has won the cult's support and is now their master. Follow [nominee.p_their()] orders to the best of your ability!"))
 	return TRUE
 
-/datum/action/innate/cult/master/is_available()
+/datum/action/innate/cult/master/is_available(feedback = FALSE)
 	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.narsie)
 		return 0
 	return ..()
@@ -171,7 +178,7 @@
 	button_icon_state = "sintouch"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/master/finalreck/on_activate()
+/datum/action/innate/cult/master/finalreck/Activate()
 	var/datum/antagonist/cult/antag = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(!antag)
 		return
@@ -191,15 +198,15 @@
 					switch(i)
 						if(1)
 							new /obj/effect/temp_visual/cult/sparks(mobloc, B.current.dir)
-							playsound(mobloc, "sparks", 50, 1)
+							playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 						if(2)
 							new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, B.current.dir)
-							playsound(mobloc, "sparks", 75, 1)
+							playsound(mobloc, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 						if(3)
 							new /obj/effect/temp_visual/dir_setting/cult/phase(mobloc, B.current.dir)
-							playsound(mobloc, "sparks", 100, 1)
+							playsound(mobloc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 						if(4)
-							playsound(mobloc, 'sound/magic/exit_blood.ogg', 100, 1)
+							playsound(mobloc, 'sound/magic/exit_blood.ogg', 100, TRUE)
 							if(B.current != owner)
 								var/turf/final = pick(destinations)
 								if(istype(B.current.loc, /obj/item/soulstone))
@@ -235,12 +242,18 @@
 	name = "Mark Target"
 	desc = "Marks a target for the cult."
 	button_icon_state = "cult_mark"
-	requires_target = TRUE
-	cooldown_time = 2 MINUTES
-	enable_text = "<span class='cult'>You prepare to mark a target for your cult. <b>Click a target to mark them!</b></span>"
-	disable_text = "<span class='cult'>You cease the marking ritual.</span>"
+	click_action = TRUE
+	enable_text = span_cult("You prepare to mark a target for your cult. <b>Click a target to mark them!</b>")
+	disable_text = span_cult("You cease the marking ritual.")
 	/// The duration of the mark itself
 	var/cult_mark_duration = 90 SECONDS
+	/// The duration of the cooldown for cult marks
+	var/cult_mark_cooldown_duration = 2 MINUTES
+	/// The actual cooldown tracked of the action
+	COOLDOWN_DECLARE(cult_mark_cooldown)
+
+/datum/action/innate/cult/master/cultmark/is_available(feedback = FALSE)
+	return ..() && COOLDOWN_FINISHED(src, cult_mark_cooldown)
 
 /datum/action/innate/cult/master/cultmark/InterceptClickOn(mob/clicker, params, atom/clicked_on)
 	var/turf/clicker_turf = get_turf(clicker)
@@ -249,6 +262,7 @@
 
 	if(!(clicked_on in view(7, clicker_turf)))
 		return FALSE
+
 	return ..()
 
 /datum/action/innate/cult/master/cultmark/do_ability(mob/living/clicker, atom/clicked_on)
@@ -259,6 +273,7 @@
 	var/datum/team/cult/cult_team = cultist.get_team()
 	if(!cult_team)
 		CRASH("[type] was casted by a cultist without a cult team datum.")
+
 	if(cult_team.blood_target)
 		to_chat(clicker, span_cult("The cult has already designated a target!"))
 		return FALSE
@@ -284,10 +299,10 @@
 	/// The actual cooldown tracked of the action
 	COOLDOWN_DECLARE(cult_mark_cooldown)
 
-/datum/action/innate/cult/ghostmark/is_available()
+/datum/action/innate/cult/ghostmark/is_available(feedback = FALSE)
 	return ..() && istype(owner, /mob/dead/observer)
 
-/datum/action/innate/cult/ghostmark/on_activate()
+/datum/action/innate/cult/ghostmark/Activate()
 	var/datum/antagonist/cult/cultist = owner.mind?.has_antag_datum(/datum/antagonist/cult, TRUE)
 	if(!cultist)
 		CRASH("[type] was casted by someone without a cult antag datum.")
@@ -346,7 +361,7 @@
 		return
 
 	SEND_SOUND(owner, 'sound/magic/enter_blood.ogg')
-	to_chat(owner, ("<span class='cultbold'>Your previous mark is gone - you are now ready to create a new blood mark.</span>"))
+	to_chat(owner, span_cultbold("Your previous mark is gone - you are now ready to create a new blood mark."))
 	build_all_button_icons(UPDATE_BUTTON_NAME|UPDATE_BUTTON_ICON)
 
 //////// ELDRITCH PULSE /////////
@@ -358,12 +373,18 @@
 	desc = "Seize upon a fellow cultist or cult structure and teleport it to a nearby location."
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "arcane_barrage"
-	requires_target = TRUE
-	enable_text = "<span class='cult'>You prepare to tear through the fabric of reality... <b>Click a target to sieze them!</b></span>"
-	disable_text = "<span class='cult'>You cease your preparations.</span>"
-	cooldown_time = 15 SECONDS
+	click_action = TRUE
+	enable_text = span_cult("You prepare to tear through the fabric of reality... <b>Click a target to sieze them!</b>")
+	disable_text = span_cult("You cease your preparations.")
 	/// Weakref to whoever we're currently about to toss
 	var/datum/weakref/throwee_ref
+	/// Cooldown of the ability
+	var/pulse_cooldown_duration = 15 SECONDS
+	/// The actual cooldown tracked of the action
+	COOLDOWN_DECLARE(pulse_cooldown)
+
+/datum/action/innate/cult/master/pulse/is_available(feedback = FALSE)
+	return ..() && COOLDOWN_FINISHED(src, pulse_cooldown)
 
 /datum/action/innate/cult/master/pulse/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
 	var/turf/clicker_turf = get_turf(clicker)
@@ -375,68 +396,66 @@
 
 	if(clicked_on == clicker)
 		return FALSE
+
 	return ..()
 
-/datum/action/innate/cult/master/pulse/activate(atom/target)
+/datum/action/innate/cult/master/pulse/do_ability(mob/living/clicker, atom/clicked_on)
 	var/atom/throwee = throwee_ref?.resolve()
-
-	if(QDELETED(throwee))
-		to_chat(user, span_cult("You lost your target!"))
+	if(throwee && QDELING(throwee))
+		to_chat(clicker, span_cult("You lost your target!"))
 		throwee = null
 		throwee_ref = null
 		return FALSE
 
 	if(throwee)
-		if(get_dist(throwee, target) >= 16)
-			to_chat(user, span_cult("You can't teleport [target.p_them()] that far!"))
+		if(get_dist(throwee, clicked_on) >= 16)
+			to_chat(clicker, span_cult("You can't teleport [clicked_on.p_them()] that far!"))
 			return FALSE
 
 		var/turf/throwee_turf = get_turf(throwee)
 
 		playsound(throwee_turf, 'sound/magic/exit_blood.ogg')
-		new /obj/effect/temp_visual/cult/sparks(throwee_turf, user.dir)
+		new /obj/effect/temp_visual/cult/sparks(throwee_turf, clicker.dir)
 		throwee.visible_message(
 			span_warning("A pulse of magic whisks [throwee] away!"),
 			span_cult("A pulse of blood magic whisks you away..."),
 		)
 
-		if(!do_teleport(throwee, target, channel = TELEPORT_CHANNEL_CULT))
-			to_chat(user, span_cult("The teleport fails!"))
+		if(!do_teleport(throwee, clicked_on, channel = TELEPORT_CHANNEL_CULT))
+			to_chat(clicker, span_cult("The teleport fails!"))
 			throwee.visible_message(
 				span_warning("...Except they don't go very far"),
-				span_warning("...Except you don't appear to have moved very far."),
+				span_cult("...Except you don't appear to have moved very far."),
 			)
 			return FALSE
 
-		throwee_turf.Beam(target, icon_state = "sendbeam", time = 0.4 SECONDS)
-		new /obj/effect/temp_visual/cult/sparks(get_turf(target), user.dir)
+		throwee_turf.Beam(clicked_on, icon_state = "sendbeam", time = 0.4 SECONDS)
+		new /obj/effect/temp_visual/cult/sparks(get_turf(clicked_on), clicker.dir)
 		throwee.visible_message(
 			span_warning("[throwee] appears suddenly in a pulse of magic!"),
 			span_cult("...And you appear elsewhere."),
 		)
 
-		start_cooldown()
-		to_chat(user, span_cult("A pulse of blood magic surges through you as you shift [throwee] through time and space."))
-		user.click_intercept = null
+		COOLDOWN_START(src, pulse_cooldown, pulse_cooldown_duration)
+		to_chat(clicker, span_cult("A pulse of blood magic surges through you as you shift [throwee] through time and space."))
+		clicker.click_intercept = null
 		throwee_ref = null
 		build_all_button_icons()
 		addtimer(CALLBACK(src, PROC_REF(build_all_button_icons)), pulse_cooldown_duration + 1)
 
 		return TRUE
 
-	else
-		if(isliving(target))
-			var/mob/living/living_clicked = target
-			if(!IS_CULTIST(living_clicked))
-				return FALSE
-			SEND_SOUND(user, sound('sound/weapons/thudswoosh.ogg'))
-			to_chat(user, span_cultbold("You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b>"))
-			throwee_ref = WEAKREF(target)
-			return TRUE
+	if(isliving(clicked_on))
+		var/mob/living/living_clicked = clicked_on
+		if(!IS_CULTIST(living_clicked))
+			return FALSE
+		SEND_SOUND(clicker, sound('sound/items/weapons/thudswoosh.ogg'))
+		to_chat(clicker, span_cultbold("You reach through the veil with your mind's eye and seize [clicked_on]! <b>Click anywhere nearby to teleport [clicked_on.p_them()]!</b>"))
+		throwee_ref = WEAKREF(clicked_on)
+		return TRUE
 
-		if(istype(target, /obj/structure/destructible/cult))
-			to_chat(user, span_cultbold("You reach through the veil with your mind's eye and lift [target]! <b>Click anywhere nearby to teleport it!</b>"))
-			throwee_ref = WEAKREF(target)
-			return TRUE
-
+	if(istype(clicked_on, /obj/structure/destructible/cult))
+		to_chat(clicker, span_cultbold("You reach through the veil with your mind's eye and lift [clicked_on]! <b>Click anywhere nearby to teleport it!</b>"))
+		throwee_ref = WEAKREF(clicked_on)
+		return TRUE
 	return FALSE

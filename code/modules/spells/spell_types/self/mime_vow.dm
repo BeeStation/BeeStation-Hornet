@@ -1,13 +1,15 @@
 /datum/action/cooldown/spell/vow_of_silence
-	name = "Speech"
-	desc = "Make (or break) a vow of silence."
+	name = "Break Vow"
+	desc = "Break your vow of silence. Permanently."
 	background_icon_state = "bg_mime"
 	overlay_icon_state = "bg_mime_border"
 	button_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "mime_speech"
+	panel = "Mime"
 
 	school = SCHOOL_MIME
-	cooldown_time = 5 MINUTES
+	//MMI mimes should be able to break their vow
+	spell_requirements = SPELL_CASTABLE_AS_BRAIN
 
 	spell_max_level = 1
 
@@ -18,16 +20,20 @@
 /datum/action/cooldown/spell/vow_of_silence/Remove(mob/living/remove_from)
 	. = ..()
 	REMOVE_TRAIT(remove_from, TRAIT_MIMING, "[type]")
-	SEND_SIGNAL(remove_from, COMSIG_CLEAR_MOOD_EVENT, "vow")
 
-/datum/action/cooldown/spell/vow_of_silence/on_cast(mob/user, atom/target)
+/datum/action/cooldown/spell/vow_of_silence/before_cast(atom/cast_on)
+	if(tgui_alert(usr, "Are you sure? There's no going back.", "Break Vow", list("I'm Sure", "Abort")) != "I'm Sure")
+		return SPELL_CANCEL_CAST
+	return ..()
+
+/datum/action/cooldown/spell/vow_of_silence/cast(mob/living/carbon/human/cast_on)
 	. = ..()
-	if(HAS_TRAIT_FROM(user, TRAIT_MIMING, "[type]"))
-		to_chat(user, span_notice("You break your vow of silence."))
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "vow", /datum/mood_event/broken_vow)
-		REMOVE_TRAIT(user, TRAIT_MIMING, "[type]")
-	else
-		to_chat(user, span_notice("You make a vow of silence."))
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "vow")
-		ADD_TRAIT(user, TRAIT_MIMING, "[type]")
-	user.update_mob_action_buttons()
+	to_chat(cast_on, span_notice("You break your vow of silence."))
+	cast_on.log_message("broke [cast_on.p_their()] vow of silence.", LOG_GAME)
+	SEND_SIGNAL(cast_on, COMSIG_ADD_MOOD_EVENT, "vow", /datum/mood_event/broken_vow)
+	REMOVE_TRAIT(cast_on, TRAIT_MIMING, "[type]")
+
+	var/datum/job/mime/mime_job = SSjob.GetJob(JOB_NAME_MIME)
+	mime_job.total_positions += 1
+
+	qdel(src)

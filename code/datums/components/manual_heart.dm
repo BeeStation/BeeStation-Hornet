@@ -9,7 +9,7 @@
  */
 /datum/component/manual_heart
 	/// The action for pumping your heart
-	var/datum/action/manual_heart/pump_action
+	var/datum/action/cooldown/manual_heart/pump_action
 	/// Cooldown before harm is caused to the owner
 	COOLDOWN_DECLARE(heart_timer)
 	/// If true, add a screen tint on the next process
@@ -77,12 +77,12 @@
 	if(!check_valid())
 		return
 	COOLDOWN_START(src, heart_timer, pump_delay)
-	pump_action.update_buttons(UPDATE_BUTTON_STATUS) //make sure the action button always shows as available when it is
+	pump_action.build_all_button_icons(UPDATE_BUTTON_STATUS) //make sure the action button always shows as available when it is
 	START_PROCESSING(SSdcs, src)
 
 /datum/component/manual_heart/proc/pause()
 	SIGNAL_HANDLER
-	pump_action.update_buttons(UPDATE_BUTTON_STATUS)
+	pump_action.build_all_button_icons(UPDATE_BUTTON_STATUS)
 	var/mob/living/carbon/carbon_parent = parent
 	if(istype(carbon_parent))
 		carbon_parent.remove_client_colour(REF(src)) //prevents red overlay from getting stuck
@@ -131,7 +131,7 @@
 	if(!istype(new_heart) || !check_valid())
 		return
 	COOLDOWN_START(src, heart_timer, pump_delay)
-	pump_action.update_buttons(UPDATE_BUTTON_STATUS)
+	pump_action.build_all_button_icons(UPDATE_BUTTON_STATUS)
 	var/mob/living/carbon/carbon_parent = parent
 	if(istype(carbon_parent))
 		carbon_parent.remove_client_colour(REF(src)) //prevents red overlay from getting stuck
@@ -144,7 +144,7 @@
 	var/obj/item/organ/heart/removed_heart = removed_organ
 
 	if(istype(removed_heart))
-		pump_action.update_buttons(UPDATE_BUTTON_STATUS)
+		pump_action.build_all_button_icons(UPDATE_BUTTON_STATUS)
 		STOP_PROCESSING(SSdcs, src)
 
 ///Helper proc to check if processing can be restarted.
@@ -154,20 +154,20 @@
 	return !isnull(parent_heart) && !HAS_TRAIT(carbon_parent, TRAIT_NOBLOOD) && carbon_parent.stat != DEAD
 
 ///Action to pump your heart. Cooldown will always be set to 1 second less than the pump delay.
-/datum/action/manual_heart
+/datum/action/cooldown/manual_heart
 	name = "Pump your blood"
 	cooldown_time = 2 SECONDS
 	check_flags = NONE
 	button_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "cursedheart-off"
 
-/datum/action/manual_heart/on_activate(mob/user, atom/target, trigger_flags)
+/datum/action/cooldown/manual_heart/Activate(atom/atom_target)
 	. = ..()
-	start_cooldown()
+
 	SEND_SIGNAL(owner, COMSIG_HEART_MANUAL_PULSE)
 
 ///The action button is only available when you're a living carbon with blood and a heart.
-/datum/action/manual_heart/is_available(feedback = FALSE)
+/datum/action/cooldown/manual_heart/is_available(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE

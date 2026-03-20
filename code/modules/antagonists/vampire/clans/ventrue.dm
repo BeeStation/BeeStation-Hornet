@@ -27,7 +27,7 @@
 	// Generate radial menu
 	var/list/options = list()
 	var/list/radial_display = list()
-	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
+	for(var/datum/action/cooldown/vampire/power as anything in vampiredatum.all_vampire_powers)
 		if((initial(power.purchase_flags) & VASSAL_CAN_BUY) && !(locate(power) in vassaldatum.powers))
 			options[initial(power.name)] = power
 
@@ -56,7 +56,7 @@
 			return FALSE
 
 		// Give power
-		var/datum/action/vampire/purchased_power = options[power_response]
+		var/datum/action/cooldown/vampire/purchased_power = options[power_response]
 		vassaldatum.grant_power(new purchased_power)
 
 		living_vampire.balloon_alert(living_vampire, "taught [power_response]!")

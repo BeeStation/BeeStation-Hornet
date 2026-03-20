@@ -20,6 +20,8 @@
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
+	///Time when the click was intercepted
+	var/click_intercept_time = 0
 
 	/// Acts the same way holder does towards admin: it holds the mentor datum. if set, the client is a mentor.
 	var/datum/mentors/mentor_datum = null

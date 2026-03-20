@@ -216,6 +216,7 @@ RLD
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
 	actions_types = list(/datum/action/item_action/rcd_scan)
+	action_slots = ALL
 	custom_price = 100
 	var/mode = RCD_FLOORWALL
 	var/construction_mode = RCD_FLOORWALL

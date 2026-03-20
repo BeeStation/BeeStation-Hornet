@@ -3,7 +3,7 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist
 	var/tips
-	var/name = "Antagonist"
+	var/name = "\improper Antagonist"
 	var/roundend_category = "other antagonists"				//Section of roundend report, datums with same category will be displayed together, also default header for the section
 	var/show_in_roundend = TRUE								//Set to false to hide the antagonists from roundend report
 	var/prevent_roundtype_conversion = TRUE		//If false, the roundtype will still convert with this antag active
@@ -26,6 +26,9 @@ GLOBAL_LIST(admin_antag_list)
 	/// such as uplinks can detect this datum's objectives for the cases where a syndicate
 	/// gets new objectives due to conversion.
 	var/faction = null
+
+	/// Flags for antags to turn on or off and check!
+	var/antag_flags = NONE
 
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
@@ -162,6 +165,9 @@ GLOBAL_LIST(admin_antag_list)
 	if(!ui_name)
 		return
 	var/datum/action/antag_info/info_button = new(src)
+	if(antag_flags & ANTAG_OBSERVER_VISIBLE_PANEL)
+		info_button.show_to_observers = TRUE
+		info_button.allow_observer_click = TRUE
 	info_button.Grant(owner.current)
 	info_button_ref = WEAKREF(info_button)
 	return info_button
@@ -175,11 +181,13 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/datum/poll_config/config = new()
-	config.check_jobban = banning_key
-	config.poll_time = 10 SECONDS
-	config.jump_target = owner.current
-	config.role_name_text = name
+	var/datum/poll_config/config = new(
+		check_jobban = banning_key,
+		poll_time = 10 SECONDS,
+		jump_target = owner.current,
+		role_name_text = name,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = owner.current)
 	if(candidate)
 		owner.current.ghostize(FALSE)
@@ -300,6 +308,11 @@ GLOBAL_LIST(admin_antag_list)
 		))
 		objective_count++
 	return objective_data
+
+/datum/antagonist/ui_status(mob/user, datum/ui_state/state)
+	. = ..()
+	if(isobserver(user) && antag_flags & ANTAG_OBSERVER_VISIBLE_PANEL)
+		return UI_UPDATE
 
 /datum/antagonist/ui_static_data(mob/user)
 	var/list/data = list()
@@ -447,20 +460,24 @@ GLOBAL_LIST(admin_antag_list)
 	button_icon_state = "round_end"
 	show_to_observers = FALSE
 
-/datum/action/antag_info/New(master)
+/datum/action/antag_info/New(target)
 	. = ..()
-	name = "Open [master] Information"
+	name = "Open [target] Information"
 
-/datum/action/antag_info/activate(atom/target)
-	target.ui_interact(owner)
+/datum/action/antag_info/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
+	target.ui_interact(clicker || owner)
 
 /datum/action/antag_info/is_available(feedback = FALSE)
-	if(!master)
+	if(!target)
 		stack_trace("[type] was used without a target antag datum!")
 		return FALSE
 	. = ..()
 	if(!.)
 		return
-	if(!owner.mind || !(master in owner.mind.antag_datums))
+	if(!owner.mind || !(target in owner.mind.antag_datums))
 		return FALSE
 	return TRUE

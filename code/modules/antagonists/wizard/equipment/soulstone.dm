@@ -84,7 +84,7 @@
 		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
-			S.icon_state = "shade_angelic"
+			S.icon_state = "shade_holy"
 			S.name = "Purified [S.real_name]"
 
 /obj/item/soulstone/proc/hot_potato(mob/living/user)
@@ -335,6 +335,7 @@
 		if(CONSTRUCT_JUGGERNAUT)
 			if(IS_CULTIST(creator))
 				makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+				SSblackbox.record_feedback("tally", "cult_shade_to_jugger", 1)
 				return
 			switch(theme)
 				if(THEME_WIZARD)
@@ -346,6 +347,7 @@
 		if(CONSTRUCT_WRAITH)
 			if(IS_CULTIST(creator))
 				makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+				SSblackbox.record_feedback("tally", "cult_shade_to_wraith", 1)
 				return
 			switch(theme)
 				if(THEME_WIZARD)
@@ -357,6 +359,7 @@
 		if(CONSTRUCT_ARTIFICER)
 			if(IS_CULTIST(creator))
 				makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+				SSblackbox.record_feedback("tally", "cult_shade_to_arti", 1)
 				return
 			switch(theme)
 				if(THEME_WIZARD)
@@ -435,13 +438,15 @@
 	chosen_ghost = T.get_ghost(TRUE,TRUE) //Try to grab original owner's ghost first
 
 	if(!chosen_ghost || !chosen_ghost.client) //Failing that, we grab a ghosts
-		var/datum/poll_config/config = new()
-		config.check_jobban = ROLE_CULTIST
-		config.poll_time = 10 SECONDS
-		config.ignore_category = POLL_IGNORE_CULT_SHADE
-		config.jump_target = T
-		config.role_name_text = "shade"
-		config.alert_pic = /mob/living/simple_animal/shade
+		var/datum/poll_config/config = new(
+			check_jobban = ROLE_CULTIST,
+			poll_time = 10 SECONDS,
+			ignore_category = POLL_IGNORE_CULT_SHADE,
+			jump_target = T,
+			role_name_text = "shade",
+			alert_pic = /mob/living/simple_animal/shade,
+			amount_to_pick = 1,
+		)
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, T)
 
 		if(candidate)

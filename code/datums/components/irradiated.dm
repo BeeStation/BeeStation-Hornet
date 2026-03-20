@@ -169,12 +169,15 @@
 
 	start_burn_splotch_timer()
 
-	var/mob/living/carbon/human/human_parent = parent
-
 	if (should_halt_effects(parent))
 		return
 
-	var/obj/item/bodypart/affected_limb = human_parent.get_bodypart(ran_zone(probability = 0))
+	var/mob/living/carbon/human/human_parent = parent
+
+	var/obj/item/bodypart/affected_limb = human_parent.get_bodypart(human_parent.get_random_valid_zone())
+	if(QDELETED(affected_limb))
+		return
+
 	human_parent.visible_message(
 		span_boldwarning("[human_parent]'s [affected_limb.plaintext_zone] bubbles unnaturally, then bursts into blisters!"),
 		span_boldwarning("Your [affected_limb.plaintext_zone] bubbles unnaturally, then bursts into blisters!"),
@@ -236,7 +239,8 @@
 /atom/movable/screen/alert/irradiated
 	name = "Irradiated"
 	desc = "You're irradiated! Seek medicine and stand under a shower to halt the incoming damage."
-	icon_state = ALERT_IRRADIATED
+	use_user_hud_icon = TRUE
+	overlay_state = "irradiated"
 
 #undef RADIATION_TOX_DAMAGE_PER_INTENSITY
 #undef RADIATION_MAX_TOX_DAMAGE

@@ -70,30 +70,12 @@
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 
-/obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage
-	name = "arcane barrage"
-	desc = "Pew Pew Pew."
-	fire_sound = 'sound/weapons/emitter.ogg'
-	pin = /obj/item/firing_pin/magic
-	icon_state = "arcane_barrage"
-	inhand_icon_state = "arcane_barrage"
-	slot_flags = null
-	can_bayonet = FALSE
-	item_flags = NEEDS_PERMIT | DROPDEL | ABSTRACT | NOBLUDGEON | SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN
-	flags_1 = NONE
-	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
-
-	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
-
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/dropped()
 	guns_left = 0
 	..()
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/proc/discard_gun(mob/living/user)
 	user.throw_item(pick(oview(7,get_turf(user))))
-
-/obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)
-	qdel(src)
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/attack_self()
 	return

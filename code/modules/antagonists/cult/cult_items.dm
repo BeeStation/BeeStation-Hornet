@@ -13,6 +13,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
 	inhand_icon_state = "cultdagger"
+	worn_icon_state = "render"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	inhand_x_dimension = 32
@@ -44,8 +45,11 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "A sword humming with unholy energy. It glows with a dim red light."
 	icon_state = "cultblade"
 	inhand_icon_state = "cultblade"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	worn_icon_state = "cultblade"
+	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
@@ -562,57 +566,61 @@ Striking a noncultist, however, will tear their flesh."}
 		to_chat(user, span_warning("\The [src] can only transport items!"))
 
 
-/obj/item/cult_spear
-	name = "blood halberd"
-	desc = "A sickening spear composed entirely of crystallized blood."
-	icon_state = "bloodspear0"
-	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
-	slot_flags = 0
+/obj/item/melee/cultblade/halberd
+	name = "bloody halberd"
+	desc = "A halberd with a volatile axehead made from crystallized blood. It seems linked to its creator. And, admittedly, more of a poleaxe than a halberd."
+	icon = 'icons/obj/weapons/spear.dmi'
+	icon_state = "occultpoleaxe0"
+	inhand_icon_state = "occultpoleaxe0"
+	base_icon_state = "occultpoleaxe0"
+	w_class = WEIGHT_CLASS_HUGE
 	force = 17
 	throwforce = 40
 	throw_speed = 2
 	armour_penetration = 30
 
-	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
-	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
+	slot_flags = null
+	attack_verb_continuous = list("attacks", "slices", "shreds", "sunders", "lacerates", "cleaves")
+	attack_verb_simple = list("attack", "slice", "shred", "sunder", "lacerate", "cleave")
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	var/datum/action/innate/cult/spear/spear_act
+	var/datum/action/innate/cult/halberd/halberd_act
 
-/obj/item/cult_spear/Initialize(mapload)
+/obj/item/melee/cultblade/halberd/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 90)
-	AddComponent(/datum/component/two_handed, force_unwielded=17, force_wielded=24, icon_wielded="bloodspear1")
+	AddComponent(/datum/component/two_handed, force_unwielded=17, force_wielded=24)
 
-/obj/item/cult_spear/update_icon()
-	icon_state = "bloodspear0"
-	..()
+/obj/item/melee/cultblade/halberd/update_icon_state()
+	icon_state = HAS_TRAIT(src, TRAIT_WIELDED) ? "[base_icon_state]1" : "[base_icon_state]0"
+	inhand_icon_state = HAS_TRAIT(src, TRAIT_WIELDED) ? "[base_icon_state]1" : "[base_icon_state]0"
+	return ..()
 
-/obj/item/cult_spear/Destroy()
-	if(spear_act)
-		qdel(spear_act)
-	..()
+/obj/item/melee/cultblade/halberd/Destroy()
+	if(halberd_act)
+		QDEL_NULL(halberd_act)
+	return ..()
 
-/obj/item/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/melee/cultblade/halberd/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
 	if(isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		if(IS_CULTIST(L))
-			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(L.put_in_active_hand(src))
-				L.visible_message(span_warning("[L] catches [src] out of the air!"))
-			else
-				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
-		else if(!..())
-			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
-				L.Knockdown(50)
-			break_spear(T)
+		var/mob/living/target = hit_atom
+
+		if(IS_CULTIST(target) && target.put_in_active_hand(src))
+			playsound(src, 'sound/items/weapons/throwtap.ogg', 50)
+			target.visible_message(span_warning("[target] catches [src] out of the air!"))
+			return
+		if(target.can_block_magic() || IS_CULTIST(target))
+			target.visible_message(span_warning("[src] bounces off of [target], as if repelled by an unseen force!"))
+			return
+		if(!..())
+			target.Knockdown(50)
+			break_halberd(T)
 	else
 		..()
 
-/obj/item/cult_spear/proc/break_spear(turf/T)
+/obj/item/melee/cultblade/halberd/proc/break_halberd(turf/T)
 	if(src)
 		if(!T)
 			T = get_turf(src)
@@ -623,49 +631,45 @@ Striking a noncultist, however, will tear their flesh."}
 			playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/datum/action/innate/cult/spear
+/datum/action/innate/cult/halberd
 	name = "Bloody Bond"
-	desc = "Call the blood spear back to your hand!"
+	desc = "Call the bloody halberd back to your hand!"
 	background_icon_state = "bg_demon"
 	overlay_icon_state = "bg_demon_border"
-	
+
 	button_icon_state = "bloodspear"
-	var/obj/item/cult_spear/spear
+	var/obj/item/melee/cultblade/halberd/halberd
 	var/cooldown = 0
 
-/datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
+/datum/action/innate/cult/halberd/Grant(mob/user, obj/blood_halberd)
 	. = ..()
-	spear = blood_spear
+	halberd = blood_halberd
 
-/datum/action/innate/cult/spear/on_activate()
-	if(owner == spear.loc || cooldown > world.time)
+/datum/action/innate/cult/halberd/Activate()
+	if(owner == halberd.loc || cooldown > world.time)
 		return
-	var/ST = get_turf(spear)
-	var/OT = get_turf(owner)
-	if(get_dist(OT, ST) > 10)
-		to_chat(owner,span_cult("The spear is too far away!"))
+	var/halberd_location = get_turf(halberd)
+	var/owner_location = get_turf(owner)
+	if(get_dist(owner_location, halberd_location) > 10)
+		to_chat(owner,span_cult("The halberd is too far away!"))
 	else
 		cooldown = world.time + 20
-		if(isliving(spear.loc))
-			var/mob/living/L = spear.loc
-			L.dropItemToGround(spear)
-			L.visible_message(span_warning("An unseen force pulls the blood spear from [L]'s hands!"))
-		spear.throw_at(owner, 10, 2, owner)
+		if(isliving(halberd.loc))
+			var/mob/living/current_owner = halberd.loc
+			current_owner.dropItemToGround(halberd)
+			current_owner.visible_message(span_warning("An unseen force pulls the bloody halberd from [current_owner]'s hands!"))
+		halberd.throw_at(owner, 10, 2, owner)
 
 
-/obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/blood
+/obj/item/gun/magic/wand/arcane_barrage/blood
 	name = "blood bolt barrage"
 	desc = "Blood for blood."
 	color = COLOR_RED
-	guns_left = 24
-	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
+	ammo_type =  /obj/item/ammo_casing/magic/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	weapon_weight = WEAPON_LIGHT
 	equip_time = 0
 	has_weapon_slowdown = FALSE
-
-/obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
-	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
 
 /obj/item/ammo_casing/magic/arcane_barrage/blood
 	projectile_type = /obj/projectile/magic/arcane_barrage/blood
@@ -679,24 +683,28 @@ Striking a noncultist, however, will tear their flesh."}
 	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
 
 /obj/projectile/magic/arcane_barrage/blood/Bump(atom/target)
-	var/turf/T = get_turf(target)
-	playsound(T, 'sound/effects/splat.ogg', 50, TRUE)
+	. = ..()
+	var/turf/our_turf = get_turf(target)
+	playsound(our_turf , 'sound/effects/splat.ogg', 50, TRUE)
+	new /obj/effect/temp_visual/cult/sparks(our_turf)
 
-	if(isliving(target))
-		var/mob/living/living_target = target
-		if(IS_CULTIST(living_target))
-			if(ishuman(living_target))
-				var/mob/living/carbon/human/H = living_target
-				if(H.stat != DEAD)
-					H.reagents.add_reagent(/datum/reagent/fuel/unholywater, 4)
-			if(isshade(living_target) || isconstruct(living_target))
-				var/mob/living/simple_animal/M = living_target
-				if(M.health+5 < M.maxHealth)
-					M.adjustHealth(-5)
-			new /obj/effect/temp_visual/cult/sparks(T)
-			qdel(src)
-		else
-			..()
+/obj/projectile/magic/arcane_barrage/blood/prehit_pierce(atom/target)
+	. = ..()
+	if(!ismob(target))
+		return PROJECTILE_PIERCE_NONE
+
+	var/mob/living/our_target = target
+	if(!IS_CULTIST(our_target))
+		return PROJECTILE_PIERCE_NONE
+
+	if(iscarbon(our_target) && our_target.stat != DEAD)
+		var/mob/living/carbon/carbon_cultist = our_target
+		carbon_cultist.reagents.add_reagent(/datum/reagent/fuel/unholywater, 4)
+	if(isshade(our_target) || isconstruct(our_target))
+		var/mob/living/simple_animal/undead_abomination = our_target
+		if(undead_abomination.health+5 < undead_abomination.maxHealth)
+			undead_abomination.adjustHealth(-5)
+	return PROJECTILE_DELETE_WITHOUT_HITTING
 
 /obj/item/blood_beam
 	name = "\improper magical aura"
@@ -863,24 +871,25 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/shield/mirror/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
-	var/datum/thrownthing/D = throwingdatum
 	if(isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		if(IS_CULTIST(L))
+		var/mob/living/target = hit_atom
+
+		if(target.can_block_magic(MAGIC_RESISTANCE_HOLY) || IS_CULTIST(target))
+			target.visible_message(span_warning("[src] bounces off of [target], as if repelled by an unseen force!"))
+			return
+		if(IS_CULTIST(target) && target.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(L.put_in_active_hand(src))
-				L.visible_message(span_warning("[L] catches [src] out of the air!"))
-			else
-				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
-		else if(!..())
-			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
-				L.Knockdown(30)
-				if(D?.thrower)
-					for(var/mob/living/Next in orange(2, T))
-						if(!Next.density || IS_CULTIST(Next))
-							continue
-						throw_at(Next, 3, 1, D.thrower)
-						return
-					throw_at(D.thrower, 7, 1, null)
+			target.visible_message(span_warning("[target] catches [src] out of the air!"))
+			return
+		if(!..())
+			target.Knockdown(30)
+			var/mob/living/carbon/thrower = throwingdatum?.get_thrower()
+			if(thrower)
+				for(var/mob/living/Next in orange(2, T))
+					if(!Next.density || IS_CULTIST(Next))
+						continue
+					throw_at(Next, 3, 1, thrower)
+					return
+				throw_at(thrower, 7, 1, null)
 	else
 		..()

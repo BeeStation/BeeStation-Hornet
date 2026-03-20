@@ -83,7 +83,7 @@
 	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	visor_flags_inv = HIDEFACIALHAIR
 	visor_flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/adjust_style)
 	armor_type = /datum/armor/gas_explorer
 	resistance_flags = FIRE_PROOF
 
