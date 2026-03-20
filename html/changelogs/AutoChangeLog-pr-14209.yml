@@ -1,0 +1,5 @@
+author: Isaac
+delete-after: true
+changes:
+  - bugfix: You can buckle onto objects if there's a directional window on the same
+      tile again
