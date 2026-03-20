@@ -103,13 +103,6 @@
 	if(!is_buckle_possible(M, force, check_loc))
 		return FALSE
 
-	var/turf/T = get_turf(src)
-	for(var/atom/movable/A in T)
-		if(A == src || A == M)
-			continue
-		if(A.density) // Self explanatory, there's something on the way, we cant buckle them to it
-			to_chat(M, span_warning("Something is in the way."))
-			return FALSE
 	// This signal will check if the mob is mounting this atom to ride it. There are 3 possibilities for how this goes
 	//	1. This movable doesn't have a ridable element and can't be ridden, so nothing gets returned, so continue on
 	//	2. There's a ridable element but we failed to mount it for whatever reason (maybe it has no seats left, for example), so we cancel the buckling
@@ -259,8 +252,15 @@
 	if(!target.can_buckle_to && !force)
 		return FALSE
 
-	return TRUE
+	var/turf/source_turf = get_turf(src)
+	for(var/atom/movable/blocking_atom in source_turf)	// Check for blocking objects on the turf
+		if(blocking_atom == src || blocking_atom == target)
+			continue
+		if(blocking_atom.density) // Something is in the way that is dense, stop them from buckling
+			to_chat(target, span_warning("Something is in the way."))
+			return FALSE
 
+	return TRUE
 /**
   * Simple helper proc that runs a suite of checks to test whether it is possible or not for user to buckle target mob to src.
   *
