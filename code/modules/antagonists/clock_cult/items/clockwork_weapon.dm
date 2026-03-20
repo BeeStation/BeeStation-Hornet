@@ -88,7 +88,8 @@
 	if(isliving(hit_atom))
 		var/mob/living/living_target = hit_atom
 		if(!living_target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_SERVANT_OF_RATVAR(living_target))
-			hit_effect(living_target, throwingdatum?.thrower, thrown = TRUE)
+			var/mob/living/thrower = throwingdatum?.get_thrower()
+			hit_effect(living_target, thrower, thrown = TRUE)
 
 /**
  * The special effect applied when hitting a living creature

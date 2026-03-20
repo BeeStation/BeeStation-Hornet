@@ -18,7 +18,7 @@
 	var/mob/living/carbon/target = parent
 	//Weird little fix - if height < 0, our guy gets cut off!! We can fix this by layering an invisible 64x64 icon, aka the displacement
 	target.add_filter("height_cutoff_fix", 1, layering_filter(icon = displacement_textures["[NORTH]"], color = "#ffffff00"))
-	update_displacement(src, target)
+	update_displacement(src, intensity)
 
 /datum/component/height_filter/Destroy()
 	. = ..()
@@ -43,4 +43,4 @@
 
 	if(!("[new_dir]" in displacement_textures)) //Stops directions unsupported by the icon getting through
 		return
-	update_displacement(src, source, _dir_override = new_dir)
+	update_displacement(src, intensity, _dir_override = new_dir)

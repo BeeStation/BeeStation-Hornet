@@ -608,16 +608,7 @@
 /turf/closed/wall/mineral,
 /area/quartermaster/miningoffice)
 "agK" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy";
-	pixel_x = 1
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -11841,15 +11832,7 @@
 /area/ai_monitored/storage/eva)
 "cwQ" = (
 /obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
 /area/space/nearstation)
 "cwZ" = (
@@ -37707,15 +37690,7 @@
 /area/hallway/upper/primary/port)
 "ijT" = (
 /obj/structure/lattice,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
 /area/space/nearstation)
 "ikf" = (
@@ -44800,15 +44775,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -68060,15 +68027,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -77537,7 +77496,7 @@
 /area/hallway/primary/starboard)
 "qVc" = (
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/machinery/light/small/directional/south,
 /obj/structure/sign/poster/official/random/directional/south,
 /obj/item/toy/cattoy,
@@ -87354,15 +87313,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -90246,19 +90197,6 @@
 	dir = 1
 	},
 /area/hydroponics)
-"tKv" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "tKx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -92793,15 +92731,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -102029,15 +101959,7 @@
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "wjJ" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -110071,15 +109993,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "yap" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -133042,7 +132956,7 @@ hyT
 nzj
 nzj
 nzj
-tKv
+agK
 nzj
 nzj
 nzj
@@ -147966,7 +147880,7 @@ dGx
 dGx
 dGx
 pwd
-tKv
+agK
 nzj
 nzj
 nzj
@@ -148994,7 +148908,7 @@ hRw
 hRw
 hRw
 hhZ
-tKv
+agK
 nzj
 nzj
 nzj

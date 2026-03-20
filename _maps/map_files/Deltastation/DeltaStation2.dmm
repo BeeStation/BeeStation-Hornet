@@ -65303,7 +65303,7 @@
 	dir = 1
 	},
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
 "qMj" = (
