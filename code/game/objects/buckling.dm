@@ -253,7 +253,7 @@
 		return FALSE
 
 	var/turf/turf = get_turf(src)
-	if(turf.is_blocked_turf(source_atom = target, ignore_atoms = list(/obj/vehicle), type_list = TRUE))
+	if(turf.is_blocked_turf(source_atom = target, ignore_atoms = list(src))
 		to_chat(target, span_warning("Something is in the way"))
 		return FALSE
 
