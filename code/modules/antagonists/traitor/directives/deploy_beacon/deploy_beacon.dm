@@ -30,7 +30,7 @@
 		if (!area)
 			area_types -= target_type
 			continue
-		center_turf = pick(area.contained_turfs)
+		center_turf = pick(area.get_turfs_from_all_zlevels())
 	if (!center_turf)
 		reject()
 		return

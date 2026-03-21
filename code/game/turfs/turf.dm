@@ -175,12 +175,14 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
-	var/area/A = loc
-	if(fullbright_type && IS_DYNAMIC_LIGHTING(A))
-		if (fullbright_type == FULLBRIGHT_STARLIGHT)
-			add_overlay(GLOB.starlight_overlay)
-		else
-			add_overlay(GLOB.fullbright_overlay)
+	// Same optimization principle as /atom/movable/Initialize()
+	var/area/our_area = loc
+	if(fullbright_type)
+		if(fullbright_type == FULLBRIGHT_STARLIGHT)
+			if(!our_area.has_starlight_overlay)
+				add_overlay(GLOB.starlight_overlay)
+	else if(!our_area.area_has_base_lighting)
+		add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
@@ -276,9 +278,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		return
 
 	//move the turf
-	old_area.turfs_to_uncontain += src
+	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
+	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
+	old_area.turfs_to_uncontain_by_zlevel[z] += src
+	new_area.turfs_by_zlevel[z] += src
 	new_area.contents += src
-	new_area.contained_turfs += src
 
 	//changes to make after turf has moved
 	on_change_area(old_area, new_area)

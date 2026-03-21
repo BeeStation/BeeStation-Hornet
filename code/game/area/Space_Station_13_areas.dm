@@ -25,7 +25,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "space"
 	requires_power = TRUE
 	always_unpowered = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
 	power_light = FALSE
 	power_equip = FALSE
 	power_environ = FALSE
@@ -35,19 +35,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambient_music_index = AMBIENCE_SPACE
 	ambient_buzz = null //Space is deafeningly quiet
 	sound_environment = SOUND_AREA_SPACE
-	fullbright_type = FULLBRIGHT_STARLIGHT
-	default_gravity = ZERO_GRAVITY
+	has_starlight_overlay = TRUE
 
 /area/space/nearstation
 	icon_state = "space_near"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
-	default_gravity = ZERO_GRAVITY
+	static_lighting = TRUE
 
 /area/start
 	name = "start area"
 	icon_state = "start"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
 	default_gravity = STANDARD_GRAVITY
 	ambience_index = null
 	ambient_buzz = null
@@ -68,10 +66,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_MINING
 	sound_environment = SOUND_AREA_ASTEROID
 	area_flags = UNIQUE_AREA
-	fullbright_type = FULLBRIGHT_STARLIGHT
+	has_starlight_overlay = TRUE
 
 /area/asteroid/nearstation
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambience_index = AMBIENCE_RUINS
 	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
 
@@ -91,8 +88,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 	sound_environment = null
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_STASH_LOCATION
-	fullbright_type = FULLBRIGHT_STARLIGHT
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/paradise/surface/sand
 	name = "paradise surface sand"

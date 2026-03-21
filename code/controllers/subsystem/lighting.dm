@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(lighting)
 #endif
 
 /datum/controller/subsystem/lighting/stat_entry(msg)
-	msg = "L:[length(sources_queue)]|C:[length(corners_queue)]|O:[length(objects_queue)]"
+	msg = "Sources:[length(sources_queue)]|Corners:[length(corners_queue)]|Objects:[length(objects_queue)]"
 	return ..()
 
 /datum/controller/subsystem/lighting/get_metrics()
@@ -29,10 +29,6 @@ SUBSYSTEM_DEF(lighting)
 
 /datum/controller/subsystem/lighting/Initialize()
 	if(!initialized)
-		for(var/area/A as anything in GLOB.areas)
-			if (A.dynamic_lighting == DYNAMIC_LIGHTING_ENABLED)
-				A.luminosity = 0
-
 		create_all_lighting_objects()
 		initialized = TRUE
 
@@ -41,15 +37,14 @@ SUBSYSTEM_DEF(lighting)
 	return SS_INIT_SUCCESS
 
 /proc/create_all_lighting_objects()
-	for(var/area/A as anything in GLOB.areas)
-		if(!IS_DYNAMIC_LIGHTING(A))
+	for(var/area/area as anything in GLOB.areas)
+		if(!area.static_lighting)
 			continue
-
-		for(var/turf/T as anything in A.get_contained_turfs())
-			if(T.fullbright_type)
-				continue
-
-			new/atom/movable/lighting_object(T)
+		for (var/list/zlevel_turfs as anything in area.get_zlevel_turf_lists())
+			for(var/turf/area_turf as anything in zlevel_turfs)
+				if(area_turf.fullbright_type != FULLBRIGHT_NONE)
+					continue
+				new /atom/movable/lighting_object(area_turf)
 			CHECK_TICK
 		CHECK_TICK
 

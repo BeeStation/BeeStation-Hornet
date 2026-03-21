@@ -1,14 +1,14 @@
 /atom/movable/lighting_object
-	name          = ""
+	name = ""
 
-	anchored      = TRUE
+	anchored = TRUE
 
-	icon             = LIGHTING_ICON
-	icon_state       = "transparent"
-	color            = LIGHTING_BASE_MATRIX
-	plane            = LIGHTING_PLANE
+	icon = LIGHTING_ICON
+	icon_state = "transparent"
+	color = LIGHTING_BASE_MATRIX
+	plane = LIGHTING_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	invisibility     = INVISIBILITY_LIGHTING
+	invisibility = INVISIBILITY_LIGHTING
 
 	var/needs_update = FALSE
 	var/turf/myturf

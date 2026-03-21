@@ -4,7 +4,6 @@
 /area/centcom
 	name = "CentCom"
 	icon_state = "centcom"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -37,7 +36,6 @@
 /area/centcom/supplypod
 	name = "Supplypod Facility"
 	icon_state = "supplypod"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/centcom/supplypod/podStorage
 	name = "Supplypod Storage"
@@ -80,7 +78,6 @@
 /area/tdome
 	name = "Thunderdome"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
@@ -89,12 +86,10 @@
 /area/tdome/arena
 	name = "Thunderdome Arena"
 	icon_state = "thunder"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/tdome/arena_source
 	name = "Thunderdome Arena Template"
 	icon_state = "thunder"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/tdome/tdome1
 	name = "Thunderdome (Team 1)"
@@ -119,7 +114,6 @@
 /area/wizard_station
 	name = "Wizard's Den"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_WIZARD
@@ -153,7 +147,6 @@
 /area/syndicate_mothership/control
 	name = "Syndicate Control Room"
 	icon_state = "syndie-control"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/syndicate_mothership/elite_squad
 	name = "Syndicate Elite Squad"
@@ -165,7 +158,8 @@
 	name = "Capture the Flag"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 	default_gravity = STANDARD_GRAVITY
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
@@ -202,7 +196,8 @@
 	name = "Reebe"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
@@ -216,4 +211,3 @@
 	name = "Reebe - City of Cogs"
 	icon_state = "purple"
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
-	var/playing_ambience = FALSE
