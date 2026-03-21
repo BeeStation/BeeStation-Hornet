@@ -26,7 +26,9 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "C" = (
-/obj/machinery/computer/shuttle_flight/monastery_shuttle,
+/obj/machinery/computer/shuttle_flight/monastery_shuttle{
+	possible_destinations = "monastery_shuttle_asteroid;monastery_shuttle_station;/area/library"
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/pod_1)
 "H" = (
