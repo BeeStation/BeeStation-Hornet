@@ -165,3 +165,20 @@
   - bugfix: The syndicate has fixed their chameleon technology for engineering models
   WhiskeyMarten:
   - bugfix: Replaced improper marker beacons on Cardinal with the correct variant.
+2026-03-20:
+  Isaac:
+  - bugfix: Hangover trait should  stop putting you into crit anymore roundstart
+  - bugfix: Net caster projectiles no longer make you bleed
+  - bugfix: You can no longer buckle yourself to a chair that has a dense object ontop
+      of it
+  - bugfix: Cats are no longer trapped in their houses, they'll wander back out
+  - bugfix: Cats are no longer sent into cat hell if the house they were residing
+      in was destroyed
+  - balance: Labor camp teleporter console now uses security access instead of armory,
+      security officers can access it
+  - spellcheck: Added a small text on the resin mister module, hinting where upgrades
+      should be placed at
+  - code_imp: Light replacer afterattack is more readable and accepts hitting light
+      fixtures directly
+  - bugfix: You can buckle onto objects if there's a directional window on the same
+      tile again
