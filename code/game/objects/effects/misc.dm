@@ -81,7 +81,9 @@
 
 /obj/effect/fullbright/starlight
 	plane = STARLIGHT_PLANE
-	transform = matrix(2, 0, 0, 0, 2, 0)
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "starlight"
+	SET_BASE_PIXEL(-32, -32)
 
 /obj/effect/abstract/marker
 	name = "marker"
