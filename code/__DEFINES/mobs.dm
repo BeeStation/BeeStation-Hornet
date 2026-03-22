@@ -33,19 +33,15 @@
 
 // Bullet bleed values. Bullets tear through tissue and cause serious hemorrhaging
 // Bullets trade lower brute damage for heavy bleeding and organ trauma
-#define BLEED_BULLET_LIGHT 10		// Small caliber (9mm, .38, 4.6x30mm) — dangerous if untreated
-#define BLEED_BULLET_MEDIUM 15		// Medium caliber (.45, 10mm, 5.56mm, buckshot slugs)
-#define BLEED_BULLET_HEAVY 20		// Heavy caliber (.357, 7.62, .50AE, 7.12x82mm, 12g slugs)
-#define BLEED_BULLET_DEVASTATING 25	// Anti-materiel (.50 sniper), hollow-points, DumDum rounds
+#define BLEED_BULLET 20
+#define BLEED_BULLET_DEVASTATING 30	// Anti-materiel (.50 sniper), hollow-points, DumDum rounds
 
 // Projectile organ damage defines
-/// The flat % chance a projectile passes clean through without hitting any organs
-#define ORGAN_DAMAGE_PASSTHROUGH_CHANCE 15
 
 /// Organ damage multiplier tiers (fraction of dealt damage that becomes organ damage)
 /// Formula: organ_dmg = dealt_damage * multiplier * (dealt_damage / base_damage)
-#define ORGAN_DAMAGE_MULT_NORMAL 10			// Standard bullets — steady organ trauma over multiple hits
-#define ORGAN_DAMAGE_MULT_HEAVY 20			// Hollow-points, DumDum, anti-materiel — devastating organ trauma
+#define ORGAN_DAMAGE_MULT_NORMAL 5			// Standard bullets
+#define ORGAN_DAMAGE_MULT_HEAVY 10			// Hollow-points, DumDum, anti-materiel
 
 /// Brains are fragile. Projectile organ damage to brains is multiplied by this factor
 #define ORGAN_BRAIN_FRAGILITY_MULT 3
