@@ -223,7 +223,7 @@
 	spun = TRUE
 
 /obj/item/gun/ballistic/revolver/russian/attackby(obj/item/A, mob/user, params)
-	..()
+	. = ..()
 	if(get_ammo() > 0)
 		spin()
 	update_icon()
@@ -235,12 +235,15 @@
 		spin()
 		spun = TRUE
 		return
-	..()
+	return ..()
 
-/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
-	. = ..(null, user, flag, params)
+/// No, we don't parent call. Because guncode is stupid and trash. Enjoy
+/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, proximity_flag, params)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, click_parameters)
 
-	if(flag)
+	if(proximity_flag)
 		if(!(target in user.contents) && ismob(target))
 			if(user.combat_mode) // Flogging action
 				return
