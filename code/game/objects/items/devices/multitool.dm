@@ -87,32 +87,35 @@
 
 /obj/item/multitool/ai_detect/proc/toggle_hud(mob/user)
 	hud_on = !hud_on
-	if(user)
-		to_chat(user, span_notice("You toggle the ai detection HUD on [src] [hud_on ? "on" : "off"]."))
+	if(!user)
+		return
+
+	to_chat(user, span_notice("You toggle the ai detection HUD on [src] [hud_on ? "on" : "off"]."))
 	if(hud_on)
 		show_hud(user)
 	else
 		remove_hud(user)
 
 /obj/item/multitool/ai_detect/proc/show_hud(mob/user)
-	if(user && hud_type)
-		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
-		PM.alpha = 64
-		var/datum/atom_hud/H = GLOB.huds[hud_type]
-		if(!H.hud_users[user])
-			H.show_to(user)
-		eye.eye_user = user
-		eye.setLoc(get_turf(src))
+	var/atom/movable/screen/plane_master/camera_static/plane_master = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
+	plane_master.alpha = 64
+
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_AI_DETECT]
+	hud.show_to(user)
+
+	eye.eye_user = user
+	eye.setLoc(get_turf(src))
 
 /obj/item/multitool/ai_detect/proc/remove_hud(mob/user)
-	if(user && hud_type)
-		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
-		PM.alpha = 255
-		var/datum/atom_hud/H = GLOB.huds[hud_type]
-		H.hide_from(user)
-		if(eye)
-			eye.setLoc(null)
-			eye.eye_user = null
+	var/atom/movable/screen/plane_master/camera_static/plane_master = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
+	plane_master.alpha = 255
+
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_AI_DETECT]
+	hud.hide_from(user)
+
+	if(eye)
+		eye.setLoc(null)
+		eye.eye_user = null
 
 /obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)

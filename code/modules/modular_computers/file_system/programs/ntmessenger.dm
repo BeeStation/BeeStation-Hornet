@@ -165,7 +165,7 @@
 			for(var/obj/item/modular_computer/mc in GetViewableDevices())
 				targets += mc
 
-			if(targets.len > 0)
+			if(length(targets))
 				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay))
 					computer.balloon_alert_to_viewers("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds.")
 					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds."))
@@ -299,7 +299,7 @@
 	return sanitize(message)
 
 /datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null, multi_delay = 0)
-	if(!targets.len)
+	if(!length(targets))
 		return FALSE
 	var/target_name = length(targets) == 1 ? targets[1].saved_identification : "Everyone"
 	var/message = msg_input(user, target_name)
