@@ -493,3 +493,41 @@
 	icon_state = "hosbadge"
 	worn_icon_state = "hosbadge"
 	badge_title = "Head of Security"
+
+///////////////////
+//Duraweave Lining//
+///////////////////
+
+/obj/item/clothing/accessory/duraweave
+	name = "duraweave armor lining"
+	desc = "A thin, flexible armor lining made from experimental duraweave fibers. \
+			Can be sewn into any uniform to provide concealed ballistic and impact protection across the entire body. \
+			The added bulk is virtually undetectable."
+	icon_state = "duraweave" // Placeholder, as a thin fabric sheet
+	w_class = WEIGHT_CLASS_SMALL
+	armor_type = /datum/armor/duraweave
+	hidden = TRUE
+	/// The original body_parts_covered flags of the uniform before we modified them
+	var/original_body_parts_covered = null
+
+/datum/armor/duraweave
+	melee = 40
+	bullet = 60
+	laser = 60
+	energy = 60
+	bomb = 10
+	stamina = 50
+	bleed = 65
+
+/obj/item/clothing/accessory/duraweave/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
+	original_body_parts_covered = U.body_parts_covered
+	U.body_parts_covered |= (CHEST|GROIN|LEGS|ARMS|HANDS|FEET)
+
+/obj/item/clothing/accessory/duraweave/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
+	if(!isnull(original_body_parts_covered))
+		U.body_parts_covered = original_body_parts_covered
+		original_body_parts_covered = null
+
+/obj/item/clothing/accessory/duraweave/examine(mob/user)
+	. = ..()
+	. += span_warning("Once attached, the lining is hidden from outside observers.")
