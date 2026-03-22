@@ -14,11 +14,11 @@
 	armor_type = /datum/armor/suit_armor
 
 /datum/armor/suit_armor
-	melee = 30
-	bullet = 30
-	laser = 30
+	melee = 40
+	bullet = 40
+	laser = 40
 	energy = 40
-	bomb = 25
+	bomb = 20
 	fire = 50
 	acid = 50
 	stamina = 30
