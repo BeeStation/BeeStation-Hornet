@@ -356,7 +356,7 @@
 	// can push through the effectiveness gate against armored targets
 	var/reference_damage = base_damage > 0 ? base_damage : damage
 	var/effectiveness = clamp(damage_dealt / max(reference_damage, 1), 0, 1)
-	// If armor stopped too much of the bullet, no bleeding — the round didn't penetrate
+	// If armor stopped too much of the bullet the round didn't penetrate
 	if(effectiveness < PROJECTILE_MINIMUM_EFFECTIVENESS)
 		return
 	// Check bleed-specific armor (e.g. padded clothing that reduces hemorrhaging)
@@ -411,7 +411,7 @@
 	var/reference_damage = base_damage > 0 ? base_damage : damage
 	var/effectiveness = clamp(damage_dealt / max(reference_damage, 1), 0, 1)
 
-	// If armor stopped too much of the bullet, no organ damage — the round didn't penetrate deep enough
+	// If armor stopped too much of the bullet, no organ damage, the round didn't penetrate deep enough
 	if(effectiveness < PROJECTILE_MINIMUM_EFFECTIVENESS)
 		return
 
