@@ -2,11 +2,12 @@
 
 /obj/projectile/bullet/p50
 	name =".50 bullet"
-	speed = 0.2
-	damage = 70
+	damage = 55
 	knockdown = 5
 	dismemberment = 50
 	armour_penetration = 50
+	bleed_force = BLEED_BULLET_DEVASTATING
+	organ_damage_multiplier = ORGAN_DAMAGE_MULT_HEAVY
 	// Will penetrate but damage anything not a wall
 	projectile_piercing = PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE
 	var/breakthings = TRUE
@@ -14,13 +15,13 @@
 /obj/projectile/bullet/p50/on_hit(atom/target, blocked = 0)
 	if(isobj(target) && (blocked != 100) && breakthings)
 		var/obj/O = target
-		O.take_damage(80, BRUTE, BULLET, FALSE)
+		O.take_damage(100, BRUTE, BULLET, FALSE)
 	return ..()
 
 /obj/projectile/bullet/p50/penetrator
 	name =".50 penetrator bullet"
 	icon_state = "gauss"
-	damage = 60
+	damage = 45
 	projectile_piercing = PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE
 	// Phase directly through everything else
 	projectile_phasing = (ALL & ~(PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE))
@@ -30,7 +31,7 @@
 
 /obj/projectile/bullet/p50/penetrator/shuttle //Nukeop Shuttle Variety
 	icon_state = "gaussstrong"
-	damage = 25
+	damage = 24
 	speed = 0.3
 	range = 16
 

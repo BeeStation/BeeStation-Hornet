@@ -2,7 +2,9 @@
 
 /obj/projectile/bullet/a556
 	name = "5.56mm bullet"
-	damage = 35
+	damage = 30
+	armour_penetration = 20 // Military rifle round, decent penetration
+	bleed_force = BLEED_BULLET_MEDIUM
 
 // 7.62 (Nagant Rifle / Pipe Rifle)
 
@@ -10,11 +12,13 @@
 	name = "7.62 bullet"
 	damage = 40
 	armour_penetration = 30
+	bleed_force = BLEED_BULLET_HEAVY
 
 /obj/projectile/bullet/a762_enchanted
 	name = "enchanted 7.62 bullet"
-	damage = 20
+	damage = 14
 	stamina = 80
 
 /obj/projectile/bullet/a762/weak
-	damage = 30
+	damage = 28
+	bleed_force = BLEED_BULLET_MEDIUM

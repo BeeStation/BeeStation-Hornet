@@ -201,6 +201,7 @@
 	icon_state = "officerbluejacket"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|ARMS
+	armor_type = /datum/armor/security_clothing
 	custom_price = 50
 
 /obj/item/clothing/suit/jacket/officer/tan
@@ -209,6 +210,7 @@
 	icon_state = "officertanjacket"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|ARMS
+	armor_type = /datum/armor/security_clothing
 
 /obj/item/clothing/suit/jacket/warden/blue
 	name = "warden's jacket"
@@ -216,6 +218,7 @@
 	icon_state = "wardenbluejacket"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|ARMS
+	armor_type = /datum/armor/security_clothing
 
 /obj/item/clothing/suit/jacket/warden/tan
 	name = "warden's jacket"
@@ -223,6 +226,7 @@
 	icon_state = "wardenbluejacket"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|ARMS
+	armor_type = /datum/armor/security_clothing
 
 /obj/item/clothing/suit/jacket/hos/blue
 	name = "head of security's jacket"
@@ -230,6 +234,7 @@
 	icon_state = "hosbluejacket"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|ARMS
+	armor_type = /datum/armor/security_clothing
 
 /obj/item/clothing/suit/jacket/hos/tan
 	name = "head of security's jacket"
@@ -237,6 +242,7 @@
 	icon_state = "hostanjacket"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|ARMS
+	armor_type = /datum/armor/security_clothing
 
 //Surgeon
 /obj/item/clothing/suit/apron/surgical

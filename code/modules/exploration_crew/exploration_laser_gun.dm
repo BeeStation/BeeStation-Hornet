@@ -21,14 +21,14 @@
 	e_cost = 400 WATT
 
 /obj/projectile/beam/laser/anti_creature
-	damage = 15
+	damage = 25
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/anti_creature/prehit_pierce(atom/target)
 	if(!iscarbon(target) && !issilicon(target))
-		damage = 30
+		damage = 45
 	return ..()
 
 //Cutting projectile - Damage against objects
@@ -39,7 +39,7 @@
 	e_cost = 300 WATT
 
 /obj/projectile/beam/laser/cutting
-	damage = 5
+	damage = 10
 	icon_state = "plasmacutter"
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
@@ -62,7 +62,7 @@
 	e_cost = 800 WATT
 
 /obj/projectile/beam/laser/exploration_kill
-	damage = 30
+	damage = 40
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
@@ -70,7 +70,7 @@
 /obj/projectile/beam/laser/exploration_kill/on_hit(atom/target, blocked)
 	damage = initial(damage)
 	if(!iscarbon(target) && !issilicon(target))
-		damage = 50
+		damage = 60
 	//If you somehow hit yourself you get fried.
 	if(target == firer)
 		to_chat(firer, span_userdanger("The laser accelerates violently towards your gun's magnetic field, tearing its way through your body!"))
@@ -85,7 +85,7 @@
 	e_cost = 1200 WATT
 
 /obj/projectile/beam/laser/exploration_destroy
-	damage = 20
+	damage = 30
 	icon_state = "heavylaser"
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
@@ -157,4 +157,4 @@
 	e_cost = 500 WATT	//20 shot capacity
 
 /obj/projectile/beam/laser/anti_creature/cyborg
-	damage = 5  //15 is too much given this can be used on station
+	damage = 8  //25 is too much given this can be used on station

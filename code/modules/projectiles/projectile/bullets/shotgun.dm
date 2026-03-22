@@ -1,12 +1,14 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
-	damage = 35 // single slug, high damage, low armour penetration, 3 slugs to crit unarmoured
+	damage = 40 // single slug, high damage - a 12g slug is devastating
 	armour_penetration = 25
+	bleed_force = BLEED_BULLET_HEAVY
 
 /obj/projectile/bullet/shotgun_gold
 	name = "golden shotgun slug"
 	damage = 28
 	armour_penetration = 20
+	bleed_force = BLEED_BULLET_MEDIUM
 
 /obj/projectile/bullet/shotgun_bronze
 	name = "bronze shotgun slug"
@@ -15,6 +17,7 @@
 	stamina = 15
 	stutter = 5
 	armour_penetration = -15
+	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/shotgun_honk
 	name = "honk shotgun slug"
@@ -23,6 +26,7 @@
 	knockdown = 100
 	armour_penetration = -5
 	bleed_force = 0
+	organ_damage_multiplier = 0
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
@@ -31,10 +35,11 @@
 	jitter = 5
 	armour_penetration = -10
 	bleed_force = BLEED_TINY
+	organ_damage_multiplier = 0 // Non-lethal, doesn't penetrate
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
-	damage = 15
+	damage = 17
 
 /obj/projectile/bullet/incendiary/shotgun/dragonsbreath
 	name = "dragonsbreath pellet"
@@ -50,6 +55,8 @@
 	range = 8
 	icon_state = "spark"
 	color = COLOR_YELLOW
+	bleed_force = 0
+	organ_damage_multiplier = 0 // Non-lethal
 
 /obj/projectile/bullet/pellet
 	var/tile_dropoff = 0.75
@@ -57,7 +64,7 @@
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
-	bleed_force = BLEED_SCRATCH
+	bleed_force = BLEED_BULLET_LIGHT
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/armour_piercing
 	name = "armour-piercing buckshot pellet"
@@ -67,7 +74,7 @@
 
 /obj/projectile/bullet/pellet/shotgun_buckshot // Seperated to AP and normal buckshot
 	name = "buckshot pellet"
-	damage = 8
+	damage = 7
 	tile_dropoff = 0.5
 	armour_penetration = 20
 
@@ -83,6 +90,7 @@
 	ricochet_decay_chance = 0.75
 	armour_penetration = -15
 	bleed_force = BLEED_TINY
+	organ_damage_multiplier = 0 // Rubber, non-lethal
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
 	if(damage <= 0 && tile_dropoff_s == 0)
@@ -107,7 +115,7 @@
 
 /obj/projectile/bullet/pellet/shotgun_metal
 	tile_dropoff = 0.75
-	damage = 8
+	damage = 7
 	range = 6
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/shotgun
@@ -128,8 +136,8 @@
 // Mech Scattershot
 
 /obj/projectile/bullet/scattershot
-	damage = 18
-	bleed_force = BLEED_SURFACE
+	damage = 15
+	bleed_force = BLEED_BULLET_LIGHT
 
 //Breaching Ammo
 

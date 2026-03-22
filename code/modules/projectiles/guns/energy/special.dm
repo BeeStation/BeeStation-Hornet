@@ -29,7 +29,7 @@
 	pin = null
 	ammo_type = list(/obj/item/ammo_casing/energy/ion/weak) //Light EMP, 24 shots
 	ammo_x_offset = 2
-	fire_rate = 2.5
+	fire_rate = 6
 	full_auto = TRUE
 
 /obj/item/gun/energy/ionrifle/carbine/add_seclight_point()

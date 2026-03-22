@@ -35,6 +35,13 @@
 	alt_covers_chest = FALSE
 
 
+/datum/armor/security_clothing
+	melee = 5
+	fire = 30
+	acid = 30
+	stamina = 10
+	bleed = 10
+
 /datum/armor/security_officer
 	melee = 5
 	fire = 30

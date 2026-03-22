@@ -12,6 +12,7 @@
 					/obj/item/reagent_containers/cup/bottle = 10,
 					/obj/item/reagent_containers/spray/cleaner = 1,
 					/obj/item/stack/medical/gauze = 8,
+					/obj/item/stack/medical/suture = 8,
 					/obj/item/reagent_containers/hypospray/medipen = 8,
 					/obj/item/reagent_containers/hypospray/medipen/dexalin = 8,
 					/obj/item/reagent_containers/cup/bottle/epinephrine = 4,

@@ -2,8 +2,9 @@
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
-	damage = 20
+	damage = 40
 	damage_type = BURN
+	armour_penetration = -80 // Lasers hit hard but are easily stopped by armour
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	armor_flag = LASER
@@ -17,6 +18,7 @@
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 	reflectable = REFLECT_NORMAL
+	damage_variance = PROJECTILE_VARIANCE_LASER
 
 /obj/projectile/beam/laser
 	tracer_type = /obj/effect/projectile/tracer/laser
@@ -26,7 +28,8 @@
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
-	damage = 40
+	damage = 60
+	armour_penetration = -100 // Heavy laser, even more raw power but still stopped by armour
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
 	impact_type = /obj/effect/projectile/impact/heavy_laser
@@ -40,19 +43,20 @@
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
 /obj/projectile/beam/laser/lesslethal
-	damage = 11
+	damage = 20
 	stamina = 22
+	armour_penetration = -50 // Less-lethal laser, moderate armour weakness
 	icon_state = "minilaser"
 
 /obj/projectile/beam/weak
-	damage = 12
+	damage = 20
 
 /obj/projectile/beam/weak/shotgun
-	damage = 18
+	damage = 25
 
 /obj/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
-	damage = 15
-	armour_penetration = 50
+	damage = 20
+	armour_penetration = -20 // Penetrator variant, less armour weakness than standard lasers
 
 /obj/projectile/beam/practice
 	name = "practice laser"
@@ -63,14 +67,14 @@
 /obj/projectile/beam/scatter
 	name = "laser pellet"
 	icon_state = "scatterlaser"
-	damage = 5
+	damage = 11
 
 /obj/projectile/beam/xray
 	name = "\improper X-ray beam"
 	icon_state = "xray"
-	damage = 15
+	damage = 30
 	range = 15
-	armour_penetration = 60
+	armour_penetration = 20 // X-ray beams penetrate armour, but not as extremely as before
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -82,9 +86,10 @@
 /obj/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 28
+	damage = 36
 	damage_type = STAMINA
 	armor_flag = ENERGY
+	armour_penetration = -50 // Energy weapons are easily stopped by armour
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -95,14 +100,16 @@
 
 /obj/projectile/beam/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
 	name = "beam-disabler"
-	damage = 50
+	damage = 60
 	damage_type = STAMINA
+	armour_penetration = -40 // Malf AI variant, slightly better penetration
 	pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
 
 /obj/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
-	damage = 50
+	damage = 70
+	armour_penetration = -40 // Pulse lasers are advanced combat lasers, but still weakened by armour
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
 	tracer_type = /obj/effect/projectile/tracer/pulse
@@ -118,7 +125,7 @@
 			SSexplosions.medturf += target
 
 /obj/projectile/beam/pulse/shotgun
-	damage = 35
+	damage = 50
 
 /obj/projectile/beam/pulse/heavy
 	name = "heavy pulse laser"
@@ -134,8 +141,8 @@
 /obj/projectile/beam/emitter
 	name = "emitter beam"
 	icon_state = "emitter"
-	//Will actually be 30 when fired from an emitter due to additional damage provided by stock parts
-	damage = 25
+	//Will actually be ~45 when fired from an emitter due to additional damage provided by stock parts
+	damage = 40
 	light_color = LIGHT_COLOR_GREEN
 	hitscan = TRUE
 	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
@@ -160,8 +167,8 @@
 /obj/projectile/beam/emitter/drill
 	name = "driller beam"
 	icon_state = "emitter"
-	//Will actually be 10 when fired from an emitter due to additional damage provided by stock parts
-	damage = 5
+	//Will actually be ~15 when fired from an emitter due to additional damage provided by stock parts
+	damage = 10
 	light_color = COLOR_DARK_ORANGE
 	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter/drill
 	tracer_type = /obj/effect/projectile/tracer/laser/emitter/drill
@@ -225,6 +232,7 @@
 	icon_state = "purple_laser"
 	damage = 200
 	damage_type = BURN
+	armour_penetration = 100 // Admin weapon, ignores armour
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE
 

@@ -21,7 +21,7 @@
 // See blood.dm for calculations
 #define BLEED_RATE_MINOR 2.4 		/// Point at which bleeding is considered minor and will eventually self-heal
 #define BLEED_HEAL_RATE_MINOR 0.02 	/// How quickly minor bleeds will stop bleeding (0.05/sec)
-#define MAX_BLEED_RATE 3			/// Mobs can get more bleed than this, but won't actually bleed faster than this value
+#define MAX_BLEED_RATE 10			/// Mobs can get more bleed than this, but won't actually bleed faster than this value
 
 // Bleed damage values
 #define BLEED_TINY 0.1
@@ -30,6 +30,34 @@
 #define BLEED_CUT 2.3				// 560 > 442 blood in 115 seconds
 #define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
 #define BLEED_CRITICAL 3.6			// Crit in 190 seconds, Death in 238 seconds
+
+// Bullet bleed values. Bullets tear through tissue and cause serious hemorrhaging
+// Bullets trade lower brute damage for heavy bleeding and organ trauma
+#define BLEED_BULLET_LIGHT 10		// Small caliber (9mm, .38, 4.6x30mm) — dangerous if untreated
+#define BLEED_BULLET_MEDIUM 15		// Medium caliber (.45, 10mm, 5.56mm, buckshot slugs)
+#define BLEED_BULLET_HEAVY 20		// Heavy caliber (.357, 7.62, .50AE, 7.12x82mm, 12g slugs)
+#define BLEED_BULLET_DEVASTATING 25	// Anti-materiel (.50 sniper), hollow-points, DumDum rounds
+
+// Projectile organ damage defines
+/// The flat % chance a projectile passes clean through without hitting any organs
+#define ORGAN_DAMAGE_PASSTHROUGH_CHANCE 15
+
+/// Organ damage multiplier tiers (fraction of dealt damage that becomes organ damage)
+/// Formula: organ_dmg = dealt_damage * multiplier * (dealt_damage / base_damage)
+#define ORGAN_DAMAGE_MULT_NORMAL 10			// Standard bullets — steady organ trauma over multiple hits
+#define ORGAN_DAMAGE_MULT_HEAVY 20			// Hollow-points, DumDum, anti-materiel — devastating organ trauma
+
+/// Brains are fragile. Projectile organ damage to brains is multiplied by this factor
+#define ORGAN_BRAIN_FRAGILITY_MULT 3
+
+/// Minimum fraction of a projectile's base damage that must get through armor for bleed/organ effects to apply.
+/// If armor stops more than this fraction of damage, the bullet is considered "stopped" — no bleeding or organ trauma.
+#define PROJECTILE_MINIMUM_EFFECTIVENESS 0.5
+
+/// Projectile damage variance (percentage, 0-1). Damage is randomized within ±(base_damage * variance).
+/// For example, 0.2 means ±20% variance: a 40-damage bullet deals 32–48 damage.
+#define PROJECTILE_VARIANCE_BULLET 0.2		// Ballistic projectiles: ±20% damage variance
+#define PROJECTILE_VARIANCE_LASER 0.15		// Energy/laser projectiles: ±15% damage variance
 
 #define BLEED_RATE_MULTIPLIER 1				/// How quickly do we bleed out? A value of 1 means that if we have a bleed rate of 10, then we lose 5 blood per second.
 #define BLEED_RATE_MULTIPLIER_NO_HEART 0.4 	/// If we have no heart, then we will bleed slower. This multiplies by our bleeding rate if that is the case.

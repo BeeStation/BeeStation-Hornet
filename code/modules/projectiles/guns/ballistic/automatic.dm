@@ -63,6 +63,7 @@
 	icon_state = "c20r"
 	inhand_icon_state = "c20r"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
+	fire_rate = 10
 	fire_delay = 2
 	burst_size = 2
 	pin = /obj/item/firing_pin/implant/pindicate
@@ -96,7 +97,7 @@
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
-	fire_rate = 3
+	fire_rate = 10
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
 	custom_price = 300
@@ -226,7 +227,7 @@
 	weapon_weight = WEAPON_HEAVY
 	var/cover_open = FALSE
 	can_suppress = FALSE
-	fire_rate = 6
+	fire_rate = 12
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
 	bolt_type = BOLT_TYPE_OPEN

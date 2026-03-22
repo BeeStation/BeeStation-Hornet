@@ -75,39 +75,18 @@
 	icon_state = "coatsecurity"
 	inhand_icon_state = "coatsecurity"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
-	armor_type = /datum/armor/wintercoat_security
+	armor_type = /datum/armor/security_clothing
 	slowdown = 0.04
 	custom_price = 50
 
-
-/datum/armor/wintercoat_security
-	melee = 15
-	bullet = 15
-	laser = 40
-	energy = 50
-	bomb = 25
-	fire = 60
-	acid = 45
-	stamina = 40
 
 /obj/item/clothing/suit/hooded/wintercoat/security/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
 
 /obj/item/clothing/head/hooded/winterhood/security
-	armor_type = /datum/armor/winterhood_security
+	armor_type = /datum/armor/security_clothing
 	icon_state = "winterhood_security"
-
-
-/datum/armor/winterhood_security
-	melee = 15
-	bullet = 15
-	laser = 40
-	energy = 50
-	bomb = 25
-	fire = 60
-	acid = 45
-	stamina = 40
 
 /obj/item/clothing/suit/hooded/wintercoat/detective
 	name = "detective winter coat"
@@ -129,31 +108,13 @@
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/lighter
 	)
-	armor_type = /datum/armor/wintercoat_detective
+	armor_type = /datum/armor/security_clothing
 	heat_protection = CHEST|GROIN|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/detective
 
-
-/datum/armor/wintercoat_detective
-	melee = 25
-	bullet = 10
-	laser = 25
-	energy = 10
-	acid = 45
-	stamina = 40
-
 /obj/item/clothing/head/hooded/winterhood/detective
 	icon_state = "winterhood_detective"
-	armor_type = /datum/armor/winterhood_detective
-
-
-/datum/armor/winterhood_detective
-	melee = 25
-	bullet = 10
-	laser = 25
-	energy = 20
-	acid = 45
-	stamina = 30
+	armor_type = /datum/armor/security_clothing
 
 /obj/item/clothing/suit/hooded/wintercoat/brigphys
 	name = "brig physician winter coat"
@@ -183,30 +144,12 @@
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/lighter
 	)
-	armor_type = /datum/armor/wintercoat_brigphys
+	armor_type = /datum/armor/security_clothing
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/brigphys
-
-
-/datum/armor/wintercoat_brigphys
-	melee = 10
-	laser = 10
-	bio = 20
-	fire = 50
-	acid = 50
-	stamina = 20
 
 /obj/item/clothing/head/hooded/winterhood/brigphys
 	icon_state = "winterhood_brigphys"
-	armor_type = /datum/armor/winterhood_brigphys
-
-
-/datum/armor/winterhood_brigphys
-	melee = 10
-	laser = 10
-	bio = 20
-	fire = 50
-	acid = 50
-	stamina = 20
+	armor_type = /datum/armor/security_clothing
 
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"

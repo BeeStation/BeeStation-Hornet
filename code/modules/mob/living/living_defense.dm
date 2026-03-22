@@ -15,7 +15,7 @@
 		return armor
 
 	//the if "armor" check is because this is used for everything on /living, including humans
-	if(armour_penetration)
+	if(armour_penetration > 0)
 		if(penetrated_text)
 			to_chat(src, span_userdanger("[penetrated_text]"))
 		else
@@ -35,7 +35,8 @@
 /// Get the armour value for a specific damage type, targeting a particular zone.
 /// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
 /// type: The damage type to test for. Must not be null.
-/// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.
+/// penetration: A percentage from -100 to 100. Positive values reduce armour effectiveness, negative values increase it.
+///   A value of 50 means each armour piece is 50% as effective. A value of -50 means each piece is 150% as effective.
 /// Returns: An integer value with 0 representing 0% protection and 100 representing 100% protection.
 /// - The return value can be negative which indicates additional armour, but will never exceed 100.
 /// - Armour penetration should not be applied on the return value of this proc, due to its upper bound of 100.
@@ -69,9 +70,13 @@
 		return BULLET_ACT_HIT
 	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
-		apply_damage(P.damage, P.damage_type, def_zone, armor)
+		var/damage_dealt = apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
+		// Attempt bleeding and internal organ damage based on how much damage actually got through
+		// Both share the same effectiveness ratio (damage_dealt / base_damage) and minimum penetration gate
+		P.try_bleed(src, P.def_zone, damage_dealt)
+		P.try_organ_damage(src, P.def_zone, damage_dealt)
 	return P.on_hit(src, armor, piercing_hit)? BULLET_ACT_HIT : BULLET_ACT_BLOCK
 
 /mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)

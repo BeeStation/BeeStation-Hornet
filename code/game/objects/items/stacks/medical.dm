@@ -26,8 +26,12 @@
 	var/heal_burn = FALSE
 	///For how long does it stop bleeding?
 	var/stop_bleeding = 0
+	///How much bleeding does this directly remove (like cauterizing)?
+	var/cauterise_bleeding = 0
 	///How long does it take to apply on yourself?
 	var/self_delay = 2 SECONDS
+	///How long does it take to apply on someone else?
+	var/other_delay = 0
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
@@ -41,7 +45,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	if(!M || !user) //If no mob, user and if we can't inject the mob just return
 		return
 
-	if(M.stat == DEAD && !stop_bleeding)
+	if(M.stat == DEAD && !stop_bleeding && !cauterise_bleeding)
 		to_chat(user, span_danger("\The [M] is dead, you cannot help [M.p_them()]!"))
 		return
 
@@ -84,7 +88,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		to_chat(user, span_danger("You cannot reach [src]!"))
 		M.balloon_alert(user, "You cannot reach that.")
 		return
-	if(M.stat == DEAD && !stop_bleeding)
+	if(M.stat == DEAD && !stop_bleeding && !cauterise_bleeding)
 		to_chat(user, span_danger("\The [M] is dead, you cannot help [M.p_them()]!"))
 		M.balloon_alert(user, "[M] is dead.")
 		return
@@ -107,7 +111,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	var/valid = FALSE
 	var/message = null
 
-	if(stop_bleeding)
+	if(stop_bleeding || cauterise_bleeding)
 		if (C.is_bleeding())
 			valid = TRUE
 		else if (C.is_bandaged())
@@ -136,8 +140,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		user.visible_message(span_notice("[user] starts to apply [src] on [user.p_them()]self..."), span_notice("You begin applying [src] on yourself..."))
 		if(!do_after(user, self_delay, M))
 			return
+	else if(other_delay > 0)
+		user.visible_message(span_notice("[user] starts to apply [src] on [M]..."), span_notice("You begin applying [src] on [M]..."))
+		if(!do_after(user, other_delay, M))
+			return
 
-	if(stop_bleeding)
+	if(cauterise_bleeding)
+		C.cauterise_wounds(cauterise_bleeding)
+		if (C.is_bleeding())
+			C.balloon_alert(user, "You reduce [M == user ? "your" : M.p_their()] bleeding to [C.get_bleed_rate_string()]")
+		else
+			C.balloon_alert(user, "You close [M == user ? "your" : M.p_their()] wounds!")
+	else if(stop_bleeding)
 		C.suppress_bloodloss(stop_bleeding)
 		if (C.is_bleeding())
 			C.balloon_alert(user, "You reduce [M == user ? "your" : M.p_their()] bleeding to [C.get_bleed_rate_string()]")
@@ -197,10 +211,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 /obj/item/stack/medical/gauze
 	name = "medical gauze"
-	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
+	desc = "A roll of elastic cloth that is effective at stopping bleeding, heals minor bruising."
 	icon_state = "gauze"
-	stop_bleeding = BLEED_CRITICAL
+	stop_bleeding = BLEED_DEEP_WOUND
 	heal_creatures = TRUE //Enables gauze to be used on simplemobs for healing
+	self_delay = 4 SECONDS
+	other_delay = 2 SECONDS
 	max_amount = 12
 	merge_type = /obj/item/stack/medical/gauze
 
@@ -227,16 +243,38 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = BLEED_SURFACE
 	heal_creatures = FALSE
+	other_delay = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/gauze/improvised
 
 /obj/item/stack/medical/gauze/adv
 	name = "sterilized medical gauze"
 	desc = "A roll of elastic sterilized cloth that is extremely effective at stopping bleeding, heals minor wounds and cleans them."
 	singular_name = "sterilized medical gauze"
-	self_delay = 0.5 SECONDS
+	self_delay = 2 SECONDS
+	other_delay = 1 SECONDS
 	merge_type = /obj/item/stack/medical/gauze/adv
 
 /obj/item/stack/medical/gauze/adv/one
 	amount = 1
+
+/obj/item/stack/medical/suture
+	name = "sterilized medical sutures"
+	singular_name = "suture"
+	desc = "A plasteel needle and medicated sterile thread used to stitch wounds shut, permanently closing bleeding wounds. Takes a while, but it's thorough."
+	icon_state = "suture"
+	amount = 30
+	max_amount = 30
+	cauterise_bleeding = 1
+	heal_creatures = FALSE
+	self_delay = 1 SECONDS
+	other_delay = 0.5 SECONDS
+	merge_type = /obj/item/stack/medical/suture
+
+/obj/item/stack/medical/suture/one
+	amount = 1
+
+/obj/item/stack/medical/suture/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] is stitching [user.p_their()] mouth shut with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	return OXYLOSS
 
 #undef REAGENT_AMOUNT_PER_ITEM

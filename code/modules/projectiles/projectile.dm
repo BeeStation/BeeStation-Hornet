@@ -131,6 +131,12 @@
 	var/damage = 10
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
+	/// Fractional damage variance (0 to 1). When non-zero, damage is randomized in fire() within ±(damage * variance).
+	/// For example, 0.2 means ±20%: a 40-damage projectile deals 32–48 damage.
+	var/damage_variance = 0
+	/// The original damage value before variance was applied. Used by bleed/organ effectiveness calculations
+	/// so that high rolls can punch through armor thresholds. Set automatically in fire().
+	var/base_damage = 0
 	var/armor_flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
 	///How much armor this projectile pierces.
 	var/armour_penetration = 0
@@ -157,6 +163,11 @@
 	var/stutter = 0 SECONDS
 	/// Slurring applied on projectile hit
 	var/slur = 0 SECONDS
+
+	/// Multiplier (0 to 1) determining what fraction of dealt damage is applied as organ damage to organs in the hit zone. 0 means no organ damage.
+	var/organ_damage_multiplier = 0
+	/// Flat percentage chance (0 to 100) that the projectile passes clean through without hitting any organs.
+	var/organ_damage_passthrough_chance = ORGAN_DAMAGE_PASSTHROUGH_CHANCE
 
 	/// Damage the limb must have for it to be dismembered upon getting hit. 0 will prevent dismembering altogether
 	var/dismemberment = 0
@@ -326,6 +337,153 @@
 		return clamp((src.damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
+
+/**
+ * Attempts to apply bleeding to a living carbon mob based on how much damage got through armor.
+ *
+ * Uses the same effectiveness ratio (damage_dealt / base_damage) as try_organ_damage to determine
+ * whether the bullet penetrated enough to cause hemorrhaging. Both bleed and organ damage share the
+ * same PROJECTILE_MINIMUM_EFFECTIVENESS gate so armor is evaluated consistently in one place.
+ *
+ * victim - The living mob that was hit
+ * def_zone - The body zone string that was hit
+ * damage_dealt - The actual damage dealt after armor reduction
+ */
+/obj/projectile/proc/try_bleed(mob/living/carbon/victim, def_zone, damage_dealt)
+	if(!bleed_force || damage_dealt <= 0)
+		return
+	if(!iscarbon(victim))
+		return
+	// Calculate effectiveness using base (pre-variance) damage so high damage rolls
+	// can push through the effectiveness gate against armored targets
+	var/reference_damage = base_damage > 0 ? base_damage : damage
+	var/effectiveness = clamp(damage_dealt / max(reference_damage, 1), 0, 1)
+	// If armor stopped too much of the bullet, no bleeding — the round didn't penetrate
+	if(effectiveness < PROJECTILE_MINIMUM_EFFECTIVENESS)
+		return
+	// Check bleed-specific armor (e.g. padded clothing that reduces hemorrhaging)
+	var/obj/item/bodypart/affecting = victim.get_bodypart(check_zone(def_zone))
+	if(!affecting)
+		affecting = victim.bodyparts[1]
+	var/armour_block = victim.run_armor_check(affecting, BLEED, armour_penetration = armour_penetration, silent = TRUE)
+	var/hit_amount = (100 - armour_block) / 100
+	// Scale bleed by both bleed armor and how much damage made it through main armor
+	victim.add_bleeding(bleed_force * hit_amount * effectiveness)
+
+/**
+ * Attempts to deal organ damage to a living carbon mob based on where the projectile hit.
+ *
+ * This proc is called after apply_damage in bullet_act. It uses the actual damage dealt
+ * (post-armor) compared to the projectile's base damage to determine organ damage severity.
+ *
+ * Flow:
+ * 1. Flat chance for the bullet to "sail through" without hitting organs (passthrough check).
+ * 2. Finds organs in the hit body zone.
+ * 3. Picks a random organ from that zone.
+ * 4. Calculates organ damage as: dealt_damage * organ_damage_multiplier * effectiveness_ratio
+ *    where effectiveness_ratio = dealt_damage / base_damage (clamped 0-1).
+ *    This means heavily armored targets take proportionally less organ damage.
+ * 5. If the brain is the INITIAL organ chosen (not via overflow), it takes maxHealth damage
+ *    (guaranteed brain death). Overflow damage reaching the brain uses the fragility multiplier instead.
+ * 6. Applies the organ damage with feedback to the victim.
+ *
+ * victim - The carbon mob that was hit
+ * def_zone - The body zone string that was hit (e.g. "chest", "head")
+ * damage_dealt - The actual damage dealt after armor reduction
+ */
+/obj/projectile/proc/try_organ_damage(mob/living/carbon/victim, def_zone, damage_dealt)
+	// No organ damage if multiplier is 0 or no damage was dealt
+	if(!organ_damage_multiplier || damage_dealt <= 0)
+		return
+	// Only carbon mobs have internal organs
+	if(!iscarbon(victim))
+		return
+	// Flat chance the bullet sails clean through without nicking any organs
+	if(prob(organ_damage_passthrough_chance))
+		return
+	// Get all organs in the zone that was actually hit (including child zones like groin -> chest)
+	var/list/candidate_organs = victim.get_organs_for_zone(def_zone, include_children = TRUE)
+	if(!length(candidate_organs))
+		// If the hit zone has no organs, try the parent zone (e.g. eyes -> head)
+		var/parent_zone = deprecise_zone(def_zone)
+		if(parent_zone != def_zone)
+			candidate_organs = victim.get_organs_for_zone(parent_zone, include_children = TRUE)
+	if(!length(candidate_organs))
+		return
+
+	// Calculate effectiveness ratio - how much of the bullet's power made it through armor
+	// Uses base (pre-variance) damage so high damage rolls can punch through the armor gate
+	var/reference_damage = base_damage > 0 ? base_damage : damage
+	var/effectiveness = clamp(damage_dealt / max(reference_damage, 1), 0, 1)
+
+	// If armor stopped too much of the bullet, no organ damage — the round didn't penetrate deep enough
+	if(effectiveness < PROJECTILE_MINIMUM_EFFECTIVENESS)
+		return
+
+	// Final organ damage = dealt_damage * multiplier * effectiveness
+	// This double-dips on armor intentionally: armor both reduces the direct damage AND
+	// reduces internal organ trauma proportionally
+	var/organ_dmg = damage_dealt * organ_damage_multiplier * effectiveness
+
+	if(organ_dmg < 0.5)
+		return
+
+	// Shuffle candidate organs so we pick a random starting target
+	var/list/shuffled_organs = candidate_organs.Copy()
+	shuffle_inplace(shuffled_organs)
+
+	// Try to apply organ damage with overflow
+	// if the picked organ is already at max, the remaining damage spills over to the next available organ
+	var/remaining_dmg = organ_dmg
+	var/total_dmg_dealt = 0
+	var/is_initial_target = TRUE // Tracks whether this is the first organ chosen (not overflow)
+
+	for(var/obj/item/organ/target_organ as anything in shuffled_organs)
+		if(remaining_dmg < 0.5)
+			break
+		if(target_organ.organ_flags & ORGAN_FAILING)
+			continue
+		var/applied_dmg = remaining_dmg
+		if(istype(target_organ, /obj/item/organ/brain))
+			if(is_initial_target)
+				// A bullet directly hitting the brain is catastrophic - guarantee brain death
+				applied_dmg = target_organ.maxHealth
+			else
+				// Overflow damage from another organ still uses the fragility multiplier
+				applied_dmg *= ORGAN_BRAIN_FRAGILITY_MULT
+		// apply_organ_damage clamps to maxHealth internally; calculate how much room is left
+		var/room = target_organ.maxHealth - target_organ.damage
+		if(room <= 0)
+			continue
+		target_organ.apply_organ_damage(applied_dmg)
+		// Figure out how much was actually absorbed (before brain multiplier scaling)
+		var/absorbed = min(applied_dmg, room)
+		if(istype(target_organ, /obj/item/organ/brain))
+			if(is_initial_target)
+				// Brain death from direct hit - consume all remaining damage
+				remaining_dmg = 0
+			else
+				// Convert back from brain-scaled damage to base damage for overflow tracking
+				remaining_dmg -= absorbed / ORGAN_BRAIN_FRAGILITY_MULT
+		else
+			remaining_dmg -= absorbed
+		total_dmg_dealt += absorbed
+		is_initial_target = FALSE
+
+	if(total_dmg_dealt < 0.5)
+		return
+
+	// Feedback to the victim - they can feel something is wrong internally
+	if(victim.stat <= SOFT_CRIT)
+		var/zone_name = parse_zone(def_zone)
+		if(total_dmg_dealt >= 30)
+			to_chat(victim, span_userdanger("You feel something shatter inside your [zone_name]!"))
+		else if(total_dmg_dealt >= 15)
+			to_chat(victim, span_userdanger("You feel something rupture inside your [zone_name]!"))
+		else if(total_dmg_dealt >= 7)
+			to_chat(victim, span_warning("You feel a sharp pain deep inside your [zone_name]!"))
+		else
+			to_chat(victim, span_notice("You feel a dull ache inside your [zone_name]."))
 
 /obj/projectile/proc/on_ricochet(atom/A)
 	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)
@@ -682,6 +840,12 @@
 
 /obj/projectile/proc/fire(angle, atom/direct_target)
 	LAZYINITLIST(impacted)
+	// Store base damage and randomize based on variance before anything else
+	base_damage = damage
+	if(damage_variance > 0 && damage > 0)
+		var/low = damage * (1 - damage_variance)
+		var/high = damage * (1 + damage_variance)
+		damage = round(rand(low, high), 1)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
 	//If no angle needs to resolve it from xo/yo!

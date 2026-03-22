@@ -2,24 +2,28 @@
 
 /obj/projectile/bullet/n762
 	name = "7.62x38mmR bullet"
-	damage = 55
+	damage = 40
 	armour_penetration = 12
+	bleed_force = BLEED_BULLET_HEAVY
 
 // .50AE (Desert Eagle)
 
 /obj/projectile/bullet/a50AE
 	name = ".50AE bullet"
-	damage = 60
+	damage = 40
+	armour_penetration = 10 // Heavy round, slight penetration advantage
+	bleed_force = BLEED_BULLET_HEAVY
 
 // .38 (Detective's Gun)
 
 /obj/projectile/bullet/c38
 	name = ".38 bullet"
-	damage = 25
+	damage = 20
 	ricochets_max = 2
 	ricochet_chance = 50
 	ricochet_auto_aim_angle = 10
 	ricochet_auto_aim_range = 3
+	bleed_force = BLEED_BULLET_LIGHT
 
 /obj/projectile/bullet/c38/match
 	name = ".38 Match bullet"
@@ -33,9 +37,10 @@
 
 /obj/projectile/bullet/c38/match/bouncy
 	name = ".38 Bouncy Rubber bullet"
-	damage = 7
+	damage = 5
 	stamina = 27
 	bleed_force = BLEED_SCRATCH
+	organ_damage_multiplier = 0 // Rubber bullets don't penetrate
 	ricochets_max = 5
 	ricochet_incidence_leeway = 70
 	ricochet_chance = 130
@@ -44,10 +49,12 @@
 
 /obj/projectile/bullet/c38/dumdum
 	name = ".38 DumDum bullet"
-	damage = 15
+	damage = 12
 	armour_penetration = -30
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/c38/dumdum
+	bleed_force = BLEED_BULLET_DEVASTATING
+	organ_damage_multiplier = ORGAN_DAMAGE_MULT_HEAVY
 
 /obj/projectile/bullet/c38/trac
 	name = ".38 TRAC bullet"
@@ -79,7 +86,7 @@
 
 /obj/projectile/bullet/c38/iceblox //see /obj/projectile/temp for the original code
 	name = ".38 Iceblox bullet"
-	damage = 15
+	damage = 14
 	var/temperature = 100
 	ricochets_max = 0
 
@@ -96,6 +103,7 @@
 	nodamage = TRUE
 	martial_arts_no_deflect = TRUE
 	bleed_force = 0
+	organ_damage_multiplier = 0 // Mime bullets don't deal real damage
 
 /obj/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
@@ -111,7 +119,8 @@
 /obj/projectile/bullet/c38/mime_lethal
 	name = "invisible .38 bullet"
 	icon_state = null
-	damage = 20
+	damage = 17
+	bleed_force = BLEED_BULLET_LIGHT
 
 /obj/projectile/bullet/c38/mime_lethal/on_hit(atom/target, blocked)
 	. = ..()
@@ -123,7 +132,9 @@
 
 /obj/projectile/bullet/a357
 	name = ".357 bullet"
-	damage = 60
+	damage = 40
+	armour_penetration = 20 // Magnum round, good penetration
+	bleed_force = BLEED_BULLET_HEAVY
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

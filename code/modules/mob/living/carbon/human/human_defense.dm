@@ -28,12 +28,14 @@
 /// Any armour that exceeds 100% protection will be clamped down to 100%
 /// Input armour values should never exceed 100%, or be at 100% as 100% represents
 /// full protection outside of armour penetration.
-/// The penetration value will affect the armour value for each individual armour peice directly,
-/// before it is clamped to 100%. This means that an armour of 130% with a penetration of 20% will become
-/// an armour value of 130 - (130 * 0.2) = 104% ~= 100%.
+/// The penetration value is a percentage from -100 to 100 that scales each armour piece's effectiveness.
+/// Positive penetration reduces armour effectiveness, negative penetration increases it.
+/// penetration = 50: armour is 50% as effective. penetration = -50: armour is 150% as effective.
+/// penetration = -100: armour is 200% as effective (maximum anti-armour penalty).
 /mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/def_zone, d_type, penetration)
 	if(!d_type)
 		return 0
+	var/penetration_mult = 1 - clamp(penetration, -100, 100) / 100
 	var/protection = 1
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id, wear_neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
@@ -42,7 +44,7 @@
 		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection *= 1 - min((C.get_armor_rating(d_type) / 100) * (1 - (penetration / 100)), 1)
+				protection *= 1 - min((C.get_armor_rating(d_type) / 100) * penetration_mult, 1)
 
 	protection *= 1 - CLAMP01(physiology.physio_armor.get_rating(d_type) / 100)
 	return (1 - protection) * 100

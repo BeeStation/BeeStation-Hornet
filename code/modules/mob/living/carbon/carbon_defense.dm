@@ -553,10 +553,8 @@
 	var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
-	if (P.bleed_force)
-		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = P.armour_penetration, silent = TRUE)
-		var/hit_amount = (100 - armour_block) / 100
-		add_bleeding(P.bleed_force * hit_amount)
+	// Bleed application is handled in the parent (living/bullet_act) via P.try_bleed()
+	// alongside organ damage, so both share the same effectiveness gate
 	if (P.damage_type == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 		cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)

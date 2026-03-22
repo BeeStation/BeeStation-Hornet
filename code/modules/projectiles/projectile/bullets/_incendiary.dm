@@ -1,5 +1,5 @@
 /obj/projectile/bullet/incendiary
-	damage = 20
+	damage = 14
 	var/fire_stacks = 4
 
 /obj/projectile/bullet/incendiary/on_hit(atom/target, blocked = FALSE)

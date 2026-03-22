@@ -195,7 +195,7 @@
 		/obj/item/stack/medical/bruise_pack = 1,
 		/obj/item/stack/medical/ointment = 1,
 		/obj/item/healthanalyzer = 1,
-		/obj/item/reagent_containers/cup/bottle/formaldehyde = 1,
+		/obj/item/stack/medical/suture = 1,
 		/obj/item/reagent_containers/syringe = 1,
 		/obj/item/rollerbed = 1,
 		/obj/item/weldingtool/mini = 1, // stopping IPC bleeding while delivering them to robotics (STOP DELIVERING IPCS TO MEDBAY I SWEAR TO GOD) -doc
@@ -351,8 +351,9 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/styptic = 4,
+		/obj/item/reagent_containers/pill/patch/styptic = 3,
 		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/stack/medical/suture = 1,
 		/obj/item/stack/medical/bruise_pack = 1,
 		/obj/item/stack/medical/gauze = 1)
 	generate_items_inside(items_inside,src)
