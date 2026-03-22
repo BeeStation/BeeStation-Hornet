@@ -86,15 +86,7 @@
 	desc = "A formal security suit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rwarden"
 	inhand_icon_state = "r_suit"
-	armor_type = /datum/armor/security_warden
-
-
-/datum/armor/security_warden
-	melee = 10
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 10
+	armor_type = /datum/armor/sturdy_cloth
 
 /obj/item/clothing/under/rank/security/warden/white
 	name = "white warden suit"
@@ -185,20 +177,11 @@
 	desc = "A security jumpsuit decorated for those few with the dedication to achieve the position of Head of Security."
 	icon_state = "rhos"
 	inhand_icon_state = "r_suit"
-	armor_type = /datum/armor/security_head_of_security
+	armor_type = /datum/armor/sturdy_cloth
 	strip_delay = 60
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-
-
-/datum/armor/security_head_of_security
-	melee = 10
-	bio = 10
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/under/rank/security/head_of_security/skirt
 	name = "head of security's jumpskirt"

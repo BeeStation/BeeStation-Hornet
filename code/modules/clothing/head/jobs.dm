@@ -106,7 +106,7 @@
 /obj/item/clothing/head/fedora/det_hat
 	name = "detective's fedora"
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	icon_state = "detective"
 	inhand_icon_state = "det_hat"
 	var/candy_cooldown = 0
@@ -210,7 +210,7 @@
 	name = "head of security cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	strip_delay = 80
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
@@ -243,7 +243,7 @@
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
@@ -333,7 +333,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#ACACAC"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	flags_1 = NONE
 
 /obj/item/clothing/head/beret/sec
@@ -343,7 +343,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#972A2A#F2F2F2"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	strip_delay = 60
 	dog_fashion = null
 	flags_1 = NONE
@@ -356,7 +356,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#FF0000"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	flags_1 = NONE
 
 /obj/item/clothing/head/beret/spacepol
@@ -366,7 +366,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#3f3c40#FF0000"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	flags_1 = NONE
 
 /obj/item/clothing/head/beret/sec/navywarden
@@ -467,7 +467,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#39393f#BBBBBB"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 
 //CentCom
 

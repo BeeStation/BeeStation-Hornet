@@ -75,7 +75,7 @@
 	icon_state = "coatsecurity"
 	inhand_icon_state = "coatsecurity"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	slowdown = 0.04
 	custom_price = 50
 
@@ -85,7 +85,7 @@
 	allowed = GLOB.security_wintercoat_allowed
 
 /obj/item/clothing/head/hooded/winterhood/security
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	icon_state = "winterhood_security"
 
 /obj/item/clothing/suit/hooded/wintercoat/detective
@@ -108,13 +108,13 @@
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/lighter
 	)
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	heat_protection = CHEST|GROIN|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/detective
 
 /obj/item/clothing/head/hooded/winterhood/detective
 	icon_state = "winterhood_detective"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 
 /obj/item/clothing/suit/hooded/wintercoat/brigphys
 	name = "brig physician winter coat"
@@ -144,12 +144,12 @@
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/lighter
 	)
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/brigphys
 
 /obj/item/clothing/head/hooded/winterhood/brigphys
 	icon_state = "winterhood_brigphys"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"

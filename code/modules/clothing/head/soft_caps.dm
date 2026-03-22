@@ -97,7 +97,7 @@
 	desc = "It's a robust baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	soft_color = "sec"
-	armor_type = /datum/armor/security_clothing
+	armor_type = /datum/armor/sturdy_cloth
 	strip_delay = 60
 	custom_price = 30
 
