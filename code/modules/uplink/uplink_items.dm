@@ -901,7 +901,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
-	reputation_required = REPUTATION_STANDARD
+	reputation_required = REPUTATION_LOW
 
 /datum/uplink_item/ammo/pistolhp
 	name = "10mm Hollow Point Magazine"
@@ -1208,6 +1208,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 35
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
+/datum/uplink_item/explosives/smoke_grenade
+	name = "Smoke Grenade"
+	desc = "A classic tactical smoke grenade. Releases a thick cloud of smoke on detonation, \
+			obscuring vision in the area. Useful for covering an escape or creating a diversion."
+	item = /obj/item/grenade/smokebomb
+	cost = 1
+	surplus = 50
+
 /datum/uplink_item/explosives/bombanana
 	name = "Bombanana"
 	desc = "A banana with an explosive taste! discard the peel quickly, as it will explode with the force of a Syndicate minibomb \
@@ -1481,6 +1489,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 // Stealth Items
 /datum/uplink_item/stealthy_tools
 	category = "Stealth Gadgets"
+
+/datum/uplink_item/stealthy_tools/duraweave
+	name = "Duraweave Armor Lining"
+	desc = "An experimental Syndicate-developed armor lining made from duraweave fibers. \
+			Attach it to any uniform as an accessory to provide concealed ballistic and impact protection \
+			across the entire body. Virtually undetectable to outside observers."
+	item = /obj/item/clothing/accessory/duraweave
+	cost = 3
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent Identification Card"
@@ -1930,11 +1946,20 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/device_tools/stimpack
 	name = "Stimpack"
 	desc = "Stimpacks, the tool for many great heroes, make you mostly immune to any form of slowdown (including damage slowdown) \
-			or stamina damage for about 5 minutes after injection."
+			or stamina damage for about 5 minutes after injection. Now includes a small dose of organ repair compound."
 	item = /obj/item/reagent_containers/hypospray/medipen/stimulants
-	cost = 5
+	cost = 3
 	surplus = 90
-	reputation_required = REPUTATION_GOOD
+	reputation_required = REPUTATION_STANDARD
+
+/datum/uplink_item/device_tools/syndicure
+	name = "Organ Repair Medipen"
+	desc = "A Syndicate-engineered autoinjector loaded with Syndicure, a compound that rapidly repairs widespread \
+			internal organ damage across the heart, lungs, liver, and other vital organs. Causes mild toxin \
+			buildup as a side-effect. Do not exceed recommended dosage."
+	item = /obj/item/reagent_containers/hypospray/medipen/syndicure
+	cost = 2
+	surplus = 50
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
