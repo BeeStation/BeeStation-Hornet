@@ -513,6 +513,8 @@
 
 	broodmother_body.key = chosen_mob.key
 
+	broodmother_body.key = chosen_mob.key
+
 	return broodmother_body
 
 /datum/dynamic_ruleset/midround/ghost/spiders/finish_setup(mob/new_character)
