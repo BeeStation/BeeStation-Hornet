@@ -2683,3 +2683,10 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 15
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS
+
+/datum/uplink_item/dangerous/cat
+	name = "Feral cat grenade"
+	desc = "This grenade is filled with 5 feral cats in stasis. Upon activation, the feral cats are awoken and unleashed unto unlucky bystanders. WARNING: The cats are not trained to discern friend from foe!"
+	cost = 3
+	item = /obj/item/grenade/spawnergrenade/cat
+	surplus = 30

@@ -1,3 +1,8 @@
+/// Define that just has the current in-universe year for use in whatever context you might want to display that in. (For example, 2022 -> 2562 given a 540 year offset)
+#define CURRENT_STATION_YEAR (GLOB.year_integer + STATION_YEAR_OFFSET)
+
+/// Amount of years from the current year to offset in-universe
+#define STATION_YEAR_OFFSET 540
 
 #define DECISECONDS_IN_DAY 864000	//number of deciseconds in a day
 #define MIDNIGHT_ROLLOVER		864000	//number of deciseconds in a day
@@ -60,7 +65,4 @@ When using time2text(), please use "DDD" to find the weekday. Refrain from using
 #define MS2DS(T) ((T) MILLISECONDS)
 
 #define DS2MS(T) ((T) * 100)
-
-/// Amount of years from the current year to offset in-universe
-#define YEAR_OFFSET 540
 

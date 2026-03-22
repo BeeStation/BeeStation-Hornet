@@ -49,8 +49,8 @@
 		return COMPONENT_INCOMPATIBLE
 	linked_obj = _linked_obj
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
-	AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000, 9999)]", TRUE)
-	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
+	parent.AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000,9999)]", TRUE)
+	parent.AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
 
 /datum/component/recoverable/proc/attack_self(mob/user)
 	var/atom/movable/pA = parent

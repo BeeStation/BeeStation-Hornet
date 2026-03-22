@@ -445,7 +445,7 @@
 /obj/item/choice_beacon/pet/cat
 	name = "cat delivery beacon"
 	default_name = "Tom"
-	mob_choice = /mob/living/simple_animal/pet/cat
+	mob_choice = /mob/living/basic/pet/cat
 
 /obj/item/choice_beacon/pet/mouse
 	name = "mouse delivery beacon"
@@ -470,7 +470,7 @@
 /obj/item/choice_beacon/pet/ems
 	name = "emotional support animal delivery beacon"
 	default_name = "Hugsie"
-	mob_choice = /mob/living/simple_animal/pet/cat/kitten
+	mob_choice = /mob/living/basic/pet/cat/kitten
 
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"

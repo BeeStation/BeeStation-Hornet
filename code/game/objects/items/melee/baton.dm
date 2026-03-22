@@ -741,15 +741,17 @@
 	return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
 /obj/item/melee/baton/security/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	// Special handling stamina-immune species
+	// Special handling for stamina-immune limbs
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.dna?.species && H.dna.species.staminamod == 0)
+		var/target_zone = user ? user.get_combat_bodyzone(H) : target.get_random_valid_zone()
+		var/obj/item/bodypart/affecting = H.get_bodypart(target_zone)
+		if(!affecting)
+			affecting = H.bodyparts[1]
+
+		// Check if the limb is stamina-immune
+		if(affecting && affecting.stamina_modifier == 0)
 			// take burn damage from electrical shock instead of stamina
-			var/target_zone = user ? user.get_combat_bodyzone(H) : BODY_ZONE_CHEST
-			var/obj/item/bodypart/affecting = H.get_bodypart(target_zone)
-			if(!affecting)
-				affecting = H.bodyparts[1]
 			var/armor_block = H.run_armor_check(affecting, STAMINA, armour_penetration = armour_penetration)
 
 			// Electrocute and deal burn damage (force/4)

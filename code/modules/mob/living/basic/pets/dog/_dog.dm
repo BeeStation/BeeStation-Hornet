@@ -7,15 +7,15 @@
 	speech_commands = list("good dog", "good boy", "brav")
 
 // Set correct attack behaviour
-/datum/pet_command/point_targeting/attack/dog
+/datum/pet_command/attack/dog
 	attack_behaviour = /datum/ai_behavior/basic_melee_attack/dog
 	speech_commands = list("attack", "sic", "kill", "fass")
 
-/datum/pet_command/point_targeting/attack/dog/set_command_active(mob/living/parent, mob/living/commander)
+/datum/pet_command/attack/dog/set_command_active(mob/living/parent, mob/living/commander)
 	. = ..()
 	parent.ai_controller.set_blackboard_key(BB_DOG_HARASS_HARM, TRUE)
 
-/datum/pet_command/point_targeting/fetch/dog
+/datum/pet_command/fetch/dog
 	speech_commands = list("fetch", "apport", "bring")
 
 /datum/pet_command/play_dead/dog
@@ -42,19 +42,30 @@
 	var/static/list/pet_commands = list(
 		/datum/pet_command/idle,
 		/datum/pet_command/free,
+		/datum/pet_command/move,
 		/datum/pet_command/good_boy/dog,
 		/datum/pet_command/follow/dog,
-		/datum/pet_command/point_targeting/attack/dog,
-		/datum/pet_command/point_targeting/fetch/dog,
+		/datum/pet_command/attack/dog,
+		/datum/pet_command/fetch/dog,
 		/datum/pet_command/play_dead/dog,
 	)
+	///icon state of the collar we can wear
+	var/collar_icon_state
+	///icon state of our cult icon
+	var/cult_icon_state
 
 /mob/living/basic/pet/dog/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/cultist_pet, pet_cult_icon_state = cult_icon_state)
+	AddElement(/datum/element/wears_collar, collar_icon_state = collar_icon_state)
 	AddElement(/datum/element/pet_bonus, "woofs happily!")
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW)
 	AddElement(/datum/element/unfriend_attacker, untamed_reaction = "%SOURCE% fixes %TARGET% with a look of betrayal.")
-	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/meat/slab/human/mutant/skeleton, /obj/item/stack/sheet/bone), tame_chance = 30, bonus_tame_chance = 15, unique = FALSE)
+	var/static/list/food_types = list(
+		/obj/item/food/meat/slab/human/mutant/skeleton,
+		/obj/item/stack/sheet/bone,
+	)
+	AddComponent(/datum/component/tameable, food_types = food_types, tame_chance = 30, bonus_tame_chance = 15, unique = FALSE)
 	AddComponent(/datum/component/obeys_commands, pet_commands)
 	var/dog_area = get_area(src)
 	for(var/obj/structure/bed/dogbed/D in dog_area)

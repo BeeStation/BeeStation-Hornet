@@ -239,7 +239,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(living_victims <= 1 && !debug_mode)
 		to_chat(world, span_ratvar("<font size=18>VICTORY ROYALE!!</font>"))
 		if(winner)
-			winner.client?.process_greentext()
+			winner.client?.give_award(/datum/award/achievement/misc/greentext, winner)
 			to_chat(world, span_ratvar("<font size=18>[key_name(winner)] is the winner!</font>"))
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
 		qdel(src)
@@ -323,11 +323,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/datum/poll_config/config = new()
-	config.question = "Would you like to partake in BATTLE ROYALE?"
-	config.poll_time = 30 SECONDS
-	config.role_name_text = "battle royale player"
-	config.alert_pic = /obj/item/claymore
+	var/datum/poll_config/config = new(
+		question = "Would you like to partake in BATTLE ROYALE?",
+		poll_time = 30 SECONDS,
+		role_name_text = "battle royale player",
+		alert_pic = /obj/item/claymore,
+	)
 	var/list/participants = SSpolling.poll_ghost_candidates(config)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	if(!spawn_turf)

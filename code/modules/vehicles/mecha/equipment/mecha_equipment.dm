@@ -120,8 +120,8 @@
 /**
  * Cooldown proc variant for using do_afters between activations instead of timers
  * Example of usage is mech drills, rcds
- * arguments:
- * * target: targeted atom for action activation
+ * Arguments:
+ * * target: targetted atom for action activation
  * * user: occupant to display do after for
  * * interaction_key: interaction key to pass to [/proc/do_after]
  */

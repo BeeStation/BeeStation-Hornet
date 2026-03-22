@@ -677,52 +677,54 @@
 	ui_interact(user)
 	return TRUE
 
+#define CHECK_HACK_STATUS(hacker) \
+	if(canAIControl(hacker)) {\
+		to_chat(hacker, "Alert cancelled. Airlock control has been restored without our assistance.");\
+		aiHacking = FALSE;\
+		return;\
+	}\
+	else if(!canAIHack()) {\
+		to_chat(hacker, "Connection lost! Unable to hack airlock.");\
+		aiHacking = FALSE;\
+		return;\
+	}
+
 /obj/machinery/door/airlock/proc/hack(mob/user)
-	set waitfor = 0
-	if(!aiHacking)
-		aiHacking = TRUE
-		to_chat(user, "Airlock AI control has been blocked. Beginning fault-detection.")
-		sleep(50)
-		if(canAIControl(user))
-			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
-			aiHacking = FALSE
-			return
-		else if(!canAIHack())
-			to_chat(user, "Connection lost! Unable to hack airlock.")
-			aiHacking = FALSE
-			return
-		to_chat(user, "Fault confirmed: airlock control wire disabled or cut.")
-		sleep(20)
-		to_chat(user, "Attempting to hack into airlock. This may take some time.")
-		sleep(200)
-		if(canAIControl(user))
-			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
-			aiHacking = FALSE
-			return
-		else if(!canAIHack())
-			to_chat(user, "Connection lost! Unable to hack airlock.")
-			aiHacking = FALSE
-			return
-		to_chat(user, "Upload access confirmed. Loading control program into airlock software.")
-		sleep(170)
-		if(canAIControl(user))
-			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
-			aiHacking = FALSE
-			return
-		else if(!canAIHack())
-			to_chat(user, "Connection lost! Unable to hack airlock.")
-			aiHacking = FALSE
-			return
-		to_chat(user, "Transfer complete. Forcing airlock to execute program.")
-		sleep(50)
-		//disable blocked control
-		aiControlDisabled = 2
-		to_chat(user, "Receiving control information from airlock.")
-		sleep(10)
-		//bring up airlock dialog
-		aiHacking = FALSE
-		if(user)
-			attack_ai(user)
+	set waitfor = FALSE
+	if(aiHacking)
+		return
+
+	aiHacking = TRUE
+
+	to_chat(user, span_info("Airlock AI control has been blocked. Beginning fault-detection."))
+	sleep(5 SECONDS)
+
+	CHECK_HACK_STATUS(user)
+	to_chat(user, span_info("Fault confirmed: airlock control wire disabled or cut."))
+	sleep(2 SECONDS)
+
+	CHECK_HACK_STATUS(user)
+	to_chat(user, span_info("Attempting to hack into airlock. This may take some time."))
+	sleep(20 SECONDS)
+
+	CHECK_HACK_STATUS(user)
+	to_chat(user, span_info("Upload access confirmed. Loading control program into airlock software."))
+	sleep(17 SECONDS)
+
+	CHECK_HACK_STATUS(user)
+	to_chat(user, span_info("Transfer complete. Forcing airlock to execute program."))
+	sleep(5 SECONDS)
+
+	to_chat(user, span_info("Receiving control information from airlock."))
+	aiControlDisabled = 2
+	aiHacking = FALSE
+	sleep(1 SECONDS)
+
+	//bring up airlock dialog
+	if(user)
+		attack_silicon(user)
+
+#undef CHECK_HACK_STATUS
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
 	if(isElectrified() && shock(user, 100))

@@ -80,7 +80,7 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "mf" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "nu" = (
