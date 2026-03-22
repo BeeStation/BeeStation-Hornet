@@ -1654,6 +1654,43 @@
 	if(affected_mob.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5 * REM * delta_time, required_organ_flag = affected_organ_flags))
 		return UPDATE_MOB_HEALTH
 
+/datum/reagent/medicine/syndicure
+	name = "Syndicure"
+	description = "A Syndicate-engineered organ regeneration compound. Rapidly repairs widespread internal organ damage, \
+		but causes mild toxin buildup as a side-effect. Overdose causes severe liver and heart damage."
+	reagent_state = LIQUID
+	color = "#8B0000" // dark red
+	chemical_flags = CHEMICAL_NOT_SYNTH
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	overdose_threshold = 20
+	taste_description = "metallic bitterness"
+
+/datum/reagent/medicine/syndicure/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update
+	// Heals all major organ slots
+	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, -1.5 * REM * delta_time)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1.5 * REM * delta_time)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_LIVER, -1.5 * REM * delta_time)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_STOMACH, -1.5 * REM * delta_time)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_APPENDIX, -1.5 * REM * delta_time)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_EYES, -1 * REM * delta_time)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_EARS, -1 * REM * delta_time)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.5 * REM * delta_time)
+	// Minor toxin damage as a side-effect
+	need_mob_update += affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/datum/reagent/medicine/syndicure/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_LIVER, 3 * REM * delta_time)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
+	need_mob_update += affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
 /datum/reagent/medicine/stabilizing_nanites
 	name = "Stabilizing nanites"
 	description = "Rapidly heals a patient out of crit by regenerating damaged cells and causing blood to clot, preventing bleeding. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
