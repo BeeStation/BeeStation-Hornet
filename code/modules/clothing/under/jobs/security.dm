@@ -12,42 +12,26 @@
 /obj/item/clothing/under/rank/security
 	icon = 'icons/obj/clothing/under/security.dmi'
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
-	armor_type = /datum/armor/rank_security
+	armor_type = /datum/armor/sturdy_cloth
 	strip_delay = 50
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 	custom_price = 50
 
-
-/datum/armor/rank_security
-	melee = 10
-	bio = 10
-	fire = 30
-	acid = 30
+/datum/armor/sturdy_cloth
+	melee = 5
+	fire = 20
+	acid = 20
 	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/under/rank/security/officer
 	name = "security jumpsuit"
 	desc = "A tactical security jumpsuit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rsecurity"
 	inhand_icon_state = "r_suit"
-	armor_type = /datum/armor/security_officer
+	armor_type = /datum/armor/sturdy_cloth
 	alt_covers_chest = FALSE
-
-
-/datum/armor/security_clothing
-	melee = 5
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 10
-
-/datum/armor/security_officer
-	melee = 5
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/under/rank/security/officer/white
 	name = "white security jumpsuit"

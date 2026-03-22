@@ -77,23 +77,11 @@
 	icon_state = "hos"
 	inhand_icon_state = "greatcoat"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	armor_type = /datum/armor/armor_hos
+	armor_type = /datum/armor/suit_armor
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	strip_delay = 80
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
-
-
-/datum/armor/armor_hos
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 40
-	bomb = 25
-	fire = 70
-	acid = 90
-	stamina = 40
-	bleed = 40
 
 /obj/item/clothing/suit/armor/hos/trenchcoat
 	name = "armored trenchcoat"
