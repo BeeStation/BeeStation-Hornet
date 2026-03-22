@@ -61,7 +61,7 @@
 	for(var/obj/item/mecha_parts/mecha_equipment/equipment as anything in subtypesof(/obj/item/mecha_parts/mecha_equipment))
 		new equipment(src)
 	new /obj/item/stack/sheet/animalhide/goliath_hide(src, 5)
-	new /obj/item/mecha_parts/concealed_weapon_bay(src)
+	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)
 	new /obj/item/mecha_parts/mecha_tracking(src)
 	new /obj/item/mecha_parts/mecha_tracking/ai_control(src)
 

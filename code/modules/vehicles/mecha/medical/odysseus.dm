@@ -1,4 +1,4 @@
-/obj/vehicle/sealed/mecha/medical/odysseus
+/obj/vehicle/sealed/mecha/odysseus
 	desc = "These exosuits are developed and produced by Vey-Med. (&copy; All rights reserved)."
 	name = "\improper Odysseus"
 	icon_state = "odysseus"
@@ -7,13 +7,12 @@
 	max_temperature = 15000
 	max_integrity = 120
 	wreckage = /obj/structure/mecha_wreckage/odysseus
-	internal_damage_threshold = 35
-	deflect_chance = 15
+	mech_type = EXOSUIT_MODULE_ODYSSEUS
 	step_energy_drain = 6
-	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_MECH_MEDICAL)
+	accesses = list(ACCESS_MECH_SCIENCE, ACCESS_MECH_MEDICAL)
 	pivot_step = TRUE
 
-/obj/vehicle/sealed/mecha/odysseus/moved_inside(mob/living/carbon/human/human)
+/obj/vehicle/sealed/mecha/odysseus/moved_inside(mob/living/carbon/human/H)
 	. = ..()
 	if(!.)
 		return
@@ -23,7 +22,7 @@
 	REMOVE_TRAIT(human, TRAIT_MEDICAL_HUD, VEHICLE_TRAIT)
 	return ..()
 
-/obj/vehicle/sealed/mecha/odysseus/mmi_moved_inside(obj/item/mmi/MMI, mob/user)
+/obj/vehicle/sealed/mecha/odysseus/mmi_moved_inside(obj/item/mmi/M, mob/user)
 	. = ..()
 	if(!. || isnull(MMI.brainmob))
 		return

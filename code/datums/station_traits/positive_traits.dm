@@ -11,7 +11,9 @@
 /datum/station_trait/lucky_winner/process(delta_time)
 	if(!COOLDOWN_FINISHED(src, party_cooldown))
 		return
-	if(length(GLOB.bar_areas))
+
+	var/turf/turf = get_safe_random_station_turfs(GLOB.bar_areas)
+	if(!turf)
 		return
 
 	COOLDOWN_START(src, party_cooldown, rand(6 MINUTES, 12 MINUTES))
@@ -22,7 +24,6 @@
 	for(var/i in 1 to 6)
 		new /obj/item/reagent_containers/cup/glass/bottle/beer(drop_pod)
 
-	var/turf/turf = get_safe_random_station_turfs(pick(GLOB.bar_areas))
 	new /obj/effect/pod_landingzone(turf, drop_pod)
 
 /datum/station_trait/galactic_grant
