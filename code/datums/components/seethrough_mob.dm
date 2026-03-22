@@ -39,7 +39,7 @@
 
 	render_source_atom.render_source = "*transparent_bigmob[personal_uid]"
 
-	var/datum/action/toggle_seethrough/action = new(src)
+	var/datum/action/cooldown/toggle_seethrough/action = new(src)
 	action.Grant(parent)
 
 /datum/component/seethrough_mob/Destroy(force, silent)
@@ -51,7 +51,7 @@
 	SIGNAL_HANDLER
 
 	var/mob/fool = parent
-	var/datum/hud/our_hud = fool.hud_used
+	//var/datum/hud/our_hud = fool.hud_used
 	//for(var/atom/movable/screen/plane_master/seethrough as anything in our_hud.get_true_plane_masters(SEETHROUGH_PLANE))
 	//	seethrough.unhide_plane(fool)
 
@@ -114,22 +114,22 @@
 	else
 		untrick_mob()
 
-/datum/action/toggle_seethrough
+/datum/action/cooldown/toggle_seethrough
 	name = "Toggle Seethrough"
 	desc = "Allows you to see behind your massive body and click through it."
 	button_icon = 'icons/mob/actions/actions_xeno.dmi'
 	button_icon_state = "alien_sneak"
 	background_icon_state = "bg_alien"
+	cooldown_time = 1 SECONDS
+	melee_cooldown_time = 0
 
-/datum/action/toggle_seethrough/Remove(mob/remove_from)
-	var/datum/component/seethrough_mob/seethroughComp = target
-	if(seethroughComp.is_active)
-		seethroughComp.untrick_mob()
+/datum/action/cooldown/toggle_seethrough/Remove(mob/remove_from)
+	var/datum/component/seethrough_mob/transparency = target
+	if(transparency.is_active)
+		transparency.untrick_mob()
 	return ..()
 
-/datum/action/toggle_seethrough/trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	var/datum/component/seethrough_mob/seethroughComp = target
-	seethroughComp.toggle_active()
+/datum/action/cooldown/toggle_seethrough/Activate(atom/t)
+	start_cooldown()
+	var/datum/component/seethrough_mob/transparency = target
+	transparency.toggle_active()

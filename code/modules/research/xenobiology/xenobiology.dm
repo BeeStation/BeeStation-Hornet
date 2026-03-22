@@ -50,10 +50,18 @@
 	if(Uses)
 		grind_results[/datum/reagent/toxin/slimejelly] = 20
 
-//Effect when activated by a Luminescent. Separated into a minor and major effect. Returns cooldown in seconds.
+/**
+* Effect when activated by a Luminescent.
+*
+* This proc is called whenever a Luminescent consumes a slime extract. Each one is separated into major and minor effects depending on the extract. Cooldown is measured in deciseconds.
+*
+* * arg1 - The mob absorbing the slime extract.
+* * arg2 - The valid species for the absorbtion. Should always be a Luminescent unless something very major has changed.
+* * arg3 - Whether or not the activation is major or minor. Major activations have large, complex effects, minor are simple.
+*/
 /obj/item/slime_extract/proc/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
-	to_chat(user, span_notice("Nothing happened... This slime extract cannot be activated this way."))
-	return 5 SECONDS
+	to_chat(user, span_warning("Nothing happened... This slime extract cannot be activated this way."))
+	return FALSE
 
 //Core-crossing: Feeding adult slimes extracts to obtain a much more powerful, single extract.
 /obj/item/slime_extract/attack(mob/living/simple_animal/slime/M, mob/user)

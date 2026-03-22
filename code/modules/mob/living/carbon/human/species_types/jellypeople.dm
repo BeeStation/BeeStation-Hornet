@@ -105,7 +105,7 @@
 		return TRUE
 	return FALSE
 
-/datum/action/innate/split_body/activate()
+/datum/action/innate/split_body/Activate()
 	var/mob/living/carbon/human/H = owner
 	if(!isslimeperson(H))
 		return
@@ -180,7 +180,7 @@
 	background_icon_state = "bg_alien"
 	overlay_icon_state = "bg_alien_border"
 
-/datum/action/innate/swap_body/activate()
+/datum/action/innate/swap_body/Activate()
 	if(!isslimeperson(owner))
 		to_chat(owner, span_warning("You are not a slimeperson."))
 		Remove(owner)
@@ -428,7 +428,7 @@
 
 	return ..()
 
-/datum/action/innate/integrate_extract/activate()
+/datum/action/innate/integrate_extract/Activate()
 	var/mob/living/carbon/human/human_owner = owner
 	var/datum/species/oozeling/luminescent/species = target
 	if(!istype(species))
@@ -488,7 +488,7 @@
 		return TRUE
 	return FALSE
 
-/datum/action/innate/use_extract/activate()
+/datum/action/innate/use_extract/Activate()
 	var/mob/living/carbon/human/human_owner = owner
 	var/datum/species/oozeling/luminescent/species = human_owner.dna?.species
 	if(!istype(species) || !species.current_extract)
@@ -607,7 +607,7 @@
 
 	return TRUE
 
-/datum/action/innate/link_minds/activate(atom/target)
+/datum/action/innate/link_minds/Activate()
 	if(!isliving(owner.pulling) || owner.grab_state < GRAB_AGGRESSIVE)
 		to_chat(owner, span_warning("You need to aggressively grab someone to link minds!"))
 		return

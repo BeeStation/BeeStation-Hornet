@@ -152,12 +152,15 @@
 	/// Weakref to the mob target that we transfer chemicals to on activation
 	var/datum/weakref/transfered_ref
 
-/datum/action/send_chems/New(master)
+/datum/action/send_chems/New(Target)
 	. = ..()
-	if(!istype(master, /obj/item/hardened_spike/chem))
+	if(!istype(target, /obj/item/hardened_spike/chem))
 		qdel(src)
 
-/datum/action/send_chems/activate(atom/target)
+/datum/action/send_chems/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(!ishuman(owner) || !owner.reagents)
 		return FALSE
 	var/mob/living/carbon/human/transferer = owner

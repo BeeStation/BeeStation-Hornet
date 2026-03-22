@@ -755,7 +755,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /datum/action/exit_possession/is_available(feedback = FALSE)
 	return ..() && isfloorturf(owner.loc)
 
-/datum/action/exit_possession/Trigger(mob/clicker, trigger_flags)
+/datum/action/exit_possession/trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return FALSE

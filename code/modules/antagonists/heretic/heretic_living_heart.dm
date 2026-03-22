@@ -103,7 +103,7 @@
 	right_clicked = !!(trigger_flags & TRIGGER_SECONDARY_ACTION)
 	return ..()
 
-/datum/action/cooldown/track_target/activate(atom/target)
+/datum/action/cooldown/track_target/Activate(atom/target)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 

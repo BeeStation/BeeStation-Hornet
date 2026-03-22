@@ -10,9 +10,9 @@
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "neckchop"
-	check_flags = AB_CHECK_INCAPACITATED
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
-/datum/action/neck_chop/activate(atom/target)
+/datum/action/leg_sweep/trigger(mob/clicker, trigger_flags)
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
@@ -27,9 +27,9 @@
 	name = "Leg Sweep - Trips the victim, knocking them down for a brief moment."
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "legsweep"
-	check_flags = AB_CHECK_INCAPACITATED
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
-/datum/action/leg_sweep/Activate()
+/datum/action/leg_sweep/trigger(mob/clicker, trigger_flags)
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
@@ -44,9 +44,9 @@
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "lungpunch"
-	check_flags = AB_CHECK_INCAPACITATED
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
-/datum/action/lung_punch/Activate()
+/datum/action/lung_punch/trigger(mob/clicker, trigger_flags)
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return

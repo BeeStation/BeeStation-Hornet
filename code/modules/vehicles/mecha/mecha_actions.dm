@@ -19,7 +19,7 @@
 	name = "Eject From Mech"
 	button_icon_state = "mech_eject"
 
-/datum/action/vehicle/sealed/mecha/mech_eject/Trigger(mob/clicker, trigger_flags)
+/datum/action/vehicle/sealed/mecha/mech_eject/trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return
 	if(!chassis || !(owner in chassis.occupants))
