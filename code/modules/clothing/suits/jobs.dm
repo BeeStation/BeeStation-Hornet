@@ -195,13 +195,15 @@
 	blood_overlay_type = "armor" //it's the less thing that I can put here
 
 //Security
+/obj/item/clothing/suit/jacket/officer
+	body_parts_covered = CHEST|ARMS
+	armor_type = /datum/armor/sturdy_cloth
+
 /obj/item/clothing/suit/jacket/officer/blue
 	name = "security officer's jacket"
 	desc = "This jacket is for those special occasions when a security officer isn't required to wear their armor."
 	icon_state = "officerbluejacket"
 	inhand_icon_state = null
-	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/sturdy_cloth
 	custom_price = 50
 
 /obj/item/clothing/suit/jacket/officer/tan
@@ -209,6 +211,8 @@
 	desc = "This jacket is for those special occasions when a security officer isn't required to wear their armor."
 	icon_state = "officertanjacket"
 	inhand_icon_state = null
+
+/obj/item/clothing/suit/jacket/warden
 	body_parts_covered = CHEST|ARMS
 	armor_type = /datum/armor/sturdy_cloth
 
@@ -217,14 +221,14 @@
 	desc = "Perfectly suited for the warden that wants to leave an impression of style on those who visit the brig."
 	icon_state = "wardenbluejacket"
 	inhand_icon_state = null
-	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/sturdy_cloth
 
 /obj/item/clothing/suit/jacket/warden/tan
 	name = "warden's jacket"
 	desc = "Perfectly suited for the warden that wants to leave an impression of style on those who visit the brig."
 	icon_state = "wardenbluejacket"
 	inhand_icon_state = null
+
+/obj/item/clothing/suit/jacket/hos
 	body_parts_covered = CHEST|ARMS
 	armor_type = /datum/armor/sturdy_cloth
 
@@ -233,16 +237,12 @@
 	desc = "This piece of clothing was specifically designed for asserting superior authority."
 	icon_state = "hosbluejacket"
 	inhand_icon_state = null
-	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/sturdy_cloth
 
 /obj/item/clothing/suit/jacket/hos/tan
 	name = "head of security's jacket"
 	desc = "This piece of clothing was specifically designed for asserting superior authority."
 	icon_state = "hostanjacket"
 	inhand_icon_state = null
-	body_parts_covered = CHEST|ARMS
-	armor_type = /datum/armor/sturdy_cloth
 
 //Surgeon
 /obj/item/clothing/suit/apron/surgical

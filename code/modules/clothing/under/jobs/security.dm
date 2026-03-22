@@ -30,7 +30,6 @@
 	desc = "A tactical security jumpsuit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rsecurity"
 	inhand_icon_state = "r_suit"
-	armor_type = /datum/armor/sturdy_cloth
 	alt_covers_chest = FALSE
 
 /obj/item/clothing/under/rank/security/officer/white
@@ -86,7 +85,6 @@
 	desc = "A formal security suit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rwarden"
 	inhand_icon_state = "r_suit"
-	armor_type = /datum/armor/sturdy_cloth
 
 /obj/item/clothing/under/rank/security/warden/white
 	name = "white warden suit"
@@ -177,7 +175,6 @@
 	desc = "A security jumpsuit decorated for those few with the dedication to achieve the position of Head of Security."
 	icon_state = "rhos"
 	inhand_icon_state = "r_suit"
-	armor_type = /datum/armor/sturdy_cloth
 	strip_delay = 60
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
