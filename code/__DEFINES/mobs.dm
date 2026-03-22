@@ -47,7 +47,7 @@
 #define ORGAN_BRAIN_FRAGILITY_MULT 3
 
 /// Minimum fraction of a projectile's base damage that must get through armor for bleed/organ effects to apply.
-/// If armor stops more than this fraction of damage, the bullet is considered "stopped" — no bleeding or organ trauma.
+/// If armor stops more than this fraction of damage, the bullet is considered "stopped".
 #define PROJECTILE_MINIMUM_EFFECTIVENESS 0.5
 
 /// Projectile damage variance (percentage, 0-1). Damage is randomized within ±(base_damage * variance).
