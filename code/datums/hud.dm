@@ -222,7 +222,7 @@ GLOBAL_LIST_INIT(trait_blockers_to_hud, list(
 
 	hud_atoms[atom_turf.z] |= new_hud_atom
 
-	for(var/mob/mob_to_show as anything in get_hud_users_for_z_level(atom_turf.z))
+	for(var/mob/mob_to_show /*as anything*/ in get_hud_users_for_z_level(atom_turf.z))
 		if(!queued_to_see[mob_to_show])
 			add_atom_to_single_mob_hud(mob_to_show, new_hud_atom)
 	return TRUE
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(trait_blockers_to_hud, list(
 	if(!atom_turf)
 		return FALSE
 
-	for(var/mob/hud_user as anything in get_hud_users_for_z_level(atom_turf.z))
+	for(var/mob/hud_user /*as anything*/ in get_hud_users_for_z_level(atom_turf.z))
 		if(!hud_user.client)
 			continue
 		if(!hud_exceptions[hud_user] || !(hud_atom in hud_exceptions[hud_user]))
@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(trait_blockers_to_hud, list(
 	if(!atom_turf)
 		return FALSE
 
-	for(var/mob/hud_user as anything in get_hud_users_for_z_level(atom_turf.z))
+	for(var/mob/hud_user /*as anything*/ in get_hud_users_for_z_level(atom_turf.z))
 		if(!hud_user.client)
 			continue
 		hud_user.client.images -= hud_atom.active_hud_list[hud_category_to_remove]//by this point it shouldn't be in active_hud_list
@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(trait_blockers_to_hud, list(
 
 	// Cache for sonic speed, lists are structs
 	var/list/exceptions = hud_exceptions
-	for(var/mob/requesting_mob as anything in requesting_mobs)
+	for(var/mob/requesting_mob /*as anything*/ in requesting_mobs)
 		if(!requesting_mob.client)
 			continue
 		if(!exceptions[requesting_mob] || !(hud_atom in exceptions[requesting_mob]))
@@ -389,7 +389,7 @@ GLOBAL_LIST_INIT(trait_blockers_to_hud, list(
 	for(var/hud_image in hud_icons)
 		images_to_remove |= atom_to_remove.active_hud_list[hud_image]
 
-	for(var/mob/client_mob as anything in client_mobs)
+	for(var/mob/client_mob /*as anything*/ in client_mobs)
 		if(!client_mob.client)
 			continue
 		client_mob.client.images -= images_to_remove
