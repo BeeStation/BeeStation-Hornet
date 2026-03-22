@@ -190,16 +190,16 @@
 	inhand_icon_state = "tbpen"
 	volume = 60
 	amount_per_transfer_from_this = 60
-	list_reagents = list(/datum/reagent/medicine/amphetamine = 50, /datum/reagent/medicine/syndicure = 10)
+	list_reagents = list(/datum/reagent/medicine/amphetamine = 50, /datum/reagent/medicine/neon = 10)
 
-/obj/item/reagent_containers/hypospray/medipen/syndicure
+/obj/item/reagent_containers/hypospray/medipen/neon
 	name = "organ repair medipen"
-	desc = "A Syndicate-engineered autoinjector containing Syndicure, a compound designed to rapidly repair widespread internal organ damage. Use with caution — causes mild toxin buildup."
+	desc = "A Syndicate-engineered autoinjector containing Neon, a compound designed to rapidly repair widespread internal organ damage. Use with caution: causes mild toxin buildup."
 	icon_state = "syndipen"
 	inhand_icon_state = "tbpen"
 	volume = 15
 	amount_per_transfer_from_this = 15
-	list_reagents = list(/datum/reagent/medicine/syndicure = 15)
+	list_reagents = list(/datum/reagent/medicine/neon = 15, /datum/reagent/medicine/omnizine = 10, /datum/reagent/medicine/epinephrine = 10,)
 
 /obj/item/reagent_containers/hypospray/medipen/morphine
 	name = "morphine medipen"

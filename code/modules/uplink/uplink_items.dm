@@ -1952,12 +1952,12 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 90
 	reputation_required = REPUTATION_STANDARD
 
-/datum/uplink_item/device_tools/syndicure
+/datum/uplink_item/device_tools/neon
 	name = "Organ Repair Medipen"
-	desc = "A Syndicate-engineered autoinjector loaded with Syndicure, a compound that rapidly repairs widespread \
+	desc = "A Syndicate-engineered autoinjector loaded with Neon, a compound that rapidly repairs widespread \
 			internal organ damage across the heart, lungs, liver, and other vital organs. Causes mild toxin \
 			buildup as a side-effect. Do not exceed recommended dosage."
-	item = /obj/item/reagent_containers/hypospray/medipen/syndicure
+	item = /obj/item/reagent_containers/hypospray/medipen/neon
 	cost = 2
 	surplus = 50
 
