@@ -1654,8 +1654,8 @@
 	if(affected_mob.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5 * REM * delta_time, required_organ_flag = affected_organ_flags))
 		return UPDATE_MOB_HEALTH
 
-/datum/reagent/medicine/syndicure
-	name = "Syndicure"
+/datum/reagent/medicine/neon
+	name = "Neon"
 	description = "A Syndicate-engineered organ regeneration compound. Rapidly repairs widespread internal organ damage, \
 		but causes mild toxin buildup as a side-effect. Overdose causes severe liver and heart damage."
 	reagent_state = LIQUID
@@ -1665,7 +1665,7 @@
 	overdose_threshold = 20
 	taste_description = "metallic bitterness"
 
-/datum/reagent/medicine/syndicure/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/medicine/neon/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update
 	// Heals all major organ slots
@@ -1682,7 +1682,7 @@
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
-/datum/reagent/medicine/syndicure/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/medicine/neon/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update
 	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_LIVER, 3 * REM * delta_time)
