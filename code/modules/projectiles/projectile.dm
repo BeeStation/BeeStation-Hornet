@@ -166,8 +166,6 @@
 
 	/// Multiplier (0 to 1) determining what fraction of dealt damage is applied as organ damage to organs in the hit zone. 0 means no organ damage.
 	var/organ_damage_multiplier = 0
-	/// Flat percentage chance (0 to 100) that the projectile passes clean through without hitting any organs.
-	var/organ_damage_passthrough_chance = ORGAN_DAMAGE_PASSTHROUGH_CHANCE
 
 	/// Damage the limb must have for it to be dismembered upon getting hit. 0 will prevent dismembering altogether
 	var/dismemberment = 0
@@ -397,9 +395,6 @@
 		return
 	// Only carbon mobs have internal organs
 	if(!iscarbon(victim))
-		return
-	// Flat chance the bullet sails clean through without nicking any organs
-	if(prob(organ_damage_passthrough_chance))
 		return
 	// Get all organs in the zone that was actually hit (including child zones like groin -> chest)
 	var/list/candidate_organs = victim.get_organs_for_zone(def_zone, include_children = TRUE)
