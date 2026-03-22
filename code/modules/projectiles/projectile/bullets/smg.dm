@@ -4,7 +4,7 @@
 	name = ".45 bullet"
 	damage = 28
 	armour_penetration = 10 // Heavier pistol round, slight penetration
-	bleed_force = BLEED_BULLET_MEDIUM
+	bleed_force = BLEED_BULLET
 
 // 4.6x30mm (Autorifles)
 
@@ -12,13 +12,13 @@
 	name = "4.6x30mm bullet"
 	damage = 17
 	armour_penetration = 15 // PDW round, designed for moderate armour penetration
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/c46x30mm_ap
 	name = "4.6x30mm armor-piercing bullet"
 	damage = 14
 	armour_penetration = 40
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/incendiary/c46x30mm
 	name = "4.6x30mm incendiary bullet"

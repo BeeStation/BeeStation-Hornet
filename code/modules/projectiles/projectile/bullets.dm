@@ -8,6 +8,6 @@
 	armor_flag = BULLET
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
-	bleed_force = BLEED_BULLET_MEDIUM
+	bleed_force = BLEED_BULLET
 	organ_damage_multiplier = ORGAN_DAMAGE_MULT_NORMAL
 	damage_variance = PROJECTILE_VARIANCE_BULLET

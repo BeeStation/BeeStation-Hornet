@@ -4,7 +4,7 @@
 	name = "7.62x38mmR bullet"
 	damage = 40
 	armour_penetration = 12
-	bleed_force = BLEED_BULLET_HEAVY
+	bleed_force = BLEED_BULLET
 
 // .50AE (Desert Eagle)
 
@@ -12,7 +12,7 @@
 	name = ".50AE bullet"
 	damage = 40
 	armour_penetration = 10 // Heavy round, slight penetration advantage
-	bleed_force = BLEED_BULLET_HEAVY
+	bleed_force = BLEED_BULLET
 
 // .38 (Detective's Gun)
 
@@ -23,7 +23,7 @@
 	ricochet_chance = 50
 	ricochet_auto_aim_angle = 10
 	ricochet_auto_aim_range = 3
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/c38/match
 	name = ".38 Match bullet"
@@ -120,7 +120,7 @@
 	name = "invisible .38 bullet"
 	icon_state = null
 	damage = 17
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/c38/mime_lethal/on_hit(atom/target, blocked)
 	. = ..()
@@ -134,7 +134,7 @@
 	name = ".357 bullet"
 	damage = 40
 	armour_penetration = 20 // Magnum round, good penetration
-	bleed_force = BLEED_BULLET_HEAVY
+	bleed_force = BLEED_BULLET
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

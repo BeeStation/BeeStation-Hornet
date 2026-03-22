@@ -2,13 +2,13 @@
 	name = "12g shotgun slug"
 	damage = 40 // single slug, high damage - a 12g slug is devastating
 	armour_penetration = 25
-	bleed_force = BLEED_BULLET_HEAVY
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/shotgun_gold
 	name = "golden shotgun slug"
 	damage = 28
 	armour_penetration = 20
-	bleed_force = BLEED_BULLET_MEDIUM
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/shotgun_bronze
 	name = "bronze shotgun slug"
@@ -64,7 +64,7 @@
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/armour_piercing
 	name = "armour-piercing buckshot pellet"
@@ -137,7 +137,7 @@
 
 /obj/projectile/bullet/scattershot
 	damage = 15
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET
 
 //Breaching Ammo
 

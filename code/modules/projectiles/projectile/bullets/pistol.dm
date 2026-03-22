@@ -4,13 +4,13 @@
 	name = "9mm bullet"
 	damage = 20
 	armour_penetration = 5 // Small caliber, minimal penetration
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/c9mm_ap
 	name = "9mm armor-piercing bullet"
 	damage = 18
 	armour_penetration = 40
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/incendiary/c9mm
 	name = "9mm incendiary bullet"
@@ -31,18 +31,18 @@
 	name = "10mm bullet"
 	damage = 28
 	armour_penetration = 10 // Moderate caliber, slight penetration
-	bleed_force = BLEED_BULLET_MEDIUM
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/c10mm/improv
 	name = "10mm bullet"
 	damage = 25
-	bleed_force = BLEED_BULLET_MEDIUM
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/c10mm_ap
 	name = "10mm armor-piercing bullet"
 	damage = 25
 	armour_penetration = 40
-	bleed_force = BLEED_BULLET_MEDIUM
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/c10mm_hp
 	name = "10mm hollow-point bullet"
@@ -62,4 +62,4 @@
 	name = "x200 LAW bullet"
 	damage = 20
 	armour_penetration = -100 // This thing is made for spacecraft use. Penetration is terrible on purpose.
-	bleed_force = BLEED_BULLET_LIGHT
+	bleed_force = BLEED_BULLET

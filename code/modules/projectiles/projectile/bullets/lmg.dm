@@ -27,13 +27,13 @@
 	name = "7.12x82mm bullet"
 	damage = 35
 	armour_penetration = 15 // Full-size rifle round, moderate penetration
-	bleed_force = BLEED_BULLET_HEAVY
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/mm712x82_ap
 	name = "7.12x82mm armor-piercing bullet"
 	damage = 30
 	armour_penetration = 75
-	bleed_force = BLEED_BULLET_HEAVY
+	bleed_force = BLEED_BULLET
 
 /obj/projectile/bullet/mm712x82_hp
 	name = "7.12x82mm hollow-point bullet"
