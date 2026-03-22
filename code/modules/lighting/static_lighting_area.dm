@@ -1,15 +1,19 @@
 GLOBAL_DATUM_INIT(fullbright_overlay, /image, create_fullbright_overlay())
 
 /proc/create_fullbright_overlay()
-	var/image/lighting_effect = new()
-	lighting_effect.appearance = /obj/effect/fullbright
+	var/image/lighting_effect = image(icon = 'icons/effects/alphacolors.dmi', icon_state = "white", layer = LIGHTING_ABOVE_ALL)
+	lighting_effect.plane = LIGHTING_PLANE
+	lighting_effect.blend_mode = BLEND_ADD
 	return lighting_effect
 
 GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 
 /proc/create_starlight_overlay()
-	var/image/lighting_effect = new()
-	lighting_effect.appearance = /obj/effect/fullbright/starlight
+	var/image/lighting_effect = image(icon = 'icons/effects/96x96.dmi', icon_state = "starlight", layer = LIGHTING_ABOVE_ALL)
+	lighting_effect.plane = STARLIGHT_PLANE
+	lighting_effect.blend_mode = BLEND_ADD
+	lighting_effect.pixel_x = -32
+	lighting_effect.pixel_y = -32
 	return lighting_effect
 
 /area

@@ -1,7 +1,7 @@
 /area
 	luminosity = 1
 	/// Lighting overlay
-	var/obj/effect/fullbright/lighting_overlay
+	var/image/lighting_overlay
 	/// Cached zmimic lighting vars
 	var/lighting_overlay_matrix_cr = 0
 	var/lighting_overlay_matrix_cg = 0
@@ -63,7 +63,7 @@
 	area_has_base_lighting = FALSE
 
 /area/proc/add_base_lighting()
-	lighting_overlay = new /obj/effect/fullbright()
+	lighting_overlay = create_fullbright_overlay()
 	lighting_overlay.color = base_lighting_color
 	lighting_overlay.alpha = base_lighting_alpha
 
