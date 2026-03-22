@@ -111,3 +111,9 @@
 				if (user)
 					log_combat(user, robot, "reset the cyborg module via wire", important = FALSE)
 	ui_update()
+
+/datum/wires/robot/can_reveal_wires(mob/user)
+	if(HAS_TRAIT(user, TRAIT_KNOW_ROBO_WIRES))
+		return TRUE
+
+	return ..()
