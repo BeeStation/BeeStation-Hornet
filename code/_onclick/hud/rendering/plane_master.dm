@@ -146,7 +146,7 @@
 /atom/movable/screen/plane_master/starlight/backdrop(mob/mymob)
 	. = ..()
 	// Default the colour to whatever the parallax is currently
-	transition_colour(src, GLOB.starlight_colour, 1 SECONDS)
+	transition_colour(src, GLOB.starlight_colour, 0.1 SECONDS)
 	// Transition the colour to whatever the global tells us to go to
 	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour), override = TRUE)
 
