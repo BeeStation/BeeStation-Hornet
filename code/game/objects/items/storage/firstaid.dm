@@ -494,6 +494,7 @@
 	var/static/items_inside = list(
 		/obj/item/defibrillator/compact/combat/loaded = 1,
 		/obj/item/reagent_containers/hypospray/combat = 1,
+		/obj/item/reagent_containers/hypospray/medipen/syndicure = 1,
 		/obj/item/reagent_containers/pill/patch/styptic = 2,
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 2,
 		/obj/item/clothing/glasses/hud/health/night = 1)
@@ -516,7 +517,7 @@
 		/obj/item/storage/pill_bottle/kelotane = 1,
 		/obj/item/storage/pill_bottle/bicaridine = 1,
 		/obj/item/storage/pill_bottle/charcoal = 1,
-		/obj/item/stack/medical/gauze = 1,
+		/obj/item/reagent_containers/hypospray/medipen/syndicure = 1,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
