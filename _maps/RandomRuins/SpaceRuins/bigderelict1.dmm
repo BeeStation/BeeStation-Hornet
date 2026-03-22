@@ -1943,7 +1943,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/machinery/light,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -2063,7 +2063,7 @@
 /obj/item/stack/cable_coil{
 	amount = 2;
 	icon_state = "coil_red2";
-	item_state = "coil_red"
+	inhand_icon_state = "coil_red"
 	},
 /obj/structure/alien/weeds{
 	color = "#4BAE56";

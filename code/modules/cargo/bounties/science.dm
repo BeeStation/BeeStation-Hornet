@@ -2,14 +2,16 @@
 	name = "Genetics Disability Mutator"
 	description = "Understanding the humanoid genome is the first step to curing many spaceborn genetic defects, and exceeding our basest limits."
 	reward = CARGO_CRATE_VALUE * 2
-	wanted_types = list(/obj/item/dnainjector)
+	wanted_types = list(
+		/obj/item/dnainjector = TRUE
+	)
 	///What's the instability
 	var/desired_instability = 0
 
 /datum/bounty/item/science/genetics/New()
 	. = ..()
 	desired_instability = rand(10,40)
-	reward += desired_instability * 100
+	reward += desired_instability * (CARGO_CRATE_VALUE * 0.2)
 	description += " We want a DNA injector whose total instability is higher than [desired_instability] points."
 
 /datum/bounty/item/science/genetics/applies_to(obj/O)
@@ -34,7 +36,9 @@
 	description = "Turns out that NTNet wasn't actually a fad afterall, who knew. Ship us some fully constructed tablets and send it turned on."
 	reward = CARGO_CRATE_VALUE * 6
 	required_count = 4
-	wanted_types = list(/obj/item/modular_computer/tablet)
+	wanted_types = list(
+		/obj/item/modular_computer/tablet = TRUE
+	)
 	var/require_powered = TRUE
 
 /datum/bounty/item/science/ntnet/applies_to(obj/O)
@@ -51,14 +55,15 @@
 	description = "Central command brass need something more powerful than a tablet, but more portable than a console. Help these old fogeys out by shipping us some working laptops. Send it turned on."
 	reward = CARGO_CRATE_VALUE * 3
 	required_count = 2
-	wanted_types = list(/obj/item/modular_computer/laptop)
+	wanted_types = list(/obj/item/modular_computer/laptop = TRUE)
 
 /datum/bounty/item/science/ntnet/console
 	name = "Modular Computer Console"
 	description = "Our big data devision needs more powerful hardware to play 'Outbomb Cuban Pe-', err, to closely monitor threats in your sector. Send us a working modular computer console."
 	reward = CARGO_CRATE_VALUE * 6
 	required_count = 1
-	wanted_types = list(/obj/machinery/modular_computer/console)
+	wanted_types = list(/obj/machinery/modular_computer/console = TRUE)
+	require_powered = FALSE
 
 /datum/bounty/item/science/ntnet/console/applies_to(obj/O)
 	if(!..())

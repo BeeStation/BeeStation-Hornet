@@ -6,7 +6,7 @@
 	light_mask = "modular-light-mask"
 	product_ads = "Get your gamer gear!;The best GPUs for all of your space-crypto needs!;The most robust cooling!;The finest RGB in space!"
 	vend_reply = "Game on!"
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 
 	product_categories = list(
 
@@ -14,7 +14,7 @@
 			"name" = "Devices & Kits",
 			"icon" = "toolbox",
 			"products" = list(
-					/obj/item/paicard = 2,
+					/obj/item/pai_card = 2,
 					/obj/item/modular_computer/laptop = 3,
 					/obj/item/modular_computer/tablet = 3,
 					/obj/item/storage/box/tablet4dummies = 6,

@@ -5,7 +5,9 @@
 /datum/export/manifest_correct
 	cost = CARGO_CRATE_VALUE * 0.4
 	unit_name = "approved manifest"
-	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
+	export_types = list(
+		/obj/item/paper/fluff/jobs/cargo/manifest = TRUE,
+	)
 
 /datum/export/manifest_correct/applies_to(obj/thing, allowed_categories = NONE)
 	if(!..())
@@ -21,7 +23,9 @@
 /datum/export/manifest_error_denied
 	cost = -CARGO_CRATE_VALUE
 	unit_name = "correctly denied manifest"
-	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
+	export_types = list(
+		/obj/item/paper/fluff/jobs/cargo/manifest = TRUE,
+	)
 
 /datum/export/manifest_error_denied/applies_to(obj/thing, allowed_categories = NONE)
 	if(!..())
@@ -41,7 +45,9 @@
 // Subtracts half the package cost. (max -500 credits)
 /datum/export/manifest_error
 	unit_name = "erroneously approved manifest"
-	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
+	export_types = list(
+		/obj/item/paper/fluff/jobs/cargo/manifest = TRUE,
+	)
 	allow_negative_cost = TRUE
 
 /datum/export/manifest_error/applies_to(obj/thing, allowed_categories = NONE)
@@ -62,7 +68,9 @@
 // Subtracts half the package cost. (max -500 credits)
 /datum/export/manifest_correct_denied
 	unit_name = "erroneously denied manifest"
-	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
+	export_types = list(
+		/obj/item/paper/fluff/jobs/cargo/manifest = TRUE,
+	)
 	allow_negative_cost = TRUE
 
 /datum/export/manifest_correct_denied/applies_to(obj/thing, allowed_categories = NONE)

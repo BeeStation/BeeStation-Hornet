@@ -163,7 +163,7 @@
 			new /obj/item/clothing/suit/hooded/carp_costume/spaceproof(src)
 			new /obj/item/clothing/mask/gas/carp(src)
 			new /obj/item/grenade/spawnergrenade/spesscarp(src)
-			new /obj/item/toy/plush/carpplushie/dehy_carp(src)
+			new /obj/effect/spawner/random/contraband/cayennelottery(src)
 			new /obj/item/slimepotion/slime/sentience(src)
 
 		if("mad_scientist")
@@ -273,7 +273,7 @@
 /obj/item/storage/box/syndie_kit/contract_kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
 	new /obj/item/storage/box/syndie_kit/contractor_loadout(src)
-	new /obj/item/melee/classic_baton/retractible_stun/contractor_baton(src)
+	new /obj/item/melee/baton/telescopic/contractor_baton(src)
 
 	// All about 4 TC or less - some nukeops only items, but fit nicely to the theme.
 	var/list/item_list = list(
@@ -315,7 +315,7 @@
 	for(var/i in 1 to 5)
 		new /obj/item/paper(src)
 	var/obj/item/paper/construction/redpaper = new /obj/item/paper/construction(src)
-	redpaper.color = "#FF0000" //Red paper, for an extra special calling card flair
+	redpaper.color = COLOR_RED //Red paper, for an extra special calling card flair
 
 /obj/item/storage/box/syndie_kit/imp_freedom
 	name = "freedom implant box"
@@ -609,6 +609,7 @@
 	new /obj/item/restraints/handcuffs/fake(src)
 	new /obj/item/toy/windupToolbox(src)
 	new /obj/item/toy/toy_dagger(src)
+	new /obj/item/clothing/neck/cloak/fakehalo(src)
 	new /obj/item/toy/sword(src)
 	new /obj/item/dualsaber/toy(src)
 	new /obj/item/toy/gun(src)
@@ -626,3 +627,12 @@
 	new /obj/item/gun/ballistic/automatic/pistol/der38(src)
 	for (var/i in 1 to 6)
 		new /obj/item/ammo_casing/a357(src)
+
+/obj/item/storage/box/syndie_kit/pinata
+	name = "weapons grade pinata kit"
+	desc = "Contains a weapons grade pinata and 2 belts for carrying its contents."
+
+/obj/item/storage/box/syndie_kit/pinata/PopulateContents()
+	new /obj/item/pinata/syndie(src)
+	new /obj/item/storage/belt/grenade(src)
+	new /obj/item/storage/belt/military/snack(src)

@@ -246,8 +246,9 @@
 	var/list/mail_recipients = list()
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
-		// Skip wizards, nuke ops, cyborgs and dead people; Centcom does not send them mail
-		if(human.stat == DEAD || !human.mind || !SSjob.GetJob(human.mind.assigned_role) || human.mind.special_role)
+		// Mail is not routed to anyone who isn't present on the manifest, since how would we know
+		// to send their mail here?
+		if(!human.mind || !find_record(human.mind.name, GLOB.manifest.general))
 			continue
 
 		mail_recipients += human.mind

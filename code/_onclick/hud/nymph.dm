@@ -3,6 +3,5 @@
 
 /datum/hud/nymph/New(mob/living/simple_animal/hostile/retaliate/nymph/owner)
 	..()
-	healths = new /atom/movable/screen/healths()
-	healths.hud = src
+	healths = new /atom/movable/screen/healths(null, src)
 	infodisplay += healths

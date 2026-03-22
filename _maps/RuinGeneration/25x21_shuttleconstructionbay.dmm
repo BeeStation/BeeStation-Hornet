@@ -80,7 +80,7 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "mf" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "nu" = (
@@ -120,7 +120,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "tP" = (

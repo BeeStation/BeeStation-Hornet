@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			if(ishuman(A))
 				var/mob/living/carbon/human/L = A
 				L.SetUnconscious(0)
-				L.drowsyness = 0
+				L.remove_status_effect(/datum/status_effect/drowsiness)
 				L.SetSleeping(0)
 			sleep(30)
 			do_teleport(holder_obj, pick(flooring_near_beacon), no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE)
@@ -188,8 +188,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				return 1
 	return 0
 
-/obj/effect/extraction_holder/singularity_pull()
+/obj/effect/extraction_holder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/obj/effect/extraction_holder/singularity_pull()
+/obj/effect/extraction_holder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return

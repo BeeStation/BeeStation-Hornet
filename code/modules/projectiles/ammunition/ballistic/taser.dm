@@ -1,5 +1,5 @@
 /obj/item/ammo_casing/taser
-	name = "Taser cartridge"
+	name = "taser cartridge"
 	desc = "Standard-issue APS-Arc taser cartridge. Twin barb-needle projectiles and wound plastitanium wire spool."
 	icon_state = "taser_cartridge"
 	projectile_type = /obj/projectile/energy/electrode

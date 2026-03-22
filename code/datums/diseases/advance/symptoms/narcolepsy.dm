@@ -18,18 +18,16 @@ Bonus
 	stealth = 1
 	resistance = -1
 	stage_speed = -2
-	transmission = -2
-	level = 3
-	symptom_delay_min = 10
-	symptom_delay_max = 30
+	transmission = 0
+	level = 2
+	symptom_delay_min = 30
+	symptom_delay_max = 50
 	prefixes = list("Lazy ", "Yawning ")
 	bodies = list("Sleep")
 	severity = 3
-	var/sleep_level = 0
-	var/sleepy_ticks = 0
-	var/stamina = FALSE
-	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
-						<b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+	var/yawning = FALSE
+	threshold_desc = "<b>Transmission 4:</b> Causes the host to periodically emit a yawn that spreads the virus in a manner similar to that of a sneeze.<br>\
+					  <b>Stage Speed 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
 
 /datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
 	. = ..()
@@ -37,68 +35,55 @@ Bonus
 		severity += 1
 
 /datum/symptom/narcolepsy/Start(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
-	if(A.transmission >= 7) //stamina damage
-		stamina = TRUE
-	if(A.resistance >= 10) //act more often
-		symptom_delay_min = 5
-		symptom_delay_max = 20
+	if(A.transmission >= 4) //yawning (mostly just some copy+pasted code from sneezing, with a few tweaks)
+		yawning = TRUE
+	if(A.stage_rate >= 10) //act more often
+		symptom_delay_min = 10
+		symptom_delay_max = 40
 
 /datum/symptom/narcolepsy/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
+
 	var/mob/living/M = A.affected_mob
-	if(M.stat >= DEAD)
-		return
-	//this ticks even when on cooldown
-	switch(sleep_level) //Works sorta like morphine
-		if(10 to 19)
-			M.drowsyness += 1
-		if(20 to INFINITY)
-			M.Sleeping(30, 0)
-			sleep_level = 0
-			sleepy_ticks = 0
-
-	if(sleepy_ticks && A.stage>=5)
-		sleep_level++
-		sleepy_ticks--
-	else
-		sleep_level = 0
-
-	if(!..())
-		return
-
 	switch(A.stage)
 		if(1)
-			if(prob(10))
+			if(prob(50))
 				to_chat(M, span_warning("You feel tired."))
 		if(2)
-			if(prob(10))
+			if(prob(50))
 				to_chat(M, span_warning("You feel very tired."))
-				sleepy_ticks += rand(10,14)
-				if(stamina)
-					M.adjustStaminaLoss(10)
 		if(3)
-			if(prob(15))
+			if(prob(50))
 				to_chat(M, span_warning("You try to focus on staying awake."))
-				sleepy_ticks += rand(10,14)
-				if(stamina)
-					M.adjustStaminaLoss(15)
+
+			M.adjust_drowsiness_up_to(10 SECONDS, 140 SECONDS)
+
 		if(4)
-			if(prob(20))
-				to_chat(M, span_warning("You nod off for a moment."))
-				sleepy_ticks += rand(10,14)
-				if(stamina)
-					M.adjustStaminaLoss(20)
+			if(prob(50))
+				if(yawning)
+					to_chat(M, span_warning("You try and fail to suppress a yawn."))
+				else
+					to_chat(M, span_warning("You nod off for a moment.")) //you can't really yawn while nodding off, can you?
+
+			M.adjust_drowsiness_up_to(20 SECONDS, 140 SECONDS)
+
+			if(yawning)
+				M.emote("yawn")
+				if(M.CanSpreadAirborneDisease())
+					A.spread(6)
+
 		if(5)
-			if(prob(25))
+			if(prob(50))
 				to_chat(M, span_warning("[pick("So tired...","You feel very sleepy.","You have a hard time keeping your eyes open.","You try to stay awake.")]"))
-				M.drowsyness = max(M.drowsyness, 2)
-				sleepy_ticks += rand(10,14)
-				if(stamina)
-					M.adjustStaminaLoss(30)
 
+			M.adjust_drowsiness_up_to(80 SECONDS, 140 SECONDS)
 
-
-
+			if(yawning)
+				M.emote("yawn")
+				if(M.CanSpreadAirborneDisease())
+					A.spread(6)

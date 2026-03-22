@@ -21,17 +21,21 @@
 /obj/effect/decal/chempuff/blob_act(obj/structure/blob/B)
 	return
 
+/obj/effect/decal/chempuff/proc/end_life(datum/move_loop/engine)
+	QDEL_IN(src, engine.delay) //Gotta let it stop drifting
+	animate(src, alpha = 0, time = engine.delay)
+
 /obj/effect/decal/chempuff/proc/loop_ended(datum/source)
 	SIGNAL_HANDLER
 	if(QDELETED(src))
 		return
 	qdel(src)
 
-/obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, succeeded)
-	if(QDELETED(src))
+/obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, result)
+	if(QDELETED(src)) //Reasons PLEASE WORK I SWEAR TO GOD
 		return
-	if(!succeeded || lifetime < 0)
-		qdel(src)
+	if(result == MOVELOOP_FAILURE) //If we hit something
+		end_life(source)
 		return
 
 	var/puff_reagents_string = reagents?.log_list()
@@ -39,13 +43,11 @@
 	var/turf/our_turf = get_turf(src)
 
 	for(var/atom/movable/turf_atom in our_turf)
-		if(lifetime < 0)
-			qdel(src)
-			break
-
-		//we ignore the puff itself and stuff below the floor
-		if(turf_atom == src || turf_atom.invisibility)
+		if(turf_atom == src || turf_atom.invisibility) //we ignore the puff itself and stuff below the floor
 			continue
+
+		if(lifetime < 0)
+			break
 
 		if(!stream)
 			if(ismob(turf_atom))
@@ -97,9 +99,3 @@
 
 /obj/effect/decal/fakestairs/newstairs/left
 	icon_state = "stairs-l"
-
-/obj/effect/decal/fakestairs/Initialize(mapload)
-	. = ..()
-	var/turf/open/floor/T = get_turf(src)
-	if(istype(T, /turf/open/floor))
-		T.slowdown = 2

@@ -39,7 +39,7 @@
 			"name" = "Replacement Gear",
 			"icon" = "gun",
 			"products" = list(
-				/obj/item/melee/classic_baton/police/deputy = 4,
+				/obj/item/melee/baton/deputy = 4,
 				/obj/item/melee/tonfa = 4,
 				/obj/item/restraints/handcuffs/cable/zipties = 16,
 				/obj/item/reagent_containers/peppercloud_deployer = 4,

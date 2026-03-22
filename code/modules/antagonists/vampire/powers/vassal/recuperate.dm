@@ -17,7 +17,7 @@
 	if(!.)
 		return FALSE
 
-	if(owner.stat >= DEAD || owner.incapacitated())
+	if(owner.stat >= DEAD || owner.incapacitated)
 		owner.balloon_alert(owner, "you are incapacitated...")
 		return FALSE
 
@@ -35,7 +35,7 @@
 	if(!istype(carbon_owner))
 		return
 
-	carbon_owner.Jitter(5)
+	carbon_owner.set_jitter_if_lower(10 SECONDS)
 	carbon_owner.adjustStaminaLoss(bloodcost * 1.1)
 	carbon_owner.adjustBruteLoss(-2.5)
 	carbon_owner.adjustToxLoss(-2, forced = TRUE)
@@ -50,7 +50,7 @@
 /datum/action/vampire/recuperate/continue_active()
 	if(owner.stat == DEAD)
 		return FALSE
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		owner.balloon_alert(owner, "too exhausted...")
 		return FALSE
 	return TRUE

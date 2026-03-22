@@ -428,12 +428,6 @@
 	credit_cost = CARGO_CRATE_VALUE * 10
 	description = "A fully functional shuttle including a complete infirmary, storage facilties and regular amenities."
 
-/datum/map_template/shuttle/emergency/corg
-	suffix = "corg"
-	name = "Corg Station Emergency Shuttle"
-	credit_cost = CARGO_CRATE_VALUE * 8
-	description = "A smaller shuttle with area for cargo, medical and security personnel."
-
 /datum/map_template/shuttle/emergency/fland
 	suffix = "fland"
 	name = "Flandstation Wide shuttle"
@@ -607,10 +601,6 @@
 	suffix = "kilo"
 	name = "supply shuttle (Kilo)"
 
-/datum/map_template/shuttle/cargo/corg
-	suffix = "corg"
-	name = "supply shuttle (Corg)"
-
 /datum/map_template/shuttle/cargo/birdboat
 	suffix = "birdboat"
 	name = "supply shuttle (Birdboat)"
@@ -669,10 +659,6 @@
 	suffix = "box"
 	name = "labour shuttle (Box)"
 
-/datum/map_template/shuttle/arrival/corg
-	suffix = "corg"
-	name = "arrival shuttle (Corg)"
-
 /datum/map_template/shuttle/infiltrator/basic
 	suffix = "basic"
 	name = "basic syndicate infiltrator"
@@ -729,10 +715,6 @@
 	suffix = "card"
 	name = "card exploration shuttle"
 
-/datum/map_template/shuttle/exploration/corg
-	suffix = "corg"
-	name = "corg exploration shuttle"
-
 /datum/map_template/shuttle/exploration/delta
 	suffix = "delta"
 	name = "delta exploration shuttle"
@@ -752,10 +734,6 @@
 /datum/map_template/shuttle/labour/kilo
 	suffix = "kilo"
 	name = "labour shuttle (Kilo)"
-
-/datum/map_template/shuttle/labour/corg
-	suffix = "corg"
-	name = "labour shuttle (Corg)"
 
 /datum/map_template/shuttle/arrival/delta
 	suffix = "delta"
@@ -856,10 +834,6 @@
 /datum/map_template/shuttle/tram
 	port_id = "tram"
 	can_be_bought = FALSE
-
-/datum/map_template/shuttle/tram/corg
-	suffix = "corg"
-	name = "corgstation transport shuttle"
 
 //---------cargo_fland.dmm
 /datum/map_template/shuttle/cargo/fland

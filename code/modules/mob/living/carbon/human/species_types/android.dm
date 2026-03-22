@@ -15,7 +15,7 @@
 		TRAIT_NOFIRE,
 		TRAIT_NOHUNGER,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_RESISTCOLD,
@@ -30,7 +30,7 @@
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOBLOOD,
 	)
-	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	meat = null
 	mutanttongue = /obj/item/organ/tongue/robot
 	mutantstomach = null

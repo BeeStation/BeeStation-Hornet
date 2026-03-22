@@ -1,7 +1,7 @@
 /datum/round_event_control/zombie_outbreak
 	name = "Zombie Outbreak"
 	typepath = /datum/round_event/zombie_outbreak
-	weight = 5
+	weight = 0
 	max_occurrences = 1
 	min_players = 30
 
@@ -21,7 +21,7 @@
 			continue
 		if(!H.get_organ_by_type(/obj/item/organ/brain))
 			continue
-		if(!(MOB_ORGANIC in H.mob_biotypes))
+		if(!(H.mob_biotypes & MOB_ORGANIC))
 			continue
 		if(!H.get_organ_slot(ORGAN_SLOT_ZOMBIE))
 			var/obj/item/organ/zombie_infection/ZI = new()

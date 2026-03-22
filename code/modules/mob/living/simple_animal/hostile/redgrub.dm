@@ -4,7 +4,7 @@
 	icon_state = "grub_1"
 	icon_living = "grub_1"
 	icon_dead = "grub_1_dead"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	butcher_results = list(/obj/effect/decal/cleanable/insectguts = 1)
 	damage_coeff = list(BRUTE = 1, BURN = 2, TOX = -1, CLONE = 0, STAMINA = 0, OXY = 0) //can't be eaten by slimes, and healed by toxin damage
 	turns_per_move = 5
@@ -21,7 +21,6 @@
 	response_harm_continuous = "squishes"
 	response_harm_simple = "squish"
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list(FACTION_HOSTILE)
 	attack_sound = 'sound/effects/blobattack.ogg'
 	pass_flags = PASSTABLE | PASSMOB
@@ -31,7 +30,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 360 //really, *really* dont like heat
-	deathmessage = "curls up and stops moving."
+	death_message = "curls up and stops moving."
 	var/patience = 30
 	var/growthstage = 1 //1-3.
 	var/food = 0
@@ -53,6 +52,7 @@
 	. = ..()
 	grub_diseases += new /datum/disease/advance/random(rand(3, 6), 9, rand(3, 4), guaranteed_symptoms = list(/datum/symptom/parasite))
 	food = rand(15, 50)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/redgrub/PickTarget()
 	var/newtarget = ..()

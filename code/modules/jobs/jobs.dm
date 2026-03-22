@@ -5,73 +5,58 @@ GLOBAL_LIST_INIT(command_lightup_areas, typecacheof(list(
 	/area/teleporter
 )))
 
-GLOBAL_LIST_INIT(engineering_lightup_areas,		\
-	typecacheof(list(							\
-		/area/construction,						\
-		/area/engine,							\
-		/area/security/checkpoint/engineering,	\
-		/area/solar,							\
-		/area/tcommsat,							\
-		/area/vacant_room						\
-	)) - typecacheof(list(						\
-		/area/engine/atmos,						\
-		/area/engine/gravity_generator			\
-	))											\
-)
+GLOBAL_LIST_INIT(engineering_lightup_areas, zebra_typecacheof(list(
+	/area/construction = TRUE,
+	/area/engine = TRUE,
+	/area/security/checkpoint/engineering = TRUE,
+	/area/solar = TRUE,
+	/area/tcommsat = TRUE,
+	/area/vacant_room = TRUE,
+	/area/engine/atmos = FALSE,
+	/area/engine/gravity_generator = FALSE,
+)))
 
-GLOBAL_LIST_INIT(medical_lightup_areas, 	\
-	typecacheof(list(						\
-		/area/medical,						\
-		/area/security/checkpoint/medical	\
-	)) - typecacheof(list(					\
-		/area/medical/abandoned,			\
-		/area/medical/apothecary,			\
-		/area/medical/chemistry,			\
-		/area/medical/genetics,				\
-		/area/medical/morgue,				\
-		/area/medical/surgery,				\
-		/area/medical/virology				\
-	))										\
-)
+GLOBAL_LIST_INIT(medical_lightup_areas, zebra_typecacheof(list(
+	/area/medical = TRUE,
+	/area/security/checkpoint/medical = TRUE,
+	/area/medical/abandoned = FALSE,
+	/area/medical/apothecary = FALSE,
+	/area/medical/chemistry = FALSE,
+	/area/medical/genetics = FALSE,
+	/area/medical/morgue = FALSE,
+	/area/medical/surgery = FALSE,
+	/area/medical/virology = FALSE,
+)))
 
-GLOBAL_LIST_INIT(science_lightup_areas, 		\
-	typecacheof(list(							\
-		/area/science,							\
-		/area/security/checkpoint/science		\
-	)) - typecacheof(list(						\
-		/area/science/explab,					\
-		/area/science/misc_lab,					\
-		/area/science/mixing,					\
-		/area/science/nanite,					\
-		/area/science/robotics,					\
-		/area/science/server,					\
-		/area/science/storage,					\
-		/area/science/xenobiology				\
-	))											\
-)
+GLOBAL_LIST_INIT(science_lightup_areas, zebra_typecacheof(list(
+	/area/science = TRUE,
+	/area/security/checkpoint/science = TRUE,
+	/area/science/explab = FALSE,
+	/area/science/misc_lab = FALSE,
+	/area/science/mixing = FALSE,
+	/area/science/nanite = FALSE,
+	/area/science/robotics = FALSE,
+	/area/science/server = FALSE,
+	/area/science/storage = FALSE,
+	/area/science/xenobiology = FALSE,
+)))
 
-GLOBAL_LIST_INIT(supply_lightup_areas,			\
-	typecacheof(list(							\
-		/area/cargo,							\
-		/area/quartermaster,					\
-		/area/security/checkpoint/supply		\
-	)) - typecacheof(list(						\
-		/area/quartermaster/exploration_dock,	\
-		/area/quartermaster/exploration_prep,	\
-		/area/quartermaster/qm,					\
-		/area/quartermaster/qm_bedroom			\
-	))											\
-)
+GLOBAL_LIST_INIT(supply_lightup_areas, zebra_typecacheof(list(
+	/area/cargo = TRUE,
+	/area/quartermaster = TRUE,
+	/area/security/checkpoint/supply = TRUE,
+	/area/quartermaster/exploration_dock = FALSE,
+	/area/quartermaster/exploration_prep = FALSE,
+	/area/quartermaster/qm = FALSE,
+	/area/quartermaster/qm_bedroom = FALSE,
+)))
 
-GLOBAL_LIST_INIT(security_lightup_areas,	\
-	typecacheof(list(						\
-		/area/security						\
-	)) - typecacheof(list(					\
-		/area/security/detectives_office,	\
-		/area/security/nuke_storage,		\
-		/area/security/warden				\
-	))										\
-)
+GLOBAL_LIST_INIT(security_lightup_areas, zebra_typecacheof(list(
+	/area/security = TRUE,
+	/area/security/detectives_office = FALSE,
+	/area/security/nuke_storage = FALSE,
+	/area/security/warden = FALSE,
+)))
 
 /// Put any removed jobs here so they can still show in playtime listings.
 GLOBAL_LIST_INIT(exp_removed_jobs, list(

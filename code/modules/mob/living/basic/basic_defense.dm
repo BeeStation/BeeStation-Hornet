@@ -128,6 +128,7 @@
 		temp_damage = 0
 	else
 		temp_damage *= damage_coeff[damagetype]
+
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
 		visible_message(span_warning("[src] looks unharmed!"))
 		return FALSE
@@ -191,7 +192,7 @@
 
 /mob/living/basic/emp_act(severity)
 	. = ..()
-	if(MOB_ROBOTIC in mob_biotypes)
+	if(mob_biotypes & MOB_ROBOTIC)
 		emp_reaction(severity)
 
 /mob/living/basic/proc/emp_reaction(severity)

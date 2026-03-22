@@ -144,7 +144,7 @@ AUTH_CLIENT_VERB(ooc, msg as text)
 	set name = "Set All Player OOC Color"
 	set desc = "Modifies player OOC Color"
 	set category = "Fun"
-	GLOB.OOC_COLOR = sanitize_hexcolor(newColor, desired_format = 6, include_crunch = TRUE)
+	GLOB.OOC_COLOR = sanitize_hexcolor(newColor, include_crunch = TRUE)
 
 /client/proc/reset_ooc()
 	set name = "Reset All Player OOC Color"
@@ -335,7 +335,7 @@ AUTH_CLIENT_VERB(fit_viewport)
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
-	var/sizes = params2list(winget(src, "mainwindow.split;mapwindow", "size"))
+	var/list/sizes = params2list(winget(src, "mainwindow.split;mapwindow", "size"))
 
 	// Client closed the window? Some other error? This is unexpected behaviour, let's
 	// CRASH with some info.
@@ -397,10 +397,9 @@ AUTH_CLIENT_VERB(fit_viewport)
 /client/proc/attempt_auto_fit_viewport()
 	if (!prefs || !prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
+	// No need to attempt to fit the viewport on non-initialized clients as they'll auto-fit viewport right before finishing init
 	if(fully_created)
 		INVOKE_ASYNC(src, PROC_REF(fit_viewport))
-	else //Delayed to avoid wingets from Login calls.
-		addtimer(CALLBACK(src, PROC_REF(fit_viewport), 1 SECONDS))
 
 AUTH_CLIENT_VERB(view_runtimes_minimal)
 	set name = "View Minimal Runtimes"
@@ -425,22 +424,6 @@ AUTH_CLIENT_VERB(speech_format_help)
 
 
 	to_chat(usr, span_notice("[message]"))
-
-AUTH_CLIENT_VERB(vote_to_leave)
-	set name = "Vote to leave"
-	set category = "OOC"
-	set desc = "Votes to end the round"
-
-	if(isnewplayer(mob))
-		to_chat(src, "<font color='purple'>You cannot vote from the lobby.</font>")
-	else if(player_details.voted_to_leave)
-		player_details.voted_to_leave = FALSE
-		SSautotransfer.connected_votes_to_leave--
-		to_chat(src, "<font color='purple'>You are no longer voting for the current round to end.</font>")
-	else
-		player_details.voted_to_leave = TRUE
-		SSautotransfer.connected_votes_to_leave++
-		to_chat(src, "<font color='purple'>You are now voting for the current round to end.</font>")
 
 AUTH_CLIENT_VERB(show_map_vote_tallies)
 	set name = "Show Map Vote Tallies"

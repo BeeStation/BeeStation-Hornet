@@ -14,7 +14,7 @@
 		/obj/item/toy/sword = 10,
 		/obj/item/ammo_box/foambox = 20,
 		/obj/item/toy/foamblade = 10,
-		/obj/item/toy/syndicateballoon = 10,
+		/obj/item/toy/balloon/syndicate = 10,
 		/obj/item/clothing/suit/syndicatefake = 5,
 		/obj/item/clothing/head/syndicatefake = 5,
 		/obj/item/storage/backpack/syndiassault_borg_bag = 2,
@@ -25,7 +25,8 @@
 		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted = 10,
 		/obj/item/gun/ballistic/automatic/l6_saw/toy/unrestricted = 10,
 		/obj/item/toy/katana = 10,
-		/obj/item/dualsaber/toy = 5)
+		/obj/item/dualsaber/toy = 5,
+		/obj/item/clothing/neck/cloak/fakehalo = 10)
 
 	armor_type = /datum/armor/vending_donksofttoyvendor
 	resistance_flags = FIRE_PROOF

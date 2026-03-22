@@ -372,7 +372,7 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/generator_init()
-	fuel = new /obj/item/stack/sheet/mineral/plasma(src, 0)
+	fuel = new /obj/item/stack/sheet/mineral/plasma(src)
 
 /obj/item/mecha_parts/mecha_equipment/generator/detach()
 	STOP_PROCESSING(SSobj, src)
@@ -449,15 +449,17 @@
 	fuelrate_idle = 5
 	fuelrate_active = 15
 	rechargerate = 25
-	var/radrate = 15
+
+	/// How much radiation we release per second while active
+	var/radrate = 1
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/generator_init()
-	fuel = new /obj/item/stack/sheet/mineral/uranium(src, 0)
+	fuel = new /obj/item/stack/sheet/mineral/uranium(src)
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process(delta_time)
 	. = ..()
 	if(!.) //process wasnt killed
-		radiation_pulse(get_turf(src), radrate * delta_time)
+		radiation_pulse(get_turf(src), max_range = 2, intensity = radrate * delta_time)
 
 
 /////////////////////////////////////////// THRUSTERS /////////////////////////////////////////////

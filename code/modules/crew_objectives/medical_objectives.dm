@@ -16,7 +16,7 @@
 		/area/medical/medbay/lobby,
 		/area/medical/patients_rooms,
 		/area/medical/sleeper,
-		/area/medical/storage
+		/area/medical/storage,
 	))
 
 /datum/objective/crew/morgue/check_completion()
@@ -41,7 +41,7 @@
 		/area/medical/patients_rooms,
 		/area/medical/sleeper,
 		/area/medical/storage,
-		/area/medical/morgue
+		/area/medical/morgue,
 	))
 
 /datum/objective/crew/paramedicmorgue/check_completion()

@@ -120,11 +120,11 @@
   * other such sources of change
   *
   * Extra Arguments
-  * * visualsOnly true if this is only for display (in the character setup screen)
+  * * visuals_only true if this is only for display (in the character setup screen)
   *
-  * If visualsOnly is true, you can omit any work that doesn't visually appear on the character sprite
+  * If visuals_only is true, you can omit any work that doesn't visually appear on the character sprite
   */
-/datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/proc/pre_equip(mob/living/carbon/human/user, visuals_only = FALSE)
 	//to be overridden for customization depending on client prefs,species etc
 	return
 
@@ -135,19 +135,19 @@
   * fiddle with id bindings and accesses etc
   *
   * Extra Arguments
-  * * visualsOnly true if this is only for display (in the character setup screen)
+  * * visuals_only true if this is only for display (in the character setup screen)
   *
-  * If visualsOnly is true, you can omit any work that doesn't visually appear on the character sprite
+  * If visuals_only is true, you can omit any work that doesn't visually appear on the character sprite
   */
-/datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/proc/post_equip(mob/living/carbon/human/user, visuals_only = FALSE)
 	//to be overridden for toggling internals, id binding, access etc
 	return
 
 #define EQUIP_OUTFIT_ITEM(item_path, slot_name) if(##item_path) { \
-	H.equip_to_slot_or_del(SSwardrobe.provide_type(##item_path, H), ##slot_name, TRUE); \
-	var/obj/item/outfit_item = H.get_item_by_slot(##slot_name); \
+	user.equip_to_slot_or_del(SSwardrobe.provide_type(##item_path, user), ##slot_name, TRUE); \
+	var/obj/item/outfit_item = user.get_item_by_slot(##slot_name); \
 	if (outfit_item && outfit_item.type == ##item_path) { \
-		outfit_item.on_outfit_equip(H, visualsOnly, ##slot_name); \
+		outfit_item.on_outfit_equip(user, visuals_only, ##slot_name); \
 	} \
 }
 
@@ -155,12 +155,12 @@
   * Equips all defined types and paths to the mob passed in
   *
   * Extra Arguments
-  * * visualsOnly true if this is only for display (in the character setup screen)
+  * * visuals_only true if this is only for display (in the character setup screen)
   *
-  * If visualsOnly is true, you can omit any work that doesn't visually appear on the character sprite
+  * If visuals_only is true, you can omit any work that doesn't visually appear on the character sprite
   */
-/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	pre_equip(H, visualsOnly)
+/datum/outfit/proc/equip(mob/living/carbon/human/user, visuals_only = FALSE)
+	pre_equip(user, visuals_only)
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
@@ -190,19 +190,27 @@
 	if(suit_store)
 		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
 
+	if(!visuals_only && user.wear_id)
+		var/obj/item/card/id/id_card = user.wear_id
+		if(!istype(id_card)) //If an ID wasn't found in their ID slot, it's probably something holding their ID like a wallet or PDA
+			id_card = locate() in user.wear_id
+
+		if(istype(id_card)) //Make sure that we actually found an ID to modify, otherwise this runtimes and cancels equipping the outfit
+			id_card.registered_age = user.age
+
 	if(accessory)
-		var/obj/item/clothing/under/U = H.w_uniform
+		var/obj/item/clothing/under/U = user.w_uniform
 		if(U)
-			U.attach_accessory(SSwardrobe.provide_type(accessory, H))
+			U.attach_accessory(SSwardrobe.provide_type(accessory, user))
 		else
 			WARNING("Unable to equip accessory [accessory] in outfit [name]. No uniform present!")
 
 	if(l_hand)
-		H.put_in_l_hand(SSwardrobe.provide_type(l_hand, H))
+		user.put_in_l_hand(SSwardrobe.provide_type(l_hand, user))
 	if(r_hand)
-		H.put_in_r_hand(SSwardrobe.provide_type(r_hand, H))
+		user.put_in_r_hand(SSwardrobe.provide_type(r_hand, user))
 
-	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
+	if(!visuals_only) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
 			EQUIP_OUTFIT_ITEM(l_pocket, ITEM_SLOT_LPOCKET)
 		if(r_pocket)
@@ -222,22 +230,22 @@
 				for(var/i in 1 to number)
 					EQUIP_OUTFIT_ITEM(path, ITEM_SLOT_BACKPACK)
 
-	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
+	if(!user.head && toggle_helmet && istype(user.wear_suit, /obj/item/clothing/suit/space/hardsuit))
+		var/obj/item/clothing/suit/space/hardsuit/HS = user.wear_suit
 		HS.ToggleHelmet()
 
-	post_equip(H, visualsOnly)
+	post_equip(user, visuals_only)
 
-	if(!visualsOnly)
-		apply_fingerprints(H)
+	if(!visuals_only)
+		apply_fingerprints(user)
 		if(internals_slot)
-			H.open_internals(H.get_item_by_slot(internals_slot))
+			user.open_internals(user.get_item_by_slot(internals_slot))
 		if(implants)
 			for(var/implant_type in implants)
-				var/obj/item/implant/I = SSwardrobe.provide_type(implant_type, H)
-				I.implant(H, null, TRUE)
+				var/obj/item/implant/I = SSwardrobe.provide_type(implant_type, user)
+				I.implant(user, null, TRUE)
 
-	H.update_body()
+	user.update_body()
 	return TRUE
 
 #undef EQUIP_OUTFIT_ITEM
@@ -249,45 +257,45 @@
   * essentially calls add_fingerprint to every defined item on the human
   *
   */
-/datum/outfit/proc/apply_fingerprints(mob/living/carbon/human/H)
-	if(!istype(H) && !ismonkey(H))
+/datum/outfit/proc/apply_fingerprints(mob/living/carbon/human/user)
+	if(!istype(user) && !ismonkey(user))
 		return
-	if(H.back)
-		H.back.add_fingerprint(H, ignoregloves = TRUE)
-		for(var/obj/item/I in H.back.contents)
-			I.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.wear_id)
-		H.wear_id.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.w_uniform)
-		H.w_uniform.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.wear_suit)
-		H.wear_suit.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.wear_mask)
-		H.wear_mask.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.wear_neck)
-		H.wear_neck.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.head)
-		H.head.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.shoes)
-		H.shoes.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.gloves)
-		H.gloves.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.ears)
-		H.ears.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.glasses)
-		H.glasses.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.belt)
-		H.belt.add_fingerprint(H, ignoregloves = TRUE)
-		for(var/obj/item/I in H.belt.contents)
-			I.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.s_store)
-		H.s_store.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.l_store)
-		H.l_store.add_fingerprint(H, ignoregloves = TRUE)
-	if(H.r_store)
-		H.r_store.add_fingerprint(H, ignoregloves = TRUE)
-	for(var/obj/item/I in H.held_items)
-		I.add_fingerprint(H, ignoregloves = TRUE)
+	if(user.back)
+		user.back.add_fingerprint(user, ignoregloves = TRUE)
+		for(var/obj/item/I in user.back.contents)
+			I.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.wear_id)
+		user.wear_id.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.w_uniform)
+		user.w_uniform.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.wear_suit)
+		user.wear_suit.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.wear_mask)
+		user.wear_mask.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.wear_neck)
+		user.wear_neck.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.head)
+		user.head.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.shoes)
+		user.shoes.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.gloves)
+		user.gloves.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.ears)
+		user.ears.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.glasses)
+		user.glasses.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.belt)
+		user.belt.add_fingerprint(user, ignoregloves = TRUE)
+		for(var/obj/item/I in user.belt.contents)
+			I.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.s_store)
+		user.s_store.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.l_store)
+		user.l_store.add_fingerprint(user, ignoregloves = TRUE)
+	if(user.r_store)
+		user.r_store.add_fingerprint(user, ignoregloves = TRUE)
+	for(var/obj/item/I in user.held_items)
+		I.add_fingerprint(user, ignoregloves = TRUE)
 	return TRUE
 
 /// Return a list of all the types that are required to disguise as this outfit type

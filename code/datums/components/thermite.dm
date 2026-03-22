@@ -8,18 +8,18 @@
 		/turf/open/lava,
 		/turf/open/space,
 		/turf/open/water,
-		/turf/open/chasm)
-		)
+		/turf/open/chasm,
+	))
 
 	var/static/list/immunelist = typecacheof(list(
 		/turf/closed/wall/mineral/diamond,
 		/turf/closed/indestructible,
-		/turf/open/indestructible)
-		)
+		/turf/open/indestructible,
+	))
 
 	var/static/list/resistlist = typecacheof(
-		/turf/closed/wall/r_wall
-		)
+		/turf/closed/wall/r_wall,
+	)
 
 /datum/component/thermite/Initialize(_amount)
 	if(!istype(parent, /turf) || blacklist[parent.type])
@@ -95,5 +95,5 @@
 /datum/component/thermite/proc/attackby_react(datum/source, obj/item/thing, mob/user, params)
 	SIGNAL_HANDLER
 
-	if(thing.is_hot())
+	if(thing.get_temperature())
 		thermite_melt(user)

@@ -3,7 +3,7 @@
 	desc = "An NT Brand anti-virus disk. Its the basic package, but its better than nothing."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "antivirus1"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	max_capacity = 16
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
@@ -78,7 +78,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/cured = 0
-		if(MOB_ROBOTIC in H.mob_biotypes)
+		if(H.mob_biotypes & MOB_ROBOTIC)
 			H.say("Installing [src]. Please do not turn your [H.dna.species] unit off or otherwise disturb it during the installation process", forced = "antivirus")
 			if(do_after(user, 45 SECONDS, H)) //it has unlimited uses, but that's balanced by being very slow
 				H.say("[src] successfully installed. Initiating scan.", forced = "antivirus")

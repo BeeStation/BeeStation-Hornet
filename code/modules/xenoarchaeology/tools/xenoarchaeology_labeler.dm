@@ -218,6 +218,10 @@
 	sticker_icon_state = "[icon_state]_small"
 	return ..()
 
+/obj/item/sticker/xenoartifact_label/Destroy()
+	UnregisterSignal(loc, COMSIG_ATOM_EXAMINE)
+	return ..()
+
 /obj/item/sticker/xenoartifact_label/examine(mob/user)
 	. = ..()
 	. += examine_override
@@ -248,6 +252,9 @@
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(parent_examine))
 
 /obj/item/sticker/xenoartifact_label/unstick(atom/override)
+	if(QDELETED(src))
+		return
+
 	if(sticker_state == STICKER_STATE_STUCK)
 		UnregisterSignal(loc, COMSIG_ATOM_EXAMINE)
 	//Set custom price back

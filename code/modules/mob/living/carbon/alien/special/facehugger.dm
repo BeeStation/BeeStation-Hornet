@@ -13,7 +13,7 @@
 	desc = "It has some sort of a tube at the end of its tail."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
-	item_state = "facehugger"
+	inhand_icon_state = "facehugger"
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	clothing_flags = MASKINTERNALS
 	throw_range = 5
@@ -50,13 +50,13 @@
 
 /obj/item/clothing/mask/facehugger/dead
 	icon_state = "facehugger_dead"
-	item_state = "facehugger_inactive"
+	inhand_icon_state = "facehugger_inactive"
 	worn_icon_state = "facehugger_dead"
 	stat = DEAD
 
 /obj/item/clothing/mask/facehugger/impregnated
 	icon_state = "facehugger_impregnated"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = "facehugger_impregnated"
 	stat = DEAD
 
@@ -253,7 +253,7 @@
 		return
 
 	icon_state = "[initial(icon_state)]_dead"
-	item_state = "facehugger_inactive"
+	inhand_icon_state = "facehugger_inactive"
 	stat = DEAD
 
 	visible_message(span_danger("[src] curls up into a ball!"))
@@ -266,7 +266,7 @@
 		return TRUE
 
 	var/mob/living/carbon/C = M
-	if(ishuman(C) && !(ITEM_SLOT_MASK in C.dna.species.no_equip))
+	if(ishuman(C) && !(C.dna.species.no_equip_flags & ITEM_SLOT_MASK))
 		var/mob/living/carbon/human/H = C
 		if(H.is_mouth_covered(head_only = 1))
 			return FALSE

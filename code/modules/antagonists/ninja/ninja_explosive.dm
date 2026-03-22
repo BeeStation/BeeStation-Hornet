@@ -10,7 +10,7 @@
 	name = "spider charge"
 	desc = "A modified C-4 charge supplied by the Spider Clan. It has great explosive power, but is keyed to only work in one specific area."
 	icon_state = "ninja-explosive0"
-	item_state = "ninja-explosive"
+	inhand_icon_state = "ninja-explosive"
 	boom_sizes = list(4, 8, 12)
 	///Weakref to the mob that has planted the charge
 	var/datum/weakref/detonator
@@ -73,6 +73,11 @@
 		return
 	if (isnull(ninja))
 		return
+	var/datum/antagonist/ninja/ninja_antag = IS_SPACE_NINJA(ninja)
+	if (isnull(ninja_antag))
+		return
+	var/datum/objective/plant_explosive/objective = locate() in ninja_antag.objectives
+	objective?.completed = TRUE
 
 /**
  * check_loc

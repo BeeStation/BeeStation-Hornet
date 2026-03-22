@@ -227,7 +227,7 @@ DEFAULT_NO_VOTE
 ## 0 = Cannot respawn (default)
 ## 1 = Can respawn
 ## 2 = Can respawn if choosing a different character
-ALLOW_RESPAWN 2
+ALLOW_RESPAWN 0
 
 ## Respawn delay(in deciseconds), which doesn't allow to return to lobby, default 5 minutes
 RESPAWN_DELAY 3000
@@ -475,14 +475,14 @@ AUTOADMIN_RANK Admin
 ## These trigger for any version below (non-inclusive) the given version, so 510 triggers on 509 or lower.
 ## These messages will be followed by one stating the clients current version and the required version for clarity.
 ## If CLIENT_WARN_POPUP is uncommented a popup window with the message will be displayed instead
-CLIENT_WARN_VERSION 515
-CLIENT_WARN_BUILD 1640
+CLIENT_WARN_VERSION 516
+CLIENT_WARN_BUILD 1659
 #CLIENT_WARN_POPUP
-CLIENT_WARN_MESSAGE Your current client version does not support all features used by the server, and will have some elements such as the alt-click stat panel menu simplified. Please update to 515, as it will become mandatory in the future.
-CLIENT_ERROR_VERSION 515
+CLIENT_WARN_MESSAGE Your current client version does not support all features used by the server. Please update to the latest version, as it will become mandatory in the future.
+CLIENT_ERROR_VERSION 516
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
-## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
-CLIENT_ERROR_BUILD 1590
+## The minimum build needed for joining the server
+CLIENT_ERROR_BUILD 1659
 ## The maximum build recommended for clients
 CLIENT_MAX_BUILD 1735
 
@@ -605,17 +605,14 @@ CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 #REDIRECT_ADDRESS byond://golden.beestation13.com:7777
 
 ### Autotransfer Settings
-## Uncomment to enable shuttle autotransfer
+## Uncomment to enable players globally to vote when the shuttle is called
 VOTE_AUTOTRANSFER_ENABLED
 
-## Percentage of votes required to call shuttle before decay is applied, value 0-1.
-AUTOTRANSFER_PERCENTAGE 0.7
+## Amount of time between votes to leave, starting at one hour into the round
+VOTE_AUTOTRANSFER_INTERVAL 12000
 
-## Time until decay starts to reduce the required percentage of votes to leave (In deciseconds)
-AUTOTRANSFER_DECAY_START 24000
-
-## How much is subtracted from the percentage above every time the vote ticks (ticks are every five minutes)
-AUTOTRANSFER_DECAY_AMOUNT 0.025
+## Hard limit on round length if enabled
+VOTE_AUTOTRANSFER_OVERRIDE 144000
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 600

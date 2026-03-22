@@ -1,5 +1,7 @@
+@use 'sass:map';
 @use '../colors.scss';
 @use '../base.scss';
+
 $fg-map: colors.$fg-map !default;
 .CircuitInfo__Examined {
   background-color: rgba(0, 0, 0, 1);
@@ -89,11 +91,15 @@ $category-colors: (
     bg: rgb(131, 26, 201),
     contrast: white,
   ),
+  'Gates': (
+    bg: hsl(138, 69%, 33%),
+    contrast: white,
+  ),
 );
 
 @each $category-name, $values in $category-colors {
   .ObjectComponent__Category__#{$category-name} {
-    background-color: map-get($values, bg);
-    color: map-get($values, contrast);
+    background-color: map.get($values, bg);
+    color: map.get($values, contrast);
   }
 }

@@ -68,9 +68,11 @@
 		return
 	//Find a target
 	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
+		if(!isliving(target))
+			continue
 		component_parent.register_target(target, TRUE)
-		component_parent.trigger(TRUE)
-		return
+		break
+	component_parent.trigger(TRUE)
 
 //Instant variant, no move delay. Can only move when not seen
 /datum/xenoartifact_trait/minor/haunted/instant

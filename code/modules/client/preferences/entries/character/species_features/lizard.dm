@@ -1,9 +1,9 @@
 /proc/generate_lizard_side_shots(list/sprite_accessories, key, include_snout = TRUE)
 	var/list/values = list()
 
-	var/datum/universal_icon/lizard = uni_icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_head", dir = EAST)
+	var/datum/universal_icon/lizard = uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_head", dir = EAST)
 
-	var/datum/universal_icon/eyes = uni_icon('icons/mob/species/human/human_face.dmi', "eyes", dir = EAST)
+	var/datum/universal_icon/eyes = uni_icon('icons/mob/human/human_face.dmi', "eyes", dir = EAST)
 	eyes.blend_color(COLOR_GRAY, ICON_MULTIPLY)
 	lizard.blend_icon(eyes, ICON_OVERLAY)
 
@@ -38,7 +38,7 @@
 /datum/preference/choiced/lizard_body_markings/init_possible_values()
 	var/list/values = list()
 
-	var/datum/universal_icon/lizard = uni_icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_chest_m", dir = SOUTH)
+	var/datum/universal_icon/lizard = uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_chest_m", dir = SOUTH)
 
 	for (var/name in GLOB.body_markings_list)
 		var/datum/sprite_accessory/sprite_accessory = GLOB.body_markings_list[name]
@@ -155,7 +155,7 @@
 	var/datum/universal_icon/body_icon = uni_icon('icons/effects/effects.dmi', "nothing")
 	for (var/body_part in body_parts)
 		var/gender = body_part == BODY_ZONE_CHEST ? "_m" : ""
-		body_icon.blend_icon(uni_icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_[body_part][gender]", dir = EAST), ICON_OVERLAY)
+		body_icon.blend_icon(uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_[body_part][gender]", dir = EAST), ICON_OVERLAY)
 	if(show_tail)
 		body_icon.blend_icon(uni_icon('icons/mob/mutant_bodyparts.dmi', "m_tail_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
 

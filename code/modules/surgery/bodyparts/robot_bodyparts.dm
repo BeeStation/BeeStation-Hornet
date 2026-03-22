@@ -16,7 +16,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	attack_verb_continuous = list("slaps", "punches")
 	attack_verb_simple = list("slap", "punch")
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	flags_1 = CONDUCT_1
@@ -43,7 +43,7 @@
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("slaps", "punches")
 	attack_verb_simple = list("slap", "punch")
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
@@ -71,7 +71,7 @@
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("kicks", "stomps")
 	attack_verb_simple = list("kick", "stomp")
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
@@ -99,7 +99,7 @@
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb_continuous = list("kicks", "stomps")
 	attack_verb_simple = list("kick", "stomp")
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
@@ -125,7 +125,7 @@
 /obj/item/bodypart/chest/robot
 	name = "cyborg torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
@@ -221,19 +221,20 @@
 		. += span_info("It has a couple spots that still need to be <b>wired</b>.")
 
 /obj/item/bodypart/chest/robot/drop_organs(mob/user, violent_removal)
+	var/atom/drop_loc = drop_location()
 	if(wired)
-		new /obj/item/stack/cable_coil(drop_location(), 1)
+		new /obj/item/stack/cable_coil(drop_loc, 1)
 		wired = FALSE
 	if(cell)
-		cell.forceMove(drop_location())
+		cell.forceMove(drop_loc)
 		cell = null
-	..()
+	return ..()
 
 
 /obj/item/bodypart/head/robot
 	name = "cyborg head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon = null
@@ -323,13 +324,14 @@
 
 
 /obj/item/bodypart/head/robot/drop_organs(mob/user, violent_removal)
+	var/atom/drop_loc = drop_location()
 	if(flash1)
-		flash1.forceMove(user.loc)
+		flash1.forceMove(drop_loc)
 		flash1 = null
 	if(flash2)
-		flash2.forceMove(user.loc)
+		flash2.forceMove(drop_loc)
 		flash2 = null
-	..()
+	return ..()
 
 
 

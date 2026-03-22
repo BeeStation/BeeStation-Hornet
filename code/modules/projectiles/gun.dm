@@ -6,7 +6,7 @@
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "detective"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	worn_icon_state = "gun"
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
@@ -38,7 +38,7 @@
 	var/can_sawoff = FALSE
 	var/sawn_name = null				//used if gun has a special sawn-off rename
 	var/sawn_desc = null				//description change if weapon is sawn-off
-	var/sawn_item_state = null			//used if gun has a special sawn-off in-hand sprite
+	var/sawn_inhand_icon_state = null			//used if gun has a special sawn-off in-hand sprite
 	var/sawn_off = FALSE
 	var/burst_size = 1					//how large a burst is
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
@@ -99,6 +99,9 @@
 	/// Maximum amount of projectile variance for damaged guns
 	var/damage_variance = 50
 
+	/// Can we hold someone at gunpoint with this?
+	var/can_gunpoint = TRUE
+
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	if(pin)
@@ -130,7 +133,8 @@
 	//Smaller weapons are better when used in a single hand.
 	if(requires_wielding)
 		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power)
-	AddComponent(/datum/component/aiming)
+	if (can_gunpoint)
+		AddComponent(/datum/component/aiming)
 
 /obj/item/gun/proc/wield()
 	is_wielded = TRUE
@@ -671,11 +675,13 @@
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
 	if(aimed == GUN_AIMED && chambered?.BB)
-		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
-		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
+		// Faster bullets to account for the fact you've given the target a big warning they're about to be shot
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.5
+		chambered.BB.damage = initial(chambered.BB.damage) * 2
 	if(aimed == GUN_AIMED_POINTBLANK)
-		chambered.BB.speed = initial(chambered.BB.speed) * 0.25 // Much faster bullets because you're holding them literally at the barrel of the gun
-		chambered.BB.damage = initial(chambered.BB.damage) * 4 // Execution
+		// Execution kill
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.25
+		chambered.BB.damage = initial(chambered.BB.damage) * 6
 	return SEND_SIGNAL(user, COMSIG_MOB_BEFORE_FIRE_GUN, src, target, aimed)
 
 /obj/item/gun/atom_break(damage_flag)
@@ -695,7 +701,7 @@
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
@@ -743,5 +749,9 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
+
+/obj/item/gun/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
+	balloon_alert(user, "Tape would make it too flimsy to fire!")
+	return FALSE
 
 #undef FIRING_PIN_REMOVAL_DELAY

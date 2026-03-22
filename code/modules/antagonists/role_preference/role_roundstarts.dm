@@ -15,12 +15,12 @@
 	l_hand = /obj/item/melee/energy/sword
 	r_hand = /obj/item/gun/energy/recharge/ebow
 
-/datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visuals_only)
 	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
 	H.update_held_items()
 	H.hair_style = "Messy"
-	H.hair_color = "431"
+	H.hair_color = "#443311"
 	H.update_hair()
 
 /datum/role_preference/roundstart/changeling
@@ -52,62 +52,11 @@
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	r_hand = /obj/item/melee/arm_blade
 
-/datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
-	H.dna.features["mcolor"] = "8d8"
+/datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visuals_only)
+	H.dna.features["mcolor"] = "#88dd88"
 	H.dna.features["horns"] = "Short"
 	H.dna.features["frills"] = "Simple"
 	H.set_species(/datum/species/lizard)
-
-/datum/role_preference/roundstart/blood_brother
-	name = "Blood Brother"
-	description = "Team up with other crew members as blood brothers to combine the strengths \
-	of your departments, break each other out of prison, and overwhelm the station."
-	antag_datum = /datum/antagonist/brother
-
-/datum/role_preference/roundstart/blood_brother/get_preview_icon()
-	var/mob/living/carbon/human/dummy/consistent/brother1 = new
-	var/mob/living/carbon/human/dummy/consistent/brother2 = new
-
-	brother1.hair_style = "Pigtails"
-	brother1.hair_color = "532"
-	brother1.update_hair()
-
-	brother2.dna.features["moth_antennae"] = "Plain"
-	brother2.dna.features["moth_markings"] = "None"
-	brother2.dna.features["moth_wings"] = "Plain"
-	brother2.set_species(/datum/species/moth)
-
-	var/icon/brother1_icon = render_preview_outfit(/datum/outfit/job/quartermaster, brother1)
-	brother1_icon.Blend(icon('icons/effects/blood.dmi', "maskblood"), ICON_OVERLAY)
-	brother1_icon.Shift(WEST, 8)
-
-	var/icon/brother2_icon = render_preview_outfit(/datum/outfit/job/scientist, brother2)
-	brother2_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
-	brother2_icon.Shift(EAST, 8)
-
-	var/icon/final_icon = brother1_icon
-	final_icon.Blend(brother2_icon, ICON_OVERLAY)
-
-	qdel(brother1)
-	qdel(brother2)
-
-	return finish_preview_icon(final_icon)
-
-/datum/role_preference/roundstart/vampire
-	name = "Vampire"
-	description = "After your death, you awaken to see yourself as an undead monster. \n\
-		Scrape by Space Station 13, or take it over, vassalizing your way!"
-	antag_datum = /datum/antagonist/vampire
-
-/datum/role_preference/roundstart/vampire/get_preview_icon()
-	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
-	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
-
-	return finish_preview_icon(icon)
-
-/datum/outfit/vampire
-	name = "Vampire outfit (Preview only)"
-	suit = /obj/item/clothing/suit/costume/dracula
 
 /datum/role_preference/roundstart/blood_cultist
 	name = "Blood Cultist"
@@ -130,7 +79,7 @@
 	icon.Crop(-15, -15, 48, 48)
 
 	var/obj/item/melee/cultblade/longsword = new
-	icon.Blend(icon(longsword.lefthand_file, longsword.item_state), ICON_OVERLAY)
+	icon.Blend(icon(longsword.lefthand_file, longsword.inhand_icon_state), ICON_OVERLAY)
 	qdel(longsword)
 
 	// Move the guy back to the bottom left, 32x32.
@@ -146,7 +95,7 @@
 	r_hand = /obj/item/melee/blood_magic/stun
 	l_hand = /obj/item/shield/mirror
 
-/datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visuals_only)
 	H.eye_color = BLOODCULT_EYE
 	H.update_body()
 
@@ -234,7 +183,7 @@
 	icon.Crop(-15, -15, 48, 48)
 
 	var/obj/item/melee/sickly_blade/ash/blade = new
-	icon.Blend(icon(blade.lefthand_file, blade.item_state), ICON_OVERLAY)
+	icon.Blend(icon(blade.lefthand_file, blade.inhand_icon_state), ICON_OVERLAY)
 	qdel(blade)
 
 	// Move the guy back to the bottom left, 32x32.
@@ -275,8 +224,8 @@
 
 	back = /obj/item/mod/control/pre_equipped/empty/syndicate
 
-/datum/outfit/nuclear_operative/post_equip(mob/living/carbon/human/H, visualsOnly)
-	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
+/datum/outfit/nuclear_operative/post_equip(mob/living/carbon/human/H, visuals_only)
+	var/obj/item/mod/module/mod_switch/booster = locate() in H.back
 	booster.active = TRUE
 	H.update_worn_back()
 
@@ -287,8 +236,8 @@
 	l_hand = /obj/item/modular_computer/tablet/nukeops
 	r_hand = /obj/item/shield/energy
 
-/datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visualsOnly)
-	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
+/datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visuals_only)
+	var/obj/item/mod/module/mod_switch/booster = locate() in H.back
 	booster.active = TRUE
 	H.update_worn_back()
 	var/obj/item/shield/energy/shield = locate() in H.held_items

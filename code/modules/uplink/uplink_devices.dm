@@ -7,7 +7,7 @@
 	name = "station bounced radio"
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	worn_icon_state = "radio"
 	desc = "A basic handheld radio that communicates with local telecommunication networks."
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
@@ -21,71 +21,78 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/uplink_flag = UPLINK_TRAITORS
+	var/reputation_start = REPUTATION_TRAITOR_START
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink)
 
-/obj/item/uplink/Initialize(mapload, owner, tc_amount = 20)
+/obj/item/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
 	. = ..()
-	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, uplink_flag, tc_amount)
+	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, uplink_flag, tc_amount, reputation_start, directive_flags = NONE)
 
 /obj/item/uplink/debug
 	name = "debug uplink"
+	reputation_start = REPUTATION_MAX
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/debug)
 
-/obj/item/uplink/debug/Initialize(mapload, owner, tc_amount = 9000)
+/obj/item/uplink/debug/Initialize(mapload, mob/owner, tc_amount = 9000)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.name = "debug uplink"
 	hidden_uplink.debug = TRUE
 
 /obj/item/uplink/nuclear
 	uplink_flag = UPLINK_NUKE_OPS
+	reputation_start = REPUTATION_ELITE
 
 /obj/item/uplink/nuclear/debug
 	name = "debug nuclear uplink"
 	uplink_flag = UPLINK_NUKE_OPS
+	reputation_start = REPUTATION_MAX
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/nuclear/debug)
 
-/obj/item/uplink/nuclear/debug/Initialize(mapload, owner, tc_amount = 9000)
+/obj/item/uplink/nuclear/debug/Initialize(mapload, mob/owner, tc_amount = 9000)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.name = "debug nuclear uplink"
 	hidden_uplink.debug = TRUE
 
 /obj/item/uplink/nuclear_restricted
 	uplink_flag = UPLINK_NUKE_OPS
+	reputation_start = REPUTATION_ELITE
 
 /obj/item/uplink/nuclear_restricted/Initialize(mapload)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.allow_restricted = FALSE
 
 /obj/item/uplink/clownop
 	uplink_flag = UPLINK_CLOWN_OPS
+	reputation_start = REPUTATION_ELITE
 
 /obj/item/uplink/old
 	name = "dusty radio"
 	desc = "A dusty looking radio."
+	reputation_start = REPUTATION_LOW
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/old)
 
-/obj/item/uplink/old/Initialize(mapload, owner, tc_amount = 10)
+/obj/item/uplink/old/Initialize(mapload, mob/owner, tc_amount = 10)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.name = "dusty radio"
 
 // Multitool uplink
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/multitool/uplink)
 
-/obj/item/multitool/uplink/Initialize(mapload, owner, tc_amount = 20)
+/obj/item/multitool/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
 	. = ..()
-	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, UPLINK_TRAITORS, tc_amount)
+	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, UPLINK_TRAITORS, tc_amount, directive_flags = NONE)
 
 // Pen uplink
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pen/uplink)
 
-/obj/item/pen/uplink/Initialize(mapload, owner, tc_amount = 20)
+/obj/item/pen/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
 	. = ..()
-	AddComponent(/datum/component/uplink, owner, TRUE, FALSE, UPLINK_TRAITORS, tc_amount)
+	AddComponent(/datum/component/uplink, owner?.mind, TRUE, FALSE, UPLINK_TRAITORS, tc_amount, directive_flags = NONE)

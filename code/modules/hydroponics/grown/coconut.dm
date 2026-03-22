@@ -7,7 +7,7 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	species = "coconut"
 	plantname = "Coconut Tree"
 	product = /obj/item/grown/coconut
-	lifespan = 55
+	lifespan = 220
 	endurance = 35
 	production = 7
 	yield = 3
@@ -30,7 +30,7 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 
 // Use a knife/sharp object to process the coconut
 /obj/item/grown/coconut/attackby(obj/item/W, mob/user, params)
-	if(!W.is_sharp())
+	if(!W.get_sharpness())
 		return ..()
 	to_chat(user, span_notice("You use [W] to process the flesh from the coconut"))
 

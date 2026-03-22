@@ -20,6 +20,14 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	if(general_data["display_name"])
 		set_display_name(general_data["display_name"])
 
+	//Load a power cell
+	if(general_data["cell"])
+		var/cell_candidate = text2path(general_data["cell"])
+		if(ispath(cell_candidate, /obj/item/stock_parts/cell))
+			set_cell(new cell_candidate(src)) //Put the cell in the circuit
+		else
+			LOG_ERROR(errors, "Invalid path for cell, expected [/obj/item/stock_parts/cell], got [cell_candidate]")
+
 	var/list/variable_data = general_data["variables"]
 	for(var/list/variable as anything in variable_data)
 		var/variable_name = variable["name"]
@@ -168,6 +176,8 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	general_data["components"] = circuit_data
 	general_data["external_objects"] = external_objects_key
 	general_data["display_name"] = display_name
+	if(cell)
+		general_data["cell"] = cell.type
 
 	var/list/variables = list()
 	for(var/variable_identifier in circuit_variables)

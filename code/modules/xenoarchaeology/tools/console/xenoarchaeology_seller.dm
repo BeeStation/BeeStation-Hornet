@@ -117,7 +117,6 @@
 	hidden = TRUE
 	crate_name = "research material container"
 	crate_type = /obj/structure/closet/crate/science
-	access_any = TRUE
 	max_supply = 1
 	current_supply = 1
 	cost = 0

@@ -258,7 +258,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/decoy/fading)
 
 /obj/effect/temp_visual/fire
 	icon = 'icons/effects/fire.dmi'
-	icon_state = "3"
+	icon_state = "heavy"
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
 	duration = 10
@@ -679,7 +679,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/launchpad)
 	looker?.client?.images -= modsuit_image
 
 /// Update the position of the ping while it's still up. Not sure if i need to use the full proc but just being safe
-/obj/effect/temp_visual/sonar_ping/process(seconds_per_tick)
+/obj/effect/temp_visual/sonar_ping/process(delta_time)
 	var/mob/living/looker = mod_man?.resolve()
 	var/mob/living/creature = pinged_person?.resolve()
 	if(isnull(looker) || isnull(creature))

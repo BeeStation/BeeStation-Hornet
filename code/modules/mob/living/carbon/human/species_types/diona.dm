@@ -3,7 +3,6 @@
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
 	sexes = 0 //no sex for bug/plant people!
-	bodyflag = FLAG_DIONA
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
@@ -15,24 +14,20 @@
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
-		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
-		TRAIT_NORADDAMAGE,
+		TRAIT_RADHEALER,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
-	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
+	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	attack_verb = "slash"
 	attack_sound = 'sound/emotes/diona/hit.ogg'
-	burnmod = 1.25
 	heatmod = 1.5
-	brutemod = 0.8
-	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
@@ -44,7 +39,6 @@
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
 	deathsound = "sound/emotes/diona/death.ogg"
-	species_bitflags = NOT_TRANSMORPHIC
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
@@ -109,15 +103,13 @@
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.trigger() //Bring them home.
 
-/datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
-	. = FALSE
-	var/radiation = H.radiation
+/datum/species/diona/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
 	//Dionae heal and eat radiation for a living.
-	H.adjust_nutrition(clamp(radiation, 0, 7))
-	if(radiation > 50)
-		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
-		H.adjustToxLoss(-2)
-		H.adjustOxyLoss(-1)
+	source.adjust_nutrition(intensity * 0.1 * delta_time)
+	if(intensity > 50)
+		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
+		source.adjustToxLoss(-2 * delta_time)
+		source.adjustOxyLoss(-1 * delta_time)
 
 /datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
@@ -159,7 +151,6 @@
 	split_ability.Grant(H)
 	partition_ability = new
 	partition_ability.Grant(H)
-	ADD_TRAIT(H, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
@@ -167,16 +158,10 @@
 	QDEL_NULL(split_ability)
 	partition_ability.Remove(H)
 	QDEL_NULL(partition_ability)
-	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
 	qdel(drone_ref)
 	for(var/status_effect as anything in H.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
 			H.remove_status_effect(/datum/status_effect/planthealing)
-
-/datum/species/diona/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.diona_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return ..(gender, TRUE, null, ++attempts)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
@@ -185,7 +170,7 @@
 		target.visible_message(span_warning("[user] catches fire from hugging [target]!"), span_boldnotice("[user] catches fire hugging you!"), span_italics("You hear a fire crackling."))
 		user.fire_stacks = target.fire_stacks
 		if(user.fire_stacks > 0)
-			user.IgniteMob()
+			user.ignite_mob()
 
 //////////////////////////////////////// Action abilities ///////////////////////////////////////////////
 
@@ -193,7 +178,7 @@
 	name = "Split"
 	desc = "Split into our seperate nymphs."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "split"
 	check_flags = AB_CHECK_DEAD
 	var/Activated = FALSE
@@ -205,7 +190,7 @@
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(user, 8 SECONDS, user, hidden = TRUE))
-		if(user.incapacitated(IGNORE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
+		if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
 			return FALSE
 		startSplitting(FALSE, user) //This runs when you manually activate the ability.
 		return TRUE
@@ -218,30 +203,36 @@
 	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME)
 
 /datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
+	// Gib the corpse with nothing left of use. After all the nymphs are ALL dead.
 	if(gibbed)
-		H.gib(TRUE, TRUE, TRUE)  //Gib the corpse with nothing left of use. After all the nymphs are ALL dead.
+		H.gib(TRUE, TRUE, TRUE)
 		return
-	var/list/alive_nymphs = list()
+
+	var/list/mob/living/simple_animal/hostile/retaliate/nymph/alive_nymphs = list()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
-	for(var/obj/item/bodypart/BP as anything in H.bodyparts)
-		if(BP.limb_id != SPECIES_DIONA) //Robot limb? Ignore it.
-			BP.drop_limb()
+	for(var/obj/item/bodypart/limb as anything in H.bodyparts)
+		if(limb.limb_id != SPECIES_DIONA) //Robot limb? Ignore it.
+			limb.drop_limb()
 			continue
-		if(istype(BP, /obj/item/bodypart/head))
-			nymph.adjustBruteLoss(BP.brute_dam)
-			nymph.adjustFireLoss(BP.burn_dam)
+
+		// Exclude the head nymph from the alive_nymphs list, since that list is used for secondary consciousness transfer.
+		if(istype(limb, /obj/item/bodypart/head))
+			nymph.adjustBruteLoss(limb.brute_dam, updating_health = FALSE)
+			nymph.adjustFireLoss(limb.burn_dam, updating_health = FALSE)
 			nymph.updatehealth()
-			continue //Exclude the head nymph from the alive_nymphs list, since that list is used for secondary consciousness transfer.
-		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
-		limb_nymph.adjustBruteLoss(BP.brute_dam)
-		limb_nymph.adjustFireLoss(BP.burn_dam)
+			continue
+
+		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new(H.loc)
+		limb_nymph.adjustBruteLoss(limb.brute_dam, updating_health = FALSE)
+		limb_nymph.adjustFireLoss(limb.burn_dam, updating_health = FALSE)
 		limb_nymph.updatehealth()
 		if(limb_nymph.stat != DEAD)
 			alive_nymphs += limb_nymph
 
-	var/mob/living/simple_animal/hostile/retaliate/nymph/gambling_nymph = alive_nymphs[rand(1, alive_nymphs)] // Let's go gambling!
-	gambling_nymph.adjustBruteLoss(50) // Aw dangit.
-	alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
+	if(length(alive_nymphs))
+		var/mob/living/simple_animal/hostile/retaliate/nymph/gambling_nymph = alive_nymphs[rand(1, length(alive_nymphs))] // Let's go gambling!
+		gambling_nymph.adjustBruteLoss(50) // Aw dangit.
+		alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
 
 	if(nymph.stat == DEAD) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
 		nymph = pick(alive_nymphs)
@@ -259,7 +250,7 @@
 	name = "Partition"
 	desc = "Allow a nymph to partition from our gestalt self."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	cooldown_time = 5 MINUTES
 	var/ability_partition_cooldow

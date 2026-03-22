@@ -58,7 +58,7 @@
 	speak_emote = list("tones")
 	initial_language_holder = /datum/language_holder/swarmer
 	bubble_icon = "swarmer"
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	health = 65
 	maxHealth = 65
 	status_flags = CANPUSH
@@ -93,7 +93,7 @@
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = TRUE
-	deathmessage = "explodes with a sharp pop!"
+	death_message = "explodes with a sharp pop!"
 	hud_type = /datum/hud/swarmer
 	speech_span = SPAN_ROBOT
 	hardattacks = TRUE
@@ -741,7 +741,7 @@
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
-	required_living_playtime = 4
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/datum/team/swarmer/swarm
 
 /datum/antagonist/swarmer/on_gain()

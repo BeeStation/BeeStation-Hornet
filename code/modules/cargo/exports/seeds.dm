@@ -1,7 +1,9 @@
 /datum/export/seed
 	cost = CARGO_CRATE_VALUE * 0.1 // Gets multiplied by potency
 	unit_name = "new plant species sample"
-	export_types = list(/obj/item/seeds)
+	export_types = list(
+		/obj/item/seeds = TRUE,
+	)
 	var/needs_discovery = FALSE // Only for undiscovered species
 	var/static/list/discoveredPlants = list()
 

@@ -187,16 +187,13 @@
 	SIGNAL_HANDLER
 	var/datum/hud/vampire_hud = owner.current.hud_used
 
-	blood_display = new /atom/movable/screen/vampire/blood_counter()
-	blood_display.hud = vampire_hud
+	blood_display = new /atom/movable/screen/vampire/blood_counter(null, vampire_hud)
 	vampire_hud.infodisplay += blood_display
 
-	vamprank_display = new /atom/movable/screen/vampire/rank_counter()
-	vamprank_display.hud = vampire_hud
+	vamprank_display = new /atom/movable/screen/vampire/rank_counter(null, vampire_hud)
 	vampire_hud.infodisplay += vamprank_display
 
-	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter()
-	sunlight_display.hud = vampire_hud
+	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter(null, vampire_hud)
 	vampire_hud.infodisplay += sunlight_display
 
 	vampire_hud.show_hud(vampire_hud.hud_version)
@@ -294,7 +291,7 @@
 	owner.announce_objectives()
 
 	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
-	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
+	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>."
 
 /datum/antagonist/vampire/farewell()
 	to_chat(owner.current, span_userdanger("With a snap, your curse has ended. You are no longer a Vampire. You live once more!"))
@@ -331,7 +328,7 @@
 
 		power_data["name"] = power.name
 		power_data["explanation"] = power.power_explanation
-		power_data["icon"] = power.button_icon
+		power_data["icon"] = power.background_icon
 		power_data["icon_state"] = power.button_icon_state
 
 		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
@@ -403,7 +400,7 @@
 	user.add_traits(vampire_traits, TRAIT_VAMPIRE)
 
 	// Clear Addictions
-	user.reagents.addiction_list = new/list()
+	user.fully_heal(HEAL_TRAUMAS)
 	owner.remove_quirk(/datum/quirk/junkie)
 	owner.remove_quirk(/datum/quirk/junkie/smoker)
 
@@ -491,7 +488,7 @@
 
 /datum/action/antag_info/vampire
 	name = "Vampire Guide"
-	button_icon = 'icons/vampires/actions_vampire.dmi'
+	background_icon = 'icons/vampires/actions_vampire.dmi'
 	background_icon_state = "vamp_power_off"
 
 /datum/antagonist/vampire/make_info_button()
@@ -532,26 +529,17 @@
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
 	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
-	if(carbon_owner.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
 		carbon_owner.set_species(/datum/species/human)
 		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 
 		for(var/datum/record/crew/record in GLOB.manifest.general)
 			if(record.name == carbon_owner.real_name)
-				record.species = "\improper Human"
+				record.species = carbon_owner.dna.species.name
 				record.gender = carbon_owner.gender
 
-				var/datum/picture/picture_south = new
-				var/datum/picture/picture_west = new
-
-				picture_south.picture_name = "[carbon_owner]"
-				picture_west.picture_name = "[carbon_owner]"
-				picture_south.picture_desc = "This is [carbon_owner]."
-				picture_west.picture_desc = "This is [carbon_owner]."
-
-				var/icon/image = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
-				picture_south.picture_image = icon(image, dir = SOUTH)
-				picture_west.picture_image = icon(image, dir = WEST)
+				//Not using carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER

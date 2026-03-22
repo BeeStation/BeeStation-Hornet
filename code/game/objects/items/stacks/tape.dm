@@ -15,7 +15,10 @@
 	var/list/conferred_embed = EMBED_HARMLESS
 	var/overwrite_existing = FALSE
 
-/obj/item/stack/sticky_tape/afterattack(obj/item/I, mob/living/user)
+/obj/item/stack/sticky_tape/afterattack(obj/item/I, mob/living/user, proximity_flag)
+	if (proximity_flag != 1)
+		return
+
 	if(!istype(I))
 		return
 
@@ -24,8 +27,10 @@
 		return
 
 	user.visible_message(span_notice("[user] begins wrapping [I] with [src]."), span_notice("You begin wrapping [I] with [src]."))
+	playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
 
 	if(do_after(user, 30, target=I))
+		playsound(user, 'sound/items/duct_tape/duct_tape_snap.ogg', 50, TRUE)
 		use(1)
 		if(istype(I, /obj/item/clothing/gloves/fingerless))
 			var/obj/item/clothing/gloves/tackler/offbrand/O = new /obj/item/clothing/gloves/tackler/offbrand
@@ -71,3 +76,28 @@
 	prefix = "super pointy"
 	conferred_embed = EMBED_POINTY_SUPERIOR
 	merge_type = /obj/item/stack/sticky_tape/pointy/super
+
+/obj/item/stack/sticky_tape/duct
+	name = "duct tape"
+	singular_name = "duct tape"
+	desc = "Tape designed for sealing punctures, holes and breakages in objects. Engineers swear by this stuff for practically all kinds of repairs. Maybe a little TOO much..."
+	prefix = "duct taped"
+	conferred_embed = EMBED_IMPOSSIBLE
+	merge_type = /obj/item/stack/sticky_tape/duct
+	var/object_repair_value = 30
+	amount = 10
+	max_amount = 10
+
+/obj/item/stack/sticky_tape/duct/afterattack_secondary(atom/interacting_with, mob/living/user, proximity_flag)
+	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	if (proximity_flag != 1)
+		return
+
+	if (!object_repair_value)
+		return
+
+	if (!interacting_with.try_ducttape(user, src))
+		return
+
+	use(1)

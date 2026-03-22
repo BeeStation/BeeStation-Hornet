@@ -39,6 +39,12 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/heads/chief, /area/engine/atmos)
 
+	manuscript_jobs = list(
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_ATMOSPHERICTECHNICIAN
+	)
+
 /datum/outfit/job/chief_engineer
 	name = JOB_NAME_CHIEFENGINEER
 	jobtype = /datum/job/chief_engineer
@@ -51,7 +57,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/utility/hardhat/white
 	gloves = /obj/item/clothing/gloves/color/black
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
+	backpack_contents = list(/obj/item/melee/baton/telescopic=1)
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng

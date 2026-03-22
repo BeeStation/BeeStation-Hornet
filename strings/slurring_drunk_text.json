@@ -1,0 +1,18 @@
+{
+	"replacements": {
+		"characters": {
+			"common": {
+				"o": "u",
+				"s": "ch",
+				"a": "ah",
+				"u": "oo",
+				"c": "k"
+			},
+			"uncommon": {
+				" ": "...huuuhhh...",
+				".": "... *BURP*.",
+				",": ", *hic* "
+			}
+		}
+	}
+}

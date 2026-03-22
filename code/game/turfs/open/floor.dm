@@ -49,8 +49,8 @@
 	return ..()
 
 /turf/open/floor/is_shielded()
-	for(var/obj/structure/A in contents)
-		return 1
+	for(var/obj/structure/thing in contents)
+		return TRUE
 
 /turf/open/floor/update_icon()
 	. = ..()
@@ -157,7 +157,7 @@
 		return null
 	return new floor_tile(src)
 
-/turf/open/floor/singularity_pull(S, current_size)
+/turf/open/floor/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	var/sheer = FALSE
 	switch(current_size)

@@ -29,6 +29,11 @@
 
 	lightup_areas = list(/area/engine/atmos)
 
+	manuscript_jobs = list(
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_ATMOSPHERICTECHNICIAN // they're identical in some way
+	)
+
 /datum/job/station_engineer/get_access()
 	. = ..()
 	LOWPOP_GRANT_ACCESS(JOB_NAME_ATMOSPHERICTECHNICIAN, ACCESS_ATMOSPHERICS)

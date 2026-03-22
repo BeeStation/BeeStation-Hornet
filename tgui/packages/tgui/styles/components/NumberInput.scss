@@ -12,6 +12,7 @@ $text-color: Input.$text-color !default;
 $background-color: Input.$background-color !default;
 $border-color: Input.$border-color !default;
 $border-radius: Input.$border-radius !default;
+$disabled-color: color.mix($text-color, $background-color, 50%) !default;
 
 .NumberInput {
   position: relative;
@@ -73,4 +74,16 @@ $border-radius: Input.$border-radius !default;
   background-color: $background-color;
   color: $text-color;
   text-align: right;
+}
+
+.NumberInput--disabled {
+  border-color: $disabled-color;
+
+  .NumberInput__bar {
+    background-color: $disabled-color;
+    border-color: $disabled-color;
+  }
+  .NumberInput__content {
+    color: $disabled-color;
+  }
 }

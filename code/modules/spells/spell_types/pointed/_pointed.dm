@@ -70,17 +70,17 @@
 		update_buttons()
 	return TRUE
 
-/datum/action/spell/pointed/InterceptClickOn(mob/living/clicker, params, atom/click_target)
+/datum/action/spell/pointed/InterceptClickOn(mob/living/clicker, params, atom/target)
 
 	var/atom/aim_assist_target
-	if(aim_assist && isturf(click_target))
+	if(aim_assist && isturf(target))
 		// Find any human in the list. We aren't picky, it's aim assist after all
-		aim_assist_target = locate(/mob/living/carbon/human) in click_target
+		aim_assist_target = locate(/mob/living/carbon/human) in target
 		if(!aim_assist_target)
 			// If we didn't find a human, we settle for any living at all
-			aim_assist_target = locate(/mob/living) in click_target
+			aim_assist_target = locate(/mob/living) in target
 
-	return ..(clicker, params, aim_assist_target || click_target)
+	return ..(clicker, params, aim_assist_target || target)
 
 /datum/action/spell/pointed/is_valid_spell(mob/user, atom/target)
 	if(target == owner)

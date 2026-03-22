@@ -129,7 +129,7 @@
 	if(!ishuman(M) || extended != 1 || user.combat_mode)
 		return ..()
 	var/mob/living/carbon/human/H = M
-	// Must be targetting the head
+	// Must be targeting the head
 	if (!user.is_zone_selected(BODY_ZONE_HEAD) && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 		return ..()
 	if(!H.get_bodypart(BODY_ZONE_HEAD))

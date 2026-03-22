@@ -1,0 +1,7 @@
+help: "You are using a cable with a diagonal direction which will not be supported in the future. Please replace these with cardinal direction running cables."
+/obj/structure/cable:
+  banned_variables:
+    icon_state:
+      deny: ["0-5", "0-6", "0-9", "0-10", "1-5", "1-6", "1-9", "1-10", "2-5", "2-6", "2-9", "2-10", "4-5", "4-6", "4-9", "4-10", "5-6", "5-8", "5-9", "5-10", "6-8", "6-9", "6-10", "8-9", "8-10", "9-10", "5-32", "6-32", "9-32", "10-32", "5-16", "6-16", "9-16", "10-16"]
+    cable_color:
+    color:

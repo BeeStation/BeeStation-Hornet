@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	desc = "A sentient bluespace crystallization of someone's willpower, this being will forever protect and serve its host, standing guard until the last embers of their life are extinguished."
 	speak_emote = list("emanates", "radiates")
 	gender = NEUTER
-	mob_biotypes = list(MOB_INORGANIC)
+	mob_biotypes = MOB_INORGANIC
 	bubble_icon = "guardian"
 	response_help_continuous = "passes through"
 	response_help_simple = "pass through"
@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/holoparasite
 	dextrous_hud_type = /datum/hud/holoparasite
-	chat_color = "#ffffff"
+	chat_color = COLOR_WHITE
 	mobchatspan = "holoparasite"
 	faction = list()
 	discovery_points = 10000

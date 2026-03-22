@@ -43,6 +43,7 @@ $title-background-color: transparent !default;
   display: inline-block;
   right: 0.5em;
   margin-top: base.em(-1px);
+  color: $title-text-color;
 }
 
 .Section__rest {

@@ -6,7 +6,7 @@
 	species = "teaaspera"
 	plantname = "Tea Aspera Plant"
 	product = /obj/item/food/grown/tea
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 5
@@ -21,7 +21,7 @@
 	name = "Tea Aspera tips"
 	desc = "These aromatic tips of the tea plant can be dried to make tea."
 	icon_state = "tea_aspera_leaves"
-	filling_color = "#008000"
+	filling_color = COLOR_GREEN
 	dry_grind = TRUE
 	grind_results = list(/datum/reagent/toxin/teapowder = 0)
 	can_distill = FALSE
@@ -55,7 +55,7 @@
 	species = "coffeea"
 	plantname = "Coffee Arabica Bush"
 	product = /obj/item/food/grown/coffee
-	lifespan = 30
+	lifespan = 120
 	endurance = 20
 	maturation = 5
 	production = 5

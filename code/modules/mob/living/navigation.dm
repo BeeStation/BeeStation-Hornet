@@ -10,7 +10,7 @@
 	set name = "Navigate"
 	set category = "IC"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	if(length(client.navigation_images))
 		addtimer(CALLBACK(src, PROC_REF(cut_navigation)), world.tick_lag)
@@ -22,7 +22,7 @@
 	addtimer(CALLBACK(src, PROC_REF(create_navigation)), world.tick_lag)
 
 /mob/living/proc/create_navigation()
-	if(incapacitated())
+	if(incapacitated)
 		to_chat(src, "<span class='notice'>You are not conscious enough to do that.</span>")
 		return
 	var/list/filtered_navigation_list = list()
@@ -49,7 +49,7 @@
 		return
 	if(isatom(target_destination) && !target_destination.is_available_to_user(src))
 		return
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	// automatically change your destination to another floor
@@ -77,15 +77,22 @@
 		stack_trace("Navigate target ([target_destination]) is not an atom, somehow.")
 		return
 
-	var/list/path = get_path_to(src, target_destination, MAX_NAVIGATE_RANGE, mintargetdist = 1, id = get_idcard(), skip_first = FALSE)
+	var/list/path = get_path_to(src, target_destination, MAX_NAVIGATE_RANGE, mintargetdist = 1, access = get_access(), skip_first = FALSE)
 	if(!length(path))
-		balloon_alert(src, "no valid path with current access!")
-		//Let them path again
-		COOLDOWN_RESET(src, navigate_cooldown)
-		return
+		if(tgui_alert(src, "No valid path found with your current access. Bypass access restrictions?", "Navigation", list("Yes", "No")) != "Yes")
+			balloon_alert(src, "no valid path with current access!")
+			//Let them path again
+			COOLDOWN_RESET(src, navigate_cooldown)
+			return
+		path = get_path_to_all_access(src, target_destination, MAX_NAVIGATE_RANGE, mintargetdist = 1, skip_first = FALSE)
+		if(!length(path))
+			balloon_alert(src, "no valid path found!")
+			//Let them path again
+			COOLDOWN_RESET(src, navigate_cooldown)
+			return
 	path |= get_turf(target_destination)
 	for(var/i in 1 to length(path))
-		var/image/path_image = image(icon = 'icons/effects/navigation.dmi', layer = HIGH_SIGIL_LAYER, loc = path[i])
+		var/image/path_image = image(icon = 'icons/effects/navigation.dmi', layer = HIGH_PIPE_LAYER, loc = path[i])
 		path_image.plane = GAME_PLANE
 		path_image.color = COLOR_CYAN
 		path_image.alpha = 0
@@ -114,7 +121,7 @@
 		if(!length(client.navigation_images))
 			return
 		animate(client.navigation_images[i], time = 1 SECONDS, loop = -1, alpha = 200, color = "#bbffff", easing = BACK_EASING | EASE_OUT)
-		animate(time = 2 SECONDS, loop = -1, alpha = 150, color = "#00ffff", easing = CUBIC_EASING | EASE_OUT)
+		animate(time = 2 SECONDS, loop = -1, alpha = 150, color = COLOR_CYAN, easing = CUBIC_EASING | EASE_OUT)
 		stoplag(0.1 SECONDS)
 
 /mob/living/proc/cut_navigation()
@@ -147,7 +154,7 @@
 		if(!target)
 			target = lad
 			continue
-		if(get_dist_euclidian(lad, src) > get_dist_euclidian(target, src))
+		if(get_dist_euclidean(lad, src) > get_dist_euclidean(target, src))
 			continue
 		target = lad
 
@@ -159,7 +166,7 @@
 		if(!target)
 			target = stairs_bro.z == z ? stairs_bro : get_step_multiz(stairs_bro, UP) //if the stairs aren't on our z level, get the turf above them (on our zlevel) to path to instead
 			continue
-		if(get_dist_euclidian(stairs_bro, src) > get_dist_euclidian(target, src))
+		if(get_dist_euclidean(stairs_bro, src) > get_dist_euclidean(target, src))
 			continue
 		target = stairs_bro.z == z ? stairs_bro : get_step_multiz(stairs_bro, UP)
 

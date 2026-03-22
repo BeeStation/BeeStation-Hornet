@@ -603,7 +603,13 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 
 /obj/item/pipe_dispenser/proc/check_can_make_pipe(atom/target_of_attack)
 	//make sure what we're clicking is valid for the current category
-	var/static/list/make_pipe_whitelist = typecacheof(list(/obj/structure/lattice, /obj/structure/girder, /obj/item/pipe, /obj/structure/window, /obj/structure/grille))
+	var/static/list/make_pipe_whitelist = typecacheof(list(
+		/obj/structure/lattice,
+		/obj/structure/girder,
+		/obj/item/pipe,
+		/obj/structure/window,
+		/obj/structure/grille,
+	))
 	var/can_we_make_pipe = (isturf(target_of_attack) || is_type_in_typecache(target_of_attack, make_pipe_whitelist))
 	return can_we_make_pipe
 
@@ -668,7 +674,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	if(multi_layer)
 		balloon_alert(source_mob, "turn off multi layer!")
 		return
-	if(source_mob.incapacitated())
+	if(source_mob.incapacitated)
 		return
 	if(source_mob.get_active_held_item() != src)
 		return

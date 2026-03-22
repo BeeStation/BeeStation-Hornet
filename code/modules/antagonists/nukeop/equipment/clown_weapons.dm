@@ -3,7 +3,7 @@
 	desc = "A seemingly innocent sunflower...with a twist. A <i>slippery</i> twist."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
-	item_state = "sunflower"
+	inhand_icon_state = "sunflower"
 	amount_per_transfer_from_this = 3
 	spray_range = 1
 	stream_range = 1
@@ -22,9 +22,9 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/shoes/clown_shoes/combat/Initialize(mapload)
-	. = ..()
-
-	create_storage(storage_type = /datum/storage/pockets/shoes)
+	if(!istype(atom_storage))
+		create_storage(storage_type = /datum/storage/pockets/shoes)
+	return ..()
 
 /// Recharging rate in PPS (peels per second)
 #define BANANA_SHOES_RECHARGE_RATE 17
@@ -65,10 +65,8 @@
 	bleed = 40
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize(mapload)
-	. = ..()
-
 	create_storage(storage_type = /datum/storage/pockets/shoes)
-
+	. = ..()
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
 	bananium.insert_amount_mat(BANANA_SHOES_MAX_CHARGE, /datum/material/bananium)
 	START_PROCESSING(SSobj, src)
@@ -163,7 +161,7 @@
 	name = "bananium energy shield"
 	desc = "A shield that stops most melee attacks, protects user from almost all energy projectiles, and can be thrown to slip opponents."
 	icon_state = "bananaeshield"
-	item_state = "bananaeshield"
+	inhand_icon_state = "bananaeshield"
 	throw_speed = 1
 	force = 0
 	throwforce = 0

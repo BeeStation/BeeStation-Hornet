@@ -8,8 +8,7 @@
 	armor_type = /datum/armor/crate_secure
 	var/tamperproof = 0
 	icon_door = "crate"
-	damage_deflection = 25
-
+	damage_deflection = 20
 
 /datum/armor/crate_secure
 	melee = 30
@@ -124,7 +123,7 @@
 
 /obj/structure/closet/crate/secure/freezer/pizza/PopulateContents()
 	. = ..()
-	new /obj/effect/spawner/lootdrop/pizzaparty(src)
+	new /obj/effect/spawner/random/food_or_drink/pizzaparty(src)
 
 /obj/structure/closet/crate/secure/engineering
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."

@@ -54,7 +54,7 @@ export const SelectEquipment = (props) => {
   const currentOutfitEntry = getOutfitEntry(current_outfit);
 
   return (
-    <Window width={650} height={415}>
+    <Window width={650} height={415} theme="generic">
       <Window.Content>
         <Stack fill>
           <Stack.Item>

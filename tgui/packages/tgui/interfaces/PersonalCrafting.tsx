@@ -250,7 +250,7 @@ export const PersonalCrafting = (props) => {
   const CATEGORY_ICONS =
     mode === MODE.cooking ? CATEGORY_ICONS_COOKING : CATEGORY_ICONS_CRAFTING;
   return (
-    <Window width={700} height={720}>
+    <Window width={700} height={720} theme="generic">
       <Window.Content>
         <Stack fill>
           <Stack.Item width={'200px'}>
@@ -325,8 +325,8 @@ export const PersonalCrafting = (props) => {
                     </Tabs.Tab>
                   </Tabs>
                 </Stack.Item>
-                <Stack.Item grow m={-1}>
-                  <Box height={'100%'} p={1} style={{ overflowY: 'auto' }}>
+                <Stack.Item grow m={-1} style={{ overflowY: 'auto' }}>
+                  <Box height={'100%'} p={1}>
                     <Tabs vertical>
                       {tabMode === TABS.foodtype &&
                         mode === MODE.cooking &&
@@ -577,6 +577,7 @@ const MaterialContent = (props) => {
       <Stack.Item
         height="32px"
         lineHeight="32px"
+        width="0px"
         grow
         style={{
           textTransform: 'capitalize',

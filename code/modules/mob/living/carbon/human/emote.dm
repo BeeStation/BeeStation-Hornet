@@ -195,8 +195,8 @@
 
 /datum/emote/living/carbon/human/wing/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	H.Togglewings()
+	var/mob/living/carbon/carbon_user = user
+	carbon_user.Togglewings()
 
 /datum/emote/living/carbon/human/wing/select_message_type(mob/user, intentional)
 	. = ..()
@@ -207,18 +207,14 @@
 		. = "closes " + message
 
 /datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional, params)
-	var/mob/living/carbon/human/H = user
-	if(H.dna && H.dna.species)
-		if(H.dna.features["wings"] != "None")
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		var/obj/item/organ/wings/wings = carbon_user.get_organ_slot(ORGAN_SLOT_WINGS)
+		if(istype(wings))
 			return TRUE
-		if(H.dna.features["moth_wings"] != "None")
-			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-			if(istype(wings))
-				if(wings.flight_level >= WINGS_FLYING)
-					return TRUE
 	return FALSE
 
-/mob/living/carbon/human/proc/Togglewings()
+/mob/living/carbon/proc/Togglewings()
 	if(!dna || !dna.species)
 		return FALSE
 	var/obj/item/organ/wings/wings = get_organ_slot(ORGAN_SLOT_WINGS)
@@ -228,7 +224,6 @@
 		if(wings.toggleopen(src))
 			return TRUE
 	return FALSE
-
 
 /datum/emote/living/carbon/human/fart
 	key = "fart"
@@ -258,7 +253,7 @@
 	if(!..())
 		return FALSE
 	var/obj/item/organ/tongue/T = user.get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(T.status == ORGAN_ROBOTIC)
+	if(IS_ROBOTIC_ORGAN(T))
 		return TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/beep

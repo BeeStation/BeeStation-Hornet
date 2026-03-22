@@ -8,7 +8,7 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 300
-	item_state = "rack_parts"
+	inhand_icon_state = "rack_parts"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_flags = ISWEAPON
@@ -113,7 +113,7 @@
 		jill.apply_damage(9999, BRUTE, BODY_ZONE_HEAD)
 		jill.investigate_log("has been killed by [src].", INVESTIGATE_DEATHS)
 		jill.death() //just in case, for some reason, they're still alive
-		flash_color(jill, flash_color = "#FF0000", flash_time = 100)
+		flash_color(jill, flash_color = COLOR_RED, flash_time = 100)
 
 /obj/item/reverse_bear_trap/proc/reset()
 	ticking = FALSE

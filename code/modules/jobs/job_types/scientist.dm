@@ -38,6 +38,11 @@
 		/area/science/xenobiology
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_SCIENTIST,
+		JOB_NAME_ATMOSPHERICTECHNICIAN // thanks to maxcap, they're knowledgeable.
+	)
+
 /datum/job/scientist/get_access()
 	. = ..()
 	LOWPOP_GRANT_ACCESS(JOB_NAME_ROBOTICIST, ACCESS_ROBOTICS)

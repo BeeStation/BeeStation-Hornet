@@ -202,6 +202,11 @@
 // PLUSHIES
 //
 
+/datum/greyscale_config/plush_carp
+	name = "Plushie Carp"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_carp.json'
+
 /datum/greyscale_config/plush_lizard
 	name = "Plushie Lizard"
 	icon_file = 'icons/obj/plushes.dmi'
@@ -211,6 +216,11 @@
 	name = "Plushie Space Lizard"
 	icon_file = 'icons/obj/plushes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plushie_spacelizard.json'
+
+/datum/greyscale_config/plush_snake
+	name = "Plushie Snake"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_snake.json'
 
 /datum/greyscale_config/beret
 	name = "Beret"
@@ -310,3 +320,43 @@
 	name = "Worn CTF Light Vest"
 	icon_file = 'icons/mob/clothing/suits/ctf.dmi'
 	json_config = 'code/datums/greyscale/json_configs/ctf_light_worn.json'
+
+/datum/greyscale_config/festive_hat
+	name = "Festive Hat"
+	icon_file = 'icons/obj/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/festive_hat.json'
+
+/datum/greyscale_config/festive_hat_worn
+	name = "Festive Hat Worn"
+	icon_file = 'icons/mob/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/festive_hat.json'
+
+/datum/greyscale_config/party_hat
+	name = "Party Hat"
+	icon_file = 'icons/obj/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/party_hat.json'
+
+/datum/greyscale_config/party_hat_worn
+	name = "Party Hat Worn"
+	icon_file = 'icons/mob/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/party_hat.json'
+
+/datum/greyscale_config/heck_suit
+	name = "H.E.C.K. Suit"
+	icon_file = 'icons/obj/clothing/suits/armor.dmi'
+	json_config = 'code/datums/greyscale/json_configs/heck_suit.json'
+
+/datum/greyscale_config/heck_suit/worn
+	name = "H.E.C.K. Suit Worn"
+	icon_file = 'icons/mob/clothing/suits/armor.dmi'
+	json_config = 'code/datums/greyscale/json_configs/heck_suit_worn.json'
+
+/datum/greyscale_config/heck_helmet
+	name = "H.E.C.K. Helmet"
+	icon_file = 'icons/obj/clothing/head/helmet.dmi'
+	json_config = 'code/datums/greyscale/json_configs/heck_helmet.json'
+
+/datum/greyscale_config/heck_helmet/worn
+	name = "H.E.C.K. Helmet Worn"
+	icon_file = 'icons/mob/clothing/head/helmet.dmi'
+	json_config = 'code/datums/greyscale/json_configs/heck_helmet_worn.json'

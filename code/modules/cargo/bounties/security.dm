@@ -3,14 +3,18 @@
 	description = "Hooligans have boarded CentCom! Ship riot shotguns quick, or things are going to get dirty."
 	reward = CARGO_CRATE_VALUE * 10
 	required_count = 2
-	wanted_types = list(/obj/item/gun/ballistic/shotgun/riot)
+	wanted_types = list(
+		/obj/item/gun/ballistic/shotgun/riot = TRUE,
+	)
 
 /datum/bounty/item/security/recharger
 	name = "Rechargers"
 	description = "Nanotrasen military academy is conducting marksmanship exercises. They request that rechargers be shipped."
 	reward = CARGO_CRATE_VALUE * 4
 	required_count = 3
-	wanted_types = list(/obj/machinery/recharger)
+	wanted_types = list(
+		/obj/machinery/recharger = TRUE,
+	)
 
 /datum/bounty/item/security/pepperspray
 	name = "Pepperspray"

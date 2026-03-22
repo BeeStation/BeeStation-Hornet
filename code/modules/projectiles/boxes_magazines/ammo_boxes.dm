@@ -81,16 +81,7 @@
 	name = "ammo box (x200 LAW NPS)"
 	icon_state = "45box"
 	ammo_type = /obj/item/ammo_casing/x200law
-	max_ammo = 30
-
-/obj/item/ammo_box/pouch/x200law
-	name = "ammo pouch (x200 LAW)"
-	desc = "8 x200 LAW NPS bullets in a disposable paper package."
-	icon_state = "bagobullets_alt_10mm"
-	ammo_type = /obj/item/ammo_casing/x200law
-	max_ammo = 8
-	custom_price = EXPORT_PRICE_WEAPON_LOW
-	custom_premium_price = EXPORT_PRICE_WEAPON_LOW * MULTIPLIER_HIGH
+	max_ammo = 16
 
 /obj/item/ammo_box/taser
 	name = "ammo box (Taser Loads)"

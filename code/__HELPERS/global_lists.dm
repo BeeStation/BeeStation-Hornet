@@ -59,12 +59,12 @@
 	for(var/spath in subtypesof(/datum/species))
 		var/datum/species/S = new spath()
 		GLOB.species_list[S.id] = spath
-	sort_list(GLOB.species_list)
+	sort_list(GLOB.species_list, /proc/cmp_typepaths_asc)
 
 	//Surgeries
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
-	sort_list(GLOB.surgeries_list)
+	sort_list(GLOB.surgeries_list, /proc/cmp_typepaths_asc)
 	GLOB.emote_list = init_emote_list()
 
 	// Hair Gradients - Initialise all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
@@ -268,8 +268,8 @@ GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 	/obj/structure/mirror,
 	/obj/structure/fireaxecabinet,
 	/obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign/picture_frame
-	)))
+	/obj/structure/sign/picture_frame,
+)))
 
 // Wall mounted machinery which are visually coming out of the wall.
 // These do not conflict with machinery which are visually placed on the wall.
@@ -277,13 +277,13 @@ GLOBAL_LIST_INIT(WALLITEMS_EXTERIOR, typecacheof(list(
 	/obj/machinery/camera,
 	/obj/structure/camera_assembly,
 	/obj/structure/light_construct,
-	/obj/machinery/light
-	)))
+	/obj/machinery/light,
+)))
 
 GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 	/obj/structure/light_construct,
-	/obj/machinery/light
-	)))
+	/obj/machinery/light,
+)))
 
 /proc/init_religion_sects()
 	for(var/path in subtypesof(/datum/religion_sect))

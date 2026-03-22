@@ -141,7 +141,7 @@
 	if(QDELETED(caster))
 		return FALSE
 
-	return !caster.incapacitated()
+	return !caster.incapacitated
 
 /// Actually does the shapeshift, for the caster.
 /datum/action/spell/shapeshift/proc/do_shapeshift(mob/living/caster)
@@ -157,6 +157,7 @@
 	// Make sure it's castable even in their new form.
 	pre_shift_requirements = spell_requirements
 	spell_requirements &= ~(SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_WIZARD_GARB)
+	ADD_TRAIT(new_shape, TRAIT_DONT_WRITE_MEMORY, SHAPESHIFT_TRAIT)
 
 	return new_shape
 

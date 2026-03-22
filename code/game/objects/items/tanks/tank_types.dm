@@ -54,7 +54,7 @@
 	name = "anesthetic tank"
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
-	item_state = "an_tank"
+	inhand_icon_state = "an_tank"
 	force = 10
 
 /obj/item/tank/internals/anesthetic/populate_gas()
@@ -73,7 +73,7 @@
 	name = "air tank"
 	desc = "Mixed anyone?"
 	icon_state = "air"
-	item_state = "air"
+	inhand_icon_state = "air"
 	force = 10
 	dog_fashion = /datum/dog_fashion/back
 
@@ -123,7 +123,7 @@
 	name = "extended-capacity plasma internals tank"
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasmaman_tank"
-	item_state = "plasmaman_tank"
+	inhand_icon_state = "plasmaman_tank"
 	worn_icon_state = "plasmaman_tank"
 	force = 10
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
@@ -141,7 +141,7 @@
 /obj/item/tank/internals/plasmaman/belt
 	name = "plasma internals belt tank"
 	icon_state = "plasmaman_tank_belt"
-	item_state = "plasmaman_tank_belt"
+	inhand_icon_state = "plasmaman_tank_belt"
 	worn_icon_state = "plasmaman_tank_belt"
 	worn_icon = null
 	slot_flags = ITEM_SLOT_BELT

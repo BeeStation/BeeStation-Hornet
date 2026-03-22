@@ -74,3 +74,6 @@
 #define COMSIG_PORT_SET_VALUE "port_set_value"
 /// Sent when the type of a port is set.
 #define COMSIG_PORT_SET_TYPE "port_set_type"
+
+///Called when an Ntnet sender is sending Ntnet data
+#define COMSIG_GLOB_CIRCUIT_NTNET_DATA_SENT "!circuit_ntnet_data_sent"

@@ -14,7 +14,7 @@
 	desc = "A katana infused with strong energy."
 	desc_controls = "Right-click to dash."
 	icon_state = "energy_katana"
-	item_state = "energy_katana"
+	inhand_icon_state = "energy_katana"
 	worn_icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
@@ -23,7 +23,7 @@
 	item_flags = ISWEAPON
 
 	canblock = TRUE
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE //For purely balance reasons this one does not get unblockable
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY //For purely balance reasons this one does not get unblockable
 
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_LARGE
