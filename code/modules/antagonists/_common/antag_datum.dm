@@ -74,7 +74,9 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/Destroy()
 	GLOB.antagonists -= src
-	if(owner)
+	if(!owner)
+		stack_trace("Destroy()ing antagonist datum when it has no owner.")
+	else
 		LAZYREMOVE(owner.antag_datums, src)
 	owner = null
 	return ..()
@@ -148,10 +150,11 @@ GLOBAL_LIST(admin_antag_list)
 			to_chat(owner.current, span_boldnotice("For more info, read the panel. \
 				You can always come back to it using the button in the top left."))
 			info_button?.trigger()
+
 	apply_innate_effects()
 	give_antag_moodies()
-	RegisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT, .proc/pre_mindshield)
-	RegisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED, .proc/on_mindshield)
+	RegisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT, PROC_REF(pre_mindshield))
+	RegisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED, PROC_REF(on_mindshield))
 	if(is_banned(owner.current) && replace_banned)
 		replace_banned_player()
 	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
@@ -172,11 +175,21 @@ GLOBAL_LIST(admin_antag_list)
 	info_button_ref = WEAKREF(info_button)
 	return info_button
 
-/datum/antagonist/proc/is_banned(mob/M)
-	if(!M)
+/**
+ * Proc that checks the sent mob against the banlist for this antagonist.
+ * Returns FALSE if no mob is sent, or the mob is not found to be banned.
+ *
+ *  * mob/player: The mob that you are looking for on the banlist.
+ */
+/datum/antagonist/proc/is_banned(mob/player)
+	if(!player)
 		stack_trace("Called is_banned without a mob. This shouldn't happen.")
 		return FALSE
-	. = (is_banned_from(M.ckey, banning_key) || QDELETED(M))
+
+	if(!player.ckey)
+		return FALSE
+
+	. = (is_banned_from(player.ckey, banning_key) || QDELETED(player))
 
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
@@ -202,17 +215,19 @@ GLOBAL_LIST(admin_antag_list)
 ///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/proc/on_removal()
 	SHOULD_CALL_PARENT(TRUE)
+	if(!owner)
+		CRASH("Antag datum with no owner.")
+
 	remove_innate_effects()
 	clear_antag_moodies()
 	if(info_button_ref)
 		QDEL_NULL(info_button_ref)
-	if(owner)
-		LAZYREMOVE(owner.antag_datums, src)
-		if(!LAZYLEN(owner.antag_datums))
-			owner.current.remove_from_current_living_antags()
-		if(!silent && owner.current)
-			farewell()
-		owner.current.update_action_buttons()
+	LAZYREMOVE(owner.antag_datums, src)
+	if(!LAZYLEN(owner.antag_datums))
+		owner.current.remove_from_current_living_antags()
+	if(!silent && owner.current)
+		farewell()
+	owner.current.update_action_buttons()
 	UnregisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT)
 	UnregisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED)
 	var/datum/team/team = get_team()

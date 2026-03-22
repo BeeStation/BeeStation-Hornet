@@ -19,7 +19,9 @@
 	name = "Eject From Mech"
 	button_icon_state = "mech_eject"
 
-/datum/action/vehicle/sealed/mecha/mech_eject/activate(atom/target)
+/datum/action/vehicle/sealed/mecha/mech_eject/Trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
 	if(!chassis || !(owner in chassis.occupants))
 		return
 	chassis.container_resist(owner)

@@ -216,9 +216,9 @@
 	qdel(owner.GetComponent(/datum/component/creamed))
 
 	//Handle dental implants
-	for(var/datum/action/item_action/hands_free/activate_pill/AP in owner.actions)
-		AP.Remove(owner)
-		var/obj/pill = UNLINT(AP.master)
+	for(var/datum/action/item_action/hands_free/activate_pill/pill_action in owner.actions)
+		pill_action.Remove(owner)
+		var/obj/pill = pill_action.target
 		if(pill)
 			pill.forceMove(src)
 

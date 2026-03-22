@@ -138,7 +138,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/on_arena_fail()
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, .proc/arena_escape_enrage)
+	INVOKE_ASYNC(src, PROC_REF(arena_escape_enrage))
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/arena_escape_enrage() // you ran somehow / teleported away from my arena attack now i'm mad fucker
 	SLEEP_CHECK_DEATH(0, src)
@@ -306,7 +306,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/target)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/lesser/Initialize()
+/mob/living/simple_animal/hostile/megafauna/dragon/lesser/Initialize(mapload)
 	. = ..()
 	meteors.Remove(src)
 	mass_fire.Remove(src)

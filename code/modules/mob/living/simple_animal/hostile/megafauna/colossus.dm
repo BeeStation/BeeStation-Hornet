@@ -755,7 +755,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /datum/action/exit_possession/is_available(feedback = FALSE)
 	return ..() && isfloorturf(owner.loc)
 
-/datum/action/exit_possession/activate(atom/target)
+/datum/action/exit_possession/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
+
 	var/obj/structure/closet/stasis/stasis = locate() in owner
 	if(!stasis)
 		CRASH("[type] did not find a stasis closet thing in the owner.")
@@ -774,3 +778,5 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 #undef ACTIVATE_MOB_BUMP
 #undef ACTIVATE_WEAPON
 #undef ACTIVATE_MAGIC
+
+#undef COLOSSUS_ENRAGED

@@ -135,7 +135,6 @@
 
 			for (var/organ in organ_healing)
 				candidate.adjustOrganLoss(organ, -organ_healing[organ] * seconds_per_tick)
-			var/mob/living/carbon/carbidate = candidate
 
 		else if (isanimal(candidate))
 			var/mob/living/simple_animal/animal_candidate = candidate

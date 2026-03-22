@@ -41,7 +41,7 @@
 	var/static/list/area/allowed_areas
 	if(!allowed_areas)
 		// Areas that will prove challenging for the dragon and provocative to the crew.
-		var/list/area/allowed_areas = typecacheof(list(
+		allowed_areas = typecacheof(list(
 			/area/crew_quarters/heads/captain,
 			/area/crew_quarters/heads/hop,
 			/area/bridge,

@@ -329,7 +329,8 @@
 /datum/heretic_knowledge/curse/proc/curse(mob/living/carbon/human/chosen_mob, boosted = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	addtimer(CALLBACK(src, .proc/uncurse, chosen_mob, boosted), duration * (boosted ? duration_modifier : 1))
+	if(duration > 0)
+		addtimer(CALLBACK(src, PROC_REF(uncurse), chosen_mob, boosted), duration * (boosted ? duration_modifier : 1))
 
 	if(!curse_color)
 		return

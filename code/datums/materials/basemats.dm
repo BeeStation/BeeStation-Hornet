@@ -221,6 +221,17 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	value_per_unit = 0.25
 	//beauty_modifier = 0.4
 
+/datum/material/runedmetal
+	name = "runed metal"
+	desc = "Mir'ntrath barhah Nar'sie."
+	color = "#504742"
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
+	sheet_type = /obj/item/stack/sheet/runed_metal
+	value_per_unit = 0.75
+	//armor_modifiers = list(MELEE = 1.2, BULLET = 1.2, LASER = 1, ENERGY = 1, BOMB = 1.2, BIO = 1.2, FIRE = 1.5, ACID = 1.5)
+	//beauty_modifier = -0.15
+	texture_layer_icon_state = "runed"
+
 /datum/material/copper
 	name = "copper"
 	desc = "Copper is a soft, malleable, and ductile metal with very high thermal and electrical conductivity."

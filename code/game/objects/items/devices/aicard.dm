@@ -14,6 +14,10 @@
 	var/mob/living/silicon/ai/AI
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/aicard/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CASTABLE_LOC, INNATE_TRAIT)
+
 /obj/item/aicard/aitater
 	name = "intelliTater"
 	desc = "A stylish upgrade (?) to the intelliCard."

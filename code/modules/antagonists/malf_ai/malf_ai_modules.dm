@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	auto_use_uses = FALSE
 	var/device_active = FALSE
 
-/datum/action/innate/ai/nuke_station/activate()
+/datum/action/innate/ai/nuke_station/Activate()
 	var/turf/T = get_turf(owner)
 	if(!istype(T) || !is_station_level(T.z))
 		to_chat(owner, span_warning("You cannot activate the doomsday device while off-station!"))
@@ -389,7 +389,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "lockdown"
 	uses = 1
 
-/datum/action/innate/ai/lockdown/activate()
+/datum/action/innate/ai/lockdown/Activate()
 	for(var/obj/machinery/door/airlock in GLOB.airlocks)
 		if(QDELETED(airlock) || !is_station_level(airlock.z))
 			continue
@@ -473,7 +473,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	uses = 1
 	cooldown_period = 10 SECONDS
 
-/datum/action/innate/ai/destroy_rcds/activate()
+/datum/action/innate/ai/destroy_rcds/Activate()
 	for(var/I in GLOB.rcd_list)
 		if(!istype(I, /obj/item/construction/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			var/obj/item/construction/rcd/RCD = I
@@ -552,7 +552,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	uses = 3
 	auto_use_uses = FALSE
 
-/datum/action/innate/ai/blackout/activate()
+/datum/action/innate/ai/blackout/Activate()
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
 		if(prob(30 * apc.overload))
 			apc.overload_lighting()
@@ -579,7 +579,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "intercom"
 	uses = 2
 
-/datum/action/innate/ai/honk/activate()
+/datum/action/innate/ai/honk/Activate()
 	to_chat(owner, span_clown("The intercom system plays your prepared file as commanded."))
 	for(var/obj/item/radio/intercom/found_intercom as anything in GLOB.intercoms_list)
 		if(!found_intercom.is_on() || !found_intercom.get_listening() || found_intercom.wires.is_cut(WIRE_RX)) //Only operating intercoms play the honk
@@ -618,7 +618,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		var/image/I = image("icon" = 'icons/turf/overlays.dmi')
 		LAZYADD(turfOverlays, I)
 
-/datum/action/innate/ai/place_transformer/activate()
+/datum/action/innate/ai/place_transformer/Activate()
 	if(!owner_AI.can_place_transformer(src) || placing_transformer)
 		return
 	placing_transformer = TRUE
@@ -687,7 +687,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "break_air_alarms"
 	uses = 1
 
-/datum/action/innate/ai/break_air_alarms/activate()
+/datum/action/innate/ai/break_air_alarms/Activate()
 	for(var/obj/machinery/airalarm/AA in GLOB.air_alarms)
 		if(!is_station_level(AA.z))
 			continue
@@ -713,7 +713,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "break_fire_alarms"
 	uses = 1
 
-/datum/action/innate/ai/break_fire_alarms/activate()
+/datum/action/innate/ai/break_fire_alarms/Activate()
 	for(var/obj/machinery/firealarm/bellman in GLOB.machines)
 		if(!is_station_level(bellman.z))
 			continue
@@ -744,7 +744,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	auto_use_uses = FALSE
 	cooldown_period = 3 SECONDS
 
-/datum/action/innate/ai/reactivate_cameras/activate()
+/datum/action/innate/ai/reactivate_cameras/Activate()
 	var/fixed_cameras = 0
 	for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		if(!uses)
@@ -858,7 +858,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	auto_use_uses = FALSE
 	var/obj/machinery/ai_voicechanger/voice_changer_machine
 
-/datum/action/innate/ai/voice_changer/activate()
+/datum/action/innate/ai/voice_changer/Activate()
 	if(!voice_changer_machine)
 		voice_changer_machine = new(owner_AI)
 	voice_changer_machine.ui_interact(usr)
@@ -1243,7 +1243,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	button_icon_state = "fake_alert"
 	uses = 1
 
-/datum/action/innate/ai/fake_alert/activate()
+/datum/action/innate/ai/fake_alert/Activate()
 	var/list/events_to_chose = list()
 	for(var/datum/round_event_control/E in SSevents.control)
 		if(!E.can_malf_fake_alert)
