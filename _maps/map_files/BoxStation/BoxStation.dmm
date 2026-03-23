@@ -48841,7 +48841,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "rux" = (
-/obj/effect/turf_decal/pool/corner,
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,

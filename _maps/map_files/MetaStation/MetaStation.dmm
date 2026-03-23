@@ -1827,6 +1827,7 @@
 	dir = 1
 	},
 /obj/item/reagent_containers/chem_bag/triamed,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "arB" = (
@@ -24792,7 +24793,6 @@
 	},
 /obj/machinery/chem_heater,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron,
 /area/medical/chemistry)
 "fHB" = (
@@ -27992,7 +27992,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/siding/white{
@@ -30747,10 +30746,6 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics/garden/monastery)
-"hNL" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/locker)
 "hNR" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -36695,10 +36690,6 @@
 	},
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/door/window/northleft{
-	name = "Kitchen Delivery";
-	req_access_txt = "28"
-	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "jNv" = (
@@ -42372,7 +42363,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light,
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_x = 2;
 	pixel_y = 4
@@ -42391,6 +42381,17 @@
 /obj/item/storage/box/beakers{
 	pixel_x = -6;
 	pixel_y = 9
+	},
+/obj/machinery/light_switch/directional/south{
+	pixel_x = -7;
+	pixel_y = -24
+	},
+/obj/machinery/button/door/directional/south{
+	pixel_x = 5;
+	pixel_y = -25;
+	id = "chemistry_shutters_2";
+	name = "Lower Chemistry Shutter Control";
+	req_access_txt = "33"
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
@@ -43520,6 +43521,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "moI" = (
@@ -48611,9 +48613,6 @@
 "ocv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/siding/white/corner{
-	dir = 4
 	},
 /obj/effect/turf_decal/siding/white/corner,
 /turf/open/floor/iron/techmaint,
@@ -66591,7 +66590,7 @@
 /area/security/main)
 "urS" = (
 /obj/effect/spawner/structure/window,
-/turf/open/floor/iron/dark,
+/turf/open/floor/plating,
 /area/hydroponics/garden)
 "usk" = (
 /obj/structure/railing/corner,
@@ -110241,7 +110240,7 @@ aHG
 aHG
 aHG
 eru
-hNL
+aSe
 ibS
 aUM
 tct
