@@ -3139,6 +3139,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "aVz" = (
@@ -6324,17 +6325,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"ceB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
-/turf/open/floor/iron,
-/area/hallway/secondary/exit/departure_lounge)
 "ceL" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue/half{
@@ -20772,7 +20762,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "gVN" = (
@@ -24865,6 +24854,7 @@
 	pixel_y = 26
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "ivb" = (
@@ -26392,6 +26382,7 @@
 /obj/machinery/camera/directional/north{
 	c_tag = "Departures - Fore"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "iUE" = (
@@ -49777,8 +49768,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/science/mixing)
 "rJK" = (
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only,
 /turf/open/floor/plating/airless,
 /area/chapel/dock)
 "rJU" = (
@@ -50231,7 +50221,6 @@
 	name = "Pod Docking Bay"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating/airless,
 /area/chapel/dock)
 "rPI" = (
@@ -55597,9 +55586,6 @@
 	dir = 4
 	},
 /obj/effect/landmark/event_spawn,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 8
-	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "tNk" = (
@@ -58769,6 +58755,7 @@
 /obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "uWO" = (
@@ -59307,6 +59294,9 @@
 /obj/structure/table,
 /obj/item/instrument/eguitar,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "vfa" = (
@@ -61429,7 +61419,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "vLM" = (
@@ -61970,7 +61959,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
@@ -87944,7 +87932,7 @@ wuM
 iJu
 qQj
 iuQ
-ceB
+gVE
 uhJ
 lxJ
 oUy
