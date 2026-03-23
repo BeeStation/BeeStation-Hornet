@@ -6325,12 +6325,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"ceB" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/plating,
-/area/hallway/secondary/exit/departure_lounge)
 "ceL" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue/half{
@@ -7897,15 +7891,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
-"cFy" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hallway/secondary/exit/departure_lounge)
 "cFX" = (
 /obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
@@ -20428,15 +20413,6 @@
 "gPr" = (
 /turf/closed/wall/r_wall,
 /area/science/server)
-"gPw" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/machinery/door/airlock/external{
-	name = "Departures Escape Airlock"
-	},
-/turf/open/floor/plating,
-/area/hallway/secondary/exit/departure_lounge)
 "gPE" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/structure/cable/yellow{
@@ -61385,6 +61361,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "vKD" = (
@@ -87181,7 +87159,7 @@ nnx
 nnx
 jXV
 eNE
-ceB
+jXV
 jzA
 jXV
 tuT
@@ -87437,7 +87415,7 @@ qQj
 qQj
 qLH
 qyx
-gPw
+kac
 cXA
 kac
 qyx
@@ -87694,7 +87672,7 @@ wyg
 qQj
 uWJ
 vUd
-cFy
+sEh
 vKC
 vbh
 uDs
