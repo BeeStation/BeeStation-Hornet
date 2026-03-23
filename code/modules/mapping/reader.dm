@@ -141,12 +141,12 @@
  */
 /proc/load_map(
 	dmm_file,
-	x_offset,
-	y_offset,
-	z_offset,
-	crop_map,
-	measure_only,
-	no_changeturf,
+	x_offset = 0,
+	y_offset = 0,
+	z_offset = 0,
+	crop_map = FALSE,
+	measure_only = FALSE,
+	no_changeturf = FALSE,
 	x_lower = -INFINITY,
 	x_upper = INFINITY,
 	y_lower = -INFINITY,
@@ -154,10 +154,10 @@
 	place_on_top = FALSE,
 	new_z = FALSE,
 )
-	var/datum/parsed_map/parsed = new(dmm_file, x_lower, x_upper, y_lower, y_upper, measure_only)
+	var/datum/parsed_map/parsed_map = new(dmm_file, x_lower, x_upper, y_lower, y_upper, measure_only)
 	if(!measure_only && !isnull(parsed_map.bounds))
-		parsed.load(x_offset, y_offset, z_offset, crop_map, no_changeturf, x_lower, x_upper, y_lower, y_upper, place_on_top, new_z = new_z)
-	return parsed
+		parsed_map.load(x_offset, y_offset, z_offset, crop_map, no_changeturf, x_lower, x_upper, y_lower, y_upper, place_on_top, new_z = new_z)
+	return parsed_map
 
 /// Parse a map, possibly cropping it.
 /datum/parsed_map/New(tfile, x_lower = -INFINITY, x_upper = INFINITY, y_lower = -INFINITY, y_upper=INFINITY, measureOnly=FALSE)

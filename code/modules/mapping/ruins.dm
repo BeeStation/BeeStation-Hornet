@@ -53,7 +53,7 @@
 	new /obj/effect/landmark/ruin(central_turf, src)
 
 /datum/map_template/ruin/proc/place_on_isolated_level(z)
-	var/datum/turf_reservation/reservation = SSmapping.RequestBlockReservation(width, height, z) //Make the new level creation work with different traits.
+	var/datum/turf_reservation/reservation = SSmapping.request_turf_block_reservation(width, height, z) //Make the new level creation work with different traits.
 	if(!reservation)
 		return
 	var/turf/placement = locate(reservation.bottom_left_coords[1],reservation.bottom_left_coords[2],reservation.bottom_left_coords[3])

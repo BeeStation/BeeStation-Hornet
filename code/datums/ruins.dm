@@ -25,6 +25,8 @@
 	var/prefix = null
 	/// The dynamic part of the ruin path. e.g: "lavaland_surface_ruinfile.dmm"
 	var/suffix = null
+	/// What flavor or ruin is this? e.g: ZTRAIT_SPACE_RUINS
+	var/ruin_type = null
 
 /datum/map_template/ruin/New()
 	if(!name && id)

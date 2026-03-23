@@ -4,13 +4,15 @@
 	prefix = "_maps/RandomRuins/SpaceRuins/"
 	cost = 1
 	allow_duplicates = FALSE
+	ruin_type = ZTRAIT_SPACE_RUINS
+	default_area = /area/space
 
 /datum/map_template/ruin/space/zoo
 	id = "zoo"
 	suffix = "abandonedzoo.dmm"
 	name = "Biological Storage Facility"
 	description = "In case society crumbles, we will be able to restore our zoos to working order with the breeding stock kept in these 100% secure and unbreachable storage facilities. \
-	At no point has anything escaped. That's our story, and we're sticking to it."
+		At no point has anything escaped. That's our story, and we're sticking to it."
 	cost = 4
 
 /datum/map_template/ruin/space/asteroid1

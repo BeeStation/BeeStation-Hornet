@@ -9,6 +9,9 @@
 	var/keep_cached_map = FALSE
 	var/station_id = null // used to override the root id when generating
 
+	///Default area associated with the map template
+	var/default_area
+
 	///if true, turfs loaded from this template are placed on top of the turfs already there, defaults to TRUE
 	var/should_place_on_top = TRUE
 
@@ -117,7 +120,7 @@
 		y,
 		level.z_value,
 		no_changeturf = (SSatoms.initialized == INITIALIZATION_INSSATOMS),
-		placeOnTop = should_place_on_top,
+		place_on_top = should_place_on_top,
 		new_z = TRUE,
 	)
 	var/list/bounds = parsed.bounds

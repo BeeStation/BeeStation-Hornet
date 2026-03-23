@@ -455,7 +455,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	AddElement(/datum/element/point_of_interest)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/begin_trauma(mob/living/carbon/human/sac_target)
-	if(!LAZYLEN(GLOB.heretic_sacrifice_landmarks))
+	if(!length(GLOB.heretic_sacrifice_landmarks))
 		CRASH("[type] - begin_trauma was called, but no floorcluwne_trauma landmarks were found!")
 
 	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[HERETIC_PATH_ASH]

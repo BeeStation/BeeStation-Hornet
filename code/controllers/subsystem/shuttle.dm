@@ -482,7 +482,7 @@ SUBSYSTEM_DEF(shuttle)
 		if(WEST)
 			transit_path = /turf/open/space/transit/west
 
-	var/datum/turf_reservation/proposal = SSmapping.RequestBlockReservation(transit_width, transit_height, null, /datum/turf_reservation/transit, transit_path)
+	var/datum/turf_reservation/proposal = SSmapping.request_turf_block_reservation(transit_width, transit_height, null, /datum/turf_reservation/transit, transit_path)
 
 	if(!istype(proposal))
 		return FALSE
@@ -705,15 +705,19 @@ SUBSYSTEM_DEF(shuttle)
 	existing_shuttle = null
 	selected = null
 
-/datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/S, datum/variable_ref/shuttle_reference)
+/datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/loading_template, datum/variable_ref/shuttle_reference)
 	. = FALSE
-	// load shuttle template, centred at shuttle import landmark,
-	var/datum/turf_reservation/preview_reservation = SSmapping.RequestBlockReservation(S.width, S.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
+	// Load shuttle template to a fresh block reservation.
+	var/datum/turf_reservation/preview_reservation = SSmapping.request_turf_block_reservation(
+		loading_template.width,
+		loading_template.height,
+		reservation_type = /datum/turf_reservation/transit,
+	)
 	if(!preview_reservation)
 		CRASH("failed to reserve an area for shuttle template loading")
 	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
-	var/datum/async_map_generator/shuttle_loader = S.load(BL, FALSE, TRUE, TRUE, FALSE)
-	shuttle_loader.on_completion(CALLBACK(src, PROC_REF(template_loaded), S, BL, shuttle_reference))
+	var/datum/async_map_generator/shuttle_loader = loading_template.load(BL, FALSE, TRUE, TRUE, FALSE)
+	shuttle_loader.on_completion(CALLBACK(src, PROC_REF(template_loaded), loading_template, BL, shuttle_reference))
 	shuttle_loader.on_late_completion(CALLBACK(src, PROC_REF(clear_reservation), preview_reservation))
 	return shuttle_loader
 
