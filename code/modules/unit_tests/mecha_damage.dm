@@ -67,6 +67,9 @@
 	//check_integrity(left_arm_equipment, pre_laser_arm_integrity, expected_laser_damage, "shot with a laser")
 
 	// SHOOT IT
+	// Zero out damage variance so the test stays deterministic
+	if(dummy_gun.chambered?.BB)
+		dummy_gun.chambered.BB.damage_variance = 0
 	var/pre_bullet_integrity = demo_mech.get_integrity()
 	var/pre_bullet_arm_integrity = left_arm_equipment.get_integrity()
 	dummy_gun.pull_trigger(demo_mech, dummy, FALSE)
