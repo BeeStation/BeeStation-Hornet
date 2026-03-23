@@ -19,22 +19,22 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "f" = (
-/obj/vehicle/sealed/mecha/working/ripley/deathripley,
+/obj/vehicle/sealed/mecha/ripley/deathripley,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "g" = (
-/obj/vehicle/sealed/mecha/working/ripley,
+/obj/vehicle/sealed/mecha/ripley,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "h" = (
-/obj/vehicle/sealed/mecha/combat/gygax,
+/obj/vehicle/sealed/mecha/gygax,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "i" = (
-/obj/vehicle/sealed/mecha/combat/honker/dark/loaded,
+/obj/vehicle/sealed/mecha/honker/dark/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -75,12 +75,12 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "o" = (
-/obj/vehicle/sealed/mecha/combat/marauder/loaded,
+/obj/vehicle/sealed/mecha/marauder/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "p" = (
-/obj/vehicle/sealed/mecha/combat/gygax/dark/loaded,
+/obj/vehicle/sealed/mecha/gygax/dark/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -101,12 +101,12 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "u" = (
-/obj/vehicle/sealed/mecha/medical/odysseus,
+/obj/vehicle/sealed/mecha/odysseus,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "v" = (
-/obj/vehicle/sealed/mecha/combat/durand,
+/obj/vehicle/sealed/mecha/durand,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -117,7 +117,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "x" = (
-/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -127,7 +127,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "z" = (
-/obj/vehicle/sealed/mecha/working/ripley/mk2,
+/obj/vehicle/sealed/mecha/ripley/mk2,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -160,12 +160,12 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "C" = (
-/obj/vehicle/sealed/mecha/combat/marauder/seraph,
+/obj/vehicle/sealed/mecha/marauder/seraph,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "E" = (
-/obj/vehicle/sealed/mecha/combat/reticence/loaded,
+/obj/vehicle/sealed/mecha/reticence/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -180,7 +180,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "H" = (
-/obj/vehicle/sealed/mecha/combat/phazon,
+/obj/vehicle/sealed/mecha/phazon,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -197,7 +197,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "K" = (
-/obj/vehicle/sealed/mecha/working/clarke,
+/obj/vehicle/sealed/mecha/clarke,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -248,7 +248,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "T" = (
-/obj/vehicle/sealed/mecha/combat/honker,
+/obj/vehicle/sealed/mecha/honker,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
