@@ -50,6 +50,13 @@
 /datum/atom_hud/abductor
 	hud_icons = list(GLAND_HUD)
 
+// this is very hacky (and wrong), but the abductor hud should be visible across z-levels because the mothership is on centcom
+/datum/atom_hud/abductor/get_hud_atoms_for_z_level(z_level)
+	return hud_atoms_all_z_levels
+
+/datum/atom_hud/abductor/get_hud_users_for_z_level(z_level)
+	return hud_users_all_z_levels
+
 /datum/atom_hud/ai_detector
 	hud_icons = list(AI_DETECT_HUD)
 
