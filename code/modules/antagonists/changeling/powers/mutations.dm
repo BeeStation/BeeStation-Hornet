@@ -478,7 +478,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 /datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 20 chemicals."
-	helptext = "Upkeep of the armor slows our rate of chemical production. The armor provides decent protection against projectiles and some protection against melee attacks. Cannot be used in lesser form."
+	helptext = "Upkeep of the armor slows our rate of chemical production. The armor provides strong protection against projectiles and good protection against melee attacks. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 20
 	dna_cost = 2
@@ -506,15 +506,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	clothing_flags = THICKMATERIAL
 
 /datum/armor/armor_changeling
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 25
+	melee = 50
+	bullet = 60
+	laser = 55
+	energy = 55
+	bomb = 30
 	bio = 10
 	fire = 25
 	acid = 25
-	stamina = 30
+	stamina = 40
 	bleed = 90
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
@@ -534,16 +534,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 
 
 /datum/armor/helmet_changeling
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 25
+	melee = 50
+	bullet = 60
+	laser = 55
+	energy = 55
+	bomb = 30
 	bio = 10
 	fire = 25
 	acid = 25
-	stamina = 30
-	bleed = 90
+	stamina = 40
+	bleed = 70
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)
 	. = ..()
