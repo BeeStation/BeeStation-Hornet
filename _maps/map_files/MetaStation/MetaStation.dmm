@@ -33586,6 +33586,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/techmaint,
 /area/security/main)
 "iKv" = (
@@ -48615,6 +48616,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/siding/white/corner,
+/obj/effect/turf_decal/siding/white/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/main)
 "ocx" = (
@@ -65689,6 +65693,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/main)
 "ubQ" = (
@@ -66623,6 +66630,9 @@
 	},
 /obj/machinery/vending/wardrobe/sec_wardrobe,
 /obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
 /turf/open/floor/iron/techmaint,
 /area/security/main)
 "usJ" = (
