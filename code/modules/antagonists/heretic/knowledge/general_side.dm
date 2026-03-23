@@ -12,9 +12,9 @@
 /datum/heretic_knowledge/mansus_barrier
 	name = "Mansus Barrier"
 	desc = "The Mansus shields those who walk its path. \
-		While wearing a focus, you are protected by an energy shield that absorbs incoming attacks. \
-		The shield recharges over time when not taking damage."
-	gain_text = "I stepped between the worlds and felt it - an invisible aegis, \
+		While wearing a focus, you are protected by an invisible barrier that absorbs ranged attacks. \
+		The shield recharges over time when not taking damage. Can withstand about 3 hits from a pistol before breaking."
+	gain_text = "I stepped between the worlds and felt it. An invisible aegis, \
 		woven from the fabric of the Mansus itself. The heathens' weapons faltered against it."
 	cost = 1
 	route = HERETIC_PATH_SIDE
