@@ -988,7 +988,7 @@
 "PU" = (
 /obj/machinery/light/small,
 /obj/structure/table,
-/obj/item/circuitboard/machine/plantgenes{
+/obj/item/circuitboard/machine/plant_analyser{
 	pixel_x = -6;
 	pixel_y = 2
 	},

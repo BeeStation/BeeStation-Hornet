@@ -38,7 +38,8 @@ export const SeedStorage = (props) => {
                       overflowY="scroll"
                     >
                       <Box mb={'-10px'} />
-                      {focused_seeds['key'] && seeds[focused_seeds['species_id']]
+                      {focused_seeds['key'] &&
+                      seeds[focused_seeds['species_id']]
                         ? Object.entries(
                             seeds[focused_seeds['species_id']]['features'],
                           ).map(([feature_key, feature]) => (

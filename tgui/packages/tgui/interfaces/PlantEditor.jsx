@@ -190,46 +190,42 @@ const InspectionPanel = (props) => {
   const { current_feature_data, current_feature_traits } = data;
   return (
     <Flex direction="column">
-      <Box
-        className={'scrollbox'}
-        height={'300px'}
-        overflowY="scroll"
-      >
-      {/* base feature information, stats */}
-      <Flex.Item>
-        <Button className="plant__button--display--beacon" width={'100%'}>
-          {current_feature_data.map((data_set) =>
-            data_set['data_title'] ? (
-              <PlantDataInstance
-                title={data_set['data_title']}
-                body={data_set['data_field']}
-                key={data_set}
-              />
-            ) : (
-              <Divider key={data_set} />
-            ),
-          )}
-        </Button>
-      </Flex.Item>
-      <Divider />
-      {/* traits */}
-      <Flex.Item>
-        {current_feature_traits ? (
-          current_feature_traits.map((data_set) => (
-            <PlantTraitInstance
-              title={data_set['trait_name']}
-              body={data_set['trait_desc']}
-              trait_key={data_set['trait_ref']}
-              key={data_set}
-              save_disabled={data_set['can_copy']}
-            />
-          ))
-        ) : (
-          <Button className="plant__button--display--beacon">
-            No Traits Found
+      <Box className={'scrollbox'} height={'300px'} overflowY="scroll">
+        {/* base feature information, stats */}
+        <Flex.Item>
+          <Button className="plant__button--display--beacon" width={'100%'}>
+            {current_feature_data.map((data_set) =>
+              data_set['data_title'] ? (
+                <PlantDataInstance
+                  title={data_set['data_title']}
+                  body={data_set['data_field']}
+                  key={data_set}
+                />
+              ) : (
+                <Divider key={data_set} />
+              ),
+            )}
           </Button>
-        )}
-      </Flex.Item>
+        </Flex.Item>
+        <Divider />
+        {/* traits */}
+        <Flex.Item>
+          {current_feature_traits ? (
+            current_feature_traits.map((data_set) => (
+              <PlantTraitInstance
+                title={data_set['trait_name']}
+                body={data_set['trait_desc']}
+                trait_key={data_set['trait_ref']}
+                key={data_set}
+                save_disabled={data_set['can_copy']}
+              />
+            ))
+          ) : (
+            <Button className="plant__button--display--beacon">
+              No Traits Found
+            </Button>
+          )}
+        </Flex.Item>
       </Box>
     </Flex>
   );

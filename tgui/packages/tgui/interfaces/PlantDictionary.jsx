@@ -4,8 +4,13 @@ import { Window } from '../layouts';
 
 export const PlantDictionary = (props) => {
   const { act, data } = useBackend();
-  const { chapters, selected_chapter, selected_entry, selected_type_shortcut, last_command } =
-    data;
+  const {
+    chapters,
+    selected_chapter,
+    selected_entry,
+    selected_type_shortcut,
+    last_command,
+  } = data;
   const [searchText, setSearchText] = useLocalState('searchText', '');
   return (
     <Window width={600} height={750} theme="plant_menu">
@@ -181,70 +186,70 @@ export const PlantDictionary = (props) => {
                       height={'570px'}
                       overflowY="scroll"
                     >
-                    <Box mb={'-10px'} />
-                    {selected_chapter === 'features' ? (
-                      selected_entry && selected_type_shortcut ? (
-                        <InspectionPanelFeature
-                          current_feature_data={
-                            chapters[selected_chapter][selected_type_shortcut][
+                      <Box mb={'-10px'} />
+                      {selected_chapter === 'features' ? (
+                        selected_entry && selected_type_shortcut ? (
+                          <InspectionPanelFeature
+                            current_feature_data={
+                              chapters[selected_chapter][
+                                selected_type_shortcut
+                              ][selected_entry]['data']
+                            }
+                            current_feature_traits={
+                              chapters[selected_chapter][
+                                selected_type_shortcut
+                              ][selected_entry]['traits']
+                            }
+                            feature_key={selected_entry}
+                          />
+                        ) : (
+                          ''
+                        )
+                      ) : selected_chapter === 'traits' ? (
+                        selected_entry ? (
+                          <Box>
+                            <Box mb={'10px'} />
+                            {chapters[selected_chapter]['other'][
                               selected_entry
-                            ]['data']
-                          }
-                          current_feature_traits={
-                            chapters[selected_chapter][selected_type_shortcut][
-                              selected_entry
-                            ]['traits']
-                          }
-                          feature_key={selected_entry}
-                        />
-                      ) : (
-                        ''
-                      )
-                    ) : selected_chapter === 'traits' ? (
-                      selected_entry ? (
+                            ] ? (
+                              <InspectionPanelTrait
+                                data_set={
+                                  chapters[selected_chapter]['other'][
+                                    selected_entry
+                                  ][0]
+                                }
+                              />
+                            ) : (
+                              <InspectionPanelTrait
+                                data_set={
+                                  chapters[selected_chapter]['reagents'][
+                                    selected_entry
+                                  ][0]
+                                }
+                              />
+                            )}
+                          </Box>
+                        ) : (
+                          ''
+                        )
+                      ) : selected_chapter === 'plants' &&
+                        chapters[selected_chapter][selected_entry] ? (
                         <Box>
-                          <Box mb={'10px'} />
-                          {chapters[selected_chapter]['other'][
-                            selected_entry
-                          ] ? (
-                            <InspectionPanelTrait
-                              data_set={
-                                chapters[selected_chapter]['other'][
-                                  selected_entry
-                                ][0]
-                              }
+                          {Object.entries(
+                            chapters[selected_chapter][selected_entry][
+                              'features'
+                            ],
+                          ).map(([feature_key, feature]) => (
+                            <InspectionPanelPlantFeature
+                              key={feature_key}
+                              current_feature_data={feature['data']}
+                              current_feature_traits={feature['traits']}
                             />
-                          ) : (
-                            <InspectionPanelTrait
-                              data_set={
-                                chapters[selected_chapter]['reagents'][
-                                  selected_entry
-                                ][0]
-                              }
-                            />
-                          )}
+                          ))}
                         </Box>
                       ) : (
                         ''
-                      )
-                    ) : selected_chapter === 'plants' &&
-                      chapters[selected_chapter][selected_entry] ? (
-                      <Box>
-                        {Object.entries(
-                          chapters[selected_chapter][selected_entry][
-                            'features'
-                          ],
-                        ).map(([feature_key, feature]) => (
-                          <InspectionPanelPlantFeature
-                            key={feature_key}
-                            current_feature_data={feature['data']}
-                            current_feature_traits={feature['traits']}
-                          />
-                        ))}
-                      </Box>
-                    ) : (
-                      ''
-                    )}
+                      )}
                     </Box>
                   </Section>
                 </Flex.Item>
@@ -402,13 +407,25 @@ const InspectionPanelFeature = (props) => {
                     : `${
                         (chapters['features']['/datum/plant_feature/fruit'][
                           plant_key
-                        ] ? chapters['features']['/datum/plant_feature/fruit'][plant_key]['stats']['name'] : 0) ||
+                        ]
+                          ? chapters['features']['/datum/plant_feature/fruit'][
+                              plant_key
+                            ]['stats']['name']
+                          : 0) ||
                         (chapters['features']['/datum/plant_feature/body'][
                           plant_key
-                        ] ? chapters['features']['/datum/plant_feature/body'][plant_key]['stats']['name'] : 0) ||
+                        ]
+                          ? chapters['features']['/datum/plant_feature/body'][
+                              plant_key
+                            ]['stats']['name']
+                          : 0) ||
                         (chapters['features']['/datum/plant_feature/roots'][
                           plant_key
-                        ] ? chapters['features']['/datum/plant_feature/roots'][plant_key]['stats']['name'] : 0)
+                        ]
+                          ? chapters['features']['/datum/plant_feature/roots'][
+                              plant_key
+                            ]['stats']['name']
+                          : 0)
                       } (mutates from)`}
                 </Button>
               ))
