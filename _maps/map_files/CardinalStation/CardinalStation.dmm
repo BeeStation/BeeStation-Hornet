@@ -22692,15 +22692,15 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 1
 	},
-/obj/item/storage/box/bodybags{
-	pixel_x = -4;
-	pixel_y = 6
-	},
-/obj/item/storage/box/gloves{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /obj/structure/rack,
+/obj/item/clothing/gloves/color/latex{
+	pixel_y = -1;
+	pixel_x = -1
+	},
+/obj/item/clothing/gloves/color/latex{
+	pixel_y = 4;
+	pixel_x = 4
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
 "eWN" = (
@@ -28866,8 +28866,18 @@
 /obj/effect/turf_decal/trimline/neutral/line,
 /obj/effect/turf_decal/trimline/purple/line,
 /obj/machinery/light_switch/directional/west,
-/obj/machinery/computer/scan_consolenew{
-	dir = 4
+/obj/structure/table/glass,
+/obj/item/storage/box/gloves{
+	pixel_x = -4;
+	pixel_y = 19
+	},
+/obj/item/storage/pill_bottle/mutadone{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/sticky_note_pile{
+	pixel_x = -7;
+	pixel_y = 2
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
@@ -36909,15 +36919,7 @@
 	name = "Genetics Requests Console";
 	pixel_y = 30
 	},
-/obj/structure/table/glass,
-/obj/item/storage/pill_bottle/mannitol{
-	pixel_x = 7;
-	pixel_y = 5
-	},
-/obj/item/radio/headset/headset_med{
-	pixel_x = -3;
-	pixel_y = 1
-	},
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron/white/side,
 /area/medical/genetics)
 "iaY" = (
@@ -55639,11 +55641,7 @@
 	},
 /obj/machinery/camera/directional/north,
 /obj/machinery/airalarm/directional/north,
-/obj/structure/table/glass,
-/obj/item/storage/pill_bottle/mutadone{
-	pixel_x = -8;
-	pixel_y = 2
-	},
+/obj/machinery/computer/scan_consolenew,
 /turf/open/floor/iron/white/side,
 /area/medical/genetics)
 "mgR" = (
@@ -62694,6 +62692,13 @@
 	dir = 8
 	},
 /area/hallway/primary/fore)
+"nHU" = (
+/obj/structure/table,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/carpet/cyan,
+/area/quartermaster/exploration_prep)
 "nHY" = (
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 8
@@ -65448,13 +65453,6 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
-"onl" = (
-/obj/structure/table,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/open/floor/carpet/cyan,
-/area/quartermaster/exploration_prep)
 "onr" = (
 /obj/machinery/disposal/deliveryChute,
 /obj/structure/disposalpipe/trunk{
@@ -78843,6 +78841,22 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
+"rjj" = (
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 8;
+	alpha = 230;
+	color = "#7fc1a2"
+	},
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 4;
+	alpha = 230;
+	color = "#7fc1a2"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/white,
+/area/quartermaster/exploration_prep)
 "rjl" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -87595,13 +87609,6 @@
 /area/medical/virology)
 "thb" = (
 /obj/structure/table/glass,
-/obj/item/clothing/gloves/color/latex{
-	pixel_y = -10
-	},
-/obj/item/storage/box/monkeycubes{
-	pixel_x = -6;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/guideline/guideline_in_alt/purple{
 	dir = 8
 	},
@@ -87613,6 +87620,14 @@
 	dir = 5
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
+/obj/item/storage/pill_bottle/mannitol{
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/obj/item/radio/headset/headset_med{
+	pixel_x = -3;
+	pixel_y = 1
+	},
 /turf/open/floor/iron/white/corner{
 	dir = 8
 	},
@@ -92628,22 +92643,6 @@
 /obj/machinery/requests_console/auto_name/directional/south,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness)
-"ulo" = (
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 8;
-	alpha = 230;
-	color = "#7fc1a2"
-	},
-/obj/effect/turf_decal/trimline/white/filled/warning{
-	dir = 4;
-	alpha = 230;
-	color = "#7fc1a2"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/white,
-/area/quartermaster/exploration_prep)
 "ult" = (
 /obj/structure/sign/poster/official/random/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -96360,14 +96359,10 @@
 	},
 /obj/machinery/status_display/ai/directional/west,
 /obj/machinery/camera/directional/west,
-/obj/structure/table/glass,
-/obj/item/storage/box/disks{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/toy/figure/geneticist{
 	pixel_x = 5
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
 "vaO" = (
@@ -101903,7 +101898,15 @@
 "wir" = (
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/light/directional/west,
-/obj/machinery/dna_scannernew,
+/obj/structure/table/glass,
+/obj/item/storage/box/monkeycubes{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/storage/box/bodybags{
+	pixel_x = 5;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
 "wiy" = (
@@ -103800,7 +103803,6 @@
 	dir = 1
 	},
 /obj/machinery/status_display/evac/directional/north,
-/obj/item/kirbyplants/random,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
 "wFg" = (
@@ -110571,16 +110573,20 @@
 /area/space/nearstation)
 "yhG" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/monkeycubes{
-	pixel_x = 5;
-	pixel_y = 7
-	},
 /obj/effect/turf_decal/guideline/guideline_in/purple{
 	dir = 4
 	},
 /obj/machinery/light/directional/east,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 4
+	},
+/obj/item/storage/box/monkeycubes{
+	pixel_x = -4;
+	pixel_y = 15
+	},
+/obj/item/storage/box/disks{
+	pixel_x = 4;
+	pixel_y = 5
 	},
 /turf/open/floor/iron/white/side{
 	dir = 8
@@ -128359,7 +128365,7 @@ nzj
 hyT
 adv
 biR
-ulo
+rjj
 eJc
 mLU
 gbg
@@ -131700,7 +131706,7 @@ sQF
 sQF
 doR
 gwF
-onl
+nHU
 mKM
 mhv
 xUT
