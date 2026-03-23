@@ -77,17 +77,12 @@
 	if(HAS_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING))
 		apply_shield(user)
 
-/// Searches the user's worn items for a heretic focus.
+/// Finds the first equipped item providing the heretic casting trait
 /datum/heretic_knowledge/mansus_barrier/proc/find_focus_item(mob/user)
 	if(!ishuman(user))
 		return null
 	var/mob/living/carbon/human/human_user = user
-	// Check all worn slots that could contain a focus
-	var/list/check_items = list(human_user.wear_neck, human_user.head, human_user.wear_suit, human_user.w_uniform, human_user.belt)
-	for(var/obj/item/candidate as anything in check_items)
-		if(!candidate)
-			continue
-		// Check if this item is providing the heretic casting trait via the heretic_focus element
+	for(var/obj/item/candidate as anything in human_user.get_equipped_items())
 		if(HAS_TRAIT_FROM(user, TRAIT_ALLOW_HERETIC_CASTING, ELEMENT_TRAIT(candidate)))
 			return candidate
 	return null
