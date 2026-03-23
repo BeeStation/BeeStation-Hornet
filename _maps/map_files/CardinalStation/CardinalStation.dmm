@@ -651,6 +651,9 @@
 	color = "#7fc1a2";
 	dir = 1
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
 "ahg" = (
@@ -5321,6 +5324,9 @@
 /obj/machinery/holopad{
 	pixel_y = -16
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
 "bfX" = (
@@ -5564,6 +5570,9 @@
 	alpha = 230;
 	color = "#7fc1a2";
 	dir = 1
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
@@ -11030,6 +11039,9 @@
 	},
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
@@ -17034,6 +17046,9 @@
 "dBO" = (
 /obj/structure/table,
 /obj/item/gun/energy/e_gun/mini/exploration,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/carpet/cyan,
 /area/quartermaster/exploration_prep)
 "dBP" = (
@@ -18998,6 +19013,9 @@
 	dir = 8;
 	alpha = 230;
 	color = "#7fc1a2"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
@@ -31704,6 +31722,9 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -32651,6 +32672,9 @@
 	color = "#7fc1a2";
 	alpha = 230
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
 "heu" = (
@@ -33127,6 +33151,9 @@
 	alpha = 230;
 	color = "#7fc1a2";
 	dir = 1
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
@@ -65421,6 +65448,13 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
+"onl" = (
+/obj/structure/table,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/carpet/cyan,
+/area/quartermaster/exploration_prep)
 "onr" = (
 /obj/machinery/disposal/deliveryChute,
 /obj/structure/disposalpipe/trunk{
@@ -68550,6 +68584,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
 /turf/open/floor/carpet/cyan,
 /area/quartermaster/exploration_prep)
 "oZh" = (
@@ -77867,6 +77904,9 @@
 	alpha = 230;
 	color = "#7fc1a2";
 	dir = 5
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
@@ -92588,6 +92628,22 @@
 /obj/machinery/requests_console/auto_name/directional/south,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness)
+"ulo" = (
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 8;
+	alpha = 230;
+	color = "#7fc1a2"
+	},
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 4;
+	alpha = 230;
+	color = "#7fc1a2"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/white,
+/area/quartermaster/exploration_prep)
 "ult" = (
 /obj/structure/sign/poster/official/random/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -103683,6 +103739,9 @@
 	dir = 8;
 	alpha = 230;
 	color = "#7fc1a2"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
@@ -128300,7 +128359,7 @@ nzj
 hyT
 adv
 biR
-eJc
+ulo
 eJc
 mLU
 gbg
@@ -131641,7 +131700,7 @@ sQF
 sQF
 doR
 gwF
-xNF
+onl
 mKM
 mhv
 xUT
