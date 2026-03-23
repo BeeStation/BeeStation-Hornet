@@ -87,6 +87,7 @@
 		/datum/heretic_knowledge/codex_cicatrix,
 		/datum/heretic_knowledge/essence,
 		/datum/heretic_knowledge/medallion,
+		/datum/heretic_knowledge/mansus_barrier,
 	)
 	spell_to_add = /datum/action/spell/jaunt/ethereal_jaunt/ash
 	cost = 1

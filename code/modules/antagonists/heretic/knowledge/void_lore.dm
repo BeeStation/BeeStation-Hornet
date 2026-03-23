@@ -98,6 +98,7 @@
 		/datum/heretic_knowledge/codex_cicatrix,
 		/datum/heretic_knowledge/void_cloak,
 		/datum/heretic_knowledge/armor,
+		/datum/heretic_knowledge/mansus_barrier,
 	)
 	cost = 1
 	route = HERETIC_PATH_VOID

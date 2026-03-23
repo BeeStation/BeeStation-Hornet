@@ -130,6 +130,7 @@
 		/datum/heretic_knowledge/codex_cicatrix,
 		/datum/heretic_knowledge/void_cloak,
 		/datum/heretic_knowledge/medallion,
+		/datum/heretic_knowledge/mansus_barrier,
 	)
 	required_atoms = list(
 		/mob/living/carbon/human = 1,
