@@ -40,7 +40,10 @@
 	var/obj/item/gun/ballistic/dummy_gun = allocate(/obj/item/gun/ballistic/revolver)
 	var/obj/item/ammo_casing/ballistic_ammo = dummy_gun.magazine.ammo_type
 	var/obj/projectile/bullet_fired = initial(ballistic_ammo.projectile_type)
-	var/expected_bullet_damage = round(initial(bullet_fired.damage) * (1 - expected_bullet_armor / 100), DAMAGE_PRECISION)
+	// Account for armour penetration reducing effective armor, and the facing modifier
+	var/bullet_ap = initial(bullet_fired.armour_penetration)
+	var/effective_bullet_armor = clamp(expected_bullet_armor * (1 - clamp(bullet_ap, -100, 100) / 100), min(expected_bullet_armor, 0), 100)
+	var/expected_bullet_damage = round(initial(bullet_fired.damage) * (1 - effective_bullet_armor / 100) * demo_mech.facing_modifiers[MECHA_FRONT_ARMOUR], DAMAGE_PRECISION)
 
 	var/obj/item/mecha_parts/mecha_equipment/left_arm_equipment = demo_mech.equip_by_category[MECHA_L_ARM]
 	TEST_ASSERT_NOTNULL(left_arm_equipment, "[demo_mech] spawned without any equipment in their left arm slot.")
@@ -75,7 +78,11 @@
 	dummy_gun.pull_trigger(demo_mech, dummy, FALSE)
 
 	check_integrity(demo_mech, pre_bullet_integrity, expected_bullet_damage, "shot with a bullet")
-	check_integrity(left_arm_equipment, pre_bullet_arm_integrity, expected_bullet_damage, "shot with a bullet")
+	// Component damage only applies if the damage exceeds the component damage threshold
+	if(expected_bullet_damage >= demo_mech.component_damage_threshold)
+		check_integrity(left_arm_equipment, pre_bullet_arm_integrity, expected_bullet_damage, "shot with a bullet")
+	else
+		TEST_ASSERT_EQUAL(left_arm_equipment.get_integrity(), pre_bullet_arm_integrity, "[left_arm_equipment] took component damage from a bullet despite damage ([expected_bullet_damage]) being below the component threshold ([demo_mech.component_damage_threshold]).")
 
 	// Additional check: The right arm of the mech should have taken no damage by this point.
 	var/obj/item/mecha_parts/mecha_equipment/right_arm_equipment = demo_mech.equip_by_category[MECHA_R_ARM]

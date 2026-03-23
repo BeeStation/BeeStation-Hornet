@@ -133,7 +133,7 @@
 		attack_dir = REVERSE_DIR(hitting_projectile.dir),
 		armour_penetration = hitting_projectile.armour_penetration,
 	), hitting_projectile.def_zone)
-	return ..()
+	return .
 
 /obj/vehicle/sealed/mecha/ex_act(severity, target)
 	log_message("Affected by explosion of severity: [severity].", LOG_MECHA, color="red")
