@@ -443,7 +443,7 @@
 	to_chat(user, span_notice("Creates a map template..."))
 	working = TRUE
 	map_template = new map_template()
-	var/datum/space_level/space_level = map_template.load_new_z(null, ZTRAITS_DEBUG)
+	var/datum/space_level/space_level = map_template.load_new_z(null)
 	turf_to_dive = locate(round((world.maxx - map_template.width)/2), round((world.maxy - map_template.height)/2), space_level.z_value)
 	to_chat(user, span_notice("Creation is completed."))
 	working = FALSE

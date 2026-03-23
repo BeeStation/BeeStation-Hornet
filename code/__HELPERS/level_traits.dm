@@ -27,7 +27,3 @@ GLOBAL_VAR(station_level_z_scratch)
 #define is_reserved_level(z) SSmapping.level_trait(z, ZTRAIT_RESERVED)
 
 #define is_away_level(z) SSmapping.level_trait(z, ZTRAIT_AWAY)
-
-#define is_pocketdim_level(z) SSmapping.level_trait(z, ZTRAIT_POCKETDIM)
-
-#define is_debug_level(z) SSmapping.level_trait(z, ZTRAIT_DEBUG)
