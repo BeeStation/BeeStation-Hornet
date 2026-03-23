@@ -159,7 +159,7 @@
 		set_hud_image_state(STATUS_HUD, "hudxeno")
 		return FALSE
 
-	if(stat == DEAD)
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		if(!get_organ_by_type(/obj/item/organ/brain) || (!key && !get_ghost(FALSE, TRUE)))
 			set_hud_image_state(STATUS_HUD, "huddead-permanent")
 		else if(tod)
@@ -168,16 +168,11 @@
 				if(!client && key)
 					set_hud_image_state(STATUS_HUD, "huddefib-ssd")
 				else
-
 					set_hud_image_state(STATUS_HUD, "huddefib")
 		else if(!client && key)
 			set_hud_image_state(STATUS_HUD, "huddead-ssd")
 		else
 			set_hud_image_state(STATUS_HUD, "huddead")
-		return FALSE
-
-	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		set_hud_image_state(STATUS_HUD, "huddefib")
 		return FALSE
 
 	var/virus_threat = check_virus()
