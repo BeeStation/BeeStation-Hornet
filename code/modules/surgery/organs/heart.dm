@@ -26,8 +26,6 @@
 	var/beat = BEAT_NONE
 	//to prevent constantly running failing code
 	var/failed = FALSE
-	//whether the heart's been operated on to fix some of its damages
-	var/operated = FALSE
 
 /obj/item/organ/heart/update_icon_state()
 	. = ..()

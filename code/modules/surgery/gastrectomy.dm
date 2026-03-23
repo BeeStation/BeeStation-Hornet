@@ -15,7 +15,7 @@
 
 /datum/surgery/gastrectomy/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/stomach/L = target.get_organ_slot(ORGAN_SLOT_STOMACH)
-	if(L?.damage > 50 && !(L.organ_flags & ORGAN_FAILING))
+	if(L?.damage > 0)
 		return TRUE
 
 ////Gastrectomy, because we truly needed a way to repair stomachs.
@@ -33,7 +33,7 @@
 
 /datum/surgery_step/gastrectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/mob/living/carbon/human/H = target
-	H.setOrganLoss(ORGAN_SLOT_STOMACH, 20) // Stomachs have a threshold for being able to even digest food, so I might tweak this number
+	H.setOrganLoss(ORGAN_SLOT_STOMACH, 0)
 	display_results(user, target, span_notice("You successfully remove the damaged part of [target]'s stomach."),
 		span_notice("[user] successfully removes the damaged part of [target]'s stomach."),
 		span_notice("[user] successfully removes the damaged part of [target]'s stomach."))

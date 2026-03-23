@@ -7,7 +7,7 @@
 /datum/surgery/lobectomy/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/lungs/L = target.get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(L)
-		if(L.damage > 60 && !L.operated)
+		if(L.damage > 0)
 			return TRUE
 	return FALSE
 
@@ -30,9 +30,7 @@
 /datum/surgery_step/lobectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/lungs/L = H.get_organ_slot(ORGAN_SLOT_LUNGS)
-		L.operated = TRUE
-		H.setOrganLoss(ORGAN_SLOT_LUNGS, 60)
+		H.setOrganLoss(ORGAN_SLOT_LUNGS, 0)
 		display_results(user, target, span_notice("You successfully excise [H]'s most damaged lobe."),
 			"Successfully removes a piece of [H]'s lungs.",
 			"")

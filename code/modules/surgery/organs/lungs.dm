@@ -4,7 +4,6 @@
 
 /obj/item/organ/lungs
 	var/failed = FALSE
-	var/operated = FALSE	//whether we can still have our damages fixed through surgery
 	name = "lungs"
 	icon_state = "lungs"
 	visual = FALSE
