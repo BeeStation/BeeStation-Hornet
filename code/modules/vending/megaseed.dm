@@ -64,7 +64,9 @@
 	Tutorial Variant
 */
 /obj/machinery/vending/hydroseeds/tutorial
+	color = "#f00" //Make it easier for mappers to identify
 
 /obj/machinery/vending/hydroseeds/tutorial/Initialize(mapload)
 	. = ..()
+	color = "#fff"
 	new /obj/item/sticker/sticky_note/tutorial/substrate(src)

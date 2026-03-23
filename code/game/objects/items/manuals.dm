@@ -466,7 +466,9 @@
 	page_link = "User:Racc-Off/botany"
 
 /obj/item/book/manual/wiki/hydroponics/tutorial
+	color = "#f00" //Make it easier for mappers to identify
 
 /obj/item/book/manual/wiki/hydroponics/tutorial/Initialize(mapload)
 	. = ..()
+	color = "#fff"
 	new /obj/item/sticker/sticky_note/tutorial/book(src)

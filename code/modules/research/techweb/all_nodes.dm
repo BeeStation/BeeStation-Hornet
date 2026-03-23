@@ -1679,7 +1679,6 @@
 		"biogenerator",
 		"diskplantgene",
 		"flora_gun",
-		"plantgenes",
 		"portaseeder",
 		"traymaker",
 	)

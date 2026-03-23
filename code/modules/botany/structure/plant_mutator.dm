@@ -289,9 +289,11 @@
 	Tutorial variant
 */
 /obj/machinery/plant_machine/plant_mutator/tutorial
+	color = "#0f0" //Make it easier for mappers to identify
 
 /obj/machinery/plant_machine/plant_mutator/tutorial/Initialize(mapload)
 	. = ..()
+	color = "#fff"
 	new /obj/item/sticker/sticky_note/tutorial/catalyst(src)
 
 //Circuitboard
