@@ -6321,13 +6321,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"ceB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/iron,
-/area/hallway/secondary/exit/departure_lounge)
 "ceL" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue/half{
@@ -17754,7 +17747,6 @@
 	name = "Escape Pod"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/atmospherics/pipe/layer_manifold/general/hidden,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/crew_quarters/dorms)
 "fWr" = (
@@ -45608,8 +45600,7 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/main/monastery)
 "qjc" = (
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/crew_quarters/dorms)
 "qjk" = (
@@ -61357,6 +61348,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/fore)
+"vKC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
+/area/hallway/secondary/exit/departure_lounge)
 "vKD" = (
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
@@ -87667,7 +87665,7 @@ qQj
 uWJ
 vUd
 sEh
-ceB
+vKC
 vbh
 uDs
 qaW
