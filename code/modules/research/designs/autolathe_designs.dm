@@ -453,14 +453,6 @@
 	category = list("initial","Misc", "Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-/datum/design/plant_mutator_board
-	name = "Plant Mutator Board"
-	id = "plant_mutator_board"
-	build_type = AUTOLATHE | PROTOLATHE
-	build_path = /obj/item/circuitboard/machine/plant_mutator
-	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
-	category = list("initial", "Misc")
-
 /datum/design/foilhat
 	name = "Tinfoil Hat"
 	id = "tinfoil_hat"
