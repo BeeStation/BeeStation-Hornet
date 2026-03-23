@@ -6325,6 +6325,12 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"ceB" = (
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/plating,
+/area/hallway/secondary/exit/departure_lounge)
 "ceL" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue/half{
@@ -14221,6 +14227,14 @@
 "eNy" = (
 /turf/closed/mineral/random/high_chance,
 /area/space/nearstation)
+"eNE" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/turf/open/floor/plating,
+/area/hallway/secondary/exit/departure_lounge)
 "eNJ" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
@@ -20406,10 +20420,15 @@
 /turf/closed/wall/r_wall,
 /area/science/server)
 "gPw" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/iron,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/airlock/external{
+	name = "Departures Escape Airlock"
+	},
+/turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "gPE" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
@@ -27146,12 +27165,11 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "jkh" = (
-/obj/structure/bookcase/random/nonfiction,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood/big,
-/area/library)
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/hallway/secondary/exit/departure_lounge)
 "jkm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -32336,10 +32354,12 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "lae" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/wood,
-/area/crew_quarters/dorms)
+/obj/structure/bookcase/random/nonfiction,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood/big,
+/area/library)
 "laz" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -35133,7 +35153,12 @@
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/effect/turf_decal/tile/blue/half{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
 "mgs" = (
@@ -39714,16 +39739,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "nRs" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/external{
-	name = "Departures Escape Airlock"
-	},
-/turf/open/floor/plating,
-/area/hallway/secondary/exit/departure_lounge)
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/wood,
+/area/crew_quarters/dorms)
 "nRz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -61355,6 +61374,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/fore)
+"vKC" = (
+/obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/hallway/secondary/exit/departure_lounge)
 "vKD" = (
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
@@ -67600,12 +67625,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue/half{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
+/obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
 "xLH" = (
@@ -85970,7 +85990,7 @@ nnx
 yfU
 tzj
 vro
-jkh
+lae
 bAC
 gWz
 dju
@@ -86227,7 +86247,7 @@ csJ
 yfU
 bAC
 vro
-jkh
+lae
 bAC
 gWz
 uAR
@@ -86484,7 +86504,7 @@ nnx
 yfU
 ohZ
 vro
-jkh
+lae
 bAC
 gWz
 uAR
@@ -86639,7 +86659,7 @@ nnx
 cJr
 nnx
 jXV
-irW
+vKC
 jXV
 irW
 jXV
@@ -86896,7 +86916,7 @@ csJ
 csJ
 csJ
 qLH
-icx
+ceB
 qLH
 icx
 qLH
@@ -87153,7 +87173,7 @@ nnx
 nnx
 nnx
 jXV
-jzA
+eNE
 jXV
 jzA
 jXV
@@ -87410,7 +87430,7 @@ qQj
 qQj
 qLH
 qyx
-nRs
+gPw
 cXA
 kac
 qyx
@@ -89475,7 +89495,7 @@ fTE
 xKt
 qim
 eGt
-lxJ
+jkh
 aDd
 sCQ
 xub
@@ -89732,8 +89752,8 @@ vFP
 tCQ
 aqM
 xFq
-kNh
-gPw
+xKt
+uhJ
 sdf
 xub
 jvb
@@ -96174,7 +96194,7 @@ wOG
 qnx
 msg
 pMb
-xLC
+mfQ
 vTs
 kpZ
 vUT
@@ -96431,7 +96451,7 @@ wOG
 qnx
 tqD
 sSN
-mfQ
+xLC
 vTs
 rQw
 iLj
@@ -109241,7 +109261,7 @@ wPQ
 wRD
 wJl
 mXZ
-lae
+nRs
 ixw
 oxb
 jmS
