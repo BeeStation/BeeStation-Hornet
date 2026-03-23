@@ -13040,6 +13040,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/white,
 /area/science/research)
+"cTo" = (
+/obj/machinery/airalarm/directional/west,
+/turf/open/floor/iron,
+/area/quartermaster/exploration_dock)
 "cTy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -18053,7 +18057,7 @@
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "eQv" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/spawner/directional/south,
@@ -26063,7 +26067,7 @@
 /obj/machinery/telecomms/server/presets/exploration,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/circuit/telecomms/server,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "hWq" = (
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/mapping_helpers/tile_breaker,
@@ -27583,6 +27587,9 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/patients_rooms)
+"iDX" = (
+/turf/closed/wall,
+/area/science/aft)
 "iEk" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer4,
@@ -36116,7 +36123,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark/telecomms,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "miP" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/loading_area{
@@ -36479,7 +36486,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "mnF" = (
 /obj/effect/turf_decal/trimline/white/warning_offset{
 	dir = 1
@@ -47205,6 +47212,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
 /area/maintenance/aft)
+"qOA" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/science/aft)
 "qOP" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -48244,7 +48255,7 @@
 	dir = 9
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "riU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
@@ -49557,7 +49568,7 @@
 	dir = 10
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "rLd" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
@@ -51280,7 +51291,7 @@
 	dir = 4
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "szA" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/maintenance{
@@ -51463,7 +51474,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/telecomms,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "sDw" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/door/window/eastright{
@@ -51601,7 +51612,7 @@
 	},
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/circuit/telecomms/server,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "sGB" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -52552,7 +52563,7 @@
 	dir = 4
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "sXf" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -56525,7 +56536,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/telecomms,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "uAq" = (
 /obj/structure/sign/warning/securearea{
 	pixel_x = -32
@@ -64632,7 +64643,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/telecomms,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "xXP" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/machinery/light{
@@ -65104,7 +65115,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/telecomms,
-/area/quartermaster/exploration_dock)
+/area/science/aft)
 "yjx" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -116722,9 +116733,9 @@ aaa
 bky
 bky
 mnE
-gQd
-gQd
-gQd
+iDX
+iDX
+iDX
 qia
 gQd
 gQd
@@ -116977,16 +116988,16 @@ aaa
 aaa
 aaa
 aaa
-xkR
+qOA
 sDn
 hWo
 sGv
-gQd
+iDX
 xcE
 ict
 hjM
 uyV
-pqr
+cTo
 cRa
 gQd
 atS
@@ -117234,11 +117245,11 @@ aaa
 aaa
 aaa
 aaa
-xkR
+qOA
 xXx
 yjs
 uAc
-xkR
+qOA
 duR
 jjp
 jjp
@@ -117491,11 +117502,11 @@ aaa
 aaa
 aaa
 aaa
-xkR
+qOA
 szx
 miD
 sWW
-xkR
+qOA
 pqr
 pqr
 cBe
@@ -117748,11 +117759,11 @@ aaa
 aaa
 aaa
 aaa
-xkR
+qOA
 rKw
 eQc
 riO
-gQd
+iDX
 quX
 pqr
 xkR
@@ -118005,11 +118016,11 @@ aaa
 aaa
 aaa
 gXs
-xkR
-xkR
-xkR
-gQd
-gQd
+qOA
+qOA
+qOA
+iDX
+iDX
 tEj
 dOV
 xkR
