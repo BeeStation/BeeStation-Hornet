@@ -271,8 +271,8 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	GLOB.current_soundtrack = null
 	if(!stop_playing)
 		return
-	for(var/mob/M as() in GLOB.player_list)
-		M?.stop_sound_channel(CHANNEL_SOUNDTRACK)
+	for(var/mob/player as anything in GLOB.player_list)
+		player.stop_sound_channel(CHANNEL_SOUNDTRACK)
 
 /mob/proc/stop_sound_channel(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
