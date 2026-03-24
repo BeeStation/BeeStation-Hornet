@@ -111,6 +111,10 @@
 #include "wizard_loadout.dm"
 #include "worn_icons.dm"
 
+/*
+#include "__DEFINES\test_defines.dm"
+*/
+
 #include "mapping\check_active_turfs.dm"
 #include "mapping\check_area_apc.dm"
 #include "mapping\check_camera_attachment.dm"
