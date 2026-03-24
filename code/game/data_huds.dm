@@ -167,7 +167,7 @@
 		return FALSE
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		if(!get_organ_by_type(/obj/item/organ/brain) || (!key && !get_ghost(FALSE, TRUE)))
+		if(!client && !get_ghost(FALSE, TRUE))
 			set_hud_image_state(STATUS_HUD, "huddead-permanent")
 		else if(tod)
 			var/time_since_death = round(world.time - timeofdeath)
