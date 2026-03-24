@@ -7,7 +7,6 @@
 #include "__DEFINES\test_defines.dm"
 
 // BEGIN_INCLUDE
-/*
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "antag_datums.dm"
@@ -51,9 +50,7 @@
 #include "heretic_rituals.dm"
 #include "hydroponics_extractor_storage.dm"
 #include "icon_smoothing_unit_test.dm"
-*/
 #include "janky_actions.dm"
-/*
 #include "keybinding_init.dm"
 #include "language_transfer.dm"
 #include "limbsanity.dm"
@@ -109,16 +106,10 @@
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "trait_tests.dm"
-*/
 #include "unit_test.dm"
-/*
 #include "walls_have_sheets.dm"
 #include "wizard_loadout.dm"
 #include "worn_icons.dm"
-
-/*
-#include "__DEFINES\test_defines.dm"
-*/
 
 #include "mapping\check_active_turfs.dm"
 #include "mapping\check_area_apc.dm"
@@ -127,7 +118,6 @@
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
 #include "mapping\check_wire_crossing.dm"
-*/
 #include "mapping\map_test.dm"
 
 // END_INCLUDE
