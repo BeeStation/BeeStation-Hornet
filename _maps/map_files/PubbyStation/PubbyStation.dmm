@@ -18929,6 +18929,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "goX" = (
@@ -28443,8 +28445,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/sign/departments/security{
 	pixel_y = 32
 	},
@@ -29898,6 +29898,8 @@
 /obj/machinery/camera/directional/north{
 	c_tag = "Fore Primary Hallway - Aft"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "kkx" = (
@@ -30175,6 +30177,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "kqk" = (
@@ -34625,8 +34629,6 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/miningdock)
 "lUy" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -39477,8 +39479,6 @@
 /turf/closed/wall,
 /area/science/mixing)
 "nLG" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -44950,8 +44950,6 @@
 /turf/open/floor/wood,
 /area/chapel/main/monastery)
 "pZe" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -44980,8 +44978,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -52693,6 +52689,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "sMz" = (
@@ -55033,10 +55031,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
-/obj/machinery/atmospherics/components/binary/pump/on/layer2{
-	dir = 1;
-	hide = 1
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_large,
 /area/hallway/primary/fore)
 "tCm" = (
@@ -60129,6 +60124,9 @@
 "vtk" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/extinguisher_cabinet/directional/south,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "vtm" = (
@@ -64199,9 +64197,10 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "wOa" = (
@@ -64800,13 +64799,6 @@
 	},
 /turf/open/floor/plating/broken,
 /area/chapel/asteroid/monastery)
-"wZn" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "wZr" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -91242,7 +91234,7 @@ clv
 wYw
 pZe
 wNX
-wZn
+qcL
 xYC
 iHo
 kiD
@@ -91497,7 +91489,7 @@ fGT
 cWF
 iJU
 fpv
-pCV
+pZe
 goP
 qcL
 lbz
@@ -93039,7 +93031,7 @@ fGT
 cWF
 iJU
 fpv
-pCV
+pZe
 goP
 xnM
 unX
@@ -93296,7 +93288,7 @@ sBJ
 qTO
 clv
 wYw
-pCV
+pZe
 kqe
 rUL
 une
