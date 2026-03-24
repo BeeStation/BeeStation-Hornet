@@ -1718,6 +1718,9 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "aBM" = (
@@ -10126,17 +10129,14 @@
 /turf/open/floor/carpet/red,
 /area/library)
 "dqC" = (
-/obj/effect/turf_decal/tile/blue/corner_ramp{
+/obj/effect/turf_decal/tile/red/anticorner{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/thinplating_new/light{
-	dir = 5
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/iron/white/smooth_large,
-/area/medical/medbay/central)
+/turf/open/floor/mineral/plastitanium,
+/area/security/checkpoint/supply)
 "dqS" = (
 /obj/structure/janitorialcart,
 /obj/structure/disposalpipe/segment,
@@ -12408,6 +12408,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "ehl" = (
@@ -14958,14 +14959,17 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
 "eXR" = (
-/obj/effect/turf_decal/tile/red/anticorner{
+/obj/effect/turf_decal/tile/blue/corner_ramp{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 5
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/security/checkpoint/supply)
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/iron/white/smooth_large,
+/area/medical/medbay/central)
 "eXS" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
@@ -34602,13 +34606,13 @@
 	},
 /obj/effect/landmark/navigate_destination,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/security)
 "lRz" = (
@@ -41034,9 +41038,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "oqT" = (
@@ -97665,7 +97666,7 @@ qMU
 tUz
 wrH
 sze
-dqC
+eXR
 spY
 gca
 sQD
@@ -106370,7 +106371,7 @@ mrF
 mKP
 wFZ
 upj
-eXR
+dqC
 gcB
 klg
 rjH
