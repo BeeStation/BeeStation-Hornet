@@ -18,8 +18,9 @@
 	///Refernece to our screen effect
 	var/obj/effect/hydroponics_screen/screen
 
-/obj/item/plant_scanner/Initialize(mapload)
+/obj/item/plant_scanner/Destroy(force)
 	. = ..()
+	QDEL_NULL(screen)
 
 /obj/item/plant_scanner/add_context_self(datum/screentip_context/context, mob/user)
 	. = ..()
@@ -39,7 +40,7 @@
 	. = ..()
 	if(!proximity_flag)
 		return
-	screen.flash()
+	screen?.flash()
 	var/scan_dialogue = ""
 	//This code is kinda samey but it's easier to read
 //Tray
