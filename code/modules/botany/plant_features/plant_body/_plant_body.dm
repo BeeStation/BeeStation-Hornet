@@ -74,6 +74,8 @@
 
 /datum/plant_feature/body/Destroy(force, ...)
 	. = ..()
+	var/datum/component/planter/tray_component = parent?.plant_item?.GetComponent(/datum/component/planter)
+	tray_component?.plant_slots += slot_size
 	parent?.plant_item?.vis_contents -= body_appearance
 	parent?.plant_item.layer -= layer_offset
 
