@@ -410,7 +410,7 @@
 		cooldown = COOLDOWN_MEME
 		for(var/V in listeners)
 			var/mob/living/L = V
-			if(L.m_intent != MOVE_INTENT_WALK)
+			if(L.move_intent != MOVE_INTENT_WALK)
 				L.toggle_move_intent()
 
 	//RUN
@@ -418,7 +418,7 @@
 		cooldown = COOLDOWN_MEME
 		for(var/V in listeners)
 			var/mob/living/L = V
-			if(L.m_intent != MOVE_INTENT_RUN)
+			if(L.move_intent != MOVE_INTENT_RUN)
 				L.toggle_move_intent()
 
 	//THROW/CATCH

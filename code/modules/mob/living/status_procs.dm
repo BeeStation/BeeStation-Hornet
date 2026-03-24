@@ -498,7 +498,7 @@
 	REMOVE_TRAIT(src, TRAIT_FAKEDEATH, source)
 	REMOVE_TRAIT(src, TRAIT_DEATHCOMA, source)
 	if(stat != DEAD)
-		tod = null
+		station_timestamp_timeofdeath = null
 
 /mob/living/proc/fakedeath(source, silent = FALSE)
 	if(stat == DEAD)
@@ -510,7 +510,7 @@
 			var/datum/symptom/S = symptom
 			S.OnDeath(D)
 	add_traits(list(TRAIT_FAKEDEATH, TRAIT_DEATHCOMA), source)
-	tod = station_time_timestamp()
+	station_timestamp_timeofdeath = station_time_timestamp()
 
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/unignore_slowdown(source)

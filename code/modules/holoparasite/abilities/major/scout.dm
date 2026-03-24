@@ -128,10 +128,10 @@
 /**
  * Blanks out the holoparasite's medhud whenever it is cloaked.
  */
-/datum/holoparasite_ability/major/scout/proc/on_medhud(datum/_source, image/holder)
+/datum/holoparasite_ability/major/scout/proc/on_medhud(mob/living/simple_animal/hostile/holoparasite/source, hud_type)
 	SIGNAL_HANDLER
 	if(scouting)
-		holder.icon_state = null
+		source.set_hud_image_state(hud_type, "")
 
 /**
  * Handles turning scout mode holoparasites incorporeal whenever it manifests.

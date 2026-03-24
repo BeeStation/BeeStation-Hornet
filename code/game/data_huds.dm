@@ -169,7 +169,7 @@
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		if(!client && !get_ghost(FALSE, TRUE))
 			set_hud_image_state(STATUS_HUD, "huddead-permanent")
-		else if(tod)
+		else if(station_timestamp_timeofdeath)
 			var/time_since_death = round(world.time - timeofdeath)
 			if(time_since_death < DEFIB_TIME_LIMIT)
 				if(!client && key)

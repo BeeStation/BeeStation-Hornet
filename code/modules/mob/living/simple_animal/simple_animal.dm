@@ -540,7 +540,8 @@
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
-	sync_lighting_plane_alpha()
+
+	return ..()
 
 /mob/living/simple_animal/get_idcard(hand_first)
 	return access_card

@@ -25,7 +25,7 @@
 /mob/living/simple_animal/hostile/holoparasite/med_hud_set_health()
 	if(summoner?.current)
 		set_hud_image_state(HEALTH_HUD, "hud[RoundHealth(summoner.current)]")
-	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_HEALTH, holder)
+	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_HEALTH, HEALTH_HUD)
 
 /mob/living/simple_animal/hostile/holoparasite/med_hud_set_status()
 	if(summoner?.current)
@@ -33,7 +33,7 @@
 			set_hud_image_state(STATUS_HUD, "huddead")
 		else
 			set_hud_image_state(STATUS_HUD, "hudhealthy")
-	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_STATUS, holder)
+	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_STATUS, STATUS_HUD)
 
 /mob/living/simple_animal/hostile/holoparasite/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()

@@ -20,19 +20,29 @@
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
 
-	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
-	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
-	var/oxyloss = 0		//Oxygen depravation damage (no air in lungs)
-	var/toxloss = 0		//Toxic damage caused by being poisoned or radiated
-	var/fireloss = 0	//Burn damage caused by being way too hot, too cold or burnt.
-	var/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
-	var/staminaloss = 0		//Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
-	var/crit_threshold = HEALTH_THRESHOLD_CRIT // when the mob goes from "normal" to crit
+	// Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
+	/// Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
+	var/bruteloss = 0
+	/// Oxygen depravation damage (no air in lungs)
+	var/oxyloss = 0
+	/// Toxic damage caused by being poisoned or radiated
+	var/toxloss = 0
+	/// Burn damage caused by being way too hot, too cold or burnt.
+	var/fireloss = 0
+	/// Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
+	var/cloneloss = 0
+	/// Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
+	var/staminaloss = 0
+
+	/// The movement intent of the mob (run/wal)
+	var/move_intent = MOVE_INTENT_RUN
 
 	/// Rate at which fire stacks should decay from this mob
 	var/fire_stack_decay_rate = -0.05
 
-	///When the mob enters hard critical state and is fully incapacitated.
+	/// When the mob goes from "normal" to crit
+	var/crit_threshold = HEALTH_THRESHOLD_CRIT
+	/// When the mob enters hard critical state and is fully incapacitated.
 	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT
 
 	/// Generic bitflags for boolean conditions at the [/mob/living] level. Keep this for inherent traits of living types, instead of runtime-changeable ones.
@@ -51,38 +61,46 @@
 	var/lying_prev = 0
 	/// Does the mob rotate when lying
 	var/rotate_on_lying = FALSE
-	///Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
+	/// Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 	var/last_special = 0
 
-	var/timeofdeath = 0
-
-	///A message sent when the mob dies, with the *deathgasp emote
+	/// A message sent when the mob dies, with the *deathgasp emote
 	var/death_message = ""
-	///A sound sent when the mob dies, with the *deathgasp emote
+	/// A sound sent when the mob dies, with the *deathgasp emote
 	var/death_sound
 
 	/// Helper vars for quick access to firestacks, these should be updated every time firestacks are adjusted
 	var/on_fire = FALSE
 	var/fire_stacks = 0
 
-	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
-	var/incorporeal_move = FALSE //FALSE is off, INCORPOREAL_MOVE_BASIC is normal, INCORPOREAL_MOVE_SHADOW is for ninjas
-								//and INCORPOREAL_MOVE_JAUNT is blocked by holy water/salt
+	/**
+	  * Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
+	  *
+	  * FALSE is off, [INCORPOREAL_MOVE_BASIC] is normal, [INCORPOREAL_MOVE_SHADOW] is for ninjas
+	  * and [INCORPOREAL_MOVE_JAUNT] is blocked by holy water/salt
+	  */
+	var/incorporeal_move = FALSE
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
-	var/now_pushing = null //used by living/Bump() and living/PushAM() to prevent potential infinite loop.
+	/// Used by [living/Bump()][/mob/living/proc/Bump] and [living/PushAM()][/mob/living/proc/PushAM] to prevent potential infinite loop.
+	var/now_pushing = null
 
-	var/tod = null // Time of death
+	/// The mob's latest time-of-death
+	var/timeofdeath = 0
+	/// The mob's latest time-of-death, as a station timestamp instead of world.time
+	var/station_timestamp_timeofdeath
 
-	var/bloodcrawl = 0 //0 No blood crawling, BLOODCRAWL for bloodcrawling, BLOODCRAWL_EAT for crawling+mob devour
-	var/holder = null //The holder for blood crawling
-	var/limb_destroyer = FALSE //1 Sets AI behavior that allows mobs to target and dismember limbs with their basic attack.
+	/// Sets AI behavior that allows mobs to target and dismember limbs with their basic attack.
+	var/limb_destroyer = FALSE
 
 	var/mob_size = MOB_SIZE_HUMAN
+	/// List of biotypes the mob belongs to. Used by diseases and reagents mainly.
 	var/mob_biotypes = MOB_ORGANIC
-	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
-	var/has_limbs = 0 //does the mob have distinct limbs?(arms,legs, chest,head)
+	/// More or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
+	var/metabolism_efficiency = 1
+	/// does the mob have distinct limbs?(arms,legs, chest,head)
+	var/has_limbs = FALSE
 
 	///How many legs does this mob have by default. This shouldn't change at runtime.
 	var/default_num_legs = 2
@@ -127,8 +145,6 @@
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
 	var/blood_volume = 0 //how much blood the mob has
-
-	var/see_override = 0 //0 for no override, sets see_invisible = see_override in silicon & carbon life process via update_sight()
 
 	var/list/status_effects //a list of all status effects the mob has
 	var/druggy = 0

@@ -308,7 +308,7 @@
 	icon_state = "sp_green"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/traits_to_give = list(
+	var/static/list/traits_to_give = list(
 		TRAIT_MADNESS_IMMUNE,
 		TRAIT_FEARLESS,
 		TRAIT_SHOCKIMMUNE,
@@ -348,6 +348,7 @@
 		TRAIT_DIAGNOSTIC_HUD,
 		TRAIT_BOT_PATH_HUD,
 	)
+	var/previous_see_invisible
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
@@ -359,7 +360,8 @@
 		user.update_sight()
 		return
 	var/mob/living/picker = user
-	picker.see_override = SEE_INVISIBLE_OBSERVER
+	previous_see_invisible = picker.see_invisible
+	picker.see_invisible = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
@@ -371,7 +373,8 @@
 	user.remove_traits(traits_to_give, "debug")
 	user.remove_all_languages("debug")
 	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
-	user.see_override = initial(user.see_override)
+	user.see_invisible = previous_see_invisible
+	previous_see_invisible = null
 	user.update_sight()
 
 // kinda works like hilbert, but not really

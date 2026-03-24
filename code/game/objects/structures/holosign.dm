@@ -99,7 +99,7 @@
 		var/mob/living/carbon/moving_carbon = mover
 		if(moving_carbon.stat != CONSCIOUS) // Lets not prevent dragging unconscious/dead people.
 			return TRUE
-		if(allow_walk && moving_carbon.m_intent == MOVE_INTENT_WALK)
+		if(allow_walk && moving_carbon.move_intent == MOVE_INTENT_WALK)
 			return TRUE
 
 	if(issilicon(mover))

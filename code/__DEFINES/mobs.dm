@@ -13,7 +13,7 @@
 #define CURRENT_DEAD_PLAYERS "dead_players_list"
 #define CURRENT_OBSERVERS "current_observers_list"
 
-//movement intent defines for the m_intent var
+//movement intent defines for the move_intent var
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
 
@@ -58,10 +58,6 @@
 #define VENTCRAWLER_NONE   0
 #define VENTCRAWLER_NUDE   1
 #define VENTCRAWLER_ALWAYS 2
-
-//Bloodcrawling defines
-#define BLOODCRAWL 1
-#define BLOODCRAWL_EAT 2
 
 // Mob bio-type flags
 /// The mob is organic, can heal from medical sutures.
