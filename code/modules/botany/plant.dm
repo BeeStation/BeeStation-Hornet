@@ -112,7 +112,7 @@
 /datum/component/plant/proc/catch_moved(datum/source, atom/movable/old_loc, dir)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(old_loc, COMSIG_ITEM_AFTERATTACK)
+	UnregisterSignal(old_loc, COMSIG_ITEM_PRE_ATTACK)
 	old_loc.vis_contents -= plant_item
 
 /datum/component/plant/proc/populate_features(list/_features)

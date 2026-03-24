@@ -254,6 +254,7 @@
 			for(var/datum/plant_feature/body/body_feature in plant_component.plant_features)
 				body_feature.growth_time_elapsed = 0
 				body_feature.current_stage = 0
+				body_feature.growth_step(0)
 			qdel(feature)
 			working = TRUE
 			icon_state = "mutator_on"

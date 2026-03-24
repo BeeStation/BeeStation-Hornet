@@ -120,7 +120,6 @@
 		current_stage = max(1, FLOOR((growth_time_elapsed/growth_time)*growth_stages, 1))
 		if(current_stage > old_stage)
 			growth_step(current_stage)
-		body_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"
 		//If our parent is eager to be an adult, used for pre-existing plants
 		if(parent?.skip_growth)
 			growth_time_elapsed = growth_time
@@ -187,6 +186,7 @@
 	tray_component.plant_slots += slot_size
 
 /datum/plant_feature/body/proc/growth_step(step)
+	body_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"
 	//Generic bounce animation, good for sprite transition
 	var/matrix/o_transform = parent.plant_item.transform
 	var/matrix/n_transform = matrix(parent.plant_item.transform)

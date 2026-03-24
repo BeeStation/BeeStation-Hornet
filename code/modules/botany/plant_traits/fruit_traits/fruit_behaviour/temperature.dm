@@ -21,7 +21,7 @@
 	START_PROCESSING(SSobj, src)
 
 /datum/plant_trait/fruit/temperature/process(delta_time)
-	if(!fruit_parent.reagents)
+	if(!fruit_parent.reagents || !length(fruit_parent.reagents.reagent_list))
 		return ..()
 	if(QDELING(src) || QDELING(fruit_parent))
 		return ..()
