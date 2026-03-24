@@ -93,7 +93,7 @@
 	icon = 'icons/obj/guns/minigun.dmi'
 	icon_state = "minigun_spin"
 	inhand_icon_state = "minigun"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slowdown = 1
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
