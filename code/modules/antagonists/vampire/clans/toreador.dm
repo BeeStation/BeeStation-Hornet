@@ -4,7 +4,6 @@
 		Responsible for the legends of vampires who seduce and entice their prey with beauty, love and sensuality. Famous and infamous as a clan of artists and innovators, they are one of the bastions of the Camarilla, as their very survival depends on the facades of civility and grace on which the sect prides itself. <br><br>\
 		They are inherently divas by blood, and their humanity and sense of morality may plummit as fast as it rises."
 	join_icon_state = "toreador"
-	blood_drink_type = VAMPIRE_DRINK_SNOBBY
 	default_humanity = 10
 	princely_score_bonus = 10
 	joinable_clan = TRUE
