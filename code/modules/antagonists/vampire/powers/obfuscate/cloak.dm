@@ -14,7 +14,7 @@
 	sol_multiplier = 2.5
 	cooldown_time = 5 SECONDS
 	/// How much blood is drained per tick while in the light.
-	var/light_vitae_cost = 2
+	var/light_vitae_cost = 4
 	/// Whether we are currently in shadow (no blood drain).
 	var/in_shadow = FALSE
 
@@ -31,6 +31,7 @@
 	check_witnesses()
 	var/mob/living/user = owner
 	user.AddElement(/datum/element/digital_camo)
+	ADD_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, REF(src))
 	user.balloon_alert(user, "cloak turned on.")
 	animate(user, alpha = 0, time = 1 SECONDS)
 	// Apply the cloaked status effect (handles self-visibility, bump/attack disruption)
@@ -82,6 +83,7 @@
 
 	animate(user, alpha = 255, time = 1 SECONDS)
 	user.RemoveElement(/datum/element/digital_camo)
+	REMOVE_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, REF(src))
 	user.remove_status_effect(/datum/status_effect/vampire_cloaked)
 	user.balloon_alert(user, "cloak turned off.")
 	in_shadow = FALSE
