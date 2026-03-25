@@ -2865,7 +2865,7 @@
 	name = "Cat Crate"
 	desc = "The cat goes meow! Comes with a collar and a nice cat toy! Cheeseburger not included."//i can't believe im making this reference
 	cost = 5000 //Cats are worth as much as corgis.
-	contains = list(/mob/living/simple_animal/pet/cat,
+	contains = list(/mob/living/basic/pet/cat,
 					/obj/item/clothing/neck/petcollar,
 					/obj/item/toy/cattoy)
 	crate_name = "cat crate"
@@ -2873,9 +2873,9 @@
 /datum/supply_pack/critter/cat/generate()
 	. = ..()
 	if(prob(50))
-		var/mob/living/simple_animal/pet/cat/C = locate() in .
+		var/mob/living/basic/pet/cat/C = locate() in .
 		qdel(C)
-		new /mob/living/simple_animal/pet/cat/Proc(.)
+		new /mob/living/basic/pet/cat/_proc(.)
 
 /datum/supply_pack/critter/cat/exotic
 	name = "Exotic Cat Crate"
@@ -2889,15 +2889,15 @@
 	. = ..()
 	switch(rand(1, 5))
 		if(1)
-			new /mob/living/simple_animal/pet/cat/original(.)
+			new /mob/living/basic/pet/cat/original(.)
 		if(2)
-			new /mob/living/simple_animal/pet/cat/breadcat(.)
+			new /mob/living/basic/pet/cat/breadcat(.)
 		if(3)
-			new /mob/living/simple_animal/pet/cat/cak(.)
+			new /mob/living/basic/pet/cat/cak(.)
 		if(4)
-			new /mob/living/simple_animal/pet/cat/space(.)
+			new /mob/living/basic/pet/cat/space(.)
 		if(5)
-			new /mob/living/simple_animal/pet/cat/halal(.)
+			new /mob/living/basic/pet/cat/halal(.)
 
 /datum/supply_pack/critter/chick
 	name = "Chicken Crate"

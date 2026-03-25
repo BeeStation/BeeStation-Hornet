@@ -145,7 +145,7 @@
 			else
 				M.visible_message(span_notice("[M] stares at the light"),span_warning(" You stare at the light... "))
 		else if(iscat(M)) //cats!
-			var/mob/living/simple_animal/pet/cat/C = M
+			var/mob/living/basic/pet/cat/C = M
 			if(prob(50))
 				if(C.resting)
 					C.set_resting(FALSE, instant = TRUE)

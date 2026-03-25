@@ -15,9 +15,14 @@
 	var/summon_respects_density = FALSE
 	/// If TRUE, no two summons can be spawned in the same turf.
 	var/summon_respects_prev_spawn_points = TRUE
+	/// for how long must we stay still when summoning
+	var/create_summon_timer
 
 /datum/action/spell/conjure/on_cast(mob/user, atom/target)
 	. = ..()
+	if(create_summon_timer && !do_after(owner, create_summon_timer, target = target.loc))
+		owner?.balloon_alert(owner, "need to stay still!")
+		return
 	var/list/to_summon_in = list()
 	for(var/turf/summon_turf in range(summon_radius, user))
 		if(summon_respects_density && summon_turf.density)

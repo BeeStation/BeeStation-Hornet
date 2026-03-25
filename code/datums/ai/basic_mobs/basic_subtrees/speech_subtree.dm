@@ -94,3 +94,9 @@
 	speak = list("Gnot a gnelf!", "Gnot a gnoblin!", "Howdy chum!")
 	emote_hear = list("snores.", "burps.")
 	emote_see = list("blinks.")
+
+/datum/ai_planning_subtree/random_speech/cats
+	speech_chance = 10
+	sound = list("cat_meow")
+	emote_hear = list("meows.")
+	emote_see = list("meows.")
