@@ -1,13 +1,13 @@
 /datum/action/cooldown/mob_cooldown/fire_breath
 	name = "Fire Breath"
-	button_icon = 'icons/effects/magic.dmi'
+	button_icon = 'icons/obj/wizard.dmi'
 	button_icon_state = "fireball"
 	desc = "Breathe a line of flames towards the target."
 	cooldown_time = 3 SECONDS
 	/// The range of the fire
 	var/fire_range = 15
 	/// The sound played when you use this ability
-	var/fire_sound = 'sound/effects/magic/fireball.ogg'
+	var/fire_sound = 'sound/magic/fireball.ogg'
 	/// Time to wait between spawning each fire turf
 	var/fire_delay = 1.5 DECISECONDS
 	/// How hot is our fire

@@ -661,6 +661,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/turret_toggle/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	var/obj/machinery/porta_turret/turret = target
 	if(!istype(turret))
 		return
@@ -672,6 +675,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	button_icon_state = "mech_eject"
 
 /datum/action/turret_quit/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	var/obj/machinery/porta_turret/P = target
 	if(!istype(P))
 		return

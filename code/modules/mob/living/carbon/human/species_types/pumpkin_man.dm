@@ -167,9 +167,9 @@
 		return
 	generate_candy()
 
-/datum/action/item_action/organ_action/pumpkin_head_candy/activate(atom/target)
+/datum/action/item_action/organ_action/pumpkin_head_candy/do_effect(trigger_flags)
 	if(!iscarbon(owner))
-		return
+		return FALSE
 	var/mob/living/carbon/H = owner
 	if(!IS_DEAD_OR_INCAP(H))
 		//Get candy if we have it

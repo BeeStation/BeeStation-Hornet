@@ -77,7 +77,10 @@
 		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 	outfit_options = standard_outfit_options
 
-/datum/action/chameleon_outfit/activate(atom/target)
+/datum/action/chameleon_outfit/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
 	return select_outfit(owner)
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
@@ -94,8 +97,8 @@
 
 	var/obj/item/card/id/syndicate/chamel_card // this is awful but this hardcoding is better than adding `obj/proc/get_chameleon_variable()` for every chalemon item
 	for(var/datum/action/item_action/chameleon/change/A in user.chameleon_item_actions)
-		if(istype(UNLINT(A.master), /obj/item/modular_computer))
-			var/obj/item/modular_computer/comp = UNLINT(A.master)
+		if(istype(target, /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = A.target
 			if(istype(comp.GetID(), /obj/item/card/id/syndicate))
 				chamel_card = comp.GetID()
 
@@ -753,7 +756,7 @@
 		temporary_list[tongue_name] = found_item
 	tongue_list = sort_list(temporary_list)
 
-/datum/action/item_action/chameleon/tongue_change/activate(atom/target)
+/datum/action/item_action/chameleon/tongue_change/do_effect(trigger_flags)
 	if(!isitem(target))
 		return FALSE
 	var/obj/item/clothing/mask/target_mask = target

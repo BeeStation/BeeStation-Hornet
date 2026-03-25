@@ -640,6 +640,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	show_to_observers = FALSE
 
 /datum/action/report/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(owner && GLOB.common_report && SSticker.current_state == GAME_STATE_FINISHED)
 		SSticker.show_roundend_report(owner.client, FALSE)
 

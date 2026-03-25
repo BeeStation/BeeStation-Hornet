@@ -1,7 +1,7 @@
 
 /datum/action/cooldown/mob_cooldown/charge
 	name = "Charge"
-	button_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	desc = "Allows you to charge at a chosen position."
 	cooldown_time = 1.5 SECONDS
@@ -314,7 +314,7 @@
 
 /datum/action/cooldown/mob_cooldown/charge/hallucination_charge/hallucination_surround
 	name = "Surround Target"
-	button_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "expand"
 	desc = "Allows you to create hallucinations that charge around your target."
 	charge_delay = 0.6 SECONDS

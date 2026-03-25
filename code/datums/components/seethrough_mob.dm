@@ -102,7 +102,7 @@
 
 	var/mob/fool = parent
 	UnregisterSignal(fool, COMSIG_MOB_LOGOUT)
-	var/datum/hud/our_hud = fool.hud_used
+	//var/datum/hud/our_hud = fool.hud_used
 	//for(var/atom/movable/screen/plane_master/seethrough as anything in our_hud.get_true_plane_masters(SEETHROUGH_PLANE))
 	//	seethrough.hide_plane(fool)
 	clear_image(trickery_image, fool.client)
@@ -117,7 +117,7 @@
 /datum/action/cooldown/toggle_seethrough
 	name = "Toggle Seethrough"
 	desc = "Allows you to see behind your massive body and click through it."
-	button_icon = 'icons/mob/actions/actions_xeno.dmi'
+	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "alien_sneak"
 	background_icon_state = "bg_alien"
 	cooldown_time = 1 SECONDS

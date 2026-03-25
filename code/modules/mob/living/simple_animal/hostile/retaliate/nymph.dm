@@ -258,7 +258,10 @@
 	button_icon_state = "grow"
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
-/datum/action/nymph/evolve/activate(atom/target)
+/datum/action/nymph/evolve/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = owner
 	if(!isnymph(nymph))
 		return

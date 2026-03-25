@@ -6,12 +6,12 @@
 	/// The layer we are on while hiding
 	var/hide_layer = ABOVE_NORMAL_TURF_LAYER
 
-/datum/action/cooldown/alien/hide/activate(atom/target)
+/datum/action/cooldown/alien/hide/Activate(atom/target)
 	if(owner.layer == hide_layer)
 		owner.layer = initial(owner.layer)
 		owner.visible_message(
-			("<span class='notice'>[owner] slowly peeks up from the ground...</span>"),
-			("<span class='noticealien'>You stop hiding.</span>"),
+			span_notice("[owner] slowly peeks up from the ground..."),
+			span_noticealien("You stop hiding."),
 		)
 
 	else
@@ -46,7 +46,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/larva_evolve/activate(atom/target)
+/datum/action/cooldown/alien/larva_evolve/Activate(atom/target)
 	var/mob/living/carbon/alien/larva/larva = owner
 	var/static/list/caste_options
 	if(!caste_options)

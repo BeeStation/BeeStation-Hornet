@@ -1,7 +1,7 @@
 /datum/action/cooldown/mob_cooldown/sneak
 	name = "Sneak"
 	desc = "Blend into the environment."
-	button_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "sniper_zoom"
 	background_icon_state = "bg_alien"
 	overlay_icon_state = "bg_alien_border"

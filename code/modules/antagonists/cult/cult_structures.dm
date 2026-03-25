@@ -211,7 +211,7 @@
 /obj/effect/gateway
 	name = "gateway"
 	desc = "You're pretty sure that abyss is staring back."
-	icon = 'icons/obj/antags/cult/structures.dmi'
+	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = TRUE
 	anchored = TRUE

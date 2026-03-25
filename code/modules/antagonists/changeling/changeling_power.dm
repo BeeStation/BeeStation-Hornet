@@ -43,6 +43,9 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	return ..() && owner.mind && owner.mind.has_antag_datum(/datum/antagonist/changeling)
 
 /datum/action/changeling/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	var/mob/user = owner
 	if(!user || !IS_CHANGELING(user))
 		return

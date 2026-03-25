@@ -76,6 +76,8 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/trigger(mob/clicker, trigger_flags)
 	. = ..()
+	if(!.)
+		return
 	if(auto_use_uses)
 		adjust_uses(-1)
 	if(cooldown_period)

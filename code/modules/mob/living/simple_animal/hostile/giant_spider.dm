@@ -599,7 +599,7 @@
 	button_icon_state = "wrap_0"
 	build_all_button_icons()
 
-/datum/action/cooldown/mob_cooldown/wrap/activate(atom/to_wrap)
+/datum/action/cooldown/mob_cooldown/wrap/Activate(atom/to_wrap)
 	if(!owner.Adjacent(to_wrap))
 		owner.balloon_alert(owner, "must be closer!")
 		return FALSE
@@ -693,7 +693,7 @@
 /datum/action/innate/spider/comm/is_available(feedback = FALSE)
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
-/datum/action/innate/spider/comm/activate(atom/target)
+/datum/action/innate/spider/comm/Activate(atom/target)
 	var/input = stripped_input(owner, "Input a command for your children to follow.", "Command", "")
 	if(QDELETED(src) || !input || !is_available())
 		return FALSE

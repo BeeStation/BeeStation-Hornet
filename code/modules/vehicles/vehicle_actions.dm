@@ -116,8 +116,8 @@
 	desc = "Climb out of your vehicle!"
 	button_icon_state = "car_eject"
 
-/datum/action/vehicle/sealed/climb_out/activate(atom/target)
-	if(istype(vehicle_entered_target))
+/datum/action/vehicle/sealed/climb_out/trigger(mob/clicker, trigger_flags)
+	if(..() && istype(vehicle_entered_target))
 		vehicle_entered_target.mob_try_exit(owner, owner)
 
 /datum/action/vehicle/ridden
@@ -128,7 +128,10 @@
 	desc = "Take your key out of the vehicle's ignition"
 	button_icon_state = "car_removekey"
 
-/datum/action/vehicle/sealed/remove_key/activate(atom/target)
+/datum/action/vehicle/sealed/remove_key/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	vehicle_entered_target.remove_key(owner)
 
 //CLOWN CAR ACTION DATUMS
@@ -139,6 +142,9 @@
 	var/hornsound = 'sound/items/carhorn.ogg'
 
 /datum/action/vehicle/sealed/horn/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_CAR_HONK))
 		return
 	TIMER_COOLDOWN_START(src, COOLDOWN_CAR_HONK, 2 SECONDS)
@@ -155,6 +161,9 @@
 	button_icon_state = "car_dump"
 
 /datum/action/vehicle/sealed/dump_kidnapped_mobs/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] starts dumping the people inside of it."))
 	vehicle_entered_target.dump_specific_mobs(VEHICLE_CONTROL_KIDNAPPED)
 
@@ -165,6 +174,9 @@
 	button_icon_state = "car_rtd"
 
 /datum/action/vehicle/sealed/roll_the_dice/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		return
 	var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
@@ -176,6 +188,9 @@
 	button_icon_state = "car_cannon"
 
 /datum/action/vehicle/sealed/cannon/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		return
 	var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
@@ -188,6 +203,9 @@
 	COOLDOWN_DECLARE(thank_time_cooldown)
 
 /datum/action/vehicle/sealed/thank/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(!istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		return
 	if(!COOLDOWN_FINISHED(src, thank_time_cooldown))
@@ -249,6 +267,9 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/vehicle/ridden/scooter/skateboard/kickflip/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	var/obj/vehicle/ridden/scooter/skateboard/board = vehicle_target
 	var/mob/living/rider = owner
 

@@ -57,7 +57,7 @@
 		level_current = favorite_vassal.vassal_level
 
 //This is when we CLICK on the ability Icon, not USING.
-/datum/action/cooldown/vampire/activate(atom/target)
+/datum/action/cooldown/vampire/Activate(atom/target)
 	if(currently_active)
 		deactivate_power()
 		return FALSE

@@ -1,6 +1,6 @@
 /datum/action/cooldown/mob_cooldown/projectile_attack
 	name = "Projectile Attack"
-	button_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	desc = "Fires a set of projectiles at a selected target."
 	cooldown_time = 1.5 SECONDS
@@ -64,7 +64,7 @@
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/rapid_fire
 	name = "Rapid Fire"
-	button_icon = 'icons/obj/weapons/guns/energy.dmi'
+	button_icon = 'icons/obj/guns/energy.dmi'
 	button_icon_state = "kineticgun"
 	desc = "Fires projectiles repeatedly at a given target."
 	cooldown_time = 1.5 SECONDS
@@ -86,7 +86,7 @@
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/rapid_fire/shrapnel
 	name = "Shrapnel Fire"
-	button_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	desc = "Fires projectiles that will split into shrapnel after a period of time."
 	cooldown_time = 6 SECONDS
@@ -121,12 +121,12 @@
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots
 	name = "Spiral Shots"
-	button_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	desc = "Fires projectiles in a spiral pattern."
 	cooldown_time = 3 SECONDS
 	projectile_type = /obj/projectile/colossus
-	projectile_sound = 'sound/effects/magic/clockwork/invoke_general.ogg'
+	projectile_sound = 'sound/magic/clockwork/invoke_general.ogg'
 	/// Whether or not the attack is the enraged form
 	var/enraged = FALSE
 
@@ -167,7 +167,7 @@
 	desc = "Fires projectiles in all directions."
 	cooldown_time = 3 SECONDS
 	projectile_type = /obj/projectile/colossus
-	projectile_sound = 'sound/effects/magic/clockwork/invoke_general.ogg'
+	projectile_sound = 'sound/magic/clockwork/invoke_general.ogg'
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/random_aoe/attack_sequence(mob/living/firer, atom/target)
 	var/turf/U = get_turf(firer)
@@ -184,12 +184,12 @@
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast
 	name = "Shotgun Fire"
-	button_icon = 'icons/obj/weapons/guns/ballistic.dmi'
+	button_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "shotgun"
 	desc = "Fires projectiles in a shotgun pattern."
 	cooldown_time = 2 SECONDS
 	projectile_type = /obj/projectile/colossus
-	projectile_sound = 'sound/effects/magic/clockwork/invoke_general.ogg'
+	projectile_sound = 'sound/magic/clockwork/invoke_general.ogg'
 	var/list/shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/attack_sequence(mob/living/firer, atom/target)
@@ -239,12 +239,12 @@
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots
 	name = "Directional Shots"
-	button_icon = 'icons/obj/weapons/guns/ballistic.dmi'
+	button_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "pistol"
 	desc = "Fires projectiles in specific directions."
 	cooldown_time = 4 SECONDS
 	projectile_type = /obj/projectile/colossus
-	projectile_sound = 'sound/effects/magic/clockwork/invoke_general.ogg'
+	projectile_sound = 'sound/magic/clockwork/invoke_general.ogg'
 	var/list/firing_directions
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/New(Target)
@@ -284,12 +284,12 @@
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/kinetic_accelerator
 	name = "Fire Kinetic Accelerator"
-	button_icon = 'icons/obj/weapons/guns/energy.dmi'
+	button_icon = 'icons/obj/guns/energy.dmi'
 	button_icon_state = "kineticgun"
 	desc = "Fires a kinetic accelerator projectile at the target."
 	cooldown_time = 1.5 SECONDS
 	projectile_type = /obj/projectile/kinetic/miner
-	projectile_sound = 'sound/items/weapons/kinetic_accel.ogg'
+	projectile_sound = 'sound/weapons/kinetic_accel.ogg'
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/kinetic_accelerator/Activate(atom/target_atom)
 	. = ..()
@@ -346,9 +346,127 @@
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/alternating_circle
 	name = "Alternating Shots"
-	button_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	desc = "Fires projectiles around you in an alternating fashion."
 	cooldown_time = 10 SECONDS
 	projectile_type = /obj/projectile/colossus/wendigo_shockwave
 	can_move = FALSE
+	var/enraged = FALSE
+
+/datum/action/cooldown/mob_cooldown/projectile_attack/alternating_circle/attack_sequence(mob/living/firer, atom/target)
+	wendigo_scream(firer)
+	if(enraged)
+		projectile_speed_multiplier = 1
+	else
+		projectile_speed_multiplier = 0.66
+	var/shots_per = 24
+	for(var/shoot_times in 1 to 8)
+		var/offset = shoot_times % 2
+		for(var/shot in 1 to shots_per)
+			var/angle = shot * 360 / shots_per + (offset * 360 / shots_per) * 0.5
+			shoot_projectile(firer, target, angle, firer, null, null)
+		SLEEP_CHECK_DEATH(6 - enraged * 2, firer)
+	SLEEP_CHECK_DEATH(3 SECONDS, firer)
+
+/datum/action/cooldown/mob_cooldown/projectile_attack/wave
+	name = "Wave Shots"
+	button_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "sniper_zoom"
+	desc = "Fires projectiles around you in a circular wave."
+	cooldown_time = 10 SECONDS
+	projectile_type = /obj/projectile/colossus/wendigo_shockwave/wave
+	can_move = FALSE
+
+/datum/action/cooldown/mob_cooldown/projectile_attack/wave/attack_sequence(mob/living/firer, atom/target)
+	wendigo_scream(firer)
+	var/shots_per = 6
+	var/difference = 360 / shots_per
+	var/wave_direction = pick(-1, 1)
+	switch(wave_direction)
+		if(-1)
+			projectile_type = /obj/projectile/colossus/wendigo_shockwave/wave/alternate
+		if(1)
+			projectile_type = /obj/projectile/colossus/wendigo_shockwave/wave
+	for(var/shoot_times in 1 to 12)
+		for(var/shot in 1 to shots_per)
+			var/angle = shot * difference + shoot_times * 5 * wave_direction * -1
+			shoot_projectile(firer, target, angle, firer, null, null)
+		SLEEP_CHECK_DEATH(0.6 SECONDS, firer)
+	SLEEP_CHECK_DEATH(3 SECONDS, firer)
+
+/proc/wendigo_scream(mob/owner)
+	SLEEP_CHECK_DEATH(5, owner)
+	playsound(owner.loc, 'sound/magic/demon_dies.ogg', 600, FALSE, 10)
+	var/pixel_shift = rand(5, 15)
+	animate(owner, pixel_z = pixel_shift, time = 1, loop = 20, flags = ANIMATION_RELATIVE)
+	animate(pixel_z = -pixel_shift, time = 1, flags = ANIMATION_RELATIVE)
+	for(var/mob/living/dizzy_target in get_hearers_in_view(7, owner) - owner)
+		dizzy_target.set_dizzy_if_lower(12 SECONDS)
+		to_chat(dizzy_target, span_danger("[owner] screams loudly!"))
+	SLEEP_CHECK_DEATH(1 SECONDS, owner)
+
+/obj/projectile/colossus/snowball
+	name = "machine-gun snowball"
+	icon_state = "nuclear_particle"
+	damage = 5
+	armour_penetration = 100
+	speed = 0.33
+	range = 150
+	damage_type = BRUTE
+	explode_hit_objects = FALSE
+
+/obj/projectile/colossus/wendigo_shockwave
+	name = "wendigo shockwave"
+	speed = 0.5
+
+	/// Amount the angle changes every pixel move
+	var/wave_speed = 0.5
+	/// Amount of movements this projectile has made
+	var/pixel_moves = 0
+
+/obj/projectile/colossus/wendigo_shockwave/spiral
+	damage = 15
+
+/obj/projectile/colossus/wendigo_shockwave/wave
+	speed = 0.125
+	wave_speed = 0.3
+
+/obj/projectile/colossus/wendigo_shockwave/wave/alternate
+	wave_speed = -0.3
+
+/obj/projectile/colossus/wendigo_shockwave/pixel_move(trajectory_multiplier, hitscanning = FALSE)
+	. = ..()
+	if (QDELETED(src))
+		return
+	pixel_moves += .
+	set_angle(original_angle + pixel_moves * wave_speed)
+
+/obj/projectile/colossus/frost_orb
+	name = "frost orb"
+	icon_state = "ice_1"
+	damage = 20
+	armour_penetration = 100
+	speed = 0.1
+	range = 500
+	homing_turn_speed = 3
+	damage_type = BURN
+
+/obj/projectile/colossus/frost_orb/on_hit(atom/target, blocked = 0, pierce_hit)
+	. = ..()
+	if(isturf(target) || isobj(target))
+		EX_ACT(target, EXPLODE_HEAVY)
+
+/obj/projectile/colossus/ice_blast
+	name = "ice blast"
+	icon_state = "ice_2"
+	damage = 15
+	armour_penetration = 100
+	speed = 0.33
+	range = 150
+	damage_type = BRUTE
+
+/obj/projectile/colossus/ice_blast/on_hit(atom/target, blocked = 0, pierce_hit)
+	. = ..()
+	if(isturf(target) || isobj(target))
+		EX_ACT(target, EXPLODE_HEAVY)

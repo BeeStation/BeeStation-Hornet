@@ -186,9 +186,9 @@
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
-/datum/action/item_action/organ_action/psychic_highlight/activate(atom/target)
+/datum/action/item_action/organ_action/psychic_highlight/do_effect(trigger_flags)
 	if(!owner || !check_head())
-		return
+		return FALSE
 	//Reveal larger area of sense
 	dim_overlay()
 	//Blind sense stuffs
@@ -198,6 +198,7 @@
 			BS.highlight_object(L, "mob", L.dir)
 	build_all_button_icons()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time) //Overwrite this line from the original to support my fucked up use
+	return TRUE
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
 	owner?.clear_fullscreen("psychic_highlight")
@@ -412,7 +413,10 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_visual/activate(atom/target)
+/datum/action/change_psychic_visual/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
 	psychic_overlay?.cycle_visuals()
@@ -441,7 +445,10 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_auto/activate(atom/target)
+/datum/action/change_psychic_auto/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
 	build_all_button_icons()
 
@@ -476,7 +483,10 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_texture/activate(atom/target)
+/datum/action/change_psychic_texture/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	psychic_overlay = psychic_overlay || owner?.screens["psychic_highlight"]
 	psychic_overlay?.cycle_textures()
 	blind_overlay = blind_overlay || owner?.screens["blind"]

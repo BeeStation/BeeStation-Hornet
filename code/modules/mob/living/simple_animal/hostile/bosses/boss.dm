@@ -53,21 +53,24 @@
 	var/needs_target = TRUE //Does the boss need to have a target? (Only matters for the AI)
 	var/say_when_triggered = "" //What does the boss Say() when the ability triggers?
 
-/datum/action/boss/activate(atom/target)
+/datum/action/boss/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(!istype(boss, boss_type))
-		return 0
+		return FALSE
 	if(!boss.atb)
-		return 0
+		return FALSE
 	if(boss.atb.points < boss_cost)
-		return 0
+		return FALSE
 	if(!boss.client)
 		if(needs_target && !boss.target)
-			return 0
+			return FALSE
 	if(boss)
 		if(say_when_triggered)
 			boss.say(say_when_triggered, forced = "boss action")
 		if(!boss.atb.spend(boss_cost))
-			return 0
+			return FALSE
 	return TRUE
 
 //Designed for boss mobs only

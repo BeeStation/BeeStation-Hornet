@@ -174,7 +174,8 @@
 			return TRUE
 		return FALSE
 
-/datum/action/item_action/pull_string/activate(atom/target)
+/datum/action/item_action/pull_string/do_effect(trigger_flags)
+	. = ..()
 	if(cake.used_string)
 		to_chat(usr, span_notice("The string is loose, it's already been used!"))
 		return

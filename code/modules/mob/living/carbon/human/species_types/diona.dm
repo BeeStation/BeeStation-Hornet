@@ -186,7 +186,10 @@
 /datum/action/diona/split/is_available(feedback = FALSE)
 	return ..() && isdiona(owner)
 
-/datum/action/diona/split/activate(atom/target)
+/datum/action/diona/split/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(owner, 8 SECONDS, owner, hidden = TRUE))

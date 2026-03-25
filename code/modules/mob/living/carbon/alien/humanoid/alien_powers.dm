@@ -74,7 +74,7 @@ Doesn't work on other aliens/AI.*/
 
 	return ..()
 
-/datum/action/cooldown/alien/make_structure/activate(atom/target)
+/datum/action/cooldown/alien/make_structure/Activate(atom/target)
 	new made_structure_type(owner.loc)
 	return TRUE
 
@@ -106,7 +106,7 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 50
 	made_structure_type = /obj/structure/alien/weeds/node
 
-/datum/action/cooldown/alien/make_structure/plant_weeds/activate(atom/target)
+/datum/action/cooldown/alien/make_structure/plant_weeds/Activate(atom/target)
 	owner.visible_message(span_alertalien("[owner] plants some alien weeds!"))
 	return ..()
 
@@ -116,7 +116,7 @@ Doesn't work on other aliens/AI.*/
 	button_icon_state = "alien_whisper"
 	plasma_cost = 10
 
-/datum/action/cooldown/alien/whisper/activate(atom/target)
+/datum/action/cooldown/alien/whisper/Activate(atom/target)
 	var/list/possible_recipients = list()
 	for(var/mob/living/recipient in oview(owner))
 		possible_recipients += recipient
@@ -221,7 +221,7 @@ Doesn't work on other aliens/AI.*/
 
 	return ..()
 
-/datum/action/cooldown/alien/acid/corrosion/activate(atom/target)
+/datum/action/cooldown/alien/acid/corrosion/Activate(atom/target)
 	if(iscarbon(target))
 		//This is blocked by virtually any clothing which is destroyed if possible, but will still do 60 damage without any.
 		target.acid_act(50, 50)
@@ -291,7 +291,7 @@ Doesn't work on other aliens/AI.*/
 	return TRUE
 
 // Has to return TRUE, otherwise is skipped.
-/datum/action/cooldown/alien/acid/neurotoxin/activate(atom/target)
+/datum/action/cooldown/alien/acid/neurotoxin/Activate(atom/target)
 	return TRUE
 
 /datum/action/cooldown/alien/make_structure/resin
@@ -316,7 +316,7 @@ Doesn't work on other aliens/AI.*/
 
 	return TRUE
 
-/datum/action/cooldown/alien/make_structure/resin/activate(atom/target)
+/datum/action/cooldown/alien/make_structure/resin/Activate(atom/target)
 	var/choice = tgui_input_list(owner, "Select a shape to build", "Resin building", structures)
 	if(isnull(choice) || QDELETED(src) || QDELETED(owner) || !check_for_duplicate() || !is_available(feedback = TRUE))
 		return FALSE
@@ -337,7 +337,7 @@ Doesn't work on other aliens/AI.*/
 	name = "Alien Sentinel Sneak"
 	panel = "Alien"
 	desc = "Blend into the shadows to stalk your prey."
-	button_icon = 'icons/mob/actions/actions_xeno.dmi'
+	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = "alien_sneak"
 	background_icon_state = "bg_alien"
 	overlay_icon_state = "bg_alien_border"

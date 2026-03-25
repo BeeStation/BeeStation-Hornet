@@ -191,7 +191,7 @@
 /datum/action/cooldown/mob_cooldown/goose_vomit/is_available(feedback = FALSE)
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/retaliate/goose/vomit)
 
-/datum/action/cooldown/mob_cooldown/goose_vomit/activate(atom/target)
+/datum/action/cooldown/mob_cooldown/goose_vomit/Activate(atom/target)
 	var/mob/living/simple_animal/hostile/retaliate/goose/vomit/vomit = owner
 	if(!vomit.vomiting)
 		vomit.vomit_prestart(vomit.vomitTimeBonus + 25)

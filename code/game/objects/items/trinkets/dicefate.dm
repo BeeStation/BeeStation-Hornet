@@ -244,7 +244,7 @@
 		to_summon,
 		get_turf(cast_on),
 		precision = 1,
-		asoundin = 'sound/effects/magic/wand_teleport.ogg',
-		asoundout = 'sound/effects/magic/wand_teleport.ogg',
+		asoundin = 'sound/magic/wand_teleport.ogg',
+		asoundout = 'sound/magic/wand_teleport.ogg',
 		channel = TELEPORT_CHANNEL_MAGIC,
 	)

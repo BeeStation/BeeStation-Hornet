@@ -282,13 +282,16 @@
 	SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_NARNAR] = TRUE
 
 /obj/item/nullrod/godhand
+	name = "god hand"
+	desc = "This hand of yours glows with an awesome power!"
+	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "disintegrate"
 	inhand_icon_state = "disintegrate"
 	lefthand_file = 'icons/mob/inhands/misc/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
-	name = "god hand"
-	desc = "This hand of yours glows with an awesome power!"
+	slot_flags = null
 	item_flags = ABSTRACT | DROPDEL
+	resistance_flags = FIRE_PROOF|ACID_PROOF
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN

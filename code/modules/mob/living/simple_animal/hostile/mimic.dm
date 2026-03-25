@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	maxHealth = 100
 	var/mob/living/creator = null // the creator
 	var/knockdown_people = 0
-	var/static/mutable_appearance/googly_eyes = mutable_appearance('icons/mob/mob.dmi', "googly_eyes")
+	var/static/mutable_appearance/googly_eyes = mutable_appearance('icons/mob/simple/mob.dmi', "googly_eyes")
 	var/overlay_googly_eyes = TRUE
 	var/idledamage = TRUE
 	gold_core_spawnable = NO_SPAWN

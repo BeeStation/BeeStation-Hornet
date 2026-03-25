@@ -34,7 +34,7 @@
 	var/buttontooltipstyle = ""
 
 	/// This is the file for the BACKGROUND underlay icon of the button
-	var/background_icon = 'icons/mob/actions/backgrounds.dmi'
+	var/background_icon = 'icons/hud/actions/backgrounds.dmi'
 	/// This is the icon state state for the BACKGROUND underlay icon of the button
 	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
@@ -45,7 +45,7 @@
 	var/button_icon_state = "default"
 
 	/// This is the file for any FOREGROUND overlay icons on the button (such as borders)
-	var/overlay_icon = 'icons/mob/actions/backgrounds.dmi'
+	var/overlay_icon = 'icons/hud/actions/backgrounds.dmi'
 	/// This is the icon state for any FOREGROUND overlay icons on the button (such as borders)
 	var/overlay_icon_state
 

@@ -16,7 +16,7 @@ Difficulty: Medium
 	icon_state = "legion"
 	icon_living = "legion"
 	desc = "One of many."
-	icon = 'icons/mob/lavaland/legion.dmi'
+	icon = 'icons/mob/simple/lavaland/legion.dmi'
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
@@ -47,7 +47,7 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/create_skull
 	name = "Create Legion Skull"
-	button_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	button_icon = 'icons/mob/simple/lavaland/lavaland_monsters.dmi'
 	button_icon_state = "legion_head"
 	chosen_message = span_colossus("You are now creating legion skulls.")
 	chosen_attack_num = 1

@@ -12,7 +12,7 @@
 	response_disarm_simple = "flail at"
 	response_harm_continuous = "punches"
 	response_harm_simple = "punch"
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/simple/mob.dmi'
 	icon_state = "daemon"
 	icon_living = "daemon"
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID

@@ -145,7 +145,7 @@
 	if(H.blood_volume >= BLOOD_VOLUME_OKAY+80)
 		return TRUE
 
-/datum/action/innate/regenerate_limbs/activate()
+/datum/action/innate/regenerate_limbs/Activate()
 	var/mob/living/carbon/human/H = owner
 	if(DOING_INTERACTION(H, DOAFTER_SOURCE_REGEN_LIMBS))
 		return

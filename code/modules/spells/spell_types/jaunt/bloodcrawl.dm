@@ -146,7 +146,7 @@
 /// Adds an coloring effect to mobs which exit blood crawl.
 /datum/action/cooldown/spell/jaunt/bloodcrawl/proc/exit_blood_effect(mob/living/exited)
 	var/turf/landing_turf = get_turf(exited)
-	playsound(landing_turf, 'sound/effects/magic/exit_blood.ogg', 50, TRUE, -1)
+	playsound(landing_turf, 'sound/magic/exit_blood.ogg', 50, TRUE, -1)
 
 	// Make the mob have the color of the blood pool it came out of
 	var/obj/effect/decal/cleanable/came_from = locate() in landing_turf
@@ -301,7 +301,7 @@
 		// Heals them back to state one
 		if(!friend.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE))
 			continue
-		friend.playsound_local(release_turf, 'sound/effects/magic/exit_blood.ogg', 50, TRUE, -1)
+		friend.playsound_local(release_turf, 'sound/magic/exit_blood.ogg', 50, TRUE, -1)
 		to_chat(friend, span_clown("You leave [source]'s warm embrace, and feel ready to take on the world."))
 
 

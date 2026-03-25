@@ -608,7 +608,7 @@ Striking a noncultist, however, will tear their flesh."}
 		var/mob/living/target = hit_atom
 
 		if(IS_CULTIST(target) && target.put_in_active_hand(src))
-			playsound(src, 'sound/items/weapons/throwtap.ogg', 50)
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			target.visible_message(span_warning("[target] catches [src] out of the air!"))
 			return
 		if(target.can_block_magic() || IS_CULTIST(target))
@@ -709,7 +709,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/blood_beam
 	name = "\improper magical aura"
 	desc = "Sinister looking aura that distorts the flow of reality around it."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/weapons/hand.dmi'
 	lefthand_file = 'icons/mob/inhands/misc/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "disintegrate"

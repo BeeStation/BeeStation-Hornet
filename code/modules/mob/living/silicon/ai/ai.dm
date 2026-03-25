@@ -1066,7 +1066,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
-/datum/action/innate/deploy_shell/activate(atom/target)
+/datum/action/innate/deploy_shell/trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
 	var/mob/living/silicon/ai/AI = owner
 	if(!AI)
 		return
@@ -1079,7 +1081,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
-/datum/action/innate/deploy_last_shell/activate(atom/target)
+/datum/action/innate/deploy_last_shell/trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
 	if(!owner)
 		return
 	if(last_used_shell)
@@ -1089,6 +1093,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		Remove(owner) //If the last shell is blown, destroy it.
 
 /mob/living/silicon/ai/proc/disconnect_shell()
+	SIGNAL_HANDLER
 	if(deployed_shell) //Forcibly call back AI in event of things such as damage, EMP or power loss.
 		to_chat(src, span_danger("Your remote connection has been reset!"))
 		deployed_shell.undeploy()

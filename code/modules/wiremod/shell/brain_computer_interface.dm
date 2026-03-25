@@ -238,7 +238,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/activate(atom/target)
+/datum/action/innate/bci_charge_action/trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
+
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if (isnull(cell))

@@ -1066,10 +1066,12 @@
 	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_core"
 
-/datum/action/innate/undeployment/activate(atom/target)
-	var/mob/living/silicon/robot/R = owner
+/datum/action/innate/undeployment/trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return FALSE
+	var/mob/living/silicon/robot/shell_to_disconnect = owner
 
-	R.undeploy()
+	shell_to_disconnect.undeploy()
 	return TRUE
 
 

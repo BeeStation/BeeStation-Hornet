@@ -881,6 +881,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/circlegame
 	name = "circled hand"
 	desc = "If somebody looks at this while it's below your waist, you get to bop them."
+	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "madeyoulook"
 	force = 0
 	throwforce = 0

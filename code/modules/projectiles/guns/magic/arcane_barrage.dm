@@ -2,7 +2,7 @@
 	name = "arcane barrage"
 	desc = "Pew Pew Pew."
 	fire_sound = 'sound/weapons/emitter.ogg'
-	icon = 'icons/obj/weapons/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "arcane_barrage"
 	inhand_icon_state = "arcane_barrage"
 	base_icon_state = "arcane_barrage"

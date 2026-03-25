@@ -40,7 +40,7 @@
 /mob/living/carbon/monkey/update_worn_legcuffs()
 	remove_overlay(LEGCUFF_LAYER)
 	if(legcuffed)
-		var/mutable_appearance/legcuff_overlay = mutable_appearance('icons/mob/mob.dmi', "legcuff1", CALCULATE_MOB_OVERLAY_LAYER(LEGCUFF_LAYER))
+		var/mutable_appearance/legcuff_overlay = mutable_appearance('icons/mob/simple/mob.dmi', "legcuff1", CALCULATE_MOB_OVERLAY_LAYER(LEGCUFF_LAYER))
 		legcuff_overlay.pixel_y = 8
 		overlays_standing[LEGCUFF_LAYER] = legcuff_overlay
 	apply_overlay(LEGCUFF_LAYER)

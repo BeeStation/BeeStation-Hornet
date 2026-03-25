@@ -37,7 +37,7 @@ Difficulty: Hard
 	icon_dead = ""
 	friendly_verb_continuous = "stares down"
 	friendly_verb_simple = "stare down"
-	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
+	icon = 'icons/mob/simple/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
 	armour_penetration = 40
 	melee_damage = 40
@@ -192,10 +192,10 @@ Difficulty: Hard
 		if(!faction_check_mob(L))
 			if(L.stat != CONSCIOUS)
 				to_chat(L, span_userdanger("[src] drags you through the blood!"))
-				playsound(T, 'sound/effects/magic/enter_blood.ogg', 100, TRUE, -1)
+				playsound(T, 'sound/magic/enter_blood.ogg', 100, TRUE, -1)
 				var/turf/targetturf = get_step(src, dir)
 				L.forceMove(targetturf)
-				playsound(targetturf, 'sound/effects/magic/exit_blood.ogg', 100, TRUE, -1)
+				playsound(targetturf, 'sound/magic/exit_blood.ogg', 100, TRUE, -1)
 				addtimer(CALLBACK(src, PROC_REF(devour), L), 0.2 SECONDS)
 	SLEEP_CHECK_DEATH(1, src)
 

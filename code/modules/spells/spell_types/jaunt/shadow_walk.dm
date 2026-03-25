@@ -45,7 +45,6 @@
 	cast_on.setStaminaLoss(0, FALSE)
 	enter_jaunt(cast_on)
 
-
 /obj/effect/dummy/phased_mob/shadow
 	name = "shadows"
 	/// Max amount of light permitted before being kicked out

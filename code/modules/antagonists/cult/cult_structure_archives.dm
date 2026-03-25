@@ -25,13 +25,13 @@
 				Additionally, it reports the health of friends and foes alike, offers night vision, and even protects from bright lights.",
 			),
 		CURSE_ORB = list(
-			PREVIEW_IMAGE = image(icon = 'icons/obj/antags/cult/items.dmi', icon_state = "shuttlecurse"),
+			PREVIEW_IMAGE = image(icon = 'icons/obj/cult.dmi', icon_state = "shuttlecurse"),
 			OUTPUT_ITEMS = list(/obj/item/shuttle_curse),
 			RADIAL_DESC = "Produces a delicate [/obj/item/shuttle_curse::name] which can be shattered to curse the shuttle if it has been called, \
 				delaying its arrival by some time. Only [MAX_SHUTTLE_CURSES] can be used.",
 			),
 		VEIL_WALKER = list(
-			PREVIEW_IMAGE = image(icon = 'icons/obj/antags/cult/items.dmi', icon_state = "shifter"),
+			PREVIEW_IMAGE = image(icon = 'icons/obj/cult.dmi', icon_state = "shifter"),
 			OUTPUT_ITEMS = list(/obj/item/cult_shift),
 			RADIAL_DESC = "Creates \a [/obj/item/cult_shift::name], a small wand that teleports the user \
 				- and anyone the user is dragging - forward some distance.  Has [/obj/item/cult_shift::uses] uses.",

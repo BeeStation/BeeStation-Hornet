@@ -12,7 +12,10 @@
 	button_icon_state = "neckchop"
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
-/datum/action/leg_sweep/trigger(mob/clicker, trigger_flags)
+/datum/action/neck_chop/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
@@ -30,6 +33,9 @@
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
 /datum/action/leg_sweep/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
@@ -47,6 +53,9 @@
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
 /datum/action/lung_punch/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return

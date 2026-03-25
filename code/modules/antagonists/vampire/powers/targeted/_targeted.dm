@@ -16,7 +16,7 @@
 	. = ..()
 	desc += "<br><br><i>Targeted Power</i>"
 
-/datum/action/cooldown/vampire/targeted/activate(atom/target)
+/datum/action/cooldown/vampire/targeted/Activate(atom/target)
 	if(currently_active)
 		deactivate_power()
 		return FALSE

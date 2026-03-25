@@ -7,7 +7,7 @@
 
 /mob/living/carbon/alien/humanoid/royal/praetorian/Initialize(mapload)
 	real_name = name
-	
+
 	var/static/list/innate_actions = list(
 		/datum/action/cooldown/alien/evolve_to_queen,
 		/datum/action/cooldown/spell/aoe/repulse/xeno,
@@ -48,7 +48,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/alien/evolve_to_queen/activate(atom/target)
+/datum/action/cooldown/alien/evolve_to_queen/Activate(atom/target)
 	var/mob/living/carbon/alien/humanoid/royal/evolver = owner
 	var/mob/living/carbon/alien/humanoid/royal/queen/new_queen = new(owner.loc)
 	evolver.alien_evolve(new_queen)

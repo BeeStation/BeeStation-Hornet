@@ -461,26 +461,29 @@
 	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_phase"
 
-/datum/action/revenant_phase_shift/on_activate(mob/user)
-	if(!isrevenant(user))
+/datum/action/revenant_phase_shift/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
 		return FALSE
-	var/mob/living/simple_animal/revenant/revenant = user
+	if(!isrevenant(owner))
+		return FALSE
+	var/mob/living/simple_animal/revenant/revenant = owner
 	if(!revenant.castcheck(0))
 		return FALSE
 	// if they're trapped in consecrated tiles, they can get out with this. but they can't hide back on these tiles.
 	if(revenant.incorporeal_move != INCORPOREAL_MOVE_JAUNT)
-		var/turf/open/floor/stepTurf = get_turf(user)
+		var/turf/open/floor/stepTurf = get_turf(owner)
 		if(stepTurf)
 			var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
 			if(salt)
-				to_chat(user, span_warning("[salt] blocks your way to spirit realm!"))
+				to_chat(owner, span_warning("[salt] blocks your way to spirit realm!"))
 				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
 				return
 			if(stepTurf.flags_1 & NOJAUNT_1)
-				to_chat(user, span_warning("Some strange aura blocks your way to spirit realm."))
+				to_chat(owner, span_warning("Some strange aura blocks your way to spirit realm."))
 				return
 			if(stepTurf.is_holy())
-				to_chat(user, span_warning("Holy energies block your way to spirit realm!"))
+				to_chat(owner, span_warning("Holy energies block your way to spirit realm!"))
 				return
 	revenant.phase_shift()
 	revenant.orbiting?.end_orbit(revenant)

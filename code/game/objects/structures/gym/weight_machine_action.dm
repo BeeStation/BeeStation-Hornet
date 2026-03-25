@@ -15,6 +15,9 @@
 		return FALSE
 	return TRUE
 
-/datum/action/push_weights/activate(atom/target)
+/datum/action/push_weights/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	weightpress.perform_workout(owner)
 

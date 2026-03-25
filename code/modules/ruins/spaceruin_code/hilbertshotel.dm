@@ -314,26 +314,31 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(get_dist(get_turf(src), get_turf(user)) <= 1)
 		to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
 		user.reset_perspective(parentSphere)
-		user.set_machine(src)
-		var/datum/action/peepholeCancel/PHC = new
+		var/datum/action/peephole_cancel/PHC = new
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 		PHC.Grant(user)
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_hbeye))
 
-/turf/closed/indestructible/hoteldoor/check_eye(mob/user)
-	if(get_dist(get_turf(src), get_turf(user)) >= 2)
-		user.unset_machine()
-		for(var/datum/action/peepholeCancel/PHC in user.actions)
-			PHC.trigger()
+/turf/closed/indestructible/hoteldoor/proc/check_hbeye(mob/user, atom/oldloc, direction)
+	SIGNAL_HANDLER
+	if(get_dist(get_turf(src), get_turf(user)) < 2)
+		return
+	for(var/datum/action/peephole_cancel/PHC in user.actions)
+		INVOKE_ASYNC(PHC, TYPE_PROC_REF(/datum/action/peephole_cancel, trigger))
 
-/datum/action/peepholeCancel
+/datum/action/peephole_cancel
 	name = "Cancel View"
 	desc = "Stop looking through the bluespace peephole."
 	button_icon_state = "cancel_peephole"
 
-/datum/action/peepholeCancel/activate(atom/target)
+/datum/action/peephole_cancel/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	to_chat(owner, span_warning("You move away from the peephole."))
 	owner.reset_perspective()
 	owner.clear_fullscreen("remote_view", 0)
+	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 	qdel(src)
 
 /area/hilbertshotel

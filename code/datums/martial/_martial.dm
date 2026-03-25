@@ -83,7 +83,7 @@
 	if(info_button)
 		to_chat(holder, span_boldnotice("For more info, read the martial panel. \
 			You can always come back to it using the button in the top left."))
-		info_button?.trigger()
+		INVOKE_ASYNC(info_button, TYPE_PROC_REF(/datum/action/martial_info, trigger))
 	return TRUE
 
 /datum/martial_art/proc/make_info_button()
@@ -133,7 +133,10 @@
 	name = "Open [martial_art.name] Guide:"
 */
 
-/datum/action/martial_info/activate(atom/target)
+/datum/action/martial_info/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	ui_interact(owner)
 
 /datum/action/martial_info/is_available(feedback = FALSE)

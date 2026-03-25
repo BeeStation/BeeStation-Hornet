@@ -607,7 +607,7 @@
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	cooldown_time = 17.5 SECONDS
 
-/datum/action/cooldown/unstable_teleport/activate()
+/datum/action/cooldown/unstable_teleport/Activate()
 	var/mob/living/carbon/human/H = owner
 	H.visible_message(span_warning("[H] starts vibrating!"), span_danger("You start charging your bluespace core..."))
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, TRUE)

@@ -191,12 +191,15 @@
 	return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
 
 /// Checks if the passed victim can be cast on by the caster.
-/datum/action/cooldown/spell/touch/proc/can_hit_with_hand(atom/victim, mob/caster)
+/datum/action/cooldown/spell/touch/proc/can_hit_with_hand(atom/victim, mob/living/caster)
 	if(!can_cast_on_self && victim == caster)
 		return FALSE
 	if(!is_valid_target(victim))
 		return FALSE
 	if(!can_cast_spell(feedback = TRUE))
+		return FALSE
+	if(!(caster.mobility_flags & MOBILITY_USE))
+		caster.balloon_alert(caster, "can't reach out!")
 		return FALSE
 
 	return TRUE
@@ -221,6 +224,8 @@
 
 	log_combat(caster, victim, "cast the touch spell [name] on", hand)
 	spell_feedback(caster)
+	caster.changeNext_move(CLICK_CD_MELEE)
+	victim.add_fingerprint(caster)
 	remove_hand(caster)
 
 /**
@@ -238,6 +243,8 @@
 		if(SECONDARY_ATTACK_CONTINUE_CHAIN)
 			log_combat(caster, victim, "cast the touch spell [name] on", hand, "(secondary / alt cast)")
 			spell_feedback(caster)
+			caster.changeNext_move(CLICK_CD_MELEE)
+			victim.add_fingerprint(caster)
 			remove_hand(caster)
 
 		// Call normal will call the normal cast proc
@@ -324,9 +331,9 @@
 /obj/item/melee/touch_attack
 	name = "\improper outstretched hand"
 	desc = "High Five?"
-	icon = 'icons/obj/weapons/items_and_weapons.dmi'
-	lefthand_file = 'icons/mob/inhands/items/touchspell_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items/touchspell_righthand.dmi'
+	icon = 'icons/obj/weapons/hand.dmi'
+	lefthand_file = 'icons/mob/inhands/misc/touchspell_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "latexballon"
 	inhand_icon_state = null
 	item_flags = NEEDS_PERMIT | ABSTRACT | HAND_ITEM
@@ -343,14 +350,6 @@
 
 	if(spell)
 		spell_which_made_us = WEAKREF(spell)
-
-/obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
-	if(!iscarbon(user)) //Look ma, no hands
-		return TRUE
-	if(!(user.mobility_flags & MOBILITY_USE))
-		user.balloon_alert(user, "can't reach out!")
-		return TRUE
-	return ..()
 
 /**
  * When the hand component of a touch spell is qdel'd, (the hand is dropped or otherwise lost),

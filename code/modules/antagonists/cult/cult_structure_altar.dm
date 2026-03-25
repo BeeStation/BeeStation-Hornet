@@ -17,12 +17,12 @@
 /obj/structure/destructible/cult/item_dispenser/altar/setup_options()
 	var/static/list/altar_items = list(
 		ELDRITCH_WHETSTONE = list(
-			PREVIEW_IMAGE = image(icon = 'icons/obj/antags/cult/items.dmi', icon_state = "cult_sharpener"),
+			PREVIEW_IMAGE = image(icon = 'icons/obj/cult.dmi', icon_state = "cult_sharpener"),
 			OUTPUT_ITEMS = list(/obj/item/sharpener/cult),
 			RADIAL_DESC = "Provides \a [/obj/item/sharpener/cult::name] usable to increase the damage of swords and daggers. One use only.",
 			),
 		CONSTRUCT_SHELL = list(
-			PREVIEW_IMAGE = image(icon = 'icons/mob/shells.dmi', icon_state = "construct_cult"),
+			PREVIEW_IMAGE = image(icon = 'icons/obj/wizard.dmi', icon_state = "construct_cult"),
 			OUTPUT_ITEMS = list(/obj/structure/constructshell),
 			RADIAL_DESC = "Produces \a [/obj/structure/constructshell::name], which - once supplied a shade via a soulstone - will birth a construct. \
 				Constructs bring strength, agility, or utility to your team.",

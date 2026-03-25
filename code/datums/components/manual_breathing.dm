@@ -18,7 +18,10 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/emote/next_emote = "inhale"
 
-/datum/action/breathe/activate(atom/target)
+/datum/action/breathe/trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	owner.emote(next_emote)
 
 /datum/action/breathe/proc/update_status(emote)

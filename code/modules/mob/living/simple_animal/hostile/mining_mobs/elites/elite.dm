@@ -6,7 +6,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite
 	name = "elite"
 	desc = "An elite monster, found in one of the strange tumors on lavaland."
-	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
+	icon = 'icons/mob/simple/lavaland/lavaland_elites.dmi'
 	faction = list(FACTION_BOSS)
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
@@ -111,7 +111,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return ..()
 	return FALSE
 
-/datum/action/innate/elite_attack/activate()
+/datum/action/innate/elite_attack/Activate()
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	elite_owner.chosen_attack = chosen_attack_num
 	to_chat(elite_owner, chosen_message)
