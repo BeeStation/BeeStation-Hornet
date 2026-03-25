@@ -269,6 +269,26 @@
 	desc = "A pair of flat metal plates integrated in the MODsuit's gauntlets that are used to deliver powerful electric shocks."
 	req_defib = FALSE
 
+/obj/item/mod/module/defibrillator/combat
+	name = "\improper MOD combat defibrillator module"
+	desc = "A module built into the gauntlets of the suit; commonly known as the 'Healing Hands' by medical professionals. \
+		The user places their palms above the patient. Onboard computers in the suit calculate the necessary voltage, \
+		and a modded targeting computer determines the best position for the user to push. \
+		Twenty five pounds of force are applied to the patient's skin. Shocks travel from the suit's gloves \
+		and counter-shock the heart, and the wearer returns to Medical a hero. \
+		Interdyne Pharmaceutics marketed the domestic version of the Healing Hands as foolproof and unusable as a weapon. \
+		But when it came time to provide their operatives with usable medical equipment, they didn't hesitate to remove \
+		those in-built safeties. Operatives in the field can benefit from what they dub as 'Stun Gloves', able to apply shocks \
+		straight to a victims heart to disable them, or maybe even outright stop their heart with enough power."
+	complexity = 1
+	module_type = MODULE_ACTIVE
+	device = /obj/item/shockpaddles/mod/syndicate
+	defib_cooldown = 2.5 SECONDS
+
+/obj/item/shockpaddles/mod/syndicate
+	name = "MOD combat defibrillator gauntlets"
+	combat = TRUE
+
 ///Thread Ripper - Temporarily rips apart clothing to make it not cover the body.
 /obj/item/mod/module/thread_ripper
 	name = "\improper MOD thread ripper module"
@@ -364,3 +384,16 @@
 
 /obj/item/surgical_processor/mod
 	name = "\improper MOD surgical processor"
+
+/// Pre-Loaded Surgical Processor, mainly for ERT
+/obj/item/mod/module/surgical_processor/emergency
+	desc = "A module using an onboard surgical computer which can be connected to other computers to download and \
+		perform advanced surgeries on the go. This one came pre-loaded with some emergency surgeries."
+	device = /obj/item/surgical_processor/mod/emergency
+
+/obj/item/surgical_processor/mod/emergency
+	loaded_surgeries = list(
+		/datum/surgery/healing/combo/upgraded,
+		/datum/surgery/advanced/revival,
+		/datum/surgery/blood_filter/upgraded,
+	)

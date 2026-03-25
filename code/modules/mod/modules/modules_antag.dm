@@ -540,3 +540,46 @@
 		return
 	//Prevent speech modifications if the suit is active
 	return PREVENT_MODIFY_SPEECH
+
+/obj/item/mod/module/medbeam
+	name = "\improper MOD medbeam module"
+	desc = "A wrist-mounted medical beam emitter integrated into the suit. \
+	Cost-cutting measures reduced its performance compared to the handheld version. It draws heavy power and targeting limitations slows the wearer while healing."
+	icon_state = "chronogun"
+	module_type = MODULE_ACTIVE
+	complexity = 2
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 20
+	incompatible_modules = list(/obj/item/mod/module/medbeam)
+	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
+
+	var/obj/item/gun/medbeam/medbeam
+
+/obj/item/mod/module/medbeam/Initialize(mapload)
+	. = ..()
+	medbeam = new(src)
+	medbeam.mounted = TRUE
+
+/obj/item/mod/module/medbeam/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	if(!mod?.wearer || !medbeam) // Is any of them missing? if so dont proceed
+		return
+	if(medbeam.active) // Is the beam already existing and healing, stop it
+		stop_beam()
+		return
+	medbeam.fire_shot_at(mod.wearer, target)
+	mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/medbeam_heal) // Adds slowdown to the user when they're healing
+
+/obj/item/mod/module/medbeam/on_part_deactivation(deleting = FALSE)
+	. = ..()
+	stop_beam()
+
+/obj/item/mod/module/medbeam/proc/stop_beam()
+	if(!active)
+		return
+	if(medbeam?.active) // Is the beam still active, stop it
+		medbeam.LoseTarget()
+	if(mod?.wearer) // Removes the slowdown from the user when they're not healing
+		mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/medbeam_heal)
