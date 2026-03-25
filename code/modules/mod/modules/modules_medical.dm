@@ -286,7 +286,7 @@
 	defib_cooldown = 2.5 SECONDS
 
 /obj/item/shockpaddles/mod/syndicate
-	name = "MOD combat defibrillator gauntlets"
+	name = "\improper MOD combat defibrillator paddles"
 	combat = TRUE
 
 ///Thread Ripper - Temporarily rips apart clothing to make it not cover the body.
@@ -385,6 +385,26 @@
 /obj/item/surgical_processor/mod
 	name = "\improper MOD surgical processor"
 
+/obj/item/mod/module/surgical_processor/preloaded
+	desc = "A module using an onboard surgical computer which can be connected to other computers to download and \
+		perform advanced surgeries on the go. This one came pre-loaded with some advanced surgeries."
+	device = /obj/item/surgical_processor/mod/preloaded
+
+/obj/item/surgical_processor/mod/preloaded
+	loaded_surgeries = list(
+		/datum/surgery/advanced/pacify,
+		/datum/surgery/healing/combo/upgraded,
+		/datum/surgery/blood_filter/upgraded,
+		/datum/surgery/advanced/brainwashing,
+		/datum/surgery/advanced/bioware/nerve_splicing,
+		/datum/surgery/advanced/bioware/nerve_grounding,
+		/datum/surgery/advanced/bioware/vein_threading,
+		/datum/surgery/advanced/bioware/muscled_veins,
+		/datum/surgery/advanced/bioware/ligament_hook,
+		/datum/surgery/advanced/bioware/ligament_reinforcement,
+		/datum/surgery/advanced/bioware/cortex_imprint,
+		/datum/surgery/advanced/bioware/cortex_folding,
+	)
 /// Pre-Loaded Surgical Processor, mainly for ERT
 /obj/item/mod/module/surgical_processor/emergency
 	desc = "A module using an onboard surgical computer which can be connected to other computers to download and \

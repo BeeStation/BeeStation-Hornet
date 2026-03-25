@@ -225,12 +225,16 @@
 	new /obj/item/radio/off(src)
 
 // Syndie survival box
-/obj/item/storage/box/survival/syndie //why is this its own thing if it's just the engi box with a syndie mask and medipen?
+/obj/item/storage/box/survival/syndie // Has actual changes apart from just a different engineering box
 	name = "extended-capacity survival box"
-	desc = "A box with the bare essentials of ensuring the survival of you and others. This one is labelled to contain an extended-capacity tank."
+	desc = "A box with the bare essentials of ensuring the survival of you and others. This one is labelled to contain an extended-capacity tank and a handy guide on survival"
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	internal_type = /obj/item/tank/internals/emergency_oxygen/engi
-	medipen_type = null
+	medipen_type =  /obj/item/reagent_containers/hypospray/medipen/atropine
+
+/obj/item/storage/box/survival/syndie/PopulateContents()
+	..()
+	new /obj/item/paper/fluff/operative(src)
 
 // Security survival box
 /obj/item/storage/box/survival/security
@@ -805,6 +809,33 @@
 /obj/item/storage/box/pillbottles/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/storage/pill_bottle(src)
+
+/obj/item/storage/box/evilmeds
+	name = "box of premium medicine"
+	desc = "Contains a large number of beakers filled with premium medical supplies. Straight from Interdyne Pharmaceutics!"
+	icon_state = "syndiebox"
+	illustration = "beaker"
+
+/obj/item/storage/box/evilmeds/PopulateContents()
+	var/static/list/items_inside = list(
+		/obj/item/reagent_containers/cup/beaker/meta/omnizine = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/sal_acid = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/oxandrolone = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/pen_acid = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/atropine = 1,
+		/obj/item/reagent_containers/cup/beaker/stabilizing_nanites = 1, // They only get 50 of this, it's quite potent
+		/obj/item/reagent_containers/cup/beaker/meta/rezadone = 1,
+	)
+	generate_items_inside(items_inside, src)
+
+/obj/item/storage/box/combathypos
+	name = "box of combat hyposprays"
+	desc = "Contains a small quantity of combat hyposprays, they do seem of a smaller quantity"
+	icon_state = "syndiebox"
+
+/obj/item/storage/box/combathypos/PopulateContents() // You get atleast one for each member, aswell as an extra one
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/hypospray/combat/smaller(src)
 
 /obj/item/storage/box/snappops
 	name = "snap pop box"

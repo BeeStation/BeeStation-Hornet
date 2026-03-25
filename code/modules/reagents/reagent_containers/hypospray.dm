@@ -89,6 +89,15 @@
 	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine = 30, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/stabilizing_nanites = 15)
 
+/obj/item/reagent_containers/hypospray/combat/empty
+	list_reagents = null
+
+/obj/item/reagent_containers/hypospray/combat/smaller // Just a worst version of the regular combat hypospray, you get a bunch of them for free in the medical bundle
+	desc = "A modified air-needle autoinjector, used by operatives to quickly heal injuries in combat, this modified version has a smaller capacity, doesn't come pre-loaded"
+	list_reagents = null
+	volume = 30
+	possible_transfer_amounts = list(5,10,30)
+
 /obj/item/reagent_containers/hypospray/combat/nanites
 	name = "experimental combat stimulant injector"
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with experimental medical nanites and a stimulant for rapid healing and a combat boost."

@@ -255,6 +255,27 @@
 /obj/item/reagent_containers/cup/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
+/obj/item/reagent_containers/cup/beaker/meta/omnizine
+	list_reagents = list(/datum/reagent/medicine/omnizine = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/sal_acid
+	list_reagents = list(/datum/reagent/medicine/sal_acid = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/oxandrolone
+	list_reagents = list(/datum/reagent/medicine/oxandrolone = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/pen_acid
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/atropine
+	list_reagents = list(/datum/reagent/medicine/atropine = 180)
+
+/obj/item/reagent_containers/cup/beaker/stabilizing_nanites
+	list_reagents = list(/datum/reagent/medicine/stabilizing_nanites = 50)
+
+/obj/item/reagent_containers/cup/beaker/meta/rezadone
+	list_reagents = list(/datum/reagent/medicine/rezadone = 180)
+
 /obj/item/reagent_containers/cup/beaker/sulfuric
 	list_reagents = list(/datum/reagent/toxin/acid = 50)
 
