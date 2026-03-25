@@ -480,7 +480,7 @@
 /turf/open/floor/iron,
 /area/space)
 "kG" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/item_dispenser/archives,
 /turf/open/floor/carpet/royalblack,
 /area/library)
 "kK" = (

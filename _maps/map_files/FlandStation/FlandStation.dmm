@@ -9557,7 +9557,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/item_dispenser/archives,
 /obj/item/book/codex_gigas,
 /obj/item/stack/cable_coil/cut/red,
 /turf/open/floor/wood,

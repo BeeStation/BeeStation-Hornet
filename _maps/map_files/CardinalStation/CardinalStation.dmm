@@ -20767,7 +20767,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
 "ezd" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/item_dispenser/archives,
 /obj/machinery/light/small/directional/east,
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{

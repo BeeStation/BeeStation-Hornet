@@ -9752,7 +9752,7 @@
 /turf/open/floor/iron/white,
 /area/ctf)
 "azo" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/item_dispenser/archives,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "azp" = (
@@ -9934,7 +9934,7 @@
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "azO" = (
-/obj/structure/destructible/cult/talisman{
+/obj/structure/destructible/cult/item_dispenser/altar{
 	desc = "An altar dedicated to the Wizards' Federation"
 	},
 /obj/item/knife/ritual,
@@ -12246,7 +12246,7 @@
 /turf/open/floor/iron/white/textured,
 /area/tdome/tdomeobserve)
 "aFT" = (
-/obj/structure/destructible/cult/forge{
+/obj/structure/destructible/cult/item_dispenser/forge{
 	desc = "An engine used in powering the wizard's ship";
 	name = "magma engine"
 	},
