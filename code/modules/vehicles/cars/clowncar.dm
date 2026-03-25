@@ -51,7 +51,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.mind?.assigned_role == JOB_NAME_CLOWN) //Ensures only clowns can drive the car. (Including more at once)
-			add_control_flags(H, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
+			add_control_flags(H, VEHICLE_CONTROL_DRIVE)
 			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(fire_cannon_at))
 			return
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
@@ -88,7 +88,6 @@
 	atom_integrity += min(banana.seed.potency, max_integrity-atom_integrity)
 	to_chat(user, span_danger("You use the [banana] to repair the [src]!"))
 	qdel(banana)
-
 
 /obj/vehicle/sealed/car/clowncar/remove_occupant(mob/M)
 	. = ..()
