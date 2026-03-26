@@ -546,7 +546,12 @@
 
 	// Eyes
 	var/obj/item/organ/eyes/user_eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
-	user_eyes?.flash_protect = initial(user_eyes.flash_protect)
+	if(user_eyes)
+		user_eyes.flash_protect = initial(user_eyes.flash_protect)
+		user_eyes.sight_flags = initial(user_eyes.sight_flags)
+		user_eyes.see_in_dark = initial(user_eyes.see_in_dark)
+		user_eyes.lighting_alpha = initial(user_eyes.lighting_alpha)
+	user.update_sight()
 
 /datum/antagonist/vampire/proc/claim_coffin(obj/structure/closet/crate/claimed)
 	// ALREADY CLAIMED
