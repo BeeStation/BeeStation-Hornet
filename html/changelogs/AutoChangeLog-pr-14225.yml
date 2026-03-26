@@ -1,7 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: honey now works as intended again healing a moderately high amount of
-      damage while also providing a moderately high amount of nutrition. It will no
-      longer send you into glycemic shock from a single honeycomb, but you can still
-      expect to get fat if you eat a few in a short span of time.
