@@ -293,7 +293,7 @@
 	min_val = 0
 
 /datum/config_entry/number/space_budget
-	config_entry_value = 40
+	config_entry_value = 16
 	integer = FALSE
 	min_val = 0
 
