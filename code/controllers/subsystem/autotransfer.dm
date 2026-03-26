@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(autotransfer)
 		if(SSshuttle.canEvac() == TRUE) //This must include the == TRUE because all returns for this proc have a value, we specifically want to check for TRUE
 			SSshuttle.requestEvac(null, "Crew Transfer Requested.")
 			can_fire = FALSE //This system has served its purpose for as long as it can
-		SSshuttle.emergencyNoRecall = TRUE
+		SSshuttle.emergency_no_recall = TRUE
 		return
 
 	if(world.time > time_to_vote)

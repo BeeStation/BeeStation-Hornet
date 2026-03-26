@@ -66,14 +66,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define IS_PLAYER_COLORABLE_1 (1<<16)
 /// Is this atom immune to being dusted by the supermatter?
 #define SUPERMATTER_IGNORES_1 (1<<17)
-
-//turf-only flags. These use flags_1 too.
-// These exist to cover /turf and /area at the same time
-#define NOJAUNT_1					(1<<17)
-#define UNUSED_RESERVATION_TURF_1	(1<<18)
-#define CAN_BE_DIRTY_1				(1<<19) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
-#define NO_LAVA_GEN_1				(1<<20) 	//! Blocks lava rivers being generated on the turf
-#define NO_RUINS_1					(1<<21) //! Blocks ruins spawning on the turf
+/// If a turf can be made dirty at roundstart. This is also used in areas.
+#define CAN_BE_DIRTY_1 (1<<18)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -95,6 +89,16 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define RICOCHET_SHINY (1<<0)
 /// If the thing can reflect matter (bullets/bomb shrapnel)
 #define RICOCHET_HARD (1<<1)
+
+// TURF FLAGS
+/// If a turf can't be jaunted through.
+#define NO_JAUNT (1<<0)
+/// If a turf is an unused reservation turf awaiting assignment
+#define UNUSED_RESERVATION_TURF (1<<1)
+/// Blocks lava rivers being generated on the turf.
+#define NO_LAVA_GEN (1<<3)
+/// Blocks ruins spawning on the turf.
+#define NO_RUINS (1<<4)
 
 ////////////////Area flags\\\\\\\\\\\\\\
 /// If it's a valid territory for cult summoning or the CRAB-17 phone to spawn

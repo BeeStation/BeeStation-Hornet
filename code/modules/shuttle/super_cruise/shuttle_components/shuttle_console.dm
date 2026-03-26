@@ -190,7 +190,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 				"name" = "Random Drop",
 				"id" = "custom_location"
 			))
-		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary)
+		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary_docking_ports)
 			if(LAZYLEN(shuttleObject.docking_target.linked_z_level))
 				for(var/datum/space_level/level in shuttleObject.docking_target.linked_z_level)
 					if(stationary_port.z == level.z_value && (stationary_port.id in valid_docks))

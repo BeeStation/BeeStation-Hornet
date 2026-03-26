@@ -131,8 +131,7 @@ require only minor tweaks.
 #define PLACE_ISOLATED "isolated" //On isolated ruin z level
 
 // Map generation defines
-/// Keep this low, as new ones are created dynamically when needed.
-#define DEFAULT_SPACE_RUIN_LEVELS 4
+#define DEFAULT_SPACE_RUIN_LEVELS 7
 #define DEFAULT_SPACE_EMPTY_LEVELS 1
 
 ///Map generation defines

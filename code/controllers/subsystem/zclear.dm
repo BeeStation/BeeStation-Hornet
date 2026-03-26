@@ -70,9 +70,9 @@ SUBSYSTEM_DEF(zclear)
 	for(var/datum/zclear_data/cleardata as() in processing_levels)
 		continue_wipe(cleardata)
 
-/*
+/**
  * Checks for empty z-levels and wipes them.
-*/
+ */
 /datum/controller/subsystem/zclear/proc/check_for_empty_levels()
 	var/list/active_levels = list()
 	//Levels that have living mobs
@@ -99,7 +99,7 @@ SUBSYSTEM_DEF(zclear)
 	for(var/atom/A as() in GLOB.zclear_blockers)
 		active_levels["[A.z]"] = TRUE
 	//Check for shuttles
-	for(var/obj/docking_port/mobile/M in SSshuttle.mobile)
+	for(var/obj/docking_port/mobile/M in SSshuttle.mobile_docking_ports)
 		active_levels["[M.z]"] = TRUE
 		//Check shuttle destination
 		if(M.destination)
@@ -222,9 +222,9 @@ SUBSYSTEM_DEF(zclear)
 	//Unannounce zombie level
 	announced_zombie_levels["[z_level]"] = FALSE
 
-/*
+/**
  * Continues the process of wiping a z-level.
-*/
+ */
 /datum/controller/subsystem/zclear/proc/continue_wipe(datum/zclear_data/cleardata)
 	var/list_element = (cleardata.process_num % (CLEAR_TURF_PROCESSING_TIME * 0.5)) + 1
 	switch(cleardata.process_num)
@@ -256,15 +256,15 @@ SUBSYSTEM_DEF(zclear)
 					priority_announce("Sensors indicate that multiple crewmembers have been lost at an abandoned station. They can potentially be recovered by flying to the nearest derelict station and locating their bodies.\n[nullspaced_mob_names]")
 	cleardata.process_num ++
 
-/*
+/**
  * Deletes all the atoms within a given turf.
-*/
+ */
 /datum/controller/subsystem/zclear/proc/clear_turf_atoms(list/turfs)
 	//Clear atoms
 	for(var/turf/T as() in turfs)
 		var/max_iterations = 3
 		var/list/allowed_contents = typecache_filter_list_reverse(T.contents, ignored_atoms)
-		while (max_iterations -- > 0 && length(allowed_contents))
+		while (max_iterations-- > 0 && length(allowed_contents))
 			// Remove all atoms except abstract mobs
 			for(var/i in 1 to allowed_contents.len)
 				var/thing = allowed_contents[i]
@@ -294,43 +294,43 @@ SUBSYSTEM_DEF(zclear)
 					delete_atom(thing)
 			allowed_contents = typecache_filter_list_reverse(T.contents, ignored_atoms)
 
-/*
+/**
  * DELETES AN ATOM OR TELEPORTS IT TO A RANDOM LOCATION IF IT IS INDESTRUCTIBLE
-*/
-/datum/controller/subsystem/zclear/proc/delete_atom(atom/A)
+ */
+/datum/controller/subsystem/zclear/proc/delete_atom(atom/to_delete)
 	//Dont delete indestructible items, but indestructible structures can go
-	if(isitem(A))
-		var/obj/O = A
+	if(isitem(to_delete))
+		var/obj/item/item = to_delete
 		//Handled by the mob
-		if(ismob(O.loc))
+		if(ismob(item.loc))
 			return
-		if(O.resistance_flags & INDESTRUCTIBLE)
-			random_teleport_atom(A)
+		if(item.resistance_flags & INDESTRUCTIBLE)
+			random_teleport_atom(item)
 			return
 	//Force delete effects and docking ports, normal delete everything else.
 	//Probably gunna cause problems in testing.
-	qdel(A, force = (iseffect(A) || istype(A, /obj/docking_port)))
+	qdel(to_delete, force = (iseffect(to_delete) || istype(to_delete, /obj/docking_port)))
 
-/*
+/**
  * Randomly teleports an atom to a random z-level
  * Copy and paste of turf/open/space/transit, could probably be a global proc
-*/
+ */
 /datum/controller/subsystem/zclear/proc/random_teleport_atom(atom/movable/AM)
 	set waitfor = FALSE
 	if(!AM || istype(AM, /obj/docking_port))
 		return
 	if(AM.loc != get_turf(AM)) 	// Multi-tile objects are "in" multiple locs but its loc is it's true placement.
 		return					// Don't move multi tile objects if their origin isnt in transit
-	var/max = world.maxx-TRANSITIONEDGE
-	var/min = 1+TRANSITIONEDGE
+	var/max = world.maxx - TRANSITIONEDGE
+	var/min = 1 + TRANSITIONEDGE
 
 	var/list/possible_transitions = list()
-	for(var/datum/space_level/D as() in SSmapping.z_list)
-		if (D.linkage == CROSSLINKED)
-			possible_transitions += D.z_value
+	for(var/datum/space_level/space_level as anything in SSmapping.z_list)
+		if (space_level.linkage == CROSSLINKED)
+			possible_transitions += space_level.z_value
 
 	if(!length(possible_transitions))
-		possible_transitions = list(SSmapping.empty_space)
+		possible_transitions = list(SSmapping.empty_space.z_value)
 
 	var/_z = pick(possible_transitions)
 
@@ -354,7 +354,7 @@ SUBSYSTEM_DEF(zclear)
 		if(!istype(newT.loc, /area/space))
 			var/area/newA = GLOB.areas_by_type[/area/space]
 			newT.change_area(old_area, newA)
-		newT.flags_1 &= ~NO_RUINS_1
+		newT.turf_flags &= ~NO_RUINS
 		new_turfs += newT
 	return new_turfs
 

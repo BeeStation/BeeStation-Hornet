@@ -1,11 +1,4 @@
 /datum/map_template/ruin/proc/try_to_place(z, list/allowed_areas_typecache, turf/forced_turf, clear_below)
-	var/static/list/clear_below_typecache
-	if(!clear_below_typecache)
-		clear_below_typecache = typecacheof(list(
-			/obj/structure/spawner,
-			/mob/living/simple_animal,
-			/obj/structure/flora/ash
-		))
 	var/sanity = forced_turf ? 1 : PLACEMENT_TRIES
 	if(SSmapping.level_trait(z,ZTRAIT_ISOLATED_RUINS))
 		return place_on_isolated_level(z)
@@ -20,7 +13,7 @@
 
 		for(var/turf/check as anything in affected_turfs)
 			// Use assoc lists to move this out, it's easier that way
-			if(check.flags_1 & NO_RUINS_1)
+			if(check.turf_flags & NO_RUINS)
 				valid = FALSE // set to false before we check
 				break
 			var/area/new_area = get_area(check)
@@ -36,16 +29,22 @@
 			continue
 
 		testing("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
+
 		for(var/turf/T as anything in affected_turfs)
-			T.flags_1 |= NO_RUINS_1
+			T.turf_flags |= NO_RUINS
 			if(clear_below) //Clear out nests and monsters
+				var/static/list/clear_below_typecache = typecacheof(list(
+					/obj/structure/spawner,
+					/mob/living/simple_animal,
+					/obj/structure/flora
+				))
 				for(var/atom/thing as anything in T)
 					if(clear_below_typecache[thing.type])
 						qdel(thing)
 
 		var/datum/async_map_generator/map_placer = load(central_turf,centered = TRUE)
 		map_placer.on_completion(CALLBACK(src, PROC_REF(after_ruin_generation), central_turf))
-		return map_placer
+		return central_turf
 
 /datum/map_template/ruin/proc/after_ruin_generation(turf/central_turf)
 	loaded++
@@ -60,13 +59,13 @@
 	load(placement)
 	loaded++
 	for(var/turf/T in get_affected_turfs(placement))
-		T.flags_1 |= NO_RUINS_1
+		T.turf_flags |= NO_RUINS
 	var/turf/center = locate(placement.x + round(width/2),placement.y + round(height/2),placement.z)
 	new /obj/effect/landmark/ruin(center, src)
 	return center
 
 
-/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = list(/area/space), list/potentialRuins, clear_below = FALSE)
+/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = list(/area/space), list/potentialRuins, clear_below = FALSE, ruins_type = ZTRAIT_STATION)
 	if(!z_levels || !z_levels.len)
 		WARNING("No Z levels provided - Not generating ruins")
 		return
@@ -79,9 +78,9 @@
 			return
 
 	var/list/ruins = potentialRuins.Copy()
-
-	var/list/forced_ruins = list()		//These go first on the z level associated (same random one by default) or if the assoc value is a turf to the specified turf.
-	var/list/ruins_available = list()	//we can try these in the current pass
+	var/placed_ruins = 0 // our count of how many ruins have been placed
+	var/list/forced_ruins = list() //These go first on the z level associated (same random one by default) or if the assoc value is a turf to the specified turf.
+	var/list/ruins_available = list() //we can try these in the current pass
 
 	//Set up the starting ruin list
 	for(var/key in ruins)
@@ -152,6 +151,7 @@
 					ruins_available -= R
 			log_world("Failed to place [current_pick.name] ruin.")
 		else
+			placed_ruins++
 			budget -= current_pick.cost
 			if(!current_pick.allow_duplicates)
 				for(var/datum/map_template/ruin/R in ruins_available)
@@ -178,11 +178,16 @@
 									forced_ruins[linked] = GET_TURF_BELOW(placed_turf)
 								if(PLACE_ISOLATED)
 									forced_ruins[linked] = SSmapping.get_isolated_ruin_z()
-		forced_z = 0
+
+			var/bottom_left_x = placed_turf.x - round(current_pick.width/2)
+			var/bottom_left_y = placed_turf.y - round(current_pick.height/2)
+			var/top_right_x = bottom_left_x + current_pick.width - 1
+			var/top_right_y = bottom_left_y + current_pick.height - 1
+			log_world("Successfully placed [current_pick.name] ruin ([bottom_left_x],[bottom_left_y],[placed_turf.z] to [top_right_x],[top_right_y],[placed_turf.z]).")
 
 		//Update the available list
 		for(var/datum/map_template/ruin/R in ruins_available)
 			if(R.cost > budget)
 				ruins_available -= R
 
-	log_world("Ruin loader finished with [budget] left to spend.")
+	log_world("[ruins_type] loader finished placing [placed_ruins]/[ruins.len] ruins with [budget] left to spend.")

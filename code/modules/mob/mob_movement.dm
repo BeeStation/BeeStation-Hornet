@@ -259,7 +259,7 @@
 						R.reveal(20)
 						R.stun(20)
 					return
-				if(stepTurf.flags_1 & NOJAUNT_1)
+				if(stepTurf.flags_1 & NO_JAUNT)
 					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(stepTurf.is_holy())
@@ -276,7 +276,7 @@
 				if(salt)
 					to_chat(L, span_warning("[salt] bars your passage!"))
 					return
-				if((stepTurf.flags_1 & NOJAUNT_1) && !is_on_reebe(loccheck))
+				if((stepTurf.flags_1 & NO_JAUNT) && !is_on_reebe(loccheck))
 					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(stepTurf.is_holy())

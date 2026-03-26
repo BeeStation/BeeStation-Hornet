@@ -6,8 +6,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/baseturf_helper)
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
-
+	/// Replacing a specific turf
 	var/list/baseturf_to_replace
+	/// The desired bottom turf
 	var/baseturf
 
 	plane = POINT_PLANE
@@ -33,23 +34,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/baseturf_helper)
 
 	qdel(src)
 
+/// Replaces all the requested baseturfs (usually space/baseturfbottom) with the desired baseturf. Skips if its already there
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
+	thing.remove_baseturfs_from_typecache(baseturf_to_replace)
+
 	if(length(thing.baseturfs))
-		var/list/baseturf_cache = thing.baseturfs.Copy()
-		for(var/i in baseturf_cache)
-			if(baseturf_to_replace[i])
-				baseturf_cache -= i
-		thing.baseturfs = baseturfs_string_list(baseturf_cache, thing)
-		if(!baseturf_cache.len)
-			thing.assemble_baseturfs(baseturf)
-		else
-			thing.PlaceOnBottom(null, baseturf)
-	else if(baseturf_to_replace[thing.baseturfs])
-		thing.assemble_baseturfs(baseturf)
-	else
-		thing.PlaceOnBottom(null, baseturf)
+		var/turf/tile = thing.baseturfs[1]
+		if(tile == baseturf)
+			return
 
-
+	thing.place_on_bottom(baseturf)
 
 /obj/effect/baseturf_helper/space
 	name = "space baseturf editor"
@@ -142,11 +136,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 			if(1 to 9)
 				var/turf/here = get_turf(src)
 				for(var/turf/closed/T in range(2, src))
-					here.PlaceOnTop(T.type)
+					here.place_on_top(T.type)
 					qdel(airlock)
 					qdel(src)
 					return
-				here.PlaceOnTop(/turf/closed/wall)
+				here.place_on_top(/turf/closed/wall)
 				qdel(airlock)
 				qdel(src)
 				return
@@ -586,7 +580,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/no_lava/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	T.flags_1 |= NO_LAVA_GEN_1
+	T.turf_flags |= NO_LAVA_GEN
 
 CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 
@@ -1025,7 +1019,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 
 	// well, it's a bad idea to put a directional window here. Mapping failsafe process here.
 	if(unliable_atmos_blocking && (isspaceturf(my_turf) || isopenspace(my_turf)))
-		my_turf.PlaceOnTop(list(/turf/open/floor/plating, /turf/open/floor/iron), flags = CHANGETURF_INHERIT_AIR)
+		my_turf.place_on_top(list(/turf/open/floor/plating, /turf/open/floor/iron), flags = CHANGETURF_INHERIT_AIR)
 		for(var/turf/each_turf in nearby_turfs)
 			if(isspaceturf(each_turf) || isopenspace(each_turf))
 				var/obj/d_glass = new window_type(my_turf)

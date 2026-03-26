@@ -46,12 +46,12 @@
 		if(ispath(T.baseturfs[BT_index], /turf/baseturf_skipover/shuttle))
 			.--
 
-/area/shuttle/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
+/area/shuttle/place_on_top_react(list/new_baseturfs, turf/added_layer, flags)
 	. = ..()
-	if(!length(new_baseturfs) || !ispath(new_baseturfs[1], /turf/baseturf_skipover/shuttle) && (!ispath(new_baseturfs[1], /turf/open/floor/plating) || length(new_baseturfs) > 1 || fake_turf_type))
-		return //Only add missing baseturfs if a shuttle is landing or player made plating is being added (player made is infered to be a new_baseturf list of 1 and no fake_turf_type)
-	for(var/i in 1 to get_missing_shuttles(T))
-		new_baseturfs.Insert(1,/turf/baseturf_skipover/shuttle)
+	if(ispath(added_layer, /turf/open/floor/plating))
+		new_baseturfs.Add(/turf/baseturf_skipover/shuttle)
+	else if(ispath(new_baseturfs[1], /turf/open/floor/plating))
+		new_baseturfs.Insert(1, /turf/baseturf_skipover/shuttle)
 
 /area/shuttle/proc/link_to_shuttle(obj/docking_port/mobile/M)
 	mobile_port = M

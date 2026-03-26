@@ -240,7 +240,7 @@
 		return FALSE
 
 	if(is_reserved_level(T.z))
-		for(var/A in SSshuttle.mobile)
+		for(var/A in SSshuttle.mobile_docking_ports)
 			var/obj/docking_port/mobile/M = A
 			if(M.launch_status == ENDGAME_TRANSIT)
 				for(var/place in M.shuttle_areas)
@@ -266,7 +266,7 @@
 	if(isnull(loc_area))
 		return FALSE
 
-	for(var/A in SSshuttle.mobile)
+	for(var/A in SSshuttle.mobile_docking_ports)
 		var/obj/docking_port/mobile/M = A
 		if(M.launch_status == ENDGAME_LAUNCHED)
 			if(loc_area in M.shuttle_areas)
