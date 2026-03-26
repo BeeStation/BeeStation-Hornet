@@ -262,3 +262,13 @@
     - refactor: flick_overlay is an atom proc
     - balance: mech wire panels can no longer be accessed while the mech is occupied
     - balance: mech equipment attachment delays only apply to occupied mechs
+2026-03-26:
+  Rukofamicom:
+  - bugfix: honey now works as intended again healing a moderately high amount of
+      damage while also providing a moderately high amount of nutrition. It will no
+      longer send you into glycemic shock from a single honeycomb, but you can still
+      expect to get fat if you eat a few in a short span of time.
+  TsunamiAnt:
+  - balance: Made the NPS slightly worse against armor. Finally.
+  - refactor: Armor penetration calculations are now based on a multiplicative model.
+      Nothing should have changed from this.
