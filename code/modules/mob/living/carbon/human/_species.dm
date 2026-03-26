@@ -775,9 +775,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/obj/item/organ/eyes/E = H.get_organ_slot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/eye_overlay
 			if(!E)
-				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+				eye_overlay = mutable_appearance(E.eye_icon, "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			else
-				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+				eye_overlay = mutable_appearance(E.eye_icon, E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			if((EYECOLOR in species_traits) && E)
 				eye_overlay.color = H.eye_color
 			if(OFFSET_FACE in H.dna.species.offset_features)
