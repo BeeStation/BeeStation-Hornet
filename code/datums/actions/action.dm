@@ -163,6 +163,7 @@
 /// Actually triggers the effects of the action.
 /// Called when the on-screen button is clicked, for example.
 /datum/action/proc/trigger(mob/clicker, trigger_flags)
+	SHOULD_CALL_PARENT(TRUE)
 	if(!(trigger_flags & TRIGGER_FORCE_AVAILABLE) && !is_available(feedback = TRUE))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)

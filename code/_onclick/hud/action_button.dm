@@ -95,7 +95,7 @@
 		old_object.MouseExited(over_location, over_control, params)
 
 	last_hovored_ref = WEAKREF(over_object)
-	over_object.MouseEntered(over_location, over_control, params)
+	over_object?.MouseEntered(over_location, over_control, params)
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
 	. = ..()
@@ -110,10 +110,12 @@
 	last_hovored_ref = null
 	if(!can_use(usr))
 		return
+
 	var/datum/hud/our_hud = usr.hud_used
 	if(over_object == src)
 		our_hud.hide_landings()
 		return
+
 	if(istype(over_object, /atom/movable/screen/action_landing))
 		var/atom/movable/screen/action_landing/reserve = over_object
 		reserve.hit_by(src)
@@ -126,12 +128,15 @@
 		our_hud.position_action(src, SCRN_OBJ_IN_PALETTE)
 		save_position()
 		return
+
 	if(istype(over_object, /atom/movable/screen/movable/action_button))
 		var/atom/movable/screen/movable/action_button/button = over_object
 		our_hud.position_action_relative(src, button)
 		save_position()
 		return
+
 	. = ..()
+
 	our_hud.position_action(src, screen_loc)
 	save_position()
 

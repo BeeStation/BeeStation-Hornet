@@ -25,14 +25,15 @@ Difficulty: Medium
 	icon_state = "miner"
 	icon_living = "miner"
 	icon = 'icons/mob/broadMobs.dmi'
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_SPECIAL
 	light_color = "#E4C7C5"
 	movement_type = GROUND
 	speak_emote = list("roars")
 	speed = 3
 	move_to_delay = 3
 	ranged = TRUE
-	ranged_cooldown_time = 16
+	ranged_cooldown_time = 1.6 SECONDS
+	rapid_melee = 5
 	pixel_x = -16
 	base_pixel_x = -16
 	loot = list(/obj/structure/closet/crate/necropolis/bdm)

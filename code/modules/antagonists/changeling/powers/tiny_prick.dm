@@ -6,6 +6,7 @@
 	var/stealthy = FALSE
 
 /datum/action/changeling/sting/trigger(mob/clicker, trigger_flags)
+	SHOULD_CALL_PARENT(FALSE) //we override almost entirely
 	var/mob/user = owner
 	if(!user || !user.mind)
 		return
