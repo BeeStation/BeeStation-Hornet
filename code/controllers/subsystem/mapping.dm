@@ -661,14 +661,14 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	// Generate mining ruins
 	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)
 	if (length(lava_ruins))
-		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), list(/area/lavaland/surface/outdoors/unexplored), themed_ruins[ZTRAIT_LAVA_RUINS], clear_below = TRUE, ruins_type = ZTRAIT_LAVA_RUINS)
+		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), list(/area/lavaland/surface/outdoors/unexplored), themed_ruins[ZTRAIT_LAVA_RUINS], clear_below = TRUE, ruins_type = ZTRAIT_LAVA_RUINS, minimum_ghost_roles = 1)
 
 	// Generate deep space ruins
 	var/list/space_ruins = levels_by_trait(ZTRAIT_SPACE_RUINS)
 	if (length(space_ruins))
 		// Create a proportional budget by multiplying the amount of space ruin levels in the current map over the default amount
 		var/proportional_budget = round(CONFIG_GET(number/space_budget) * (length(space_ruins) / DEFAULT_SPACE_RUIN_LEVELS))
-		seedRuins(space_ruins, proportional_budget, list(/area/space), themed_ruins[ZTRAIT_SPACE_RUINS], ruins_type = ZTRAIT_SPACE_RUINS)
+		seedRuins(space_ruins, proportional_budget, list(/area/space), themed_ruins[ZTRAIT_SPACE_RUINS], ruins_type = ZTRAIT_SPACE_RUINS, minimum_ghost_roles = 1)
 
 /datum/controller/subsystem/mapping/proc/setup_rivers()
 	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)

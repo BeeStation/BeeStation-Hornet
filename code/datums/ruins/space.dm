@@ -244,7 +244,7 @@
 	suffix = "onehalf.dmm"
 	name = "DK Excavator 453"
 	description = "Based on the trace elements we've detected on the gutted asteroids, we suspect that a mining ship using a restricted engine is somewhere in the area. \
-	We'd like to request a patrol vessel to investigate."
+		We'd like to request a patrol vessel to investigate."
 	cost = 4
 
 /datum/map_template/ruin/space/spacehotel
@@ -280,7 +280,7 @@
 	suffix = "djstation.dmm"
 	name = "DJ Station"
 	description = "Until very recently this pirate radio station was used to harangue local space stations over a variety of perceived \"ethics violations\". \
-	It seems like someone finally got sick of it, but the equipment still works."
+		It seems like someone finally got sick of it, but the equipment still works."
 	cost = 2
 
 /datum/map_template/ruin/space/thederelict
@@ -289,6 +289,7 @@
 	name = "Kosmicheskaya Stantsiya 13"
 	description = "The true fate of Kosmicheskaya Stantsiya 13 is an open question to this day. Most corporations deny its existence, for fear of questioning on what became of its crew."
 	cost = 8
+	has_ghost_roles = TRUE
 
 /datum/map_template/ruin/space/abandonedteleporter
 	id = "abandonedteleporter"
@@ -303,7 +304,7 @@
 	suffix = "crashedclownship.dmm"
 	name = "Crashed Clown Ship"
 	description = "For centuries the promise of a new clown homeworld has been the siren call for countless clown vessels. \
-	Alas the clown's lust for shinanagans means that successful voyages are almost unheard of, with most vessels falling to hilarious consequences almost immediately."
+		Alas the clown's lust for shinanagans means that successful voyages are almost unheard of, with most vessels falling to hilarious consequences almost immediately."
 	cost = 2
 
 /datum/map_template/ruin/space/crashedship
@@ -321,6 +322,7 @@
 	description = "Listening stations form the backbone of the syndicate's information gathering operations. \
 		Assignment to these stations is dreaded by most agents, as it entails long and lonely shifts listening to nearby stations chatter incessently about the most meaningless things."
 	cost = 5
+	has_ghost_roles = TRUE
 
 /datum/map_template/ruin/space/oldAIsat
 	id = "oldAIsat"
@@ -361,6 +363,7 @@
 	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
 		hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
 	cost = 8
+	has_ghost_roles = TRUE
 
 /datum/map_template/ruin/space/miracle
 	id = "miracle"

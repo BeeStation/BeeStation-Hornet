@@ -65,7 +65,7 @@
 	return center
 
 
-/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = list(/area/space), list/potentialRuins, clear_below = FALSE, ruins_type = ZTRAIT_STATION)
+/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = list(/area/space), list/potentialRuins, clear_below = FALSE, ruins_type = ZTRAIT_STATION, minimum_ghost_roles = 0)
 	if(!z_levels || !z_levels.len)
 		WARNING("No Z levels provided - Not generating ruins")
 		return
@@ -79,6 +79,7 @@
 
 	var/list/ruins = potentialRuins.Copy()
 	var/placed_ruins = 0 // our count of how many ruins have been placed
+	var/ghost_roles_forced = 0 // how many ruins that have space ruins have been placed
 	var/list/forced_ruins = list() //These go first on the z level associated (same random one by default) or if the assoc value is a turf to the specified turf.
 	var/list/ruins_available = list() //we can try these in the current pass
 
@@ -89,6 +90,11 @@
 			continue
 		if(R.always_place)
 			forced_ruins[R] = -1
+			if(R.has_ghost_roles)
+				ghost_roles_forced++
+		else if(R.has_ghost_roles && ghost_roles_forced < minimum_ghost_roles)
+			forced_ruins[R] = -1
+			ghost_roles_forced++
 		if(R.unpickable)
 			continue
 		ruins_available[R] = R.placement_weight
@@ -96,7 +102,7 @@
 	while(budget > 0 && (ruins_available.len || forced_ruins.len))
 		var/datum/map_template/ruin/current_pick
 		var/forced = FALSE
-		var/forced_z	//If set we won't pick z level and use this one instead.
+		var/forced_z //If set we won't pick z level and use this one instead.
 		var/forced_turf //If set we place the ruin centered on the given turf
 		if(forced_ruins.len) //We have something we need to load right now, so just pick it
 			for(var/ruin in forced_ruins)
@@ -143,47 +149,51 @@
 		if(forced)
 			//TODO : handle forced ruins with multiple variants
 			forced_ruins -= current_pick
-			forced = FALSE
 
 		if(failed_to_place)
 			for(var/datum/map_template/ruin/R in ruins_available)
 				if(R.id == current_pick.id)
 					ruins_available -= R
 			log_world("Failed to place [current_pick.name] ruin.")
-		else
-			placed_ruins++
-			budget -= current_pick.cost
-			if(!current_pick.allow_duplicates)
-				for(var/datum/map_template/ruin/R in ruins_available)
-					if(R.id == current_pick.id)
-						ruins_available -= R
-			if(current_pick.never_spawn_with)
-				for(var/blacklisted_type in current_pick.never_spawn_with)
-					for(var/possible_exclusion in ruins_available)
-						if(istype(possible_exclusion,blacklisted_type))
-							ruins_available -= possible_exclusion
-			if(current_pick.always_spawn_with)
-				for(var/v in current_pick.always_spawn_with)
-					for(var/ruin_name in SSmapping.ruins_templates) //Because we might want to add space templates as linked of lava templates.
-						var/datum/map_template/ruin/linked = SSmapping.ruins_templates[ruin_name] //why are these assoc, very annoying.
-						if(istype(linked,v))
-							switch(current_pick.always_spawn_with[v])
-								if(PLACE_SAME_Z)
-									forced_ruins[linked] = target_z //I guess you might want a chain somehow
-								if(PLACE_LAVA_RUIN)
-									forced_ruins[linked] = pick(SSmapping.levels_by_trait(ZTRAIT_LAVA_RUINS))
-								if(PLACE_DEFAULT)
-									forced_ruins[linked] = -1
-								if(PLACE_BELOW)
-									forced_ruins[linked] = GET_TURF_BELOW(placed_turf)
-								if(PLACE_ISOLATED)
-									forced_ruins[linked] = SSmapping.get_isolated_ruin_z()
+			continue
 
-			var/bottom_left_x = placed_turf.x - round(current_pick.width/2)
-			var/bottom_left_y = placed_turf.y - round(current_pick.height/2)
-			var/top_right_x = bottom_left_x + current_pick.width - 1
-			var/top_right_y = bottom_left_y + current_pick.height - 1
-			log_world("Successfully placed [current_pick.name] ruin ([bottom_left_x],[bottom_left_y],[placed_turf.z] to [top_right_x],[top_right_y],[placed_turf.z]).")
+		placed_ruins++
+		budget -= current_pick.cost
+		if(current_pick.has_ghost_roles)
+
+		if(!current_pick.allow_duplicates)
+			for(var/datum/map_template/ruin/R in ruins_available)
+				if(R.id == current_pick.id)
+					ruins_available -= R
+
+		if(length(current_pick.never_spawn_with))
+			for(var/datum/map_template/ruin/blacklisted_type as anything in current_pick.never_spawn_with)
+				for(var/available_ruin in ruins_available)
+					if(istype(available_ruin, blacklisted_type))
+						ruins_available -= available_ruin
+
+		if(current_pick.always_spawn_with)
+			for(var/v in current_pick.always_spawn_with)
+				for(var/ruin_name in SSmapping.ruins_templates) //Because we might want to add space templates as linked of lava templates.
+					var/datum/map_template/ruin/linked = SSmapping.ruins_templates[ruin_name] //why are these assoc, very annoying.
+					if(istype(linked,v))
+						switch(current_pick.always_spawn_with[v])
+							if(PLACE_SAME_Z)
+								forced_ruins[linked] = target_z //I guess you might want a chain somehow
+							if(PLACE_LAVA_RUIN)
+								forced_ruins[linked] = pick(SSmapping.levels_by_trait(ZTRAIT_LAVA_RUINS))
+							if(PLACE_DEFAULT)
+								forced_ruins[linked] = -1
+							if(PLACE_BELOW)
+								forced_ruins[linked] = GET_TURF_BELOW(placed_turf)
+							if(PLACE_ISOLATED)
+								forced_ruins[linked] = SSmapping.get_isolated_ruin_z()
+
+		var/bottom_left_x = placed_turf.x - round(current_pick.width/2)
+		var/bottom_left_y = placed_turf.y - round(current_pick.height/2)
+		var/top_right_x = bottom_left_x + current_pick.width - 1
+		var/top_right_y = bottom_left_y + current_pick.height - 1
+		log_world("Successfully placed [current_pick.name] ruin ([bottom_left_x],[bottom_left_y],[placed_turf.z] to [top_right_x],[top_right_y],[placed_turf.z]).")
 
 		//Update the available list
 		for(var/datum/map_template/ruin/R in ruins_available)

@@ -27,6 +27,8 @@
 	var/suffix = null
 	/// What flavor or ruin is this? e.g: ZTRAIT_SPACE_RUINS
 	var/ruin_type = null
+	/// Whether or not this ruin has ghost roles
+	var/has_ghost_roles = FALSE
 
 /datum/map_template/ruin/New()
 	if(!name && id)
