@@ -49,4 +49,7 @@
 	\n\
 	The irradiator kiln can be used to rapidly mutate plant cells. Don't get in the kiln, I'm serious.\n\
 	\n\
+	If you want to get into plumbing, just wrench the trays down to connect them up.\n\
+	You can rotate them around, but just remember, red takes & blue gives.\n\
+	\n\
 	- Billy Bob Johnson"

@@ -75,7 +75,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 				continue
 			plant_genes += gene?.copy()
 		SSbotany.gene_cache[new_seed.species_id] = plant_genes
-	AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[new_seed.species_id]"], new_seed.species_id)
+	AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[new_seed.species_id]"], new_seed.species_id, new_seed.name_override, new_seed.desc_override)
 	qdel(new_seed)
 
 /obj/item/food/grown/Destroy()

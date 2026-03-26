@@ -174,6 +174,8 @@
 	var/datum/component/plant/plant_component = produce.GetComponent(/datum/component/plant)
 	var/species_id
 	var/list/features
+	var/name_override
+	var/desc_override
 //Food items
 	if(!plant_component)
 		//General genes
@@ -181,13 +183,15 @@
 		SEND_SIGNAL(produce, COMSIG_PLANT_GET_GENES, genes)
 		if(!length(genes))
 			return
-		//Features
 		features = genes[PLANT_GENE_INDEX_FEATURES]
-		//species ID
 		species_id = genes[PLANT_GENE_INDEX_ID]
+		name_override = genes[PLANT_GENE_INDEX_NAME]
+		desc_override = genes[PLANT_GENE_INDEX_DESC]
 	else
 		features = plant_component.plant_features
 		species_id = plant_component.species_id
+		name_override = plant_component.name_override
+		desc_override = plant_component.desc_override
 //Plants
 	//Impart onto seeds
 	if(!length(features))
@@ -197,6 +201,9 @@
 	for(var/index in 1 to _seed_amount)
 		var/obj/item/plant_seeds/seeds = food_item?.seed_base || /obj/item/plant_seeds //If the grown item in question is a real food item, we get to use the seed_base feature, and fuck porting it to regular items
 		seeds = new seeds(produce.loc, features, species_id)
+		seeds.name_override = name_override
+		seeds.desc_override = desc_override
+		seeds.update_plant_name()
 	qdel(produce)
 
 

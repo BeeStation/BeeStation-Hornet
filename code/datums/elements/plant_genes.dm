@@ -8,10 +8,11 @@
 	///List of our plant genes
 	var/list/plant_genes = list()
 
-/datum/element/plant_genes/Attach(obj/target, list/_plant_features, _species_id)
+/datum/element/plant_genes/Attach(obj/target, list/_plant_features, _species_id, _name, _desc)
 	. = ..()
 	//In most cases, the plant features is a list stored by the botany subsystem. Species id is just a string we're happy to hold onto
-	plant_genes[REF(target)] = list(PLANT_GENE_INDEX_FEATURES = _plant_features, PLANT_GENE_INDEX_ID = _species_id)
+	//As for name and desc, we do hold onto it- but it will eventually get updated and changed with seeds. It's updated when you plant it, for all seeds of this gene.
+	plant_genes[REF(target)] = list(PLANT_GENE_INDEX_FEATURES = _plant_features, PLANT_GENE_INDEX_ID = _species_id, PLANT_GENE_INDEX_NAME = _name, PLANT_GENE_INDEX_DESC = _desc)
 	RegisterSignal(target, COMSIG_PLANT_GET_GENES, PROC_REF(append_genes))
 
 /datum/element/plant_genes/Detach(datum/source, ...)

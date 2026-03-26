@@ -185,7 +185,7 @@
 	new_fruit.transform.Scale(trait_scale, trait_scale)
 	SEND_SIGNAL(parent, COMSIG_FRUIT_PREPARE, new_fruit) //Used to prepare fruit characteristics, like making the reagents NO_REACT
 //Genes
-	new_fruit.AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[parent.species_id]"], parent.species_id)
+	new_fruit.AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[parent.species_id]"], parent.species_id, parent.name_override, parent.desc_override)
 	fruits += new_fruit
 	SEND_SIGNAL(parent, COMSIG_FRUIT_BUILT, new_fruit) //Used when we're done prepping the fruit and we want to add stuff to it, like reagents
 	SEND_SIGNAL(parent, COMSIG_FRUIT_BUILT_POST, new_fruit) //Essentially the same as before, but for things that come after reagents

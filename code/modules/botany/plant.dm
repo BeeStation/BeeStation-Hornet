@@ -17,6 +17,9 @@
 	var/discovery_reward = 500
 	///used to stop weird interactions with spades
 	var/spading = FALSE
+	///Have we inherited a name?
+	var/name_override
+	var/desc_override
 
 //Appearance
 	///Used to toggle if we want to use body feature's appearances. You can toggle this off if you want to make something with an existing appearance a plant

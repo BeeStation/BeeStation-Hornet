@@ -93,6 +93,7 @@
 	return copy
 
 /obj/item/plant_seeds/proc/plant(atom/target, mob/user, proximity_flag, click_parameters, logic)
+//Flight checks
 	//Is this even a planter?
 	var/datum/component/planter/tray_component = target.GetComponent(/datum/component/planter)
 	if(!tray_component)
@@ -110,9 +111,12 @@
 	var/obj/item/plant_item/plant = new(get_turf(target), plant_features, species_id, (name_override || get_species_name(plant_features)))
 	var/datum/component/plant/plant_component = plant.GetComponent(/datum/component/plant)
 	. = plant_component
-	//Plant appearance stuff
+//Name & Desc special treatment
 	plant.name = name_override || plant.name
+	plant_component.name_override = name_override
 	plant.desc = "[plant.desc]\n[desc_override]"
+	plant_component.desc_override = desc_override
+//Plant appearance stuff
 	plant.forceMove(target) //forceMove instead of creating it inside to proc Entered()
 	SEND_SIGNAL(plant_component, COMSIG_PLANT_PLANTED, target)
 	var/obj/vis_target = target
