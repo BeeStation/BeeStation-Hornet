@@ -10,7 +10,7 @@
 	var/list/values = list()
 
 	var/datum/universal_icon/moth_head = uni_icon('icons/mob/human/species/moth/bodyparts.dmi', "moth_head", dir = SOUTH)
-	moth_head.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes", dir = SOUTH), ICON_OVERLAY)
+	moth_head.blend_icon(uni_icon('icons/mob/human/species/moth/eyes.dmi', "eyes", dir = SOUTH), ICON_OVERLAY)
 
 	for (var/antennae_name in GLOB.moth_antennae_roundstart_list)
 		var/datum/sprite_accessory/antennae = GLOB.moth_antennae_roundstart_list[antennae_name]
@@ -53,7 +53,7 @@
 		var/gender = (initial(body_part.is_dimorphic)) ? "_m" : ""
 		moth_body.blend_icon(uni_icon('icons/mob/human/species/moth/bodyparts.dmi', "moth_[body_part][gender]", dir = SOUTH), ICON_OVERLAY)
 
-	moth_body.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes", dir = SOUTH), ICON_OVERLAY)
+	moth_body.blend_icon(uni_icon('icons/mob/human/species/moth/eyes.dmi', "eyes", dir = SOUTH), ICON_OVERLAY)
 
 	for (var/markings_name in GLOB.moth_markings_roundstart_list)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_roundstart_list[markings_name]
@@ -99,4 +99,17 @@
 
 /datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["moth_wings"] = value
+
+/datum/preference/choiced/moth_eyes
+	db_key = "feature_moth_eyes"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	main_feature_name = "Eye Type"
+	relevant_mutant_bodypart = "moth_eyes"
+
+/datum/preference/choiced/moth_eyes/init_possible_values()
+	return list("Default", "Domestic")
+
+/datum/preference/choiced/moth_eyes/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["moth_eyes"] = value
 

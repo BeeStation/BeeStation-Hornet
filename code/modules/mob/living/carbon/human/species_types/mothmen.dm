@@ -22,6 +22,7 @@
 		"moth_wings" = "Plain",
 		"moth_antennae" = "Plain",
 		"moth_markings" = "None",
+		"moth_eyes" = "Default",
 		"body_size" = "Normal"
 	)
 	attack_verb = "slash"
@@ -56,6 +57,10 @@
 	return ..()
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+	if(human_who_gained_species.dna?.features["moth_eyes"] == "Domestic")
+		mutanteyes = /obj/item/organ/eyes/moth/domestic
+	else
+		mutanteyes = /obj/item/organ/eyes/moth
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
