@@ -22,6 +22,11 @@
 #define PORT_TYPE_NUMBER "number"
 /// Signal datatype
 #define PORT_TYPE_SIGNAL "signal"
+
+#define PORT_TYPE_INSTANT_SIGNAL "instant signal"
+/// Signal datatype, with a slight variation in name to suggest that it can be used to respond to instant execution.
+#define PORT_TYPE_RESPONSE_SIGNAL "response signal"
+
 /// List datatype
 #define PORT_TYPE_LIST "list"
 /// Table datatype. Derivative of list, contains other lists with matching columns.
@@ -32,7 +37,8 @@
 // Other datatypes
 /// Atom datatype
 #define PORT_TYPE_ATOM "entity"
-
+/// User datatype
+#define PORT_TYPE_USER "user"
 
 /// The maximum range between a port and an atom
 #define PORT_ATOM_MAX_RANGE 7

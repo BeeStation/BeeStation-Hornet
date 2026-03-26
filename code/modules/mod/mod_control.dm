@@ -196,9 +196,9 @@
 
 // Grant pinned actions to pin owners, gives AI pinned actions to the AI and not the wearer
 /obj/item/mod/control/grant_action_to_bearer(datum/action/action)
-	if (!istype(action, /datum/action/item_action/mod/pinned_module))
+	if (!istype(action, /datum/action/item_action/mod/pinnable))
 		return ..()
-	var/datum/action/item_action/mod/pinned_module/pinned = action
+	var/datum/action/item_action/mod/pinnable/pinned = action
 	give_item_action(action, pinned.pinner, slot_flags)
 
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced = FALSE, list/old_locs)
@@ -597,9 +597,6 @@
 	new_module.on_install()
 	if(wearer)
 		new_module.on_equip()
-		var/datum/action/item_action/mod/pinned_module/action = new_module.pinned_to[REF(wearer)]
-		if(action)
-			action.Grant(wearer)
 	if(active && new_module.has_required_parts(mod_parts, need_active = TRUE))
 		new_module.on_part_activation()
 		new_module.part_activated = TRUE

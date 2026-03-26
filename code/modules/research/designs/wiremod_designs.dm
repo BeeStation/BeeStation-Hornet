@@ -409,13 +409,10 @@
 	build_path = /obj/item/circuit_component/list_literal
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
-/datum/design/component/bci
-	category = list(WIREMOD_CIRCUITRY, WIREMOD_BCI_COMPONENTS)
-
-/datum/design/component/bci/bci_action
-	name = "BCI Action Component"
-	id = "comp_bci_action"
-	build_path = /obj/item/circuit_component/equipment_action/bci
+/datum/design/component/equipment_action
+	name = "Equipment Action Component"
+	id = "comp_equip_action"
+	build_path = /obj/item/circuit_component/equipment_action
 
 /datum/design/component/gate/toggle
 	name = "Toggle Gate (T Flip-Flop)"
@@ -433,12 +430,6 @@
 	id = "comp_gate_set_reset"
 	build_path = /obj/item/circuit_component/gate/set_reset
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_GATE_COMPONENTS)
-/*
-/datum/design/component/mod_action
-	name = "MOD Action Component"
-	id = "comp_mod_action"
-	build_path = /obj/item/circuit_component/equipment_action/mod
-*/
 
 /datum/design/component/bci/object_overlay
 	name = "Object Overlay Component"

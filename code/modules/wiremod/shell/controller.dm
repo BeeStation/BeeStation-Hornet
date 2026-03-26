@@ -31,16 +31,16 @@
 	/// The three separate buttons that are called in attack_hand on the shell.
 	var/datum/port/output/signal
 	var/datum/port/output/alt
-	var/datum/port/output/ctrl
+	var/datum/port/output/right
 
 	/// The entity output
 	var/datum/port/output/entity
 
 /obj/item/circuit_component/controller/populate_ports()
-	entity = add_output_port("User", PORT_TYPE_ATOM)
+	entity = add_output_port("User", PORT_TYPE_USER)
 	signal = add_output_port("First Signal", PORT_TYPE_SIGNAL)
 	alt = add_output_port("Second Signal", PORT_TYPE_SIGNAL)
-	ctrl = add_output_port("Third Signal", PORT_TYPE_SIGNAL)
+	right = add_output_port("Third Signal", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/controller/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, PROC_REF(send_trigger))
@@ -51,8 +51,14 @@
 	UnregisterSignal(shell, list(
 		COMSIG_ITEM_ATTACK_SELF,
 		COMSIG_ITEM_ATTACK_SELF_SECONDARY,
-		COMSIG_CLICK_CTRL,
+		COMSIG_CLICK_ALT,
 	))
+
+/obj/item/circuit_component/controller/proc/handle_trigger(atom/source, user, port_name, datum/port/output/port_signal)
+	source.balloon_alert(user, "clicked [port_name] button")
+	playsound(source, get_sfx("terminal_type"), 25, FALSE)
+	entity.set_output(user)
+	port_signal.set_output(COMPONENT_SIGNAL)
 
 /**
  * Called when the shell item is used in hand
@@ -61,10 +67,7 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "Clicked the first button.")
-	playsound(source, get_sfx("terminal_type"), 25, FALSE)
-	entity.set_output(user)
-	signal.set_output(COMPONENT_SIGNAL)
+	handle_trigger(source, user, "primary", signal)
 
 /**
  * Called when the shell item is alt-clicked
@@ -73,19 +76,15 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "Clicked the second button.")
-	playsound(source, get_sfx("terminal_type"), 25, FALSE)
-	entity.set_output(user)
-	alt.set_output(COMPONENT_SIGNAL)
+	handle_trigger(source, user, "alternate", alt)
 
 /**
  * Called when the shell item is right-clicked in active hand
  */
 /obj/item/circuit_component/controller/proc/send_right_signal(atom/source, mob/user)
 	SIGNAL_HANDLER
+
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "Clicked the third button.")
-	playsound(source, get_sfx("terminal_type"), 25, FALSE)
-	entity.set_output(user)
-	ctrl.set_output(COMPONENT_SIGNAL)
+
+	handle_trigger(source, user, "extra", right)
