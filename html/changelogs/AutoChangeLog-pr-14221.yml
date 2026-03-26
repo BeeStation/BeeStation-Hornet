@@ -1,6 +1,0 @@
-author: TsunamiAnt
-delete-after: true
-changes:
-  - balance: Made the NPS slightly worse against armor. Finally.
-  - refactor: Armor penetration calculations are now based on a multiplicative model.
-      Nothing should have changed from this.

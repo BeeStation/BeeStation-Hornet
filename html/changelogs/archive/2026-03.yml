@@ -268,3 +268,7 @@
       damage while also providing a moderately high amount of nutrition. It will no
       longer send you into glycemic shock from a single honeycomb, but you can still
       expect to get fat if you eat a few in a short span of time.
+  TsunamiAnt:
+  - balance: Made the NPS slightly worse against armor. Finally.
+  - refactor: Armor penetration calculations are now based on a multiplicative model.
+      Nothing should have changed from this.
