@@ -35,10 +35,8 @@
 	)
 	/// Amount of Goliath hides attached to the mech
 	var/hides = 0
-	/// List of all things in Ripley's Cargo Compartment
-	var/list/cargo
-	/// How much things Ripley can carry in their Cargo Compartment
-	var/cargo_capacity = 15
+	/// Reference to the Cargo Hold equipment.
+	var/obj/item/mecha_parts/mecha_equipment/ejector/cargo_hold
 	/// How fast the mech is in low pressure
 	var/fast_pressure_step_in = 1.5
 	/// How fast the mech is in normal pressure
@@ -66,13 +64,6 @@
 	melee = 10
 	bullet = 5
 	laser = 5
-
-/obj/vehicle/sealed/mecha/ripley/Destroy()
-	for(var/atom/movable/A in cargo)
-		A.forceMove(drop_location())
-		step_rand(A)
-	QDEL_LIST(cargo)
-	return ..()
 
 /obj/vehicle/sealed/mecha/ripley/mk2
 	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection and armor."
@@ -169,37 +160,56 @@
 	servo = new /obj/item/stock_parts/manipulator(src)
 	update_part_values()
 
-/obj/vehicle/sealed/mecha/ripley/Exit(atom/movable/O)
-	if(O in cargo)
-		return FALSE
-	return ..()
-
-/obj/vehicle/sealed/mecha/ripley/contents_explosion(severity, target)
-	for(var/i in cargo)
-		var/obj/cargoobj = i
-		if(prob(30/severity))
-			LAZYREMOVE(cargo, cargoobj)
-			cargoobj.forceMove(drop_location())
-	return ..()
-
 /obj/item/mecha_parts/mecha_equipment/ejector
-	name = "Cargo compartment"
+	name = "cargo compartment"
 	desc = "Holds cargo loaded with a hydraulic clamp."
 	icon_state = "mecha_bin"
 	equipment_slot = MECHA_UTILITY
 	detachable = FALSE
+	can_be_triggered = TRUE
+	action_type = /datum/action/vehicle/sealed/mecha/equipment/cargo_module
+	///Number of atoms we can store
+	var/cargo_capacity = 15
+
+/obj/item/mecha_parts/mecha_equipment/ejector/attach()
+	. = ..()
+	var/obj/vehicle/sealed/mecha/ripley/workmech = chassis
+	workmech.cargo_hold = src
+
+
+/obj/item/mecha_parts/mecha_equipment/ejector/Destroy()
+	for(var/atom/stored in contents)
+		forceMove(stored, drop_location())
+		step_rand(stored)
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/ejector/contents_explosion(severity, target)
+	for(var/obj/stored in contents)
+		if(prob(10 * severity))
+			stored.forceMove(drop_location())
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/ejector/relay_container_resist(mob/living/user, obj/container)
+	to_chat(user, span_notice("You lean on the back of [container] and start pushing so it falls out of [src]."))
+	if(do_after(user, 300, target = container))
+		if(!user || user.stat != CONSCIOUS || user.loc != src || container.loc != src )
+			return
+		to_chat(user, span_notice("You successfully pushed [container] out of [src]!"))
+		container.forceMove(drop_location())
+	else
+		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
+			to_chat(user, span_warning("You fail to push [container] out of [src]!"))
 
 /obj/item/mecha_parts/mecha_equipment/ejector/get_snowflake_data()
-	var/obj/vehicle/sealed/mecha/ripley/miner = chassis
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_EJECTOR,
-		"cargo_capacity" = miner.cargo_capacity,
+		"cargo_capacity" = cargo_capacity,
 		"cargo" = list()
 		)
-	for(var/obj/crate in miner.cargo)
+	for(var/atom/entry in contents)
 		data["cargo"] += list(list(
-			"name" = crate.name,
-			"ref" = REF(crate),
+			"name" = entry.name,
+			"ref" = REF(entry),
 		))
 	return data
 
@@ -208,30 +218,18 @@
 	if(.)
 		return TRUE
 	if(action == "eject")
-		var/obj/vehicle/sealed/mecha/ripley/miner = chassis
-		var/obj/crate = locate(params["cargoref"]) in miner.cargo
+		var/obj/crate = locate(params["cargoref"]) in contents
+
 		if(!crate)
 			return FALSE
-		to_chat(miner.occupants, "[icon2html(src,  miner.occupants)][span_notice("You unload [crate].")]")
+		to_chat(chassis.occupants, "[icon2html(src,  chassis.occupants)][span_notice("You unload [crate].")]")
 		crate.forceMove(drop_location())
-		LAZYREMOVE(miner.cargo, crate)
-		if(crate == miner.ore_box)
-			miner.ore_box = null
-		playsound(chassis, 'sound/weapons/tap.ogg', 50, TRUE)
-		log_message("Unloaded [crate]. Cargo compartment capacity: [miner.cargo_capacity - LAZYLEN(miner.cargo)]", LOG_MECHA)
-		return TRUE
+		if(crate == chassis.ore_box)
+			chassis.ore_box = null
 
-/obj/vehicle/sealed/mecha/ripley/relay_container_resist(mob/living/user, obj/O)
-	to_chat(user, span_notice("You lean on the back of [O] and start pushing so it falls out of [src]."))
-	if(do_after(user, 300, target = O))
-		if(!user || user.stat != CONSCIOUS || user.loc != src || O.loc != src )
-			return
-		to_chat(user, span_notice("You successfully pushed [O] out of [src]!"))
-		O.forceMove(drop_location())
-		LAZYREMOVE(cargo, O)
-	else
-		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
-			to_chat(user, span_warning("You fail to push [O] out of [src]!"))
+		playsound(chassis, 'sound/weapons/tap.ogg', 50, TRUE)
+		log_message("Unloaded [crate]. Cargo compartment capacity: [cargo_capacity - contents.len]", LOG_MECHA)
+		return TRUE
 
 /**
   * Makes the mecha go faster and halves the mecha drill cooldown if in Lavaland pressure.
