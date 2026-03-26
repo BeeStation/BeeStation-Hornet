@@ -35,7 +35,7 @@
 
 /obj/vehicle/sealed/mecha/durand/Initialize(mapload)
 	. = ..()
-	shield = new /obj/durand_shield(loc, src, layer, dir)
+	shield = new /obj/durand_shield(loc, src, plane, layer, dir)
 	RegisterSignal(src, COMSIG_MECHA_ACTION_TRIGGER, PROC_REF(relay))
 	RegisterSignal(src, COMSIG_PROJECTILE_PREHIT, PROC_REF(prehit))
 
@@ -84,7 +84,6 @@
 		stack_trace("Durand triggered relay without a shield")
 		shield = new /obj/durand_shield(loc, src, layer)
 	shield.setDir(dir)
-	SEND_SIGNAL(shield, COMSIG_MECHA_ACTION_TRIGGER, owner, signal_args)
 
 //Redirects projectiles to the shield if defense_check decides they should be blocked and returns true.
 /obj/vehicle/sealed/mecha/durand/proc/prehit(obj/vehicle/sealed/mecha/durand/source, obj/projectile/projectile, list/signal_args)
@@ -174,32 +173,38 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	max_integrity = 10000
 	anchored = TRUE
 	light_system = MOVABLE_LIGHT
-	light_range = MINIMUM_USEFUL_LIGHT_RANGE
-	light_power = 5
-	light_color = LIGHT_COLOR_CYAN
+	light_range = 2.8
+	light_power = 1
+	light_color = LIGHT_COLOR_FAINT_CYAN
 	light_on = FALSE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF //The shield should not take damage from fire, lava, or acid; that's the mech's job.
 	///Our link back to the durand
 	var/obj/vehicle/sealed/mecha/durand/chassis
 	///To keep track of things during the animation
 	var/switching = FALSE
-	var/currentuser
-
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 
-/obj/durand_shield/Initialize(mapload, _chassis, _layer, _dir)
+/obj/durand_shield/Initialize(mapload, chassis, plane, layer, dir)
 	. = ..()
-	chassis = _chassis
-	layer = _layer
-	setDir(_dir)
-	RegisterSignal(src, COMSIG_MECHA_ACTION_TRIGGER, PROC_REF(activate))
-
+	src.chassis = chassis
+	src.layer = ABOVE_MOB_LAYER
+	src.plane = plane
+	setDir(dir)
+	RegisterSignal(chassis, COMSIG_MECHA_ACTION_TRIGGER, PROC_REF(activate))
+	RegisterSignal(chassis, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(shield_glide_size_update))
 
 /obj/durand_shield/Destroy()
+	UnregisterSignal(src, COMSIG_MECHA_ACTION_TRIGGER)
 	if(chassis)
+		UnregisterSignal(chassis, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE)
 		chassis.shield = null
 		chassis = null
 	return ..()
+
+/obj/durand_shield/proc/shield_glide_size_update(datum/source, target)
+	SIGNAL_HANDLER
+	glide_size = target
 
 /**
   *Handles activating and deactivating the shield. This proc is called by a signal sent from the mech's action button
@@ -212,7 +217,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
   */
 /obj/durand_shield/proc/activate(datum/source, mob/owner, list/signal_args)
 	SIGNAL_HANDLER
-	currentuser = owner
 	if(!LAZYLEN(chassis?.occupants))
 		return
 	if(switching && !signal_args[1])
@@ -239,21 +243,33 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 		flick("shield_raise", src)
 		playsound(src, 'sound/mecha/mech_shield_raise.ogg', 50, FALSE)
 		icon_state = "shield"
+		resetdir(chassis, dir, dir) // to set the plane for the shield properly when it's turned on
 		RegisterSignal(chassis, COMSIG_ATOM_DIR_CHANGE, PROC_REF(resetdir))
 	else
 		flick("shield_drop", src)
 		playsound(src, 'sound/mecha/mech_shield_drop.ogg', 50, FALSE)
 		icon_state = "shield_null"
-		invisibility = INVISIBILITY_MAXIMUM //no showing on right-click
+		addtimer(CALLBACK(src, PROC_REF(make_invisible)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 		UnregisterSignal(chassis, COMSIG_ATOM_DIR_CHANGE)
 	switching = FALSE
+
+/**
+ * Sets invisibility to INVISIBILITY_MAXIMUM if defense mode is disabled
+ *
+ * We need invisibility set to higher than 25 for the shield to not appear
+ * in the right-click context menu, but if we do it too early, we miss the
+ * deactivate animation. Hence, timer and this proc.
+ */
+/obj/durand_shield/proc/make_invisible()
+	if(!chassis.defense_mode)
+		invisibility = INVISIBILITY_MAXIMUM
 
 /obj/durand_shield/proc/resetdir(datum/source, olddir, newdir)
 	SIGNAL_HANDLER
 
 	setDir(newdir)
 
-/obj/durand_shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/durand_shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	if(!chassis)
 		qdel(src)
 		return
@@ -261,7 +277,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 		return
 	. = ..()
 	flick("shield_impact", src)
-	if(!chassis.use_power((max_integrity - atom_integrity) * 100))
+	if(!.)
+		return
+	if(!chassis.use_power(. * 100))
 		chassis.cell?.charge = 0
 		for(var/O in chassis.occupants)
 			var/mob/living/occupant = O
