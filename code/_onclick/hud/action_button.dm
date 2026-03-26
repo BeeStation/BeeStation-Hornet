@@ -236,7 +236,7 @@
 		return
 
 	for(var/datum/action/action as anything in take_from.actions)
-		if(!action.show_to_observers)
+		if(!action.show_to_observers || !action.owner_has_control)
 			continue
 		action.give_action(src)
 	// Unregister first to avoid duplicate signal warnings when show_hud is called multiple times
@@ -259,7 +259,7 @@
 /mob/proc/on_observing_action_granted(mob/living/source, datum/action/action)
 	SIGNAL_HANDLER
 
-	if(!action.show_to_observers)
+	if(!action.show_to_observers || !action.owner_has_control)
 		return
 	action.give_action(src)
 
