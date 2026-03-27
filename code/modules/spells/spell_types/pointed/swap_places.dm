@@ -35,29 +35,30 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/swap/InterceptClickOn(mob/living/caller, params, atom/click_target)
-	if(LAZYACCESS(params2list(params), RIGHT_CLICK))
-		if(!is_available(feedback = TRUE))
-			return FALSE
-		if(!target)
-			return FALSE
-		if(!isliving(click_target) || isturf(click_target))
-			// Find any living being in the list. We aren't picky, it's aim assist after all
-			click_target = locate(/mob/living) in click_target
-			if(!click_target)
-				to_chat(owner, span_warning("You can only select living beings as secondary target!"))
-				return FALSE
-		if(click_target == owner)
-			if(!isnull(second_target))
-				to_chat(owner, span_notice("You cancel your secondary swap target!"))
-				second_target = null
-			else
-				to_chat(owner, span_warning("You have no secondary swap target!"))
-			return FALSE
-		second_target = click_target
-		to_chat(owner, span_notice("You select [click_target.name] as a secondary swap target!"))
+/datum/action/cooldown/spell/pointed/swap/InterceptClickOn(mob/living/clicker, params, atom/click_target)
+	if(!LAZYACCESS(params2list(params), RIGHT_CLICK))
+		return ..()
+
+	if(!is_available(feedback = TRUE))
 		return FALSE
-	return ..()
+	if(!target)
+		return FALSE
+	if(!isliving(click_target) || isturf(click_target))
+		// Find any living being in the list. We aren't picky, it's aim assist after all
+		click_target = locate(/mob/living) in click_target
+		if(!click_target)
+			to_chat(owner, span_warning("You can only select living beings as secondary target!"))
+			return FALSE
+	if(click_target == owner)
+		if(!isnull(second_target))
+			to_chat(owner, span_notice("You cancel your secondary swap target!"))
+			second_target = null
+		else
+			to_chat(owner, span_warning("You have no secondary swap target!"))
+		return FALSE
+	second_target = click_target
+	to_chat(owner, span_notice("You select [click_target.name] as a secondary swap target!"))
+	return FALSE
 
 /datum/action/cooldown/spell/pointed/swap/cast(mob/living/carbon/cast_on)
 	. = ..()

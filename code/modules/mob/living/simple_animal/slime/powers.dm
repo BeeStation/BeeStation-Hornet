@@ -1,4 +1,5 @@
 /datum/action/innate/slime
+	abstract_type = /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"

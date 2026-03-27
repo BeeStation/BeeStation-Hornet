@@ -1,4 +1,5 @@
 /datum/action/cooldown/mob_cooldown/sneak
+	abstract_type = /datum/action/cooldown/mob_cooldown/sneak
 	name = "Sneak"
 	desc = "Blend into the environment."
 	button_icon = 'icons/hud/actions/actions_animal.dmi'

@@ -172,6 +172,7 @@
 	use_runechat_telepathy = TRUE
 
 /datum/action/cooldown/spell/aoe/revenant
+	abstract_type = /datum/action/cooldown/spell/aoe/revenant
 	panel = "Revenant Abilities (Locked)"
 	background_icon_state = "bg_revenant"
 	overlay_icon_state = "bg_revenant_border"

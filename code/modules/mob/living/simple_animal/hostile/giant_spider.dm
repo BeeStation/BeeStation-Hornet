@@ -459,6 +459,7 @@
 // SPIDER ACTIONS/PROCS
 
 /datum/action/innate/spider
+	abstract_type = /datum/action/innate/spider
 	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	background_icon_state = "bg_alien"
 	overlay_icon_state = "bg_alien_border"

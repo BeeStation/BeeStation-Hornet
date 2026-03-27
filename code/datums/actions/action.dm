@@ -4,6 +4,7 @@
  * A simple base for an modular behavior attached to atom or datum.
  */
 /datum/action
+	var/abstract_type = /datum/action
 	/// The name of the action
 	var/name = "Generic Action"
 	/// The description of what the action does, shown in button tooltips

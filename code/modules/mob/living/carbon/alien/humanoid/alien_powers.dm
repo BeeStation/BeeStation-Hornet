@@ -6,6 +6,7 @@ Doesn't work on other aliens/AI.*/
 
 
 /datum/action/cooldown/alien
+	abstract_type = /datum/action/cooldown/alien
 	name = "Alien Power"
 	background_icon_state = "bg_alien"
 	overlay_icon_state = "bg_alien_border"

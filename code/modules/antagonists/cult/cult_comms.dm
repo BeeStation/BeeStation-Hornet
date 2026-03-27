@@ -1,6 +1,7 @@
 // Contains cult communion, guide, and cult master abilities
 
 /datum/action/innate/cult
+	abstract_type = /datum/action/innate/cult
 	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
 	overlay_icon_state = "bg_demon_border"
