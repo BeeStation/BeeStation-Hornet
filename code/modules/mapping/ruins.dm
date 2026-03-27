@@ -159,7 +159,6 @@
 
 		placed_ruins++
 		budget -= current_pick.cost
-		if(current_pick.has_ghost_roles)
 
 		if(!current_pick.allow_duplicates)
 			for(var/datum/map_template/ruin/R in ruins_available)
