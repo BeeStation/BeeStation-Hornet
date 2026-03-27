@@ -182,3 +182,93 @@
       fixtures directly
   - bugfix: You can buckle onto objects if there's a directional window on the same
       tile again
+2026-03-22:
+  BotTierPC:
+  - rscadd: Added new lobby screen artworks courtesy of the recent art event held
+      on Beestation Forums
+  ? rkz, TiviPlus, Mothblocks, zxaber, mc-oofert, san7890, Sealed101, ChungusGamer666,
+    dragomagol, Profakos, LemonInTheDark, MTandi, GPeckman, etherware-novice, SapphicOverlord
+  : - rscadd: Mech interfaces have been converted to TGUI
+    - rscadd: Mechs no longer have RNG chances to completely ignore attacks
+    - rscadd: Mech armor will now directly add armor instead increasing deflection
+        chance
+    - rscadd: Mechs now have slots for equipping "power", "utility" and "armor" modules
+    - rscadd: Mechs now use left and right click to use the left and right weapons
+        respectively
+    - rscadd: Mech internal damage no longer requires low HP and instead now requires
+        a minimum damage in an attack to consider it
+    - rscdel: tesla power module has been removed
+    - bugfix: admin uis now work on mech equipment properly
+    - bugfix: Fixed gygax smash not logging the driver
+    - bugfix: Fixed mechs being punched using power but punching as a mech not using
+        power
+    - bugfix: Fixed mechs not taking damage from mech punches if punched while having
+        no power
+    - bugfix: Fixed weapon damage types only being respected for mech punches sometimes
+    - bugfix: Fixed toxins mech damage mode playing sounds on punches despite doing
+        nothing
+    - admin: mech punches will now ALWAYS be logged, even against objects
+    - refactor: Refactored mech radio into a utility module, adding extra slot to
+        all mechs
+    - refactor: Refactored mech air tank into a utility module with an air pump, adding
+        extra slot to all mechs
+    - refactor: Refactored mech cabin air - there is now a button to seal or unseal
+        cabin to make it airtight or exchanging gases with the environment
+    - refactor: Removed mech maintenance UI Access is set in mech UI, and parts are
+        ejected with a crowbar
+    - rscadd: Mech now has wires and can be hacked
+    - rscadd: Roboticists now can see suit and mech wires
+    - rscadd: Mechs now require manipulator stock part and it affects movement power
+        usage instead of scanning module
+    - rscadd: Scanning module absence doesnt block mech movement and hides some UI
+        data instead.
+    - rscadd: Hitting mech with ID card now toggles ID lock on/off if the card has
+        required access
+    - bugfix: Fixed concealed weapon bay not being concealed on mech examine
+    - bugfix: Fixed mech radio not changing frequency
+    - bugfix: Fixed mech launcher type weapons ignoring specified cooldown
+    - bugfix: Fixed mech launcher type weapons not using specified power amount
+    - bugfix: Fixed mech temperature regulator ignoring gas heat capacity
+    - bugfix: Fixed mech stopping processing other things while not heating internal
+        air
+    - bugfix: Fixed mech being able to leave transit tube in transit
+    - bugfix: Fixed mech internal damage flags working incorrectly
+    - bugfix: Fixed Gygax leg overloading being useless
+    - bugfix: Fixed mechs ignoring their stock parts on creation. Syndicate mechs
+        now stronger against lasers and consume less energy on move. Upgrading from
+        tier 1 to tier 2 doesn't make mech consume MORE energy than before the upgrade.
+    - balance: Rebalanced mech energy drain with part upgrades. Base energy drain
+        reduced by 50%, 33%, 25% with upgrades and applies to movement (manipulator
+        rating), phasing, punching, light (Capacitor rating).
+    - balance: Hydraulic clamp now can force open airlocks
+    - balance: Made mech RCS pack consume reasonable amount of gas
+    - code_imp: Fixed some other minor bugs and made some minor changes in the mech
+        code
+    - rscadd: Mechs now have a weapons safety, which can be toggled with the Middle
+        Mouse button. Don't worry, it defaults to off.
+    - rscadd: All mechs now use the mouse reticle, and the reticle is disabled when
+        weapons safety is turned on.
+    - bugfix: AIs have had their mech abilities resolved. With weapons safety off,
+        equipment is used. With weapons safety on, AI clicks are used.
+    - bugfix: Fixes getting AIs with cores getting gibbed if their mech theyre controlling
+        is destroyed
+    - refactor: un-nested and removed the working, medical, and combat mech subtypes.
+        Merged vars into parent mech type.
+    - balance: The Mecha Extinguisher equipment is now classified as utility.
+    - balance: The Mecha Extinguisher now puts out fires in a 3x3 square (centered
+        on the mech). However, it also only has five uses now. Save it for emergencies!
+    - rscadd: completely overhauls mech construction code. It will now use balloon
+        alerts, and always show next steps. No more wiki needed.
+    - refactor: flick_overlay is an atom proc
+    - balance: mech wire panels can no longer be accessed while the mech is occupied
+    - balance: mech equipment attachment delays only apply to occupied mechs
+2026-03-26:
+  Rukofamicom:
+  - bugfix: honey now works as intended again healing a moderately high amount of
+      damage while also providing a moderately high amount of nutrition. It will no
+      longer send you into glycemic shock from a single honeycomb, but you can still
+      expect to get fat if you eat a few in a short span of time.
+  TsunamiAnt:
+  - balance: Made the NPS slightly worse against armor. Finally.
+  - refactor: Armor penetration calculations are now based on a multiplicative model.
+      Nothing should have changed from this.

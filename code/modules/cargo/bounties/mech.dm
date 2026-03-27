@@ -17,40 +17,40 @@
 	name = "APLU MK-II \"Ripley\""
 	reward = CARGO_CRATE_VALUE * 26
 	wanted_types = list(
-		/obj/vehicle/sealed/mecha/working/ripley/mk2 = TRUE,
+		/obj/vehicle/sealed/mecha/ripley/mk2 = TRUE,
 	)
 
 /datum/bounty/item/mech/clarke
 	name = "Clarke"
 	reward = CARGO_CRATE_VALUE * 32
 	wanted_types = list(
-		/obj/vehicle/sealed/mecha/working/clarke = TRUE,
+		/obj/vehicle/sealed/mecha/clarke = TRUE,
 	)
 
 /datum/bounty/item/mech/odysseus
 	name = "Odysseus"
 	reward = CARGO_CRATE_VALUE * 22
 	wanted_types = list(
-		/obj/vehicle/sealed/mecha/medical/odysseus = TRUE,
+		/obj/vehicle/sealed/mecha/odysseus = TRUE,
 	)
 
 /datum/bounty/item/mech/gygax
 	name = "Gygax"
 	reward = CARGO_CRATE_VALUE * 56
 	wanted_types = list(
-		/obj/vehicle/sealed/mecha/combat/gygax = TRUE,
+		/obj/vehicle/sealed/mecha/gygax = TRUE,
 	)
 
 /datum/bounty/item/mech/durand
 	name = "Durand"
 	reward = CARGO_CRATE_VALUE * 40
 	wanted_types = list(
-		/obj/vehicle/sealed/mecha/combat/durand = TRUE,
+		/obj/vehicle/sealed/mecha/durand = TRUE,
 	)
 
 /datum/bounty/item/mech/phazon
 	name = "Phazon"
 	reward = CARGO_CRATE_VALUE * 100
 	wanted_types = list(
-		/obj/vehicle/sealed/mecha/combat/phazon = TRUE,
+		/obj/vehicle/sealed/mecha/phazon = TRUE,
 	)
