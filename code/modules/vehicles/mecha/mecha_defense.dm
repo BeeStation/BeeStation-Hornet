@@ -176,7 +176,7 @@
 
 	if(!equipment_disabled && LAZYLEN(occupants)) //prevent spamming this message with back-to-back EMPs
 		to_chat(occupants, span_danger("Error -- Connection to equipment control unit has been lost."))
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	equipment_disabled = TRUE
 	set_mouse_pointer()
 
@@ -386,10 +386,10 @@
 		return
 	. = TRUE
 	if(atom_integrity < max_integrity)
-		if(!W.use_tool(src, user, 0, volume=50, amount=1))
-			return
-		user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [src]."))
-		atom_integrity += min(10, max_integrity-atom_integrity)
+		while(atom_integrity < max_integrity && W.tool_start_check(user, amount=1) && W.use_tool(src, user, 2 SECONDS, volume=50, amount=1)) // Do after, repeats itself if the mech is damaged until full health
+			user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [src]."))
+			atom_integrity += min(10, max_integrity - atom_integrity)
+			diag_hud_set_mechhealth() // Apparently mech hp didn't get updated until they received damage
 		if(atom_integrity == max_integrity)
 			to_chat(user, span_notice("It looks to be fully repaired now."))
 		return

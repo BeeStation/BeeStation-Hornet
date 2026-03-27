@@ -296,7 +296,7 @@
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	affected_mob.AddComponent(/datum/component/anti_magic, type, MAGIC_RESISTANCE_HOLY)
+	affected_mob.AddComponent(/datum/component/anti_magic, type, MAGIC_RESISTANCE_HOLY | MAGIC_RESISTANCE)
 
 /datum/reagent/water/holywater/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
