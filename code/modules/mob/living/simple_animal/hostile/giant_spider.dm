@@ -100,7 +100,7 @@
 		mind.add_antag_datum(spooder, spider_team)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
-	webbing.Remove()
+	QDEL_NULL(webbing)
 	GLOB.spidermobs -= src
 	return ..()
 
@@ -348,7 +348,7 @@
 	set_directive.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Destroy()
-	wrap.Remove()
+	QDEL_NULL(wrap)
 	QDEL_NULL(lay_eggs)
 	QDEL_NULL(letmetalkpls)
 	return ..()
@@ -747,8 +747,8 @@
 	spidernet.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Destroy()
-	. = ..()
-	spidernet.Remove()
+	QDEL_NULL(spidernet)
+	return ..()
 
 /datum/action/cooldown/spell/pointed/projectile/throw_web
 	name = "Throw web"

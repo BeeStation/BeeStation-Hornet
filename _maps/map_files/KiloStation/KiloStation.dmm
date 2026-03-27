@@ -19280,7 +19280,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
 "eIf" = (
-/obj/structure/destructible/cult/tome/library,
+/obj/structure/destructible/cult/item_dispenser/archives/library,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/book/codex_gigas{
 	pixel_x = -4;

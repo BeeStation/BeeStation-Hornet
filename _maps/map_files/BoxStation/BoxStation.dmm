@@ -2872,7 +2872,7 @@
 /turf/open/floor/engine/cult,
 /area/library)
 "aQs" = (
-/obj/structure/destructible/cult/tome/library,
+/obj/structure/destructible/cult/item_dispenser/archives/library,
 /obj/item/clothing/under/suit/red,
 /obj/item/book/codex_gigas,
 /turf/open/floor/engine/cult,

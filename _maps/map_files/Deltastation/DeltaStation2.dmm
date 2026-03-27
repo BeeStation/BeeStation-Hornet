@@ -67815,7 +67815,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/science)
 "rAy" = (
-/obj/structure/destructible/cult/tome/library,
+/obj/structure/destructible/cult/item_dispenser/archives/library,
 /obj/item/book/codex_gigas,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
