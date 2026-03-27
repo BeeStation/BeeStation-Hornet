@@ -108,12 +108,12 @@
 		var/obj/item/plant_seeds/seeds = stored_seeds[species_id]
 		var/list/features = list()
 		for(var/datum/plant_feature/feature as anything in seeds.plant_features)
-			features["[ref(feature)]"] = list()
-			features["[ref(feature)]"]["data"] = feature.get_ui_data()
-			features["[ref(feature)]"]["traits"] = feature.get_ui_traits()
-			features["[ref(feature)]"]["stats"] = feature.get_ui_stats()
+			features["[REF(feature)]"] = list()
+			features["[REF(feature)]"]["data"] = feature.get_ui_data()
+			features["[REF(feature)]"]["traits"] = feature.get_ui_traits()
+			features["[REF(feature)]"]["stats"] = feature.get_ui_stats()
 		data["seeds"]["[seeds.species_id]"] = list("name" = seeds.name_override || seeds.name, "species_name" = get_species_name(seeds.plant_features), "count" = stored_seeds_amount[species_id],
-		"seeds" = seeds.seeds, "features" = features, "species_id" = seeds.species_id, "ref" = "[ref(seeds)]")
+		"seeds" = seeds.seeds, "features" = features, "species_id" = seeds.species_id, "ref" = "[REF(seeds)]")
 	//Special boy who tells us who the star is
 	data["focused_seeds"] = list()
 	if(focused_seeds)
@@ -130,7 +130,7 @@
 			focused_seeds = params["key"]
 			last_command = "pit seed select -m [params["key"]]"
 			screen.flash()
-			ui_update()
+			return TRUE
 		if("dispense")
 			var/species_id = params["key"]
 			if(stored_seeds_amount[species_id] <= 0) //This shouldn't be possible, but laggier UIs might make it so
@@ -139,11 +139,11 @@
 			seeds = seeds.copy()
 			stored_seeds_amount[species_id] -= 1
 			seeds.forceMove(get_turf(src))
-			if(stored_seeds_amount[species_id] <= 0 && focused_seeds == ref(seeds))
+			if(stored_seeds_amount[species_id] <= 0 && focused_seeds == REF(seeds))
 				focused_seeds = null
 			last_command = "per dispenser eject -m [seeds.name] -f"
 			screen.flash()
-			ui_update()
+			return TRUE
 
 /obj/machinery/seeder/proc/shake(shakes = 5)
 	animate(src, pixel_x = 0, pixel_y = 0, time = 0 SECONDS, loop = shakes)

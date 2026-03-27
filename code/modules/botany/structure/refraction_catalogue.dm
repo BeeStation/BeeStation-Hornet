@@ -106,7 +106,6 @@
 	return data
 
 /obj/machinery/refraction_catalogue/ui_act(action, params)
-	. = ..()
 	if(..())
 		return
 	switch(action)
@@ -127,5 +126,5 @@
 			var/datum/plant_trait/refraction/trait = new(null, grid_x, grid_y, list_accuracy)
 			disk.set_saved(trait)
 	screen.flash()
-	ui_update()
+	return TRUE
 

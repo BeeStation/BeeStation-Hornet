@@ -5,6 +5,8 @@
 	var/genetic_cost = 1
 	///Can this trait appear as a random trait?
 	var/random_trait = TRUE
+	///Type path that represents our abstract type, this type is ommited from records
+	var/abstract_type = /datum/plant_trait
 //Identity
 	var/name = ""
 	var/desc = ""

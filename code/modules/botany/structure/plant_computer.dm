@@ -41,7 +41,7 @@
 /obj/machinery/computer/plant_machine_controller/LateInitialize()
 	. = ..()
 	locate_machines()
-	selected_entry = ref(pick(SSbotany.chapters["features"]))
+	selected_entry = REF(pick(SSbotany.chapters["features"]))
 
 /obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
@@ -84,12 +84,12 @@
 		feature_list["stats"] = feature.get_ui_stats()
 		//An interesting way of seperating features into their distinct types
 		data["chapters"]["features"]["[feature.trait_type_shortcut]"] = data["chapters"]["features"]["[feature.trait_type_shortcut]"] || list()
-		data["chapters"]["features"]["[feature.trait_type_shortcut]"] += list("[ref(feature)]" = feature_list)
+		data["chapters"]["features"]["[feature.trait_type_shortcut]"] += list("[REF(feature)]" = feature_list)
 	//Traits
 	data["chapters"]["traits"]["reagents"] = list()
 	data["chapters"]["traits"]["other"] = list()
 	for(var/datum/plant_trait/trait as anything in SSbotany.chapters["traits"])
-		data["chapters"]["traits"][istype(trait, /datum/plant_trait/reagent) ? "reagents" : "other"] += list("[ref(trait)]" = trait.get_ui_stats())
+		data["chapters"]["traits"][istype(trait, /datum/plant_trait/reagent) ? "reagents" : "other"] += list("[REF(trait)]" = trait.get_ui_stats())
 	//Plants
 	for(var/obj/item/plant_seeds/preset as anything in SSbotany.chapters["plants"])
 		var/list/plant_data = list()
@@ -99,7 +99,7 @@
 			feature_list["traits"] = feature.get_ui_traits()
 			feature_list["stats"] = feature.get_ui_stats()
 			plant_data += list(feature_list)
-		data["chapters"]["plants"] += list("[ref(preset)]" = list("name" = capitalize(preset.name_override), "features" = plant_data))
+		data["chapters"]["plants"] += list("[REF(preset)]" = list("name" = capitalize(preset.name_override), "features" = plant_data))
 	//Dictionary links
 	data["links"] = SSbotany.dictionary_links
 	return data
@@ -124,13 +124,13 @@
 				selected_type_shortcut = "[feature.trait_type_shortcut]"
 			last_command = "pit entry select -m [params["key"]]"
 			screen.flash()
-			ui_update()
+			return TRUE
 		if("select_chapter")
 			selected_chapter = params["key"]
 			selected_entry = null
 			last_command = "pit chapter select -m [params["key"]]"
 			screen.flash()
-			ui_update()
+			return TRUE
 		if("select_link")
 			selected_entry = params["key"]
 			//Logic for selectring a feature
@@ -141,7 +141,7 @@
 			selected_chapter = params["chapter"]
 			last_command = "pit seek select -m [params["key"]]"
 			screen.flash()
-			ui_update()
+			return TRUE
 
 /obj/machinery/computer/plant_machine_controller/ratvar_act()
 	if(!clockwork)

@@ -9,6 +9,7 @@
 	plant_needs = list(/datum/plant_need/reagent/water, /datum/plant_need/reagent/buff/pests)
 	trait_type_shortcut = /datum/plant_feature/fruit
 	genetic_budget = 2
+	abstract_type = /datum/plant_feature/fruit
 
 	///What kind of 'fruit' do we produce
 	var/obj/item/fruit_product = /obj/item/food/grown/apple
@@ -16,7 +17,7 @@
 	var/list/fruits = list()
 	var/list/visual_fruits = list()
 
-	///
+	///Growth time / timers / record keeping
 	var/growth_time = PLANT_FRUIT_GROWTH_FAST
 	var/growth_time_elapsed = 0
 	var/list/growth_timers = list()
@@ -97,10 +98,10 @@
 	if(!length(growth_timers))
 		return
 //Growing
-	for(var/timer as anything in growth_timers)
-		var/obj/effect/fruit_effect = visual_fruits[timer]
-		if(!fruit_effect)
+	for(var/timer, _fruit_effect as anything in growth_timers)
+		if(!_fruit_effect)
 			continue
+		var/obj/effect/fruit_effect = _fruit_effect
 		//Archive the transform to preserve stuff done by body features
 		o_transform[timer] = o_transform[timer] || fruit_effect.transform
 		//If this is the first time it's being process, shrink it down and reveal the alpha

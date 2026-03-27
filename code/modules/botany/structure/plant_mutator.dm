@@ -176,28 +176,25 @@
 			current_feature_ref = current_feature_ref == params["key"] ? null : params["key"]
 			current_feature = locate(current_feature_ref)
 			last_command = "pit feature select -m [params["key"]]"
-			ui_update()
+			return TRUE
 		if("cancel")
 			confirm_radiation = FALSE
-			ui_update()
+			return TRUE
 		if("toggle_port")
 			port_traits = params["port_state"] //You could make this port_traits = !port_traits, but I suspect that might lead to UI desync
-			ui_update()
+			return TRUE
 		if("mutate")
 			//Fix focus
 			if(current_feature_ref != params["key"])
 				current_feature_ref = params["key"]
 				current_feature = locate(current_feature_ref)
-				ui_update()
 			//Confirmation
 			if(!confirm_radiation)
 				confirm_radiation = TRUE
-				ui_update()
-				return
+				return TRUE
 			//Nuke the SOB
 			last_command = "per kiln heat -f -k -m [params["key"]]"
 			confirm_radiation = FALSE
-			ui_update()
 			if(stored_rads <= 0)
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Coil lacks adequate radioactivity!")
@@ -261,9 +258,9 @@
 			vis_contents |= rad_ghost
 			soundloop.start()
 			addtimer(CALLBACK(src, PROC_REF(reset_working)), working_time)
-			current_feature_ref = ref(new_feature)
+			current_feature_ref = REF(new_feature)
 			current_feature = new_feature
-			ui_update()
+			return TRUE
 
 /obj/machinery/plant_machine/plant_mutator/proc/reset_working()
 	working = FALSE

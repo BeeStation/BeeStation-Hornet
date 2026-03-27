@@ -3,6 +3,7 @@
 */
 /datum/plant_trait/fruit
 	plant_feature_compat = /datum/plant_feature/fruit
+	abstract_type = /datum/plant_trait/fruit
 	///Reference to our awesome fruit, atom, owner
 	var/obj/item/fruit_parent
 	///Archive of our fruit parent's trait power, for when we live on a fruit

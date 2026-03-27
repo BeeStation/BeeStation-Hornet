@@ -114,7 +114,7 @@
 			current_feature_ref = current_feature_ref == params["key"] ? null : params["key"]
 			current_feature = locate(current_feature_ref)
 			last_command = "pit feature select -m [params["key"]]"
-			ui_update()
+			return TRUE
 		if("remove_feature")
 			var/datum/plant_feature/feature = locate(params["key"])
 			if(!feature.can_remove)
@@ -132,7 +132,7 @@
 			seeds.update_species_id()
 			seeds.update_plant_name()
 			last_command = "pit feature remove -f -m [params["key"]]"
-			ui_update()
+			return TRUE
 		if("remove_trait")
 			var/datum/plant_trait/trait = locate(params["key"])
 			if(!trait.can_remove)
@@ -147,7 +147,7 @@
 				current_feature.plant_traits -= trait
 			qdel(trait)
 			last_command = "pit trait remove -f -m [params["key"]]"
-			ui_update()
+			return TRUE
 		if("add_trait")
 			if(!current_feature)
 				return
@@ -170,7 +170,7 @@
 			seeds.update_species_id()
 			seeds.update_plant_name()
 			last_command = "pit trait add -f -cd [params["key"]]"
-			ui_update()
+			return TRUE
 		if("add_feature")
 			var/datum/plant_feature/feature = locate(params["key"])
 		//Generic compatibility checking
@@ -210,7 +210,7 @@
 			seeds.update_species_id()
 			seeds.update_plant_name()
 			last_command = "pit feature add -f -cd [params["key"]]"
-			ui_update()
+			return TRUE
 		if("remove_disk")
 			//Fix focus
 			if(disk.saved == current_feature)
@@ -220,7 +220,7 @@
 			disk.forceMove(get_turf(src))
 			disk = null
 			last_command = "per reader eject -f"
-			ui_update()
+			return TRUE
 
 //Circuitboard
 /obj/item/circuitboard/machine/seed_editor

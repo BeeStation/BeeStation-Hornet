@@ -8,3 +8,4 @@
 	whitelist_features = list(/datum/plant_feature/body/mushroom, /datum/plant_feature/roots)
 	feature_catagories = PLANT_FEATURE_FRUIT
 	growth_time = PLANT_FRUIT_GROWTH_VERY_FAST
+	abstract_type = /datum/plant_feature/fruit/mushroom

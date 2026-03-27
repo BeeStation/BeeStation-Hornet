@@ -69,9 +69,9 @@
 //Build tray indicatos
 	if(!use_indicators)
 		return
-	harvest = new(src, "#0f0", 1)
-	need = new(src, "#ff9100", 2)
-	problem = new(src, "#f00", 3)
+	harvest = new(src, COLOR_VIBRANT_LIME, 1)
+	need = new(src, COLOR_ORANGE, 2)
+	problem = new(src, COLOR_RED, 3)
 //Apply our starting offset
 	pixel_x = rand(starting_offset[1], starting_offset[2])
 	pixel_y = rand(starting_offset[3], starting_offset[4])
@@ -118,11 +118,11 @@
 	context.add_left_click_item_action("Fill Tray", /obj/item/substrate_bag)
 	context.add_alt_click_action("Rotate Plumbing")
 
+//Wrench behaviour for plumbing stuff
 /obj/item/plant_tray/wrench_act(mob/living/user, obj/item/tool)
-	//Wrench behaviour for plumbing stuff
-	..()
-	default_unfasten_wrench(user, tool)
-	. = TRUE
+	if(!default_unfasten_wrench(user, tool))
+		return
+	. = TOOL_ACT_TOOLTYPE_SUCCESS
 	//Visual fluff
 	if(anchored)
 		pixel_x = 0
@@ -131,7 +131,7 @@
 	pixel_x = rand(starting_offset[1], starting_offset[2])
 	pixel_y = rand(starting_offset[3], starting_offset[4])
 
-/obj/item/plant_tray/attackby(obj/item/I, mob/living/user, params)
+/obj/item/plant_tray/attackby(obj/item/attacking_item, mob/living/user, params)
 	. = ..()
 	//Quick feedback
 	update_reagents()
@@ -169,17 +169,17 @@
 	UnregisterSignal(plant_component, COMSIG_PLANT_NEEDS_PASS)
 //Indicators
 	//Harvest light
-	harvestable_components -= "[ref(plant_component)]"
+	harvestable_components -= "[REF(plant_component)]"
 	//Need light
 	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
-		needy_features -= "[ref(feature)]"
+		needy_features -= "[REF(feature)]"
 	//Problem light
 	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
-		problem_features -= "[ref(feature)]"
+		problem_features -= "[REF(feature)]"
 	update_indicators()
 
 ///Helpers to handle substrate vvisuals
-/obj/item/plant_tray/proc/add_substrate(_substrate)
+/obj/item/plant_tray/proc/add_substrate()
 	if(!use_substrate)
 		return
 	var/datum/plant_subtrate/substrate = tray_component.substrate
@@ -218,21 +218,22 @@
 //You can throw any special reagent logic here
 /obj/item/plant_tray/proc/update_reagents()
 	if(reagents.total_volume <= 0)
-		tray_reagents.color ="#0000"
+		tray_reagents.alpha = 0
 		return
+	tray_reagents.alpha = 255
 	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 
 /obj/item/plant_tray/proc/add_feature_indicator(datum/_source, datum/feature, list/feature_list)
-	if(!feature_list["[ref(feature)]"])
-		feature_list["[ref(feature)]"] = list()
-	feature_list["[ref(feature)]"] |= "[ref(_source)]"
+	if(!feature_list["[REF(feature)]"])
+		feature_list["[REF(feature)]"] = list()
+	feature_list["[REF(feature)]"] |= "[REF(_source)]"
 	update_indicators()
 
 /obj/item/plant_tray/proc/remove_feature_indicator(datum/_source, datum/feature, list/feature_list)
-	if(feature_list["[ref(feature)]"])
-		feature_list["[ref(feature)]"] -= "[ref(_source)]"
-	if(!length(feature_list["[ref(feature)]"]))
-		feature_list -= "[ref(feature)]"
+	if(feature_list["[REF(feature)]"])
+		feature_list["[REF(feature)]"] -= "[REF(_source)]"
+	if(!length(feature_list["[REF(feature)]"]))
+		feature_list -= "[REF(feature)]"
 	update_indicators()
 
 /obj/item/plant_tray/proc/update_indicators()
@@ -264,7 +265,7 @@
 	vis_flags = VIS_INHERIT_ID
 	appearance_flags = KEEP_APART
 	layer = BELOW_OBJ_LAYER
-	color = "#fff0"
+	alpha = 0
 	///Water rendered over the plant
 	var/mutable_appearance/over_water
 

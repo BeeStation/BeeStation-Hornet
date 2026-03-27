@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(botany)
 	name = "Botany"
 	flags = SS_NO_FIRE
-	init_order = INIT_ORDER_BOTANY
 
 	///list of plant species - This is used for the discovery component
 	var/list/plant_species = list()
@@ -105,7 +104,7 @@ SUBSYSTEM_DEF(botany)
 	for(var/datum/plant_feature/feature as anything in features)
 		var/datum/plant_feature/entry_feature = new feature()
 		//Don't let abstract types through
-		if(entry_feature.type == /datum/plant_feature || entry_feature.type == /datum/plant_feature/body || entry_feature.type == /datum/plant_feature/fruit || entry_feature.type == /datum/plant_feature/roots || entry_feature.type == /datum/plant_feature/fruit/mushroom)
+		if(entry_feature.type == entry_feature.abstract_type)
 			qdel(entry_feature)
 			continue
 		//Don't let kirbies through
@@ -116,24 +115,24 @@ SUBSYSTEM_DEF(botany)
 		if(entry_feature.dictionary_override && keyed_features["[entry_feature.dictionary_override]"])
 			continue
 		chapters["features"] |= entry_feature
-		keyed_features["[entry_feature.type]"] = "[ref(entry_feature)]"
+		keyed_features["[entry_feature.type]"] = "[REF(entry_feature)]"
 	//Build links
 		//Traits
 		for(var/datum/plant_trait/trait as anything in entry_feature.plant_traits)
 			dictionary_links["[trait.get_id()]"] = dictionary_links["[trait.get_id()]"] || list()
-			dictionary_links["[trait.get_id()]"] |= "[ref(entry_feature)]"
+			dictionary_links["[trait.get_id()]"] |= "[REF(entry_feature)]"
 		//Mutations
 	for(var/datum/plant_feature/feature as anything in chapters["features"])
 		for(var/datum/plant_feature/mutation as anything in feature.mutations)
 			var/link_feature = keyed_features["[mutation]"]
 			dictionary_links[link_feature] = dictionary_links[link_feature] || list()
-			dictionary_links[link_feature] |= "[ref(feature)]"
+			dictionary_links[link_feature] |= "[REF(feature)]"
 //Traits
 	chapters["traits"] = chapters["traits"] || list() //Race condition weirdness
 	var/list/traits = subtypesof(/datum/plant_trait)
 	for(var/datum/plant_trait/trait as anything in traits)
 		var/datum/plant_trait/entry_trait = new trait()
-		if(trait.type == /datum/plant_trait || trait.type == /datum/plant_trait/fruit || trait.type == /datum/plant_trait/body || trait.type == /datum/plant_trait/roots || trait.type == /datum/plant_trait/reagent)
+		if(trait.type == trait.abstract_type)
 			qdel(entry_trait)
 			continue
 		chapters["traits"] += entry_trait
@@ -152,7 +151,7 @@ SUBSYSTEM_DEF(botany)
 		for(var/datum/plant_feature/feature as anything in seeds.plant_features)
 			var/link_feature = keyed_features["[feature.dictionary_override || feature.type]"]
 			dictionary_links[link_feature] = dictionary_links[link_feature] || list()
-			dictionary_links[link_feature] += "[ref(seeds)]"
+			dictionary_links[link_feature] += "[REF(seeds)]"
 
 /datum/controller/subsystem/botany/proc/get_seed(consider_unused = TRUE)
 	if(!consider_unused)

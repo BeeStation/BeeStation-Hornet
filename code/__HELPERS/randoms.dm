@@ -55,7 +55,7 @@
 	. = str
 
 /proc/get_random_seed()
-	var/list/blocked = list(
+	var/static/list/blocked = list(
 		/obj/item/plant_seeds/preset/bombanana,
 		/obj/item/plant_seeds/preset/cherry_bomb
 		)

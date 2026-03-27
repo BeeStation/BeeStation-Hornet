@@ -4,6 +4,7 @@
 	feature_catagories = PLANT_FEATURE_ROOTS
 	trait_type_shortcut = /datum/plant_feature/roots
 	genetic_budget = 1
+	abstract_type = /datum/plant_feature/roots
 	///Where can we pull reagents from
 	var/list/access_whitelist = list(/obj/item/plant_tray, /turf/open)
 	///What kinda of substrate can we grow in?

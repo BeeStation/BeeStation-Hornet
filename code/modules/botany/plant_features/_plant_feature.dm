@@ -43,6 +43,9 @@
 	///What feature do we default to in the dictionary? leave blank for most cases. Only fill in for once in a case variants
 	var/dictionary_override
 
+	///Type path that represents our abstract type, this type is ommited from records
+	var/abstract_type = /datum/plant_feature
+
 //Appearance
 	var/icon = 'icons/obj/hydroponics/features/generic.dmi'
 	var/icon_state = ""
@@ -124,7 +127,7 @@
 		return
 	var/list/trait_ui = list()
 	for(var/datum/plant_trait/trait as anything in plant_traits)
-		trait_ui += trait?.get_ui_stats()
+		trait_ui += trait.get_ui_stats()
 	return trait_ui
 
 ///Copies the plant's unique data - This is mostly, if not entirely, for randomized stuff & custom player made plants

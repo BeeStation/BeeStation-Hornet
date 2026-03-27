@@ -10,6 +10,7 @@
 	/datum/plant_need/reagent/buff/toxin,  /datum/plant_need/reagent/buff/robust)
 	feature_catagories = PLANT_FEATURE_BODY
 	trait_type_shortcut = /datum/plant_feature/body
+	abstract_type = /datum/plant_feature/body
 
 	///How much health this plant body has
 	var/health = PLANT_BODY_HEALTH_MEDIUM
@@ -231,6 +232,7 @@
 	if(yields <= 0 || health <= 0)
 		if(!wither_state)
 			parent.plant_item.add_filter("wither_colours", 1, color_matrix_filter(list(rgb(193, 87, 87), rgb(76, 128, 76), rgb(76, 76, 128)) ,COLORSPACE_RGB))
+		SEND_SIGNAL(parent, COMSIG_PLANT_ACTION_HARVEST)
 		return
 	COOLDOWN_START(src, yield_cooldown, yield_cooldown_time)
 
