@@ -107,8 +107,9 @@
 
 /obj/item/plant_tray/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-	playsound(src, 'sound/effects/glassknock.ogg', 15, TRUE)
-	to_chat(user, span_danger("Harvest plants by clicking on them!\nYou need plant scanner to check weed level, and alert descriptions."))
+	if(length(harvest))
+		to_chat(user, span_danger("Harvest plants by clicking on them!"))
+	to_chat(user, span_danger("You need a plant scanner to check weed level, and alert descriptions."))
 
 /obj/item/plant_tray/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))

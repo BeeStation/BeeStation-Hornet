@@ -28,8 +28,7 @@
 
 /obj/machinery/plant_machine/seed_editor/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-	playsound(src, 'sound/effects/glassknock.ogg', 15, TRUE)
-	to_chat(user, span_danger("[src] can be controlled with a hydroponics mechine terminal."))
+	to_chat(user, span_danger("[src] can be controlled with a hydroponics machine terminal."))
 
 /obj/machinery/plant_machine/seed_editor/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))

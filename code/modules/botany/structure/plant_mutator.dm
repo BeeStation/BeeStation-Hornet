@@ -64,8 +64,7 @@
 
 /obj/machinery/plant_machine/plant_mutator/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-	playsound(src, 'sound/effects/glassknock.ogg', 15, TRUE)
-	to_chat(user, span_danger("[src] can be controlled with a hydroponics mechine terminal.\nA plant can be inserted into [src] using a spade."))
+	to_chat(user, span_danger("[src] can be controlled with a hydroponics machine terminal.\nA plant can be inserted into [src] using a spade."))
 
 /obj/machinery/plant_machine/plant_mutator/process(delta_time)
 	if(!radiation)
