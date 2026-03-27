@@ -63,6 +63,7 @@
 	E.trigger()
 
 /datum/action/innate/fugu
+	abstract_type = /datum/action/innate/fugu
 	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	background_icon_state = "bg_fugu"
 	overlay_icon_state = "bg_fugu_border"

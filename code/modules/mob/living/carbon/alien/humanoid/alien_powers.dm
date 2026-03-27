@@ -54,6 +54,7 @@ Doesn't work on other aliens/AI.*/
 	return "[.] | PLASMA - [plasma_cost]"
 
 /datum/action/cooldown/alien/make_structure
+	abstract_type = /datum/action/cooldown/alien/make_structure
 	/// The type of structure the action makes on use
 	var/obj/structure/made_structure_type
 

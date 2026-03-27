@@ -168,6 +168,9 @@
 				to_chat(B.current,span_cultlarge("[nominee] has won the cult's support and is now their master. Follow [nominee.p_their()] orders to the best of your ability!"))
 	return TRUE
 
+/datum/action/innate/cult/master
+	abstract_type = /datum/action/innate/cult/master
+
 /datum/action/innate/cult/master/is_available(feedback = FALSE)
 	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.narsie)
 		return 0

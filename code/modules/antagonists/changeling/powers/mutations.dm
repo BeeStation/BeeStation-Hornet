@@ -11,6 +11,7 @@
 
 //Parent to shields and blades because muh copypasted code.
 /datum/action/changeling/weapon
+	abstract_type = /datum/action/changeling/weapon
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at Miauw and/or Perakp"
