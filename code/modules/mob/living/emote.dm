@@ -524,38 +524,10 @@
 	. = ..()
 	return .|WITH_EMPHASIS_MESSAGE
 
-/datum/emote/living/custom/proc/get_custom_emote_from_user()
-	return copytext(sanitize(input("Choose an emote to display.") as text|null), 1, MAX_MESSAGE_LEN)
-
-/datum/emote/living/custom/proc/get_custom_emote_type_from_user()
-	var/type = tgui_input_list(usr, "Is this a visible or hearable emote?", items = list("Visible", "Hearable", "Both"))
-
-	switch(type)
-		if("Visible")
-			return EMOTE_VISIBLE
-		if("Hearable")
-			return EMOTE_AUDIBLE
-		if("Both")
-			return EMOTE_VISIBLE | EMOTE_AUDIBLE
-		else
-			tgui_alert(usr,"Unable to use this emote, must be either hearable or visible.")
-			return FALSE
-
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
-	var/our_message = params ? params : get_custom_emote_from_user()
-
-	if(!emote_is_valid(user, our_message))
+	if(!emote_is_valid(user, params))
 		return FALSE
-
-	if(!params)
-		var/user_emote_type = get_custom_emote_type_from_user()
-
-		if(!user_emote_type)
-			return FALSE
-
-		type_override = user_emote_type
-
-	. = ..(user = user, params = our_message, type_override = type_override, intentional = intentional)
+	. = ..(user = user, params = params, type_override = type_override, intentional = intentional)
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	return message
