@@ -113,3 +113,5 @@
 /datum/preference/choiced/moth_eyes/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["moth_eyes"] = value
 
+/datum/preference/choiced/moth_eyes/create_default_value()
+	return "Default"
