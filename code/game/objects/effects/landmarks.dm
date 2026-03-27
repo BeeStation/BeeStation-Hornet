@@ -602,7 +602,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 			stack_trace("The navigation landmark failed to get an area.")
 			qdel(src)
 			return
-		navigation_id = linked_area.get_navigation_area_name()
+		navigation_id = linked_area.name
 	if(!navigation_id)
 		navigation_id = "Unnamed area"
 

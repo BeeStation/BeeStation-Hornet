@@ -4,7 +4,7 @@
 
 /area/CATEGORY/OR/DESCRIPTOR/NAME 	(you can make as many subdivisions as you want)
 	name = "NICE NAME" 				(not required but makes things really nice)
-	icon = 'ICON FILENAME' 			(defaults to 'icons/turf/areas.dmi')
+	icon = 'ICON FILENAME' 			(defaults to 'icons/area/areas.dmi')
 	icon_state = "NAME OF ICON" 	(defaults to "unknown" (blank))
 	requires_power = FALSE 				(defaults to true)
 	ambience_index = AMBIENCE_GENERIC   (picks the ambience from an assoc list in ambience.dm)

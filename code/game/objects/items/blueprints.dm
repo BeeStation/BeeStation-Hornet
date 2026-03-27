@@ -155,7 +155,7 @@
 		/area/asteroid,
 		/area/tdome,
 		/area/wizard_station,
-		/area/hilbertshotel,
+		/area/misc/hilbertshotel,
 		/area/hilbertshotelstorage
 	)
 	for (var/type in SPECIALS)

@@ -214,145 +214,300 @@
 	icon_state = "green"
 
 
-//Ruin of ancient Space Station
+//Ruin of ancient Space Station (OldStation)
 
-/area/ruin/space/has_grav/ancientstation
-	name = "Charlie Station Main Corridor"
-	icon_state = "green"
+/area/ruin/space/ancientstation
+	icon_state = "oldstation"
 
-/area/ruin/space/has_grav/ancientstation/powered
+/area/ruin/space/ancientstation/powered
 	name = "Powered Tile"
 	icon_state = "teleporter"
 	requires_power = FALSE
 
-/area/ruin/space/has_grav/ancientstation/space
-	name = "Exposed To Space"
-	icon_state = "teleporter"
-	default_gravity = ZERO_GRAVITY
+/area/ruin/space/ancientstation/beta
+	icon_state = "betastation"
 
-/area/ruin/space/has_grav/ancientstation/atmo
+/area/ruin/space/ancientstation/beta/atmos
 	name = "Beta Station Atmospherics"
-	icon_state = "red"
-	default_gravity = ZERO_GRAVITY
+	icon_state = "os_beta_atmos"
 	ambience_index = AMBIENCE_ENGI
 
-/area/ruin/space/has_grav/ancientstation/betanorth
-	name = "Beta Station North Corridor"
-	icon_state = "blue"
+/area/ruin/space/ancientstation/beta/supermatter
+	name = "Beta Station Supermatter chamber"
+	icon_state = "os_beta_engine"
 
-/area/ruin/space/has_grav/ancientstation/solar
-	name = "Station Solar Array"
-	icon_state = "panelsAP"
+/area/ruin/space/ancientstation/beta/hall
+	name = "Beta Station Main Corridor"
+	icon_state = "os_beta_hall"
 
-/area/ruin/space/has_grav/ancientstation/engi
+/area/ruin/space/ancientstation/beta/gravity
+	name = "Beta Station Gravity Generator"
+	icon_state = "os_beta_gravity"
+
+/area/ruin/space/ancientstation/beta/mining
+	name = "Beta Station Mining Equipment"
+	icon_state = "os_beta_mining"
+	ambience_index = AMBIENCE_MINING
+
+/area/ruin/space/ancientstation/beta/medbay
+	name = "Beta Station Medbay"
+	icon_state = "os_beta_medbay"
+	ambience_index = AMBIENCE_MEDICAL
+
+/area/ruin/space/ancientstation/beta/storage
+	name = "\improper Beta Station Storage"
+	icon_state = "os_beta_storage"
+
+/area/ruin/space/ancientstation/charlie
+	icon_state = "charliestation"
+
+/area/ruin/space/ancientstation/charlie/hall
+	name = "Charlie Station Main Corridor"
+	icon_state = "os_charlie_hall"
+
+/area/ruin/space/ancientstation/charlie/engie
 	name = "Charlie Station Engineering"
-	icon_state = "engine"
+	icon_state = "os_charlie_engine"
 	ambience_index = AMBIENCE_ENGI
 
-/area/ruin/space/has_grav/ancientstation/comm
+/area/ruin/space/ancientstation/charlie/bridge
 	name = "Charlie Station Command"
-	icon_state = "captain"
+	icon_state = "os_charlie_bridge"
 
-/area/ruin/space/has_grav/ancientstation/hydroponics
+/area/ruin/space/ancientstation/charlie/hydro
 	name = "Charlie Station Hydroponics"
-	icon_state = "garden"
+	icon_state = "os_charlie_hydro"
 
-/area/ruin/space/has_grav/ancientstation/kitchen
-	name = "Charlie Station Kitchen"
-	icon_state = "kitchen"
+/area/ruin/space/ancientstation/charlie/kitchen
+	name = "\improper Charlie Station Kitchen"
+	icon_state = "os_charlie_kitchen"
 
-/area/ruin/space/has_grav/ancientstation/sec
+/area/ruin/space/ancientstation/charlie/sec
 	name = "Charlie Station Security"
-	icon_state = "red"
+	icon_state = "os_charlie_sec"
 
-/area/ruin/space/has_grav/ancientstation/deltacorridor
+/area/ruin/space/ancientstation/charlie/dorms
+	name = "Charlie Station Dorms"
+	icon_state = "os_charlie_dorms"
+
+/area/ruin/space/solars/ancientstation/charlie/solars
+	name = "\improper Charlie Station Solar Array"
+	icon = 'icons/area/areas_ruins.dmi' // Solars inheriet areas_misc.dmi, not areas_ruin.dmi
+	icon_state = "os_charlie_solars"
+	requires_power = FALSE
+	area_flags = NONE
+	sound_environment = SOUND_AREA_SPACE
+
+/area/ruin/space/ancientstation/charlie/storage
+	name = "Charlie Station Storage"
+	icon_state = "os_charlie_storage"
+
+/area/ruin/space/ancientstation/delta
+	icon_state = "deltastation"
+
+/area/ruin/space/ancientstation/delta/hall
 	name = "Delta Station Main Corridor"
-	icon_state = "green"
+	icon_state = "os_delta_hall"
 
-/area/ruin/space/has_grav/ancientstation/proto
-	name = "Delta Station Prototype Lab"
-	icon_state = "toxlab"
+/area/ruin/space/ancientstation/delta/proto
+	name = "\improper Delta Station Prototype Lab"
+	icon_state = "os_delta_protolab"
 
-/area/ruin/space/has_grav/ancientstation/rnd
+/area/ruin/space/ancientstation/delta/rnd
 	name = "Delta Station Research and Development"
-	icon_state = "toxlab"
+	icon_state = "os_delta_rnd"
 
-/area/ruin/space/has_grav/ancientstation/hivebot
-	name = "Hivebot Mothership"
-	icon_state = "teleporter"
+/area/ruin/space/ancientstation/delta/ai
+	name = "\improper Delta Station AI Core"
+	icon_state = "os_delta_ai"
+	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
 
-//DERELICT
+/area/ruin/space/ancientstation/delta/storage
+	name = "\improper Delta Station Storage"
+	icon_state = "os_delta_storage"
 
-/area/ruin/space/derelict
-	name = "Derelict Station"
-	icon_state = "storage"
+/area/ruin/space/ancientstation/delta/biolab
+	name = "Delta Station Biolab"
+	icon_state = "os_delta_biolab"
 
-/area/ruin/space/derelict/hallway/primary
-	name = "Derelict Primary Hallway"
-	icon_state = "hallP"
+//KC13, aka TheDerelict.dmm
 
-/area/ruin/space/derelict/hallway/secondary
-	name = "Derelict Secondary Hallway"
-	icon_state = "hallS"
+/area/ruin/space/ks13
+	name = "\improper Derelict Station 13"
+	icon_state = "ks13"
 
-/area/ruin/space/derelict/hallway/primary/port
-	name = "Derelict Port Hallway"
-	icon_state = "hallFP"
+// Area define for organization
+/area/ruin/space/ks13/hallway
 
-/area/ruin/space/derelict/arrival
-	name = "Derelict Arrival Centre"
-	icon_state = "yellow"
+/area/ruin/space/ks13/hallway/central
+	name = "\improper Derelict Central Hallway"
+	icon_state = "ks13_cent_hall"
 
-/area/ruin/space/derelict/storage/equipment
-	name = "Derelict Equipment Storage"
+/area/ruin/space/ks13/hallway/aft
+	name = "\improper Derelict Aft Hallway"
+	icon_state = "ks13_aft_hall"
 
-/area/ruin/space/derelict/bridge
-	name = "Derelict Control Room"
-	icon_state = "bridge"
+/area/ruin/space/ks13/hallway/starboard_bow
+	name = "\improper Derelict Starboard Bow Hallway"
+	icon_state = "ks13_sb_bow_hall"
 
-/area/ruin/space/derelict/bridge/access
-	name = "Derelict Control Room Access"
-	icon_state = "auxstorage"
+// Area define for organization
+/area/ruin/space/ks13/engineering
 
-/area/ruin/space/derelict/bridge/ai_upload
-	name = "Derelict Computer Core"
-	icon_state = "ai"
+/area/ruin/space/ks13/engineering/supermatter
+	name = "\improper Derelict Supermatter Engine"
+	icon_state = "ks13_supermatter"
 
-/area/ruin/space/derelict/solar_control
-	name = "Derelict Solar Control"
-	icon_state = "engine"
+/area/ruin/space/ks13/engineering/atmos
+	name = "\improper Derelict Atmospherics"
+	icon_state = "ks13_atmos"
 
-/area/ruin/space/derelict/se_solar
-	name = "South East Solars"
-	icon_state = "engine"
+/area/ruin/space/ks13/engineering/secure_storage
+	name = "\improper Derelict Secure Storage"
+	icon_state = "ks13_secure_storage"
 
-/area/ruin/space/derelict/medical
-	name = "Derelict Medbay"
-	icon_state = "medbay"
+/area/ruin/space/ks13/engineering/tech_storage
+	name = "\improper Derelict Tech Storage"
+	icon_state = "ks13_tech_storage"
 
-/area/ruin/space/derelict/medical/chapel
-	name = "Derelict Chapel"
-	icon_state = "chapel"
+/area/ruin/space/ks13/engineering/aux_storage
+	name = "\improper Derelict Aux Storage"
+	icon_state = "ks13_aux_storage"
 
-/area/solar/derelict_starboard
-	name = "Derelict Starboard Solar Array"
-	icon_state = "panelsS"
+/area/ruin/space/ks13/engineering/grav_gen
+	name = "\improper Derelict Gravity Generator"
+	icon_state = "ks13_grav_gen"
 
-/area/solar/derelict_aft
-	name = "Derelict Aft Solar Array"
-	icon_state = "yellow"
+/area/ruin/space/ks13/engineering/sb_bow_solars_control
+	name = "\improper Derelict Starboard Bow Solars Control Room"
+	icon_state = "ks13_sb_bow_solars_control"
 
-/area/ruin/space/derelict/singularity_engine
-	name = "Derelict Singularity Engine"
-	icon_state = "engine"
+/area/ruin/space/ks13/engineering/aft_solars_control
+	name = "\improper Derelict Aft Solars Control Room"
+	icon_state = "ks13_aft_solars_control"
 
-/area/ruin/space/derelict/gravity_generator
-	name = "Derelict Gravity Generator Room"
-	icon_state = "red"
+// Area define for organization
+/area/ruin/space/ks13/medical
 
-/area/ruin/space/derelict/atmospherics
-	name = "Derelict Atmospherics"
-	icon_state = "red"
+/area/ruin/space/ks13/medical/morgue
+	name = "\improper Derelict Morgue"
+	icon_state = "ks13_morgue"
+
+/area/ruin/space/ks13/medical/medbay
+	name = "\improper Derelict Medbay"
+	icon_state = "ks13_med"
+
+// Area define for organization
+/area/ruin/space/ks13/service
+
+/area/ruin/space/ks13/service/kitchen
+	name = "\improper Derelict Kitchen"
+	icon_state = "ks13_kitchen"
+
+/area/ruin/space/ks13/service/bar
+	name = "\improper Derelict Bar"
+	icon_state = "ks13_bar"
+
+/area/ruin/space/ks13/service/chapel
+	name = "\improper Derelict Chapel"
+	icon_state = "ks13_chapel"
+
+/area/ruin/space/ks13/service/chapel_office
+	name = "\improper Derelict Chapel Office"
+	icon_state = "ks13_chapel_office"
+
+/area/ruin/space/ks13/service/cafe
+	name = "\improper Derelict Cafe"
+	icon_state = "ks13_cafe"
+
+/area/ruin/space/ks13/service/hydro
+	name = "\improper Derelict Hydroponics"
+	icon_state = "ks13_hydro"
+
+/area/ruin/space/ks13/service/jani
+	name = "\improper Derelict Janitor Closet"
+	icon_state = "ks13_jani"
+
+// Area define for organization
+/area/ruin/space/ks13/science
+
+/area/ruin/space/ks13/science/rnd
+	name = "\improper Derelict Research and Development"
+	icon_state = "ks13_sci"
+
+/area/ruin/space/ks13/science/genetics
+	name = "\improper Derelict Genetics"
+	icon_state = "ks13_gen"
+
+/area/ruin/space/ks13/science/ordnance
+	name = "\improper Derelict Ordnance Department"
+	icon_state = "ks13_ord"
+
+/area/ruin/space/ks13/science/ordnance_hall
+	name = "\improper Derelict Ordnance Hallway"
+	icon_state = "ks13_ord_hall"
+
+// Area define for organization
+/area/ruin/space/ks13/security
+
+/area/ruin/space/ks13/security/sec
+	name = "\improper Derelict Security"
+	icon_state = "ks13_sec"
+
+/area/ruin/space/ks13/security/cell
+	name = "\improper Derelict Security Cell"
+	icon_state = "ks13_sec_cell"
+
+/area/ruin/space/ks13/security/court
+	name = "\improper Derelict Courtroom"
+	icon_state = "ks13_court"
+
+/area/ruin/space/ks13/security/court_hall
+	name = "\improper Derelict Courtroom Hallway"
+	icon_state = "ks13_court_hall"
+
+// Area define for organization
+/area/ruin/space/ks13/command
+
+/area/ruin/space/ks13/command/bridge
+	name = "\improper Derelict Bridge"
+	icon_state = "ks13_bridge"
+
+/area/ruin/space/ks13/command/bridge_hall
+	name = "\improper Derelict Bridge Hallway"
+	icon_state = "ks13_bridge_hall"
+
+/area/ruin/space/ks13/command/eva
+	name = "\improper Derelict E.V.A"
+	icon_state = "ks13_eva"
+
+// Area define for organization
+/area/ruin/space/ks13/ai
+
+/area/ruin/space/ks13/ai/vault
+	name = "\improper Derelict AI Vault"
+	icon_state = "ks13_ai_vault"
+
+/area/ruin/space/ks13/ai/corridor
+	name = "\improper Derelict AI Corridor"
+	icon_state = "ks13_ai_corridor"
+
+// Misc areas that don't belong to a department, general purpose or what may have you
+/area/ruin/space/ks13/tool_storage
+	name = "\improper Derelict Tool Storage"
+	icon_state = "ks13_tool_storage"
+
+/area/ruin/space/ks13/dorms
+	name = "\improper Derelict Dorms"
+	icon_state = "ks13_dorms"
+
+/area/ruin/space/solars/ks13/sb_bow_solars
+	name = "\improper Derelict Starboard Bow Solars"
+	icon_state = "ks13_sb_bow_solars"
+
+/area/ruin/space/solars/ks13/aft_solars
+	name = "\improper Derelict Aft Solars"
+	icon_state = "ks13_aft_solars"
 
 //DJSTATION
 
@@ -370,8 +525,7 @@
 //ABANDONED TELEPORTER
 
 /area/ruin/space/abandoned_tele
-	name = "Abandoned Teleporter"
-	icon_state = "teleporter"
+	name = "\improper Abandoned Teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 
 //OLD AI SAT

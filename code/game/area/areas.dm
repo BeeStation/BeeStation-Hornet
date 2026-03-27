@@ -5,8 +5,7 @@
   */
 /area
 	name = "Space"
-	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
 	//Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
@@ -609,6 +608,3 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/get_area_textures()
 	return list()
 
-/// returns a name of the area. some subtype area needs to return different value.
-/area/proc/get_navigation_area_name()
-	return navigation_area_name || name
