@@ -98,10 +98,10 @@
 	if(!length(growth_timers))
 		return
 //Growing
-	for(var/timer, _fruit_effect as anything in growth_timers)
-		if(!_fruit_effect)
+	for(var/timer as anything in growth_timers)
+		var/obj/effect/fruit_effect = visual_fruits[timer]
+		if(!fruit_effect)
 			continue
-		var/obj/effect/fruit_effect = _fruit_effect
 		//Archive the transform to preserve stuff done by body features
 		o_transform[timer] = o_transform[timer] || fruit_effect.transform
 		//If this is the first time it's being process, shrink it down and reveal the alpha
