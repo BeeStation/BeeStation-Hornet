@@ -2,13 +2,14 @@
 #define ELDRITCH_WHETSTONE "Eldritch Whetstone"
 #define CONSTRUCT_SHELL "Construct Shell"
 #define UNHOLY_WATER "Flask of Unholy Water"
+#define GOLEM_SHELL "Runic Golem Shell"
 #define PROTEON_ORB "Portal Summoning Orb"
 
 // Cult altar. Gives out consumable items.
 /obj/structure/destructible/cult/item_dispenser/altar
 	name = "altar"
 	desc = "A bloodstained altar dedicated to Nar'Sie."
-	cult_examine_tip = "Can be used to create eldritch whetstones, construct shells, and flasks of unholy water."
+	cult_examine_tip = "Can be used to create eldritch whetstones, construct shells, flasks of unholy water, and golem shells."
 	icon_state = "talismanaltar"
 	break_message = span_warning("The altar shatters, leaving only the wailing of the damned!")
 	mansus_conversion_path = /obj/effect/heretic_rune
@@ -34,6 +35,11 @@
 				which can be sipped to heal all damage types, including blood loss. \
 				Also acts as a coagulant and mild stimulant (providing token resistance to stuns and stamina damage).",
 			),
+		GOLEM_SHELL = list(
+			PREVIEW_IMAGE = image(icon = 'icons/obj/wizard.dmi', icon_state = "construct"),
+			OUTPUT_ITEMS = list(/obj/item/golem/shell/runic),
+			RADIAL_DESC = "Produces \a [/obj/item/golem/shell/runic::name], which can be used to create a runic golem.",
+			),
 	)
 
 	var/extra_item = extra_options()
@@ -48,4 +54,5 @@
 #undef ELDRITCH_WHETSTONE
 #undef CONSTRUCT_SHELL
 #undef UNHOLY_WATER
+#undef GOLEM_SHELL
 #undef PROTEON_ORB
