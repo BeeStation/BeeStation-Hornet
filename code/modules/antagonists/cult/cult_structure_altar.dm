@@ -37,8 +37,8 @@
 			),
 		GOLEM_SHELL = list(
 			PREVIEW_IMAGE = image(icon = 'icons/obj/wizard.dmi', icon_state = "construct"),
-			OUTPUT_ITEMS = list(/obj/item/golem/shell/runic),
-			RADIAL_DESC = "Produces \a [/obj/item/golem/shell/runic::name], which can be used to create a runic golem.",
+			OUTPUT_ITEMS = list(/obj/item/golem_shell/runic),
+			RADIAL_DESC = "Produces \a [/obj/item/golem_shell/runic::name], which can be used to create a runic golem.",
 			),
 	)
 
