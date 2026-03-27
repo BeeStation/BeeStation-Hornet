@@ -78,6 +78,7 @@
 			return
 
 	var/list/ruins = potentialRuins.Copy()
+	shuffle(ruins)
 	var/placed_ruins = 0 // our count of how many ruins have been placed
 	var/ghost_roles_forced = 0 // how many ruins that have space ruins have been placed
 	var/list/forced_ruins = list() //These go first on the z level associated (same random one by default) or if the assoc value is a turf to the specified turf.
