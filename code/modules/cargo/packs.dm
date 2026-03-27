@@ -5,10 +5,9 @@
 	var/contraband = FALSE
 	var/current_supply
 	var/max_supply = 5
-	var/access = null
 	/// Cost of the crate. DO NOT GO ANY LOWER THAN X1.4 the "CARGO_CRATE_VALUE" value if using regular crates, or infinite profit will be possible!
 	var/cost = CARGO_CRATE_VALUE * 1.4
-	var/access = FALSE
+	var/access = null
 	var/access_budget = FALSE //prevents people from requesting stupid stuff with their department's budget via app
 	var/list/contains = null
 	var/crate_name = "crate"
