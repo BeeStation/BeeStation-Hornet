@@ -176,6 +176,8 @@
 					set_hud_image_state(STATUS_HUD, "huddefib-ssd")
 				else
 					set_hud_image_state(STATUS_HUD, "huddefib")
+			else
+				set_hud_image_state(STATUS_HUD, "huddead")
 		else if(!client && key)
 			set_hud_image_state(STATUS_HUD, "huddead-ssd")
 		else
