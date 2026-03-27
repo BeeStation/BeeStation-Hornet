@@ -390,9 +390,11 @@
 		states += "plant-[number]"
 
 /obj/item/kirbyplants/dead
+	icon_state = "plant-25"
+
+/obj/item/kirbyplants/dead/research_director
 	name = "RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
-	icon_state = "plant-25"
 
 /obj/item/kirbyplants/photosynthetic
 	name = "photosynthetic potted plant"

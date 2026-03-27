@@ -388,7 +388,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/structure/sign/warning/fire{
@@ -1811,7 +1811,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/dark/corner,
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/dead/research_director{
 	pixel_y = 21;
 	pixel_x = -8
 	},
@@ -2065,7 +2065,7 @@
 "aeG" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/bot_white,
@@ -3325,7 +3325,7 @@
 	icon_state = "plant-10"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -3570,7 +3570,7 @@
 /turf/closed/indestructible/riveted,
 /area/centcom/prison)
 "aiI" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/indestructible/riveted,
 /area/centcom/prison)
 "aiJ" = (
@@ -5332,7 +5332,7 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/syndicate_mothership/control)
 "anA" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
 "anB" = (
@@ -5571,7 +5571,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/turf_decal/bot_white,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
@@ -6197,7 +6197,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -28
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6879,7 +6879,7 @@
 /turf/closed/indestructible/syndicate,
 /area/syndicate_mothership/control)
 "arz" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
 "arA" = (
@@ -7734,7 +7734,7 @@
 	},
 /area/centcom/control)
 "atP" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/indestructible/riveted,
 /area/centcom/control)
 "atQ" = (
@@ -12421,7 +12421,7 @@
 /turf/open/floor/iron/techmaint,
 /area/tdome/tdomeobserve)
 "aGw" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/indestructible/riveted,
 /area/tdome/tdomeobserve)
 "aGx" = (
@@ -12636,7 +12636,7 @@
 /area/centcom/holding)
 "aGZ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /turf/open/floor/grass,
@@ -15939,7 +15939,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -17384,7 +17384,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
 "aSN" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
@@ -17806,7 +17806,7 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "aTL" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /obj/item/clothing/accessory/lawyers_badge,
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
@@ -20657,7 +20657,7 @@
 /area/syndicate_mothership)
 "edM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/machinery/light{
@@ -20886,7 +20886,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
 "ggJ" = (

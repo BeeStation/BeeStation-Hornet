@@ -1640,7 +1640,8 @@
 		return
 
 	//Tools
-	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
+	if(has_access_panel)
+		context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
 	if (panel_open)
 		switch (security_level)
 			if (AIRLOCK_SECURITY_IRON, AIRLOCK_SECURITY_PLASTEEL_I, AIRLOCK_SECURITY_PLASTEEL_O)

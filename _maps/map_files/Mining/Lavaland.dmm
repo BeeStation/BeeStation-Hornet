@@ -1941,7 +1941,7 @@
 	},
 /area/mine/atmospost)
 "kN" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/rust,
 /area/mine/atmospost)
 "kO" = (
@@ -2875,7 +2875,7 @@
 /turf/open/floor/iron,
 /area/mine/atmosposthallway)
 "qs" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/mine/eva)
 "qt" = (
@@ -3227,7 +3227,7 @@
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
 "sK" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/mine/atmospost)
 "sM" = (
@@ -5637,7 +5637,7 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/structure/lattice/catwalk/over,
@@ -5716,7 +5716,7 @@
 "Hg" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/table,
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/dead/research_director{
 	pixel_y = 12;
 	name = "Dead Potted Plant";
 	desc = "A Dead Potted Plant.."
@@ -7459,7 +7459,7 @@
 "RD" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/dead/research_director{
 	pixel_y = 12;
 	name = "Dead Potted Plant";
 	desc = "A Dead Potted Plant.."

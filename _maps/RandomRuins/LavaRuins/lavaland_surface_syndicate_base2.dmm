@@ -2461,7 +2461,7 @@
 	},
 /obj/machinery/power/smes/engineering,
 /obj/structure/cable/yellow,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /turf/open/floor/plating,
@@ -3391,7 +3391,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Hj" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "Ho" = (
@@ -3591,7 +3591,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/ruin/unpowered/syndicate_lava_base/brig)
 "IY" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "Ja" = (

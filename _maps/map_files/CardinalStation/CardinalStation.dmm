@@ -3975,7 +3975,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/south,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -6092,7 +6092,7 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bmV" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/bridge)
 "bmX" = (
@@ -22222,7 +22222,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = 32
 	},
 /obj/machinery/light/cold/directional/east,
@@ -22533,7 +22533,7 @@
 	dir = 5
 	},
 /obj/machinery/light/directional/north,
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/dead/research_director{
 	name = "potted plant";
 	desc = "It doesn't look very healthy..."
 	},
@@ -24709,7 +24709,7 @@
 /turf/open/space/basic,
 /area/space)
 "fwj" = (
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_y = -32
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -33151,7 +33151,7 @@
 /turf/closed/wall,
 /area/crew_quarters/heads/cmo)
 "hjK" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/storage/tech)
 "hjQ" = (
@@ -33900,7 +33900,7 @@
 /obj/structure/filingcabinet{
 	pixel_x = 10
 	},
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_y = 32;
 	pixel_x = -16
 	},
@@ -39936,7 +39936,7 @@
 	},
 /obj/structure/frame/machine,
 /obj/machinery/requests_console/auto_name/directional/south,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /turf/open/floor/iron/tech/grid,
@@ -40866,7 +40866,7 @@
 /obj/effect/turf_decal/trimline/yellow/warning{
 	dir = 1
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /turf/open/floor/noslip/dark,
@@ -41128,7 +41128,7 @@
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
@@ -44176,7 +44176,7 @@
 /obj/machinery/door/window/northleft{
 	req_access_txt = "61"
 	},
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_y = -32
 	},
 /turf/open/floor/iron/ridged/steel,
@@ -50125,7 +50125,7 @@
 /area/chapel/office)
 "kXb" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /turf/open/space/basic,
@@ -54464,7 +54464,7 @@
 /turf/open/floor/plating/airless,
 /area/engine/engine_room/external)
 "lSE" = (
-/obj/structure/sign/departments/examroom,
+/obj/structure/sign/departments/exam_room,
 /turf/closed/wall,
 /area/medical/sleeper)
 "lSG" = (
@@ -65754,7 +65754,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/west,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -73488,7 +73488,7 @@
 /turf/open/floor/iron/edge,
 /area/engine/storage_shared)
 "qbc" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/starboard/aft)
 "qbo" = (
@@ -74711,7 +74711,7 @@
 /obj/item/clothing/mask/gas,
 /obj/item/tank/internals/oxygen/red,
 /obj/item/extinguisher,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/caution/red{
@@ -77946,7 +77946,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hor)
 "qZW" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -79483,7 +79483,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 8
 	},
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /turf/open/floor/iron,
 /area/janitor)
 "rro" = (
@@ -80800,7 +80800,7 @@
 "rFO" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = -32
 	},
 /turf/open/floor/iron/techmaint,
@@ -87745,7 +87745,7 @@
 	dir = 8
 	},
 /obj/machinery/meter,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/grid/steel,
@@ -88240,7 +88240,7 @@
 	},
 /obj/machinery/light/small/directional/south,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -88674,7 +88674,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/directional/north,
-/obj/structure/sign/warning/enginesafety{
+/obj/structure/sign/warning/engine_safety{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/smooth,
@@ -88797,7 +88797,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/general/hidden{
 	dir = 4
 	},
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall/syndicate,
 /area/syndicate_sat)
 "tuR" = (
@@ -91613,7 +91613,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "ubt" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/edges/borderfloor{
@@ -94044,7 +94044,7 @@
 /area/hallway/primary/aft)
 "uAq" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /turf/open/floor/plating,
@@ -95607,7 +95607,7 @@
 /obj/item/mop{
 	pixel_y = 3
 	},
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "uTc" = (
@@ -106692,7 +106692,7 @@
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "xnw" = (
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_y = 32
 	},
 /obj/machinery/portable_atmospherics/canister,

@@ -7453,7 +7453,7 @@
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "cwJ" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall,
 /area/chapel/office)
 "cwM" = (
@@ -11424,7 +11424,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/dead/research_director{
 	pixel_y = 11
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -17401,7 +17401,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "fLQ" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall,
 /area/science/robotics)
 "fLR" = (
@@ -21460,7 +21460,7 @@
 /turf/open/floor/iron,
 /area/medical/cryo)
 "hjL" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = 32
 	},
 /obj/structure/cable/yellow{
@@ -22381,7 +22381,7 @@
 	dir = 6
 	},
 /obj/machinery/meter,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -22656,7 +22656,7 @@
 /area/medical/medbay/central)
 "hKF" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
@@ -25451,7 +25451,7 @@
 "iLL" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera/directional/south,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = -32
 	},
 /turf/open/floor/iron/tech,
@@ -30920,7 +30920,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
 "kFV" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/medical/storage)
 "kGd" = (
@@ -32051,7 +32051,7 @@
 	},
 /area/hallway/primary/central)
 "kYr" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/maintenance/port/aft)
 "kYx" = (
@@ -33603,7 +33603,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small,
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/structure/fluff/paper/stack,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
@@ -35693,7 +35693,7 @@
 "mnF" = (
 /obj/machinery/ore_silo,
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 33
 	},
 /turf/open/floor/circuit/green{
@@ -36076,7 +36076,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "mtA" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall,
 /area/engine/storage)
 "mtD" = (
@@ -40043,7 +40043,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "nLv" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "nLA" = (
@@ -42009,7 +42009,7 @@
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "oBx" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/engine/engine_room)
 "oBB" = (
@@ -42145,7 +42145,7 @@
 "oEh" = (
 /obj/machinery/computer/bank_machine,
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /turf/open/floor/circuit/green{
@@ -46197,10 +46197,10 @@
 	name = "Vault Door";
 	req_access_txt = "53"
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -47656,7 +47656,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "qxw" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/hallway/primary/central)
 "qxA" = (
@@ -51178,7 +51178,7 @@
 /obj/machinery/telecomms/receiver/preset_right{
 	density = 0
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -52233,7 +52233,7 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "sgq" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall,
 /area/hydroponics)
 "sgI" = (
@@ -55148,7 +55148,7 @@
 "tfw" = (
 /obj/machinery/vending/wardrobe/atmos_wardrobe,
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -55253,7 +55253,7 @@
 /area/ai_monitored/turret_protected/ai)
 "thf" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
@@ -56523,7 +56523,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "tBa" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall/r_wall,
 /area/engine/engine_room)
 "tBi" = (
@@ -58173,7 +58173,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 30
 	},
 /obj/machinery/camera/directional/north,
@@ -59287,7 +59287,7 @@
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "uuS" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -64660,7 +64660,7 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "wqs" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall,
 /area/maintenance/port/aft)
 "wqw" = (

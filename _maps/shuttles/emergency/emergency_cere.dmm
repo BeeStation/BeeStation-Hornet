@@ -485,7 +485,7 @@
 /area/shuttle/escape)
 "gS" = (
 /obj/structure/table,
-/obj/structure/sign/warning/enginesafety{
+/obj/structure/sign/warning/engine_safety{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -632,7 +632,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "sL" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,

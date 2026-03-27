@@ -256,7 +256,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/dead/research_director{
 	desc = "A little bit of nature contained in a pot. It looks dead, and reeks of potato liquor.";
 	name = "potted plant"
 	},

@@ -327,6 +327,10 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/syndicate
 
+/obj/item/circuitboard/computer/terminal
+	name = "Terminal (Computer Board)"
+	build_path = /obj/machinery/computer/terminal
+
 //Medical
 
 /obj/item/circuitboard/computer/cloning

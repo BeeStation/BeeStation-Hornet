@@ -81,7 +81,7 @@
 /area/ruin/space/djstation)
 "aq" = (
 /obj/item/storage/box/lights/mixed,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /obj/structure/cable/yellow{

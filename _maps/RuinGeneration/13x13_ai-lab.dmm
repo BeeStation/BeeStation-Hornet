@@ -88,7 +88,7 @@
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "py" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "qg" = (
@@ -239,7 +239,7 @@
 /area/ruin/unpowered)
 "GZ" = (
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "Ib" = (
@@ -280,7 +280,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "KU" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "MV" = (

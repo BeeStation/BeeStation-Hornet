@@ -1893,7 +1893,7 @@
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
 "aSN" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/medical/surgery)
 "aSP" = (
@@ -4835,7 +4835,7 @@
 	dir = 8
 	},
 /obj/machinery/recharge_station,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /mob/living/silicon/robot/shell,
@@ -7067,7 +7067,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hor)
 "dPp" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -7383,7 +7383,7 @@
 /turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "dZF" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -10401,10 +10401,10 @@
 	name = "Vault Door";
 	req_access_txt = "53"
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /obj/machinery/door/firedoor,
@@ -12174,7 +12174,7 @@
 "gAm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/bot,
@@ -12290,7 +12290,7 @@
 	},
 /obj/machinery/power/smes/engineering,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -31
 	},
 /obj/structure/cable/yellow{
@@ -18142,7 +18142,7 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/textured_half,
@@ -18792,7 +18792,7 @@
 	id = "incineratorturbineLeft";
 	name = "gas turbine left control computer"
 	},
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 1;
 	pixel_y = -32
 	},
@@ -19621,7 +19621,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "kEO" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/closed/wall/r_wall,
@@ -21134,7 +21134,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /turf/open/floor/circuit/green{
@@ -22883,7 +22883,7 @@
 	},
 /area/engine/engineering)
 "mtn" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 1
 	},
 /turf/closed/wall,
@@ -25739,7 +25739,7 @@
 /area/engine/supermatter)
 "ogI" = (
 /obj/machinery/camera/directional/west,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = -32
 	},
 /obj/structure/closet/secure_closet/hydroponics{
@@ -26078,7 +26078,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 30
 	},
 /obj/structure/cable/yellow{
@@ -27494,7 +27494,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/textured_half,
@@ -28408,7 +28408,7 @@
 	dir = 4;
 	filter_type = list(/datum/gas/nitrogen)
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 30
 	},
 /turf/open/floor/iron/textured_half,
@@ -30386,7 +30386,7 @@
 	},
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/turf_decal/bot_white,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /turf/open/floor/iron/dark/smooth_edge{
@@ -33255,7 +33255,7 @@
 /obj/machinery/porta_turret/ai{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -33338,7 +33338,7 @@
 /obj/item/ammo_box/a357,
 /obj/item/gun/ballistic/automatic/pistol/deagle,
 /obj/item/gun/ballistic/revolver/russian,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = -32
 	},
 /turf/open/floor/circuit/green{
@@ -38700,7 +38700,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "voM" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "voZ" = (
@@ -39004,7 +39004,7 @@
 	dir = 4
 	},
 /obj/machinery/recharge_station,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -39242,7 +39242,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "vFR" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "vFT" = (
@@ -39358,7 +39358,7 @@
 /obj/machinery/porta_turret/ai{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -39452,7 +39452,7 @@
 /area/storage/tech)
 "vMe" = (
 /obj/machinery/door/firedoor,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -40386,7 +40386,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/science/central)
 "wsP" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -42691,7 +42691,7 @@
 /turf/open/floor/iron,
 /area/janitor)
 "xHX" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/maintenance/department/engine)
 "xIg" = (

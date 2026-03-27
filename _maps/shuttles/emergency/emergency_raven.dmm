@@ -1736,7 +1736,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Nk" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{

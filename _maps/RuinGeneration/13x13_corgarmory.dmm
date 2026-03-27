@@ -24,7 +24,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /turf/template_noop,
@@ -70,7 +70,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "p" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/template_noop,
@@ -163,7 +163,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "K" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /turf/template_noop,

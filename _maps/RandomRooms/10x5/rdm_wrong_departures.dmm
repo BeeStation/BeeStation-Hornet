@@ -99,7 +99,7 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/dead/research_director,
 /turf/open/floor/grass,
 /area/template_noop)
 "w" = (

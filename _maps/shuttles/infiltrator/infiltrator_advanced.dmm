@@ -306,7 +306,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/airlock)
 "aJ" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
 "aK" = (
@@ -975,7 +975,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/medical)
 "ck" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/hallway)
 "cl" = (
@@ -1575,7 +1575,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1760,7 +1760,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 28
 	},
 /turf/open/floor/pod/dark,

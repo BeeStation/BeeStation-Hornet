@@ -31,6 +31,7 @@
 	icon = 'icons/obj/doors/airlocks/station/maintenanceexternal.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_extmai
 
+
 /obj/machinery/door/airlock/mining
 	name = "mining airlock"
 	icon = 'icons/obj/doors/airlocks/station/mining.dmi'
@@ -368,6 +369,9 @@
 	anim_parts = "top=0,16;bottom=0,-16"
 	note_attachment = "bottom"
 	panel_attachment = "bottom"
+
+// Access free external airlocks
+/obj/machinery/door/airlock/external/ruin
 
 /obj/machinery/door/airlock/external/glass
 	opacity = FALSE

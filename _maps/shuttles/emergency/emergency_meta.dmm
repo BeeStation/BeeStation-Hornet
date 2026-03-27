@@ -1099,7 +1099,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = -32
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -1232,7 +1232,7 @@
 "ZP" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /turf/open/floor/mineral/titanium,

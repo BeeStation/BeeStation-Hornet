@@ -215,7 +215,7 @@
 /turf/template_noop/open,
 /area/template_noop)
 "O" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "U" = (

@@ -474,7 +474,7 @@
 /turf/closed/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "dQ" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "dV" = (
@@ -779,7 +779,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "fx" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "fy" = (
@@ -1107,7 +1107,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "iq" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ir" = (
@@ -1389,7 +1389,7 @@
 	},
 /obj/machinery/power/smes/engineering,
 /obj/structure/cable/yellow,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1542,7 +1542,7 @@
 /turf/open/floor/circuit/green,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mN" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mP" = (
@@ -1702,7 +1702,7 @@
 /turf/open/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "oF" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "oG" = (

@@ -463,7 +463,7 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /obj/machinery/light/small,

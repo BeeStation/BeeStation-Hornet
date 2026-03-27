@@ -104,7 +104,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "mv" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/machinery/hydroponics/soil,
