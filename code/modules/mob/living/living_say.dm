@@ -404,13 +404,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	SEND_SIGNAL(src, COMSIG_LIVING_TREAT_MESSAGE, args)
 	message = data[TREAT_MESSAGE_ARG]
 
-	return treat_message_min(message, capitalize_message)
+	return list("message" = treat_message_min(message, capitalize_message))
 
 /mob/proc/treat_message_min(message, capitalize_message = TRUE)
 	message = punctuate(message)
 	if(capitalize_message)
 		message = capitalize(message)
-	return list("message" = message)
+	return message
 
 /mob/living/proc/radio(message, list/message_mods = list(), list/spans, language)
 	var/obj/item/implant/radio/imp = locate() in src
