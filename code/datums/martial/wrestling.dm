@@ -43,7 +43,7 @@
 
 /datum/action/slam
 	name = "Slam (Cinch) - Slam a grappled opponent into the floor."
-	button_icon_state = "wrassle_slam"
+	//button_icon_state = "wrassle_slam"
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
 /datum/action/slam/trigger(mob/clicker, trigger_flags)
@@ -55,7 +55,7 @@
 
 /datum/action/throw_wrassle
 	name = "Throw (Cinch) - Spin a cinched opponent around and throw them."
-	button_icon_state = "wrassle_throw"
+	//button_icon_state = "wrassle_throw"
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
 /datum/action/throw_wrassle/trigger(mob/clicker, trigger_flags)
@@ -67,7 +67,7 @@
 
 /datum/action/kick
 	name = "Kick - A powerful kick, sends people flying away from you. Also useful for escaping from bad situations."
-	button_icon_state = "wrassle_kick"
+	//button_icon_state = "wrassle_kick"
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS // This is supposed to be usable while cuffed but it probably isn't
 
 /datum/action/kick/trigger(mob/clicker, trigger_flags)
@@ -79,7 +79,7 @@
 
 /datum/action/strike
 	name = "Strike - Hit a neaby opponent with a quick attack."
-	button_icon_state = "wrassle_strike"
+	//button_icon_state = "wrassle_strike"
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 
 /datum/action/strike/trigger(mob/clicker, trigger_flags)
@@ -91,7 +91,7 @@
 
 /datum/action/drop
 	name = "Drop - Smash down onto an opponent."
-	button_icon_state = "wrassle_drop"
+	//button_icon_state = "wrassle_drop"
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
 
 /datum/action/drop/trigger(mob/clicker, trigger_flags)

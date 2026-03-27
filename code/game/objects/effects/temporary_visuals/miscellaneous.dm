@@ -425,7 +425,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/impact_effect)
 	duration = 6
 
 /obj/effect/temp_visual/impact_effect/neurotoxin
-	icon_state = "impact_neurotoxin"
+	icon_state = "impact_spit"
+	color = "#5BDD04"
 
 /obj/effect/temp_visual/heart
 	name = "heart"
