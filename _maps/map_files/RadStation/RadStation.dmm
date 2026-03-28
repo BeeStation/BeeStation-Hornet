@@ -8550,7 +8550,7 @@
 /area/quartermaster/exploration_prep)
 "cQA" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/gravity_generator/main/station,
+/obj/machinery/gravity_generator/main,
 /turf/open/floor/iron/techmaint,
 /area/engine/gravity_generator)
 "cQC" = (
