@@ -56,17 +56,20 @@
 	return ..()
 
 ///Item interactions for plants that aren't covered by the individual plant_features
-/datum/component/plant/proc/catch_attackby(datum/source, obj/item, mob/living/user, params)
+/datum/component/plant/proc/catch_attackby(datum/source, obj/item, mob/living/user, proximity_flag, click_parameters)
 	SIGNAL_HANDLER
 
 //Spade interaction, allows us to dig up plants
-	if(istype(item, /obj/item/shovel/spade) && !spading)
-		INVOKE_ASYNC(src, PROC_REF(async_catch_attackby), item, user, params)
+	if(proximity_flag && !spading && istype(item, /obj/item/shovel/spade))
+		INVOKE_ASYNC(src, PROC_REF(async_catch_attackby), item, user)
 
-/datum/component/plant/proc/async_catch_attackby(obj/item, mob/living/user, params)
+/datum/component/plant/proc/async_catch_attackby(obj/item, mob/living/user)
 	playsound(plant_item, 'sound/effects/shovel_dig.ogg', 60)
 	spading = TRUE
-	if(do_after(user, 2.5 SECONDS, plant_item))
+	if(length(item.contents))
+		spading = FALSE
+		return
+	if(do_after(user, 2.5 SECONDS, plant_item) && !length(item.contents)) //Check contents twice cuz time frame changes
 		//Remove the plant from it's old home
 		var/atom/movable/AM = plant_item.loc
 		if(istype(AM))
@@ -83,7 +86,7 @@
 		spading = FALSE
 
 //Follow up for spade interaction
-/datum/component/plant/proc/catch_spade_attack(datum/source, atom/target, mob/user, params)
+/datum/component/plant/proc/catch_spade_attack(datum/source, atom/target, mob/user)
 	SIGNAL_HANDLER
 
 	if(target == plant_item)
@@ -107,6 +110,8 @@
 	if(!do_after(user, 2.5 SECONDS, target))
 		return
 	UnregisterSignal(spade, COMSIG_ITEM_PRE_ATTACK)
+	if(!(locate(plant_item) in spade))
+		return
 	SEND_SIGNAL(src, COMSIG_PLANT_PLANTED, target)
 	plant_item.forceMove(target)
 	target.vis_contents += plant_item

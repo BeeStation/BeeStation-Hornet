@@ -100,6 +100,10 @@
 		playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 		say("ERROR: Plant specimen is not fully mature!")
 		return
+	if(!do_after(user, 2.5 SECONDS, src))
+		return
+	if(!(locate(plant_item) in C.contents))
+		return
 	C.vis_contents -= plant_item
 	plant_item.forceMove(src)
 	inserted_plant = plant_item

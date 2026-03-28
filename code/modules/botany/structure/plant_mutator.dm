@@ -117,6 +117,10 @@
 		break
 	if(!comp)
 		return ..()
+	if(!do_after(user, 2.5 SECONDS, src))
+		return
+	if(!(locate(plant_item) in C.contents))
+		return
 	C.vis_contents -= plant_item
 	plant_item.forceMove(src)
 	plant = plant_item
