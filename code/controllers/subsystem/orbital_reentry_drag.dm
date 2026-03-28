@@ -10,7 +10,7 @@
 
 SUBSYSTEM_DEF(orbital_reentry_drag)
 	name = "Orbital Reentry Drag"
-	// Starts disabled — orbital_altitude turns us on/off via can_fire
+	// Starts disabled, orbital_altitude turns us on/off via can_fire
 	can_fire = FALSE
 	wait = 1 SECONDS
 	dependencies = list(

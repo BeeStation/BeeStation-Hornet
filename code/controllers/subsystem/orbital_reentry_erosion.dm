@@ -2,43 +2,34 @@
  * Orbital Reentry Erosion Subsystem
  * Handles the application of damage and fire effects to station tiles, objects, and mobs during orbital reentry.
  * Damage is based on current orbital altitude and increases as the station descends.
- * Only processes areas of the station that are exposed to the direction of reentry.
  *
- * We work purely on a list of target turfs provided by us from the scanning subsystem, and apply damage/effects to those tiles and their contents.
- * This allows us to separate the expensive raycasting logic from the damage application logic,
- * which should help with performance as we can adjust how many tiles we process per tick based on current load.
- *
- * By default, we do all of them in one go until we hit our tick limit, at which point we save our progress and continue on the next fire.
- * This allows us to spread the processing out over multiple ticks if needed,
- * while still ensuring that all necessary tiles get processed as quickly as possible once we start.
+ * This subsystem does NOT do any raycasting itself. It reads the list of
+ * exposed turfs provided by SSorbital_reentry_scanning and applies
+ * damage / fire effects to each one, yielding to the tick budget as needed.
  */
 
 SUBSYSTEM_DEF(orbital_reentry_erosion)
 	name = "Orbital Reentry Erosion"
+	// Starts disabled, orbital_altitude turns us on/off via can_fire
+	can_fire = FALSE
 	wait = 1 SECONDS
 	dependencies = list(
 		/datum/controller/subsystem/mapping,
 		/datum/controller/subsystem/atoms,
 		/datum/controller/subsystem/orbital_altitude,
-		/datum/controller/subsystem/orbital_reentry_scanning
+		/datum/controller/subsystem/orbital_reentry_scanning,
 	)
 	// Only allowed to use small portions of tick
 	priority = FIRE_PRIORITY_STATION_ALTITUDE
 	runlevels = RUNLEVEL_GAME
-	/// Station levels
-	var/list/station_levels
-	/// Record our current work position
-	var/work_z
-	var/work_coord
 	/// Direction flames come from (based on map config)
 	var/reentry_direction = EAST
+	/// Fire effects we've created (so we can clean them up)
 	var/list/created_fires = list()
-	/// Is the subsystem currently active (altitude-based)?
-	var/erosion_active = FALSE
-
-// TODO: MOVE RAYCAST LOGIC INTO orbital.reentry_scanning.dm, AND THEN JUST HAVE THIS SUBSYSTEM WORK OFF THE RESULTS OF THAT RATHER THAN DOING ANY RAYCASTING ITSELF.
-// WE ALSO MAKE SURE THE LOGIC FOR WHEN TO RUN THIS IS CONTAININED OVER IN orbital_altitude.dm, BUT HOW WE RUN THIS IS IN HERE.
-// so we basically turn this puppy on/off based on altitude over there, and if we are on, we operate on the altitude provided to us accordingly.
+	/// Our position inside the target turfs snapshot for resumable processing
+	var/work_index = 1
+	/// Snapshot of turfs we're working through this fire
+	var/list/turf/work_turfs
 
 /datum/controller/subsystem/orbital_reentry_erosion/Initialize()
 	// Disable for planetary stations
@@ -49,124 +40,54 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	// Get reentry direction from map config
 	reentry_direction = SSmapping.current_map.reentry_direction
 
-	// What are the station z-levels?
-	station_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
-
 	return SS_INIT_SUCCESS
-
-/datum/controller/subsystem/orbital_reentry_erosion/proc/has_real_contents(turf/tile)
-	// Check if the tile has any real contents (objects or mobs)
-	if (!tile)
-		return FALSE
-
-	var/has_contents = FALSE
-	for (var/atom/movable/thing in tile)
-		// Break for the first real content found
-		if (is_real(thing))
-			has_contents = TRUE
-			break
-
-	return has_contents
-
-/datum/controller/subsystem/orbital_reentry_erosion/proc/is_real(atom/thing)
-	if (isobj(thing))
-		if (!iseffect(thing)) // With exceptions :3
-			return TRUE
-
-	if (ismob(thing))
-		if (!isobserver(thing))
-			return TRUE
-
-	return FALSE
 
 
 /datum/controller/subsystem/orbital_reentry_erosion/fire(resumed)
-	// Check if we should be active based on altitude
-	var/current_altitude = SSorbital_altitude.orbital_altitude
-	var/should_be_active = current_altitude < EROSION_ALTITUDE_START
-
-	// Handle activation/deactivation
-	if (should_be_active && !erosion_active)
-		erosion_active = TRUE
-
-	else if (!should_be_active && erosion_active)
-		erosion_active = FALSE
-		// Clear all fires when deactivating
-		for (var/thing in created_fires)
-			qdel(thing)
-		created_fires.Cut()
-		return
-
-	// If not active, don't process
-	if (!erosion_active)
-		return
-
 	// Calculate damage multiplier based on altitude
+	var/current_altitude = SSorbital_altitude.orbital_altitude
 	var/damage_multiplier = get_damage_multiplier(current_altitude)
 
-	// Set the initial working conditions
-	if (!resumed)
-		work_z = 1
-		work_coord = 1
-		// Clear old fires
-		for (var/thing in created_fires)
+	// On a fresh (non-resumed) fire, snapshot the scanning results and
+	// clean up the previous fire's visual effects.
+	if(!resumed)
+		for(var/thing in created_fires)
 			qdel(thing)
 		created_fires.Cut()
 
-	// Start working
-	var/max_coord = (reentry_direction == EAST || reentry_direction == WEST) ? world.maxy : world.maxx
+		// Take a snapshot of whatever the scanning subsystem has found so far.
+		// The keys of the assoc list are the turfs themselves.
+		work_turfs = SSorbital_reentry_scanning.target_turfs.Copy()
+		work_index = 1
 
-	while (work_z <= length(station_levels))
-		var/target_z = station_levels[work_z]
+	// Nothing to do if scanning hasn't found anything yet
+	if(!length(work_turfs))
+		return
 
-		// Always scan from the edge to find the first valid target for this coordinate
-		var/current_target_pos
-		var/turf/target_tile
+	// Iterate through the snapshot, yielding to the tick budget as needed
+	while(work_index <= length(work_turfs))
+		var/turf/target_tile = work_turfs[work_index]
+		work_index++
 
-		if (reentry_direction == EAST || reentry_direction == WEST)
-			// Start from the edge based on direction
-			current_target_pos = reentry_direction == EAST ? world.maxx : 1
-			var/x_increment = reentry_direction == EAST ? -1 : 1
+		if(QDELETED(target_tile))
+			continue
 
-			// Scan until we find a valid target
-			while (current_target_pos > 0 && current_target_pos <= world.maxx)
-				target_tile = locate(current_target_pos, work_coord, target_z)
+		// Apply damage to the tile and everything on it
+		apply_erosion_damage(target_tile, damage_multiplier)
 
-				// Found a valid target (solid turf or space with real contents)
-				if (target_tile && (!isspaceturf(target_tile) || has_real_contents(target_tile)))
-					break
-
-				current_target_pos += x_increment
-		else
-			// Start from the edge based on direction
-			current_target_pos = reentry_direction == SOUTH ? 1 : world.maxy
-			var/y_increment = reentry_direction == SOUTH ? 1 : -1
-
-			// Scan until we find a valid target
-			while (current_target_pos > 0 && current_target_pos <= world.maxy)
-				target_tile = locate(work_coord, current_target_pos, target_z)
-
-				// Found a valid target (solid turf or space with real contents)
-				if (target_tile && (!isspaceturf(target_tile) || has_real_contents(target_tile)))
-					break
-
-				current_target_pos += y_increment
-
-		// Apply damage to the tile and everything on it (only if it's valid and not empty space)
-		if (target_tile && (!isspaceturf(target_tile) || has_real_contents(target_tile)))
-			apply_erosion_damage(target_tile, damage_multiplier)
-
-		// Increment coordinate
-		work_coord++
-
-		// Increment z if necessary
-		if (work_coord > max_coord)
-			work_coord = 1
-			work_z++
-
-		// Tick check, abort this run and continue on the next
-		if (MC_TICK_CHECK)
+		// Tick check — save progress and continue on the next fire
+		if(MC_TICK_CHECK)
 			return
+
+/// Called by the altitude subsystem when erosion should stop.
+/// Cleans up fire effects and resets work state.
+/datum/controller/subsystem/orbital_reentry_erosion/proc/deactivate()
+	can_fire = FALSE
+	for(var/thing in created_fires)
+		qdel(thing)
+	created_fires.Cut()
+	work_turfs = null
+	work_index = 1
 
 /datum/controller/subsystem/orbital_reentry_erosion/proc/get_damage_multiplier(altitude)
 	// No damage above EROSION_ALTITUDE_START
@@ -254,11 +175,6 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 		if (isopenturf(target_tile))
 			var/turf/open/open_tile = target_tile
 			open_tile.atmos_spawn_air("plasma=[plasma_amount];o2=[o2_amount];TEMP=[fire_temp]")
-
-#undef EROSION_ALTITUDE_START
-#undef EROSION_ALTITUDE_CRITICAL
-#undef EROSION_ALTITUDE_SEVERE
-#undef EROSION_ALTITUDE_EXTREME
 
 /obj/effect/reentry_fire
 	anchored = TRUE

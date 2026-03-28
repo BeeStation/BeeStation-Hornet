@@ -143,31 +143,31 @@ SUBSYSTEM_DEF(orbital_altitude)
 		var/minutes_remaining = round(time_remaining / 60, 0.1)
 
 		GLOB.news_network.submit_article("<h1>EMERGENCY STATUS REPORT</h1>\
-												<b>STATION [uppertext(station_name())] - CRITICAL ALERT</b><br><br>\
-												Current orbital altitude: <b>[round(orbital_altitude/1000, 0.1)]km</b><br>\
-												Orbital Velocity Index: [round(velocity_index, 0.1)]<br>\
-												Detected Orbital Decay: <b>[round(decay_rate, 0.1)]m/s</b><br>\
-												Atmospheric resistance: <b>[round(resistance_normalized, 0.1)]%</b><br>\
-												<b>Estimated time to structural failure: [minutes_remaining] minutes</b><br><br>\
-												<b>STATUS: [pick("STRUCTURAL STRESS DETECTED","HULL BREACHES DETECTED","CATASTROPHIC FAILURE IMMINENT","EMERGENCY THRUST REQUIRED")]</b><br>\
-												<b>IMMEDIATE CORRECTIVE ACTION REQUIRED</b><br><br>\
-												- Automated Station Systems - PRIORITY ALERT",
-												"Automated Station System",
-												"Station Orbital Report")
+										<b>STATION [uppertext(station_name())] - CRITICAL ALERT</b><br><br>\
+										Current orbital altitude: <b>[round(orbital_altitude/1000, 0.1)]km</b><br>\
+										Orbital Velocity Index: [round(velocity_index, 0.1)]<br>\
+										Detected Orbital Decay: <b>[round(decay_rate, 0.1)]m/s</b><br>\
+										Atmospheric resistance: <b>[round(resistance_normalized, 0.1)]%</b><br>\
+										<b>Estimated time to structural failure: [minutes_remaining] minutes</b><br><br>\
+										<b>STATUS: [pick("STRUCTURAL STRESS DETECTED","HULL BREACHES DETECTED","CATASTROPHIC FAILURE IMMINENT","EMERGENCY THRUST REQUIRED")]</b><br>\
+										<b>IMMEDIATE CORRECTIVE ACTION REQUIRED</b><br><br>\
+										- Automated Station Systems - PRIORITY ALERT",
+										"Automated Station System",
+										"Station Orbital Report")
 	else
 		// Normal status report
 		GLOB.news_network.submit_article("<h1>Automated Orbital Parameter Status Report</h1>\
-												Station [station_name()] telemetry update:<br><br>\
-												Current orbital altitude: [round(orbital_altitude/1000, 0.1)]km<br>\
-												Orbital Velocity Index: [round(velocity_index, 0.1)]<br>\
-												Detected Orbital Decay: [round(decay_rate, 0.1)]m/s<br>\
-												Normalized atmospheric resistance: [round(resistance_normalized, 0.1)]%<br>\
-												Semi-Major Axis: [rand(6500, 6900)]km<br>\
-												Status: [pick("No drift detected.","Minimal drift detected.","Drift detected, within acceptable parameters.")]<br><br>\
-												<b>All systems nominal.</b><br><br>\
-												- Automated Station Systems - ",
-												"Automated Station System",
-												"Station Orbital Report")
+										Station [station_name()] telemetry update:<br><br>\
+										Current orbital altitude: [round(orbital_altitude/1000, 0.1)]km<br>\
+										Orbital Velocity Index: [round(velocity_index, 0.1)]<br>\
+										Detected Orbital Decay: [round(decay_rate, 0.1)]m/s<br>\
+										Normalized atmospheric resistance: [round(resistance_normalized, 0.1)]%<br>\
+										Semi-Major Axis: [rand(6500, 6900)]km<br>\
+										Status: [pick("No drift detected.","Minimal drift detected.","Drift detected, within acceptable parameters.")]<br><br>\
+										<b>All systems nominal.</b><br><br>\
+										- Automated Station Systems - ",
+										"Automated Station System",
+										"Station Orbital Report")
 
 /datum/controller/subsystem/orbital_altitude/proc/check_critical_orbit()
 	// High altitude critical warning (above 130km threshold)
@@ -191,6 +191,11 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// Low altitude warning (95km threshold)
 	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !in_low_altitude)
 		in_low_altitude = TRUE
+
+		// Enable scanning and erosion subsystems
+		SSorbital_reentry_scanning.can_fire = TRUE
+		SSorbital_reentry_erosion.can_fire = TRUE
+
 		minor_announce("Advisory: Station orbital altitude has decreased below normal operating parameters. \
 			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
 			Further monitoring is advised.", \
@@ -270,6 +275,10 @@ SUBSYSTEM_DEF(orbital_altitude)
 		// Clear low altitude flag when safely above 95km
 		if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && in_low_altitude)
 			in_low_altitude = FALSE
+
+			// Disable scanning and erosion subsystems
+			SSorbital_reentry_scanning.deactivate()
+			SSorbital_reentry_erosion.deactivate()
 
 	// Clear high altitude flags when returning to normal range
 	if(orbital_altitude <= ORBITAL_ALTITUDE_HIGH)
