@@ -29,6 +29,34 @@
 /datum/preferences/proc/ready_to_save_player()
 	return dirty_undatumized_preferences_player || length(player_data.dirty_prefs)
 
+/// checks keybindings for nonexistent keybinds and removes them
+/datum/preferences/proc/sanitize_keybinds()
+	if(!parent)
+		return
+
+	/**
+	 * Real world example of invalid keybinds:
+	 * (To avoid confusion between list index keys and keys on a keyboard, I will be referring to keys on a keyboard as buttons)
+	 *
+	 * key_bindings = list(
+	 * 	"admin_say" = list("F3"), <--- This is correct. The bind's string form as the index's key and a list of buttons as the index's value.
+	 *  "F3" = list("admin_say"), <--- This is incorrect. Buttons shouldn't ever be index keys.
+	 *  "select_help_intent" = list("1"), <--- This is incorrect. "select_help_intent" is not a valid index key as it is not apart of GLOB.keybindings_by_name.
+	 * 	...
+	 * )
+	 *
+	 * Sample GLOB.keybindings_by_name:
+	 *
+	 * keybindings_by_name = list(
+	 *  "admin_say" = /datum/keybinding/admin/admin_say, <--- Not really relevant here, but these are instances, not typepaths.
+	 *  ...
+	 * )
+	 */
+	for(var/bind, buttons_list in key_bindings)
+		// Prunes buttons as index keys and deprecated binds.
+		if(isnull(GLOB.keybindings_by_name[bind]))
+			key_bindings -= bind
+
 // Defines for list sanity
 #define READPREF_STR(target, tag) if(prefmap[tag]) target = prefmap[tag]
 #define READPREF_INT(target, tag) if(prefmap[tag]) target = text2num(prefmap[tag])
@@ -101,17 +129,18 @@
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 
 	//Sanitize
-	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
-	default_slot	= sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
-	ignoring		= SANITIZE_LIST(ignoring)
-	purchased_gear	= SANITIZE_LIST(purchased_gear)
+	lastchangelog = sanitize_text(lastchangelog, initial(lastchangelog))
+	default_slot = sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
+	ignoring = SANITIZE_LIST(ignoring)
+	purchased_gear = SANITIZE_LIST(purchased_gear)
 	role_preferences_global = SANITIZE_LIST(role_preferences_global)
 
-	pai_name		= sanitize_text(pai_name, initial(pai_name))
-	pai_description	= sanitize_text(pai_description, initial(pai_description))
-	pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
+	pai_name = sanitize_text(pai_name, initial(pai_name))
+	pai_description = sanitize_text(pai_description, initial(pai_description))
+	pai_comment = sanitize_text(pai_comment, initial(pai_comment))
 
-	key_bindings 	= sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
+	sanitize_keybinds()
+	key_bindings = sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 
 	// Remove any invalid role preference entries
@@ -292,12 +321,15 @@
 	equipped_gear = SANITIZE_LIST(equipped_gear)
 	role_preferences = SANITIZE_LIST(role_preferences)
 
+	var/antag_prefs_altered = FALSE
+
 	// Validate job prefs
 	for(var/j in job_preferences)
 		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
 			job_preferences -= j
 			log_preferences("[parent_ckey]: WARN - Cleaned up invalid job preference entry: [j]")
 			mark_undatumized_dirty_character()
+			antag_prefs_altered = TRUE
 
 	// Validate role prefs
 	for(var/preference in role_preferences)
@@ -305,9 +337,13 @@
 		var/datum/role_preference/entry = GLOB.role_preference_entries[path]
 		if(istype(entry) && entry.per_character)
 			continue
+		if (length(GLOB.revdata.testmerge))
+			log_preferences("[parent_ckey]: WARN - Skipped cleaning up character role preference [preference] due to testmerge.")
+			continue
 		role_preferences -= preference
 		log_preferences("[parent_ckey]: WARN - Cleaned up invalid character role preference entry [preference].")
 		mark_undatumized_dirty_character()
+		antag_prefs_altered = TRUE
 
 	// Validate equipped gear
 	for(var/gear_id in equipped_gear)
@@ -322,6 +358,9 @@
 		if(islist(purchased_gear) && !(gear_id in purchased_gear))
 			equipped_gear -= gear_id
 			mark_undatumized_dirty_character()
+
+	if (parent && antag_prefs_altered)
+		to_chat(parent, span_userdanger("You had antagonist or job preferences set which no longer exist, your preferences may have been altered!"))
 
 	return PREFERENCE_LOAD_SUCCESS
 

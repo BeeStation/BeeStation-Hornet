@@ -272,3 +272,8 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define COLOR_GNOME_WHITE "#e8e8e8"
 #define COLOR_GNOME_GREY "#a9a9a9"
 #define COLOR_GNOME_BLACK "#303030"
+
+#define CM_COLOR_SAT_MIN 0.6
+#define CM_COLOR_SAT_MAX 0.7
+#define CM_COLOR_LUM_MIN 0.65
+#define CM_COLOR_LUM_MAX 0.75

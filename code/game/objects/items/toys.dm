@@ -108,7 +108,7 @@
 				to_chat(user, span_notice("You fill the balloon with the contents of [I]."))
 				I.reagents.trans_to(src, 10, transfered_by = user)
 				update_icon()
-	else if(I.is_sharp())
+	else if(I.get_sharpness())
 		balloon_burst()
 	else
 		return ..()
@@ -401,7 +401,7 @@
 /obj/item/toy/batong
 	name = "batong"
 	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
 	inhand_icon_state = "baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
@@ -1097,7 +1097,7 @@
 /obj/item/toy/cards/cardhand/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 

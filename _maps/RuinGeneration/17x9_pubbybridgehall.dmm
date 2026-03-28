@@ -44,7 +44,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

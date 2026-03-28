@@ -65,6 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	channelled = TRUE
 
 /datum/proximity_monitor/advanced/timestop
+	edge_is_a_field = TRUE
 	var/list/immune = list()
 	var/list/frozen_things = list()
 	var/list/frozen_mobs = list() //cached separately for processing
@@ -83,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	src.check_anti_magic = check_anti_magic
 	src.check_holy = check_holy
 	src.channelled = channelled
-	recalculate_field()
+	recalculate_field(full_recalc = TRUE)
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/proximity_monitor/advanced/timestop/Destroy()
@@ -94,7 +95,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-/datum/proximity_monitor/advanced/timestop/field_turf_crossed(atom/movable/movable, turf/location)
+/datum/proximity_monitor/advanced/timestop/field_turf_crossed(atom/movable/movable, turf/old_location, turf/new_location)
 	freeze_atom(movable)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_atom(atom/movable/A)
@@ -196,12 +197,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		var/mob/living/m = i
 		m.Stun(20, ignore_canstun = TRUE)
 
-/datum/proximity_monitor/advanced/timestop/setup_field_turf(turf/T)
+/datum/proximity_monitor/advanced/timestop/setup_field_turf(turf/target)
 	. = ..()
-	for(var/i in T.contents)
+	for(var/i in target.contents)
 		freeze_atom(i)
-	freeze_turf(T)
-
+	freeze_turf(target)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_projectile(obj/projectile/P)
 	P.paused = TRUE

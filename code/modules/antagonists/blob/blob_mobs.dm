@@ -123,7 +123,7 @@
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	del_on_death = TRUE
-	deathmessage = "explodes into a cloud of gas!"
+	death_message = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
@@ -296,7 +296,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 		healing.color = overmind.blobstrain.complementary_color
 	flick_overlay_view(healing, 0.8 SECONDS)
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(updating_health)
 		update_health_hud()

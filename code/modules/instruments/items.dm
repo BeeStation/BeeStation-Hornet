@@ -26,7 +26,7 @@
 	return ..()
 
 /obj/item/instrument/proc/should_stop_playing(mob/user)
-	return user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))		// sorry, no more TK playing.
+	return user.incapacitated || !((loc == user) || (isturf(loc) && Adjacent(user)))		// sorry, no more TK playing.
 
 /obj/item/instrument/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -276,7 +276,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		for(var/V in instrument_list)
 			var/atom/A = V
 			if(initial(A.name) == choice)

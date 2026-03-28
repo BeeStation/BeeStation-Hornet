@@ -614,7 +614,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron{
 	dir = 9
 	},

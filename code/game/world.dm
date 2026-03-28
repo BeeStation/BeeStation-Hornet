@@ -175,7 +175,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
 	start_log(GLOB.test_log)
 #endif
-#ifdef REFERENCE_DOING_IT_LIVE
+#ifdef REFERENCE_TRACKING_LOG_APART
 	GLOB.harddel_log = "[GLOB.log_directory]/harddels.log"
 	start_log(GLOB.harddel_log)
 #endif
@@ -450,6 +450,7 @@ GLOBAL_VAR(restart_counter)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+	SSai_controllers.on_max_z_changed()
 	world.refresh_atmos_grid()
 
 /world/proc/refresh_atmos_grid()

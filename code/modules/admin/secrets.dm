@@ -323,9 +323,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Monkeyize All Humans"))
-			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-				spawn(0)
-					H.monkeyize()
+			for(var/mob/living/carbon/human/human_mob as anything in GLOB.human_list)
+				INVOKE_ASYNC(human_mob, TYPE_PROC_REF(/mob/living/carbon, monkeyize))
 			ok = 1
 
 		if("allspecies")
@@ -341,8 +340,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			log_admin("[key_name(usr)] turned all humans into [result]", 1)
 			message_admins("\blue [key_name_admin(usr)] turned all humans into [result]")
 			var/newtype = GLOB.species_list[result]
-			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-				H.set_species(newtype)
+			for(var/mob/living/carbon/human/human_mob as anything in GLOB.human_list)
+				human_mob.set_species(newtype)
 
 		if("tripleAI")
 			if(!check_rights(R_FUN))
@@ -418,7 +417,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			for(var/mob/living/H in chosenPlayers)
 				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
 					continue
-				if(H.stat == DEAD || !H.client || !H.mind || ispAI(H))
+				if(H.stat == DEAD || !H.mind || ispAI(H))
 					continue
 				if(is_special_character(H))
 					continue
@@ -807,12 +806,13 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/list/candidates = list()
 
 				if (prefs["offerghosts"]["value"] == "Yes")
-					var/datum/poll_config/config = new()
-					config.question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name))
-					config.check_jobban = BAN_ROLE_ALL_ANTAGONISTS
-					config.poll_time = 30 SECONDS
-					config.role_name_text = "portal storm"
-					config.alert_pic = /obj/structure/carp_rift
+					var/datum/poll_config/config = new(
+						question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)),
+						check_jobban = BAN_ROLE_ALL_ANTAGONISTS,
+						poll_time = 30 SECONDS,
+						role_name_text = "portal storm",
+						alert_pic = /obj/structure/carp_rift,
+					)
 					SSpolling.poll_ghost_candidates(config)
 				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")

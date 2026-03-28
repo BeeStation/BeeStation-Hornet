@@ -12,6 +12,9 @@
 	duration = 3 MINUTES // Given a default duration so no one gets to hold onto this buff forever by accident.
 	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/unholy_determination
+	/// How much to heal every second
+	var/heal_per_second = 0.25
+
 
 /datum/status_effect/unholy_determination/on_creation(mob/living/new_owner, set_duration)
 	if(isnum(set_duration))
@@ -20,29 +23,25 @@
 
 /datum/status_effect/unholy_determination/on_apply()
 	initial_heal()
-	ADD_TRAIT(owner, TRAIT_NOCRITDAMAGE, type)
-	ADD_TRAIT(owner, TRAIT_NOSOFTCRIT, type)
-	ADD_TRAIT(owner, TRAIT_NOBREATH, type)
+	owner.add_traits(list(TRAIT_NOBREATH, TRAIT_NOCRITDAMAGE, TRAIT_NOSOFTCRIT), type)
 	return TRUE
 
 /datum/status_effect/unholy_determination/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_NOCRITDAMAGE, type)
-	REMOVE_TRAIT(owner, TRAIT_NOSOFTCRIT, type)
-	REMOVE_TRAIT(owner, TRAIT_NOBREATH, type)
+	owner.remove_traits(list(TRAIT_NOBREATH, TRAIT_NOCRITDAMAGE, TRAIT_NOSOFTCRIT), type)
 
 /datum/status_effect/unholy_determination/tick(seconds_between_ticks)
 	// The amount we heal of each damage type per tick. If we're missing legs we heal better because we can't dodge.
-	var/healing_amount = 1 + (2 - owner.usable_legs)
+	var/healing_amount = (heal_per_second * seconds_between_ticks) + (heal_per_second * (2 - owner.usable_legs))
 
 	// In softcrit you're, strong enough to stay up.
-	if(owner.health <= owner.crit_threshold && owner.health >= HEALTH_THRESHOLD_FULLCRIT)
+	if(owner.health <= owner.crit_threshold && owner.health >= owner.hardcrit_threshold)
 		if(prob(5))
 			to_chat(owner, span_hypnophrase("Your body feels like giving up, but you fight on!"))
 		healing_amount *= 2
 	// ...But reach hardcrit and you're done. You now die faster.
-	if (owner.health < HEALTH_THRESHOLD_FULLCRIT)
+	if (owner.health < owner.hardcrit_threshold)
 		if(prob(5))
-			to_chat(owner, span_big("[span_hypnophrase("You can't hold on for much longer...")]"))
+			to_chat(owner, span_big(span_hypnophrase("You can't hold on for much longer...")))
 		healing_amount *= -0.5
 
 	if(owner.health > owner.crit_threshold && prob(4))
@@ -53,9 +52,9 @@
 	if(prob(2))
 		playsound(owner, pick(GLOB.creepy_ambience), 50, TRUE)
 
-	adjust_all_damages(healing_amount)
-	adjust_temperature()
-	adjust_bleed_wounds()
+	adjust_all_damages(healing_amount, seconds_between_ticks)
+	adjust_temperature(seconds_between_ticks)
+	adjust_bleed_wounds(seconds_between_ticks)
 
 /*
  * Initially heals the owner a bit, ensuring they have no suffocation and no immobility.
@@ -75,32 +74,42 @@
 /*
  * Heals up all the owner a bit, fire stacks and losebreath included.
  */
-/datum/status_effect/unholy_determination/proc/adjust_all_damages(amount)
+/datum/status_effect/unholy_determination/proc/adjust_all_damages(amount, seconds_between_ticks)
 
-	owner.fire_stacks = max(owner.fire_stacks - 1, 0)
-	owner.losebreath = max(owner.losebreath - 0.5, 0)
+	owner.adjust_fire_stacks(-1)
+	owner.losebreath = max(owner.losebreath - (0.5 * seconds_between_ticks), 0)
 
-	owner.adjustToxLoss(-amount, FALSE, TRUE)
-	owner.adjustOxyLoss(-amount, FALSE)
-	owner.adjustBruteLoss(-amount, FALSE)
-	owner.adjustFireLoss(-amount)
+	var/damage_healed = 0
+	damage_healed += owner.adjustToxLoss(-amount, updating_health = FALSE, forced = TRUE)
+	damage_healed += owner.adjustOxyLoss(-amount, updating_health = FALSE)
+	damage_healed += owner.adjustBruteLoss(-amount, updating_health = FALSE)
+	damage_healed += owner.adjustFireLoss(-amount, updating_health = FALSE)
+	if(damage_healed > 0)
+		owner.updatehealth()
 
 /*
  * Adjust the owner's temperature up or down to standard body temperatures.
  */
-/datum/status_effect/unholy_determination/proc/adjust_temperature()
-	var/target_temp = BODYTEMP_NORMAL
+/datum/status_effect/unholy_determination/proc/adjust_temperature(seconds_between_ticks)
+	var/target_temp = owner.get_body_temp_normal(apply_change = FALSE)
 	if(owner.bodytemperature > target_temp)
-		owner.adjust_bodytemperature(-50 * TEMPERATURE_DAMAGE_COEFFICIENT, target_temp)
+		owner.adjust_bodytemperature(-50 * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_between_ticks, target_temp)
 	else if(owner.bodytemperature < (target_temp + 1))
-		owner.adjust_bodytemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT, target_temp)
+		owner.adjust_bodytemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_between_ticks, target_temp)
+
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		if(human_owner.coretemperature > target_temp)
+			human_owner.adjust_coretemperature(-50 * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_between_ticks, target_temp)
+		else if(human_owner.coretemperature < (target_temp + 1))
+			human_owner.adjust_coretemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_between_ticks, 0, target_temp)
 
 /*
  * Slow and stop any blood loss the owner's experiencing.
  */
-/datum/status_effect/unholy_determination/proc/adjust_bleed_wounds()
+/datum/status_effect/unholy_determination/proc/adjust_bleed_wounds(seconds_between_ticks)
 	if(!iscarbon(owner) || !owner.blood_volume)
 		return
 
 	if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
-		owner.blood_volume = owner.blood_volume + 2
+		owner.blood_volume = owner.blood_volume + (2 * seconds_between_ticks)

@@ -239,7 +239,7 @@
 ///Resin Mister - Sprays resin over an area.
 /obj/item/mod/module/mister/atmos
 	name = "\improper MOD resin mister module"
-	desc = "An atmospheric resin mister, able to fix up areas quickly."
+	desc = "An atmospheric resin mister, able to fix up areas quickly, it has a small slot allowing for disk upgrades."
 	device = /obj/item/extinguisher/mini/nozzle/mod
 	volume = 250
 

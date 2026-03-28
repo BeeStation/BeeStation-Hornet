@@ -58,57 +58,6 @@
 	H.dna.features["frills"] = "Simple"
 	H.set_species(/datum/species/lizard)
 
-/datum/role_preference/roundstart/blood_brother
-	name = "Blood Brother"
-	description = "Team up with other crew members as blood brothers to combine the strengths \
-	of your departments, break each other out of prison, and overwhelm the station."
-	antag_datum = /datum/antagonist/brother
-
-/datum/role_preference/roundstart/blood_brother/get_preview_icon()
-	var/mob/living/carbon/human/dummy/consistent/brother1 = new
-	var/mob/living/carbon/human/dummy/consistent/brother2 = new
-
-	brother1.hair_style = "Pigtails"
-	brother1.hair_color = "#553322"
-	brother1.update_hair()
-
-	brother2.dna.features["moth_antennae"] = "Plain"
-	brother2.dna.features["moth_markings"] = "None"
-	brother2.dna.features["moth_wings"] = "Plain"
-	brother2.set_species(/datum/species/moth)
-
-	var/icon/brother1_icon = render_preview_outfit(/datum/outfit/job/quartermaster, brother1)
-	brother1_icon.Blend(icon('icons/effects/blood.dmi', "maskblood"), ICON_OVERLAY)
-	brother1_icon.Shift(WEST, 8)
-
-	var/icon/brother2_icon = render_preview_outfit(/datum/outfit/job/scientist, brother2)
-	brother2_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
-	brother2_icon.Shift(EAST, 8)
-
-	var/icon/final_icon = brother1_icon
-	final_icon.Blend(brother2_icon, ICON_OVERLAY)
-
-	qdel(brother1)
-	qdel(brother2)
-
-	return finish_preview_icon(final_icon)
-
-/datum/role_preference/roundstart/vampire
-	name = "Vampire"
-	description = "After your death, you awaken to see yourself as an undead monster. \n\
-		Scrape by Space Station 13, or take it over, vassalizing your way!"
-	antag_datum = /datum/antagonist/vampire
-
-/datum/role_preference/roundstart/vampire/get_preview_icon()
-	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
-	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
-
-	return finish_preview_icon(icon)
-
-/datum/outfit/vampire
-	name = "Vampire outfit (Preview only)"
-	suit = /obj/item/clothing/suit/costume/dracula
-
 /datum/role_preference/roundstart/blood_cultist
 	name = "Blood Cultist"
 	description = "The Geometer of Blood, Nar-Sie, has sent a number of her followers to \

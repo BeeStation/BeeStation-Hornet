@@ -52,7 +52,7 @@ BONUS
 	var/picked_bodypart = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	var/obj/item/bodypart/bodypart = M.get_bodypart(picked_bodypart)
 	if(bodypart && IS_ORGANIC_LIMB(bodypart) && !(bodypart.bodypart_flags & BODYPART_PSEUDOPART))  //robotic limbs will mean less scratching overall (why are golems able to damage themselves with self-scratching, but not androids? the world may never know)
-		var/can_scratch = scratch && !M.incapacitated() && get_location_accessible(M, picked_bodypart)
+		var/can_scratch = scratch && !M.incapacitated && get_location_accessible(M, picked_bodypart)
 		M.visible_message("[can_scratch ? span_warning("[M] scratches [M.p_their()] [bodypart.name].") : ""]", span_notice("Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]"))
 		if(can_scratch)
 			bodypart.receive_damage(0.5)

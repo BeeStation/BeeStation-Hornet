@@ -29,7 +29,7 @@
 	robust_searching = 1
 	unique_name = 1
 	speak_emote = list("squeaks")
-	deathmessage = "fainted."
+	death_message = "fainted."
 	var/cap_color = COLOR_WHITE
 	var/powerlevel = 0 //Tracks our general strength level gained from eating other shrooms
 	var/bruised = 0 //If someone tries to cheat the system by attacking a shroom to lower its health, punish them so that it wont award levels to shrooms that eat it
@@ -83,7 +83,7 @@
 
 	return FALSE
 
-/mob/living/simple_animal/hostile/mushroom/adjustHealth(amount, updating_health = TRUE, forced = FALSE) //Possibility to flee from a fight just to make it more visually interesting
+/mob/living/simple_animal/hostile/mushroom/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype) //Possibility to flee from a fight just to make it more visually interesting
 	if(!retreat_distance && prob(33))
 		retreat_distance = 5
 		addtimer(CALLBACK(src, PROC_REF(stop_retreat)), 30)

@@ -467,7 +467,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	belt = /obj/item/melee/classic_baton/police
+	belt = /obj/item/melee/baton
 	l_hand = /obj/item/gun/ballistic/rifle/boltaction
 	back = /obj/item/storage/backpack/satchel
 	l_pocket = /obj/item/ammo_box/a762
@@ -496,7 +496,7 @@
 
 /datum/outfit/centcom/centcom_intern/leader
 	name = "CentCom Head Intern"
-	belt = /obj/item/melee/baton/loaded
+	belt = /obj/item/melee/baton/security/loaded
 	uniform = /obj/item/clothing/under/rank/centcom/officer_skirt
 	suit = /obj/item/clothing/suit/armor/vest
 	suit_store = /obj/item/gun/ballistic/rifle/boltaction

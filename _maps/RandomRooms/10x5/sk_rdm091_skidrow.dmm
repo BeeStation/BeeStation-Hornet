@@ -49,7 +49,7 @@
 /area/template_noop)
 "j" = (
 /obj/structure/bed/double/maint,
-/obj/item/bedsheet/random/double,
+/obj/item/bedsheet/double/random,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
@@ -65,7 +65,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/broken_bottle,
-/obj/item/melee/classic_baton/police/deputy{
+/obj/item/melee/baton/deputy{
 	name = "old baton";
 	stamina_damage = 10
 	},

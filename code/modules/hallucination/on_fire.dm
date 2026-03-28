@@ -70,11 +70,11 @@
 
 	START_PROCESSING(SSfastprocess, src)
 
-/datum/hallucination/fire/process(seconds_per_tick)
+/datum/hallucination/fire/process(delta_time)
 	if(QDELETED(src))
 		return
 
-	fake_firestacks -= (0.25 * seconds_per_tick)
+	fake_firestacks -= (0.25 * delta_time)
 	if(fake_firestacks <= 0)
 		clear_fire()
 	else
@@ -84,10 +84,10 @@
 			fire_overlay = new_overlay
 			hallucinator.client?.images |= fire_overlay
 
-	time_spent += seconds_per_tick
+	time_spent += delta_time
 
 	if(fire_clearing)
-		next_action -= seconds_per_tick
+		next_action -= delta_time
 		if(next_action < 0)
 			stage -= 1
 			update_temp()
@@ -103,7 +103,7 @@
 				increasing_stages = FALSE
 
 	else if(times_to_lower_stamina)
-		next_action -= seconds_per_tick
+		next_action -= delta_time
 		if(next_action < 0)
 			hallucinator.adjustStaminaLoss(15)
 			next_action += 2

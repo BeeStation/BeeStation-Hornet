@@ -2507,7 +2507,7 @@
 /area/science/xenobiology)
 "aHA" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/wood,
 /area/hallway/primary/aft)
 "aHF" = (
@@ -4276,7 +4276,7 @@
 	pixel_y = 24
 	},
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -9401,7 +9401,7 @@
 "cGQ" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "cGZ" = (
@@ -20539,7 +20539,7 @@
 /obj/item/laser_pointer{
 	pixel_x = 3
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4
 	},
 /turf/open/floor/wood,
@@ -20892,7 +20892,7 @@
 	},
 /obj/structure/rack,
 /obj/item/radio,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4
 	},
 /obj/item/storage/toolbox/electrical,
@@ -31739,7 +31739,7 @@
 /area/quartermaster/storage)
 "iEZ" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/machinery/light/small,
 /turf/open/floor/carpet,
 /area/hallway/primary/starboard)
@@ -46449,7 +46449,7 @@
 	pixel_y = 25
 	},
 /obj/structure/table,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/item/clothing/mask/balaclava,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
@@ -47289,6 +47289,27 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"mOG" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_x = -3;
+	pixel_y = 12
+	},
+/obj/item/melee/baton/security/cattleprod{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/blindfold{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/obj/item/wallframe/camera{
+	pixel_x = 3;
+	pixel_y = -2
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
 "mOH" = (
 /obj/structure/sign/painting/library{
 	pixel_x = -32
@@ -55826,7 +55847,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/firealarm/directional/north,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/iron/dark,
 /area/science/explab)
@@ -61570,7 +61591,7 @@
 	greyscale_colors = "#ff5050#000000";
 	name = "Nanotrasen wildlife department space carp plushie"
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
 	name = "Nanotrasen-brand personal AI device exhibit"
 	},
@@ -62122,7 +62143,7 @@
 /area/chapel/office)
 "qUZ" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/effect/landmark/event_spawn,
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 1
@@ -66984,6 +67005,13 @@
 	},
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
+"slZ" = (
+/mob/living/basic/mouse/gray,
+/obj/structure/lattice/catwalk,
+/obj/item/food/cheese/wheel,
+/obj/item/food/breadslice/creamcheese,
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "sma" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -73979,7 +74007,7 @@
 	pixel_y = 7;
 	req_access_txt = "30"
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = -5;
 	pixel_y = 1
 	},
@@ -81887,27 +81915,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
-"wdH" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp{
-	pixel_x = -3;
-	pixel_y = 12
-	},
-/obj/item/melee/baton/cattleprod{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/blindfold{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/wallframe/camera{
-	pixel_x = 3;
-	pixel_y = -2
-	},
-/turf/open/floor/iron/dark,
-/area/security/main)
 "wdR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -84482,7 +84489,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/machinery/camera/directional/west{
 	c_tag = "Bar";
 	name = "service camera"
@@ -87731,13 +87738,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/ridged/steel,
 /area/science/lobby)
-"xyo" = (
-/mob/living/simple_animal/mouse/gray,
-/obj/structure/lattice/catwalk,
-/obj/item/food/cheese/wheel,
-/obj/item/food/breadslice/creamcheese,
-/turf/open/floor/plating,
-/area/maintenance/port/central)
 "xyr" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/side{
@@ -89289,7 +89289,7 @@
 /obj/structure/table,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4
 	},
 /turf/open/floor/iron/white,
@@ -122583,7 +122583,7 @@ gsN
 xAn
 wrM
 vUR
-wdH
+mOG
 rGl
 jFK
 pYu
@@ -124074,7 +124074,7 @@ lHA
 jID
 jID
 jID
-xyo
+slZ
 jID
 aVq
 asn

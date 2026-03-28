@@ -243,7 +243,7 @@
 		break
 
 	if(acquitted)
-		wanted_status = WANTED_DISCHARGED
+		set_wanted_status(user, WANTED_DISCHARGED)
 		user.investigate_log("[key_name(user)] has invalidated [name]'s last valid crime. Their status is now [WANTED_DISCHARGED].", INVESTIGATE_RECORDS)
 
 	update_matching_security_huds(name)
@@ -268,7 +268,7 @@
 		deleted = FALSE
 		break
 	if(deleted)
-		wanted_status = WANTED_DISCHARGED
+		set_wanted_status(user, WANTED_DISCHARGED)
 		user.investigate_log("[key_name(user)] has deleted [name]'s last valid crime. Their status is now [WANTED_DISCHARGED].", INVESTIGATE_RECORDS)
 
 	update_matching_security_huds(name)
@@ -303,7 +303,7 @@
 	if(fine_amount == 0)
 		var/datum/crime_record/new_crime = new(name = input_name, details = input_details, author = user)
 		crimes += new_crime
-		wanted_status = WANTED_ARREST
+		set_wanted_status(user, WANTED_ARREST)
 		user.investigate_log("New Crime: <strong>[input_name]</strong> | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
 		new_crime.alert_owner(user, crime_console, name, "A warrant for your arrest has been filed. Please appear before security immediately to discuss this matter. Failure to comply may result in increased punitive action.")
 
@@ -363,12 +363,13 @@
 	security_note = trim(new_security_note, MAX_MESSAGE_LEN)
 	return TRUE
 
-/datum/record/crew/proc/set_wanted_status(new_wanted_status)
+/datum/record/crew/proc/set_wanted_status(atom/origin, new_wanted_status)
 	if(!new_wanted_status || !(new_wanted_status in WANTED_STATUSES()))
 		return FALSE
 	if(new_wanted_status == WANTED_ARREST && !length(crimes))
 		return FALSE
 	wanted_status = new_wanted_status
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_WANTED_STATUS_CHANGED, src, origin, wanted_status)
 
 	update_matching_security_huds(name)
 	return TRUE

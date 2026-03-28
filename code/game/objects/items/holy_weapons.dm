@@ -24,7 +24,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		var/list/temp_list = typesof(/obj/item/storage/box/holy)
 		for(var/V in temp_list)
 			var/atom/A = V
@@ -234,9 +234,9 @@
 			"Force Weapon" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "swordon"),
 			"Hanzo Steel" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "katana"),
 			"Extradimensional Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "multiverse"),
-			"Light Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "swordblue"),
-			"Dark Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "swordred"),
-			"Nautical Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "cutlass1"),
+			"Light Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_sword_on_blue"),
+			"Dark Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_sword_on_red"),
+			"Nautical Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_cutlass_on"),
 			"UNREAL SORD" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "sord"),
 			"Reaper Scythe" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "scythe1"),
 			"High Frequency Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "hfrequency1"),
@@ -254,16 +254,16 @@
 			"Carp-Sie Plushie" = image(icon = 'icons/obj/plushes.dmi', icon_state = "carpplush"),
 			"Monk's Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "bostaff0"),
 			"Arrythmic Knife" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "crysknife"),
-			"Unholy Pitchfork" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pitchfork0"),
+			"Unholy Pitchfork" = image(icon = 'icons/obj/weapons/spear.dmi', icon_state = "pitchfork0"),
 			"Egyptian Staff" = image(icon = 'icons/obj/guns/magic.dmi', icon_state = "pharoah_sceptre"),
 			"Hypertool" = image(icon = 'icons/obj/device.dmi', icon_state = "hypertool"),
 			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear"),
-			"Rainbow Knife" = image(icon = 'icons/obj/slimecrossing.dmi', icon_state = "rainbowknife")
+			"Rainbow Knife" = image(icon = 'icons/obj/knives.dmi', icon_state = "rainbowknife")
 		)
 
 	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
 	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]") //Keeping this here just in case removing it breaks something
-	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated && in_range(M,src))
 		qdel(src)
 		var A = unique_reskin[choice]
 		var/obj/item/nullrod/holy_weapon = new A
@@ -530,14 +530,16 @@
 
 	possessed = TRUE
 
-	var/datum/poll_config/config = new()
-	config.question = "Do you want to play as the spirit of [user.real_name]'s blade?"
-	config.check_jobban = ROLE_SPECTRAL_BLADE
-	config.poll_time = 10 SECONDS
-	config.ignore_category = POLL_IGNORE_SPECTRAL_BLADE
-	config.jump_target = user
-	config.role_name_text = "blade spirit"
-	config.alert_pic = user
+	var/datum/poll_config/config = new(
+		question = "Do you want to play as the spirit of [user?.real_name]'s blade?",
+		check_jobban = ROLE_SPECTRAL_BLADE,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_SPECTRAL_BLADE,
+		jump_target = user,
+		role_name_text = "blade spirit",
+		alert_pic = user,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, user)
 
 	if(candidate)
@@ -804,7 +806,9 @@
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
 	desc = "Holding this makes you look absolutely devilish."
+	icon = 'icons/obj/weapons/spear.dmi'
 	icon_state = "pitchfork0"
+	inhand_icon_state = "pitchfork0"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	worn_icon_state = "pitchfork0"
@@ -849,6 +853,7 @@
 /obj/item/nullrod/spear
 	name = "ancient spear"
 	desc = "An ancient spear made of brass, I mean gold, I mean bronze. It looks highly mechanical."
+	icon = 'icons/obj/weapons/spear.dmi'
 	icon_state = "ratvarian_spear"
 	inhand_icon_state = "ratvarian_spear"
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi'

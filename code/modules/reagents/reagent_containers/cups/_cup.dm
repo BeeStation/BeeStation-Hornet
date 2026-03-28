@@ -137,7 +137,7 @@
 		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 
 /obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, params)
-	var/hotness = attacking_item.is_hot()
+	var/hotness = attacking_item.get_temperature()
 	if(hotness && reagents)
 		reagents.expose_temperature(hotness)
 		to_chat(user, span_notice("You heat [name] with [attacking_item]!"))

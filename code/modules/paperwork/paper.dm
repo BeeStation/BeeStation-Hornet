@@ -23,7 +23,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	throw_range = 1
 	throw_speed = 1
 	pressure_resistance = 0
@@ -150,7 +150,7 @@
 	new_paper.raw_stamp_data = copy_raw_stamps()
 	new_paper.stamp_cache = stamp_cache?.Copy()
 	new_paper.update_icon_state()
-	copy_overlays(new_paper, TRUE)
+	new_paper.copy_overlays(src)
 	return new_paper
 
 /**
@@ -200,8 +200,17 @@
 	var/datum/paper_field/field_data_datum = null
 
 	var/is_signature = ((text == "%sign") || (text == "%s"))
+	var/is_date = ((text == "%date") || (text == "%d"))
+	var/is_time = ((text == "%time") || (text == "%t"))
 
-	var/field_text = is_signature ? signature_name : text
+	var/field_text = text
+	if(is_signature)
+		field_text = signature_name
+	else if(is_date)
+		field_text = "[time2text(world.timeofday, "DD/MM")]/[CURRENT_STATION_YEAR]"
+	else if(is_time)
+		field_text = station_time_timestamp()
+
 	var/field_font = is_signature ? SIGNATURE_FONT : font
 
 	for(var/datum/paper_field/field_input in raw_field_input_data)
@@ -230,8 +239,8 @@
 		bold,
 	)
 
-	field_data_datum.field_data = new_input_datum;
-	field_data_datum.is_signature = is_signature;
+	field_data_datum.field_data = new_input_datum
+	field_data_datum.is_signature = is_signature
 
 	return TRUE
 
@@ -249,15 +258,16 @@
  * * stamp_y - Y coordinate to render the stamp in tgui.
  * * rotation - Degrees of rotation for the stamp to be rendered with in tgui.
  * * stamp_icon_state - Icon state for the stamp as part of overlay rendering.
+* * stamp_icon_state - An alternate Icon file can be passed for the stamp as part of overlay rendering if desired
  */
-/obj/item/paper/proc/add_stamp(stamp_class, stamp_x, stamp_y, rotation, stamp_icon_state)
+/obj/item/paper/proc/add_stamp(stamp_class, stamp_x, stamp_y, rotation, stamp_icon_state, stamp_icon = 'icons/obj/bureaucracy.dmi')
 	var/new_stamp_datum = new /datum/paper_stamp(stamp_class, stamp_x, stamp_y, rotation)
-	LAZYADD(raw_stamp_data, new_stamp_datum);
+	LAZYADD(raw_stamp_data, new_stamp_datum)
 
 	if(LAZYLEN(stamp_cache) > MAX_PAPER_STAMPS_OVERLAYS)
 		return
 
-	var/mutable_appearance/stamp_overlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[stamp_icon_state]")
+	var/mutable_appearance/stamp_overlay = mutable_appearance(stamp_icon, "paper_[stamp_icon_state]", appearance_flags = KEEP_APART | RESET_COLOR)
 	stamp_overlay.pixel_x = rand(-2, 2)
 	stamp_overlay.pixel_y = rand(-3, 2)
 	add_overlay(stamp_overlay)
@@ -283,16 +293,18 @@
 	..()
 
 /obj/item/paper/update_icon_state()
-	. = ..()
 	if(LAZYLEN(raw_text_inputs) && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
+	else
+		icon_state = initial(icon_state)
+	return ..()
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(!usr.can_read(src) || INCAPACITATED_IGNORING(usr, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
@@ -302,6 +314,8 @@
 			H.update_damage_hud()
 			return
 	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
+	if(isnull(n_name) || n_name == "")
+		return
 	if(((loc == usr || istype(loc, /obj/item/clipboard)) && usr.stat == CONSCIOUS))
 		name = "paper[(n_name ? "- '[n_name]'" : null)]"
 	add_fingerprint(usr)
@@ -321,7 +335,7 @@
 		return
 	. += span_warning("You cannot read it!")
 
-/obj/item/paper/ui_status(mob/user,/datum/ui_state/state)
+/obj/item/paper/ui_status(mob/user, /datum/ui_state/state)
 		// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
@@ -329,13 +343,13 @@
 		return UI_UPDATE
 	if(!in_range(user, src))
 		return UI_CLOSE
-	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(user) && !IsAdminGhost(user)))
+	if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read
 	if(!user.can_read(src))
 		return UI_CLOSE
-	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard) || in_contents_of(/obj/item/sticker/sticky_note))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard) || in_contents_of(/obj/item/sticker/sticky_note) || in_contents_of(/obj/item/folder))
 		return UI_INTERACTIVE
 	return ..()
 
@@ -399,12 +413,42 @@
 	// Handle stamping items.
 	if(writing_stats["interaction_mode"] == MODE_STAMPING)
 		to_chat(user, span_notice("You ready your stamp over the paper! "))
-		ui_interact(user)
-		return
+		if(!user.can_read(src))
+			//The paper's stampable window area is assumed approx 300x400
+			add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), rand(0, 360), writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
+			user.visible_message(span_notice("[user] blindly stamps [src] with \the [attacking_item]!"))
+			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+		else
+			to_chat(user, span_notice("You ready your stamp over the paper! "))
+			ui_interact(user)
+
+		return /// Normaly you just stamp, you don't need to read the thing
+	else
+		// cut paper?  the sky is the limit!
+		ui_interact(user) // The other ui will be created with just read mode outside of this
 
 	ui_interact(user)
 	return ..()
 
+/// Secondary right click interaction to quickly stamp things
+/obj/item/paper/attackby_secondary(obj/item/tool, mob/living/user, list/modifiers)
+	var/list/writing_stats = tool.get_writing_implement_details()
+
+	if(!length(writing_stats))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(writing_stats["interaction_mode"] != MODE_STAMPING)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(!user.can_read(src)) // Just leftclick instead
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	add_stamp(writing_stats["stamp_class"], rand(1, 300), rand(1, 400), stamp_icon_state = writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
+	user.visible_message(
+		span_notice("[user] quickly stamps [src] with [tool] without looking."),
+		span_notice("You quickly stamp [src] with [tool] without looking."),
+	)
+	playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN // Stop the UI from opening.
 /**
  * Attempts to ui_interact the paper to the given user, with some sanity checking
  * to make sure the camera still exists via the weakref and that this paper is still
@@ -436,7 +480,8 @@
 
 /obj/item/paper/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/paper),
+		get_asset_datum(/datum/asset/spritesheet/simple/stamps),
+		get_asset_datum(/datum/asset/simple/logos),
 	)
 
 /obj/item/paper/ui_interact(mob/user, datum/tgui/ui)
@@ -445,7 +490,6 @@
 		ui = new(user, src, "PaperSheet", name)
 		ui.open()
 		ui.set_autoupdate(TRUE)
-
 
 /obj/item/paper/ui_static_data(mob/user)
 	var/list/static_data = list()
@@ -473,7 +517,7 @@
 	static_data["default_pen_color"] = COLOR_BLACK
 	static_data["signature_font"] = FOUNTAIN_PEN_FONT
 
-	return static_data;
+	return static_data
 
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
@@ -482,7 +526,9 @@
 	// Use a clipboard's pen, if applicable
 	if(istype(loc, /obj/item/clipboard))
 		var/obj/item/clipboard/clipboard = loc
-		if(clipboard.pen)
+		// This is just so you can still use a stamp if you're holding one. Otherwise, it'll
+		// use the clipboard's pen, if applicable.
+		if(!istype(holding, /obj/item/stamp) && clipboard.pen)
 			holding = clipboard.pen
 
 	data["held_item_details"] = istype(holding) ? holding.get_writing_implement_details() : null
@@ -509,7 +555,7 @@
 				to_chat(src, span_warning("You can't stamp with the [holding]!"))
 				return TRUE
 
-			var/stamp_class = stamp_info["stamp_class"];
+			var/stamp_class = stamp_info["stamp_class"]
 
 			// If the paper is on an unwritable noticeboard, this usually shouldn't be possible.
 			if(istype(loc, /obj/structure/noticeboard))
@@ -525,12 +571,13 @@
 			//var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 			var/stamp_rotation = text2num(params["rotation"])
 			var/stamp_icon_state = stamp_info["stamp_icon_state"]
+			var/stamp_icon = stamp_info["stamp_icon"]
 
 			if (LAZYLEN(raw_stamp_data) >= MAX_PAPER_STAMPS)
-				to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
+				to_chat(usr, pick("You try to stamp but you miss!", "There is nowhere else you can stamp!"))
 				return TRUE
 
-			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state)
+			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state, stamp_icon)
 			user.visible_message(span_notice("[user] stamps [src] with \the [holding.name]!"), span_notice("You stamp [src] with \the [holding.name]!"))
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			update_appearance()
@@ -542,7 +589,7 @@
 			var/this_input_length = length_char(paper_input)
 
 			if(this_input_length == 0)
-				to_chat(user, pick("Writing block strikes again!", "You forgot to write anthing!"))
+				to_chat(user, pick("Writing block strikes again!", "You forgot to write anything!"))
 				return TRUE
 
 			// If the paper is on an unwritable noticeboard, this usually shouldn't be possible.
@@ -575,7 +622,7 @@
 			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_FUN))
 
 			log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
-			to_chat(user, "You have added to your paper masterpiece!");
+			to_chat(user, "You have added to your paper masterpiece!")
 
 			update_static_data_for_all_viewers()
 			update_appearance()
@@ -667,7 +714,7 @@
 	advanced_html = _advanced_html
 
 /datum/paper_input/proc/make_copy()
-	return new /datum/paper_input(raw_text, font, colour, bold, advanced_html);
+	return new /datum/paper_input(raw_text, font, colour, bold, advanced_html)
 
 /datum/paper_input/proc/to_list()
 	return list(

@@ -130,7 +130,7 @@
 
 	// For luring whatever mobs that are "interested" in laser pointers
 	for(var/mob/M as() in viewers(1,targloc))
-		if(M.incapacitated())
+		if(M.incapacitated)
 			return
 		var/mob/living/carbon/human/H = M
 		if(iscatperson(H) && !H.is_blind()) //catpeople!
@@ -145,7 +145,7 @@
 			else
 				M.visible_message(span_notice("[M] stares at the light"),span_warning(" You stare at the light... "))
 		else if(iscat(M)) //cats!
-			var/mob/living/simple_animal/pet/cat/C = M
+			var/mob/living/basic/pet/cat/C = M
 			if(prob(50))
 				if(C.resting)
 					C.set_resting(FALSE, instant = TRUE)

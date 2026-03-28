@@ -54,9 +54,11 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
-/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
-	if(new_amount != null)
-		amount = new_amount
+/obj/item/stack/Initialize(mapload, new_amount = amount, merge = TRUE, mob/user = null)
+	amount = new_amount
+	if(amount <= 0)
+		stack_trace("invalid amount [amount]!")
+		return INITIALIZE_HINT_QDEL
 	if(user)
 		add_fingerprint(user)
 	check_max_amount()
@@ -69,27 +71,31 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		set_mats_per_unit(custom_materials, amount ? 1/amount : 1)
 
 	. = ..()
+
 	if(merge)
-		for(var/obj/item/stack/item_stack in loc)
-			if(item_stack == src)
-				continue
-			if(can_merge(item_stack))
-				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
-				if(is_zero_amount(delete_if_zero = FALSE))
-					return INITIALIZE_HINT_QDEL
+		. = INITIALIZE_HINT_LATELOAD
 
 	update_weight()
 	update_appearance()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_movable_entered_occupied_turf),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/item/stack/LateInitialize()
+	merge_with_loc()
+
+/obj/item/stack/Destroy()
+	mats_per_unit = null
+	return ..()
 
 /obj/item/stack/add_context_self(datum/screentip_context/context, mob/user)
 	context.use_cache()
 	context.add_left_click_action("Open stack crafting")
 	context.add_right_click_action("Split Stack")
 
+/obj/item/stack/Moved(atom/old_loc, dir)
+	. = ..()
+	if((!throwing || throwing.target_turf == loc) && old_loc != loc && (flags_1 & INITIALIZED_1))
+		merge_with_loc(merge_into_ourselves = !isnull(pulledby))
+	if(ismob(loc) || ismob(old_loc) || loc?.atom_storage || old_loc?.atom_storage)
+		update_appearance(UPDATE_NAME)
 
 /** Sets the amount of materials per unit for this stack.
   *
@@ -105,6 +111,36 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
   */
 /obj/item/stack/proc/update_custom_materials()
 	set_custom_materials(mats_per_unit, amount, is_update=TRUE)
+
+/obj/item/stack/proc/find_other_stack(list/already_found, merge_into_ourselves = FALSE)
+	if(QDELETED(src) || isnull(loc))
+		return
+	for(var/obj/item/stack/item_stack in loc)
+		if(item_stack == src || QDELING(item_stack) || (item_stack.amount >= item_stack.max_amount))
+			continue
+		if(!(item_stack.flags_1 & INITIALIZED_1))
+			continue
+		var/stack_ref = REF(item_stack)
+		if(already_found[stack_ref])
+			continue
+		if(merge_into_ourselves ? item_stack.can_merge(src) : can_merge(item_stack))
+			already_found[stack_ref] = TRUE
+			return item_stack
+
+/// Tries to merge the stack with everything on the same tile.
+/obj/item/stack/proc/merge_with_loc(merge_into_ourselves = FALSE)
+	var/list/already_found = list() // change to alist whenever dreamchecker and such finally supports that
+	var/obj/item/stack/other_stack = find_other_stack(already_found, merge_into_ourselves)
+	var/sanity = max_amount // just in case
+	while(other_stack && sanity > 0)
+		sanity--
+		if(!merge_into_ourselves)
+			if(merge(other_stack))
+				return FALSE
+		else if (other_stack.merge(src) && !QDELETED(other_stack))
+			return FALSE
+		other_stack = find_other_stack(already_found, TRUE)
+	return TRUE
 
 /**
  * Override to make things like metalgen accurately set custom materials
@@ -351,7 +387,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 /obj/item/stack/proc/radial_check(mob/builder)
 	if(QDELETED(builder) || QDELETED(src))
 		return FALSE
-	if(builder.incapacitated())
+	if(builder.incapacitated)
 		return FALSE
 	if(!builder.is_holding(src))
 		return FALSE
@@ -597,17 +633,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	. = merge_without_del(target_stack, limit)
 	is_zero_amount(delete_if_zero = TRUE)
 	ui_update() //merging into stack wont update stackcrafting menu otherwise
-
-/// Signal handler for connect_loc element. Called when a movable enters the turf we're currently occupying. Merges if possible.
-/obj/item/stack/proc/on_movable_entered_occupied_turf(datum/source, atom/movable/arrived)
-	SIGNAL_HANDLER
-
-	// Edge case. This signal will also be sent when src has entered the turf. Don't want to merge with ourselves.
-	if(arrived == src)
-		return
-
-	if(!arrived.throwing && can_merge(arrived))
-		INVOKE_ASYNC(src, PROC_REF(merge), arrived)
 
 /obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(can_merge(AM))

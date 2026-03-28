@@ -57,7 +57,7 @@
 	// Set the master, then give the datum.
 	var/datum/antagonist/vassal/vassaldatum = new(conversion_target.mind)
 	vassaldatum.master = src
-	conversion_target.mind.add_antag_datum(vassaldatum)
+	conversion_target.mind.add_antag_datum(vassaldatum, ruleset = spawning_ruleset)
 
 	if(istype(my_clan, /datum/vampire_clan/brujah) && my_clan.clan_objective.target == conversion_target.mind)
 		vassaldatum.make_special(/datum/antagonist/vassal/discordant)

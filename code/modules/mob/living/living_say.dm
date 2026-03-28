@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(pressure < SOUND_MINIMUM_PRESSURE)
 		message_range = 1
 
-	if(pressure < ONE_ATMOSPHERE*0.4) //Thin air, let's italicise the message
+	if(pressure < ONE_ATMOSPHERE * (HAS_TRAIT(src, TRAIT_SPEECH_BOOSTER) ? 0.1 : 0.4)) //Thin air, let's italicise the message unless we have a loud low pressure speech trait and not in vacuum
 		spans |= SPAN_ITALICS
 
 	send_speech(message, message_range, src, bubble_type, spans, language, message_mods)//roughly 58% of living/say()'s total cost
@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return FALSE
 
 	if(!can_speak())
-		if(HAS_TRAIT(src, TRAIT_MIMING))
+		if(HAS_MIND_TRAIT(src, TRAIT_MIMING))
 			to_chat(src, span_green("Your vow of silence prevents you from speaking!"))
 		else
 			to_chat(src, span_warning("You find yourself unable to speak!"))
@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return TRUE
 
 /mob/living/can_speak(allow_mimes = FALSE)
-	if(!allow_mimes && HAS_TRAIT(src, TRAIT_MIMING))
+	if(!allow_mimes && HAS_MIND_TRAIT(src, TRAIT_MIMING))
 		return FALSE
 
 	if(HAS_TRAIT(src, TRAIT_MUTE))

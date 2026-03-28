@@ -99,7 +99,7 @@ Difficulty: Medium
 	if(target)
 		wander = TRUE
 
-/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(GLOB.necropolis_gate && true_spawn)
 		GLOB.necropolis_gate.toggle_the_gate(null, TRUE) //very clever.
 	return ..()

@@ -10,7 +10,7 @@
 	bubble_icon = "machine"
 	mob_biotypes = MOB_ROBOTIC
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
-	deathsound = 'sound/voice/borg_deathsound.ogg'
+	death_sound = 'sound/voice/borg_deathsound.ogg'
 	examine_cursor_icon = null
 	fire_stack_decay_rate = -0.55
 	speech_span = SPAN_ROBOT
@@ -413,7 +413,7 @@
 	diagsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/toggle_sensors()
-	if(incapacitated())
+	if(incapacitated)
 		return
 	sensors_on = !sensors_on
 	if (!sensors_on)

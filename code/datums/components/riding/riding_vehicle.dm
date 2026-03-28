@@ -79,7 +79,7 @@
 		//This could all be one very long if-statement, but I broke it up for better readability
 
 		//Can't hold on to controls if you're cuffed or completely incapacitated
-		if(HAS_TRAIT(carbon_user, TRAIT_HANDS_BLOCKED) || carbon_user.incapacitated(TRUE, TRUE))
+		if(HAS_TRAIT(carbon_user, TRAIT_HANDS_BLOCKED) || INCAPACITATED_IGNORING(carbon_user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 			holding_on = FALSE
 
 		//Can't hold on if you don't have arms in the first place

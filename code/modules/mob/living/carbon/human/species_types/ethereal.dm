@@ -10,7 +10,6 @@
 	mutantheart = /obj/item/organ/heart/ethereal
 	exotic_bloodtype = "E"
 	siemens_coeff = 0.5 //They thrive on energy
-	brutemod = 1.25 //They're weak to punches
 	attack_type = BURN //burn bish
 	species_traits = list(
 		DYNCOLORS,
@@ -152,7 +151,7 @@
 	H.visible_message(span_danger("[H] stops flickering and goes back to their normal state!"))
 
 /datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
-	brutemod = 1.25
+	H.physiology.brute_mod = 1.25
 	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
 		return
 	switch(H.nutrition)
@@ -160,17 +159,17 @@
 			H.clear_alert("nutrition")
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 1)
-			brutemod = 1.5
+			H.physiology.brute_mod = 1.5
 		if(1 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 2)
 			if(H.health > 10.5)
-				apply_damage(0.65, TOX, null, null, H)
-			brutemod = 1.75
+				H.apply_damage(0.65, TOX, null, null, H)
+			H.physiology.brute_mod = 1.75
 		else
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 3)
 			if(H.health > 10.5)
-				apply_damage(1, TOX, null, null, H)
-			brutemod = 2
+				H.apply_damage(1, TOX, null, null, H)
+			H.physiology.brute_mod = 2
 
 /datum/species/ethereal/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)

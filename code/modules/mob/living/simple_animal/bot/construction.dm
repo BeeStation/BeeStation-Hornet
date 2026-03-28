@@ -17,7 +17,7 @@
 		return
 
 /obj/item/bot_assembly/proc/rename_bot()
-	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, created_name,MAX_NAME_LEN))
+	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, created_name,MAX_NAME_LEN), allow_numbers = TRUE)
 	if(!t)
 		return
 	if(!in_range(src, usr) && loc != usr)
@@ -405,7 +405,7 @@
 				build_step--
 
 		if(ASSEMBLY_FOURTH_STEP)
-			if(istype(I, /obj/item/melee/baton))
+			if(istype(I, /obj/item/melee/baton/security))
 				if(!can_finish_build(I, user))
 					return
 				to_chat(user, span_notice("You complete the Securitron! Beep boop."))

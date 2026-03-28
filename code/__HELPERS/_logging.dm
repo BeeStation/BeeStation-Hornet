@@ -35,7 +35,7 @@
 	SEND_TEXT(world.log, text)
 #endif
 
-#if defined(REFERENCE_DOING_IT_LIVE)
+#if defined(REFERENCE_TRACKING_LOG_APART)
 #define log_reftracker(msg) log_harddel("## REF SEARCH [msg]")
 
 /proc/log_harddel(text)
@@ -81,6 +81,10 @@
 /proc/log_objective(whom, objective, admin_involved)
 	if (CONFIG_GET(flag/log_objective))
 		WRITE_LOG(GLOB.world_objective_log, "OBJ: [key_name(whom)] was assigned the following objective [admin_involved ? "by [key_name(admin_involved)]" : "automatically"]: [objective]")
+
+/proc/log_directive(message)
+	if (CONFIG_GET(flag/log_objective))
+		WRITE_LOG(GLOB.world_objective_log, "OBJ: [message]")
 
 /proc/log_mecha(text)
 	if (CONFIG_GET(flag/log_mecha) && SSticker.current_state != GAME_STATE_FINISHED)

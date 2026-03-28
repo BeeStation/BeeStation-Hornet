@@ -252,8 +252,13 @@
 	if(!target.can_buckle_to && !force)
 		return FALSE
 
-	return TRUE
+	// Check if there's something blocking the way to buckle
+	var/turf/turf = get_turf(src)
+	if(turf.is_blocked_turf(source_atom = target, ignore_atoms = list(src)))
+		to_chat(target, span_warning("Something is in the way"))
+		return FALSE
 
+	return TRUE
 /**
   * Simple helper proc that runs a suite of checks to test whether it is possible or not for user to buckle target mob to src.
   *
@@ -266,7 +271,7 @@
   */
 /atom/movable/proc/is_user_buckle_possible(mob/living/target, mob/user, check_loc = TRUE)
 	// Standard adjacency and other checks.
-	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated() || target.anchored)
+	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated || target.anchored)
 		return FALSE
 
 	// In buckling even possible in the first place?
