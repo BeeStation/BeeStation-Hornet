@@ -44,12 +44,14 @@
 	H.dna.add_mutation(/datum/mutation/race, MUT_NORMAL)
 	H.dna.activate_mutation(/datum/mutation/race)
 	H.AddElement(/datum/element/human_biter)
+	H.melee_damage = 3
 
 /datum/species/monkey/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	passtable_off(C, SPECIES_TRAIT)
 	C.dna.remove_mutation(/datum/mutation/race)
 	C.RemoveElement(/datum/element/human_biter)
+	C.melee_damage = initial(C.melee_damage)
 
 /datum/species/monkey/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[MONKEYDAY])

@@ -554,7 +554,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		var/datum/species/old_species = dna.species
 		dna.update_species(new_race)
 
-		dna.species.on_species_loss(src, new_race, pref_load)
+		old_species.on_species_loss(src, new_race, pref_load)
 
 		dna.species.on_species_gain(src, old_species, pref_load)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)

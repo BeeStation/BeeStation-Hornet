@@ -238,7 +238,7 @@
 
 	if(try_inject(user, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
 		if(..()) //successful monkey bite, this handles disease contraction.
-			var/damage = melee_damage
+			var/damage = user.melee_damage
 			if(!damage)
 				return FALSE
 			if(check_shields(user, damage, "the [user.name]"))
