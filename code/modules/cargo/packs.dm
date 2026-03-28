@@ -1441,16 +1441,6 @@
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE
 
-/datum/supply_pack/engine/collector
-	name = "Radiation Collector Crate"
-	desc = "Contains three radiation collectors. Useful for collecting energy off nearby Supermatter Crystals, Singularities or Teslas!"
-	cost = CARGO_CRATE_VALUE * 7
-	max_supply = 4
-	contains = list(/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector)
-	crate_name = "collector crate"
-
 /datum/supply_pack/engine/nuclear_reactor
 	name = "RBMK Nuclear Reactor Engine Crate"
 	desc = "Contains the boards for an NT certified nuclear power engine! Don't forget to wear a radiation suit!"
