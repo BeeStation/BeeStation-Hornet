@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(orbital_radiation_band)
 		/datum/controller/subsystem/orbital_altitude,
 	)
 	// Only allowed to use small portions of tick
-	priority = FIRE_PRIORITY_ORBITAL_STUFF
+	priority = FIRE_PRIORITY_STATION_ALTITUDE
 	runlevels = RUNLEVEL_GAME
 	/// Station levels
 	var/list/station_levels

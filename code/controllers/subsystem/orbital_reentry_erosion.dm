@@ -1,8 +1,17 @@
-// Orbital altitude thresholds for erosion (matches orbital_altitude.dm)
-#define EROSION_ALTITUDE_START 95000  // 95km - Light fire effects start
-#define EROSION_ALTITUDE_CRITICAL 90000  // 90km - Damage begins
-#define EROSION_ALTITUDE_SEVERE 85000  // 85km - Heavy damage
-#define EROSION_ALTITUDE_EXTREME 80000  // 80km - Maximum damage
+/**
+ * Orbital Reentry Erosion Subsystem
+ * Handles the application of damage and fire effects to station tiles, objects, and mobs during orbital reentry.
+ * Damage is based on current orbital altitude and increases as the station descends.
+ * Only processes areas of the station that are exposed to the direction of reentry.
+ *
+ * We work purely on a list of target turfs provided by us from the scanning subsystem, and apply damage/effects to those tiles and their contents.
+ * This allows us to separate the expensive raycasting logic from the damage application logic,
+ * which should help with performance as we can adjust how many tiles we process per tick based on current load.
+ *
+ * By default, we do all of them in one go until we hit our tick limit, at which point we save our progress and continue on the next fire.
+ * This allows us to spread the processing out over multiple ticks if needed,
+ * while still ensuring that all necessary tiles get processed as quickly as possible once we start.
+ */
 
 SUBSYSTEM_DEF(orbital_reentry_erosion)
 	name = "Orbital Reentry Erosion"
@@ -11,9 +20,10 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 		/datum/controller/subsystem/mapping,
 		/datum/controller/subsystem/atoms,
 		/datum/controller/subsystem/orbital_altitude,
+		/datum/controller/subsystem/orbital_reentry_scanning
 	)
 	// Only allowed to use small portions of tick
-	priority = FIRE_PRIORITY_ORBITAL_STUFF
+	priority = FIRE_PRIORITY_STATION_ALTITUDE
 	runlevels = RUNLEVEL_GAME
 	/// Station levels
 	var/list/station_levels
@@ -25,6 +35,10 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	var/list/created_fires = list()
 	/// Is the subsystem currently active (altitude-based)?
 	var/erosion_active = FALSE
+
+// TODO: MOVE RAYCAST LOGIC INTO orbital.reentry_scanning.dm, AND THEN JUST HAVE THIS SUBSYSTEM WORK OFF THE RESULTS OF THAT RATHER THAN DOING ANY RAYCASTING ITSELF.
+// WE ALSO MAKE SURE THE LOGIC FOR WHEN TO RUN THIS IS CONTAININED OVER IN orbital_altitude.dm, BUT HOW WE RUN THIS IS IN HERE.
+// so we basically turn this puppy on/off based on altitude over there, and if we are on, we operate on the altitude provided to us accordingly.
 
 /datum/controller/subsystem/orbital_reentry_erosion/Initialize()
 	// Disable for planetary stations

@@ -8,6 +8,11 @@
 #define ORBITAL_ALTITUDE_LOW_CRITICAL 90000 // 90km - Lower critical threshold (structural damage begins)
 #define ORBITAL_ALTITUDE_LOW_BOUND 80000 // 80km - Cannot go lower than this
 
+// Orbital altitude thresholds for erosion
+#define EROSION_ALTITUDE_START 95000  // 95km - Light fire effects start
+#define EROSION_ALTITUDE_CRITICAL 90000  // 90km - Damage begins
+#define EROSION_ALTITUDE_SEVERE 85000  // 85km - Heavy damage
+#define EROSION_ALTITUDE_EXTREME 80000  // 80km - Maximum damage
 
 // Proper orbital defines
 #define GRAVITATIONAL_CONSTANT 1

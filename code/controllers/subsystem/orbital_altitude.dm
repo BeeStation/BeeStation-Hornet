@@ -39,25 +39,14 @@ SUBSYSTEM_DEF(orbital_altitude)
 	/// Current stage of the final countdown (0-4)
 	var/countdown_stage = 0
 
-	/// Cached station boundaries for each Z-level
-	var/list/station_bounds_cache
-	/// Whether station bounds have been calculated
-	var/bounds_calculated = FALSE
-
 	COOLDOWN_DECLARE(orbital_report_cooldown)
 	COOLDOWN_DECLARE(orbital_report_critical)
-	COOLDOWN_DECLARE(heavy_atmospheric_drag_cooldown)
 
 /datum/controller/subsystem/orbital_altitude/fire(resumed = FALSE)
 	// Disable for planetary stations (they don't orbit)
 	if(SSmapping.current_map.planetary_station)
 		can_fire = FALSE
 		return
-
-	// Calculate station boundaries once at startup
-	if(!bounds_calculated)
-		calculate_all_station_bounds()
-		bounds_calculated = TRUE
 
 	// Update thrust from all orbital thrusters
 	update_thrust_from_thrusters()
@@ -72,9 +61,8 @@ SUBSYSTEM_DEF(orbital_altitude)
 	if(COOLDOWN_FINISHED(src, orbital_report_cooldown) && !in_critical_orbit)
 		send_orbital_report()
 
-	// Spawn atmospheric drag damage effects when critical
+	// Send critical reports periodically
 	if(in_critical_orbit)
-		spawn_atmospheric_drag()
 		if(COOLDOWN_FINISHED(src, orbital_report_critical))
 			send_orbital_report()
 
@@ -216,6 +204,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 			critical_orbit_start_time = world.time
 			last_warning_time = world.time
 
+			// Enable the drag subsystem
+			SSorbital_reentry_drag.can_fire = TRUE
+
 			minor_announce("WARNING: Station orbital altitude has fallen below critical threshold. Structural damage detected.\nRestore orbital parameters immediately.",
 				"CRITICAL ORBITAL FAILURE",
 				alert = TRUE)
@@ -262,6 +253,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 			critical_orbit_start_time = 0
 			final_countdown_active = FALSE
 			countdown_stage = 0
+
+			// Disable the drag subsystem
+			SSorbital_reentry_drag.can_fire = FALSE
 
 			minor_announce("Station altitude has been restored above critical threshold. \
 				Emergency status cancelled.", \
@@ -322,189 +316,3 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 	// Force round end
 	SSticker.force_ending = FORCE_END_ROUND
-
-/datum/controller/subsystem/orbital_altitude/proc/spawn_atmospheric_drag()
-	var/list/station_z_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
-	if(!length(station_z_levels))
-		return
-
-	var/target_z = pick(station_z_levels)
-	var/list/bounds = station_bounds_cache["[target_z]"]
-	if(!bounds)
-		return
-
-	// Pick a random edge to spawn from
-	var/edge = rand(1, 4)
-	var/turf/start_turf
-	var/turf/target_turf
-
-	switch(edge)
-		if(1) // Top edge
-			start_turf = locate(rand(bounds["min_x"], bounds["max_x"]), bounds["max_y"] + 10, target_z)
-			target_turf = locate(rand(bounds["min_x"], bounds["max_x"]), bounds["min_y"], target_z)
-		if(2) // Bottom edge
-			start_turf = locate(rand(bounds["min_x"], bounds["max_x"]), bounds["min_y"] - 10, target_z)
-			target_turf = locate(rand(bounds["min_x"], bounds["max_x"]), bounds["max_y"], target_z)
-		if(3) // Right edge
-			start_turf = locate(bounds["max_x"] + 10, rand(bounds["min_y"], bounds["max_y"]), target_z)
-			target_turf = locate(bounds["min_x"], rand(bounds["min_y"], bounds["max_y"]), target_z)
-		if(4) // Left edge
-			start_turf = locate(bounds["min_x"] - 10, rand(bounds["min_y"], bounds["max_y"]), target_z)
-			target_turf = locate(bounds["max_x"], rand(bounds["min_y"], bounds["max_y"]), target_z)
-
-	if(!start_turf || !target_turf)
-		return
-
-	// Spawn heavy drag occasionally, light drag otherwise
-	if(COOLDOWN_FINISHED(src, heavy_atmospheric_drag_cooldown))
-		COOLDOWN_START(src, heavy_atmospheric_drag_cooldown, 60 SECONDS)
-		new /obj/effect/meteor/atmospheric_drag/heavy(start_turf, target_turf)
-	else
-		new /obj/effect/meteor/atmospheric_drag(start_turf, target_turf)
-
-/datum/controller/subsystem/orbital_altitude/proc/calculate_all_station_bounds()
-	station_bounds_cache = list()
-
-	var/list/station_z_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
-	if(!length(station_z_levels))
-		return
-
-	// Calculate bounding box and cache space turfs for each station Z-level
-	for(var/z_level in station_z_levels)
-		var/min_x = world.maxx
-		var/max_x = 1
-		var/min_y = world.maxy
-		var/max_y = 1
-		var/found_station = FALSE
-
-		// Iterate through all non-space areas
-		for(var/area/A in GLOB.areas)
-			if(A.type == /area/space || istype(A, /area/space))
-				continue
-
-			var/list/area_turfs = A.get_contained_turfs()
-			if(!length(area_turfs))
-				continue
-
-			// Find the bounding box of station turfs on this Z-level
-			for(var/turf/T in area_turfs)
-				if(T.z != z_level)
-					continue
-				if(!is_station_level(T.z))
-					continue
-
-				found_station = TRUE
-				min_x = min(min_x, T.x)
-				max_x = max(max_x, T.x)
-				min_y = min(min_y, T.y)
-				max_y = max(max_y, T.y)
-
-		// Cache the bounds for this Z-level
-		if(found_station && max_x >= min_x && max_y >= min_y)
-			var/key = "[z_level]"
-			station_bounds_cache[key] = list("min_x" = min_x, "max_x" = max_x, "min_y" = min_y, "max_y" = max_y)
-
-// Invisible atmospheric drag effect that damages station structures
-// Simulates heating and structural stress from atmospheric re-entry
-/obj/effect/meteor/atmospheric_drag
-	name = "atmospheric drag"
-	desc = "You shouldn't be seeing this."
-	icon_state = "dust"
-	alpha = 0
-	hits = 1
-	hitpwr = EXPLODE_LIGHT
-	meteorsound = null
-	meteordrop = list()
-	dropamt = 0
-	threat = 0
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSDOORS
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	movement_type = FLYING
-
-	/// Damage dealt to structures on impact
-	var/erosionpower = 20
-
-/obj/effect/meteor/atmospheric_drag/Initialize(mapload, target)
-	. = ..()
-	// Remove from global meteor list (this isn't a real meteor event)
-	GLOB.meteor_list -= src
-	SSaugury.unregister_doom(src)
-
-/obj/effect/meteor/atmospheric_drag/chase_target(atom/chasing, delay, home)
-	. = ..()
-
-/obj/effect/meteor/atmospheric_drag/Bump(atom/A)
-	// Pass through mobs harmlessly
-	if(isliving(A) || ismob(A))
-		return
-
-	if(isturf(A))
-		return ..()
-
-	// Damage structures and machinery
-	if(A.density)
-		if(istype(A, /obj/structure) || istype(A, /obj/machinery))
-			var/obj/O = A
-			O.take_damage(erosionpower, BRUTE, "melee", 0)
-		else if(istype(A, /turf/closed))
-			return ..()
-
-	return
-
-/obj/effect/meteor/atmospheric_drag/ram_turf(turf/T)
-	// Don't damage turfs with mobs on them
-	for(var/mob/M in T)
-		return
-
-	if(isspaceturf(T))
-		return
-
-	// Queue minor explosion on this turf
-	SSexplosions.lowturf += T
-
-	get_hit()
-
-/obj/effect/meteor/atmospheric_drag/get_hit()
-	hits--
-	if(hits <= 0)
-		// Play creaking sound for atmosphere
-		playsound(src.loc, pick('sound/effects/creak1.ogg', 'sound/effects/creak2.ogg'), 80, TRUE, 300, falloff_distance = 300)
-		qdel(src)
-
-/obj/effect/meteor/atmospheric_drag/examine(mob/user)
-	return // Cannot be examined
-
-/obj/effect/meteor/atmospheric_drag/attackby(obj/item/I, mob/user, params)
-	return // Cannot be interacted with
-
-/obj/effect/meteor/atmospheric_drag/CanPass(atom/movable/mover, border_dir)
-	// Always let mobs pass through
-	if(isliving(mover) || ismob(mover))
-		return TRUE
-	return ..()
-
-/obj/effect/meteor/atmospheric_drag/CanPassThrough(atom/blocker, turf/target, blocker_dir)
-	// Always pass through mobs
-	if(isliving(blocker) || ismob(blocker))
-		return TRUE
-	return ..()
-
-// Heavy variant for more intense damage
-/obj/effect/meteor/atmospheric_drag/heavy
-	name = "heavy atmospheric drag"
-	hitpwr = EXPLODE_HEAVY
-	hits = 50
-	erosionpower = 100
-
-/obj/effect/meteor/atmospheric_drag/heavy/ram_turf(turf/T)
-	// Don't damage turfs with mobs on them
-	for(var/mob/M in T)
-		return
-
-	if(isspaceturf(T))
-		return
-
-	// Queue major explosion on this turf
-	SSexplosions.highturf += T
-
-	get_hit()
