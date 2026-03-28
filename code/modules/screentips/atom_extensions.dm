@@ -36,16 +36,24 @@
 
 /// Called when a client mouses over this atom
 /atom/proc/on_mouse_enter(client/client)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/mob/user = client?.mob
+	if(isnull(user))
+		return
+
+	SEND_SIGNAL(user, COMSIG_ATOM_MOUSE_ENTERED, src)
+
 	if (!client.show_screentips)
 		return
-	if (isnewplayer(client.mob))
+	if (isnewplayer(user))
 		return
 	// =====================================================
 	// Initialise data
 	// =====================================================
 	var/screentip_message = "<span style='line-height: 0' class='maptext extremelybig'>[CENTER(capitalize(format_text(name)))]</span>"
 	var/datum/screentip_cache/cache = GLOB.screentips_cache["[type]"]
-	var/obj/item/held_item = client.mob.get_active_held_item()
+	var/obj/item/held_item = user.get_active_held_item()
 	// =====================================================
 	// Generate from cache
 	// =====================================================
@@ -53,7 +61,7 @@
 		var/most_restrictive_type = null
 		// Find the most restrictive cache type
 		for (var/mob_type in cache.cache_states)
-			if (istype(client.mob, mob_type))
+			if (istype(user, mob_type))
 				if (!most_restrictive_type)
 					most_restrictive_type = mob_type
 				else if (ispath(mob_type, most_restrictive_type))
@@ -64,29 +72,29 @@
 		// Caching doesn't take place if we are holding an item
 		if (cache?.generated && (!held_item || GLOB.screentip_contextless_items["[held_item.type]"]))
 			if (held_item?.tool_behaviour || client.show_extended_screentips)
-				if (ishuman(client.mob) && !held_item)
-					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message][cache.tool_message]")]</span>")]</span>"
+				if (ishuman(user) && !held_item)
+					user.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message][cache.tool_message]")]</span>")]</span>"
 				else
-					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message][cache.tool_message]")]</span>")]</span>"
+					user.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message][cache.tool_message]")]</span>")]</span>"
 			else
-				if (ishuman(client.mob) && !held_item)
-					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message]")]</span>")]</span>"
+				if (ishuman(user) && !held_item)
+					user.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message]")]</span>")]</span>"
 				else
-					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message]")]</span>")]</span>"
+					user.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message]")]</span>")]</span>"
 			return
 	// =====================================================
 	// Build the context
 	// =====================================================
 	// Making a new context is faster than re-using it
 	var/datum/screentip_context/context = new()
-	context.user = client.mob
+	context.user = user
 	context.held_item = held_item
-	SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, context, client.mob)
+	SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, context, user)
 	// Add direct interactions
-	add_context_self(context, client.mob)
+	add_context_self(context, user)
 	// Add held item interactions
 	if (held_item)
-		held_item.add_context_interaction(context, client.mob, src)
+		held_item.add_context_interaction(context, user, src)
 	// =====================================================
 	// Compile the screentip string
 	// =====================================================
@@ -139,13 +147,13 @@
 	// Set the screentip UI
 	// =====================================================
 	// Screentips only show if you are a silicon, carbon, or you explicitly request the mob type to show
-	if (issilicon(client.mob) || iscarbon(client.mob) || context.relevant_type)
+	if (issilicon(user) || iscarbon(user) || context.relevant_type)
 		if (held_item?.tool_behaviour || client.show_extended_screentips)
-			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[screen_tip_message][tool_message]")]</span>")]</span>"
+			user.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[screen_tip_message][tool_message]")]</span>")]</span>"
 		else
-			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER(screen_tip_message)]</span>")]</span>"
+			user.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER(screen_tip_message)]</span>")]</span>"
 	else
-		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
+		user.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
 	// =====================================================
 	// Populate the screentip cache to prevent unnecessary re-generation
 	// =====================================================

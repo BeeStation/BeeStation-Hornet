@@ -97,23 +97,23 @@
 	message_larva = "lets out a sickly hiss of air and falls limply to the floor"
 	message_monkey = "lets out a faint chimper as it collapses and stops moving"
 	message_ipc = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off"
-	message_simple =  "stops moving"
+	message_animal_or_basic = "stops moving"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE | EMOTE_IMPORTANT
 	cooldown = (7.5 SECONDS)
 	stat_allowed = HARD_CRIT
 
 /datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
-	var/mob/living/simple_animal/S = user
-	if(istype(S) && S.deathmessage)
-		message_simple = S.deathmessage
+	var/custom_message = user.death_message
+	if(custom_message)
+		message_animal_or_basic = custom_message
 	. = ..()
-	message_simple = initial(message_simple)
+	message_animal_or_basic = initial(message_animal_or_basic)
 	if(!user.can_speak() || user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
 	if (SEND_SIGNAL(user, COMSIG_MOB_DEATHGASP, params, type_override, intentional) & COMSIG_MOB_CANCEL_DEATHGASP_SOUND)
 		return
-	if(user.deathsound)
-		playsound(user, user.deathsound, 200, TRUE, TRUE)
+	if(user.death_sound)
+		playsound(user, user.death_sound, 200, TRUE, TRUE)
 
 /datum/emote/living/drool
 	key = "drool"
@@ -668,7 +668,7 @@
 	message_robot = "makes a crude thumbs up with their 'hands'"
 	message_AI = "flashes a quick hologram of a thumbs up"
 	message_ipc = "flashes a thumbs up icon"
-	message_simple = "attempts a thumbs up"
+	message_animal_or_basic = "attempts a thumbs up"
 	message_param = "flashes a thumbs up at %t"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE
@@ -680,7 +680,7 @@
 	message_robot = "makes a crude thumbs down with their 'hands'"
 	message_AI = "flashes a quick hologram of a thumbs down"
 	message_ipc = "flashes a thumbs down icon"
-	message_simple = "attempts a thumbs down"
+	message_animal_or_basic = "attempts a thumbs down"
 	message_param = "flashes a thumbs down at %t"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE

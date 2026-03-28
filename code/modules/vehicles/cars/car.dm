@@ -35,7 +35,7 @@
 	T.add_mob_blood(H)
 
 /obj/vehicle/sealed/car/MouseDrop_T(atom/dropping, mob/M)
-	if(M.stat != CONSCIOUS || HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
+	if(M.incapacitated || (HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !is_driver(M)))
 		return FALSE
 	if((car_traits & CAN_KIDNAP) && isliving(dropping) && M != dropping)
 		var/mob/living/L = dropping

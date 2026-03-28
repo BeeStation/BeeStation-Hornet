@@ -30,7 +30,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 360 //really, *really* dont like heat
-	deathmessage = "curls up and stops moving."
+	death_message = "curls up and stops moving."
 	var/patience = 30
 	var/growthstage = 1 //1-3.
 	var/food = 0

@@ -14341,6 +14341,23 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/science/mixing)
+"hIa" = (
+/mob/living/carbon/human/species/monkey,
+/obj/structure/window/reinforced/spawner/directional/north{
+	pixel_y = 1
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/obj/item/food/grown/banana,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 13;
+	pixel_y = -2
+	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/grass/no_border,
+/area/medical/genetics)
 "hIV" = (
 /obj/structure/railing{
 	dir = 4
@@ -23542,6 +23559,21 @@
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/tech,
 /area/science/mixing)
+"mNb" = (
+/obj/machinery/light,
+/mob/living/carbon/human/species/monkey,
+/obj/machinery/door/window/westleft{
+	dir = 1;
+	name = "Monkey Pen";
+	pixel_y = 1;
+	req_access_txt = "9"
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = 1;
+	pixel_y = -3
+	},
+/turf/open/floor/grass/no_border,
+/area/medical/genetics)
 "mNm" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -28166,21 +28198,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
-"pDc" = (
-/obj/machinery/light,
-/mob/living/carbon/human/species/monkey,
-/obj/machinery/door/window/westleft{
-	dir = 1;
-	name = "Monkey Pen";
-	pixel_y = 1;
-	req_access_txt = "9"
-	},
-/obj/structure/flora/ausbushes/brflowers{
-	pixel_x = 1;
-	pixel_y = -3
-	},
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
 "pDe" = (
 /obj/item/radio/intercom{
 	broadcasting = 1;
@@ -29377,6 +29394,20 @@
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
+"qkX" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime{
+	pixel_y = 4
+	},
+/obj/item/toy/plush/runtime{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/cmo)
 "qlb" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "cmoshutter";
@@ -39815,20 +39846,6 @@
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/maintenance/department/engine)
-"vYl" = (
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime{
-	pixel_y = 4
-	},
-/obj/item/toy/plush/runtime{
-	pixel_x = -6;
-	pixel_y = 1
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/cmo)
 "vYB" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -43314,23 +43331,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/storage)
-"yaL" = (
-/mob/living/carbon/human/species/monkey,
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 1
-	},
-/obj/structure/flora/ausbushes/ywflowers{
-	pixel_x = 3;
-	pixel_y = -5
-	},
-/obj/item/food/grown/banana,
-/obj/structure/flora/ausbushes/ppflowers{
-	pixel_x = 13;
-	pixel_y = -2
-	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/grass/no_border,
-/area/medical/genetics)
 "yaN" = (
 /obj/machinery/libraryscanner,
 /turf/open/floor/plating,
@@ -187153,7 +187153,7 @@ dZZ
 gFx
 pDj
 hrz
-yaL
+hIa
 dZZ
 tpg
 sOM
@@ -187410,7 +187410,7 @@ dZZ
 ctU
 tlo
 eAc
-pDc
+mNb
 dZZ
 nki
 lCM
@@ -187418,7 +187418,7 @@ rkK
 uGg
 nrA
 sOB
-vYl
+qkX
 tdN
 bqm
 oFa

@@ -431,15 +431,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"jF" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/mob/living/carbon/human/species/monkey,
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "jK" = (
 /obj/effect/landmark/start/detective,
 /turf/open/floor/wood,
@@ -1234,13 +1225,6 @@
 /obj/machinery/recycler,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"Dg" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/mob/living/simple_animal/pet/cat/Runtime,
-/turf/open/floor/iron/white,
-/area/crew_quarters/heads/cmo)
 "Do" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -1340,11 +1324,6 @@
 /obj/machinery/light_switch,
 /turf/open/floor/iron,
 /area/space)
-"Fa" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/dark,
-/area/medical/genetics)
 "Fh" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
@@ -1682,6 +1661,15 @@
 	},
 /turf/open/floor/circuit,
 /area/space)
+"Nk" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/mob/living/simple_animal/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "Nu" = (
 /obj/effect/landmark/start/botanist,
 /turf/open/floor/grass/no_border,
@@ -1876,6 +1864,11 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
+"Rg" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/medical/genetics)
 "Rm" = (
 /obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/sepia,
@@ -1930,6 +1923,13 @@
 /obj/structure/closet/secure_closet/hydroponics,
 /turf/open/floor/grass/no_border,
 /area/hydroponics)
+"Sj" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/mob/living/basic/pet/cat/runtime,
+/turf/open/floor/iron/white,
+/area/crew_quarters/heads/cmo)
 "Sy" = (
 /obj/item/storage/box{
 	pixel_x = 1;
@@ -2315,7 +2315,7 @@ Pz
 Os
 ws
 KV
-Dg
+Sj
 XW
 wG
 Up
@@ -2495,7 +2495,7 @@ QG
 ew
 To
 pY
-Fa
+Rg
 oa
 qL
 oa
@@ -2555,7 +2555,7 @@ ee
 cc
 TS
 eL
-jF
+Nk
 Qk
 ff
 Qk

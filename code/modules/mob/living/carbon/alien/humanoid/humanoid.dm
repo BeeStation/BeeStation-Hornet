@@ -6,7 +6,7 @@
 	limb_destroyer = TRUE
 	hud_type = /datum/hud/alien
 	melee_damage = 20
-	deathsound = 'sound/voice/hiss6.ogg'
+	death_sound = 'sound/voice/hiss6.ogg'
 	bodyparts = list(
 		/obj/item/bodypart/chest/alien,
 		/obj/item/bodypart/head/alien,
