@@ -563,7 +563,6 @@
 
 /obj/item/storage/pill_bottle/Initialize(mapload)
 	. = ..()
-
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
 
