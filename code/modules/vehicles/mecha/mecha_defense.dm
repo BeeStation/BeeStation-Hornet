@@ -384,16 +384,20 @@
 	. = ..()
 	if(user.combat_mode)
 		return
-	. = TRUE
-	if(atom_integrity < max_integrity)
-		while(atom_integrity < max_integrity && W.tool_start_check(user, amount=1) && W.use_tool(src, user, 2 SECONDS, volume=50, amount=1)) // Do after, repeats itself if the mech is damaged until full health
-			user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [src]."))
-			atom_integrity += min(10, max_integrity - atom_integrity)
-			diag_hud_set_mechhealth() // Apparently mech hp didn't get updated until they received damage
+	if(atom_integrity >= max_integrity)
+		to_chat(user, span_warning("[src] is at full integrity!"))
+		return TRUE
+	while(atom_integrity < max_integrity) // Check for welder and the fact it's on
+		if(!W.tool_start_check(user, amount=1))
+			break
+		if(!W.use_tool(src, user, 2 SECONDS, volume=30, amount=1)) // Time to wait two seconds per repair
+			break
+		user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [src]."))
+		atom_integrity = min(max_integrity, atom_integrity + 10)
+		diag_hud_set_mechhealth() // Apparently, this fixed a small issue where mechs wouldn't update their HUD health when being welded
 		if(atom_integrity == max_integrity)
 			to_chat(user, span_notice("It looks to be fully repaired now."))
-		return
-	to_chat(user, span_warning("[src] is at full integrity!"))
+	return TRUE
 
 /obj/vehicle/sealed/mecha/proc/full_repair(charge_cell)
 	atom_integrity = max_integrity
