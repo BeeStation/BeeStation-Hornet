@@ -163,7 +163,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "vv" = (
-/obj/structure/AIcore{
+/obj/structure/ai_core{
 	name = "\broken AI core"
 	},
 /turf/open/floor/circuit/red,
