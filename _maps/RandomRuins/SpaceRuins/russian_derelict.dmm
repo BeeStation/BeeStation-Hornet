@@ -721,10 +721,6 @@
 /obj/structure/chair,
 /turf/open/floor/iron/white/airless,
 /area/ruin/space/ks13/medical/medbay)
-"fE" = (
-/obj/effect/mapping_helpers/broken_floor,
-/turf/closed/wall/r_wall,
-/area/ruin/space/ks13/engineering/supermatter)
 "fH" = (
 /obj/machinery/door/morgue{
 	name = "Chaplains Office";
@@ -3393,17 +3389,6 @@
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/command/bridge)
-"wV" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 11;
-	height = 22;
-	shuttle_id = "whiteship_z4";
-	name = "KSS13: Derelict";
-	width = 35
-	},
-/turf/template_noop,
-/area/space/nearstation)
 "wX" = (
 /obj/machinery/light/directional/north,
 /obj/structure/closet/crate,
@@ -12885,7 +12870,7 @@ Dy
 sU
 sU
 EK
-fE
+sU
 LN
 Gh
 Se
@@ -13264,7 +13249,7 @@ NW
 aa
 aa
 aa
-wV
+aa
 aa
 aa
 aa
