@@ -185,31 +185,28 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// High altitude critical warning (above 130km threshold)
 	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH_CRITICAL && !in_high_altitude_critical)
 		in_high_altitude_critical = TRUE
-		priority_announce("DANGER: Station orbital altitude has exceeded critical upper threshold. \
+		minor_announce("DANGER: Station orbital altitude has exceeded critical upper threshold. \
 			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
 			Station entering the Osei-Hollund radiation band. Critical radiative exposure likely. \
 			Immediate corrective action required.", \
 			"CRITICAL ALTITUDE WARNING",
-			sound = 'sound/misc/notice1.ogg',
-			has_important_message = TRUE)
+			alert = TRUE)
 
 	// High altitude warning (above 120km threshold)
 	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH && !in_high_altitude && !in_high_altitude_critical)
 		in_high_altitude = TRUE
-		priority_announce("Advisory: Station orbital altitude has exceeded normal operating parameters. \
+		minor_announce("Advisory: Station orbital altitude has exceeded normal operating parameters. \
 			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
 			Entering radiative zone at this altitude. Further monitoring is advised.", \
-			"High Altitude Advisory",
-			sound = 'sound/misc/notice2.ogg')
+			"High Altitude Advisory")
 
 	// Low altitude warning (95km threshold)
 	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !in_low_altitude)
 		in_low_altitude = TRUE
-		priority_announce("Advisory: Station orbital altitude has decreased below normal operating parameters. \
+		minor_announce("Advisory: Station orbital altitude has decreased below normal operating parameters. \
 			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
 			Further monitoring is advised.", \
-			"Orbital Altitude Advisory",
-			sound = 'sound/misc/notice2.ogg')
+			"Orbital Altitude Advisory")
 
 	// Critical orbit handling (below 90km)
 	if(orbital_altitude < ORBITAL_ALTITUDE_LOW_CRITICAL)
@@ -219,10 +216,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 			critical_orbit_start_time = world.time
 			last_warning_time = world.time
 
-			priority_announce("WARNING: Station orbital altitude has fallen below critical threshold. Structural damage detected.\nRestore orbital parameters immediately.",
+			minor_announce("WARNING: Station orbital altitude has fallen below critical threshold. Structural damage detected.\nRestore orbital parameters immediately.",
 				"CRITICAL ORBITAL FAILURE",
-				sound = 'sound/misc/notice1.ogg',
-				has_important_message = TRUE)
+				alert = TRUE)
 
 		// Calculate time remaining until destruction
 		var/time_in_critical = (world.time - critical_orbit_start_time) / 10
@@ -233,12 +229,11 @@ SUBSYSTEM_DEF(orbital_altitude)
 			last_warning_time = world.time
 			var/minutes_remaining = round(time_remaining / 60)
 
-			priority_announce("WARNING: Station altitude remains critical at [round(orbital_altitude/1000, 0.1)]km. \
+			minor_announce("WARNING: Station altitude remains critical at [round(orbital_altitude/1000, 0.1)]km. \
 				Estimated time until full structural failure: [minutes_remaining] minute[minutes_remaining == 1 ? "" : "s"]. \
 				Immediate corrective action required.", \
 				"ORBITAL PARAMETERS CRITICAL",
-				sound = 'sound/misc/notice1.ogg',
-				has_important_message = TRUE)
+				alert = TRUE)
 
 			// Escalate to delta alert at 4 minutes remaining
 			if(time_remaining <= 240 && SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_DELTA)
@@ -268,11 +263,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 			final_countdown_active = FALSE
 			countdown_stage = 0
 
-			priority_announce("Station altitude has been restored above critical threshold. \
+			minor_announce("Station altitude has been restored above critical threshold. \
 				Emergency status cancelled.", \
-				"ORBITAL STABILITY RESTORED",
-				sound = 'sound/misc/notice2.ogg',
-				has_important_message = TRUE)
+				"ORBITAL STABILITY RESTORED")
 
 			send_orbital_report()
 
@@ -288,35 +281,33 @@ SUBSYSTEM_DEF(orbital_altitude)
 	if(orbital_altitude <= ORBITAL_ALTITUDE_HIGH)
 		if(in_high_altitude_critical)
 			in_high_altitude_critical = FALSE
-			priority_announce("Station altitude has returned below critical upper threshold. \
+			minor_announce("Station altitude has returned below critical upper threshold. \
 				Radiative exposure normalized.", \
-				"Altitude Stabilized",
-				sound = 'sound/misc/notice2.ogg')
+				"Altitude Stabilized")
 
 		if(in_high_altitude)
 			in_high_altitude = FALSE
-			priority_announce("Station altitude has returned to normal operating parameters.", \
-				"Altitude Normalized",
-				sound = 'sound/misc/notice2.ogg')
+			minor_announce("Station altitude has returned to normal operating parameters.", \
+				"Altitude Normalized")
 
 /datum/controller/subsystem/orbital_altitude/proc/announce_countdown_stage()
 	switch(countdown_stage)
 		if(1)
-			priority_announce("DANGER: Catastrophic structural failure imminent. Station breakup in 60 seconds. \
+			minor_announce("DANGER: Catastrophic structural failure imminent. Station breakup in 60 seconds. \
 				All personnel is to evacuate immediately.", \
 				"DESTRUCTION IMMINENT",
-				sound = 'sound/misc/notice3.ogg',
-				has_important_message = TRUE)
+				alert = TRUE,
+				sound_override = 'sound/misc/notice3.ogg')
 		if(2)
-			priority_announce("DANGER: Station breakup in 30 seconds.", \
+			minor_announce("DANGER: Station breakup in 30 seconds.", \
 				"DESTRUCTION IMMINENT",
-				sound = 'sound/misc/notice3.ogg',
-				has_important_message = TRUE)
+				alert = TRUE,
+				sound_override = 'sound/misc/notice3.ogg')
 		if(3)
-			priority_announce("DANGER: Station breakup in 10 seconds.", \
+			minor_announce("DANGER: Station breakup in 10 seconds.", \
 				"DESTRUCTION IMMINENT",
-				sound = 'sound/misc/notice3.ogg',
-				has_important_message = TRUE)
+				alert = TRUE,
+				sound_override = 'sound/misc/notice3.ogg')
 
 /datum/controller/subsystem/orbital_altitude/proc/initiate_destruction()
 	Cinematic(CINEMATIC_SELFDESTRUCT, world, CALLBACK(src, PROC_REF(complete_destruction)))
