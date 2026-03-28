@@ -24,12 +24,14 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	runlevels = RUNLEVEL_GAME
 	/// Direction flames come from (based on map config)
 	var/reentry_direction = EAST
-	/// Fire effects we've created (so we can clean them up)
+	/// Fire effects keyed by turf, reused across fires instead of recreated
 	var/list/created_fires = list()
 	/// Our position inside the target turfs snapshot for resumable processing
 	var/work_index = 1
 	/// Snapshot of turfs we're working through this fire
 	var/list/turf/work_turfs
+	/// Cached damage multiplier for the current fire
+	var/current_damage_multiplier = 0
 
 /datum/controller/subsystem/orbital_reentry_erosion/Initialize()
 	// Disable for planetary stations
@@ -46,19 +48,26 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 /datum/controller/subsystem/orbital_reentry_erosion/fire(resumed)
 	// Calculate damage multiplier based on altitude
 	var/current_altitude = SSorbital_altitude.orbital_altitude
-	var/damage_multiplier = get_damage_multiplier(current_altitude)
+	current_damage_multiplier = get_damage_multiplier(current_altitude)
 
-	// On a fresh (non-resumed) fire, snapshot the scanning results and
-	// clean up the previous fire's visual effects.
+	// On a fresh (non-resumed) fire, snapshot the scanning results.
+	// Fire effects are NOT destroyed here, they persist and get cleaned up
+	// only when their turf is no longer in the scan results or on deactivate.
 	if(!resumed)
-		for(var/thing in created_fires)
-			qdel(thing)
-		created_fires.Cut()
-
 		// Take a snapshot of whatever the scanning subsystem has found so far.
 		// The keys of the assoc list are the turfs themselves.
 		work_turfs = SSorbital_reentry_scanning.target_turfs.Copy()
 		work_index = 1
+
+		// Clean up fire effects on turfs that are no longer exposed
+		var/list/stale_turfs = created_fires - work_turfs
+		for(var/turf/stale_turf as anything in stale_turfs)
+			var/obj/effect/reentry_fire/fire_effect = created_fires[stale_turf]
+			if(fire_effect)
+				qdel(fire_effect)
+			created_fires -= stale_turf
+			if(MC_TICK_CHECK)
+				return
 
 	// Nothing to do if scanning hasn't found anything yet
 	if(!length(work_turfs))
@@ -73,9 +82,9 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 			continue
 
 		// Apply damage to the tile and everything on it
-		apply_erosion_damage(target_tile, damage_multiplier)
+		apply_erosion_damage(target_tile, current_damage_multiplier)
 
-		// Tick check — save progress and continue on the next fire
+		// Tick check, save progress and continue on the next fire
 		if(MC_TICK_CHECK)
 			return
 
@@ -83,8 +92,10 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 /// Cleans up fire effects and resets work state.
 /datum/controller/subsystem/orbital_reentry_erosion/proc/deactivate()
 	can_fire = FALSE
-	for(var/thing in created_fires)
-		qdel(thing)
+	for(var/turf/key as anything in created_fires)
+		var/obj/effect/reentry_fire/fire_effect = created_fires[key]
+		if(fire_effect)
+			qdel(fire_effect)
 	created_fires.Cut()
 	work_turfs = null
 	work_index = 1
@@ -114,11 +125,11 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	if (damage_multiplier <= 0.1)
 		// Only spawn fire visual, no actual damage
 		if (prob(damage_multiplier * 100))
-			created_fires += new /obj/effect/reentry_fire(target_tile)
+			ensure_fire_effect(target_tile)
 		return
 
-	// Create fire effect
-	created_fires += new /obj/effect/reentry_fire(target_tile)
+	// Create fire effect (reuses existing one if present)
+	ensure_fire_effect(target_tile)
 
 	// Calculate actual damage values with much higher scaling
 	var/fire_temp = 600 + (1400 * damage_multiplier)  // 600 to 4800K at max
@@ -175,6 +186,15 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 		if (isopenturf(target_tile))
 			var/turf/open/open_tile = target_tile
 			open_tile.atmos_spawn_air("plasma=[plasma_amount];o2=[o2_amount];TEMP=[fire_temp]")
+
+/// Ensures a fire effect exists on the given turf, reusing an existing one
+/// or creating a new one as needed.
+/datum/controller/subsystem/orbital_reentry_erosion/proc/ensure_fire_effect(turf/target_tile)
+	var/obj/effect/reentry_fire/existing = created_fires[target_tile]
+	if(existing && !QDELETED(existing))
+		return // Already have a valid fire effect here
+	var/obj/effect/reentry_fire/new_fire = new(target_tile)
+	created_fires[target_tile] = new_fire
 
 /obj/effect/reentry_fire
 	anchored = TRUE
