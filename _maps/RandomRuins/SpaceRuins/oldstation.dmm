@@ -28,6 +28,7 @@
 /area/ruin/space/has_grav/ancientstation/hivebot)
 "af" = (
 /mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/alien,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/ancientstation/hivebot)
 "ag" = (
