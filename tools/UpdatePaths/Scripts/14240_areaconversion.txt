@@ -79,10 +79,10 @@
 /area/security/brig/aft : /area/security/brig/upper{@OLD}
 /area/security/prison/shielded : /area/security/prison/safe{@OLD}
 /area/security/prison/asteroid/abbandoned : /area/security/prison/asteroid/Abandoned{@OLD}
-/area/security/nuke_storage : /area/ai_monitored/command/nuke_storage{@OLD}
+/area/security/nuke_storage : /area/station/ai_monitored/command/nuke_storage{@OLD}
 
 # AI Monitored
-/area/ai_monitored/nuke_storage : /area/ai_monitored/command/nuke_storage{@OLD}
+/area/ai_monitored/nuke_storage : /area/station/ai_monitored/command/nuke_storage{@OLD}
 /area/ai_monitored/storage/eva : /area/ai_monitored/command/storage/eva{@OLD}
 /area/ai_monitored/storage/satellite : /area/ai_monitored/command/storage/satellite{@OLD}
 /area/ai_monitored/turret_protected/AIsatextAS : /area/ai_monitored/turret_protected/ai_sat_ext_as{@OLD}
