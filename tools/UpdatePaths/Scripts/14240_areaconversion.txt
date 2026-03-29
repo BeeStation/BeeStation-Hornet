@@ -213,3 +213,5 @@
 /area/station/service/janitor/custodian : /area/station/service/janitor{@OLD}
 /area/station/commons/storage/eva : /area/station/ai_monitored/command/storage/eva{@OLD}
 /area/station/medical/sleeper : /area/station/medical/treatment_center{@OLD}
+/area/station/commons/cafeteria : /area/station/service/cafeteria{@OLD}
+/area/station/engineering/supermatter/external : /area/station/engineering/supermatter/room{@OLD}

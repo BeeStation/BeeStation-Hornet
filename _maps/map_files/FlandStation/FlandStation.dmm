@@ -2888,7 +2888,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/cafeteria,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "aLM" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
@@ -25416,7 +25416,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/cafeteria,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "gTw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/over,
@@ -33017,7 +33017,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/iron/cafeteria,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "iXy" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
@@ -59472,7 +59472,7 @@
 "qjn" = (
 /obj/machinery/vending/cola,
 /turf/open/floor/iron/cafeteria,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "qju" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -59480,7 +59480,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/cafeteria,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "qjA" = (
 /obj/machinery/door/window/southleft{
 	name = "Mass Driver Door";
@@ -59492,7 +59492,7 @@
 /area/station/science/misc_lab)
 "qjE" = (
 /turf/closed/wall,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "qjK" = (
 /obj/effect/spawner/random/maintenance,
 /obj/structure/rack,
@@ -59695,7 +59695,7 @@
 	c_tag = "Cafeteria"
 	},
 /turf/open/floor/iron/cafeteria,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "qmS" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/corner{
@@ -89177,7 +89177,7 @@
 "xMU" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "xMW" = (
 /obj/effect/turf_decal/guideline/guideline_in/bar{
 	dir = 1
@@ -89213,7 +89213,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/techmaint,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "xNe" = (
 /obj/structure/dresser,
 /obj/structure/sign/poster/contraband/random{
@@ -90660,7 +90660,7 @@
 	pixel_y = 22
 	},
 /turf/open/floor/iron/cafeteria,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "yhh" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/siding/yellow{
@@ -90728,7 +90728,7 @@
 	},
 /obj/structure/chair/stool,
 /turf/open/floor/iron/cafeteria,
-/area/station/commons/cafeteria)
+/area/station/service/cafeteria)
 "yid" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 4

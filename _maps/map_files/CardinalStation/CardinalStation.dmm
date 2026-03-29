@@ -4110,7 +4110,7 @@
 "aTm" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "aTs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -5797,7 +5797,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "bjG" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/siding/white{
@@ -6614,7 +6614,7 @@
 "bsz" = (
 /obj/structure/sign/departments/minsky/engineering/engineering,
 /turf/closed/wall/mineral/plastitanium,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "bsG" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/membrane,
@@ -9410,7 +9410,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "bYp" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
@@ -9745,7 +9745,7 @@
 	id = "PA"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "cbf" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/wiki/sopcommand,
@@ -11417,7 +11417,7 @@
 	id = "PA2"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "csw" = (
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
@@ -16455,7 +16455,7 @@
 /obj/machinery/light/directional/south,
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "dwF" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -17103,7 +17103,7 @@
 	name = "Shutter button"
 	},
 /turf/open/space/basic,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "dCy" = (
 /obj/effect/turf_decal/siding{
 	color = "#535c5b";
@@ -32435,7 +32435,7 @@
 	name = "Shutter button"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "hbO" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -34890,7 +34890,7 @@
 /area/misc/space/nearstation)
 "hDE" = (
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "hDI" = (
 /obj/machinery/light/directional/east,
 /obj/machinery/door/poddoor/preopen{
@@ -43730,7 +43730,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/light/directional/north,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "jAN" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/disposalpipe/segment{
@@ -43805,7 +43805,7 @@
 	id = "PA2"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "jBr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -44098,7 +44098,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "jFv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -47363,7 +47363,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "knM" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 1
@@ -48545,7 +48545,7 @@
 	},
 /obj/structure/cable/orange,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "kCl" = (
 /obj/effect/turf_decal/trimline/yellow/warning{
 	dir = 1
@@ -48582,7 +48582,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "kCP" = (
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 5
@@ -54498,7 +54498,7 @@
 "lSo" = (
 /obj/machinery/power/energy_accumulator/grounding_rod,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "lSE" = (
 /obj/structure/sign/departments/examroom,
 /turf/closed/wall,
@@ -59212,7 +59212,7 @@
 	id = "PA2"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "mUg" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -72690,7 +72690,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "pSb" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 10
@@ -75900,7 +75900,7 @@
 /obj/machinery/field/generator,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "qDg" = (
 /obj/structure/toilet{
 	dir = 8
@@ -76908,7 +76908,7 @@
 /area/station/command/gateway)
 "qNL" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "qNN" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/emergency_shield,
@@ -78144,7 +78144,7 @@
 /area/station/command/heads_quarters/hop)
 "raT" = (
 /turf/closed/wall/mineral/plastitanium,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "rbl" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -78804,7 +78804,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "riw" = (
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/plating,
@@ -79812,7 +79812,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "rtG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -86074,7 +86074,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "sQc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -89486,7 +89486,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "tDg" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -102314,7 +102314,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "wnj" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -103541,7 +103541,7 @@
 	id = "PA"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "wBU" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -107119,7 +107119,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "xuf" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -108461,7 +108461,7 @@
 	name = "Shutter button"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "xIM" = (
 /obj/effect/turf_decal/guideline/guideline_in/yellow,
 /obj/effect/turf_decal/tile/yellow,
@@ -110234,7 +110234,7 @@
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/external)
+/area/station/engineering/supermatter/room)
 "ycV" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 8
