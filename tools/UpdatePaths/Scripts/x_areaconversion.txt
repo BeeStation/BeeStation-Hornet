@@ -207,3 +207,7 @@
 /area/tcommsat : /area/station/tcommsat{@OLD}
 /area/comms : /area/station/comms{@OLD}
 /area/server : /area/station/server{@OLD}
+
+# Manual edits
+/area/station/service/chapel/main : /area/station/service/chapel{@OLD}
+/area/station/service/janitor/custodian : /area/station/service/janitor{@OLD}

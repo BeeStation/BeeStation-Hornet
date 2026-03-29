@@ -606,7 +606,7 @@
 
 /area/station/commons/storage/primary
 	name = "\improper Primary Tool Storage"
-	icon_state = "primarystorage"
+	icon_state = "primary_storage"
 
 /area/station/commons/storage/primary/get_area_textures()
 	return GLOB.turf_texture_hallway
