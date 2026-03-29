@@ -1,0 +1,84 @@
+## Area typepath conversions for Space_Station_13_areas.dm reorganization
+
+# Bridge → Command
+/area/bridge/meeting_room/council : /area/command/meeting_room/council{@OLD}
+/area/bridge/meeting_room : /area/command/meeting_room{@OLD}
+/area/bridge/showroom/corporate : /area/command/corporate_showroom{@OLD}
+/area/bridge : /area/command/bridge{@OLD}
+
+# Teleporter & Gateway → Command
+/area/teleporter : /area/command/teleporter{@OLD}
+/area/gateway : /area/command/gateway{@OLD}
+
+# Crew quarters - heads → Command/heads_quarters
+/area/crew_quarters/heads/@SUBTYPES : /area/command/heads_quarters/@SUBTYPES{@OLD}
+
+# Crew quarters - Service areas
+/area/crew_quarters/barbershop : /area/service/barbershop{@OLD}
+/area/crew_quarters/kitchen/@SUBTYPES : /area/service/kitchen/@SUBTYPES{@OLD}
+/area/crew_quarters/kitchen : /area/service/kitchen{@OLD}
+/area/crew_quarters/bar/@SUBTYPES : /area/service/bar/@SUBTYPES{@OLD}
+/area/crew_quarters/bar : /area/service/bar{@OLD}
+/area/crew_quarters/theatre/@SUBTYPES : /area/service/theater/@SUBTYPES{@OLD}
+/area/crew_quarters/theatre : /area/service/theater{@OLD}
+
+# Crew quarters - remaining → Commons
+/area/crew_quarters/@SUBTYPES : /area/commons/@SUBTYPES{@OLD}
+/area/crew_quarters : /area/commons{@OLD}
+
+# Library → Service
+/area/library/@SUBTYPES : /area/service/library/@SUBTYPES{@OLD}
+/area/library : /area/service/library{@OLD}
+
+# Chapel → Service
+/area/chapel/@SUBTYPES : /area/service/chapel/@SUBTYPES{@OLD}
+/area/chapel : /area/service/chapel{@OLD}
+
+# Law Office → Service
+/area/lawoffice : /area/service/lawoffice{@OLD}
+
+# Janitor → Service
+/area/janitor/@SUBTYPES : /area/service/janitor/@SUBTYPES{@OLD}
+/area/janitor : /area/service/janitor{@OLD}
+
+# Hydroponics → Service
+/area/hydroponics/@SUBTYPES : /area/service/hydroponics/@SUBTYPES{@OLD}
+/area/hydroponics : /area/service/hydroponics{@OLD}
+
+# Engine → Engineering
+/area/engine/engineering/@SUBTYPES : /area/engineering/main/@SUBTYPES{@OLD}
+/area/engine/engineering : /area/engineering/main{@OLD}
+/area/engine/@SUBTYPES : /area/engineering/@SUBTYPES{@OLD}
+/area/engine : /area/engineering{@OLD}
+
+# Solar → Solars
+/area/solar/@SUBTYPES : /area/solars/@SUBTYPES{@OLD}
+/area/solar : /area/solars{@OLD}
+
+# Medical
+/area/medical/sleeper : /area/medical/treatment_center{@OLD}
+
+# Security
+/area/security/main : /area/security/office{@OLD}
+/area/security/nuke_storage : /area/ai_monitored/command/nuke_storage{@OLD}
+
+# AI Monitored
+/area/ai_monitored/nuke_storage : /area/ai_monitored/command/nuke_storage{@OLD}
+/area/ai_monitored/storage/eva : /area/ai_monitored/command/storage/eva{@OLD}
+/area/ai_monitored/turret_protected/AIsatextAS : /area/ai_monitored/turret_protected/ai_sat_ext_as{@OLD}
+/area/ai_monitored/turret_protected/AIsatextAP : /area/ai_monitored/turret_protected/ai_sat_ext_ap{@OLD}
+/area/aisat : /area/ai_monitored/aisat/exterior{@OLD}
+
+# Quartermaster → Cargo
+/area/quartermaster/@SUBTYPES : /area/cargo/@SUBTYPES{@OLD}
+/area/quartermaster : /area/cargo{@OLD}
+
+# Storage
+/area/storage/tcom : /area/engineering/storage/tcomms{@OLD}
+/area/storage/tech : /area/engineering/storage/tech{@OLD}
+/area/storage/@SUBTYPES : /area/commons/storage/@SUBTYPES{@OLD}
+/area/storage : /area/commons/storage{@OLD}
+
+# Vacant Rooms
+/area/vacant_room/@SUBTYPES : /area/commons/vacant_room/@SUBTYPES{@OLD}
+/area/vacant_room : /area/commons/vacant_room{@OLD}
