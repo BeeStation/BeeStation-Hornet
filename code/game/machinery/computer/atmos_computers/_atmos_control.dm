@@ -174,7 +174,7 @@
 				return TRUE
 
 			input.on = !input.on
-			input.update_appearance(UPDATE_ICON)()
+			input.update_appearance(UPDATE_ICON)
 			return TRUE
 
 		if("toggle_output")
@@ -190,7 +190,7 @@
 				return TRUE
 
 			output.on = !output.on
-			output.update_appearance(UPDATE_ICON)()
+			output.update_appearance(UPDATE_ICON)
 			return TRUE
 
 		if("adjust_input")
