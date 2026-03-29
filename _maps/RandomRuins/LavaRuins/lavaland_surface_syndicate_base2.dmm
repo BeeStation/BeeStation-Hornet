@@ -1319,7 +1319,7 @@
 "mq" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/o_minus,
 /obj/machinery/light/cold/directional/east,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron,

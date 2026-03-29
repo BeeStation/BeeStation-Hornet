@@ -171,40 +171,34 @@
 
 /area/ruin/space/has_grav/deepstorage
 	name = "Deep Storage"
-	icon_state = "storage"
 	camera_networks = list(CAMERA_NETWORK_BUNKER)
 
 /area/ruin/space/has_grav/deepstorage/airlock
-	name = "Deep Storage Airlock"
-	icon_state = "quart"
+	name = "\improper Deep Storage Airlock"
 
 /area/ruin/space/has_grav/deepstorage/power
-	name = "Deep Storage Power and Atmospherics Room"
-	icon_state = "engi_storage"
+	name = "\improper Deep Storage Power and Atmospherics Room"
 
 /area/ruin/space/has_grav/deepstorage/hydroponics
-	name = "Deep Storage Hydroponics"
-	icon_state = "garden"
+	name = "\improper Deep Storage Hydroponics"
 
 /area/ruin/space/has_grav/deepstorage/armory
-	name = "Deep Storage Secure Storage"
-	icon_state = "armory"
+	name = "\improper Deep Storage Secure Storage"
 
 /area/ruin/space/has_grav/deepstorage/storage
-	name = "Deep Storage Storage"
-	icon_state = "storage_wing"
+	name = "\improper Deep Storage Storage"
 
 /area/ruin/space/has_grav/deepstorage/dorm
-	name = "Deep Storage Dormitory"
-	icon_state = "crew_quarters"
+	name = "\improper Deep Storage Dormitory"
 
 /area/ruin/space/has_grav/deepstorage/kitchen
-	name = "Deep Storage Kitchen"
-	icon_state = "kitchen"
+	name = "\improper Deep Storage Kitchen"
 
 /area/ruin/space/has_grav/deepstorage/crusher
-	name = "Deep Storage Recycler"
-	icon_state = "storage"
+	name = "\improper Deep Storage Recycler"
+
+/area/ruin/space/has_grav/deepstorage/pharmacy
+	name = "\improper Deep Storage Pharmacy"
 
 
 //Ruin of Abandoned Zoo

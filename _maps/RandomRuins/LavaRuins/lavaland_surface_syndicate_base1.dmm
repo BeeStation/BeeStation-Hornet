@@ -723,7 +723,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/o_minus,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/tile/blue/half/contrasted{

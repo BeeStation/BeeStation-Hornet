@@ -57,6 +57,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/warning/deathsposal, 32)
 	desc = "A warning sign which reads 'ESCAPE PODS'."
 	icon_state = "pods"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/warning/pods, 32)
+
 /obj/structure/sign/warning/fire
 	name = "\improper DANGER: FIRE"
 	desc = "A warning sign which reads 'DANGER: FIRE'."

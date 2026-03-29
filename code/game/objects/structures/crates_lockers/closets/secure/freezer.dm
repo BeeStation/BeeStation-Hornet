@@ -37,42 +37,37 @@
 	req_access = list(ACCESS_KITCHEN)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/PopulateContents()
-	..()
 	new /obj/item/reagent_containers/condiment/flour(src)
 	new /obj/item/reagent_containers/condiment/rice(src)
 	new /obj/item/reagent_containers/condiment/sugar(src)
 
+/obj/structure/closet/secure_closet/freezer/kitchen/all_access
+	req_access = null
+
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance
 	name = "maintenance refrigerator"
 	desc = "This refrigerator looks quite dusty, is there anything edible still inside?"
-	req_access = list()
+	req_access = null
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/PopulateContents()
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/condiment/milk(src)
-	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
-/// Keeping this here so some Chef can ask an assistant to find him one of these
-
-/obj/structure/closet/secure_closet/freezer/kitchen/mining
-	req_access = list()
 
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
 	req_access = list(ACCESS_KITCHEN)
 
 /obj/structure/closet/secure_closet/freezer/meat/PopulateContents()
-	..()
 	for(var/i in 1 to 2)
 		new /obj/item/food/meat/slab/monkey(src)
 
 /obj/structure/closet/secure_closet/freezer/meat/open
-	req_access = null
 	locked = FALSE
-
+	req_access = null
 
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"

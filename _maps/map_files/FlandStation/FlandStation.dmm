@@ -43691,7 +43691,7 @@
 	c_tag = "Security - Medbay"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/reagent_containers/blood/OPlus,
+/obj/item/reagent_containers/blood/o_plus,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
 /obj/item/reagent_containers/spray/cleaner{

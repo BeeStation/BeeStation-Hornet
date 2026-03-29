@@ -5808,14 +5808,14 @@
 	},
 /obj/structure/closet/crate/medical,
 /obj/machinery/firealarm/directional/east,
-/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/o_minus,
 /obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/clothing/glasses/blindfold{
 	pixel_x = -4;
 	pixel_y = 8
 	},
 /obj/item/clothing/mask/muzzle,
-/obj/item/reagent_containers/blood/OPlus,
+/obj/item/reagent_containers/blood/o_plus,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "bYf" = (
