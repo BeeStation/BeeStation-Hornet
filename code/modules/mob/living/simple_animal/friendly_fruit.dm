@@ -22,6 +22,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	faction = list(FACTION_PLANTS)
+	speed = -1
 
 	mobchatspan = "headofsecurity"
 	discovery_points = 1000
@@ -35,6 +36,17 @@
 	. = ..()
 	color = pick(list("#FF4848", "#5DFF5D", "#FFFF00", "#66FFFF"))
 
+/mob/living/simple_animal/friendly_fruit/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	var/static/rotation_dir = 1
+	var/matrix/o_transform = transform
+	var/matrix/n_transform = matrix(transform)
+	n_transform.Turn(45*(rotation_dir ? 1 : -1))
+	n_transform.Translate(3*(rotation_dir ? 1 : -1), 5)
+	animate(src, transform = n_transform, time = 0.068 SECONDS, easing = LINEAR_EASING)
+	animate(transform = o_transform, time = 0.6 SECONDS, easing = ELASTIC_EASING)
+	rotation_dir = !rotation_dir
+
 /mob/living/simple_animal/friendly_fruit/attack_ghost(mob/dead/observer/user)
 	if(client || key || ckey)
 		to_chat(user, span_warning("\The [src] already has a player."))
@@ -47,3 +59,13 @@
 		return
 	key = user.key
 	to_chat(src, span_boldwarning("Remember that you have forgotten all of your past lives and are a new person!"))
+
+/mob/living/simple_animal/friendly_fruit/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	. = ..()
+	var/datum/component/planter/plant_tray = attack_target.GetComponent(/datum/component/planter)
+	if(!plant_tray || !length(plant_tray.plants))
+		return
+	plant_tray.recent_bee_visit = TRUE
+	addtimer(VARSET_CALLBACK(plant_tray, recent_bee_visit, FALSE), 2 SECONDS)
+	for(var/datum/component/plant/plant_comp as anything in plant_tray.plants)
+		SEND_SIGNAL(plant_comp, COMSIG_PLANT_BEE_BUFF)
