@@ -10593,9 +10593,6 @@
 "bAN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
@@ -10606,6 +10603,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron,
 /area/engine/gravity_generator)
 "bAP" = (

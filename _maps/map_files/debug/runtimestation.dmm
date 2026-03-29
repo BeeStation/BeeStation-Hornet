@@ -1042,12 +1042,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron,
 /area/engine/gravity_generator)
 "ij" = (

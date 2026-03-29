@@ -48259,11 +48259,9 @@
 /turf/open/floor/cult,
 /area/library)
 "ofA" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable,
 /obj/machinery/light/directional/south,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron,
 /area/engine/gravity_generator)
 "ofC" = (

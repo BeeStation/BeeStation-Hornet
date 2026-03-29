@@ -69666,9 +69666,6 @@
 	},
 /area/maintenance/port/aft)
 "wcq" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
@@ -69680,6 +69677,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},

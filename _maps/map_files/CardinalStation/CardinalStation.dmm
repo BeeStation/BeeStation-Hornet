@@ -41674,15 +41674,13 @@
 /turf/open/floor/plating,
 /area/crew_quarters/fitness)
 "jei" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/trimline/yellow/warning{
 	dir = 5
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/noslip/dark,
 /area/engine/gravity_generator)
 "jel" = (

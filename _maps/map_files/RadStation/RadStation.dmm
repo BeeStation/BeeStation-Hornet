@@ -30443,12 +30443,10 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/tech/grid,
 /area/engine/gravity_generator)
 "kCk" = (
