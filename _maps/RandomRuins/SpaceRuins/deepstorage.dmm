@@ -1234,6 +1234,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dW" = (
@@ -2076,8 +2077,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "fU" = (
 /obj/machinery/camera/directional/north{
-	c_tag = "Bunker entrance";
-	network = list("bunker1")
+	c_tag = "Bunker entrance"
 	},
 /obj/structure/sign/warning/secure_area/directional/north,
 /obj/effect/turf_decal/stripes/corner{
