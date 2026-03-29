@@ -1,4 +1,16 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ax" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration)
 "bD" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -40,15 +52,6 @@
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
 	},
-/area/shuttle/exploration)
-"eh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
 /area/shuttle/exploration)
 "es" = (
 /obj/structure/sign/nanotrasen,
@@ -204,23 +207,9 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/exploration)
-"ij" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/techfloor_orange{
-	dir = 1
-	},
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/turf/open/floor/iron/tech,
+"hV" = (
+/obj/machinery/computer/rdconsole/unlocked,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "iw" = (
 /obj/structure/chair/fancy/shuttle,
@@ -332,6 +321,16 @@
 	dir = 1
 	},
 /area/shuttle/exploration)
+"ni" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light/small/directional/north,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/textured_half,
+/area/shuttle/exploration)
 "nq" = (
 /turf/template_noop,
 /area/template_noop)
@@ -363,32 +362,6 @@
 /obj/machinery/computer/crew,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
-"ox" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "exploshittle"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 10;
-	height = 11;
-	id = "exploration";
-	name = "Exploration Shuttle";
-	port_direction = 8;
-	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 19;
-	preferred_direction = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron/textured_half{
-	dir = 1
-	},
-/area/shuttle/exploration)
 "pC" = (
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 1
@@ -397,6 +370,13 @@
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
+/area/shuttle/exploration)
+"qo" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/smooth,
 /area/shuttle/exploration)
 "qN" = (
 /obj/effect/turf_decal/edges/techfloor_orange{
@@ -460,13 +440,6 @@
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
-/area/shuttle/exploration)
-"te" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/textured_half,
 /area/shuttle/exploration)
 "tQ" = (
 /obj/effect/turf_decal/siding/wood{
@@ -532,6 +505,15 @@
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
+/area/shuttle/exploration)
+"BI" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 1
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron/smooth,
 /area/shuttle/exploration)
 "Dq" = (
 /obj/structure/sign/nanotrasen,
@@ -632,10 +614,6 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/exploration)
-"HW" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
-/turf/open/floor/iron/smooth,
-/area/shuttle/exploration)
 "HZ" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1;
@@ -697,6 +675,24 @@
 	dir = 1
 	},
 /area/shuttle/exploration)
+"IF" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor_orange{
+	dir = 1
+	},
+/mob/living/simple_animal/turkey{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/exploration)
 "IW" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/structure/wall_closet/generic/directional/north,
@@ -749,6 +745,35 @@
 /obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"LD" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+	cycle_id = "exploshittle"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 10;
+	height = 11;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	port_direction = 8;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	width = 19;
+	preferred_direction = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/textured_half{
+	dir = 1
+	},
+/area/shuttle/exploration)
 "Mn" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/edges/techfloor_orange{
@@ -782,12 +807,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/atmospherics/pipe/bridge_pipe/purple/visible,
 /turf/open/floor/plating,
-/area/shuttle/exploration)
-"NC" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 1
-	},
-/turf/open/floor/iron/smooth,
 /area/shuttle/exploration)
 "NG" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
@@ -842,21 +861,6 @@
 "PV" = (
 /turf/open/floor/catwalk_floor,
 /area/shuttle/exploration)
-"PY" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "exploshittle"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron/textured_half{
-	dir = 1
-	},
-/area/shuttle/exploration)
 "Qs" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
@@ -886,6 +890,15 @@
 	dir = 1
 	},
 /area/shuttle/exploration)
+"Rc" = (
+/obj/machinery/light/directional/east,
+/obj/effect/turf_decal/edges/borderfloor/black/corner1,
+/obj/machinery/light_switch/directional/east,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/smooth,
+/area/shuttle/exploration)
 "Rk" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -903,10 +916,6 @@
 	dir = 1
 	},
 /area/shuttle/exploration)
-"Rx" = (
-/obj/machinery/computer/rdconsole/unlocked,
-/turf/open/floor/iron/tech/grid,
-/area/shuttle/exploration)
 "RC" = (
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
@@ -923,12 +932,6 @@
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
-/area/shuttle/exploration)
-"RX" = (
-/obj/machinery/light/directional/east,
-/obj/effect/turf_decal/edges/borderfloor/black/corner1,
-/obj/machinery/light_switch/directional/east,
-/turf/open/floor/iron/smooth,
 /area/shuttle/exploration)
 "Sp" = (
 /obj/structure/chair/fancy/shuttle,
@@ -991,6 +994,24 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured_half{
+	dir = 1
+	},
+/area/shuttle/exploration)
+"Xw" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+	cycle_id = "exploshittle"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/textured_half{
 	dir = 1
 	},
 /area/shuttle/exploration)
@@ -1156,7 +1177,7 @@ KH
 "}
 (5,1,1) = {"
 yJ
-Rx
+hV
 Zo
 Mn
 ug
@@ -1178,7 +1199,7 @@ Zh
 (6,1,1) = {"
 yJ
 PH
-ij
+IF
 ly
 ug
 AI
@@ -1226,10 +1247,10 @@ ug
 DQ
 Vc
 Yd
-NC
-HW
-RX
-eh
+BI
+qo
+Rc
+ax
 ma
 KH
 KH
@@ -1247,7 +1268,7 @@ ug
 RC
 xG
 ug
-PY
+Xw
 Qs
 ug
 Wb
@@ -1268,7 +1289,7 @@ SP
 Dq
 yJ
 ug
-te
+ni
 ZN
 ug
 ug
@@ -1289,7 +1310,7 @@ nq
 nq
 nq
 ug
-ox
+LD
 Qs
 ug
 nq

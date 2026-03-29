@@ -252,13 +252,11 @@
 	if(!target.can_buckle_to && !force)
 		return FALSE
 
-	var/turf/source_turf = get_turf(src)
-	for(var/atom/movable/blocking_atom in source_turf)	// Check for blocking objects on the turf
-		if(blocking_atom == src || blocking_atom == target)
-			continue
-		if(blocking_atom.density) // Something is in the way that is dense, stop them from buckling
-			to_chat(target, span_warning("Something is in the way."))
-			return FALSE
+	// Check if there's something blocking the way to buckle
+	var/turf/turf = get_turf(src)
+	if(turf.is_blocked_turf(source_atom = target, ignore_atoms = list(src)))
+		to_chat(target, span_warning("Something is in the way"))
+		return FALSE
 
 	return TRUE
 /**

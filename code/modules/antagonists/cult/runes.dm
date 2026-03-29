@@ -676,7 +676,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 		else
 			fail_invoke()
 			return
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult.ogg')
+	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult_gain.ogg')
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
 	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
 									span_cultlarge("You awaken suddenly from the void. You're alive!"))
@@ -1094,7 +1094,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/noncult, "human_apoc", A, NONE)
 			addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"human_apoc",TRUE), duration)
 			images += A
-			SEND_SOUND(M, pick(sound('sound/ambience/antag/bloodcult.ogg'),sound('sound/spookoween/ghost_whisper.ogg'),sound('sound/spookoween/ghosty_wind.ogg')))
+			SEND_SOUND(M, pick(sound('sound/ambience/antag/bloodcult_gain.ogg'),sound('sound/spookoween/ghost_whisper.ogg'),sound('sound/spookoween/ghosty_wind.ogg')))
 		else
 			var/construct = pick("floater","artificer","behemoth")
 			var/image/B = image('icons/mob/mob.dmi',M,construct, ABOVE_MOB_LAYER)
