@@ -216,3 +216,7 @@
 /area/station/commons/cafeteria : /area/station/service/cafeteria{@OLD}
 /area/station/engineering/supermatter/external : /area/station/engineering/supermatter/room{@OLD}
 /area/ai_monitored/turret_protected/ai : /area/station/ai_monitored/turret_protected/ai{@OLD}
+/area/hilbertshotel : /area/misc/hilbertshotel
+/area/hilbertshotelstorage : /area/misc/hilbertshotelstorage
+/area/survivalpod : /area/misc/survivalpod{@OLD}
+/area/shuttle_arena : /area/shuttle/shuttle_arena{@OLD}
