@@ -15,6 +15,8 @@
 	var/reagent_id = /datum/reagent/water
 	var/reaction_volume = 200
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16))
+
 /obj/structure/showerframe
 	name = "shower frame"
 	icon = 'icons/obj/watercloset.dmi'

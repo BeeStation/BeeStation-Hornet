@@ -53,14 +53,16 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/exploration
 	backpack_contents = list(
-		/obj/item/knife/combat/survival=1,\
-		/obj/item/stack/marker_beacon/thirty=1,\
-		/obj/item/mining_voucher/exploration=1)
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/stack/marker_beacon/thirty = 1,
+		/obj/item/mining_voucher/exploration = 1,
+	)
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	duffelbag = /obj/item/storage/backpack/duffelbag
+	messenger = /obj/item/storage/backpack/messenger/explorer
 
 	chameleon_extras = /obj/item/gun/energy/e_gun/mini/exploration
 
@@ -97,7 +99,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
+	satchel = /obj/item/storage/backpack/satchel/science
 
 /datum/outfit/job/exploration_crew/medic
 	name = "Exploration Crew (Medical Doctor)"

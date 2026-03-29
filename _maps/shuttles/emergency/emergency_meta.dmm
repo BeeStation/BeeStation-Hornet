@@ -360,10 +360,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bz" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "bA" = (

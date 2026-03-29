@@ -5,10 +5,7 @@
 /area/template_noop)
 "l" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/built{
-	icon_state = "bulb-empty";
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /turf/open/floor/carpet/grimy,
 /area/template_noop)
 "r" = (

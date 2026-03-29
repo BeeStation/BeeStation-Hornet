@@ -1285,9 +1285,7 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 4
 	},
-/obj/structure/sink/kitchen{
-	pixel_y = 32
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},

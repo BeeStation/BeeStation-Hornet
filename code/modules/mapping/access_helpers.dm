@@ -406,17 +406,17 @@
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_GENERAL
 	return access_list
-/*
+
 /obj/effect/mapping_helpers/airlock/access/any/away/command/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_COMMAND
 	return access_list
-*/
+
 /obj/effect/mapping_helpers/airlock/access/any/away/security/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_SEC
 	return access_list
-/*
+
 /obj/effect/mapping_helpers/airlock/access/any/away/engineering/get_access()
 	var/list/access_list = ..()
 	access_list += list(ACCESS_AWAY_ENGINEERING)
@@ -441,7 +441,7 @@
 	var/list/access_list = ..()
 	access_list += list(ACCESS_AWAY_MAINTENANCE)
 	return access_list
-*/
+
 /obj/effect/mapping_helpers/airlock/access/any/away/generic1/get_access()
 	var/list/access_list = ..()
 	access_list += list(ACCESS_AWAY_GENERIC1)
@@ -847,17 +847,17 @@
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_GENERAL
 	return access_list
-/*
+
 /obj/effect/mapping_helpers/airlock/access/all/away/command/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_COMMAND
 	return access_list
-*/
+
 /obj/effect/mapping_helpers/airlock/access/all/away/security/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_SEC
 	return access_list
-/*
+
 /obj/effect/mapping_helpers/airlock/access/all/away/engineering/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_ENGINEERING
@@ -882,7 +882,7 @@
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_MAINTENANCE
 	return access_list
-*/
+
 /obj/effect/mapping_helpers/airlock/access/all/away/generic1/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_GENERIC1

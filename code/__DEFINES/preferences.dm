@@ -60,19 +60,6 @@
 #define JP_MEDIUM 2
 #define JP_HIGH 3
 
-//Backpacks
-#define GBACKPACK "Grey Backpack"
-#define GSATCHEL "Grey Satchel"
-#define GDUFFELBAG "Grey Duffel Bag"
-#define LSATCHEL "Leather Satchel"
-#define DBACKPACK "Department Backpack"
-#define DSATCHEL "Department Satchel"
-#define DDUFFELBAG "Department Duffel Bag"
-
-//Suit/Skirt
-#define PREF_SUIT "Jumpsuit"
-#define PREF_SKIRT "Jumpskirt"
-
 //Uplink spawn loc
 #define UPLINK_PDA "PDA"
 #define UPLINK_RADIO "Radio"

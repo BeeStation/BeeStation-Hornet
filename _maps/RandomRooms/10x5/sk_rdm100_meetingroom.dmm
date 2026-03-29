@@ -109,7 +109,7 @@
 	},
 /area/template_noop)
 "H" = (
-/obj/machinery/light/built,
+/obj/machinery/light/empty/directional/south,
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (

@@ -54,5 +54,4 @@
 
 	backpack = /obj/item/storage/backpack/botany
 	satchel = /obj/item/storage/backpack/satchel/hyd
-
-
+	messenger = /obj/item/storage/backpack/messenger/hyd

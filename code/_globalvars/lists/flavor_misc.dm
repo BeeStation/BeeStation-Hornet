@@ -220,18 +220,6 @@ GLOBAL_LIST_INIT(security_depts_prefs, sort_list(list(
 	SEC_DEPT_SUPPLY
 )))
 
-
-GLOBAL_LIST_INIT(backbaglist, list(
-	DBACKPACK,
-	DDUFFELBAG,
-	DSATCHEL,
-	GBACKPACK,
-	GDUFFELBAG,
-	GSATCHEL,
-	LSATCHEL
-))
-
-
 GLOBAL_LIST_INIT(jumpsuitlist, list(
 	PREF_SKIRT,
 	PREF_SUIT,

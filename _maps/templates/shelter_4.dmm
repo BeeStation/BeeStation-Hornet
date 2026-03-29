@@ -19,7 +19,7 @@
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "af" = (
-/obj/structure/sink,
+/obj/structure/sink/directional/north,
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "ag" = (

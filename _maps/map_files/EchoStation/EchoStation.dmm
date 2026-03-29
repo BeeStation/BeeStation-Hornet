@@ -234,10 +234,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "ais" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 8
 	},
@@ -2794,9 +2791,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
 "bpM" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
 "bpT" = (
@@ -4595,11 +4590,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 1
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
 "cxy" = (
@@ -5536,9 +5527,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
 "dbX" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "dck" = (
@@ -6617,10 +6606,7 @@
 "dBS" = (
 /obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/bot,
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 20
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron,
 /area/medical/surgery)
 "dCG" = (
@@ -11895,10 +11881,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "gpb" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/fitness/recreation)
 "gpl" = (
@@ -16724,10 +16707,7 @@
 /turf/open/floor/iron/dark/smooth_edge,
 /area/engine/atmos)
 "iYl" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 20
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -18645,10 +18625,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -21950,11 +21929,7 @@
 /area/ai_monitored/turret_protected/ai)
 "lQZ" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/requests_console{
 	department = "Janitorial";
 	departmentType = 1;
@@ -23321,9 +23296,7 @@
 	},
 /obj/machinery/camera/directional/north,
 /obj/item/kirbyplants/random,
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron,
 /area/security/brig)
 "mHI" = (
@@ -26534,11 +26507,7 @@
 	pixel_x = 8;
 	pixel_y = -31
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/bot/right,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
@@ -33826,10 +33795,9 @@
 /area/security/brig)
 "sKV" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)

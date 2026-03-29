@@ -14,10 +14,7 @@
 /area/template_noop)
 "c" = (
 /obj/structure/closet/radiation,
-/obj/machinery/light/built{
-	icon_state = "tube-empty";
-	dir = 1
-	},
+/obj/machinery/light/empty/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/template_noop)

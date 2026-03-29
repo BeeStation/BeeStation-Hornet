@@ -357,9 +357,9 @@
 
 /obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
-	create_storage(storage_type = /datum/storage/implant)
+	create_storage(storage_type = /datum/storage/kirbyplants)
 	AddComponent(/datum/component/tactical)
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE, force_unwielded = 10, force_wielded = 10)
 
 /datum/storage/kirbyplants
 	max_slots = 1

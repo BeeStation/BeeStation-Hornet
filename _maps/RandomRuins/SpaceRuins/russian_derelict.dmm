@@ -78,7 +78,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/engineering/supermatter)
 "as" = (
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/command/bridge)
@@ -437,11 +437,13 @@
 /area/ruin/space/ks13/service/bar)
 "dv" = (
 /obj/structure/rack,
-/obj/item/stack/cable_coil/random/five,
 /obj/item/screwdriver,
 /obj/item/stock_parts/cell/high,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/item/stack/cable_coil/yellow{
+	amount = 5
 	},
 /turf/open/floor/iron,
 /area/ruin/space/ks13/engineering/sb_bow_solars_control)
@@ -610,7 +612,7 @@
 /area/ruin/space/ks13/ai/corridor)
 "eE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/service/cafe)
 "eG" = (
@@ -708,7 +710,7 @@
 /area/ruin/space/ks13/engineering/supermatter)
 "fz" = (
 /obj/structure/sign/departments/medbay/alt/directional/west,
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/hallway/central)
 "fC" = (
@@ -842,7 +844,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/security/sec)
 "gU" = (
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/security/court)
@@ -978,7 +980,7 @@
 "iL" = (
 /obj/structure/sign/departments/medbay/alt/directional/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/hallway/central)
 "iR" = (
@@ -1456,7 +1458,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "nf" = (
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/hallway/central)
 "nj" = (
@@ -2626,7 +2628,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/ks13/engineering/sb_bow_solars_control)
 "sQ" = (
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/security/court)
 "sR" = (
@@ -5833,7 +5835,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/engineering/supermatter)
 "Ia" = (
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/command/bridge_hall)
 "Ib" = (
@@ -7082,12 +7084,10 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "Om" = (
-/obj/machinery/power/smes/engineering{
-	charge = 0
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes,
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/ai/corridor)
 "On" = (
@@ -9278,7 +9278,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/engineering/aux_storage)
 "XV" = (
-/obj/item/kirbyplants/dead/research_director,
+/obj/item/kirbyplants/dead,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/plating/airless,

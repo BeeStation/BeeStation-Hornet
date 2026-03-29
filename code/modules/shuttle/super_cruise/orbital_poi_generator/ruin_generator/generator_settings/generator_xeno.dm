@@ -36,7 +36,7 @@
 
 /datum/generator_settings/xeno/get_directional_walltrash()
 	return list(
-		/obj/machinery/light/built = 1,
+		/obj/machinery/light/empty = 1,
 		/obj/machinery/light/broken = 8,
 		/obj/machinery/light/small = 1,
 		/obj/machinery/light/small/broken = 6,

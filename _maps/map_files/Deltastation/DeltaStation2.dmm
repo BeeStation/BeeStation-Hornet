@@ -2109,10 +2109,7 @@
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "aqr" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/blue{
@@ -3210,10 +3207,7 @@
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
@@ -3760,10 +3754,7 @@
 "azL" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "azM" = (
@@ -4681,10 +4672,9 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "aEQ" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
+	name = "sink"
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Bar Backroom";
@@ -6263,9 +6253,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/mirror{
 	pixel_x = null;
 	pixel_y = 32
@@ -6774,10 +6762,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "aVV" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/reagent_containers/cup/bucket,
 /obj/effect/decal/cleanable/dirt,
@@ -8153,10 +8138,9 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bhO" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
+	name = "sink"
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
@@ -8321,10 +8305,7 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "bjp" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
@@ -10083,10 +10064,7 @@
 /turf/open/floor/plating,
 /area/storage/tech)
 "bvz" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = -32
@@ -10112,10 +10090,7 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "bvD" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/requests_console{
 	department = "Hydroponics";
 	departmentType = 2;
@@ -13411,9 +13386,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "bYs" = (
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/mirror{
 	pixel_x = null;
 	pixel_y = 32
@@ -13582,10 +13555,7 @@
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/captain/private)
 "bZp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/captain/private)
 "bZr" = (
@@ -18957,10 +18927,7 @@
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
@@ -19372,10 +19339,7 @@
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/restrooms)
@@ -29071,7 +29035,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron,
@@ -31204,7 +31168,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron,
@@ -32305,10 +32269,7 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "fmn" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -35085,10 +35046,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -42414,7 +42374,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron,
@@ -44421,7 +44381,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron,
@@ -45183,10 +45143,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/prison,
 /area/security/prison)
 "jEE" = (
@@ -49996,10 +49953,9 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
 "luy" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
+	name = "sink"
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Kitchen Cold Room";
@@ -52302,10 +52258,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
 "mik" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 20
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -61672,10 +61625,7 @@
 /turf/open/floor/iron,
 /area/engine/storage)
 "pwc" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -63862,10 +63812,7 @@
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "qnf" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -72334,10 +72281,7 @@
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "sZo" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -76738,10 +76682,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "uEb" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -77244,10 +77185,7 @@
 /turf/open/floor/carpet/grimy,
 /area/chapel/main)
 "uNc" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6

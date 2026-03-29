@@ -307,10 +307,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
 "aaN" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -577,10 +574,7 @@
 /turf/open/floor/wood,
 /area/centcom/control)
 "abu" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -1811,7 +1805,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/dark/corner,
-/obj/item/kirbyplants/dead/research_director{
+/obj/item/kirbyplants/dead{
 	pixel_y = 21;
 	pixel_x = -8
 	},
@@ -5342,10 +5336,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/centcom/ferry)
 "anC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -11548,9 +11539,7 @@
 /obj/structure/mirror/magic{
 	pixel_y = 28
 	},
-/obj/structure/sink{
-	pixel_y = 20
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/white,
 /area/wizard_station)
 "aDT" = (
@@ -12263,10 +12252,7 @@
 /turf/open/floor/iron/textured,
 /area/centcom/ferry)
 "aFV" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/cafeteria,
 /area/tdome/tdomeobserve)
@@ -12655,10 +12641,7 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/evac)
 "aHb" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -12706,10 +12689,7 @@
 /turf/open/floor/iron/dark,
 /area/ctf)
 "aHh" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -12765,10 +12745,7 @@
 /turf/open/floor/grass,
 /area/centcom/holding)
 "aHn" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -12854,10 +12831,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "aHx" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -12880,10 +12854,7 @@
 /turf/open/floor/circuit,
 /area/ctf)
 "aHA" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -12913,10 +12884,7 @@
 	},
 /area/tdome/tdomeadmin)
 "aHE" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -12924,10 +12892,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/tdome/tdomeobserve)
 "aHF" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -13709,10 +13674,9 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "aJE" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
+	name = "sink"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
@@ -15572,11 +15536,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/centcom/evac)
 "aOp" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/button/door/indestructible{
 	id = "lmrestroom";
 	name = "Lock Control";
@@ -15609,10 +15569,7 @@
 /turf/open/floor/wood/big,
 /area/syndicate_mothership/control)
 "aOt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
@@ -19016,10 +18973,9 @@
 /turf/open/floor/iron/edge,
 /area/tdome/tdomeadmin)
 "aWO" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
+	name = "sink"
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -20410,10 +20366,7 @@
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "cwa" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},

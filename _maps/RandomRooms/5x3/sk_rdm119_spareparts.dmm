@@ -57,7 +57,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/frame,
-/obj/machinery/light/built,
+/obj/machinery/light/empty/directional/south,
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
 /area/template_noop)

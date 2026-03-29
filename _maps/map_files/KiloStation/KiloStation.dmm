@@ -1083,10 +1083,7 @@
 "akN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
-/obj/item/kirbyplants/dead/research_director{
-	desc = "A bit of nature in a pot";
-	name = "potted plant"
-	},
+/obj/item/kirbyplants/dead,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "alf" = (
@@ -1828,9 +1825,7 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "arD" = (
-/obj/structure/sink{
-	pixel_y = 26
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
 "arE" = (
@@ -16191,10 +16186,7 @@
 /turf/open/floor/engine,
 /area/storage/tech)
 "dGY" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 28
@@ -19437,10 +19429,7 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "eKN" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/terminal{
 	dir = 1
@@ -19557,10 +19546,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "eNm" = (
@@ -19646,10 +19632,7 @@
 /area/maintenance/starboard)
 "eOw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead/research_director{
-	desc = "A bit of nature in a pot";
-	name = "potted plant"
-	},
+/obj/item/kirbyplants/dead,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "eOE" = (
@@ -21300,10 +21283,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "fqG" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
@@ -24434,7 +24414,7 @@
 /obj/structure/closet{
 	name = "exploration locker"
 	},
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /obj/item/analyzer,
 /obj/item/clothing/under/rank/cargo/exploration,
 /obj/item/clothing/under/rank/cargo/exploration,
@@ -25258,10 +25238,9 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "gKQ" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -28320,10 +28299,9 @@
 /turf/open/floor/iron/dark,
 /area/science/mixing)
 "hKn" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
@@ -30197,10 +30175,9 @@
 /area/science/mixing)
 "iqI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
@@ -31852,10 +31829,7 @@
 	pixel_x = 25;
 	pixel_y = 4
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "iTq" = (
@@ -33050,10 +33024,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/kirbyplants/dead/research_director{
-	desc = "A bit of nature in a pot";
-	name = "potted plant"
-	},
+/obj/item/kirbyplants/dead,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -37051,10 +37022,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "kKc" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
@@ -38103,11 +38071,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -14;
-	pixel_y = 1
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/surgery)
 "lfe" = (
@@ -42476,10 +42440,7 @@
 /obj/structure/mirror{
 	pixel_x = 26
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
 	name = "cloning camera";
@@ -42800,10 +42761,9 @@
 /area/engine/gravity_generator)
 "mJy" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -43656,10 +43616,7 @@
 /area/security/execution/education)
 "nbe" = (
 /obj/effect/decal/cleanable/food/flour,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/camera/directional/west{
 	c_tag = "Kitchen";
 	name = "diner camera"
@@ -46593,10 +46550,9 @@
 /area/security/prison)
 "oaf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -48862,7 +48818,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/rack,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /obj/item/analyzer,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -50283,10 +50239,7 @@
 /turf/open/floor/iron/dark,
 /area/lawoffice)
 "pnt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/landmark/start/roboticist,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -51065,11 +51018,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/warehouse)
 "pzF" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -55282,11 +55231,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "qXR" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11;
-	pixel_y = 8
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/door/window/southright{
@@ -55301,10 +55246,7 @@
 /turf/open/floor/iron,
 /area/janitor)
 "qXS" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/showroomfloor,
@@ -60811,10 +60753,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics/cloning)
 "sPC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26
 	},
@@ -62814,10 +62753,7 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "tAe" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
@@ -63277,10 +63213,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/item/radio/intercom{
@@ -66039,9 +65972,7 @@
 /obj/structure/mirror{
 	pixel_y = 28
 	},
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -66174,9 +66105,7 @@
 /obj/structure/mirror{
 	pixel_y = 28
 	},
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -72088,10 +72017,7 @@
 /obj/structure/sign/poster/official/bless_this_spess{
 	pixel_x = 32
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/shower{
 	dir = 8;
 	name = "emergency shower"
@@ -73157,10 +73083,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/obj/item/kirbyplants/dead/research_director{
-	desc = "A bit of nature in a pot";
-	name = "potted plant"
-	},
+/obj/item/kirbyplants/dead,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "wVl" = (

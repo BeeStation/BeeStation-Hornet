@@ -1642,11 +1642,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "Ae" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 32;
 	pixel_y = -1

@@ -98,7 +98,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/light/built,
+/obj/machinery/light/empty/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
@@ -144,9 +144,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/light/built{
-	dir = 1
-	},
+/obj/machinery/light/empty/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1

@@ -19,9 +19,7 @@
 /area/tdome/arena)
 "ad" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/plating,
 /area/tdome/arena)
 "ah" = (
@@ -30,9 +28,7 @@
 /area/tdome/arena)
 "ai" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/plating,
 /area/tdome/arena)
 "aj" = (

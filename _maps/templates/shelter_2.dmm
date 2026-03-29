@@ -158,10 +158,7 @@
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "y" = (
-/obj/structure/sink/kitchen{
-	dir = 4;
-	pixel_x = -13
-	},
+/obj/structure/sink/kitchen/directional/east,
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "z" = (

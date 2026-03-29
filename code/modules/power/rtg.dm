@@ -94,3 +94,26 @@
 /obj/machinery/power/rtg/abductor/zap_act(power, zap_flags)
 	. = ..()
 	overload()
+
+/obj/machinery/power/rtg/old_station
+	name = "Old RTG"
+	desc = "A very old RTG, it seems on the verge of being destroyed"
+	circuit = null
+	power_gen = 750
+	anchored = TRUE
+
+/obj/machinery/power/rtg/old_station/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
+	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-open", initial(icon_state), attacking_item))
+		to_chat(user, span_warning("You feel it crumbling under your hands!"))
+		return
+	else if(default_deconstruction_crowbar(attacking_item, user = user))
+		return
+	return ..()
+
+/obj/machinery/power/rtg/old_station/default_deconstruction_crowbar(obj/item/crowbar, ignore_panel, custom_deconstruct, mob/user)
+	to_chat(user, span_warning("It's starting to fall off!"))
+	if(!do_after(user, 3 SECONDS, src))
+		return TRUE
+	to_chat(user, span_notice("You feel like you made a mistake"))
+	new /obj/effect/decal/cleanable/ash/large(loc)
+	qdel(src)

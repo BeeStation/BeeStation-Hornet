@@ -13,10 +13,7 @@
 /obj/item/sequence_scanner{
 	pixel_y = 3
 	},
-/obj/machinery/light/built{
-	icon_state = "tube-empty";
-	dir = 8
-	},
+/obj/machinery/light/empty/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)

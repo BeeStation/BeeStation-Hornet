@@ -973,10 +973,7 @@
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "fD" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -2375,10 +2372,7 @@
 /turf/open/floor/iron,
 /area/mine/laborcamp)
 "nJ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26
 	},
@@ -4583,10 +4577,7 @@
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Bj" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron,
 /area/mine/production)
 "Bl" = (
@@ -5155,10 +5146,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Es" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
 "Ew" = (
@@ -5716,10 +5704,8 @@
 "Hg" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/table,
-/obj/item/kirbyplants/dead/research_director{
-	pixel_y = 12;
-	name = "Dead Potted Plant";
-	desc = "A Dead Potted Plant.."
+/obj/item/kirbyplants/dead{
+	pixel_y = 12
 	},
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
@@ -7459,10 +7445,8 @@
 "RD" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/kirbyplants/dead/research_director{
-	pixel_y = 12;
-	name = "Dead Potted Plant";
-	desc = "A Dead Potted Plant.."
+/obj/item/kirbyplants/dead{
+	pixel_y = 12
 	},
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)

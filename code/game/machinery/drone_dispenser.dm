@@ -131,7 +131,7 @@
 /obj/machinery/drone_dispenser/classic
 	name = "classic drone shell dispenser"
 	desc = "A hefty machine that, when supplied with iron and glass, will periodically create a classic drone shell. Does not need to be manually operated."
-	dispense_type = list(/obj/effect/mob_spawn/ghost_role/drone/classic)
+	dispense_type = list(/obj/effect/mob_spawn/drone/classic)
 	end_create_message = "dispenses a classic drone shell."
 */
 

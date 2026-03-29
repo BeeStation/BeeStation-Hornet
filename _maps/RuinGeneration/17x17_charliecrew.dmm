@@ -180,8 +180,8 @@
 /area/ruin/unpowered)
 "mW" = (
 /obj/structure/closet/crate,
-/obj/item/storage/backpack/old,
-/obj/item/storage/backpack/old,
+/obj/item/storage/backpack,
+/obj/item/storage/backpack,
 /obj/item/crowbar,
 /obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron/white,

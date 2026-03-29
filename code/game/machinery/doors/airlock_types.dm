@@ -360,22 +360,19 @@
 	note_attachment = "bottom"
 	panel_attachment = "bottom"
 
-/obj/machinery/door/airlock/arrivals_external
+/obj/machinery/door/airlock/external/arrivals
 	name = "arrivals airlock"
-	icon = 'icons/obj/doors/airlocks/external/arrivals_external.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	protected_door = TRUE
-	anim_parts = "top=0,16;bottom=0,-16"
-	note_attachment = "bottom"
-	panel_attachment = "bottom"
 
 // Access free external airlocks
 /obj/machinery/door/airlock/external/ruin
 
 /obj/machinery/door/airlock/external/glass
+	name = "external glass airlock"
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/external/glass/ruin
 
 //////////////////////////////////
 /*

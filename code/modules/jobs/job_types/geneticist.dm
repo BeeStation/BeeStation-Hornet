@@ -61,4 +61,4 @@
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel/gen
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
-
+	messenger = /obj/item/storage/backpack/messenger/gen

@@ -14,10 +14,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/machinery/light/small/built{
-	icon_state = "bulb-empty";
-	dir = 8
-	},
+/obj/machinery/light/small/empty/directional/west,
 /mob/living/simple_animal/crab,
 /turf/open/floor/plating,
 /area/template_noop)

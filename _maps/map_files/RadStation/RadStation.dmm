@@ -6650,11 +6650,7 @@
 "cka" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/firealarm/directional/east,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 5
 	},
@@ -6896,10 +6892,7 @@
 "cnY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -8774,10 +8767,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "cTK" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "cUa" = (
@@ -9575,11 +9565,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/chair/office/light,
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron,
 /area/hydroponics)
 "dhK" = (
@@ -11424,7 +11410,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
-/obj/item/kirbyplants/dead/research_director{
+/obj/item/kirbyplants/dead{
 	pixel_y = 11
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -15249,9 +15235,7 @@
 /obj/structure/mirror{
 	pixel_y = 35
 	},
-/obj/structure/sink{
-	pixel_y = 19
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/captain/private)
 "fbY" = (
@@ -21018,10 +21002,7 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "hbo" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "hbX" = (
@@ -35501,10 +35482,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "mkC" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -41293,10 +41271,7 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron,
 /area/janitor)
 "olJ" = (
@@ -42773,7 +42748,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /obj/machinery/firealarm/directional/south,
 /obj/structure/table,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /obj/item/hand_labeler{
 	pixel_x = -12
 	},
@@ -53279,10 +53254,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
 	dir = 1
 	},
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/white/side,
 /area/medical/sleeper)
 "sxV" = (
@@ -56849,11 +56821,7 @@
 "tFE" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron,
 /area/medical/break_room)
 "tFT" = (
@@ -58640,7 +58608,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "ujy" = (
@@ -61020,10 +60988,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "uWD" = (
@@ -65029,9 +64994,7 @@
 /obj/machinery/door/window{
 	dir = 4
 	},
-/obj/structure/sink/kitchen{
-	pixel_y = 23
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -69836,10 +69799,7 @@
 /turf/open/floor/holofloor/wood,
 /area/security/main)
 "xYt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "xYz" = (

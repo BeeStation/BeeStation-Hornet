@@ -69,6 +69,7 @@
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/clown
 	duffelbag = /obj/item/storage/backpack/duffelbag/clown //strangely has a duffel
+	messenger = /obj/item/storage/backpack/messenger/clown
 
 	box = /obj/item/storage/box/survival/hug
 

@@ -50,10 +50,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/light/small/built{
-	icon_state = "bulb-empty";
-	dir = 8
-	},
+/obj/machinery/light/small/empty/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/template_noop)

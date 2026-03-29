@@ -112,9 +112,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light/small/built{
-	dir = 1
-	},
+/obj/machinery/light/small/empty/directional/north,
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
@@ -191,9 +189,7 @@
 /area/shuttle/abandoned/medbay)
 "aJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
@@ -263,7 +259,7 @@
 "aV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mapping_helpers/airalarm/all_access,
-/obj/machinery/light/small/built,
+/obj/machinery/light/small/empty/directional/south,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
@@ -328,9 +324,7 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "bh" = (
-/obj/machinery/light/small/built{
-	dir = 1
-	},
+/obj/machinery/light/small/empty/directional/north,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "bi" = (
@@ -454,9 +448,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/sleeper,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light/small/built{
-	dir = 8
-	},
+/obj/machinery/light/small/empty/directional/west,
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
@@ -493,9 +485,7 @@
 /area/shuttle/abandoned/medbay)
 "bF" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -722,9 +712,7 @@
 "ce" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /obj/structure/closet/secure_closet/medical3{
 	anchored = 1
 	},
@@ -782,9 +770,7 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 1
 	},
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /turf/open/floor/iron/white/side{
 	dir = 6
 	},
@@ -803,9 +789,7 @@
 /area/shuttle/abandoned/medbay)
 "cl" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -821,9 +805,7 @@
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
-/obj/machinery/light/small/built{
-	dir = 8
-	},
+/obj/machinery/light/small/empty/directional/west,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26
@@ -1021,9 +1003,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
-/obj/machinery/light/small/built{
-	dir = 1
-	},
+/obj/machinery/light/small/empty/directional/north,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/white/side{
 	dir = 1
@@ -1044,11 +1024,7 @@
 /obj/structure/toilet{
 	pixel_y = 16
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -1062,7 +1038,7 @@
 	},
 /obj/item/soap,
 /obj/structure/curtain,
-/obj/machinery/light/small/built,
+/obj/machinery/light/small/empty/directional/south,
 /turf/open/floor/iron/freezer,
 /area/shuttle/abandoned/medbay)
 "cK" = (
@@ -1204,9 +1180,7 @@
 "cX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /obj/structure/table,
 /obj/machinery/door/window/westleft{
 	name = "Medical Equipment Storage"
@@ -1421,9 +1395,7 @@
 /area/shuttle/abandoned/medbay)
 "dn" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -1456,9 +1428,7 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/medbay)
 "dt" = (
@@ -1474,9 +1444,7 @@
 /obj/item/storage/box/zipties,
 /obj/item/assembly/flash/handheld,
 /obj/item/melee/baton/telescopic,
-/obj/machinery/light/small/built{
-	dir = 8
-	},
+/obj/machinery/light/small/empty/directional/west,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -1564,9 +1532,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/donkpockets,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/crew)
@@ -1577,9 +1543,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
-/obj/machinery/light/small/built{
-	dir = 1
-	},
+/obj/machinery/light/small/empty/directional/north,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -1602,9 +1566,7 @@
 /area/shuttle/abandoned/engine)
 "iw" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 4
-	},
+/obj/machinery/light/small/empty/directional/east,
 /obj/structure/closet/secure_closet/medical2{
 	anchored = 1
 	},
@@ -1745,9 +1707,7 @@
 "uv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 1
-	},
+/obj/machinery/light/small/empty/directional/north,
 /obj/structure/bed,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,

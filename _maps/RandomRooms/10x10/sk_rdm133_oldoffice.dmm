@@ -83,10 +83,7 @@
 /area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/built{
-	icon_state = "tube-empty";
-	dir = 8
-	},
+/obj/machinery/light/empty/directional/west,
 /turf/open/floor/iron,
 /area/template_noop)
 "t" = (
@@ -102,10 +99,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "v" = (
-/obj/machinery/light/built{
-	icon_state = "tube-empty";
-	dir = 4
-	},
+/obj/machinery/light/empty/directional/east,
 /turf/open/floor/iron,
 /area/template_noop)
 "w" = (
@@ -137,10 +131,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
-/obj/machinery/light/built{
-	icon_state = "tube-empty";
-	dir = 8
-	},
+/obj/machinery/light/empty/directional/west,
 /turf/open/floor/iron,
 /area/template_noop)
 "D" = (
@@ -213,7 +204,7 @@
 "Q" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/built,
+/obj/machinery/light/empty/directional/south,
 /turf/open/floor/iron,
 /area/template_noop)
 "R" = (

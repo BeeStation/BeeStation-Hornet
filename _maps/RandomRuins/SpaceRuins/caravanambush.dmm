@@ -15,10 +15,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ae" = (
-/obj/structure/fluff/broken_flooring{
-	icon_state = "plating";
-	dir = 4
-	},
+/obj/structure/broken_flooring/plating/directional/east,
 /turf/template_noop,
 /area/template_noop)
 "af" = (
@@ -65,10 +62,7 @@
 /area/shuttle/caravan/freighter3)
 "an" = (
 /obj/structure/lattice,
-/obj/structure/fluff/broken_flooring{
-	icon_state = "plating";
-	dir = 4
-	},
+/obj/structure/broken_flooring/plating/directional/east,
 /turf/template_noop,
 /area/template_noop)
 "ao" = (
@@ -77,17 +71,11 @@
 /area/template_noop)
 "ap" = (
 /obj/structure/lattice,
-/obj/structure/fluff/broken_flooring{
-	icon_state = "pile";
-	dir = 8
-	},
+/obj/structure/broken_flooring/pile/directional/west,
 /turf/template_noop,
 /area/template_noop)
 "as" = (
-/obj/structure/fluff/broken_flooring{
-	dir = 4;
-	icon_state = "singular"
-	},
+/obj/structure/broken_flooring/singular/directional/east,
 /turf/template_noop,
 /area/template_noop)
 "aD" = (
@@ -95,10 +83,7 @@
 /turf/template_noop,
 /area/template_noop)
 "aE" = (
-/obj/structure/fluff/broken_flooring{
-	icon_state = "pile";
-	dir = 4
-	},
+/obj/structure/broken_flooring/pile/directional/east,
 /turf/template_noop,
 /area/template_noop)
 "aG" = (
@@ -162,9 +147,7 @@
 /turf/open/floor/iron/airless,
 /area/shuttle/caravan/freighter3)
 "aT" = (
-/obj/structure/fluff/broken_flooring{
-	icon_state = "singular"
-	},
+/obj/structure/broken_flooring/singular/directional/south,
 /turf/template_noop,
 /area/template_noop)
 "bh" = (
@@ -313,9 +296,7 @@
 "gk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/fluff/broken_flooring{
-	icon_state = "singular"
-	},
+/obj/structure/broken_flooring/singular/directional/south,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless,
@@ -597,9 +578,7 @@
 /area/shuttle/caravan/freighter2)
 "iy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/fluff/broken_flooring{
-	icon_state = "pile"
-	},
+/obj/structure/broken_flooring/pile/directional/south,
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
