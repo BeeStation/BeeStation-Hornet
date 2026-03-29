@@ -46,7 +46,7 @@
 		/area/station/medical/genetics,
 		/area/station/medical/morgue,
 		/area/station/medical/surgery,
-		/area/station/commons/storage/eva
+		/area/station/ai_monitored/command/storage/eva
 	)
 
 	manuscript_jobs = list(

@@ -15,7 +15,7 @@
 		/area/station/medical/medbay/central,
 		/area/station/medical/medbay/lobby,
 		/area/station/medical/patients_rooms,
-		/area/station/medical/sleeper,
+		/area/station/medical/treatment_center,
 		/area/station/medical/storage,
 	))
 
@@ -39,7 +39,7 @@
 		/area/station/medical/medbay/central,
 		/area/station/medical/medbay/lobby,
 		/area/station/medical/patients_rooms,
-		/area/station/medical/sleeper,
+		/area/station/medical/treatment_center,
 		/area/station/medical/storage,
 		/area/station/medical/morgue,
 	))
