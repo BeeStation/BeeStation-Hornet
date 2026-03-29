@@ -51,9 +51,9 @@
 	prime = FALSE
 
 /datum/role_preference/supplementary/vampire
-	name = "Vampire"
-	description = "After your death, you awaken to see yourself as an undead monster. \n\
-		Scrape by Space Station 13, or take it over, ruling from the shadows!"
+	name = "Lone Vampire (Latejoin)"
+	description = "When joining an ongoing round, you may be chosen to spawn as a lone Vampire. \n\
+		Choose a Clan, feed on the crew, and pursue your objectives."
 	antag_datum = /datum/antagonist/vampire
 
 /datum/role_preference/supplementary/vampire/get_preview_icon()

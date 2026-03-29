@@ -232,7 +232,7 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/midround/living/vampire
-	name = "Vampiric Accident"
+	name = "Lone Vampire (Midround)"
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/vampire
 	antag_datum = /datum/antagonist/vampire
