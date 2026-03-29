@@ -66,14 +66,18 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define IS_PLAYER_COLORABLE_1 (1<<16)
 /// Is this atom immune to being dusted by the supermatter?
 #define SUPERMATTER_IGNORES_1 (1<<17)
+/// If a turf can be made dirty at roundstart. This is also used in areas.
+#define CAN_BE_DIRTY_1 (1<<20)
 
-//turf-only flags. These use flags_1 too.
-// These exist to cover /turf and /area at the same time
-#define NOJAUNT_1					(1<<17)
-#define UNUSED_RESERVATION_TURF_1	(1<<18)
-#define CAN_BE_DIRTY_1				(1<<19) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
-#define NO_LAVA_GEN_1				(1<<20) 	//! Blocks lava rivers being generated on the turf
-#define NO_RUINS_1					(1<<21) //! Blocks ruins spawning on the turf
+
+//TURF FLAGS
+/// If a turf cant be jaunted through.
+#define NOJAUNT (1<<0)
+#define UNUSED_RESERVATION_TURF (1<<1)
+/// Blocks lava rivers being generated on the turf.
+#define NO_LAVA_GEN (1<<3)
+/// Blocks ruins spawning on the turf.
+#define NO_RUINS (1<<4)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -98,31 +102,33 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 ////////////////Area flags\\\\\\\\\\\\\\
 /// If it's a valid territory for cult summoning or the CRAB-17 phone to spawn
-#define VALID_TERRITORY				(1<<0)
+#define VALID_TERRITORY (1<<0)
 /// If blobs can spawn there and if it counts towards their score.
-#define BLOBS_ALLOWED				(1<<1)
+#define BLOBS_ALLOWED (1<<1)
 /// If mining tunnel generation is allowed in this area
-#define CAVES_ALLOWED				(1<<2)
+#define CAVES_ALLOWED (1<<2)
 /// If flora are allowed to spawn in this area randomly through tunnel generation
-#define FLORA_ALLOWED				(1<<3)
+#define FLORA_ALLOWED (1<<3)
 /// If mobs can be spawned by natural random generation
-#define MOB_SPAWN_ALLOWED			(1<<4)
+#define MOB_SPAWN_ALLOWED (1<<4)
 /// If megafauna can be spawned by natural random generation
-#define MEGAFAUNA_SPAWN_ALLOWED		(1<<5)
+#define MEGAFAUNA_SPAWN_ALLOWED (1<<5)
 /// Hides area from player Teleport function.
-#define HIDDEN_AREA					(1<<6)
+#define HIDDEN_AREA (1<<6)
 /// If false, loading multiple maps with this area type will create multiple instances.
-#define UNIQUE_AREA					(1<<7)
+#define UNIQUE_AREA (1<<7)
 /// If people are allowed to suicide in it. Mostly for OOC stuff like minigames
-#define BLOCK_SUICIDE				(1<<8)
+#define BLOCK_SUICIDE (1<<8)
 /// Can the Xenobio management console transverse this area by default?
-#define XENOBIOLOGY_COMPATIBLE		(1<<9)
+#define XENOBIOLOGY_COMPATIBLE (1<<9)
+/// If blood cultists can draw runes or build structures on this AREA.
+#define CULT_PERMITTED (1<<10)
 /// Are hidden stashes allowed to spawn here?
-#define HIDDEN_STASH_LOCATION		(1<<10)
+#define HIDDEN_STASH_LOCATION (1<<11)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
-#define REMOTE_APC					(1<<11)
+#define REMOTE_APC (1<<12)
 /// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
-#define NO_GRAVITY 					(1<<12)
+#define NO_GRAVITY (1<<13)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)

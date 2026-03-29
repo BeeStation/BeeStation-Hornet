@@ -20,7 +20,7 @@
 
 		for(var/turf/check as anything in affected_turfs)
 			// Use assoc lists to move this out, it's easier that way
-			if(check.flags_1 & NO_RUINS_1)
+			if(check.turf_flags & NO_RUINS)
 				valid = FALSE // set to false before we check
 				break
 			var/area/new_area = get_area(check)
@@ -37,7 +37,7 @@
 
 		testing("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
 		for(var/turf/T as anything in affected_turfs)
-			T.flags_1 |= NO_RUINS_1
+			T.turf_flags |= NO_RUINS
 			if(clear_below) //Clear out nests and monsters
 				for(var/atom/thing as anything in T)
 					if(clear_below_typecache[thing.type])
@@ -60,7 +60,7 @@
 	load(placement)
 	loaded++
 	for(var/turf/T in get_affected_turfs(placement))
-		T.flags_1 |= NO_RUINS_1
+		T.turf_flags |= NO_RUINS
 	var/turf/center = locate(placement.x + round(width/2),placement.y + round(height/2),placement.z)
 	new /obj/effect/landmark/ruin(center, src)
 	return center

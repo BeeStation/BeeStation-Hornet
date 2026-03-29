@@ -423,7 +423,7 @@
 		return FALSE
 
 	var/area/our_area = get_area(target)
-	if((!is_station_level(target.z) && !is_mining_level(target.z)) || (our_area && !(our_area.area_flags & BLOBS_ALLOWED)))
+	if((!is_station_level(target.z) && !is_mining_level(target.z)) || (our_area && !(our_area.area_flags & CULT_PERMITTED)))
 		to_chat(cultist, span_warning("The veil is not weak enough here."))
 		return FALSE
 

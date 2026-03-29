@@ -188,6 +188,10 @@
 
 /area/shuttle/escape
 	name = "Emergency Shuttle"
+	area_flags = BLOBS_ALLOWED
+	area_limited_icon_smoothing = /area/shuttle/escape
+	flags_1 = CAN_BE_DIRTY_1
+	area_flags = NO_ALERTS | CULT_PERMITTED
 	camera_networks = list(CAMERA_NETWORK_EVAC)
 
 /area/shuttle/escape/backup

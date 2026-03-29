@@ -34,6 +34,13 @@
 /area/ruin/powered/seedvault
 	icon_state = "dk_yellow"
 
+/area/ruin/unpowered/cultaltar
+	name = "Cult Altar"
+	flags_1 = CULT_PERMITTED_1
+	ambientsounds = SPOOKY
+
+//Syndicate lavaland base
+
 /area/ruin/unpowered/syndicate_lava_base
 	name = "Secret Base"
 	icon_state = "dk_yellow"

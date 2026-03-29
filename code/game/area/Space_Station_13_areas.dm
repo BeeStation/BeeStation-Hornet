@@ -830,7 +830,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Library"
 	icon_state = "library"
 	flags_1 = NONE
-	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
@@ -847,7 +847,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/library/abandoned
 	name = "Abandoned Library"
 	icon_state = "library"
-	flags_1 = NONE
+	area_flags = CULT_PERMITTED
 
 /area/chapel
 	icon_state = "chapel"
@@ -921,7 +921,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/atmos
 	name = "Atmospherics"
 	icon_state = "atmos"
-	flags_1 = NONE
+	area_flags = CULT_PERMITTED
 
 /area/engine/atmospherics_engine
 	name = "Atmospherics Engine"
@@ -1162,7 +1162,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_VIROLOGY
 	flags_1 = NONE
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
-	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 
 /area/medical/morgue
 	name = "Morgue"
@@ -1513,7 +1513,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/janitor
 	name = "Custodial Closet"
 	icon_state = "janitor"
-	flags_1 = NONE
+	area_flags = CULT_PERMITTED | BLOBS_ALLOWED
 	mood_bonus = -1
 	mood_message = span_warning("It feels dirty in here!\n")
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED

@@ -7,6 +7,7 @@
 	area_flags = HIDDEN_AREA | BLOBS_ALLOWED
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambience_index = AMBIENCE_RUINS
+	flags_1 = CAN_BE_DIRTY_1
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
