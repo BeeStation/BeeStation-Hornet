@@ -72,9 +72,7 @@
 "ma" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/spawner/random/maintenance/two,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "nR" = (
@@ -232,7 +230,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "FS" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "Hp" = (
@@ -334,7 +332,7 @@
 /obj/machinery/computer/security{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "RR" = (

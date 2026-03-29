@@ -81,7 +81,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/listeningstation)
 "ao" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/sign/warning/vacuum{
 	pixel_y = 32
 	},
@@ -103,7 +103,7 @@
 /obj/machinery/shower{
 	pixel_y = 14
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/item/soap,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/showroomfloor,
@@ -128,9 +128,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/listeningstation)
 "av" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
 	},
@@ -224,9 +222,7 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/listeningstation)
 "aO" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/iron/twenty,
 /obj/item/stack/sheet/glass{
@@ -296,9 +292,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "bb" = (
 /obj/effect/turf_decal/stripes/red/corner,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
 /obj/effect/decal/cleanable/dirt,
@@ -307,7 +301,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/listeningstation)
 "bc" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset/anchored,
 /obj/effect/decal/cleanable/dirt,
@@ -489,7 +483,7 @@
 "bB" = (
 /obj/structure/sink/directional/west,
 /obj/machinery/iv_drip,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
 /obj/effect/decal/cleanable/dirt,
@@ -546,9 +540,7 @@
 /turf/template_noop,
 /area/template_noop)
 "eW" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -613,7 +605,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/photo_album,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "ik" = (
@@ -628,9 +620,8 @@
 /area/ruin/space/has_grav/listeningstation)
 "mX" = (
 /obj/structure/table,
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /obj/item/storage/box/donkpockets{
 	pixel_x = -2;
@@ -748,9 +739,7 @@
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "Re" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},

@@ -14,7 +14,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/plating,
 /area/template_noop)
 

@@ -43,15 +43,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "A" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "F" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "G" = (
@@ -68,7 +64,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "I" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "M" = (
@@ -79,9 +75,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "O" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "W" = (

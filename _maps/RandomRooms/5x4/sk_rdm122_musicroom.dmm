@@ -30,9 +30,7 @@
 /area/template_noop)
 "d" = (
 /obj/structure/table/wood,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/item/toy/plush/slimeplushie,
 /turf/open/floor/plating{
 	icon_state = "wood"
@@ -80,7 +78,7 @@
 /area/template_noop)
 "l" = (
 /obj/structure/table/wood,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/item/toy/plush/snakeplushie,
 /turf/open/floor/plating{
 	icon_state = "wood"

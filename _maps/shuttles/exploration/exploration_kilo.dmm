@@ -22,7 +22,7 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "fg" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
@@ -47,9 +47,7 @@
 /obj/item/kirbyplants{
 	icon_state = "applebush"
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
@@ -210,9 +208,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
@@ -240,7 +236,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Mx" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/item/kirbyplants{
 	icon_state = "plant-03"
 	},
@@ -287,8 +283,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 8;
+/obj/machinery/light/directional/west{
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,

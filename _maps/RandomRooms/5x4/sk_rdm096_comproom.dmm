@@ -48,9 +48,7 @@
 	dir = 4;
 	icon_state = "0"
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -75,9 +73,7 @@
 	dir = 8;
 	icon_state = "0"
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "m" = (

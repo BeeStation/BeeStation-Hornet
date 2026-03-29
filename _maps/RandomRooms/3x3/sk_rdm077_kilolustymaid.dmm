@@ -39,9 +39,7 @@
 "x" = (
 /obj/structure/janitorialcart,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
 	pixel_x = 32

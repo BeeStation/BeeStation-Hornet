@@ -21,9 +21,7 @@
 /obj/item/assembly/prox_sensor{
 	pixel_y = 2
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

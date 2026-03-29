@@ -29,9 +29,7 @@
 /area/ruin/space/djstation)
 "ai" = (
 /obj/machinery/telecomms/relay/preset/ruskie,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "aj" = (
@@ -112,9 +110,7 @@
 /area/ruin/space/djstation)
 "av" = (
 /obj/machinery/vending/snack,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aw" = (
@@ -222,7 +218,7 @@
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aU" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aV" = (
@@ -240,9 +236,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
 "aY" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aZ" = (
@@ -272,7 +266,7 @@
 /area/ruin/space/djstation)
 "be" = (
 /obj/structure/sink/directional/east,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
 "bf" = (
@@ -318,7 +312,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/djstation)
 "hL" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/djstation)

@@ -829,9 +829,7 @@
 /area/shuttle/abandoned/cargo)
 "db" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 5
 	},
@@ -962,9 +960,7 @@
 /area/shuttle/abandoned/medbay)
 "dm" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -1005,7 +1001,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -1513,9 +1509,7 @@
 /obj/item/camera,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -1532,7 +1526,7 @@
 /area/shuttle/abandoned/bridge)
 "mZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -1915,9 +1909,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/bed,
 /obj/item/bedsheet/centcom,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
@@ -2010,9 +2002,7 @@
 /area/shuttle/abandoned/crew)
 "Lf" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/structure/chair,
 /obj/structure/spider/stickyweb,
 /obj/effect/turf_decal/tile/bar/opposingcorners,

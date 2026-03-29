@@ -65,10 +65,7 @@
 /obj/item/storage/box/disks_nanite{
 	pixel_y = 5
 	},
-/obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 4
-	},
+/obj/machinery/light/broken/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (

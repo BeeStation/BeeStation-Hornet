@@ -72,9 +72,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/wood,
 /area/template_noop)
 "q" = (
@@ -84,9 +82,7 @@
 /area/template_noop)
 "r" = (
 /obj/item/trash/canned/peaches/maint,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "s" = (
@@ -114,9 +110,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -126,9 +120,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -149,9 +141,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "D" = (
@@ -168,9 +158,7 @@
 "F" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "H" = (
@@ -250,9 +238,7 @@
 /obj/structure/window/reinforced/tinted/frosted/spawner/directional/east,
 /obj/effect/landmark/start/randommaint/magician,
 /obj/structure/chair/stool/bar,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_x = 4;
 	pixel_y = 33

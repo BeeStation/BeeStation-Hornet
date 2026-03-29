@@ -20,16 +20,12 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "h" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/wood,
 /area/template_noop)
 "j" = (

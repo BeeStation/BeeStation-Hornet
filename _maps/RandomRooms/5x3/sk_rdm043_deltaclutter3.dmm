@@ -32,9 +32,7 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
@@ -50,7 +48,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)

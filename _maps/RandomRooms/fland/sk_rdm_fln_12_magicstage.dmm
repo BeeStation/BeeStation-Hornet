@@ -3,9 +3,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "b" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/wood,
 /area/template_noop)
 "c" = (
@@ -34,9 +32,7 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "r" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "s" = (
@@ -49,7 +45,7 @@
 /obj/structure/mirror{
 	pixel_y = 26
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/carpet,
 /area/template_noop)
 "v" = (
@@ -67,9 +63,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "z" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "C" = (
@@ -117,9 +111,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},

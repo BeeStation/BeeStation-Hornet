@@ -16,9 +16,8 @@
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "d" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /obj/machinery/iv_drip,
 /turf/open/floor/iron,

@@ -27,9 +27,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "g" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "h" = (
@@ -45,11 +43,11 @@
 /area/template_noop)
 "k" = (
 /obj/item/clothing/head/helmet/redtaghelm,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron,
 /area/template_noop)
 "l" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "m" = (
@@ -88,9 +86,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "x" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
@@ -144,15 +140,12 @@
 /area/template_noop)
 "P" = (
 /obj/item/clothing/suit/bluetag,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "S" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /turf/open/floor/plating,
 /area/template_noop)

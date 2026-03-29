@@ -24,9 +24,7 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "g" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "h" = (
@@ -41,9 +39,7 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "j" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "k" = (
@@ -52,7 +48,7 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "l" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "m" = (
@@ -102,9 +98,7 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "v" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "w" = (
@@ -152,9 +146,7 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/indestructible/hoteltile,
 /area/warped_room)
 "G" = (

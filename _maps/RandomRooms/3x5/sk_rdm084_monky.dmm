@@ -23,9 +23,7 @@
 /area/template_noop)
 "f" = (
 /obj/structure/flora/grass/jungle,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /mob/living/carbon/monkey{
 	name = "mankey"
 	},

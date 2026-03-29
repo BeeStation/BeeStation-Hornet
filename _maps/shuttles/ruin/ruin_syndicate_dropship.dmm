@@ -13,9 +13,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/syndicate3)
 "bB" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/machinery/button/door{
 	id = "caravansyndicate3_bolt_starboard";
 	name = "External Bolt Control";
@@ -92,9 +90,7 @@
 /area/shuttle/caravan/syndicate3)
 "hF" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -120,9 +116,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod/dark,
 /area/shuttle/caravan/syndicate3)
@@ -219,9 +213,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/syndicate3)
 "xC" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/machinery/button/door{
 	id = "caravansyndicate3_bolt_port";
 	name = "External Bolt Control";
@@ -253,9 +245,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/syndicate{
@@ -275,9 +265,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -288,9 +276,7 @@
 "EH" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
@@ -405,9 +391,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/structure/closet/syndicate{
 	anchored = 1
 	},

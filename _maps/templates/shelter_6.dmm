@@ -39,9 +39,7 @@
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "l" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/structure/fans,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
@@ -51,9 +49,7 @@
 /area/template_noop)
 "n" = (
 /obj/structure/bed/pod,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "D" = (

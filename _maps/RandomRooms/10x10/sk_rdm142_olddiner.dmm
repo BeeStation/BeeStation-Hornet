@@ -43,9 +43,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "oV" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/wood,
 /area/template_noop)
 "pb" = (
@@ -67,9 +65,8 @@
 /area/template_noop)
 "ut" = (
 /obj/item/stack/sheet/wood,
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
@@ -102,7 +99,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "xT" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/machinery/processor,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
@@ -150,9 +147,7 @@
 	},
 /area/template_noop)
 "Bw" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/carpet,
 /area/template_noop)
 "Ch" = (
@@ -175,9 +170,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "FK" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks,
 /turf/open/floor/iron/cafeteria,
@@ -221,9 +214,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "RI" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "RQ" = (
@@ -275,7 +266,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Yt" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/white,
 /area/template_noop)
 "Zp" = (

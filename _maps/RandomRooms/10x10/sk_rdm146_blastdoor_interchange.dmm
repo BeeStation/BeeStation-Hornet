@@ -63,9 +63,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "fn" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "go" = (
@@ -91,15 +89,11 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "iA" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
 /area/template_noop)
 "iM" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/door/poddoor/preopen{
 	id = "maint2"
@@ -192,9 +186,7 @@
 "wd" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -209,9 +201,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "wS" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -238,9 +229,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "yb" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/template_noop)
 "zk" = (
@@ -277,13 +266,11 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "IK" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron,
 /area/template_noop)
 "Le" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "Nx" = (
@@ -317,7 +304,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Sg" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/plating,
 /area/template_noop)
 "Va" = (

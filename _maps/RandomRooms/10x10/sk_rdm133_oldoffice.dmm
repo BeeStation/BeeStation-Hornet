@@ -8,10 +8,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "c" = (
-/obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 1
-	},
+/obj/machinery/light/broken/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -19,10 +16,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 1
-	},
+/obj/machinery/light/broken/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
@@ -159,10 +153,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "I" = (
-/obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 4
-	},
+/obj/machinery/light/broken/directional/east,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -208,7 +199,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "R" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/template_noop)
 

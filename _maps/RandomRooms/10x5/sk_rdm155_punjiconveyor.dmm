@@ -1,8 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -38,9 +36,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
@@ -90,9 +86,7 @@
 	name = "beekeeping wardrobe"
 	},
 /obj/item/bedsheet/random,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 

@@ -64,9 +64,7 @@
 /area/template_noop)
 "o" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/mineral/titanium/blue,
 /area/template_noop)
 "p" = (

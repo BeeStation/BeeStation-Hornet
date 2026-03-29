@@ -7,9 +7,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/machinery/light/broken{
-	dir = 1
-	},
+/obj/machinery/light/broken/directional/north,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -18,9 +16,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance/three,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/template_noop)
 "e" = (
@@ -155,9 +151,7 @@
 	},
 /area/template_noop)
 "D" = (
-/obj/machinery/light/broken{
-	dir = 8
-	},
+/obj/machinery/light/broken/directional/west,
 /turf/open/floor/plating,
 /area/template_noop)
 "E" = (
@@ -192,9 +186,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
-/obj/machinery/light/broken{
-	dir = 4
-	},
+/obj/machinery/light/broken/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (

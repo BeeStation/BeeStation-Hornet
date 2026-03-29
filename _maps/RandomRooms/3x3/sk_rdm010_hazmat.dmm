@@ -29,10 +29,7 @@
 /area/template_noop)
 "f" = (
 /obj/machinery/washing_machine,
-/obj/machinery/light/small{
-	icon_state = "bulb";
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/glitter/white,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plating,

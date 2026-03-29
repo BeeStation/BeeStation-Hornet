@@ -67,9 +67,7 @@
 	dir = 4;
 	icon_state = "warn_end"
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "l" = (
@@ -83,9 +81,7 @@
 "m" = (
 /obj/machinery/stasis,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/broken{
-	dir = 4
-	},
+/obj/machinery/light/broken/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (

@@ -3,9 +3,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "e" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/structure/table/wood/fancy/orange,
 /obj/machinery/chem_dispenser/drinks{
 	dir = 4
@@ -25,9 +23,7 @@
 /area/template_noop)
 "p" = (
 /obj/structure/closet,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/wax,
 /area/template_noop)
 "s" = (
@@ -118,9 +114,7 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron,
 /area/template_noop)
 "P" = (

@@ -70,7 +70,7 @@
 /obj/structure/table/wood/poker,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/cup/glass/bottle/whiskey,
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)
 "o" = (
@@ -121,9 +121,7 @@
 /area/shuttle/escape)
 "C" = (
 /obj/machinery/computer/slot_machine,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "D" = (
@@ -154,9 +152,7 @@
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/item/coin/plasma,
 /obj/item/coin/plasma,
 /turf/open/floor/wood,

@@ -8,9 +8,7 @@
 /area/template_noop)
 "c" = (
 /obj/structure/table/wood,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/mask/muzzle,
 /turf/open/floor/carpet/purple,

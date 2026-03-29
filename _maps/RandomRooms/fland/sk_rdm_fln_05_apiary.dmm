@@ -12,9 +12,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/grass,
 /area/template_noop)
 "l" = (
@@ -32,9 +30,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
@@ -53,9 +49,7 @@
 /area/template_noop)
 "r" = (
 /obj/structure/flora/ausbushes/leafybush,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/grass,
 /area/template_noop)
 "v" = (
@@ -163,9 +157,7 @@
 /area/template_noop)
 "R" = (
 /obj/structure/flora/grass/jungle/b,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/light_switch{
 	pixel_x = 22
 	},

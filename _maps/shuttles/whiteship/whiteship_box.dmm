@@ -27,9 +27,7 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/crew)
 "ak" = (
@@ -510,9 +508,7 @@
 /area/shuttle/abandoned/medbay)
 "bH" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
@@ -734,9 +730,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/medbay)
 "cg" = (
@@ -836,7 +830,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bridge)
 "cp" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "cq" = (
@@ -1317,7 +1311,7 @@
 "dh" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
@@ -1368,7 +1362,7 @@
 "dl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
@@ -1972,9 +1966,7 @@
 /area/shuttle/abandoned/crew)
 "Zy" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},

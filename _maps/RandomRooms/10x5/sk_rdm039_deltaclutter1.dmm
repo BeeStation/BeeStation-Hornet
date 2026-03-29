@@ -25,9 +25,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (
@@ -38,7 +36,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -60,9 +58,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/template_noop)
@@ -188,7 +184,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "I" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/wood,
 /area/template_noop)
 "N" = (

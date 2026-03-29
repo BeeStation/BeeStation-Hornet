@@ -174,9 +174,8 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /turf/open/indestructible{
 	icon_state = "white"
@@ -311,9 +310,7 @@
 /obj/item/coin/bananium,
 /obj/item/coin/bananium,
 /obj/item/coin/bananium,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
 "bT" = (
@@ -408,9 +405,8 @@
 	dir = 4;
 	invisibility = 101
 	},
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /turf/open/indestructible{
 	icon_state = "white"
@@ -421,9 +417,7 @@
 	dir = 4;
 	invisibility = 101
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/indestructible{
 	icon_state = "white"
 	},
@@ -432,17 +426,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/indestructible{
 	icon_state = "white"
 	},
 /area/ruin/powered/clownplanet)
 "dK" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
 "dL" = (
@@ -450,15 +440,11 @@
 /obj/item/coin/bananium,
 /obj/item/coin/bananium,
 /obj/item/coin/bananium,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
 "dM" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
@@ -467,7 +453,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "dO" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
@@ -531,7 +517,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "hY" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
@@ -576,9 +562,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "nM" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/indestructible{
 	icon_state = "darkfull";
@@ -604,9 +588,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "pv" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
 "pK" = (
@@ -622,9 +604,7 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/indestructible{
 	icon_state = "darkfull";
@@ -636,9 +616,7 @@
 	dir = 4;
 	invisibility = 101
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/indestructible{
 	icon_state = "darkfull";
@@ -788,9 +766,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/indestructible{
 	icon_state = "darkfull";
@@ -843,9 +819,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "MR" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
@@ -854,9 +828,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/indestructible{
 	icon_state = "darkfull";
@@ -932,14 +904,12 @@
 	},
 /area/ruin/powered/clownplanet)
 "Yf" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
 "YI" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/noslip{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"

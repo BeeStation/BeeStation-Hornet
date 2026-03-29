@@ -14,9 +14,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "aO" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -37,9 +35,7 @@
 /obj/effect/decal/cleanable/blood/old{
 	pixel_y = 10
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/item/bedsheet/dorms,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
@@ -237,9 +233,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
 "id" = (
@@ -289,9 +283,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -389,7 +381,7 @@
 /turf/template_noop,
 /area/template_noop)
 "qX" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "rb" = (
@@ -437,9 +429,7 @@
 "tF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24
@@ -486,9 +476,7 @@
 "vp" = (
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -498,9 +486,7 @@
 "vA" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -568,7 +554,7 @@
 /area/shuttle/exploration)
 "Ab" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/closet/crate/critter,
 /mob/living/simple_animal/turkey{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
@@ -588,9 +574,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/exploration)
 "BP" = (
@@ -648,7 +632,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty{
 	pixel_x = -8
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
 "Df" = (
@@ -682,14 +666,12 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ec" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "FB" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -746,14 +728,14 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Kh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Kj" = (
@@ -877,8 +859,7 @@
 	pixel_x = -8;
 	pixel_y = 2
 	},
-/obj/machinery/light/small{
-	dir = 4;
+/obj/machinery/light/small/directional/east{
 	light_color = "#d8b1b1"
 	},
 /turf/open/floor/iron/techmaint,
@@ -894,8 +875,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/light{
-	dir = 8;
+/obj/machinery/light/directional/west{
 	light_color = "#e8eaff"
 	},
 /turf/open/floor/carpet,
@@ -917,9 +897,7 @@
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/toy/plush/beeplushie,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -1117,9 +1095,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},

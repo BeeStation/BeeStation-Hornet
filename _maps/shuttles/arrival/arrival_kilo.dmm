@@ -80,9 +80,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
 	},
@@ -118,9 +116,7 @@
 /area/shuttle/arrival)
 "at" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
@@ -194,9 +190,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
@@ -218,7 +212,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/siding/dark{
 	dir = 5
 	},
@@ -254,7 +248,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
@@ -262,9 +256,7 @@
 /area/shuttle/arrival)
 "aZ" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},

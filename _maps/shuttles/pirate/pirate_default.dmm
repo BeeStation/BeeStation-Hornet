@@ -235,9 +235,7 @@
 	pixel_x = 32
 	},
 /obj/structure/closet/firecloset,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
 	},
@@ -426,9 +424,7 @@
 	pixel_x = -32;
 	pixel_y = 19
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "lm" = (
@@ -580,9 +576,7 @@
 /area/shuttle/pirate)
 "pa" = (
 /obj/structure/grille/broken,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/decal/fakelattice{
 	icon_state = "lattice-223"
 	},
@@ -760,7 +754,7 @@
 /obj/structure/sign/poster/contraband/have_a_puff{
 	pixel_y = -32
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/machinery/airalarm/directional/west,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/wood/broken,
@@ -983,9 +977,7 @@
 /obj/item/toy/crayon/white{
 	pixel_x = -6
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "xW" = (
@@ -1069,9 +1061,7 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
 "Ap" = (
@@ -1120,9 +1110,7 @@
 	pixel_y = -1;
 	pixel_x = -2
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/structure/fluff/fans{
 	pixel_x = 24
 	},
@@ -1220,9 +1208,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/arrows,
 /obj/item/kirbyplants/random,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/structure/fluff/fans{
 	pixel_x = -24
 	},
@@ -1268,7 +1254,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Fd" = (
@@ -1363,9 +1349,7 @@
 /obj/structure/railing,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1381,7 +1365,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -1707,9 +1691,7 @@
 /obj/item/trash/energybar{
 	pixel_y = -3
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/pod,
 /area/shuttle/pirate)
 "Py" = (
@@ -1989,9 +1971,7 @@
 	pixel_x = 17;
 	pixel_y = 13
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -2110,7 +2090,7 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/sign/poster/contraband/red_rum{
 	pixel_y = -32
 	},

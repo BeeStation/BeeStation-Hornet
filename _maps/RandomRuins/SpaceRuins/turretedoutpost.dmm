@@ -27,9 +27,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "ah" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -43,9 +41,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/turretedoutpost)
 "aj" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/turretedoutpost)
 "ak" = (
@@ -75,7 +71,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "aq" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "ar" = (
@@ -112,9 +108,7 @@
 "aD" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/item/radio,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
@@ -129,9 +123,7 @@
 "aK" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "aN" = (
@@ -156,7 +148,7 @@
 /area/ruin/space/has_grav/turretedoutpost)
 "aS" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/item/camera_bug,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
@@ -184,9 +176,7 @@
 "ba" = (
 /obj/structure/table/wood,
 /obj/item/food/breadslice/meat,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "ck" = (
@@ -197,9 +187,7 @@
 /area/ruin/space/has_grav/turretedoutpost)
 "fm" = (
 /obj/item/rack_parts,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -268,7 +256,7 @@
 "CY" = (
 /obj/structure/rack,
 /obj/item/storage/belt/military,
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},

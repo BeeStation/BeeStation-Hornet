@@ -52,9 +52,7 @@
 	req_access_txt = "1";
 	pixel_x = -25
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/mineral/plastitanium/red,
@@ -64,9 +62,7 @@
 	input_dir = 2;
 	output_dir = 1
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/effect/turf_decal/stripes/box,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)

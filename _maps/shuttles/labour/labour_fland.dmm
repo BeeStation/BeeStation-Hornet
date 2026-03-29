@@ -20,7 +20,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
 "m" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "p" = (

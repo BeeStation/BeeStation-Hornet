@@ -6,13 +6,11 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "ac" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "ad" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "ae" = (
@@ -72,7 +70,7 @@
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "as" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "at" = (
@@ -113,7 +111,7 @@
 /obj/structure/rack,
 /obj/item/mop,
 /obj/item/reagent_containers/cup/bucket,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/item/paper/fluff/itemnotice,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
@@ -203,9 +201,7 @@
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/gloves/fingerless,
 /obj/item/reagent_containers/cup/glass/bottle/beer,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/item/pickaxe/mini,
 /obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/pod/light,
@@ -216,9 +212,7 @@
 /area/survivalpod)
 "aV" = (
 /obj/structure/closet/crate/bin,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aW" = (
@@ -274,9 +268,7 @@
 /area/survivalpod)
 "bg" = (
 /obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/structure/bedsheetbin,
 /turf/open/floor/pod/light,
 /area/survivalpod)
@@ -293,9 +285,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bk" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "bl" = (
@@ -307,9 +297,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "bn" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "bo" = (

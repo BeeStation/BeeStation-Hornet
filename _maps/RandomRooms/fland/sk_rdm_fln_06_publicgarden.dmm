@@ -100,9 +100,7 @@
 /area/template_noop)
 "z" = (
 /obj/machinery/hydroponics/soil,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/grass,
 /area/template_noop)
 "A" = (
@@ -142,16 +140,12 @@
 /area/template_noop)
 "M" = (
 /obj/machinery/hydroponics/soil,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/grass,
 /area/template_noop)
 "O" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/structure/table,
 /obj/item/seeds/tower,
 /obj/item/seeds/watermelon,

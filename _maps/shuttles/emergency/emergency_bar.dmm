@@ -112,7 +112,7 @@
 /obj/structure/table/wood/poker,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/cup/glass/bottle/whiskey,
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
@@ -139,9 +139,8 @@
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "aH" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /obj/structure/reagent_dispensers/peppertank/directional/west,
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -213,9 +212,8 @@
 "bw" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /obj/machinery/camera/directional/west,
 /obj/machinery/newscaster/directional/west,
@@ -229,9 +227,7 @@
 /area/shuttle/escape)
 "bx" = (
 /obj/machinery/recharge_station,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/newscaster/directional/east,
 /turf/open/floor/iron/freezer,
@@ -325,16 +321,12 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "bW" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "cb" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/machinery/stasis,
 /obj/machinery/status_display/evac/directional/east,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -426,7 +418,7 @@
 /area/shuttle/escape)
 "jv" = (
 /obj/machinery/status_display/evac/directional/north,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "kj" = (
@@ -464,9 +456,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "oF" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "rb" = (
@@ -520,9 +510,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "xh" = (
@@ -543,7 +531,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "zE" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/machinery/newscaster/directional/south,
 /turf/open/floor/wood,
 /area/shuttle/escape)
@@ -610,9 +598,7 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/camera/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/newscaster/directional/east,
 /turf/open/floor/iron,
 /area/shuttle/escape)
@@ -755,24 +741,20 @@
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "Vx" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "Xg" = (
 /obj/structure/toilet{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/machinery/newscaster/directional/east,
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "Xz" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/wood,
 /area/shuttle/escape)

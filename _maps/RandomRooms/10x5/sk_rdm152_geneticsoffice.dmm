@@ -24,9 +24,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "g" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
@@ -56,9 +54,7 @@
 /area/template_noop)
 "r" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "v" = (
@@ -77,7 +73,7 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -118,9 +114,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 26
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
@@ -147,9 +141,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "W" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
 /area/template_noop)
 "X" = (

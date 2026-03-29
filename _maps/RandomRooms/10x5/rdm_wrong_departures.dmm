@@ -58,7 +58,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/side{
 	dir = 9
@@ -115,9 +115,7 @@
 "y" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark/side{
 	dir = 6
@@ -195,9 +193,7 @@
 "N" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark/side{
 	dir = 10
 	},
@@ -209,7 +205,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark/side{
 	dir = 5

@@ -25,10 +25,7 @@
 /obj/item/clothing/head/costume/ushanka,
 /obj/item/clothing/head/costume/ushanka,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 4
-	},
+/obj/machinery/light/small/broken/directional/east,
 /turf/open/floor/mineral/plastitanium/red,
 /area/template_noop)
 

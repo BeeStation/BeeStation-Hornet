@@ -6,10 +6,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/machinery/light/small{
-	icon_state = "bulb";
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -31,10 +28,7 @@
 "d" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/boozeomat/all_access,
-/obj/machinery/light/small{
-	icon_state = "bulb";
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

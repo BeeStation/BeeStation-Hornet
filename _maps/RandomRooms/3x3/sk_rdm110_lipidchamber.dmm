@@ -14,10 +14,7 @@
 /area/template_noop)
 "A" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 8
-	},
+/obj/machinery/light/small/broken/directional/west,
 /turf/open/floor/carpet/grimy,
 /area/template_noop)
 "T" = (

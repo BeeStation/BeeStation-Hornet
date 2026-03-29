@@ -13,9 +13,7 @@
 	icon_state = "mirror_broke";
 	pixel_y = 24
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "ad" = (
@@ -28,9 +26,7 @@
 "af" = (
 /obj/structure/table/wood,
 /obj/structure/showcase/machinery/tv,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "ag" = (
@@ -55,9 +51,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "al" = (
@@ -68,15 +62,11 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "an" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "ap" = (
@@ -108,7 +98,7 @@
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "av" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "aw" = (
@@ -124,9 +114,7 @@
 /area/misc/hilbertshotel)
 "ay" = (
 /obj/structure/closet/crate/bin,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "az" = (
@@ -147,9 +135,7 @@
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 "aD" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 "aE" = (
@@ -210,9 +196,7 @@
 /area/misc/hilbertshotel)
 "aP" = (
 /obj/item/bikehorn/rubberducky,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 "aQ" = (
@@ -232,7 +216,7 @@
 "aT" = (
 /obj/structure/table/reinforced,
 /obj/structure/sink/kitchen/directional/south,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "aU" = (
@@ -242,7 +226,7 @@
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "aV" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 "aW" = (
@@ -294,9 +278,7 @@
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 "be" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
@@ -307,17 +289,13 @@
 /area/misc/hilbertshotel)
 "bg" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "bh" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/item/soap/homemade{
 	name = "used soap"
 	},

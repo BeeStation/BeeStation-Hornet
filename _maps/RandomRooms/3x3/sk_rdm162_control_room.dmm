@@ -25,10 +25,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "g" = (
-/obj/machinery/light/small{
-	dir = 1;
-	icon_state = "bulb"
-	},
+/obj/machinery/light/small/directional/north,
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance/three,
 /obj/structure/sign/warning/secure_area{

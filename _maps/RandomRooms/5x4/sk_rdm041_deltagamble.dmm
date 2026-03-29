@@ -1,9 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "b" = (
@@ -46,9 +44,7 @@
 /area/template_noop)
 "k" = (
 /obj/machinery/computer/slot_machine,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},

@@ -80,9 +80,7 @@
 "aG" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/item/food/butterdog,
 /obj/item/food/cakeslice/apple,
 /obj/item/food/cakeslice/brioche,
@@ -160,7 +158,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -178,7 +176,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "br" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/structure/chair/office{
 	dir = 8
 	},
@@ -188,7 +186,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "bt" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/structure/chair/office{
 	dir = 4
 	},
@@ -244,24 +242,20 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bH" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bI" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "dx" = (
 /obj/structure/table/glass,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/item/storage/firstaid/regular,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/vending/wallmed/lite{
@@ -419,9 +413,7 @@
 /area/shuttle/escape)
 "Ed" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
@@ -431,7 +423,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -442,9 +434,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -504,7 +494,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},

@@ -2,9 +2,7 @@
 "a" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/template_noop)

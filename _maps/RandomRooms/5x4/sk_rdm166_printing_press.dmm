@@ -39,9 +39,7 @@
 /obj/structure/fluff/paper/stack{
 	dir = 10
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
@@ -142,7 +140,7 @@
 /area/template_noop)
 "M" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},

@@ -36,9 +36,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 "x" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 "F" = (
@@ -47,9 +45,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 "P" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 

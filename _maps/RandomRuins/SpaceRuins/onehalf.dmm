@@ -156,9 +156,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aB" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/structure/table,
 /obj/item/storage/firstaid/brute{
 	pixel_x = 3;
@@ -168,18 +166,14 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aC" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/drone_bay)
 "aE" = (
@@ -526,9 +520,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/drone_bay)
@@ -612,7 +604,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/drone_bay)
 "bF" = (
@@ -727,9 +719,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cd" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/structure/frame/computer,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
@@ -933,7 +923,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cF" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cG" = (
@@ -981,9 +971,7 @@
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "cM" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/machinery/vending/sovietsoda,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
@@ -1063,7 +1051,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
 "db" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/iron,

@@ -26,9 +26,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/machinery/vending/wallmed/directional/north,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/large,
@@ -150,9 +148,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/structure/reagent_dispensers/peppertank/directional/west,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -251,9 +247,7 @@
 	pixel_y = 7
 	},
 /obj/item/storage/firstaid/toxin,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
@@ -292,9 +286,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/item/radio/intercom/directional/east,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/large,
@@ -320,7 +312,7 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "bp" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 4
 	},
@@ -331,9 +323,8 @@
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "bq" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /obj/machinery/newscaster/directional/west,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -344,9 +335,7 @@
 	},
 /area/shuttle/escape)
 "br" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 4
 	},
@@ -356,9 +345,7 @@
 /area/shuttle/escape)
 "bs" = (
 /obj/structure/table/optable,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/machinery/status_display/evac/directional/west,
 /obj/item/clothing/gloves/color/latex,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -465,9 +452,7 @@
 	dir = 4
 	},
 /obj/machinery/status_display/evac/directional/west,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/escape)
 "lc" = (
@@ -513,9 +498,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/machinery/status_display/evac/directional/west,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron/techmaint,
@@ -543,9 +526,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/status_display/ai/directional/west,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "vj" = (
@@ -554,9 +535,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/status_display/evac/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/camera/directional/east,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
@@ -694,9 +673,7 @@
 	dir = 8
 	},
 /obj/machinery/status_display/evac/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/escape)
 "Ck" = (
@@ -782,9 +759,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)

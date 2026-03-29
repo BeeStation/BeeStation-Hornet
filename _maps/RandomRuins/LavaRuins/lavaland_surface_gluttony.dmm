@@ -16,9 +16,7 @@
 /turf/open/lava/smooth,
 /area/ruin/powered/gluttony)
 "k" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 "s" = (
@@ -35,9 +33,7 @@
 /area/ruin/powered/gluttony)
 "E" = (
 /obj/item/plate,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 "F" = (
@@ -45,9 +41,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 "G" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 "H" = (
@@ -56,7 +50,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 "I" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 "J" = (
@@ -68,9 +62,7 @@
 /area/ruin/powered/gluttony)
 "M" = (
 /obj/effect/gluttony,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/freezer,
 /area/ruin/powered/gluttony)
 "R" = (

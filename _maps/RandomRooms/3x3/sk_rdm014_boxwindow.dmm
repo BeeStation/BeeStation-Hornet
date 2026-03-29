@@ -8,9 +8,7 @@
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,

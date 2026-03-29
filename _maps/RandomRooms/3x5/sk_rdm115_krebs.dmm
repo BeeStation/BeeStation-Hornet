@@ -41,9 +41,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/crab,
 /turf/open/floor/plating,

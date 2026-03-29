@@ -15,9 +15,7 @@
 	pixel_x = 15;
 	pixel_y = 30
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/structure/table/wood,
 /obj/item/lipstick/random{
 	pixel_x = 2;
@@ -47,9 +45,7 @@
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "F" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/structure/table/wood,
 /obj/item/reagent_containers/medspray/barber{
 	pixel_y = 3

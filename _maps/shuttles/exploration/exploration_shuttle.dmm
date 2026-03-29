@@ -5,7 +5,7 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -137,7 +137,7 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = 32
 	},
@@ -225,9 +225,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -389,9 +387,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "Y" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},

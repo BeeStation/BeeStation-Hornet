@@ -32,9 +32,7 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "ao" = (
@@ -50,9 +48,7 @@
 /obj/structure/table,
 /obj/item/retractor,
 /obj/item/hemostat,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/defibrillator_mount{
 	pixel_x = 32
 	},
@@ -143,9 +139,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "bo" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "bq" = (
@@ -217,7 +211,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "bQ" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "bT" = (
@@ -305,15 +299,13 @@
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "cn" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "cp" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -322,34 +314,26 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "cx" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "cC" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "cD" = (
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "cE" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -363,9 +347,7 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "dC" = (
@@ -420,9 +402,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "kQ" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -466,9 +446,7 @@
 /obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -535,9 +513,7 @@
 	},
 /obj/item/ammo_casing/shotgun/buckshot,
 /obj/item/storage/box/bodybags,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -658,7 +634,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "zx" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -695,9 +671,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Cv" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -722,9 +696,7 @@
 /obj/item/reagent_containers/blood/random,
 /obj/item/reagent_containers/blood/random,
 /obj/item/reagent_containers/blood/random,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -742,9 +714,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "DX" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -795,9 +765,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "Hy" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -832,9 +800,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Jw" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -887,9 +853,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Pt" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -945,9 +909,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Sb" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
@@ -967,9 +929,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "Tn" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -1058,9 +1018,7 @@
 /obj/item/pickaxe,
 /obj/item/clothing/glasses/meson,
 /obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1

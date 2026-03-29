@@ -2,9 +2,7 @@
 "a" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -182,9 +180,7 @@
 /area/ruin/unpowered)
 "N" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/item/rack_parts,
 /turf/open/floor/iron,
 /area/ruin/unpowered)

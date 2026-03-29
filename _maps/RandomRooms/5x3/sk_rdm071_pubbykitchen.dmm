@@ -20,9 +20,7 @@
 /obj/item/reagent_containers/cup/bowl,
 /obj/item/reagent_containers/cup/bowl,
 /obj/item/reagent_containers/condiment/rice,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/template_noop)

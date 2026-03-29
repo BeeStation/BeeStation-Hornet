@@ -52,10 +52,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "ap" = (
-/obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 4
-	},
+/obj/machinery/light/small/broken/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/unsorted/sanitarium,
 /turf/open/floor/plating,
@@ -66,7 +63,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "ar" = (
-/obj/machinery/light/broken,
+/obj/machinery/light/broken/directional/south,
 /turf/open/floor/plating,
 /area/template_noop)
 "aw" = (
@@ -97,16 +94,11 @@
 "aB" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron,
 /area/template_noop)
 "aD" = (
-/obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 8
-	},
+/obj/machinery/light/small/broken/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -270,8 +262,7 @@
 /area/template_noop)
 "Ac" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 1;
+/obj/machinery/light/directional/north{
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{

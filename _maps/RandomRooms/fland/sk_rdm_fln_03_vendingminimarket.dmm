@@ -57,9 +57,7 @@
 /turf/template_noop/closed,
 /area/template_noop)
 "m" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -74,9 +72,7 @@
 "p" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -107,9 +103,7 @@
 "t" = (
 /obj/machinery/vending/assist,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -229,9 +223,7 @@
 /area/template_noop)
 "S" = (
 /obj/effect/spawner/random/vending/snackvend,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -261,9 +253,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "X" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/vending/clothing,
 /obj/effect/turf_decal/tile/red{
 	dir = 1

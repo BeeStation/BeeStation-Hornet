@@ -20,9 +20,7 @@
 /obj/machinery/atmospherics/components/tank/air{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

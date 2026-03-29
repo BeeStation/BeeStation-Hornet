@@ -8,9 +8,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "d" = (
@@ -31,9 +29,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "f" = (
@@ -212,9 +208,7 @@
 /obj/item/pickaxe/emergency,
 /obj/item/pickaxe/emergency,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "r" = (
@@ -229,9 +223,7 @@
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "t" = (

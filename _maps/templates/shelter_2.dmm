@@ -101,8 +101,7 @@
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "s" = (
-/obj/machinery/light{
-	dir = 4;
+/obj/machinery/light/directional/east{
 	light_color = "#DDFFD3"
 	},
 /obj/structure/table/wood/fancy/black,
@@ -162,7 +161,7 @@
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "z" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "A" = (

@@ -26,7 +26,7 @@
 /area/template_noop)
 "ds" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "dv" = (
@@ -34,9 +34,7 @@
 /obj/effect/turf_decal/arrows{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/item/pickaxe/mini,
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
@@ -628,9 +626,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "Ec" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/fugitive_capture,
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
@@ -698,9 +694,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/item/pinpointer/shuttle{
 	pixel_x = -3;
 	pixel_y = -2
@@ -861,9 +855,7 @@
 	pixel_x = 7;
 	pixel_y = 8
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/effect/decal/cleanable/generic{
 	pixel_y = -7;
 	pixel_x = -9
@@ -1042,7 +1034,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/hunter)
 "WR" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "Xd" = (
@@ -1056,9 +1048,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot/right,

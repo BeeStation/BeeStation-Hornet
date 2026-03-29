@@ -46,9 +46,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "an" = (
-/obj/machinery/light/broken{
-	dir = 8
-	},
+/obj/machinery/light/broken/directional/west,
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "ao" = (
@@ -101,7 +99,7 @@
 /turf/template_noop,
 /area/template_noop)
 "aC" = (
-/obj/machinery/light/broken,
+/obj/machinery/light/broken/directional/south,
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "aE" = (
@@ -114,9 +112,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "aP" = (
-/obj/machinery/light/broken{
-	dir = 1
-	},
+/obj/machinery/light/broken/directional/north,
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
@@ -268,9 +264,7 @@
 /area/ruin/unpowered)
 "if" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/machinery/light/broken{
-	dir = 1
-	},
+/obj/machinery/light/broken/directional/north,
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
 "ig" = (
@@ -329,9 +323,7 @@
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
 "GI" = (
-/obj/machinery/light/broken{
-	dir = 8
-	},
+/obj/machinery/light/broken/directional/west,
 /obj/structure/table_frame,
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)

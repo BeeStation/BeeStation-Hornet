@@ -494,9 +494,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/engine)
 "bJ" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
@@ -1924,9 +1922,7 @@
 /area/shuttle/abandoned/bar)
 "Em" = (
 /obj/structure/table,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_y = 12
 	},
@@ -2056,9 +2052,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "Ij" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
@@ -2180,9 +2174,7 @@
 "Nd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/hydroponics/constructable,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -2474,9 +2466,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned/crew)
 "XJ" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,

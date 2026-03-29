@@ -76,9 +76,8 @@
 /area/template_noop)
 "m" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron,

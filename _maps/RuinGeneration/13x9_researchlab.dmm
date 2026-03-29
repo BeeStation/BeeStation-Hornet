@@ -15,7 +15,7 @@
 /area/ruin/unpowered)
 "ai" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
@@ -155,9 +155,7 @@
 	pixel_y = -3
 	},
 /obj/item/disk/design_disk,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/effect/spawner/random/ruinloot/science,
 /obj/effect/spawner/random/ruinloot/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,

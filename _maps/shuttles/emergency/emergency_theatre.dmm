@@ -175,9 +175,7 @@
 /obj/machinery/stasis{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "xm" = (
@@ -185,9 +183,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "xR" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/structure/table/optable,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
@@ -234,9 +230,7 @@
 /area/shuttle/escape)
 "CZ" = (
 /obj/structure/table/wood/fancy/red,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/item/storage/lockbox/loyalty{
 	pixel_y = 6;
 	pixel_x = 14
@@ -302,9 +296,7 @@
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "Jn" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "Js" = (
@@ -467,9 +459,7 @@
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "NH" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "OI" = (
@@ -510,9 +500,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 29
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "SP" = (

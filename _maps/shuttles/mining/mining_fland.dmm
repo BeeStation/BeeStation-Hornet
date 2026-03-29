@@ -10,9 +10,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "h" = (
@@ -32,9 +30,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "m" = (

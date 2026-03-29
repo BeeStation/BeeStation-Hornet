@@ -1,13 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/light{
-	icon_state = "tube";
-	dir = 8
-	},
-/obj/machinery/light{
-	icon_state = "tube";
-	dir = 1
-	},
+/obj/machinery/light/west,
+/obj/machinery/light/north,
 /obj/item/cigbutt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -16,14 +10,8 @@
 /area/template_noop)
 "c" = (
 /obj/item/reagent_containers/spray/spraytan,
-/obj/machinery/light{
-	icon_state = "tube";
-	dir = 4
-	},
-/obj/machinery/light{
-	icon_state = "tube";
-	dir = 1
-	},
+/obj/machinery/light/east,
+/obj/machinery/light/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -32,19 +20,13 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/machinery/light{
-	icon_state = "tube";
-	dir = 8
-	},
-/obj/machinery/light,
+/obj/machinery/light/west,
+/obj/machinery/light/directional/south,
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/machinery/light,
-/obj/machinery/light{
-	icon_state = "tube";
-	dir = 4
-	},
+/obj/machinery/light/directional/south,
+/obj/machinery/light/east,
 /turf/open/floor/plating,
 /area/template_noop)
 

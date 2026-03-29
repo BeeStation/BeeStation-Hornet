@@ -17,16 +17,14 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/structure/table/wood/fancy,
 /obj/effect/mapping_helpers/dead_body_placer/ruin_morgue,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/restraints/handcuffs/cable/zipties/used,
 /turf/open/floor/plating,
@@ -39,7 +37,7 @@
 /area/template_noop)
 "k" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /obj/structure/table/wood/fancy,
 /obj/effect/mapping_helpers/dead_body_placer/ruin_morgue,
 /obj/effect/decal/cleanable/dirt,
@@ -134,9 +132,7 @@
 /area/template_noop)
 "Y" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)

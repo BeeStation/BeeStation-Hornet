@@ -27,27 +27,22 @@
 /obj/structure/mirror{
 	pixel_x = -32
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "k" = (
 /obj/structure/mirror{
 	pixel_x = 32
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "l" = (
 /obj/structure/mirror{
 	pixel_x = -32
 	},
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/machinery/light/small/directional/west{
+	brightness = 3
 	},
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
@@ -55,13 +50,11 @@
 /obj/structure/mirror{
 	pixel_x = 32
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "r" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "G" = (

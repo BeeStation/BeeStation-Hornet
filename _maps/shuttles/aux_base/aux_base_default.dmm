@@ -45,9 +45,7 @@
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "z" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "P" = (
@@ -70,9 +68,7 @@
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "W" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "X" = (

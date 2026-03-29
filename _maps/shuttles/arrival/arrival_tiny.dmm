@@ -47,9 +47,7 @@
 	pixel_x = -33;
 	pixel_y = -1
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "E" = (
@@ -110,9 +108,7 @@
 	pixel_x = 29;
 	pixel_y = -3
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 

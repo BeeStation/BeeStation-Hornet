@@ -78,9 +78,7 @@
 /area/template_noop)
 "p" = (
 /obj/machinery/power/terminal,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},

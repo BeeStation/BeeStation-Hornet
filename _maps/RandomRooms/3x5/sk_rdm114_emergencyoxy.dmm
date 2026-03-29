@@ -17,10 +17,7 @@
 /area/template_noop)
 "d" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 8
-	},
+/obj/machinery/light/small/broken/directional/west,
 /turf/open/floor/iron,
 /area/template_noop)
 "e" = (

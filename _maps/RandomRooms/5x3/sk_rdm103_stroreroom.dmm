@@ -19,7 +19,7 @@
 "e" = (
 /obj/structure/table,
 /obj/item/lightreplacer,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron,
 /area/template_noop)
 "f" = (

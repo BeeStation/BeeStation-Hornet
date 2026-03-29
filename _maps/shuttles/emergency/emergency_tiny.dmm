@@ -63,9 +63,7 @@
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "ec" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/circuit/green{
 	luminosity = 2
@@ -299,9 +297,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/machinery/vending/wallmed{
 	pixel_x = -32;
 	pixel_y = 1;
@@ -329,9 +325,7 @@
 /obj/item/restraints/handcuffs{
 	pixel_y = 2
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/camera/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -381,7 +375,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "BB" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
@@ -520,9 +514,7 @@
 /area/shuttle/escape)
 "Ns" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -572,9 +564,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Pq" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,

@@ -172,9 +172,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/structure/chair/fancy/shuttle,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
@@ -195,9 +193,7 @@
 	},
 /area/shuttle/escape)
 "aU" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -1210,7 +1206,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1429,7 +1425,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "xy" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/machinery/status_display/ai{
 	pixel_y = -32
 	},
@@ -1536,9 +1532,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Cb" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1546,9 +1540,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1614,9 +1606,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1627,7 +1617,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "HE" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -28
@@ -1677,9 +1667,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
@@ -1719,9 +1707,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/west,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
 	},
@@ -1745,7 +1731,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Ot" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1766,9 +1752,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/east,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
 	},
@@ -1840,7 +1824,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "SK" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
@@ -1883,9 +1867,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Xn" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
