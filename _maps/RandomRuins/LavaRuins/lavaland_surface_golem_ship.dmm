@@ -398,7 +398,7 @@
 	dir = 1;
 	icon_state = "officechair_dark"
 	},
-/obj/machinery/light/east,
+/obj/machinery/light/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
@@ -610,7 +610,7 @@
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
 "cd" = (
-/obj/machinery/light/east,
+/obj/machinery/light/directional/east,
 /turf/template_noop,
 /area/ruin/powered/golem_ship)
 "ce" = (
@@ -814,7 +814,7 @@
 "jC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/light/east,
+/obj/machinery/light/directional/east,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "JJ" = (

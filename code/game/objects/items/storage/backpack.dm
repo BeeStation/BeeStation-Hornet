@@ -63,6 +63,7 @@
 	desc = "A backpack that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
 	worn_icon_state = "baguette"
+	worn_icon = 'icons/mob/clothing/back.dmi'
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	armor_type = /datum/armor/backpack_hammerspace

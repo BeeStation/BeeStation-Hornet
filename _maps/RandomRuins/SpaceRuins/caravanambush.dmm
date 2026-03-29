@@ -37,10 +37,7 @@
 /area/template_noop)
 "ai" = (
 /obj/structure/lattice,
-/obj/structure/fluff/broken_flooring{
-	dir = 2;
-	icon_state = "plating"
-	},
+/obj/structure/broken_flooring/plating/directional/south,
 /turf/template_noop,
 /area/template_noop)
 "aj" = (

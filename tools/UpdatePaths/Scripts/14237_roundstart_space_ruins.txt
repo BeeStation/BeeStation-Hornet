@@ -32,6 +32,7 @@
 # broken flooring
 
 /obj/structure/fluff/broken_flooring{dir=1} : /obj/structure/broken_flooring/directional/north{@OLD;dir=@SKIP}
+/obj/structure/fluff/broken_flooring{dir=2} : /obj/structure/broken_flooring/directional/south{@OLD;dir=@SKIP}
 /obj/structure/fluff/broken_flooring{dir=@UNSET} : /obj/structure/broken_flooring/directional/south{@OLD;dir=@SKIP}
 /obj/structure/fluff/broken_flooring{dir=4} : /obj/structure/broken_flooring/directional/east{@OLD;dir=@SKIP}
 /obj/structure/fluff/broken_flooring{dir=8} : /obj/structure/broken_flooring/directional/west{@OLD;dir=@SKIP}

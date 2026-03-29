@@ -347,6 +347,7 @@
 	desc = "A quiver for holding magspears."
 	icon_state = "quiver"
 	inhand_icon_state = "quiver"
+	worn_icon = 'icons/mob/clothing/back.dmi'
 
 /obj/item/storage/backpack/magspear_quiver/Initialize(mapload)
 	. = ..()
