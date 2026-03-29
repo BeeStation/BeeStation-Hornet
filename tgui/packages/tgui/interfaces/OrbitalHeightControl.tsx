@@ -356,16 +356,16 @@ const ThrusterStatusPanel = (props: {
   }
 
   return (
-      <Box
-        style={{
-          maxHeight: '120px',
-          overflowY: 'auto',
-        }}
-      >
-        {thrusters.map((thruster) => (
-          <ThrusterStatusRow key={thruster.ref} thruster={thruster} />
-        ))}
-      </Box>
+    <Box
+      style={{
+        maxHeight: '120px',
+        overflowY: 'auto',
+      }}
+    >
+      {thrusters.map((thruster) => (
+        <ThrusterStatusRow key={thruster.ref} thruster={thruster} />
+      ))}
+    </Box>
   );
 };
 
