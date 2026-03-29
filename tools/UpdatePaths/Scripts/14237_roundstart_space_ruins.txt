@@ -1,5 +1,3 @@
-# bee --> tg
-
 # areas
 
 /area/hilbertshotel : /area/misc/hilbertshotel{@OLD}
@@ -103,3 +101,8 @@
 /obj/structure/sink/kitchen{dir=@UNSET} : /obj/structure/sink/kitchen/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
 /obj/structure/sink/kitchen{dir=4} : /obj/structure/sink/kitchen/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
 /obj/structure/sink/kitchen{dir=8} : /obj/structure/sink/kitchen/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+# atmos monitor sensor connect
+
+/obj/machinery/atmospherics/components/unary/vent_pump/@SUBTYPES{chamber_id=@ANY} : /obj/machinery/atmospherics/components/unary/vent_pump/@SUBTYPES{@OLD;chamber_id=@SKIP}
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{chamber_id=@ANY} : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{@OLD;chamber_id=@SKIP}

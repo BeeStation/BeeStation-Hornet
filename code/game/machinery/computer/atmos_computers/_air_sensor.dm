@@ -1,3 +1,8 @@
+///Indicator for inlet port
+#define INLET 1
+///Indicator for outlet port
+#define OUTLET 2
+
 /// Gas tank air sensor.
 /// These always hook to monitors, be mindful of them
 /obj/machinery/air_sensor
@@ -7,7 +12,6 @@
 	resistance_flags = FIRE_PROOF
 	power_channel = AREA_USAGE_ENVIRON
 	active_power_usage = 1
-	var/on = TRUE
 
 	/// The unique string that represents which atmos chamber to associate with.
 	var/chamber_id
@@ -17,21 +21,31 @@
 	var/outlet_id
 	/// The air alarm connected to this sensor
 	var/obj/machinery/airalarm/connected_airalarm
+	/// Is this sensor on
+	var/on = TRUE
 
 /obj/machinery/air_sensor/Initialize(mapload)
 	id_tag = assign_random_name()
 
-	//this global list of air sensors is available to all station monitering consoles round start and to new consoles made during the round
-	if(mapload)
-		GLOB.map_loaded_sensors[chamber_id] = id_tag
-		inlet_id = CHAMBER_INPUT_FROM_ID(chamber_id)
-		outlet_id = CHAMBER_OUTPUT_FROM_ID(chamber_id)
-
 	return ..()
+
+/obj/machinery/air_sensor/LateInitialize()
+	. = ..()
+
+	//auto connect to any inlet & outlet devices within a 4 diameter radius from this sensor
+	for(var/obj/machinery/atmospherics/components/unary/device in oview(4, src))
+		if(inlet_id && outlet_id)
+			break
+		configure(device)
 
 /obj/machinery/air_sensor/Destroy()
 	reset()
 	return ..()
+
+/obj/machinery/air_sensor/add_context_self(datum/screentip_context/context, mob/user)
+	context.use_cache()
+	context.add_left_click_tool_action("Link logged injectors/vents", TOOL_MULTITOOL)
+	context.add_right_click_tool_action("Reset all I/O ports", TOOL_MULTITOOL)
 
 /obj/machinery/air_sensor/return_air()
 	if(!on)
@@ -59,7 +73,7 @@
 	. = ..()
 
 	//switched off version of this air sensor but still anchored to the ground
-	var/obj/item/air_sensor/sensor = new(drop_location(), inlet_id, outlet_id)
+	var/obj/item/air_sensor/sensor = new(drop_location())
 	sensor.set_anchored(TRUE)
 	sensor.balloon_alert(user, "sensor turned off")
 
@@ -69,6 +83,47 @@
 /obj/machinery/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 	return ..()
+
+/**
+ * Connects an injector or an vent pump to this air sensor. Must be on the same z level as sensor
+ * return what type of port was configured or NONE for no op
+ *
+ * Arguments
+ * * obj/machinery/atmospherics/components/unary/port - the device we are trying to connect to this sensor
+ * * reconfigure - if TRUE it will override existing ports if they are already registered
+*/
+/obj/machinery/air_sensor/proc/configure(obj/machinery/atmospherics/components/unary/port, reconfigure = FALSE)
+	PRIVATE_PROC(TRUE)
+	if(!istype(port) || port.get_virtual_z_level() != get_virtual_z_level())
+		return NONE
+
+	if(istype(port, /obj/machinery/atmospherics/components/unary/outlet_injector))
+		if(!reconfigure && inlet_id)
+			return INLET
+		var/obj/machinery/atmospherics/components/unary/outlet_injector/input = port
+		//only configure non maploaded injectors cause they already have a preset config
+		if(input.type == /obj/machinery/atmospherics/components/unary/outlet_injector)
+			input.volume_rate = MAX_TRANSFER_RATE
+		inlet_id = input.id_tag
+		return INLET
+
+	else if(istype(port, /obj/machinery/atmospherics/components/unary/vent_pump))
+		if(!reconfigure && outlet_id)
+			return OUTLET
+		var/obj/machinery/atmospherics/components/unary/vent_pump/output = port
+		//only configure non maploaded vent pumps cause they already have a preset config
+		if(output.type == /obj/machinery/atmospherics/components/unary/vent_pump)
+			//so its no longer controlled by air alarm
+			output.disconnect_from_area()
+			//configuration copied from /obj/machinery/atmospherics/components/unary/vent_pump/siphon but with max pressure
+			output.pump_direction = ATMOS_DIRECTION_SIPHONING
+			output.pressure_checks = ATMOS_INTERNAL_BOUND
+			output.internal_pressure_bound = MAX_OUTPUT_PRESSURE
+			output.external_pressure_bound = 0
+		//finally assign it to this sensor
+		outlet_id = output.id_tag
+		return OUTLET
+	return NONE
 
 /obj/machinery/air_sensor/proc/reset()
 	inlet_id = null
@@ -82,34 +137,21 @@
 ///click with multi tool to disconnect everything
 /obj/machinery/air_sensor/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
-	balloon_alert(user, "reset ports")
 	reset()
+	balloon_alert(user, "ports reset")
 	return TRUE
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/air_sensor)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
-	if(istype(buffer, /obj/machinery/atmospherics/components/unary/outlet_injector))
-		var/obj/machinery/atmospherics/components/unary/outlet_injector/input = buffer
-		inlet_id = input.id_tag
-		FLUSH_BUFFER(buffer)
-		balloon_alert(user, "connected to input")
-	else if(istype(buffer, /obj/machinery/atmospherics/components/unary/vent_pump))
-		var/obj/machinery/atmospherics/components/unary/vent_pump/output = buffer
-		output.disconnect_from_area()
-		output.pump_direction = ATMOS_DIRECTION_SIPHONING
-		output.pressure_checks = ATMOS_INTERNAL_BOUND
-		output.internal_pressure_bound = 4000
-		output.external_pressure_bound = 0
-		//finally assign it to this sensor
-		outlet_id = output.id_tag
-		FLUSH_BUFFER(buffer)
-		balloon_alert(user, "connected to output")
-	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, span_notice("You register [src] in [buffer_parent]'s buffer."))
-		balloon_alert(user, "added to multitool buffer")
-		return COMPONENT_BUFFER_RECEIVED
-	return NONE
+	var/type = configure(buffer, TRUE)
+	switch(type)
+		if(INLET, OUTLET)
+			var/port = "[type == INLET ? "input" : "output"] port"
+			user.balloon_alert(user, "[port] configured")
+			to_chat(user, span_notice("[src] has connected [buffer] to its [port]."))
+	to_chat(user, span_notice("[src] has been added to multitool buffer."))
+	TRY_STORE_IN_BUFFER(buffer_parent, src)
 
 /**
  * A portable version of the /obj/machinery/air_sensor
@@ -123,15 +165,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
 	custom_materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
-	/// The injector linked with this sensor
-	var/input_id
-	/// The vent pump linked with this sensor
-	var/output_id
 
-/obj/item/air_sensor/Initialize(mapload, inlet, outlet)
-	. = ..()
-	input_id = inlet
-	output_id = outlet
+/obj/item/air_sensor/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_left_click_tool_action(anchored ? "Unwrench" : "Wrench", TOOL_WRENCH)
+	if(anchored)
+		context.add_left_click_tool_action("Dismantle", TOOL_WELDER)
 
 /obj/item/air_sensor/examine(mob/user)
 	. = ..()
@@ -180,8 +218,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
 
 		//make real air sensor in its place
 		var/obj/machinery/air_sensor/new_sensor = new sensor(get_turf(src))
-		new_sensor.inlet_id = input_id
-		new_sensor.outlet_id = output_id
 		new_sensor.balloon_alert(user, "sensor turned on")
 		qdel(src)
 
@@ -206,4 +242,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
 /obj/item/air_sensor/deconstruct(disassembled)
 	. = ..()
 	new /obj/item/analyzer(loc)
-	new /obj/item/stack/sheet/iron(loc, 1)
+	new /obj/item/stack/sheet/iron(loc)
+
+#undef INLET
+#undef OUTLET

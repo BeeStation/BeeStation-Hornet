@@ -3409,7 +3409,6 @@
 /area/science/mixing/chamber)
 "bKc" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer2{
-	chamber_id = "air";
 	name = "Air Chamber Injector"
 	},
 /turf/open/floor/engine/air,
@@ -28308,7 +28307,6 @@
 /area/chapel/main)
 "pOa" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	chamber_id = "co2";
 	name = "Carbon Dioxide Chamber Injector"
 	},
 /turf/open/floor/engine/co2,
@@ -30304,7 +30302,6 @@
 "qVs" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
 	dir = 4;
-	chamber_id = "plasma";
 	name = "Plasma Chamber Injector"
 	},
 /turf/open/floor/engine/plasma,
@@ -32241,7 +32238,6 @@
 /area/hallway/primary/central)
 "rXD" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	chamber_id = "o2";
 	name = "Oxygen Chamber Injector"
 	},
 /turf/open/floor/engine/o2,
@@ -36707,8 +36703,7 @@
 /area/maintenance/department/eva)
 "uyL" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	name = "Nitrogen Chamber Injector";
-	chamber_id = "n2"
+	name = "Nitrogen Chamber Injector"
 	},
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
@@ -39039,7 +39034,6 @@
 "vNl" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
 	dir = 4;
-	chamber_id = "n2o";
 	name = "Nitrous Oxide Chamber Injector"
 	},
 /turf/open/floor/engine/n2o,
