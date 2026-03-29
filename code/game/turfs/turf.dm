@@ -635,7 +635,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
 		return TRUE
-	if(istype(loc, /area/chapel))
+	if(istype(loc, /area/service/chapel))
 		return TRUE
 	return FALSE
 

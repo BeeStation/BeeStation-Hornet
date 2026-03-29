@@ -1,19 +1,19 @@
 GLOBAL_LIST_INIT(command_lightup_areas, typecacheof(list(
-	/area/bridge,
-	/area/gateway,
+	/area/command,
+	/area/command/gateway,
 	/area/security/brig,
-	/area/teleporter
+	/area/command/teleporter
 )))
 
 GLOBAL_LIST_INIT(engineering_lightup_areas, zebra_typecacheof(list(
 	/area/construction = TRUE,
-	/area/engine = TRUE,
+	/area/engineering = TRUE,
 	/area/security/checkpoint/engineering = TRUE,
-	/area/solar = TRUE,
+	/area/solars = TRUE,
 	/area/tcommsat = TRUE,
-	/area/vacant_room = TRUE,
-	/area/engine/atmos = FALSE,
-	/area/engine/gravity_generator = FALSE,
+	/area/commons/vacant_room = TRUE,
+	/area/engineering/atmos = FALSE,
+	/area/engineering/gravity_generator = FALSE,
 )))
 
 GLOBAL_LIST_INIT(medical_lightup_areas, zebra_typecacheof(list(
@@ -43,12 +43,12 @@ GLOBAL_LIST_INIT(science_lightup_areas, zebra_typecacheof(list(
 
 GLOBAL_LIST_INIT(supply_lightup_areas, zebra_typecacheof(list(
 	/area/cargo = TRUE,
-	/area/quartermaster = TRUE,
+	/area/cargo = TRUE,
 	/area/security/checkpoint/supply = TRUE,
-	/area/quartermaster/exploration_dock = FALSE,
-	/area/quartermaster/exploration_prep = FALSE,
-	/area/quartermaster/qm = FALSE,
-	/area/quartermaster/qm_bedroom = FALSE,
+	/area/cargo/exploration_dock = FALSE,
+	/area/cargo/exploration_prep = FALSE,
+	/area/cargo/qm = FALSE,
+	/area/cargo/qm_bedroom = FALSE,
 )))
 
 GLOBAL_LIST_INIT(security_lightup_areas, zebra_typecacheof(list(

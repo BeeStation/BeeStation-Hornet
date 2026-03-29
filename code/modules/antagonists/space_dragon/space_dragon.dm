@@ -36,23 +36,23 @@
 /datum/antagonist/space_dragon/proc/forge_objectives()
 	// Areas that will prove challenging for the dragon and provocative to the crew.
 	var/list/area/allowed_areas = typecacheof(list(
-		/area/crew_quarters/heads/captain,
-		/area/crew_quarters/heads/hop,
-		/area/bridge,
-		/area/engine,
+		/area/command/heads_quarters/captain,
+		/area/command/heads_quarters/hop,
+		/area/command,
+		/area/engineering,
 		/area/security,
 		/area/science,
 	))
 	// Things included above that we do NOT want
 	var/list/area/blocked_areas = typecacheof(list(
-		/area/bridge/showroom,
+		/area/command/showroom,
 		/area/science/test_area,
 		/area/science/misc_lab,
 		/area/science/research/abandoned,
 		/area/science/shuttledock,
-		/area/engine/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
-		/area/engine/transit_tube,
-		/area/engine/engine_room/external,
+		/area/engineering/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
+		/area/engineering/transit_tube,
+		/area/engineering/engine_room/external,
 		/area/security/prison/asteroid,
 		/area/security/checkpoint,
 		/area/security/courtroom,

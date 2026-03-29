@@ -28,7 +28,7 @@
 	)
 	biohazard = 35
 
-	lightup_areas = list(/area/storage/tech, /area/science/robotics)
+	lightup_areas = list(/area/engineering/storage/tech, /area/science/robotics)
 	minimal_lightup_areas = list(
 		/area/science/explab,
 		/area/science/misc_lab,

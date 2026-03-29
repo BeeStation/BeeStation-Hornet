@@ -273,7 +273,7 @@
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.LoseTarget()
 			return FALSE
-		else if(istype(A, /area/engine/supermatter))
+		else if(istype(A, /area/engineering/supermatter))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.LoseTarget()
 			return FALSE
@@ -353,7 +353,7 @@
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.LoseTarget()
 			return TRUE
-		else if(istype(A, /area/engine/supermatter))
+		else if(istype(A, /area/engineering/supermatter))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.LoseTarget()
 			return TRUE
@@ -367,7 +367,7 @@
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.LoseTarget()
 			return TRUE
-		else if(istype(A, /area/engine/supermatter))
+		else if(istype(A, /area/engineering/supermatter))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.LoseTarget()
 			return TRUE

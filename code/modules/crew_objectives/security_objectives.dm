@@ -61,7 +61,7 @@
 	var/list/security_areas = typecacheof(list(
 		/area/security,
 		/area/security/brig,
-		/area/security/main,
+		/area/security/office,
 		/area/security/prison,
 		/area/security/processing,
 	))

@@ -27,9 +27,9 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/chapel,
+		/area/service/chapel,
 		/area/medical/morgue,
-		/area/crew_quarters/theatre
+		/area/service/theater
 	)
 
 	manuscript_jobs = list(

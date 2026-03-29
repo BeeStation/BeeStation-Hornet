@@ -39,7 +39,7 @@
 	biohazard = 40
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hor,
+		/area/command/heads_quarters/hor,
 		/area/science/explab,
 		/area/science/misc_lab,
 		/area/science/mixing,

@@ -27,10 +27,10 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/quartermaster/qm,
-		/area/quartermaster/qm_bedroom,
-		/area/quartermaster/exploration_prep,
-		/area/quartermaster/exploration_dock
+		/area/cargo/qm,
+		/area/cargo/qm_bedroom,
+		/area/cargo/exploration_prep,
+		/area/cargo/exploration_dock
 	)
 
 	manuscript_jobs = list(

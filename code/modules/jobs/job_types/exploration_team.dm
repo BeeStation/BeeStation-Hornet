@@ -35,7 +35,7 @@
 		/area/science/storage,
 		/area/science/xenobiology
 	)
-	minimal_lightup_areas = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
+	minimal_lightup_areas = list(/area/cargo/exploration_dock, /area/cargo/exploration_prep)
 
 	manuscript_jobs = list(
 		JOB_NAME_EXPLORATIONCREW,

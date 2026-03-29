@@ -34,8 +34,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chef
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/kitchen, /area/medical/morgue)
-	lightup_areas = list(/area/hydroponics)
+	minimal_lightup_areas = list(/area/service/kitchen, /area/medical/morgue)
+	lightup_areas = list(/area/service/hydroponics)
 
 /datum/outfit/job/cook
 	name = JOB_NAME_COOK

@@ -40,13 +40,13 @@
 	biohazard = 45
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/cmo,
+		/area/command/heads_quarters/cmo,
 		/area/medical/apothecary,
 		/area/medical/chemistry,
 		/area/medical/genetics,
 		/area/medical/morgue,
 		/area/medical/surgery,
-		/area/storage/eva
+		/area/commons/storage/eva
 	)
 
 	manuscript_jobs = list(

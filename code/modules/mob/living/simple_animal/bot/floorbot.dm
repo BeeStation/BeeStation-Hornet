@@ -275,7 +275,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	var/area/t_area = get_area(t)
-	if(istype(t_area, /area/space) || istype(t_area, /area/solar) || istype(t_area, /area/asteroid))
+	if(istype(t_area, /area/space) || istype(t_area, /area/solars) || istype(t_area, /area/asteroid))
 		return FALSE
 	else
 		return TRUE

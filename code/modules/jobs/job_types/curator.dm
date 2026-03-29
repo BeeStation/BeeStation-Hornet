@@ -28,7 +28,7 @@
 	biohazard = 10
 
 	minimal_lightup_areas = list(
-		/area/library,
+		/area/service/library,
 		/area/construction/mining/aux_base
 	)
 

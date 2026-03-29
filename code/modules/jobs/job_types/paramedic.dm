@@ -38,7 +38,7 @@
 
 	lightup_areas = list(/area/medical/surgery)
 	minimal_lightup_areas = list(
-		/area/storage/eva,
+		/area/commons/storage/eva,
 		/area/medical/morgue,
 		/area/medical/genetics/cloning
 	)

@@ -289,10 +289,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/station_areas_blacklist = typecacheof(list(
 		/area/holodeck/rec_center,
 		/area/shuttle,
-		/area/engine/supermatter,
+		/area/engineering/supermatter,
 		/area/science/test_area,
 		/area/space,
-		/area/solar,
+		/area/solars,
 		/area/mine,
 		/area/ruin,
 		/area/asteroid,

@@ -32,7 +32,7 @@
 	minimal_lightup_areas = list(
 		/area/medical/morgue,
 		/area/science/robotics,
-		/area/storage/tech
+		/area/engineering/storage/tech
 	)
 
 	manuscript_jobs = list(

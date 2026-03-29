@@ -38,7 +38,7 @@
 	)
 	biohazard = 25
 
-	lightup_areas = list(/area/quartermaster/qm, /area/quartermaster/qm_bedroom)
+	lightup_areas = list(/area/cargo/qm, /area/cargo/qm_bedroom)
 
 /datum/job/cargo_technician/get_access()
 	. = ..()

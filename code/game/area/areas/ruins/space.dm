@@ -216,68 +216,68 @@
 
 //Ruin of ancient Space Station
 
-/area/ruin/space/has_grav/ancientstation
+/area/ruin/space/ancientstation
 	name = "Charlie Station Main Corridor"
 	icon_state = "green"
 
-/area/ruin/space/has_grav/ancientstation/powered
+/area/ruin/space/ancientstation/powered
 	name = "Powered Tile"
 	icon_state = "teleporter"
 	requires_power = FALSE
 
-/area/ruin/space/has_grav/ancientstation/space
+/area/ruin/space/ancientstation/space
 	name = "Exposed To Space"
 	icon_state = "teleporter"
 	default_gravity = ZERO_GRAVITY
 
-/area/ruin/space/has_grav/ancientstation/atmo
+/area/ruin/space/ancientstation/atmo
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
 	default_gravity = ZERO_GRAVITY
 	ambience_index = AMBIENCE_ENGI
 
-/area/ruin/space/has_grav/ancientstation/betanorth
+/area/ruin/space/ancientstation/betanorth
 	name = "Beta Station North Corridor"
 	icon_state = "blue"
 
-/area/ruin/space/has_grav/ancientstation/solar
+/area/ruin/space/ancientstation/solar
 	name = "Station Solar Array"
 	icon_state = "panelsAP"
 
-/area/ruin/space/has_grav/ancientstation/engi
+/area/ruin/space/ancientstation/engi
 	name = "Charlie Station Engineering"
 	icon_state = "engine"
 	ambience_index = AMBIENCE_ENGI
 
-/area/ruin/space/has_grav/ancientstation/comm
+/area/ruin/space/ancientstation/comm
 	name = "Charlie Station Command"
 	icon_state = "captain"
 
-/area/ruin/space/has_grav/ancientstation/hydroponics
+/area/ruin/space/ancientstation/hydroponics
 	name = "Charlie Station Hydroponics"
 	icon_state = "garden"
 
-/area/ruin/space/has_grav/ancientstation/kitchen
+/area/ruin/space/ancientstation/kitchen
 	name = "Charlie Station Kitchen"
 	icon_state = "kitchen"
 
-/area/ruin/space/has_grav/ancientstation/sec
+/area/ruin/space/ancientstation/sec
 	name = "Charlie Station Security"
 	icon_state = "red"
 
-/area/ruin/space/has_grav/ancientstation/deltacorridor
+/area/ruin/space/ancientstation/deltacorridor
 	name = "Delta Station Main Corridor"
 	icon_state = "green"
 
-/area/ruin/space/has_grav/ancientstation/proto
+/area/ruin/space/ancientstation/proto
 	name = "Delta Station Prototype Lab"
 	icon_state = "toxlab"
 
-/area/ruin/space/has_grav/ancientstation/rnd
+/area/ruin/space/ancientstation/rnd
 	name = "Delta Station Research and Development"
 	icon_state = "toxlab"
 
-/area/ruin/space/has_grav/ancientstation/hivebot
+/area/ruin/space/ancientstation/hivebot
 	name = "Hivebot Mothership"
 	icon_state = "teleporter"
 
@@ -334,11 +334,11 @@
 	name = "Derelict Chapel"
 	icon_state = "chapel"
 
-/area/solar/derelict_starboard
+/area/solars/derelict_starboard
 	name = "Derelict Starboard Solar Array"
 	icon_state = "panelsS"
 
-/area/solar/derelict_aft
+/area/solars/derelict_aft
 	name = "Derelict Aft Solar Array"
 	icon_state = "yellow"
 

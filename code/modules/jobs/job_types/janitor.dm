@@ -30,7 +30,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/janitor
 	)
 
-	minimal_lightup_areas = list(/area/janitor)
+	minimal_lightup_areas = list(/area/service/janitor)
 
 	manuscript_jobs = list(
 		JOB_NAME_JANITOR,

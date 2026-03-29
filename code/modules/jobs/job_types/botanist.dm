@@ -33,7 +33,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
 
-	minimal_lightup_areas = list(/area/hydroponics, /area/medical/morgue)
+	minimal_lightup_areas = list(/area/service/hydroponics, /area/medical/morgue)
 
 	manuscript_jobs = list(
 		JOB_NAME_BOTANIST,
