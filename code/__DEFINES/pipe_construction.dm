@@ -163,36 +163,45 @@ MAPPING_HELPER_SORT(detective_office, 30)
 #if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 
 GLOBAL_LIST_INIT(tagger_destination_areas, list(
-	"Disposals" = list(/area/maintenance/disposal, /area/cargo/sorting, /area/service/janitor),
-	"Cargo Bay"  = list(/area/cargo),
-	"QM Office" = list(/area/cargo/qm, /area/cargo/qm_bedroom),
-	"Engineering" = list(/area/engineering, /area/engineering),
-	"CE Office" = list(/area/command/heads_quarters/chief),
-	"Atmospherics" = list(/area/engineering/atmos, /area/engineering/atmospherics_engine),
-	"Security" = list(/area/security),
-	"HoS Office" = list(/area/command/heads_quarters/hos),
-	"Medbay" = list(/area/medical),
-	"CMO Office" = list(/area/command/heads_quarters/cmo),
-	"Chemistry" = list(/area/medical/chemistry, /area/medical/apothecary),
-	"Research" = list(/area/science),
-	"RD Office" = list(/area/command/heads_quarters/hor),
-	"Robotics" = list(/area/science/robotics),
-	"HoP Office" = list(/area/command/heads_quarters/hop),
-	"Library" = list(/area/service/library),
-	"Chapel" = list(/area/service/chapel),
-	"Theatre" = list(/area/service/theater),
-	"Bar" = list(/area/service/bar, /area/commons/cafeteria),
-	"Kitchen" = list(/area/service/kitchen),
-	"Hydroponics" = list(/area/service/hydroponics),
-	"Janitor Closet" = list(/area/service/janitor),
-	"Genetics" = list(/area/medical/genetics),
-	"Testing Range" = list(/area/science/misc_lab, /area/science/test_area, /area/science/mixing),
-	"Toxins" = list(/area/science/misc_lab, /area/science/test_area, /area/science/mixing),
-	"Dormitories" = list(/area/commons/dorms, /area/commons/dorms, /area/commons/fitness),
-	"Virology" = list(/area/medical/virology),
-	"Xenobiology" = list(/area/science/xenobiology),
-	"Law Office" = list(/area/service/lawoffice),
-	"Detective's Office" = list(/area/security/detectives_office),
+	"Disposals" = list(/area/station/maintenance/disposal, /area/station/cargo/sorting,
+/area/station/service/janitor),
+	"Cargo Bay"  = list(/area/station/cargo),
+	"QM Office" = list(/area/station/cargo/qm, /area/station/cargo/qm_bedroom),
+	"Engineering" = list(/area/station/engineering, /area/station/engineering),
+	"CE Office" = list(/area/station/command/heads_quarters/chief),
+	"Atmospherics" = list(/area/station/engineering/atmos, /area/station/engineering/atmospherics_engine),
+	"Security" = list(/area/station/security),
+	"HoS Office" = list(/area/station/command/heads_quarters/hos),
+	"Medbay" = list(/area/station/medical),
+	"CMO Office" = list(/area/station/command/heads_quarters/cmo),
+	"Chemistry" = list(/area/station/medical/chemistry, /area/station/medical/pharmacy),
+	"Research" = list(/area/station/science),
+	"RD Office" = list(/area/station/command/heads_quarters/rd),
+	"Robotics" = list(/area/station/science/robotics),
+	"HoP Office" = list(/area/station/command/heads_quarters/hop),
+	"Library" = list(
+/area/station/service/library),
+	"Chapel" = list(
+/area/station/service/chapel),
+	"Theatre" = list(
+/area/station/service/theater),
+	"Bar" = list(
+/area/station/service/bar, /area/station/service/cafeteria),
+	"Kitchen" = list(
+/area/station/service/kitchen),
+	"Hydroponics" = list(
+/area/station/service/hydroponics),
+	"Janitor Closet" = list(
+/area/station/service/janitor),
+	"Genetics" = list(/area/station/medical/genetics),
+	"Testing Range" = list(/area/station/science/misc_lab, /area/station/science/test_area, /area/station/science/mixing),
+	"Toxins" = list(/area/station/science/misc_lab, /area/station/science/test_area, /area/station/science/mixing),
+	"Dormitories" = list(/area/station/commons/dorms, /area/station/commons/dorms, /area/station/commons/fitness),
+	"Virology" = list(/area/station/medical/virology),
+	"Xenobiology" = list(/area/station/science/xenobiology),
+	"Law Office" = list(
+/area/station/service/lawoffice),
+	"Detective's Office" = list(/area/station/security/detectives_office),
 ))
 
 #endif

@@ -1,6 +1,7 @@
 /**********************Mine areas**************************/
 
 /area/mine
+	icon = 'icons/area/areas_station.dmi'
 	icon_state = "mining"
 	default_gravity = STANDARD_GRAVITY
 	lighting_colour_tube = "#ffe8d2"
@@ -100,6 +101,7 @@
 /**********************Lavaland Areas**************************/
 
 /area/lavaland
+	icon = 'icons/area/areas_station.dmi'
 	icon_state = "mining"
 	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE

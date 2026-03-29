@@ -66,7 +66,7 @@
 	return center
 
 
-/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = list(/area/space), list/potentialRuins, clear_below = FALSE)
+/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = list(/area/misc/space), list/potentialRuins, clear_below = FALSE)
 	if(!z_levels || !z_levels.len)
 		WARNING("No Z levels provided - Not generating ruins")
 		return

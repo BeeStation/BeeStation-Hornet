@@ -45,7 +45,7 @@
 
 	rpg_title = "Scissorhands"
 
-	minimal_lightup_areas = list(/area/medical/morgue)
+	minimal_lightup_areas = list(/area/station/medical/morgue)
 
 	manuscript_jobs = list(
 		JOB_NAME_BARBER,
@@ -86,7 +86,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
 	)
 
-	minimal_lightup_areas = list(/area/service/theater)
+	minimal_lightup_areas = list(
+/area/station/service/theater)
 
 /datum/outfit/job/gimmick/stage_magician
 	name = JOB_NAME_STAGEMAGICIAN

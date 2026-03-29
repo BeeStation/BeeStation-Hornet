@@ -36,26 +36,26 @@
 /datum/antagonist/space_dragon/proc/forge_objectives()
 	// Areas that will prove challenging for the dragon and provocative to the crew.
 	var/list/area/allowed_areas = typecacheof(list(
-		/area/command/heads_quarters/captain,
-		/area/command/heads_quarters/hop,
-		/area/command,
-		/area/engineering,
-		/area/security,
-		/area/science,
+		/area/station/command/heads_quarters/captain,
+		/area/station/command/heads_quarters/hop,
+		/area/station/command,
+		/area/station/engineering,
+		/area/station/security,
+		/area/station/science,
 	))
 	// Things included above that we do NOT want
 	var/list/area/blocked_areas = typecacheof(list(
-		/area/command/showroom,
-		/area/science/test_area,
-		/area/science/misc_lab,
-		/area/science/research/abandoned,
-		/area/science/shuttledock,
-		/area/engineering/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
-		/area/engineering/transit_tube,
-		/area/engineering/engine_room/external,
-		/area/security/prison/asteroid,
-		/area/security/checkpoint,
-		/area/security/courtroom,
+		/area/station/command/corporate_showroom,
+		/area/station/science/test_area,
+		/area/station/science/misc_lab,
+		/area/station/science/research/abandoned,
+		/area/station/science/shuttledock,
+		/area/station/engineering/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
+		/area/station/engineering/transit_tube,
+		/area/station/engineering/supermatter,
+		/area/station/security/prison/asteroid,
+		/area/station/security/checkpoint,
+		/area/station/security/courtroom,
 	))
 
 	var/list/possible_areas = GLOB.areas.Copy()

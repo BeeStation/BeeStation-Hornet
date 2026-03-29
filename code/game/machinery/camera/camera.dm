@@ -85,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	// Calculate area code
 	var/area/camera_area = get_area(src)
-	if (istype(camera_area, /area/space))
+	if (istype(camera_area, /area/misc/space))
 		var/turf/connected_wall = get_step(src, dir)
 		camera_area = get_area(connected_wall)
 

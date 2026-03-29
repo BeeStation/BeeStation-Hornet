@@ -22,7 +22,7 @@
 		return
 	// Pick a location that the beacon needs to be deployed at, somewhere out of prying eyes
 	var/area_types = list()
-	area_types += typesof(/area/maintenance)
+	area_types += typesof(/area/station/maintenance)
 	center_turf = null
 	while (!isturf(center_turf) && length(area_types))
 		var/target_type = pick(area_types)

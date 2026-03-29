@@ -36,11 +36,11 @@
 	)
 	biohazard = 50//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
-	lightup_areas = list(/area/medical/surgery)
+	lightup_areas = list(/area/station/medical/surgery)
 	minimal_lightup_areas = list(
-		/area/commons/storage/eva,
-		/area/medical/morgue,
-		/area/medical/genetics/cloning
+		/area/station/commons/storage/eva,
+		/area/station/medical/morgue,
+		/area/station/medical/genetics/cloning
 	)
 
 	manuscript_jobs = list(

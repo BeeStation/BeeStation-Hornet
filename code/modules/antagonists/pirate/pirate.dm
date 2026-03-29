@@ -101,7 +101,7 @@
 
 /datum/objective/loot/update_explanation_text()
 	if(cargo_hold)
-		var/area/commons/storage_area = get_area(cargo_hold)
+		var/area/station/commons/storage_area = get_area(cargo_hold)
 		explanation_text = "Acquire loot and store [target_value] of credits worth in [storage_area.name] cargo hold."
 
 /datum/objective/loot/proc/loot_listing()

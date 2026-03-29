@@ -28,11 +28,11 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/robotics
 	)
 
-	lightup_areas = list(/area/science/mixing, /area/science/storage)
+	lightup_areas = list(/area/station/science/mixing, /area/station/science/storage)
 	minimal_lightup_areas = list(
-		/area/medical/morgue,
-		/area/science/robotics,
-		/area/engineering/storage/tech
+		/area/station/medical/morgue,
+		/area/station/science/robotics,
+		/area/station/engineering/storage/tech
 	)
 
 	manuscript_jobs = list(

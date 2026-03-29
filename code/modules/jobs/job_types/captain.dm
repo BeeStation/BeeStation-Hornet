@@ -34,9 +34,9 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/command/heads_quarters/captain,
-		/area/command/heads_quarters/hop,
-		/area/security
+		/area/station/command/heads_quarters/captain,
+		/area/station/command/heads_quarters/hop,
+		/area/station/security
 	)
 
 	// captain can write manuscript of command roles

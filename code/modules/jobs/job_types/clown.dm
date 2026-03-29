@@ -28,7 +28,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
 	)
 
-	minimal_lightup_areas = list(/area/service/theater)
+	minimal_lightup_areas = list(
+/area/station/service/theater)
 
 	manuscript_jobs = list(
 		JOB_NAME_CLOWN,

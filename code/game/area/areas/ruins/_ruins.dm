@@ -2,7 +2,8 @@
 
 /area/ruin
 	name = "\improper Unexplored Location"
-	icon_state = "away"
+	icon = 'icons/area/areas_ruins.dmi'
+	icon_state = "ruins"
 	default_gravity = STANDARD_GRAVITY
 	area_flags = HIDDEN_AREA | BLOBS_ALLOWED
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED

@@ -18,20 +18,20 @@
 
 	area_type = /area
 	protected_areas = list(
-		/area/maintenance,
-		/area/ai_monitored/turret_protected/ai_upload,
-		/area/ai_monitored/turret_protected/ai_upload_foyer,
-		/area/ai_monitored/turret_protected/ai,
-		/area/commons/storage/emergency/starboard,
-		/area/commons/storage/emergency/port,
+		/area/station/maintenance,
+		/area/station/ai_monitored/turret_protected/ai_upload,
+		/area/station/ai_monitored/turret_protected/ai_upload_foyer,
+		/area/station/ai_monitored/turret_protected/ai,
+		/area/station/commons/storage/emergency/starboard,
+		/area/station/commons/storage/emergency/port,
 		/area/shuttle,
-		/area/security/prison/asteroid/shielded,
-		/area/security/prison/asteroid/service,
-		/area/space/nearstation,
-		/area/solars,
-		/area/security/prison,
-		/area/holodeck/prison,
-		/area/holodeck/debug,
+		/area/station/security/prison/asteroid/shielded,
+		/area/station/security/prison/asteroid/service,
+		/area/misc/space/nearstation,
+		/area/station/solars,
+		/area/station/security/prison,
+		/area/station/holodeck/prison,
+		/area/station/holodeck/debug,
 	)
 	target_trait = ZTRAIT_STATION
 
@@ -45,7 +45,7 @@
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
-		if(istype(place, /area/maintenance))
+		if(istype(place, /area/station/maintenance))
 			playlist[place] = /datum/looping_sound/rad_alert_inside
 		else
 			playlist[place] = /datum/looping_sound/rad_alert_outside

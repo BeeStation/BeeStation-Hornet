@@ -54,9 +54,9 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/command/heads_quarters/hos,
-		/area/security/detectives_office,
-		/area/security/warden
+		/area/station/command/heads_quarters/hos,
+		/area/station/security/detectives_office,
+		/area/station/security/warden
 	)
 
 	manuscript_jobs = list(
