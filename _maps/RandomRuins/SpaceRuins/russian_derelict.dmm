@@ -1291,7 +1291,7 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/security/sec)
 "lA" = (
-/obj/machinery/gravity_generator/main,
+/obj/machinery/gravity_generator/main/off,
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/engineering/grav_gen)
 "lI" = (
