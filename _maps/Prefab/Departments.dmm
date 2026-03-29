@@ -1258,7 +1258,7 @@
 	req_access_txt = "19"
 	},
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
+	control_area = "/area/station/ai_monitored/turret_protected/ai";
 	name = "AI Chamber turret control"
 	},
 /turf/open/floor/circuit,

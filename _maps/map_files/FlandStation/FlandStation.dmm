@@ -26143,7 +26143,7 @@
 /area/station/science/shuttledock)
 "hex" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload_foyer";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload_foyer";
 	name = "AI Antechamber Turret Control";
 	pixel_x = 30;
 	req_access_txt = "65"
@@ -29647,7 +29647,7 @@
 /area/station/command/bridge)
 "icD" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_y = -32

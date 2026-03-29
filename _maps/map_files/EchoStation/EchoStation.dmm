@@ -16964,7 +16964,7 @@
 /area/station/engineering/hallway)
 "jgc" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
+	control_area = "/area/station/ai_monitored/turret_protected/ai";
 	icon_state = "control_stun";
 	name = "AI Chamber turret control";
 	pixel_x = -1;
@@ -34022,7 +34022,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
+	control_area = "/area/station/ai_monitored/turret_protected/ai";
 	icon_state = "control_stun";
 	name = "AI Chamber turret control";
 	pixel_x = -1;
@@ -38986,7 +38986,7 @@
 /area/station/maintenance/department/crew_quarters/bar)
 "vyq" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat_interior";
 	name = "Antechamber Turret Control";
 	pixel_x = -2;
 	pixel_y = 33;
@@ -39882,7 +39882,7 @@
 /area/station/commons/dorms)
 "wbv" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_x = -33;

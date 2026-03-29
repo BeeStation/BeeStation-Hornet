@@ -215,3 +215,4 @@
 /area/station/medical/sleeper : /area/station/medical/treatment_center{@OLD}
 /area/station/commons/cafeteria : /area/station/service/cafeteria{@OLD}
 /area/station/engineering/supermatter/external : /area/station/engineering/supermatter/room{@OLD}
+/area/ai_monitored/turret_protected/ai : /area/station/ai_monitored/turret_protected/ai{@OLD}

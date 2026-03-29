@@ -6501,7 +6501,7 @@
 /area/station/command/corporate_showroom)
 "bew" = (
 /obj/machinery/power/apc{
-	areastring = "/area/ai_monitored/turret_protected/ai";
+	areastring = "/area/station/ai_monitored/turret_protected/ai";
 	dir = 1;
 	name = "AI Chamber APC";
 	pixel_y = 24
@@ -7877,7 +7877,7 @@
 /area/station/ai_monitored/aisat/exterior)
 "bny" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat_interior";
 	name = "Antechamber Turret Control";
 	pixel_x = 30;
 	req_access_txt = "65"
@@ -7899,7 +7899,7 @@
 /area/station/engineering/break_room)
 "bnE" = (
 /obj/machinery/power/apc{
-	areastring = "/area/ai_monitored/turret_protected/aisat_interior";
+	areastring = "/area/station/ai_monitored/turret_protected/aisat_interior";
 	dir = 4;
 	name = "MiniSat Antechamber APC";
 	pixel_x = 24
@@ -46208,7 +46208,7 @@
 /area/station/engineering/break_room)
 "nhx" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/ai_monitored/turret_protected/ai_upload";
+	areastring = "/area/station/ai_monitored/turret_protected/ai_upload";
 	name = "Upload APC";
 	pixel_y = -24
 	},
@@ -65609,7 +65609,7 @@
 /area/misc/space/nearstation)
 "tYY" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_y = 28
@@ -65626,7 +65626,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc{
-	areastring = "/area/ai_monitored/turret_protected/ai_upload_foyer";
+	areastring = "/area/station/ai_monitored/turret_protected/ai_upload_foyer";
 	name = "AI Upload Access APC";
 	pixel_y = -24
 	},
@@ -74799,7 +74799,7 @@
 /area/station/service/kitchen)
 "xey" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/ai_monitored/turret_protected/aisat/foyer";
+	areastring = "/area/station/ai_monitored/turret_protected/aisat/foyer";
 	name = "MiniSat Foyer APC";
 	pixel_y = -24
 	},

@@ -38014,7 +38014,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat/service";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat/service";
 	name = "Service Bay Turret Control";
 	pixel_x = -28;
 	req_access = null;
@@ -41544,7 +41544,7 @@
 	pixel_y = 28;
 	name = "AI Chamber turret control";
 	pixel_x = 32;
-	control_area = /area/ai_monitored/turret_protected/ai
+	control_area = /area/station/ai_monitored/turret_protected/ai
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -52844,7 +52844,7 @@
 	dir = 1
 	},
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat/service";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat/service";
 	name = "Service Bay Turret Control";
 	pixel_x = 28;
 	req_access = null;
@@ -86020,7 +86020,7 @@
 	},
 /obj/machinery/camera/motion/directional/east,
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat_interior";
 	name = "AI Antechamber Turret Control";
 	pixel_x = 28;
 	req_access_txt = "65"
@@ -98772,7 +98772,7 @@
 /obj/machinery/turretid{
 	name = "AI Chamber turret control";
 	pixel_x = 32;
-	control_area = /area/ai_monitored/turret_protected/ai
+	control_area = /area/station/ai_monitored/turret_protected/ai
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/ai_monitored/turret_protected/ai)
@@ -100717,7 +100717,7 @@
 /obj/effect/turf_decal/edges/techfloor/corners,
 /obj/machinery/light/small/directional/south,
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_y = -28

@@ -30691,7 +30691,7 @@
 /obj/machinery/turretid{
 	name = "AI Chamber turret control";
 	pixel_y = 32;
-	control_area = "/area/ai_monitored/turret_protected/ai"
+	control_area = "/area/station/ai_monitored/turret_protected/ai"
 	},
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
@@ -38252,7 +38252,7 @@
 	},
 /obj/machinery/camera/motion/directional/north,
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat/hallway";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat/hallway";
 	name = "Hallway Turret Control";
 	req_access = null;
 	req_access_txt = "65";
@@ -49530,7 +49530,7 @@
 /area/station/security/office)
 "rfp" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_y = -25
@@ -53792,7 +53792,7 @@
 /obj/machinery/turretid{
 	name = "AI Chamber turret control";
 	pixel_y = -24;
-	control_area = "/area/ai_monitored/turret_protected/ai";
+	control_area = "/area/station/ai_monitored/turret_protected/ai";
 	pixel_x = -29
 	},
 /obj/structure/lattice/catwalk,
