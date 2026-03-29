@@ -50,7 +50,7 @@
 	// Gradually step thrust_level toward requested_thrust (one level per tick)
 	// But only if we have fuel
 	if(!has_fuel)
-		// No fuel - ramp down immediately to zero
+		// No fuel, ramp down immediately to zero
 		thrust_level = 0
 	else if(thrust_level < requested_thrust)
 		thrust_level++
@@ -80,6 +80,9 @@
 		// Consume the propellant from our internal buffer
 		var/datum/gas_mixture/removed = fuel_buffer.remove_specific(/datum/gas/hydrogen_fuel, required_moles)
 		qdel(removed)
+
+	// Re-assert gas entry exists in buffer after potential removal
+	ASSERT_GAS(/datum/gas/hydrogen_fuel, fuel_buffer)
 
 	// We have used, or may have used, fuel. Now we pull to keep the buffer up.
 	// Get whatever net we are connected to
