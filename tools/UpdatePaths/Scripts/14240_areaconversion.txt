@@ -1,148 +1,141 @@
-## Area typepath conversions
-## Step 1: Master paths → Intermediate paths
-## Step 2: Intermediate paths → Final /area/station/, /area/misc/, /area/centcom/ paths
+## Area typepath conversions — single pass
+## Specific renames first, then catch-all prefix rules
 
 ###############################################################################
-## STEP 1: Old master paths → Intermediate paths
+## Specific renames (paths that change name/area, direct to final destination)
 ###############################################################################
 
-# Bridge → Command
-/area/bridge/meeting_room/council : /area/command/meeting_room/council{@OLD}
-/area/bridge/meeting_room : /area/command/meeting_room{@OLD}
-/area/bridge/showroom/corporate : /area/command/corporate_showroom{@OLD}
-/area/bridge : /area/command/bridge{@OLD}
+# Bridge → Station/Command
+/area/bridge/meeting_room/council : /area/station/command/meeting_room/council{@OLD}
+/area/bridge/meeting_room : /area/station/command/meeting_room{@OLD}
+/area/bridge/showroom/corporate : /area/station/command/corporate_showroom{@OLD}
+/area/bridge : /area/station/command/bridge{@OLD}
 
-# Teleporter & Gateway → Command
-/area/teleporter : /area/command/teleporter{@OLD}
-/area/gateway : /area/command/gateway{@OLD}
+# Teleporter & Gateway → Station/Command
+/area/teleporter : /area/station/command/teleporter{@OLD}
+/area/gateway : /area/station/command/gateway{@OLD}
 
-# Crew quarters - heads → Command/heads_quarters
-/area/crew_quarters/heads/hor : /area/command/heads_quarters/rd{@OLD}
-/area/crew_quarters/heads/@SUBTYPES : /area/command/heads_quarters/@SUBTYPES{@OLD}
+# Crew quarters - heads → Station/Command/heads_quarters
+/area/crew_quarters/heads/hor : /area/station/command/heads_quarters/rd{@OLD}
+/area/crew_quarters/heads/@SUBTYPES : /area/station/command/heads_quarters/@SUBTYPES{@OLD}
 
-# Crew quarters - Service areas
-/area/crew_quarters/barbershop : /area/service/barbershop{@OLD}
-/area/crew_quarters/kitchen/@SUBTYPES : /area/service/kitchen/@SUBTYPES{@OLD}
-/area/crew_quarters/kitchen : /area/service/kitchen{@OLD}
-/area/crew_quarters/bar/@SUBTYPES : /area/service/bar/@SUBTYPES{@OLD}
-/area/crew_quarters/bar : /area/service/bar{@OLD}
-/area/crew_quarters/theatre/@SUBTYPES : /area/service/theater/@SUBTYPES{@OLD}
-/area/crew_quarters/theatre : /area/service/theater{@OLD}
+# Crew quarters - Service areas → Station/Service
+/area/crew_quarters/barbershop : /area/station/service/barbershop{@OLD}
+/area/crew_quarters/cafeteria : /area/station/service/cafeteria{@OLD}
+/area/crew_quarters/kitchen/@SUBTYPES : /area/station/service/kitchen/@SUBTYPES{@OLD}
+/area/crew_quarters/kitchen : /area/station/service/kitchen{@OLD}
+/area/crew_quarters/bar/@SUBTYPES : /area/station/service/bar/@SUBTYPES{@OLD}
+/area/crew_quarters/bar : /area/station/service/bar{@OLD}
+/area/crew_quarters/theatre/@SUBTYPES : /area/station/service/theater/@SUBTYPES{@OLD}
+/area/crew_quarters/theatre : /area/station/service/theater{@OLD}
 
-# Crew quarters - remaining → Commons
-/area/crew_quarters/@SUBTYPES : /area/commons/@SUBTYPES{@OLD}
-/area/crew_quarters : /area/commons{@OLD}
+# Crew quarters - remaining → Station/Commons
+/area/crew_quarters/@SUBTYPES : /area/station/commons/@SUBTYPES{@OLD}
+/area/crew_quarters : /area/station/commons{@OLD}
 
-# Library → Service
-/area/library/@SUBTYPES : /area/service/library/@SUBTYPES{@OLD}
-/area/library : /area/service/library{@OLD}
+# Library → Station/Service
+/area/library/@SUBTYPES : /area/station/service/library/@SUBTYPES{@OLD}
+/area/library : /area/station/service/library{@OLD}
 
-# Chapel → Service
-/area/chapel/@SUBTYPES : /area/service/chapel/@SUBTYPES{@OLD}
-/area/chapel : /area/service/chapel{@OLD}
+# Chapel → Station/Service
+/area/chapel/main : /area/station/service/chapel{@OLD}
+/area/chapel/@SUBTYPES : /area/station/service/chapel/@SUBTYPES{@OLD}
+/area/chapel : /area/station/service/chapel{@OLD}
 
-# Law Office → Service
-/area/lawoffice : /area/service/lawoffice{@OLD}
+# Law Office → Station/Service
+/area/lawoffice : /area/station/service/lawoffice{@OLD}
 
-# Janitor → Service
-/area/janitor/@SUBTYPES : /area/service/janitor/@SUBTYPES{@OLD}
-/area/janitor : /area/service/janitor{@OLD}
+# Janitor → Station/Service
+/area/janitor/custodian : /area/station/service/janitor{@OLD}
+/area/janitor/@SUBTYPES : /area/station/service/janitor/@SUBTYPES{@OLD}
+/area/janitor : /area/station/service/janitor{@OLD}
 
-# Hydroponics → Service
-/area/hydroponics/@SUBTYPES : /area/service/hydroponics/@SUBTYPES{@OLD}
-/area/hydroponics : /area/service/hydroponics{@OLD}
+# Hydroponics → Station/Service
+/area/hydroponics/@SUBTYPES : /area/station/service/hydroponics/@SUBTYPES{@OLD}
+/area/hydroponics : /area/station/service/hydroponics{@OLD}
 
-# Engine → Engineering
-/area/engine/engineering/@SUBTYPES : /area/engineering/main/@SUBTYPES{@OLD}
-/area/engine/engineering : /area/engineering/main{@OLD}
-/area/engine/engine_room/@SUBTYPES : /area/engineering/supermatter/@SUBTYPES{@OLD}
-/area/engine/engine_room : /area/engineering/supermatter{@OLD}
-/area/engine/@SUBTYPES : /area/engineering/@SUBTYPES{@OLD}
-/area/engine : /area/engineering{@OLD}
+# Engine → Station/Engineering
+/area/engine/engineering/@SUBTYPES : /area/station/engineering/main/@SUBTYPES{@OLD}
+/area/engine/engineering : /area/station/engineering/main{@OLD}
+/area/engine/engine_room/external : /area/station/engineering/supermatter/room{@OLD}
+/area/engine/engine_room/@SUBTYPES : /area/station/engineering/supermatter/@SUBTYPES{@OLD}
+/area/engine/engine_room : /area/station/engineering/supermatter{@OLD}
+/area/engine/@SUBTYPES : /area/station/engineering/@SUBTYPES{@OLD}
+/area/engine : /area/station/engineering{@OLD}
 
-# Solar → Solars
-/area/solar/derelict_starboard : /area/solars/derelict_starboard{@OLD}
-/area/solar/derelict_aft : /area/solars/derelict_aft{@OLD}
-/area/solar/@SUBTYPES : /area/solars/@SUBTYPES{@OLD}
-/area/solar : /area/solars{@OLD}
+# Solar → Station/Solars
+/area/solar/derelict_starboard : /area/station/solars/derelict_starboard{@OLD}
+/area/solar/derelict_aft : /area/station/solars/derelict_aft{@OLD}
+/area/solar/@SUBTYPES : /area/station/solars/@SUBTYPES{@OLD}
+/area/solar : /area/station/solars{@OLD}
 
-# Medical
-/area/medical/medbay/zone2 : /area/medical/medbay/central{@OLD}
-/area/medical/apothecary : /area/medical/pharmacy{@OLD}
-/area/medical/sleeper : /area/medical/treatment_center{@OLD}
-/area/medical/surgery/aux : /area/medical/surgery/theatre{@OLD}
+# Medical renames
+/area/medical/medbay/zone2 : /area/station/medical/medbay/central{@OLD}
+/area/medical/apothecary : /area/station/medical/pharmacy{@OLD}
+/area/medical/sleeper : /area/station/medical/treatment_center{@OLD}
+/area/medical/surgery/aux : /area/station/medical/surgery/theatre{@OLD}
 
-# Security
-/area/security/main : /area/security/office{@OLD}
-/area/security/interrogation_room : /area/security/interrogation{@OLD}
-/area/security/brig/medbay : /area/security/medical{@OLD}
-/area/security/brig/aft : /area/security/brig/upper{@OLD}
-/area/security/prison/shielded : /area/security/prison/safe{@OLD}
-/area/security/prison/asteroid/abbandoned : /area/security/prison/asteroid/Abandoned{@OLD}
+# Security renames
+/area/security/main : /area/station/security/office{@OLD}
+/area/security/interrogation_room : /area/station/security/interrogation{@OLD}
+/area/security/brig/medbay : /area/station/security/medical{@OLD}
+/area/security/brig/aft : /area/station/security/brig/upper{@OLD}
+/area/security/prison/shielded : /area/station/security/prison/safe{@OLD}
+/area/security/prison/asteroid/abbandoned : /area/station/security/prison/asteroid/Abandoned{@OLD}
 /area/security/nuke_storage : /area/station/ai_monitored/command/nuke_storage{@OLD}
 
-# AI Monitored
+# AI Monitored renames
 /area/ai_monitored/nuke_storage : /area/station/ai_monitored/command/nuke_storage{@OLD}
-/area/ai_monitored/storage/eva : /area/ai_monitored/command/storage/eva{@OLD}
-/area/ai_monitored/storage/satellite : /area/ai_monitored/command/storage/satellite{@OLD}
-/area/ai_monitored/turret_protected/AIsatextAS : /area/ai_monitored/turret_protected/ai_sat_ext_as{@OLD}
-/area/ai_monitored/turret_protected/AIsatextAP : /area/ai_monitored/turret_protected/ai_sat_ext_ap{@OLD}
-/area/aisat : /area/ai_monitored/aisat/exterior{@OLD}
+/area/ai_monitored/storage/eva : /area/station/ai_monitored/command/storage/eva{@OLD}
+/area/ai_monitored/storage/satellite : /area/station/ai_monitored/command/storage/satellite{@OLD}
+/area/ai_monitored/turret_protected/AIsatextAS : /area/station/ai_monitored/turret_protected/ai_sat_ext_as{@OLD}
+/area/ai_monitored/turret_protected/AIsatextAP : /area/station/ai_monitored/turret_protected/ai_sat_ext_ap{@OLD}
+/area/aisat : /area/station/ai_monitored/aisat/exterior{@OLD}
 
-# Quartermaster → Cargo
-/area/quartermaster/@SUBTYPES : /area/cargo/@SUBTYPES{@OLD}
-/area/quartermaster : /area/cargo{@OLD}
+# Quartermaster → Station/Cargo
+/area/quartermaster/@SUBTYPES : /area/station/cargo/@SUBTYPES{@OLD}
+/area/quartermaster : /area/station/cargo{@OLD}
 
-# Storage
-/area/storage/tcom : /area/engineering/storage/tcomms{@OLD}
-/area/storage/tech : /area/engineering/storage/tech{@OLD}
-/area/storage/@SUBTYPES : /area/commons/storage/@SUBTYPES{@OLD}
-/area/storage : /area/commons/storage{@OLD}
+# Storage renames
+/area/storage/tcom : /area/station/engineering/storage/tcomms{@OLD}
+/area/storage/tech : /area/station/engineering/storage/tech{@OLD}
+/area/storage/eva : /area/station/ai_monitored/command/storage/eva{@OLD}
+/area/storage/@SUBTYPES : /area/station/commons/storage/@SUBTYPES{@OLD}
+/area/storage : /area/station/commons/storage{@OLD}
 
-# Vacant Rooms
-/area/vacant_room/@SUBTYPES : /area/commons/vacant_room/@SUBTYPES{@OLD}
-/area/vacant_room : /area/commons/vacant_room{@OLD}
+# Vacant Rooms → Station/Commons
+/area/vacant_room/@SUBTYPES : /area/station/commons/vacant_room/@SUBTYPES{@OLD}
+/area/vacant_room : /area/station/commons/vacant_room{@OLD}
 
-# Science
-/area/science/aft : /area/science/lower{@OLD}
+# Science renames
+/area/science/aft : /area/station/science/lower{@OLD}
 
-# Hallway upper restructure (upper/primary/X → primary/upper/X)
-/area/hallway/upper/primary/@SUBTYPES : /area/hallway/primary/upper/@SUBTYPES{@OLD}
-# Hallway upper secondary → secondary (drop upper)
-/area/hallway/upper/secondary/@SUBTYPES : /area/hallway/secondary/@SUBTYPES{@OLD}
+# Hallway restructure
+/area/hallway/upper/primary/@SUBTYPES : /area/station/hallway/primary/upper/@SUBTYPES{@OLD}
+/area/hallway/upper/secondary/@SUBTYPES : /area/station/hallway/secondary/@SUBTYPES{@OLD}
 
-# Maintenance upper restructure (upper/X → X/upper where applicable)
-/area/maintenance/upper/aft/@SUBTYPES : /area/maintenance/aft/upper{@OLD}
-/area/maintenance/upper/aft : /area/maintenance/aft/upper{@OLD}
-/area/maintenance/upper/starboard/@SUBTYPES : /area/maintenance/starboard/upper{@OLD}
-/area/maintenance/upper/starboard : /area/maintenance/starboard/upper{@OLD}
-/area/maintenance/upper/central/@SUBTYPES : /area/maintenance/central/greater{@OLD}
-/area/maintenance/upper/central : /area/maintenance/central/greater{@OLD}
-/area/maintenance/upper/fore/@SUBTYPES : /area/maintenance/fore/greater{@OLD}
-/area/maintenance/upper/fore : /area/maintenance/fore/greater{@OLD}
-/area/maintenance/upper/port/@SUBTYPES : /area/maintenance/port/greater{@OLD}
-/area/maintenance/upper/port : /area/maintenance/port/greater{@OLD}
+# Maintenance upper restructure
+/area/maintenance/upper/aft/@SUBTYPES : /area/station/maintenance/aft/upper{@OLD}
+/area/maintenance/upper/aft : /area/station/maintenance/aft/upper{@OLD}
+/area/maintenance/upper/starboard/@SUBTYPES : /area/station/maintenance/starboard/upper{@OLD}
+/area/maintenance/upper/starboard : /area/station/maintenance/starboard/upper{@OLD}
+/area/maintenance/upper/central/@SUBTYPES : /area/station/maintenance/central/greater{@OLD}
+/area/maintenance/upper/central : /area/station/maintenance/central/greater{@OLD}
+/area/maintenance/upper/fore/@SUBTYPES : /area/station/maintenance/fore/greater{@OLD}
+/area/maintenance/upper/fore : /area/station/maintenance/fore/greater{@OLD}
+/area/maintenance/upper/port/@SUBTYPES : /area/station/maintenance/port/greater{@OLD}
+/area/maintenance/upper/port : /area/station/maintenance/port/greater{@OLD}
 
 # Maintenance secondary → greater
-/area/maintenance/aft/secondary : /area/maintenance/aft/greater{@OLD}
-/area/maintenance/central/secondary : /area/maintenance/central/greater{@OLD}
-/area/maintenance/fore/secondary : /area/maintenance/fore/greater{@OLD}
-/area/maintenance/starboard/secondary : /area/maintenance/starboard/greater{@OLD}
-/area/maintenance/starboard/aft/secondary : /area/maintenance/starboard/aft{@OLD}
+/area/maintenance/aft/secondary : /area/station/maintenance/aft/greater{@OLD}
+/area/maintenance/central/secondary : /area/station/maintenance/central/greater{@OLD}
+/area/maintenance/fore/secondary : /area/station/maintenance/fore/greater{@OLD}
+/area/maintenance/starboard/secondary : /area/station/maintenance/starboard/greater{@OLD}
+/area/maintenance/starboard/aft/secondary : /area/station/maintenance/starboard/aft{@OLD}
 
-###############################################################################
-## STEP 2: Intermediate paths → Final paths (add /station/, /misc/, /centcom/)
-###############################################################################
-
-# Space → Misc
-/area/space/@SUBTYPES : /area/misc/space/@SUBTYPES{@OLD}
-/area/space : /area/misc/space{@OLD}
-/area/start : /area/misc/start{@OLD}
-/area/testroom : /area/misc/testroom{@OLD}
-
-# Asteroid → Centcom
-/area/asteroid/@SUBTYPES : /area/centcom/asteroid/@SUBTYPES{@OLD}
-/area/asteroid : /area/centcom/asteroid{@OLD}
+# Ruins - ancientstation (remove has_grav)
+/area/ruin/space/has_grav/ancientstation/@SUBTYPES : /area/ruin/space/ancientstation/@SUBTYPES{@OLD}
+/area/ruin/space/has_grav/ancientstation : /area/ruin/space/ancientstation{@OLD}
 
 # CentCom restructure
 /area/centcom/evac : /area/centcom/central_command_areas/evacuation/ship{@OLD}
@@ -168,55 +161,44 @@
 /area/ctf/@SUBTYPES : /area/centcom/ctf/@SUBTYPES{@OLD}
 /area/ctf : /area/centcom/ctf{@OLD}
 
-# Holodeck → Station
+# Shuttle
+/area/shuttle_arena : /area/shuttle/shuttle_arena{@OLD}
+
+###############################################################################
+## Catch-all rules (prefix remaining paths that weren't specifically renamed)
+###############################################################################
+
+# Misc
+/area/space/@SUBTYPES : /area/misc/space/@SUBTYPES{@OLD}
+/area/space : /area/misc/space{@OLD}
+/area/start : /area/misc/start{@OLD}
+/area/testroom : /area/misc/testroom{@OLD}
+/area/hilbertshotel : /area/misc/hilbertshotel
+/area/hilbertshotelstorage : /area/misc/hilbertshotelstorage
+/area/survivalpod : /area/misc/survivalpod{@OLD}
+
+# Centcom
+/area/asteroid/@SUBTYPES : /area/centcom/asteroid/@SUBTYPES{@OLD}
+/area/asteroid : /area/centcom/asteroid{@OLD}
+
+# Station
 /area/holodeck/@SUBTYPES : /area/station/holodeck/@SUBTYPES{@OLD}
 /area/holodeck : /area/station/holodeck{@OLD}
-
-# Ruins - ancientstation (remove has_grav)
-/area/ruin/space/has_grav/ancientstation/@SUBTYPES : /area/ruin/space/ancientstation/@SUBTYPES{@OLD}
-/area/ruin/space/has_grav/ancientstation : /area/ruin/space/ancientstation{@OLD}
-
-# Station areas → /area/station/ prefix
 /area/ai_monitored/@SUBTYPES : /area/station/ai_monitored/@SUBTYPES{@OLD}
 /area/ai_monitored : /area/station/ai_monitored{@OLD}
 /area/maintenance/@SUBTYPES : /area/station/maintenance/@SUBTYPES{@OLD}
 /area/maintenance : /area/station/maintenance{@OLD}
 /area/hallway/@SUBTYPES : /area/station/hallway/@SUBTYPES{@OLD}
 /area/hallway : /area/station/hallway{@OLD}
-/area/command/@SUBTYPES : /area/station/command/@SUBTYPES{@OLD}
-/area/command : /area/station/command{@OLD}
-/area/commons/@SUBTYPES : /area/station/commons/@SUBTYPES{@OLD}
-/area/commons : /area/station/commons{@OLD}
-/area/service/@SUBTYPES : /area/station/service/@SUBTYPES{@OLD}
-/area/service : /area/station/service{@OLD}
-/area/engineering/@SUBTYPES : /area/station/engineering/@SUBTYPES{@OLD}
-/area/engineering : /area/station/engineering{@OLD}
 /area/construction/@SUBTYPES : /area/station/construction/@SUBTYPES{@OLD}
 /area/construction : /area/station/construction{@OLD}
-/area/solars/@SUBTYPES : /area/station/solars/@SUBTYPES{@OLD}
-/area/solars : /area/station/solars{@OLD}
 /area/medical/@SUBTYPES : /area/station/medical/@SUBTYPES{@OLD}
 /area/medical : /area/station/medical{@OLD}
 /area/security/@SUBTYPES : /area/station/security/@SUBTYPES{@OLD}
 /area/security : /area/station/security{@OLD}
-/area/cargo/@SUBTYPES : /area/station/cargo/@SUBTYPES{@OLD}
-/area/cargo : /area/station/cargo{@OLD}
 /area/science/@SUBTYPES : /area/station/science/@SUBTYPES{@OLD}
 /area/science : /area/station/science{@OLD}
 /area/tcommsat/@SUBTYPES : /area/station/tcommsat/@SUBTYPES{@OLD}
 /area/tcommsat : /area/station/tcommsat{@OLD}
 /area/comms : /area/station/comms{@OLD}
 /area/server : /area/station/server{@OLD}
-
-# Manual edits
-/area/station/service/chapel/main : /area/station/service/chapel{@OLD}
-/area/station/service/janitor/custodian : /area/station/service/janitor{@OLD}
-/area/station/commons/storage/eva : /area/station/ai_monitored/command/storage/eva{@OLD}
-/area/station/medical/sleeper : /area/station/medical/treatment_center{@OLD}
-/area/station/commons/cafeteria : /area/station/service/cafeteria{@OLD}
-/area/station/engineering/supermatter/external : /area/station/engineering/supermatter/room{@OLD}
-/area/ai_monitored/turret_protected/ai : /area/station/ai_monitored/turret_protected/ai{@OLD}
-/area/hilbertshotel : /area/misc/hilbertshotel
-/area/hilbertshotelstorage : /area/misc/hilbertshotelstorage
-/area/survivalpod : /area/misc/survivalpod{@OLD}
-/area/shuttle_arena : /area/shuttle/shuttle_arena{@OLD}
