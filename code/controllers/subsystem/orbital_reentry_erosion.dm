@@ -109,16 +109,12 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	if (altitude >= EROSION_ALTITUDE_CRITICAL)
 		return (EROSION_ALTITUDE_START - altitude) / (EROSION_ALTITUDE_START - EROSION_ALTITUDE_CRITICAL) * 0.1
 
-	// Moderate damage between EROSION_ALTITUDE_CRITICAL and EROSION_ALTITUDE_SEVERE
+	// Escalating damage between EROSION_ALTITUDE_CRITICAL and EROSION_ALTITUDE_SEVERE
 	if (altitude >= EROSION_ALTITUDE_SEVERE)
-		return 0.1 + (EROSION_ALTITUDE_CRITICAL - altitude) / (EROSION_ALTITUDE_CRITICAL - EROSION_ALTITUDE_SEVERE) * 1.5
+		return 0.1 + (EROSION_ALTITUDE_CRITICAL - altitude) / (EROSION_ALTITUDE_CRITICAL - EROSION_ALTITUDE_SEVERE) * 2.9
 
-	// Heavy damage between EROSION_ALTITUDE_SEVERE and EROSION_ALTITUDE_EXTREME
-	if (altitude >= EROSION_ALTITUDE_EXTREME)
-		return 1.5 + (EROSION_ALTITUDE_SEVERE - altitude) / (EROSION_ALTITUDE_SEVERE - EROSION_ALTITUDE_EXTREME) * 1.5
-
-	// Maximum damage below EROSION_ALTITUDE_EXTREME. Though this should not really be reachable.
-	return 4.0
+	// Maximum damage at or below EROSION_ALTITUDE_SEVERE
+	return 3.0
 
 /datum/controller/subsystem/orbital_reentry_erosion/proc/apply_erosion_damage(turf/target_tile, damage_multiplier)
 	// Very light fire effect only (no damage)
@@ -137,10 +133,10 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	var/plasma_amount = 5 + (45 * damage_multiplier)  // 5 to 140 at max
 	var/o2_amount = 5 + (45 * damage_multiplier)  // 5 to 140 at max
 
-	// Yeah we go exponential
-	var/tile_damage = ((100 * damage_multiplier) * (damage_multiplier * damage_multiplier)) // 0 to 2700
-	var/obj_damage = ((2 * damage_multiplier) * (damage_multiplier * damage_multiplier)) // 0 to 54
-	var/mob_damage = (1 * (damage_multiplier * damage_multiplier)) // 0 to 9
+	// Quadratic scaling for aggressive ramp-up
+	var/tile_damage = 150 * damage_multiplier * damage_multiplier  // 0 to 1350
+	var/obj_damage = 8 * damage_multiplier * damage_multiplier  // 0 to 72
+	var/mob_damage = 3 * damage_multiplier * damage_multiplier  // 0 to 27
 
 	// Apply damage to things
 	var/dense = FALSE
@@ -163,8 +159,9 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 			// fire_act may have destroyed the object
 			if(QDELETED(obj_thing))
 				continue
-			// Apply object damage
-			obj_thing.take_damage(obj_damage, BURN, FIRE)
+			// Apply object damage. We use MELEE flag instead of FIRE to bypass fire armor. I know it's janky.
+			// Orbital reentry heat is far beyond normal fire resistance!
+			obj_thing.take_damage(obj_damage, BURN, MELEE)
 
 		// Mobs
 		if (ismob(thing))
@@ -182,7 +179,7 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 
 	// Apply damage to turf if not blocked
 	if (!dense)
-		target_tile.take_damage(tile_damage, BURN, FIRE, TRUE, reentry_direction, fire_volume)
+		target_tile.take_damage(tile_damage, BURN, MELEE, TRUE, reentry_direction)
 		if (isopenturf(target_tile))
 			var/turf/open/open_tile = target_tile
 			open_tile.atmos_spawn_air("plasma=[plasma_amount];o2=[o2_amount];TEMP=[fire_temp]")

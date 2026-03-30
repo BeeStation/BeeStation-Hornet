@@ -11,8 +11,7 @@
 // Orbital altitude thresholds for erosion
 #define EROSION_ALTITUDE_START 95000  // 95km - Light fire effects start
 #define EROSION_ALTITUDE_CRITICAL 90000  // 90km - Damage begins
-#define EROSION_ALTITUDE_SEVERE 85000  // 85km - Heavy damage
-#define EROSION_ALTITUDE_EXTREME 80000  // 80km - Maximum damage
+#define EROSION_ALTITUDE_SEVERE 85000  // 85km - Maximum damage
 
 // Proper orbital defines
 #define GRAVITATIONAL_CONSTANT 1
