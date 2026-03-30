@@ -172,18 +172,6 @@
 	icon_state = "spade"
 	leaving.pixel_y -= 11
 	leaving.pixel_x -= 5
-//Fruit - Don't allow people to game spade's pause function
-	//Deleted all fruit
-	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_comp.plant_features
-	if(!length(fruit_feature?.fruits))
-		return
-	for(var/obj/item/fruit as anything in fruit_feature?.fruits)
-		fruit_feature?.fruits -= fruit
-		qdel(fruit)
-	SEND_SIGNAL(plant_comp, COMSIG_PLANT_ACTION_HARVEST)
-//Body - Refund a yield since we just merc'd one
-	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant_comp.plant_features
-	body_feature.yields += 1
 
 /obj/item/shovel/spade/proc/catch_pause(datum/source)
 	SIGNAL_HANDLER

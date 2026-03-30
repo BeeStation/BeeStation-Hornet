@@ -24,6 +24,8 @@
 	var/list/o_transform = list()
 	///Do we skip the grow animation? - For stuff like grass
 	var/skip_animation = FALSE
+	///Do we skip growth? This is seperate to the parent value because we use it a little differently. Also useful for fruits that do it on their own
+	var/skip_growth = FALSE
 
 	///Max amount of reagents we can impart onto our stupid fucking children
 	var/total_volume = PLANT_FRUIT_VOLUME_MEDIUM
@@ -96,6 +98,9 @@
 	if(!paused && !check_needs(delta_time))
 		return
 	if(!length(growth_timers))
+		skip_growth = FALSE
+		return
+	if(paused && !skip_growth)
 		return
 //Growing
 	for(var/timer as anything in growth_timers)
@@ -108,9 +113,7 @@
 		if(growth_timers[timer] == growth_time || !growth_timers[timer])
 			fruit_effect.alpha = 255
 			fruit_effect.transform = skip_animation ?  fruit_effect.transform.Scale(1, 1) : fruit_effect.transform.Scale(0.1, 0.1)
-		growth_timers[timer] -= delta_time SECONDS
-		//If our parent is eager to be an adult, used for pre-existing plants
-		growth_timers[timer] = parent?.skip_growth ? 0 : growth_timers[timer]
+		growth_timers[timer] = max(0, growth_timers[timer]-delta_time SECONDS)
 		//Visuals
 		if(!fruit_effect) //This can be null when we fuck around with bunching
 			continue
@@ -144,13 +147,14 @@
 	RegisterSignal(parent.plant_item, COMSIG_ATOM_ATTACKBY, PROC_REF(catch_attackby))
 	START_PROCESSING(SSobj, src)
 
-/datum/plant_feature/fruit/proc/setup_fruit(datum/source, harvest_amount, list/_visual_fruits, skip_growth = FALSE)
+/datum/plant_feature/fruit/proc/setup_fruit(datum/source, harvest_amount, list/_visual_fruits, _skip_growth = FALSE)
 	SIGNAL_HANDLER
 
+	skip_growth = _skip_growth
 	var/bunch_debt = 0
 	for(var/fruit_index in 1 to harvest_amount)
 	//Build our yummy fruit :)
-		growth_timers["[fruit_index]"] = skip_growth ? 0 : growth_time
+		growth_timers["[fruit_index]"] = _skip_growth ? 0 : growth_time
 	//bunch logic
 		var/bunch = FALSE
 		if(floor((harvest_amount-fruit_index)/bunch_amount) >= 1 && bunch_debt <= 0 && bunch_icon)

@@ -89,7 +89,7 @@
 	for(var/obj/item/potential_plant in C.contents)
 		plant = potential_plant.GetComponent(/datum/component/plant)
 		plant_item = potential_plant
-		if(!C)
+		if(!plant)
 			continue
 		break
 	if(!plant)
@@ -100,6 +100,7 @@
 		playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 		say("ERROR: Plant specimen is not fully mature!")
 		return
+	to_chat(user, span_notice("You begin inserting [plant_item] into [src]."))
 	if(!do_after(user, 2.5 SECONDS, src))
 		return
 	if(!(locate(plant_item) in C.contents))

@@ -60,7 +60,7 @@
 	SIGNAL_HANDLER
 
 //Spade interaction, allows us to dig up plants
-	if(proximity_flag && !spading && istype(item, /obj/item/shovel/spade))
+	if((proximity_flag || get_dist(user, plant_item) <= 1) && !spading && istype(item, /obj/item/shovel/spade))
 		INVOKE_ASYNC(src, PROC_REF(async_catch_attackby), item, user)
 
 /datum/component/plant/proc/async_catch_attackby(obj/item, mob/living/user)
@@ -78,8 +78,8 @@
 		SEND_SIGNAL(src, COMSIG_PLANT_UPROOTED, user, item, plant_item.loc)
 		plant_item.forceMove(item)
 		item.vis_contents += plant_item
-		RegisterSignal(item, COMSIG_ITEM_PRE_ATTACK, PROC_REF(catch_spade_attack), TRUE)
-		RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(catch_moved), TRUE)
+		RegisterSignal(item, COMSIG_ITEM_PRE_ATTACK, PROC_REF(catch_spade_attack))
+		RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(catch_moved))
 		spading = FALSE
 		return TRUE
 	else
@@ -121,6 +121,7 @@
 	SIGNAL_HANDLER
 
 	UnregisterSignal(old_loc, COMSIG_ITEM_PRE_ATTACK)
+	UnregisterSignal(plant_item, COMSIG_MOVABLE_MOVED)
 	old_loc.vis_contents -= plant_item
 
 /datum/component/plant/proc/populate_features(list/_features)

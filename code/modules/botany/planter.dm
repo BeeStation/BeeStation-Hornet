@@ -52,10 +52,13 @@
 		qdel(weed)
 		return
 	obj_parent.visible_message(span_warning("The [parent] is overtaken by some [weed.name_override]!"))
+	qdel(weed)
 
-/datum/component/planter/proc/catch_attack(datum/source, obj/item/I, mob/living/attacker, params)
+/datum/component/planter/proc/catch_attack(datum/source, obj/item/I, mob/living/attacker, proximity_flag, click_parameters)
 	SIGNAL_HANDLER
 
+	if(!proximity_flag)
+		return
 //Removing weeeds
 	if(istype(I, /obj/item/cultivator))
 		if(weed_level <= 0)
