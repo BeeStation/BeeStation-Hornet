@@ -390,7 +390,7 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=3000)
 

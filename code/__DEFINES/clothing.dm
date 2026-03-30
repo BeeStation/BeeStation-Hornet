@@ -20,6 +20,11 @@
 /// Suit sensor is present and is forced to display information (used on prisoner jumpsuits)
 #define LOCKED_SENSORS 2
 
+/// Wrapper for adding clothing based traits
+#define ADD_CLOTHING_TRAIT(mob, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[REF(src)]")
+/// Wrapper for removing clothing based traits
+#define REMOVE_CLOTHING_TRAIT(mob, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[REF(src)]")
+
 //Suit/Skirt
 /// Preference: Jumpsuit
 #define PREF_SUIT "Jumpsuit"
