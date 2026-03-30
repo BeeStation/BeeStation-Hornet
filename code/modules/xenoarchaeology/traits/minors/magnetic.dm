@@ -21,7 +21,7 @@
 	var/pull_steps = max_pull_steps * (component_parent.trait_strength/100)
 	var/pull_range = max_pull_range * (component_parent.trait_strength/100)
 	for(var/obj/M in orange(pull_range, T))
-		if(M.anchored || !(M.flags_1 & CONDUCT_1))
+		if(M.anchored || !(M.obj_flags & CONDUCTS_ELECTRICITY))
 			continue
 		INVOKE_ASYNC(src, PROC_REF(magnetize), M, T, pull_steps)
 	for(var/mob/living/silicon/S in orange(pull_range, T))

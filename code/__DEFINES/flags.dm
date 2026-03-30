@@ -28,44 +28,40 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 //FLAGS BITMASK
 
-/// conducts electricity (iron etc.)
-#define CONDUCT_1 (1<<1)
-/// For machines and structures that should not break into parts, eg, holodeck stuff
-#define NODECONSTRUCT_1 (1<<2)
-/// atom queued to SSoverlay
-#define OVERLAY_QUEUED_1 (1<<3)
-/// item has priority to check when entering or leaving
-#define ON_BORDER_1 (1<<4)
-/// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
-#define PREVENT_CLICK_UNDER_1 (1<<5)
-///specifies that this atom is a hologram that isnt real
-#define HOLOGRAM_1 (1<<6)
-/// grants immunity from being targeted by tesla-style electricity
-#define TESLA_IGNORE_1 (1<<7)
-///Whether /atom/Initialize() has already run for the object
-#define INITIALIZED_1 (1<<8)
-/// was this spawned by an admin? used for stat tracking stuff.
-#define ADMIN_SPAWNED_1 (1<<9)
-/// should not get harmed if this gets caught by an explosion?
-#define PREVENT_CONTENTS_EXPLOSION_1 (1<<10)
-/// Should this object be unpaintable?
-#define UNPAINTABLE_1 (1<<11)
-/// Is this atom on top of another atom, and as such has click priority?
-#define IS_ONTOP_1 (1<<12)
-/// Should we use the initial icon for display? Mostly used by overlay only objects
-#define HTML_USE_INITAL_ICON_1 (1<<13)
-/// Prevents direct access for anything in the contents of this atom.
-#define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<14)
-/// Prevents aggregation of the item in the stack panel
-#define STAT_UNIQUE_1 (1<<15)
-// Whether or not this atom is storing contents for a disassociated storage object
-#define HAS_DISASSOCIATED_STORAGE_1 (1<<15)
 /// Is this object currently processing in the atmos object list?
-#define ATMOS_IS_PROCESSING_1 (1<<16)
+#define ATMOS_IS_PROCESSING_1 (1<<0)
+/// For machines and structures that should not break into parts, eg, holodeck stuff
+#define NODECONSTRUCT_1 (1<<1)
+/// atom queued to SSoverlay
+#define OVERLAY_QUEUED_1 (1<<2)
+/// item has priority to check when entering or leaving
+#define ON_BORDER_1 (1<<3)
+/// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
+#define PREVENT_CLICK_UNDER_1 (1<<4)
+///specifies that this atom is a hologram that isnt real
+#define HOLOGRAM_1 (1<<5)
+///Whether /atom/Initialize() has already run for the object
+#define INITIALIZED_1 (1<<6)
+/// was this spawned by an admin? used for stat tracking stuff.
+#define ADMIN_SPAWNED_1 (1<<7)
+/// should not get harmed if this gets caught by an explosion?
+#define PREVENT_CONTENTS_EXPLOSION_1 (1<<8)
+/// Should this object be unpaintable?
+#define UNPAINTABLE_1 (1<<9)
+/// Is this atom on top of another atom, and as such has click priority?
+#define IS_ONTOP_1 (1<<10)
+/// Should we use the initial icon for display? Mostly used by overlay only objects
+#define HTML_USE_INITAL_ICON_1 (1<<11)
+/// Prevents direct access for anything in the contents of this atom.
+#define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<12)
+/// Prevents aggregation of the item in the stack panel
+#define STAT_UNIQUE_1 (1<<13)
+// Whether or not this atom is storing contents for a disassociated storage object
+#define HAS_DISASSOCIATED_STORAGE_1 (1<<14)
 /// Can players recolor this in-game via vendors (and maybe more if support is added)?
-#define IS_PLAYER_COLORABLE_1 (1<<16)
+#define IS_PLAYER_COLORABLE_1 (1<<15)
 /// Is this atom immune to being dusted by the supermatter?
-#define SUPERMATTER_IGNORES_1 (1<<17)
+#define SUPERMATTER_IGNORES_1 (1<<16)
 /// If a turf can be made dirty at roundstart. This is also used in areas.
 #define CAN_BE_DIRTY_1 (1<<20)
 
