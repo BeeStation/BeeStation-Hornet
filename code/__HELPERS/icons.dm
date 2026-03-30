@@ -311,7 +311,7 @@ world
 	amount<0 or amount>1 are allowed
  */
 /proc/BlendRGB(rgb1, rgb2, amount)
-	return rgb_gradient(amount, 0, rgb1, 1, rgb2, "loop")
+	return rgb_gradient(amount, 0, rgb1, 1, rgb2)
 
 /proc/HueToAngle(hue)
 	// normalize hsv in case anything is screwy
