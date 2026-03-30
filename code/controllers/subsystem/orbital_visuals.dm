@@ -175,8 +175,6 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/flicker_color = pick("#FFA500", "#FF6B00", "#FF4500") // Orange to red-orange
 
 	// Blend based on random flicker and intensity
-	var/testy = (warning_progress * 9) ** 2
-	message_admins("Warning progress: [warning_progress], Flicker chance: [testy]")
 	var/flicker_amount = warning_progress * prob(warning_progress * 9) ** 2 // Increasingly frequent flickers
 	var/current_color = flicker_amount ? flicker_color : base_color
 
