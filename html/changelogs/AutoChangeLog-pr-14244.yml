@@ -1,5 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: fixes some instances of mobs not handling fed food correctly
-  - bugfix: fixes some instances of simple_animals not handling buckling-to correctly
