@@ -61,6 +61,8 @@
 		mutanteyes = /obj/item/organ/eyes/moth/domestic
 	else
 		mutanteyes = /obj/item/organ/eyes/moth
+	if(!pref_load)
+		human_who_gained_species.dna?.features["mcolor"] = "#f4d697"
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
