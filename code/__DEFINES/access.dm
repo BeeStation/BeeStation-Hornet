@@ -108,11 +108,12 @@
 #define ACCESS_RAD_COMMISSARY_SOUTH 16011
 
 /***** Fland: 17000    *****/
-#define ACCESS_FLAND_COMMISSARY_MEDICAL 17010 // North one
-#define ACCESS_FLAND_COMMISSARY_GENERAL 17011 // South one
+#define ACCESS_FLAND_COMMISSARY_MEDICAL 17010 // North one (from the centre)
+#define ACCESS_FLAND_COMMISSARY_GENERAL 17011 // South one (from the centre)
+#define ACCESS_FLAND_COMMISSARY_EVAC    17012 // EVAC food shop one
 
 /***** Cardinal: 18000   *****/
-
+// I have no information about Cardinal
 
 
 	//BEGIN CENTCOM ACCESS
