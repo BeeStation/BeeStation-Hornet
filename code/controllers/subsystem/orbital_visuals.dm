@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	name = "Orbital Visuals"
 	can_fire = TRUE
 	wait = 2 // 0.2 seconds - fast enough for re-entry flicker, slow enough to not spam animate()
-	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND | SS_NO_INIT
+	flags = SS_KEEP_TIMING | SS_NO_INIT
 	priority = FIRE_PRIORITY_SPACE_BACKGROUND
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 
@@ -175,7 +175,9 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/flicker_color = pick("#FFA500", "#FF6B00", "#FF4500") // Orange to red-orange
 
 	// Blend based on random flicker and intensity
-	var/flicker_amount = warning_progress * prob(50 + (warning_progress * 30)) // Increasingly frequent flickers
+	var/testy = (warning_progress * 9) ** 2
+	message_admins("Warning progress: [warning_progress], Flicker chance: [testy]")
+	var/flicker_amount = warning_progress * prob(warning_progress * 9) ** 2 // Increasingly frequent flickers
 	var/current_color = flicker_amount ? flicker_color : base_color
 
 	apply_starlight_colour(current_color, 0.2 SECONDS)
