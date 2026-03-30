@@ -183,6 +183,10 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// High altitude warning (above 120km threshold)
 	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH && !in_high_altitude && !in_high_altitude_critical)
 		in_high_altitude = TRUE
+
+		// Enable radiation band subsystem
+		SSorbital_radiation_band.can_fire = TRUE
+
 		minor_announce("Advisory: Station orbital altitude has exceeded normal operating parameters. \
 			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
 			Entering radiative zone at this altitude. Further monitoring is advised.", \
@@ -290,6 +294,10 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 		if(in_high_altitude)
 			in_high_altitude = FALSE
+
+			// Disable radiation band subsystem
+			SSorbital_radiation_band.deactivate()
+
 			minor_announce("Station altitude has returned to normal operating parameters.", \
 				"Altitude Normalized")
 
