@@ -33,4 +33,4 @@
 	if (SSmapping.current_map.planetary_station)
 		set_orbitting_around_body(linked_map.center, 10000)
 	else
-		set_orbitting_around_body(linked_map.center, 2500)
+		set_orbitting_around_body(linked_map.center, 2100)
