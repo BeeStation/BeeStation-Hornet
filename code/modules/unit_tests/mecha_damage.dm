@@ -91,7 +91,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/accurate
 
 /obj/item/ammo_box/magazine/internal/cylinder/accurate
-	projectile_type = /obj/projectile/bullet/a357/accurate
+	ammo_type = /obj/projectile/bullet/a357/accurate
 
 /obj/projectile/bullet/a357/accurate
 	zone_accurate = TRUE
