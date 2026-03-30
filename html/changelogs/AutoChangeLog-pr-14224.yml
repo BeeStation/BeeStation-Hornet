@@ -1,0 +1,6 @@
+author: mrmanlikesbt, san7890, Inari-Whitebear
+delete-after: true
+changes:
+  - code_imp: Removed the unused BEING_SHOCKED obj_flag
+  - code_imp: Moved CONDUCT_1 to a CONDUCTS_ELECTRICITY obj_flag
+  - code_imp: TESLA_IGNORE_1 has been replaced with TRAIT_TESLA_SHOCKIMMUNE
