@@ -27744,7 +27744,7 @@
 /area/station/engineering/atmos)
 "gLh" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/tcommsat/server";
+	areastring = "/area/station/tcommsat/server";
 	dir = 4;
 	name = "Telecomms Server Room APC";
 	pixel_x = 24
@@ -33538,7 +33538,7 @@
 /area/station/medical/medbay/aft)
 "iJC" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/bridge/showroom/corporate";
+	areastring = "/area/station/command/bridge/showroom/corporate";
 	dir = 4;
 	name = "Nanotrasen Corporate Showroom APC";
 	pixel_x = 24
@@ -43640,7 +43640,7 @@
 	},
 /obj/machinery/meter,
 /obj/machinery/power/apc{
-	areastring = "/area/science/mixing/chamber";
+	areastring = "/area/station/science/mixing/chamber";
 	dir = 4;
 	name = "Toxins Chamber APC";
 	pixel_x = 24
@@ -44028,7 +44028,7 @@
 "muC" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/power/apc{
-	areastring = "/area/crew_quarters/heads/chief";
+	areastring = "/area/station/command/heads_quarters/chief";
 	dir = 4;
 	name = "CE Office APC";
 	pixel_x = 24
@@ -59453,7 +59453,7 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/east{
-	areastring = "/area/engine/supermatter"
+	areastring = "/area/station/engineering/supermatter"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -62938,7 +62938,7 @@
 /area/station/science/server)
 "tdj" = (
 /obj/machinery/power/apc/highcap/ten_k{
-	areastring = "/area/bridge";
+	areastring = "/area/station/command/bridge";
 	dir = 8;
 	name = "Bridge APC";
 	pixel_x = -24

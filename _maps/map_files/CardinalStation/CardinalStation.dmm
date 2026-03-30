@@ -55911,7 +55911,7 @@
 /area/station/hallway/primary/port)
 "mkg" = (
 /obj/machinery/power/apc/auto_name/directional/south{
-	areastring = "/area/engine/supermatter"
+	areastring = "/area/station/engineering/supermatter"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
@@ -65192,7 +65192,7 @@
 /obj/machinery/power/apc/highcap/fifteen_k{
 	pixel_x = 28;
 	dir = 4;
-	areastring = "/area/bridge"
+	areastring = "/area/station/command/bridge"
 	},
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 8

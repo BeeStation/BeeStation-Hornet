@@ -13755,7 +13755,7 @@
 /obj/structure/tank_dispenser,
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/power/apc/auto_name/directional/north{
-	areastring = "/area/science/mixing/chamber"
+	areastring = "/area/station/science/mixing/chamber"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"

@@ -16960,7 +16960,7 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/tcommsat/server";
+	areastring = "/area/station/tcommsat/server";
 	dir = 1;
 	name = "Telecomms Server APC";
 	pixel_y = 24
@@ -24293,7 +24293,7 @@
 "hpn" = (
 /obj/structure/closet/secure_closet/engineering_chief,
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/crew_quarters/heads/chief";
+	areastring = "/area/station/command/heads_quarters/chief";
 	dir = 4;
 	name = "CE Office APC";
 	pixel_x = 24
@@ -24335,7 +24335,7 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/south{
-	areastring = "/area/engine/supermatter"
+	areastring = "/area/station/engineering/supermatter"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/engine,
@@ -39787,7 +39787,7 @@
 /area/station/service/library)
 "nHE" = (
 /obj/machinery/power/apc/auto_name/directional/west{
-	areastring = "/area/science/mixing/chamber"
+	areastring = "/area/station/science/mixing/chamber"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -42776,7 +42776,7 @@
 	},
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/bridge";
+	areastring = "/area/station/command/bridge";
 	name = "Bridge APC";
 	pixel_y = -24
 	},
