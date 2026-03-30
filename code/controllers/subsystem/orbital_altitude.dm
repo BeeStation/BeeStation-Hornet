@@ -173,6 +173,10 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// High altitude critical warning (above 130km threshold)
 	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH_CRITICAL && !in_high_altitude_critical)
 		in_high_altitude_critical = TRUE
+
+		// Enable radiation band subsystem
+		SSorbital_radiation_band.can_fire = TRUE
+
 		minor_announce("DANGER: Station orbital altitude has exceeded critical upper threshold. \
 			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
 			Station entering the Osei-Hollund radiation band. Critical radiative exposure likely. \
@@ -184,7 +188,6 @@ SUBSYSTEM_DEF(orbital_altitude)
 	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH && !in_high_altitude && !in_high_altitude_critical)
 		in_high_altitude = TRUE
 
-		// Enable radiation band subsystem
 		SSorbital_radiation_band.can_fire = TRUE
 
 		minor_announce("Advisory: Station orbital altitude has exceeded normal operating parameters. \
