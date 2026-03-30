@@ -7,7 +7,7 @@
 SUBSYSTEM_DEF(orbital_visuals)
 	name = "Orbital Visuals"
 	can_fire = TRUE
-	wait = 0.1
+	wait = 2 // 0.2 seconds - fast enough for re-entry flicker, slow enough to not spam animate()
 	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND | SS_NO_INIT
 	priority = FIRE_PRIORITY_SPACE_BACKGROUND
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
@@ -22,6 +22,8 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/starlight_override = FALSE
 	/// Target color for starlight in current state
 	var/target_starlight_color = COLOR_STARLIGHT
+	/// The last color we actually sent to set_orbital_starlight_colour, used to avoid redundant animate() calls
+	var/last_applied_color = null
 
 	// Re-entry effects
 	/// Current intensity of re-entry flicker (0-1)
@@ -70,6 +72,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	// State changed - trigger transition
 	if(new_state != current_state)
 		current_state = new_state
+		last_applied_color = null // Reset so new state's first color always applies
 		on_state_change(altitude)
 	else
 		// Update effects within current state
@@ -107,11 +110,18 @@ SUBSYSTEM_DEF(orbital_visuals)
 // NORMAL STARLIGHT STATE
 // ============================================================================
 
+/// Wrapper that only calls set_orbital_starlight_colour if the color actually changed, preventing redundant animate() calls
+/datum/controller/subsystem/orbital_visuals/proc/apply_starlight_colour(new_color, transition_time)
+	if(new_color == last_applied_color)
+		return // No change, skip redundant animate()
+	last_applied_color = new_color
+	set_orbital_starlight_colour(new_color, transition_time)
+
 /datum/controller/subsystem/orbital_visuals/proc/start_normal_starlight()
 	is_flickering = FALSE
 	reentry_flicker_intensity = 0
 	// Could integrate with time of day here if desired
-	set_orbital_starlight_colour(COLOR_STARLIGHT, 3 SECONDS)
+	apply_starlight_colour(COLOR_STARLIGHT, 3 SECONDS)
 
 /datum/controller/subsystem/orbital_visuals/proc/update_normal_starlight()
 	// Optional: Tie to time of day by checking SSnatural_light_cycle
@@ -130,6 +140,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 
 /datum/controller/subsystem/orbital_visuals/proc/update_atmospheric_descent(altitude)
 	// Calculate descent progress (0 to 1, where 0 is at 120km and 1 is at 110km)
+	// The reason we max out before hitting the re-entry warning state is to allow for an extended range of "normal" lighting.
 	var/descent_range = ORBITAL_ALTITUDE_HIGH - ORBITAL_ALTITUDE_DEFAULT // 120km - 110km
 	var/descent_progress = clamp((ORBITAL_ALTITUDE_HIGH - altitude) / descent_range, 0, 1)
 
@@ -142,7 +153,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/brightness_boost = descent_progress * 0.3 // Up to 30% brighter
 	blended_color = LightenRGB(blended_color, brightness_boost)
 
-	set_orbital_starlight_colour(blended_color, 1 SECONDS)
+	apply_starlight_colour(blended_color, 0.2 SECONDS) // Match fire rate for smooth interpolation
 
 // ============================================================================
 // REENTRY WARNING STATE (95km - 90km)
@@ -164,10 +175,10 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/flicker_color = pick("#FFA500", "#FF6B00", "#FF4500") // Orange to red-orange
 
 	// Blend based on random flicker and intensity
-	var/flicker_amount = warning_progress * prob(50 + (warning_progress * 50)) // Increasingly frequent flickers
+	var/flicker_amount = warning_progress * prob(50 + (warning_progress * 30)) // Increasingly frequent flickers
 	var/current_color = flicker_amount ? flicker_color : base_color
 
-	set_orbital_starlight_colour(current_color, 0.3 SECONDS)
+	apply_starlight_colour(current_color, 0.2 SECONDS)
 
 // ============================================================================
 // FULL REENTRY STATE (below 90km)
@@ -199,7 +210,9 @@ SUBSYSTEM_DEF(orbital_visuals)
 	if(prob(30 + (reentry_depth * 40))) // Increasingly chaotic
 		current_color = pick(reentry_colors)
 
-	set_orbital_starlight_colour(current_color, 0.2 SECONDS)
+	// Use last_applied_color = null to force flicker updates through even if same color picked twice
+	last_applied_color = null
+	apply_starlight_colour(current_color, 0.2 SECONDS)
 
 // ============================================================================
 // OVERRIDE CONTROLS (for events like aurora caelus)
