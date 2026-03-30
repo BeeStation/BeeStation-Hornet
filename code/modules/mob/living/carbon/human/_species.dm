@@ -76,16 +76,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/forced_features = list()	// A list of features forced on characters
 
 	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
-	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
-	var/brutemod = 1	// multiplier for brute damage
-	var/burnmod = 1		// multiplier for burn damage
+	/**
+	 * Percentage modifier for overall defense of the race, or less defense, if it's negative
+	 * THIS MODIFIES ALL DAMAGE TYPES.
+	 **/
+	var/damage_modifier = 0
 	var/coldmod = 1		// multiplier for cold damage
 	var/heatmod = 1		// multiplier for heat damage
 	var/stunmod = 1
 	var/oxymod = 1
 	var/clonemod = 1
 	var/toxmod = 1
-	var/staminamod = 1		// multiplier for stun duration
 	var/attack_type = BRUTE //Type of damage attack does
 	var/punchdamage = 7      //highest possible punch damage
 	var/siemens_coeff = 1 //base electrocution coefficient
@@ -163,6 +164,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// if false, having no tongue makes you unable to speak
 	var/speak_no_tongue = TRUE
 
+	///what height icon state do we use?
+	var/height_icon_state = "height_displacement"
 	///List of possible heights
 	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
 
@@ -444,15 +447,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	new_species ||= target.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentially add a new C.dna.species() to build a template species for more accurate limb replacement
 
+	var/list/final_bodypart_overrides = new_species.bodypart_overrides.Copy()
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && target.dna.features["legs"] == DIGITIGRADE_LEGS) || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
-		new_species.bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
-		new_species.bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
+		final_bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
+		final_bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
 
 	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
 		if((old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES) || (old_part.bodypart_flags & BODYPART_IMPLANTED))
 			continue
 
-		var/path = new_species.bodypart_overrides?[old_part.body_zone]
+		var/path = final_bodypart_overrides?[old_part.body_zone]
 		var/obj/item/bodypart/new_part
 		if(path)
 			new_part = new path()
@@ -460,7 +464,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			new_part.update_limb(is_creating = TRUE)
 		qdel(old_part)
 
-/datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
 	if((AGENDER in species_traits))
 		C.gender = PLURAL
@@ -2231,7 +2235,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
 	var/obj/item/organ/tail/tail = H?.get_organ_slot(ORGAN_SLOT_TAIL)
-	tail?.set_wagging(H, FALSE)
+	if(istype(tail))
+		tail.set_wagging(H, FALSE)
 
 ///////////////
 //FLIGHT SHIT//
@@ -2564,38 +2569,43 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Returns a list containing perks, or an empty list.
  */
 /datum/species/proc/create_pref_damage_perks()
+	// We use the chest to figure out brute and burn mod perks
+	var/obj/item/bodypart/chest/fake_chest = bodypart_overrides[BODY_ZONE_CHEST]
+
 	var/list/to_add = list()
 
 	// Brute related
-	if(brutemod > 1)
+	if(initial(fake_chest.brute_modifier) > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "band-aid",
 			SPECIES_PERK_NAME = "Brutal Weakness",
 			SPECIES_PERK_DESC = "[plural_form] are weak to brute damage.",
 		))
-	else if(brutemod < 1)
+
+	else if(initial(fake_chest.brute_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
 			SPECIES_PERK_NAME = "Brutal Resilience",
-			SPECIES_PERK_DESC = "[plural_form] are resilient to bruising and brute damage.",
+			SPECIES_PERK_DESC = "[plural_form] are resilient to brute damage.",
 		))
 
 	// Burn related
-	if(burnmod > 1)
+	if(initial(fake_chest.burn_modifier) > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "burn",
 			SPECIES_PERK_NAME = "Fire Weakness",
 			SPECIES_PERK_DESC = "[plural_form] are weak to fire and burn damage.",
 		))
-	else if(burnmod < 1)
+
+	else if(initial(fake_chest.burn_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
-			SPECIES_PERK_NAME = "Fire Resilience",
-			SPECIES_PERK_DESC = "[plural_form] are resilient to flames, and burn damage.",
+			SPECIES_PERK_NAME = "Burn Weakness",
+			SPECIES_PERK_DESC = "[plural_form] are weak to burn damage.",
 		))
 
 	//Toxin related
@@ -2631,13 +2641,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] have no genes, making genetic scrambling a useless weapon, but also locking them out from getting genetic powers.",
 		))
 
-	else if(siemens_coeff > 1)
+	if(siemens_coeff > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "bolt",
 			SPECIES_PERK_NAME = "Shock Vulnerability",
 			SPECIES_PERK_DESC = "[plural_form] are vulnerable to being shocked.",
 		))
+
 	else if(siemens_coeff < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,

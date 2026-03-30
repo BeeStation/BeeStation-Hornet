@@ -4,6 +4,9 @@
 #define COMSIG_KB_ACTIVATED (1<<0)
 #define COMSIG_KB_EMOTE "keybinding_emote_down"
 
+///Signal sent when a keybind is deactivated
+#define DEACTIVATE_KEYBIND(A) "[A]_DEACTIVATED"
+
 //Admin
 #define COMSIG_KB_ADMIN_ASAY_DOWN "keybinding_admin_asay_down"
 #define COMSIG_KB_ADMIN_MSAY_DOWN "keybinding_admin_msay_down"
@@ -46,6 +49,7 @@
 #define COMSIG_KB_LIVING_TOGGLE_COMBAT_DOWN "keybinding_living_toggle_combat_down"
 #define COMSIG_KB_LIVING_ENABLE_COMBAT_DOWN "keybinding_living_enable_combat_down"
 #define COMSIG_KB_LIVING_DISABLE_COMBAT_DOWN "keybinding_living_disable_combat_down"
+#define COMSIG_KB_LIVING_VIEW_PET_COMMANDS "keybinding_living_view_pet_commands"
 
 //Mob
 #define COMSIG_KB_MOB_MOVENORTH_DOWN "keybinding_mob_movenorth_down"

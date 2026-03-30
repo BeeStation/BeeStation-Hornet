@@ -36,7 +36,6 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/proper_bomb = TRUE //Please
 	var/bomb_z_level = null
 	var/obj/effect/countdown/nuclearbomb/countdown
-	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
 
 /obj/machinery/nuclearbomb/Initialize(mapload)
@@ -448,7 +447,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 
 		if(proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
+			play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 	else
 		detonation_timer = null
 		SSsecurity_level.set_level(previous_level)

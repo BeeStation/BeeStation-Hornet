@@ -9,10 +9,9 @@
 	base_icon_state = "grille"
 	density = TRUE
 	anchored = TRUE
-	flags_1 = CONDUCT_1
 	pass_flags_self = PASSGRILLE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
-	obj_flags = CAN_BE_HIT | IGNORE_DENSITY
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY | IGNORE_DENSITY
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	armor_type = /datum/armor/structure_grille

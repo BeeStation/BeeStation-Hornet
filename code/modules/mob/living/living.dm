@@ -22,8 +22,11 @@
 		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
 		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
+
 	//color correction
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
+	RegisterSignal(src, COMSIG_ENTER_AREA, PROC_REF(apply_color_correction))
+	become_area_sensitive()
+
 	gravity_setup()
 	AddElement(/datum/element/movetype_handler)
 
@@ -420,13 +423,17 @@
 	stop_pulling()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf in view())
+/mob/living/pointed(atom/A as mob|obj|turf in view(client.view, src))
 	if(incapacitated)
 		return FALSE
+
+	return ..()
+
+/mob/living/_pointed(atom/pointing_at)
 	if(!..())
 		return FALSE
-	visible_message("<b>[src]</b> points at [A].", span_notice("You point at [A]."))
-	return TRUE
+	log_message("points at [pointing_at]", LOG_EMOTE)
+	visible_message(span_infoplain("[span_name("[src]")] points at [pointing_at]."), span_notice("You point at [pointing_at]."))
 
 
 /mob/living/verb/succumb(whispered as null)
@@ -1336,14 +1343,14 @@
 				/mob/living/basic/pet/dog/corgi,
 				/mob/living/simple_animal/crab,
 				/mob/living/basic/pet/dog/pug,
-				/mob/living/simple_animal/pet/cat,
+				/mob/living/basic/pet/cat,
 				/mob/living/basic/mouse,
 				/mob/living/simple_animal/chicken,
 				/mob/living/basic/cow,
 				/mob/living/simple_animal/hostile/lizard,
 				/mob/living/simple_animal/pet/fox,
 				/mob/living/simple_animal/butterfly,
-				/mob/living/simple_animal/pet/cat/cak,
+				/mob/living/basic/pet/cat/cak,
 				/mob/living/simple_animal/chick,
 				/mob/living/simple_animal/slime/random,
 				/mob/living/carbon/monkey,
@@ -2244,13 +2251,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		else
 			target_hostile.attack_same = FALSE //Will only attack non-passive mobs
 			if(prob(10)) //chance of sentience without loyaltyAdd commentMore actions
-				var/datum/poll_config/config = new()
-				config.question = "Do you want to play as \a [src] being revived by [reviver]?"
-				config.check_jobban = ROLE_SENTIENCE
-				config.poll_time = 15 SECONDS
-				config.jump_target = src
-				config.role_name_text = "lazarus revived mob"
-				config.alert_pic = src
+				var/datum/poll_config/config = new(
+					question = "Do you want to play as \a [src] being revived by [reviver]?",
+					check_jobban = ROLE_SENTIENCE,
+					poll_time = 15 SECONDS,
+					jump_target = src,
+					role_name_text = "lazarus revived mob",
+					alert_pic = src,
+					amount_to_pick = 1,
+				)
 				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					src.key = candidate.key
@@ -2261,6 +2270,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	target.do_jitter_animation(10)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), HEAL_ALL, TRUE), 10 SECONDS)
+
+/**
+ * Proc used by different station pets such as Ian and Poly so that some of their data can persist between rounds.
+ * This base definition only contains a trait and comsig to stop memory from being (over)written.
+ * Specific behavior is defined on subtypes that use it.
+ */
+/mob/living/proc/write_memory(dead, gibbed)
+	SHOULD_CALL_PARENT(TRUE)
+	return !HAS_TRAIT(src, TRAIT_DONT_WRITE_MEMORY) //always prevent data from being written.
 
 /// Admin only proc for giving a certain speech impediment to this mob
 /mob/living/proc/admin_give_speech_impediment(mob/admin)

@@ -23,7 +23,7 @@
 		linked_transmission_sigil = sigil
 
 /obj/structure/destructible/clockwork/gear_base/Destroy()
-	linked_transmission_sigil.linked_structures -= src
+	linked_transmission_sigil?.linked_structures -= src
 	return ..()
 
 /obj/structure/destructible/clockwork/gear_base/wrench_act(mob/living/user, obj/item/tool)

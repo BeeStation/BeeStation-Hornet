@@ -154,15 +154,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/mob_holder)
 	var/mob/living/simple_animal/rabbit/rabbit = new(src)
 	return ..(mapload, rabbit, rabbit.held_state, rabbit.head_icon, rabbit.held_lh, rabbit.held_rh, rabbit.worn_slot_flags)
 
-/obj/item/mob_holder/destructible
-
-/obj/item/mob_holder/destructible/Destroy()
-	if(held_mob)
-		release(display_messages = TRUE, delete_mob = TRUE)
-	return ..()
-
-/obj/item/mob_holder/destructible/release(display_messages = TRUE, delete_mob = FALSE)
-	if(delete_mob && held_mob)
-		QDEL_NULL(held_mob)
-	return ..()
 
