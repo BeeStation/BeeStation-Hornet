@@ -59934,7 +59934,7 @@
 "oOt" = (
 /obj/machinery/light/small,
 /obj/machinery/power/apc{
-	areastring = "/area/maintenance/port/fore";
+	areastring = "/area/station/maintenance/port/fore";
 	name = "Port Bow Maintenance APC";
 	pixel_y = -24
 	},
