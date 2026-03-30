@@ -53,7 +53,7 @@
 
 /datum/antagonist/cult/greet()
 	to_chat(owner, span_userdanger("You are a member of the cult!"))
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult_gain.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Cult",
 		"Use your ritual dagger to draw runes with your blood and expand your cult until you have enough influence to summon the great Nar'Sie!")
@@ -312,7 +312,7 @@
 	if(ratio > CULT_RISEN && !cult_risen)
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/hallucinations/i_see_you2.ogg')
+				SEND_SOUND(mind.current, 'sound/ambience/antag/bloodcult_eyes.ogg')
 				to_chat(mind.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(rise), mind.current), 200)
@@ -322,7 +322,7 @@
 	if(ratio > CULT_ASCENDENT && !cult_ascendent)
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/hallucinations/im_here1.ogg')
+				SEND_SOUND(mind.current, 'sound/ambience/antag/bloodcult_halos.ogg')
 				to_chat(mind.current, span_cultlarge("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!"))
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(ascend), mind.current), 200)

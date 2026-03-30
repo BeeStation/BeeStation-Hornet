@@ -755,7 +755,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
  */
 
 /obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(!(flags_1&NODECONSTRUCT_1))
+	if(!(flags_1 & NODECONSTRUCT_1))
 		set_density(FALSE)
 		var/obj/item/rack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
@@ -771,7 +771,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rack_parts"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	custom_materials = list(/datum/material/iron=2000)
 	var/building = FALSE
 	var/obj/construction_type = /obj/structure/rack

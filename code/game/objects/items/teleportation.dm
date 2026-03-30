@@ -16,8 +16,7 @@
 	desc = "Used to track portable teleportation beacons and targets with embedded tracking implants."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
-	var/temp = null
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_SMALL
 	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'

@@ -133,7 +133,7 @@
 	icon_state = "barbell"
 	lefthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 16
 	throwforce = 16
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY

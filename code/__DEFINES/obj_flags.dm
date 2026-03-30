@@ -12,6 +12,8 @@
 #define BLOCKS_CONSTRUCTION (1<<8) //! Does this object prevent things from being built on it?
 #define BLOCKS_CONSTRUCTION_DIR (1<<9) //! Does this object prevent same-direction things from being built on it?
 #define IGNORE_DENSITY (1<<10) //! Can we ignore density when building on this object? (for example, directional windows and grilles)
+/// Can this object conduct electricity
+#define CONDUCTS_ELECTRICITY (1<<11)
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
