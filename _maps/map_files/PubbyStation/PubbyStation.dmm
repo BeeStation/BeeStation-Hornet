@@ -10271,8 +10271,8 @@
 	icon_state = "minibar";
 	name = "skeletal minibar"
 	},
-/obj/item/book/codex_gigas,
 /obj/structure/railing/perspective/wood,
+/obj/item/toy/talking/codex_gigas,
 /turf/open/floor/carpet/red,
 /area/library)
 "dqS" = (
@@ -26578,8 +26578,9 @@
 /area/chapel/office)
 "iPO" = (
 /obj/structure/destructible/cult/tome/library,
-/obj/item/clothing/head/costume/nemes,
 /obj/structure/railing/perspective/wood,
+/obj/item/book/kindred,
+/obj/item/clothing/head/costume/nemes,
 /turf/open/floor/carpet/red,
 /area/library)
 "iPP" = (
