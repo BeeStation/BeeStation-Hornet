@@ -2253,14 +2253,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"bbB" = (
-/obj/structure/destructible/cult/tome,
-/obj/item/book/codex_gigas,
-/obj/structure/light_construct{
-	dir = 4
-	},
-/turf/open/floor/carpet/royalblack,
-/area/library/abandoned)
 "bbG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -5909,6 +5901,20 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/prison,
 /area/security/prison)
+"dke" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime{
+	pixel_y = 4
+	},
+/obj/item/toy/plush/runtime{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/cmo)
 "dkg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -29954,6 +29960,13 @@
 /obj/structure/chair/wood/wings,
 /turf/open/floor/carpet/green,
 /area/library/abandoned)
+"qAm" = (
+/obj/structure/destructible/cult/tome,
+/obj/structure/light_construct{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/library/abandoned)
 "qAn" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -39815,20 +39828,6 @@
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/maintenance/department/engine)
-"vYl" = (
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/runtime,
-/mob/living/basic/pet/cat/runtime{
-	pixel_y = 4
-	},
-/obj/item/toy/plush/runtime{
-	pixel_x = -6;
-	pixel_y = 1
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/cmo)
 "vYB" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -60193,7 +60192,7 @@ okk
 uLX
 btX
 aSS
-bbB
+qAm
 iHW
 tBs
 qjT
@@ -187418,7 +187417,7 @@ rkK
 uGg
 nrA
 sOB
-vYl
+dke
 tdN
 bqm
 oFa
