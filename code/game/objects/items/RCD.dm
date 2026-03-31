@@ -15,7 +15,7 @@ RLD
 	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	force = 0
 	throwforce = 10
