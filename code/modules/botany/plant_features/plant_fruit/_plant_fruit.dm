@@ -171,6 +171,8 @@
 		if(prob(50)) //50% chance for fruit to be mirrored
 			fruit_effect.transform = fruit_effect.transform.Scale(-1, 1)
 			fruit_effect.pixel_x += icon_uneven ? 1 : 0
+		var/trait_scale = max(trait_power * 1.5, 1) //Scale size with trait power
+		fruit_effect.transform.Scale(trait_scale, trait_scale)
 		fruit_effect.alpha = 0 //Fruits shouldn't fuck with alpha, use colour instead - Make the alpha 0 until we start animating
 		fruit_effect.vis_flags = VIS_INHERIT_ID
 		_visual_fruits += fruit_effect
@@ -186,8 +188,10 @@
 	new_fruit.create_reagents(total_volume)
 	if(istype(new_fruit))
 		new_fruit.bite_consumption = new_fruit.reagents.maximum_volume / (new_fruit.bite_consumption_mod + FRUIT_MINIMUM_BITES)
-	var/trait_scale = max(trait_power * 0.3, 1)
-	new_fruit.transform.Scale(trait_scale, trait_scale)
+	var/trait_scale = max(trait_power*0.5, 1) //Scale size with trait power
+	var/matrix/n_transform = matrix(new_fruit.transform )
+	n_transform.Scale(trait_scale, trait_scale)
+	new_fruit.transform = n_transform //Weirdly enough, just scaling the transform doesn't work here
 	SEND_SIGNAL(parent, COMSIG_FRUIT_PREPARE, new_fruit) //Used to prepare fruit characteristics, like making the reagents NO_REACT
 //Genes
 	new_fruit.AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[parent.species_id]"], parent.species_id, parent.name_override, parent.desc_override)

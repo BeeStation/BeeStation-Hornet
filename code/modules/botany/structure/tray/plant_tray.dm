@@ -22,7 +22,7 @@
 	///Plant offset to properly line things up
 	var/list/plant_offset = list(-2, 14)
 //Effects
-	var/atom/movable/plant_tray_reagents/tray_reagents
+	var/mutable_appearance/tray_reagents
 	var/icon/mask
 	//Mostly used for subtypes, like pots
 	var/layer_offset = 0
@@ -56,16 +56,18 @@
 //Build effects
 	//mask for plants
 	mask = icon(icon, "[icon_state]_mask")
-	//Reagents, for reagents
-	tray_reagents = new(src, icon_state, layer)
-	vis_contents += tray_reagents
+	//Reagent liquids, visual puddle
+	tray_reagents = mutable_appearance('icons/obj/hydroponics/features/generic.dmi', "[icon_state]_water", layer)
+	tray_reagents.add_overlay(mutable_appearance('icons/obj/hydroponics/features/generic.dmi', "[icon_state]_water_over", layer+0.1))
+	tray_reagents.appearance_flags = KEEP_APART
+	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
+	if(length(reagents.reagent_list))
+		add_overlay(tray_reagents)
 	//Bottom most underlay
 	underlays += mutable_appearance(icon, "[icon_state]_bottom", layer-0.1)
 	//Direction
 	direction = new(src)
 	vis_contents += direction
-//reagents
-	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 //Build tray indicatos
 	if(!use_indicators)
 		return
@@ -218,11 +220,11 @@
 
 //You can throw any special reagent logic here
 /obj/item/plant_tray/proc/update_reagents()
+	cut_overlay(tray_reagents)
 	if(reagents.total_volume <= 0)
-		tray_reagents.alpha = 0
 		return
-	tray_reagents.alpha = 255
 	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
+	add_overlay(tray_reagents)
 
 /obj/item/plant_tray/proc/add_feature_indicator(datum/_source, datum/feature, list/feature_list)
 	if(!feature_list["[REF(feature)]"])
@@ -253,26 +255,3 @@
 		vis_contents |= problem
 	else
 		vis_contents -= problem
-
-/*
-	Some effects live down here
-		- Water overlay
-*/
-
-//Reagents overlay
-/atom/movable/plant_tray_reagents
-	icon = 'icons/obj/hydroponics/features/generic.dmi'
-	icon_state = "tray_water"
-	vis_flags = VIS_INHERIT_ID
-	appearance_flags = KEEP_APART
-	layer = BELOW_OBJ_LAYER
-	alpha = 0
-	///Water rendered over the plant
-	var/mutable_appearance/over_water
-
-/atom/movable/plant_tray_reagents/Initialize(mapload, key = "tray", layer_override)
-	. = ..()
-	icon_state = "[key]_water"
-	layer = layer_override
-	over_water = mutable_appearance('icons/obj/hydroponics/features/generic.dmi', "[key]_water_over", layer_override+0.1)
-	add_overlay(over_water)

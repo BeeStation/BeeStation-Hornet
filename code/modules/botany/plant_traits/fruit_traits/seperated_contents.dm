@@ -48,14 +48,3 @@
 
 #undef SEPERATED_CONTENTS_DEFAULT_VOLUME
 #undef SEPERATED_CONTENTS_MINIMUM_TIMER
-
-//Watermelon
-/obj/item/plant_seeds/preset/watermelon/bomb
-	name = "watermelon seeds"
-	name_override = "watermelon"
-	plant_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/corn_stalk/ground, /datum/plant_feature/fruit/watermelon/bomb)
-
-/datum/plant_feature/fruit/watermelon/bomb
-	plant_traits = list(/datum/plant_trait/seperated_contents, /datum/plant_trait/fruit/liquid_contents/sensitive)
-	fast_reagents = list(/datum/reagent/water = PLANT_REAGENT_MEDIUM, /datum/reagent/potassium = PLANT_REAGENT_MEDIUM)
-

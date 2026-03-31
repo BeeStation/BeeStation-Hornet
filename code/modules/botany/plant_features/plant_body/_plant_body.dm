@@ -24,8 +24,6 @@
 	var/yield_cooldown_time = 0 SECONDS
 	COOLDOWN_DECLARE(yield_cooldown)
 
-	///Reference to the effect we use for the body overlay  / visual content
-	var/atom/movable/body_appearance
 	///Layer offset - 0.01 by default to render over mushrooms
 	var/layer_offset = 0.01
 
@@ -68,16 +66,13 @@
 //Appearance bullshit
 	//Body appearance
 	feature_appearance = mutable_appearance(icon, "[growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"]")
-	body_appearance = new()
-	body_appearance.appearance = feature_appearance
-	body_appearance.vis_flags = VIS_INHERIT_ID
 	return ..()
 
 /datum/plant_feature/body/Destroy(force, ...)
 	. = ..()
 	var/datum/component/planter/tray_component = parent?.plant_item?.GetComponent(/datum/component/planter)
 	tray_component?.plant_slots += slot_size
-	parent?.plant_item?.vis_contents -= body_appearance
+	parent?.plant_item?.cut_overlay(feature_appearance)
 	parent?.plant_item.layer -= layer_offset
 
 /datum/plant_feature/body/get_scan_dialogue()
@@ -144,7 +139,7 @@
 	if(parent)
 		UnregisterSignal(parent, COMSIG_PLANT_ACTION_HARVEST)
 		UnregisterSignal(parent, COMSIG_PLANT_POLL_TRAY_SIZE)
-		parent.plant_item.vis_contents -= body_appearance
+		parent.plant_item.cut_overlay(feature_appearance)
 	//Reset our growth, yield, etc.
 	if(reset_features)
 		current_stage = initial(current_stage)
@@ -158,7 +153,10 @@
 	RegisterSignal(parent, COMSIG_PLANT_POLL_TRAY_SIZE, PROC_REF(catch_occupation))
 	//Appearance
 	if(parent.use_body_appearance && parent.plant_item)
-		parent.plant_item.vis_contents += body_appearance
+		//Setup plant appearance to reflect the correct age - Don't do this before, we might need the cully grown icon by default
+		//This also has the benehfit of letting us spawn plants at a specific stage
+		feature_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"
+		parent.plant_item.add_overlay(feature_appearance)
 	//Draw settings
 	parent.draw_below_water = draw_below_water
 	parent.plant_item.layer = draw_below_water ? OBJ_LAYER : ABOVE_OBJ_LAYER
@@ -187,7 +185,9 @@
 	tray_component.plant_slots += slot_size
 
 /datum/plant_feature/body/proc/growth_step(step)
-	body_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"
+	parent.plant_item.cut_overlay(feature_appearance)
+	feature_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"
+	parent.plant_item.add_overlay(feature_appearance)
 	//Generic bounce animation, good for sprite transition
 	var/matrix/o_transform = parent.plant_item.transform
 	var/matrix/n_transform = matrix(parent.plant_item.transform)
@@ -232,7 +232,9 @@
 	if(yields <= 0 || health <= 0)
 		if(!wither_state)
 			parent.plant_item.add_filter("wither_colours", 1, color_matrix_filter(list(rgb(193, 87, 87), rgb(76, 128, 76), rgb(76, 76, 128)) ,COLORSPACE_RGB))
-		SEND_SIGNAL(parent, COMSIG_PLANT_ACTION_HARVEST)
+		//handle fruit
+		var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in parent.plant_features
+		fruit_feature?.catch_attack_hand()
 		return
 	COOLDOWN_START(src, yield_cooldown, yield_cooldown_time)
 

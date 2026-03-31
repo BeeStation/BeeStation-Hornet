@@ -65,8 +65,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	//Add the traits from each feature, most will bounce off
 	for(var/datum/plant_trait/trait as anything in fruit_feature?.plant_traits)
 		trait.copy(src)
-	var/trait_scale = max(fruit_feature.trait_power * 0.3, 1)
-	transform.Scale(trait_scale, trait_scale)
+	var/trait_scale = max(fruit_feature.trait_power*0.5, 1) //Scale size with trait power
+	var/matrix/n_transform = matrix(transform)
+	n_transform.Scale(trait_scale, trait_scale)
+	transform = n_transform //Weirdly enough, just scaling the transform doesn't work here
 //Add genes
 	if(!SSbotany.gene_cache["[new_seed.species_id]"])
 		var/list/plant_genes = list()
