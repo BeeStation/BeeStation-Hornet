@@ -1,0 +1,4 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Fixed blood splatters spawning from a mob contained in an object.
