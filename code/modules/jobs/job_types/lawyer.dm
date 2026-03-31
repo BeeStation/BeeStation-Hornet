@@ -26,8 +26,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
 	)
 
-	minimal_lightup_areas = list(
-/area/station/service/lawoffice)
+	minimal_lightup_areas = list(/area/station/service/lawoffice)
 
 	manuscript_jobs = list(
 		JOB_NAME_LAWYER,

@@ -697,7 +697,7 @@
 	dir = 1
 	},
 /obj/machinery/power/apc{
-	areastring = "/area/crew_quarters/fitness/recreation";
+	areastring = "/area/station/commons/fitness/recreation";
 	dir = 1;
 	name = "Recreation Area APC";
 	pixel_y = 24
@@ -2361,7 +2361,7 @@
 /area/station/ai_monitored/command/nuke_storage)
 "ayr" = (
 /obj/machinery/power/apc{
-	areastring = "/area/station/security/nuke_storage";
+	areastring = "/area/station/ai_monitored/command/nuke_storage";
 	dir = 1;
 	name = "Vault APC";
 	pixel_y = 24
@@ -4315,7 +4315,7 @@
 /area/station/security/office)
 "aOO" = (
 /obj/machinery/power/apc/highcap/ten_k{
-	areastring = "/area/engine/engineering";
+	areastring = "/area/station/engineering/main";
 	dir = 8;
 	name = "Engine Room APC";
 	pixel_x = -24
@@ -8822,7 +8822,7 @@
 /area/station/engineering/atmos)
 "bxe" = (
 /obj/machinery/power/apc{
-	areastring = "/area/station/service/chapel/main";
+	areastring = "/area/station/service/chapel";
 	dir = 8;
 	name = "Chapel APC";
 	pixel_x = -24
@@ -9548,7 +9548,7 @@
 /area/station/commons/vacant_room/office)
 "bCR" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/station/commons/toilet/auxiliary/auxiliary";
+	areastring = "/area/station/commons/toilet/auxiliary";
 	name = "Auxiliary Restrooms APC";
 	pixel_y = -24
 	},
@@ -30869,7 +30869,7 @@
 /area/station/security/brig)
 "hPH" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/station/security/main";
+	areastring = "/area/station/security";
 	dir = 4;
 	name = "Security Office APC";
 	pixel_x = 24
@@ -33538,7 +33538,7 @@
 /area/station/medical/medbay/aft)
 "iJC" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/station/command/bridge/showroom/corporate";
+	areastring = "/area/station/command/bridge/corporate_showroom";
 	dir = 4;
 	name = "Nanotrasen Corporate Showroom APC";
 	pixel_x = 24
@@ -45892,7 +45892,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
-	areastring = "/area/lawoffice";
+	areastring = "/area/station/service/lawoffice";
 	dir = 1;
 	name = "Law Office APC";
 	pixel_y = 24
@@ -51657,7 +51657,7 @@
 /area/station/engineering/storage_shared)
 "pbb" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/tcommsat/computer";
+	areastring = "/area/station/tcommsat/computer";
 	dir = 4;
 	name = "Telecomms Control Room APC";
 	pixel_x = 24
@@ -53948,7 +53948,7 @@
 /area/station/maintenance/port)
 "pSd" = (
 /obj/machinery/power/apc{
-	areastring = "/area/station/engineering/storage/tools";
+	areastring = "/area/station/commons/storage/tools";
 	dir = 1;
 	name = "Auxiliary Tool Storage APC";
 	pixel_y = 24
@@ -56444,7 +56444,7 @@
 	dir = 8
 	},
 /obj/machinery/power/apc{
-	areastring = "/area/aisat";
+	areastring = "/area/station/ai_monitored/aisat/exterior";
 	name = "MiniSat Exterior APC";
 	pixel_y = -24
 	},
@@ -70277,7 +70277,7 @@
 /area/station/command/heads_quarters/captain/private)
 "vFK" = (
 /obj/machinery/power/apc{
-	areastring = "/area/station/command/heads_quarters/hor";
+	areastring = "/area/station/command/heads_quarters/rd";
 	name = "RD Office APC";
 	pixel_y = -24
 	},

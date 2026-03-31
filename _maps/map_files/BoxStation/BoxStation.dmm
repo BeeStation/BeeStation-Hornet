@@ -54958,7 +54958,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/highcap/fifteen_k{
-	areastring = "/area/engine/engineering";
+	areastring = "/area/station/engineering/main";
 	dir = 1;
 	name = "Engineering APC";
 	pixel_y = 24
