@@ -1938,7 +1938,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
 	desc = "This first aid kit is a suspicious brown and red. Included is a number of atropine medipens \
-			for rapid stabilization and detonation prevention and patches for healing on the field."
+			for rapid stabilization and detonation prevention. Patches for healing on the field are also included."
 	item = /obj/item/storage/firstaid/tactical
 	cost = 4
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)

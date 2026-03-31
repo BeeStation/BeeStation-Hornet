@@ -93,7 +93,7 @@
 	list_reagents = null
 
 /obj/item/reagent_containers/hypospray/combat/smaller // Just a worst version of the regular combat hypospray, you get a bunch of them for free in the medical bundle
-	desc = "A modified air-needle autoinjector, used by operatives to quickly heal injuries in combat, this modified version has a smaller capacity, doesn't come pre-loaded"
+	desc = "A modified air-needle autoinjector, used by operatives to quickly heal injuries in combat. This modified version has a smaller capacity, and doesn't come pre-loaded."
 	list_reagents = null
 	volume = 30
 	possible_transfer_amounts = list(5,10,30)
