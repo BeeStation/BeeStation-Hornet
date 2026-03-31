@@ -5,6 +5,10 @@
 	#error TESTING_DYNAMIC is enabled, disable this!
 #endif
 
+// If this is defined, then any storyteller configs which do not have
+// a 'Version' tag that match this value will not be loaded.
+// #define STORYTELLER_VERSION "GamemodeAntagonists"
+
 #define DYNAMIC_STORYTELLERS_DIRECTORY "[global.config.directory]/dynamic/"
 
 #define DYNAMIC_CATEGORY_GAMEMODE "Gamemode"

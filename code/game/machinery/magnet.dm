@@ -166,7 +166,7 @@
 		center = locate(x+center_x, y+center_y, z)
 		if(center)
 			for(var/obj/M in orange(magnetic_field, center))
-				if(!M.anchored && (M.flags_1 & CONDUCT_1))
+				if(!M.anchored && (M.obj_flags & CONDUCTS_ELECTRICITY))
 					step_towards(M, center)
 
 			for(var/mob/living/silicon/S in orange(magnetic_field, center))

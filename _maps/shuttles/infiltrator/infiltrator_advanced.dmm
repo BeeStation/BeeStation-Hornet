@@ -33,19 +33,15 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/reagent_containers/cup/glass/bottle/whiskey{
-	desc = "A bottle of whiskey. There's a label that reads 'tears' taped to the front.";
-	name = "Bottle of Tears";
-	pixel_x = 3;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_x = -7;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_x = -7;
-	pixel_y = 4
+/obj/machinery/turretid{
+	ailock = 1;
+	desc = "Used to control the shuttle's automated defenses.";
+	icon_state = "control_kill";
+	lethal = 1;
+	name = "infiltrator turret controls";
+	req_access = null;
+	req_access_txt = "150";
+	shoot_cyborgs = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
@@ -252,24 +248,12 @@
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/bridge)
-"aB" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
-	dir = 9
-	},
-/turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate/airlock)
 "aC" = (
 /obj/structure/chair/fancy/shuttle{
 	name = "tactical chair"
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate/airlock)
-"aD" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
-	dir = 5
-	},
-/turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
 "aE" = (
 /obj/structure/chair/fancy/shuttle{
@@ -1086,11 +1070,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/armory)
-"cx" = (
-/obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating,
-/area/shuttle/syndicate/medical)
 "cy" = (
 /obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line,
@@ -1126,7 +1105,7 @@
 	dir = 6
 	},
 /turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate/medical)
+/area/shuttle/syndicate/bridge)
 "cD" = (
 /obj/structure/shuttle/engine/large,
 /obj/effect/turf_decal/stripes/line{
@@ -1145,11 +1124,6 @@
 /obj/structure/shuttle/engine/heater,
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/armory)
-"cH" = (
-/obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating,
-/area/shuttle/syndicate/armory)
 "cI" = (
 /obj/structure/shuttle/engine/large,
 /obj/effect/turf_decal/stripes/line,
@@ -1161,12 +1135,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/syndicate/hallway)
-"cK" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
-	dir = 10
-	},
-/turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate/armory)
 "cL" = (
 /obj/structure/shuttle/engine/large,
 /turf/open/floor/plating,
@@ -1176,10 +1144,13 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/hallway)
 "cN" = (
-/obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	id = "syndieshutters";
+	name = "blast Shutters"
+	},
 /turf/open/floor/plating,
-/area/shuttle/syndicate/hallway)
+/area/shuttle/syndicate/bridge)
 "cO" = (
 /obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line,
@@ -1232,7 +1203,7 @@
 	dir = 10
 	},
 /turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate/medical)
+/area/shuttle/syndicate/bridge)
 "cX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1246,12 +1217,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/syndicate/hallway)
-"cZ" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
-	dir = 6
-	},
-/turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate/armory)
 "da" = (
 /obj/item/sbeacondrop/bomb{
 	pixel_x = -4;
@@ -1956,18 +1921,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/armory)
-"en" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
-	dir = 9
-	},
-/turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate/medical)
-"eq" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
-	dir = 5
-	},
-/turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate/armory)
 "er" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2331,7 +2284,7 @@ ad
 ad
 ad
 ad
-en
+ac
 bn
 bw
 ad
@@ -2417,7 +2370,7 @@ ad
 ad
 ad
 ad
-aB
+ac
 aO
 aL
 bZ
@@ -2431,7 +2384,7 @@ Ll
 bV
 dE
 dU
-cx
+bn
 cA
 cL
 "}
@@ -2454,7 +2407,7 @@ NY
 bW
 ch
 dV
-cx
+bn
 cB
 cP
 "}
@@ -2505,7 +2458,7 @@ ad
 ad
 "}
 (9,1,1) = {"
-ab
+cN
 ag
 an
 au
@@ -2545,7 +2498,7 @@ aQ
 bR
 dB
 cl
-cN
+cM
 cX
 cE
 ad
@@ -2591,7 +2544,7 @@ aQ
 bT
 dC
 cn
-cN
+cM
 cX
 cI
 ad
@@ -2662,7 +2615,7 @@ em
 ea
 ct
 bE
-cK
+cV
 ad
 "}
 (16,1,1) = {"
@@ -2684,7 +2637,7 @@ ef
 dN
 dQ
 dW
-cH
+cG
 cQ
 cS
 "}
@@ -2693,7 +2646,7 @@ ad
 ad
 ad
 ad
-aD
+ae
 aO
 aL
 bZ
@@ -2707,7 +2660,7 @@ eg
 PP
 et
 dX
-cH
+cG
 cR
 cT
 "}
@@ -2754,7 +2707,7 @@ bE
 bE
 bE
 bE
-cZ
+cC
 ad
 "}
 (20,1,1) = {"
@@ -2791,7 +2744,7 @@ ad
 ad
 ad
 ad
-eq
+ae
 cG
 bF
 ad

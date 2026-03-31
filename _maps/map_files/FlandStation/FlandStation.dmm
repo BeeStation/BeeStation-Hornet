@@ -4276,7 +4276,7 @@
 	pixel_y = 24
 	},
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
+/mob/living/basic/pet/cat/runtime,
 /obj/machinery/light{
 	dir = 1
 	},
