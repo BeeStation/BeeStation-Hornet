@@ -282,3 +282,6 @@
   - code_imp: Removed the unused BEING_SHOCKED obj_flag
   - code_imp: Moved CONDUCT_1 to a CONDUCTS_ELECTRICITY obj_flag
   - code_imp: TESLA_IGNORE_1 has been replaced with TRAIT_TESLA_SHOCKIMMUNE
+2026-03-31:
+  r1ks-iwnl:
+  - bugfix: Fixed blood splatters spawning from a mob contained in an object.
