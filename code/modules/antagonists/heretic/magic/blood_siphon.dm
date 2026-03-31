@@ -25,7 +25,7 @@
 /datum/action/spell/pointed/blood_siphon/on_cast(mob/living/user, mob/living/target)
 	. = ..()
 	playsound(owner, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-	if(target.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+	if(target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		owner.balloon_alert(owner, "spell blocked!")
 		target.visible_message(
 			span_danger("The spell bounces off of [target]!"),
