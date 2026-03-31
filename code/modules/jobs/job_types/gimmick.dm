@@ -154,6 +154,7 @@
 	departments = DEPT_BITFLAG_VIP
 	bank_account_department = ACCOUNT_VIP_BITFLAG
 	payment_per_department = list(ACCOUNT_VIP_ID = PAYCHECK_VIP)  //our power is being fucking rich
+	mind_traits = list(TRAIT_VIP)
 
 	rpg_title = "Master of Patronage"
 	species_outfits = list(
