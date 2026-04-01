@@ -277,7 +277,7 @@
 
 /area/station/hallway/primary
 	name = "\improper Primary Hallway"
-		icon_state = "primaryhall"
+	icon_state = "primaryhall"
 
 /area/station/hallway/primary/aft
 	name = "\improper Aft Primary Hallway"
