@@ -16159,7 +16159,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/power/apc{
-	areastring = "/area/station/engineering/storage/primary";
+	areastring = "/area/station/commons/storage/primary";
 	dir = 1;
 	name = "Tool Storage APC";
 	pixel_y = 24
@@ -17194,7 +17194,7 @@
 /obj/item/stock_parts/subspace/amplifier,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
-	areastring = "/area/station/engineering/storage/tcom";
+	areastring = "/area/station/engineering/storage/tcomms";
 	dir = 8;
 	name = "Telecomms Storage APC";
 	pixel_x = -24

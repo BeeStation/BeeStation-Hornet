@@ -14595,7 +14595,7 @@
 /obj/structure/table,
 /obj/item/analyzer,
 /obj/machinery/power/apc{
-	areastring = "/area/station/engineering/storage/primary";
+	areastring = "/area/station/commons/storage/primary";
 	name = "Tool Storage APC";
 	pixel_y = -24
 	},
@@ -56792,7 +56792,7 @@
 /area/station/engineering/main)
 "rGF" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/station/command/bridge/corporate_showroom";
+	areastring = "/area/station/command/corporate_showroom";
 	dir = 4;
 	name = "Nanotrasen Corporate Showroom APC";
 	pixel_x = 24
