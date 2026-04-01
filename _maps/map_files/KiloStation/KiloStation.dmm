@@ -34952,7 +34952,9 @@
 /obj/machinery/airlock_controller/incinerator_toxmix{
 	pixel_y = 26
 	},
-/obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/power/apc/auto_name/directional/east{
+	areastring = "/area/station/science/mixing/chamber"
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/mixing)
 "llY" = (
