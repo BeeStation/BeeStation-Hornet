@@ -19873,7 +19873,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "gDd" = (
 /obj/machinery/power/apc{
-	areastring = "/area/station/commons/toilet/auxiliary";
+	areastring = "/area/station/commons/toilet/restrooms";
 	name = "Restrooms APC";
 	pixel_y = -24
 	},
