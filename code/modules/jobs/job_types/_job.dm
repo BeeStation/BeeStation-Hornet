@@ -160,11 +160,8 @@
 		SSjob.job_manager_blacklisted |= title
 
 	//For the poors
-	if(welfare_job_account != NONE)
-		if(CONFIG_GET(flag/welfare_paycheck))
-			payment_per_department = list(welfare_job_account = PAYCHECK_LOWER)
-		else
-			payment_per_department = list(welfare_job_account = PAYCHECK_ZERO)
+	if(isnull(welfare_job_account) && CONFIG_GET(flag/welfare_paycheck))
+		LAZYSET(payment_per_department, welfare_job_account, PAYCHECK_LOWER)
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()
