@@ -223,8 +223,3 @@ export const feature_insect_type: FeatureChoiced = {
   name: 'Insect Type',
   component: FeatureButtonedDropdownInput,
 };
-
-export const feature_moth_eyes: FeatureChoiced = {
-  name: 'Eye Type',
-  component: FeatureButtonedDropdownInput,
-};
