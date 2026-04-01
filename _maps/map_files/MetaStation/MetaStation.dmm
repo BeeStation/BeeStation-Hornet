@@ -15235,19 +15235,6 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron/freezer,
 /area/station/security/prison)
-"fit" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/item/pen{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/turf/open/floor/iron,
-/area/station/hallway/primary/aft)
 "fiA" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "jani"
@@ -17989,10 +17976,6 @@
 /obj/machinery/meter,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
-"gdt" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/turf/open/space,
-/area/misc/space)
 "gdR" = (
 /obj/effect/turf_decal/siding/red{
 	pixel_y = 4
@@ -35283,12 +35266,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"lng" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/effect/spawner/random/structure/grille,
-/turf/open/space/basic,
-/area/misc/space/nearstation)
 "lnj" = (
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
@@ -64051,7 +64028,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/aft)
+/area/station/hallway/secondary/exit)
 "tPX" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -106396,7 +106373,7 @@ fxX
 xug
 fxX
 fxX
-fit
+wqx
 tPW
 sjw
 sjw
@@ -132841,7 +132818,7 @@ qwU
 xlp
 oBk
 rdH
-gdt
+nbr
 shI
 feE
 feE
@@ -133098,7 +133075,7 @@ lDn
 xlp
 iRS
 rZW
-gdt
+nbr
 shI
 feE
 feE
@@ -136909,50 +136886,50 @@ feE
 feE
 feE
 gIb
-lng
-lng
+shI
+shI
 jFK
-lng
-lng
-lng
-lng
+shI
+shI
+shI
+shI
 jFK
-lng
-lng
-lng
-lng
-lng
-lng
+shI
+shI
+shI
+shI
+shI
+shI
 jFK
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
 jFK
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
-lng
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
+shI
 jFK
-lng
-lng
+shI
+shI
 feE
 feE
 feE
