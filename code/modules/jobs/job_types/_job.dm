@@ -142,7 +142,7 @@
 	var/total_position_delta = 0
 
 	// This job typically receives PAYCHECK_LOWER, but optionally we can set it so it receives no money in its 'paychecks'
-	var/welfare_job_account = NONE
+	var/welfare_job_account = null
 
 	/// The list of jobs that you can write a manuscript as. This exists letting command roles write more.
 	var/list/manuscript_jobs
