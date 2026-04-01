@@ -71,7 +71,6 @@
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
-
 	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(

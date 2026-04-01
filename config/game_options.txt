@@ -541,10 +541,9 @@ SPECIAL_SYMPTOM_THRESHOLDS
 ##At this amount of symptoms, Synaptizine will no longer remove symptoms from a virus. Set this to 6 or higher to prevent removing symptoms at all. Set this to 1 to allow synaptizine to work to its full effect
 VIRUS_THINNING_CAP 4
 
-<<<<<<< HEAD
 ##Determines if lower roles receive a low paycheck (PAYCHECK_LOWER), otherwise receiving no paycheck. Meant for low roles like assistant/prisoner, to force them to make money
 WELFARE_PAYCHECK
-=======
+
 ##Uncomment to allow station traits
 STATION_TRAITS
 
@@ -554,7 +553,6 @@ STATION_TRAITS
 POSITIVE_STATION_TRAITS 0 8
 POSITIVE_STATION_TRAITS 1 4
 POSITIVE_STATION_TRAITS 2 2
->>>>>>> BeeStation/master
 
 NEUTRAL_STATION_TRAITS 0 10
 NEUTRAL_STATION_TRAITS 1 10

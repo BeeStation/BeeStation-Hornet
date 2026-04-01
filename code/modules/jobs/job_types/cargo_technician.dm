@@ -31,7 +31,6 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
-
 	rpg_title = "Merchantman"
 
 	species_outfits = list(

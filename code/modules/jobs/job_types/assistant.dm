@@ -13,7 +13,7 @@ Assistant
 
 	outfit = /datum/outfit/job/assistant
 
-	base_access = list()//See /datum/job/assistant/get_access()
+	base_access = list() //See /datum/job/assistant/get_access()
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
