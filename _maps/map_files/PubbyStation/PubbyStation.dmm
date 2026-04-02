@@ -1429,9 +1429,6 @@
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
 	},
-/obj/structure/railing/sec{
-	dir = 1
-	},
 /turf/open/floor/iron/smooth_half,
 /area/quartermaster/storage)
 "awf" = (
@@ -1697,7 +1694,7 @@
 	dir = 4;
 	id = "QMLoad"
 	},
-/turf/open/floor/iron/smooth_large,
+/turf/open/floor/plating,
 /area/quartermaster/storage)
 "aAZ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3773,13 +3770,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
-"bgd" = (
-/obj/structure/rack,
-/obj/item/weldingtool,
-/obj/item/weldingtool,
-/obj/item/clothing/glasses/welding,
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/AIsatextAP)
 "bgk" = (
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -10810,6 +10800,10 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
+"dCH" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAP)
 "dCK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -12492,7 +12486,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/iron/smooth_large,
+/turf/open/floor/plating,
 /area/quartermaster/storage)
 "eeo" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -14648,7 +14642,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/railing/sec,
 /turf/open/floor/iron/smooth_half,
 /area/quartermaster/storage)
 "eQi" = (
@@ -25496,9 +25489,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/railing/sec{
-	dir = 1
-	},
 /turf/open/floor/iron/smooth_half{
 	dir = 8
 	},
@@ -26697,6 +26687,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
+"iSk" = (
+/obj/structure/rack,
+/obj/item/weldingtool,
+/obj/item/clothing/head/collectable/welding,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAS)
 "iSn" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
@@ -26849,10 +26845,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
-"iUj" = (
-/obj/effect/decal/cleanable/robot_debris/old,
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/AIsatextAP)
 "iUx" = (
 /obj/structure/chair{
 	dir = 8
@@ -28723,6 +28715,16 @@
 	},
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/westright{
+	dir = 4;
+	name = "Cargo Delivery";
+	req_one_access_txt = "31;48"
+	},
+/obj/machinery/door/window/westright{
+	dir = 8;
+	name = "Cargo Delivery";
+	req_one_access_txt = "31;48"
+	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
 "jIo" = (
@@ -33790,7 +33792,7 @@
 	id = "QMLoad"
 	},
 /obj/machinery/airalarm/directional/north,
-/turf/open/floor/iron/smooth_large,
+/turf/open/floor/plating,
 /area/quartermaster/storage)
 "loY" = (
 /obj/machinery/vending/assist,
@@ -34201,8 +34203,9 @@
 /area/medical/genetics)
 "lwI" = (
 /obj/structure/rack,
-/obj/item/bodypart/chest/robot,
-/obj/item/robot_suit,
+/obj/item/weldingtool,
+/obj/item/weldingtool,
+/obj/item/clothing/glasses/welding,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "lwP" = (
@@ -39065,17 +39068,6 @@
 	},
 /turf/open/floor/plating,
 /area/science/explab)
-"nlh" = (
-/obj/structure/rack,
-/obj/item/bodypart/arm/right/robot,
-/obj/item/bodypart/arm/left/robot,
-/obj/item/organ/tongue/robot,
-/obj/item/toy/figure/roboticist{
-	pixel_y = 3;
-	pixel_x = 7
-	},
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/AIsatextAS)
 "nls" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -40604,8 +40596,13 @@
 /area/engine/engineering)
 "nSy" = (
 /obj/structure/rack,
-/obj/item/weldingtool,
-/obj/item/clothing/head/collectable/welding,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/left/robot,
+/obj/item/organ/tongue/robot,
+/obj/item/toy/figure/roboticist{
+	pixel_y = 3;
+	pixel_x = 7
+	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
 "nSA" = (
@@ -41992,7 +41989,7 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/turf/open/floor/iron/smooth_large,
+/turf/open/floor/plating,
 /area/quartermaster/storage)
 "ovW" = (
 /obj/item/poster/random_contraband,
@@ -44907,7 +44904,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/railing/sec,
 /turf/open/floor/iron/smooth_half{
 	dir = 8
 	},
@@ -44925,10 +44921,6 @@
 /obj/structure/holosign/barrier,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
-"pGm" = (
-/obj/effect/decal/remains/robot,
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/AIsatextAS)
 "pGp" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/door/airlock/atmos{
@@ -47785,7 +47777,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/edges/borderfloor,
-/obj/structure/railing/sec,
 /turf/open/floor/iron/smooth_half,
 /area/quartermaster/storage)
 "qEr" = (
@@ -50918,7 +50909,7 @@
 	dir = 4;
 	id = "QMLoad"
 	},
-/turf/open/floor/iron/smooth_large,
+/turf/open/floor/plating,
 /area/quartermaster/storage)
 "rLa" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
@@ -54794,9 +54785,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/railing/sec{
-	dir = 1
-	},
 /turf/open/floor/iron/smooth_half,
 /area/quartermaster/storage)
 "taP" = (
@@ -55211,6 +55199,9 @@
 	pixel_y = -26
 	},
 /obj/effect/turf_decal/trimline/brown/line,
+/obj/structure/railing/sec{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_large,
 /area/quartermaster/storage)
 "thU" = (
@@ -64627,10 +64618,6 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "wuK" = (
 /obj/structure/plasticflaps/opaque,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "cargodeliver"
-	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
@@ -65523,6 +65510,10 @@
 /obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /turf/open/floor/iron/ridged/steel,
 /area/science/shuttledock)
+"wNM" = (
+/obj/effect/decal/remains/robot,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAS)
 "wNX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -68524,9 +68515,6 @@
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
 	},
-/obj/structure/railing/sec{
-	dir = 1
-	},
 /turf/open/floor/iron/smooth_half,
 /area/quartermaster/storage)
 "xHj" = (
@@ -70535,6 +70523,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
+"yjF" = (
+/obj/structure/rack,
+/obj/item/bodypart/chest/robot,
+/obj/item/robot_suit,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAP)
 "yjG" = (
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -101935,9 +101929,9 @@ hUc
 hUc
 hUc
 hUc
-bgd
-aJU
 lwI
+aJU
+yjF
 hUc
 hUc
 ioP
@@ -102195,7 +102189,7 @@ bpW
 bpW
 bpW
 bpW
-iUj
+dCH
 veE
 fCd
 bpW
@@ -105276,7 +105270,7 @@ dBk
 dBk
 xpd
 dBk
-pGm
+wNM
 dBk
 dBk
 dBk
@@ -105533,9 +105527,9 @@ ehN
 ehN
 ehN
 ehN
-nlh
-aJU
 nSy
+aJU
+iSk
 ehN
 ehN
 ahp
