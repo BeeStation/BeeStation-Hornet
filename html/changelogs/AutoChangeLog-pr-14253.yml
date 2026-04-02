@@ -1,0 +1,4 @@
+author: nre_player, Racc-Off
+delete-after: true
+changes:
+  - bugfix: Fixes turret's description
