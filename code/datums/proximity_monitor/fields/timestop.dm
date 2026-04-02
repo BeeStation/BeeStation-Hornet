@@ -107,6 +107,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		return FALSE
 	var/frozen = TRUE
 	if(isliving(A))
+		if(freeze_mob(A))
 			return FALSE
 	else if(istype(A, /obj/projectile))
 		freeze_projectile(A)
