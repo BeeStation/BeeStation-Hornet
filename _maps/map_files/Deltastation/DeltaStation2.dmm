@@ -553,6 +553,17 @@
 /obj/structure/sign/departments/minsky/engineering/engineering,
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/starboard/fore)
+"adk" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/modular_computer/console/preset/engineering,
+/turf/open/floor/iron,
+/area/engine/storage_shared)
 "adm" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -24307,14 +24318,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
-"dwy" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/runtime,
-/mob/living/basic/pet/cat/runtime,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/cmo)
 "dwz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -28660,6 +28663,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/textured,
 /area/maintenance/disposal/incinerator)
+"ehq" = (
+/obj/structure/destructible/cult/tome/library,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/library)
 "ehr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -39401,6 +39409,15 @@
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"hEe" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/science/lab)
 "hEk" = (
 /obj/machinery/light{
 	dir = 1
@@ -41360,19 +41377,6 @@
 	},
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
-"ikV" = (
-/obj/machinery/doppler_array/research{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26;
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/iron,
-/area/science/misc_lab)
 "ikW" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -41647,6 +41651,19 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard)
+"ipN" = (
+/obj/machinery/doppler_array/research{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26;
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/science/misc_lab)
 "iqh" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -42385,17 +42402,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"iDu" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/machinery/modular_computer/console/preset/engineering,
-/turf/open/floor/iron,
-/area/engine/storage_shared)
 "iDv" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/donkpockets,
@@ -49745,6 +49751,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
+"lrq" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/science/robotics/lab)
 "lrw" = (
 /obj/machinery/light/small,
 /obj/structure/disposalpipe/segment{
@@ -52621,15 +52634,6 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/security/execution/transfer)
-"mnE" = (
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/iron,
-/area/science/lab)
 "mnI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -65299,6 +65303,14 @@
 /obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
+"qMh" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/cmo)
 "qMj" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -67807,12 +67819,6 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /turf/open/floor/iron,
 /area/maintenance/department/science)
-"rAy" = (
-/obj/structure/destructible/cult/tome/library,
-/obj/item/book/codex_gigas,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/library)
 "rAA" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -74834,13 +74840,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
-"tTk" = (
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/science/robotics/lab)
 "tTn" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -110916,7 +110915,7 @@ rhR
 ffT
 bwt
 nBr
-iDu
+adk
 dpW
 srp
 fXP
@@ -116384,7 +116383,7 @@ ovQ
 dFz
 dGY
 dIj
-ikV
+ipN
 ovQ
 crK
 dLY
@@ -120454,7 +120453,7 @@ hlY
 gYg
 caG
 cwv
-rAy
+ehq
 czK
 caG
 qzX
@@ -125614,7 +125613,7 @@ cXA
 hhJ
 daU
 dcI
-mnE
+hEe
 rXt
 srw
 rXt
@@ -126146,7 +126145,7 @@ dyd
 fjy
 dyd
 dyg
-tTk
+lrq
 ifp
 wAe
 wyq
@@ -135897,7 +135896,7 @@ wYw
 qMj
 ikk
 dtK
-dwy
+qMh
 gCP
 qSt
 hrA

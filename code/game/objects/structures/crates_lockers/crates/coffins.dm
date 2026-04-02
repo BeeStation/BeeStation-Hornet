@@ -173,7 +173,7 @@
 	if(manual)
 		to_chat(resident, span_cultitalic("You have unclaimed your coffin! This also unclaims all your other Vampire structures!"))
 	else
-		to_chat(resident, span_cultitalic("You sense that the link with your coffin and your sacred lair has been broken! You will need to seek another."))
+		to_chat(resident, span_cultitalic("You sense that the link with your coffin and your lair has been broken! You will need to seek another."))
 	// Remove resident. Because this objec (GC?) we need to give them a way to see they don't have a home anymore.
 	resident = null
 
@@ -202,18 +202,12 @@
 			return FALSE
 
 		if(!vampire.coffin && !resident)
-			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [get_area(src)] will be your lair.", "Claim Lair", list("Yes", "No")))
+			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [get_area(src)] will be your lair.", "Claim lair", list("Yes", "No")))
 				if("Yes")
 					claim_coffin(user)
 				if("No")
 					return
 		LockMe(user)
-
-		// If we're in a clan, level up. If not, choose a clan.
-		if(vampire.my_clan)
-			vampire.my_clan.spend_rank()
-		else
-			vampire.assign_clan_and_bane()
 
 		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the opportunity to do so.
 		vampire.check_begin_torpor()

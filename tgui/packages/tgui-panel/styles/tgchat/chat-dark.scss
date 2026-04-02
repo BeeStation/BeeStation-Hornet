@@ -841,6 +841,21 @@ em {
   font-style: italic;
 }
 
+.awe {
+  color: hsl(227, 87.7%, 68%);
+  animation: aweGlow 2s ease-in-out infinite;
+}
+
+@keyframes aweGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgb(255, 131, 197);
+  }
+  50% {
+    text-shadow: 0 0 16px rgb(255, 0, 136);
+  }
+}
+
 .deconversion_message {
   color: hsl(272, 100%, 63.9%);
   font-size: 24px;

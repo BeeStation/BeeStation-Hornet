@@ -4270,6 +4270,18 @@
 /obj/item/beacon,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
+"bef" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/heads/cmo)
 "bel" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -4288,6 +4300,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"beu" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/science/lab)
 "bex" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -9541,15 +9561,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/carpet,
 /area/chapel/office)
-"cIP" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/obj/structure/destructible/cult/tome,
-/obj/item/book/codex_gigas,
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/wood,
-/area/library)
 "cIQ" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/iron/dark,
@@ -16662,6 +16673,16 @@
 /obj/machinery/computer/objective,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
+"eIz" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/grid/steel,
+/area/science/robotics/lab)
 "eIC" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -21573,6 +21594,12 @@
 	burnt = 1
 	},
 /area/maintenance/starboard/fore)
+"fSA" = (
+/obj/machinery/modular_computer/console/preset/engineering,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/incident_display/delam/directional/north,
+/turf/open/floor/iron/dark,
+/area/engine/storage_shared)
 "fSI" = (
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow,
@@ -26058,12 +26085,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"hdn" = (
-/obj/machinery/modular_computer/console/preset/engineering,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/incident_display/delam/directional/north,
-/turf/open/floor/iron/dark,
-/area/engine/storage_shared)
 "hdq" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -35733,14 +35754,6 @@
 	},
 /turf/open/floor/carpet,
 /area/chapel/main)
-"jNV" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/science/lab)
 "jOb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -41660,17 +41673,6 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/science)
-"llD" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/doppler_array/research,
-/obj/structure/railing{
-	dir = 6
-	},
-/turf/open/floor/iron/grid/steel,
-/area/science/misc_lab)
 "llI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -55480,18 +55482,6 @@
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
-"peH" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/obj/structure/bed/dogbed/runtime,
-/mob/living/basic/pet/cat/runtime,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/heads/cmo)
 "peN" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/port/aft)
@@ -56958,6 +56948,17 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
+"pAI" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/doppler_array/research,
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/open/floor/iron/grid/steel,
+/area/science/misc_lab)
 "pAJ" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -74998,6 +74999,14 @@
 	},
 /turf/open/floor/iron,
 /area/security/main)
+"uwB" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/structure/destructible/cult/tome,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/wood,
+/area/library)
 "uwE" = (
 /turf/closed/wall,
 /area/science/robotics/lab)
@@ -75896,16 +75905,6 @@
 /obj/item/stack/medical/bruise_pack,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"uIa" = (
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 8
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron/grid/steel,
-/area/science/robotics/lab)
 "uIc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -109701,7 +109700,7 @@ yjW
 mnJ
 fnP
 yfU
-cIP
+uwB
 bhz
 cZC
 yfU
@@ -120750,7 +120749,7 @@ rxF
 mVB
 vyc
 aeJ
-peH
+bef
 han
 izl
 xZB
@@ -125977,7 +125976,7 @@ yfq
 rVu
 pgr
 mfz
-uIa
+eIz
 kYH
 wAn
 xMs
@@ -127806,7 +127805,7 @@ fRu
 mbH
 aQS
 ere
-llD
+pAI
 lkl
 eLS
 bhK
@@ -129571,7 +129570,7 @@ eAP
 sbs
 waq
 vwD
-jNV
+beu
 nXp
 fuH
 gEs
@@ -136510,7 +136509,7 @@ mdI
 tzY
 tzY
 kJY
-hdn
+fSA
 pni
 xsR
 hVz
