@@ -331,7 +331,7 @@
 "afi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -3773,6 +3773,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"bgd" = (
+/obj/structure/rack,
+/obj/item/weldingtool,
+/obj/item/weldingtool,
+/obj/item/clothing/glasses/welding,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAP)
 "bgk" = (
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -5525,7 +5532,7 @@
 "bNA" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -7888,7 +7895,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -9091,7 +9098,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "cUM" = (
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/machinery/holopad,
@@ -11563,7 +11570,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/tech,
@@ -15376,7 +15383,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/tech,
@@ -16119,7 +16126,7 @@
 /area/medical/chemistry)
 "fpe" = (
 /mob/living/simple_animal/crab/Coffee,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple,
@@ -20025,7 +20032,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -20618,7 +20625,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -23744,7 +23751,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -24230,7 +24237,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -26138,7 +26145,7 @@
 /obj/machinery/computer/rdconsole{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -26842,6 +26849,10 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"iUj" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAP)
 "iUx" = (
 /obj/structure/chair{
 	dir = 8
@@ -27302,7 +27313,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -29790,7 +29801,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -33283,7 +33294,7 @@
 	dir = 4;
 	pixel_x = -26
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -34190,6 +34201,8 @@
 /area/medical/genetics)
 "lwI" = (
 /obj/structure/rack,
+/obj/item/bodypart/chest/robot,
+/obj/item/robot_suit,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "lwP" = (
@@ -39052,6 +39065,17 @@
 	},
 /turf/open/floor/plating,
 /area/science/explab)
+"nlh" = (
+/obj/structure/rack,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/left/robot,
+/obj/item/organ/tongue/robot,
+/obj/item/toy/figure/roboticist{
+	pixel_y = 3;
+	pixel_x = 7
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAS)
 "nls" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -40580,6 +40604,8 @@
 /area/engine/engineering)
 "nSy" = (
 /obj/structure/rack,
+/obj/item/weldingtool,
+/obj/item/clothing/head/collectable/welding,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
 "nSA" = (
@@ -41813,7 +41839,7 @@
 	dir = 4;
 	pixel_x = -26
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -43290,7 +43316,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -44899,6 +44925,10 @@
 /obj/structure/holosign/barrier,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
+"pGm" = (
+/obj/effect/decal/remains/robot,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/AIsatextAS)
 "pGp" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/door/airlock/atmos{
@@ -45016,7 +45046,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -46792,7 +46822,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple{
@@ -47502,7 +47532,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -49324,7 +49354,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -54257,7 +54287,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/item/clothing/head/costume/scarecrow_hat{
@@ -56421,7 +56451,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -58507,7 +58537,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/item/kirbyplants/photosynthetic{
@@ -59130,7 +59160,7 @@
 "uEZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -67050,7 +67080,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -69802,7 +69832,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
+/obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
 /obj/item/kirbyplants/photosynthetic{
@@ -101905,7 +101935,7 @@ hUc
 hUc
 hUc
 hUc
-lwI
+bgd
 aJU
 lwI
 hUc
@@ -102165,7 +102195,7 @@ bpW
 bpW
 bpW
 bpW
-bpW
+iUj
 veE
 fCd
 bpW
@@ -105246,7 +105276,7 @@ dBk
 dBk
 xpd
 dBk
-dBk
+pGm
 dBk
 dBk
 dBk
@@ -105503,7 +105533,7 @@ ehN
 ehN
 ehN
 ehN
-nSy
+nlh
 aJU
 nSy
 ehN
