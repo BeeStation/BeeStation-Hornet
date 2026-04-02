@@ -4270,18 +4270,6 @@
 /obj/item/beacon,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
-"bef" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/heads/cmo)
 "bel" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -9553,15 +9541,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/carpet,
 /area/chapel/office)
-"cIP" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/obj/structure/destructible/cult/tome,
-/obj/item/book/codex_gigas,
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/wood,
-/area/library)
 "cIQ" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/iron/dark,
@@ -20667,6 +20646,18 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
 /area/hallway/secondary/exit/departure_lounge)
+"fFT" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/heads/cmo)
 "fFV" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -41658,6 +41649,14 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
+"llr" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/structure/destructible/cult/tome,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/wood,
+/area/library)
 "llz" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -109701,7 +109700,7 @@ yjW
 mnJ
 fnP
 yfU
-cIP
+llr
 bhz
 cZC
 yfU
@@ -120750,7 +120749,7 @@ rxF
 mVB
 vyc
 aeJ
-bef
+fFT
 han
 izl
 xZB

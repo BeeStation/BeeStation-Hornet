@@ -179,7 +179,7 @@ SUBSYSTEM_DEF(vote)
  * * vote_initiator - If a person / mob initiated the vote, this is the mob that did it
  * * forced - Whether we're forcing the vote to go through regardless of existing votes or other circumstances.
  */
-/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, vote_initiator_name, mob/vote_initiator, forced = FALSE)
+/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, vote_initiator_name, mob/vote_initiator, forced = FALSE, anonymous = FALSE)
 	if(!can_vote_start(vote_initiator, forced))
 		return FALSE
 
@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(vote)
 	last_vote_time = world.time
 
 	var/duration = CONFIG_GET(number/vote_period)
-	var/to_display = current_vote.initiate_vote(vote_initiator_name, duration)
+	var/to_display = current_vote.initiate_vote(vote_initiator_name, duration, anonymous)
 
 	log_vote(to_display)
 	to_chat(world, examine_block(span_purple("[span_bold(to_display)]\n\n\
@@ -423,6 +423,7 @@ SUBSYSTEM_DEF(vote)
 				vote_initiator_name = voter.key,
 				vote_initiator = voter,
 				forced = !!GLOB.admin_datums[voter.ckey],
+				anonymous = params["anonymous"],
 			)
 
 		if("voteSingle")

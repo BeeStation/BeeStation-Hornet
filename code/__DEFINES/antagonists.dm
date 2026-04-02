@@ -145,6 +145,8 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_NUCLEAR_OPERATIVE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/nukeop))
 /// Checks if the given mob is a blood cultist
 #define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
+/// Checks if the mob is a sentient or non-sentient cultist
+#define IS_CULTIST_OR_CULTIST_MOB(mob) ((IS_CULTIST(mob)) || (mob.faction.Find(FACTION_CULT)))
 /// Checks if the given mob is a clock cultist
 #define IS_SERVANT_OF_RATVAR(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 /// Checks if the given mob is a changeling
@@ -157,8 +159,6 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_VAMPIRE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vampire))
 /// Checks if the given mob is a vassal
 #define IS_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal))
-/// Checks if the given mob is a favorite vassal
-#define IS_FAVORITE_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal/favorite))
 /// Checks if the given mob is a revolutionary
 #define IS_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev))
 #define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))

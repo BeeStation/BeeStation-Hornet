@@ -79,7 +79,7 @@
 
 /obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
-	take_damage(amt, BRUTE)
+	take_damage(amt, BRUTE, attack_dir = REVERSE_DIR(direction))
 
 /obj/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
 	if(!user.is_adult)
@@ -172,9 +172,6 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob in buckled_mobs)
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
-
-/obj/proc/reset_shocked()
-	obj_flags &= ~BEING_SHOCKED
 
 //the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)

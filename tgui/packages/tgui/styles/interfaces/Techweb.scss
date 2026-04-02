@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @use '../colors.scss';
 @use '../base.scss';
 
@@ -90,5 +92,5 @@
   top: base.em(3px);
   padding: 0.3em;
   border-radius: 5px;
-  background-color: adjust-color(colors.$grey, $alpha: -0.5);
+  background-color: color.adjust(colors.$grey, $alpha: -0.5);
 }

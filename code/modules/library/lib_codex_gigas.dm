@@ -1,29 +1,10 @@
-/obj/item/book/codex_gigas
-	name = "\improper Codex Gigas"
-	desc = "A book documenting the nature of devils."
-	icon_state ="demonomicon"
-	lefthand_file = 'icons/mob/inhands/misc/books_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/misc/books_righthand.dmi'
-	throw_speed = 1
-	throw_range = 10
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	author = "Forces beyond your comprehension"
-	unique = 1
-	title = "the Codex Gigas"
-
-/obj/item/book/codex_gigas/Initialize(mapload)
-	. = ..()
-	var/turf/current_turf = get_turf(src)
-	new /obj/item/book/kindred(current_turf)
-	qdel(src)
-
 /**
  *	# Archives of the Kindred:
  *
  *	A book that can only be used by Curators.
  *	When used on a player, after a short timer, will reveal if the player is a Vampire, including their real name and Clan.
  *	This book should not work on Vampires using the Masquerade ability.
- *	If it reveals a Vampire, the Curator will then be able to tell they are a Vampire on examine (Like a Vassal).
+ *	If it reveals a Vampire, the Curator will then be able to tell they are a Vampire on examine (Like a vassal).
  *	Reading it normally will allow Curators to read what each Clan does, with some extra flavor text ones.
  *
  *	Regular Vampires won't have any negative effects from the book, while everyone else will get burns/eye damage.
@@ -62,7 +43,8 @@
 		return
 
 	in_use = TRUE
-	user.balloon_alert_to_viewers(user, "reading book...", "looks at [target] and [src]")
+	to_chat(user, span_notice("You begin carefully examining [target] while consulting [src]..."))
+	user.visible_message(span_notice("[user] looks at [target] while reading [src]."), ignored_mobs = list(user))
 	if(!do_after(user, 3 SECONDS, target, timed_action_flags = NONE, progress = TRUE))
 		to_chat(user, span_notice("You quickly close [src]."))
 		in_use = FALSE

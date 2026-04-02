@@ -36,23 +36,68 @@ type Info = {
 };
 
 export const AntagInfoVampire = (_props) => {
-  const [tab, setTab] = useLocalState('tab', 1);
+  // Set default to 2 so Basics (now in the middle) opens by default
+  const [tab, setTab] = useLocalState('tab', 2);
+
+  // Styles for the top-level tabs:
+  const topTabsStyle = {
+    display: 'flex',
+    width: '100%',
+    fontFamily:
+      '"Cinzel Decorative", "Uncial Antiqua", "Old English Text MT", serif',
+  } as const;
+  const topTabStyle = {
+    flex: 1,
+    fontSize: '25px',
+    padding: '10px 12px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontWeight: 900,
+    letterSpacing: '0.5px',
+    textShadow: '0 1px 0 rgba(0,0,0,0.6)',
+    fontFamily:
+      '"Cinzel Decorative", "Uncial Antiqua", "Old English Text MT", serif',
+  } as const;
+
   return (
-    <Window width={620} height={700} theme="spooky">
+    <Window width={700} height={750} theme="spooky">
       <Window.Content>
-        <Tabs>
-          <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
-            Basics
-          </Tabs.Tab>
-          <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
-            General Guide
-          </Tabs.Tab>
-          <Tabs.Tab selected={tab === 3} onClick={() => setTab(3)}>
-            Powers
-          </Tabs.Tab>
-        </Tabs>
-        {tab === 1 && <VampireIntroduction />}
-        {tab === 2 && <VampireGuide />}
+        <Box align="center" style={{ width: '100%' }}>
+          <Tabs style={topTabsStyle}>
+            {/* Guide on the left */}
+            <Tabs.Tab
+              style={topTabStyle}
+              selected={tab === 1}
+              onClick={() => setTab(1)}
+            >
+              General Guide
+            </Tabs.Tab>
+
+            {/* Basics in the middle (slightly larger/bold for emphasis) */}
+            <Tabs.Tab
+              style={{ ...topTabStyle, fontSize: '30px', fontWeight: 900 }}
+              selected={tab === 2}
+              onClick={() => setTab(2)}
+            >
+              Basics
+            </Tabs.Tab>
+
+            {/* Powers on the right */}
+            <Tabs.Tab
+              style={topTabStyle}
+              selected={tab === 3}
+              onClick={() => setTab(3)}
+            >
+              Powers
+            </Tabs.Tab>
+          </Tabs>
+        </Box>
+
+        {/* Re-map which component shows for each tab index to match the new ordering */}
+        {tab === 1 && <VampireGuide />}
+        {tab === 2 && <VampireIntroduction />}
         {tab === 3 && <PowerSection />}
       </Window.Content>
     </Window>
@@ -67,7 +112,7 @@ const VampireIntroduction = (_props) => {
       <Stack.Item>
         <AntagInfoHeader name={'Vampire'} asset="vampire.png" />
       </Stack.Item>
-      <Stack.Item grow maxHeight="150px">
+      <Stack.Item grow maxHeight="220px">
         <ObjectivesSection objectives={objectives} />
       </Stack.Item>
       <Stack.Item grow>
@@ -82,6 +127,10 @@ const VampireGuide = (_props) => {
   const { clan } = data;
 
   const [tab, setTab] = useLocalState('guideTab', 1);
+
+  // small vertical padding for each tab; tweak values as desired
+  const guideTabStyle = { paddingTop: '10px', paddingBottom: '10px' } as const;
+
   return (
     <Section title="Guide">
       <Stack>
@@ -91,6 +140,7 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 1}
               onClick={() => setTab(1)}
+              style={guideTabStyle}
             >
               The Basics
             </Tabs.Tab>
@@ -98,454 +148,864 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 2}
               onClick={() => setTab(2)}
+              style={guideTabStyle}
             >
-              Strengths & Weaknesses
+              The Masquerade
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
               selected={tab === 3}
               onClick={() => setTab(3)}
+              style={guideTabStyle}
             >
-              Blood & Powers
+              Humanity
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
               selected={tab === 4}
               onClick={() => setTab(4)}
+              style={guideTabStyle}
             >
-              Masquerade
+              Princes & Society
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
               selected={tab === 5}
               onClick={() => setTab(5)}
+              style={guideTabStyle}
             >
-              Sol
+              Sol & Levelling
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
               selected={tab === 6}
               onClick={() => setTab(6)}
+              style={guideTabStyle}
             >
-              Your Lair
+              Vitae
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
               selected={tab === 7}
               onClick={() => setTab(7)}
+              style={guideTabStyle}
             >
-              Structures
+              Combat
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
               selected={tab === 8}
               onClick={() => setTab(8)}
+              style={guideTabStyle}
+            >
+              Your Lair
+            </Tabs.Tab>
+            <Tabs.Tab
+              icon="list"
+              selected={tab === 9}
+              onClick={() => setTab(9)}
+              style={guideTabStyle}
+            >
+              Structures
+            </Tabs.Tab>
+            <Tabs.Tab
+              icon="list"
+              selected={tab === 10}
+              onClick={() => setTab(10)}
+              style={guideTabStyle}
             >
               Vassals
             </Tabs.Tab>
           </Tabs>
         </Stack.Item>
         <Stack.Divider />
-        <Stack.Item>
+        <Stack.Item grow basis={0} style={{ overflow: 'auto' }}>
           {tab === 1 && (
             // The Basics
             <Box>
-              <Box fontSize="20px" textColor="blue" bold>
-                Creating a Lair
+              <Box fontSize="18px" textColor="blue" bold>
+                So you&apos;re a big bad vampire. Congrats.
+              </Box>
+              <Box fontSize="26px" textColor="red" bold>
+                Now keep it to yourself.
+              </Box>
+              <Box align="right" fontSize="10px" textColor="grey">
+                - &apos;Smiling&apos; Jack, Los Angeles, circa 2001-2008.
               </Box>
               <br />
-              As a vampire, one of the first things you should do is set up a
-              Lair. Ideally this should be located somewhere that nobody will{' '}
-              <b>ever</b> wander into. Some good locations can include:{' '}
-              <i>
-                a hidden room in maintenance, a backroom in your department, or
-                simply a dorms cabin
-              </i>
-              . Get creative!
-              <br /> <br />
-              To claim a lair, bring a coffin to your desired location and rest
-              in it.
-              <br /> <br />
-              <Box fontSize="20px" textColor="gold" bold>
-                Vassalizing the Crew
+              Vampires survive because mortals think they&apos;re myths.
+              That&apos;s the{' '}
+              <Box inline textColor="gold">
+                Masquerade
+              </Box>
+              . The wolf doesn&apos;t want the sheep to know he&apos;s there.
+              Except these sheep have guns.
+              <Box inline fontSize="14px" textColor="red" bold>
+                {' '}
+                You <i>must</i> stay hidden.
               </Box>
               <br />
-              Sooner or later you are going to want to vassalize the crew.
-              However, before you do so, you need to build a{' '}
-              <Box inline textColor="purple">
-                Persuasion Rack
-              </Box>{' '}
-              with{' '}
+              <br />
+              <Box fontSize="16px" textColor="gold" bold>
+                Blending In
+              </Box>
+              You&apos;re dead: no breath, heartbeat, or need for food. That
+              makes you stand out. Avoid doctors, health scans, and especially
+              the{' '}
+              <Box inline textColor="pink">
+                Curator
+              </Box>
+              . They know vampires exist and can expose you.
+              <Box
+                mt={1}
+                fontSize="13px"
+                textColor="blue"
+                style={{
+                  borderLeft: '2px solid #4444ff',
+                  paddingLeft: '8px',
+                }}
+              >
+                <b>Tip:</b> You have incredible powers, but using them draws
+                attention. Wise kindred blend in by acting like mortals. Use a
+                gun instead of claws. Walk instead of leaping across rooms.
+                Reserve your powers for when you truly need them.
+              </Box>
+              <br />
+              <Box fontSize="16px" textColor="green" bold>
+                First Steps
+              </Box>
+              Take a moment to look at your screen. See those icons on the left?
+              That&apos;s your vampire HUD. Each icon gives you important
+              information, so click through them and learn what they show.
+              <br />
+              <br />
+              Your next priority should be finding another kindred. They can
+              help you learn the ropes, and they might point you toward the
+              local{' '}
               <Box inline textColor="red">
-                Fleshy Mass.
-              </Box>{' '}
-              This is obtained by using your{' '}
-              <Box inline textColor="red">
-                Vampiric Conversion
-              </Box>{' '}
-              power with iron in-hand to transform it into {"it's"} vampiric
-              counterpart.
-              <br /> <br />
-              <Box inline textColor="purple">
-                Persuasion Racks
-              </Box>{' '}
-              are what you will be using to convert crewmembers into your
-              vassals. To use a{' '}
-              <Box inline textColor="purple">
-                Persuasion Rack
-              </Box>{' '}
-              you must first capture a subject and restrain them. After this,
-              drag them onto the rack and torture them by clicking on the rack.{' '}
-              <b>
-                Torturing someone with a better tool will make the process
-                faster!
-              </b>
-              <br /> <br />
-              <Box fontSize="20px" textColor="green" bold>
-                Ranking Up
+                Prince
               </Box>
+              .
               <br />
-              At the end of each{' '}
-              <Box inline textColor="yellow">
-                Sol
-              </Box>{' '}
-              you gain a new Rank. Ranking up increases your total strength,
-              health, feed rate, and blood capacity.
-              <br /> <br />
-              Alongside this, you also gain a new power to pick in your coffin.
-              These powers are essential to surviving and vassalizing the crew.
+              <Box
+                mt={1}
+                style={{
+                  border: '2px solid #ff4444',
+                  borderRadius: '6px',
+                  padding: '8px',
+                  backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                }}
+              >
+                <Box fontSize="15px" textColor="red" bold textAlign="center">
+                  #1 RULE OF SURVIVAL
+                </Box>
+                <Box fontSize="18px" textColor="gold" bold textAlign="center">
+                  Keep vitae above 300.
+                </Box>
+                <Box fontSize="12px" textAlign="center">
+                  A starving vampire is a dead vampire. Panic leads to mistakes.
+                </Box>
+                <Box fontSize="11px" textColor="grey" textAlign="center">
+                  Feed often. Feed smart. Stay alive.
+                </Box>
+              </Box>
             </Box>
           )}
           {tab === 2 && (
-            // Strengths and Weaknesses
+            // The Masquerade
             <Box>
-              <Box fontSize="20px" textColor="blue" bold>
-                Your Strengths
-              </Box>
-              <br />
-              <Box textColor="purple">Enhanced Senses</Box>Night and heat vision
-              allow you to track prey and navigate the shadows with ease.
-              <br /> <br />
-              <Box textColor="blue">Undead Physiology</Box>You do not breathe,
-              have no heartbeat, and cannot be affected by sleep or illness.
-              Injuries that would normally kill mortals only put you into{' '}
-              <Box inline textColor="orange">
-                Torpor.
-              </Box>{' '}
-              Given you have enough{' '}
-              <Box inline textColor="red">
-                blood
-              </Box>{' '}
-              and are not staked you will <i>eventually</i> arise from your
-              fatal wounds.
-              <br /> <br />
-              <Box textColor="green">Resilience</Box>The cold and radiation mean
-              nothing to you. You cannot take toxin damage, and critical
-              injuries will not knock you down.
-              <br /> <br />
-              <Box textColor="pink">Immense Strength</Box>As a vampire, your
-              primary weapons are your fists. Every time you rank up, the damage
-              done by your fists increases.
-              <br /> <br />
-              <Box fontSize="20px" textColor="red" bold>
-                Your Weaknesses
-              </Box>
-              <br />
-              <Box textColor="red">Stakes</Box>A stake to the heart will
-              paralyze you, disable powers, halt all healing, and prevent your
-              revival.
-              <br /> <br />
-              <Box textColor="orange">Sol</Box>Every <b>10 minutes</b> Sol will
-              bathe the station in sunlight, severely hindering you unless in a
-              coffin.
-              <br /> <br />
-              <Box textColor="gold">The Masquerade</Box>All vampires swear an
-              oath to maintain their secrecy and vampirism. If you break this
-              oath, other vampires will turn against you.
-              <br /> <br />
-            </Box>
-          )}
-          {tab === 3 && (
-            // Blood & Powers
-            <Box>
-              <Box fontSize="20px" textColor="red" bold>
-                Blood Drain
-              </Box>
-              <br />
-              As an undead vampire, you constantly feel the pull of{' '}
-              <Box inline textColor="red">
-                Hunger.
-              </Box>{' '}
-              Feeding is not just a luxury. <b>It is a necessity.</b> As your
-              blood reaches zero you will slowly feel the side-effects, such as
-              blurry vision and impaired healing.
-              <br /> <br />
-              You can gain{' '}
-              <Box inline textColor="red">
-                blood
-              </Box>{' '}
-              from any of four ways:
-              <Box px={2}>
-                <i>
-                  Your fellow crewmembers <br /> Monkeys <br /> Mice <br />{' '}
-                  Blood bags
-                </i>
-              </Box>
-              <br />
-              <Box fontSize="20px" textColor="orange" bold>
-                Entering a Frenzy
-              </Box>
-              <br />
-              If you ever deplete all of your blood you will enter a{' '}
-              <Box inline textColor="orange">
-                Frenzy.
-              </Box>{' '}
-              Your vision turns to blood while you become deaf and mute, lose
-              access to most powers, and slowly take burn damage. However, you
-              will become ravenous with the ability to instantly aggressively
-              grab people.
-              <br /> <br />
-              After consuming{' '}
-              <Box inline textColor="red">
-                250 Blood
-              </Box>{' '}
-              you will exit the{' '}
-              <Box inline textColor="orange">
-                Frenzy
-              </Box>{' '}
-              and return to your previous self.
-              <br /> <br />
-              <Box fontSize="20px" textColor="blue" bold>
-                Powers
-              </Box>
-              <br />
-              All powers cost{' '}
-              <Box inline textColor="red">
-                blood.
-              </Box>{' '}
-              Some powers can be toggled and drain{' '}
-              <Box inline textColor="red">
-                blood
-              </Box>{' '}
-              while active. Other powers simply remove their cost in{' '}
-              <Box inline textColor="red">
-                blood
-              </Box>{' '}
-              immediately after use.
-              <br /> <br />
-              Detailed information on each of the{' '}
-              <Box inline textColor="blue">
-                Powers
-              </Box>{' '}
-              you have unlocked can be found under the{' '}
-              <Box inline textColor="blue">
-                Powers Tab
-              </Box>{' '}
-              in the top of this window.
-            </Box>
-          )}
-          {tab === 4 && (
-            // Masquerade
-            <Box>
-              <Box fontSize="20px" textColor="gold" bold>
+              <Box fontSize="18px" textColor="gold" bold>
                 The Masquerade
               </Box>
-              <br />
-              The only rule of the Kindred is maintaining the{' '}
-              <Box inline textColor="gold">
-                Masquerade.
-              </Box>{' '}
-              If a person that is not apart of the Kindred witnesses you
-              feeding, you will recieve a{' '}
-              <Box inline textColor="red">
-                Masquerade Infraction.
+              <Box fontSize="13px" textColor="gold">
+                How to keep from getting us all killed.
               </Box>
-              <br /> <br />
-              You will be allowed <b>three</b>{' '}
-              <Box inline textColor="red">
-                Masquerade Infractions
+              <br />
+              The{' '}
+              <Box inline textColor="gold">
+                Masquerade
               </Box>{' '}
-              before you are exiled from the Kindred and all vampires turn
-              against you.
-              <br /> <br />
-              The {"curator's "}
+              is an organized disinformation campaign enforced by{' '}
+              <Box inline textColor="purple">
+                Kindred
+              </Box>{' '}
+              society (mainly the{' '}
+              <Box inline textColor="purple">
+                Camarilla
+              </Box>
+              ) to convince humans that vampires do not exist.
+              <br />
+              <br />
+              If a mortal witnesses anything suspicious, you receive a{' '}
+              <Box inline textColor="red">
+                Masquerade Infraction
+              </Box>
+              . After <b>three</b>, you are exiled and{' '}
+              <Box inline textColor="red" bold>
+                ALL
+              </Box>{' '}
+              vampires turn against you.
+              <br />
+              <br />
+              The{' '}
+              <Box inline textColor="pink">
+                Curator
+              </Box>{' '}
+              possesses the{' '}
               <Box inline textColor="blue">
                 Archive of the Kindred
-              </Box>{' '}
-              can instantly reveal your true identity if used on you with your{' '}
+              </Box>
+              , which can instantly expose you. However, if your{' '}
               <Box inline textColor="gold">
                 Masquerade Ability
               </Box>{' '}
-              disabled.
+              is active, even this ancient tome cannot see through your
+              disguise.
+              <br />
+              <br />
+              At{' '}
+              <Box inline textColor="blue">
+                humanity
+              </Box>{' '}
+              above 7, you gain the{' '}
+              <Box inline textColor="gold">
+                Masquerade Ability
+              </Box>
+              , which fools health analyzers and the{' '}
+              <Box inline textColor="pink">
+                Curator
+              </Box>
+              . <b>However, you will not heal normally while it is active.</b>
+              <Box
+                mt={1}
+                fontSize="13px"
+                textColor="blue"
+                style={{
+                  borderLeft: '2px solid #4444ff',
+                  paddingLeft: '8px',
+                }}
+              >
+                <b>Tip:</b> Too many bloodloss patients in medbay is just as
+                suspicious as a bloodless corpse in the halls.
+              </Box>
+              <br />
+              <Box fontSize="16px" textColor="red" bold>
+                I broke the Masquerade. Now what?
+              </Box>
+              <Box fontSize="13px">
+                • Everyone hunts you, vampires more than mortals
+                <br />
+                • Your vassals are up for grabs
+                <br />
+                • Other vampires can feed on you
+                <br />• <b>Draining another vampire grants you their powers</b>
+                <br />• It is too late for mercy
+              </Box>
+            </Box>
+          )}
+          {tab === 3 && (
+            // Humanity
+            <Box>
+              <Box fontSize="18px" textColor="blue" bold>
+                Humanity
+              </Box>
+              <Box fontSize="13px" textColor="blue">
+                Are we human? Or are we dancer?
+              </Box>
+              <br />
+              Most{' '}
+              <Box inline textColor="purple">
+                Kindred
+              </Box>{' '}
+              were human before their Embrace. Clinging to{' '}
+              <Box inline textColor="blue">
+                humanity
+              </Box>{' '}
+              is how they resist the{' '}
+              <Box inline textColor="orange">
+                Beast&apos;s
+              </Box>{' '}
+              feral nature.
+              <br />
+              <br />
+              Your{' '}
+              <Box inline textColor="blue">
+                humanity
+              </Box>{' '}
+              directly affects the vampiric curse. Lower{' '}
+              <Box inline textColor="blue">
+                humanity
+              </Box>{' '}
+              means:
+              <br />
+              <Box fontSize="13px" ml={1}>
+                • Harder to interact with mortals
+                <br />
+                • Difficult to stay active during daylight
+                <br />• Longer{' '}
+                <Box inline textColor="orange">
+                  torpor
+                </Box>{' '}
+                recovery
+              </Box>
+              <br />
+              <Box
+                fontSize="13px"
+                textColor="gold"
+                style={{
+                  borderLeft: '2px solid #ffd700',
+                  paddingLeft: '8px',
+                }}
+              >
+                Click the humanity counter on your HUD for detailed information.
+              </Box>
+              <br />
+              Why call it{' '}
+              <Box inline textColor="blue">
+                Humanity
+              </Box>{' '}
+              when not all{' '}
+              <Box inline textColor="purple">
+                kindred
+              </Box>{' '}
+              were human? Simple: tradition. Centuries-old vampires are slow to
+              change their ways.
+            </Box>
+          )}
+          {tab === 4 && (
+            // Society
+            <Box>
+              <Box fontSize="18px" textColor="darkred" bold>
+                Princes & Scourges
+              </Box>
+              <br />A{' '}
+              <Box inline textColor="red">
+                Prince
+              </Box>{' '}
+              is an elder vampire entrusted by the{' '}
+              <Box inline textColor="purple">
+                Camarilla
+              </Box>{' '}
+              to rule a territory. They keep track of every{' '}
+              <Box inline textColor="purple">
+                kindred
+              </Box>{' '}
+              present and enforce the{' '}
+              <Box inline textColor="gold">
+                Masquerade
+              </Box>{' '}
+              with an iron fist.
+              <br />
+              <br />
+              Of course, they do not work alone. Many{' '}
+              <Box inline textColor="red">
+                Princes
+              </Box>{' '}
+              employ a{' '}
+              <Box inline textColor="red">
+                Scourge
+              </Box>
+              , a personal enforcer loyal only to them. Scourges are often
+              chosen from clans like the Tremere, though some rare{' '}
+              <Box inline textColor="red">
+                Princes
+              </Box>{' '}
+              have been known to employ even Brujah.
+              <Box
+                mt={1}
+                fontSize="13px"
+                textColor="blue"
+                style={{
+                  borderLeft: '2px solid #4444ff',
+                  paddingLeft: '8px',
+                }}
+              >
+                <b>Important:</b> Princes have higher expectations placed upon
+                them. They must protect the Masquerade at all costs and deliver
+                final death to misbehaving kindred without hesitation.
+              </Box>
+              <br />
+              <Box fontSize="18px" textColor="purple" bold>
+                The Camarilla
+              </Box>
+              <br />
+              The{' '}
+              <Box inline textColor="purple">
+                Camarilla
+              </Box>{' '}
+              is the most organized vampiric sect: an elite club that favors
+              tradition and covert control of mortals from behind the scenes.
+              Most vampire clans are part of them, though the{' '}
+              <Box inline textColor="orange">
+                Brujah notably insist on remaining independent
+              </Box>
+              .
+              <br />
+              <br />
+              Every city, station, colony, or outpost with a{' '}
+              <Box inline textColor="purple">
+                kindred
+              </Box>{' '}
+              presence has a{' '}
+              <Box inline textColor="red">
+                Prince
+              </Box>{' '}
+              assigned by the{' '}
+              <Box inline textColor="purple">
+                Camarilla
+              </Box>{' '}
+              to oversee it. They are the chief enforcers of the{' '}
+              <Box inline textColor="gold">
+                Masquerade
+              </Box>
+              .
             </Box>
           )}
           {tab === 5 && (
             // Sol
             <Box>
-              <Box fontSize="20px" textColor="orange" bold>
+              <Box fontSize="32px" textColor="orange" bold>
                 Sol
               </Box>
-              <br />
-              Every <b>10 minutes</b>,{' '}
-              <Box inline textColor="orange">
+              <Box inline textColor="yellow">
                 Sol
               </Box>{' '}
-              arrives, bathing the station in light for <b>1 minute</b>. While
-              this occurs, you recieve debuffs:
-              <br /> <br />
-              <Box textColor="red">Hindered Healing</Box>
-              You lose the ability to passively heal unless inside a{' '}
-              <Box inline textColor="blue">
-                Coffin
-              </Box>{' '}
-              and take 50% more damage.
-              <br /> <br />
-              <Box textColor="blue">Impaired Powers</Box>
-              All powers take <b>twice</b> their usual cooldown, most powers
-              take more{' '}
-              <Box inline textColor="red">
-                Blood
-              </Box>{' '}
-              to use and maintain, and other powers are completely blocked.
-              {!clan.some((c) => c.name === 'Tremere Clan') && (
-                <>
-                  <br /> <br />
-                  After{' '}
-                  <Box inline textColor="orange">
-                    Sol
-                  </Box>{' '}
-                  has passed, you will gain a rank to spend on a new power and
-                  level up your already existing ones.
-                </>
-              )}
+              refers to the nearby temperamental star, not Earth&apos;s sun.
+              Vampires do well in space. You are just unlucky enough to be near
+              this one.
+              <br />
+              <br />
+              <Box fontSize="14px" bold>
+                Key Facts
+              </Box>
+              <Box fontSize="13px">
+                • Click the HUD icon for more detailed information
+                <br />
+                • You cannot die to Sol if you are protected by lockers,
+                maintenance tunnels, or coffins
+                <br />
+                • If you are caught unprotected, you will burn to dust
+                <br />• Higher humanity grants partial resistance to Sol&apos;s
+                effects
+              </Box>
+              <br />
+              <Box fontSize="14px" bold textColor="red">
+                During Sol
+              </Box>
+              <Box fontSize="13px">
+                • You cannot passively heal; only coffins can restore you
+                <br />
+                • You take 50% more damage from all sources
+                <br />• Your powers have doubled cooldowns, increased vitae
+                costs, and some are blocked entirely
+              </Box>
+              <br />
+              <Box fontSize="16px" textColor="darkred" bold>
+                Growing in Power
+              </Box>
+              As a vampire, you grow stronger over time by meeting your feeding
+              requirements. Click your blood meter on the HUD to see your
+              current progress toward the next rank.
+              <br />
+              <br />
+              After each Sol cycle, if you have consumed enough vitae to meet
+              your goal, you will gain a Rank. Each rank provides significant
+              benefits:
+              <Box fontSize="13px" ml={1}>
+                • Increased physical strength
+                <br />
+                • Greater health pool
+                <br />
+                • Faster feeding rate
+                <br />
+                • Higher blood capacity
+                <br />• Additional discipline points to unlock new powers
+              </Box>
             </Box>
           )}
           {tab === 6 && (
-            // Lair
+            // Vitae
             <Box>
-              <Box fontSize="20px" textColor="green" bold>
-                Your Lair
+              <Box fontSize="18px" textColor="red" bold>
+                Vitae
               </Box>
               <br />
-              Every vampire needs a crypt. Whether it be in maintenance or the{' '}
-              {"captain's"} bathroom, this is where you will vassalize the crew
-              and recieve your vampiric gifts.
-              <br /> <br />
-              To claim a lair you should first locate a hidden area that nobody
-              will <b>ever</b> walk into. After securing your chosen location,
-              bring a coffin there and rest in it to claim the area.
-              <br /> <br />
-              Coffins can either be made in the{' '}
-              <Box inline textColor="blue">
-                Crafting Menu
+              <Box inline textColor="red">
+                Vitae
               </Box>{' '}
-              in the{' '}
-              <Box inline textColor="blue">
-                Furniture
+              is the lifeblood that sustains every vampire. The{' '}
+              <Box inline textColor="orange">
+                Beast
               </Box>{' '}
-              category, or they can be found across the station. Most stations
-              have coffins in the Chapel!
-              <br /> <br />
-              After you have claimed your lair, you can anchor vampiric
-              structures down such as the{' '}
-              <Box inline textColor="purple">
-                Persuasion Rack
+              within you demands constant feeding, and ignoring this need is not
+              an option. When your blood reserves reach zero, you will
+              experience blurred vision, impaired healing, and far worse
+              consequences.
+              <br />
+              <br />
+              Your current rank determines how much{' '}
+              <Box inline textColor="red">
+                vitae
               </Box>{' '}
-              and{' '}
-              <Box inline textColor="darkred">
-                Blood Throne
+              you can store and utilize at any given time.
+              <br />
+              <br />
+              <Box bold>
+                Sources of{' '}
+                <Box inline textColor="red">
+                  vitae
+                </Box>
+                :
+              </Box>
+              <Box fontSize="13px">
+                • Crewmembers
+                <br />
+                • Monkeys
+                <br />
+                • Mice
+                <br />• Bloodbags
+              </Box>
+              <Box
+                mt={1}
+                fontSize="13px"
+                textColor="blue"
+                style={{
+                  borderLeft: '2px solid #4444ff',
+                  paddingLeft: '8px',
+                }}
+              >
+                <b>Tip:</b> Feed from crew regularly. Mice and monkeys will not
+                sustain you in the long run.
+              </Box>
+              <br />
+              <Box fontSize="16px" textColor="orange" bold>
+                Frenzy
+              </Box>
+              When your{' '}
+              <Box inline textColor="red">
+                vitae
+              </Box>{' '}
+              is completely depleted, you lose control and enter a state known
+              as{' '}
+              <Box inline textColor="orange">
+                frenzy
+              </Box>
+              . In this feral state, the{' '}
+              <Box inline textColor="orange">
+                Beast
+              </Box>{' '}
+              takes over and compels you to attack the nearest mortal without
+              hesitation.
+              <br />
+              <br />
+              While in{' '}
+              <Box inline textColor="orange">
+                frenzy
+              </Box>
+              , you gain the ability to grab victims instantly, making you
+              extremely dangerous but also highly conspicuous. The only way to
+              regain control of yourself is to feed until you have enough{' '}
+              <Box inline textColor="red">
+                vitae
+              </Box>{' '}
+              to suppress the{' '}
+              <Box inline textColor="orange">
+                Beast
               </Box>
               .
+              <br />
+              <br />
+              <Box fontSize="16px" textColor="blue" bold>
+                Powers & Vitae
+              </Box>
+              All of your vampiric powers require{' '}
+              <Box inline textColor="red">
+                vitae
+              </Box>{' '}
+              to use. Some abilities drain blood continuously while they remain
+              active, while others have an upfront cost when activated. Check
+              the Powers tab for specific costs and details on each ability.
             </Box>
           )}
           {tab === 7 && (
-            // Structures
+            // Combat
             <Box>
-              <Box fontSize="20px" textColor="blue" bold>
-                Structures
+              <Box fontSize="18px" textColor="blue" bold>
+                Combat
               </Box>
               <br />
-              <Box textColor="purple">Persuasion Rack</Box>The Persuasion Rack
-              is used to vassalize crewmembers into your loyal thralls.
-              <br /> <br />
-              To use it, first secure it in your{' '}
-              <Box inline textColor="green">
-                Lair
-              </Box>{' '}
-              and then capture and restrain a subject. After restraining them,
-              drag them onto the rack and repeatedly torture them by clicking on
-              the rack.
-              <br /> <br />
-              <b>
-                Torturing someone with a sharp tool will make the process
-                faster!
-              </b>
-              <br /> <br />
-              If your target is{' '}
-              <Box inline textColor="#555555">
-                Mindshielded
-              </Box>{' '}
-              or otherwise disloyal to Nanotrasen they{' '}
-              <b>can only be converted if their mind is weak enough.</b>
+              As a vampire, you have significant advantages in combat, but also
+              critical weaknesses that can be exploited.
               <br />
-              Crew that serve eldritch gods cannot be converted.
-              <br /> <br />
-              <Box textColor="yellow">Candelabrum</Box>A Candelabrum is a
-              vampiric candle that will drain the sanity of any mortals viewing
-              it.
-              <br /> <br />
-              <Box textColor="darkred">Blood Throne</Box>Sitting on this throne
-              will allow you to commune with all of your vassals by{' '}
-              <b>speaking out loud.</b> They cannot respond to you.
+              <br />
+              <Box fontSize="15px" textColor="green" bold>
+                Strengths
+              </Box>
+              <Box fontSize="13px">
+                <b>Enhanced Senses:</b> Night vision and thermal vision let you
+                track prey in complete darkness.
+                <br />
+                <br />
+                <b>Undead Physiology:</b> No need to breathe, sleep, or eat. You
+                are immune to disease. Fatal wounds put you into{' '}
+                <Box inline textColor="orange">
+                  Torpor
+                </Box>{' '}
+                instead of killing you. You will rise again if you have{' '}
+                <Box inline textColor="red">
+                  vitae
+                </Box>{' '}
+                and are not staked.
+                <br />
+                <br />
+                <b>Resilience:</b> Immune to cold, radiation, and toxins.
+                Critical injuries do not knock you down.
+                <br />
+                <br />
+                <b>Supernatural Strength:</b> Your fists deal devastating
+                damage, scaling with your rank.
+              </Box>
+              <br />
+              <Box fontSize="15px" textColor="red" bold>
+                Weaknesses
+              </Box>
+              <Box fontSize="13px">
+                <b>Stakes:</b> Paralyze you, disable powers, halt healing, and
+                prevent revival from{' '}
+                <Box inline textColor="orange">
+                  Torpor
+                </Box>
+                .
+                <br />
+                <br />
+                <b>Fire and Lasers:</b> Deal devastating damage. Fortitude
+                offers minimal protection.
+                <br />
+                <br />
+                <b>Sol:</b> Every ten minutes, sunlight cripples you unless
+                protected by a coffin or similar shelter.
+                <br />
+                <br />
+                <b>The Masquerade:</b> Break it and every vampire turns against
+                you. You will be hunted by kindred and mortals alike.
+              </Box>
             </Box>
           )}
           {tab === 8 && (
+            // Lairs
+            <Box>
+              <Box fontSize="18px" textColor="green" bold>
+                Your Lair
+              </Box>
+              <br />A{' '}
+              <Box inline textColor="green">
+                lair
+              </Box>{' '}
+              is a location you have claimed as your own, where you can rest in
+              your coffin and perform certain vampiric rituals. Some vampires
+              find them useful. Many more have been caught because of them.
+              <br />
+              <br />
+              <Box bold>
+                Do You Need a{' '}
+                <Box inline textColor="green">
+                  Lair
+                </Box>
+                ?
+              </Box>
+              <Box fontSize="13px">
+                Honestly? Probably not. A{' '}
+                <Box inline textColor="green">
+                  lair
+                </Box>{' '}
+                is only necessary if you intend to create{' '}
+                <Box inline textColor="purple">
+                  vassals
+                </Box>{' '}
+                or use certain structures. If you just need somewhere to hide
+                during{' '}
+                <Box inline textColor="yellow">
+                  Sol
+                </Box>
+                , any dark corner with a locker will do. The more infrastructure
+                you build, the more evidence you leave behind.
+              </Box>
+              <br />
+              <Box bold>
+                Claiming a{' '}
+                <Box inline textColor="green">
+                  Lair
+                </Box>
+              </Box>
+              <Box fontSize="13px">
+                If you still want one: acquire a coffin from the Chapel or craft
+                one via the Furniture category. Find somewhere{' '}
+                <i>truly hidden</i>, place the coffin, and rest inside to claim
+                the area. Once claimed, you can anchor vampiric structures like
+                the{' '}
+                <Box inline textColor="purple">
+                  Vassalization Rack
+                </Box>{' '}
+                or{' '}
+                <Box inline textColor="darkred">
+                  Blood Throne
+                </Box>
+                .
+              </Box>
+              <br />
+              <Box
+                mt={1}
+                fontSize="13px"
+                textColor="blue"
+                style={{
+                  borderLeft: '2px solid #4444ff',
+                  paddingLeft: '8px',
+                }}
+              >
+                <b>Warning:</b> Maintenance is the first place people look. If
+                someone finds your lair, they find everything: your coffin, your
+                structures, your vassals, and you.
+              </Box>
+            </Box>
+          )}
+          {tab === 9 && (
+            // Structures
+            <Box>
+              <Box fontSize="18px" textColor="blue" bold>
+                Structures
+              </Box>
+              <Box fontSize="13px" textColor="blue">
+                These can be built via the Vampire crafting tab.
+              </Box>
+              <br />
+              <Box textColor="purple" bold>
+                Vassalization Rack
+              </Box>
+              <Box fontSize="13px">
+                The vassalization rack is your tool for converting captured
+                crewmembers into loyal{' '}
+                <Box inline textColor="purple">
+                  vassals
+                </Box>{' '}
+                who will serve your every command.
+                <br />
+                <br />
+                <b>Usage:</b> Secure the rack in your{' '}
+                <Box inline textColor="green">
+                  lair
+                </Box>{' '}
+                → restrain your target → drag them onto the rack → click the
+                rack to begin the torture process.
+                <br />
+                <br />
+                You can speed up the conversion significantly by using{' '}
+                <Box inline textColor="red">
+                  sharp tools
+                </Box>{' '}
+                on the victim while they are restrained.
+              </Box>
+              <br />
+              <Box fontSize="13px">
+                Crewmembers with{' '}
+                <Box inline textColor="blue">
+                  mindshields
+                </Box>{' '}
+                or strong loyalties require their mental defenses to be weakened
+                first.{' '}
+                <Box inline textColor="purple">
+                  Eldritch servants
+                </Box>{' '}
+                are completely immune and can never be converted.
+              </Box>
+              <br />
+              <Box textColor="yellow" bold>
+                Candelabrum
+              </Box>
+              <Box fontSize="13px">
+                A vampiric candelabra that radiates an unsettling aura. Any
+                mortal who gazes upon its{' '}
+                <Box inline textColor="orange">
+                  flame
+                </Box>{' '}
+                will find their sanity slowly draining away.
+              </Box>
+              <br />
+              <Box textColor="darkred" bold>
+                Blood Throne
+              </Box>
+              <Box fontSize="13px">
+                When you sit upon a Blood Throne, your words are broadcast
+                telepathically to all{' '}
+                <Box inline textColor="purple">
+                  kindred
+                </Box>{' '}
+                on the station. Other vampires will need their own throne if
+                they wish to respond.
+              </Box>
+            </Box>
+          )}
+          {tab === 10 && (
             // Vassals
             <Box>
-              <Box fontSize="20px" textColor="purple" bold>
+              <Box fontSize="18px" textColor="purple" bold>
                 Vassals
               </Box>
               <br />
-              Crewmembers can be vassalized by building a{' '}
               <Box inline textColor="purple">
-                Persuasion Rack.
+                Vassals
+              </Box>{' '}
+              are mortals who have been broken and bound to your will. They
+              serve as your eyes, ears, and hands among the living, carrying out
+              your commands while you remain hidden in the shadows.
+              <br />
+              <br />
+              <Box bold>Creating Vassals</Box>
+              <Box fontSize="13px">
+                To create a vassal, you will need a{' '}
+                <Box inline textColor="purple">
+                  Vassalization Rack
+                </Box>{' '}
+                secured within your{' '}
+                <Box inline textColor="green">
+                  lair
+                </Box>
+                . Capture your target and restrain them so they cannot escape,
+                then drag them onto the rack. Click the rack to begin the{' '}
+                <Box inline textColor="red">
+                  torture
+                </Box>{' '}
+                process that will break their will and bind them to you.
+                <br />
+                <br />
+                Using{' '}
+                <Box inline textColor="red">
+                  sharp implements
+                </Box>{' '}
+                on the victim while they are restrained will accelerate the
+                process considerably.
               </Box>
-              <br /> <br />
-              After securing this in your Lair you can use it by first capturing
-              a subject and restraining them. After this, drag them onto the
-              rack and torture them by clicking on the rack.
-              <br /> <br />
-              <b>
-                Torturing someone with a sharp tool will make the process
-                faster!
-              </b>
-              <br /> <br />
-              If your target is{' '}
-              <Box inline textColor="blue">
-                Mindshielded
-              </Box>{' '}
-              or otherwise disloyal to Nanotrasen they{' '}
-              <b>can only be converted if their mind is weak enough</b>. Crew
-              that serve eldritch gods cannot be converted.
-              <br /> <br />
-              After sucessfully torturing your latest vassal, they can only be
-              deconverted by use of{' '}
-              <Box inline textColor="blue">
-                Mindshield.
-              </Box>{' '}
-              You can however promote <b>one</b> vassal into your{' '}
-              <Box inline textColor="gold">
-                Favorite Vassal
+              <br />
+              <Box bold>Limitations</Box>
+              <Box fontSize="13px">
+                Crewmembers protected by{' '}
+                <Box inline textColor="blue">
+                  mindshields
+                </Box>{' '}
+                or those with strong existing loyalties cannot be converted
+                until their mental defenses have been weakened. Those who serve{' '}
+                <Box inline textColor="purple">
+                  eldritch powers
+                </Box>{' '}
+                are completely immune and can never be turned.
+                <br />
+                <br />
+                Once someone has become your vassal, the only way to free them
+                is through implantation of a{' '}
+                <Box inline textColor="blue">
+                  mindshield
+                </Box>
+                .
               </Box>
-              , which will gain powers unique to the Clan that you have chosen
-              and will be immune to{' '}
-              <Box inline textColor="blue">
-                Mindshields.
-              </Box>{' '}
-              <br /> <br />
-              <b>NOTE:</b> You can only vasaslize a certain amount of people
-              based on how many crewmembers there are! The <i>Tremere</i> clan
-              has this limit increased.
             </Box>
           )}
         </Stack.Item>
@@ -654,7 +1114,7 @@ const ClanSection = () => {
             </Box>
           </Stack.Item>
           <Stack.Item>
-            To enter a clan you must first claim a lair by sleeping in a coffin.
+            To determine your clan, utilize the clan selection ability.
           </Stack.Item>
         </Stack>
       </Section>
@@ -682,7 +1142,10 @@ const ClanSection = () => {
                 You are part of the <b>{ClanInfo.name}!</b>
               </Box>
             </Stack.Item>
-            <Box fontSize="16px">{ClanInfo.description}</Box>
+            <Box
+              fontSize="16px"
+              dangerouslySetInnerHTML={{ __html: ClanInfo.description }}
+            />
           </Stack.Item>
         </Stack>
       ))}

@@ -18021,13 +18021,6 @@
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"fZx" = (
-/mob/living/simple_animal/pet/cat/Proc{
-	name = "Captain Snugglebottoms III Esquire"
-	},
-/obj/structure/bed/dogbed,
-/turf/open/floor/wood,
-/area/crew_quarters/dorms)
 "fZQ" = (
 /obj/structure/bookcase/random,
 /turf/open/floor/wood,
@@ -20942,6 +20935,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/grid/steel,
 /area/medical/sleeper)
+"haG" = (
+/mob/living/basic/pet/cat/_proc{
+	name = "Captain Snugglebottoms III Esquire"
+	},
+/obj/structure/bed/dogbed,
+/turf/open/floor/wood,
+/area/crew_quarters/dorms)
 "haH" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -22362,6 +22362,36 @@
 /mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
+"hCJ" = (
+/obj/structure/table/glass,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25;
+	pixel_y = 1
+	},
+/obj/item/paper_bin{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/folder/blue{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/obj/item/stamp/cmo{
+	pixel_x = 8;
+	pixel_y = -2
+	},
+/obj/item/holosign_creator/medical,
+/mob/living/basic/pet/cat/runtime{
+	density = 0;
+	dir = 8;
+	pixel_x = -4;
+	pixel_y = 9
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/heads/cmo)
 "hCO" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/stripes/white/line{
@@ -26418,6 +26448,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
+"jbC" = (
+/obj/structure/destructible/cult/tome,
+/turf/open/floor/carpet/royalblack,
+/area/library)
 "jbO" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -34807,11 +34841,6 @@
 /obj/structure/railing/perspective/gray,
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
-"lZw" = (
-/obj/structure/destructible/cult/tome,
-/obj/item/book/codex_gigas,
-/turf/open/floor/carpet/royalblack,
-/area/library)
 "lZE" = (
 /obj/effect/turf_decal/tile/dark_red/half/contrasted{
 	alpha = 180;
@@ -36099,36 +36128,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
-"mtY" = (
-/obj/structure/table/glass,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	pixel_y = 1
-	},
-/obj/item/paper_bin{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/folder/blue{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/obj/item/stamp/cmo{
-	pixel_x = 8;
-	pixel_y = -2
-	},
-/obj/item/holosign_creator/medical,
-/mob/living/simple_animal/pet/cat/Runtime{
-	density = 0;
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = 9
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/heads/cmo)
 "mui" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -108002,7 +108001,7 @@ lph
 hQV
 huT
 qns
-mtY
+hCJ
 cnz
 lvw
 ewi
@@ -108979,7 +108978,7 @@ uZv
 cbp
 wII
 rYG
-fZx
+haG
 boZ
 wII
 jPq
@@ -113894,7 +113893,7 @@ dHR
 eqb
 vGR
 xvM
-lZw
+jbC
 nXU
 jbn
 kla

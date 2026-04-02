@@ -257,6 +257,31 @@
 
 //////////////////////////////////////////////
 //                                          //
+//                  VAMPIRES                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/vampires
+	name = "Vampires"
+	role_preference = /datum/role_preference/roundstart/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 8
+	minimum_players_required = 14
+	drafted_players_amount = 3
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+
+/datum/dynamic_ruleset/gamemode/vampires/set_drafted_players_amount()
+	// Start with 3 at 14 pop. Every three players above that, a vampire gets added.
+	var/extra = max(FLOOR((length(SSdynamic.roundstart_candidates) - 14) / 3, 1), 0)
+	drafted_players_amount = 3 + extra
+
+/datum/dynamic_ruleset/gamemode/vampires/security_report()
+	return "Several stations in adjacent sectors have reported a statistically anomalous uptick in space rabies. Please be aware of potential medical emergencies resultant of this. Security personnel are advised to escort affected crew to Medical and report \
+	any unusual findings to Central Command via secure channel."
+
+/////////////////////////////////////////////
+//                                          //
 //                CLOCK CULT                //
 //                                          //
 //////////////////////////////////////////////

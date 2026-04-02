@@ -3536,7 +3536,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/mob/living/simple_animal/pet/cat{
+/mob/living/basic/pet/cat{
 	desc = "He demands you let him sleep";
 	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
 	},
