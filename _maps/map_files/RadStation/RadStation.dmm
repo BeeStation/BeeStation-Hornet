@@ -3571,13 +3571,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
-"bkr" = (
-/mob/living/basic/pet/cat/_proc{
-	name = "Captain Snugglebottoms III Esquire"
-	},
-/obj/structure/bed/dogbed,
-/turf/open/floor/wood,
-/area/crew_quarters/dorms)
 "bkD" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -10645,6 +10638,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"dBw" = (
+/obj/structure/destructible/cult/tome,
+/turf/open/floor/carpet/royalblack,
+/area/library)
 "dBO" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -18028,6 +18025,13 @@
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"fZx" = (
+/mob/living/basic/pet/cat/_proc{
+	name = "Captain Snugglebottoms III Esquire"
+	},
+/obj/structure/bed/dogbed,
+/turf/open/floor/wood,
+/area/crew_quarters/dorms)
 "fZQ" = (
 /obj/structure/bookcase/random,
 /turf/open/floor/wood,
@@ -18228,6 +18232,14 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engine_room)
+"gdN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small,
+/obj/structure/mop_bucket,
+/obj/structure/fluff/paper/stack,
+/turf/open/floor/iron,
+/area/hallway/secondary/service)
 "gdU" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/paper/fluff/jobs/mining/smelter_notice,
@@ -23353,6 +23365,20 @@
 "hYi" = (
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/medical/morgue)
+"hYr" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/siding/wideplating/dark,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/item/rag{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "hYw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -31461,20 +31487,6 @@
 	dir = 1
 	},
 /area/science/research)
-"kQp" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/siding/wideplating/dark,
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/rag{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/turf/open/floor/iron/cafeteria_red,
-/area/crew_quarters/bar)
 "kQs" = (
 /obj/structure/sign/warning/pods{
 	pixel_x = -32
@@ -34813,10 +34825,6 @@
 /obj/structure/railing/perspective/gray,
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
-"lZw" = (
-/obj/structure/destructible/cult/tome,
-/turf/open/floor/carpet/royalblack,
-/area/library)
 "lZE" = (
 /obj/effect/turf_decal/tile/dark_red/half/contrasted{
 	alpha = 180;
@@ -36104,6 +36112,36 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
+"mtY" = (
+/obj/structure/table/glass,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25;
+	pixel_y = 1
+	},
+/obj/item/paper_bin{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/folder/blue{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/obj/item/stamp/cmo{
+	pixel_x = 8;
+	pixel_y = -2
+	},
+/obj/item/holosign_creator/medical,
+/mob/living/basic/pet/cat/runtime{
+	density = 0;
+	dir = 8;
+	pixel_x = -4;
+	pixel_y = 9
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/heads/cmo)
 "mui" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -40900,14 +40938,6 @@
 /obj/structure/railing,
 /turf/open/space/basic,
 /area/space)
-"odB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small,
-/obj/structure/mop_bucket,
-/obj/structure/fluff/paper/stack,
-/turf/open/floor/iron,
-/area/hallway/secondary/service)
 "odP" = (
 /obj/structure/chair/fancy/bench{
 	dir = 1
@@ -50016,36 +50046,6 @@
 /obj/item/storage/lockbox/medal,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
-"roz" = (
-/obj/structure/table/glass,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	pixel_y = 1
-	},
-/obj/item/paper_bin{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/folder/blue{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/obj/item/stamp/cmo{
-	pixel_x = 8;
-	pixel_y = -2
-	},
-/obj/item/holosign_creator/medical,
-/mob/living/basic/pet/cat/runtime{
-	density = 0;
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = 9
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/heads/cmo)
 "roY" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/open/floor/grass,
@@ -107198,7 +107198,7 @@ iOn
 oio
 izn
 uxW
-kQp
+hYr
 yfJ
 ult
 hjM
@@ -107956,7 +107956,7 @@ mVN
 xEP
 fsA
 mLh
-odB
+gdN
 iMw
 mVN
 mVN
@@ -108001,7 +108001,7 @@ lph
 hQV
 huT
 qns
-roz
+mtY
 cnz
 lvw
 ewi
@@ -108978,7 +108978,7 @@ uZv
 cbp
 wII
 rYG
-bkr
+fZx
 boZ
 wII
 jPq
@@ -113893,7 +113893,7 @@ dHR
 eqb
 vGR
 xvM
-lZw
+dBw
 nXU
 jbn
 kla

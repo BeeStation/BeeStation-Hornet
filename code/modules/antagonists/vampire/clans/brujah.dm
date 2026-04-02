@@ -17,4 +17,4 @@
 /datum/vampire_clan/brujah/on_apply()
 	. = ..()
 	vampiredatum.antag_hud_name = "brujah"
-	add_team_hud(vampiredatum.owner.current)
+	vampiredatum.add_team_hud(vampiredatum.owner.current)

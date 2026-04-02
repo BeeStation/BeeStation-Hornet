@@ -2253,13 +2253,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"bbB" = (
-/obj/structure/destructible/cult/tome,
-/obj/structure/light_construct{
-	dir = 4
-	},
-/turf/open/floor/carpet/royalblack,
-/area/library/abandoned)
 "bbG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -35746,6 +35739,13 @@
 	luminosity = 2
 	},
 /area/ai_monitored/turret_protected/ai)
+"tOt" = (
+/obj/structure/destructible/cult/tome,
+/obj/structure/light_construct{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/library/abandoned)
 "tOO" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
@@ -60192,7 +60192,7 @@ okk
 uLX
 btX
 aSS
-bbB
+tOt
 iHW
 tBs
 qjT

@@ -4265,6 +4265,18 @@
 /obj/item/beacon,
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
+"bef" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/heads/cmo)
 "bel" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -6499,19 +6511,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
-"bPb" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	dir = 4;
-	name = "old sink";
-	pixel_x = -11
-	},
-/obj/structure/mop_bucket,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/mop,
-/turf/open/floor/iron/dark,
-/area/security/main)
 "bPg" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Transfer Cell";
@@ -9543,14 +9542,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/carpet,
 /area/chapel/office)
-"cIP" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/obj/structure/destructible/cult/tome,
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/wood,
-/area/library)
 "cIQ" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/iron/dark,
@@ -12640,6 +12631,12 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
+"dDm" = (
+/obj/structure/mop_bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/mop,
+/turf/open/floor/iron/techmaint,
+/area/science/research)
 "dDr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -15179,6 +15176,11 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
+"emB" = (
+/obj/item/caution,
+/obj/structure/mop_bucket,
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "emQ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -33531,23 +33533,6 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
-"jfY" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/rag,
-/obj/structure/sign/plaques/deempisi{
-	pixel_y = 28
-	},
-/obj/item/book/manual/wiki/barman_recipes{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/structure/noticeboard{
-	dir = 4;
-	pixel_x = -27
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "jgb" = (
 /obj/structure/sign/plaques/kiddie/library{
 	pixel_y = -32
@@ -33629,6 +33614,12 @@
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
 /area/docking/bridge)
+"jhn" = (
+/obj/structure/mop_bucket,
+/obj/item/mop,
+/obj/item/storage/pill_bottle,
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "jhs" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -38620,12 +38611,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
-"kzr" = (
-/obj/structure/mop_bucket,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/mop,
-/turf/open/floor/iron/techmaint,
-/area/science/research)
 "kzz" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/binary/volume_pump{
@@ -41325,6 +41310,23 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"lhK" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/rag,
+/obj/structure/sign/plaques/deempisi{
+	pixel_y = 28
+	},
+/obj/item/book/manual/wiki/barman_recipes{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/structure/noticeboard{
+	dir = 4;
+	pixel_x = -27
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "lhT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -44346,12 +44348,6 @@
 /obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
-"lYJ" = (
-/obj/structure/mop_bucket,
-/obj/item/mop,
-/obj/item/storage/pill_bottle,
-/turf/open/floor/plating,
-/area/maintenance/department/medical)
 "lYK" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -47430,11 +47426,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
-"mQb" = (
-/obj/structure/mop_bucket,
-/obj/item/mop,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "mQg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -50634,18 +50625,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
-"nIX" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/obj/structure/bed/dogbed/runtime,
-/mob/living/basic/pet/cat/runtime,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/heads/cmo)
 "nJa" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -56126,6 +56105,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"pmM" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	dir = 4;
+	name = "old sink";
+	pixel_x = -11
+	},
+/obj/structure/mop_bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/mop,
+/turf/open/floor/iron/dark,
+/area/security/main)
 "pmN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -64128,6 +64120,14 @@
 /obj/item/stock_parts/cell/high/plus,
 /turf/open/floor/iron/techmaint,
 /area/science/shuttle)
+"rAY" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/structure/destructible/cult/tome,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/wood,
+/area/library)
 "rBk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
@@ -64545,11 +64545,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
-"rGd" = (
-/obj/item/caution,
-/obj/structure/mop_bucket,
-/turf/open/floor/plating,
-/area/maintenance/port/central)
 "rGg" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -81481,6 +81476,11 @@
 "vXB" = (
 /turf/closed/wall,
 /area/maintenance/aft)
+"vXD" = (
+/obj/structure/mop_bucket,
+/obj/item/mop,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "vXF" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
@@ -109700,7 +109700,7 @@ yjW
 mnJ
 fnP
 yfU
-cIP
+rAY
 bhz
 cZC
 yfU
@@ -110764,7 +110764,7 @@ lsd
 tkV
 xfm
 rxd
-jfY
+lhK
 wOu
 gci
 nnV
@@ -115878,7 +115878,7 @@ weA
 bjE
 mJM
 rrS
-lYJ
+jhn
 puV
 gEP
 miP
@@ -120749,7 +120749,7 @@ rxF
 mVB
 vyc
 aeJ
-nIX
+bef
 han
 izl
 xZB
@@ -122584,7 +122584,7 @@ wrM
 vUR
 mOG
 rGl
-bPb
+pmM
 pYu
 pBx
 jBN
@@ -124579,7 +124579,7 @@ soQ
 soQ
 alR
 bjw
-rGd
+emB
 mtG
 qEr
 fmU
@@ -130090,7 +130090,7 @@ xrc
 gEs
 wBR
 cTl
-kzr
+dDm
 xSV
 waz
 myi
@@ -141627,7 +141627,7 @@ xYy
 wDO
 wCr
 wHw
-mQb
+vXD
 wWM
 qaJ
 lMA

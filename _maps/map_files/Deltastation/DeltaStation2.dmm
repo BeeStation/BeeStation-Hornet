@@ -11833,6 +11833,23 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
+"bLd" = (
+/obj/structure/table/wood,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/requests_console{
+	department = "Bar Counter";
+	name = "Bar RC";
+	pixel_y = 32;
+	receive_ore_updates = 1
+	},
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/rag,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "bLh" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 8
@@ -43388,6 +43405,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
+"iXM" = (
+/obj/structure/destructible/cult/tome/library,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/library)
 "iXX" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -50790,11 +50812,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
-"lHE" = (
-/obj/structure/mop_bucket,
-/obj/item/mop,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/central)
 "lHS" = (
 /obj/structure/closet/secure_closet/detective,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -51870,6 +51887,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"lZr" = (
+/obj/structure/mop_bucket,
+/obj/item/mop,
+/turf/open/floor/plating,
+/area/maintenance/department/medical/central)
 "lZy" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
@@ -60151,23 +60173,6 @@
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/prison,
 /area/hallway/primary/starboard)
-"oSY" = (
-/obj/structure/table/wood,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/requests_console{
-	department = "Bar Counter";
-	name = "Bar RC";
-	pixel_y = 32;
-	receive_ore_updates = 1
-	},
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/rag,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
 "oTf" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/light/small,
@@ -65298,6 +65303,14 @@
 /obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
+"qMh" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/cmo)
 "qMj" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -67806,11 +67819,6 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /turf/open/floor/iron,
 /area/maintenance/department/science)
-"rAy" = (
-/obj/structure/destructible/cult/tome/library,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/library)
 "rAA" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -73383,14 +73391,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/atmospherics_engine)
-"trX" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/bed/dogbed/runtime,
-/mob/living/basic/pet/cat/runtime,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/cmo)
 "trY" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -120453,7 +120453,7 @@ hlY
 gYg
 caG
 cwv
-rAy
+iXM
 czK
 caG
 qzX
@@ -125277,7 +125277,7 @@ auj
 auj
 ieu
 aDL
-oSY
+bLd
 mFN
 qIO
 oIn
@@ -132794,7 +132794,7 @@ cBJ
 mst
 cFd
 cAm
-lHE
+lZr
 jEv
 dsp
 wHl
@@ -135896,7 +135896,7 @@ wYw
 qMj
 ikk
 dtK
-trX
+qMh
 gCP
 qSt
 hrA
