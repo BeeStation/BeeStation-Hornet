@@ -4,7 +4,7 @@
 
 $fg-map: colors.$fg-map !default;
 .CircuitInfo__Examined {
-  background-color: hsl(0, 0%, 0%);
+  background-color: rgba(0, 0, 0, 1);
   padding: 8px;
   border-radius: 5px;
   user-select: none;
@@ -19,7 +19,7 @@ $fg-map: colors.$fg-map !default;
 }
 .ObjectComponent__Content {
   white-space: nowrap;
-  background-color: hsla(0, 0%, 0%, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   -ms-user-select: none;
   user-select: none;
 }
@@ -88,7 +88,7 @@ $category-colors: (
     contrast: white,
   ),
   'BCI': (
-    bg: hsl(276, 77%, 45%),
+    bg: rgb(131, 26, 201),
     contrast: white,
   ),
   'Gates': (

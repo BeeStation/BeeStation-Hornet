@@ -57,11 +57,11 @@ img.icon {
   font-size: 0.7em;
   padding: 0.2em 0.3em;
   line-height: 1;
-  color: hsl(0, 0%, 100%);
+  color: white;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  background-color: hsl(348, 83%, 47%);
+  background-color: crimson;
   border-radius: 10px;
 }
 
@@ -211,14 +211,14 @@ a.popt {
   position: fixed;
   top: 50%;
   left: 50%;
-  background: hsl(0, 0%, 86.7%);
+  background: #ddd;
 }
 .popup .close {
   position: absolute;
-  background: hsl(0, 0%, 66.7%);
+  background: #aaa;
   top: 0;
   right: 0;
-  color: hsl(0, 0%, 20%);
+  color: #333;
   text-decoration: none;
   z-index: 2;
   padding: 0 10px;
@@ -226,11 +226,11 @@ a.popt {
   line-height: 30px;
 }
 .popup .close:hover {
-  background: hsl(0, 0%, 60%);
+  background: #999;
 }
 .popup .head {
-  background: hsl(0, 0%, 60%);
-  color: hsl(0, 0%, 86.7%);
+  background: #999;
+  color: #ddd;
   padding: 0 10px;
   height: 30px;
   line-height: 30px;
@@ -240,12 +240,12 @@ a.popt {
   border-bottom: 2px solid green;
 }
 .popup input {
-  border: 1px solid hsl(0, 0%, 60%);
-  background: hsl(0, 0%, 100%);
+  border: 1px solid #999;
+  background: #fff;
   margin: 0;
   padding: 5px;
   outline: none;
-  color: hsl(0, 0%, 20%);
+  color: #333;
 }
 .popup input[type='text']:hover,
 .popup input[type='text']:active,
@@ -254,8 +254,8 @@ a.popt {
 }
 .popup input[type='submit'] {
   padding: 5px 10px;
-  background: hsl(0, 0%, 60%);
-  color: hsl(0, 0%, 86.7%);
+  background: #999;
+  color: #ddd;
   text-transform: uppercase;
   font-size: 0.9em;
   font-weight: bold;
@@ -263,7 +263,7 @@ a.popt {
 .popup input[type='submit']:hover,
 .popup input[type='submit']:focus,
 .popup input[type='submit']:active {
-  background: hsl(0, 0%, 66.7%);
+  background: #aaa;
   cursor: pointer;
 }
 
@@ -274,10 +274,10 @@ a.popt {
   display: block;
   text-decoration: none;
   padding: 3px;
-  color: hsl(0, 0%, 20%);
+  color: #333;
 }
 .changeFont a:hover {
-  background: hsl(0, 0%, 80%);
+  background: #ccc;
 }
 
 .highlightPopup {
@@ -299,7 +299,7 @@ a.popt {
 
 /* ADMIN CONTEXT MENU */
 .contextMenu {
-  background-color: hsl(0, 0%, 86.7%);
+  background-color: #ddd;
   position: fixed;
   margin: 2px;
   width: 150px;
@@ -308,11 +308,11 @@ a.popt {
   display: block;
   padding: 2px 5px;
   text-decoration: none;
-  color: hsl(0, 0%, 20%);
+  color: #333;
 }
 
 .contextMenu a:hover {
-  background-color: hsl(0, 0%, 80%);
+  background-color: #ccc;
 }
 
 /* ADMIN FILTER MESSAGES MENU */
@@ -453,7 +453,7 @@ em {
 }
 .mentorhelp_conclusion {
   display: block;
-  color: hsl(0, 0%, 100%);
+  color: white;
   text-align: center;
   background-color: black;
   border: 2px solid hsl(256.1, 100%, 70%);
@@ -677,7 +677,7 @@ em {
 
 .adminhelp_conclusion {
   display: block;
-  color: hsl(0, 0%, 100%);
+  color: white;
   text-align: center;
   background-color: black;
   border: 2px solid red;
@@ -712,10 +712,10 @@ em {
   font-family: 'Times New Roman', Times, serif;
   font-size: 20px;
   display: block;
-  color: hsl(336, 2.5%, 38.6%);
+  color: #656062;
   text-align: center;
-  background-color: hsl(26.7, 100%, 96.5%);
-  border: 8px solid hsl(27.7, 6.2%, 58.6%);
+  background-color: #fff5ed;
+  border: 8px solid #9c958f;
   border-radius: 0px;
   padding: 10px;
   margin: 10px 20px;
@@ -1230,7 +1230,7 @@ em {
 .connectionClosed,
 .fatalError {
   background: red;
-  color: hsl(0, 0%, 100%);
+  color: white;
   padding: 5px;
 }
 .connectionClosed.restored {
@@ -1774,5 +1774,5 @@ $border-width-px: $border-width * 1px;
 
 .tooltip {
   font-style: italic;
-  border-bottom: 1px dashed hsl(0, 0%, 100%);
+  border-bottom: 1px dashed #fff;
 }
