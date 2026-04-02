@@ -46,60 +46,76 @@
 
 	var/datum/asset/asset_datum = get_asset_datum(/datum/asset/simple/lobby)
 	asset_datum.send(client)
-	var/output = "<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p>"
+	var/ref = REF(src)
+	var/list/dat = list()
+
+	dat += "<div class='header'>Welcome to <span class='bee'>Bee</span><span class='station'>Station</span></div>"
+
+	dat += "<div class='btn-wrap'><a class='main-btn' href='byond://?src=[ref];show_preferences=1'>&#9881; Setup Character</a></div>"
 
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
+		dat += "<div class='ready-row'>"
 		switch(ready)
 			if(PLAYER_NOT_READY)
-				output += "<p>\[ [LINKIFY_READY("Ready", PLAYER_READY_TO_PLAY)] | <b>Not Ready</b> | [LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)] \]</p>"
+				dat += "<a href='byond://?src=[ref];ready=[PLAYER_READY_TO_PLAY]'>Ready</a> | <span class='active stop'>Not Ready</span> | <a href='byond://?src=[ref];ready=[PLAYER_READY_TO_OBSERVE]'>Observe</a>"
 			if(PLAYER_READY_TO_PLAY)
-				output += "<p>\[ <b>Ready</b> | [LINKIFY_READY("Not Ready", PLAYER_NOT_READY)] | [LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)] \]</p>"
+				dat += "<span class='active go'>Ready</span> | <a href='byond://?src=[ref];ready=[PLAYER_NOT_READY]'>Not Ready</a> | <a href='byond://?src=[ref];ready=[PLAYER_READY_TO_OBSERVE]'>Observe</a>"
 			if(PLAYER_READY_TO_OBSERVE)
-				output += "<p>\[ [LINKIFY_READY("Ready", PLAYER_READY_TO_PLAY)] | [LINKIFY_READY("Not Ready", PLAYER_NOT_READY)] | <b> Observe </b> \]</p>"
+				dat += "<a href='byond://?src=[ref];ready=[PLAYER_READY_TO_PLAY]'>Ready</a> | <a href='byond://?src=[ref];ready=[PLAYER_NOT_READY]'>Not Ready</a> | <span class='active watch'>Observe</span>"
+		dat += "</div>"
 	else
-		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>View the Crew Manifest</a></p>"
-		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Join Game!</a></p>"
-		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
+		dat += "<div class='btn-wrap'><a class='main-btn join' href='byond://?src=[ref];late_join=1'>&#9654; Join Game!</a></div>"
+		dat += "<div class='ready-row'><a href='byond://?src=[ref];manifest=1'>&#9776; Crew Manifest</a> | <a href='byond://?src=[ref];ready=[PLAYER_READY_TO_OBSERVE]'>Observe</a></div>"
+
+	// Footer row: lobby music + polls side by side
+	var/list/footer_items = list()
+	footer_items += "<a href='byond://?src=[ref];next_track=1'>&#9776; Next Track</a>"
 
 	if(!IS_GUEST_KEY(src.key))
-		if (SSdbcore.Connect())
-			var/isadmin = FALSE
-			if(client?.holder)
-				isadmin = TRUE
-			var/datum/db_query/query_get_new_polls = SSdbcore.NewQuery({"
-				SELECT id FROM [format_table_name("poll_question")]
-				WHERE (adminonly = 0 OR :isadmin = 1)
-				AND Now() BETWEEN starttime AND endtime
-				AND deleted = 0
-				AND id NOT IN (
-					SELECT pollid FROM [format_table_name("poll_vote")]
-					WHERE ckey = :ckey
-					AND deleted = 0
-				)
-				AND id NOT IN (
-					SELECT pollid FROM [format_table_name("poll_textreply")]
-					WHERE ckey = :ckey
-					AND deleted = 0
-				)
-			"}, list("isadmin" = isadmin, "ckey" = ckey))
-			var/rs = REF(src)
-			if(!query_get_new_polls.Execute())
-				qdel(query_get_new_polls)
-				return
-			if(query_get_new_polls.NextRow())
-				output += "<p><b><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
-			else
-				output += "<p><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A></p>"
-			qdel(query_get_new_polls)
-			if(QDELETED(src))
-				return
+		var/poll_link = get_player_poll_link(ref)
+		if(poll_link)
+			footer_items += poll_link
 
-	output += "</center>"
+	dat += "<div class='footer'>[footer_items.Join(" | ")]</div>"
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 250, 265)
-	popup.set_window_options("can_close=0")
-	popup.set_content(output)
+	var/datum/browser/popup = new(src, "playersetup", 0, 260, 180)
+	popup.add_stylesheet("lobby_panel", 'html/browser/lobby_panel.css')
+	popup.set_window_options("can_close=0;focus=false;can_resize=0;titlebar=0")
+	popup.set_content(jointext(dat, ""))
 	popup.open(FALSE)
+
+/// Returns the HTML link for player polls, or null if unavailable.
+/mob/dead/new_player/authenticated/proc/get_player_poll_link(ref)
+	if(!SSdbcore.Connect())
+		return null
+	var/isadmin = FALSE
+	if(client?.holder)
+		isadmin = TRUE
+	var/datum/db_query/query_get_new_polls = SSdbcore.NewQuery({"
+		SELECT id FROM [format_table_name("poll_question")]
+		WHERE (adminonly = 0 OR :isadmin = 1)
+		AND Now() BETWEEN starttime AND endtime
+		AND deleted = 0
+		AND id NOT IN (
+			SELECT pollid FROM [format_table_name("poll_vote")]
+			WHERE ckey = :ckey
+			AND deleted = 0
+		)
+		AND id NOT IN (
+			SELECT pollid FROM [format_table_name("poll_textreply")]
+			WHERE ckey = :ckey
+			AND deleted = 0
+		)
+	"}, list("isadmin" = isadmin, "ckey" = ckey))
+	if(!query_get_new_polls.Execute())
+		qdel(query_get_new_polls)
+		return null
+	. = null
+	if(query_get_new_polls.NextRow())
+		. = "<a href='byond://?src=[ref];showpoll=1'><b>Polls (NEW!)</b></a>"
+	else
+		. = "<a href='byond://?src=[ref];showpoll=1'>Polls</a>"
+	qdel(query_get_new_polls)
 
 /mob/dead/new_player/Topic(href, href_list[])
 	return FALSE
@@ -137,8 +153,9 @@
 		//no longer is required
 		if(SSticker.current_state <= GAME_STATE_PREGAME)
 			ready = tready
+
 		//if it's post initialisation and they're trying to observe we do the needful
-		if(!SSticker.current_state < GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
+		if(SSticker.current_state >= GAME_STATE_SETTING_UP && tready == PLAYER_READY_TO_OBSERVE)
 			ready = tready
 			make_me_an_observer()
 			return
@@ -195,6 +212,10 @@
 
 	else if(!href_list["late_join"])
 		new_player_panel()
+
+	if(href_list["next_track"])
+		next_lobby_track()
+		return
 
 	if(href_list["showpoll"])
 		handle_player_polling()
