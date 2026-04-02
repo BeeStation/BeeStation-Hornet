@@ -453,24 +453,29 @@
 /mob/dead/new_player/authenticated/proc/LateChoices()
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
-		dat+="<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
+		dat += "<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
 	if(SSshuttle.emergency)
 		switch(SSshuttle.emergency.mode)
 			if(SHUTTLE_ESCAPE)
-				dat += "<div class='notice red'>The station has been evacuated.</div><br>"
+				dat += "<div class='notice red'>The station has been evacuated.</div>"
 			if(SHUTTLE_CALL)
 				if(!SSshuttle.canRecall())
-					dat += "<div class='notice red'>The station is currently undergoing evacuation procedures.</div><br>"
+					dat += "<div class='notice red'>The station is currently undergoing evacuation procedures.</div>"
 	for(var/datum/job/prioritized_job in SSjob.prioritized_jobs)
 		if(!prioritized_job.has_space())
 			SSjob.prioritized_jobs -= prioritized_job
-	dat += "<table><tr><td valign='top'>"
-	var/column_counter = 0
+
+	var/department_counter = 0
+	var/list/column_list = list(list())
 	for(var/datum/department_group/each_dept as anything in SSdepartment.sorted_department_for_latejoin)
+		var/list/current_column = column_list[length(column_list)]
+		var/list/dept_data = list()
+
 		var/dept_name = each_dept.pref_category_name
-		var/cat_color = each_dept.dept_colour || "#ff46c7" // failsafe colour
-		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[dept_name]</legend>"
+		var/cat_color = each_dept.dept_colour || "#ff46c7"
+		dept_data += "<fieldset style='border: 2px solid [cat_color]'>"
+		dept_data += "<legend align='center' style='color: [cat_color]'>[dept_name]</legend>"
+
 		var/list/valid_jobs = list()
 		for(var/job in each_dept.jobs)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
@@ -482,15 +487,24 @@
 					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[span_priority("[job_datum.title] ([job_datum.current_positions])")]</a>"
 				else
 					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
+
 		if(!valid_jobs.len)
-			valid_jobs += span_nopositions("No positions open.")
-		dat += jointext(valid_jobs, "")
-		dat += "</fieldset><br>"
-		column_counter++
-		if(column_counter > 0 && (column_counter % 3 == 0))
-			dat += "</td><td valign='top'>"
-	dat += "</td></tr></table></center>"
-	dat += "</div></div>"
+			valid_jobs += "<div class='nopositions'>No positions open.</div>"
+		dept_data += jointext(valid_jobs, "")
+		dept_data += "</fieldset>"
+		current_column += dept_data.Join()
+
+		department_counter++
+		if(department_counter > 0 && (department_counter % 3 == 0))
+			column_list[++column_list.len] = list()
+
+	dat += "<div class='dept-grid'>"
+	for(var/list/column_data in column_list)
+		if(!length(column_data))
+			break
+		dat += "<div class='dept-column'>[column_data.Join()]</div>"
+	dat += "</div>"
+
 	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 680, 580)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 	popup.set_content(jointext(dat, ""))

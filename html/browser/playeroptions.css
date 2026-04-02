@@ -1,6 +1,22 @@
+.dept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 4px;
+  justify-content: center;
+}
+
+.dept-column {
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset {
+  margin: 0 0 4px 0;
+  padding: 4px;
+}
+
 .job {
   display: block;
-  width: 173px;
 }
 
 .command {
@@ -14,4 +30,5 @@
 
 .nopositions {
   font-style: italic;
+  color: #a3a3a3;
 }
