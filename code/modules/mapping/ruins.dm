@@ -65,20 +65,27 @@
 	return center
 
 
-/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = list(/area/space), list/potentialRuins, clear_below = FALSE, ruins_type = ZTRAIT_STATION, minimum_ghost_roles = 0)
-	if(!z_levels || !z_levels.len)
-		WARNING("No Z levels provided - Not generating ruins")
-		return
-	var/list/whitelist_typecache = typecacheof(whitelist)
+/proc/seedRuins(
+	list/z_levels = null,
+	budget = 0,
+	whitelist = list(/area/space),
+	list/potentialRuins,
+	clear_below = FALSE,
+	ruins_type = ZTRAIT_STATION,
+	minimum_ghost_roles = 0,
+	blacklist_ghost_roles = FALSE,
+)
+	if(!length(z_levels))
+		CRASH("No Z levels provided - Not generating ruins")
+	for(var/z_level in z_levels)
+		if(isnull(locate(1, 1, z_level)))
+			CRASH("Z level [z_level] does not exist - Not generating ruins")
 
-	for(var/zl in z_levels)
-		var/turf/T = locate(1, 1, zl)
-		if(!T)
-			WARNING("Z level [zl] does not exist - Not generating ruins")
-			return
+	var/list/whitelist_typecache = typecacheof(whitelist)
 
 	var/list/ruins = potentialRuins.Copy()
 	shuffle(ruins)
+
 	var/placed_ruins = 0 // our count of how many ruins have been placed
 	var/ghost_roles_forced = 0 // how many ruins that have space ruins have been placed
 	var/list/forced_ruins = list() //These go first on the z level associated (same random one by default) or if the assoc value is a turf to the specified turf.
@@ -89,13 +96,15 @@
 		var/datum/map_template/ruin/R = ruins[key]
 		if(R.cost > budget) //Why would you do that
 			continue
-		if(R.always_place)
-			forced_ruins[R] = -1
-			if(R.has_ghost_roles)
-				ghost_roles_forced++
-		else if(R.has_ghost_roles && ghost_roles_forced < minimum_ghost_roles)
+		if(R.has_ghost_roles && blacklist_ghost_roles)
+			continue
+
+		if(R.has_ghost_roles && ghost_roles_forced < minimum_ghost_roles)
 			forced_ruins[R] = -1
 			ghost_roles_forced++
+		else if(R.always_place)
+			forced_ruins[R] = -1
+
 		if(R.unpickable)
 			continue
 		ruins_available[R] = R.placement_weight
