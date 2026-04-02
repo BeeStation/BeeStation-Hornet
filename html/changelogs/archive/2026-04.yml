@@ -3,3 +3,9 @@
   - rscadd: moths can now set mutcolors
   - rscadd: moth bodyparts use new greyscale sprites
   - rscadd: adds new moth eye option, and makes it a preference
+2026-04-02:
+  Isaac:
+  - balance: Mech now has a do_after per fixing attempt, requiring 2 seconds per welding
+  - bugfix: Mech equipment is once again disabled for 6 seconds when hit with an EMP
+  - balance: Techshells cost reduced to 0.6 at 100% efficiency
+  - code_imp: Removed an extra initialize pill bottles had
