@@ -64,9 +64,6 @@
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	return
 
-/datum/element/basic_eating/proc/on_pre_attackingtarget(mob/living/eater, atom/target)
-	SIGNAL_HANDLER
-	try_eating(eater, target)
 
 /datum/element/basic_eating/proc/try_eating(mob/living/eater, atom/target, mob/living/feeder)
 	if(!is_type_in_list(target, food_types))

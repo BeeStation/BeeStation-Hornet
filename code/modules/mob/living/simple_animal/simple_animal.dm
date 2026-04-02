@@ -604,6 +604,11 @@
 
 //ANIMAL RIDING
 
+/mob/living/simple_animal/mouse_buckle_handling(mob/living/M, mob/living/user)
+	if(can_buckle && isliving(M) && isliving(user))
+		return user_buckle_mob(M, user, check_loc = FALSE)
+	return FALSE
+
 /mob/living/simple_animal/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(user.incapacitated)
 		return
