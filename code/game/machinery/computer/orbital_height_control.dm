@@ -148,9 +148,6 @@
 			altitude_hold_enabled = !altitude_hold_enabled
 			. = TRUE
 
-/obj/machinery/computer/orbital_height_control/ui_state(mob/user)
-	return GLOB.default_state
-
 /*
 	We love these notes.
 */
