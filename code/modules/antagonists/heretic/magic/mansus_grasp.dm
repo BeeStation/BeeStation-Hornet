@@ -13,7 +13,7 @@
 	invocation_type = INVOCATION_SHOUT
 	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
 	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION
-	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE)
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 

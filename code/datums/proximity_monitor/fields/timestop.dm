@@ -128,7 +128,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	into_the_negative_zone(A)
 	RegisterSignal(A, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(unfreeze_atom))
 	RegisterSignal(A, COMSIG_ITEM_PICKUP, PROC_REF(unfreeze_atom))
-
 	SEND_SIGNAL(A, COMSIG_ATOM_TIMESTOP_FREEZE, src)
 
 	return TRUE
@@ -210,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	P.paused = FALSE
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/victim)
-	if(victim.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
+	if(victim.can_block_magic(MAGIC_RESISTANCE))
 		immune[victim] = TRUE
 		if(channelled)
 			RegisterSignal(victim, COMSIG_MOVABLE_MOVED, PROC_REF(atom_broke_channel), override = TRUE)

@@ -29,7 +29,7 @@
 	for(var/mob/living/carbon/human/victim as anything in nearby)
 		if(victim == owner || IS_HERETIC_OR_MONSTER(victim))
 			continue
-		if(victim.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 			victim.visible_message(
 				span_danger("[victim]'s body flashes in a fiery glow, but repels the blaze!"),
 				span_danger("Your body begins to flash in a fiery glow, but you are protected!")

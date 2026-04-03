@@ -26,7 +26,7 @@
 	target_turf.rust_heretic_act()
 
 /datum/action/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
-	if(victim.can_block_magic(MAGIC_RESISTANCE_HOLY) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
+	if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
 		return
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, (level * 1 SECONDS))
