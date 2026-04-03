@@ -23,6 +23,7 @@ type ThrusterData = {
   fuel_target: number;
   thrust_level: number;
   requested_thrust: number;
+  fuel_fault: boolean;
 };
 
 type OrbitalData = {
@@ -376,10 +377,13 @@ const ThrusterStatusRow = (props: { thruster: ThrusterData }) => {
     100,
   );
   const isLowFuel = !thruster.has_fuel;
+  const isFault = thruster.fuel_fault;
   const thrustMismatch = thruster.thrust_level !== thruster.requested_thrust;
 
   let fuelBarColor: string;
-  if (isLowFuel) {
+  if (isFault) {
+    fuelBarColor = 'bad';
+  } else if (isLowFuel) {
     fuelBarColor = 'bad';
   } else if (fuelPercent < 40) {
     fuelBarColor = 'average';
@@ -387,17 +391,35 @@ const ThrusterStatusRow = (props: { thruster: ThrusterData }) => {
     fuelBarColor = 'good';
   }
 
+  // Determine status icon
+  let iconName: string;
+  let iconColor: string;
+  if (isFault) {
+    iconName = 'times-circle';
+    iconColor = 'red';
+  } else if (isLowFuel) {
+    iconName = 'exclamation-triangle';
+    iconColor = 'red';
+  } else {
+    iconName = 'check-circle';
+    iconColor = 'green';
+  }
+
   return (
     <Box mb={0.5}>
       <Stack align="center">
         <Stack.Item>
-          <Icon
-            name={isLowFuel ? 'exclamation-triangle' : 'check-circle'}
-            color={isLowFuel ? 'red' : 'green'}
-          />
+          <Icon name={iconName} color={iconColor} />
         </Stack.Item>
         <Stack.Item grow basis="0" ml={1}>
-          <Box bold>{thruster.name}</Box>
+          <Box bold>
+            {thruster.name}
+            {isFault && (
+              <Box as="span" color="red" ml={1}>
+                [FAULT]
+              </Box>
+            )}
+          </Box>
         </Stack.Item>
         <Stack.Item>
           <Tooltip

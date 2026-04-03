@@ -111,6 +111,7 @@
 			"fuel_target" = thruster.buffer_target,
 			"thrust_level" = thruster.thrust_level,
 			"requested_thrust" = thruster.requested_thrust,
+			"fuel_fault" = thruster.fuel_fault,
 		))
 	data["thrusters"] = thrusters
 

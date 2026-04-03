@@ -6,6 +6,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
 	layer = HIGH_OBJ_LAYER
+	override_naming = TRUE
 
 /obj/machinery/atmospherics/gasrig/core
 	/// Machine starts idle unless you want it to always start active
@@ -512,6 +513,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	density = TRUE
 	move_resist = INFINITY
+	override_naming = TRUE
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
 /obj/machinery/atmospherics/components/unary/gasrig/Initialize(mapload, obj/machinery/atmospherics/gasrig/core/gas_rig)

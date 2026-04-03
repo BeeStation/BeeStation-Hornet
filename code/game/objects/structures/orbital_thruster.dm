@@ -28,6 +28,20 @@
 	/// Internal fuel buffer separate from the pipe connection because I cannot fucking get the pipe to stop equalizing
 	var/datum/gas_mixture/fuel_buffer
 
+	/// Internal radio for broadcasting fault warnings on the engineering channel
+	var/obj/item/radio/radio
+	/// The encryption key our internal radio uses
+	var/radio_key = /obj/item/encryptionkey/headset_eng
+
+	/// Whether the thruster is in a fuel fault state (no fuel for over 1 minute)
+	var/fuel_fault = FALSE
+	/// World time when fuel was last detected in the buffer
+	var/last_fuel_time = 0
+	/// How long without fuel before entering fault state (1 minute)
+	var/fuel_fault_threshold = 1 MINUTES
+	/// Cooldown for periodic fault radio reports
+	COOLDOWN_DECLARE(fuel_fault_report_cooldown)
+
 /obj/machinery/atmospherics/components/unary/orbital_thruster/Initialize(mapload)
 	. = ..()
 	// Create our isolated internal fuel buffer
@@ -39,12 +53,60 @@
 	var/datum/gas_mixture/pipe_connection = airs[1]
 	pipe_connection.volume = 0.1 // Tiny volume for connection only
 
+	// Set up our internal radio for engineering channel warnings
+	radio = new(src)
+	radio.keyslot = new radio_key
+	radio.set_listening(FALSE)
+	radio.recalculateChannels()
+
+	// Assume fuel was present at initialization (grace period)
+	last_fuel_time = world.time
+
 	SSorbital_altitude.orbital_thrusters += src
 
 /obj/machinery/atmospherics/components/unary/orbital_thruster/Destroy()
 	QDEL_NULL(fuel_buffer)
+	QDEL_NULL(radio)
 	SSorbital_altitude.orbital_thrusters -= src
 	return ..()
+
+/// Override LateInitialize to generate our unique name AFTER the parent's update_name() call.
+/// The atmospherics base type calls update_name() in LateInitialize, which would overwrite
+/// any name set during Initialize() with "[pipe_color_name] [initial(name)]" (e.g. "omni orbital thruster").
+/obj/machinery/atmospherics/components/unary/orbital_thruster/LateInitialize()
+	. = ..()
+	generate_unique_name()
+
+/// Generate a unique thruster name based on x-coordinate. Appends -A, -B, etc. if multiple thrusters share the same x.
+/obj/machinery/atmospherics/components/unary/orbital_thruster/proc/generate_unique_name()
+	var/base_name = "OT-[x]"
+	// Check for other thrusters at the same x-coordinate
+	var/list/same_x_thrusters = list()
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/other in SSorbital_altitude.orbital_thrusters)
+		if(other == src)
+			continue
+		if(other.x == x)
+			same_x_thrusters += other
+	if(length(same_x_thrusters))
+		// There are other thrusters at this x, assign suffixes
+		// First, rename existing ones if they haven't been suffixed yet
+		var/suffix_index = 1
+		for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/other in same_x_thrusters)
+			// Only rename if they still have the unsuffixed base name
+			if(other.name == base_name)
+				var/suffix_letter = ascii2text(64 + suffix_index) // A, B, C...
+				other.name = "[base_name]-[suffix_letter]"
+				suffix_index++
+			else
+				// Already suffixed, find the highest suffix index
+				suffix_index = max(suffix_index, length(same_x_thrusters) + 1)
+		// Now assign our own suffix
+		var/our_suffix = ascii2text(64 + length(same_x_thrusters) + 1)
+		name = "[base_name]-[our_suffix]"
+	else
+		name = base_name
+	// Prevent the atmospherics base type from overwriting our name via update_name()
+	override_naming = TRUE
 
 /obj/machinery/atmospherics/components/unary/orbital_thruster/process()
 	// Gradually step thrust_level toward requested_thrust (one level per tick)
@@ -56,6 +118,32 @@
 		thrust_level++
 	else if(thrust_level > requested_thrust)
 		thrust_level--
+
+	// Track fuel fault state
+	update_fuel_fault()
+
+/// Update fuel fault state. Enters fault if no fuel for over 1 minute. Reports on engineering radio every 10 minutes.
+/obj/machinery/atmospherics/components/unary/orbital_thruster/proc/update_fuel_fault()
+	if(has_fuel)
+		last_fuel_time = world.time
+		if(fuel_fault)
+			fuel_fault = FALSE
+			// Notify engineering that the fault has cleared
+			radio.talk_into(src, "Fuel supply restored. Fault condition cleared.", RADIO_CHANNEL_ENGINEERING)
+		return
+
+	// No fuel, check if we've exceeded the fault threshold
+	if(!fuel_fault && (world.time - last_fuel_time >= fuel_fault_threshold))
+		fuel_fault = TRUE
+		// Immediate warning when first entering fault state
+		radio.talk_into(src, "WARNING: No fuel supply detected for over 1 minute. Entering fault state. Restore fuel supply to clear.", RADIO_CHANNEL_ENGINEERING)
+		COOLDOWN_START(src, fuel_fault_report_cooldown, 10 MINUTES)
+
+	// Periodic fault reports every 10 minutes
+	if(fuel_fault && COOLDOWN_FINISHED(src, fuel_fault_report_cooldown))
+		var/time_without_fuel = round((world.time - last_fuel_time) / (1 MINUTES), 0.1)
+		radio.talk_into(src, "FAULT: No fuel supply for [time_without_fuel] minutes. Fuel line inspection required.", RADIO_CHANNEL_ENGINEERING)
+		COOLDOWN_START(src, fuel_fault_report_cooldown, 10 MINUTES)
 
 /obj/machinery/atmospherics/components/unary/orbital_thruster/process_atmos()
 	..()
