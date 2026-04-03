@@ -304,6 +304,22 @@ SUBSYSTEM_DEF(orbital_altitude)
 			minor_announce("Station altitude has returned to normal operating parameters.", \
 				"Altitude Normalized")
 
+/**
+ * Returns the current gateway operational status based on orbital altitude.
+ * GATEWAY_STATUS_OK - altitude is within operational range
+ * GATEWAY_STATUS_TOO_HIGH - altitude is above the upper gateway threshold
+ * GATEWAY_STATUS_TOO_LOW - altitude is below the lower gateway threshold
+ */
+/datum/controller/subsystem/orbital_altitude/proc/get_gateway_status()
+	// Planetary stations don't have orbital gateway restrictions
+	if(SSmapping.current_map.planetary_station)
+		return GATEWAY_STATUS_OK
+	if(orbital_altitude > GATEWAY_ALTITUDE_UPPER)
+		return GATEWAY_STATUS_TOO_HIGH
+	if(orbital_altitude < GATEWAY_ALTITUDE_LOWER)
+		return GATEWAY_STATUS_TOO_LOW
+	return GATEWAY_STATUS_OK
+
 /datum/controller/subsystem/orbital_altitude/proc/announce_countdown_stage()
 	switch(countdown_stage)
 		if(1)

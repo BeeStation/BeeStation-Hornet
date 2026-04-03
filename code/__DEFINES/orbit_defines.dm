@@ -8,6 +8,15 @@
 #define ORBITAL_ALTITUDE_LOW_CRITICAL 90000 // 90km - Lower critical threshold (structural damage begins)
 #define ORBITAL_ALTITUDE_LOW_BOUND 80000 // 80km - Cannot go lower than this
 
+// Gateway operational altitude thresholds
+#define GATEWAY_ALTITUDE_UPPER 110000 // 110km - Gateway cannot align above this altitude
+#define GATEWAY_ALTITUDE_LOWER 100000 // 100km - Gateway cannot stabilize below this altitude
+
+// Gateway status return values
+#define GATEWAY_STATUS_OK 0
+#define GATEWAY_STATUS_TOO_HIGH 1
+#define GATEWAY_STATUS_TOO_LOW 2
+
 // Orbital altitude thresholds for erosion
 #define EROSION_ALTITUDE_START 95000  // 95km - Light fire effects start
 #define EROSION_ALTITUDE_CRITICAL 90000  // 90km - Damage begins

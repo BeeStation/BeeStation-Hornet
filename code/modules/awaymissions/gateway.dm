@@ -61,6 +61,15 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 
 	. += span_info("It appears to be [active ? (istype(linked_gateway) ? "on, and connected to a destination" : "on, but not linked") : "off"].")
 
+	// Show altitude warnings for station gateways
+	if(istype(src, /obj/machinery/gateway/station))
+		var/gateway_status = SSorbital_altitude.get_gateway_status()
+		switch(gateway_status)
+			if(GATEWAY_STATUS_TOO_HIGH)
+				. += span_warning("The gateway's alignment indicators are flickering erratically. The station seems too far from the target beacon.")
+			if(GATEWAY_STATUS_TOO_LOW)
+				. += span_danger("The gateway's alignment indicators are glowing dark red. Something in the atmosphere is interfering with it.")
+
 	if(active)
 		. += ""
 		. += span_info("Use a <b>multi-tool</b> to turn it off.")
@@ -81,6 +90,17 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	if(!linked_gateway.active)
 		say_cooldown("Destination gateway not active.")
 		return FALSE
+
+	// Check orbital altitude before allowing teleportation
+	if(istype(src, /obj/machinery/gateway/station))
+		var/gateway_status = SSorbital_altitude.get_gateway_status()
+		switch(gateway_status)
+			if(GATEWAY_STATUS_TOO_HIGH)
+				say_cooldown("ALIGNMENT ERROR: Tunnel lost. Station altitude is out of alignment range.")
+				return FALSE
+			if(GATEWAY_STATUS_TOO_LOW)
+				say_cooldown("STABILITY ERROR: Tunnel lost. Too much atmospheric interference at this altitude.")
+				return FALSE
 
 	return check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY)
 
@@ -170,6 +190,19 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	if(!linked_gateway)
 		to_chat(user, span_warning("No destination found!"))
 		return FALSE
+
+	// Check orbital altitude before allowing activation
+	if(istype(src, /obj/machinery/gateway/station))
+		var/gateway_status = SSorbital_altitude.get_gateway_status()
+		switch(gateway_status)
+			if(GATEWAY_STATUS_TOO_HIGH)
+				say("ALIGNMENT ERROR: Unable to form tunnel. Station is too far from the target beacon at this altitude.")
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+				return FALSE
+			if(GATEWAY_STATUS_TOO_LOW)
+				say("STABILITY ERROR: Unable to form tunnel. Atmospheric conditions at this altitude are too unstable.")
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+				return FALSE
 
 	active = TRUE
 	use_power = ACTIVE_POWER_USE
