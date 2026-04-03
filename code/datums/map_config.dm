@@ -173,12 +173,6 @@
 			var/converted_dir = text2dir(direction_text)
 			if(converted_dir)
 				reentry_direction = converted_dir
-	else
-		// Stale configs might be present? (e.g. cached next_map.json from before this field existed, during a TM?)
-		// Try to read the direction from the a _maps/ JSON for this map, just in case.
-		var/canonical_dir = load_reentry_direction_from_file_fallback(map_name)
-		if(canonical_dir)
-			reentry_direction = canonical_dir
 
 	if ("minetype" in json)
 		minetype = json["minetype"]
@@ -226,31 +220,3 @@
 
 /datum/map_config/proc/MakeNextMap()
 	return config_filename == "data/next_map.json" || fcopy(config_filename, "data/next_map.json")
-
-/// Searches _maps/*.json files for one whose map_name matches
-/// the given name, and returns its reentry_direction (as a BYOND dir constant).
-/// Returns null if nothing is found so the secondary fallback does not get messed up.
-/datum/map_config/proc/load_reentry_direction_from_file_fallback(target_map_name)
-	var/list/candidates = flist("_maps/")
-	for(var/candidate_file in candidates)
-		if(!findtext(candidate_file, ".json"))
-			continue
-		var/full_path = "_maps/[candidate_file]"
-		if(!fexists(full_path))
-			continue
-		var/raw = rustg_file_read(full_path)
-		if(!raw)
-			continue
-		var/list/candidate_json = json_decode(raw)
-		if(!islist(candidate_json))
-			continue
-		if(candidate_json["map_name"] != target_map_name)
-			continue
-		// Found matching config
-		var/direction_text = candidate_json["reentry_direction"]
-		if(istext(direction_text))
-			var/converted = text2dir(direction_text)
-			if(converted)
-				log_runtime("ERROR: map_config loaded reentry_direction '[direction_text]' from file '[full_path]' (stale cache fallback).")
-				return converted
-	return null
