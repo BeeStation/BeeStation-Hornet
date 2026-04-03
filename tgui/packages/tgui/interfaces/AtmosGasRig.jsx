@@ -11,6 +11,7 @@ import {
   Section,
   Tooltip,
 } from '../components';
+import { getGasColor } from '../constants';
 import { Window } from '../layouts';
 
 export const AtmosGasRig = (props) => {
@@ -332,7 +333,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'white',
+              getGasColor('n2o'),
               'N2O',
             )}
             {DisplayGasBar(
@@ -341,7 +342,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'red',
+              getGasColor('n2'),
               'N2',
             )}
             {DisplayGasBar(
@@ -350,7 +351,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'blue',
+              getGasColor('o2'),
               'O2',
             )}
 
@@ -360,7 +361,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'brown',
+              getGasColor('bz'),
               'BZ',
             )}
             {DisplayGasBar(
@@ -369,7 +370,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'lawngreen',
+              getGasColor('tritium'),
               'Tritium',
             )}
             {DisplayGasBar(
@@ -378,7 +379,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'purple',
+              getGasColor('plasma'),
               'Plasma',
             )}
 
@@ -388,7 +389,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'yellow',
+              getGasColor('pluoxium'),
               'Pluoxium',
             )}
             {DisplayGasBar(
@@ -397,7 +398,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'teal',
+              getGasColor('hypernoblium'),
               'Hypernoblium',
             )}
             {DisplayGasBar(
@@ -406,7 +407,7 @@ export const AtmosGasRigTemplate = (props) => {
               depth_min,
               depth_max,
               barHeight,
-              'grey',
+              getGasColor('co2'),
               'CO2',
             )}
 
