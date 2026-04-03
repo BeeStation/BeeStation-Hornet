@@ -310,7 +310,7 @@
 	if(!to_set && get_extension() > 20)
 		// Block the request
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 80, 1)
-		balloon_alert_to_viewers("The nozzle is extended too far. Please retract it before turning off.")
+		balloon_alert_to_viewers("The nozzle is extended too far. Please retract it before turning off")
 		return FALSE
 
 	active = to_set

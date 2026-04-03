@@ -161,7 +161,7 @@
 	\n\
 	The further up you go, you'll edge into the radiation belts. Too low, and the atmosphere will start to eat at the station. Try to keep us in the Safe Zone as much as possible.\n\n\
 	Gonna be honest with you here too, I reckon the station can probably handle dipping below 95km. It'll scratch the paint and give you a light show, but it should be fiiiine.\n\n\
-	Ah another thing. See the thruster panel at the bottom? **CHECK THAT RELIGIOUSLY.** You never know why the thrusters might not be giving you full power but you won't want to find out in-atmo.\n\n\
+	Ah another thing. See the thruster panel? **CHECK THAT RELIGIOUSLY.** You never know why the thrusters might not be giving you full power but you won't want to find out in-atmo.\n\n\
 	- Engineer J."
 
 // Roughly tell them what they're gonna get out of a can of fuel:
