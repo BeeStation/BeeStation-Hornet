@@ -193,7 +193,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
 /atom/movable/screen/orbital_layer/stars
 	icon_state = "stars"
-	blend_mode = BLEND_ADD
+	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/orbital_layer/stars/update_for_altitude(altitude, client/viewer_client)
 	// Stars layer: fully visible from ORBITAL_ALTITUDE_HIGH_BOUND down to ORBITAL_ALTITUDE_HIGH
