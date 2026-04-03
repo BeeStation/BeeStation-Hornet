@@ -186,10 +186,6 @@ All ShuttleMove procs go here
 	newT.change_area(old_dest_area, src)
 	return TRUE
 
-// Called on areas after everything has been moved
-/area/proc/afterShuttleMove()
-	return TRUE
-
 /area/proc/lateShuttleMove()
 	return
 
