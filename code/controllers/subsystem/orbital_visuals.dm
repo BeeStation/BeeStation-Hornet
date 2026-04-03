@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	// Increase brightness as we descend (simulating more atmospheric scattering)
 	// We do this by lightening the color
 	var/brightness_boost = descent_progress * 0.3 // Up to 30% brighter
-	blended_color = LightenRGB(blended_color, brightness_boost)
+	blended_color = BlendRGB(blended_color, COLOR_WHITE, brightness_boost)
 
 	apply_starlight_colour(blended_color, 0.2 SECONDS) // Match fire rate for smooth interpolation
 
@@ -220,19 +220,6 @@ SUBSYSTEM_DEF(orbital_visuals)
 	starlight_override = FALSE
 	// Immediately update to current state
 	update_visual_state(SSorbital_altitude.orbital_altitude)
-
-// Helper proc to lighten a color
-/proc/LightenRGB(color, amount)
-	var/red = hex2num(copytext(color, 2, 4))
-	var/green = hex2num(copytext(color, 4, 6))
-	var/blue = hex2num(copytext(color, 6, 8))
-
-	// Lighten by moving towards white (255)
-	red = clamp(red + ((255 - red) * amount), 0, 255)
-	green = clamp(green + ((255 - green) * amount), 0, 255)
-	blue = clamp(blue + ((255 - blue) * amount), 0, 255)
-
-	return rgb(red, green, blue)
 
 #undef ORBITAL_STATE_NORMAL
 #undef ORBITAL_STATE_ATMOSPHERIC_DESCENT
