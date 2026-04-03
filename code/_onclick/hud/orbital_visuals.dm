@@ -152,10 +152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
 /// Creates tiled overlays to make the sprite repeat across the entire screen
 /// This takes a single 480x480 sprite and tiles it to fill the client's view
-/atom/movable/screen/orbital_layer/proc/create_tiled_overlays(view)
-	if(!view)
-		view = world.view
-
+/atom/movable/screen/orbital_layer/proc/create_tiled_overlays(view = world.view)
 	// Mark this layer as tiled
 	is_tiled = TRUE
 
