@@ -91,9 +91,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 /// Updates effects continuously within the current state
 /datum/controller/subsystem/orbital_visuals/proc/update_state_effects(altitude)
 	switch(current_state)
-		if(ORBITAL_STATE_NORMAL)
-			// Normal starlight can be tied to time of day here if desired
-			update_normal_starlight()
+
 		if(ORBITAL_STATE_ATMOSPHERIC_DESCENT)
 			// Gradually increase brightness as we descend
 			update_atmospheric_descent(altitude)
