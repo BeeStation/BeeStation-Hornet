@@ -42,24 +42,10 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/computer/orbital_height_control/ui_data(mob/user)
+/obj/machinery/computer/orbital_height_control/ui_static_data(mob/user)
 	var/list/data = list()
 
-	// Fetch data from the orbital altitude subsystem
-	data["current_altitude"] = SSorbital_altitude.orbital_altitude / 1000  // Convert meters to kilometers
-	data["orbital_decay"] = SSorbital_altitude.decay_rate || 0
-	data["orbital_velocity_index"] = SSorbital_altitude.velocity_index || 0
-
-	// Calculate normalized atmospheric resistance (0-100%)
-	var/resistance_normalized = clamp((1 - SSorbital_altitude.resistance) * 100 + rand(-10, 10), 0, 100)
-	data["normalized_resistance"] = round(resistance_normalized, 0.1)
-
-	data["thrust_level"] = set_thrust
-	data["actual_thrust"] = SSorbital_altitude.thrust / 2 // It uses -40 to +40 range, we only want to display -20 to +20
-	data["altitude_hold_enabled"] = altitude_hold_enabled || FALSE
-	data["altitude_hold_target"] = altitude_hold_target || SSorbital_altitude.orbital_altitude
-
-	// Define orbital bands for visualization
+	// Define orbital bands for visualization (these are constant)
 	var/list/orbital_bands = list()
 	orbital_bands += list(list(
 		"name" = "High Critical",
@@ -93,6 +79,25 @@
 		"color" = "#8B0000"
 	))
 	data["orbital_bands"] = orbital_bands
+
+	return data
+
+/obj/machinery/computer/orbital_height_control/ui_data(mob/user)
+	var/list/data = list()
+
+	// Fetch data from the orbital altitude subsystem
+	data["current_altitude"] = SSorbital_altitude.orbital_altitude / 1000  // Convert meters to kilometers
+	data["orbital_decay"] = SSorbital_altitude.decay_rate || 0
+	data["orbital_velocity_index"] = SSorbital_altitude.velocity_index || 0
+
+	// Calculate normalized atmospheric resistance (0-100%)
+	var/resistance_normalized = clamp((1 - SSorbital_altitude.resistance) * 100 + rand(-10, 10), 0, 100)
+	data["normalized_resistance"] = round(resistance_normalized, 0.1)
+
+	data["thrust_level"] = set_thrust
+	data["actual_thrust"] = SSorbital_altitude.thrust / 2 // It uses -40 to +40 range, we only want to display -20 to +20
+	data["altitude_hold_enabled"] = altitude_hold_enabled || FALSE
+	data["altitude_hold_target"] = altitude_hold_target || SSorbital_altitude.orbital_altitude
 
 	// Thruster status data
 	var/list/thrusters = list()
