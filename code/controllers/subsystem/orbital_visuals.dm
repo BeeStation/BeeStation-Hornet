@@ -7,7 +7,7 @@
 SUBSYSTEM_DEF(orbital_visuals)
 	name = "Orbital Visuals"
 	can_fire = TRUE
-	wait = 2 // 0.2 seconds - fast enough for re-entry flicker, slow enough to not spam animate()
+	wait = 0.2 SECONDS // Fast enough for re-entry flicker, slow enough to not spam animate()
 	flags = SS_KEEP_TIMING | SS_NO_INIT
 	priority = FIRE_PRIORITY_SPACE_BACKGROUND
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
