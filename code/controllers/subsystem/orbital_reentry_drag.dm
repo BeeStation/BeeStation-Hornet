@@ -152,9 +152,6 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 	GLOB.meteor_list -= src
 	SSaugury.unregister_doom(src)
 
-/obj/effect/meteor/atmospheric_drag/chase_target(atom/chasing, delay, home)
-	. = ..()
-
 /obj/effect/meteor/atmospheric_drag/Bump(atom/bumped)
 	// Pass through mobs harmlessly
 	if(isliving(bumped) || ismob(bumped))
