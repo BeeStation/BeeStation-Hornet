@@ -252,10 +252,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	if(altitude <= ORBITAL_ALTITUDE_LOW_CRITICAL)
 		// Below LOW_CRITICAL altitude, fire is fully visible
 		alpha = 255
-	else if(altitude <= ORBITAL_ALTITUDE_LOW)
-		// Between LOW_CRITICAL and LOW, fade out fire
+	else if(altitude <= 92000)
+		// Between LOW_CRITICAL and 92km, fade out fire
 		// Calculate fade percentage (0 to 1, where 1 is fully visible)
-		var/fade_range = ORBITAL_ALTITUDE_LOW - ORBITAL_ALTITUDE_LOW_CRITICAL
+		var/fade_range = 92000 - ORBITAL_ALTITUDE_LOW_CRITICAL
 		var/fade_progress = (altitude - ORBITAL_ALTITUDE_LOW_CRITICAL) / fade_range
 		alpha = (1 - fade_progress) * 255  // Invert so it fades OUT as altitude increases
 	else
