@@ -52,5 +52,5 @@
 	all_bodies = sortTim(all_bodies, GLOBAL_PROC_REF(cmp_orbital_priority_dsc))
 
 	// Now initialize in the correct order
-	for(var/datum/orbital_object/body as() in all_bodies)
+	for(var/datum/orbital_object/body as anything in all_bodies)
 		body.post_map_setup()

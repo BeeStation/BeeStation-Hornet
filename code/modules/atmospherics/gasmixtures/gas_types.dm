@@ -235,7 +235,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	rarity = 100
 	base_value = 3
 	desc = "A specialized hydrogen-based fuel formulation designed for orbital maneuvering systems. Highly flammable and self-oxidizing. Keep away from open flames, this stuff will burn even in a vacuum."
-	primary_color = "#00ffff"
+	primary_color = COLOR_CYAN
 
 /obj/effect/overlay/gas
 	icon = 'icons/effects/atmospherics.dmi'

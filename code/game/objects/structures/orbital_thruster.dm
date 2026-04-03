@@ -146,8 +146,6 @@
 		COOLDOWN_START(src, fuel_fault_report_cooldown, 10 MINUTES)
 
 /obj/machinery/atmospherics/components/unary/orbital_thruster/process_atmos()
-	..()
-
 	// Use our isolated fuel buffer instead of airs[1]
 	if(!fuel_buffer)
 		has_fuel = FALSE

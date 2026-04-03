@@ -17,7 +17,7 @@
 		radius = SSmapping.current_map.planet_radius
 		mass = SSmapping.current_map.planet_mass
 		if (SSmapping.current_map.planet_name)
-			name = "[SSmapping.current_map.planet_name]"
+			name = "[SSmapping.current_map.planet_name] (Outpost 13)"
 
 #ifdef LOWMEMORYMODE
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
