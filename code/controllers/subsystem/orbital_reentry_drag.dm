@@ -201,7 +201,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 
 /obj/effect/meteor/atmospheric_drag/CanPass(atom/movable/mover, border_dir)
 	// Always let mobs pass through
-	if(isliving(mover) || ismob(mover))
+	if(ismob(mover))
 		return TRUE
 	return ..()
 
