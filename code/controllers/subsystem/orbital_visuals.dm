@@ -20,8 +20,6 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/current_state = ORBITAL_STATE_NORMAL
 	/// Whether starlight control is overridden (like aurora caelus)
 	var/starlight_override = FALSE
-	/// Target color for starlight in current state
-	var/target_starlight_color = COLOR_STARLIGHT
 	/// The last color we actually sent to set_orbital_starlight_colour, used to avoid redundant animate() calls
 	var/last_applied_color = null
 
