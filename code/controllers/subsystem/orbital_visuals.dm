@@ -121,11 +121,6 @@ SUBSYSTEM_DEF(orbital_visuals)
 	// Could integrate with time of day here if desired
 	apply_starlight_colour(COLOR_STARLIGHT, 3 SECONDS)
 
-/datum/controller/subsystem/orbital_visuals/proc/update_normal_starlight()
-	// Optional: Tie to time of day by checking SSnatural_light_cycle
-	// For now, just maintain normal starlight
-	return
-
 // ============================================================================
 // ATMOSPHERIC DESCENT STATE (95km - 120km)
 // ============================================================================
@@ -170,7 +165,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 
 	// Flicker between atmospheric blue and orange/red
 	var/base_color = "#A8C5E8" // Atmospheric blue
-	var/flicker_color = pick("#FFA500", "#FF6B00", "#FF4500") // Orange to red-orange
+	var/flicker_color = pick(COLOR_TAN_ORANGE, COLOR_DARK_ORANGE, COLOR_LIGHT_ORANGE)
 
 	// Blend based on random flicker and intensity
 	var/flicker_amount = warning_progress * prob(warning_progress * 9) ** 2 // Increasingly frequent flickers
@@ -193,11 +188,11 @@ SUBSYSTEM_DEF(orbital_visuals)
 
 	// Violent flickering between different intensities of orange and red
 	var/list/reentry_colors = list(
-		"#FF4500", // Red-orange
-		"#FF6B00", // Orange-red
-		"#FF8C00", // Dark orange
-		"#FFA500", // Orange
-		"#FF0000", // Pure red (rare, intense moments)
+		COLOR_LIGHT_ORANGE,
+		COLOR_TAN_ORANGE,
+		COLOR_DARK_ORANGE,
+		COLOR_ORANGE,
+		COLOR_RED,
 	)
 
 	// Pick more intense colors as we descend deeper

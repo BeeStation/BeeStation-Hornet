@@ -8,7 +8,7 @@
  * 1. On Initialize, we determine the reentry direction from map config and
  *    build a randomized list of coordinates along the perpendicular axis
  *    (e.g. if reentry is from the EAST, we scan each Y coordinate).
- * 2. Each fire(), we process a chunk of those coordinates — raycasting inward
+ * 2. Each fire(), we process a chunk of those coordinates, raycasting inward
  *    from the reentry edge to find the first solid turf (or space turf with
  *    real contents). Results are stored in `target_turfs`.
  * 3. Once we reach the end of the coordinate list, we reshuffle and restart.
@@ -16,7 +16,7 @@
  *    erosion subsystem never has to iterate a list that's grown unbounded.
  *
  * The erosion subsystem depends on us and reads `target_turfs` each fire to
- * apply damage. We never apply damage here — only scan.
+ * apply damage. We never apply damage here, only scan.
  *
  * Activation / deactivation is driven by orbital altitude: the altitude
  * subsystem toggles our `can_fire` flag, just like it does for the drag
@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 	/// Capped to the axis length so one full scan pass replaces the old data.
 	var/max_target_turfs = 0
 
-	/// Output list — the turfs that the erosion subsystem will consume.
+	/// Output list, the turfs that the erosion subsystem will consume.
 	/// Stored as an assoc list keyed by the turf ref to avoid duplicates,
 	/// value is always TRUE.
 	var/list/turf/target_turfs = list()
@@ -127,7 +127,7 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 		scan_index = 1
 		scan_z_index++
 
-	// Completed a full pass over every z-level — reshuffle and restart
+	// Completed a full pass over every z-level, reshuffle and restart
 	reshuffle_scan_order()
 	scan_index = 1
 	scan_z_index = 1
@@ -175,15 +175,15 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 		return FALSE
 	if(!isspaceturf(tile))
 		return TRUE
-	// Space turf — only counts if something real is sitting on it
+	// Space turf, only counts if something real is sitting on it
 	return has_real_contents(tile)
 
-/// Returns TRUE if the tile has any non-effect objects or non-observer mobs.
+/// Returns TRUE if the tile has any non-effect objects or living mobs.
 /datum/controller/subsystem/orbital_reentry_scanning/proc/has_real_contents(turf/tile)
 	for(var/atom/movable/thing in tile)
 		if(isobj(thing) && !iseffect(thing))
 			return TRUE
-		if(ismob(thing) && !isobserver(thing))
+		if(isliving(thing))
 			return TRUE
 	return FALSE
 
