@@ -50,7 +50,7 @@
 
 /obj/machinery/computer/atmos_control/fuelsupply_tank/Initialize(mapload)
 	. = ..()
-	if(istype(get_area(src), /area/bridge))
+	if(mapload)
 		var/obj/item/sticker/sticky_note/orbital_fuel_tutorial/label = new(loc)
 		label.afterattack(src, src, TRUE)
 		label.pixel_y = rand(-8, 8)
