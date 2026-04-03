@@ -13,7 +13,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	visor_flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
-	custom_price = 10
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_VERY_LOW
 
 /datum/armor/mask_breath
 	bio = 50

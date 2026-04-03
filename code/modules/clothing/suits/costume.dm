@@ -86,7 +86,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	resistance_flags = NONE
-	custom_price = 75
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 
 /obj/item/clothing/suit/costume/hastur
 	name = "\improper Hastur's robe"

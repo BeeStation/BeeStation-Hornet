@@ -285,7 +285,7 @@
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = FLASH_PROTECTION_FLASH
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
@@ -543,7 +543,7 @@
 	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 10
 	vision_correction = 1  // why should the eye of a god have bad vision?
 	//var/datum/action/scan/scan_ability

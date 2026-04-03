@@ -355,7 +355,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	crafting_complexity = FOOD_COMPLEXITY_1
-	custom_price = 30
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 
 /obj/item/food/rock_candy
 	name = "Rock candy"

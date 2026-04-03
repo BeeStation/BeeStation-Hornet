@@ -55,7 +55,7 @@
 	desc = "It's a fancy four-color ink pen, set to black."
 	name = "four-color pen"
 	colour = "black"
-	custom_price = 20
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/pen/fourcolor/attack_self(mob/living/carbon/user)
 	switch(colour)
@@ -77,14 +77,14 @@
 	desc = "It's a common fountain pen, with a faux wood body."
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 
 /obj/item/pen/brush
 	name = "calligraphy brush"
 	desc = "A traditional brush usually used for calligraphy and poems."
 	icon_state = "pen-brush"
 	font = BRUSH_PEN_FONT
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 
 /obj/item/pen/charcoal
 	name = "charcoal stylus"

@@ -290,7 +290,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/katana/cursed
 	slot_flags = null
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 10
 
 /obj/item/katana/suicide_act(mob/living/user)
@@ -491,7 +491,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	inhand_icon_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	custom_price = 20
+	custom_price = PAYCHECK_LOWER
 
 	force = 5
 	throwforce = 5
@@ -521,7 +521,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
 	block_power = 50
-	custom_price = 30
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 
 /obj/item/staff/broom
 	force = 5
@@ -530,7 +530,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "broom"
 	resistance_flags = FLAMMABLE
-	custom_price = 20
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/staff/stick
 	name = "stick"
@@ -850,7 +850,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("swat", "smack")
 	hitsound = 'sound/effects/snap.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 	//Things in this list will be instantly splatted.  Flyman weakness is handled in the flyman species weakness proc.
 	var/list/strong_against
 

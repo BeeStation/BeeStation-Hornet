@@ -390,7 +390,7 @@
 	light_range = 0
 	light_intensity = 0
 	change_icons = 0
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 
 /obj/item/weldingtool/abductor/process()
 	if(get_fuel() <= max_fuel)
@@ -403,7 +403,7 @@
 	icon_state = "upindwelder"
 	inhand_icon_state = "upindwelder"
 	max_fuel = 80
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 	custom_materials = list(/datum/material/iron=70, /datum/material/glass=120)
 
 /obj/item/weldingtool/experimental
@@ -418,7 +418,7 @@
 	can_off_process = 1
 	light_intensity = 1
 	toolspeed = 0.5
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 	var/nextrefueltick = 0
 
 /obj/item/weldingtool/experimental/brass

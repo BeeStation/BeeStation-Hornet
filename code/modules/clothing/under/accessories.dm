@@ -286,7 +286,7 @@
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"
 	desc = "An armband, worn by personnel authorized to act as a deputy of station security."
-	custom_price = 10
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_VERY_LOW
 
 /obj/item/clothing/accessory/armband/cargo
 	name = "cargo bay guard armband"

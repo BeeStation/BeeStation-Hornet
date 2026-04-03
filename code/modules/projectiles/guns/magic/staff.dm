@@ -93,7 +93,7 @@
 	icon_state = "honker"
 	inhand_icon_state = "honker"
 	max_charges = 4
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 10
 
 /obj/item/gun/magic/staff/spellblade
@@ -112,7 +112,7 @@
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_charges = 4
-	custom_price = 40000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 2
 
 /obj/item/gun/magic/staff/spellblade/Initialize(mapload)

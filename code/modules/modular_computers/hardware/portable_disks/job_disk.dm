@@ -8,7 +8,7 @@
 	max_capacity = 500
 	device_type = MC_HDD_JOB
 	default_installs = FALSE
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 	max_demand = 20
 	power_usage = 0
 	var/list/progs_to_store = list()
@@ -230,7 +230,7 @@
 	//Give the Captain...EVERYTHING! (except the remote airlock control)
 	disk_flags = ~(DISK_REMOTE_AIRLOCK)
 	spam_delay = 2
-	custom_price = 300
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_EXCLUSIVE
 
 /obj/item/computer_hardware/hard_drive/role/vip //the only purpose of this disk is to allow the VIP to be annoying
 	name = "\improper TWIT disk"

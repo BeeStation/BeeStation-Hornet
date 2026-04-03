@@ -32,7 +32,7 @@ field_generator power level display
 	density = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 500
-	custom_price = 550
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_COMMAND
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
 	armor_type = /datum/armor/field_generator
 	var/power_level = 0

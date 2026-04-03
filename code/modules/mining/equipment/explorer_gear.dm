@@ -133,7 +133,7 @@
 	greyscale_config_worn = /datum/greyscale_config/heck_suit/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
 	high_pressure_multiplier = 0.6
-	custom_price = 30000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 2
 
 /datum/armor/space_hostile_environment
@@ -193,7 +193,7 @@
 	greyscale_config_worn = /datum/greyscale_config/heck_helmet/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
 	high_pressure_multiplier = 0.6
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 2
 
 /obj/item/clothing/head/hooded/hostile_environment/Initialize(mapload)

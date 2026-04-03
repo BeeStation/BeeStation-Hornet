@@ -21,7 +21,7 @@
 	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
 	resistance_flags = NONE
 	max_integrity = 300
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 
 /obj/item/storage/backpack/Initialize(mapload)
 	if(!istype(atom_storage))
@@ -346,7 +346,7 @@
 	name = "satchel"
 	desc = "A trendy looking satchel."
 	icon_state = "satchel-norm"
-	custom_price = 30
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 
 /obj/item/storage/backpack/satchel/leather
 	name = "leather satchel"
@@ -495,7 +495,7 @@
 	icon_state = "duffel"
 	inhand_icon_state = "duffel"
 	slowdown = 1
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 
 /obj/item/storage/backpack/duffelbag/Initialize(mapload)
 	. = ..()

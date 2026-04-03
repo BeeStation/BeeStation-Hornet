@@ -29,5 +29,5 @@
 	device_type = MC_CAMERA
 	expansion_hw = TRUE
 	power_usage = 10 // Watts per second
-	custom_price = 30
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 	can_hack = FALSE

@@ -11,7 +11,7 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	circuit = /obj/item/circuitboard/machine/emitter
 
-	custom_price = 550
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_COMMAND
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 500 WATT

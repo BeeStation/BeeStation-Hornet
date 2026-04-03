@@ -7,7 +7,7 @@
 	icon_state = "oxycandle"
 	inhand_icon_state = "oxycandle"
 	actions_types = list()
-	custom_price = 20
+	custom_price = PAYCHECK_LOWER
 	/// How many seconds of fuel we have left
 	var/fuel = 300
 	var/on_damage = 7

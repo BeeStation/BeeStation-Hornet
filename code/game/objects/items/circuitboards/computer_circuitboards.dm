@@ -205,7 +205,7 @@
 	name = "solar control (Computer Board)"  //name fixed 250810
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/solar_control
-	custom_price = 150
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 
 /obj/item/circuitboard/computer/stationalert
 	name = "station alerts console (Computer Board)"

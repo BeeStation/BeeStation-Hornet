@@ -333,7 +333,7 @@
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-gold"
 	init_ringtone = "ch-CHING"
-	custom_price = 500
+	custom_price = PAYCHECK_VIP * MULTIPLIER_VERY_LOW
 
 /obj/item/modular_computer/tablet/pda/preset/unlicensed
 	name = "unlicensed PDA"

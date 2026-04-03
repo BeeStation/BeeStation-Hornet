@@ -42,7 +42,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	storage_type = /datum/storage/trash
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 	var/insertable = TRUE
 
 /obj/item/storage/bag/trash/Initialize(mapload)

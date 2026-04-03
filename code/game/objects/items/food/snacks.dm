@@ -264,7 +264,7 @@
 	foodtypes = GRAIN | FRUIT | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
-	custom_price = 30
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/energybar
@@ -282,4 +282,4 @@
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
-	custom_price = 20
+	custom_price = PAYCHECK_LOWER

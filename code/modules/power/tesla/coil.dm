@@ -10,7 +10,7 @@
 	buckle_requires_restraints = TRUE
 
 	circuit = /obj/item/circuitboard/machine/tesla_coil
-	custom_price = 450
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_COMMAND
 
 	/// Flags of the zap that the coil releases when the wire is pulsed
 	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN
@@ -200,7 +200,7 @@
 	can_buckle = TRUE
 	buckle_lying = 0
 	buckle_requires_restraints = TRUE
-	custom_price = 350
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_EXCLUSIVE
 
 /obj/machinery/power/energy_accumulator/grounding_rod/anchored
 	anchored = TRUE

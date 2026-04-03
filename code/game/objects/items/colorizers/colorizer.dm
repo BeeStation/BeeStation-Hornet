@@ -4,7 +4,7 @@
 	desc = "This colorizer will apply a new set of colors to an item."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "rainbowcan"
-	custom_price = 60
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 	var/uses_left = 1
 
 	var/list/allowed_targets = list()

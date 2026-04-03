@@ -4,7 +4,7 @@
 	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "plate"
 	w_class = WEIGHT_CLASS_BULKY //No backpack.
-	custom_price = 5
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_ULTRA_LOW
 	///How many things fit on this plate?
 	var/max_items = 8
 	///The offset from side to side the food items can have on the plate

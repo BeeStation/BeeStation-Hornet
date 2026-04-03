@@ -35,7 +35,7 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 10
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)

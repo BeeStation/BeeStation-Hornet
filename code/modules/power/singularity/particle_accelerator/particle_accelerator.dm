@@ -24,7 +24,7 @@
 	density = TRUE
 	max_integrity = 500
 	armor_type = /datum/armor/structure_particle_accelerator
-	custom_price = 350
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_EXCLUSIVE
 
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = PA_CONSTRUCTION_UNSECURED

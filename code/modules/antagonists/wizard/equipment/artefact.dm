@@ -82,7 +82,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	spawn_amt = 20
 	activate_descriptor = "hunger"
 	rend_desc = "Reverberates with the sound of ten thousand moos."
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 10
 
 /obj/item/veilrender/honkrender
@@ -329,7 +329,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
 	item_flags = ISWEAPON
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 10
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
@@ -456,7 +456,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 10
 
 //Warp Whistle: Provides uncontrolled long distance teleportation.

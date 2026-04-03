@@ -12,7 +12,7 @@
 	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
-	custom_price = 25
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_HIGH
 
 
 /datum/armor/head_wizard
@@ -111,7 +111,7 @@
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
-	custom_price = 25
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_HIGH
 
 
 /datum/armor/suit_wizrobe

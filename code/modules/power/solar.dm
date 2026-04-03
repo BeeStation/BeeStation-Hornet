@@ -279,7 +279,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
 	anchored = FALSE
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 	var/tracker = 0
 	var/glass_type = null
 	/// Amount in pixels an unanchored assembly may be offset by

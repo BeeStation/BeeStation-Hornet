@@ -27,7 +27,7 @@
 	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
-	custom_price = 75
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 
 /obj/item/clothing/head/costume/cueball
 	name = "cueball helmet"

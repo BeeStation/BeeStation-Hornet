@@ -4,7 +4,7 @@
 	icon_state = "sharpener"
 	desc = "A block that makes things sharp."
 	force = 5
-	custom_price = 25
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_HIGH
 	var/used = 0
 	var/increment = 4
 	var/max = 30

@@ -467,7 +467,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	use_power = NO_POWER_USE
 	anchored = FALSE
 	density = TRUE
-	custom_price = 40000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 2
 	var/activation_method
 	var/list/possible_methods = list(ACTIVATE_TOUCH, ACTIVATE_SPEECH, ACTIVATE_HEAT, ACTIVATE_BULLET, ACTIVATE_ENERGY, ACTIVATE_BOMB, ACTIVATE_MOB_BUMP, ACTIVATE_WEAPON, ACTIVATE_MAGIC)

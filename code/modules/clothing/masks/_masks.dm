@@ -5,7 +5,7 @@
 	slot_flags = ITEM_SLOT_MASK
 	strip_delay = 40
 	equip_delay_other = 40
-	custom_price = 25
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_HIGH
 	var/modifies_speech = FALSE
 	var/mask_adjusted = FALSE
 	var/adjusted_flags = null

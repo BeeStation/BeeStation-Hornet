@@ -12,7 +12,7 @@
 	open_sound_volume = 25
 	close_sound_volume = 50
 	door_anim_time = 0
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 
 /obj/structure/closet/crate/large/attack_hand(mob/user, list/modifiers)
 	add_fingerprint(user)

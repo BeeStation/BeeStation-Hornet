@@ -79,7 +79,7 @@
 	instability_step = 0.5
 	texture_icon_states = list("texture-bananium1", "texture-bananium2", "texture-bananium3")
 	mask_icon_states = list("mask-bananium1", "mask-bananium2", "mask-bananium3")
-	custom_price = 600
+	custom_price = PAYCHECK_VIP * MULTIPLIER_LOW
 	trait_flags = XENOA_BANANIUM_TRAIT
 	label_icon = "circle"
 
@@ -89,7 +89,7 @@
 	instability_step = 25
 	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
 	mask_icon_states = list("mask-uranium1", "mask-uranium2", "mask-uranium2")
-	custom_price = 450
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_COMMAND
 	trait_malfunctions = 1
 	max_trait_malfunctions = 2
 	trait_flags = XENOA_URANIUM_TRAIT
@@ -101,7 +101,7 @@
 	instability_step = 5
 	texture_icon_states = list("texture-plasma1", "texture-plasma2", "texture-plasma3")
 	mask_icon_states = list("mask-plasma1", "mask-plasma2", "mask-plasma3")
-	custom_price = 250
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_LUXURY
 	trait_flags = XENOA_PLASMA_TRAIT
 	label_icon = "play"
 

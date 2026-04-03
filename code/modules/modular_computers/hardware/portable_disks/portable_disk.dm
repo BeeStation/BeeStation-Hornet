@@ -50,6 +50,5 @@
 	power_usage = 40
 	icon_state = "datadisk3"
 	max_capacity = 256
-	custom_price = 60
 	virus_typepath = /obj/item/computer_hardware/hard_drive/role/virus/breacher
 	custom_price = PAYCHECK_LOWER * MULTIPLIER_LUXURY

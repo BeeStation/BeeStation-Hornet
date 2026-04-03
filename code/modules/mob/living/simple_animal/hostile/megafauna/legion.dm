@@ -177,7 +177,7 @@ Difficulty: Medium
 	force = 15
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
-	custom_price = 20000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 5
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0

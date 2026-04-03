@@ -828,7 +828,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
-	custom_price = 60
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large

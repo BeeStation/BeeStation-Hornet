@@ -25,7 +25,7 @@
 	resistance_flags = NONE
 	dog_fashion = null
 	var/obj/item/clothing/head/attached_hat
-	custom_price = 75
+	custom_price = PAYCHECK_COMMAND
 
 /datum/armor/helmet_space
 	bio = 100
@@ -135,7 +135,7 @@
 	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/toggle_spacesuit)
 	pockets = FALSE
-	custom_price = 150
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	var/temperature_setting = BODYTEMP_NORMAL /// The default temperature setting
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell /// If this is a path, this gets created as an object in Initialize.
 	var/cell_cover_open = FALSE /// Status of the cell cover on the suit

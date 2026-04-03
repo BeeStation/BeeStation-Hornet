@@ -34,7 +34,7 @@
 	actions_types = list(/datum/action/item_action/toggle_headphones)
 	var/headphones_on = FALSE
 	var/datum/song/headphones/song
-	custom_price = 20
+	custom_price = PAYCHECK_LOWER
 	bang_protect = 1 //these only work if on your ears due to how bang_protect is calculated, so it's as balanced as earmuffs
 
 /obj/item/clothing/ears/headphones/Initialize(mapload)

@@ -12,7 +12,7 @@
 	attack_verb_continuous = list("whips", "lashes", "disciplines")
 	attack_verb_simple = list("whip", "lash", "discipline")
 	max_integrity = 300
-	custom_price = 30
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 	var/content_overlays = FALSE //If this is true, the belt will gain overlays based on what it's holding
 
 /obj/item/storage/belt/suicide_act(mob/living/carbon/user)
@@ -278,7 +278,7 @@
 	inhand_icon_state = "medical"
 	worn_icon_state = "medical"
 	content_overlays = TRUE
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 
 /obj/item/storage/belt/medical/Initialize(mapload)
 	. = ..()

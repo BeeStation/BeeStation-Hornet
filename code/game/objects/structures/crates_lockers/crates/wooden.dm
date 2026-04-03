@@ -8,7 +8,7 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
-	custom_price = 220
+	custom_price = PAYCHECK_CREW * MULTIPLIER_COMMAND
 
 /obj/structure/closet/crate/wooden/toy
 	name = "toy box"

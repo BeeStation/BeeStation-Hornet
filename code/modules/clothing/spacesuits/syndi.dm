@@ -5,7 +5,7 @@
 	inhand_icon_state = "syndicate"
 	desc = "Has a tag on it: Totally not property of an enemy corporation, honest!"
 	armor_type = /datum/armor/space_syndicate
-	custom_price = 150
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	trade_flags = TRADE_CONTRABAND
 
 
@@ -30,7 +30,7 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor_type = /datum/armor/space_syndicate
 	cell = /obj/item/stock_parts/cell/hyper
-	custom_price = 300
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_EXCLUSIVE
 	trade_flags = TRADE_CONTRABAND
 
 //Green syndicate space suit

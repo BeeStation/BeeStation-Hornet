@@ -201,7 +201,7 @@
 	icon_state = "officerbluejacket"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|ARMS
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 
 /obj/item/clothing/suit/jacket/officer/tan
 	name = "security officer's jacket"

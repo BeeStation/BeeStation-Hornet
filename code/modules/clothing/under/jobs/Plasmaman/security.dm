@@ -6,7 +6,7 @@
 	armor_type = /datum/armor/plasmaman_security
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-	custom_price = 50
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 
 
 /datum/armor/plasmaman_security

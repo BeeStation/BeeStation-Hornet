@@ -32,7 +32,7 @@
 	throw_speed = 3
 	throw_range = 7
 	force = 0
-	custom_price = 25
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_HIGH
 	max_demand = 25
 
 /*

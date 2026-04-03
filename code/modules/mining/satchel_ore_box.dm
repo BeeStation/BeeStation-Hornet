@@ -8,7 +8,7 @@
 	desc = "A heavy wooden box, which can be filled with a lot of ores."
 	density = TRUE
 	pressure_resistance = 5*ONE_ATMOSPHERE
-	custom_price = 160
+	custom_price = PAYCHECK_CREW * MULTIPLIER_EXCLUSIVE
 	var/static/list/typecache_to_take
 
 /obj/structure/ore_box/Initialize(mapload)

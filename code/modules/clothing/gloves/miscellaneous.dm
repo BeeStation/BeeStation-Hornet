@@ -9,7 +9,7 @@
 	equip_delay_other = 20
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	custom_price = 10
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_VERY_LOW
 	undyeable = TRUE
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
@@ -48,7 +48,7 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
 	clothing_flags = THICKMATERIAL
-	custom_price = 150
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	trade_flags = TRADE_CONTRABAND
 
 /datum/armor/gloves_combat

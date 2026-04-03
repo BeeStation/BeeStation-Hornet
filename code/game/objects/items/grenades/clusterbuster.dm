@@ -149,7 +149,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/payload_spawner)
 /obj/item/grenade/clusterbuster/inferno
 	name = "Inferno"
 	payload = /obj/item/grenade/chem_grenade/incendiary
-	custom_price = 10000
+	custom_price = PAYCHECK_VIP * MULTIPLIER_COMMAND
 	max_demand = 10
 
 /obj/item/grenade/clusterbuster/antiweed
