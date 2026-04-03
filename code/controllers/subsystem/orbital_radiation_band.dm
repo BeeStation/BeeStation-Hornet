@@ -20,11 +20,6 @@ SUBSYSTEM_DEF(orbital_radiation_band)
 	var/list/station_levels
 
 /datum/controller/subsystem/orbital_radiation_band/Initialize()
-	// Disable for planetary stations
-	if(SSmapping.current_map.planetary_station)
-		can_fire = FALSE
-		return SS_INIT_SUCCESS
-
 	// What are the station z-levels?
 	station_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
 

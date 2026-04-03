@@ -12,6 +12,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 	name = "Orbital Reentry Drag"
 	// Starts disabled, orbital_altitude turns us on/off via can_fire
 	can_fire = FALSE
+	flags = SS_NO_INIT
 	wait = 1 SECONDS
 	dependencies = list(
 		/datum/controller/subsystem/mapping,
@@ -27,14 +28,6 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 	var/bounds_calculated = FALSE
 
 	COOLDOWN_DECLARE(heavy_atmospheric_drag_cooldown)
-
-/datum/controller/subsystem/orbital_reentry_drag/Initialize()
-	// Disable for planetary stations
-	if(SSmapping.current_map.planetary_station)
-		can_fire = FALSE
-		return SS_INIT_SUCCESS
-
-	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/orbital_reentry_drag/fire(resumed)
 	// Calculate station boundaries once

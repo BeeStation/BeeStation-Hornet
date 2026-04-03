@@ -34,11 +34,6 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	var/current_damage_multiplier = 0
 
 /datum/controller/subsystem/orbital_reentry_erosion/Initialize()
-	// Disable for planetary stations
-	if(SSmapping.current_map.planetary_station)
-		can_fire = FALSE
-		return SS_INIT_SUCCESS
-
 	// Get reentry direction from map config
 	reentry_direction = SSmapping.current_map.reentry_direction
 

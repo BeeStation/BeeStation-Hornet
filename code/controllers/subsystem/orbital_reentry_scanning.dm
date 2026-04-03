@@ -66,11 +66,6 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 // ── Initialization ──────────────────────────────────────────────────────
 
 /datum/controller/subsystem/orbital_reentry_scanning/Initialize()
-	// Planetary stations don't orbit — nothing to scan.
-	if(SSmapping.current_map.planetary_station)
-		can_fire = FALSE
-		return SS_INIT_SUCCESS
-
 	// Read reentry direction from map config
 	reentry_direction = SSmapping.current_map.reentry_direction
 
