@@ -158,8 +158,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
 	// Calculate how many tiles we need in each direction based on view size
 	var/list/viewscales = getviewsize(view)
-	var/countx = CEILING((viewscales[1]/2)/(480/world.icon_size), 1) + 1
-	var/county = CEILING((viewscales[2]/2)/(480/world.icon_size), 1) + 1
+	var/countx = CEILING((viewscales[1]/2)/(480/ICON_SIZE_X), 1) + 1
+	var/county = CEILING((viewscales[2]/2)/(480/ICON_SIZE_Y), 1) + 1
 
 	// Create overlays for each tile position (skip center as base icon_state handles it)
 	var/list/new_overlays = list()
