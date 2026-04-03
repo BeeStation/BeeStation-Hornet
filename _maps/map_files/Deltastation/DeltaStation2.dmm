@@ -8666,19 +8666,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"bqU" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/item/bedsheet/brown,
-/obj/structure/bed{
-	dir = 8
-	},
-/obj/effect/landmark/prisonspawn,
-/obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/iron/dark,
-/area/security/prison)
 "bqW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -19822,7 +19809,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/iron/techmaint,
 /area/security/prison/shielded)
 "cZo" = (
@@ -19969,7 +19955,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "daJ" = (
@@ -55916,15 +55901,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
-"obE" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "obF" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/filingcabinet/chestdrawer,
@@ -64971,24 +64947,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"rjk" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/item/bedsheet/brown,
-/obj/structure/bed{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/effect/landmark/prisonspawn,
-/obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/iron/dark,
-/area/security/prison)
 "rjn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -66238,7 +66196,6 @@
 	pixel_y = 24;
 	prison_radio = 1
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -70413,10 +70370,6 @@
 	dir = 8
 	},
 /area/ai_monitored/security/armory)
-"sUi" = (
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "sUF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -138162,10 +138115,10 @@ kib
 pOX
 nZc
 nZc
-obE
+fEe
 nZc
 nZc
-sUi
+nZc
 nZc
 fab
 tai
@@ -139962,7 +139915,7 @@ aKV
 qYy
 skH
 sYy
-rjk
+dSL
 kZT
 tyD
 aKV
@@ -140735,7 +140688,7 @@ bVb
 sYy
 dSL
 qdi
-bqU
+tyD
 aFm
 psL
 qPK
@@ -141504,7 +141457,7 @@ aFm
 arJ
 uIx
 sYy
-rjk
+dSL
 dvZ
 tyD
 aFm

@@ -17873,7 +17873,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "fch" = (
@@ -29683,7 +29682,6 @@
 /obj/effect/turf_decal/siding/wideplating_new/corner{
 	dir = 8
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/prison,
 /area/security/prison)
@@ -31329,11 +31327,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"kHk" = (
-/obj/effect/turf_decal/siding/wideplating_new,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "kHp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -50832,7 +50825,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/wood,
 /area/security/prison)
 "sIA" = (
@@ -63243,12 +63235,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
-"xEc" = (
-/obj/effect/turf_decal/siding/wideplating_new,
-/obj/effect/landmark/prisonspawn,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/prison,
-/area/security/prison)
 "xEh" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
@@ -88721,7 +88707,7 @@ tNE
 tNE
 tNE
 dZk
-xEc
+jOz
 kqO
 eKI
 aKN
@@ -88978,7 +88964,7 @@ tNE
 tNE
 tNE
 fbN
-kHk
+byL
 sIp
 xzh
 xzh

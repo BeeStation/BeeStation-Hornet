@@ -18598,7 +18598,6 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
 "gmw" = (
-/obj/effect/landmark/prisonspawn,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/railing/corner{
 	dir = 1
@@ -42619,11 +42618,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/quartermaster/exploration_prep)
-"oQn" = (
-/obj/effect/turf_decal/tile/black/fourcorners,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/iron/techmaint,
-/area/security/prison)
 "oQr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -47263,13 +47257,6 @@
 	name = "mainframe floor"
 	},
 /area/tcommsat/server)
-"qvw" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "qvy" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/structure/disposalpipe/segment{
@@ -99539,7 +99526,7 @@ bjP
 xey
 jNd
 gVG
-oQn
+gVG
 bsy
 mTK
 mTK
@@ -100056,7 +100043,7 @@ uvq
 uvq
 uvq
 uvq
-qvw
+uvq
 uut
 aSW
 yiX

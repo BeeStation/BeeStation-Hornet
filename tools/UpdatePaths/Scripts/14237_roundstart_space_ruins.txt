@@ -28,6 +28,7 @@
 /obj/machinery/door/airlock/arrivals_external : /obj/machinery/door/airlock/external/arrivals{@OLD}
 /obj/item/storage/backpack/satchel/tox : /obj/item/storage/backpack/satchel/science{@OLD}
 /obj/structure/closet/secure_closet/freezer/kitchen/mining : /obj/structure/closet/secure_closet/freezer/kitchen/all_access{@OLD}
+/obj/effect/landmark/prisonspawn : @DELETE
 
 # broken flooring
 

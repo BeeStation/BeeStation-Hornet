@@ -18906,11 +18906,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
-"eNr" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "eNG" = (
 /obj/item/radio/intercom{
 	pixel_y = 22
@@ -21192,11 +21187,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard/aft)
-"fBf" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "fBm" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -25157,14 +25147,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"gUd" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "gUl" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
@@ -46712,7 +46694,6 @@
 /obj/machinery/light/directional/west{
 	light_color = "#e8eaff"
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "ons" = (
@@ -70331,7 +70312,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "wnU" = (
@@ -72064,7 +72044,6 @@
 /obj/machinery/light/directional/west{
 	light_color = "#e8eaff"
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "wQt" = (
@@ -95988,7 +95967,7 @@ orr
 ijH
 eKH
 nDj
-fBf
+iQT
 sgL
 rTW
 mEj
@@ -97787,7 +97766,7 @@ cKy
 xBC
 qUe
 orr
-gUd
+gMx
 eno
 aat
 nUh
@@ -98812,7 +98791,7 @@ xBC
 xBC
 xBC
 byl
-eNr
+lFx
 lFx
 lHx
 cJY

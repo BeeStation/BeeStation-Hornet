@@ -17070,16 +17070,6 @@
 /obj/item/paper/guides/jobs/engi/gravity_gen,
 /turf/open/floor/iron/textured,
 /area/engine/gravity_generator)
-"dBJ" = (
-/obj/effect/turf_decal/siding/thinplating_new/terracotta{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/techfloor/diagonal{
-	dir = 4
-	},
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison/dark,
-/area/security/prison)
 "dBO" = (
 /obj/structure/table,
 /obj/item/gun/energy/e_gun/mini/exploration,
@@ -21825,7 +21815,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "eKM" = (
@@ -26686,7 +26675,6 @@
 /area/quartermaster/storage)
 "fRY" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "fSa" = (
@@ -33217,7 +33205,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "hkn" = (
@@ -34661,7 +34648,6 @@
 /obj/effect/turf_decal/alphabet/number_1/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
@@ -44646,7 +44632,6 @@
 /obj/effect/turf_decal/alphabet/number_2/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
@@ -51233,7 +51218,6 @@
 	dir = 8
 	},
 /obj/structure/chair/stool/directional/east,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/wood,
 /area/security/prison)
 "lgT" = (
@@ -70093,7 +70077,6 @@
 /obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/security/prison)
@@ -80510,7 +80493,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
@@ -88541,10 +88523,6 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
-"trr" = (
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/grass,
-/area/security/prison)
 "trv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -152654,7 +152632,7 @@ xNq
 oJU
 eFM
 gIq
-trr
+qMc
 tmj
 eMf
 aex
@@ -153682,7 +153660,7 @@ xNq
 jzw
 ixo
 uWe
-dBJ
+vRk
 vRk
 dFH
 eCs

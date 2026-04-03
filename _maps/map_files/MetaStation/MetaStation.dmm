@@ -35053,7 +35053,6 @@
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "jvF" = (
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
@@ -52518,11 +52517,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
-"pwQ" = (
-/obj/effect/landmark/prisonspawn,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/prison,
-/area/security/prison)
 "pwU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -56304,11 +56298,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/lounge)
-"qPm" = (
-/obj/effect/landmark/prisonspawn,
-/obj/effect/turf_decal/siding/wideplating_new,
-/turf/open/floor/prison,
-/area/security/prison)
 "qPn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -61260,13 +61249,6 @@
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
-"sNe" = (
-/obj/effect/landmark/prisonspawn,
-/obj/effect/turf_decal/siding/wideplating_new/corner{
-	dir = 8
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "sNf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -98404,7 +98386,7 @@ abe
 jvF
 srs
 srs
-qPm
+noC
 aax
 aaa
 awW
@@ -100711,7 +100693,7 @@ kNH
 jhU
 srs
 cdJ
-sNe
+rfZ
 nYT
 rPu
 rPu
@@ -101231,7 +101213,7 @@ fDY
 srs
 srs
 cQu
-pwQ
+dAL
 dAL
 abe
 abe
