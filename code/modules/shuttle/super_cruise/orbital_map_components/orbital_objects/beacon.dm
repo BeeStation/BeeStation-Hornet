@@ -47,10 +47,27 @@
 	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, rand(-0.5, 0), rand(40, 70))
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
-	//Orbit around Neo
+	//Orbit around Cinis in a tight ring near Neo's orbital distance
 	var/datum/orbital_object/cinis = SSorbits.find_orbital_object_by_name("Cinis")
 	if(cinis)
-		set_orbitting_around_body(cinis, rand(4000, 8000))
+		set_orbitting_around_body(cinis, rand(2950, 3050))
+
+//====================
+// Neo-cluster Asteroids
+// Spawn close to Neo, simulating a local asteroid cluster
+//====================
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/neo_cluster
+
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/neo_cluster/post_map_setup()
+	//Orbit around Neo in a tight local cluster
+	var/datum/orbital_object/neo = SSorbits.find_orbital_object_by_name("Neo")
+	if(neo)
+		set_orbitting_around_body(neo, rand(100, 200))
+	else
+		//Fallback: orbit Cinis at Neo's distance if Neo isn't found
+		var/datum/orbital_object/cinis = SSorbits.find_orbital_object_by_name("Cinis")
+		if(cinis)
+			set_orbitting_around_body(cinis, rand(2950, 3050))
 
 //====================
 // Regular Ruin Z-levels

@@ -12,7 +12,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/initial_space_ruins = 2
 	var/initial_objective_beacons = 3
-	var/initial_asteroids = 10
+	var/initial_asteroids = 20
 
 	var/orbits_setup = FALSE
 
@@ -109,9 +109,13 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		new /datum/orbital_object/z_linked/beacon/ruin/spaceruin()
 	for(var/i in 1 to initial_objective_beacons)
 		new /datum/orbital_object/z_linked/beacon/ruin()
-	//Create asteroid belt
-	for(var/i in 1 to initial_asteroids)
+	//Create asteroid belt - 2/3 in the main belt, 1/3 clustered around Neo
+	var/neo_cluster_count = round(initial_asteroids / 3)
+	var/belt_count = initial_asteroids - neo_cluster_count
+	for(var/i in 1 to belt_count)
 		new /datum/orbital_object/z_linked/beacon/ruin/asteroid()
+	for(var/i in 1 to neo_cluster_count)
+		new /datum/orbital_object/z_linked/beacon/ruin/asteroid/neo_cluster()
 
 /datum/controller/subsystem/processing/orbits/fire(resumed)
 	if(resumed)
