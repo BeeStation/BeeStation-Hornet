@@ -31,13 +31,13 @@ SUBSYSTEM_DEF(orbital_radiation_band)
 
 	// if above 120km, intensity is 1, if above 130km, intensity is 2
 	var/intensity = 0
-	if(current_altitude > ORBITAL_ALTITUDE_HIGH_CRITICAL)
+	if(current_altitude > ORBITAL_ALTITUDE_UPPER_CRITICAL)
 		intensity = 2
-	else if(current_altitude > ORBITAL_ALTITUDE_HIGH)
+	else if(current_altitude > ORBITAL_ALTITUDE_UPPER)
 		intensity = 1
 
 	// Are we above the critical altitude threshold?
-	var/is_critical = current_altitude > ORBITAL_ALTITUDE_HIGH_CRITICAL
+	var/is_critical = current_altitude > ORBITAL_ALTITUDE_UPPER_CRITICAL
 
 	// Process all living mobs on station z-levels
 	for(var/mob/living/living_mob in GLOB.mob_living_list)

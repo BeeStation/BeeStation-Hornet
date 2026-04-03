@@ -1,36 +1,23 @@
 // Technically unrelated but they use "orbits" too so:
-// Orbital altitude thresholds in meters
-#define ORBITAL_ALTITUDE_HIGH_BOUND 140000 // 140km - Cannot go higher than this
-#define ORBITAL_ALTITUDE_HIGH_CRITICAL 130000 // 130km - Upper critical threshold
-#define ORBITAL_ALTITUDE_HIGH 120000 // 120km - Upper normal threshold
-#define ORBITAL_ALTITUDE_DEFAULT 110000 // 110km - Default stable altitude
-#define ORBITAL_ALTITUDE_LOW 95000 // 95km - Lower warning threshold (visual effects start)
-#define ORBITAL_ALTITUDE_LOW_CRITICAL 90000 // 90km - Lower critical threshold (structural damage begins)
-#define ORBITAL_ALTITUDE_LOW_BOUND 80000 // 80km - Cannot go lower than this
-
-// Gateway operational altitude thresholds
-#define GATEWAY_ALTITUDE_UPPER 110000 // 110km - Gateway cannot align above this altitude
-#define GATEWAY_ALTITUDE_LOWER 100000 // 100km - Gateway cannot stabilize below this altitude
+// Orbital altitude thresholds in meters (single source of truth)
+// Listed from highest to lowest altitude
+#define ORBITAL_ALTITUDE_CEILING 140000 // 140km - Cannot go higher than this (also: double solar power)
+#define ORBITAL_ALTITUDE_UPPER_CRITICAL 130000 // 130km - Upper critical threshold (radiation danger)
+#define ORBITAL_ALTITUDE_UPPER 120000 // 120km - Upper normal threshold (normal solar power)
+#define ORBITAL_ALTITUDE_DEFAULT 110000 // 110km - Default stable altitude (gateway upper limit)
+#define ORBITAL_ALTITUDE_MODERATE 100000 // 100km - Moderate threshold (gateway lower limit, cargo normal, solar cutoff)
+#define ORBITAL_ALTITUDE_LOWER 95000 // 95km - Lower warning threshold (visual effects & erosion start)
+#define ORBITAL_ALTITUDE_LOWER_CRITICAL 90000 // 90km - Lower critical threshold (structural damage begins)
+#define ORBITAL_ALTITUDE_LOWER_SEVERE 85000 // 85km - Severe re-entry (maximum erosion damage)
+#define ORBITAL_ALTITUDE_FLOOR 80000 // 80km - Cannot go lower than this (cargo max delay)
 
 // Gateway status return values
 #define GATEWAY_STATUS_OK 0
 #define GATEWAY_STATUS_TOO_HIGH 1
 #define GATEWAY_STATUS_TOO_LOW 2
 
-// Cargo shuttle orbital altitude thresholds
-#define CARGO_SHUTTLE_ALTITUDE_NORMAL 100000 // 100km - Shuttle works normally above this
-#define CARGO_SHUTTLE_ALTITUDE_FLOOR 80000 // 80km - Maximum delay at this altitude (10x)
-#define CARGO_SHUTTLE_MAX_MULTIPLIER 10 // Maximum flight time multiplier at floor altitude
-
-// Solar panel orbital altitude thresholds
-#define SOLAR_ALTITUDE_NO_POWER 100000 // 100km - No solar power below this altitude
-#define SOLAR_ALTITUDE_NORMAL 120000 // 120km - Normal solar power at this altitude
-#define SOLAR_ALTITUDE_DOUBLE 140000 // 140km - Double solar power at this altitude (less atmosphere)
-
-// Orbital altitude thresholds for erosion
-#define EROSION_ALTITUDE_START 95000  // 95km - Light fire effects start
-#define EROSION_ALTITUDE_CRITICAL 90000  // 90km - Damage begins
-#define EROSION_ALTITUDE_SEVERE 85000  // 85km - Maximum damage
+// Cargo shuttle max flight time multiplier at floor altitude
+#define CARGO_SHUTTLE_MAX_MULTIPLIER 10
 
 // Proper orbital defines
 #define GRAVITATIONAL_CONSTANT 1

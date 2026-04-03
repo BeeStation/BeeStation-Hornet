@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	orbital_altitude += orbital_altitude_change
 
 	// Enforce hard altitude limits (80km minimum, 140km maximum)
-	orbital_altitude = clamp(orbital_altitude, ORBITAL_ALTITUDE_LOW_BOUND, ORBITAL_ALTITUDE_HIGH_BOUND)
+	orbital_altitude = clamp(orbital_altitude, ORBITAL_ALTITUDE_FLOOR, ORBITAL_ALTITUDE_CEILING)
 
 /datum/controller/subsystem/orbital_altitude/proc/send_orbital_report()
 	COOLDOWN_START(src, orbital_report_cooldown, 10 MINUTES)
@@ -177,7 +177,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 /datum/controller/subsystem/orbital_altitude/proc/check_critical_orbit()
 	// High altitude critical warning (above 130km threshold)
-	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH_CRITICAL && !in_high_altitude_critical)
+	if(orbital_altitude > ORBITAL_ALTITUDE_UPPER_CRITICAL && !in_high_altitude_critical)
 		in_high_altitude_critical = TRUE
 
 		// Enable radiation band subsystem
@@ -191,7 +191,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 			alert = TRUE)
 
 	// High altitude warning (above 120km threshold)
-	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH && !in_high_altitude && !in_high_altitude_critical)
+	if(orbital_altitude > ORBITAL_ALTITUDE_UPPER && !in_high_altitude && !in_high_altitude_critical)
 		in_high_altitude = TRUE
 
 		SSorbital_radiation_band.can_fire = TRUE
@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 			"High Altitude Advisory")
 
 	// Low altitude warning (95km threshold)
-	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !in_low_altitude)
+	if(orbital_altitude < ORBITAL_ALTITUDE_LOWER && !in_low_altitude)
 		in_low_altitude = TRUE
 
 		// Enable scanning and erosion subsystems
@@ -215,7 +215,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 			"Orbital Altitude Advisory")
 
 	// Critical orbit handling (below 90km)
-	if(orbital_altitude < ORBITAL_ALTITUDE_LOW_CRITICAL)
+	if(orbital_altitude < ORBITAL_ALTITUDE_LOWER_CRITICAL)
 		// Enter critical orbit state
 		if(!in_critical_orbit)
 			in_critical_orbit = TRUE
@@ -286,7 +286,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 				SSsecurity_level.set_level(previous_alert_level)
 
 		// Clear low altitude flag when safely above 95km
-		if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && in_low_altitude)
+		if(orbital_altitude >= ORBITAL_ALTITUDE_LOWER && in_low_altitude)
 			in_low_altitude = FALSE
 
 			// Disable scanning and erosion subsystems
@@ -294,7 +294,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 			SSorbital_reentry_erosion.deactivate()
 
 	// Clear high altitude flags when returning to normal range
-	if(orbital_altitude <= ORBITAL_ALTITUDE_HIGH)
+	if(orbital_altitude <= ORBITAL_ALTITUDE_UPPER)
 		if(in_high_altitude_critical)
 			in_high_altitude_critical = FALSE
 			minor_announce("Station altitude has returned below critical upper threshold. \
@@ -320,9 +320,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// Planetary stations don't have orbital gateway restrictions
 	if(SSmapping.current_map.planetary_station)
 		return GATEWAY_STATUS_OK
-	if(orbital_altitude > GATEWAY_ALTITUDE_UPPER)
+	if(orbital_altitude > ORBITAL_ALTITUDE_DEFAULT)
 		return GATEWAY_STATUS_TOO_HIGH
-	if(orbital_altitude < GATEWAY_ALTITUDE_LOWER)
+	if(orbital_altitude < ORBITAL_ALTITUDE_MODERATE)
 		return GATEWAY_STATUS_TOO_LOW
 	return GATEWAY_STATUS_OK
 
@@ -335,10 +335,10 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// Planetary stations don't have orbital cargo shuttle penalties
 	if(SSmapping.current_map.planetary_station)
 		return 1
-	if(orbital_altitude >= CARGO_SHUTTLE_ALTITUDE_NORMAL)
+	if(orbital_altitude >= ORBITAL_ALTITUDE_MODERATE)
 		return 1
 	// Linear interpolation: 1x at 100km, 10x at 80km
-	var/progress = (CARGO_SHUTTLE_ALTITUDE_NORMAL - orbital_altitude) / (CARGO_SHUTTLE_ALTITUDE_NORMAL - CARGO_SHUTTLE_ALTITUDE_FLOOR)
+	var/progress = (ORBITAL_ALTITUDE_MODERATE - orbital_altitude) / (ORBITAL_ALTITUDE_MODERATE - ORBITAL_ALTITUDE_FLOOR)
 	progress = clamp(progress, 0, 1)
 	return 1 + progress * (CARGO_SHUTTLE_MAX_MULTIPLIER - 1)
 
@@ -355,14 +355,14 @@ SUBSYSTEM_DEF(orbital_altitude)
 	if(SSmapping.current_map.planetary_station)
 		solar_efficiency = 1.0
 		return
-	if(orbital_altitude <= SOLAR_ALTITUDE_NO_POWER)
+	if(orbital_altitude <= ORBITAL_ALTITUDE_MODERATE)
 		solar_efficiency = 0.0
-	else if(orbital_altitude <= SOLAR_ALTITUDE_NORMAL)
+	else if(orbital_altitude <= ORBITAL_ALTITUDE_UPPER)
 		// Linear interpolation: 0.0 at 100km, 1.0 at 120km
-		solar_efficiency = (orbital_altitude - SOLAR_ALTITUDE_NO_POWER) / (SOLAR_ALTITUDE_NORMAL - SOLAR_ALTITUDE_NO_POWER)
+		solar_efficiency = (orbital_altitude - ORBITAL_ALTITUDE_MODERATE) / (ORBITAL_ALTITUDE_UPPER - ORBITAL_ALTITUDE_MODERATE)
 	else
 		// Linear interpolation: 1.0 at 120km, 2.0 at 140km
-		solar_efficiency = 1.0 + (orbital_altitude - SOLAR_ALTITUDE_NORMAL) / (SOLAR_ALTITUDE_DOUBLE - SOLAR_ALTITUDE_NORMAL)
+		solar_efficiency = 1.0 + (orbital_altitude - ORBITAL_ALTITUDE_UPPER) / (ORBITAL_ALTITUDE_CEILING - ORBITAL_ALTITUDE_UPPER)
 	solar_efficiency = clamp(solar_efficiency, 0.0, 2.0)
 
 /**

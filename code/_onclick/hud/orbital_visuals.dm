@@ -64,7 +64,7 @@
 		return
 
 	// if the mob is not on a station Z, always assume the highest defined.
-	var/current_altitude = ORBITAL_ALTITUDE_HIGH_BOUND
+	var/current_altitude = ORBITAL_ALTITUDE_CEILING
 	if(is_station_level(screenmob.z))
 		// Get current altitude from the orbital altitude subsystem
 		current_altitude = SSorbital_altitude.orbital_altitude
@@ -145,7 +145,7 @@
 	var/is_tiled = FALSE
 
 	/// Stored altitude exists because we want to be able to set the altitude independently of the subsystem. In case we are not on a station z.
-	var/stored_altitude = ORBITAL_ALTITUDE_HIGH_BOUND
+	var/stored_altitude = ORBITAL_ALTITUDE_CEILING
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
@@ -196,16 +196,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/orbital_layer/stars/update_for_altitude(altitude, client/viewer_client)
-	// Stars layer: fully visible from ORBITAL_ALTITUDE_HIGH_BOUND down to ORBITAL_ALTITUDE_HIGH
-	// Fades out below ORBITAL_ALTITUDE_HIGH
+	// Stars layer: fully visible from ORBITAL_ALTITUDE_CEILING down to ORBITAL_ALTITUDE_UPPER
+	// Fades out below ORBITAL_ALTITUDE_UPPER
 
-	if(altitude >= ORBITAL_ALTITUDE_HIGH)
-		// Above HIGH altitude, stars are fully visible
+	if(altitude >= ORBITAL_ALTITUDE_UPPER)
+		// Above UPPER altitude, stars are fully visible
 		alpha = 255
 	else if(altitude >= ORBITAL_ALTITUDE_DEFAULT)
-		// Between DEFAULT and HIGH, fade out stars
+		// Between DEFAULT and UPPER, fade out stars
 		// Calculate fade percentage (0 to 1)
-		var/fade_range = ORBITAL_ALTITUDE_HIGH - ORBITAL_ALTITUDE_DEFAULT
+		var/fade_range = ORBITAL_ALTITUDE_UPPER - ORBITAL_ALTITUDE_DEFAULT
 		var/fade_progress = (altitude - ORBITAL_ALTITUDE_DEFAULT) / fade_range
 		alpha = fade_progress * 255
 	else
@@ -223,16 +223,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	scroll_time = 3 SECONDS
 
 /atom/movable/screen/orbital_layer/atmosphere/update_for_altitude(altitude, client/viewer_client)
-	// Atmosphere layer: fully visible from ORBITAL_ALTITUDE_LOW_BOUND up to ORBITAL_ALTITUDE_LOW
-	// Fades out above ORBITAL_ALTITUDE_LOW
-	if(altitude <= ORBITAL_ALTITUDE_LOW)
-		// Below LOW altitude, atmosphere is fully visible
+	// Atmosphere layer: fully visible from ORBITAL_ALTITUDE_FLOOR up to ORBITAL_ALTITUDE_LOWER
+	// Fades out above ORBITAL_ALTITUDE_LOWER
+	if(altitude <= ORBITAL_ALTITUDE_LOWER)
+		// Below LOWER altitude, atmosphere is fully visible
 		alpha = 255
 	else if(altitude <= ORBITAL_ALTITUDE_DEFAULT)
-		// Between LOW and DEFAULT, fade out atmosphere
+		// Between LOWER and DEFAULT, fade out atmosphere
 		// Calculate fade percentage (0 to 1, where 1 is fully visible)
-		var/fade_range = ORBITAL_ALTITUDE_DEFAULT - ORBITAL_ALTITUDE_LOW
-		var/fade_progress = (altitude - ORBITAL_ALTITUDE_LOW) / fade_range
+		var/fade_range = ORBITAL_ALTITUDE_DEFAULT - ORBITAL_ALTITUDE_LOWER
+		var/fade_progress = (altitude - ORBITAL_ALTITUDE_LOWER) / fade_range
 		alpha = (1 - fade_progress) * 255  // Invert so it fades OUT as altitude increases
 	else
 		// Above DEFAULT altitude, atmosphere is invisible
@@ -247,19 +247,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	blend_mode = BLEND_ADD
 
 /atom/movable/screen/orbital_layer/fire/update_for_altitude(altitude, client/viewer_client)
-	// Fire layer: fully visible below ORBITAL_ALTITUDE_LOW_CRITICAL
-	// Fades out above ORBITAL_ALTITUDE_LOW_CRITICAL
-	if(altitude <= ORBITAL_ALTITUDE_LOW_CRITICAL)
-		// Below LOW_CRITICAL altitude, fire is fully visible
+	// Fire layer: fully visible below ORBITAL_ALTITUDE_LOWER_CRITICAL
+	// Fades out above ORBITAL_ALTITUDE_LOWER_CRITICAL
+	if(altitude <= ORBITAL_ALTITUDE_LOWER_CRITICAL)
+		// Below LOWER_CRITICAL altitude, fire is fully visible
 		alpha = 255
 	else if(altitude <= 92000)
-		// Between LOW_CRITICAL and 92km, fade out fire
+		// Between LOWER_CRITICAL and 92km, fade out fire
 		// Calculate fade percentage (0 to 1, where 1 is fully visible)
-		var/fade_range = 92000 - ORBITAL_ALTITUDE_LOW_CRITICAL
-		var/fade_progress = (altitude - ORBITAL_ALTITUDE_LOW_CRITICAL) / fade_range
+		var/fade_range = 92000 - ORBITAL_ALTITUDE_LOWER_CRITICAL
+		var/fade_progress = (altitude - ORBITAL_ALTITUDE_LOWER_CRITICAL) / fade_range
 		alpha = (1 - fade_progress) * 255  // Invert so it fades OUT as altitude increases
 	else
-		// Above LOW altitude, fire is invisible
+		// Above LOWER altitude, fire is invisible
 		alpha = 0
 
 // ============================================================================
@@ -273,7 +273,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	/// Altitude at which body is at maximum height (moved upward, station at default altitude)
 	var/altitude_max_height = ORBITAL_ALTITUDE_DEFAULT
 	/// Altitude at which body is at lowest position on screen (fully visible)
-	var/altitude_lowest = ORBITAL_ALTITUDE_HIGH
+	var/altitude_lowest = ORBITAL_ALTITUDE_UPPER
 	/// How far the body moves vertically (in pixels) between lowest and max height
 	var/vertical_movement_distance = 500
 

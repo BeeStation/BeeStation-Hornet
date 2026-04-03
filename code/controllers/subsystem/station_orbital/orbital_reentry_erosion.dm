@@ -96,19 +96,19 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	work_index = 1
 
 /datum/controller/subsystem/orbital_reentry_erosion/proc/get_damage_multiplier(altitude)
-	// No damage above EROSION_ALTITUDE_START
-	if (altitude >= EROSION_ALTITUDE_START)
+	// No damage above ORBITAL_ALTITUDE_LOWER
+	if (altitude >= ORBITAL_ALTITUDE_LOWER)
 		return 0
 
-	// Light effects only between EROSION_ALTITUDE_CRITICAL and EROSION_ALTITUDE_START
-	if (altitude >= EROSION_ALTITUDE_CRITICAL)
-		return (EROSION_ALTITUDE_START - altitude) / (EROSION_ALTITUDE_START - EROSION_ALTITUDE_CRITICAL) * 0.1
+	// Light effects only between ORBITAL_ALTITUDE_LOWER_CRITICAL and ORBITAL_ALTITUDE_LOWER
+	if (altitude >= ORBITAL_ALTITUDE_LOWER_CRITICAL)
+		return (ORBITAL_ALTITUDE_LOWER - altitude) / (ORBITAL_ALTITUDE_LOWER - ORBITAL_ALTITUDE_LOWER_CRITICAL) * 0.1
 
-	// Escalating damage between EROSION_ALTITUDE_CRITICAL and EROSION_ALTITUDE_SEVERE
-	if (altitude >= EROSION_ALTITUDE_SEVERE)
-		return 0.1 + (EROSION_ALTITUDE_CRITICAL - altitude) / (EROSION_ALTITUDE_CRITICAL - EROSION_ALTITUDE_SEVERE) * 2.9
+	// Escalating damage between ORBITAL_ALTITUDE_LOWER_CRITICAL and ORBITAL_ALTITUDE_LOWER_SEVERE
+	if (altitude >= ORBITAL_ALTITUDE_LOWER_SEVERE)
+		return 0.1 + (ORBITAL_ALTITUDE_LOWER_CRITICAL - altitude) / (ORBITAL_ALTITUDE_LOWER_CRITICAL - ORBITAL_ALTITUDE_LOWER_SEVERE) * 2.9
 
-	// Maximum damage at or below EROSION_ALTITUDE_SEVERE
+	// Maximum damage at or below ORBITAL_ALTITUDE_LOWER_SEVERE
 	return 3.0
 
 /datum/controller/subsystem/orbital_reentry_erosion/proc/apply_erosion_damage(turf/target_tile, damage_multiplier)

@@ -54,13 +54,13 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/new_state = current_state
 
 	// Determine state based on altitude thresholds
-	if(altitude >= ORBITAL_ALTITUDE_HIGH)
+	if(altitude >= ORBITAL_ALTITUDE_UPPER)
 		// Above 120km - normal starlight
 		new_state = ORBITAL_STATE_NORMAL
-	else if(altitude >= ORBITAL_ALTITUDE_LOW)
+	else if(altitude >= ORBITAL_ALTITUDE_LOWER)
 		// 95km - 120km - atmospheric descent with brightening
 		new_state = ORBITAL_STATE_ATMOSPHERIC_DESCENT
-	else if(altitude >= ORBITAL_ALTITUDE_LOW_CRITICAL)
+	else if(altitude >= ORBITAL_ALTITUDE_LOWER_CRITICAL)
 		// 90km - 95km - pre-reentry warning, start flickering
 		new_state = ORBITAL_STATE_REENTRY_WARNING
 	else
@@ -132,8 +132,8 @@ SUBSYSTEM_DEF(orbital_visuals)
 /datum/controller/subsystem/orbital_visuals/proc/update_atmospheric_descent(altitude)
 	// Calculate descent progress (0 to 1, where 0 is at 120km and 1 is at 110km)
 	// The reason we max out before hitting the re-entry warning state is to allow for an extended range of "normal" lighting.
-	var/descent_range = ORBITAL_ALTITUDE_HIGH - ORBITAL_ALTITUDE_DEFAULT // 120km - 110km
-	var/descent_progress = clamp((ORBITAL_ALTITUDE_HIGH - altitude) / descent_range, 0, 1)
+	var/descent_range = ORBITAL_ALTITUDE_UPPER - ORBITAL_ALTITUDE_DEFAULT // 120km - 110km
+	var/descent_progress = clamp((ORBITAL_ALTITUDE_UPPER - altitude) / descent_range, 0, 1)
 
 	// Blend from normal starlight to brighter, atmosphere-tinted starlight
 	var/atmospheric_tint = "#A8C5E8" // Light blue atmospheric tint
@@ -156,8 +156,8 @@ SUBSYSTEM_DEF(orbital_visuals)
 
 /datum/controller/subsystem/orbital_visuals/proc/update_reentry_warning(altitude)
 	// Calculate warning progress (0 to 1, where 0 is at 95km and 1 is at 90km)
-	var/warning_range = ORBITAL_ALTITUDE_LOW - ORBITAL_ALTITUDE_LOW_CRITICAL
-	var/warning_progress = clamp((ORBITAL_ALTITUDE_LOW - altitude) / warning_range, 0, 1)
+	var/warning_range = ORBITAL_ALTITUDE_LOWER - ORBITAL_ALTITUDE_LOWER_CRITICAL
+	var/warning_progress = clamp((ORBITAL_ALTITUDE_LOWER - altitude) / warning_range, 0, 1)
 
 	reentry_flicker_intensity = warning_progress
 
@@ -182,7 +182,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 
 /datum/controller/subsystem/orbital_visuals/proc/update_reentry(altitude)
 	// Calculate how deep into re-entry we are (0 to 1, where 0 is at 90km and 1 is at 80km)
-	var/reentry_depth = clamp((ORBITAL_ALTITUDE_LOW_CRITICAL - altitude) / (ORBITAL_ALTITUDE_LOW_CRITICAL - ORBITAL_ALTITUDE_LOW_BOUND), 0, 1)
+	var/reentry_depth = clamp((ORBITAL_ALTITUDE_LOWER_CRITICAL - altitude) / (ORBITAL_ALTITUDE_LOWER_CRITICAL - ORBITAL_ALTITUDE_FLOOR), 0, 1)
 
 	// Violent flickering between different intensities of orange and red
 	var/list/reentry_colors = list(
