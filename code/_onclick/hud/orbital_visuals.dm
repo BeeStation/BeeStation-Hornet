@@ -65,7 +65,7 @@
 
 	// if the mob is not on a station Z, always assume the highest defined.
 	var/current_altitude = ORBITAL_ALTITUDE_HIGH_BOUND
-	if(screenmob.z in SSmapping.levels_by_trait(ZTRAIT_STATION))
+	if(is_station_level(screenmob.z))
 		// Get current altitude from the orbital altitude subsystem
 		current_altitude = SSorbital_altitude.orbital_altitude
 

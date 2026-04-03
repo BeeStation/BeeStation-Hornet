@@ -250,7 +250,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	for(var/map_key in orbital_maps)
 		var/datum/orbital_map/orbital_map = orbital_maps[map_key]
 		for(var/zone in orbital_map.collision_zone_bodies)
-			for(var/datum/orbital_object/object as() in orbital_map.collision_zone_bodies[zone])
+			for(var/datum/orbital_object/object as anything in orbital_map.collision_zone_bodies[zone])
 				if(object.name == object_name)
 					return object
 	return null
