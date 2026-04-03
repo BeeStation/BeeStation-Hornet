@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 
 	// Update all connected clients' orbital visual layers based on altitude
 	for(var/client/connected_client in GLOB.clients)
-		if(!connected_client?.mob?.hud_used)
+		if(!connected_client.mob?.hud_used)
 			continue
 
 		// Update orbital visuals - each layer adjusts its alpha based on altitude
