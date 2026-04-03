@@ -8001,7 +8001,11 @@
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "bof" = (
-/obj/machinery/computer/orbital_height_control,
+/obj/structure/table/glass,
+/obj/machinery/computer/security/wooden_tv{
+	pixel_x = 1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "bok" = (
@@ -8230,10 +8234,6 @@
 /area/bridge)
 "bqO" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 8
-	},
 /obj/structure/table/glass,
 /turf/open/floor/iron/dark,
 /area/bridge)
@@ -43669,8 +43669,8 @@
 /obj/machinery/status_display/ai{
 	pixel_y = 32
 	},
-/obj/machinery/computer/station_alert,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/computer/orbital_height_control,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
 "mlA" = (
@@ -56072,10 +56072,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "qxy" = (
-/obj/machinery/computer/station_alert,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/computer/orbital_height_control,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "qxD" = (
@@ -61046,9 +61046,9 @@
 "skV" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/table/glass,
-/obj/machinery/computer/security/wooden_tv{
-	pixel_x = 1;
-	pixel_y = 6
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 8
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
