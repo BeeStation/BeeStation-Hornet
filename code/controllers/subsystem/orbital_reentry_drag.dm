@@ -168,8 +168,6 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 		if(isstructure(bumped) || ismachinery(bumped))
 			var/obj/bumped_obj = bumped
 			bumped_obj.take_damage(erosionpower, BRUTE, "melee", 0)
-		else if(istype(bumped, /turf/closed))
-			return ..()
 
 	return
 
