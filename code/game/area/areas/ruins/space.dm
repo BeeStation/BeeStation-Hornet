@@ -215,7 +215,6 @@
 
 /area/ruin/space/ancientstation/powered
 	name = "Powered Tile"
-	icon_state = "teleporter"
 	requires_power = FALSE
 
 /area/ruin/space/ancientstation/beta

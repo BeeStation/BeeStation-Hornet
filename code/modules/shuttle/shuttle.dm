@@ -15,8 +15,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 //NORTH default dir
 /obj/docking_port
 	invisibility = INVISIBILITY_ABSTRACT
-	icon = 'icons/effects/landmarks_static.dmi'
-	icon_state = "pinonfar"
+	icon = 'icons/effects/docking_ports.dmi'
+	icon_state = "static"
 
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
@@ -69,6 +69,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
+
 /obj/docking_port/singularity_act()
 	return 0
 
@@ -304,7 +305,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/mobile
 	name = "shuttle"
-	icon_state = "pinonclose"
+	icon_state = "mobile"
 
 	var/area_type = SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE
 
