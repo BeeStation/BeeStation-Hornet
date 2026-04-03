@@ -158,8 +158,6 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 			var/obj/bumped_obj = bumped
 			bumped_obj.take_damage(erosionpower, BRUTE, "melee", 0)
 
-	return
-
 /obj/effect/meteor/atmospheric_drag/ram_turf(turf/target)
 	// Don't damage turfs with mobs on them
 	for(var/mob/occupant in target)
