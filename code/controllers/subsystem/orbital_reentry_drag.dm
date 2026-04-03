@@ -123,8 +123,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 
 		// Cache the bounds for this Z-level
 		if(found_station && max_x >= min_x && max_y >= min_y)
-			var/key = "[z_level]"
-			station_bounds_cache[key] = list("min_x" = min_x, "max_x" = max_x, "min_y" = min_y, "max_y" = max_y)
+			station_bounds_cache["[z_level]"] = list("min_x" = min_x, "max_x" = max_x, "min_y" = min_y, "max_y" = max_y)
 
 // Invisible atmospheric drag effect that damages station structures
 // Simulates heating and structural stress from atmospheric re-entry
