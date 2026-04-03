@@ -288,7 +288,7 @@
 		return null
 
 	// Step 4 times in the NORTH direction
-	for(var/i = 1 to 4)
+	for(var/step_count = 1 to 4)
 		target_turf = get_step(target_turf, NORTH)
 		if(!target_turf)
 			return null

@@ -100,26 +100,26 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 		var/found_station = FALSE
 
 		// Iterate through all non-space areas
-		for(var/area/A in GLOB.areas)
-			if(A.type == /area/space || istype(A, /area/space))
+		for(var/area/station_area in GLOB.areas)
+			if(station_area.type == /area/space || istype(station_area, /area/space))
 				continue
 
-			var/list/area_turfs = A.get_contained_turfs()
+			var/list/area_turfs = station_area.get_contained_turfs()
 			if(!length(area_turfs))
 				continue
 
 			// Find the bounding box of station turfs on this Z-level
-			for(var/turf/T in area_turfs)
-				if(T.z != z_level)
+			for(var/turf/area_turf in area_turfs)
+				if(area_turf.z != z_level)
 					continue
-				if(!is_station_level(T.z))
+				if(!is_station_level(area_turf.z))
 					continue
 
 				found_station = TRUE
-				min_x = min(min_x, T.x)
-				max_x = max(max_x, T.x)
-				min_y = min(min_y, T.y)
-				max_y = max(max_y, T.y)
+				min_x = min(min_x, area_turf.x)
+				max_x = max(max_x, area_turf.x)
+				min_y = min(min_y, area_turf.y)
+				max_y = max(max_y, area_turf.y)
 
 		// Cache the bounds for this Z-level
 		if(found_station && max_x >= min_x && max_y >= min_y)
@@ -155,34 +155,34 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 /obj/effect/meteor/atmospheric_drag/chase_target(atom/chasing, delay, home)
 	. = ..()
 
-/obj/effect/meteor/atmospheric_drag/Bump(atom/A)
+/obj/effect/meteor/atmospheric_drag/Bump(atom/bumped)
 	// Pass through mobs harmlessly
-	if(isliving(A) || ismob(A))
+	if(isliving(bumped) || ismob(bumped))
 		return
 
-	if(isturf(A))
+	if(isturf(bumped))
 		return ..()
 
 	// Damage structures and machinery
-	if(A.density)
-		if(istype(A, /obj/structure) || istype(A, /obj/machinery))
-			var/obj/O = A
-			O.take_damage(erosionpower, BRUTE, "melee", 0)
-		else if(istype(A, /turf/closed))
+	if(bumped.density)
+		if(istype(bumped, /obj/structure) || istype(bumped, /obj/machinery))
+			var/obj/bumped_obj = bumped
+			bumped_obj.take_damage(erosionpower, BRUTE, "melee", 0)
+		else if(istype(bumped, /turf/closed))
 			return ..()
 
 	return
 
-/obj/effect/meteor/atmospheric_drag/ram_turf(turf/T)
+/obj/effect/meteor/atmospheric_drag/ram_turf(turf/target)
 	// Don't damage turfs with mobs on them
-	for(var/mob/M in T)
+	for(var/mob/occupant in target)
 		return
 
-	if(isspaceturf(T))
+	if(isspaceturf(target))
 		return
 
 	// Queue minor explosion on this turf
-	SSexplosions.lowturf += T
+	SSexplosions.lowturf += target
 
 	get_hit()
 
@@ -196,7 +196,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 /obj/effect/meteor/atmospheric_drag/examine(mob/user)
 	return // Cannot be examined
 
-/obj/effect/meteor/atmospheric_drag/attackby(obj/item/I, mob/user, params)
+/obj/effect/meteor/atmospheric_drag/attackby(obj/item/used_item, mob/user, params)
 	return // Cannot be interacted with
 
 /obj/effect/meteor/atmospheric_drag/CanPass(atom/movable/mover, border_dir)

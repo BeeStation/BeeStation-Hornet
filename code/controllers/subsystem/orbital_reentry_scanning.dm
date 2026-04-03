@@ -95,13 +95,13 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 
 	// Fill with 1..axis_length, then shuffle
 	scan_order = list()
-	for(var/i in 1 to axis_length)
-		scan_order += i
+	for(var/coord_index in 1 to axis_length)
+		scan_order += coord_index
 
 	// Fisher-Yates shuffle so every pass hits coordinates in a random order
-	for(var/i in length(scan_order) to 2 step -1)
-		var/j = rand(1, i)
-		scan_order.Swap(i, j)
+	for(var/shuffle_idx in length(scan_order) to 2 step -1)
+		var/swap_idx = rand(1, shuffle_idx)
+		scan_order.Swap(shuffle_idx, swap_idx)
 
 	// Reset work cursors
 	scan_index = 1
@@ -148,26 +148,26 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 	switch(reentry_direction)
 		if(EAST)
 			// Start at the east edge, step west
-			for(var/x in world.maxx to 1 step -1)
-				target_tile = locate(x, coord, target_z)
+			for(var/scan_x in world.maxx to 1 step -1)
+				target_tile = locate(scan_x, coord, target_z)
 				if(is_valid_hit(target_tile))
 					return target_tile
 		if(WEST)
 			// Start at the west edge, step east
-			for(var/x in 1 to world.maxx)
-				target_tile = locate(x, coord, target_z)
+			for(var/scan_x in 1 to world.maxx)
+				target_tile = locate(scan_x, coord, target_z)
 				if(is_valid_hit(target_tile))
 					return target_tile
 		if(NORTH)
 			// Start at the north edge, step south
-			for(var/y in world.maxy to 1 step -1)
-				target_tile = locate(coord, y, target_z)
+			for(var/scan_y in world.maxy to 1 step -1)
+				target_tile = locate(coord, scan_y, target_z)
 				if(is_valid_hit(target_tile))
 					return target_tile
 		if(SOUTH)
 			// Start at the south edge, step north
-			for(var/y in 1 to world.maxy)
-				target_tile = locate(coord, y, target_z)
+			for(var/scan_y in 1 to world.maxy)
+				target_tile = locate(coord, scan_y, target_z)
 				if(is_valid_hit(target_tile))
 					return target_tile
 
@@ -212,6 +212,6 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 
 /// Reshuffle the scan order for the next full pass.
 /datum/controller/subsystem/orbital_reentry_scanning/proc/reshuffle_scan_order()
-	for(var/i in length(scan_order) to 2 step -1)
-		var/j = rand(1, i)
-		scan_order.Swap(i, j)
+	for(var/shuffle_idx in length(scan_order) to 2 step -1)
+		var/swap_idx = rand(1, shuffle_idx)
+		scan_order.Swap(shuffle_idx, swap_idx)

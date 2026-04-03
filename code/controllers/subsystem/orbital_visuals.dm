@@ -40,12 +40,12 @@ SUBSYSTEM_DEF(orbital_visuals)
 		update_visual_state(current_altitude)
 
 	// Update all connected clients' orbital visual layers based on altitude
-	for(var/client/C in GLOB.clients)
-		if(!C?.mob?.hud_used)
+	for(var/client/connected_client in GLOB.clients)
+		if(!connected_client?.mob?.hud_used)
 			continue
 
 		// Update orbital visuals - each layer adjusts its alpha based on altitude
-		C.mob.hud_used.update_orbital_visuals()
+		connected_client.mob.hud_used.update_orbital_visuals()
 
 // ============================================================================
 // STATE MANAGEMENT
@@ -230,16 +230,16 @@ SUBSYSTEM_DEF(orbital_visuals)
 
 // Helper proc to lighten a color
 /proc/LightenRGB(color, amount)
-	var/r = hex2num(copytext(color, 2, 4))
-	var/g = hex2num(copytext(color, 4, 6))
-	var/b = hex2num(copytext(color, 6, 8))
+	var/red = hex2num(copytext(color, 2, 4))
+	var/green = hex2num(copytext(color, 4, 6))
+	var/blue = hex2num(copytext(color, 6, 8))
 
 	// Lighten by moving towards white (255)
-	r = clamp(r + ((255 - r) * amount), 0, 255)
-	g = clamp(g + ((255 - g) * amount), 0, 255)
-	b = clamp(b + ((255 - b) * amount), 0, 255)
+	red = clamp(red + ((255 - red) * amount), 0, 255)
+	green = clamp(green + ((255 - green) * amount), 0, 255)
+	blue = clamp(blue + ((255 - blue) * amount), 0, 255)
 
-	return rgb(r, g, b)
+	return rgb(red, green, blue)
 
 #undef ORBITAL_STATE_NORMAL
 #undef ORBITAL_STATE_ATMOSPHERIC_DESCENT

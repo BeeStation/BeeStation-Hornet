@@ -2,51 +2,51 @@
 
 /datum/hud/proc/create_orbital_visuals(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
-	var/client/C = screenmob.client
-	if(!C)
+	var/client/viewer_client = screenmob.client
+	if(!viewer_client)
 		return
 
 	// Clean up any existing layers first
-	if(C.orbital_layers)
-		C.screen -= C.orbital_layers
+	if(viewer_client.orbital_layers)
+		viewer_client.screen -= viewer_client.orbital_layers
 
-	C.orbital_layers = list()
+	viewer_client.orbital_layers = list()
 
 	// Create base space background layer (always visible)
 	var/atom/movable/screen/orbital_layer/space_background/base_layer = new
 	base_layer.set_new_hud(null)
-	base_layer.create_tiled_overlays(C.view)
-	C.orbital_layers += base_layer
+	base_layer.create_tiled_overlays(viewer_client.view)
+	viewer_client.orbital_layers += base_layer
 
 	// Create stars layer (fades in at high altitudes)
 	var/atom/movable/screen/orbital_layer/stars/stars_layer = new
 	stars_layer.set_new_hud(null)
-	stars_layer.create_tiled_overlays(C.view)
-	C.orbital_layers += stars_layer
+	stars_layer.create_tiled_overlays(viewer_client.view)
+	viewer_client.orbital_layers += stars_layer
 
 	// Create atmosphere layer (fades in at high altitudes)
 	var/atom/movable/screen/orbital_layer/atmosphere/atmosphere_layer = new
 	atmosphere_layer.set_new_hud(null)
-	atmosphere_layer.create_tiled_overlays(C.view)
-	C.orbital_layers += atmosphere_layer
+	atmosphere_layer.create_tiled_overlays(viewer_client.view)
+	viewer_client.orbital_layers += atmosphere_layer
 
 	// Create fire layer (fades in at high altitudes)
 	var/atom/movable/screen/orbital_layer/fire/fire_layer = new
 	fire_layer.set_new_hud(null)
-	fire_layer.create_tiled_overlays(C.view)
-	C.orbital_layers += fire_layer
+	fire_layer.create_tiled_overlays(viewer_client.view)
+	viewer_client.orbital_layers += fire_layer
 
 	// Create bodies layer (non-tiled, vertical movement based on altitude)
 	var/atom/movable/screen/orbital_layer/bodies/bodies_layer = new
 	bodies_layer.set_new_hud(null)
-	C.orbital_layers += bodies_layer
+	viewer_client.orbital_layers += bodies_layer
 
-	C.screen |= C.orbital_layers
+	viewer_client.screen |= viewer_client.orbital_layers
 
 	// Set the space plane to white
-	var/atom/movable/screen/plane_master/PM = screenmob.hud_used?.plane_masters["[PLANE_SPACE]"]
-	if(PM)
-		PM.color = list(
+	var/atom/movable/screen/plane_master/space_plane = screenmob.hud_used?.plane_masters["[PLANE_SPACE]"]
+	if(space_plane)
+		space_plane.color = list(
 			0, 0, 0, 0,
 			0, 0, 0, 0,
 			0, 0, 0, 0,
@@ -55,12 +55,12 @@
 		)
 
 	// Start any orbital scrolling animations
-	start_orbital_scroll(C)
+	start_orbital_scroll(viewer_client)
 
 /datum/hud/proc/update_orbital_visuals(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
-	var/client/C = screenmob.client
-	if(!C || !C.orbital_layers)
+	var/client/viewer_client = screenmob.client
+	if(!viewer_client || !viewer_client.orbital_layers)
 		return
 
 	// if the mob is not on a station Z, always assume the highest defined.
@@ -70,16 +70,16 @@
 		current_altitude = SSorbital_altitude.orbital_altitude
 
 	// Update each layer based on altitude
-	for(var/atom/movable/screen/orbital_layer/layer in C.orbital_layers)
-		layer.update_for_altitude(current_altitude, C)
+	for(var/atom/movable/screen/orbital_layer/layer in viewer_client.orbital_layers)
+		layer.update_for_altitude(current_altitude, viewer_client)
 
 /// Starts the continuous scrolling animation for orbital layers
-/datum/hud/proc/start_orbital_scroll(client/C)
-	if(!C || !C.orbital_layers)
+/datum/hud/proc/start_orbital_scroll(client/viewer_client)
+	if(!viewer_client || !viewer_client.orbital_layers)
 		return
 
 	// Apply scrolling animation only to layers marked for scrolling
-	for(var/atom/movable/screen/orbital_layer/layer in C.orbital_layers)
+	for(var/atom/movable/screen/orbital_layer/layer in viewer_client.orbital_layers)
 		if(!layer.should_scroll)
 			continue  // Skip layers that aren't marked for scrolling
 
@@ -169,12 +169,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
 	// Create overlays for each tile position (skip center as base icon_state handles it)
 	var/list/new_overlays = list()
-	for(var/x in -countx to countx)
-		for(var/y in -county to county)
-			if(x == 0 && y == 0)
+	for(var/tile_x in -countx to countx)
+		for(var/tile_y in -county to county)
+			if(tile_x == 0 && tile_y == 0)
 				continue // Skip center tile (that's the base icon_state)
 			var/mutable_appearance/texture_overlay = mutable_appearance(icon, icon_state)
-			texture_overlay.transform = matrix(1, 0, x * 480, 0, 1, y * 480)
+			texture_overlay.transform = matrix(1, 0, tile_x * 480, 0, 1, tile_y * 480)
 			new_overlays += texture_overlay
 
 	cut_overlays()
@@ -182,7 +182,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
 /// Updates the layer's appearance based on current orbital altitude
 /// Override this in subtypes to define altitude-based behavior
-/atom/movable/screen/orbital_layer/proc/update_for_altitude(altitude, client/C)
+/atom/movable/screen/orbital_layer/proc/update_for_altitude(altitude, client/viewer_client)
 	return
 
 // ============================================================================
@@ -201,7 +201,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	icon_state = "stars"
 	blend_mode = BLEND_ADD
 
-/atom/movable/screen/orbital_layer/stars/update_for_altitude(altitude, client/C)
+/atom/movable/screen/orbital_layer/stars/update_for_altitude(altitude, client/viewer_client)
 	// Stars layer: fully visible from ORBITAL_ALTITUDE_HIGH_BOUND down to ORBITAL_ALTITUDE_HIGH
 	// Fades out below ORBITAL_ALTITUDE_HIGH
 
@@ -228,7 +228,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	should_scroll = TRUE
 	scroll_time = 3 SECONDS
 
-/atom/movable/screen/orbital_layer/atmosphere/update_for_altitude(altitude, client/C)
+/atom/movable/screen/orbital_layer/atmosphere/update_for_altitude(altitude, client/viewer_client)
 	// Atmosphere layer: fully visible from ORBITAL_ALTITUDE_LOW_BOUND up to ORBITAL_ALTITUDE_LOW
 	// Fades out above ORBITAL_ALTITUDE_LOW
 	if(altitude <= ORBITAL_ALTITUDE_LOW)
@@ -252,7 +252,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	icon_state = "fire"
 	blend_mode = BLEND_ADD
 
-/atom/movable/screen/orbital_layer/fire/update_for_altitude(altitude, client/C)
+/atom/movable/screen/orbital_layer/fire/update_for_altitude(altitude, client/viewer_client)
 	// Fire layer: fully visible below ORBITAL_ALTITUDE_LOW_CRITICAL
 	// Fades out above ORBITAL_ALTITUDE_LOW_CRITICAL
 	if(altitude <= ORBITAL_ALTITUDE_LOW_CRITICAL)
@@ -283,7 +283,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	/// How far the body moves vertically (in pixels) between lowest and max height
 	var/vertical_movement_distance = 500
 
-/atom/movable/screen/orbital_layer/bodies/update_for_altitude(altitude, client/C)
+/atom/movable/screen/orbital_layer/bodies/update_for_altitude(altitude, client/viewer_client)
 	// Calculate vertical offset based on altitude
 	var/vertical_offset = 0
 	if(altitude >= altitude_lowest)

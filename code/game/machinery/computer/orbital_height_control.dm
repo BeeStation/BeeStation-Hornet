@@ -31,9 +31,9 @@
 			set_thrust = 0
 
 	// Send thrust commands to all thrusters
-	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/T in SSorbital_altitude.orbital_thrusters)
-		if(!QDELETED(T))
-			T.set_thrust(set_thrust)
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/thruster in SSorbital_altitude.orbital_thrusters)
+		if(!QDELETED(thruster))
+			thruster.set_thrust(set_thrust)
 
 /obj/machinery/computer/orbital_height_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -96,21 +96,21 @@
 
 	// Thruster status data
 	var/list/thrusters = list()
-	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/T in SSorbital_altitude.orbital_thrusters)
-		if(QDELETED(T))
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/thruster in SSorbital_altitude.orbital_thrusters)
+		if(QDELETED(thruster))
 			continue
 		var/fuel_moles = 0
-		if(T.fuel_buffer)
-			ASSERT_GAS(/datum/gas/hydrogen_fuel, T.fuel_buffer)
-			fuel_moles = T.fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES]
+		if(thruster.fuel_buffer)
+			ASSERT_GAS(/datum/gas/hydrogen_fuel, thruster.fuel_buffer)
+			fuel_moles = thruster.fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES]
 		thrusters += list(list(
-			"name" = T.name,
-			"ref" = REF(T),
-			"has_fuel" = T.has_fuel,
+			"name" = thruster.name,
+			"ref" = REF(thruster),
+			"has_fuel" = thruster.has_fuel,
 			"fuel_amount" = round(fuel_moles, 0.1),
-			"fuel_target" = T.buffer_target,
-			"thrust_level" = T.thrust_level,
-			"requested_thrust" = T.requested_thrust,
+			"fuel_target" = thruster.buffer_target,
+			"thrust_level" = thruster.thrust_level,
+			"requested_thrust" = thruster.requested_thrust,
 		))
 	data["thrusters"] = thrusters
 

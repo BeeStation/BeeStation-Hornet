@@ -72,11 +72,11 @@ SUBSYSTEM_DEF(orbital_altitude)
 	var/thruster_count = 0
 	var/summed_thrust = 0
 
-	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/T in orbital_thrusters)
-		if(QDELETED(T))
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/thruster in orbital_thrusters)
+		if(QDELETED(thruster))
 			continue
 		thruster_count++
-		summed_thrust += T.thrust_level
+		summed_thrust += thruster.thrust_level
 
 	// We now know how many thrusters we have, and what their collective thrust is.
 
@@ -328,11 +328,11 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 /datum/controller/subsystem/orbital_altitude/proc/complete_destruction()
 	// Kill all living mobs on station levels
-	for(var/mob/living/L in GLOB.mob_living_list)
-		var/turf/T = get_turf(L)
-		if(T && is_station_level(T.z))
-			L.investigate_log("has died from orbital decay.", INVESTIGATE_DEATHS)
-			L.gib()
+	for(var/mob/living/living_mob in GLOB.mob_living_list)
+		var/turf/mob_turf = get_turf(living_mob)
+		if(mob_turf && is_station_level(mob_turf.z))
+			living_mob.investigate_log("has died from orbital decay.", INVESTIGATE_DEATHS)
+			living_mob.gib()
 
 	// Force round end
 	SSticker.force_ending = FORCE_END_ROUND
