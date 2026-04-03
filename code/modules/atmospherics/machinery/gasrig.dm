@@ -54,6 +54,19 @@
 
 	var/datum/looping_sound/gravgen/soundloop
 
+	/// Our internal radio for broadcasting warnings on engineering channel
+	var/obj/item/radio/radio
+	/// The key our internal radio uses
+	var/radio_key = /obj/item/encryptionkey/headset_eng
+	/// Cooldown for shield warning messages over the radio
+	COOLDOWN_DECLARE(shield_warning_cooldown)
+	/// Cooldown for health warning messages over the radio
+	COOLDOWN_DECLARE(health_warning_cooldown)
+	/// Whether we've already warned about 50% shields (reset when shields recover above 60%)
+	var/warned_shield_half = FALSE
+	/// Whether we've already warned about health dropping below 75% (reset when fully repaired)
+	var/warned_health_damage = FALSE
+
 	var/obj/machinery/atmospherics/components/unary/gasrig/shielding_input/shielding_input
 
 	var/obj/machinery/atmospherics/components/unary/gasrig/fracking_input/fracking_input
@@ -95,6 +108,10 @@
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
 	. = ..()
 	soundloop = new(src)
+	radio = new(src)
+	radio.keyslot = new radio_key
+	radio.set_listening(FALSE)
+	radio.recalculateChannels()
 	init_inputs()
 	init_dummies()
 	update_pipenets()
@@ -108,6 +125,7 @@
 		QDEL_NULL(gas_output)
 	QDEL_LIST(dummies)
 	QDEL_NULL(soundloop)
+	QDEL_NULL(radio)
 	STOP_PROCESSING(SSmachines, src)
 	return ..()
 
@@ -115,6 +133,7 @@
 	display_mols_produced = list() // this is here to ensure the list is empty if mols arnt being produced
 	get_shield_damage(shielding_input.airs[1])
 	get_damage(delta_time)
+	check_warnings()
 	if(machine_stat & NOPOWER)
 		update_pipenets()
 		return
@@ -238,6 +257,36 @@
 
 	if (health <= 0)
 		update_mode(GASRIG_MODE_REPAIR)
+
+/// Checks shield strength and health thresholds and broadcasts warnings over engineering radio, similar to the supermatter.
+/obj/machinery/atmospherics/gasrig/core/proc/check_warnings()
+	if(!active || get_extension() < 10)
+		// Reset warning flags when not operating
+		warned_shield_half = FALSE
+		warned_health_damage = FALSE
+		return
+
+	// Reset warning flags when conditions recover
+	if(shield_strength > GASRIG_MAX_SHIELD_STRENGTH * 0.85)
+		warned_shield_half = FALSE
+	if(health >= GASRIG_MAX_HEALTH)
+		warned_health_damage = FALSE
+
+	// Warning: Shield strength has dropped.
+	if(!warned_shield_half && shield_strength <= GASRIG_MAX_SHIELD_STRENGTH * 0.75)
+		warned_shield_half = TRUE
+		if(COOLDOWN_FINISHED(src, shield_warning_cooldown))
+			COOLDOWN_START(src, shield_warning_cooldown, 30 SECONDS)
+			radio.talk_into(src, "Warning! AGR shielding has dropped below 75%! Current shield integrity: [round((shield_strength / GASRIG_MAX_SHIELD_STRENGTH) * 100, 0.1)]%. Increase shielding gas supply to prevent nozzle damage.", RADIO_CHANNEL_ENGINEERING)
+			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
+
+	// Critical warning: Nozzle health has dropped.
+	if(!warned_health_damage && health < GASRIG_MAX_HEALTH * 0.9)
+		warned_health_damage = TRUE
+		if(COOLDOWN_FINISHED(src, health_warning_cooldown))
+			COOLDOWN_START(src, health_warning_cooldown, 30 SECONDS)
+			radio.talk_into(src, "DANGER! AGR nozzle is taking structural damage! Integrity: [round((health / GASRIG_MAX_HEALTH) * 100, 0.1)]%. Retract nozzle or restore shielding immediately!", RADIO_CHANNEL_ENGINEERING)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100)
 
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_output_pressure(fracking_efficiency)
