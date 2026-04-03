@@ -154,7 +154,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 
 /obj/effect/meteor/atmospheric_drag/Bump(atom/bumped)
 	// Pass through mobs harmlessly
-	if(isliving(bumped) || ismob(bumped))
+	if(ismob(bumped))
 		return
 
 	if(isturf(bumped))
