@@ -107,7 +107,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		return FALSE
 	var/frozen = TRUE
 	if(isliving(A))
-		if(freeze_mob(A))
+		if(!freeze_mob(A))
 			return FALSE
 	else if(istype(A, /obj/projectile))
 		freeze_projectile(A)
@@ -213,7 +213,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		immune[victim] = TRUE
 		if(channelled)
 			RegisterSignal(victim, COMSIG_MOVABLE_MOVED, PROC_REF(atom_broke_channel), override = TRUE)
-		return TRUE
+		return FALSE
 	frozen_mobs += victim
 	victim.Stun(20, ignore_canstun = TRUE)
 	SSmove_manager.stop_looping(victim) //stops them mid pathing even if they're stunimmune //This is really dumb
@@ -229,7 +229,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	if(ishostile(victim))
 		var/mob/living/simple_animal/hostile/H = victim
 		H.LoseTarget()
-	return FALSE
+	return TRUE
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mob(mob/living/victim)
 	victim.AdjustStun(-20, ignore_canstun = TRUE)
