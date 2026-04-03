@@ -39,6 +39,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 	/// Current stage of the final countdown (0-4)
 	var/countdown_stage = 0
 
+	/// Cached solar panel efficiency multiplier based on orbital altitude (0.0 to 2.0)
+	var/solar_efficiency = 1.0
+
 	COOLDOWN_DECLARE(orbital_report_cooldown)
 	COOLDOWN_DECLARE(orbital_report_critical)
 
@@ -53,6 +56,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 	// Update orbital altitude based on physics
 	orbital_altitude_change()
+
+	// Update cached solar panel efficiency
+	update_solar_efficiency()
 
 	// Check for critical orbit conditions and warnings
 	check_critical_orbit()
@@ -335,6 +341,36 @@ SUBSYSTEM_DEF(orbital_altitude)
 	var/progress = (CARGO_SHUTTLE_ALTITUDE_NORMAL - orbital_altitude) / (CARGO_SHUTTLE_ALTITUDE_NORMAL - CARGO_SHUTTLE_ALTITUDE_FLOOR)
 	progress = clamp(progress, 0, 1)
 	return 1 + progress * (CARGO_SHUTTLE_MAX_MULTIPLIER - 1)
+
+/**
+ * Recalculates the cached solar efficiency multiplier based on current orbital altitude.
+ * Linear interpolation between breakpoints:
+ *   Below 100km: 0.0 (no power — too much atmospheric absorption)
+ *   At 120km:    1.0 (normal power)
+ *   At 140km:    2.0 (doubled power — less atmospheric filtering)
+ * Values are clamped to [0.0, 2.0].
+ */
+/datum/controller/subsystem/orbital_altitude/proc/update_solar_efficiency()
+	// Planetary stations don't have orbital solar efficiency changes
+	if(SSmapping.current_map.planetary_station)
+		solar_efficiency = 1.0
+		return
+	if(orbital_altitude <= SOLAR_ALTITUDE_NO_POWER)
+		solar_efficiency = 0.0
+	else if(orbital_altitude <= SOLAR_ALTITUDE_NORMAL)
+		// Linear interpolation: 0.0 at 100km, 1.0 at 120km
+		solar_efficiency = (orbital_altitude - SOLAR_ALTITUDE_NO_POWER) / (SOLAR_ALTITUDE_NORMAL - SOLAR_ALTITUDE_NO_POWER)
+	else
+		// Linear interpolation: 1.0 at 120km, 2.0 at 140km
+		solar_efficiency = 1.0 + (orbital_altitude - SOLAR_ALTITUDE_NORMAL) / (SOLAR_ALTITUDE_DOUBLE - SOLAR_ALTITUDE_NORMAL)
+	solar_efficiency = clamp(solar_efficiency, 0.0, 2.0)
+
+/**
+ * Returns the cached solar efficiency multiplier (0.0 to 2.0).
+ * Planetary stations always return 1.0.
+ */
+/datum/controller/subsystem/orbital_altitude/proc/get_solar_efficiency()
+	return solar_efficiency
 
 /datum/controller/subsystem/orbital_altitude/proc/announce_countdown_stage()
 	switch(countdown_stage)

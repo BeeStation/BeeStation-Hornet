@@ -22,6 +22,11 @@
 #define CARGO_SHUTTLE_ALTITUDE_FLOOR 80000 // 80km - Maximum delay at this altitude (10x)
 #define CARGO_SHUTTLE_MAX_MULTIPLIER 10 // Maximum flight time multiplier at floor altitude
 
+// Solar panel orbital altitude thresholds
+#define SOLAR_ALTITUDE_NO_POWER 100000 // 100km - No solar power below this altitude
+#define SOLAR_ALTITUDE_NORMAL 120000 // 120km - Normal solar power at this altitude
+#define SOLAR_ALTITUDE_DOUBLE 140000 // 140km - Double solar power at this altitude (less atmosphere)
+
 // Orbital altitude thresholds for erosion
 #define EROSION_ALTITUDE_START 95000  // 95km - Light fire effects start
 #define EROSION_ALTITUDE_CRITICAL 90000  // 90km - Damage begins
