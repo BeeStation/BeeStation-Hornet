@@ -23,26 +23,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"af" = (
-/obj/vehicle/sealed/mecha/working/ripley/deathripley,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"ag" = (
-/obj/vehicle/sealed/mecha/working/ripley,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"ah" = (
-/obj/vehicle/sealed/mecha/combat/gygax,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"ai" = (
-/obj/vehicle/sealed/mecha/combat/honker/dark/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
 "aj" = (
 /obj/vehicle/sealed/mecha/gygax/dark/loaded,
 /obj/effect/turf_decal/bot,
@@ -84,16 +64,6 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"ao" = (
-/obj/vehicle/sealed/mecha/combat/marauder/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"ap" = (
-/obj/vehicle/sealed/mecha/combat/gygax/dark/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
 "aq" = (
 /obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
@@ -115,41 +85,15 @@
 /obj/item/storage/part_replacer/bluespace/tier4,
 /turf/open/floor/iron,
 /area/template_noop)
-"au" = (
-/obj/vehicle/sealed/mecha/medical/odysseus,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"av" = (
-/obj/vehicle/sealed/mecha/combat/durand,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
 "aw" = (
 /mob/living/simple_animal/bot/atmosbot{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"ax" = (
-/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
 "ay" = (
 /obj/structure/table/optable,
 /obj/item/storage/backpack/duffelbag/syndie/surgery,
-/turf/open/floor/iron,
-/area/template_noop)
-"az" = (
-/obj/vehicle/sealed/mecha/working/ripley/mk2,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"aA" = (
-/obj/machinery/computer/rdconsole/robotics{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/template_noop)
 "aB" = (
@@ -174,18 +118,8 @@
 /obj/item/bodypart/head/robot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aC" = (
-/obj/vehicle/sealed/mecha/combat/marauder/seraph,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
 "aD" = (
 /obj/vehicle/sealed/mecha/marauder/mauler/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"aE" = (
-/obj/vehicle/sealed/mecha/combat/reticence/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -199,11 +133,6 @@
 /obj/structure/closet/crate/science/debug,
 /turf/open/floor/iron,
 /area/template_noop)
-"aH" = (
-/obj/vehicle/sealed/mecha/combat/phazon,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
 "aI" = (
 /mob/living/simple_animal/bot/secbot/grievous/toy{
 	on = 0
@@ -214,11 +143,6 @@
 /mob/living/simple_animal/bot/honkbot{
 	on = 0
 	},
-/turf/open/floor/iron,
-/area/template_noop)
-"aK" = (
-/obj/vehicle/sealed/mecha/working/clarke,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "aL" = (
@@ -265,11 +189,6 @@
 /area/template_noop)
 "aS" = (
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/turf/open/floor/iron,
-/area/template_noop)
-"aT" = (
-/obj/vehicle/sealed/mecha/combat/honker,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "aU" = (

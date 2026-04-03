@@ -13,9 +13,16 @@
 	custom_materials = list(/datum/material/glass=1000)
 	w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/silicon = 20)
+	/// extension that is applied after the initial name AKA (Computer/Machine Board)
+	var/name_extension = null
 	var/build_path = null
 	/// whether or not the circuit board will build into a vendor whose products cost nothing (used for offstation vending machines mostly)
 	var/all_products_free = FALSE
+
+/obj/item/circuitboard/Initialize(mapload)
+	. = ..()
+	if(name_extension)
+		name = "[initial(name)] [name_extension]"
 
 /obj/item/circuitboard/proc/apply_default_parts(obj/machinery/M)
 	if(LAZYLEN(M.component_parts))
@@ -57,12 +64,15 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 */
 
 /obj/item/circuitboard/machine
-	var/needs_anchored = TRUE // Whether this machine must be anchored to be constructed.
-	var/list/req_components // Components required by the machine.
-							// Example: list(/obj/item/stock_parts/matter_bin = 5)
-
-	var/list/def_components // Default replacements for req_components, to be used in apply_default_parts instead of req_components types
-							// Example: list(/obj/item/stock_parts/matter_bin = /obj/item/stock_parts/matter_bin/super)
+	name_extension = "(Machine Board)"
+	/// Whether this machine must be anchored to be constructed.
+	var/needs_anchored = TRUE
+	/// Components required by the machine.
+	/// Example: list(/obj/item/stock_parts/matter_bin = 5)
+	var/list/req_components
+	/// Default replacements for req_components, to be used in apply_default_parts instead of req_components types
+	/// Example: list(/obj/item/stock_parts/matter_bin = /obj/item/stock_parts/matter_bin/super)
+	var/list/def_components
 
 // Applies the default parts defined by the circuit board when the machine is created
 /obj/item/circuitboard/machine/apply_default_parts(obj/machinery/M)
@@ -89,11 +99,14 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 
 /obj/item/circuitboard/machine/examine(mob/user)
 	. = ..()
-	if(LAZYLEN(req_components))
-		var/list/nice_list = list()
-		for(var/B in req_components)
-			var/atom/A = B
-			if(!ispath(A))
-				continue
-			nice_list += list("[req_components[A]] [initial(A.name)]")
-		. += span_notice("Required components: [english_list(nice_list)].")
+	if(!LAZYLEN(req_components))
+		. += span_info("It requires no components.")
+		return
+
+	var/list/nice_list = list()
+	for(var/atom/A as anything in req_components)
+		if(!ispath(A))
+			continue
+		nice_list += list("[req_components[A]] [initial(A.name)]")
+
+	. += span_info("Required components: [english_list(nice_list)].")

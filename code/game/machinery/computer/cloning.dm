@@ -239,8 +239,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			scantemp = "[cloning_record_copy.name] => Record deleted."
 			records.Remove(cloning_record_copy)
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-			var/obj/item/circuitboard/computer/cloning/board = circuit
-			board.records = records
 			return TRUE
 	scantemp = "Cannot delete: Access Denied."
 	playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -259,8 +257,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	records += cloning_record
 	scantemp = "Loaded into internal storage successfully."
-	var/obj/item/circuitboard/computer/cloning/board = circuit
-	board.records = records
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 	return TRUE
 
