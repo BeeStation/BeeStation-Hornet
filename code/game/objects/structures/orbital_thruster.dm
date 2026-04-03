@@ -61,6 +61,7 @@
 
 	// Assume fuel was present at initialization (grace period)
 	last_fuel_time = world.time
+	has_fuel = TRUE
 
 	SSorbital_altitude.orbital_thrusters += src
 
