@@ -149,9 +149,6 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
-/atom/movable/screen/orbital_layer/Initialize(mapload, hud_owner)
-	. = ..()
-	// Don't call create_tiled_overlays here - it will be called manually after creation
 
 /// Creates tiled overlays to make the sprite repeat across the entire screen
 /// This takes a single 480x480 sprite and tiles it to fill the client's view
