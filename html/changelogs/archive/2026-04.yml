@@ -9,3 +9,5 @@
   - bugfix: Mech equipment is once again disabled for 6 seconds when hit with an EMP
   - balance: Techshells cost reduced to 0.6 at 100% efficiency
   - code_imp: Removed an extra initialize pill bottles had
+  nre_player, Racc-Off:
+  - bugfix: Fixes turret's description
