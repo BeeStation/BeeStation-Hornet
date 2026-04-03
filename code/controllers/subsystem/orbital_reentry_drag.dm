@@ -207,7 +207,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 
 /obj/effect/meteor/atmospheric_drag/CanPassThrough(atom/blocker, turf/target, blocker_dir)
 	// Always pass through mobs
-	if(isliving(blocker) || ismob(blocker))
+	if(ismob(blocker))
 		return TRUE
 	return ..()
 
