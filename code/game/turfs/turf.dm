@@ -236,12 +236,12 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	QDEL_LIST(blueprint_data)
+	LAZYCLEARLIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
 
-	if (length(vis_contents))
+	if(length(vis_contents))
 		vis_contents.Cut()
 
 /// WARNING WARNING
