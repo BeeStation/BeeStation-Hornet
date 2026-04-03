@@ -320,6 +320,22 @@ SUBSYSTEM_DEF(orbital_altitude)
 		return GATEWAY_STATUS_TOO_LOW
 	return GATEWAY_STATUS_OK
 
+/**
+ * Returns a flight time multiplier for the cargo shuttle based on orbital altitude.
+ * At or above 100km: returns 1.0 (no penalty).
+ * Below 100km, linearly scales up to CARGO_SHUTTLE_MAX_MULTIPLIER (10x) at 80km.
+ */
+/datum/controller/subsystem/orbital_altitude/proc/get_cargo_shuttle_multiplier()
+	// Planetary stations don't have orbital cargo shuttle penalties
+	if(SSmapping.current_map.planetary_station)
+		return 1
+	if(orbital_altitude >= CARGO_SHUTTLE_ALTITUDE_NORMAL)
+		return 1
+	// Linear interpolation: 1x at 100km, 10x at 80km
+	var/progress = (CARGO_SHUTTLE_ALTITUDE_NORMAL - orbital_altitude) / (CARGO_SHUTTLE_ALTITUDE_NORMAL - CARGO_SHUTTLE_ALTITUDE_FLOOR)
+	progress = clamp(progress, 0, 1)
+	return 1 + progress * (CARGO_SHUTTLE_MAX_MULTIPLIER - 1)
+
 /datum/controller/subsystem/orbital_altitude/proc/announce_countdown_stage()
 	switch(countdown_stage)
 		if(1)

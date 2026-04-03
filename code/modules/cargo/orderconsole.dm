@@ -91,6 +91,9 @@
 		message = SSshuttle.centcom_message
 	if(SSshuttle.supplyBlocked)
 		message = blockade_warning
+	var/orbital_multiplier = SSorbital_altitude.get_cargo_shuttle_multiplier()
+	if(orbital_multiplier > 1)
+		message = "ADVISORY: Station orbital deviation is increasing shuttle flight times by [round((orbital_multiplier - 1) * 100)]%. [message]"
 	data["message"] = message
 	data["cart"] = list()
 	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
@@ -159,7 +162,12 @@
 				usr.investigate_log(" sent the supply shuttle away.", INVESTIGATE_CARGO)
 			else
 				usr.investigate_log(" called the supply shuttle.", INVESTIGATE_CARGO)
-				say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
+				var/orbital_mult = SSorbital_altitude.get_cargo_shuttle_multiplier()
+				if(orbital_mult > 1)
+					var/adjusted_minutes = round(SSshuttle.supply.timeLeft(600) * orbital_mult, 0.1)
+					say("The supply shuttle has been called and will arrive in approximately [adjusted_minutes] minutes. Warning: orbital deviation is increasing flight time by [round((orbital_mult - 1) * 100)]%.")
+				else
+					say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
 				SSshuttle.moveShuttle("supply", "supply_home", TRUE)
 			. = TRUE
 		if("loan")

@@ -17,6 +17,11 @@
 #define GATEWAY_STATUS_TOO_HIGH 1
 #define GATEWAY_STATUS_TOO_LOW 2
 
+// Cargo shuttle orbital altitude thresholds
+#define CARGO_SHUTTLE_ALTITUDE_NORMAL 100000 // 100km - Shuttle works normally above this
+#define CARGO_SHUTTLE_ALTITUDE_FLOOR 80000 // 80km - Maximum delay at this altitude (10x)
+#define CARGO_SHUTTLE_MAX_MULTIPLIER 10 // Maximum flight time multiplier at floor altitude
+
 // Orbital altitude thresholds for erosion
 #define EROSION_ALTITUDE_START 95000  // 95km - Light fire effects start
 #define EROSION_ALTITUDE_CRITICAL 90000  // 90km - Damage begins

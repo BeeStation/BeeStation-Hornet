@@ -50,9 +50,10 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 	undockable = TRUE
 
-
 	//Export categories for this run, this is set by console sending the shuttle.
 	var/export_categories = EXPORT_CARGO
+	/// Orbital altitude flight time multiplier, snapshotted at dispatch. 1.0 = no penalty.
+	var/orbital_flight_multiplier = 1
 
 /obj/docking_port/mobile/supply/register()
 	. = ..()
@@ -76,7 +77,17 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 /obj/docking_port/mobile/supply/request(obj/docking_port/stationary/S)
 	if(mode != SHUTTLE_IDLE)
 		return 2
+	// Snapshot the orbital altitude multiplier at dispatch time
+	orbital_flight_multiplier = SSorbital_altitude.get_cargo_shuttle_multiplier()
 	return ..()
+
+/obj/docking_port/mobile/supply/check()
+	var/old_mode = mode
+	. = ..()
+	// When transitioning from IGNITING to CALL, the parent just set the callTime timer.
+	// Apply our orbital altitude multiplier to extend the flight time for this trip.
+	if(old_mode == SHUTTLE_IGNITING && mode == SHUTTLE_CALL && orbital_flight_multiplier > 1)
+		modTimer(orbital_flight_multiplier)
 
 /obj/docking_port/mobile/supply/initiate_docking()
 	if(getDockedId() == "supply_away") // Buy when we leave home.
@@ -87,6 +98,8 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 		return
 	if(getDockedId() == "supply_away") // Sell when we get home
 		sell()
+	// Reset orbital multiplier after docking. Each trip gets its own """snapshot"""
+	orbital_flight_multiplier = 1
 
 /obj/docking_port/mobile/supply/proc/buy()
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all small_item orders grouped
