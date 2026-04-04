@@ -2,8 +2,27 @@
  * # Components & Parts Cargo Items
  *
  * Electronic components, stock parts, circuit boards, and science assemblies.
- * Split into Electronics, Stock Parts, and Science Packs.
+ * Split into Assemblies, Electronics, Stock Parts, Subspace Parts, Power Cells, and Science Packs.
  */
+
+// =============================================================================
+// ASSEMBLIES
+// =============================================================================
+
+/datum/cargo_list/components_assemblies
+	access_budget = ACCESS_RESEARCH
+	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/assembly/prox_sensor, "cost" = 50, "max_supply" = 10),
+		list("path" = /obj/item/assembly/igniter, "cost" = 30, "max_supply" = 10),
+		list("path" = /obj/item/assembly/timer, "cost" = 30, "max_supply" = 10),
+		list("path" = /obj/item/assembly/signaler, "cost" = 50, "max_supply" = 10),
+		list("path" = /obj/item/assembly/voice, "cost" = 50, "max_supply" = 8),
+		list("path" = /obj/item/assembly/infra, "cost" = 50, "max_supply" = 8),
+		list("path" = /obj/item/assembly/health, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/assembly/flash, "cost" = 200, "max_supply" = 6),
+		list("path" = /obj/item/assembly/mousetrap, "cost" = 15, "max_supply" = 12),
+	)
 
 // =============================================================================
 // ELECTRONICS
@@ -13,9 +32,6 @@
 	access_budget = ACCESS_RESEARCH
 	small_item = TRUE
 	entries = list(
-		list("path" = /obj/item/assembly/prox_sensor, "cost" = 50, "max_supply" = 10),
-		list("path" = /obj/item/assembly/igniter, "cost" = 30, "max_supply" = 10),
-		list("path" = /obj/item/assembly/timer, "cost" = 30, "max_supply" = 10),
 		list("path" = /obj/item/inducer/sci/with_cell, "cost" = 600, "max_supply" = 3),
 		list("path" = /obj/item/storage/part_replacer/cargo, "cost" = 1500, "max_supply" = 2),
 		list("path" = /obj/item/mod/core/standard, "cost" = 1000, "max_supply" = 4),
@@ -24,14 +40,46 @@
 	)
 
 // =============================================================================
-// STOCK PARTS
+// STOCK PARTS (Tier 1)
 // =============================================================================
 
 /datum/cargo_list/components_stock
+	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/stock_parts/capacitor, "cost" = 50, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/scanning_module, "cost" = 50, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/manipulator, "cost" = 50, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/micro_laser, "cost" = 50, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/matter_bin, "cost" = 50, "max_supply" = 15),
+	)
+
+// =============================================================================
+// SUBSPACE STOCK PARTS (Telecomms)
+// =============================================================================
+
+/datum/cargo_list/components_subspace
 	access_budget = ACCESS_ENGINE_EQUIP
 	small_item = TRUE
 	entries = list(
-		list("path" = /obj/item/stock_parts/cell/high, "cost" = 400, "max_supply" = 5),
+		list("path" = /obj/item/stock_parts/subspace/ansible, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/filter, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/amplifier, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/treatment, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/analyzer, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/crystal, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/transmitter, "cost" = 100, "max_supply" = 6),
+	)
+
+// =============================================================================
+// POWER CELLS
+// =============================================================================
+
+/datum/cargo_list/components_cells
+	access_budget = ACCESS_ENGINE_EQUIP
+	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/stock_parts/cell, "cost" = 100, "max_supply" = 10),
+		list("path" = /obj/item/stock_parts/cell/high, "cost" = 400, "max_supply" = 8),
 		list("path" = /obj/item/fuel_rod, "cost" = 350, "max_supply" = 8),
 	)
 
@@ -103,6 +151,28 @@
 	)
 	crate_type = /obj/structure/closet/crate/secure/science
 
+/datum/cargo_crate/components_packs/stock_parts_bulk
+	name = "Stock Parts Bulk Crate"
+	cost = 1000
+	max_supply = 3
+	contains = list(
+		/obj/item/stock_parts/capacitor,
+		/obj/item/stock_parts/capacitor,
+		/obj/item/stock_parts/capacitor,
+		/obj/item/stock_parts/scanning_module,
+		/obj/item/stock_parts/scanning_module,
+		/obj/item/stock_parts/scanning_module,
+		/obj/item/stock_parts/manipulator,
+		/obj/item/stock_parts/manipulator,
+		/obj/item/stock_parts/manipulator,
+		/obj/item/stock_parts/micro_laser,
+		/obj/item/stock_parts/micro_laser,
+		/obj/item/stock_parts/micro_laser,
+		/obj/item/stock_parts/matter_bin,
+		/obj/item/stock_parts/matter_bin,
+		/obj/item/stock_parts/matter_bin,
+	)
+
 /datum/cargo_crate/components_packs/shieldwalls
 	name = "Shield Wall Generator Crate"
 	cost = 4000
@@ -144,6 +214,27 @@
 		/obj/item/circuitboard/machine/processor/slime,
 	)
 	crate_type = /obj/structure/closet/crate/secure/science
+
+/datum/cargo_crate/components_packs/telecomms_repair
+	name = "Telecommunications Repair Crate"
+	cost = 3000
+	max_supply = 2
+	access = ACCESS_ENGINE
+	access_budget = ACCESS_ENGINE_EQUIP
+	contains = list(
+		/obj/item/stock_parts/subspace/ansible,
+		/obj/item/stock_parts/subspace/ansible,
+		/obj/item/stock_parts/subspace/filter,
+		/obj/item/stock_parts/subspace/filter,
+		/obj/item/stock_parts/subspace/amplifier,
+		/obj/item/stock_parts/subspace/amplifier,
+		/obj/item/stock_parts/subspace/treatment,
+		/obj/item/stock_parts/subspace/treatment,
+		/obj/item/stock_parts/subspace/analyzer,
+		/obj/item/stock_parts/subspace/crystal,
+		/obj/item/stock_parts/subspace/transmitter,
+	)
+	crate_type = /obj/structure/closet/crate/secure/engineering
 
 /datum/cargo_crate/components_packs/fuel_rods
 	name = "Fuel Rod Crate"
