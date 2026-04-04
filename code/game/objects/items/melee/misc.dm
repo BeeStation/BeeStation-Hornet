@@ -718,23 +718,67 @@
 	inhand_icon_state = "knuckles"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 19
+	force = 7
 	throwforce = 2
+	bleed_force = BLEED_TINY
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("decks", "slugs", "wallops", "clobbers")
 	attack_verb_simple = list("deck", "slug", "wallop", "clobber")
-	hitsound = 'sound/weapons/smash.ogg'
+	hitsound = 'sound/weapons/punch1.ogg'
 	/// Sound played when hitting a mob
 	var/mob_hitsound = 'sound/effects/cashregister.ogg'
 	custom_materials = list(/datum/material/gold = 500, /datum/material/iron = 500)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	item_flags = ISWEAPON
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+	/// Base damage before budget scaling
+	var/base_force = 7
+	/// Maximum damage cap
+	var/max_force = 25
+	/// Credits per bonus damage point
+	var/credits_per_damage = 2000
 
 /obj/item/melee/knuckleduster/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/trackable)
 
+/obj/item/melee/knuckleduster/attack_self(mob/user)
+	if(HAS_TRAIT(src, TRAIT_NODROP))
+		REMOVE_TRAIT(src, TRAIT_NODROP, "knuckleduster_grip")
+		balloon_alert(user, "relaxed grip")
+		to_chat(user, span_notice("You relax your grip on [src]."))
+	else
+		ADD_TRAIT(src, TRAIT_NODROP, "knuckleduster_grip")
+		balloon_alert(user, "tightened grip")
+		to_chat(user, span_notice("You tighten your grip on [src]. They won't come off easily now."))
+
 /obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
+	update_force_from_budget(user)
 	. = ..()
 	playsound(target, mob_hitsound, 50, TRUE)
+
+/// Scales force based on how full the cargo budget is. Capped at max_force. Only applies if the user is the Quartermaster.
+/obj/item/melee/knuckleduster/proc/update_force_from_budget(mob/living/user)
+	if(!user?.mind || user.mind.assigned_role != JOB_NAME_QUARTERMASTER)
+		force = base_force
+		return
+	var/datum/bank_account/department/cargo_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+	if(!cargo_budget)
+		force = base_force
+		return
+	var/bonus_damage = round(cargo_budget.account_balance / credits_per_damage)
+	force = clamp(base_force + bonus_damage, base_force, max_force)
+
+/obj/item/melee/knuckleduster/examine(mob/user)
+	update_force_from_budget(user)
+	. = ..()
+	if(user?.mind?.assigned_role == JOB_NAME_QUARTERMASTER)
+		. += span_notice("The weight of Cargo's wealth flows through these knuckles. Current striking force: [force].")
+	if(HAS_TRAIT(src, TRAIT_NODROP))
+		. += span_notice("Your grip is tightened. Use in-hand to relax it.")
+	else
+		. += span_notice("Your grip is relaxed. Use in-hand to tighten it.")
+
+/obj/item/melee/knuckleduster/openTip(location, control, params, mob/living/user)
+	update_force_from_budget(user)
+	return ..()
