@@ -576,7 +576,7 @@
 		return
 
 	// Build a combined list of all cargo product types
-	var/list/all_types = subtypesof(/datum/cargo_item) + subtypesof(/datum/cargo_crate) + subtypesof(/datum/supply_pack)
+	var/list/all_types = subtypesof(/datum/cargo_item) + subtypesof(/datum/cargo_crate)
 	var/chosen = pick_closest_path(object, make_types_fancy(all_types))
 	if(!chosen)
 		return

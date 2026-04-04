@@ -108,22 +108,6 @@
 			"access" = crate.access
 		))
 
-	// Legacy supply packs
-	for(var/pack in SSsupply.supply_packs)
-		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
-		if(!is_visible_pack(user, P.contraband) || P.hidden)
-			continue
-		if((P.hidden && (P.contraband && !contraband) || (P.special && !P.special_enabled) || P.DropPodOnly))
-			continue
-		data["supplies"] += list(list(
-			"name" = P.name,
-			"cost" = P.cost,
-			"supply" = P.current_supply,
-			"id" = pack,
-			"desc" = P.desc || P.name,
-			"access" = P.access
-		))
-
 //Data regarding the User's capability to buy things.
 	data["has_id"] = id_card
 	data["away"] = SSshuttle.supply.getDockedId() == "supply_away"
@@ -344,12 +328,6 @@
 				p_contraband = crate.contraband
 				p_droppod = crate.DropPodOnly
 				p_access_budget = crate.access_budget
-			else if(istype(product, /datum/supply_pack))
-				var/datum/supply_pack/legacy = product
-				p_hidden = legacy.hidden
-				p_contraband = legacy.contraband
-				p_droppod = legacy.DropPodOnly
-				p_access_budget = legacy.access_budget
 			if((p_hidden && (p_contraband && !contraband) || p_droppod))
 				return
 
@@ -479,11 +457,6 @@
 				p_hidden = crate.hidden
 				p_contraband = crate.contraband
 				p_droppod = crate.DropPodOnly
-			else if(istype(product, /datum/supply_pack))
-				var/datum/supply_pack/legacy = product
-				p_hidden = legacy.hidden
-				p_contraband = legacy.contraband
-				p_droppod = legacy.DropPodOnly
 			if((p_hidden && (p_contraband && !contraband) || p_droppod))
 				return
 			for(var/list/entry in batch)
@@ -584,10 +557,6 @@
 							var/datum/cargo_crate/crate = batch_product
 							bp_access_budget = crate.access_budget
 							bp_name = crate.name
-						else if(istype(batch_product, /datum/supply_pack))
-							var/datum/supply_pack/legacy = batch_product
-							bp_access_budget = legacy.access_budget
-							bp_name = legacy.name
 						if(bp_access_budget && !(bp_access_budget in access))
 							computer.say("Insufficient access on [id_card] for [bp_name].")
 							return

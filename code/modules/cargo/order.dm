@@ -39,7 +39,7 @@
 	var/orderer_rank
 	var/orderer_ckey
 	var/reason
-	/// The product being ordered. Can be /datum/cargo_item, /datum/cargo_crate, or /datum/supply_pack (legacy).
+	/// The product being ordered. Can be /datum/cargo_item or /datum/cargo_crate.
 	var/datum/pack
 	var/datum/bank_account/paying_account
 
@@ -72,13 +72,6 @@
 		pack_cost = crate.get_cost()
 		pack_access = crate.access
 		pack_dangerous = crate.dangerous
-	else if(istype(product, /datum/supply_pack))
-		var/datum/supply_pack/legacy = product
-		pack_name = legacy.name
-		pack_cost = legacy.get_cost()
-		pack_access = legacy.access
-		pack_dangerous = legacy.dangerous
-		pack_small_item = legacy.small_item
 
 /// Generate a unique batch order code (e.g. "#513-X131-T")
 /proc/generate_batch_code()
@@ -207,10 +200,6 @@
 			else
 				C.req_one_access = list(item.access)
 		new item.item_path(C)
-	else if(istype(pack, /datum/supply_pack))
-		// Legacy supply_pack
-		var/datum/supply_pack/legacy = pack
-		C = legacy.generate(A, paying_account)
 
 	return C
 
@@ -320,9 +309,6 @@
 	if(istype(product, /datum/cargo_crate))
 		var/datum/cargo_crate/crate = product
 		return crate.get_cost()
-	if(istype(product, /datum/supply_pack))
-		var/datum/supply_pack/legacy = product
-		return legacy.get_cost()
 	return 0
 
 /// Get the name of a product datum
@@ -333,9 +319,6 @@
 	if(istype(product, /datum/cargo_crate))
 		var/datum/cargo_crate/crate = product
 		return crate.name
-	if(istype(product, /datum/supply_pack))
-		var/datum/supply_pack/legacy = product
-		return legacy.name
 	return "Unknown"
 
 /// Get the crate_type path of a product datum
@@ -346,9 +329,6 @@
 	if(istype(product, /datum/cargo_crate))
 		var/datum/cargo_crate/crate = product
 		return crate.crate_type
-	if(istype(product, /datum/supply_pack))
-		var/datum/supply_pack/legacy = product
-		return legacy.crate_type
 	return /obj/structure/closet/crate
 
 /// Get whether a product datum is a small item (TRUE) or bulky (FALSE)
@@ -359,9 +339,6 @@
 	if(istype(product, /datum/cargo_crate))
 		var/datum/cargo_crate/crate = product
 		return crate.small_item
-	if(istype(product, /datum/supply_pack))
-		var/datum/supply_pack/legacy = product
-		return legacy.small_item
 	return FALSE
 
 /// Get how many crate slots a single unit of a product occupies.

@@ -137,7 +137,7 @@
 				rank = "Silicon"
 			//Check if we can add the artifact to a pending order
 			var/datum/supply_order/current_order
-			var/datum/supply_pack/current_pack
+			var/datum/cargo_crate/current_pack
 			if(length(console_orders))
 				current_order = console_orders[length(console_orders)]
 				current_pack = console_orders[current_order]
@@ -158,7 +158,7 @@
 					console_orders -= current_order
 					qdel(current_order)
 			//If we can't, make a new order
-			current_pack = new /datum/supply_pack/science_listing()
+			current_pack = new /datum/cargo_crate/science_listing()
 			current_pack.contains = list()
 			//Kinda weird, but essentially what happens is the stock is set to 0, and when we make a new one it's 0 instead of 1. Cargo code is weird and this is weirder.
 			current_pack?.current_supply = max(1, current_pack.current_supply)

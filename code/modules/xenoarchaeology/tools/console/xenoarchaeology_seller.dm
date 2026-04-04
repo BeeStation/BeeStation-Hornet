@@ -108,10 +108,10 @@
 	max_stock = 2
 
 /*
-	Supply pack for this system
-	Whenever a listing is purchased, a supply pack with the purchased items is returned
+	Supply crate for this system
+	Whenever a listing is purchased, a cargo crate with the purchased items is returned
 */
-/datum/supply_pack/science_listing
+/datum/cargo_crate/science_listing
 	name = "Research Material Listing"
 	desc = "Contains potentially hazardous materials, or ridiculous ties."
 	hidden = TRUE

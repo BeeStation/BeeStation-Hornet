@@ -86,21 +86,6 @@
 			"supply" = crate.current_supply
 		))
 
-	// Legacy supply packs (backwards compat)
-	for(var/pack in SSsupply.supply_packs)
-		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
-		if(P.hidden || P.special || P.DropPodOnly)
-			continue
-		if(!((obj_flags & EMAGGED) || contraband) && P.contraband)
-			continue
-		meme_pack_data += list(list(
-			"name" = P.name,
-			"cost" = P.get_cost(),
-			"id" = pack,
-			"desc" = P.desc || P.name,
-			"supply" = P.current_supply
-		))
-
 
 /obj/machinery/computer/cargo/express/ui_state(mob/user)
 	return GLOB.default_state

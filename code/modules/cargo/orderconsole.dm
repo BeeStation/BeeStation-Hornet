@@ -125,11 +125,6 @@
 			contents_readable = crate.get_contents_readable()
 			order_cost = crate.get_cost()
 			order_supply = crate.current_supply
-		else if(istype(SO.pack, /datum/supply_pack))
-			var/datum/supply_pack/legacy = SO.pack
-			contents_readable = legacy.get_contents_readable()
-			order_cost = legacy.get_cost()
-			order_supply = legacy.current_supply
 		data["cart"] += list(list(
 			"object" = SO.pack_name,
 			"cost" = order_cost,
@@ -169,11 +164,6 @@
 			req_contents = crate.get_contents_readable()
 			req_cost = crate.get_cost()
 			req_supply = crate.current_supply
-		else if(istype(SO.pack, /datum/supply_pack))
-			var/datum/supply_pack/legacy = SO.pack
-			req_contents = legacy.get_contents_readable()
-			req_cost = legacy.get_cost()
-			req_supply = legacy.current_supply
 		data["requests"] += list(list(
 			"object" = SO.pack_name,
 			"cost" = req_cost,
@@ -307,20 +297,6 @@
 			"access" = crate.access
 		))
 
-	// --- Legacy supply packs (backwards compat, if any remain) ---
-	for(var/pack in SSsupply.supply_packs)
-		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
-		if((P.hidden && !(obj_flags & EMAGGED)) || (P.contraband && !contraband) || (P.special && !P.special_enabled) || P.DropPodOnly)
-			continue
-		data["supplies"] += list(list(
-			"name" = P.name,
-			"cost" = P.get_cost(),
-			"id" = pack,
-			"supply" = P.current_supply,
-			"desc" = P.desc || P.name,
-			"small_item" = P.small_item,
-			"access" = P.access
-		))
 	return data
 
 /obj/machinery/computer/cargo/ui_act(action, params, datum/tgui/ui)
@@ -388,11 +364,6 @@
 				p_hidden = crate.hidden
 				p_contraband = crate.contraband
 				p_droppod = crate.DropPodOnly
-			else if(istype(product, /datum/supply_pack))
-				var/datum/supply_pack/legacy = product
-				p_hidden = legacy.hidden
-				p_contraband = legacy.contraband
-				p_droppod = legacy.DropPodOnly
 			if((p_hidden && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
 				return
 
@@ -502,11 +473,6 @@
 				p_hidden = crate.hidden
 				p_contraband = crate.contraband
 				p_droppod = crate.DropPodOnly
-			else if(istype(product, /datum/supply_pack))
-				var/datum/supply_pack/legacy = product
-				p_hidden = legacy.hidden
-				p_contraband = legacy.contraband
-				p_droppod = legacy.DropPodOnly
 			if((p_hidden && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
 				return
 			// Check if this pack is already in the batch, if so increment quantity
@@ -685,9 +651,6 @@
 	if(istype(product, /datum/cargo_crate))
 		var/datum/cargo_crate/crate = product
 		return crate.current_supply
-	if(istype(product, /datum/supply_pack))
-		var/datum/supply_pack/legacy = product
-		return legacy.current_supply
 	return 0
 
 /// Helper: adjust current_supply on any product datum type
@@ -698,9 +661,6 @@
 	else if(istype(product, /datum/cargo_crate))
 		var/datum/cargo_crate/crate = product
 		crate.current_supply += amount
-	else if(istype(product, /datum/supply_pack))
-		var/datum/supply_pack/legacy = product
-		legacy.current_supply += amount
 
 /// Helper: get the list of content types from any product datum type (for small_item grouping)
 /proc/get_pack_contains(datum/product)
@@ -710,7 +670,4 @@
 	if(istype(product, /datum/cargo_crate))
 		var/datum/cargo_crate/crate = product
 		return crate.contains
-	if(istype(product, /datum/supply_pack))
-		var/datum/supply_pack/legacy = product
-		return legacy.contains
 	return list()

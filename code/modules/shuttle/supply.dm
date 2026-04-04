@@ -209,12 +209,6 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 						p_dangerous = crate.dangerous
 						for(var/i in 1 to take)
 							crate.fill(C)
-					else if(istype(product, /datum/supply_pack))
-						var/datum/supply_pack/legacy = product
-						p_access = legacy.access
-						p_dangerous = legacy.dangerous
-						for(var/i in 1 to take)
-							legacy.fill(C)
 					// Apply access to crate if needed (only for non-personal purchases)
 					if(!BO.paying_account && p_access)
 						if(islist(p_access))

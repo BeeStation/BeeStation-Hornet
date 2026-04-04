@@ -5,10 +5,6 @@ SUBSYSTEM_DEF(supply)
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME
 
-	/// Legacy supply_packs list — kept for backwards compatibility with station goals etc.
-	/// Keyed by type path. Only contains legacy /datum/supply_pack subtypes (if any remain).
-	var/list/supply_packs = list()
-
 	/// All orderable cargo items, keyed by type path
 	var/list/cargo_items = list()
 	/// All orderable cargo crates (packs), keyed by type path
@@ -24,13 +20,6 @@ SUBSYSTEM_DEF(supply)
 
 /datum/controller/subsystem/supply/Initialize()
 	ordernum = rand(1, 9000)
-
-	// --- Initialize legacy supply packs (backwards compat) ---
-	for(var/pack in subtypesof(/datum/supply_pack))
-		var/datum/supply_pack/P = new pack()
-		if(!P.contains)
-			continue
-		supply_packs[P.type] = P
 
 	// --- Expand cargo lists into cargo items ---
 	for(var/list_type in subtypesof(/datum/cargo_list))
@@ -116,14 +105,6 @@ SUBSYSTEM_DEF(supply)
 			total_restock_required += deficit
 			restock_list[crate] = deficit
 
-	// Restock legacy supply packs
-	for(var/type in supply_packs)
-		var/datum/supply_pack/pack = supply_packs[type]
-		if(pack.current_supply < pack.max_supply)
-			var/deficit = pack.max_supply - pack.current_supply
-			total_restock_required += deficit
-			restock_list[pack] = deficit
-
 	// Determine how much restocking to do this tick
 	var/lower = sqrt(total_restock_required)
 	var/upper = lower + total_restock_required / 10
@@ -139,9 +120,6 @@ SUBSYSTEM_DEF(supply)
 		else if(istype(selected, /datum/cargo_crate))
 			var/datum/cargo_crate/crate = selected
 			crate.current_supply = min(crate.current_supply + 1, crate.max_supply)
-		else if(istype(selected, /datum/supply_pack))
-			var/datum/supply_pack/pack = selected
-			pack.current_supply = min(pack.current_supply + 1, pack.max_supply)
 		restock_list -= selected
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
 
@@ -155,11 +133,9 @@ SUBSYSTEM_DEF(supply)
 		orderhistory = SSsupply.orderhistory
 
 /// Helper: look up any orderable product by type path.
-/// Checks catalogue (cargo_items + cargo_crates) first, falls back to legacy supply_packs.
+/// Checks catalogue (cargo_items + cargo_crates).
 /// Returns a list("type", "datum") or null.
 /datum/controller/subsystem/supply/proc/get_product(product_type)
 	if(catalogue[product_type])
 		return catalogue[product_type]
-	if(supply_packs[product_type])
-		return list("type" = "legacy", "datum" = supply_packs[product_type])
 	return null
