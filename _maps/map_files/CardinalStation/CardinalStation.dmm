@@ -19255,9 +19255,9 @@
 /area/science/research)
 "efT" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/rnd/production/protolathe/department/science,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/white,
 /area/science/lab)
 "efV" = (
@@ -22587,7 +22587,6 @@
 /turf/open/floor/noslip/blue,
 /area/security/prison)
 "eVA" = (
-/obj/machinery/rnd/production/circuit_imprinter,
 /obj/machinery/light/directional/east,
 /turf/open/floor/iron/tech,
 /area/engine/storage_shared)
@@ -23063,8 +23062,6 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/rnd/production/techfab/department/security,
 /obj/machinery/camera/directional/east,
 /obj/machinery/digital_clock/directional/east,
 /turf/open/floor/iron/dark/smooth_edge{
@@ -26533,7 +26530,7 @@
 	name = "Engineering Desk";
 	req_one_access_txt = "32;19"
 	},
-/obj/machinery/modular_fabricator/autolathe,
+/obj/structure/table/reinforced,
 /turf/open/floor/plating,
 /area/engine/storage_shared)
 "fQV" = (
@@ -29934,7 +29931,6 @@
 	},
 /area/tcommsat/server)
 "gyi" = (
-/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/southright{
 	req_one_access_txt = "7;29";
@@ -29947,6 +29943,7 @@
 	id = "sci_desk";
 	name = "Science Desk Shutters"
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/plating,
 /area/science/lab)
 "gyk" = (
@@ -33981,7 +33978,7 @@
 /turf/open/floor/iron/techmaint,
 /area/science/mixing)
 "hth" = (
-/obj/machinery/rnd/production/protolathe/department/engineering,
+/obj/machinery/rnd/production/protolathe,
 /turf/open/floor/iron/tech,
 /area/engine/storage_shared)
 "htq" = (
@@ -37435,7 +37432,9 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "igi" = (
-/obj/machinery/rnd/production/techfab/department/cargo,
+/obj/structure/table/reinforced{
+	color = "#c2bfa3"
+	},
 /turf/open/floor/iron/tech/grid,
 /area/quartermaster/storage)
 "igp" = (
@@ -53347,7 +53346,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "lEX" = (
-/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/eastright{
 	req_access_txt = "31"
 	},
@@ -53355,6 +53353,9 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/table/reinforced{
+	color = "#c2bfa3"
+	},
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "lEY" = (
@@ -66233,7 +66234,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/effect/turf_decal/trimline/black/filled/line{
 	dir = 4
 	},
@@ -66241,6 +66241,7 @@
 	pixel_y = 13;
 	pixel_x = 4
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/noslip/dark,
 /area/science/robotics/lab)
 "oyl" = (
@@ -70678,7 +70679,6 @@
 /area/hallway/primary/port)
 "put" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/machinery/rnd/production/techfab/department/medical,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/white,
 /area/medical/storage)
@@ -108754,7 +108754,6 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 9
 	},
-/obj/machinery/rnd/production/techfab/department/service,
 /obj/structure/sign/poster/official/random/directional/north,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/service)
