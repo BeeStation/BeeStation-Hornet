@@ -16,7 +16,7 @@
 
 // Plasma ore (unrefined)
 /datum/export/stack/plasma_ore
-	cost = 75
+	cost = 100
 	unit_name = "plasma ore chunk"
 	export_types = list(
 		/obj/item/stack/ore/plasma = TRUE,
@@ -24,7 +24,7 @@
 
 // Refined plasma sheets - the station's primary export
 /datum/export/stack/plasma
-	cost = 150
+	cost = 200
 	message = "of plasma"
 	export_types = list(
 		/obj/item/stack/sheet/mineral/plasma = TRUE,
@@ -33,35 +33,35 @@
 // Plasma Products
 
 /datum/export/stack/plasteel
-	cost = 155 // 2000u of plasma + 2000u of iron.
+	cost = 210 // 2000u of plasma + 2000u of iron.
 	message = "of plasteel"
 	export_types = list(
 		/obj/item/stack/sheet/plasteel = TRUE,
 	)
 
 /datum/export/stack/plasmaglass
-	cost = 80 // plasma + glass
+	cost = 105 // plasma + glass
 	message = "of plasma glass"
 	export_types = list(
 		/obj/item/stack/sheet/plasmaglass = TRUE,
 	)
 
 /datum/export/stack/plasmarglass
-	cost = 85 // plasma + glass + iron
+	cost = 110 // plasma + glass + iron
 	message = "of reinforced plasma glass"
 	export_types = list(
 		/obj/item/stack/sheet/plasmarglass = TRUE,
 	)
 
 /datum/export/stack/plastitanium
-	cost = 325 // plasma + titanium costs
+	cost = 350 // plasma + titanium costs
 	message = "of plastitanium"
 	export_types = list(
 		/obj/item/stack/sheet/mineral/plastitanium = TRUE,
 	)
 
 /datum/export/stack/plastitaniumglass
-	cost = 175 // plasma + titanium + glass
+	cost = 200 // plasma + titanium + glass
 	message = "of plastitanium glass"
 	export_types = list(
 		/obj/item/stack/sheet/plastitaniumglass = TRUE,

@@ -117,7 +117,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	gasrig_shielding_modifier = 0.4
 	dangerous = TRUE
 	rarity = 800
-	base_value = 1.5
+	base_value = 2
+	max_demand = 8000
 	desc = "A flammable gas with many other curious properties. Its research is one of NT's primary objective."
 	primary_color = "#ffc0cb"
 
