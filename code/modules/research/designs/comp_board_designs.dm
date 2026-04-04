@@ -241,8 +241,8 @@
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/board/bounty
-	name = "Computer Design (Bounty Console)"
-	desc = "Allows for the construction of circuit boards used to build a Bounty Console."
+	name = "Computer Design (Export Console)"
+	desc = "Allows for the construction of circuit boards used to build an Export Console."
 	id = "bounty"
 	build_path = /obj/item/circuitboard/computer/bounty
 	category = list("Computer Boards")

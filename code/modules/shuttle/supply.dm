@@ -303,7 +303,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = report)
 
 	if(matched_bounty)
-		msg += "Bounty items received. An update has been sent to all bounty consoles. "
+		msg += "Bounty items received. An update has been sent to all export consoles. "
 
 	for(var/datum/export/export in report.exported_atoms)
 		var/export_text = export.total_printout(report)
