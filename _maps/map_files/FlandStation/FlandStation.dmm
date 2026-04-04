@@ -15594,13 +15594,13 @@
 /area/maintenance/port/central)
 "ess" = (
 /obj/effect/turf_decal/stripes/box,
-/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/westright{
 	dir = 2;
 	name = "Cargo Desk";
 	req_access_txt = "31"
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
 "est" = (
@@ -24084,11 +24084,11 @@
 	},
 /area/ai_monitored/storage/eva)
 "gBf" = (
-/obj/machinery/rnd/production/protolathe/department/engineering,
 /obj/effect/turf_decal/delivery,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
+/obj/machinery/rnd/production/protolathe,
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "gBh" = (
@@ -26257,7 +26257,6 @@
 	pixel_y = -28
 	},
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "hgc" = (
@@ -28675,7 +28674,6 @@
 	id = "BrigFlashAft";
 	pixel_y = 25
 	},
-/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "hPW" = (
@@ -37296,11 +37294,9 @@
 /area/security/detectives_office)
 "khQ" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22
 	},
-/obj/machinery/ecto_sniffer,
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
 "khS" = (
@@ -39582,7 +39578,6 @@
 /area/security/checkpoint/medical)
 "kNh" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/rnd/production/techfab/department/service,
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
 	},
@@ -63823,12 +63818,12 @@
 	req_one_access_txt = "7;29"
 	},
 /obj/effect/turf_decal/stripes/box,
-/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rndlabext";
 	name = "External Research Shutters"
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/techmaint,
 /area/science/lab)
 "rwH" = (
@@ -69246,7 +69241,6 @@
 /area/engine/engine_room)
 "sQn" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "sQo" = (
@@ -72397,8 +72391,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/crew_quarters/dorms)
 "tJA" = (
-/obj/machinery/rnd/production/techfab/department/medical,
-/obj/effect/turf_decal/stripes/box,
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
@@ -81664,7 +81656,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/iron,
 /area/science/lab)
 "wav" = (
@@ -81764,7 +81756,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "wbK" = (
-/obj/machinery/rnd/production/protolathe/department/science,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -85043,6 +85034,9 @@
 /obj/machinery/modular_fabricator/exosuit_fab,
 /obj/item/radio/intercom{
 	pixel_y = 24
+	},
+/obj/machinery/ecto_sniffer{
+	pixel_y = 7
 	},
 /turf/open/floor/iron/grid/steel,
 /area/science/robotics/lab)
