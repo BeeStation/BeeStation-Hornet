@@ -29,7 +29,6 @@
 	loot = list(
 		/obj/item/circuitboard/computer/arcade/battle,
 		/obj/item/circuitboard/computer/arcade/orion_trail,
-		/obj/item/circuitboard/machine/autolathe,
 		/obj/item/circuitboard/computer/mining,
 		/obj/item/circuitboard/machine/ore_redemption,
 		/obj/item/circuitboard/machine/mining_equipment_vendor,
@@ -45,7 +44,6 @@
 		/obj/item/circuitboard/computer/aifixer,
 		/obj/item/circuitboard/machine/rdserver,
 		/obj/item/circuitboard/machine/mechfab,
-		/obj/item/circuitboard/machine/circuit_imprinter/department,
 		/obj/item/circuitboard/computer/teleporter,
 		/obj/item/circuitboard/machine/destructive_analyzer,
 		/obj/item/circuitboard/computer/rdconsole,
