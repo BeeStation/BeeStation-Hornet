@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 		if(!empty_turfs.len)
 			break
 
-		// Handle batch orders — group items by crate_type, max 10 per crate
+		// Handle batch orders - group items by crate_type, max 10 per crate
 		if(istype(SO, /datum/supply_order/batch))
 			var/datum/supply_order/batch/BO = SO
 			var/datum/bank_account/D

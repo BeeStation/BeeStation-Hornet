@@ -146,7 +146,7 @@
 /**
  * # Cargo Crate
  *
- * Represents a pre-assembled crate order — a fixed bundle of items delivered together.
+ * Represents a pre-assembled crate order - a fixed bundle of items delivered together.
  * Used for station goals, special event packs, and any multi-item package that
  * logically belongs in a single crate.
  */
@@ -244,7 +244,7 @@
 				MA.forceMove(C)
 
 // =============================================================================
-// CARGO LIST — compact list-based definition for bulk item registration
+// CARGO LIST - compact list-based definition for bulk item registration
 // =============================================================================
 
 /**

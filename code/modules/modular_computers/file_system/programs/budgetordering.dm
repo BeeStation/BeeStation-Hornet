@@ -306,7 +306,7 @@
 				return
 			var/datum/product = product_info["datum"]
 
-			// Stock check — cannot order more than available supply
+			// Stock check - cannot order more than available supply
 			if(get_product_supply(product) <= 0)
 				computer.say("Out of stock.")
 				return
@@ -434,7 +434,7 @@
 			if(!product_info)
 				return
 			var/datum/product = product_info["datum"]
-			// Stock check — cannot add more than available supply
+			// Stock check - cannot add more than available supply
 			var/available_stock = get_product_supply(product)
 			var/already_in_batch = 0
 			for(var/list/existing in batch)

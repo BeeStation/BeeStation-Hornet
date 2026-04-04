@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(supply)
 				continue
 			var/datum/cargo_item/item = new()
 			item.item_path = path
-			item.name = entry["name"]  // may be null — New() already auto-filled, so override only if provided
+			item.name = entry["name"]  // may be null - New() already auto-filled, so override only if provided
 			item.cost = entry["cost"] || 400
 			item.max_supply = entry["max_supply"] || 5
 			item.small_item = ("small_item" in entry) ? entry["small_item"] : CL.small_item
@@ -55,7 +55,7 @@ SUBSYSTEM_DEF(supply)
 				item.desc = initial(A.desc)
 			// Re-randomize supply since New() already did it but max_supply may have changed
 			item.current_supply = rand(0, rand(1, item.max_supply))
-			// Duplicate check — warn if this path is already in the catalogue
+			// Duplicate check - warn if this path is already in the catalogue
 			if(catalogue[path])
 				stack_trace("Duplicate cargo catalogue entry for path '[path]' from cargo_list [list_type]. Overwriting previous entry.")
 			// Use item_path as the catalogue key (valid type path, works with text2path)

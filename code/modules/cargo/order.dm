@@ -43,7 +43,7 @@
 	var/datum/pack
 	var/datum/bank_account/paying_account
 
-	// Cached values for display — set from the product datum at order creation time
+	// Cached values for display - set from the product datum at order creation time
 	var/pack_name = ""
 	var/pack_cost = 0
 	var/pack_access = null
@@ -180,7 +180,7 @@
 
 	return manifest_paper
 
-/// Generate the crate and its contents at the given location. Does NOT name or add manifest — that's handled by the shuttle buy proc.
+/// Generate the crate and its contents at the given location. Does NOT name or add manifest - that's handled by the shuttle buy proc.
 /datum/supply_order/proc/generate(atom/A)
 	var/obj/structure/closet/crate/C
 
@@ -206,7 +206,7 @@
 /**
  * # Batch Supply Order
  *
- * Represents a confirmed batch order — multiple items bundled into a single
+ * Represents a confirmed batch order - multiple items bundled into a single
  * entry on the shopping list / request list. The UI shows this as one row
  * with expandable contents and crate count.
  *
@@ -255,7 +255,7 @@
 	src.paying_account = paying_account
 	self_paid_batch = is_self_paid
 
-	// Process batch entries — each is list("pack_id" = type_path, "quantity" = num)
+	// Process batch entries - each is list("pack_id" = type_path, "quantity" = num)
 	var/cost_sum = 0
 	var/item_sum = 0
 	for(var/list/raw_entry in batch_entries)
@@ -298,7 +298,7 @@
 	return readable
 
 // ============================================================================
-// BATCH PRICING HELPERS — shared between order creation and UI preview
+// BATCH PRICING HELPERS - shared between order creation and UI preview
 // ============================================================================
 
 /// Get the cost of a product datum
@@ -392,7 +392,7 @@
 		for(var/list/item_info in items)
 			var/item_slots = item_info["slots"]
 			// If adding this item would exceed capacity, start a new crate
-			// (unless the crate is empty — always allow at least one item)
+			// (unless the crate is empty - always allow at least one item)
 			if(current_slots + item_slots > BATCH_CRATE_MAX_ITEMS && length(current_crate_items))
 				crates += list(list(
 					"crate_type" = crate_type,

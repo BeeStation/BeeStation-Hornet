@@ -131,7 +131,7 @@ export const CargoContent = () => {
   const requests = data.requests || [];
   return (
     <Flex height="100%">
-      {/* Left panel — main content */}
+      {/* Left panel - main content */}
       <Flex.Item grow={1} basis={0} mr={1} style={STYLES.leftPanel}>
         <Box shrink={0}>
           <CargoStatus />
@@ -173,7 +173,7 @@ export const CargoContent = () => {
           {tab === 'cart' && <CargoCart />}
         </Box>
       </Flex.Item>
-      {/* Right panel — batch cart */}
+      {/* Right panel - batch cart */}
       <Flex.Item basis="320px" shrink={0} style={STYLES.rightPanel}>
         <BatchPanel />
       </Flex.Item>
@@ -693,7 +693,7 @@ const BatchPanel = () => {
       {batchTab === 'pricing' && <BatchPricingBreakdown />}
       {batchItems.length > 0 && (
         <Box mt={2}>
-          {/* Compact pricing summary — always visible */}
+          {/* Compact pricing summary - always visible */}
           <Box
             fontSize="11px"
             color="label"
