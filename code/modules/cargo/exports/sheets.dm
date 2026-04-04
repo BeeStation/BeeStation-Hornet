@@ -1,3 +1,10 @@
+// ============================================================================
+// PLASMA STATION EXPORTS
+// This station exists for plasma research and mining. Plasma and its derivative
+// products are the primary revenue stream, along with bluespace crystals.
+// For base stack export handling, see materials.dm
+// ============================================================================
+
 /datum/export/stack
 	unit_name = "sheet"
 
@@ -7,67 +14,23 @@
 		return S.amount
 	return 0
 
-// Hides
-
-/datum/export/stack/skin/monkey
-	cost = 50
-	unit_name = "monkey hide"
+// Plasma ore (unrefined)
+/datum/export/stack/plasma_ore
+	cost = 75
+	unit_name = "plasma ore chunk"
 	export_types = list(
-		/obj/item/stack/sheet/animalhide/monkey = TRUE,
+		/obj/item/stack/ore/plasma = TRUE,
 	)
 
-/datum/export/stack/skin/human
-	cost = 100
-	unit_name = "piece"
-	message = "of human skin"
-	export_types = list(
-		/obj/item/stack/sheet/animalhide/human = TRUE,
-	)
-
-/datum/export/stack/skin/goliath_hide
-	cost = 200
-	unit_name = "goliath hide"
-	export_types = list(
-		/obj/item/stack/sheet/animalhide/goliath_hide = TRUE,
-	)
-
-/datum/export/stack/skin/cat
+// Refined plasma sheets - the station's primary export
+/datum/export/stack/plasma
 	cost = 150
-	unit_name = "cat hide"
+	message = "of plasma"
 	export_types = list(
-		/obj/item/stack/sheet/animalhide/cat = TRUE,
+		/obj/item/stack/sheet/mineral/plasma = TRUE,
 	)
 
-/datum/export/stack/skin/corgi
-	cost = 200
-	unit_name = "corgi hide"
-	export_types = list(
-		/obj/item/stack/sheet/animalhide/corgi = TRUE,
-	)
-
-/datum/export/stack/skin/lizard
-	cost = 150
-	unit_name = "lizard hide"
-	export_types = list(
-		/obj/item/stack/sheet/animalhide/lizard = TRUE,
-	)
-
-/datum/export/stack/skin/gondola
-	cost = 5000
-	unit_name = "gondola hide"
-	export_types = list(
-		/obj/item/stack/sheet/animalhide/gondola = TRUE,
-	)
-
-/datum/export/stack/skin/xeno
-	cost = 500
-	unit_name = "alien hide"
-	export_types = list(
-		/obj/item/stack/sheet/animalhide/xeno = TRUE,
-	)
-
-// Common materials.
-// For base materials, see materials.dm
+// Plasma Products
 
 /datum/export/stack/plasteel
 	cost = 155 // 2000u of plasma + 2000u of iron.
@@ -76,12 +39,18 @@
 		/obj/item/stack/sheet/plasteel = TRUE,
 	)
 
-// 1 glass + 0.5 iron, cost is rounded up.
-/datum/export/stack/rglass
-	cost = 8
-	message = "of reinforced glass"
+/datum/export/stack/plasmaglass
+	cost = 80 // plasma + glass
+	message = "of plasma glass"
 	export_types = list(
-		/obj/item/stack/sheet/rglass = TRUE,
+		/obj/item/stack/sheet/plasmaglass = TRUE,
+	)
+
+/datum/export/stack/plasmarglass
+	cost = 85 // plasma + glass + iron
+	message = "of reinforced plasma glass"
+	export_types = list(
+		/obj/item/stack/sheet/plasmarglass = TRUE,
 	)
 
 /datum/export/stack/plastitanium
@@ -91,41 +60,33 @@
 		/obj/item/stack/sheet/mineral/plastitanium = TRUE,
 	)
 
-/datum/export/stack/wood
-	cost = 30
-	unit_name = "wood plank"
+/datum/export/stack/plastitaniumglass
+	cost = 175 // plasma + titanium + glass
+	message = "of plastitanium glass"
 	export_types = list(
-		/obj/item/stack/sheet/wood = TRUE,
+		/obj/item/stack/sheet/plastitaniumglass = TRUE,
 	)
 
-/datum/export/stack/cardboard
-	cost = 2
-	message = "of cardboard"
+// Bluespace Crystals
+
+/datum/export/stack/bluespace_crystal
+	cost = 300
+	unit_name = "bluespace crystal"
 	export_types = list(
-		/obj/item/stack/sheet/cardboard = TRUE,
+		/obj/item/stack/ore/bluespace_crystal = TRUE,
 	)
 
-/datum/export/stack/sandstone
-	cost = 1
-	unit_name = "block"
-	message = "of sandstone"
+/datum/export/stack/bluespace_crystal_artificial
+	cost = 150
+	unit_name = "synthetic bluespace crystal"
 	export_types = list(
-		/obj/item/stack/sheet/mineral/sandstone = TRUE,
+		/obj/item/stack/ore/bluespace_crystal/artificial = TRUE,
 	)
 
-/datum/export/stack/cable
-	cost = 0.2
-	unit_name = "cable piece"
+/datum/export/stack/bluespace_crystal_refined
+	cost = 500
+	unit_name = "refined bluespace crystal"
 	export_types = list(
-		/obj/item/stack/cable_coil = TRUE,
-	)
-
-// Weird Stuff
-
-/datum/export/stack/abductor
-	cost = 1000
-	message = "of alien alloy"
-	export_types = list(
-		/obj/item/stack/sheet/mineral/abductor = TRUE,
+		/obj/item/stack/ore/bluespace_crystal/refined = TRUE,
 	)
 

@@ -1,33 +1,3 @@
-/datum/export/large/reagent_dispenser
-	cost = 100 // +0-400 depending on amount of reagents left
-	var/contents_cost = 400
-
-/datum/export/large/reagent_dispenser/get_cost(obj/O)
-	var/obj/structure/reagent_dispensers/D = O
-	var/ratio = D.reagents.total_volume / D.reagents.maximum_volume
-
-	return ..() + round(contents_cost * ratio)
-
-/datum/export/large/reagent_dispenser/water
-	unit_name = "watertank"
-	export_types = list(
-		/obj/structure/reagent_dispensers/watertank = TRUE,
-	)
-	contents_cost = 200
-
-/datum/export/large/reagent_dispenser/fuel
-	unit_name = "fueltank"
-	export_types = list(
-		/obj/structure/reagent_dispensers/fueltank = TRUE,
-	)
-
-/datum/export/large/reagent_dispenser/beer
-	unit_name = "beer keg"
-	contents_cost = 700
-	export_types = list(
-		/obj/structure/reagent_dispensers/beerkeg = TRUE,
-	)
-
 /**
  * Gas canister exports.
  * I'm going to put a quick aside here as this has been a pain to balance for several years now, and I'd like to at least break how to keep gas exports tame.
