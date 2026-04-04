@@ -43,7 +43,7 @@
 	cost = 1000
 	max_supply = 2
 	contains = list(
-		/mob/living/simple_animal/pet/cat,
+		/mob/living/basic/pet/cat,
 		/obj/item/clothing/neck/petcollar,
 		/obj/item/toy/cattoy,
 	)
