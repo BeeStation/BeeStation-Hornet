@@ -24,15 +24,6 @@
 		/obj/item/melee/baton/security/cattleprod = TRUE,
 	)
 
-/datum/bounty/item/assistant/soap
-	name = "Soap"
-	description = "Soap has gone missing from CentCom's bathrooms and nobody knows who took it. Replace it and be the hero CentCom needs."
-	reward = 2000
-	required_count = 3
-	wanted_types = list(
-		/obj/item/soap = TRUE,
-	)
-
 /datum/bounty/item/assistant/spear
 	name = "Spears"
 	description = "CentCom's security forces are going through budget cuts. You will be paid if you ship a set of spears."
@@ -40,15 +31,6 @@
 	required_count = 5
 	wanted_types = list(
 		/obj/item/spear = TRUE,
-	)
-
-/datum/bounty/item/assistant/toolbox
-	name = "Toolboxes"
-	description = "There's an absence of robustness at Central Command. Hurry up and ship some toolboxes as a solution."
-	reward = 2000
-	required_count = 6
-	wanted_types = list(
-		/obj/item/storage/toolbox = TRUE,
 	)
 
 /datum/bounty/item/assistant/statue
@@ -65,15 +47,6 @@
 	reward = 1500
 	wanted_types = list(
 		/obj/item/storage/box/clown = TRUE,
-	)
-
-/datum/bounty/item/assistant/cheesiehonkers
-	name = "Cheesie Honkers"
-	description = "Apparently the company that makes Cheesie Honkers is going out of business soon. CentCom wants to stock up before it happens!"
-	reward = 1200
-	required_count = 3
-	wanted_types = list(
-		/obj/item/food/cheesiehonkers = TRUE,
 	)
 
 /datum/bounty/item/assistant/baseball_bat
@@ -111,40 +84,12 @@
 		/obj/item/food/donkpocket = TRUE,
 	)
 
-/datum/bounty/item/assistant/briefcase
-	name = "Briefcase"
-	description = "Central Command will be holding a business convention this year. Ship a few briefcases in support."
-	reward = 2500
-	required_count = 5
-	wanted_types = list(
-		/obj/item/storage/briefcase = TRUE,
-		/obj/item/storage/secure/briefcase = TRUE,
-	)
-
-/datum/bounty/item/assistant/sunglasses
-	name = "Sunglasses"
-	description = "A famous blues duo is passing through the sector, but they've lost their shades and they can't perform. Ship new sunglasses to CentCom to rectify this."
-	reward = 3000
-	required_count = 2
-	wanted_types = list(
-		/obj/item/clothing/glasses/sunglasses = TRUE,
-	)
-
 /datum/bounty/item/assistant/monkey_hide
 	name = "Monkey Hide"
 	description = "One of the scientists at CentCom is interested in testing products on monkey skin. Your mission is to acquire monkey's hide and ship it."
 	reward = 1500
 	wanted_types = list(
 		/obj/item/stack/sheet/animalhide/monkey = TRUE,
-	)
-
-/datum/bounty/item/assistant/shard
-	name = "Shards"
-	description = "A killer clown has been stalking CentCom, and staff have been unable to catch her because she's not wearing shoes. Please ship some shards so that a booby trap can be constructed."
-	reward = 1500
-	required_count = 15
-	wanted_types = list(
-		/obj/item/shard = TRUE,
 	)
 
 /datum/bounty/item/assistant/comfy_chair
@@ -165,40 +110,6 @@
 		/obj/item/food/grown/flower/poppy = TRUE,
 	)
 	include_subtypes = FALSE
-
-/datum/bounty/item/assistant/shadyjims
-	name = "Shady Jim's"
-	description = "There's an irate officer at CentCom demanding that he receive a box of Shady Jim's cigarettes. Please ship one. He's starting to make threats."
-	reward = 500
-	wanted_types = list(
-		/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = TRUE,
-	)
-
-/datum/bounty/item/assistant/potted_plants
-	name = "Potted Plants"
-	description = "Central Command is looking to commission a new BirdBoat-class station. You've been ordered to supply the potted plants."
-	reward = 2000
-	required_count = 8
-	wanted_types = list(
-		/obj/item/kirbyplants = TRUE,
-	)
-
-/datum/bounty/item/assistant/earmuffs
-	name = "Earmuffs"
-	description = "Central Command is getting tired of your station's messages. They've ordered that you ship some earmuffs to lessen the annoyance."
-	reward = 1000
-	wanted_types = list(
-		/obj/item/clothing/ears/earmuffs = TRUE,
-	)
-
-/datum/bounty/item/assistant/handcuffs
-	name = "Handcuffs"
-	description = "A large influx of escaped convicts have arrived at Central Command. Now is the perfect time to ship out spare handcuffs (or restraints)."
-	reward = 1000
-	required_count = 5
-	wanted_types = list(
-		/obj/item/restraints/handcuffs = TRUE,
-	)
 
 /datum/bounty/item/assistant/monkey_cubes
 	name = "Monkey Cubes"
@@ -272,13 +183,4 @@
 	reward = 4000
 	wanted_types = list(
 		/obj/item/melee/chainofcommand/tailwhip = TRUE,
-	)
-
-/datum/bounty/item/assistant/dead_mice
-	name = "Dead Mice"
-	description = "Station 14 ran out of freeze-dried mice. Ship some fresh ones so their janitor doesn't go on strike."
-	reward = 5000
-	required_count = 5
-	wanted_types = list(
-		/obj/item/food/deadmouse = TRUE,
 	)

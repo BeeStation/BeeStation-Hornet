@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 
 // Returns a new bounty of random type, but does not add it to GLOB.bounties_list.
 /proc/random_bounty()
-	switch(rand(1, 15))
+	switch(rand(1, 12))
 		if(1)
 			var/subtype = pick(subtypesof(/datum/bounty/item/assistant))
 			return new subtype
@@ -93,41 +93,32 @@ GLOBAL_LIST_EMPTY(bounties_list)
 			var/subtype = pick(subtypesof(/datum/bounty/item/chef))
 			return new subtype
 		if(4)
-			var/subtype = pick(subtypesof(/datum/bounty/item/security))
-			return new subtype
-		if(5)
 			if(rand(2) == 1)
 				return new /datum/bounty/reagent/simple_drink
 			return new /datum/bounty/reagent/complex_drink
-		if(6)
+		if(5)
 			if(rand(2) == 1)
 				return new /datum/bounty/reagent/chemical_simple
 			return new /datum/bounty/reagent/chemical_complex
-		if(7)
+		if(6)
 			var/subtype = pick(subtypesof(/datum/bounty/virus))
 			return new subtype
-		if(8)
+		if(7)
 			var/subtype = pick(subtypesof(/datum/bounty/item/science))
 			return new subtype
-		if(9)
+		if(8)
 			var/subtype = pick(subtypesof(/datum/bounty/item/slime))
 			return new subtype
-		if(10)
+		if(9)
 			var/subtype = pick(subtypesof(/datum/bounty/item/engineering))
 			return new subtype
-		if(11)
-			var/subtype = pick(subtypesof(/datum/bounty/item/mining))
-			return new subtype
-		if(12)
-			var/subtype = pick(subtypesof(/datum/bounty/item/medical))
-			return new subtype
-		if(13)
+		if(10)
 			var/subtype = pick(subtypesof(/datum/bounty/item/botany))
 			return new subtype
-		if(14)
+		if(11)
 			var/subtype = pick(subtypesof(/datum/bounty/manuscript))
 			return new subtype
-		if(15)
+		if(12)
 			var/subtype = pick(subtypesof(/datum/bounty/genetics))
 			return new subtype
 
@@ -139,13 +130,9 @@ GLOBAL_LIST_EMPTY(bounties_list)
 	/********************************Subtype Gens********************************/
 	var/list/easy_add_list_subtypes = list(/datum/bounty/item/assistant = 2,
 											/datum/bounty/item/mech = 1,
-											/datum/bounty/item/core = 2,
 											/datum/bounty/item/chef = 2,
-											/datum/bounty/item/security = 1,
 											/datum/bounty/virus = 1,
 											/datum/bounty/item/engineering = 1,
-											/datum/bounty/item/mining = 2,
-											/datum/bounty/item/medical = 2,
 											/datum/bounty/item/botany = 2)
 
 	for(var/the_type in easy_add_list_subtypes)
@@ -180,11 +167,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 	B.mark_high_priority()
 
 	/********************************Low Priority Gens********************************/
-	var/list/low_priority_strict_type_list = list( /datum/bounty/item/alien_organs,
-													/datum/bounty/item/syndicate_documents,
-													/datum/bounty/item/adamantine,
-													/datum/bounty/item/trash,
-													/datum/bounty/more_bounties)
+	var/list/low_priority_strict_type_list = list(/datum/bounty/more_bounties)
 
 	for(var/low_priority_bounty in low_priority_strict_type_list)
 		try_add_bounty(new low_priority_bounty)
