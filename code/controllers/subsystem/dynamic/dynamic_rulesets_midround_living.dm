@@ -47,10 +47,11 @@
 
 	// See if they actually want to play this role
 	var/previous_chosen_candidates = length(chosen_candidates)
-	var/datum/poll_config/config = new()
-	config.role_name_text = name
-	config.poll_time = 30 SECONDS
-	config.alert_pic = get_poll_icon()
+	var/datum/poll_config/config = new(
+		role_name_text = name,
+		poll_time = 30 SECONDS,
+		alert_pic = get_poll_icon(),
+	)
 	chosen_candidates = SSpolling.poll_candidates(config, chosen_candidates)
 
 	if(!length(chosen_candidates))
@@ -140,38 +141,6 @@
 
 //////////////////////////////////////////////
 //                                          //
-//             VAMPIRE (LIGHT)              //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/midround/living/vampire
-	name = "Vampiric Accident"
-	severity = DYNAMIC_MIDROUND_LIGHT
-	role_preference = /datum/role_preference/midround/vampire
-	antag_datum = /datum/antagonist/vampire
-	weight = 7
-	points_cost = 30
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
-
-/datum/dynamic_ruleset/midround/living/vampire/trim_candidates()
-	. = ..()
-	for(var/mob/living/carbon/candidate in candidates)
-		// Don't draft incompatible species
-		if(HAS_TRAIT(candidate, TRAIT_NOT_TRANSMORPHIC))
-			candidates -= candidate
-			continue
-
-/datum/dynamic_ruleset/midround/living/vampire/get_poll_icon()
-	return icon('icons/vampires/actions_vampire.dmi', icon_state = "power_feed")
-
-/datum/dynamic_ruleset/midround/living/vampire/execute()
-	. = ..()
-	for(var/mob/chosen_candidate in chosen_candidates)
-		var/datum/antagonist/vampire/new_vampire = IS_VAMPIRE(chosen_candidate)
-		new_vampire.vampire_level_unspent = rand(2,3)
-
-//////////////////////////////////////////////
-//                                          //
 //             OBSESSED (LIGHT)             //
 //                                          //
 //////////////////////////////////////////////
@@ -255,3 +224,21 @@
 		chosen_candidate.gain_trauma(/datum/brain_trauma/special/obsessed)
 
 	return DYNAMIC_EXECUTE_SUCCESS
+
+//////////////////////////////////////////////
+//                                          //
+//             VAMPIRE (LIGHT)              //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/living/vampire
+	name = "Lone Vampire (Midround)"
+	severity = DYNAMIC_MIDROUND_LIGHT
+	role_preference = /datum/role_preference/midround/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 7
+	points_cost = 30
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+
+/datum/dynamic_ruleset/midround/living/vampire/get_poll_icon()
+	return icon('icons/vampires/actions_vampire.dmi', "clanselect")

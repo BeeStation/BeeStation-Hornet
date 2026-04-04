@@ -6,7 +6,7 @@
 	inhand_icon_state = "pen"
 	worn_icon_state = "pen"
 	var/pointer_icon_state
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
@@ -145,7 +145,7 @@
 			else
 				M.visible_message(span_notice("[M] stares at the light"),span_warning(" You stare at the light... "))
 		else if(iscat(M)) //cats!
-			var/mob/living/simple_animal/pet/cat/C = M
+			var/mob/living/basic/pet/cat/C = M
 			if(prob(50))
 				if(C.resting)
 					C.set_resting(FALSE, instant = TRUE)

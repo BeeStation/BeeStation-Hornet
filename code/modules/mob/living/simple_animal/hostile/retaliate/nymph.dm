@@ -58,9 +58,7 @@
 	instance_num = rand(1, 1000)
 	name = "[initial(name)] ([instance_num])"
 	real_name = name
-	regenerate_icons()
-	ADD_TRAIT(src, TRAIT_MUTE, "nymph")
-	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	add_traits(list(TRAIT_MUTE, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -247,8 +245,9 @@
 	QDEL_NULL(helpers)
 	qdel(src)
 
-/mob/living/simple_animal/hostile/retaliate/nymph/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
-	if(!..())
+/mob/living/simple_animal/hostile/retaliate/nymph/can_speak(allow_mimes = FALSE)
+	. = ..()
+	if(!.)
 		emote("chitter")
 
 /datum/action/nymph/evolve

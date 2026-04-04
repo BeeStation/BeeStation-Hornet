@@ -31,7 +31,7 @@
 	},
 /area/template_noop)
 "iU" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/wood,
 /area/template_noop)
 "ja" = (

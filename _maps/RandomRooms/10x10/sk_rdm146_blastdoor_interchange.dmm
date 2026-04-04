@@ -244,7 +244,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "zk" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/template_noop)
 "zD" = (

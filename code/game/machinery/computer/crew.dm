@@ -280,7 +280,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Binary living/dead status
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING)
-			entry["life_status"] = !tracked_human.stat
+			entry["life_status"] = (tracked_human.stat == DEAD) ? DEAD : CONSCIOUS
 
 		// Damage
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_VITALS)
@@ -288,6 +288,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			entry["toxdam"] = round(tracked_human.getToxLoss(), 1)
 			entry["burndam"] = round(tracked_human.getFireLoss(), 1)
 			entry["brutedam"] = round(tracked_human.getBruteLoss(), 1)
+			entry["life_status"] = tracked_human.stat
 
 		// Area
 		if (pos && (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS))

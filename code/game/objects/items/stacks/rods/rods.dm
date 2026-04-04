@@ -4,7 +4,7 @@
 	singular_name = "iron rod"
 	icon_state = "rods"
 	inhand_icon_state = "rods"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 9
 	throwforce = 10

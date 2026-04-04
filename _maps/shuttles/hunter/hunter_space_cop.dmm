@@ -486,7 +486,7 @@
 	dir = 4
 	},
 /obj/item/bedsheet/dorms,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 1;
 	pixel_y = -2
 	},

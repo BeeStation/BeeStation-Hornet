@@ -105,8 +105,8 @@
 		"emoji"			= 'icons/pda_icons/pda_emoji.png'
 	)
 
-/datum/asset/spritesheet/simple/paper
-	name = "paper"
+/datum/asset/spritesheet/simple/stamps
+	name = "stamps"
 	assets = list(
 		"stamp-clown" = 'icons/stamp_icons/large_stamp-clown.png',
 		"stamp-deny" = 'icons/stamp_icons/large_stamp-deny.png',
@@ -126,6 +126,11 @@
 		"stamp-syndicate" = 'icons/stamp_icons/large_stamp-syndicate.png',
 	)
 
+// Contains 256x128 versions of various in game company logos
+/datum/asset/simple/logos
+	assets = list(
+		"nanotrasen-logo" = 'icons/ui/logos/nanotrasen-logo.png',
+	)
 
 /datum/asset/simple/irv
 	assets = list(
@@ -549,6 +554,13 @@
 
 	// Special bee edit to handle Bluespace Crystals
 	insert_icon("polycrystal", uni_icon('icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3"))
+
+/datum/asset/spritesheet_batched/mecha_equipment
+	name = "mecha_equipment"
+
+/datum/asset/spritesheet_batched/mecha_equipment/create_spritesheets()
+	insert_all_icons("", 'icons/mob/mecha_equipment.dmi')
+	insert_all_icons("", 'icons/obj/stacks/minerals.dmi')
 
 /datum/asset/simple/pAI
 	assets = list(

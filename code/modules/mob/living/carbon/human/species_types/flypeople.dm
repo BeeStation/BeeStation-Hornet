@@ -1,7 +1,7 @@
 /datum/species/fly
 	name = "Flyperson"
 	plural_form = "Flypeople"
-	id = SPECIES_FLY
+	id = SPECIES_FLYPERSON
 	species_traits = list(
 		NOEYESPRITES,
 		NO_UNDERWEAR,
@@ -18,8 +18,6 @@
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
 	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
-	burnmod = 1.4
-	brutemod = 1.4
 	speedmod = 0.7
 
 	bodypart_overrides = list(

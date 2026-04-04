@@ -14,7 +14,7 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)
 		"We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.",
 		"",
 		"Base parts are available for shipping via cargo.",
-		"-Nanotrasen Naval Command</blockquote>",
+		"<i>- Nanotrasen Naval Command</i></blockquote>",
 	).Join("\n")
 
 /datum/station_goal/bluespace_cannon/on_report()

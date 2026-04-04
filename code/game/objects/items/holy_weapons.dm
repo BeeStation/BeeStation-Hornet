@@ -95,18 +95,6 @@
 	new /obj/item/clothing/suit/chaplainsuit/armor/ancient(src)
 	new /obj/item/clothing/head/helmet/chaplain/ancient(src)
 
-/obj/item/storage/box/holy/witchhunter
-	name = "Witchhunter Kit"
-	item_icon_state = "witchhunter"
-	info_text = "Witchhunter Kit, for burning the wicked at the stake. \n" + span_notice("The garb can hold a variety of religious items. \nComes with a crucifix that wards against hexes.")
-
-/obj/item/storage/box/holy/witchhunter/PopulateContents()
-	new /obj/item/clothing/suit/chaplainsuit/armor/witchhunter(src)
-	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
-	new /obj/item/clothing/neck/crucifix(src)
-
-
-
 /obj/item/storage/box/holy/graverobber
 	name = "Grave Robber Kit"
 	item_icon_state = "graverobber"
@@ -234,9 +222,9 @@
 			"Force Weapon" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "swordon"),
 			"Hanzo Steel" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "katana"),
 			"Extradimensional Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "multiverse"),
-			"Light Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "swordblue"),
-			"Dark Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "swordred"),
-			"Nautical Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "cutlass1"),
+			"Light Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_sword_on_blue"),
+			"Dark Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_sword_on_red"),
+			"Nautical Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "e_cutlass_on"),
 			"UNREAL SORD" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "sord"),
 			"Reaper Scythe" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "scythe1"),
 			"High Frequency Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "hfrequency1"),
@@ -254,11 +242,11 @@
 			"Carp-Sie Plushie" = image(icon = 'icons/obj/plushes.dmi', icon_state = "carpplush"),
 			"Monk's Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "bostaff0"),
 			"Arrythmic Knife" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "crysknife"),
-			"Unholy Pitchfork" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pitchfork0"),
+			"Unholy Pitchfork" = image(icon = 'icons/obj/weapons/spear.dmi', icon_state = "pitchfork0"),
 			"Egyptian Staff" = image(icon = 'icons/obj/guns/magic.dmi', icon_state = "pharoah_sceptre"),
 			"Hypertool" = image(icon = 'icons/obj/device.dmi', icon_state = "hypertool"),
 			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear"),
-			"Rainbow Knife" = image(icon = 'icons/obj/slimecrossing.dmi', icon_state = "rainbowknife")
+			"Rainbow Knife" = image(icon = 'icons/obj/knives.dmi', icon_state = "rainbowknife")
 		)
 
 	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
@@ -530,14 +518,16 @@
 
 	possessed = TRUE
 
-	var/datum/poll_config/config = new()
-	config.question = "Do you want to play as the spirit of [user.real_name]'s blade?"
-	config.check_jobban = ROLE_SPECTRAL_BLADE
-	config.poll_time = 10 SECONDS
-	config.ignore_category = POLL_IGNORE_SPECTRAL_BLADE
-	config.jump_target = user
-	config.role_name_text = "blade spirit"
-	config.alert_pic = user
+	var/datum/poll_config/config = new(
+		question = "Do you want to play as the spirit of [user?.real_name]'s blade?",
+		check_jobban = ROLE_SPECTRAL_BLADE,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_SPECTRAL_BLADE,
+		jump_target = user,
+		role_name_text = "blade spirit",
+		alert_pic = user,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, user)
 
 	if(candidate)
