@@ -345,6 +345,16 @@
 /proc/get_product_crate_slots(datum/product)
 	return get_product_small_item(product) ? 1 : BATCH_BULKY_ITEM_SLOTS
 
+/// Get the access requirement for a product datum (null = no access restriction)
+/proc/get_product_access(datum/product)
+	if(istype(product, /datum/cargo_item))
+		var/datum/cargo_item/item = product
+		return item.access
+	if(istype(product, /datum/cargo_crate))
+		var/datum/cargo_crate/crate = product
+		return crate.access
+	return null
+
 /// Get the display name of a crate type path
 /proc/get_crate_type_name(crate_type_path)
 	if(!crate_type_path)
@@ -362,20 +372,24 @@
 	return price ? price : BATCH_CRATE_COST_STANDARD
 
 /// Calculate the crate breakdown for a batch of entries.
-/// Groups items by their crate_type, packing by slot usage (small items = 1 slot, bulky = BATCH_BULKY_ITEM_SLOTS).
-/// Returns a list of assoc lists: ("crate_type" = path, "crate_name" = string, "items" = list of names, "count" = num, "slots_used" = num)
+/// Groups items by their crate_type AND access requirement, packing by slot usage (small items = 1 slot, bulky = BATCH_BULKY_ITEM_SLOTS).
+/// Items with different access restrictions will never be placed in the same crate.
+/// Returns a list of assoc lists: ("crate_type" = path, "crate_name" = string, "access" = access, "items" = list of names, "count" = num, "slots_used" = num)
 /proc/calculate_batch_crates(list/entries)
-	// Group items by crate_type, keeping per-item slot cost
-	var/list/type_groups = list() // crate_type_path => list("crate_type", "items" = list of list("name", "slots"))
+	// Group items by (crate_type, access), keeping per-item slot cost
+	var/list/type_groups = list() // "crate_type|access" => list("crate_type", "access", "items" = list of list("name", "slots"))
 	for(var/list/entry in entries)
 		var/datum/product = entry["pack"]
 		var/quantity = entry["quantity"]
 		var/crate_type = get_product_crate_type(product)
 		var/p_name = get_product_name(product)
 		var/slots_per = get_product_crate_slots(product)
-		if(!type_groups["[crate_type]"])
-			type_groups["[crate_type]"] = list("crate_type" = crate_type, "items" = list())
-		var/list/group = type_groups["[crate_type]"]
+		var/p_access = get_product_access(product)
+		// Build a composite key from crate_type and access so items with different access go in separate crates
+		var/group_key = "[crate_type]|[p_access]"
+		if(!type_groups[group_key])
+			type_groups[group_key] = list("crate_type" = crate_type, "access" = p_access, "items" = list())
+		var/list/group = type_groups[group_key]
 		for(var/i in 1 to quantity)
 			group["items"] += list(list("name" = p_name, "slots" = slots_per))
 
@@ -384,6 +398,7 @@
 	for(var/type_key in type_groups)
 		var/list/group = type_groups[type_key]
 		var/crate_type = group["crate_type"]
+		var/crate_access = group["access"]
 		var/crate_display_name = get_crate_type_name(crate_type)
 		var/crate_unit_cost = get_crate_type_cost(crate_type)
 		var/list/items = group["items"]
@@ -397,6 +412,7 @@
 				crates += list(list(
 					"crate_type" = crate_type,
 					"crate_name" = crate_display_name,
+					"access" = crate_access,
 					"items" = current_crate_items,
 					"count" = length(current_crate_items),
 					"slots_used" = current_slots,
@@ -411,6 +427,7 @@
 			crates += list(list(
 				"crate_type" = crate_type,
 				"crate_name" = crate_display_name,
+				"access" = crate_access,
 				"items" = current_crate_items,
 				"count" = length(current_crate_items),
 				"slots_used" = current_slots,

@@ -167,11 +167,12 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 				var/quantity = ventry["quantity"]
 				adjust_product_supply(product, -quantity)
 
-			// Generate crates grouped by crate_type (slot-based packing)
+			// Generate crates grouped by (crate_type, access) (slot-based packing)
 			for(var/list/crate_info in crate_data)
 				if(!length(empty_turfs))
 					break
 				var/crate_type_path = crate_info["crate_type"]
+				var/crate_access = crate_info["access"]
 				var/list/item_names = crate_info["items"]
 				var/obj/structure/closet/crate/C
 				if(BO.paying_account)
@@ -179,14 +180,17 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 				else
 					C = new crate_type_path(pick_n_take(empty_turfs))
 
-				// Fill the crate with actual items from the valid entries for this crate type
+				// Fill the crate with actual items from valid entries matching BOTH crate type and access
 				var/items_to_fill = length(item_names)
 				var/items_filled = 0
 				for(var/list/ventry in valid_entries)
 					if(items_filled >= items_to_fill)
 						break
 					var/datum/product = ventry["pack"]
+					// Must match both crate_type and access to ensure correct grouping
 					if(get_product_crate_type(product) != crate_type_path)
+						continue
+					if(get_product_access(product) != crate_access)
 						continue
 					var/remaining_from_entry = ventry["quantity"]
 					if(remaining_from_entry <= 0)
@@ -195,31 +199,29 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 					ventry["quantity"] -= take
 					items_filled += take
 					var/p_name = get_product_name(product)
-					var/p_access = null
 					var/p_dangerous = FALSE
 					if(istype(product, /datum/cargo_item))
 						var/datum/cargo_item/item = product
-						p_access = item.access
 						p_dangerous = item.dangerous
 						for(var/i in 1 to take)
 							new item.item_path(C)
 					else if(istype(product, /datum/cargo_crate))
 						var/datum/cargo_crate/crate = product
-						p_access = crate.access
 						p_dangerous = crate.dangerous
 						for(var/i in 1 to take)
 							crate.fill(C)
-					// Apply access to crate if needed (only for non-personal purchases)
-					if(!BO.paying_account && p_access)
-						if(islist(p_access))
-							C.req_one_access |= p_access
-						else
-							C.req_one_access |= list(p_access)
 					SSblackbox.record_feedback("nested tally", "cargo_imports", take, list("[ventry["cost"]]", "[p_name]"))
 					investigate_log("Batch order #[BO.id] sub-item ([p_name] x[take], placed by [key_name(BO.orderer_ckey)]), paid by [D.account_holder] has shipped.", INVESTIGATE_CARGO)
 					if(p_dangerous)
 						message_admins("\A [p_name] x[take] from batch order by [ADMIN_LOOKUPFLW(BO.orderer_ckey)], paid by [D.account_holder] has shipped.")
 					purchases += take
+
+				// Apply the group-level access to the crate (only for non-personal purchases)
+				if(!BO.paying_account && crate_access)
+					if(islist(crate_access))
+						C.req_one_access = crate_access
+					else
+						C.req_one_access = list(crate_access)
 
 				// Create a temporary sub-order for manifest generation
 				var/datum/supply_order/sub = new(valid_entries[1]["pack"], BO.orderer, BO.orderer_rank, BO.orderer_ckey, BO.reason, BO.paying_account)

@@ -240,7 +240,8 @@
 			"count" = crate["count"],
 			"slots_used" = crate["slots_used"],
 			"crate_type_name" = crate["crate_name"],
-			"crate_cost" = crate["crate_cost"]
+			"crate_cost" = crate["crate_cost"],
+			"access" = crate["access"]
 		))
 	batch_data["crates"] = ui_crates
 

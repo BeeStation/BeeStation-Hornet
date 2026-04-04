@@ -962,7 +962,8 @@ const BatchCrateReadout = () => {
             title={
               `Crate ${idx + 1}: (${slotsUsed}/${maxSlots} slots` +
               `${isFull ? ' ✓' : ''}) - ` +
-              `${formatMoney(crate.crate_cost)} cr deposit`
+              `${formatMoney(crate.crate_cost)} cr deposit` +
+              `${crate.access ? ' 🔒' : ''}`
             }
             color={fill.color}
           >
@@ -975,6 +976,7 @@ const BatchCrateReadout = () => {
               <Box mt={1} fontSize="10px" color="label" italic>
                 Fill: {slotsUsed}/{maxSlots} slots - {fill.label}
                 {' '}| Crate deposit: {formatMoney(crate.crate_cost)} cr
+                {!!crate.access && ' | Access restricted 🔒'}
               </Box>
             </Box>
           </Collapsible>
