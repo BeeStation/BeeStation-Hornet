@@ -1901,13 +1901,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
-"aGA" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 1
-	},
-/obj/machinery/modular_fabricator/autolathe,
-/turf/open/floor/iron,
-/area/vacant_room/commissary/commissary1)
 "aGC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3166,7 +3159,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/iron,
 /area/science/lab)
 "bcC" = (
@@ -8660,10 +8653,6 @@
 	pixel_x = 1;
 	pixel_y = 7
 	},
-/obj/item/healthanalyzer{
-	pixel_x = 3;
-	pixel_y = 4
-	},
 /turf/open/floor/iron/dark,
 /area/science/robotics)
 "cRO" = (
@@ -12464,12 +12453,12 @@
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
 "eeK" = (
-/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/westleft{
 	name = "Research and Development Desk";
 	req_one_access_txt = "47;63"
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron,
 /area/science/lab)
 "efl" = (
@@ -15339,7 +15328,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/rnd/production/protolathe/department/science,
 /turf/open/floor/iron,
 /area/science/lab)
 "fcR" = (
@@ -15798,7 +15786,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "fkx" = (
@@ -21635,7 +21622,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "hoe" = (
@@ -21929,7 +21915,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
 "hvH" = (
-/obj/machinery/rnd/production/techfab/department/service,
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
@@ -25507,13 +25492,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/modular_fabricator/autolathe,
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/door/window/westright{
 	name = "Cargo Desk";
 	pixel_y = 1;
 	req_access_txt = "31"
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
 "iMQ" = (
@@ -26685,8 +26670,6 @@
 	},
 /area/tcommsat/computer)
 "jfa" = (
-/obj/machinery/rnd/production/techfab/department/medical,
-/obj/effect/turf_decal/stripes/box,
 /obj/machinery/light_switch{
 	pixel_x = 24;
 	pixel_y = 24
@@ -31307,7 +31290,7 @@
 	name = "Engi Desk";
 	req_one_access_txt = "32;19"
 	},
-/obj/machinery/modular_fabricator/autolathe,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "kMb" = (
@@ -35720,11 +35703,10 @@
 /turf/open/floor/iron,
 /area/medical/surgery)
 "mnF" = (
-/obj/machinery/ore_silo,
-/obj/effect/turf_decal/delivery,
 /obj/structure/sign/warning/securearea{
 	pixel_y = 33
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -67480,11 +67462,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
-"xip" = (
-/obj/machinery/rnd/production/techfab/department/cargo,
-/obj/effect/turf_decal/stripes/box,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "xiD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -70167,7 +70144,6 @@
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "yex" = (
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
 	dir = 1
 	},
@@ -70176,6 +70152,11 @@
 	dir = 5
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/structure/table/reinforced,
+/obj/item/healthanalyzer{
+	pixel_x = 3;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/dark,
 /area/science/robotics)
 "yeA" = (
@@ -70522,9 +70503,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/rnd/production/protolathe/department/engineering{
-	req_access_txt = "32"
-	},
 /obj/machinery/requests_console{
 	department = "Engineering";
 	departmentType = 3;
@@ -70532,6 +70510,7 @@
 	pixel_y = -34
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
+/obj/machinery/rnd/production/protolathe,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "ylB" = (
@@ -93590,7 +93569,7 @@ tPh
 xgi
 bsk
 oBB
-xip
+cfA
 cfA
 kgt
 xrX
@@ -98467,7 +98446,7 @@ xYq
 voS
 nWv
 fpn
-aGA
+fpn
 rTU
 eRb
 oSG
