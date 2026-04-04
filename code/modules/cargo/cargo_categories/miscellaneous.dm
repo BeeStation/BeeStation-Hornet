@@ -2,8 +2,9 @@
  * # Miscellaneous Cargo Items
  *
  * Office supplies, art supplies, instruments, religious items, party supplies,
- * and other odds & ends.
- * Split into Office Supplies, Arts & Crafts, Religious, Party Supplies, and Contraband.
+ * smoking products, and other odds & ends.
+ * Split into Office Supplies, Arts & Crafts, Instruments, Religious,
+ * Party Supplies, and Smoking Products.
  */
 
 // =============================================================================
@@ -13,60 +14,43 @@
 /datum/cargo_list/misc_office
 	small_item = TRUE
 	entries = list(
+		// -- Printer supplies --
 		list("path" = /obj/item/toner, "cost" = 50, "max_supply" = 10),
 		list("path" = /obj/item/toner/large, "cost" = 100, "max_supply" = 8),
+		// -- Pens --
 		list("path" = /obj/item/pen, "cost" = 5, "max_supply" = 15),
-		list("path" = /obj/item/paper_bin, "cost" = 30, "max_supply" = 8),
-		list("path" = /obj/item/camera_film, "cost" = 50, "max_supply" = 6),
-		list("path" = /obj/item/stack/wrapping_paper, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/pen/blue, "cost" = 5, "max_supply" = 15),
+		list("path" = /obj/item/pen/red, "cost" = 5, "max_supply" = 15),
+		list("path" = /obj/item/pen/fourcolor, "cost" = 20, "max_supply" = 10),
+		list("path" = /obj/item/pen/fountain, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/pen/brush, "cost" = 50, "max_supply" = 4),
+		list("path" = /obj/item/pen/charcoal, "cost" = 10, "max_supply" = 6),
 		list("path" = /obj/item/storage/box/fountainpens, "cost" = 500, "max_supply" = 3),
+		// -- Paper & folders --
+		list("path" = /obj/item/paper_bin, "cost" = 30, "max_supply" = 8),
+		list("path" = /obj/item/folder/blue, "cost" = 10, "max_supply" = 10),
+		list("path" = /obj/item/folder/red, "cost" = 10, "max_supply" = 10),
+		list("path" = /obj/item/folder/yellow, "cost" = 10, "max_supply" = 10),
+		list("path" = /obj/item/clipboard, "cost" = 15, "max_supply" = 8),
+		list("path" = /obj/item/sticky_note_pile, "cost" = 15, "max_supply" = 8),
+		list("path" = /obj/item/stack/wrapping_paper, "cost" = 50, "max_supply" = 6),
+		// -- Stamps --
+		list("path" = /obj/item/stamp, "cost" = 30, "max_supply" = 6),
+		list("path" = /obj/item/stamp/denied, "cost" = 30, "max_supply" = 6),
+		// -- Photography --
+		list("path" = /obj/item/camera, "cost" = 75, "max_supply" = 6),
+		list("path" = /obj/item/camera_film, "cost" = 50, "max_supply" = 8),
+		list("path" = /obj/item/storage/photo_album, "cost" = 50, "max_supply" = 4),
+		// -- Labeling & pointers --
+		list("path" = /obj/item/hand_labeler, "cost" = 50, "max_supply" = 4),
+		list("path" = /obj/item/hand_labeler_refill, "cost" = 20, "max_supply" = 8),
+		list("path" = /obj/item/laser_pointer, "cost" = 100, "max_supply" = 4),
+		// -- Furniture (non-small) --
+		list("path" = /obj/structure/filingcabinet/chestdrawer/wheeled, "cost" = 200, "max_supply" = 4, "small_item" = FALSE),
+		list("path" = /obj/structure/desk_bell, "cost" = 30, "max_supply" = 4),
 	)
 
 /datum/cargo_crate/misc_office
-
-/datum/cargo_crate/misc_office/paper
-	name = "Office Supply Crate"
-	cost = 800
-	max_supply = 3
-	contains = list(
-		/obj/structure/filingcabinet/chestdrawer/wheeled,
-		/obj/item/camera_film,
-		/obj/item/hand_labeler,
-		/obj/item/hand_labeler_refill,
-		/obj/item/hand_labeler_refill,
-		/obj/item/paper_bin,
-		/obj/item/pen/fourcolor,
-		/obj/item/pen/fourcolor,
-		/obj/item/pen,
-		/obj/item/pen/fountain,
-		/obj/item/pen/blue,
-		/obj/item/pen/red,
-		/obj/item/folder/blue,
-		/obj/item/folder/red,
-		/obj/item/folder/yellow,
-		/obj/item/clipboard,
-		/obj/item/clipboard,
-		/obj/item/stamp,
-		/obj/item/stamp/denied,
-		/obj/item/laser_pointer/purple,
-		/obj/item/sticky_note_pile,
-	)
-
-/datum/cargo_crate/misc_office/book_crate
-	name = "Book Crate"
-	cost = 1000
-	max_supply = 2
-	contains = list(
-		/obj/item/book/kindred,
-		/obj/item/book/manual/random,
-		/obj/item/book/manual/random,
-		/obj/item/book/manual/random,
-		/obj/item/book/random,
-		/obj/item/book/random,
-		/obj/item/book/random,
-		/obj/item/book/manuscript,
-	)
-	crate_type = /obj/structure/closet/crate/wooden
 
 // =============================================================================
 // ARTS & CRAFTS
@@ -75,29 +59,31 @@
 /datum/cargo_list/misc_arts
 	small_item = TRUE
 	entries = list(
+		// -- Painting & drawing --
+		list("path" = /obj/item/canvas/nineteen_nineteen, "cost" = 50, "max_supply" = 8),
+		list("path" = /obj/item/canvas/twentythree_nineteen, "cost" = 75, "max_supply" = 6),
+		list("path" = /obj/item/canvas/twentythree_twentythree, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/canvas/twentyfour_twentyfour, "cost" = 150, "max_supply" = 4),
+		list("path" = /obj/item/paint_palette, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/wallframe/painting, "cost" = 75, "max_supply" = 8),
+		list("path" = /obj/structure/easel, "cost" = 100, "max_supply" = 4, "small_item" = FALSE),
+		// -- Crayons & spray --
+		list("path" = /obj/item/storage/crayons, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/toy/crayon/rainbow, "cost" = 25, "max_supply" = 6),
+		list("path" = /obj/item/toy/crayon/spraycan, "cost" = 30, "max_supply" = 8),
+		// -- Stickers --
+		list("path" = /obj/item/vending_refill/sticker, "cost" = 200, "max_supply" = 4),
+		// -- Fish & aquarium --
 		list("path" = /obj/item/storage/fish_case/random, "cost" = 500, "max_supply" = 5),
+		list("path" = /obj/item/fish_feed, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/storage/box/aquarium_props, "cost" = 100, "max_supply" = 4),
+		// -- Books --
+		list("path" = /obj/item/book/random, "cost" = 75, "max_supply" = 8),
+		list("path" = /obj/item/book/manual/random, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/book/manuscript, "cost" = 50, "max_supply" = 6),
 	)
 
 /datum/cargo_crate/misc_arts
-
-/datum/cargo_crate/misc_arts/artsupply
-	name = "Art Supply Crate"
-	cost = 1000
-	max_supply = 2
-	contains = list(
-		/obj/structure/easel,
-		/obj/structure/easel,
-		/obj/item/canvas/nineteen_nineteen,
-		/obj/item/canvas/nineteen_nineteen,
-		/obj/item/canvas/twentythree_nineteen,
-		/obj/item/canvas/twentythree_nineteen,
-		/obj/item/canvas/twentythree_twentythree,
-		/obj/item/canvas/twentythree_twentythree,
-		/obj/item/toy/crayon/rainbow,
-		/obj/item/toy/crayon/rainbow,
-		/obj/item/vending_refill/sticker,
-	)
-	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/cargo_crate/misc_arts/aquarium_kit
 	name = "Aquarium Starter Kit"
@@ -114,73 +100,92 @@
 	)
 	crate_type = /obj/structure/closet/crate/wooden
 
-/datum/cargo_crate/misc_arts/bigband
-	name = "Big Band Instrument Crate"
-	cost = 2500
-	max_supply = 1
-	contains = list(
-		/obj/item/instrument/violin,
-		/obj/item/instrument/guitar,
-		/obj/item/instrument/glockenspiel,
-		/obj/item/instrument/accordion,
-		/obj/item/instrument/saxophone,
-		/obj/item/instrument/trombone,
-		/obj/item/instrument/recorder,
-		/obj/item/instrument/harmonica,
-		/obj/structure/musician/piano/unanchored,
+// =============================================================================
+// INSTRUMENTS
+// =============================================================================
+
+/datum/cargo_list/misc_instruments
+	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/instrument/violin, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/instrument/guitar, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/instrument/eguitar, "cost" = 300, "max_supply" = 2),
+		list("path" = /obj/item/instrument/banjo, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/instrument/glockenspiel, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/instrument/accordion, "cost" = 250, "max_supply" = 3),
+		list("path" = /obj/item/instrument/trumpet, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/instrument/saxophone, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/instrument/trombone, "cost" = 200, "max_supply" = 3),
+		list("path" = /obj/item/instrument/recorder, "cost" = 100, "max_supply" = 5),
+		list("path" = /obj/item/instrument/harmonica, "cost" = 100, "max_supply" = 5),
+		list("path" = /obj/item/instrument/piano_synth, "cost" = 350, "max_supply" = 2),
+		list("path" = /obj/item/instrument/bikehorn, "cost" = 200, "max_supply" = 2),
+		// -- Stationary instruments (non-small) --
+		list("path" = /obj/structure/musician/piano/unanchored, "cost" = 500, "max_supply" = 2, "small_item" = FALSE),
 	)
-	crate_type = /obj/structure/closet/crate/wooden
 
 // =============================================================================
 // RELIGIOUS
 // =============================================================================
 
-/datum/cargo_crate/misc_religious
-
-/datum/cargo_crate/misc_religious/religious_supplies
-	name = "Religious Supplies Crate"
-	cost = 1000
-	max_supply = 2
+/datum/cargo_list/misc_religious
 	access_budget = ACCESS_CHAPEL_OFFICE
-	contains = list(
-		/obj/item/reagent_containers/cup/glass/bottle/holywater,
-		/obj/item/reagent_containers/cup/glass/bottle/holywater,
-		/obj/item/storage/book/bible/booze,
-		/obj/item/storage/book/bible/booze,
-		/obj/item/clothing/neck/crucifix/rosary,
-		/obj/item/clothing/suit/hooded/chaplain_hoodie,
-		/obj/item/clothing/suit/hooded/chaplain_hoodie,
+	small_item = TRUE
+	entries = list(
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/holywater, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/storage/book/bible/booze, "cost" = 200, "max_supply" = 4),
+		list("path" = /obj/item/clothing/neck/crucifix, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/clothing/neck/crucifix/rosary, "cost" = 100, "max_supply" = 4),
+		list("path" = /obj/item/storage/fancy/candle_box, "cost" = 50, "max_supply" = 6),
+		list("path" = /obj/item/clothing/suit/hooded/chaplain_hoodie, "cost" = 200, "max_supply" = 4),
 	)
+
+/datum/cargo_crate/misc_religious
 
 // =============================================================================
 // PARTY SUPPLIES
 // =============================================================================
 
-/datum/cargo_crate/misc_party
-
-/datum/cargo_crate/misc_party/party
-	name = "Party Supplies Crate"
-	cost = 2000
-	max_supply = 2
-	contains = list(
-		/obj/item/storage/box/drinkingglasses,
-		/obj/item/reagent_containers/cup/glass/shaker,
-		/obj/item/reagent_containers/cup/glass/bottle/patron,
-		/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
-		/obj/item/reagent_containers/cup/glass/bottle/ale,
-		/obj/item/reagent_containers/cup/glass/bottle/ale,
-		/obj/item/reagent_containers/cup/glass/bottle/beer,
-		/obj/item/reagent_containers/cup/glass/bottle/beer,
-		/obj/item/reagent_containers/cup/glass/bottle/beer,
-		/obj/item/reagent_containers/cup/glass/bottle/beer,
-		/obj/item/flashlight/glowstick,
-		/obj/item/flashlight/glowstick/red,
-		/obj/item/flashlight/glowstick/blue,
-		/obj/item/flashlight/glowstick/cyan,
-		/obj/item/flashlight/glowstick/orange,
-		/obj/item/flashlight/glowstick/yellow,
-		/obj/item/flashlight/glowstick/pink,
-		/obj/item/survivalcapsule/party,
+/datum/cargo_list/misc_party
+	small_item = TRUE
+	entries = list(
+		// -- Glowsticks --
+		list("path" = /obj/item/flashlight/glowstick, "cost" = 15, "max_supply" = 10),
+		list("path" = /obj/item/flashlight/glowstick/red, "cost" = 15, "max_supply" = 10),
+		list("path" = /obj/item/flashlight/glowstick/blue, "cost" = 15, "max_supply" = 10),
+		list("path" = /obj/item/flashlight/glowstick/cyan, "cost" = 15, "max_supply" = 10),
+		list("path" = /obj/item/flashlight/glowstick/orange, "cost" = 15, "max_supply" = 10),
+		list("path" = /obj/item/flashlight/glowstick/yellow, "cost" = 15, "max_supply" = 10),
+		list("path" = /obj/item/flashlight/glowstick/pink, "cost" = 15, "max_supply" = 10),
+		// -- Shelter capsules --
+		list("path" = /obj/item/survivalcapsule/party, "cost" = 1000, "max_supply" = 2),
 	)
 
+/datum/cargo_crate/misc_party
+
+// =============================================================================
+// SMOKING PRODUCTS
+// =============================================================================
+
+/datum/cargo_list/misc_smoking
+	small_item = TRUE
+	entries = list(
+		// -- Cigarettes (ShadyCigs vendor brands) --
+		list("path" = /obj/item/storage/fancy/cigarettes, "cost" = 30, "max_supply" = 8),
+		list("path" = /obj/item/storage/fancy/cigarettes/cigpack_uplift, "cost" = 40, "max_supply" = 6),
+		list("path" = /obj/item/storage/fancy/cigarettes/cigpack_robust, "cost" = 40, "max_supply" = 6),
+		list("path" = /obj/item/storage/fancy/cigarettes/cigpack_carp, "cost" = 40, "max_supply" = 6),
+		list("path" = /obj/item/storage/fancy/cigarettes/cigpack_midori, "cost" = 40, "max_supply" = 6),
+		list("path" = /obj/item/storage/fancy/cigarettes/dromedaryco, "cost" = 40, "max_supply" = 6),
+		list("path" = /obj/item/storage/fancy/cigarettes/cigpack_robustgold, "cost" = 80, "max_supply" = 3),
+		// -- Cigars --
+		list("path" = /obj/item/storage/fancy/cigarettes/cigars, "cost" = 150, "max_supply" = 3),
+		list("path" = /obj/item/storage/fancy/cigarettes/cigars/havana, "cost" = 200, "max_supply" = 2),
+		list("path" = /obj/item/storage/fancy/cigarettes/cigars/cohiba, "cost" = 250, "max_supply" = 2),
+		// -- Accessories --
+		list("path" = /obj/item/storage/fancy/rollingpapers, "cost" = 20, "max_supply" = 8),
+		list("path" = /obj/item/lighter/greyscale, "cost" = 15, "max_supply" = 8),
+		list("path" = /obj/item/lighter, "cost" = 50, "max_supply" = 4),
+		list("path" = /obj/item/storage/box/matches, "cost" = 10, "max_supply" = 10),
+	)
 
