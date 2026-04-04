@@ -1,0 +1,8 @@
+author: Isaac
+delete-after: true
+changes:
+  - bugfix: Most magic protection has been removed from common sources, while keeping
+      holy ones
+  - bugfix: Fixes timestop stopping you inside even if you were protected against
+      magic
+  - balance: Heretic Spells moved to holy magic protection
