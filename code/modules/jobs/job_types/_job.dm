@@ -156,6 +156,8 @@
 		lock_flags |= JOB_LOCK_REASON_CONFIG
 	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
 		lock_flags |= JOB_LOCK_REASON_MAP
+	if(lock_flags || gimmick)
+		SSjob.job_manager_blacklisted |= title
 	//For the poors
 	if(isnull(welfare_job_account) && CONFIG_GET(flag/welfare_paycheck))
 		LAZYSET(payment_per_department, welfare_job_account, PAYCHECK_LOWER)

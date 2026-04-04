@@ -110,7 +110,7 @@
 	name = "Industrial Welding Tool"
 	id = "large_welding_tool"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 100, /datum/material/glass = 60)
+	materials = list(/datum/material/iron = 2100, /datum/material/glass = 500)
 	build_path = /obj/item/weldingtool/largetank
 	category = list("hacked", "Tools")
 
@@ -173,7 +173,7 @@
 	name = "Toolbox"
 	id = "tool_box"
 	build_type = AUTOLATHE
-	materials = list(MAT_CATEGORY_RIGID = 500)
+	materials = list(/datum/material/iron = 4000)
 	build_path = /obj/item/storage/toolbox
 	category = list("initial","Tools")
 
@@ -775,7 +775,7 @@
 	name = "Handcuffs"
 	id = "handcuffs"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 500)
+	materials = list(/datum/material/iron = 2500)
 	build_path = /obj/item/restraints/handcuffs
 	category = list("hacked", "Security")
 
@@ -971,7 +971,7 @@
 	name = "Tablet Frame"
 	id = "tablet"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 1500, /datum/material/glass = 500)
+	materials = list(/datum/material/iron = 2500, /datum/material/glass = 500)
 	build_path = /obj/item/modular_computer/tablet
 	category = list("initial","Misc")
 
