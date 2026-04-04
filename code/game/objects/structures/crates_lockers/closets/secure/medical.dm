@@ -103,7 +103,6 @@
 	new /obj/item/computer_hardware/hard_drive/role/cmo(src)
 	new /obj/item/storage/lockbox/medal/med(src)
 
-	new /obj/item/circuitboard/machine/techfab/department/medical(src)
 	new /obj/item/reagent_containers/cup/glass/bottle/synthflesh(src)
 
 	// prioritized items

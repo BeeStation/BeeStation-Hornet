@@ -29,7 +29,6 @@
 	new /obj/item/megaphone/command(src)
 	new /obj/item/computer_hardware/hard_drive/role/rd(src)
 	new /obj/item/storage/lockbox/medal/sci(src)
-	new /obj/item/circuitboard/machine/techfab/department/science(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/rd(src)
