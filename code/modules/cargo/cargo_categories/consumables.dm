@@ -91,9 +91,6 @@
 		list("path" = /obj/item/food/meat/slab/human, "cost" = 150, "max_supply" = 2),
 		// -- Cream pies --
 		list("path" = /obj/item/storage/backpack/duffelbag/clown/cream_pie, "cost" = 600, "max_supply" = 3),
-		// -- Misc consumables --
-		list("path" = /obj/item/dog_bone, "cost" = 100, "max_supply" = 5),
-		list("path" = /obj/item/storage/box/monkeycubes, "cost" = 800, "max_supply" = 3),
 	)
 
 // =============================================================================
@@ -297,7 +294,6 @@
 		// -- Tools & accessories (NutriMax / general hydro gear) --
 		list("path" = /obj/item/storage/bag/plants, "cost" = 100, "max_supply" = 4),
 		list("path" = /obj/item/shovel/spade, "cost" = 50, "max_supply" = 4),
-		list("path" = /obj/item/reagent_containers/syringe, "cost" = 30, "max_supply" = 6, "access_budget" = FALSE),
 		list("path" = /obj/item/honey_frame, "cost" = 80, "max_supply" = 6),
 		list("path" = /obj/item/melee/flyswatter, "cost" = 30, "max_supply" = 4, "access_budget" = FALSE),
 		// -- Beekeeper protective gear --

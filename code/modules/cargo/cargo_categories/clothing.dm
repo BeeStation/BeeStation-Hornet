@@ -363,7 +363,6 @@
 		list("path" = /obj/item/clothing/glasses/red, "cost" = 25, "max_supply" = 3, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/gloves/fingerless, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/ears/headphones, "cost" = 50, "max_supply" = 3, "small_item" = TRUE),
-		list("path" = /obj/item/clothing/neck/petcollar, "cost" = 50, "max_supply" = 3, "small_item" = TRUE),
 		// -- Fanny packs --
 		list("path" = /obj/item/storage/belt/fannypack, "cost" = 50, "max_supply" = 5, "small_item" = TRUE),
 		list("path" = /obj/item/storage/belt/fannypack/blue, "cost" = 50, "max_supply" = 5, "small_item" = TRUE),
@@ -440,11 +439,8 @@
 /datum/cargo_list/clothing_uniforms
 	entries = list(
 		// -- General work wear --
-		list("path" = /obj/item/clothing/suit/hazardvest, "cost" = 75, "max_supply" = 6),
 		list("path" = /obj/item/clothing/suit/apron, "cost" = 50, "max_supply" = 5),
 		list("path" = /obj/item/clothing/suit/apron/overalls, "cost" = 50, "max_supply" = 5),
-		list("path" = /obj/item/clothing/suit/apron/chef, "cost" = 50, "max_supply" = 5),
-		list("path" = /obj/item/clothing/suit/apron/surgical, "cost" = 75, "max_supply" = 5),
 		list("path" = /obj/item/clothing/suit/apron/purple_bartender, "cost" = 75, "max_supply" = 3),
 		list("path" = /obj/item/clothing/suit/toggle/labcoat, "cost" = 100, "max_supply" = 6),
 		list("path" = /obj/item/clothing/suit/toggle/labcoat/science, "cost" = 100, "max_supply" = 4, "access_budget" = ACCESS_RESEARCH),
@@ -454,10 +450,7 @@
 		list("path" = /obj/item/clothing/suit/toggle/labcoat/paramedic, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
 		list("path" = /obj/item/clothing/suit/toggle/chef, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/clothing/head/utility/chefhat, "cost" = 50, "max_supply" = 5, "small_item" = TRUE),
-		list("path" = /obj/item/clothing/mask/surgical, "cost" = 25, "max_supply" = 8, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/accessory/pocketprotector, "cost" = 25, "max_supply" = 8, "small_item" = TRUE),
-		list("path" = /obj/item/clothing/gloves/color/latex, "cost" = 50, "max_supply" = 6, "small_item" = TRUE),
-		list("path" = /obj/item/clothing/gloves/color/latex/nitrile, "cost" = 50, "max_supply" = 6, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/gloves/color/black, "cost" = 50, "max_supply" = 6, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/head/costume/nursehat, "cost" = 50, "max_supply" = 5, "small_item" = TRUE),
 		// -- Security uniforms --
@@ -548,7 +541,6 @@
 		list("path" = /obj/item/clothing/under/rank/civilian/curator, "cost" = 100, "max_supply" = 2),
 		list("path" = /obj/item/clothing/under/rank/civilian/curator/skirt, "cost" = 100, "max_supply" = 2),
 		list("path" = /obj/item/clothing/suit/hooded/wintercoat/hydro, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/head/cowboy, "cost" = 50, "max_supply" = 3, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/accessory/armband/hydro, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/mask/bandana/striped/botany, "cost" = 25, "max_supply" = 4, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/mask/bandana/purple, "cost" = 25, "max_supply" = 4, "small_item" = TRUE),

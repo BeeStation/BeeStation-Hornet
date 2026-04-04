@@ -52,7 +52,6 @@
 		list("path" = /obj/item/storage/bag/construction, "cost" = 200, "max_supply" = 4),
 		list("path" = /obj/item/storage/box/emptysandbags, "cost" = 100, "max_supply" = 6),
 		// -- Personal protective equipment --
-		list("path" = /obj/item/clothing/head/utility/hardhat, "cost" = 50, "max_supply" = 6),
 		list("path" = /obj/item/clothing/head/utility/welding, "cost" = 100, "max_supply" = 4),
 		list("path" = /obj/item/clothing/glasses/meson/engine, "cost" = 300, "max_supply" = 3),
 		list("path" = /obj/item/clothing/gloves/color/yellow, "cost" = 500, "max_supply" = 4),
@@ -101,7 +100,6 @@
 		list("path" = /obj/item/storage/box/lights/bulbs, "cost" = 80, "max_supply" = 8),
 		list("path" = /obj/item/storage/box/lights/tubes, "cost" = 80, "max_supply" = 8),
 		// -- Large equipment --
-		list("path" = /obj/item/stack/tile/noslip/thirty, "cost" = 500, "max_supply" = 6, "small_item" = FALSE),
 		list("path" = /obj/structure/janitorialcart, "cost" = 700, "max_supply" = 2, "small_item" = FALSE, "crate_type" = /obj/structure/closet/crate/large),
 		list("path" = /obj/item/watertank/janitor, "cost" = 1500, "max_supply" = 2, "small_item" = FALSE),
 	)
@@ -142,11 +140,9 @@
 		list("path" = /obj/item/storage/box/evidence, "cost" = 100, "max_supply" = 4),
 		list("path" = /obj/item/toy/crayon/white, "cost" = 10, "max_supply" = 6),
 		// -- General-access scanners --
-		list("path" = /obj/item/healthanalyzer, "cost" = 200, "max_supply" = 4, "access_budget" = ACCESS_MEDICAL),
 		list("path" = /obj/item/geiger_counter, "cost" = 100, "max_supply" = 4, "access_budget" = FALSE),
 		list("path" = /obj/item/export_scanner, "cost" = 100, "max_supply" = 3, "access_budget" = FALSE),
 		list("path" = /obj/item/binoculars, "cost" = 150, "max_supply" = 3, "access_budget" = FALSE),
-		list("path" = /obj/item/pinpointer/crew, "cost" = 300, "max_supply" = 2, "access_budget" = ACCESS_MEDICAL),
 	)
 
 // =============================================================================
@@ -157,11 +153,7 @@
 	small_item = TRUE
 	entries = list(
 		// -- Cargo tools (QM locker / cargo bay) --
-		list("path" = /obj/item/stamp, "cost" = 30, "max_supply" = 4),
-		list("path" = /obj/item/stamp/denied, "cost" = 30, "max_supply" = 4),
 		list("path" = /obj/item/dest_tagger, "cost" = 50, "max_supply" = 3),
-		list("path" = /obj/item/hand_labeler, "cost" = 50, "max_supply" = 4),
-		list("path" = /obj/item/hand_labeler_refill, "cost" = 20, "max_supply" = 8),
 		list("path" = /obj/item/stack/package_wrap, "cost" = 30, "max_supply" = 6),
 		list("path" = /obj/item/megaphone, "cost" = 200, "max_supply" = 2),
 		// -- Mining --

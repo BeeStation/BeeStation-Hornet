@@ -154,7 +154,6 @@
 		list("path" = /obj/item/reagent_containers/dropper, "cost" = 25, "max_supply" = 8),
 		list("path" = /obj/item/reagent_containers/syringe, "cost" = 25, "max_supply" = 10),
 		list("path" = /obj/item/clothing/glasses/science, "cost" = 100, "max_supply" = 4),
-		list("path" = /obj/item/reagent_containers/spray/cleaner, "cost" = 50, "max_supply" = 6),
 		list("path" = /obj/item/storage/pill_bottle, "cost" = 25, "max_supply" = 10),
 		list("path" = /obj/item/reagent_containers/cup/bottle, "cost" = 25, "max_supply" = 10),
 		// -- Boxes --
@@ -274,9 +273,6 @@
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/reagent_containers/cup/bottle/mutagen, "cost" = 100, "max_supply" = 4),
-		list("path" = /obj/item/reagent_containers/cup/bottle/formaldehyde, "cost" = 75, "max_supply" = 4),
-		list("path" = /obj/item/reagent_containers/cup/bottle/synaptizine, "cost" = 100, "max_supply" = 4),
-		list("path" = /obj/item/reagent_containers/cup/bottle/spaceacillin, "cost" = 100, "max_supply" = 4),
 		list("path" = /obj/item/reagent_containers/cup/bottle/plasma, "cost" = 100, "max_supply" = 4),
 		list("path" = /obj/item/food/monkeycube, "cost" = 100, "max_supply" = 8),
 		list("path" = /obj/item/clothing/suit/bio_suit/virology, "cost" = 300, "max_supply" = 3, "small_item" = FALSE),
@@ -291,14 +287,10 @@
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/tank/internals/emergency_oxygen, "cost" = 50, "max_supply" = 10),
-		list("path" = /obj/item/clothing/mask/breath, "cost" = 10, "max_supply" = 10),
 		list("path" = /obj/item/tank/internals/air, "cost" = 75, "max_supply" = 8),
 		list("path" = /obj/item/tank/internals/oxygen/red, "cost" = 100, "max_supply" = 6),
-		list("path" = /obj/item/extinguisher/advanced, "cost" = 150, "max_supply" = 5),
-		list("path" = /obj/item/flashlight, "cost" = 10, "max_supply" = 10),
 		list("path" = /obj/item/grenade/chem_grenade/antiweed, "cost" = 200, "max_supply" = 4),
 		list("path" = /obj/item/survivalcapsule/space, "cost" = 1500, "max_supply" = 2),
-		list("path" = /obj/item/watertank/atmos, "cost" = 1500, "max_supply" = 2, "small_item" = FALSE),
 		list("path" = /obj/item/storage/box/medipens, "cost" = 400, "max_supply" = 4),
 	)
 

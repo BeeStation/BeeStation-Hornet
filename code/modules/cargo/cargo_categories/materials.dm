@@ -99,17 +99,6 @@
 // GAS CANISTERS
 // =============================================================================
 
-// Safe canisters - no access restrictions, available as list entries
-/datum/cargo_list/materials_canisters
-	access_budget = ACCESS_ATMOSPHERICS
-	crate_type = /obj/structure/closet/crate/large
-	entries = list(
-		list("path" = /obj/machinery/portable_atmospherics/canister/oxygen, "name" = "Oxygen Canister", "cost" = 1500, "max_supply" = 3),
-		list("path" = /obj/machinery/portable_atmospherics/canister/nitrogen, "name" = "Nitrogen Canister", "cost" = 1500, "max_supply" = 3),
-		list("path" = /obj/machinery/portable_atmospherics/canister/air, "name" = "Air Canister", "cost" = 1500, "max_supply" = 3),
-		list("path" = /obj/machinery/portable_atmospherics/canister/water_vapor, "name" = "Water Vapor Canister", "cost" = 1500, "max_supply" = 2),
-	)
-
 // Dangerous / restricted canisters - access-locked crates
 /datum/cargo_crate/materials_canisters
 	access_budget = ACCESS_ATMOSPHERICS

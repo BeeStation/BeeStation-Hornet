@@ -22,11 +22,7 @@
 		list("path" = /obj/machinery/power/floodlight, "cost" = 400, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
 		// -- Power cells & charging --
 		list("path" = /obj/machinery/recharger, "cost" = 300, "max_supply" = 4),
-		list("path" = /obj/machinery/rechargestation, "cost" = 500, "max_supply" = 2),
 		// -- Substations & APCs --
-		list("path" = /obj/item/electronics/apc, "cost" = 100, "max_supply" = 8, "small_item" = TRUE),
-		list("path" = /obj/item/stock_parts/cell, "cost" = 75, "max_supply" = 8, "small_item" = TRUE),
-		list("path" = /obj/item/stock_parts/cell/high, "cost" = 250, "max_supply" = 6, "small_item" = TRUE),
 		list("path" = /obj/item/stock_parts/cell/upgraded, "cost" = 450, "max_supply" = 4, "small_item" = TRUE),
 	)
 
@@ -107,8 +103,6 @@
 		list("path" = /obj/machinery/field/generator, "cost" = 1500, "max_supply" = 4),
 		list("path" = /obj/machinery/power/energy_accumulator/grounding_rod, "cost" = 600, "max_supply" = 8, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
 		list("path" = /obj/machinery/power/energy_accumulator/tesla_coil, "cost" = 750, "max_supply" = 8, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
-		// -- Radiation collectors --
-		list("path" = /obj/machinery/power/rad_collector/anchored, "cost" = 2000, "max_supply" = 4),
 		// -- Solar assemblies --
 		list("path" = /obj/item/solar_assembly, "cost" = 100, "max_supply" = 30, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
 		list("path" = /obj/item/electronics/tracker, "cost" = 100, "max_supply" = 6, "small_item" = TRUE),

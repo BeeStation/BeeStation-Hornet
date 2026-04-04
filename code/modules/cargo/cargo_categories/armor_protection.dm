@@ -130,7 +130,6 @@
 		list("path" = /obj/item/clothing/mask/gas, "cost" = 50, "max_supply" = 10),
 		list("path" = /obj/item/clothing/mask/gas/welding, "cost" = 200, "max_supply" = 5),
 		list("path" = /obj/item/clothing/mask/breath, "cost" = 25, "max_supply" = 10),
-		list("path" = /obj/item/clothing/mask/breath/medical, "cost" = 50, "max_supply" = 8),
 		list("path" = /obj/item/clothing/mask/gas/sechailer, "cost" = 150, "max_supply" = 6, "access_budget" = ACCESS_SECURITY),
 		list("path" = /obj/item/clothing/mask/gas/sechailer/swat, "cost" = 500, "max_supply" = 4, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
 	)
