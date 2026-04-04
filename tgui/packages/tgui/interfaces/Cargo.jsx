@@ -19,7 +19,32 @@ import { Window } from '../layouts';
 // --- Constants ---
 
 const MIN_SEARCH_LENGTH = 2;
-const DEBUG_SEARCH_KEYWORD = '@everything';
+
+/**
+ * Special @-keyword filters for the search bar.
+ * Each key (lowercase, with the @ prefix) maps to either:
+ *   - an array of access numbers → matches items whose access is/contains any of them
+ *   - a function (pack) => boolean → arbitrary filter
+ *
+ * Access values must match the defines in code/__DEFINES/access.dm.
+ */
+const ACCESS_SEARCH_FILTERS = {
+  // --- Show all ---
+  '@everything': () => true,
+  // --- Department filters (broad groupings) ---
+  '@security': [1, 2, 3, 4, 58, 63, 66, 69], // SECURITY, BRIG, ARMORY, FORENSICS, HOS, SEC_DOORS, WEAPONS, SEC_RECORDS
+  '@armory': [3], // ACCESS_ARMORY
+  '@medical': [5, 6, 9, 33, 34, 39, 40, 45, 68], // MEDICAL, MORGUE, GENETICS, CHEMISTRY, BRIGPHYS, VIROLOGY, CMO, SURGERY, CLONING
+  '@science': [7, 8, 29, 30, 47, 55, 70], // TOX, TOX_STORAGE, ROBOTICS, RD, RESEARCH, XENOBIOLOGY, RD_SERVER
+  '@engineering': [10, 11, 24, 56], // ENGINE, ENGINE_EQUIP, ATMOSPHERICS, CE
+  '@cargo': [31, 41, 48, 54], // CARGO, QM, MINING, MINING_STATION
+  '@service': [22, 25, 26, 28, 35, 37, 38, 46, 71], // CHAPEL, BAR, JANITOR, KITCHEN, HYDROPONICS, LIBRARY, LAWYER, THEATRE, SERVICE
+  '@command': [15, 19, 20, 57, 58, 56, 30, 40], // CHANGE_IDS, HEADS, CAPTAIN, HOP, HOS, CE, RD, CMO
+  // --- Meta filters ---
+  '@contraband': (pack) => !!pack.contraband,
+  '@restricted': (pack) => !!pack.access,
+  '@unrestricted': (pack) => !pack.access,
+};
 
 /** Threshold ratios for crate fill efficiency labels. */
 const CRATE_FILL_GOOD = 0.8;
@@ -66,6 +91,39 @@ const STYLES = {
 /** Returns a simple plural suffix: "1 crate" vs "2 crates". */
 const pluralize = (count, singular, plural) =>
   `${count} ${count === 1 ? singular : plural || singular + 's'}`;
+
+/**
+ * Checks whether a pack's access matches any of the given access numbers.
+ * pack.access can be null, a single number, or an array of numbers.
+ */
+const packMatchesAccess = (pack, accessNumbers) => {
+  if (!pack.access) {
+    return false;
+  }
+  if (Array.isArray(pack.access)) {
+    return pack.access.some((a) => accessNumbers.includes(a));
+  }
+  return accessNumbers.includes(pack.access);
+};
+
+/**
+ * Resolves an @-keyword search into a filter function, or null if not a keyword.
+ */
+const resolveSearchKeyword = (searchText) => {
+  const trimmed = searchText.trim().toLowerCase();
+  const filter = ACCESS_SEARCH_FILTERS[trimmed];
+  if (typeof filter === 'function') {
+    return { type: 'keyword', label: trimmed, fn: filter };
+  }
+  if (Array.isArray(filter)) {
+    return {
+      type: 'keyword',
+      label: trimmed,
+      fn: (pack) => packMatchesAccess(pack, filter),
+    };
+  }
+  return null;
+};
 
 /**
  * Returns a crate fill efficiency label and color based on slot usage ratio.
@@ -244,18 +302,21 @@ export const CargoCatalog = (props) => {
   const allPacks = data.supplies || [];
   const [searchText, setSearchText] = useLocalState('catalogSearch', '');
 
-  // DEBUG: typing the debug keyword in the search bar shows every item
-  const isDebugShowAll =
-    searchText.trim().toLowerCase() === DEBUG_SEARCH_KEYWORD;
+  // Resolve @-keyword filters (e.g. @everything, @security, @armory, etc.)
+  const keyword = resolveSearchKeyword(searchText);
+  const isKeywordFilter = keyword?.type === 'keyword';
 
-  const isSearching = isDebugShowAll || searchText.length >= MIN_SEARCH_LENGTH;
+  const isSearching =
+    isKeywordFilter ||
+    searchText.length >= MIN_SEARCH_LENGTH;
   const searchLower = searchText.toLowerCase();
   const searchResults = isSearching
     ? allPacks.filter(
         (pack) =>
-          isDebugShowAll ||
-          pack.name.toLowerCase().includes(searchLower) ||
-          (pack.desc && pack.desc.toLowerCase().includes(searchLower)),
+          (isKeywordFilter && keyword.fn(pack)) ||
+          (!isKeywordFilter &&
+            (pack.name.toLowerCase().includes(searchLower) ||
+              (pack.desc && pack.desc.toLowerCase().includes(searchLower)))),
       )
     : [];
 
@@ -281,22 +342,52 @@ export const CargoCatalog = (props) => {
         <Flex.Item shrink={0} mb={1}>
           <Input
             fluid
-            placeholder="Search supplies..."
+            placeholder="Search supplies... (try @armory, @medical, @science, etc.)"
             value={searchText}
             onInput={(e, value) => setSearchText(value)}
           />
+          <Collapsible
+            mt={0.5}
+            title="Filter Tags"
+            color="transparent"
+          >
+            <Box fontSize="10px" color="label" mb={1} italic>
+              Department filters show items whose crate requires that
+              department&apos;s access. Items with no access restriction
+              won&apos;t appear under department tags.
+            </Box>
+            <Box>
+              {Object.keys(ACCESS_SEARCH_FILTERS).map((tag) => (
+                <Button
+                  key={tag}
+                  compact
+                  color={searchText.trim().toLowerCase() === tag
+                    ? 'cyan'
+                    : 'transparent'}
+                  onClick={() => setSearchText(tag)}
+                  mr={0.5}
+                  mb={0.5}
+                >
+                  {tag}
+                </Button>
+              ))}
+            </Box>
+          </Collapsible>
         </Flex.Item>
         <Flex.Item grow={1} style={{ overflow: 'hidden' }}>
           {isSearching ? (
             <Box height="100%" style={{ overflow: 'auto' }}>
-              <Box color={isDebugShowAll ? 'orange' : 'label'} mb={1}>
-                {isDebugShowAll && (
-                  <><Icon name="bug" mr={1} />DEBUG: </>
+              <Box
+                color={isKeywordFilter ? 'cyan' : 'label'}
+                mb={1}
+              >
+                {isKeywordFilter && (
+                  <Icon name="filter" mr={1} />
                 )}
                 {searchResults.length} result
                 {searchResults.length !== 1 && 's'}
-                {isDebugShowAll
-                  ? ' (showing all entries)'
+                {isKeywordFilter
+                  ? <> matching {keyword.label}</>
                   : <> for &quot;{searchText}&quot;</>}
               </Box>
               {searchResults.length === 0 && (

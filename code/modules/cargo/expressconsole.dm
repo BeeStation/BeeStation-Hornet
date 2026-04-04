@@ -68,7 +68,8 @@
 			"cost" = item.get_cost(),
 			"id" = item_type,
 			"desc" = item.desc || item.name,
-			"supply" = item.current_supply
+			"supply" = item.current_supply,
+			"contraband" = item.contraband
 		))
 
 	// Cargo crates
@@ -83,7 +84,8 @@
 			"cost" = crate.get_cost(),
 			"id" = crate_type,
 			"desc" = crate.desc || crate.name,
-			"supply" = crate.current_supply
+			"supply" = crate.current_supply,
+			"contraband" = crate.contraband
 		))
 
 

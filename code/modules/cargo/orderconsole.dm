@@ -279,7 +279,8 @@
 			"supply" = item.current_supply,
 			"desc" = item.desc || item.name,
 			"small_item" = item.small_item,
-			"access" = item.access
+			"access" = item.access,
+			"contraband" = item.contraband
 		))
 
 	// --- Cargo crates ---
@@ -294,7 +295,8 @@
 			"supply" = crate.current_supply,
 			"desc" = crate.desc || crate.name,
 			"small_item" = crate.small_item,
-			"access" = crate.access
+			"access" = crate.access,
+			"contraband" = crate.contraband
 		))
 
 	return data

@@ -13,8 +13,9 @@
 
 /datum/cargo_crate/contraband/goods
 	name = "Contraband Crate"
-	cost = 5000
-	max_supply = 1
+	desc = "Psst.. bud... want some contraband? I can get you a poster, some nice cigs, dank, even some sponsored items...you know, the good stuff. Just keep it away from the cops, kay?"
+	cost = 3000
+	max_supply = 2
 	contraband = TRUE
 	contains = list(
 		/obj/item/poster/random_contraband,
@@ -38,11 +39,18 @@
 		/obj/item/clothing/neck/cloak/fakehalo,
 	)
 
+/datum/cargo_crate/contraband/goods/fill(obj/structure/closet/crate/C)
+	var/list/L = contains.Copy()
+	for(var/i in 1 to 7)
+		var/item = pick_n_take(L)
+		new item(C)
+
 /datum/cargo_crate/contraband/specialops
 	name = "Special Ops Supplies"
-	cost = 5000
-	max_supply = 1
-	contraband = TRUE
+	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
+	cost = 800
+	max_supply = 2
+	hidden = TRUE
 	contains = list(
 		/obj/item/storage/box/emps,
 		/obj/item/grenade/smokebomb,
@@ -54,10 +62,11 @@
 	crate_type = /obj/structure/closet/crate/internals
 
 /datum/cargo_crate/contraband/syndieclothes
-	name = "Syndicate Surplus Clothing"
-	cost = 6000
-	max_supply = 1
-	contraband = TRUE
+	name = "Syndicate Uniform Supplies"
+	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER WILL MAKE YOU STYLISH SYNDICATE STYLE. CONTAINS A COLLECTION OF THREE TACTICAL TURTLENECKS, THREE COMBAT BOOTS, THREE COMBAT GLOVES, THREE BALACLAVAS, THREE SYNDICATE BERETS AND THREE ARMOR VESTS!#@*$"
+	cost = 3000
+	max_supply = 3
+	hidden = TRUE
 	contains = list(
 		/obj/item/clothing/under/syndicate,
 		/obj/item/clothing/under/syndicate,
@@ -82,10 +91,153 @@
 
 /datum/cargo_crate/contraband/syndicate
 	name = "Syndicate Surplus Crate"
+	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE.@&!*()"
 	cost = 20000
-	max_supply = 1
-	contraband = TRUE
+	max_supply = 2
+	hidden = TRUE
+	dangerous = TRUE
 	contains = list()
 	crate_type = /obj/structure/closet/crate/internals
 
 /datum/cargo_crate/contraband/syndicate/fill(obj/structure/closet/crate/C)
+	var/crate_value = 30
+	var/list/uplink_items = get_uplink_items(UPLINK_NULL_CRATE, FALSE, FALSE)
+	var/max_items = 10
+	while(crate_value && max_items-- > 0)
+		var/category = pick(uplink_items)
+		var/item = pick(uplink_items[category])
+		var/datum/uplink_item/I = uplink_items[category][item]
+		if(!I.surplus || prob(100 - I.surplus))
+			continue
+		if(crate_value < I.cost)
+			continue
+		crate_value -= I.cost
+		new I.item(C)
+
+/datum/cargo_crate/contraband/foamforce_pistols
+	name = "Foam Force Pistols Crate"
+	desc = "Psst.. hey bud... remember those old foam force pistols that got discontinued for being too cool? Well I got two of those right here with your name on em. I'll even throw in a spare mag for each, waddya say?"
+	cost = 4000
+	max_supply = 1
+	contraband = TRUE
+	contains = list(
+		/obj/item/gun/ballistic/automatic/toy/pistol,
+		/obj/item/gun/ballistic/automatic/toy/pistol,
+		/obj/item/ammo_box/magazine/toy/pistol,
+		/obj/item/ammo_box/magazine/toy/pistol,
+	)
+
+/datum/cargo_crate/contraband/clownpin
+	name = "Hilarious Firing Pin Crate"
+	desc = "I uh... I'm not really sure what this does. Wanna buy it?"
+	cost = 5000
+	max_supply = 4
+	contraband = TRUE
+	contains = list(/obj/item/firing_pin/clown)
+	crate_type = /obj/structure/closet/crate/wooden
+
+/datum/cargo_crate/contraband/lasertagpins
+	name = "Laser Tag Firing Pins Crate"
+	desc = "Three laser tag firing pins used in laser-tag units to ensure users are wearing their vests."
+	cost = 3000
+	max_supply = 5
+	contraband = TRUE
+	contains = list(/obj/item/storage/box/lasertagpins)
+
+/datum/cargo_crate/contraband/plush_no_moths
+	name = "Plushie Crate Without Moth Plushies"
+	desc = "A crate filled with 5 plushies without all those pesky moth plushies! Might contain dangerous plushies."
+	cost = 1500
+	max_supply = 5
+	contraband = TRUE
+	contains = list()
+	crate_type = /obj/structure/closet/crate/wooden
+
+/datum/cargo_crate/contraband/plush_no_moths/fill(obj/structure/closet/crate/C)
+	var/plush_nomoth
+	var/_temporary_list_plush_nomoth = subtypesof(/obj/item/toy/plush) - typesof(/obj/item/toy/plush/moth)
+	for(var/i in 1 to 5)
+		plush_nomoth = pick(_temporary_list_plush_nomoth)
+		new plush_nomoth(C)
+
+/datum/cargo_crate/contraband/cream_pie
+	name = "High-yield Clown-grade Cream Pie Crate"
+	desc = "Designed by Aussec's Advanced Warfare Research Division, these high-yield, Clown-grade cream pies are powered by a synergy of performance and efficiency. Guaranteed to provide maximum results."
+	cost = 6000
+	max_supply = 4
+	contraband = TRUE
+	access = ACCESS_THEATRE
+	access_budget = ACCESS_THEATRE
+	contains = list(/obj/item/storage/backpack/duffelbag/clown/cream_pie)
+	crate_type = /obj/structure/closet/crate/secure
+
+/datum/cargo_crate/contraband/beefbroth
+	name = "Beef Broth Bulk Crate"
+	desc = "No one really wants to order beef broth so we're selling it in bulk!"
+	cost = 5000
+	max_supply = 3
+	contraband = TRUE
+	contains = list(
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+		/obj/item/food/canned/beefbroth,
+	)
+
+/datum/cargo_crate/contraband/vehicle
+	name = "Biker Gang Kit"
+	desc = "TUNNEL SNAKES OWN THIS TOWN. Contains an unbranded All Terrain Vehicle, and a complete gang outfit -- consists of black gloves, a menacing skull bandanna, and a SWEET leather overcoat!"
+	cost = 1500
+	max_supply = 2
+	contraband = TRUE
+	contains = list(
+		/obj/vehicle/ridden/atv,
+		/obj/item/key/atv,
+		/obj/item/clothing/suit/jacket/leather/overcoat,
+		/obj/item/clothing/gloves/color/black,
+		/obj/item/clothing/head/soft/cargo,
+		/obj/item/clothing/mask/bandana/skull/black,
+	)
+	crate_type = /obj/structure/closet/crate/large
+
+/datum/cargo_crate/contraband/lawnmower
+	name = "Lawnmower Crate"
+	desc = "Contains an unstable and slow lawnmower. Use with caution!"
+	cost = 3000
+	max_supply = 3
+	contraband = TRUE
+	contains = list(/obj/vehicle/ridden/lawnmower)
+
+/datum/cargo_crate/contraband/justiceinbound
+	name = "Standard Justice Enforcer Crate"
+	desc = "This is it. The Bee's Knees. The Creme of the Crop. The Pick of the Litter. The best of the best of the best. The Crown Jewel of Nanotrasen. The Alpha and the Omega of security headwear. Guaranteed to strike fear into the hearts of each and every criminal aboard the station. Also comes with a security gasmask. Requires Security access to open."
+	cost = 5700
+	max_supply = 3
+	contraband = TRUE
+	access = ACCESS_SECURITY
+	access_budget = ACCESS_SECURITY
+	contains = list(
+		/obj/item/clothing/head/helmet/toggleable/justice,
+		/obj/item/clothing/mask/gas/sechailer,
+	)
+	crate_type = /obj/structure/closet/crate/secure/gear
+
+/datum/cargo_crate/contraband/butterfly
+	name = "Butterflies Crate"
+	desc = "Not a very dangerous insect, but they do give off a better image than, say, flies or cockroaches."
+	cost = 5000
+	max_supply = 4
+	contraband = TRUE
+	contains = list(/mob/living/simple_animal/butterfly)
+	crate_type = /obj/structure/closet/crate/critter
+
+/datum/cargo_crate/contraband/butterfly/generate(atom/A, datum/bank_account/paying_account)
+	. = ..()
+	for(var/i in 1 to 49)
+		new /mob/living/simple_animal/butterfly(.)

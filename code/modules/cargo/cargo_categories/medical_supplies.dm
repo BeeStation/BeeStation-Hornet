@@ -309,7 +309,8 @@
 	name = "Virus Crate"
 	cost = 3000
 	max_supply = 1
-	access = ACCESS_VIROLOGY
+	contraband = TRUE
+	access = ACCESS_CMO
 	access_budget = ACCESS_VIROLOGY
 	contains = list(
 		/obj/item/reagent_containers/cup/bottle/fake_gbs,
@@ -320,6 +321,7 @@
 		/obj/item/reagent_containers/cup/bottle/beesease,
 	)
 	crate_type = /obj/structure/closet/crate/secure/plasma
+	dangerous = TRUE
 
 /datum/cargo_crate/medical/randomvirus
 	name = "Utility Virus Crate"
