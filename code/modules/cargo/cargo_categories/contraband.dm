@@ -166,8 +166,6 @@
 	cost = 6000
 	max_supply = 4
 	contraband = TRUE
-	access = ACCESS_THEATRE
-	access_budget = ACCESS_THEATRE
 	contains = list(/obj/item/storage/backpack/duffelbag/clown/cream_pie)
 	crate_type = /obj/structure/closet/crate/secure
 
@@ -216,12 +214,10 @@
 
 /datum/cargo_crate/contraband/justiceinbound
 	name = "Standard Justice Enforcer Crate"
-	desc = "This is it. The Bee's Knees. The Creme of the Crop. The Pick of the Litter. The best of the best of the best. The Crown Jewel of Nanotrasen. The Alpha and the Omega of security headwear. Guaranteed to strike fear into the hearts of each and every criminal aboard the station. Also comes with a security gasmask. Requires Security access to open."
+	desc = "This is it. The Bee's Knees. The Creme of the Crop. The Pick of the Litter. The best of the best of the best. The Crown Jewel of Nanotrasen. The Alpha and the Omega of security headwear. Guaranteed to strike fear into the hearts of each and every criminal aboard the station. Also comes with a security gasmask."
 	cost = 5700
 	max_supply = 3
 	contraband = TRUE
-	access = ACCESS_SECURITY
-	access_budget = ACCESS_SECURITY
 	contains = list(
 		/obj/item/clothing/head/helmet/toggleable/justice,
 		/obj/item/clothing/mask/gas/sechailer,
@@ -241,3 +237,111 @@
 	. = ..()
 	for(var/i in 1 to 49)
 		new /mob/living/simple_animal/butterfly(.)
+
+/datum/cargo_crate/contraband/virus
+	name = "Virus Crate"
+	cost = 3000
+	max_supply = 1
+	contraband = TRUE
+	dangerous = TRUE
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/fake_gbs,
+		/obj/item/reagent_containers/cup/bottle/magnitis,
+		/obj/item/reagent_containers/cup/bottle/pierrot_throat,
+		/obj/item/reagent_containers/cup/bottle/brainrot,
+		/obj/item/reagent_containers/cup/bottle/anxiety,
+		/obj/item/reagent_containers/cup/bottle/beesease,
+	)
+	crate_type = /obj/structure/closet/crate/secure/plasma
+
+/datum/cargo_crate/contraband/russian
+	name = "Russian Surplus Crate"
+	cost = 7500
+	max_supply = 1
+	contraband = TRUE
+	contains = list(
+		/obj/item/food/rationpack,
+		/obj/item/ammo_box/a762,
+		/obj/item/storage/toolbox/ammo,
+		/obj/item/clothing/suit/armor/vest/russian,
+		/obj/item/clothing/head/helmet/rus_helmet,
+		/obj/item/clothing/shoes/russian,
+		/obj/item/clothing/gloves/tackler/combat,
+		/obj/item/clothing/under/syndicate/rus_army,
+		/obj/item/clothing/under/costume/soviet,
+		/obj/item/clothing/mask/russian_balaclava,
+		/obj/item/clothing/head/helmet/rus_ushanka,
+		/obj/item/clothing/suit/armor/vest/russian_coat,
+		/obj/item/gun/ballistic/rifle/boltaction,
+		/obj/item/gun/ballistic/rifle/boltaction,
+	)
+
+/datum/cargo_crate/contraband/russian/fill(obj/structure/closet/crate/C)
+	for(var/i in 1 to 10)
+		var/item = pick(contains)
+		new item(C)
+
+/datum/cargo_crate/contraband/western
+	name = "Western Frontier Crate"
+	cost = 7500
+	max_supply = 1
+	contraband = TRUE
+	contains = list(
+		/obj/item/ammo_box/c38/box,
+		/obj/item/storage/toolbox/ammo/c38,
+		/obj/item/mob_lasso,
+		/obj/item/clothing/shoes/workboots/mining,
+		/obj/item/clothing/gloves/botanic_leather,
+		/obj/item/clothing/gloves/color/black,
+		/obj/item/clothing/head/cowboy,
+		/obj/item/clothing/head/costume/sombrero,
+		/obj/item/clothing/head/costume/sombrero/green,
+		/obj/item/storage/belt/bandolier/western,
+		/obj/item/gun/ballistic/rifle/leveraction,
+		/obj/item/gun/ballistic/rifle/leveraction,
+	)
+	var/wear_outer = list(
+		/obj/item/clothing/suit/apron/overalls,
+		/obj/item/clothing/suit/costume/poncho,
+		/obj/item/clothing/suit/costume/poncho/green,
+		/obj/item/clothing/suit/costume/poncho/red,
+	)
+	var/wear_under = list(
+		/obj/item/clothing/under/misc/overalls,
+		/obj/item/clothing/under/misc/overalls,
+		/obj/item/clothing/under/misc/overalls,
+		/obj/item/clothing/under/suit/sl,
+		/obj/item/clothing/under/suit/sl,
+	)
+	var/cursed = list(
+		/obj/item/clothing/head/helmet/outlaw,
+		/obj/item/clothing/mask/fakemoustache,
+		/obj/item/clothing/suit/costume/poncho/ponchoshame/outlaw,
+		/obj/item/clothing/under/suit/sl,
+		/obj/item/clothing/shoes/workboots/mining,
+		/obj/item/clothing/gloves/color/black,
+		/obj/item/storage/belt/bandolier/western/filled,
+		/obj/item/gun/ballistic/rifle/leveraction,
+		/obj/item/gun/ballistic/revolver/detective/cowboy,
+		/obj/item/clothing/accessory/holster,
+		/obj/item/paper/crumpled/bloody/cursed_western,
+	)
+
+/datum/cargo_crate/contraband/western/fill(obj/structure/closet/crate/C)
+	if(prob(1) && prob(10)) //0.001% chance of cursed variant
+		C.name = "cursed gunslinger crate"
+		C.color = COLOR_GRAY
+		for(var/item in cursed)
+			new item(C)
+	else
+		for(var/i in 1 to 6)
+			var/item = pick(contains)
+			new item(C)
+		for(var/i in 1 to 2)
+			var/item_outer = pick(wear_outer)
+			new item_outer(C)
+		for(var/i in 1 to 3)
+			var/item_under = pick(wear_under)
+			new item_under(C)
+		new /obj/item/clothing/mask/fakemoustache(C)
+		new /obj/item/clothing/mask/fakemoustache(C)

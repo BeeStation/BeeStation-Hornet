@@ -302,27 +302,6 @@
 	access_budget = ACCESS_MEDICAL
 	crate_type = /obj/structure/closet/crate/medical
 
-// Virus crates are kept as crates because they contain dangerous biological material
-// that should require deliberate purchase and access control.
-
-/datum/cargo_crate/medical/virus
-	name = "Virus Crate"
-	cost = 3000
-	max_supply = 1
-	contraband = TRUE
-	access = ACCESS_CMO
-	access_budget = ACCESS_VIROLOGY
-	contains = list(
-		/obj/item/reagent_containers/cup/bottle/fake_gbs,
-		/obj/item/reagent_containers/cup/bottle/magnitis,
-		/obj/item/reagent_containers/cup/bottle/pierrot_throat,
-		/obj/item/reagent_containers/cup/bottle/brainrot,
-		/obj/item/reagent_containers/cup/bottle/anxiety,
-		/obj/item/reagent_containers/cup/bottle/beesease,
-	)
-	crate_type = /obj/structure/closet/crate/secure/plasma
-	dangerous = TRUE
-
 /datum/cargo_crate/medical/randomvirus
 	name = "Utility Virus Crate"
 	cost = 3500
