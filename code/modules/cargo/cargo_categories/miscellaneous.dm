@@ -57,7 +57,7 @@
 	cost = 1000
 	max_supply = 2
 	contains = list(
-		/obj/item/book/codex_gigas,
+		/obj/item/book/kindred,
 		/obj/item/book/manual/random,
 		/obj/item/book/manual/random,
 		/obj/item/book/manual/random,
