@@ -1,14 +1,20 @@
+/// Maximum number of demand history snapshots to keep per item/gas
+#define DEMAND_HISTORY_MAX 20
+
 SUBSYSTEM_DEF(demand)
 	name = "Demand"
 	wait = 2.5 MINUTES
 	flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME
 	var/list/datum/demand_state/demand_states = list()
+	/// Demand history keyed by name string. Each value is a list of demand ratio snapshots (0-100).
+	var/list/demand_history = list()
 
 /datum/controller/subsystem/demand/fire()
 	if(world.time < SSticker.round_start_time + 10 MINUTES)
 		return
 	recover_obj_demands()
+	record_demand_history()
 
 /// Increases object demand with a slight chance to decrease
 /datum/controller/subsystem/demand/proc/recover_obj_demands()
@@ -56,3 +62,20 @@ SUBSYSTEM_DEF(demand)
 	var/total_value = round(base_value * moles * demand_ratio) // 0.2 * 20 * 0.2
 
 	return total_value
+
+/// Records a snapshot of demand ratios for all tracked items/gases into demand_history.
+/datum/controller/subsystem/demand/proc/record_demand_history()
+	for(var/typepath in demand_states)
+		var/datum/demand_state/state = demand_states[typepath]
+		var/ratio = state.max_demand > 0 ? round((state.current_demand / state.max_demand) * 100) : 0
+		var/key = "[typepath]"
+		var/list/hist = demand_history[key]
+		if(!hist)
+			hist = list()
+			demand_history[key] = hist
+		hist += ratio
+		// Trim to max length
+		if(length(hist) > DEMAND_HISTORY_MAX)
+			demand_history[key] = hist.Copy(length(hist) - DEMAND_HISTORY_MAX + 1)
+
+#undef DEMAND_HISTORY_MAX

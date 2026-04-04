@@ -124,11 +124,19 @@ class LineChart extends Component<Props> {
       normalized.push([-strokeWidth, first[1]]);
     }
     const points = dataToPolylinePoints(normalized);
-    const divProps = { ...rest, className: '', ref: this.ref };
 
     return (
       <Box position="relative" {...rest}>
-        <Box {...divProps}>
+        <div
+          ref={this.ref}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        >
           <svg
             viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
             preserveAspectRatio="none"
@@ -149,7 +157,7 @@ class LineChart extends Component<Props> {
               points={points}
             />
           </svg>
-        </Box>
+        </div>
       </Box>
     );
   }

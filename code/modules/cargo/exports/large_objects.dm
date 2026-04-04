@@ -16,15 +16,25 @@
 	export_types = list(
 		/obj/machinery/portable_atmospherics/canister = TRUE,
 	)
+	/// Typecache of gas paths that are excluded from being sold. Gases in this list contribute 0 value and 0 moles to the export.
+	var/list/excluded_gas_types = list(
+		/datum/gas/oxygen = TRUE,
+		/datum/gas/nitrogen = TRUE,
+		/datum/gas/nitrous_oxide = TRUE,
+		/datum/gas/carbon_dioxide = TRUE,
+		/datum/gas/water_vapor = TRUE,
+	)
 
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
-	var/worth = C.item_price
+	var/worth = 0 // We only care about the gas contents, not the canister itself
 	var/datum/gas_mixture/canister_mix = C.return_air()
 	var/canister_gas = canister_mix.gases
 
 	for(var/id in canister_gas)
 		var/datum/gas/path = gas_id2path(id)
+		if(excluded_gas_types[path])
+			continue
 		var/moles = canister_gas[id][MOLES]
 		if(moles > 0)
 			worth += SSdemand.get_gas_value(path, moles)
@@ -44,6 +54,8 @@
 	for(var/id in canister_gas)
 		var/moles = canister_gas[id][MOLES]
 		if(moles > 0)
+			if(excluded_gas_types[gas_id2path(id)])
+				continue
 			total_moles += moles
 			if(moles > dominant_moles)
 				dominant_moles = moles
@@ -75,9 +87,11 @@
 	// Reduce demand for each gas sold
 	for(var/id in canister_gas)
 		var/datum/gas/path = gas_id2path(id)
+		if(excluded_gas_types[path])
+			continue
 		var/moles = canister_gas[id][MOLES]
 		if(moles <= 0)
-			return
+			continue
 		if(!dry_run)
 			var/datum/demand_state/state = SSdemand.get_demand_state(path)
 			state.current_demand = max(0, state.current_demand - moles)

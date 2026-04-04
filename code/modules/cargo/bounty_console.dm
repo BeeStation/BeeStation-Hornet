@@ -42,11 +42,13 @@
 
 /obj/item/paper/export_printout/Initialize(mapload)
 	. = ..()
-	var/final_paper_text = "<h2>Nanotrasen Export Price Report</h2></br>"
+	var/final_paper_text = "<h2>Nanotrasen Export Price Report</h2>"
 
-	// Item exports
-	final_paper_text += "<h3>Material & Item Exports</h3>"
-	for(var/datum/export/E in GLOB.exports_list)
+	// Item exports, only show ores, refined materials, and alloys (stack exports)
+	final_paper_text += "<h3>Ores, Materials & Alloys</h3>"
+	final_paper_text += "<table border='1' cellpadding='3' cellspacing='0' width='100%'>"
+	final_paper_text += "<tr><th align='left'>Item</th><th>Price</th><th>Demand</th><th>Stock</th></tr>"
+	for(var/datum/export/stack/E in GLOB.exports_list)
 		if(E.catchall)
 			continue
 		if(!length(E.export_types))
@@ -62,10 +64,20 @@
 			var/stock_remaining = max(state.max_demand - state.current_demand, 0)
 			var/demand_pct = state.max_demand > 0 ? round((state.current_demand / state.max_demand) * 100) : 0
 			var/price = state.generated_price || E.cost
-			final_paper_text += "<b>[item_name]</b>: [price] cr/unit | Demand: [demand_pct]% | Stock: [stock_remaining]/[state.max_demand]<br>"
+			var/demand_label = "None"
+			if(demand_pct >= 75)
+				demand_label = "HIGH"
+			else if(demand_pct >= 40)
+				demand_label = "MED"
+			else if(demand_pct > 0)
+				demand_label = "LOW"
+			final_paper_text += "<tr><td><b>[item_name]</b></td><td align='center'>[price] cr</td><td align='center'>[demand_label] ([demand_pct]%)</td><td align='center'>[stock_remaining]/[state.max_demand]</td></tr>"
+	final_paper_text += "</table>"
 
 	// Gas exports
 	final_paper_text += "<h3>Gas Exports</h3>"
+	final_paper_text += "<table border='1' cellpadding='3' cellspacing='0' width='100%'>"
+	final_paper_text += "<tr><th align='left'>Gas</th><th>Price</th><th>Demand</th><th>Stock</th></tr>"
 	for(var/gas_path in subtypesof(/datum/gas))
 		var/datum/gas/G = gas_path
 		if(!initial(G.name) || initial(G.base_value) <= 0)
@@ -73,7 +85,15 @@
 		var/datum/demand_state/gas_state = SSdemand.get_demand_state(gas_path)
 		var/gas_stock = max(gas_state.max_demand - gas_state.current_demand, 0)
 		var/gas_demand_pct = gas_state.max_demand > 0 ? round((gas_state.current_demand / gas_state.max_demand) * 100) : 0
-		final_paper_text += "<b>[initial(G.name)]</b>: [initial(G.base_value)] cr/mol | Demand: [gas_demand_pct]% | Stock: [gas_stock]/[gas_state.max_demand] mol<br>"
+		var/demand_label = "None"
+		if(gas_demand_pct >= 75)
+			demand_label = "HIGH"
+		else if(gas_demand_pct >= 40)
+			demand_label = "MED"
+		else if(gas_demand_pct > 0)
+			demand_label = "LOW"
+		final_paper_text += "<tr><td><b>[initial(G.name)]</b></td><td align='center'>[initial(G.base_value)] cr/mol</td><td align='center'>[demand_label] ([gas_demand_pct]%)</td><td align='center'>[gas_stock]/[gas_state.max_demand] mol</td></tr>"
+	final_paper_text += "</table>"
 
 	add_raw_text(final_paper_text)
 	update_appearance()
@@ -98,9 +118,9 @@
 	data["stored_cash"] = cargocash.account_balance
 	data["bountydata"] = bountyinfo
 
-	// Item export data
+	// Item export data - only show ores, refined materials, and alloys (stack exports)
 	var/list/item_exports = list()
-	for(var/datum/export/E in GLOB.exports_list)
+	for(var/datum/export/stack/E in GLOB.exports_list)
 		if(E.catchall)
 			continue
 		if(!length(E.export_types))
@@ -125,6 +145,7 @@
 				"current_demand" = state.current_demand,
 				"max_demand" = state.max_demand,
 				"demand_ratio" = round(demand_ratio * 100),
+				"history" = SSdemand.demand_history["[typepath]"] || list(),
 			))
 	data["item_exports"] = item_exports
 
@@ -145,6 +166,7 @@
 			"max_demand" = gas_state.max_demand,
 			"demand_ratio" = round(demand_ratio * 100),
 			"color" = initial(G.primary_color),
+			"history" = SSdemand.demand_history["[gas_path]"] || list(),
 		))
 	data["gas_exports"] = gas_exports
 

@@ -31,7 +31,6 @@
 	)
 
 // Plasma Products
-
 /datum/export/stack/plasteel
 	cost = 210 // 2000u of plasma + 2000u of iron.
 	message = "of plasteel"
@@ -75,18 +74,3 @@
 	export_types = list(
 		/obj/item/stack/ore/bluespace_crystal = TRUE,
 	)
-
-/datum/export/stack/bluespace_crystal_artificial
-	cost = 150
-	unit_name = "synthetic bluespace crystal"
-	export_types = list(
-		/obj/item/stack/ore/bluespace_crystal/artificial = TRUE,
-	)
-
-/datum/export/stack/bluespace_crystal_refined
-	cost = 500
-	unit_name = "refined bluespace crystal"
-	export_types = list(
-		/obj/item/stack/ore/bluespace_crystal/refined = TRUE,
-	)
-
