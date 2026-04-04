@@ -9,34 +9,56 @@
 
 	/// How much blood we have, starting off at default blood levels.
 	/// We don't use our actual body's temperature because some species don't have blood and we don't want to exclude them
-	var/vampire_blood_volume = BLOOD_VOLUME_NORMAL
+	var/current_vitae = BLOOD_VOLUME_NORMAL
 	/// How much blood we can have at once, increases per level.
-	var/max_blood_volume = 600
+	var/max_vitae = 600
 
 	/// The vampire team, used for vassals
 	var/datum/team/vampire/vampire_team
 	/// The vampire's clan
 	var/datum/vampire_clan/my_clan
+	/// Our disciplines
+	var/list/owned_disciplines = list()
 
 	/// Timer between alerts for Burn messages
 	COOLDOWN_DECLARE(vampire_spam_sol_burn)
 	/// Timer between alerts for Healing messages
 	COOLDOWN_DECLARE(vampire_spam_healing)
 
+	/// Should we automatically forge objectives?
+	var/should_forge_objectives = TRUE
+
 	/// Flavor only
 	var/vampire_name
-	var/vampire_title
-	var/vampire_reputation
 
+	/// Are we the prince?
+	var/prince = FALSE
+	/// Are we the scourge? Literally only used for the examine. Okay.
+	var/scourge = FALSE
 	/// Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE
 	/// How many Masquerade Infractions do we have?
 	var/masquerade_infractions = 0
 
+	/// How many humanity points do we have? 0-10
+	/// We actually always start with 7 and then add the clan's default humanity
+	var/humanity = VAMPIRE_DEFAULT_HUMANITY
+
 	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
 	/// If we are currently in a Frenzy
 	var/frenzied = FALSE
+	/// If we've already alerted the player about low blood
+	var/low_blood_alerted = FALSE
+
+	/// Goal of vitae required for the next level up
+	var/current_vitae_goal = VITAE_GOAL_STANDARD
+	/// progress to that goal
+	var/vitae_goal_progress = 0
+	/// Thirster objective completed.
+	var/thirster_objective = FALSE
+	/// To keep track of objective
+	var/total_blood_drank = 0
 
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
@@ -45,12 +67,13 @@
 
 	/// Vassals under my control. Periodically remove the dead ones.
 	var/list/datum/antagonist/vassal/vassals = list()
-	/// Special vassals I own, to not have double of the same type.
-	var/list/datum/antagonist/vassal/special_vassals = list()
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
-	var/vampire_level_unspent = 0
+	var/vampire_level_unspent = VAMPIRE_STARTING_LEVELS
+
+	/// If this guy has suffered final death.
+	var/final_death = FALSE
 
 	/// Additional regeneration when the vampire has a lot of blood
 	var/additional_regen
@@ -61,13 +84,15 @@
 	var/area/vampire_lair_area
 	var/obj/structure/closet/crate/coffin
 
-	/// To keep track of objectives
-	var/total_blood_drank = 0
+	/// To make sure we don't spam sol damage messages
+	var/were_shielded = FALSE
 
 	/// Blood display HUD
 	var/atom/movable/screen/vampire/blood_counter/blood_display
 	/// Vampire level display HUD
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
+	/// Vampire humanity display HUD
+	var/atom/movable/screen/vampire/humanity_counter/humanity_display
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
@@ -76,7 +101,7 @@
 
 	/// Static typecache of all vampire powers.
 	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
-	/// Antagonists that cannot be Vassalized no matter what
+	/// Antagonists that cannot be vassalized no matter what
 	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/vampire,
 		/datum/antagonist/changeling,
@@ -92,9 +117,9 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE,
 		TRAIT_GENELESS,
-		TRAIT_STABLEHEART,
 		TRAIT_NOSOFTCRIT,
 		TRAIT_NOHARDCRIT,
+		TRAIT_STABLEHEART,
 		TRAIT_AGEUSIA,
 		TRAIT_COLDBLOODED,
 		TRAIT_VIRUSIMMUNE,
@@ -111,6 +136,14 @@
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTHIGHPRESSURE,
 	)
+
+	/// Humanity gain tracking, when adding more, remember to add the type define
+	var/humanity_petting_goal = 5
+	var/humanity_art_goal = 2
+	var/humanity_hugging_goal = 3
+	var/list/humanity_trackgain_hugged = list()
+	var/list/humanity_trackgain_petted = list()
+	var/list/humanity_trackgain_art = list()
 
 /datum/antagonist/vampire/proc/create_vampire_team()
 	vampire_team = new(owner)
@@ -131,11 +164,18 @@
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
+	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(life_tick))
 	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	RegisterSignal(current_mob, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	RegisterSignal(current_mob, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(on_update_sight))
+	RegisterSignal(current_mob, COMSIG_LIVING_PET_ANIMAL, PROC_REF(on_pet_animal))
+	RegisterSignal(current_mob, COMSIG_LIVING_HUG_CARBON, PROC_REF(on_hug_carbon))
+	RegisterSignal(current_mob, COMSIG_LIVING_APPRAISE_ART, PROC_REF(on_appraise_art))
+
 	handle_clown_mutation(current_mob, "Your clownish nature has been subdued by your thirst for blood.")
+
+	current_mob.update_sight()
 
 	create_vampire_team()
 
@@ -164,7 +204,17 @@
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	UnregisterSignal(current_mob, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_EXAMINE, COMSIG_LIVING_DEATH, COMSIG_MOVABLE_MOVED))
+	UnregisterSignal(current_mob, list(
+		COMSIG_LIVING_LIFE,
+		COMSIG_ATOM_EXAMINE,
+		COMSIG_LIVING_DEATH,
+		COMSIG_MOVABLE_MOVED,
+		COMSIG_MOB_UPDATE_SIGHT,
+		COMSIG_LIVING_PET_ANIMAL,
+		COMSIG_LIVING_HUG_CARBON,
+		COMSIG_LIVING_APPRAISE_ART,
+	))
+	current_mob.update_sight()
 
 	handle_clown_mutation(current_mob, removing = FALSE)
 
@@ -175,9 +225,11 @@
 		hud_used.infodisplay -= blood_display
 		hud_used.infodisplay -= vamprank_display
 		hud_used.infodisplay -= sunlight_display
+		hud_used.infodisplay -= humanity_display
 		QDEL_NULL(blood_display)
 		QDEL_NULL(vamprank_display)
 		QDEL_NULL(sunlight_display)
+		QDEL_NULL(humanity_display)
 
 	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 
@@ -196,24 +248,30 @@
 	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter(null, vampire_hud)
 	vampire_hud.infodisplay += sunlight_display
 
+	humanity_display = new /atom/movable/screen/vampire/humanity_counter(null, vampire_hud)
+	vampire_hud.infodisplay += humanity_display
+
 	vampire_hud.show_hud(vampire_hud.hud_version)
 	UnregisterSignal(owner.current, COMSIG_MOB_HUD_CREATED)
 
 /datum/antagonist/vampire/get_admin_commands()
 	. = ..()
-	.["Give Level"] = CALLBACK(src, PROC_REF(rank_up))
+	.["Level Add"] = CALLBACK(src, PROC_REF(rank_up), 1)
+
 	if(vampire_level_unspent > 0)
-		.["Remove Level"] = CALLBACK(src, PROC_REF(rank_down))
+		.["Level Deduct"] = CALLBACK(src, PROC_REF(rank_down))
 
-	if(broke_masquerade)
-		.["Fix Masquerade"] = CALLBACK(src, PROC_REF(fix_masquerade))
-	else
-		.["Break Masquerade"] = CALLBACK(src, PROC_REF(break_masquerade))
+	if(!broke_masquerade)
+		.["Break Masq"] = CALLBACK(src, PROC_REF(break_masquerade))
 
-	if(my_clan)
-		.["Remove Clan"] = CALLBACK(src, PROC_REF(remove_clan))
-	else
-		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
+	if(!broke_masquerade)
+		.["Add Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
+
+	if(humanity > 0)
+		.["Humanity Deduct"] = CALLBACK(src, PROC_REF(adjust_humanity), -1, FALSE)
+
+	if(humanity < 10)
+		.["Humanity Add"] = CALLBACK(src, PROC_REF(adjust_humanity), 1, FALSE)
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
@@ -222,28 +280,48 @@
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_END, PROC_REF(sol_near_end))
 	RegisterSignal(SSsunlight, COMSIG_SOL_RISE_TICK, PROC_REF(handle_sol))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
+	RegisterSignal(src, COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN, PROC_REF(on_track_humanity_gain_signal))
 
-	// Start Sol if we're the first vampire
-	check_start_sunlight()
+
+	// Teach them the old knowledge
+	owner.teach_crafting_recipe(list(
+		/datum/crafting_recipe/vassalrack,
+		/datum/crafting_recipe/candelabrum,
+		/datum/crafting_recipe/bloodthrone,
+	))
+
+	ADD_TRAIT(owner, TRAIT_VAMPIRE_ALIGNED, REF(src))
 
 	// Set name and reputation
 	select_first_name()
-	select_reputation(am_fledgling = TRUE)
 
 	// Objectives
-	forge_objectives()
+	if(should_forge_objectives)
+		forge_objectives()
 
-	// Assign Powers
+	// Assign starting stats skill point.
 	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
 	owner.special_role = ROLE_VAMPIRE
+	GLOB.all_vampires += src
+
+	// Start society if we're the first vampire
+	check_start_society()
 
 /datum/antagonist/vampire/on_removal()
+	REMOVE_TRAIT(owner, TRAIT_VAMPIRE_ALIGNED, REF(src))
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
+
+	owner.forget_crafting_recipe(list(
+		/datum/crafting_recipe/vassalrack,
+		/datum/crafting_recipe/candelabrum,
+		/datum/crafting_recipe/bloodthrone,
+	))
 	clear_powers_and_stats()
-	check_cancel_sunlight()
 	owner.special_role = null
+	GLOB.all_vampires -= src
+	check_cancel_society()
 	return ..()
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
@@ -254,6 +332,14 @@
 		if(old_body)
 			all_powers.Remove(old_body)
 		all_powers.Grant(new_body)
+
+	// Transfer humanity gain signal registrations
+	if(old_body)
+		UnregisterSignal(old_body, list(COMSIG_LIVING_PET_ANIMAL, COMSIG_LIVING_HUG_CARBON, COMSIG_LIVING_APPRAISE_ART))
+	if(new_body)
+		RegisterSignal(new_body, COMSIG_LIVING_PET_ANIMAL, PROC_REF(on_pet_animal))
+		RegisterSignal(new_body, COMSIG_LIVING_HUG_CARBON, PROC_REF(on_hug_carbon))
+		RegisterSignal(new_body, COMSIG_LIVING_APPRAISE_ART, PROC_REF(on_appraise_art))
 
 	// Update punch damage
 	var/mob/living/carbon/human/human_new_body = new_body
@@ -271,6 +357,8 @@
 	else if(ishuman(human_new_body))
 		var/datum/species/new_species = human_new_body.dna.species
 		new_species.punchdamage += 2
+		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
+
 
 	// Vampire Traits
 	old_body?.remove_traits(vampire_traits, TRAIT_VAMPIRE)
@@ -281,17 +369,16 @@
 	var/fullname = return_full_name()
 	var/list/msg = list()
 
-	msg += span_cultlarge("You are [fullname], a Vampire!")
-	msg += span_cult("Open the Vampire Information panel for information about your Powers, Clan, and more.")
-	if(vampire_level_unspent >= 1)
-		msg += span_cult("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank.")
+	msg += span_cultlarge("You are a Vampire!\n")
+	msg += span_cult("Open the Vampire Information panel for information about your Powers, Clan, and more. \n\n\
+			You can also click on all of your hud meters for more information about them!")
 
 	to_chat(owner, examine_block(msg.Join("\n")))
 
 	owner.announce_objectives()
 
-	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
-	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>."
+	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
+	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
 
 /datum/antagonist/vampire/farewell()
 	to_chat(owner.current, span_userdanger("With a snap, your curse has ended. You are no longer a Vampire. You live once more!"))
@@ -331,8 +418,8 @@
 		power_data["icon"] = power.background_icon
 		power_data["icon_state"] = power.button_icon_state
 
-		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
-		power_data["constant_cost"] = power.constant_bloodcost ? power.constant_bloodcost : "0"
+		power_data["cost"] = power.vitaecost ? power.vitaecost : "0"
+		power_data["constant_cost"] = power.constant_vitaecost ? power.constant_vitaecost : "0"
 		power_data["cooldown"] = power.cooldown_time / 10
 
 		data["powers"] += list(power_data)
@@ -359,7 +446,7 @@
 
 	// Now list their vassals
 	if(length(vassals))
-		report += span_header("<br>Their Vassals were...")
+		report += span_header("<br>Their vassals were...")
 		for(var/datum/antagonist/vassal/vassal in vassals)
 			if(!vassal.owner)
 				continue
@@ -369,8 +456,6 @@
 
 			if(vassal.owner.assigned_role)
 				vassal_report += " the [vassal.owner.assigned_role]"
-			if(IS_FAVORITE_VASSAL(vassal.owner.current))
-				vassal_report += " and was the <b>Favorite Vassal</b>"
 			report += vassal_report.Join()
 
 	if(objectives_complete)
@@ -382,7 +467,7 @@
 
 /datum/antagonist/vampire/proc/give_starting_powers()
 	for(var/datum/action/vampire/all_powers as anything in all_vampire_powers)
-		if(!(initial(all_powers.purchase_flags) & VAMPIRE_DEFAULT_POWER))
+		if(!(initial(all_powers.special_flags) & VAMPIRE_DEFAULT_POWER))
 			continue
 		grant_power(new all_powers)
 
@@ -394,6 +479,7 @@
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits += TRAIT_DRINKSBLOOD
 		user_species.punchdamage += 2
+		user.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST // Vampires have inherent stamina resistance
 		user.dna.remove_all_mutations()
 
 	// Give Vampire Traits
@@ -440,7 +526,9 @@
 	/// Stats
 	if(ishuman(owner.current))
 		var/datum/species/user_species = user.dna.species
+		var/mob/living/carbon/human/human_user = user
 		user_species.species_traits -= TRAIT_DRINKSBLOOD
+		human_user.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	// Remove all vampire traits
 	user.remove_traits(vampire_traits, TRAIT_VAMPIRE)
@@ -458,10 +546,11 @@
 
 	// Eyes
 	var/obj/item/organ/eyes/user_eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
-	user_eyes?.flash_protect = initial(user_eyes.flash_protect)
-	user_eyes?.sight_flags = initial(user_eyes.sight_flags)
-	user_eyes?.see_in_dark = NIGHTVISION_FOV_RANGE
-	user_eyes?.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	if(user_eyes)
+		user_eyes.flash_protect = initial(user_eyes.flash_protect)
+		user_eyes.sight_flags = initial(user_eyes.sight_flags)
+		user_eyes.see_in_dark = initial(user_eyes.see_in_dark)
+		user_eyes.lighting_alpha = initial(user_eyes.lighting_alpha)
 	user.update_sight()
 
 /datum/antagonist/vampire/proc/claim_coffin(obj/structure/closet/crate/claimed)
@@ -479,7 +568,7 @@
 	// This is my Lair
 	coffin = claimed
 	vampire_lair_area = coffin_area
-	to_chat(owner, span_userdanger("You have claimed the [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
+	to_chat(owner, span_userdanger("You have claimed [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
 	return TRUE
 
 /// Name shown on antag list
@@ -499,32 +588,56 @@
 	info_button_ref = WEAKREF(info_button)
 	return info_button
 
+/**
+ * Every vampire has 3 starting objective categories:
+ * Ego: Grow more powerful / strengthen your position / etc
+ * Hedonism: Indulge in bad things that feel all too right.
+ * Survival: Survive. Obviously.
+ */
 /datum/antagonist/vampire/proc/forge_objectives()
-	// Claim a Lair Objective
-	var/datum/objective/vampire/lair/lair_objective = new
-	lair_objective.owner = owner
-	objectives += lair_objective
+	var/datum/objective/vampire/extra_objective
+
+	if(get_max_vassals() >= 1) // Two trees for if we can make vassals or not.
+		//pick Ego objective
+		switch(rand(1, 3))
+			if(3)
+				extra_objective = new /datum/objective/vampire/ego/department_vassal()
+			if(2)
+				extra_objective = new /datum/objective/vampire/ego/bigplaces()
+			if(1)
+				extra_objective = new /datum/objective/vampire/ego/lair()
+	else
+		extra_objective = new /datum/objective/vampire/ego/bigplaces()
+
+	extra_objective.owner = owner
+	objectives += extra_objective
+
+	//pick Hedonism objective
+	switch(rand(1, 3))
+		if(3)
+			extra_objective = new /datum/objective/vampire/hedonism/heartthief()
+		if(2)
+			extra_objective = new /datum/objective/vampire/hedonism/gourmand()
+		if(1)
+			extra_objective = new /datum/objective/vampire/hedonism/thirster()
+
+	extra_objective.owner = owner
+	objectives += extra_objective
 
 	// Survive Objective
-	var/datum/objective/survive/survive_objective = new
+	var/datum/objective/survive/vampire/survive_objective = new
 	survive_objective.owner = owner
 	objectives += survive_objective
 
-	// Objective 1: Vassalize a Head/Command, or a specific target
-	switch(rand(1, 3))
-		if(1) // Conversion Objective
-			var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
-			var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
-			conversion_objective.owner = owner
-			objectives += conversion_objective
-		if(2) // Heart Thief Objective
-			var/datum/objective/vampire/heartthief/heartthief_objective = new
-			heartthief_objective.owner = owner
-			objectives += heartthief_objective
-		if(3) // Drink Blood Objective
-			var/datum/objective/vampire/gourmand/gourmand_objective = new
-			gourmand_objective.owner = owner
-			objectives += gourmand_objective
+/datum/antagonist/vampire/proc/get_max_vassals()
+	var/total_players = length(GLOB.joined_player_list)
+	switch(total_players)
+		if(1 to 15) // No vassals during low-lowpop
+			return 0
+		if(16 to 30) // 1 vassal during normal pop
+			return 1
+		if(31 to INFINITY) // if we can support it, we allow 2
+			return 2
 
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
@@ -543,14 +656,36 @@
 
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
+	var/text
+	if(prince)
+		text = "<img class='icon' src='\ref['icons/vampires/vampiric.dmi']?state=prince'> "
+	else if(scourge)
+		text = "<img class='icon' src='\ref['icons/vampires/vampiric.dmi']?state=scourge'> "
+	else
+		text = "<img class='icon' src='\ref['icons/vampires/vampiric.dmi']?state=vampire'> "
 
-	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
 	if(IS_VASSAL(examiner) in vassals)
 		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
 		examine_text += text
-	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)
-		text += span_cult("<EM>[return_full_name()]</EM>")
+		return
+
+	if(IS_VAMPIRE(examiner))
+
+		if(my_clan)
+			text += span_cult("<EM>[return_full_name()], of the [my_clan].</EM>")
+		else
+			text += span_cult("<EM>[return_full_name()], a disgusting caitiff thinblood.</EM>")
+
+		if(examiner != owner.current) // So many ifs. where is yanderedev.
+			if(scourge)
+				text += span_cultlarge("<br><EM>[owner.current.p_They()] [owner.current.p_are()] the Scourge!</EM>")
+			if(prince)
+				text += span_cultlarge("<br><EM>[owner.current.p_They()] [owner.current.p_are()] your Prince!</EM>")
+			if(broke_masquerade)
+				text += span_cultlarge("<br><EM>You recognize [owner.current.p_Them()] as a masquerade breaker!</EM>")
+
 		examine_text += text
+		return
 
 /datum/antagonist/vampire/proc/on_moved(datum/source)
 	SIGNAL_HANDLER
@@ -560,3 +695,9 @@
 		return
 
 	tracker?.tracking_beacon?.update_position()
+
+/datum/antagonist/vampire/proc/on_update_sight(mob/user)
+	SIGNAL_HANDLER
+	user.sight |= SEE_MOBS
+	user.see_in_dark = max(NIGHTVISION_FOV_RANGE, user.see_in_dark)
+	user.lighting_alpha = min(LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE, user.lighting_alpha)
