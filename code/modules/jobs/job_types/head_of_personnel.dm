@@ -1,12 +1,12 @@
 /datum/job/head_of_personnel
 	title = JOB_NAME_HEADOFPERSONNEL
-	description = "Second in command on the station, oversee the crew assigned to service and cargo positions, handle department transfer requests by consulting relevant heads. Protect Ian at all costs."
+	description = "Second in command on the station, oversee the crew assigned to service positions, handle department transfer requests by consulting relevant heads. Protect Ian at all costs."
 	department_for_prefs = DEPT_NAME_CAPTAIN
 	department_head_for_prefs = JOB_NAME_CAPTAIN
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
-	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
+	head_announce = list(RADIO_CHANNEL_SERVICE)
 	faction = "Station"
 	total_positions = 1
 	selection_color = "#ddddff"
@@ -38,17 +38,12 @@
 		ACCESS_KITCHEN,
 		ACCESS_CARGO,
 		ACCESS_MAILSORTING,
-		ACCESS_QM,
 		ACCESS_HYDROPONICS,
 		ACCESS_LAWYER,
 		ACCESS_THEATRE,
 		ACCESS_CHAPEL_OFFICE,
 		ACCESS_LIBRARY,
 		ACCESS_RESEARCH,
-		ACCESS_MINING,
-		ACCESS_VAULT,
-		ACCESS_MINING_STATION,
-		ACCESS_MECH_MINING,
 		ACCESS_MECH_ENGINE,
 		ACCESS_MECH_SCIENCE,
 		ACCESS_MECH_SECURITY,
@@ -58,8 +53,6 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_KEYCARD_AUTH,
 		ACCESS_GATEWAY,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_AUX_BASE,
 		ACCESS_SERVICE,
 	)
 	extra_access = list()
@@ -94,11 +87,7 @@
 		// JOB_NAME_CHAPLAIN, // holy knowledge is only allowed to people in religion
 		JOB_NAME_CURATOR,
 		JOB_NAME_LAWYER,
-		JOB_NAME_PRISONER,
-
-		JOB_NAME_QUARTERMASTER,
-		JOB_NAME_CARGOTECHNICIAN,
-		JOB_NAME_SHAFTMINER
+		JOB_NAME_PRISONER
 	)
 
 // Special handling to avoid lighting up the entirety of supply whenever there's a HoP.

@@ -705,3 +705,36 @@
 	force = 9
 	armour_penetration = 25
 	staketime = 2 SECONDS
+
+// ===========================================
+// NT Golden Knuckleduster (Quartermaster)
+// ===========================================
+/obj/item/melee/knuckleduster
+	name = "\improper NT golden knuckleduster"
+	desc = "A heavy set of gold-plated brass knuckles with the Nanotrasen logo embossed on the striking face. \
+	Standard issue for Quartermasters who need to negotiate more... aggressively."
+	icon = 'icons/obj/weapons/knuckleduster.dmi'
+	icon_state = "knuckles"
+	inhand_icon_state = "knuckles"
+	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	force = 19
+	throwforce = 2
+	w_class = WEIGHT_CLASS_TINY
+	attack_verb_continuous = list("decks", "slugs", "wallops", "clobbers")
+	attack_verb_simple = list("deck", "slug", "wallop", "clobber")
+	hitsound = 'sound/weapons/smash.ogg'
+	/// Sound played when hitting a mob
+	var/mob_hitsound = 'sound/effects/cashregister.ogg'
+	custom_materials = list(/datum/material/gold = 500, /datum/material/iron = 500)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	item_flags = ISWEAPON
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+/obj/item/melee/knuckleduster/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
+/obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
+	. = ..()
+	playsound(target, mob_hitsound, 50, TRUE)

@@ -164,6 +164,9 @@
 /obj/item/gun/ballistic/automatic/pistol/service/cmo
 	stripe_state = "officer_med"
 
+/obj/item/gun/ballistic/automatic/pistol/service/qm
+	stripe_state = "officer_cargo"
+
 // Security
 /obj/item/gun/ballistic/automatic/pistol/security
 	name = "NPS-10"

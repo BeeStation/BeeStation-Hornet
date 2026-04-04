@@ -24,10 +24,11 @@ SUBSYSTEM_DEF(job)
 	var/list/chain_of_command = list(
 		"Captain" = 1,				//Not used yet but captain is first in chain_of_command
 		"Head of Personnel" = 2,
-		"Research Director" = 3,
-		"Chief Engineer" = 4,
-		"Chief Medical Officer" = 5,
-		"Head of Security" = 6)
+		"Quartermaster" = 3,
+		"Research Director" = 4,
+		"Chief Engineer" = 5,
+		"Chief Medical Officer" = 6,
+		"Head of Security" = 7)
 
 	//Crew Objective stuff
 	var/list/crew_obj_list = list()
@@ -41,6 +42,7 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_POSIBRAIN,
 		JOB_NAME_CAPTAIN,
 		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_QUARTERMASTER,
 		JOB_NAME_HEADOFSECURITY,
 		JOB_NAME_CHIEFENGINEER,
 		JOB_NAME_RESEARCHDIRECTOR,
