@@ -2714,6 +2714,7 @@
 #include "code\modules\cargo\order.dm"
 #include "code\modules\cargo\orderconsole.dm"
 #include "code\modules\cargo\cargo_products.dm"
+#include "code\modules\cargo\cargo_categories\boards.dm"
 #include "code\modules\cargo\cargo_categories\equipment.dm"
 #include "code\modules\cargo\cargo_categories\station_goals.dm"
 #include "code\modules\cargo\supplypod.dm"
