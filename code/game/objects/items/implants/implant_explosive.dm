@@ -11,9 +11,6 @@
 	var/popup = FALSE // is the DOUWANNABLOWUP window open?
 	var/active = FALSE
 
-/obj/item/implant/explosive/on_mob_death(mob/living/L, gibbed)
-	activate("death")
-
 /obj/item/implant/explosive/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Robust Corp RX-78 Employee Management Implant<BR>
@@ -36,8 +33,6 @@
 		popup = FALSE
 		if(response != "Yes")
 			return FALSE
-	if(cause == "death" && HAS_TRAIT(imp_in, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)) // prevent the bomb from activating automatically if the trait is present
-		return FALSE
 	heavy = round(heavy)
 	medium = round(medium)
 	weak = round(weak)

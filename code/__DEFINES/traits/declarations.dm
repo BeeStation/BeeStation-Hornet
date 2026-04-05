@@ -471,9 +471,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// The person with this trait always appears as 'unknown'.
 #define TRAIT_UNKNOWN "unknown"
 
-/// If the mob has this trait and die, their bomb implant doesn't detonate automatically. It must be consciously activated.
-#define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"
-
 /// We are ignoring gravity
 #define TRAIT_IGNORING_GRAVITY "ignores_gravity"
 /// We have some form of forced gravity acting on us
