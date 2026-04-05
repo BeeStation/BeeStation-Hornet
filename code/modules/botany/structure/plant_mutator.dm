@@ -1,8 +1,6 @@
-#define RAD_GAIN_MOD 0.01
-
 /obj/machinery/plant_machine/plant_mutator
 	name = "irradiator kiln"
-	desc = "A large kiln designed to safely expose plants to radiation."
+	desc = "A large kiln designed to safely expose plants to radiation particles from excited plasma gas."
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "mutator"
 	density = TRUE
@@ -13,12 +11,8 @@
 	///Last 'command' for UI stuff
 	var/last_command = ""
 
-	///Catalyst item we use for source of rads
-	var/obj/item/catalyst
-	///Shortcut to catalyst's radiation component
-	var/datum/component/irradiated/radiation
-	///How much rads we've saved up
-	var/stored_rads = 0
+	///Catalyst tank  we use for source of plasma
+	var/obj/item/tank/catalyst
 
 	///Refence to our working animation effect overlay thing
 	var/obj/effect/mutator_working/rad_ghost
@@ -43,13 +37,9 @@
 
 /obj/machinery/plant_machine/plant_mutator/Initialize(mapload)
 	. = ..()
-#ifdef LOWMEMORYMODE
-	stored_rads = 100
-#endif
 	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
-	START_PROCESSING(SSobj, src)
-	var/obj/item/irradiated_rock/rock = new(get_turf(src))
-	attackby(rock)
+	var/obj/item/tank/internals/plasma/plasma_tank = new(get_turf(src))
+	attackby(plasma_tank)
 	rad_ghost = new(src)
 	soundloop = new(src,  FALSE)
 
@@ -66,34 +56,26 @@
 	. = ..()
 	to_chat(user, span_danger("[src] can be controlled with a hydroponics machine terminal.\nA plant can be inserted into [src] using a spade."))
 
-/obj/machinery/plant_machine/plant_mutator/process(delta_time)
-	if(!radiation)
-		return
-	stored_rads += radiation.intensity * RAD_GAIN_MOD * delta_time
-	ui_update()
-
 /obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
 		return
 	if(catalyst)
-		context.add_right_click_action("Remove Catalyst")
+		context.add_right_click_action("Remove Tank")
 	else
-		context.add_left_click_action("Insert Catalyst")
+		context.add_left_click_action("Insert Tank")
 
 //Insert
 /obj/machinery/plant_machine/plant_mutator/attackby(obj/item/C, mob/user)
 	if(working)
 		return ..()
 //Catalyst
-	radiation = radiation || C.GetComponent(/datum/component/irradiated)
-	if(radiation && !catalyst)
-		C.forceMove(src)
+	if(!catalyst)
 		catalyst = C
+	if(!istype(catalyst))
+		catalyst = null
+	if(catalyst)
+		C.forceMove(src)
 		ui_update()
-		return
-	else if(!radiation && !catalyst)
-		playsound(controller, 'sound/machines/terminal_error.ogg', 60)
-		say("ERROR: Sample lacks sufficient radioactivity!")
 		return
 //Spade / Plant
 	if(!istype(C, /obj/item/shovel/spade))
@@ -137,7 +119,6 @@
 	catalyst.forceMove(get_turf(src))
 	user.put_in_active_hand(catalyst)
 	catalyst = null
-	radiation = null
 
 /obj/machinery/plant_machine/plant_mutator/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -163,7 +144,7 @@
 	//Catalyst info
 	data["catalyst"] = capitalize(catalyst?.name)
 	data["catalyst_desc"] = catalyst?.desc
-	data["catalyst_strength"] = stored_rads
+	data["catalyst_strength"] = catalyst?.air_contents?.total_moles()
 	//Machine info
 	data["confirm_radiation"] = confirm_radiation
 	data["working"] = working
@@ -198,24 +179,24 @@
 			//Nuke the SOB
 			last_command = "per kiln heat -f -k -m [params["key"]]"
 			confirm_radiation = FALSE
-			if(stored_rads <= 0)
+			if(!catalyst?.air_contents?.has_gas(/datum/gas/plasma, 1))
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
-				say("ERROR: Coil lacks adequate radioactivity!")
-				return
+				say("ERROR: Tank lacks adequate moles!")
+				return TRUE
 			var/datum/plant_feature/feature = locate(current_feature_ref)
 			if(!length(feature.mutations))
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Feature lacks genetic avenues!")
-				return
+				return TRUE
 			//Check compatibility
 			var/datum/plant_feature/new_feature = pick(feature.mutations)
-			//Tax radiation
+			//Tax plasma
 			var/tax = feature.mutations[new_feature] || 1
-			if(stored_rads-tax <= 0)
+			if(!catalyst?.air_contents?.has_gas(/datum/gas/plasma, tax))
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
-				say("ERROR: Coil lacks adequate radioactivity, operation requires [tax] Roentgen!")
-				return
-			stored_rads -= tax
+				say("ERROR: Tank lacks adequate moles, operation requires [tax] moles!")
+				return TRUE
+			catalyst?.air_contents.remove_specific(/datum/gas/plasma, tax)
 			//Flight checks
 			new_feature = new new_feature(plant_component)
 			for(var/datum/plant_feature/current_feature as anything in plant_component.plant_features-feature)
@@ -224,13 +205,13 @@
 					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition not compatible with selected feature!")
 					qdel(new_feature)
-					return
+					return TRUE
 				//If a feature has a whitelist, are we in it?
 				if(length(current_feature.whitelist_features) && !is_type_in_typecache(new_feature, current_feature.whitelist_features) || length(new_feature.whitelist_features) && !is_type_in_typecache(current_feature, new_feature.whitelist_features))
 					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition not compatible with selected feature!")
 					qdel(new_feature)
-					return
+					return TRUE
 			//Transfer old feature's traits to new feature
 			if(port_traits)
 				for(var/datum/plant_trait/trait as anything in feature.plant_traits)
@@ -328,17 +309,3 @@
 	var/filter = get_filter("wavy")
 	animate(filter, offset = 1, time = 1 SECONDS, loop = -1)
 	animate(offset = 0, time = 0 SECONDS)
-
-/*
-
-*/
-/obj/item/irradiated_rock
-	name = "debris"
-	desc = "A piece of cement broken away from its original structure. It's still warm with the energy of an artificial sun."
-	icon_state = "skub"
-
-/obj/item/irradiated_rock/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/irradiated, 1)
-
-#undef RAD_GAIN_MOD

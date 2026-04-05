@@ -10,10 +10,8 @@
 	catalyst sticky, don't remove the catalyst
 */
 /obj/item/sticker/sticky_note/tutorial/catalyst
-	custom_text = "DO NOT REMOVE CATALYST!!!\n\
-	\n\
-	Apparently it's expensive, and our sample is really small. If you remove it, it will lose all its radioactivity and become a useless rock.\n\
-	Unless you can get better radioactive material, DON'T fuck with it. I'm serious.\n\
+	custom_text = "Pre-loaded it for you with some purple jerk's plasma tank.\n\
+	If you need more, try begging the science or engineering staff. Any tank should work.\n\
 	\n\
 	- Billy Bob Johnson"
 

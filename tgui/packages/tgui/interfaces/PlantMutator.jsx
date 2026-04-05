@@ -56,7 +56,7 @@ export const PlantMutator = (props) => {
                   <Flex direction={'column'}>
                     {/* Plant title */}
                     <Flex.Item width={'100%'}>
-                      <Section>
+                      <Section textAlign="center">
                         <h1>{inserted_plant || 'No Plant Inserted'}</h1>
                       </Section>
                     </Flex.Item>
@@ -77,13 +77,13 @@ export const PlantMutator = (props) => {
                     <Flex.Item width={'100%'}>
                       {/* Title */}
                       <Section>
-                        <h1>{catalyst || 'No Catalyst Inserted'}</h1>
+                        <h1>{catalyst || 'No Tank Inserted'}</h1>
                         <Divider />
                         {catalyst_desc || '...'}
                       </Section>
                       {/* Body */}
                       <Section>
-                        <Box textAlign={'center'}>Irradiator Coil Charge</Box>
+                        <Box textAlign={'center'}>Moles</Box>
                         <ProgressBar
                           color={'#ffff77'}
                           textColor={
