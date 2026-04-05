@@ -91,6 +91,7 @@
 /area/ai_monitored/storage/satellite : /area/station/ai_monitored/command/storage/satellite{@OLD}
 /area/ai_monitored/turret_protected/AIsatextAS : /area/station/ai_monitored/turret_protected/ai_sat_ext_as{@OLD}
 /area/ai_monitored/turret_protected/AIsatextAP : /area/station/ai_monitored/turret_protected/ai_sat_ext_ap{@OLD}
+/area/ai_monitored/turret_protected/aisat : /area/station/ai_monitored/turret_protected/aisat
 /area/aisat : /area/station/ai_monitored/aisat/exterior{@OLD}
 
 # Quartermaster → Station/Cargo
