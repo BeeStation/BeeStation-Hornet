@@ -304,11 +304,12 @@
 	for (var/datum/design/D as() in subtypesof(/datum/design))
 		var/icon_file
 		var/icon_state
-		var/datum/icon_transformer/transform = null
+		var/datum/universal_icon/design_uni_icon = null
 
 		if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
 			icon_file = initial(D.research_icon)
 			icon_state = initial(D.research_icon_state)
+			design_uni_icon = uni_icon(icon_file, icon_state)
 		else
 			// construct the icon and slap it into the resource cache
 			var/atom/item = initial(D.build_path)
@@ -338,22 +339,22 @@
 
 			icon_state = initial(item.icon_state)
 
+			design_uni_icon = uni_icon(icon_file, icon_state)
+
 			if(initial(item.color))
-				transform = color_transform(initial(item.color))
+				design_uni_icon.blend_color(initial(item.color), ICON_MULTIPLY)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
 			if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
-				if(!transform)
-					transform = new()
 				var/obj/machinery/computer/C = item
 				var/all_states = icon_states(icon_file)
 				var/screen = initial(C.icon_screen)
 				var/keyboard = initial(C.icon_keyboard)
 				if (screen && (screen in all_states))
-					transform.blend_icon(uni_icon(icon_file, screen), ICON_OVERLAY)
+					design_uni_icon.blend_icon(uni_icon(icon_file, screen), ICON_OVERLAY)
 				if (keyboard && (keyboard in all_states))
-					transform.blend_icon(uni_icon(icon_file, keyboard), ICON_OVERLAY)
-		insert_icon(initial(D.id), uni_icon(icon_file, icon_state, transform=transform))
+					design_uni_icon.blend_icon(uni_icon(icon_file, keyboard), ICON_OVERLAY)
+		insert_icon(initial(D.id), design_uni_icon)
 
 /datum/asset/spritesheet_batched/vending
 	name = "vending"

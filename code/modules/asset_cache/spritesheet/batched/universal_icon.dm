@@ -13,7 +13,7 @@
 /datum/universal_icon/New(icon/icon_file, icon_state="", dir=null, frame=null, datum/icon_transformer/transform=null, color=null)
 	#ifdef UNIT_TESTS
 	// This check is kinda slow and shouldn't fail unless a developer makes a mistake. So it'll get caught in unit tests.
-	if(!isicon(icon_file) || !isfile(icon_file) || "[icon_file]" == "/icon" || !length("[icon_file]"))
+	if((!isicon(icon_file) && !isfile(icon_file)) || "[icon_file]" == "/icon" || !length("[icon_file]"))
 		// bad! use 'icons/path_to_dmi.dmi' format only
 		CRASH("FATAL: universal_icon was provided icon_file: [icon_file] - icons provided to batched spritesheets MUST be DMI files, they cannot be /image, /icon, or other runtime generated icons.")
 	#endif
@@ -195,12 +195,30 @@
 /datum/universal_icon/proc/to_json()
 	return json_encode(to_list())
 
+/// Converts the universal icon into a DM icon using BYOND's native icon procs. This is slow.
+/// Check out the to_icon_headless() or iconforge_generate functions.
 /datum/universal_icon/proc/to_icon()
 	RETURN_TYPE(/icon)
 	var/icon/self = icon(src.icon_file, src.icon_state, dir=src.dir, frame=src.frame)
 	if(istype(src.transform))
 		src.transform.apply(self)
 	return self
+
+/// Convert the universal icon into a DM icon using rust-backed IconForge generation.
+/// The resulting DM icon is unscoped but contains one icon state with '[output_icon_state_name]' as its name.
+/// Returns null and runtimes if there is any fatal errors. Non-fatal errors will emit a runtime but provide an icon.
+/datum/universal_icon/proc/to_icon_headless(file_path, output_icon_state_name)
+	. = null
+	if(!istext(file_path) || !length(file_path))
+		return
+	var/list/result = rustg_iconforge_generate_headless(file_path, json_encode(list("[output_icon_state_name]" = src.to_list())), FALSE)
+	if(!islist(result))
+		CRASH("Unparsable result from rustg_iconforge_generate_headless for '[file_path]': [result]")
+	if(result["file_path"] != file_path)
+		CRASH("Fatal errors during rustg_iconforge_generate_headless for '[file_path]': [result["error"]]")
+	. = icon(file(file_path))
+	if(!isnull(result["error"]) && length(result["error"]))
+		CRASH("Errors during rustg_iconforge_generate_headless for '[file_path]': [result["error"]]")
 
 /datum/icon_transformer
 	var/list/transforms = null

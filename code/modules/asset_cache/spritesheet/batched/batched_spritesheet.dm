@@ -194,7 +194,6 @@
 		UNTIL((data_out = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
 		SSasset_loading.assets_generating--
 	else
-		//rustg_file_write(entries_json, "fuckoff.json")
 		data_out = rustg_iconforge_generate("data/spritesheets/", name, entries_json, do_cache, FALSE, TRUE)
 	if (data_out == RUSTG_JOB_ERROR)
 		CRASH("Spritesheet [name] JOB PANIC")
