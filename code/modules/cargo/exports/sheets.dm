@@ -1,6 +1,5 @@
 // ============================================================================
-// PLASMA STATION EXPORTS
-// This station exists for plasma research and mining. Plasma and its derivative
+// The station exists for plasma research and mining. Plasma and its derivative
 // products are the primary revenue stream, along with bluespace crystals.
 // For base stack export handling, see materials.dm
 // ============================================================================

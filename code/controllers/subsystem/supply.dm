@@ -23,11 +23,11 @@ SUBSYSTEM_DEF(supply)
 
 	// --- Expand cargo lists into cargo items ---
 	for(var/list_type in subtypesof(/datum/cargo_list))
-		var/datum/cargo_list/CL = new list_type()
-		if(!CL.entries || !length(CL.entries))
-			qdel(CL)
+		var/datum/cargo_list/cargo_list = new list_type()
+		if(!cargo_list.entries || !length(cargo_list.entries))
+			qdel(cargo_list)
 			continue
-		for(var/list/entry in CL.entries)
+		for(var/list/entry in cargo_list.entries)
 			var/path = entry["path"]
 			if(!path)
 				continue
@@ -36,23 +36,23 @@ SUBSYSTEM_DEF(supply)
 			item.name = entry["name"]  // may be null - New() already auto-filled, so override only if provided
 			item.cost = entry["cost"] || 400
 			item.max_supply = entry["max_supply"] || 5
-			item.small_item = ("small_item" in entry) ? entry["small_item"] : CL.small_item
-			item.access = ("access" in entry) ? entry["access"] : CL.access
-			item.access_budget = ("access_budget" in entry) ? entry["access_budget"] : CL.access_budget
-			item.contraband = ("contraband" in entry) ? entry["contraband"] : CL.contraband
-			item.syndicate_contraband = ("syndicate_contraband" in entry) ? entry["syndicate_contraband"] : CL.syndicate_contraband
-			item.dangerous = ("dangerous" in entry) ? entry["dangerous"] : CL.dangerous
-			item.DropPodOnly = ("DropPodOnly" in entry) ? entry["DropPodOnly"] : CL.DropPodOnly
-			item.crate_type = ("crate_type" in entry) ? entry["crate_type"] : CL.crate_type
-			item.can_secure = ("can_secure" in entry) ? entry["can_secure"] : CL.can_secure
+			item.small_item = ("small_item" in entry) ? entry["small_item"] : cargo_list.small_item
+			item.access = ("access" in entry) ? entry["access"] : cargo_list.access
+			item.access_budget = ("access_budget" in entry) ? entry["access_budget"] : cargo_list.access_budget
+			item.contraband = ("contraband" in entry) ? entry["contraband"] : cargo_list.contraband
+			item.syndicate_contraband = ("syndicate_contraband" in entry) ? entry["syndicate_contraband"] : cargo_list.syndicate_contraband
+			item.dangerous = ("dangerous" in entry) ? entry["dangerous"] : cargo_list.dangerous
+			item.DropPodOnly = ("DropPodOnly" in entry) ? entry["DropPodOnly"] : cargo_list.DropPodOnly
+			item.crate_type = ("crate_type" in entry) ? entry["crate_type"] : cargo_list.crate_type
+			item.can_secure = ("can_secure" in entry) ? entry["can_secure"] : cargo_list.can_secure
 			// Re-fill name/desc from item_path if entry didn't provide a name
 			// (New() already ran, but we overwrote name above, so re-derive if null)
 			if(!item.name && item.item_path)
-				var/atom/A = item.item_path
-				item.name = initial(A.name)
+				var/atom/item_atom = item.item_path
+				item.name = initial(item_atom.name)
 			if(!item.desc && item.item_path)
-				var/atom/A = item.item_path
-				item.desc = initial(A.desc)
+				var/atom/item_atom = item.item_path
+				item.desc = initial(item_atom.desc)
 			// Re-randomize supply since New() already did it but max_supply may have changed
 			item.current_supply = rand(0, rand(1, item.max_supply))
 			// Duplicate check - warn if this path is already in the catalogue
@@ -61,9 +61,9 @@ SUBSYSTEM_DEF(supply)
 			// Use item_path as the catalogue key (valid type path, works with text2path)
 			cargo_items[path] = item
 			catalogue[path] = list("type" = "item", "datum" = item)
-		qdel(CL)
+		qdel(cargo_list)
 
-	// --- Initialize cargo items (legacy subtypes not yet converted to cargo_list) ---
+	// --- Initialize cargo items
 	for(var/item_type in subtypesof(/datum/cargo_item))
 		var/datum/cargo_item/item = new item_type()
 		if(!item.item_path)

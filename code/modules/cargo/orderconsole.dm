@@ -80,9 +80,9 @@
 /obj/machinery/computer/cargo/ui_data()
 	var/list/data = list()
 	data["location"] = SSshuttle.supply.getStatusText()
-	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-	if(D)
-		data["points"] = D.account_balance
+	var/datum/bank_account/budget_account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+	if(budget_account)
+		data["points"] = budget_account.account_balance
 	data["away"] = SSshuttle.supply.getDockedId() == "supply_away"
 	data["self_paid"] = self_paid
 	data["docked"] = SSshuttle.supply.mode == SHUTTLE_IDLE
@@ -90,87 +90,87 @@
 	data["loan_dispatched"] = SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched
 	data["can_send"] = can_send
 	data["can_approve_requests"] = can_approve_requests
-	var/message = "Remember to stamp and send back the supply manifests."
+	var/display_message = "Remember to stamp and send back the supply manifests."
 	if(SSshuttle.centcom_message)
-		message = SSshuttle.centcom_message
+		display_message = SSshuttle.centcom_message
 	if(SSshuttle.supplyBlocked)
-		message = blockade_warning
-	data["message"] = message
+		display_message = blockade_warning
+	data["message"] = display_message
 	data["cart"] = list()
-	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
-		if(istype(SO, /datum/supply_order/batch))
-			var/datum/supply_order/batch/BO = SO
+	for(var/datum/supply_order/supply_order in SSsupply.shoppinglist)
+		if(istype(supply_order, /datum/supply_order/batch))
+			var/datum/supply_order/batch/batch_order = supply_order
 			data["cart"] += list(list(
-				"object" = BO.pack_name,
-				"cost" = BO.total_cost,
-				"id" = BO.id,
-				"orderer" = BO.orderer,
-				"paid" = !isnull(BO.paying_account),
-				"contents" = BO.get_batch_contents_readable(),
+				"object" = batch_order.pack_name,
+				"cost" = batch_order.total_cost,
+				"id" = batch_order.id,
+				"orderer" = batch_order.orderer,
+				"paid" = !isnull(batch_order.paying_account),
+				"contents" = batch_order.get_batch_contents_readable(),
 				"is_batch" = TRUE,
-				"crate_count" = BO.crate_count,
-				"total_items" = BO.total_items
+				"crate_count" = batch_order.crate_count,
+				"total_items" = batch_order.total_items
 			))
 			continue
 		var/list/contents_readable = list()
 		var/order_cost = 0
 		var/order_supply = 0
-		if(istype(SO.pack, /datum/cargo_item))
-			var/datum/cargo_item/item = SO.pack
+		if(istype(supply_order.pack, /datum/cargo_item))
+			var/datum/cargo_item/item = supply_order.pack
 			contents_readable = item.get_contents_readable()
 			order_cost = item.get_cost()
 			order_supply = item.current_supply
-		else if(istype(SO.pack, /datum/cargo_crate))
-			var/datum/cargo_crate/crate = SO.pack
+		else if(istype(supply_order.pack, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = supply_order.pack
 			contents_readable = crate.get_contents_readable()
 			order_cost = crate.get_cost()
 			order_supply = crate.current_supply
 		data["cart"] += list(list(
-			"object" = SO.pack_name,
+			"object" = supply_order.pack_name,
 			"cost" = order_cost,
 			"supply" = order_supply,
-			"id" = SO.id,
-			"orderer" = SO.orderer,
-			"paid" = !isnull(SO.paying_account),
+			"id" = supply_order.id,
+			"orderer" = supply_order.orderer,
+			"paid" = !isnull(supply_order.paying_account),
 			"contents" = contents_readable
 		))
 
 	data["requests"] = list()
-	for(var/datum/supply_order/SO in SSsupply.requestlist)
-		if(istype(SO, /datum/supply_order/batch))
-			var/datum/supply_order/batch/BO = SO
+	for(var/datum/supply_order/supply_order in SSsupply.requestlist)
+		if(istype(supply_order, /datum/supply_order/batch))
+			var/datum/supply_order/batch/batch_order = supply_order
 			data["requests"] += list(list(
-				"object" = BO.pack_name,
-				"cost" = BO.total_cost,
-				"orderer" = BO.orderer,
-				"reason" = BO.reason,
-				"id" = BO.id,
-				"contents" = BO.get_batch_contents_readable(),
+				"object" = batch_order.pack_name,
+				"cost" = batch_order.total_cost,
+				"orderer" = batch_order.orderer,
+				"reason" = batch_order.reason,
+				"id" = batch_order.id,
+				"contents" = batch_order.get_batch_contents_readable(),
 				"is_batch" = TRUE,
-				"crate_count" = BO.crate_count,
-				"total_items" = BO.total_items
+				"crate_count" = batch_order.crate_count,
+				"total_items" = batch_order.total_items
 			))
 			continue
 		var/list/req_contents = list()
 		var/req_cost = 0
 		var/req_supply = 0
-		if(istype(SO.pack, /datum/cargo_item))
-			var/datum/cargo_item/item = SO.pack
+		if(istype(supply_order.pack, /datum/cargo_item))
+			var/datum/cargo_item/item = supply_order.pack
 			req_contents = item.get_contents_readable()
 			req_cost = item.get_cost()
 			req_supply = item.current_supply
-		else if(istype(SO.pack, /datum/cargo_crate))
-			var/datum/cargo_crate/crate = SO.pack
+		else if(istype(supply_order.pack, /datum/cargo_crate))
+			var/datum/cargo_crate/crate = supply_order.pack
 			req_contents = crate.get_contents_readable()
 			req_cost = crate.get_cost()
 			req_supply = crate.current_supply
 		data["requests"] += list(list(
-			"object" = SO.pack_name,
+			"object" = supply_order.pack_name,
 			"cost" = req_cost,
 			"supply" = req_supply,
-			"orderer" = SO.orderer,
-			"reason" = SO.reason,
-			"id" = SO.id,
+			"orderer" = supply_order.orderer,
+			"reason" = supply_order.reason,
+			"id" = supply_order.id,
 			"contents" = req_contents
 		))
 
@@ -207,22 +207,22 @@
 		if(!product_info)
 			continue
 		var/datum/product = product_info["datum"]
-		var/p_cost = get_product_cost(product)
-		var/p_name = get_product_name(product)
-		var/p_crate_type = get_product_crate_type(product)
-		var/p_supply = get_product_supply(product)
-		var/entry_base = p_cost * quantity
+		var/product_cost = get_product_cost(product)
+		var/product_name = get_product_name(product)
+		var/product_crate_type = get_product_crate_type(product)
+		var/product_supply = get_product_supply(product)
+		var/entry_base = product_cost * quantity
 		base_cost += entry_base
 		total_items += quantity
-		temp_entries += list(list("pack" = product, "quantity" = quantity, "cost" = p_cost))
+		temp_entries += list(list("pack" = product, "quantity" = quantity, "cost" = product_cost))
 		batch_data["items"] += list(list(
 			"pack_id" = "[pack_id]",
-			"name" = p_name,
-			"cost" = p_cost,
+			"name" = product_name,
+			"cost" = product_cost,
 			"quantity" = quantity,
 			"entry_cost" = entry_base,
-			"crate_type" = get_crate_type_name(p_crate_type),
-			"supply" = p_supply
+			"crate_type" = get_crate_type_name(product_crate_type),
+			"supply" = product_supply
 		))
 
 	batch_data["base_cost"] = base_cost
@@ -231,11 +231,11 @@
 	// Calculate crate breakdown (grouped by crate type, max items per crate)
 	var/list/crate_data = calculate_batch_crates(temp_entries)
 	var/list/ui_crates = list()
-	var/crate_idx = 0
+	var/crate_index = 0
 	for(var/list/crate in crate_data)
-		crate_idx++
+		crate_index++
 		ui_crates += list(list(
-			"crate_name" = "Crate [crate_idx]: [crate["crate_name"]]",
+			"crate_name" = "Crate [crate_index]: [crate["crate_name"]]",
 			"contents" = crate["items"],
 			"count" = crate["count"],
 			"slots_used" = crate["slots_used"],
@@ -356,37 +356,37 @@
 				return
 
 			// Visibility checks
-			var/p_syndicate_contraband = FALSE
-			var/p_contraband = FALSE
-			var/p_droppod = FALSE
+			var/is_syndicate_contraband = FALSE
+			var/is_contraband = FALSE
+			var/is_droppod_only = FALSE
 			if(istype(product, /datum/cargo_item))
 				var/datum/cargo_item/item = product
-				p_syndicate_contraband = item.syndicate_contraband
-				p_contraband = item.contraband
-				p_droppod = item.DropPodOnly
+				is_syndicate_contraband = item.syndicate_contraband
+				is_contraband = item.contraband
+				is_droppod_only = item.DropPodOnly
 			else if(istype(product, /datum/cargo_crate))
 				var/datum/cargo_crate/crate = product
-				p_syndicate_contraband = crate.syndicate_contraband
-				p_contraband = crate.contraband
-				p_droppod = crate.DropPodOnly
-			if((p_syndicate_contraband && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
+				is_syndicate_contraband = crate.syndicate_contraband
+				is_contraband = crate.contraband
+				is_droppod_only = crate.DropPodOnly
+			if((is_syndicate_contraband && !(obj_flags & EMAGGED)) || (is_contraband && !contraband) || is_droppod_only)
 				return
 
 			var/name = "*None Provided*"
 			var/rank = "*None Provided*"
 			var/ckey = usr.ckey
 			if(ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				name = H.get_authentification_name()
-				rank = H.get_assignment(hand_first = TRUE)
+				var/mob/living/carbon/human/human_user = usr
+				name = human_user.get_authentification_name()
+				rank = human_user.get_assignment(hand_first = TRUE)
 			else if(issilicon(usr))
 				name = usr.real_name
 				rank = "Silicon"
 
 			var/datum/bank_account/account
 			if(self_paid && ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				var/obj/item/card/id/id_card = H.get_idcard(TRUE)
+				var/mob/living/carbon/human/human_user = usr
+				var/obj/item/card/id/id_card = human_user.get_idcard(TRUE)
 				if(!istype(id_card))
 					say("No ID card detected.")
 					return
@@ -404,11 +404,11 @@
 					to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
 					return
 
-			var/datum/supply_order/SO = new(product, name, rank, ckey, reason, account)
+			var/datum/supply_order/new_order = new(product, name, rank, ckey, reason, account)
 			if(requestonly && !self_paid)
-				SSsupply.requestlist += SO
+				SSsupply.requestlist += new_order
 			else
-				SSsupply.shoppinglist += SO
+				SSsupply.shoppinglist += new_order
 				if(self_paid)
 					say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
 			if(requestonly && message_cooldown < world.time)
@@ -417,9 +417,9 @@
 			. = TRUE
 		if("remove")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSsupply.shoppinglist)
-				if(SO.id == id)
-					SSsupply.shoppinglist -= SO
+			for(var/datum/supply_order/supply_order in SSsupply.shoppinglist)
+				if(supply_order.id == id)
+					SSsupply.shoppinglist -= supply_order
 					. = TRUE
 					break
 		if("clear")
@@ -427,17 +427,17 @@
 			. = TRUE
 		if("approve")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSsupply.requestlist)
-				if(SO.id == id)
-					SSsupply.requestlist -= SO
-					SSsupply.shoppinglist += SO
+			for(var/datum/supply_order/supply_order in SSsupply.requestlist)
+				if(supply_order.id == id)
+					SSsupply.requestlist -= supply_order
+					SSsupply.shoppinglist += supply_order
 					. = TRUE
 					break
 		if("deny")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSsupply.requestlist)
-				if(SO.id == id)
-					SSsupply.requestlist -= SO
+			for(var/datum/supply_order/supply_order in SSsupply.requestlist)
+				if(supply_order.id == id)
+					SSsupply.requestlist -= supply_order
 					. = TRUE
 					break
 		if("denyall")
@@ -465,20 +465,20 @@
 				say("Not enough stock available.")
 				return
 			// Visibility checks
-			var/p_syndicate_contraband = FALSE
-			var/p_contraband = FALSE
-			var/p_droppod = FALSE
+			var/is_syndicate_contraband = FALSE
+			var/is_contraband = FALSE
+			var/is_droppod_only = FALSE
 			if(istype(product, /datum/cargo_item))
 				var/datum/cargo_item/item = product
-				p_syndicate_contraband = item.syndicate_contraband
-				p_contraband = item.contraband
-				p_droppod = item.DropPodOnly
+				is_syndicate_contraband = item.syndicate_contraband
+				is_contraband = item.contraband
+				is_droppod_only = item.DropPodOnly
 			else if(istype(product, /datum/cargo_crate))
 				var/datum/cargo_crate/crate = product
-				p_syndicate_contraband = crate.syndicate_contraband
-				p_contraband = crate.contraband
-				p_droppod = crate.DropPodOnly
-			if((p_syndicate_contraband && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
+				is_syndicate_contraband = crate.syndicate_contraband
+				is_contraband = crate.contraband
+				is_droppod_only = crate.DropPodOnly
+			if((is_syndicate_contraband && !(obj_flags & EMAGGED)) || (is_contraband && !contraband) || is_droppod_only)
 				return
 			// Check if this pack is already in the batch, if so increment quantity
 			for(var/list/entry in batch)
@@ -531,17 +531,17 @@
 			var/rank = "*None Provided*"
 			var/ckey = usr.ckey
 			if(ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				name = H.get_authentification_name()
-				rank = H.get_assignment(hand_first = TRUE)
+				var/mob/living/carbon/human/human_user = usr
+				name = human_user.get_authentification_name()
+				rank = human_user.get_assignment(hand_first = TRUE)
 			else if(issilicon(usr))
 				name = usr.real_name
 				rank = "Silicon"
 
 			var/datum/bank_account/account
 			if(self_paid && ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				var/obj/item/card/id/id_card = H.get_idcard(TRUE)
+				var/mob/living/carbon/human/human_user = usr
+				var/obj/item/card/id/id_card = human_user.get_idcard(TRUE)
 				if(!istype(id_card))
 					say("No ID card detected.")
 					return
@@ -560,11 +560,11 @@
 					return
 
 			// Create a single batch order containing all items
-			var/datum/supply_order/batch/BO = new(batch, name, rank, ckey, reason, account, self_paid)
+			var/datum/supply_order/batch/new_batch_order = new(batch, name, rank, ckey, reason, account, self_paid)
 			if(requestonly && !self_paid)
-				SSsupply.requestlist += BO
+				SSsupply.requestlist += new_batch_order
 			else
-				SSsupply.shoppinglist += BO
+				SSsupply.shoppinglist += new_batch_order
 				if(self_paid)
 					say("Batch order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
 			if(requestonly && message_cooldown < world.time)
@@ -588,10 +588,10 @@
 /// Prints an order summary receipt at the console's location listing all pending orders.
 /// Called when the shuttle is sent home (i.e. the user confirms the shipment).
 /obj/machinery/computer/cargo/proc/print_order_summary()
-	var/turf/T = get_turf(src)
-	if(!T)
+	var/turf/console_turf = get_turf(src)
+	if(!console_turf)
 		return
-	generate_order_summary(T)
+	generate_order_summary(console_turf)
 
 /// Generates an order summary receipt paper at the given location, listing all pending supply orders.
 /// Used by cargo consoles and the budget ordering app when the shuttle is called home.
@@ -610,35 +610,35 @@
 
 	var/order_num = 0
 	var/total_cost = 0
-	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
+	for(var/datum/supply_order/supply_order in SSsupply.shoppinglist)
 		order_num++
-		if(istype(SO, /datum/supply_order/batch))
-			var/datum/supply_order/batch/BO = SO
-			text += "<b>Order [order_num] — Batch #[BO.id]</b><br/>"
-			text += "Items: [BO.total_items] across [BO.crate_count] crate\s<br/>"
-			text += "Ordered by: [BO.orderer] ([BO.orderer_rank])<br/>"
-			if(BO.paying_account)
-				text += "Paid by: [BO.paying_account.account_holder]<br/>"
-			if(BO.reason)
-				text += "Reason: [BO.reason]<br/>"
-			var/list/readable = BO.get_batch_contents_readable()
+		if(istype(supply_order, /datum/supply_order/batch))
+			var/datum/supply_order/batch/batch_order = supply_order
+			text += "<b>Order [order_num] — Batch #[batch_order.id]</b><br/>"
+			text += "Items: [batch_order.total_items] across [batch_order.crate_count] crate\s<br/>"
+			text += "Ordered by: [batch_order.orderer] ([batch_order.orderer_rank])<br/>"
+			if(batch_order.paying_account)
+				text += "Paid by: [batch_order.paying_account.account_holder]<br/>"
+			if(batch_order.reason)
+				text += "Reason: [batch_order.reason]<br/>"
+			var/list/readable = batch_order.get_batch_contents_readable()
 			if(length(readable))
 				text += "Contents:<ul>"
 				for(var/line in readable)
 					text += "<li>[line]</li>"
 				text += "</ul>"
-			text += "Est. Cost: [BO.total_cost] credits<br/>"
-			total_cost += BO.total_cost
+			text += "Est. Cost: [batch_order.total_cost] credits<br/>"
+			total_cost += batch_order.total_cost
 		else
-			text += "<b>Order [order_num] — #[SO.id]</b><br/>"
-			text += "Item: [SO.pack_name]<br/>"
-			text += "Ordered by: [SO.orderer] ([SO.orderer_rank])<br/>"
-			if(SO.paying_account)
-				text += "Paid by: [SO.paying_account.account_holder]<br/>"
-			if(SO.reason)
-				text += "Reason: [SO.reason]<br/>"
-			text += "Est. Cost: [SO.pack_cost] credits<br/>"
-			total_cost += SO.pack_cost
+			text += "<b>Order [order_num] — #[supply_order.id]</b><br/>"
+			text += "Item: [supply_order.pack_name]<br/>"
+			text += "Ordered by: [supply_order.orderer] ([supply_order.orderer_rank])<br/>"
+			if(supply_order.paying_account)
+				text += "Paid by: [supply_order.paying_account.account_holder]<br/>"
+			if(supply_order.reason)
+				text += "Reason: [supply_order.reason]<br/>"
+			text += "Est. Cost: [supply_order.pack_cost] credits<br/>"
+			total_cost += supply_order.pack_cost
 		text += "<br/>"
 
 	text += "<hr/>"

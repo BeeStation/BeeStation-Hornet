@@ -1,3 +1,43 @@
+/datum/bounty/item/alien_organs
+	name = "Alien Organs"
+	description = "Nanotrasen is interested in studying Xenomorph biology. Ship a set of organs to be thoroughly compensated."
+	reward = 25000
+	required_count = 3
+	wanted_types = list(
+		/obj/item/organ/brain/alien = TRUE,
+		/obj/item/organ/alien = TRUE,
+		/obj/item/organ/body_egg/alien_embryo = TRUE,
+		/obj/item/organ/liver/alien = TRUE,
+		/obj/item/organ/tongue/alien = TRUE,
+		/obj/item/organ/eyes/night_vision/alien = TRUE,
+	)
+
+/datum/bounty/item/syndicate_documents
+	name = "Syndicate Documents"
+	description = "Intel regarding the syndicate is highly prized at CentCom. If you find syndicate documents, ship them. You could save lives."
+	reward = 15000
+	wanted_types = list(
+		/obj/item/documents/syndicate = TRUE,
+		/obj/item/documents/photocopy = TRUE,
+	)
+
+/datum/bounty/item/syndicate_documents/applies_to(obj/O)
+	if(!..())
+		return FALSE
+	if(istype(O, /obj/item/documents/photocopy))
+		var/obj/item/documents/photocopy/Copy = O
+		return (Copy.copy_type && ispath(Copy.copy_type, /obj/item/documents/syndicate))
+	return TRUE
+
+/datum/bounty/item/adamantine
+	name = "Adamantine"
+	description = "Nanotrasen's anomalous materials division is in desparate need for Adamantine. Send them a large shipment and we'll make it worth your while."
+	reward = 35000
+	required_count = 10
+	wanted_types = list(
+		/obj/item/stack/sheet/mineral/adamantine = TRUE,
+	)
+
 /datum/bounty/more_bounties
 	name = "More Bounties"
 	description = "Complete enough bounties and CentCom will issue new ones!"

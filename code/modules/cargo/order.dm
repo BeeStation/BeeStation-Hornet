@@ -15,7 +15,7 @@
 	var/order_id = 0
 	var/errors = 0
 
-/obj/item/paper/fluff/jobs/cargo/manifest/New(atom/A, id, cost)
+/obj/item/paper/fluff/jobs/cargo/manifest/New(atom/parent, id, cost)
 	..()
 	order_id = id
 	order_cost = cost
@@ -77,14 +77,14 @@
 /proc/generate_batch_code()
 	var/num_part = rand(100, 9999)
 	var/static/list/alpha_chars = list("A","B","C","D","E","F","G","H","J","K","L","M","N","P","Q","R","S","T","U","V","W","X","Y","Z")
-	var/mid = "[pick(alpha_chars)][rand(100, 999)]"
-	var/tail = pick(alpha_chars)
-	return "#[num_part]-[mid]-[tail]"
+	var/middle_segment = "[pick(alpha_chars)][rand(100, 999)]"
+	var/tail_char = pick(alpha_chars)
+	return "#[num_part]-[middle_segment]-[tail_char]"
 
 /// Generate a shipping manifest paper placed inside a crate.
 /// This lists the crate's actual contents and is stampable.
-/datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, batch_code, crate_index, total_crates)
-	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, id, pack_cost)
+/datum/supply_order/proc/generateManifest(obj/structure/closet/crate/shipping_crate, batch_code, crate_index, total_crates)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(shipping_crate, id, pack_cost)
 
 	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
 
@@ -103,40 +103,40 @@
 		manifest_text += "Reason: [reason]<br/>"
 	manifest_text += "<br/>Contents: <br/>"
 	manifest_text += "<ul>"
-	for(var/atom/movable/AM in C.contents - manifest_paper)
+	for(var/atom/movable/content_item in shipping_crate.contents - manifest_paper)
 		if((manifest_paper.errors & MANIFEST_ERROR_CONTENTS))
 			if(prob(50))
-				manifest_text += "<li>[AM.name]</li>"
+				manifest_text += "<li>[content_item.name]</li>"
 			else
 				continue
-		manifest_text += "<li>[AM.name]</li>"
+		manifest_text += "<li>[content_item.name]</li>"
 	manifest_text += "</ul>"
 	manifest_text += "<h4>Stamp below to confirm receipt of goods:</h4>"
 
 	manifest_paper.add_raw_text(manifest_text)
 
 	if(manifest_paper.errors & MANIFEST_ERROR_ITEM)
-		if(istype(C, /obj/structure/closet/crate/secure) || istype(C, /obj/structure/closet/crate/large))
+		if(istype(shipping_crate, /obj/structure/closet/crate/secure) || istype(shipping_crate, /obj/structure/closet/crate/large))
 			manifest_paper.errors &= ~MANIFEST_ERROR_ITEM
 		else
-			var/lost = max(round(C.contents.len / 10), 1)
+			var/lost = max(round(shipping_crate.contents.len / 10), 1)
 			while(--lost >= 0)
-				qdel(pick(C.contents))
+				qdel(pick(shipping_crate.contents))
 
 	manifest_paper.update_appearance()
-	manifest_paper.forceMove(C)
+	manifest_paper.forceMove(shipping_crate)
 
-	C.manifest = manifest_paper
-	C.update_icon()
+	shipping_crate.manifest = manifest_paper
+	shipping_crate.update_icon()
 
 	return manifest_paper
 
 /// Generate a combo crate manifest for grouped small items.
-/datum/supply_order/proc/generateComboManifest(obj/structure/closet/crate/C, batch_code, crate_index, total_crates, owner, order_ids)
+/datum/supply_order/proc/generateComboManifest(obj/structure/closet/crate/shipping_crate, batch_code, crate_index, total_crates, owner, order_ids)
 	var/total_cost = 0
-	for(var/atom/movable/AM in C.contents)
+	for(var/atom/movable/content_item in shipping_crate.contents)
 		total_cost += 50 // rough per-item cost for combo crates
-	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, order_ids, total_cost)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(shipping_crate, order_ids, total_cost)
 
 	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
 
@@ -152,56 +152,56 @@
 		manifest_text += "Purchased by: [owner]<br/>"
 	manifest_text += "<br/>Contents: <br/>"
 	manifest_text += "<ul>"
-	for(var/atom/movable/AM in C.contents - manifest_paper)
+	for(var/atom/movable/content_item in shipping_crate.contents - manifest_paper)
 		if((manifest_paper.errors & MANIFEST_ERROR_CONTENTS))
 			if(prob(50))
-				manifest_text += "<li>[AM.name]</li>"
+				manifest_text += "<li>[content_item.name]</li>"
 			else
 				continue
-		manifest_text += "<li>[AM.name]</li>"
+		manifest_text += "<li>[content_item.name]</li>"
 	manifest_text += "</ul>"
 	manifest_text += "<h4>Stamp below to confirm receipt of goods:</h4>"
 
 	manifest_paper.add_raw_text(manifest_text)
 
 	if(manifest_paper.errors & MANIFEST_ERROR_ITEM)
-		if(istype(C, /obj/structure/closet/crate/secure) || istype(C, /obj/structure/closet/crate/large))
+		if(istype(shipping_crate, /obj/structure/closet/crate/secure) || istype(shipping_crate, /obj/structure/closet/crate/large))
 			manifest_paper.errors &= ~MANIFEST_ERROR_ITEM
 		else
-			var/lost = max(round(C.contents.len / 10), 1)
+			var/lost = max(round(shipping_crate.contents.len / 10), 1)
 			while(--lost >= 0)
-				qdel(pick(C.contents))
+				qdel(pick(shipping_crate.contents))
 
 	manifest_paper.update_appearance()
-	manifest_paper.forceMove(C)
+	manifest_paper.forceMove(shipping_crate)
 
-	C.manifest = manifest_paper
-	C.update_icon()
+	shipping_crate.manifest = manifest_paper
+	shipping_crate.update_icon()
 
 	return manifest_paper
 
 /// Generate the crate and its contents at the given location. Does NOT name or add manifest - that's handled by the shuttle buy proc.
-/datum/supply_order/proc/generate(atom/A)
-	var/obj/structure/closet/crate/C
+/datum/supply_order/proc/generate(atom/location)
+	var/obj/structure/closet/crate/spawned_crate
 
 	if(istype(pack, /datum/cargo_crate))
 		var/datum/cargo_crate/crate = pack
-		C = crate.generate(A, paying_account)
+		spawned_crate = crate.generate(location, paying_account)
 	else if(istype(pack, /datum/cargo_item))
 		var/datum/cargo_item/item = pack
 		// For individual items, create a crate and put the item in it
 		if(paying_account && item.can_secure)
-			C = new /obj/structure/closet/crate/secure/owned(A, paying_account)
+			spawned_crate = new /obj/structure/closet/crate/secure/owned(location, paying_account)
 		else
-			C = new item.crate_type(A)
+			spawned_crate = new item.crate_type(location)
 		if(item.access && !paying_account)
 			if(islist(item.access))
-				C.req_one_access = item.access
+				spawned_crate.req_one_access = item.access
 			else
-				C.req_one_access = list(item.access)
-		new item.item_path(C)
+				spawned_crate.req_one_access = list(item.access)
+		new item.item_path(spawned_crate)
 
-	return C
+	return spawned_crate
 
 /**
  * # Batch Supply Order
@@ -265,10 +265,10 @@
 		if(!product_info)
 			continue
 		var/datum/product = product_info["datum"]
-		var/p_cost = get_product_cost(product)
-		cost_sum += p_cost * quantity
+		var/product_cost = get_product_cost(product)
+		cost_sum += product_cost * quantity
 		item_sum += quantity
-		entries += list(list("pack" = product, "quantity" = quantity, "cost" = p_cost))
+		entries += list(list("pack" = product, "quantity" = quantity, "cost" = product_cost))
 
 	base_cost = cost_sum
 	total_items = item_sum
@@ -359,16 +359,16 @@
 /proc/get_crate_type_name(crate_type_path)
 	if(!crate_type_path)
 		return "Standard Crate"
-	var/obj/structure/closet/crate/C = crate_type_path
-	return initial(C.name)
+	var/obj/structure/closet/crate/crate_ref = crate_type_path
+	return initial(crate_ref.name)
 
 /// Get the batch deposit cost for a given crate type path.
 /// Returns the crate's custom_price (which mirrors the per-type define), falling back to BATCH_CRATE_COST_STANDARD.
 /proc/get_crate_type_cost(crate_type_path)
 	if(!crate_type_path)
 		return BATCH_CRATE_COST_STANDARD
-	var/obj/structure/closet/crate/C = crate_type_path
-	var/price = initial(C.custom_price)
+	var/obj/structure/closet/crate/crate_ref = crate_type_path
+	var/price = initial(crate_ref.custom_price)
 	return price ? price : BATCH_CRATE_COST_STANDARD
 
 /// Calculate the crate breakdown for a batch of entries.
@@ -382,16 +382,16 @@
 		var/datum/product = entry["pack"]
 		var/quantity = entry["quantity"]
 		var/crate_type = get_product_crate_type(product)
-		var/p_name = get_product_name(product)
+		var/product_name = get_product_name(product)
 		var/slots_per = get_product_crate_slots(product)
-		var/p_access = get_product_access(product)
+		var/product_access = get_product_access(product)
 		// Build a composite key from crate_type and access so items with different access go in separate crates
-		var/group_key = "[crate_type]|[p_access]"
+		var/group_key = "[crate_type]|[product_access]"
 		if(!type_groups[group_key])
-			type_groups[group_key] = list("crate_type" = crate_type, "access" = p_access, "items" = list())
+			type_groups[group_key] = list("crate_type" = crate_type, "access" = product_access, "items" = list())
 		var/list/group = type_groups[group_key]
-		for(var/i in 1 to quantity)
-			group["items"] += list(list("name" = p_name, "slots" = slots_per))
+		for(var/repeat_index in 1 to quantity)
+			group["items"] += list(list("name" = product_name, "slots" = slots_per))
 
 	// Now split each group into crates by slot capacity (BATCH_CRATE_MAX_ITEMS slots per crate)
 	var/list/crates = list()
