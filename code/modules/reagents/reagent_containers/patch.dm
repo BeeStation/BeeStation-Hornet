@@ -61,13 +61,13 @@
 /obj/item/reagent_containers/pill/patch/mixbrute
 	name = "premium brute patch"
 	desc = "Helps with brute injuries."
-	list_reagents = list(/datum/reagent/medicine/bicaridine = 20,
+	list_reagents = list(/datum/reagent/medicine/bicaridine = 10,
 						/datum/reagent/medicine/sal_acid = 10,)
 	icon_state = "bandaid_big_brute"
 
 /obj/item/reagent_containers/pill/patch/mixburn
 	name = "premium burn patch"
 	desc = "Helps with burn injuries."
-	list_reagents = list(/datum/reagent/medicine/kelotane = 20,
+	list_reagents = list(/datum/reagent/medicine/kelotane = 10,
 						/datum/reagent/medicine/oxandrolone = 10,)
 	icon_state = "bandaid_big_burn"

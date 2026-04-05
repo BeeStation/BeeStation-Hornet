@@ -290,13 +290,8 @@
 	Now, don't fret. While this is beneficial for our needs, we understand that operatives sometimes would prefer themselves to be able to have more \
 	precise control over their own total oblivion. This is why our microbomb implants come equipped with a few useful features.<br>\
 	<br>\
-	<B>Firstly, the bombs autodetonation is neutralized by atropine</B>. So, if you have atropine in your system when your heart stops beating, your implant does not automatically detonate. \
-	This is why you are equipped with an atropine autoinjector. If you see a fellow operative fall, immediately inject them with the autoinjector before they expire. If you're lucky, \
-	you'll potentially be able to recover their body for revival. Atropine also just so happens to be an incredibly powerful stablizer, so maybe use it before you fall. You might just \
-	be able to save yourself for a few seconds and keep fighting.<br>\
-	<br>\
-	<B>Secondly, the bomb can be activated posthumously</B>. There is a small onboard, low-level AI built into the microbomb. Based on a series of arbitrary factors, the bomb can still be activated \
-	despite the presence of atropine by releasing a failsafe vial of monkey blood (notoriously volatile), the timing of which is determined by the onboard AI.<br>\
+	<Br>First, the bomb can be activated posthumously</B>. There is a small onboard, low-level AI built into the microbomb. Based on a series of arbitrary factors, the bomb can still be activated \
+	 by releasing a failsafe vial of monkey blood (notoriously volatile), the timing of which is determined by the onboard AI.<br>\
 	The only factor is whether or not, and forgive me for what I'm about to write, your 'animating spirit' still resides within your body to guide the AI and activate the bomb manually.<br>\
 	Please, do not ask your fellow operatives what this means.<br>\
 	<br>\
