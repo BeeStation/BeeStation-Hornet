@@ -37298,7 +37298,7 @@
 /obj/machinery/turretid{
 	name = "AI Chamber turret control";
 	pixel_x = 32;
-	control_area = "/area/station/ai_monitored/turret_protected/aisat"
+	control_area = "/area/station/ai_monitored/turret_protected/ai"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/ai_monitored/turret_protected/ai)
@@ -99793,7 +99793,7 @@
 	pixel_y = 28;
 	name = "AI Chamber turret control";
 	pixel_x = 32;
-	control_area = "/area/station/ai_monitored/turret_protected/aisat"
+	control_area = "/area/station/ai_monitored/turret_protected/ai"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,

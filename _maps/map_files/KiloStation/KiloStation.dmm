@@ -28338,15 +28338,10 @@
 	},
 /area/station/security/execution/education)
 "jnr" = (
-/obj/machinery/power/apc{
-	areastring = "/area/station/ai_monitored/turret_protected/aisat";
-	dir = 1;
-	name = "AI Chamber APC";
-	pixel_y = 24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},

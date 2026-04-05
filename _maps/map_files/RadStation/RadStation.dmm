@@ -37850,7 +37850,7 @@
 /obj/machinery/turretid{
 	name = "AI Chamber turret control";
 	pixel_y = 32;
-	control_area = "/area/station/ai_monitored/turret_protected/aisat"
+	control_area = "/area/station/ai_monitored/turret_protected/ai"
 	},
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
@@ -57039,7 +57039,7 @@
 /obj/machinery/turretid{
 	name = "AI Chamber turret control";
 	pixel_y = -24;
-	control_area = "/area/station/ai_monitored/turret_protected/aisat";
+	control_area = "/area/station/ai_monitored/turret_protected/ai";
 	pixel_x = -29
 	},
 /obj/structure/lattice/catwalk,

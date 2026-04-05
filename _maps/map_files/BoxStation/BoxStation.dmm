@@ -3923,9 +3923,6 @@
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "bJH" = (
-/obj/machinery/power/apc/auto_name/directional/east{
-	pixel_x = 24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -3933,6 +3930,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat/service)
 "bJQ" = (
@@ -7310,9 +7308,6 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "dhT" = (
-/obj/machinery/power/apc/auto_name/directional/west{
-	pixel_x = -24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -7320,6 +7315,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat/atmos)
 "dhY" = (
@@ -20477,10 +20473,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/directional/east{
-	pixel_x = 24
-	},
 /obj/structure/chair,
+/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "hYs" = (
@@ -32757,13 +32751,11 @@
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "muK" = (
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -23
-	},
 /obj/machinery/computer/station_alert{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "muM" = (
@@ -38845,11 +38837,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/station/ai_monitored/turret_protected/aisat";
-	name = "AI Chamber APC";
-	pixel_y = -24
-	},
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_x = -11;
@@ -38858,6 +38845,7 @@
 /obj/machinery/camera/motion/directional/south{
 	c_tag = "MiniSat AI Chamber North"
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
 "oLy" = (

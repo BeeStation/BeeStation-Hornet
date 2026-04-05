@@ -20034,7 +20034,7 @@
 /area/station/medical/break_room)
 "gKO" = (
 /obj/machinery/power/apc{
-	areastring = "/area/station/ai_monitored/turret_protected/aisat";
+	areastring = "/area/station/ai_monitored/turret_protected/ai";
 	dir = 1;
 	name = "AI Chamber APC";
 	pixel_y = 24
@@ -34138,14 +34138,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/power/apc{
-	areastring = "/area/station/ai_monitored/aisat/exterior";
-	name = "MiniSat Exterior APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/light/small/directional/south,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "kXJ" = (
@@ -38045,11 +38041,6 @@
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "mjR" = (
-/obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/station/ai_monitored/turret_protected/aisat/foyer";
-	name = "MiniSat Foyer APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/camera/motion/directional/east{
 	c_tag = "MiniSat Foyer"
@@ -38060,6 +38051,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
 "mjT" = (

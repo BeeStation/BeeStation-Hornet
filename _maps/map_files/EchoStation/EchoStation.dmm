@@ -9840,7 +9840,7 @@
 /area/station/cargo/storage)
 "fDH" = (
 /obj/machinery/turretid{
-	control_area = "/area/station/ai_monitored/turret_protected/aisat";
+	control_area = "/area/station/ai_monitored/turret_protected/ai";
 	icon_state = "control_stun";
 	name = "AI Chamber turret control";
 	pixel_x = -1;
@@ -26338,7 +26338,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/turretid{
-	control_area = "/area/station/ai_monitored/turret_protected/aisat";
+	control_area = "/area/station/ai_monitored/turret_protected/ai";
 	icon_state = "control_stun";
 	name = "AI Chamber turret control";
 	pixel_x = -1;

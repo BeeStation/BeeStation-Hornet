@@ -5733,7 +5733,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/tank/internals/emergency_oxygen/empty,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "bEI" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/chair/fancy/comfy{
@@ -6179,7 +6179,7 @@
 "bLz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "bLI" = (
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/light/small{
@@ -6338,7 +6338,7 @@
 "bNV" = (
 /obj/structure/flora/rock/pile,
 /turf/closed/mineral,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "bNW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -6392,7 +6392,7 @@
 "bOz" = (
 /obj/structure/girder,
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "bOE" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/turf_decal/stripes/line,
@@ -8153,7 +8153,7 @@
 "cjk" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "cjm" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -9339,7 +9339,7 @@
 "czm" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/space,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "czn" = (
 /obj/structure/table/reinforced,
 /obj/machinery/button/door{
@@ -12516,7 +12516,7 @@
 /area/station/hallway/primary/central)
 "dpg" = (
 /turf/closed/wall,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "dpj" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -12916,7 +12916,7 @@
 /area/station/maintenance/department/medical)
 "duH" = (
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation/bomb_site)
+/area/centcom/asteroid)
 "duL" = (
 /obj/structure/sign/map/left{
 	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
@@ -13731,7 +13731,7 @@
 "dEJ" = (
 /obj/structure/lattice,
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "dEL" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -16201,7 +16201,7 @@
 /obj/item/origami/papersyndicate,
 /obj/item/toy/plush/moth/punished,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "eqX" = (
 /obj/machinery/door/airlock{
 	id_tag = "stallfood";
@@ -16883,7 +16883,7 @@
 /turf/open/floor/plating{
 	initial_gas_mix = "TEMP=2.7"
 	},
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "eAr" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow{
@@ -19146,7 +19146,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "fie" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/conveyor/inverted{
@@ -21165,7 +21165,7 @@
 /area/station/maintenance/disposal)
 "fHe" = (
 /turf/closed/mineral/random/labormineral,
-/area/centcom/asteroid/nearstation/bomb_site)
+/area/centcom/asteroid)
 "fHt" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -21420,7 +21420,7 @@
 "fMs" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/rust,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "fMy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -21682,7 +21682,7 @@
 /turf/open/floor/iron{
 	initial_gas_mix = "TEMP=2.7"
 	},
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "fPF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -23044,7 +23044,7 @@
 "gkI" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "gkM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -26096,7 +26096,7 @@
 "hbZ" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "hcb" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -30648,7 +30648,7 @@
 "iiT" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "iiU" = (
 /obj/item/screwdriver{
 	pixel_y = 5
@@ -31160,7 +31160,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/pickaxe,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "ipI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -31950,7 +31950,7 @@
 "iCb" = (
 /obj/structure/girder,
 /turf/open/space/basic,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "iCo" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
@@ -32742,7 +32742,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "iLG" = (
 /obj/machinery/atmospherics/pipe/smart/simple/pink/visible,
 /turf/open/floor/iron/techmaint,
@@ -33128,7 +33128,7 @@
 "iQK" = (
 /obj/item/sord,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "iQN" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -33156,7 +33156,7 @@
 "iQS" = (
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "iQV" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22
@@ -36807,7 +36807,7 @@
 	name = "WARNING: Station Limits"
 	},
 /turf/closed/wall/rust,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "jLN" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -39881,7 +39881,7 @@
 "kzM" = (
 /obj/effect/landmark/loneops,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "kzP" = (
 /obj/machinery/door/airlock{
 	id_tag = "AuxShower";
@@ -39980,7 +39980,7 @@
 /area/station/hallway/primary/port)
 "kAQ" = (
 /turf/closed/wall/rust,
-/area/centcom/asteroid/nearstation/bomb_site)
+/area/centcom/asteroid)
 "kAV" = (
 /obj/structure/table/wood,
 /obj/item/food/grown/flower/geranium{
@@ -40152,7 +40152,7 @@
 /area/station/ai_monitored/command/storage/eva)
 "kDh" = (
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "kDx" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron,
@@ -40232,7 +40232,7 @@
 /area/station/commons/vacant_room/office)
 "kEq" = (
 /turf/closed/mineral/random,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "kEt" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
@@ -41901,7 +41901,7 @@
 "kZK" = (
 /obj/structure/lattice,
 /turf/open/space,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "kZL" = (
 /obj/effect/turf_decal/trimline/blue/line,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -57534,7 +57534,7 @@
 "pii" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "piH" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -60873,7 +60873,7 @@
 "qcz" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "qcE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/over,
@@ -62783,7 +62783,7 @@
 "qGM" = (
 /obj/item/shard,
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "qGN" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 5
@@ -64845,7 +64845,7 @@
 /turf/open/floor/plating/rust{
 	initial_gas_mix = "TEMP=2.7"
 	},
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "riH" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -68057,7 +68057,7 @@
 /obj/structure/lattice,
 /obj/structure/grille/broken,
 /turf/open/space/basic,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "sck" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Quarters";
@@ -69678,7 +69678,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "sAg" = (
 /turf/closed/mineral,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "sAl" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -70608,7 +70608,7 @@
 /area/station/commons/cryopods)
 "sLR" = (
 /turf/closed/mineral/random/low_chance,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "sLS" = (
 /obj/effect/spawner/random/vending/colavend,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -71626,9 +71626,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/station/commons/toilet/restrooms)
-"taz" = (
-/turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid/nearstation)
 "taB" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -72795,7 +72792,7 @@
 /turf/open/floor/iron{
 	initial_gas_mix = "TEMP=2.7"
 	},
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "tqi" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -73792,7 +73789,7 @@
 "tEi" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "tEk" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -74131,7 +74128,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "tIk" = (
 /turf/closed/wall,
 /area/station/hallway/primary/starboard)
@@ -74566,7 +74563,7 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/open/space,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "tOt" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -75033,7 +75030,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "tUX" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/machinery/firealarm/directional/south,
@@ -82184,7 +82181,7 @@
 /turf/open/floor/plating/foam{
 	initial_gas_mix = "TEMP=2.7"
 	},
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "vTU" = (
 /obj/machinery/computer/prisoner/management,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -82461,7 +82458,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "vXU" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/beanbag,
@@ -85103,7 +85100,7 @@
 /obj/structure/grille,
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "wGS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -86118,7 +86115,7 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/open/space/basic,
-/area/centcom/asteroid/nearstation)
+/area/centcom/asteroid)
 "wVs" = (
 /obj/item/caution,
 /turf/open/floor/plating{
@@ -102875,10 +102872,10 @@ sAg
 sAg
 sAg
 sAg
-taz
-taz
+duH
+duH
 iiT
-taz
+duH
 sAg
 sAg
 sAg
@@ -103133,9 +103130,9 @@ sAg
 sAg
 sAg
 hbZ
-taz
+duH
 iiT
-taz
+duH
 sAg
 sAg
 sAg
@@ -103388,11 +103385,11 @@ sAg
 sAg
 sAg
 sAg
-taz
-taz
+duH
+duH
 iiT
 iiT
-taz
+duH
 sAg
 sAg
 sAg
@@ -103644,9 +103641,9 @@ sAg
 sAg
 sAg
 sAg
-taz
-taz
-taz
+duH
+duH
+duH
 iiT
 wZm
 wZm
@@ -103903,7 +103900,7 @@ sAg
 sAg
 pii
 cjk
-taz
+duH
 iiT
 wZm
 gMy
@@ -105057,7 +105054,7 @@ sAg
 sAg
 sAg
 sAg
-taz
+duH
 sAg
 sAg
 sAg
@@ -105312,10 +105309,10 @@ sAg
 sAg
 sAg
 bEC
-taz
-taz
-taz
-taz
+duH
+duH
+duH
+duH
 sAg
 sAg
 uhP
@@ -105567,12 +105564,12 @@ sAg
 sLR
 sLR
 sLR
-taz
+duH
 ipz
-taz
+duH
 gkI
-taz
-taz
+duH
+duH
 sAg
 sAg
 uhP
@@ -105822,13 +105819,13 @@ sAg
 sAg
 sAg
 sLR
-taz
-taz
-taz
+duH
+duH
+duH
 cjk
 qcz
-taz
-taz
+duH
+duH
 sAg
 sAg
 sAg
@@ -106078,11 +106075,11 @@ oml
 sAg
 sAg
 sLR
-taz
-taz
+duH
+duH
 hbZ
 sLR
-taz
+duH
 gkI
 sAg
 sAg
@@ -109808,7 +109805,7 @@ uhP
 sAg
 sAg
 sAg
-taz
+duH
 vXR
 iiT
 iiT
@@ -109817,7 +109814,7 @@ iiT
 iiT
 iiT
 fic
-taz
+duH
 sAg
 sAg
 iQK
@@ -110065,7 +110062,7 @@ ilJ
 sAg
 sAg
 sAg
-taz
+duH
 vXR
 iiT
 iiT
@@ -110074,7 +110071,7 @@ iiT
 iiT
 iiT
 fic
-taz
+duH
 sAg
 sAg
 sAg
@@ -119429,9 +119426,9 @@ ilJ
 ilJ
 ilJ
 twL
-taz
+duH
 kzM
-taz
+duH
 rOL
 tff
 bwE
