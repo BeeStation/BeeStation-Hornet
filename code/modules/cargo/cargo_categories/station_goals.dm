@@ -16,6 +16,7 @@
 	max_supply = 1
 	special = TRUE
 	access_budget = ACCESS_HEADS
+	crate_type = /obj/structure/closet/crate/science
 	contains = list(
 		/obj/item/circuitboard/machine/bsa/front,
 		/obj/item/circuitboard/machine/bsa/middle,
@@ -31,6 +32,7 @@
 	max_supply = 1
 	special = TRUE
 	access_budget = ACCESS_HEADS
+	crate_type = /obj/structure/closet/crate/science
 	contains = list(
 		/obj/item/circuitboard/machine/dna_vault,
 		/obj/item/dna_probe,
@@ -46,6 +48,7 @@
 	max_supply = 4
 	special = TRUE
 	access_budget = ACCESS_HEADS
+	crate_type = /obj/structure/closet/crate/science
 	contains = list(
 		/obj/item/dna_probe,
 		/obj/item/dna_probe,
@@ -61,6 +64,7 @@
 	cost = 15000
 	max_supply = 1
 	special = TRUE
+	crate_type = /obj/structure/closet/crate/science
 	contains = list(
 		/obj/item/circuitboard/machine/bluespace_tap,
 		/obj/item/paper/bluespace_tap,
