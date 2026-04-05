@@ -20,7 +20,7 @@
 	desc = "A neosilk clip-on tie."
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bluetie"
-	item_state = ""	//no inhands
+	inhand_icon_state = ""	//no inhands
 	worn_icon = 'icons/mob/clothing/neck.dmi'
 	worn_icon_state = "bluetie"
 	w_class = WEIGHT_CLASS_SMALL
@@ -223,7 +223,11 @@
 	var/tagname = null
 
 /obj/item/clothing/neck/petcollar/attack_self(mob/user)
-	tagname = stripped_input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot", MAX_NAME_LEN)
+	tagname = sanitize_name(tgui_input_text(user, "Would you like to change the name on the tag?", "Pet Naming", "Spot", MAX_NAME_LEN))
+	if (!tagname || !length(tagname))
+		name = initial(name)
+		tagname = null
+		return
 	name = "[initial(name)] - [tagname]"
 
 //////////////

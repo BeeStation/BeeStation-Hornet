@@ -1,7 +1,7 @@
 /// Status effects that can stack.
 /datum/status_effect/stacking
-	id = "stacking_base"
-	duration = -1 // Only removed under specific conditions.
+	id = STATUS_EFFECT_ID_ABSTRACT
+	duration = STATUS_EFFECT_PERMANENT // Only removed under specific conditions.
 	tick_interval = 1 SECONDS // Deciseconds between decays, once decay starts
 	alert_type = null
 	/// How many stacks are currently accumulated.
@@ -74,7 +74,7 @@
 /datum/status_effect/stacking/proc/can_gain_stacks()
 	return owner.stat != DEAD
 
-/datum/status_effect/stacking/tick()
+/datum/status_effect/stacking/tick(seconds_between_ticks)
 	if(!can_have_status())
 		qdel(src)
 	else

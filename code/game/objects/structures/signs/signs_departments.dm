@@ -117,6 +117,11 @@
 	desc = "A sign labelling the atmospherics division of the station. Making Comrade Dyatlov proud since April 26th, 1981."
 	icon_state = "minskyatmo"
 
+/obj/structure/sign/departments/minsky/medical/emt/emt1
+	name = "Paramedic Department"
+	desc = "A sign labelling the paramedic department of the station. First responders to all medical emergencies."
+	icon_state = "minskyemt"
+
 /obj/structure/sign/departments/minsky/medical/medical1
 	name = "Medical Department"
 	desc = "A sign labelling the medical department of the station. You'll probably get treatment here."

@@ -147,7 +147,7 @@
 	max_integrity = 400
 
 /turf/closed/wall/mineral/plasma/attackby(obj/item/attacking_item, mob/user, params)
-	if(attacking_item.is_hot() > 300 && plasma_ignition(6))//If the temperature of the object is over 300, then ignite
+	if(attacking_item.get_temperature() > 300 && plasma_ignition(6))//If the temperature of the object is over 300, then ignite
 		new /obj/structure/girder/displaced(loc)
 	return ..()
 
@@ -180,7 +180,7 @@
 	damage_deflection = 0
 
 /turf/closed/wall/mineral/wood/attackby(obj/item/W, mob/user)
-	if(W.is_sharp() && W.force)
+	if(W.get_sharpness() && W.force)
 		var/duration = (48/W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.

@@ -46,7 +46,7 @@
 /atom/movable/openspace/singularity_act()
 	return
 
-/atom/movable/openspace/singularity_pull()
+/atom/movable/openspace/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/openspace/attackby(obj/item/W, mob/user, params)
@@ -59,6 +59,7 @@
 	return
 
 /atom/movable/openspace/mech_melee_attack(obj/vehicle/sealed/mecha/M)
+	..()
 	return 0
 
 /atom/movable/openspace/blob_act(obj/structure/blob/B)
@@ -73,7 +74,7 @@
 /atom/movable/openspace/ex_act(severity, target)
 	return
 
-/atom/movable/openspace/singularity_pull()
+/atom/movable/openspace/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/openspace/singularity_act()

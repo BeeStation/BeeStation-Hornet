@@ -1,0 +1,205 @@
+2026-02-01:
+  Rukofamicom:
+  - bugfix: Bolas work as previously reported and intended again, applying a slowdown
+      and temporary status effect on hit and no longer requiring players to stand
+      still in order to remove them.
+  mrmanlikesbt, SmArtKar:
+  - bugfix: fixed viewport runtimes
+  - bugfix: fixed delayed viewport fitting when connecting to the server
+  rkz, Shaps/Ryll, ShizCalev, JohnFulpWillard, Melbert, Jacquerel, FernandoJ8, Fluffles:
+  - refactor: ears now follow the same damage/healing operations as every other organ
+  - refactor: life() optimization
+  - bugfix: Cyborg flashes will no longer fail to drop from the heads of borgs.
+  - bugfix: Butchering a bodypart for it's organs while inside a locker will no longer
+      drop the organs /outside/ the locker.
+  - code_imp: adds species-related unit tests for clothing and hands
+  - bugfix: It should be way harder to lose your special hands as a zombie or shattered
+      risen ghoul.
+  - refactor: Refactored mutanthands for zombies and shattered risen.
+  - bugfix: Changing species no longer drops all held items
+  - bugfix: fixes Losing your right hand not un-cuffing you or dropping your gloves
+  rkz, mothblocks:
+  - code_imp: moved death() to mob/living/, up from mob/
+  rkz, spookydonut:
+  - code_imp: traitifies spacewalking
+2026-02-02:
+  BotTierPC:
+  - rscdel: Removes outdated PodPerson Guide
+  mrmanlikesbt:
+  - bugfix: Fixed several sprites having broken overlays and icons
+  - bugfix: Fixed randomized accents not applying an accent. If your character starts
+      speaking strangely, check to see if you have the accent quirk.
+  - spellcheck: Fixed a typo in the accent quirk gain/remove text
+  - bugfix: Fixed the active sonar MOD runtiming on use
+2026-02-03:
+  mrmanlikesbt:
+  - bugfix: Fixed the masculine hat clipping inside of the wearer
+  - bugfix: Fixed the elongated masculine hat not being elongated
+2026-02-04:
+  Rukofamicom:
+  - rscdel: Removed haloperidol from expanded cyborg hypospray
+2026-02-05:
+  ClownMoff:
+  - tweak: Remade MetaStation service area
+  Isaac:
+  - balance: Super energy chainsaw damage reduced to 45, roughly fully kills you in
+      5 hits, 3 to crit
+  - balance: Energy Shield Module HP reduced to 30
+  - bugfix: Chainsaws turn themselves off when dropped on the ground, preventing cases
+      where the damage was reset to 0 when dropped
+2026-02-06:
+  Rukofamicom:
+  - bugfix: fixed humanoid slime race from xenobiology not inheriting oozeling traits
+      properly.
+  mrmanlikesbt:
+  - bugfix: Fixed living creatures being exempt from the spam filter
+  - bugfix: Speaking near multiple active radios will no longer trigger the spam filter
+      and auto-mute you
+2026-02-07:
+  r1ks-iwnl:
+  - bugfix: Fixed megafauna legion sprite offset being wrong.
+  - bugfix: Fixed megafauna legion going invisible.
+  - bugfix: Fixed megafauna legion splitting into 3 instead of 2 in rare cases.
+  - balance: The mentioned invisibility fix also means that the Legion will have slightly
+      more health than before upon splitting but only in the cases where it gets overkilled.
+2026-02-11:
+  rkz, Fikou, Thunder12345:
+  - rscadd: adds suicide act for carp plushies
+  - rscadd: GAGs carp and snake plushies. They now can be in different colors.
+  - tweak: dehydrated carps can transform when exposed to any reagent
+  - tweak: dehydrated carps have a 25% chance to spawn a cayenne plushy, which will
+      spawn cayenne when rehydrated.
+  - tweak: Cayenne will spawn as the rare Albino/Silver carp, rather than randomized
+      colors
+  - balance: Cayenne has been buffed to have health just slightly above half of what
+      spacedragon carps have, and a movespeed similiar to humans.
+2026-02-12:
+  mrmanlikesbt:
+  - refactor: Reebe is now a virtual z-level, what this really means is that clock
+      cult will load instantly now and you can no longer tell that it has been picked
+      from a delayed roundstart.
+  - balance: Removed the 0.5x TTV bombcap from Reebe
+2026-02-13:
+  BotTierPC, MrMan, WhiskeyMarten:
+  - tweak: Fixed All Access not having access to service doors by default
+  SirYoshimoto:
+  - bugfix: fixed shipping containers not having any solidness, decreases integrity
+      to 500
+  mrmanlikesbt, Seris02, ninjanomnom, LemonInTheDark:
+  - code_imp: Replaced most color values with their defines from the colors file
+  - refactor: Implements rgb2num()
+  - refactor: Gas visuals send less data to clients now, increasing performance
+  rkz, melbert, kriskog:
+  - bugfix: fixes blindness persisting past removal and re-insertion of eyes
+  - refactor: Drowsiness and Blurred Eyes are now tracked via status effect.
+  - refactor: Drugginess is now a status effect. Now any living mob can be high and
+      speak beach-bum instead of just carbons and humanoids. Drug effects should also
+      be more consistently removed on aheal / in rare cases.
+  - admin: Admin basic disease trigger and custom disease renaming should now work
+      properly.
+2026-02-14:
+  r1ks-iwnl:
+  - tweak: PKA, KC, resonators and plasma cutters are now fireproof.
+  - bugfix: Fixes confusion fully randomizing movement every time
+  - bugfix: Fixes dizziness offsetting your screen improperly
+2026-02-16:
+  EvilDragonfiend:
+  - bugfix: Captain now can write a manuscript of Research Director - it was missing.
+2026-02-19:
+  mrmanlikesbt:
+  - bugfix: Player keybinds are now sanitized. What this really means is that people
+      who played before combat-mode no longer cause 2 runtimes every time they press
+      1.
+  ? mrmanlikesbt, LemonInTheDark, mc-oofert, MrMelbert, Kylerace, Ben10Omintrix, Jacquerel,
+    ninjanomnom, vinylspiders, Mothblocks, Hatterhat, Kapu1178, JohnFulpWillard, Iamgoofball,
+    DATA-xPUNGED, Absolucy, SmArtKar, grungussuss, lelandkemble, san7890, Arkatos1
+  : - refactor: Refactored basic mob AI code
+    - refactor: Refactored mice to be basic mobs instead of simple animals
+    - rscadd: Feeding a mouse cheese will attract MORE MICE
+    - rscadd: Mice can now play music on synthesizers
+    - rscadd: Mice can now be tamed
+    - code_imp: Renamed "/datum/targetting_datum" to "/datum/targeting_strategy"
+    - code_imp: Refactored mob incapacitation to use a cached incapacitated state
+        instead of recomputing every time it's used
+    - spellcheck: Replaced all instances of "targetting" with "targeting"
+2026-02-20:
+  r1ks-iwnl:
+  - balance: Maintenance pumpup pen spawn rate has been heavily reduced.
+2026-02-22:
+  mrmanlikesbt:
+  - bugfix: Fixed there being no dynamic storytellers (the testmerge version define
+      was still active)
+  mrmanlikesbt, Absolucy, SyncIt21:
+  - code_imp: Subtypes of [/obj/item/storage] no longer delete their base storage
+      datum, instead, the base storage datum isn't made in the first place. This saves
+      ~0.1 seconds of init time
+  - code_imp: Material storage boxes now make use of the amount argument when initializing
+      stacks. This saves ~0.1 seconds of init time when they are present
+  - bugfix: Fixed item stacks sometimes having a zero amount
+  rkz, Azlan/SomeAngryMiner, Baystation Coders:
+  - rscadd: SMES are now emissive
+  - rscadd: PACMAN generators now have thermodynamics, animations, emit smoke when
+      overheated, and the uranium one now does special radiating
+  rkz, Mothblocks, VinylSpiders, Melbert, Jacquerel:
+  - bugfix: cryocells/medbots will no longer attempt to endlessly heal carbons with
+      robotic limbs
+  - refactor: fixed many instances of updatehealth() either being called needlessly
+      or not at all within on_mob_life() and in various other parts of the code
+  - refactor: damage procs now return useful information--the actual net change in
+      damage on the mob. added a unit test for this
+  - bugfix: Regenerating mobs no longer stop regenerating no matter hit with what.
+  - bugfix: Pressure damage is now properly modified by a mob's brute damage modifier.
+  - bugfix: Fixes some occasions which some effects (explodable worn items) won't
+      respond to hits.
+  - refactor: Refactored core code related to mobs sustaining damage.
+  - bugfix: Fixes holy water exiting your system at double the rate on metabolism
+  - bugfix: Holy Water no longer spams cultists with big text every time, it's much
+      more tame now
+  - refactor: Refactored zombies to use the regenerator component. Now they'll have
+      a slight glow/animation when the regeneration actually kicks in.
+  rkz, ghommie, colovorat, winter:
+  - tweak: lclick with batons will stun, rclick with them will harm
+  - rscdel: removes snowflakey stunbaton shoves (rclick)
+  - balance: implements code to prevent dual-wielding bypassing baton click cooldown
+  - refactor: all batontypes now are typed under the same parent
+  - tweak: TENTATIVE, all batons obey the same click cooldown code
+  - bugfix: reagents that were supposed to provide resistance to stunning hits for
+      the past 6 years by batons now actually do so
+  - rscadd: being electrocuted will forcesay the mob, much like glorfing
+  - rscadd: batons now produce light when on, about the same as a cigarette
+  - rscadd: batons will now flicker between off/on when emp'd, rather than a base
+      cell charge reduction
+2026-02-23:
+  Isaac, Sunshine214:
+  - rscadd: Constructs now drop their soulstone upon death instead of fully dying
+  - rscadd: Cult Golem shells accept soulstones that transfer a soul into them, giving
+      them special abilities
+  - rscadd: Cult Golems drop their soulstone upon death
+  - rscadd: Ability to transfer soulstones into soulless and dead bodies,  both regular
+      and purified soulstones
+  - rscadd: Cult Golem shells can be made in the altar structure or in your hands
+      with 10 runed metal
+  - rscdel: You can no longer make cult golems via xenobiology, they can only be acquired
+      by blood cultists
+  - balance: Nerfs the Cult Golem Jaunt, reducing their cooldown in return
+  r1ks-iwnl:
+  - bugfix: Fixed mining scanner not showing ore past line of sight
+2026-02-24:
+  mrmanlikesbt:
+  - bugfix: Fixed AI core construction being able to make infinite AIs
+2026-02-25:
+  mrmanlikesbt:
+  - bugfix: Fixed dynamic sometimes picking humans for malfunctioning AI
+  rkz, Absolucy, san7890:
+  - server: standardized CI to use ubuntu-24.04, rather than a mix of latest and 22.04
+  - server: adds error message to hook install
+2026-02-26:
+  r1ks-iwnl:
+  - bugfix: Fixes sarin poisoning through gloves.
+2026-02-28:
+  r1ks-iwnl:
+  - bugfix: Fixes binary vitals jumpsuit sensor option
+  - bugfix: Fixes crew monitor status icons showing incorrectly
+  r1ks-iwnl, lessthnthree:
+  - tweak: Supermatter surge will happen only with a Chief Engineer or 2 other engineering
+      staff present.

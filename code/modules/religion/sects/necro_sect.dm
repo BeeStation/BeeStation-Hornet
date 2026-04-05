@@ -116,7 +116,7 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/cult/blood/long(altar_turf)
 	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+	var/datum/poll_config/config = new(
 		question = "Do you wish to be resurrected as a Holy Summoned Undead?",
 		check_jobban = ROLE_HOLY_SUMMONED,
 		poll_time = 10 SECONDS,
@@ -124,7 +124,9 @@
 		jump_target = religious_tool,
 		role_name_text = "holy summoned undead",
 		alert_pic = /mob/living/carbon/human/species/skeleton,
+		amount_to_pick = 1,
 	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		to_chat(user, span_warning("The soul pool is empty..."))
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
@@ -149,7 +151,7 @@
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
-		B.item_state = GLOB.bible_item_state
+		B.inhand_icon_state = GLOB.bible_inhand_icon_state
 		to_chat(undead, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		undead.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
 		GLOB.religious_sect?.on_conversion(undead)

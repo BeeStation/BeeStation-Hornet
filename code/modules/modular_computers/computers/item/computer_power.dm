@@ -127,7 +127,7 @@
 		if(H.enabled)
 			power_usage += H.power_usage
 
-	if (active_program)
+	if (active_program && length(computer_users) > 0)
 		power_usage += active_program.power_consumption
 
 	return power_usage * power_usage_multiplier

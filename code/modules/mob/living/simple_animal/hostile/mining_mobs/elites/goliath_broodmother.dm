@@ -35,7 +35,7 @@
 	move_to_delay = 5
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mouse_opacity = MOUSE_OPACITY_ICON
-	deathmessage = "explodes into gore!"
+	death_message = "explodes into gore!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 
 	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
@@ -132,13 +132,13 @@
 	ranged_cooldown = world.time + 70
 	playsound(src,'sound/spookoween/insane_low_laugh.ogg', 200, 1)
 	visible_message(span_warning("[src] starts picking up speed!"))
-	color = "#FF0000"
+	color = COLOR_RED
 	set_varspeed(0)
 	move_to_delay = 3
 	addtimer(CALLBACK(src, PROC_REF(reset_rage)), 65)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/reset_rage()
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 	set_varspeed(2)
 	move_to_delay = 5
 
@@ -176,7 +176,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	butcher_results = list()
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1)
-	deathmessage = "falls to the ground."
+	death_message = "falls to the ground."
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
 

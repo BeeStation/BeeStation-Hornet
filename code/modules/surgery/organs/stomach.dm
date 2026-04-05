@@ -55,20 +55,20 @@
 		var/pukeprob = 2.5 + (0.025 * disgust)
 		if(disgust >= DISGUST_LEVEL_GROSS)
 			if(DT_PROB(5, delta_time))
-				disgusted.stuttering += 1
-				disgusted.confused += 2
+				disgusted.adjust_stutter(2 SECONDS)
+				disgusted.adjust_confusion(2 SECONDS)
 			if(DT_PROB(5, delta_time) && !disgusted.stat)
 				to_chat(disgusted, span_warning("You feel kind of iffy..."))
 			disgusted.adjust_jitter(-6 SECONDS)
 		if(disgust >= DISGUST_LEVEL_VERYGROSS)
 			if(DT_PROB(pukeprob, delta_time)) //iT hAndLeS mOrE ThaN PukInG
-				disgusted.confused += 2.5
-				disgusted.stuttering += 1
+				disgusted.adjust_confusion(2.5 SECONDS)
+				disgusted.adjust_stutter(2 SECONDS)
 				disgusted.vomit(10, 0, 1, 0, 1, 0)
-			disgusted.Dizzy(5)
+			disgusted.set_dizzy_if_lower(10 SECONDS)
 		if(disgust >= DISGUST_LEVEL_DISGUSTED)
 			if(DT_PROB(13, delta_time))
-				disgusted.blur_eyes(3) //We need to add more shit down here
+				disgusted.set_eye_blur_if_lower(6 SECONDS) //We need to add more shit down here
 
 		disgusted.adjust_disgust(-0.25 * disgust_metabolism * delta_time)
 
@@ -165,8 +165,7 @@
 	attack_verb_continuous = list("assault and batteries")
 	attack_verb_simple = list("assault and battery")
 	desc = "A micro-cell, for IPC use. Do not swallow."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	max_charge = 2750 //50 nutrition from 250 charge
 	charge = 2750
 
@@ -205,7 +204,7 @@
 	name = "cybernetic stomach"
 	icon_state = "stomach-c"
 	desc = "A basic device designed to mimic the functions of a human stomach"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 
 /obj/item/organ/stomach/cybernetic/upgraded

@@ -16,7 +16,7 @@
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && ishuman(user)) // Give them a visual blush effect if they're human
+	if(ishuman(user)) // Give them a visual blush effect if they're human
 		var/mob/living/carbon/human/human_user = user
 		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
 		human_user.update_body()
@@ -97,26 +97,23 @@
 	message_larva = "lets out a sickly hiss of air and falls limply to the floor"
 	message_monkey = "lets out a faint chimper as it collapses and stops moving"
 	message_ipc = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off"
-	message_simple =  "stops moving"
+	message_animal_or_basic = "stops moving"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE | EMOTE_IMPORTANT
 	cooldown = (7.5 SECONDS)
 	stat_allowed = HARD_CRIT
 
 /datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
-	var/mob/living/simple_animal/S = user
-	if(istype(S) && S.deathmessage)
-		message_simple = S.deathmessage
+	var/custom_message = user.death_message
+	if(custom_message)
+		message_animal_or_basic = custom_message
 	. = ..()
-	message_simple = initial(message_simple)
-	if(!user.can_speak_vocal() || user.getOxyLoss() >= 50)
+	message_animal_or_basic = initial(message_animal_or_basic)
+	if(!user.can_speak() || user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
-	var/mob/living/carbon/carbon_user = user
-	// For masks that give unique death sounds
-	if(istype(carbon_user) && isclothing(carbon_user.wear_mask) && carbon_user.wear_mask.unique_death)
-		playsound(carbon_user, carbon_user.wear_mask.unique_death, 200, TRUE, TRUE)
+	if (SEND_SIGNAL(user, COMSIG_MOB_DEATHGASP, params, type_override, intentional) & COMSIG_MOB_CANCEL_DEATHGASP_SOUND)
 		return
-	if(user.deathsound)
-		playsound(user, user.deathsound, 200, TRUE, TRUE)
+	if(user.death_sound)
+		playsound(user, user.death_sound, 200, TRUE, TRUE)
 
 /datum/emote/living/drool
 	key = "drool"
@@ -233,16 +230,15 @@
 	vary = TRUE
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
-	. = ..()
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		return !C.silent
+	return ..() && user.can_speak(allow_mimes = TRUE)
 
 /datum/emote/living/laugh/get_sound(mob/living/user)
-	if(!iscarbon(user) || user.mind?.miming)
+	if(!iscarbon(user))
 		return
-	var/mob/living/carbon/H = user
-	return H.dna?.species?.get_laugh_sound(H)
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
+		return
+	var/mob/living/carbon/carbon_user = user
+	return carbon_user.dna?.species?.get_laugh_sound(carbon_user)
 
 /datum/emote/living/look
 	key = "look"
@@ -490,7 +486,7 @@
 	if(QDELETED(user))
 		return FALSE
 
-	if(user.client && user.client.player_details.muted & MUTE_IC)
+	if(user.client && (user.client.player_details.muted & MUTE_IC))
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 
@@ -672,7 +668,7 @@
 	message_robot = "makes a crude thumbs up with their 'hands'"
 	message_AI = "flashes a quick hologram of a thumbs up"
 	message_ipc = "flashes a thumbs up icon"
-	message_simple = "attempts a thumbs up"
+	message_animal_or_basic = "attempts a thumbs up"
 	message_param = "flashes a thumbs up at %t"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE
@@ -684,7 +680,7 @@
 	message_robot = "makes a crude thumbs down with their 'hands'"
 	message_AI = "flashes a quick hologram of a thumbs down"
 	message_ipc = "flashes a thumbs down icon"
-	message_simple = "attempts a thumbs down"
+	message_animal_or_basic = "attempts a thumbs down"
 	message_param = "flashes a thumbs down at %t"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE

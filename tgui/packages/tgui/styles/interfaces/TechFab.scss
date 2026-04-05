@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @use '../base.scss';
 @use '../colors.scss';
 @use '../functions.scss' as *;
@@ -39,8 +41,8 @@ $bg-map: colors.$bg-map !default;
   border-image: linear-gradient(
       to right,
       colors.$grey 10%,
-      adjust-color(colors.$grey, $alpha: -1) 40%,
-      adjust-color(colors.$grey, $alpha: -1) 60%,
+      color.adjust(colors.$grey, $alpha: -1) 40%,
+      color.adjust(colors.$grey, $alpha: -1) 60%,
       colors.$grey 90%
     )
     30;

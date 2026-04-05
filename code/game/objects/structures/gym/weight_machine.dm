@@ -8,6 +8,7 @@
 	buckle_lying = 0
 	density = TRUE
 	anchored = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/mutable_appearance/overlay
 	var/weight_type = /obj/item/barbell/stacklifting
 
@@ -134,7 +135,7 @@
 	icon_state = "barbell"
 	lefthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 16
 	throwforce = 16
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY

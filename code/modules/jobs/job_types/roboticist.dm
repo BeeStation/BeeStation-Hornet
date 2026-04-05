@@ -11,7 +11,7 @@
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/roboticist
-
+	mind_traits = list(TRAIT_KNOW_ROBO_WIRES)
 
 	base_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING,
 						ACCESS_MECH_MEDICAL, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
@@ -33,6 +33,11 @@
 		/area/medical/morgue,
 		/area/science/robotics,
 		/area/storage/tech
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_ROBOTICIST,
+		JOB_NAME_MEDICALDOCTOR // because they have a surgery bed in the robotics for some reason...
 	)
 
 /datum/outfit/job/roboticist

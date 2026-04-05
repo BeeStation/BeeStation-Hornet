@@ -599,7 +599,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bT" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bU" = (
@@ -614,7 +614,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron{
 	dir = 9
 	},

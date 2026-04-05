@@ -488,6 +488,8 @@
 		SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
 		if(isnull(SSticker.admin_delay_notice))
 			return
+		if(SSticker.reboot_timer)
+			SSticker.cancel_reboot(usr)
 		for(var/client/admin in GLOB.admins)
 			if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel && SSticker.current_state == GAME_STATE_FINISHED)
 				admin.tgui_panel.give_br_popup()
@@ -517,7 +519,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/datum/admins/proc/spawn_atom()
+/datum/admins/proc/spawn_atom(input as null|text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
@@ -525,7 +527,9 @@
 	if(!check_rights(R_SPAWN))
 		return
 
-	var/chosen = pick_closest_path(tgui_input_text(usr, "Spawn an atom:", "Spawn"))
+	if (!input)
+		input = tgui_input_text(usr, "Spawn an atom:", "Spawn")
+	var/chosen = pick_closest_path(input)
 	if(!chosen)
 		return
 	var/turf/T = get_turf(usr)
@@ -722,16 +726,15 @@
 			qdel(C)
 	return kicked_client_names
 
-//returns 1 to let the dragdrop code know we are trapping this event
-//returns 0 if we don't plan to trap the event
+//returns TRUE to let the dragdrop code know we are trapping this event
+//returns FALSE if we don't plan to trap the event
 /datum/admins/proc/cmd_ghost_drag(mob/dead/observer/frommob, mob/tomob)
-
 	//this is the exact two check rights checks required to edit a ckey with vv.
-	if (!check_rights(R_VAREDIT,0) || !check_rights(R_SPAWN|R_DEBUG,0))
-		return 0
+	if (!check_rights(R_VAREDIT, FALSE) || !check_rights(R_SPAWN|R_DEBUG, FALSE))
+		return FALSE
 
 	if (!frommob.ckey)
-		return 0
+		return FALSE
 
 	var/question = ""
 	if (tomob.ckey)
@@ -740,10 +743,10 @@
 
 	var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
 	if (ask != "Yes")
-		return 1
+		return TRUE
 
 	if (!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
-		return 1
+		return TRUE
 
 	tomob.ghostize(FALSE)
 
@@ -754,24 +757,26 @@
 	tomob.ckey = frommob.ckey
 	qdel(frommob)
 
-	return 1
+	return TRUE
 
-/client/proc/adminGreet(logout)
-	if(SSticker.HasRoundStarted())
-		var/string
-		if(logout && CONFIG_GET(flag/announce_admin_logout))
-			string = pick(
-				"Admin logout: [key_name(src)]")
-		else if(!logout && CONFIG_GET(flag/announce_admin_login))
-			string = pick(
-				"Admin login: [key_name(src)]")
-		if(string)
-			message_admins("[string]")
+/// Sends a message to adminchat when anyone with a holder logs in or logs out.
+/// Is dependent on admin preferences and configuration settings, which means that this proc can fire without sending a message.
+/client/proc/admin_greet(logout = FALSE)
+	if(!SSticker.HasRoundStarted())
+		return
+
+	if(logout && CONFIG_GET(flag/announce_admin_logout))
+		message_admins("Admin logout: [key_name(src)]")
+		return
+
+	if(!logout && CONFIG_GET(flag/announce_admin_login))
+		message_admins("Admin login: [key_name(src)]")
+		return
 
 ///Plays a sound to all admins who have that preference on, with the var being the sound filepath
 /proc/play_sound_to_all_admins(sound = null)
 	if(isnull(sound))
 		return
-	for(var/client/C as anything in GLOB.admins)
-		if(C.prefs.read_player_preference(/datum/preference/toggle/sound_adminalert))
-			SEND_SOUND(C, sound)
+	for(var/client/admin as anything in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/sound_adminalert))
+			SEND_SOUND(admin, sound)

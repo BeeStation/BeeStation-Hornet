@@ -556,7 +556,7 @@
 	animate(src, alpha = 0, time = 30)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 30)
 
-/obj/structure/closet/decay/open(mob/living/user)
+/obj/structure/closet/decay/open(mob/living/user, force, special_effects)
 	. = ..()
 	if(.)
 		if(icon_state == magic_icon) //check if we used the magic icon at all before giving it the lesser magic icon
@@ -669,15 +669,16 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+	var/datum/poll_config/config = new(
 		question = poll_message,
 		check_jobban = ban_key,
 		poll_time = 10 SECONDS,
-		checked_target = M,
 		jump_target = M,
 		role_name_text = "ghost possession",
 		alert_pic = M,
+		amount_to_pick = 1,
 	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, M)
 	if(M.stat == DEAD)//boo.
 		return
 	if(candidate)
@@ -830,7 +831,7 @@
 	if(isliving(target))
 		var/mob/living/target_mob = target
 		target_mob.fire_stacks += 5 //One stop drop and roll can put this out, two if it spreads during the knockdown
-		target_mob.IgniteMob()
+		target_mob.ignite_mob()
 
 	explosion(
 		target_turf,
@@ -874,7 +875,7 @@
 	knockdown = 50
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
-	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 	ignored_factions = list("cult")
 	range = 15
 	speed = 7

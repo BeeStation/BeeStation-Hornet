@@ -179,7 +179,7 @@ GLOBAL_PROTECT(exp_to_update)
 
 		play_records[EXP_TYPE_LIVING] = minutes
 
-		process_ten_minute_living()
+		inc_metabalance(METACOIN_TENMINUTELIVING_REWARD, FALSE)
 
 	// Lobby surfing? /mob/dead/new_player? Not worth any exp!
 	else

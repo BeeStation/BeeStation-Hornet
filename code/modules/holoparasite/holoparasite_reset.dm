@@ -48,13 +48,15 @@
 	if(being_reset)
 		return
 	being_reset = TRUE
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+	var/datum/poll_config/config = new(
 		check_jobban = ROLE_HOLOPARASITE,
 		poll_time = 30 SECONDS,
 		jump_target = src,
 		role_name_text = "[summoner.name]'s [real_name], a [theme.name]",
 		alert_pic = /mob/living/simple_animal/hostile/holoparasite,
+		amount_to_pick = 1,
 	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	being_reset = FALSE
 	if(!candidate)
 		to_chat(summoner.current, span_holoparasitebold("[color_name] could not be reset, as there were no eligible candidate personalities willing to take over!"))

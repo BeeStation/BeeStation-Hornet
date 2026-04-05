@@ -9,9 +9,11 @@
 	active_power_usage = 300 WATT // This is overriden while giving power
 	circuit = /obj/item/circuitboard/machine/recharger
 	pass_flags = PASSTABLE
+	/// The item currently inserted into the charger
 	var/obj/item/charging = null
-	var/recharge_coeff = 1
-
+	/// How good the capacitor is at charging the item
+	var/recharge_coeff = 2
+	/// List of items that can be recharged
 	var/static/list/allowed_devices = typecacheof(list(
 		/obj/item/gun/energy,
 		/obj/item/melee/baton,
@@ -21,8 +23,8 @@
 	))
 
 /obj/machinery/recharger/RefreshParts()
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_coeff = C.rating
+	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
+		recharge_coeff = capacitor.rating * 2
 
 /obj/machinery/recharger/examine(mob/user)
 	. = ..()
@@ -38,12 +40,12 @@
 		. += span_notice("The status display reads:")
 		. += span_notice("- Current recharge coefficient: <b>[recharge_coeff]</b>.")
 		if(charging)
-			var/obj/item/stock_parts/cell/C = charging.get_cell()
+			var/obj/item/stock_parts/cell/cell = charging.get_cell()
 			if (istype(charging, /obj/item/ammo_box/magazine/recharge))
 				var/obj/item/ammo_box/magazine/recharge/magazine = charging
 				. += span_notice("- \The [charging]'s cell is at <b>[magazine.ammo_count() / magazine.max_ammo * 100]%</b>.")
-			else if(C)
-				. += span_notice("- \The [charging]'s cell is at <b>[C.percent()]%</b>.")
+			else if(cell)
+				. += span_notice("- \The [charging]'s cell is at <b>[cell.percent()]%</b>.")
 			else
 				. += span_notice("- \The [charging] has no power cell installed.")
 
@@ -157,18 +159,17 @@
 	. = ..()
 	if (. & EMP_PROTECT_CONTENTS)
 		return
-	if(!(machine_stat & (NOPOWER|BROKEN)) && anchored)
-		if(istype(charging,  /obj/item/gun/energy))
-			var/obj/item/gun/energy/E = charging
-			if(E.cell)
-				E.cell.emp_act(severity)
+	if((machine_stat & (NOPOWER|BROKEN)) || !anchored)
+		return
+	if(istype(charging,  /obj/item/gun/energy))
+		var/obj/item/gun/energy/E = charging
+		if(E.cell)
+			E.cell.emp_act(severity)
 
-		else if(istype(charging, /obj/item/melee/baton))
-			var/obj/item/melee/baton/B = charging
-			if(B.cell)
-				B.cell.charge = 0
-
-
+	else if(istype(charging, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/batong = charging
+		if(batong.cell)
+			batong.cell.charge = 0
 
 /obj/machinery/recharger/update_overlays()
 	. = ..()

@@ -3,10 +3,10 @@
 	desc = "You are a firestarter!"
 	icon = 'icons/obj/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
-	item_state = "flamethrower_0"
+	inhand_icon_state = "flamethrower_0"
 	lefthand_file = 'icons/mob/inhands/weapons/flamethrower_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/flamethrower_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 3
 	throwforce = 10
 	var/acti_sound = 'sound/items/welderactivate.ogg'
@@ -56,7 +56,7 @@
 
 
 /obj/item/flamethrower/update_icon_state()
-	item_state = "flamethrower_[lit]"
+	inhand_icon_state = "flamethrower_[lit]"
 	return ..()
 
 /obj/item/flamethrower/update_overlays()

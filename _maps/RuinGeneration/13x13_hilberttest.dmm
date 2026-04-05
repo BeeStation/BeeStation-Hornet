@@ -93,7 +93,7 @@
 /area/ruin/unpowered)
 "K" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},

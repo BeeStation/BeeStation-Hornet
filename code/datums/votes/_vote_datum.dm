@@ -106,13 +106,16 @@
  *
  * Return a string - the text displayed to the world when the vote is initiated.
  */
-/datum/vote/proc/initiate_vote(initiator, duration)
+/datum/vote/proc/initiate_vote(initiator, duration, anonymous)
 	SHOULD_CALL_PARENT(TRUE)
 
 	started_time = world.time
 	time_remaining = round(duration / 10)
 
-	return "[contains_vote_in_name ? "[capitalize(name)]" : "[capitalize(name)] vote"] started by [initiator || "Central Command"]."
+	var/to_display = "[contains_vote_in_name ? "[capitalize(name)]" : "[capitalize(name)] vote"] started by"
+	if(anonymous)
+		message_admins("[to_display] [initiator].")
+	return "[to_display] [anonymous ? "Anonymous" : initiator || "Central Command"]."
 
 /**
  * Gets the result of the vote.

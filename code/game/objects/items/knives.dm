@@ -5,10 +5,10 @@
 	icon_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
-	item_state = "knife"
+	inhand_icon_state = "knife"
 	worn_icon_state = "knife"
 	desc = "The original knife, it is said that all other knives are only copies of this one."
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 14
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
@@ -41,12 +41,12 @@
 	set_butchering()
 
 /obj/item/knife/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES))
+	if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) || user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
-		return eyestab(M,user)
-	else
-		return ..()
+		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
+			return TRUE
+	return ..()
 
 ///Adds the butchering component, used to override stats for special cases
 /obj/item/knife/proc/set_butchering()
@@ -70,9 +70,8 @@
 /obj/item/knife/butcher
 	name = "butcher's cleaver"
 	icon_state = "butch"
-	item_state = "butch"
+	inhand_icon_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown by-products."
-	flags_1 = CONDUCT_1
 	force = 15
 	throwforce = 10
 	custom_materials = list(/datum/material/iron=18000)
@@ -85,7 +84,7 @@
 /obj/item/knife/hunting
 	name = "hunting knife"
 	desc = "Despite its name, it's mainly used for cutting meat from dead prey rather than actual hunting."
-	item_state = "huntingknife"
+	inhand_icon_state = "huntingknife"
 	icon_state = "huntingknife"
 	icon = 'icons/obj/knives.dmi'
 
@@ -181,13 +180,14 @@
 
 /obj/item/knife/combat/bone
 	name = "bone dagger"
-	item_state = "bone_dagger"
+	inhand_icon_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	icon = 'icons/obj/knives.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
 	embedding = list("pain_mult" = 4, "embed_chance" = 35, "fall_chance" = 10, "armour_block" = 40)
+	obj_flags = parent_type::obj_flags & ~CONDUCTS_ELECTRICITY
 	force = 15
 	armour_penetration = 50
 	throwforce = 15
@@ -202,9 +202,10 @@
 /obj/item/knife/shiv
 	name = "glass shiv"
 	desc = "A crude knife fashioned by wrapping some cable around a glass shard. It looks like it could be thrown with some force.. and stick. Good to throw at someone chasing you"
+	obj_flags = parent_type::obj_flags & ~CONDUCTS_ELECTRICITY
 	icon = 'icons/obj/knives.dmi'
 	icon_state = "shank"
-	item_state = "shank"
+	inhand_icon_state = "shank"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 8 // 3 more than base glass shard
@@ -223,7 +224,7 @@
 /obj/item/knife/shiv/carrot
 	name = "carrot shiv"
 	icon_state = "carrotshiv"
-	item_state = "carrotshiv"
+	inhand_icon_state = "carrotshiv"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "Unlike other carrots, you should probably keep this far away from your eyes."

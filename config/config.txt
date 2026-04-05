@@ -227,7 +227,7 @@ DEFAULT_NO_VOTE
 ## 0 = Cannot respawn (default)
 ## 1 = Can respawn
 ## 2 = Can respawn if choosing a different character
-ALLOW_RESPAWN 2
+ALLOW_RESPAWN 0
 
 ## Respawn delay(in deciseconds), which doesn't allow to return to lobby, default 5 minutes
 RESPAWN_DELAY 3000
@@ -605,17 +605,14 @@ CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 #REDIRECT_ADDRESS byond://golden.beestation13.com:7777
 
 ### Autotransfer Settings
-## Uncomment to enable shuttle autotransfer
+## Uncomment to enable players globally to vote when the shuttle is called
 VOTE_AUTOTRANSFER_ENABLED
 
-## Percentage of votes required to call shuttle before decay is applied, value 0-1.
-AUTOTRANSFER_PERCENTAGE 0.7
+## Amount of time between votes to leave, starting at one hour into the round
+VOTE_AUTOTRANSFER_INTERVAL 12000
 
-## Time until decay starts to reduce the required percentage of votes to leave (In deciseconds)
-AUTOTRANSFER_DECAY_START 24000
-
-## How much is subtracted from the percentage above every time the vote ticks (ticks are every five minutes)
-AUTOTRANSFER_DECAY_AMOUNT 0.025
+## Hard limit on round length if enabled
+VOTE_AUTOTRANSFER_OVERRIDE 144000
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 600

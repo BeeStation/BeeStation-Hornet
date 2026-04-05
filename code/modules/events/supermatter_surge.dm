@@ -28,7 +28,7 @@
 	typepath = /datum/round_event/supermatter_surge
 	weight = 15
 	max_occurrences = 1
-	earliest_start = 20 MINUTES
+	earliest_start = 60 MINUTES
 
 /datum/round_event_control/supermatter_surge/canSpawnEvent(players_amt)
 	. = ..()
@@ -38,6 +38,8 @@
 	if(isnull(GLOB.main_supermatter_engine))
 		return FALSE
 	if(GLOB.main_supermatter_engine.get_status() == SUPERMATTER_INACTIVE)
+		return FALSE
+	if(!SSjob.has_minimum_jobs(crew_threshold = 2, jobs = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN), head_jobs = list(JOB_NAME_CHIEFENGINEER)))
 		return FALSE
 
 /datum/round_event/supermatter_surge

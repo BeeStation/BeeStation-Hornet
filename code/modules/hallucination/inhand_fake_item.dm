@@ -16,7 +16,7 @@
 
 	// These slots are human only, + they have to have a uniform
 	var/mob/living/carbon/human/human_hallucinator = hallucinator
-	if(istype(hallucinator) && human_hallucinator.w_uniform)
+	if(istype(human_hallucinator) && human_hallucinator.w_uniform)
 		if((valid_slots & ITEM_SLOT_BELT) && !human_hallucinator.belt)
 			slots_free[ui_belt] = ITEM_SLOT_BELT
 		if((valid_slots & ITEM_SLOT_LPOCKET) && !human_hallucinator.l_store)
@@ -113,7 +113,7 @@
 	name = "mirage"
 	plane = ABOVE_HUD_PLANE
 	interaction_flags_item = NONE
-	item_flags = ABSTRACT | DROPDEL | EXAMINE_SKIP | HAND_ITEM | NOBLUDGEON // Most of these flags don't matter, but better safe than sorry
+	item_flags = ABSTRACT | DROPDEL | HAND_ITEM | NOBLUDGEON // Most of these flags don't matter, but better safe than sorry
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// The hallucination that created us.
 	var/datum/hallucination/parent
@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/hallucinated)
 	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(parent_deleting))
 	src.parent = parent
 
-	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+	add_traits(list(TRAIT_NODROP, TRAIT_EXAMINE_SKIP), INNATE_TRAIT)
 
 /obj/item/hallucinated/Destroy(force)
 	UnregisterSignal(parent, COMSIG_QDELETING)

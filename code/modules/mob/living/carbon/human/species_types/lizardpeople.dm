@@ -3,15 +3,12 @@
 	name = "\improper Lizardperson"
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
-	bodyflag = FLAG_LIZARD
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
 		LIPS
 	)
-	inherent_traits = list(
-		TRAIT_TACKLING_TAILED_DEFENDER
-	)
+	inherent_traits = list()
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
 	mutant_bodyparts = list(
 		"tail_lizard" = "Smooth",
@@ -24,6 +21,7 @@
 		"body_size" = "Normal"
 	)
 	mutanttongue = /obj/item/organ/tongue/lizard
+	mutantbrain = /obj/item/organ/brain/lizard
 	mutant_organs = list(/obj/item/organ/tail/lizard)
 	coldmod = 1.5
 	heatmod = 0.67
@@ -56,16 +54,6 @@
 /// Lizards are cold blooded and do not stabilize body temperature naturally
 /datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)
 	return
-
-/datum/species/lizard/random_name(gender, unique, lastname, attempts)
-	if(gender == MALE)
-		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
-	else
-		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, null, ++attempts)
 
 //I wag in death
 /datum/species/lizard/spec_death(gibbed, mob/living/carbon/human/H)
@@ -125,10 +113,11 @@
 	)
 	inherent_traits = list(
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_VIRUSIMMUNE
-		)
+		TRAIT_VIRUSIMMUNE,
+	)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
+	mutantbrain = /obj/item/organ/brain/primitive
 	digitigrade_customization = DIGITIGRADE_FORCED
 
 /datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)

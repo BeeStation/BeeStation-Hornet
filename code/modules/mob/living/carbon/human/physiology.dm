@@ -24,7 +24,10 @@
 	/// Multiplier to damage taken from low temperature exposure, stacking with the toxin modifier
 	var/cold_mod = 1
 
-	var/damage_resistance = 0 // %damage reduction from all sources
+	/// Flat damage reduction from taking damage
+	/// Unlike the other modifiers, this is not a multiplier.
+	/// IE: DR of 10 = 10% less damage.
+	var/damage_resistance = 0
 
 	var/siemens_coeff = 1 	// resistance to shocks
 

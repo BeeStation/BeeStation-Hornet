@@ -13,7 +13,7 @@
 
 /datum/action/breathe
 	name = "Inhale"
-	icon_icon = 'icons/hud/actions/actions_hive.dmi'
+	button_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "add"									//Feel free to replace
 	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/emote/next_emote = "inhale"
@@ -55,14 +55,14 @@
 	RegisterSignal(parent, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(check_added_organ))
 	RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(check_removed_organ))
 	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(restart))
-	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(pause))
+	RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(pause))
 
 /datum/component/manual_breathing/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOB_EMOTE)
 	UnregisterSignal(parent, COMSIG_CARBON_GAIN_ORGAN)
 	UnregisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN)
 	UnregisterSignal(parent, COMSIG_LIVING_REVIVE)
-	UnregisterSignal(parent, COMSIG_MOB_DEATH)
+	UnregisterSignal(parent, COMSIG_LIVING_DEATH)
 
 /datum/component/manual_breathing/proc/restart()
 	SIGNAL_HANDLER

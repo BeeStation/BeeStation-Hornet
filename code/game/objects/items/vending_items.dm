@@ -7,11 +7,11 @@
 
 	icon = 'icons/obj/vending_restock.dmi'
 	icon_state = "refill_snack"
-	item_state = "restock_unit"
+	inhand_icon_state = "restock_unit"
 	desc = "A vending machine restock cart."
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 7
 	throwforce = 10
 	throw_speed = 1

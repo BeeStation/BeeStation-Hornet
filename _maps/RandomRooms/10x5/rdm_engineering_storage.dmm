@@ -22,7 +22,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
@@ -83,7 +83,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
-/obj/effect/spawner/lootdrop/techstorage/engineering,
+/obj/effect/spawner/random/techstorage/engineering_all,
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (

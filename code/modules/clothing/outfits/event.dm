@@ -12,8 +12,8 @@
 	box = /obj/item/storage/box/survival/engineer
 	backpack_contents = list(/obj/item/a_gift/anything = 5)
 
-/datum/outfit/santa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/santa/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 	H.fully_replace_character_name(H.real_name, "Santa Claus")
 	if(H.mind)
@@ -22,6 +22,6 @@
 
 	H.hair_style = "Long Hair 3"
 	H.facial_hair_style = "Beard (Full)"
-	H.hair_color = "FFF"
-	H.facial_hair_color = "FFF"
+	H.hair_color = COLOR_WHITE
+	H.facial_hair_color = COLOR_WHITE
 	H.update_hair()

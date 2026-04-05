@@ -9,7 +9,7 @@
 	///When two of these are on a same tile or do we need to merge them into just one?
 	var/mergeable_decal = TRUE
 	//var/beauty = 0
-	///The type of cleaning required to clean the decal, CLEAN_TYPE_LIGHT_DECAL can be cleaned with mops and soap, CLEAN_TYPE_HARD_DECAL can be cleaned by soap, see __DEFINES/cleaning.dm for the others
+	///The type of cleaning required to clean the decal. See __DEFINES/cleaning.dm for the options
 	var/clean_type = CLEAN_TYPE_LIGHT_DECAL
 	///The reagent this decal holds. Leave blank for none.
 	var/datum/reagent/decal_reagent
@@ -65,11 +65,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable)
 			if(!reagents.total_volume) //scooped up all of it
 				qdel(src)
 				return
-	if(W.is_hot()) //todo: make heating a reagent holder proc
+	if(W.get_temperature()) //todo: make heating a reagent holder proc
 		if(istype(W, /obj/item/clothing/mask/cigarette))
 			return
 		else
-			var/hotness = W.is_hot()
+			var/hotness = W.get_temperature()
 			reagents.expose_temperature(hotness)
 			to_chat(user, span_notice("You heat [name] with [W]!"))
 	else

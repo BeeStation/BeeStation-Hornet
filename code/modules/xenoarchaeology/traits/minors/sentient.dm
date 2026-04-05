@@ -41,15 +41,16 @@
 		sentience.key = M.ckey
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate()
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+	var/datum/poll_config/config = new(
 		question = "Do you want to play as the maleviolent force inside the [component_parent?.parent]?",
 		check_jobban = ROLE_SENTIENT_XENOARTIFACT,
 		poll_time = 10 SECONDS,
-		checked_target = component_parent?.parent,
 		jump_target = component_parent?.parent,
 		role_name_text = "[component_parent?.parent]",
 		alert_pic = component_parent?.parent,
+		amount_to_pick = 1,
 	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = component_parent?.parent)
 	if(candidate && component_parent?.parent)
 		if(istype(candidate) && candidate.ckey)
 			setup_sentience(candidate.ckey)
@@ -129,7 +130,7 @@
 	cast_range = 1
 	cooldown_time = 0 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_transmit"
 	background_icon_state = "bg_heretic"
 	///Ref to the artifact we're handling

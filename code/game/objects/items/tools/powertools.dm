@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25) //done for balance reasons, making them high value for research, but harder to get
 	armor_type = /datum/armor/item_powertool
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
 	//Forgot to set your tool?
@@ -55,7 +55,7 @@
 	name = "hand drill"
 	desc = "A simple powered hand drill. It's fitted with a screw bit."
 	icon_state = "drill"
-	item_state = "drill"
+	inhand_icon_state = "drill"
 	worn_icon_state = "drill"
 
 	force = 8 //might or might not be too high, subject to change
@@ -86,7 +86,7 @@
 	desc = "A set of jaws of life, compressed through the magic of science. It's fitted with a prying head."
 	usesound = 'sound/items/jaws_pry.ogg'
 	icon_state = "jaws"
-	item_state = "jawsoflife"
+	inhand_icon_state = "jawsoflife"
 	worn_icon_state = "jawsoflife"
 
 	force = 15

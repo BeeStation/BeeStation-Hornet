@@ -3,7 +3,7 @@
 	desc = "A box of latex gloves, useful for quick cleanup after surgery."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "latex_glove_box"
-	item_state = "deliverypackage"
+	inhand_icon_state = "deliverypackage"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	throwforce = 0
@@ -21,7 +21,7 @@
 /obj/item/glove_box/MouseDrop(atom/over_object)
 	. = ..()
 	var/mob/living/M = usr
-	if(!istype(M) || M.incapacitated() || !Adjacent(M))
+	if(!istype(M) || M.incapacitated || !Adjacent(M))
 		return
 
 	if(over_object == M)

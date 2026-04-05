@@ -29,7 +29,7 @@
 	faction = list(FACTION_SKELETON)
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	deathmessage = "collapses into a pile of bones!"
+	death_message = "collapses into a pile of bones!"
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
 
@@ -47,10 +47,10 @@
 	icon_dead = "eskimo_dead"
 	maxHealth = 55
 	health = 55
-	weather_immunities = list("snow")
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 	gold_core_spawnable = NO_SPAWN
 	melee_damage = 20
-	deathmessage = "collapses into a pile of bones, its gear falling to the floor!"
+	death_message = "collapses into a pile of bones, its gear falling to the floor!"
 	loot = list(/obj/effect/decal/remains/human,
 				/obj/item/spear,
 				/obj/item/clothing/shoes/winterboots,
@@ -65,7 +65,7 @@
 	icon_dead = "templar_dead"
 	maxHealth = 150
 	health = 150
-	weather_immunities = list("snow")
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 	speed = 2
 	gold_core_spawnable = NO_SPAWN
 	speak_chance = 1
@@ -73,7 +73,7 @@
 	force_threshold = 10 //trying to simulate actually having armor
 	obj_damage = 50
 	melee_damage = 30
-	deathmessage = "collapses into a pile of bones, its gear clanging as it hits the ground!"
+	death_message = "collapses into a pile of bones, its gear clanging as it hits the ground!"
 	loot = list(/obj/effect/decal/remains/human,
 				/obj/item/clothing/suit/chaplainsuit/armor/templar,
 				/obj/item/clothing/head/helmet/chaplain,
@@ -85,7 +85,7 @@
 	speed = 5
 	maxHealth = 75
 	health = 75
-	weather_immunities = list("snow")
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 	color = rgb(114,228,250)
 	loot = list(/obj/effect/decal/remains/human{color = rgb(114,228,250)})
 
@@ -102,7 +102,7 @@
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
-	deathmessage = "collapses into a pile of bones, their suit dissolving among the plasma!"
+	death_message = "collapses into a pile of bones, their suit dissolving among the plasma!"
 	loot = list(/obj/effect/decal/remains/plasma)
 
 /mob/living/simple_animal/hostile/skeleton/plasmaminer/jackhammer

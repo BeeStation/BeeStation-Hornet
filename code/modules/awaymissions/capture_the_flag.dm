@@ -11,7 +11,7 @@
 	name = "banner"
 	icon = 'icons/obj/banner.dmi'
 	icon_state = "banner"
-	item_state = "banner"
+	inhand_icon_state = "banner"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	desc = "A banner with Nanotrasen's logo on it."
@@ -103,7 +103,7 @@
 /obj/item/ctf/red
 	name = "red flag"
 	icon_state = "banner-red"
-	item_state = "banner-red"
+	inhand_icon_state = "banner-red"
 	desc = "A red banner used to play capture the flag."
 	team = RED_TEAM
 	reset_path = /obj/effect/ctf/flag_reset/red
@@ -112,7 +112,7 @@
 /obj/item/ctf/blue
 	name = "blue flag"
 	icon_state = "banner-blue"
-	item_state = "banner-blue"
+	inhand_icon_state = "banner-blue"
 	desc = "A blue banner used to play capture the flag."
 	team = BLUE_TEAM
 	reset_path = /obj/effect/ctf/flag_reset/blue
@@ -430,10 +430,9 @@
 	ctf_enabled = FALSE
 	arena_reset = FALSE
 	var/area/A = get_area(src)
-	for(var/i in GLOB.mob_list)
-		var/mob/M = i
-		if((get_area(A) == A) && (M.ckey in team_members))
-			M.dust()
+	for(var/mob/living/competitor as anything in GLOB.mob_living_list)
+		if((get_area(A) == A) && (competitor.ckey in team_members))
+			competitor.dust()
 	team_members.Cut()
 	spawned_mobs.Cut()
 	recently_dead_ckeys.Cut()
@@ -574,8 +573,8 @@
 	r_pocket = /obj/item/ammo_box/magazine/recharge/ctf
 	r_hand = /obj/item/gun/ballistic/automatic/laser/ctf
 
-/datum/outfit/ctf/post_equip(mob/living/carbon/human/H, visualsOnly=FALSE)
-	if(visualsOnly)
+/datum/outfit/ctf/post_equip(mob/living/carbon/human/H, visuals_only=FALSE)
+	if(visuals_only)
 		return
 	var/list/no_drops = list()
 	var/obj/item/card/id/W = H.wear_id

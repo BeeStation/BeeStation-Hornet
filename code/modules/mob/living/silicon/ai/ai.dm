@@ -112,6 +112,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
 	. = ..()
+	AddElement(/datum/element/trackable)
 	add_sensors()
 	if(!target_ai) //If there is no player/brain inside.
 		new/obj/structure/AIcore/deactivated(loc) //New empty terminal.
@@ -235,9 +236,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
 
-/mob/living/silicon/ai/IgniteMob()
-	fire_stacks = 0
-	. = ..()
+/mob/living/silicon/ai/ignite_mob(silent)
+	return FALSE
 
 /mob/living/silicon/ai/proc/set_core_display_icon(input, client/C)
 	if(client && !C)
@@ -251,7 +251,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/verb/pick_icon()
 	set category = "AI Commands"
 	set name = "Set AI Core Display"
-	if(incapacitated())
+	if(incapacitated)
 		return
 	icon = initial(icon)
 	icon_state = "ai"
@@ -269,7 +269,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	view_core()
 	var/ai_core_icon = show_radial_menu(src, src , iconstates, radius = 42)
 
-	if(!ai_core_icon || incapacitated())
+	if(!ai_core_icon || incapacitated)
 		return
 
 	display_icon_override = ai_core_icon
@@ -313,7 +313,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	var/reason = input(src, "What is the nature of your emergency? ([CALL_SHUTTLE_REASON_LENGTH] characters required.)", "Confirm Shuttle Call") as null|text
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	if(trim(reason))
@@ -364,6 +364,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 					"Wipe Core", "No", "No", "Yes") != "Yes")
 		return
 
+	// Offer special roles to ghosts and pause processing while we do
+	// Copy and paste from cryopod.dm since delegates are practically unusable in
+	// byond.
+	var/highest_leave = ANTAGONIST_LEAVE_DESPAWN
+	for (var/datum/antagonist/antagonist_datum in mind.antag_datums)
+		highest_leave = max(highest_leave, antagonist_datum.leave_behaviour)
+	switch (highest_leave)
+		if (ANTAGONIST_LEAVE_DESPAWN)
+			INVOKE_ASYNC(src, PROC_REF(leave_game), src)
+		if (ANTAGONIST_LEAVE_OFFER)
+			INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), src)
+		if (ANTAGONIST_LEAVE_KEEP)
+			INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), src)
+
+/mob/living/silicon/ai/proc/wipe()
 	// We warned you.
 	var/obj/structure/AIcore/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
@@ -383,6 +398,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	SEND_SIGNAL(mind, COMSIG_MIND_CRYOED)
 	QDEL_NULL(src)
 
+/mob/living/silicon/ai/proc/persistent_offer_to_ghosts()
+	ghostize(FALSE)
+	offer_control_persistently(src)
+
+/mob/living/silicon/ai/proc/offering_to_ghosts()
+	ghostize(FALSE)
+	if(!offer_control(src))
+		wipe()
+
+/mob/living/silicon/ai/proc/leave_game()
+	wipe()
+
 /mob/living/silicon/ai/verb/toggle_anchor()
 	set category = "AI Commands"
 	set name = "Toggle Floor Bolts"
@@ -390,7 +417,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		return // stop
 	if(stat)
 		return
-	if(incapacitated())
+	if(incapacitated)
 		if(battery < 50)
 			to_chat(src, span_warning("Insufficient backup power!"))
 			return
@@ -423,14 +450,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(usr != src)
 		return
 
-	if(href_list["emergencyAPC"]) //This check comes before incapacitated() because the only time it would be useful is when we have no power.
+	if(href_list["emergencyAPC"]) //This check comes before incapacitated because the only time it would be useful is when we have no power.
 		if(!apc_override)
 			to_chat(src, span_notice("APC backdoor is no longer available."))
 			return
 		apc_override.ui_interact(src)
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	if (href_list["mach_close"])
@@ -584,7 +611,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	set desc = "Change the default hologram available to AI to something else."
 	set category = "AI Commands"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	var/mob/user = src
 	var/input
@@ -709,7 +736,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	set desc = "Allows you to change settings of your radio."
 	set category = "AI Commands"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	to_chat(src, "Accessing Subspace Transceiver control...")
@@ -725,7 +752,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	set desc = "Modify the default radio setting for your automatic announcements."
 	set category = "AI Commands"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	set_autosay()
 
@@ -985,6 +1012,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
+		apc.set_hacked_hud()
+		apc.flicker_hacked_icon()
 		log_message("hacked APC [apc] at [AREACOORD(turf)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, TRUE, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
@@ -994,7 +1023,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	set category = "AI Commands"
 	set name = "Deploy to Shell"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	if(control_disabled)
 		to_chat(src, span_warning("Wireless networking module is offline."))
@@ -1034,7 +1063,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /datum/action/innate/deploy_shell
 	name = "Deploy to AI Shell"
 	desc = "Wirelessly control a specialized cyborg shell."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
 /datum/action/innate/deploy_shell/on_activate(mob/user, atom/target)
@@ -1046,7 +1075,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /datum/action/innate/deploy_last_shell
 	name = "Reconnect to shell"
 	desc = "Reconnect to the most recently used AI shell."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
@@ -1117,7 +1146,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 	set name = "Adjust Camera Zoom"
 	set desc = "Change the zoom of your builtin camera."
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	if(isnull(aicamera))
 		to_chat(usr, span_warning("You don't have a built-in camera!"))

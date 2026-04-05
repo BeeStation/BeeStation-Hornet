@@ -3,12 +3,12 @@
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofnothing"
-	item_state = "staff"
+	inhand_icon_state = "staff"
 	//WE ALREADY HAVE LEFTHAND AND RIGHTHAND FILES HERE
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	fire_sound = 'sound/weapons/emitter.ogg'
-	flags_1 =  CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_BULKY
 	var/antimagic_flags = MAGIC_RESISTANCE
 	var/max_charges = 6

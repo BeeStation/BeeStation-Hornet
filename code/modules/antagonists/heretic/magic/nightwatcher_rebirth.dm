@@ -4,7 +4,7 @@
 		healing you for each victim drained. Those in critical condition \
 		will have the last of their vitality drained, killing them."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "smoke"
 
 	school = SCHOOL_FORBIDDEN
@@ -15,7 +15,7 @@
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 /datum/action/spell/aoe/fiery_rebirth/on_cast(mob/living/carbon/human/user, atom/target)
-	user.ExtinguishMob()
+	user.extinguish_mob()
 	return ..()
 
 /datum/action/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
@@ -45,11 +45,14 @@
 	victim.apply_damage(20, BURN)
 
 	// Heal the caster for every victim damaged
-	caster.adjustBruteLoss(-10, FALSE)
-	caster.adjustFireLoss(-10, FALSE)
-	caster.adjustToxLoss(-10, FALSE)
-	caster.adjustOxyLoss(-10, FALSE)
-	caster.adjustStaminaLoss(-10)
+	var/need_mob_update = FALSE
+	need_mob_update += caster.adjustBruteLoss(-10, updating_health = FALSE)
+	need_mob_update += caster.adjustFireLoss(-10, updating_health = FALSE)
+	need_mob_update += caster.adjustToxLoss(-10, updating_health = FALSE)
+	need_mob_update += caster.adjustOxyLoss(-10, updating_health = FALSE)
+	need_mob_update += caster.adjustStaminaLoss(-10, updating_stamina = FALSE)
+	if(need_mob_update)
+		caster.updatehealth()
 
 /obj/effect/temp_visual/eldritch_smoke
 	icon = 'icons/effects/eldritch.dmi'

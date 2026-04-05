@@ -9,12 +9,11 @@
 	icon_state = "mimite"
 	icon_living = "mimite"
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	combat_mode = TRUE
 	melee_damage = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	deathmessage = "splatters into a pile of black gunk!"
+	death_message = "splatters into a pile of black gunk!"
 	del_on_death = TRUE
 
 	speed = 3
@@ -78,6 +77,7 @@
 	I.alpha = 200
 	I.appearance_flags = RESET_ALPHA
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/mimites, "hudcultist", I)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/mimite/examine(mob/user)
 	if(morphed && replicate && venthunt)

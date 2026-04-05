@@ -27,12 +27,12 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+	var/datum/poll_config/config = new(
 		check_jobban = ROLE_FUGITIVE,
-		poll_time = 30 SECONDS,
 		role_name_text = "fugitive",
 		alert_pic = /obj/item/clothing/mask/gas/tiki_mask,
 	)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/result = spawn_fugitives(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
@@ -101,13 +101,14 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 /proc/spawn_hunters()
 	set waitfor = FALSE
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
-	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+	var/datum/poll_config/config = new(
 		question = "The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?",
 		check_jobban = ROLE_FUGITIVE_HUNTER,
 		poll_time = 15 SECONDS,
 		role_name_text = backstory.name,
 		alert_pic = /obj/item/melee/baton,
 	)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)

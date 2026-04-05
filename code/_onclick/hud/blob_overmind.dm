@@ -154,60 +154,49 @@
 	..()
 	var/atom/movable/screen/using
 
-	blobpwrdisplay = new /atom/movable/screen()
+	blobpwrdisplay = new /atom/movable/screen(null, src)
 	blobpwrdisplay.name = "blob power"
 	blobpwrdisplay.icon_state = "block"
 	blobpwrdisplay.screen_loc = ui_health
 	blobpwrdisplay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blobpwrdisplay.plane = ABOVE_HUD_PLANE
-	blobpwrdisplay.hud = src
 	infodisplay += blobpwrdisplay
 
-	healths = new /atom/movable/screen/healths/blob()
-	healths.hud = src
+	healths = new /atom/movable/screen/healths/blob(null, src)
 	infodisplay += healths
 
-	using = new /atom/movable/screen/blob/BlobHelp()
+	using = new /atom/movable/screen/blob/BlobHelp(null, src)
 	using.screen_loc = "WEST:6,NORTH:-3"
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/JumpToNode()
+	using = new /atom/movable/screen/blob/JumpToNode(null, src)
 	using.screen_loc = ui_inventory
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/JumpToCore()
+	using = new /atom/movable/screen/blob/JumpToCore(null, src)
 	using.screen_loc = ui_zonesel
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/blobbernaut()
+	using = new /atom/movable/screen/blob/blobbernaut(null, src)
 	using.screen_loc = ui_belt
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/resource_blob()
+	using = new /atom/movable/screen/blob/resource_blob(null, src)
 	using.screen_loc = ui_back
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/node_blob()
+	using = new /atom/movable/screen/blob/node_blob(null, src)
 	using.screen_loc = ui_hand_position(2)
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/factory_blob()
+	using = new /atom/movable/screen/blob/factory_blob(null, src)
 	using.screen_loc = ui_hand_position(1)
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/readapt_strain()
+	using = new /atom/movable/screen/blob/readapt_strain(null, src)
 	using.screen_loc = ui_storage1
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/relocate_core()
+	using = new /atom/movable/screen/blob/relocate_core(null, src)
 	using.screen_loc = ui_storage2
-	using.hud = src
 	static_inventory += using

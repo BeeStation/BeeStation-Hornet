@@ -14,7 +14,6 @@
 	butcher_results = list(/obj/item/food/breadslice/plain = 2)
 	melee_damage = 10
 	attack_sound = 'sound/weapons/bite.ogg'
-	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 150
 	maxbodytemp = 500
@@ -25,6 +24,10 @@
 	var/stability = 30
 	chat_color = "#CAA25B"
 	mobchatspan = "blob"
+
+/mob/living/simple_animal/hostile/breadloaf/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/breadloaf/teleport_act()
 	. = ..()

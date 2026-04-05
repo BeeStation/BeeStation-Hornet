@@ -19,7 +19,7 @@
 /turf/open/floor/mineral/bananium,
 /area/template_noop)
 "e" = (
-/obj/effect/spawner/lootdrop/clowntrap,
+/obj/effect/spawner/random/unsorted/trap/clowntrap,
 /turf/open/floor/mineral/bananium,
 /area/template_noop)
 "f" = (

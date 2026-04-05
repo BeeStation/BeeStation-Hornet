@@ -1,6 +1,6 @@
 /datum/vote/storyteller_vote
 	name = "Storyteller"
-	default_message = "Vote for dynamic's storyteller. This is the configuration dynamic will use."
+	default_message = "Vote for dynamic's configuration."
 	count_method = VOTE_COUNT_METHOD_SINGLE
 	winner_method = VOTE_WINNER_METHOD_WEIGHTED_RANDOM
 	display_statistics = FALSE
@@ -39,6 +39,9 @@
 	. = ..()
 	if(. != VOTE_AVAILABLE)
 		return .
+
+	if(length(SSdynamic.dynamic_storyteller_jsons) <= 1)
+		return "There is only one storyteller configured."
 
 	if(!isnull(SSdynamic.current_storyteller))
 		return "The dynamic storyteller has already been selected."

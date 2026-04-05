@@ -3,9 +3,9 @@
 	desc = "A traditional red fire extinguisher."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "fire_extinguisher0"
-	item_state = "fire_extinguisher"
+	inhand_icon_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	throwforce = 10
 	w_class = WEIGHT_CLASS_LARGE
 	throw_speed = 2
@@ -32,9 +32,9 @@
 	name = "pocket fire extinguisher"
 	desc = "A light and compact fibreglass-framed model fire extinguisher."
 	icon_state = "miniFE0"
-	item_state = "miniFE"
+	inhand_icon_state = "miniFE"
 	hitsound = null	//it is much lighter, after all.
-	flags_1 = null //doesn't CONDUCT_1
+	obj_flags = NONE //doesn't conduct electricity
 	throwforce = 2
 	w_class = WEIGHT_CLASS_SMALL
 	force = 3
@@ -56,7 +56,7 @@
 	name = "advanced fire extinguisher"
 	desc = "Used to stop thermonuclear fires from spreading inside your engine."
 	icon_state = "foam_extinguisher0"
-	item_state = "foam_extinguisher"
+	inhand_icon_state = "foam_extinguisher"
 	dog_fashion = null
 	chem = /datum/reagent/firefighting_foam
 	tanktype = /obj/structure/reagent_dispensers/foamtank
@@ -188,7 +188,7 @@
 /obj/item/extinguisher/proc/move_particles(list/particles)
 	var/delay = 2
 	for(var/obj/effect/particle_effect/water/extinguisher/water as anything in particles)
-		SSmove_manager.move_towards_legacy(water, particles[water], delay, timeout = delay * power, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+		water.move_at(particles[water], delay, power)
 
 //Chair movement loop
 /obj/item/extinguisher/proc/move_chair(obj/buckled_object, movementdirection)

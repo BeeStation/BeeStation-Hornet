@@ -8,7 +8,7 @@
 		immunity against extremities such as spot and arc welding, solar eclipses, and handheld flashlights."
 	icon_state = "welding"
 	complexity = 1
-	incompatible_modules = list(/obj/item/mod/module/welding, /obj/item/mod/module/armor_booster)
+	incompatible_modules = list(/obj/item/mod/module/welding, /obj/item/mod/module/mod_switch)
 	overlay_state_inactive = "module_welding"
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
@@ -239,7 +239,7 @@
 ///Resin Mister - Sprays resin over an area.
 /obj/item/mod/module/mister/atmos
 	name = "\improper MOD resin mister module"
-	desc = "An atmospheric resin mister, able to fix up areas quickly."
+	desc = "An atmospheric resin mister, able to fix up areas quickly, it has a small slot allowing for disk upgrades."
 	device = /obj/item/extinguisher/mini/nozzle/mod
 	volume = 250
 

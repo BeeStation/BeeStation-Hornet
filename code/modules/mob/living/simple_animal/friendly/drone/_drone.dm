@@ -26,7 +26,6 @@
 	unsuitable_atmos_damage = 0
 	wander = FALSE
 	speed = 0
-	ventcrawler = VENTCRAWLER_ALWAYS
 	healable = 0
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
@@ -102,6 +101,7 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
 
 	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER), list(z))
@@ -122,7 +122,7 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	if(stat == DEAD)
 		holder.icon_state = "huddead2"
-	else if(incapacitated())
+	else if(incapacitated)
 		holder.icon_state = "hudoffline"
 	else
 		holder.icon_state = "hudstat"
@@ -166,20 +166,20 @@
 	dust()
 
 /mob/living/simple_animal/drone/examine(mob/user)
-	. = list("<span class='info'>This is [icon2html(src, user)] \a <b>[src]</b>!")
+	. = list()
 
 	//Hands
 	for(var/obj/item/I in held_items)
 		if(!(I.item_flags & ABSTRACT))
-			. += "It has [I.get_examine_string(user)] in its [get_held_index_name(get_held_index_of_item(I))]."
+			. += "It has [I.examine_title(user)] in its [get_held_index_name(get_held_index_of_item(I))]."
 
 	//Internal storage
 	if(internal_storage && !(internal_storage.item_flags & ABSTRACT))
-		. += "It is holding [internal_storage.get_examine_string(user)] in its internal storage."
+		. += "It is holding [internal_storage.examine_title(user)] in its internal storage."
 
 	//Cosmetic hat - provides no function other than looks
 	if(head && !(head.item_flags & ABSTRACT))
-		. += "It is wearing [head.get_examine_string(user)] on its head."
+		. += "It is wearing [head.examine_title(user)] on its head."
 
 	//Braindead
 	if(!client && stat != DEAD)

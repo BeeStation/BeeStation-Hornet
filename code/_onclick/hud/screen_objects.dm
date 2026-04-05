@@ -17,7 +17,7 @@
 	vis_flags = VIS_INHERIT_PLANE
 	appearance_flags = APPEARANCE_UI
 	/// A reference to the owner HUD, if any.
-	var/datum/hud/hud = null
+	VAR_PRIVATE/datum/hud/hud = null
 	/**
 	 * Map name assigned to this object.
 	 * Automatically set by /client/proc/add_obj_to_map.
@@ -34,6 +34,12 @@
 	///Can we throw things at this
 	var/can_throw_target = FALSE
 
+/atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	if(isnull(hud_owner)) //some screens set their hud owners on /new, this prevents overriding them with null post atoms init
+		return
+	set_new_hud(hud_owner)
+
 /atom/movable/screen/examine(mob/user)
 	return list()
 
@@ -42,6 +48,21 @@
 
 /atom/movable/screen/proc/component_click(atom/movable/screen/component_button/component, params)
 	return
+
+///setter used to set our new hud
+/atom/movable/screen/proc/set_new_hud(datum/hud/hud_owner)
+	if(hud)
+		UnregisterSignal(hud, COMSIG_QDELETING)
+	if(isnull(hud_owner))
+		hud = null
+		return
+	hud = hud_owner
+	RegisterSignal(hud, COMSIG_QDELETING, PROC_REF(on_hud_delete))
+
+/atom/movable/screen/proc/on_hud_delete(datum/source)
+	SIGNAL_HANDLER
+
+	set_new_hud(hud_owner = null)
 
 /atom/movable/screen/text
 	icon = null
@@ -62,7 +83,7 @@
 	if(world.time <= usr.next_move)
 		return 1
 
-	if(usr.incapacitated(IGNORE_STASIS))
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_STASIS))
 		return 1
 
 	if(ismob(usr))
@@ -98,7 +119,7 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
-	if(usr.incapacitated() || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(usr.incapacitated || (isobserver(usr) && !IsAdminGhost(usr)))
 		return TRUE
 	var/area/A = get_area(usr)
 	if(!A.outdoors)
@@ -117,6 +138,7 @@
 	usr.get_language_holder().open_language_menu(usr)
 
 /atom/movable/screen/inventory
+	/// The identifier for the slot. It has nothing to do with ID cards.
 	var/slot_id
 	/// Icon when empty. For now used only by humans.
 	var/icon_empty
@@ -154,7 +176,7 @@
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
-			if(hud?.mymob.incapacitated())
+			if(hud?.mymob.incapacitated)
 				inv_item.apply_outline(COLOR_RED_GRAY)
 			else
 				inv_item.apply_outline()
@@ -188,9 +210,9 @@
 	item_overlay.alpha = 92
 
 	if(!user.can_equip(holding, slot_id, TRUE, bypass_equip_delay_self = TRUE))
-		item_overlay.color = "#FF0000"
+		item_overlay.color = COLOR_RED
 	else
-		item_overlay.color = "#00ff00"
+		item_overlay.color = COLOR_VIBRANT_LIME
 
 	cut_overlay(object_overlay)
 	object_overlay = item_overlay
@@ -231,7 +253,7 @@
 		return TRUE
 	if(world.time <= user.next_move)
 		return TRUE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 	if (ismecha(user.loc)) // stops inventory actions in a mech
 		return TRUE
@@ -703,10 +725,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/splash)
 
 	holder.screen += src
 
-/atom/movable/screen/splash/proc/Fade(out, qdel_after = TRUE)
+/atom/movable/screen/splash/proc/fade(out, qdel_after = TRUE)
 	if(QDELETED(src))
 		return
 	if(out)
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		animate(src, alpha = 0, time = 30)
 	else
 		alpha = 0
