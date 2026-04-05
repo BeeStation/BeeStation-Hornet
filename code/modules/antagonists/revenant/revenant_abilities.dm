@@ -172,7 +172,7 @@
 	background_icon_state = "bg_revenant"
 	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_default"
-	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 	spell_requirements = NONE
 
 	/// If it's locked, and needs to be unlocked before use

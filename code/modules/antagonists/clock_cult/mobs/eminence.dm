@@ -162,7 +162,7 @@
 	name = "eminence internal listener"
 	desc = "if you can see this, call a coder"
 	canhear_range = 0
-	radio_silent = TRUE
+	radio_noise = FALSE
 	prison_radio = TRUE
 
 

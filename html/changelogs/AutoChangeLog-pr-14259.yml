@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Growth serum no longer stacks infinitely when smoked and requires at least
+      10u to have a noticable effect
