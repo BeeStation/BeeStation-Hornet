@@ -14,16 +14,16 @@
 	access_budget = ACCESS_ENGINE_EQUIP
 	entries = list(
 		// -- Portable generators --
-		list("path" = /obj/machinery/power/port_gen/pacman, "cost" = 2000, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
-		list("path" = /obj/machinery/shieldgen, "cost" = 1500, "max_supply" = 4),
+		list("path" = /obj/machinery/power/port_gen/pacman, "cost" = 2000, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/large),
+		list("path" = /obj/machinery/shieldgen, "cost" = 1500, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/large),
 		// -- Large stationary power machines --
-		list("path" = /obj/machinery/power/smes, "cost" = 2500, "max_supply" = 4),
-		list("path" = /obj/machinery/power/rtg, "cost" = 3000, "max_supply" = 2, "access_budget" = ACCESS_ENGINE),
-		list("path" = /obj/machinery/power/floodlight, "cost" = 400, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
+		list("path" = /obj/machinery/power/smes, "cost" = 2500, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/large),
+		list("path" = /obj/machinery/power/rtg, "cost" = 3000, "max_supply" = 2, "access_budget" = ACCESS_ENGINE, "crate_type" = /obj/structure/closet/crate/secure/engineering),
+		list("path" = /obj/machinery/power/floodlight, "cost" = 400, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/large),
 		// -- Power cells & charging --
-		list("path" = /obj/machinery/recharger, "cost" = 300, "max_supply" = 4),
+		list("path" = /obj/machinery/recharger, "cost" = 300, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
 		// -- Substations & APCs --
-		list("path" = /obj/item/stock_parts/cell/upgraded, "cost" = 450, "max_supply" = 4, "small_item" = TRUE),
+		list("path" = /obj/item/stock_parts/cell/upgraded, "cost" = 450, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
 	)
 
 // =============================================================================
@@ -49,10 +49,10 @@
 		list("path" = /obj/machinery/portable_atmospherics/canister/plasma, "cost" = 2500, "max_supply" = 2, "access_budget" = ACCESS_ENGINE, "crate_type" = /obj/structure/closet/crate/secure/engineering),
 		list("path" = /obj/machinery/portable_atmospherics/canister/tritium, "cost" = 3000, "max_supply" = 1, "access_budget" = ACCESS_ENGINE, "crate_type" = /obj/structure/closet/crate/secure/engineering),
 		// -- Gas miners --
-		list("path" = /obj/machinery/atmospherics/miner/oxygen, "cost" = 1500, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS),
-		list("path" = /obj/machinery/atmospherics/miner/nitrogen, "cost" = 1500, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS),
-		list("path" = /obj/machinery/atmospherics/miner/n2o, "cost" = 2000, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS),
-		list("path" = /obj/machinery/atmospherics/miner/carbon_dioxide, "cost" = 1500, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS),
+		list("path" = /obj/machinery/atmospherics/miner/oxygen, "cost" = 1500, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS, "crate_type" = /obj/structure/closet/crate/secure/engineering),
+		list("path" = /obj/machinery/atmospherics/miner/nitrogen, "cost" = 1500, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS, "crate_type" = /obj/structure/closet/crate/secure/engineering),
+		list("path" = /obj/machinery/atmospherics/miner/n2o, "cost" = 2000, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS, "crate_type" = /obj/structure/closet/crate/secure/engineering),
+		list("path" = /obj/machinery/atmospherics/miner/carbon_dioxide, "cost" = 1500, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS, "crate_type" = /obj/structure/closet/crate/secure/engineering),
 	)
 
 // =============================================================================
@@ -62,22 +62,21 @@
 /datum/cargo_list/machines_vehicles
 	entries = list(
 		// -- On-station vehicles --
-		list("path" = /obj/vehicle/ridden/lawnmower, "cost" = 800, "max_supply" = 2),
+		list("path" = /obj/vehicle/ridden/lawnmower, "cost" = 800, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/large),
 		list("path" = /obj/vehicle/ridden/bicycle, "cost" = 1000, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/large),
 		list("path" = /mob/living/simple_animal/bot/mulebot, "cost" = 2000, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/large),
-		list("path" = /mob/living/simple_animal/bot/cleanbot, "cost" = 1200, "max_supply" = 2),
-		list("path" = /mob/living/simple_animal/bot/medbot, "cost" = 1500, "max_supply" = 2),
-		list("path" = /mob/living/simple_animal/bot/secbot, "cost" = 1500, "max_supply" = 2, "access_budget" = ACCESS_SECURITY),
-		list("path" = /mob/living/simple_animal/bot/firebot, "cost" = 1000, "max_supply" = 2),
-		list("path" = /obj/vehicle/ridden/secway, "cost" = 1200, "max_supply" = 2, "access_budget" = ACCESS_SECURITY),
-		list("path" = /obj/vehicle/ridden/scooter, "cost" = 500, "max_supply" = 4),
-		list("path" = /obj/vehicle/ridden/wheelchair, "cost" = 200, "max_supply" = 4),
-		list("path" = /obj/vehicle/ridden/wheelchair/motorized, "cost" = 600, "max_supply" = 2),
+		list("path" = /mob/living/simple_animal/bot/cleanbot, "cost" = 1200, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/large),
+		list("path" = /mob/living/simple_animal/bot/medbot, "cost" = 1500, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/large),
+		list("path" = /mob/living/simple_animal/bot/secbot, "cost" = 1500, "max_supply" = 2, "access_budget" = ACCESS_SECURITY, "crate_type" = /obj/structure/closet/crate/secure/gear),
+		list("path" = /mob/living/simple_animal/bot/firebot, "cost" = 1000, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/large),
+		list("path" = /obj/vehicle/ridden/secway, "cost" = 1200, "max_supply" = 2, "access_budget" = ACCESS_SECURITY, "crate_type" = /obj/structure/closet/crate/secure/gear),
+		list("path" = /obj/vehicle/ridden/scooter, "cost" = 500, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/large),
+		list("path" = /obj/vehicle/ridden/wheelchair, "cost" = 200, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/large),
+		list("path" = /obj/vehicle/ridden/wheelchair/motorized, "cost" = 600, "max_supply" = 2, "crate_type" = /obj/structure/closet/crate/large),
 	)
 
 /datum/cargo_crate/machines_vehicles
-
-/datum/cargo_crate/machines_vehicles/atv
+	crate_type = /obj/structure/closet/crate/large/datum/cargo_crate/machines_vehicles/atv
 	name = "ATV Crate"
 	cost = 2400
 	max_supply = 2
@@ -100,12 +99,12 @@
 	entries = list(
 		// -- Emitters & containment --
 		list("path" = /obj/machinery/power/emitter, "cost" = 1500, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/secure/engineering),
-		list("path" = /obj/machinery/field/generator, "cost" = 1500, "max_supply" = 4),
+		list("path" = /obj/machinery/field/generator, "cost" = 1500, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/secure/engineering),
 		list("path" = /obj/machinery/power/energy_accumulator/grounding_rod, "cost" = 600, "max_supply" = 8, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
 		list("path" = /obj/machinery/power/energy_accumulator/tesla_coil, "cost" = 750, "max_supply" = 8, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
 		// -- Solar assemblies --
 		list("path" = /obj/item/solar_assembly, "cost" = 100, "max_supply" = 30, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
-		list("path" = /obj/item/electronics/tracker, "cost" = 100, "max_supply" = 6, "small_item" = TRUE),
+		list("path" = /obj/item/electronics/tracker, "cost" = 100, "max_supply" = 6, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering/electrical),
 		// -- Individual engine machines (not kit-dependent) --
 		list("path" = /obj/machinery/the_singularitygen, "cost" = 5000, "max_supply" = 1, "crate_type" = /obj/structure/closet/crate/secure/engineering),
 		list("path" = /obj/machinery/the_singularitygen/tesla, "cost" = 5000, "max_supply" = 1, "crate_type" = /obj/structure/closet/crate/secure/engineering),
@@ -113,7 +112,7 @@
 
 /datum/cargo_crate/machines_engine
 	access_budget = ACCESS_ENGINE
-	crate_type = /obj/structure/closet/crate/engineering
+	crate_type = /obj/structure/closet/crate/secure/engineering
 
 /datum/cargo_crate/machines_engine/particle_accelerator
 	name = "Particle Accelerator Crate"
@@ -181,46 +180,46 @@
 	access_budget = ACCESS_ENGINE_EQUIP
 	entries = list(
 		// -- Exosuit tools & equipment --
-		list("path" = /obj/item/mecha_parts/mecha_equipment/drill, "cost" = 500, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill, "cost" = 1500, "max_supply" = 2, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp, "cost" = 500, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/extinguisher, "cost" = 400, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/mining_scanner, "cost" = 300, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/rcd, "cost" = 2500, "max_supply" = 2, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/repair_droid, "cost" = 1500, "max_supply" = 2, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/thrusters/ion, "cost" = 1000, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/air_tank, "cost" = 300, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/generator, "cost" = 1500, "max_supply" = 2, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/radio, "cost" = 200, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mecha_parts/mecha_equipment/ripleyupgrade, "cost" = 2000, "max_supply" = 2, "small_item" = TRUE),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/drill, "cost" = 500, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill, "cost" = 1500, "max_supply" = 2, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp, "cost" = 500, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/extinguisher, "cost" = 400, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/mining_scanner, "cost" = 300, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/rcd, "cost" = 2500, "max_supply" = 2, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/repair_droid, "cost" = 1500, "max_supply" = 2, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/thrusters/ion, "cost" = 1000, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/air_tank, "cost" = 300, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/generator, "cost" = 1500, "max_supply" = 2, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/radio, "cost" = 200, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mecha_parts/mecha_equipment/ripleyupgrade, "cost" = 2000, "max_supply" = 2, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
 		// -- Conveyor system --
-		list("path" = /obj/item/stack/conveyor/thirty, "cost" = 300, "max_supply" = 6, "small_item" = TRUE),
-		list("path" = /obj/item/conveyor_switch_construct, "cost" = 50, "max_supply" = 8, "small_item" = TRUE),
+		list("path" = /obj/item/stack/conveyor/thirty, "cost" = 300, "max_supply" = 6, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/conveyor_switch_construct, "cost" = 50, "max_supply" = 8, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
 		// -- MODsuit pre-equipped units --
-		list("path" = /obj/item/mod/control/pre_equipped/standard, "cost" = 2000, "max_supply" = 4),
-		list("path" = /obj/item/mod/control/pre_equipped/engineering, "cost" = 3500, "max_supply" = 2, "access_budget" = ACCESS_ENGINE),
-		list("path" = /obj/item/mod/control/pre_equipped/atmospheric, "cost" = 3500, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS),
-		list("path" = /obj/item/mod/control/pre_equipped/advanced, "cost" = 6000, "max_supply" = 1, "access_budget" = ACCESS_CE),
+		list("path" = /obj/item/mod/control/pre_equipped/standard, "cost" = 2000, "max_supply" = 4, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/control/pre_equipped/engineering, "cost" = 3500, "max_supply" = 2, "access_budget" = ACCESS_ENGINE, "crate_type" = /obj/structure/closet/crate/secure/engineering),
+		list("path" = /obj/item/mod/control/pre_equipped/atmospheric, "cost" = 3500, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS, "crate_type" = /obj/structure/closet/crate/secure/engineering),
+		list("path" = /obj/item/mod/control/pre_equipped/advanced, "cost" = 6000, "max_supply" = 1, "access_budget" = ACCESS_CE, "crate_type" = /obj/structure/closet/crate/secure/engineering),
 		// -- MODsuit modules (engineering) --
-		list("path" = /obj/item/mod/module/welding, "cost" = 200, "max_supply" = 6, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/t_ray, "cost" = 300, "max_supply" = 4, "small_item" = TRUE, "access_budget" = ACCESS_ATMOSPHERICS),
-		list("path" = /obj/item/mod/module/magboot, "cost" = 400, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/tether, "cost" = 350, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/rad_protection, "cost" = 500, "max_supply" = 4, "small_item" = TRUE, "access_budget" = ACCESS_ENGINE),
-		list("path" = /obj/item/mod/module/jetpack, "cost" = 1500, "max_supply" = 2, "small_item" = TRUE, "access_budget" = ACCESS_ENGINE),
+		list("path" = /obj/item/mod/module/welding, "cost" = 200, "max_supply" = 6, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/t_ray, "cost" = 300, "max_supply" = 4, "small_item" = TRUE, "access_budget" = ACCESS_ATMOSPHERICS, "crate_type" = /obj/structure/closet/crate/secure/engineering),
+		list("path" = /obj/item/mod/module/magboot, "cost" = 400, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/tether, "cost" = 350, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/rad_protection, "cost" = 500, "max_supply" = 4, "small_item" = TRUE, "access_budget" = ACCESS_ENGINE, "crate_type" = /obj/structure/closet/crate/secure/engineering),
+		list("path" = /obj/item/mod/module/jetpack, "cost" = 1500, "max_supply" = 2, "small_item" = TRUE, "access_budget" = ACCESS_ENGINE, "crate_type" = /obj/structure/closet/crate/secure/engineering),
 		// -- MODsuit modules (general) --
-		list("path" = /obj/item/mod/module/storage, "cost" = 300, "max_supply" = 6, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/flashlight, "cost" = 150, "max_supply" = 8, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/status_readout, "cost" = 200, "max_supply" = 6, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/thermal_regulator, "cost" = 400, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/longfall, "cost" = 300, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/emp_shield, "cost" = 600, "max_supply" = 2, "small_item" = TRUE),
-		list("path" = /obj/item/mod/module/mouthhole, "cost" = 100, "max_supply" = 6, "small_item" = TRUE),
+		list("path" = /obj/item/mod/module/storage, "cost" = 300, "max_supply" = 6, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/flashlight, "cost" = 150, "max_supply" = 8, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/status_readout, "cost" = 200, "max_supply" = 6, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/thermal_regulator, "cost" = 400, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/longfall, "cost" = 300, "max_supply" = 4, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/emp_shield, "cost" = 600, "max_supply" = 2, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
+		list("path" = /obj/item/mod/module/mouthhole, "cost" = 100, "max_supply" = 6, "small_item" = TRUE, "crate_type" = /obj/structure/closet/crate/engineering),
 	)
 
 /datum/cargo_crate/machines_mech
 	access_budget = ACCESS_ENGINE_EQUIP
-	crate_type = /obj/structure/closet/crate/engineering
+	crate_type = /obj/structure/closet/crate/large
 
 /datum/cargo_crate/machines_mech/ripley
 	name = "Ripley APLU Parts Crate"
@@ -240,6 +239,7 @@
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp,
 	)
+	crate_type = /obj/structure/closet/crate/large
 
 /datum/cargo_crate/machines_mech/clarke
 	name = "Clarke Parts Crate"
@@ -258,6 +258,7 @@
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp,
 	)
+	crate_type = /obj/structure/closet/crate/large
 
 /datum/cargo_crate/machines_mech/shuttle_construction
 	name = "Shuttle Construction Crate"
@@ -281,4 +282,4 @@
 		/obj/item/circuitboard/machine/shuttle/heater,
 		/obj/item/survivalcapsule/shuttle_husk,
 	)
-	crate_type = /obj/structure/closet/crate/large
+	crate_type = /obj/structure/closet/crate/secure/engineering

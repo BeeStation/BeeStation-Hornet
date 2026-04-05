@@ -21,6 +21,12 @@
 		list("path" = /obj/item/stack/sheet/mineral/gold/fifty, "name" = "Gold Sheets (50)", "cost" = 5000, "max_supply" = 3),
 		list("path" = /obj/item/stack/sheet/mineral/diamond/fifty, "name" = "Diamond Sheets (50)", "cost" = 10000, "max_supply" = 2),
 		list("path" = /obj/item/stack/sheet/mineral/uranium/fifty, "name" = "Uranium Sheets (50)", "cost" = 5000, "max_supply" = 3),
+	)
+
+// Organic, craft, and soft materials — plain crate, not engineering-specific
+/datum/cargo_list/materials_sheets_misc
+	crate_type = /obj/structure/closet/crate
+	entries = list(
 		// -- Organic / Misc sheets --
 		list("path" = /obj/item/stack/sheet/wood/fifty, "name" = "Wood Planks (50)", "cost" = 400, "max_supply" = 8),
 		list("path" = /obj/item/stack/sheet/bamboo/fifty, "name" = "Bamboo Cuttings (50)", "cost" = 400, "max_supply" = 5),
@@ -68,6 +74,7 @@
 // =============================================================================
 
 /datum/cargo_list/materials_tiles
+	crate_type = /obj/structure/closet/crate
 	entries = list(
 		// -- Carpet tiles --
 		list("path" = /obj/item/stack/tile/carpet/fifty, "name" = "Standard Carpet Tiles (50)", "cost" = 200, "max_supply" = 6),
@@ -139,5 +146,11 @@
 		list("path" = /obj/structure/reagent_dispensers/fueltank, "name" = "Welding Fuel Tank", "cost" = 800, "max_supply" = 3),
 		list("path" = /obj/structure/reagent_dispensers/watertank, "name" = "Water Tank", "cost" = 600, "max_supply" = 3),
 		list("path" = /obj/structure/reagent_dispensers/watertank/high, "name" = "High-Capacity Water Tank", "cost" = 1200, "max_supply" = 2),
+	)
+
+// Security-restricted dispensers — needs a secure crate for access to function
+/datum/cargo_list/materials_dispensers_sec
+	crate_type = /obj/structure/closet/crate/secure
+	entries = list(
 		list("path" = /obj/structure/reagent_dispensers/peppertank, "name" = "Pepper Spray Refiller", "cost" = 1000, "max_supply" = 2, "access_budget" = ACCESS_SECURITY),
 	)

@@ -3,8 +3,8 @@
  *
  * First aid, pharmaceuticals, surgery, virology, and medical equipment.
  * Split into: First Aid, Pharmaceuticals, Reagent Bottles, Chemistry Supplies,
- * Surgery Tools, Medical Equipment, Medical Diagnostics, Medical Containers,
- * Implants, Virology, and Emergency.
+ * Surgery Tools, Medical Equipment, Medical Diagnostics, Implants, Implant Kits,
+ * Virology, Emergency Internals, Emergency Medical, and Medical Crates.
  */
 
 // =============================================================================
@@ -13,6 +13,7 @@
 
 /datum/cargo_list/medical_firstaid
 	access_budget = ACCESS_MEDICAL
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		// -- First aid kits --
 		list("path" = /obj/item/storage/firstaid/regular, "cost" = 300, "max_supply" = 5),
@@ -53,6 +54,7 @@
 /datum/cargo_list/medical_pharma
 	access_budget = ACCESS_MEDICAL
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		// -- IV bags --
 		list("path" = /obj/item/reagent_containers/chem_bag/bicaridine, "cost" = 700, "max_supply" = 3),
@@ -91,6 +93,7 @@
 /datum/cargo_list/medical_bottles
 	access_budget = ACCESS_MEDICAL
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		list("path" = /obj/item/reagent_containers/cup/bottle/epinephrine, "cost" = 75, "max_supply" = 8),
 		list("path" = /obj/item/reagent_containers/cup/bottle/charcoal, "cost" = 75, "max_supply" = 8),
@@ -121,6 +124,7 @@
 /datum/cargo_list/medical_chemistry
 	access_budget = ACCESS_CHEMISTRY
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		// -- Raw reagent bottles --
 		list("path" = /obj/item/reagent_containers/cup/bottle/hydrogen, "cost" = 50, "max_supply" = 6),
@@ -176,6 +180,7 @@
 /datum/cargo_list/medical_surgery
 	access_budget = ACCESS_SURGERY
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		// -- Basic surgery tools --
 		list("path" = /obj/item/scalpel, "cost" = 100, "max_supply" = 6),
@@ -204,6 +209,7 @@
 /datum/cargo_list/medical_diagnostics
 	access_budget = ACCESS_MEDICAL
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		list("path" = /obj/item/healthanalyzer, "cost" = 200, "max_supply" = 6),
 		list("path" = /obj/item/sensor_device, "cost" = 300, "max_supply" = 3),
@@ -226,6 +232,7 @@
 
 /datum/cargo_list/medical_equip
 	access_budget = ACCESS_MEDICAL
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		list("path" = /obj/item/defibrillator/loaded, "cost" = 1500, "max_supply" = 3),
 		list("path" = /obj/item/wallframe/defib_mount, "cost" = 400, "max_supply" = 4, "small_item" = TRUE),
@@ -245,11 +252,19 @@
 /datum/cargo_list/medical_implants
 	access_budget = ACCESS_MEDICAL
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		list("path" = /obj/item/implantcase/chem, "cost" = 300, "max_supply" = 10),
-		list("path" = /obj/item/implantcase/exile, "cost" = 500, "max_supply" = 5, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
 		// -- Implant duffel (contains random surplus cybernetic implants) --
 		list("path" = /obj/item/storage/backpack/duffelbag/med/implant, "cost" = 1500, "max_supply" = 2, "small_item" = FALSE),
+	)
+
+// Armory-access implants get a secure crate so the access lock actually works
+/datum/cargo_list/medical_implants_armory
+	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/secure
+	entries = list(
+		list("path" = /obj/item/implantcase/exile, "cost" = 500, "max_supply" = 5, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
 	)
 
 // =============================================================================
@@ -258,8 +273,16 @@
 
 /datum/cargo_list/medical_implant_kits
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		list("path" = /obj/item/storage/box/chemimp, "cost" = 1500, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
+	)
+
+// Armory-access implant kits get a secure crate so the access lock actually works
+/datum/cargo_list/medical_implant_kits_armory
+	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/secure
+	entries = list(
 		list("path" = /obj/item/storage/box/exileimp, "cost" = 2500, "max_supply" = 2, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
 		list("path" = /obj/item/storage/lockbox/loyalty, "cost" = 3500, "max_supply" = 2, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
 	)
@@ -271,6 +294,7 @@
 /datum/cargo_list/medical_virology
 	access_budget = ACCESS_VIROLOGY
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
 	entries = list(
 		list("path" = /obj/item/reagent_containers/cup/bottle/mutagen, "cost" = 100, "max_supply" = 4),
 		list("path" = /obj/item/reagent_containers/cup/bottle/plasma, "cost" = 100, "max_supply" = 4),
@@ -283,12 +307,20 @@
 // EMERGENCY MEDICAL
 // =============================================================================
 
-/datum/cargo_list/medical_emergency
+// Oxygen/air supplies delivered in an internals crate
+/datum/cargo_list/medical_emergency_internals
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/internals
 	entries = list(
 		list("path" = /obj/item/tank/internals/emergency_oxygen, "cost" = 50, "max_supply" = 10),
 		list("path" = /obj/item/tank/internals/air, "cost" = 75, "max_supply" = 8),
 		list("path" = /obj/item/tank/internals/oxygen/red, "cost" = 100, "max_supply" = 6),
+	)
+
+/datum/cargo_list/medical_emergency
+	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/medical
+	entries = list(
 		list("path" = /obj/item/grenade/chem_grenade/antiweed, "cost" = 200, "max_supply" = 4),
 		list("path" = /obj/item/survivalcapsule/space, "cost" = 1500, "max_supply" = 2),
 		list("path" = /obj/item/storage/box/medipens, "cost" = 400, "max_supply" = 4),
@@ -315,6 +347,6 @@
 		/obj/item/reagent_containers/cup/bottle/adaptation_virion,
 		/obj/item/reagent_containers/cup/bottle/aggression_virion,
 	)
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_type = /obj/structure/closet/crate/secure
 
 /datum/cargo_crate/medical/randomvirus/fill(obj/structure/closet/crate/C)

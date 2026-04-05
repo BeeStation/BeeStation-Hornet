@@ -129,6 +129,7 @@
 // =============================================================================
 
 /datum/cargo_list/misc_religious
+	crate_type = /obj/structure/closet/crate/secure
 	access_budget = ACCESS_CHAPEL_OFFICE
 	small_item = TRUE
 	entries = list(

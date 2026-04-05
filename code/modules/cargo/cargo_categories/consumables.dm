@@ -13,6 +13,7 @@
 
 /datum/cargo_list/consumables_ingredients
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/freezer
 	entries = list(
 		// -- Staple ingredients (Dinnerware vendor / kitchen essentials) --
 		list("path" = /obj/item/reagent_containers/condiment/flour, "cost" = 30, "max_supply" = 8),
@@ -51,6 +52,7 @@
 
 /datum/cargo_list/consumables_snacks
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/freezer
 	entries = list(
 		// -- Getmore Chocolate Corp vendor snacks --
 		list("path" = /obj/item/food/spacetwinkie, "cost" = 20, "max_supply" = 10),
@@ -99,6 +101,7 @@
 
 /datum/cargo_list/consumables_alcohol
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/freezer
 	access_budget = ACCESS_BAR
 	entries = list(
 		// -- Standard spirits & wines --
@@ -132,6 +135,7 @@
 
 /datum/cargo_list/consumables_softdrinks
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/freezer
 	entries = list(
 		// -- Soda cans (Robust Softdrinks vendor) --
 		list("path" = /obj/item/reagent_containers/cup/soda_cans/cola, "cost" = 25, "max_supply" = 12),
@@ -174,6 +178,7 @@
 
 /datum/cargo_list/consumables_dinnerware
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate
 	entries = list(
 		// -- Kitchen equipment (Dinnerware vendor) --
 		list("path" = /obj/item/storage/bag/tray, "cost" = 10, "max_supply" = 8),
@@ -208,6 +213,7 @@
 
 /datum/cargo_list/consumables_seeds
 	access_budget = ACCESS_HYDROPONICS
+	crate_type = /obj/structure/closet/crate/hydroponics
 	small_item = TRUE
 	entries = list(
 		// -- Fruits --
@@ -279,6 +285,7 @@
 
 /datum/cargo_list/consumables_hydro
 	access_budget = ACCESS_HYDROPONICS
+	crate_type = /obj/structure/closet/crate/hydroponics
 	small_item = TRUE
 	entries = list(
 		// -- Plant nutrients (NutriMax vendor) --

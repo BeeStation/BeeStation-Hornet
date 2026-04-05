@@ -12,6 +12,7 @@
 // =============================================================================
 
 /datum/cargo_list/clothing_costumes
+	crate_type = /obj/structure/closet/crate
 	entries = list(
 		// -- Wizard / witch costumes --
 		list("path" = /obj/item/staff, "cost" = 200, "max_supply" = 3),
@@ -161,7 +162,7 @@
 		list("path" = /obj/item/clothing/suit/jacket/lieutenant, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/clothing/suit/jacket/teenbiker, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/clothing/suit/jacket/driver, "cost" = 100, "max_supply" = 3),
-		// -- Chapel costumes (non-access) --
+		// -- Chapel costumes --
 		list("path" = /obj/item/clothing/suit/chaplainsuit/holidaypriest, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/clothing/suit/chaplainsuit/whiterobe, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/clothing/suit/hooded/hastur, "cost" = 100, "max_supply" = 3),
@@ -176,6 +177,7 @@
 // =============================================================================
 
 /datum/cargo_list/clothing_formal
+	crate_type = /obj/structure/closet/crate
 	entries = list(
 		// -- Suits --
 		list("path" = /obj/item/clothing/under/suit/charcoal, "cost" = 100, "max_supply" = 3),
@@ -238,6 +240,14 @@
 		list("path" = /obj/item/clothing/head/hats/tophat, "cost" = 50, "max_supply" = 3, "small_item" = TRUE),
 		// -- Formal shoes --
 		list("path" = /obj/item/clothing/shoes/laceup, "cost" = 50, "max_supply" = 5, "small_item" = TRUE),
+		// -- Leather jackets --
+		list("path" = /obj/item/clothing/suit/jacket/leather, "cost" = 150, "max_supply" = 3),
+		list("path" = /obj/item/clothing/suit/jacket/leather/overcoat, "cost" = 150, "max_supply" = 3),
+	)
+
+/datum/cargo_list/clothing_formal_dept
+	crate_type = /obj/structure/closet/crate/secure
+	entries = list(
 		// -- Detective formal --
 		list("path" = /obj/item/clothing/suit/jacket/det_suit, "cost" = 150, "max_supply" = 2, "access_budget" = ACCESS_SECURITY),
 		list("path" = /obj/item/clothing/suit/jacket/det_suit/dark, "cost" = 150, "max_supply" = 2, "access_budget" = ACCESS_SECURITY),
@@ -255,9 +265,6 @@
 		list("path" = /obj/item/clothing/under/rank/security/head_of_security/formal, "cost" = 150, "max_supply" = 1, "access_budget" = ACCESS_SECURITY),
 		list("path" = /obj/item/clothing/suit/jacket/hos/blue, "cost" = 150, "max_supply" = 1, "access_budget" = ACCESS_SECURITY),
 		list("path" = /obj/item/clothing/head/hats/hos/beret/navyhos, "cost" = 75, "max_supply" = 1, "access_budget" = ACCESS_SECURITY, "small_item" = TRUE),
-		// -- Leather jackets --
-		list("path" = /obj/item/clothing/suit/jacket/leather, "cost" = 150, "max_supply" = 3),
-		list("path" = /obj/item/clothing/suit/jacket/leather/overcoat, "cost" = 150, "max_supply" = 3),
 	)
 
 // =============================================================================
@@ -265,6 +272,7 @@
 // =============================================================================
 
 /datum/cargo_list/clothing_casual
+	crate_type = /obj/structure/closet/crate
 	entries = list(
 		// -- Pants & jeans --
 		list("path" = /obj/item/clothing/under/pants/jeans, "cost" = 50, "max_supply" = 5),
@@ -379,6 +387,7 @@
 // =============================================================================
 
 /datum/cargo_list/clothing_shoes
+	crate_type = /obj/structure/closet/crate
 	small_item = TRUE
 	entries = list(
 		// -- Sneakers --
@@ -408,6 +417,7 @@
 // =============================================================================
 
 /datum/cargo_list/clothing_collectible
+	crate_type = /obj/structure/closet/crate
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/clothing/head/collectable/chef, "cost" = 150, "max_supply" = 1),
@@ -437,22 +447,55 @@
 // =============================================================================
 
 /datum/cargo_list/clothing_uniforms
+	crate_type = /obj/structure/closet/crate
 	entries = list(
 		// -- General work wear --
 		list("path" = /obj/item/clothing/suit/apron, "cost" = 50, "max_supply" = 5),
 		list("path" = /obj/item/clothing/suit/apron/overalls, "cost" = 50, "max_supply" = 5),
 		list("path" = /obj/item/clothing/suit/apron/purple_bartender, "cost" = 75, "max_supply" = 3),
 		list("path" = /obj/item/clothing/suit/toggle/labcoat, "cost" = 100, "max_supply" = 6),
-		list("path" = /obj/item/clothing/suit/toggle/labcoat/science, "cost" = 100, "max_supply" = 4, "access_budget" = ACCESS_RESEARCH),
-		list("path" = /obj/item/clothing/suit/toggle/labcoat/chemist, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
-		list("path" = /obj/item/clothing/suit/toggle/labcoat/genetics, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
-		list("path" = /obj/item/clothing/suit/toggle/labcoat/virologist, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
-		list("path" = /obj/item/clothing/suit/toggle/labcoat/paramedic, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
 		list("path" = /obj/item/clothing/suit/toggle/chef, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/clothing/head/utility/chefhat, "cost" = 50, "max_supply" = 5, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/accessory/pocketprotector, "cost" = 25, "max_supply" = 8, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/gloves/color/black, "cost" = 50, "max_supply" = 6, "small_item" = TRUE),
 		list("path" = /obj/item/clothing/head/costume/nursehat, "cost" = 50, "max_supply" = 5, "small_item" = TRUE),
+		// -- Civilian / service uniforms --
+		list("path" = /obj/item/clothing/under/rank/civilian/bartender, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/bartender/purple, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/bartender/skirt, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/chef, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/chef/skirt, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/altchef, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/hydroponics, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/hydroponics/skirt, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/janitor, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/janitor/skirt, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/under/rank/civilian/chaplain, "cost" = 100, "max_supply" = 2),
+		list("path" = /obj/item/clothing/under/rank/civilian/chaplain/skirt, "cost" = 100, "max_supply" = 2),
+		list("path" = /obj/item/clothing/under/rank/civilian/curator, "cost" = 100, "max_supply" = 2),
+		list("path" = /obj/item/clothing/under/rank/civilian/curator/skirt, "cost" = 100, "max_supply" = 2),
+		list("path" = /obj/item/clothing/suit/hooded/wintercoat/hydro, "cost" = 100, "max_supply" = 3),
+		list("path" = /obj/item/clothing/accessory/armband/hydro, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
+		list("path" = /obj/item/clothing/mask/bandana/striped/botany, "cost" = 25, "max_supply" = 4, "small_item" = TRUE),
+		list("path" = /obj/item/clothing/mask/bandana/purple, "cost" = 25, "max_supply" = 4, "small_item" = TRUE),
+		// -- Soft caps --
+		list("path" = /obj/item/clothing/head/soft, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
+		list("path" = /obj/item/clothing/head/soft/black, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
+		list("path" = /obj/item/clothing/head/soft/purple, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
+		// -- Chaplain robes --
+		list("path" = /obj/item/clothing/suit/chaplainsuit/nun, "cost" = 100, "max_supply" = 2),
+		list("path" = /obj/item/clothing/head/chaplain/nun_hood, "cost" = 50, "max_supply" = 2, "small_item" = TRUE),
+	)
+
+/datum/cargo_list/clothing_uniforms_dept
+	crate_type = /obj/structure/closet/crate/secure
+	entries = list(
+		// -- Department labcoats --
+		list("path" = /obj/item/clothing/suit/toggle/labcoat/science, "cost" = 100, "max_supply" = 4, "access_budget" = ACCESS_RESEARCH),
+		list("path" = /obj/item/clothing/suit/toggle/labcoat/chemist, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
+		list("path" = /obj/item/clothing/suit/toggle/labcoat/genetics, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
+		list("path" = /obj/item/clothing/suit/toggle/labcoat/virologist, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
+		list("path" = /obj/item/clothing/suit/toggle/labcoat/paramedic, "cost" = 100, "max_supply" = 3, "access_budget" = ACCESS_MEDICAL),
 		// -- Security uniforms --
 		list("path" = /obj/item/clothing/under/rank/security/officer, "cost" = 100, "max_supply" = 4, "access_budget" = ACCESS_SECURITY),
 		list("path" = /obj/item/clothing/under/rank/security/officer/skirt, "cost" = 100, "max_supply" = 4, "access_budget" = ACCESS_SECURITY),
@@ -525,32 +568,6 @@
 		list("path" = /obj/item/clothing/head/costume/mailman, "cost" = 50, "max_supply" = 3, "small_item" = TRUE, "access_budget" = ACCESS_CARGO),
 		list("path" = /obj/item/clothing/under/misc/mailman, "cost" = 75, "max_supply" = 3, "access_budget" = ACCESS_CARGO),
 		list("path" = /obj/item/clothing/under/misc/mailman/skirt, "cost" = 75, "max_supply" = 3, "access_budget" = ACCESS_CARGO),
-		// -- Civilian / service uniforms --
-		list("path" = /obj/item/clothing/under/rank/civilian/bartender, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/bartender/purple, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/bartender/skirt, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/chef, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/chef/skirt, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/altchef, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/hydroponics, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/hydroponics/skirt, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/janitor, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/janitor/skirt, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/under/rank/civilian/chaplain, "cost" = 100, "max_supply" = 2),
-		list("path" = /obj/item/clothing/under/rank/civilian/chaplain/skirt, "cost" = 100, "max_supply" = 2),
-		list("path" = /obj/item/clothing/under/rank/civilian/curator, "cost" = 100, "max_supply" = 2),
-		list("path" = /obj/item/clothing/under/rank/civilian/curator/skirt, "cost" = 100, "max_supply" = 2),
-		list("path" = /obj/item/clothing/suit/hooded/wintercoat/hydro, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/clothing/accessory/armband/hydro, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
-		list("path" = /obj/item/clothing/mask/bandana/striped/botany, "cost" = 25, "max_supply" = 4, "small_item" = TRUE),
-		list("path" = /obj/item/clothing/mask/bandana/purple, "cost" = 25, "max_supply" = 4, "small_item" = TRUE),
-		// -- Soft caps --
-		list("path" = /obj/item/clothing/head/soft, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
-		list("path" = /obj/item/clothing/head/soft/black, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
-		list("path" = /obj/item/clothing/head/soft/purple, "cost" = 25, "max_supply" = 5, "small_item" = TRUE),
-		// -- Chaplain robes --
-		list("path" = /obj/item/clothing/suit/chaplainsuit/nun, "cost" = 100, "max_supply" = 2),
-		list("path" = /obj/item/clothing/head/chaplain/nun_hood, "cost" = 50, "max_supply" = 2, "small_item" = TRUE),
 	)
 
 // =============================================================================
@@ -558,6 +575,18 @@
 // =============================================================================
 
 /datum/cargo_list/clothing_backpacks
+	crate_type = /obj/structure/closet/crate
+	entries = list(
+		// -- Civilian / service --
+		list("path" = /obj/item/storage/backpack/botany, "cost" = 75, "max_supply" = 3),
+		list("path" = /obj/item/storage/backpack/satchel/hyd, "cost" = 75, "max_supply" = 3),
+		list("path" = /obj/item/storage/backpack/satchel/explorer, "cost" = 75, "max_supply" = 3),
+		list("path" = /obj/item/storage/backpack/cultpack, "cost" = 100, "max_supply" = 2),
+		list("path" = /obj/item/storage/bag/books, "cost" = 50, "max_supply" = 3, "small_item" = TRUE),
+	)
+
+/datum/cargo_list/clothing_backpacks_dept
+	crate_type = /obj/structure/closet/crate/secure
 	entries = list(
 		// -- Security --
 		list("path" = /obj/item/storage/backpack/security, "cost" = 100, "max_supply" = 4, "access_budget" = ACCESS_SECURITY),
@@ -583,10 +612,4 @@
 		list("path" = /obj/item/storage/backpack/duffelbag/science, "cost" = 100, "max_supply" = 4, "access_budget" = ACCESS_RESEARCH),
 		// -- Cargo --
 		list("path" = /obj/item/storage/backpack/satchel/mail, "cost" = 75, "max_supply" = 3, "access_budget" = ACCESS_CARGO),
-		// -- Civilian / service --
-		list("path" = /obj/item/storage/backpack/botany, "cost" = 75, "max_supply" = 3),
-		list("path" = /obj/item/storage/backpack/satchel/hyd, "cost" = 75, "max_supply" = 3),
-		list("path" = /obj/item/storage/backpack/satchel/explorer, "cost" = 75, "max_supply" = 3),
-		list("path" = /obj/item/storage/backpack/cultpack, "cost" = 100, "max_supply" = 2),
-		list("path" = /obj/item/storage/bag/books, "cost" = 50, "max_supply" = 3, "small_item" = TRUE),
 	)

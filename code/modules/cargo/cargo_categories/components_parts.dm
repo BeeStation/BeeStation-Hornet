@@ -11,6 +11,7 @@
 
 /datum/cargo_list/components_assemblies
 	access_budget = ACCESS_RESEARCH
+	crate_type = /obj/structure/closet/crate/science
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/assembly/prox_sensor, "cost" = 50, "max_supply" = 10),
@@ -30,6 +31,7 @@
 
 /datum/cargo_list/components_electronics
 	access_budget = ACCESS_RESEARCH
+	crate_type = /obj/structure/closet/crate/science
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/inducer/sci/with_cell, "cost" = 600, "max_supply" = 3),
@@ -44,6 +46,7 @@
 // =============================================================================
 
 /datum/cargo_list/components_stock
+	crate_type = /obj/structure/closet/crate/science
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/stock_parts/capacitor, "cost" = 50, "max_supply" = 15),
@@ -59,6 +62,7 @@
 
 /datum/cargo_list/components_subspace
 	access_budget = ACCESS_ENGINE_EQUIP
+	crate_type = /obj/structure/closet/crate/engineering
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/stock_parts/subspace/ansible, "cost" = 100, "max_supply" = 6),
@@ -76,6 +80,7 @@
 
 /datum/cargo_list/components_cells
 	access_budget = ACCESS_ENGINE_EQUIP
+	crate_type = /obj/structure/closet/crate/engineering/electrical
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/stock_parts/cell, "cost" = 100, "max_supply" = 10),
@@ -134,7 +139,7 @@
 		/obj/item/bot_assembly/cleanbot,
 		/obj/item/bot_assembly/cleanbot,
 	)
-	crate_type = /obj/structure/closet/crate/secure/science
+	crate_type = /obj/structure/closet/crate/science
 
 /datum/cargo_crate/components_packs/recharging
 	name = "Cyborg Recharger Kit"
@@ -149,7 +154,7 @@
 		/obj/item/stock_parts/cell,
 		/obj/item/stock_parts/manipulator,
 	)
-	crate_type = /obj/structure/closet/crate/secure/science
+	crate_type = /obj/structure/closet/crate/science
 
 /datum/cargo_crate/components_packs/stock_parts_bulk
 	name = "Stock Parts Bulk Crate"
@@ -221,6 +226,7 @@
 	max_supply = 2
 	access = ACCESS_ENGINE
 	access_budget = ACCESS_ENGINE_EQUIP
+	crate_type = /obj/structure/closet/crate/secure/engineering
 	contains = list(
 		/obj/item/stock_parts/subspace/ansible,
 		/obj/item/stock_parts/subspace/ansible,
@@ -234,13 +240,13 @@
 		/obj/item/stock_parts/subspace/crystal,
 		/obj/item/stock_parts/subspace/transmitter,
 	)
-	crate_type = /obj/structure/closet/crate/secure/engineering
 
 /datum/cargo_crate/components_packs/fuel_rods
 	name = "Fuel Rod Crate"
 	cost = 2000
 	max_supply = 3
 	access = ACCESS_ENGINE
+	crate_type = /obj/structure/closet/crate/secure/engineering
 	contains = list(
 		/obj/item/fuel_rod,
 		/obj/item/fuel_rod,
@@ -248,4 +254,3 @@
 		/obj/item/fuel_rod,
 		/obj/item/fuel_rod,
 	)
-	crate_type = /obj/structure/closet/crate/secure/engineering

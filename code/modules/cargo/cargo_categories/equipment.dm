@@ -11,6 +11,7 @@
 // =============================================================================
 
 /datum/cargo_list/tools_hand
+	crate_type = /obj/structure/closet/crate
 	small_item = TRUE
 	entries = list(
 		// -- Basic tools (found in tool closets, YouTool, emergency closets) --
@@ -44,6 +45,7 @@
 // =============================================================================
 
 /datum/cargo_list/tools_engineering
+	crate_type = /obj/structure/closet/crate/secure/engineering
 	access_budget = ACCESS_ENGINE_EQUIP
 	small_item = TRUE
 	entries = list(
@@ -79,6 +81,7 @@
 // =============================================================================
 
 /datum/cargo_list/tools_janitor
+	crate_type = /obj/structure/closet/crate/secure/gear
 	access_budget = ACCESS_JANITOR
 	small_item = TRUE
 	entries = list(
@@ -109,6 +112,7 @@
 // =============================================================================
 
 /datum/cargo_list/tools_hydro
+	crate_type = /obj/structure/closet/crate/secure/hydroponics
 	access_budget = ACCESS_HYDROPONICS
 	small_item = TRUE
 	entries = list(
@@ -130,6 +134,7 @@
 // =============================================================================
 
 /datum/cargo_list/tools_forensics
+	crate_type = /obj/structure/closet/crate/secure/gear
 	access_budget = ACCESS_SECURITY
 	small_item = TRUE
 	entries = list(
@@ -150,6 +155,7 @@
 // =============================================================================
 
 /datum/cargo_list/tools_cargo
+	crate_type = /obj/structure/closet/crate
 	small_item = TRUE
 	entries = list(
 		// -- Cargo tools (QM locker / cargo bay) --
@@ -165,6 +171,7 @@
 // =============================================================================
 
 /datum/cargo_list/equipment_eva
+	crate_type = /obj/structure/closet/crate/secure/engineering
 	access_budget = ACCESS_ENGINE_EQUIP
 	entries = list(
 		// -- Internals tanks (larger capacity, for EVA use) --

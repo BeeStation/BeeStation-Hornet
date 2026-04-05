@@ -2,7 +2,8 @@
  * # Armor & Protection Cargo Items
  *
  * Protective gear: body armor, helmets, shields, space suits, hazard protection.
- * Split into Body Armor, Helmets & Shields, Space & EVA, and Hazard Protection.
+ * Split into Body Armor, Helmets & Shields, Fortifications, Space & EVA,
+ * Hazard Protection (head/suits/security), and Plasmaman Suits & Helmets.
  */
 
 // =============================================================================
@@ -11,6 +12,7 @@
 
 /datum/cargo_list/armor_body
 	access_budget = ACCESS_SECURITY
+	crate_type = /obj/structure/closet/crate/secure/gear
 	entries = list(
 		// -- Standard-issue security vests --
 		list("path" = /obj/item/clothing/suit/armor/vest, "cost" = 500, "max_supply" = 6),
@@ -45,6 +47,7 @@
 /datum/cargo_list/armor_head
 	access_budget = ACCESS_SECURITY
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/secure/gear
 	entries = list(
 		// -- Standard helmets --
 		list("path" = /obj/item/clothing/head/helmet/sec, "cost" = 300, "max_supply" = 6),
@@ -67,6 +70,7 @@
 /datum/cargo_list/armor_deploy
 	access_budget = ACCESS_SECURITY
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/secure/gear
 	entries = list(
 		list("path" = /obj/item/security_barricade, "cost" = 200, "max_supply" = 10),
 		list("path" = /obj/item/storage/box/wall_flash, "cost" = 350, "max_supply" = 6),
@@ -80,6 +84,7 @@
 // =============================================================================
 
 /datum/cargo_list/armor_space
+	crate_type = /obj/structure/closet/crate/large
 	entries = list(
 		// -- Standard space suits --
 		list("path" = /obj/item/clothing/suit/space, "cost" = 2000, "max_supply" = 4),
@@ -98,8 +103,11 @@
 // HAZARD PROTECTION
 // =============================================================================
 
-/datum/cargo_list/armor_hazard
+// Hard hats, welding helmets, and general-purpose breath/gas masks.
+// Engineering crate: lightweight utility head protection for workers.
+/datum/cargo_list/armor_hazard_head
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/engineering
 	entries = list(
 		// -- Hard hats --
 		list("path" = /obj/item/clothing/head/utility/hardhat, "cost" = 150, "max_supply" = 5),
@@ -112,25 +120,43 @@
 		list("path" = /obj/item/clothing/head/utility/hardhat/welding, "cost" = 250, "max_supply" = 4),
 		list("path" = /obj/item/clothing/head/utility/hardhat/welding/orange, "cost" = 250, "max_supply" = 4),
 		list("path" = /obj/item/clothing/head/utility/hardhat/welding/white, "cost" = 350, "max_supply" = 3),
-		// -- Bio suits --
-		list("path" = /obj/item/clothing/suit/bio_suit, "cost" = 500, "max_supply" = 5, "small_item" = FALSE),
-		list("path" = /obj/item/clothing/head/bio_hood, "cost" = 500, "max_supply" = 5),
-		// -- Bomb suits --
-		list("path" = /obj/item/clothing/suit/utility/bomb_suit, "cost" = 400, "max_supply" = 3, "small_item" = FALSE),
-		list("path" = /obj/item/clothing/head/utility/bomb_hood, "cost" = 300, "max_supply" = 3),
-		list("path" = /obj/item/clothing/suit/utility/bomb_suit/security, "cost" = 500, "max_supply" = 2, "small_item" = FALSE, "access_budget" = ACCESS_SECURITY),
-		list("path" = /obj/item/clothing/head/utility/bomb_hood/security, "cost" = 400, "max_supply" = 2, "access_budget" = ACCESS_SECURITY),
-		// -- Fire suits --
-		list("path" = /obj/item/clothing/suit/utility/fire/firefighter, "cost" = 400, "max_supply" = 5, "small_item" = FALSE),
-		list("path" = /obj/item/clothing/suit/utility/fire/atmos, "cost" = 800, "max_supply" = 2, "small_item" = FALSE, "access_budget" = ACCESS_ATMOSPHERICS),
-		// -- Radiation suits --
-		list("path" = /obj/item/clothing/suit/utility/radiation, "cost" = 400, "max_supply" = 4, "small_item" = FALSE),
-		list("path" = /obj/item/clothing/head/utility/radiation, "cost" = 300, "max_supply" = 4),
 		// -- Gas masks & breath masks --
 		list("path" = /obj/item/clothing/mask/gas, "cost" = 50, "max_supply" = 10),
 		list("path" = /obj/item/clothing/mask/gas/welding, "cost" = 200, "max_supply" = 5),
 		list("path" = /obj/item/clothing/mask/breath, "cost" = 25, "max_supply" = 10),
-		list("path" = /obj/item/clothing/mask/gas/sechailer, "cost" = 150, "max_supply" = 6, "access_budget" = ACCESS_SECURITY),
+	)
+
+// Bio suits, civilian bomb suits, fire suits, and radiation suits.
+// Engineering crate: bulky full-body hazard protection for civilian use.
+/datum/cargo_list/armor_hazard_suits
+	crate_type = /obj/structure/closet/crate/engineering
+	entries = list(
+		// -- Bio suits --
+		list("path" = /obj/item/clothing/suit/bio_suit, "cost" = 500, "max_supply" = 5),
+		list("path" = /obj/item/clothing/head/bio_hood, "cost" = 500, "max_supply" = 5, "small_item" = TRUE),
+		// -- Bomb suits --
+		list("path" = /obj/item/clothing/suit/utility/bomb_suit, "cost" = 400, "max_supply" = 3),
+		list("path" = /obj/item/clothing/head/utility/bomb_hood, "cost" = 300, "max_supply" = 3, "small_item" = TRUE),
+		// -- Fire suits --
+		list("path" = /obj/item/clothing/suit/utility/fire/firefighter, "cost" = 400, "max_supply" = 5),
+		list("path" = /obj/item/clothing/suit/utility/fire/atmos, "cost" = 800, "max_supply" = 2, "access_budget" = ACCESS_ATMOSPHERICS),
+		// -- Radiation suits --
+		list("path" = /obj/item/clothing/suit/utility/radiation, "cost" = 400, "max_supply" = 4),
+		list("path" = /obj/item/clothing/head/utility/radiation, "cost" = 300, "max_supply" = 4, "small_item" = TRUE),
+	)
+
+// Security-restricted hazard gear: security bomb suits and armory-grade gas masks.
+// Secure gear crate: requires security budget access to purchase.
+/datum/cargo_list/armor_hazard_security
+	access_budget = ACCESS_SECURITY
+	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/secure/gear
+	entries = list(
+		// -- Security bomb suits --
+		list("path" = /obj/item/clothing/suit/utility/bomb_suit/security, "cost" = 500, "max_supply" = 2, "small_item" = FALSE),
+		list("path" = /obj/item/clothing/head/utility/bomb_hood/security, "cost" = 400, "max_supply" = 2),
+		// -- Security gas masks --
+		list("path" = /obj/item/clothing/mask/gas/sechailer, "cost" = 150, "max_supply" = 6),
 		list("path" = /obj/item/clothing/mask/gas/sechailer/swat, "cost" = 500, "max_supply" = 4, "access" = ACCESS_ARMORY, "access_budget" = ACCESS_ARMORY),
 	)
 
@@ -140,6 +166,7 @@
 
 /datum/cargo_list/armor_plasmaman
 	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/secure/gear
 	entries = list(
 		// -- Envirosuits (jumpsuits) --
 		list("path" = /obj/item/clothing/under/plasmaman, "cost" = 500, "max_supply" = 4, "small_item" = FALSE),

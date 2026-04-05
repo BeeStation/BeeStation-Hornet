@@ -114,6 +114,7 @@
 // =============================================================================
 
 /datum/cargo_list/toys_chess
+	crate_type = /obj/structure/closet/crate/large
 	entries = list(
 		// -- White pieces --
 		list("path" = /obj/structure/chess/whiteking, "cost" = 100, "max_supply" = 2),

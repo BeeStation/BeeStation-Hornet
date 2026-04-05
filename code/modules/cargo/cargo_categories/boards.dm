@@ -15,6 +15,7 @@
 
 /datum/cargo_list/boards_command
 	access_budget = ACCESS_HOP
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		// -- ID & comms consoles --
@@ -32,6 +33,7 @@
 
 /datum/cargo_list/boards_engineering
 	access_budget = ACCESS_ENGINE_EQUIP
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		// -- Power monitoring & control --
@@ -70,6 +72,7 @@
 
 /datum/cargo_list/boards_atmos
 	access_budget = ACCESS_ATMOSPHERICS
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/circuitboard/computer/atmos_control, "cost" = 200, "max_supply" = 4),
@@ -86,6 +89,7 @@
 
 /datum/cargo_list/boards_telecomms
 	access_budget = ACCESS_ENGINE_EQUIP
+	crate_type = /obj/structure/closet/crate/science
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/circuitboard/computer/comm_monitor, "cost" = 200, "max_supply" = 3),
@@ -108,6 +112,7 @@
 
 /datum/cargo_list/boards_medical
 	access_budget = ACCESS_MEDICAL
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		// -- Medical computers --
@@ -139,6 +144,7 @@
 
 /datum/cargo_list/boards_science
 	access_budget = ACCESS_RESEARCH
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		// -- R&D computers --
@@ -174,6 +180,7 @@
 
 /datum/cargo_list/boards_security
 	access_budget = ACCESS_SECURITY
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/circuitboard/computer/security, "cost" = 250, "max_supply" = 4),
@@ -189,6 +196,7 @@
 // =============================================================================
 
 /datum/cargo_list/boards_service
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		// -- Bar / kitchen --
@@ -220,6 +228,7 @@
 
 /datum/cargo_list/boards_supply
 	access_budget = ACCESS_CARGO
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		list("path" = /obj/item/circuitboard/computer/cargo, "cost" = 250, "max_supply" = 3),
@@ -244,6 +253,7 @@
 // =============================================================================
 
 /datum/cargo_list/boards_misc
+	crate_type = /obj/structure/closet/crate/secure/science
 	small_item = TRUE
 	entries = list(
 		// -- Vendors & dispensers --
