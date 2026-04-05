@@ -41,8 +41,7 @@ const ACCESS_SEARCH_FILTERS = {
   '@service': [22, 25, 26, 28, 35, 37, 38, 46, 71], // CHAPEL, BAR, JANITOR, KITCHEN, HYDROPONICS, LIBRARY, LAWYER, THEATRE, SERVICE
   '@command': [15, 19, 20, 57, 58, 56, 30, 40], // CHANGE_IDS, HEADS, CAPTAIN, HOP, HOS, CE, RD, CMO
   // --- Meta filters ---
-  '@contraband': (pack) => !!pack.contraband || !!pack.syndicate_contraband,
-  '@syndicate': (pack) => !!pack.syndicate_contraband,
+  '@openmarket': (pack) => !!pack.contraband || !!pack.syndicate_contraband,
   '@restricted': (pack) => !!pack.access,
   '@unrestricted': (pack) => !pack.access,
 };

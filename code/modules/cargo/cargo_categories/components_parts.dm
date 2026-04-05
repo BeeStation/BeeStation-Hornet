@@ -14,15 +14,15 @@
 	crate_type = /obj/structure/closet/crate/science
 	small_item = TRUE
 	entries = list(
-		list("path" = /obj/item/assembly/prox_sensor, "cost" = 50, "max_supply" = 10),
-		list("path" = /obj/item/assembly/igniter, "cost" = 30, "max_supply" = 10),
-		list("path" = /obj/item/assembly/timer, "cost" = 30, "max_supply" = 10),
-		list("path" = /obj/item/assembly/signaler, "cost" = 50, "max_supply" = 10),
-		list("path" = /obj/item/assembly/voice, "cost" = 50, "max_supply" = 8),
-		list("path" = /obj/item/assembly/infra, "cost" = 50, "max_supply" = 8),
+		list("path" = /obj/item/assembly/prox_sensor, "cost" = 25, "max_supply" = 10),
+		list("path" = /obj/item/assembly/igniter, "cost" = 10, "max_supply" = 10),
+		list("path" = /obj/item/assembly/timer, "cost" = 10, "max_supply" = 10),
+		list("path" = /obj/item/assembly/signaler, "cost" = 20, "max_supply" = 10),
+		list("path" = /obj/item/assembly/voice, "cost" = 35, "max_supply" = 8),
+		list("path" = /obj/item/assembly/infra, "cost" = 35, "max_supply" = 8),
 		list("path" = /obj/item/assembly/health, "cost" = 50, "max_supply" = 6),
-		list("path" = /obj/item/assembly/flash, "cost" = 200, "max_supply" = 6),
-		list("path" = /obj/item/assembly/mousetrap, "cost" = 15, "max_supply" = 12),
+		list("path" = /obj/item/assembly/flash, "cost" = 75, "max_supply" = 6),
+		list("path" = /obj/item/assembly/mousetrap, "cost" = 5, "max_supply" = 12),
 	)
 
 // =============================================================================
@@ -34,11 +34,11 @@
 	crate_type = /obj/structure/closet/crate/science
 	small_item = TRUE
 	entries = list(
-		list("path" = /obj/item/inducer/sci/with_cell, "cost" = 600, "max_supply" = 3),
-		list("path" = /obj/item/storage/part_replacer/cargo, "cost" = 1500, "max_supply" = 2),
-		list("path" = /obj/item/mod/core/standard, "cost" = 1000, "max_supply" = 4),
-		list("path" = /obj/item/clothing/head/helmet/monkey_sentience_helmet, "cost" = 1000, "max_supply" = 4),
-		list("path" = /obj/item/disk/tech_disk/research/random, "cost" = 2000, "max_supply" = 3),
+		list("path" = /obj/item/inducer/sci/with_cell, "cost" = 400, "max_supply" = 3),
+		list("path" = /obj/item/storage/part_replacer/cargo, "cost" = 600, "max_supply" = 2),
+		list("path" = /obj/item/mod/core/standard, "cost" = 500, "max_supply" = 4),
+		list("path" = /obj/item/clothing/head/helmet/monkey_sentience_helmet, "cost" = 350, "max_supply" = 4),
+		list("path" = /obj/item/disk/tech_disk/research/random, "cost" = 800, "max_supply" = 3),
 	)
 
 // =============================================================================
@@ -49,11 +49,11 @@
 	crate_type = /obj/structure/closet/crate/science
 	small_item = TRUE
 	entries = list(
-		list("path" = /obj/item/stock_parts/capacitor, "cost" = 50, "max_supply" = 15),
-		list("path" = /obj/item/stock_parts/scanning_module, "cost" = 50, "max_supply" = 15),
-		list("path" = /obj/item/stock_parts/manipulator, "cost" = 50, "max_supply" = 15),
-		list("path" = /obj/item/stock_parts/micro_laser, "cost" = 50, "max_supply" = 15),
-		list("path" = /obj/item/stock_parts/matter_bin, "cost" = 50, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/capacitor, "cost" = 20, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/scanning_module, "cost" = 20, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/manipulator, "cost" = 20, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/micro_laser, "cost" = 20, "max_supply" = 15),
+		list("path" = /obj/item/stock_parts/matter_bin, "cost" = 20, "max_supply" = 15),
 	)
 
 // =============================================================================
@@ -65,13 +65,13 @@
 	crate_type = /obj/structure/closet/crate/engineering
 	small_item = TRUE
 	entries = list(
-		list("path" = /obj/item/stock_parts/subspace/ansible, "cost" = 100, "max_supply" = 6),
-		list("path" = /obj/item/stock_parts/subspace/filter, "cost" = 100, "max_supply" = 6),
-		list("path" = /obj/item/stock_parts/subspace/amplifier, "cost" = 100, "max_supply" = 6),
-		list("path" = /obj/item/stock_parts/subspace/treatment, "cost" = 100, "max_supply" = 6),
-		list("path" = /obj/item/stock_parts/subspace/analyzer, "cost" = 100, "max_supply" = 6),
-		list("path" = /obj/item/stock_parts/subspace/crystal, "cost" = 100, "max_supply" = 6),
-		list("path" = /obj/item/stock_parts/subspace/transmitter, "cost" = 100, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/ansible, "cost" = 60, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/filter, "cost" = 60, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/amplifier, "cost" = 60, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/treatment, "cost" = 60, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/analyzer, "cost" = 60, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/crystal, "cost" = 60, "max_supply" = 6),
+		list("path" = /obj/item/stock_parts/subspace/transmitter, "cost" = 60, "max_supply" = 6),
 	)
 
 // =============================================================================
@@ -83,9 +83,9 @@
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 	small_item = TRUE
 	entries = list(
-		list("path" = /obj/item/stock_parts/cell, "cost" = 100, "max_supply" = 10),
-		list("path" = /obj/item/stock_parts/cell/high, "cost" = 400, "max_supply" = 8),
-		list("path" = /obj/item/fuel_rod, "cost" = 350, "max_supply" = 8),
+		list("path" = /obj/item/stock_parts/cell, "cost" = 30, "max_supply" = 10),
+		list("path" = /obj/item/stock_parts/cell/high, "cost" = 200, "max_supply" = 8),
+		list("path" = /obj/item/fuel_rod, "cost" = 125, "max_supply" = 8),
 	)
 
 // =============================================================================
@@ -98,7 +98,7 @@
 
 /datum/cargo_crate/components_packs/plasma
 	name = "Plasma Assembly Crate"
-	cost = 2500
+	cost = 1200
 	max_supply = 2
 	access = ACCESS_TOX_STORAGE
 	access_budget = ACCESS_TOX_STORAGE
@@ -120,7 +120,7 @@
 
 /datum/cargo_crate/components_packs/robotics
 	name = "Robotics Assembly Crate"
-	cost = 2500
+	cost = 800
 	max_supply = 2
 	access_budget = ACCESS_ROBOTICS
 	contains = list(
@@ -143,7 +143,7 @@
 
 /datum/cargo_crate/components_packs/recharging
 	name = "Cyborg Recharger Kit"
-	cost = 1500
+	cost = 500
 	max_supply = 2
 	access_budget = ACCESS_ROBOTICS
 	contains = list(
@@ -158,7 +158,7 @@
 
 /datum/cargo_crate/components_packs/stock_parts_bulk
 	name = "Stock Parts Bulk Crate"
-	cost = 1000
+	cost = 400
 	max_supply = 3
 	contains = list(
 		/obj/item/stock_parts/capacitor,
@@ -180,7 +180,7 @@
 
 /datum/cargo_crate/components_packs/shieldwalls
 	name = "Shield Wall Generator Crate"
-	cost = 4000
+	cost = 2500
 	max_supply = 1
 	access = ACCESS_RESEARCH
 	contains = list(
@@ -193,7 +193,7 @@
 
 /datum/cargo_crate/components_packs/transfer_valves
 	name = "Tank Transfer Valves"
-	cost = 4000
+	cost = 2500
 	max_supply = 1
 	access = ACCESS_RD
 	access_budget = ACCESS_RD
@@ -206,7 +206,7 @@
 
 /datum/cargo_crate/components_packs/xenobio
 	name = "Xenobiology Startup Kit"
-	cost = 4000
+	cost = 1800
 	max_supply = 1
 	access = ACCESS_XENOBIOLOGY
 	access_budget = ACCESS_XENOBIOLOGY
@@ -222,7 +222,7 @@
 
 /datum/cargo_crate/components_packs/telecomms_repair
 	name = "Telecommunications Repair Crate"
-	cost = 3000
+	cost = 1500
 	max_supply = 2
 	access = ACCESS_ENGINE
 	access_budget = ACCESS_ENGINE_EQUIP
@@ -243,7 +243,7 @@
 
 /datum/cargo_crate/components_packs/fuel_rods
 	name = "Fuel Rod Crate"
-	cost = 2000
+	cost = 750
 	max_supply = 3
 	access = ACCESS_ENGINE
 	crate_type = /obj/structure/closet/crate/secure/engineering

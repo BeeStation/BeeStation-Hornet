@@ -14,7 +14,7 @@
 /datum/cargo_crate/contraband/goods
 	name = "Contraband Crate"
 	desc = "Psst.. bud... want some contraband? I can get you a poster, some nice cigs, dank, even some sponsored items...you know, the good stuff. Just keep it away from the cops, kay?"
-	cost = 3000
+	cost = 800
 	max_supply = 2
 	contraband = TRUE
 	contains = list(
@@ -48,7 +48,7 @@
 /datum/cargo_crate/contraband/specialops
 	name = "Special Ops Supplies"
 	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
-	cost = 800
+	cost = 2000
 	max_supply = 2
 	syndicate_contraband = TRUE
 	contains = list(
@@ -64,7 +64,7 @@
 /datum/cargo_crate/contraband/syndieclothes
 	name = "Syndicate Uniform Supplies"
 	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER WILL MAKE YOU STYLISH SYNDICATE STYLE. CONTAINS A COLLECTION OF THREE TACTICAL TURTLENECKS, THREE COMBAT BOOTS, THREE COMBAT GLOVES, THREE BALACLAVAS, THREE SYNDICATE BERETS AND THREE ARMOR VESTS!#@*$"
-	cost = 3000
+	cost = 1200
 	max_supply = 3
 	syndicate_contraband = TRUE
 	contains = list(
@@ -117,7 +117,7 @@
 /datum/cargo_crate/contraband/foamforce_pistols
 	name = "Foam Force Pistols Crate"
 	desc = "Psst.. hey bud... remember those old foam force pistols that got discontinued for being too cool? Well I got two of those right here with your name on em. I'll even throw in a spare mag for each, waddya say?"
-	cost = 4000
+	cost = 600
 	max_supply = 1
 	contraband = TRUE
 	contains = list(
@@ -130,7 +130,7 @@
 /datum/cargo_crate/contraband/clownpin
 	name = "Hilarious Firing Pin Crate"
 	desc = "I uh... I'm not really sure what this does. Wanna buy it?"
-	cost = 5000
+	cost = 400
 	max_supply = 4
 	contraband = TRUE
 	contains = list(/obj/item/firing_pin/clown)
@@ -139,7 +139,7 @@
 /datum/cargo_crate/contraband/lasertagpins
 	name = "Laser Tag Firing Pins Crate"
 	desc = "Three laser tag firing pins used in laser-tag units to ensure users are wearing their vests."
-	cost = 3000
+	cost = 500
 	max_supply = 5
 	contraband = TRUE
 	contains = list(/obj/item/storage/box/lasertagpins)
@@ -147,7 +147,7 @@
 /datum/cargo_crate/contraband/plush_no_moths
 	name = "Plushie Crate Without Moth Plushies"
 	desc = "A crate filled with 5 plushies without all those pesky moth plushies! Might contain dangerous plushies."
-	cost = 1500
+	cost = 400
 	max_supply = 5
 	contraband = TRUE
 	contains = list()
@@ -163,7 +163,7 @@
 /datum/cargo_crate/contraband/cream_pie
 	name = "High-yield Clown-grade Cream Pie Crate"
 	desc = "Designed by Aussec's Advanced Warfare Research Division, these high-yield, Clown-grade cream pies are powered by a synergy of performance and efficiency. Guaranteed to provide maximum results."
-	cost = 6000
+	cost = 800
 	max_supply = 4
 	contraband = TRUE
 	contains = list(/obj/item/storage/backpack/duffelbag/clown/cream_pie)
@@ -172,7 +172,7 @@
 /datum/cargo_crate/contraband/beefbroth
 	name = "Beef Broth Bulk Crate"
 	desc = "No one really wants to order beef broth so we're selling it in bulk!"
-	cost = 5000
+	cost = 300
 	max_supply = 3
 	contraband = TRUE
 	contains = list(
@@ -191,7 +191,7 @@
 /datum/cargo_crate/contraband/vehicle
 	name = "Biker Gang Kit"
 	desc = "TUNNEL SNAKES OWN THIS TOWN. Contains an unbranded All Terrain Vehicle, and a complete gang outfit -- consists of black gloves, a menacing skull bandanna, and a SWEET leather overcoat!"
-	cost = 1500
+	cost = 1000
 	max_supply = 2
 	contraband = TRUE
 	contains = list(
@@ -207,7 +207,7 @@
 /datum/cargo_crate/contraband/lawnmower
 	name = "Lawnmower Crate"
 	desc = "Contains an unstable and slow lawnmower. Use with caution!"
-	cost = 3000
+	cost = 600
 	max_supply = 3
 	contraband = TRUE
 	contains = list(/obj/vehicle/ridden/lawnmower)
@@ -215,7 +215,7 @@
 /datum/cargo_crate/contraband/justiceinbound
 	name = "Standard Justice Enforcer Crate"
 	desc = "This is it. The Bee's Knees. The Creme of the Crop. The Pick of the Litter. The best of the best of the best. The Crown Jewel of Nanotrasen. The Alpha and the Omega of security headwear. Guaranteed to strike fear into the hearts of each and every criminal aboard the station. Also comes with a security gasmask."
-	cost = 5700
+	cost = 1500
 	max_supply = 3
 	contraband = TRUE
 	contains = list(
@@ -227,7 +227,7 @@
 /datum/cargo_crate/contraband/butterfly
 	name = "Butterflies Crate"
 	desc = "Not a very dangerous insect, but they do give off a better image than, say, flies or cockroaches."
-	cost = 5000
+	cost = 500
 	max_supply = 4
 	contraband = TRUE
 	contains = list(/mob/living/simple_animal/butterfly)
@@ -240,7 +240,7 @@
 
 /datum/cargo_crate/contraband/virus
 	name = "Virus Crate"
-	cost = 3000
+	cost = 2500
 	max_supply = 1
 	contraband = TRUE
 	dangerous = TRUE
@@ -256,7 +256,7 @@
 
 /datum/cargo_crate/contraband/russian
 	name = "Russian Surplus Crate"
-	cost = 7500
+	cost = 3000
 	max_supply = 1
 	contraband = TRUE
 	contains = list(
@@ -283,7 +283,7 @@
 
 /datum/cargo_crate/contraband/western
 	name = "Western Frontier Crate"
-	cost = 7500
+	cost = 3000
 	max_supply = 1
 	contraband = TRUE
 	contains = list(

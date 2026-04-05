@@ -75,24 +75,24 @@
 		list("path" = /obj/item/food/canned/peaches, "cost" = 25, "max_supply" = 10),
 		list("path" = /obj/item/food/canned/beefbroth, "cost" = 25, "max_supply" = 10),
 		// -- Pizza boxes --
-		list("path" = /obj/item/pizzabox/margherita, "cost" = 200, "max_supply" = 4),
-		list("path" = /obj/item/pizzabox/mushroom, "cost" = 200, "max_supply" = 4),
-		list("path" = /obj/item/pizzabox/meat, "cost" = 200, "max_supply" = 4),
-		list("path" = /obj/item/pizzabox/vegetable, "cost" = 200, "max_supply" = 4),
-		list("path" = /obj/item/pizzabox/pineapple, "cost" = 200, "max_supply" = 4),
+		list("path" = /obj/item/pizzabox/margherita, "cost" = 175, "max_supply" = 4),
+		list("path" = /obj/item/pizzabox/mushroom, "cost" = 175, "max_supply" = 4),
+		list("path" = /obj/item/pizzabox/meat, "cost" = 175, "max_supply" = 4),
+		list("path" = /obj/item/pizzabox/vegetable, "cost" = 175, "max_supply" = 4),
+		list("path" = /obj/item/pizzabox/pineapple, "cost" = 175, "max_supply" = 4),
 		// -- Exotic meats --
 		list("path" = /obj/item/food/meat/slab/human/mutant/slime, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/food/meat/slab/killertomato, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/food/meat/slab/bear, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/food/meat/slab/xeno, "cost" = 150, "max_supply" = 3),
 		list("path" = /obj/item/food/meat/slab/spider, "cost" = 100, "max_supply" = 3),
-		list("path" = /obj/item/food/meat/rawbacon, "cost" = 60, "max_supply" = 4),
+		list("path" = /obj/item/food/meat/rawbacon, "cost" = 40, "max_supply" = 4),
 		list("path" = /obj/item/food/meat/slab/penguin, "cost" = 100, "max_supply" = 3),
 		list("path" = /obj/item/food/spiderleg, "cost" = 80, "max_supply" = 3),
 		list("path" = /obj/item/food/fishmeat/carp, "cost" = 80, "max_supply" = 4),
 		list("path" = /obj/item/food/meat/slab/human, "cost" = 150, "max_supply" = 2),
 		// -- Cream pies --
-		list("path" = /obj/item/storage/backpack/duffelbag/clown/cream_pie, "cost" = 600, "max_supply" = 3),
+		list("path" = /obj/item/storage/backpack/duffelbag/clown/cream_pie, "cost" = 500, "max_supply" = 3),
 	)
 
 // =============================================================================
@@ -150,8 +150,8 @@
 		// -- Mixers & carbonated water (Booze-O-Mat) --
 		list("path" = /obj/item/reagent_containers/cup/soda_cans/sodawater, "cost" = 15, "max_supply" = 12),
 		list("path" = /obj/item/reagent_containers/cup/soda_cans/tonic, "cost" = 15, "max_supply" = 12),
-		list("path" = /obj/item/reagent_containers/cup/glass/bottle/grenadine, "cost" = 50, "max_supply" = 6),
-		list("path" = /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing, "cost" = 50, "max_supply" = 3),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/grenadine, "cost" = 30, "max_supply" = 6),
+		list("path" = /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing, "cost" = 30, "max_supply" = 3),
 		// -- Energy drinks --
 		list("path" = /obj/item/reagent_containers/cup/soda_cans/grey_bull, "cost" = 40, "max_supply" = 8),
 		list("path" = /obj/item/reagent_containers/cup/soda_cans/monkey_energy, "cost" = 40, "max_supply" = 8),
@@ -195,7 +195,7 @@
 		// -- Cooking appliances --
 		list("path" = /obj/machinery/grill/unwrenched, "cost" = 500, "max_supply" = 2, "small_item" = FALSE),
 		list("path" = /obj/item/stack/sheet/mineral/coal/five, "cost" = 50, "max_supply" = 6),
-		list("path" = /obj/item/stack/sheet/mineral/coal/ten, "cost" = 90, "max_supply" = 4),
+		list("path" = /obj/item/stack/sheet/mineral/coal/ten, "cost" = 80, "max_supply" = 4),
 		// -- Glassware & barware (Booze-O-Mat) --
 		list("path" = /obj/item/reagent_containers/cup/glass/drinkingglass, "cost" = 5, "max_supply" = 15),
 		list("path" = /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass, "cost" = 5, "max_supply" = 12),
@@ -307,7 +307,7 @@
 		list("path" = /obj/item/clothing/suit/utility/beekeeper_suit, "cost" = 150, "max_supply" = 4),
 		list("path" = /obj/item/clothing/head/utility/beekeeper_head, "cost" = 100, "max_supply" = 4),
 		// -- Decorative --
-		list("path" = /obj/item/kirbyplants/random, "cost" = 120, "max_supply" = 8, "access_budget" = FALSE),
+		list("path" = /obj/item/kirbyplants/random, "cost" = 80, "max_supply" = 8, "access_budget" = FALSE),
 	)
 
 // =============================================================================
@@ -320,7 +320,7 @@
 
 /datum/cargo_crate/consumables_hydro/beekeeping_fullkit
 	name = "Beekeeping Starter Kit"
-	cost = 2500
+	cost = 2000
 	max_supply = 1
 	contains = list(
 		/obj/structure/beebox/unwrenched,

@@ -8,7 +8,7 @@
 // INDIVIDUAL ITEMS
 // =============================================================================
 
-// Pet accessories and supplies ship in a plain crate — they're items, not animals.
+// Pet accessories and supplies ship in a plain crate, they're items, not animals.
 /datum/cargo_list/livestock_supplies
 	crate_type = /obj/structure/closet/crate
 	small_item = TRUE
