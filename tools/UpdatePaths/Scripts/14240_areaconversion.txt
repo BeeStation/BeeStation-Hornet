@@ -62,6 +62,7 @@
 /area/engine/engine_room : /area/station/engineering/supermatter{@OLD}
 /area/engine/@SUBTYPES : /area/station/engineering/@SUBTYPES{@OLD}
 /area/engine : /area/station/engineering{@OLD}
+/area/engineering/hallway : /area/station/engineering/hallway{@OLD}
 
 # Solar → Station/Solars
 /area/solar/derelict_starboard : /area/station/solars/derelict_starboard{@OLD}
