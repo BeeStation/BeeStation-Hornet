@@ -2763,6 +2763,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/wood,
 /area/station/service/library)
+"bfy" = (
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/department/engine)
 "bfL" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -14859,6 +14866,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/engine)
 "fbG" = (
@@ -16376,6 +16386,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "fDX" = (
@@ -16383,6 +16396,15 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/security/checkpoint/engineering)
+"fDZ" = (
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/department/engine)
 "fEb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
@@ -39196,6 +39218,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "mCg" = (
@@ -45713,6 +45738,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/engine)
@@ -67857,6 +67885,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
@@ -122751,8 +122782,8 @@ xrQ
 oau
 eJm
 eZQ
-fzu
-fbC
+bfy
+fDZ
 wQW
 kdZ
 rGQ

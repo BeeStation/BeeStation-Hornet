@@ -1841,9 +1841,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "aAk" = (
@@ -14350,9 +14347,6 @@
 	},
 /obj/machinery/atmospherics/components/binary/volume_pump{
 	name = "Gas to Filter"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
@@ -28472,9 +28466,6 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "hGx" = (
@@ -34930,13 +34921,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/science/lobby)
-"jnR" = (
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/ameridiner,
-/area/station/engineering/supermatter/room)
 "jnT" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -43835,9 +43819,6 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/west,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "lAs" = (
@@ -62243,10 +62224,6 @@
 	dir = 4;
 	name = "Gas to Chamber"
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "qyY" = (
@@ -65532,15 +65509,13 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/misc/space)
 "rtT" = (
-/obj/machinery/power/apc/auto_name/directional/west{
-	pixel_x = -24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "rue" = (
@@ -78171,9 +78146,6 @@
 /obj/machinery/light_switch{
 	pixel_x = -20;
 	pixel_y = 22
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
 	},
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/engine,
@@ -139111,7 +139083,7 @@ kyL
 ksk
 ruY
 tqo
-jnR
+rFQ
 rFQ
 rFQ
 rFQ

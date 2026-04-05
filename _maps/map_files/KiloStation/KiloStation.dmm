@@ -1222,9 +1222,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -5064,13 +5061,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "bTL" = (
@@ -56758,6 +56751,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "rSH" = (
@@ -74803,10 +74800,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
-"xAc" = (
-/obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall/rust,
-/area/station/engineering/main)
 "xAd" = (
 /obj/machinery/power/emitter/welded{
 	dir = 8
@@ -111188,7 +111181,7 @@ vDy
 ipS
 tgr
 uqo
-xAc
+aVd
 iGW
 qbs
 uqo
