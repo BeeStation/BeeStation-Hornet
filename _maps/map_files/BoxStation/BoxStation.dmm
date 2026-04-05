@@ -12145,7 +12145,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat/service";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat/service";
 	name = "Service Bay Turret Control";
 	pixel_x = 27;
 	req_access = null;
@@ -13510,7 +13510,7 @@
 /area/station/security/courtroom)
 "fsC" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat_interior";
 	name = "Antechamber Turret Control";
 	pixel_y = -24;
 	req_access = null;
@@ -14206,7 +14206,7 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/tcommsat/server";
+	areastring = "/area/station/tcommsat/server";
 	dir = 1;
 	name = "Telecomms Server APC";
 	pixel_y = 24
@@ -14608,7 +14608,7 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/south{
-	areastring = "/area/engine/supermatter"
+	areastring = "/area/station/engineering/supermatter"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/engine,
@@ -22188,7 +22188,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat/hallway";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat/hallway";
 	name = "Chamber Hallway Turret Control";
 	pixel_x = 32;
 	pixel_y = -24;
@@ -29153,7 +29153,7 @@
 "lfI" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_y = 28
@@ -38846,7 +38846,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/ai_monitored/turret_protected/ai";
+	areastring = "/area/station/ai_monitored/turret_protected/aisat";
 	name = "AI Chamber APC";
 	pixel_y = -24
 	},
@@ -43412,7 +43412,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/highcap/fifteen_k{
-	areastring = "/area/engine/engineering";
+	areastring = "/area/station/engineering/main";
 	dir = 1;
 	name = "Engineering APC";
 	pixel_y = 24
@@ -45164,7 +45164,7 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/ai_monitored/turret_protected/ai_upload";
+	areastring = "/area/station/ai_monitored/turret_protected/ai_upload";
 	name = "Upload APC";
 	pixel_y = -24
 	},
@@ -53151,7 +53151,7 @@
 	dir = 8
 	},
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat/atmos";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat/atmos";
 	name = "Atmospherics Turret Control";
 	pixel_x = -27;
 	req_access = null;
@@ -60271,7 +60271,7 @@
 "wCh" = (
 /obj/structure/closet/secure_closet/engineering_chief,
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/crew_quarters/heads/chief";
+	areastring = "/area/station/command/heads_quarters/chief";
 	dir = 4;
 	name = "CE Office APC";
 	pixel_x = 24
@@ -61153,7 +61153,7 @@
 /area/station/engineering/atmos)
 "wSq" = (
 /obj/machinery/power/apc/auto_name/directional/west{
-	areastring = "/area/science/mixing/chamber"
+	areastring = "/area/station/science/mixing/chamber"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -64956,7 +64956,7 @@
 	},
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/bridge";
+	areastring = "/area/station/command/bridge";
 	name = "Bridge APC";
 	pixel_y = -24
 	},

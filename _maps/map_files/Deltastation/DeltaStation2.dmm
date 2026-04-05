@@ -1634,7 +1634,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
 /obj/machinery/power/apc/auto_name/directional/north{
-	areastring = "/area/engine/supermatter"
+	areastring = "/area/station/engineering/supermatter"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -42568,7 +42568,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/auto_name/directional/east{
-	areastring = "/area/science/mixing/chamber"
+	areastring = "/area/station/science/mixing/chamber"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -54884,7 +54884,7 @@
 "ptF" = (
 /obj/machinery/light/small,
 /obj/machinery/power/apc{
-	areastring = "/area/maintenance/port/fore";
+	areastring = "/area/station/maintenance/port/fore";
 	name = "Port Bow Maintenance APC";
 	pixel_y = -24
 	},
@@ -58205,7 +58205,7 @@
 /area/station/service/bar)
 "qne" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_y = -32
@@ -67959,7 +67959,7 @@
 "sWC" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat_interior";
 	name = "Antechamber Turret Control";
 	pixel_x = -32;
 	req_access = null;

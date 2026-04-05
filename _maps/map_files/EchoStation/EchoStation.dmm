@@ -9840,7 +9840,7 @@
 /area/station/cargo/storage)
 "fDH" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat";
 	icon_state = "control_stun";
 	name = "AI Chamber turret control";
 	pixel_x = -1;
@@ -20470,7 +20470,7 @@
 /area/station/maintenance/department/science/central)
 "lFk" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat_interior";
 	name = "Antechamber Turret Control";
 	pixel_x = -2;
 	pixel_y = 33;
@@ -26338,7 +26338,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
+	control_area = "/area/station/ai_monitored/turret_protected/aisat";
 	icon_state = "control_stun";
 	name = "AI Chamber turret control";
 	pixel_x = -1;
@@ -29401,7 +29401,7 @@
 /area/station/service/cafeteria)
 "qzk" = (
 /obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	control_area = "/area/station/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_x = -33;
@@ -34741,7 +34741,7 @@
 /obj/structure/tank_dispenser,
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/power/apc/auto_name/directional/north{
-	areastring = "/area/science/mixing/chamber"
+	areastring = "/area/station/science/mixing/chamber"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
