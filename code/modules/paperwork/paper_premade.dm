@@ -291,7 +291,7 @@
 	precise control over their own total oblivion. This is why our microbomb implants come equipped with a few useful features.<br>\
 	<br>\
 	<Br>First, the bomb can be activated posthumously</B>. There is a small onboard, low-level AI built into the microbomb. Based on a series of arbitrary factors, the bomb can still be activated \
-	 by releasing a failsafe vial of monkey blood (notoriously volatile), the timing of which is determined by the onboard AI.<br>\
+	by releasing a failsafe vial of monkey blood (notoriously volatile), the timing of which is determined by the onboard AI.<br>\
 	The only factor is whether or not, and forgive me for what I'm about to write, your 'animating spirit' still resides within your body to guide the AI and activate the bomb manually.<br>\
 	Please, do not ask your fellow operatives what this means.<br>\
 	<br>\
