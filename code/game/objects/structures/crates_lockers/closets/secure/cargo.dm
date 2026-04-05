@@ -6,6 +6,7 @@
 /obj/structure/closet/secure_closet/quartermaster/populate_contents_immediate()
 	..()
 	new /obj/item/card/id/departmental_budget/car(src)
+	new /obj/item/melee/knuckleduster(src)
 
 /obj/structure/closet/secure_closet/quartermaster/PopulateContents()
 	..()
@@ -28,5 +29,4 @@
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/gun/ballistic/automatic/pistol/service/qm(src)
 	new /obj/item/ammo_box/magazine/recharge/service(src)
-	new /obj/item/melee/knuckleduster(src)
 	new /obj/item/storage/box/command_keys(src)
