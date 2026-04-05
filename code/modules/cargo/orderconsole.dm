@@ -271,7 +271,7 @@
 	// --- Cargo items ---
 	for(var/item_type in SSsupply.cargo_items)
 		var/datum/cargo_item/item = SSsupply.cargo_items[item_type]
-		if((item.hidden && !(obj_flags & EMAGGED)) || (item.contraband && !contraband) || item.DropPodOnly)
+		if((item.syndicate_contraband && !(obj_flags & EMAGGED)) || (item.contraband && !contraband) || item.DropPodOnly)
 			continue
 		data["supplies"] += list(list(
 			"name" = item.name,
@@ -281,13 +281,14 @@
 			"desc" = item.desc || item.name,
 			"small_item" = item.small_item,
 			"access" = item.access,
-			"contraband" = item.contraband
+			"contraband" = item.contraband,
+			"syndicate_contraband" = item.syndicate_contraband
 		))
 
 	// --- Cargo crates ---
 	for(var/crate_type in SSsupply.cargo_crates)
 		var/datum/cargo_crate/crate = SSsupply.cargo_crates[crate_type]
-		if((crate.hidden && !(obj_flags & EMAGGED)) || (crate.contraband && !contraband) || (crate.special && !crate.special_enabled) || crate.DropPodOnly)
+		if((crate.syndicate_contraband && !(obj_flags & EMAGGED)) || (crate.contraband && !contraband) || (crate.special && !crate.special_enabled) || crate.DropPodOnly)
 			continue
 		data["supplies"] += list(list(
 			"name" = crate.name,
@@ -297,7 +298,8 @@
 			"desc" = crate.desc || crate.name,
 			"small_item" = crate.small_item,
 			"access" = crate.access,
-			"contraband" = crate.contraband
+			"contraband" = crate.contraband,
+			"syndicate_contraband" = crate.syndicate_contraband
 		))
 
 	return data
@@ -354,20 +356,20 @@
 				return
 
 			// Visibility checks
-			var/p_hidden = FALSE
+			var/p_syndicate_contraband = FALSE
 			var/p_contraband = FALSE
 			var/p_droppod = FALSE
 			if(istype(product, /datum/cargo_item))
 				var/datum/cargo_item/item = product
-				p_hidden = item.hidden
+				p_syndicate_contraband = item.syndicate_contraband
 				p_contraband = item.contraband
 				p_droppod = item.DropPodOnly
 			else if(istype(product, /datum/cargo_crate))
 				var/datum/cargo_crate/crate = product
-				p_hidden = crate.hidden
+				p_syndicate_contraband = crate.syndicate_contraband
 				p_contraband = crate.contraband
 				p_droppod = crate.DropPodOnly
-			if((p_hidden && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
+			if((p_syndicate_contraband && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
 				return
 
 			var/name = "*None Provided*"
@@ -463,20 +465,20 @@
 				say("Not enough stock available.")
 				return
 			// Visibility checks
-			var/p_hidden = FALSE
+			var/p_syndicate_contraband = FALSE
 			var/p_contraband = FALSE
 			var/p_droppod = FALSE
 			if(istype(product, /datum/cargo_item))
 				var/datum/cargo_item/item = product
-				p_hidden = item.hidden
+				p_syndicate_contraband = item.syndicate_contraband
 				p_contraband = item.contraband
 				p_droppod = item.DropPodOnly
 			else if(istype(product, /datum/cargo_crate))
 				var/datum/cargo_crate/crate = product
-				p_hidden = crate.hidden
+				p_syndicate_contraband = crate.syndicate_contraband
 				p_contraband = crate.contraband
 				p_droppod = crate.DropPodOnly
-			if((p_hidden && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
+			if((p_syndicate_contraband && !(obj_flags & EMAGGED)) || (p_contraband && !contraband) || p_droppod)
 				return
 			// Check if this pack is already in the batch, if so increment quantity
 			for(var/list/entry in batch)

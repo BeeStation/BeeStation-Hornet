@@ -59,7 +59,7 @@
 	// Cargo items
 	for(var/item_type in SSsupply.cargo_items)
 		var/datum/cargo_item/item = SSsupply.cargo_items[item_type]
-		if(item.hidden || item.DropPodOnly)
+		if(item.syndicate_contraband || item.DropPodOnly)
 			continue
 		if(!((obj_flags & EMAGGED) || contraband) && item.contraband)
 			continue
@@ -75,7 +75,7 @@
 	// Cargo crates
 	for(var/crate_type in SSsupply.cargo_crates)
 		var/datum/cargo_crate/crate = SSsupply.cargo_crates[crate_type]
-		if(crate.hidden || crate.special || crate.DropPodOnly)
+		if(crate.syndicate_contraband || crate.special || crate.DropPodOnly)
 			continue
 		if(!((obj_flags & EMAGGED) || contraband) && crate.contraband)
 			continue

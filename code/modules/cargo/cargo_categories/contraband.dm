@@ -50,7 +50,7 @@
 	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
 	cost = 800
 	max_supply = 2
-	hidden = TRUE
+	syndicate_contraband = TRUE
 	contains = list(
 		/obj/item/storage/box/emps,
 		/obj/item/grenade/smokebomb,
@@ -66,7 +66,7 @@
 	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER WILL MAKE YOU STYLISH SYNDICATE STYLE. CONTAINS A COLLECTION OF THREE TACTICAL TURTLENECKS, THREE COMBAT BOOTS, THREE COMBAT GLOVES, THREE BALACLAVAS, THREE SYNDICATE BERETS AND THREE ARMOR VESTS!#@*$"
 	cost = 3000
 	max_supply = 3
-	hidden = TRUE
+	syndicate_contraband = TRUE
 	contains = list(
 		/obj/item/clothing/under/syndicate,
 		/obj/item/clothing/under/syndicate,
@@ -94,7 +94,7 @@
 	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE.@&!*()"
 	cost = 20000
 	max_supply = 2
-	hidden = TRUE
+	syndicate_contraband = TRUE
 	dangerous = TRUE
 	contains = list()
 	crate_type = /obj/structure/closet/crate/internals

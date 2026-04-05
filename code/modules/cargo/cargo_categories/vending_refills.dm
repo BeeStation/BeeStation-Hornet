@@ -19,7 +19,7 @@
 // WARDROBE REFILLS
 // =============================================================================
 
-// Public wardrobes — no department access needed, plain crate
+// Public wardrobes, no department access needed, plain crate
 /datum/cargo_list/refills_wardrobe
 	crate_type = /obj/structure/closet/crate
 	entries = list(
@@ -30,7 +30,7 @@
 		list("path" = /obj/item/vending_refill/wardrobe/chap_wardrobe, "cost" = 600, "max_supply" = 3),
 	)
 
-// Department wardrobes — access-locked, secure crate required
+// Department wardrobes, access-locked, secure crate required
 /datum/cargo_list/refills_wardrobe_dept
 	crate_type = /obj/structure/closet/crate/secure
 	entries = list(
@@ -62,7 +62,7 @@
 // DEPARTMENT VENDOR REFILLS
 // =============================================================================
 
-// Security vendor refills — secure/gear crate (locked equipment)
+// Security vendor refills, secure/gear crate (locked equipment)
 /datum/cargo_list/refills_dept_security
 	crate_type = /obj/structure/closet/crate/secure/gear
 	entries = list(
@@ -70,7 +70,7 @@
 		list("path" = /obj/item/vending_refill/deputy, "name" = "DepVend Refill", "cost" = 800, "max_supply" = 3, "access_budget" = ACCESS_SECURITY),
 	)
 
-// Engineering vendor refills — secure/engineering crate for access-locked items
+// Engineering vendor refills, secure/engineering crate for access-locked items
 /datum/cargo_list/refills_dept_engineering
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	entries = list(
@@ -78,14 +78,14 @@
 		list("path" = /obj/item/vending_refill/engineering, "name" = "Engineering Vendor Refill", "cost" = 500, "max_supply" = 3, "access_budget" = ACCESS_ENGINE_EQUIP),
 	)
 
-// Science vendor refills — secure/science crate (access-locked)
+// Science vendor refills, secure/science crate (access-locked)
 /datum/cargo_list/refills_dept_science
 	crate_type = /obj/structure/closet/crate/secure/science
 	entries = list(
 		list("path" = /obj/item/vending_refill/robotics, "cost" = 500, "max_supply" = 3, "access_budget" = ACCESS_ROBOTICS),
 	)
 
-// Public vendor refills — no access required, plain crate
+// Public vendor refills, no access required, plain crate
 /datum/cargo_list/refills_dept_public
 	crate_type = /obj/structure/closet/crate
 	entries = list(
@@ -98,7 +98,7 @@
 // FOOD & DRINK VENDOR REFILLS
 // =============================================================================
 
-// Public food/drink vendors — no access required, plain crate
+// Public food/drink vendors, no access required, plain crate
 /datum/cargo_list/refills_food
 	crate_type = /obj/structure/closet/crate
 	entries = list(
@@ -109,7 +109,7 @@
 		list("path" = /obj/item/vending_refill/sovietsoda, "cost" = 500, "max_supply" = 3),
 	)
 
-// Service food/drink vendors — access-locked, secure crate required
+// Service food/drink vendors, access-locked, secure crate required
 /datum/cargo_list/refills_food_service
 	crate_type = /obj/structure/closet/crate/secure
 	entries = list(

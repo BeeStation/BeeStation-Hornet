@@ -2,7 +2,7 @@
  * # Event Cargo Crates
  *
  * Crates used internally by events (shuttle loans, etc.) that aren't normally orderable.
- * These have hidden = TRUE so they don't appear in any cargo console UI.
+ * These use special = TRUE so they don't appear in any cargo console UI.
  */
 
 /datum/cargo_crate/event

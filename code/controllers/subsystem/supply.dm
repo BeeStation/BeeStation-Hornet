@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(supply)
 			item.access = ("access" in entry) ? entry["access"] : CL.access
 			item.access_budget = ("access_budget" in entry) ? entry["access_budget"] : CL.access_budget
 			item.contraband = ("contraband" in entry) ? entry["contraband"] : CL.contraband
-			item.hidden = ("hidden" in entry) ? entry["hidden"] : CL.hidden
+			item.syndicate_contraband = ("syndicate_contraband" in entry) ? entry["syndicate_contraband"] : CL.syndicate_contraband
 			item.dangerous = ("dangerous" in entry) ? entry["dangerous"] : CL.dangerous
 			item.DropPodOnly = ("DropPodOnly" in entry) ? entry["DropPodOnly"] : CL.DropPodOnly
 			item.crate_type = ("crate_type" in entry) ? entry["crate_type"] : CL.crate_type

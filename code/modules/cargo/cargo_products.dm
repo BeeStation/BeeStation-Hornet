@@ -20,10 +20,10 @@
 	var/access = null
 	/// Access required to order via department budget app
 	var/access_budget = FALSE
-	/// Is this a contraband item? (requires emagged/hacked console)
+	/// Is this a contraband item? (unlocked via wire hacking or multitool on circuit board)
 	var/contraband = FALSE
-	/// Is this hidden? (requires emagged console to see)
-	var/hidden = FALSE
+	/// Is this syndicate contraband? (requires emagged console to see — full syndicate gear)
+	var/syndicate_contraband = FALSE
 	/// Is this a special/event/station-goal product? (requires special_enabled = TRUE to show)
 	var/special = FALSE
 	/// Has this special product been enabled? (set by station goals, admin, etc.)
@@ -101,10 +101,10 @@
 	var/access = null
 	/// Access required for department budget ordering
 	var/access_budget = FALSE
-	/// Is this contraband?
+	/// Is this contraband? (unlocked via wire hacking)
 	var/contraband = FALSE
-	/// Is this hidden?
-	var/hidden = FALSE
+	/// Is this syndicate contraband? (requires emagged console)
+	var/syndicate_contraband = FALSE
 	/// Is this dangerous (admin alert)?
 	var/dangerous = FALSE
 	/// Only available via express console drop pod?
@@ -169,10 +169,10 @@
 	var/access_budget = FALSE
 	/// Crate type
 	var/crate_type = /obj/structure/closet/crate
-	/// Is this contraband?
+	/// Is this contraband? (unlocked via wire hacking)
 	var/contraband = FALSE
-	/// Is this hidden?
-	var/hidden = FALSE
+	/// Is this syndicate contraband? (requires emagged console)
+	var/syndicate_contraband = FALSE
 	/// Is this a special/station goal crate?
 	var/special = FALSE
 	/// Has this been enabled? (station goals set this to TRUE)
@@ -273,10 +273,10 @@
 	var/access = null
 	/// Default: access required for department budget ordering
 	var/access_budget = FALSE
-	/// Default: is this contraband?
+	/// Default: is this contraband? (unlocked via wire hacking)
 	var/contraband = FALSE
-	/// Default: is this hidden?
-	var/hidden = FALSE
+	/// Default: is this syndicate contraband? (requires emagged console)
+	var/syndicate_contraband = FALSE
 	/// Default: is this dangerous (admin alert)?
 	var/dangerous = FALSE
 	/// Default: only available via express drop pod?
