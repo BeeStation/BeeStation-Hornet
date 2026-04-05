@@ -114,7 +114,7 @@
 /datum/cargo_crate/science_listing
 	name = "Research Material Listing"
 	desc = "Contains potentially hazardous materials, or ridiculous ties."
-	hidden = TRUE
+	syndicate_contraband = TRUE
 	crate_type = /obj/structure/closet/crate/science
 	max_supply = 1
 	current_supply = 1

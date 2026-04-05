@@ -76,7 +76,7 @@
 	)
 
 /datum/cargo_crate/machines_vehicles
-	crate_type = /obj/structure/closet/crate/large/datum/cargo_crate/machines_vehicles/atv
+	crate_type = /obj/structure/closet/crate/large
 	name = "ATV Crate"
 	cost = 1800
 	max_supply = 2
