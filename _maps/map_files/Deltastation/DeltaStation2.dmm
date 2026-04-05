@@ -1639,12 +1639,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
-/obj/machinery/power/apc/auto_name/directional/north{
-	areastring = "/area/station/engineering/supermatter"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "aEj" = (
@@ -2463,6 +2457,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "aRL" = (
@@ -11926,9 +11924,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -70964,9 +70959,6 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "tKN" = (
@@ -75134,10 +75126,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/aft)
-"uOo" = (
-/obj/structure/sign/warning/biohazard,
-/turf/closed/wall/r_wall,
-/area/station/engineering/atmospherics_engine)
 "uOr" = (
 /obj/structure/table/wood,
 /obj/machinery/light,
@@ -113550,7 +113538,7 @@ qWf
 rrD
 tLZ
 aRG
-uOo
+gMn
 eoI
 msu
 vBy

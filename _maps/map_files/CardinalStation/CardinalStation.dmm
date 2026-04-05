@@ -8963,13 +8963,9 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "cby" = (
-/obj/machinery/power/apc/auto_name/directional/south{
-	areastring = "/area/station/engineering/supermatter"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/supermatter/room)
 "cbN" = (
@@ -9218,11 +9214,9 @@
 "cdY" = (
 /obj/structure/tank_dispenser,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/requests_console{
-	department = "Atmospherics";
-	departmentType = 3;
-	name = "Atmos RC";
-	pixel_y = -30
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/station/engineering/atmos/office)
@@ -14256,6 +14250,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/grid/steel,
 /area/station/engineering/atmos)
 "diw" = (
@@ -27724,6 +27720,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/station/engineering/atmos/office)
 "gbF" = (
@@ -33853,9 +33852,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/supermatter/room)
 "hva" = (
@@ -39356,6 +39352,19 @@
 	},
 /turf/open/floor/holofloor/plating,
 /area/station/holodeck/prison)
+"iCv" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/smooth,
+/area/station/engineering/supermatter/room)
 "iCC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -66827,7 +66836,6 @@
 /area/station/command/bridge)
 "ozj" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/machinery/status_display/evac/directional/south,
 /turf/open/floor/iron/tech/grid,
 /area/station/engineering/storage)
 "ozu" = (
@@ -67030,6 +67038,9 @@
 "oBo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/smooth,
 /area/station/engineering/supermatter/room)
@@ -73901,6 +73912,12 @@
 	pixel_y = 10
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/requests_console{
+	department = "Atmospherics";
+	departmentType = 3;
+	name = "Atmos RC";
+	pixel_y = 30
+	},
 /turf/open/floor/iron/ridged/steel,
 /area/station/engineering/atmos/office)
 "qhi" = (
@@ -141526,7 +141543,7 @@ qeV
 hcO
 bmO
 gCo
-bZL
+iCv
 oyv
 iSy
 nHk

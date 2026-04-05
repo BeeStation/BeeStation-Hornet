@@ -48961,6 +48961,9 @@
 /obj/effect/landmark/start/paramedic,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
+"swU" = (
+/turf/open/space/basic,
+/area/station/engineering/supermatter)
 "swW" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -57068,6 +57071,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/storage)
 "vrH" = (
@@ -99052,7 +99056,7 @@ wjx
 vhv
 pYg
 pYg
-pYg
+swU
 dQb
 pYg
 pYg
