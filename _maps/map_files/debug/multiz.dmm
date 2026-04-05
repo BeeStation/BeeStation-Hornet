@@ -1,42 +1,42 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/open/space/basic,
-/area/misc/space)
+/area/space)
 "ab" = (
 /obj/structure/lattice,
 /turf/open/space,
-/area/misc/space)
+/area/space)
 "ac" = (
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "ad" = (
 /turf/closed/wall/r_wall,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "ae" = (
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "af" = (
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "ag" = (
 /obj/structure/lattice,
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "ah" = (
 /turf/closed/wall/r_wall,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "ai" = (
 /obj/machinery/power/rtg/advanced,
 /turf/open/floor/plating/airless,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "aj" = (
 /turf/closed/wall/r_wall,
-/area/station/engineering/main)
+/area/engine/engineering)
 "ak" = (
 /turf/closed/wall/r_wall,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "al" = (
 /obj/machinery/airalarm/directional/north{
 	locked = 0;
@@ -44,18 +44,18 @@
 	},
 /obj/structure/closet/secure_closet/atmospherics,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "am" = (
 /obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "an" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "ao" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -65,7 +65,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "ap" = (
 /obj/machinery/airalarm/directional/north{
 	locked = 0;
@@ -80,18 +80,18 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "aq" = (
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "ar" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "as" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -107,7 +107,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "at" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -124,30 +124,30 @@
 	dir = 5
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "au" = (
 /turf/open/openspace,
-/area/station/security)
+/area/security)
 "aw" = (
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "ax" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 5
 	},
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "ay" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "az" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
 /obj/machinery/meter,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "aA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -160,25 +160,25 @@
 	icon_state = "2-4"
 	},
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "aB" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "aC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/security)
+/area/security)
 "aD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "aE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -187,7 +187,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "aG" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -199,7 +199,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -208,30 +208,30 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aJ" = (
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aK" = (
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aL" = (
 /turf/open/floor/iron{
 	dir = 4
 	},
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aM" = (
 /obj/machinery/suit_storage_unit/ce,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "aN" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -239,27 +239,27 @@
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "aO" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
 	on = 1
 	},
 /turf/open/floor/iron,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "aP" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "aQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "aR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -269,7 +269,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/space,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "aS" = (
 /obj/structure/table,
 /obj/item/flashlight{
@@ -277,7 +277,7 @@
 	},
 /obj/item/airlock_painter,
 /turf/open/floor/plating,
-/area/station/engineering/main)
+/area/engine/engineering)
 "aT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -286,13 +286,13 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "aU" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aV" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -301,7 +301,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aW" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -310,27 +310,27 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aX" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/open/space/basic,
-/area/station/security)
+/area/security)
 "aY" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "aZ" = (
 /obj/structure/tank_dispenser{
 	pixel_x = -1
 	},
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "ba" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bb" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -338,47 +338,47 @@
 /obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bc" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
 	on = 1
 	},
 /turf/open/floor/iron,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bd" = (
 /obj/structure/table,
 /obj/item/weldingtool/experimental,
 /turf/open/floor/plating,
-/area/station/engineering/main)
+/area/engine/engineering)
 "be" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "bf" = (
 /obj/structure/closet/secure_closet/engineering_chief,
 /turf/open/floor/plating,
-/area/station/engineering/main)
+/area/engine/engineering)
 "bg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "bh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "bi" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "bj" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -392,100 +392,100 @@
 /obj/item/analyzer,
 /obj/item/wrench,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bl" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/machinery/meter,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bm" = (
 /obj/machinery/atmospherics/components/binary/valve{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bn" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
 /obj/machinery/light,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bo" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/structure/table,
 /obj/item/powertool/hand_drill,
 /obj/item/powertool/jaws_of_life,
 /turf/open/floor/plating,
-/area/station/engineering/main)
+/area/engine/engineering)
 "bp" = (
 /obj/machinery/light,
 /obj/item/storage/box/lights/mixed,
 /obj/item/lightreplacer,
 /turf/open/floor/plating,
-/area/station/engineering/main)
+/area/engine/engineering)
 "bq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "br" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "bs" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/closed/wall/r_wall,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bt" = (
 /obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "bu" = (
 /turf/closed/wall/r_wall,
-/area/station/command/bridge)
+/area/bridge)
 "bv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/command/bridge)
+/area/bridge)
 "bw" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/closed/wall/r_wall,
-/area/station/engineering/main)
+/area/engine/engineering)
 "bx" = (
 /obj/machinery/door/airlock,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/station/engineering/main)
+/area/engine/engineering)
 "by" = (
 /turf/closed/wall/r_wall,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "bz" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "bA" = (
 /turf/closed/wall/r_wall,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bB" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -501,26 +501,26 @@
 	},
 /obj/structure/closet/jcloset,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bC" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bD" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bE" = (
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bF" = (
 /obj/structure/closet/secure_closet/CMO,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bG" = (
 /obj/machinery/airalarm/directional/north{
 	locked = 0;
@@ -537,27 +537,27 @@
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "bH" = (
 /obj/structure/table,
 /obj/item/ammo_box/c10mm,
 /obj/item/gun/ballistic,
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "bI" = (
 /obj/structure/table,
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "bJ" = (
 /obj/structure/table,
 /obj/item/card/id/captains_spare,
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "bK" = (
 /obj/structure/table,
 /obj/item/storage/backpack/holding,
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "bL" = (
 /obj/structure/table,
 /obj/item/rcd_ammo/large,
@@ -565,43 +565,43 @@
 /obj/item/rcd_ammo/large,
 /obj/item/construction/rcd,
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "bM" = (
 /obj/structure/closet/secure_closet/hop,
 /turf/open/floor/iron{
 	dir = 4
 	},
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "bN" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bP" = (
 /obj/machinery/vending/cigarette,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bQ" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bR" = (
 /obj/machinery/vending/cola,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bS" = (
 /obj/machinery/vending/snack,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bT" = (
 /obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "bU" = (
 /obj/machinery/airalarm/directional/north{
 	locked = 0;
@@ -618,7 +618,7 @@
 /turf/open/floor/iron{
 	dir = 9
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "bV" = (
 /obj/machinery/light{
 	dir = 1
@@ -627,27 +627,27 @@
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "bW" = (
 /obj/structure/closet/secure_closet/hos,
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "bX" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "bY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "bZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "ca" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -656,27 +656,27 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cc" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cd" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "ce" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -687,13 +687,13 @@
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "cf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "cg" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -701,7 +701,7 @@
 /turf/open/floor/iron{
 	dir = 4
 	},
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "ch" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable{
@@ -711,14 +711,14 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "ci" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cj" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -727,13 +727,13 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "ck" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/closed/wall/r_wall,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cl" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -744,69 +744,69 @@
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cn" = (
 /obj/machinery/door/airlock,
 /turf/open/floor/plating,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "co" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cp" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/iron{
 	dir = 10
 	},
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "cr" = (
 /obj/machinery/light,
 /turf/open/floor/iron{
 	dir = 6
 	},
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "cs" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/closed/wall/r_wall,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "ct" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/closed/wall/r_wall,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "cw" = (
 /obj/machinery/door/airlock,
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "cx" = (
 /obj/machinery/door/airlock/glass,
 /turf/open/floor/iron,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cy" = (
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cz" = (
 /turf/open/floor/plating,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cA" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cB" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -817,13 +817,13 @@
 /turf/open/floor/iron{
 	dir = 4
 	},
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cC" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -831,7 +831,7 @@
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -845,17 +845,17 @@
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "cG" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cH" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -863,28 +863,28 @@
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cI" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cJ" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/iron{
 	dir = 10
 	},
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cK" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/rods/fifty,
 /obj/machinery/light,
 /turf/open/floor/iron,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cL" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -892,52 +892,52 @@
 	pixel_y = 7
 	},
 /turf/open/floor/iron,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cM" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/regular,
 /obj/item/healthanalyzer,
 /turf/open/floor/iron,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "cN" = (
 /turf/closed/wall/r_wall,
-/area/station/construction)
+/area/construction)
 "cO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/closed/wall/r_wall,
-/area/station/construction)
+/area/construction)
 "cP" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/closed/wall/r_wall,
-/area/station/construction)
+/area/construction)
 "cQ" = (
 /obj/machinery/door/airlock/glass,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "cR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/construction)
+/area/construction)
 "cS" = (
 /turf/closed/wall/r_wall,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "cT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/closed/wall/r_wall,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "cU" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/closed/wall/r_wall,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "cV" = (
 /obj/machinery/door/airlock/glass,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "cW" = (
 /obj/machinery/airalarm/directional/north{
 	locked = 0;
@@ -953,25 +953,25 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "cX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "cY" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "cZ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /obj/structure/ladder,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "da" = (
 /obj/machinery/airalarm/directional/north{
 	locked = 0;
@@ -986,59 +986,59 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "db" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dd" = (
 /turf/open/floor/iron{
 	icon_state = "L1"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "de" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "df" = (
 /turf/open/floor/iron{
 	icon_state = "L5"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dg" = (
 /turf/open/floor/iron{
 	icon_state = "L7"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dh" = (
 /turf/open/floor/iron{
 	icon_state = "L9"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dj" = (
 /turf/open/floor/iron{
 	icon_state = "L13"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dl" = (
 /turf/open/floor/plating,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dm" = (
 /obj/machinery/light{
 	dir = 8
@@ -1047,10 +1047,10 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "dn" = (
 /turf/open/floor/plating,
-/area/station/construction)
+/area/construction)
 "do" = (
 /obj/machinery/light{
 	dir = 4
@@ -1059,100 +1059,100 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "dp" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dq" = (
 /turf/open/floor/iron{
 	icon_state = "L2"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dr" = (
 /turf/open/floor/iron{
 	icon_state = "L4"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "ds" = (
 /turf/open/floor/iron{
 	icon_state = "L6"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dt" = (
 /turf/open/floor/iron{
 	icon_state = "L8"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "du" = (
 /turf/open/floor/iron{
 	icon_state = "L10"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dv" = (
 /turf/open/floor/iron{
 	icon_state = "L12"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dw" = (
 /turf/open/floor/iron{
 	icon_state = "L14"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dx" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "dz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "dA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dB" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dG" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1164,60 +1164,60 @@
 	dir = 4
 	},
 /turf/open/floor/iron/airless,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "dH" = (
 /obj/effect/landmark/start,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dI" = (
 /obj/effect/landmark/latejoin,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dJ" = (
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "dM" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "dN" = (
 /obj/structure/table,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dO" = (
 /obj/structure/table,
 /obj/machinery/light,
 /obj/item/fireaxe,
 /obj/item/extinguisher,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dP" = (
 /obj/structure/table,
 /obj/item/lightreplacer,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dQ" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/tubes,
 /obj/machinery/light,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dR" = (
 /obj/structure/table,
 /obj/item/flashlight{
 	pixel_y = 5
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "dS" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1226,13 +1226,13 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "dV" = (
 /turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
+/area/engine/gravity_generator)
 "dW" = (
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "dX" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1241,10 +1241,10 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "dY" = (
 /turf/open/floor/iron,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "dZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1254,15 +1254,15 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "ea" = (
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/command/bridge)
+/area/bridge)
 "eb" = (
 /turf/open/floor/iron,
-/area/station/command/bridge)
+/area/bridge)
 "ec" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -1273,14 +1273,14 @@
 /turf/open/floor/iron{
 	dir = 4
 	},
-/area/station/command/bridge)
+/area/bridge)
 "ed" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/iron,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "ee" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -1291,15 +1291,15 @@
 /turf/open/floor/iron{
 	dir = 9
 	},
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "ef" = (
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "eg" = (
 /turf/open/floor/plating,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eh" = (
 /obj/machinery/light{
 	dir = 8
@@ -1307,7 +1307,7 @@
 /turf/open/floor/iron{
 	dir = 10
 	},
-/area/station/command/bridge)
+/area/bridge)
 "ei" = (
 /obj/machinery/light{
 	dir = 4
@@ -1315,81 +1315,81 @@
 /turf/open/floor/iron{
 	dir = 6
 	},
-/area/station/command/bridge)
+/area/bridge)
 "ej" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "ek" = (
 /turf/open/floor/iron{
 	dir = 4
 	},
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "em" = (
 /turf/open/floor/iron{
 	dir = 1
 	},
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "en" = (
 /turf/open/floor/iron{
 	dir = 10
 	},
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "eo" = (
 /turf/open/floor/iron,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "ep" = (
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "eq" = (
 /turf/open/floor/iron{
 	icon_state = "L3"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "er" = (
 /turf/open/floor/iron{
 	icon_state = "L11"
 	},
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "es" = (
 /obj/effect/turf_decal/stripes/asteroid/corner,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "et" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "eu" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "ev" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "ew" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "ex" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "ey" = (
 /obj/structure/ladder,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "ez" = (
 /obj/machinery/light{
 	dir = 8
@@ -1397,68 +1397,68 @@
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "eC" = (
 /turf/open/openspace,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "eD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "eE" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "eF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/engineering/atmos)
+/area/engine/atmos)
 "eG" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/engineering/main)
+/area/engine/engineering)
 "eI" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "eJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "eL" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "eM" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "eN" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "eO" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/iron,
-/area/station/command/bridge)
+/area/bridge)
 "eP" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1467,19 +1467,19 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eQ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eR" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eS" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1488,23 +1488,23 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eT" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eU" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eV" = (
 /obj/structure/ladder,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eW" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -1514,21 +1514,21 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eX" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "eY" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "fn" = (
 /turf/closed/wall/r_wall,
-/area/misc/space)
+/area/space)
 "fo" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1539,13 +1539,13 @@
 /obj/machinery/door/airlock/external/glass,
 /obj/structure/fans/tiny,
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "ho" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "id" = (
 /obj/machinery/light{
 	dir = 8
@@ -1557,44 +1557,44 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "ik" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /obj/machinery/disposal/deliveryChute,
 /turf/open/floor/plating,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "jn" = (
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "kC" = (
 /obj/structure/elevator_segment/primary,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "kT" = (
 /turf/open/space/basic,
-/area/misc/space/nearstation)
+/area/space/nearstation)
 "lj" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "ll" = (
 /obj/structure/elevator_segment/primary,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "mG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1603,14 +1603,14 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "ne" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /obj/structure/disposaloutlet,
 /turf/open/floor/plating,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "nT" = (
 /obj/machinery/light{
 	dir = 8
@@ -1619,19 +1619,19 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "og" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/ladder,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "oh" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "on" = (
 /obj/machinery/light{
 	dir = 8
@@ -1640,17 +1640,17 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "oA" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "oJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "oY" = (
 /obj/machinery/elevator_indicator{
 	id = "primary";
@@ -1658,10 +1658,10 @@
 	preset_z = 1
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "pR" = (
 /turf/closed/wall/r_wall,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "rr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1669,14 +1669,14 @@
 /turf/open/floor/iron{
 	dir = 4
 	},
-/area/station/command/bridge)
+/area/bridge)
 "rS" = (
 /obj/machinery/elevator_interface/primary{
 	pixel_y = -24;
 	preset_z = 1
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "sG" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1688,13 +1688,13 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "tk" = (
 /obj/structure/cable{
 	icon_state = "8-16"
 	},
 /turf/open/floor/plating,
-/area/station/construction)
+/area/construction)
 "ty" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1703,15 +1703,15 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "tY" = (
 /obj/structure/disposalpipe/multiz,
 /turf/open/floor/plating,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "ux" = (
 /obj/structure/ladder,
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "vl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1720,7 +1720,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "vw" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1729,13 +1729,13 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "vF" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "vN" = (
 /obj/machinery/elevator_indicator{
 	id = "primary";
@@ -1743,39 +1743,39 @@
 	preset_z = 1
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "wA" = (
 /obj/structure/cable{
 	icon_state = "8-32"
 	},
 /turf/open/openspace,
-/area/station/security)
+/area/security)
 "xK" = (
 /obj/machinery/door/airlock,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "yl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "yz" = (
 /turf/closed/wall/r_wall,
-/area/station/security)
+/area/security)
 "yG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "zq" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "Bm" = (
 /obj/machinery/light{
 	dir = 4
@@ -1784,20 +1784,20 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "Bo" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/station/construction)
+/area/construction)
 "BC" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Cc" = (
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
@@ -1806,7 +1806,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "CA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1816,13 +1816,13 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/engine/engineering)
 "CI" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "CN" = (
 /obj/structure/elevator_segment/primary,
 /obj/machinery/light,
@@ -1830,19 +1830,19 @@
 	dir = 6
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Di" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "Dm" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "DO" = (
 /obj/structure/elevator_segment/primary,
 /obj/machinery/elevator_interface/primary{
@@ -1853,45 +1853,45 @@
 	dir = 10
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Ej" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "Eq" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/elevator_segment/primary,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Fs" = (
 /obj/structure/cable{
 	icon_state = "8-16"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Fz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "Gf" = (
 /obj/structure/elevator_segment/primary,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Hg" = (
 /turf/open/floor/iron,
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "Hn" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/ladder,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Hp" = (
 /obj/machinery/elevator_interface/primary{
 	pixel_y = -24;
@@ -1899,33 +1899,33 @@
 	},
 /obj/machinery/light,
 /turf/open/floor/plating,
-/area/station/construction)
+/area/construction)
 "Hv" = (
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "HN" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "HR" = (
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/station/construction)
+/area/construction)
 "IX" = (
 /turf/open/floor/plating,
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "Jm" = (
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "Jv" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1934,26 +1934,26 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/area/hallway/primary/central)
 "Jz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "Kd" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "Kl" = (
 /obj/structure/cable{
 	icon_state = "8-16"
 	},
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "Kq" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1962,7 +1962,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "KL" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1974,40 +1974,40 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "KM" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "KR" = (
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "LJ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "LN" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /obj/machinery/disposal/deliveryChute,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "LO" = (
 /turf/closed/wall/r_wall,
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "LW" = (
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
-/area/station/hallway/secondary/entry)
+/area/hallway/secondary/entry)
 "ME" = (
 /obj/machinery/light,
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "NC" = (
 /obj/machinery/light,
 /obj/machinery/elevator_indicator{
@@ -2016,38 +2016,38 @@
 	preset_z = 1
 	},
 /turf/open/floor/plating,
-/area/station/construction)
+/area/construction)
 "Ou" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "OE" = (
 /obj/structure/elevator_segment/primary,
 /obj/effect/turf_decal/plaque,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "OJ" = (
 /obj/machinery/elevator_interface/primary{
 	pixel_y = -24;
 	preset_z = 1
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "Pb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "Pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "Pw" = (
 /obj/structure/elevator_segment/primary,
 /obj/machinery/elevator_indicator{
@@ -2058,28 +2058,28 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "PD" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "Qx" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "QZ" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /obj/structure/disposaloutlet,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "RU" = (
 /obj/structure/stairs,
 /turf/open/floor/plating,
-/area/station/construction)
+/area/construction)
 "Sb" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -2087,13 +2087,13 @@
 /turf/open/floor/iron{
 	dir = 8
 	},
-/area/station/commons/dorms)
+/area/crew_quarters/dorms)
 "SA" = (
 /obj/structure/cable{
 	icon_state = "4-32"
 	},
 /turf/open/openspace,
-/area/station/security)
+/area/security)
 "SE" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -2103,68 +2103,68 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "SI" = (
 /turf/open/openspace,
-/area/station/construction)
+/area/construction)
 "TU" = (
 /obj/structure/elevator_segment/primary,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Uc" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "VU" = (
 /turf/open/space/basic,
-/area/station/security)
+/area/security)
 "Wf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/landmark/observer_start,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 "WC" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "WL" = (
 /obj/structure/elevator_segment/primary,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/construction)
+/area/construction)
 "Xm" = (
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/captain)
+/area/crew_quarters/heads/captain)
 "Ye" = (
 /obj/structure/cable{
 	icon_state = "8-32"
 	},
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "Yi" = (
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/station/maintenance/department/bridge)
+/area/maintenance/department/bridge)
 "YD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/security)
+/area/security)
 "YL" = (
 /obj/structure/disposalpipe/multiz/down,
 /turf/open/floor/iron,
-/area/station/commons/storage/primary)
+/area/storage/primary)
 
 (1,1,1) = {"
 aa
