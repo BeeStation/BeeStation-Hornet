@@ -38,7 +38,6 @@
 		list("path" = /obj/item/toy/clockwork_watch, "cost" = 40, "max_supply" = 5),
 		list("path" = /obj/item/toy/eightball, "cost" = 30, "max_supply" = 5),
 		list("path" = /obj/item/toy/windupToolbox, "cost" = 40, "max_supply" = 3),
-		list("path" = /obj/item/toy/cattoy, "cost" = 5, "max_supply" = 10),
 		list("path" = /obj/item/toy/dummy, "cost" = 40, "max_supply" = 3),
 		list("path" = /obj/item/toy/reality_pierce, "cost" = 30, "max_supply" = 5),
 		list("path" = /obj/item/toy/cog, "cost" = 10, "max_supply" = 10),
