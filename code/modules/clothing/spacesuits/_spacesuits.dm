@@ -37,8 +37,8 @@
 	. = ..()
 	add_stabilizer()
 
-/obj/item/clothing/head/helmet/space/proc/add_stabilizer(loose_hat = TRUE)
-	AddComponent(/datum/component/hat_stabilizer, loose_hat = loose_hat)
+/obj/item/clothing/head/helmet/space/proc/add_stabilizer()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
 
 /obj/item/clothing/suit/space
 	name = "space suit"
