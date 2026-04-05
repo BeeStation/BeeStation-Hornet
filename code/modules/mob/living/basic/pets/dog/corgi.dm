@@ -11,6 +11,7 @@
 	butcher_results = list(/obj/item/food/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_icon_state = "corgi"
+	cult_icon_state = "narsian"
 	ai_controller = /datum/ai_controller/basic_controller/dog/corgi
 	///Access card for the corgi.
 	var/obj/item/card/id/access_card = null
@@ -26,6 +27,8 @@
 	var/is_slow = FALSE
 	///Item slots that are available for this corgi to equip stuff into
 	var/list/strippable_inventory_slots = list()
+	///can this mob breed?
+	var/can_breed = TRUE
 
 /mob/living/basic/pet/dog/corgi/examine(mob/user)
 	. = ..()
@@ -38,6 +41,8 @@
 	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_corgi_items)
 	RegisterSignal(src, COMSIG_MOB_TRIED_ACCESS, PROC_REF(on_tried_access))
 	RegisterSignals(src, list(COMSIG_BASICMOB_LOOK_ALIVE, COMSIG_BASICMOB_LOOK_DEAD), PROC_REF(on_appearance_change))
+	if(can_breed)
+		add_breeding_component()
 
 /mob/living/basic/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)
@@ -68,6 +73,18 @@
 		access_card.forceMove(drop_location())
 		access_card = null
 	return ..()
+
+/mob/living/basic/pet/dog/corgi/proc/add_breeding_component()
+	var/static/list/partner_paths = typecacheof(list(/mob/living/basic/pet/dog/corgi))
+	var/static/list/baby_paths = list(
+		/mob/living/basic/pet/dog/corgi/puppy = 95,
+		/mob/living/basic/pet/dog/corgi/puppy/void = 5,
+	)
+	AddComponent(\
+		/datum/component/breed,\
+		can_breed_with = typecacheof(list(/mob/living/basic/pet/dog/corgi)),\
+		baby_paths = baby_paths,\
+	)
 
 /**
  * Corgis get full protection from their equipped fashion items if attacked in a way that passes def_zone,
@@ -354,7 +371,7 @@
 		var/turf/target = get_turf(loc)
 		if(target)
 			new /mob/living/basic/pet/dog/corgi/puppy/ian(target)
-			Write_Memory(FALSE)
+			write_memory(FALSE)
 			return INITIALIZE_HINT_QDEL
 	else if(age == record_age)
 		icon_state = "old_corgi"
@@ -377,7 +394,7 @@
 
 /mob/living/basic/pet/dog/corgi/ian/death()
 	if(!memory_saved)
-		Write_Memory(TRUE)
+		write_memory(TRUE)
 	return ..()
 
 /mob/living/basic/pet/dog/corgi/ian/narsie_act()
@@ -387,7 +404,10 @@
 	investigate_log("has been gibbed and replaced with Nars-Ian by Nar'Sie.", INVESTIGATE_DEATHS)
 	gib()
 
-/mob/living/basic/pet/dog/corgi/ian/proc/Write_Memory(dead, gibbed)
+/mob/living/basic/pet/dog/corgi/ian/write_memory(dead, gibbed)
+	. = ..()
+	if(!.)
+		return
 	memory_saved = TRUE
 	var/json_file = file("data/npc_saves/Ian.json")
 	var/list/file_data = list()
@@ -433,7 +453,7 @@
 ///Checks whether Ian has survived the round or not
 /mob/living/basic/pet/dog/corgi/ian/proc/check_ian_survival()
 	if(!stat && !memory_saved)
-		Write_Memory(FALSE)
+		write_memory(FALSE)
 
 //NARS-IAN! SQ-Q-QooEglor-r'EEn-nl-luEEEf-f-fth-h
 /mob/living/basic/pet/dog/corgi/narsie
@@ -483,7 +503,7 @@
 	if(stat == DEAD) //Nar'Sie loves her doggy
 		visible_message(span_warning("[src] arises again, revived by the dark magicks!"), \
 		span_cultlarge("RISE"))
-		revive(full_heal = TRUE) //also means that a dead Nars-Ian can consume a pet and revive
+		revive(ADMIN_HEAL_ALL) //also means that a dead Nars-Ian can consume a pet and revive
 	adjustBruteLoss(-maxHealth)
 
 //LISA! SQUEEEEEEEEE~
@@ -516,9 +536,11 @@
 	icon_dead = "puppy_dead"
 	density = FALSE
 	pass_flags = PASSMOB
+	ai_controller = /datum/ai_controller/basic_controller/dog/puppy
 	mob_size = MOB_SIZE_SMALL
-	collar_icon_state = "puppy"
 	strippable_inventory_slots = list(/datum/strippable_item/pet_collar, /datum/strippable_item/corgi_id) //puppies are too small to handle hats and back slot items
+	can_breed = FALSE
+	collar_icon_state = "puppy"
 
 //PUPPY IAN! SQUEEEEEEEEE~
 /mob/living/basic/pet/dog/corgi/puppy/ian
@@ -564,7 +586,3 @@
 	icon_state = "cardigan_puppy"
 	icon_living = "cardigan_puppy"
 	icon_dead = "cardigan_puppy_dead"
-	density = FALSE
-	pass_flags = PASSMOB
-	mob_size = MOB_SIZE_SMALL
-	collar_icon_state = "puppy"

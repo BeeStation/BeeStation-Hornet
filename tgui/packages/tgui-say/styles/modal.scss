@@ -74,9 +74,9 @@
   .modal-#{$channel} {
     border-image: linear-gradient(
         30deg,
-        adjust-hue($color, 15deg),
-        darken($color, 20%),
-        darken(adjust-hue($color, 15deg), 10%)
+        color.adjust($color, $hue: 15deg),
+        color.adjust($color, $lightness: -20%),
+        color.adjust(color.adjust($color, $hue: 15deg), $lightness: -10%)
       )
       1;
     border-width: 1px;

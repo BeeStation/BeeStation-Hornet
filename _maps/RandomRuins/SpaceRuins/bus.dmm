@@ -89,7 +89,7 @@
 /area/ruin/unpowered/no_grav)
 "av" = (
 /obj/structure/table,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aw" = (

@@ -88,7 +88,7 @@
 /datum/priority_directive/steal/proc/poison_applied(datum/source, atom/target, mob/living/user)
 	SIGNAL_HANDLER
 	if (!istype(target, steal_target_path))
-		mission_update("The posion has been applied to the wrong target, directive failed.")
+		mission_update("The poison has been applied to the wrong target, directive failed.")
 		finish()
 		return
 	grant_universal_victory()

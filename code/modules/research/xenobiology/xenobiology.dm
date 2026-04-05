@@ -508,12 +508,13 @@
 /obj/item/slime_extract/adamantine/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			if(species.armor > 0)
+			if(HAS_TRAIT(user, TRAIT_ADAMANTINE_EXTRACT_ARMOR))
 				to_chat(user, span_warning("Your skin is already hardened!"))
 				return
+			ADD_TRAIT(user, TRAIT_ADAMANTINE_EXTRACT_ARMOR, ADAMANTINE_EXTRACT_TRAIT)
 			to_chat(user, span_notice("You feel your skin harden and become more resistant."))
-			species.armor += 25
-			addtimer(CALLBACK(src, PROC_REF(reset_armor), species), 120 SECONDS)
+			user.physiology.damage_resistance += 25
+			addtimer(CALLBACK(src, PROC_REF(reset_armor), user), 120 SECONDS)
 			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -524,9 +525,9 @@
 				return 60 SECONDS
 			to_chat(user, span_notice("You stop feeding [src], and your body returns to its slimelike state."))
 
-/obj/item/slime_extract/adamantine/proc/reset_armor(datum/species/species)
-	if(istype(species))
-		species.armor -= 25
+/obj/item/slime_extract/adamantine/proc/reset_armor(mob/living/carbon/human/user)
+	REMOVE_TRAIT(user, TRAIT_ADAMANTINE_EXTRACT_ARMOR, ADAMANTINE_EXTRACT_TRAIT)
+	user.physiology.damage_resistance -= 25
 
 /obj/item/slime_extract/bluespace
 	name = "bluespace slime extract"
@@ -825,14 +826,16 @@
 
 	balloon_alert(user, "offering...")
 	being_used = TRUE
-	var/datum/poll_config/config = new()
-	config.question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!"
-	config.check_jobban = ROLE_SENTIENCE
-	config.poll_time = 10 SECONDS
-	config.ignore_category = POLL_IGNORE_SENTIENCE_POTION
-	config.alert_pic = dumb_mob
-	config.role_name_text = "intelligence potion"
-	config.chat_text_border_icon = src
+	var/datum/poll_config/config = new(
+		question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!",
+		check_jobban = ROLE_SENTIENCE,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_SENTIENCE_POTION,
+		alert_pic = dumb_mob,
+		role_name_text = "intelligence potion",
+		chat_text_border_icon = src,
+		amount_to_pick = 1,
+	)
 	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(config, dumb_mob)
 	on_poll_concluded(user, dumb_mob, chosen_one)
 
@@ -1247,7 +1250,7 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	max_amount = 60
 	turf_type = /turf/open/floor/bluespace
 	merge_type = /obj/item/stack/tile/bluespace
@@ -1264,7 +1267,7 @@
 	throwforce = 10
 	throw_speed = 0.1
 	throw_range = 28
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	max_amount = 60
 	turf_type = /turf/open/floor/sepia
 	merge_type = /obj/item/stack/tile/sepia

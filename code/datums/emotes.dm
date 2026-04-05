@@ -11,7 +11,8 @@
 	var/message_monkey = "" //Message displayed if the user is a monkey
 	var/message_ipc = "" // Message to display if the user is an IPC
 	var/message_insect = "" //Message to display if the user is a moth, apid or flyperson
-	var/message_simple = "" //Message to display if the user is a simple_animal
+	/// Message to display if the user is a simple_animal or basic mob.
+	var/message_animal_or_basic = ""
 	var/message_param = "" //Message to display if a param was given
 	/// Whether the emote is visible and/or audible bitflag
 	var/emote_type = NONE
@@ -254,7 +255,7 @@
 	. = msg
 	if(!muzzle_ignore && user.is_muzzled() && (emote_type & EMOTE_AUDIBLE))
 		return "makes a [pick("strong ", "weak ", "")]noise."
-	if(HAS_TRAIT(user, TRAIT_MIMING) && message_mime)
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING) && message_mime)
 		. = message_mime
 	if(isalienadult(user) && message_alien)
 		. = message_alien
@@ -270,8 +271,8 @@
 		. = message_ipc
 	else if((ismoth(user) || isapid(user) || isflyperson(user)) && message_insect)
 		. = message_insect
-	else if((isanimal(user) || isbasicmob(user)) && message_simple)
-		. = message_simple
+	else if(isanimal_or_basicmob(user) && message_animal_or_basic)
+		. = message_animal_or_basic
 
 	return .
 
@@ -319,7 +320,7 @@
 	if(emote_type & EMOTE_AUDIBLE && !hands_use_check)
 		if(ishuman(user))
 			var/mob/living/carbon/human/loud_mouth = user
-			if(HAS_TRAIT(loud_mouth, TRAIT_MIMING)) // vow of silence prevents outloud noises
+			if(HAS_MIND_TRAIT(loud_mouth, TRAIT_MIMING)) // vow of silence prevents outloud noises
 				return FALSE
 			if(!loud_mouth.get_organ_slot(ORGAN_SLOT_TONGUE))
 				return FALSE

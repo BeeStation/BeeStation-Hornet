@@ -1217,7 +1217,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/mob/living/simple_animal/chicken/turkey{
+/mob/living/simple_animal/turkey{
 	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
 	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
 	health = 200;
@@ -12015,7 +12015,7 @@
 /obj/machinery/computer/xenoarchaeology_console{
 	dir = 4
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
 "cDj" = (
@@ -14092,7 +14092,7 @@
 	pixel_x = -8;
 	pixel_y = 12
 	},
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -19279,26 +19279,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
-"eIf" = (
-/obj/structure/destructible/cult/tome/library,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/book/codex_gigas{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/flashlight/lantern{
-	pixel_x = 4
-	},
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/library)
 "eIg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -25580,6 +25560,22 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/security/execution/transfer)
+"gQA" = (
+/obj/structure/destructible/cult/tome/library,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/flashlight/lantern{
+	pixel_x = 4
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/library)
 "gQG" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/cable/yellow{
@@ -31498,21 +31494,6 @@
 	broken = 1
 	},
 /area/maintenance/port)
-"iNh" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1;
-	color = "#486091"
-	},
-/mob/living/simple_animal/pet/cat/Runtime,
-/obj/structure/bed/dogbed/runtime,
-/obj/item/storage/secure/safe{
-	pixel_x = -24
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/crew_quarters/heads/cmo)
 "iNo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -38418,7 +38399,7 @@
 /obj/item/folder{
 	pixel_x = -4
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -52112,7 +52093,7 @@
 /area/engine/atmos)
 "pTa" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -60205,6 +60186,21 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
+"sFZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1;
+	color = "#486091"
+	},
+/mob/living/basic/pet/cat/runtime,
+/obj/structure/bed/dogbed/runtime,
+/obj/item/storage/secure/safe{
+	pixel_x = -24
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/crew_quarters/heads/cmo)
 "sGa" = (
 /turf/open/floor/iron,
 /area/quartermaster/office)
@@ -63188,7 +63184,7 @@
 	pixel_y = 6
 	},
 /obj/item/aicard,
-/obj/item/paicard{
+/obj/item/pai_card{
 	pixel_x = 6
 	},
 /obj/item/radio/intercom{
@@ -94737,7 +94733,7 @@ ocU
 lyb
 aPA
 idO
-iNh
+sFZ
 wTy
 fTD
 tTH
@@ -102726,7 +102722,7 @@ cIg
 blZ
 cIn
 buC
-eIf
+gQA
 odN
 buC
 sSG

@@ -62,9 +62,11 @@
 /mob/living/simple_animal/adjustStaminaLoss(amount, updating_stamina, forced = FALSE, required_biotype)
 	if(!can_adjust_stamina_loss(amount, forced, required_biotype))
 		return 0
+	var/old_stamloss = staminaloss
 	if(forced)
 		staminaloss = max(0, min(max_staminaloss, staminaloss + amount))
 	else
 		staminaloss = max(0, min(max_staminaloss, staminaloss + (amount * damage_coeff[STAMINA])))
 	if(updating_stamina)
 		update_stamina()
+	return old_stamloss - staminaloss

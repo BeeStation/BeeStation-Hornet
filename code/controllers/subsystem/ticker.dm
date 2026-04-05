@@ -457,7 +457,7 @@ SUBSYSTEM_DEF(ticker)
 			living.notransform = TRUE
 			if(living.client)
 				var/atom/movable/screen/splash/S = new(null, living.client, TRUE)
-				S.Fade(TRUE)
+				S.fade(TRUE)
 			livings += living
 	if(livings.len)
 		addtimer(CALLBACK(src, PROC_REF(release_characters), livings), 30, TIMER_CLIENT_TIME)
