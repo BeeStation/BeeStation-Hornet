@@ -289,3 +289,31 @@
 	/// REQUIRED key: "path" (type path of the item to deliver)
 	/// OPTIONAL keys: "name", "cost", "max_supply", and any override matching a var above.
 	var/list/entries = null
+
+/*
+	All different crate types:
+
+	Default ones:
+	Plain metal crate used for normal stuff: 			/obj/structure/closet/crate
+	Plain metal crate that is lock-able: 				/obj/structure/closet/crate/secure
+	Large wooden crate that needs a crowbar to open: 	/obj/structure/closet/crate/large
+	Plain freezer crate: 								/obj/structure/closet/crate/freezer
+	Plain livestock crate:								/obj/structure/closet/crate/critter
+
+	Specific usage(Not locked/Secure)
+	/obj/structure/closet/crate/internals //Oxygen supplies and masks
+	/obj/structure/closet/crate/medical
+	/obj/structure/closet/crate/radiation
+	/obj/structure/closet/crate/engineering
+	/obj/structure/closet/crate/engineering/electrical
+	/obj/structure/closet/crate/science
+	/obj/structure/closet/crate/hydroponics
+
+	Specific usage(Locked/Secure only)
+	/obj/structure/closet/crate/secure/hydroponics
+	/obj/structure/closet/crate/secure/gear
+	/obj/structure/closet/crate/secure/weapon
+	/obj/structure/closet/crate/secure/plasma
+	/obj/structure/closet/crate/secure/engineering
+	/obj/structure/closet/crate/secure/science
+*/
