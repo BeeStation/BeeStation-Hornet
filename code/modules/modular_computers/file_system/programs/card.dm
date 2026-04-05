@@ -16,7 +16,7 @@
 	var/is_centcom = FALSE
 	var/minor = FALSE
 	var/authenticated = FALSE
-	var/region_access
+	var/accessible_region_bitflag = NONE
 	///Which departments this computer has access to. Defined as access regions. null = all departments
 	var/department_bitflag
 
@@ -27,29 +27,29 @@
 	if(!manager_card)
 		return
 
-	region_access = NONE
+	accessible_region_bitflag = NONE
 	authenticated = FALSE
 	if(ACCESS_CHANGE_IDS in manager_card.access)
 		if(department_bitflag)
 			minor = TRUE
-			region_access |= department_bitflag
+			accessible_region_bitflag |= department_bitflag
 		else
 			minor = FALSE
-			region_access |= ALL
+			accessible_region_bitflag |= ALL
 	else
 		minor = TRUE
 		if((ACCESS_HOP in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
-			region_access |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
+			accessible_region_bitflag |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
 		if((ACCESS_HOS in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
-			region_access |= DEPT_BITFLAG_SEC
+			accessible_region_bitflag |= DEPT_BITFLAG_SEC
 		if((ACCESS_CMO in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
-			region_access |= DEPT_BITFLAG_MED
+			accessible_region_bitflag |= DEPT_BITFLAG_MED
 		if((ACCESS_RD in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
-			region_access |= DEPT_BITFLAG_SCI
+			accessible_region_bitflag |= DEPT_BITFLAG_SCI
 		if((ACCESS_CE in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
-			region_access |= DEPT_BITFLAG_ENG
+			accessible_region_bitflag |= DEPT_BITFLAG_ENG
 
-	if(region_access)
+	if(accessible_region_bitflag)
 		authenticated = TRUE
 		update_static_data(user)
 		return TRUE
@@ -225,7 +225,7 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region_access)[1]
+			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
 			target_id_card.access |= dept_datum.access_list
 			log_id("[key_name(usr)] granted [dept_datum.access_group_name] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -236,7 +236,7 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region_access)[1]
+			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
 			target_id_card.access -= dept_datum.access_list
 			log_id("[key_name(usr)] removed [dept_datum.access_group_name] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
@@ -268,7 +268,7 @@
 
 	var/list/regions = list()
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if((minor || department_bitflag) && !(each_dept.dept_bitflag & region_access))
+		if((minor || department_bitflag) && !(each_dept.dept_bitflag & accessible_region_bitflag))
 			continue
 		if(!length(each_dept.access_list) || (each_dept.access_filter && !is_centcom))
 			continue
