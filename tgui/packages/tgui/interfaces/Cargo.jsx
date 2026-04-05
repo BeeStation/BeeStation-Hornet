@@ -306,9 +306,7 @@ export const CargoCatalog = (props) => {
   const keyword = resolveSearchKeyword(searchText);
   const isKeywordFilter = keyword?.type === 'keyword';
 
-  const isSearching =
-    isKeywordFilter ||
-    searchText.length >= MIN_SEARCH_LENGTH;
+  const isSearching = isKeywordFilter || searchText.length >= MIN_SEARCH_LENGTH;
   const searchLower = searchText.toLowerCase();
   const searchResults = isSearching
     ? allPacks.filter(
@@ -346,11 +344,7 @@ export const CargoCatalog = (props) => {
             value={searchText}
             onInput={(e, value) => setSearchText(value)}
           />
-          <Collapsible
-            mt={0.5}
-            title="Filter Tags"
-            color="transparent"
-          >
+          <Collapsible mt={0.5} title="Filter Tags" color="transparent">
             <Box fontSize="10px" color="label" mb={1} italic>
               Department filters show items whose crate requires that
               department&apos;s access. Items with no access restriction
@@ -361,9 +355,11 @@ export const CargoCatalog = (props) => {
                 <Button
                   key={tag}
                   compact
-                  color={searchText.trim().toLowerCase() === tag
-                    ? 'cyan'
-                    : 'transparent'}
+                  color={
+                    searchText.trim().toLowerCase() === tag
+                      ? 'cyan'
+                      : 'transparent'
+                  }
                   onClick={() => setSearchText(tag)}
                   mr={0.5}
                   mb={0.5}
@@ -377,18 +373,15 @@ export const CargoCatalog = (props) => {
         <Flex.Item grow={1} style={{ overflow: 'hidden' }}>
           {isSearching ? (
             <Box height="100%" style={{ overflow: 'auto' }}>
-              <Box
-                color={isKeywordFilter ? 'cyan' : 'label'}
-                mb={1}
-              >
-                {isKeywordFilter && (
-                  <Icon name="filter" mr={1} />
-                )}
+              <Box color={isKeywordFilter ? 'cyan' : 'label'} mb={1}>
+                {isKeywordFilter && <Icon name="filter" mr={1} />}
                 {searchResults.length} result
                 {searchResults.length !== 1 && 's'}
-                {isKeywordFilter
-                  ? <> matching {keyword.label}</>
-                  : <> for &quot;{searchText}&quot;</>}
+                {isKeywordFilter ? (
+                  <> matching {keyword.label}</>
+                ) : (
+                  <> for &quot;{searchText}&quot;</>
+                )}
               </Box>
               {searchResults.length === 0 && (
                 <Box color="label" textAlign="center" mt={4}>
@@ -813,9 +806,7 @@ const BatchPanel = () => {
               </Box>
             )}
             {selfPaidPct > 0 && (
-              <Box color="average">
-                Personal purchase: +{selfPaidPct}%
-              </Box>
+              <Box color="average">Personal purchase: +{selfPaidPct}%</Box>
             )}
           </Box>
           <Box
@@ -974,8 +965,8 @@ const BatchCrateReadout = () => {
                 </Box>
               ))}
               <Box mt={1} fontSize="10px" color="label" italic>
-                Fill: {slotsUsed}/{maxSlots} slots - {fill.label}
-                {' '}| Crate deposit: {formatMoney(crate.crate_cost)} cr
+                Fill: {slotsUsed}/{maxSlots} slots - {fill.label} | Crate
+                deposit: {formatMoney(crate.crate_cost)} cr
                 {!!crate.access && ' | Access restricted 🔒'}
               </Box>
             </Box>
@@ -1032,8 +1023,8 @@ const BatchPricingBreakdown = () => {
             ? '-' + bulkDiscountPct.toFixed(1) + '%'
             : `None (need ${bc.bulk_discount_start}+ items)`}
           <Box fontSize="10px" color="label">
-            Up to {bc.bulk_discount_max_pct}% off at{' '}
-            {bc.bulk_discount_cap}+ items
+            Up to {bc.bulk_discount_max_pct}% off at {bc.bulk_discount_cap}+
+            items
           </Box>
         </LabeledList.Item>
         <LabeledList.Item

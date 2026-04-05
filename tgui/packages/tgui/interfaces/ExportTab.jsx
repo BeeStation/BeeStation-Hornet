@@ -84,13 +84,7 @@ export const ExportTab = (props) => {
             fillColor={CHART_FILL_COLOR}
           />
         ) : (
-          <Box
-            height="120px"
-            textAlign="center"
-            pt={4}
-            color="label"
-            italic
-          >
+          <Box height="120px" textAlign="center" pt={4} color="label" italic>
             <Icon name="clock" mr={1} />
             Demand history will appear as the market fluctuates.
             {selectedEntry ? ' Select a row to track it.' : ''}
@@ -298,8 +292,8 @@ export const ExportTab = (props) => {
                           bad: [-Infinity, 30],
                         }}
                       >
-                        {getDemandLabel(item.demand_ratio)} (
-                        {item.demand_ratio}%)
+                        {getDemandLabel(item.demand_ratio)} ({item.demand_ratio}
+                        %)
                       </ProgressBar>
                     </Flex.Item>
                   </Flex>
