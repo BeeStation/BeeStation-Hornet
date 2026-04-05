@@ -86,8 +86,8 @@
 	visor_toggling()
 	update_appearance()
 
-/obj/item/clothing/head/helmet/space/plasmaman/add_stabilizer(loose_hat = FALSE)
-	..()
+/obj/item/clothing/head/helmet/space/plasmaman/add_stabilizer()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = FALSE)
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
