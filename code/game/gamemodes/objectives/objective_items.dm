@@ -84,13 +84,6 @@
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_CAPTAIN)
 
-/datum/objective_item/steal/knuckleduster
-	name = "the quartermaster's golden knuckleduster."
-	targetitem = /obj/item/melee/knuckleduster
-	difficulty = 5
-	excludefromjob = list(JOB_NAME_QUARTERMASTER)
-	requiredjob = list(JOB_NAME_QUARTERMASTER)
-
 /datum/objective_item/steal/hypo
 	name = "the hypospray."
 	targetitem = /obj/item/reagent_containers/hypospray/CMO
