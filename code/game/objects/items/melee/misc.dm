@@ -718,7 +718,7 @@
 	inhand_icon_state = "knuckles"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 7
+	force = 10
 	throwforce = 2
 	bleed_force = BLEED_TINY
 	w_class = WEIGHT_CLASS_TINY
@@ -732,9 +732,9 @@
 	item_flags = ISWEAPON
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	/// Base damage before budget scaling
-	var/base_force = 7
+	var/base_force = 10
 	/// Maximum damage cap
-	var/max_force = 25
+	var/max_force = 20
 	/// Credits per bonus damage point
 	var/credits_per_damage = 2000
 
@@ -759,9 +759,6 @@
 
 /// Scales force based on how full the cargo budget is. Capped at max_force. Only applies if the user is the Quartermaster.
 /obj/item/melee/knuckleduster/proc/update_force_from_budget(mob/living/user)
-	if(!user?.mind || user.mind.assigned_role != JOB_NAME_QUARTERMASTER)
-		force = base_force
-		return
 	var/datum/bank_account/department/cargo_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	if(!cargo_budget)
 		force = base_force
@@ -772,8 +769,8 @@
 /obj/item/melee/knuckleduster/examine(mob/user)
 	update_force_from_budget(user)
 	. = ..()
-	if(user?.mind?.assigned_role == JOB_NAME_QUARTERMASTER)
-		. += span_notice("The weight of Cargo's wealth flows through these knuckles. Current striking force: [force].")
+	. += span_notice("The weight of Cargo's wealth flows through these knuckles. Current striking force: [force].")
+
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		. += span_notice("Your grip is tightened. Use in-hand to relax it.")
 	else
