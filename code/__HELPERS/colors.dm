@@ -45,18 +45,18 @@
 /// Ensures that the lightness value of a colour must be greater than the provided
 /// minimum.
 /proc/color_lightness_max(colour, min_lightness)
-	var/list/hsl = rgb2num(colour, COLORSPACE_HSV)
+	var/list/hsv = rgb2num(colour, COLORSPACE_HSV)
 	// Ensure high lightness (Minimum of 90%)
-	hsl[3] = max(hsl[3], min_lightness)
-	return rgb(hsl[1], hsl[2], hsl[3], space = COLORSPACE_HSV)
+	hsv[3] = max(hsv[3], min_lightness)
+	return rgb(hsv[1], hsv[2], hsv[3], space = COLORSPACE_HSV)
 
 /// Ensures that the lightness value of a colour must be less than the provided
 /// maximum.
 /proc/color_lightness_min(colour, max_lightness)
-	var/list/hsl = rgb2num(colour, COLORSPACE_HSV)
+	var/list/hsv = rgb2num(colour, COLORSPACE_HSV)
 	// Ensure high lightness (Minimum of 90%)
-	hsl[3] = min(hsl[3], max_lightness)
-	return rgb(hsl[1], hsl[2], hsl[3], space = COLORSPACE_HSV)
+	hsv[3] = min(hsv[3], max_lightness)
+	return rgb(hsv[1], hsv[2], hsv[3], space = COLORSPACE_HSV)
 
 /**
  * Gets a color for a name, will return the same color for a given string consistently within a round.atom
