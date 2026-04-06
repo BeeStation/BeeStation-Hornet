@@ -19,6 +19,7 @@
 	var/creation_efficiency = 1.6
 
 	var/can_be_hacked_or_unlocked = FALSE
+	var/hacked = FALSE
 	/// Whether or not we can print an entire category at once
 	var/can_print_category = FALSE
 
@@ -43,10 +44,11 @@
 	var/accepts_disks = FALSE
 	var/obj/item/disk/design_disk/inserted_disk
 
+	// If TRUE, connect to the ore silo. If FALSE, create our own material_container component
 	var/remote_materials = FALSE
-	var/auto_link = FALSE
 
-	//A list of all the printable items
+	/// looping sound for printing items
+	var/datum/looping_sound/lathe_print/print_sound
 
 	//Queue items
 
@@ -77,6 +79,8 @@
 	var/list/datum/design/cached_designs
 
 /obj/machinery/modular_fabricator/Initialize(mapload)
+	print_sound = new(src,  FALSE)
+
 	if(ispath(stored_research) && !use_station_research)
 		if(!GLOB.autounlock_techwebs[stored_research])
 			GLOB.autounlock_techwebs[stored_research] = new stored_research()
@@ -89,10 +93,10 @@
 
 	if(remote_materials)
 		//We think its a protolathe/mechfab. Connectable to Ore Silo
-		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link, mat_container_flags=BREAKDOWN_FLAGS_LATHE)
+		AddComponent(/datum/component/remote_materials, "modfab", mapload, mat_container_flags = BREAKDOWN_FLAGS_LATHE)
 	else
 		//We think its a autolathe. NO Ore Silo Connection
-		AddComponent(/datum/component/material_container, SSmaterials.materialtypes_by_category[MAT_CATEGORY_RIGID], 0, MATCONTAINER_EXAMINE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
+		AddComponent(/datum/component/material_container, SSmaterials.materialtypes_by_category[MAT_CATEGORY_RIGID], _mat_container_flags = MATCONTAINER_EXAMINE, _after_insert = CALLBACK(src, PROC_REF(after_material_insert)))
 	return ..()
 
 /obj/machinery/modular_fabricator/LateInitialize()
@@ -157,6 +161,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 
 /obj/machinery/modular_fabricator/Destroy()
 	stored_research = null
+	QDEL_NULL(print_sound)
 	QDEL_NULL(wires)
 	return ..()
 
@@ -316,10 +321,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 				var/datum/design/design = SSresearch.techweb_design_by_id(v)
 				if(category_to_queue in design.category)
 					add_to_queue(item_queue, v, 1)
+			return TRUE
 
 		if("output_dir")
 			output_direction = text2num(params["direction"])
-			. = TRUE
+			return TRUE
 
 		if("upload_disk")
 			if(!accepts_disks)
@@ -338,7 +344,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 				playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
 
 			update_static_data_for_all_viewers()
-			. = TRUE
+			return FALSE // Lets avoid an unnecessary UI update, update_static_data_for_all_viewers() already did it for us
 
 		if("eject_disk")
 			if(!inserted_disk || !accepts_disks)
@@ -347,7 +353,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			disk.forceMove(drop_location())
 			inserted_disk = null
 			update_static_data_for_all_viewers()
-			. = TRUE
+			return FALSE // Lets avoid an unnecessary UI update, update_static_data_for_all_viewers() already did it for us
 
 		if("eject_material")
 			var/datum/component/material_container/materials = get_material_container()
@@ -359,16 +365,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 				var/datum/material/M = mat
 				if("[M.type]" == material_datum)
 					materials.retrieve_sheets(amount, M, get_release_turf())
-					. = TRUE
-					break
+					return TRUE
 
 		if("queue_repeat")
 			queue_repeating = text2num(params["repeating"])
-			. = TRUE
+			return TRUE
 
 		if("clear_queue")
 			item_queue.Cut()
-			. = TRUE
+			return TRUE
 
 		if("item_repeat")
 			var/design_id = params["design_id"]
@@ -376,22 +381,22 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			if(!item_queue["[design_id]"])
 				return
 			item_queue["[design_id]"]["repeating"] = repeating_mode
-			. = TRUE
+			return TRUE
 
 		if("clear_item")
 			var/design_id = params["design_id"]
 			item_queue -= design_id
-			. = TRUE
+			return TRUE
 
 		if("queue_item")
 			var/design_id = params["design_id"]
 			var/amount = text2num(params["amount"])
 			add_to_queue(item_queue, design_id, amount)
-			. = TRUE
+			return TRUE
 
 		if("begin_process")
 			begin_process()
-			. = TRUE
+			return TRUE
 
 /obj/machinery/modular_fabricator/proc/add_to_queue(queue_list, design_id, amount, repeat)
 	if(queue_list["[design_id]"])
@@ -404,7 +409,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 
 	var/is_valid_design = stored_research.researched_designs[design_id]
 	is_valid_design ||= imported_designs[design_id]
-	is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[design_id]
+	if(hacked)
+		is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[design_id]
 	if(!is_valid_design)
 		return
 
@@ -445,7 +451,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 
-/obj/machinery/modular_fabricator/proc/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
+/obj/machinery/modular_fabricator/proc/after_material_insert(item_inserted, id_inserted, amount_inserted)
 	if(istype(item_inserted, /obj/item/stack/ore/bluespace_crystal))
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
@@ -457,21 +463,22 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 /obj/machinery/modular_fabricator/proc/begin_process()
 	if(busy || operating || disabled)
 		return
-	var/requested_design_id = null
-	if(LAZYLEN(item_queue))
+
+	var/requested_design_id
+	if(length(item_queue))
 		requested_design_id = item_queue[1]
-	//Queue processing done
-	if(!requested_design_id)
+	else
+		//Queue processing done
 		say("Queue processing completed.")
 		operating = FALSE
 		return
 	operating = TRUE
-	//Doubles as protection from bad things and makes sure we can still make the item.
-	being_built = stored_research.isDesignResearchedID(requested_design_id)
 
+	// Get our design
 	var/is_valid_design = stored_research.researched_designs[requested_design_id]
 	is_valid_design ||= imported_designs[requested_design_id]
-	is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[requested_design_id]
+	if(hacked)
+		is_valid_design ||= astype(stored_research, /datum/techweb/autounlocking)?.hacked_designs[requested_design_id]
 	if(!is_valid_design)
 		playsound(src, 'sound/machines/buzz-two.ogg', 50)
 		say("Unknown design requested, removing from queue.")
@@ -486,66 +493,74 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	//Only items that can stack should be build en mass, since we now have queues.
 	if(is_stack)
 		multiplier = item_queue[requested_design_id]["amount"]
-	multiplier = clamp(multiplier,1,50)
+	multiplier = clamp(multiplier, 1, 50)
 
 	/////////////////
 
 	var/coeff = (is_stack ? 1 : creation_efficiency) //stacks are unaffected by production coefficient
 	var/total_amount = 0
 
-	for(var/MAT in being_built.materials)
-		total_amount += being_built.materials[MAT]
+	for(var/material_type, material_amount in being_built.materials)
+		total_amount += material_amount
 
 	var/power = max(MODFAB_MAX_POWER_USE, (total_amount)*multiplier/5) //Change this to use all materials
 
 	var/datum/component/material_container/materials = get_material_container()
 
-	var/list/materials_used = list()
+	var/list/materials_used = list() // The materials we draw
 	var/list/custom_materials = list() //These will apply their material effect, This should usually only be one.
 
-	for(var/MAT in being_built.materials)
-		var/datum/material/used_material = MAT
-		var/amount_needed = being_built.materials[MAT] * coeff * multiplier
+	for(var/material_type, material_amount in being_built.materials)
+		var/datum/material/used_material = material_type
+		var/amount_needed = material_amount * coeff * multiplier
+
 		if(istext(used_material)) //This means its a category
 			used_material = item_queue[requested_design_id]["build_mat"]
 			if(!used_material)
 				item_queue -= requested_design_id
-				addtimer(CALLBACK(src, PROC_REF(restart_process)), 50)
+				addtimer(CALLBACK(src, PROC_REF(restart_process)), 0.5 SECONDS)
 				return //Didn't pick any material, so you can't build shit either.
 			custom_materials[used_material] += amount_needed
 
 		materials_used[used_material] = amount_needed
 
-	if(materials.has_materials(materials_used))
-		busy = TRUE
-		use_power(power)
-		set_working_sprite()
-		var/construction_time = max(being_built.construction_time, minimum_construction_time)
-		var/time = is_stack ? construction_time : (construction_time * coeff * multiplier) ** 0.8
-		time *= being_built.lathe_time_factor
-		//===Repeating mode===
-		//Remove from queue
-		var/list/queue_data = item_queue[requested_design_id]
-		item_queue[requested_design_id]["amount"] -= multiplier
-		var/removed = FALSE
-		if(item_queue[requested_design_id]["amount"] <= 0)
-			item_queue -= requested_design_id
-			removed = TRUE
-		//Requeue if necessary
-		if(queue_repeating || queue_data["repeating"])
-			stored_item_amount ++
-			if(removed)
-				add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["build_mat"])
-				stored_item_amount = 0
-		//Create item and restart
-		process_completion_world_tick = world.time + time
-		total_build_time = time
-		addtimer(CALLBACK(src, PROC_REF(make_item), power, materials_used, custom_materials, multiplier, coeff, is_stack, requested_design_id, queue_data), time)
-		addtimer(CALLBACK(src, PROC_REF(restart_process)), time + 5)
-	else
+	// Check for materials
+	if(!materials.has_materials(materials_used))
 		say("Insufficient materials, operation will proceed when sufficient materials are available.")
 		operating = FALSE
 		wants_operate = TRUE
+		return
+
+	busy = TRUE
+	use_power(power)
+	set_working_sprite()
+	print_sound.start()
+
+	var/construction_time = max(being_built.construction_time, minimum_construction_time)
+	var/time = is_stack ? construction_time : (construction_time * coeff * multiplier) ** 0.8
+	time *= being_built.lathe_time_factor
+
+	//===Repeating mode===
+	//Remove from queue
+	var/list/queue_data = item_queue[requested_design_id]
+	item_queue[requested_design_id]["amount"] -= multiplier
+	var/removed = FALSE
+	if(item_queue[requested_design_id]["amount"] <= 0)
+		item_queue -= requested_design_id
+		removed = TRUE
+
+	// Requeue if necessary
+	if(queue_repeating || queue_data["repeating"])
+		stored_item_amount ++
+		if(removed)
+			add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["build_mat"])
+			stored_item_amount = 0
+
+	// Create item & restart
+	process_completion_world_tick = world.time + time
+	total_build_time = time
+	addtimer(CALLBACK(src, PROC_REF(make_item), power, materials_used, custom_materials, multiplier, coeff, is_stack, requested_design_id, queue_data), time)
+	addtimer(CALLBACK(src, PROC_REF(restart_process)), time + 0.5 SECONDS)
 
 /obj/machinery/modular_fabricator/proc/restart_process()
 	operating = FALSE
@@ -562,6 +577,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		operating = FALSE
 		busy = FALSE
 		set_default_sprite()
+		print_sound.stop()
 		// requeue the item
 		add_to_queue(item_queue, requested_design_id, stored_item_amount + 1, queue_data["build_mat"])
 		stored_item_amount = 0
@@ -572,16 +588,17 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		wants_operate = TRUE
 		busy = FALSE
 		set_default_sprite()
+		print_sound.stop()
 		// requeue the item
 		add_to_queue(item_queue, requested_design_id, stored_item_amount + 1, queue_data["build_mat"])
 		stored_item_amount = 0
 		return
-	var/turf/A = get_release_turf()
+	var/turf/release_turf = get_release_turf()
 	use_power(power)
 	materials.use_materials(materials_used)
 	if(is_stack)
 		var/obj/item/stack/N = new being_built.build_path(src.loc, multiplier)
-		N.forceMove(A) //Forcemove to the release turf to trigger ZFall
+		N.forceMove(release_turf) //Forcemove to the release turf to trigger ZFall
 		N.update_icon()
 	else
 		for(var/i in 1 to multiplier)
@@ -589,14 +606,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			//Detect if the printed item has embedded itself in another item. Used for Circuit Templates which self insert themselves into shells.
 			if(isobj(new_item.loc))
 				var/obj/new_obj = new_item.loc //Get the object it is now embedded in.
-				new_obj.forceMove(A) //Forcemove to the release turf to trigger ZFall
+				new_obj.forceMove(release_turf) //Forcemove to the release turf to trigger ZFall
 			else
-				new_item.forceMove(A) //Forcemove to the release turf to trigger ZFall
+				new_item.forceMove(release_turf) //Forcemove to the release turf to trigger ZFall
 
 			if(length(picked_materials))
 				new_item.set_custom_materials(picked_materials, 1 / multiplier) //Ensure we get the non multiplied amount
 	being_built = null
 	set_default_sprite()
+	print_sound.stop()
 	busy = FALSE
 
 /obj/machinery/modular_fabricator/proc/set_default_sprite()

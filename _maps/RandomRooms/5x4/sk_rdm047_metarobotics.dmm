@@ -12,7 +12,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/machinery/modular_fabricator/exosuit_fab/maint{
+/obj/machinery/modular_fabricator/exosuit_fab{
 	name = "forgotten exosuit fabricator"
 	},
 /turf/open/floor/plating,

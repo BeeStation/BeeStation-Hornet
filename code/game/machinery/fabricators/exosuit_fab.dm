@@ -56,7 +56,7 @@
 		return FALSE
 	return default_deconstruction_crowbar(I)
 
-/obj/machinery/modular_fabricator/exosuit_fab/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+/obj/machinery/modular_fabricator/exosuit_fab/after_material_insert(type_inserted, id_inserted, amount_inserted)
 	. = ..()
 	var/datum/material/M = id_inserted
 	add_overlay("fab-load-[M.name]")
@@ -67,6 +67,3 @@
 
 /obj/machinery/modular_fabricator/exosuit_fab/set_working_sprite()
 	add_overlay("fab-active")
-
-/obj/machinery/modular_fabricator/exosuit_fab/maint
-	auto_link = FALSE

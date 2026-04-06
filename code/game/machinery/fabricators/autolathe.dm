@@ -13,7 +13,6 @@
 	//Security modes
 	can_be_hacked_or_unlocked = TRUE
 	var/security_interface_locked = TRUE
-	var/hacked = FALSE
 
 	categories = list(
 		RND_CATEGORY_TOOLS,
@@ -183,12 +182,12 @@
 	wires.ui_update()
 	playsound(src, "sparks", 100, TRUE)
 
-/obj/machinery/modular_fabricator/autolathe/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
+/obj/machinery/modular_fabricator/autolathe/after_material_insert(item_inserted, id_inserted, amount_inserted)
 	. = ..()
-	if(custom_materials && custom_materials.len && custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
-		flick("autolathe_r",src)//plays glass insertion animation by default otherwise
+	if(length(custom_materials) && custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
+		flick("autolathe_r", src)//plays glass insertion animation by default otherwise
 	else
-		flick("autolathe_o",src)//plays metal insertion animation
+		flick("autolathe_o", src)//plays metal insertion animation
 
 /obj/machinery/modular_fabricator/autolathe/set_default_sprite()
 	icon_state = "autolathe"

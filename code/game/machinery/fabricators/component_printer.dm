@@ -6,7 +6,6 @@
 	circuit = /obj/item/circuitboard/machine/component_printer
 
 	remote_materials = TRUE
-	auto_link = FALSE
 
 	//Quick.
 	minimum_construction_time = 0.5 SECONDS
@@ -37,7 +36,7 @@
 /obj/machinery/modular_fabricator/component_printer/screwdriver_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_screwdriver(user, "fab-o", "fab-idle", tool)
 
-/obj/machinery/modular_fabricator/component_printer/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+/obj/machinery/modular_fabricator/component_printer/after_material_insert(type_inserted, id_inserted, amount_inserted)
 	. = ..()
 	var/datum/material/M = id_inserted
 	add_overlay("fab-load-[M.name]")

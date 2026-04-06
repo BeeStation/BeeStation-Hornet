@@ -74,7 +74,7 @@
 	singular_name = "reinforced glass sheet"
 	icon_state = "sheet-rglass"
 	inhand_icon_state = "sheet-rglass"
-	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass = MINERAL_MATERIAL_AMOUNT)
 	armor_type = /datum/armor/sheet_rglass
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/rglass
