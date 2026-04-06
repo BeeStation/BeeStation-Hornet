@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Science")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffddff"
 	req_admin_notify = 1
@@ -31,6 +31,8 @@
 		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Archmagister"
 
 	species_outfits = list(

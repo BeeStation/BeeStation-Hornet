@@ -320,3 +320,23 @@
 #define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
 #define JOB_CHATCOLOR_PRISONER   "#D38A5C"
 #define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
+
+/* Job datum job_flags */
+/// Whether the mob is announced on arrival.
+#define JOB_ANNOUNCE_ARRIVAL (1<<0)
+/// Whether the mob is added to the crew manifest.
+#define JOB_CREW_MANIFEST (1<<1)
+/// Whether the job is considered a regular crew member of the station. Equipment such as AI and cyborgs not included.
+#define JOB_CREW_MEMBER (1<<2)
+
+DEFINE_BITFIELD(job_flags, list(
+	"JOB_ANNOUNCE_ARRIVAL" = JOB_ANNOUNCE_ARRIVAL,
+	"JOB_CREW_MANIFEST" = JOB_CREW_MANIFEST,
+	"JOB_CREW_MEMBER" = JOB_CREW_MEMBER,
+))
+
+/// Combination flag for jobs which are considered regular crew members of the station.
+#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_CREW_MEMBER)
+
+#define FACTION_NONE "None"
+#define FACTION_STATION "Station"

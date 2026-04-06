@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_CARGO
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#d7b088"
 	exp_requirements = 600
@@ -20,6 +20,8 @@
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_QUARTERMASTER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Steward"
 
 	species_outfits = list(

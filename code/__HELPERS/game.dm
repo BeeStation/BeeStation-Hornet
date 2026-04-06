@@ -325,14 +325,18 @@
 
 	return A.loc
 
+///Send a message in common radio when a player arrives
 /proc/AnnounceArrival(mob/living/carbon/human/character, rank)
-	if(QDELETED(character) || !SSticker.IsRoundInProgress())
+	if(!SSticker.IsRoundInProgress() || QDELETED(character))
 		return
 	var/area/player_area = get_area(character)
 	deadchat_broadcast(span_game(" has arrived at the station at [span_name(player_area.name)]."), span_game("[span_name(character.real_name)] ([rank])"), follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
-	if((!GLOB.announcement_systems.len) || (!character.mind))
+	if(!character.mind)
 		return
-	if((character.mind.assigned_role == JOB_NAME_CYBORG) || (character.mind.assigned_role == character.mind.special_role))
+	if(!GLOB.announcement_systems.len)
+		return
+	var/datum/job/job = character.mind.assigned_role_datum
+	if(!job || !(job.job_flags & JOB_ANNOUNCE_ARRIVAL))
 		return
 
 	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)

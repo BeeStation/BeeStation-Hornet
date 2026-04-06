@@ -5,7 +5,7 @@
 	department_for_prefs = DEPT_NAME_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -23,6 +23,8 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	show_in_prefs = FALSE
+
+	job_flags = STATION_JOB_FLAGS
 
 /datum/outfit/job/deputy
 	name = JOB_NAME_DEPUTY

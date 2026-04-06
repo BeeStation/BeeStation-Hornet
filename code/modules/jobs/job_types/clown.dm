@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#dddddd"
 
@@ -22,6 +22,8 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Jester"
 
 	species_outfits = list(

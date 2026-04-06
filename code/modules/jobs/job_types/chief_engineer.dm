@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Engineering")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
@@ -31,6 +31,8 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(

@@ -4,10 +4,10 @@
 	department_for_prefs = DEPT_NAME_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	latejoin_allowed = FALSE
-	supervisors = "your laws and the AI"	//Nodrak
+	supervisors = "your laws and the AI" //Nodrak
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
 	exp_requirements = 180
@@ -16,6 +16,8 @@
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 	departments = DEPT_BITFLAG_SILICON
+
+	job_flags = NONE
 
 /datum/job/cyborg/get_access() // no point of calling parent proc
 	return list()

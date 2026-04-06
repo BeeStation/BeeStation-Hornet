@@ -6,7 +6,7 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
 	supervisors = "Nanotrasen officials and Space law"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ccccff"
 	req_admin_notify = 1
@@ -27,6 +27,8 @@
 	mind_traits = list(TRAIT_DISK_VERIFIER)
 
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Star Duke"
 
 	species_outfits = list(

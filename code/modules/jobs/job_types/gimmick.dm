@@ -3,7 +3,7 @@
 	description = "Use your unique position to provide a service or entertain the crew."
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	show_in_prefs = TRUE
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
@@ -16,7 +16,10 @@
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Peasant"
+
 	allow_bureaucratic_error = FALSE
 	outfit = /datum/outfit/job/gimmick
 	species_outfits = list(
