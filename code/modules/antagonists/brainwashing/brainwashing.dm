@@ -28,11 +28,12 @@
 		victim_mind.add_antag_datum(brainwash)
 
 	var/source_message = source ? " by [source]" : ""
-	var/begin_message = span_deadsay("<b>[victim]</b> has been brainwashed with the following objective[length(directives) > 1 ? "s" : ""][source_message]: ")
+	var/begin_message = (" has been brainwashed with the following objective[length(directives) > 1 ? "s" : ""][source_message]: ")
 	var/obj_message = english_list(directives)
-	var/end_message = "</b>.</span>"
-	var/rendered = begin_message + obj_message + end_message
-	deadchat_broadcast(rendered, follow_target = victim, turf_target = get_turf(victim), message_type=DEADCHAT_REGULAR)
+	var/rendered = begin_message + obj_message
+	if(!(rendered[length(rendered)] in list(",",":",";",".","?","!","\'","-")))
+		rendered += "." //Good punctuation is important :)
+	deadchat_broadcast(rendered, "<b>[victim]</b>", follow_target = victim, turf_target = get_turf(victim), message_type=DEADCHAT_ANNOUNCEMENT)
 	victim.log_message(rendered, LOG_ATTACK, color="#960000")
 
 /// Removes objectives from someone's brainwash.

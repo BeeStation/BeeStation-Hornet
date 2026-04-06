@@ -225,8 +225,8 @@
 		message_part = message_mods[MODE_CUSTOM_SAY_EMOTE]
 	else
 		var/atom/movable/source = speaker.GetSource() || speaker
-		message_part = source.say_quote(scrambled_message, spans, message_mods)
-	message_part = span_message(summoner.say_emphasis(message_part))
+		message_part = source.generate_messagepart(scrambled_message, spans, message_mods)
+	message_part = span_message(summoner.apply_message_emphasis(message_part))
 	// And now, we put the final message together and show it to the summoner.
 	var/final_message = "[message_prefix] [message_part]"
 	to_chat(owner.list_summoner_and_or_holoparasites(include_self = FALSE), final_message)
@@ -354,7 +354,7 @@
 	RegisterSignals(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(on_stalked_moved))
 	RegisterSignal(target, COMSIG_PREQDELETED, PROC_REF(on_stalked_pre_qdel))
 	on_stalked_moved(target)
-	deadchat_broadcast(span_ghostalert("[span_name("[owner.real_name]")] has begun to stalk [span_name("[target.real_name]")]!"), follow_target = owner, turf_target = get_turf(owner))
+	deadchat_broadcast(span_ghostalert(" has begun to stalk [span_name("[target.real_name]")]!"), span_name("[owner.real_name]"), follow_target = owner, turf_target = get_turf(owner))
 	COOLDOWN_START(src, stalk_cooldown, 15 SECONDS)
 	if(target.has_holoparasites() && prob(80))
 		to_chat(target, span_holoparasiteitalics("You feel a strange yet familiar feeling, as if [COLOR_TEXT(owner.accent_color, "something")] was watching you..."))

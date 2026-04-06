@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys,
 //Since it didn't really belong in any other category, I'm putting this here
 //This is for procs to replace all the goddamn 'in world's that are chilling around the code
 
-GLOBAL_LIST_EMPTY(player_list)				//all mobs **with clients attached**.
+GLOBAL_LIST_EMPTY(player_list) //all mobs **with clients attached**.
 GLOBAL_LIST_EMPTY(mob_list)					//all mobs, including clientless
 GLOBAL_LIST_EMPTY(mob_directory)			//mob_id -> mob
 GLOBAL_LIST_EMPTY(alive_mob_list)			//all alive mobs, including clientless. Excludes /mob/dead/new_player
@@ -36,6 +36,10 @@ GLOBAL_LIST_EMPTY(bots_list)
 GLOBAL_LIST_EMPTY(ai_eyes)
 GLOBAL_LIST_EMPTY(suit_sensors_list) 		//all people with suit sensors on
 GLOBAL_LIST_EMPTY(unique_connected_keys)	//All ckeys that have connected at any point in the game
+
+/// All living mobs which can hear blob telepathy
+GLOBAL_LIST_EMPTY(blob_telepathy_mobs)
+
 
 /// List of language prototypes to reference, assoc [type] = prototype
 GLOBAL_LIST_INIT_TYPED(language_datum_instances, /datum/language, init_language_prototypes())
