@@ -335,8 +335,7 @@
 		return
 	if(!GLOB.announcement_systems.len)
 		return
-	var/datum/job/job = character.mind.assigned_role_datum
-	if(!job || !(job.job_flags & JOB_ANNOUNCE_ARRIVAL))
+	if(!(character.mind.assigned_role_datum?.job_flags & JOB_ANNOUNCE_ARRIVAL))
 		return
 
 	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
