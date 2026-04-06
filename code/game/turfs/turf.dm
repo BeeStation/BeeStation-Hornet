@@ -175,12 +175,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
-	// Same optimization principle as /atom/movable/Initialize()
+	// Same optimization principle used in /atom/movable/Initialize()
 	var/area/our_area = loc
 	if(fullbright_type)
-		if(fullbright_type == FULLBRIGHT_STARLIGHT)
-			if(!our_area.has_starlight_overlay)
-				add_overlay(GLOB.starlight_overlay)
+		if(fullbright_type == FULLBRIGHT_STARLIGHT && !our_area.has_starlight_overlay)
+			add_overlay(GLOB.starlight_overlay)
 	else if(!our_area.area_has_base_lighting)
 		add_overlay(GLOB.fullbright_overlay)
 
