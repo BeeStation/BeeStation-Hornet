@@ -9,7 +9,7 @@
 	var/datum/component/remote_materials/materials
 	/// Which departments are allowed to process this design
 	var/allowed_department_flags = ALL
-	/// Icon state when production has started
+	/// The icon_state when production starts
 	var/production_animation
 	/// The types of designs this fabricator can print.
 	var/allowed_buildtypes = NONE
@@ -28,7 +28,7 @@
 	var/selected_category = null
 
 /obj/machinery/rnd/production/Initialize(mapload)
-	print_sound = new(src,  FALSE)
+	print_sound = new(src, FALSE)
 	materials = AddComponent(
 		/datum/component/remote_materials, \
 		"lathe", \
@@ -69,8 +69,8 @@
 	if(!in_range(user, src) && !isobserver(user))
 		return
 
-	. += span_notice("Material usage cost at <b>[efficiency_coeff * 100]%</b>")
-	. += span_notice("Build time at <b>[efficiency_coeff * 100]%</b>")
+	. += span_info("Material usage cost at <b>[efficiency_coeff * 100]%</b>")
+	. += span_info("Build time at <b>[efficiency_coeff * 100]%</b>")
 
 /obj/machinery/rnd/production/connect_techweb(datum/techweb/new_techweb)
 	if(stored_research)

@@ -27,8 +27,7 @@
 	. = ..()
 	if(!stored_research)
 		CONNECT_TO_RND_SERVER_ROUNDSTART(stored_research, src)
-	if(stored_research)
-		on_connected_techweb()
+	on_connected_techweb()
 
 /obj/machinery/rnd/Destroy()
 	stored_research = null

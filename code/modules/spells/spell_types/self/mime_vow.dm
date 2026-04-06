@@ -1,6 +1,6 @@
 /datum/action/spell/vow_of_silence
 	name = "Speech"
-	desc = "Make (or break) a vow of silence."
+	desc = "Break your vow of silence. Permanently."
 	background_icon_state = "bg_mime"
 	button_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "mime_speech"

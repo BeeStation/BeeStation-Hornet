@@ -7,40 +7,23 @@
 	idle_power_usage = 10
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/autolathe
-
-	var/shocked = FALSE
-
-	//Security modes
 	can_be_hacked_or_unlocked = TRUE
-	var/security_interface_locked = TRUE
-
-	categories = list(
-		RND_CATEGORY_TOOLS,
-		RND_CATEGORY_ELECTRONICS,
-		RND_CATEGORY_CONSTRUCTION,
-		RND_CATEGORY_TELECOMMS,
-		RND_CATEGORY_SECURITY,
-		RND_CATEGORY_MACHINERY,
-		RND_CATEGORY_MEDICAL,
-		RND_CATEGORY_MISC,
-		RND_CATEGORY_DINNERWARE,
-		RND_CATEGORY_IMPORTED,
-	)
-
 	accepts_disks = TRUE
 	allowed_buildtypes = AUTOLATHE
 	stored_research = /datum/techweb/autounlocking/autolathe
+
+	var/shocked = FALSE
 
 /obj/machinery/modular_fabricator/autolathe/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/autolathe(src)
 
-/obj/machinery/modular_fabricator/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/modular_fabricator/autolathe/ui_interact(mob/user, datum/tgui/ui)
 	if(!is_operational)
 		return
 
-	if(shocked && !(machine_stat & NOPOWER))
-		shock(user,50)
+	if(shocked)
+		shock(user, 50)
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -48,63 +31,10 @@
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
-/obj/machinery/modular_fabricator/autolathe/ui_static_data(mob/user)
-	var/list/data = ..()
-
-	if(hacked)
-		var/datum/techweb/autounlocking/autolathe/autolathe_web = stored_research
-		data["items"] += handle_designs(autolathe_web.hacked_designs)
-
-	return data
-
-/obj/machinery/modular_fabricator/autolathe/ui_data(mob/user)
-	var/list/data = ..()
-
-	//Security interface
-	data["sec_interface_unlock"] = !security_interface_locked
-	data["hacked"] = hacked
-
-	//Being Build
-	return data
-
-/obj/machinery/modular_fabricator/autolathe/ui_act(action, params)
-	. = ..()
-	if(.)
-		return
-
-	switch(action)
-		if("toggle_safety")
-			if(security_interface_locked)
-				return
-			hacked = !hacked
-			update_static_data_for_all_viewers()
-			wires.ui_update()
-			return FALSE // Lets avoid an unnecessary UI update, update_static_data_for_all_viewers() already did it for us
-
-		if("toggle_lock")
-			if(obj_flags & EMAGGED)
-				return FALSE
-			if (!security_interface_locked)
-				security_interface_locked = TRUE
-			else
-				var/obj/item/id_slot = usr.get_idcard(TRUE)
-				if((ACCESS_SECURITY in id_slot.GetAccess()) && !(obj_flags & EMAGGED))
-					security_interface_locked = FALSE
-					to_chat(usr, span_warning("You unlock the security controls of [src]."))
-			return TRUE
-
 /obj/machinery/modular_fabricator/autolathe/attackby(obj/item/attacking_item, mob/living/user, params)
-	if((ACCESS_SECURITY in attacking_item.GetAccess()) && !(obj_flags & EMAGGED))
-		security_interface_locked = !security_interface_locked
-		to_chat(user, span_warning("You [security_interface_locked?"lock":"unlock"] the security controls of [src]."))
-		return TRUE
-
-	if(busy)
+	if(operating)
 		balloon_alert(user, "it's busy!")
-		return TRUE
-
-	if(default_deconstruction_crowbar(attacking_item))
-		return TRUE
+		return FALSE
 
 	if(panel_open && is_wire_tool(attacking_item))
 		wires.interact(user)
@@ -114,16 +44,7 @@
 		return ..()
 
 	if(machine_stat)
-		return TRUE
-
-	if(istype(attacking_item, /obj/item/disk/design_disk))
-		user.visible_message("[user] loads \the [attacking_item] into \the [src]...",
-			"You load a design from \the [attacking_item]...",
-			"You hear the chatter of a floppy drive.")
-		inserted_disk = attacking_item
-		attacking_item.forceMove(src)
-		update_static_data_for_all_viewers()
-		return TRUE
+		return FALSE
 
 	if(panel_open)
 		balloon_alert(user, "close the panel first!")
@@ -131,23 +52,23 @@
 
 	return ..()
 
-/obj/machinery/modular_fabricator/autolathe/attackby_secondary(obj/item/weapon, mob/living/user, params)
-	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-	if(busy)
+/obj/machinery/modular_fabricator/autolathe/crowbar_act_secondary(mob/living/user, obj/item/tool)
+	if(operating)
 		balloon_alert(user, "it's busy!")
 		return
+	return default_deconstruction_crowbar(tool)
 
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", weapon))
+/obj/machinery/modular_fabricator/autolathe/crowbar_act(mob/living/user, obj/item/tool)
+	if(operating)
+		balloon_alert(user, "it's busy!")
 		return
+	return default_deconstruction_crowbar(tool)
 
-	if(machine_stat)
-		return SECONDARY_ATTACK_CALL_NORMAL
-
-	if(panel_open)
-		balloon_alert(user, "close the panel first!")
+/obj/machinery/modular_fabricator/autolathe/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+	if(operating)
+		balloon_alert(user, "it's busy!")
 		return
-
-	return SECONDARY_ATTACK_CALL_NORMAL
+	return default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", tool)
 
 /obj/machinery/modular_fabricator/autolathe/proc/reset(wire)
 	switch(wire)
@@ -162,22 +83,20 @@
 				disabled = FALSE
 	wires.ui_update()
 
-/obj/machinery/modular_fabricator/autolathe/proc/shock(mob/user, prb)
-	if(machine_stat & (BROKEN|NOPOWER))		// unpowered, no shock
+/obj/machinery/modular_fabricator/autolathe/proc/shock(mob/user, chance)
+	if(machine_stat & (BROKEN|NOPOWER)) // unpowered, no shock
 		return FALSE
-	if(!prob(prb))
+	if(!prob(chance))
 		return FALSE
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
-	if (electrocute_mob(user, get_area(src), src, 0.7, TRUE))
-		return TRUE
-	else
-		return FALSE
+	var/datum/effect_system/spark_spread/sparks = new()
+	sparks.set_up(5, 1, src)
+	sparks.start()
+	electrocute_mob(user, get_area(src), src, 0.7, 1)
 
 /obj/machinery/modular_fabricator/autolathe/on_emag(mob/user)
-	..()
+	. = ..()
 	security_interface_locked = FALSE
+	hacked = TRUE
 	update_static_data_for_all_viewers()
 	wires.ui_update()
 	playsound(src, "sparks", 100, TRUE)

@@ -4,29 +4,8 @@
 	icon = 'icons/obj/wiremod_fab.dmi'
 	icon_state = "fab-idle"
 	circuit = /obj/item/circuitboard/machine/component_printer
-
 	remote_materials = TRUE
-
-	//Quick.
-	minimum_construction_time = 0.5 SECONDS
-
-	stored_research = null
-
-	categories = list(
-		RND_CATEGORY_CIRCUITRY,
-		RND_CATEGORY_CORE,
-		RND_CATEGORY_SHELLS,
-		RND_CATEGORY_INPUT_COMPONENTS,
-		RND_CATEGORY_OUTPUT_COMPONENTS,
-		RND_CATEGORY_MATH_COMPONENTS,
-		RND_CATEGORY_TIME_COMPONENTS,
-		RND_CATEGORY_LOGIC_COMPONENTS,
-		RND_CATEGORY_GATE_COMPONENTS,
-		RND_CATEGORY_BCI_COMPONENTS,
-		RND_CATEGORY_TEMPLATES,
-	)
-
-	stored_research = null
+	minimum_construction_time = 0.5 SECONDS //Quick.
 	use_station_research = TRUE
 	allowed_buildtypes = COMPONENT_PRINTER
 

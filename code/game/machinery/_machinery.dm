@@ -933,19 +933,19 @@
 	return TRUE
 
 // Power cell in hand replacement
-/obj/machinery/attackby(obj/item/C, mob/user)
-	if(istype(C, /obj/item/stock_parts/cell) && panel_open)
-		for(var/obj/item/P in component_parts)
-			if(istype(P,/obj/item/stock_parts/cell))
-				if(user.transferItemToLoc(C, src))
-					user.put_in_active_hand(P)
-					component_parts+=C
-					component_parts-=P
-					RefreshParts()
-					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
-					to_chat(user, span_notice("You replace [P.name] with [C.name]."))
-					return
-	..()
+/obj/machinery/attackby(obj/item/attacking_item, mob/user, params)
+	if(!istype(attacking_item, /obj/item/stock_parts/cell) || !panel_open)
+		return ..()
+
+	for(var/obj/item/stock_part in component_parts)
+		if(istype(stock_part, /obj/item/stock_parts/cell) && user.transferItemToLoc(attacking_item, src))
+			user.put_in_active_hand(stock_part)
+			component_parts += attacking_item
+			component_parts -= stock_part
+			RefreshParts()
+			playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
+			to_chat(user, span_notice("You replace [stock_part] with [attacking_item]."))
+	return ..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
 	if(!istype(replacer_tool))
