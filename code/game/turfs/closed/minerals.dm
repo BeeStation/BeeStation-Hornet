@@ -150,9 +150,16 @@
 /// Will only run once, and will then be cached.
 /turf/closed/mineral/random/proc/mineral_chances()
 	return list(
+		/obj/item/stack/ore/uranium = 5,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/gold = 10,
+		/obj/item/stack/ore/silver = 12,
 		/obj/item/stack/ore/plasma = 20,
+		/obj/item/stack/ore/iron = 40,
+		/obj/item/stack/ore/titanium = 11,
 		/turf/closed/mineral/gibtonite = 4,
 		/obj/item/stack/ore/bluespace_crystal = 1,
+		/obj/item/stack/ore/copper = 15,
 	)
 
 /turf/closed/mineral/random/Initialize(mapload)
@@ -190,6 +197,12 @@
 
 /turf/closed/mineral/random/high_chance/mineral_chances()
 	return list(
+		/obj/item/stack/ore/uranium = 35,
+		/obj/item/stack/ore/diamond = 30,
+		/obj/item/stack/ore/gold = 45,
+		/obj/item/stack/ore/titanium = 45,
+		/obj/item/stack/ore/silver = 50,
+		/obj/item/stack/ore/copper = 50,
 		/obj/item/stack/ore/plasma = 50,
 		/obj/item/stack/ore/bluespace_crystal = 20,
 	)
@@ -203,6 +216,12 @@
 
 /turf/closed/mineral/random/high_chance/volcanic/mineral_chances()
 	return list(
+		/obj/item/stack/ore/uranium = 35,
+		/obj/item/stack/ore/diamond = 30,
+		/obj/item/stack/ore/gold = 45,
+		/obj/item/stack/ore/titanium = 45,
+		/obj/item/stack/ore/silver = 50,
+		/obj/item/stack/ore/copper = 50,
 		/obj/item/stack/ore/plasma = 50,
 		/obj/item/stack/ore/bluespace_crystal = 1,
 	)
@@ -213,7 +232,14 @@
 
 /turf/closed/mineral/random/low_chance/mineral_chances()
 	return list(
+		/obj/item/stack/ore/uranium = 2,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/gold = 4,
+		/obj/item/stack/ore/titanium = 4,
+		/obj/item/stack/ore/silver = 6,
+		/obj/item/stack/ore/copper = 6,
 		/obj/item/stack/ore/plasma = 15,
+		/obj/item/stack/ore/iron = 40,
 		/turf/closed/mineral/gibtonite = 2,
 		/obj/item/stack/ore/bluespace_crystal = 1,
 	)
@@ -233,7 +259,14 @@
 
 /turf/closed/mineral/random/snowmountain/cavern/mineral_chances()
 	return list(
+		/obj/item/stack/ore/uranium = 2,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/gold = 4,
+		/obj/item/stack/ore/titanium = 4,
+		/obj/item/stack/ore/silver = 6,
+		/obj/item/stack/ore/copper = 6,
 		/obj/item/stack/ore/plasma = 15,
+		/obj/item/stack/ore/iron = 40,
 		/turf/closed/mineral/gibtonite = 2,
 		/obj/item/stack/ore/bluespace_crystal = 1,
 	)
@@ -249,7 +282,14 @@
 
 /turf/closed/mineral/random/volcanic/mineral_chances()
 	return list(
+		/obj/item/stack/ore/uranium = 5,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/gold = 10,
+		/obj/item/stack/ore/titanium = 11,
+		/obj/item/stack/ore/silver = 12,
+		/obj/item/stack/ore/copper = 12,
 		/obj/item/stack/ore/plasma = 20,
+		/obj/item/stack/ore/iron = 40,
 		/turf/closed/mineral/gibtonite/volcanic = 4,
 		/obj/item/stack/ore/bluespace_crystal = 1,
 	)
@@ -259,7 +299,14 @@
 
 /turf/closed/mineral/random/labormineral/mineral_chances()
 	return list(
+		/obj/item/stack/ore/uranium = 3,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/gold = 8,
+		/obj/item/stack/ore/titanium = 8,
+		/obj/item/stack/ore/silver = 20,
+		/obj/item/stack/ore/copper = 20,
 		/obj/item/stack/ore/plasma = 30,
+		/obj/item/stack/ore/iron = 95,
 		/turf/closed/mineral/gibtonite = 2,
 	)
 
@@ -272,9 +319,16 @@
 
 /turf/closed/mineral/random/labormineral/volcanic/mineral_chances()
 	return list(
+		/obj/item/stack/ore/uranium = 3,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/gold = 8,
+		/obj/item/stack/ore/titanium = 8,
+		/obj/item/stack/ore/silver = 20,
+		/obj/item/stack/ore/copper = 20,
 		/obj/item/stack/ore/plasma = 30,
 		/obj/item/stack/ore/bluespace_crystal = 1,
 		/turf/closed/mineral/gibtonite/volcanic = 2,
+		/obj/item/stack/ore/iron = 95,
 	)
 /turf/closed/mineral/random/air
 	turf_type = /turf/open/floor/plating/asteroid
@@ -283,8 +337,16 @@
 
 /turf/closed/mineral/random/air/mineral_chances()
 	return list(
+		/obj/item/stack/ore/iron = 70,
+		/obj/item/stack/ore/silver = 40,
+		/obj/item/stack/ore/copper = 40,
 		/obj/item/stack/ore/plasma = 35,
+		/obj/item/stack/ore/gold = 35,
+		/obj/item/stack/ore/titanium = 35,
+		/obj/item/stack/ore/uranium = 35,
+		/obj/item/stack/ore/diamond = 30,
 		/obj/item/stack/ore/bluespace_crystal = 5,
+		/turf/closed/mineral/bananium = 1,
 	)
 
 // Subtypes for mappers placing ores manually.
