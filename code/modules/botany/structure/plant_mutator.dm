@@ -69,12 +69,9 @@
 	if(working)
 		return ..()
 //Catalyst
-	if(!catalyst)
+	if(!catalyst && istype(C, /obj/item/tank))
 		catalyst = C
-	if(!istype(catalyst))
-		catalyst = null
-	if(catalyst)
-		C.forceMove(src)
+		catalyst.forceMove(src)
 		ui_update()
 		return
 //Spade / Plant
