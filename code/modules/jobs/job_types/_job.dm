@@ -650,13 +650,11 @@
 		card.update_label()
 		card.update_icon()
 
-		for(var/datum/bank_account/account in SSeconomy.bank_accounts)
-			if(!user.mind)
-				continue
-			if(account.account_id == user.mind.account_id)
+		if(user.mind)
+			var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind.account_id]"]
+			if(account)
 				card.registered_account = account
 				account.bank_cards += card
-				break
 		user.sec_hud_set_ID()
 
 	var/obj/item/modular_computer/tablet/pda/PDA = user.get_item_by_slot(pda_slot)

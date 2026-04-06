@@ -4,10 +4,13 @@
 	var/account_holder = "Rusty Venture"
 	var/account_balance = 0
 	var/custom_currency = list(ACCOUNT_CURRENCY_MINING = 0)
+	///If there are things effecting how much income a player will get, it's reflected here 1 is standard for humans.
+	var/payday_modifier
+	///The job datum of the account owner.
 	var/datum/job/account_job
 	/// List of physical cards that bound to this account
 	var/list/bank_cards = list()
-	/// If TRUE, SSeconomy will store an account into `SSeconomy.bank_accounts`
+	/// If TRUE, SSeconomy will store an account into `SSeconomy.bank_accounts_by_id`
 	var/add_to_accounts = TRUE
 	var/account_id
 	var/withdrawDelay = 0
@@ -24,6 +27,7 @@
 /datum/bank_account/New(newname, job)
 	account_holder = newname
 	account_job = job
+	payday_modifier = modifier
 	account_id = rand(111111,999999)
 	for(var/i in 1 to ACCOUNT_CREATION_MAX_ATTEMPT)
 		if(!SSeconomy.get_bank_account_by_id(account_id)) // Don't get the same account ID
@@ -41,13 +45,41 @@
 	for(var/D in account_job.payment_per_department)
 		payment_per_department[D] = account_job.payment_per_department[D]
 
-	if(add_to_accounts)
-		SSeconomy.bank_accounts += src // this should be added when New() is finished
+	setup_unique_account_id()
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)
-		SSeconomy.bank_accounts -= src
+		SSeconomy.bank_accounts_by_id -= "[account_id]"
 	return ..()
+
+/// Generates a unique account_id and registers it in SSeconomy.bank_accounts_by_id.
+/datum/bank_account/proc/setup_unique_account_id()
+	if(account_id && !SSeconomy.bank_accounts_by_id["[account_id]"])
+		if(add_to_accounts)
+			SSeconomy.bank_accounts_by_id["[account_id]"] = src
+		return
+	for(var/i in 1 to ACCOUNT_CREATION_MAX_ATTEMPT)
+		account_id = rand(111111, 999999)
+		if(!SSeconomy.bank_accounts_by_id["[account_id]"])
+			break
+	if(SSeconomy.bank_accounts_by_id["[account_id]"])
+		stack_trace("Unable to find a unique account ID, substituting currently existing account of id [account_id].")
+	if(add_to_accounts)
+		SSeconomy.bank_accounts_by_id["[account_id]"] = src
+
+/datum/bank_account/vv_edit_var(var_name, var_value)
+	var/old_id = account_id
+	. = ..()
+	switch(var_name)
+		if(NAMEOF(src, account_id))
+			if(add_to_accounts)
+				SSeconomy.bank_accounts_by_id -= "[old_id]"
+				setup_unique_account_id()
+		if(NAMEOF(src, add_to_accounts))
+			if(add_to_accounts)
+				setup_unique_account_id()
+			else
+				SSeconomy.bank_accounts_by_id -= "[account_id]"
 
 /datum/bank_account/proc/_adjust_money(amt)
 	account_balance += amt
@@ -81,7 +113,7 @@
 		if(payment_per_department[D] <= 0 && bonus_per_department[D] <= 0)
 			continue
 
-		var/money_to_transfer = payment_per_department[D] * amt_of_paychecks
+		var/money_to_transfer = round(payment_per_department[D] * payday_modifier * amt_of_paychecks)
 		if((money_to_transfer + bonus_per_department[D]) < 0) //Check if the bonus is docking more pay than possible
 			bonus_per_department[D] -= money_to_transfer //Remove the debt with the payday
 			money_to_transfer = 0 //No money for you
