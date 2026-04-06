@@ -7,6 +7,9 @@
 	is_dimorphic = FALSE
 	uses_mutcolor = TRUE
 	bodypart_flags = BODYPART_UNREMOVABLE | BODYPART_PSEUDOPART
+	burn_modifier = 1.25
+	brute_modifier = 0.8
+	stamina_modifier = 0.7
 
 /obj/item/bodypart/chest/diona
 	icon_static = 'icons/mob/human/species/diona/bodyparts.dmi'
@@ -16,6 +19,9 @@
 	is_dimorphic = FALSE
 	uses_mutcolor = TRUE
 	bodypart_flags = BODYPART_PSEUDOPART
+	burn_modifier = 1.25
+	brute_modifier = 0.8
+	stamina_modifier = 0.7
 
 /obj/item/bodypart/arm/left/diona
 	icon_static = 'icons/mob/human/species/diona/bodyparts.dmi'
@@ -24,6 +30,9 @@
 	limb_id = SPECIES_DIONA
 	uses_mutcolor = TRUE
 	bodypart_flags = BODYPART_PSEUDOPART
+	burn_modifier = 1.25
+	brute_modifier = 0.8
+	stamina_modifier = 0.7
 
 /obj/item/bodypart/arm/right/diona
 	icon_static = 'icons/mob/human/species/diona/bodyparts.dmi'
@@ -32,6 +41,9 @@
 	limb_id = SPECIES_DIONA
 	uses_mutcolor = TRUE
 	bodypart_flags = BODYPART_PSEUDOPART
+	burn_modifier = 1.25
+	brute_modifier = 0.8
+	stamina_modifier = 0.7
 
 /obj/item/bodypart/leg/left/diona
 	icon_static = 'icons/mob/human/species/diona/bodyparts.dmi'
@@ -40,6 +52,9 @@
 	limb_id = SPECIES_DIONA
 	uses_mutcolor = TRUE
 	bodypart_flags = BODYPART_PSEUDOPART
+	burn_modifier = 1.25
+	brute_modifier = 0.8
+	stamina_modifier = 0.7
 
 /obj/item/bodypart/leg/right/diona
 	icon_static = 'icons/mob/human/species/diona/bodyparts.dmi'
@@ -48,3 +63,6 @@
 	limb_id = SPECIES_DIONA
 	uses_mutcolor = TRUE
 	bodypart_flags = BODYPART_PSEUDOPART
+	burn_modifier = 1.25
+	brute_modifier = 0.8
+	stamina_modifier = 0.7

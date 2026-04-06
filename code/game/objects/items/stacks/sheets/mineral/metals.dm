@@ -22,7 +22,7 @@ Metals Sheets
 	inhand_icon_state = "sheet-metal"
 	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/iron
 	grind_results = list(/datum/reagent/iron = 20)
@@ -89,7 +89,7 @@ Metals Sheets
 	mats_per_unit = list(/datum/material/alloy/plasteel=MINERAL_MATERIAL_AMOUNT)
 	material_type = /datum/material/alloy/plasteel
 	throwforce = 10
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	armor_type = /datum/armor/sheet_plasteel
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
@@ -179,16 +179,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
-
-/* Fleshy iron */
-
-/obj/item/stack/sheet/fleshymass
-	name = "fleshy mass"
-	singular_name = "fleshy mass"
-	desc = "You swear it looks at you..."
-	icon_state = "sheet-fleshymass"
-	inhand_icon_state = "sheet-fleshymass"
-	merge_type = /obj/item/stack/sheet/fleshymass
-
-/obj/item/stack/sheet/fleshymass/get_recipes()
-	return GLOB.fleshymass_recipes

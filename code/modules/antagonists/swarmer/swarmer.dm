@@ -93,7 +93,7 @@
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = TRUE
-	deathmessage = "explodes with a sharp pop!"
+	death_message = "explodes with a sharp pop!"
 	hud_type = /datum/hud/swarmer
 	speech_span = SPAN_ROBOT
 	hardattacks = TRUE
@@ -720,7 +720,7 @@
 	set_light_on(!light_on)
 
 /mob/living/simple_animal/hostile/swarmer/proc/swarmer_chat(msg)
-	var/rendered = "<B>Swarm communication - [src]</b> [say_quote(msg)]"
+	var/rendered = "<B>Swarm communication - [src]</b> [generate_messagepart(msg)]"
 	for(var/i in GLOB.mob_list)
 		var/mob/M = i
 		if(isswarmer(M))

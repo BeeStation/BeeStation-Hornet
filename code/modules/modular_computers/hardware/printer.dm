@@ -75,7 +75,6 @@
 			to_chat(user, span_warning("You try to add \the [I] into [src], but its paper bin is full!"))
 			balloon_alert(user, "printer bin is full!")
 			return FALSE
-
 		if(user && !user.temporarilyRemoveItemFromInventory(I))
 			balloon_alert(user, "can't insert!")
 			return FALSE
@@ -89,24 +88,35 @@
 
 	if(istype(I, /obj/item/paper_bin))
 		var/obj/item/paper_bin/bin = I
-		if(bin.total_paper <= 0)
+		if(!length(bin.papers))
 			balloon_alert(user, "empty bin!")
 			return FALSE
 
 		if(stored_paper >= max_paper)
-			to_chat(user, span_warning("You try to add \the [I] into [src], but its paper bin is full!"))
 			balloon_alert(user, "printer bin is full!")
 			return FALSE
 
-		var/papers_added
-		while((bin.total_paper > 0) && (stored_paper < max_paper))
-			papers_added++
+		/// Number of sheets we're adding
+		var/num_to_add = 0
+		for(var/obj/item/paper/the_paper as anything in bin.papers) // Search for the first blank sheet of paper, then toss it in
+			if(stored_paper >= max_paper)
+				break
+			if(the_paper.get_total_length()) // Uh oh, paper has words!
+				continue
+			num_to_add++
 			stored_paper++
-			bin.total_paper--
+			bin.papers.Remove(the_paper)
+			qdel(the_paper)
+
+		bin.update_appearance()
+
+		if(!num_to_add)
+			balloon_alert(user, "everything is written on!")
+			return FALSE
 
 		playsound(src, 'sound/machines/paper_insert.ogg', 40, vary = TRUE)
-		to_chat(user, span_notice("Added in [papers_added] new sheets. You now have [stored_paper] / [max_paper] printing paper stored."))
-		balloon_alert(user, "added in [papers_added] new sheets!")
+		to_chat(user, span_notice("Added in [num_to_add] new sheets. You now have [stored_paper] / [max_paper] printing paper stored."))
+		balloon_alert(user, "added in [num_to_add] new sheets!")
 		bin.update_appearance()
 		return TRUE
 

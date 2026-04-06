@@ -57,8 +57,11 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/maxdistance = (SOUND_RANGE + extrarange)
 	var/source_z = turf_source.z
 
+	if (falloff_distance >= maxdistance)
+		CRASH("playsound(): falloff_distance is equal to or higher than maxdistance! Bump up extrarange or reduce the falloff_distance.")
+
 	//allocate a channel if necessary now so its the same for everyone
-	channel = channel || SSsounds.random_available_channel()
+	channel ||= SSsounds.random_available_channel()
 
 	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = istype(soundin, /sound) ? soundin : sound(get_sfx(soundin))
@@ -200,43 +203,62 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 			var/mob/M = m
 			M.playsound_local(M, null, volume, vary, frequency, null, channel, pressure_affected, S)
 
-/proc/play_soundtrack_music(datum/soundtrack_song/song, list/hearers = null, ignore_prefs = FALSE, play_to_lobby = FALSE, allow_deaf = TRUE, only_station = SOUNDTRACK_PLAY_RESPECT, is_global = TRUE)
-	var/sound/S = sound(initial(song.file), volume=initial(song.volume), wait=0, channel=CHANNEL_SOUNDTRACK)
-	. = S
+/proc/play_soundtrack_music(
+	datum/soundtrack_song/song,
+	list/hearers = null,
+	ignore_prefs = FALSE,
+	play_to_lobby = FALSE,
+	allow_deaf = TRUE,
+	only_station = SOUNDTRACK_PLAY_RESPECT,
+	is_global = TRUE,
+	fade_time = 0 SECONDS,
+)
+	var/sound/sound = sound(initial(song.file), volume = initial(song.volume), wait = 0, channel = CHANNEL_SOUNDTRACK)
+	. = sound
 
 	// Clear any existing soundtrack
 	if(is_global && !isnull(GLOB.current_soundtrack))
 		stop_soundtrack_music(stop_playing = TRUE)
 
-	if(!hearers)
-		hearers = GLOB.player_list
+	hearers ||= GLOB.player_list.Copy()
 
-	for(var/mob/M as() in hearers)
-		if (!ismob(M))
+	for(var/mob/hearer as anything in hearers)
+		if (!ismob(hearer))
+			hearers -= hearer
 			continue
 
-		if (!M.client)
+		if (!hearer.client)
+			hearers -= hearer
 			continue
 
-		if (!ignore_prefs && !M.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack))
+		if (!ignore_prefs && !hearer.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack))
+			hearers -= hearer
 			continue
 
-		if (!play_to_lobby && isnewplayer(M))
+		if (!play_to_lobby && isnewplayer(hearer))
+			hearers -= hearer
 			continue
 
-		if (!allow_deaf && !M.can_hear())
+		if (!allow_deaf && !hearer.can_hear())
+			hearers -= hearer
 			continue
 
-		if (((only_station == 0 && initial(song.station_only)) || only_station == 2) && !is_station_level(M.z))
+		if (((!only_station == SOUNDTRACK_PLAY_RESPECT && initial(song.station_only)) || only_station == SOUNDTRACK_PLAY_ONLYSTATION) && !is_station_level(hearer.z))
+			hearers -= hearer
 			continue
 
 		if(!is_global) // make sure nothing is already running
-			M.stop_sound_channel(CHANNEL_SOUNDTRACK)
+			hearer.stop_sound_channel(CHANNEL_SOUNDTRACK)
 
-		SEND_SOUND(M, S)
+		if(fade_time <= 0)
+			SEND_SOUND(hearer, sound)
+
+	if(fade_time > 0)
+		sound_fade(sound, 0, sound.volume, fade_time, hearers)
 
 	if(!is_global)
 		return
+
 	GLOB.soundtrack_this_round |= song
 	GLOB.current_soundtrack = song
 	// Stop playing this soundtrack for everyone, and also prevent it from playing if the pref is toggled
@@ -249,8 +271,8 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	GLOB.current_soundtrack = null
 	if(!stop_playing)
 		return
-	for(var/mob/M as() in GLOB.player_list)
-		M?.stop_sound_channel(CHANNEL_SOUNDTRACK)
+	for(var/mob/player as anything in GLOB.player_list)
+		player.stop_sound_channel(CHANNEL_SOUNDTRACK)
 
 /mob/proc/stop_sound_channel(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
@@ -269,6 +291,10 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
+
+///get_rand_frequency but lower range.
+/proc/get_rand_frequency_low_range()
+	return rand(38000, 45000)
 
 /proc/get_sfx(soundin)
 	if(istext(soundin))

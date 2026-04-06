@@ -76,7 +76,7 @@
 "D" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "E" = (

@@ -62,11 +62,12 @@
 			else
 				to_chat(usr, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
 
-		var/datum/poll_config/config = new()
-		config.question = "Do you wish to be considered for [template.polldesc]?"
-		config.check_jobban = ROLE_ERT
-		config.role_name_text = "emergency response team"
-		config.alert_pic = /obj/item/card/id/ert
+		var/datum/poll_config/config = new(
+			question = "Do you wish to be considered for [template.polldesc]?",
+			check_jobban = ROLE_ERT,
+			role_name_text = "emergency response team",
+			alert_pic = /obj/item/card/id/ert,
+		)
 		var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 		if(!length(candidates))
 			return FALSE

@@ -48,7 +48,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	custom_price = 25
@@ -143,25 +143,28 @@
 			to_chat(user, span_warning("\The [src] is full!"))
 			return
 
-		to_chat(user, span_notice("You fill \the [src] with lights from \the [S]. " + status_string() + ""))
+		to_chat(user, span_notice("You fill \the [src] with lights from \the [S]. [status_string()]"))
 
 /obj/item/lightreplacer/should_emag(mob/user)
 	return emaggable && ..()
 
 /obj/item/lightreplacer/on_emag(mob/user)
-	..()
-	playsound(src.loc, "sparks", 100, 1)
-	name = "shortcircuited [initial(name)]"
-	update_icon()
+	. = ..()
+	playsound(src, "sparks", 100, TRUE)
+	update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
-	to_chat(user, status_string())
+	to_chat(user, span_notice(status_string()))
+
+/obj/item/lightreplacer/update_name(updates)
+	. = ..()
+	name = (obj_flags & EMAGGED) ? "shortcircuited [initial(name)]" : initial(name)
 
 /obj/item/lightreplacer/update_icon_state()
+	. = ..()
 	icon_state = "lightreplacer[(obj_flags & EMAGGED ? 1 : 0)]"
-	return ..()
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."
@@ -227,27 +230,33 @@
 	add_fingerprint(user)
 	return uses > 0
 
-/obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
+/obj/item/lightreplacer/afterattack(atom/target_atom, mob/user, proximity)
 	. = ..()
 
 	if(!proximity && !bluespace_toggle)
 		return
-	if(!isturf(T))
+	var/list/light_targets = list()
+	if(istype(target_atom, /obj/machinery/light)) // Target the light itself
+		light_targets += target_atom
+	if(isturf(target_atom)) // Target the turf the light is on
+		for(var/obj/machinery/light/light_fixture in target_atom)
+			light_targets += light_fixture
+	if(!length(light_targets))
 		return
-
-	var/used = FALSE
-	for(var/atom/A in T)
-		if(!CanUse(U))
+	if(!CanUse(user))
+		to_chat(user, "\The [src]'s light blinks red.")
+		return
+	var/replaced_any = FALSE
+	for(var/obj/machinery/light/light_fixture in light_targets)
+		if(!CanUse(user))
 			break
-		used = TRUE
-		if(istype(A, /obj/machinery/light))
-			if(!proximity)  // only beams if at a distance
-				U.Beam(A, icon_state = "rped_upgrade", time = 5)
-				playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-			ReplaceLight(A, U)
-
-	if(!used)
-		to_chat(U, "\The [src]'s refill light blinks red.")
+		replaced_any = TRUE
+		if(!proximity)
+			user.Beam(light_fixture, icon_state = "rped_upgrade", time = 0.5 SECONDS)
+			playsound(src, 'sound/items/pshoom.ogg', 40, TRUE)
+		ReplaceLight(light_fixture, user)
+	if(!replaced_any)
+		to_chat(user, "\The [src]'s refill light blinks red.")
 
 /obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)

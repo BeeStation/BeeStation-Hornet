@@ -101,7 +101,6 @@
 
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
 	var/del_on_death = FALSE //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
-	var/deathmessage = ""
 
 	var/allow_movement_on_non_turfs = FALSE
 
@@ -391,15 +390,8 @@
 	if(icon_gib)
 		new /obj/effect/temp_visual/gib_animation/animal(loc, icon_gib)
 
-/mob/living/simple_animal/say_mod(input, list/message_mods = list())
-	if(speak_emote && speak_emote.len)
-		verb_say = pick(speak_emote)
-	. = ..()
-
-/mob/living/simple_animal/emote(act, m_type=1, message = null, intentional = FALSE)
-	if(stat)
-		return FALSE
-	return ..()
+/mob/living/simple_animal/get_default_say_verb()
+	return length(speak_emote) ? pick(speak_emote) : ..()
 
 /mob/living/simple_animal/proc/set_varspeed(var_value)
 	speed = var_value
@@ -433,9 +425,6 @@
 	drop_loot()
 	if(dextrous)
 		drop_all_held_items()
-	if(!gibbed)
-		if(deathsound || deathmessage || !del_on_death)
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
 	if(del_on_death)
 		..()
 		//Prevent infinite loops if the mob Destroy() is overridden in such
@@ -624,6 +613,11 @@
 			client.screen |= l_hand
 
 //ANIMAL RIDING
+
+/mob/living/simple_animal/mouse_buckle_handling(mob/living/M, mob/living/user)
+	if(can_buckle && isliving(M) && isliving(user))
+		return user_buckle_mob(M, user, check_loc = FALSE)
+	return FALSE
 
 /mob/living/simple_animal/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(user.incapacitated)
