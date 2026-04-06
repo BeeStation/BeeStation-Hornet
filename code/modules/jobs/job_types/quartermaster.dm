@@ -2,27 +2,22 @@
 	title = JOB_NAME_QUARTERMASTER
 	description = "Oversee and direct cargo technicians to fulfill requests for supplies and keep the station well stocked, request funds from department budgets to cover costs, deny frivolous orders when money is tight, and sell anything the station doesn't need."
 	department_for_prefs = DEPT_NAME_CARGO
-	department_head_for_prefs = JOB_NAME_CAPTAIN
-	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
-	department_head = list(JOB_NAME_CAPTAIN)
-	supervisors = "the captain"
-	head_announce = list(RADIO_CHANNEL_SUPPLY)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
+	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
 	selection_color = "#d7b088"
-	req_admin_notify = 1
 	exp_requirements = 600
-	exp_type = EXP_TYPE_COMMAND
-	min_pop = COMMAND_POPULATION_MINIMUM
+	exp_type = EXP_TYPE_SUPPLY
 
 	outfit = /datum/outfit/job/quartermaster
 
-	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_VAULT, ACCESS_AUX_BASE, ACCESS_EXPLORATION, ACCESS_GATEWAY, ACCESS_HEADS, ACCESS_KEYCARD_AUTH, ACCESS_RC_ANNOUNCE, ACCESS_WEAPONS)
+	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_VAULT, ACCESS_AUX_BASE, ACCESS_EXPLORATION, ACCESS_GATEWAY)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_CAR | DEPT_BITFLAG_COM
-	bank_account_department = ACCOUNT_CAR_BITFLAG | ACCOUNT_COM_BITFLAG
-	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_COMMAND_DEPT, ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT)
+	departments = DEPT_BITFLAG_CAR
+	bank_account_department = ACCOUNT_CAR_BITFLAG
+	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_QUARTERMASTER
 	rpg_title = "Steward"

@@ -3,8 +3,8 @@
 	description = "Collect resources for the station, redeem them for points, and purchase gear to collect even more ores."
 	department_for_prefs = DEPT_NAME_CARGO
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
-	department_head = list(JOB_NAME_QUARTERMASTER)
-	supervisors = "the quartermaster"
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
+	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
 	total_positions = 3
 	selection_color = "#dcba97"
