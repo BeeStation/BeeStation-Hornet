@@ -765,7 +765,7 @@
 /datum/antagonist/swarmer/create_team(datum/team/swarmer/new_team)
 	if(!new_team)
 		//For now only one swarm at a time
-		for(var/datum/antagonist/swarmer/S in GLOB.antagonists)
+		for(var/datum/antagonist/swarmer/S in GLOB.active_antagonists)
 			if(!S.owner)
 				continue
 			if(S.swarm)
