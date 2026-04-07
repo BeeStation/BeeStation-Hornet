@@ -1,0 +1,14 @@
+author: itsmeow, Karshargul
+delete-after: true
+changes:
+  - bugfix: Fixed race conditions in IconForge generation causing occasional runtimes.
+  - bugfix: Fixed errors with IconForge's ability to write files on Linux.
+  - bugfix: Improved the security of BeeAuth session creation nonces by using hardware
+      entropy reducing their guessability.
+  - rscadd: Added many more icon manipulation functions to IconForge, offering near
+      BYOND parity.
+  - tweak: Greatly optimized several icon related functions
+  - code_imp: Cleaned up legacy spritesheets code.
+  - code_imp: Updated names of some IconForge GAGS functions to match newer versions
+      of IconForge.
+  - rscdel: Removed unused PDA icons spritesheet.
