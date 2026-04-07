@@ -22,11 +22,9 @@
 	var/static/list/pet_commands = list(
 		/datum/pet_command/idle,
 		/datum/pet_command/free,
-		/datum/pet_command/good_boy/dog,
-		/datum/pet_command/follow/dog,
-		/datum/pet_command/point_targeting/attack/dog,
-		/datum/pet_command/point_targeting/fetch/dog,
-		/datum/pet_command/play_dead/dog,
+		/datum/pet_command/good_boy,
+		/datum/pet_command/follow,
+		/datum/pet_command/attack,
 	)
 
 /obj/item/mob_lasso/Initialize(mapload)
