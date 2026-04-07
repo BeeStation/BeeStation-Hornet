@@ -539,7 +539,7 @@ EVENT_SYMPTOM_THRESHOLDS
 SPECIAL_SYMPTOM_THRESHOLDS
 
 ##Determines if lower roles receive a low paycheck (PAYCHECK_LOWER), otherwise receiving no paycheck. Meant for low roles like assistant/prisoner, to force them to make money
-WELFARE_PAYCHECK
+ENABLE_WELFARE_PAYCHECK
 
 ##Uncomment to allow station traits
 STATION_TRAITS
