@@ -88,10 +88,8 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
-	flags_1 = CONDUCT_1
 	slot_flags = null	//they have no straps!
 	force = 8
-
 
 /obj/item/tank/internals/plasma/populate_gas()
 	SET_MOLES(/datum/gas/plasma, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
@@ -168,7 +166,6 @@
 	icon_state = "emergency"
 	worn_icon_state = "emergency"
 	worn_icon = null
-	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
@@ -213,7 +210,6 @@
 	name = "emergency prank tank"
 	desc = "Used for pranking in emergencies! Has a smidge of a mystery ingredient for 200% FUN!"
 	icon_state = "clown"
-	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4

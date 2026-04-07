@@ -152,7 +152,7 @@
 	tab_data["Combat mode"] = GENERATE_STAT_TEXT("[combat_mode ? "On" : "Off"]")
 	return tab_data
 
-/mob/living/simple_animal/parrot/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
+/mob/living/simple_animal/parrot/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	. = ..()
 	if(speaker != src && prob(50)) //Dont imitate ourselves
 		if(!radio_freq || prob(10))
@@ -162,7 +162,7 @@
 					speech_buffer -= pick(speech_buffer)
 				speech_buffer |= html_decode(raw_message)
 	if(speaker == src && !client) //If a parrot squawks in the woods and no one is around to hear it, does it make a sound? This code says yes!
-		return message
+		return raw_message
 
 /mob/living/simple_animal/parrot/radio(message, list/message_mods = list(), list/spans, language)	//literally copied from human/radio(), but there's no other way to do this. at least it's better than it used to be.
 	. = ..()

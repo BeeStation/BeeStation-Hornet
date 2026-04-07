@@ -4,7 +4,7 @@
 	icon_state = "mjollnir0"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 30
@@ -75,7 +75,7 @@
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon = 'icons/obj/wizard_48x32.dmi'
 	icon_state = "anchored_mjolnir"
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	anchored = TRUE
 	move_resist = INFINITY
 	density = TRUE

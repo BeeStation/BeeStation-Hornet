@@ -297,6 +297,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	var/detonation_timer
 	var/next_announce
 	var/mob/living/silicon/ai/owner
+	var/has_played_soundtrack = FALSE
 
 /obj/machinery/doomsday_device/Initialize(mapload)
 	. = ..()
@@ -336,8 +337,8 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		borg.lamp_doom = TRUE
 		borg.toggle_headlamp(FALSE, TRUE) //forces borg lamp to update
 
-/obj/machinery/doomsday_device/proc/seconds_remaining()
-	. = max(0, (round((detonation_timer - world.time) / 10)))
+/obj/machinery/doomsday_device/proc/time_remaining()
+	return max(0, detonation_timer - world.time)
 
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
@@ -348,14 +349,21 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
 		return
-	var/sec_left = seconds_remaining()
-	if(!sec_left)
+	var/time_left = time_remaining()
+
+	// I dislike this, but we need to access the soundtrack's length
+	var/datum/soundtrack_song/soundtrack = /datum/soundtrack_song/bee/countdown
+	if(time_left <= initial(soundtrack.length) && !has_played_soundtrack)
+		play_soundtrack_music(soundtrack, fade_time = 8 SECONDS)
+		has_played_soundtrack = TRUE
+
+	if(!time_left)
 		timing = FALSE
 		sound_to_playing_players('sound/machines/alarm.ogg')
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(Cinematic), CINEMATIC_MALF, world, CALLBACK(src, PROC_REF(trigger_doomsday))), 10 SECONDS)
 
 	else if(world.time >= next_announce)
-		minor_announce("[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", TRUE)
+		minor_announce("[round(time_left / 10)] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", TRUE)
 		next_announce += DOOMSDAY_ANNOUNCE_INTERVAL
 
 /obj/machinery/doomsday_device/proc/trigger_doomsday()

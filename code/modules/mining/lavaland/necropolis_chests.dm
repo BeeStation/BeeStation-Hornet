@@ -489,7 +489,7 @@
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE_HOLY))
 
 /datum/action/item_action/immortality
 	name = "Immortality"
@@ -911,7 +911,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	inhand_icon_state = "spectral"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
