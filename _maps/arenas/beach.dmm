@@ -2,42 +2,42 @@
 "a" = (
 /obj/machinery/deepfryer,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "b" = (
 /mob/living/simple_animal/crab{
 	desc = "FUCK YEAH AMERICA";
 	name = "american crab"
 	},
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "c" = (
 /obj/item/reagent_containers/cup/beaker{
 	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50)
 	},
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "d" = (
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "e" = (
 /obj/structure/mineral_door/wood{
 	name = "bar";
 	opacity = 0
 	},
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "f" = (
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "g" = (
 /obj/structure/chair/wood,
 /mob/living/simple_animal/parrot,
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "h" = (
 /obj/item/reagent_containers/cup/soda_cans/monkey_energy,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "i" = (
 /obj/structure/chair/stool,
 /mob/living/simple_animal/crab{
@@ -45,93 +45,93 @@
 	name = "boomer crab"
 	},
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "j" = (
 /obj/machinery/grill,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "k" = (
 /obj/item/food/meat/crab,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "l" = (
 /obj/item/food/burger/crab,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "m" = (
 /turf/closed/wall/mineral/sandstone{
 	opacity = 0
 	},
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "n" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/bottle/rum,
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "o" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "p" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/bottle/tequila,
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "q" = (
 /obj/item/food/crab_rangoon,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "r" = (
 /obj/effect/overlay/coconut,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "s" = (
 /obj/structure/flora/tree/palm,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "t" = (
 /obj/structure/chair/stool/directional/south,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "u" = (
 /obj/structure/flora/tree/palm,
 /obj/effect/overlay/coconut,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "v" = (
 /obj/item/clothing/mask/gas/tiki_mask,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "w" = (
 /obj/structure/bonfire,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "x" = (
 /obj/item/flashlight/flare/torch,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "y" = (
 /obj/item/clothing/head/collectable/paper,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "D" = (
 /obj/structure/chair/fancy/shuttle,
 /mob/living/simple_animal/crab,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "E" = (
 /obj/item/toy/beach_ball,
 /turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "M" = (
 /obj/structure/flora/rock,
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/open/floor/plating/beach/water,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "N" = (
 /turf/open/floor/plating/beach/water,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
 a

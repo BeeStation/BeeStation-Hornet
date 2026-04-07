@@ -505,7 +505,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/area/A = get_area(bomb_location)
 
 	if(bomb_location && is_station_level(bomb_location.z))
-		if(istype(A, /area/space))
+		if(istype(A, /area/misc/space))
 			off_station = NUKE_NEAR_MISS
 		if((bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)))
 			off_station = NUKE_NEAR_MISS

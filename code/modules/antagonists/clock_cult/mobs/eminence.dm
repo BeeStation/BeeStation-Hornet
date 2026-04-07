@@ -126,7 +126,8 @@
 	return FALSE
 
 /mob/living/simple_animal/eminence/Move(atom/newloc, direct)
-	if(istype(get_area(newloc), /area/chapel))
+	if(istype(get_area(newloc),
+/area/station/service/chapel))
 		to_chat(usr, span_warning("You cannot move on to holy grounds!"))
 		return
 	. = ..()

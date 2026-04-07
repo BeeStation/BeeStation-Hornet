@@ -22,7 +22,7 @@
 	var/end_sound
 	var/end_overlay
 
-	var/area_type = /area/space //Types of area to affect
+	var/area_type = /area/misc/space //Types of area to affect
 	var/protect_indoors = FALSE // set to TRUE to protect indoor areas
 	/// Areas to be affected by the weather, calculated when the weather begins.
 	/// * If you need to update this list outside of this datum, you might be doing wrong. use update_areas(new_list)
