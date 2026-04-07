@@ -429,7 +429,7 @@
 	default = 1
 	min_val = 0.05
 
-/datum/config_entry/flag/welfare_paycheck
+/datum/config_entry/flag/enable_welfare_paycheck
 	config_entry_value = 1
 
 /datum/config_entry/flag/common_radio_audio
