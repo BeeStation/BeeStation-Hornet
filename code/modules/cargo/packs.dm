@@ -3587,8 +3587,7 @@
 	cost = CARGO_CRATE_VALUE * 2.4
 	max_supply = 3
 	access_budget = ACCESS_LIBRARY
-	contains = list(/obj/item/book/codex_gigas,
-					/obj/item/book/manual/random/,
+	contains = list(/obj/item/book/manual/random/,
 					/obj/item/book/manual/random/,
 					/obj/item/book/manual/random/,
 					/obj/item/book/random,

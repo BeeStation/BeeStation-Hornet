@@ -18,7 +18,7 @@
 	load_sound = "sound/weapons/shotguninsert.ogg"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
-	flags_1 =  CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	weapon_weight = WEAPON_MEDIUM
@@ -206,12 +206,11 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	force = 10
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | UNIQUE_RENAME
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	can_sawoff = TRUE
 	sawn_desc = "Omar's coming!"
-	obj_flags = UNIQUE_RENAME
 	rack_sound_volume = 0
 	unique_reskin_icon = list("Default" = "dshotgun",
 						"Dark Red Finish" = "dshotgun_d",
@@ -351,7 +350,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
 	weapon_weight = WEAPON_MEDIUM
 	semi_auto = TRUE
-	flags_1 = CONDUCT_1
 	force = 18 //it has a hook on it
 	sharpness = SHARP //it does in fact, have a hook on it
 	attack_verb_continuous = list("slashes", "hooks", "stabs")

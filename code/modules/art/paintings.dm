@@ -415,6 +415,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/painting)
 	if(current_canvas)
 		current_canvas.ui_interact(user)
 		. += span_notice("Use wirecutters to remove the painting.")
+		SEND_SIGNAL(user, COMSIG_LIVING_APPRAISE_ART, src)
 
 /obj/structure/sign/painting/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()

@@ -20,7 +20,7 @@
 
 /obj/item/clothing/mask/equipped(mob/M, slot)
 	. = ..()
-	if (slot == ITEM_SLOT_MASK && modifies_speech)
+	if (slot == ITEM_SLOT_MASK && (modifies_speech || chosen_tongue))
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
@@ -33,8 +33,14 @@
 	chosen_tongue = null
 	. = ..()
 
-/obj/item/clothing/mask/proc/handle_speech()
+/obj/item/clothing/mask/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
+	if(chosen_tongue)
+		var/mob/living/L = source
+		L.verb_say = pick(initial(chosen_tongue.say_mod))
+		L.verb_ask = pick(initial(chosen_tongue.ask_mod))
+		L.verb_yell = pick(initial(chosen_tongue.yell_mod))
+		L.verb_exclaim = pick(initial(chosen_tongue.exclaim_mod))
 
 /obj/item/clothing/mask/proc/get_name(mob/user, default_name)
 	return default_name

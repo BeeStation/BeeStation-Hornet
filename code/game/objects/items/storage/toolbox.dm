@@ -6,7 +6,7 @@
 	inhand_icon_state = "toolbox_default"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 12
 	throwforce = 12
 	throw_speed = 2
@@ -96,7 +96,7 @@
 	icon_state = "toolbox_blue_old"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	desc = "It may be rusted shut, but it's still an important keepsake."
 	force = 5
 	throw_speed = 2

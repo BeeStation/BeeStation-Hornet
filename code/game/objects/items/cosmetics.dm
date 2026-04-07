@@ -104,7 +104,7 @@
 	desc = "The latest and greatest power razor born from the science of shaving."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "razor"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = PAYCHECK_CREW
 	var/extended = 1
@@ -249,7 +249,6 @@
 	name = "straight razor"
 	icon_state = "straightrazor"
 	desc = "An incredibly sharp razor used to shave chins, make surgical incisions, and slit the throats of unpaying customers"
-	flags_1 = CONDUCT_1
 	force = 3
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5

@@ -10928,16 +10928,6 @@
 /obj/item/pai_card,
 /turf/open/floor/wood,
 /area/library)
-"bPV" = (
-/obj/structure/destructible/cult/tome/library,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/item/stack/cable_coil/cut/red,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/book/codex_gigas,
-/turf/open/floor/engine/cult,
-/area/library)
 "bPW" = (
 /obj/structure/chair/fancy/comfy,
 /turf/open/floor/engine/cult,
@@ -28338,6 +28328,15 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/prison)
+"gWY" = (
+/obj/structure/bed/dogbed/runtime,
+/mob/living/basic/pet/cat/runtime,
+/obj/item/radio/intercom{
+	pixel_x = 31;
+	pixel_y = -3
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/cmo)
 "gXq" = (
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -40159,6 +40158,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/genetics)
+"leg" = (
+/obj/structure/destructible/cult/tome/library,
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/obj/item/stack/cable_coil/cut/red,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/engine/cult,
+/area/library)
 "lel" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -45261,15 +45269,6 @@
 /obj/machinery/keycard_auth{
 	pixel_x = 25;
 	pixel_y = -7
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/cmo)
-"mRb" = (
-/obj/structure/bed/dogbed/runtime,
-/mob/living/basic/pet/cat/runtime,
-/obj/item/radio/intercom{
-	pixel_x = 31;
-	pixel_y = -3
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
@@ -99486,7 +99485,7 @@ dSw
 xhz
 oVE
 bue
-bPV
+leg
 qLf
 sGG
 bue
@@ -102085,7 +102084,7 @@ uYW
 qdC
 aHs
 mQT
-mRb
+gWY
 bcy
 qAX
 cmu

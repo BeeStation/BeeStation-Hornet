@@ -8,6 +8,10 @@
 	gas_transfer_coefficient = 0.9
 	equip_delay_other = 20
 
+/obj/item/clothing/mask/muzzle/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/muffles_speech)
+
 /obj/item/clothing/mask/muzzle/attack_paw(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user

@@ -348,6 +348,8 @@
 		M.visible_message(span_notice("[M] hugs [src] to make [p_them()] feel better!"), \
 					span_notice("You hug [src] to make [p_them()] feel better!"))
 
+		SEND_SIGNAL(M, COMSIG_LIVING_HUG_CARBON, src)
+
 		// Warm them up with hugs
 		share_bodytemperature(M)
 		if(bodytemperature > M.bodytemperature)

@@ -2871,12 +2871,6 @@
 /obj/machinery/vending/wardrobe/curator_wardrobe,
 /turf/open/floor/engine/cult,
 /area/library)
-"aQs" = (
-/obj/structure/destructible/cult/tome/library,
-/obj/item/clothing/under/suit/red,
-/obj/item/book/codex_gigas,
-/turf/open/floor/engine/cult,
-/area/library)
 "aQt" = (
 /obj/effect/landmark/blobstart,
 /obj/structure/chair/fancy/comfy{
@@ -23139,6 +23133,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"gOA" = (
+/obj/structure/table/glass,
+/obj/item/pen,
+/obj/item/clothing/neck/stethoscope,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/mob/living/basic/pet/cat/runtime,
+/obj/item/book/manual/wiki/sopmedical,
+/obj/effect/turf_decal/tile/dark_blue,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/cmo)
 "gOB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -30853,6 +30859,11 @@
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"jXq" = (
+/obj/structure/destructible/cult/tome/library,
+/obj/item/clothing/under/suit/red,
+/turf/open/floor/engine/cult,
+/area/library)
 "jXt" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -32805,18 +32816,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
-"kNz" = (
-/obj/structure/table/glass,
-/obj/item/pen,
-/obj/item/clothing/neck/stethoscope,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/mob/living/basic/pet/cat/runtime,
-/obj/item/book/manual/wiki/sopmedical,
-/obj/effect/turf_decal/tile/dark_blue,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/cmo)
 "kNL" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -44353,22 +44352,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"pEg" = (
-/obj/structure/chair/fancy/corp{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "medpriv1";
-	name = "Psycology Shutters Control";
-	pixel_x = -27;
-	pixel_y = 1
-	},
-/mob/living/basic/pet/cat{
-	name = "Josito";
-	dir = 4
-	},
-/turf/open/floor/carpet/green,
-/area/medical/exam_room)
 "pEC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -50439,6 +50422,22 @@
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"scW" = (
+/obj/structure/chair/fancy/corp{
+	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "medpriv1";
+	name = "Psycology Shutters Control";
+	pixel_x = -27;
+	pixel_y = 1
+	},
+/mob/living/basic/pet/cat{
+	name = "Josito";
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/medical/exam_room)
 "scX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
@@ -103397,7 +103396,7 @@ hhG
 lxI
 sQq
 wki
-pEg
+scW
 oLA
 cXE
 iTK
@@ -105975,7 +105974,7 @@ iQJ
 bOt
 qiD
 iEs
-kNz
+gOA
 wwM
 jCz
 raS
@@ -110560,7 +110559,7 @@ vzW
 nQW
 aFw
 jkw
-aQs
+jXq
 aFu
 aTd
 aUE
