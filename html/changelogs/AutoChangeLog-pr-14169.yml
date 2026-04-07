@@ -1,6 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - bugfix: Fixes lasso functionality
-  - rscadd: reenables traitor lassos in uplink
-  - rscdel: removes leather lassos
