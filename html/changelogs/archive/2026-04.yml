@@ -47,3 +47,8 @@
         decapitated head, or marionette won't transmit over open mic comms
     - rscadd: whispers now show a message if you cannot hear them, but can see them
     - bugfix: adds ".hear" span classes to .scss files (literally missing for years)
+2026-04-07:
+  DrDuckedGoose:
+  - bugfix: Fixes lasso functionality
+  - rscadd: reenables traitor lassos in uplink
+  - rscdel: removes leather lassos
