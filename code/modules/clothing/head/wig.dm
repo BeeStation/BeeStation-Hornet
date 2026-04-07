@@ -89,7 +89,7 @@
 		to_chat(user, span_notice("You adjust the [src] to look just like [target.name]'s [selected_hairstyle]."))
 		add_atom_colour(selected_hairstyle_color, FIXED_COLOUR_PRIORITY)
 		hairstyle = selected_hairstyle
-		update_appearance()
+		update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/clothing/head/wig/random/Initialize(mapload)
 	hairstyle = pick(GLOB.hair_styles_list - "Bald") //Don't want invisible wig
