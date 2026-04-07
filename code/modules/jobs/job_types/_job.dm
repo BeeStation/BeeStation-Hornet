@@ -159,7 +159,7 @@
 	if(lock_flags || gimmick)
 		SSjob.job_manager_blacklisted |= title
 	//For the poors
-	if(isnull(welfare_job_account) && CONFIG_GET(flag/welfare_paycheck))
+	if(isnull(welfare_job_account) && CONFIG_GET(flag/enable_welfare_paycheck))
 		LAZYSET(payment_per_department, welfare_job_account, PAYCHECK_LOWER)
 
 /// Returns true if there are available slots
