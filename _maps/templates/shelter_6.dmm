@@ -10,52 +10,52 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"d" = (
+"f" = (
+/obj/structure/sign/mining/survival,
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
-"e" = (
-/obj/item/gps/computer,
-/turf/open/floor/pod/light,
-/area/survivalpod)
-"g" = (
-/obj/machinery/stasis/survival_pod,
-/turf/open/floor/pod/light,
-/area/survivalpod)
-"h" = (
-/obj/machinery/smartfridge/survival_pod/preloaded,
-/turf/open/floor/pod/dark,
-/area/survivalpod)
-"i" = (
-/turf/open/floor/pod/light,
-/area/survivalpod)
-"j" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
-/turf/open/floor/pod/light,
-/area/survivalpod)
-"k" = (
-/obj/structure/table/survival_pod,
-/obj/item/storage/firstaid,
-/turf/open/floor/pod/dark,
-/area/survivalpod)
-"l" = (
-/obj/machinery/light/directional/west,
-/obj/structure/fans,
-/turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "m" = (
 /obj/machinery/power/solar,
 /turf/open/floor/iron/solarpanel/airless,
 /area/template_noop)
-"n" = (
+"t" = (
+/obj/item/gps/computer,
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"x" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/misc/survivalpod)
+"z" = (
+/obj/machinery/stasis/survival_pod,
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"C" = (
+/obj/machinery/smartfridge/survival_pod/preloaded,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"G" = (
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"K" = (
 /obj/structure/bed/pod,
 /obj/machinery/light/directional/east,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
-"D" = (
-/obj/structure/sign/mining/survival,
-/turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
+"P" = (
+/obj/machinery/light/directional/west,
+/obj/structure/fans,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"S" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"T" = (
+/obj/structure/table/survival_pod,
+/obj/item/storage/firstaid,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
 
 (1,1,1) = {"
 a
@@ -82,55 +82,55 @@ a
 (3,1,1) = {"
 a
 a
-d
-d
-d
-D
-d
+x
+x
+x
+f
+x
 a
 a
 "}
 (4,1,1) = {"
 a
 c
-d
-l
-g
-k
-d
+x
+P
+z
+T
+x
 c
 a
 "}
 (5,1,1) = {"
 b
 b
-d
-e
-i
-i
-j
+x
+t
+G
+G
+S
 b
 b
 "}
 (6,1,1) = {"
 a
 c
-d
-h
-i
-n
-d
+x
+C
+G
+K
+x
 c
 a
 "}
 (7,1,1) = {"
 a
 a
-d
-D
-j
-d
-d
+x
+f
+S
+x
+x
 m
 a
 "}

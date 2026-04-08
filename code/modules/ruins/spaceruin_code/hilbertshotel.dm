@@ -220,7 +220,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "\proper bluespace hyperzone"
 	icon_state = "bluespace"
 	baseturfs = /turf/open/space/bluespace
-	flags_1 = NO_JAUNT
+	turf_flags = NO_JAUNT
 	explosion_block = INFINITY
 	var/obj/item/hilbertshotel/parentSphere
 
@@ -420,7 +420,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	parentSphere.activeRooms -= "[roomnumber]"
 	qdel(reservation)
 
-/area/hilbertshotelstorage
+/area/misc/hilbertshotelstorage
 	name = "Hilbert's Hotel Storage Room"
 	icon_state = "hilbertshotel"
 	requires_power = FALSE

@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				location = /area/template_noop
 				objects = list()
 			//Ignore things in space, must be a space turf and the area has to be empty space
-			else if(istype(place, /turf/open/space) && istype(AR, /area/space) && !(save_flag & SAVE_SPACE))
+			else if(istype(place, /turf/open/space) && istype(AR, /area/misc/space) && !(save_flag & SAVE_SPACE))
 				place = /turf/template_noop
 				location = /area/template_noop
 			//Stuff to add

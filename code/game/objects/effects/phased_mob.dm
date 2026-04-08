@@ -80,7 +80,7 @@
 		return
 	var/area/destination_area = newloc.loc
 	movedelay = world.time + movespeed
-	if(newloc.flags_1 & NO_JAUNT)
+	if(newloc.turf_flags & NO_JAUNT)
 		to_chat(user, span_warning("Some strange aura is blocking the way."))
 		return
 	if(destination_area.teleport_restriction == TELEPORT_ALLOW_NONE || SSmapping.level_trait(newloc.z, ZTRAIT_NOPHASE))

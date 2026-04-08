@@ -1,11 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/open/space,
-/area/space)
-"b" = (
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "c" = (
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
@@ -27,11 +20,10 @@
 /obj/effect/overlay/palmtree_r,
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered/aesthetic)
-"j" = (
-/obj/structure/chair/stool,
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/vaporwave,
-/area/ruin/space/has_grav/powered/aesthetic)
+"i" = (
+/obj/structure/lattice,
+/turf/open/space,
+/area/misc/space/nearstation)
 "k" = (
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
@@ -54,12 +46,19 @@
 	},
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
+"o" = (
+/turf/open/space,
+/area/misc/space)
 "p" = (
 /obj/effect/overlay/palmtree_l,
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered/aesthetic)
 "q" = (
 /turf/open/floor/holofloor/beach,
+/area/ruin/space/has_grav/powered/aesthetic)
+"r" = (
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
 "s" = (
 /obj/structure/table/reinforced,
@@ -180,19 +179,7 @@
 /obj/structure/window/spawner/directional/east,
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
-"O" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 8
-	},
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/vaporwave,
-/area/ruin/space/has_grav/powered/aesthetic)
-"P" = (
-/obj/machinery/light/small/directional/south,
-/turf/open/floor/iron/vaporwave,
-/area/ruin/space/has_grav/powered/aesthetic)
-"R" = (
+"Q" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating{
@@ -203,6 +190,19 @@
 /obj/structure/window/spawner/directional/west,
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
+"V" = (
+/obj/structure/chair/stool,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/vaporwave,
+/area/ruin/space/has_grav/powered/aesthetic)
+"W" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/vaporwave,
+/area/ruin/space/has_grav/powered/aesthetic)
 "X" = (
 /obj/effect/spawner/structure/random_piano,
 /obj/structure/window/spawner/directional/west,
@@ -210,44 +210,44 @@
 /area/ruin/space/has_grav/powered/aesthetic)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-b
-a
-a
-a
-a
-a
-a
-a
-a
+o
+o
+o
+o
+o
+o
+i
+o
+o
+o
+o
+o
+o
+o
+o
 "}
 (2,1,1) = {"
-a
-a
-a
-a
-a
+o
+o
+o
+o
+o
 d
 c
 d
-a
-b
-a
-a
-a
-a
-a
+o
+i
+o
+o
+o
+o
+o
 "}
 (3,1,1) = {"
-a
-a
-a
-a
+o
+o
+o
+o
 d
 d
 c
@@ -256,14 +256,14 @@ d
 c
 d
 d
-a
-a
-a
+o
+o
+o
 "}
 (4,1,1) = {"
-a
-a
-a
+o
+o
+o
 d
 d
 d
@@ -274,13 +274,13 @@ e
 d
 d
 d
-a
-a
+o
+o
 "}
 (5,1,1) = {"
-a
-a
-a
+o
+o
+o
 d
 f
 f
@@ -292,11 +292,11 @@ g
 A
 d
 d
-a
+o
 "}
 (6,1,1) = {"
-a
-a
+o
+o
 c
 d
 f
@@ -306,14 +306,14 @@ h
 u
 y
 f
-R
+Q
 d
 d
-a
+o
 "}
 (7,1,1) = {"
-a
-b
+o
+i
 c
 e
 g
@@ -329,16 +329,16 @@ d
 d
 "}
 (8,1,1) = {"
-a
-a
+o
+o
 d
 d
 f
-j
+V
 k
 k
 v
-P
+r
 f
 C
 I
@@ -346,8 +346,8 @@ A
 d
 "}
 (9,1,1) = {"
-a
-a
+o
+o
 d
 d
 f
@@ -363,8 +363,8 @@ I
 d
 "}
 (10,1,1) = {"
-a
-a
+o
+o
 d
 c
 f
@@ -380,8 +380,8 @@ E
 I
 "}
 (11,1,1) = {"
-a
-a
+o
+o
 d
 c
 g
@@ -397,16 +397,16 @@ E
 I
 "}
 (12,1,1) = {"
-a
-a
+o
+o
 d
 c
 g
-O
+W
 n
 k
 w
-P
+r
 g
 F
 I
@@ -414,8 +414,8 @@ A
 A
 "}
 (13,1,1) = {"
-b
-b
+i
+i
 c
 e
 f
@@ -431,8 +431,8 @@ d
 d
 "}
 (14,1,1) = {"
-a
-a
+o
+o
 d
 d
 g
@@ -442,14 +442,14 @@ p
 u
 y
 g
-R
+Q
 d
 d
-a
+o
 "}
 (15,1,1) = {"
-a
-a
+o
+o
 d
 d
 f
@@ -462,12 +462,12 @@ g
 A
 d
 d
-a
+o
 "}
 (16,1,1) = {"
-a
-a
-a
+o
+o
+o
 d
 d
 d
@@ -478,15 +478,15 @@ e
 d
 d
 d
-a
-a
+o
+o
 "}
 (17,1,1) = {"
-a
-a
-a
-a
-a
+o
+o
+o
+o
+o
 d
 c
 d
@@ -495,40 +495,40 @@ c
 d
 d
 d
-a
-a
+o
+o
 "}
 (18,1,1) = {"
-a
-a
-a
-a
-a
-a
-b
+o
+o
+o
+o
+o
+o
+i
 d
 d
 d
 d
-a
-a
-a
-a
+o
+o
+o
+o
 "}
 (19,1,1) = {"
-a
-a
-a
-a
-a
-a
-b
-a
-a
-a
-a
-a
-a
-a
-a
+o
+o
+o
+o
+o
+o
+i
+o
+o
+o
+o
+o
+o
+o
+o
 "}

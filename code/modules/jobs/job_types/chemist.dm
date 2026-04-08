@@ -30,14 +30,14 @@
 	biohazard = 25
 
 	lightup_areas = list(
-		/area/medical/surgery,
-		/area/medical/virology,
-		/area/medical/genetics
+		/area/station/medical/surgery,
+		/area/station/medical/virology,
+		/area/station/medical/genetics
 	)
 	minimal_lightup_areas = list(
-		/area/medical/morgue,
-		/area/medical/chemistry,
-		/area/medical/apothecary
+		/area/station/medical/morgue,
+		/area/station/medical/chemistry,
+		/area/station/medical/pharmacy
 	)
 
 /datum/outfit/job/chemist

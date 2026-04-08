@@ -26,7 +26,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/engineering
 	)
 
-	lightup_areas = list(/area/engine/atmos)
+	lightup_areas = list(/area/station/engineering/atmos)
 
 	manuscript_jobs = list(
 		JOB_NAME_STATIONENGINEER,

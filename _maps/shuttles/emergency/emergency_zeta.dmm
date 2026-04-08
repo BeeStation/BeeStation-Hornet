@@ -1,7 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/turf/template_noop,
-/area/space)
 "ab" = (
 /turf/closed/wall/mineral/abductor,
 /area/shuttle/escape)
@@ -42,11 +39,6 @@
 /obj/item/gun/energy/alien,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"aj" = (
-/obj/item/kirbyplants/photosynthetic,
-/obj/machinery/light/directional/north,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
 "ak" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -74,14 +66,6 @@
 /obj/structure/chair/fancy/shuttle,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"ap" = (
-/obj/machinery/light/directional/west,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"aq" = (
-/obj/machinery/light/directional/east,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
 "ar" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
@@ -98,24 +82,8 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"aw" = (
-/obj/structure/table/abductor,
-/obj/item/storage/box/alienhandcuffs,
-/obj/machinery/light/directional/east,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"ay" = (
-/obj/machinery/light/directional/west,
-/obj/item/kirbyplants/photosynthetic,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
 "aB" = (
 /obj/machinery/abductor/experiment,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"aC" = (
-/obj/structure/chair/office,
-/obj/machinery/light/directional/east,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "aD" = (
@@ -200,27 +168,6 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"aQ" = (
-/obj/item/kirbyplants/photosynthetic,
-/obj/machinery/light/directional/south,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"aR" = (
-/obj/machinery/light/directional/west,
-/obj/structure/closet/abductor,
-/obj/item/clothing/under/misc/pj/blue,
-/obj/item/clothing/under/misc/pj,
-/obj/item/clothing/shoes/sneakers/white,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/glasses/eyepatch,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"aS" = (
-/obj/item/lazarus_injector,
-/obj/structure/table/abductor,
-/obj/machinery/light/directional/east,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
 "aT" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/plating/abductor,
@@ -267,9 +214,33 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
+"kv" = (
+/obj/item/kirbyplants/photosynthetic,
+/obj/machinery/light/directional/south,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"pQ" = (
+/obj/machinery/light/directional/west,
+/obj/structure/closet/abductor,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/under/misc/pj,
+/obj/item/clothing/shoes/sneakers/white,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/glasses/eyepatch,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"pW" = (
+/obj/item/kirbyplants/photosynthetic,
+/obj/machinery/light/directional/north,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
 "qB" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"sV" = (
+/obj/machinery/light/directional/east,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "tG" = (
@@ -277,6 +248,17 @@
 	name = "Transport Ship Theta"
 	},
 /obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"wM" = (
+/obj/structure/chair/office,
+/obj/machinery/light/directional/east,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"wV" = (
+/obj/item/lazarus_injector,
+/obj/structure/table/abductor,
+/obj/machinery/light/directional/east,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "yL" = (
@@ -304,6 +286,15 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
+"Dm" = (
+/obj/structure/table/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/obj/machinery/light/directional/east,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"DI" = (
+/turf/template_noop,
+/area/misc/space)
 "Mw" = (
 /obj/machinery/door/airlock/abductor{
 	name = "Holding Facility";
@@ -312,13 +303,22 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
+"Og" = (
+/obj/machinery/light/directional/west,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"Uh" = (
+/obj/machinery/light/directional/west,
+/obj/item/kirbyplants/photosynthetic,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+DI
+DI
+DI
+DI
+DI
 ab
 ab
 BU
@@ -330,39 +330,39 @@ qB
 tG
 ab
 ab
-aa
-aa
-aa
-aa
-aa
+DI
+DI
+DI
+DI
+DI
 "}
 (2,1,1) = {"
-aa
-aa
-aa
-aa
+DI
+DI
+DI
+DI
 ab
 ab
 al
 al
 al
-ay
+Uh
 al
-ay
+Uh
 al
 al
 al
 ab
 ab
-aa
-aa
-aa
-aa
+DI
+DI
+DI
+DI
 "}
 (3,1,1) = {"
-aa
-aa
-aa
+DI
+DI
+DI
 ab
 ab
 ao
@@ -378,13 +378,13 @@ al
 am
 ab
 ab
-aa
-aa
-aa
+DI
+DI
+DI
 "}
 (4,1,1) = {"
-aa
-aa
+DI
+DI
 ab
 ab
 ao
@@ -402,11 +402,11 @@ al
 am
 ab
 ab
-aa
-aa
+DI
+DI
 "}
 (5,1,1) = {"
-aa
+DI
 ab
 ab
 ao
@@ -426,12 +426,12 @@ al
 am
 ab
 ab
-aa
+DI
 "}
 (6,1,1) = {"
 ab
 ab
-aj
+pW
 al
 ar
 ar
@@ -447,7 +447,7 @@ ar
 ar
 ar
 al
-aQ
+kv
 ab
 ab
 "}
@@ -478,14 +478,14 @@ ab
 ab
 ad
 ak
-ap
+Og
 as
 ab
 as
 al
 al
 al
-aq
+sV
 al
 al
 al
@@ -493,7 +493,7 @@ as
 ab
 aJ
 aJ
-aR
+pQ
 aU
 ab
 "}
@@ -616,22 +616,22 @@ qB
 ab
 ai
 ak
-aq
+sV
 as
 ab
 as
 al
 al
 al
-ap
+Og
 al
 al
-aq
+sV
 as
 ab
 aM
 aO
-aS
+wV
 aZ
 ab
 "}
@@ -663,7 +663,7 @@ ab
 ab
 an
 al
-ap
+Og
 au
 au
 au
@@ -675,14 +675,14 @@ qB
 aB
 al
 aG
-ap
+Og
 al
 aT
 ab
 ab
 "}
 (17,1,1) = {"
-aa
+DI
 ab
 ab
 ao
@@ -702,11 +702,11 @@ al
 aP
 ab
 ab
-aa
+DI
 "}
 (18,1,1) = {"
-aa
-aa
+DI
+DI
 ab
 ab
 ao
@@ -724,13 +724,13 @@ aH
 aN
 ab
 ab
-aa
-aa
+DI
+DI
 "}
 (19,1,1) = {"
-aa
-aa
-aa
+DI
+DI
+DI
 ab
 ab
 ar
@@ -746,39 +746,39 @@ aD
 aI
 ab
 ab
-aa
-aa
-aa
+DI
+DI
+DI
 "}
 (20,1,1) = {"
-aa
-aa
-aa
-aa
+DI
+DI
+DI
+DI
 ab
 ab
 ar
-aw
+Dm
 qB
 ar
 ar
 ar
 qB
-aC
+wM
 aE
 ab
 ab
-aa
-aa
-aa
-aa
+DI
+DI
+DI
+DI
 "}
 (21,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+DI
+DI
+DI
+DI
+DI
 ab
 ab
 ab
@@ -790,9 +790,9 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
+DI
+DI
+DI
+DI
+DI
 "}

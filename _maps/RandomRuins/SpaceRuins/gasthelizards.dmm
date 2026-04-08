@@ -1,16 +1,18 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
+"ab" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"c" = (
+"ac" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/gasthelizard)
-"d" = (
-/obj/machinery/light/directional/north,
+"ad" = (
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/bed,
 /obj/effect/decal/remains/human,
 /obj/effect/turf_decal/stripes/line{
@@ -18,16 +20,18 @@
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"e" = (
+"ae" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"f" = (
+"af" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/bed,
 /obj/effect/decal/remains/human,
 /obj/effect/turf_decal/stripes/line{
@@ -35,28 +39,30 @@
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"g" = (
+"ag" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/bed,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"h" = (
+"ah" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"i" = (
+"ai" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"j" = (
+"aj" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/atmospherics/components/unary/outlet_injector,
 /obj/effect/turf_decal/stripes/line{
@@ -64,21 +70,21 @@
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"k" = (
+"ak" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"l" = (
+"al" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"m" = (
+"am" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/stack/sheet/animalhide/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
@@ -89,19 +95,21 @@
 /obj/item/food/meat/slab/human/mutant/lizard,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"n" = (
+"an" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"o" = (
+"ao" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
@@ -113,30 +121,30 @@
 /obj/item/food/meat/slab/human/mutant/lizard,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"p" = (
+"ap" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"q" = (
+"aq" = (
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/gasthelizard)
-"r" = (
+"ar" = (
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"s" = (
+"as" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"t" = (
+"at" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 1
 	},
@@ -146,48 +154,52 @@
 	pixel_x = 1;
 	pixel_y = 23
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"u" = (
+"au" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"v" = (
+"av" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"w" = (
+"aw" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"x" = (
+"ax" = (
 /obj/structure/kitchenspike,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"y" = (
+"ay" = (
 /obj/structure/table/reinforced,
 /obj/item/knife/butcher,
 /obj/item/restraints/handcuffs,
 /obj/item/reagent_containers/peppercloud_deployer,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"z" = (
+"az" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"A" = (
+"aA" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
 	},
@@ -196,42 +208,42 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"B" = (
+"aB" = (
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"C" = (
+"aC" = (
 /obj/machinery/gibber,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"D" = (
+"aD" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/reagent_containers/syringe/lethal,
 /obj/item/reagent_containers/syringe/lethal/choral,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"E" = (
+"aE" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"F" = (
+"aF" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"G" = (
+"aG" = (
 /obj/structure/chair/office,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"H" = (
+"aH" = (
 /obj/machinery/door/airlock/security,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"I" = (
+"aI" = (
 /obj/item/reagent_containers/cup/bottle/morphine{
 	pixel_x = -4;
 	pixel_y = 1
@@ -253,40 +265,156 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"J" = (
+"aJ" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/drone,
 /obj/item/melee/baton/security/cattleprod,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"K" = (
+"aK" = (
 /obj/structure/table,
 /obj/item/pen/red,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"L" = (
+"aL" = (
 /obj/structure/table,
 /obj/item/paper_bin,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"M" = (
+"aM" = (
 /obj/structure/table,
 /obj/item/storage/box/prisoner,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"N" = (
+"aN" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/structure/table,
 /obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"O" = (
+"aO" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"P" = (
+"aP" = (
+/obj/structure/table/reinforced,
+/obj/item/surgicaldrill,
+/obj/item/hemostat,
+/obj/item/scalpel,
+/obj/item/surgical_drapes,
+/obj/item/retractor,
+/obj/item/cautery,
+/obj/item/circular_saw,
+/obj/machinery/light,
+/turf/open/floor/iron/dark/airless,
+/area/ruin/space/has_grav/gasthelizard)
+"aQ" = (
+/obj/structure/table/optable,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/iron/dark/airless,
+/area/ruin/space/has_grav/gasthelizard)
+"aR" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/cup/bottle/mutagen,
+/obj/item/reagent_containers/cup/bottle/mutagen,
+/obj/item/razor,
+/turf/open/floor/iron/dark/airless,
+/area/ruin/space/has_grav/gasthelizard)
+"aS" = (
+/obj/machinery/suit_storage_unit/security,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"aT" = (
+/obj/machinery/light,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"aU" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"aV" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/gasthelizard)
+"aW" = (
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/gasthelizard)
+"aX" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"aY" = (
+/obj/machinery/door/window/brigdoor/northleft,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"aZ" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/gasthelizard)
+"cI" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/light/directional/north,
+/obj/structure/bed,
+/obj/effect/decal/remains/human,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/airless,
+/area/ruin/space/has_grav/gasthelizard)
+"eE" = (
+/obj/machinery/light/directional/south,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"hu" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/light/directional/north,
+/obj/structure/bed,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/airless,
+/area/ruin/space/has_grav/gasthelizard)
+"kx" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 1
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Worn-out APC";
+	pixel_x = 1;
+	pixel_y = 23
+	},
+/obj/machinery/light/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"nD" = (
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/gasthelizard)
+"Cb" = (
 /obj/structure/table/reinforced,
 /obj/item/surgicaldrill,
 /obj/item/hemostat,
@@ -298,366 +426,340 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"Q" = (
-/obj/structure/table/optable,
-/obj/effect/decal/cleanable/blood/old,
+"EE" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/machinery/light/directional/north,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"R" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/cup/bottle/mutagen,
-/obj/item/reagent_containers/cup/bottle/mutagen,
-/obj/item/razor,
-/turf/open/floor/iron/dark/airless,
-/area/ruin/space/has_grav/gasthelizard)
-"S" = (
-/obj/machinery/suit_storage_unit/security,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/gasthelizard)
-"T" = (
+"RK" = (
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/light/directional/south,
+/obj/structure/table,
+/obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"U" = (
-/obj/structure/closet/emcloset,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/gasthelizard)
-"V" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/gasthelizard)
-"W" = (
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/gasthelizard)
-"X" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
+"Sh" = (
+/obj/machinery/light/directional/north,
+/obj/structure/bed,
+/obj/effect/decal/remains/human,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"Y" = (
-/obj/machinery/door/window/brigdoor/northleft,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/gasthelizard)
-"Z" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/gasthelizard)
+"YD" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-b
-a
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+YD
+aa
+aa
+aa
+aa
+aa
 "}
 (2,1,1) = {"
-a
-a
-a
-b
-b
-b
-b
-a
-b
-b
-b
-a
-a
-a
+aa
+aa
+aa
+YD
+YD
+YD
+YD
+aa
+YD
+YD
+YD
+aa
+aa
+aa
 "}
 (3,1,1) = {"
-a
-a
-a
-b
-b
-c
-c
-c
-c
-c
-c
-c
-b
-a
+aa
+aa
+aa
+YD
+YD
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+YD
+aa
 "}
 (4,1,1) = {"
-a
-b
-b
-b
-b
-c
-s
-z
-E
-J
-S
-c
-b
-b
+aa
+YD
+YD
+YD
+YD
+ac
+as
+az
+aE
+aJ
+aS
+ac
+YD
+YD
 "}
 (5,1,1) = {"
-b
-a
-c
-c
-c
-c
-t
-A
-F
-B
-T
-c
-c
-c
+YD
+aa
+ac
+ac
+ac
+ac
+kx
+aA
+aF
+aB
+eE
+ac
+ac
+ac
 "}
 (6,1,1) = {"
-a
-b
-c
-d
-i
-X
-u
-p
-B
-B
-B
-V
-W
-Z
+aa
+YD
+ac
+Sh
+ai
+aX
+au
+ap
+aB
+aB
+aB
+aV
+aW
+aZ
 "}
 (7,1,1) = {"
-b
-b
-c
-e
-j
-Y
-v
-p
-B
-B
-U
-c
-c
-c
+YD
+YD
+ac
+ae
+aj
+aY
+av
+ap
+aB
+aB
+aU
+ac
+ac
+ac
 "}
 (8,1,1) = {"
-a
-b
-c
-f
-k
-X
-u
-p
-B
-K
-c
-c
-b
-b
+aa
+YD
+ac
+cI
+ak
+aX
+au
+ap
+aB
+aK
+ac
+ac
+YD
+YD
 "}
 (9,1,1) = {"
-b
-b
-c
-e
-j
-Y
-v
-p
-G
-L
-c
-b
-b
-a
+YD
+YD
+ac
+ae
+aj
+aY
+av
+ap
+aG
+aL
+ac
+YD
+YD
+aa
 "}
 (10,1,1) = {"
-a
-a
-c
-g
-k
-X
-u
-p
-B
-M
-c
-b
-a
-a
+aa
+aa
+ac
+hu
+ak
+aX
+au
+ap
+aB
+aM
+ac
+YD
+aa
+aa
 "}
 (11,1,1) = {"
-b
-b
-c
-e
-j
-Y
-v
-p
-B
-N
-c
-b
-a
-a
+YD
+YD
+ac
+ae
+aj
+aY
+av
+ap
+aB
+RK
+ac
+YD
+aa
+aa
 "}
 (12,1,1) = {"
-b
-a
-c
-f
-k
-X
-u
-p
-B
-O
-c
-b
-a
-a
+YD
+aa
+ac
+cI
+ak
+aX
+au
+ap
+aB
+aO
+ac
+YD
+aa
+aa
 "}
 (13,1,1) = {"
-a
-b
-c
-h
-l
-Y
-w
-q
-B
-O
-c
-b
-a
-a
+aa
+YD
+ac
+ah
+al
+aY
+nD
+aq
+aB
+aO
+ac
+YD
+aa
+aa
 "}
 (14,1,1) = {"
-a
-b
-c
-c
-c
-c
-c
-c
-H
-c
-c
-b
-a
-a
+aa
+YD
+ac
+ac
+ac
+ac
+ac
+ac
+aH
+ac
+ac
+YD
+aa
+aa
 "}
 (15,1,1) = {"
-a
-b
-b
-c
-m
-r
-x
-C
-r
-P
-c
-a
-a
-a
+aa
+YD
+YD
+ac
+am
+ar
+ax
+aC
+ar
+Cb
+ac
+aa
+aa
+aa
 "}
 (16,1,1) = {"
-a
-b
-b
-c
-n
-r
-r
-r
-r
-Q
-c
-a
-a
-a
+aa
+YD
+YD
+ac
+EE
+ar
+ar
+ar
+ar
+aQ
+ac
+aa
+aa
+aa
 "}
 (17,1,1) = {"
-a
-a
-b
-c
-o
-r
-y
-D
-I
-R
-c
-b
-b
-a
+aa
+aa
+YD
+ac
+ao
+ar
+ay
+aD
+aI
+aR
+ac
+YD
+YD
+aa
 "}
 (18,1,1) = {"
-a
-a
-b
-c
-c
-c
-c
-c
-c
-c
-c
-b
-a
-a
+aa
+aa
+YD
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+YD
+aa
+aa
 "}
 (19,1,1) = {"
-a
-a
-a
-a
-b
-b
-a
-a
-b
-b
-b
-a
-a
-a
+aa
+aa
+aa
+aa
+YD
+YD
+aa
+aa
+YD
+YD
+YD
+aa
+aa
+aa
 "}

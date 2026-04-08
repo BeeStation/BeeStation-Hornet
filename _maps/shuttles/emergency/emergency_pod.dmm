@@ -13,18 +13,11 @@
 /obj/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"d" = (
-/turf/open/space/basic,
-/area/space)
 "f" = (
 /obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "g" = (
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"i" = (
-/obj/machinery/light/directional/west,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "j" = (
@@ -33,7 +26,11 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"k" = (
+"u" = (
+/obj/machinery/light/directional/west,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"C" = (
 /obj/machinery/computer/emergency_shuttle{
 	dir = 8
 	},
@@ -58,6 +55,9 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"Y" = (
+/turf/open/space/basic,
+/area/misc/space)
 
 (1,1,1) = {"
 a
@@ -65,9 +65,9 @@ K
 b
 T
 a
-d
-d
-d
+Y
+Y
+Y
 a
 K
 b
@@ -77,15 +77,15 @@ a
 (2,1,1) = {"
 b
 f
-i
+u
 j
 b
-d
-d
-d
+Y
+Y
+Y
 b
 f
-i
+u
 j
 b
 "}
@@ -95,9 +95,9 @@ f
 g
 j
 c
-d
-d
-d
+Y
+Y
+Y
 c
 f
 g
@@ -110,9 +110,9 @@ f
 g
 j
 b
-d
-d
-d
+Y
+Y
+Y
 b
 f
 g
@@ -122,30 +122,30 @@ b
 (5,1,1) = {"
 b
 b
-k
+C
 b
 b
-d
-d
-d
+Y
+Y
+Y
 b
 b
-k
+C
 b
 b
 "}
 (6,1,1) = {"
-d
+Y
 b
 c
 b
-d
-d
-d
-d
-d
+Y
+Y
+Y
+Y
+Y
 b
 c
 b
-d
+Y
 "}

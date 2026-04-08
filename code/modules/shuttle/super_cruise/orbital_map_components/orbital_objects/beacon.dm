@@ -66,7 +66,7 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	seedRuins(list(assigned_space_level.z_value), CONFIG_GET(number/space_budget), /area/space, SSmapping.themed_ruins[ZTRAIT_SPACE_RUINS], ruins_type = ZTRAIT_STATION, blacklist_ghost_roles = TRUE)
+	seedRuins(list(assigned_space_level.z_value), CONFIG_GET(number/space_budget), /area/misc/space, SSmapping.themed_ruins[ZTRAIT_SPACE_RUINS], ruins_type = ZTRAIT_STATION, blacklist_ghost_roles = TRUE)
 
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin/post_map_setup()
 	//Orbit around the systems sun

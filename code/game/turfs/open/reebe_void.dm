@@ -6,7 +6,7 @@
 	planetary_atmos = TRUE
 	bullet_bounce_sound = null //forever falling
 	tiled_dirt = FALSE
-	flags_1 = NO_JAUNT
+	turf_flags = NO_JAUNT
 
 /turf/open/indestructible/reebe_void/Enter(atom/movable/AM, atom/old_loc)
 	if(!..())

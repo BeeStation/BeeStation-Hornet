@@ -13,10 +13,6 @@
 "ad" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/djstation/solars)
-"ae" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "af" = (
 /turf/closed/wall,
 /area/ruin/space/djstation)
@@ -25,11 +21,6 @@
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "ah" = (
-/turf/open/floor/plating,
-/area/ruin/space/djstation)
-"ai" = (
-/obj/machinery/telecomms/relay/preset/ruskie,
-/obj/machinery/light/directional/north,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "aj" = (
@@ -77,16 +68,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
-"aq" = (
-/obj/item/storage/box/lights/mixed,
-/obj/structure/sign/warning/electric_shock{
-	pixel_y = -32
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/djstation)
 "ar" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -106,11 +87,6 @@
 /area/ruin/space/djstation)
 "au" = (
 /obj/structure/closet/emcloset,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/djstation)
-"av" = (
-/obj/machinery/vending/snack,
-/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aw" = (
@@ -147,6 +123,10 @@
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/open/floor/carpet/grimy,
+/area/ruin/space/djstation)
+"aF" = (
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aG" = (
 /obj/machinery/door/airlock/public/glass{
@@ -217,10 +197,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
-"aU" = (
-/obj/machinery/light/small/directional/south,
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/djstation)
 "aV" = (
 /obj/structure/closet,
 /turf/open/floor/carpet/grimy,
@@ -235,14 +211,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
-"aY" = (
-/obj/machinery/light/directional/east,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/djstation)
-"aZ" = (
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "ba" = (
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
@@ -263,11 +231,6 @@
 /obj/item/clothing/under/costume/soviet,
 /obj/item/clothing/head/costume/ushanka,
 /turf/open/floor/iron/cafeteria,
-/area/ruin/space/djstation)
-"be" = (
-/obj/structure/sink/directional/east,
-/obj/machinery/light/small/directional/south,
-/turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
 "bf" = (
 /obj/structure/toilet{
@@ -297,13 +260,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
-"bj" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/structure/disposaloutlet,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "dT" = (
 /obj/structure/chair{
 	dir = 1
@@ -311,10 +267,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/djstation)
-"hL" = (
-/obj/machinery/light/small/directional/south,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
+"gH" = (
+/obj/machinery/vending/snack,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "om" = (
 /obj/structure/table,
@@ -322,6 +278,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/djstation)
+"ve" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plating/airless,
+/area/misc/space/nearstation)
 "Cf" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -339,6 +299,39 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
+"Dc" = (
+/obj/machinery/telecomms/relay/preset/ruskie,
+/obj/machinery/light/directional/north,
+/turf/open/floor/plating,
+/area/ruin/space/djstation)
+"Jg" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"Jx" = (
+/obj/item/storage/box/lights/mixed,
+/obj/structure/sign/warning/electric_shock{
+	pixel_y = -32
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/ruin/space/djstation)
+"JT" = (
+/obj/machinery/light/small/directional/south,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/space/djstation)
+"Ne" = (
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/djstation)
+"OS" = (
+/obj/structure/sink/directional/east,
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/iron/freezer,
+/area/ruin/space/djstation)
 "OV" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
@@ -349,6 +342,13 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/djstation)
+"Xx" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/structure/disposaloutlet,
+/turf/open/floor/plating/airless,
+/area/misc/space/nearstation)
 
 (1,1,1) = {"
 aa
@@ -370,7 +370,7 @@ ag
 ag
 af
 aa
-ae
+Jg
 aa
 aa
 aa
@@ -394,10 +394,10 @@ om
 Cf
 OV
 aW
-aZ
-aZ
-aZ
-bj
+ve
+ve
+ve
+Xx
 aa
 "}
 (3,1,1) = {"
@@ -417,10 +417,10 @@ aa
 af
 Rq
 Rq
-hL
+JT
 af
-ae
-ae
+Jg
+Jg
 aa
 aa
 aa
@@ -430,7 +430,7 @@ aa
 aa
 aa
 aa
-ae
+Jg
 ab
 ac
 ad
@@ -454,8 +454,8 @@ aa
 aa
 aa
 aa
-ae
-ae
+Jg
+Jg
 ab
 ac
 ad
@@ -470,7 +470,7 @@ Rq
 Rq
 aX
 ba
-be
+OS
 af
 aa
 aa
@@ -537,9 +537,9 @@ ah
 ah
 ah
 ah
-aq
+Jx
 af
-av
+gH
 aw
 aH
 aP
@@ -557,7 +557,7 @@ ac
 ac
 ac
 af
-ai
+Dc
 ah
 aj
 an
@@ -618,7 +618,7 @@ ay
 aw
 aw
 aw
-aY
+aF
 bd
 aw
 bi
@@ -653,9 +653,9 @@ af
 (13,1,1) = {"
 aa
 aa
-ae
-ae
-ae
+Jg
+Jg
+Jg
 ab
 ac
 ad
@@ -680,7 +680,7 @@ aa
 aa
 aa
 aa
-ae
+Jg
 ab
 ac
 ad
@@ -705,7 +705,7 @@ aa
 aa
 aa
 aa
-ae
+Jg
 ab
 ac
 ad
@@ -717,10 +717,10 @@ aa
 af
 aD
 aK
-aU
+Ne
 af
-ae
-ae
+Jg
+Jg
 aa
 aa
 aa
@@ -786,13 +786,13 @@ aa
 aa
 aa
 aa
-ae
-ae
+Jg
+Jg
 aa
-ae
+Jg
 aa
 aa
-ae
+Jg
 aa
 aa
 aa

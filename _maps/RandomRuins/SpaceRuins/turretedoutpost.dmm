@@ -2,10 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "ac" = (
 /obj/structure/grille,
 /turf/open/floor/plating/airless,
@@ -26,22 +22,11 @@
 "ag" = (
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
-"ah" = (
-/obj/machinery/light/directional/north,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/turretedoutpost)
 "ai" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
-"aj" = (
-/obj/machinery/light/directional/north,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/turretedoutpost)
 "ak" = (
@@ -68,10 +53,6 @@
 /area/ruin/space/has_grav/turretedoutpost)
 "ap" = (
 /obj/structure/filingcabinet,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/turretedoutpost)
-"aq" = (
-/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "ar" = (
@@ -105,13 +86,6 @@
 /obj/item/wrench,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
-"aD" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/machinery/light/directional/north,
-/obj/item/radio,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/turretedoutpost)
 "aE" = (
 /obj/machinery/vending/clothing,
 /turf/open/floor/iron,
@@ -119,12 +93,6 @@
 "aI" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
-"aK" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
-/obj/machinery/light/directional/east,
-/turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "aN" = (
 /obj/structure/chair/office,
@@ -145,12 +113,6 @@
 /obj/structure/rack,
 /obj/item/grenade/chem_grenade/teargas,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
-"aS" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/directional/south,
-/obj/item/camera_bug,
-/turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "aT" = (
 /obj/structure/table/reinforced,
@@ -173,10 +135,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
-"ba" = (
-/obj/structure/table/wood,
-/obj/item/food/breadslice/meat,
-/obj/machinery/light/directional/west,
+"cc" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/machinery/light/directional/north,
+/obj/item/radio,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "ck" = (
@@ -185,13 +148,11 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
-"fm" = (
-/obj/item/rack_parts,
-/obj/machinery/light/directional/north,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
+"cA" = (
+/obj/structure/bed,
+/obj/item/bedsheet/orange,
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)
 "hh" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -212,6 +173,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
+"iM" = (
+/obj/item/rack_parts,
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "jh" = (
 /obj/item/rack_parts,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -226,6 +195,21 @@
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/turretedoutpost)
+"jW" = (
+/obj/machinery/light/directional/south,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/turretedoutpost)
+"pQ" = (
+/obj/machinery/light/directional/north,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/turretedoutpost)
+"xA" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "yB" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/toggleable/riot,
@@ -233,6 +217,16 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/turretedoutpost)
+"yE" = (
+/obj/structure/table/wood,
+/obj/item/food/breadslice/meat,
+/obj/machinery/light/directional/west,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/turretedoutpost)
+"zm" = (
+/obj/machinery/light/directional/north,
+/turf/open/floor/plating,
 /area/ruin/space/has_grav/turretedoutpost)
 "zF" = (
 /obj/structure/rack,
@@ -251,15 +245,6 @@
 "CN" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
-"CY" = (
-/obj/structure/rack,
-/obj/item/storage/belt/military,
-/obj/machinery/light/directional/south,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
 "FQ" = (
@@ -301,6 +286,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
+"MG" = (
+/obj/structure/rack,
+/obj/item/storage/belt/military,
+/obj/machinery/light/directional/south,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "Nu" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -316,6 +310,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/turretedoutpost)
+"XN" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/directional/south,
+/obj/item/camera_bug,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/turretedoutpost)
 
 (1,1,1) = {"
 aa
@@ -328,7 +328,7 @@ aa
 aa
 aa
 aa
-ab
+xA
 aa
 aa
 aa
@@ -348,11 +348,11 @@ aa
 aa
 aa
 aa
-ab
-ab
-ab
+xA
+xA
+xA
 aa
-ab
+xA
 aa
 aa
 aa
@@ -372,8 +372,8 @@ al
 al
 al
 al
-ab
-ab
+xA
+xA
 aa
 aa
 "}
@@ -393,8 +393,8 @@ ad
 ad
 ao
 al
-ab
-ab
+xA
+xA
 aa
 "}
 (5,1,1) = {"
@@ -413,16 +413,16 @@ CE
 ad
 ad
 al
-ab
+xA
 aa
 aa
 "}
 (6,1,1) = {"
 aa
-ab
-ab
-ab
-ab
+xA
+xA
+xA
+xA
 al
 ad
 KJ
@@ -433,7 +433,7 @@ az
 LG
 ad
 al
-ab
+xA
 aa
 aa
 "}
@@ -441,7 +441,7 @@ aa
 aa
 aa
 aa
-ab
+xA
 aa
 al
 ad
@@ -453,24 +453,24 @@ az
 In
 ad
 al
-ab
-ab
+xA
+xA
 aa
 "}
 (8,1,1) = {"
 aa
 aa
-ab
-ab
+xA
+xA
 aa
 al
 ad
-fm
+iM
 az
 Gv
 zF
 az
-CY
+MG
 ad
 al
 aa
@@ -479,9 +479,9 @@ aa
 "}
 (9,1,1) = {"
 aa
-ab
-ab
-ab
+xA
+xA
+xA
 aa
 al
 ad
@@ -493,15 +493,15 @@ az
 yB
 ad
 al
-ab
+xA
 aa
 aa
 "}
 (10,1,1) = {"
 aa
-ab
+xA
 aa
-ab
+xA
 aa
 al
 ad
@@ -513,7 +513,7 @@ aQ
 ad
 ad
 al
-ab
+xA
 aa
 aa
 "}
@@ -533,7 +533,7 @@ ad
 ad
 ao
 al
-ab
+xA
 aa
 aa
 "}
@@ -552,9 +552,9 @@ hh
 FQ
 ad
 al
-ab
-ab
-ab
+xA
+xA
+xA
 aa
 "}
 (13,1,1) = {"
@@ -569,10 +569,10 @@ ad
 aC
 ag
 ag
-aS
+XN
 ad
 al
-ab
+xA
 aa
 aa
 aa
@@ -584,9 +584,9 @@ ac
 ad
 af
 an
-aq
+jW
 ad
-aD
+cc
 ag
 aN
 aT
@@ -613,13 +613,13 @@ aU
 ad
 ac
 ac
-ab
-ab
-ab
+xA
+xA
+xA
 "}
 (16,1,1) = {"
 aa
-ab
+xA
 ac
 ad
 af
@@ -633,7 +633,7 @@ ad
 ad
 ad
 ac
-ab
+xA
 aa
 aa
 "}
@@ -650,19 +650,19 @@ ag
 ag
 aO
 aV
-ba
+yE
 ad
 ac
-ab
-ab
+xA
+xA
 aa
 "}
 (18,1,1) = {"
 aa
-ab
+xA
 ac
 ad
-ah
+pQ
 JE
 ar
 ad
@@ -678,7 +678,7 @@ aa
 aa
 "}
 (19,1,1) = {"
-ab
+xA
 aa
 ac
 ad
@@ -698,16 +698,16 @@ aa
 aa
 "}
 (20,1,1) = {"
-ab
-ab
+xA
+xA
 ac
 ad
-aj
+zm
 ak
 ad
 al
 ad
-aK
+cA
 aP
 aP
 aP
@@ -719,7 +719,7 @@ aa
 "}
 (21,1,1) = {"
 aa
-ab
+xA
 ac
 ad
 ak
@@ -733,13 +733,13 @@ ad
 ad
 ad
 ac
-ab
-ab
+xA
+xA
 aa
 "}
 (22,1,1) = {"
-ab
-ab
+xA
+xA
 ac
 ad
 Nu
@@ -754,6 +754,6 @@ ac
 ac
 ac
 aa
-ab
+xA
 aa
 "}

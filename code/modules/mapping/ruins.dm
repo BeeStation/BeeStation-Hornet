@@ -68,7 +68,7 @@
 /proc/seedRuins(
 	list/z_levels = null,
 	budget = 0,
-	whitelist = list(/area/space),
+	whitelist = list(/area/misc/space),
 	list/potentialRuins,
 	clear_below = FALSE,
 	ruins_type = ZTRAIT_STATION,

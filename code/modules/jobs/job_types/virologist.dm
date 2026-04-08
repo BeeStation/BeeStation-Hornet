@@ -28,13 +28,13 @@
 	biohazard = 75 //duh
 
 	lightup_areas = list(
-		/area/medical/morgue,
-		/area/medical/surgery,
-		/area/medical/genetics,
-		/area/medical/chemistry,
-		/area/medical/apothecary
+		/area/station/medical/morgue,
+		/area/station/medical/surgery,
+		/area/station/medical/genetics,
+		/area/station/medical/chemistry,
+		/area/station/medical/pharmacy
 	)
-	minimal_lightup_areas = list(/area/medical/virology)
+	minimal_lightup_areas = list(/area/station/medical/virology)
 
 /datum/job/virologist/config_check()
 	return CONFIG_GET(flag/allow_virologist)

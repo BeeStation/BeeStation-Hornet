@@ -673,7 +673,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_spawn_locations()
 	for(var/turf/turf in GLOB.xeno_spawn)
-		if(istype(turf.loc, /area/maintenance))
+		if(istype(turf.loc, /area/station/maintenance))
 			spawn_locations += turf
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/execute()
