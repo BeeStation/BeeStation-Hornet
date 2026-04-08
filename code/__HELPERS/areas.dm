@@ -1,10 +1,10 @@
 #define BP_MAX_ROOM_SIZE 300
 
 GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(list(
-	/area/engine/engineering,
-	/area/engine/supermatter,
-	/area/engine/atmospherics_engine,
-	/area/ai_monitored/turret_protected/ai,
+	/area/station/engineering/main,
+	/area/station/engineering/supermatter,
+	/area/station/engineering/atmospherics_engine,
+	/area/station/ai_monitored/turret_protected/ai,
 )))
 
 // Gets an atmos isolated contained space
@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(list(
 
 	// Ignore these areas and dont let people expand them. They can expand into them though
 	var/static/blacklisted_areas = typecacheof(list(
-		/area/space,
+		/area/misc/space,
 	))
 
 	var/list/turfs = detect_room(get_turf(creator), area_or_turf_fail_types)

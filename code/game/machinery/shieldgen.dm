@@ -221,7 +221,7 @@
 	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 50

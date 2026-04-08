@@ -192,21 +192,33 @@
 	O.screen_loc = screen_loc
 	return O
 
-/// Removes an image from a client's `.images`. Useful as a callback.
-/proc/remove_image_from_client(image/image, client/remove_from)
-	remove_from?.images -= image
+/// Adds an image to a client's `.images`. Useful as a callback.
+/proc/add_image_to_client(image/image_to_remove, client/add_to)
+	add_to?.images += image_to_remove
 
-/proc/remove_images_from_clients(image/I, list/show_to)
-	for(var/client/C in show_to)
-		C.images -= I
+/// Like add_image_to_client, but will add the image from a list of clients
+/proc/add_image_to_clients(image/image_to_remove, list/show_to)
+	for(var/client/add_to in show_to)
+		add_to.images += image_to_remove
+
+/// Removes an image from a client's `.images`. Useful as a callback.
+/proc/remove_image_from_client(image/image_to_remove, client/remove_from)
+	remove_from?.images -= image_to_remove
+
+/// Like remove_image_from_client, but will remove the image from a list of clients
+/proc/remove_image_from_clients(image/image_to_remove, list/hide_from)
+	for(var/client/remove_from in hide_from)
+		remove_from.images -= image_to_remove
 
 /// Adds an image to a list of clients, then removes that image after the duration.
 /// If you want an overlay applied to the object which will show to all clients, use
 /// flick_overlay_static
 /proc/flick_overlay_global(image/image_to_show, list/show_to, duration)
+	if(!show_to || !length(show_to) || !image_to_show)
+		return
 	for(var/client/add_to in show_to)
 		add_to.images += image_to_show
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), image_to_show, show_to), duration, TIMER_CLIENT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_image_from_clients), image_to_show, show_to), duration, TIMER_CLIENT_TIME)
 
 ///Flicks a certain overlay onto an atom, handling icon_state strings
 /atom/proc/flick_overlay(image_to_show, list/show_to, duration, layer)
@@ -316,9 +328,8 @@
 /proc/AnnounceArrival(mob/living/carbon/human/character, rank)
 	if(QDELETED(character) || !SSticker.IsRoundInProgress())
 		return
-	var/area/A = get_area(character)
-	var/message = span_gamedeadsay("[span_name(character.real_name)] ([rank]) has arrived at the station at [span_name(A.name)].")
-	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
+	var/area/player_area = get_area(character)
+	deadchat_broadcast(span_game(" has arrived at the station at [span_name(player_area.name)]."), span_game("[span_name(character.real_name)] ([rank])"), follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
 	if((!GLOB.announcement_systems.len) || (!character.mind))
 		return
 	if((character.mind.assigned_role == JOB_NAME_CYBORG) || (character.mind.assigned_role == character.mind.special_role))

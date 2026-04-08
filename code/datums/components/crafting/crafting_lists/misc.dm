@@ -331,13 +331,6 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 
-/datum/crafting_recipe/basic_lasso
-	name= "Basic Lasso"
-	result = /obj/item/mob_lasso
-	time = 2 SECONDS
-	reqs = list(/obj/item/stack/sheet/leather = 5)
-	category = CAT_MISC
-
 /datum/crafting_recipe/foldable
 	name = "Foldable Chair"
 	result = /obj/item/chair/foldable

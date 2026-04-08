@@ -52,7 +52,7 @@
 	// Check to see if we just nuked a ruleset
 	var/last_remaining_from_ruleset = TRUE
 	var/last_remaining_of_type = TRUE
-	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		// This antagonist has been removed from its owner
 		if (!antagonist.owner)
 			continue

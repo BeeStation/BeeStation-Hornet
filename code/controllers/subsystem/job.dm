@@ -555,7 +555,8 @@ SUBSYSTEM_DEF(job)
 			DropLandAtRandomHallwayPoint(living_mob)
 			spawning_handled = TRUE
 		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
-			SpawnLandAtRandom(living_mob, (typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms)))
+			SpawnLandAtRandom(living_mob, (typesof(/area/station/hallway) | typesof(
+/area/station/service/bar) | typesof(/area/station/commons/dorms)))
 			spawning_handled = TRUE
 		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
@@ -768,7 +769,7 @@ SUBSYSTEM_DEF(job)
 	return GET_ERROR_ROOM
 
 ///Spawns specified mob at a random spot in the hallways
-/datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/hallway))
+/datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/station/hallway))
 	var/turf/spawn_turf = get_safe_random_station_turfs(areas)
 
 	if(!spawn_turf)
@@ -779,7 +780,7 @@ SUBSYSTEM_DEF(job)
 
 ///Lands specified mob at a random spot in the hallways
 /datum/controller/subsystem/job/proc/DropLandAtRandomHallwayPoint(mob/living/living_mob)
-	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/hallway))
+	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/station/hallway))
 
 	if(!spawn_turf)
 		SendToLateJoin(living_mob)
