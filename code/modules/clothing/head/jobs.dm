@@ -74,6 +74,11 @@
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
 
+/obj/item/clothing/head/hats/hopcap/beret
+	name = "head of personnel's beret"
+	desc = "For doing paperwork with style."
+	icon_state = "beret_hop"
+
 //Chaplain
 
 /datum/armor/hats_hopcap

@@ -179,6 +179,13 @@
 	armor_type = /datum/armor/capcarapace_jacket
 	clothing_flags = NONE
 
+/obj/item/clothing/suit/armor/vest/hop
+	name = "head of personnel's coat"
+	desc = "A big coat for the Head of Personnel who wants to make a fashion statement. Has armour woven within the fabric."
+	icon_state = "hopcoat"
+	inhand_icon_state = "b_suit"
+	body_parts_covered = CHEST|GROIN|ARMS
+	dog_fashion = null
 
 /datum/armor/capcarapace_jacket
 	melee = 40
@@ -485,7 +492,6 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	armor_type = /datum/armor/armor_centcom_formal
 
-
 /datum/armor/armor_centcom_formal
 	melee = 35
 	bullet = 40
@@ -502,3 +508,11 @@
 	. = ..()
 	AddComponent(/datum/component/toggle_icon)
 	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/suit/armor/vest/hop
+	name = "head of personnel's coat"
+	desc = "A stylish coat given to a Head of Personnel."
+	icon_state = "hop_coat"
+	inhand_icon_state = "b_suit"
+	body_parts_covered = CHEST|GROIN|ARMS
+	dog_fashion = null

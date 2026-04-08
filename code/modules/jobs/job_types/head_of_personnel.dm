@@ -113,7 +113,7 @@
 	belt = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_personnel
 	l_pocket = /obj/item/dog_bone
 	ears = /obj/item/radio/headset/heads/head_of_personnel
-	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
+	uniform = /obj/item/clothing/under/rank/civilian/hop
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hats/hopcap
 	backpack_contents = list(
