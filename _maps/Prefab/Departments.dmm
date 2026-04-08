@@ -642,10 +642,6 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 4;
-	pixel_x = -5
-	},
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
 	},
@@ -659,12 +655,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/station/science/research)
-"oI" = (
-/obj/machinery/computer/xenoartifact_console{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/science/mixing)
 "oO" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/janitorialcart,
@@ -1033,10 +1023,6 @@
 /obj/machinery/computer/camera_advanced/xenobio,
 /turf/open/floor/iron/grid/steel,
 /area/station/science/xenobiology)
-"xM" = (
-/obj/item/book/manual/hydroponics_pod_people,
-/turf/open/floor/grass/no_border,
-/area/station/service/hydroponics)
 "xS" = (
 /obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/royalblue,
@@ -1509,10 +1495,6 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/misc/space)
-"Kb" = (
-/obj/item/book/codex_gigas,
-/turf/open/floor/carpet/royalblack,
-/area/station/service/library)
 "Kg" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -1663,13 +1645,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/misc/space)
-"MZ" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/station/science/research)
 "Nb" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/machinery/vending/wardrobe/chem_wardrobe,
@@ -2391,7 +2366,7 @@ tM
 CE
 zT
 nt
-MZ
+aJ
 Hb
 ac
 Wx
@@ -2427,7 +2402,7 @@ De
 Bb
 "}
 (8,1,1) = {"
-Kb
+KM
 dF
 KM
 VD
@@ -2452,7 +2427,7 @@ KM
 kX
 zU
 lt
-oI
+lt
 LH
 nv
 ba
@@ -2607,7 +2582,7 @@ XF
 XF
 "}
 (17,1,1) = {"
-xM
+Oz
 Nu
 Tq
 ti
