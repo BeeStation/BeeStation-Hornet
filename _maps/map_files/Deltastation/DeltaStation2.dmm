@@ -905,7 +905,7 @@
 /turf/closed/wall,
 /area/station/engineering/storage/tech)
 "asl" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
@@ -4944,7 +4944,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/patients_rooms)
 "bTC" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -12713,7 +12713,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/office)
 "evP" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/delivery,
 /obj/structure/sign/departments/minsky/supply/hydroponics{
 	pixel_x = -32
@@ -22066,7 +22066,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "gVl" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -29512,7 +29512,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "iTp" = (
@@ -30864,11 +30864,11 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/item/seeds/lime{
+/obj/item/plant_seeds/preset/lime{
 	pixel_x = 6
 	},
-/obj/item/seeds/watermelon,
-/obj/item/seeds/grape{
+/obj/item/plant_seeds/preset/watermelon,
+/obj/item/plant_seeds/preset/grape{
 	pixel_x = -6
 	},
 /obj/item/food/grown/wheat,
@@ -34830,7 +34830,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/office)
 "koJ" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -39902,7 +39902,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
 "lEs" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
@@ -40301,7 +40301,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "lKb" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/item/radio/intercom{
 	pixel_y = -26
 	},
@@ -48101,7 +48101,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/item/shovel/spade{
 	pixel_x = -5;
 	pixel_y = -4
@@ -52201,7 +52201,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "oSA" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
@@ -57531,7 +57531,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "qgT" = (
@@ -67373,7 +67373,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "sSj" = (
@@ -74671,11 +74671,11 @@
 /obj/item/crowbar,
 /obj/item/cultivator,
 /obj/structure/table/glass,
-/obj/item/seeds/wheat{
+/obj/item/plant_seeds/preset/wheat{
 	pixel_x = 6
 	},
-/obj/item/seeds/potato,
-/obj/item/seeds/pumpkin{
+/obj/item/plant_seeds/preset/potato,
+/obj/item/plant_seeds/preset/pumpkin{
 	pixel_x = -6
 	},
 /obj/item/food/grown/wheat,
@@ -74814,7 +74814,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "uQw" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/structure/sign/nanotrasen{
 	pixel_y = -32
 	},

@@ -3542,7 +3542,7 @@
 /area/ruin/space/ancientstation/atmo)
 "Nt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/hydroponics)
@@ -4131,12 +4131,12 @@
 "Sx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/seeds/flower/harebell,
-/obj/item/seeds/carrot,
-/obj/item/seeds/potato,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/flower/poppy,
-/obj/item/seeds/grape,
+/obj/item/plant_seeds/preset/flower/harebell,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/potato,
+/obj/item/plant_seeds/preset/ambrosia,
+/obj/item/plant_seeds/preset/flower/poppy,
+/obj/item/plant_seeds/preset/grape,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/hydroponics)

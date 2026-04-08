@@ -5579,7 +5579,7 @@
 /turf/open/floor/iron/tech,
 /area/station/maintenance/fore/greater)
 "czY" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -10311,7 +10311,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port)
 "eoT" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/grid/steel,
@@ -10920,7 +10920,7 @@
 /area/station/security/prison)
 "eBJ" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -12407,7 +12407,7 @@
 /area/station/security/courtroom)
 "ffb" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/item/plant_analyzer,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -23101,7 +23101,7 @@
 "jbY" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "jcj" = (
@@ -31679,7 +31679,7 @@
 /area/station/security/brig)
 "meo" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -34118,14 +34118,14 @@
 /area/station/engineering/main)
 "mXv" = (
 /obj/structure/table/wood,
-/obj/item/seeds/grass,
-/obj/item/seeds/cocoapod,
-/obj/item/seeds/grape,
-/obj/item/seeds/sugarcane,
-/obj/item/seeds/tower,
-/obj/item/seeds/watermelon,
-/obj/item/seeds/orange,
-/obj/item/seeds/banana,
+/obj/item/plant_seeds/preset/grass,
+/obj/item/plant_seeds/preset/cocoa,
+/obj/item/plant_seeds/preset/grape,
+/obj/item/plant_seeds/preset/sugarcane,
+/obj/item/plant_seeds/preset/tower,
+/obj/item/plant_seeds/preset/watermelon,
+/obj/item/plant_seeds/preset/orange,
+/obj/item/plant_seeds/preset/banana,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
@@ -42148,7 +42148,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "pTL" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -43030,7 +43030,7 @@
 /turf/open/floor/wood,
 /area/station/service/library)
 "qly" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
@@ -51013,7 +51013,7 @@
 "tfY" = (
 /obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/machinery/camera/directional/west,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "tga" = (
@@ -52031,7 +52031,7 @@
 /turf/open/floor/holofloor/carpet,
 /area/station/commons/vacant_room/office)
 "tzQ" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -52935,7 +52935,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/ai_monitored/command/storage/eva)
 "tTw" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -61835,7 +61835,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/execution/transfer)
 "xfN" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -62078,7 +62078,7 @@
 /turf/open/floor/prison,
 /area/station/security/prison)
 "xig" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -64536,7 +64536,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/cargo/miningdock)
 "xZV" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

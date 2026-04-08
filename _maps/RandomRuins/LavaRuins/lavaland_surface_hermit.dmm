@@ -51,9 +51,9 @@
 /area/ruin/powered)
 "m" = (
 /obj/structure/rack,
-/obj/item/seeds/reishi,
-/obj/item/seeds/plump,
-/obj/item/seeds/plump,
+/obj/item/plant_seeds/preset/reishi,
+/obj/item/plant_seeds/preset/plump,
+/obj/item/plant_seeds/preset/plump,
 /obj/item/food/grown/mushroom/glowshroom,
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)

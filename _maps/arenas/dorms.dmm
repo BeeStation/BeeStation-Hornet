@@ -25,7 +25,7 @@
 /turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "ah" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "ai" = (

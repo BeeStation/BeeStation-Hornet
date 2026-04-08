@@ -43,7 +43,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
@@ -51,10 +51,10 @@
 /obj/item/cultivator,
 /obj/item/shovel/spade,
 /obj/item/storage/bag/plants/portaseeder,
-/obj/item/seeds/wheat/rice,
-/obj/item/seeds/dionapod,
-/obj/item/seeds/carrot,
-/obj/item/seeds/tomato,
+/obj/item/plant_seeds/preset/wheat/rice,
+/obj/item/plant_seeds/preset/dionapod,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/tomato,
 /obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /turf/open/floor/plating,
 /area/template_noop)

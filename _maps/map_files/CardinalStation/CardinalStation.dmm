@@ -15615,7 +15615,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "dxA" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/light/dim/directional/east,
 /obj/structure/sign/poster/official/random/directional/east,
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -17788,7 +17788,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/hos)
 "dXF" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/service/hydroponics)
 "dXG" = (
@@ -23761,7 +23761,7 @@
 /obj/effect/turf_decal/siding/dark/end{
 	dir = 4
 	},
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/iron/smooth_half,
 /area/station/service/hydroponics)
 "fst" = (
@@ -32096,7 +32096,7 @@
 /turf/open/floor/engine,
 /area/station/science/mixing)
 "hiP" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/camera/directional/east,
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -36276,7 +36276,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/hallway/primary/starboard)
 "hYX" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics/garden)
 "hZs" = (
@@ -46633,7 +46633,7 @@
 /turf/open/space/basic,
 /area/station/engineering/supermatter/room)
 "klX" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/grass,
 /area/station/security/prison)
 "kme" = (
@@ -96645,7 +96645,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/station/engineering/supermatter)
 "voJ" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/structure/railing/perspective/gray/corner,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/service/hydroponics)
@@ -108151,7 +108151,7 @@
 "xHn" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light/small/directional/west,
-/obj/item/seeds/wheat,
+/obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/grass,
 /area/station/security/prison)
 "xHs" = (

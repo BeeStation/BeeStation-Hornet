@@ -81,7 +81,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "kJ" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -227,7 +227,7 @@
 "xe" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/potato,
+/obj/item/plant_seeds/preset/potato,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
 	},
@@ -239,7 +239,7 @@
 "xP" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/grass,
+/obj/item/plant_seeds/preset/grass,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -265,7 +265,7 @@
 /area/ruin/unpowered)
 "zp" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/carrot,
+/obj/item/plant_seeds/preset/carrot,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -346,7 +346,7 @@
 /area/ruin/unpowered)
 "KP" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/ambrosia,
+/obj/item/plant_seeds/preset/ambrosia,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
 	},
@@ -462,7 +462,7 @@
 /area/ruin/unpowered)
 "Wj" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/glowshroom,
+/obj/item/plant_seeds/preset/glowshroom,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},

@@ -2140,8 +2140,8 @@
 	},
 /area/awaymission/BMPship/Fore)
 "YH" = (
-/obj/machinery/seed_extractor,
-/obj/item/seeds/plump/walkingmushroom,
+/obj/machinery/seeder,
+/obj/item/plant_seeds/preset/plump/walkingmushroom,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},

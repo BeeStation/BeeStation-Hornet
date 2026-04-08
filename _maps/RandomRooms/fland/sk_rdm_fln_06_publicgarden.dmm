@@ -98,7 +98,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "x" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/iron,
 /area/template_noop)
 "z" = (
@@ -156,15 +156,15 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/seeds/tower,
-/obj/item/seeds/watermelon,
-/obj/item/seeds/wheat,
-/obj/item/seeds/sugarcane,
-/obj/item/seeds/orange,
-/obj/item/seeds/grape,
-/obj/item/seeds/cocoapod,
-/obj/item/seeds/banana,
-/obj/item/seeds/apple,
+/obj/item/plant_seeds/preset/tower,
+/obj/item/plant_seeds/preset/watermelon,
+/obj/item/plant_seeds/preset/wheat,
+/obj/item/plant_seeds/preset/sugarcane,
+/obj/item/plant_seeds/preset/orange,
+/obj/item/plant_seeds/preset/grape,
+/obj/item/plant_seeds/preset/cocoa,
+/obj/item/plant_seeds/preset/banana,
+/obj/item/plant_seeds/preset/apple,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,

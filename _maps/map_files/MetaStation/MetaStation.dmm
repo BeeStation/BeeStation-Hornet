@@ -8395,16 +8395,16 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
-/obj/item/seeds/watermelon,
-/obj/item/seeds/wheat,
-/obj/item/seeds/sugarcane,
-/obj/item/seeds/orange,
-/obj/item/seeds/grape,
-/obj/item/seeds/cocoapod,
-/obj/item/seeds/banana,
-/obj/item/seeds/apple,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/tower,
+/obj/item/plant_seeds/preset/watermelon,
+/obj/item/plant_seeds/preset/wheat,
+/obj/item/plant_seeds/preset/sugarcane,
+/obj/item/plant_seeds/preset/orange,
+/obj/item/plant_seeds/preset/grape,
+/obj/item/plant_seeds/preset/cocoa,
+/obj/item/plant_seeds/preset/banana,
+/obj/item/plant_seeds/preset/apple,
+/obj/item/plant_seeds/preset/ambrosia,
+/obj/item/plant_seeds/preset/tower,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "cYP" = (
@@ -9523,7 +9523,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "drv" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
@@ -29594,7 +29594,7 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/security/office)
 "jEf" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
@@ -30211,7 +30211,7 @@
 /area/station/command/teleporter)
 "jMn" = (
 /obj/machinery/light_switch/directional/west,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
@@ -34604,7 +34604,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "lgJ" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/machinery/firealarm{
 	pixel_x = 31
 	},
@@ -34904,7 +34904,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "lkX" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/requests_console/auto_name/directional/south,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
@@ -35067,7 +35067,7 @@
 /obj/machinery/light,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot_white/right,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/service/hydroponics/garden)
@@ -45751,7 +45751,7 @@
 /turf/open/space,
 /area/station/solars/port/fore)
 "oxz" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
@@ -54483,7 +54483,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "qYE" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
@@ -55741,7 +55741,7 @@
 /area/station/solars/port/aft)
 "rqQ" = (
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
 	},
@@ -61730,7 +61730,7 @@
 /area/station/security/brig)
 "tgc" = (
 /obj/effect/turf_decal/bot_white/left,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/service/hydroponics/garden)
 "tgw" = (
@@ -65870,7 +65870,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "uso" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{
 	dir = 8
@@ -71449,7 +71449,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/structure/railing{
 	pixel_y = 24
 	},
@@ -71686,7 +71686,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "wjI" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners{

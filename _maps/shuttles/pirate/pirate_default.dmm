@@ -636,7 +636,7 @@
 /obj/machinery/hydroponics/soil{
 	self_sustaining = 1
 	},
-/obj/item/seeds/wheat,
+/obj/item/plant_seeds/preset/wheat,
 /obj/machinery/door/window/eastright{
 	dir = 1;
 	req_access_txt = "180"

@@ -25,8 +25,8 @@
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/onion,
+/obj/item/plant_tray,
+/obj/item/plant_seeds/preset/onion,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -1138,7 +1138,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
 	},
@@ -2398,8 +2398,8 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/potato,
+/obj/item/plant_tray,
+/obj/item/plant_seeds/preset/potato,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
@@ -3823,8 +3823,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/soya,
+/obj/item/plant_tray,
+/obj/item/plant_seeds/preset/soya,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -4359,7 +4359,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/item/plant_analyzer,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Hydroponics";
@@ -8055,8 +8055,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/redbeet,
+/obj/item/plant_tray,
+/obj/item/plant_seeds/preset/redbeet,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -8215,8 +8215,8 @@
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/carrot,
+/obj/item/plant_tray,
+/obj/item/plant_seeds/preset/carrot,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},

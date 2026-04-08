@@ -4629,17 +4629,17 @@
 /area/station/security/warden)
 "bGz" = (
 /obj/effect/turf_decal/tile/black/fourcorners,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/seeds/carrot,
-/obj/item/seeds/corn,
-/obj/item/seeds/onion,
-/obj/item/seeds/potato,
-/obj/item/seeds/soya,
-/obj/item/seeds/cabbage,
-/obj/item/seeds/wheat,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/corn,
+/obj/item/plant_seeds/preset/onion,
+/obj/item/plant_seeds/preset/potato,
+/obj/item/plant_seeds/preset/soya,
+/obj/item/plant_seeds/preset/cabbage,
+/obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
 "bGA" = (
@@ -6151,7 +6151,7 @@
 /obj/structure/railing{
 	dir = 5
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -13199,7 +13199,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/grid/steel,
 /area/station/service/hydroponics)
@@ -16299,7 +16299,7 @@
 	},
 /area/station/holodeck/rec_center)
 "fHs" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -16796,7 +16796,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -19037,7 +19037,7 @@
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/captain)
 "gBW" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -20028,7 +20028,7 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
 "gSy" = (
@@ -20242,7 +20242,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -24303,7 +24303,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/grid/steel,
@@ -43691,7 +43691,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/storage)
 "oPZ" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -44131,7 +44131,7 @@
 /turf/open/floor/carpet/red,
 /area/station/command/heads_quarters/hos)
 "oYu" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -47732,7 +47732,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/grid/steel,
 /area/station/service/hydroponics)
@@ -51988,7 +51988,7 @@
 "rMc" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -53374,7 +53374,7 @@
 /area/station/medical/medbay/central)
 "soc" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -53660,7 +53660,7 @@
 /area/station/engineering/supermatter)
 "srv" = (
 /obj/effect/turf_decal/tile/black/fourcorners,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/techmaint,
@@ -53715,7 +53715,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60141,7 +60141,7 @@
 	pixel_x = -1;
 	pixel_y = -34
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -66692,7 +66692,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/prison)
 "wQb" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -69444,7 +69444,7 @@
 /turf/open/floor/catwalk_floor,
 /area/station/maintenance/department/engine)
 "xSF" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -70459,7 +70459,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},

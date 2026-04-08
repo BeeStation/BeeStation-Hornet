@@ -11875,7 +11875,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
 "mvt" = (
-/obj/machinery/plantgenes/seedvault,
+/obj/machinery/plant_machine/plant_analyser,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/centcom/central_command_areas/holding)
@@ -12619,7 +12619,7 @@
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
 "nqO" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/centcom/central_command_areas/holding)
@@ -14989,7 +14989,7 @@
 	},
 /area/centcom/tdome/observation)
 "pIx" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/centcom/central_command_areas/holding)
@@ -15474,7 +15474,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/centcom/tdome/observation)
 "qcQ" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -15654,7 +15654,7 @@
 "qmv" = (
 /obj/structure/table/wood/bar,
 /obj/structure/safe/floor,
-/obj/item/seeds/cherry/bomb,
+/obj/item/plant_seeds/preset/cherry_bomb,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/holding)
 "qmI" = (
@@ -22075,7 +22075,7 @@
 /area/centcom/central_command_areas/control)
 "wAi" = (
 /obj/structure/table,
-/obj/item/seeds/pumpkin/blumpkin,
+/obj/item/plant_seeds/preset/pumpkin,
 /obj/item/paper/guides/jobs/hydroponics,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,

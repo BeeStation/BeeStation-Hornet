@@ -1440,14 +1440,14 @@
 	pixel_x = 12;
 	pixel_y = 7
 	},
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
+/obj/item/plant_seeds/preset/carrot/parsnip,
+/obj/item/plant_seeds/preset/carrot/parsnip,
+/obj/item/plant_seeds/preset/carrot/parsnip,
+/obj/item/plant_seeds/preset/carrot/parsnip,
+/obj/item/plant_seeds/preset/carrot/parsnip,
+/obj/item/plant_seeds/preset/carrot/parsnip,
+/obj/item/plant_seeds/preset/carrot/parsnip,
+/obj/item/plant_seeds/preset/carrot/parsnip,
 /turf/open/floor/wood,
 /area/template_noop)
 "wm" = (

@@ -2270,7 +2270,7 @@
 /turf/open/floor/iron,
 /area/station/maintenance/department/chapel)
 "buE" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -6756,7 +6756,7 @@
 /area/station/engineering/hallway)
 "dPl" = (
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -9698,7 +9698,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/hallway)
 "fCi" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/newscaster/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -10001,7 +10001,7 @@
 /area/station/hallway/primary/central)
 "fLX" = (
 /obj/machinery/airalarm/directional/west,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
 	dir = 8
@@ -10609,7 +10609,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/machinery/status_display/ai{
 	pixel_y = 32
 	},
@@ -13003,14 +13003,14 @@
 /area/station/cargo/storage)
 "htJ" = (
 /obj/structure/table/reinforced,
-/obj/item/seeds/cotton{
+/obj/item/plant_seeds/preset/cotton{
 	pixel_x = 5
 	},
-/obj/item/seeds/carrot{
+/obj/item/plant_seeds/preset/carrot{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/seeds/soya{
+/obj/item/plant_seeds/preset/soya{
 	pixel_x = -4;
 	pixel_y = -1
 	},
@@ -14468,7 +14468,7 @@
 /turf/open/floor/iron/large,
 /area/station/engineering/main)
 "ihZ" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -17129,7 +17129,7 @@
 /turf/open/floor/engine/o2,
 /area/station/engineering/atmos)
 "jAG" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/structure/sign/painting/library{
 	pixel_y = -32
 	},
@@ -20069,7 +20069,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/firealarm/directional/east,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -21299,7 +21299,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -23920,7 +23920,7 @@
 /turf/open/floor/iron/large,
 /area/station/engineering/main)
 "nmM" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -36774,7 +36774,7 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "uwt" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -38842,7 +38842,7 @@
 /turf/open/floor/iron/techmaint/planetary,
 /area/station/service/chapel/office)
 "vGO" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -40828,7 +40828,7 @@
 /turf/open/floor/iron,
 /area/station/maintenance/department/science/central)
 "wNb" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/item/radio/intercom/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -41918,7 +41918,7 @@
 /area/station/hallway/primary/central)
 "xvr" = (
 /obj/machinery/light,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

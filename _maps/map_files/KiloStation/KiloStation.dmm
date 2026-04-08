@@ -3386,7 +3386,7 @@
 /turf/open/floor/plating,
 /area/station/hallway/secondary/entry)
 "bpp" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -6133,7 +6133,7 @@
 /area/station/hallway/primary/aft)
 "coz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -16905,7 +16905,7 @@
 /area/station/engineering/storage/tech)
 "fLC" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/insectguts,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
@@ -18211,7 +18211,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/mixing)
 "ghM" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -24718,7 +24718,7 @@
 /area/station/engineering/main)
 "idA" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/flower/poppy,
+/obj/item/plant_seeds/preset/flower/poppy,
 /turf/open/floor/grass,
 /area/station/service/chapel)
 "idP" = (
@@ -26617,7 +26617,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "iIm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -35869,7 +35869,7 @@
 /area/station/science/explab)
 "lDX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/machinery/camera/directional/west{
 	c_tag = "Apiary";
 	name = "chapel camera"
@@ -37201,7 +37201,7 @@
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "lZB" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -40123,7 +40123,7 @@
 	},
 /area/station/maintenance/starboard)
 "mRG" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -41536,7 +41536,7 @@
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "non" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
 	dir = 8
@@ -44417,7 +44417,7 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/storage)
 "ocZ" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -46578,7 +46578,7 @@
 /area/station/maintenance/starboard/fore)
 "oII" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -47022,7 +47022,7 @@
 /area/station/command/heads_quarters/captain)
 "oRE" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/wheat,
+/obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/grass,
 /area/station/service/chapel)
 "oSc" = (
@@ -48169,7 +48169,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/mixing)
 "pkK" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -50580,7 +50580,7 @@
 /area/station/cargo/warehouse)
 "qdg" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/potato,
+/obj/item/plant_seeds/preset/potato,
 /turf/open/floor/grass,
 /area/station/service/chapel)
 "qdm" = (
@@ -53055,7 +53055,7 @@
 /turf/closed/wall/r_wall,
 /area/station/security/warden)
 "qPN" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -66391,7 +66391,7 @@
 /area/station/security/brig)
 "uPX" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/tower,
+/obj/item/plant_seeds/preset/tower,
 /turf/open/floor/grass,
 /area/station/service/chapel)
 "uQa" = (
@@ -71138,9 +71138,9 @@
 /area/station/service/kitchen)
 "wqd" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/seeds/tower,
+/obj/item/plant_seeds/preset/tower,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -72657,19 +72657,19 @@
 /area/station/science/mixing)
 "wQa" = (
 /obj/structure/table/glass,
-/obj/item/seeds/random{
+/obj/item/plant_seeds/preset/random{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/seeds/wheat{
+/obj/item/plant_seeds/preset/wheat{
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/item/seeds/sugarcane{
+/obj/item/plant_seeds/preset/sugarcane{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/seeds/potato{
+/obj/item/plant_seeds/preset/potato{
 	pixel_x = -1;
 	pixel_y = 1
 	},

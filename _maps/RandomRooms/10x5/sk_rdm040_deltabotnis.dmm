@@ -22,11 +22,11 @@
 /area/template_noop)
 "e" = (
 /obj/structure/table,
-/obj/item/seeds/flower/lily{
+/obj/item/plant_seeds/preset/flower/lily{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/seeds/flower/geranium,
+/obj/item/plant_seeds/preset/flower/geranium,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/food/grown/wheat,
 /obj/item/food/grown/corn,
@@ -36,7 +36,7 @@
 /area/template_noop)
 "f" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/tea,
+/obj/item/plant_seeds/preset/tea,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -62,7 +62,7 @@
 /area/template_noop)
 "i" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/flower/poppy,
+/obj/item/plant_seeds/preset/flower/poppy,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -105,7 +105,7 @@
 /area/template_noop)
 "o" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/flower/harebell,
+/obj/item/plant_seeds/preset/flower/harebell,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -126,7 +126,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "q" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
@@ -148,7 +148,7 @@
 /area/template_noop)
 "u" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/tower,
+/obj/item/plant_seeds/preset/tower,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/delivery,

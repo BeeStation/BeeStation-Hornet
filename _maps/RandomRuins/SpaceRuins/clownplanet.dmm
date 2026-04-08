@@ -64,7 +64,7 @@
 /area/ruin/powered/clownplanet)
 "ao" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/banana,
+/obj/item/plant_seeds/preset/banana,
 /turf/open/floor/grass{
 	color = "#1eff00"
 	},

@@ -302,7 +302,7 @@
 /turf/open/floor/iron,
 /area/station/commons/locker)
 "afs" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/light_switch{
 	pixel_x = -26
 	},
@@ -404,9 +404,9 @@
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/plant_analyzer,
 /obj/item/reagent_containers/cup/bucket,
-/obj/item/seeds/wheat,
-/obj/item/seeds/wheat,
-/obj/item/seeds/wheat,
+/obj/item/plant_seeds/preset/wheat,
+/obj/item/plant_seeds/preset/wheat,
+/obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "ags" = (
@@ -18514,7 +18514,7 @@
 	},
 /area/station/maintenance/aft)
 "eYl" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
@@ -24893,7 +24893,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "gKf" = (
@@ -29795,7 +29795,7 @@
 /area/station/science/explab)
 "hXb" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -31108,7 +31108,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/office)
 "iob" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/delivery,
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = -32
@@ -31695,7 +31695,7 @@
 	},
 /area/station/commons/dorms)
 "ixV" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "iys" = (
@@ -36169,7 +36169,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "jGP" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "jGQ" = (
@@ -45264,7 +45264,7 @@
 /area/station/hallway/primary/starboard)
 "man" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "mar" = (
@@ -46633,7 +46633,7 @@
 	},
 /obj/item/cultivator,
 /obj/item/reagent_containers/cup/bucket,
-/obj/item/seeds/tower,
+/obj/item/plant_seeds/preset/tower,
 /turf/open/floor/plating,
 /area/station/service/hydroponics/garden)
 "mri" = (
@@ -47302,7 +47302,7 @@
 /turf/closed/wall,
 /area/misc/space/nearstation)
 "mzq" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -47969,7 +47969,7 @@
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "mKA" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 1
@@ -50810,7 +50810,7 @@
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
 "nzg" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 8
@@ -51167,11 +51167,11 @@
 /obj/item/shovel/spade,
 /obj/item/crowbar,
 /obj/item/cultivator,
-/obj/item/seeds/wheat{
+/obj/item/plant_seeds/preset/wheat{
 	pixel_x = 6
 	},
-/obj/item/seeds/potato,
-/obj/item/seeds/pumpkin{
+/obj/item/plant_seeds/preset/potato,
+/obj/item/plant_seeds/preset/pumpkin{
 	pixel_x = -6
 	},
 /obj/item/food/grown/wheat,
@@ -52977,7 +52977,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/maintenance/starboard/fore)
 "odC" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
@@ -56451,7 +56451,7 @@
 /area/station/commons/fitness/recreation)
 "oWA" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "oWB" = (
@@ -58365,7 +58365,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/central/greater)
 "puB" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/newscaster{
 	pixel_x = -28;
@@ -67451,7 +67451,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -70034,7 +70034,7 @@
 /area/station/hallway/primary/starboard)
 "stQ" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -70619,7 +70619,7 @@
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "sCa" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
@@ -74253,7 +74253,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/science/xenobiology)
 "tEL" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
@@ -77218,7 +77218,7 @@
 /turf/open/floor/plating,
 /area/station/security/warden)
 "utx" = (
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/item/plant_analyzer,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -84556,7 +84556,7 @@
 /area/station/maintenance/disposal)
 "wuO" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "wuQ" = (
@@ -85313,7 +85313,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "wFB" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seeder,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -89739,7 +89739,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},

@@ -44,7 +44,7 @@
 /obj/effect/spawner/random/food_or_drink/seed_rare
 	spawn_loot_count = 5
 	icon_state = "seed"
-	loot = list( // /obj/item/seeds/random is not a random seed, but an exotic seed.
+	loot = list( // /obj/item/plant_seeds/preset/random is not a random seed, but an exotic seed.
 		/obj/item/plant_seeds/random = 30,
 		/obj/item/plant_seeds/preset/liberty = 5,
 		/obj/item/plant_seeds/preset/diona_pod = 5,
