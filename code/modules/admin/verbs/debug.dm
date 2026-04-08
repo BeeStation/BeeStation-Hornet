@@ -287,15 +287,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/areas_with_intercom = list()
 	var/list/areas_with_camera = list()
 	var/list/station_areas_blacklist = typecacheof(list(
-		/area/holodeck/rec_center,
+		/area/station/holodeck/rec_center,
 		/area/shuttle,
-		/area/engine/supermatter,
-		/area/science/test_area,
-		/area/space,
-		/area/solar,
+		/area/station/engineering/supermatter,
+		/area/station/science/test_area,
+		/area/misc/space,
+		/area/station/solars,
 		/area/mine,
 		/area/ruin,
-		/area/asteroid,
+		/area/centcom/asteroid,
 	))
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
@@ -646,7 +646,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/names = list()
 	names += "---- Dynamic Levels ----"
 	for(var/name in SSmapping.space_ruins_templates)
-		names[name] = list(SSmapping.space_ruins_templates[name], ZTRAIT_DYNAMIC_LEVEL, /area/space)
+		names[name] = list(SSmapping.space_ruins_templates[name], ZTRAIT_DYNAMIC_LEVEL, /area/misc/space)
 	names += "---- Lava Ruins ----"
 	for(var/name in SSmapping.lava_ruins_templates)
 		names[name] = list(SSmapping.lava_ruins_templates[name], ZTRAIT_LAVA_RUINS, /area/lavaland/surface/outdoors/unexplored)
@@ -1176,12 +1176,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, span_warning("Asset caching is disabled in the config!"))
 		return
 	var/regenerated = 0
-	for(var/datum/asset/A as() in subtypesof(/datum/asset))
-		if(!initial(A.cross_round_cachable))
+	for(var/datum/asset/target_spritesheet as anything in subtypesof(/datum/asset))
+		if(!initial(target_spritesheet.cross_round_cachable))
 			continue
-		if(A == initial(A._abstract))
+		if(target_spritesheet == initial(target_spritesheet._abstract))
 			continue
-		var/datum/asset/asset_datum = GLOB.asset_datums[A]
+		var/datum/asset/asset_datum = GLOB.asset_datums[target_spritesheet]
 		asset_datum.regenerate()
 		regenerated++
 	to_chat(usr, span_notice("Regenerated [regenerated] asset\s."))
@@ -1194,9 +1194,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, span_warning("Smart asset caching is disabled in the config!"))
 		return
 	var/cleared = 0
-	for(var/datum/asset/spritesheet_batched/A as() in subtypesof(/datum/asset/spritesheet_batched))
-		if(A == initial(A._abstract))
+	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in subtypesof(/datum/asset/spritesheet_batched))
+		if(target_spritesheet == initial(target_spritesheet._abstract))
 			continue
-		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(A.name)].json")
+		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(target_spritesheet.name)].json")
 		cleared++
 	to_chat(usr, span_notice("Cleared [cleared] asset\s."))
