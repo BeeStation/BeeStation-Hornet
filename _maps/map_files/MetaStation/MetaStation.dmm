@@ -43458,7 +43458,7 @@
 /area/station/service/chapel)
 "nIg" = (
 /obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/maintenance/starboard/aft";
+	areastring = "/area/station/maintenance/starboard/aft";
 	name = "Starboard Quarter Maintenance APC";
 	pixel_y = -24
 	},
