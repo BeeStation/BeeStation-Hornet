@@ -970,7 +970,7 @@
 
 /area/station/engineering/storage/tcomms
 	name = "Telecomms Storage"
-	icon_state = "tcom"
+	icon_state = "tcom_storage"
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING, CAMERA_NETWORK_TCOMMS)
 
@@ -1340,6 +1340,32 @@
 	name = "\improper Prison Garden"
 	icon_state = "prison_garden"
 
+/area/station/security/prison/vip
+	name = "VIP Prison Wing"
+	icon_state = "sec_prison"
+
+/area/station/security/prison/asteroid
+	name = "Outer Asteroid Prison Wing"
+	icon_state = "sec_prison"
+
+/area/station/security/prison/asteroid/service
+	name = "Outer Asteroid Prison Wing Services"
+	icon_state = "sec_prison"
+
+/area/station/security/prison/asteroid/arrival
+	name = "Outer Asteroid Prison Wing Arrival"
+	icon_state = "sec_prison"
+
+/area/station/security/prison/asteroid/Abandoned
+	name = "Outer Asteroid Prison Wing Abandoned maintenance"
+	icon_state = "sec_prison"
+	mood_bonus = -2
+	mood_message = span_warning("This place gives me the creeps...\n")
+
+/area/station/security/prison/asteroid/shielded
+	name = "Outer Asteroid Prison Wing Shielded area"
+	icon_state = "sec_prison"
+
 /area/station/security/processing
 	name = "\improper Labor Shuttle Dock"
 	icon_state = "sec_processing"
@@ -1374,7 +1400,7 @@
 
 /area/station/security/warden
 	name = "Brig Control"
-	icon_state = "Warden"
+	icon_state = "warden"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	camera_networks = list(CAMERA_NETWORK_PRISON)
 
@@ -1425,9 +1451,6 @@
 	name = "\improper Security Checkpoint"
 	icon_state = "checkpoint"
 
-/area/station/security/checkpoint/auxiliary
-	icon_state = "checkpoint_aux"
-
 /area/station/security/checkpoint/escape
 	icon_state = "checkpoint_esc"
 
@@ -1466,31 +1489,6 @@
 	name = "Aft Customs"
 	icon_state = "customs_point_aft"
 
-/area/station/security/prison/vip
-	name = "VIP Prison Wing"
-	icon_state = "sec_prison"
-
-/area/station/security/prison/asteroid
-	name = "Outer Asteroid Prison Wing"
-	icon_state = "sec_prison"
-
-/area/station/security/prison/asteroid/service
-	name = "Outer Asteroid Prison Wing Services"
-	icon_state = "sec_prison"
-
-/area/station/security/prison/asteroid/arrival
-	name = "Outer Asteroid Prison Wing Arrival"
-	icon_state = "sec_prison"
-
-/area/station/security/prison/asteroid/Abandoned
-	name = "Outer Asteroid Prison Wing Abandoned maintenance"
-	icon_state = "sec_prison"
-	mood_bonus = -2
-	mood_message = span_warning("This place gives me the creeps...\n")
-
-/area/station/security/prison/asteroid/shielded
-	name = "Outer Asteroid Prison Wing Shielded area"
-	icon_state = "sec_prison"
 
 //Cargo
 

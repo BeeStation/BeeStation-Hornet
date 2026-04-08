@@ -9967,7 +9967,7 @@
 /area/station/science/xenobiology)
 "dxt" = (
 /turf/closed/wall/r_wall,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "dxB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -15034,7 +15034,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "fat" = (
 /turf/open/floor/iron,
 /area/station/maintenance/department/bridge)
@@ -16775,7 +16775,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "fGG" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -21090,7 +21090,7 @@
 /area/station/science/shuttledock)
 "hqL" = (
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "hqR" = (
 /turf/closed/wall,
 /area/station/command/heads_quarters/hop)
@@ -27675,7 +27675,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "jFO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -29268,7 +29268,7 @@
 	pixel_y = -21
 	},
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "kjE" = (
 /turf/closed/wall,
 /area/station/service/kitchen/coldroom)
@@ -29772,7 +29772,7 @@
 "krN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "ksb" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -37974,7 +37974,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "ndL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -44605,7 +44605,7 @@
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "poO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -51787,7 +51787,7 @@
 	pixel_y = -2
 	},
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "rPK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -52857,7 +52857,7 @@
 	pixel_y = -30
 	},
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "sjw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57883,7 +57883,7 @@
 /obj/machinery/vending/wardrobe/sec_wardrobe,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "tSc" = (
 /obj/machinery/computer/prisoner/gulag_teleporter_computer{
 	dir = 1
@@ -58233,7 +58233,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/open/floor/iron,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "tXO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59091,7 +59091,7 @@
 /area/station/medical/virology)
 "uoE" = (
 /turf/closed/wall,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "uoL" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/closet/crate,
@@ -62961,7 +62961,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/security/sec,
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "vNJ" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/iron/white/side,
@@ -66633,7 +66633,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "wXb" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
