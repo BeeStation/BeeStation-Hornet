@@ -202,7 +202,7 @@
 /area/station/commons/dorms)
 "dv" = (
 /obj/machinery/vending/wardrobe/bar_wardrobe,
-/obj/item/book/manual/wiki/barman_recipes,
+/obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "dA" = (
@@ -367,6 +367,7 @@
 /area/station/cargo/sorting)
 "hA" = (
 /obj/machinery/chem_dispenser/drinks/beer,
+/obj/machinery/vending/boozeomat,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "hD" = (
@@ -840,7 +841,7 @@
 /area/station/cargo/storage)
 "sx" = (
 /obj/structure/closet/secure_closet/bar,
-/mob/living/carbon/monkey/punpun,
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "sD" = (
@@ -2167,11 +2168,12 @@
 	},
 /area/misc/space)
 "Wp" = (
-/obj/structure/displaycase/forsale/kitchen,
+/mob/living/carbon/monkey/punpun,
 /mob/living/simple_animal/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},
+/obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "Wx" = (
@@ -2186,7 +2188,6 @@
 	name = "Bar Backroom";
 	req_access_txt = "25"
 	},
-/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "WU" = (
