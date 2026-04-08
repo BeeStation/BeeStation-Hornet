@@ -1,5 +1,5 @@
 /*****************************Survival Pod********************************/
-/area/survivalpod
+/area/misc/survivalpod
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED

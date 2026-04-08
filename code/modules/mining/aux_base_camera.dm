@@ -4,7 +4,7 @@
 	move_on_shuttle = 1 //Allows any curious crew to watch the base after it leaves. (This is safe as the base cannot be modified once it leaves)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "construction_drone"
-	var/area/starting_area
+	var/area/misc/starting_area
 
 /mob/camera/ai_eye/remote/base_construction/Initialize(mapload)
 	. = ..()

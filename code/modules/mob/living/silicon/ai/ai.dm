@@ -1008,7 +1008,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, TRUE, ignore_walls = FALSE)
 	else
 		var/turf/turf = get_turf(apc)
-		if(istype(get_area(turf), /area/crew_quarters/heads))
+		if(istype(get_area(turf), /area/station/command/heads_quarters))
 			malf_picker.processing_time += 20
 		else
 			malf_picker.processing_time += 10

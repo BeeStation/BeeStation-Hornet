@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(
 	//new vars
 
 	///what area type this holodeck loads into. linked turns into the nearest instance of this area
-	var/area/mapped_start_area = /area/holodeck/rec_center
+	var/area/mapped_start_area = /area/station/holodeck/rec_center
 
 	///the currently used map template
 	var/datum/map_template/holodeck/template
@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(
 	//old vars
 
 	///the area that this holodeck loads templates into, used for power and deleting holo objects that leave it
-	var/area/holodeck/linked
+	var/area/station/holodeck/linked
 
 	///what program is loaded right now or is about to be loaded
 	var/program = "recreational-offline"
@@ -101,7 +101,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(
 	bottom_left = locate(linked.x, linked.y, src.z)
 
 	var/area/computer_area = get_area(src)
-	if(istype(computer_area, /area/holodeck))
+	if(istype(computer_area, /area/station/holodeck))
 		log_mapping("Holodeck computer cannot be in a holodeck, This would cause circular power dependency.")
 		qdel(src)
 		return
@@ -442,7 +442,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(
 	return ..()
 
 /obj/machinery/computer/holodeck/small
-	mapped_start_area = /area/holodeck/small
+	mapped_start_area = /area/station/holodeck/small
 	program_type = /datum/map_template/holodeck/small
 	offline_program = "Small - Offline"
 
@@ -457,7 +457,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(
 	desc = "This seems to be a proof of a suspicion that our shifts are not real... Nevermind, I was joking."
 	debug_holodeck = TRUE
 
-	mapped_start_area = /area/holodeck/debug
+	mapped_start_area = /area/station/holodeck/debug
 	program_type = /datum/map_template/holodeck/debug
 	offline_program = "debug-offline"
 	req_access = list(ACCESS_CENT_GENERAL)
