@@ -2,14 +2,14 @@
 "a" = (
 /obj/effect/spawner/room/tenxfive,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "f" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "i" = (
 /turf/closed/wall,
-/area/space)
+/area/misc/space)
 "j" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -17,33 +17,33 @@
 	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "w" = (
 /obj/effect/spawner/room/tenxten,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "x" = (
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "z" = (
 /obj/effect/spawner/room/fland,
 /turf/closed/wall,
-/area/space)
+/area/misc/space)
 "C" = (
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "K" = (
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "L" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "S" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 i

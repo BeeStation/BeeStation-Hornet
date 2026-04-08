@@ -4,55 +4,55 @@
 /area/template_noop)
 "b" = (
 /turf/closed/wall/mineral/titanium/overspace,
-/area/space)
+/area/misc/space)
 "c" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating/airless,
-/area/space)
+/area/misc/space)
 "d" = (
 /turf/closed/wall/mineral/titanium,
-/area/space)
+/area/misc/space)
 "f" = (
 /turf/open/floor/mineral/titanium/blue,
-/area/space)
+/area/misc/space)
 "g" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/space)
+/area/misc/space)
 "j" = (
 /obj/machinery/door/unpowered/shuttle,
 /turf/open/floor/mineral/titanium/blue,
-/area/space)
+/area/misc/space)
 "l" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/space)
+/area/misc/space)
 "m" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/space)
+/area/misc/space)
 "n" = (
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
-/area/space)
+/area/misc/space)
 "p" = (
 /obj/structure/shuttle/engine/propulsion/left,
 /turf/open/floor/plating/airless,
-/area/space)
+/area/misc/space)
 "q" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating/airless,
-/area/space)
+/area/misc/space)
 "r" = (
 /obj/structure/shuttle/engine/propulsion/right,
 /turf/open/floor/plating/airless,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 a

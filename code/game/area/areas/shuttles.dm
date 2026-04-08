@@ -10,6 +10,8 @@
 	always_unpowered = FALSE
 	// Loading the same shuttle map at a different time will produce distinct area instances.
 	area_flags = NONE
+	icon = 'icons/area/areas_station.dmi'
+	icon_state = "shuttle"
 	lighting_colour_tube = "#fff0dd"
 	lighting_colour_bulb = "#ffe1c1"
 	sound_environment = SOUND_ENVIRONMENT_ROOM
@@ -188,6 +190,9 @@
 
 /area/shuttle/escape
 	name = "Emergency Shuttle"
+	area_flags = BLOBS_ALLOWED | CULT_PERMITTED
+	area_limited_icon_smoothing = /area/shuttle/escape
+	flags_1 = CAN_BE_DIRTY_1
 	camera_networks = list(CAMERA_NETWORK_EVAC)
 
 /area/shuttle/escape/backup

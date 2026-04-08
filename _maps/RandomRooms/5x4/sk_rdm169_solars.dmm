@@ -5,7 +5,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "e" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -91,7 +91,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/iron/solarpanel/airless,
-/area/space)
+/area/misc/space)
 "v" = (
 /obj/machinery/power/solar_control{
 	dir = 8;
@@ -126,7 +126,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "F" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -154,7 +154,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/iron/solarpanel/airless,
-/area/space)
+/area/misc/space)
 "M" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line,
@@ -181,7 +181,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/iron/solarpanel/airless,
-/area/space)
+/area/misc/space)
 "V" = (
 /obj/machinery/door/window/westleft{
 	dir = 1

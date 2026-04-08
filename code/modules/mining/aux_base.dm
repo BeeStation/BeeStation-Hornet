@@ -249,7 +249,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	. = ..()
 	for(var/area/A in shuttle_areas)
 		for(var/turf/T in A.contents)
-			underlying_turf_area[T] = GLOB.areas_by_type[/area/construction/mining/aux_base]
+			underlying_turf_area[T] = GLOB.areas_by_type[/area/station/construction/mining/aux_base]
 
 /obj/docking_port/mobile/auxillary_base/takeoff(list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
 	for(var/i in new_turfs)
