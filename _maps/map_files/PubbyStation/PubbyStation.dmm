@@ -680,12 +680,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/education)
-"all" = (
-/obj/machinery/camera/directional/south{
-	c_tag = "Monastery - Secondary Entrance1"
-	},
-/turf/open/floor/plating,
-/area/station/maintenance/aft/greater)
 "alm" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Execution Room"
@@ -1712,6 +1706,10 @@
 	},
 /turf/open/floor/plating,
 /area/station/cargo/storage)
+"aAU" = (
+/obj/structure/sign/mining/survival,
+/turf/closed/wall,
+/area/station/service/chapel/asteroid/monastery)
 "aAZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -4639,14 +4637,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
-"bvx" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/camera/directional/south{
-	c_tag = "Art Supply Storage"
-	},
-/turf/open/floor/iron,
-/area/station/hallway/primary/central)
 "bvy" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /turf/open/floor/iron/dark/textured,
@@ -8213,10 +8203,6 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
-"cHZ" = (
-/obj/effect/turf_decal/sand,
-/turf/open/floor/iron/sepia,
-/area/misc/space)
 "cIh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -10084,15 +10070,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/station/security/processing)
-"dmq" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners{
-	color = "#36454F"
-	},
-/obj/machinery/camera/directional/east{
-	c_tag = "Dormitory - Waiting room"
-	},
-/turf/open/floor/iron/dark,
-/area/station/commons/fitness/recreation/entertainment)
 "dmD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -10846,6 +10823,14 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/open/floor/grass,
 /area/station/service/lawoffice)
+"dBx" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/camera/directional/east{
+	c_tag = "Monastery - Secondary Entrance2"
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/aft/greater)
 "dBQ" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/lattice/catwalk,
@@ -11279,6 +11264,14 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/library/lounge)
+"dJh" = (
+/obj/effect/turf_decal/tile/yellow/anticorner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 4
+	},
+/area/station/science/shuttle)
 "dJj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -13035,11 +13028,18 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
 "emV" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Monastery - Secondary Entrance3"
+/obj/machinery/door/poddoor/shutters{
+	id = "PA"
 	},
-/turf/open/floor/iron/dark,
-/area/station/maintenance/aft/greater)
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating,
+/area/station/science/shuttle)
 "ena" = (
 /obj/item/clothing/under/costume/kimono,
 /obj/item/clothing/under/costume/kimono,
@@ -15271,6 +15271,12 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
+"eYn" = (
+/obj/machinery/camera/directional/north{
+	c_tag = "Monastery - Secondary Entrance3"
+	},
+/turf/open/floor/iron/dark,
+/area/station/maintenance/aft/greater)
 "eYp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable{
@@ -23108,6 +23114,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/hop)
+"hFM" = (
+/obj/effect/turf_decal/sand,
+/obj/structure/flora/rock/pile,
+/turf/open/floor/plating/airless,
+/area/misc/space)
 "hFR" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -25929,14 +25940,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"iCc" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/camera/directional/east{
-	c_tag = "Monastery - Secondary Entrance2"
-	},
-/turf/open/floor/plating,
-/area/station/maintenance/aft/greater)
 "iCe" = (
 /obj/item/circular_saw,
 /obj/item/scalpel{
@@ -30285,6 +30288,12 @@
 	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
+"keH" = (
+/obj/machinery/camera/directional/south{
+	c_tag = "Monastery - Secondary Entrance1"
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/aft/greater)
 "kfd" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
@@ -33369,6 +33378,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/service/chapel/funeral)
+"lbR" = (
+/obj/machinery/camera/directional/west{
+	c_tag = "Monastery -  Library Doc"
+	},
+/obj/effect/turf_decal/sand,
+/obj/structure/flora/rock/pile,
+/turf/open/floor/plating/airless,
+/area/misc/space)
 "lca" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -37493,6 +37510,14 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/mineral/plastitanium,
 /area/station/security/checkpoint/supply)
+"mEv" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/camera/directional/south{
+	c_tag = "Art Supply Storage"
+	},
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "mEw" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -45927,11 +45952,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
 /turf/open/floor/iron/tech,
 /area/station/tcommsat/computer)
-"pSk" = (
-/obj/effect/turf_decal/sand,
-/obj/structure/flora/rock/pile,
-/turf/open/floor/iron/sepia,
-/area/misc/space)
 "pSA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -54787,15 +54807,6 @@
 	dir = 8
 	},
 /area/station/command/bridge)
-"sTZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/camera/directional/east{
-	c_tag = "Telecomms - Lobby"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/station/science/shuttle)
 "sUa" = (
 /obj/structure/sign/directions/evac{
 	dir = 8;
@@ -56950,14 +56961,6 @@
 /obj/effect/turf_decal/trimline/red/warning,
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
-"tIY" = (
-/obj/effect/turf_decal/tile/yellow/anticorner{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/smooth_corner{
-	dir = 4
-	},
-/area/station/science/shuttle)
 "tIZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/white/line{
@@ -62812,12 +62815,8 @@
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/medbay/central)
 "vHy" = (
-/obj/machinery/camera/directional/west{
-	c_tag = "Monastery -  Library Doc"
-	},
 /obj/effect/turf_decal/sand,
-/obj/structure/flora/rock/pile,
-/turf/open/floor/iron/sepia,
+/turf/open/floor/plating/airless,
 /area/misc/space)
 "vHQ" = (
 /obj/structure/cable/yellow{
@@ -64561,17 +64560,13 @@
 	},
 /area/station/medical/medbay/central)
 "wlc" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "PA"
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/machinery/camera/directional/east{
+	c_tag = "Telecomms - Lobby"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/station/science/shuttle)
 "wlr" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -66019,10 +66014,6 @@
 /obj/effect/decal/remains/robot,
 /turf/open/floor/plating,
 /area/station/ai_monitored/command/storage/satellite)
-"wNR" = (
-/obj/structure/sign/mining/survival,
-/turf/closed/wall,
-/area/station/service/chapel/asteroid/monastery)
 "wNX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -68702,6 +68693,15 @@
 	},
 /turf/open/floor/plating,
 /area/syndicate_sat)
+"xBN" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners{
+	color = "#36454F"
+	},
+/obj/machinery/camera/directional/east{
+	c_tag = "Dormitory - Waiting room"
+	},
+/turf/open/floor/iron/dark,
+/area/station/commons/fitness/recreation/entertainment)
 "xBU" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -85416,8 +85416,8 @@ iQE
 iOK
 iQE
 iQE
-pSk
-cHZ
+hFM
+vHy
 nnx
 nnx
 jQw
@@ -85673,8 +85673,8 @@ iQE
 mGs
 iQE
 iQE
-cHZ
-cHZ
+vHy
+vHy
 jQw
 jQw
 jQw
@@ -85930,11 +85930,11 @@ iQE
 iQE
 iQE
 iQE
-cHZ
+vHy
 jQw
 jQw
 jQw
-cHZ
+vHy
 iQE
 iQE
 iQE
@@ -86187,12 +86187,12 @@ iQE
 iQE
 iQE
 iQE
-cHZ
+vHy
 jQw
 jQw
 jQw
-cHZ
-wNR
+vHy
+aAU
 iQE
 iQE
 iQE
@@ -86444,12 +86444,12 @@ iQE
 iQE
 iQE
 iQE
-cHZ
-jQw
-jQw
-cHZ
-cHZ
 vHy
+jQw
+jQw
+vHy
+vHy
+lbR
 iQE
 iQE
 iQE
@@ -86704,8 +86704,8 @@ iQE
 iQE
 jQw
 uHW
-cHZ
-cHZ
+vHy
+vHy
 iQE
 iQE
 iQE
@@ -93833,7 +93833,7 @@ fRu
 qIL
 qIL
 tTy
-all
+keH
 hgB
 yho
 yho
@@ -93857,7 +93857,7 @@ hgB
 hgB
 lOM
 hgB
-emV
+eYn
 yaw
 hgB
 rBm
@@ -94108,7 +94108,7 @@ pyA
 kuT
 ulA
 ulA
-iCc
+dBx
 vnq
 nwT
 nwT
@@ -96874,7 +96874,7 @@ kVe
 vQh
 pri
 iNo
-bvx
+mEv
 qjE
 qjE
 qjE
@@ -100835,7 +100835,7 @@ cNd
 wTf
 vaF
 tGs
-sTZ
+wlc
 gDi
 xTa
 xpX
@@ -103918,7 +103918,7 @@ mHr
 fnV
 cdm
 urJ
-tIY
+dJh
 mHr
 mHr
 mHr
@@ -104431,9 +104431,9 @@ nnx
 nnx
 mHr
 mHr
-wlc
+emV
 qtg
-wlc
+emV
 mHr
 mHr
 nbW
@@ -110491,7 +110491,7 @@ gLO
 jNU
 hVm
 kia
-dmq
+xBN
 qON
 qON
 qON
