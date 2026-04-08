@@ -196,6 +196,7 @@
 /area/station/commons/dorms)
 "dv" = (
 /obj/machinery/vending/wardrobe/bar_wardrobe,
+/obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "dA" = (
@@ -358,6 +359,10 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/station/cargo/sorting)
+"hA" = (
+/obj/machinery/chem_dispenser/drinks/beer,
+/turf/open/floor/iron/cafeteria_red,
+/area/station/service/bar)
 "hD" = (
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 6
@@ -367,6 +372,7 @@
 	},
 /area/misc/space)
 "hQ" = (
+/obj/machinery/libraryscanner,
 /obj/machinery/door/morgue{
 	name = "Private Study";
 	req_access_txt = "37"
@@ -468,6 +474,11 @@
 /obj/machinery/suit_storage_unit/captain,
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/captain)
+"ks" = (
+/obj/machinery/bookbinder,
+/obj/structure/sign/painting/library,
+/turf/open/floor/carpet/royalblack,
+/area/station/service/library)
 "kz" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/door/firedoor,
@@ -480,7 +491,7 @@
 /turf/open/floor/iron,
 /area/misc/space)
 "kG" = (
-/obj/structure/destructible/cult/tome,
+/obj/machinery/modular_computer/console/preset/curator,
 /turf/open/floor/carpet/royalblack,
 /area/station/service/library)
 "kK" = (
@@ -521,7 +532,11 @@
 /turf/open/floor/iron/tech/grid,
 /area/misc/space)
 "mO" = (
-/obj/item/book/manual/wiki/barman_recipes,
+/obj/machinery/chem_master/condimaster{
+	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
+	name = "HoochMaster Deluxe"
+	},
+/obj/machinery/reagentgrinder,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "mQ" = (
@@ -605,6 +620,11 @@
 "oa" = (
 /turf/open/floor/carpet/green,
 /area/station/service/lawoffice)
+"oo" = (
+/obj/structure/bookcase/random/fiction,
+/obj/structure/destructible/cult/tome,
+/turf/open/floor/carpet/royalblack,
+/area/station/service/library)
 "oq" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
@@ -672,9 +692,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/misc/space)
 "ph" = (
-/obj/effect/landmark/start/mime,
 /obj/effect/landmark/start/clown,
-/obj/effect/landmark/start/randommaint/magician,
 /turf/open/floor/carpet/red,
 /area/station/service/theater/backstage)
 "pp" = (
@@ -816,6 +834,7 @@
 /area/station/cargo/storage)
 "sx" = (
 /obj/structure/closet/secure_closet/bar,
+/mob/living/carbon/monkey/punpun,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "sD" = (
@@ -1005,6 +1024,10 @@
 	},
 /turf/open/floor/iron,
 /area/misc/space)
+"xs" = (
+/obj/machinery/computer/libraryconsole/bookmanagement,
+/turf/open/floor/carpet/royalblack,
+/area/station/service/library)
 "xB" = (
 /obj/machinery/button/door,
 /turf/open/floor/iron,
@@ -1027,6 +1050,10 @@
 /obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/chief)
+"xZ" = (
+/obj/effect/landmark/start/randommaint/magician,
+/turf/open/floor/carpet/red,
+/area/station/service/theater/backstage)
 "yb" = (
 /obj/structure/disposalpipe/sorting/mail/destination/ce_office,
 /turf/open/floor/carpet/royalblue,
@@ -1265,6 +1292,7 @@
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/captain)
 "Eb" = (
+/obj/machinery/chem_dispenser/drinks,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "Ec" = (
@@ -1538,6 +1566,7 @@
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "KM" = (
+/obj/machinery/computer/libraryconsole,
 /turf/open/floor/carpet/royalblack,
 /area/station/service/library)
 "KV" = (
@@ -2104,6 +2133,10 @@
 /obj/structure/closet/wardrobe/black,
 /turf/open/floor/iron/dark,
 /area/misc/space)
+"VL" = (
+/obj/effect/landmark/start/mime,
+/turf/open/floor/carpet/red,
+/area/station/service/theater/backstage)
 "VY" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -2128,6 +2161,7 @@
 	},
 /area/misc/space)
 "Wp" = (
+/obj/structure/displaycase/forsale/kitchen,
 /mob/living/simple_animal/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
@@ -2146,6 +2180,7 @@
 	name = "Bar Backroom";
 	req_access_txt = "25"
 	},
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "WU" = (
@@ -2402,9 +2437,9 @@ De
 Bb
 "}
 (8,1,1) = {"
-KM
+oo
 dF
-KM
+xs
 VD
 LU
 lt
@@ -2423,7 +2458,7 @@ YV
 "}
 (9,1,1) = {"
 hQ
-KM
+ks
 kX
 zU
 lt
@@ -2443,7 +2478,7 @@ jA
 "}
 (10,1,1) = {"
 Tj
-Vy
+xZ
 or
 TE
 lX
@@ -2483,7 +2518,7 @@ VY
 "}
 (12,1,1) = {"
 Eg
-Vy
+VL
 XC
 CM
 ei
@@ -2543,7 +2578,7 @@ Qk
 "}
 (15,1,1) = {"
 WN
-Eb
+hA
 dv
 Uq
 fX
