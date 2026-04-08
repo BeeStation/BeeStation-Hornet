@@ -321,6 +321,12 @@
 	desc = "A generic white envirohelm with a top-hat affixed to the top"
 	greyscale_colors = "#E6E6E6#A349A4#E6E6E6"
 
+/obj/item/clothing/head/helmet/space/plasmaman/bartender/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat(src)
+	var/datum/component/hat_stabilizer/stabilizer = GetComponent(/datum/component/hat_stabilizer)
+	stabilizer.attach_hat(hat)
+
 /obj/item/clothing/head/helmet/space/plasmaman/gold
 	name = "designer envirosuit helmet"
 	desc = "A Plasmi-Deluxe envirosuit helmet with gold woven into the fabric. A designer model like this is probably worth a pretty penny."
@@ -613,6 +619,12 @@
 	desc = "A new plasmaman envirohelmet designed for the bartenders, with a top-hat affixed to the top."
 	greyscale_colors = "#E6E6E6#A349A4"
 
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat(src)
+	var/datum/component/hat_stabilizer/stabilizer = GetComponent(/datum/component/hat_stabilizer)
+	stabilizer.attach_hat(hat)
+
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/mime
 	name = "mime's envirosuit helmet"
 	desc = "A new plasmaman envirohelmet designed for the mimes."
@@ -811,3 +823,9 @@
 	name = "white envirosuit helmet with top hat"
 	desc = "A special containment helmet designed for the bartenders, with a top-hat affixed to the top."
 	greyscale_colors = "#E6E6E6#A349A4"
+
+/obj/item/clothing/head/helmet/space/plasmaman/protective/bartender/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat(src)
+	var/datum/component/hat_stabilizer/stabilizer = GetComponent(/datum/component/hat_stabilizer)
+	stabilizer.attach_hat(hat)
