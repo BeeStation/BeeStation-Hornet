@@ -33,6 +33,7 @@
 /area/misc/space)
 "aJ" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/computer/xenoarchaeology_console,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "aK" = (
@@ -121,6 +122,11 @@
 	},
 /turf/open/floor/circuit,
 /area/misc/space)
+"bV" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/item/xenoarchaeology_labeler,
+/turf/open/floor/iron/white,
+/area/station/science/research)
 "ca" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/structure/closet/secure_closet/chemical,
@@ -2401,7 +2407,7 @@ tM
 CE
 zT
 nt
-aJ
+bV
 Hb
 ac
 Wx
