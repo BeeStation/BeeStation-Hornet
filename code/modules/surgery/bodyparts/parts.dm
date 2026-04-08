@@ -85,7 +85,7 @@
 	body_part = ARM_LEFT
 	plaintext_zone = "left arm"
 	aux_zone = BODY_ZONE_PRECISE_L_HAND
-	aux_layer = HANDS_PART_LAYER
+	aux_layer = BODYPARTS_HIGH_LAYER
 	body_damage_coeff = 0.75
 	held_index = 1
 	px_x = -6
@@ -189,7 +189,7 @@
 	body_part = ARM_RIGHT
 	plaintext_zone = "right arm"
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
-	aux_layer = HANDS_PART_LAYER
+	aux_layer = BODYPARTS_HIGH_LAYER
 	body_damage_coeff = 0.75
 	held_index = 2
 	px_x = 6
