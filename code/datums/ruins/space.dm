@@ -5,7 +5,7 @@
 	cost = 1
 	allow_duplicates = FALSE
 	ruin_type = ZTRAIT_SPACE_RUINS
-	default_area = /area/space
+	default_area = /area/misc/space
 
 /datum/map_template/ruin/space/zoo
 	id = "zoo"

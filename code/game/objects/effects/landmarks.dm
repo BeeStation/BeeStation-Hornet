@@ -575,8 +575,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 	/// example) navigation_id = "Bartender's storage"
 	var/navigation_id
 
-	// Note: if multiple area needs a standard name, use "navigation_area_name"
-
 /obj/effect/landmark/navigate_destination/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
