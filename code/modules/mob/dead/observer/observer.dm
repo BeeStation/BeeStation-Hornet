@@ -304,7 +304,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/response = tgui_alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
-		ghostize(FALSE,SENTIENCE_RETAIN)
+		ghostize(FALSE,SENTIENCE_RETAIN) //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 
 /mob/dead/new_player/verb/next_lobby_track()
 	set name = "Play Different Lobby Track"
