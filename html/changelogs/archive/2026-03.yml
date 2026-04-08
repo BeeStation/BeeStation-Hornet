@@ -283,5 +283,19 @@
   - code_imp: Moved CONDUCT_1 to a CONDUCTS_ELECTRICITY obj_flag
   - code_imp: TESLA_IGNORE_1 has been replaced with TRAIT_TESLA_SHOCKIMMUNE
 2026-03-31:
+  TsunamiAnt, Absolucy, TheCarnalest, mrmanlikesbt:
+  - rscadd: 'Added new vampire abilities and mechanics:'
+  - rscadd: Added sol damage, mitigated by being in a locker, coffin, or maints.
+  - rscadd: Added a humanity system to vampires.
+  - rscadd: Added Princes and Scourges to vampires. Vote now, for your new Prince-ident.
+  - tweak: Vampires now level disciplines not powers, and all the powers adjust with
+      the disciplines.
+  - balance: Vampires now need to drink from other players to be able to level up.
+  - balance: Touched like, all the vampire powers. All of them.
+  - refactor: Completely redid how the entire vampire antagonist is organized internally,
+      now based on disciplines.
+  - admin: Added new vampire logging entries for admin visibility. Specifically command
+      ability stuff is important.
+  - admin: Added more vampire antag admin tools and configuration.
   r1ks-iwnl:
   - bugfix: Fixed blood splatters spawning from a mob contained in an object.

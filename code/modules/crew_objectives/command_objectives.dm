@@ -19,7 +19,7 @@
 	jobs = JOB_NAME_CAPTAIN
 
 /datum/objective/crew/downwiththestation/check_completion()
-	return ..() || (owner?.current && istype(get_area(owner.current), /area/bridge))
+	return ..() || (owner?.current && istype(get_area(owner.current), /area/station/command))
 
 /datum/objective/crew/ian //Ported from old Hippie
 	explanation_text = "Defend Ian at all costs, and ensure he gets delivered to CentCom at the end of the shift."

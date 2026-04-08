@@ -243,7 +243,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 	if(mapload)
 		for(var/turf/T in return_turfs())
-			T.flags_1 |= NO_RUINS_1
+			T.turf_flags |= NO_RUINS
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")

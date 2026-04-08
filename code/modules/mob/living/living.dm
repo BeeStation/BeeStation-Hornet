@@ -30,6 +30,7 @@
 	gravity_setup()
 	AddElement(/datum/element/movetype_handler)
 
+
 /mob/living/prepare_huds()
 	..()
 	prepare_data_huds()
@@ -2357,3 +2358,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
 	return TRUE
+
+/mob/living/mouse_buckle_handling(mob/living/M, mob/living/user)
+	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs))
+		return user_buckle_mob(M, user, check_loc = FALSE)

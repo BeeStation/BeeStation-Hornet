@@ -24,12 +24,13 @@
 	trigger_port = add_output_port("Triggered", PORT_TYPE_SIGNAL)
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
 
-/obj/item/circuit_component/hear/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
+/obj/item/circuit_component/hear/Hear(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods, message_range)
 	if(speaker == parent?.shell)
-		return
+		return FALSE
 
 	message_port.set_output(raw_message)
 	if(message_language)
 		language_port.set_output(initial(message_language.name))
 	speaker_port.set_output(speaker)
 	trigger_port.set_output(COMPONENT_SIGNAL)
+	return TRUE
