@@ -77,7 +77,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_personnel
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/heads/hop, /area/security/nuke_storage)
+	minimal_lightup_areas = list(/area/station/command/heads_quarters/hop, /area/station/ai_monitored/command/nuke_storage)
 
 	manuscript_jobs = list(
 		JOB_NAME_HEADOFPERSONNEL,

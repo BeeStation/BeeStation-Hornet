@@ -162,7 +162,7 @@ SUBSYSTEM_DEF(mapping)
 			unused_turfs["[T.z]"] |= T
 			var/area/old_area = T.loc
 			old_area.turfs_to_uncontain += T
-			T.flags_1 |= UNUSED_RESERVATION_TURF_1
+			T.turf_flags |= UNUSED_RESERVATION_TURF
 			// reservation turfs are not allowed to interact with atmos at all
 			T.blocks_air = TRUE
 			world_contents += T
@@ -385,10 +385,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/generate_station_area_list()
 	var/static/list/station_areas_blacklist = typecacheof(list(
-		/area/space,
+		/area/misc/space,
 		/area/mine,
 		/area/ruin,
-		/area/asteroid/nearstation,
+		/area/centcom/asteroid/nearstation,
 	))
 	// if we ever add /area/station (and remove this typecache) scope this loop's type to /area/station please!!
 	for(var/area/station_area in GLOB.areas)
@@ -537,7 +537,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		// No need to empty() these, because it's world init and they're
 		// already /turf/open/space/basic.
 		var/turf/T = t
-		T.flags_1 |= UNUSED_RESERVATION_TURF_1
+		T.turf_flags |= UNUSED_RESERVATION_TURF
 		T.blocks_air = TRUE
 	unused_turfs["[z]"] = block
 	reservation_ready["[z]"] = TRUE

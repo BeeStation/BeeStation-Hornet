@@ -98,7 +98,7 @@
 	. = ..()
 	if(prob(1))
 		hardmode = TRUE
-	var/list/blacklistnormal = list(typesof(/area/space) - - typesof(/area/lavaland) - typesof(/area/mine) - typesof(/area/maintenance) - typesof(/area/ai_monitored/turret_protected) - typesof(/area/tcommsat))
+	var/list/blacklistnormal = list(typesof(/area/misc/space) - - typesof(/area/lavaland) - typesof(/area/mine) - typesof(/area/station/maintenance) - typesof(/area/station/ai_monitored/turret_protected) - typesof(/area/station/tcommsat))
 	var/list/blacklisthard = list(typesof(/area/lavaland) - typesof(/area/mine))
 	var/list/possibleareas = list()
 	if(hardmode)
@@ -334,6 +334,6 @@
 	for(var/datum/mind/M in SSticker.minds)
 		if(!istype(M.current) || !(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
 			continue
-		if(istype(get_area(M.current), /area/security/prison))
+		if(istype(get_area(M.current), /area/station/security/prison))
 			return FALSE
 	return TRUE

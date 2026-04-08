@@ -9,7 +9,7 @@
 	fakeable = FALSE
 
 /datum/round_event/spacevine/start()
-	var/list/turfs = get_area_turfs(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1], TRUE)
+	var/list/turfs = get_area_turfs(/area/station/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1], TRUE)
 
 	var/obj/structure/spacevine/SV = new()
 
