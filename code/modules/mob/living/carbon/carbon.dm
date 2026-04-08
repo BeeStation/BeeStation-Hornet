@@ -243,9 +243,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 		paper_note.show_through_camera(usr)
 
-/mob/living/carbon/is_muzzled()
-	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-
 /mob/living/carbon/resist_buckle()
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED))
 		buckled.user_unbuckle_mob(src, src)
@@ -935,7 +932,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	return ..()
 
 /mob/living/carbon/can_be_revived()
-	if(!get_organ_by_type(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
+	if(HAS_TRAIT(src, TRAIT_HUSK))
+		return FALSE
+	var/brainless_creature = IS_CHANGELING(src)
+	if(!brainless_creature && !get_organ_by_type(/obj/item/organ/brain))
 		return FALSE
 	return ..()
 

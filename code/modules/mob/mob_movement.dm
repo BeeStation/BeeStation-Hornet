@@ -78,7 +78,7 @@
 	if(mob.stat == DEAD)
 		mob.ghostize()
 		return FALSE
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, new_loc, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
 		return FALSE
 
 	var/mob/living/L = mob  //Already checked for isliving earlier
@@ -259,7 +259,7 @@
 						R.reveal(20)
 						R.stun(20)
 					return
-				if(stepTurf.flags_1 & NOJAUNT_1)
+				if(stepTurf.turf_flags & NOJAUNT)
 					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(stepTurf.is_holy())
@@ -276,7 +276,7 @@
 				if(salt)
 					to_chat(L, span_warning("[salt] bars your passage!"))
 					return
-				if((stepTurf.flags_1 & NOJAUNT_1) && !is_on_reebe(loccheck))
+				if((stepTurf.turf_flags & NOJAUNT) && !is_on_reebe(loccheck))
 					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(stepTurf.is_holy())

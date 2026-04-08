@@ -5,7 +5,7 @@
 	name = "workshop control console"
 	desc = "a computer used to control the workshop in the prison"
 
-	mapped_start_area = /area/holodeck/prison
+	mapped_start_area = /area/station/holodeck/prison
 	program_type = /datum/map_template/holodeck/prison //load workshop programs
 	req_access = list()
 	var/startup
@@ -13,7 +13,7 @@
 
 /obj/machinery/computer/holodeck/prison/LateInitialize()
 	var/area/computer_area = get_area(src)
-	if(istype(computer_area, /area/holodeck/prison))
+	if(istype(computer_area, /area/station/holodeck/prison))
 		log_mapping("Holodeck computer cannot be in a holodeck, This would cause circular power dependency.")
 		qdel(src)
 		return
