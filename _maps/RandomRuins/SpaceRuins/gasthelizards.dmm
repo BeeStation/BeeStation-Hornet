@@ -2,51 +2,13 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "ac" = (
 /turf/closed/wall,
-/area/ruin/space/has_grav/gasthelizard)
-"ad" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/bed,
-/obj/effect/decal/remains/human,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
 "ae" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/turf/open/floor/iron/dark/airless,
-/area/ruin/space/has_grav/gasthelizard)
-"af" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/bed,
-/obj/effect/decal/remains/human,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/airless,
-/area/ruin/space/has_grav/gasthelizard)
-"ag" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/bed,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
 	},
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
@@ -95,20 +57,6 @@
 /obj/item/food/meat/slab/human/mutant/lizard,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
-"an" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/turf/open/floor/iron/dark/airless,
-/area/ruin/space/has_grav/gasthelizard)
 "ao" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/food/meat/slab/human/mutant/lizard,
@@ -144,24 +92,6 @@
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"at" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 1
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Worn-out APC";
-	pixel_x = 1;
-	pixel_y = 23
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/gasthelizard)
 "au" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
@@ -170,15 +100,6 @@
 /area/ruin/space/has_grav/gasthelizard)
 "av" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/gasthelizard)
-"aw" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
 "ax" = (
@@ -286,29 +207,10 @@
 /obj/item/storage/box/prisoner,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
-"aN" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/light,
-/obj/structure/table,
-/obj/item/stack/sheet/mineral/plasma/five,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/gasthelizard)
 "aO" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/ruin/space/has_grav/gasthelizard)
-"aP" = (
-/obj/structure/table/reinforced,
-/obj/item/surgicaldrill,
-/obj/item/hemostat,
-/obj/item/scalpel,
-/obj/item/surgical_drapes,
-/obj/item/retractor,
-/obj/item/cautery,
-/obj/item/circular_saw,
-/obj/machinery/light,
-/turf/open/floor/iron/dark/airless,
 /area/ruin/space/has_grav/gasthelizard)
 "aQ" = (
 /obj/structure/table/optable,
@@ -326,10 +228,6 @@
 /area/ruin/space/has_grav/gasthelizard)
 "aS" = (
 /obj/machinery/suit_storage_unit/security,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/gasthelizard)
-"aT" = (
-/obj/machinery/light,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/gasthelizard)
 "aU" = (

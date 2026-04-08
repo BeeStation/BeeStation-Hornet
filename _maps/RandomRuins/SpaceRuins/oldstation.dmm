@@ -1575,7 +1575,7 @@
 /area/ruin/space/ancientstation/delta/rnd)
 "gU" = (
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "gV" = (
 /obj/item/stack/rods,
 /obj/effect/mapping_helpers/broken_floor,
@@ -1765,7 +1765,7 @@
 /obj/item/stack/rods,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "hO" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/decal/cleanable/dirt,
@@ -3159,7 +3159,7 @@
 "nr" = (
 /obj/item/stack/rods,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ns" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
@@ -4113,7 +4113,7 @@
 /area/ruin/space/ancientstation/delta/hall)
 "tC" = (
 /turf/closed/mineral/gold,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "tF" = (
 /obj/machinery/light/small/directional/south,
 /obj/effect/decal/cleanable/dirt,
@@ -4619,7 +4619,7 @@
 /area/ruin/space/ancientstation/delta/hall)
 "wD" = (
 /turf/closed/mineral/uranium,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "wE" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Supermatter Chamber"
@@ -5079,7 +5079,7 @@
 	dir = 10
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "zX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow{
@@ -5138,7 +5138,7 @@
 /area/ruin/space/ancientstation/charlie/hall)
 "Al" = (
 /turf/closed/mineral/iron,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Ao" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
@@ -5171,7 +5171,7 @@
 	icon_state = "4-8"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Au" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5306,7 +5306,7 @@
 /area/ruin/space/ancientstation/charlie/hall)
 "Bk" = (
 /turf/closed/mineral/silver,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Bp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/west,
@@ -5393,7 +5393,7 @@
 	icon_state = "4-8"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "BH" = (
 /obj/item/solar_assembly,
 /obj/structure/cable/yellow{
@@ -5998,7 +5998,7 @@
 	icon_state = "4-8"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "FN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/wrench,
@@ -6296,7 +6296,7 @@
 	icon_state = "4-8"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "HL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general,
@@ -6342,7 +6342,7 @@
 	icon_state = "4-8"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "HT" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -6538,7 +6538,7 @@
 	},
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Jf" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating/airless,
@@ -6546,7 +6546,7 @@
 "Jg" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Jk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -7756,7 +7756,7 @@
 /area/ruin/space/ancientstation/beta/hall)
 "PV" = (
 /turf/closed/mineral/diamond,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Qc" = (
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/glass,
@@ -7806,14 +7806,14 @@
 /area/ruin/space/ancientstation/delta/ai)
 "Qs" = (
 /turf/closed/mineral/gibtonite,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "QC" = (
 /obj/machinery/atmospherics/components/unary/passive_vent/layer2{
 	dir = 8
 	},
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "QF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -8151,7 +8151,7 @@
 /area/ruin/space/ancientstation/beta/hall)
 "SZ" = (
 /turf/closed/mineral/bscrystal,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Td" = (
 /turf/closed/mineral/random,
 /area/ruin/space/ancientstation/beta/hall)
@@ -8394,7 +8394,7 @@
 /area/ruin/space/ancientstation/beta/mining)
 "Uu" = (
 /turf/closed/mineral/plasma,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "UA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -8430,7 +8430,7 @@
 /area/ruin/space/ancientstation/beta/supermatter)
 "UP" = (
 /turf/closed/mineral/random,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "UQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
@@ -8603,7 +8603,7 @@
 "Wm" = (
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Wn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -8992,7 +8992,7 @@
 	icon_state = "4-8"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Yx" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -9047,7 +9047,7 @@
 /obj/structure/lattice,
 /obj/item/stack/rods,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "YI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -9289,7 +9289,7 @@
 	},
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 
 (1,1,1) = {"
 aa
