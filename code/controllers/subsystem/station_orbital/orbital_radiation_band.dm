@@ -61,13 +61,13 @@ SUBSYSTEM_DEF(orbital_radiation_band)
 		var/protection_level
 
 		// Check for HIGH protection (rad-shielded areas)
-		if(istype(mob_area, /area/maintenance) || \
-			istype(mob_area, /area/ai_monitored/turret_protected/ai_upload) || \
-			istype(mob_area, /area/ai_monitored/turret_protected/ai_upload_foyer) || \
-			istype(mob_area, /area/ai_monitored/turret_protected/ai) || \
-			istype(mob_area, /area/storage/emergency) || \
+		if(istype(mob_area, /area/station/maintenance) || \
+			istype(mob_area, /area/station/ai_monitored/turret_protected/ai_upload) || \
+			istype(mob_area, /area/station/ai_monitored/turret_protected/ai_upload_foyer) || \
+			istype(mob_area, /area/station/ai_monitored/turret_protected/ai) || \
+			istype(mob_area, /area/station/commons/storage/emergency) || \
 			istype(mob_area, /area/shuttle) || \
-			istype(mob_area, /area/security/prison))
+			istype(mob_area, /area/station/security/prison))
 			protection_level = PROTECTION_HIGH
 		// Check for LOW protection (in space)
 		else if(istype(mob_turf, /turf/open/space))

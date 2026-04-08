@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 
 		// Iterate through all non-space areas
 		for(var/area/station_area in GLOB.areas)
-			if(istype(station_area, /area/space))
+			if(istype(station_area, /area/misc/space))
 				continue
 
 			var/list/area_turfs = station_area.get_contained_turfs()
