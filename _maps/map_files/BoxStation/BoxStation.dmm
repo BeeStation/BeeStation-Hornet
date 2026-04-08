@@ -12408,7 +12408,7 @@
 "ffb" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/item/plant_tray,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -19858,7 +19858,7 @@
 /turf/open/floor/noslip/blue,
 /area/station/commons/dorms)
 "hRv" = (
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = 3;
 	pixel_y = 6
 	},
@@ -22147,7 +22147,7 @@
 /turf/open/floor/carpet/grimy,
 /area/station/security/brig)
 "iHx" = (
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_y = -4;
 	pixel_x = -1
 	},
@@ -22433,14 +22433,14 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "iNp" = (
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = 7;
 	pixel_y = -7
 	},
 /obj/effect/turf_decal/siding/dirt{
 	dir = 8
 	},
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = 6;
 	pixel_y = 13
 	},
@@ -43607,7 +43607,7 @@
 /obj/machinery/airalarm/directional/east,
 /obj/structure/table/wood,
 /obj/item/storage/bag/plants,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -51738,7 +51738,7 @@
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 6
 	},
 /turf/open/floor/iron,
@@ -54307,7 +54307,7 @@
 /area/station/command/bridge)
 "urs" = (
 /obj/effect/turf_decal/siding/dirt,
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = 5
 	},
 /turf/open/floor/plating/asteroid,

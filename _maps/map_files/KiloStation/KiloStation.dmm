@@ -24717,8 +24717,8 @@
 /turf/closed/wall/rust,
 /area/station/engineering/main)
 "idA" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/plant_seeds/preset/flower/poppy,
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/poppy,
 /turf/open/floor/grass,
 /area/station/service/chapel)
 "idP" = (
@@ -26993,11 +26993,11 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "iOj" = (
 /obj/structure/rack,
-/obj/item/plant_analyzer{
+/obj/item/plant_scanner{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/cultivator,
 /obj/item/cultivator,
 /obj/effect/decal/cleanable/dirt,
@@ -40193,7 +40193,7 @@
 /area/station/command/heads_quarters/captain)
 "mTr" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/station/security/prison)
 "mTx" = (
@@ -47021,7 +47021,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/captain)
 "oRE" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/grass,
 /area/station/service/chapel)
@@ -50579,7 +50579,7 @@
 	},
 /area/station/cargo/warehouse)
 "qdg" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/potato,
 /turf/open/floor/grass,
 /area/station/service/chapel)
@@ -62252,7 +62252,7 @@
 /turf/open/floor/carpet/green,
 /area/station/security/detectives_office)
 "tMr" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/station/security/prison)
 "tMy" = (
@@ -66390,7 +66390,7 @@
 /turf/open/floor/iron,
 /area/station/security/brig)
 "uPX" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/tower,
 /turf/open/floor/grass,
 /area/station/service/chapel)
@@ -72657,7 +72657,7 @@
 /area/station/science/mixing)
 "wQa" = (
 /obj/structure/table/glass,
-/obj/item/plant_seeds/preset/random{
+/obj/item/plant_seeds/random{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -73521,7 +73521,7 @@
 	pixel_x = -30
 	},
 /obj/item/shovel/spade,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/cultivator{
 	pixel_x = 6
 	},
@@ -73947,7 +73947,7 @@
 /area/station/maintenance/solars/port/fore)
 "xjW" = (
 /obj/structure/table/glass,
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,

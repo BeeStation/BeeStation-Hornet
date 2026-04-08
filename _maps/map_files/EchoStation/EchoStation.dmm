@@ -431,7 +431,7 @@
 /obj/effect/turf_decal/siding/white{
 	alpha = 100
 	},
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	alpha = 200
 	},
 /turf/open/floor/plating/asteroid,
@@ -3301,7 +3301,7 @@
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "bWG" = (
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	alpha = 200
 	},
 /turf/open/floor/plating/asteroid,
@@ -8224,7 +8224,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 7
 	},
 /obj/machinery/newscaster/directional/east,
@@ -13010,7 +13010,7 @@
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/plant_seeds/preset/soya{
+/obj/item/plant_seeds/preset/soybean{
 	pixel_x = -4;
 	pixel_y = -1
 	},
@@ -37014,7 +37014,7 @@
 	alpha = 100;
 	dir = 10
 	},
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	alpha = 200
 	},
 /turf/open/floor/plating/asteroid,

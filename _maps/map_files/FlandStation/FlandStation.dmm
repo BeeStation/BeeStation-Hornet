@@ -402,7 +402,7 @@
 "agn" = (
 /obj/structure/table,
 /obj/item/storage/bag/plants/portaseeder,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/plant_seeds/preset/wheat,
 /obj/item/plant_seeds/preset/wheat,
@@ -8163,7 +8163,7 @@
 	},
 /obj/structure/rack,
 /obj/item/analyzer,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/healthanalyzer{
 	pixel_x = 4;
 	pixel_y = -4
@@ -77219,7 +77219,7 @@
 /area/station/security/warden)
 "utx" = (
 /obj/item/plant_tray,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -78403,7 +78403,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/delivery,

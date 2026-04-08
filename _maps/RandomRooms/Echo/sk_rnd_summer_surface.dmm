@@ -1362,7 +1362,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "vG" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "vH" = (
@@ -2079,7 +2079,7 @@
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 1
 	},
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "Gi" = (

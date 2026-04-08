@@ -16751,7 +16751,7 @@
 	pixel_x = 26;
 	pixel_y = 8
 	},
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 6
 	},
 /obj/machinery/camera/directional/east{
@@ -43572,8 +43572,8 @@
 /area/station/science/misc_lab)
 "mBT" = (
 /obj/structure/table/reinforced,
-/obj/item/plant_analyzer,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
+/obj/item/plant_scanner,
 /obj/item/radio,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,

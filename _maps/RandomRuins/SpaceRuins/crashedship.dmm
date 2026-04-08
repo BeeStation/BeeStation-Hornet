@@ -123,7 +123,7 @@
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)
 "fa" = (
-/obj/machinery/hydroponics,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
@@ -652,7 +652,7 @@
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Fore)
 "rc" = (
-/obj/machinery/hydroponics,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
@@ -824,7 +824,7 @@
 	},
 /area/awaymission/BMPship/Midship)
 "uP" = (
-/obj/machinery/hydroponics,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
 	},
@@ -2086,7 +2086,7 @@
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "XS" = (
-/obj/machinery/hydroponics,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
@@ -2141,7 +2141,7 @@
 /area/awaymission/BMPship/Fore)
 "YH" = (
 /obj/machinery/seeder,
-/obj/item/plant_seeds/preset/plump/walkingmushroom,
+/obj/item/plant_seeds/preset/walking,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},

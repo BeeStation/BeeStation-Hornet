@@ -3587,7 +3587,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/engi)
 "NQ" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/ruin/space/ancientstation/hydroponics)
 "NR" = (
@@ -4131,11 +4131,11 @@
 "Sx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/plant_seeds/preset/flower/harebell,
+/obj/item/plant_seeds/preset/harebell,
 /obj/item/plant_seeds/preset/carrot,
 /obj/item/plant_seeds/preset/potato,
 /obj/item/plant_seeds/preset/ambrosia,
-/obj/item/plant_seeds/preset/flower/poppy,
+/obj/item/plant_seeds/preset/poppy,
 /obj/item/plant_seeds/preset/grape,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,

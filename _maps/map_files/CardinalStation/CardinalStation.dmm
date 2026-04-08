@@ -15931,7 +15931,7 @@
 /area/station/science/research)
 "dAI" = (
 /obj/effect/turf_decal/siding/dirt/corner,
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = -22;
 	pixel_y = 14
 	},
@@ -20311,7 +20311,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/xenobiology)
 "eDu" = (
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = 16;
 	pixel_y = 3
 	},
@@ -23783,7 +23783,7 @@
 /area/station/hallway/primary/upper/port)
 "fsw" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /turf/open/floor/grass,
 /area/station/security/prison)
 "fsK" = (
@@ -34896,7 +34896,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/maintenance/disposal)
 "hMy" = (
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = 10
 	},
 /turf/open/floor/grass,
@@ -43348,7 +43348,7 @@
 	pixel_y = -1;
 	pixel_x = -4
 	},
-/obj/item/plant_analyzer{
+/obj/item/plant_scanner{
 	pixel_x = 6;
 	pixel_y = -1
 	},
@@ -50507,7 +50507,7 @@
 /turf/open/floor/monotile/steel,
 /area/station/cargo/storage)
 "lks" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/station/security/prison)
 "lkB" = (
@@ -56354,7 +56354,7 @@
 	pixel_y = -2;
 	pixel_x = -3
 	},
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = -21;
 	pixel_y = 17
 	},
@@ -60422,7 +60422,7 @@
 	alpha = 255
 	},
 /obj/structure/table,
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 8;
 	pixel_x = 1
 	},
@@ -69300,7 +69300,7 @@
 "pil" = (
 /obj/structure/wall_closet/hydro/directional/south,
 /obj/item/storage/bag/plants/portaseeder,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
@@ -69480,7 +69480,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 8
 	},
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_x = 14;
 	pixel_y = -3
 	},
@@ -108149,7 +108149,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "xHn" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/machinery/light/small/directional/west,
 /obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/grass,

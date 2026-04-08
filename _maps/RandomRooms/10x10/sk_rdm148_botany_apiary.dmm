@@ -37,7 +37,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "h" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/liberty,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -47,7 +47,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/shovel/spade,
 /obj/item/cultivator{
 	pixel_x = 6
@@ -57,7 +57,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "k" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/cannabis,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -104,7 +104,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "r" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/cabbage,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -125,7 +125,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "D" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/bamboo,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -149,7 +149,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/dionapod,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -158,7 +158,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "Q" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/ambrosia,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -174,12 +174,12 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "Y" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/carrot,
 /turf/open/floor/grass,
 /area/template_noop)
 "Z" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/plant_seeds/preset/glowshroom,
 /turf/open/floor/grass,
 /area/template_noop)

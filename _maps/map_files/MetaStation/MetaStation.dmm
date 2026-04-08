@@ -14413,7 +14413,7 @@
 	pixel_y = 27
 	},
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "eRp" = (
@@ -27668,7 +27668,7 @@
 	dir = 1
 	},
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "jaG" = (
@@ -34823,7 +34823,7 @@
 /obj/structure/railing/perspective/wood{
 	pixel_y = -6
 	},
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/cup/bucket{
@@ -41169,7 +41169,7 @@
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "niU" = (
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 6
 	},
 /obj/structure/table,
@@ -42058,7 +42058,7 @@
 "nxg" = (
 /obj/item/cultivator,
 /obj/item/crowbar,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/reagent_containers/cup/bucket,
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -57108,7 +57108,7 @@
 /turf/open/floor/iron/white,
 /area/station/commons/toilet/restrooms)
 "rLK" = (
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/shovel/spade,
 /obj/item/hatchet,
 /obj/item/cultivator,
@@ -70452,7 +70452,7 @@
 /area/station/maintenance/starboard/aft)
 "vNa" = (
 /obj/structure/table,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage/tech)
@@ -75234,7 +75234,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "xqZ" = (
-/obj/machinery/hydroponics/soil{
+/obj/item/plant_tray/soil{
 	pixel_y = 8
 	},
 /obj/item/food/grown/flower/harebell,
@@ -77975,7 +77975,7 @@
 "ygc" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/cultivator,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)

@@ -4167,7 +4167,7 @@
 /area/station/maintenance/port/central)
 "bzv" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
@@ -4637,7 +4637,7 @@
 /obj/item/plant_seeds/preset/corn,
 /obj/item/plant_seeds/preset/onion,
 /obj/item/plant_seeds/preset/potato,
-/obj/item/plant_seeds/preset/soya,
+/obj/item/plant_seeds/preset/soybean,
 /obj/item/plant_seeds/preset/cabbage,
 /obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/iron/techmaint,
@@ -15782,7 +15782,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "fvX" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "fwy" = (
@@ -30822,7 +30822,7 @@
 	},
 /area/station/tcommsat/computer)
 "ksr" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
@@ -70011,7 +70011,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 7
 	},
 /turf/open/floor/iron/grid/steel,
@@ -70019,7 +70019,7 @@
 "ycO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "ydm" = (

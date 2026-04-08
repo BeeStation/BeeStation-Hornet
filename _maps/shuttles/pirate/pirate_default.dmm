@@ -633,8 +633,8 @@
 	pixel_x = 1;
 	pixel_y = -10
 	},
-/obj/machinery/hydroponics/soil{
-	self_sustaining = 1
+/obj/item/plant_tray/soil{
+	gain_weeds = 0
 	},
 /obj/item/plant_seeds/preset/wheat,
 /obj/machinery/door/window/eastright{

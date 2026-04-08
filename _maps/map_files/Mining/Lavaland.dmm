@@ -3824,7 +3824,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/plant_tray,
-/obj/item/plant_seeds/preset/soya,
+/obj/item/plant_seeds/preset/soybean,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
@@ -4360,7 +4360,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/plant_tray,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Hydroponics";
 	dir = 9
@@ -8056,7 +8056,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/plant_tray,
-/obj/item/plant_seeds/preset/redbeet,
+/obj/item/plant_seeds/preset/whitebeet,
 /obj/machinery/light{
 	dir = 1
 	},
