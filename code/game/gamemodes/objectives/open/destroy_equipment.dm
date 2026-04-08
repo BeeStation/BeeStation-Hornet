@@ -3,16 +3,16 @@
 	explanation_text = "Sabotage equipment by damaging or disabling it within %DEPARTMENT%."
 	var/selected_area
 	var/list/valid_areas = list(
-		"medical" = list(/area/medical),
-		"engineering" = list(/area/engineering, /area/engine),
-		"security" = list(/area/security),
-		"the cargo bay" = list(/area/quartermaster, /area/cargo),
-		"the bridge" = list(/area/bridge),
-		"the communications relay" = list(/area/comms, /area/server, /area/tcommsat),
-		"the science lab" = list(/area/science),
-		"the research division server room" = list(/area/science/server),
+		"medical" = list(/area/station/medical),
+		"engineering" = list(/area/station/engineering, /area/station/engineering),
+		"security" = list(/area/station/security),
+		"the cargo bay" = list(/area/station/cargo, /area/station/cargo),
+		"the bridge" = list(/area/station/command),
+		"the communications relay" = list(/area/station/comms, /area/station/server, /area/station/tcommsat),
+		"the science lab" = list(/area/station/science),
+		"the research division server room" = list(/area/station/science/server),
 		// Anywhere monitored by the AI will do
-		"the AI's facilities" = list(/area/aisat, /area/ai_monitored)
+		"the AI's facilities" = list(/area/station/ai_monitored/aisat/exterior, /area/station/ai_monitored)
 	)
 	var/damaged_machines = 0
 	var/list/blacklisted_machine_types = list(

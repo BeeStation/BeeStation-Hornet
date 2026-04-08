@@ -28,8 +28,9 @@
 	biohazard = 10
 
 	minimal_lightup_areas = list(
-		/area/library,
-		/area/construction/mining/aux_base
+
+/area/station/service/library,
+		/area/station/construction/mining/aux_base
 	)
 
 	// The power that curator can write a manuscript as any job is written in 'manuscript_writing.dm'

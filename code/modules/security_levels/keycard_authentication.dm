@@ -171,7 +171,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 
 GLOBAL_VAR_INIT(emergency_access, FALSE)
 /proc/make_maint_all_access()
-	for(var/area/maintenance/M as anything in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
+	for(var/area/station/maintenance/M as anything in get_areas(/area/station/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
 		for(var/turf/in_area as anything in M.get_contained_turfs())
 			for(var/obj/machinery/door/airlock/A in in_area)
 				A.emergency = TRUE
@@ -182,7 +182,7 @@ GLOBAL_VAR_INIT(emergency_access, FALSE)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/maintenance/M as anything in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
+	for(var/area/station/maintenance/M as anything in get_areas(/area/station/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
 		for(var/turf/in_area as anything in M.get_contained_turfs())
 			for(var/obj/machinery/door/airlock/A in in_area)
 				A.emergency = FALSE

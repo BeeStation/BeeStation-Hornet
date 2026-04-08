@@ -143,7 +143,7 @@
 "aK" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -158,7 +158,7 @@
 "aQ" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aR" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -404,7 +404,7 @@
 "bK" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "bN" = (
 /obj/structure/grille/broken,
 /obj/item/stack/cable_coil/cut/yellow,
@@ -420,14 +420,14 @@
 "bP" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "bR" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /obj/structure/disposaloutlet,
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "bT" = (
 /obj/structure/grille,
 /obj/item/shard{
@@ -689,7 +689,7 @@
 /area/ruin/space/has_grav/abandonedzoo)
 "KN" = (
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "LY" = (
 /obj/machinery/power/shieldwallgen/anchored,
 /obj/structure/cable/yellow{

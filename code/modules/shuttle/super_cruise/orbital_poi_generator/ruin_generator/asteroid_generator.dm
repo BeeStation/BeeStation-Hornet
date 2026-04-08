@@ -18,7 +18,7 @@
 	var/list/high_value_turfs = list()
 	var/generated_string = rustg_cnoise_generate("45", "20", "4", "3", "[world.maxx]", "[world.maxy]") //Generate the raw CA data
 
-	var/static/area/asteroid_area = new /area/asteroid/generated()
+	var/static/area/centcom/asteroid_area = new /area/centcom/asteroid/generated()
 
 	for(var/turf/open/space/T in block(locate(1, 1, center_z), locate(world.maxx, world.maxy, center_z)))
 		if(!T)
@@ -80,6 +80,6 @@
 /obj/structure/spawner/lavaland/hivelord
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord)
 
-/area/asteroid/generated
+/area/centcom/asteroid/generated
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	outdoors = TRUE
