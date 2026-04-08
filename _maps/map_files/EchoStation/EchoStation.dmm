@@ -3276,20 +3276,6 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
-"ceP" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
-	dir = 4
-	},
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/station/engineering/main)
 "ceV" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -3442,12 +3428,6 @@
 	name = "Gas to Chamber"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/power/apc/auto_name/directional/east{
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "cli" = (
@@ -7895,9 +7875,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/open/floor/iron/smooth_large,
 /area/station/engineering/main)
 "eCz" = (
@@ -9941,9 +9918,6 @@
 /obj/machinery/ai_slipper{
 	uses = 10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "fHq" = (
@@ -10866,9 +10840,6 @@
 	req_access_txt = "10"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "gig" = (
@@ -21703,9 +21674,6 @@
 	dir = 8;
 	name = "Gas to Filter"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/iron/smooth_large,
 /area/station/engineering/main)
 "mmq" = (
@@ -29543,9 +29511,6 @@
 "qAI" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/smooth_large,
 /area/station/engineering/main)
@@ -31204,6 +31169,9 @@
 "rxP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/textured_half{
 	dir = 1
@@ -42035,6 +42003,15 @@
 /obj/effect/landmark/start/quartermaster,
 /turf/open/floor/iron/sepia,
 /area/station/cargo/storage)
+"xtP" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/directional/east,
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
+/area/station/engineering/main)
 "xtX" = (
 /obj/effect/turf_decal/trimline/dark_red/filled/warning{
 	dir = 8
@@ -56632,7 +56609,7 @@ mrY
 cto
 vuP
 vuP
-vuP
+vTo
 qLX
 pVb
 iQe
@@ -58426,7 +58403,7 @@ uuV
 uZX
 vYX
 eCj
-ceP
+uAE
 qAI
 mmm
 ghr
@@ -60493,7 +60470,7 @@ pTp
 lmR
 qwG
 mZi
-vTo
+xtP
 gQL
 pVb
 mGR
