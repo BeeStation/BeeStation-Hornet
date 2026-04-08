@@ -11336,7 +11336,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "cYw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -11829,7 +11829,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "dga" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -24426,7 +24426,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "gEn" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/fancy/bench/corporate{
@@ -25195,7 +25195,7 @@
 	req_access_txt = "1"
 	},
 /turf/open/floor/iron/techmaint,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "gOx" = (
 /turf/open/floor/wood,
 /area/station/commons/dorms)
@@ -37105,7 +37105,7 @@
 	},
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/techmaint,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "jOG" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
@@ -41337,7 +41337,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "kRW" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
@@ -51608,7 +51608,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "nEQ" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -60014,7 +60014,7 @@
 	name = "S.V.A. Storage Shutters"
 	},
 /turf/open/floor/plating,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "pRs" = (
 /turf/closed/wall,
 /area/station/maintenance/central)
@@ -61339,7 +61339,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "qkx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -65740,7 +65740,7 @@
 	req_access_txt = "1"
 	},
 /turf/open/floor/iron/techmaint,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "rxj" = (
 /obj/effect/turf_decal/trimline/blue/filled/corner,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -71766,7 +71766,7 @@
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/techmaint,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "tdV" = (
 /obj/structure/chair/fancy/sofa/old/corner/concave{
 	color = "#742925";
@@ -75146,7 +75146,7 @@
 "tXe" = (
 /obj/structure/sign/departments/minsky/security/security,
 /turf/closed/wall/r_wall,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "tXj" = (
 /obj/effect/turf_decal/guideline/guideline_in_arrow_con/red,
 /obj/machinery/light_switch{
@@ -78479,7 +78479,7 @@
 /area/station/hallway/secondary/entry)
 "uQW" = (
 /turf/closed/wall/r_wall,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "uRh" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -88312,7 +88312,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/techmaint,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "xxT" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass,
@@ -88358,7 +88358,7 @@
 	name = "S.V.A. Storage Shutters"
 	},
 /turf/open/floor/iron/techmaint,
-/area/station/security/checkpoint/auxiliary)
+/area/station/security/checkpoint/customs/auxiliary)
 "xyE" = (
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
