@@ -66,8 +66,9 @@
 		return
 	if(!user.combat_mode && C == mob_target) //if trying to tie up previous target
 		to_chat(user, span_notice("You begin to untie [C]"))
-		if(proximity_flag && do_after(user, 2 SECONDS, target, timed_action_flags = IGNORE_HELD_ITEM))
+		if(istype(C))
 			C.toggle_ai(AI_ON)
+		if(proximity_flag && do_after(user, 2 SECONDS, target, timed_action_flags = IGNORE_HELD_ITEM))
 			C.transform = C.transform.Turn(-180)
 		//Riding and Tamed
 			C.tamed()
@@ -75,6 +76,8 @@
 				C.AddElement(/datum/element/ridable, /datum/component/riding/creature)
 				C.can_buckle = TRUE
 				C.buckle_lying = 0
+			if(C.ai_controller)
+				QDEL_NULL(C.ai_controller)
 			C.ai_controller = C.ai_controller || new /datum/ai_controller/basic_controller/dog(C) //This should be fine, we want them to act like dogs anyway
 			C.AddComponent(/datum/component/obeys_commands, pet_commands)
 			C.befriend(user)
@@ -104,7 +107,8 @@
 	mob_target = C
 	C.throw_at(get_turf(src), 9, 2, user, FALSE, force = 0)
 	C.transform = transform.Turn(180)
-	C.toggle_ai(AI_OFF)
+	if(istype(C))
+		C.toggle_ai(AI_OFF)
 	RegisterSignal(C, COMSIG_QDELETING, PROC_REF(handle_hard_del), override=TRUE)
 	to_chat(user, span_notice("You lasso [C]!"))
 	timer = addtimer(CALLBACK(src, PROC_REF(fail_ally)), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
