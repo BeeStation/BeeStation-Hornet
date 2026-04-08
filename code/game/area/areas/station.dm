@@ -923,13 +923,13 @@
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 	disable_air_alarm_automation = TRUE
 	//Supermatter chamber always has direct power.
-	//requires_power = FALSE
+	requires_power = FALSE
 
 /area/station/engineering/supermatter/room
 	name = "\improper Supermatter Engine Room"
 	icon_state = "engine_sm_room"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
-	//requires_power = TRUE
+	requires_power = TRUE
 
 /area/station/engineering/supermatter/room/upper
 	name = "\improper Upper Supermatter Engine Room"

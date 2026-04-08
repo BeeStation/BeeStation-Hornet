@@ -1742,7 +1742,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "aCR" = (
 /obj/structure/chair/fancy/shuttle{
@@ -2712,7 +2712,7 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "aSk" = (
 /turf/closed/wall,
@@ -3235,7 +3235,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "bcf" = (
 /obj/effect/turf_decal/stripes/line{
@@ -4182,7 +4182,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "btv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
@@ -5602,7 +5602,7 @@
 /obj/effect/landmark/start/atmospheric_technician,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/atmos)
 "bRF" = (
 /obj/machinery/door/airlock{
@@ -13133,7 +13133,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "ewW" = (
 /obj/structure/chair/office/light,
@@ -18981,7 +18981,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "gFh" = (
 /obj/effect/landmark/blobstart,
@@ -33539,7 +33539,7 @@
 /obj/effect/spawner/structure/window,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/iron,
 /area/station/engineering/atmos)
 "lFc" = (
 /obj/structure/disposalpipe/segment{
@@ -33804,7 +33804,7 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
 	alpha = 180
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "lJE" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -33928,7 +33928,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "lLJ" = (
 /obj/structure/sign/departments/holy,
@@ -36770,7 +36770,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/iron,
 /area/station/engineering/atmos)
 "mIN" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -36894,7 +36894,7 @@
 /obj/effect/landmark/navigate_destination,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "mKR" = (
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -39114,7 +39114,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "nul" = (
 /obj/structure/disposalpipe/segment{
@@ -42065,7 +42065,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "oxP" = (
 /obj/structure/cable/yellow{
@@ -42254,7 +42254,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "oAU" = (
 /turf/open/space/basic,
@@ -51100,7 +51100,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/iron,
 /area/station/engineering/atmos)
 "rCV" = (
 /obj/structure/railing{
@@ -52531,7 +52531,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/light/directional/south,
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/iron,
 /area/station/engineering/atmos)
 "sdT" = (
 /obj/structure/railing{
@@ -55279,7 +55279,7 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
 	alpha = 180
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "tab" = (
 /obj/machinery/vending/modularpc,
@@ -62230,7 +62230,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "vzG" = (
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
@@ -66323,7 +66323,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "wSB" = (
 /obj/structure/cable/yellow{
@@ -70002,7 +70002,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/station/engineering/hallway)
 "ydq" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
