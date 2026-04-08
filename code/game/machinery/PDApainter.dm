@@ -2,7 +2,8 @@
 	name = "\improper Tablet & ID Painter"
 	desc = "A painting machine that can be used to paint PDAs and IDs with ease. To use, simply insert the item and choose the desired preset."
 	icon = 'icons/obj/pda.dmi'
-	icon_state = "coloriser"
+	icon_state = "pdapainter"
+	base_icon_state = "pdapainter"
 	max_integrity = 200
 	density = TRUE
 	/// Current ID card inserted into the machine.
@@ -62,25 +63,21 @@
 	)
 	to_chat(user, span_warning("You short out the design locking circuitry, allowing contraband and special designs."))
 
-/obj/machinery/pdapainter/update_icon()
-	cut_overlays()
+/obj/machinery/pdapainter/update_icon_state()
+	if(machine_stat & BROKEN)
+		icon_state = "[base_icon_state]-broken"
+		return ..()
+	icon_state = "[base_icon_state][powered() ? null : "-off"]"
+	return ..()
+
+/obj/machinery/pdapainter/update_overlays()
+	. = ..()
 
 	if(machine_stat & BROKEN)
-		icon_state = "coloriser-broken"
 		return
 
-	if(stored_pda)
-		add_overlay("coloriser-pda-in")
-
-	if(stored_id_card)
-		add_overlay("coloriser-id-in")
-
-	if(powered())
-		icon_state = initial(icon_state)
-	else
-		icon_state = "coloriser-off"
-
-	return
+	if(stored_pda || stored_id_card)
+		. += "[initial(icon_state)]-closed"
 
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(stored_pda)
@@ -104,17 +101,19 @@
 /obj/machinery/pdapainter/handle_atom_del(atom/A)
 	if(A == stored_pda)
 		stored_pda = null
-		update_icon()
+		update_appearance()
 	if(A == stored_id_card)
 		stored_id_card = null
-		update_icon()
+		update_appearance()
+
+/obj/machinery/pdapainter/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(default_unfasten_wrench(user, tool))
+		power_change()
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/pdapainter/attackby(obj/item/O, mob/living/user, params)
-	if(default_unfasten_wrench(user, O))
-		power_change()
-		return
-
-	else if(istype(O, /obj/item/modular_computer/tablet/pda))
+	if(istype(O, /obj/item/modular_computer/tablet/pda))
 		if(stored_pda)
 			to_chat(user, span_warning("There is already a PDA inside!"))
 			return
@@ -122,7 +121,7 @@
 			return
 		stored_pda = O
 		O.add_fingerprint(user)
-		update_icon()
+		update_appearance()
 
 	else if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/new_id = O
@@ -135,7 +134,7 @@
 			return
 		stored_id_card = O
 		O.add_fingerprint(user)
-		update_icon()
+		update_appearance()
 
 	else if(O.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		if(machine_stat & BROKEN)
@@ -150,7 +149,7 @@
 				to_chat(user, span_notice("You repair [src]."))
 				set_machine_stat(machine_stat & ~BROKEN)
 				atom_integrity = max_integrity
-				update_icon()
+				update_appearance()
 		else
 			to_chat(user, span_notice("[src] does not need repairs."))
 	else
@@ -230,7 +229,7 @@
 			stored_pda.forceMove(drop_location())
 
 		stored_pda = null
-		update_icon()
+		update_appearance()
 
 /obj/machinery/pdapainter/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
 	if(stored_pda || stored_id_card)
