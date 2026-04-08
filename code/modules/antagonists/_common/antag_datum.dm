@@ -87,9 +87,8 @@ GLOBAL_LIST(admin_antag_list)
 	return SSassets.transport.get_asset_url(match)
 
 /datum/antagonist/New()
+	. = ..()
 	GLOB.active_antagonists += src
-	// Note : "GLOB.antag_prototypes += src" is executed in antag_panel.dm
-	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
 
 /datum/antagonist/Destroy()
 	GLOB.active_antagonists -= src
