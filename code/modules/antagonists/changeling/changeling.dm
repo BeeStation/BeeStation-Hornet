@@ -110,7 +110,7 @@
 
 /datum/antagonist/changeling/New()
 	. = ..()
-	for(var/datum/antagonist/changeling/other_ling in GLOB.antagonists)
+	for(var/datum/antagonist/changeling/other_ling in GLOB.active_antagonists)
 		if(!other_ling.owner || other_ling.owner == owner)
 			continue
 		competitive_objectives = TRUE

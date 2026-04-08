@@ -1,6 +1,7 @@
-/area/holodeck
+/area/station/holodeck
 	name = "Holodeck"
-	icon_state = "holodeck"
+	icon = 'icons/area/areas_station.dmi'
+	icon_state = "Holodeck"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	flags_1 = NONE
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA | REMOTE_APC
@@ -15,7 +16,7 @@
 	Asserts are to avoid the inevitable infinite loops
 */
 
-/area/holodeck/powered(chan)
+/area/station/holodeck/powered(chan)
 	if(!requires_power)
 		return TRUE
 	if(always_unpowered)
@@ -23,21 +24,21 @@
 	if(!linked)
 		return FALSE
 	var/area/A = get_area(linked)
-	ASSERT(!istype(A, /area/holodeck))
+	ASSERT(!istype(A, /area/station/holodeck))
 	return A.powered(chan)
 
-/area/holodeck/addStaticPower(value, powerchannel)
+/area/station/holodeck/addStaticPower(value, powerchannel)
 	if(!linked)
 		return
 	var/area/A = get_area(linked)
-	ASSERT(!istype(A, /area/holodeck))
+	ASSERT(!istype(A, /area/station/holodeck))
 	return ..()
 
-/area/holodeck/use_power(amount, chan)
+/area/station/holodeck/use_power(amount, chan)
 	if(!linked)
 		return 0
 	var/area/A = get_area(linked)
-	ASSERT(!istype(A, /area/holodeck))
+	ASSERT(!istype(A, /area/station/holodeck))
 	return ..()
 
 
@@ -46,19 +47,19 @@
 	blow off steam by doing stupid things like laying down, throwing
 	spheres at holes, or bludgeoning people.
 */
-/area/holodeck/rec_center
+/area/station/holodeck/rec_center
 	name = "\improper Recreational Holodeck"
 
-/area/holodeck/rec_center/offstation_one
+/area/station/holodeck/rec_center/offstation_one
 	name = "\improper Recreational Holodeck"
 //Prison holodeck will be 4x7
-/area/holodeck/prison
+/area/station/holodeck/prison
 	name = "\improper Workshop"
 
-/area/holodeck/small //7x7
+/area/station/holodeck/small //7x7
 	name = "\improper Small Recreational Holodeck"
 
 // DEBUG only
-/area/holodeck/debug // 12x12
+/area/station/holodeck/debug // 12x12
 	requires_power = FALSE
 	name = "\improper Debug Holodeck"

@@ -23,7 +23,7 @@
 /datum/antagonist/cult/create_team(datum/team/cult/new_team)
 	if(!new_team)
 		//todo remove this and allow admin buttons to create more than one cult
-		for(var/datum/antagonist/cult/H in GLOB.antagonists)
+		for(var/datum/antagonist/cult/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.cult_team)

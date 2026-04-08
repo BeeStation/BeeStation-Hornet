@@ -27,7 +27,7 @@
 
 /datum/antagonist/pirate/create_team(datum/team/pirate/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/pirate/P in GLOB.antagonists)
+		for(var/datum/antagonist/pirate/P in GLOB.active_antagonists)
 			if(!P.owner)
 				continue
 			if(P.crew)
@@ -85,7 +85,7 @@
 
 /datum/objective/loot/update_explanation_text()
 	if(cargo_hold)
-		var/area/storage_area = get_area(cargo_hold)
+		var/area/station/commons/storage_area = get_area(cargo_hold)
 		explanation_text = "Acquire loot and store [target_value] of credits worth in [storage_area.name] cargo hold."
 
 /datum/objective/loot/proc/loot_listing()

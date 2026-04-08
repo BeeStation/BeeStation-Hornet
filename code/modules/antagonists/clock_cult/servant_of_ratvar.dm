@@ -175,7 +175,7 @@ GLOBAL_VAR(clockcult_eminence)
 		. = is_convertable_to_clockcult(new_owner.current)
 
 /datum/antagonist/servant_of_ratvar/create_team()
-	for(var/datum/antagonist/servant_of_ratvar/H in GLOB.antagonists)
+	for(var/datum/antagonist/servant_of_ratvar/H in GLOB.active_antagonists)
 		if(!H.owner)
 			continue
 		if(H.team)

@@ -274,10 +274,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost/cargobay)
-"aY" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "aZ" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/derelictoutpost)
@@ -1889,6 +1885,15 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost/cargostorage)
+"eB" = (
+/obj/structure/closet/crate{
+	opened = 1
+	},
+/obj/item/pai_card,
+/obj/machinery/light,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/derelictoutpost/cargostorage)
 "eC" = (
 /obj/structure/closet/crate,
 /obj/item/modular_computer/tablet/pda/preset/clear,
@@ -1967,6 +1972,10 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/derelictoutpost/cargobay)
+"eX" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "fF" = (
 /obj/item/shard,
 /obj/structure/alien/weeds{
@@ -1977,15 +1986,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
-"iG" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/obj/item/pai_card,
-/obj/machinery/light,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/derelictoutpost/cargostorage)
 "lq" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/table,
@@ -1993,11 +1993,16 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
-"oS" = (
+"lY" = (
 /obj/structure/alien/weeds{
 	color = "#4BAE56";
 	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
 	name = "gelatinous floor"
+	},
+/obj/effect/decal/cleanable/blood/old{
+	name = "dried blood trail";
+	icon_state = "trails_1";
+	dir = 10
 	},
 /mob/living/simple_animal/hostile/netherworld{
 	desc = "Awh its so sm-OH GOD WHAT THE FUCK.";
@@ -2062,16 +2067,11 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
-"BU" = (
+"At" = (
 /obj/structure/alien/weeds{
 	color = "#4BAE56";
 	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
 	name = "gelatinous floor"
-	},
-/obj/effect/decal/cleanable/blood/old{
-	name = "dried blood trail";
-	icon_state = "trails_1";
-	dir = 10
 	},
 /mob/living/simple_animal/hostile/netherworld{
 	desc = "Awh its so sm-OH GOD WHAT THE FUCK.";
@@ -2080,7 +2080,7 @@
 	name = "hatchling";
 	initial_size = 0.85
 	},
-/turf/open/floor/iron,
+/turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav/derelictoutpost)
 "BZ" = (
 /obj/machinery/door/airlock/security/glass{
@@ -2099,20 +2099,7 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
-"LB" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/derelictoutpost)
-"US" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/derelictoutpost)
-"WO" = (
+"KE" = (
 /obj/structure/alien/weeds{
 	color = "#4BAE56";
 	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
@@ -2125,7 +2112,20 @@
 	name = "hatchling";
 	initial_size = 0.85
 	},
-/turf/open/floor/plating/asteroid,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/derelictoutpost)
+"LB" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/derelictoutpost)
+"US" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
 "Yr" = (
 /obj/structure/alien/weeds{
@@ -2452,7 +2452,7 @@ dU
 dW
 dW
 ex
-iG
+eB
 dL
 aR
 aZ
@@ -2939,7 +2939,7 @@ aa
 ad
 ad
 aa
-aY
+eX
 aK
 yb
 Jd
@@ -2975,7 +2975,7 @@ aa
 aa
 aa
 aa
-aY
+eX
 aK
 yb
 fF
@@ -3011,7 +3011,7 @@ aa
 aa
 aa
 aa
-aY
+eX
 aK
 Yr
 wc
@@ -3047,7 +3047,7 @@ aa
 aa
 aa
 aa
-aY
+eX
 aK
 lq
 qX
@@ -3083,7 +3083,7 @@ aa
 aa
 aa
 aa
-aY
+eX
 aZ
 bC
 bU
@@ -3168,7 +3168,7 @@ dm
 dC
 dC
 dQ
-WO
+At
 cR
 cR
 cR
@@ -3244,7 +3244,7 @@ cR
 dD
 bl
 cR
-WO
+At
 cR
 dR
 aa
@@ -3273,9 +3273,9 @@ bF
 bF
 bF
 bF
-oS
+KE
 bl
-oS
+KE
 dD
 cm
 cm
@@ -3344,7 +3344,7 @@ bF
 bl
 bl
 dk
-oS
+KE
 bl
 bF
 bl
@@ -3376,7 +3376,7 @@ bo
 bF
 bl
 bF
-oS
+KE
 bl
 bF
 bF
@@ -3422,7 +3422,7 @@ bF
 bl
 cm
 cm
-WO
+At
 dR
 aa
 aa
@@ -3448,7 +3448,7 @@ bp
 bG
 bX
 cl
-BU
+lY
 cR
 cm
 dm

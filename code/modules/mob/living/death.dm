@@ -87,7 +87,7 @@
 	for(var/obj/item/I in contents)
 		I.on_mob_death(src, gibbed)
 	if(mind)
-		if(mind.name && mind.active && !istype(T.loc, /area/ctf))
+		if(mind.name && mind.active && !istype(T.loc, /area/centcom/ctf))
 			deadchat_broadcast(" has died at <b>[get_area_name(T)]</b>.", "<b>[mind.name]</b>", follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
 		mind.store_memory("Time of death: [station_timestamp_timeofdeath]")
 	remove_from_alive_mob_list()

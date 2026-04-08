@@ -4,7 +4,7 @@
 /obj/structure/girder,
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "b" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -20,7 +20,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "c" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -32,7 +32,7 @@
 	name = "YELLOW STRIPES"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "d" = (
 /obj/structure/frame/computer{
 	anchored = 1;
@@ -41,7 +41,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "e" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 9
@@ -58,14 +58,14 @@
 	},
 /obj/item/trash/can,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "f" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/closet/cardboard,
 /obj/effect/mob_spawn/human/engineer,
 /turf/open/floor/iron,
-/area/space)
+/area/misc/space)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/loading_area,
@@ -76,13 +76,13 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "l" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "m" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -90,7 +90,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/grille/broken,
 /turf/open/floor/iron,
-/area/space)
+/area/misc/space)
 "o" = (
 /obj/structure/frame/computer{
 	anchored = 1
@@ -98,7 +98,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "x" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
@@ -113,7 +113,7 @@
 	},
 /obj/item/airlock_painter/decal,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "B" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 10
@@ -128,44 +128,44 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "G" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance/two,
 /obj/item/toy/crayon/spraycan,
 /turf/open/floor/iron,
-/area/space)
+/area/misc/space)
 "H" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "I" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/airlock_painter,
 /turf/open/floor/iron,
-/area/space)
+/area/misc/space)
 "L" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/effect/turf_decal/delivery,
 /obj/item/airlock_painter/decal/tile,
 /turf/open/floor/iron,
-/area/space)
+/area/misc/space)
 "Q" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/space)
+/area/misc/space)
 "S" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 a

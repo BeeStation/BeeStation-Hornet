@@ -1,20 +1,20 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "b" = (
 /obj/structure/lattice,
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "c" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel/airless,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "d" = (
 /obj/item/stack/rods,
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "e" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -22,7 +22,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel/airless,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "f" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -30,14 +30,14 @@
 	},
 /obj/item/screwdriver,
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "g" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	level = 2
 	},
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "h" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -51,7 +51,7 @@
 	pixel_y = 10
 	},
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "i" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -59,11 +59,11 @@
 	},
 /obj/item/stack/cable_coil,
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "j" = (
 /obj/item/crowbar,
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "k" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -71,7 +71,7 @@
 	},
 /obj/item/wrench,
 /turf/open/floor/fakespace,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
 a

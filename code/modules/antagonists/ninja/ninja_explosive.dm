@@ -15,7 +15,7 @@
 	///Weakref to the mob that has planted the charge
 	var/datum/weakref/detonator
 	///The only area that the charge is allowed to be planted, and detonated in (defaulting to space)
-	var/area/detonation_area = /area/space/nearstation
+	var/area/detonation_area = /area/misc/space/nearstation
 
 /obj/item/grenade/plastic/ninja/Destroy()
 	detonator = null

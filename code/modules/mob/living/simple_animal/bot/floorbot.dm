@@ -275,7 +275,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	var/area/t_area = get_area(t)
-	if(istype(t_area, /area/space) || istype(t_area, /area/solar) || istype(t_area, /area/asteroid))
+	if(istype(t_area, /area/misc/space) || istype(t_area, /area/station/solars) || istype(t_area, /area/centcom/asteroid))
 		return FALSE
 	else
 		return TRUE
@@ -374,7 +374,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 				F.broken = FALSE
 				F.burnt = FALSE
 				F.icon_state = initial(F.icon_state)
-			else if(istype(is_this_maints, /area/maintenance))	//place catwalk if it's plating and we're in maints
+			else if(istype(is_this_maints, /area/station/maintenance))	//place catwalk if it's plating and we're in maints
 				F.PlaceOnTop(/turf/open/floor/catwalk_floor, flags = CHANGETURF_INHERIT_AIR)
 			else	//place normal tile if it's plating anywhere else
 				F = F.make_plating(TRUE) || F

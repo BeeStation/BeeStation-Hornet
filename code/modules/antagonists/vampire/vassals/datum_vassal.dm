@@ -140,7 +140,7 @@
 	var/list/datum/mind/possible_vampires = list()
 
 	// Get possible vampires
-	for(var/datum/antagonist/vampire/vampire in GLOB.antagonists)
+	for(var/datum/antagonist/vampire/vampire in GLOB.active_antagonists)
 		var/datum/mind/vampire_mind = vampire.owner
 		if(QDELETED(vampire_mind?.current) || vampire_mind.current.stat == DEAD)
 			continue
