@@ -642,7 +642,6 @@
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/bodybag,
 /obj/item/reagent_containers/cup/glass/bottle/vodka,
-/obj/item/plant_seeds/preset/apple,
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -813,6 +812,7 @@
 /obj/structure/closet/crate/bin,
 /obj/item/trash/pistachios,
 /obj/item/lipstick/random,
+/obj/item/seeds/apple,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/blue/half/contrasted{

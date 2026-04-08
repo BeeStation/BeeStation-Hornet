@@ -3,7 +3,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/machinery/seeder,
+/obj/machinery/seed_extractor,
 /turf/open/floor/grass,
 /area/template_noop)
 "d" = (
@@ -37,7 +37,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "h" = (
-/obj/item/plant_tray/soil,
+/obj/machinery/hydroponics/soil,
 /obj/item/seeds/liberty,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -47,7 +47,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/plant_scanner,
+/obj/item/plant_analyzer,
 /obj/item/shovel/spade,
 /obj/item/cultivator{
 	pixel_x = 6
@@ -57,7 +57,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "k" = (
-/obj/item/plant_tray/soil,
+/obj/machinery/hydroponics/soil,
 /obj/item/seeds/cannabis,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -104,7 +104,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "r" = (
-/obj/item/plant_tray/soil,
+/obj/machinery/hydroponics/soil,
 /obj/item/seeds/cabbage,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -125,8 +125,8 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "D" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/bamboo,
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/bamboo,
 /turf/open/floor/grass,
 /area/template_noop)
 "G" = (
@@ -149,7 +149,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
-/obj/item/plant_tray/soil,
+/obj/machinery/hydroponics/soil,
 /obj/item/seeds/dionapod,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -158,7 +158,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "Q" = (
-/obj/item/plant_tray/soil,
+/obj/machinery/hydroponics/soil,
 /obj/item/seeds/ambrosia,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -174,13 +174,13 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "Y" = (
-/obj/item/plant_tray/soil,
+/obj/machinery/hydroponics/soil,
 /obj/item/seeds/carrot,
 /turf/open/floor/grass,
 /area/template_noop)
 "Z" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/glowshroom,
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/glowshroom,
 /turf/open/floor/grass,
 /area/template_noop)
 

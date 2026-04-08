@@ -853,7 +853,7 @@
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "lF" = (
-/obj/item/plant_tray/soil,
+/obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "lI" = (
@@ -1417,7 +1417,7 @@
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 1
 	},
-/obj/item/plant_tray/soil,
+/obj/machinery/hydroponics/soil,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},

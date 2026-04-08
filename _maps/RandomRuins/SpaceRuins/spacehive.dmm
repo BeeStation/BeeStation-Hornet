@@ -32,7 +32,7 @@
 /turf/open/floor/wax/airless,
 /area/ruin/unpowered)
 "k" = (
-/obj/item/plant_tray,
+/obj/machinery/hydroponics,
 /turf/open/floor/wood/airless,
 /area/ruin/unpowered)
 "m" = (

@@ -1488,7 +1488,7 @@
 /area/shuttle/abandoned/cargo)
 "lY" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 26
@@ -1713,7 +1713,7 @@
 /obj/machinery/light/small/built{
 	dir = 8
 	},
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -2018,7 +2018,7 @@
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/shovel/spade,
 /obj/item/cultivator,
-/obj/item/plant_scanner,
+/obj/item/plant_analyzer,
 /obj/item/reagent_containers/cup/bucket,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -2217,7 +2217,7 @@
 /area/shuttle/abandoned/cargo)
 "MW" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -2227,7 +2227,7 @@
 /area/shuttle/abandoned/bar)
 "Nd" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/light/small{
 	dir = 8
 	},

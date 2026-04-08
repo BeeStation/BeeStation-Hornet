@@ -10,7 +10,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "e" = (
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
@@ -58,7 +58,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
-/obj/item/plant_seeds/preset/glowshroom,
+/obj/item/seeds/glowshroom,
 /obj/machinery/light/small{
 	dir = 1
 	},

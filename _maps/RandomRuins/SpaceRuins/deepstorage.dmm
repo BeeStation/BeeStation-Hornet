@@ -484,14 +484,14 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bk" = (
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bl" = (
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -724,7 +724,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bS" = (
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bT" = (
@@ -966,7 +966,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "cx" = (
-/obj/machinery/seeder,
+/obj/machinery/seed_extractor,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -981,14 +981,14 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "cz" = (
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "cA" = (
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
@@ -2946,7 +2946,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/crusher)
 "hf" = (
-/obj/item/plant_tray,
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/away_general_access,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{

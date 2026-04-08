@@ -2,36 +2,36 @@
 "a" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "b" = (
 /obj/structure/chair/fancy/sofa/old/corner/concave{
 	color = "#c45c57";
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "c" = (
 /obj/structure/chair/fancy/sofa/old{
 	color = "#c45c57"
 	},
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "d" = (
 /obj/structure/chair/fancy/sofa/old/left{
 	color = "#c45c57"
 	},
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "e" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "f" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#c45c57"
 	},
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "g" = (
 /obj/structure/chair/fancy/sofa/old/left{
 	color = "#c45c57"
@@ -39,25 +39,25 @@
 /turf/open/floor/wood{
 	broken = 1
 	},
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "h" = (
 /obj/structure/chair/fancy/sofa/old/corner/concave{
 	color = "#c45c57"
 	},
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "i" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "j" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "k" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#c45c57";
@@ -66,23 +66,23 @@
 /turf/open/floor/wood{
 	broken = 1
 	},
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "l" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "m" = (
 /turf/open/floor/iron/stairs,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "o" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 10
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "p" = (
 /obj/structure/railing{
 	density = 0;
@@ -93,7 +93,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "q" = (
 /obj/structure/railing{
 	density = 0;
@@ -104,14 +104,14 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "r" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "s" = (
 /obj/structure/railing{
 	density = 0;
@@ -121,13 +121,13 @@
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "t" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "u" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -137,24 +137,24 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "x" = (
 /obj/structure/curtain{
 	color = "#c45c57"
 	},
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "y" = (
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "A" = (
 /turf/open/floor/carpet/red,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "D" = (
 /turf/open/floor/wood{
 	broken = 1
 	},
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "E" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -163,20 +163,20 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "F" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "T" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/food/popcorn{
 	pixel_y = 5
 	},
 /turf/open/floor/wood,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "U" = (
 /obj/structure/chair/fancy/sofa/old/left{
 	color = "#c45c57";
@@ -185,7 +185,7 @@
 /turf/open/floor/wood{
 	broken = 1
 	},
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "V" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -195,11 +195,11 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "X" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
 a
