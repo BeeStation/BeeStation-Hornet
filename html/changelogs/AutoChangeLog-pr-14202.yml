@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: renamed GLOB.antagonists into GLOB.active_antagonists
-  - bugfix: Opening antag panel no longer populates OOC antag list
