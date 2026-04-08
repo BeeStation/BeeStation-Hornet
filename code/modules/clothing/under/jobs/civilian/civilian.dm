@@ -109,8 +109,11 @@
 	name = "old man's suit"
 	desc = "A classic suit for the older gentleman with built in back support."
 	icon_state = "oldman"
-	inhand_icon_state = "oldman"
 
+/obj/item/clothing/under/rank/civilian/hop/turtleneck
+	name = "head of personnel's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold office. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "hop_turtle"
 
 /obj/item/clothing/under/rank/civilian/hydroponics
 	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."

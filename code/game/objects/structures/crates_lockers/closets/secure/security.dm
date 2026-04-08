@@ -110,6 +110,7 @@
 	new /obj/item/clothing/under/rank/civilian/hop/dress(src)
 	new /obj/item/clothing/under/rank/civilian/hop/formal(src)
 	new /obj/item/clothing/under/rank/civilian/hop/oldman(src)
+	new /obj/item/clothing/under/rank/civilian/hop/turtleneck(src)
 	new /obj/item/clothing/under/suit/black(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
