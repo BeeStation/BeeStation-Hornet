@@ -35,6 +35,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/atmos_sensitive)
+	AddElement(/datum/element/muffles_speech)
 
 /obj/item/clothing/mask/facehugger/compile_monkey_icon()
 	//If the icon, for this type of item, is already made by something else, don't make it again

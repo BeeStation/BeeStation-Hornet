@@ -826,14 +826,16 @@
 
 	balloon_alert(user, "offering...")
 	being_used = TRUE
-	var/datum/poll_config/config = new()
-	config.question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!"
-	config.check_jobban = ROLE_SENTIENCE
-	config.poll_time = 10 SECONDS
-	config.ignore_category = POLL_IGNORE_SENTIENCE_POTION
-	config.alert_pic = dumb_mob
-	config.role_name_text = "intelligence potion"
-	config.chat_text_border_icon = src
+	var/datum/poll_config/config = new(
+		question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!",
+		check_jobban = ROLE_SENTIENCE,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_SENTIENCE_POTION,
+		alert_pic = dumb_mob,
+		role_name_text = "intelligence potion",
+		chat_text_border_icon = src,
+		amount_to_pick = 1,
+	)
 	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(config, dumb_mob)
 	on_poll_concluded(user, dumb_mob, chosen_one)
 
@@ -1248,7 +1250,7 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	max_amount = 60
 	turf_type = /turf/open/floor/bluespace
 	merge_type = /obj/item/stack/tile/bluespace
@@ -1265,7 +1267,7 @@
 	throwforce = 10
 	throw_speed = 0.1
 	throw_range = 28
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	max_amount = 60
 	turf_type = /turf/open/floor/sepia
 	merge_type = /obj/item/stack/tile/sepia

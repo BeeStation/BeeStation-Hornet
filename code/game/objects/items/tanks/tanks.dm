@@ -8,7 +8,7 @@
 	icon = 'icons/obj/tank.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/tanks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tanks_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BACK
 	worn_icon = 'icons/mob/clothing/back.dmi' //since these can also get thrown into suit storage slots. if something goes on the belt, set this to null.
 	hitsound = 'sound/weapons/smash.ogg'
@@ -24,7 +24,7 @@
 	/// The gases this tank contains.
 	var/datum/gas_mixture/air_contents = null
 	/// The volume of this tank.
-	var/volume = 70
+	var/volume = TANK_STANDARD_VOLUME
 	/// Whether the tank is currently leaking.
 	var/leaking = FALSE
 	/// The pressure of the gases this tank supplies to internals.

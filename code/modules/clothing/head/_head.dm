@@ -7,6 +7,13 @@
 	///Is the person wearing this trackable by the AI?
 	var/blockTracking = FALSE
 
+/obj/item/clothing/head/dropped(mob/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head == src)
+			H.update_worn_head()
+
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
 	///if the thrown object is caught
@@ -54,13 +61,15 @@
 
 /obj/item/clothing/head/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
-	if(!isinhands)
-		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet", item_layer)
-		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-			var/mutable_appearance/bloody_helmet = mutable_appearance('icons/effects/blood.dmi', "helmetblood", item_layer)
-			bloody_helmet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
-			. += bloody_helmet
+	if(isinhands)
+		return
+
+	if(damaged_clothes)
+		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet", item_layer)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+		var/mutable_appearance/bloody_helmet = mutable_appearance('icons/effects/blood.dmi', "helmetblood", item_layer)
+		bloody_helmet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+		. += bloody_helmet
 
 /obj/item/clothing/head/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()

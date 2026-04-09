@@ -22,7 +22,7 @@
 	var/end_sound
 	var/end_overlay
 
-	var/area_type = /area/space //Types of area to affect
+	var/area_type = /area/misc/space //Types of area to affect
 	var/protect_indoors = FALSE // set to TRUE to protect indoor areas
 	/// Areas to be affected by the weather, calculated when the weather begins.
 	/// * If you need to update this list outside of this datum, you might be doing wrong. use update_areas(new_list)
@@ -142,8 +142,8 @@
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
 
-/datum/weather/proc/can_weather_act(mob/living/act_on) //Can this weather impact a mob?
-	var/turf/mob_turf = get_turf(act_on)
+/datum/weather/proc/can_weather_act_mob(mob/living/mob_to_check)
+	var/turf/mob_turf = get_turf(mob_to_check)
 
 	if(!mob_turf)
 		return
@@ -151,11 +151,14 @@
 	if(!(mob_turf.z in impacted_z_levels))
 		return
 
-	if(recursive_weather_protection_check(act_on))
+	if(!(mob_turf.loc in impacted_areas))
 		return
 
-	if(!(get_area(act_on) in impacted_areas))
-		return
+	var/atom/to_check = mob_to_check
+	while(!isturf(to_check))
+		if(recursive_weather_protection_check(to_check))
+			return
+		to_check = to_check.loc
 	return TRUE
 
 /**
@@ -164,7 +167,10 @@
 /datum/weather/proc/recursive_weather_protection_check(atom/to_check)
 	return HAS_TRAIT(to_check, TRAIT_WEATHER_IMMUNE) || (immunity_type && HAS_TRAIT(to_check, immunity_type))
 
-/datum/weather/proc/weather_act(mob/living/L) //What effect does this weather have on the hapless mob?
+/**
+ * Affects the mob with whatever the weather does
+ */
+/datum/weather/proc/weather_act_mob(mob/living/living)
 	return
 
 /// * [Func A] If list/newly_given_areas = null, It will update area overlays to new weather stage overlay. Typically called by this datum itself.

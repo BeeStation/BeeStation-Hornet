@@ -98,9 +98,10 @@
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
+	desc = "Do the impossible, see the invisible!"
 	icon_state = "garm"
 	inhand_icon_state = "garm"
-	desc = "Do the impossible, see the invisible!"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -219,9 +220,10 @@
 
 /obj/item/clothing/glasses/material/mining/gar
 	name = "gar material scanner"
+	desc = "Do the impossible, see the invisible!"
 	icon_state = "garm"
 	inhand_icon_state = "garm"
-	desc = "Do the impossible, see the invisible!"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 20
 	throw_speed = 4
@@ -294,6 +296,7 @@
 	desc = "Go beyond impossible and kick reason to the curb!  Has enhanced shielding which blocks flashes."
 	icon_state = "garb"
 	inhand_icon_state = "garb"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4

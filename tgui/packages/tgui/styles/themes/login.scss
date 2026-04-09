@@ -124,7 +124,7 @@ $title-bar-height: 48px;
         background-color 100ms;
     }
     &:hover {
-      background-color: lighten(#5865f2, 30%);
+      background-color: color.adjust(#5865f2, $lightness: 30%);
       color: white;
     }
   }

@@ -170,6 +170,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// if false, having no tongue makes you unable to speak
 	var/speak_no_tongue = TRUE
 
+	///what height icon state do we use?
+	var/height_icon_state = "height_displacement"
 	///List of possible heights
 	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
 
@@ -2111,6 +2113,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_NAME = "Brutal Weakness",
 			SPECIES_PERK_DESC = "[plural_form] are weak to brute damage.",
 		))
+
 	else if(initial(fake_chest.brute_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
@@ -2127,6 +2130,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_NAME = "Burn Weakness",
 			SPECIES_PERK_DESC = "[plural_form] are weak to burn damage.",
 		))
+
 	else if(initial(fake_chest.burn_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,

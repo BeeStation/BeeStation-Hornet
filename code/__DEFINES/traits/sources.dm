@@ -57,8 +57,10 @@
 #define TRAIT_LEANING "leaning"
 #define TRAIT_REGEN_COMA "regencoma"
 
+/// Trait given to you by shapeshifting
+#define SHAPESHIFT_TRAIT "shapeshift_trait"
+
 // unique trait sources, still defines
-#define EMP_TRAIT "emp_trait"
 #define CLONING_POD_TRAIT "cloning-pod"
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
@@ -144,21 +146,22 @@
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"
 #define LICH_TRAIT "lich_trait"
+/// Trait given by stabilized light pink extracts
+#define STABILIZED_LIGHT_PINK_EXTRACT_TRAIT "stabilized_light_pink"
+/// Trait given by adamantine extracts
+#define ADAMANTINE_EXTRACT_TRAIT "adamantine_extract"
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
 /// Trait given by simple/basic mob death
 #define BASIC_MOB_DEATH_TRAIT "basic_mob_death"
 /// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+/// Trait given by mech equipment
+#define TRAIT_MECH_EQUIPMENT(equipment_type) "mech_equipment_[equipment_type]"
 /// Don't draw external organs/species features like wings, horns, frills and stuff
 #define TRAIT_HIDE_EXTERNAL_ORGANS "hide_external_organs"
 ///When people are floating from zero-grav or something, we can move around freely!
 #define TRAIT_FREE_FLOAT_MOVEMENT "free_float_movement"
-
-/// Trait given by stabilized light pink extracts
-#define STABILIZED_LIGHT_PINK_EXTRACT_TRAIT "stabilized_light_pink"
-/// Trait given by adamantine extracts
-#define ADAMANTINE_EXTRACT_TRAIT "adamantine_extract"
 
 /// This trait comes from when a mob is currently typing.
 #define CURRENTLY_TYPING_TRAIT "currently_typing"

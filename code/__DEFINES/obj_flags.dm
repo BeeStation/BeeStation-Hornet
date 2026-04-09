@@ -1,24 +1,26 @@
 // Flags for the obj_flags var on /obj
 
+
 /// Object has been affected by a cryptographic sequencer (EMAG) disabling it or causing other malicious effects
 #define EMAGGED (1<<0)
 /// If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 #define IN_USE (1<<1)
 /// Can this be bludgeoned by items
 #define CAN_BE_HIT (1<<2)
-#define BEING_SHOCKED (1<<3)  //! Whether this thing is currently (already) being shocked by a tesla
-#define DANGEROUS_POSSESSION (1<<4)  //! Admin possession yes/no
+#define DANGEROUS_POSSESSION (1<<3)  //! Admin possession yes/no
 /// Can you customize the description/name of the thing
-#define UNIQUE_RENAME (1<<6)
-#define USES_TGUI (1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
-#define OBJ_EMPED (1<<8)  //! Object is affected by EMP
-#define SCANNED (1<<9)  //! Object has been scanned by the prison_scanner
+#define UNIQUE_RENAME (1<<4)
+#define USES_TGUI (1<<5)  //! put on things that use tgui on ui_interact instead of custom/old UI.
+#define OBJ_EMPED (1<<6)  //! Object is affected by EMP
+#define SCANNED (1<<7)  //! Object has been scanned by the prison_scanner
 /// Does this object prevent things from being built on it
-#define BLOCKS_CONSTRUCTION (1<<10)
+#define BLOCKS_CONSTRUCTION (1<<8)
 /// Does this object prevent same-direction things from being built on it
-#define BLOCKS_CONSTRUCTION_DIR (1<<11)
+#define BLOCKS_CONSTRUCTION_DIR (1<<9)
 /// Can we ignore density when building on this object (for example, directional windows and grilles)
-#define IGNORE_DENSITY (1<<12)
+#define IGNORE_DENSITY (1<<10)
+/// Can this object conduct electricity
+#define CONDUCTS_ELECTRICITY (1<<11)
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -93,14 +95,14 @@
 #define SNUG_FIT (1<<9)
 /// For hats with an effect that shouldn't get knocked off ie finfoil
 #define EFFECT_HAT (1<<10)
-/// For masks, allows you to breathe from internals on adjacent tiles
-#define MASKEXTENDRANGE (1<<11)
-/// Moths cannot eat clothing with that flag
-#define NOTCONSUMABLE (1<<12)
 /// prevents from placing on plasmaman helmet or modsuit hat holder
-#define STACKABLE_HELMET_EXEMPT (1<<15)
+#define STACKABLE_HELMET_EXEMPT (1<<11)
+/// For masks, allows you to breathe from internals on adjacent tiles
+#define MASKEXTENDRANGE (1<<12)
+/// Moths cannot eat clothing with that flag
+#define NOTCONSUMABLE (1<<13)
 /// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
-#define CASTING_CLOTHES (1<<13)
+#define CASTING_CLOTHES (1<<14)
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
 /// noslip with only works if wearer is walking

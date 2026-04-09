@@ -14,7 +14,6 @@
 
 /obj/item/clothing/head/wig/Initialize(mapload)
 	. = ..()
-	update_appearance()
 	AddComponent(/datum/component/hat_stabilizer, loose_hat = FALSE)
 
 /obj/item/clothing/head/wig/equipped(mob/user, slot)
@@ -23,7 +22,7 @@
 		ADD_TRAIT(src, TRAIT_EXAMINE_SKIP, CLOTHING_TRAIT)
 
 /obj/item/clothing/head/wig/dropped(mob/user)
-	..()
+	. = ..()
 	REMOVE_TRAIT(src, TRAIT_EXAMINE_SKIP, CLOTHING_TRAIT)
 
 /obj/item/clothing/head/wig/update_icon_state()
@@ -60,7 +59,7 @@
 		user.visible_message(span_notice("[user] changes \the [src]'s hairstyle to [new_style]."), span_notice("You change \the [src]'s hairstyle to [new_style]."))
 	if(newcolor && newcolor != color) // only update if necessary
 		add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)
-	update_appearance()
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/clothing/head/wig/afterattack(mob/living/carbon/human/target, mob/user)
 	. = ..()
@@ -91,7 +90,7 @@
 		to_chat(user, span_notice("You adjust the [src] to look just like [target.name]'s [selected_hairstyle]."))
 		add_atom_colour(selected_hairstyle_color, FIXED_COLOUR_PRIORITY)
 		hairstyle = selected_hairstyle
-		update_appearance()
+		update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/clothing/head/wig/random/Initialize(mapload)
 	hairstyle = pick(SSaccessories.hairstyles_list - "Bald") //Don't want invisible wig
@@ -114,5 +113,4 @@
 	if(ishuman(user) && (slot & ITEM_SLOT_HEAD))
 		if(color != user.hair_color) // only update if necessary
 			add_atom_colour(user.hair_color, FIXED_COLOUR_PRIORITY)
-			update_appearance()
 		user.update_worn_head()

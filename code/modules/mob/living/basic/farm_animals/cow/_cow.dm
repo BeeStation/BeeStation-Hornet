@@ -64,7 +64,6 @@
 	if(!food_types)
 		food_types = src.food_types.Copy()
 	AddComponent(/datum/component/tameable, food_types = food_types, tame_chance = 25, bonus_tame_chance = 15)
-	AddElement(/datum/element/basic_eating, 10, food_types)
 
 /mob/living/basic/cow/tamed(mob/living/tamer, atom/food)
 	buckle_lying = 0

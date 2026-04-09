@@ -425,10 +425,8 @@
 	var/dmg_multi = CONFIG_GET(number/damage_multiplier) * hit_percent
 	brute = round(max(brute * dmg_multi * brute_modifier, 0), DAMAGE_PRECISION)
 	burn = round(max(burn * dmg_multi * burn_modifier, 0), DAMAGE_PRECISION)
-	stamina = round(max(stamina * dmg_multi * stamina_modifier, 0), DAMAGE_PRECISION)
+	stamina = round(max(stamina * dmg_multi * stamina_modifier, 0),DAMAGE_PRECISION)
 
-	brute = max(0, brute - brute_reduction)
-	burn = max(0, burn - burn_reduction)
 	//No stamina scaling.. for now..
 
 	if(!brute && !burn && !stamina)
@@ -527,7 +525,10 @@
 
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
-	return include_stamina ? max(brute_dam + burn_dam, stamina_dam) : brute_dam + burn_dam
+	var/total = brute_dam + burn_dam
+	if(include_stamina)
+		total += stamina_dam
+	return total
 
 //Returns only stamina damage.
 /obj/item/bodypart/proc/get_staminaloss()

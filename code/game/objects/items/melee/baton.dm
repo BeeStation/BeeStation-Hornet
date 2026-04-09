@@ -783,10 +783,10 @@
  * For stun batons, this is minimal - just a brief trait to prevent rapid double-batoning.
  */
 /obj/item/melee/baton/security/additional_effects_non_cyborg(mob/living/target, mob/living/user)
-	// Brief anti-double-baton trait (1 second)
+	// Brief anti-double-baton trait (0.75 second)
 	var/user_ref = REF(user)
 	ADD_TRAIT(target, TRAIT_IWASBATONED, user_ref)
-	addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_IWASBATONED, user_ref), 1 SECONDS)
+	addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_IWASBATONED, user_ref), 0.75 SECONDS)
 
 /obj/item/melee/baton/security/get_wait_description()
 	if(!cell)

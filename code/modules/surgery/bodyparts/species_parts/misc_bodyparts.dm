@@ -158,6 +158,22 @@
 /obj/item/bodypart/leg/left/zombie/infectious
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/leg/right/zombie/infectious
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/leg/left/zombie/viral
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/leg/right/zombie/viral
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/leg/left/zombie/infectious
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
 	movespeed_contribution = 0.8 //braaaaains
 
 /obj/item/bodypart/leg/right/zombie/infectious
@@ -359,6 +375,33 @@
 /obj/item/bodypart/leg/right/golem/alloy
 	should_draw_greyscale = FALSE
 	movespeed_contribution = 0.5 //faster
+
+//Wood
+/obj/item/bodypart/head/golem/wood
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	burn_modifier = 1.25
+
+/obj/item/bodypart/chest/golem/wood
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	burn_modifier = 1.25
+
+/obj/item/bodypart/arm/left/golem/wood
+	should_draw_greyscale = FALSE
+	burn_modifier = 1.25
+
+/obj/item/bodypart/arm/right/golem/wood
+	should_draw_greyscale = FALSE
+	burn_modifier = 1.25
+
+/obj/item/bodypart/leg/left/golem/wood
+	should_draw_greyscale = FALSE
+	burn_modifier = 1.25
+
+/obj/item/bodypart/leg/right/golem/wood
+	should_draw_greyscale = FALSE
+	burn_modifier = 1.25
 
 //Wood
 /obj/item/bodypart/head/golem/wood
@@ -832,7 +875,6 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
-	/*
 	///Carved overlay
 	var/image/carved_overlay
 
@@ -845,7 +887,6 @@
 	if(owner)
 		owner.cut_overlay(carved_overlay)
 	. += carved_overlay
-	*/
 
 /obj/item/bodypart/chest/pumpkin_man
 	limb_id = "pumpkin_man"

@@ -24,7 +24,7 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/french_words = strings(FRENCH_TALK_FILE, "french")
+		var/list/french_words = strings(FRENCH_TALK_FILE, "words")
 
 		for(var/key in french_words)
 			var/value = french_words[key]

@@ -19,6 +19,7 @@
 
 /// Amount of oxyloss that KOs a human
 #define OXYLOSS_PASSOUT_THRESHOLD 50
+
 // Bleed rates
 // See blood.dm for calculations
 #define BLEED_RATE_MINOR 2.4 		/// Point at which bleeding is considered minor and will eventually self-heal
@@ -434,7 +435,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define APPRENTICE_AGE_MIN 29	//! youngest an apprentice can be
 #define SHOES_SLOWDOWN 0	//! How much shoes slow you down by default. Negative values speed you up
 #define POCKET_STRIP_DELAY (4 SECONDS)	//! time taken to search somebody's pockets
-#define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
+#define DOOR_CRUSH_DAMAGE 15	//! the amount of damage that airlocks deal when they crush you
 
 #define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
 #define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
@@ -487,8 +488,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 // Mob Playability Set By Admin Or Ghosting
 #define SENTIENCE_SKIP 0
-#define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
-#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+/// a player ghosting out of the mob will make the mob playable for others, if it was already playable
+#define SENTIENCE_RETAIN 1
+/// the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+#define SENTIENCE_FORCE 2
 #define SENTIENCE_ERASE 3
 
 //Flavor Text When Entering A Playable Mob
@@ -561,38 +564,41 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 // Mob Overlays Indexes
-/// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
-#define TOTAL_LAYERS 34
+/// Total number of layers for mob overlays
+/// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK
+#define TOTAL_LAYERS 35
 /// Mutations layer - Tk headglows, cold resistance glow, etc
-#define MUTATIONS_LAYER 34
-/// Mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_BEHIND_LAYER 33
+#define MUTATIONS_LAYER 35
+/// Certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODY_BEHIND_LAYER 34
 /// Layer for bodyparts that should appear behind every other bodypart - Mostly, legs when facing WEST or EAST
-#define BODYPARTS_LOW_LAYER 32
-/// Layer for most bodyparts, appears above BODYPARTS_LOW_LAYER and below BODYPARTS_HIGH_LAYER
-#define BODYPARTS_LAYER 31
-/// Mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_ADJ_LAYER 30
-/// Underwear, undershirts, socks, eyes, lips(makeup)
+#define BODYPARTS_LOW_LAYER 33
+/// Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODYPARTS_LAYER 32
+/// certain mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_ADJ_LAYER 31
+/// underwear, undershirts, socks, eyes, lips(makeup)
 #define BODY_LAYER 29
-/// Mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+/// mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
 #define FRONT_MUTATIONS_LAYER 28
-/// Damage indicators (cuts and burns)
+/// damage indicators (cuts and burns)
 #define DAMAGE_LAYER 27
 /// Jumpsuit clothing layer
 #define UNIFORM_LAYER 26
 /// ID card layer
 #define ID_LAYER 25
 /// Layer for bodyparts that should appear above every other bodypart - Currently only used for hands
-#define BODYPARTS_HIGH_LAYER 23
+#define BODYPARTS_HIGH_LAYER 24
 /// Gloves layer
-#define GLOVES_LAYER 22
+#define GLOVES_LAYER 23
 /// Shoes layer
-#define SHOES_LAYER 21
+#define SHOES_LAYER 22
 /// Layer for masks that are worn below ears and eyes (like Balaclavas) (layers below hair, use flagsinv=HIDEHAIR as needed)
-#define LOW_FACEMASK_LAYER 20
+#define LOW_FACEMASK_LAYER 21
 /// Ears layer (Spessmen have ears? Wow)
-#define EARS_LAYER 19
+#define EARS_LAYER 20
+/// Layer for neck apperal that should appear below the suit slot (like neckties)
+#define LOW_NECK_LAYER 19
 /// Suit layer (armor, coats, etc.)
 #define SUIT_LAYER 18
 /// Glasses layer
@@ -601,7 +607,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define BELT_LAYER 16 //Possible make this an overlay of somethign required to wear a belt?
 /// Suit storage layer (tucking a gun or baton underneath your armor)
 #define SUIT_STORE_LAYER 15
-/// Neck layer (for wearing ties and bedsheets)
+///  Neck layer (for wearing ties and bedsheets)
 #define NECK_LAYER 14
 /// Back layer (for backpacks and equipment on your back)
 #define BACK_LAYER 13
@@ -619,7 +625,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HANDS_LAYER 7
 /// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
 #define BODY_FRONT_LAYER 6
-/// Special body layer for the rare cases where something on the head needs to be above everything else (e.g. flowers)
+// For the special glasses that actually require to be above the hair (e.g. lifted welding goggles)
+#define ABOVE_BODY_FRONT_GLASSES_LAYER 5
+// For the rare cases where something on the head needs to be above everything else (e.g. flowers)
 #define ABOVE_BODY_FRONT_HEAD_LAYER 4
 /// Blood cult ascended halo layer, because there's currently no better solution for adding/removing
 #define HALO_LAYER 3

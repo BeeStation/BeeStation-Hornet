@@ -47,7 +47,7 @@
 		var/obj/item/clothing/gloves = carbon_user.gloves
 		// If we have gloves that cover the hands and they don't have the fingerprint passthrough
 		// trait, then transfer our reagents
-		if(gloves && (gloves.body_parts_covered & HANDS) && !HAS_TRAIT(gloves, TRAIT_FINGERPRINT_PASSTHROUGH && !HAS_TRAIT(carbon_user, TRAIT_FINGERPRINT_PASSTHROUGH)))
+		if(gloves && (gloves.body_parts_covered & HANDS) && !HAS_TRAIT(gloves, TRAIT_FINGERPRINT_PASSTHROUGH) && !HAS_TRAIT(carbon_user, TRAIT_FINGERPRINT_PASSTHROUGH))
 			// Transfer half of the poison to the gloves
 			if (reagents.total_volume > 1)
 				gloves.AddComponent(/datum/component/transfer_reagents, reagents, 0.5)
@@ -68,7 +68,7 @@
 	var/obj/item/clothing/gloves = equipper.gloves
 	// If we have gloves that cover the hands and they don't have the fingerprint passthrough
 	// trait, then transfer our reagents
-	if(gloves && (gloves.body_parts_covered & HANDS) && !HAS_TRAIT(gloves, TRAIT_FINGERPRINT_PASSTHROUGH && !HAS_TRAIT(equipper, TRAIT_FINGERPRINT_PASSTHROUGH)))
+	if(gloves && (gloves.body_parts_covered & HANDS) && !HAS_TRAIT(gloves, TRAIT_FINGERPRINT_PASSTHROUGH) && !HAS_TRAIT(equipper, TRAIT_FINGERPRINT_PASSTHROUGH))
 		// Transfer half of the poison to the gloves
 		if (reagents.total_volume > 1)
 			gloves.AddComponent(/datum/component/transfer_reagents, reagents, 0.5)

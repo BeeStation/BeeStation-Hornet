@@ -202,9 +202,9 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	clothing_flags = STOPSPRESSUREDAMAGE | STACKABLE_HELMET_EXEMPT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | STACKABLE_HELMET_EXEMPT
 	strip_delay = 80
-
+	dog_fashion = null
 
 /datum/armor/helmet_swat
 	melee = 40

@@ -277,7 +277,7 @@
 "aY" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aZ" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/derelictoutpost)
@@ -1943,7 +1943,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/item/paicard,
+/obj/item/pai_card,
 /obj/machinery/light,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,

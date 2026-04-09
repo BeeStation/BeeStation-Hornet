@@ -184,3 +184,7 @@
 				max_limb_loss--
 				if(!max_limb_loss)
 					break
+
+/mob/living/carbon/monkey/on_fire_stack(delta_time, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+	if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		adjust_bodytemperature(BODYTEMP_HEATING_MAX * delta_time)

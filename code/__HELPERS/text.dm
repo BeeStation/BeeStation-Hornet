@@ -41,14 +41,15 @@
 	return t
 
 ///returns nothing with an alert instead of the message if it contains something in the ic filter, and sanitizes normally if the name is fine. It returns nothing so it backs out of the input the same way as if you had entered nothing.
-/proc/sanitize_name(t,list/repl_chars = null)
-	if(CHAT_FILTER_CHECK(t))
+/proc/sanitize_name(target, allow_numbers = FALSE, cap_after_symbols = TRUE)
+	if(CHAT_FILTER_CHECK(target))
 		alert("You cannot set a name that contains a word prohibited in IC chat!")
 		return ""
-	if(t == "space" || t == "floor" || t == "wall" || t == "r-wall" || t == "monkey" || t == "unknown" || t == "inactive ai")	//prevents these common metagamey names
-		alert("Invalid name.")
+	var/result = reject_bad_name(target, allow_numbers = allow_numbers, strict = TRUE, cap_after_symbols = cap_after_symbols)
+	if(!result)
+		tgui_alert(usr, "Invalid name.")
 		return ""
-	return sanitize(t)
+	return sanitize(result)
 
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(t,list/repl_chars = null)
@@ -239,8 +240,14 @@
 #define NUMBERS_DETECTED 3
 #define LETTERS_DETECTED 4
 
-//Filters out undesirable characters from names
-/proc/reject_bad_name(t_in, allow_numbers = FALSE, max_length = MAX_NAME_LEN, ascii_only = TRUE)
+/**
+  * Filters out undesirable characters from names.
+  *
+  * * strict - return null immidiately instead of filtering out
+  * * allow_numbers - allows numbers and common special characters - used for silicon/other weird things names
+ * * cap_after_symbols - words like Bob's will be capitalized to Bob'S by default. False is good for titles.
+ */
+/proc/reject_bad_name(t_in, allow_numbers = FALSE, max_length = MAX_NAME_LEN, ascii_only = TRUE, strict = FALSE, cap_after_symbols = TRUE)
 	if(!t_in)
 		return //Rejects the input if it is null
 
@@ -254,16 +261,16 @@
 
 	for(var/i = 1, i <= t_len, i += length(char))
 		char = t_in[i]
-
 		switch(text2ascii(char))
+
 			// A  .. Z
 			if(65 to 90)			//Uppercase Letters
 				number_of_alphanumeric++
 				last_char_group = LETTERS_DETECTED
 
 			// a  .. z
-			if(97 to 122)			//Lowercase Letters
-				if(last_char_group == NO_CHARS_DETECTED || last_char_group == SPACES_DETECTED || last_char_group == SYMBOLS_DETECTED) //start of a word
+			if(97 to 122) //Lowercase Letters
+				if(last_char_group == NO_CHARS_DETECTED || last_char_group == SPACES_DETECTED || cap_after_symbols && last_char_group == SYMBOLS_DETECTED) //start of a word
 					char = uppertext(char)
 				number_of_alphanumeric++
 				last_char_group = LETTERS_DETECTED
@@ -271,19 +278,24 @@
 			// 0  .. 9
 			if(48 to 57)			//Numbers
 				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers) //suppress at start of string
+					if(strict)
+						return
 					continue
 				number_of_alphanumeric++
 				last_char_group = NUMBERS_DETECTED
-
 			// '  -  .
 			if(39,45,46)			//Common name punctuation
 				if(last_char_group == NO_CHARS_DETECTED)
+					if(strict)
+						return
 					continue
 				last_char_group = SYMBOLS_DETECTED
 
 			// ~   |   @  :  #  $  %  &  *  +
 			if(126,124,64,58,35,36,37,38,42,43)			//Other symbols that we'll allow (mainly for AI)
 				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers) //suppress at start of string
+					if(strict)
+						return
 					continue
 				last_char_group = SYMBOLS_DETECTED
 
@@ -295,6 +307,8 @@
 
 			if(127 to INFINITY)
 				if(ascii_only)
+					if(strict)
+						return
 					continue
 				last_char_group = SYMBOLS_DETECTED //for now, we'll treat all non-ascii characters like symbols even though most are letters
 

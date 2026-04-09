@@ -365,7 +365,7 @@
 
 /datum/reagent/fuel/unholywater/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		exposed_mob.reagents.add_reagent(type,reac_volume/4)
+		exposed_mob.reagents?.add_reagent(type,reac_volume/4)
 		return
 	return ..()
 
@@ -1949,12 +1949,13 @@
 	var/current_size = RESIZE_DEFAULT_SIZE
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
 	var/newsize = current_size
 	switch(volume)
-		if(0 to 19)
+		if(0 to 9)
+			newsize = RESIZE_DEFAULT_SIZE
+		if(10 to 29)
 			newsize = 1.25 * RESIZE_DEFAULT_SIZE
-		if(20 to 49)
+		if(30 to 49)
 			newsize = 1.5 * RESIZE_DEFAULT_SIZE
 		if(50 to 99)
 			newsize = 2 * RESIZE_DEFAULT_SIZE
@@ -1966,6 +1967,7 @@
 	affected_mob.resize = newsize/current_size
 	current_size = newsize
 	affected_mob.update_transform()
+	..()
 
 /datum/reagent/growthserum/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()

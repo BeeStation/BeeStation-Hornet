@@ -6,7 +6,7 @@
 /area
 	name = "Space"
 	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas_misc.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
 	//Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
@@ -14,7 +14,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 
-	var/area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	var/area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 
 	var/clockwork_warp_allowed = TRUE // Can servants warp into this area from Reebe?
 	var/clockwork_warp_fail = "The structure there is too dense for warping to pierce. (This is normal in high-security areas.)"
@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	// This is massively suboptimal for LARGE removal lists
 	// Try and keep the mass removal as low as you can. We'll do this by ensuring
 	// We only actually add to contained turfs after large changes (Also the management subsystem)
-	// Do your damndest to keep turfs out of /area/space as a stepping stone
+	// Do your damndest to keep turfs out of /area/misc/space as a stepping stone
 	// That sucker gets HUGE and will make this take actual tens of seconds if you stuff turfs_to_uncontain
 	contained_turfs -= turfs_to_uncontain
 	turfs_to_uncontain = list()
@@ -429,7 +429,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
  * Update the icon of the area (overridden to always be null for space
  */
-/area/space/update_icon_state()
+/area/misc/space/update_icon_state()
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = null
 
@@ -458,7 +458,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
  * Space is not powered ever, so this returns false
  */
-/area/space/powered(chan) //Nope.avi
+/area/misc/space/powered(chan) //Nope.avi
 	return FALSE
 
 /**
@@ -515,25 +515,32 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			power_usage[chan] += amount
 
 /**
-  * Call back when an atom enters an area
-  *
-  * Sends signals COMSIG_AREA_ENTERED and COMSIG_MOVABLE_ENTERED_AREA (to the atom)
-  *
-  * If the area has ambience, then it plays some ambience music to the ambience channel
-  */
+ * Call back when an atom enters an area
+ *
+ * Sends signals COMSIG_AREA_ENTERED and COMSIG_ENTER_AREA (to a list of atoms)
+ */
 /area/Entered(atom/movable/arrived, area/old_area)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
-	SEND_SIGNAL(arrived, COMSIG_MOVABLE_ENTERED_AREA, src) //The atom that enters the area
+
+	if(!arrived.important_recursive_contents?[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		return
+	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
 /**
   * Called when an atom exits an area
   *
-  * Sends signals COMSIG_AREA_EXITED and COMSIG_MOVABLE_EXITTED_AREA (to the atom)
+  * Sends signals COMSIG_AREA_EXITED and COMSIG_MOVABLE_EXITED_AREA (to the atom)
   */
 /area/Exited(atom/movable/gone, direction)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
-	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITTED_AREA, src) //The atom that exits the area
+	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITED_AREA, src, direction) //The atom that exits the area
+
+	if(!gone.important_recursive_contents?[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		return
+	for(var/atom/movable/recipient as anything in gone.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_EXIT_AREA, src)
 
 /**
   * Setup an area (with the given name)
@@ -546,8 +553,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	power_light = FALSE
 	power_environ = FALSE
 	always_unpowered = FALSE
-	area_flags &= ~VALID_TERRITORY
-	area_flags &= ~BLOBS_ALLOWED
+	area_flags &= ~(VALID_TERRITORY|BLOBS_ALLOWED|CULT_PERMITTED)
 	require_area_resort()
 /**
   * Set the area size of the area

@@ -89,7 +89,7 @@
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "aC" = (
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aD" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
@@ -142,7 +142,7 @@
 	name = "broken plating"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aN" = (
 /obj/item/book/random,
 /turf/open/floor/iron,
@@ -185,10 +185,10 @@
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aV" = (
 /turf/closed/wall/r_wall/rust,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aW" = (
 /obj/structure/chair{
 	dir = 1

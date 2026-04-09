@@ -138,8 +138,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
-		if(iscyborg(D.thrower))
-			var/mob/living/silicon/robot/R = D.thrower
+		if(iscyborg(D.get_thrower()))
+			var/mob/living/silicon/robot/R = D.get_thrower()
 			if(!R.emagged)
 				hurt = FALSE
 	if(hit_atom.density && isturf(hit_atom))
@@ -251,13 +251,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return
 
 		paper_note.show_through_camera(usr)
-
-/mob/living/carbon/on_fall()
-	. = ..()
-	loc?.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
-
-/mob/living/carbon/is_muzzled()
-	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 
 /mob/living/carbon/resist_buckle()
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED))
@@ -597,7 +590,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(!isnull(E.lighting_alpha))
 			lighting_alpha = E.lighting_alpha
 
-	if(client.eye != src)
+	if(client.eye && client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
@@ -939,10 +932,20 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		set_handcuffed(null)
 		update_handcuffed()
 
+	// clear bodypart stamina since stam_damage_coeff causes setStaminaLoss(0) to insufficient heal (coefficient-adjusted total < raw total)
+	if(heal_flags & HEAL_STAM)
+		for(var/obj/item/bodypart/BP as anything in bodyparts)
+			if(BP.stamina_dam)
+				BP.heal_damage(0, 0, BP.stamina_dam, forced = TRUE)
+		update_stamina()
+
 	return ..()
 
 /mob/living/carbon/can_be_revived()
-	if(!get_organ_by_type(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
+	if(HAS_TRAIT(src, TRAIT_HUSK))
+		return FALSE
+	var/brainless_creature = IS_CHANGELING(src)
+	if(!brainless_creature && !get_organ_by_type(/obj/item/organ/brain))
 		return FALSE
 	return ..()
 
@@ -1341,3 +1344,11 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 			if(isnum(arm.unarmed_damage))
 				arm.unarmed_damage += amount
+
+/mob/living/carbon/proc/get_unarmed_damage()
+	var/total_damage = 0
+	for(var/obj/item/bodypart/arm in bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			if(isnum(arm.unarmed_damage))
+				total_damage += arm.unarmed_damage
+	return (total_damage/2) // average the two arms together

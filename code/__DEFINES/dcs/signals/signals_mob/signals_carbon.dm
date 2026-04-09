@@ -86,3 +86,6 @@
 #define COMSIG_CARBON_UPDATING_HEALTH_HUD "carbon_health_hud_update"
 	/// Return if you override the carbon's health hud with something else
 	#define COMPONENT_OVERRIDE_HEALTH_HUD (1<<0)
+
+///Called when you want to update a carbon's height with the height_filter element - update_displacement(intensity, dir_override)
+#define COMSIG_CARBON_HEIGHT_UPDATE "COMSIG_CARBON_HEIGHT_UPDATE"

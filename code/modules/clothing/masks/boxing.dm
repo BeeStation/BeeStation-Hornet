@@ -18,6 +18,7 @@
 	icon_state = "luchag"
 	inhand_icon_state = "luchag"
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	alternate_worn_layer = LOW_FACEMASK_LAYER
 	w_class = WEIGHT_CLASS_SMALL
 	modifies_speech = TRUE
 
@@ -64,4 +65,5 @@
 	inhand_icon_state = "rus_balaclava"
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	alternate_worn_layer = LOW_FACEMASK_LAYER //This lets it layer below glasses and headsets; yes, that's below hair, but it already has HIDEHAIR
 	w_class = WEIGHT_CLASS_SMALL

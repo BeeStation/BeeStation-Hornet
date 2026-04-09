@@ -586,7 +586,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/no_lava/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	T.flags_1 |= NO_LAVA_GEN_1
+	T.turf_flags |= NO_LAVA_GEN
 
 CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 

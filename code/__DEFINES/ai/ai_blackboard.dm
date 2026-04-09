@@ -7,6 +7,8 @@
 #define BB_FOOD_TARGET "bb_food_target"
 ///How close a mob must be for us to select it as a target, if that is less than how far we can maintain it as a target
 #define BB_AGGRO_RANGE "BB_aggro_range"
+///are we ready to breed?
+#define BB_BREED_READY "BB_breed_ready"
 ///maximum kids we can have
 #define BB_MAX_CHILDREN "BB_max_children"
 
@@ -53,6 +55,11 @@
 #define BB_FLEE_TARGETING_STRATEGY "flee_targeting_strategy"
 #define BB_BASIC_MOB_FLEE_DISTANCE "BB_basic_flee_distance"
 #define DEFAULT_BASIC_FLEE_DISTANCE 9
+
+/// Generic key for a non-specific targeted action
+#define BB_TARGETED_ACTION "BB_TARGETED_action"
+/// Generic key for a non-specific action
+#define BB_GENERIC_ACTION "BB_generic_action"
 
 // Tipped blackboards
 

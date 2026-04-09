@@ -81,7 +81,7 @@
 	var/obj/machinery/abductor/pad/P = master
 	var/turf/target_loc = get_turf(remote_eye)
 
-	if(istype(get_area(target_loc), /area/ai_monitored))
+	if(istype(get_area(target_loc), /area/station/ai_monitored))
 		to_chat(owner, span_warning("Due to significant interference, this area cannot be warped to!"))
 		return
 
@@ -136,7 +136,7 @@
 	var/obj/machinery/abductor/pad/P = master
 	var/turf/target_loc = get_turf(remote_eye)
 
-	if(istype(get_area(target_loc), /area/ai_monitored))
+	if(istype(get_area(target_loc), /area/station/ai_monitored))
 		to_chat(owner, span_warning("Due to significant interference, this area cannot be warped to!"))
 		return
 

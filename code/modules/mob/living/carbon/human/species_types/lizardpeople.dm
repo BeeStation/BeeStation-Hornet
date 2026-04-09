@@ -5,7 +5,6 @@
 	id = SPECIES_LIZARD
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
-		TRAIT_TACKLING_TAILED_DEFENDER,
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_REPTILE
 	mutant_bodyparts = list(
@@ -22,6 +21,7 @@
 		/obj/item/organ/tail/lizard = "Smooth",
 	)
 	mutanttongue = /obj/item/organ/tongue/lizard
+	mutantbrain = /obj/item/organ/brain/lizard
 	coldmod = 1.5
 	heatmod = 0.67
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT

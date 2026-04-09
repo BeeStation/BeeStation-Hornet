@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	density = FALSE
 	anchored = FALSE
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	force = 0
@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/override_max_shuttles = FALSE
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_shuttle_creator
 	//During designation
-	var/overwritten_area = /area/space
+	var/overwritten_area = /area/misc/space
 	var/list/loggedTurfs = list()
 	var/list/loggedOldArea = list()
 	var/area/shuttle/recorded_shuttle_area
@@ -426,9 +426,9 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		if(!istype(t,/turf/open/floor/dock/drydock)) //Drydocks bypass the area check, but not the recursion check
 			var/static/list/drydock_types = typesof(/turf/open/floor/dock/drydock, /turf/open/floor/plating/grass, /turf/open/floor/plating/dirt/planetary, /turf/open/floor/plating/dirt/jungle/wasteland, /turf/open/floor/plating/beach/sand, /turf/open/floor/plating/asteroid/planetary)
 			var/static/list/valid_area_types = typecacheof(list(
-				/area/space,
+				/area/misc/space,
 				/area/lavaland/surface/outdoors,
-				/area/asteroid/generated,
+				/area/centcom/asteroid/generated,
 				/area/paradise/surface,
 			))
 			if(islist(t.baseturfs))

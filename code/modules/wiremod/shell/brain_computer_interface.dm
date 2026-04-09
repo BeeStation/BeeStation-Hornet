@@ -15,16 +15,29 @@
 		new /obj/item/circuit_component/bci_core,
 	), SHELL_CAPACITY_SMALL)
 
-/obj/item/organ/cyberimp/bci/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced = null, message_range = 7, datum/saymode/saymode = null)
+/obj/item/organ/cyberimp/bci/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
 	if (owner)
 		// Otherwise say_dead will be called.
 		// It's intentional that a circuit for a dead person does not speak from the shell.
 		if (owner.stat == DEAD)
 			return
 
-		owner.say(message, forced = "circuit speech")
-	else
-		return ..()
+		forced = "circuit speech"
+		return owner.say(arglist(args))
+
+	return ..()
 
 /obj/item/circuit_component/equipment_action/bci
 	display_name = "BCI Action"

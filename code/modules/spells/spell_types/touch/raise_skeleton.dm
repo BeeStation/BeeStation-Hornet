@@ -48,6 +48,7 @@
 	config.jump_target = victim
 	config.role_name_text = "spooky scary skeleton"
 	config.alert_pic = /mob/living/carbon/human/species/skeleton
+	config.amount_to_pick = 1
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 	qdel(necromantic_rune)

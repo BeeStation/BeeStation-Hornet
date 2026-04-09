@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/computer/cryopod
 	name = "cryogenic oversight console"
 	desc = "An interface between crew and the cryogenic storage oversight systems."
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "cellconsole_1"
 
 	base_icon_state = null
@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
 		/obj/item/mmi,
-		/obj/item/paicard,
+		/obj/item/pai_card,
 		/obj/item/gun,
 		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,

@@ -285,8 +285,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
-	//Fuck you, *crowbars your evil thing
-	tool_behaviour = TOOL_CROWBAR
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/light_eater/Initialize(mapload)
 	. = ..()
@@ -294,11 +293,11 @@
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	AddComponent(/datum/component/butchering, 80, 70)
 
-/obj/item/light_eater/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/light_eater/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
-	AM.lighteater_act(src)
+	target.lighteater_act(src)
 
 /atom/movable/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()

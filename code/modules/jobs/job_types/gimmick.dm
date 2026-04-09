@@ -45,7 +45,7 @@
 
 	rpg_title = "Scissorhands"
 
-	minimal_lightup_areas = list(/area/medical/morgue)
+	minimal_lightup_areas = list(/area/station/medical/morgue)
 
 	manuscript_jobs = list(
 		JOB_NAME_BARBER,
@@ -86,7 +86,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+	minimal_lightup_areas = list(
+/area/station/service/theater)
 
 /datum/outfit/job/gimmick/stage_magician
 	name = JOB_NAME_STAGEMAGICIAN
@@ -154,6 +155,7 @@
 	departments = DEPT_BITFLAG_VIP
 	bank_account_department = ACCOUNT_VIP_BITFLAG
 	payment_per_department = list(ACCOUNT_VIP_ID = PAYCHECK_VIP)  //our power is being fucking rich
+	mind_traits = list(TRAIT_VIP)
 
 	rpg_title = "Master of Patronage"
 	species_outfits = list(

@@ -220,7 +220,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	to_chat(src, span_warning("You can't fire \the [gun]!"))
 	return FALSE // No... just... no.
 
-/mob/living/simple_animal/hostile/holoparasite/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
+/mob/living/simple_animal/hostile/holoparasite/Hear(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods, message_range)
 	var/datum/antagonist/traitor/summoner_traitor = summoner?.has_antag_datum(/datum/antagonist/traitor)
 	if(summoner_traitor?.has_codewords)
 		raw_message = GLOB.syndicate_code_phrase_regex.Replace(raw_message, span_blue("$1"))

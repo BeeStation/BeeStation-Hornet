@@ -34,7 +34,7 @@
 	loot = list(/obj/item/ectoplasm)
 	del_on_death = TRUE
 	initial_language_holder = /datum/language_holder/construct
-	deathmessage = "collapses in a shattered heap."
+	death_message = "collapses in a shattered heap."
 	hardattacks = TRUE
 	var/list/construct_spells = list()
 	var/playstyle_string = span_bigbold("You are a generic construct!") + "<b> Your job is to not exist, and you should probably adminhelp this.</b>"

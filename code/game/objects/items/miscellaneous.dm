@@ -125,6 +125,19 @@
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/melee/curator_whip(src)
 
+/obj/item/storage/box/hero/witchhunter // I SWEAR this isn't just the chaplains stuff!!!!
+	name = "Monster-Hunter Kit - 1735"
+	item_icon_state = "witchhunter"
+	info_text = "Monster-Hunter Kit - 1735. \n" + span_notice("The garb can hold a variety of relevant items.\nComes with a crucifix that wards against hexes, and a few premium stakes.")
+
+/obj/item/storage/box/hero/witchhunter/PopulateContents()
+	new /obj/item/clothing/suit/armor/monsterhunter(src)
+	new /obj/item/clothing/head/helmet/monsterhunter_hat(src)
+	new /obj/item/clothing/neck/crucifix(src)
+	new	/obj/item/stake/hardened/silver(src)
+	new /obj/item/stake/hardened/silver(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/garlic_extract(src)
+
 /obj/item/storage/box/hero/astronaut
 	name = "First Man on the Moon - 1960's."
 	item_icon_state = "voidsuit"
@@ -445,7 +458,7 @@
 /obj/item/choice_beacon/pet/cat
 	name = "cat delivery beacon"
 	default_name = "Tom"
-	mob_choice = /mob/living/simple_animal/pet/cat
+	mob_choice = /mob/living/basic/pet/cat
 
 /obj/item/choice_beacon/pet/mouse
 	name = "mouse delivery beacon"
@@ -470,7 +483,7 @@
 /obj/item/choice_beacon/pet/ems
 	name = "emotional support animal delivery beacon"
 	default_name = "Hugsie"
-	mob_choice = /mob/living/simple_animal/pet/cat/kitten
+	mob_choice = /mob/living/basic/pet/cat/kitten
 
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"

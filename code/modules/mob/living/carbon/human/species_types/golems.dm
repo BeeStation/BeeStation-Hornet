@@ -264,6 +264,15 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
 	)
 
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/plasteel,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/plasteel,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/plasteel,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/plasteel,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
+	)
+
 /datum/species/golem/plasteel/negates_gravity(mob/living/carbon/human/H)
 	return TRUE
 
@@ -425,6 +434,16 @@
 	damage_modifier = 40
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown", "235")
+	examine_limb_id = SPECIES_GOLEM
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/uranium,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/uranium,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/uranium,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/uranium,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/uranium,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/uranium,
+	)
+
 	examine_limb_id = SPECIES_GOLEM
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/uranium,

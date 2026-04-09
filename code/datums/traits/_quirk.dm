@@ -39,7 +39,8 @@
 	quirk_holder = quirk_mind
 	quirk_target = quirk_mob
 	SSquirks.quirk_objects += src
-	to_chat(quirk_target, gain_text)
+	if(gain_text)
+		to_chat(quirk_target, gain_text)
 	quirk_holder.quirks += src
 	if(process)
 		START_PROCESSING(SSquirks, src)
@@ -64,7 +65,8 @@
 		UnregisterSignal(quirk_holder, COMSIG_QDELETING)
 		if(!QDELETED(quirk_target))
 			UnregisterSignal(quirk_target, COMSIG_QDELETING)
-			to_chat(quirk_target, lose_text)
+			if(lose_text)
+				to_chat(quirk_target, lose_text)
 		quirk_holder.quirks -= src
 		if(mob_trait)
 			REMOVE_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)

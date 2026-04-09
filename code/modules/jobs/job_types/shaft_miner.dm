@@ -40,7 +40,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
-	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+	minimal_lightup_areas = list(/area/station/construction/mining/aux_base)
 
 	manuscript_jobs = list(
 		JOB_NAME_SHAFTMINER,

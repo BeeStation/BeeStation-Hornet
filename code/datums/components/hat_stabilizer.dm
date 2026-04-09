@@ -2,7 +2,7 @@
 /datum/component/hat_stabilizer
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// Currently "stored" hat. No armor or function will be inherited, only the icon and cover flags.
-	var/obj/item/clothing/head/attached_hat
+	var/obj/item/attached_hat
 	/// If TRUE, the hat will fall to the ground when the owner does so. It can also be shot off.
 	var/loose_hat = FALSE
 	/// Original cover flags for the helmet, before a hat is placed
@@ -10,22 +10,23 @@
 	var/former_visor_flags
 	/// If true, add_overlay will use worn overlay instead of item appearance
 	var/use_worn_icon = TRUE
-	/// Pixel_y offset for the hat
-	var/pixel_y_offset
+	/// Pixel z offset for the hat
+	var/pixel_z_offset
+	/// Which way a loose hat is offset
+	var/head_angle = 1
 
-/datum/component/hat_stabilizer/Initialize(use_worn_icon = FALSE, pixel_y_offset = 0, loose_hat = FALSE)
+/datum/component/hat_stabilizer/Initialize(use_worn_icon = FALSE, pixel_z_offset = 0, loose_hat = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	var/atom/movable/source = parent
-	//source.flags_1 |= HAS_CONTEXTUAL_SCREENTIPS_1
 
 	src.use_worn_icon = use_worn_icon
-	src.pixel_y_offset = pixel_y_offset
+	src.pixel_z_offset = pixel_z_offset
 	src.loose_hat = loose_hat
 	// Examine signals
 	RegisterSignal(source, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
-	//RegisterSignal(source, COMSIG_ATOM_REQUESTING_CONTEXT_FROM_ITEM, PROC_REF(on_requesting_context_from_item))
+	RegisterSignal(source, COMSIG_ATOM_ADD_CONTEXT, PROC_REF(on_requesting_context_from_item))
 
 	// Equip signals, used to drop loose hats
 	RegisterSignal(source, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
@@ -36,12 +37,12 @@
 	RegisterSignal(source, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(on_secondary_attack_hand))
 
 	// Overlays
-	RegisterSignals(source, list(COMSIG_ITEM_GET_WORN_OVERLAYS), PROC_REF(get_worn_overlays))
+	RegisterSignals(source, list(COMSIG_MODULE_GENERATE_WORN_OVERLAY, COMSIG_ITEM_GET_WORN_OVERLAYS), PROC_REF(get_worn_overlays))
 
 	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(on_qdel))
 
 // Inherit the new values passed to the component
-/datum/component/hat_stabilizer/InheritComponent(datum/component/hat_stabilizer/new_comp, original, use_worn_icon, pixel_y_offset, loose_hat)
+/datum/component/hat_stabilizer/InheritComponent(datum/component/hat_stabilizer/new_comp, original, use_worn_icon, pixel_z_offset, loose_hat)
 	if(!original)
 		return
 
@@ -49,24 +50,18 @@
 		src.use_worn_icon = use_worn_icon
 	if(!isnull(use_worn_icon))
 		src.use_worn_icon = use_worn_icon
-	if(!isnull(pixel_y_offset))
-		src.pixel_y_offset = pixel_y_offset
+	if(!isnull(pixel_z_offset))
+		src.pixel_z_offset = pixel_z_offset
 	if(!isnull(loose_hat))
 		src.loose_hat = loose_hat
 
 /datum/component/hat_stabilizer/UnregisterFromParent()
 	if (attached_hat)
 		remove_hat()
-	UnregisterSignal(parent, list(
-		COMSIG_ATOM_EXAMINE,
-		COMSIG_ATOM_ATTACKBY,
-		COMSIG_ATOM_ATTACK_HAND_SECONDARY,
-		COMSIG_ITEM_GET_WORN_OVERLAYS,
-		COMSIG_ATOM_UPDATE_OVERLAYS,
-		COMSIG_QDELETING,
-		COMSIG_ITEM_EQUIPPED,
-		COMSIG_ITEM_DROPPED
-	))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_ATTACKBY,
+	COMSIG_ATOM_ATTACK_HAND_SECONDARY, COMSIG_MODULE_GENERATE_WORN_OVERLAY,
+	COMSIG_ITEM_GET_WORN_OVERLAYS, COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_QDELETING,
+	COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 
 /datum/component/hat_stabilizer/proc/on_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
@@ -77,11 +72,12 @@
 	var/obj/item/our_item = parent
 	if(!(slot & our_item.slot_flags))
 		return
-	RegisterSignals(equipper, list(COMSIG_MOVABLE_POST_THROW), PROC_REF(throw_hat))
+	RegisterSignals(equipper, list(COMSIG_MOB_SLIPPED, COMSIG_LIVING_SLAPPED, COMSIG_MOVABLE_POST_THROW), PROC_REF(throw_hat))
+	RegisterSignal(equipper, COMSIG_LIVING_THUD, PROC_REF(drop_hat))
 
 /datum/component/hat_stabilizer/proc/on_drop(datum/source, mob/dropper)
 	SIGNAL_HANDLER
-	UnregisterSignal(dropper, list(COMSIG_MOVABLE_POST_THROW))
+	UnregisterSignal(dropper, list(COMSIG_MOB_SLIPPED, COMSIG_LIVING_SLAPPED, COMSIG_MOVABLE_POST_THROW, COMSIG_LIVING_THUD))
 
 /datum/component/hat_stabilizer/proc/throw_hat(mob/hatless)
 	SIGNAL_HANDLER
@@ -108,19 +104,37 @@
 
 /datum/component/hat_stabilizer/proc/get_worn_overlays(atom/movable/source, list/overlays, mutable_appearance/standing, isinhands, icon_file)
 	SIGNAL_HANDLER
-	if (isinhands)
+	if(isinhands)
 		return
 	if(!attached_hat)
 		return
-	var/mutable_appearance/worn_overlay = attached_hat.build_worn_icon(default_layer = ABOVE_BODY_FRONT_HEAD_LAYER-0.1, default_icon_file = 'icons/mob/clothing/head/default.dmi')
+	var/mutable_appearance/worn_overlay = attached_hat.build_worn_icon(default_layer = ABOVE_BODY_FRONT_HEAD_LAYER - 0.1, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 	worn_overlay.appearance_flags |= RESET_COLOR
 	// loose hats are slightly angled
 	if(loose_hat)
 		var/matrix/tilt_trix = matrix(worn_overlay.transform)
 		var/angle = 5
-		tilt_trix.Turn(angle * pick(1, -1))
+		tilt_trix.Turn(angle * head_angle)
 		worn_overlay.transform = tilt_trix
-	worn_overlay.pixel_y = pixel_y_offset + attached_hat.worn_y_offset
+	worn_overlay.pixel_z = pixel_z_offset + attached_hat.worn_y_offset
+	overlays += worn_overlay
+
+/datum/component/hat_stabilizer/proc/get_separate_worn_overlays(atom/movable/source, list/overlays, mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	SIGNAL_HANDLER
+	if (isinhands)
+		return
+	if(!attached_hat)
+		return
+	var/mutable_appearance/worn_overlay = attached_hat.build_worn_icon(default_layer = ABOVE_BODY_FRONT_HEAD_LAYER - 0.1, default_icon_file = 'icons/mob/clothing/head/default.dmi')
+	for (var/mutable_appearance/overlay in worn_overlay.overlays)
+		overlay.layer = -ABOVE_BODY_FRONT_HEAD_LAYER + 0.1
+	// loose hats are slightly angled
+	if(loose_hat)
+		var/matrix/tilt_trix = matrix(worn_overlay.transform)
+		var/angle = 5
+		tilt_trix.Turn(angle * head_angle)
+		worn_overlay.transform = tilt_trix
+	worn_overlay.pixel_z = pixel_z_offset + attached_hat.worn_y_offset
 	overlays += worn_overlay
 
 /datum/component/hat_stabilizer/proc/on_qdel(atom/movable/source)
@@ -133,41 +147,44 @@
 	SIGNAL_HANDLER
 
 	var/atom/movable/movable_parent = parent
-	if(!istype(hitting_item, /obj/item/clothing/head))
+	if(!(hitting_item.slot_flags & ITEM_SLOT_HEAD))
 		return
 
 	if(attached_hat)
 		movable_parent.balloon_alert(user, "hat already attached!")
 		return
+	if(isclothing(hitting_item))
+		var/obj/item/clothing/hat = hitting_item
+		if(hat.clothing_flags & STACKABLE_HELMET_EXEMPT)
+			movable_parent.balloon_alert(user, "invalid hat!")
+			return
 
-	var/obj/item/clothing/hat = hitting_item
-	if(hat.clothing_flags & STACKABLE_HELMET_EXEMPT)
-		movable_parent.balloon_alert(user, "invalid hat!")
+	if(!user.transferItemToLoc(hitting_item, parent, force = FALSE, silent = TRUE))
 		return
 
-	if(!user.transferItemToLoc(hat, parent, force = FALSE, silent = TRUE))
-		return
+	attach_hat(hitting_item, user)
 
-	attach_hat(hat, user)
-
-/datum/component/hat_stabilizer/proc/attach_hat(obj/item/clothing/hat, mob/user)
+/datum/component/hat_stabilizer/proc/attach_hat(obj/item/hat, mob/user)
 	var/atom/movable/movable_parent = parent
 	attached_hat = hat
 	RegisterSignal(hat, COMSIG_MOVABLE_MOVED, PROC_REF(on_hat_movement))
+	head_angle = pick(1, -1)
 
 	if (!isnull(user))
 		movable_parent.balloon_alert(user, "hat attached")
 
-	if (!istype(parent, /obj/item/clothing))
+	if (!isclothing(parent))
 		movable_parent.update_appearance()
 		return
 
 	var/obj/item/clothing/apparel = parent
-	apparel.attach_clothing_traits(attached_hat.clothing_traits)
+	if(isclothing(attached_hat))
+		var/obj/item/clothing/realhat = attached_hat
+		apparel.attach_clothing_traits(realhat.clothing_traits)
+		apparel.visor_flags_cover |= realhat.visor_flags_cover
 	former_flags = apparel.flags_cover
 	former_visor_flags = apparel.visor_flags_cover
 	apparel.flags_cover |= attached_hat.flags_cover
-	apparel.visor_flags_cover |= attached_hat.visor_flags_cover
 	apparel.update_appearance()
 
 	if (ismob(apparel.loc))
@@ -206,14 +223,16 @@
 	else
 		movable_parent.balloon_alert_to_viewers("the hat falls to the floor!")
 
-	if (!istype(parent, /obj/item/clothing))
+	if (!isclothing(parent))
 		attached_hat = null
 		movable_parent.update_appearance()
 		return
 
 	var/former_hat = attached_hat
 	var/obj/item/clothing/apparel = parent
-	apparel.detach_clothing_traits(attached_hat)
+	if(isclothing(attached_hat))
+		var/obj/item/clothing/truehat = attached_hat
+		apparel.detach_clothing_traits(truehat.clothing_traits)
 	apparel.flags_cover = former_flags
 	apparel.visor_flags_cover = former_visor_flags
 	apparel.update_appearance()
@@ -221,20 +240,16 @@
 	if (ismob(apparel.loc))
 		var/mob/wearer = apparel.loc
 		wearer.update_clothing(wearer.get_slot_by_item(apparel))
+	if(isnull(user))
+		return former_hat
 
-	return former_hat
-
-/*
-/datum/component/hat_stabilizer/proc/on_requesting_context_from_item(atom/source, list/context, obj/item/held_item, mob/user)
+/datum/component/hat_stabilizer/proc/on_requesting_context_from_item(datum/source, datum/screentip_context/context, mob/user)
 	SIGNAL_HANDLER
 
-	if(attached_hat && !held_item)
-		context[SCREENTIP_CONTEXT_RMB] = "Remove hat"
-		return CONTEXTUAL_SCREENTIP_SET
+	if(attached_hat && !context.held_item)
+		context.add_right_click_action("Remove hat")
+		return
 
-	if(istype(held_item, /obj/item/clothing/head))
-		context[SCREENTIP_CONTEXT_LMB] = "Attach hat"
-		return CONTEXTUAL_SCREENTIP_SET
-
-	return NONE
-*/
+	if(istype(context.held_item, /obj/item/clothing/head))
+		context.add_left_click_action("Attach hat")
+		return

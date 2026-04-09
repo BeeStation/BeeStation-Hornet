@@ -120,7 +120,7 @@
 		return ..()
 
 	if(can_saddle && do_after(user,55,target=src))
-		user.visible_message("<span class='notice'>You manage to put [O] on [src], you can now ride [p_them()].</span>")
+		user.visible_message(span_notice("You manage to put [O] on [src], you can now ride [p_them()]."))
 		qdel(O)
 		saddled = TRUE
 		can_buckle = TRUE

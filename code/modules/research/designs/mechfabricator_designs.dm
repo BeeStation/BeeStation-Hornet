@@ -601,6 +601,24 @@
 	construction_time = 400
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_radio
+	name = "Mech Radio"
+	id = "mech_radio"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/radio
+	materials = list(/datum/material/iron=2500)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_air_tank
+	name = "Mech Air Tank"
+	id = "mech_air_tank"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/air_tank
+	materials = list(/datum/material/iron=5000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////
 /////////////////////////////////////////
@@ -863,6 +881,11 @@
 	construction_time = 10 SECONDS
 	build_path = /obj/item/mod/construction/helmet
 	category = list("MOD Construction")
+
+// Even without a hat stabilizer, hats can be worn - however, they'll fall off very easily
+/obj/item/clothing/head/mod/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
 
 /datum/design/mod_chestplate
 	name = "MOD chestplate"

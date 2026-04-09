@@ -20,7 +20,7 @@
 	damage = 0,
 	damagetype = BRUTE,
 	def_zone = null,
-	blocked = FALSE,
+	blocked = 0,
 	forced = FALSE,
 	spread_damage = FALSE,
 	sharpness = NONE,
