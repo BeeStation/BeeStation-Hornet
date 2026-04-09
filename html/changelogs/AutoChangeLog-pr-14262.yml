@@ -1,6 +1,0 @@
-author: SmArtKar, Racc-Off
-delete-after: true
-changes:
-  - bugfix: Fix lasso runtime
-  - bugfix: Hovering over things on the same tile no longer closes the pet command
-      menu

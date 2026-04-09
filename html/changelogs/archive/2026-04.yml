@@ -86,3 +86,8 @@
   - code_imp: Space_Station_13_areas.dm had its station specific turf moved to station.dm
   - imageadd: Some turfs were given icons (which didn't exist prior).
   - imagedel: Most unused/odd ball turfs were removed (like dk_yellow).
+2026-04-09:
+  SmArtKar, Racc-Off:
+  - bugfix: Fix lasso runtime
+  - bugfix: Hovering over things on the same tile no longer closes the pet command
+      menu
