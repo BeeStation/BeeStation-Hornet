@@ -3544,13 +3544,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
 /obj/machinery/incident_display/delam/directional/south,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/green,
 /area/station/engineering/atmospherics_engine)
 "bmT" = (
@@ -27613,13 +27611,11 @@
 /turf/open/floor/iron/dark,
 /area/station/security/courtroom)
 "iiG" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/telecomms,
 /area/station/tcommsat/server)
 "iiI" = (
@@ -30233,9 +30229,6 @@
 /turf/open/floor/iron,
 /area/station/maintenance/port/fore)
 "iXj" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -30246,6 +30239,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "iXk" = (
@@ -34602,9 +34596,6 @@
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "keZ" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
@@ -34619,6 +34610,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "kfa" = (
@@ -47162,13 +47154,11 @@
 /obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmospherics_engine)
 "nzL" = (
@@ -49510,9 +49500,6 @@
 "ofW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
@@ -49523,6 +49510,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "ofX" = (

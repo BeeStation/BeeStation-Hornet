@@ -679,8 +679,8 @@
 "fa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil{
+/obj/item/stack/cable_coil/yellow,
+/obj/item/stack/cable_coil/yellow{
 	pixel_x = -1;
 	pixel_y = -3
 	},
@@ -729,7 +729,7 @@
 "fH" = (
 /obj/machinery/door/morgue{
 	name = "Chaplains Office";
-	req_access = list("chapel_office")
+	req_access_txt = "22"
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/ks13/service/chapel_office)
@@ -744,7 +744,7 @@
 "fL" = (
 /obj/machinery/door/window/westleft{
 	name = "Cell 2";
-	req_access = list("security")
+	req_access_txt = "1"
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/airless,
@@ -1042,7 +1042,7 @@
 	id = "derelict_gun"
 	},
 /obj/machinery/door/window/eastleft{
-	req_access = list("chapel_office");
+	req_access_txt = "22";
 	name = "Coffin-Driver"
 	},
 /obj/structure/closet/crate/coffin,
@@ -1208,7 +1208,7 @@
 	name = "Pharmacy Desk"
 	},
 /obj/machinery/door/window/northleft{
-	req_access = list("pharmacy");
+	req_access_txt = "33";
 	name = "Pharmacy Desk"
 	},
 /turf/open/floor/iron/white/airless,
@@ -1751,6 +1751,8 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/mineral/copper/fifty,
+/obj/item/stack/sheet/mineral/copper/fifty,
 /turf/open/floor/circuit/red/airless,
 /area/ruin/space/ks13/ai/vault)
 "pc" = (
@@ -2244,8 +2246,10 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/service/chapel)
 "ro" = (
-/obj/item/stack/cable_coil/random/five,
 /obj/effect/mapping_helpers/burnt_floor,
+/obj/item/stack/cable_coil/yellow{
+	amount = 5
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/ai/vault)
 "rq" = (
@@ -2605,15 +2609,15 @@
 "sL" = (
 /obj/structure/table,
 /obj/item/electronics/airlock,
-/obj/item/stack/cable_coil{
-	pixel_x = 5;
-	pixel_y = -2
-	},
 /obj/item/stock_parts/matter_bin{
 	pixel_y = 14;
 	pixel_x = -6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/yellow{
+	pixel_x = 5;
+	pixel_y = -2
+	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/engineering/tech_storage)
 "sM" = (
@@ -4046,7 +4050,7 @@
 /obj/structure/closet/crate/coffin,
 /obj/machinery/door/window/eastleft{
 	name = "Coffin Storage";
-	req_access = list("chapel_office")
+	req_access_txt = "22"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -4871,6 +4875,7 @@
 /area/ruin/space/ks13/engineering/supermatter)
 "DB" = (
 /obj/structure/table,
+/obj/item/pipe_dispenser,
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/engineering/atmos)
 "DC" = (
@@ -4888,8 +4893,8 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/ks13/medical/morgue)
 "DJ" = (
-/obj/item/stack/cable_coil,
 /obj/effect/mapping_helpers/broken_floor,
+/obj/item/stack/cable_coil/yellow,
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/engineering/supermatter)
 "DK" = (
@@ -5101,7 +5106,7 @@
 	},
 /obj/machinery/door/window/eastleft{
 	name = "Sci Desk";
-	req_access = list("research")
+	req_access_txt = "47"
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/science/rnd)
@@ -5221,7 +5226,7 @@
 "Fd" = (
 /obj/machinery/door/window/eastleft{
 	name = "Bridge";
-	req_access = list("command")
+	req_access_txt = "19"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -5528,7 +5533,7 @@
 	name = "Atmospherics Desk"
 	},
 /obj/machinery/door/window/southleft{
-	req_access = list("atmos");
+	req_access_txt = "24";
 	name = "Atmospherics Desk"
 	},
 /turf/open/floor/iron/airless,
@@ -6164,7 +6169,7 @@
 "JC" = (
 /obj/machinery/door/window/southleft{
 	name = "Captain's Quarters";
-	req_access = list("captain")
+	req_access_txt = "20"
 	},
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -7145,12 +7150,14 @@
 /turf/open/floor/plating,
 /area/ruin/space/ks13/hallway/central)
 "Or" = (
-/obj/item/stack/cable_coil/random/five,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/item/stack/cable_coil/yellow{
+	amount = 5
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/ai/vault)
@@ -8528,7 +8535,7 @@
 "Uq" = (
 /obj/machinery/door/window/southleft{
 	name = "Solars Control Access";
-	req_access = list("engineering")
+	req_access_txt = "10"
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /obj/structure/cable/yellow{
@@ -9734,7 +9741,7 @@
 "ZH" = (
 /obj/machinery/door/window/westleft{
 	name = "Cell 1";
-	req_access = list("security")
+	req_access_txt = "1"
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/security/cell)

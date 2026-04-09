@@ -7173,10 +7173,8 @@
 /area/station/science/robotics)
 "cvL" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -35901,10 +35899,8 @@
 /area/station/maintenance/department/security)
 "mAL" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/ai_monitored/turret_protected/ai)
 "mAM" = (
@@ -53462,12 +53458,10 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/tech/grid,
 /area/station/engineering/gravity_generator)
 "sHt" = (
@@ -57007,9 +57001,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat/atmos)
 "tNz" = (

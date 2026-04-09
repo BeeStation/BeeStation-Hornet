@@ -42,6 +42,63 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	QDEL_NULL(poster_structure)
 	return ..()
 
+/obj/item/poster/afterattack(turf/closed/wall_structure, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!isclosedturf(wall_structure))
+		return FALSE
+
+	var/turf/user_turf = get_turf(user)
+	var/dir = get_dir(user_turf, wall_structure)
+	if(!(dir in GLOB.cardinals))
+		balloon_alert(user, "stand in line with wall!")
+		return FALSE
+
+	// Deny placing posters on currently-diagonal walls, although the wall may change in the future.
+	if (wall_structure.smoothing_flags & SMOOTH_DIAGONAL_CORNERS)
+		for(var/overlay in wall_structure.overlays)
+			var/image/new_image = overlay
+			if(copytext(new_image.icon_state, 1, 3) == "d-") //3 == length("d-") + 1
+				to_chat(user, span_warning("Cannot place on diagonal wall!"))
+				return FALSE
+
+	var/stuff_on_wall = 0
+	for(var/obj/contained_object in wall_structure.contents) //Let's see if it already has a poster on it or too much stuff
+		if(istype(contained_object, /obj/structure/sign/poster))
+			balloon_alert(user, "no room!")
+			return FALSE
+		stuff_on_wall++
+		if(stuff_on_wall == 3)
+			balloon_alert(user, "no room!")
+			return FALSE
+
+	balloon_alert(user, "hanging poster...")
+	var/obj/structure/sign/poster/placed_poster = poster_structure || new poster_type(src)
+	placed_poster.forceMove(user_turf)
+	placed_poster.setDir(dir)
+	switch(dir)
+		if(NORTH)
+			placed_poster.pixel_y = 32
+		if(SOUTH)
+			placed_poster.pixel_y = -32
+		if(EAST)
+			placed_poster.pixel_x = 32
+		if(WEST)
+			placed_poster.pixel_x = -32
+
+	placed_poster.poster_item_type = type
+	poster_structure = null
+	flick("poster_being_set", placed_poster)
+	playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)
+	qdel(src)
+
+	var/turf/user_drop_location = get_turf(user)
+	if(!do_after(user, PLACE_SPEED, placed_poster))
+		//only put back if the poster wasen't teared off or snipped with a wirecutter during placing
+		if(!QDELETED(placed_poster))
+			placed_poster.roll_and_drop(user_drop_location, user)
+		return FALSE
+	return TRUE
+
 /**
  * The structure form of a poster.
  * These are what get placed on maps as posters. They are also what gets created when a player places a poster on a wall.
@@ -125,52 +182,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 		forceMove(rolled_poster)
 	qdel(src)
 	return rolled_poster
-
-
-//separated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby()
-/turf/closed/wall/proc/place_poster(obj/item/poster/P, mob/user)
-	if(!P.poster_structure)
-		to_chat(user, span_warning("[P] has no poster... inside it? Inform a coder!"))
-		return
-
-	// Deny placing posters on currently-diagonal walls, although the wall may change in the future.
-	if (smoothing_flags & SMOOTH_DIAGONAL_CORNERS)
-		for (var/O in overlays)
-			var/image/I = O
-			if(copytext(I.icon_state, 1, 3) == "d-") //3 == length("d-") + 1
-				return
-
-	var/stuff_on_wall = 0
-	for(var/obj/O in contents) //Let's see if it already has a poster on it or too much stuff
-		if(istype(O, /obj/structure/sign/poster))
-			to_chat(user, span_warning("The wall is far too cluttered to place a poster!"))
-			return
-		stuff_on_wall++
-		if(stuff_on_wall == 3)
-			to_chat(user, span_warning("The wall is far too cluttered to place a poster!"))
-			return
-
-	to_chat(user, span_notice("You start placing the poster on the wall...")	)
-
-	var/obj/structure/sign/poster/D = P.poster_structure
-
-	var/temp_loc = get_turf(user)
-	flick("poster_being_set",D)
-	D.forceMove(src)
-	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
-	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
-
-	if(do_after(user, PLACE_SPEED, target=src))
-		if(QDELETED(D))
-			return
-
-		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
-			to_chat(user, span_notice("You place the poster!"))
-			return
-
-	if(D.loc == src) //Would do QDELETED, but it's also possible the poster gets taken down by dismantling the wall
-		to_chat(user, span_notice("The poster falls down!"))
-		D.roll_and_drop(temp_loc, user)
 
 // Various possible posters follow
 

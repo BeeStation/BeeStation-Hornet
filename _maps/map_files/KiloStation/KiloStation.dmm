@@ -36821,10 +36821,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/smes{
-	charge = 5e+006;
-	name = "ai power storage unit"
-	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -38669,13 +38666,10 @@
 	},
 /area/station/maintenance/central)
 "mye" = (
-/obj/machinery/power/smes{
-	charge = 5e+006;
-	name = "ai power storage unit"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "myl" = (
@@ -62602,9 +62596,6 @@
 	},
 /area/station/cargo/warehouse)
 "tUZ" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
@@ -62616,6 +62607,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -69646,9 +69638,6 @@
 /turf/open/floor/engine,
 /area/station/engineering/gravity_generator)
 "wga" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/light/small/directional/north,
 /obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
@@ -69656,6 +69645,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating{
 	burnt = 1;
 	initial_gas_mix = "n2=100;TEMP=80"

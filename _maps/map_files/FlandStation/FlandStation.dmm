@@ -17769,12 +17769,10 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange{
 	dir = 1
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -18948,12 +18946,10 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "fkF" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/drydock)
 "fkG" = (
@@ -33943,12 +33939,10 @@
 /area/station/maintenance/department/medical)
 "jif" = (
 /obj/effect/turf_decal/stripes/full,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
 "jik" = (
@@ -40744,9 +40738,6 @@
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/cmo)
 "kTr" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/effect/turf_decal/stripes/box,
 /obj/effect/turf_decal/stripes/red/box,
 /obj/structure/cable{
@@ -40755,6 +40746,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "kTx" = (
@@ -41139,9 +41131,7 @@
 	},
 /obj/machinery/light/directional/east,
 /obj/structure/cable/white,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "kYE" = (
@@ -60226,9 +60216,7 @@
 /obj/structure/sign/warning/electric_shock{
 	pixel_x = 32
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/tech/grid,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
 "qic" = (
@@ -78038,12 +78026,10 @@
 /turf/open/floor/iron/techmaint,
 /area/station/service/chapel/office)
 "vch" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/drydock/security)
 "vco" = (
@@ -88107,13 +88093,11 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/science/research)
 "xNU" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/camera/directional/east,
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},

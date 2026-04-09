@@ -1,7 +1,3 @@
-# areas
-
-/area/hilbertshotel : /area/misc/hilbertshotel{@OLD}
-
 # snake_case-ification
 
 /obj/structure/sign/warning/securearea : /obj/structure/sign/warning/secure_area{@OLD}

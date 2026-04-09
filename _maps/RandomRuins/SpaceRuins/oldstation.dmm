@@ -925,7 +925,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/broken/directional/south,
 /obj/structure/closet/crate/secure/engineering{
-	req_access = list("away_engineering")
+	req_access_txt = "204"
 	},
 /obj/item/pipe_dispenser,
 /obj/item/storage/bag/construction,
@@ -1629,7 +1629,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
 /obj/machinery/door/window/northright{
-	req_access = list("away_general")
+	req_access_txt = "200"
 	},
 /obj/item/paper/fluff/ruins/oldstation/apc_note,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
@@ -4791,7 +4791,7 @@
 /area/ruin/space/ancientstation/beta/supermatter)
 "xM" = (
 /obj/machinery/door/window/eastright{
-	req_access = list("away_general")
+	req_access_txt = "200"
 	},
 /obj/structure/sign/warning/secure_area/directional/north,
 /turf/open/floor/engine,
@@ -5431,7 +5431,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/east,
 /obj/structure/closet/crate/secure/weapon{
-	req_access = list("away_sec")
+	req_access_txt = "203"
 	},
 /obj/item/clothing/suit/armor/vest/old,
 /obj/item/gun/ballistic/rifle/boltaction,
@@ -8119,7 +8119,7 @@
 /obj/effect/decal/cleanable/shreds,
 /obj/structure/alien/weeds,
 /obj/structure/closet/crate/secure/science{
-	req_access = list("away_science")
+	req_access_txt = "209"
 	},
 /obj/item/xenoartifact,
 /obj/item/transfer_valve,
@@ -8938,7 +8938,7 @@
 /area/ruin/space/ancientstation/charlie/kitchen)
 "Yl" = (
 /obj/machinery/door/window/eastright{
-	req_access = list("away_general")
+	req_access_txt = "200"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
