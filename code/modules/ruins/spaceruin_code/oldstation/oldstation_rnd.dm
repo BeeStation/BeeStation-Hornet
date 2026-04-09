@@ -5,7 +5,8 @@
 	generates_heat = FALSE
 
 /obj/machinery/rnd/server/oldstation/Initialize(mapload)
-	var/datum/techweb/oldstation_web = locate(/datum/techweb/oldstation) in SSresearch.techwebs
+	var/datum/techweb/oldstation/oldstation_web = locate() in SSresearch.techwebs
+	oldstation_web ||= new /datum/techweb/oldstation()
 	stored_research = oldstation_web
 	return ..()
 

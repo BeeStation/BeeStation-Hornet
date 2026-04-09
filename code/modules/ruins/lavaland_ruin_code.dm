@@ -30,7 +30,8 @@
 	generates_heat = FALSE
 
 /obj/machinery/rnd/server/golem/Initialize(mapload)
-	var/datum/techweb/golem_web = locate(/datum/techweb/golem) in SSresearch.techwebs
+	var/datum/techweb/golem/golem_web = locate() in SSresearch.techwebs
+	golem_web ||= new /datum/techweb/golem()
 	stored_research = golem_web
 	return ..()
 

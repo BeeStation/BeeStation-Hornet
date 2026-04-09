@@ -44,12 +44,15 @@
 	/// Assoc list, id = number, 1 is available, 2 is all reqs are 1, so on
 	/// Tiers used for the RD console, not actual tier
 	var/list/tiers = list()
-	/// A list of atoms scanned by a discovery scanner
-	var/list/scanned_atoms = list()
+
 	/// The tier of our techweb
 	var/current_tier = 1
-	var/list/items_per_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of nodes in tier
-	var/list/unlocked_in_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of nodes unlocked in tier
+	/// Assoc list, Key = "[tier level]", Value = Amount of nodes in tier
+	var/list/items_per_tier = list()
+	/// Assoc list, Key = "[tier level]", Value = Amount of nodes unlocked in tier
+	var/list/unlocked_in_tier = list()
+	/// A list of atoms scanned by a discovery scanner
+	var/list/scanned_atoms = list()
 
 	/// All RD consoles connected to this individual techweb.
 	var/list/obj/machinery/computer/rdconsole/consoles_accessing = list()
@@ -317,8 +320,7 @@
 	var/list/current = list(base)
 	while (current.len)
 		var/list/next = list()
-		for (var/node_ in current)
-			var/datum/techweb_node/node = node_
+		for (var/datum/techweb_node/node as anything in current)
 			var/tier = 0
 			if (!researched_nodes[node.id])  // researched is tier 0
 				for (var/id in node.prereq_ids)
@@ -362,33 +364,33 @@
 	update_tiers(node)
 
 //Laggy procs to do specific checks, just in case. Don't use them if you can just use the vars that already store all this!
-/datum/techweb/proc/designHasReqs(datum/design/D)
-	for(var/i in researched_nodes)
-		var/datum/techweb_node/N = SSresearch.techweb_node_by_id(i)
-		if(N.design_ids[D.id])
+/datum/techweb/proc/designHasReqs(datum/design/design)
+	for(var/node_id in researched_nodes)
+		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
+		if(node.design_ids[design.id])
 			return TRUE
 	return FALSE
 
-/datum/techweb/proc/isDesignResearched(datum/design/D)
-	return isDesignResearchedID(D.id)
+/datum/techweb/proc/isDesignResearched(datum/design/design)
+	return isDesignResearchedID(design.id)
 
 /datum/techweb/proc/isDesignResearchedID(id)
 	return researched_designs[id]? SSresearch.techweb_design_by_id(id) : FALSE
 
-/datum/techweb/proc/isNodeResearched(datum/techweb_node/N)
-	return isNodeResearchedID(N.id)
+/datum/techweb/proc/isNodeResearched(datum/techweb_node/node)
+	return isNodeResearchedID(node.id)
 
 /datum/techweb/proc/isNodeResearchedID(id)
 	return researched_nodes[id]? SSresearch.techweb_node_by_id(id) : FALSE
 
-/datum/techweb/proc/isNodeVisible(datum/techweb_node/N)
-	return isNodeResearchedID(N.id)
+/datum/techweb/proc/isNodeVisible(datum/techweb_node/node)
+	return isNodeResearchedID(node.id)
 
 /datum/techweb/proc/isNodeVisibleID(id)
 	return visible_nodes[id]? SSresearch.techweb_node_by_id(id) : FALSE
 
-/datum/techweb/proc/isNodeAvailable(datum/techweb_node/N)
-	return isNodeAvailableID(N.id)
+/datum/techweb/proc/isNodeAvailable(datum/techweb_node/node)
+	return isNodeAvailableID(node.id)
 
 /datum/techweb/proc/isNodeAvailableID(id)
 	return available_nodes[id]? SSresearch.techweb_node_by_id(id) : FALSE

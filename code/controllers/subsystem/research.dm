@@ -41,6 +41,12 @@ SUBSYSTEM_DEF(research)
 	/// Associative list of all point types that techwebs will have and their respective 'abbreviated' name.
 	var/list/point_types = TECHWEB_POINT_TYPE_LIST_ASSOCIATIVE_NAMES
 
+	/// An associative lazy list of queued techweb nodes to create an announcement for
+	/// radio channel --> list(node_id)
+	var/list/researched_node_announcement_queue
+	/// Whether or not we're queued to announce our researched nodes in the next ~10 seconds
+	var/node_announcement_queued = FALSE
+
 /datum/controller/subsystem/research/Initialize()
 	initialize_all_techweb_designs()
 	initialize_all_techweb_nodes()
@@ -48,10 +54,8 @@ SUBSYSTEM_DEF(research)
 	error_design = new()
 	error_node = new()
 
-	new /datum/techweb/science
-	new /datum/techweb/admin
-	new /datum/techweb/oldstation
-	new /datum/techweb/golem
+	new /datum/techweb/science()
+	new /datum/techweb/admin()
 
 	return SS_INIT_SUCCESS
 
@@ -203,3 +207,29 @@ SUBSYSTEM_DEF(research)
 			continue
 		valid_servers += server
 	return valid_servers
+
+/**
+ * Handles a techweb node's announce_channels var
+ *
+ * Instead of sending an automated announcement every time a node is researched,
+ * we batch all nodes researched in a 10 second time-frame
+ */
+/datum/controller/subsystem/research/proc/update_announcement_queue(list/channels_to_use, node)
+	LAZYINITLIST(researched_node_announcement_queue)
+	for(var/radio_channel in channels_to_use)
+		LAZYINITLIST(researched_node_announcement_queue[radio_channel])
+		LAZYADDASSOC(researched_node_announcement_queue, radio_channel, node)
+	if(!node_announcement_queued)
+		node_announcement_queued = TRUE
+		addtimer(CALLBACK(src, PROC_REF(announce_research_queue)), 10 SECONDS)
+
+/datum/controller/subsystem/research/proc/announce_research_queue()
+	node_announcement_queued = FALSE
+	for(var/radio_channel, list_of_nodes in researched_node_announcement_queue)
+		if(length(list_of_nodes) > 1)
+			aas_config_announce(/datum/aas_config_entry/researched_multiple_nodes, list("NODE_AMOUNT" = length(list_of_nodes), "NODE_TYPE" = radio_channel), null, list(radio_channel))
+		else
+			var/datum/techweb_node/node = list_of_nodes[1]
+			aas_config_announce(/datum/aas_config_entry/researched_single_node, list("NODE" = node.display_name), null, list(radio_channel))
+
+	LAZYNULL(researched_node_announcement_queue)

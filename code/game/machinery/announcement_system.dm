@@ -390,8 +390,8 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		"AAS.exe is not responding. NanoOS is searching for a solution to the problem.",
 	)
 
-/datum/aas_config_entry/researched_node
-	name = "Science Alert: Research Node Announcement"
+/datum/aas_config_entry/researched_single_node
+	name = "Science Alert: Single Research Node Announcement"
 	announcement_lines_map = list(
 		"Message" = "The %NODE techweb node has been researched",
 	)
@@ -399,13 +399,36 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		"NODE" = "will be replaced with the researched node.",
 	)
 
-/datum/aas_config_entry/researched_node/act_up()
+/datum/aas_config_entry/researched_single_node/act_up()
 	. = ..()
 	if (.)
 		return
 
 	announcement_lines_map["Message"] = pick(
-		replacetext(/datum/aas_config_entry/researched_node::announcement_lines_map["Message"], "%NODE", /datum/techweb_node/syndicate_basic::display_name),
+		replacetext(/datum/aas_config_entry/researched_single_node::announcement_lines_map["Message"], "%NODE", /datum/techweb_node/syndicate_basic::display_name),
+		"R/NT1M3 A= ANNOUN-*#nt_SY!?EM.dm, LI%£ 86: N=0DE NULL!",
+		"BEPIS BEPIS BEPIS",
+		"ERR)#R - B*@ TEXT F*O(ND!",
+	)
+
+/datum/aas_config_entry/researched_multiple_nodes
+	name = "Science Alert: Multiple Research Nodes Announcement"
+	announcement_lines_map = list(
+		"Message" = "%NODE_AMOUNT new %NODE_TYPE techweb nodes have been researched",
+	)
+	vars_and_tooltips_map = list(
+		"NODE_AMOUNT" = "will be replaced with the amount of researched nodes.",
+		"NODE_TYPE" = "will be replaced with the nodes' type.",
+	)
+
+/datum/aas_config_entry/researched_multiple_nodes/act_up()
+	. = ..()
+	if (.)
+		return
+
+	announcement_lines_map["Message"] = pick(
+		replacetext(/datum/aas_config_entry/researched_multiple_nodes::announcement_lines_map["Message"], "%NODE_AMOUNT", "[rand(0, 1000)]"),
+		replacetext(/datum/aas_config_entry/researched_multiple_nodes::announcement_lines_map["Message"], "%NODE_TYPE", "SYNDICATE"),
 		"R/NT1M3 A= ANNOUN-*#nt_SY!?EM.dm, LI%£ 86: N=0DE NULL!",
 		"BEPIS BEPIS BEPIS",
 		"ERR)#R - B*@ TEXT F*O(ND!",
