@@ -225,3 +225,5 @@
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "8;49"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/science/ordnance_storage , /obj/effect/mapping_helpers/airlock/access/any/science/exploration
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "9;30"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/medical/genetics , /obj/effect/mapping_helpers/airlock/access/any/science/rd
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "9;5"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/medical/genetics , /obj/effect/mapping_helpers/airlock/access/any/medical/general
+
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "null"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
