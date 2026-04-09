@@ -406,7 +406,7 @@
 /obj/machinery/power/port_gen/pacman/super/UseFuel()
 	// Produces a tiny amount of radiation when in use
 	if(prob(rad_power * power_output))
-		radiation_pulse(src, 2 * rad_power)
+		radiation_pulse(src, 2, 2 * rad_power)
 	..()
 
 /obj/machinery/power/port_gen/pacman/super/update_overlays()
