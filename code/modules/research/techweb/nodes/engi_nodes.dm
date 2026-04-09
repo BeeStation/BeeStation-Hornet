@@ -169,6 +169,7 @@
 		"sheetifier",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/high_efficiency
 	id = TECHWEB_NODE_HIGH_EFFICIENCY
@@ -248,6 +249,7 @@
 		"wingpack",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/emp_basic //EMP tech for some reason
 	id = TECHWEB_NODE_EMP_BASIC
@@ -266,6 +268,7 @@
 		"tray_goggles",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/emp_adv
 	id = TECHWEB_NODE_EMP_ADV
@@ -314,6 +317,7 @@
 		"s-transmitter",
 		"s-treatment",
 	)
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/comp_recordkeeping
 	id = TECHWEB_NODE_COMP_RECORDKEEPING

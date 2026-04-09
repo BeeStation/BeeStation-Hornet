@@ -55,6 +55,7 @@
 		"mod_mister_atmos",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/mod_advanced_engineering
 	id = TECHWEB_NODE_MOD_ADVANCED_ENGINEERING
@@ -70,6 +71,7 @@
 		"mod_storage_expanded",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/mod_medical
 	id = TECHWEB_NODE_MOD_MEDICAL
@@ -87,6 +89,7 @@
 		"mod_dna_lock",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/mod_advanced_medical
 	id = TECHWEB_NODE_MOD_ADVANCED_MEDICAL
@@ -100,6 +103,7 @@
 		"mod_statusreadout",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/mod_security
 	id = TECHWEB_NODE_MOD_SECURITY
@@ -117,6 +121,7 @@
 		"mod_projectile_dampener",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/mod_entertainment
 	id = TECHWEB_NODE_MOD_ENTERTAINMENT
@@ -131,6 +136,7 @@
 		"mod_waddle",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SERVICE)
 
 /datum/techweb_node/mod_anomaly
 	id = TECHWEB_NODE_MOD_ANOMALY
@@ -143,6 +149,7 @@
 		"mod_kinesis",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/mod_experimental
 	id = TECHWEB_NODE_MOD_EXPERIMENTAL

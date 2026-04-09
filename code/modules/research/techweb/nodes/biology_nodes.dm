@@ -24,6 +24,7 @@
 		"blood_pack",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/adv_biotech
 	id = TECHWEB_NODE_ADV_BIOTECH
@@ -43,6 +44,7 @@
 		"smoke_machine",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/bio_process
 	id = TECHWEB_NODE_BIO_PROCESS
@@ -64,3 +66,4 @@
 		"smartfridge",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SERVICE)

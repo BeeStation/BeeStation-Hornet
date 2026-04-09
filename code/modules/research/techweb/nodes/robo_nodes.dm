@@ -27,6 +27,7 @@
 		"borg_upgrade_trashofholding",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/neural_programming
 	id = TECHWEB_NODE_NEURAL_PROGRAMMING
@@ -43,6 +44,7 @@
 	prereq_ids = list(TECHWEB_NODE_NEURAL_PROGRAMMING)
 	design_ids = list("mmi_posi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/ai
 	id = TECHWEB_NODE_AI
@@ -108,4 +110,4 @@
 		"yesman_module",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_COMMAND)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
