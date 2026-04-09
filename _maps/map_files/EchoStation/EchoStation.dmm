@@ -18923,6 +18923,7 @@
 	alpha = 180;
 	dir = 1
 	},
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -24940,6 +24941,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4,
 /turf/open/floor/engine/o2,
 /area/station/engineering/atmos)
+"nPj" = (
+/obj/machinery/aug_manipulator,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white,
+/area/station/science/robotics)
 "nPs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -191777,7 +191783,7 @@ pPW
 uHw
 voR
 kYt
-atI
+nPj
 tPr
 cpE
 ygu

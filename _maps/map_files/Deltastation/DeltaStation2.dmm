@@ -38173,6 +38173,7 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "lco" = (
@@ -69556,6 +69557,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "tzD" = (

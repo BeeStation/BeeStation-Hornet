@@ -27764,6 +27764,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 4
 	},
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics)
 "jFd" = (
@@ -49373,6 +49374,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/station/security/office)
 "ras" = (

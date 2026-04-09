@@ -1,54 +1,44 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
+"a" = (
 /turf/open/floor/iron,
 /area/template_noop)
-"ab" = (
+"b" = (
 /obj/machinery/computer/operating{
 	dir = 1
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"ac" = (
+"c" = (
 /mob/living/simple_animal/bot/secbot/grievous{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"ad" = (
-/obj/vehicle/sealed/mecha/gygax/dark/loaded,
+"e" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"ae" = (
+"f" = (
+/obj/vehicle/sealed/mecha/ripley/deathripley,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"af" = (
-/obj/vehicle/sealed/mecha/working/ripley/deathripley,
+"g" = (
+/obj/vehicle/sealed/mecha/ripley,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"ag" = (
-/obj/vehicle/sealed/mecha/working/ripley,
+"h" = (
+/obj/vehicle/sealed/mecha/gygax,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"ah" = (
-/obj/vehicle/sealed/mecha/combat/gygax,
+"i" = (
+/obj/vehicle/sealed/mecha/honker/dark/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"ai" = (
-/obj/vehicle/sealed/mecha/combat/honker/dark/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"aj" = (
-/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"ak" = (
+"k" = (
 /obj/item/assembly/prox_sensor{
 	pixel_y = 8;
 	pixel_x = -2
@@ -68,91 +58,86 @@
 /obj/structure/table,
 /turf/open/floor/iron,
 /area/template_noop)
-"al" = (
+"l" = (
 /obj/machinery/ecto_sniffer,
 /turf/open/floor/iron,
 /area/template_noop)
-"am" = (
+"m" = (
 /mob/living/simple_animal/bot/secbot{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"an" = (
+"n" = (
 /mob/living/simple_animal/bot/ed209{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"ao" = (
-/obj/vehicle/sealed/mecha/combat/marauder/loaded,
+"o" = (
+/obj/vehicle/sealed/mecha/marauder/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"ap" = (
-/obj/vehicle/sealed/mecha/combat/gygax/dark/loaded,
+"p" = (
+/obj/vehicle/sealed/mecha/gygax/dark/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aq" = (
+"q" = (
 /obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/template_noop)
-"ar" = (
+"r" = (
 /mob/living/simple_animal/bot/medbot{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"as" = (
-/obj/vehicle/sealed/mecha/honker/dark/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"at" = (
+"t" = (
 /obj/structure/table,
 /obj/item/storage/backpack/duffelbag/med/implant,
 /obj/item/storage/part_replacer/bluespace/tier4,
 /turf/open/floor/iron,
 /area/template_noop)
-"au" = (
-/obj/vehicle/sealed/mecha/medical/odysseus,
+"u" = (
+/obj/vehicle/sealed/mecha/odysseus,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"av" = (
-/obj/vehicle/sealed/mecha/combat/durand,
+"v" = (
+/obj/vehicle/sealed/mecha/durand,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aw" = (
+"w" = (
 /mob/living/simple_animal/bot/atmosbot{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"ax" = (
-/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+"x" = (
+/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"ay" = (
+"y" = (
 /obj/structure/table/optable,
 /obj/item/storage/backpack/duffelbag/syndie/surgery,
 /turf/open/floor/iron,
 /area/template_noop)
-"az" = (
-/obj/vehicle/sealed/mecha/working/ripley/mk2,
+"z" = (
+/obj/vehicle/sealed/mecha/ripley/mk2,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aA" = (
+"A" = (
 /obj/machinery/computer/rdconsole/robotics{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"aB" = (
+"B" = (
 /obj/structure/table,
 /obj/item/bodypart/chest/robot{
 	pixel_y = 4
@@ -174,147 +159,49 @@
 /obj/item/bodypart/head/robot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aC" = (
-/obj/vehicle/sealed/mecha/combat/marauder/seraph,
+"C" = (
+/obj/vehicle/sealed/mecha/marauder/seraph,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aD" = (
-/obj/vehicle/sealed/mecha/ripley/deathripley,
+"E" = (
+/obj/vehicle/sealed/mecha/reticence/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aE" = (
-/obj/vehicle/sealed/mecha/combat/reticence/loaded,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"aF" = (
+"F" = (
 /mob/living/simple_animal/bot/floorbot{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"aG" = (
+"G" = (
 /obj/structure/closet/crate/science/debug,
 /turf/open/floor/iron,
 /area/template_noop)
-"aH" = (
-/obj/vehicle/sealed/mecha/combat/phazon,
+"H" = (
+/obj/vehicle/sealed/mecha/phazon,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aI" = (
+"I" = (
 /mob/living/simple_animal/bot/secbot/grievous/toy{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"aJ" = (
+"J" = (
 /mob/living/simple_animal/bot/honkbot{
 	on = 0
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"aK" = (
-/obj/vehicle/sealed/mecha/working/clarke,
+"K" = (
+/obj/vehicle/sealed/mecha/clarke,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"aL" = (
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/mmi{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/mmi{
-	pixel_x = 4;
-	pixel_y = 8
-	},
-/obj/item/paicard,
-/turf/open/floor/iron,
-/area/template_noop)
-"aM" = (
-/obj/machinery/vending/wardrobe/robo_wardrobe,
-/turf/open/floor/iron,
-/area/template_noop)
-"aN" = (
-/mob/living/simple_animal/bot/cleanbot/larry{
-	on = 0
-	},
-/turf/open/floor/iron,
-/area/template_noop)
-"aO" = (
-/obj/effect/turf_decal/bot,
-/obj/item/organ/brain/positron,
-/turf/open/floor/iron,
-/area/template_noop)
-"aP" = (
-/obj/structure/closet/crate/secure/gear/debug/cyborg,
-/turf/open/floor/iron,
-/area/template_noop)
-"aQ" = (
-/obj/machinery/rnd/production/techfab/department/science,
-/turf/open/floor/iron,
-/area/template_noop)
-"aR" = (
-/obj/structure/closet/crate/secure/gear/debug/mech,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"aS" = (
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
-/turf/open/floor/iron,
-/area/template_noop)
-"aT" = (
-/obj/vehicle/sealed/mecha/combat/honker,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"aU" = (
-/mob/living/simple_animal/bot/firebot{
-	on = 0
-	},
-/turf/open/floor/iron,
-/area/template_noop)
-"aV" = (
-/mob/living/simple_animal/bot/mulebot{
-	on = 0
-	},
-/turf/open/floor/iron,
-/area/template_noop)
-"aW" = (
-/obj/machinery/modular_fabricator/exosuit_fab,
-/turf/open/floor/iron,
-/area/template_noop)
-"aX" = (
-/mob/living/simple_animal/bot/cleanbot{
-	on = 0
-	},
-/turf/open/floor/iron,
-/area/template_noop)
-"aY" = (
-/obj/effect/turf_decal/bot,
-/obj/item/robot_suit/prebuilt,
-/turf/open/floor/iron,
-/area/template_noop)
-"aZ" = (
-/obj/effect/turf_decal/bot,
-/obj/item/robot_suit,
-/turf/open/floor/iron,
-/area/template_noop)
-"ce" = (
-/obj/vehicle/sealed/mecha/honker,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"kq" = (
-/obj/vehicle/sealed/mecha/ripley,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"uR" = (
+"L" = (
 /obj/structure/table,
 /obj/item/mmi,
 /obj/item/mmi{
@@ -328,217 +215,241 @@
 /obj/item/pai_card,
 /turf/open/floor/iron,
 /area/template_noop)
-"vn" = (
-/obj/vehicle/sealed/mecha/marauder/loaded,
+"M" = (
+/obj/machinery/vending/wardrobe/robo_wardrobe,
+/turf/open/floor/iron,
+/area/template_noop)
+"N" = (
+/mob/living/simple_animal/bot/cleanbot/larry{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/bot,
+/obj/item/organ/brain/positron,
+/turf/open/floor/iron,
+/area/template_noop)
+"P" = (
+/obj/structure/closet/crate/secure/gear/debug/cyborg,
+/turf/open/floor/iron,
+/area/template_noop)
+"Q" = (
+/obj/machinery/rnd/production/techfab/department/science,
+/turf/open/floor/iron,
+/area/template_noop)
+"R" = (
+/obj/structure/closet/crate/secure/gear/debug/mech,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"wx" = (
-/obj/vehicle/sealed/mecha/odysseus,
+"S" = (
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/turf/open/floor/iron,
+/area/template_noop)
+"T" = (
+/obj/vehicle/sealed/mecha/honker,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"xt" = (
-/obj/vehicle/sealed/mecha/clarke,
-/obj/effect/turf_decal/bot,
+"U" = (
+/mob/living/simple_animal/bot/firebot{
+	on = 0
+	},
 /turf/open/floor/iron,
 /area/template_noop)
-"AQ" = (
-/obj/vehicle/sealed/mecha/reticence/loaded,
-/obj/effect/turf_decal/bot,
+"V" = (
+/mob/living/simple_animal/bot/mulebot{
+	on = 0
+	},
 /turf/open/floor/iron,
 /area/template_noop)
-"Em" = (
-/obj/vehicle/sealed/mecha/marauder/seraph,
-/obj/effect/turf_decal/bot,
+"W" = (
+/obj/machinery/modular_fabricator/exosuit_fab,
 /turf/open/floor/iron,
 /area/template_noop)
-"Gx" = (
-/obj/vehicle/sealed/mecha/durand,
-/obj/effect/turf_decal/bot,
+"X" = (
+/mob/living/simple_animal/bot/cleanbot{
+	on = 0
+	},
 /turf/open/floor/iron,
 /area/template_noop)
-"Ok" = (
-/obj/vehicle/sealed/mecha/ripley/mk2,
+"Y" = (
 /obj/effect/turf_decal/bot,
+/obj/item/robot_suit/prebuilt,
 /turf/open/floor/iron,
 /area/template_noop)
-"Qw" = (
-/obj/vehicle/sealed/mecha/phazon,
+"Z" = (
 /obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"Uu" = (
-/obj/vehicle/sealed/mecha/gygax,
-/obj/effect/turf_decal/bot,
+/obj/item/robot_suit,
 /turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"
-aa
-aa
-aA
-aQ
-aG
-aa
-aP
-aa
-aa
-aa
-aa
-aa
+a
+a
+A
+Q
+G
+a
+P
+a
+a
+a
+a
+a
 "}
 (2,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-vn
-aa
-as
-aa
+a
+a
+a
+a
+a
+a
+a
+a
+o
+a
+i
+a
 "}
 (3,1,1) = {"
-aW
-aa
-aZ
-aa
-ae
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+W
+a
+Z
+a
+e
+a
+q
+a
+a
+a
+a
+a
 "}
 (4,1,1) = {"
-aS
-aa
-aa
-al
-aa
-aa
-ay
-aa
-Em
-aa
-aj
-aa
+S
+a
+a
+l
+a
+a
+y
+a
+C
+a
+x
+a
 "}
 (5,1,1) = {"
-aW
-aa
-aO
-aa
-aY
-aa
-ab
-aa
-aa
-aa
-aa
-aa
+W
+a
+O
+a
+Y
+a
+b
+a
+a
+a
+a
+a
 "}
 (6,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-AQ
-aa
-aD
-aa
+a
+a
+a
+a
+a
+a
+a
+a
+E
+a
+f
+a
 "}
 (7,1,1) = {"
-ak
-aa
-aM
-aB
-uR
-aa
-at
-aa
-aa
-aa
-aa
-aa
+k
+a
+M
+B
+L
+a
+t
+a
+a
+a
+a
+a
 "}
 (8,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aR
-aa
-ad
-aa
+a
+a
+a
+a
+a
+a
+a
+a
+R
+a
+p
+a
 "}
 (9,1,1) = {"
-aa
-kq
-aa
-wx
-aa
-Gx
-aa
-ce
-am
-aI
-aa
-aa
+a
+g
+a
+u
+a
+v
+a
+T
+m
+I
+a
+a
 "}
 (10,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-aN
-aX
-aw
+a
+a
+a
+a
+a
+a
+a
+a
+c
+N
+X
+w
 "}
 (11,1,1) = {"
-aa
-Ok
-aa
-xt
-aa
-Uu
-aa
-Qw
-aa
-an
-aF
-ar
+a
+z
+a
+K
+a
+h
+a
+H
+a
+n
+F
+r
 "}
 (12,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aU
-aJ
-aV
+a
+a
+a
+a
+a
+a
+a
+a
+a
+U
+J
+V
 "}

@@ -334,6 +334,13 @@
 /obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/carpet/orange,
 /area/station/cargo/qm)
+"hM" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/computer/xenoartifact_console{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/station/science/research)
 "hU" = (
 /obj/machinery/fax/bridge,
 /turf/open/floor/carpet/blue,
@@ -493,6 +500,12 @@
 /obj/structure/closet/l3closet/virology,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
+"lW" = (
+/obj/machinery/computer/xenoartifact_console{
+	dir = 1
+	},
+/turf/open/floor/engine,
+/area/station/science/mixing)
 "mb" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /mob/living/simple_animal/bot/medbot{
@@ -1177,11 +1190,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "BR" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/misc/space)
@@ -1432,6 +1440,10 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
+/obj/item/xenoartifact_labeler{
+	pixel_y = 4;
+	pixel_x = -5
+	},
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
 	},
@@ -1663,6 +1675,10 @@
 /obj/item/toy/plush/moth/plasmafire,
 /turf/open/floor/iron/dark,
 /area/misc/space)
+"Nv" = (
+/obj/machinery/aug_manipulator,
+/turf/open/floor/iron/white,
+/area/station/science/robotics)
 "NP" = (
 /obj/effect/turf_decal/edges/techfloor_orange{
 	dir = 6
@@ -2375,7 +2391,7 @@ WD
 xV
 MK
 He
-tD
+hM
 GI
 sf
 yZ
@@ -2436,7 +2452,7 @@ gY
 fA
 mr
 hw
-hw
+lW
 sE
 iM
 Uo
@@ -2455,7 +2471,7 @@ Pn
 So
 XE
 ng
-Ob
+Nv
 KB
 JQ
 kR

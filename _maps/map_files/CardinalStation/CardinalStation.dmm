@@ -10889,6 +10889,9 @@
 /area/station/service/barbershop)
 "ctz" = (
 /obj/structure/table/wood,
+/obj/item/razor/straightrazor{
+	pixel_x = 11
+	},
 /turf/open/floor/concrete/slab,
 /area/station/service/barbershop)
 "ctC" = (
@@ -43916,6 +43919,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/station/hallway/primary/upper/starboard)
 "jEz" = (
@@ -73303,6 +73307,7 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/chemistry)
 "qez" = (
+/obj/machinery/aug_manipulator,
 /obj/effect/decal/cleanable/robot_debris{
 	icon_state = "gib4";
 	pixel_x = 14;
@@ -82596,8 +82601,10 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/exit/departure_lounge)
 "sey" = (
-/obj/machinery/requests_console/auto_name/directional/west{
-	announcementConsole = 1
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	pixel_x = -30
 	},
 /turf/open/floor/carpet/orange,
 /area/station/cargo/qm)
