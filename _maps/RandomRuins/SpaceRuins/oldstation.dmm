@@ -686,9 +686,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/command{
-	name = "Charlie Station Access";
-	req_access_txt = "200"
+	name = "Charlie Station Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/deltacorridor)
@@ -1761,9 +1761,9 @@
 /area/template_noop)
 "gg" = (
 /obj/machinery/door/airlock/external{
-	name = "Engineering External Access";
-	req_access_txt = "200"
+	name = "Engineering External Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -2583,9 +2583,9 @@
 /area/ruin/space/ancientstation/rnd)
 "is" = (
 /obj/machinery/door/airlock/medical/glass{
-	name = "Chemical Storage";
-	req_access_txt = "200"
+	name = "Chemical Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -2912,9 +2912,9 @@
 "js" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/command{
-	name = "Charlie Station Access";
-	req_access_txt = "200"
+	name = "Charlie Station Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/deltacorridor)
@@ -3133,9 +3133,9 @@
 "jW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
-	name = "Prototype Laboratory";
-	req_access_txt = "200"
+	name = "Prototype Laboratory"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -3145,9 +3145,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/machinery/door/airlock/highsecurity{
-	name = "Prototype Laboratory";
-	req_access_txt = "200"
+	name = "Prototype Laboratory"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /turf/open/floor/iron/white/side,
 /area/ruin/space/ancientstation/proto)
 "jY" = (
@@ -3749,9 +3749,9 @@
 /area/ruin/space/ancientstation/rnd)
 "oM" = (
 /obj/machinery/door/airlock/external{
-	name = "Engineering External Access";
-	req_access_txt = "200"
+	name = "Engineering External Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4

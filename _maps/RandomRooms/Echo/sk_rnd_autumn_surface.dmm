@@ -2589,9 +2589,9 @@
 /area/template_noop)
 "Oy" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	name = "Maintenance Hatch"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/iron,
 /area/template_noop)
