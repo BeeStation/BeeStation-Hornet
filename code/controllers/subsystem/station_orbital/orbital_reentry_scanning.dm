@@ -145,42 +145,48 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 			// Start at the east edge, step west
 			for(var/scan_x in world.maxx to 1 step -1)
 				target_tile = locate(scan_x, coord, target_z)
-				if(is_valid_hit(target_tile))
+				if(!target_tile)
+					continue
+				if(!isspaceturf(target_tile))
+					return target_tile
+				if(has_real_contents(target_tile))
 					return target_tile
 		if(WEST)
 			// Start at the west edge, step east
 			for(var/scan_x in 1 to world.maxx)
 				target_tile = locate(scan_x, coord, target_z)
-				if(is_valid_hit(target_tile))
+				if(!target_tile)
+					continue
+				if(!isspaceturf(target_tile))
+					return target_tile
+				if(has_real_contents(target_tile))
 					return target_tile
 		if(NORTH)
 			// Start at the north edge, step south
 			for(var/scan_y in world.maxy to 1 step -1)
 				target_tile = locate(coord, scan_y, target_z)
-				if(is_valid_hit(target_tile))
+				if(!target_tile)
+					continue
+				if(!isspaceturf(target_tile))
+					return target_tile
+				if(has_real_contents(target_tile))
 					return target_tile
 		if(SOUTH)
 			// Start at the south edge, step north
 			for(var/scan_y in 1 to world.maxy)
 				target_tile = locate(coord, scan_y, target_z)
-				if(is_valid_hit(target_tile))
+				if(!target_tile)
+					continue
+				if(!isspaceturf(target_tile))
+					return target_tile
+				if(has_real_contents(target_tile))
 					return target_tile
 
 	return null
 
-/// A turf counts as a hit if it is a non-space turf, or if it is space but
-/// has real contents (objects / mobs) on it that should take reentry damage.
-/datum/controller/subsystem/orbital_reentry_scanning/proc/is_valid_hit(turf/tile)
-	if(!tile)
-		return FALSE
-	if(!isspaceturf(tile))
-		return TRUE
-	// Space turf, only counts if something real is sitting on it
-	return has_real_contents(tile)
-
 /// Returns TRUE if the tile has any non-effect objects or living mobs.
 /datum/controller/subsystem/orbital_reentry_scanning/proc/has_real_contents(turf/tile)
-	for(var/atom/movable/thing in tile)
+	for(var/atom/movable/thing as anything in tile)
 		if(isobj(thing) && !iseffect(thing))
 			return TRUE
 		if(isliving(thing))
