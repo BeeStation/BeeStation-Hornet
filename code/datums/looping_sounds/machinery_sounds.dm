@@ -29,7 +29,7 @@
 
 /datum/looping_sound/portable_generator
 	mid_sounds = list('sound/machines/engine.ogg' = 1)
-	mid_length = 4 SECONDS
+	mid_length = 2.9 SECONDS
 	volume = 25
 
 /datum/looping_sound/oven

@@ -45,18 +45,18 @@
 /obj/machinery/power/port_gen/proc/TogglePower()
 	if(active)
 		active = FALSE
-		update_appearance(UPDATE_ICON)
+		update_appearance(UPDATE_ICON_STATE)
 		soundloop.stop()
 	else if(HasFuel())
 		active = TRUE
 		START_PROCESSING(SSmachines, src)
-		update_appearance(UPDATE_ICON)
+		update_appearance(UPDATE_ICON_STATE)
 		update_sound_volume()
 		soundloop.start()
 
 /obj/machinery/power/port_gen/update_icon_state()
+	. = ..()
 	icon_state = "[base_icon_state][active ? "on" : ""]"
-	return ..()
 
 /obj/machinery/power/port_gen/proc/update_sound_volume()
 	if(!soundloop)
@@ -360,29 +360,32 @@
 	. = ..()
 	if(.)
 		return
+
 	switch(action)
 		if("toggle_power")
 			TogglePower()
-			. = TRUE
+			return TRUE
 
 		if("eject")
 			if(!active)
 				DropFuel()
-				. = TRUE
+				return TRUE
 
 		if("lower_power")
-			if (power_output > 1)
-				power_output--
-				update_sound_volume()
-				update_appearance(UPDATE_ICON)
-				. = TRUE
+			if (power_output <= 1)
+				return
+			power_output--
+			update_sound_volume()
+			update_appearance(UPDATE_ICON_STATE)
+			return TRUE
 
 		if("higher_power")
-			if (power_output < 4 || (obj_flags & EMAGGED))
-				power_output++
-				update_sound_volume()
-				update_appearance(UPDATE_ICON)
-				. = TRUE
+			if (power_output >= 4 && !(obj_flags & EMAGGED))
+				return
+			power_output++
+			update_sound_volume()
+			update_appearance(UPDATE_ICON_STATE)
+			return TRUE
 
 /obj/machinery/power/port_gen/pacman/super
 	name = "\improper S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
@@ -409,29 +412,15 @@
 		radiation_pulse(src, 2, 2 * rad_power)
 	..()
 
-/obj/machinery/power/port_gen/pacman/super/update_overlays()
+/obj/machinery/power/port_gen/pacman/super/update_icon_state()
 	. = ..()
-	if(!active)
+	if(!active || power_output < max_safe_output)
 		set_light(0)
 		return
+
+	icon_state = "[base_icon_state]rad"
 	// Radiation glow at high power output
-	if(power_output >= max_safe_output)
-		var/glow_alpha = round(255 * power_output / max_power_output)
-		var/icon_state_rad = "[base_icon_state]rad"
-
-		// Add visible glow overlay
-		var/mutable_appearance/rad_overlay = mutable_appearance(icon, icon_state_rad, layer)
-		rad_overlay.blend_mode = BLEND_ADD
-		rad_overlay.alpha = glow_alpha
-		. += rad_overlay
-
-		// Add emissive overlay
-		. += emissive_appearance(icon, icon_state_rad, layer, glow_alpha)
-		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-
-		set_light(rad_power + power_output - max_safe_output, 0.7, "#3b97ca")
-	else
-		set_light(0)
+	set_light(rad_power + power_output - max_safe_output, 0.7, "#3b97ca")
 
 /obj/machinery/power/port_gen/pacman/super/overheat()
 	// A nice burst of radiation
