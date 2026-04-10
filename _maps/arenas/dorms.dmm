@@ -6,65 +6,65 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ab" = (
 /obj/structure/table,
 /obj/machinery/computer/libraryconsole/bookmanagement,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ac" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ad" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/sink{
 	pixel_y = 24
 	},
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ah" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ai" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/sink{
 	pixel_y = 24
 	},
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aj" = (
 /obj/machinery/vending/sustenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ak" = (
 /obj/effect/spawner/random/vending/colavend,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "al" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "am" = (
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "an" = (
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ao" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ap" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/decal/cleanable/dirt,
@@ -72,34 +72,34 @@
 /obj/item/plant_analyzer,
 /obj/item/cultivator,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "at" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/biogenerator,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "au" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "av" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/box/cups,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ax" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ay" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -108,7 +108,7 @@
 	pixel_y = 1
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "az" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -117,19 +117,19 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aB" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -139,7 +139,7 @@
 	pixel_y = 2
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -153,32 +153,32 @@
 	},
 /obj/item/pen,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/toy/cards/deck,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/pill_bottle/dice,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron/freezer,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aH" = (
 /turf/open/floor/iron/freezer,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aI" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/freezer,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aM" = (
 /obj/machinery/shower{
 	dir = 1
@@ -187,30 +187,30 @@
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aN" = (
 /obj/machinery/shower{
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aO" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/shower{
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aU" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
@@ -219,12 +219,12 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aW" = (
 /obj/structure/chair/stool/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aX" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/washing_machine,
@@ -232,19 +232,19 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aY" = (
 /obj/structure/chair/stool/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "gO" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "hK" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
@@ -253,7 +253,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "DH" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -261,7 +261,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "FK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -270,7 +270,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "Ls" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -278,7 +278,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "LA" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
@@ -287,14 +287,14 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "MF" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "OA" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -302,7 +302,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "Pf" = (
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/stripes/corner{
@@ -312,13 +312,13 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "VV" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
 aa

@@ -28,7 +28,7 @@
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
 
 	var/area/current_area = get_area(current)
-	if(istype(current_area, /area/chapel) && humanity <= 2)
+	if(istype(current_area, /area/station/service/chapel) && humanity <= 2)
 		to_chat(owner, span_warning("Your inhuman nature is rejected by a holy presence!"))
 		current.adjustFireLoss(10)
 		current.adjust_fire_stacks(4)

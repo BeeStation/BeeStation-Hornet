@@ -40,7 +40,7 @@
 		desc = sign.desc
 
 	if(sign.rename_area && sign.name)
-		rename_area(src, sign.name)
+		rename_area(get_area(src), sign.name)
 
 	return sign
 
