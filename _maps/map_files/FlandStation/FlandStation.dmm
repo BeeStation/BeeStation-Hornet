@@ -37973,7 +37973,7 @@
 /turf/closed/wall,
 /area/station/service/library)
 "kdt" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/open/floor/iron/techmaint,
@@ -41893,7 +41893,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "kZt" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /obj/item/storage/pill_bottle,
 /turf/open/floor/plating,
@@ -58698,7 +58698,7 @@
 /area/station/commons/dorms)
 "pzp" = (
 /obj/item/caution,
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
 "pzu" = (
@@ -69155,7 +69155,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "sua" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
@@ -74509,7 +74509,7 @@
 	name = "old sink";
 	pixel_x = -11
 	},
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/open/floor/iron/dark,
@@ -77560,7 +77560,7 @@
 "uGd" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/structure/sign/plaques/deempisi{
 	pixel_y = 28
 	},

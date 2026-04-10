@@ -24177,7 +24177,7 @@
 	pixel_x = 8;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -55475,7 +55475,7 @@
 /area/station/engineering/break_room)
 "rwH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
@@ -62155,7 +62155,7 @@
 /turf/open/floor/plating,
 /area/station/security/prison)
 "tFt" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/effect/turf_decal/tile/red/opposingcorners,

@@ -9162,7 +9162,7 @@
 /area/station/service/janitor)
 "dMV" = (
 /obj/item/caution,
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "dNg" = (
@@ -46234,7 +46234,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/station/commons/storage/tools)
 "rwZ" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/mapping_helpers/tile_breaker,
@@ -51854,7 +51854,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /turf/open/floor/plating,
 /area/station/maintenance/port)
@@ -64671,7 +64671,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/structure/noticeboard{
 	pixel_y = 29
 	},

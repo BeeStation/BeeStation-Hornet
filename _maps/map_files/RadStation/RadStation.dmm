@@ -44790,7 +44790,7 @@
 	pixel_x = -6;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_x = 6;
 	pixel_y = 8
 	},
@@ -67502,7 +67502,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small,
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/structure/fluff/paper/stack,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)

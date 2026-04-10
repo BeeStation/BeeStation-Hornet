@@ -21364,7 +21364,7 @@
 	pixel_x = -7;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_x = -6;
 	pixel_y = 1
 	},
@@ -59444,7 +59444,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "sAp" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/greater)
 "sAy" = (

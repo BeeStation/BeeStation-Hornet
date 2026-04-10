@@ -831,7 +831,7 @@
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "uU" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "vc" = (

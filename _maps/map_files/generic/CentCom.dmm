@@ -2171,7 +2171,7 @@
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/barman_recipes,
 /obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
@@ -17384,7 +17384,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
 "aSN" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /turf/open/floor/iron/cafeteria,
 /area/centcom/central_command_areas/holding)
@@ -20886,7 +20886,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
 "ggJ" = (
