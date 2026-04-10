@@ -95,10 +95,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
-"el" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/misc/space/nearstation)
 "ew" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -834,6 +830,10 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
+"uU" = (
+/obj/structure/mopbucket,
+/turf/open/floor/plating,
+/area/awaymission/BMPship/Aft)
 "vc" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
@@ -1208,15 +1208,14 @@
 	},
 /turf/open/floor/carpet,
 /area/awaymission/BMPship/Fore)
-"EZ" = (
-/obj/structure/mop_bucket,
-/turf/open/floor/plating,
-/area/awaymission/BMPship/Aft)
 "Fb" = (
 /obj/structure/bed,
 /obj/item/bedsheet/yellow,
 /turf/open/floor/wood,
 /area/awaymission/BMPship/Fore)
+"Fc" = (
+/turf/template_noop,
+/area/misc/space/nearstation)
 "Fg" = (
 /obj/effect/gibspawner/robot,
 /turf/open/floor/plating/airless,
@@ -1441,7 +1440,7 @@
 /obj/machinery/door/airlock/titanium,
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"Jr" = (
+"Jw" = (
 /obj/item/circular_saw,
 /obj/structure/lattice,
 /turf/template_noop,
@@ -1690,6 +1689,10 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Aft)
+"Pa" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "Pf" = (
 /turf/open/floor/plating/airless{
 	broken = 1
@@ -1929,9 +1932,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Aft)
-"Ut" = (
-/turf/template_noop,
-/area/misc/space/nearstation)
 "Uy" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -2460,8 +2460,8 @@ aa
 aa
 aa
 aa
-el
-el
+Pa
+Pa
 aa
 aa
 aa
@@ -2614,7 +2614,7 @@ zU
 Pf
 Fz
 aa
-el
+Pa
 aa
 aa
 aa
@@ -3464,7 +3464,7 @@ aa
 aa
 aa
 aa
-el
+Pa
 ik
 VT
 UU
@@ -3563,7 +3563,7 @@ aa
 aa
 aa
 aa
-el
+Pa
 aa
 tB
 VT
@@ -3612,9 +3612,9 @@ aa
 aa
 aa
 aa
-el
+Pa
 aa
-Ut
+Fc
 tB
 Px
 mu
@@ -3664,7 +3664,7 @@ aa
 aa
 aa
 aa
-el
+Pa
 tB
 Px
 Px
@@ -3759,7 +3759,7 @@ aa
 aa
 "}
 (32,1,1) = {"
-Jr
+Jw
 aa
 aa
 aa
@@ -4445,7 +4445,7 @@ Ey
 Wv
 iA
 Wv
-EZ
+uU
 zO
 qq
 lA

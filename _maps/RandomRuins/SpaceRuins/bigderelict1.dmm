@@ -274,6 +274,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost/cargobay)
+"aY" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "aZ" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/derelictoutpost)
@@ -879,6 +883,41 @@
 "cB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/derelictoutpost)
+"cC" = (
+/obj/structure/alien/weeds{
+	color = "#4BAE56";
+	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
+	name = "gelatinous floor"
+	},
+/mob/living/simple_animal/hostile/netherworld{
+	desc = "Awh its so sm-OH GOD WHAT THE FUCK.";
+	health = 25;
+	maxHealth = 25;
+	name = "hatchling";
+	resize = 0.85
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/derelictoutpost)
+"cD" = (
+/obj/structure/alien/weeds{
+	color = "#4BAE56";
+	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
+	name = "gelatinous floor"
+	},
+/obj/effect/decal/cleanable/blood/old{
+	name = "dried blood trail";
+	icon_state = "trails_1";
+	dir = 10
+	},
+/mob/living/simple_animal/hostile/netherworld{
+	desc = "Awh its so sm-OH GOD WHAT THE FUCK.";
+	health = 25;
+	maxHealth = 25;
+	name = "hatchling";
+	resize = 0.85
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost)
@@ -1737,6 +1776,21 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/space/has_grav/derelictoutpost)
+"eg" = (
+/obj/structure/alien/weeds{
+	color = "#4BAE56";
+	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
+	name = "gelatinous floor"
+	},
+/mob/living/simple_animal/hostile/netherworld{
+	desc = "Awh its so sm-OH GOD WHAT THE FUCK.";
+	health = 25;
+	maxHealth = 25;
+	name = "hatchling";
+	resize = 0.85
+	},
+/turf/open/floor/plating/asteroid,
+/area/ruin/space/has_grav/derelictoutpost)
 "eh" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "trails_1";
@@ -1972,10 +2026,6 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/derelictoutpost/cargobay)
-"eX" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/misc/space/nearstation)
 "fF" = (
 /obj/item/shard,
 /obj/structure/alien/weeds{
@@ -1992,26 +2042,6 @@
 /obj/machinery/recharger,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/derelictoutpost)
-"lY" = (
-/obj/structure/alien/weeds{
-	color = "#4BAE56";
-	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
-	name = "gelatinous floor"
-	},
-/obj/effect/decal/cleanable/blood/old{
-	name = "dried blood trail";
-	icon_state = "trails_1";
-	dir = 10
-	},
-/mob/living/simple_animal/hostile/netherworld{
-	desc = "Awh its so sm-OH GOD WHAT THE FUCK.";
-	health = 25;
-	maxHealth = 25;
-	name = "hatchling";
-	initial_size = 0.85
-	},
-/turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost)
 "qX" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -2067,21 +2097,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
-"At" = (
-/obj/structure/alien/weeds{
-	color = "#4BAE56";
-	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
-	name = "gelatinous floor"
-	},
-/mob/living/simple_animal/hostile/netherworld{
-	desc = "Awh its so sm-OH GOD WHAT THE FUCK.";
-	health = 25;
-	maxHealth = 25;
-	name = "hatchling";
-	initial_size = 0.85
-	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/space/has_grav/derelictoutpost)
 "BZ" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "innerbrig";
@@ -2098,21 +2113,6 @@
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/derelictoutpost)
-"KE" = (
-/obj/structure/alien/weeds{
-	color = "#4BAE56";
-	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
-	name = "gelatinous floor"
-	},
-/mob/living/simple_animal/hostile/netherworld{
-	desc = "Awh its so sm-OH GOD WHAT THE FUCK.";
-	health = 25;
-	maxHealth = 25;
-	name = "hatchling";
-	initial_size = 0.85
-	},
-/turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost)
 "LB" = (
 /obj/machinery/door/airlock/external,
@@ -2939,7 +2939,7 @@ aa
 ad
 ad
 aa
-eX
+aY
 aK
 yb
 Jd
@@ -2975,7 +2975,7 @@ aa
 aa
 aa
 aa
-eX
+aY
 aK
 yb
 fF
@@ -3011,7 +3011,7 @@ aa
 aa
 aa
 aa
-eX
+aY
 aK
 Yr
 wc
@@ -3047,7 +3047,7 @@ aa
 aa
 aa
 aa
-eX
+aY
 aK
 lq
 qX
@@ -3083,7 +3083,7 @@ aa
 aa
 aa
 aa
-eX
+aY
 aZ
 bC
 bU
@@ -3168,7 +3168,7 @@ dm
 dC
 dC
 dQ
-At
+eg
 cR
 cR
 cR
@@ -3244,7 +3244,7 @@ cR
 dD
 bl
 cR
-At
+eg
 cR
 dR
 aa
@@ -3273,9 +3273,9 @@ bF
 bF
 bF
 bF
-KE
+cC
 bl
-KE
+cC
 dD
 cm
 cm
@@ -3344,7 +3344,7 @@ bF
 bl
 bl
 dk
-KE
+cC
 bl
 bF
 bl
@@ -3376,7 +3376,7 @@ bo
 bF
 bl
 bF
-KE
+cC
 bl
 bF
 bF
@@ -3422,7 +3422,7 @@ bF
 bl
 cm
 cm
-At
+eg
 dR
 aa
 aa
@@ -3448,7 +3448,7 @@ bp
 bG
 bX
 cl
-lY
+cD
 cR
 cm
 dm

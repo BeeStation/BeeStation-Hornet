@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/mop_bucket,
+/obj/structure/mopbucket,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/mop,
 /turf/open/floor/plating,
