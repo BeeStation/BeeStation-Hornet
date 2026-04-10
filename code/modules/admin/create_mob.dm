@@ -17,7 +17,7 @@
 	H.underwear = random_underwear(H.gender)
 	H.socks = random_socks(H.gender)
 	H.undershirt = random_undershirt(H.undershirt)
-	H.underwear_color = random_short_color()
+	H.underwear_color = "#[random_color()]"
 	H.skin_tone = pick(GLOB.skin_tones)
 	H.eye_color = random_eye_color()
 	H.dna.blood_type = random_blood_type()
@@ -29,15 +29,12 @@
 	// since they are usually important characters, and as we know from anime
 	// important characters always have colourful hair
 	if (unique)
-		H.hair_color = random_short_color()
-		H.facial_hair_color = H.hair_color
-		var/list/rgb_list = ReadRGB(H.hair_color)
-		var/list/hsl = rgb2hsl(rgb_list[1], rgb_list[2], rgb_list[3])
+		H.hair_color = "#[random_color()]"
+		var/list/hsl = rgb2num(H.hair_color, COLORSPACE_HSL)
 		hsl[1] = CLAMP01(hsl[1] + (rand(-6, 6)/360))
 		hsl[2] = CLAMP01(hsl[2] + (rand(-4, 4)/100))
 		hsl[3] = CLAMP01(hsl[3] + (rand(-2, 2)/100))
-		rgb_list = hsl2rgb(hsl[1], hsl[2], hsl[3])
-		H.gradient_color = copytext(rgb(rgb_list[1], rgb_list[2], rgb_list[3]), 2)
+		H.gradient_color = rgb(hsl[1], hsl[2], hsl[3], space = COLORSPACE_HSL)
 	else
 		// Copy the behaviour of the preferences selection
 		// Hair colour
@@ -58,13 +55,13 @@
 					H.gradient_color = pick(GLOB.secondary_dye_hair_colours)
 				else
 					H.gradient_color = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
-		// Facial hair colour
-		H.facial_hair_color = H.hair_color
+	// Facial hair colour
+	H.facial_hair_color = H.hair_color
 	var/datum/sprite_accessory/gradient_style = pick_default_accessory(GLOB.hair_gradients_list, required_gender = H.gender)
 	H.gradient_style = gradient_style.name
 
 	// Mutant randomizing, doesn't affect the mob appearance unless it's the specific mutant.
-	H.dna.features["mcolor"] = random_short_color()
+	H.dna.features["mcolor"] = "#[random_color()]"
 	H.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 	H.dna.features["tail_lizard"] = pick(GLOB.tails_list_lizard)
 	H.dna.features["snout"] = pick(GLOB.snouts_list)

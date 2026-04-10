@@ -8,6 +8,10 @@
 	gas_transfer_coefficient = 0.9
 	equip_delay_other = 20
 
+/obj/item/clothing/mask/muzzle/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/muffles_speech)
+
 /obj/item/clothing/mask/muzzle/attack_paw(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
@@ -41,6 +45,8 @@
 	name = "fake moustache"
 	desc = "Warning: moustache is fake."
 	icon_state = "fake-moustache"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
+	w_class = WEIGHT_CLASS_TINY
 	flags_inv = HIDEFACE
 
 /obj/item/clothing/mask/fakemoustache/italian
@@ -78,7 +84,7 @@
 	actions_types = list(/datum/action/item_action/adjust)
 
 /obj/item/clothing/mask/joy/ui_action_click(mob/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated)
 		return
 
 	var/list/options = list()
@@ -90,7 +96,7 @@
 
 	var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sort_list(options)
 
-	if(src && choice && !user.incapacitated() && in_range(user,src))
+	if(src && choice && !user.incapacitated && in_range(user,src))
 		icon_state = options[choice]
 		user.update_worn_mask()
 		for(var/X in actions)

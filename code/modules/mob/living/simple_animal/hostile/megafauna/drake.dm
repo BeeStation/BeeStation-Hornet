@@ -57,8 +57,8 @@ Difficulty: Medium
 	achievement_type = /datum/award/achievement/boss/drake_kill
 	crusher_achievement_type = /datum/award/achievement/boss/drake_crusher
 	score_achievement_type = /datum/award/score/drake_score
-	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
-	deathsound = 'sound/magic/demon_dies.ogg'
+	death_message = "collapses into a pile of bones, its flesh sloughing away."
+	death_sound = 'sound/magic/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							   /datum/action/innate/megafauna_attack/fire_cone_meteors,
@@ -381,12 +381,12 @@ Difficulty: Medium
 		return
 	..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && (swooping & SWOOP_INVULNERABLE))
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, allow_inside_usr = FALSE, separation = " ")
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
@@ -472,7 +472,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 	layer = BELOW_MOB_LAYER
 	pixel_x = -32
 	pixel_y = -32
-	color = "#FF0000"
+	color = COLOR_RED
 	duration = 10
 
 /obj/effect/temp_visual/dragon_flight

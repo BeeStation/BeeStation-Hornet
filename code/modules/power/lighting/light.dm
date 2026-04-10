@@ -44,7 +44,7 @@
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
 	var/bulb_emergency_brightness_mul = 0.25	// multiplier for this light's base brightness in emergency power mode
-	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
+	var/bulb_emergency_colour = COLOR_VIVID_RED	// determines the colour of the light while it's in emergency mode
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
 	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
 
@@ -379,7 +379,7 @@
 			deconstruct()
 		else
 			to_chat(user, span_userdanger("You stick \the [W] into the light socket!"))
-			if(has_power() && (W.flags_1 & CONDUCT_1))
+			if(has_power() && (W.obj_flags & CONDUCTS_ELECTRICITY))
 				do_sparks(3, TRUE, src)
 				if (prob(75))
 					electrocute_mob(user, get_area(src), src, rand(0.7,1.0), TRUE)
@@ -420,7 +420,7 @@
 /obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
 	..()
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
-		if(on && (I.flags_1 & CONDUCT_1))
+		if(on && (I.obj_flags & CONDUCTS_ELECTRICITY))
 			if(prob(12))
 				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 

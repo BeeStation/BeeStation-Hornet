@@ -7,7 +7,7 @@
 	var/static/list/items = list(/obj/item/binoculars, /obj/item/camera, /obj/item/clothing/under/color/blue, /obj/item/clothing/under/color/black)
 
 /datum/asset/spritesheet_batched/test/create_spritesheets()
-	for(var/atom/item as() in items)
+	for(var/atom/item as anything in items)
 		if (!ispath(item, /atom))
 			return FALSE
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
@@ -15,7 +15,7 @@
 	// Get some coverage on each operation.
 	var/datum/universal_icon/I = uni_icon('icons/effects/effects.dmi', "nothing")
 	I.blend_icon(uni_icon('icons/effects/effects.dmi', "sparks"), ICON_OVERLAY)
-	I.blend_color("#ff0000", ICON_MULTIPLY)
+	I.blend_color(COLOR_RED, ICON_MULTIPLY)
 	I.scale(64, 64)
 	I.crop(1, 1, 128, 64) // we'll test for the scale later.
 	insert_icon("test", I)

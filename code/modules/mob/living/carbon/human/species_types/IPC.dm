@@ -2,7 +2,6 @@
 	name = "\improper Integrated Positronic Chassis"
 	plural_form = "IPCs"
 	id = SPECIES_IPC
-	bodyflag = FLAG_IPC
 	sexes = FALSE
 	species_traits = list(
 		NOEYESPRITES,
@@ -45,10 +44,7 @@
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
 	//IPCs are extremely fragile, but do not go into softcrit and can be repaired with relative ease
-	burnmod = 1.5
-	brutemod = 1.5
 	clonemod = 0
-	staminamod = 0 //IPCs don't get tired
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
@@ -231,25 +227,6 @@
 
 	H.visible_message(span_notice("[H] unplugs from the [target]."), span_notice("You unplug from the [target]."))
 	return
-
-/datum/species/ipc/spec_attacked_by(obj/item/item, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/ipc)
-	//Need to make sure it wasn't blocked somehow
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(istype(item, /obj/item/melee/baton) && item.damtype == STAMINA)
-		if(!affecting)
-			affecting = ipc.bodyparts[1]
-		var/hit_area = parse_zone(affecting.body_zone)
-		var/def_zone = affecting.body_zone
-
-		//We check STAMINA armor because it's still a stun baton, but we are converting it to burn damage because it's a conductive robot that is immune to STAMINA.
-		var/armor_block = ipc.run_armor_check(affecting, STAMINA, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"),item.armour_penetration)
-
-		//All in all this does 16.5 burn damage to an IPC if using a standard 40 stamina stun baton.
-		ipc.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
-		apply_damage((item.force/4), BURN, def_zone, armor_block, ipc)
 
 /datum/species/ipc/proc/mechanical_revival(mob/living/carbon/human/H)
 

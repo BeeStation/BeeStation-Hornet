@@ -11,6 +11,7 @@
 	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	resistance_flags = FIRE_PROOF
 	throwforce = 5
 	throw_speed = 4
 	armour_penetration = 10

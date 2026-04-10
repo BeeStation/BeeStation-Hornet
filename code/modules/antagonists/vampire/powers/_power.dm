@@ -23,19 +23,22 @@
 	var/power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN | BP_AM_COSTLESS_UNCONSCIOUS
 	/// Requirement flags for checks
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	/// Who can purchase the Power
-	var/purchase_flags = NONE // VAMPIRE_CAN_BUY | VAMPIRE_DEFAULT_POWER | TREMERE_CAN_BUY | VASSAL_CAN_BUY
 
+	// Special flags you can give to powers. Mainly used for any powers we want them to have by default, so, feed.
+	var/special_flags = NONE
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/currently_active = FALSE
-	///Can increase to yield new abilities - Each Power ranks up each Rank
-	var/level_current = 0
+	///Can increase to yield new abilities
+	var/level_current = 1
 	///The cost to ACTIVATE this Power
-	var/bloodcost = 0
+	var/vitaecost = 0
 	///The cost to MAINTAIN this Power Only used for constant powers
-	var/constant_bloodcost = 0
-	/// A multiplier for the bloodcost during sol.
+	var/constant_vitaecost = 0
+	/// A multiplier for the vitaecost during sol.
 	var/sol_multiplier = 1
+
+	///The upgraded version of this Power. 'null' means it's the max level.
+	var/upgraded_power = null
 
 // Modify description to add cost.
 /datum/action/vampire/New(Target)
@@ -49,12 +52,8 @@
 /datum/action/vampire/Grant(mob/user)
 	. = ..()
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
-	var/datum/antagonist/vassal/favorite/favorite_vassal = IS_FAVORITE_VASSAL(owner)
 	if(vampiredatum)
 		vampiredatum_power = vampiredatum
-		level_current = vampiredatum.vampire_level
-	else if(favorite_vassal)
-		level_current = favorite_vassal.vassal_level
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/vampire/on_activate(mob/user, atom/target)
@@ -75,19 +74,12 @@
 
 /datum/action/vampire/proc/update_desc()
 	desc = initial(desc)
-	if(bloodcost > 0)
-		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
-	if(constant_bloodcost > 0)
-		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_bloodcost] Blood.</i>"
+	if(vitaecost > 0)
+		desc += "<br><br><b>COST:</b> [vitaecost] Blood"
+	if(constant_vitaecost > 0)
+		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_vitaecost] Blood.</i>"
 	if(power_flags & BP_AM_SINGLEUSE)
 		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once per night.</i>"
-
-/// Called when the Power is upgraded.
-/datum/action/vampire/proc/upgrade_power()
-	level_current++
-	// Decrease cooldown time
-	if((power_flags & !BP_AM_STATIC_COOLDOWN) && (power_flags & !BP_AM_VERY_DYNAMIC_COOLDOWN))
-		cooldown_time = max(initial(cooldown_time) / 2, initial(cooldown_time) - (initial(cooldown_time) / 16 * (level_current - 1)))
 
 /datum/action/vampire/proc/can_pay_cost()
 	if(QDELETED(owner))
@@ -96,7 +88,7 @@
 	// Check if we have enough blood for non-vampires
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
-		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD) && living_owner.blood_volume < bloodcost)
+		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD) && living_owner.blood_volume < vitaecost)
 			living_owner.balloon_alert(living_owner, "not enough blood.")
 			return FALSE
 
@@ -105,7 +97,7 @@
 	// Have enough blood? Vampires in a Frenzy don't need to pay them
 	if(vampiredatum_power.frenzied)
 		return TRUE
-	if(vampiredatum_power.vampire_blood_volume < bloodcost)
+	if(vampiredatum_power.current_vitae < vitaecost)
 		owner.balloon_alert(owner, "not enough blood.")
 		return FALSE
 
@@ -134,11 +126,11 @@
 		to_chat(carbon_owner, span_warning("You can't do this while you are unconcious!"))
 		return FALSE
 	// Incapacitated?
-	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && carbon_owner.incapacitated(IGNORE_RESTRAINTS, IGNORE_GRAB))
+	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && INCAPACITATED_IGNORING(carbon_owner, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		to_chat(carbon_owner, span_warning("Not while you're incapacitated!"))
 		return FALSE
 	// Constant Cost (out of blood)
-	if(constant_bloodcost > 0 && vampiredatum_power?.vampire_blood_volume <= 0)
+	if(constant_vitaecost > 0 && vampiredatum_power?.current_vitae <= 0)
 		to_chat(carbon_owner, span_warning("You don't have the blood to upkeep [src]."))
 		return FALSE
 	// Sol check
@@ -156,20 +148,20 @@
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-			living_owner.blood_volume -= bloodcost
+			living_owner.blood_volume -= vitaecost
 		return
 
 	// Vampires in a Frenzy don't have enough Blood to pay it, so just don't.
 	if(!vampiredatum_power.frenzied)
-		vampiredatum_power.vampire_blood_volume -= bloodcost
+		vampiredatum_power.current_vitae -= vitaecost
 		vampiredatum_power.update_hud()
 
 /datum/action/vampire/proc/activate_power()
 	currently_active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
-		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
+		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(use_power))
 
-	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
+	owner.log_message("used [src][vitaecost != 0 ? " at the cost of [vitaecost]" : ""].", LOG_ATTACK, color="red")
 	update_buttons()
 
 /datum/action/vampire/proc/deactivate_power()
@@ -187,26 +179,28 @@
 	update_buttons()
 
 /// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
-/datum/action/vampire/proc/UsePower()
+/datum/action/vampire/proc/use_power()
 	if(!continue_active()) // We can't afford the Power? Deactivate it.
 		deactivate_power()
 		return FALSE
-	// We can keep this up (For now), so Pay Cost!
-	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
+
+	// IF USER IS UNCONSCIOUS
+	if((power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
+		return TRUE
+	else
 		if(vampiredatum_power)
-			vampiredatum_power.AddBloodVolume(-constant_bloodcost)
+			vampiredatum_power.adjust_vitae(-constant_vitaecost)
 		else
 			var/mob/living/living_owner = owner
 			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-				living_owner.blood_volume -= constant_bloodcost
-
+				living_owner.blood_volume -= constant_vitaecost
 	return TRUE
 
 /// Checks to make sure this power can stay active
 /datum/action/vampire/proc/continue_active()
 	if(!owner)
 		return FALSE
-	if(vampiredatum_power && vampiredatum_power.vampire_blood_volume < constant_bloodcost)
+	if(vampiredatum_power && vampiredatum_power.current_vitae < constant_vitaecost)
 		return FALSE
 
 	return TRUE
@@ -215,3 +209,17 @@
 /datum/action/vampire/proc/remove_after_use()
 	vampiredatum_power?.powers -= src
 	Remove(owner)
+
+// If there's a mortal in line of sight, we get a masq infraction
+/datum/action/vampire/proc/check_witnesses(mob/living/target)
+	for(var/mob/living/watcher in oviewers(6, owner) - target)
+		if(!vampiredatum_power.is_masq_watcher(watcher))
+			continue
+
+		if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
+			watcher.face_atom(owner)
+
+		watcher.do_alert_animation(watcher)
+		playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
+		vampiredatum_power.give_masquerade_infraction()
+		break

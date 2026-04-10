@@ -669,13 +669,15 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/datum/poll_config/config = new()
-	config.question = poll_message
-	config.check_jobban = ban_key
-	config.poll_time = 10 SECONDS
-	config.jump_target = M
-	config.role_name_text = "ghost possession"
-	config.alert_pic = M
+	var/datum/poll_config/config = new(
+		question = poll_message,
+		check_jobban = ban_key,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		role_name_text = "ghost possession",
+		alert_pic = M,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, M)
 	if(M.stat == DEAD)//boo.
 		return
@@ -873,7 +875,7 @@
 	knockdown = 50
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
-	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 	ignored_factions = list("cult")
 	range = 15
 	speed = 7

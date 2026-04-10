@@ -225,6 +225,7 @@
 	Knockdown(amount)
 	Stun(amount)
 	Immobilize(amount)
+	Unconscious(amount)
 
 
 /mob/living/proc/SetAllImmobility(amount)
@@ -232,6 +233,7 @@
 	SetKnockdown(amount)
 	SetStun(amount)
 	SetImmobilized(amount)
+	SetUnconscious(amount)
 
 
 /mob/living/proc/AdjustAllImmobility(amount)
@@ -239,6 +241,7 @@
 	AdjustKnockdown(amount)
 	AdjustStun(amount)
 	AdjustImmobilized(amount)
+	AdjustUnconscious(amount)
 
 
 //////////////////UNCONSCIOUS
@@ -289,8 +292,10 @@
 
 /////////////////////////////////// SLEEPING ////////////////////////////////////
 
+/* SLEEPING */
 /mob/living/proc/IsSleeping() //If we're asleep
-	return has_status_effect(/datum/status_effect/incapacitating/sleeping)
+	if(!HAS_TRAIT(src, TRAIT_SLEEPIMMUNE))
+		return has_status_effect(/datum/status_effect/incapacitating/sleeping)
 
 /mob/living/proc/AmountSleeping() //How many deciseconds remain in our sleep
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
@@ -504,8 +509,7 @@
 		for(var/symptom in D.symptoms)
 			var/datum/symptom/S = symptom
 			S.OnDeath(D)
-	ADD_TRAIT(src, TRAIT_FAKEDEATH, source)
-	ADD_TRAIT(src, TRAIT_DEATHCOMA, source)
+	add_traits(list(TRAIT_FAKEDEATH, TRAIT_DEATHCOMA), source)
 	tod = station_time_timestamp()
 
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.

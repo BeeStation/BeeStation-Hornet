@@ -31,6 +31,8 @@
 						"<span class='notice'>[user] [response_help_continuous] you.</span>", null, null, list(user))
 		to_chat(user, "<span class='notice'>You [response_help_simple] [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
+		SEND_SIGNAL(user, COMSIG_LIVING_PET_ANIMAL, src)
 	else
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
@@ -128,6 +130,7 @@
 		temp_damage = 0
 	else
 		temp_damage *= damage_coeff[damagetype]
+
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
 		visible_message(span_warning("[src] looks unharmed!"))
 		return FALSE

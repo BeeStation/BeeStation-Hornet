@@ -8,13 +8,13 @@ import { MedicalRecordData } from './types';
 
 export const MedicalRecords = (props) => {
   const { data } = useBackend<MedicalRecordData>();
-  const { authenticated } = data;
+  const { authenticated, is_silicon } = data;
 
   return (
     <Window title="Medical Records" width={750} height={550}>
       <Window.Content>
         <Stack fill>
-          {!authenticated ? <UnauthorizedView /> : <AuthView />}
+          {authenticated || is_silicon ? <AuthView /> : <UnauthorizedView />}
         </Stack>
       </Window.Content>
     </Window>

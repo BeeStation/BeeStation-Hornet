@@ -23,6 +23,35 @@
 #define COMSIG_LIVING_START_PULL "living_start_pull"			///called on /living when someone starts pulling (atom/movable/pulled, state, force)
 /// from base of mob/living/Life() (seconds, times_fired)
 #define COMSIG_LIVING_LIFE "living_life"
+
+// adjust_x_loss messages sent from /mob/living/proc/adjust[x]Loss
+/// Returned from all the following messages if you actually aren't going to apply any change
+#define COMPONENT_IGNORE_CHANGE (1<<0)
+// Each of these messages sends the damagetype even though it is inferred by the signal so you can pass all of them to the same proc if required
+/// Send when bruteloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_BRUTE_DAMAGE "living_adjust_brute_damage"
+/// Send when fireloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_BURN_DAMAGE "living_adjust_burn_damage"
+/// Send when oxyloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_OXY_DAMAGE "living_adjust_oxy_damage"
+/// Send when toxloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_TOX_DAMAGE "living_adjust_tox_damage"
+/// Send when cloneloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_CLONE_DAMAGE "living_adjust_clone_damage"
+/// Send when staminaloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_STAMINA_DAMAGE "living_adjust_stamina_damage"
+
+/// List of signals sent when you receive any damage except stamina
+#define COMSIG_LIVING_ADJUST_STANDARD_DAMAGE_TYPES list(\
+	COMSIG_LIVING_ADJUST_BRUTE_DAMAGE,\
+	COMSIG_LIVING_ADJUST_BURN_DAMAGE,\
+	COMSIG_LIVING_ADJUST_CLONE_DAMAGE,\
+	COMSIG_LIVING_ADJUST_OXY_DAMAGE,\
+	COMSIG_LIVING_ADJUST_TOX_DAMAGE,\
+)
+/// List of signals sent when you receive any kind of damage at all
+#define COMSIG_LIVING_ADJUST_ALL_DAMAGE_TYPES (COMSIG_LIVING_ADJUST_STANDARD_DAMAGE_TYPES + COMSIG_LIVING_ADJUST_STAMINA_DAMAGE)
+
 /// from base of mob/living/updatehealth()
 #define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
 ///from base of mob/living/death(): (gibbed, was_dead_before)
@@ -68,6 +97,9 @@
 ///from end of fully_heal(): (heal_flags)
 #define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
 
+///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)
+#define COMSIG_LIVING_SLAPPED "living_slapped"
+
 #define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
 
 #define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
@@ -97,6 +129,13 @@
 ///From living/set_resting(): (new_resting, silent, instant)
 #define COMSIG_LIVING_RESTING "living_resting"
 
+/// From base of /mob/living/simple_animal/attack_hand() and /mob/living/basic/attack_hand() when petting (non-combat): (mob/living/pet)
+#define COMSIG_LIVING_PET_ANIMAL "living_pet_animal"
+/// From base of carbon_defense.dm when hugging: (mob/living/carbon/hugged)
+#define COMSIG_LIVING_HUG_CARBON "living_hug_carbon"
+/// From base of /datum/element/art when appraising art: (atom/art_piece)
+#define COMSIG_LIVING_APPRAISE_ART "living_appraise_art"
+
 ///From base of mob/living/MobBump() (mob/living)
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 ///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)
@@ -106,9 +145,9 @@
 #define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
 
 /// From mob/living/try_speak(): (message, ignore_spam, forced)
-#define COMSIG_LIVING_TRY_SPEECH "living_vocal_speech"
-	/// Return if the mob can speak the message, regardless of any other signal returns or checks.
-	#define COMPONENT_CAN_ALWAYS_SPEAK (1<<0)
+#define COMSIG_MOB_TRY_SPEECH "living_vocal_speech"
+	/// Return to skip can_speak check, IE, forcing success. Overrides below.
+	#define COMPONENT_IGNORE_CAN_SPEAK (1<<0)
 	/// Return if the mob cannot speak.
 	#define COMPONENT_CANNOT_SPEAK (1<<1)
 
@@ -137,7 +176,27 @@
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
 	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
+
+///from mob/living/befriend()
+#define COMSIG_LIVING_MADE_NEW_FRIEND "made_new_friend"
 /// From /mob/living/befriend() : (mob/living/new_friend)
 #define COMSIG_LIVING_BEFRIENDED "living_befriended"
 /// From /mob/living/unfriend() : (mob/living/old_friend)
 #define COMSIG_LIVING_UNFRIENDED "living_unfriended"
+
+/// From /datum/element/basic_eating/try_eating()
+#define COMSIG_MOB_PRE_EAT "mob_pre_eat"
+	///cancel eating attempt
+	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+/// From mob/living/proc/on_fall
+#define COMSIG_LIVING_THUD "living_thud"
+
+/// From /datum/element/basic_eating/finish_eating()
+#define COMSIG_MOB_ATE "mob_ate"
+	///cancel post eating
+	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
+
+///From /obj/effect/rune/convert/do_sacrifice() : (list/invokers)
+#define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
+	/// Return to stop the sac from occurring
+	#define STOP_SACRIFICE (1<<0)

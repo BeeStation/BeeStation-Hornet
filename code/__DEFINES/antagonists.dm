@@ -96,13 +96,9 @@
 #define LOG_SPELL_AMOUNT "amount"
 
 /// How many telecrystals a normal traitor starts with
-#define TELECRYSTALS_DEFAULT 20
+#define TELECRYSTALS_DEFAULT 12
 /// How many telecrystals mapper/admin only "precharged" uplink implant
 #define TELECRYSTALS_PRELOADED_IMPLANT 10
-/// The normal cost of an uplink implant; used for calcuating how many
-/// TC to charge someone if they get a free implant through choice or
-/// because they have nothing else that supports an implant.
-#define UPLINK_IMPLANT_TELECRYSTAL_COST 3
 
 GLOBAL_LIST_INIT(ai_employers, list(
 	"Biohazard",
@@ -139,7 +135,7 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_TRAITOR(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/traitor))
 /// Checks if the given mob is a wizard
 #define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
-/// Checks if given mob is a hive host
+///Checks if given mob is a hive host
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 /// Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
@@ -149,6 +145,8 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_NUCLEAR_OPERATIVE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/nukeop))
 /// Checks if the given mob is a blood cultist
 #define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
+/// Checks if the mob is a sentient or non-sentient cultist
+#define IS_CULTIST_OR_CULTIST_MOB(mob) ((IS_CULTIST(mob)) || (mob.faction.Find(FACTION_CULT)))
 /// Checks if the given mob is a clock cultist
 #define IS_SERVANT_OF_RATVAR(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 /// Checks if the given mob is a changeling
@@ -161,14 +159,53 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_VAMPIRE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vampire))
 /// Checks if the given mob is a vassal
 #define IS_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal))
-/// Checks if the given mob is a favorite vassal
-#define IS_FAVORITE_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal/favorite))
 /// Checks if the given mob is a revolutionary
 #define IS_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev))
 #define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))
 
 //Tells whether or not someone is a space ninja
 #define IS_SPACE_NINJA(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ninja))
+
+/// Traitor reputation levels
+
+/// Ex-communicated
+#define REPUTATION_EXCOMMUNICATED 0
+/// Blood brother level: Untrusted
+#define REPUTATION_LOW 100
+/// Standard traitor level
+#define REPUTATION_STANDARD 200
+/// Good reputation, additional gear
+#define REPUTATION_GOOD 400
+/// Excellent reputation, more murderboney stuff
+#define REPUTATION_EXCELLENT 600
+/// Elite reputation, access to rare and unique items.
+/// Nuclear operative level
+#define REPUTATION_ELITE 800
+/// Access to anything your heart could ever desire
+#define REPUTATION_MAX 1000
+
+#define REPUTATION_TRAITOR_START 300
+
+/// How much reputation is gained per completed directive
+#define REPUTATION_GAIN_PER_DIRECTIVE 200
+
+/// How much reputation you lose for failing a solo directive
+#define REPUTATION_LOSS_SOLO_DIRECTIVE 0
+/// How much reputation you lose for failing a team-directive
+#define REPUTATION_LOSS_TEAM_DIRECTIVE 0
+
+/// Flags for the types of directives that uplinks can receive
+/// Can receive competitive objective shared by other people
+#define DIRECTIVE_FLAG_COMPETITIVE (1 << 0)
+/// Can receive personal objectives that only this uplink has
+#define DIRECTIVE_FLAG_PERSONAL (1 << 1)
+
+/// Directive flags for traitors
+#define TRAITOR_DIRECTIVE_FLAGS (DIRECTIVE_FLAG_COMPETITIVE | DIRECTIVE_FLAG_PERSONAL)
+/// Directive flags for brothers
+#define BROTHER_DIRECTIVE_FLAGS (DIRECTIVE_FLAG_COMPETITIVE)
+/// Directive flags for nukies
+#define NUKIE_DIRECTIVE_FLAGS (NONE)
 
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4
@@ -197,13 +234,6 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
 #define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
-// Clockcult
-// ------------------------------------
-
-#define SIGIL_TRANSMISSION_RANGE 4
-/// Clockcult drone
-#define CLOCKDRONE	"drone_clock"
-
 // Abductors
 // ------------------------------------
 
@@ -231,3 +261,9 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// and that we cannot continue the round without issue if they were
 /// simply removed or swapped.
 #define ANTAGONIST_LEAVE_KEEP 2
+
+// Steal Directive Flags
+// ------------------------------------
+
+/// Is this item available for the toxin directive?
+#define STEAL_DIRECTIVE_TOXIN (1 << 0)

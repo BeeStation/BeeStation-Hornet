@@ -146,7 +146,7 @@
 		supermatter_anomaly_gen(get_ranged_target_turf(src, pick(GLOB.cardinals), rand(5, 10)), PYRO_ANOMALY, 3)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_pull(turf/center, pull_range = 3)
-	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - SOUND_RANGE)
+	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - 7)
 	for(var/atom/movable/movable_atom in orange(pull_range,center))
 		if((movable_atom.anchored || movable_atom.move_resist >= MOVE_FORCE_EXTREMELY_STRONG)) //move resist memes.
 			if(istype(movable_atom, /obj/structure/closet))

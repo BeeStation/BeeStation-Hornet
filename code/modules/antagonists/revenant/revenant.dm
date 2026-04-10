@@ -22,7 +22,6 @@
 	do_not_show_health_on_stat_panel = TRUE // showing their health info is confusing
 	plane = GHOST_PLANE
 	healable = FALSE
-	spacewalk = TRUE
 	sight = SEE_SELF
 	throwforce = 0
 	see_in_dark = NIGHTVISION_FOV_RANGE
@@ -73,6 +72,7 @@
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	// more rev abilities are in 'revenant_abilities.dm'
 	// Starting spells
 	var/datum/action/spell/night_vision/revenant/night_vision = new(src)
@@ -109,7 +109,7 @@
 /mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, no_hands = FALSE, floor_okay=FALSE)
 	return FALSE
 
-/mob/living/basic/revenant/generate_random_mob_name()
+/mob/living/simple_animal/revenant/generate_random_mob_name()
 	var/list/built_name_strings = list()
 	built_name_strings += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
 	built_name_strings += " of "
@@ -181,14 +181,24 @@
 /mob/living/simple_animal/revenant/med_hud_set_status()
 	return //we use no hud
 
-/mob/living/simple_animal/revenant/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
+/mob/living/simple_animal/revenant/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
 	if(!message)
 		return
 
-	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, span_warning("Your message contains forbidden words."))
-		return
-	message = treat_message_min(message)
+	if(sanitize)
+		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	src.log_talk(message, LOG_SAY)
 	var/rendered = span_revennotice("<b>[src]</b> haunts, \"[message]\"")
 	var/rendered_yourself = span_revennotice("You haunt to ghosts: [message]")
@@ -241,7 +251,7 @@
 	inhibited = FALSE
 	update_action_buttons_icon()
 
-/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && !revealed)
 		return FALSE
 	. = amount
@@ -426,7 +436,7 @@
 			reveal(20)
 			stun(20)
 			return
-		if(stepTurf.flags_1 & NOJAUNT_1)
+		if(stepTurf.turf_flags & NOJAUNT)
 			to_chat(src, span_warning("Some strange aura is blocking the way."))
 			return
 		if(stepTurf.is_holy())
@@ -505,13 +515,15 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/datum/poll_config/config = new()
-		config.question = "Do you want to be [revenant.name] (reforming)?"
-		config.check_jobban = ROLE_REVENANT
-		config.poll_time = 10 SECONDS
-		config.jump_target = revenant
-		config.role_name_text = "revenant"
-		config.alert_pic = revenant
+		var/datum/poll_config/config = new(
+			question = "Do you want to be [revenant.name] (reforming)?",
+			check_jobban = ROLE_REVENANT,
+			poll_time = 10 SECONDS,
+			jump_target = revenant,
+			role_name_text = "revenant",
+			alert_pic = revenant,
+			amount_to_pick = 1,
+		)
 		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 		if(!candidate)
 			qdel(revenant)

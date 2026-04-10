@@ -114,7 +114,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
 	if (!loc)
-		var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/supplypod_temp_holding] //temporary holder for supplypods mid-transit
+		var/shippingLane = GLOB.areas_by_type[/area/centcom/central_command_areas/supplypod/supplypod_temp_holding] //temporary holder for supplypods mid-transit
 		forceMove(shippingLane)
 	if (customStyle)
 		style = customStyle
@@ -184,7 +184,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 		var/icon/door_masker = new(icon, door) //The door shape we want to 'cut out' of the decal
 		door_masker.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 1,1,1,0, 0,0,0,1)
 		door_masker.SwapColor("#ffffffff", null)
-		door_masker.Blend("#000000", ICON_SUBTRACT)
+		door_masker.Blend(COLOR_BLACK, ICON_SUBTRACT)
 		masked_decal.Blend(door_masker, ICON_ADD)
 		. += masked_decal
 		return
@@ -200,7 +200,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 		var/icon/fin_masker = new(icon, "mask_[fin_mask]") //The fin shape we want to 'cut out' of the door
 		fin_masker.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 1,1,1,0, 0,0,0,1)
 		fin_masker.SwapColor("#ffffffff", null)
-		fin_masker.Blend("#000000", ICON_SUBTRACT)
+		fin_masker.Blend(COLOR_BLACK, ICON_SUBTRACT)
 		masked_door.Blend(fin_masker, ICON_ADD)
 		. += masked_door
 	if(decal)
@@ -234,7 +234,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 	stay_after_drop = FALSE
 	holder.pixel_z = initial(holder.pixel_z)
 	holder.alpha = initial(holder.alpha)
-	var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/supplypod_temp_holding]
+	var/shippingLane = GLOB.areas_by_type[/area/centcom/central_command_areas/supplypod/supplypod_temp_holding]
 	forceMove(shippingLane) //Move to the centcom-z-level until the pod_landingzone says we can drop back down again
 	if (!reverse_dropoff_coords) //If we're centcom-launched, the reverse dropoff turf will be a centcom loading bay. If we're an extraction pod, it should be the ninja jail. Thus, this shouldn't ever really happen.
 		var/obj/error_landmark = locate(/obj/effect/landmark/error) in GLOB.landmarks_list
@@ -257,7 +257,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 				for (var/bp in carbon_target_mob.bodyparts) //Look at the bodyparts in our poor mob beneath our pod as it lands
 					var/obj/item/bodypart/bodypart = bp
 					if(bodypart.body_part != HEAD && bodypart.body_part != CHEST)//we dont want to kill him, just teach em a lesson!
-						if (bodypart.dismemberable)
+						if (!(bodypart.bodypart_flags & BODYPART_UNREMOVABLE))
 							bodypart.dismember() //Using the power of flextape i've sawed this man's limb in half!
 							break
 			if (effectOrgans) //effectOrgans means remove every organ in our mob
@@ -271,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 				for (var/bp in carbon_target_mob.bodyparts) //Look at the bodyparts in our poor mob beneath our pod as it lands
 					var/obj/item/bodypart/bodypart = bp
 					var/destination = get_edge_target_turf(turf_underneath, pick(GLOB.alldirs))
-					if (bodypart.dismemberable)
+					if (!(bodypart.bodypart_flags & BODYPART_UNREMOVABLE))
 						bodypart.dismember() //Using the power of flextape i've sawed this man's bodypart in half!
 						bodypart.throw_at(destination, 2, 3)
 						sleep(1)

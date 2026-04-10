@@ -65,6 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	channelled = TRUE
 
 /datum/proximity_monitor/advanced/timestop
+	edge_is_a_field = TRUE
 	var/list/immune = list()
 	var/list/frozen_things = list()
 	var/list/frozen_mobs = list() //cached separately for processing
@@ -83,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	src.check_anti_magic = check_anti_magic
 	src.check_holy = check_holy
 	src.channelled = channelled
-	recalculate_field()
+	recalculate_field(full_recalc = TRUE)
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/proximity_monitor/advanced/timestop/Destroy()
@@ -94,7 +95,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-/datum/proximity_monitor/advanced/timestop/field_turf_crossed(atom/movable/movable, turf/location)
+/datum/proximity_monitor/advanced/timestop/field_turf_crossed(atom/movable/movable, turf/old_location, turf/new_location)
 	freeze_atom(movable)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_atom(atom/movable/A)
@@ -106,7 +107,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		return FALSE
 	var/frozen = TRUE
 	if(isliving(A))
-		freeze_mob(A)
+		if(!freeze_mob(A))
+			return FALSE
 	else if(istype(A, /obj/projectile))
 		freeze_projectile(A)
 	else if(istype(A, /obj/vehicle/sealed/mecha))
@@ -119,15 +121,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		freeze_throwing(A)
 		frozen = TRUE
 	if(!frozen)
-		return
-
+		return FALSE
 	frozen_things[A] = A.move_resist
 	A.move_resist = INFINITY
 	global_frozen_atoms[A] = src
 	into_the_negative_zone(A)
 	RegisterSignal(A, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(unfreeze_atom))
 	RegisterSignal(A, COMSIG_ITEM_PICKUP, PROC_REF(unfreeze_atom))
-
 	SEND_SIGNAL(A, COMSIG_ATOM_TIMESTOP_FREEZE, src)
 
 	return TRUE
@@ -196,12 +196,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 		var/mob/living/m = i
 		m.Stun(20, ignore_canstun = TRUE)
 
-/datum/proximity_monitor/advanced/timestop/setup_field_turf(turf/T)
+/datum/proximity_monitor/advanced/timestop/setup_field_turf(turf/target)
 	. = ..()
-	for(var/i in T.contents)
+	for(var/i in target.contents)
 		freeze_atom(i)
-	freeze_turf(T)
-
+	freeze_turf(target)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_projectile(obj/projectile/P)
 	P.paused = TRUE
@@ -210,10 +209,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	P.paused = FALSE
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/victim)
+	if(victim.can_block_magic(MAGIC_RESISTANCE))
+		immune[victim] = TRUE
+		if(channelled)
+			RegisterSignal(victim, COMSIG_MOVABLE_MOVED, PROC_REF(atom_broke_channel), override = TRUE)
+		return FALSE
 	frozen_mobs += victim
-	if(victim.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
-		immune += victim
-		return
 	victim.Stun(20, ignore_canstun = TRUE)
 	SSmove_manager.stop_looping(victim) //stops them mid pathing even if they're stunimmune //This is really dumb
 	if(isanimal(victim))
@@ -228,6 +229,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 	if(ishostile(victim))
 		var/mob/living/simple_animal/hostile/H = victim
 		H.LoseTarget()
+	return TRUE
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mob(mob/living/victim)
 	victim.AdjustStun(-20, ignore_canstun = TRUE)

@@ -28,7 +28,7 @@
 	attack_same = 1
 	gold_core_spawnable = HOSTILE_SPAWN
 	see_in_dark = NIGHTVISION_FOV_RANGE
-	deathmessage = "falls lifeless."
+	death_message = "falls lifeless."
 	del_on_death = TRUE
 	loot = list(/obj/item/organ/heart)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

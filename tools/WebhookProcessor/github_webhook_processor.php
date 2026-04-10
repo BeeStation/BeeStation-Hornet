@@ -906,6 +906,12 @@ function checkchangelog($payload, $compile = true) {
 					$currentchangelogblock[] = array('type' => 'refactor', 'body' => $item);
 				}
 				break;
+			case 'map':
+				if($item != 'added/modified/removed map content') {
+					$tags[] = 'Mapping';
+					$currentchangelogblock[] = array('type' => 'map', 'body' => $item);
+				}
+				break;
 			case 'config':
 				if($item != 'changed some config setting'){
 					$tags[] = 'Config Update';

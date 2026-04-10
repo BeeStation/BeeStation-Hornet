@@ -30,7 +30,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
 	)
 
-	minimal_lightup_areas = list(/area/medical/morgue, /area/security/detectives_office)
+	minimal_lightup_areas = list(/area/station/medical/morgue, /area/station/security/detectives_office)
 
 	manuscript_jobs = list(
 		JOB_NAME_DETECTIVE,
@@ -48,7 +48,7 @@
 	neck = /obj/item/clothing/neck/tie/detective
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/jacket/det_suit
-	suit_store = /obj/item/melee/classic_baton/police
+	suit_store = /obj/item/melee/baton
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/detective

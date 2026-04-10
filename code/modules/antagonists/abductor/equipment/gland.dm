@@ -3,8 +3,7 @@
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
-	status = ORGAN_ROBOTIC
-	organ_flags = NONE
+	organ_flags = ORGAN_ROBOTIC // weird?
 	beating = TRUE
 	var/true_name = "baseline placebo referencer"
 
@@ -67,7 +66,7 @@
 	to_chat(owner, "[span_mindcontrol("[command]")]")
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
-	deadchat_broadcast(span_deadsay("[span_name("[user]")] sent an abductor mind control message to [span_name("[owner]")]: [span_boldmessage("[command]")]"), follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
+	deadchat_broadcast(" sent an abductor mind control message to [span_name("[owner]")]: [span_boldmessage("[command]")]", span_name("[user]"), follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
 	update_gland_hud()
 	var/atom/movable/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /atom/movable/screen/alert/mind_control)
 	mind_alert.command = command
@@ -349,7 +348,7 @@
 /obj/item/organ/heart/gland/chem/activate()
 	var/chem_to_add = pick(possible_reagents)
 	owner.reagents.add_reagent(chem_to_add, 2)
-	owner.adjustToxLoss(-2, TRUE, TRUE)
+	owner.adjustToxLoss(-2, forced = TRUE)
 	..()
 
 /obj/item/organ/heart/gland/plasma

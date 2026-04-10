@@ -333,7 +333,7 @@
 	apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
-	if(TRAIT_BOMBIMMUNE in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
 		return
 	..()
 	if (!severity || QDELETED(src))
@@ -345,7 +345,7 @@
 //200 max knockdown for EXPLODE_HEAVY
 //160 max knockdown for EXPLODE_LIGHT
 
-
+	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(bomb_armor < EXPLODE_GIB_THRESHOLD) //gibs the mob if their bomb armor is lower than EXPLODE_GIB_THRESHOLD
@@ -370,18 +370,18 @@
 			brute_loss = 60
 			burn_loss = 60
 			damage_clothes(200 - bomb_armor, BRUTE, BOMB)
-			if (!istype(ears, /obj/item/clothing/ears/earmuffs))
-				adjustEarDamage(30, 120)
-			Unconscious(20)							//short amount of time for follow up attacks against elusive enemies like wizards
-			Knockdown(200 - (bomb_armor * 1.6)) 	//between ~4 and ~20 seconds of knockdown depending on bomb armor
+			if (ears && !HAS_TRAIT_FROM_ONLY(src, TRAIT_DEAF, EAR_DAMAGE))
+				ears.adjustEarDamage(30, 120)
+			Unconscious(20) //short amount of time for follow up attacks against elusive enemies like wizards
+			Knockdown(200 - (bomb_armor * 1.6)) //between ~4 and ~20 seconds of knockdown depending on bomb armor
 
 		if(EXPLODE_LIGHT)
 			brute_loss = 30
 			burn_loss = 10
 			damage_clothes(max(50 - bomb_armor, 0), BRUTE, BOMB)
-			if (!istype(ears, /obj/item/clothing/ears/earmuffs))
-				adjustEarDamage(15,60)
-			Knockdown(160 - (bomb_armor * 1.6))		//100 bomb armor will prevent knockdown altogether
+			if (ears && !HAS_TRAIT_FROM_ONLY(src, TRAIT_DEAF, EAR_DAMAGE))
+				ears.adjustEarDamage(15,60)
+			Knockdown(160 - (bomb_armor * 1.6)) //100 bomb armor will prevent knockdown altogether
 
 	apply_damage(brute_loss, BRUTE, blocked = (bomb_armor * 0.6))
 	apply_damage(burn_loss, BURN, blocked = (bomb_armor * 0.6))
@@ -436,18 +436,16 @@
 	//Don't go further if the shock was blocked/too weak.
 	if(!.)
 		return
-	//Note we both check that the user is in cardiac arrest and can actually heartattack
-	//If they can't, they're missing their heart and this would runtime
-	if(undergoing_cardiac_arrest() && can_heartattack() && !(flags & SHOCK_ILLUSION))
-		if(shock_damage * siemens_coeff >= 1 && prob(25))
+	if(!(flags & SHOCK_ILLUSION))
+		if(shock_damage * siemens_coeff >= 5)
+			force_say()
+		//Note we both check that the user is in cardiac arrest and can actually heartattack
+		//If they can't, they're missing their heart and this would runtime
+		if(undergoing_cardiac_arrest() && can_heartattack() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 			if(heart.Restart() && stat == CONSCIOUS)
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
-
-/mob/living/carbon/human/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
-	. = ..()
-	force_say(src) //Cut them off if they were talking
 
 /mob/living/carbon/human/emp_act(severity)
 	. = ..()
@@ -661,7 +659,7 @@
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	for(var/obj/item/bodypart/body_part as anything in bodyparts)
 		missing -= body_part.body_zone
-		if(body_part.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
+		if(body_part.bodypart_flags & BODYPART_PSEUDOPART) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
 
 		body_part.check_for_injuries(src, combined_msg)
@@ -820,13 +818,13 @@
  * Used by fire code to damage worn items.
  *
  * Arguments:
- * - seconds_per_tick
+ * - delta_time
  * - times_fired
  * - stacks: Current amount of firestacks
  *
  */
 
-/mob/living/carbon/human/proc/burn_clothing(seconds_per_tick, stacks)
+/mob/living/carbon/human/proc/burn_clothing(delta_time, stacks)
 	var/list/burning_items = list()
 	var/covered = check_covered_slots()
 	//HEAD//
@@ -875,15 +873,15 @@
 			burning_items |= burnable_item
 
 	for(var/obj/item/burning in burning_items)
-		burning.fire_act((stacks * 25 * seconds_per_tick)) //damage taken is reduced to 2% of this value by fire_act()
+		burning.fire_act((stacks * 25 * delta_time)) //damage taken is reduced to 2% of this value by fire_act()
 
-/mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+/mob/living/carbon/human/on_fire_stack(delta_time, datum/status_effect/fire_handler/fire_stacks/fire_handler)
 	SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)
-	burn_clothing(seconds_per_tick, fire_handler.stacks)
+	burn_clothing(delta_time, fire_handler.stacks)
 	var/no_protection = FALSE
 	if(dna && dna.species)
-		no_protection = dna.species.handle_fire(src, seconds_per_tick, no_protection)
-	fire_handler.harm_human(seconds_per_tick, no_protection)
+		no_protection = dna.species.handle_fire(src, delta_time, no_protection)
+	fire_handler.harm_human(delta_time, no_protection)
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))

@@ -58,7 +58,7 @@
 /datum/antagonist/rev/create_team(datum/team/revolution/new_team)
 	if(!new_team)
 		//For now only one revolution at a time
-		for(var/datum/antagonist/rev/head/H in GLOB.antagonists)
+		for(var/datum/antagonist/rev/head/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.rev_team)
@@ -161,7 +161,7 @@
 	name = "Head Revolutionary"
 	hud_type = "rev_head"
 	banning_key = ROLE_REV_HEAD
-	required_living_playtime = 4
+	required_living_playtime = 8
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
@@ -302,7 +302,7 @@
 			var/list/datum/mind/promotable = list()
 			var/list/datum/mind/nonhuman_promotable = list()
 			for(var/datum/mind/khrushchev in non_heads)
-				if(khrushchev.current && !khrushchev.current.incapacitated() && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
+				if(khrushchev.current && !khrushchev.current.incapacitated && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
 					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/roundstart/revolutionary))
 						if(ishuman(khrushchev.current))
 							promotable += khrushchev

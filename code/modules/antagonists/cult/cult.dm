@@ -10,7 +10,7 @@
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
 	banning_key = ROLE_CULTIST
-	required_living_playtime = 4
+	required_living_playtime = 6
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
@@ -22,7 +22,7 @@
 /datum/antagonist/cult/create_team(datum/team/cult/new_team)
 	if(!new_team)
 		//todo remove this and allow admin buttons to create more than one cult
-		for(var/datum/antagonist/cult/H in GLOB.antagonists)
+		for(var/datum/antagonist/cult/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.cult_team)
@@ -52,7 +52,7 @@
 
 /datum/antagonist/cult/greet()
 	to_chat(owner, span_userdanger("You are a member of the cult!"))
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult_gain.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Cult",
 		"Use your ritual dagger to draw runes with your blood and expand your cult until you have enough influence to summon the great Nar'Sie!")
@@ -310,30 +310,33 @@
 				++cultplayers
 			else
 				++alive
-	var/ratio = cultplayers/alive
+	ASSERT(cultplayers) //we shouldn't be here.
+	var/ratio = alive ? cultplayers/alive : 1
 	if(ratio > CULT_RISEN && !cult_risen)
-		for(var/datum/mind/B in members)
-			if(B.current)
-				SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
-				to_chat(B.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
+		for(var/datum/mind/mind as anything in members)
+			if(mind.current)
+				SEND_SOUND(mind.current, 'sound/ambience/antag/bloodcult_eyes.ogg')
+				to_chat(mind.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
-				addtimer(CALLBACK(src, PROC_REF(rise), B.current), 200)
+				addtimer(CALLBACK(src, PROC_REF(rise), mind.current), 200)
 		cult_risen = TRUE
+		log_game("The blood cult has risen with [cultplayers] players.")
 
 	if(ratio > CULT_ASCENDENT && !cult_ascendent)
-		for(var/datum/mind/B in members)
-			if(B.current)
-				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(B.current, span_cultlarge("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!"))
+		for(var/datum/mind/mind as anything in members)
+			if(mind.current)
+				SEND_SOUND(mind.current, 'sound/ambience/antag/bloodcult_halos.ogg')
+				to_chat(mind.current, span_cultlarge("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!"))
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
-				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
+				addtimer(CALLBACK(src, PROC_REF(ascend), mind.current), 200)
 		cult_ascendent = TRUE
+		log_game("The blood cult has ascended with [cultplayers] players.")
 
 
 /datum/team/cult/proc/rise(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
-		H.eye_color = "f00"
+		H.eye_color = BLOODCULT_EYE
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
 		H.update_body()
@@ -367,7 +370,7 @@
 				reshape = R.character_appearance
 				break
 	if(!reshape)
-		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)
+		reshape = icon('icons/mob/observer.dmi', "ghost", SOUTH)
 	reshape.Shift(SOUTH, 4)
 	reshape.Shift(EAST, 1)
 	reshape.Crop(7,4,26,31)

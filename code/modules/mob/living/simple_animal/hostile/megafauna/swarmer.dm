@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 			new createtype(loc)
 
 
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(. > 0 && world.time > call_help_cooldown)
 		call_help_cooldown = world.time + call_help_cooldown_amt
@@ -247,7 +247,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai/ranged_combat
 	icon_state = "swarmer_ranged"
 	icon_living = "swarmer_ranged"
-	projectiletype = /obj/projectile/beam/laser
+	projectiletype = /obj/projectile/beam/laser/lesslethal
 	projectilesound = 'sound/weapons/laser.ogg'
 	check_friendly_fire = TRUE //you're supposed to protect the resource swarmers, you poop
 	retreat_distance = 3
@@ -277,9 +277,9 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 			StartAction(30)
 			DisperseTarget(target)
 		else
-			var/mob/living/L = target
-			L.attack_animal(src)
-			L.electrocute_act(10, src, flags = SHOCK_NOGLOVES)
+			var/mob/living/mob = target
+			mob.attack_animal(src)
+			mob.adjustStaminaLoss(40) // Why did it use shocking, that's ass
 		return TRUE
 	else
 		return ..()

@@ -1,4 +1,4 @@
-/obj/item/paicard
+/obj/item/pai_card
 	name = "personal AI device"
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
@@ -17,49 +17,56 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	custom_price = PAYCHECK_MEDIUM * 4
 
-/obj/item/paicard/suicide_act(mob/living/user)
+/obj/item/pai_card/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is staring sadly at [src]! [user.p_they()] can't keep living without real human intimacy!"))
 	return OXYLOSS
 
-/obj/item/paicard/Initialize(mapload)
-	SSpai.pai_card_list += src
+/obj/item/pai_card/Initialize(mapload)
 	. = ..()
-	update_icon()
+	SSpai.pai_card_list += src
+	update_appearance(UPDATE_OVERLAYS)
 
-/obj/item/paicard/vv_edit_var(vname, vval)
+/obj/item/pai_card/vv_edit_var(vname, vval)
 	. = ..()
 	if(vname == NAMEOF(src, emotion_icon))
-		update_icon()
+		update_appearance(UPDATE_OVERLAYS)
 
-/obj/item/paicard/handle_atom_del(atom/A)
+/obj/item/pai_card/handle_atom_del(atom/A)
 	if(A == pai) //double check /mob/living/silicon/pai/Destroy() if you change these.
 		pai = null
 		emotion_icon = initial(emotion_icon)
-		update_icon()
+		update_appearance(UPDATE_OVERLAYS)
 	add_overlay("pai-off")
 	return ..()
 
-/obj/item/paicard/update_overlays()
+/obj/item/pai_card/update_overlays()
 	. = ..()
 	. += "pai-[emotion_icon]"
 	if(pai?.hacking_cable)
 		. += "[initial(icon_state)]-connector"
 
-/obj/item/paicard/Destroy()
+/obj/item/pai_card/Destroy()
 	//Will stop people throwing friend pAIs into the singularity so they can respawn
 	SSpai.pai_card_list -= src
 	if(!QDELETED(pai))
 		QDEL_NULL(pai)
 	return ..()
 
-/obj/item/paicard/attack_self(mob/user)
+/obj/item/pai_card/emp_act(severity)
+	. = ..()
+	if (. & EMP_PROTECT_SELF)
+		return
+	if(pai && !pai.holoform)
+		pai.emp_act(severity)
+
+/obj/item/pai_card/attack_self(mob/user)
 	if (!in_range(src, user))
 		return
 	user.set_machine(src)
 	ui_interact(user)
 
 /// Opens the TGUI window
-/obj/item/paicard/ui_interact(mob/user, datum/tgui/ui)
+/obj/item/pai_card/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -68,11 +75,11 @@
 		ui.open()
 
 /// Ensures the paicard is in hand
-/obj/item/paicard/ui_state(mob/user)
+/obj/item/pai_card/ui_state(mob/user)
 	return GLOB.paicard_state
 
 /// Data sent to TGUI
-/obj/item/paicard/ui_data(mob/user)
+/obj/item/pai_card/ui_data(mob/user)
 	. = ..()
 	var/list/data = list()
 	data["candidates"] = list()
@@ -81,104 +88,60 @@
 		data["pai"] = null
 		return data
 	data["pai"] = list()
-	data["pai"]["can_holo"] = pai.canholo
+	data["pai"]["can_holo"] = pai.can_holo
 	data["pai"]["dna"] = pai.master_dna
 	data["pai"]["emagged"] = pai.emagged
 	data["pai"]["laws"] = pai.laws.supplied
-	data["pai"]["master"] = pai.master
+	data["pai"]["master"] = pai.master_name
 	data["pai"]["name"] = pai.name
 	data["pai"]["transmit"] = pai.can_transmit
 	data["pai"]["receive"] = pai.can_receive
 	return data
 
-/obj/item/paicard/ui_act(action, list/params)
+/obj/item/pai_card/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
-		return FALSE
+		return TRUE
+
+	// Actions that don't require a pAI
 	switch(action)
 		if("download")
-			/// The individual candidate to download
-			var/datum/pai_candidate/candidate = SSpai.candidates[params["ckey"]]
-			if(isnull(candidate))
-				return FALSE
-			if(src.pai)
-				return FALSE
-			if(SSpai.check_ready(candidate) != candidate)
-				return FALSE
-			/// The newly downloaded pAI personality
-			var/mob/living/silicon/pai/pai = new(src)
-			pai.name = candidate.name || pick(GLOB.ninja_names)
-			pai.real_name = pai.name
-			pai.ckey = candidate.ckey
-			src.setPersonality(pai)
-			candidate.ready = FALSE
-			SSpai.candidates[candidate.ckey] = candidate
-		if("fix_speech")
-			pai.fix_speech()
+			download_candidate(usr, params["ckey"])
 			return TRUE
 		if("request")
 			if(!pai)
-				SSpai.findPAI(src, usr)
-		if("set_dna")
-			if(pai.master_dna)
-				return
-			if(!iscarbon(usr))
-				balloon_alert(usr, "incompatible DNA signature")
-				return FALSE
-			var/mob/living/carbon/master = usr
-			pai.master = master.real_name
-			pai.master_dna = master.dna.unique_enzymes
-			to_chat(src, span_bolddanger("You have been bound to a new master: [usr.real_name]!"))
-			pai.laws.set_zeroth_law("Serve your master.")
-			pai.holochassis_ready = TRUE
+				SSpai.find_pai(src, usr)
 			return TRUE
 
+	if(!pai)
+		return FALSE
+
+	// pAI specific actions.
+	switch(action)
+		if("fix_speech")
+			pai.fix_speech()
+			return TRUE
+		if("set_dna")
+			pai.set_dna(usr)
+			return TRUE
 		if("set_laws")
-			var/newlaws = stripped_multiline_input(usr, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.laws.supplied[1])
-			if(!in_range(src, usr))
-				return FALSE
-			if(newlaws && pai)
-				pai.add_supplied_law(0,newlaws)
+			pai.set_laws(usr)
+			return TRUE
 		if("toggle_holo")
-			if(pai.canholo)
-				to_chat(pai, span_warning("Your owner has disabled your holomatrix projectors!"))
-				pai.canholo = FALSE
-				to_chat(usr, span_notice("You disable your pAI's holomatrix!"))
-			else
-				to_chat(pai, span_notice("Your owner has enabled your holomatrix projectors!"))
-				pai.canholo = TRUE
-				to_chat(usr, span_notice("You enable your pAI's holomatrix!"))
-
+			pai.toggle_holo()
+			return TRUE
 		if("toggle_radio")
-			var/transmitting = params["option"] == "transmit" //it can't be both so if we know it's not transmitting it must be receiving.
-			var/transmit_holder = (transmitting ? WIRE_TX : WIRE_RX)
-			if(transmitting)
-				pai.can_transmit = !pai.can_transmit
-			else //receiving
-				pai.can_receive = !pai.can_receive
-			pai.radio.wires.cut(transmit_holder, usr)//wires.cut toggles cut and uncut states
-			transmit_holder = (transmitting ? pai.can_transmit : pai.can_receive) //recycling can be fun!
-			to_chat(usr, span_notice("You [transmit_holder ? "enable" : "disable"] your pAI's [transmitting ? "outgoing" : "incoming"] radio transmissions!"))
-			to_chat(pai, span_notice("Your owner has [transmit_holder ? "enabled" : "disabled"] your [transmitting ? "outgoing" : "incoming"] radio transmissions!"))
+			pai.toggle_radio(params["option"])
+			return TRUE
 		if("wipe_pai")
-			var/confirm = alert(usr, "Are you certain you wish to delete the current personality? This action cannot be undone.", "Personality Wipe", "Yes", "No")
-			if(confirm == "Yes")
-				if(pai)
-					to_chat(pai, span_warning("You feel yourself slipping away from reality."))
-					to_chat(pai, span_danger("Byte by byte you lose your sense of self."))
-					to_chat(pai, span_userdanger("Your mental faculties leave you."))
-					to_chat(pai, span_rose("oblivion... "))
-					pai.death()
-	return TRUE
+			pai.wipe_pai(usr)
+			ui.close()
+			return TRUE
 
-// 		WIRE_SIGNAL = 1
-//		WIRE_RECEIVE = 2
-//		WIRE_TRANSMIT = 4
-
-/obj/item/paicard/proc/setPersonality(mob/living/silicon/pai/personality)
+/obj/item/pai_card/proc/set_personality(mob/living/silicon/pai/personality)
 	pai = personality
 	emotion_icon = "null"
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
 
 	pai.modularInterface?.saved_identification = pai.name
 
@@ -186,18 +149,36 @@
 	audible_message("\The [src] plays a cheerful startup noise!")
 
 
-/obj/item/paicard/proc/alertUpdate()
-	var/image/I = image(icon, src, icon_state = "pai-alert")
-	flick_overlay_view(I, src, 5 SECONDS)
+/obj/item/pai_card/proc/alertUpdate()
+	var/mutable_appearance/alert_image = mutable_appearance(icon, icon_state = "pai-alert")
+	flick_overlay_view(alert_image, 5 SECONDS)
 	playsound(src, 'sound/machines/ping.ogg', 100)
 	audible_message(span_info("[src] flashes a message across its screen, \"Additional personalities available for download.\""), span_notice("[src] vibrates with an alert."))
 
-/obj/item/paicard/emp_act(severity)
-	. = ..()
-	if (. & EMP_PROTECT_SELF)
+/**
+ * Downloads a candidate from the list and removes them from SSpai.candidates
+ *
+ * @param {string} ckey The ckey of the candidate to download
+ *
+ * @returns {boolean} - TRUE if the candidate was downloaded, FALSE if not
+ */
+/obj/item/pai_card/proc/download_candidate(mob/user, ckey)
+	if(pai)
 		return
-	if(pai && !pai.holoform)
-		pai.emp_act(severity)
+	var/datum/pai_candidate/candidate = SSpai.candidates[ckey]
+	if(isnull(candidate))
+		return
+	if(SSpai.check_ready(candidate) != candidate)
+		balloon_alert(user, "download interrupted")
+		return
+	var/mob/living/silicon/pai/new_pai = new(src)
+	new_pai.name = candidate.name || pick(GLOB.ninja_names)
+	new_pai.real_name = new_pai.name
+	new_pai.ckey = candidate.ckey
+	set_personality(new_pai)
+	candidate.ready = FALSE
+	SSpai.candidates[candidate.ckey] = candidate
+	return TRUE
 
 /**
  * Gathers a list of candidates to display in the download candidate
@@ -206,7 +187,7 @@
  *
  * @return - An array of candidate objects.
  */
-/obj/item/paicard/proc/pool_candidates()
+/obj/item/pai_card/proc/pool_candidates()
 	/// Array of pAI candidates
 	var/list/candidates = SSpai.candidates
 	var/list/ready_candidates = list()

@@ -287,7 +287,7 @@
 	if(!is_centcom_level(T.z))//if not, don't bother
 		return FALSE
 
-	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
+	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/centcom/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
 		return TRUE
 
 	return FALSE
@@ -532,6 +532,7 @@
   * Not recommended to use, listen for the COMSIG_ATOM_DIR_CHANGE signal instead (sent by this proc)
   */
 /atom/proc/setDir(newdir)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	. = dir != newdir
 	dir = newdir
@@ -712,22 +713,6 @@
 		else
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
-
-/// Helper for logging chat messages or other logs with arbitrary inputs (e.g. announcements)
-/atom/proc/log_talk(message, message_type, tag=null, log_globally=TRUE, forced_by=null, custom_say_emote = null)
-	var/prefix = tag ? "([tag]) " : ""
-	var/suffix = forced_by ? " FORCED by [forced_by]" : ""
-	log_message("[prefix][custom_say_emote ? "*[custom_say_emote]*, " : ""]\"[message]\"[suffix]", message_type, log_globally=log_globally)
-
-/// Helper for logging of messages with only one sender and receiver
-/proc/log_directed_talk(atom/source, atom/target, message, message_type, tag)
-	if(!tag)
-		stack_trace("Unspecified tag for private message")
-		tag = "UNKNOWN"
-
-	source.log_talk(message, message_type, tag="[tag] to [key_name(target)]")
-	if(source != target)
-		target.log_talk(message, message_type, tag="[tag] from [key_name(source)]", log_globally=FALSE)
 
 /**
   * Log for crafting items
@@ -911,6 +896,10 @@
 /atom/proc/setClosed()
 	return
 
+///Called after the atom is 'tamed' for type-specific operations, Usually called by the tameable component but also other things.
+/atom/proc/tamed(mob/living/tamer, obj/item/food)
+	return
+
 /**
   * Used to attempt to charge an object with a payment component.
   *
@@ -918,15 +907,6 @@
   */
 /atom/proc/attempt_charge(atom/sender, atom/target, extra_fees = 0)
 	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
-
-/**
-* Instantiates the AI controller of this atom. Override this if you want to assign variables first.
-*
-* This will work fine without manually passing arguments.
-+*/
-/atom/proc/InitializeAIController()
-	if(ai_controller)
-		ai_controller = new ai_controller(src)
 
 ///Setter for the "base_pixel_x" var to append behavior related to it's changing
 /atom/proc/set_base_pixel_x(new_value)

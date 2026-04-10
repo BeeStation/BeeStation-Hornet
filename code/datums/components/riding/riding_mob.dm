@@ -36,9 +36,8 @@
 /datum/component/riding/creature/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_MOB_EMOTE, PROC_REF(check_emote))
-	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
 	if(can_be_driven)
-		RegisterSignal(parent, COMSIG_RIDDEN_DRIVER_MOVE, PROC_REF(driver_move)) // this isn't needed on riding humans or cyborgs since the rider can't control them
+		RegisterSignal(parent, COMSIG_RIDDEN_DRIVER_MOVE, PROC_REF(driver_move), TRUE) // this isn't needed on riding humans or cyborgs since the rider can't control them
 
 /// Creatures need to be logged when being mounted
 /datum/component/riding/creature/proc/log_riding(mob/living/living_parent, mob/living/rider)
@@ -56,10 +55,10 @@
 	if(living_parent.body_position != STANDING_UP) // if we move while on the ground, the rider falls off
 		. = FALSE
 	// for piggybacks and (redundant?) borg riding, check if the rider is stunned/restrained
-	else if((ride_check_flags & RIDER_NEEDS_ARMS) && (HAS_TRAIT(rider, TRAIT_RESTRAINED) || rider.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))
+	else if((ride_check_flags & RIDER_NEEDS_ARMS) && (HAS_TRAIT(rider, TRAIT_RESTRAINED) || INCAPACITATED_IGNORING(rider, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB)))
 		. = FALSE
 	// for fireman carries, check if the ridden is stunned/restrained
-	else if((ride_check_flags & CARRIER_NEEDS_ARM) && (HAS_TRAIT(living_parent, TRAIT_RESTRAINED) || living_parent.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))
+	else if((ride_check_flags & CARRIER_NEEDS_ARM) && (HAS_TRAIT(living_parent, TRAIT_RESTRAINED) || INCAPACITATED_IGNORING(living_parent, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB)))
 		. = FALSE
 
 	if(. || !consequences)

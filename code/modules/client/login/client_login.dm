@@ -160,9 +160,9 @@
 			metabalance_cached = 0
 			antag_token_count_cached = 0
 		//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
-		init_client_prefs()
 		if(QDELETED(src))
 			return FALSE
+		init_client_prefs()
 		setup_player_details()
 
 		if(fexists(roundend_report_file()))
@@ -292,7 +292,9 @@
 		if(QDELETED(src))
 			return FALSE
 	if(authenticated && !is_guest)
-		to_chat(src, get_message_output("message", ckey))
+		var/user_messages = get_message_output("message", ckey)
+		if(user_messages)
+			to_chat(src, user_messages)
 	if(first_run)
 		if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 			to_chat(src, span_warning("Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you."))
@@ -305,6 +307,7 @@
 		view_size = new(src, getScreenSize(mob))
 	view_size.resetFormat()
 	view_size.setZoomMode()
+	view_size.apply()
 	fit_viewport()
 
 	if(first_run)
@@ -418,8 +421,10 @@
 /client/proc/init_admin_if_present()
 	if(holder)
 		holder.associate(src)
-		to_chat(src, get_message_output("memo"))
-		adminGreet()
+		var/memo_message = get_message_output("memo")
+		if(memo_message)
+			to_chat(src, memo_message)
+		admin_greet()
 
 /client/proc/set_client_age_from_db()
 	if(IsAdminAdvancedProcCall())

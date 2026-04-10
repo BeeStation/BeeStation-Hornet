@@ -21,7 +21,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The icon for holding in hand icon states for the right hand.
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-	var/supports_variations = null //This is a bitfield that defines what variations exist for bodyparts like Digi legs.
+	var/supports_variations_flags = null //This is a bitfield that defines what variations exist for bodyparts like Digi legs.
 
 	//Dimensions of the icon file used when this item is worn, eg: hats.dmi
 	//eg: 32x32 sprite, 64x64 sprite, etc.
@@ -489,19 +489,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/item/ui_act(action, params)
+/obj/item/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	add_fingerprint(usr)
 	return ..()
 
-/obj/item/attack_hand(mob/user, modifiers)
+/obj/item/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(.)
+	if(. || !user || anchored)
 		return
-	if(!user)
-		return
-	if(anchored)
-		return
+	return attempt_pickup(user)
 
+/obj/item/proc/attempt_pickup(mob/user)
 	. = TRUE
 
 	if(resistance_flags & ON_FIRE)
@@ -546,14 +544,23 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 
 	//If the item is in a storage item, take it out
-	if(loc.atom_storage && !loc.atom_storage.remove_single(user, src, user.loc, silent = TRUE))
+	var/outside_storage = !loc.atom_storage
+	var/turf/storage_turf
+	if(loc.atom_storage)
+		//We want the pickup animation to play even if we're moving the item between movables. Unless the mob is not located on a turf.
+		if(isturf(user.loc))
+			storage_turf = get_turf(loc)
+		if(!loc.atom_storage.remove_single(user, src, user, silent = TRUE))
+			return
+	if(QDELETED(src)) //moving it out of the storage destroyed it.
 		return
-	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
-		return
+
+	if(storage_turf)
+		do_pickup_animation(user, storage_turf)
 
 	if(throwing)
 		throwing.finalize(FALSE)
-	if(loc == user)
+	if(loc == user && outside_storage)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
@@ -573,27 +580,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 
-/obj/item/attack_paw(mob/user)
-	if(!user)
+/obj/item/attack_paw(mob/user, list/modifiers)
+	. = ..()
+	if(. || !user || anchored)
 		return
-	if(anchored)
-		return
-
-	//If the item is in a storage item, take it out
-	if(loc.atom_storage?.remove_single(user, src, user.loc, silent = TRUE))
-		return
-	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
-		return
-
-	if(throwing)
-		throwing.finalize(FALSE)
-	if(loc == user)
-		if(!user.temporarilyRemoveItemFromInventory(src))
-			return
-
-	add_fingerprint(user)
-	if(!user.put_in_active_hand(src, FALSE, FALSE))
-		user.dropItemToGround(src)
+	return attempt_pickup(user)
 
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
@@ -620,7 +611,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return GetAllContents() - src
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
-
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	SHOULD_NOT_SLEEP(TRUE)
 
@@ -718,7 +708,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = (attackforce * 0.8)
 
 		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
-		else if(I.is_sharp())
+		else if(I.get_sharpness())
 			attackforce = I.w_class * 2
 
 		//And if it's a blunt weapon, blocking takes the worst outcome between weight and damage bonuses
@@ -759,8 +749,23 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		take_damage(attackforce)
 	return TRUE
 
-/obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
-	return ITALICS | REDUCE_RANGE
+/**
+ * Handles someone talking INTO an item
+ *
+ * Commonly used by someone holding it and using .r or .l
+ * Also used by radios
+ *
+ * * speaker - the atom that is doing the talking
+ * * message - the message being spoken
+ * * channel - the channel the message is being spoken on, only really used for radios
+ * * spans - the spans of the message
+ * * language - the language the message is in
+ * * message_mods - any message mods that should be applied to the message
+ *
+ * Return a flag that modifies the original message
+ */
+/obj/item/proc/talk_into(atom/movable/speaker, message, channel, list/spans, datum/language/language, list/message_mods)
+	return SEND_SIGNAL(src, COMSIG_ITEM_TALK_INTO, speaker, message, channel, spans, language, message_mods) || (ITALICS|REDUCE_RANGE)
 
 /// Called when a mob drops an item.
 /obj/item/proc/dropped(mob/user, silent = FALSE)
@@ -865,22 +870,29 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return FALSE
 	return TRUE
 
-//the mob M is attempting to equip this item into the slot passed through as 'slot'. return TRUE if it can do this and FALSE if it can't.
-//if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
-//If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
-//Set disable_warning to TRUE if you wish it to not give you outputs.
-/obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
+/**
+ *the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
+ *if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
+ *If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
+ * Arguments:
+ * * disable_warning to TRUE if you wish it to not give you text outputs.
+ * * slot is the slot we are trying to equip to
+ * * bypass_equip_delay_self for whether we want to bypass the equip delay
+ * * ignore_equipped ignores any already equipped items in that slot
+ * * indirect_action allows inserting into "soft locked" bags, things that can be easily opened by the owner
+ */
+/obj/item/proc/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(!M)
 		return FALSE
 
-	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_occupancy)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_equipped)
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
 	set category = "Object"
 	set name = "Pick up"
 
-	if(usr.incapacitated() || !Adjacent(usr))
+	if(usr.incapacitated || !Adjacent(usr))
 		return
 
 	if(isliving(usr))
@@ -969,10 +981,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return TRUE
-	M.adjust_blurriness(3)
+	M.adjust_eye_blur(6 SECONDS)
 	eyes.apply_organ_damage(3)
 	if(eyes.damage >= 10)
-		M.adjust_blurriness(15)
+		M.adjust_eye_blur(30 SECONDS)
 		if(M.stat != DEAD)
 			to_chat(M, span_danger("Your eyes start to bleed profusely!"))
 		if(!M.is_blind() || HAS_TRAIT(M, TRAIT_NEARSIGHT))
@@ -999,7 +1011,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum) & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
 		return
 
-	if(is_hot() && isliving(hit_atom))
+	if(get_temperature() && isliving(hit_atom))
 		var/mob/living/L = hit_atom
 		L.ignite_mob()
 	var/itempush = 1
@@ -1088,10 +1100,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/mob/owner = loc
 	owner.update_clothing(slot_flags | owner.get_slot_by_item(src))
 
-/obj/item/proc/is_hot()
+/obj/item/proc/get_temperature()
 	return heat
 
-/obj/item/proc/is_sharp()
+/obj/item/proc/get_sharpness()
 	return sharpness
 
 /obj/item/proc/get_dismember_sound()
@@ -1113,7 +1125,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		location.hotspot_expose(flame_heat, 5)
 
 /obj/item/proc/ignition_effect(atom/A, mob/user)
-	if(is_hot())
+	if(get_temperature())
 		. = span_notice("[user] lights [A] with [src].")
 	else
 		. = ""
@@ -1235,7 +1247,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
 			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, usr), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 		if(usr.client.prefs.read_preference(/datum/preference/toggle/item_outlines))
-			if(istype(L) && L.incapacitated())
+			if(istype(L) && L.incapacitated)
 				apply_outline(COLOR_RED_GRAY)
 			else
 				apply_outline()
@@ -1406,7 +1418,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return src
 
 /**
-  * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
+  * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targeting the target.
   *
   * Really, this is used mostly with projectiles with shrapnel payloads, from [/datum/element/embed/proc/checkEmbedProjectile], and called on said shrapnel. Mostly acts as an intermediate between different embed elements.
   *
@@ -1431,6 +1443,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 ///For when you want to add/update the embedding on an item. Uses the vars in [/obj/item/embedding], and defaults to config values for values that aren't set. Will automatically detach previous embed elements on this item.
 /obj/item/proc/updateEmbedding()
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(!islist(embedding) || !LAZYLEN(embedding))
 		return
 
@@ -1470,7 +1484,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * * discover_after - if the item will be discovered after being chomped (FALSE will usually mean it was swallowed, TRUE will usually mean it was bitten into and discovered)
  */
 /obj/item/proc/on_accidental_consumption(mob/living/carbon/victim, mob/living/carbon/user, obj/item/source_item, discover_after = TRUE)
-	if(is_sharp() && force >= 5) //if we've got something sharp with a decent force (ie, not plastic)
+	if(get_sharpness() && force >= 5) //if we've got something sharp with a decent force (ie, not plastic)
 		INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "scream")
 		victim.visible_message(span_warning("[victim] looks like [victim.p_theyve()] just bit something they shouldn't have!"), \
 							span_boldwarning("OH GOD! Was that a crunch? That didn't feel good at all!!"))
@@ -1661,7 +1675,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (href_list["examine"])
 		if(!usr.can_examine_in_detail(src))
 			return
-		usr.examinate(src)
+		if (src in usr)
+			usr.examinate(src)
+		else
+			usr.external_examinate(src)
 		return TRUE
 
 /// Gets the examination title of an item that is equipped by another mob, this is what

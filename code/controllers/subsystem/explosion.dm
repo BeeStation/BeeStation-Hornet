@@ -72,10 +72,6 @@ SUBSYSTEM_DEF(explosions)
 	msg += "} "
 	return ..()
 
-
-#define SSEX_TURF "turf"
-#define SSEX_OBJ "obj"
-
 /datum/controller/subsystem/explosions/proc/is_exploding()
 	return (lowturf.len || medturf.len || highturf.len || flameturf.len || throwturf.len || low_mov_atom.len || med_mov_atom.len || high_mov_atom.len)
 
@@ -233,7 +229,7 @@ SUBSYSTEM_DEF(explosions)
 		message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [ADMIN_VERBOSEJMP(epicenter)]")
 		log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [loc_name(epicenter)]")
 		if(is_station_level(epicenter.z))
-			deadchat_broadcast(span_ghostalert("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!"), turf_target = epicenter)
+			deadchat_broadcast("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!", turf_target = epicenter)
 
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y
@@ -648,5 +644,3 @@ SUBSYSTEM_DEF(explosions)
 
 #undef EXPLOSION_THROW_SPEED
 #undef SMALL_EXPLOSION_TICK_LIMIT
-#undef SSEX_TURF
-#undef SSEX_OBJ

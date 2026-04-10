@@ -3,8 +3,8 @@
 
 /area/centcom
 	name = "CentCom"
+	icon = 'icons/area/areas_centcom.dmi'
 	icon_state = "centcom"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -12,43 +12,86 @@
 	flags_1 = NONE
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 
-/area/centcom/control
-	name = "CentCom Docks"
+// This is just to define the category
+/area/centcom/central_command_areas
+	name = "Central Command Areas"
 
-/area/centcom/evac
+/area/centcom/central_command_areas/control
+	name = "CentCom Central Control"
+	icon_state = "centcom_control"
+
+/area/centcom/central_command_areas/evacuation
+	name = "CentCom Recovery Wing"
+	icon_state = "centcom_evacuation"
+
+/area/centcom/central_command_areas/evacuation/ship
 	name = "CentCom Recovery Ship"
+	icon_state = "centcom_evacuation_ship"
 
-/area/centcom/supply
-	name = "CentCom Supply Shuttle Dock"
+/area/centcom/central_command_areas/fore
+	name = "Fore CentCom Dock"
+	icon_state = "centcom_fore"
 
-/area/centcom/ferry
+/area/centcom/central_command_areas/supply
+	name = "CentCom Supply Wing"
+	icon_state = "centcom_supply"
+
+/area/centcom/central_command_areas/ferry
 	name = "CentCom Transport Shuttle Dock"
+	icon_state = "centcom_ferry"
 
-/area/centcom/prison
+/area/centcom/central_command_areas/briefing
+	name = "CentCom Briefing Room"
+	icon_state = "centcom_briefing"
+
+/area/centcom/central_command_areas/armory
+	name = "CentCom Armory"
+	icon_state = "centcom_armory"
+
+/area/centcom/central_command_areas/admin
+	name = "CentCom Administrative Office"
+	icon_state = "centcom_admin"
+
+/area/centcom/central_command_areas/admin/storage
+	name = "CentCom Administrative Office Storage"
+	icon_state = "centcom_admin_storage"
+
+/area/centcom/central_command_areas/prison
 	name = "Admin Prison"
+	icon_state = "centcom_prison"
 
-/area/centcom/holding
+/area/centcom/central_command_areas/prison/cells
+	name = "Admin Prison Cells"
+	icon_state = "centcom_cells"
+
+/area/centcom/central_command_areas/courtroom
+	name = "Nanotrasen Grand Courtroom"
+	icon_state = "centcom_court"
+
+/area/centcom/central_command_areas/holding
 	name = "Holding Facility"
+	icon_state = "centcom_holding"
 
-/area/centcom/supplypod/supplypod_temp_holding
+/area/centcom/central_command_areas/supplypod/supplypod_temp_holding
 	name = "Supplypod Shipping lane"
 	icon_state = "supplypod_flight"
 
-/area/centcom/supplypod
+/area/centcom/central_command_areas/supplypod
 	name = "Supplypod Facility"
 	icon_state = "supplypod"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
-/area/centcom/supplypod/podStorage
+/area/centcom/central_command_areas/supplypod/podStorage
 	name = "Supplypod Storage"
 	icon_state = "supplypod_holding"
 
-/area/centcom/supplypod/loading
+/area/centcom/central_command_areas/supplypod/loading
 	name = "Supplypod Loading Facility"
 	icon_state = "supplypod_loading"
 	var/loading_id = ""
 
-/area/centcom/supplypod/loading/Initialize(mapload)
+/area/centcom/central_command_areas/supplypod/loading/Initialize(mapload)
 	. = ..()
 	if(!loading_id)
 		CRASH("[type] created without a loading_id")
@@ -56,70 +99,70 @@
 		CRASH("Duplicate loading bay area: [type] ([loading_id])")
 	GLOB.supplypod_loading_bays[loading_id] = src
 
-/area/centcom/supplypod/loading/one
+/area/centcom/central_command_areas/supplypod/loading/one
 	name = "Bay #1"
 	loading_id = "1"
 
-/area/centcom/supplypod/loading/two
+/area/centcom/central_command_areas/supplypod/loading/two
 	name = "Bay #2"
 	loading_id = "2"
 
-/area/centcom/supplypod/loading/three
+/area/centcom/central_command_areas/supplypod/loading/three
 	name = "Bay #3"
 	loading_id = "3"
 
-/area/centcom/supplypod/loading/four
+/area/centcom/central_command_areas/supplypod/loading/four
 	name = "Bay #4"
 	loading_id = "4"
 
-/area/centcom/supplypod/loading/ert
+/area/centcom/central_command_areas/supplypod/loading/ert
 	name = "ERT Bay"
 	loading_id = "5"
-//THUNDERDOME
 
-/area/tdome
+//THUNDERDOME
+/area/centcom/tdome
 	name = "Thunderdome"
-	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	icon_state = "thunder"
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 	camera_networks = list(CAMERA_NETWORK_THUNDERDOME)
 
-/area/tdome/arena
+/area/centcom/tdome/arena
 	name = "Thunderdome Arena"
 	icon_state = "thunder"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
-/area/tdome/arena_source
+/area/centcom/tdome/arena_source
 	name = "Thunderdome Arena Template"
 	icon_state = "thunder"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
-/area/tdome/tdome1
+/area/centcom/tdome/tdome1
 	name = "Thunderdome (Team 1)"
-	icon_state = "green"
+	icon_state = "thunder_team_one"
 
-/area/tdome/tdome2
+/area/centcom/tdome/tdome2
 	name = "Thunderdome (Team 2)"
-	icon_state = "green"
+	icon_state = "thunder_team_two"
 
-/area/tdome/tdomeadmin
+/area/centcom/tdome/administration
 	name = "Thunderdome (Admin.)"
 	icon_state = "thunder_admin"
 
-/area/tdome/tdomeobserve
+/area/centcom/tdome/observation
 	name = "Thunderdome (Observer.)"
 	icon_state = "thunder_observe"
 
 
-//ENEMY
+// ENEMY
 
-//Wizard
-/area/wizard_station
+// Wizard
+/area/centcom/wizard_station
 	name = "Wizard's Den"
-	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	icon_state = "wizards_den"
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_WIZARD
@@ -128,9 +171,9 @@
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 
 //Abductors
-/area/abductor_ship
+/area/centcom/abductor_ship
 	name = "Abductor Ship"
-	icon_state = "yellow"
+	icon_state = "abductor_ship"
 	requires_power = FALSE
 	teleport_restriction = TELEPORT_ALLOW_ABDUCTORS
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
@@ -139,7 +182,7 @@
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 
 //Syndicates
-/area/syndicate_mothership
+/area/centcom/syndicate_mothership
 	name = "Syndicate Mothership"
 	icon_state = "syndie-ship"
 	requires_power = FALSE
@@ -150,51 +193,59 @@
 	ambience_index = AMBIENCE_DANGER
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 
-/area/syndicate_mothership/control
+/area/centcom/syndicate_mothership/control
 	name = "Syndicate Control Room"
 	icon_state = "syndie-control"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
-/area/syndicate_mothership/elite_squad
+/area/centcom/syndicate_mothership/elite_squad
 	name = "Syndicate Elite Squad"
 	icon_state = "syndie-elite"
 
 //CAPTURE THE FLAG
-
-/area/ctf
+/area/centcom/ctf
 	name = "Capture the Flag"
-	icon_state = "yellow"
+	icon_state = "ctf"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 	default_gravity = STANDARD_GRAVITY
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
-/area/ctf/control_room
+/area/centcom/ctf/control_room
 	name = "Control Room A"
+	icon_state = "ctf_room_a"
 
-/area/ctf/control_room2
+/area/centcom/ctf/control_room2
 	name = "Control Room B"
+	icon_state = "ctf_room_b"
 
-/area/ctf/central
+/area/centcom/ctf/central
 	name = "Central"
+	icon_state = "ctf_central"
 
-/area/ctf/main_hall
+/area/centcom/ctf/main_hall
 	name = "Main Hall A"
+	icon_state = "ctf_hall_a"
 
-/area/ctf/main_hall2
+/area/centcom/ctf/main_hall2
 	name = "Main Hall B"
+	icon_state = "ctf_hall_b"
 
-/area/ctf/corridor
+/area/centcom/ctf/corridor
 	name = "Corridor A"
+	icon_state = "ctf_corr_a"
 
-/area/ctf/corridor2
+/area/centcom/ctf/corridor2
 	name = "Corridor B"
+	icon_state = "ctf_corr_b"
 
-/area/ctf/flag_room
+/area/centcom/ctf/flag_room
 	name = "Flag Room A"
+	icon_state = "ctf_flag_a"
 
-/area/ctf/flag_room2
+/area/centcom/ctf/flag_room2
 	name = "Flag Room B"
+	icon_state = "ctf_flag_b"
 
 // REEBE
 
@@ -202,15 +253,42 @@
 	name = "Reebe"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
 	ambience_index = AMBIENCE_REEBE
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
+/area/reebe/get_virtual_z(turf/T)
+	return REEBE_VIRTUAL_Z
+
 /area/reebe/city_of_cogs
 	name = "Reebe - City of Cogs"
 	icon_state = "purple"
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
-	var/playing_ambience = FALSE
+
+//EXTRA
+
+/area/centcom/asteroid
+	name = "\improper Asteroid"
+	icon = 'icons/area/areas_centcom.dmi'
+	icon_state = "asteroid"
+	requires_power = FALSE
+	always_unpowered = TRUE
+	default_gravity = STANDARD_GRAVITY
+	area_flags = UNIQUE_AREA
+	ambience_index = AMBIENCE_MINING
+	flags_1 = CAN_BE_DIRTY_1
+	sound_environment = SOUND_AREA_ASTEROID
+	has_starlight_overlay = TRUE
+
+/area/centcom/asteroid/nearstation
+	ambience_index = AMBIENCE_RUINS
+	always_unpowered = FALSE
+	requires_power = TRUE
+	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
+
+/area/centcom/asteroid/nearstation/bomb_site
+	name = "\improper Bomb Testing Asteroid"

@@ -15,7 +15,7 @@ RLD
 	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	force = 0
 	throwforce = 10
@@ -195,7 +195,7 @@ RLD
 /obj/item/construction/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 

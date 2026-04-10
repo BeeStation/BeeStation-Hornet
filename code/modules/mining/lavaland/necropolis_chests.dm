@@ -489,7 +489,7 @@
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE_HOLY))
 
 /datum/action/item_action/immortality
 	name = "Immortality"
@@ -681,7 +681,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	to_chat(user, span_notice("You unfold the ladder. It extends much farther than you were expecting."))
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
-		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i) || is_debug_level(i))
+		if(is_centcom_level(i) || is_reserved_level(i) || is_away_level(i) || is_debug_level(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
@@ -911,7 +911,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	inhand_icon_state = "spectral"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
@@ -1025,7 +1025,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	switch(random)
 		if(1)
 			to_chat(user, span_danger("Your appearance morphs to that of a very small humanoid ash dragon! You get to look like a freak without the cool abilities."))
-			H.dna.features = list("body_size" = "Normal", "mcolor" = "A02720", "tail_lizard" = "Dark Tiger", "tail_human" = "None", "snout" = "Sharp", "horns" = "Curled", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "Long", "body_markings" = "Dark Tiger Body", "legs" = "Digitigrade Legs")
+			H.dna.features = list(
+				"body_size" = "Normal",
+				"mcolor" = "#A02720",
+				"tail_lizard" = "Dark Tiger",
+				"tail_human" = "None",
+				"snout" = "Sharp",
+				"horns" = "Curled",
+				"ears" = "None",
+				"wings" = "None",
+				"frills" = "None",
+				"spines" = "Long",
+				"body_markings" = "Dark Tiger Body",
+				"legs" = DIGITIGRADE_LEGS,
+			)
 			H.eye_color = "fee5a3"
 			H.set_species(/datum/species/lizard)
 		if(2)
@@ -1164,7 +1177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "blood contract"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
-	color = "#FF0000"
+	color = COLOR_RED
 	desc = "Mark your target for death."
 	custom_price = 40000
 	max_demand = 2

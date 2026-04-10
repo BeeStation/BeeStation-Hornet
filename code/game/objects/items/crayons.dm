@@ -33,7 +33,7 @@
 	attack_verb_continuous = list("attacks", "colours")
 	attack_verb_simple = list("attack", "colour")
 	grind_results = list()
-	var/paint_color = "#FF0000" //RGB
+	var/paint_color = COLOR_RED //RGB
 
 	var/drawtype
 	var/text_buffer = ""
@@ -483,7 +483,7 @@
 
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
-	paint_color = "#FFFFFF"
+	paint_color = COLOR_WHITE
 	crayon_color = "white"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5,  /datum/reagent/colorful_reagent/powder/white/crayon = 1.5)
 	dye_color = DYE_WHITE
@@ -491,7 +491,7 @@
 /obj/item/toy/crayon/mime
 	icon_state = "crayonmime"
 	desc = "A very sad-looking crayon."
-	paint_color = "#FFFFFF"
+	paint_color = COLOR_WHITE
 	crayon_color = "mime"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/invisible = 1.5)
 	charges = -1
@@ -523,8 +523,8 @@
 	custom_price = 15
 
 /obj/item/storage/crayons/Initialize(mapload)
-	. = ..()
 	create_storage(canhold = list(/obj/item/toy/crayon))
+	return ..()
 
 /obj/item/storage/crayons/PopulateContents()
 	new /obj/item/toy/crayon/red(src)
@@ -626,7 +626,7 @@
 		if(pre_noise || post_noise)
 			playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		if(can_change_colour)
-			set_painting_tool_color("#C0C0C0")
+			set_painting_tool_color(COLOR_SILVER)
 		update_icon()
 		if(actually_paints)
 			H.lip_style = "spray_face"
@@ -676,7 +676,7 @@
 		to_chat(target, span_userdanger("[user] sprays [src] into your face!"))
 
 		if(C.client)
-			C.blur_eyes(3)
+			C.set_eye_blur_if_lower(6 SECONDS)
 			C.adjust_blindness(1)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.set_confusion_if_lower(3 SECONDS)
@@ -784,7 +784,7 @@
 	charges = 100
 	reagent_contents = list(/datum/reagent/clf3 = 1)
 	actually_paints = FALSE
-	paint_color = "#000000"
+	paint_color = COLOR_BLACK
 
 /obj/item/toy/crayon/spraycan/lubecan
 	name = "slippery spraycan"
@@ -809,7 +809,7 @@
 	use_overlays = FALSE
 
 	can_change_colour = FALSE
-	paint_color = "#FFFFFF" //RGB
+	paint_color = COLOR_WHITE
 
 	pre_noise = FALSE
 	post_noise = FALSE

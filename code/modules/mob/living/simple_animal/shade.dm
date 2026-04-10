@@ -9,7 +9,6 @@
 	mob_biotypes = MOB_SPIRIT
 	maxHealth = 40
 	health = 40
-	spacewalk = TRUE
 	healable = 0
 	speak_emote = list("hisses")
 	emote_hear = list("wails.","screeches.")
@@ -38,33 +37,38 @@
 	mobchatspan = "cultmobsay"
 	discovery_points = 1000
 
+/mob/living/simple_animal/shade/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+
 /mob/living/simple_animal/shade/death()
-	deathmessage = "lets out a contented sigh as [p_their()] form unwinds."
-	..()
+	death_message = "lets out a contented sigh as [p_their()] form unwinds."
+	return ..()
 
 /mob/living/simple_animal/shade/canSuicide()
 	if(istype(loc, /obj/item/soulstone)) //do not suicide inside the soulstone
-		return 0
+		return FALSE
 	return ..()
 
-/mob/living/simple_animal/shade/attack_animal(mob/living/simple_animal/M)
-	if(isconstruct(M))
-		var/mob/living/simple_animal/hostile/construct/C = M
-		if(!C.can_repair_constructs)
+/mob/living/simple_animal/shade/attack_animal(mob/user, list/modifiers)
+	if(isconstruct(user))
+		var/mob/living/simple_animal/hostile/construct/construct = user
+		if(!construct.can_repair_constructs)
 			return
 		if(health < maxHealth)
 			adjustHealth(-25)
-			Beam(M, icon_state="sendbeam", time= 4)
-			M.visible_message(span_danger("[M] heals \the <b>[src]</b>."), \
-					   span_cult("You heal <b>[src]</b>, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
+			Beam(construct, icon_state="sendbeam", time = 0.4 SECONDS)
+			construct.visible_message(
+				span_danger("[construct] heals \the <b>[src]</b>."),
+				span_cult("You heal <b>[src]</b>, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."),
+			)
 		else
-			to_chat(M, span_cult("You cannot heal <b>[src]</b>, as [p_theyre()] unharmed!"))
-	else if(src != M)
+			to_chat(construct, span_cult("You cannot heal <b>[src]</b>, as [p_theyre()] unharmed!"))
+	else if(user != src)
 		return ..()
 
-/mob/living/simple_animal/shade/attackby(obj/item/O, mob/user, params)  //Marker -Agouri
-	if(istype(O, /obj/item/soulstone))
-		var/obj/item/soulstone/SS = O
-		SS.transfer_soul("SHADE", src, user)
-	else
-		. = ..()
+/mob/living/simple_animal/shade/attackby(obj/item/attacking_item, mob/user, params)  //Marker -Agouri
+	if(!istype(attacking_item, /obj/item/soulstone))
+		return ..()
+	var/obj/item/soulstone/stone = attacking_item
+	stone.transfer_soul("SHADE", src, user)

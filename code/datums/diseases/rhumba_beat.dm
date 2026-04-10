@@ -22,7 +22,7 @@
 	switch(stage)
 		if(2)
 			if(DT_PROB(26, delta_time))
-				affected_mob.adjustFireLoss(5, FALSE)
+				affected_mob.adjustFireLoss(5)
 			if(DT_PROB(0.5, delta_time))
 				to_chat(affected_mob, "<span class='danger'>You feel strange...</span>")
 		if(3)

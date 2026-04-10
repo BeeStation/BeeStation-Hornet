@@ -37,7 +37,7 @@
 	)
 	biohazard = 25 //clean your baton, man
 
-	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+	minimal_lightup_areas = list(/area/station/construction/mining/aux_base)
 
 	manuscript_jobs = list(
 		JOB_NAME_SECURITYOFFICER,
@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/cargo
 			if(!on_dummy)
 				dep_access = dept_access_supply
-				destination = /area/security/checkpoint/supply
+				destination = /area/station/security/checkpoint/supply
 				spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.supply_lightup_areas
 		if(SEC_DEPT_MEDICAL)
@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory =  /obj/item/clothing/accessory/armband/medblue
 			if(!on_dummy)
 				dep_access = dept_access_medical
-				destination = /area/security/checkpoint/medical
+				destination = /area/station/security/checkpoint/medical
 				spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.medical_lightup_areas
 		if(SEC_DEPT_SCIENCE)
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/science
 			if(!on_dummy)
 				dep_access = dept_access_science
-				destination = /area/security/checkpoint/science
+				destination = /area/station/security/checkpoint/science
 				spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.science_lightup_areas
 		if(SEC_DEPT_ENGINEERING)
@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/engine
 			if(!on_dummy)
 				dep_access = dept_access_engineering
-				destination = /area/security/checkpoint/engineering
+				destination = /area/station/security/checkpoint/engineering
 				spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.engineering_lightup_areas
 
@@ -163,6 +163,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/security
 	r_pocket = /obj/item/clothing/accessory/badge
+	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

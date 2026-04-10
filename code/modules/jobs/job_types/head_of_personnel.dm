@@ -77,7 +77,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_personnel
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/heads/hop, /area/security/nuke_storage)
+	minimal_lightup_areas = list(/area/station/command/heads_quarters/hop, /area/station/ai_monitored/command/nuke_storage)
 
 	manuscript_jobs = list(
 		JOB_NAME_HEADOFPERSONNEL,
@@ -118,7 +118,7 @@
 	head = /obj/item/clothing/head/hats/hopcap
 	backpack_contents = list(
 		/obj/item/storage/box/ids=1,
-		/obj/item/melee/classic_baton/police/telescopic=1
+		/obj/item/melee/baton/telescopic=1
 	)
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)

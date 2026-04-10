@@ -9,7 +9,7 @@
 	worn_icon_state = "welder"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	throwforce = 5
@@ -252,7 +252,7 @@
 	. = ..()
 	. += "It contains [get_fuel()] unit\s of fuel out of [max_fuel]."
 
-/obj/item/weldingtool/is_hot()
+/obj/item/weldingtool/get_temperature()
 	return welding * heat
 
 //Returns whether or not the welding tool is currently on.

@@ -48,6 +48,7 @@
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()
+	alternate_worn_layer = up ? ABOVE_BODY_FRONT_HEAD_LAYER : null
 	if(visor_vars_to_toggle & VISOR_VISIONFLAGS)
 		vision_flags ^= initial(vision_flags)
 	if(visor_vars_to_toggle & VISOR_DARKNESSVIEW)
@@ -70,7 +71,7 @@
 				to_chat(H, span_danger("[src] overloads and blinds you!"))
 				H.flash_act(visual = 1)
 				H.adjust_blindness(3)
-				H.blur_eyes(5)
+				H.set_eye_blur_if_lower(10 SECONDS)
 				eyes.apply_organ_damage(5)
 
 /obj/item/clothing/glasses/meson
@@ -101,9 +102,10 @@
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
+	desc = "Do the impossible, see the invisible!"
 	icon_state = "garm"
 	inhand_icon_state = "garm"
-	desc = "Do the impossible, see the invisible!"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -222,9 +224,10 @@
 
 /obj/item/clothing/glasses/material/mining/gar
 	name = "gar material scanner"
+	desc = "Do the impossible, see the invisible!"
 	icon_state = "garm"
 	inhand_icon_state = "garm"
-	desc = "Do the impossible, see the invisible!"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 20
 	throw_speed = 4
@@ -292,25 +295,12 @@
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
 	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 
-/obj/item/clothing/glasses/sunglasses/advanced/reagent/equipped(mob/user, slot)
-	. = ..()
-	if(ishuman(user) && slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
-
-/obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
-	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.glasses != src)
-			return
-		else
-			REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
-
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
 	desc = "Go beyond impossible and kick reason to the curb!  Has enhanced shielding which blocks flashes."
 	icon_state = "garb"
 	inhand_icon_state = "garb"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -435,16 +425,16 @@
 
 /obj/item/clothing/glasses/blindfold/white/update_icon(updates=ALL, mob/living/carbon/human/user)
 	if(ishuman(user) && !colored_before)
-		add_atom_colour("#[user.eye_color]", FIXED_COLOUR_PRIORITY)
+		add_atom_colour(user.eye_color, FIXED_COLOUR_PRIORITY)
 		colored_before = TRUE
 
 /obj/item/clothing/glasses/blindfold/white/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands && ishuman(loc) && !colored_before)
 		var/mob/living/carbon/human/H = loc
 		var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/eyes.dmi', "blindfoldwhite", item_layer)
 		M.appearance_flags |= RESET_COLOR
-		M.color = "#[H.eye_color]"
+		M.color = H.eye_color
 		. += M
 
 /obj/item/clothing/glasses/sunglasses/advanced/big

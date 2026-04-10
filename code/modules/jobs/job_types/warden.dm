@@ -30,8 +30,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/warden
 	)
 
-	lightup_areas = list(/area/security/detectives_office)
-	minimal_lightup_areas = list(/area/security/warden)
+	lightup_areas = list(/area/station/security/detectives_office)
+	minimal_lightup_areas = list(/area/station/security/warden)
 
 	manuscript_jobs = list(
 		JOB_NAME_WARDEN,
@@ -58,6 +58,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	l_pocket = /obj/item/clothing/accessory/badge
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/warden
+	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
 	backpack_contents = list(

@@ -1,92 +1,73 @@
+#define OBJECTIVE_HIJACK 0
+#define OBJECTIVE_ROMEROL 1
+#define OBJECTIVE_BRAINWASH 2
+#define OBJECTIVE_HACK_AI 3
+
 /datum/antagonist/traitor/proc/forge_objectives()
-	var/is_hijacker = FALSE
-	if (GLOB.joined_player_list.len >= 30) // Less murderboning on lowpop thanks
-		is_hijacker = prob(10)
-	var/is_martyr = prob(5)
+	var/list/valid_objectives = list()
 
-	var/objectives_to_assign = CONFIG_GET(number/traitor_objectives_amount)
-	if(is_hijacker)
-		objectives_to_assign--
+	// Lowpop switch: Traitor needs to farm TC instead of do acts of killing
+	// Set at a low value of 6, since the rounds with this number tend to grow
+	// into having more people by the end of them
+	// The less players there are, the more its an easy way out objective.
+	if (length(GLOB.player_list) <= 6 || prob(max(20, 100 - 5 * length(GLOB.player_list))))
+		var/datum/objective/gain_reputation/gain_reputation = new
+		gain_reputation.owner = owner
+		add_objective(gain_reputation)
+		var/datum/objective/escape/escape_objective = new
+		escape_objective.owner = owner
+		add_objective(escape_objective)
+		// Finally, set up our traitor's backstory, with murderbone options of course!
+		setup_backstories(TRUE)
+		return
 
-	// Adds objectives_to_assign minus 1 objectives, since this is an exclusive range.
-	for(var/i in 1 to objectives_to_assign)
-		forge_single_human_objective(is_martyr)
-		objectives_to_assign--
+	// Hijack: Catch-all objective, always available
+	valid_objectives += OBJECTIVE_HIJACK
 
-	// Add our 'finale' objective.
-	var/martyr_compatibility = TRUE
-	if(is_hijacker)
-		if (!(locate(/datum/objective/hijack) in objectives))
+	// Hack AI: Requires an AI
+	/*
+	var/list/active_ais = active_ais()
+	if (length(active_ais) > 0)
+		valid_objectives += OBJECTIVE_HACK_AI
+	*/
+
+	// Romerol: Requires pop limit
+	if (length(GLOB.joined_player_list) >= 12)
+		valid_objectives += OBJECTIVE_ROMEROL
+
+/*
+	// Brainwash: Requires pop limit
+	if (length(GLOB.joined_player_list) >= 8)
+		valid_objectives += OBJECTIVE_BRAINWASH
+		*/
+
+	// Add the finale objective
+	switch (pick(valid_objectives))
+		if (OBJECTIVE_HIJACK)
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
 			add_objective(hijack_objective)
-	else
-		// This check is just extra insurance now, we shouldn't assign non-martyr objectives in the first place.
-		for(var/datum/objective/O in objectives)
-			if(!O.martyr_compatible) // You can't succeed in stealing if you're dead.
-				martyr_compatibility = FALSE
-				break
-		if(is_martyr && martyr_compatibility)
-			var/datum/objective/martyr/martyr_objective = new
-			martyr_objective.owner = owner
-			add_objective(martyr_objective)
-		else if(!(locate(/datum/objective/escape) in objectives))
+		if (OBJECTIVE_ROMEROL)
+			var/datum/objective/romerol/romerol_objective = new
+			romerol_objective.owner = owner
+			add_objective(romerol_objective)
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner
 			add_objective(escape_objective)
-	// Finally, set up our traitor's backstory!
-	setup_backstories(!is_hijacker && is_martyr && martyr_compatibility, is_hijacker)
+			/*
+		if (OBJECTIVE_BRAINWASH)
+			var/datum/objective/brainwashing/brainwashing_objective = new
+			brainwashing_objective.owner = owner
+			brainwashing_objective.generate_amount()
+			add_objective(brainwashing_objective)
+			var/datum/objective/escape/escape_objective = new
+			escape_objective.owner = owner
+			add_objective(escape_objective)
+			*/
+	// Finally, set up our traitor's backstory, with murderbone options of course!
+	setup_backstories(TRUE)
 
-/datum/antagonist/traitor/proc/forge_single_human_objective(is_martyr) //Returns how many objectives are added
-	.=1
-	// Lower chance of spawning due to the few open objectives there are
-	if(prob(20))
-		var/static/list/selectable_objectives
-		if (!selectable_objectives)
-			selectable_objectives = list()
-			for (var/datum/objective/open/objective as() in subtypesof(/datum/objective/open))
-				selectable_objectives[objective] = initial(objective.weight)
-		var/created_type = pick_weight(selectable_objectives)
-		var/valid = TRUE
-		// Check if the objective conflicts with any other ones
-		// We don't want to have the same open objectives multiple times
-		// If we don't want this objective, fall back to normal ones
-		for (var/datum/objective/obj in objectives)
-			if (obj.type == created_type)
-				valid = FALSE
-				break
-		if (valid)
-			var/datum/objective/obj = new created_type
-			obj.owner = owner
-			obj.find_target()
-			add_objective(obj)
-			return
-
-	if(is_martyr || prob(50)) // martyr can't steal stuff, since they die, so they have to have a kill objective
-		var/list/active_ais = active_ais()
-		if(active_ais.len && prob(100/GLOB.joined_player_list.len))
-			var/datum/objective/destroy/destroy_objective = new
-			destroy_objective.owner = owner
-			destroy_objective.find_target()
-			add_objective(destroy_objective)
-		else if(prob(30))
-			var/datum/objective/maroon/maroon_objective = new
-			maroon_objective.owner = owner
-			maroon_objective.find_target()
-			add_objective(maroon_objective)
-		else
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			add_objective(kill_objective)
-	else
-		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)))
-			var/datum/objective/download/download_objective = new
-			download_objective.owner = owner
-			download_objective.gen_amount_goal()
-			add_objective(download_objective)
-		else
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = owner
-			steal_objective.find_target()
-			add_objective(steal_objective)
+#undef OBJECTIVE_HIJACK
+#undef OBJECTIVE_ROMEROL
+#undef OBJECTIVE_BRAINWASH
+#undef OBJECTIVE_HACK_AI

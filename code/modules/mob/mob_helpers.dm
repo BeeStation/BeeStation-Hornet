@@ -41,6 +41,48 @@
 		zone = pick_weight(list(BODY_ZONE_HEAD = 1, BODY_ZONE_CHEST = 1, BODY_ZONE_L_ARM = 4, BODY_ZONE_R_ARM = 4, BODY_ZONE_L_LEG = 4, BODY_ZONE_R_LEG = 4))
 	return zone
 
+/**
+ * More or less ran_zone, but only returns bodyzones that the mob /actually/ has.
+ *
+ * * blacklisted_parts - allows you to specify zones that will not be chosen. eg: list(BODY_ZONE_CHEST, BODY_ZONE_R_LEG)
+ * * * !!!! blacklisting BODY_ZONE_CHEST is really risky since it's the only bodypart guarunteed to ALWAYS exists  !!!!
+ * * * !!!! Only do that if you're REALLY CERTAIN they have limbs, otherwise we'll CRASH() !!!!
+ *
+ * * ran_zone has a base prob(80) to return the base_zone (or if null, BODY_ZONE_CHEST) vs something in our generated list of limbs.
+ * * this probability is overriden when either blacklisted_parts contains BODY_ZONE_CHEST and we aren't passed a base_zone (since the default fallback for ran_zone would be the chest in that scenario), or if even_weights is enabled.
+ * * you can also manually adjust this probability by altering base_probability
+ *
+ * * even_weights - ran_zone has a 40% chance (after the prob(80) mentioned above) of picking a limb, vs the torso & head which have an additional 10% chance.
+ * * Setting even_weight to TRUE will make it just a straight up pick() between all possible bodyparts.
+ *
+ */
+/mob/proc/get_random_valid_zone(base_zone, base_probability = 80, list/blacklisted_parts, even_weights, bypass_warning)
+	return BODY_ZONE_CHEST //even though they don't really have a chest, let's just pass the default of check_zone to be safe.
+
+/mob/living/carbon/get_random_valid_zone(base_zone, base_probability = 80, list/blacklisted_parts, even_weights, bypass_warning)
+	var/list/limbs = list()
+	for(var/obj/item/bodypart/part as anything in bodyparts)
+		var/limb_zone = part.body_zone //cache the zone since we're gonna check it a ton.
+		if(limb_zone in blacklisted_parts)
+			continue
+		if(even_weights)
+			limbs[limb_zone] = 1
+			continue
+		if(limb_zone == BODY_ZONE_CHEST || limb_zone == BODY_ZONE_HEAD)
+			limbs[limb_zone] = 1
+		else
+			limbs[limb_zone] = 4
+
+	if(base_zone && !(check_zone(base_zone) in limbs))
+		base_zone = null //check if the passed zone is infact valid
+
+	var/chest_blacklisted
+	if((BODY_ZONE_CHEST in blacklisted_parts))
+		chest_blacklisted = TRUE
+		if(bypass_warning && !limbs.len)
+			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
+	return (((chest_blacklisted && !base_zone) || even_weights) ? pick_weight(limbs) : ran_zone(base_zone, base_probability, limbs))
+
 ///Would this zone be above the neck
 /proc/above_neck(zone)
 	var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES)
@@ -181,7 +223,7 @@
 			var/orbit_link
 			if (source && action == NOTIFY_ORBIT)
 				orbit_link = " <a href='byond://?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
-			to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""][orbit_link]"))
+			to_chat(O, span_ghostalert("[message][enter_link ? " [enter_link]" : ""][orbit_link]"))
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound, volume = notify_volume))
 			if(flashwindow)
@@ -214,7 +256,7 @@
 		else
 			dam = 0
 		if((brute_heal > 0 && (affecting.brute_dam > 0 || (H.is_bleeding() && H.has_mechanical_bleeding()))) || (burn_heal > 0 && affecting.burn_dam > 0))
-			if(affecting.heal_damage(brute_heal, burn_heal, 0, BODYTYPE_ROBOTIC))
+			if(affecting.heal_damage(brute_heal, burn_heal, required_bodytype = BODYTYPE_ROBOTIC))
 				H.update_damage_overlays()
 			if (brute_heal > 0 && H.is_bleeding() && H.has_mechanical_bleeding())
 				H.cauterise_wounds(0.4)
@@ -300,13 +342,15 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/datum/poll_config/config = new()
-	config.question = poll_message
-	config.check_jobban = ban_key
-	config.role_name_text = M.real_name
-	config.poll_time = 10 SECONDS
-	config.jump_target = M
-	config.alert_pic = M
+	var/datum/poll_config/config = new(
+		question = poll_message,
+		check_jobban = ban_key,
+		role_name_text = M.real_name,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		alert_pic = M,
+		amount_to_pick = 1,
+	)
 	return config
 
 ///Clicks a random nearby mob with the source from this mob
@@ -371,15 +415,6 @@
 /mob/proc/has_mouth()
 	return FALSE
 
-/**
-  * Examine text for traits shared by multiple types.
-  *
-  * I wish examine was less copypasted. (oranges say, be the change you want to see buddy)
-  */
-/mob/proc/common_trait_examine()
-	if(HAS_TRAIT(src, TRAIT_DISSECTED))
-		. += "[span_notice("This body has been dissected and analyzed. It is no longer worth experimenting on.")]<br>"
-
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
 	. = FALSE
@@ -443,7 +478,7 @@
  * Head/Chest target: Damage/kill target
  */
 /mob/proc/get_combat_bodyzone(atom/target = null, precise = FALSE, zone_context = BODYZONE_CONTEXT_COMBAT)
-	// Just grab whatever bodyzone they were targetting
+	// Just grab whatever bodyzone they were targeting
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
 		if (!precise)
 			return check_zone(zone_selected)

@@ -14,7 +14,6 @@
 	speak_chance = 0
 	maxHealth = 15
 	health = 15
-	spacewalk = TRUE
 	see_in_dark = 10
 	melee_damage = 6
 	attack_verb_continuous = "bites"
@@ -39,7 +38,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/bat/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	add_traits(list(TRAIT_VENTCRAWLER_ALWAYS, TRAIT_SPACEWALK), INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/retaliate/bat/vampire
 	desc = "A rare breed of bat which roosts in spaceships.\nLooks a little... bloody."

@@ -11,7 +11,6 @@
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
-	var/unique_death /// The unique sound effect of dying while wearing this
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if((clothing_flags & VOICEBOX_TOGGLABLE))
@@ -21,7 +20,7 @@
 
 /obj/item/clothing/mask/equipped(mob/M, slot)
 	. = ..()
-	if (slot == ITEM_SLOT_MASK && modifies_speech)
+	if (slot == ITEM_SLOT_MASK && (modifies_speech || chosen_tongue))
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
@@ -34,22 +33,30 @@
 	chosen_tongue = null
 	. = ..()
 
-/obj/item/clothing/mask/proc/handle_speech()
+/obj/item/clothing/mask/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
+	if(chosen_tongue)
+		var/mob/living/L = source
+		L.verb_say = pick(initial(chosen_tongue.say_mod))
+		L.verb_ask = pick(initial(chosen_tongue.ask_mod))
+		L.verb_yell = pick(initial(chosen_tongue.yell_mod))
+		L.verb_exclaim = pick(initial(chosen_tongue.exclaim_mod))
 
 /obj/item/clothing/mask/proc/get_name(mob/user, default_name)
 	return default_name
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
-		if(body_parts_covered & HEAD)
-			if(damaged_clothes)
-				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-			if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-				var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
-				bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
-				. += bloody_mask
+	. = ..()
+	if(isinhands)
+		return
+
+	if(body_parts_covered & HEAD)
+		if(damaged_clothes)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+			var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+			bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+			. += bloody_mask
 
 /obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
@@ -59,7 +66,7 @@
 
 //Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
 /obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/user)
-	if(user && user.incapacitated())
+	if(user && user.incapacitated)
 		return
 	mask_adjusted = !mask_adjusted
 	if(!mask_adjusted)

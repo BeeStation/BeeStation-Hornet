@@ -19,7 +19,11 @@
 	low_threshold = 45
 	high_threshold = 120
 
-	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP)
+	organ_traits = list(
+		TRAIT_ADVANCEDTOOLUSER,
+		//TRAIT_LITERATE,
+		TRAIT_CAN_STRIP
+	)
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
@@ -30,9 +34,20 @@
 	var/damage_delta = 0
 
 	var/list/datum/brain_trauma/traumas = list()
+
+	/// Variance in brain traits added by subtypes
+	var/list/variant_traits_added
+	/// Variance in brain traits removed by subtypes
+	var/list/variant_traits_removed
+
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
 
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+/obj/item/organ/brain/Initialize(mapload)
+	. = ..()
+	organ_traits.Remove(variant_traits_removed)
+	organ_traits |= variant_traits_added
 
 /obj/item/organ/brain/Insert(mob/living/carbon/brain_owner, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE, pref_load = FALSE)
 	. = ..()
@@ -280,17 +295,27 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
-	organ_traits = list(TRAIT_CAN_STRIP)
+	variant_traits_removed = list(/*TRAIT_LITERATE,*/ TRAIT_ADVANCEDTOOLUSER)
 
-/obj/item/organ/brain/primitive
+/obj/item/organ/brain/primitive //No like books and stompy metal men
 	name = "primitive brain"
 	desc = "This juicy piece of meat has a clearly underdeveloped frontal lobe."
-	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP, TRAIT_PRIMITIVE)
+	variant_traits_added = list(
+		TRAIT_PRIMITIVE,
+		TRAIT_BEAST_EMPATHY,
+	)
+
 
 /obj/item/organ/brain/primate
 	name = "primate brain"
 	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
-	organ_traits = list(TRAIT_CAN_STRIP, TRAIT_PRIMITIVE) // No advanced tool usage.
+	variant_traits_removed = list(TRAIT_ADVANCEDTOOLUSER)
+	variant_traits_added = list(TRAIT_PRIMITIVE)
+
+/obj/item/organ/brain/lizard
+	name = "lizard brain"
+	desc = "This juicy piece of meat has a oversized brain stem and cerebellum, with not much of a limbic system to speak of at all. You would expect its owner to be pretty cold blooded."
+	variant_traits_added = list(TRAIT_TACKLING_TAILED_DEFENDER)
 
 /obj/item/organ/brain/diona
 	name = "diona nymph"
@@ -309,11 +334,10 @@
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN
 	zone = BODY_ZONE_CHEST
-	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	base_icon_state = "posibrain"
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)

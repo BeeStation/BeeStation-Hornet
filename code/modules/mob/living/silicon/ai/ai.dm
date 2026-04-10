@@ -105,13 +105,14 @@
 
 	var/atom/movable/screen/ai/modpc/interfaceButton
 	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
-	var/obj/machinery/holopad/current_holopad
+	VAR_FINAL/obj/machinery/holopad/current_holopad
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
 	. = ..()
+	AddElement(/datum/element/trackable)
 	add_sensors()
 	if(!target_ai) //If there is no player/brain inside.
 		new/obj/structure/AIcore/deactivated(loc) //New empty terminal.
@@ -250,7 +251,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/verb/pick_icon()
 	set category = "AI Commands"
 	set name = "Set AI Core Display"
-	if(incapacitated())
+	if(incapacitated)
 		return
 	icon = initial(icon)
 	icon_state = "ai"
@@ -268,7 +269,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	view_core()
 	var/ai_core_icon = show_radial_menu(src, src , iconstates, radius = 42)
 
-	if(!ai_core_icon || incapacitated())
+	if(!ai_core_icon || incapacitated)
 		return
 
 	display_icon_override = ai_core_icon
@@ -312,7 +313,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	var/reason = input(src, "What is the nature of your emergency? ([CALL_SHUTTLE_REASON_LENGTH] characters required.)", "Confirm Shuttle Call") as null|text
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	if(trim(reason))
@@ -416,7 +417,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		return // stop
 	if(stat)
 		return
-	if(incapacitated())
+	if(incapacitated)
 		if(battery < 50)
 			to_chat(src, span_warning("Insufficient backup power!"))
 			return
@@ -449,14 +450,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(usr != src)
 		return
 
-	if(href_list["emergencyAPC"]) //This check comes before incapacitated() because the only time it would be useful is when we have no power.
+	if(href_list["emergencyAPC"]) //This check comes before incapacitated because the only time it would be useful is when we have no power.
 		if(!apc_override)
 			to_chat(src, span_notice("APC backdoor is no longer available."))
 			return
 		apc_override.ui_interact(src)
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	if (href_list["mach_close"])
@@ -610,7 +611,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	set desc = "Change the default hologram available to AI to something else."
 	set category = "AI Commands"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	var/mob/user = src
 	var/input
@@ -735,7 +736,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	set desc = "Allows you to change settings of your radio."
 	set category = "AI Commands"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	to_chat(src, "Accessing Subspace Transceiver control...")
@@ -751,7 +752,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	set desc = "Modify the default radio setting for your automatic announcements."
 	set category = "AI Commands"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	set_autosay()
 
@@ -794,8 +795,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/list/viewscale = getviewsize(client.view)
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
-/mob/living/silicon/ai/proc/relay_speech(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	var/treated_message = lang_treat(speaker, message_language, raw_message, spans, message_mods)
+/mob/living/silicon/ai/proc/relay_speech(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	var/raw_translation = translate_language(speaker, message_language, raw_message, spans, message_mods)
+	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
+	var/treated_message = source.generate_messagepart(raw_translation, spans, message_mods)
+
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
@@ -831,8 +835,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 // modified version of `relay_speech()` proc, but for better chat through holopad
 /// makes a better chat format for AI when AI takes
-/mob/living/silicon/ai/proc/hear_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	var/treated_message = span_message(say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods)))
+/mob/living/silicon/ai/proc/hear_holocall(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	var/raw_translation = translate_language(speaker, message_language, raw_message)
+	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
+	var/treated_message = span_message(apply_message_emphasis(source.generate_messagepart(raw_translation, spans, message_mods)))
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
@@ -869,7 +875,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			to_chat(each_ghost, "[follow_link] [rendered]")
 		else // ghost removed the language themselves
 			if(!rendered_scrambled_message)
-				rendered_scrambled_message = span_message(each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods)))
+				var/scrambled_translation = each_ghost.translate_language(speaker, message_language, raw_message)
+				rendered_scrambled_message = span_message(each_ghost.apply_message_emphasis(source.generate_messagepart(scrambled_translation, spans, message_mods)))
 				rendered_scrambled_message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b> [rendered_scrambled_message]")
 			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
@@ -1003,7 +1010,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, TRUE, ignore_walls = FALSE)
 	else
 		var/turf/turf = get_turf(apc)
-		if(istype(get_area(turf), /area/crew_quarters/heads))
+		if(istype(get_area(turf), /area/station/command/heads_quarters))
 			malf_picker.processing_time += 20
 		else
 			malf_picker.processing_time += 10
@@ -1022,7 +1029,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	set category = "AI Commands"
 	set name = "Deploy to Shell"
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	if(control_disabled)
 		to_chat(src, span_warning("Wireless networking module is offline."))
@@ -1145,7 +1152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 	set name = "Adjust Camera Zoom"
 	set desc = "Change the zoom of your builtin camera."
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	if(isnull(aicamera))
 		to_chat(usr, span_warning("You don't have a built-in camera!"))

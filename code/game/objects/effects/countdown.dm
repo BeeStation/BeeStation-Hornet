@@ -6,7 +6,7 @@
 		To Earth, who can tell?"
 
 	anchored = TRUE
-	color = "#ff0000" // text color
+	color = COLOR_RED // text color
 	var/text_size = 3 // larger values clip when the displayed text is larger than 2 digits.
 	var/started = FALSE
 	var/displayed_text
@@ -129,11 +129,11 @@
 	name = "doomsday countdown"
 
 /obj/effect/countdown/doomsday/get_value()
-	var/obj/machinery/doomsday_device/DD = attached_to
-	if(!istype(DD))
+	var/obj/machinery/doomsday_device/doomsday = attached_to
+	if(!istype(doomsday))
 		return
-	else if(DD.timing)
-		return "<div align='center' valign='middle' style='position:relative; top:0px; left:0px'>[DD.seconds_remaining()]</div>"
+	else if(doomsday.timing)
+		return "<div align='center' valign='middle' style='position:relative; top:0px; left:0px'>[round(doomsday.time_remaining() / 10)]</div>"
 
 /obj/effect/countdown/anomaly
 	name = "anomaly countdown"

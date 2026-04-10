@@ -13,7 +13,7 @@
 	return FALSE
 
 /**
- * Checks if the person is allowed to turn into the Vampire's vasssal
+ * Checks if the person is allowed to turn into the Vampire's vassal
 **/
 /datum/antagonist/vampire/proc/can_make_vassal(mob/living/conversion_target, ignore_concious_check = FALSE)
 	var/mob/living/living_vampire = owner.current
@@ -22,7 +22,7 @@
 		living_vampire.balloon_alert(living_vampire, "enter a clan first.")
 		return FALSE
 
-	if(length(vassals) >= my_clan.get_max_vassals())
+	if(length(vassals) >= get_max_vassals())
 		living_vampire.balloon_alert(living_vampire, "too many vassals.")
 		return FALSE
 
@@ -37,8 +37,8 @@
 		return FALSE
 
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(conversion_target)
-	var/mob/living/vassal_master = conversion_target.mind.enslaved_to
-	if((vassaldatum && !vassaldatum.master.broke_masquerade) || (vassal_master && vassal_master != owner.current))
+	var/datum/mind/vassal_master = conversion_target.mind.enslaved_to
+	if((vassaldatum && !vassaldatum.master.broke_masquerade) || (vassal_master && vassal_master != owner))
 		living_vampire.balloon_alert(living_vampire, "enslaved to someone else.")
 		return FALSE
 
@@ -49,24 +49,17 @@
 	return TRUE
 
 /datum/antagonist/vampire/proc/make_vassal(mob/living/conversion_target)
-	if(IS_VASSAL(conversion_target))
+	var/datum/antagonist/vassal/already_vassal = IS_VASSAL(conversion_target)
+	if(already_vassal)
+		already_vassal.silent = TRUE
 		conversion_target.mind.remove_antag_datum(/datum/antagonist/vassal)
-
-	select_title()
 
 	// Set the master, then give the datum.
 	var/datum/antagonist/vassal/vassaldatum = new(conversion_target.mind)
 	vassaldatum.master = src
-	conversion_target.mind.add_antag_datum(vassaldatum)
+	conversion_target.mind.add_antag_datum(vassaldatum, ruleset = spawning_ruleset)
 
-	if(istype(my_clan, /datum/vampire_clan/brujah) && my_clan.clan_objective.target == conversion_target.mind)
-		vassaldatum.make_special(/datum/antagonist/vassal/discordant)
-
-		message_admins("[conversion_target], the [conversion_target.mind.assigned_role] has become a Discordant Vassal, they were enthralled by [owner.current].")
-		log_admin("[conversion_target], the [conversion_target.mind.assigned_role] has become a Discordant Vassal, they were enthralled by [owner.current].")
-		return TRUE
-
-	message_admins("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
-	log_admin("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
+	message_admins("[ADMIN_LOOKUPFLW(conversion_target)] has become a vassal, and is enslaved to [ADMIN_LOOKUPFLW(owner.current)].")
+	log_objective("[key_name(conversion_target)] has become a vassal, and is enslaved to [key_name(owner.current)].")
 
 	return TRUE

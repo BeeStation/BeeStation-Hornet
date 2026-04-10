@@ -10,7 +10,7 @@
 	req_human = TRUE
 
 //Reskinned monkey - teratoma, will burst out of the host, with the objective to cause chaos.
-/datum/action/changeling/teratoma/sting_action(mob/user)
+/datum/action/changeling/teratoma/sting_action(mob/living/user)
 	..()
 	if(create_teratoma(user))
 		var/mob/living/U = user
@@ -38,12 +38,14 @@
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	c.chem_charges -= chemical_cost				//I'm taking your chemicals hostage!
 	var/turf/A = get_turf(user)
-	var/datum/poll_config/config = new()
-	config.poll_time = 10 SECONDS
-	config.check_jobban = ROLE_TERATOMA
-	config.jump_target = owner
-	config.role_name_text = "living teratoma"
-	config.alert_pic = /mob/living/carbon/monkey/tumor
+	var/datum/poll_config/config = new(
+		poll_time = 10 SECONDS,
+		check_jobban = ROLE_TERATOMA,
+		jump_target = owner,
+		role_name_text = "living teratoma",
+		alert_pic = /mob/living/carbon/monkey/tumor,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate) //if we got at least one candidate, they're teratoma now
 		to_chat(usr, span_warning("You fail at creating a tumor. Perhaps you should try again later?"))

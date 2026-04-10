@@ -2,7 +2,6 @@
 	name = "\improper Plasmaman"
 	plural_form = "Plasmamen"
 	id = SPECIES_PLASMAMAN
-	bodyflag = FLAG_PLASMAMAN
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
 	species_traits = list(
@@ -23,9 +22,7 @@
 	mutantstomach = /obj/item/organ/stomach/plasmaman
 	mutantappendix = null
 	mutantheart = null
-	burnmod = 1.5
 	heatmod = 1.5
-	brutemod = 1.5
 	breathid = GAS_PLASMA
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
@@ -129,8 +126,8 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustStaminaLoss(7.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
-		H.adjustBruteLoss(0.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
+		H.adjustStaminaLoss(7.5 * REM * delta_time, 0)
+		H.adjustBruteLoss(0.5 * REM * delta_time, 0)
 		if(DT_PROB(10, delta_time))
 			switch(rand(1, 3))
 				if(1)

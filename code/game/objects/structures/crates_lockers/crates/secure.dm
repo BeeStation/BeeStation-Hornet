@@ -76,7 +76,7 @@
 		new item(src)
 	for(var/i in 1 to 5)
 		new /obj/item/stack/sheet/animalhide/goliath_hide()
-	new /obj/item/mecha_parts/concealed_weapon_bay(src)
+	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)
 	new /obj/item/mecha_parts/mecha_tracking(src)
 	new /obj/item/mecha_parts/mecha_tracking/ai_control(src)
 
@@ -100,7 +100,7 @@
 		new item(src)
 	for(var/i in 1 to 5)
 		new /obj/item/stack/sheet/animalhide/goliath_hide()
-	new /obj/item/mecha_parts/concealed_weapon_bay(src)
+	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)
 	new /obj/item/mecha_parts/mecha_tracking(src)
 	new /obj/item/mecha_parts/mecha_tracking/ai_control(src)
 

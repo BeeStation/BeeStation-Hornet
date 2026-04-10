@@ -82,7 +82,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		var/list/temp_list = typesof(/obj/item/storage/box/hero)
 		for(var/V in temp_list)
 			var/atom/A = V
@@ -124,6 +124,19 @@
 	new /obj/item/clothing/under/rank/civilian/curator/treasure_hunter(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/melee/curator_whip(src)
+
+/obj/item/storage/box/hero/witchhunter // I SWEAR this isn't just the chaplains stuff!!!!
+	name = "Monster-Hunter Kit - 1735"
+	item_icon_state = "witchhunter"
+	info_text = "Monster-Hunter Kit - 1735. \n" + span_notice("The garb can hold a variety of relevant items.\nComes with a crucifix that wards against hexes, and a few premium stakes.")
+
+/obj/item/storage/box/hero/witchhunter/PopulateContents()
+	new /obj/item/clothing/suit/armor/monsterhunter(src)
+	new /obj/item/clothing/head/helmet/monsterhunter_hat(src)
+	new /obj/item/clothing/neck/crucifix(src)
+	new	/obj/item/stake/hardened/silver(src)
+	new /obj/item/stake/hardened/silver(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/garlic_extract(src)
 
 /obj/item/storage/box/hero/astronaut
 	name = "First Man on the Moon - 1960's."
@@ -217,7 +230,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		var/list/temp_list = typesof(/obj/item/storage/box/magic)
 		for(var/V in temp_list)
 			var/atom/A = V
@@ -353,7 +366,7 @@
 	return ..()
 
 /obj/item/clothing/head/hats/tophat/bluespace/container_resist(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("You can't get out while you're restrained like this!"))
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
@@ -445,12 +458,12 @@
 /obj/item/choice_beacon/pet/cat
 	name = "cat delivery beacon"
 	default_name = "Tom"
-	mob_choice = /mob/living/simple_animal/pet/cat
+	mob_choice = /mob/living/basic/pet/cat
 
 /obj/item/choice_beacon/pet/mouse
 	name = "mouse delivery beacon"
 	default_name = "Jerry"
-	mob_choice = /mob/living/simple_animal/mouse
+	mob_choice = /mob/living/basic/mouse
 
 /obj/item/choice_beacon/pet/corgi
 	name = "corgi delivery beacon"
@@ -470,7 +483,7 @@
 /obj/item/choice_beacon/pet/ems
 	name = "emotional support animal delivery beacon"
 	default_name = "Hugsie"
-	mob_choice = /mob/living/simple_animal/pet/cat/kitten
+	mob_choice = /mob/living/basic/pet/cat/kitten
 
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"

@@ -1,11 +1,11 @@
 GLOBAL_LIST_INIT(cable_colors, list(
-	"yellow" = "#ffff00",
-	"green" = "#00aa00",
-	"pink" = "#ff3cc8",
-	"orange" = "#ff8000",
-	"red" = "#ff0000",
-	"white" = "#ffffff"
-	))
+	"yellow" = COLOR_YELLOW,
+	"green" = COLOR_DARK_LIME,
+	"pink" = COLOR_LIGHT_PINK,
+	"orange" = COLOR_MOSTLY_PURE_ORANGE,
+	"red" = COLOR_RED,
+	"white" = COLOR_WHITE,
+))
 
 /proc/get_cable(turf/location, cable_color, omni)
 	for (var/obj/structure/cable/cable in location)
@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	)
 
 	var/cable_color = "red"
-	color = "#ff0000"
+	color = COLOR_RED
 
 // the power cable object
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
@@ -583,32 +583,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/yellow
 	cable_color = "yellow"
-	color = "#ffff00"
+	color = COLOR_YELLOW
 	pixel_x = 2
 	pixel_y = 2
 
 /obj/structure/cable/green
 	cable_color = "green"
-	color = "#00aa00"
+	color = COLOR_DARK_LIME
 	pixel_x = -2
 	pixel_y = -2
 
 /obj/structure/cable/pink
 	cable_color = "pink"
-	color = "#ff3cc8"
+	color = COLOR_LIGHT_PINK
 	pixel_x = -4
 	pixel_y = -4
 
 /obj/structure/cable/orange
 	cable_color = "orange"
-	color = "#ff8000"
+	color = COLOR_MOSTLY_PURE_ORANGE
 	pixel_x = 4
 	pixel_y = 4
 
 /obj/structure/cable/omni
 	icon_state = "0-o"
 	cable_color = "white"
-	color = "#ffffff"
+	color = COLOR_WHITE
 	omni = TRUE
 
 /datum/looping_sound/transformer

@@ -2,7 +2,6 @@
 	name = "\improper Psyphoza"
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
-	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS)
 	sexes = FALSE
@@ -18,7 +17,7 @@
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
+	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = COLOR_WHITE)
 	hair_color = "fixedmutcolor"
 
 	bodypart_overrides = list(
@@ -29,9 +28,6 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/psyphoza,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/psyphoza
 	)
-
-	//Fire bad!
-	burnmod = 1.25
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 

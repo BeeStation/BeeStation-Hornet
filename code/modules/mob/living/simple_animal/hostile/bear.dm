@@ -23,7 +23,6 @@
 	response_disarm_simple = "gently push aside"
 	maxHealth = 60
 	health = 60
-	spacewalk = TRUE
 	var/armored = FALSE
 
 	obj_damage = 60
@@ -44,6 +43,10 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/hostile/bear/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson
@@ -135,7 +138,7 @@
 	response_harm_continuous = "takes a bite out of"
 	response_harm_simple = "take a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'
-	deathmessage = "loses its false life and collapses!"
+	death_message = "loses its false life and collapses!"
 	butcher_results = list(/obj/item/food/butter = 6, /obj/item/food/meat/slab = 3, /obj/item/organ/brain = 1, /obj/item/organ/heart = 1)
 	attack_sound = 'sound/weapons/slap.ogg'
 	attack_verb_continuous = "slaps"

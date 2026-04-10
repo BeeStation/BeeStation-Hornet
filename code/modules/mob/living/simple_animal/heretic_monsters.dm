@@ -27,7 +27,7 @@
 	movement_type = GROUND
 	pressure_resistance = 100
 	del_on_death = TRUE
-	deathmessage = "implodes into itself."
+	death_message = "implodes into itself."
 	faction = list(FACTION_HERETIC)
 	simple_mob_flags = SILENCE_RANGED_MESSAGE
 	/// Innate spells that are added when a beast is created.
@@ -166,15 +166,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	prev.icon_state = "armsy_end"
 	prev.icon_living = "armsy_end"
 
-/mob/living/simple_animal/hostile/heretic_summon/armsy/adjustBruteLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/heretic_summon/armsy/adjustBruteLoss(amount, updating_health, forced, required_bodytype)
 	if(back)
-		return back.adjustBruteLoss(amount, updating_health, forced)
+		return back.adjustBruteLoss(amount, updating_health, forced, required_bodytype)
 
 	return ..()
 
-/mob/living/simple_animal/hostile/heretic_summon/armsy/adjustFireLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/heretic_summon/armsy/adjustFireLoss(amount, updating_health, forced, required_bodytype)
 	if(back)
-		return back.adjustFireLoss(amount, updating_health, forced)
+		return back.adjustFireLoss(amount, updating_health, forced, required_bodytype)
 
 	return ..()
 
@@ -292,7 +292,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 		var/list/parts_to_remove = list()
 		for(var/obj/item/bodypart/bodypart in carbon_target.bodyparts)
 			if(bodypart.body_part != HEAD && bodypart.body_part != CHEST && bodypart.body_part != LEG_LEFT && bodypart.body_part != LEG_RIGHT)
-				if(bodypart.dismemberable)
+				if(!(bodypart.bodypart_flags & BODYPART_UNREMOVABLE))
 					parts_to_remove += bodypart
 
 		if(parts_to_remove.len && prob(10))

@@ -82,11 +82,11 @@
 
 /datum/status_effect/throat_soothed/on_apply()
 	. = ..()
-	ADD_TRAIT(owner, TRAIT_SOOTHED_THROAT, "[STATUS_EFFECT_TRAIT]_[id]")
+	ADD_TRAIT(owner, TRAIT_SOOTHED_THROAT, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/throat_soothed/on_remove()
 	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_SOOTHED_THROAT, "[STATUS_EFFECT_TRAIT]_[id]")
+	REMOVE_TRAIT(owner, TRAIT_SOOTHED_THROAT, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/bounty
 	id = "bounty"
@@ -116,37 +116,15 @@
 		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
 		for(var/datum/action/spell/spell in rewarded.actions)
 			spell.reset_spell_cooldown()
-		rewarded.adjustBruteLoss(-25)
-		rewarded.adjustFireLoss(-25)
-		rewarded.adjustToxLoss(-25, FALSE, TRUE)
-		rewarded.adjustOxyLoss(-25)
-		rewarded.adjustCloneLoss(-25)
 
-/datum/status_effect/bugged //Lets another mob hear everything you can
-	id = "bugged"
-	duration = STATUS_EFFECT_PERMANENT
-	status_type = STATUS_EFFECT_MULTIPLE
-	alert_type = null
-	var/mob/living/listening_in
-
-/datum/status_effect/bugged/on_apply(mob/living/new_owner, mob/living/tracker)
-	. = ..()
-	if (.)
-		RegisterSignal(new_owner, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
-
-/datum/status_effect/bugged/on_remove()
-	. = ..()
-	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
-
-/datum/status_effect/bugged/proc/handle_hearing(datum/source, list/hearing_args)
-	SIGNAL_HANDLER
-	listening_in.show_message(hearing_args[HEARING_MESSAGE])
-
-
-/datum/status_effect/bugged/on_creation(mob/living/new_owner, mob/living/tracker)
-	. = ..()
-	if(.)
-		listening_in = tracker
+		var/need_mob_update = FALSE
+		need_mob_update += rewarded.adjustBruteLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustFireLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustToxLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustOxyLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustCloneLoss(-25, updating_health = FALSE)
+		if(need_mob_update)
+			rewarded.updatehealth()
 
 /datum/status_effect/offering
 	id = "offering"

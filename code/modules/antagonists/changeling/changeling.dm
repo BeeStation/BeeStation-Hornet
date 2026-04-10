@@ -31,7 +31,7 @@
 	/// The number of chemicals the changeling currently has.
 	var/chem_charges = 20
 	/// The max chemical storage the changeling currently has.
-	var/total_chem_storage = 75
+	var/total_chem_storage = 50
 	/// The chemical recharge rate per life tick.
 	var/chem_recharge_rate = 0.5
 	/// Any additional modifiers triggered by changelings that modify the chem_recharge_rate.
@@ -41,9 +41,9 @@
 	/// Changeling name, what other lings see over the hivemind when talking.
 	var/changelingID = "Changeling"
 	/// The number of genetics points (to buy powers) this ling currently has.
-	var/genetic_points = 10
+	var/genetic_points = 5
 	/// The max number of genetics points (to buy powers) this ling can have..
-	var/total_genetic_points = 10
+	var/total_genetic_points = 5
 	/// List of all powers we start with.
 	var/list/innate_powers = list()
 	/// Associated list of all powers we have evolved / bought from the emporium. [path] = [instance of path]
@@ -60,6 +60,9 @@
 	var/datum/cellular_emporium/cellular_emporium
 	/// A reference to our cellular emporium action (which opens the UI for the datum).
 	var/datum/action/innate/cellular_emporium/emporium_action
+
+	/// List of minds that have been absorbed
+	var/list/absorbed_minds = list()
 
 	/// Static typecache of all changeling powers that are usable.
 	var/static/list/all_powers = typecacheof(/datum/action/changeling, ignore_root_path = TRUE)
@@ -106,7 +109,7 @@
 
 /datum/antagonist/changeling/New()
 	. = ..()
-	for(var/datum/antagonist/changeling/other_ling in GLOB.antagonists)
+	for(var/datum/antagonist/changeling/other_ling in GLOB.active_antagonists)
 		if(!other_ling.owner || other_ling.owner == owner)
 			continue
 		competitive_objectives = TRUE
@@ -135,6 +138,7 @@
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/mob_to_tweak = mob_override || owner.current
+	update_changeling_icons_added()
 	if(!isliving(mob_to_tweak))
 		return
 
@@ -185,6 +189,7 @@
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/living_mob = mob_override || owner.current
+	update_changeling_icons_removed()
 	handle_clown_mutation(living_mob, removing = FALSE)
 	UnregisterSignal(living_mob, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_LIFE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON, COMSIG_MOB_HUD_CREATED))
 	living_mob?.hud_used?.lingchemdisplay?.invisibility = INVISIBILITY_ABSTRACT
@@ -420,7 +425,7 @@
  * Checks if this changeling can absorb the DNA of [target].
  * if [verbose] = TRUE, give feedback as to why they cannot absorb the DNA.
  */
-/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, verbose = TRUE)
+/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, verbose = TRUE, ignore_duplicates = FALSE)
 	if(!target)
 		return FALSE
 	if(!iscarbon(owner.current))
@@ -431,7 +436,7 @@
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
 		return FALSE
-	if(has_profile_with_dna(target.dna))
+	if(!ignore_duplicates && has_profile_with_dna(target.dna))
 		if(verbose)
 			to_chat(user, span_warning("We already have this DNA in storage!"))
 		return FALSE
@@ -506,6 +511,7 @@
 			continue
 		new_profile.name_list[slot] = clothing_item.name
 		new_profile.appearance_list[slot] = clothing_item.appearance
+		new_profile.type_list[slot] = clothing_item.type
 		new_profile.flags_cover_list[slot] = clothing_item.flags_cover
 		new_profile.lefthand_file_list[slot] = clothing_item.lefthand_file
 		new_profile.righthand_file_list[slot] = clothing_item.righthand_file
@@ -604,91 +610,18 @@
 	owner.announce_objectives()
 
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Changeling",
-		"You have absorbed the form of [owner.current] and have infiltrated the station. Use your changeling powers to complete your objectives.")
+		"You have absorbed the form of [owner.current] and have infiltrated the station. Absorb crew to unlock new changeling powers and complete your objectives.")
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, span_userdanger("You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!"))
 
 /// Generate objectives for our changeling.
 /datum/antagonist/changeling/proc/forge_objectives()
-	//OBJECTIVES - random traitor objectives. Unique objectives "steal brain" and "identity theft".
-	//No escape alone because changelings aren't suited for it and it'd probably just lead to rampant robusting
-	//If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone
-
-	var/escape_objective_possible = TRUE
-	switch(competitive_objectives ? rand(1,2) : 1)
-		if(1)
-			var/datum/objective/absorb/absorb_objective = new
-			absorb_objective.owner = owner
-			absorb_objective.gen_amount_goal(6, 8)
-			objectives += absorb_objective
-			log_objective(owner, absorb_objective.explanation_text)
-		if(2)
-			var/datum/objective/absorb_most/ac = new
-			ac.owner = owner
-			objectives += ac
-			log_objective(owner, ac.explanation_text)
-
-	if(prob(60))
-		if(prob(85))
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = owner
-			steal_objective.find_target()
-			objectives += steal_objective
-			log_objective(owner, steal_objective.explanation_text)
-		else
-			var/datum/objective/download/download_objective = new
-			download_objective.owner = owner
-			download_objective.gen_amount_goal()
-			objectives += download_objective
-			log_objective(owner, download_objective.explanation_text)
-
-	var/list/active_ais = active_ais()
-	if(active_ais.len && prob(100/GLOB.joined_player_list.len))
-		var/datum/objective/destroy/destroy_objective = new
-		destroy_objective.owner = owner
-		destroy_objective.find_target()
-		objectives += destroy_objective
-		log_objective(owner, destroy_objective.explanation_text)
-	else
-		if(prob(70))
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			objectives += kill_objective
-			log_objective(owner, kill_objective.explanation_text)
-		else
-			var/datum/objective/maroon/maroon_objective = new
-			maroon_objective.owner = owner
-			maroon_objective.find_target()
-			objectives += maroon_objective
-			log_objective(owner, maroon_objective.explanation_text)
-
-			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
-				var/datum/objective/escape/escape_with_identity/identity_theft = new
-				identity_theft.owner = owner
-				if(identity_theft.is_valid_target(maroon_objective.target))
-					identity_theft.set_target(maroon_objective.target)
-					identity_theft.update_explanation_text()
-					objectives += identity_theft
-					log_objective(owner, identity_theft.explanation_text)
-					escape_objective_possible = FALSE
-				else
-					qdel(identity_theft)
-
-	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
-		if(prob(50))
-			var/datum/objective/escape/escape_objective = new
-			escape_objective.owner = owner
-			objectives += escape_objective
-			log_objective(owner, escape_objective.explanation_text)
-		else
-			var/datum/objective/escape/escape_with_identity/identity_theft = new
-			identity_theft.owner = owner
-			identity_theft.find_target()
-			objectives += identity_theft
-			log_objective(owner, identity_theft.explanation_text)
-		escape_objective_possible = FALSE
+	var/datum/objective/survival_of_the_fittest/cull_objective = new
+	cull_objective.owner = owner
+	cull_objective.generate_amount()
+	objectives += cull_objective
+	log_objective(owner, cull_objective.explanation_text)
 
 /datum/antagonist/changeling/proc/update_changeling_icons_added()
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_CHANGELING]
@@ -793,6 +726,9 @@
 		new_flesh_item.worn_icon = chosen_profile.worn_icon_list[slot]
 		new_flesh_item.worn_icon_state = chosen_profile.worn_icon_state_list[slot]
 
+		REMOVE_TRAIT(new_flesh_item, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON)
+		ADD_VALUE_TRAIT(new_flesh_item, TRAIT_VALUE_MIMIC_PATH, CHANGELING_TRAIT, chosen_profile.type_list[slot], PRIORITY_CHANGELING_MIMIC)
+
 		if(istype(new_flesh_item, /obj/item/card/id/changeling) && chosen_profile.id_job_name)
 			var/obj/item/card/id/changeling/flesh_id = new_flesh_item
 			flesh_id.assignment = chosen_profile.id_job_name
@@ -817,6 +753,8 @@
 	var/datum/dna/dna
 	/// Assoc list of item slot to item name - stores the name of every item of this profile.
 	var/list/name_list = list()
+	/// Assoc list of item slot to type - stores the type of every item of this profile.
+	var/list/type_list = list()
 	/// Assoc list of item slot to apperance - stores the appearance of every item of this profile.
 	var/list/appearance_list = list()
 	/// Assoc list of item slot to flag - stores the flags_cover of every item of this profile.

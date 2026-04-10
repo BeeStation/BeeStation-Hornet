@@ -4,7 +4,7 @@
 	desc = "A handheld tracking device that locks onto certain signals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinpointer"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	inhand_icon_state = "electronic"
@@ -256,7 +256,7 @@
 		return
 
 	var/A = input(user, "Person to track", "Pinpoint") in sort_list(names)
-	if(!A || QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated())
+	if(!A || QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated)
 		return
 
 	target = names[A]

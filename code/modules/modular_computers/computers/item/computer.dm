@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 3
 	light_power = 0.6
-	light_color = "#FFFFFF"
+	light_color = COLOR_WHITE
 	light_on = FALSE
 
 	// Whether the computer is turned on.
@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// How far the computer's light can reach, is not editable by players.
 	var/comp_light_luminosity = 3
 	/// The built-in light's color, editable by players.
-	var/comp_light_color = "#FFFFFF"
+	var/comp_light_color = COLOR_WHITE
 	/// Whether or not the tablet is invisible in messenger and other apps
 	var/messenger_invisible = FALSE
 	/// The saved image used for messaging purposes
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// If the device starts with its ringer on
 	var/init_ringer_on = TRUE
 	/// Stored pAI card
-	var/obj/item/paicard/stored_pai_card
+	var/obj/item/pai_card/stored_pai_card
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
 	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
@@ -553,7 +553,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	data["PC_programheaders"] = program_headers
 
 	data["PC_stationtime"] = station_time_timestamp()
-	data["PC_stationdate"] = "[time2text(world.realtime, "DDD, Month DD")], [GLOB.year_integer+YEAR_OFFSET]"
+	data["PC_stationdate"] = "[time2text(world.realtime, "DDD, Month DD")], [CURRENT_STATION_YEAR]"
 	data["PC_hasheader"] = 1
 	data["PC_showexitprogram"] = active_program ? 1 : 0 // Hides "Exit Program" button on mainscreen
 	return data
@@ -776,7 +776,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			return
 
 	// Insert a pAI card
-	if(can_store_pai && !stored_pai_card && istype(attacking_item, /obj/item/paicard))
+	if(can_store_pai && !stored_pai_card && istype(attacking_item, /obj/item/pai_card))
 		if(!user.transferItemToLoc(attacking_item, src))
 			return
 		stored_pai_card = attacking_item
@@ -800,9 +800,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			balloon_alert(user, "remove the other components!")
 			return
 		attacking_item.play_tool_sound(src, user, 20, volume=20)
-		new /obj/item/stack/sheet/iron( get_turf(src.loc), steel_sheet_cost )
+		if(steel_sheet_cost > 0)
+			new /obj/item/stack/sheet/iron(drop_location(), steel_sheet_cost)
 		user.balloon_alert(user, "disassembled")
-		relay_qdel()
 		qdel(src)
 		return
 
@@ -845,10 +845,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 	update_appearance()
 
-// Used by processor to relay qdel() to machinery type.
-/obj/item/modular_computer/proc/relay_qdel()
-	return
-
 // Perform adjacency checks on our physical counterpart, if any.
 /obj/item/modular_computer/Adjacent(atom/neighbor)
 	if(physical && physical != src)
@@ -862,7 +858,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	GLOB.TabletMessengers -= src
 
 // Make messages visible via allow_inside_usr
-/obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = TRUE)
+/obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, visible_message_flags = NONE, allow_inside_usr = TRUE)
 	return ..()
 
 /obj/item/modular_computer/multitool_act(mob/living/user, obj/item/I)

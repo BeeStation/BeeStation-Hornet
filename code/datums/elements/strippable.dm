@@ -237,13 +237,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!equipping.mob_can_equip(
-		source,
-		user,
-		item_slot,
-		disable_warning = TRUE,
-		bypass_equip_delay_self = TRUE,
-	))
+	if (!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		to_chat(user, span_warning("\The [equipping] doesn't fit in that place!"))
 		return FALSE
 
@@ -260,13 +254,7 @@
 	if(!do_after(user, get_equip_delay(equipping), source))
 		return FALSE
 
-	if(!equipping.mob_can_equip(
-		source,
-		user,
-		item_slot,
-		disable_warning = TRUE,
-		bypass_equip_delay_self = TRUE,
-	))
+	if (!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		return FALSE
 
 	if(!user.temporarilyRemoveItemFromInventory(equipping))
@@ -579,7 +567,7 @@
 	return min(
 		ui_status_only_living(user, owner),
 		ui_status_user_has_free_hands(user, owner),
-		ui_status_user_is_adjacent(user, owner),
+		ui_status_user_is_adjacent(user, owner, allow_tk = FALSE),
 		HAS_TRAIT(user, TRAIT_CAN_STRIP) ? UI_INTERACTIVE : UI_UPDATE,
 		max(
 			ui_status_user_is_conscious_and_lying_down(user),

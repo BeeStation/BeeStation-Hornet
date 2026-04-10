@@ -12,30 +12,32 @@
 
 /datum/brain_trauma/special/imaginary_friend/mrat/get_ghost()
 	set waitfor = FALSE
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_IMAGINARY_FRIEND
-	config.poll_time = 10 SECONDS
-	config.ignore_category = POLL_IGNORE_MRAT
-	config.jump_target = friend
-	config.role_name_text = "[owner]'s mentor rat"
-	config.alert_pic = owner
-	var/list/mob/dead/observer/candidates = SSpolling.poll_mentor_ghost_candidates(config)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		friend.key = C.key
-		friend.real_name = friend.key
-		friend.name = "Mentor Rat ([friend.real_name])"
-
-		var/mob/camera/imaginary_friend/mrat/I = friend
-		I.PickName()
-		I.Costume()
-		I.add_kick_action()
-
-		friend_initialized = TRUE
-		to_chat(owner, span_notice("You have acquired the mentor rat [C.client?.display_name_chat() || C.key], ask them any question you like. They will leave your presence when they are done."))
-	else
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_IMAGINARY_FRIEND,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_MRAT,
+		jump_target = friend,
+		role_name_text = "[owner]'s mentor rat",
+		alert_pic = owner,
+		amount_to_pick = 1,
+	)
+	var/mob/dead/observer/candidate = SSpolling.poll_mentor_ghost_candidates(config)
+	if(!candidate)
 		to_chat(owner, span_warning("No mentor responded to your request. Try again later."))
 		qdel(src)
+		return
+
+	friend.key = candidate.key
+	friend.real_name = friend.key
+	friend.name = "Mentor Rat ([friend.real_name])"
+
+	var/mob/camera/imaginary_friend/mrat/I = friend
+	I.PickName()
+	I.Costume()
+	I.add_kick_action()
+
+	friend_initialized = TRUE
+	to_chat(owner, span_notice("You have acquired the mentor rat [candidate.client?.display_name_chat() || candidate.key], ask them any question you like. They will leave your presence when they are done."))
 
 /datum/mrat_type
 	var/name

@@ -10,7 +10,7 @@
 	bubble_icon = "machine"
 	mob_biotypes = MOB_ROBOTIC
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
-	deathsound = 'sound/voice/borg_deathsound.ogg'
+	death_sound = 'sound/voice/borg_deathsound.ogg'
 	examine_cursor_icon = null
 	fire_stack_decay_rate = -0.55
 	speech_span = SPAN_ROBOT
@@ -293,7 +293,7 @@
 	currently_stating_laws = TRUE
 
 	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
-	say("[radiomod] Current Active Laws:", ignore_spam = TRUE, forced = "state laws")
+	say("[radiomod] Current Active Laws:", ignore_spam = TRUE, forced = "state laws", message_mods = list(MODE_SEQUENTIAL = TRUE))
 	S.client?.silicon_spam_grace()
 
 	for(var/law_index = 1 to length(laws_to_state))
@@ -308,7 +308,7 @@
 	currently_stating_laws = FALSE
 
 /mob/living/silicon/proc/state_singular_law(mob/living/silicon/silicon, law)
-	say("[radiomod] [law]", ignore_spam = TRUE, forced = "state laws")
+	say("[radiomod] [law]", ignore_spam = TRUE, forced = "state laws", message_mods = list(MODE_SEQUENTIAL = TRUE))
 	silicon.client?.silicon_spam_grace()
 
 /mob/living/silicon/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
@@ -413,7 +413,7 @@
 	diagsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/toggle_sensors()
-	if(incapacitated())
+	if(incapacitated)
 		return
 	sensors_on = !sensors_on
 	if (!sensors_on)

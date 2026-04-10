@@ -297,6 +297,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	var/detonation_timer
 	var/next_announce
 	var/mob/living/silicon/ai/owner
+	var/has_played_soundtrack = FALSE
 
 /obj/machinery/doomsday_device/Initialize(mapload)
 	. = ..()
@@ -336,8 +337,8 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		borg.lamp_doom = TRUE
 		borg.toggle_headlamp(FALSE, TRUE) //forces borg lamp to update
 
-/obj/machinery/doomsday_device/proc/seconds_remaining()
-	. = max(0, (round((detonation_timer - world.time) / 10)))
+/obj/machinery/doomsday_device/proc/time_remaining()
+	return max(0, detonation_timer - world.time)
 
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
@@ -348,14 +349,21 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
 		return
-	var/sec_left = seconds_remaining()
-	if(!sec_left)
+	var/time_left = time_remaining()
+
+	// I dislike this, but we need to access the soundtrack's length
+	var/datum/soundtrack_song/soundtrack = /datum/soundtrack_song/bee/countdown
+	if(time_left <= initial(soundtrack.length) && !has_played_soundtrack)
+		play_soundtrack_music(soundtrack, fade_time = 8 SECONDS)
+		has_played_soundtrack = TRUE
+
+	if(!time_left)
 		timing = FALSE
 		sound_to_playing_players('sound/machines/alarm.ogg')
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(Cinematic), CINEMATIC_MALF, world, CALLBACK(src, PROC_REF(trigger_doomsday))), 10 SECONDS)
 
 	else if(world.time >= next_announce)
-		minor_announce("[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", TRUE)
+		minor_announce("[round(time_left / 10)] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", TRUE)
 		next_announce += DOOMSDAY_ANNOUNCE_INTERVAL
 
 /obj/machinery/doomsday_device/proc/trigger_doomsday()
@@ -427,7 +435,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/ranged/override_machine/on_activate(mob/user, atom/target)
 	. = ..()
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(!ismachinery(target))
 		target.balloon_alert(user, "can't animate")
@@ -515,7 +523,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/ranged/overload_machine/on_activate(mob/user, atom/target)
 	. = ..()
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(!ismachinery(target))
 		target.balloon_alert(user, "can't overload")
@@ -649,7 +657,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		C.images -= I
 
 /mob/living/silicon/ai/proc/can_place_transformer(datum/action/innate/ai/place_transformer/action)
-	if(!eyeobj || !isturf(loc) || incapacitated() || !action)
+	if(!eyeobj || !isturf(loc) || incapacitated || !action)
 		return
 	var/turf/middle = get_turf(eyeobj)
 	var/list/turfs = list(middle, locate(middle.x - 1, middle.y, middle.z), locate(middle.x + 1, middle.y, middle.z))
@@ -1019,7 +1027,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 	var/mob/living/silicon/ai/ai_clicker = user
 
-	if(ai_clicker.incapacitated())
+	if(ai_clicker.incapacitated)
 		return FALSE
 
 	if(!ai_clicker.can_see(target))
@@ -1098,7 +1106,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		return FALSE
 	var/mob/living/silicon/ai/ai_clicker = user
 
-	if(ai_clicker.incapacitated() || !isturf(ai_clicker.loc))
+	if(ai_clicker.incapacitated || !isturf(ai_clicker.loc))
 		return FALSE
 
 	var/turf/turf = get_turf(target)
@@ -1123,7 +1131,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	COOLDOWN_START(src, time_til_next_tilt, roll_over_cooldown)
 
 /datum/action/innate/ai/ranged/core_tilt/proc/do_roll_over(mob/living/silicon/ai/ai_clicker, picked_dir)
-	if(ai_clicker.incapacitated() || !isturf(ai_clicker.loc)) // prevents bugs where the ai is carded and rolls
+	if(ai_clicker.incapacitated || !isturf(ai_clicker.loc)) // prevents bugs where the ai is carded and rolls
 		return
 
 	var/turf/target = get_step(ai_clicker, picked_dir) // in case we moved we pass the dir not the target turf
@@ -1135,7 +1143,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /// Used in our radial menu, state-checking proc after the radial menu sleeps
 /datum/action/innate/ai/ranged/core_tilt/proc/radial_check(mob/living/silicon/ai/user)
-	if(QDELETED(user) || user.incapacitated() || user.stat == DEAD || uses <= 0)
+	if(QDELETED(user) || user.incapacitated || user.stat == DEAD || uses <= 0)
 		return FALSE
 	return TRUE
 
@@ -1173,7 +1181,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	if(!user || !isAI(user))
 		return FALSE
 
-	if(ai_clicker.incapacitated())
+	if(ai_clicker.incapacitated)
 		return FALSE
 
 	if(!istype(target, /obj/machinery/vending))
@@ -1225,7 +1233,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /// Used in our radial menu, state-checking proc after the radial menu sleeps
 /datum/action/innate/ai/ranged/remote_vendor_tilt/proc/radial_check(mob/living/silicon/ai/user, obj/machinery/vending/clicked_vendor)
-	if(QDELETED(user) || user.incapacitated() || user.stat == DEAD)
+	if(QDELETED(user) || user.incapacitated || user.stat == DEAD)
 		return FALSE
 
 	if(QDELETED(clicked_vendor))

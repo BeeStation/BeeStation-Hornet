@@ -26,8 +26,8 @@
 	)
 
 /obj/item/clothing/suit/apron/Initialize(mapload)
-	. = ..()
 	create_storage(storage_type = /datum/storage/pockets/exo/large)
+	return ..()
 
 //Captain
 /obj/item/clothing/suit/captunic
@@ -86,10 +86,10 @@
 	armor_type = /datum/armor/jacket_det_suit
 	cold_protection = CHEST|GROIN|ARMS
 	heat_protection = CHEST|GROIN|ARMS
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	allowed = list(
 		/obj/item/tank/internals,
-		/obj/item/melee/classic_baton,
+		/obj/item/melee/baton,
 		/obj/item/clothing/accessory/holster/detective,
 		) //Trench coats are a little more apt at carrying larger objects.
 
@@ -127,7 +127,7 @@
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	icon_state = "brig_phys_vest"
 	inhand_icon_state = "sec_helm"//looks kinda similar, I guess
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/storage/firstaid, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/police/telescopic, /obj/item/soap, /obj/item/sensor_device, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/storage/firstaid, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/baton/telescopic, /obj/item/soap, /obj/item/sensor_device, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	armor_type = /datum/armor/hazardvest_brig_physician
 
 //Engineering
@@ -158,8 +158,8 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/suit/hazardvest/Initialize(mapload)
-	. = ..()
 	create_storage(storage_type = /datum/storage/pockets/exo/large)
+	return ..()
 
 //Lawyer
 /obj/item/clothing/suit/toggle/lawyer
@@ -267,8 +267,20 @@
 	cold_protection = CHEST|ARMS
 	heat_protection = CHEST|ARMS
 
-//Roboticist
+/obj/item/clothing/suit/armor/monsterhunter
+	name = "monster hunter garb"
+	desc = "This worn outfit saw much use back in the day. Internal reinforcements help protect against bites and scratches."
+	allowed = list(/obj/item/storage/book/bible, /obj/item/reagent_containers/cup/glass/bottle/garlic_extract, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/stake, /obj/item/stake/hardened, /datum/crafting_recipe/silver_stake, /obj/item/food/grown/garlic)
+	icon_state = "monsterhunter"
+	inhand_icon_state = null
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	armor_type = /datum/armor/jacket_curator
+	strip_delay = 80
+	equip_delay_other = 60
 
+/obj/item/clothing/suit/armor/monsterhunter/Initialize(mapload)
+	. = ..()
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 
 /datum/armor/jacket_curator
 	melee = 25
@@ -279,6 +291,7 @@
 	stamina = 30
 	bleed = 10
 
+//Roboticist
 /obj/item/clothing/suit/hooded/techpriest
 	name = "techpriest robes"
 	desc = "For those who REALLY love their toasters."

@@ -3,6 +3,7 @@
 #define GENERIC_ITEM_TRAIT "generic_item"
 #define UNCONSCIOUS_TRAIT "unconscious"
 #define EYE_DAMAGE "eye_damage"
+#define EAR_DAMAGE "ear_damage"
 #define GENETIC_MUTATION "genetic"
 #define OBESITY "obesity"
 #define MAGIC_TRAIT "magic"
@@ -53,7 +54,11 @@
 #define STATION_TRAIT "station-trait"
 #define TRAIT_RUSTY "rust_trait"
 #define ACTION_TRAIT "action_trait"
-#define TURF_TRAIT "turf"
+#define TRAIT_LEANING "leaning"
+#define TRAIT_REGEN_COMA "regencoma"
+
+/// Trait given to you by shapeshifting
+#define SHAPESHIFT_TRAIT "shapeshift_trait"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
@@ -104,7 +109,6 @@
 #define HOLOPARASITE_SCOUT_TRAIT	"holopara_scout_trait"
 #define HOLOPARASITE_STAT_TRAIT		"holopara_stat_trait"
 #define PARRY_TRAIT	"parry_trait"
-#define LIGHTPINK_TRAIT "lightpinktrait"
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
@@ -118,8 +122,10 @@
 #define HANDCUFFED_TRAIT "handcuffed"
 /// Trait granted by [/obj/item/warpwhistle]
 #define WARPWHISTLE_TRAIT "warpwhistle"
-/// Trait sorce for "was recently shocked by something"
+/// Trait source for "was recently shocked by something"
 #define WAS_SHOCKED "was_shocked"
+/// Trait source for turfs
+#define TURF_TRAIT "turf"
 /// Trait applied by by [/datum/component/soulstoned]
 #define SOULSTONE_TRAIT "soulstone"
 /// Trait applied to slimes by low temperature
@@ -137,12 +143,18 @@
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"
 #define LICH_TRAIT "lich_trait"
+/// Trait given by stabilized light pink extracts
+#define STABILIZED_LIGHT_PINK_EXTRACT_TRAIT "stabilized_light_pink"
+/// Trait given by adamantine extracts
+#define ADAMANTINE_EXTRACT_TRAIT "adamantine_extract"
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
 /// Trait given by simple/basic mob death
 #define BASIC_MOB_DEATH_TRAIT "basic_mob_death"
 /// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+/// Trait given by mech equipment
+#define TRAIT_MECH_EQUIPMENT(equipment_type) "mech_equipment_[equipment_type]"
 
 /// This trait comes from when a mob is currently typing.
 #define CURRENTLY_TYPING_TRAIT "currently_typing"
@@ -159,6 +171,8 @@
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
+/// From a priority directive
+#define FROM_DIRECTIVE "directive"
 
 /**
 * Trait granted by [/mob/living/carbon/Initialize] and
@@ -181,3 +195,5 @@
 #define MODULE_TRAIT "module_trait"
 /// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
+/// Source for chameleon ietms
+#define FROM_CHAMELEON "from_chameleon"

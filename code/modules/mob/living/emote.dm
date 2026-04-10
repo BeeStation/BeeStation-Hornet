@@ -2,7 +2,7 @@
 /* EMOTE DATUMS */
 /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
-	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime, /mob/living/brain)
+	mob_type_blacklist_typecache = list(/mob/living/brain)
 
 /// The time it takes for the blush visual to be removed
 #define BLUSH_DURATION 5.2 SECONDS
@@ -97,26 +97,25 @@
 	message_larva = "lets out a sickly hiss of air and falls limply to the floor"
 	message_monkey = "lets out a faint chimper as it collapses and stops moving"
 	message_ipc = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off"
-	message_simple =  "stops moving"
+	message_animal_or_basic = "stops moving"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE | EMOTE_IMPORTANT
 	cooldown = (7.5 SECONDS)
 	stat_allowed = HARD_CRIT
 
 /datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
-	var/mob/living/simple_animal/S = user
-	if(istype(S) && S.deathmessage)
-		message_simple = S.deathmessage
+	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
+		return
+	var/custom_message = user.death_message
+	if(custom_message)
+		message_animal_or_basic = custom_message
 	. = ..()
-	message_simple = initial(message_simple)
+	message_animal_or_basic = initial(message_animal_or_basic)
 	if(!user.can_speak() || user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
-	var/mob/living/carbon/carbon_user = user
-	// For masks that give unique death sounds
-	if(istype(carbon_user) && isclothing(carbon_user.wear_mask) && carbon_user.wear_mask.unique_death)
-		playsound(carbon_user, carbon_user.wear_mask.unique_death, 200, TRUE, TRUE)
+	if (SEND_SIGNAL(user, COMSIG_MOB_DEATHGASP, params, type_override, intentional) & COMSIG_MOB_CANCEL_DEATHGASP_SOUND)
 		return
-	if(user.deathsound)
-		playsound(user, user.deathsound, 200, TRUE, TRUE)
+	if(user.death_sound)
+		playsound(user, user.death_sound, 200, TRUE, TRUE)
 
 /datum/emote/living/drool
 	key = "drool"
@@ -238,7 +237,7 @@
 /datum/emote/living/laugh/get_sound(mob/living/user)
 	if(!iscarbon(user))
 		return
-	if(HAS_TRAIT(user, TRAIT_MIMING))
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		return
 	var/mob/living/carbon/carbon_user = user
 	return carbon_user.dna?.species?.get_laugh_sound(carbon_user)
@@ -468,6 +467,10 @@
 	key = "yawn"
 	key_third_person = "yawns"
 	message = "yawns"
+	message_mime = "acts out an exaggerated silent yawn"
+	message_robot = "symphathetically yawns"
+	message_AI = "symphathetically yawns"
+	message_ipc = "symphathetically yawns"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/custom
@@ -483,64 +486,53 @@
 		return FALSE
 
 	if(!isnull(user.ckey) && is_banned_from(user.ckey, "Emote"))
-		to_chat(user, "You cannot send custom emotes (banned).")
+		to_chat(user, span_boldwarning("You cannot send custom emotes (banned)."))
 		return FALSE
 
 	if(QDELETED(user))
 		return FALSE
 
-	if(user.client && user.client.player_details.muted & MUTE_IC)
-		to_chat(user, "You cannot send IC messages (muted).")
+	if(user.client && (user.client.player_details.muted & MUTE_IC))
+		to_chat(user, span_boldwarning("You cannot send IC messages (muted)."))
 		return FALSE
 
-/datum/emote/living/custom/proc/check_invalid(mob/user, input)
+/datum/emote/living/custom/proc/emote_is_valid(mob/user, input)
+	// We're assuming clientless mobs custom emoting is something codebase-driven and not player-driven.
+	// If players ever get the ability to force clientless mobs to emote, we'd need to reconsider this.
+	if(!user.client)
+		return TRUE
+
+	if(!isnull(user?.client?.holder))
+		return TRUE
+
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
 		to_chat(user, span_danger("Invalid emote."))
-		return TRUE
-	return FALSE
+		return FALSE
+
+	var/list/filter_result = CHAT_FILTER_CHECK(input)
+
+	if(filter_result)
+		to_chat(user, span_warning("That emote contained a word prohibited in IC emotes! Consider reviewing the server rules."))
+		to_chat(user, span_warning("\"[input]\""))
+		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, LOWER_TEXT(config.ic_filter_regex.match))
+		return FALSE
+
+	return TRUE
+
+/datum/emote/living/custom/get_message_flags(intentional)
+	. = ..()
+	return .|WITH_EMPHASIS_MESSAGE
 
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
-	if(params && type_override)
-		emote_type = type_override
-	message = params
-	. = ..()
-	message = null
-	emote_type = null
+	if(!emote_is_valid(user, params))
+		return FALSE
+	. = ..(user = user, params = params, type_override = type_override, intentional = intentional)
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	return message
 
-/datum/emote/living/help
-	key = "help"
-
-/datum/emote/living/help/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	var/list/keys = list()
-	var/list/message = list("Available emotes, you can use them with say \"*emote\": ")
-
-	for(var/key in GLOB.emote_list)
-		for(var/datum/emote/P in GLOB.emote_list[key])
-			if(P.key in keys)
-				continue
-			if(P.can_run_emote(user, status_check = FALSE , intentional = TRUE))
-				keys += P.key
-
-	keys = sort_list(keys)
-
-	for(var/emote in keys)
-		if(LAZYLEN(message) > 1)
-			message += ", [emote]"
-		else
-			message += "[emote]"
-
-	message += "." // Note that this is adding extras on emotes that already had punctuation
-
-	message = jointext(message, "")
-
-	to_chat(user, message)
-
-/datum/emote/beep
+/datum/emote/living/beep
 	key = "beep"
 	key_third_person = "beeps"
 	message = "beeps"
@@ -671,7 +663,7 @@
 	message_robot = "makes a crude thumbs up with their 'hands'"
 	message_AI = "flashes a quick hologram of a thumbs up"
 	message_ipc = "flashes a thumbs up icon"
-	message_simple = "attempts a thumbs up"
+	message_animal_or_basic = "attempts a thumbs up"
 	message_param = "flashes a thumbs up at %t"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE
@@ -683,7 +675,7 @@
 	message_robot = "makes a crude thumbs down with their 'hands'"
 	message_AI = "flashes a quick hologram of a thumbs down"
 	message_ipc = "flashes a thumbs down icon"
-	message_simple = "attempts a thumbs down"
+	message_animal_or_basic = "attempts a thumbs down"
 	message_param = "flashes a thumbs down at %t"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE

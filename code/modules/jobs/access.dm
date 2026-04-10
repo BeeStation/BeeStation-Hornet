@@ -1,6 +1,10 @@
 
-///returns TRUE if this mob has sufficient access to use this object.
-///Note that this will return FALSE when passed null, unless the door doesn't require any access.
+//
+/**
+ * Returns TRUE if this mob has sufficient access to use this object
+ *
+ * * accessor - mob trying to access this object, !!CAN BE NULL!! because of telekiesis because we're in hell
+ */
 /obj/proc/allowed(mob/accessor)
 	if(!accessor) // early return for null check. This exists because attack_tk() sends null accessor
 		return src.check_access(null)
@@ -32,9 +36,14 @@
 			return TRUE
 	//if they have a hacky abstract animal ID with the required access, let them in i guess...
 	else if(isanimal(accessor))
-		var/mob/living/simple_animal/A = accessor
-		if(check_access(A.get_active_held_item()) || check_access(A.access_card))
+		var/mob/living/simple_animal/animal = accessor
+		if(check_access(animal.get_active_held_item()) || check_access(animal.access_card))
 			return TRUE
+	else if(isbrain(accessor))
+		var/obj/item/mmi/brain_mmi = get(accessor.loc, /obj/item/mmi)
+		if(brain_mmi && ismecha(brain_mmi.loc))
+			var/obj/vehicle/sealed/mecha/big_stompy_robot = brain_mmi.loc
+			return check_access_list(big_stompy_robot.accesses)
 	return FALSE
 
 /obj/proc/handle_buckled_access(mob/accessor)
@@ -171,7 +180,7 @@
 							ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_HEADS, ACCESS_CAPTAIN, ACCESS_ALL_PERSONAL_LOCKERS,
 							ACCESS_TECH_STORAGE, ACCESS_CHAPEL_OFFICE, ACCESS_ATMOSPHERICS, ACCESS_KITCHEN,
 							ACCESS_BAR, ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_ROBOTICS, ACCESS_CARGO, ACCESS_CONSTRUCTION, ACCESS_AUX_BASE,
-							ACCESS_HYDROPONICS, ACCESS_LIBRARY, ACCESS_LAWYER, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_QM, ACCESS_EXPLORATION, ACCESS_SURGERY,
+							ACCESS_HYDROPONICS, ACCESS_SERVICE, ACCESS_LIBRARY, ACCESS_LAWYER, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_QM, ACCESS_EXPLORATION, ACCESS_SURGERY,
 							ACCESS_THEATRE, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_MAILSORTING, ACCESS_WEAPONS,
 							ACCESS_MECH_MINING, ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_SECURITY, ACCESS_MECH_MEDICAL,
 							ACCESS_VAULT, ACCESS_MINING_STATION, ACCESS_XENOBIOLOGY, ACCESS_CE, ACCESS_HOP, ACCESS_HOS, ACCESS_RC_ANNOUNCE,

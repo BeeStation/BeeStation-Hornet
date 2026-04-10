@@ -593,7 +593,7 @@ update_label("John Doe", "Clowny")
 				return ..()
 
 		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
-		if(user.incapacitated())
+		if(user.incapacitated)
 			return
 		if(popup_input == "Forge/Reset")
 			if(!assignment)

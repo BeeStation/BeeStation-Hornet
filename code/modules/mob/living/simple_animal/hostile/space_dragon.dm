@@ -1,5 +1,5 @@
 /// The darkness threshold for space dragon when choosing a color
-#define DARKNESS_THRESHOLD		50
+#define REJECT_DARK_COLOUR_THRESHOLD 20
 
 /**
  * # Space Dragon
@@ -25,14 +25,13 @@
 	desc = "A vile, leviathan-esque creature that flies in the most unnatural way. Looks slightly similar to a space carp."
 	maxHealth = 350
 	health = 350
-	spacewalk = TRUE
 	combat_mode = TRUE
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	speed = 0
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
-	deathsound = 'sound/creatures/space_dragon_roar.ogg'
+	death_sound = 'sound/creatures/space_dragon_roar.ogg'
 	icon = 'icons/mob/spacedragon.dmi'
 	icon_state = "spacedragon"
 	icon_living = "spacedragon"
@@ -51,7 +50,7 @@
 	ranged = TRUE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
-	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, its life estinguished."
+	death_message = "screeches as its wings turn to dust and it collapses on the floor, its life estinguished."
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
@@ -89,7 +88,7 @@
 	gust.Grant(src)
 	small_sprite = new
 	small_sprite.Grant(src)
-	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	add_traits(list(TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_SPACEWALK), INNATE_TRAIT)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
@@ -221,8 +220,8 @@
 		to_chat(src, span_warning("Not a valid color, please try again."))
 		color_selection()
 		return
-	var/temp_hsv = RGBtoHSV(chosen_color)
-	if(ReadHSV(temp_hsv)[3] < DARKNESS_THRESHOLD)
+	var/list/skin_hsv = rgb2hsv(chosen_color)
+	if(skin_hsv[3] < REJECT_DARK_COLOUR_THRESHOLD)
 		to_chat(src, span_danger("Invalid color. Your color is not bright enough."))
 		color_selection()
 		return
@@ -444,7 +443,7 @@
 		return
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
-	var/message_a = say_quote(message)
+	var/message_a = generate_messagepart(message)
 	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
 		valid_span_class += " big"
@@ -478,4 +477,4 @@
 	start_cooldown()
 	return TRUE
 
-#undef DARKNESS_THRESHOLD
+#undef REJECT_DARK_COLOUR_THRESHOLD

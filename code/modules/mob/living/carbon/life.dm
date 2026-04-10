@@ -12,15 +12,8 @@
 		. = ..()
 	else
 		//Reagent processing needs to come before breathing, to prevent edge cases.
-		if(stat != DEAD)
-			for(var/V in internal_organs)
-				var/obj/item/organ/O = V
-				O.on_life(delta_time, times_fired)
-		else
-			if(reagents && !reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
-				for(var/V in internal_organs)
-					var/obj/item/organ/O = V
-					O.on_death(delta_time, times_fired) //Needed so organs decay while inside the body.
+		//handle_dead_metabolization(delta_time, times_fired) //Dead metabolization first since it can modify life metabolization.
+		handle_organs(delta_time, times_fired)
 
 		. = ..()
 		if(QDELETED(src))
@@ -311,6 +304,27 @@
 		if(BP.needs_processing)
 			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier) / max(bodyparts_with_stam, 1))))
 
+/mob/living/carbon/proc/handle_organs(delta_time, times_fired)
+	if(stat == DEAD)
+		if(reagents && reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
+			return
+		for(var/obj/item/organ/organ in internal_organs)
+			// On-death is where organ decay is handled
+			if(organ?.owner) // organ + owner can be null due to reagent metabolization causing organ shuffling
+				organ.on_death(delta_time, times_fired)
+			// We need to re-check the stat every organ, as one of our others may have revived us
+			if(stat != DEAD)
+				break
+		return
+
+	// NOTE: organs_slot is sorted by GLOB.organ_process_order on insertion
+	for(var/slot in internal_organs_slot)
+		// We don't use get_organ_slot here because we know we have the organ we want, since we're iterating the list containing em already
+		// This code is hot enough that it's just not worth the time
+		var/obj/item/organ/organ = internal_organs_slot[slot]
+		if(organ?.owner) // This exist mostly because reagent metabolization can cause organ reshuffling
+			organ.on_life(delta_time, times_fired)
+
 /mob/living/carbon/handle_diseases(delta_time, times_fired)
 	for(var/thing in diseases)
 		var/datum/disease/D = thing
@@ -357,23 +371,6 @@
 	for(var/datum/mutation/HM as() in dna.mutations)
 		if(HM?.timeout)
 			dna.remove_mutation(HM.type)
-
-//this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
-/mob/living/carbon/handle_status_effects(delta_time, times_fired)
-	..()
-
-	var/restingpwr = 0.5 + 2 * resting
-
-	if(drowsyness)
-		drowsyness = max(drowsyness - (restingpwr * delta_time), 0)
-		blur_eyes(1 * delta_time)
-		if(DT_PROB(2.5, delta_time))
-			AdjustSleeping(100)
-			Unconscious(100)
-
-
-	if(druggy)
-		adjust_drugginess(-0.5 * delta_time)
 
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
@@ -540,7 +537,7 @@
 	if(!needs_heart())
 		return FALSE
 	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-	if(!heart || (heart.organ_flags & ORGAN_SYNTHETIC))
+	if(!heart || IS_ROBOTIC_ORGAN(heart))
 		return FALSE
 	return TRUE
 

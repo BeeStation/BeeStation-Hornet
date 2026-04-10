@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/Initialize(mapload)
 	. = ..()
 	name =  "[colour] slimic pylon"
-	var/itemcolor = "#FFFFFF"
+	var/itemcolor = COLOR_WHITE
 
 	switch(colour)
 		if(SLIME_TYPE_ORANGE)
@@ -38,15 +38,15 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(SLIME_TYPE_METAL)
 			itemcolor = "#7E7E7E"
 		if(SLIME_TYPE_YELLOW)
-			itemcolor = "#FFFF00"
+			itemcolor = COLOR_YELLOW
 		if(SLIME_TYPE_DARK_PURPLE)
-			itemcolor = "#551A8B"
+			itemcolor = COLOR_DARK_PURPLE
 		if(SLIME_TYPE_DARK_BLUE)
-			itemcolor = "#0000FF"
+			itemcolor = COLOR_BLUE
 		if(SLIME_TYPE_SILVER)
 			itemcolor = "#D3D3D3"
 		if(SLIME_TYPE_BLUESPACE)
-			itemcolor = "#32CD32"
+			itemcolor = COLOR_LIME
 		if(SLIME_TYPE_SEPIA)
 			itemcolor = "#704214"
 		if(SLIME_TYPE_CERULEAN)
@@ -54,17 +54,17 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(SLIME_TYPE_PYRITE)
 			itemcolor = "#FAFAD2"
 		if(SLIME_TYPE_RED)
-			itemcolor = "#FF0000"
+			itemcolor = COLOR_RED
 		if(SLIME_TYPE_GREEN)
-			itemcolor = "#00FF00"
+			itemcolor = COLOR_VIBRANT_LIME
 		if(SLIME_TYPE_PINK)
 			itemcolor = "#FF69B4"
 		if(SLIME_TYPE_GOLD)
-			itemcolor = "#FFD700"
+			itemcolor = COLOR_GOLD
 		if(SLIME_TYPE_OIL)
 			itemcolor = "#505050"
 		if(SLIME_TYPE_BLACK)
-			itemcolor = "#000000"
+			itemcolor = COLOR_BLACK
 		if(SLIME_TYPE_LIGHT_PINK)
 			itemcolor = "#FFB6C1"
 		if(SLIME_TYPE_ADAMANTINE)
@@ -433,8 +433,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	change_colour()
 
 /obj/structure/slime_crystal/pyrite/proc/change_colour()
-	var/list/color_list = list("#FFA500","#B19CD9", "#ADD8E6","#7E7E7E","#FFFF00","#551A8B","#0000FF","#D3D3D3", "#32CD32","#704214","#2956B2","#FAFAD2", "#FF0000",
-					"#00FF00", "#FF69B4","#FFD700", "#505050", "#FFB6C1","#008B8B")
+	var/list/color_list = list("#FFA500","#B19CD9", "#ADD8E6","#7E7E7E",COLOR_YELLOW,COLOR_DARK_PURPLE,COLOR_BLUE,"#D3D3D3", COLOR_LIME,"#704214","#2956B2","#FAFAD2", COLOR_RED,
+					COLOR_VIBRANT_LIME, "#FF69B4",COLOR_GOLD, "#505050", "#FFB6C1","#008B8B")
 	for(var/turf/T as anything in RANGE_TURFS(4, src))
 		T.add_atom_colour(pick(color_list), FIXED_COLOUR_PRIORITY)
 
@@ -558,7 +558,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_mob = user
-	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/basic/pet/dog/corgi,/mob/living/basic/pet/dog/pug,/mob/living/basic/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
+	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/basic/pet/dog/corgi,/mob/living/basic/pet/dog/pug,/mob/living/basic/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/basic/pet/cat/kitten,/mob/living/basic/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
 	chosen_pet = new chosen_pet(get_turf(human_mob))
 	human_mob.forceMove(chosen_pet)
 	human_mob.mind.transfer_to(chosen_pet)
@@ -617,16 +617,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 		return
 
 	var/mob/living/carbon/human/human = affected_mob
-	human.dna.species.brutemod -= 0.1
-	human.dna.species.burnmod -= 0.1
+	human.physiology.brute_mod -= 0.1
+	human.physiology.burn_mod -= 0.1
 
 /obj/structure/slime_crystal/adamantine/on_mob_leave(mob/living/affected_mob)
 	if(!ishuman(affected_mob))
 		return
 
 	var/mob/living/carbon/human/human = affected_mob
-	human.dna.species.brutemod += 0.1
-	human.dna.species.burnmod += 0.1
+	human.physiology.brute_mod += 0.1
+	human.physiology.burn_mod += 0.1
 
 /obj/structure/slime_crystal/rainbow
 	colour = SLIME_TYPE_RAINBOW

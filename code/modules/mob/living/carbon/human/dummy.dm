@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["ethcolor"] = GLOB.color_list_ethereal["Cyan"]
 	target.dna.features["frills"] = "None"
 	target.dna.features["horns"] = "None"
-	target.dna.features["mcolor"] = "4c4"
+	target.dna.features["mcolor"] = "#44cc44"
 	target.dna.features["moth_antennae"] = "Plain"
 	target.dna.features["moth_markings"] = "None"
 	target.dna.features["moth_wings"] = "Plain"
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/consistent/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, INSTANT_DO_AFTER, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_INSTANT_DO_AFTER, INNATE_TRAIT)
 
 /mob/living/carbon/human/consistent/setup_human_dna()
 	create_consistent_human_dna(src)

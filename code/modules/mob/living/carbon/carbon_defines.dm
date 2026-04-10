@@ -90,3 +90,5 @@
 	/// Only load in visual organs
 	var/visual_only_organs = FALSE
 
+	/// A bitfield of "bodytypes", updated by /obj/item/bodypart/proc/synchronize_bodytypes()
+	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC

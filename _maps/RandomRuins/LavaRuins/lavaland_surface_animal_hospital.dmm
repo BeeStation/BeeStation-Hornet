@@ -597,7 +597,7 @@
 "wC" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/melee/baton/cattleprod{
+/obj/item/melee/baton/security/cattleprod{
 	desc = "On-the-fly rabies treatment.";
 	name = "cattle prod"
 	},

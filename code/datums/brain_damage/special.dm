@@ -442,7 +442,7 @@
 			continue
 		if(!isliving(nearby_viewers) || !nearby_viewers.mind || nearby_viewers.client?.is_afk())
 			continue
-		if(IS_VAMPIRE(nearby_viewers) || IS_VASSAL(nearby_viewers))
+		if(HAS_MIND_TRAIT(nearby_viewers, TRAIT_VAMPIRE_ALIGNED))
 			continue
 		if(nearby_viewers.has_unlimited_silicon_privilege || nearby_viewers.is_blind())
 			continue

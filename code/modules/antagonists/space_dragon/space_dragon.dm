@@ -6,7 +6,7 @@
 	show_in_antagpanel = TRUE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
-	required_living_playtime = 4
+	required_living_playtime = 0
 	// TODO: ui_name = "AntagInfoDragon"
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
@@ -36,26 +36,26 @@
 /datum/antagonist/space_dragon/proc/forge_objectives()
 	// Areas that will prove challenging for the dragon and provocative to the crew.
 	var/list/area/allowed_areas = typecacheof(list(
-		/area/crew_quarters/heads/captain,
-		/area/crew_quarters/heads/hop,
-		/area/bridge,
-		/area/engine,
-		/area/security,
-		/area/science,
+		/area/station/command/heads_quarters/captain,
+		/area/station/command/heads_quarters/hop,
+		/area/station/command,
+		/area/station/engineering,
+		/area/station/security,
+		/area/station/science,
 	))
 	// Things included above that we do NOT want
 	var/list/area/blocked_areas = typecacheof(list(
-		/area/bridge/showroom,
-		/area/science/test_area,
-		/area/science/misc_lab,
-		/area/science/research/abandoned,
-		/area/science/shuttledock,
-		/area/engine/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
-		/area/engine/transit_tube,
-		/area/engine/engine_room/external,
-		/area/security/prison/asteroid,
-		/area/security/checkpoint,
-		/area/security/courtroom,
+		/area/station/command/corporate_showroom,
+		/area/station/science/test_area,
+		/area/station/science/misc_lab,
+		/area/station/science/research/abandoned,
+		/area/station/science/shuttledock,
+		/area/station/engineering/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
+		/area/station/engineering/transit_tube,
+		/area/station/engineering/supermatter,
+		/area/station/security/prison/asteroid,
+		/area/station/security/checkpoint,
+		/area/station/security/courtroom,
 	))
 
 	var/list/possible_areas = GLOB.areas.Copy()
@@ -87,7 +87,7 @@
 	wavespeak_ability.Grant(owner.current)
 	owner.current.faction |= FACTION_CARP
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
-	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(destroy_rifts))
+	RegisterSignal(owner.current, COMSIG_LIVING_DEATH, PROC_REF(destroy_rifts))
 	RegisterSignal(owner.current, COMSIG_QDELETING, PROC_REF(destroy_rifts))
 	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
 		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
@@ -98,7 +98,7 @@
 	rift_ability.Remove(owner.current)
 	owner.current.faction -= FACTION_CARP
 	UnregisterSignal(owner.current, COMSIG_LIVING_LIFE)
-	UnregisterSignal(owner.current, COMSIG_MOB_DEATH)
+	UnregisterSignal(owner.current, COMSIG_LIVING_DEATH)
 	rift_list = null
 
 /datum/antagonist/space_dragon/Destroy()

@@ -35,7 +35,7 @@
 /datum/component/cult_ritual_item/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(try_scribe_rune))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_purge_holywater))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(try_hit_object))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_ATOM, PROC_REF(try_hit_object))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, PROC_REF(try_clear_rune))
 
 	if(examine_message)
@@ -45,7 +45,7 @@
 	UnregisterSignal(parent, list(
 		COMSIG_ITEM_ATTACK_SELF,
 		COMSIG_ITEM_ATTACK,
-		COMSIG_ITEM_ATTACK_OBJ,
+		COMSIG_ITEM_ATTACK_ATOM,
 		COMSIG_ITEM_ATTACK_EFFECT,
 		))
 	if(examine_message)
@@ -101,7 +101,7 @@
 	INVOKE_ASYNC(src, PROC_REF(do_purge_holywater), user)
 
 /*
- * Signal proc for [COMSIG_ITEM_ATTACK_OBJ].
+ * Signal proc for [COMSIG_ITEM_ATTACK_ATOM].
  * Allows the ritual items to unanchor cult buildings or destroy rune girders.
  */
 /datum/component/cult_ritual_item/proc/try_hit_object(datum/source, obj/structure/target, mob/cultist)
@@ -272,7 +272,7 @@
 	if(!can_scribe_rune(tool, cultist))
 		return FALSE
 
-	if(ispath(rune_to_scribe, /obj/effect/rune/summon) && (!is_station_level(our_turf.z) || istype(get_area(cultist), /area/space)))
+	if(ispath(rune_to_scribe, /obj/effect/rune/summon) && (!is_station_level(our_turf.z) || istype(get_area(cultist), /area/misc/space)))
 		to_chat(cultist, span_cultitalic("The veil is not weak enough here to summon a cultist, you must be on station!"))
 		return
 
@@ -350,8 +350,9 @@
 		return
 	if(!check_if_in_ritual_site(cultist, cult_team))
 		return FALSE
-	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
-
+	var/static/cult_music_played = FALSE
+	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", cult_music_played ? ANNOUNCER_SPANOMALIES : 'sound/ambience/antag/bloodcult_scribe.ogg')
+	cult_music_played = TRUE
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))
 		LAZYADD(shields, new /obj/structure/emergency_shield/sanguine(shielded_turf))
 
@@ -374,7 +375,7 @@
 	if(!rune.Adjacent(cultist))
 		return FALSE
 
-	if(cultist.incapacitated())
+	if(cultist.incapacitated)
 		return FALSE
 
 	if(cultist.stat == DEAD)
@@ -397,7 +398,7 @@
 	if(QDELETED(tool) || !cultist.is_holding(tool))
 		return FALSE
 
-	if(cultist.incapacitated() || cultist.stat == DEAD)
+	if(cultist.incapacitated || cultist.stat == DEAD)
 		to_chat(cultist, span_warning("You can't draw a rune right now."))
 		return FALSE
 
@@ -422,7 +423,7 @@
 		return FALSE
 
 	var/area/our_area = get_area(target)
-	if((!is_station_level(target.z) && !is_mining_level(target.z)) || (our_area && !(our_area.area_flags & BLOBS_ALLOWED)))
+	if((!is_station_level(target.z) && !is_mining_level(target.z)) || (our_area && !(our_area.area_flags & CULT_PERMITTED)))
 		to_chat(cultist, span_warning("The veil is not weak enough here."))
 		return FALSE
 

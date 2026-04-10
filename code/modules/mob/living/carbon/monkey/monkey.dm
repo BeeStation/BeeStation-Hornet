@@ -12,7 +12,7 @@
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
 	// Managed by the limb overlay system
-	blocks_emissive = FALSE
+	blocks_emissive = EMISSIVE_BLOCK_NONE
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,

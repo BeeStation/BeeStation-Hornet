@@ -34,7 +34,7 @@
  * 	FALSE otherwise.
  */
 /mob/living/silicon/pai/proc/check_menu(atom/anchor)
-	if(incapacitated())
+	if(incapacitated)
 		return FALSE
 	if(get_turf(src) != get_turf(anchor))
 		return FALSE
@@ -65,7 +65,7 @@
 	return TRUE
 
 /mob/living/silicon/pai/proc/fold_in(force = FALSE)
-	emittersemicd = TRUE
+	holochassis_ready = FALSE
 	if(!force)
 		addtimer(VARSET_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_COOLDOWN)
 	else
@@ -76,8 +76,8 @@
 		return FALSE
 	visible_message(span_notice("[src] dematerialises!"))
 	stop_pulling()
-	if(istype(loc, /obj/item/clothing/head/mob_holder))
-		var/obj/item/clothing/head/mob_holder/MH = loc
+	if(ispickedupmob(loc))
+		var/obj/item/mob_holder/MH = loc
 		MH.release()
 	if(client)
 		client.perspective = EYE_PERSPECTIVE
@@ -104,18 +104,19 @@
 		balloon_alert(src, "emitter repair incomplete")
 		return FALSE
 
-	if(!canholo && !force)
+	if(!can_holo && !force)
 		balloon_alert(src, "emitters are disabled")
 		return FALSE
 
 	if(holoform)
 		. = fold_in(force)
 		return
-	if(emittersemicd)
+
+	if(!holochassis_ready)
 		balloon_alert(src, "emitters recycling...")
 		return FALSE
 
-	emittersemicd = TRUE
+	holochassis_ready = FALSE
 	addtimer(VARSET_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_COOLDOWN)
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
@@ -125,7 +126,7 @@
 		if(!L.temporarilyRemoveItemFromInventory(card))
 			to_chat(src, span_warning("Error: Unable to expand to mobile form. Chassis is restrained by some device or person."))
 			return FALSE
-	if(istype(card.loc, /obj/structure) || istype(card.loc, /obj/machinery))
+	if(isstructure(card.loc) || ismachinery(card.loc))
 		to_chat(src, span_warning("Error: Unable to expand to mobile form. Chassis is restrained by some device or person."))
 		return FALSE
 	forceMove(get_turf(card))

@@ -32,9 +32,6 @@
 	/// The head of the department to show in the preferences menu
 	var/department_head_for_prefs
 
-	///Mostly deprecated, but only used in pref job savefiles
-	var/department_flag = NONE
-
 	///Players will be allowed to spawn in as jobs that are set to "Station"
 	var/faction = "None"
 
@@ -48,10 +45,10 @@
 	var/supervisors = ""
 
 	///Selection screen color
-	var/selection_color = "#ffffff"
+	var/selection_color = COLOR_WHITE
 
 	///Overhead chat message colour
-	var/chat_color = "#ffffff"
+	var/chat_color = COLOR_WHITE
 
 	///If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify

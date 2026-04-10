@@ -144,7 +144,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
 			message_admins(span_adminnotice("[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs]."))
 
-			var/area/thunderdome = GLOB.areas_by_type[/area/tdome/arena]
+			var/area/thunderdome = GLOB.areas_by_type[/area/centcom/tdome/arena]
 			if(delete_mobs == "Yes")
 				for(var/mob/living/mob in thunderdome)
 					qdel(mob) //Clear mobs
@@ -152,7 +152,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if(!istype(obj, /obj/machinery/camera) && !istype(obj, /obj/effect/landmark/arena))
 					qdel(obj) //Clear objects
 
-			var/area/template = GLOB.areas_by_type[/area/tdome/arena_source]
+			var/area/template = GLOB.areas_by_type[/area/centcom/tdome/arena_source]
 			template.copy_contents_to(thunderdome)
 
 		if("clear_virus")
@@ -323,9 +323,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Monkeyize All Humans"))
-			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-				spawn(0)
-					H.monkeyize()
+			for(var/mob/living/carbon/human/human_mob as anything in GLOB.human_list)
+				INVOKE_ASYNC(human_mob, TYPE_PROC_REF(/mob/living/carbon, monkeyize))
 			ok = 1
 
 		if("allspecies")
@@ -341,8 +340,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			log_admin("[key_name(usr)] turned all humans into [result]", 1)
 			message_admins("\blue [key_name_admin(usr)] turned all humans into [result]")
 			var/newtype = GLOB.species_list[result]
-			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-				H.set_species(newtype)
+			for(var/mob/living/carbon/human/human_mob as anything in GLOB.human_list)
+				human_mob.set_species(newtype)
 
 		if("tripleAI")
 			if(!check_rights(R_FUN))
@@ -418,7 +417,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			for(var/mob/living/H in chosenPlayers)
 				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
 					continue
-				if(H.stat == DEAD || !H.client || !H.mind || ispAI(H))
+				if(H.stat == DEAD || !H.mind || ispAI(H))
 					continue
 				if(is_special_character(H))
 					continue
@@ -521,15 +520,17 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if("Make Your Own")
 					AdminCreateVirus(usr.client)
 				if("Random")
-					E = new /datum/round_event/disease_outbreak()
+					var/datum/round_event_control/disease_outbreak/DC = locate(/datum/round_event_control/disease_outbreak) in SSevents.control
+					E = DC.runEvent()
 				if("Choose")
 					var/virus = tgui_input_list(usr, "Choose the virus to spread", "BIOHAZARD", sort_list(typesof(/datum/disease, GLOBAL_PROC_REF(cmp_typepaths_asc))))
 					if (!virus)
 						to_chat(usr, span_warning("No virus selected."))
 						return
-					E = new /datum/round_event/disease_outbreak{}()
-					var/datum/round_event/disease_outbreak/DO = E
+					var/datum/round_event_control/disease_outbreak/DC = locate(/datum/round_event_control/disease_outbreak) in SSevents.control
+					var/datum/round_event/disease_outbreak/DO = DC.runEvent()
 					DO.virus_type = virus
+					E = DO
 
 		if("dumbify")
 			if(!check_rights(R_FUN))
@@ -557,7 +558,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Egalitarian Station"))
 			for(var/obj/machinery/door/airlock/W in GLOB.machines)
-				if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+				if(is_station_level(W.z) && !istype(get_area(W), /area/station/command) && !istype(get_area(W), /area/station/commons) && !istype(get_area(W), /area/station/security/prison))
 					W.req_access = list()
 			message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 			priority_announce("CentCom airlock control override activated. Please take this time to get acquainted with your coworkers.", null, SSstation.announcer.get_rand_report_sound())
@@ -777,7 +778,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					"playersonly" = list("desc" = "Only spawn ghost-controlled mobs", "type" = "boolean", "value" = "No"),
 					"ghostpoll" = list("desc" = "Ghost poll question", "type" = "string", "value" = "Do you want to play as %TYPE% portal invader?"),
 					"delay" = list("desc" = "Time between portals, in deciseconds", "type" = "number", "value" = 50),
-					"color" = list("desc" = "Portal color", "type" = "color", "value" = "#00FF00"),
+					"color" = list("desc" = "Portal color", "type" = "color", "value" = COLOR_VIBRANT_LIME),
 					"playlightning" = list("desc" = "Play lightning sounds on announcement", "type" = "boolean", "value" = "Yes"),
 					"announce_players" = list("desc" = "Make an announcement", "type" = "boolean", "value" = "Yes"),
 					"announcement" = list("desc" = "Announcement", "type" = "string", "value" = "Massive bluespace anomaly detected en route to %STATION%. Brace for impact."),
@@ -805,12 +806,13 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/list/candidates = list()
 
 				if (prefs["offerghosts"]["value"] == "Yes")
-					var/datum/poll_config/config = new()
-					config.question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name))
-					config.check_jobban = BAN_ROLE_ALL_ANTAGONISTS
-					config.poll_time = 30 SECONDS
-					config.role_name_text = "portal storm"
-					config.alert_pic = /obj/structure/carp_rift
+					var/datum/poll_config/config = new(
+						question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)),
+						check_jobban = BAN_ROLE_ALL_ANTAGONISTS,
+						poll_time = 30 SECONDS,
+						role_name_text = "portal storm",
+						alert_pic = /obj/structure/carp_rift,
+					)
 					SSpolling.poll_ghost_candidates(config)
 				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
@@ -841,8 +843,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	if(E)
 		E.processing = FALSE
 		if(E.announceWhen>0)
-			if(tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No")) != "Yes")
-				E.announceChance = 0
+			switch(tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No", "Cancel")))
+				if("Yes")
+					E.announceChance = 100
+				if("Cancel")
+					E.kill()
+					return
+				if("No")
+					E.announceChance = 0
 		E.processing = TRUE
 	if (usr)
 		log_admin("[key_name(usr)] used secret [action]")
@@ -873,5 +881,5 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/mob/living/carbon/human/H = spawnedMob
 			H.equipOutfit(humanoutfit)
 	var/turf/T = get_step(loc, SOUTHWEST)
-	flick_overlay_static(portal_appearance, T, 15)
+	T.flick_overlay_static(portal_appearance, 15)
 	playsound(T, 'sound/magic/lightningbolt.ogg', rand(80, 100), 1)

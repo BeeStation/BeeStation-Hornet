@@ -49,6 +49,11 @@
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 	var/timeofdeath = 0
 
+	///A message sent when the mob dies, with the *deathgasp emote
+	var/death_message = ""
+	///A sound sent when the mob dies, with the *deathgasp emote
+	var/death_sound
+
 	/// Helper vars for quick access to firestacks, these should be updated every time firestacks are adjusted
 	var/on_fire = FALSE
 	var/fire_stacks = 0
@@ -87,7 +92,12 @@
 	var/usable_hands = 2
 
 	var/list/pipes_shown = list()
-	var/last_played_vent
+	var/last_played_vent = 0
+	/// The last direction we moved in a vent. Used to make holding two directions feel nice
+	var/last_vent_dir = 0
+	/// Cell tracker datum we use to manage the pipes around us, for faster ventcrawling
+	/// Should only exist if you're in a pipe
+	var/datum/cell_tracker/pipetracker
 	/// Cooldown for welded vent movement messages to prevent spam
 	COOLDOWN_DECLARE(welded_vent_message_cd)
 
@@ -123,6 +133,8 @@
 	var/last_words	//used for database logging
 
 	var/can_be_held = FALSE	//whether this can be picked up and held.
+	/// The w_class of the holder when held.
+	var/held_w_class = WEIGHT_CLASS_NORMAL
 	var/worn_slot_flags = NONE //if it can be held, can it be equipped to any slots? (think pAI's on head)
 
 	var/ventcrawl_layer = PIPING_LAYER_DEFAULT
@@ -167,3 +179,5 @@
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
+	//to track the last use of say's message arg
+	var/last_say_args_ref

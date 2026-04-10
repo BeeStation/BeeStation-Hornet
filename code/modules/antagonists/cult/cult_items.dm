@@ -46,7 +46,7 @@ Striking a noncultist, however, will tear their flesh."}
 	inhand_icon_state = "cultblade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
@@ -112,8 +112,7 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "A strong bola, bound with dark magic that allows it to pass harmlessly through Nar'Sien cultists. Throw it to trip and slow your victim."
 	icon_state = "bola_cult"
 	inhand_icon_state = "bola_cult"
-	breakouttime = 6 SECONDS
-	knockdown = 2 SECONDS
+	knockdown = 6 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -514,7 +513,7 @@ Striking a noncultist, however, will tear their flesh."}
 	light_range = 1
 	icon_state = "torch"
 	inhand_icon_state = "torch"
-	color = "#ff0000"
+	color = COLOR_RED
 	on_damage = 15
 	slot_flags = null
 	on = TRUE
@@ -534,7 +533,7 @@ Striking a noncultist, however, will tear their flesh."}
 			if(cult_mind.current?.stat != DEAD)
 				cultists |= cult_mind.current
 		var/mob/living/cultist_to_receive = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in (cultists - user)
-		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
+		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated)
 			return
 		if(!cultist_to_receive)
 			to_chat(user, span_cultitalic("You require a destination!"))
@@ -655,7 +654,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
 	desc = "Blood for blood."
-	color = "#ff0000"
+	color = COLOR_RED
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
@@ -752,9 +751,9 @@ Striking a noncultist, however, will tear their flesh."}
 		if(i > 1)
 			sleep(15)
 		if(i < 4)
-			O = new /obj/effect/temp_visual/cult/rune_spawn/rune1/inner(user.loc, 30, "#ff0000")
+			O = new /obj/effect/temp_visual/cult/rune_spawn/rune1/inner(user.loc, 30, COLOR_RED)
 		else
-			O = new /obj/effect/temp_visual/cult/rune_spawn/rune5(user.loc, 30, "#ff0000")
+			O = new /obj/effect/temp_visual/cult/rune_spawn/rune5(user.loc, 30, COLOR_RED)
 			new /obj/effect/temp_visual/dir_setting/cult/phase/out(user.loc, user.dir)
 	if(O)
 		qdel(O)
@@ -862,24 +861,25 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/shield/mirror/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
-	var/datum/thrownthing/D = throwingdatum
 	if(isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		if(IS_CULTIST(L))
+		var/mob/living/target = hit_atom
+
+		if(target.can_block_magic(MAGIC_RESISTANCE_HOLY) || IS_CULTIST(target))
+			target.visible_message(span_warning("[src] bounces off of [target], as if repelled by an unseen force!"))
+			return
+		if(IS_CULTIST(target) && target.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(L.put_in_active_hand(src))
-				L.visible_message(span_warning("[L] catches [src] out of the air!"))
-			else
-				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
-		else if(!..())
-			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
-				L.Knockdown(30)
-				if(D?.thrower)
-					for(var/mob/living/Next in orange(2, T))
-						if(!Next.density || IS_CULTIST(Next))
-							continue
-						throw_at(Next, 3, 1, D.thrower)
-						return
-					throw_at(D.thrower, 7, 1, null)
+			target.visible_message(span_warning("[target] catches [src] out of the air!"))
+			return
+		if(!..())
+			target.Knockdown(30)
+			var/mob/living/carbon/thrower = throwingdatum?.get_thrower()
+			if(thrower)
+				for(var/mob/living/Next in orange(2, T))
+					if(!Next.density || IS_CULTIST(Next))
+						continue
+					throw_at(Next, 3, 1, thrower)
+					return
+				throw_at(thrower, 7, 1, null)
 	else
 		..()

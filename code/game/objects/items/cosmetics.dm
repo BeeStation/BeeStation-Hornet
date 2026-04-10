@@ -104,7 +104,7 @@
 	desc = "The latest and greatest power razor born from the science of shaving."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "razor"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = 15
 	var/extended = 1
@@ -129,7 +129,7 @@
 	if(!ishuman(M) || extended != 1 || user.combat_mode)
 		return ..()
 	var/mob/living/carbon/human/H = M
-	// Must be targetting the head
+	// Must be targeting the head
 	if (!user.is_zone_selected(BODY_ZONE_HEAD) && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 		return ..()
 	if(!H.get_bodypart(BODY_ZONE_HEAD))
@@ -249,7 +249,6 @@
 	name = "straight razor"
 	icon_state = "straightrazor"
 	desc = "An incredibly sharp razor used to shave chins, make surgical incisions, and slit the throats of unpaying customers"
-	flags_1 = CONDUCT_1
 	force = 3
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5

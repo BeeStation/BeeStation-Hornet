@@ -62,7 +62,7 @@
 		if(!over_object)
 			return
 
-		if(!M.incapacitated())
+		if(!M.incapacitated)
 
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				var/atom/movable/screen/inventory/hand/H = over_object
@@ -93,7 +93,7 @@
 	icon = 'icons/obj/guns/minigun.dmi'
 	icon_state = "minigun_spin"
 	inhand_icon_state = "minigun"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slowdown = 1
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE

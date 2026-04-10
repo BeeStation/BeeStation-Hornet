@@ -108,7 +108,7 @@
 				to_chat(user, span_notice("You fill the balloon with the contents of [I]."))
 				I.reagents.trans_to(src, 10, transfered_by = user)
 				update_icon()
-	else if(I.is_sharp())
+	else if(I.get_sharpness())
 		balloon_burst()
 	else
 		return ..()
@@ -217,7 +217,7 @@
 	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	flags_1 =  CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=10)
@@ -401,7 +401,7 @@
 /obj/item/toy/batong
 	name = "batong"
 	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
 	inhand_icon_state = "baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
@@ -501,7 +501,7 @@
 	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 15
 	throwforce = 5
@@ -595,6 +595,7 @@
 /obj/item/toy/mecha/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/series, /obj/item/toy/mecha, "Mini-Mecha action figures")
+	AddElement(/datum/element/toy_talk)
 
 //all credit to skasi for toy mech fun ideas
 /obj/item/toy/mecha/attack_self(mob/user)
@@ -1097,7 +1098,7 @@
 /obj/item/toy/cards/cardhand/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 
@@ -1468,6 +1469,7 @@
 /obj/item/toy/figure/Initialize(mapload)
 	. = ..()
 	desc = "A \"Space Life\" brand [src]."
+	AddElement(/datum/element/toy_talk)
 
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown <= world.time)
@@ -1701,13 +1703,9 @@
 	to_chat(user, "You name the dummy as \"[doll_name]\"")
 	name = "[initial(name)] - [doll_name]"
 
-/obj/item/toy/dummy/talk_into(atom/movable/A, message, channel, list/spans, datum/language/language, list/message_mods)
-	var/mob/M = A
-	if (istype(M))
-		M.log_talk(message, LOG_SAY, tag="dummy toy")
-
-	say(message, language)
-	return NOPASS
+/obj/item/toy/dummy/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/toy_talk)
 
 /obj/item/toy/dummy/GetVoice()
 	return doll_name

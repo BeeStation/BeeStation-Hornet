@@ -3,7 +3,7 @@
 	desc = "Attack the weak point for massive damage."
 	health = 500
 	maxHealth = 500
-	spacewalk = TRUE
+
 	combat_mode = TRUE
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS

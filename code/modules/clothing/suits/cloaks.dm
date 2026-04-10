@@ -157,17 +157,23 @@
 	bleed = 50
 
 /obj/item/clothing/suit/hooded/cloak/bone
-	name = "Heavy bone armor"
+	name = "heavy bone armor"
 	icon_state = "hbonearmor"
 	desc = "A tribal armor plate, crafted from animal bone. A heavier variation of standard bone armor."
 	armor_type = /datum/armor/cloak_bone
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/bone
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
+	heat_protection = CHEST | GROIN | LEGS | FEET | ARMS
+	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
-
+	transparent_protection = HIDEGLOVES | HIDESUITSTORAGE | HIDEJUMPSUIT | HIDESHOES
+	allowed = list(
+		/obj/item/spear/bonespear,
+		/obj/item/claymore/bone,
+		/obj/item/fireaxe/boneaxe,
+		/obj/item/knife/combat/bone,
+		/obj/item/gun/ballistic/bow/ashen,
+	)
 
 /datum/armor/cloak_bone
 	melee = 40
@@ -218,7 +224,7 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "fakehalo"
 
-/obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
+/obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(iscarbon(M))
 		var/mob/living/carbon/carbon_wearer = M
 		if(carbon_wearer.overlays_standing[HALO_LAYER])

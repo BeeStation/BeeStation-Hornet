@@ -45,7 +45,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "es" = (
@@ -76,7 +81,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 10
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -162,7 +172,9 @@
 	id = "exploholo";
 	anchored = 1
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "0-4"
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 5
 	},
@@ -283,7 +295,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "nh" = (
@@ -356,6 +370,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -399,7 +416,9 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "sx" = (
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/purple/visible,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
@@ -423,7 +442,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 1
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -433,6 +454,9 @@
 	dir = 1
 	},
 /obj/machinery/light/small/directional/north,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/textured_half,
 /area/shuttle/exploration)
 "tQ" = (
@@ -448,7 +472,9 @@
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
 	},
@@ -558,7 +584,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 1
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -597,6 +625,9 @@
 /area/shuttle/exploration)
 "HW" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/smooth,
 /area/shuttle/exploration)
 "HZ" = (
@@ -628,14 +659,18 @@
 	id = "exploholo";
 	anchored = 1
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
 /area/shuttle/exploration)
 "Ie" = (
 /obj/machinery/door/airlock/hatch,
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 4
 	},
@@ -663,7 +698,7 @@
 /obj/effect/turf_decal/edges/techfloor_orange{
 	dir = 1
 	},
-/mob/living/simple_animal/chicken/turkey{
+/mob/living/simple_animal/turkey{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
 	health = 200;
@@ -768,6 +803,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 1
 	},
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/smooth,
 /area/shuttle/exploration)
 "NG" = (
@@ -834,6 +872,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -857,7 +898,9 @@
 	},
 /area/shuttle/exploration)
 "QT" = (
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
@@ -869,9 +912,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
 	},
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
@@ -898,6 +946,9 @@
 /obj/machinery/light/directional/east,
 /obj/effect/turf_decal/edges/borderfloor/black/corner1,
 /obj/machinery/light_switch/directional/east,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/smooth,
 /area/shuttle/exploration)
 "Sp" = (
@@ -908,7 +959,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -931,7 +984,9 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "WI" = (
@@ -1007,7 +1062,9 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 4
 	},
@@ -1019,7 +1076,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/shutters{
 	id = "exploshittletop"

@@ -44,7 +44,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -107,7 +107,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "M" = (
 /obj/structure/lattice,
 /obj/structure/sign/logo{
@@ -115,7 +115,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "O" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
@@ -127,7 +127,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "V" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
@@ -146,7 +146,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "Y" = (
 /obj/structure/lattice,
 /obj/structure/sign/logo{
@@ -154,7 +154,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 a

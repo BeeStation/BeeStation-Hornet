@@ -3,15 +3,12 @@
 	name = "\improper Lizardperson"
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
-	bodyflag = FLAG_LIZARD
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
 		LIPS
 	)
-	inherent_traits = list(
-		TRAIT_TACKLING_TAILED_DEFENDER
-	)
+	inherent_traits = list()
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
 	mutant_bodyparts = list(
 		"tail_lizard" = "Smooth",
@@ -24,6 +21,7 @@
 		"body_size" = "Normal"
 	)
 	mutanttongue = /obj/item/organ/tongue/lizard
+	mutantbrain = /obj/item/organ/brain/lizard
 	mutant_organs = list(/obj/item/organ/tail/lizard)
 	coldmod = 1.5
 	heatmod = 0.67
@@ -115,8 +113,8 @@
 	)
 	inherent_traits = list(
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_VIRUSIMMUNE
-		)
+		TRAIT_VIRUSIMMUNE,
+	)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	mutantbrain = /obj/item/organ/brain/primitive

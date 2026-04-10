@@ -14,7 +14,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner capable of distinguishing vital signs of the subject. Has a side button to scan for chemicals"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
@@ -88,7 +88,7 @@
  * tochat - Whether to immediately post the result into the chat of the user, otherwise it will return the results.
  */
 /proc/healthscan(mob/user, mob/living/target, mode = SCANNER_VERBOSE, advanced = FALSE, tochat = TRUE)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	// the final list of strings to render
@@ -109,8 +109,9 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/humantarget = target
-		if(humantarget.undergoing_cardiac_arrest() && humantarget.stat != DEAD)
-			render_list += "<span class='alert ml-1'><b>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</b></span>\n"
+		var/obj/item/organ/heart/heart = humantarget.get_organ_slot(ORGAN_SLOT_HEART)
+		if(heart && !heart.beating)
+			render_list += "<span class='alert ml-1'><b>No cardiac activity detected. Apply defibrillation or other electric shock immediately!</b></span>\n"
 
 	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, render_list, advanced, user, mode, tochat)
 
@@ -169,8 +170,8 @@
 		if(istype(ears))
 			if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, GENETIC_MUTATION))
 				render_list += "<span class='alert ml-2'>Subject is genetically deaf.\n</span>"
-			//else if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, EAR_DAMAGE))
-			//	render_list += "<span class='alert ml-2'>Subject is deaf from ear damage.\n</span>"
+			else if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, EAR_DAMAGE))
+				render_list += "<span class='alert ml-2'>Subject is deaf from ear damage.\n</span>"
 			else if(HAS_TRAIT(carbontarget, TRAIT_DEAF))
 				render_list += "<span class='alert ml-2'>Subject is deaf.\n</span>"
 			else
@@ -281,7 +282,6 @@
 			|| targetspecies.mutantheart != initial(targetspecies.mutantheart) \
 			|| targetspecies.mutanteyes != initial(targetspecies.mutanteyes) \
 			|| targetspecies.mutantears != initial(targetspecies.mutantears) \
-			|| targetspecies.mutanthands != initial(targetspecies.mutanthands) \
 			|| targetspecies.mutanttongue != initial(targetspecies.mutanttongue) \
 			|| targetspecies.mutantliver != initial(targetspecies.mutantliver) \
 			|| targetspecies.mutantstomach != initial(targetspecies.mutantstomach) \
@@ -356,7 +356,7 @@
 			var/blood_info = "[blood_type] (Compatible: [jointext(compatible_names, ", ")])"
 
 			if(HAS_TRAIT(carbontarget, TRAIT_MASQUERADE))
-				render_list += "<span class='alert ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
+				render_list += "<span class='info ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
 				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)
@@ -369,7 +369,7 @@
 		var/mob/living/carbon/carbontarget = target
 		var/cyberimp_detect
 		for(var/obj/item/organ/cyberimp/cyberimp in carbontarget.internal_organs)
-			if(cyberimp.status == ORGAN_ROBOTIC && !cyberimp.syndicate_implant)
+			if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
 				cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.examine_title(user)]" : ", [cyberimp.examine_title(user)]"]"
 		if(cyberimp_detect)
 			render_list += "<span class='notice ml-1'>Detected cybernetic modifications:</span>\n"
@@ -383,7 +383,7 @@
 		return(jointext(render_list, ""))
 
 /proc/chemscan(mob/living/user, mob/living/target)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	if(istype(target) && target.reagents)

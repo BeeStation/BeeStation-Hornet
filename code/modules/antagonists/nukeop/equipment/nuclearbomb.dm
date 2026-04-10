@@ -36,7 +36,6 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/proper_bomb = TRUE //Please
 	var/bomb_z_level = null
 	var/obj/effect/countdown/nuclearbomb/countdown
-	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
 
 /obj/machinery/nuclearbomb/Initialize(mapload)
@@ -448,7 +447,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 
 		if(proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
+			play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 	else
 		detonation_timer = null
 		SSsecurity_level.set_level(previous_level)
@@ -506,7 +505,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/area/A = get_area(bomb_location)
 
 	if(bomb_location && is_station_level(bomb_location.z))
-		if(istype(A, /area/space))
+		if(istype(A, /area/misc/space))
 			off_station = NUKE_NEAR_MISS
 		if((bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)))
 			off_station = NUKE_NEAR_MISS
@@ -612,7 +611,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	// take in a z level as a number, and kill everyone on the same 'z orbital map' or z group
 	if(!zGroup)
 		return
-	for(var/mob/M in GLOB.mob_list)
+	for(var/mob/living/M in GLOB.alive_mob_list)
 		if (compare_z(M.get_virtual_z_level(), zGroup)) // check whether the mob is on the same z orbital map as the input level (as in multi-z stations etc)
 			if(M.stat != DEAD && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 				to_chat(M, span_userdanger("You are shredded to atoms!"))

@@ -59,9 +59,9 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/nullrod/tribal_knife,
 		/obj/item/nullrod/fedora,
 		/obj/item/nullrod/godhand,
-		/obj/item/melee/baton/loaded,
+		/obj/item/melee/baton/security/loaded,
 		/obj/item/melee/chainofcommand/tailwhip/kitty,
-		/obj/item/melee/classic_baton,
+		/obj/item/melee/baton,
 		/obj/item/melee/ghost_sword,
 		/obj/item/melee/powerfist,
 		/obj/item/storage/firstaid/advanced,
@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/energy_katana,
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
-		/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+		/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
 		/obj/item/holoparasite_creator/tech,
 		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
@@ -239,7 +239,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(living_victims <= 1 && !debug_mode)
 		to_chat(world, span_ratvar("<font size=18>VICTORY ROYALE!!</font>"))
 		if(winner)
-			winner.client?.process_greentext()
+			winner.client?.give_award(/datum/award/achievement/misc/greentext, winner)
 			to_chat(world, span_ratvar("<font size=18>[key_name(winner)] is the winner!</font>"))
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
 		qdel(src)
@@ -323,13 +323,16 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/datum/poll_config/config = new()
-	config.question = "Would you like to partake in BATTLE ROYALE?"
-	config.poll_time = 30 SECONDS
-	config.role_name_text = "battle royale player"
-	config.alert_pic = /obj/item/claymore
+	var/datum/poll_config/config = new(
+		question = "Would you like to partake in BATTLE ROYALE?",
+		poll_time = 30 SECONDS,
+		role_name_text = "battle royale player",
+		alert_pic = /obj/item/claymore,
+	)
 	var/list/participants = SSpolling.poll_ghost_candidates(config)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
+	if(!spawn_turf)
+		return
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
 	players = list()
@@ -388,6 +391,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(!item_path)
 		return
 	var/turf/target = get_safe_random_station_turfs()
+	if(!target)
+		return
 	var/obj/structure/closet/supplypod/battleroyale/pod = new()
 	if(islist(item_path))
 		for(var/thing in item_path)

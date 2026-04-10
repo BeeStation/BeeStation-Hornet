@@ -53,7 +53,7 @@
 		E.trigger()
 	..()
 
-/mob/living/simple_animal/hostile/asteroid/fugu/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/asteroid/fugu/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && wumbo)
 		return FALSE
 	. = ..()

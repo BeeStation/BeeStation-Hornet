@@ -415,23 +415,18 @@
 
 /datum/supply_pack/security/secpistol_ammo
 	name = "x200 LAW - NPS ammo Crate"
-	desc = "A box of x200 LAW; steel-cartridged low velocity ammo for law enforcement firearms, and 3 twelve-packs alongside. Requires Security access to open."
-	cost = 950
+	desc = "A box of x200 LAW; steel-cartridged low velocity ammo for law enforcement firearms. Contains a total of 16 lethal bullets, 2 magazines worth. Requires Security access to open."
+	cost = 600
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/x200law,
-					/obj/item/ammo_box/pouch/x200law,
-					/obj/item/ammo_box/pouch/x200law,
-					/obj/item/ammo_box/pouch/x200law)
+	contains = list(/obj/item/ammo_box/x200law)
 	crate_name = "ammo crate"
 
 /datum/supply_pack/security/secpistol_mags
-	name = "NPS-10 magazines Crate"
-	desc = "Three standard issue NPS-10 compatible magazines for law enforcement firearms. Does not come pre-loaded. Requires Security access to open."
-	cost = 1200
+	name = "NPS-10 spare magazine"
+	desc = "A spare magazine for the standard issue NPS-10 firearm. Does not come pre-loaded. Requires Security access to open."
+	cost = 450
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/magazine/x200law/empty,
-					/obj/item/ammo_box/magazine/x200law/empty,
-					/obj/item/ammo_box/magazine/x200law/empty)
+	contains = list(/obj/item/ammo_box/magazine/x200law/empty)
 	crate_name = "magazine crate"
 
 /datum/supply_pack/security/taser
@@ -605,9 +600,9 @@
 	desc = "Arm the Civil Protection Forces with three stun batons. Batteries included. Requires Security access to open."
 	cost = 900
 	max_supply = 4
-	contains = list(/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded)
+	contains = list(/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded)
 	crate_name = "stun baton crate"
 
 /datum/supply_pack/security/wall_flash
@@ -2870,7 +2865,7 @@
 	name = "Cat Crate"
 	desc = "The cat goes meow! Comes with a collar and a nice cat toy! Cheeseburger not included."//i can't believe im making this reference
 	cost = 5000 //Cats are worth as much as corgis.
-	contains = list(/mob/living/simple_animal/pet/cat,
+	contains = list(/mob/living/basic/pet/cat,
 					/obj/item/clothing/neck/petcollar,
 					/obj/item/toy/cattoy)
 	crate_name = "cat crate"
@@ -2878,9 +2873,9 @@
 /datum/supply_pack/critter/cat/generate()
 	. = ..()
 	if(prob(50))
-		var/mob/living/simple_animal/pet/cat/C = locate() in .
+		var/mob/living/basic/pet/cat/C = locate() in .
 		qdel(C)
-		new /mob/living/simple_animal/pet/cat/Proc(.)
+		new /mob/living/basic/pet/cat/_proc(.)
 
 /datum/supply_pack/critter/cat/exotic
 	name = "Exotic Cat Crate"
@@ -2894,15 +2889,15 @@
 	. = ..()
 	switch(rand(1, 5))
 		if(1)
-			new /mob/living/simple_animal/pet/cat/original(.)
+			new /mob/living/basic/pet/cat/original(.)
 		if(2)
-			new /mob/living/simple_animal/pet/cat/breadcat(.)
+			new /mob/living/basic/pet/cat/breadcat(.)
 		if(3)
-			new /mob/living/simple_animal/pet/cat/cak(.)
+			new /mob/living/basic/pet/cat/cak(.)
 		if(4)
-			new /mob/living/simple_animal/pet/cat/space(.)
+			new /mob/living/basic/pet/cat/space(.)
 		if(5)
-			new /mob/living/simple_animal/pet/cat/halal(.)
+			new /mob/living/basic/pet/cat/halal(.)
 
 /datum/supply_pack/critter/chick
 	name = "Chicken Crate"
@@ -3581,8 +3576,7 @@
 	cost = 1200
 	max_supply = 3
 	access_budget = ACCESS_LIBRARY
-	contains = list(/obj/item/book/codex_gigas,
-					/obj/item/book/manual/random/,
+	contains = list(/obj/item/book/manual/random/,
 					/obj/item/book/manual/random/,
 					/obj/item/book/manual/random/,
 					/obj/item/book/random,

@@ -121,10 +121,11 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
+#define FIRE_PRIORITY_UNPLANNED_NPC 3
+#define FIRE_PRIORITY_IDLE_NPC 		5
 #define FIRE_PRIORITY_SCREENTIPS	5	// Don't spend a lot of time on this
 #define FIRE_PRIORITY_STAT			10
 #define FIRE_PRIORITY_AMBIENCE		10
-#define FIRE_PRIORITY_IDLE_NPC		10
 #define FIRE_PRIORITY_SERVER_MAINT	10
 #define FIRE_PRIORITY_RESEARCH		10
 #define FIRE_PRIORITY_VIS			10
@@ -246,6 +247,7 @@
 	* * callback the callback to call on timer finish
 	* * wait deciseconds to run the timer for
 	* * flags flags for this timer, see: code\__DEFINES\subsystems.dm
+	* * timer_subsystem the subsystem to insert this timer into
 */
 #define addtimer(args...) _addtimer(args, file = __FILE__, line = __LINE__)
 

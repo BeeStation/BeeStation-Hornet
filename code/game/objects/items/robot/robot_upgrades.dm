@@ -42,7 +42,7 @@
 	one_use = TRUE
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = sanitize_name(stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN))
+	heldname = sanitize_name(stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN), allow_numbers = TRUE)
 	log_game("[key_name(user)] have set \"[heldname]\" as a name in a cyborg reclassification board at [loc_name(user)]")
 
 /obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/robot, user = usr)
@@ -364,7 +364,7 @@
 	return ..()
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
-	playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
+	playsound(cyborg, 'sound/effects/turbolift/turbolift-close.ogg', 90)
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
 	update_appearance()
@@ -440,7 +440,7 @@
 	desc = "An upgrade to the Medical module's hypospray, allowing it \
 		to treat a wider range of conditions and problems."
 	additional_reagents = list(/datum/reagent/medicine/mannitol, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate,
-		/datum/reagent/medicine/mutadone, /datum/reagent/medicine/haloperidol, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/sal_acid, /datum/reagent/medicine/rezadone,
+		/datum/reagent/medicine/mutadone, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/sal_acid, /datum/reagent/medicine/rezadone,
 		/datum/reagent/medicine/pen_acid)
 
 /obj/item/borg/upgrade/piercing_hypospray

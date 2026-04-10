@@ -159,13 +159,13 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
-#define ismouse(A) (istype(A, /mob/living/simple_animal/mouse))
+#define ismouse(A) (istype(A, /mob/living/basic/mouse))
 
 #define isslime(A) (istype(A, /mob/living/simple_animal/slime))
 
 #define isdrone(A) (istype(A, /mob/living/simple_animal/drone))
 
-#define iscat(A) (istype(A, /mob/living/simple_animal/pet/cat))
+#define iscat(A) (istype(A, /mob/living/basic/pet/cat))
 
 #define isdog(A) (istype(A, /mob/living/basic/pet/dog))
 
@@ -231,13 +231,13 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismecha(A) (istype(A, /obj/vehicle/sealed/mecha))
 
-#define ismedicalmecha(A) (istype(A, /obj/vehicle/sealed/mecha/medical))
-
 #define ismopable(A) (A && (A.layer <= FLOOR_CLEAN_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
 
 #define isorgan(A) (istype(A, /obj/item/organ))
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
+
+#define ispickedupmob(A) (istype(A, /obj/item/mob_holder)) // Checks if clothing item is actually a held mob
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,

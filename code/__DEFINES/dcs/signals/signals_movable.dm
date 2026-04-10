@@ -1,11 +1,6 @@
-// Format:
+// Atom movable signals. Format:
 // When the signal is called: (signal arguments)
 // All signals send the source datum of the signal as the first argument
-
-#define COMSIG_MOVABLE_ENTERED_AREA "enter_area" 							//! from base of area/Entered(): (/area)
-#define COMSIG_MOVABLE_EXITTED_AREA "exit_area" 							//! from base of area/Exited(): (/area)
-
-// /atom/movable signals
 
 ///from base of atom/movable/Moved(): (/atom)
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
@@ -53,13 +48,13 @@
 #define COMSIG_MOVABLE_SECLUDED_LOCATION "movable_secluded" 	//! called when the movable is placed in an unaccessible area, used for stationloving: ()
 ///from base of atom/movable/Hear(): (proc args list(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range))
 #define COMSIG_MOVABLE_HEAR "movable_hear"
-	#define HEARING_MESSAGE 1
-	#define HEARING_SPEAKER 2
-//	#define HEARING_LANGUAGE 3
-	#define HEARING_RAW_MESSAGE 4
-	#define HEARING_RADIO_FREQ 5
-	#define HEARING_SPANS 6
-	#define HEARING_MESSAGE_MODE 7
+	#define HEARING_SPEAKER 1
+	#define HEARING_LANGUAGE 2
+	#define HEARING_RAW_MESSAGE 3
+	#define HEARING_RADIO_FREQ 4
+	#define HEARING_SPANS 5
+	#define HEARING_MESSAGE_MODE 6
+	#define HEARING_RANGE 7
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
@@ -80,6 +75,14 @@
 	/// Return to prevent the movable from talking into the radio.
 	#define COMPONENT_CANNOT_USE_RADIO (1<<0)
 
+/// Sent from /atom/movable/proc/generate_messagepart() generating a quoted message, after say verb is chosen and before spans are applied.
+#define COMSIG_MOVABLE_SAY_QUOTE "movable_say_quote"
+	// Used to access COMSIG_MOVABLE_SAY_QUOTE argslist
+	/// The index of args that corresponds to the actual message
+	#define MOVABLE_SAY_QUOTE_MESSAGE 1
+	#define MOVABLE_SAY_QUOTE_MESSAGE_SPANS 2
+	#define MOVABLE_SAY_QUOTE_MESSAGE_MODS 3
+
 ///from base of atom/movable/newtonian_move(): (inertia_direction)
 #define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"
 	#define COMPONENT_MOVABLE_NEWTONIAN_BLOCK (1<<0)
@@ -97,3 +100,7 @@
 /// From base of datum/element/movetype_handler/on_movement_type_trait_loss: (flag, old_movement_type)
 #define COMSIG_MOVETYPE_FLAG_DISABLED "movetype_flag_disabled"
 
+/// From base of area/Exited(): (area/left, direction)
+#define COMSIG_MOVABLE_EXITED_AREA "movable_exited_area"
+///from base of /atom/movable/point_at: (atom/A, obj/effect/temp_visual/point/point)
+#define COMSIG_MOVABLE_POINTED "movable_pointed"

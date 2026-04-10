@@ -8,7 +8,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	fire_sound = 'sound/weapons/emitter.ogg'
-	flags_1 =  CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_BULKY
 	var/antimagic_flags = MAGIC_RESISTANCE
 	var/max_charges = 6
@@ -36,7 +36,7 @@
 /obj/item/gun/magic/can_trigger_gun(mob/living/user)
 	if(no_den_usage)
 		var/area/A = get_area(user)
-		if(istype(A, /area/wizard_station))
+		if(istype(A, /area/centcom/wizard_station))
 			add_fingerprint(user)
 			to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 			return FALSE

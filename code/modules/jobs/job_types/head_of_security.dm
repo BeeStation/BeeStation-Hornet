@@ -54,9 +54,9 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hos,
-		/area/security/detectives_office,
-		/area/security/warden
+		/area/station/command/heads_quarters/hos,
+		/area/station/security/detectives_office,
+		/area/station/security/warden
 	)
 
 	manuscript_jobs = list(
@@ -81,6 +81,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
 	l_pocket = /obj/item/clothing/accessory/badge/hos
+	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

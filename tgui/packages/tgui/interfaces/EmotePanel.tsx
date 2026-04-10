@@ -267,9 +267,9 @@ const EmoteIcons = (props) => {
   );
 };
 
-export const EmotePanel = (props) => {
+export const EmotePanel = () => {
   return (
-    <Window width={630} height={500}>
+    <Window width={630} height={500} theme="generic">
       <Window.Content scrollable>
         <EmotePanelContent />
       </Window.Content>

@@ -3,7 +3,6 @@
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
 	sexes = 0 //no sex for bug/plant people!
-	bodyflag = FLAG_DIONA
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
@@ -28,10 +27,7 @@
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	attack_verb = "slash"
 	attack_sound = 'sound/emotes/diona/hit.ogg'
-	burnmod = 1.25
 	heatmod = 1.5
-	brutemod = 0.8
-	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
@@ -111,7 +107,7 @@
 	//Dionae heal and eat radiation for a living.
 	source.adjust_nutrition(intensity * 0.1 * delta_time)
 	if(intensity > 50)
-		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_status = BODYTYPE_ORGANIC)
+		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_bodytype = BODYTYPE_ORGANIC)
 		source.adjustToxLoss(-2 * delta_time)
 		source.adjustOxyLoss(-1 * delta_time)
 
@@ -155,7 +151,6 @@
 	split_ability.Grant(H)
 	partition_ability = new
 	partition_ability.Grant(H)
-	ADD_TRAIT(H, TRAIT_MOBILE, "diona")
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
@@ -163,7 +158,6 @@
 	QDEL_NULL(split_ability)
 	partition_ability.Remove(H)
 	QDEL_NULL(partition_ability)
-	REMOVE_TRAIT(H, TRAIT_MOBILE, "diona")
 	qdel(drone_ref)
 	for(var/status_effect as anything in H.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
@@ -196,7 +190,7 @@
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(user, 8 SECONDS, user, hidden = TRUE))
-		if(user.incapacitated(IGNORE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
+		if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS)) //Second check incase the ability was activated RIGHT as we were being cuffed, and thus now in cuffs when this triggers
 			return FALSE
 		startSplitting(FALSE, user) //This runs when you manually activate the ability.
 		return TRUE

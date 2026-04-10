@@ -10,6 +10,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	turf_flags = CAN_BE_DIRTY_1
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
@@ -49,8 +50,8 @@
 	return ..()
 
 /turf/open/floor/is_shielded()
-	for(var/obj/structure/A in contents)
-		return 1
+	for(var/obj/structure/thing in contents)
+		return TRUE
 
 /turf/open/floor/update_icon()
 	. = ..()

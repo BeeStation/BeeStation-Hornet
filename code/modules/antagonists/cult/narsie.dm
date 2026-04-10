@@ -39,7 +39,7 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 	GLOB.narsie = src
 	var/list/all_cults = list()
 
-	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+	for(var/datum/antagonist/cult/cultist in GLOB.active_antagonists)
 		if(!cultist.owner)
 			continue
 		all_cults |= cultist.cult_team
@@ -77,7 +77,7 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 
 	var/list/all_cults = list()
 
-	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+	for(var/datum/antagonist/cult/cultist in GLOB.active_antagonists)
 		if (!cultist.owner)
 			continue
 		all_cults |= cultist.cult_team

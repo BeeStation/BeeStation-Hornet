@@ -17,6 +17,8 @@
 
 	// This needs to be called very very early in human init (before organs / species are created at the minimum)
 	setup_organless_effects()
+	// Physiology needs to be created before species, as some species modify physiology
+	setup_physiology()
 
 	setup_human_dna()
 
@@ -28,7 +30,6 @@
 
 	//initialise organs
 	create_internal_organs() //most of it is done in set_species now, this is only for parent call
-	physiology = new()
 
 	. = ..()
 
@@ -47,6 +48,9 @@
 		AddComponent(/datum/component/mood)
 
 	GLOB.human_list += src
+
+/mob/living/carbon/human/proc/setup_physiology()
+	physiology = new()
 
 /// This proc is for holding effects applied when a mob is missing certain organs
 /// It is called very, very early in human init because all humans innately spawn with no organs and gain them during init
@@ -313,7 +317,7 @@
 					investigate_log("SecHUD auto-crime | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
 
 				investigate_log("has been set from [target_record.wanted_status] to [new_status] via HUD by [key_name(human_user)].", INVESTIGATE_RECORDS)
-				target_record.wanted_status = new_status
+				target_record.set_wanted_status(human_user, new_status)
 				update_matching_security_huds(target_record.name)
 				return
 
@@ -663,21 +667,30 @@
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
 /mob/living/carbon/human/proc/electrocution_animation(anim_duration)
-	//Handle mutant parts if possible
-	if(dna?.species)
-		add_atom_colour("#000000", TEMPORARY_COLOUR_PRIORITY)
-		var/static/mutable_appearance/electrocution_skeleton_anim
-		if(!electrocution_skeleton_anim)
-			electrocution_skeleton_anim = mutable_appearance(icon, "electrocuted_base")
-			electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
-		add_overlay(electrocution_skeleton_anim)
-		addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), electrocution_skeleton_anim), anim_duration)
+	var/mutable_appearance/zap_appearance
 
-	else //or just do a generic animation
-		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
+	// If we have a species, we need to handle mutant parts and stuff
+	if(dna?.species)
+		add_atom_colour(COLOR_BLACK, TEMPORARY_COLOUR_PRIORITY)
+		var/static/mutable_appearance/shock_animation_dna
+		if(!shock_animation_dna)
+			shock_animation_dna = mutable_appearance(icon, "electrocuted_base")
+			shock_animation_dna.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_dna
+
+	// Otherwise do a generic animation
+	else
+		var/static/mutable_appearance/shock_animation_generic
+		if(!shock_animation_generic)
+			shock_animation_generic = mutable_appearance(icon, "electrocuted_generic")
+			shock_animation_generic.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_generic
+
+	add_overlay(zap_appearance)
+	addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), zap_appearance), anim_duration)
 
 /mob/living/carbon/human/proc/end_electrocution_animation(mutable_appearance/MA)
-	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
+	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_BLACK)
 	cut_overlay(MA)
 
 /mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
@@ -1003,7 +1016,7 @@
 	return ((ishuman(target) || ismonkey(target)) && target.body_position == LYING_DOWN)
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		to_chat(src, span_notice("You can't fireman carry [target] while they're standing!"))
 		return
 
@@ -1025,7 +1038,7 @@
 		return
 
 	//Second check to make sure they're still valid to be carried
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB) || target.buckled)
 		target.visible_message(span_warning("[target] can't hang on to [src]!"))
 		return
 
@@ -1041,7 +1054,7 @@
 		visible_message(span_warning("[target] fails to climb onto [src]!"))
 		return
 
-	if(target.incapacitated(IGNORE_GRAB) || incapacitated(IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(target, INCAPABLE_GRAB) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		target.visible_message(span_warning("[target] can't hang onto [src]!"))
 		return
 

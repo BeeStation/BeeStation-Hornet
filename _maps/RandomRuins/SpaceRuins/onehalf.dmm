@@ -3,17 +3,40 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
+"ac" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"ad" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "ae" = (
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/cut/yellow{
 	amount = 2
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
+"af" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "ag" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/onehalf/dorms_med)
@@ -21,6 +44,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/dorms_med)
+"ai" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "aj" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
@@ -55,7 +85,9 @@
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aq" = (
 /obj/machinery/door/airlock/external,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/drone_bay)
 "ar" = (
@@ -142,7 +174,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aD" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -177,11 +211,15 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aL" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aM" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /obj/structure/closet/crate/medical,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
@@ -237,10 +275,12 @@
 /obj/structure/lattice,
 /obj/item/storage/toolbox/syndicate,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aV" = (
 /obj/machinery/door/airlock/medical/glass,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aW" = (
@@ -248,14 +288,21 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/dorms_med)
 "aX" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/drone_bay)
 "aY" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Mining Drone Bay APC";
@@ -360,10 +407,24 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/cut/yellow{
 	amount = 2
 	},
 /turf/open/floor/plating/airless{
+	broken = 1
+	},
+/area/ruin/space/has_grav/onehalf/hallway)
+"bh" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/airless{
 	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
@@ -371,7 +432,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/airless{
 	broken = 1
 	},
@@ -380,23 +443,44 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bk" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/airless{
 	broken = 1
 	},
+/area/ruin/space/has_grav/onehalf/hallway)
+"bl" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bm" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
 "bn" = (
@@ -404,14 +488,18 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/public/glass,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/drone_bay)
 "bo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/drone_bay)
 "bp" = (
@@ -650,7 +738,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cf" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Bridge APC";
@@ -659,7 +749,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cg" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /obj/structure/table/reinforced,
 /obj/item/stack/spacecash/c500{
 	pixel_y = 8
@@ -696,7 +788,7 @@
 	icon_state = "small"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ck" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -734,14 +826,27 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cp" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /obj/structure/table/reinforced,
 /obj/item/lighter,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cq" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge_onehalf";
 	name = "bridge Blast Door"
@@ -758,7 +863,7 @@
 	},
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ct" = (
 /obj/structure/lattice,
 /obj/item/shard{
@@ -791,6 +896,18 @@
 /obj/machinery/power/solar_control,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
+/area/ruin/space/has_grav/onehalf/bridge)
+"cz" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge_onehalf";
+	name = "bridge Blast Door"
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cA" = (
 /obj/item/stack/tile/wood,
@@ -853,7 +970,7 @@
 /area/ruin/space/has_grav/onehalf/bridge)
 "cK" = (
 /obj/structure/lattice,
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/cut/yellow{
 	amount = 2
 	},
 /turf/template_noop,
@@ -900,8 +1017,32 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/onehalf/bridge)
-"cX" = (
+"cV" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge_onehalf";
+	name = "bridge Blast Door"
+	},
 /obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/onehalf/bridge)
+"cW" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"cX" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/airless{
 	broken = 1
 	},
@@ -929,7 +1070,9 @@
 /area/ruin/space/has_grav/onehalf/bridge)
 "dc" = (
 /obj/structure/grille/broken,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
@@ -941,38 +1084,97 @@
 	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
+"de" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge_onehalf";
+	name = "bridge Blast Door"
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/onehalf/bridge)
+"df" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge_onehalf";
+	name = "bridge Blast Door"
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/onehalf/bridge)
+"dg" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridge_onehalf";
+	name = "bridge Blast Door"
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/onehalf/bridge)
 "dh" = (
 /obj/item/stack/sheet/plasteel,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "di" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "dj" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /obj/item/stack/rods,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
+"dk" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "dl" = (
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/cut/yellow{
 	amount = 2
 	},
 /turf/template_noop,
 /area/template_noop)
 "Ky" = (
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Me" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 
 (1,1,1) = {"
 aa
@@ -1043,12 +1245,12 @@ aa
 (4,1,1) = {"
 aa
 aa
-ab
+ac
 ak
 ay
 ax
 cX
-bi
+bh
 bw
 ak
 cL
@@ -1065,7 +1267,7 @@ aa
 (5,1,1) = {"
 aa
 ab
-ab
+af
 ak
 az
 aJ
@@ -1086,7 +1288,7 @@ aa
 "}
 (6,1,1) = {"
 aa
-ab
+ac
 ag
 ag
 ag
@@ -1108,7 +1310,7 @@ aa
 "}
 (7,1,1) = {"
 aa
-ab
+ac
 ag
 al
 aA
@@ -1130,7 +1332,7 @@ aa
 "}
 (8,1,1) = {"
 aa
-ab
+ac
 ag
 am
 am
@@ -1152,7 +1354,7 @@ aa
 "}
 (9,1,1) = {"
 aa
-ab
+ac
 ag
 an
 aB
@@ -1174,7 +1376,7 @@ dl
 "}
 (10,1,1) = {"
 aa
-ab
+ac
 ag
 ag
 ag
@@ -1196,13 +1398,13 @@ aa
 "}
 (11,1,1) = {"
 aa
-ab
+ac
 ag
 ao
 aC
 ao
 ag
-bj
+bl
 bz
 bR
 bR
@@ -1218,7 +1420,7 @@ aa
 "}
 (12,1,1) = {"
 aa
-ab
+ac
 ah
 ap
 ap
@@ -1240,7 +1442,7 @@ aa
 "}
 (13,1,1) = {"
 aa
-ab
+ac
 ag
 ao
 ao
@@ -1257,12 +1459,12 @@ cL
 aJ
 aJ
 dd
-ab
+ac
 aa
 "}
 (14,1,1) = {"
 aa
-ab
+ac
 ag
 ag
 ag
@@ -1279,13 +1481,13 @@ bU
 cQ
 cQ
 bU
-ab
+ac
 aa
 "}
 (15,1,1) = {"
 aa
-ab
-ab
+ad
+ai
 aq
 aD
 aq
@@ -1301,7 +1503,7 @@ bU
 Me
 Ky
 bU
-ab
+ac
 aa
 "}
 (16,1,1) = {"
@@ -1323,7 +1525,7 @@ bU
 bZ
 bZ
 bU
-ab
+ac
 aa
 "}
 (17,1,1) = {"
@@ -1345,7 +1547,7 @@ cM
 cR
 cY
 bU
-ab
+ac
 aa
 "}
 (18,1,1) = {"
@@ -1366,8 +1568,8 @@ cx
 cn
 cm
 cZ
-cq
-ab
+de
+dk
 aa
 "}
 (19,1,1) = {"
@@ -1388,8 +1590,8 @@ cH
 cn
 cn
 da
-cq
-ab
+df
+ac
 aa
 "}
 (20,1,1) = {"
@@ -1410,8 +1612,8 @@ cI
 cn
 cS
 ce
-cq
-ab
+df
+ac
 aa
 "}
 (21,1,1) = {"
@@ -1432,8 +1634,8 @@ cn
 cn
 cn
 ce
-cq
-ab
+df
+ac
 aa
 "}
 (22,1,1) = {"
@@ -1454,8 +1656,8 @@ cJ
 cn
 cT
 cn
-cq
-ab
+dg
+dk
 aa
 "}
 (23,1,1) = {"
@@ -1477,7 +1679,7 @@ ce
 cU
 db
 bU
-ab
+ac
 aa
 "}
 (24,1,1) = {"
@@ -1493,13 +1695,13 @@ bG
 bU
 bU
 cq
-cq
-cq
-cq
-cq
+cz
+cz
+cz
+cV
 bU
 bU
-ab
+ac
 aa
 "}
 (25,1,1) = {"
@@ -1514,14 +1716,14 @@ br
 ar
 ar
 Me
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+ad
+ai
+ai
+ai
+cW
+ai
+ai
+af
 aa
 "}
 (26,1,1) = {"

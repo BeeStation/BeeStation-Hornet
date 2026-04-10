@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "ab" = (
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/storage/materials3)

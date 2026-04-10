@@ -40,7 +40,7 @@
 
 /mob/living/carbon/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/bodypart/affecting = get_bodypart(def_zone)
-	if(affecting && affecting.dismemberable && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
+	if(affecting && !(affecting.bodypart_flags & BODYPART_UNREMOVABLE) && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		affecting.dismember(P.damtype)
 
 /mob/living/carbon/proc/can_catch_item(skip_throw_mode_check)
@@ -82,7 +82,7 @@
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
-			if(I.is_sharp() || I.force >= 10)
+			if(I.get_sharpness() || I.force >= 10)
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)
 				add_splatter_floor(location)
@@ -103,11 +103,8 @@
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
-		if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
-			batong_act(I, user, affecting, armour_block)
-
 		var/dismember_limb = FALSE
-		var/weapon_sharpness = I.is_sharp()
+		var/weapon_sharpness = I.get_sharpness()
 
 		if(((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
 			dismember_limb = TRUE
@@ -351,6 +348,8 @@
 		M.visible_message(span_notice("[M] hugs [src] to make [p_them()] feel better!"), \
 					span_notice("You hug [src] to make [p_them()] feel better!"))
 
+		SEND_SIGNAL(M, COMSIG_LIVING_HUG_CARBON, src)
+
 		// Warm them up with hugs
 		share_bodytemperature(M)
 		if(bodytemperature > M.bodytemperature)
@@ -452,7 +451,7 @@
 
 		if(eyes.damage > 10)
 			adjust_blindness(damage)
-			blur_eyes(damage * rand(3, 6))
+			set_eye_blur_if_lower(damage * rand(6 SECONDS, 12 SECONDS))
 
 			if(eyes.damage > 20)
 				if(prob(eyes.damage - 20))
@@ -472,15 +471,6 @@
 		if(prob(20))
 			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
-/mob/living/carbon/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
-	. = ..()
-	adjust_stutter(batong.active_force / 2) //0.5 seconds of stuttering speech for every 10 stamina damage
-	do_stun_animation()
-	if(ismonkey(src))
-		emote("screech")
-	else
-		emote("scream")
-
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	var/list/reflist = list(intensity) // Need to wrap this in a list so we can pass a reference
 	SEND_SIGNAL(src, COMSIG_CARBON_SOUNDBANG, reflist)
@@ -494,17 +484,18 @@
 				Paralyze((stun_pwr*effect_amount)*0.1)
 			Knockdown(stun_pwr*effect_amount)
 
-		if(istype(ears) && (deafen_pwr || damage_pwr))
+		if(ears && (deafen_pwr || damage_pwr))
 			var/ear_damage = damage_pwr * effect_amount
 			var/deaf = deafen_pwr * effect_amount
-			adjustEarDamage(ear_damage,deaf)
+			ears.adjustEarDamage(ear_damage,deaf)
 
 			if(ears.damage >= 15)
 				to_chat(src, span_warning("Your ears start to ring badly!"))
 				if(prob(ears.damage - 5))
 					to_chat(src, span_userdanger("You can't hear anything!"))
-					ears.damage = min(ears.damage, ears.maxHealth)
+					// Makes you deaf, enough that you need a proper source of healing, it won't self heal
 					// you need earmuffs, inacusiate, or replacement
+					ears.set_organ_damage(ears.maxHealth)
 			else if(ears.damage >= 5)
 				to_chat(src, span_warning("Your ears start to ring!"))
 			SEND_SOUND(src, sound('sound/weapons/flash_ring.ogg',0,1,0,250))
@@ -529,29 +520,36 @@
 /mob/living/carbon/can_hear()
 	. = FALSE
 	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
-	if(istype(ears) && !ears.deaf)
+	if(ears && !HAS_TRAIT(src, TRAIT_DEAF))
 		. = TRUE
 
-/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced, required_biotype)
+	if(!forced && HAS_TRAIT(src, TRAIT_NOBREATH))
+		amount = min(amount, 0) //Prevents oxy damage but not healing
+
 	. = ..()
-	if(isnull(.))
-		return
-	if(. <= 50)
-		if(getOxyLoss() > 50)
+	check_passout()
+
+/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced, required_biotype)
+	. = ..()
+	check_passout()
+
+/**
+* Check to see if we should be passed out from oxyloss
+*/
+/mob/living/carbon/proc/check_passout()
+	var/mob_oxyloss = getOxyLoss()
+	if(mob_oxyloss >= 50)
+		if(!HAS_TRAIT_FROM(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT))
 			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= 50)
+	else if(mob_oxyloss < 50)
 		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 
-
-/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= 50)
-		if(getOxyLoss() > 50)
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= 50)
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+/mob/living/carbon/get_organic_health()
+	. = health
+	for (var/obj/item/bodypart/limb as anything in bodyparts)
+		if (!IS_ORGANIC_LIMB(limb))
+			. += (limb.brute_dam * limb.body_damage_coeff) + (limb.burn_dam * limb.body_damage_coeff)
 
 /mob/living/carbon/bullet_act(obj/projectile/P, def_zone, piercing_hit)
 	var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
@@ -619,6 +617,6 @@
 
 /mob/living/carbon/proc/check_block()
 	if(mind)
-		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(IGNORE_GRAB))
+		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 			return TRUE
 	return FALSE

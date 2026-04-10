@@ -33,14 +33,16 @@
 
 /mob/living/simple_animal/hostile/blob/Initialize(mapload)
 	. = ..()
-	if(!independent) //no pulling people deep into the blob
+	if(!independent || overmind) //no pulling people deep into the blob
 		remove_verb(/mob/living/verb/pulled)
+		GLOB.blob_telepathy_mobs |= src
 	else
 		pass_flags &= ~PASSBLOB
 
 /mob/living/simple_animal/hostile/blob/Destroy()
 	if(overmind)
 		overmind.blob_mobs -= src
+		GLOB.blob_telepathy_mobs -= src
 	return ..()
 
 /mob/living/simple_animal/hostile/blob/blob_act(obj/structure/blob/B)
@@ -50,7 +52,7 @@
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		adjustHealth(-maxHealth * BLOBMOB_HEALING_MULTIPLIER)
 
 /mob/living/simple_animal/hostile/blob/fire_act(exposed_temperature, exposed_volume)
@@ -82,22 +84,19 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
-	if(!overmind)
-		return ..()
-	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, span_warning("Your message contains forbidden words."))
-		return
-	message = treat_message_min(message)
-	log_talk(message, LOG_SAY, tag="blob")
-	var/spanned_message = say_quote(message)
-	var/rendered = "<font color=\"#EE4000\"><b>\[Blob Telepathy\] [real_name]</b> [spanned_message]</font>"
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, message_range = 7, datum/saymode/saymode = null)
 	for(var/M in GLOB.mob_list)
-		if(isovermind(M) || istype(M, /mob/living/simple_animal/hostile/blob))
-			to_chat(M, rendered)
-		if(isobserver(M))
-			var/link = FOLLOW_LINK(M, src)
-			to_chat(M, "[link] [rendered]")
+	INVOKE_ASYNC(src, PROC_REF(send_blob_telepathy), message)
+	return
+
+/mob/living/simple_animal/hostile/blob/proc/send_blob_telepathy(message)
+	var/list/message_mods = list()
+	// Note: check_for_custom_say_emote can sleep.
+	var/adjusted_message = src.check_for_custom_say_emote(message, message_mods)
+	src.log_sayverb_talk(message, message_mods, tag = "blob hivemind telepathy")
+	var/spanned_message = src.generate_messagepart(adjusted_message, message_mods = message_mods)
+	var/rendered = span_blob("<b>\[Blob Telepathy\] [src.real_name]</b> [spanned_message]")
+	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, src, MESSAGE_TYPE_RADIO)
 
 ////////////////
 // BLOB SPORE //
@@ -123,7 +122,7 @@
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	del_on_death = TRUE
-	deathmessage = "explodes into a cloud of gas!"
+	death_message = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
@@ -276,28 +275,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		if(locate(/obj/structure/blob/special/node) in blobs_in_area)
 			adjustHealth(-maxHealth*BLOBMOB_BLOBBERNAUT_HEALING_NODE * delta_time)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src))
 			if(overmind)
 				H.color = overmind.blobstrain.complementary_color
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 
 	if(!damagesources)
 		return
 
 	adjustHealth(maxHealth * BLOBMOB_BLOBBERNAUT_HEALTH_DECAY * damagesources * delta_time) //take 2.5% of max health as damage when not near the blob or if the naut has no factory, 5% if both
-	var/image/I = new('icons/mob/blob.dmi', src, "nautdamage", MOB_LAYER+0.01)
-	I.appearance_flags = RESET_COLOR
+	var/mutable_appearance/healing = mutable_appearance('icons/mob/blob.dmi', "nautdamage", MOB_LAYER+0.01)
+	healing.appearance_flags = RESET_COLOR
 
 	if(overmind)
-		I.color = overmind.blobstrain.complementary_color
+		healing.color = overmind.blobstrain.complementary_color
+	flick_overlay_view(healing, 0.8 SECONDS)
 
-	flick_overlay_view(I, src, 8)
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(updating_health)
 		update_health_hud()
