@@ -318,7 +318,7 @@
 
 	. = ..()
 
-/obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, area/signalOrigin, reason, redAlert, set_coefficient=null)
+/obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, area/signal_origin, reason, red_alert, set_coefficient=null)
 	if(!isnum(set_coefficient))
 		set_coefficient = SSsecurity_level.current_security_level.shuttle_call_time_mod
 	alert_coeff = set_coefficient
@@ -335,11 +335,18 @@
 	SSshuttle.emergency_call_amount++
 
 	if(prob(70))
-		SSshuttle.emergency_last_call_loc = signalOrigin
+		SSshuttle.emergency_last_call_loc = signal_origin
 	else
 		SSshuttle.emergency_last_call_loc = null
 
-	priority_announce("The emergency shuttle has been called. [redAlert ? "High risk state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergency_last_call_loc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ][SSshuttle.admin_emergency_no_recall ? "\n\nWarning: Shuttle recall subroutines disabled; Recall not possible." : ""]", null, ANNOUNCER_SHUTTLECALLED, ANNOUNCEMENT_TYPE_PRIORITY, null, TRUE)
+	priority_announce(
+		text = "The emergency shuttle has been called. [red_alert ? "High risk state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergency_last_call_loc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ][SSshuttle.admin_emergency_no_recall ? "\n\nWarning: Shuttle recall subroutines disabled; Recall not possible." : ""]",
+		title = "Emergency Shuttle Dispatched",
+		sound = ANNOUNCER_SHUTTLECALLED,
+		type = ANNOUNCEMENT_TYPE_PRIORITY,
+		sender_override = "Emergency Shuttle Uplink Alert",
+		color_override = "orange",
+	)
 
 	if(SSshuttle.checkInfestedEnvironment()) //If an Alien Queen exists, set a delayed alert
 		infestation_alert_timer = addtimer(CALLBACK(src, PROC_REF(infested_shuttle)), rand(150 SECONDS, call_time), TIMER_STOPPABLE) //Delay timer is random from 2:30 to the full duration of the shuttle call
@@ -348,7 +355,7 @@
 	if(SSshuttle.checkInfestedEnvironment()) //Check again to ensure the queen is still present
 		SSshuttle.delayForInfestedStation() //And delay the shuttle if they are
 
-/obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
+/obj/docking_port/mobile/emergency/cancel(area/signal_origin)
 	if(mode != SHUTTLE_CALL)
 		return
 	if(SSshuttle.emergency_no_recall)
@@ -356,56 +363,69 @@
 
 	invertTimer()
 	mode = SHUTTLE_RECALL
+
 	if(infestation_alert_timer)
 		deltimer(infestation_alert_timer)
 
 	if(prob(70))
-		SSshuttle.emergency_last_call_loc = signalOrigin
+		SSshuttle.emergency_last_call_loc = signal_origin
 	else
 		SSshuttle.emergency_last_call_loc = null
-	priority_announce("The emergency shuttle has been recalled.[SSshuttle.emergency_last_call_loc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]", null, ANNOUNCER_SHUTTLERECALLED, ANNOUNCEMENT_TYPE_PRIORITY)
+
+	priority_announce(
+		text = "The emergency shuttle has been recalled.[SSshuttle.emergency_last_call_loc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]",
+		title = "Emergency Shuttle Recalled",
+		sound = ANNOUNCER_SHUTTLERECALLED,
+		type = ANNOUNCEMENT_TYPE_PRIORITY,
+		sender_override = "Emergency Shuttle Uplink Alert",
+		color_override = "orange",
+	)
 
 /**
-  * Proc that handles checking if the emergency shuttle was successfully hijacked via being the only people present on the shuttle for the elimination hijack or highlander objective
-  *
-  * Checks for all mobs on the shuttle, checks their status, and checks if they're
-  * borgs or simple animals. Depending on the args, certain mobs may be ignored,
-  * and the presence of other antags may or may not invalidate a hijack.
-  * Args:
-  * filter_by_human, default TRUE, tells the proc that only humans should block a hijack. Borgs and animals are ignored and will not block if this is TRUE.
-  * solo_hijack, default FALSE, tells the proc to fail with multiple hijackers, such as for Highlander mode.
+ * Proc that handles checking if the emergency shuttle was successfully hijacked via being the only people present on the shuttle for the elimination hijack or highlander objective
+ *
+ * Checks for all mobs on the shuttle, checks their status, and checks if they're
+ * borgs or simple animals. Depending on the args, certain mobs may be ignored,
+ * and the presence of other antags may or may not invalidate a hijack.
+ * Args:
+ * filter_by_human, default TRUE, tells the proc that only humans should block a hijack. Borgs and animals are ignored and will not block if this is TRUE.
+ * solo_hijack, default FALSE, tells the proc to fail with multiple hijackers, such as for Highlander mode.
  */
 /obj/docking_port/mobile/emergency/proc/elimination_hijack(filter_by_human = TRUE, solo_hijack = FALSE)
 	var/has_people = FALSE
 	var/hijacker_count = 0
 	for(var/mob/living/player in GLOB.player_list)
-		if(player.mind)
-			if(player.stat != DEAD)
-				if(issilicon(player)) //Borgs are technically dead anyways
-					continue
-				if(isanimal_or_basicmob(player)) //animals don't count
-					continue
-				if(isbrain(player)) //also technically dead
-					continue
-				if(shuttle_areas[get_area(player)])
-					has_people = TRUE
-					var/location = get_turf(player.mind.current)
-					//Non-antag present. Can't hijack.
-					if(!(player.mind.has_antag_datum(/datum/antagonist)) && !istype(location, /turf/open/floor/mineral/plastitanium/red/brig))
-						return FALSE
-					//Antag present, doesn't stop but let's see if we actually want to hijack
-					var/prevent = FALSE
-					for(var/datum/antagonist/A in player.mind.antag_datums)
-						if(A.can_elimination_hijack == ELIMINATION_ENABLED)
-							hijacker_count += 1
-							prevent = FALSE
-							break //If we have both prevent and hijacker antags assume we want to hijack.
-						else if(A.can_elimination_hijack == ELIMINATION_PREVENT)
-							prevent = TRUE
-					if(prevent)
-						return FALSE
+		if(!player.mind)
+			continue
+		if(player.stat == DEAD)
+			continue
+		if(issilicon(player) && filter_by_human) //Borgs are technically dead anyways
+			continue
+		if(isanimal_or_basicmob(player) && filter_by_human) //animals don't count
+			continue
+		if(isbrain(player)) //also technically dead
+			continue
+		if(!shuttle_areas[get_area(player)])
+			continue
 
+		has_people = TRUE
+		var/turf/location = get_turf(player.mind.current)
+		//Non-antag present. Can't hijack.
+		if(!(player.mind.has_antag_datum(/datum/antagonist)) && !istype(location, /turf/open/floor/mineral/plastitanium/red/brig))
+			return FALSE
+		//Antag present, doesn't stop but let's see if we actually want to hijack
+		var/prevent = FALSE
+		for(var/datum/antagonist/A in player.mind.antag_datums)
+			if(A.can_elimination_hijack == ELIMINATION_ENABLED)
+				hijacker_count += 1
+				prevent = FALSE
+				break //If we have both prevent and hijacker antags assume we want to hijack.
+			else if(A.can_elimination_hijack == ELIMINATION_PREVENT)
+				prevent = TRUE
+		if(prevent)
+			return FALSE
 
+	//has people AND either there's only one hijacker or there's any but solo_hijack is disabled
 	return has_people && ((hijacker_count == 1) || (hijacker_count && !solo_hijack))
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked_by_xenos()

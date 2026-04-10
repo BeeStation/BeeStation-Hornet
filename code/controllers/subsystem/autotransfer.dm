@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(autotransfer)
 	//This will fail if forced_call_time is 0, allowing for indefinite round length
 	if(forced_call_time && world.time > forced_call_time)
 		if(SSshuttle.canEvac() == TRUE) //This must include the == TRUE because all returns for this proc have a value, we specifically want to check for TRUE
-			SSshuttle.requestEvac(null, "Crew Transfer Requested.")
+			SSshuttle.call_evac_shuttle("Crew Transfer Requested.")
 			can_fire = FALSE //This system has served its purpose for as long as it can
 		SSshuttle.emergency_no_recall = TRUE
 		return

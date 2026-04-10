@@ -29,7 +29,7 @@
 			//This is slightly hacky, but shuttles cannot be called while in recall
 			//All other modes prevent calling as well, but this is because the shuttle is already doing its thing and emergency_no_recall ensures it succeeds
 
-		SSshuttle.requestEvac(null, "Crew Transfer Requested.")
+		SSshuttle.call_evac_shuttle("Crew Transfer Requested.")
 		SSshuttle.emergency_no_recall = TRUE
 		SSautotransfer.can_fire = FALSE
 		return
