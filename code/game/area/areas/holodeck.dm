@@ -2,14 +2,14 @@
 	name = "Holodeck"
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "Holodeck"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 	flags_1 = NONE
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA | REMOTE_APC
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
 	var/obj/machinery/computer/holodeck/linked
-	var/restricted = FALSE // if true, program goes on emag list
 
 /*
 	Power tracking: Use the holodeck computer's power grid
