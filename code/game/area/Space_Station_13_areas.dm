@@ -30,8 +30,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 	sound_environment = null
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_STASH_LOCATION
-	fullbright_type = FULLBRIGHT_STARLIGHT
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/paradise/surface/sand
 	name = "paradise surface sand"

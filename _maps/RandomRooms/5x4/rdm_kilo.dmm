@@ -1,23 +1,19 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"h" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/trash/grille_or_waste,
-/turf/open/floor/plating,
-/area/misc/space)
-"i" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/misc/space)
 "j" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/box,
-/obj/structure/closet/cardboard,
-/obj/effect/mob_spawn/human/engineer,
-/turf/open/floor/iron,
-/area/misc/space)
-"k" = (
+/obj/structure/girder,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/frame/computer{
+	anchored = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
 /obj/structure/frame/computer{
 	anchored = 1;
 	dir = 8
@@ -25,63 +21,27 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/misc/space)
+/area/template_noop)
 "q" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance/two,
-/obj/item/toy/crayon/spraycan,
+/obj/machinery/light/small/directional/south,
+/obj/machinery/flasher/portable,
+/obj/effect/turf_decal/bot,
+/obj/structure/grille/broken,
 /turf/open/floor/iron,
-/area/misc/space)
+/area/template_noop)
 "r" = (
-/obj/structure/frame/computer{
-	anchored = 1
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/misc/space)
-"s" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister,
-/turf/open/floor/iron,
-/area/misc/space)
-"y" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/arrows,
-/obj/machinery/holopad{
-	pixel_y = 16
-	},
-/obj/effect/turf_decal/box/corners,
-/obj/effect/turf_decal/box/corners{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/misc/space)
-"z" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet,
 /obj/effect/turf_decal/delivery,
-/obj/item/airlock_painter/decal/tile,
-/turf/open/floor/iron,
-/area/misc/space)
-"A" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"u" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
-/area/misc/space)
-"C" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/airlock_painter,
-/turf/open/floor/iron,
-/area/misc/space)
-"D" = (
+/area/template_noop)
+"w" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -92,8 +52,8 @@
 	name = "YELLOW STRIPES"
 	},
 /turf/open/floor/plating,
-/area/misc/space)
-"F" = (
+/area/template_noop)
+"D" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/arrows{
@@ -107,16 +67,23 @@
 	},
 /obj/item/airlock_painter/decal,
 /turf/open/floor/plating,
-/area/misc/space)
-"K" = (
+/area/template_noop)
+"E" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 10
+	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/south,
-/obj/machinery/flasher/portable,
-/obj/effect/turf_decal/bot,
-/obj/structure/grille/broken,
-/turf/open/floor/iron,
-/area/misc/space)
-"N" = (
+/obj/effect/turf_decal/arrows,
+/obj/machinery/holopad{
+	pixel_y = 16
+	},
+/obj/effect/turf_decal/box/corners,
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"F" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 9
 	},
@@ -132,8 +99,44 @@
 	},
 /obj/item/trash/can,
 /turf/open/floor/plating,
-/area/misc/space)
+/area/template_noop)
+"K" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister,
+/turf/open/floor/iron,
+/area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
 "O" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/box,
+/obj/structure/closet/cardboard,
+/obj/effect/mob_spawn/human/engineer,
+/turf/open/floor/iron,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/airlock_painter,
+/turf/open/floor/iron,
+/area/template_noop)
+"T" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/trash/grille_or_waste,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -148,52 +151,49 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/misc/space)
+/area/template_noop)
 "W" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/loading_area,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/misc/space)
-"Z" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance/two,
+/obj/item/toy/crayon/spraycan,
+/turf/open/floor/iron,
+/area/template_noop)
+"Y" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
-/area/misc/space)
+/obj/structure/closet,
+/obj/effect/turf_decal/delivery,
+/obj/item/airlock_painter/decal/tile,
+/turf/open/floor/iron,
+/area/template_noop)
 
 (1,1,1) = {"
-Z
-h
 j
-q
+T
+O
+W
 "}
 (2,1,1) = {"
-r
-O
-D
-z
+n
+V
+w
+Y
 "}
 (3,1,1) = {"
-i
-N
-y
-h
+r
+F
+E
+T
 "}
 (4,1,1) = {"
-s
-F
-W
 K
+D
+N
+q
 "}
 (5,1,1) = {"
-A
-i
-k
-C
+u
+r
+p
+R
 "}

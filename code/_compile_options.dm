@@ -30,8 +30,15 @@
 //#define REFERENCE_TRACKING_LOG_APART
 #endif //ifdef REFERENCE_TRACKING
 
-//#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
-//#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
+// Displays static object lighting updates
+// Also enables some debug vars on sslighting that can be used to modify
+// How extensively we prune lighting corners to update
+//#define VISUALIZE_LIGHT_UPDATES
+
+// Highlights atmos active turfs in green
+//#define VISUALIZE_ACTIVE_TURFS
+// Allows max share tracking, for use in the atmos debugging ui
+//#define TRACK_MAX_SHARE
 #endif //ifdef TESTING
 
 /// Disables hub authentication. This must be done at compile time due to /client::authenticate being read-only

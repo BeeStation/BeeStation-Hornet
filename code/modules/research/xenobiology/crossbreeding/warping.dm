@@ -794,7 +794,6 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 /area/warped_room
 	name = "warped room"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE

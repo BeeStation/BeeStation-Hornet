@@ -370,8 +370,8 @@
 	client.visual_delay = MOVEMENT_ADJUSTED_GLIDE_SIZE(inertia_move_delay, SSspacedrift.visual_delay) //Make sure moving into a space move looks like a space move
 
 /// Called when this mob slips over, override as needed
-/mob/proc/slip(knockdown, paralyze, forcedrop, w_amount, obj/O, lube)
-	return
+/mob/proc/slip(knockdown_amount, paralyze, forcedrop, w_amount, obj/slipped_on, lube, force_drop = FALSE)
+	SEND_SIGNAL(src, COMSIG_MOB_SLIPPED, knockdown_amount, slipped_on, lube, paralyze, force_drop)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth

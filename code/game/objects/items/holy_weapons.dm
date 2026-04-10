@@ -311,7 +311,7 @@
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=5, block_power_unwielded=100, block_power_wielded=100)
 
 /obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(ISWIELDED(src))
 		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_SHIELD_LAYER)
 
