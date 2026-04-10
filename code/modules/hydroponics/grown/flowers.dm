@@ -17,6 +17,7 @@
 	icon_state = null
 	worn_icon_state = null
 	slot_flags = ITEM_SLOT_HEAD
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	bite_consumption_mod = 2
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	food_reagents = null //get the unit test off our back

@@ -54,15 +54,13 @@
 #define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128 //! For lighting alpha, small amounts lead to big changes. even at 128 its hard to figure out what is dark and what is light, at 64 you almost can't even tell.
 #define LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
-//lighting area defines
-#define DYNAMIC_LIGHTING_DISABLED 0 //! dynamic lighting disabled (area stays at full brightness)
-#define DYNAMIC_LIGHTING_ENABLED 1 //! dynamic lighting enabled
-#define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
-
 // Fullbright lighting defines
-#define FULLBRIGHT_NONE 0		//! Do not use fullbright (Only applies to turfs)
-#define FULLBRIGHT_DEFAULT 1	//! Use the default fullbright overlay of just 100% lighting
-#define FULLBRIGHT_STARLIGHT 2	//! Use the starlight brightness overlay
+/// Use the default fullbright overlay of just 100% lighting
+#define FULLBRIGHT_DEFAULT 0
+/// Use the starlight brightness overlay
+#define FULLBRIGHT_STARLIGHT 1
+/// Do not use fullbright
+#define FULLBRIGHT_NONE 2
 
 /// The amount of lumcount on a tile for it to be considered dark (used to determine reading and nyctophobia)
 #define LIGHTING_TILE_IS_DARK 0.2
@@ -115,20 +113,6 @@ do { \
 		source.lum_b = 1; \
 	}; \
 } while (FALSE)
-
-GLOBAL_DATUM_INIT(fullbright_overlay, /image, create_fullbright_overlay())
-
-/proc/create_fullbright_overlay()
-	var/image/lighting_effect = new()
-	lighting_effect.appearance = /obj/effect/fullbright
-	return lighting_effect
-
-GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
-
-/proc/create_starlight_overlay()
-	var/image/lighting_effect = new()
-	lighting_effect.appearance = /obj/effect/fullbright/starlight
-	return lighting_effect
 
 /// Innate lum source that cannot be removed
 #define LUM_SOURCE_INNATE (1 << 4)
