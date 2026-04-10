@@ -2961,7 +2961,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/doppler_array/research/science,
+/obj/machinery/doppler_array/research,
 /obj/structure/railing{
 	dir = 6
 	},
@@ -13529,7 +13529,7 @@
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "dCT" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
@@ -25155,7 +25155,6 @@
 /area/station/engineering/supermatter)
 "gNN" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/computer/rdconsole/production,
 /obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage_shared)
@@ -63799,7 +63798,7 @@
 "qTZ" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 1
 	},
 /turf/open/floor/iron,

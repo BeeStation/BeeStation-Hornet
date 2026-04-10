@@ -618,7 +618,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "alN" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /obj/machinery/requests_console{
@@ -15871,7 +15871,7 @@
 /turf/open/floor/iron,
 /area/station/service/hydroponics/garden/monastery)
 "fux" = (
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -25117,9 +25117,6 @@
 "iti" = (
 /obj/effect/turf_decal/tile/dark,
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/rdconsole/production{
-	dir = 8
-	},
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
 "itl" = (
@@ -36059,7 +36056,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port)
 "lBq" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot{

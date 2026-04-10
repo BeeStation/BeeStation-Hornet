@@ -5384,9 +5384,6 @@
 /turf/open/floor/iron/tech/grid,
 /area/station/cargo/storage)
 "bkq" = (
-/obj/machinery/computer/rdconsole/production{
-	dir = 8
-	},
 /obj/item/radio/intercom/directional/east,
 /turf/open/floor/iron/tech,
 /area/station/engineering/storage_shared)
@@ -17854,7 +17851,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "dXq" = (
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -22891,7 +22888,7 @@
 /turf/open/floor/wood,
 /area/station/medical/exam_room)
 "faS" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	pixel_y = -1
 	},
 /turf/open/floor/iron/techmaint,
@@ -33413,7 +33410,7 @@
 	name = "Surgery Privacy Shutters";
 	req_access_txt = "29"
 	},
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,

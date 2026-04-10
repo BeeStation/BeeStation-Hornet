@@ -6185,7 +6185,7 @@
 /obj/item/crowbar/red,
 /obj/item/wrench,
 /obj/item/clothing/mask/gas,
-/obj/machinery/computer/auxillary_base{
+/obj/machinery/computer/auxiliary_base{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/smooth_edge,
@@ -8190,7 +8190,7 @@
 "auT" = (
 /obj/machinery/airalarm/directional/east,
 /obj/structure/filingcabinet/filingcabinet,
-/obj/machinery/computer/auxillary_base{
+/obj/machinery/computer/auxiliary_base{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/smooth_edge,

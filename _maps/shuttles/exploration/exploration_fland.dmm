@@ -181,7 +181,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "fp" = (
-/obj/machinery/computer/rdconsole,
+/obj/machinery/computer/rdconsole/unlocked,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "fW" = (

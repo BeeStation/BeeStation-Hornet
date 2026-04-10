@@ -40609,9 +40609,6 @@
 	},
 /area/station/service/chapel)
 "mRS" = (
-/obj/machinery/computer/rdconsole/production{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
@@ -42026,7 +42023,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "nod" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 4
 	},
 /obj/item/radio/intercom{
@@ -51404,7 +51401,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -73786,7 +73783,7 @@
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "xjp" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,

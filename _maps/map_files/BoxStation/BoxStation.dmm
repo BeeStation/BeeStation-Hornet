@@ -1673,7 +1673,7 @@
 /turf/open/floor/iron/goonplaque,
 /area/station/security/brig)
 "aLI" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -5535,7 +5535,7 @@
 /turf/open/space,
 /area/misc/space/nearstation)
 "cwb" = (
-/obj/machinery/computer/rdconsole/robotics,
+/obj/machinery/computer/rdconsole/unlocked,
 /turf/open/floor/iron/white,
 /area/station/science/robotics/lab)
 "cwl" = (
@@ -15576,9 +15576,6 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
 "gil" = (
-/obj/machinery/computer/rdconsole/production{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
@@ -25282,7 +25279,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/cargo/storage)
 "jPC" = (
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -57353,7 +57350,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
 "vwz" = (
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /turf/open/floor/iron,
