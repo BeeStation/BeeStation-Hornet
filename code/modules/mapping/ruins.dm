@@ -83,8 +83,7 @@
 
 	var/list/whitelist_typecache = typecacheof(whitelist)
 
-	var/list/ruins = potentialRuins.Copy()
-	shuffle(ruins)
+	var/list/ruins = shuffle(potentialRuins.Copy())
 
 	var/placed_ruins = 0 // our count of how many ruins have been placed
 	var/ghost_roles_forced = 0 // how many ruins that have space ruins have been placed

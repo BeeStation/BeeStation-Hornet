@@ -668,7 +668,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	if (length(space_ruins))
 		// Create a proportional budget by multiplying the amount of space ruin levels in the current map over the default amount
 		var/proportional_budget = round(CONFIG_GET(number/space_budget) * (length(space_ruins) / DEFAULT_SPACE_RUIN_LEVELS))
-		seedRuins(space_ruins, proportional_budget, list(/area/misc/space), themed_ruins[ZTRAIT_SPACE_RUINS], ruins_type = ZTRAIT_SPACE_RUINS, minimum_ghost_roles = 1)
+		seedRuins(space_ruins, proportional_budget, list(/area/misc/space), themed_ruins[ZTRAIT_SPACE_RUINS], ruins_type = ZTRAIT_SPACE_RUINS, minimum_ghost_roles = 2)
 
 /datum/controller/subsystem/mapping/proc/setup_rivers()
 	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)

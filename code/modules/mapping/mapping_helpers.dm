@@ -296,7 +296,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 	var/obj/machinery/airalarm/target = locate(/obj/machinery/airalarm) in loc
 	if(isnull(target))
-		var/area/target_area = get_area(target)
+		var/area/target_area = get_area(src)
 		log_mapping("[src] failed to find an air alarm at [AREACOORD(src)] ([target_area.type]).")
 	else
 		payload(target)
