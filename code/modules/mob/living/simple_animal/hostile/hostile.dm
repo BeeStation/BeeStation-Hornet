@@ -123,7 +123,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/electrocute_act(shock_damage, source, siemens_coeff, flags)
-	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
+	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && isatom(source)) // strings are sometimes used in electrocute_act()
 		FindTarget(list(source))
 
 /mob/living/simple_animal/hostile/bullet_act(obj/projectile/P)
