@@ -31,12 +31,14 @@
 	desc = "Formal wear for a leading lady."
 	icon_state = "sailor_dress"
 	inhand_icon_state = "sailordress"
+	alternate_worn_layer = UNDER_SUIT_LAYER
 
 /obj/item/clothing/under/dress/redeveninggown
 	name = "red evening gown"
 	desc = "Fancy dress for space bar singers."
 	icon_state = "red_evening_gown"
 	inhand_icon_state = null
+	alternate_worn_layer = UNDER_SUIT_LAYER
 
 /obj/item/clothing/under/dress/skirt
 	name = "black skirt"
