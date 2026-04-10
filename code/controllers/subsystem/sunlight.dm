@@ -37,7 +37,8 @@ SUBSYSTEM_DEF(sunlight)
 			issued_XP = FALSE
 			//randomize the next sol timer
 			time_til_cycle = round(rand((TIME_VAMPIRE_NIGHT-TIME_VAMPIRE_SOL_DELAY), (TIME_VAMPIRE_NIGHT+TIME_VAMPIRE_SOL_DELAY)), 1)
-			message_admins("VAMPIRE NOTICE: Daylight Ended. Resetting to Night (Lasts for [time_til_cycle / 60] minutes.")
+			if(length(get_antag_minds(/datum/antagonist/vampire)))
+				notify_ghosts("VAMPIRE NOTICE: Daylight Ended. Resetting to Night (Lasts for [time_til_cycle / 60] minutes.)", flashwindow = FALSE)
 			GLOB.news_network.submit_article("<h1>IWA Status Update - Solar Flare Passed</h1><br><br>\
 												This is an update from the Interstellar Weather Authority. The latest Class I solar flare has now fully passed Station [station_name()]'s orbital path.<br><br>\
 												No anomalies or disruptions have been detected.<br><br>\
@@ -67,7 +68,8 @@ SUBSYSTEM_DEF(sunlight)
 				vampire_warning_message = span_danger("Solar Flares will bombard the station with dangerous UV radiation in [TIME_VAMPIRE_DAY_WARN_1 / 60] minutes. <b>Prepare to seek cover in a coffin or closet.</b>")
 			)
 		if(TIME_VAMPIRE_DAY_WARN_2)
-			message_admins("VAMPIRE NOTICE: Daylight beginning in [TIME_VAMPIRE_DAY_WARN_2] seconds.")
+			if(length(get_antag_minds(/datum/antagonist/vampire)))
+				notify_ghosts("VAMPIRE NOTICE: Daylight beginning in [TIME_VAMPIRE_DAY_WARN_2] seconds.", flashwindow = FALSE)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SECOND_WARNING,
 				vampire_warning_message = span_dangerbold("Solar Flares are about to bombard the station! You have [TIME_VAMPIRE_DAY_WARN_2] seconds to find cover!"),
@@ -82,7 +84,8 @@ SUBSYSTEM_DEF(sunlight)
 			sunlight_active = TRUE
 			//set the timer to countdown daytime now.
 			time_til_cycle = TIME_VAMPIRE_DAY
-			message_admins("VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)")
+			if(length(get_antag_minds(/datum/antagonist/vampire)))
+				notify_ghosts("VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)", flashwindow = FALSE)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ROSE,
 				vampire_warning_message = span_danger("Solar flares bombard the station with deadly UV light! Stay in cover for the next [TIME_VAMPIRE_DAY / 60] minute\s!"),
