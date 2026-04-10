@@ -168,11 +168,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/living_quarters)
-"aO" = (
-/obj/effect/spawner/random/vending/snackvend,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "aQ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -237,6 +232,14 @@
 /obj/effect/turf_decal/siding/thinplating,
 /turf/open/floor/iron,
 /area/mine/atmosposthallway)
+"be" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/turf_decal/siding/wideplating/dark,
+/turf/open/floor/iron/dark,
+/area/mine/atmospostengine)
 "bg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -412,6 +415,10 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
+"ca" = (
+/obj/effect/spawner/random/vending/snackvend,
+/turf/open/floor/iron,
+/area/mine/living_quarters)
 "ce" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -866,14 +873,6 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
-"eF" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden/layer4{
-	hide = 0
-	},
-/obj/structure/spider/stickyweb,
-/obj/effect/spawner/random/decoration/glowstick,
-/turf/open/floor/plating/asteroid,
-/area/mine/atmospost)
 "eN" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -941,6 +940,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
+"ff" = (
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/turf/open/floor/carpet/purple,
+/area/mine/living_quarters)
 "fk" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -1270,12 +1274,6 @@
 /obj/machinery/door/airlock/public/glass,
 /turf/open/floor/iron/techmaint,
 /area/mine/gateway)
-"hi" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance/two,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "hk" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -1409,6 +1407,13 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"hW" = (
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/mine/atmospost)
 "hX" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1518,6 +1523,10 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"iy" = (
+/obj/effect/spawner/random/vending/colavend,
+/turf/open/floor/iron,
+/area/mine/living_quarters)
 "iz" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -1846,10 +1855,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
 /area/mine/production)
-"km" = (
-/obj/effect/spawner/random/vending/snackvend,
-/turf/open/floor/iron,
-/area/mine/living_quarters)
 "kn" = (
 /obj/structure/chair/fancy/plastic,
 /obj/item/toy/plush/flushed,
@@ -1924,11 +1929,6 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmosposthallway)
-"kK" = (
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/carpet/red,
-/area/mine/living_quarters)
 "kL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
@@ -2015,6 +2015,16 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/mine/living_quarters)
+"lq" = (
+/obj/structure/table,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
+/obj/item/clothing/head/utility/chefhat,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/mine/laborcamp)
 "ls" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -2338,6 +2348,11 @@
 "np" = (
 /turf/open/floor/iron,
 /area/mine/laborcamp)
+"nq" = (
+/obj/effect/spawner/random/vending/snackvend,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "nt" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -2991,15 +3006,6 @@
 "rw" = (
 /turf/closed/wall,
 /area/mine/laborcamp)
-"ry" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/random/decoration/glowstick,
-/turf/open/floor/catwalk_floor/iron,
-/area/mine/atmosposthallway)
 "rA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3179,11 +3185,6 @@
 /mob/living/simple_animal/hostile/megafauna/legion,
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"sz" = (
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/carpet/purple,
-/area/mine/living_quarters)
 "sA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -3476,16 +3477,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
-"ut" = (
-/obj/structure/table,
-/obj/effect/spawner/random/food_or_drink/donkpockets,
-/obj/item/clothing/head/utility/chefhat,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/mine/laborcamp)
 "uu" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -4405,11 +4396,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/laborcamp)
-"zY" = (
-/obj/effect/spawner/random/entertainment/arcade,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/checker,
-/area/mine/production)
 "Aa" = (
 /obj/machinery/door/firedoor/closed,
 /obj/effect/turf_decal/stripes/closeup,
@@ -4473,12 +4459,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
-"At" = (
-/obj/machinery/doppler_array/research{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "Au" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -4585,13 +4565,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
-"Bd" = (
-/obj/effect/spawner/random/decoration/glowstick/lit,
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/mine/atmospost)
 "Bg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
@@ -4694,6 +4667,14 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
+"BC" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden/layer4{
+	hide = 0
+	},
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/random/decoration/glowstick,
+/turf/open/floor/plating/asteroid,
+/area/mine/atmospost)
 "BF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -4727,11 +4708,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/atmosposthallway)
-"BO" = (
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/carpet/blue,
-/area/mine/living_quarters)
 "BR" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
@@ -4739,6 +4715,15 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"BX" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 5
+	},
+/obj/effect/spawner/random/decoration/glowstick,
+/turf/open/floor/iron,
+/area/mine/atmosposthallway)
 "BZ" = (
 /turf/closed/wall/r_wall,
 /area/mine/laborcamp)
@@ -4756,14 +4741,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
-"Cd" = (
-/obj/structure/table,
-/obj/effect/spawner/random/decoration/glowstick,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron/grid/steel,
-/area/mine/laborcamp)
 "Ce" = (
 /obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile{
@@ -4927,6 +4904,15 @@
 	},
 /turf/open/floor/iron,
 /area/mine/laborcamp/security)
+"CR" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random/decoration/glowstick,
+/turf/open/floor/catwalk_floor/iron,
+/area/mine/atmosposthallway)
 "CS" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/stack/rods,
@@ -5107,6 +5093,12 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/mine/living_quarters)
+"DT" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance/two,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "DU" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 10
@@ -5152,15 +5144,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Ej" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/siding/thinplating{
-	dir = 5
-	},
-/obj/effect/spawner/random/decoration/glowstick,
-/turf/open/floor/iron,
-/area/mine/atmosposthallway)
 "El" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -5187,10 +5170,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/mine/atmospost)
-"EB" = (
-/obj/effect/spawner/random/vending/colavend,
-/turf/open/floor/iron,
-/area/mine/living_quarters)
 "EC" = (
 /obj/structure/fence/door,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5352,6 +5331,12 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"Fn" = (
+/obj/machinery/doppler_array/research/science{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "Fp" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
@@ -5454,6 +5439,13 @@
 /obj/machinery/washing_machine,
 /turf/open/floor/iron/grid/steel,
 /area/mine/living_quarters)
+"FN" = (
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/effect/turf_decal/tile/brown/half{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/mine/atmospost)
 "FQ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -5626,6 +5618,11 @@
 /obj/structure/holosign/barrier/atmos/robust,
 /turf/open/floor/iron/tech,
 /area/mine/atmosfarmpost)
+"GG" = (
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/turf/open/floor/carpet/red,
+/area/mine/living_quarters)
 "GI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -5919,26 +5916,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
 /area/mine/atmospostengine)
-"Ik" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/random/decoration/glowstick,
-/obj/effect/turf_decal/siding/wideplating/dark,
-/turf/open/floor/iron/dark,
-/area/mine/atmospostengine)
 "Il" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/toy/plush/opa,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
-"Im" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/spawner/random/exotic/ripley,
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "In" = (
@@ -6438,13 +6419,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
-"Lc" = (
-/obj/effect/spawner/random/decoration/glowstick/lit,
-/obj/effect/turf_decal/tile/brown/half{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/mine/atmospost)
 "Ld" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5;
@@ -6500,12 +6474,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
-"LB" = (
-/obj/structure/table,
-/obj/effect/spawner/random/food_or_drink/donkpockets,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/checker,
-/area/mine/production)
 "LH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
@@ -6709,6 +6677,14 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
 /area/mine/atmospost)
+"Ne" = (
+/obj/structure/table,
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/grid/steel,
+/area/mine/laborcamp)
 "Nf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -7881,6 +7857,11 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
 /area/mine/production)
+"Uk" = (
+/obj/effect/spawner/random/entertainment/arcade,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/checker,
+/area/mine/production)
 "Un" = (
 /obj/item/stack/rods,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -7993,10 +7974,21 @@
 /obj/structure/sign/warning/fire,
 /turf/closed/wall,
 /area/mine/atmospostengine)
+"UR" = (
+/obj/structure/table,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/checker,
+/area/mine/production)
 "UU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
+/area/mine/living_quarters)
+"UV" = (
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/turf/open/floor/carpet/blue,
 /area/mine/living_quarters)
 "UW" = (
 /mob/living/simple_animal/bot/secbot/beepsky{
@@ -8633,6 +8625,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
+"Yi" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/spawner/random/exotic/ripley,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "Yj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -34370,7 +34370,7 @@ NE
 rw
 jA
 KP
-ut
+lq
 Ap
 rM
 Lp
@@ -36173,7 +36173,7 @@ Xj
 Xj
 ge
 pj
-Cd
+Ne
 YI
 CL
 lz
@@ -42589,7 +42589,7 @@ wS
 wS
 wS
 wS
-zY
+Uk
 lY
 wk
 vW
@@ -43109,7 +43109,7 @@ Lk
 Au
 nl
 bL
-LB
+UR
 aT
 Zd
 RR
@@ -44901,7 +44901,7 @@ pY
 MZ
 bg
 MZ
-EB
+iy
 ZH
 xl
 MC
@@ -45415,15 +45415,15 @@ ZH
 AI
 bg
 MZ
-km
+ca
 ZH
-BO
+UV
 NL
 ZH
-sz
+ff
 lp
 ZH
-kK
+GG
 gs
 ZH
 Zd
@@ -50285,7 +50285,7 @@ YU
 YU
 YU
 tu
-Im
+Yi
 ZF
 YU
 EV
@@ -51068,7 +51068,7 @@ tj
 Jk
 wi
 qm
-ry
+CR
 WT
 wi
 wi
@@ -51570,14 +51570,14 @@ WV
 Fe
 cw
 Fi
-hi
+DT
 ok
 WF
 EV
 Tm
 rL
 oF
-aO
+nq
 Sx
 YU
 WV
@@ -51839,7 +51839,7 @@ EV
 EV
 GW
 ho
-Bd
+hW
 tc
 tc
 tc
@@ -52104,7 +52104,7 @@ uJ
 lO
 Bp
 TJ
-Ik
+be
 Wh
 La
 MO
@@ -53111,7 +53111,7 @@ kG
 JZ
 NC
 cw
-Ej
+BX
 kN
 am
 Ns
@@ -53633,7 +53633,7 @@ tT
 yY
 FG
 CE
-Lc
+FN
 av
 XY
 av
@@ -54409,7 +54409,7 @@ FV
 ik
 jU
 ci
-eF
+BC
 VS
 pf
 Ph
@@ -54651,7 +54651,7 @@ Zd
 Zd
 Zd
 WV
-At
+Fn
 OE
 Il
 tc

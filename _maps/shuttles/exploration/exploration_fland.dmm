@@ -125,10 +125,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"el" = (
-/obj/machinery/computer/rdconsole/unlocked,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "em" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/cable/yellow{
@@ -182,6 +178,10 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"fp" = (
+/obj/machinery/computer/rdconsole,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "fW" = (
@@ -428,22 +428,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"sE" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/light/small,
-/obj/structure/closet/crate/critter,
-/mob/living/simple_animal/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	dir = 4;
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/shuttle/exploration)
 "ts" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -581,6 +565,22 @@
 "zG" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Ab" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/light/small,
+/obj/structure/closet/crate/critter,
+/mob/living/simple_animal/turkey{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	dir = 4;
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "Ai" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -1185,7 +1185,7 @@ zC
 XF
 LM
 cN
-sE
+Ab
 nG
 hQ
 Cj
@@ -1272,7 +1272,7 @@ Qv
 "}
 (7,1,1) = {"
 Om
-el
+fp
 kV
 qX
 nG
