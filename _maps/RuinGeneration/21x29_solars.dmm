@@ -4,11 +4,15 @@
 /area/ruin/unpowered)
 "c" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/template_noop/open,
 /area/template_noop)
 "d" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /obj/machinery/power/solar{
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
@@ -19,15 +23,52 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"g" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/template_noop/open,
+/area/template_noop)
+"i" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/template_noop/open,
+/area/template_noop)
 "j" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"k" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/template_noop/open,
+/area/template_noop)
 "l" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "m" = (
 /obj/structure/lattice/catwalk,
+/turf/template_noop/open,
+/area/template_noop)
+"n" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/template_noop/open,
 /area/template_noop)
 "o" = (
@@ -40,7 +81,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "q" = (
@@ -51,7 +94,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "t" = (
@@ -61,6 +106,19 @@
 "u" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"v" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/template_noop/open,
+/area/template_noop)
 "x" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -76,14 +134,24 @@
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "D" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/template_noop)
+"E" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
 "F" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas,
@@ -95,7 +163,7 @@
 /area/ruin/unpowered)
 "G" = (
 /obj/structure/lattice,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/random,
 /turf/template_noop/open,
 /area/template_noop)
 "I" = (
@@ -106,26 +174,58 @@
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"J" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/template_noop/open,
+/area/template_noop)
 "K" = (
 /obj/machinery/power/solar_control{
 	id = "auxsolareast";
 	name = "Starboard Bow Solar Control"
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "M" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /obj/machinery/power/smes,
 /obj/machinery/camera/directional/south,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"N" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/template_noop/open,
+/area/template_noop)
 "O" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"U" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/grille,
@@ -280,15 +380,15 @@ q
 W
 q
 d
-c
+n
 X
 q
 d
-c
+n
 X
 q
 d
-c
+n
 X
 q
 W
@@ -311,15 +411,15 @@ q
 W
 z
 d
-c
+v
 X
 q
 d
-c
+v
 X
 q
 d
-c
+v
 X
 z
 z
@@ -342,15 +442,15 @@ q
 W
 q
 d
-c
+v
 X
 z
 d
-c
+v
 X
 z
 d
-c
+v
 X
 q
 z
@@ -373,15 +473,15 @@ q
 z
 z
 d
-c
+v
 X
 q
 d
-c
+v
 X
 q
 d
-c
+v
 X
 z
 z
@@ -404,15 +504,15 @@ W
 z
 q
 d
-c
+v
 X
 q
 d
-c
+v
 X
 q
 d
-c
+v
 X
 q
 z
@@ -435,15 +535,15 @@ z
 q
 q
 q
-c
+i
 q
 q
 q
-c
+i
 q
 q
 q
-c
+i
 q
 q
 z
@@ -463,8 +563,8 @@ q
 W
 z
 D
-c
-c
+N
+N
 x
 m
 m
@@ -478,13 +578,13 @@ m
 m
 m
 m
-c
-c
+k
+N
 B
 s
 I
-s
-s
+U
+E
 j
 l
 "}
@@ -528,15 +628,15 @@ W
 G
 q
 d
-c
+g
 X
 q
 d
-c
+g
 X
 q
 d
-c
+g
 X
 q
 z
@@ -559,15 +659,15 @@ q
 z
 z
 d
-c
+g
 X
 q
 d
-c
+g
 X
 q
 d
-c
+g
 X
 z
 z
@@ -590,15 +690,15 @@ q
 W
 q
 d
-c
+g
 X
 z
 d
-c
+g
 X
 z
 d
-c
+g
 X
 q
 z
@@ -621,15 +721,15 @@ q
 W
 z
 d
-c
+g
 X
 q
 d
-c
+g
 X
 q
 d
-c
+g
 X
 z
 z
@@ -652,15 +752,15 @@ q
 W
 q
 d
-c
+J
 X
 q
 d
-c
+J
 X
 q
 d
-c
+J
 X
 q
 W

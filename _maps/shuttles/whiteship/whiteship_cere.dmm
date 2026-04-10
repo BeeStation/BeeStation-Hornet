@@ -92,7 +92,9 @@
 /area/shuttle/abandoned)
 "ao" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/floor/catwalk_floor,
 /area/shuttle/abandoned)
 "ap" = (
@@ -294,11 +296,15 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "aI" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "aJ" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/machinery/computer/monitor/secret{
 	dir = 8
 	},
@@ -320,7 +326,9 @@
 /obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 8
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 1
 	},
@@ -450,7 +458,9 @@
 	},
 /area/shuttle/abandoned)
 "aZ" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 5
 	},
@@ -517,7 +527,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "fP" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 8
 	},
@@ -529,7 +541,9 @@
 /turf/open/floor/catwalk_floor,
 /area/shuttle/abandoned)
 "hb" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 4
 	},
@@ -615,7 +629,9 @@
 /obj/machinery/atmospherics/components/tank/air{
 	dir = 1
 	},
-/obj/structure/cable/pink,
+/obj/structure/cable/white{
+	icon_state = "0-8"
+	},
 /obj/machinery/power/apc/syndicate/directional/south,
 /turf/open/floor/iron/ridged/steel{
 	color = "#808080"
@@ -665,7 +681,7 @@
 	pixel_y = 6;
 	default_raw_text = "These screws are so damn locked up that at this rate my plastitanium screwdriver is going to break before I figure out how this vest ticks. Damn you and your cheap rust prone designs Nanotrasen! Fuck!"
 	},
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/cut/red{
 	pixel_y = 18;
 	pixel_x = -2
 	},
@@ -776,7 +792,9 @@
 /area/shuttle/abandoned)
 "Ld" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /obj/machinery/door/airlock/hatch{
 	name = "Probe Access"
