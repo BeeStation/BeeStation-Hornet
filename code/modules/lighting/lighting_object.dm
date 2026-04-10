@@ -16,7 +16,7 @@
 
 /atom/movable/lighting_object/Initialize(mapload)
 	. = ..()
-	remove_verb(verbs)
+	verbs.Cut()
 	atom_colours.Cut()
 
 	myturf = loc
@@ -31,21 +31,14 @@
 	SSlighting.objects_queue += src
 
 /atom/movable/lighting_object/Destroy(force)
-	if (force)
-		SSlighting.objects_queue -= src
-		if (loc != myturf)
-			var/turf/oldturf = get_turf(myturf)
-			var/turf/newturf = get_turf(loc)
-			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
-		if (isturf(myturf))
-			myturf.lighting_object = null
-			myturf.underlays -= additive_underlay
-		myturf = null
-
-		return ..()
-
-	else
+	if (!force)
 		return QDEL_HINT_LETMELIVE
+	SSlighting.objects_queue -= src
+	if (isturf(myturf))
+		myturf.lighting_object = null
+		myturf.underlays -= additive_underlay
+	myturf = null
+	return ..()
 
 /atom/movable/lighting_object/proc/update()
 #ifdef VISUALIZE_LIGHT_UPDATES

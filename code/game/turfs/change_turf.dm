@@ -171,10 +171,13 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	dynamic_lumcount = old_dynamic_lumcount
 
 	if(SSlighting.initialized)
-		// Space tiles should never have lighting objects
+		// Fullbright tiles should never have lighting objects
 		if(fullbright_type == FULLBRIGHT_NONE)
 			// Should have a lighting object if we never had one
-			lighting_object = old_lighting_object || new /atom/movable/lighting_object(src)
+			if(old_lighting_object)
+				lighting_object = old_lighting_object
+			else
+				new /atom/movable/lighting_object(src)
 		else if (old_lighting_object)
 			qdel(old_lighting_object, force = TRUE)
 
