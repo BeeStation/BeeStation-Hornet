@@ -429,9 +429,7 @@
 	pixel_y = 11
 	},
 /obj/effect/mapping_helpers/tile_breaker,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "xq" = (
@@ -517,9 +515,7 @@
 /area/shuttle/hunter)
 "zA" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/turf_decal/box,
@@ -547,9 +543,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "AY" = (
@@ -731,9 +725,7 @@
 	},
 /obj/effect/decal/cleanable/oil,
 /obj/effect/mapping_helpers/tile_breaker,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "KB" = (
@@ -813,9 +805,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Nx" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/east{
 	cell_type = /obj/item/stock_parts/cell/high/plus;
 	req_access = list(181)
@@ -971,9 +961,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "TM" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "Uh" = (
