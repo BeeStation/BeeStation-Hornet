@@ -7349,6 +7349,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/modular_computer/console/preset/engineering,
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
 "cuu" = (

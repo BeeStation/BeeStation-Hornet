@@ -15583,6 +15583,9 @@
 	pixel_x = -23
 	},
 /obj/machinery/incident_display/delam/directional/north,
+/obj/machinery/modular_computer/console/preset/engineering{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},

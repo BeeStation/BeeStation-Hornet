@@ -25156,6 +25156,7 @@
 "gNN" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/incident_display/delam/directional/north,
+/obj/machinery/modular_computer/console/preset/engineering,
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage_shared)
 "gNR" = (

@@ -4848,6 +4848,12 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/sec)
+"VV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/rnd/server/oldstation,
+/turf/open/floor/iron,
+/area/ruin/space/ancientstation/rnd)
 "VX" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/bottle/carbon{
@@ -7952,7 +7958,7 @@ ez
 NF
 dZ
 ME
-eb
+VV
 hf
 eb
 hY

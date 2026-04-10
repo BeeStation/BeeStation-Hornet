@@ -2997,6 +2997,7 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
 	},
+/obj/machinery/rnd/server/no_heat,
 /turf/open/floor/iron,
 /area/station/science)
 "RZ" = (

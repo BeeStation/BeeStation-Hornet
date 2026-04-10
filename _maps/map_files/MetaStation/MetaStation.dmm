@@ -24579,7 +24579,10 @@
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 4
 	},
-/obj/machinery/modular_computer/console/preset/civilian,
+/obj/structure/table/glass,
+/obj/item/candydispenser/engineering{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "ilJ" = (
@@ -25117,6 +25120,9 @@
 "iti" = (
 /obj/effect/turf_decal/tile/dark,
 /obj/effect/turf_decal/bot,
+/obj/machinery/modular_computer/console/preset/engineering{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
 "itl" = (
@@ -76203,10 +76209,6 @@
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/item/candydispenser/engineering{
-	pixel_y = 11
 	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)

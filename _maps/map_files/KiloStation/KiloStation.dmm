@@ -40611,6 +40611,9 @@
 "mRS" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/modular_computer/console/preset/engineering{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "mRT" = (

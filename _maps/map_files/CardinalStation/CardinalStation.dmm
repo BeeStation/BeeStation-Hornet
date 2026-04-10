@@ -5385,6 +5385,9 @@
 /area/station/cargo/storage)
 "bkq" = (
 /obj/item/radio/intercom/directional/east,
+/obj/machinery/modular_computer/console/preset/engineering{
+	dir = 8
+	},
 /turf/open/floor/iron/tech,
 /area/station/engineering/storage_shared)
 "bkw" = (
