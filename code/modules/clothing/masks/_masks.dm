@@ -46,15 +46,17 @@
 	return default_name
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
-		if(body_parts_covered & HEAD)
-			if(damaged_clothes)
-				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-			if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-				var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
-				bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
-				. += bloody_mask
+	. = ..()
+	if(isinhands)
+		return
+
+	if(body_parts_covered & HEAD)
+		if(damaged_clothes)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+			var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+			bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+			. += bloody_mask
 
 /obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
