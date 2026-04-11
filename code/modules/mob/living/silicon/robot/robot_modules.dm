@@ -600,10 +600,10 @@
 
 //Aside from bomb and acid, not actually a lot of armor
 /datum/armor/cyborg
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 30
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 50
 	bomb = 50
 	acid = 100
 
