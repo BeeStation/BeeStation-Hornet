@@ -84,39 +84,14 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 	if(!length(station_z_levels))
 		return
 
-	// Calculate bounding box for each station Z-level
+	// Use world bounds
 	for(var/z_level in station_z_levels)
-		var/min_x = world.maxx
-		var/max_x = 1
-		var/min_y = world.maxy
-		var/max_y = 1
-		var/found_station = FALSE
-
-		// Iterate through all non-space areas
-		for(var/area/station_area in GLOB.areas)
-			if(istype(station_area, /area/misc/space))
-				continue
-
-			var/list/area_turfs = station_area.get_contained_turfs()
-			if(!length(area_turfs))
-				continue
-
-			// Find the bounding box of station turfs on this Z-level
-			for(var/turf/area_turf in area_turfs)
-				if(area_turf.z != z_level)
-					continue
-				if(!is_station_level(area_turf.z))
-					continue
-
-				found_station = TRUE
-				min_x = min(min_x, area_turf.x)
-				max_x = max(max_x, area_turf.x)
-				min_y = min(min_y, area_turf.y)
-				max_y = max(max_y, area_turf.y)
-
-		// Cache the bounds for this Z-level
-		if(found_station && max_x >= min_x && max_y >= min_y)
-			station_bounds_cache["[z_level]"] = list("min_x" = min_x, "max_x" = max_x, "min_y" = min_y, "max_y" = max_y)
+		station_bounds_cache["[z_level]"] = list(
+			"min_x" = SHUTTLE_TRANSIT_BORDER,
+			"max_x" = world.maxx - SHUTTLE_TRANSIT_BORDER,
+			"min_y" = SHUTTLE_TRANSIT_BORDER,
+			"max_y" = world.maxy - SHUTTLE_TRANSIT_BORDER,
+		)
 
 // Invisible atmospheric drag effect that damages station structures
 // Simulates heating and structural stress from atmospheric re-entry
@@ -156,7 +131,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 	if(bumped.density)
 		if(isstructure(bumped) || ismachinery(bumped))
 			var/obj/bumped_obj = bumped
-			bumped_obj.take_damage(erosionpower, BRUTE, "melee", 0)
+			bumped_obj.take_damage(erosionpower, BRUTE, "melee", FALSE)
 
 /obj/effect/meteor/atmospheric_drag/ram_turf(turf/target)
 	// Don't damage turfs with mobs on them
@@ -190,7 +165,7 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 		return TRUE
 	return ..()
 
-/obj/effect/meteor/atmospheric_drag/CanPassThrough(atom/blocker, turf/target, blocker_dir)
+/obj/effect/meteor/atmospheric_drag/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	// Always pass through mobs
 	if(ismob(blocker))
 		return TRUE
@@ -203,15 +178,15 @@ SUBSYSTEM_DEF(orbital_reentry_drag)
 	hits = 50
 	erosionpower = 100
 
-/obj/effect/meteor/atmospheric_drag/heavy/ram_turf(turf/T)
+/obj/effect/meteor/atmospheric_drag/heavy/ram_turf(turf/target_turf)
 	// Don't damage turfs with mobs on them
-	for(var/mob/M in T)
+	for(var/mob/living/Mob in target_turf)
 		return
 
-	if(isspaceturf(T))
+	if(isspaceturf(target_turf))
 		return
 
 	// Queue major explosion on this turf
-	SSexplosions.highturf += T
+	SSexplosions.highturf += target_turf
 
 	get_hit()
