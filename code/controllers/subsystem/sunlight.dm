@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(sunlight)
 	var/sunlight_active = FALSE
 	///The time between the next cycle, randomized every night.
 	var/time_til_cycle = TIME_VAMPIRE_NIGHT
-	///If Vampire levels for the night has been given out yet.
+	///If Vampire levels for the night has been given out already.
 	var/issued_XP = FALSE
 
 /datum/controller/subsystem/sunlight/fire(resumed = FALSE)
