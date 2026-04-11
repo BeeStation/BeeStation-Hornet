@@ -56,7 +56,7 @@
 	// Supports single items or whole boxes.
 	var/atom/movable/spawned
 
-	var/items = list("Carbon Fibre Sabre", "NPS-10")
+var/items = list("Carbon Fibre Sabre", "NPS-10", "Disabler")
 
 	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Voucher Redemption", sort_list(items), "NPS-10")
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -68,6 +68,9 @@
 
 		if("NPS-10")
 			spawned = new /obj/item/gun/ballistic/automatic/pistol/security(redeemer)
+
+		if("Disabler")
+			spawned = new /obj/item/gun/energy/disabler(redeemer)
 
 	// We spawned a box, populated it. Now we put it into the redeemer's hands.
 	if(!redeemer.put_in_hands(spawned))
