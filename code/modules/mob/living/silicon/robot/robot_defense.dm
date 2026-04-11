@@ -59,6 +59,11 @@
 	if(!wiresexposed && !issilicon(user))
 		if(!cell)
 			return
+		user.visible_message(span_notice("[user] begins removing [cell] from [src]..."), span_notice("You begin removing [cell] from [src]..."))
+		if(!do_after(user, 2 SECONDS, target = src))
+			return
+		if(!cell || !opened) //re-check after the delay
+			return
 		cell.update_icon()
 		cell.add_fingerprint(user)
 		user.put_in_active_hand(cell)
