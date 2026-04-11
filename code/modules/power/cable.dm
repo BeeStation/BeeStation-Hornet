@@ -149,7 +149,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		connected_cable.connected -= src
 
 		var/inbetween_dir = get_dir(connected_cable, src)
-		connected_cable.linked_dirs &= ~(inbetween_dir)
+
+		// Don't clear the cable's linked dir if there's still a cable.
+		// This only matters for omni-cables
+		if(connected_cable.omni)
+			var/has_other_cable = FALSE
+			var/reverse_dir = REVERSE_DIR(inbetween_dir)
+			for(var/obj/structure/cable/other_cable in connected_cable.connected)
+				if(other_cable.linked_dirs & reverse_dir)
+					has_other_cable = TRUE
+					break
+			if(!has_other_cable)
+				connected_cable.linked_dirs &= ~(inbetween_dir)
+		else
+			connected_cable.linked_dirs &= ~(inbetween_dir)
+
 		connected_cable.omni_dirs &= ~(inbetween_dir)
 
 		connected_cable.update_power_node()
