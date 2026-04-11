@@ -267,7 +267,7 @@
 
 /atom/movable/screen/alert/status_effect/cyborg_sentry
 	name = "Sentry-mode Active"
-	desc = "Your armor is active but slowing you down!"
+	desc = "Your armor plating is engaged, granting you significant damage resistance but reducing your movement speed. Use the Toggle Sentry Mode action to control this."
 	icon_state = "sentry"
 
 /datum/status_effect/cyborg_sentry

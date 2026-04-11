@@ -155,7 +155,10 @@
 			R = loc
 		else if(iscyborg(loc.loc))
 			R = loc.loc
-		R?.remove_status_effect(/datum/status_effect/cyborg_sentry)
+		if(R?.has_status_effect(/datum/status_effect/cyborg_sentry))
+			R.remove_status_effect(/datum/status_effect/cyborg_sentry)
+			to_chat(R, span_notice("Your gun has fully recharged. Sentry mode automatically disengaged."))
+			R.balloon_alert(R, "sentry mode auto-OFF")
 	. = ..()
 
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg/on_chamber_fired()
@@ -189,7 +192,7 @@
 // Sentry Mode Toggle Action
 /datum/action/sentry_toggle
 	name = "Toggle Sentry Mode"
-	desc = "Toggle your armor plating on or off. Activating sentry mode grants armor at the cost of movement speed. Sentry mode is always forced on while your gun is recharging."
+	desc = "Toggle your armor plating on or off. Activating sentry mode grants significant armor at the cost of movement speed. Sentry mode is automatically forced on while your gun is recharging after firing."
 	button_icon = 'icons/hud/screen_alert.dmi'
 	button_icon_state = "sentry"
 	/// Reference to the gun this action is associated with
@@ -208,15 +211,19 @@
 
 	gun.sentry_toggled = !gun.sentry_toggled
 	if(gun.sentry_toggled)
-		our_borgie.apply_status_effect(/datum/status_effect/cyborg_sentry)
-		to_chat(our_borgie, span_notice("You engage your armor plating. Sentry mode activated."))
-		our_borgie.balloon_alert(our_borgie, "sentry mode ON")
+		if(our_borgie.has_status_effect(/datum/status_effect/cyborg_sentry))
+			to_chat(our_borgie, span_warning("Sentry mode will remain active once fully charged."))
+			our_borgie.balloon_alert(our_borgie, "sentry mode will remain ON when recharged")
+		else
+			our_borgie.apply_status_effect(/datum/status_effect/cyborg_sentry)
+			to_chat(our_borgie, span_notice("You engage your armor plating, granting you armor at the cost of movement speed."))
+			our_borgie.balloon_alert(our_borgie, "sentry mode ON")
 	else
 		//Only remove sentry if the gun is fully charged (not forced by firing)
 		if(gun.cell && gun.cell.percent() == 100)
 			our_borgie.remove_status_effect(/datum/status_effect/cyborg_sentry)
-			to_chat(our_borgie, span_notice("You disengage your armor plating. Sentry mode deactivated."))
+			to_chat(our_borgie, span_notice("You disengage your armor plating, restoring your movement speed."))
 			our_borgie.balloon_alert(our_borgie, "sentry mode OFF")
 		else
-			to_chat(our_borgie, span_warning("Your gun is still recharging! Sentry mode will deactivate once fully charged."))
-			our_borgie.balloon_alert(our_borgie, "gun still recharging!")
+			to_chat(our_borgie, span_warning("Your gun is still recharging! Sentry mode will automatically deactivate once fully charged."))
+			our_borgie.balloon_alert(our_borgie, "sentry mode will turn OFF when recharged")
