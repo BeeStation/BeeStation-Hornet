@@ -274,13 +274,27 @@
 	id = "cyborg_sentry"
 	duration = STATUS_EFFECT_PERMANENT
 	alert_type = /atom/movable/screen/alert/status_effect/cyborg_sentry
+	/// The shield overlay shown on the cyborg while sentry mode is active
+	var/mutable_appearance/shield_overlay
 
 /datum/status_effect/cyborg_sentry/on_apply(mob/living/new_owner, ...)
 	. = ..()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
 	owner.set_armor(/datum/armor/cyborg)
 
+	shield_overlay = mutable_appearance('icons/effects/effects.dmi', "shield-old", MOB_SHIELD_LAYER)
+	shield_overlay.alpha = 160
+	owner.add_overlay(shield_overlay)
+	playsound(owner, 'sound/mecha/mech_shield_raise.ogg', 50, TRUE)
+	owner.visible_message(span_warning("[owner]'s armor plating locks into place!"))
+
 /datum/status_effect/cyborg_sentry/on_remove()
+
+	if(shield_overlay)
+		owner.cut_overlay(shield_overlay)
+		shield_overlay = null
+	playsound(owner, 'sound/mecha/mech_shield_drop.ogg', 50, TRUE)
+	owner.visible_message(span_notice("[owner]'s armor plating retracts."))
 	. = ..()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
 	owner.set_armor(/datum/armor/none)
