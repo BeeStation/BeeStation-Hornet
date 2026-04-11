@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(machines)
 	powernets.Cut()
 
 	var/datum/powernet/new_powernet = new()
-	for(var/obj/structure/cable/cable in GLOB.cable_list)
+	for(var/obj/structure/cable/cable as anything in GLOB.cable_list)
 		new_powernet.add_cable(cable)
 	new_powernet.repropogate_cables()
 	new_powernet.dirty = FALSE

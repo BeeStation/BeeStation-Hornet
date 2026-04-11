@@ -110,20 +110,14 @@
 /obj/item/restraints/handcuffs/cable/yellow
 	color = COLOR_YELLOW
 
-/obj/item/restraints/handcuffs/cable/blue
-	color = "#1919c8"
-
 /obj/item/restraints/handcuffs/cable/green
-	color = "#00aa00"
+	color = COLOR_DARK_LIME
 
 /obj/item/restraints/handcuffs/cable/pink
-	color = "#ff3ccd"
+	color = COLOR_LIGHT_PINK
 
 /obj/item/restraints/handcuffs/cable/orange
-	color = "#ff8000"
-
-/obj/item/restraints/handcuffs/cable/cyan
-	color = COLOR_CYAN
+	color = COLOR_MOSTLY_PURE_ORANGE
 
 /obj/item/restraints/handcuffs/cable/white
 	color = null

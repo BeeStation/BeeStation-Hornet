@@ -209,17 +209,17 @@ WANTS_POWER_NODE(/obj/machinery/power)
 
 // attach a wire to a power machine - leads from the turf you are standing on
 //almost never called, overwritten by all power machines but terminal and generator
-/obj/machinery/power/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = W
-		var/turf/T = user.loc
-		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !isfloorturf(T))
+/obj/machinery/power/attackby(obj/item/attacking_item, mob/user, params)
+	if(istype(attacking_item, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = attacking_item
+		var/turf/user_turf = user.loc
+		if(user_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !isfloorturf(user_turf))
 			return
 		if(get_dist(src, user) > 1)
 			return
-		coil.place_turf(T, user)
-	else
-		return ..()
+		coil.place_on_turf(user_turf, user)
+		return TRUE
+	return ..()
 
 
 ///////////////////////////////////////////

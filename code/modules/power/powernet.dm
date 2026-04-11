@@ -3,18 +3,29 @@
 // each contiguous network of cables & nodes
 /////////////////////////////////////
 /datum/powernet
-	var/number					// unique id
-	var/list/cables = list()	// all cables & junctions
-	var/list/nodes = list()		// all connected machines
+	/// unique id
+	var/number
+	/// all cables & junctions
+	var/list/cables = list()
+	/// all connected machines
+	var/list/nodes = list()
 
-	var/load = 0				// the current load on the powernet, increased by each machine at processing
-	var/newavail = 0			// what available power was gathered last tick, then becomes...
-	var/avail = 0				//...the current available power in the powernet
-	var/viewavail = 0			// the available power as it appears on the power console (gradually updated)
-	var/viewload = 0			// the load as it appears on the power console (gradually updated)
-	var/netexcess = 0			// excess power on the powernet (typically avail-load)///////
-	var/delayedload = 0			// load applied to powernet between power ticks.
-	var/dirty = FALSE			// Is this powernet queued for a full reconsolidation in the powernet subsystem?
+	// the current load on the powernet, increased by each machine at processing
+	var/load = 0
+	/// what available power was gathered last tick, then becomes...
+	var/newavail = 0
+	/// ...the current available power in the powernet
+	var/avail = 0
+	/// the available power as it appears on the power console (gradually updated)
+	var/viewavail = 0
+	/// the load as it appears on the power console (gradually updated)
+	var/viewload = 0
+	/// excess power on the powernet (typically avail-load)
+	var/netexcess = 0
+	/// load applied to powernet between power ticks.
+	var/delayedload = 0
+	/// Is this powernet queued for a full reconsolidation in the powernet subsystem?
+	var/dirty = FALSE
 
 /datum/powernet/New()
 	SSmachines.powernets += src

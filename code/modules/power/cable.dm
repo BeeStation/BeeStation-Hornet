@@ -7,9 +7,13 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	"white" = COLOR_WHITE,
 ))
 
-/proc/get_cable(turf/location, cable_color, omni)
+/**
+ * Helper proc to get a cable in a turf of a specific color
+ * If cable_color is null, the first cable found is returned
+ */
+/proc/get_cable(turf/location, cable_color)
 	for (var/obj/structure/cable/cable in location)
-		if (cable.omni || omni || cable.cable_color == cable_color)
+		if (isnull(cable_color) || cable.cable_color == cable_color)
 			return cable
 
 ////////////////////////////////
@@ -25,6 +29,8 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT
 	flags_1 = STAT_UNIQUE_1
+
+	/// The powernet we are linked to
 	var/datum/powernet/powernet
 	/// Are we a single cable that wants to be a node?
 	var/has_power_node = FALSE
@@ -32,15 +38,9 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	var/forced_power_node = FALSE
 	/// List of cables that are connected to this cable.
 	var/list/connected = list()
-	/// Number of cables connected to the north of this cable, can be greater than 1 for omni cables.
-	var/north_count = 0
-	/// Number of cables connected to the east of this cable, can be greater than 1 for omni cables.
-	var/east_count = 0
-	/// Number of cables connected to the south of this cable, can be greater than 1 for omni cables.
-	var/south_count = 0
-	/// Number of cables connected to the west of this cable, can be greater than 1 for omni cables.
-	var/west_count = 0
-	/// Direction flag which specifies in what direction this cable connects to omni cables.
+	/// A bitfield of the directions this cable connects to.
+	var/linked_dirs = NONE
+	/// A bitfield of the directions that have an omni-cable connection.
 	var/omni_dirs = NONE
 	/// Reference to the cable that is above us.
 	var/obj/structure/cable/up
@@ -50,8 +50,8 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	var/omni = FALSE
 	/// Are we a multi-z cable?
 	var/multiz = FALSE
-	// Sound loop for transformer boxes
-	VAR_PRIVATE/datum/looping_sound/transformer/sound_loop = null
+	/// Sound loop for multi-z cables
+	VAR_PRIVATE/datum/looping_sound/transformer/sound_loop
 
 	FASTDMM_PROP(\
 		pipe_type = PIPE_TYPE_CABLE,\
@@ -77,24 +77,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		return INITIALIZE_HINT_QDEL
 #endif
 
-	var/list/cable_colors = GLOB.cable_colors
-	cable_color = param_color || cable_color || pick(cable_colors)
+	cable_color = param_color || cable_color
+	src.multiz = multiz
 
-	// Check for multi-z status on mapload
-	if (multiz || (mapload && isopenspace(loc) && !(locate(/obj/structure/lattice/catwalk) in loc)))
-		var/turf/current_turf = loc
-		var/obj/structure/cable/below_cable = locate(/obj/structure/cable) in GET_TURF_BELOW(current_turf)
-		if (below_cable)
-			down = below_cable
-			below_cable.up = src
-			below_cable.update_appearance(UPDATE_ICON)
-			// Make sure to record this so that we can reform on multi-z shuttle movements
-			src.multiz = TRUE
-			below_cable.multiz = TRUE
+	// If our tile is open space, we're a multiz cable
+	if(mapload && isopenspace(loc))
+		multiz = TRUE
 
-	// Locate adjacent tiles
-	reform_connections()
+	if(multiz)
+		sound_loop = new(src, start_immediately = TRUE)
 
+	// Our pixel offsets are modified for mapping icons, let's reset them here
 	pixel_x = 0
 	pixel_y = 0
 
@@ -102,34 +95,41 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
-	update_appearance(UPDATE_ICON)
-	linkup_adjacent(!mapload)
 	if(isturf(loc))
 		var/turf/turf_loc = loc
 		turf_loc.add_blueprints_preround(src)
 
-/obj/structure/cable/Destroy()					// called when a cable is deleted
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/cable/LateInitialize()
+	reform_connections()
+	update_appearance(UPDATE_ICON)
+
+	// If we're being maploaded, SSmachines.makepowernets() will handle powernet creation
+	var/should_we_make_a_powernet = SSatoms.initialized != INITIALIZATION_INNEW_MAPLOAD
+	linkup_adjacent(should_we_make_a_powernet)
+
+/obj/structure/cable/Destroy()
 	// Update our neighbors
 	clear_connections()
 	if(powernet)
-		cut_cable_from_powernet()				// update the powernets
-	GLOB.cable_list -= src							//remove it from global cable list
+		cut_cable_from_powernet() // update the powernets
+	GLOB.cable_list -= src //remove it from global cable list
 	if (sound_loop)
 		QDEL_NULL(sound_loop)
-	return ..()									// then go ahead and delete the cable
+	return ..() // then go ahead and delete the cable
 
-/// Explicitly reject edits of managed variabled
+/obj/structure/cable/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += get_power_info()
+
+/// Explicitly reject edits of managed variables
 /obj/structure/cable/vv_edit_var(vname, vval)
 	switch (vname)
 		if (NAMEOF(src, connected))
 			return FALSE
-		if (NAMEOF(src, north_count))
-			return FALSE
-		if (NAMEOF(src, east_count))
-			return FALSE
-		if (NAMEOF(src, south_count))
-			return FALSE
-		if (NAMEOF(src, west_count))
+		if (NAMEOF(src, linked_dirs))
 			return FALSE
 		if (NAMEOF(src, omni_dirs))
 			return FALSE
@@ -145,164 +145,117 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/proc/clear_connections()
-	for (var/obj/structure/cable/connected_cable in connected)
+	for (var/obj/structure/cable/connected_cable as anything in connected)
 		connected_cable.connected -= src
-		switch (get_dir(connected_cable, src))
-			if (NORTH)
-				connected_cable.clear_north()
-			if (SOUTH)
-				connected_cable.clear_south()
-			if (EAST)
-				connected_cable.clear_east()
-			if (WEST)
-				connected_cable.clear_west()
-		connected_cable.omni_dirs &= ~(get_dir(connected_cable, src))
+
+		var/inbetween_dir = get_dir(connected_cable, src)
+		connected_cable.linked_dirs &= ~(inbetween_dir)
+		connected_cable.omni_dirs &= ~(inbetween_dir)
+
+		connected_cable.update_power_node()
 		connected_cable.update_appearance(UPDATE_ICON)
 	down?.set_up(null)
 	up?.set_down(null)
 
+/**
+ * Searches the four cardinal directions for cables and links the compatible ones to us.
+ * If we are a multi-z wire, the turfs above and below us are searched as well.
+ */
 /obj/structure/cable/proc/reform_connections()
-	for (var/obj/structure/cable/north_cable in get_step(src, NORTH))
-		if (!north_cable.omni && !omni && north_cable.cable_color != cable_color)
-			continue
-		connected += north_cable
-		north_count++
-		north_cable.connected += src
-		north_cable.south_count++
-		if (north_cable.omni)
-			omni_dirs |= NORTH
-		if (omni)
-			north_cable.omni_dirs |= SOUTH
-		north_cable.update_power_node()
-		north_cable.update_appearance(UPDATE_ICON)
-	for (var/obj/structure/cable/south_cable in get_step(src, SOUTH))
-		if (!south_cable.omni && !omni && south_cable.cable_color != cable_color)
-			continue
-		connected += south_cable
-		south_count++
-		south_cable.connected += src
-		south_cable.north_count++
-		if (south_cable.omni)
-			omni_dirs |= SOUTH
-		if (omni)
-			south_cable.omni_dirs |= NORTH
-		south_cable.update_power_node()
-		south_cable.update_appearance(UPDATE_ICON)
-	for (var/obj/structure/cable/east_cable in get_step(src, EAST))
-		if (!east_cable.omni && !omni && east_cable.cable_color != cable_color)
-			continue
-		connected += east_cable
-		east_count++
-		east_cable.connected += src
-		east_cable.west_count++
-		if (east_cable.omni)
-			omni_dirs |= EAST
-		if (omni)
-			east_cable.omni_dirs |= WEST
-		east_cable.update_power_node()
-		east_cable.update_appearance(UPDATE_ICON)
-	for (var/obj/structure/cable/west_cable in get_step(src, WEST))
-		if (!west_cable.omni && !omni && west_cable.cable_color != cable_color)
-			continue
-		connected += west_cable
-		west_count++
-		west_cable.connected += src
-		west_cable.east_count++
-		if (west_cable.omni)
-			omni_dirs |= WEST
-		if (omni)
-			west_cable.omni_dirs |= EAST
-		west_cable.update_power_node()
-		west_cable.update_appearance(UPDATE_ICON)
+	for(var/cardinal in GLOB.cardinals)
+		for(var/obj/structure/cable/adjacent_cable in get_step(src, cardinal))
+			if (!adjacent_cable.omni && !omni && adjacent_cable.cable_color != cable_color)
+				continue
+
+			var/reverse_cardinal = REVERSE_DIR(cardinal)
+
+			connected |= adjacent_cable
+			linked_dirs |= cardinal
+
+			adjacent_cable.connected |= src
+			adjacent_cable.linked_dirs |= reverse_cardinal
+
+			if(adjacent_cable.omni)
+				omni_dirs |= cardinal
+			if(omni)
+				adjacent_cable.omni_dirs |= reverse_cardinal
+
+			adjacent_cable.update_power_node()
+			adjacent_cable.update_appearance(UPDATE_ICON)
+
 	// Linkup with multi-z cables
 	if (multiz)
 		var/turf/current_location = get_turf(src)
 		// Omni-cables will not connect with coloured cables along the z-axis
-		var/obj/structure/cable/below_cable = get_cable(GET_TURF_BELOW(current_location), cable_color, FALSE)
-		if (below_cable)
-			below_cable.set_up(src)
-		var/obj/structure/cable/above_cable = get_cable(GET_TURF_ABOVE(current_location), cable_color, FALSE)
-		if (above_cable)
-			above_cable.set_down(src)
+		var/obj/structure/cable/below_cable = get_cable(GET_TURF_BELOW(current_location), cable_color)
+		below_cable?.set_up(src)
 
+		var/obj/structure/cable/above_cable = get_cable(GET_TURF_ABOVE(current_location), cable_color)
+		above_cable?.set_down(src)
+
+/**
+ * Updates the has_power_node bool and connects/disconnects from machines if it changed.
+ */
 /obj/structure/cable/proc/update_power_node()
 	if (forced_power_node)
 		return
-	var/previous = has_power_node
+
+	var/previous_node_state = has_power_node
 	has_power_node = FALSE
+
 	// If we have 0 or 1 connections, we get a free power node
-	if (!!north_count + !!south_count + !!west_count + !!east_count <= 1)
+	if((linked_dirs & NORTH) + (linked_dirs & SOUTH) + (linked_dirs & WEST) + (linked_dirs & EAST) <= 1)
 		has_power_node = TRUE
-	if (previous != has_power_node)
+
+	if (previous_node_state != has_power_node)
 		if (has_power_node)
 			connect_to_machines()
 		else
 			disconnect_from_machines()
 
-/// Add a power node to this cable
+/**
+ * Adds a focred power node to this cable
+ */
 /obj/structure/cable/proc/add_power_node()
 	forced_power_node = TRUE
 	has_power_node = TRUE
 	linkup_adjacent(FALSE)
 	update_appearance(UPDATE_ICON)
 
-/obj/structure/cable/proc/clear_north(obj/structure/cable/removed)
-	connected -= removed
-	north_count--
-	omni_dirs &= ~NORTH
-	update_power_node()
+/**
+ * Sets the linked cable on the z-level below us
+ */
+/obj/structure/cable/proc/set_down(obj/structure/cable/new_cable)
+	down = new_cable
 	update_appearance(UPDATE_ICON)
+	if(!isnull(down))
+		down.up = src
+		down.update_appearance(UPDATE_ICON)
 
-/obj/structure/cable/proc/clear_south(obj/structure/cable/removed)
-	connected -= removed
-	south_count--
-	omni_dirs &= ~SOUTH
-	update_power_node()
+/**
+ * Sets the linked cable on the z-level above us
+ */
+/obj/structure/cable/proc/set_up(obj/structure/cable/new_cable)
+	up = new_cable
 	update_appearance(UPDATE_ICON)
-
-/obj/structure/cable/proc/clear_east(obj/structure/cable/removed)
-	connected -= removed
-	east_count--
-	omni_dirs &= ~EAST
-	update_power_node()
-	update_appearance(UPDATE_ICON)
-
-/obj/structure/cable/proc/clear_west(obj/structure/cable/removed)
-	connected -= removed
-	west_count--
-	omni_dirs &= ~WEST
-	update_power_node()
-	update_appearance(UPDATE_ICON)
-
-/obj/structure/cable/proc/set_down(new_value)
-	down = new_value
-	down?.up = src
-	update_appearance(UPDATE_ICON)
-	down?.update_appearance(UPDATE_ICON)
-
-/obj/structure/cable/proc/set_up(new_value)
-	up = new_value
-	up?.down = src
-	update_appearance(UPDATE_ICON)
-	up?.update_appearance(UPDATE_ICON)
+	if(!isnull(up))
+		up.down = src
+		up.update_appearance(UPDATE_ICON)
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		var/turf/T = get_turf(loc)
-		if(T)
-			var/obj/item/stack/cable_coil/R = new /obj/item/stack/cable_coil(T, forced_power_node ? 2 : 1, cable_color, omni)
-			if(QDELETED(R)) // the coil merged with something on the tile
-				R = locate(/obj/item/stack/cable_coil) in T
-			if(R)
-				transfer_fingerprints_to(R)
-		if (multiz)
-			if (up)
-				up.down = null
-				up.deconstruct()
-			if (down)
-				down.up = null
-				down.deconstruct()
-	..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return ..()
+	var/atom/drop_loc = drop_location()
+	if(drop_loc)
+		var/amount_to_drop = forced_power_node ? 2 : 1
+		var/obj/item/stack/cable_coil/dropped_cable = new(drop_loc, amount_to_drop, TRUE, null, cable_color, omni)
+		if(QDELETED(dropped_cable)) // the coil merged with something on the tile
+			dropped_cable = locate(/obj/item/stack/cable_coil) in drop_loc
+		transfer_fingerprints_to(dropped_cable)
+	if (multiz)
+		up?.deconstruct()
+		down?.deconstruct()
+	return ..()
 
 ///////////////////////////////////
 // General procedures
@@ -316,15 +269,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		. += mutable_appearance(icon, "box", appearance_flags = RESET_COLOR)
 		. += mutable_appearance(icon, "boxlight", appearance_flags = RESET_COLOR)
 		. += emissive_appearance(icon, "boxlight", layer)
-		sound_loop = new (src, TRUE)
-	else if (sound_loop)
-		QDEL_NULL(sound_loop)
-	if (up)
-		if (down)
-			underlays += mutable_appearance(icon, "32", appearance_flags = RESET_COLOR)
-		. += mutable_appearance(icon, "16", appearance_flags = RESET_COLOR)
-	else if (down)
+
+	if(down)
 		underlays += mutable_appearance(icon, "32", appearance_flags = RESET_COLOR)
+	if(up)
+		. += mutable_appearance(icon, "16", appearance_flags = RESET_COLOR)
+
 	var/shift_amount = get_shift_amount()
 	if (shift_amount != 0)
 		// Add for the sake of hitboxes
@@ -336,44 +286,48 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/update_icon_state()
 	. = ..()
+	// Icon state
 	var/list/adjacencies = list()
 	if (has_power_node)
 		adjacencies += "0"
-	if (north_count)
+	if (linked_dirs & NORTH)
 		adjacencies += "1"
-	if (south_count)
+	if (linked_dirs & SOUTH)
 		adjacencies += "2"
-	if (east_count)
+	if (linked_dirs & EAST)
 		adjacencies += "4"
-	if (west_count)
+	if (linked_dirs & WEST)
 		adjacencies += "8"
 	if (length(adjacencies) <= 1 && !has_power_node)
 		adjacencies.Insert(1, "0")
 	if (omni)
 		adjacencies += "o"
 	icon_state = jointext(adjacencies, "-")
+
+	// Color
 	if (omni)
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+		return
+	add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
+
+	// Calculate pixel shifts
+	remove_filter(list("displace_wire", "omni-connection-up", "omni-connection-left", "omni-connection-down", "omni-connection-right"))
+	var/shift_amount = get_shift_amount()
+	// Shift amount not required if we are centered, reduces filter usage on main station wires
+	if (shift_amount)
+		layer = initial(layer)
+		add_filter("displace_wire", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-wire"), size=shift_amount))
+		if (omni_dirs & NORTH)
+			add_filter("omni-connection-up", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-up"), size=shift_amount))
+		if (omni_dirs & SOUTH)
+			add_filter("omni-connection-down", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-down"), size=shift_amount))
+		if (omni_dirs & WEST)
+			add_filter("omni-connection-left", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-left"), size=shift_amount))
+		if (omni_dirs & EAST)
+			add_filter("omni-connection-right", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-right"), size=shift_amount))
 	else
-		add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
-		// Calculate pixel shifts
-		remove_filter(list("displace_wire", "omni-connection-up", "omni-connection-left", "omni-connection-down", "omni-connection-right"))
-		var/shift_amount = get_shift_amount()
-		// Shift amount not required if we are centered, reduces filter usage on main station wires
-		if (shift_amount)
-			layer = initial(layer)
-			add_filter("displace_wire", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-wire"), size=shift_amount))
-			if (omni_dirs & NORTH)
-				add_filter("omni-connection-up", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-up"), size=shift_amount))
-			if (omni_dirs & SOUTH)
-				add_filter("omni-connection-down", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-down"), size=shift_amount))
-			if (omni_dirs & WEST)
-				add_filter("omni-connection-left", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-left"), size=shift_amount))
-			if (omni_dirs & EAST)
-				add_filter("omni-connection-right", 1, displacement_map_filter(icon('icons/obj/power_cond/cables.dmi', "displace-right"), size=shift_amount))
-		else
-			// Gets slightly priority over displaced cables so that shift-click functions as intended
-			layer = initial(layer) + 0.001
+		// Gets slightly priority over displaced cables so that shift-click functions as intended
+		layer = initial(layer) + 0.001
 
 /obj/structure/cable/proc/get_shift_amount()
 	switch (cable_color)
@@ -389,63 +343,72 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			return 4
 	return 0
 
-/obj/structure/cable/attackby(obj/item/W, mob/user, params)
-	var/turf/T = get_turf(src)
-	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
+/obj/structure/cable/attackby(obj/item/attacking_item, mob/user, params)
+	var/turf/our_turf = get_turf(src)
+	if(our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return FALSE
-	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		var/obj/structure/cable/target = resolve_ambiguous_target(user)
-		if (!target)
-			return TRUE
-		if (target.shock(user, 50))
-			return TRUE
-		user.visible_message("[user] cuts the cable.", span_notice("You cut the cable."))
-		target.investigate_log("was cut by [key_name(usr)] in [AREACOORD(target)]", INVESTIGATE_WIRES)
-		target.deconstruct()
-		return TRUE
 
-	else if(W.tool_behaviour == TOOL_MULTITOOL)
-		var/obj/structure/cable/target = resolve_ambiguous_target(user)
-		if (!target)
-			return TRUE
-		to_chat(user, target.get_power_info())
-		target.shock(user, 5, 0.2)
-		return TRUE
-
-	else if (istype(W, /obj/item/stack/cable_coil))
+	if(istype(attacking_item, /obj/item/stack/cable_coil))
 		// Pass the click down to the turf instead
-		return T.attackby(W, user, params)
+		return our_turf.attackby(attacking_item, user, params)
 
 	add_fingerprint(user)
 	return ..()
 
+/obj/structure/cable/wirecutter_act(mob/living/user, obj/item/tool)
+	var/turf/our_turf = get_turf(src)
+	if (our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
+		return
+
+	var/obj/structure/cable/target = resolve_ambiguous_target(user)
+	if(isnull(target))
+		return TOOL_ACT_SIGNAL_BLOCKING
+
+	if (target.shock(user, 50))
+		return TOOL_ACT_SIGNAL_BLOCKING
+
+	user.visible_message("[user] cuts [target].", span_notice("You cut [target]."))
+	target.investigate_log("was cut by [key_name(usr)] in [AREACOORD(target)]", INVESTIGATE_WIRES)
+	target.deconstruct()
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/structure/cable/multitool_act(mob/living/user, obj/item/tool)
+	var/turf/our_turf = get_turf(src)
+	if (our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
+		return
+
+	var/obj/structure/cable/target = resolve_ambiguous_target(user)
+	if(isnull(target))
+		return TOOL_ACT_SIGNAL_BLOCKING
+
+	target.add_fingerprint(user)
+	to_chat(user, target.get_power_info())
+	target.shock(user, 5, 0.2)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/**
+ * Called when we attempt to interact with this cable
+ * If there are multiple cables in our location, display a radial menu for the user to choose a cable
+ */
 /obj/structure/cable/proc/resolve_ambiguous_target(mob/user)
 	var/list/targets = list()
-	var/list/results = list()
 	for (var/obj/structure/cable/cable in loc)
-		targets["Cable [cable.omni ? "(Omni)" : "([cable.cable_color])"]"] = cable.appearance
-		results["Cable [cable.omni ? "(Omni)" : "([cable.cable_color])"]"] = cable
+		targets["Cable [cable.omni ? "(Omni)" : "([cable.cable_color])"]"] = cable
 	if (length(targets) <= 1)
 		return src
 	var/result = show_radial_menu(user, user, targets, tooltips = TRUE)
-	if (!result)
-		return null
-	return results[result]
+	if (isnull(result))
+		return
+	return targets[result]
 
-/obj/structure/cable/examine(mob/user)
-	. = ..()
-	if(isobserver(user))
-		. += get_power_info()
-
-// shock the user with probability prb
+/// shock the user with probability prb
 /obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
 	if(!prob(prb))
-		return 0
+		return FALSE
 	if (electrocute_mob(user, powernet, src, siemens_coeff))
 		do_sparks(5, TRUE, src)
-		return 1
-	else
-		return 0
+		return TRUE
+	return FALSE
 
 /obj/structure/cable/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
@@ -453,7 +416,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		deconstruct()
 
 /obj/structure/cable/proc/get_power_info()
-	if(powernet && (powernet.avail > 0))		// is it powered?
+	if(powernet?.avail > 0)
 		return span_danger("Total power: [display_power_persec(powernet.avail)]\nLoad: [display_power_persec(powernet.load)]\nExcess power: [display_power_persec(surplus())]")
 	else
 		return span_danger("The cable is not powered.")
@@ -467,12 +430,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 // Non-machines should use add_delayedload(), delayed_surplus(), newavail()
 
 /obj/structure/cable/proc/add_avail(amount)
-	if(powernet)
-		powernet.newavail += amount
+	powernet?.newavail += amount
 
 /obj/structure/cable/proc/add_load(amount)
-	if(powernet)
-		powernet.load += amount
+	powernet?.load += amount
 
 /obj/structure/cable/proc/surplus()
 	if(powernet)
@@ -487,8 +448,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		return 0
 
 /obj/structure/cable/proc/add_delayedload(amount)
-	if(powernet)
-		powernet.delayedload += amount
+	powernet?.delayedload += amount
 
 /obj/structure/cable/proc/delayed_surplus()
 	if(powernet)
@@ -507,8 +467,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 ////////////////////////////////////////////////
 
 /// Linkup with adjacent cables
-/obj/structure/cable/proc/linkup_adjacent(consoldate_powernets)
-	if (consoldate_powernets)
+/obj/structure/cable/proc/linkup_adjacent(link_powernets = FALSE)
+	if (link_powernets)
 		// Don't linkup if they have no powernet, for example in the case of
 		// shuttle moving where we get a null powernet until we land
 		for (var/obj/structure/cable/connected_cable in connected)
@@ -528,36 +488,42 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			else
 				down.powernet.add_cable(src)
 		if (!powernet)
-			var/datum/powernet/newPN = new()
-			newPN.add_cable(src)
+			var/datum/powernet/new_powernet = new()
+			new_powernet.add_cable(src)
 	if (has_power_node)
 		connect_to_machines()
 
+/**
+ * Connects power machinery to our powernet.
+ *
+ * Called when has_power_node is set to TRUE.
+ */
 /obj/structure/cable/proc/connect_to_machines()
-	var/turf/location = get_turf(src)
-	for (var/obj/machinery/power/apc/apc in location)
-		if (apc.terminal == null || apc.terminal.powernet == powernet)
+	for (var/obj/machinery/power/power_machine in get_turf(src))
+		if(istype(power_machine, /obj/machinery/power/apc))
+			var/obj/machinery/power/apc/apc = power_machine
+			if (isnull(apc.terminal) || apc.terminal.powernet == powernet)
+				continue
+			if(!apc.terminal.connect_to_network())
+				apc.terminal.disconnect_from_network()
 			continue
-		if(!apc.terminal.connect_to_network())
-			apc.terminal.disconnect_from_network()
-	for (var/obj/machinery/power/power_machine in location)
+
 		if (power_machine.powernet == powernet)
 			continue
 		if(!power_machine.connect_to_network())
 			power_machine.disconnect_from_network()
 
 /obj/structure/cable/proc/disconnect_from_machines()
-	var/turf/location = get_turf(src)
-	for(var/obj/machinery/power/P in location)
-		if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
-			P.disconnect_from_network() //remove from current network
+	for(var/obj/machinery/power/power_machine in get_turf(src))
+		if(!power_machine.connect_to_network()) //can't find a node cable on a the turf to connect to
+			power_machine.disconnect_from_network() //remove from current network
 
 //////////////////////////////////////////////
 // Powernets handling helpers
 //////////////////////////////////////////////
 
 // cut the cable's powernet at this cable and updates the powergrid
-/obj/structure/cable/proc/cut_cable_from_powernet(remove=TRUE)
+/obj/structure/cable/proc/cut_cable_from_powernet(remove = TRUE)
 	var/turf/location = get_turf(src)
 	// remove the cut cable from its turf and powernet, so that it doesn't get count in propagate_network worklist
 	if(remove)
@@ -610,8 +576,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	cable_color = "white"
 	color = COLOR_WHITE
 	omni = TRUE
-
-/datum/looping_sound/transformer
-	mid_sounds = list('sound/machines/transformer.ogg' = 1)
-	mid_length = 9
-	volume = 100

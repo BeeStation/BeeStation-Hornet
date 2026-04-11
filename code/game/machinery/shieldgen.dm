@@ -260,13 +260,10 @@ WANTS_POWER_NODE(/obj/machinery/power/shieldwallgen)
 	QDEL_NULL(wires)
 	return ..()
 
-//obj/machinery/power/shieldwallgen/should_have_node()
-//	return anchored
-
 /obj/machinery/power/shieldwallgen/connect_to_network()
 	if(!anchored)
 		return FALSE
-	. = ..()
+	return ..()
 
 /obj/machinery/power/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
 	id = "[REF(port)][id]"
