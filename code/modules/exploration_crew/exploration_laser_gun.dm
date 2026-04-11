@@ -202,21 +202,21 @@
 /datum/action/sentry_toggle/on_activate(mob/user, atom/target)
 	if(!iscyborg(user))
 		return
-	var/mob/living/silicon/robot/R = user
+	var/mob/living/silicon/robot/our_borgie = user
 	if(!gun)
 		return
 
 	gun.sentry_toggled = !gun.sentry_toggled
 	if(gun.sentry_toggled)
-		R.apply_status_effect(/datum/status_effect/cyborg_sentry)
-		to_chat(R, span_notice("You engage your armor plating. Sentry mode activated."))
-		R.balloon_alert(R, "sentry mode ON")
+		our_borgie.apply_status_effect(/datum/status_effect/cyborg_sentry)
+		to_chat(our_borgie, span_notice("You engage your armor plating. Sentry mode activated."))
+		our_borgie.balloon_alert(our_borgie, "sentry mode ON")
 	else
 		//Only remove sentry if the gun is fully charged (not forced by firing)
 		if(gun.cell && gun.cell.percent() == 100)
-			R.remove_status_effect(/datum/status_effect/cyborg_sentry)
-			to_chat(R, span_notice("You disengage your armor plating. Sentry mode deactivated."))
-			R.balloon_alert(R, "sentry mode OFF")
+			our_borgie.remove_status_effect(/datum/status_effect/cyborg_sentry)
+			to_chat(our_borgie, span_notice("You disengage your armor plating. Sentry mode deactivated."))
+			our_borgie.balloon_alert(our_borgie, "sentry mode OFF")
 		else
-			to_chat(R, span_warning("Your gun is still recharging! Sentry mode will deactivate once fully charged."))
-			R.balloon_alert(R, "gun still recharging!")
+			to_chat(our_borgie, span_warning("Your gun is still recharging! Sentry mode will deactivate once fully charged."))
+			our_borgie.balloon_alert(our_borgie, "gun still recharging!")
