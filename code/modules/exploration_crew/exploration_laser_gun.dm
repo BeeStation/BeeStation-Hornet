@@ -111,8 +111,8 @@
 
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg
 	name = "multi-purpose energy gun"
-	desc = "An energy gun with three firing modes useful in a variety of situations, it is not capable of causing substantial harm to crew on any setting."
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg, /obj/item/ammo_casing/energy/laser/anti_creature/cyborg)
+	desc = "An energy gun with three firing modes useful in a variety of situations."
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg, /obj/item/ammo_casing/energy/lasergun/cyborg)
 	gun_charge = 10 KILOWATT
 	fire_rate = 1		//One shots per second
 	charge_delay = 9	//Fully charged in 90 seconds
@@ -121,13 +121,35 @@
 	use_cyborg_cell = TRUE
 	requires_wielding = FALSE
 	pin = /obj/item/firing_pin
+	/// Whether sentry mode has been voluntarily toggled on by the borg
+	var/sentry_toggled = FALSE
+	/// The action button for toggling sentry mode
+	var/datum/action/sentry_toggle/sentry_action
 
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg/add_seclight_point()
 	return
 
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/Initialize(mapload)
+	. = ..()
+	sentry_action = new(src)
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/Destroy()
+	QDEL_NULL(sentry_action)
+	return ..()
+
+/// Grants the sentry toggle action to a cyborg
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/proc/grant_sentry_action(mob/living/silicon/robot/Target)
+	if(sentry_action && Target)
+		sentry_action.Grant(Target)
+
+/// Removes the sentry toggle action from a cyborg
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/proc/remove_sentry_action(mob/living/silicon/robot/Target)
+	if(sentry_action && Target)
+		sentry_action.Remove(Target)
+
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg/process(delta_time)
-	//The next process tick after the gun is fully charged, we return to normal movement speed
-	if(cell.percent() == 100)
+	//The next process tick after the gun is fully charged, we return disengage sentry mode (unless voluntarily toggled)
+	if(cell.percent() == 100 && !sentry_toggled)
 		var/mob/living/silicon/robot/R
 		if(iscyborg(loc))
 			R = loc
@@ -147,14 +169,54 @@
 /obj/item/ammo_casing/energy/disabler/cyborg
 	e_cost = 500 WATT	//20 shot capacity
 
+//Rechargeable taser electrode for cyborg use.
+/obj/item/ammo_casing/energy/electrode/cyborg
+	projectile_type = /obj/projectile/energy/electrode/cyborg
+	e_cost = 3000 WATT	//3ish maybe shot capacity
+
 //Does 5 damage to mobs and 70 to objects, with exception to blobs
 /obj/item/ammo_casing/energy/laser/cutting/cyborg
 	e_cost = 250 WATT	//40 shot capacity
 
-//Does 5 damage to humans, 30 damage to all other mobs.
-/obj/item/ammo_casing/energy/laser/anti_creature/cyborg
-	projectile_type = /obj/projectile/beam/laser/anti_creature/cyborg
-	e_cost = 500 WATT	//20 shot capacity
+// Much weaker but more reliable, as this is their primary way of attack, and they can recharge it.
+/// Why yes, if they tase someone with this, others won't be able to tase the target with actually good tasers! So this could count as sabotage :)
+/obj/projectile/energy/electrode/cyborg
+	max_duration = 16 SECONDS
+	tase_stamina = 20
+	piercing = TRUE
+	range = 6	// We give the potential victim a single tile of visibility, so you could still cheese a static borg.
 
-/obj/projectile/beam/laser/anti_creature/cyborg
-	damage = 5  //15 is too much given this can be used on station
+// Sentry Mode Toggle Action
+/datum/action/sentry_toggle
+	name = "Toggle Sentry Mode"
+	desc = "Toggle your armor plating on or off. Activating sentry mode grants armor at the cost of movement speed. Sentry mode is always forced on while your gun is recharging."
+	button_icon = 'icons/hud/screen_alert.dmi'
+	button_icon_state = "sentry"
+	/// Reference to the gun this action is associated with
+	var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun
+
+/datum/action/sentry_toggle/New(obj/item/gun/energy/e_gun/mini/exploration/cyborg/parent_gun)
+	..()
+	gun = parent_gun
+
+/datum/action/sentry_toggle/on_activate(mob/user, atom/target)
+	if(!iscyborg(user))
+		return
+	var/mob/living/silicon/robot/R = user
+	if(!gun)
+		return
+
+	gun.sentry_toggled = !gun.sentry_toggled
+	if(gun.sentry_toggled)
+		R.apply_status_effect(/datum/status_effect/cyborg_sentry)
+		to_chat(R, span_notice("You engage your armor plating. Sentry mode activated."))
+		R.balloon_alert(R, "sentry mode ON")
+	else
+		//Only remove sentry if the gun is fully charged (not forced by firing)
+		if(gun.cell && gun.cell.percent() == 100)
+			R.remove_status_effect(/datum/status_effect/cyborg_sentry)
+			to_chat(R, span_notice("You disengage your armor plating. Sentry mode deactivated."))
+			R.balloon_alert(R, "sentry mode OFF")
+		else
+			to_chat(R, span_warning("Your gun is still recharging! Sentry mode will deactivate once fully charged."))
+			R.balloon_alert(R, "gun still recharging!")

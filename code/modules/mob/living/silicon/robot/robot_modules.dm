@@ -626,6 +626,14 @@
 			return FALSE
 	. = ..()
 
+/obj/item/robot_model/guard/rebuild_modules()
+	. = ..()
+	var/mob/living/silicon/robot/robot = loc
+	if(!istype(robot))
+		return
+	for(var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun in modules)
+		gun.grant_sentry_action(robot)
+
 // --------------------- Deathsquad
 /obj/item/robot_model/deathsquad
 	name = "CentCom"
