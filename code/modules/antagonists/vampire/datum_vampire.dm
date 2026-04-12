@@ -275,7 +275,7 @@
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
-	SSsunlight.send_admin_messages = TRUE
+	SSsunlight.send_messages = TRUE
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_START, PROC_REF(sol_near_start))
 	RegisterSignal(SSsunlight, COMSIG_SOL_END, PROC_REF(on_sol_end))
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_END, PROC_REF(sol_near_end))
@@ -325,7 +325,7 @@
 	check_cancel_society()
 	. = ..()
 	if(!length(get_antag_minds(/datum/antagonist/vampire)))
-		SSsunlight.send_admin_messages = FALSE
+		SSsunlight.send_messages = FALSE
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
