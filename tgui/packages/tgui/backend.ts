@@ -272,7 +272,7 @@ export const backendMiddleware = (store) => {
       }
     }
 
-    if (type === 'acknowlegePayloadChunk') {
+    if (type === 'acknowledgePayloadChunk') {
       store.dispatch(backendDequeuePayloadQueue(payload));
       store.dispatch(nextPayloadChunk(payload));
     }
