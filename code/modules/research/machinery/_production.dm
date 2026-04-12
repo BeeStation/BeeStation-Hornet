@@ -17,7 +17,7 @@
 	var/list/datum/design/cached_designs
 	/// What color is this machine's stripe? Leave null to not have a stripe.
 	var/stripe_color = null
-	///looping sound for printing items
+	/// Looping sound for printing items
 	var/datum/looping_sound/lathe_print/print_sound
 	/// Made so we dont call addtimer() 40,000 times in on_techweb_update(). only allows addtimer() to be called on the first update
 	var/techweb_updating = FALSE
