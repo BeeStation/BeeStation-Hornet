@@ -506,3 +506,19 @@
 
 /obj/item/choice_beacon/janicart/generate_display_names()
 	return list("janitor cart" = /obj/vehicle/ridden/janicart/upgraded/keyless)
+
+/obj/item/choice_beacon/hosgun
+	name = "head of security gun beacon"
+	desc = "Choose one of two experimental guns created by leading scientists at NT to put it through proper field testing."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Yes, this beacon is indestructible makes sense since it's tied to HOS's gun objective
+
+/obj/item/choice_beacon/hosgun/generate_display_names()
+	var/list/hosgun_item_list
+	if(!hosgun_item_list)
+		hosgun_item_list = list()
+		var/list/templist = typesof(/obj/item/gun/energy/e_gun/hos)
+		for(var/V in templist)
+			var/atom/A = V
+			hosgun_item_list[initial(A.name)] = A
+	return hosgun_item_list
+

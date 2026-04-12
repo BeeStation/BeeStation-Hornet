@@ -135,7 +135,7 @@
 /obj/structure/closet/secure_closet/hos/populate_contents_immediate()
 	..()
 	new /obj/item/card/id/departmental_budget/sec(src)
-	new /obj/item/gun/energy/e_gun/hos(src)
+	new /obj/item/choice_beacon/hosgun(src)
 	new /obj/item/pinpointer/nuke(src)
 
 /obj/structure/closet/secure_closet/hos/PopulateContents()
