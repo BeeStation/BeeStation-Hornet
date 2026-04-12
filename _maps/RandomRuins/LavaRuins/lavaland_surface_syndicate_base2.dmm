@@ -5156,8 +5156,7 @@
 	pixel_y = 8
 	},
 /obj/item/card/emag{
-	pixel_x = 14;
-	pixel_y = 0
+	pixel_x = 14
 	},
 /turf/open/floor/iron/dark/textured,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
