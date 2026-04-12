@@ -42,9 +42,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	QDEL_NULL(poster_structure)
 	return ..()
 
-/obj/item/poster/afterattack(turf/closed/wall_structure, mob/user, proximity_flag, click_parameters)
+/obj/item/poster/attack_turf(turf/closed/wall_structure, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!isclosedturf(wall_structure))
+	if(!istype(wall_structure))
 		return FALSE
 
 	var/turf/user_turf = get_turf(user)
