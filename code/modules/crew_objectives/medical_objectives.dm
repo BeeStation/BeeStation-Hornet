@@ -8,15 +8,15 @@
 		JOB_NAME_MEDICALDOCTOR,
 	)
 	var/static/list/medical_areas = typecacheof(list(
-		/area/medical/cryo,
-		/area/medical/genetics/cloning,
-		/area/medical/exam_room,
-		/area/medical/medbay/aft,
-		/area/medical/medbay/central,
-		/area/medical/medbay/lobby,
-		/area/medical/patients_rooms,
-		/area/medical/sleeper,
-		/area/medical/storage,
+		/area/station/medical/cryo,
+		/area/station/medical/genetics/cloning,
+		/area/station/medical/exam_room,
+		/area/station/medical/medbay/aft,
+		/area/station/medical/medbay/central,
+		/area/station/medical/medbay/lobby,
+		/area/station/medical/patients_rooms,
+		/area/station/medical/treatment_center,
+		/area/station/medical/storage,
 	))
 
 /datum/objective/crew/morgue/check_completion()
@@ -32,16 +32,16 @@
 	explanation_text = "Ensure that no corpses remain outside of Medbay when the shift ends."
 	jobs = JOB_NAME_PARAMEDIC
 	var/static/list/medical_areas_morgue = typecacheof(list(
-		/area/medical/cryo,
-		/area/medical/genetics/cloning,
-		/area/medical/exam_room,
-		/area/medical/medbay/aft,
-		/area/medical/medbay/central,
-		/area/medical/medbay/lobby,
-		/area/medical/patients_rooms,
-		/area/medical/sleeper,
-		/area/medical/storage,
-		/area/medical/morgue,
+		/area/station/medical/cryo,
+		/area/station/medical/genetics/cloning,
+		/area/station/medical/exam_room,
+		/area/station/medical/medbay/aft,
+		/area/station/medical/medbay/central,
+		/area/station/medical/medbay/lobby,
+		/area/station/medical/patients_rooms,
+		/area/station/medical/treatment_center,
+		/area/station/medical/storage,
+		/area/station/medical/morgue,
 	))
 
 /datum/objective/crew/paramedicmorgue/check_completion()

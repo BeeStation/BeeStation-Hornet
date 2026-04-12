@@ -122,6 +122,9 @@
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
 
+	/// Reference to our blindness apperance, essentially just a copy of our apperance but everything is on a specific plane
+	var/mutable_appearance/blind_appearance
+
 /**
   * Top level of the destroy chain for most atoms
   *
@@ -287,7 +290,7 @@
 	if(!is_centcom_level(T.z))//if not, don't bother
 		return FALSE
 
-	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
+	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/centcom/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
 		return TRUE
 
 	return FALSE
@@ -714,22 +717,6 @@
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
 
-/// Helper for logging chat messages or other logs with arbitrary inputs (e.g. announcements)
-/atom/proc/log_talk(message, message_type, tag=null, log_globally=TRUE, forced_by=null, custom_say_emote = null)
-	var/prefix = tag ? "([tag]) " : ""
-	var/suffix = forced_by ? " FORCED by [forced_by]" : ""
-	log_message("[prefix][custom_say_emote ? "*[custom_say_emote]*, " : ""]\"[message]\"[suffix]", message_type, log_globally=log_globally)
-
-/// Helper for logging of messages with only one sender and receiver
-/proc/log_directed_talk(atom/source, atom/target, message, message_type, tag)
-	if(!tag)
-		stack_trace("Unspecified tag for private message")
-		tag = "UNKNOWN"
-
-	source.log_talk(message, message_type, tag="[tag] to [key_name(target)]")
-	if(source != target)
-		target.log_talk(message, message_type, tag="[tag] from [key_name(source)]", log_globally=FALSE)
-
 /**
   * Log for crafting items
   *
@@ -1043,6 +1030,22 @@
 		luminosity = max(1, base_luminosity)
 	else
 		luminosity = base_luminosity
+
+/atom/proc/get_blind_appearance()
+	if(blind_appearance)
+		return blind_appearance
+	blind_appearance = mutable_appearance(src.icon, src.icon_state)
+	blind_appearance.plane = LOWEST_EVER_PLANE //KEEP that shit hidden away from our eyes
+	blind_appearance.appearance_flags = KEEP_TOGETHER
+	//Copy the overlays by hand to avoid plane issues
+	for(var/image/overlay as anything in overlays)
+		if(!overlay.icon)
+			continue
+		//Don't copy lighting overlays
+		if(overlay.plane == LIGHTING_PLANE || overlay.plane == LIGHTING_PLANE_ADDITIVE || overlay.plane == ABOVE_LIGHTING_PLANE)
+			continue
+		blind_appearance.add_overlay(icon(overlay.icon, overlay.icon_state))
+	return blind_appearance
 
 /atom/movable/update_luminosity()
 	if (isnull(base_luminosity))
