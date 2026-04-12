@@ -112,6 +112,8 @@
 2026-04-12:
   DrDuckedGoose:
   - bugfix: Fixes robot eye lights trailing behind them near blind people
+  PowerfulBacon:
+  - code_imp: The UpdatePaths script now supports counters
   TsunamiAnt:
   - bugfix: Vampire Daylight notifications can now only appear if there are actually
       vampires present.
