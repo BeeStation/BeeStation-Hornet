@@ -1,5 +1,5 @@
-import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';

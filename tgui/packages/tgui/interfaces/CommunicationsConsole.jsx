@@ -1,5 +1,5 @@
-import { sortBy } from 'common/collections';
 import { capitalize } from 'common/string';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend, useLocalState } from '../backend';
 import {

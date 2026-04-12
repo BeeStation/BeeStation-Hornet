@@ -1,6 +1,6 @@
-import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { capitalize } from 'common/string';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, Section, Stack } from '../components';

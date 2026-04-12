@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend } from '../backend';
 import { Button, Section, Stack } from '../components';

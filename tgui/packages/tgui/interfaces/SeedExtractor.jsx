@@ -1,5 +1,5 @@
-import { sortBy } from 'common/collections';
 import { toTitleCase } from 'common/string';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend } from '../backend';
 import { Button, Section, Table } from '../components';
