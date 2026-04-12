@@ -1,0 +1,4 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - bugfix: Fixes robot eye lights trailing behind them near blind people
