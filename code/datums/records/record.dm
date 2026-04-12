@@ -5,31 +5,31 @@
  * Record datum. Used for crew records and admin locked records.
  */
 /datum/record
-	/// RECORD_ARG_01 : Age of the character
+	/// RECORD_ARG_01[age] : Age of the character (Alternatively : RECORD_CLONE_ARG_01)
 	var/age
-	/// RECORD_ARG_02 : Their blood type
+	/// RECORD_ARG_02[blood_type] : Their blood type (Alternatively : RECORD_CLONE_ARG_02)
 	var/blood_type
-	/// RECORD_ARG_03 : Character appearance
+	/// RECORD_ARG_03[character_appearance] : Character appearance
 	var/mutable_appearance/character_appearance
-	/// RECORD_ARG_04 : As known as "DNA string"
+	/// RECORD_ARG_04[unique_enzymes] : As known as "DNA string" (Alternatively : RECORD_CLONE_ARG_03)
 	var/unique_enzymes
-	/// RECORD_ARG_05 : The characeter's DNA id
+	/// RECORD_ARG_05[unique_identity] : The characeter's DNA id (Alternatively : RECORD_CLONE_ARG_04)
 	var/unique_identity
-	/// RECORD_ARG_06 : Fingerprint string (md5) based on unique identity
+	/// RECORD_ARG_06[fingerprint] : Fingerprint string (md5) based on unique identity (Alternatively : RECORD_CLONE_ARG_05)
 	var/fingerprint
-	/// RECORD_ARG_07 : The character's gender
+	/// RECORD_ARG_07[gender] : The character's gender (Alternatively : RECORD_CLONE_ARG_06)
 	var/gender
-	/// RECORD_ARG_08 : The character's initial rank at roundstart
+	/// RECORD_ARG_08[initial_rank] : The character's initial rank at roundstart (Alternatively : RECORD_CLONE_ARG_07)
 	var/initial_rank
-	/// RECORD_ARG_09 : The character's name
+	/// RECORD_ARG_09[name] : The character's name (Alternatively : RECORD_CLONE_ARG_08)
 	var/name = "Unknown"
-	/// RECORD_ARG_10 : The character's rank
+	/// RECORD_ARG_10[rank] : The character's rank
 	var/rank
-	/// RECORD_ARG_11 : The character's species
+	/// RECORD_ARG_11[species] : The character's species (Alternatively : RECORD_CLONE_ARG_09)
 	var/species
-	/// RECORD_ARG_12 : The character's HUD icon
+	/// RECORD_ARG_12[hud] : The character's HUD icon
 	var/hud
-	/// RECORD_ARG_13 : The character's department
+	/// RECORD_ARG_13[active_department] : The character's department
 	var/active_department
 
 /datum/record/New(
@@ -65,27 +65,27 @@
  * Crew record datum
  */
 /datum/record/crew
-	/// RECORD_CREW_ARG_01 : Unique ID generated that is used to fetch lock record
+	/// RECORD_CREW_ARG_01[lock_ref] : Unique ID generated that is used to fetch lock record
 	var/lock_ref
-	/// RECORD_CREW_ARG_02 : List of medical notes
+	/// RECORD_CREW_ARG_02[medical_notes] : List of medical notes
 	var/list/medical_notes = list()
-	/// RECORD_CREW_ARG_03 : Names of major disabilities
+	/// RECORD_CREW_ARG_03[major_disabilities] : Names of major disabilities
 	var/major_disabilities
-	/// RECORD_CREW_ARG_04 : Fancy description of major disabilities
+	/// RECORD_CREW_ARG_04[major_disabilities_desc] : Fancy description of major disabilities
 	var/major_disabilities_desc
-	/// RECORD_CREW_ARG_05 : Names of minor disabilities
+	/// RECORD_CREW_ARG_05[minor_disabilities] : Names of minor disabilities
 	var/minor_disabilities
-	/// RECORD_CREW_ARG_06 : Fancy description of minor disabilities
+	/// RECORD_CREW_ARG_06[minor_disabilities_desc] : Fancy description of minor disabilities
 	var/minor_disabilities_desc
-	/// RECORD_CREW_ARG_07 : Physical status of this person in medical records.
+	/// RECORD_CREW_ARG_07[physical_status] : Physical status of this person in medical records.
 	var/physical_status
-	/// RECORD_CREW_ARG_08 : Mental status of this person in medical records.
+	/// RECORD_CREW_ARG_08[mental_status] : Mental status of this person in medical records.
 	var/mental_status
-	/// RECORD_CREW_ARG_09 : Positive and neutral quirk strings
+	/// RECORD_CREW_ARG_09[quirk_notes] : Positive and neutral quirk strings
 	var/quirk_notes
-	/// RECORD_CREW_ARG_10 : Security note
+	/// RECORD_CREW_ARG_10[security_note] : Security note
 	var/security_note
-	/// RECORD_CREW_ARG_11 : Current arrest status
+	/// RECORD_CREW_ARG_11[wanted_status] : Current arrest status
 	var/wanted_status = WANTED_NONE
 
 	/// List of citations
@@ -419,11 +419,11 @@
  * Admin locked record
  */
 /datum/record/locked
-	/// Mob's dna weakref
+	/// RECORD_LOCK_ARG_01[weakref_dna] : Mob's dna weakref
 	var/datum/weakref/weakref_dna
-	/// Mind datum weakref
+	/// RECORD_LOCK_ARG_02[weakref_mind] : Mind datum weakref
 	var/datum/weakref/weakref_mind
-	/// Just in case
+	/// RECORD_LOCK_ARG_03[datum_dna] : Mob's hardcopy DNA datum (Just in case)
 	var/datum/dna/datum_dna
 
 /datum/record/locked/New(
@@ -641,21 +641,21 @@
  * Cloning record
  */
 /datum/record/cloning
-	/// RECORD_CLONE_ARG_10
+	/// RECORD_CLONE_ARG_10[datum_dna]
 	var/datum/dna/datum_dna
-	/// RECORD_CLONE_ARG_11
+	/// RECORD_CLONE_ARG_11[weakref_mind]
 	var/datum/weakref/weakref_mind
-	/// RECORD_CLONE_ARG_12
+	/// RECORD_CLONE_ARG_12[last_death]
 	var/last_death
-	/// RECORD_CLONE_ARG_13
+	/// RECORD_CLONE_ARG_13[factions]
 	var/list/factions
-	/// RECORD_CLONE_ARG_14
+	/// RECORD_CLONE_ARG_14[traumas]
 	var/list/traumas
-	/// RECORD_CLONE_ARG_15
+	/// RECORD_CLONE_ARG_15[body_only] : decides if this cloning data does 'empty cloning' without mind.
 	var/body_only
-	/// RECORD_CLONE_ARG_16
+	/// RECORD_CLONE_ARG_16[implant]
 	var/implant
-	/// RECORD_CLONE_ARG_17
+	/// RECORD_CLONE_ARG_17[bank_account]
 	var/bank_account
 
 
