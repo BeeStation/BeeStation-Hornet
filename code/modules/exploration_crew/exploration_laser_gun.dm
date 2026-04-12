@@ -175,7 +175,7 @@
 //Rechargeable taser electrode for cyborg use.
 /obj/item/ammo_casing/energy/electrode/cyborg
 	projectile_type = /obj/projectile/energy/electrode/cyborg
-	e_cost = 3000 WATT	//3ish maybe shot capacity
+	e_cost = 2000 WATT	// probably around 4-5 shot capacity
 
 //Does 5 damage to mobs and 70 to objects, with exception to blobs
 /obj/item/ammo_casing/energy/laser/cutting/cyborg
@@ -184,8 +184,8 @@
 // Much weaker but more reliable, as this is their primary way of attack, and they can recharge it.
 /// Why yes, if they tase someone with this, others won't be able to tase the target with actually good tasers! So this could count as sabotage :)
 /obj/projectile/energy/electrode/cyborg
-	max_duration = 16 SECONDS
-	tase_stamina = 20
+	max_duration = 30 SECONDS
+	tase_stamina = 30
 	piercing = TRUE
 	range = 6	// We give the potential victim a single tile of visibility, so you could still cheese a static borg.
 
