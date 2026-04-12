@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(sunlight)
 	///If Vampire levels for the night has been given out already.
 	var/issued_XP = FALSE
 	///Whether to send ghost notifications for sunlight cycle events. Set to TRUE when a vampire antagonist is active.
-	var/send_admin_messages = FALSE
+	var/send_messages = FALSE
 
 /datum/controller/subsystem/sunlight/fire(resumed = FALSE)
 	time_til_cycle--
@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(sunlight)
 			issued_XP = FALSE
 			//randomize the next sol timer
 			time_til_cycle = round(rand((TIME_VAMPIRE_NIGHT-TIME_VAMPIRE_SOL_DELAY), (TIME_VAMPIRE_NIGHT+TIME_VAMPIRE_SOL_DELAY)), 1)
-			if(send_admin_messages)
+			if(send_messages)
 				notify_ghosts("VAMPIRE NOTICE: Daylight Ended. Resetting to Night (Lasts for [time_til_cycle / 60] minutes.)", flashwindow = FALSE)
 			GLOB.news_network.submit_article("<h1>IWA Status Update - Solar Flare Passed</h1><br><br>\
 												This is an update from the Interstellar Weather Authority. The latest Class I solar flare has now fully passed Station [station_name()]'s orbital path.<br><br>\
@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(sunlight)
 				vampire_warning_message = span_danger("Solar Flares will bombard the station with dangerous UV radiation in [TIME_VAMPIRE_DAY_WARN_1 / 60] minutes. <b>Prepare to seek cover in a coffin or closet.</b>")
 			)
 		if(TIME_VAMPIRE_DAY_WARN_2)
-			if(send_admin_messages)
+			if(send_messages)
 				notify_ghosts("VAMPIRE NOTICE: Daylight beginning in [TIME_VAMPIRE_DAY_WARN_2] seconds.", flashwindow = FALSE)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SECOND_WARNING,
@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(sunlight)
 			sunlight_active = TRUE
 			//set the timer to countdown daytime now.
 			time_til_cycle = TIME_VAMPIRE_DAY
-			if(send_admin_messages)
+			if(send_messages)
 				notify_ghosts("VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)", flashwindow = FALSE)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ROSE,
