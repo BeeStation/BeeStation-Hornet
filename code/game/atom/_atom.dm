@@ -122,6 +122,9 @@
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
 
+	/// Reference to our blindness apperance, essentially just a copy of our apperance but everything is on a specific plane
+	var/mutable_appearance/blind_appearance
+
 /**
   * Top level of the destroy chain for most atoms
   *
@@ -1027,6 +1030,22 @@
 		luminosity = max(1, base_luminosity)
 	else
 		luminosity = base_luminosity
+
+/atom/proc/get_blind_appearance()
+	if(blind_appearance)
+		return blind_appearance
+	blind_appearance = mutable_appearance(src.icon, src.icon_state)
+	blind_appearance.plane = LOWEST_EVER_PLANE //KEEP that shit hidden away from our eyes
+	blind_appearance.appearance_flags = KEEP_TOGETHER
+	//Copy the overlays by hand to avoid plane issues
+	for(var/image/overlay as anything in overlays)
+		if(!overlay.icon)
+			continue
+		//Don't copy lighting overlays
+		if(overlay.plane == LIGHTING_PLANE || overlay.plane == LIGHTING_PLANE_ADDITIVE || overlay.plane == ABOVE_LIGHTING_PLANE)
+			continue
+		blind_appearance.add_overlay(icon(overlay.icon, overlay.icon_state))
+	return blind_appearance
 
 /atom/movable/update_luminosity()
 	if (isnull(base_luminosity))
