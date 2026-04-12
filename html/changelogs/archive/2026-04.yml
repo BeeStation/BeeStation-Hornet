@@ -109,3 +109,8 @@
   - server: fixed an erroneous warning when setting up the database during github
       integration tests
   - server: the slowest unit tests are now displayed
+2026-04-12:
+  TsunamiAnt:
+  - bugfix: Vampire Daylight notifications can now only appear if there are actually
+      vampires present.
+  - admin: Vampire Daylight notifications are now posted to deadchat, not adminlog.
