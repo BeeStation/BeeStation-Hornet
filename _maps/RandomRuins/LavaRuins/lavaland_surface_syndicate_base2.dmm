@@ -1969,9 +1969,8 @@
 "rS" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/item/uplink{
-	pixel_x = 0;
-	pixel_y = 10
+/obj/item/uplink/clownop{
+	pixel_y = 8
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bridge)
@@ -2244,12 +2243,10 @@
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/hand_tele{
-	pixel_x = 0;
 	pixel_y = 13
 	},
 /obj/item/paper_bin{
-	pixel_x = -7;
-	pixel_y = 0
+	pixel_x = -7
 	},
 /obj/item/pen{
 	pixel_x = -7;
@@ -2257,7 +2254,7 @@
 	},
 /obj/item/stamp/syndicate{
 	pixel_x = 5;
-	pixel_y = 0
+	pixel_y = 1
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bridge)
@@ -3219,7 +3216,6 @@
 /obj/structure/table/wood,
 /obj/machinery/light/small/directional/east,
 /obj/item/toy/plush/moth/witchwing{
-	pixel_x = 0;
 	pixel_y = 5
 	},
 /turf/open/floor/iron/dark,
@@ -3647,8 +3643,7 @@
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "Iw" = (
 /obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/port)
@@ -5385,14 +5380,13 @@
 	pixel_y = -16
 	},
 /obj/item/clothing/ears/earmuffs{
-	pixel_x = 0;
 	pixel_y = -8
 	},
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/item/uplink{
+/obj/item/uplink/nuclear{
 	pixel_x = -2;
 	pixel_y = 15
 	},

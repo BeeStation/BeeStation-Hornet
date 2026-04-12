@@ -1305,16 +1305,14 @@
 /obj/item/reagent_containers/blood/lizard,
 /obj/item/reagent_containers/blood/lizard,
 /obj/item/storage/box/rxglasses{
-	pixel_x = 1;
-	pixel_y = 0
-	},
-/obj/item/stack/sheet/cotton/cloth/ten{
-	pixel_x = 2;
-	pixel_y = 0
+	pixel_x = 1
 	},
 /obj/item/stack/sheet/cotton/cloth/ten{
 	pixel_x = -1;
 	pixel_y = 3
+	},
+/obj/item/stack/sheet/cotton/cloth/ten{
+	pixel_x = 2
 	},
 /obj/item/storage/firstaid/brute{
 	pixel_x = 6;
