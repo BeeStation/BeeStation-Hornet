@@ -101,42 +101,59 @@
 	var/datum/bank_account/bank_account = person.get_bank_account()
 
 	var/datum/record/locked/lockfile = new(
-		age = person.age,
-		blood_type = record_dna.blood_type,
-		character_appearance = character_appearance,
-		dna_string = record_dna.unique_enzymes,
-		fingerprint = md5(record_dna.unique_identity),
-		gender = gender_string,
-		initial_rank = assignment,
-		name = person.real_name,
-		rank = assignment,
-		species = record_dna.species,
-		hud = person.get_job_id(),
+		RECORD_STRICT_ARGS(
+			RECORD_ARG_01 = person.age, \
+			RECORD_ARG_02 = record_dna.blood_type, \
+			RECORD_ARG_03 = character_appearance, \
+			RECORD_ARG_04 = record_dna.unique_enzymes, \
+			RECORD_ARG_05 = record_dna.unique_identity, \
+			RECORD_ARG_06 = md5(record_dna.unique_identity), \
+			RECORD_ARG_07 = gender_string, \
+			RECORD_ARG_08 = assignment, \
+			RECORD_ARG_09 = person.real_name, \
+			RECORD_ARG_10 = assignment, \
+			RECORD_ARG_11 = record_dna.species, \
+			RECORD_ARG_12 = person.get_job_id(), \
+			RECORD_ARG_13 = bank_account.active_departments \
+		),
 		// Locked specifics
-		weakref_dna = WEAKREF(record_dna),
-		weakref_mind = WEAKREF(person.mind),
+		RECORD_LOCK_STRICT_ARGS(
+			RECORD_LOCK_ARG_01 = WEAKREF(record_dna), \
+			RECORD_LOCK_ARG_02 = WEAKREF(person.mind), \
+			RECORD_LOCK_ARG_03 = record_dna \
+		)
 	)
 
 	new /datum/record/crew(
-		age = person.age,
-		blood_type = record_dna.blood_type,
-		character_appearance = character_appearance,
-		dna_string = record_dna.unique_enzymes,
-		fingerprint = md5(record_dna.unique_identity),
-		gender = gender_string,
-		initial_rank = assignment,
-		name = person.real_name,
-		rank = assignment,
-		species = record_dna.species,
-		active_department = bank_account.active_departments,
+		RECORD_STRICT_ARGS(
+			RECORD_ARG_01 = person.age, \
+			RECORD_ARG_02 = record_dna.blood_type, \
+			RECORD_ARG_03 = character_appearance, \
+			RECORD_ARG_04 = record_dna.unique_enzymes, \
+			RECORD_ARG_05 = record_dna.unique_identity, \
+			RECORD_ARG_06 = md5(record_dna.unique_identity), \
+			RECORD_ARG_07 = gender_string, \
+			RECORD_ARG_08 = assignment, \
+			RECORD_ARG_09 = person.real_name, \
+			RECORD_ARG_10 = assignment, \
+			RECORD_ARG_11 = record_dna.species, \
+			RECORD_ARG_12 = person.get_job_id(), \
+			RECORD_ARG_13 = bank_account.active_departments \
+		),
 		// Crew specific
-		lock_ref = FAST_REF(lockfile),
-		major_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY, from_scan = TRUE),
-		major_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MAJOR_DISABILITY),
-		minor_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY, from_scan = TRUE),
-		minor_disabilities_desc = person.get_quirk_string(TRUE, CAT_QUIRK_MINOR_DISABILITY),
-		quirk_notes = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES),
-		hud = person.get_job_id(),
+		RECORD_CREW_STRICT_ARGS(
+			RECORD_CREW_ARG_01 = FAST_REF(lockfile), \
+			RECORD_CREW_ARG_02 = null, \
+			RECORD_CREW_ARG_03 = person.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY, from_scan = TRUE), \
+			RECORD_CREW_ARG_04 = person.get_quirk_string(TRUE, CAT_QUIRK_MAJOR_DISABILITY), \
+			RECORD_CREW_ARG_05 = person.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY, from_scan = TRUE), \
+			RECORD_CREW_ARG_06 = person.get_quirk_string(TRUE, CAT_QUIRK_MINOR_DISABILITY), \
+			RECORD_CREW_ARG_07 = null, \
+			RECORD_CREW_ARG_08 = null, \
+			RECORD_CREW_ARG_09 = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES), \
+			RECORD_CREW_ARG_10 = null, \
+			RECORD_CREW_ARG_11 = null \
+		)
 	)
 	if(!nosignal)
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)

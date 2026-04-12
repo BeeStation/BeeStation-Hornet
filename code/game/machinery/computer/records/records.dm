@@ -180,7 +180,23 @@
 	if(!name || !is_operational || !user.canUseTopic(src) || !mugshot || QDELETED(mugshot) || QDELETED(src))
 		return FALSE
 
-	new /datum/record/crew(name = name, character_appearance = mugshot.picture.picture_image)
+	new /datum/record/crew(
+		RECORD_STRICT_ARGS(
+			RECORD_ARG_01 = null, \
+			RECORD_ARG_02 = null, \
+			RECORD_ARG_03 = mugshot.picture.picture_image, \
+			RECORD_ARG_04 = null, \
+			RECORD_ARG_05 = null, \
+			RECORD_ARG_06 = null, \
+			RECORD_ARG_07 = null, \
+			RECORD_ARG_08 = null, \
+			RECORD_ARG_09 = name, \
+			RECORD_ARG_10 = null, \
+			RECORD_ARG_11 = null, \
+			RECORD_ARG_12 = null, \
+			RECORD_ARG_13 = null \
+		))
+		// This might look weird, but it is to make things safe.
 
 	balloon_alert(user, "record created")
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 70, TRUE)

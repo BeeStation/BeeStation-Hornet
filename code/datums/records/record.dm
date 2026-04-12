@@ -5,127 +5,149 @@
  * Record datum. Used for crew records and admin locked records.
  */
 /datum/record
-	/// Age of the character
+	/// RECORD_ARG_01 : Age of the character
 	var/age
-	/// Their blood type
+	/// RECORD_ARG_02 : Their blood type
 	var/blood_type
-	/// Character appearance
+	/// RECORD_ARG_03 : Character appearance
 	var/mutable_appearance/character_appearance
-	/// DNA string
-	var/dna_string
-	/// Fingerprint string (md5)
+	/// RECORD_ARG_04 : As known as "DNA string"
+	var/unique_enzymes
+	/// RECORD_ARG_05 : The characeter's DNA id
+	var/unique_identity
+	/// RECORD_ARG_06 : Fingerprint string (md5) based on unique identity
 	var/fingerprint
-	/// The character's gender
+	/// RECORD_ARG_07 : The character's gender
 	var/gender
-	/// The character's initial rank at roundstart
+	/// RECORD_ARG_08 : The character's initial rank at roundstart
 	var/initial_rank
-	/// The character's name
+	/// RECORD_ARG_09 : The character's name
 	var/name = "Unknown"
-	/// The character's rank
+	/// RECORD_ARG_10 : The character's rank
 	var/rank
-	/// The character's species
+	/// RECORD_ARG_11 : The character's species
 	var/species
-	/// The character's HUD icon
+	/// RECORD_ARG_12 : The character's HUD icon
 	var/hud
-	/// The character's department
+	/// RECORD_ARG_13 : The character's department
 	var/active_department
 
 /datum/record/New(
-	age = 18,
-	blood_type = "?",
-	character_appearance,
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	rank = "Unassigned",
-	active_department = NONE,
-	species = "Human",
-	hud = "None"
+	RECORD_ARG_01 = 18,
+	RECORD_ARG_02 = "?",
+	RECORD_ARG_03 = null,
+	RECORD_ARG_04 = "Unknown",
+	RECORD_ARG_05 = "Unknown",
+	RECORD_ARG_06 = "?????",
+	RECORD_ARG_07 = "Other",
+	RECORD_ARG_08 = "Unassigned",
+	RECORD_ARG_09 = "Unknown",
+	RECORD_ARG_10 = "Unassigned",
+	RECORD_ARG_11 = "Human",
+	RECORD_ARG_12 = "None",
+	RECORD_ARG_13 = NONE
 )
-	src.age = age
-	src.blood_type = blood_type
-	src.character_appearance = character_appearance
-	src.dna_string = dna_string
-	src.fingerprint = fingerprint
-	src.gender = gender
-	src.initial_rank = rank
-	src.name = name
-	src.rank = rank
-	src.hud = hud
-	src.active_department = active_department
-	src.species = species
+	src.RECORD_ARG_01 = RECORD_ARG_01
+	src.RECORD_ARG_02 = RECORD_ARG_02
+	src.RECORD_ARG_03 = RECORD_ARG_03
+	src.RECORD_ARG_04 = RECORD_ARG_04
+	src.RECORD_ARG_05 = RECORD_ARG_05
+	src.RECORD_ARG_06 = RECORD_ARG_06
+	src.RECORD_ARG_07 = RECORD_ARG_07
+	src.RECORD_ARG_08 = RECORD_ARG_08
+	src.RECORD_ARG_09 = RECORD_ARG_09
+	src.RECORD_ARG_10 = RECORD_ARG_10
+	src.RECORD_ARG_11 = RECORD_ARG_11
+	src.RECORD_ARG_12 = RECORD_ARG_12
+	src.RECORD_ARG_13 = RECORD_ARG_13
 
 /**
  * Crew record datum
  */
 /datum/record/crew
+	/// RECORD_CREW_ARG_01 : Unique ID generated that is used to fetch lock record
+	var/lock_ref
+	/// RECORD_CREW_ARG_02 : List of medical notes
+	var/list/medical_notes = list()
+	/// RECORD_CREW_ARG_03 : Names of major disabilities
+	var/major_disabilities
+	/// RECORD_CREW_ARG_04 : Fancy description of major disabilities
+	var/major_disabilities_desc
+	/// RECORD_CREW_ARG_05 : Names of minor disabilities
+	var/minor_disabilities
+	/// RECORD_CREW_ARG_06 : Fancy description of minor disabilities
+	var/minor_disabilities_desc
+	/// RECORD_CREW_ARG_07 : Physical status of this person in medical records.
+	var/physical_status
+	/// RECORD_CREW_ARG_08 : Mental status of this person in medical records.
+	var/mental_status
+	/// RECORD_CREW_ARG_09 : Positive and neutral quirk strings
+	var/quirk_notes
+	/// RECORD_CREW_ARG_10 : Security note
+	var/security_note
+	/// RECORD_CREW_ARG_11 : Current arrest status
+	var/wanted_status = WANTED_NONE
+
 	/// List of citations
 	var/list/citations = list()
 	/// List of crimes
 	var/list/crimes = list()
-	/// Unique ID generated that is used to fetch lock record
-	var/lock_ref
-	/// Names of major disabilities
-	var/major_disabilities
-	/// Fancy description of major disabilities
-	var/major_disabilities_desc
-	/// List of medical notes
-	var/list/medical_notes = list()
-	/// Names of minor disabilities
-	var/minor_disabilities
-	/// Fancy description of minor disabilities
-	var/minor_disabilities_desc
-	/// Physical status of this person in medical records.
-	var/physical_status
-	/// Mental status of this person in medical records.
-	var/mental_status
-	/// Positive and neutral quirk strings
-	var/quirk_notes
-	/// Security note
-	var/security_note
-	/// Current arrest status
-	var/wanted_status = WANTED_NONE
 
 	///Photo used for records, which we store here so we don't have to constantly make more of.
 	var/list/obj/item/photo/record_photos
 
 /datum/record/crew/New(
-	age = 18,
-	blood_type = "?",
-	character_appearance,
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	rank = "Unassigned",
-	active_department = NONE,
-	species = "Human",
-	hud = "None",
+	RECORD_ARG_01 = 18,
+	RECORD_ARG_02 = "?",
+	RECORD_ARG_03 = null,
+	RECORD_ARG_04 = "Unknown",
+	RECORD_ARG_05 = "Unknown",
+	RECORD_ARG_06 = "?????",
+	RECORD_ARG_07 = "Other",
+	RECORD_ARG_08 = "Unassigned",
+	RECORD_ARG_09 = "Unknown",
+	RECORD_ARG_10 = "Unassigned",
+	RECORD_ARG_11 = "Human",
+	RECORD_ARG_12 = "None",
+	RECORD_ARG_13 = NONE,
 	/// Crew specific
-	lock_ref,
-	medical_notes,
-	major_disabilities = "None",
-	major_disabilities_desc = "No disabilities have been diagnosed at the moment.",
-	minor_disabilities = "None",
-	minor_disabilities_desc = "No disabilities have been diagnosed at the moment.",
-	physical_status = PHYSICAL_ACTIVE,
-	mental_status = MENTAL_STABLE,
-	quirk_notes = "None",
-	security_note,
-	wanted_status = WANTED_NONE,
+	RECORD_CREW_ARG_01,
+	list/RECORD_CREW_ARG_02 = list(),
+	RECORD_CREW_ARG_03 = "None",
+	RECORD_CREW_ARG_04 = "No disabilities have been diagnosed at the moment.",
+	RECORD_CREW_ARG_05 = "None",
+	RECORD_CREW_ARG_06 = "No disabilities have been diagnosed at the moment.",
+	RECORD_CREW_ARG_07 = PHYSICAL_ACTIVE,
+	RECORD_CREW_ARG_08 = MENTAL_STABLE,
+	RECORD_CREW_ARG_09 = "None",
+	RECORD_CREW_ARG_10,
+	RECORD_CREW_ARG_11 = WANTED_NONE,
 )
-	. = ..()
-	src.lock_ref = lock_ref
-	src.major_disabilities = major_disabilities
-	src.major_disabilities_desc = major_disabilities_desc
-	src.minor_disabilities = minor_disabilities
-	src.minor_disabilities_desc = minor_disabilities_desc
-	src.physical_status = physical_status
-	src.mental_status = mental_status
-	src.quirk_notes = quirk_notes
+	src.RECORD_ARG_01 = RECORD_ARG_01
+	src.RECORD_ARG_02 = RECORD_ARG_02
+	src.RECORD_ARG_03 = RECORD_ARG_03
+	src.RECORD_ARG_04 = RECORD_ARG_04
+	src.RECORD_ARG_05 = RECORD_ARG_05
+	src.RECORD_ARG_06 = RECORD_ARG_06
+	src.RECORD_ARG_07 = RECORD_ARG_07
+	src.RECORD_ARG_08 = RECORD_ARG_08
+	src.RECORD_ARG_09 = RECORD_ARG_09
+	src.RECORD_ARG_10 = RECORD_ARG_10
+	src.RECORD_ARG_11 = RECORD_ARG_11
+	src.RECORD_ARG_12 = RECORD_ARG_12
+	src.RECORD_ARG_13 = RECORD_ARG_13
+	src.RECORD_CREW_ARG_01 = RECORD_CREW_ARG_01
+	if(RECORD_CREW_ARG_02 && islist(RECORD_CREW_ARG_02))
+		src.RECORD_CREW_ARG_02 = medical_notes.Copy()
+	src.RECORD_CREW_ARG_03 = RECORD_CREW_ARG_03
+	src.RECORD_CREW_ARG_04 = RECORD_CREW_ARG_04
+	src.RECORD_CREW_ARG_05 = RECORD_CREW_ARG_05
+	src.RECORD_CREW_ARG_06 = RECORD_CREW_ARG_06
+	src.RECORD_CREW_ARG_07 = RECORD_CREW_ARG_07
+	src.RECORD_CREW_ARG_08 = RECORD_CREW_ARG_08
+	src.RECORD_CREW_ARG_09 = RECORD_CREW_ARG_09
+	src.RECORD_CREW_ARG_10 = RECORD_CREW_ARG_10
+	src.RECORD_CREW_ARG_11 = RECORD_CREW_ARG_11
 
 	GLOB.manifest.general += src
 
@@ -141,10 +163,10 @@
 		list_of_medical_notes += list(medical_note.get_info_list())
 
 	return list(
-		age = src.age,
-		blood_type = src.blood_type,
+		RECORD_ARG_01 = src.RECORD_ARG_01,
+		RECORD_ARG_02 = src.RECORD_ARG_02,
 		record_ref = FAST_REF(src),
-		dna = src.dna_string,
+		dna = src.unique_enzymes,
 		gender = src.gender,
 		major_disabilities = src.major_disabilities_desc,
 		minor_disabilities = src.minor_disabilities_desc,
@@ -198,7 +220,7 @@
 
 	age = 18
 	blood_type = pick(list("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"))
-	dna_string = "Unknown"
+	unique_enzymes = "Unknown"
 	gender = "Unknown"
 	medical_notes.Cut()
 	major_disabilities = "None"
@@ -401,27 +423,44 @@
 	var/datum/weakref/weakref_dna
 	/// Mind datum weakref
 	var/datum/weakref/weakref_mind
+	/// Just in case
+	var/datum/dna/datum_dna
 
 /datum/record/locked/New(
-	age = 18,
-	blood_type = "?",
-	character_appearance,
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	rank = "Unassigned",
-	active_department = NONE,
-	species = "Human",
-	hud = "None",
+	RECORD_ARG_01 = 18,
+	RECORD_ARG_02 = "?",
+	RECORD_ARG_03 = null,
+	RECORD_ARG_04 = "Unknown",
+	RECORD_ARG_05 = "Unknown",
+	RECORD_ARG_06 = "?????",
+	RECORD_ARG_07 = "Other",
+	RECORD_ARG_08 = "Unassigned",
+	RECORD_ARG_09 = "Unknown",
+	RECORD_ARG_10 = "Unassigned",
+	RECORD_ARG_11 = "Human",
+	RECORD_ARG_12 = "None",
+	RECORD_ARG_13 = NONE,
 	/// Locked specific
-	weakref_dna,
-	weakref_mind,
+	RECORD_LOCK_ARG_01,
+	RECORD_LOCK_ARG_02,
+	RECORD_LOCK_ARG_03
 )
-	. = ..()
-	src.weakref_dna = weakref_dna
-	src.weakref_mind = weakref_mind
+	src.RECORD_ARG_01 = RECORD_ARG_01
+	src.RECORD_ARG_02 = RECORD_ARG_02
+	src.RECORD_ARG_03 = RECORD_ARG_03
+	src.RECORD_ARG_04 = RECORD_ARG_04
+	src.RECORD_ARG_05 = RECORD_ARG_05
+	src.RECORD_ARG_06 = RECORD_ARG_06
+	src.RECORD_ARG_07 = RECORD_ARG_07
+	src.RECORD_ARG_08 = RECORD_ARG_08
+	src.RECORD_ARG_09 = RECORD_ARG_09
+	src.RECORD_ARG_10 = RECORD_ARG_10
+	src.RECORD_ARG_11 = RECORD_ARG_11
+	src.RECORD_ARG_12 = RECORD_ARG_12
+	src.RECORD_ARG_13 = RECORD_ARG_13
+	src.RECORD_LOCK_ARG_01 = RECORD_LOCK_ARG_01
+	src.RECORD_LOCK_ARG_02 = RECORD_LOCK_ARG_02
+	src.RECORD_LOCK_ARG_03 = RECORD_LOCK_ARG_03
 
 	GLOB.manifest.locked += src
 
@@ -582,7 +621,7 @@
 	med_record_text += "<BR>Age: [age]<BR>"
 	med_record_text += "<BR>\n<CENTER><B>Medical Data</B></CENTER></BR>"
 	med_record_text += "<BR>Blood Type: [blood_type]</BR>"
-	med_record_text += "<BR>DNA: [dna_string]</BR>"
+	med_record_text += "<BR>DNA: [unique_enzymes]</BR>"
 	med_record_text += "<BR>Physical Status: [physical_status]</BR>"
 	med_record_text += "<BR>Mental Status: [mental_status]</BR>"
 	med_record_text += "<BR>Minor Disabilities: [minor_disabilities]</BR>"
@@ -602,101 +641,123 @@
  * Cloning record
  */
 /datum/record/cloning
-
-	var/id
-	var/datum/weakref/weakref_dna
-	var/uni_identity
-	var/SE
+	/// RECORD_CLONE_ARG_10
+	var/datum/dna/datum_dna
+	/// RECORD_CLONE_ARG_11
 	var/datum/weakref/weakref_mind
+	/// RECORD_CLONE_ARG_12
 	var/last_death
-	var/factions
-	var/traumas
+	/// RECORD_CLONE_ARG_13
+	var/list/factions
+	/// RECORD_CLONE_ARG_14
+	var/list/traumas
+	/// RECORD_CLONE_ARG_15
 	var/body_only
+	/// RECORD_CLONE_ARG_16
 	var/implant
-	var/UE
+	/// RECORD_CLONE_ARG_17
 	var/bank_account
 
 
+	/// id of this record. Used in clone record data management.
+	var/id
+
 /datum/record/cloning/New(
-	id,
-	age = "??",
-	blood_type = "?",
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	species = "Unknown",
-	weakref_dna,
-	uni_identity,
-	SE,
-	weakref_mind,
-	last_death,
-	factions,
-	traumas,
-	body_only,
-	implant,
-	UE,
-	bank_account
+	RECORD_CLONE_ARG_01 = 18,
+	RECORD_CLONE_ARG_02 = "?",
+	RECORD_CLONE_ARG_03 = "Unknown",
+	RECORD_CLONE_ARG_04 = "Unknown",
+	RECORD_CLONE_ARG_05 = "?????",
+	RECORD_CLONE_ARG_06 = "Other",
+	RECORD_CLONE_ARG_07 = "Unassigned",
+	RECORD_CLONE_ARG_08 = "Unknown",
+	RECORD_CLONE_ARG_09 = "Unknown",
+	datum/dna/RECORD_CLONE_ARG_10,
+	RECORD_CLONE_ARG_11,
+	RECORD_CLONE_ARG_12,
+	list/RECORD_CLONE_ARG_13 = list(),
+	list/RECORD_CLONE_ARG_14 = list(),
+	RECORD_CLONE_ARG_15,
+	RECORD_CLONE_ARG_16,
+	RECORD_CLONE_ARG_17
 	)
-	src.id = id
-	src.age = age
-	src.blood_type = blood_type
-	src.dna_string = dna_string
-	src.fingerprint = fingerprint
-	src.gender = gender
-	src.initial_rank = initial_rank
-	src.name = name
-	src.species = species
-	src.weakref_dna = weakref_dna
-	src.uni_identity = uni_identity
-	src.SE = SE
-	src.weakref_mind = weakref_mind
-	src.last_death = last_death
-	src.factions = factions
-	src.traumas = traumas
-	src.body_only = body_only
-	src.implant = implant
-	src.UE = UE
-	src.bank_account = bank_account
+	src.RECORD_CLONE_ARG_01 = RECORD_CLONE_ARG_01
+	src.RECORD_CLONE_ARG_02 = RECORD_CLONE_ARG_02
+	src.RECORD_CLONE_ARG_03 = RECORD_CLONE_ARG_03
+	src.RECORD_CLONE_ARG_04 = RECORD_CLONE_ARG_04
+	src.RECORD_CLONE_ARG_05 = RECORD_CLONE_ARG_05
+	src.RECORD_CLONE_ARG_06 = RECORD_CLONE_ARG_06
+	src.RECORD_CLONE_ARG_07 = RECORD_CLONE_ARG_07
+	src.RECORD_CLONE_ARG_08 = RECORD_CLONE_ARG_08
+	src.RECORD_CLONE_ARG_09 = RECORD_CLONE_ARG_09
+	src.RECORD_CLONE_ARG_10 = new()
+	if(RECORD_CLONE_ARG_10)
+		datum_dna.copy_dna(src.RECORD_CLONE_ARG_10)
+	src.RECORD_CLONE_ARG_11 = RECORD_CLONE_ARG_11
+	src.RECORD_CLONE_ARG_12 = RECORD_CLONE_ARG_12
+	src.RECORD_CLONE_ARG_13 = factions.Copy()
+	src.RECORD_CLONE_ARG_14 = traumas.Copy()
+	src.RECORD_CLONE_ARG_15 = RECORD_CLONE_ARG_15
+	src.RECORD_CLONE_ARG_16 = RECORD_CLONE_ARG_16
+	src.RECORD_CLONE_ARG_17 = RECORD_CLONE_ARG_17
+
+/datum/record/cloning/Destroy(force, ...)
+	. = ..()
+	if(datum_dna)
+		QDEL_NULL(datum_dna)
 
 // Copy the record's data to the target.
 /datum/record/cloning/proc/copy_to(datum/record/cloning/target)
-	id = target.id
-	age = target.age
-	blood_type = target.blood_type
-	dna_string = target.dna_string
-	fingerprint = target.fingerprint
-	gender = target.gender
-	initial_rank = target.initial_rank
-	name = target.name
-	species = target.species
-	weakref_dna = target.weakref_dna
-	uni_identity = target.uni_identity
-	SE = target.SE
-	weakref_mind = target.weakref_mind
-	last_death = target.last_death
-	factions = target.factions
-	traumas = target.traumas
-	body_only = target.body_only
-	implant = target.implant
-	UE = target.UE
+	if(!istype(target, /datum/record/cloning))
+		CRASH("Cannot copy to something that isn't /datum/record/cloning. The proc took '[target?.type]'.")
+
+	// from parent
+	target.RECORD_CLONE_ARG_01 = RECORD_CLONE_ARG_01
+	target.RECORD_CLONE_ARG_02 = RECORD_CLONE_ARG_02
+	target.RECORD_CLONE_ARG_03 = RECORD_CLONE_ARG_03
+	target.RECORD_CLONE_ARG_04 = RECORD_CLONE_ARG_04
+	target.RECORD_CLONE_ARG_05 = RECORD_CLONE_ARG_05
+	target.RECORD_CLONE_ARG_06 = RECORD_CLONE_ARG_06
+	target.RECORD_CLONE_ARG_07 = RECORD_CLONE_ARG_07
+	target.RECORD_CLONE_ARG_08 = RECORD_CLONE_ARG_08
+	target.RECORD_CLONE_ARG_09 = RECORD_CLONE_ARG_09
+
+	// from cloning
+	target.id = id
+
+	if(target.RECORD_CLONE_ARG_10)
+		QDEL_NULL(target.RECORD_CLONE_ARG_10)
+	target.RECORD_CLONE_ARG_10 = new()
+	datum_dna.copy_dna(target.RECORD_CLONE_ARG_10)
+
+	target.RECORD_CLONE_ARG_11 = RECORD_CLONE_ARG_11
+	target.RECORD_CLONE_ARG_12 = RECORD_CLONE_ARG_12
+	target.RECORD_CLONE_ARG_13 = RECORD_CLONE_ARG_13
+	target.RECORD_CLONE_ARG_14 = RECORD_CLONE_ARG_14
+	target.RECORD_CLONE_ARG_15 = RECORD_CLONE_ARG_15
+	target.RECORD_CLONE_ARG_16 = RECORD_CLONE_ARG_16
+	target.RECORD_CLONE_ARG_17 = RECORD_CLONE_ARG_17
+
 	return
 
-/datum/record/cloning/proc/resolve_dna()
-	var/datum/dna/dna = weakref_dna.resolve()
-	return dna
+/datum/record/cloning/proc/get_copied_dna()
+	var/datum/dna/copied_dna_instance = new()
+	datum_dna.copy_dna(copied_dna_instance)
+	return copied_dna_instance
 
-/datum/record/cloning/proc/resolve_dna_features()
-	var/datum/dna/dna = weakref_dna.resolve()
-	return dna.features
+/datum/record/cloning/proc/get_copied_dna_features()
+	return datum_dna.features.Copy()
 
 /datum/record/cloning/proc/resolve_mind()
+	if(isnull(weakref_mind))
+		return null
 	var/datum/mind/mind = weakref_mind.resolve()
 	return mind
 
 /datum/record/cloning/proc/resolve_mind_account_id()
+	if(isnull(weakref_mind))
+		return null
 	var/datum/mind/mind = weakref_mind.resolve()
-	return mind.account_id
+	return mind?.account_id
 
 #undef MAX_CRIME_NAME_LEN
