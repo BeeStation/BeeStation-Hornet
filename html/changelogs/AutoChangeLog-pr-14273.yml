@@ -1,0 +1,6 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - bugfix: Vampire Daylight notifications can now only appear if there are actually
+      vampires present.
+  - admin: Vampire Daylight notifications are now posted to deadchat, not adminlog.
