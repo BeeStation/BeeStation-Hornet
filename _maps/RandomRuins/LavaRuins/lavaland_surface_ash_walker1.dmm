@@ -29,6 +29,14 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
+/obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/item/stack/sheet/bone,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bu" = (
@@ -46,6 +54,10 @@
 /obj/structure/table/wood,
 /obj/item/spear/bonespear,
 /obj/item/storage/belt/mining/primitive,
+/obj/item/storage/belt/mining/primitive,
+/obj/item/storage/belt/mining/primitive,
+/obj/item/spear/bonespear,
+/obj/item/spear/bonespear,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bG" = (
@@ -91,6 +103,19 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "ei" = (
@@ -165,6 +190,28 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"fL" = (
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/table/wood,
+/obj/item/clothing/suit/hooded/cloak/drake{
+	pixel_x = -2;
+	pixel_y = -3
+	},
+/obj/item/clothing/suit/hooded/cloak/drake{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/turf/open/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
 "gQ" = (
 /obj/item/spear/bonespear,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -186,6 +233,9 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
+/obj/item/stack/sheet/sinew,
+/obj/item/stack/sheet/sinew,
+/obj/item/stack/sheet/sinew,
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "js" = (
@@ -212,9 +262,7 @@
 	dir = 1
 	},
 /obj/structure/table/optable,
-/obj/item/bedsheet/brown{
-	pixel_y = 2
-	},
+/obj/item/bedsheet/random,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "lk" = (
@@ -291,6 +339,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/item/stack/sheet/animalhide/goliath_hide,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "oq" = (
@@ -486,7 +535,72 @@
 /obj/item/ammo_casing/caseless/arrow/bone,
 /obj/item/ammo_casing/caseless/arrow/bone,
 /obj/item/gun/ballistic/bow/ashen,
+/obj/item/gun/ballistic/bow/ashen{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone{
+	pixel_x = 2
+	},
+/obj/item/ammo_casing/caseless/arrow/bone{
+	pixel_x = 1;
+	pixel_y = -2
+	},
+/obj/item/ammo_casing/caseless/arrow/bone{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/ammo_casing/caseless/arrow/bone{
+	pixel_x = 2;
+	pixel_y = -5
+	},
+/obj/item/ammo_casing/caseless/arrow/bone{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/gun/ballistic/bow/ashen{
+	pixel_x = 4
+	},
+/obj/item/storage/belt/quiver{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/storage/belt/quiver{
+	pixel_x = 6;
+	pixel_y = 8
+	},
 /turf/open/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
+"wZ" = (
+/obj/structure/closet/crate/miningcar,
+/obj/item/stack/ore/bananium/twenty,
+/obj/item/stack/ore/bluespace_crystal/ten,
+/obj/item/stack/ore/bluespace_crystal/five,
+/obj/item/stack/ore/copper/fifty,
+/obj/item/stack/ore/copper/ten,
+/obj/item/stack/ore/diamond/twenty,
+/obj/item/stack/ore/diamond/five,
+/obj/item/stack/ore/glass/fifty,
+/obj/item/stack/ore/glass/fifty,
+/obj/item/stack/ore/gold/twenty,
+/obj/item/stack/ore/gold/twenty,
+/obj/item/stack/ore/iron/fifty,
+/obj/item/stack/ore/iron/fifty,
+/obj/item/stack/ore/iron/fifty,
+/obj/item/stack/ore/iron/fifty,
+/obj/item/stack/ore/iron/fifty,
+/obj/item/stack/ore/iron/fifty,
+/obj/item/stack/ore/plasma/ten,
+/obj/item/stack/ore/silver/twenty,
+/obj/item/stack/ore/titanium/ten,
+/obj/item/stack/ore/titanium/ten,
+/obj/item/stack/ore/titanium/ten,
+/obj/item/stack/ore/uranium/five,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "xs" = (
 /obj/structure/stone_tile/block{
@@ -515,6 +629,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
+/obj/item/stack/sheet/animalhide/goliath_hide,
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "xO" = (
@@ -525,7 +640,7 @@
 	dir = 1
 	},
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/cup/glass/waterbottle/large,
+/obj/item/reagent_containers/blood/lizard,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "yl" = (
@@ -539,6 +654,11 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/cracked,
+/obj/item/toy/plush/lizard_plushie{
+	name = "Sharpens-the-Spears";
+	pixel_x = 15;
+	pixel_y = 16
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "yz" = (
@@ -622,6 +742,9 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "BJ" = (
@@ -640,6 +763,16 @@
 /obj/item/restraints/handcuffs/cable/sinew{
 	pixel_y = 5
 	},
+/obj/item/restraints/handcuffs/cable/sinew{
+	pixel_y = -10
+	},
+/obj/item/restraints/handcuffs/cable/sinew{
+	pixel_y = 3;
+	pixel_x = 3
+	},
+/obj/item/restraints/handcuffs/cable/sinew{
+	pixel_y = -3
+	},
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "Ch" = (
@@ -652,6 +785,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
+/obj/effect/mob_spawn/human/corpse/damaged,
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Dk" = (
@@ -666,6 +800,10 @@
 /area/ruin/unpowered/ash_walkers)
 "DM" = (
 /obj/structure/stone_tile/slab/cracked,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/bone,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "Ej" = (
@@ -675,6 +813,13 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ew" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/item/flashlight/lantern,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Ex" = (
@@ -835,6 +980,12 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
+/obj/item/stack/sheet/sinew,
+/obj/item/stack/sheet/sinew,
+/obj/item/stack/sheet/sinew,
+/obj/item/stack/sheet/sinew,
+/obj/item/stack/sheet/sinew,
+/obj/item/stack/sheet/sinew,
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "IE" = (
@@ -884,6 +1035,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
+/obj/item/stack/sheet/animalhide/goliath_hide,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "KM" = (
@@ -954,6 +1106,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
+/obj/effect/mob_spawn/human/corpse/damaged,
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Np" = (
@@ -1003,6 +1156,17 @@
 /obj/item/restraints/legcuffs/bola/watcher{
 	pixel_x = -1;
 	pixel_y = 7
+	},
+/obj/item/restraints/legcuffs/bola/watcher{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/item/restraints/legcuffs/bola/watcher{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/restraints/legcuffs/bola/watcher{
+	pixel_y = 5
 	},
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
@@ -1134,16 +1298,65 @@
 	dir = 4
 	},
 /obj/structure/closet/crate/medical,
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/lizard,
-/obj/item/reagent_containers/blood/lizard,
-/obj/item/stack/sheet/cotton/cloth/ten,
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
-/obj/item/storage/box/rxglasses,
+/obj/item/reagent_containers/blood/lizard,
+/obj/item/reagent_containers/blood/lizard,
+/obj/item/storage/box/rxglasses{
+	pixel_x = 1;
+	pixel_y = 0
+	},
+/obj/item/stack/sheet/cotton/cloth/ten{
+	pixel_x = 2;
+	pixel_y = 0
+	},
+/obj/item/stack/sheet/cotton/cloth/ten{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/item/storage/firstaid/brute{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/toxin{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/advanced{
+	pixel_x = -4;
+	pixel_y = -1
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = -2
+	},
+/obj/item/dnainjector/strongwings,
+/obj/item/dnainjector/strongwings,
+/obj/item/dnainjector/strongwings,
+/obj/item/dnainjector/strongwings,
+/obj/item/dnainjector/strongwings,
+/obj/item/dnainjector/strongwings{
+	pixel_x = -1;
+	pixel_y = 5
+	},
+/obj/item/dnainjector/strongwings{
+	pixel_x = -2;
+	pixel_y = -5
+	},
+/obj/item/dnainjector/strongwings{
+	pixel_x = 3;
+	pixel_y = -10
+	},
+/obj/item/dnainjector/strongwings{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 4
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "UN" = (
@@ -1165,6 +1378,14 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
+/obj/item/stack/sheet/animalhide/ashdrake,
+/obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/item/stack/sheet/bone,
+/obj/item/stack/sheet/bone,
+/obj/item/stack/sheet/bone,
+/obj/item/stack/sheet/bone,
+/obj/item/stack/sheet/bone,
+/obj/item/stack/sheet/bone,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "VR" = (
@@ -1214,10 +1435,6 @@
 /obj/structure/table/wood,
 /obj/item/spear/bonespear,
 /obj/item/clothing/head/helmet/chaplain/ancient,
-/obj/item/toy/plush/lizard_plushie{
-	name = "Sharpens-the-Spears";
-	pixel_x = 5
-	},
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "XG" = (
@@ -1247,6 +1464,7 @@
 	},
 /obj/structure/stone_tile,
 /obj/effect/decal/cleanable/blood,
+/obj/item/stack/sheet/bone,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "Yl" = (
@@ -1268,6 +1486,16 @@
 	},
 /obj/structure/table/wood,
 /obj/item/claymore/bone,
+/obj/item/shield/goliath,
+/obj/item/claymore/bone,
+/obj/item/claymore/bone,
+/obj/item/claymore/bone,
+/obj/item/shield/goliath,
+/obj/item/shield/goliath,
+/obj/item/shield/goliath,
+/obj/item/shield/goliath,
+/obj/item/shield/goliath,
+/obj/item/shield/goliath,
 /obj/item/shield/goliath,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
@@ -1730,7 +1958,7 @@ ey
 ey
 yl
 yl
-QB
+fL
 zv
 MQ
 qQ
@@ -1740,7 +1968,7 @@ aw
 oN
 eO
 Ex
-Ex
+Ew
 LL
 QB
 yl
@@ -1763,7 +1991,7 @@ yl
 an
 Ue
 cK
-Tj
+wZ
 yl
 QB
 yl
