@@ -579,6 +579,7 @@
 		/obj/item/gun/energy/e_gun/mini/exploration/cyborg,
 		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/holosign_creator/security,
+		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/borg/charger,
 		/obj/item/extinguisher/mini,
