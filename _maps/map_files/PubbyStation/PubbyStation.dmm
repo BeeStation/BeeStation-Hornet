@@ -68100,6 +68100,12 @@
 /obj/item/reagent_containers/cup/soda_cans/sodawater{
 	pixel_x = -8
 	},
+/obj/item/paper/crumpled{
+	pixel_x = -8;
+	pixel_y = 12;
+	default_raw_text = "Notice - Due to ongoing complaints, the exploration bay has been aquired by the curator, please report to the library for further objectives";
+	name = "Notice of Reposistion"
+	},
 /turf/open/floor/carpet/red,
 /area/station/maintenance/starboard/aft)
 "xux" = (
