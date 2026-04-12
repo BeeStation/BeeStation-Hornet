@@ -2862,6 +2862,11 @@
 /obj/structure/closet/crate/radiation,
 /turf/open/floor/iron/white/textured,
 /area/ruin/space/ancientstation/delta/proto)
+"mn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/rnd/production/protolathe,
+/turf/open/floor/iron/white,
+/area/ruin/space/ancientstation/delta/rnd)
 "mo" = (
 /turf/open/floor/iron/white/corner{
 	dir = 1
@@ -9043,6 +9048,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/charlie/bridge)
+"YG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/rnd/production/circuit_imprinter,
+/turf/open/floor/iron/white,
+/area/ruin/space/ancientstation/delta/rnd)
 "YH" = (
 /obj/structure/lattice,
 /obj/item/stack/rods,
@@ -14932,7 +14942,7 @@ bD
 zf
 eF
 fW
-kw
+mn
 nN
 oe
 WV
@@ -14998,7 +15008,7 @@ wx
 BN
 fa
 qb
-kw
+YG
 FH
 of
 WV
