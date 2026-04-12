@@ -1046,7 +1046,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	var/list/choices = list()
 	///index, used in the attack self to get the type. stored here since it doesnt change
 	///This list that holds all the plumbing design types the plumberer can construct. Its purpose is to make it easy to make new plumberer subtypes with a different selection of machines.
-	var/list/static/plumbing_design_types
+	var/static/list/plumbing_design_types
 
 	var/list/name_to_type = list()
 	///
