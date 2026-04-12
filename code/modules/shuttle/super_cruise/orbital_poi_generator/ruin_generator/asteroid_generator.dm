@@ -81,5 +81,4 @@
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord)
 
 /area/centcom/asteroid/generated
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	outdoors = TRUE
