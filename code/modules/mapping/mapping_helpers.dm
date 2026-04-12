@@ -844,9 +844,9 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 	var/list/found_container = list()
 
 	// search_view_range
-	//   [Negative]: area search, get_contained_turfs()
+	//   [Negative]: area search, get_turfs_by_zlevel()
 	if(search_view_range < 0)
-		for(var/turf/each_turf in current_area.get_contained_turfs())
+		for(var/turf/each_turf as anything in current_area.get_turfs_by_zlevel(z))
 			for(var/obj/each_container in each_turf)
 				for(var/acceptable_path in accepted_list)
 					if(istype(each_container, acceptable_path))
@@ -863,11 +863,12 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 					found_container += each_container
 					break
 
-	while(bodycount-- > 0)
+	while(bodycount > 0)
 		if(length(found_container))
 			spawn_dead_human_in_tray(pick(found_container))
 		else // if we have found no container, just spawn onto a turf
 			spawn_dead_human_in_tray(get_turf(src))
+		bodycount--
 
 	qdel(src)
 

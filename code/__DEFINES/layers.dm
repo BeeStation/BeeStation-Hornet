@@ -88,6 +88,21 @@
 #define MIMICKED_LIGHTING_LAYER 5.06
 #define RIPPLE_LAYER 5.1
 
+//---------- LIGHTING -------------
+
+// LIGHTING_PLANE layers
+// The layer of turf underlays starts at 0.01 and goes up by 0.01
+// Based off the z level. No I do not remember why, should check that
+/// Typically overlays, that "hide" portions of the turf underlay layer
+/// I'm allotting 100 z levels before this breaks. That'll never happen
+/// --Lemon
+#define LIGHTING_MASK_LAYER 10
+/// Misc things that draw on the turf lighting plane
+/// Space, solar beams, etc
+#define LIGHTING_PRIMARY_LAYER 15
+/// Stuff that needs to draw above everything else on this plane
+#define LIGHTING_ABOVE_ALL 20
+
 #define TEXT_EFFECT_UI_LAYER 5.90 // text effects shouldn't be displayed behind.
 	// maybe it should be custom layer category like 'UI_LAYER 6'
 
@@ -97,34 +112,10 @@
 #define RADIAL_BACKGROUND_LAYER 0
 #define RADIAL_CONTENT_LAYER 1000
 
-/*
-#define ADMIN_POPUP_LAYER 1
-
-///Layer for screentips
-#define SCREENTIP_LAYER 4
-
-/// Layer for tutorial instructions
-#define TUTORIAL_INSTRUCTIONS_LAYER 5
-
-/// Layer for light overlays
-#define LIGHT_DEBUG_LAYER 6
-*/
 /// Layer for pathfinding arrows
 #define PATH_ARROW_DEBUG_LAYER 7
 /// Layer for pathfinding overlays
 #define PATH_DEBUG_LAYER 8
-/*
-///Layer for lobby menu collapse button
-#define LOBBY_BELOW_MENU_LAYER 2
-/// Layer for background
-#define LOBBY_BACKGROUND_LAYER 3
-///Layer for main buttons (Join/Ready, Observe, Character Prefs)
-#define LOBBY_MENU_LAYER 4
-///Layer for lobby menu shutter, which covers up the menu to collapse/expand it
-#define LOBBY_SHUTTER_LAYER 5
-///Layer for lobby menu buttons that are hanging away from and lower than the main panel
-#define LOBBY_BOTTOM_BUTTON_LAYER 6
-*/
 
 /**
  * Planes

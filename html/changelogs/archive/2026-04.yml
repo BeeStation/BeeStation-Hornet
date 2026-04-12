@@ -86,3 +86,33 @@
   - code_imp: Space_Station_13_areas.dm had its station specific turf moved to station.dm
   - imageadd: Some turfs were given icons (which didn't exist prior).
   - imagedel: Most unused/odd ball turfs were removed (like dk_yellow).
+2026-04-09:
+  SmArtKar, Racc-Off:
+  - bugfix: Fix lasso runtime
+  - bugfix: Hovering over things on the same tile no longer closes the pet command
+      menu
+2026-04-10:
+  mrmanlikesbt, TiviPlus, LemonInTheDark, SyncIt21, MSO:
+  - code_imp: Added a new VISUALIZE_LIGHT_UPDATES define to... I'm sure you can figure
+      it out.
+  - code_imp: Lighting code has been optimized and is now faster
+2026-04-11:
+  mrmanlikesbt, Cyberboss, Ghommie, LikeLakers2, TiviPlus, jlsnow301, san7890, TealSeer, FalloutFalcon:
+  - server: github integration tests are now grouped together
+  - server: the github CI Suite is no longer runs on direct commits to the codebase
+  - server: github integration tests now include what failed in the summary of the
+      action
+  - server: the github CI suite workflows have been moved to their own individual
+      files
+  - server: github integration tests now reuse a single build instead of recompiling
+      for each map
+  - server: fixed an erroneous warning when setting up the database during github
+      integration tests
+  - server: the slowest unit tests are now displayed
+2026-04-12:
+  DrDuckedGoose:
+  - bugfix: Fixes robot eye lights trailing behind them near blind people
+  TsunamiAnt:
+  - bugfix: Vampire Daylight notifications can now only appear if there are actually
+      vampires present.
+  - admin: Vampire Daylight notifications are now posted to deadchat, not adminlog.
