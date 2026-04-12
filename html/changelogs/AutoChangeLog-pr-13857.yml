@@ -1,0 +1,15 @@
+author: mrmanlikesbt, Cyberboss, Ghommie, LikeLakers2, TiviPlus, jlsnow301, san7890,
+  TealSeer, FalloutFalcon
+delete-after: true
+changes:
+  - server: github integration tests are now grouped together
+  - server: the github CI Suite is no longer runs on direct commits to the codebase
+  - server: github integration tests now include what failed in the summary of the
+      action
+  - server: the github CI suite workflows have been moved to their own individual
+      files
+  - server: github integration tests now reuse a single build instead of recompiling
+      for each map
+  - server: fixed an erroneous warning when setting up the database during github
+      integration tests
+  - server: the slowest unit tests are now displayed
