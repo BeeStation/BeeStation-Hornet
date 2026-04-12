@@ -163,8 +163,8 @@
 		list_of_medical_notes += list(medical_note.get_info_list())
 
 	return list(
-		RECORD_ARG_01 = src.RECORD_ARG_01,
-		RECORD_ARG_02 = src.RECORD_ARG_02,
+		age = src.age,
+		blood_type = src.blood_type,
 		record_ref = FAST_REF(src),
 		dna = src.unique_enzymes,
 		gender = src.gender,
