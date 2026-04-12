@@ -27,7 +27,6 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	icon_state = "0-1-2-4-8"
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
-	obj_flags = CAN_BE_HIT
 	flags_1 = STAT_UNIQUE_1
 
 	/// The powernet we are linked to
@@ -65,7 +64,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 // the power cable object
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
-/obj/structure/cable/Initialize(mapload, param_color, multiz = FALSE)
+/obj/structure/cable/Initialize(mapload, param_color = cable_color, multiz = FALSE)
 	. = ..()
 
 // If building for CI then we will check to ensure that cables are not incorrectly overlapping.
@@ -77,7 +76,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		return INITIALIZE_HINT_QDEL
 #endif
 
-	cable_color = param_color || cable_color
+	cable_color = param_color
 	src.multiz = multiz
 
 	// If our tile is open space, we're a multiz cable
