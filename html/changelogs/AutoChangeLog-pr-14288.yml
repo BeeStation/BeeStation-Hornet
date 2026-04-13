@@ -1,0 +1,4 @@
+author: MasonMiami
+delete-after: true
+changes:
+  - tweak: You can now use zero as a expression for the cost of loadout items.
