@@ -1,5 +1,3 @@
-///LAVA
-
 /turf/open/lava
 	name = "lava"
 	desc = "Looks painful to step in. Don't mine down."
@@ -43,6 +41,7 @@
 	refresh_light()
 	if(!smoothing_flags)
 		update_appearance(UPDATE_OVERLAYS)
+	set_base_luminosity(src, 1)
 
 /turf/open/lava/Destroy()
 	checked_atoms = null
