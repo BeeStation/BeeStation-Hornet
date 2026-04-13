@@ -20,7 +20,7 @@
 	mutant_bodyparts = list(
 		"moth_wings" = "Plain",
 		"moth_antennae" = "Plain",
-		"moth_markings" = "None",
+		"moth_markings" = SPRITE_ACCESSORY_NONE,
 		"body_size" = "Normal"
 	)
 	attack_verb = "slash"
