@@ -19,7 +19,7 @@
 
 	final_icon.crop(11, 20, 23, 32)
 	final_icon.scale(32, 32)
-	final_icon.blend_color(COLOR_VIBRANT_LIME, ICON_MULTIPLY)
+	final_icon.blend_color(COLOR_LIME, ICON_MULTIPLY)
 
 	return final_icon
 
