@@ -25,9 +25,6 @@
 	/// Determines whether or not late-joining as this role is allowed
 	var/latejoin_allowed = TRUE
 
-	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
-	var/lock_flags = NONE
-
 	/// If this job should show in the preferences menu
 	var/show_in_prefs = TRUE
 
@@ -152,12 +149,10 @@
 	lightup_areas = typecacheof(lightup_areas)
 	minimal_lightup_areas = typecacheof(minimal_lightup_areas)
 
-	if(!config_check())
-		lock_flags |= JOB_LOCK_REASON_CONFIG
-	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
-		lock_flags |= JOB_LOCK_REASON_MAP
-	if(lock_flags || gimmick)
-		SSjob.job_manager_blacklisted |= title
+	if(!config_check() || (SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs)))
+		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
+	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE) || gimmick)
+		job_flags |= JOB_CANNOT_OPEN_SLOTS
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()
@@ -570,14 +565,14 @@
 	return TRUE
 
 /datum/job/proc/get_lock_reason()
-	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
+	if(!(initial(job_flags) & JOB_NEW_PLAYER_JOINABLE))
 		return "Not a real job"
-	else if(lock_flags & JOB_LOCK_REASON_CONFIG)
+	if(!config_check())
 		return "Disabled by server configuration"
-	else if(lock_flags & JOB_LOCK_REASON_MAP)
+	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
 		return "Not available on this map"
-	else if(lock_flags) // somehow flag exists
-		return "Unknown: [lock_flags]"
+	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE))
+		return "Unavailable"
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")

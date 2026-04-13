@@ -28,7 +28,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
 
-	job_flags = STATION_JOB_FLAGS
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Star Duke"
 
 	species_outfits = list(

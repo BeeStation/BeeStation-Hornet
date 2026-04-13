@@ -1,7 +1,6 @@
 /datum/job/deputy
 	title = JOB_NAME_DEPUTY
 	description = "Follow orders and do your best to maintain order on the station while following Space Law."
-	lock_flags = JOB_LOCK_REASON_ABSTRACT
 	department_for_prefs = DEPT_NAME_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
@@ -24,7 +23,7 @@
 
 	show_in_prefs = FALSE
 
-	job_flags = STATION_JOB_FLAGS
+	job_flags = (STATION_JOB_FLAGS | JOB_CANNOT_OPEN_SLOTS) & ~JOB_NEW_PLAYER_JOINABLE
 
 /datum/outfit/job/deputy
 	name = JOB_NAME_DEPUTY

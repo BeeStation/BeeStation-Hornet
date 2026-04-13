@@ -48,7 +48,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
 
-	job_flags = STATION_JOB_FLAGS
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(

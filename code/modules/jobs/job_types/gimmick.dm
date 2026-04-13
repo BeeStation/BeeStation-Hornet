@@ -17,7 +17,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 
-	job_flags = STATION_JOB_FLAGS
+	job_flags = STATION_JOB_FLAGS | JOB_CANNOT_OPEN_SLOTS
 	rpg_title = "Peasant"
 
 	allow_bureaucratic_error = FALSE

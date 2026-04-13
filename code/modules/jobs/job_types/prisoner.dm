@@ -17,7 +17,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_PRISONER
 
-	job_flags = STATION_JOB_FLAGS
+	job_flags = STATION_JOB_FLAGS | JOB_CANNOT_OPEN_SLOTS
 	rpg_title = "Vagrant"
 	allow_bureaucratic_error = FALSE
 

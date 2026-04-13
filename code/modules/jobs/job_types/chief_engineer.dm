@@ -32,7 +32,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
 
-	job_flags = STATION_JOB_FLAGS
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(

@@ -285,6 +285,7 @@
 	min_val = -1
 
 /datum/config_entry/string/overflow_job
+	default = JOB_NAME_ASSISTANT
 	config_entry_value = JOB_NAME_ASSISTANT
 
 /datum/config_entry/flag/grey_assistants
