@@ -112,7 +112,8 @@
 	/// What is our default level of luminosity, if you want inherent luminosity
 	/// withing an atom's type, set luminosity instead and we will manage it for you.
 	/// Always use set_base_luminosity instead of directly modifying this
-	VAR_PRIVATE/base_luminosity = 0
+	/// If null, defaults to the initial luminosity
+	VAR_PRIVATE/base_luminosity
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	VAR_PRIVATE/_emissive_count = 0
 

@@ -210,13 +210,15 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(!ambientmusic && ambient_music_index)
 		ambientmusic = GLOB.ambient_music_assoc[ambient_music_index]
 
-	if(!requires_power) // no need to set luminosity to 0 if we require power since it'll already be at that
+	if(requires_power)
+		set_base_luminosity(src, 0)
+	else
 		power_light = TRUE
 		power_equip = TRUE
 		power_environ = TRUE
 
-	if(!static_lighting) // no lighting objects, give everything a luminosity of 1
-		set_base_luminosity(src, 1)
+		if(static_lighting)
+			set_base_luminosity(src, 0)
 
 	. = ..()
 
