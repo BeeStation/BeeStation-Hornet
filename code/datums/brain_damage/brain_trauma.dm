@@ -4,6 +4,7 @@
 // of the trauma.
 
 /datum/brain_trauma
+	abstract_type = /datum/emote
 	var/name = "Brain Trauma"
 	var/desc = "A trauma caused by brain damage, which causes issues to the patient."
 	var/scan_desc = "generic brain trauma" //description when detected by a health scanner

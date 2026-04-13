@@ -14,6 +14,8 @@
   * that can be restored at a later date
   */
 /datum/outfit
+	abstract_type = /datum/outfit
+
 	///Name of the outfit (shows up in the equip admin verb)
 	var/name = "Naked"
 
