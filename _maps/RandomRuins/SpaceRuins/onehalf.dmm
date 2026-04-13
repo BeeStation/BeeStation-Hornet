@@ -8,35 +8,35 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ac" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ad" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ae" = (
 /obj/item/stack/cable_coil/cut/yellow{
 	amount = 2
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "af" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ag" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/onehalf/dorms_med)
@@ -50,7 +50,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aj" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/onehalf/hallway)
@@ -275,7 +275,7 @@
 /obj/structure/lattice,
 /obj/item/storage/toolbox/syndicate,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aV" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/structure/cable/yellow{
@@ -788,7 +788,7 @@
 	icon_state = "small"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ck" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -863,7 +863,7 @@
 	},
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ct" = (
 /obj/structure/lattice,
 /obj/item/shard{
@@ -1038,7 +1038,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "cX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1130,7 +1130,7 @@
 /obj/item/stack/sheet/plasteel,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "di" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1140,7 +1140,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "dj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1151,7 +1151,7 @@
 /obj/item/stack/rods,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "dk" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -1161,7 +1161,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "dl" = (
 /obj/item/stack/cable_coil/cut/yellow{
 	amount = 2
@@ -1170,11 +1170,11 @@
 /area/template_noop)
 "Ky" = (
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Me" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 
 (1,1,1) = {"
 aa

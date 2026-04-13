@@ -11,8 +11,8 @@ again.
 /obj/effect/spawner/structure/Initialize(mapload)
 	. = ..()
 	// When spawner is created at a holodeck template
-	var/area/holodeck/holodeck_area = get_area(src)
-	if(istype(holodeck_area, /area/holodeck))
+	var/area/station/holodeck/holodeck_area = get_area(src)
+	if(istype(holodeck_area, /area/station/holodeck))
 		var/obj/machinery/computer/holodeck/holocomputer = holodeck_area.linked
 		for(var/spawn_type as anything in spawn_list)
 			holocomputer.from_spawner += new spawn_type(loc)
@@ -467,8 +467,8 @@ again.
 	var/obj/structure/musician/piano/chosen_piano = prob(50) ? /obj/structure/musician/piano : /obj/structure/musician/piano/minimoog
 
 	// When spawner is created at a holodeck template
-	var/area/holodeck/holodeck_area = get_area(src)
-	if(istype(holodeck_area, /area/holodeck))
+	var/area/station/holodeck/holodeck_area = get_area(src)
+	if(istype(holodeck_area, /area/station/holodeck))
 		var/obj/machinery/computer/holodeck/holocomputer = holodeck_area.linked
 		holocomputer.from_spawner += new chosen_piano(loc)
 		return

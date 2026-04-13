@@ -23,7 +23,6 @@
 	key = "clap"
 	key_third_person = "claps"
 	message = "claps"
-	muzzle_ignore = TRUE
 	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	vary = TRUE
@@ -104,7 +103,6 @@
 				'sound/creatures/monkey/monkey_screech_7.ogg')
 
 /datum/emote/living/carbon/snap
-	muzzle_ignore = TRUE
 	hands_use_check = TRUE
 	vary = TRUE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE

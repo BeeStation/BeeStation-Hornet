@@ -8,43 +8,43 @@
 "ac" = (
 /obj/machinery/light,
 /turf/open/floor/plating/asteroid/basalt,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ad" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/basalt,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ae" = (
 /turf/closed/wall/mineral/titanium/survival/pod,
-/area/survivalpod)
+/area/misc/survivalpod)
 "af" = (
 /obj/structure/sink,
 /turf/closed/wall/mineral/titanium/survival/pod,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ag" = (
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ah" = (
 /obj/item/gps/computer,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ai" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aj" = (
 /obj/structure/sign/mining/survival{
 	dir = 8
 	},
 /turf/closed/wall/mineral/titanium/survival/pod,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ak" = (
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "al" = (
 /obj/structure/toilet/secret,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "am" = (
 /obj/structure/fence{
 	dir = 4
@@ -59,31 +59,31 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/fans,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ap" = (
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aq" = (
 /obj/machinery/smartfridge/survival_pod/preloaded,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ar" = (
 /obj/structure/sign/poster/official/random,
 /turf/closed/wall/mineral/titanium/survival/pod,
-/area/survivalpod)
+/area/misc/survivalpod)
 "as" = (
 /obj/machinery/light/small,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "at" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "au" = (
 /obj/machinery/door/airlock/survival_pod,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "av" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/asteroid/basalt,
@@ -91,24 +91,24 @@
 "aw" = (
 /obj/machinery/stasis/survival_pod,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ax" = (
 /obj/structure/extinguisher_cabinet,
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ay" = (
 /obj/structure/mirror,
 /turf/closed/wall/mineral/titanium/survival/pod,
-/area/survivalpod)
+/area/misc/survivalpod)
 "az" = (
 /obj/effect/turf_decal/box,
 /obj/structure/safe/floor,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aB" = (
 /obj/structure/rack,
 /obj/item/mop,
@@ -116,7 +116,7 @@
 /obj/machinery/light/small,
 /obj/item/paper/fluff/itemnotice,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aC" = (
 /obj/structure/fence,
 /turf/open/floor/plating/asteroid/basalt,
@@ -130,7 +130,7 @@
 /obj/machinery/door/airlock/survival_pod,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aF" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray,
@@ -155,39 +155,39 @@
 "aJ" = (
 /obj/structure/sign/poster/official/random,
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aK" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aL" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aM" = (
 /obj/structure/table,
 /obj/item/lighter/greyscale,
 /obj/item/toy/cards/deck/cas,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aN" = (
 /obj/structure/sign/mining/survival{
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aO" = (
 /obj/structure/closet/crate,
 /obj/item/mecha_parts/mecha_equipment/drill,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aP" = (
 /obj/machinery/suit_storage_unit,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aQ" = (
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plating/asteroid/basalt,
@@ -197,7 +197,7 @@
 	dir = 8
 	},
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aT" = (
 /obj/structure/closet,
 /obj/item/clothing/shoes/workboots/mining,
@@ -209,22 +209,22 @@
 /obj/item/pickaxe/mini,
 /obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aU" = (
 /obj/structure/bed/pod,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aV" = (
 /obj/structure/closet/crate/bin,
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aW" = (
 /obj/machinery/vending/mining,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aX" = (
 /obj/structure/closet,
 /obj/item/clothing/shoes/workboots/mining,
@@ -233,7 +233,7 @@
 /obj/item/pickaxe/mini,
 /obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "aY" = (
 /obj/structure/ore_box,
 /turf/open/floor/plating/asteroid/basalt,
@@ -241,18 +241,18 @@
 "aZ" = (
 /obj/structure/sign/mining,
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "ba" = (
 /obj/machinery/vending/wallmed/survival_pod,
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bb" = (
 /obj/structure/table,
 /obj/item/healthanalyzer,
 /obj/item/gps/mining,
 /obj/item/paper/fluff/encampmentwelcome,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bc" = (
 /obj/item/trash/raisins,
 /turf/open/floor/plating/asteroid/basalt,
@@ -264,14 +264,14 @@
 "be" = (
 /obj/machinery/sleeper/survival_pod,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bf" = (
 /obj/structure/noticeboard{
 	dir = 1;
 	pixel_y = -32
 	},
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bg" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -279,7 +279,7 @@
 	},
 /obj/structure/bedsheetbin,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bh" = (
 /obj/structure/fence/corner,
 /turf/open/floor/plating/asteroid/basalt,
@@ -297,7 +297,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/basalt,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bl" = (
 /obj/item/trash/sosjerky,
 /turf/open/floor/plating/asteroid/basalt,
@@ -305,30 +305,30 @@
 "bm" = (
 /obj/machinery/light/floor,
 /turf/open/floor/plating/asteroid/basalt,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bn" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/basalt,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bo" = (
 /obj/item/rollerbed,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/iron/ten,
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "bp" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "QN" = (
 /obj/machinery/gear_requisition/mining,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 
 (1,1,1) = {"
 aa

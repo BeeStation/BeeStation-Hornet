@@ -38,9 +38,13 @@
 	attacking_item,
 )
 
+	// depending on the species, it will run the corresponding apply_damage code there
+	if(stat != DEAD && (damagetype==BRUTE || damagetype==BURN) && damage>10 && prob(10+damage/2))
+		INVOKE_ASYNC(src, PROC_REF(emote), "scream")
+
 	// Add relevant DR modifiers into blocked value to pass to parent
 	blocked += physiology?.damage_resistance
-	blocked += dna?.species?.armor
+	blocked += dna?.species?.damage_modifier
 	return ..()
 
 /mob/living/carbon/human/get_incoming_damage_modifier(
@@ -150,8 +154,8 @@
 	var/current = getStaminaLoss()
 	var/diff = amount - current
 	if(!diff)
-		return
-	adjustStaminaLoss(diff, updating_stamina, forced)
+		return 0
+	return adjustStaminaLoss(diff, updating_stamina, forced)
 
 /**
  * If an organ exists in the slot requested, and we are capable of taking damage (we don't have [GODMODE] on), call the damage proc on that organ.
@@ -285,11 +289,11 @@
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
 		var/stamina_was = picked.stamina_dam
-		. += picked.get_damage(TRUE)
+		var/damage_before = picked.get_damage(TRUE)
 
 		update |= picked.heal_damage(brute, burn, stamina, updating_health = FALSE, forced = forced, required_bodytype = required_bodytype)
 
-		. -= picked.get_damage(TRUE) // return the net amount of damage healed
+		. += damage_before - picked.get_damage(TRUE)
 
 		brute = round(brute - (brute_was - picked.brute_dam), DAMAGE_PRECISION)
 		burn = round(burn - (burn_was - picked.burn_dam), DAMAGE_PRECISION)
@@ -326,13 +330,12 @@
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
 		var/stamina_was = picked.stamina_dam
-
-		. += picked.get_damage(TRUE)
+		var/damage_before = picked.get_damage(TRUE)
 
 		// disabling wounds from these for now cuz your entire body snapping cause your heart stopped would suck
-		update |= picked.receive_damage(brute_per_part, burn_per_part, stamina_per_part, blocked = FALSE, updating_health = FALSE, forced = forced, required_bodytype = required_bodytype)
+		update |= picked.receive_damage(brute = brute_per_part, burn = burn_per_part, stamina = stamina_per_part, blocked = FALSE, updating_health = FALSE, forced = forced, required_bodytype = required_bodytype)
 
-		. -= picked.get_damage(TRUE) // return the net amount of damage healed
+		. -= picked.get_damage(TRUE) - damage_before
 
 		brute = round(brute - (picked.brute_dam - brute_was), DAMAGE_PRECISION)
 		burn = round(burn - (picked.burn_dam - burn_was), DAMAGE_PRECISION)

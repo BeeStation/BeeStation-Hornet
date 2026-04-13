@@ -1,5 +1,6 @@
 #define MINOR_INSANITY_PEN 3
 #define MAJOR_INSANITY_PEN 6
+#define MOOD_SOURCE "mood_component"
 
 /datum/component/mood
 	var/mood //Real happiness
@@ -22,12 +23,19 @@
 
 	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, PROC_REF(add_event))
 	RegisterSignal(parent, COMSIG_CLEAR_MOOD_EVENT, PROC_REF(clear_event))
-	RegisterSignal(parent, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(check_area_mood))
+	RegisterSignal(parent, COMSIG_ENTER_AREA, PROC_REF(check_area_mood))
 	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
 	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, PROC_REF(modify_hud))
 	RegisterSignal(parent, COMSIG_HERETIC_MASK_ACT, PROC_REF(direct_sanity_drain))
+
+	var/area/our_area = get_area(parent)
+	if(our_area)
+		check_area_mood(parent, our_area)
+
 	var/mob/living/owner = parent
+	owner.become_area_sensitive(MOOD_SOURCE)
+
 	if(owner.hud_used)
 		modify_hud()
 		var/datum/hud/hud = owner.hud_used
@@ -35,6 +43,9 @@
 
 /datum/component/mood/Destroy()
 	STOP_PROCESSING(SSmood, src)
+	if(ismob(parent))
+		var/mob/mob_parent = parent
+		mob_parent.lose_area_sensitivity(MOOD_SOURCE)
 	unmodify_hud()
 	QDEL_LIST_ASSOC_VAL(mood_events)
 	return ..()
@@ -406,6 +417,7 @@
 	remove_temp_moods()
 	setSanity(initial(sanity))
 
+#undef MOOD_SOURCE
 #undef MINOR_INSANITY_PEN
 #undef MAJOR_INSANITY_PEN
 

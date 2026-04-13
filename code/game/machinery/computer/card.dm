@@ -30,8 +30,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/opened_positions = list()
 	var/obj/item/card/id/inserted_scan_id
 	var/obj/item/card/id/inserted_modify_id
-	var/list/region_access = NONE
-	var/region_access_payment = NONE
+	var/accessible_region_bitflag = NONE
+	var/accessible_dept_payment_bitflag = NONE
 	var/list/head_subordinates = null
 	var/is_centcom = FALSE
 
@@ -417,7 +417,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/datum/record/crew/record = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
 			if(record)
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
 					if(record.active_department & SSeconomy.get_budget_acc_bitflag(each))
 						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'><font color=\"6bc473\">[each]</a></font></td>"
@@ -433,7 +433,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				banking += "<tr>"
 				banking += "<td><b>Free Vendor Access:</b></td>"
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
 					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(each))
 						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
@@ -444,7 +444,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				banking += "<tr>"
 				banking += "<td><b>Payment per department:</b></td>"
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
 					if(SSeconomy.is_nonstation_account(each))
 						banking += "<td>$[B.payment_per_department[each]]</td>"
@@ -462,14 +462,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			accesses += "<table style='width:100%'>"
 			accesses += "<tr>"
 			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-				if(authenticated == 1 && !(each_dept.dept_bitflag & region_access))
+				if(authenticated == 1 && !(each_dept.dept_bitflag & accessible_region_bitflag))
 					continue
 				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
 					continue
 				accesses += "<td style='width:14%'><b>[each_dept.access_group_name]:</b></td>"
 			accesses += "</tr><tr>"
 			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-				if(authenticated == 1 && !(each_dept.dept_bitflag & region_access))
+				if(authenticated == 1 && !(each_dept.dept_bitflag & accessible_region_bitflag))
 					continue
 				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
 					continue
@@ -536,40 +536,40 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if ("auth")
 			if ((!( authenticated ) && (inserted_scan_id || issilicon(usr)) && (inserted_modify_id || mode)))
 				if (check_access(inserted_scan_id))
-					region_access = NONE
-					region_access_payment = NONE
+					accessible_region_bitflag = NONE
+					accessible_dept_payment_bitflag = NONE
 					if(ACCESS_CHANGE_IDS in inserted_scan_id.access)
 						if(department_bitflag)
-							region_access |= department_bitflag
-							region_access_payment = ALL
+							accessible_region_bitflag |= department_bitflag
+							accessible_dept_payment_bitflag = ALL
 							authenticated = 1
 						else
-							region_access_payment = ALL
+							accessible_dept_payment_bitflag = ALL
 							authenticated = 2
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 
 					else
 						if((ACCESS_HOP in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
-							region_access |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
-							region_access_payment |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
+							accessible_region_bitflag |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
+							accessible_dept_payment_bitflag |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
 						if((ACCESS_HOS in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
-							region_access |= DEPT_BITFLAG_SEC
-							region_access_payment |= ACCOUNT_SEC_BITFLAG
+							accessible_region_bitflag |= DEPT_BITFLAG_SEC
+							accessible_dept_payment_bitflag |= ACCOUNT_SEC_BITFLAG
 						if((ACCESS_CMO in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
-							region_access |= DEPT_BITFLAG_MED
-							region_access_payment |= ACCOUNT_MED_BITFLAG
+							accessible_region_bitflag |= DEPT_BITFLAG_MED
+							accessible_dept_payment_bitflag |= ACCOUNT_MED_BITFLAG
 						if((ACCESS_RD in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
-							region_access |= DEPT_BITFLAG_SCI
-							region_access_payment |= ACCOUNT_SCI_BITFLAG
+							accessible_region_bitflag |= DEPT_BITFLAG_SCI
+							accessible_dept_payment_bitflag |= ACCOUNT_SCI_BITFLAG
 						if((ACCESS_CE in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
-							region_access |= DEPT_BITFLAG_ENG
-							region_access_payment |= ACCOUNT_ENG_BITFLAG
-						if(region_access)
+							accessible_region_bitflag |= DEPT_BITFLAG_ENG
+							accessible_dept_payment_bitflag |= ACCOUNT_ENG_BITFLAG
+						if(accessible_region_bitflag)
 							authenticated = 1
 			else if ((!( authenticated ) && issilicon(usr)) && (!inserted_modify_id))
 				to_chat(usr, span_warning("You can't modify an ID without an ID inserted to modify! Once one is in the modify slot on the computer, you can log in."))
 		if ("logout")
-			region_access = NONE
+			accessible_region_bitflag = NONE
 			authenticated = 0
 			playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
 

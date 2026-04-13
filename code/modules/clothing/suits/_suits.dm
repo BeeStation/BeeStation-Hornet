@@ -28,21 +28,25 @@
 		create_storage(storage_type = /datum/storage/pockets/exo)
 
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
-		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer)
-		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-			var/mutable_appearance/bloody_armor = mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood", item_layer)
-			bloody_armor.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
-			. += bloody_armor
-		var/mob/living/carbon/human/M = loc
-		if(ishuman(M) && M.w_uniform)
-			var/obj/item/clothing/under/U = M.w_uniform
-			if(istype(U))
-				if (U.accessory_overlay_over)
-					U.accessory_overlay_over.layer = item_layer + 0.0001
-					. += U.accessory_overlay_over
+	. = ..()
+	if(isinhands)
+		return
+
+	if(damaged_clothes)
+		. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+		var/mutable_appearance/bloody_armor = mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood", item_layer)
+		bloody_armor.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+		. += bloody_armor
+	var/mob/living/carbon/human/wearer = loc
+	if(!ishuman(wearer) || !wearer.w_uniform)
+		return
+	var/obj/item/clothing/under/undershirt = wearer.w_uniform
+	if(!istype(undershirt))
+		return
+	if (undershirt.accessory_overlay_over)
+		undershirt.accessory_overlay_over.layer = item_layer + 0.0001
+		. += undershirt.accessory_overlay_over
 
 /obj/item/clothing/suit/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()

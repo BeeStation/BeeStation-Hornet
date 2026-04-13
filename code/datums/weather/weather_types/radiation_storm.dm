@@ -18,20 +18,20 @@
 
 	area_type = /area
 	protected_areas = list(
-		/area/maintenance,
-		/area/ai_monitored/turret_protected/ai_upload,
-		/area/ai_monitored/turret_protected/ai_upload_foyer,
-		/area/ai_monitored/turret_protected/ai,
-		/area/storage/emergency/starboard,
-		/area/storage/emergency/port,
+		/area/station/maintenance,
+		/area/station/ai_monitored/turret_protected/ai_upload,
+		/area/station/ai_monitored/turret_protected/ai_upload_foyer,
+		/area/station/ai_monitored/turret_protected/ai,
+		/area/station/commons/storage/emergency/starboard,
+		/area/station/commons/storage/emergency/port,
 		/area/shuttle,
-		/area/security/prison/asteroid/shielded,
-		/area/security/prison/asteroid/service,
-		/area/space/nearstation,
-		/area/solar,
-		/area/security/prison,
-		/area/holodeck/prison,
-		/area/holodeck/debug,
+		/area/station/security/prison/asteroid/shielded,
+		/area/station/security/prison/asteroid/service,
+		/area/misc/space/nearstation,
+		/area/station/solars,
+		/area/station/security/prison,
+		/area/station/holodeck/prison,
+		/area/station/holodeck/debug,
 	)
 	target_trait = ZTRAIT_STATION
 
@@ -45,7 +45,7 @@
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
-		if(istype(place, /area/maintenance))
+		if(istype(place, /area/station/maintenance))
 			playlist[place] = /datum/looping_sound/rad_alert_inside
 		else
 			playlist[place] = /datum/looping_sound/rad_alert_outside
@@ -54,20 +54,17 @@
 	GLOB.rad_storm_sounds += playlist
 	return ..()
 
-/datum/weather/rad_storm/weather_act(mob/living/living)
+/datum/weather/floor_is_lava/can_weather_act_mob(mob/living/mob_to_check)
+	if(!ishuman(mob_to_check))
+		return FALSE
+	if(HAS_TRAIT(mob_to_check, TRAIT_RADIMMUNE))
+		return FALSE
+	if(SSradiation.wearing_rad_protected_clothing(mob_to_check))
+		return FALSE
+	return ..()
 
-	if(!ishuman(living))
-		return
-
-	var/mob/living/carbon/human/human = living
-
-	if(HAS_TRAIT(human, TRAIT_RADIMMUNE))
-		return
-
-	if(SSradiation.wearing_rad_protected_clothing(human))
-		return
-
-	SSradiation.irradiate(human, intensity = rand(1, 5))
+/datum/weather/rad_storm/weather_act_mob(mob/living/victim)
+	SSradiation.irradiate(victim, intensity = rand(1, 5))
 
 /datum/weather/rad_storm/end()
 	GLOB.rad_storm_sounds -= playlist

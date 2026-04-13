@@ -56,7 +56,7 @@
 /area/ruin/unpowered)
 "iT" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard{
+/obj/item/pai_card{
 	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
 	name = "Nanotrasen-brand personal AI device exhibit"
 	},

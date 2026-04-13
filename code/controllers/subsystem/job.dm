@@ -561,7 +561,8 @@ SUBSYSTEM_DEF(job)
 			DropLandAtRandomHallwayPoint(living_mob)
 			spawning_handled = TRUE
 		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
-			SpawnLandAtRandom(living_mob, (typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms)))
+			SpawnLandAtRandom(living_mob, (typesof(/area/station/hallway) | typesof(
+/area/station/service/bar) | typesof(/area/station/commons/dorms)))
 			spawning_handled = TRUE
 		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
@@ -751,42 +752,30 @@ SUBSYSTEM_DEF(job)
 		destination.JoinPlayerHere(M, buckle)
 		return
 
-	//bad mojo
+	destination = get_last_resort_spawn_points()
+	destination.JoinPlayerHere(M, buckle)
+
+/datum/controller/subsystem/job/proc/get_last_resort_spawn_points()
 	var/area/shuttle/arrival/arrivals_area = GLOB.areas_by_type[/area/shuttle/arrival]
-	if(arrivals_area)
-		//first check if we can find a chair
-		var/obj/structure/chair/C = locate() in arrivals_area
-		if(C)
-			C.JoinPlayerHere(M, buckle)
-			return
-
-		//last hurrah
+	if(!isnull(arrivals_area))
 		var/list/turf/available_turfs = list()
-		for(var/turf/arrivals_turf in arrivals_area)
-			if(!arrivals_turf.is_blocked_turf(TRUE))
+		for (var/list/zlevel_turfs as anything in arrivals_area.get_zlevel_turf_lists())
+			for (var/turf/arrivals_turf as anything in zlevel_turfs)
+				var/obj/structure/chair/shuttle_chair = locate() in arrivals_turf
+				if(!isnull(shuttle_chair))
+					return shuttle_chair
+				if(arrivals_turf.is_blocked_turf(TRUE))
+					continue
 				available_turfs += arrivals_turf
-		if(available_turfs.len)
-			destination = pick(available_turfs)
-			destination.JoinPlayerHere(M, FALSE)
-			return
 
-	//pick an open spot on arrivals and dump em
-	var/list/arrivals_turfs = shuffle(get_area_turfs(/area/shuttle/arrival))
-	if(arrivals_turfs.len)
-		for(var/turf/T in arrivals_turfs)
-			if(!T.is_blocked_turf(TRUE))
-				T.JoinPlayerHere(M, FALSE)
-				return
-		//last chance, pick ANY spot on arrivals and dump em
-		destination = arrivals_turfs[1]
-		destination.JoinPlayerHere(M, FALSE)
-	else
-		var/msg = "Unable to send mob [M] to late join!"
-		message_admins(msg)
-		CRASH(msg)
+		if(length(available_turfs))
+			return pick(available_turfs)
+
+	stack_trace("Unable to find last resort spawn point.")
+	return GET_ERROR_ROOM
 
 ///Spawns specified mob at a random spot in the hallways
-/datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/hallway))
+/datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/station/hallway))
 	var/turf/spawn_turf = get_safe_random_station_turfs(areas)
 
 	if(!spawn_turf)
@@ -797,7 +786,7 @@ SUBSYSTEM_DEF(job)
 
 ///Lands specified mob at a random spot in the hallways
 /datum/controller/subsystem/job/proc/DropLandAtRandomHallwayPoint(mob/living/living_mob)
-	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/hallway))
+	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/station/hallway))
 
 	if(!spawn_turf)
 		SendToLateJoin(living_mob)
@@ -896,3 +885,26 @@ SUBSYSTEM_DEF(job)
 	new /obj/effect/pod_landingzone(loc, /obj/structure/closet/supplypod/centcompod, new /obj/item/paper/fluff/spare_id_safe_code/emergency_spare_id_safe_code())
 	safe_code_timer_id = null
 	safe_code_request_loc = null
+
+/**
+ * Check if the station manifest has at least a certain amount of this staff type.
+ * If a matching head of staff is on the manifest, automatically passes (returns TRUE)
+ *
+ * Arguments:
+ * * crew_threshold - amount of crew to meet the requirement
+ * * jobs - a list of jobs that qualify the requirement
+ * * head_jobs - a list of head jobs that qualify the requirement
+ *
+*/
+/datum/controller/subsystem/job/proc/has_minimum_jobs(crew_threshold, list/jobs = list(), list/head_jobs = list())
+	var/employees = 0
+	for(var/datum/record/crew/target in GLOB.manifest.general)
+		if(target.rank in head_jobs)
+			return TRUE
+		if(target.rank in jobs)
+			employees++
+
+	if(employees >= crew_threshold)
+		return TRUE
+
+	return FALSE

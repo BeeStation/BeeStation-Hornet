@@ -1,6 +1,6 @@
 /datum/antagonist/vassal
 	name = "\improper Vassal"
-	roundend_category = "vassals"
+	roundend_category = "Vassal"
 	antagpanel_category = "Vampire"
 	banning_key = ROLE_VAMPIRE
 	show_in_roundend = FALSE
@@ -11,12 +11,8 @@
 	var/datum/antagonist/vampire/master
 	/// The Vampire's team
 	var/datum/team/vampire/vampire_team
-	/// List of all Purchased Powers, like Vampires.
+	/// List of Powers, like Vampires.
 	var/list/datum/action/powers = list()
-	/// Whether this vassal is already a special type of Vassal.
-	var/special_type
-	/// Description of what this Vassal does.
-	var/vassal_description
 	/// A link to our team monitor, used to track our master.
 	var/datum/component/team_monitor/monitor
 
@@ -36,9 +32,8 @@
 	// Team
 	vampire_team = master.vampire_team
 	vampire_team.add_member(current_mob.mind)
-	current_mob.faction |= FACTION_VAMPIRE
-
 	add_antag_hud(ANTAG_HUD_VAMPIRE, vassal_hud_name, current_mob)
+	current_mob.faction |= FACTION_VAMPIRE
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -67,16 +62,13 @@
 		owner.remove_antag_datum(src)
 		CRASH("[owner.current] was vassilized without a master!")
 
+	ADD_TRAIT(owner, TRAIT_VAMPIRE_ALIGNED, REF(src))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
 	// Enslave them to their Master
 	master.vassals |= src
 	owner.enslave_mind_to_creator(master.owner)
 	owner.current.log_message("has been vassalized by [master.owner]!", LOG_ATTACK, color="#960000")
-
-	// Handle special vassalss
-	if(special_type)
-		master.special_vassals[special_type] += 1
 
 	// Give powers
 	grant_power(new /datum/action/vampire/recuperate)
@@ -86,12 +78,11 @@
 	forge_objectives()
 
 /datum/antagonist/vassal/on_removal()
+	REMOVE_TRAIT(owner, TRAIT_VAMPIRE_ALIGNED, REF(src))
 	UnregisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN)
 
 	// Free them from their Master
 	if(master)
-		if(special_type)
-			master.special_vassals[special_type] -= 1
 		master.vassals -= src
 		owner.enslaved_to = null
 
@@ -148,7 +139,7 @@
 	var/list/datum/mind/possible_vampires = list()
 
 	// Get possible vampires
-	for(var/datum/antagonist/vampire/vampire in GLOB.antagonists)
+	for(var/datum/antagonist/vampire/vampire in GLOB.active_antagonists)
 		var/datum/mind/vampire_mind = vampire.owner
 		if(QDELETED(vampire_mind?.current) || vampire_mind.current.stat == DEAD)
 			continue
@@ -187,12 +178,12 @@
 /datum/antagonist/vassal/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
-	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vassal")
+	var/text = "<img class='icon' src='\ref['icons/vampires/vampiric.dmi']?state=vassal'> "
 
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(examiner)
 	if(src in vampiredatum?.vassals)
 		text += span_cult("<EM>This is your vassal!</EM>")
 		examine_text += text
-	else if(vampiredatum || IS_CURATOR(examiner) || IS_VASSAL(examiner))
+	else if(HAS_MIND_TRAIT(examiner, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(examiner))
 		text += span_cult("<EM>This is [master.return_full_name()]'s vassal</EM>")
 		examine_text += text
