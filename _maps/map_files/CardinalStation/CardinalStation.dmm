@@ -88514,6 +88514,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/machinery/status_display/ai/directional/north,
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
 	},
