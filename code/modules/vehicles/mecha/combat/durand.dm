@@ -90,6 +90,9 @@
 /obj/vehicle/sealed/mecha/durand/proc/prehit(obj/vehicle/sealed/mecha/durand/source, obj/projectile/projectile, list/signal_args)
 	SIGNAL_HANDLER
 
+	if(istype(projectile, /obj/projectile/ion)) // Ion projectiles dont get redirected, instead they bypass the shield
+		return
+
 	if(defense_check(get_step(src, angle2dir(projectile.Angle + 180))) && shield)
 		signal_args[2] = shield
 

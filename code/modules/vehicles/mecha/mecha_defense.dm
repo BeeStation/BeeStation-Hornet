@@ -390,7 +390,7 @@
 	while(atom_integrity < max_integrity) // Check for welder and the fact it's on
 		if(!W.tool_start_check(user, amount=1))
 			break
-		if(!W.use_tool(src, user, 2 SECONDS, volume=30, amount=1)) // Time to wait two seconds per repair
+		if(!W.use_tool(src, user, 4 SECONDS, volume=30, amount=1)) // Time to wait four seconds per repair
 			break
 		user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [src]."))
 		atom_integrity = min(max_integrity, atom_integrity + 10)
