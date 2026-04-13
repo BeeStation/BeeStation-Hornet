@@ -1,0 +1,7 @@
+author: rkz, Mothblocks
+delete-after: true
+changes:
+  - bugfix: moth preferences generate cleanly
+  - code_imp: splits init_possible_values() in preference code into a values return
+      and an icon image handler
+  - code_imp: nukes deprecated roundstart_ species feature lists
