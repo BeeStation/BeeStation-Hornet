@@ -1,48 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
-/area/misc/space)
-"b" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/arrows{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/misc/space)
-"c" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/airlock_painter/decal,
-/obj/item/paper/crumpled{
-	default_raw_text = "THE LINE TWISTERS RIGHT, THEN IT HAS A STRIPPED SQUARE UNDER THE VENDING MACHINE BUT NO IT NOW HAS AN EMPTY SQUARE?! <br>BUT WHAT OF HOLOPADS?I HATE IT! I HATE IT! I HATE IT! <br>I KNOW THEY'RE AFTER ME! THEY WANT MY SOUL! THE STRIPES TURN RIGHT, THE LINES AREE EVERYWHERE, THEY SEE EVERYTHING, I WANT OUT, I WANT OUT OF THIS! THEY CAN NOT FIND ME, NOT HERE, NO NOT IN MY HIDEY BOX! </p>";
-	name = "YELLOW STRIPES"
-	},
-/turf/open/floor/plating,
-/area/misc/space)
-"d" = (
-/obj/structure/frame/computer{
-	anchored = 1;
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/misc/space)
-"e" = (
+"i" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 9
 	},
@@ -58,15 +15,8 @@
 	},
 /obj/item/trash/can,
 /turf/open/floor/plating,
-/area/misc/space)
-"f" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/box,
-/obj/structure/closet/cardboard,
-/obj/effect/mob_spawn/human/engineer,
-/turf/open/floor/iron,
-/area/misc/space)
-"g" = (
+/area/template_noop)
+"j" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/stripes/line{
@@ -76,45 +26,26 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/misc/space)
-"l" = (
+/area/template_noop)
+"p" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
-/area/misc/space)
-"m" = (
+/area/template_noop)
+"q" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
-/obj/machinery/flasher/portable,
-/obj/effect/turf_decal/bot,
-/obj/structure/grille/broken,
+/obj/structure/rack,
+/obj/item/airlock_painter,
 /turf/open/floor/iron,
-/area/misc/space)
-"o" = (
-/obj/structure/frame/computer{
-	anchored = 1
-	},
-/obj/effect/turf_decal/bot,
+/area/template_noop)
+"r" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
-/area/misc/space)
-"x" = (
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/arrows{
-	dir = 4
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/item/airlock_painter/decal,
-/turf/open/floor/plating,
-/area/misc/space)
-"B" = (
+/area/template_noop)
+"t" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 10
 	},
@@ -128,72 +59,141 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/misc/space)
-"G" = (
+/area/template_noop)
+"v" = (
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"w" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/box,
+/obj/structure/closet/cardboard,
+/obj/effect/mob_spawn/human/engineer,
+/turf/open/floor/iron,
+/area/template_noop)
+"z" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/template_noop)
+"C" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"F" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance/two,
 /obj/item/toy/crayon/spraycan,
 /turf/open/floor/iron,
-/area/misc/space)
-"H" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
-/obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/plating,
-/area/misc/space)
-"I" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/airlock_painter,
-/turf/open/floor/iron,
-/area/misc/space)
-"L" = (
+/area/template_noop)
+"J" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/effect/turf_decal/delivery,
 /obj/item/airlock_painter/decal/tile,
 /turf/open/floor/iron,
-/area/misc/space)
-"Q" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/misc/space)
-"S" = (
+/area/template_noop)
+"M" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron,
-/area/misc/space)
+/area/template_noop)
+"O" = (
+/obj/structure/frame/computer{
+	anchored = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"T" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/obj/machinery/flasher/portable,
+/obj/effect/turf_decal/bot,
+/obj/structure/grille/broken,
+/turf/open/floor/iron,
+/area/template_noop)
+"W" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/airlock_painter/decal,
+/obj/item/paper/crumpled{
+	default_raw_text = "THE LINE TWISTERS RIGHT, THEN IT HAS A STRIPPED SQUARE UNDER THE VENDING MACHINE BUT NO IT NOW HAS AN EMPTY SQUARE?! <br>BUT WHAT OF HOLOPADS?I HATE IT! I HATE IT! I HATE IT! <br>I KNOW THEY'RE AFTER ME! THEY WANT MY SOUL! THE STRIPES TURN RIGHT, THE LINES AREE EVERYWHERE, THEY SEE EVERYTHING, I WANT OUT, I WANT OUT OF THIS! THEY CAN NOT FIND ME, NOT HERE, NO NOT IN MY HIDEY BOX! </p>";
+	name = "YELLOW STRIPES"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/item/airlock_painter/decal,
+/turf/open/floor/plating,
+/area/template_noop)
+"Z" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
-a
-l
-f
-G
+z
+p
+w
+F
 "}
 (2,1,1) = {"
-o
-b
-c
-L
+O
+C
+W
+J
 "}
 (3,1,1) = {"
-Q
-e
-B
-l
+Z
+i
+t
+p
 "}
 (4,1,1) = {"
-S
-x
-g
-m
+M
+Y
+j
+T
 "}
 (5,1,1) = {"
-H
-Q
-d
-I
+r
+Z
+v
+q
 "}

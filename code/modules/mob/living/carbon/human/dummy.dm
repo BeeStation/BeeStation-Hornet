@@ -174,15 +174,15 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
 	target.dna.features["ethcolor"] = COLOR_WHITE
-	target.dna.features["lizard_markings"] = "None"
-	target.dna.features["ears"] = "None"
-	target.dna.features["frills"] = "None"
-	target.dna.features["horns"] = "None"
+	target.dna.features["lizard_markings"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["ears"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["frills"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["horns"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["moth_antennae"] = "Plain"
-	target.dna.features["moth_markings"] = "None"
+	target.dna.features["moth_markings"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["moth_wings"] = "Plain"
 	target.dna.features["snout"] = "Round"
-	target.dna.features["spines"] = "None"
+	target.dna.features["spines"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["tail_cat"] = "Cat" // it's a lie
 	target.dna.features["tail_lizard"] = "Smooth"
 	target.dna.features["apid_stripes"] = "thick"
@@ -190,17 +190,17 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["apid_antenna"] = "curled"
 	target.dna.features["insect_type"] = "fly"
 	target.dna.features["ipc_screen"] = "BSOD"
-	target.dna.features["ipc_antenna"] = "None"
+	target.dna.features["ipc_antenna"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
 	target.dna.features["psyphoza_cap"] = "Portobello"
-	target.dna.features["diona_leaves"] = "None"
-	target.dna.features["diona_thorns"] = "None"
-	target.dna.features["diona_flowers"] = "None"
-	target.dna.features["diona_moss"] = "None"
-	target.dna.features["diona_mushroom"] = "None"
-	target.dna.features["diona_antennae"] = "None"
-	target.dna.features["diona_eyes"] = "None"
-	target.dna.features["diona_pbody"] = "None"
+	target.dna.features["diona_leaves"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_thorns"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_flowers"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_moss"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_mushroom"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_antennae"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_eyes"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_pbody"] = SPRITE_ACCESSORY_NONE
 	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
 	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
 	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency

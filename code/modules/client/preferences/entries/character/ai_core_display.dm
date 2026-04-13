@@ -10,7 +10,7 @@
 
 /datum/preference/choiced/ai_core_display/icon_for(value)
 	if (value == "Random")
-		return uni_icon('icons/mob/ai.dmi', "questionmark")
+		return uni_icon('icons/mob/ai.dmi', "ai-portrait")
 	else
 		return uni_icon('icons/mob/ai.dmi', resolve_ai_icon_sync(value))
 

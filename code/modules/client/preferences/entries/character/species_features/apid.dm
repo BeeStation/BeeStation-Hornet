@@ -10,10 +10,14 @@
 	return assoc_to_keys_features(SSaccessories.apid_stripes_list)
 
 /datum/preference/choiced/apid_stripes/icon_for(value)
-	var/datum/sprite_accessory/stripe = SSaccessories.apid_stripes_list[value]
+	var/static/datum/universal_icon/apid_chest
+	if (isnull(apid_chest))
+		apid_chest = uni_icon('icons/mob/human/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
 
-	var/datum/universal_icon/icon_with_stripes = uni_icon('icons/mob/human/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
-	if (stripe.icon_state != "none")
+	var/datum/sprite_accessory/stripe = SSaccessories.apid_stripes_list[value]
+	var/datum/universal_icon/icon_with_stripes = apid_chest.copy()
+
+	if (!isnull(stripe) && stripe.icon_state != SPRITE_ACCESSORY_NONE)
 		var/datum/universal_icon/stripes_icon = uni_icon(stripe.icon, "m_apid_stripes_[stripe.icon_state]_ADJ", dir = SOUTH)
 		stripes_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 		icon_with_stripes.blend_icon(stripes_icon, ICON_OVERLAY)
@@ -40,17 +44,17 @@
 
 /datum/preference/choiced/apid_antenna/icon_for(value)
 	var/static/datum/universal_icon/apid_head
-
 	if (isnull(apid_head))
 		apid_head = uni_icon('icons/mob/human/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 
 	var/datum/sprite_accessory/antenna = SSaccessories.apid_antenna_list[value]
-
 	var/datum/universal_icon/icon_with_antennae = apid_head.copy()
-	if (antenna.icon_state != "none")
+
+	if (!isnull(antenna) && antenna.icon_state != SPRITE_ACCESSORY_NONE)
 		var/datum/universal_icon/antenna_icon = uni_icon(antenna.icon, "m_apid_antenna_[antenna.icon_state]_ADJ", dir = SOUTH)
 		antenna_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 		icon_with_antennae.blend_icon(antenna_icon, ICON_OVERLAY)
+
 	icon_with_antennae.scale(64, 64)
 	icon_with_antennae.crop(15, 64 - 31, 15 + 31, 64)
 
@@ -72,17 +76,17 @@
 
 /datum/preference/choiced/apid_headstripes/icon_for(value)
 	var/static/datum/universal_icon/apid_head
-
 	if (isnull(apid_head))
 		apid_head = uni_icon('icons/mob/human/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 
 	var/datum/sprite_accessory/headstripe = SSaccessories.apid_headstripes_list[value]
-
 	var/datum/universal_icon/icon_with_headstripes = apid_head.copy()
-	if (headstripe.icon_state != "none")
+
+	if (!isnull(headstripe) && headstripe.icon_state != SPRITE_ACCESSORY_NONE)
 		var/datum/universal_icon/headstripes_icon = uni_icon(headstripe.icon, "m_apid_headstripes_[headstripe.icon_state]_ADJ", dir = SOUTH)
 		headstripes_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 		icon_with_headstripes.blend_icon(headstripes_icon, ICON_OVERLAY)
+
 	icon_with_headstripes.scale(64, 64)
 	icon_with_headstripes.crop(15, 64 - 31, 15 + 31, 64)
 

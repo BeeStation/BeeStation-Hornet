@@ -4,7 +4,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Antennae"
 	should_generate_icons = TRUE
-	relevant_external_organ = /obj/item/organ/antennae
+	relevant_mutant_bodypart = "moth_antennae"
 
 /datum/preference/choiced/moth_antennae/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.moth_antennae_list)
@@ -14,7 +14,8 @@
 
 	if (isnull(moth_head))
 		moth_head = uni_icon('icons/mob/human/species/moth/bodyparts.dmi', "moth_head")
-		moth_head.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes", dir = SOUTH), ICON_OVERLAY)
+		moth_head.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes_l"), ICON_OVERLAY)
+		moth_head.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes_r"), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/antennae = SSaccessories.moth_antennae_list[value]
 
@@ -34,7 +35,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Body Markings"
 	should_generate_icons = TRUE
-	relevant_body_markings = /datum/bodypart_overlay/simple/body_marking/moth
+	relevant_mutant_bodypart = "moth_markings"
 
 /datum/preference/choiced/moth_markings/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.moth_markings_list)
@@ -49,12 +50,16 @@
 
 	var/static/datum/universal_icon/moth_body
 	if (isnull(moth_body))
-		moth_body = uni_icon('icons/blanks/32x32.dmi', "nothing")
+		moth_body = uni_icon('icons/effects/effects.dmi', "nothing")
 
 		for (var/obj/item/bodypart/body_part as anything in body_parts)
-			moth_body.blend_icon(uni_icon('icons/mob/human/species/moth/bodyparts.dmi', initial(body_part.icon_state)), ICON_OVERLAY)
+			var/limb_id = initial(body_part.limb_id)
+			var/body_zone = initial(body_part.body_zone)
+			var/dimorphic_suffix = initial(body_part.is_dimorphic) ? "_m" : ""
+			moth_body.blend_icon(uni_icon('icons/mob/human/species/moth/bodyparts.dmi', "[limb_id]_[body_zone][dimorphic_suffix]"), ICON_OVERLAY)
 
-		moth_body.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes"), ICON_OVERLAY)
+		moth_body.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes_l"), ICON_OVERLAY)
+		moth_body.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes_r"), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = SSaccessories.moth_markings_list[value]
 	var/datum/universal_icon/icon_with_markings = moth_body.copy()
@@ -83,7 +88,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Moth Wings"
 	should_generate_icons = TRUE
-	relevant_external_organ = /obj/item/organ/wings/moth
+	relevant_mutant_bodypart = "moth_wings"
 
 /datum/preference/choiced/moth_wings/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.moth_wings_list)
@@ -91,7 +96,6 @@
 /datum/preference/choiced/moth_wings/icon_for(value)
 	var/datum/sprite_accessory/moth_wings = SSaccessories.moth_wings_list[value]
 	return uni_icon(moth_wings.icon, "m_moth_wings_[moth_wings.icon_state]_BEHIND")
-
 
 /datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["moth_wings"] = value

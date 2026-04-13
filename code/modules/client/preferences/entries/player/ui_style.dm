@@ -12,7 +12,7 @@
 	var/ui_icons = GLOB.available_ui_styles[value]
 
 	var/datum/universal_icon/icon = uni_icon(ui_icons, "hand_l")
-	icon.crop(1 - world.icon_size, 1, world.icon_size, world.icon_size)
+	icon.crop(1 - ICON_SIZE_X, 1, ICON_SIZE_Y, ICON_SIZE_X)
 	icon.blend_icon(uni_icon(ui_icons, "hand_r"), ICON_OVERLAY)
 
 	return icon

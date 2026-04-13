@@ -73,7 +73,7 @@
 	brother1.update_body_parts()
 
 	brother2.dna.features["moth_antennae"] = "Plain"
-	brother2.dna.features["moth_markings"] = "None"
+	brother2.dna.features["moth_markings"] = SPRITE_ACCESSORY_NONE
 	brother2.dna.features["moth_wings"] = "Plain"
 	brother2.set_species(/datum/species/moth)
 

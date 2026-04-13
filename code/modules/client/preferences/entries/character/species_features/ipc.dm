@@ -11,14 +11,13 @@
 
 /datum/preference/choiced/ipc_screen/icon_for(value)
 	var/static/datum/universal_icon/ipc_head
-
 	if (isnull(ipc_head))
 		ipc_head = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 
 	var/datum/sprite_accessory/screen = SSaccessories.ipc_screens_list[value]
 	var/datum/universal_icon/icon_with_screen = ipc_head.copy()
 
-	if (value != FEATURE_NONE)
+	if (value != SPRITE_ACCESSORY_NONE)
 		var/datum/universal_icon/screen_icon = uni_icon(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
 		icon_with_screen.blend_icon(screen_icon, ICON_OVERLAY)
 
@@ -70,14 +69,13 @@
 
 /datum/preference/choiced/ipc_antenna/icon_for(value)
 	var/static/datum/universal_icon/ipc_head
-
 	if (isnull(ipc_head))
 		ipc_head = uni_icon('icons/mob/human/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 
 	var/datum/sprite_accessory/antenna = SSaccessories.ipc_antennas_list[value]
 	var/datum/universal_icon/icon_with_antennae = ipc_head.copy()
 
-	if (antenna.icon_state != "none")
+	if (value != SPRITE_ACCESSORY_NONE)
 		// weird snowflake shit
 		var/side = (value == "Light" || value == "Drone Eyes") ? "FRONT" : "ADJ"
 		var/datum/universal_icon/antenna_icon = uni_icon(antenna.icon, "m_ipc_antenna_[antenna.icon_state]_[side]", dir = SOUTH)

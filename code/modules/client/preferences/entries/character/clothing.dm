@@ -1,7 +1,7 @@
 /proc/generate_underwear_icon(datum/sprite_accessory/accessory, datum/universal_icon/base_icon, color)
 	var/datum/universal_icon/final_icon = base_icon.copy()
 
-	if (!isnull(accessory))
+	if (!isnull(accessory) && length(accessory.icon_state))
 		var/datum/universal_icon/accessory_icon = uni_icon('icons/mob/clothing/underwear.dmi', accessory.icon_state)
 		if (color && !accessory.use_static)
 			accessory_icon.blend_color(color, ICON_MULTIPLY)
@@ -32,7 +32,7 @@
 	)
 
 /datum/preference/choiced/backpack/create_default_value()
-	return GBACKPACK
+	return DBACKPACK
 
 /datum/preference/choiced/backpack/icon_for(value)
 	switch (value)
@@ -58,9 +58,6 @@
 
 /datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value)
 	target.backbag = value
-
-/datum/preference/choiced/backpack/create_default_value()
-	return DBACKPACK
 
 /// Jumpsuit preference
 /datum/preference/choiced/jumpsuit_style
@@ -91,13 +88,13 @@
 
 /datum/preference/choiced/jumpsuit_style/create_default_value()
 	return PREF_SUIT
-/*
+
 /datum/preference/choiced/jumpsuit_style/create_informed_default_value(datum/preferences/preferences)
 	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
 	if (gender == MALE)
 		return PREF_SUIT
 	return pick(PREF_SUIT, PREF_SKIRT)
-*/
+
 /// Socks preference
 /datum/preference/choiced/socks
 	db_key = "socks"
@@ -111,22 +108,19 @@
 /datum/preference/choiced/socks/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.socks_list)
 
-/datum/preference/choiced/socks/create_default_value()
-	return /datum/sprite_accessory/socks/nude::name
-
-/datum/preference/choiced/socks/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	return random_socks(gender)
-
 /datum/preference/choiced/socks/icon_for(value)
 	var/static/datum/universal_icon/lower_half
 
 	if (isnull(lower_half))
 		lower_half = uni_icon('icons/blanks/32x32.dmi', "nothing")
+		lower_half.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_chest_m"), ICON_OVERLAY)
 		lower_half.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_r_leg"), ICON_OVERLAY)
 		lower_half.blend_icon(uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
 
 	return generate_underwear_icon(SSaccessories.socks_list[value], lower_half)
+
+/datum/preference/choiced/socks/create_default_value()
+	return /datum/sprite_accessory/socks/nude::name
 
 /datum/preference/choiced/socks/apply_to_human(mob/living/carbon/human/target, value)
 	target.socks = value
@@ -135,7 +129,6 @@
 /datum/preference/choiced/undershirt
 	db_key = "undershirt"
 	preference_type = PREFERENCE_CHARACTER
-	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	main_feature_name = "Undershirt"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
@@ -144,18 +137,6 @@
 
 /datum/preference/choiced/undershirt/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.undershirt_list)
-
-/datum/preference/choiced/undershirt/create_default_value()
-	return /datum/sprite_accessory/undershirt/nude::name
-
-/datum/preference/choiced/undershirt/create_informed_default_value(datum/preferences/preferences)
-	switch(preferences.read_preference(/datum/preference/choiced/gender))
-		if(MALE)
-			return /datum/sprite_accessory/undershirt/nude::name
-		if(FEMALE)
-			return /datum/sprite_accessory/undershirt/sports_bra::name
-
-	return ..()
 
 /datum/preference/choiced/undershirt/icon_for(value)
 	var/static/datum/universal_icon/body
@@ -181,9 +162,17 @@
 /datum/preference/choiced/undershirt/apply_to_human(mob/living/carbon/human/target, value)
 	target.undershirt = value
 
+/datum/preference/choiced/undershirt/create_default_value()
+	return /datum/sprite_accessory/undershirt/nude::name
+
 /datum/preference/choiced/undershirt/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	return random_undershirt(gender)
+	switch(preferences.read_preference(/datum/preference/choiced/gender))
+		if(MALE)
+			return /datum/sprite_accessory/undershirt/nude::name
+		if(FEMALE)
+			return /datum/sprite_accessory/undershirt/sports_bra::name
+
+	return ..()
 
 /// Underwear preference
 /datum/preference/choiced/underwear
@@ -194,25 +183,12 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
-	can_randomize = FALSE
 
 /datum/preference/choiced/underwear/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.underwear_list)
 
 /datum/preference/choiced/underwear/create_default_value()
 	return /datum/sprite_accessory/underwear/male_hearts::name
-
-/datum/preference/choiced/underwear/create_informed_default_value(datum/preferences/preferences)
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	// No conflict with digilegs
-	if(species_type == /datum/species/lizard)
-		return /datum/sprite_accessory/underwear/nude::name
-
-	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
-	var/datum/sprite_accessory/picked_underwear = pick_default_accessory(SSaccessories.underwear_list, null, 0, gender)
-	if(!picked_underwear)
-		return ..()
-	return picked_underwear?.name
 
 /datum/preference/choiced/underwear/icon_for(value)
 	var/static/datum/universal_icon/lower_half

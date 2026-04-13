@@ -14,6 +14,19 @@ SUBSYSTEM_DEF(department)
 	var/list/sorted_department_for_manifest
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
+	/// department datums in access manipulation - actually manual sort
+	var/list/sorted_department_for_access = list(
+		DEPT_NAME_SERVICE,
+		DEPT_NAME_CIVILIAN,
+		DEPT_NAME_CARGO,
+		DEPT_NAME_MEDICAL,
+		DEPT_NAME_SCIENCE,
+		DEPT_NAME_ENGINEERING,
+		DEPT_NAME_SECURITY,
+		DEPT_NAME_COMMAND,
+		DEPT_NAME_CENTCOM,
+		DEPT_NAME_OTHER,
+	)
 
 /datum/controller/subsystem/department/Initialize(timeofday)
 	department_datums = list()
@@ -32,6 +45,11 @@ SUBSYSTEM_DEF(department)
 	sorted_department_for_latejoin = list()
 	init_and_sort_department(sorted_department_for_manifest, NAMEOF(dummy_datum, manifest_category_order))
 	init_and_sort_department(sorted_department_for_latejoin, NAMEOF(dummy_datum, pref_category_order))
+
+	var/list/temp = sorted_department_for_access
+	sorted_department_for_access = list()
+	for(var/each_dept in temp)
+		sorted_department_for_access |= department_assoc[each_dept]
 
 	// I don't like this here, but this globallist can't take proper values on its declaration.
 	GLOB.exp_jobsmap = list(
@@ -82,6 +100,7 @@ SUBSYSTEM_DEF(department)
 /// WARNING: This always returns as a list.
 /// If your bitflag only gets a single department, it will return as a list.
 /datum/controller/subsystem/department/proc/get_department_by_bitflag(bitflag)
+	RETURN_TYPE(/list)
 	var/return_result = list()
 	. = return_result
 
@@ -140,6 +159,14 @@ SUBSYSTEM_DEF(department)
 	/// job list of people working in a department
 	var/list/jobs = list()
 
+
+	/// Group name of the access list
+	var/access_group_name = "Unknown"
+	/// list of access that belongs to this department
+	var/list/access_list = list()
+	/// if TRUE, restricts CentCom only
+	var/access_filter
+
 	/// Alternative department name in latejoin job selection window
 	/// dept_name variable will be used if this variable has no value
 	var/pref_category_name
@@ -177,7 +204,24 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_RESEARCHDIRECTOR,
 				JOB_NAME_CHIEFENGINEER,
 				JOB_NAME_CHIEFMEDICALOFFICER,
-				JOB_NAME_HEADOFSECURITY)
+				JOB_NAME_HEADOFSECURITY,
+				)
+
+	access_group_name = "Command"
+	access_list = list(
+		ACCESS_HEADS,
+		ACCESS_RC_ANNOUNCE,
+		ACCESS_KEYCARD_AUTH,
+		ACCESS_CHANGE_IDS,
+		ACCESS_AI_UPLOAD,
+		ACCESS_TELEPORTER,
+		ACCESS_EVA,
+		ACCESS_GATEWAY,
+		ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_HOP,
+		ACCESS_CAPTAIN,
+		ACCESS_VAULT,
+	)
 
 	pref_category_name = DEPT_NAME_COMMAND
 	pref_category_order = DEPT_PREF_ORDER_COMMAND
@@ -203,7 +247,25 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_COOK,
 				JOB_NAME_JANITOR,
 				JOB_NAME_MIME,
-				JOB_NAME_CLOWN)
+				JOB_NAME_CLOWN,
+				JOB_NAME_STAGEMAGICIAN,
+				)
+
+	access_group_name = "General"
+	// actually station general list
+	access_list = list(
+		ACCESS_KITCHEN,
+		ACCESS_BAR,
+		ACCESS_HYDROPONICS,
+		ACCESS_JANITOR,
+		ACCESS_CHAPEL_OFFICE,
+		ACCESS_CREMATORIUM,
+		ACCESS_LIBRARY,
+		ACCESS_THEATRE,
+		ACCESS_LAWYER,
+		ACCESS_SERVICE,
+	)
+
 
 	pref_category_name = DEPT_NAME_SERVICE
 	pref_category_order = DEPT_PREF_ORDER_SERVICE
@@ -225,13 +287,15 @@ SUBSYSTEM_DEF(department)
 	jobs = list(JOB_NAME_ASSISTANT,
 				JOB_NAME_GIMMICK,
 				JOB_NAME_BARBER,
-				JOB_NAME_STAGEMAGICIAN,
-				JOB_NAME_PSYCHIATRIST,
 				JOB_NAME_VIP,
 				JOB_NAME_CHAPLAIN,
 				JOB_NAME_CURATOR,
 				JOB_NAME_LAWYER,
-				JOB_NAME_PRISONER)
+				JOB_NAME_PRISONER,
+				)
+
+	access_group_name = "Residential" // in case when it's used
+	// access_list = list() // check service
 
 	pref_category_name = DEPT_NAME_CIVILIAN
 	pref_category_order = DEPT_PREF_ORDER_CIVILIAN
@@ -254,7 +318,21 @@ SUBSYSTEM_DEF(department)
 	jobs = list(JOB_NAME_HEADOFPERSONNEL,
 				JOB_NAME_QUARTERMASTER,
 				JOB_NAME_CARGOTECHNICIAN,
-				JOB_NAME_SHAFTMINER)
+				JOB_NAME_SHAFTMINER,
+				)
+
+	access_group_name = "Supply"
+	access_list = list(
+		ACCESS_MAILSORTING,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_MECH_MINING,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_CARGO,
+		ACCESS_QM,
+		ACCESS_VAULT,
+	)
+
 
 	pref_category_name = DEPT_NAME_CARGO
 	pref_category_order = DEPT_PREF_ORDER_CARGO
@@ -277,7 +355,23 @@ SUBSYSTEM_DEF(department)
 	jobs = list(JOB_NAME_RESEARCHDIRECTOR,
 				JOB_NAME_SCIENTIST,
 				JOB_NAME_EXPLORATIONCREW,
-				JOB_NAME_ROBOTICIST)
+				JOB_NAME_ROBOTICIST,
+				)
+
+	access_group_name = "Research"
+	access_list = list(
+		ACCESS_RESEARCH,
+		ACCESS_TOX,
+		ACCESS_TOX_STORAGE,
+		ACCESS_ROBOTICS,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_EXPLORATION,
+		ACCESS_MECH_SCIENCE,
+		ACCESS_MINISAT,
+		ACCESS_RD,
+		ACCESS_NETWORK,
+		ACCESS_RD_SERVER,
+	)
 
 	pref_category_name = DEPT_NAME_SCIENCE
 	pref_category_order = DEPT_PREF_ORDER_SCIENCE
@@ -299,7 +393,24 @@ SUBSYSTEM_DEF(department)
 	leaders = list(JOB_NAME_CHIEFENGINEER)
 	jobs = list(JOB_NAME_CHIEFENGINEER,
 				JOB_NAME_STATIONENGINEER,
-				JOB_NAME_ATMOSPHERICTECHNICIAN)
+				JOB_NAME_ATMOSPHERICTECHNICIAN,
+				)
+
+	access_group_name = "Engineering"
+	access_list = list(
+		ACCESS_CONSTRUCTION,
+		ACCESS_AUX_BASE,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_ENGINE,
+		ACCESS_ENGINE_EQUIP,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_TECH_STORAGE,
+		ACCESS_ATMOSPHERICS,
+		ACCESS_MECH_ENGINE,
+		ACCESS_TCOMSAT,
+		ACCESS_MINISAT,
+		ACCESS_CE,
+	)
 
 	pref_category_name = DEPT_NAME_ENGINEERING
 	pref_category_order = DEPT_PREF_ORDER_ENGINEERING
@@ -325,7 +436,21 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_CHEMIST,
 				JOB_NAME_GENETICIST,
 				JOB_NAME_VIROLOGIST,
-				JOB_NAME_PSYCHIATRIST)
+				JOB_NAME_PSYCHIATRIST,
+				)
+
+	access_group_name = "Medbay"
+	access_list = list(
+		ACCESS_MEDICAL,
+		ACCESS_GENETICS,
+		ACCESS_CLONING,
+		ACCESS_MORGUE,
+		ACCESS_CHEMISTRY,
+		ACCESS_VIROLOGY,
+		ACCESS_SURGERY,
+		ACCESS_MECH_MEDICAL,
+		ACCESS_CMO,
+	)
 
 	pref_category_name = DEPT_NAME_MEDICAL
 	pref_category_order = DEPT_PREF_ORDER_MEDICAL
@@ -350,7 +475,23 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_DETECTIVE,
 				JOB_NAME_SECURITYOFFICER,
 				JOB_NAME_BRIGPHYSICIAN,
-				JOB_NAME_DEPUTY)
+				JOB_NAME_DEPUTY,
+				)
+
+	access_group_name = "Security"
+	access_list = list(
+		ACCESS_SEC_DOORS,
+		ACCESS_SEC_RECORDS,
+		ACCESS_WEAPONS,
+		ACCESS_SECURITY,
+		ACCESS_BRIG,
+		ACCESS_BRIGPHYS,
+		ACCESS_ARMORY,
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_COURT,
+		ACCESS_MECH_SECURITY,
+		ACCESS_HOS,
+	)
 
 	pref_category_name = DEPT_NAME_SECURITY
 	pref_category_order = DEPT_PREF_ORDER_SECURITY
@@ -417,6 +558,21 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#00eba4"
 	dept_radio_channel = FREQ_CENTCOM
 
+	access_group_name = "CentCom"
+	access_list = list(
+		ACCESS_CENT_GENERAL,
+		ACCESS_CENT_THUNDER,
+		ACCESS_CENT_SPECOPS,
+		ACCESS_CENT_MEDICAL,
+		ACCESS_CENT_LIVING,
+		ACCESS_CENT_STORAGE,
+		ACCESS_CENT_TELEPORTER,
+		ACCESS_CENT_CAPTAIN,
+		ACCESS_CENT_BAR,
+		ACCESS_PRISONER,
+	)
+	access_filter = TRUE // CentCom Only
+
 	// currently not used, but just in case
 	manifest_category_name = DEPT_NAME_CENTCOM
 	manifest_category_order = DEPT_MANIFEST_ORDER_CENTCOM
@@ -431,6 +587,26 @@ SUBSYSTEM_DEF(department)
 	dept_bitflag = DEPT_BITFLAG_OTHER
 	dept_colour = "#00eba4"
 	dept_radio_channel = FREQ_CENTCOM
+
+	access_group_name = "??? (Admin)"
+	access_list = list(
+		ACCESS_SYNDICATE,
+		ACCESS_SYNDICATE_LEADER,
+		ACCESS_PIRATES,
+		ACCESS_HUNTERS,
+		ACCESS_AWAY_GENERAL,
+		ACCESS_AWAY_MAINT,
+		ACCESS_AWAY_MED,
+		ACCESS_AWAY_SEC,
+		ACCESS_AWAY_ENGINE,
+		ACCESS_AWAY_GENERIC1,
+		ACCESS_AWAY_GENERIC2,
+		ACCESS_AWAY_GENERIC3,
+		ACCESS_AWAY_GENERIC4,
+		ACCESS_BLOODCULT,
+		ACCESS_CLOCKCULT,
+	)
+	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case
 	manifest_category_name = DEPT_NAME_OTHER

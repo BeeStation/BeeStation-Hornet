@@ -5,10 +5,6 @@
 	main_feature_name = "Ethereal Color"
 	should_generate_icons = TRUE
 
-/datum/preference/choiced/ethereal_color/has_relevant_feature(datum/preferences/preferences)
-	// Skips checks for relevant_organ, relevant trait etc. because ethereal color is tied directly to species (atm)
-	return current_species_has_savekey(preferences)
-
 /datum/preference/choiced/ethereal_color/init_possible_values()
 	return assoc_to_keys(GLOB.color_list_ethereal)
 
@@ -20,7 +16,8 @@
 		ethereal_base.blend_icon(uni_icon('icons/mob/human/species/ethereal/bodyparts.dmi', "ethereal_l_arm"), ICON_OVERLAY)
 		ethereal_base.blend_icon(uni_icon('icons/mob/human/species/ethereal/bodyparts.dmi', "ethereal_r_arm"), ICON_OVERLAY)
 
-		var/datum/universal_icon/eyes = uni_icon('icons/mob/human/human_face.dmi', "eyes")
+		var/datum/universal_icon/eyes = uni_icon('icons/mob/human/human_face.dmi', "eyes_l")
+		eyes.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "eyes_r"), ICON_OVERLAY)
 		eyes.blend_color(COLOR_BLACK, ICON_MULTIPLY)
 		ethereal_base.blend_icon(eyes, ICON_OVERLAY)
 

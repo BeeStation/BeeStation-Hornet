@@ -11,14 +11,13 @@
 
 /datum/preference/choiced/psyphoza_cap/icon_for(value)
 	var/static/datum/universal_icon/psyphoza_head
-
 	if (isnull(psyphoza_head))
 		psyphoza_head = uni_icon('icons/mob/human/species/psyphoza/bodyparts.dmi', "psyphoza_head", dir = SOUTH)
 
 	var/datum/sprite_accessory/cap = SSaccessories.psyphoza_cap_list[value]
 	var/datum/universal_icon/icon_with_cap = psyphoza_head.copy()
 
-	if (value != FEATURE_NONE)
+	if (!isnull(cap) && cap.icon_state != SPRITE_ACCESSORY_NONE)
 		var/datum/universal_icon/screen_icon = uni_icon(cap.icon, "m_psyphoza_cap_[cap.icon_state]_ADJ", dir = SOUTH)
 		icon_with_cap.blend_icon(screen_icon, ICON_OVERLAY)
 

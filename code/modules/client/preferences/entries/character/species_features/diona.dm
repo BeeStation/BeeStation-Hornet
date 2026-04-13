@@ -11,28 +11,26 @@
 
 /datum/preference/choiced/diona_leaves/icon_for(value)
 	var/static/datum/universal_icon/diona_body
-	var/static/list/body_parts = list(
-		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST,
-		BODY_ZONE_L_ARM,
-		BODY_ZONE_R_ARM,
-		BODY_ZONE_L_LEG,
-		BODY_ZONE_R_LEG
-	)
-
 	if (isnull(diona_body))
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
+		var/list/body_parts = list(
+			BODY_ZONE_HEAD,
+			BODY_ZONE_CHEST,
+			BODY_ZONE_L_ARM,
+			BODY_ZONE_R_ARM,
+			BODY_ZONE_L_LEG,
+			BODY_ZONE_R_LEG
+		)
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = SSaccessories.diona_leaves_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
-	if (value != FEATURE_NONE)
-		for (var/body_part in body_parts)
-			var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
-			body_part_icon.crop(1, 1, 32, 32)
-			icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
+	if (value != SPRITE_ACCESSORY_NONE)
+		var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
+		body_part_icon.crop(1, 1, 32, 32)
+		icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
 	icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "m_diona_leaves_ADJ"), ICON_OVERLAY)
 
@@ -60,24 +58,22 @@
 
 /datum/preference/choiced/diona_thorns/icon_for(value)
 	var/static/datum/universal_icon/diona_body
-	var/static/list/body_parts = list(
-		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST
-	)
-
 	if (isnull(diona_body))
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
+		var/list/body_parts = list(
+			BODY_ZONE_HEAD,
+			BODY_ZONE_CHEST
+		)
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = SSaccessories.diona_thorns_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
-	if (value != "None")
-		for (var/body_part in body_parts)
-			var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
-			body_part_icon.crop(1, 1, 32, 32)
-			icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
+	if (value != SPRITE_ACCESSORY_NONE)
+		var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
+		body_part_icon.crop(1, 1, 32, 32)
+		icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
 	icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "m_diona_thorns_ADJ"), ICON_OVERLAY)
 
@@ -105,24 +101,22 @@
 
 /datum/preference/choiced/diona_flowers/icon_for(value)
 	var/static/datum/universal_icon/diona_body
-	var/static/list/body_parts = list(
-		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST
-	)
-
 	if (isnull(diona_body))
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
+		var/list/body_parts = list(
+			BODY_ZONE_HEAD,
+			BODY_ZONE_CHEST
+		)
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = SSaccessories.diona_flowers_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
-	if (value != "None")
-		for (var/body_part in body_parts)
-			var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
-			body_part_icon.crop(1, 1, 32, 32)
-			icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
+	if (value != SPRITE_ACCESSORY_NONE)
+		var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
+		body_part_icon.crop(1, 1, 32, 32)
+		icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
 	icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "m_diona_flowers_ADJ"), ICON_OVERLAY)
 
@@ -150,23 +144,17 @@
 
 /datum/preference/choiced/diona_moss/icon_for(value)
 	var/static/datum/universal_icon/diona_body
-	var/static/list/body_parts = list(
-		BODY_ZONE_CHEST
-	)
-
 	if (isnull(diona_body))
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
-		for (var/body_part in body_parts)
-			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
+		diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[BODY_ZONE_CHEST]", dir = SOUTH), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = SSaccessories.diona_moss_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
-	if (value != "None")
-		for (var/body_part in body_parts)
-			var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
-			body_part_icon.crop(1, 1, 32, 32)
-			icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
+	if (value != SPRITE_ACCESSORY_NONE)
+		var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
+		body_part_icon.crop(1, 1, 32, 32)
+		icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
 	icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "m_diona_moss_ADJ"), ICON_OVERLAY)
 
@@ -194,23 +182,17 @@
 
 /datum/preference/choiced/diona_mushroom/icon_for(value)
 	var/static/datum/universal_icon/diona_body
-	var/static/list/body_parts = list(
-		BODY_ZONE_HEAD
-	)
-
 	if (isnull(diona_body))
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
-		for (var/body_part in body_parts)
-			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
+		diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[BODY_ZONE_HEAD]", dir = SOUTH), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = SSaccessories.diona_mushroom_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
-	if (value != "None")
-		for (var/body_part in body_parts)
-			var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
-			body_part_icon.crop(1, 1, 32, 32)
-			icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
+	if (value != SPRITE_ACCESSORY_NONE)
+		var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
+		body_part_icon.crop(1, 1, 32, 32)
+		icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
 	icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "m_diona_mushroom_ADJ"), ICON_OVERLAY)
 
@@ -238,23 +220,17 @@
 
 /datum/preference/choiced/diona_antennae/icon_for(value)
 	var/static/datum/universal_icon/diona_body
-	var/static/list/body_parts = list(
-		BODY_ZONE_HEAD
-	)
-
 	if (isnull(diona_body))
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
-		for (var/body_part in body_parts)
-			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
+		diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[BODY_ZONE_HEAD]", dir = SOUTH), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = SSaccessories.diona_antennae_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
-	if (value != "None")
-		for (var/body_part in body_parts)
-			var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
-			body_part_icon.crop(1, 1, 32, 32)
-			icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
+	if (value != SPRITE_ACCESSORY_NONE)
+		var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
+		body_part_icon.crop(1, 1, 32, 32)
+		icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
 	icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "m_diona_antennae_ADJ"), ICON_OVERLAY)
 
@@ -281,15 +257,10 @@
 	return assoc_to_keys_features(SSaccessories.diona_eyes_list)
 
 /datum/preference/choiced/diona_eyes/icon_for(value)
-	var/static/datum/universal_icon/diona_body
-
-	if (isnull(diona_body))
-		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
-
 	var/datum/sprite_accessory/markings = SSaccessories.diona_eyes_list[value]
-	var/datum/universal_icon/icon_with_markings = diona_body.copy()
+	var/datum/universal_icon/icon_with_markings = uni_icon('icons/effects/effects.dmi', "nothing")
 
-	if (value != "None")
+	if (value != SPRITE_ACCESSORY_NONE)
 		var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
 		body_part_icon.crop(1, 1, 32, 32)
 		icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
@@ -320,23 +291,17 @@
 
 /datum/preference/choiced/diona_pbody/icon_for(value)
 	var/static/datum/universal_icon/diona_body
-	var/static/list/body_parts = list(
-		BODY_ZONE_CHEST
-	)
-
 	if (isnull(diona_body))
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
-		for (var/body_part in body_parts)
-			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
+		diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[BODY_ZONE_CHEST]", dir = SOUTH), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = SSaccessories.diona_pbody_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
-	if (value != "None")
-		for (var/body_part in body_parts)
-			var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
-			body_part_icon.crop(1, 1, 32, 32)
-			icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
+	if (value != SPRITE_ACCESSORY_NONE)
+		var/datum/universal_icon/body_part_icon = uni_icon(markings.icon, "m_[relevant_mutant_bodypart]_[markings.icon_state]_ADJ", dir = SOUTH)
+		body_part_icon.crop(1, 1, 32, 32)
+		icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
 	icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "m_diona_pbody_ADJ"), ICON_OVERLAY)
 

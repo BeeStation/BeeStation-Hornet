@@ -3,23 +3,23 @@
 	var/static/datum/universal_icon/lizard_with_snout
 
 	if (isnull(lizard))
-		lizard = uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_head", EAST)
-		var/datum/universal_icon/eyes = uni_icon('icons/mob/human/human_face.dmi', "eyes", EAST)
+		lizard = uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_head", dir = EAST)
+		var/datum/universal_icon/eyes = uni_icon('icons/mob/human/human_face.dmi', "eyes_l", dir = EAST)
 		eyes.blend_color(COLOR_GRAY, ICON_MULTIPLY)
 		lizard.blend_icon(eyes, ICON_OVERLAY)
 
 		lizard_with_snout = lizard.copy()
-		lizard_with_snout.blend_icon(uni_icon('icons/mob/human/species/lizard/lizard_misc.dmi', "m_snout_round_ADJ", EAST), ICON_OVERLAY)
+		lizard_with_snout.blend_icon(uni_icon('icons/mob/mutant_bodyparts.dmi', "m_snout_round_ADJ", dir = EAST), ICON_OVERLAY)
 
 	var/datum/universal_icon/final_icon = include_snout ? lizard_with_snout.copy() : lizard.copy()
 
-	if (!isnull(sprite_accessory) && sprite_accessory.icon_state != SPRITE_ACCESSORY_NONE && sprite_accessory.icon_state != "none")
-		var/datum/universal_icon/accessory_icon = uni_icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ", EAST)
+	if (!isnull(sprite_accessory))
+		var/datum/universal_icon/accessory_icon = uni_icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ", dir = EAST)
 		final_icon.blend_icon(accessory_icon, ICON_OVERLAY)
 
 	final_icon.crop(11, 20, 23, 32)
 	final_icon.scale(32, 32)
-	final_icon.blend_color(COLOR_VIBRANT_LIME, ICON_MULTIPLY)
+	final_icon.blend_color(COLOR_LIME, ICON_MULTIPLY)
 
 	return final_icon
 
@@ -37,9 +37,9 @@
 /datum/preference/choiced/lizard_body_markings/icon_for(value)
 	var/datum/sprite_accessory/sprite_accessory = SSaccessories.lizard_markings_list[value]
 
-	var/datum/universal_icon/final_icon = uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_chest_m")
+	var/datum/universal_icon/final_icon = uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_chest_m", dir = SOUTH)
 
-	if (sprite_accessory.icon_state != SPRITE_ACCESSORY_NONE && sprite_accessory.icon_state != "none")
+	if (value != SPRITE_ACCESSORY_NONE)
 		var/datum/universal_icon/body_markings_icon = uni_icon(
 			sprite_accessory.icon,
 			"male_[sprite_accessory.icon_state]_chest",
@@ -55,7 +55,7 @@
 	return final_icon
 
 /datum/preference/choiced/lizard_body_markings/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["lizard_markings"] = value
+	target.dna.features["body_markings"] = value
 
 /datum/preference/choiced/lizard_frills
 	db_key = "feature_lizard_frills"
@@ -69,7 +69,8 @@
 	return assoc_to_keys_features(SSaccessories.frills_list)
 
 /datum/preference/choiced/lizard_frills/icon_for(value)
-	return generate_lizard_side_shot(SSaccessories.frills_list[value], "frills")
+	var/datum/sprite_accessory/frills = value != SPRITE_ACCESSORY_NONE ? SSaccessories.frills_list[value] : null
+	return generate_lizard_side_shot(frills, "frills")
 
 /datum/preference/choiced/lizard_frills/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["frills"] = value
@@ -86,7 +87,8 @@
 	return assoc_to_keys_features(SSaccessories.horns_list)
 
 /datum/preference/choiced/lizard_horns/icon_for(value)
-	return generate_lizard_side_shot(SSaccessories.horns_list[value], "horns")
+	var/datum/sprite_accessory/horns = value != SPRITE_ACCESSORY_NONE ? SSaccessories.horns_list[value] : null
+	return generate_lizard_side_shot(horns, "horns")
 
 /datum/preference/choiced/lizard_horns/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["horns"] = value
@@ -124,12 +126,6 @@
 		new_part.update_limb(is_creating = TRUE)
 		qdel(old_part)
 
-/datum/preference/choiced/lizard_legs/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
-	if(!..())
-		return FALSE
-	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	return initial(species_type.digitigrade_customization) == DIGITIGRADE_OPTIONAL
-
 /datum/preference/choiced/lizard_snout
 	db_key = "feature_lizard_snout"
 	preference_type = PREFERENCE_CHARACTER
@@ -142,7 +138,8 @@
 	return assoc_to_keys_features(SSaccessories.snouts_list)
 
 /datum/preference/choiced/lizard_snout/icon_for(value)
-	return generate_lizard_side_shot(SSaccessories.snouts_list[value], "snout", include_snout = FALSE)
+	var/datum/sprite_accessory/snout = value != SPRITE_ACCESSORY_NONE ? SSaccessories.snouts_list[value] : null
+	return generate_lizard_side_shot(snout, "snout", include_snout = FALSE)
 
 /datum/preference/choiced/lizard_snout/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["snout"] = value
@@ -159,7 +156,8 @@
 	return assoc_to_keys_features(SSaccessories.spines_list)
 
 /datum/preference/choiced/lizard_spines/icon_for(value)
-	return generate_lizard_body_shot(SSaccessories.spines_list[value], "spines")
+	var/datum/sprite_accessory/spines = value != SPRITE_ACCESSORY_NONE ? SSaccessories.spines_list[value] : null
+	return generate_lizard_body_shot(spines, "spines", show_tail = TRUE)
 
 /datum/preference/choiced/lizard_spines/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["spines"] = value
@@ -173,12 +171,11 @@
 	relevant_external_organ = /obj/item/organ/tail/lizard
 
 /datum/preference/choiced/lizard_tail/init_possible_values()
-	var/list/values = assoc_to_keys_features(SSaccessories.tails_list_lizard)
-	values -= "None" // Remove "None" tails"
-	return values
+	return assoc_to_keys_features(SSaccessories.tails_list_lizard)
 
 /datum/preference/choiced/lizard_tail/icon_for(value)
-	return generate_lizard_body_shot(SSaccessories.tails_list_lizard[value], "tail")
+	var/datum/sprite_accessory/tail = value != SPRITE_ACCESSORY_NONE ? SSaccessories.tails_list_lizard[value] : null
+	return generate_lizard_body_shot(tail, "tail")
 
 /datum/preference/choiced/lizard_tail/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["tail_lizard"] = value
@@ -188,45 +185,34 @@
 
 /proc/generate_lizard_body_shot(datum/sprite_accessory/sprite_accessory, key, show_tail = FALSE, shift_x = -8)
 	var/static/datum/universal_icon/body_icon
+	var/static/datum/universal_icon/body_icon_with_tail
 
 	if (isnull(body_icon))
+		body_icon = uni_icon('icons/effects/effects.dmi', "nothing")
 		var/list/body_parts = list(
 			BODY_ZONE_CHEST,
 			BODY_ZONE_R_ARM,
 			BODY_ZONE_PRECISE_R_HAND,
 			BODY_ZONE_R_LEG,
 		)
-		body_icon = uni_icon('icons/effects/effects.dmi', "nothing")
 		for (var/body_part in body_parts)
 			var/gender = body_part == BODY_ZONE_CHEST ? "_m" : ""
 			body_icon.blend_icon(uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_[body_part][gender]", dir = EAST), ICON_OVERLAY)
 
-	var/datum/universal_icon/final_icon = body_icon.copy()
+		body_icon_with_tail = body_icon.copy()
+		body_icon_with_tail.blend_icon(uni_icon('icons/mob/mutant_bodyparts.dmi', "m_tail_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
 
-	if(show_tail)
-		final_icon.blend_icon(uni_icon('icons/mob/mutant_bodyparts.dmi', "m_tail_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
+	var/datum/universal_icon/icon_with_changes = show_tail ? body_icon_with_tail.copy() : body_icon.copy()
 
-	if (!isnull(sprite_accessory) && sprite_accessory.icon_state != SPRITE_ACCESSORY_NONE && sprite_accessory.icon_state != "none")
+	if (!isnull(sprite_accessory))
 		var/ex = key == "spines" ? "ADJ" : "BEHIND"
-		var/icon_file
-		var/icon_state_name
-		switch(key)
-			if("tail")
-				icon_file = 'icons/mob/human/species/lizard/lizard_tails.dmi'
-				icon_state_name = "m_tail_lizard_[sprite_accessory.icon_state]_[ex]"
-			if("spines")
-				icon_file = 'icons/mob/human/species/lizard/lizard_spines.dmi'
-				icon_state_name = "m_[key]_[sprite_accessory.icon_state]_[ex]"
-			else
-				icon_file = 'icons/mob/mutant_bodyparts.dmi'
-				icon_state_name = "m_[key]_[sprite_accessory.icon_state]_[ex]"
-		var/datum/universal_icon/sprite_icon = uni_icon(icon_file, icon_state_name, dir = EAST)
-		final_icon.blend_icon(sprite_icon, ICON_OVERLAY)
+		var/datum/universal_icon/sprite_icon = uni_icon('icons/mob/mutant_bodyparts.dmi', "m_[key]_[sprite_accessory.icon_state]_[ex]", dir = EAST)
+		icon_with_changes.blend_icon(sprite_icon, ICON_OVERLAY)
 
-	final_icon.blend_color(COLOR_VIBRANT_LIME, ICON_MULTIPLY)
+	icon_with_changes.blend_color(COLOR_VIBRANT_LIME, ICON_MULTIPLY)
 
 	// Zoom in
-	final_icon.scale(64, 64)
-	final_icon.crop(15 + shift_x, 0, 15 + 31 + shift_x, 31)
+	icon_with_changes.scale(64, 64)
+	icon_with_changes.crop(15 + shift_x, 0, 15 + 31 + shift_x, 31)
 
-	return final_icon
+	return icon_with_changes
