@@ -1047,7 +1047,7 @@
 	use_default = FALSE
 
 /datum/sprite_accessory/hair_gradient/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 	use_default = TRUE
 
@@ -1931,7 +1931,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/body_markings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/dtiger
@@ -1988,11 +1988,11 @@
 	icon_state = "spikes"
 
 /datum/sprite_accessory/tails/human/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/tails_animated/human/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/tails/human/cat
@@ -2040,7 +2040,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/horns/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/horns/simple
@@ -2067,7 +2067,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/ears/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/ears/cat
@@ -2077,7 +2077,7 @@
 	color_src = HAIR
 
 /datum/sprite_accessory/wings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/wings_open
@@ -2156,7 +2156,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/frills/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/frills/simple
@@ -2178,11 +2178,11 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/spines/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/spines_animated/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/spines/short
@@ -2546,7 +2546,7 @@
 	color_src = null
 
 /datum/sprite_accessory/moth_markings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/moth_markings/reddish
@@ -2776,7 +2776,7 @@
 	color_src = HAIR
 
 /datum/sprite_accessory/ipc_antennas/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/ipc_antennas/angled
@@ -2929,7 +2929,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_leaves/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_leaves/leaves
@@ -2960,7 +2960,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_thorns/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_thorns/head
@@ -2976,7 +2976,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_flowers/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_flowers/head
@@ -2992,7 +2992,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_moss/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_moss/torso
@@ -3004,7 +3004,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_mushroom/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_mushroom/head
@@ -3016,7 +3016,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_antennae/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_antennae/head
@@ -3028,7 +3028,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_eyes/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_eyes/bug_eyes
@@ -3112,7 +3112,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_pbody/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_pbody/pbody

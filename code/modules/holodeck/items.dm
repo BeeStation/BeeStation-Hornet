@@ -123,16 +123,16 @@
 	active_power_usage = 6
 	power_channel = AREA_USAGE_ENVIRON
 
-/obj/machinery/readybutton/attack_silicon(mob/user as mob)
-	to_chat(user, "The station AI is not to interact with these devices.")
+/obj/machinery/readybutton/attack_ai(mob/user)
+	to_chat(user, span_warning("The station AI is not to interact with these devices!"))
 	return
 
-/obj/machinery/readybutton/attack_paw(mob/user as mob)
+/obj/machinery/readybutton/attack_paw(mob/user, list/modifiers)
 	to_chat(user, span_warning("You are too primitive to use this device!"))
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
-	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+/obj/machinery/readybutton/attackby(obj/item/attacking_item, mob/user, params)
+	to_chat(user, span_warning("The device is a solid button, there's nothing you can do with it!"))
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	. = ..()
@@ -142,9 +142,10 @@
 		to_chat(user, span_warning("This device is not powered!"))
 		return
 
-	currentarea = get_area(src.loc)
-	if(!currentarea)
+	currentarea = get_area(src)
+	if(isnull(currentarea))
 		qdel(src)
+		return
 
 	if(eventstarted)
 		to_chat(usr, span_warning("The event has already begun!"))
@@ -152,34 +153,35 @@
 
 	ready = !ready
 
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 	var/numbuttons = 0
 	var/numready = 0
-	for(var/obj/machinery/readybutton/button in currentarea)
-		numbuttons++
-		if (button.ready)
-			numready++
+	for (var/list/zlevel_turfs as anything in currentarea.get_zlevel_turf_lists())
+		for (var/turf/area_turf as anything in zlevel_turfs)
+			for(var/obj/machinery/readybutton/button in area_turf)
+				numbuttons++
+				if(button.ready)
+					numready++
 
 	if(numbuttons == numready)
 		begin_event()
 
-/obj/machinery/readybutton/update_icon()
-	if(ready)
-		icon_state = "auth_on"
-	else
-		icon_state = "auth_off"
+/obj/machinery/readybutton/update_icon_state()
+	. = ..()
+	icon_state = "auth_[ready ? "on" : "off"]"
 
 /obj/machinery/readybutton/proc/begin_event()
-
 	eventstarted = TRUE
 
-	for(var/obj/structure/window/W in currentarea)
-		if(W.flags_1&NODECONSTRUCT_1) // Just in case: only holo-windows
-			qdel(W)
+	for (var/list/zlevel_turfs as anything in currentarea.get_zlevel_turf_lists())
+		for(var/turf/area_turf as anything in zlevel_turfs)
+			for(var/obj/structure/window/barrier in area_turf)
+				if(barrier.flags_1 & HOLOGRAM_1)// Just in case: only holo-windows
+					qdel(barrier)
 
-	for(var/mob/M in currentarea)
-		to_chat(M, "FIGHT!")
+			for(var/mob/contestant in area_turf)
+				to_chat(contestant, span_userdanger("FIGHT!"))
 
 /obj/machinery/conveyor/holodeck
 

@@ -1,7 +1,4 @@
-#define CULT_POLL_WAIT 2400
-
-/// 200 proc calls deep and shit breaks, this is a bit lower to give some safety room
-#define MAX_PROC_DEPTH 195 // no idea where to put this
+#define GET_ERROR_ROOM ((locate(/obj/effect/landmark/error) in GLOB.landmarks_list) || locate(4,4,1))
 
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
@@ -331,9 +328,8 @@
 /proc/AnnounceArrival(mob/living/carbon/human/character, rank)
 	if(QDELETED(character) || !SSticker.IsRoundInProgress())
 		return
-	var/area/A = get_area(character)
-	var/message = span_gamedeadsay("[span_name(character.real_name)] ([rank]) has arrived at the station at [span_name(A.name)].")
-	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
+	var/area/player_area = get_area(character)
+	deadchat_broadcast(span_game(" has arrived at the station at [span_name(player_area.name)]."), span_game("[span_name(character.real_name)] ([rank])"), follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
 	if((!GLOB.announcement_systems.len) || (!character.mind))
 		return
 	if((character.mind.assigned_role == JOB_NAME_CYBORG) || (character.mind.assigned_role == character.mind.special_role))

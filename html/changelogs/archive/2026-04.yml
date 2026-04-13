@@ -18,3 +18,109 @@
   - bugfix: Fixes timestop stopping you inside even if you were protected against
       magic
   - balance: Heretic Spells moved to holy magic protection
+2026-04-05:
+  Rukofamicom:
+  - bugfix: Growth serum no longer stacks infinitely when smoked and requires at least
+      10u to have a noticable effect
+  ? rkz, sohpeach, Mothblocks, dragomagol, Timberpoes, timothymtorres, MrMelbert,
+    GPeckman, ninjanomnom, 00-steven, grungussuss, vinylspiders
+  : - rscadd: adds feedback message when speaking into a radio
+    - rscadd: you can now disable radio noises
+    - rscadd: adds better receiving and transmission radio noises
+    - code_imp: phobias use less regular expressions and don't instantiate them all
+        the time (performance)
+    - bugfix: Fixed a bug where you could not start messages with an ellipses.
+    - bugfix: Fixed not being able to sing over comms.
+    - bugfix: phobias cannot be triggered by words in languages you don't understand
+    - code_imp: to_chat now crashes if it receives a null arg
+    - code_imp: audits say to prevent double encoding
+    - bugfix: Fix hypnosis, mind echo trauma, phobia trauma, hypnotic trigger trauma,
+        split personality brainwashing trauma, and codeword hearing all bypassing
+        language and hearing checks. If you try to give commands to a victim in a
+        language they don't understand, they will no longer magically understand the
+        words.
+    - refactor: Refactored saycode to be more robust, readable, and have more unit
+        tests.
+    - rscadd: You can talk via plushies, action figures, and toy mechs via .l or .r,
+        same as a ventriloquist dummy or decapitated dead
+    - rscdel: Talking via a plushie, action figure, toy mech, ventriloquist dummy,
+        decapitated head, or marionette won't transmit over open mic comms
+    - rscadd: whispers now show a message if you cannot hear them, but can see them
+    - bugfix: adds ".hear" span classes to .scss files (literally missing for years)
+2026-04-07:
+  DrDuckedGoose:
+  - bugfix: Fixes lasso functionality
+  - rscadd: reenables traitor lassos in uplink
+  - rscdel: removes leather lassos
+2026-04-08:
+  EvilDragonfiend:
+  - code_imp: renamed GLOB.antagonists into GLOB.active_antagonists
+  - bugfix: Opening antag panel no longer populates OOC antag list
+  itsmeow, Karshargul:
+  - bugfix: Fixed race conditions in IconForge generation causing occasional runtimes.
+  - bugfix: Fixed errors with IconForge's ability to write files on Linux.
+  - bugfix: Improved the security of BeeAuth session creation nonces by using hardware
+      entropy reducing their guessability.
+  - rscadd: Added many more icon manipulation functions to IconForge, offering near
+      BYOND parity.
+  - tweak: Greatly optimized several icon related functions
+  - code_imp: Cleaned up legacy spritesheets code.
+  - code_imp: Updated names of some IconForge GAGS functions to match newer versions
+      of IconForge.
+  - rscdel: Removed unused PDA icons spritesheet.
+  rkz, mothblocks, GoldenAlpharex, SmArtKar:
+  - bugfix: Flowers now properly display on people with mutant ears, meaning that
+      they no longer hide within cat ears anymore.
+  - bugfix: Welding goggles no longer hide in your hair when you pull them up, they
+      will now properly display above your hair (and mutant body features if you have
+      any).
+  - code_imp: Glasses and headwear can now appear over hair and all mutant body features,
+      meaning that they shouldn't get wrongly hidden anymore.
+  - refactor: Refactored hat stabilizers into a component shared with plasmaman helmets
+  - bugfix: MOD flashlights won't move hats on them when toggling.
+  rkz, son-of-space, jolly:
+  - bugfix: The civilian remote now properly affects service department doors
+  - bugfix: Some areas are now properly affected by ai monitoring
+  - code_imp: The typepath used for station turfs has been changed from /area/* to
+      /area/station/* for clarity and consistency.
+  - code_imp: Space_Station_13_areas.dm had its station specific turf moved to station.dm
+  - imageadd: Some turfs were given icons (which didn't exist prior).
+  - imagedel: Most unused/odd ball turfs were removed (like dk_yellow).
+2026-04-09:
+  SmArtKar, Racc-Off:
+  - bugfix: Fix lasso runtime
+  - bugfix: Hovering over things on the same tile no longer closes the pet command
+      menu
+2026-04-10:
+  mrmanlikesbt, TiviPlus, LemonInTheDark, SyncIt21, MSO:
+  - code_imp: Added a new VISUALIZE_LIGHT_UPDATES define to... I'm sure you can figure
+      it out.
+  - code_imp: Lighting code has been optimized and is now faster
+2026-04-11:
+  mrmanlikesbt, Cyberboss, Ghommie, LikeLakers2, TiviPlus, jlsnow301, san7890, TealSeer, FalloutFalcon:
+  - server: github integration tests are now grouped together
+  - server: the github CI Suite is no longer runs on direct commits to the codebase
+  - server: github integration tests now include what failed in the summary of the
+      action
+  - server: the github CI suite workflows have been moved to their own individual
+      files
+  - server: github integration tests now reuse a single build instead of recompiling
+      for each map
+  - server: fixed an erroneous warning when setting up the database during github
+      integration tests
+  - server: the slowest unit tests are now displayed
+2026-04-12:
+  DrDuckedGoose:
+  - bugfix: Fixes robot eye lights trailing behind them near blind people
+  PowerfulBacon:
+  - code_imp: The UpdatePaths script now supports counters
+  TsunamiAnt:
+  - bugfix: Vampire Daylight notifications can now only appear if there are actually
+      vampires present.
+  - admin: Vampire Daylight notifications are now posted to deadchat, not adminlog.
+2026-04-13:
+  rkz, Mothblocks:
+  - bugfix: moth preferences generate cleanly
+  - code_imp: splits init_possible_values() in preference code into a values return
+      and an icon image handler
+  - code_imp: nukes deprecated roundstart_ species feature lists
