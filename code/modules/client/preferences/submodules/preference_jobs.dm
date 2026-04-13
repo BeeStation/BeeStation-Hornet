@@ -5,9 +5,16 @@
 	log_preferences("[parent?.ckey]: Set [job.title] preference to level [level].")
 
 	if (level == JP_HIGH)
+		var/datum/job/overflow_role = SSjob.overflow_role
+		var/overflow_role_title = initial(overflow_role.title)
+
 		for(var/other_job in job_preferences)
 			if(job_preferences[other_job] == JP_HIGH)
-				job_preferences[other_job] = JP_MEDIUM
+				// Overflow role needs to go to NEVER, not medium!
+				if(other_job == overflow_role_title)
+					job_preferences[other_job] = null
+				else
+					job_preferences[other_job] = JP_MEDIUM
 				log_preferences("[parent?.ckey]: Set [other_job] preference to level [JP_MEDIUM].")
 
 	if(level == null)
