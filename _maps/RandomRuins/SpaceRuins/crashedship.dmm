@@ -1215,7 +1215,7 @@
 /area/awaymission/BMPship/Fore)
 "Fc" = (
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Fg" = (
 /obj/effect/gibspawner/robot,
 /turf/open/floor/plating/airless,
@@ -1444,7 +1444,7 @@
 /obj/item/circular_saw,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "JO" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/blood/gibs/old,
@@ -1692,7 +1692,7 @@
 "Pa" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "Pf" = (
 /turf/open/floor/plating/airless{
 	broken = 1

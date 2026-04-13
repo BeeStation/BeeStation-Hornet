@@ -25,7 +25,7 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/security/prison
+		/area/station/security/prison
 	)
 
 	manuscript_jobs = list(

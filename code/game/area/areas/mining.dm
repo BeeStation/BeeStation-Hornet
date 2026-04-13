@@ -1,11 +1,12 @@
 /**********************Mine areas**************************/
 
 /area/mine
+	icon = 'icons/area/areas_station.dmi'
 	icon_state = "mining"
 	default_gravity = STANDARD_GRAVITY
 	lighting_colour_tube = "#ffe8d2"
 	lighting_colour_bulb = "#ffdcb7"
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
+	area_flags = VALID_TERRITORY | CULT_PERMITTED | UNIQUE_AREA | FLORA_ALLOWED
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
@@ -25,7 +26,7 @@
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
+	area_flags = VALID_TERRITORY
 
 /area/mine/unexplored
 	name = "Mine"
@@ -40,7 +41,7 @@
 	ambience_index = AMBIENCE_MINING
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED | MOB_SPAWN_ALLOWED
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -100,6 +101,7 @@
 /**********************Lavaland Areas**************************/
 
 /area/lavaland
+	icon = 'icons/area/areas_station.dmi'
 	icon_state = "mining"
 	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE

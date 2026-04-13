@@ -31,9 +31,11 @@
 	)
 
 	lightup_areas = list(
-		/area/hydroponics,
-		/area/medical/morgue,
-		/area/crew_quarters/kitchen
+
+/area/station/service/hydroponics,
+		/area/station/medical/morgue,
+
+/area/station/service/kitchen
 	)
 
 	manuscript_jobs = list(

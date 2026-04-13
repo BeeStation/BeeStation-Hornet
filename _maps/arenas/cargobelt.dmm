@@ -2,19 +2,19 @@
 "d" = (
 /obj/machinery/conveyor/auto,
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "e" = (
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "f" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "g" = (
 /obj/machinery/conveyor/auto{
 	dir = 4
@@ -23,25 +23,25 @@
 	dir = 8
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "j" = (
 /obj/machinery/conveyor/auto{
 	dir = 4
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "n" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "r" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "t" = (
 /obj/machinery/conveyor/auto,
 /obj/structure/closet/crate/large{
@@ -49,7 +49,7 @@
 	name = "very heavy crate"
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "v" = (
 /obj/machinery/conveyor/auto{
 	dir = 1
@@ -59,30 +59,30 @@
 	name = "very heavy crate"
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "x" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "z" = (
 /obj/machinery/conveyor/auto{
 	dir = 8
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "D" = (
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "L" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "V" = (
 /obj/machinery/conveyor/auto{
 	dir = 1
 	},
 /turf/open/indestructible,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
 f

@@ -87,12 +87,13 @@
 	name = ""
 	icon = 'icons/misc/pic_in_pic.dmi'
 	icon_state = "room_background"
-	flags_1 = NOJAUNT_1
+	turf_flags = NOJAUNT
 
 /area/ai_multicam_room
 	name = "ai_multicam_room"
 	icon_state = "ai_camera_room"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 	ambientsounds = list()
 	area_flags = HIDDEN_AREA | UNIQUE_AREA
 	teleport_restriction = TELEPORT_ALLOW_NONE

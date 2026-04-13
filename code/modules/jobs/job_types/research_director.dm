@@ -39,15 +39,15 @@
 	biohazard = 40
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hor,
-		/area/science/explab,
-		/area/science/misc_lab,
-		/area/science/mixing,
-		/area/science/nanite,
-		/area/science/robotics,
-		/area/science/server,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/command/heads_quarters/rd,
+		/area/station/science/explab,
+		/area/station/science/misc_lab,
+		/area/station/science/mixing,
+		/area/station/science/nanite,
+		/area/station/science/robotics,
+		/area/station/science/server,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
 	)
 
 	manuscript_jobs = list(

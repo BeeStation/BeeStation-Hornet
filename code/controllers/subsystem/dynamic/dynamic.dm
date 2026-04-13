@@ -933,7 +933,7 @@ SUBSYSTEM_DEF(dynamic)
 			continue
 		gamemode_executed = TRUE
 	// Check if a gamemode antagonist is in existance, even if not spawned through us
-	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		for (var/datum/dynamic_ruleset/gamemode/gamemode_antagonist as anything in subtypesof(/datum/dynamic_ruleset/gamemode))
 			if (gamemode_antagonist::antag_datum && ispath(antagonist.type, gamemode_antagonist))
 				gamemode_executed = TRUE

@@ -115,7 +115,8 @@
 	UnregisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE)
 
 /datum/station_trait/birthday/proc/pick_turfs_and_spawn()
-	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms), rand(200, 300))
+	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/station/hallway) | typesof(
+/area/station/service/bar) | typesof(/area/station/commons/dorms), rand(200, 300))
 	for(var/turf/turf as() in turfs)
 		spawns += new /obj/effect/spawner/hangover_spawn(turf)
 
