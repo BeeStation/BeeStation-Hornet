@@ -134,6 +134,8 @@
       becomes "Demoted". You will need to manually remove their access.
   - tweak: Psychiatrist is now fully categorised in medical department.
   - tweak: Stage Magician is now categorised in Service department.
+  MasonMiami:
+  - tweak: You can now use zero as a expression for the cost of loadout items.
   rkz, Mothblocks:
   - bugfix: moth preferences generate cleanly
   - code_imp: splits init_possible_values() in preference code into a values return
