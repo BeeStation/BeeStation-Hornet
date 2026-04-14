@@ -1,4 +1,5 @@
 /obj/item/clothing/under
+	abstract_type = /obj/item/clothing/under
 	name = "under"
 	icon = 'icons/obj/clothing/under/default.dmi'
 	worn_icon = 'icons/mob/clothing/under/default.dmi'
@@ -451,6 +452,7 @@
 	return adjusted
 
 /obj/item/clothing/under/rank
+	abstract_type = /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/compile_monkey_icon()

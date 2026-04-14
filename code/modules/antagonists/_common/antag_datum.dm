@@ -2,6 +2,7 @@ GLOBAL_LIST_EMPTY(active_antagonists)
 GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist
+	abstract_type = /datum/antagonist
 	var/tips
 	/// Public name for this antagonist. Appears for player prompts and round-end reports.
 	var/name = "Antagonist"

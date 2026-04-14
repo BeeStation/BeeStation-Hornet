@@ -1,4 +1,5 @@
 /obj/item/clothing/mask
+	abstract_type = /obj/item/clothing/mask
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD

@@ -1,6 +1,8 @@
 GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective
+	abstract_type = /datum/objective
+
 	/// The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
 	var/datum/mind/owner
 	/// An alternative to 'owner': a team. Use this when writing new code.

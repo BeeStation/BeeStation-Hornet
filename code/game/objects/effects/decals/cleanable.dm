@@ -1,4 +1,5 @@
 /obj/effect/decal/cleanable
+	abstract_type = /obj/effect/decal/cleanable
 	gender = PLURAL
 	layer = ABOVE_NORMAL_TURF_LAYER
 	var/list/random_icon_states = null

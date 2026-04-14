@@ -28,6 +28,7 @@
 
 
 /obj/item/toy
+	abstract_type = /obj/item/toy
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
@@ -268,6 +269,9 @@
 	user.visible_message(span_danger("[user] fires [src] at [target]!"), \
 						span_danger("You fire [src] at [target]!"), \
 						span_italics("You hear a gunshot!"))
+
+/obj/item/toy/ammo
+	abstract_type = /obj/item/toy/ammo
 
 /obj/item/toy/ammo/gun
 	name = "capgun ammo"

@@ -1,6 +1,7 @@
 #define MOTH_EATING_CLOTHING_DAMAGE 15
 
 /obj/item/clothing
+	abstract_type = /obj/item/clothing
 	name = "clothing"
 	resistance_flags = FLAMMABLE
 	max_integrity = 200

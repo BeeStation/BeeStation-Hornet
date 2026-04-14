@@ -1,4 +1,5 @@
 /obj/item/clothing/shoes
+	abstract_type = /obj/item/clothing/shoes
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."

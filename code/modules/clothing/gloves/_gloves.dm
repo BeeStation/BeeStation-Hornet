@@ -1,4 +1,5 @@
 /obj/item/clothing/gloves
+	abstract_type = /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL

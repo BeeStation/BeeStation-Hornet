@@ -101,7 +101,7 @@
 	var/obj/effect/abstract/vampire_tracker_holder/tracker
 
 	/// Static typecache of all vampire powers.
-	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
+	var/static/list/all_vampire_powers = valid_subtypesof(/datum/action/vampire)
 	/// Antagonists that cannot be vassalized no matter what
 	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/vampire,
@@ -261,6 +261,7 @@
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
+	SSsunlight.send_messages = TRUE
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_START, PROC_REF(sol_near_start))
 	RegisterSignal(SSsunlight, COMSIG_SOL_END, PROC_REF(on_sol_end))
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_END, PROC_REF(sol_near_end))
@@ -308,7 +309,9 @@
 	owner.special_role = null
 	GLOB.all_vampires -= src
 	check_cancel_society()
-	return ..()
+	. = ..()
+	if(!length(get_antag_minds(/datum/antagonist/vampire)))
+		SSsunlight.send_messages = FALSE
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
