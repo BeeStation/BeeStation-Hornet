@@ -150,7 +150,7 @@
 /area/template_noop)
 "O" = (
 /obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/dionapod,
+/obj/item/plant_seeds/preset/diona_pod,
 /turf/open/floor/grass,
 /area/template_noop)
 "P" = (
