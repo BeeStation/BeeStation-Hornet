@@ -1176,10 +1176,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, span_warning("Asset caching is disabled in the config!"))
 		return
 	var/regenerated = 0
-	for(var/datum/asset/target_spritesheet as anything in subtypesof(/datum/asset))
+	for(var/datum/asset/target_spritesheet as anything in valid_subtypesof(/datum/asset))
 		if(!initial(target_spritesheet.cross_round_cachable))
-			continue
-		if(target_spritesheet == initial(target_spritesheet._abstract))
 			continue
 		var/datum/asset/asset_datum = GLOB.asset_datums[target_spritesheet]
 		asset_datum.regenerate()
@@ -1194,9 +1192,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, span_warning("Smart asset caching is disabled in the config!"))
 		return
 	var/cleared = 0
-	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in subtypesof(/datum/asset/spritesheet_batched))
-		if(target_spritesheet == initial(target_spritesheet._abstract))
-			continue
+	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in valid_subtypesof(/datum/asset/spritesheet_batched))
 		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(target_spritesheet.name)].json")
 		cleared++
 	to_chat(usr, span_notice("Cleared [cleared] asset\s."))

@@ -58,12 +58,8 @@ SUBSYSTEM_DEF(botany)
 	for(var/obj/item/plant_seeds/preset/kirby/seed as anything in subtypesof(/obj/item/plant_seeds/preset/kirby))
 		random_seeds += seed
 //Build random traits
-	for(var/datum/plant_trait/trait as anything in subtypesof(/datum/plant_trait))
+	for(var/datum/plant_trait/trait as anything in valid_subtypesof(/datum/plant_trait))
 		if(!initial(trait.random_trait))
-			continue
-		//Don't let abstract types through
-		var/path = initial(trait.type)
-		if(path == /datum/plant_trait || path == /datum/plant_trait/fruit || path == /datum/plant_trait/body || path == /datum/plant_trait/roots || path == /datum/plant_trait/reagent)
 			continue
 		//Populate the random trait list, keyed by what type of feature the trait is compatible with
 		if(!random_traits["[initial(trait.plant_feature_compat)]"])

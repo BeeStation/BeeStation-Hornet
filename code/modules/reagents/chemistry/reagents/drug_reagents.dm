@@ -1,4 +1,5 @@
 /datum/reagent/drug
+	abstract_type = /datum/reagent/drug
 	name = "Drug"
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM

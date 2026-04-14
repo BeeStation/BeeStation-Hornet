@@ -1,4 +1,5 @@
 /datum/food_processor_process
+	abstract_type = /datum/food_processor_process
 	var/input
 	var/output
 	var/time = 40
@@ -92,6 +93,9 @@
 /datum/food_processor_process/parsnip
 	input = /obj/item/food/grown/parsnip
 	output = /obj/item/food/roastparsnip
+
+/datum/food_processor_process/mob
+	abstract_type = /datum/food_processor_process/mob
 
 /datum/food_processor_process/mob/slime
 	input = /mob/living/simple_animal/slime

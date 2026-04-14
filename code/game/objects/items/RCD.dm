@@ -10,6 +10,7 @@ RLD
 */
 
 /obj/item/construction
+	abstract_type = /obj/item/construction
 	name = "not for ingame use"
 	desc = "A device used to rapidly build and deconstruct. Reload with iron, plasteel, glass or compressed matter cartridges."
 	opacity = FALSE

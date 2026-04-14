@@ -124,6 +124,11 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
 
+
+/// The key used for sprite accessories that should never actually be applied to the player.
+#define SPRITE_ACCESSORY_NONE "None"
+
+
 //randomized elements
 #define RANDOM_ANTAG_ONLY 1
 #define RANDOM_DISABLED 2

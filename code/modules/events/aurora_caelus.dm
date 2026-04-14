@@ -29,15 +29,15 @@
 		set_starlight_colour(aurora_color, 5 SECONDS)
 
 /datum/round_event/aurora_caelus/end()
-	set_starlight_colour(color_lightness_max(SSparallax.random_parallax_color, 0.75), 30 SECONDS)
+	set_starlight_colour(color_lightness_max(SSparallax.random_parallax_color, 7.5), 30 SECONDS)
 	priority_announce("The aurora caelus event is now ending. Starlight conditions will slowly return to normal. When this has concluded, please return to your workplace and continue work as normal. Have a pleasant shift, [station_name()], and thank you for watching with us.",
 	sound = 'sound/misc/notice2.ogg',
 	sender_override = "Nanotrasen Meteorology Division")
 
 /datum/round_event/aurora_caelus/proc/play_sound_to_all_station_players()
-	for(var/V in GLOB.player_list)
-		var/mob/M = V
-		if(is_station_level(M.z))
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "star_gazing", /datum/mood_event/witnessed_starlight)
-			if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
-				M.playsound_local(M, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)
+	for(var/mob/M as anything in GLOB.player_list)
+		if(!is_station_level(M.z))
+			continue
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "star_gazing", /datum/mood_event/witnessed_starlight)
+		if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
+			M.playsound_local(M, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)

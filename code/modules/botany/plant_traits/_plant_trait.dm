@@ -1,12 +1,11 @@
 /datum/plant_trait
+	abstract_type = /datum/plant_trait
 	///Daddy-o, refers to the feature we belong to
 	var/datum/plant_feature/parent
 	///How much does this trait cost to use, in terms of genetic cost
 	var/genetic_cost = 1
 	///Can this trait appear as a random trait?
 	var/random_trait = TRUE
-	///Type path that represents our abstract type, this type is ommited from records
-	var/abstract_type = /datum/plant_trait
 //Identity
 	var/name = ""
 	var/desc = ""

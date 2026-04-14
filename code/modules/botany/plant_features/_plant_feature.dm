@@ -1,4 +1,6 @@
 /datum/plant_feature
+	abstract_type = /datum/plant_feature
+
 	///The 'scientific' name for our plant feature
 	var/species_name = "testus testium"
 	///The regular name
@@ -42,9 +44,6 @@
 
 	///What feature do we default to in the dictionary? leave blank for most cases. Only fill in for once in a case variants
 	var/dictionary_override
-
-	///Type path that represents our abstract type, this type is ommited from records
-	var/abstract_type = /datum/plant_feature
 
 //Appearance
 	var/icon = 'icons/obj/hydroponics/features/generic.dmi'

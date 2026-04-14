@@ -173,6 +173,7 @@
 	atom_storage.max_total_storage = 30
 
 /obj/item/abductor
+	abstract_type = /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/abductor_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'

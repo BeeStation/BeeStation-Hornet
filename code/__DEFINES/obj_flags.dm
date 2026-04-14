@@ -86,13 +86,15 @@
 #define SNUG_FIT (1<<9)
 /// For hats with an effect that shouldn't get knocked off ie finfoil
 #define EFFECT_HAT (1<<10)
+/// prevents from placing on plasmaman helmet or modsuit hat holder
+#define STACKABLE_HELMET_EXEMPT (1<<11)
 /// For masks, allows you to breathe from internals on adjacent tiles
-#define MASKEXTENDRANGE (1<<11)
+#define MASKEXTENDRANGE (1<<12)
 /// Moths cannot eat clothing with that flag
-#define NOTCONSUMABLE (1<<12)
-#define SURGICAL_TOOL (1<<20)
+#define NOTCONSUMABLE (1<<13)
+#define SURGICAL_TOOL (1<<14)
 /// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
-#define CASTING_CLOTHES (1<<13)
+#define CASTING_CLOTHES (1<<15)
 /// Headgear/helmet allows internals
 #define HEADINTERNALS (1<<18)
 /// noslip with only works if wearer is walking

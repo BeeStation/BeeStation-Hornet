@@ -1,4 +1,5 @@
 /datum/supply_pack
+	abstract_type = /datum/supply_pack
 	var/name = "Crate"
 	var/group = ""
 	var/hidden = FALSE
@@ -70,6 +71,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/emergency
+	abstract_type = /datum/supply_pack/emergency
 	group = "Emergency"
 
 /datum/supply_pack/emergency/vehicle
@@ -385,6 +387,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/security
+	abstract_type = /datum/supply_pack/security
 	group = "Security"
 	access = ACCESS_SECURITY
 	access_budget = ACCESS_SECURITY
@@ -1032,6 +1035,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/engineering
+	abstract_type = /datum/supply_pack/engineering
 	group = "Engineering"
 	crate_type = /obj/structure/closet/crate/engineering
 	access_budget = ACCESS_ENGINE
@@ -1379,6 +1383,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/engine
+	abstract_type = /datum/supply_pack/engine
 	group = "Engine Construction"
 	crate_type = /obj/structure/closet/crate/engineering
 	access_budget = ACCESS_ENGINE
@@ -1545,6 +1550,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/materials
+	abstract_type = /datum/supply_pack/materials
 	group = "Canisters & Materials"
 
 /datum/supply_pack/materials/cardboard50
@@ -1753,6 +1759,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/medical
+	abstract_type = /datum/supply_pack/medical
 	group = "Medical"
 	access_budget = ACCESS_MEDICAL
 	crate_type = /obj/structure/closet/crate/medical
@@ -2040,6 +2047,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/science
+	abstract_type = /datum/supply_pack/science
 	group = "Science"
 	access_budget = ACCESS_RESEARCH
 	crate_type = /obj/structure/closet/crate/science
@@ -2209,6 +2217,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/service
+	abstract_type = /datum/supply_pack/service
 	group = "Service"
 
 /datum/supply_pack/service/cargo_supples
@@ -2482,6 +2491,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/organic
+	abstract_type = /datum/supply_pack/organic
 	group = "Food & Hydroponics"
 	crate_type = /obj/structure/closet/crate/freezer
 
@@ -2828,6 +2838,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/critter
+	abstract_type = /datum/supply_pack/critter
 	group = "Livestock"
 	crate_type = /obj/structure/closet/crate/critter
 	max_supply = 4
@@ -3036,6 +3047,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/costumes_toys
+	abstract_type = /datum/supply_pack/costumes_toys
 	group = "Costumes & Toys"
 
 /datum/supply_pack/costumes_toys/randomised
@@ -3492,6 +3504,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/misc
+	abstract_type = /datum/supply_pack/misc
 	group = "Miscellaneous Supplies"
 
 /datum/supply_pack/misc/artsupply
