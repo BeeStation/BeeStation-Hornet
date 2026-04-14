@@ -1826,7 +1826,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 /// Proc used to handle the fullscreen overlay updates, realistically meant for the set_mob_eye_to(MOB_EYE_SELF) proc.
 /mob/living/proc/update_fullscreen()
-	if(client.eye && client.eye != src)
+	if(client?.eye && client.eye != src)
 		var/atom/client_eye = client.eye
 		client_eye.get_remote_view_fullscreens(src)
 	else
