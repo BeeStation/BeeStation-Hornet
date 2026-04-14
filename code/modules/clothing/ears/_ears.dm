@@ -1,6 +1,7 @@
 
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
+	abstract_type = /obj/item/clothing/ears
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0

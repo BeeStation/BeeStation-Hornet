@@ -1,5 +1,7 @@
 
 /datum/crafting_recipe
+	abstract_type = /datum/crafting_recipe
+
 	///in-game display name
 	/// in-game display name
 	/// Optional, if not set uses result name
@@ -56,6 +58,9 @@
 		tool_behaviors = string_list(tool_behaviors)
 	if(tool_paths)
 		tool_paths = string_list(tool_paths)
+
+/datum/crafting_recipe/stack
+	abstract_type = /datum/crafting_recipe/stack
 
 /datum/crafting_recipe/stack/New(obj/item/stack/material, datum/stack_recipe/stack_recipe)
 	if(!material || !stack_recipe || !stack_recipe.result_type)

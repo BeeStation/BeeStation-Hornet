@@ -1,4 +1,5 @@
 /obj/item/mecha_parts/mecha_equipment/weapon
+	abstract_type = /obj/item/mecha_parts/mecha_equipment/weapon
 	name = "mecha weapon"
 	range = MECHA_RANGED
 	equipment_slot = MECHA_WEAPON

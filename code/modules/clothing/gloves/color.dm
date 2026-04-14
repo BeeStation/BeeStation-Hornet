@@ -1,4 +1,5 @@
 /obj/item/clothing/gloves/color
+	abstract_type = /obj/item/clothing/gloves/color
 
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves provide protection against electric shock."
