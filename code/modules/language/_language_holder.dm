@@ -36,6 +36,8 @@ Key procs
 */
 
 /datum/language_holder
+	abstract_type = /datum/language_holder
+
 	/// Lazyassoclist of all understood languages
 	var/list/understood_languages
 	/// Lazyassoclist of languages that can be spoken.

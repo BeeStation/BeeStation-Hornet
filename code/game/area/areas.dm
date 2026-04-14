@@ -4,6 +4,7 @@
   * A grouping of tiles into a logical space, mostly used by map editors
   */
 /area
+	abstract_type = /area
 	name = "Space"
 	icon = 'icons/area/areas_misc.dmi'
 	icon_state = "unknown"

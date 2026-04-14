@@ -1,4 +1,5 @@
 /obj/item/clothing/glasses/hud
+	abstract_type = /obj/item/clothing/glasses/hud
 	name = "HUD"
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags_1 = null //doesn't protect eyes because it's a monocle, duh

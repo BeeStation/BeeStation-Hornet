@@ -12,6 +12,7 @@
  * Use enter_jaunt() and exit_jaunt() as wrappers.
  */
 /datum/action/spell/jaunt
+	abstract_type = /datum/action/spell/jaunt
 	school = SCHOOL_TRANSMUTATION
 
 	invocation_type = INVOCATION_NONE

@@ -1,5 +1,6 @@
 // Citrus - base type
 /obj/item/food/grown/citrus
+	abstract_type = /obj/item/food/grown/citrus
 	seed = /obj/item/seeds/lime
 	name = "citrus"
 	desc = "It's so sour, your face will twist."

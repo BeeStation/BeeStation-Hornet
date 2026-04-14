@@ -1,5 +1,6 @@
 //Glasses
 /obj/item/clothing/glasses
+	abstract_type = /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = WEIGHT_CLASS_SMALL
