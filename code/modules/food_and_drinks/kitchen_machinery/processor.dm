@@ -44,7 +44,7 @@
 
 /obj/machinery/processor/proc/select_recipe(input_item)
 	var/most_specific_type = /atom
-	for (var/datum/food_processor_process/recipe as anything in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
+	for (var/datum/food_processor_process/recipe as anything in valid_subtypesof(/datum/food_processor_process))
 		var/recipe_input = initial(recipe.input)
 		if (istype(src, initial(recipe.required_machine)) && istype(input_item, recipe_input) && ispath(recipe_input, most_specific_type))
 			most_specific_type = recipe_input

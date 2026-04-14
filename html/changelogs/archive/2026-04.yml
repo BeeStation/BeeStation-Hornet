@@ -110,7 +110,34 @@
       integration tests
   - server: the slowest unit tests are now displayed
 2026-04-12:
+  DrDuckedGoose:
+  - bugfix: Fixes robot eye lights trailing behind them near blind people
+  PowerfulBacon:
+  - code_imp: The UpdatePaths script now supports counters
   TsunamiAnt:
   - bugfix: Vampire Daylight notifications can now only appear if there are actually
       vampires present.
   - admin: Vampire Daylight notifications are now posted to deadchat, not adminlog.
+2026-04-13:
+  EvilDragonfiend:
+  - code_imp: refactored access system - now it is reliable on the SSdepartment subsystem.
+  - rscadd: centcom console now can edit station access + extra special access (*Bloodcult,
+      syndicate, away station, space police ship, etc)
+  - tweak: HoP console is slightly refactored - Job and Access order has been reworked,
+      and it follows SSdepartment's internal order.
+  - tweak: HoP door remote can now open cargo areas in addition to what it can open
+      already
+  - bugfix: Introducing ACCESS_SERVICE that has been in the game for years but never
+      had been a part of the access list
+  - tweak: Demote now works to everyone - it just changes their job name. For example,
+      if a CMO demotes Captain, they still keeps the access, and the job title just
+      becomes "Demoted". You will need to manually remove their access.
+  - tweak: Psychiatrist is now fully categorised in medical department.
+  - tweak: Stage Magician is now categorised in Service department.
+  MasonMiami:
+  - tweak: You can now use zero as a expression for the cost of loadout items.
+  rkz, Mothblocks:
+  - bugfix: moth preferences generate cleanly
+  - code_imp: splits init_possible_values() in preference code into a values return
+      and an icon image handler
+  - code_imp: nukes deprecated roundstart_ species feature lists

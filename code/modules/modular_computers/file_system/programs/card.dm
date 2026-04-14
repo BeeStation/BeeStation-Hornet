@@ -1,11 +1,3 @@
-#define CARDCON_DEPARTMENT_CIVILIAN "Civilian"
-#define CARDCON_DEPARTMENT_SECURITY "Security"
-#define CARDCON_DEPARTMENT_MEDICAL "Medical"
-#define CARDCON_DEPARTMENT_SUPPLY "Supply"
-#define CARDCON_DEPARTMENT_SCIENCE "Science"
-#define CARDCON_DEPARTMENT_ENGINEERING "Engineering"
-#define CARDCON_DEPARTMENT_COMMAND "Command"
-
 /datum/computer_file/program/card_mod
 	filename = "cardmod"
 	filedesc = "ID Card Modification"
@@ -24,74 +16,40 @@
 	var/is_centcom = FALSE
 	var/minor = FALSE
 	var/authenticated = FALSE
-	var/list/region_access
-	var/list/head_subordinates
+	var/accessible_region_bitflag = NONE
 	///Which departments this computer has access to. Defined as access regions. null = all departments
-	var/target_dept
-
-	//For some reason everything was exploding if this was static.
-	var/list/sub_managers
+	var/department_bitflag
 
 /datum/computer_file/program/card_mod/New(obj/item/modular_computer/comp)
 	. = ..()
-	sub_managers = list(
-		"[ACCESS_HOP]" = list(
-			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_COMMAND),
-			"region" = 1,
-			"head" = JOB_NAME_HEADOFPERSONNEL
-		),
-		"[ACCESS_HOS]" = list(
-			"department" = CARDCON_DEPARTMENT_SECURITY,
-			"region" = 2,
-			"head" = JOB_NAME_HEADOFSECURITY
-		),
-		"[ACCESS_CMO]" = list(
-			"department" = CARDCON_DEPARTMENT_MEDICAL,
-			"region" = 3,
-			"head" = JOB_NAME_CHIEFMEDICALOFFICER
-		),
-		"[ACCESS_RD]" = list(
-			"department" = CARDCON_DEPARTMENT_SCIENCE,
-			"region" = 4,
-			"head" = JOB_NAME_RESEARCHDIRECTOR
-		),
-		"[ACCESS_CE]" = list(
-			"department" = CARDCON_DEPARTMENT_ENGINEERING,
-			"region" = 5,
-			"head" = JOB_NAME_CHIEFENGINEER
-		)
-	)
 
-/datum/computer_file/program/card_mod/proc/authenticate(mob/user, obj/item/card/id/id_card)
-	if(!id_card)
+/datum/computer_file/program/card_mod/proc/authenticate(mob/user, obj/item/card/id/manager_card)
+	if(!manager_card)
 		return
 
-	region_access = list()
-	if(!target_dept && (ACCESS_CHANGE_IDS in id_card.access))
-		minor = FALSE
-		authenticated = TRUE
-		update_static_data(user)
-		return TRUE
-
-	var/list/head_types = list()
-	for(var/access_text in sub_managers)
-		var/list/info = sub_managers[access_text]
-		var/access = text2num(access_text)
-		if((access in id_card.access) && ((info["region"] in target_dept) || !length(target_dept)))
-			region_access |= info["region"]
-			//I don't even know what I'm doing anymore
-			head_types += info["head"]
-
-	head_subordinates = list()
-	if(length(head_types))
-		for(var/j in SSjob.occupations)
-			var/datum/job/job = j
-			for(var/head in head_types)//god why
-				if(head in job.department_head)
-					head_subordinates += job.title
-
-	if(length(region_access))
+	accessible_region_bitflag = NONE
+	authenticated = FALSE
+	if(ACCESS_CHANGE_IDS in manager_card.access)
+		if(department_bitflag)
+			minor = TRUE
+			accessible_region_bitflag |= department_bitflag
+		else
+			minor = FALSE
+			accessible_region_bitflag |= ALL
+	else
 		minor = TRUE
+		if((ACCESS_HOP in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
+			accessible_region_bitflag |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
+		if((ACCESS_HOS in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
+			accessible_region_bitflag |= DEPT_BITFLAG_SEC
+		if((ACCESS_CMO in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
+			accessible_region_bitflag |= DEPT_BITFLAG_MED
+		if((ACCESS_RD in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
+			accessible_region_bitflag |= DEPT_BITFLAG_SCI
+		if((ACCESS_CE in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
+			accessible_region_bitflag |= DEPT_BITFLAG_ENG
+
+	if(accessible_region_bitflag)
 		authenticated = TRUE
 		update_static_data(user)
 		return TRUE
@@ -166,9 +124,6 @@
 		if("PRG_terminate")
 			if(!authenticated)
 				return
-			if(minor)
-				if(!(target_id_card.assignment in head_subordinates) && target_id_card.assignment != JOB_NAME_ASSISTANT)
-					return
 
 			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
 			target_id_card.assignment = "Unassigned"
@@ -213,22 +168,18 @@
 					target_id_card.assignment = custom_name
 					target_id_card.update_label()
 			else
-				if(minor && !(target in head_subordinates))
+				if(minor)
 					return
 				var/datum/job/jobdatum
-				if(!is_centcom) // station level
-					jobdatum = SSjob.GetJob(target)
-					if(!jobdatum)
-						to_chat(usr, span_warning("No log exists for this job."))
-						stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
-						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
-						return
+				jobdatum = SSjob.GetJob(target)
+				if(!jobdatum)
+					to_chat(usr, span_warning("No log exists for this job."))
+					stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
+					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+					return
 
-					target_id_card.access -= get_all_accesses()
-					target_id_card.access |= jobdatum.get_access()
-				else // centcom level
-					target_id_card.access -= get_all_centcom_access()
-					target_id_card.access |= get_centcom_access(target)
+				target_id_card.access -= get_all_accesses()
+				target_id_card.access |= jobdatum.get_access()
 
 				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
 
@@ -243,26 +194,28 @@
 			if(!authenticated)
 				return
 			var/access_type = text2num(params["access_target"])
-			if(access_type in (is_centcom ? get_all_centcom_access() : get_all_accesses()))
-				if(access_type in target_id_card.access)
-					target_id_card.access -= access_type
-					log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-				else
-					target_id_card.access |= access_type
-					log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-				playsound(computer, "terminal_type", 50, FALSE)
-				return TRUE
+			if(!is_centcom && (access_type in get_all_centcom_admin_access()))
+				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
+				return
+			if(access_type in target_id_card.access)
+				target_id_card.access -= access_type
+				log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			else
+				target_id_card.access |= access_type
+				log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			playsound(computer, "terminal_type", 50, FALSE)
+			return TRUE
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access |= (is_centcom ? get_all_centcom_access() : get_all_accesses())
+			target_id_card.access |= (is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses())
 			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access.Cut()
+			target_id_card.access -= (is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses())
 			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -272,8 +225,9 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			target_id_card.access |= get_region_accesses(region)
-			log_id("[key_name(usr)] granted [get_region_accesses_name(region)] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
+			target_id_card.access |= dept_datum.access_list
+			log_id("[key_name(usr)] granted [dept_datum.access_group_name] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyregion")
@@ -282,8 +236,9 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			target_id_card.access -= get_region_accesses(region)
-			log_id("[key_name(usr)] removed [region] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
+			target_id_card.access -= dept_datum.access_list
+			log_id("[key_name(usr)] removed [dept_datum.access_group_name] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 
@@ -293,42 +248,33 @@
 	var/list/data = list()
 	data["station_name"] = station_name()
 	data["centcom_access"] = is_centcom
-	data["minor"] = target_dept || minor ? TRUE : FALSE
+	data["minor"] = department_bitflag || minor ? TRUE : FALSE
 
-	var/list/departments = target_dept
-	if(is_centcom)
-		departments = list("CentCom" = get_all_centcom_jobs())
-	else if(isnull(departments))
-		departments = list(
-			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),//lol
-			CARDCON_DEPARTMENT_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
-			CARDCON_DEPARTMENT_MEDICAL = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
-			CARDCON_DEPARTMENT_SCIENCE = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
-			CARDCON_DEPARTMENT_SECURITY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
-			CARDCON_DEPARTMENT_SUPPLY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
-			CARDCON_DEPARTMENT_CIVILIAN = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)
-		)
 	data["jobs"] = list()
-	for(var/department in departments)
-		var/list/job_list = departments[department]
+	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+		if(!length(each_dept.jobs) || each_dept.access_filter) // no centcom jobs in this code for now
+			continue
 		var/list/department_jobs = list()
-		for(var/job in job_list)
-			if(minor && !(job in head_subordinates))
+		for(var/each_job in each_dept.jobs)
+			if(each_job in SSjob.all_job_exceptions)
 				continue
 			department_jobs += list(list(
-				"display_name" = replacetext(job, "&nbsp", " "),
-				"job" = job
+				"display_name" = each_job,
+				"job" = each_job
 			))
 		if(length(department_jobs))
-			data["jobs"][department] = department_jobs
+			data["jobs"][each_dept.dept_name] = department_jobs
+
 
 	var/list/regions = list()
-	for(var/i in 1 to 7)
-		if((minor || target_dept) && !(i in region_access))
+	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+		if((minor || department_bitflag) && !(each_dept.dept_bitflag & accessible_region_bitflag))
+			continue
+		if(!length(each_dept.access_list) || (each_dept.access_filter && !is_centcom))
 			continue
 
 		var/list/accesses = list()
-		for(var/access in get_region_accesses(i))
+		for(var/access in each_dept.access_list)
 			if (get_access_desc(access))
 				accesses += list(list(
 					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
@@ -336,8 +282,8 @@
 				))
 
 		regions += list(list(
-			"name" = get_region_accesses_name(i),
-			"regid" = i,
+			"name" = each_dept.access_group_name,
+			"regid" = each_dept.dept_bitflag,
 			"accesses" = accesses
 		))
 
@@ -375,13 +321,3 @@
 		data["access_on_card"] = id_card.access
 
 	return data
-
-
-
-#undef CARDCON_DEPARTMENT_CIVILIAN
-#undef CARDCON_DEPARTMENT_SECURITY
-#undef CARDCON_DEPARTMENT_MEDICAL
-#undef CARDCON_DEPARTMENT_SCIENCE
-#undef CARDCON_DEPARTMENT_SUPPLY
-#undef CARDCON_DEPARTMENT_ENGINEERING
-#undef CARDCON_DEPARTMENT_COMMAND

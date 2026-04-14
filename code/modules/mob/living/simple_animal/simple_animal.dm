@@ -1,4 +1,5 @@
 /mob/living/simple_animal
+	abstract_type = /mob/living/simple_animal
 	name = "animal"
 	icon = 'icons/mob/animal.dmi'
 	health = 20

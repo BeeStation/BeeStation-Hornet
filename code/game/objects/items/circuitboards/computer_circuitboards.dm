@@ -1,4 +1,5 @@
 /obj/item/circuitboard/computer
+	abstract_type = /obj/item/circuitboard/computer
 	name_extension = "(Computer Board)"
 
 //Command boards
@@ -32,17 +33,28 @@
 	name = "Department Management Console"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/card/minor
-	var/target_dept = 1
-	var/list/dept_list = list("General","Security","Medical","Science","Engineering")
+	var/counting = 1
+	var/list/dept_list = list(
+		NONE, // This means ALL department - don't be scared.
+		DEPT_BITFLAG_SEC,
+		DEPT_BITFLAG_MED,
+		DEPT_BITFLAG_SCI,
+		DEPT_BITFLAG_ENG)
+	var/list/dept_list_name = list(
+		"General",
+		"Security",
+		"Medical",
+		"Science",
+		"Engineering")
 
 /obj/item/circuitboard/computer/card/minor/screwdriver_act(mob/living/user, obj/item/tool)
-	target_dept = (target_dept == length(dept_list)) ? 1 : (target_dept + 1)
-	to_chat(user, span_notice("You set the board to \"[dept_list[target_dept]]\"."))
+	counting = (counting == length(dept_list)) ? 1 : (counting + 1)
+	to_chat(user, span_notice("You set the board to \"[dept_list_name[counting]]\"."))
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/item/circuitboard/computer/card/minor/examine(user)
 	. = ..()
-	. += span_info("Currently set to \"[dept_list[target_dept]]\".")
+	. += span_info("Currently set to \"[dept_list[counting]]\".")
 
 /obj/item/circuitboard/computer/communications
 	name = "Communications Console"

@@ -1,5 +1,6 @@
 
 /obj/item/organ/cyberimp
+	abstract_type = /obj/item/organ/cyberimp
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
 	visual = FALSE

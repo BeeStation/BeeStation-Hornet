@@ -4,6 +4,7 @@
 // Circuitboard
 
 /obj/item/circuitboard
+	abstract_type = /obj/item/circuitboard
 	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"
@@ -64,6 +65,7 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 */
 
 /obj/item/circuitboard/machine
+	abstract_type = /obj/item/circuitboard/machine
 	name_extension = "(Machine Board)"
 	/// Whether this machine must be anchored to be constructed.
 	var/needs_anchored = TRUE

@@ -8,6 +8,8 @@
  * DO NOT REFERENCE OUTSIDE OF SSRESEARCH OR YOU WILL FUCK UP GC.
  */
 /datum/techweb_node
+	abstract_type = /datum/techweb_node
+
 	/// Internal ID of the node
 	var/id
 	/// The tech tier of the node.
