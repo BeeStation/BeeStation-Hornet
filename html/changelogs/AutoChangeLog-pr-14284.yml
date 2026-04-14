@@ -1,5 +1,0 @@
-author: vinylspiders
-delete-after: true
-changes:
-  - bugfix: fixed a bunch of improper static list declarations
-  - server: added a grep check for var/list/static declarations

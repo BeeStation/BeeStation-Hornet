@@ -146,3 +146,6 @@
   - code_imp: abstract_type is now implemented on the /datum level instead of being
       scattered across several typepaths
   - bugfix: fixed the genetics bounty not rolling
+  vinylspiders:
+  - bugfix: fixed a bunch of improper static list declarations
+  - server: added a grep check for var/list/static declarations
