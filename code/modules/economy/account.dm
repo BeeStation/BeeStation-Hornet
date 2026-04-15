@@ -24,6 +24,10 @@
 	/// Used for special accounts like the Captain's Spare and CC stuff etc.
 	var/immutable = FALSE
 
+	/// If TRUE, this account is hidden from station management consoles.
+	/// Can be toggled by emagging a linked ID card.
+	var/hidden = FALSE
+
 	/// active department will sell things for free
 	var/active_departments = NONE
 	/// payment from each department.

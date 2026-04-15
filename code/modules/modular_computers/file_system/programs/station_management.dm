@@ -193,6 +193,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		// Skip department/budget accounts
 		if(istype(account, /datum/bank_account/department))
 			continue
+		// Skip hidden accounts (emagged cards hide their account from management)
+		if(account.hidden)
+			continue
 		accounts += list(list(
 			"name" = account.account_holder,
 			"ref" = REF(account),

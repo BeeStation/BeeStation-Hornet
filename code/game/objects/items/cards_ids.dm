@@ -200,6 +200,7 @@
 
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
 	var/electric = TRUE  // removes account info from examine
+	emag_toggleable = TRUE
 
 /datum/armor/card_id
 	fire = 100
@@ -218,6 +219,23 @@
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
 	return ..()
+
+/obj/item/card/id/should_emag(mob/user)
+	if(!registered_account)
+		return FALSE
+	return TRUE // always allow toggling
+
+/obj/item/card/id/on_emag(mob/user)
+	. = ..()
+	if(!registered_account)
+		return
+	registered_account.hidden = !registered_account.hidden
+	if(registered_account.hidden)
+		to_chat(user, span_notice("You scramble [src]'s account routing data. The linked account is now hidden from station management systems."))
+		playsound(src, 'sound/machines/terminal_alert.ogg', 25, TRUE)
+	else
+		to_chat(user, span_notice("You restore [src]'s account routing data. The linked account is now visible to station management systems."))
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 25, TRUE)
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
 	if(jobname)
@@ -902,6 +920,25 @@ update_label("John Doe", "Clowny")
 	var/points = 0
 	var/permanent = FALSE
 	hud_state = JOB_HUD_PRISONER
+
+/obj/item/card/id/gulag/Initialize(mapload)
+	. = ..()
+	// Create an immutable bank account for gulag prisoner cards so they always have a linked account
+	// that cannot be modified through station management.
+	var/datum/bank_account/remote/prisoner_account = new("Imprisoned: [registered_name || "Prisoner"]")
+	prisoner_account.immutable = TRUE
+	prisoner_account.bank_cards += src
+	registered_account = prisoner_account
+
+/obj/item/card/id/gulag/Destroy()
+	if(registered_account)
+		registered_account.bank_cards -= src
+		qdel(registered_account)
+	return ..()
+
+/obj/item/card/id/gulag/set_new_account(mob/living/user)
+	to_chat(user, span_warning("Prisoner ID cards cannot have their account reassigned."))
+	return FALSE
 
 /obj/item/card/id/gulag/examine(mob/user)
 	. = ..()

@@ -718,10 +718,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 			registered_name = _name
 		update_label(registered_name, "Convict")
 		START_PROCESSING(SSobj, src)
+	// Create an immutable bank account for this prisoner card so it always has a linked account
+	// that cannot be modified through station management.
+	var/datum/bank_account/prisoner_account = new("Imprisoned: [registered_name || "Prisoner"]", null, list(ACCESS_PRISONER))
+	prisoner_account.immutable = TRUE
+	prisoner_account.bank_cards += src
+	registered_account = prisoner_account
 
 /obj/item/card/id/prisoner/Destroy()
+	if(registered_account)
+		registered_account.bank_cards -= src
+		qdel(registered_account)
 	GLOB.prisoner_ids -= src
 	. = ..()
+
+/obj/item/card/id/prisoner/set_new_account(mob/living/user)
+	to_chat(user, span_warning("Prisoner ID cards cannot have their account reassigned."))
+	return FALSE
 
 /obj/item/card/id/prisoner/examine(mob/user)
 	. = ..()
