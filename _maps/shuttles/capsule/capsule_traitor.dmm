@@ -22,8 +22,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/centcom{
-	name = "Shuttle Airlock";
-	req_access_txt = ""
+	name = "Shuttle Airlock"
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
@@ -201,8 +200,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/centcom{
-	name = "Shuttle Airlock";
-	req_access_txt = ""
+	name = "Shuttle Airlock"
 	},
 /obj/docking_port/mobile{
 	dir = 8;

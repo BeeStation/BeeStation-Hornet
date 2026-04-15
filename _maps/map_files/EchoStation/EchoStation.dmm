@@ -32141,9 +32141,9 @@
 /area/station/hallway/secondary/service)
 "rYO" = (
 /obj/machinery/door/airlock/atmos{
-	name = "atmospherics Storage";
-	req_access = "11"
+	name = "atmospherics Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment,
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},

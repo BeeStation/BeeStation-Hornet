@@ -235,7 +235,6 @@
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "9;30"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/medical/genetics , /obj/effect/mapping_helpers/airlock/access/any/science/rd
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "9;5"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/medical/genetics , /obj/effect/mapping_helpers/airlock/access/any/medical/general
 
-
 # manual conversions
 
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "null"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
@@ -255,3 +254,11 @@
 /obj/machinery/door/airlock/@SUBTYPES{req_access = 0} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access=@SKIP}
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = 0} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access = 0} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access=@SKIP}
+
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = ""} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = ""} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
+
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = 5} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/medical
+/obj/machinery/door/airlock/@SUBTYPES{req_access = 207} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/away/generic3
+/obj/machinery/door/airlock/@SUBTYPES{req_access = "24"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos
+/obj/machinery/door/airlock/@SUBTYPES{req_access = "11"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment

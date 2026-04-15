@@ -35476,9 +35476,9 @@
 /area/station/service/janitor)
 "mmj" = (
 /obj/machinery/door/airlock/atmos{
-	name = "atmospherics Storage";
-	req_access = "24"
+	name = "atmospherics Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
@@ -63735,9 +63735,9 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/medical{
-	name = "Psychologist";
-	req_access_txt = 5
+	name = "Psychologist"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
