@@ -1179,7 +1179,6 @@
 		"cargorequest",
 		"comconsole",
 		"crewconsole",
-		"idcardconsole",
 		"libraryconsole",
 		"mining",
 		"photobooth",
