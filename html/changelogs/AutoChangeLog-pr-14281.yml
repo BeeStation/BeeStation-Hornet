@@ -1,7 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed space tiles not properly having their lighting updated when built
-      on top of
-  - bugfix: Fixed holofloors and shuttles having weird lighting
-  - bugfix: Fixed some issues with area luminosity
