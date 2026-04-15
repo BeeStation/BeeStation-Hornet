@@ -116,9 +116,8 @@
 "jP" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "kh" = (
@@ -464,9 +463,8 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/door/airlock/grunge{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/grunge,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "yq" = (

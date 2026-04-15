@@ -6,6 +6,7 @@
 // where all the reagents related to medicine go.
 
 /datum/reagent/medicine
+	abstract_type = /datum/reagent/medicine
 	name = "Medicine"
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "bitterness"

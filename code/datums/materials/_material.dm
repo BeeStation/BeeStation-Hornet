@@ -6,6 +6,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 
 
 /datum/material
+	abstract_type = /datum/material
 	var/name = "material"
 	var/desc = "its..stuff."
 	///Base color of the material, is used for greyscale. Item isn't changed in color if this is null.

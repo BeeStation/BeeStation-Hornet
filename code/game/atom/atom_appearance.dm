@@ -34,6 +34,9 @@
 	if (ismovable(src))
 		UPDATE_OO_IF_PRESENT
 
+	//Reset our blind_appearance whenever we update our appearance so it gets rebuilt *when* and only when it's called to action
+	blind_appearance = null
+
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)

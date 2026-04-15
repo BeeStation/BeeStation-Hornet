@@ -1,7 +1,7 @@
 /datum/dynamic_ruleset/supplementary
+	abstract_type = /datum/dynamic_ruleset/supplementary
 	rule_category = DYNAMIC_CATEGORY_SUPPLEMENTARY
 	ruleset_flags = SHOULD_USE_ANTAG_REP
-	abstract_type = /datum/dynamic_ruleset/supplementary
 	minimum_players_required = 3
 	/// The percentage (0 to 100) chance that this ruleset will be repicked
 	/// when selected, assuming there are cost points available.

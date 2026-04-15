@@ -30,14 +30,11 @@
 	// important characters always have colourful hair
 	if (unique)
 		H.hair_color = "#[random_color()]"
-		H.facial_hair_color = H.hair_color
-		var/list/rgb_list = rgb2num(H.hair_color)
-		var/list/hsl = rgb2hsl(rgb_list[1], rgb_list[2], rgb_list[3])
+		var/list/hsl = rgb2num(H.hair_color, COLORSPACE_HSL)
 		hsl[1] = CLAMP01(hsl[1] + (rand(-6, 6)/360))
 		hsl[2] = CLAMP01(hsl[2] + (rand(-4, 4)/100))
 		hsl[3] = CLAMP01(hsl[3] + (rand(-2, 2)/100))
-		rgb_list = hsl2rgb(hsl[1], hsl[2], hsl[3])
-		H.gradient_color = copytext(rgb(rgb_list[1], rgb_list[2], rgb_list[3]), 2)
+		H.gradient_color = rgb(hsl[1], hsl[2], hsl[3], space = COLORSPACE_HSL)
 	else
 		// Copy the behaviour of the preferences selection
 		// Hair colour
@@ -58,8 +55,8 @@
 					H.gradient_color = pick(GLOB.secondary_dye_hair_colours)
 				else
 					H.gradient_color = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
-		// Facial hair colour
-		H.facial_hair_color = H.hair_color
+	// Facial hair colour
+	H.facial_hair_color = H.hair_color
 	var/datum/sprite_accessory/gradient_style = pick_default_accessory(GLOB.hair_gradients_list, required_gender = H.gender)
 	H.gradient_style = gradient_style.name
 
@@ -72,9 +69,9 @@
 	H.dna.features["frills"] = pick(GLOB.frills_list)
 	H.dna.features["spines"] = pick(GLOB.spines_list)
 	H.dna.features["body_markings"] = pick(GLOB.body_markings_list)
-	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_roundstart_list)
-	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_roundstart_list)
-	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_roundstart_list)
+	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_list)
+	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_list)
+	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_list)
 	H.dna.features["apid_antenna"] = pick(GLOB.apid_antenna_list)
 	H.dna.features["apid_stripes"] = pick(GLOB.apid_stripes_list)
 	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)

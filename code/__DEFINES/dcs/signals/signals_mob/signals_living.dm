@@ -97,6 +97,9 @@
 ///from end of fully_heal(): (heal_flags)
 #define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
 
+///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)
+#define COMSIG_LIVING_SLAPPED "living_slapped"
+
 #define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
 
 #define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
@@ -185,6 +188,8 @@
 #define COMSIG_MOB_PRE_EAT "mob_pre_eat"
 	///cancel eating attempt
 	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+/// From mob/living/proc/on_fall
+#define COMSIG_LIVING_THUD "living_thud"
 
 /// From /datum/element/basic_eating/finish_eating()
 #define COMSIG_MOB_ATE "mob_ate"

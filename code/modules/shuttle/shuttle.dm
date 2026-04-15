@@ -596,7 +596,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 // Called after the shuttle is loaded from template
 /obj/docking_port/mobile/proc/linkup(datum/map_template/shuttle/template, obj/docking_port/stationary/dock)
-	var/list/static/shuttle_id = list()
+	var/static/list/shuttle_id = list()
 	var/idnum = ++shuttle_id[template]
 	if(idnum > 1)
 		if(id == initial(id))
