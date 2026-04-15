@@ -36,10 +36,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
-"aA" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "aD" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/landmark/start/assistant,
@@ -80,16 +76,6 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
-/area/template_noop)
-"bg" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/mob/living/basic/pet/cat{
-	desc = "He demands you let him sleep";
-	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
-	},
-/turf/open/floor/wood,
 /area/template_noop)
 "bj" = (
 /obj/item/grown/log/tree,
@@ -135,13 +121,6 @@
 	},
 /obj/structure/table/wood,
 /turf/open/floor/wood,
-/area/template_noop)
-"bK" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "bP" = (
 /obj/machinery/power/smes,
@@ -720,6 +699,13 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"kg" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "ki" = (
 /obj/item/clothing/head/beanie/waldo,
@@ -1433,22 +1419,6 @@
 	},
 /obj/structure/sign/warning/securearea,
 /turf/open/floor/plating/grass,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/turf/open/floor/wood,
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -2334,6 +2304,14 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"Kn" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/iron,
+/area/template_noop)
 "Kt" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2596,14 +2574,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/template_noop)
-"Oy" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/iron,
 /area/template_noop)
 "OI" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2876,6 +2846,22 @@
 	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
+"Sk" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/turf/open/floor/wood,
+/area/template_noop)
 "Sx" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/railing/corner{
@@ -2991,6 +2977,10 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"TS" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "Ua" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -3299,6 +3289,16 @@
 /turf/open/floor/plating/beach/water{
 	dir = 1
 	},
+/area/template_noop)
+"XZ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/mob/living/basic/pet/cat{
+	desc = "He demands you let him sleep";
+	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
+	},
+/turf/open/floor/wood,
 /area/template_noop)
 "Yc" = (
 /obj/structure/fence,
@@ -6804,9 +6804,9 @@ gf
 gf
 gf
 Kg
-bK
-aA
-aA
+kg
+TS
+TS
 Mg
 Mg
 Mg
@@ -6938,9 +6938,9 @@ gf
 bj
 PO
 FH
-bK
+kg
 yW
-aA
+TS
 Mg
 Mg
 Mg
@@ -7072,9 +7072,9 @@ gf
 gf
 gf
 FH
-bK
-aA
-aA
+kg
+TS
+TS
 Mg
 Mg
 Mg
@@ -7473,7 +7473,7 @@ gf
 tf
 sV
 gf
-wk
+Sk
 Du
 DS
 Mg
@@ -7607,7 +7607,7 @@ gf
 gf
 gf
 gf
-bg
+XZ
 Du
 Mg
 Mg
@@ -11675,7 +11675,7 @@ yb
 xu
 Jo
 tC
-Oy
+Kn
 yb
 xu
 Me

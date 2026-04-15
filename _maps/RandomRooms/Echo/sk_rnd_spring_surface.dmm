@@ -485,10 +485,6 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
-"gJ" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "gL" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -797,6 +793,10 @@
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
+"lg" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "li" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -943,6 +943,22 @@
 	dir = 8
 	},
 /turf/open/floor/plating/beach/water,
+/area/template_noop)
+"nk" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/turf/open/floor/wood,
 /area/template_noop)
 "nn" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -1433,22 +1449,6 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/turf/open/floor/wood,
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -2199,6 +2199,13 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
+"Hs" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "Ht" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/post{
@@ -2531,6 +2538,14 @@
 /obj/item/storage/bag/trash,
 /turf/open/floor/iron,
 /area/template_noop)
+"MP" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/iron,
+/area/template_noop)
 "MT" = (
 /obj/structure/closet/crate/science,
 /obj/effect/turf_decal/stripes/line{
@@ -2603,13 +2618,6 @@
 /obj/structure/fence,
 /turf/open/floor/plating/dirt/jungle/wasteland,
 /area/template_noop)
-"NT" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "Og" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /turf/open/floor/plating/dirt/planetary,
@@ -2621,14 +2629,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/template_noop)
-"Oy" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/iron,
 /area/template_noop)
 "OI" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3107,16 +3107,6 @@
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
-"Vt" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/mob/living/basic/pet/cat{
-	desc = "He demands you let him sleep";
-	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
-	},
-/turf/open/floor/wood,
-/area/template_noop)
 "Vv" = (
 /obj/structure/fence/corner{
 	dir = 1
@@ -3304,6 +3294,16 @@
 /turf/open/floor/plating/beach/water{
 	dir = 1
 	},
+/area/template_noop)
+"XZ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/mob/living/basic/pet/cat{
+	desc = "He demands you let him sleep";
+	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
+	},
+/turf/open/floor/wood,
 /area/template_noop)
 "Yc" = (
 /obj/structure/fence,
@@ -6804,9 +6804,9 @@ gf
 gf
 gf
 Kg
-NT
-gJ
-gJ
+Hs
+lg
+lg
 IM
 IM
 IM
@@ -6938,9 +6938,9 @@ gf
 bj
 PO
 FH
-NT
+Hs
 yW
-gJ
+lg
 IM
 IM
 IM
@@ -7072,9 +7072,9 @@ gf
 gf
 gf
 FH
-NT
-gJ
-gJ
+Hs
+lg
+lg
 IM
 IM
 IM
@@ -7473,7 +7473,7 @@ gf
 tf
 sV
 gf
-wk
+nk
 Du
 DS
 IM
@@ -7607,7 +7607,7 @@ gf
 gf
 gf
 gf
-Vt
+XZ
 Du
 IM
 IM
@@ -11675,7 +11675,7 @@ yb
 iU
 Jo
 tC
-Oy
+MP
 yb
 iU
 Me

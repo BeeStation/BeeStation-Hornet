@@ -253,21 +253,6 @@
 /mob/living/simple_animal/pet/penguin/baby,
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/template_noop)
-"dQ" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/mob/living/basic/pet/cat{
-	desc = "He demands you let him sleep";
-	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6
-	},
-/turf/open/floor/wood{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
-/area/template_noop)
 "dR" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
@@ -853,8 +838,25 @@
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "lF" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/asteroid/snow/planetary,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/wood{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
 /area/template_noop)
 "lI" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -1413,16 +1415,6 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/template_noop)
-"tY" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid/snow/planetary,
-/area/template_noop)
 "uh" = (
 /obj/item/plate,
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -1535,27 +1527,6 @@
 	},
 /obj/structure/sign/warning/securearea,
 /turf/open/floor/plating/asteroid/snow/planetary,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10
-	},
-/turf/open/floor/wood{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -1755,6 +1726,16 @@
 /area/template_noop)
 "yT" = (
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing,
+/turf/open/floor/plating/asteroid/snow/planetary,
+/area/template_noop)
+"yU" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "yW" = (
@@ -2021,6 +2002,13 @@
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
+/area/template_noop)
+"Cy" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/open/floor/iron,
 /area/template_noop)
 "CF" = (
 /obj/effect/turf_decal/delivery,
@@ -2294,6 +2282,10 @@
 	dir = 4
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
+/area/template_noop)
+"FO" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "FP" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -2812,13 +2804,6 @@
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
-/area/template_noop)
-"Oy" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/iron,
 /area/template_noop)
 "OD" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3546,6 +3531,21 @@
 	pixel_y = -23
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
+/area/template_noop)
+"XZ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/mob/living/basic/pet/cat{
+	desc = "He demands you let him sleep";
+	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/wood{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
 /area/template_noop)
 "Yb" = (
 /turf/open/floor/glass/reinforced{
@@ -7063,9 +7063,9 @@ gf
 gf
 gf
 Kg
-tY
-lF
-lF
+yU
+FO
+FO
 XB
 XB
 XB
@@ -7197,9 +7197,9 @@ gf
 bj
 PO
 FH
-tY
+yU
 yW
-lF
+FO
 XB
 XB
 XB
@@ -7331,9 +7331,9 @@ gf
 gf
 gf
 FH
-tY
-lF
-lF
+yU
+FO
+FO
 XB
 XB
 XB
@@ -7732,7 +7732,7 @@ gf
 tf
 sV
 gf
-wk
+lF
 Du
 DS
 XB
@@ -7866,7 +7866,7 @@ gf
 gf
 gf
 gf
-dQ
+XZ
 Du
 XB
 XB
@@ -11934,7 +11934,7 @@ to
 hw
 Jo
 Av
-Oy
+Cy
 yb
 yb
 Me

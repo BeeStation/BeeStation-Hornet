@@ -429,16 +429,6 @@
 	slowdown = 0
 	},
 /area/template_noop)
-"gr" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/mob/living/basic/pet/cat{
-	desc = "He demands you let him sleep";
-	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
-	},
-/turf/open/floor/wood,
-/area/template_noop)
 "gs" = (
 /obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/structure/frame,
@@ -1361,10 +1351,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
-"vG" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "vH" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/cable{
@@ -1401,22 +1387,6 @@
 "wi" = (
 /obj/structure/railing,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/turf/open/floor/wood,
 /area/template_noop)
 "wl" = (
 /obj/structure/bonfire/prelit,
@@ -2075,13 +2045,6 @@
 	},
 /turf/open/floor/plating/beach/water,
 /area/template_noop)
-"Gb" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "Gi" = (
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
@@ -2228,6 +2191,10 @@
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"IO" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "IZ" = (
 /obj/effect/turf_decal/sand/plating,
@@ -2552,14 +2519,6 @@
 	slowdown = 0
 	},
 /area/template_noop)
-"Oy" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/iron,
-/area/template_noop)
 "OD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2575,6 +2534,14 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"OJ" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/iron,
 /area/template_noop)
 "OR" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2853,6 +2820,22 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"SY" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/turf/open/floor/wood,
+/area/template_noop)
 "SZ" = (
 /obj/item/beacon{
 	pixel_y = 3
@@ -3087,6 +3070,13 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"VR" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "VS" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -3230,6 +3220,16 @@
 	dir = 8
 	},
 /turf/open/floor/plating/grass,
+/area/template_noop)
+"XZ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/mob/living/basic/pet/cat{
+	desc = "He demands you let him sleep";
+	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
+	},
+/turf/open/floor/wood,
 /area/template_noop)
 "Yc" = (
 /obj/structure/fence,
@@ -6730,9 +6730,9 @@ gf
 gf
 gf
 Kg
-Gb
-vG
-vG
+VR
+IO
+IO
 yT
 yT
 yT
@@ -6864,9 +6864,9 @@ gf
 bj
 PO
 HX
-Gb
+VR
 yW
-vG
+IO
 yT
 yT
 yT
@@ -6998,9 +6998,9 @@ gf
 gf
 gf
 HX
-Gb
-vG
-vG
+VR
+IO
+IO
 yT
 yT
 yT
@@ -7399,7 +7399,7 @@ gf
 tf
 sV
 gf
-wk
+SY
 Du
 DS
 yT
@@ -7533,7 +7533,7 @@ gf
 gf
 gf
 gf
-gr
+XZ
 Du
 yT
 yT
@@ -11601,7 +11601,7 @@ to
 yb
 Jo
 tC
-Oy
+OJ
 to
 yb
 Me

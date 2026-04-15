@@ -10,6 +10,15 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
+"f" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Public Garden Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/template_noop,
+/area/template_noop)
 "g" = (
 /obj/structure/sink{
 	dir = 8;
@@ -45,6 +54,10 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
+"n" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/grass,
+/area/template_noop)
 "p" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/bucket,
@@ -57,7 +70,42 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
-"q" = (
+"t" = (
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"u" = (
+/obj/machinery/seeder,
+/turf/open/floor/iron,
+/area/template_noop)
+"v" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"w" = (
+/obj/structure/table,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron,
+/area/template_noop)
+"A" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"D" = (
 /obj/structure/table,
 /obj/item/plant_scanner,
 /obj/item/plant_scanner,
@@ -76,47 +124,13 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
-"t" = (
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/template_noop)
-"v" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
-/turf/open/floor/iron,
-/area/template_noop)
-"w" = (
-/obj/structure/table,
-/obj/item/storage/bag/plants/portaseeder,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/iron,
-/area/template_noop)
-"x" = (
-/obj/machinery/seeder,
-/turf/open/floor/iron,
-/area/template_noop)
-"z" = (
+"F" = (
 /obj/item/plant_tray/soil,
 /obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/grass,
-/area/template_noop)
-"A" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/grass,
 /area/template_noop)
 "G" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -124,15 +138,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
-/area/template_noop)
-"J" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Public Garden Maintenance";
-	req_access_txt = "12"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/template_noop,
 /area/template_noop)
 "K" = (
 /obj/structure/table,
@@ -143,15 +148,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
-"M" = (
-/obj/item/plant_tray/soil,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/grass,
-/area/template_noop)
-"O" = (
+"P" = (
 /obj/machinery/light{
 	dir = 8
 	},
@@ -169,8 +166,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
-"R" = (
+"Q" = (
 /obj/item/plant_tray/soil,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/grass,
 /area/template_noop)
 "U" = (
@@ -185,22 +183,24 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/grid/steel,
 /area/template_noop)
-"Y" = (
+"Z" = (
 /obj/item/plant_tray/soil,
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 
 (1,1,1) = {"
 U
 g
-O
+P
 w
-q
+D
 K
 p
-Y
-M
+Q
+F
 a
 "}
 (2,1,1) = {"
@@ -213,7 +213,7 @@ d
 d
 d
 i
-J
+f
 "}
 (3,1,1) = {"
 W
@@ -229,14 +229,14 @@ a
 "}
 (4,1,1) = {"
 U
-R
-z
-R
-x
+n
+Z
+n
+u
 h
 v
-R
-z
+n
+Z
 a
 "}
 (5,1,1) = {"

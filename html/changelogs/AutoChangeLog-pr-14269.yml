@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - refactor: All airlocks across all maps have been refactored to use their mapping
+      access helpers and no longer have var-edited access
