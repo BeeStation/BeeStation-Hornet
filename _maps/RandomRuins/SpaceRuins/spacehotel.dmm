@@ -797,9 +797,9 @@
 /area/ruin/space/has_grav/hotel)
 "cK" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -1449,9 +1449,9 @@
 /area/ruin/space/has_grav/hotel)
 "eN" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "eO" = (
@@ -1567,9 +1567,10 @@
 /area/ruin/space/has_grav/hotel/bar)
 "fj" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "200,201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/bar)
 "fk" = (
@@ -2241,9 +2242,10 @@
 /area/ruin/space/has_grav/hotel/workroom)
 "hI" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "200,201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/bar)
@@ -2335,9 +2337,10 @@
 /area/ruin/space/has_grav/hotel/power)
 "id" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Power Storage";
-	req_access_txt = "200,201"
+	name = "Power Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -2900,9 +2903,10 @@
 /area/ruin/space/has_grav/hotel/power)
 "kI" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Air Supply";
-	req_access_txt = "200,201"
+	name = "Air Supply"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/power)
@@ -3215,9 +3219,10 @@
 /area/ruin/space/has_grav/hotel/pool)
 "mx" = (
 /obj/machinery/door/airlock{
-	name = "Custodial Closet";
-	req_access_txt = "200,201"
+	name = "Custodial Closet"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -3241,9 +3246,9 @@
 /area/ruin/space/has_grav/hotel)
 "mA" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -4179,9 +4184,10 @@
 /area/ruin/space/has_grav/hotel/security)
 "Pc" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Power Storage";
-	req_access_txt = "200,201"
+	name = "Power Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},

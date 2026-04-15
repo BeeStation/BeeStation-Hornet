@@ -50845,9 +50845,10 @@
 /area/station/maintenance/central)
 "ldd" = (
 /obj/machinery/door/airlock/external{
-	normalspeed = 0;
-	req_access_txt = "47,13"
+	normalspeed = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
@@ -86202,9 +86203,10 @@
 /area/station/medical/medbay/central)
 "sOB" = (
 /obj/machinery/door/airlock/external{
-	normalspeed = 0;
-	req_access_txt = "47,13"
+	normalspeed = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
