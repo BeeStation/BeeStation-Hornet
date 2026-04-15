@@ -1167,7 +1167,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
-////////////////////////Computer tech////////////////////////
+////////////////////////Computer tech///////////////////////
 /datum/techweb_node/comptech
 	id = "comptech"
 	tech_tier = 1
