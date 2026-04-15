@@ -1,6 +1,7 @@
 //Alphabetical order of civilian jobs.
 
 /obj/item/clothing/under/rank/civilian
+	abstract_type = /obj/item/clothing/under/rank/civilian
 	icon = 'icons/obj/clothing/under/civilian.dmi'
 	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
 

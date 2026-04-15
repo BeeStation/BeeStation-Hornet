@@ -128,9 +128,9 @@
 /area/ruin/unpowered)
 "V" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured Door";
-	req_access = 207
+	name = "secured Door"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/generic3,
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"

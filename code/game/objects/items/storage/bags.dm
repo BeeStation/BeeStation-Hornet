@@ -20,6 +20,7 @@
 
 //  Generic non-item
 /obj/item/storage/bag
+	abstract_type = /obj/item/storage/bag
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/bag/Initialize(mapload)

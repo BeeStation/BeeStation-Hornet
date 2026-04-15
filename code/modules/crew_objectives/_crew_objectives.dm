@@ -30,6 +30,7 @@
 		to_chat(src, "<B>Your objective:</B> [newObjective.explanation_text]")
 
 /datum/objective/crew
+	abstract_type = /datum/objective/crew
 	// Used for showing the roundend report again, instead of checking complete every time it's opened.
 	var/declared_complete = FALSE
 	// List or string of JOB_NAME defines that this applies to.

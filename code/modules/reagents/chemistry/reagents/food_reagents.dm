@@ -8,6 +8,7 @@
 
 
 /datum/reagent/consumable
+	abstract_type = /datum/reagent/consumable
 	name = "Consumable"
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "generic food"

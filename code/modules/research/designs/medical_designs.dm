@@ -669,6 +669,7 @@
 ///Surgery Designs///
 /////////////////////
 /datum/design/surgery
+	abstract_type = /datum/design/surgery
 	name = "Surgery Design"
 	desc = "what"
 	id = "surgery_parent"

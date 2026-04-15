@@ -129,9 +129,9 @@
 /area/ruin/unpowered)
 "pO" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Long-Term Cell 1";
-	req_access_txt = "2"
+	name = "Long-Term Cell 1"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -379,9 +379,9 @@
 /area/ruin/unpowered)
 "NZ" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Long-Term Cell 2";
-	req_access_txt = "2"
+	name = "Long-Term Cell 2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -446,9 +446,9 @@
 /area/ruin/unpowered)
 "VE" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Long-Term Cell 3";
-	req_access_txt = "2"
+	name = "Long-Term Cell 3"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
