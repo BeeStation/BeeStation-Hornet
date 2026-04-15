@@ -53039,6 +53039,10 @@
 /area/station/security/execution/education)
 "qEu" = (
 /obj/structure/table/glass,
+/obj/item/plant_seeds/random{
+	pixel_x = -6;
+	pixel_y = 6
+	},
 /obj/item/plant_seeds/preset/wheat{
 	pixel_x = -5;
 	pixel_y = 5
