@@ -24,4 +24,4 @@
 		for (var/entry in jukebox.tracks)
 			var/datum/audio_jukebox_track/track = entry
 			if (!track.title || !isfile(track.source))
-				TEST_FAIL("Invalid Jukebox Track In [jukebox.type]: [track .type]")
+				TEST_FAIL("Invalid Jukebox Track In [jukebox.type]: [track.type]")
