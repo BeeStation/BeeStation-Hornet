@@ -1,4 +1,5 @@
 /obj/item/storage/belt
+	abstract_type = /obj/item/storage/belt
 	name = "belt"
 	desc = "Can hold various things."
 	icon = 'icons/obj/clothing/belts.dmi'

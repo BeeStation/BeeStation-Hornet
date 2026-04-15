@@ -1,4 +1,5 @@
 /obj/item/gun/magic
+	abstract_type = /obj/item/gun/magic
 	name = "staff of nothing"
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
 	icon = 'icons/obj/guns/magic.dmi'

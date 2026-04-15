@@ -1,5 +1,6 @@
 
 /obj/item/food/bread
+	abstract_type = /obj/item/food/bread
 	name = "bread?"
 	desc = "This shouldn't exist, report to codermonkeys"
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -24,6 +25,7 @@
 		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/breadslice
+	abstract_type = /obj/item/food/breadslice
 	name = "breadslice?"
 	desc = "This shouldn't exist, report to codermonkeys"
 	icon = 'icons/obj/food/burgerbread.dmi'

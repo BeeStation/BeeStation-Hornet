@@ -9,6 +9,7 @@
 WANTS_POWER_NODE(/obj/machinery/power)
 
 /obj/machinery/power
+	abstract_type = /obj/machinery/power
 	name = null
 	icon = 'icons/obj/power.dmi'
 	anchored = TRUE
