@@ -132,7 +132,9 @@
 	name = "Long-Term Cell 1"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},

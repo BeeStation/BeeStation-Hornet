@@ -62,7 +62,9 @@
 	},
 /area/shuttle/abandoned)
 "eg" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/closet/firecloset{
 	anchored = 1
@@ -155,7 +157,9 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "iV" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 4
 	},
@@ -313,7 +317,9 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/item/wrench,
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
@@ -678,7 +684,9 @@
 /obj/machinery/power/smes/engineering{
 	charge = 1e+006
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "QS" = (
