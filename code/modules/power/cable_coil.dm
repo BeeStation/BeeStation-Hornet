@@ -4,10 +4,12 @@
 	desc = "A coil of insulated power cable."
 
 	icon = 'icons/obj/power.dmi'
-	icon_state = "coil"
+	icon_state = "omni-coil"
+	base_icon_state = "coil"
 	inhand_icon_state = "coil"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	worn_icon_state = "coil"
 
 	gender = NEUTER //That's a cable coil sounds better than that's some cable coils
 
@@ -44,7 +46,7 @@
 		omni = FALSE
 	pixel_x = base_pixel_x + rand(-2,2)
 	pixel_y = base_pixel_y + rand(-2,2)
-	update_appearance(UPDATE_ICON)
+	update_appearance(UPDATE_ICON_STATE | UPDATE_NAME)
 	return ..()
 
 #define OMNI_CABLE "Omni"
@@ -114,18 +116,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/update_name(updates)
 	. = ..()
-	if (omni)
-		name = "omni-cable [amount < 3 ? "piece" : "coil"]"
-	else
-		name = "cable [amount < 3 ? "piece" : "coil"]"
+	name = "[omni ? "omni-" : ""]cable [amount < 3 ? "piece" : "coil"]"
 
 /obj/item/stack/cable_coil/update_icon_state()
 	. = ..()
 	if (omni)
-		icon_state = "omni-coil[amount < 3 ? amount : ""]"
+		icon_state = "omni-[base_icon_state][amount < 3 ? amount : ""]"
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 	else
-		icon_state = "[initial(icon_state)][amount < 3 ? amount : ""]"
+		icon_state = "[base_icon_state][amount < 3 ? amount : ""]"
 		add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
 
 ///////////////////////////////////////////////
@@ -209,16 +208,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/cut
 	amount = null
-	icon_state = "coil2"
-	worn_icon_state = "coil"
+	icon_state = "omni-coil2"
 
-/obj/item/stack/cable_coil/cut/Initialize(mapload)
+/obj/item/stack/cable_coil/cut/Initialize(mapload, new_amount = amount, merge = TRUE, mob/user = null, param_color = null, param_omni = FALSE)
 	if(!amount)
-		amount = rand(1,2)
-	. = ..()
-	pixel_x = base_pixel_x + rand(-2, 2)
-	pixel_y = base_pixel_y + rand(-2, 2)
-	update_appearance(UPDATE_NAME | UPDATE_ICON_STATE)
+		amount = rand(1, 2)
+	return ..()
 
 /obj/item/stack/cable_coil/one
+	icon_state = "omni-coil1"
 	amount = 1
