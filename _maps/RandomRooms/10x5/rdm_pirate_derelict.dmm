@@ -23,9 +23,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/machinery/door/airlock/wood{
-	req_access_txt = "180"
-	},
+/obj/machinery/door/airlock/wood,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/effect/trap/trigger/reusable,
 /turf/open/floor/wood,
 /area/template_noop)
@@ -81,9 +80,8 @@
 	},
 /area/template_noop)
 "o" = (
-/obj/machinery/door/airlock/wood{
-	req_access_txt = "180"
-	},
+/obj/machinery/door/airlock/wood,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8;
 	pixel_y = 8
@@ -116,9 +114,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
-/obj/machinery/door/airlock/wood{
-	req_access_txt = "180"
-	},
+/obj/machinery/door/airlock/wood,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /turf/open/floor/wood,
 /area/template_noop)
 "A" = (
@@ -142,9 +139,8 @@
 /area/template_noop)
 "E" = (
 /obj/structure/barricade/wooden/crude,
-/obj/machinery/door/airlock/wood{
-	req_access_txt = "180"
-	},
+/obj/machinery/door/airlock/wood,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /turf/open/floor/wood,
 /area/template_noop)
 "G" = (

@@ -412,9 +412,9 @@
 	},
 /obj/effect/mapping_helpers/tile_breaker,
 /obj/machinery/door/airlock/hatch{
-	name = "Engineering";
-	req_access_txt = "180"
+	name = "Engineering"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
@@ -604,9 +604,9 @@
 	icon_state = "lattice-3"
 	},
 /obj/machinery/door/airlock/hatch{
-	name = "Dormitories";
-	req_access_txt = "180"
+	name = "Dormitories"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/effect/decal/cleanable/greenglow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
@@ -671,9 +671,9 @@
 	},
 /obj/machinery/door/airlock/hatch{
 	id_tag = "piratebridgebolt";
-	name = "Bridge";
-	req_access_txt = "180"
+	name = "Bridge"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
@@ -929,9 +929,9 @@
 	icon_state = "lattice-46"
 	},
 /obj/machinery/door/airlock/hatch{
-	name = "Armoury";
-	req_access_txt = "180"
+	name = "Armoury"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating/rust,
@@ -1077,9 +1077,9 @@
 "Ap" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/hatch{
-	name = "Cargo";
-	req_access_txt = "180"
+	name = "Cargo"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
 /turf/open/floor/pod,
@@ -1309,9 +1309,9 @@
 /area/shuttle/pirate)
 "Fr" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "piratestarboardexternal";
-	req_access_txt = "180"
+	id_tag = "piratestarboardexternal"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -1539,9 +1539,9 @@
 /area/shuttle/pirate)
 "LZ" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "piratestarboardexternal";
-	req_access_txt = "180"
+	id_tag = "piratestarboardexternal"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -1888,9 +1888,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/hatch{
-	name = "Cargo";
-	req_access_txt = "180"
+	name = "Cargo"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)

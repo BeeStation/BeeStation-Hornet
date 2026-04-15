@@ -20,9 +20,8 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "aI" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -230,9 +229,8 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/hunter)
 "kL" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "kM" = (
@@ -303,9 +301,8 @@
 	},
 /area/shuttle/hunter)
 "nb" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "ne" = (
@@ -834,9 +831,8 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "MQ" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
 	},

@@ -276,6 +276,11 @@
 	access_list += ACCESS_COURT
 	return access_list
 
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_BRIGPHYS
+	return access_list
+
 /obj/effect/mapping_helpers/airlock/access/any/security/hos/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_HOS
@@ -401,6 +406,16 @@
 /obj/effect/mapping_helpers/airlock/access/any/syndicate/leader/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_SYNDICATE_LEADER
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/any/syndicate/pirate/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_PIRATES
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/any/syndicate/hunter/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_HUNTERS
 	return access_list
 
 // -------------------- Away access helpers
@@ -737,6 +752,11 @@
 	access_list += ACCESS_COURT
 	return access_list
 
+/obj/effect/mapping_helpers/airlock/access/all/security/brig_physician/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_BRIGPHYS
+	return access_list
+
 /obj/effect/mapping_helpers/airlock/access/all/security/hos/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_HOS
@@ -847,6 +867,16 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/leader/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_SYNDICATE_LEADER
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_PIRATES
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_HUNTERS
 	return access_list
 
 // -------------------- Away access helpers

@@ -5909,8 +5909,7 @@
 /area/station/maintenance/department/chapel)
 "dAX" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Security Office";
-	req_access_txt = 0
+	name = "Security Office"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
 /obj/effect/mapping_helpers/airlock/access/any/security/detective,
@@ -10568,8 +10567,7 @@
 /area/station/command/heads_quarters/rd)
 "fZT" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Security Office";
-	req_access_txt = 0
+	name = "Security Office"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
 /obj/effect/mapping_helpers/airlock/access/any/security/detective,
@@ -11759,8 +11757,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass{
-	name = "Security Office";
-	req_access_txt = 0
+	name = "Security Office"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
 /obj/effect/mapping_helpers/airlock/access/any/security/detective,

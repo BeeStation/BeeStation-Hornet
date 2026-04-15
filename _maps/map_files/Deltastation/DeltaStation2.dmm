@@ -18755,8 +18755,7 @@
 /area/station/security/checkpoint/supply)
 "fSy" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Medbay Maintenance";
-	req_one_access_txt = null
+	name = "Medbay Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/turf_decal/stripes/line{
@@ -39923,8 +39922,7 @@
 /area/station/engineering/supermatter)
 "loZ" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Medbay Maintenance";
-	req_one_access_txt = null
+	name = "Medbay Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/turf_decal/stripes/line,
@@ -43963,8 +43961,7 @@
 "mws" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/door/airlock/maintenance{
-	name = "Medbay Maintenance";
-	req_one_access_txt = null
+	name = "Medbay Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -74521,9 +74518,9 @@
 /area/station/command/bridge)
 "uEL" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Brig Medical Outpost";
-	req_one_access_txt = "34"
+	name = "Brig Medical Outpost"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig_physician,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -84664,9 +84661,9 @@
 /area/station/engineering/atmos)
 "xrv" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Brig Medical Outpost";
-	req_access_txt = "34"
+	name = "Brig Medical Outpost"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig_physician,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},

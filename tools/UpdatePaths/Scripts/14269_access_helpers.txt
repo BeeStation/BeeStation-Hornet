@@ -1,3 +1,5 @@
+# auto-generated conversions
+
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "1"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/security/general
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "10"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/engineering/general
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "101"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/admin/general
@@ -16,6 +18,8 @@
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "17"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/command/teleporter
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "17;65"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/command/teleporter , /obj/effect/mapping_helpers/airlock/access/all/science/minisat
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "18"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/command/eva
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "180"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/syndicate/pirate
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "181"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "19"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/command/general
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "19; 61"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/command/general , /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "19;23"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/command/general , /obj/effect/mapping_helpers/airlock/access/all/engineering/tech_storage
@@ -40,6 +44,7 @@
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "31"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/supply/general
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "32"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/engineering/construction
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "33"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "34"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/security/brig_physician
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "35"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "38"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/service/lawyer
 /obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "38; 63; 42"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/service/lawyer , /obj/effect/mapping_helpers/airlock/access/all/security/entrance , /obj/effect/mapping_helpers/airlock/access/all/security/court
@@ -175,6 +180,7 @@
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "32;48;29"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/engineering/construction , /obj/effect/mapping_helpers/airlock/access/any/supply/mining , /obj/effect/mapping_helpers/airlock/access/any/science/robotics
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "33"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "33;69"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/medical/chemistry
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "34"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/security/brig_physician
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "35"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "35;28"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/service/hydroponics , /obj/effect/mapping_helpers/airlock/access/any/service/kitchen
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "37;12"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/service/library , /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance
@@ -229,4 +235,23 @@
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "9;30"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/medical/genetics , /obj/effect/mapping_helpers/airlock/access/any/science/rd
 /obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "9;5"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP} , /obj/effect/mapping_helpers/airlock/access/any/medical/genetics , /obj/effect/mapping_helpers/airlock/access/any/medical/general
 
-/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "null"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
+
+# manual conversions
+
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "null"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access = "null"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "null"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access = "null"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = null} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access = null} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = null} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access = null} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access=@SKIP}
+
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = "0"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access = "0"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = "0"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access = "0"} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access_txt = 0} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_access = 0} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_access=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access_txt = 0} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access_txt=@SKIP}
+/obj/machinery/door/airlock/@SUBTYPES{req_one_access = 0} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;req_one_access=@SKIP}

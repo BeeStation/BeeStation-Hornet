@@ -22630,8 +22630,7 @@
 /area/station/engineering/atmos)
 "hxu" = (
 /obj/machinery/door/airlock/mining{
-	name = "Auxiliary Base";
-	req_access_txt = null
+	name = "Auxiliary Base"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/aux_base,
 /obj/effect/turf_decal/stripes/closeup{
@@ -52455,8 +52454,7 @@
 "qAX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
-	name = "Interrogation";
-	req_access_txt = null
+	name = "Interrogation"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
 /obj/effect/mapping_helpers/airlock/access/any/security/detective,
@@ -59294,8 +59292,7 @@
 /area/station/engineering/main)
 "sJo" = (
 /obj/machinery/door/airlock/mining{
-	name = "Auxiliary Base";
-	req_access_txt = null
+	name = "Auxiliary Base"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/aux_base,
 /obj/structure/cable/yellow{
@@ -59356,8 +59353,7 @@
 /area/station/security/prison)
 "sJX" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "construction Zone";
-	req_access_txt = null
+	name = "construction Zone"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/aux_base,
 /obj/effect/turf_decal/stripes/closeup{
