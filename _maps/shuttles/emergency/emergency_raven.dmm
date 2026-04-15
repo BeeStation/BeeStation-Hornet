@@ -931,17 +931,32 @@
 "dC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dD" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"dG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dH" = (
@@ -967,6 +982,12 @@
 	name = "Cockpit Blast Door"
 	},
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"dO" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dQ" = (
@@ -995,7 +1016,9 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dU" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dV" = (
@@ -1202,9 +1225,9 @@
 /area/shuttle/escape)
 "kr" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1256,7 +1279,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "lz" = (
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/machinery/power/terminal{
 	dir = 1
 	},
@@ -1276,9 +1301,9 @@
 /area/shuttle/escape)
 "nc" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
+	name = "Holding Area"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -1369,7 +1394,12 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "vD" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = 22
@@ -1616,7 +1646,9 @@
 /area/shuttle/escape)
 "Ie" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/machinery/power/terminal{
 	dir = 1
 	},
@@ -1792,7 +1824,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "RC" = (
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold/general/hidden,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -1824,9 +1858,10 @@
 /area/shuttle/escape)
 "Vw" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_one_access_txt = "2;19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -1910,9 +1945,10 @@
 "ZJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary";
-	req_one_access_txt = "2;19"
+	name = "Escape Shuttle Infirmary"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -2286,7 +2322,7 @@ HE
 ax
 vD
 RC
-dD
+dO
 ed
 ax
 ax
@@ -2352,7 +2388,7 @@ dd
 dm
 Yy
 ax
-dC
+dG
 Ie
 dU
 ec

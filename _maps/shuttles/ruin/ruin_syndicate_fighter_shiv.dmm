@@ -15,7 +15,9 @@
 	req_access = null;
 	req_access_txt = "150"
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/pilot{
 	environment_smash = 0
 	},
@@ -64,9 +66,9 @@
 /obj/machinery/door/airlock/hatch{
 	id_tag = "caravansyndicate1_bolt";
 	name = "External Airlock";
-	normalspeed = 0;
-	req_access_txt = "150"
+	normalspeed = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/decal/cleanable/dirt,
 /obj/docking_port/mobile{
 	callTime = 50;

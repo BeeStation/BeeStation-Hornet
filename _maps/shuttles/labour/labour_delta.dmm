@@ -33,7 +33,9 @@
 /area/shuttle/labor)
 "f" = (
 /obj/structure/grille,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /obj/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/labor)
@@ -50,9 +52,9 @@
 /area/shuttle/labor)
 "j" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Labor Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
