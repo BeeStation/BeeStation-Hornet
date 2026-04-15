@@ -314,10 +314,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!client.prefs?.read_player_preference(/datum/preference/toggle/sound_lobby))
 		return
-	var/list/all_tracks = GLOB.audio_jukebox_tracks
-	if (!length(all_tracks))
+	if (!length(GLOB.audio_jukebox_tracks))
 		return
-	var/datum/audio/track/track = get_audio_datum(pick(all_tracks))
+	var/datum/audio/track/track = get_audio_datum(pick(GLOB.audio_jukebox_tracks))
 	if (!track)
 		return
 	SEND_SOUND(src, track.get_sound())
