@@ -8,7 +8,7 @@
 /area/ruin/unpowered)
 "b" = (
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},

@@ -45,9 +45,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "bT" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/airalarm/directional/east{
 	req_access = null;
 	req_access_txt = "181"
@@ -71,9 +69,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_y = 32
 	},
@@ -261,9 +257,7 @@
 	pixel_y = 6;
 	pixel_x = -6
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 9
 	},
@@ -401,9 +395,7 @@
 	cell_type = /obj/item/stock_parts/cell/high/plus;
 	req_access = list(181)
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "jT" = (
@@ -412,9 +404,7 @@
 	pixel_y = 15;
 	pixel_x = -10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating,
@@ -452,9 +442,7 @@
 /area/shuttle/hunter)
 "lw" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 10
 	},
@@ -549,9 +537,7 @@
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/delivery,
 /obj/item/stack/sheet/mineral/plasma/twenty,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 10
 	},
@@ -941,9 +927,7 @@
 	pixel_y = -12;
 	pixel_x = 10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
@@ -1006,12 +990,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/iron/stairs,
 /area/shuttle/hunter)
@@ -1291,9 +1270,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
