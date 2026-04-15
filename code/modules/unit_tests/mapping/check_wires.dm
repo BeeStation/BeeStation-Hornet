@@ -1,4 +1,3 @@
-
 /datum/unit_test/map_test/check_wires/check_turf(turf/check_turf, is_map_border)
 	. = ..()
 	var/cable_node_count = 0
