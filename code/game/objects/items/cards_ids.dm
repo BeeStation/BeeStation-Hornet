@@ -771,7 +771,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/captains_spare/Initialize(mapload)
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
-	// Create an immutable off-station account so the spare works with the account-based access system
+	// Create an immutable off-station account
 	var/datum/bank_account/remote/spare_account = new("Captain's Spare", J, access)
 	spare_account.immutable = TRUE
 	spare_account.bank_cards += src
