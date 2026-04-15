@@ -10,10 +10,10 @@ export const ForbiddenLore = (props) => {
   // Extract `health` and `color` variables from the `data` object.
   const { charges, to_know = {} } = data;
   const SortByPath = flow([
-    sortBy(
+    sortBy([
       (to_know) => to_know.state !== 'Research',
       (to_know) => to_know.path === 'Side',
-    ),
+    ]),
   ])(data.to_know || []);
 
   return (

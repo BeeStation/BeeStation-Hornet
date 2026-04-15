@@ -35,10 +35,9 @@ export const AccessList = (props) => {
   const selectedAccess = accesses.find(
     (access) => access.name === selectedAccessName,
   );
-  const selectedAccessEntries = sortBy(
-    selectedAccess?.accesses || [],
+  const selectedAccessEntries = sortBy(selectedAccess?.accesses || [], [
     (entry) => entry.desc,
-  );
+  ]);
 
   const checkAccessIcon = (accesses) => {
     let oneAccess = false;
