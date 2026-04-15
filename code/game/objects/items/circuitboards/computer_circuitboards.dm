@@ -16,45 +16,6 @@
 	icon_state = "command"
 	build_path = /obj/machinery/computer/bsa_control
 
-/obj/item/circuitboard/computer/card
-	name = "ID console (Computer Board)"
-	icon_state = "command"
-	build_path = /obj/machinery/computer/card
-
-/obj/item/circuitboard/computer/card/centcom
-	name = "CentCom ID console (Computer Board)"
-	icon_state = "command"
-	build_path = /obj/machinery/computer/card/centcom
-
-/obj/item/circuitboard/computer/card/minor
-	name = "department management console (Computer Board)"
-	icon_state = "command"
-	build_path = /obj/machinery/computer/card/minor
-	var/counting = 1
-	var/list/dept_list = list(
-		NONE, // This means ALL department - don't be scared.
-		DEPT_BITFLAG_SEC,
-		DEPT_BITFLAG_MED,
-		DEPT_BITFLAG_SCI,
-		DEPT_BITFLAG_ENG)
-	var/list/dept_list_name = list(
-		"General",
-		"Security",
-		"Medical",
-		"Science",
-		"Engineering")
-
-/obj/item/circuitboard/computer/card/minor/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		counting = (counting == dept_list.len) ? 1 : (counting + 1)
-		to_chat(user, span_notice("You set the board to \"[dept_list_name[counting]]\"."))
-	else
-		return ..()
-
-/obj/item/circuitboard/computer/card/minor/examine(user)
-	. = ..()
-	. += "Currently set to \"[dept_list[counting]]\"."
-
 /obj/item/circuitboard/computer/communications
 	name = "communications console (Computer Board)"
 	icon_state = "command"

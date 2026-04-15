@@ -15,8 +15,9 @@
 #define DISK_BUDGET (1<<12)
 #define DISK_REMOTE_AIRLOCK (1<<13)
 #define DISK_SILO_LOG (1<<14)
-#define DISK_HOP (1<<15)
+#define DISK_MANAGEMENT (1<<15)
 #define DISK_NETWORK (1<<16)
+#define DISK_MANIFEST (1<<17)
 
 // Theme defines
 

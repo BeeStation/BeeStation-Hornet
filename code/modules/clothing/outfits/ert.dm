@@ -437,6 +437,14 @@
 	W.assignment = JOB_CENTCOM_OFFICIAL
 	W.registered_name = H.real_name
 	W.update_label()
+	// Replace the default hidden remote account with a visible but immutable one
+	if(W.registered_account)
+		W.registered_account.bank_cards -= W
+		var/datum/bank_account/official_account = new(H.real_name)
+		official_account.access = W.access.Copy()
+		official_account.immutable = TRUE
+		official_account.bank_cards += W
+		W.registered_account = official_account
 
 //////////////////////////////////////////
 ////////        ATTORNEY         /////////

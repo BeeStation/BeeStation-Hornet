@@ -124,6 +124,12 @@
 #define VV_ID_PAYDAY "id_payday"
 #define VV_ID_GIVE_MINING_POINT "id_give_mining_points"
 
+// /datum/bank_account
+#define VV_BANK_GRANT_ALL_ACCESS "bank_grant_all_access"
+#define VV_BANK_STRIP_ALL_ACCESS "bank_strip_all_access"
+#define VV_BANK_TOGGLE_IMMUTABLE "bank_toggle_immutable"
+#define VV_BANK_SYNC_CARDS "bank_sync_cards"
+
 // /obj/item/organ/cyberimp/arm
 #define VV_HK_ADD_IMPLANT_TOOL	"add_implant_tool"
 #define VV_HK_DEL_IMPLANT_TOOL	"del_implant_tool"

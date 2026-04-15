@@ -136,7 +136,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	ui_update()
 	var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
 	// We shouldn't auto-imprint if ID modification is open.
-	if(!can_save_id || !saved_auto_imprint || !cardholder || istype(active_program, /datum/computer_file/program/card_mod))
+	if(!can_save_id || !saved_auto_imprint || !cardholder)
+		return
+	if(istype(active_program, /datum/computer_file/program/station_management))
 		return
 	if(cardholder.current_identification == saved_identification && cardholder.current_job == saved_job)
 		return

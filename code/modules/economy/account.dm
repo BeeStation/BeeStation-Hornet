@@ -5,6 +5,9 @@
 	var/account_balance = 0
 	var/custom_currency = list(ACCOUNT_CURRENCY_MINING = 0)
 	var/datum/job/account_job
+	/// Custom assignment string for when account_job is null (e.g. "Delivery Boy", "Idiot").
+	/// When account_job is set, the job title takes priority.
+	var/custom_assignment = null
 	/// List of physical cards that bound to this account
 	var/list/bank_cards = list()
 	/// If TRUE, SSeconomy will store an account into `SSeconomy.bank_accounts`
@@ -13,6 +16,13 @@
 	var/withdrawDelay = 0
 	/// used for cryo'ed people's account. Once it's TRUE, most bank features of the bank account will be disabled.
 	var/suspended = FALSE
+
+	/// The access list for this account. Cards sync their access from here.
+	var/list/access = list()
+
+	/// If TRUE, this account's access cannot be modified by station management consoles.
+	/// Used for special accounts like the Captain's Spare and CC stuff etc.
+	var/immutable = FALSE
 
 	/// active department will sell things for free
 	var/active_departments = NONE
@@ -37,9 +47,14 @@
 		payment_per_department += list("[initial(each.department_id)]"=0)
 		bonus_per_department += list("[initial(each.department_id)]"=0)
 
-	active_departments = account_job.bank_account_department
-	for(var/D in account_job.payment_per_department)
-		payment_per_department[D] = account_job.payment_per_department[D]
+	active_departments = account_job?.bank_account_department
+	if(account_job)
+		for(var/D in account_job.payment_per_department)
+			payment_per_department[D] = account_job.payment_per_department[D]
+
+	// Populate account access from the job's access list
+	if(account_job)
+		access = account_job.get_access()
 
 	if(add_to_accounts)
 		SSeconomy.bank_accounts += src // this should be added when New() is finished
@@ -48,6 +63,37 @@
 	if(add_to_accounts)
 		SSeconomy.bank_accounts -= src
 	return ..()
+
+/// Copies the account's data (access, name, assignment) to all linked ID cards.
+/// Does NOT touch visual properties of the card (icon_state, hud_state), those are managed per-card via trim changes.
+/datum/bank_account/proc/sync_access_to_cards()
+	var/job_title = custom_assignment || account_job?.title
+	for(var/obj/item/card/id/card in bank_cards)
+		card.access = access.Copy()
+		card.registered_name = account_holder
+		if(job_title)
+			card.assignment = job_title
+		else
+			card.assignment = "Unassigned"
+		card.update_label()
+		card.update_icon()
+		card.update_in_pda()
+
+/// Unlinks a specific card from this account, clearing all registered data and resetting its trim.
+/datum/bank_account/proc/decommission_card(obj/item/card/id/target_card)
+	if(!(target_card in bank_cards))
+		return FALSE
+	bank_cards -= target_card
+	target_card.registered_account = null
+	target_card.registered_name = null
+	target_card.access = list()
+	target_card.assignment = "Unassigned"
+	target_card.icon_state = "id"
+	target_card.hud_state = JOB_HUD_UNKNOWN
+	target_card.update_label()
+	target_card.update_icon()
+	target_card.update_in_pda()
+	return TRUE
 
 /datum/bank_account/proc/_adjust_money(amt)
 	account_balance += amt
@@ -261,5 +307,10 @@
 
 /datum/bank_account/remote // Bank account not belonging to the local station
 	add_to_accounts = FALSE
+
+/datum/bank_account/remote/New(newname, job, list/override_access)
+	. = ..()
+	if(override_access)
+		access = override_access.Copy()
 
 #undef ACCOUNT_CREATION_MAX_ATTEMPT

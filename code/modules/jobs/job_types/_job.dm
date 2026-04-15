@@ -638,17 +638,10 @@
 
 	var/obj/item/card/id/card = user.wear_id
 	if(istype(card))
-		card.access = equipped_job.get_access()
-		shuffle_inplace(card.access) // Shuffle access list to make NTNet passkeys less predictable
-		card.registered_name = user.real_name
-		card.assignment = equipped_job.title
-		card.set_hud_icon_on_spawn(equipped_job.title)
-
 		if(user.age)
 			card.registered_age = user.age
 
-		card.update_label()
-		card.update_icon()
+		card.set_hud_icon_on_spawn(equipped_job.title)
 
 		for(var/datum/bank_account/account in SSeconomy.bank_accounts)
 			if(!user.mind)
@@ -656,6 +649,10 @@
 			if(account.account_id == user.mind.account_id)
 				card.registered_account = account
 				account.bank_cards += card
+				// Set the account's access and sync it down to all linked cards
+				account.access = equipped_job.get_access()
+				shuffle_inplace(account.access) // Shuffle access list to make NTNet passkeys less predictable
+				account.sync_access_to_cards()
 				break
 		user.sec_hud_set_ID()
 

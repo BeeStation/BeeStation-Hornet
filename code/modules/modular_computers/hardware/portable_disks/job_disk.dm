@@ -80,9 +80,11 @@
 	if(disk_flags & DISK_REMOTE_AIRLOCK)
 		progs_to_store += new /datum/computer_file/program/remote_airlock(src)
 
-	if(disk_flags & DISK_HOP)
-		progs_to_store += new /datum/computer_file/program/card_mod(src)
-		progs_to_store += new /datum/computer_file/program/job_management(src)
+	if(disk_flags & DISK_MANAGEMENT)
+		progs_to_store += new /datum/computer_file/program/station_management(src)
+
+	if(disk_flags & DISK_MANIFEST)
+		progs_to_store += new /datum/computer_file/program/crew_manifest(src)
 
 	for (var/datum/computer_file/program/prog in progs_to_store)
 		prog.transfer_access = list()
@@ -196,32 +198,32 @@
 /obj/item/computer_hardware/hard_drive/role/head
 	name = "\improper Easy-Record DELUXE disk"
 	icon_state = "cart-val"
-	disk_flags = DISK_STATUS | DISK_BUDGET
+	disk_flags = DISK_STATUS | DISK_BUDGET | DISK_MANIFEST | DISK_MANAGEMENT
 
 /obj/item/computer_hardware/hard_drive/role/hop
 	name = "\improper HumanResources9001 disk"
 	icon_state = "cart-hop"
-	disk_flags = DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWSCASTER | DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET | DISK_HOP
+	disk_flags = DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWSCASTER | DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET | DISK_MANAGEMENT | DISK_MANIFEST
 
 /obj/item/computer_hardware/hard_drive/role/hos
 	name = "\improper R.O.B.U.S.T. DELUXE disk"
 	icon_state = "cart-hos"
-	disk_flags = DISK_STATUS | DISK_SEC | DISK_ROBOS | DISK_BUDGET
+	disk_flags = DISK_STATUS | DISK_SEC | DISK_ROBOS | DISK_BUDGET | DISK_MANIFEST | DISK_MANAGEMENT
 
 /obj/item/computer_hardware/hard_drive/role/ce
 	name = "\improper Power-On DELUXE disk"
 	icon_state = "cart-ce"
-	disk_flags = DISK_POWER | DISK_ATMOS | DISK_SM | DISK_STATUS | DISK_ROBOS | DISK_BUDGET
+	disk_flags = DISK_POWER | DISK_ATMOS | DISK_SM | DISK_STATUS | DISK_ROBOS | DISK_BUDGET | DISK_MANIFEST | DISK_MANAGEMENT
 
 /obj/item/computer_hardware/hard_drive/role/cmo
 	name = "\improper Med-U DELUXE disk"
 	icon_state = "cart-cmo"
-	disk_flags = DISK_STATUS | DISK_MED | DISK_CHEM | DISK_ROBOS | DISK_BUDGET
+	disk_flags = DISK_STATUS | DISK_MED | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_MANIFEST | DISK_MANAGEMENT
 
 /obj/item/computer_hardware/hard_drive/role/rd
 	name = "\improper Signal Ace DELUXE disk"
 	icon_state = "cart-rd"
-	disk_flags = DISK_NETWORK | DISK_ATMOS | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL
+	disk_flags = DISK_NETWORK | DISK_ATMOS | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL | DISK_MANIFEST | DISK_MANAGEMENT
 
 /obj/item/computer_hardware/hard_drive/role/captain
 	name = "\improper Value-PAK disk"

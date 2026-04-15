@@ -117,7 +117,6 @@
 	loot = list(
 		/obj/item/circuitboard/computer/crew,
 		/obj/item/circuitboard/computer/communications,
-		/obj/item/circuitboard/computer/card
 	)
 
 /obj/effect/spawner/random/techstorage/rnd_secure_all

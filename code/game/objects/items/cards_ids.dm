@@ -370,6 +370,7 @@
 
 			B.bank_cards += src
 			registered_account = B
+			B.sync_access_to_cards()
 			to_chat(user, span_notice("The provided account has been linked to this ID card."))
 
 			return TRUE
@@ -461,6 +462,22 @@
 			powergaming.update_label()
 			powergaming.update_appearance()
 
+/// If this card is currently inside a PDA card slot, refresh the slot's cached data and trigger the PDA to update its display / auto-imprint.
+/obj/item/card/id/proc/update_in_pda()
+	if(!istype(loc, /obj/item/computer_hardware/card_slot))
+		return
+	var/obj/item/computer_hardware/card_slot/slot = loc
+	if(slot.stored_card != src)
+		return
+	// Refresh the card slot's cached identification/job so the PDA sees the new data
+	slot.current_identification = registered_name
+	slot.current_job = assignment
+	// Notify the PDA to update its display and auto-imprint if applicable
+	if(slot.holder)
+		slot.holder.update_id_display()
+		slot.holder.on_id_insert()
+		slot.holder.update_appearance()
+
 /*
 Usage:
 update_label()
@@ -506,20 +523,44 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_HUNTERS)
 	hud_state = JOB_HUD_NOTCENTCOM
 
+/obj/item/card/id/silver/spacepol/Initialize(mapload)
+	. = ..()
+	var/datum/bank_account/remote/acct = new("Space Police", null, access)
+	acct.bank_cards += src
+	registered_account = acct
+
 /obj/item/card/id/silver/bounty
 	name = "bounty hunter access card"
 	access = list(ACCESS_HUNTERS)
 	hud_state = JOB_HUD_UNKNOWN
+
+/obj/item/card/id/silver/bounty/Initialize(mapload)
+	. = ..()
+	var/datum/bank_account/remote/acct = new("Bounty Hunter", null, access)
+	acct.bank_cards += src
+	registered_account = acct
 
 /obj/item/card/id/space_russian
 	name = "space russian card"
 	access = list(ACCESS_HUNTERS)
 	hud_state = JOB_HUD_UNKNOWN
 
+/obj/item/card/id/space_russian/Initialize(mapload)
+	. = ..()
+	var/datum/bank_account/remote/acct = new("Space Russian", null, access)
+	acct.bank_cards += src
+	registered_account = acct
+
 /obj/item/card/id/pirate
 	name = "pirate ship card"
 	access = list(ACCESS_PIRATES)
 	hud_state = JOB_HUD_SYNDICATE
+
+/obj/item/card/id/pirate/Initialize(mapload)
+	. = ..()
+	var/datum/bank_account/remote/acct = new("Pirate", null, access)
+	acct.bank_cards += src
+	registered_account = acct
 
 /obj/item/card/id/syndicate
 	name = "agent card"
@@ -569,6 +610,11 @@ update_label("John Doe", "Clowny")
 	), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
+	// Create an off-station account for the agent card (never visible on station consoles)
+	if(!registered_account)
+		var/datum/bank_account/remote/syndie_account = new("Undisclosed", null, access)
+		syndie_account.bank_cards += src
+		registered_account = syndie_account
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
 	if(!proximity)
@@ -592,7 +638,7 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
-		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
+		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset"))
 		if(user.incapacitated)
 			return
 		if(popup_input == "Forge/Reset")
@@ -632,20 +678,6 @@ update_label("John Doe", "Clowny")
 			to_chat(user, span_notice("You successfully forge the ID card."))
 			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
 
-			// First time use automatically sets the account id to the user.
-			if (first_use && !registered_account)
-				if(ishuman(user))
-					var/mob/living/carbon/human/accountowner = user
-
-					for(var/bank_account in SSeconomy.bank_accounts)
-						var/datum/bank_account/account = bank_account
-						if(account.account_id == accountowner.mind?.account_id)
-							account.bank_cards += src
-							registered_account = account
-							to_chat(user, span_notice("Your account number has been automatically assigned."))
-			return
-		else if (popup_input == "Change Account ID")
-			set_new_account(user)
 			return
 	return ..()
 
@@ -704,6 +736,12 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_SYNDICATE)
 	hud_state = JOB_HUD_SYNDICATE
 
+/obj/item/card/id/syndicate_command/Initialize(mapload)
+	. = ..()
+	var/datum/bank_account/remote/syndie_account = new(registered_name, null, access)
+	syndie_account.bank_cards += src
+	registered_account = syndie_account
+
 /obj/item/card/id/syndicate/debug
 	name = "\improper Debug ID"
 	desc = "A shimmering ID card with the ability to open anything."
@@ -733,6 +771,11 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/captains_spare/Initialize(mapload)
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
+	// Create an immutable off-station account so the spare works with the account-based access system
+	var/datum/bank_account/remote/spare_account = new("Captain's Spare", J, access)
+	spare_account.immutable = TRUE
+	spare_account.bank_cards += src
+	registered_account = spare_account
 	. = ..()
 
 /obj/item/card/id/centcom
@@ -745,6 +788,13 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/centcom/Initialize(mapload)
 	access = get_all_centcom_access()
+	// Create an off-station account for CentCom personnel
+	// This is overwritten for ones we want to actually head down to the station,
+	// if we did not have it be invisible by default, the crew could see admirals fucking about.
+	var/datum/bank_account/remote/cc_account = new(registered_name, null, access)
+	cc_account.immutable = TRUE
+	cc_account.bank_cards += src
+	registered_account = cc_account
 	. = ..()
 
 /obj/item/card/id/ert
@@ -756,8 +806,17 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/ert/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
+	// Subtypes set their own access before calling ..()
+	// Only set commander access if no subtype has set access yet
+	if(!length(access))
+		access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
 	. = ..()
+	// Create a visible but immutable account for ERT personnel so they appear in Station Management
+	var/datum/bank_account/ert_account = new(registered_name)
+	ert_account.access = access.Copy()
+	ert_account.immutable = TRUE
+	ert_account.bank_cards += src
+	registered_account = ert_account
 
 /obj/item/card/id/ert/Security
 	registered_name = JOB_ERT_OFFICER
@@ -825,12 +884,12 @@ update_label("John Doe", "Clowny")
 	icon_state = "ert"
 
 /obj/item/card/id/ert/bounty/Initialize(mapload)
-	. = ..()
 	access = list(ACCESS_CENT_GENERAL)
+	. = ..()
 
 /obj/item/card/id/ert/lawyer/Initialize(mapload)
-	. = ..()
 	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
+	. = ..()
 
 /obj/item/card/id/gulag
 	name = "prisoner ID card"
