@@ -1,5 +1,3 @@
-///LAVA
-
 /turf/open/lava
 	name = "lava"
 	desc = "Looks painful to step in. Don't mine down."
@@ -13,6 +11,7 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
 	light_on = FALSE
+	luminosity = 2
 	bullet_bounce_sound = 'sound/items/welder2.ogg'
 
 	footstep = FOOTSTEP_LAVA

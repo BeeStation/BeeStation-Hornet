@@ -34,6 +34,10 @@
 	if (!force)
 		return QDEL_HINT_LETMELIVE
 	SSlighting.objects_queue -= src
+	if (loc != myturf)
+		var/turf/oldturf = get_turf(myturf)
+		var/turf/newturf = get_turf(loc)
+		stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 	if (isturf(myturf))
 		myturf.lighting_object = null
 		myturf.underlays -= additive_underlay

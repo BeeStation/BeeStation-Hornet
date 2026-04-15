@@ -31,7 +31,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = null
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_STASH_LOCATION
 	static_lighting = FALSE
-	base_lighting_alpha = 255
+	has_starlight_overlay = TRUE
 
 /area/paradise/surface/sand
 	name = "paradise surface sand"
