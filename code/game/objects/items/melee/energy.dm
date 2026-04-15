@@ -1,4 +1,5 @@
 /obj/item/melee/energy
+	abstract_type = /obj/item/melee/energy
 	icon = 'icons/obj/transforming_energy.dmi'
 	max_integrity = 200
 	armor_type = /datum/armor/transforming_energy

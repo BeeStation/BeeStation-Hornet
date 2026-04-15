@@ -1,3 +1,6 @@
+/datum/bounty/item/engineering
+	abstract_type = /datum/bounty/item/engineering
+
 /datum/bounty/item/engineering/gas
 	name = "Full Tank of Pluoxium"
 	description = "CentCom RnD is researching extra compact internals. Ship us a tank full of Pluoxium and you'll be compensated."
