@@ -112,7 +112,53 @@
 2026-04-12:
   DrDuckedGoose:
   - bugfix: Fixes robot eye lights trailing behind them near blind people
+  PowerfulBacon:
+  - code_imp: The UpdatePaths script now supports counters
   TsunamiAnt:
   - bugfix: Vampire Daylight notifications can now only appear if there are actually
       vampires present.
   - admin: Vampire Daylight notifications are now posted to deadchat, not adminlog.
+2026-04-13:
+  EvilDragonfiend:
+  - code_imp: refactored access system - now it is reliable on the SSdepartment subsystem.
+  - rscadd: centcom console now can edit station access + extra special access (*Bloodcult,
+      syndicate, away station, space police ship, etc)
+  - tweak: HoP console is slightly refactored - Job and Access order has been reworked,
+      and it follows SSdepartment's internal order.
+  - tweak: HoP door remote can now open cargo areas in addition to what it can open
+      already
+  - bugfix: Introducing ACCESS_SERVICE that has been in the game for years but never
+      had been a part of the access list
+  - tweak: Demote now works to everyone - it just changes their job name. For example,
+      if a CMO demotes Captain, they still keeps the access, and the job title just
+      becomes "Demoted". You will need to manually remove their access.
+  - tweak: Psychiatrist is now fully categorised in medical department.
+  - tweak: Stage Magician is now categorised in Service department.
+  MasonMiami:
+  - tweak: You can now use zero as a expression for the cost of loadout items.
+  rkz, Mothblocks:
+  - bugfix: moth preferences generate cleanly
+  - code_imp: splits init_possible_values() in preference code into a values return
+      and an icon image handler
+  - code_imp: nukes deprecated roundstart_ species feature lists
+2026-04-14:
+  mrmanlikesbt, FalloutFalcon:
+  - code_imp: abstract_type is now implemented on the /datum level instead of being
+      scattered across several typepaths
+  - bugfix: fixed the genetics bounty not rolling
+  vinylspiders:
+  - bugfix: fixed a bunch of improper static list declarations
+  - server: added a grep check for var/list/static declarations
+2026-04-15:
+  mrmanlikesbt:
+  - bugfix: Fixed space tiles not properly having their lighting updated when built
+      on top of
+  - bugfix: Fixed holofloors and shuttles having weird lighting
+  - bugfix: Fixed some issues with area luminosity
+  - refactor: All airlocks across all maps have been refactored to use their mapping
+      access helpers and no longer have var-edited access
+  mrmanlikesbt, Y0SH1M4S73R, Absolucy, jlsnow301:
+  - refactor: TGUI no longer supports 515. Goodbye internet explorer!
+  - refactor: Any tgui message that would be too big to send to the server is now
+      split into chunks and sent in sequence. This fixes several issues, such as...
+  - bugfix: It is once again possible to save large amounts of text on paper at once.

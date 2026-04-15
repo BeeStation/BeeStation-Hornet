@@ -1,6 +1,7 @@
 // Station areas and shuttles
 
 /area/station
+	abstract_type = /area/station
 	name = "Station Areas"
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "station"
@@ -9,6 +10,7 @@
 //Maintenance
 
 /area/station/maintenance
+	abstract_type = /area/station/maintenance
 	name = "Generic Maintenance"
 	ambience_index = AMBIENCE_MAINT
 	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
@@ -265,6 +267,7 @@
 //Hallway
 
 /area/station/hallway
+	abstract_type = /area/station/hallway
 	icon_state = "hall"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
@@ -369,6 +372,7 @@
 //Command
 
 /area/station/command
+	abstract_type = /area/station/command
 	name = "Command"
 	icon_state = "command"
 	ambientsounds = list('sound/ambience/signal.ogg')
@@ -458,6 +462,7 @@
 //Commons
 
 /area/station/commons
+	abstract_type = /area/station/commons
 	name = "\improper Crew Facilities"
 	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 	lighting_colour_tube = "#ffce99"
@@ -631,6 +636,7 @@
 //Service
 
 /area/station/service
+	abstract_type = /area/station/service
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 
 /area/station/service/cafeteria
@@ -843,6 +849,7 @@
 //Engineering
 
 /area/station/engineering
+	abstract_type = /area/station/engineering
 	icon_state = "engie"
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
@@ -997,6 +1004,7 @@
 //Solars
 
 /area/station/solars
+	abstract_type = /area/station/solars
 	requires_power = FALSE
 	//always_unpowered = TRUE
 	area_flags = UNIQUE_AREA | NO_GRAVITY
@@ -1086,6 +1094,7 @@
 //MedBay
 
 /area/station/medical
+	abstract_type = /area/station/medical
 	name = "Medical"
 	icon_state = "medbay"
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
@@ -1242,6 +1251,7 @@
 ///When adding a new area to the security areas, make sure to add it to /datum/bounty/item/security/paperwork as well!
 
 /area/station/security
+	abstract_type = /area/station/security
 	name = "Security"
 	icon_state = "security"
 	ambience_index = AMBIENCE_DANGER
@@ -1493,6 +1503,7 @@
 //Cargo
 
 /area/station/cargo
+	abstract_type = /area/station/cargo
 	name = "Quartermasters"
 	icon_state = "quart"
 	lighting_colour_tube = "#ffe3cc"
@@ -1574,6 +1585,7 @@
 //Science
 
 /area/station/science
+	abstract_type = /area/station/science
 	name = "\improper Science Division"
 	icon_state = "science"
 	lighting_colour_tube = "#f0fbff"
@@ -1699,6 +1711,7 @@
 // Telecommunications Satellite
 
 /area/station/tcommsat
+	abstract_type = /area/station/tcommsat
 	icon_state = "tcomsatcham"
 	ambientsounds = list(
 		'sound/ambience/ambisin2.ogg',

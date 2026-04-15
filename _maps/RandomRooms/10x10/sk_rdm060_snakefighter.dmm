@@ -154,9 +154,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research/glass{
-	name = "Research Pit";
-	req_access_txt = "12"
+	name = "Research Pit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "E" = (
@@ -208,9 +208,9 @@
 /area/template_noop)
 "O" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "Research Pit";
-	req_access_txt = "12"
+	name = "Research Pit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "R" = (

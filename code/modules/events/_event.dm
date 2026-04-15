@@ -2,6 +2,7 @@
 
 //this singleton datum is used by the events controller to dictate how it selects events
 /datum/round_event_control
+	abstract_type = /datum/round_event_control
 	var/name //The human-readable name of the event
 	//var/category //The category of the event
 	//var/description //The description of the event
@@ -115,6 +116,7 @@
 	return
 
 /datum/round_event	//NOTE: Times are measured in master controller ticks!
+	abstract_type = /datum/round_event
 	var/processing = TRUE
 	var/datum/round_event_control/control
 

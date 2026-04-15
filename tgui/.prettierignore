@@ -15,3 +15,8 @@
 **/*.json
 **/*.yml
 **/*.md
+
+# Avoid running on any bundles.
+/public/**/*
+# Running it on tgui.html is fine, however.
+!/public/tgui.html

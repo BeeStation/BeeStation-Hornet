@@ -346,9 +346,10 @@
 "bN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/door/airlock/mining{
-	name = "Mining Station Storage";
-	req_one_access_txt = "54;18"
+	name = "Mining Station Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/any/command/eva,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable/yellow{
@@ -396,9 +397,10 @@
 /area/lavaland/surface/outdoors)
 "bV" = (
 /obj/machinery/door/airlock/engineering/glass{
-	name = "mining Relay Room";
-	req_one_access_txt = "54;61"
+	name = "mining Relay Room"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -725,9 +727,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/external/glass{
-	name = "External Wing Access";
-	req_one_access_txt = "10;24"
+	name = "External Wing Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/structure/barricade/wooden{
 	max_integrity = 50
 	},
@@ -1743,9 +1746,9 @@
 /area/mine/atmosposthallway)
 "jG" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Shuttle Security Airlock";
-	req_access_txt = "2"
+	name = "Labor Camp Shuttle Security Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
@@ -2893,9 +2896,9 @@
 "qJ" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Shuttle Security Airlock";
-	req_access_txt = "2"
+	name = "Labor Camp Shuttle Security Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
 "qM" = (
@@ -2995,9 +2998,10 @@
 /area/lavaland/surface/outdoors)
 "ru" = (
 /obj/machinery/door/airlock/medical/glass{
-	name = "Infirmary";
-	req_one_access_txt = "54;5"
+	name = "Infirmary"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/closeup,
@@ -3066,9 +3070,10 @@
 /area/lavaland/surface/outdoors)
 "rV" = (
 /obj/machinery/door/airlock/atmos{
-	name = "Atmospherics Access";
-	req_one_access_txt = "10;24"
+	name = "Atmospherics Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/structure/barricade/wooden/crude{
 	max_integrity = 30
 	},
@@ -3130,9 +3135,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/door/airlock/maintenance{
-	name = "Mining Station Communications";
-	req_one_access_txt = "54;61"
+	name = "Mining Station Communications"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3303,9 +3309,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/atmos/glass{
-	name = "Atmospheric Engine";
-	req_one_access_txt = "10;24"
+	name = "Atmospheric Engine"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
 "tj" = (
@@ -5265,9 +5272,11 @@
 /area/mine/atmosposthallway)
 "EX" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Radioisotope Containment Room";
-	req_one_access_txt = "54;18;10"
+	name = "Radioisotope Containment Room"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/any/command/eva,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -6161,9 +6170,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Mining Station Maintenance";
-	req_one_access_txt = "54;18"
+	name = "Mining Station Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/any/command/eva,
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
@@ -6171,9 +6181,9 @@
 /area/mine/production)
 "JB" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Monitoring";
-	req_access_txt = "2"
+	name = "Labor Camp Monitoring"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -7492,9 +7502,9 @@
 /area/mine/laborcamp/security)
 "RN" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Shuttle Security Airlock";
-	req_access_txt = "2"
+	name = "Labor Camp Shuttle Security Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
 /area/mine/laborcamp)
@@ -7805,9 +7815,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Mining Station Gateway Maintenance";
-	req_one_access_txt = "54;64;12"
+	name = "Mining Station Gateway Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mineral_storage,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/open/floor/iron/techmaint,
 /area/mine/gateway)
 "TR" = (
@@ -8251,9 +8263,9 @@
 /area/mine/production)
 "Wt" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Monitoring";
-	req_access_txt = "2"
+	name = "Labor Camp Monitoring"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/closeup{
