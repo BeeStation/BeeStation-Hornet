@@ -75,7 +75,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 40
 	throwforce = 10
@@ -109,7 +109,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/claymore/highlander //ALL COMMENTS MADE REGARDING THIS SWORD MUST BE MADE IN ALL CAPS
 	desc = "<b><i>THERE CAN BE ONLY ONE, AND IT WILL BE YOU!!!</i></b>\nActivate it in your hand to point to the nearest victim."
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = DROPDEL | ISWEAPON //dropdel occurs because you lost an arm
 	slot_flags = null
 	light_range = 3
@@ -264,7 +264,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 40
 	throwforce = 10
@@ -303,7 +303,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon = 'icons/obj/weapons/spear.dmi'
 	icon_state = "wiredrod"
 	inhand_icon_state = "rods"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 9
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
@@ -396,7 +396,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A sharp, concealable, spring-loaded knife with a long blade."
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 3
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
@@ -903,6 +903,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/table_smacks_left = 3
 
 /obj/item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
+	. = ..()
+	SEND_SIGNAL(M, COMSIG_LIVING_SLAPPED, user)
+
 	if(ishuman(M))
 		var/mob/living/carbon/human/L = M
 		if(L && L.dna && L.dna.species)

@@ -31,6 +31,6 @@
 	outdoors = TRUE
 	max_ambience_cooldown = 220 SECONDS
 	area_flags = NONE
-	lighting_overlay_colour = "#93c3cf"
-	lighting_overlay_opacity = 60
+	base_lighting_color = "#93c3cf"
+	base_lighting_alpha = 60
 	luminosity = 1

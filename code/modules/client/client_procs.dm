@@ -222,9 +222,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	qdel(src)
 
 /client/proc/generate_uuid_string()
-	var/fiftyfifty = prob(50) ? FEMALE : MALE
-	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][generate_random_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
-	return "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
+	return "[rustg_csprng_chacha20(RUSTG_RNG_FORMAT_HEX, 32)]"
 
 /client/proc/generate_uuid()
 	if(IsAdminAdvancedProcCall())

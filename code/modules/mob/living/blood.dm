@@ -355,7 +355,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
 		blood_volume = max(blood_volume - blood_loss_amount, 0)
-		if(prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
+		if(prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD))
 			if(blood_loss_amount >= 2)
 				add_splatter_floor(src.loc)
 			else
@@ -501,9 +501,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if (!T)
 		T = get_turf(src)
-	if(T && !isturf(T))
-		T = get_turf(T)
-	if (!T || isgroundlessturf(T))
+	if (!isturf(T) || isgroundlessturf(T))
 		return
 
 	var/list/temp_blood_DNA
@@ -547,6 +545,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)
 	if(!T)
 		T = get_turf(src)
+	if(!isturf(T) || isgroundlessturf(T))
+		return
 	var/obj/effect/decal/cleanable/xenoblood/B = locate() in T.contents
 	if(!B)
 		B = new(T)
@@ -555,6 +555,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip)
 	if(!T)
 		T = get_turf(src)
+	if(!isturf(T) || isgroundlessturf(T))
+		return
 	var/obj/effect/decal/cleanable/oil/B = locate() in T.contents
 	if(!B)
 		B = new(T)

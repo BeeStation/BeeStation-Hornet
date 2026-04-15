@@ -272,7 +272,7 @@ export const backendMiddleware = (store) => {
       }
     }
 
-    if (type === 'acknowlegePayloadChunk') {
+    if (type === 'acknowledgePayloadChunk') {
       store.dispatch(backendDequeuePayloadQueue(payload));
       store.dispatch(nextPayloadChunk(payload));
     }
@@ -349,8 +349,10 @@ const chunkSplitter = {
  */
 export const sendAct = (action: string, payload: object = {}) => {
   // Validate that payload is an object
-  const isObject =
-    typeof payload === 'object' && payload !== null && !Array.isArray(payload);
+  // prettier-ignore
+  const isObject = typeof payload === 'object'
+    && payload !== null
+    && !Array.isArray(payload);
   if (!isObject) {
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;

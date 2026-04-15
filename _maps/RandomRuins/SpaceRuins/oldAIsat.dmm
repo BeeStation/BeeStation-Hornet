@@ -5,31 +5,31 @@
 "ab" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ac" = (
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ad" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ae" = (
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "af" = (
 /obj/structure/grille,
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ag" = (
 /turf/closed/wall/r_wall,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ah" = (
 /obj/structure/girder,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ai" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/template_noop,
@@ -37,7 +37,7 @@
 "aj" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ak" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -49,7 +49,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "al" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -58,71 +58,71 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "am" = (
 /obj/item/stock_parts/cell,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "an" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ao" = (
 /obj/item/coin/bananium,
 /turf/open/floor/engine,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ap" = (
 /obj/structure/bed,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aq" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ar" = (
 /turf/open/floor/iron/airless{
 	broken = 1
 	},
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "at" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "au" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "av" = (
 /obj/item/wrench,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aw" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ax" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ay" = (
 /obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "az" = (
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aA" = (
 /obj/structure/table,
 /obj/item/paper,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aB" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -131,50 +131,50 @@
 	dir = 1
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aC" = (
 /obj/structure/frame/computer,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aD" = (
 /obj/structure/table,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aE" = (
 /obj/item/food/meat/slab/synthmeat{
 	name = "Cuban Pete-Meat"
 	},
 /turf/open/floor/engine,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aF" = (
 /obj/structure/grille,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aG" = (
 /obj/structure/grille/broken,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aH" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aI" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aJ" = (
 /obj/item/stack/cable_coil/cut/red{
 	amount = 1
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aK" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/closet,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aL" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/template_noop,
@@ -182,12 +182,12 @@
 "aM" = (
 /obj/item/folder/yellow,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aN" = (
 /obj/structure/bed,
 /obj/effect/decal/remains/human,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aO" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -205,7 +205,7 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aR" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -223,89 +223,89 @@
 "aU" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aV" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aW" = (
 /obj/item/paper/crumpled,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aX" = (
 /obj/item/food/meat/slab/synthmeat{
 	name = "Cuban Pete-Meat"
 	},
 /obj/item/stack/spacecash,
 /turf/open/floor/engine,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aY" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "aZ" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ba" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bf" = (
 /obj/structure/door_assembly/door_assembly_hatch,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bg" = (
 /obj/item/cigbutt,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bh" = (
 /obj/machinery/vending/snack,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bi" = (
 /obj/machinery/vending/cola,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bj" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bk" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bm" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/grille/broken,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bo" = (
 /obj/structure/disposaloutlet{
 	dir = 4
@@ -314,7 +314,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bq" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -324,7 +324,7 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "bs" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/template_noop,
@@ -333,124 +333,124 @@
 /obj/structure/table,
 /obj/item/radio/off,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bu" = (
 /obj/structure/chair,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "by" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "bA" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bB" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bC" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bD" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bF" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "bH" = (
 /obj/item/stack/rods,
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bK" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
 	dir = 9
 	},
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bL" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle,
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bM" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bP" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bQ" = (
 /obj/structure/rack,
 /obj/item/circuitboard/computer/teleporter,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bS" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bT" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bV" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bY" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "bZ" = (
 /obj/item/cigbutt,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cc" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cd" = (
 /obj/item/storage/toolbox/syndicate,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ce" = (
 /obj/structure/table,
 /obj/item/electropack,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ch" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
 	dir = 10
 	},
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cj" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -460,31 +460,31 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "cl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cm" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "co" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cp" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -496,23 +496,23 @@
 	dir = 8
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cs" = (
 /obj/item/stack/rods,
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "ct" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cw" = (
 /obj/machinery/light/small,
 /obj/item/paper,
@@ -520,13 +520,13 @@
 	dir = 8
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/open/floor/iron/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cy" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -540,11 +540,11 @@
 	icon_state = "medium"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "cB" = (
 /obj/effect/spawner/structure/window/hollow/reinforced,
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cC" = (
 /obj/structure/grille/broken,
 /turf/template_noop,
@@ -552,83 +552,83 @@
 "cD" = (
 /obj/machinery/door/airlock/hatch,
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cH" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cI" = (
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cJ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cK" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cL" = (
 /obj/structure/sign/warning/vacuum,
 /turf/closed/wall/r_wall,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cM" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cN" = (
 /obj/item/paper/crumpled,
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cO" = (
 /obj/structure/closet/malf/suits,
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cP" = (
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cQ" = (
 /obj/machinery/door/airlock/external,
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cS" = (
 /obj/item/crowbar,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cT" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
@@ -636,13 +636,13 @@
 	dir = 10
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cU" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cV" = (
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
@@ -652,13 +652,13 @@
 	dir = 10
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cX" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -667,43 +667,43 @@
 	dir = 6
 	},
 /turf/open/floor/iron,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cY" = (
 /obj/structure/frame/computer,
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "cZ" = (
 /obj/machinery/teleport/station,
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "da" = (
 /obj/machinery/teleport/hub,
 /turf/open/floor/plating,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "dZ" = (
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "fz" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "kx" = (
 /obj/structure/table,
 /obj/item/circular_saw,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "mU" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/assembly/signaler,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "nQ" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "oi" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/chair,
@@ -711,79 +711,79 @@
 /obj/item/restraints/handcuffs,
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "oX" = (
 /obj/structure/door_assembly/door_assembly_mhatch,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "rK" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/stack/rods,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "uh" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/stack/rods,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "wm" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "Ar" = (
 /obj/structure/table,
 /obj/item/hemostat,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "Bo" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "FE" = (
 /obj/machinery/door/airlock/hatch,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "HO" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "HU" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "Jm" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "LY" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "SX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/scalpel{
 	pixel_y = 12
 	},
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "Tv" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "TT" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "VE" = (
 /obj/structure/table,
 /obj/item/reagent_containers/syringe/lethal/choral,
@@ -791,31 +791,31 @@
 	pixel_y = 4
 	},
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "VS" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "Xs" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "XS" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/item/electronics/airlock,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "YJ" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 "YZ" = (
 /obj/item/radio/off,
 /turf/open/floor/iron/dark/airless,
-/area/tcommsat/oldaisat)
+/area/station/tcommsat/oldaisat)
 
 (1,1,1) = {"
 aa

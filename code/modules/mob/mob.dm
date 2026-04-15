@@ -156,7 +156,6 @@
   * Show a message to this mob (visual or audible)
   */
 /mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE, dist)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
-
 	if(!client)
 		return FALSE
 
@@ -190,73 +189,98 @@
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
 	return .
 
-
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
+/**
+ * Generate a visible message from this atom
+ *
+ * Show a message to all player mobs who sees this atom
+ *
+ * Show a message to the src mob (if the src is a mob)
+ *
+ * Use for atoms performing visible actions
+ *
+ * message is output to anyone who can see, e.g. `"The [src] does something!"`
+ *
+ * Vars:
+ * * message is the message output to anyone who can see.
+ * * self_message (optional) is what the src mob sees e.g. "You do something!"
+ * * blind_message (optional) is what blind people will hear e.g. "You hear something!"
+ * * vision_distance (optional) define how many tiles away the message can be seen.
+ * * ignored_mobs (optional) doesn't show any message to any mob in this list.
+ * * visible_message_flags (optional) is the type of message being sent.
+ */
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, allow_inside_usr = FALSE, separation = " ")
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
 
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
-
-	var/list/hearers = hearers(vision_distance, T) //caches the hearers and then removes ignored mobs.
+	var/list/hearers = mob_only_listeners(get_hearers_in_view(vision_distance, src)) //caches the hearers and then removes ignored mobs.
 	hearers -= ignored_mobs
-
-	if(self_message)
-		hearers -= src
 
 	var/raw_msg = message
 	var/is_emote = FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
+	if(visible_message_flags & WITH_EMPHASIS_MESSAGE)
+		message = apply_message_emphasis(message)
+	if(visible_message_flags & EMOTE_MESSAGE)
 		message = span_emote("<b>[src]</b>[separation][message]")
 		is_emote = TRUE
 
 	var/list/show_to = list()
 
-	for(var/mob/M as() in hearers)
-		if(!M.client)
+	for(var/mob/hearing_mob as anything in hearers)
+		if(!hearing_mob?.client)
+			continue
+		if(self_message && hearing_mob == src)
 			continue
 
 		var/msg = message
-		if(M.see_invisible < invisibility)//if src is invisible to M
+		var/msg_type = MSG_VISUAL
+
+		if(hearing_mob.see_invisible < invisibility)//if src is invisible to M
 			msg = blind_message
+			msg_type = MSG_AUDIBLE
 		else if(T != loc && T != src) //if src is inside something and not a turf.
-			if(!allow_inside_usr || loc != usr)
+			if(!allow_inside_usr || hearing_mob != loc)
 				msg = blind_message
-		else if(T.lighting_object && T.lighting_object.invisibility <= M.see_invisible && T.is_softly_lit() && !in_range(T,M)) //if it is too dark.
+				msg_type = MSG_AUDIBLE
+		else if(!HAS_TRAIT(hearing_mob, TRAIT_HEAR_THROUGH_DARKNESS) && T.lighting_object && T.lighting_object.invisibility <= hearing_mob.see_invisible && T.is_softly_lit() && !in_range(T,hearing_mob)) //if it is too dark.
 			msg = blind_message
+			msg_type = MSG_AUDIBLE
 		if(!msg)
 			continue
 
-		if(is_emote && M.should_show_chat_message(src, null, TRUE))
-			if(M.is_blind() && get_dist(M, src) > BLIND_TEXT_DIST)
+		if(is_emote && hearing_mob.should_show_chat_message(src, null, TRUE))
+			if(hearing_mob.is_blind() && get_dist(hearing_mob, src) > BLIND_TEXT_DIST)
 				continue
-			show_to += M
+			show_to += hearing_mob
 
-		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = M == src)
+		hearing_mob.show_message(msg, msg_type, blind_message, MSG_AUDIBLE, avoid_highlighting = hearing_mob == src)
 
 	//Create the chat message
 	if(length(show_to))
-		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
+		create_chat_message(speaker = src, message_language = null, hearers = show_to, raw_message = raw_msg, spans = null, runechat_flags = visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, allow_inside_usr = FALSE, separation = " ")
 	. = ..()
 	if(!self_message)
 		return
 	var/raw_self_message = self_message
 	var/self_runechat = FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
+	var/block_self_highlight = (visible_message_flags & BLOCK_SELF_HIGHLIGHT_MESSAGE)
+	if(visible_message_flags & WITH_EMPHASIS_MESSAGE)
+		self_message = apply_message_emphasis(self_message)
+	if((visible_message_flags & EMOTE_MESSAGE))
 		self_message = span_emote("<b>[src]</b> [self_message]") // May make more sense as "You do x"
 
-	if(LAZYFIND(visible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
-		to_chat(src, self_message)
+	if(visible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
+		to_chat(src, self_message, avoid_highlighting = block_self_highlight)
 		self_runechat = TRUE
-
 	else
-		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = block_self_highlight)
 
-	if(self_runechat && (LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, visible_message_flags))
-		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = visible_message_flags)
+	if(self_runechat && ((visible_message_flags & EMOTE_MESSAGE)) && runechat_prefs_check(src, visible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, runechat_flags = visible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this atom
@@ -269,25 +293,28 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
-	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_MAXIMUM)
-	if(self_message)
-		hearers -= src
-
+/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ")
+	var/list/hearers = mob_only_listeners(get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_MAXIMUM))
 	var/raw_msg = message
 	var/is_emote = FALSE
-	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
+		message = apply_message_emphasis(message)
+	if(audible_message_flags & EMOTE_MESSAGE)
 		is_emote = TRUE
 		message = span_emote("<b>[src]</b>[separation][message]")
 
 	var/list/show_to = list()
-	for(var/mob/M in hearers)
-		if(is_emote && M.should_show_chat_message(src, null, TRUE, is_heard = TRUE))
-			show_to += M
-		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+	for(var/mob/hearing_mob as anything in hearers)
+		if(!hearing_mob?.client)
+			continue
+		if(self_message && hearing_mob == src)
+			continue
+		if(is_emote && hearing_mob.should_show_chat_message(src, null, TRUE, is_heard = TRUE))
+			show_to += hearing_mob
+		hearing_mob.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 	if(length(show_to))
-		create_chat_message(src, null, show_to, raw_message = raw_msg, spans = list("italics"), message_mods = audible_message_flags)
+		create_chat_message(src, null, show_to, raw_message = raw_msg, spans = list("italics"), runechat_flags = audible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this one
@@ -300,38 +327,54 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
+/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ")
 	. = ..()
 	if(!self_message)
 		return
 
 	var/raw_self_message = self_message
 	var/self_runechat = FALSE
-	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+	var/block_self_highlight = (audible_message_flags & BLOCK_SELF_HIGHLIGHT_MESSAGE)
+	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
+		self_message = apply_message_emphasis(self_message)
+	if(audible_message_flags & EMOTE_MESSAGE)
 		self_message = span_emote("<b>[src]</b> [self_message]")
-	if(LAZYFIND(audible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
-		to_chat(src, self_message)
+
+	if(audible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
+		to_chat(src, self_message, avoid_highlighting = block_self_highlight)
 		self_runechat = TRUE
 	else
-		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL, avoid_highlighting = block_self_highlight)
 
-	if(self_runechat && (LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, audible_message_flags))
-		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = audible_message_flags)
+	if(self_runechat && ((audible_message_flags & EMOTE_MESSAGE)) && runechat_prefs_check(src, audible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, runechat_flags = audible_message_flags)
+
+/// Gets a linked mob, letting atoms act as proxies for actions that rely on hearing sensitivity.
+/// For example, AIs hearing around their holopads, and dullahans hearing around their heads.
+/// Normal say messages are handled by Hear(), this is for other visible/audible messages
+/atom/movable/proc/get_listening_mob()
+	return
+
+/obj/effect/overlay/holo_pad_hologram/get_listening_mob()
+	return Impersonation
+
+/mob/get_listening_mob()
+	return src
 
 ///Returns the client runechat visible messages preference according to the message type.
-/atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
+/atom/proc/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
 	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
 		return FALSE
-	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((visible_message_flags & EMOTE_MESSAGE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
-/mob/runechat_prefs_check(mob/target, list/visible_message_flags)
+/mob/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((visible_message_flags & EMOTE_MESSAGE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
@@ -967,10 +1010,6 @@
 		return
 	if(isAI(M))
 		return
-
-///Is the mob muzzled (default false)
-/mob/proc/is_muzzled()
-	return FALSE
 
 /datum/action/proc/get_stat_label()
 	var/label = ""

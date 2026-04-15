@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 \*||||||||||||||||||||||||||||||||||||||||*/
 
 /datum/gas
+	abstract_type = /datum/gas
 	var/id = ""
 	var/specific_heat = 0
 	var/name = ""

@@ -1,6 +1,7 @@
 #define TELEPORT_COOLDOWN 60 SECONDS
 
 /datum/symptom/heal
+	abstract_type = /datum/symptom/heal
 	name = "Basic Healing (does nothing)" //warning for adminspawn viruses
 	desc = "You should not be seeing this."
 	stealth = 0

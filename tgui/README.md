@@ -105,6 +105,7 @@ Remember to always run a full build of tgui before submitting a PR, because it c
 ## Troubleshooting
 
 **Development server isn't attaching to the game**
+
 Make sure that you have a tgui window open before you run the dev server. Then,
 once it's running, you may need to press F5 to refresh the page.
 
@@ -154,6 +155,7 @@ Inspection". You can then f12 to open the standard chrome dev tools.
 - `/packages` - Each folder here represents a self-contained Node module.
 - `/packages/common` - Helper functions that are used throughout all packages.
 - `/packages/tgui/index.ts` - Application entry point.
+- `/packages/tgui/components` - Basic UI building blocks.
 - `/packages/tgui/interfaces` - Actual in-game interfaces.
 - `/packages/tgui/layouts` - Root level UI components, that affect the final look and feel of the browser window. These hold various window elements, like the titlebar and resize handlers, and control the UI theme.
 - `/packages/tgui/routes.ts` - This is where tgui decides which interface to pull and render.

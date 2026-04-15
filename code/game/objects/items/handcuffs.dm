@@ -1,4 +1,5 @@
 /obj/item/restraints
+	abstract_type = /obj/item/restraints
 	breakouttime = 1 MINUTES
 	item_flags = ISWEAPON
 
@@ -18,7 +19,7 @@
 	worn_icon_state = "handcuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -210,7 +211,7 @@
 	icon_state = "handcuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	slowdown = 7
