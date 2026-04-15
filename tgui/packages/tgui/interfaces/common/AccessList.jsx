@@ -101,7 +101,7 @@ export const AccessList = (props) => {
             })}
           </Tabs>
         </Flex.Item>
-        <Flex.Item grow={1}>
+        <Flex.Item grow={1} ml={2}>
           <Grid>
             <Grid.Column mr={0}>
               <Button
