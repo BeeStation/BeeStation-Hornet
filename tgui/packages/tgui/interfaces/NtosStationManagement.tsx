@@ -159,7 +159,11 @@ const LoginView = () => {
           <Button icon="lock-open" onClick={() => act('PRG_login')}>
             Login
           </Button>
-          <Button icon="eject" color="bad" onClick={() => act('PRG_eject_card')}>
+          <Button
+            icon="eject"
+            color="bad"
+            onClick={() => act('PRG_eject_card')}
+          >
             Eject ID
           </Button>
         </Stack.Item>
@@ -195,10 +199,7 @@ const AuthenticatedView = () => {
                   )}
                 </Flex.Item>
                 <Flex.Item>
-                  <Button
-                    icon="sign-out-alt"
-                    onClick={() => act('PRG_logout')}
-                  >
+                  <Button icon="sign-out-alt" onClick={() => act('PRG_logout')}>
                     Logout
                   </Button>
                   <Button
@@ -250,7 +251,10 @@ const AccountList = () => {
   const { accounts = [], selected_account, has_change_ids } = data;
   const [searchTerm, setSearchTerm] = useLocalState('accountSearch', '');
 
-  const isMatch = createSearch(searchTerm, (account: Account) => account.name + ' ' + account.job);
+  const isMatch = createSearch(
+    searchTerm,
+    (account: Account) => account.name + ' ' + account.job,
+  );
   const filteredAccounts = accounts.filter(isMatch);
 
   return (
@@ -282,7 +286,11 @@ const AccountList = () => {
           key={account.ref}
           fluid
           disabled={account.is_operator}
-          tooltip={account.is_operator ? 'You cannot modify your own account.' : undefined}
+          tooltip={
+            account.is_operator
+              ? 'You cannot modify your own account.'
+              : undefined
+          }
           color={
             account.is_operator
               ? 'label'
@@ -295,9 +303,7 @@ const AccountList = () => {
           <Box bold inline>
             {account.name}
           </Box>
-          {!!account.is_operator && (
-            <Icon name="user" ml={1} color="label" />
-          )}
+          {!!account.is_operator && <Icon name="user" ml={1} color="label" />}
           <Box color="label" fontSize="11px">
             {account.job}
           </Box>
@@ -449,15 +455,15 @@ const AccessSubTab = () => {
   // Only show regions the user has authority over
   const visibleRegions = has_change_ids
     ? regions
-    : regions.filter((region) => (region.regid & accessible_region_bitflag) !== 0);
+    : regions.filter(
+        (region) => (region.regid & accessible_region_bitflag) !== 0,
+      );
 
   return (
     <AccessList
       accesses={visibleRegions}
       selectedList={selected_account.access || []}
-      accessMod={(ref) =>
-        act('PRG_toggle_access', { access_target: ref })
-      }
+      accessMod={(ref) => act('PRG_toggle_access', { access_target: ref })}
       grantAll={has_change_ids ? () => act('PRG_grant_all') : undefined}
       denyAll={has_change_ids ? () => act('PRG_revoke_all') : undefined}
       grantDep={(regid) => act('PRG_grant_dept', { dept_bitflag: regid })}
@@ -477,9 +483,9 @@ const SalarySubTab = () => {
   return (
     <Section scrollable fill>
       <NoticeBox info>
-        <b>Salary</b> is the recurring pay per cycle from the department
-        budget. <b>Bonus</b> is a one-time adjustment applied next payday,
-        then cleared. Negative values dock pay.
+        <b>Salary</b> is the recurring pay per cycle from the department budget.{' '}
+        <b>Bonus</b> is a one-time adjustment applied next payday, then cleared.
+        Negative values dock pay.
       </NoticeBox>
       <Table>
         <Table.Row header>
@@ -529,7 +535,12 @@ const SalarySubTab = () => {
 
 const JobAssignmentSubTab = () => {
   const { act, data } = useBackend<StationManagementData>();
-  const { job_groups = [], has_change_ids, accessible_region_bitflag, selected_account } = data;
+  const {
+    job_groups = [],
+    has_change_ids,
+    accessible_region_bitflag,
+    selected_account,
+  } = data;
 
   const [customAssignment, setCustomAssignment] = useLocalState(
     'customAssignment',
@@ -539,20 +550,23 @@ const JobAssignmentSubTab = () => {
   // Only show departments the user can assign
   const visibleGroups = has_change_ids
     ? job_groups
-    : job_groups.filter((group) => (group.dept_bitflag & accessible_region_bitflag) !== 0);
+    : job_groups.filter(
+        (group) => (group.dept_bitflag & accessible_region_bitflag) !== 0,
+      );
 
   const [selectedDept, setSelectedDept] = useLocalState(
     'jobDept',
     visibleGroups[0]?.department || '',
   );
 
-  const currentGroup = visibleGroups.find((group) => group.department === selectedDept);
+  const currentGroup = visibleGroups.find(
+    (group) => group.department === selectedDept,
+  );
 
   return (
     <Section title="Job Assignment" fill>
       <NoticeBox info mb={1}>
-        Current assignment:{' '}
-        <b>{selected_account?.job || 'Unknown'}</b>
+        Current assignment: <b>{selected_account?.job || 'Unknown'}</b>
       </NoticeBox>
       <Section title="Custom Assignment" level={2} mb={1}>
         <Flex align="center">
@@ -606,9 +620,7 @@ const JobAssignmentSubTab = () => {
               {job.title}
             </Button>
           ))}
-          {!currentGroup && (
-            <Box color="label">Select a department.</Box>
-          )}
+          {!currentGroup && <Box color="label">Select a department.</Box>}
         </Flex.Item>
       </Flex>
     </Section>
@@ -641,11 +653,15 @@ const CardTrimSubTab = () => {
   const visibleTrimGroups = has_change_ids
     ? trim_styles
     : trim_styles.filter(
-        (group) => group.dept_bitflag === 0 || (group.dept_bitflag & accessible_region_bitflag) !== 0,
+        (group) =>
+          group.dept_bitflag === 0 ||
+          (group.dept_bitflag & accessible_region_bitflag) !== 0,
       );
 
   const activeCard =
-    linkedCards.find((card) => card.ref === selectedCard) || linkedCards[0] || null;
+    linkedCards.find((card) => card.ref === selectedCard) ||
+    linkedCards[0] ||
+    null;
   const activeDept =
     selectedTrimDept ||
     (visibleTrimGroups.length > 0 ? visibleTrimGroups[0].department : '');
@@ -684,9 +700,15 @@ const CardTrimSubTab = () => {
           <Flex mt={1} align="center" justify="space-between">
             <Flex.Item>
               <Box color="label" fontSize="11px">
-                Current trim: <Box as="span" bold color="white">{activeCard.icon_state}</Box>
+                Current trim:{' '}
+                <Box as="span" bold color="white">
+                  {activeCard.icon_state}
+                </Box>
                 {' · '}
-                Assignment: <Box as="span" bold color="white">{activeCard.assignment}</Box>
+                Assignment:{' '}
+                <Box as="span" bold color="white">
+                  {activeCard.assignment}
+                </Box>
               </Box>
             </Flex.Item>
             <Flex.Item>
@@ -812,21 +834,14 @@ const JobSlotsTab = () => {
               <Button
                 icon="plus"
                 disabled={cooldown_remaining > 0 || slot.total_positions < 0}
-                onClick={() =>
-                  act('PRG_open_job', { job_title: slot.title })
-                }
+                onClick={() => act('PRG_open_job', { job_title: slot.title })}
               />
             </Table.Cell>
             <Table.Cell textAlign="center">
               <Button
                 icon="minus"
-                disabled={
-                  cooldown_remaining > 0 ||
-                  slot.total_positions <= 0
-                }
-                onClick={() =>
-                  act('PRG_close_job', { job_title: slot.title })
-                }
+                disabled={cooldown_remaining > 0 || slot.total_positions <= 0}
+                onClick={() => act('PRG_close_job', { job_title: slot.title })}
               />
             </Table.Cell>
             <Table.Cell textAlign="center">
