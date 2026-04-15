@@ -870,28 +870,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(NAMEOF(src, can_respawn))
 			create_mob_hud()
 
-
-/mob/dead/observer/set_mob_eye_to(atom/new_eye)
-	. = ..()
-	if(!. || !client)
-		return
-
-	if(observetarget) // from observe() proc
-		if(observetarget == new_eye) // observe target
-			if(observetarget.hud_used)
-				client.screen = list()
-				LAZYOR(observetarget.observers, src)
-				observetarget.hud_used.show_hud(observetarget.hud_used.hud_version, src)
-				to_chat(src, "<span class='notice'>You started observing [observetarget]</span>")
-
-		else // stop observing
-			to_chat(src, "<span class='notice'>You stopped observing [observetarget]</span>")
-			LAZYREMOVE(observetarget.observers, src)
-			observetarget = null
-	if(!new_eye && hud_used) // use my ghost hud
-		client.screen = list()
-		hud_used.show_hud(hud_used.hud_version)
-
 /mob/dead/observer/verb/cancel_camera_ghosts()
 	set name = "Cancel Camera View"
 	set category = "Ghost"
@@ -903,7 +881,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	if(observetarget) // stop observing
+		to_chat(src, "<span class='notice'>You stopped observing [observetarget]</span>")
+		LAZYREMOVE(observetarget.observers, src)
+		observetarget = null
 		set_mob_eye_to(MOB_EYE_SELF)
+		if(hud_used)
+			client.screen = list()
+			hud_used.show_hud(hud_used.hud_version)
 		return
 
 	var/list/creatures = getpois()
@@ -919,7 +903,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && ismob(mob_eye))
 		observetarget = mob_eye
+		LAZYOR(observetarget.observers, src)
 		set_mob_eye_to(observetarget)
+		to_chat(src, "<span class='notice'>You started observing [observetarget]</span>")
+		if(observetarget.hud_used)
+			client.screen = list()
+			observetarget.hud_used.show_hud(observetarget.hud_used.hud_version, src)
 
 /mob/dead/observer/verb/register_pai_candidate()
 	set category = "Ghost"
