@@ -39,7 +39,7 @@
 
 /datum/plant_feature/roots/get_scan_dialogue()
 	. = ..()
-	. += "Compatible Substrate: [substrate_dialogue]"
+	. += "Compatible Substrate: [substrate_dialogue]\n"
 
 /datum/plant_feature/roots/get_ui_data()
 	. = ..()

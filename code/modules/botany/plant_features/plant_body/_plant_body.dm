@@ -82,7 +82,7 @@
 	. += "Growth Time: [growth_time/10] seconds\n"
 	. += "Fruit Size: [upper_fruit_size]\n"
 	. += "Plant Size: [slot_size]\n"
-	. += "Plant Health: [health]"
+	. += "Plant Health: [health]\n"
 
 /datum/plant_feature/body/get_ui_data()
 	. = ..()

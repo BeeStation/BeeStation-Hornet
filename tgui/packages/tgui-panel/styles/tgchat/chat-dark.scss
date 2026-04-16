@@ -719,6 +719,7 @@ em {
 
 .plant_scan {
   display: block;
+  font-size: small;
   font-family: monospace;
   color: rgb(255, 255, 119);
   text-align: center;
@@ -750,9 +751,11 @@ em {
   height: 100%;
   z-index: 2;
 }
+
 .plant_sub {
   display: grid;
   font-family: monospace;
+  font-size: small;
   color: rgb(255, 255, 119);
   text-align: start;
   background-color: black;
@@ -770,6 +773,11 @@ em {
   outline-color: rgb(133, 133, 66);
   padding: 3px;
   margin: 2px 2px;
+}
+
+.plant_margin_wrapper {
+  padding: 0;
+  margin: 5px 10px;
 }
 
 .prisoner_message {

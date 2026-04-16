@@ -14,7 +14,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=30, /datum/material/glass=20)
 	///Do we show extra information
-	var/advanced = TRUE
+	var/advanced = FALSE
 	///Refernece to our screen effect
 	var/obj/effect/hydroponics_screen/screen
 
@@ -72,8 +72,8 @@
 	var/obj/item/plant_seeds/seeds = target
 	if(istype(seeds))
 		for(var/datum/plant_feature/feature as anything in seeds.plant_features)
-			scan_dialogue += "<span class='plant_sub'>[feature.get_scan_dialogue()]<br/>[advanced ? "\n[feature.get_need_dialogue()]" : ""]</span>"
-		to_chat(user, "<span class='plant_scan'><b>[capitalize(target.name)]</b></span><span class='plant_scan'>[scan_dialogue]</span>")
+			scan_dialogue += "<span class='plant_sub'>[feature.get_scan_dialogue()][advanced ? "\n[feature.get_need_dialogue()]" : ""]</span>"
+		to_chat(user, "<span class='plant_scan'><b>[capitalize(target.name)] [advanced ? "(Advanced Scan)" : "(Basic Scan)"]</b></span><span class='plant_scan'>[scan_dialogue]</span>")
 		playsound(src, 'sound/effects/fastbeep.ogg', 20)
 		return FALSE
 //Fruit
@@ -87,7 +87,7 @@
 		//Reagents
 		for(var/datum/reagent/reagent as anything in target.reagents?.reagent_list)
 			scan_dialogue += "<span class='plant_sub'>Contains [reagent?.volume]u of [reagent?.name]</span>"
-		to_chat(user, "<span class='plant_scan'><b>[capitalize(target.name)]</b></span><span class='plant_scan'>[scan_dialogue]</span>")
+		to_chat(user, "<span class='plant_scan'><b>[capitalize(target.name)] [advanced ? "(Advanced Scan)" : "(Basic Scan)"]</b></span><span class='plant_scan'>[scan_dialogue]</span>")
 		playsound(src, 'sound/effects/fastbeep.ogg', 20)
 		return FALSE
 //Plant
@@ -96,6 +96,7 @@
 		return FALSE
 	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
 		scan_dialogue += "<span class='plant_sub'>[feature.get_scan_dialogue()][advanced ? "\n[feature.get_need_dialogue()]" : ""]</span>"
-	to_chat(user, "<span class='plant_scan'><b>[capitalize(target.name)]</b></span><span class='plant_scan'>[scan_dialogue]</span>")
+	scan_dialogue = "<span class='plant_scan'><b>[capitalize(target.name)] [advanced ? "(Advanced Scan)" : "(Basic Scan)"]</b></span><span class='plant_scan'>[scan_dialogue]</span>"
+	to_chat(user, "<span class='plant_margin_wrapper'>[scan_dialogue]</span>")
 	playsound(src, 'sound/effects/fastbeep.ogg', 20)
 	return FALSE

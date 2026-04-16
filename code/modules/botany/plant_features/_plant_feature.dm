@@ -93,7 +93,7 @@
 	var/dialogue = "[capitalize(name)]([species_name])\n"
 	//Traits
 	for(var/datum/plant_trait/trait as anything in plant_traits)
-		dialogue += "<i>[trait.name]</i>\n"
+		dialogue += "<i>	[trait.name]</i>\n"
 	if(!length(plant_traits))
 		dialogue += "\n"
 	//generic shared info - This can be a little duplicate when compared with get_ui_data() but it'll be good to keep this seperate for future additions
@@ -108,7 +108,7 @@
 	for(var/datum/plant_need/need as anything in plant_needs)
 		if(!buffs && need.buff)
 			continue
-		dialogue += "[need.need_description]<br/>\n"
+		dialogue += "[need.need_description]<br/>"
 	return dialogue
 
 ///This is a keyed list for UIs to get specific values, usually for logic or display

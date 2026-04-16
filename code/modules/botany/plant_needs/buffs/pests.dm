@@ -33,7 +33,7 @@
 	archive_description = need_description
 
 /datum/plant_need/reagent/buff/pests/process(delta_time)
-	need_description = "[archive_description]\nPest Level: [pest_level]%"
+	need_description = "[archive_description]\n	 Pest Level: [pest_level]%"
 	if(SEND_SIGNAL(parent.parent.plant_item.loc, COMSIG_PLANTER_PAUSE_PLANT))
 		return
 	if(pest_level <= 0)
