@@ -33,6 +33,12 @@
 	extended_desc = "This file explains how to use this cracked subscription package of NTOS Virus Buster."
 	tgui_id = "antivirus_readme"
 
+/datum/computer_file/program/readme/phantom_readme
+	filename = "Phantm-README.txt"
+	filedesc = "Phantm-README.txt"
+	extended_desc = "This file explains how to use the Phantm Executable."
+	tgui_id = "VirusReadme_Phantom"
+
 /datum/computer_file/program/coil_virus
 	filename = "Coilvrs.exe"
 	filedesc = "Coilvrs.exe"
@@ -247,5 +253,80 @@
 	switch(action)
 		if("Detonate")
 			triggered = FALSE
+			kill_program()
+			return TRUE
+
+/datum/computer_file/program/phantom_virus
+	filename = "Phantm.exe"
+	filedesc = "Phantm.exe"
+	program_icon_state = "single_contract"
+	extended_desc = "Scrambles the account routing data on the inserted ID card."
+	size = 0
+	available_on_ntnet = FALSE
+	tgui_id = "virus_phantom"
+	program_icon = "ghost"
+	var/triggered = FALSE
+
+/datum/computer_file/program/phantom_virus/on_start(mob/living/user)
+	. = ..()
+	get_user()
+	if(player)
+		sound_channel = rand(200, 800)
+		player.playsound_local(computer, 'sound/soundtrack/PinkSuzuki_HappyPlace.ogg', 50, channel = sound_channel)
+		sound = TRUE
+	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	if(card)
+		computer.add_log("ALERT: Execution of unsafe class [filename] file detected in [card.get_network_tag()]!")
+
+/datum/computer_file/program/phantom_virus/kill_program(forced)
+	. = ..()
+	if(player)
+		player.stop_sound_channel(sound_channel)
+		sound = FALSE
+		player = null
+	if(!triggered)
+		return
+	// Successful trigger — hide the account on the inserted ID
+	var/obj/item/computer_hardware/card_slot/slot = computer.all_components[MC_CARD]
+	if(slot?.stored_card)
+		var/obj/item/card/id/target_id = slot.stored_card
+		if(target_id.registered_account)
+			target_id.registered_account.hidden = TRUE
+	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
+	playsound(computer, "sparks", 50)
+	playsound(computer, 'sound/machines/terminal_alert.ogg', 25, TRUE)
+	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
+	if(card)
+		computer.add_log("SYSnotice :: RFID account routing data scrambled via [filename] at [card.get_network_tag()].")
+	var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
+	if(disk)
+		disk.component_qdel()
+
+/datum/computer_file/program/phantom_virus/on_ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
+	if(player)
+		player.stop_sound_channel(sound_channel)
+		sound = FALSE
+		player = null
+	kill_program()
+
+/datum/computer_file/program/phantom_virus/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("Detonate")
+			var/obj/item/computer_hardware/card_slot/slot = computer.all_components[MC_CARD]
+			if(!slot?.stored_card)
+				computer.balloon_alert(ui.user, "No ID card inserted!")
+				return
+			var/obj/item/card/id/target_id = slot.stored_card
+			if(!target_id.registered_account)
+				computer.balloon_alert(ui.user, "No linked account!")
+				return
+			if(target_id.registered_account.hidden)
+				computer.balloon_alert(ui.user, "Account already hidden!")
+				return
+			triggered = TRUE
 			kill_program()
 			return TRUE

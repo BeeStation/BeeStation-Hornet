@@ -261,6 +261,29 @@
 		drive.virus_defense --
 	component_qdel()
 
+/obj/item/computer_hardware/hard_drive/role/virus/phantom
+	name = "\improper Phantm Drive"
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk6"
+	virus_strength = 1
+	charges = 1
+	virus_class = "Phantm.exe"
+
+/obj/item/computer_hardware/hard_drive/role/virus/phantom/Initialize(mapload)
+	. = ..()
+	store_file(new/datum/computer_file/program/readme/phantom_readme())
+	store_file(new/datum/computer_file/program/phantom_virus())
+
+/obj/item/computer_hardware/hard_drive/role/virus/phantom/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
+	. = ..()
+	if(!.)
+		return
+	// When sent remotely, hide the target's ID card account
+	var/obj/item/computer_hardware/card_slot/slot = target.all_components[MC_CARD]
+	if(slot?.stored_card?.registered_account)
+		slot.stored_card.registered_account.hidden = TRUE
+	component_qdel()
+
 /obj/item/computer_hardware/hard_drive/role/virus/antivirus
 	name = "\improper NT Virus Buster (Crack)"
 	icon = 'icons/obj/module.dmi'

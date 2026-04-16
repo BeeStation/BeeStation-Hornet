@@ -55,6 +55,7 @@ GLOBAL_LIST_INIT(trash_loot, list(//junk: useless, very easy to get, or ghetto c
 
 		/obj/item/airlock_painter = 1,
 		/obj/item/airlock_painter/decal = 2,
+		/obj/item/computer_hardware/hard_drive/role/virus/phantom = 3, // Not fully useless, but we want a good few of these in every maints.
 		/obj/item/clothing/mask/breath = 1,
 		/obj/item/rack_parts = 1,
 		/obj/item/shard = 1,
