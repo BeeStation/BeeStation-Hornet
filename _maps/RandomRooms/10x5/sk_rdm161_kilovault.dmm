@@ -21,8 +21,7 @@
 "af" = (
 /obj/machinery/door/airlock/vault{
 	id_tag = "bank";
-	name = "Bank Vault";
-	req_access_txt = "0"
+	name = "Bank Vault"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/iron/dark,

@@ -102,9 +102,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "in" = (
-/obj/machinery/door/airlock/security{
-	req_one_access_txt = "2;19"
-	},
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
@@ -458,9 +458,8 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Ie" = (
-/obj/machinery/door/airlock/security{
-	req_access_txt = "2"
-	},
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -632,9 +631,9 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/command{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/shuttle/escape)
