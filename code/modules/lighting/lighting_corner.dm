@@ -25,9 +25,9 @@
 
 	var/needs_update = FALSE
 
-	var/cache_r  = LIGHTING_SOFT_THRESHOLD
-	var/cache_g  = LIGHTING_SOFT_THRESHOLD
-	var/cache_b  = LIGHTING_SOFT_THRESHOLD
+	var/cache_r = LIGHTING_SOFT_THRESHOLD
+	var/cache_g = LIGHTING_SOFT_THRESHOLD
+	var/cache_b = LIGHTING_SOFT_THRESHOLD
 
 	//additive light values
 	var/add_r = 0
