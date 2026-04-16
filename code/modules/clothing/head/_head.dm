@@ -1,4 +1,5 @@
 /obj/item/clothing/head
+	abstract_type = /obj/item/clothing/head
 	name = BODY_ZONE_HEAD
 	icon = 'icons/obj/clothing/head/default.dmi'
 	worn_icon = 'icons/mob/clothing/head/default.dmi'

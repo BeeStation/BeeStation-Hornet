@@ -1,4 +1,5 @@
 /obj/item/organ/wings
+	abstract_type = /obj/item/organ/wings
 	name = "Pair of wings"
 	desc = "A pair of wings. They look skinny and useless"
 	icon_state = "angelwings"

@@ -113,9 +113,8 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "dE" = (
@@ -326,9 +325,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/white,
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "iD" = (
@@ -694,9 +692,9 @@
 /area/shuttle/hunter)
 "tN" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Bridge";
-	req_access_txt = "181"
+	name = "Bridge"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "uu" = (
@@ -1105,9 +1103,8 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "181"
-	},
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "Mn" = (
@@ -1194,9 +1191,9 @@
 "Sf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock{
-	name = "Toilet Unit";
-	req_access_txt = "181"
+	name = "Toilet Unit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/hunter,
 /turf/open/floor/iron/showroomfloor,
 /area/shuttle/hunter)
 "SD" = (

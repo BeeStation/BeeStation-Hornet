@@ -1,4 +1,5 @@
 /datum/emote/living/carbon/human
+	abstract_type = /datum/emote/living/carbon/human
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 
 /// The time it takes for the crying visual to be removed

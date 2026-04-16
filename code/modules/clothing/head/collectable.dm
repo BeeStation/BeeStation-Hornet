@@ -30,6 +30,7 @@
 */
 
 /obj/item/clothing/head/collectable
+	abstract_type = /obj/item/clothing/head/collectable
 	name = "collectable hat"
 	desc = "A rare collectable hat."
 	icon = 'icons/obj/clothing/head/costume.dmi'

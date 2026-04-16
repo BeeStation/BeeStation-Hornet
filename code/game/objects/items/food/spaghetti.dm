@@ -1,4 +1,5 @@
 /obj/item/food/spaghetti
+	abstract_type = /obj/item/food/spaghetti
 	name = "Spaghetti Parent"
 	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
 	icon = 'icons/obj/food/spaghetti.dmi'
