@@ -9,6 +9,8 @@
 	var/need_description = ""
 	///Can this need be a random overdraw need?
 	var/overdraw_need = FALSE
+	///Is this need the product of a bad ?
+	var/overdrawn = FALSE
 //Buff stuff
 	///is this need actually a buff? - Buff needs aren't needed to pass need checks
 	var/buff = FALSE
@@ -22,8 +24,9 @@
 	var/obj/effect/plant_buff/buff_appearance
 	var/do_buff_appearance = TRUE
 
-/datum/plant_need/New(datum/plant_feature/_parent)
+/datum/plant_need/New(datum/plant_feature/_parent, _overdrawn)
 	. = ..()
+	overdrawn = _overdrawn
 	setup_parent(_parent)
 	buff_appearance = new(src)
 

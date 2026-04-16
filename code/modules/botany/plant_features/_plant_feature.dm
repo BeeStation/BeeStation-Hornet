@@ -134,16 +134,20 @@
 	var/datum/plant_feature/new_feature = _feature || new type(_parent)
 //Copy traits & needs - The reason we do this is to handle randomized traits & needs, make them the same as this one
 	//traits
-	for(var/trait as anything in new_feature.plant_traits)
+	for(var/trait as anything in new_feature.plant_traits) //Remove generic type traits
 		new_feature.plant_traits -= trait
 		qdel(trait)
-	for(var/datum/plant_trait/trait as anything in plant_traits)
+	for(var/datum/plant_trait/trait as anything in plant_traits) //Add our la-de-da new traits inherited from our grandpappy
 		new_feature.plant_traits += trait.copy(new_feature)
 	//needs
-	for(var/need as anything in new_feature.plant_needs) //Remove new feature's generic needs
+	for(var/datum/plant_need/need as anything in new_feature.plant_needs)
+		if(need.overdrawn) //Don't fiddle with overdraw needs, they're generated on runtime as an effect of traits
+			continue
 		new_feature.plant_needs -= need
 		qdel(need)
-	for(var/datum/plant_need/need as anything in plant_needs) //Replace them with ours
+	for(var/datum/plant_need/need as anything in plant_needs)
+		if(need.overdrawn)
+			continue
 		new_feature.plant_needs += need.copy(new_feature)
 	return new_feature
 
@@ -195,18 +199,20 @@
 	SIGNAL_HANDLER
 
 ///Used to adjust our genetic budget, contains logic for overdrawing our budget
-/datum/plant_feature/proc/adjust_genetic_budget(amount, datum/source)
+/datum/plant_feature/proc/adjust_genetic_budget(amount, datum/plant_trait/source)
+	//Adjust budget before anything else, because we need to see this in the editors
+	remaining_genetic_budget += amount
+	//This other shit only happens with a real plant, the only place you can see needs
 	if(!parent)
 		return
-	remaining_genetic_budget += amount
 //Need management
 	if(!SSbotany.previous_needs["[parent.species_id]"])
 		SSbotany.previous_needs["[parent.species_id]"] = list()
 	//If we're overdrawing, add needs
 	if(amount < 0 && remaining_genetic_budget < 0)
-		var/datum/plant_need/need = SSbotany.previous_needs["[parent.species_id]"]["[source.type]"] || SSbotany.get_random_need()
+		var/datum/plant_need/need = SSbotany.previous_needs["[parent.species_id]"]["[source.get_id()]"] || SSbotany.get_random_need()
 		SSbotany.previous_needs["[parent.species_id]"] |= list("[source.type]" = need.type)
-		need = new need(src)
+		need = new need(src, TRUE)
 		overdraw_needs += list(REF(source) = need)
 		plant_needs += need
 		return
@@ -214,5 +220,6 @@
 	if(amount > 0 && plant_needs[REF(source)])
 		var/datum/plant_need/need = overdraw_needs[REF(source)]
 		plant_needs -= need
+		overdraw_needs[REF(source)] = null
 		overdraw_needs -= REF(source)
 		qdel(need)

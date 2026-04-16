@@ -2,7 +2,7 @@
 	Adds a reagent to the plant, typically fruit
 */
 /datum/plant_trait/reagent
-	genetic_cost = 0.5
+	genetic_cost = 0.25
 	random_trait = FALSE
 	plant_feature_compat = null
 	abstract_type = /datum/plant_trait/reagent
