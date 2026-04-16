@@ -125,6 +125,7 @@
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/warden)
 "abJ" = (
@@ -2067,12 +2068,12 @@
 "aGf" = (
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
-	name = "Solutions Room";
-	req_access_txt = "2"
+	name = "Solutions Room"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/education)
 "aGg" = (
@@ -3129,7 +3130,7 @@
 	id_tag = "outerbrig";
 	name = "Brig"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/maintenance/central/lesser)
 "aUZ" = (
@@ -3838,14 +3839,14 @@
 /area/station/command/bridge)
 "bhz" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Crematorium Maintenance";
-	req_one_access_txt = "2;27"
+	name = "Crematorium Maintenance"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/plating,
 /area/station/security/execution/education)
 "bhH" = (
@@ -3950,14 +3951,14 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/external{
-	name = "Solar Maintenance";
-	req_access_txt = "10; 13"
+	name = "Solar Maintenance"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port)
 "bjw" = (
@@ -6831,12 +6832,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
-	name = "Prisoner Transfer Centre";
-	req_one_access_txt = "2;34"
+	name = "Prisoner Transfer Centre"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
 "ckh" = (
@@ -9225,14 +9226,14 @@
 /area/station/engineering/main)
 "cVH" = (
 /obj/machinery/door/airlock{
-	name = "Court Room";
-	req_access_txt = "38"
+	name = "Court Room"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
 /turf/open/floor/wood,
 /area/station/security/courtroom)
 "cVS" = (
@@ -10993,8 +10994,7 @@
 "dFA" = (
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
-	name = "Crematorium";
-	req_one_access_txt = "2;34"
+	name = "Crematorium"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -11006,6 +11006,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/education)
 "dFG" = (
@@ -11202,7 +11203,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/open/floor/mineral/plastitanium,
 /area/station/security/checkpoint/customs)
 "dHZ" = (
@@ -11705,8 +11706,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/research{
-	name = "Xenobiology Lab";
-	req_one_access_txt = "49"
+	name = "Xenobiology Lab"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -13771,8 +13771,9 @@
 /obj/machinery/door/airlock/external{
 	name = "Security External Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/maintenance/central/lesser)
 "eBb" = (
@@ -17448,8 +17449,7 @@
 /area/station/service/chapel/asteroid/monastery)
 "fIN" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "Toxins Lab";
-	req_access_txt = "8"
+	name = "Toxins Lab"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -17469,6 +17469,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/all/science/ordnance_storage,
 /turf/open/floor/iron/white/smooth_large{
 	color = "a7a6a3"
 	},
@@ -18451,13 +18452,13 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external{
-	name = "Solar Maintenance";
-	req_access_txt = "10; 13"
+	name = "Solar Maintenance"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port)
 "fZi" = (
@@ -18721,8 +18722,7 @@
 "gcp" = (
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
-	name = "Solutions Room";
-	req_access_txt = "2"
+	name = "Solutions Room"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -18734,6 +18734,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/education)
 "gcB" = (
@@ -21805,14 +21806,14 @@
 /area/station/science/storage)
 "hfB" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Port Solar Access";
-	req_access_txt = "10"
+	name = "Port Solar Access"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port)
 "hfN" = (
@@ -28236,7 +28237,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/detective,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
 "jtj" = (
@@ -31022,8 +31024,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/research{
-	name = "Xenobiology Lab";
-	req_one_access_txt = "49"
+	name = "Xenobiology Lab"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -31110,9 +31111,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research{
-	name = "Toxins Launch Room";
-	req_access_txt = "8"
+	name = "Toxins Launch Room"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/ordnance_storage,
 /turf/open/floor/iron/white/smooth_large,
 /area/station/science/mixing/launch)
 "ksn" = (
@@ -31724,8 +31725,7 @@
 /area/station/security/brig)
 "kBw" = (
 /obj/machinery/door/airlock{
-	name = "Starboard Emergency Storage";
-	req_access_txt = "12;24"
+	name = "Starboard Emergency Storage"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/structure/cable/yellow{
@@ -34570,11 +34570,11 @@
 /area/station/engineering/main)
 "lyO" = (
 /obj/machinery/door/airlock{
-	name = "Court Room";
-	req_access_txt = "38"
+	name = "Court Room"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
 /turf/open/floor/wood,
 /area/station/security/courtroom)
 "lyS" = (
@@ -34672,8 +34672,7 @@
 /area/station/service/hydroponics)
 "lBh" = (
 /obj/machinery/door/airlock/medical/glass{
-	name = "Psychologist";
-	req_access_txt = "5"
+	name = "Psychologist"
 	},
 /turf/open/floor/wood,
 /area/station/medical/exam_room)
@@ -36045,6 +36044,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "mdI" = (
@@ -36342,6 +36342,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/warden)
 "mjC" = (
@@ -37299,8 +37300,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/research{
-	name = "Toxins Storage";
-	req_access_txt = "8"
+	name = "Toxins Storage"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -37312,6 +37312,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/landmark/navigate_destination,
+/obj/effect/mapping_helpers/airlock/access/all/science/ordnance_storage,
 /turf/open/floor/engine,
 /area/station/science/storage)
 "mAy" = (
@@ -38193,7 +38194,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /obj/effect/turf_decal/siding/thinplating/dark/corner,
 /turf/open/floor/iron/white/textured_large,
 /area/station/security/checkpoint/medical)
@@ -38343,14 +38344,14 @@
 /area/station/engineering/atmos)
 "mRx" = (
 /obj/machinery/door/airlock{
-	name = "Court Room";
-	req_access_txt = "38"
+	name = "Court Room"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
 /turf/open/floor/wood,
 /area/station/security/courtroom)
 "mRP" = (
@@ -39053,7 +39054,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/service/chapel/monastery)
 "nfM" = (
@@ -45158,9 +45159,10 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/maintenance/central/lesser)
 "pEG" = (
@@ -45277,9 +45279,9 @@
 "pGp" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/door/airlock/atmos{
-	name = "Atmospherics Maintenance";
-	req_access_txt = "12;24"
+	name = "Atmospherics Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
 "pGr" = (
@@ -45430,12 +45432,12 @@
 /area/station/science/explab)
 "pIJ" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "Science Shuttle Dock";
-	req_one_access_txt = "49"
+	name = "Science Shuttle Dock"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/exploration,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/cargo/exploration_prep)
 "pIN" = (
@@ -45881,8 +45883,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research{
-	name = "Containment Pen Access";
-	req_one_access_txt = "49"
+	name = "Containment Pen Access"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -48130,10 +48131,10 @@
 	},
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
-	name = "Prisoner Transfer Centre";
-	req_one_access_txt = "2;34"
+	name = "Prisoner Transfer Centre"
 	},
 /obj/effect/landmark/navigate_destination,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/execution/education)
 "qEj" = (
@@ -50751,6 +50752,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "rBm" = (
@@ -52051,7 +52053,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/open/floor/iron,
 /area/station/security/checkpoint/supply)
 "rWY" = (
@@ -53677,14 +53679,14 @@
 /area/misc/space)
 "sBZ" = (
 /obj/machinery/door/airlock/research{
-	name = "Toxins Lab";
-	req_access_txt = "8"
+	name = "Toxins Lab"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/science/ordnance_storage,
 /turf/open/floor/iron/white/smooth_large{
 	color = "a7a6a3"
 	},
@@ -54626,12 +54628,12 @@
 /area/station/security/checkpoint/customs)
 "sRz" = (
 /obj/machinery/door/airlock{
-	name = "Court Room";
-	req_access_txt = "38"
+	name = "Court Room"
 	},
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
 /turf/open/floor/wood,
 /area/station/security/courtroom)
 "sRB" = (
@@ -55192,7 +55194,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/open/floor/mineral/plastitanium,
 /area/station/security/checkpoint/supply)
 "tbg" = (
@@ -58591,7 +58593,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Medbay Security Post"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 8
 	},
@@ -60319,6 +60321,8 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Security E.V.A. Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/detective,
+/obj/effect/mapping_helpers/airlock/access/any/security/detective,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "uUy" = (
@@ -61954,8 +61958,7 @@
 /area/misc/space)
 "vuZ" = (
 /obj/machinery/door/airlock{
-	name = "Starboard Emergency Storage";
-	req_access_txt = "12;24"
+	name = "Starboard Emergency Storage"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/structure/cable/yellow{
@@ -64439,6 +64442,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/warden)
 "wiI" = (
@@ -64839,7 +64843,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 4
 	},
@@ -65129,14 +65133,14 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research/glass{
-	name = "Science Shuttle Dock";
-	req_one_access_txt = "49"
+	name = "Science Shuttle Dock"
 	},
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/access/all/science/exploration,
 /turf/open/floor/wood,
 /area/station/cargo/exploration_prep)
 "wvB" = (
@@ -67486,8 +67490,7 @@
 /area/station/science/xenobiology)
 "xkW" = (
 /obj/machinery/door/airlock/command{
-	name = "Gateway Access";
-	req_access_txt = "62"
+	name = "Gateway Access"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -67500,6 +67503,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/landmark/navigate_destination,
+/obj/effect/mapping_helpers/airlock/access/all/command/gateway,
 /turf/open/floor/iron,
 /area/station/command/gateway)
 "xlj" = (
