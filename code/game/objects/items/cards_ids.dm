@@ -200,7 +200,6 @@
 
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
 	var/electric = TRUE  // removes account info from examine
-	emag_toggleable = TRUE
 
 /datum/armor/card_id
 	fire = 100
@@ -219,23 +218,6 @@
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
 	return ..()
-
-/obj/item/card/id/should_emag(mob/user)
-	if(!registered_account)
-		return FALSE
-	return TRUE // always allow toggling
-
-/obj/item/card/id/on_emag(mob/user)
-	. = ..()
-	if(!registered_account)
-		return
-	registered_account.hidden = !registered_account.hidden
-	if(registered_account.hidden)
-		to_chat(user, span_notice("You scramble [src]'s account routing data. The linked account is now hidden from station management systems."))
-		playsound(src, 'sound/machines/terminal_alert.ogg', 25, TRUE)
-	else
-		to_chat(user, span_notice("You restore [src]'s account routing data. The linked account is now visible to station management systems."))
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 25, TRUE)
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
 	if(jobname)
@@ -296,6 +278,18 @@
 			to_chat(usr, "Success: [target_value] points have been added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_MULTITOOL)
+		if(!registered_account)
+			to_chat(user, span_warning("[src] doesn't have a linked account to modify!"))
+			return
+		registered_account.hidden = !registered_account.hidden
+		if(registered_account.hidden)
+			to_chat(user, span_notice("You scramble [src]'s account routing data. The linked account is now hidden from station management systems."))
+			playsound(src, 'sound/machines/terminal_alert.ogg', 25, TRUE)
+		else
+			to_chat(user, span_notice("You restore [src]'s account routing data. The linked account is now visible to station management systems."))
+			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 25, TRUE)
+		return
 	if(iscash(W))
 		insert_money(W, user)
 		return
