@@ -274,6 +274,7 @@
 		sound_channel = rand(200, 800)
 		player.playsound_local(computer, 'sound/soundtrack/PinkSuzuki_HappyPlace.ogg', 50, channel = sound_channel)
 		sound = TRUE
+
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	if(card)
 		computer.add_log("ALERT: Execution of unsafe class [filename] file detected in [card.get_network_tag()]!")
@@ -284,20 +285,25 @@
 		player.stop_sound_channel(sound_channel)
 		sound = FALSE
 		player = null
+
 	if(!triggered)
-		return
-	// Successful trigger — hide the account on the inserted ID
+		return	// Dud teehee
+
+	// Successful trigger
 	var/obj/item/computer_hardware/card_slot/slot = computer.all_components[MC_CARD]
 	if(slot?.stored_card)
 		var/obj/item/card/id/target_id = slot.stored_card
 		if(target_id.registered_account)
 			target_id.registered_account.hidden = TRUE
+
 	new /obj/effect/particle_effect/sparks/red(get_turf(computer))
 	playsound(computer, "sparks", 50)
 	playsound(computer, 'sound/machines/terminal_alert.ogg', 25, TRUE)
+
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	if(card)
 		computer.add_log("SYSnotice :: RFID account routing data scrambled via [filename] at [card.get_network_tag()].")
+
 	var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
 	if(disk)
 		disk.component_qdel()
