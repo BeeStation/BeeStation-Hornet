@@ -1,11 +1,11 @@
 /datum/role_preference
+	abstract_type = /datum/role_preference
+
 	var/name
 	/// A brief description of this role, to display in the preferences menu.
 	var/description
 	/// What heading to display this entry under in the preferences menu. Use ROLE_PREFERENCE_CATEGORY defines.
 	var/category
-	/// The base abstract path for this subtype.
-	var/abstract_type = /datum/role_preference
 	/// The Antagonist datum typepath for this entry, if there is one. Used to get data about the role for display (bans etc)
 	var/datum/antagonist/antag_datum
 	/// If this preference can vary between characters.
@@ -55,21 +55,21 @@
 
 /// Includes roundstart antagonists
 /datum/role_preference/roundstart
-	category = ROLE_PREFERENCE_CATEGORY_ROUNDSTART
 	abstract_type = /datum/role_preference/roundstart
+	category = ROLE_PREFERENCE_CATEGORY_ROUNDSTART
 	per_character = TRUE
 	default_enabled = TRUE
 
 /// Includes living dynamic midround assignments (does not apply to conversion antags).
 /datum/role_preference/midround
-	category = ROLE_PREFERENCE_CATEGORY_MIDROUND
 	abstract_type = /datum/role_preference/midround
+	category = ROLE_PREFERENCE_CATEGORY_MIDROUND
 	per_character = TRUE
 	default_enabled = TRUE
 
 /// Includes roundstart antagonists
 /datum/role_preference/supplementary
-	category = ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY
 	abstract_type = /datum/role_preference/supplementary
+	category = ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY
 	per_character = TRUE
 	default_enabled = TRUE

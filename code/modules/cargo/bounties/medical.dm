@@ -1,3 +1,6 @@
+/datum/bounty/item/medical
+	abstract_type = /datum/bounty/item/medical
+
 /datum/bounty/item/medical/heart
 	name = "Heart"
 	description = "Commander Johnson is in critical condition after suffering yet another heart attack. Doctors say he needs a new heart fast. Ship one, pronto!"

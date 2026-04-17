@@ -149,3 +149,10 @@
 	volume = 100
 	pressure_affected = FALSE
 	vary = FALSE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/transformer
+	mid_sounds = list('sound/machines/transformer.ogg' = 1)
+	mid_length = 0.9 SECONDS
+	volume = 100

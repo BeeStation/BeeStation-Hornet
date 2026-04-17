@@ -4,6 +4,7 @@
   * A grouping of tiles into a logical space, mostly used by map editors
   */
 /area
+	abstract_type = /area
 	name = "Space"
 	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
 	icon = 'icons/area/areas_misc.dmi'
