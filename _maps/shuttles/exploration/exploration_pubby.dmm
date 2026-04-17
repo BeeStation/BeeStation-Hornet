@@ -45,9 +45,7 @@
 /area/shuttle/exploration)
 "ho" = (
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/light_switch/directional/south,
@@ -125,9 +123,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "qi" = (
@@ -229,9 +225,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "vd" = (
@@ -278,9 +272,7 @@
 /area/shuttle/exploration)
 "BF" = (
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/mineral/titanium/white,
@@ -289,9 +281,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/mineral/plastitanium,
@@ -329,21 +319,8 @@
 /area/shuttle/exploration)
 "Hf" = (
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
-"HD" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "In" = (
 /obj/effect/turf_decal/stripes/line,
@@ -356,17 +333,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"IP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "IQ" = (
@@ -487,12 +453,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Qy" = (
@@ -590,9 +551,7 @@
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
 	width = 17
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/airlock/external/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -743,8 +702,8 @@ da
 LS
 In
 BX
-IP
-HD
+BX
+BX
 oC
 qi
 Yi
