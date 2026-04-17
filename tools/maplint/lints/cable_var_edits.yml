@@ -1,0 +1,7 @@
+help: "You are var-editing a cable's properties. Use the sub-types."
+/obj/structure/cable:
+  banned_variables:
+    icon_state:
+    cable_color:
+    color:
+    omni:
