@@ -6,3 +6,15 @@
 /proc/client_alert(client/C, message, title)
 	set waitfor = 0
 	alert(C, message, title)
+
+/proc/get_unlocked_closed_locker()
+	var/list/eligible_lockers = list()
+	for(var/obj/structure/closet/closet in world)
+		if(QDELETED(closet) || closet.opened || istype(closet, /obj/structure/closet/secure_closet))
+			continue
+		var/turf/closet_turf = get_turf(closet)
+		if(!closet_turf || !is_station_level(closet_turf.z) || closet_turf.is_blocked_turf(ignore_atoms = list(closet)))
+			continue
+		eligible_lockers += closet
+	if(length(eligible_lockers))
+		return pick(eligible_lockers)

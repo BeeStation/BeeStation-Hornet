@@ -714,3 +714,39 @@
 /datum/quirk/trauma/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	H.cure_trauma_type(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/quirk/stowaway
+	name = "Stowaway"
+	desc = "You snuck onto the station, hiding in a crate during arrival. You have no access to the station's resources, and you need to find a way to survive on your own."
+	icon = "box"
+	quirk_value = -1
+	gain_text = span_danger("You've awoken to find yourself inside the station without identification! Better find a way to survive on your own!")
+	lose_text = span_notice("You feel like you have access to the station's resources now.")
+	medical_record_text = "Patient is a stowaway and is prone to disregarding customs and regulations."
+
+/datum/quirk/stowaway/on_spawn()
+	. = ..()
+	var/mob/living/carbon/human/H = quirk_target
+	H.Sleeping(5 SECONDS, TRUE, TRUE)
+	if(prob(20))
+		H.adjust_drunk_effect(rand(8 SECONDS, 10 SECONDS))
+	else
+		H.adjust_drugginess(rand(10 SECONDS, 20 SECONDS))
+	H.put_in_hands(new /obj/item/storage/toolbox/mechanical(get_turf(H)))
+	var/obj/structure/closet/selected_closet = get_unlocked_closed_locker()
+	if(selected_closet)
+		H.forceMove(selected_closet)
+
+/datum/quirk/stowaway/post_spawn()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(delete_stowaway_record)), 4 SECONDS)
+
+/datum/quirk/stowaway/proc/delete_stowaway_record()
+	if(!quirk_holder)
+		return
+	var/mob/living/carbon/human/H = quirk_target
+	if(H)
+		var/obj/item/card/id/trashed = H.get_item_by_slot(ITEM_SLOT_ID)
+		qdel(trashed)
+	var/datum/record/crew/R = find_record(quirk_holder.name, GLOB.manifest.general)
+	qdel(R)
