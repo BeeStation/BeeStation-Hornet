@@ -732,10 +732,10 @@
 		H.adjust_drunk_effect(rand(8 SECONDS, 10 SECONDS))
 	else
 		H.adjust_drugginess(rand(10 SECONDS, 20 SECONDS))
-	H.put_in_hands(new /obj/item/storage/toolbox/mechanical(get_turf(H)))
 	var/obj/structure/closet/selected_closet = get_unlocked_closed_locker()
 	if(selected_closet)
 		H.forceMove(selected_closet)
+		new /obj/item/storage/toolbox/mechanical(selected_closet)
 
 /datum/quirk/stowaway/post_spawn()
 	. = ..()
