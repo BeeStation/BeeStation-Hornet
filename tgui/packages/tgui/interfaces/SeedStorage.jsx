@@ -90,7 +90,7 @@ const InspectionPanel = (props) => {
     <Flex direction="column">
       {/* base feature information, stats */}
       <Flex.Item>
-        <Button className="plant__button--display" width={'100%'} mt={'10px'}>
+        <Button className="plant__dialogue" width={'100%'} mt={'10px'}>
           {current_feature_data.map((data_set) =>
             data_set['data_title'] ? (
               <PlantDataInstance
@@ -117,7 +117,7 @@ const InspectionPanel = (props) => {
             />
           ))
         ) : (
-          <Button className="plant__button--display">No Traits Found</Button>
+          <Button className="plant__dialogue">No Traits Found</Button>
         )}
       </Flex.Item>
     </Flex>
@@ -140,7 +140,7 @@ const PlantTraitInstance = (props) => {
   return (
     <Flex direction={'row'}>
       <Flex.Item grow={1}>
-        <Button className="plant__button--display" width={'100%'}>
+        <Button className="plant__dialogue" width={'100%'}>
           <i>{title}</i>
           <br />
           {body}

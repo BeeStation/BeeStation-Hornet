@@ -22,3 +22,5 @@
 	var/obj/emitter/confetti/leaves/particles = parent.plant_item.add_emitter(/obj/emitter/confetti/leaves, "leaves", 10, lifespan = 20)
 	particles.set_colour("#64A344")
 	parent.plant_item.add_emitter(/obj/emitter/plant_dust, "dust", 10, lifespan = 20)
+	draw_below_water = step >= growth_stages ? initial(draw_below_water) : TRUE
+	update_water_render()

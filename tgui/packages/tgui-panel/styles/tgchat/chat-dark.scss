@@ -758,17 +758,7 @@ em {
   font-size: small;
   color: rgb(255, 255, 119);
   text-align: start;
-  background-color: black;
-  border-image: repeating-linear-gradient(
-    45deg,
-    rgb(49, 49, 25),
-    rgb(49, 49, 25) 4px,
-    rgb(28, 28, 14) 4px,
-    rgb(28, 28, 14) 8px
-  );
-  border-image-slice: 1 fill;
-  border-image-width: auto;
-  border-image-repeat: repeat repeat;
+  background: rgb(20, 20, 8);
   outline: 2px solid;
   outline-color: rgb(133, 133, 66);
   padding: 3px;

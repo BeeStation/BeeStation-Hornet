@@ -92,6 +92,8 @@
 //This is used in a couple places, but essentially just used to see if we pause some functionaility. Send from tray / plant location
 //From /datum/plant_feature/body/process(): No Arguments, just the source
 #define COMSIG_PLANTER_PAUSE_PLANT "COMSIG_PLANTER_PAUSE_PLANT"
+//From /obj/item/plant_tray/soil: No Arguments, just the source
+#define COMSIG_PLANTER_REPEL_PESTS "COMSIG_PLANTER_REPEL_PESTS"
 
 /*
 	Plant gene signals

@@ -34,7 +34,7 @@
 
 /datum/plant_need/reagent/buff/pests/process(delta_time)
 	need_description = "[archive_description]\n	 Pest Level: [pest_level]%"
-	if(SEND_SIGNAL(parent.parent.plant_item.loc, COMSIG_PLANTER_PAUSE_PLANT))
+	if(SEND_SIGNAL(parent.parent.plant_item.loc, COMSIG_PLANTER_PAUSE_PLANT) || SEND_SIGNAL(parent.parent.plant_item.loc, COMSIG_PLANTER_REPEL_PESTS))
 		return
 	if(pest_level <= 0)
 		QDEL_NULL(calibrated_holder)

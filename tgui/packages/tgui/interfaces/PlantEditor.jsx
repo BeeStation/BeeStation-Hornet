@@ -15,8 +15,8 @@ export const PlantEditor = (props) => {
     last_command,
   } = data;
   return (
-    <Window width={600} height={480} theme="plant_menu">
-      <Window.Content scrollable={1}>
+    <Window width={750} height={750} theme="plant_menu">
+      <Window.Content>
         {saving_feature ? <Dimmer /> : ''}
         <Box m={'-3px'} height={'100%'}>
           <Flex direction={'column'} height={'100%'}>
@@ -64,7 +64,7 @@ export const PlantEditor = (props) => {
                             <Flex.Item>
                               <Button
                                 width={'100%'}
-                                className="plant__button--display"
+                                className="plant__dialogue"
                               >
                                 {'No Disk Inserted'}
                               </Button>
@@ -113,7 +113,7 @@ const DiskEmptyTab = (props) => {
   const { act, data } = useBackend();
   return (
     <Flex direction={'row'}>
-      <Button className="plant__button--display" width={'100%'}>
+      <Button className="plant__dialogue" width={'100%'}>
         Empty Disk
       </Button>
       <Button
@@ -131,7 +131,7 @@ const DiskTraitTab = (props) => {
   const { data_set } = props;
   return (
     <Flex direction={'row'}>
-      <Button className="plant__button--display" width={'100%'}>
+      <Button className="plant__dialogue" width={'100%'}>
         <i>{data_set['trait_name']}</i>
         <br />
         {data_set['trait_desc']}
@@ -162,14 +162,6 @@ const DiskFeatureTab = (props) => {
     <Flex direction={'row'}>
       <Button
         className="plant__button"
-        width={'100%'}
-        onClick={() => act('select_feature', { key: feature['key'] })}
-        selected={feature['key'] === current_feature}
-      >
-        {`${feature['name']}`}
-      </Button>
-      <Button
-        className="plant__button"
         icon={'trash'}
         tooltip="Remove Feature"
         onClick={() => act('remove_feature', { key: feature['key'] })}
@@ -181,6 +173,14 @@ const DiskFeatureTab = (props) => {
         tooltip={'Eject Disk'}
         onClick={() => act('remove_disk')}
       />
+      <Button
+        className="plant__button"
+        width={'100%'}
+        onClick={() => act('select_feature', { key: feature['key'] })}
+        selected={feature['key'] === current_feature}
+      >
+        {`${feature['name']}`}
+      </Button>
     </Flex>
   );
 };
@@ -190,10 +190,10 @@ const InspectionPanel = (props) => {
   const { current_feature_data, current_feature_traits } = data;
   return (
     <Flex direction="column">
-      <Box className={'scrollbox'} height={'300px'} overflowY="scroll">
+      <Box className={'scrollbox'} height={'575px'} overflowY="scroll">
         {/* base feature information, stats */}
         <Flex.Item>
-          <Button className="plant__button--display--beacon" width={'100%'}>
+          <Button className="plant__dialogue--beacon" width={'100%'}>
             {current_feature_data.map((data_set) =>
               data_set['data_title'] ? (
                 <PlantDataInstance
@@ -221,7 +221,7 @@ const InspectionPanel = (props) => {
               />
             ))
           ) : (
-            <Button className="plant__button--display--beacon">
+            <Button className="plant__dialogue--beacon">
               No Traits Found
             </Button>
           )}
@@ -247,7 +247,7 @@ const PlantTraitInstance = (props) => {
   const { saving_feature, save_excluded_traits } = data;
   return (
     <Flex direction={'row'}>
-      <Button className="plant__button--display--beacon" width={'100%'}>
+      <Button className="plant__dialogue--beacon" width={'100%'}>
         <i>{title}</i>
         <br />
         {body}

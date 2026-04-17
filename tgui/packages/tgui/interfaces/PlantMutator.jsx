@@ -28,8 +28,8 @@ export const PlantMutator = (props) => {
     port_traits,
   } = data;
   return (
-    <Window width={600} height={515} theme="plant_menu">
-      <Window.Content scrollable={1}>
+    <Window width={750} height={750} theme="plant_menu">
+      <Window.Content>
         {working ? (
           <Dimmer className={'Dimmer--super'}>
             <Section>
@@ -163,7 +163,7 @@ const PlantTraitInstance = (props) => {
   const { title, body } = props;
   return (
     <Flex direction={'row'}>
-      <Button className="plant__button--display--beacon" width={'100%'}>
+      <Button className="plant__dialogue--beacon" width={'100%'}>
         <i>{title}</i>
         <br />
         {body}
@@ -180,7 +180,7 @@ const InspectionPanel = (props) => {
       <Box className={'scrollbox'} height={'300px'} overflowY="scroll">
         {/* base feature information, stats */}
         <Flex.Item>
-          <Button className="plant__button--display--beacon" width={'100%'}>
+          <Button className="plant__dialogue--beacon" width={'100%'}>
             {current_feature_data.map((data_set) =>
               data_set['data_title'] ? (
                 <PlantDataInstance
@@ -207,7 +207,7 @@ const InspectionPanel = (props) => {
               />
             ))
           ) : (
-            <Button className="plant__button--display--beacon">
+            <Button className="plant__dialogue--beacon">
               No Traits Found
             </Button>
           )}
@@ -243,7 +243,7 @@ const PlantFeaturePanel = (props) => {
         }
         verticalAlignContent={'middle'}
         icon={confirm_radiation ? 'check' : 'radiation'}
-        tooltip="Mutate Feature"
+        tooltip={`Mutate Feature - ${feature['mutation_cost']}`}
         onClick={() => act('mutate', { key: feature['key'] })}
       />
     </Flex>

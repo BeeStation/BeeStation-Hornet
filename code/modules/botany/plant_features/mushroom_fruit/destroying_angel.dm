@@ -20,7 +20,7 @@
 	name = "fly amanita"
 	icon_state = "fly"
 	colour_overlay = "fly_colour"
-	colour_override = "#ff0000"
+	colour_override = "#c45d5d"
 	seed_icon_state = "mycelium-amanita"
 	fruit_product = /obj/item/food/grown/mushroom/amanita
 	total_volume = PLANT_FRUIT_VOLUME_MICRO

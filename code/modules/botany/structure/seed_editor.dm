@@ -60,6 +60,8 @@
 		seeds.forceMove(get_turf(src))
 		user.put_in_active_hand(seeds)
 		seeds = null
+		current_feature_ref = null
+		current_feature = null
 		icon_state = "editor_open"
 //Remove disk
 	if(disk)
@@ -220,6 +222,17 @@
 			disk = null
 			last_command = "per reader eject -f"
 			return TRUE
+		if("remove_seeds")
+			if(!seeds)
+				return
+			seeds.forceMove(get_turf(src))
+			seeds = null
+			current_feature_ref = null
+			current_feature = null
+			icon_state = "editor_open"
+			last_command = "per optic eject -f"
+			return TRUE
+
 
 //Circuitboard
 /obj/item/circuitboard/machine/seed_editor

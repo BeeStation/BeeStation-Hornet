@@ -64,7 +64,7 @@
 		var/datum/component/planter/tray_component = tray.GetComponent(/datum/component/planter)
 		scan_dialogue +="<span class='plant_sub'>Weed Composition: [tray_component.weed_level]%</span>"
 		//Report tray slots
-		scan_dialogue += "<span class='plant_sub'>Open Plant Slots [initial(tray_component.plant_slots)]/[tray_component.plant_slots]</span>"
+		scan_dialogue += "<span class='plant_sub'>Open Plant Slots [tray_component.plant_slots]/[initial(tray_component.plant_slots)]</span>"
 		to_chat(user, "<span class='plant_scan'><b>[capitalize(target.name)]</b></span><span class='plant_scan'>[scan_dialogue]</span>")
 		playsound(src, 'sound/effects/fastbeep.ogg', 20)
 		return FALSE

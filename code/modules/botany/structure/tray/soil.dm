@@ -5,11 +5,20 @@
 	plumbing = FALSE
 	density = FALSE
 	use_substrate = FALSE
+	///Do we repel pests?
+	var/repel_pests = FALSE
 
 /obj/item/plant_tray/soil/Initialize(mapload)
 	. = ..()
 	tray_component.set_substrate(/datum/plant_subtrate/fairy)
 	tray_component.allow_substrate_change = FALSE
+	if(repel_pests)
+		RegisterSignal(src, COMSIG_PLANTER_REPEL_PESTS, PROC_REF(repel_pests))
 
-/obj/item/plant_tray/soil/priate
-	//if you want to make pirates lives easier add it here
+/obj/item/plant_tray/soil/proc/repel_pests(datum/source)
+	SIGNAL_HANDLER
+
+	return TRUE
+
+/obj/item/plant_tray/soil/no_pests
+	repel_pests = TRUE

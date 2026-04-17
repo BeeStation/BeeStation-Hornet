@@ -29,6 +29,7 @@
 	for(var/datum/reagents/reagents as anything in available_reagents)
 		fruit.reagents.trans_to(reagents, divided_reagents, CANNIBAL_MULTI*parent.trait_power)
 	qdel(fruit)
+	parent.parent.plant_item?.visible_message("[parent.parent.plant_item] devours [fruit]!")
 //handle body harvest stuff
 	SEND_SIGNAL(parent.parent, COMSIG_PLANT_ACTION_HARVEST)
 

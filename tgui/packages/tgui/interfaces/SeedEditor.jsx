@@ -23,8 +23,8 @@ export const SeedEditor = (props) => {
     current_feature_remaining_genetic_budget,
   } = data;
   return (
-    <Window width={600} height={530} theme="plant_menu">
-      <Window.Content scrollable={1}>
+    <Window width={750} height={750} theme="plant_menu">
+      <Window.Content>
         <Box m={'-3px'} height={'100%'}>
           <Flex direction={'column'} height={'100%'}>
             {/* World building fluff top banner */}
@@ -37,7 +37,18 @@ export const SeedEditor = (props) => {
             <Flex.Item>
               <Flex direction={'row'}>
                 <Section textAlign={'center'} width={'100%'}>
-                  <h1>{inserted_plant || 'No Seeds Inserted'}</h1>
+                  <Flex direction={'row'} justify="center">
+                    <h1>{inserted_plant || 'No Seeds Inserted'}</h1>
+                    <Button
+                      className="plant__button"
+                      icon={'eject'}
+                      tooltip={'Eject Seeds'}
+                      onClick={() => act('remove_seeds')}
+                      mx={"5px"}
+                      my={"8px"}
+                      height={"50%"}
+                    />
+                  </Flex>
                 </Section>
                 <Section textAlign={'center'} width={'100%'}>
                   Genetic Stability
@@ -93,7 +104,7 @@ export const SeedEditor = (props) => {
                           <Flex.Item>
                             <Button
                               width={'100%'}
-                              className="plant__button--display"
+                              className="plant__dialogue"
                             >
                               {'No Disk Inserted'}
                             </Button>
@@ -142,15 +153,15 @@ const DiskEmptyTab = (props) => {
   const { data_set } = props;
   return (
     <Flex direction={'row'}>
-      <Button className="plant__button--display" width={'100%'}>
-        Empty Disk
-      </Button>
       <Button
         className="plant__button"
         icon={'eject'}
         tooltip={'Eject Disk'}
         onClick={() => act('remove_disk')}
       />
+      <Button className="plant__dialogue" width={'100%'}>
+        Empty Disk
+      </Button>
     </Flex>
   );
 };
@@ -163,10 +174,10 @@ const DiskTraitTab = (props) => {
       <Button
         className="plant__button"
         verticalAlignContent={'middle'}
-        onClick={() => act('add_trait', { key: data_set['trait_ref'] })}
-      >
-        +
-      </Button>
+        icon={'eject'}
+        tooltip={'Eject Disk'}
+        onClick={() => act('remove_disk')}
+      />
       <PlantTraitInstance
         title={data_set['trait_name']}
         body={data_set['trait_desc']}
@@ -176,10 +187,10 @@ const DiskTraitTab = (props) => {
       <Button
         className="plant__button"
         verticalAlignContent={'middle'}
-        icon={'eject'}
-        tooltip={'Eject Disk'}
-        onClick={() => act('remove_disk')}
-      />
+        onClick={() => act('add_trait', { key: data_set['trait_ref'] })}
+      >
+        +
+      </Button>
     </Flex>
   );
 };
@@ -190,20 +201,6 @@ const DiskFeatureTab = (props) => {
   const { current_feature } = data;
   return (
     <Flex direction={'row'}>
-      <Button
-        className="plant__button"
-        icon={'plus'}
-        tooltip="Add Feature"
-        onClick={() => act('add_feature', { key: feature['key'] })}
-      />
-      <Button
-        className="plant__button"
-        width={'100%'}
-        onClick={() => act('select_feature', { key: feature['key'] })}
-        selected={feature['key'] === current_feature}
-      >
-        {`${feature['name']}`}
-      </Button>
       <Button
         className="plant__button"
         icon={'trash'}
@@ -217,6 +214,20 @@ const DiskFeatureTab = (props) => {
         tooltip={'Eject Disk'}
         onClick={() => act('remove_disk')}
       />
+      <Button
+        className="plant__button"
+        width={'100%'}
+        onClick={() => act('select_feature', { key: feature['key'] })}
+        selected={feature['key'] === current_feature}
+      >
+        {`${feature['name']}`}
+      </Button>
+      <Button
+        className="plant__button"
+        icon={'plus'}
+        tooltip="Add Feature"
+        onClick={() => act('add_feature', { key: feature['key'] })}
+      />
     </Flex>
   );
 };
@@ -227,7 +238,7 @@ const PlantTraitInstance = (props) => {
   return (
     <Flex direction={'row'}>
       <Flex.Item grow={1}>
-        <Button className="plant__button--display" width={'100%'}>
+        <Button className="plant__dialogue" width={'100%'}>
           <i>{title}</i>
           <br />
           {body}
@@ -250,10 +261,10 @@ const InspectionPanel = (props) => {
   const { current_feature_data, current_feature_traits } = data;
   return (
     <Flex direction="column">
-      <Box className={'scrollbox'} height={'300px'} overflowY="scroll">
+      <Box className={'scrollbox'} height={'520px'} overflowY="scroll">
         {/* base feature information, stats */}
         <Flex.Item>
-          <Button className="plant__button--display" width={'100%'}>
+          <Button className="plant__dialogue" width={'100%'}>
             {current_feature_data.map((data_set) =>
               data_set['data_title'] ? (
                 <PlantDataInstance
@@ -281,7 +292,7 @@ const InspectionPanel = (props) => {
               />
             ))
           ) : (
-            <Button className="plant__button--display">No Traits Found</Button>
+            <Button className="plant__dialogue">No Traits Found</Button>
           )}
         </Flex.Item>
       </Box>

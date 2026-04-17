@@ -59,6 +59,12 @@
 
 	if(!proximity_flag)
 		return
+	var/list/modifiers = params2list(click_parameters)
+//Hasty remove plants
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && istype(I, /obj/item/shovel/spade) && length(plants))
+		to_chat(attacker, span_warning("You begin to hastily remove [parent]'s plants! (This will destroy them)"))
+		INVOKE_ASYNC(src, PROC_REF(async_hasty_remove), attacker, I)
+		return
 //Removing weeeds
 	if(istype(I, /obj/item/cultivator))
 		if(weed_level <= 0)
@@ -115,6 +121,15 @@
 		return
 	set_substrate(null)
 
+/datum/component/planter/proc/async_hasty_remove(mob/user, obj/item/I)
+	if(!do_after(user, 5 SECONDS, parent))
+		return
+	if(!length(plants))
+		return
+	for(var/datum/component/plant/plant as anything in plants)
+		qdel(plant.parent)
+	playsound(parent, 'sound/effects/shovel_dig.ogg', 60)
+
 /datum/component/planter/proc/async_spade_options(mob/user, obj/item/I)
 	var/list/pick_plants = list()
 	var/list/pick_links = list()
@@ -154,7 +169,7 @@
 	entering.pixel_y += visual_upset[2]
 //Records
 	plants |= plant_comp
-	RegisterSignal(entering, COMSIG_QDELETING, PROC_REF(catch_qdel))
+	RegisterSignal(plant_comp, COMSIG_QDELETING, PROC_REF(catch_qdel))
 
 /datum/component/planter/proc/catch_exited(datum/source, atom/movable/exiting)
 	SIGNAL_HANDLER
@@ -166,7 +181,7 @@
 	exiting.pixel_x -= visual_upset[1]
 	exiting.pixel_y -= visual_upset[2]
 	plants -= plant_comp
-	UnregisterSignal(exiting, COMSIG_QDELETING)
+	UnregisterSignal(plant_comp, COMSIG_QDELETING)
 
 /datum/component/planter/proc/set_substrate(_substrate)
 	if(!allow_substrate_change)

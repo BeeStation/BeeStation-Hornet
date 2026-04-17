@@ -20,7 +20,7 @@
 	name = "jupiter cup"
 	icon_state = "chanterelle"
 	colour_overlay = "chanterelle_colour"
-	colour_override = "#ff0000"
+	colour_override = "#ac2525"
 	seed_icon_state = "mycelium-jupitercup"
 	fruit_product = /obj/item/food/grown/mushroom/jupitercup
 	fast_reagents = list(/datum/reagent/consumable/liquidelectricity = PLANT_REAGENT_SMALL)

@@ -14,7 +14,7 @@
 	growth_time = PLANT_FRUIT_GROWTH_SLOW
 	fruit_size = PLANT_FRUIT_SIZE_LARGE
 	trait_power = 3
-	mutations = list(/datum/plant_feature/fruit/watermelon/ballolon = 5)
+	mutations = list(/datum/plant_feature/fruit/watermelon/ballolon)
 
 /*
 	Holy Watermelom
@@ -44,4 +44,4 @@
 	fruit_product = /obj/item/food/grown/ballolon
 	plant_traits = list(/datum/plant_trait/fruit/gaseous)
 	fast_reagents = list(/datum/reagent/hydrogen = PLANT_REAGENT_MEDIUM, /datum/reagent/oxygen = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/watermelon/holy = 10)
+	mutations = list(/datum/plant_feature/fruit/watermelon/holy = 8)

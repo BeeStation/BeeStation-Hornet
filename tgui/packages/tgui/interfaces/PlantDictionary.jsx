@@ -13,7 +13,7 @@ export const PlantDictionary = (props) => {
   } = data;
   const [searchText, setSearchText] = useLocalState('searchText', '');
   return (
-    <Window width={600} height={750} theme="plant_menu">
+    <Window width={750} height={750} theme="plant_menu">
       <Window.Content scrollable={1}>
         <Box m={'-3px'} height={'100%'}>
           <Flex direction={'column'} height={'100%'}>
@@ -328,7 +328,7 @@ const InspectionPanelTrait = (props) => {
               </Button>
             ))
           ) : (
-            <Button className="plant__button--display">No Records</Button>
+            <Button className="plant__dialogue">No Records</Button>
           )}
         </Flex>
       </Flex.Item>
@@ -344,7 +344,7 @@ const InspectionPanelFeature = (props) => {
     <Flex direction="column">
       {/* base feature information, stats */}
       <Flex.Item>
-        <Button className="plant__button--display" width={'100%'} mt={'10px'}>
+        <Button className="plant__dialogue" width={'100%'} mt={'10px'}>
           {current_feature_data.map((data_set) =>
             data_set['data_title'] ? (
               <PlantDataInstance
@@ -371,7 +371,7 @@ const InspectionPanelFeature = (props) => {
             />
           ))
         ) : (
-          <Button className="plant__button--display">No Traits Found</Button>
+          <Button className="plant__dialogue">No Traits Found</Button>
         )}
       </Flex.Item>
       <Divider />
@@ -430,7 +430,7 @@ const InspectionPanelFeature = (props) => {
                 </Button>
               ))
             ) : (
-              <Button className="plant__button--display">No Records</Button>
+              <Button className="plant__dialogue">No Records</Button>
             )}
           </Flex>
         </Flex>
@@ -446,7 +446,7 @@ const InspectionPanelPlantFeature = (props) => {
     <Flex direction="column">
       {/* base feature information, stats */}
       <Flex.Item>
-        <Button className="plant__button--display" width={'100%'} mt={'10px'}>
+        <Button className="plant__dialogue" width={'100%'} mt={'10px'}>
           {current_feature_data.map((data_set) =>
             data_set['data_title'] ? (
               <PlantDataInstance
@@ -473,7 +473,7 @@ const InspectionPanelPlantFeature = (props) => {
             />
           ))
         ) : (
-          <Button className="plant__button--display">No Traits Found</Button>
+          <Button className="plant__dialogue">No Traits Found</Button>
         )}
       </Flex.Item>
     </Flex>
@@ -526,7 +526,7 @@ const PlantTraitInstance = (props) => {
   const { act, data } = useBackend();
   const { title, body } = props;
   return (
-    <Button className="plant__button--display" width={'100%'}>
+    <Button className="plant__dialogue" width={'100%'}>
       <i>{title}</i>
       <br />
       {body}

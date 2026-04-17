@@ -24,7 +24,7 @@
 	seed_icon_state = "seed-blackcannabis"
 	fruit_product = /obj/item/food/grown/cannabis/death
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/cyanide = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/cannabis/life = 10)
+	mutations = list(/datum/plant_feature/fruit/cannabis/life = 5)
 
 /*
 	Life Weed
@@ -37,7 +37,7 @@
 	seed_icon_state = "seed-whitecannabis"
 	fruit_product = /obj/item/food/grown/cannabis/white
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM, /datum/reagent/medicine/omnizine = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/cannabis/rainbow = 15)
+	mutations = list(/datum/plant_feature/fruit/cannabis/rainbow = 8)
 
 /*
 	Rainbow Weed
@@ -50,7 +50,7 @@
 	seed_icon_state = "seed-megacannabis"
 	fruit_product = /obj/item/food/grown/cannabis/rainbow
 	fast_reagents = list(/datum/reagent/toxin/mindbreaker = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/cannabis/omega = 20)
+	mutations = list(/datum/plant_feature/fruit/cannabis/omega = 8)
 
 /datum/plant_feature/fruit/cannabis/rainbow/setup_fruit(datum/source, harvest_amount, list/_visual_fruits, skip_growth)
 	. = ..()

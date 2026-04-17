@@ -159,7 +159,7 @@
 		parent.plant_item.add_overlay(feature_appearance)
 	//Draw settings
 	parent.draw_below_water = draw_below_water
-	parent.plant_item.layer = draw_below_water ? OBJ_LAYER : ABOVE_OBJ_LAYER
+	update_water_render()
 	parent.use_mouse_offset = use_mouse_offset
 	parent.plant_item.layer += layer_offset
 	//Start growin'
@@ -215,22 +215,32 @@
 
 ///Position and manipulate fruit overlays
 /datum/plant_feature/body/proc/apply_fruit_overlay(obj/effect/fruit_effect, offset_x, offset_y)
-	fruit_effect.pixel_x = offset_x-17
-	fruit_effect.pixel_y = offset_y-16
+	fruit_effect.pixel_x += offset_x-17
+	fruit_effect.pixel_y += offset_y-16
 	parent.plant_item.vis_contents += fruit_effect
 	fruit_overlays += fruit_effect
 
 /datum/plant_feature/body/proc/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest = FALSE)
 	SIGNAL_HANDLER
 
+	if(health < 0)
+		return
 //Remove our fruit overlays
 	for(var/fruit_effect as anything in fruit_overlays)
 		fruit_overlays -= fruit_effect
 		parent.plant_item.vis_contents -= fruit_effect
-	yields -= !dummy_harvest
+	yields = max(0, yields-!dummy_harvest)
 //Handle yields
 	if(yields <= 0 || health <= 0)
+		health = -1
+		yields = 0
+		//Tray indicators
+		var/obj/item/plant_tray/tray = parent.plant_item.loc
+		if(istype(tray)) //Just in case we weren't in here before
+			tray.add_feature_indicator(src, src, tray.problem_features)
+		//Visuals
 		if(!wither_state)
+			growth_step(current_stage) //play a lil animation to show we're changing into a corpse
 			parent.plant_item.add_filter("wither_colours", 1, color_matrix_filter(list(rgb(193, 87, 87), rgb(76, 128, 76), rgb(76, 76, 128)) ,COLORSPACE_RGB))
 		//handle fruit
 		var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in parent.plant_features
@@ -250,8 +260,13 @@
 	return TRUE
 
 //Special health logic and signals live here
-/datum/plant_feature/body/proc/adjust_health(amount)
+/datum/plant_feature/body/proc/adjust_health(amount, force)
+	if(health < 0 && !force)
+		return
 	health += amount
 	health = clamp(health, 0, initial(health))
+
+/datum/plant_feature/body/proc/update_water_render()
+	parent.plant_item.layer = draw_below_water ? OBJ_LAYER : ABOVE_OBJ_LAYER
 
 #undef BODY_NEEDLESS_DAMAGE

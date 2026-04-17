@@ -6,7 +6,7 @@
 	name = "plump helmet"
 	icon_state = "plump"
 	colour_overlay = "plump_colour"
-	colour_override = "#d375ff"
+	colour_override = "#9964b1"
 	seed_icon_state = "mycelium-plump"
 	fruit_product = /obj/item/food/grown/mushroom/plumphelmet
 	total_volume = PLANT_FRUIT_VOLUME_MICRO

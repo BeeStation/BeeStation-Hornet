@@ -117,6 +117,7 @@
 	if(!isliving(user))
 		return
 	context.add_right_click_tool_action("Plant Seeds", TOOL_SEED)
+	context.add_right_click_item_action("Remove All Plants", /obj/item/shovel/spade)
 	context.add_left_click_item_action("Check Alerts", /obj/item/plant_scanner)
 	context.add_left_click_item_action("Fill Tray", /obj/item/substrate_bag)
 	context.add_alt_click_action("Rotate Plumbing")
@@ -136,6 +137,8 @@
 
 /obj/item/plant_tray/attackby(obj/item/attacking_item, mob/living/user, params)
 	. = ..()
+	if(attacking_item?.reagents?.total_volume && reagents.total_volume < reagents.maximum_volume)
+		playsound(src, 'sound/effects/footstep/water4.ogg', 30, TRUE)
 	//Quick feedback
 	update_reagents()
 
@@ -221,20 +224,22 @@
 //You can throw any special reagent logic here
 /obj/item/plant_tray/proc/update_reagents()
 	cut_overlay(tray_reagents)
-	if(reagents.total_volume <= 0)
+	if(reagents.total_volume <= 1)
 		return
 	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 	add_overlay(tray_reagents)
 
 /obj/item/plant_tray/proc/add_feature_indicator(datum/_source, datum/feature, list/feature_list)
+	var/key = isatom(_source) ? REF(_source) : _source //let coders pass a string instead of a responsible atom, if need be
 	if(!feature_list["[REF(feature)]"])
 		feature_list["[REF(feature)]"] = list()
-	feature_list["[REF(feature)]"] |= "[REF(_source)]"
+	feature_list["[REF(feature)]"] |= "[key]"
 	update_indicators()
 
 /obj/item/plant_tray/proc/remove_feature_indicator(datum/_source, datum/feature, list/feature_list)
+	var/key = isatom(_source) ? REF(_source) : _source
 	if(feature_list["[REF(feature)]"])
-		feature_list["[REF(feature)]"] -= "[REF(_source)]"
+		feature_list["[REF(feature)]"] -= "[key]"
 	if(!length(feature_list["[REF(feature)]"]))
 		feature_list -= "[REF(feature)]"
 	update_indicators()

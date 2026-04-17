@@ -95,10 +95,10 @@
 /datum/plant_feature/fruit/process(delta_time)
 	var/obj/item/plant_tray/tray = parent.plant_item.loc
 	var/paused = SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT)
-	if(!paused && !check_needs(delta_time))
-		return
 	if(!length(growth_timers))
 		skip_growth = FALSE
+		return
+	if(!paused && !check_needs(delta_time))
 		return
 	if(paused && !skip_growth)
 		return

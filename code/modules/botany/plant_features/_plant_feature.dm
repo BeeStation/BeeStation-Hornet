@@ -88,6 +88,14 @@
 		tray.remove_feature_indicator(tray, src, tray.needy_features)
 	return ..()
 
+/datum/plant_feature/proc/get_mutation_cost_string()
+	if(!length(mutations))
+		return "no mutations"
+	var/string
+	for(var/datum/plant_feature/path as anything in mutations)
+		string = "[string][string ? "/" : ""][path::name] [mutations[path]||1]"
+	return string
+
 //Used to get dialogue / text for hand-held plant scanner - This is like get_ui_data() but it has more information about specific things you'd want to know on the fly
 /datum/plant_feature/proc/get_scan_dialogue()
 	var/dialogue = "[capitalize(name)]([species_name])\n"
@@ -114,7 +122,7 @@
 ///This is a keyed list for UIs to get specific values, usually for logic or display
 /datum/plant_feature/proc/get_ui_stats()
 	return list("name" = capitalize(name), "species_name" = capitalize(species_name), "key" = REF(src), "feature_appearance" = icon2base64(feature_appearance), "type_shortcut" = "[trait_type_shortcut]",
-	"can_copy" = can_copy, "can_remove" = can_remove)
+	"can_copy" = can_copy, "can_remove" = can_remove, "mutation_cost" = get_mutation_cost_string())
 
 ///This is for display+, a pre-formatted list of nice looking text
 /datum/plant_feature/proc/get_ui_data()

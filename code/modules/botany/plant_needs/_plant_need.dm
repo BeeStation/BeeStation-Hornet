@@ -23,6 +23,7 @@
 	///Buff overlay
 	var/obj/effect/plant_buff/buff_appearance
 	var/do_buff_appearance = TRUE
+	var/remove_buff_visual_timer
 
 /datum/plant_need/New(datum/plant_feature/_parent, _overdrawn)
 	. = ..()
@@ -63,16 +64,22 @@
 	COOLDOWN_START(src, nectar_timer, nectar_buff_duration)
 
 /datum/plant_need/proc/apply_buff(__delta_time)
+	deltimer(remove_buff_visual_timer)
 	//Buff visuals
 	if(do_buff_appearance)
+		animate(buff_appearance, alpha = 255, time = 1 SECONDS, flags = ANIMATION_PARALLEL)
 		parent.parent?.plant_item.vis_contents |= buff_appearance
 		parent.parent?.plant_item.add_filter("buff_outline", 1, outline_filter(1, "#fbffc1cb"))
 		var/outline_filter = parent.parent?.plant_item.get_filter("buff_outline")
-		animate(outline_filter, color = "#fbffc12c", time = 1.3 SECONDS, loop = -1)
+		animate(outline_filter, color = "#fbffc12c", time = 1.3 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
 		animate(color = "#fbffc1cb", time = 1.3 SECONDS)
 	return
 
 /datum/plant_need/proc/remove_buff(__delta_time)
+	animate(buff_appearance, alpha = 0, time = 1 SECONDS, flags = ANIMATION_PARALLEL)
+	remove_buff_visual_timer = addtimer(CALLBACK(src, PROC_REF(remove_buff_visuals), __delta_time), 1 SECONDS, TIMER_STOPPABLE)
+
+/datum/plant_need/proc/remove_buff_visuals(delta_time)
 	if(do_buff_appearance)
 		parent.parent?.plant_item.vis_contents -= buff_appearance
 		parent.parent?.plant_item.remove_filter("buff_outline")
@@ -85,8 +92,10 @@
 	vis_flags = VIS_INHERIT_ID
 	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pixel_x = -16
 	pixel_y = 28
+	alpha = 0
 	///Reference to our ray mask
 	var/icon/ray_mask
 
@@ -98,4 +107,4 @@
 	add_filter("mask", 2, alpha_mask_filter(0, 0, ray_mask, null, MASK_INVERSE))
 
 	var/ray_filter = get_filter("rays")
-	animate(ray_filter, offset = 100, time = 100 SECONDS, loop = -1)
+	animate(ray_filter, offset = 100, time = 100 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)

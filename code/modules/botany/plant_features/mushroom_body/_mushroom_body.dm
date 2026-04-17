@@ -13,6 +13,7 @@
 	slot_size = PLANT_BODY_SLOT_SIZE_MICRO
 	growth_time = PLANT_BODY_GROWTH_VERY_FAST
 	genetic_budget = 1
+	seeds = 5
 	//Mushrooms have no needs
 	plant_needs = list()
 	//We can pair with only mushroom fruit, but any kind of roots

@@ -27,7 +27,7 @@
 	seed_icon_state = "seed-mimana"
 	fruit_product = /obj/item/food/grown/banana/mime
 	fast_reagents = list(/datum/reagent/consumable/nothing = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/mutetoxin = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/banana/bluespace = 15)
+	mutations = list(/datum/plant_feature/fruit/banana/bluespace = 8)
 
 /*
 	Bluespace Banana

@@ -137,7 +137,8 @@
 	plant.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, PLANT_X_CLAMP, PLANT_Y_CLAMP)
 
 /obj/item/plant_seeds/proc/update_plant_name()
-	name = "[name_override || get_species_name(plant_features)] seeds"
+	var/mushroom = locate(/datum/plant_feature/body/mushroom) in plant_features
+	name = "[name_override || get_species_name(plant_features)] [mushroom ? "spores" : "seeds"]"
 
 /obj/item/plant_seeds/proc/update_species_id()
 	species_id = build_plant_species_id(plant_features)

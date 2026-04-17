@@ -11,7 +11,7 @@
 	/datum/plant_trait/fruit/liquid_contents)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	growth_time = PLANT_FRUIT_GROWTH_FAST
-	mutations = list(/datum/plant_feature/fruit/starthistle/galaxy = 10)
+	mutations = list(/datum/plant_feature/fruit/starthistle/galaxy = 3)
 
 /*
 	Galaxy Thistle

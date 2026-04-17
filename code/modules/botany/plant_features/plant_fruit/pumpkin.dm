@@ -13,7 +13,7 @@
 	total_volume = PLANT_FRUIT_VOLUME_LARGE
 	growth_time = PLANT_FRUIT_GROWTH_SLOW
 	fruit_size = PLANT_FRUIT_SIZE_LARGE
-	mutations = list(/datum/plant_feature/fruit/pumpkin/blumpkin = 5)
+	mutations = list(/datum/plant_feature/fruit/pumpkin/blumpkin = 3)
 
 /*
 	Blumpkin

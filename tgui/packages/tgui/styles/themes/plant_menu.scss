@@ -78,10 +78,10 @@
     white-space: wrap;
     font-family: monospace;
     color: #ffff77;
-    border-image: repeating-linear-gradient(
+     border-image: repeating-linear-gradient(
       45deg,
-      rgb(49, 49, 25),
-      rgb(49, 49, 25) 4px,
+      rgb(59, 59, 35),
+      rgb(59, 59, 35) 4px,
       rgb(28, 28, 14) 4px,
       rgb(28, 28, 14) 8px
     );
@@ -186,6 +186,31 @@
     z-index: 2;
   }
 
+  .plant__dialogue {
+    pointer-events: none;
+    white-space: wrap;
+    font-family: monospace;
+    color: #ffff77;
+    background: rgb(20, 20, 8);
+    outline: 2px solid;
+    outline-color: rgb(133, 133, 66);
+    margin: 0px;
+    border-radius: 0;
+  }
+
+  .plant__dialogue--beacon {
+    pointer-events: none;
+    white-space: wrap;
+    font-family: monospace;
+    color: #ffff77;
+    background: rgb(20, 20, 8);
+    outline: 2px solid;
+    outline-color: rgb(133, 133, 66);
+    margin: 0px;
+    border-radius: 0;
+    z-index: 2;
+  }
+
   .Section {
     font-family: monospace;
     background: #000000;
@@ -205,7 +230,7 @@
       rgb(255, 255, 25),
       rgb(255, 255, 25) 1px,
       rgb(28, 28, 14) 1px,
-      rgb(28, 28, 14) 2px
+      rgb(28, 28, 14) 3px
     );
     position: absolute;
     inset-inline-start: 0px;

@@ -19,11 +19,11 @@
 /datum/plant_feature/fruit/wheat/oat
 	species_name = "triticum patet"
 	name = "oat"
-	icon_state = "corn-2"
+	icon_state = "wheat_2"
 	colour_override = "#48923e"
 	seed_icon_state = "seed-oat"
 	fruit_product = /obj/item/food/grown/oat
-	mutations = list(/datum/plant_feature/fruit/wheat/meat = 10)
+	mutations = list(/datum/plant_feature/fruit/wheat/meat = 8)
 
 /*
 	Meat
@@ -31,7 +31,7 @@
 /datum/plant_feature/fruit/wheat/meat
 	species_name = "triticum escam"
 	name = "meat"
-	icon_state = "corn-2"
+	icon_state = "wheat_2"
 	colour_override = "#ff0000"
 	seed_icon_state = "seed-meatwheat"
 	fruit_product = /obj/item/food/grown/meatwheat

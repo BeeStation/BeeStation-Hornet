@@ -14,6 +14,7 @@
 	growth_time = PLANT_FRUIT_GROWTH_FAST
 	mutations = list(/datum/plant_feature/fruit/ambrosia/deus)
 	whitelist_features = list(/datum/plant_feature/body/bush_vine/ambrosia, /datum/plant_feature/roots)
+	genetic_budget = 3
 
 /*
 	Ambrosia Deus
@@ -27,7 +28,7 @@
 	fruit_product = /obj/item/food/grown/ambrosia/deus
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/medicine/synaptizine = PLANT_REAGENT_SMALL, /datum/reagent/medicine/omnizine = PLANT_REAGENT_SMALL, /datum/reagent/drug/space_drugs = PLANT_REAGENT_SMALL)
-	mutations = list(/datum/plant_feature/fruit/ambrosia/gaia = 10)
+	mutations = list(/datum/plant_feature/fruit/ambrosia/gaia = 5)
 
 /*
 	Ambrosia Vulgaris
@@ -38,7 +39,6 @@
 	icon_state = "ambrosia_2"
 	seed_icon_state = "seed-ambrosia_gaia"
 	fruit_product = /obj/item/food/grown/ambrosia/gaia
-	genetic_budget = 3
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/medicine/earthsblood = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/ambrosia)

@@ -19,6 +19,8 @@
 /datum/plant_feature/body/kirbyd/growth_step(step)
 	. = ..()
 	parent.plant_item.add_emitter(/obj/emitter/plant_dust, "dust", 10, lifespan = 20)
+	draw_below_water = step >= growth_stages ? initial(draw_below_water) : TRUE
+	update_water_render()
 
 //tall
 /datum/plant_feature/body/kirby/tall

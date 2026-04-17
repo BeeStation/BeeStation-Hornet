@@ -16,7 +16,7 @@
 	volume_percentage = _percentage || volume_percentage
 	. = ..()
 	name = "[capitalize(initial(reagent.name))]"
-	desc = "[volume_percentage*100]% of fruit reagents is [name]"
+	desc = "[volume_percentage*100]% of reagents is [name]"
 	//If we're a fast reagent, try add ourselves to the dictionary
 	if(_reagent && _percentage && !copy_rule)
 		SSbotany.append_reagent_trait(copy())

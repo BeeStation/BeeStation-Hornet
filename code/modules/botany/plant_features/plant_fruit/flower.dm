@@ -102,7 +102,7 @@
 	seed_icon_state = "seed-sunflower"
 	fruit_product = /obj/item/grown/sunflower
 	fast_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/flower/nova = 10)
+	mutations = list(/datum/plant_feature/fruit/flower/nova = 8)
 
 /*
 	Nova Flower
@@ -115,7 +115,7 @@
 	seed_icon_state = "seed-novaflower"
 	fruit_product = /obj/item/grown/novaflower
 	fast_reagents = list(/datum/reagent/consumable/condensedcapsaicin = PLANT_REAGENT_MEDIUM, /datum/reagent/consumable/capsaicin = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/flower/moon = 10)
+	mutations = list(/datum/plant_feature/fruit/flower/moon = 3)
 
 /*
 	Moon Flower

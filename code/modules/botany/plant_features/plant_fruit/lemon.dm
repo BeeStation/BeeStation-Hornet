@@ -24,7 +24,7 @@
 	colour_override = "#2bff00"
 	seed_icon_state = "seed-lime"
 	fruit_product = /obj/item/food/grown/citrus
-	mutations = list(/datum/plant_feature/fruit/lemon/combustible = 20)
+	mutations = list(/datum/plant_feature/fruit/lemon/combustible = 8)
 
 /*
 	Combustible Lemon

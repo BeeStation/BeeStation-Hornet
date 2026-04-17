@@ -25,7 +25,7 @@
 	seed_icon_state = "seed-bluetomato"
 	fruit_product = /obj/item/food/grown/tomato/blue
 	fast_reagents = list(/datum/reagent/lube = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/tomato/bluespace = 20)
+	mutations = list(/datum/plant_feature/fruit/tomato/bluespace = 8)
 
 /*
 	BlueSpace Tomato
@@ -62,7 +62,7 @@
 	seed_icon_state = "seed-bloodtomato"
 	fruit_product = /obj/item/food/grown/tomato/blood
 	fast_reagents = list(/datum/reagent/blood = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/tomato/killer = 10)
+	mutations = list(/datum/plant_feature/fruit/tomato/killer = 8)
 
 /*
 	Killer Tomato
@@ -75,7 +75,7 @@
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
 	/datum/plant_trait/fruit/liquid_contents, /datum/plant_trait/fruit/killer)
 	fruit_product = /obj/item/food/grown/tomato/killer
-	mutations = list(/datum/plant_feature/fruit/tomato/friendly = 5)
+	mutations = list(/datum/plant_feature/fruit/tomato/friendly = 3)
 
 /*
 	Friendly Tomato

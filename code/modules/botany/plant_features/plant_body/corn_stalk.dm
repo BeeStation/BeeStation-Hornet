@@ -26,6 +26,8 @@
 	. = ..()
 	playsound(parent.plant_item, 'sound/effects/rustle.ogg', 30, TRUE)
 	parent.plant_item.add_emitter(/obj/emitter/plant_dust, "dust", 10, lifespan = 20)
+	draw_below_water = step >= growth_stages ? initial(draw_below_water) : TRUE
+	update_water_render()
 
 
 /*

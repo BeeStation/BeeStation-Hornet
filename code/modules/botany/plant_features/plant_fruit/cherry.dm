@@ -38,7 +38,7 @@
 	seed_icon_state = "seed-cherrybulb"
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/fruit/biolight/orange)
 	fruit_product = /obj/item/food/grown/cherrybulbs
-	mutations = list(/datum/plant_feature/fruit/cherry/bomb = 20)
+	mutations = list(/datum/plant_feature/fruit/cherry/bomb = 8)
 
 /*
 	Cherry Bomb

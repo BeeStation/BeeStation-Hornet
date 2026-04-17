@@ -6,7 +6,7 @@
 	name = "reishi"
 	icon_state = "chanterelle"
 	colour_overlay = "chanterelle_colour"
-	colour_override = "#ff7b00"
+	colour_override = "#a37b56"
 	seed_icon_state = "mycelium-reishi"
 	fruit_product = /obj/item/food/grown/mushroom/reishi
 	total_volume = PLANT_FRUIT_VOLUME_MICRO
