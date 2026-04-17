@@ -55,9 +55,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 10
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "be" = (
@@ -145,9 +143,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "dQ" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -666,9 +662,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "tZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -749,9 +743,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "wD" = (
@@ -912,9 +904,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "AP" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -1209,9 +1199,7 @@
 /turf/open/floor/iron/smooth,
 /area/shuttle/escape)
 "JA" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_smooth,
@@ -1221,9 +1209,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "JH" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/terminal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/line,
