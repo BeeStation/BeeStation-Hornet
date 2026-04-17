@@ -105,8 +105,8 @@
 /area/template_noop)
 "w" = (
 /obj/structure/table,
-/obj/item/stack/cable_coil/random/five,
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (

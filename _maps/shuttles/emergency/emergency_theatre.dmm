@@ -54,9 +54,9 @@
 /area/shuttle/escape)
 "gh" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Security";
-	req_access_txt = "2"
+	name = "Security"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "gk" = (
@@ -553,9 +553,9 @@
 /area/shuttle/escape)
 "ZW" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 
