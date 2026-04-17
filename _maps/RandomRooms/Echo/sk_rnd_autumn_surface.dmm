@@ -3,20 +3,6 @@
 /obj/structure/fence,
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
-"al" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "an" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -36,6 +22,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
+"az" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/template_noop)
 "aD" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/landmark/start/assistant,
@@ -51,19 +45,15 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/dirt/jungle/wasteland,
 /area/template_noop)
-"aQ" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/cable{
-	icon_state = "1-8"
+"aN" = (
+/obj/machinery/power/solar_control{
+	use_power = 0;
+	idle_power_usage = 0
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/obj/structure/cable/yellow,
+/obj/structure/cable,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "aY" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
@@ -122,13 +112,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/template_noop)
-"bP" = (
-/obj/machinery/power/smes,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
 "bU" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing/corner,
@@ -175,27 +158,6 @@
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
 /area/template_noop)
-"cr" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
-"cE" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/flora/rock/pile,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
 "cJ" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 4
@@ -220,6 +182,13 @@
 /area/template_noop)
 "dl" = (
 /turf/open/floor/mineral/plastitanium,
+/area/template_noop)
+"do" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/cable/yellow,
+/obj/machinery/newscaster/directional/north,
+/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "dt" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -305,17 +274,6 @@
 	},
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
-"eV" = (
-/obj/machinery/power/solar{
-	id = "portsolar";
-	name = "Port Solar Array"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/solarpanel,
-/area/template_noop)
 "ff" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
@@ -361,6 +319,15 @@
 "fw" = (
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
+"fO" = (
+/obj/machinery/power/solar{
+	id = "portsolar";
+	name = "Port Solar Array"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable,
+/turf/open/floor/iron/solarpanel,
+/area/template_noop)
 "fR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -397,14 +364,10 @@
 "gf" = (
 /turf/closed/wall/mineral/wood,
 /area/template_noop)
-"gh" = (
+"gi" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/cable,
 /obj/effect/turf_decal/sand/plating,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "gj" = (
@@ -451,16 +414,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
 /area/template_noop)
-"gL" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "gO" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line{
@@ -493,15 +446,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/template_noop)
-"hd" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/flora/rock/pile,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "he" = (
 /obj/effect/turf_decal/caution/stand_clear{
@@ -547,18 +491,36 @@
 	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
-"hD" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
+"hF" = (
+/obj/machinery/telecomms/relay/preset/auto,
+/obj/machinery/door/window/northleft{
+	name = "Engi Desk";
+	req_one_access_txt = "32;19"
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
 /area/template_noop)
 "hH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"hJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow,
+/obj/structure/sign/map/echo{
+	dir = 4;
+	name = "map - level 3";
+	pixel_y = 32
+	},
+/turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"hL" = (
+/obj/structure/cable,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "hP" = (
 /obj/effect/turf_decal/sand/plating,
@@ -589,18 +551,6 @@
 	},
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
-"ij" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "iB" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
@@ -628,6 +578,15 @@
 /obj/structure/fence/cut/large,
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
+"iV" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil,
+/obj/item/circuitboard/machine/rtg/advanced{
+	pixel_x = -1;
+	pixel_y = -3
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
 "jd" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -647,6 +606,11 @@
 	dir = 9
 	},
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"jl" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "jz" = (
 /obj/structure/lattice/catwalk/over,
@@ -699,13 +663,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/template_noop)
-"kg" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "ki" = (
 /obj/item/clothing/head/beanie/waldo,
@@ -776,35 +733,21 @@
 	},
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
-"lv" = (
-/obj/structure/rack,
-/obj/item/stack/cable_coil/white,
-/obj/item/circuitboard/machine/rtg/advanced{
-	pixel_x = -1;
-	pixel_y = -3
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
 "lA" = (
 /obj/effect/landmark/loneops,
 /turf/open/floor/plating/grass,
+/area/template_noop)
+"lF" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "lI" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
-/area/template_noop)
-"lK" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "lN" = (
 /obj/effect/turf_decal/stripes/line{
@@ -826,6 +769,10 @@
 	},
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
+"lT" = (
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
 "ml" = (
 /obj/structure/chair/fancy/plastic,
 /obj/item/cigbutt{
@@ -842,30 +789,11 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/grass,
 /area/template_noop)
-"mn" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/railing/corner,
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/structure/lattice/catwalk/over,
-/obj/effect/turf_decal/trimline/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "4-32"
-	},
-/turf/open/openspace/planetary,
-/area/template_noop)
 "mx" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/glass/reinforced,
-/area/template_noop)
-"my" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "mL" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -920,6 +848,13 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"ob" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "of" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/box,
@@ -935,6 +870,19 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"on" = (
+/obj/effect/landmark/start/assistant,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/trimline/yellow,
+/obj/structure/lattice/catwalk/over,
+/turf/open/openspace/planetary,
+/area/template_noop)
+"oy" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "oB" = (
 /obj/machinery/light/small/broken/directional/west,
@@ -990,29 +938,9 @@
 /obj/item/trash/syndi_cakes,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
-"pK" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
 "pW" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet,
-/area/template_noop)
-"qk" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "qT" = (
 /obj/effect/turf_decal/sand/plating,
@@ -1058,13 +986,6 @@
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
 /area/template_noop)
-"rt" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "rw" = (
 /obj/structure/urinal{
 	dir = 1;
@@ -1099,12 +1020,6 @@
 "rO" = (
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
-"rP" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
 "rQ" = (
 /obj/effect/turf_decal/siding/red{
 	alpha = 100;
@@ -1112,27 +1027,17 @@
 	},
 /turf/open/floor/plating/beach/water,
 /area/template_noop)
-"rW" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"sb" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
 "sc" = (
 /obj/structure/fence/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
+/area/template_noop)
+"se" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/flora/rock/pile,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "si" = (
 /obj/effect/turf_decal/sand/plating,
@@ -1164,6 +1069,10 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"sv" = (
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "sD" = (
 /obj/machinery/computer/objective{
@@ -1205,13 +1114,6 @@
 "sW" = (
 /turf/open/floor/carpet,
 /area/template_noop)
-"sX" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
@@ -1230,19 +1132,6 @@
 	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
-"tj" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "tl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1258,12 +1147,9 @@
 /obj/item/trash/canned,
 /turf/open/floor/plating/beach/water,
 /area/template_noop)
-"tu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
+"tz" = (
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/beach/sand,
 /area/template_noop)
 "tC" = (
 /obj/structure/sign/nanotrasen,
@@ -1299,15 +1185,6 @@
 	dir = 9
 	},
 /area/template_noop)
-"uf" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
 "uh" = (
 /obj/item/plate,
 /turf/open/floor/plating/beach/sand,
@@ -1342,6 +1219,11 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"uF" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
 "uV" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/grass,
@@ -1355,13 +1237,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/template_noop)
-"vo" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "vs" = (
 /obj/structure/chair/stool/directional/west,
@@ -1379,20 +1254,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/glass/reinforced,
 /area/template_noop)
-"vH" = (
-/obj/structure/flora/rock/pile,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "vI" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/sepia/planetary{
@@ -1407,18 +1268,18 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/dirt/jungle/wasteland,
 /area/template_noop)
-"vZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating/beach/sand,
-/area/template_noop)
 "wa" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /obj/structure/sign/warning/securearea,
 /turf/open/floor/plating/grass,
+/area/template_noop)
+"wj" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -1478,6 +1339,13 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"xc" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "xd" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1561,22 +1429,6 @@
 /obj/structure/sign/departments/restroom,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/template_noop)
-"yv" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"yB" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
 "yN" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/dirt/planetary,
@@ -1643,6 +1495,15 @@
 	pixel_y = -1
 	},
 /turf/open/floor/plating/dirt/planetary,
+/area/template_noop)
+"Ai" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "Ao" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -1716,6 +1577,11 @@
 /obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
+"Bu" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/cable/yellow,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/template_noop)
 "Bw" = (
 /obj/item/toy/plush/lizard_plushie{
 	name = "Swims-the-ocean"
@@ -1758,13 +1624,6 @@
 	slowdown = 0
 	},
 /area/template_noop)
-"BO" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "BS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1797,14 +1656,6 @@
 /area/template_noop)
 "Cp" = (
 /turf/open/floor/plating/dirt/jungle/wasteland,
-/area/template_noop)
-"Cu" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "CF" = (
 /obj/effect/turf_decal/delivery,
@@ -1931,6 +1782,11 @@
 /obj/structure/flora/rock,
 /turf/open/floor/plating/grass,
 /area/template_noop)
+"Ef" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
 "Eg" = (
 /obj/structure/fence/corner{
 	dir = 6
@@ -1956,16 +1812,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/template_noop)
-"Eu" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/fence/door{
-	req_one_access_txt = "32"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "EA" = (
 /obj/structure/fence/corner{
@@ -2029,6 +1875,12 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"Fz" = (
+/obj/structure/flora/rock/pile,
+/obj/structure/cable,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/template_noop)
 "FC" = (
 /obj/structure/fence/corner{
 	dir = 5
@@ -2054,14 +1906,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/template_noop)
-"FV" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "FW" = (
 /obj/effect/decal/cleanable/robot_debris/old{
@@ -2098,16 +1942,6 @@
 /obj/machinery/camera/directional/west,
 /turf/template_noop,
 /area/template_noop)
-"GO" = (
-/obj/machinery/power/solar{
-	id = "portsolar";
-	name = "Port Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/solarpanel,
-/area/template_noop)
 "GT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
@@ -2135,44 +1969,22 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"He" = (
+/obj/machinery/power/smes,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
 "Hg" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
-"Hh" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
 "Hn" = (
 /obj/item/clothing/shoes/sandal{
 	pixel_x = -18
 	},
 /turf/open/floor/plating/beach/water,
-/area/template_noop)
-"Hr" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "HA" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2186,14 +1998,19 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
-"Ic" = (
-/obj/effect/landmark/start/assistant,
-/obj/structure/cable/yellow{
-	icon_state = "2-32"
+"HY" = (
+/obj/item/beacon{
+	pixel_y = 3
 	},
-/obj/effect/turf_decal/trimline/yellow,
-/obj/structure/lattice/catwalk/over,
-/turf/open/openspace/planetary,
+/obj/effect/turf_decal/numbers,
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Ie" = (
 /turf/open/floor/mineral/titanium,
@@ -2246,6 +2063,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/template_noop)
+"Jn" = (
+/obj/structure/cable/yellow,
+/obj/structure/fence/door{
+	req_one_access_txt = "32"
+	},
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
 "Jo" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /obj/structure/curtain/directional{
@@ -2258,14 +2083,6 @@
 /obj/structure/cable,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"Jt" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "JF" = (
 /obj/effect/turf_decal/siding/white{
@@ -2304,32 +2121,11 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"Kn" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/iron,
-/area/template_noop)
 "Kt" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"KS" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "KW" = (
 /obj/structure/railing/corner{
@@ -2343,18 +2139,6 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"La" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "Lc" = (
 /obj/effect/turf_decal/sand/plating,
@@ -2393,6 +2177,16 @@
 /obj/structure/fence/cut/large,
 /turf/open/floor/plating/grass,
 /area/template_noop)
+"Lt" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/cable/yellow,
+/obj/machinery/digital_clock/directional/north,
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 42
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
 "LC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2426,39 +2220,11 @@
 	},
 /turf/open/floor/plating/grass,
 /area/template_noop)
-"LX" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
-"LY" = (
+"LZ" = (
+/obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Me" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/digital_clock/directional/north,
-/obj/structure/sign/directions/evac{
-	dir = 4;
-	pixel_y = 42
-	},
+/obj/structure/flora/rock/pile,
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "Mg" = (
@@ -2467,19 +2233,6 @@
 "Mt" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
-/area/template_noop)
-"MF" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "MJ" = (
 /obj/machinery/button/door{
@@ -2563,6 +2316,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
+"NU" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/template_noop)
 "Og" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /turf/open/floor/plating/dirt/planetary,
@@ -2574,6 +2333,14 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"Oy" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/iron,
 /area/template_noop)
 "OI" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2652,6 +2419,10 @@
 /obj/item/hatchet,
 /turf/open/floor/wood,
 /area/template_noop)
+"PR" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "Qe" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/hatchet,
@@ -2662,20 +2433,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Qm" = (
-/obj/machinery/power/solar_control{
-	use_power = 0;
-	idle_power_usage = 0
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Qo" = (
 /obj/structure/chair/wood/normal{
@@ -2724,13 +2481,6 @@
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/grass,
-/area/template_noop)
-"QV" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "QZ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2833,35 +2583,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/template_noop)
-"Sj" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/sign/map/echo{
-	dir = 4;
-	name = "map - level 3";
-	pixel_y = 32
-	},
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"Sk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/turf/open/floor/wood,
-/area/template_noop)
 "Sx" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/railing/corner{
@@ -2882,22 +2603,6 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
-/area/template_noop)
-"SZ" = (
-/obj/item/beacon{
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/numbers,
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Ta" = (
 /turf/template_noop,
@@ -2929,18 +2634,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"TD" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "TG" = (
 /obj/effect/turf_decal/sand/plating,
@@ -2978,13 +2671,17 @@
 	slowdown = 0
 	},
 /area/template_noop)
-"TS" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "Ua" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/grass,
+/area/template_noop)
+"Ut" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Uy" = (
 /obj/effect/turf_decal/sand/plating,
@@ -3088,19 +2785,6 @@
 "VH" = (
 /turf/open/floor/iron,
 /area/template_noop)
-"VI" = (
-/obj/machinery/telecomms/relay/preset/auto,
-/obj/machinery/door/window/northleft{
-	name = "Engi Desk";
-	req_one_access_txt = "32;19"
-	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating,
-/area/template_noop)
 "VS" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -3119,6 +2803,13 @@
 	dir = 8
 	},
 /turf/open/floor/plating/beach/water,
+/area/template_noop)
+"VV" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "VX" = (
 /turf/closed/mineral/random/air,
@@ -3188,15 +2879,6 @@
 	},
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
-"WJ" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/newscaster/directional/north,
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
 "WP" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3221,6 +2903,10 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"Xh" = (
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "Xl" = (
 /turf/open/floor/plating/beach/water{
@@ -3283,6 +2969,17 @@
 	dir = 9
 	},
 /area/template_noop)
+"XP" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/railing/corner,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/structure/lattice/catwalk/over,
+/obj/effect/turf_decal/trimline/yellow,
+/obj/structure/cable/yellow,
+/turf/open/openspace/planetary,
+/area/template_noop)
 "XT" = (
 /obj/effect/landmark/start/randommaint/vip,
 /obj/structure/chair/stool/directional/west,
@@ -3298,6 +2995,22 @@
 	desc = "He demands you let him sleep";
 	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
 	},
+/turf/open/floor/wood,
+/area/template_noop)
+"Ya" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
 /turf/open/floor/wood,
 /area/template_noop)
 "Yc" = (
@@ -3389,6 +3102,11 @@
 	dir = 10
 	},
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"Zb" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "Zr" = (
 /obj/structure/fence{
@@ -6804,9 +6522,9 @@ gf
 gf
 gf
 Kg
-kg
-TS
-TS
+ob
+PR
+PR
 Mg
 Mg
 Mg
@@ -6938,9 +6656,9 @@ gf
 bj
 PO
 FH
-kg
+ob
 yW
-TS
+PR
 Mg
 Mg
 Mg
@@ -7072,9 +6790,9 @@ gf
 gf
 gf
 FH
-kg
-TS
-TS
+ob
+PR
+PR
 Mg
 Mg
 Mg
@@ -7473,7 +7191,7 @@ gf
 tf
 sV
 gf
-Sk
+Ya
 Du
 DS
 Mg
@@ -11140,9 +10858,9 @@ Gm
 Gm
 qT
 dt
-Ic
-VI
-lK
+on
+hF
+xc
 of
 sU
 DO
@@ -11276,7 +10994,7 @@ oS
 Lp
 VH
 HA
-Sj
+hJ
 Yd
 Tu
 Xw
@@ -11410,7 +11128,7 @@ Ta
 Nu
 Im
 ea
-pK
+Xh
 WP
 fw
 LK
@@ -11544,7 +11262,7 @@ Ta
 BS
 bd
 BG
-hd
+LZ
 zX
 fw
 el
@@ -11675,10 +11393,10 @@ yb
 xu
 Jo
 tC
-Kn
+Oy
 yb
 xu
-Me
+Lt
 zX
 WP
 sj
@@ -11812,7 +11530,7 @@ RE
 UV
 qZ
 yb
-WJ
+do
 zX
 AA
 DR
@@ -11946,7 +11664,7 @@ li
 VH
 ra
 zh
-QV
+uF
 fw
 oi
 LK
@@ -12080,7 +11798,7 @@ Jd
 Jd
 MJ
 yb
-LY
+Ai
 WP
 WP
 lf
@@ -12214,7 +11932,7 @@ Xx
 Xx
 xu
 yb
-cE
+se
 sj
 AA
 fw
@@ -12348,17 +12066,17 @@ vs
 vs
 XB
 og
-FV
+wj
 eh
 DR
 LK
 Tn
-GO
-qk
+TN
+NU
 TN
 ib
-GO
-TD
+TN
+sv
 jd
 Cp
 ie
@@ -12482,17 +12200,17 @@ XB
 uh
 XB
 fw
-pK
+Xh
 sj
 fw
 Pe
 FC
-GO
-cr
+TN
+hL
 TN
 zX
-GO
-Hr
+TN
+NU
 TN
 mL
 BU
@@ -12616,17 +12334,17 @@ XB
 XB
 xd
 DR
-yv
+lF
 eh
 fw
 Pd
 Wz
-GO
-cr
+TN
+hL
 TN
 fw
-GO
-cr
+TN
+hL
 TN
 mL
 ie
@@ -12750,17 +12468,17 @@ UY
 XB
 LM
 WP
-yB
+Ef
 eh
 Nt
 fs
 fw
-GO
-La
+TN
+sv
 TN
 zX
-eV
-La
+fO
+sv
 TN
 mL
 ie
@@ -12884,17 +12602,17 @@ ck
 XB
 DR
 zX
-yv
+lF
 Qf
 Pd
 pt
 fw
-GO
-La
+TN
+sv
 TN
 fw
-GO
-La
+TN
+sv
 TN
 Cp
 ie
@@ -13018,17 +12736,17 @@ sW
 sW
 XB
 zX
-sb
+Ut
 fw
 Tn
 gX
 rO
-GO
-cr
+TN
+hL
 TN
 fw
-GO
-La
+TN
+sv
 TN
 Cp
 ie
@@ -13152,17 +12870,17 @@ XB
 XB
 xd
 LK
-uf
+VV
 DR
 Pd
 ml
 zX
-GO
-La
+TN
+sv
 TN
 fw
-GO
-Hr
+TN
+NU
 TN
 fw
 ie
@@ -13286,17 +13004,17 @@ BY
 pW
 fw
 xd
-FV
+wj
 Ke
 yk
 rO
 tX
 rO
-tu
+hL
 sj
 AA
 hV
-tu
+hL
 fw
 pt
 ie
@@ -13388,7 +13106,7 @@ rO
 rO
 rO
 Yq
-mn
+XP
 XB
 gm
 dg
@@ -13420,17 +13138,17 @@ ek
 XB
 XB
 fw
-rP
-vZ
-Eu
-rt
-BO
-vo
-KS
-my
-Jt
-hD
-ij
+Xh
+tz
+Jn
+Bu
+Zb
+jl
+hL
+sv
+NU
+oy
+sv
 Jp
 Cp
 ie
@@ -13522,7 +13240,7 @@ rO
 rO
 rO
 Vg
-SZ
+HY
 XB
 gm
 gm
@@ -13557,14 +13275,14 @@ xd
 fw
 pl
 bv
-rW
-sX
+lT
+jl
 rO
-Cu
+NU
 Ke
 zX
 fw
-sX
+jl
 fw
 Cp
 ie
@@ -13691,14 +13409,14 @@ xd
 hu
 XB
 Pd
-Qm
-gh
-GO
-MF
+aN
+jl
+TN
+hL
 TN
 fw
-GO
-tj
+TN
+Zb
 TN
 mL
 ie
@@ -13825,14 +13543,14 @@ fw
 zX
 zX
 lO
-bP
-gL
-GO
-MF
+He
+az
+TN
+hL
 TN
 fw
-GO
-al
+TN
+NU
 TN
 Cp
 YA
@@ -13961,12 +13679,12 @@ xd
 Pd
 YT
 rO
-GO
-al
+TN
+NU
 TN
 zX
-eV
-MF
+fO
+hL
 TN
 Cp
 ie
@@ -14093,14 +13811,14 @@ TG
 sj
 WP
 Pd
-lv
+iV
 hV
-GO
-al
+TN
+NU
 TN
 fw
-GO
-MF
+TN
+hL
 TN
 Cp
 ie
@@ -14229,12 +13947,12 @@ sn
 FC
 Wg
 Wz
-GO
-LX
+TN
+sv
 TN
 fw
-GO
-MF
+TN
+hL
 TN
 Cp
 ie
@@ -14363,12 +14081,12 @@ eh
 DR
 QL
 fw
-GO
-Hh
+TN
+Zb
 TN
 fw
-GO
-vH
+TN
+Fz
 TN
 fw
 ie
@@ -14501,8 +14219,8 @@ Wz
 pt
 fw
 fw
-GO
-aQ
+TN
+gi
 TN
 zX
 Tn

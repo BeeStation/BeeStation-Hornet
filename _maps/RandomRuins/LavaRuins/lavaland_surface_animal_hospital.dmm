@@ -76,12 +76,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
-"aD" = (
-/obj/structure/frame/machine,
-/obj/item/stack/cable_coil/random/five,
-/obj/item/circuitboard/machine/smartfridge,
-/turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
 "aG" = (
 /obj/structure/extinguisher_cabinet,
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -657,6 +651,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
+"zj" = (
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil,
+/obj/item/circuitboard/machine/smartfridge,
+/turf/open/floor/iron/white,
+/area/ruin/powered/animal_hospital)
 "zx" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -808,18 +808,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
-"Ik" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/pistachios,
-/obj/item/lipstick/random,
-/obj/item/plant_seeds/preset/apple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
 "Ji" = (
 /obj/structure/closet,
 /obj/item/defibrillator/loaded,
@@ -886,6 +874,18 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
+"NP" = (
+/obj/item/stack/cable_coil,
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 30
+	},
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/iron/twenty,
+/turf/open/floor/plating,
+/area/ruin/powered/animal_hospital)
 "Pt" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -917,18 +917,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
-"QW" = (
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/sheet/mineral/titanium{
-	amount = 30
-	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/iron/twenty,
-/turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "Rp" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -1030,6 +1018,18 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "Xe" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
+"Xi" = (
+/obj/structure/closet/crate/bin,
+/obj/item/trash/pistachios,
+/obj/item/lipstick/random,
+/obj/item/plant_seeds/preset/apple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
@@ -1274,7 +1274,7 @@ oj
 Qm
 zK
 HP
-Ik
+Xi
 hX
 lX
 ae
@@ -1569,7 +1569,7 @@ FD
 HP
 aK
 cm
-QW
+NP
 be
 bk
 ae
@@ -1654,7 +1654,7 @@ ab
 ae
 ar
 aw
-aD
+zj
 ae
 VQ
 kV

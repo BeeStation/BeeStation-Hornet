@@ -2,10 +2,6 @@
 "a" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"b" = (
-/obj/machinery/seeder,
-/turf/open/floor/grass,
-/area/template_noop)
 "d" = (
 /obj/structure/closet{
 	name = "beekeeping supplies"
@@ -34,31 +30,6 @@
 /area/template_noop)
 "g" = (
 /obj/machinery/biogenerator,
-/turf/open/floor/grass,
-/area/template_noop)
-"h" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/liberty,
-/turf/open/floor/grass,
-/area/template_noop)
-"j" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/spray/plantbgone{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/plant_scanner,
-/obj/item/shovel/spade,
-/obj/item/cultivator{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/reagent_containers/cup/bucket,
-/turf/open/floor/grass,
-/area/template_noop)
-"k" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/cannabis,
 /turf/open/floor/grass,
 /area/template_noop)
 "l" = (
@@ -103,9 +74,9 @@
 /obj/structure/sink/puddle,
 /turf/open/floor/grass,
 /area/template_noop)
-"r" = (
+"s" = (
 /obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/cabbage,
+/obj/item/plant_seeds/preset/cannabis,
 /turf/open/floor/grass,
 /area/template_noop)
 "t" = (
@@ -120,13 +91,33 @@
 	broken = 1
 	},
 /area/template_noop)
+"w" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/ambrosia,
+/turf/open/floor/grass,
+/area/template_noop)
 "x" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/grass,
 /area/template_noop)
-"D" = (
+"y" = (
 /obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/bamboo,
+/obj/item/plant_seeds/preset/cabbage,
+/turf/open/floor/grass,
+/area/template_noop)
+"B" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/carrot,
+/turf/open/floor/grass,
+/area/template_noop)
+"C" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/liberty,
+/turf/open/floor/grass,
+/area/template_noop)
+"E" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/diona_pod,
 /turf/open/floor/grass,
 /area/template_noop)
 "G" = (
@@ -136,8 +127,13 @@
 "H" = (
 /turf/closed/wall,
 /area/template_noop)
-"K" = (
-/obj/item/stack/cable_coil/blue,
+"J" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/glowshroom,
+/turf/open/floor/grass,
+/area/template_noop)
+"L" = (
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
@@ -148,18 +144,28 @@
 /obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
-"O" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/diona_pod,
-/turf/open/floor/grass,
-/area/template_noop)
 "P" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/grass,
 /area/template_noop)
-"Q" = (
+"R" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/plant_scanner,
+/obj/item/shovel/spade,
+/obj/item/cultivator{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/turf/open/floor/grass,
+/area/template_noop)
+"S" = (
 /obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/ambrosia,
+/obj/item/plant_seeds/preset/bamboo,
 /turf/open/floor/grass,
 /area/template_noop)
 "T" = (
@@ -169,18 +175,12 @@
 "U" = (
 /turf/open/floor/grass,
 /area/template_noop)
+"V" = (
+/obj/machinery/seeder,
+/turf/open/floor/grass,
+/area/template_noop)
 "X" = (
 /obj/effect/landmark/blobstart,
-/turf/open/floor/grass,
-/area/template_noop)
-"Y" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/carrot,
-/turf/open/floor/grass,
-/area/template_noop)
-"Z" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/glowshroom,
 /turf/open/floor/grass,
 /area/template_noop)
 
@@ -211,24 +211,24 @@ a
 (3,1,1) = {"
 a
 e
-Z
-r
+J
+y
 U
 U
 U
-h
+C
 e
 v
 "}
 (4,1,1) = {"
 o
 e
-Q
+w
 U
 U
 P
 U
-O
+E
 e
 a
 "}
@@ -259,26 +259,26 @@ a
 (7,1,1) = {"
 a
 e
-D
+S
 G
 U
 U
 m
-b
+V
 e
 a
 "}
 (8,1,1) = {"
 o
 e
-k
-Y
+s
+B
 U
 U
-j
+R
 g
 e
-K
+L
 "}
 (9,1,1) = {"
 a

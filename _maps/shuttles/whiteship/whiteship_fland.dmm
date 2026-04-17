@@ -61,22 +61,6 @@
 	dir = 8
 	},
 /area/shuttle/abandoned)
-"eg" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/directional/south,
-/obj/structure/closet/firecloset{
-	anchored = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
-	},
-/turf/open/floor/iron/smooth_edge{
-	dir = 1
-	},
-/area/shuttle/abandoned)
 "eJ" = (
 /obj/machinery/smartfridge/food,
 /turf/open/floor/plating,
@@ -156,17 +140,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
-"iV" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/trimline/yellow/filled/warning{
-	dir = 4
-	},
-/obj/structure/closet/emcloset/anchored,
-/obj/item/storage/toolbox/emergency,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
 "jb" = (
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/plating,
@@ -207,6 +180,11 @@
 	},
 /turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
+"ls" = (
+/obj/machinery/seeder,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/textured,
+/area/shuttle/abandoned)
 "lA" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall/mineral/titanium,
@@ -235,6 +213,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod/dark,
+/area/shuttle/abandoned)
+"mr" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/bot,
+/obj/structure/railing{
+	dir = 9
+	},
+/turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "mt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -313,18 +299,6 @@
 /obj/machinery/vending/hydroseeds,
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
-"qX" = (
-/obj/machinery/power/port_gen/pacman{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/item/wrench,
-/obj/machinery/airalarm/directional/east,
-/obj/effect/mapping_helpers/airalarm/all_access,
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
 "qZ" = (
 /obj/structure/chair/wood/normal,
 /turf/open/floor/wood,
@@ -337,14 +311,6 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/red,
-/area/shuttle/abandoned)
-"rA" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/bot,
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "rG" = (
 /obj/structure/chair/fancy/shuttle{
@@ -366,6 +332,15 @@
 /area/shuttle/abandoned)
 "rR" = (
 /turf/open/floor/glass/reinforced,
+/area/shuttle/abandoned)
+"tg" = (
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 4
+	},
+/obj/structure/closet/emcloset/anchored,
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
 "tB" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -417,14 +392,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
-"wF" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/bot,
-/obj/structure/railing{
-	dir = 10
-	},
-/turf/open/floor/iron/textured,
-/area/shuttle/abandoned)
 "xr" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/titanium{
@@ -439,6 +406,14 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/cafeteria,
+/area/shuttle/abandoned)
+"yb" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/bot,
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "zf" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -493,6 +468,13 @@
 /obj/structure/chair/wood/normal,
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
+"CJ" = (
+/obj/machinery/power/smes/engineering{
+	charge = 1e+006
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
 "DI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/fax,
@@ -530,6 +512,12 @@
 /obj/structure/chair/wood/normal,
 /turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
+"Hj" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/bot,
+/obj/structure/railing,
+/turf/open/floor/iron/textured,
+/area/shuttle/abandoned)
 "Hz" = (
 /obj/structure/chair/stool/bar/directional/south,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -540,24 +528,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
-"Ig" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/bot,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/textured,
-/area/shuttle/abandoned)
 "Ih" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
-/area/shuttle/abandoned)
-"Iv" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "IH" = (
 /obj/effect/turf_decal/stripes/line{
@@ -581,6 +554,20 @@
 	dir = 1
 	},
 /turf/open/floor/iron/textured,
+/area/shuttle/abandoned)
+"KB" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/closet/firecloset{
+	anchored = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1;
+	hide = 0
+	},
+/turf/open/floor/iron/smooth_edge{
+	dir = 1
+	},
 /area/shuttle/abandoned)
 "KL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -680,15 +667,6 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
-"Oz" = (
-/obj/machinery/power/smes/engineering{
-	charge = 1e+006
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
 "QS" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -784,6 +762,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/shuttle/abandoned)
+"Ub" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/textured,
+/area/shuttle/abandoned)
 "Uo" = (
 /obj/structure/rack,
 /obj/item/clothing/head/flatcap{
@@ -799,18 +783,13 @@
 	dir = 1
 	},
 /area/shuttle/abandoned)
-"Us" = (
+"Wb" = (
 /obj/item/plant_tray,
 /obj/effect/turf_decal/bot,
 /obj/structure/railing{
-	dir = 9
+	dir = 1
 	},
-/turf/open/floor/iron/textured,
-/area/shuttle/abandoned)
-"Vx" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/bot,
-/obj/structure/railing,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "Wr" = (
@@ -850,15 +829,28 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
-"YN" = (
-/obj/machinery/seeder,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/textured,
-/area/shuttle/abandoned)
 "Zd" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/decal/cleanable/food/flour,
 /turf/open/floor/iron/cafeteria,
+/area/shuttle/abandoned)
+"Zv" = (
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/structure/cable,
+/obj/item/wrench,
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"ZT" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/bot,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
@@ -1007,16 +999,16 @@ Ih
 bm
 Ee
 Ee
-eg
+KB
 hL
 hL
 zf
 lE
 nN
 js
-Us
-rA
-wF
+mr
+ZT
+yb
 Yf
 qE
 dB
@@ -1027,7 +1019,7 @@ Ih
 ec
 MR
 ec
-iV
+tg
 hL
 Uo
 Ee
@@ -1045,18 +1037,18 @@ lF
 cS
 hL
 kH
-qX
+Zv
 oH
-Oz
+CJ
 hL
 vc
 TH
 hL
-YN
+ls
 an
-Ig
-Iv
-Vx
+Wb
+Ub
+Hj
 vf
 fy
 mt
