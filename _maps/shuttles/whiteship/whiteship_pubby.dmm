@@ -25,9 +25,7 @@
 /turf/closed/wall/mineral/abductor,
 /area/shuttle/abandoned)
 "aW" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -40,9 +38,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "ba" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
@@ -57,9 +53,7 @@
 /area/shuttle/abandoned)
 "bh" = (
 /obj/machinery/door/airlock/abductor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
@@ -80,9 +74,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Shuttle Airlock"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -124,9 +116,7 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "cU" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
@@ -170,9 +160,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/power/rtg/advanced,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "fC" = (
@@ -207,9 +195,7 @@
 /obj/effect/turf_decal/edges{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "gz" = (
@@ -238,9 +224,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "hl" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges,
@@ -252,12 +236,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/edges,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "iB" = (
@@ -277,9 +255,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "iH" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/item/clothing/head/helmet/swat,
 /obj/effect/turf_decal/edges/borderfloor/full,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -289,13 +265,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "iL" = (
@@ -312,9 +282,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "jp" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/hostile/syndicate/ranged/infiltrator,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -359,9 +327,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "nj" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/computer/shuttle_flight/white_ship{
@@ -422,9 +388,7 @@
 	name = "Shield Generator";
 	desc = "You think the Designers were pretty smart putting a decoy button here for those unsuspecting enough to not click the generator first"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "ps" = (
@@ -447,9 +411,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "qs" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
@@ -479,9 +441,7 @@
 	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
 	},
 /obj/effect/turf_decal/edges,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/shieldwallgen/atmos/roundstart{
 	id = "AlienShield2";
 	pixel_x = 0.1;
@@ -494,9 +454,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Shuttle Airlock"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -522,9 +480,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "ts" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/shreds,
 /mob/living/simple_animal/hostile/psycho,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -542,9 +498,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "uk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/bubblegum,
 /obj/item/ammo_casing/spent{
 	pixel_x = 7
@@ -610,9 +564,7 @@
 /area/shuttle/abandoned)
 "wD" = (
 /obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
@@ -639,9 +591,7 @@
 	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
 	},
 /obj/effect/turf_decal/edges,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/shieldwallgen/atmos/roundstart{
 	id = "AlienShield2";
 	dir = 8
@@ -649,9 +599,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "yv" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "yN" = (
@@ -668,9 +616,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "zh" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -698,9 +644,7 @@
 /area/template_noop)
 "Bk" = (
 /mob/living/simple_animal/hostile/psycho/fast,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
@@ -740,12 +684,6 @@
 /obj/machinery/light/blacklight/directional/south,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
-"Dg" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
 "Ds" = (
 /obj/effect/turf_decal/guideline/guideline_edge_alt/darkblue{
 	dir = 4
@@ -757,9 +695,7 @@
 /area/shuttle/abandoned)
 "DR" = (
 /obj/machinery/door/airlock/abductor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "Er" = (
@@ -792,9 +728,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "Fg" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
@@ -815,9 +749,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "Fq" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /obj/structure/table/optable/abductor,
 /obj/effect/decal/cleanable/blood/bubblegum,
@@ -828,9 +760,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/edges,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "Hh" = (
@@ -847,9 +777,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "Hn" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "Shipshutters1";
 	name = "Strange Shutters";
@@ -869,15 +797,10 @@
 	port_direction = 8;
 	preferred_direction = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "Hp" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/barricade/sandbags,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -929,9 +852,7 @@
 	name = "Shield Generator";
 	desc = "You think the Designers were pretty smart putting a decoy button here for those unsuspecting enough to not click the generator first"
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "Ji" = (
@@ -951,9 +872,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "Jq" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/frame/computer,
@@ -980,9 +899,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "KC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
@@ -992,9 +909,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "KG" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "Shipshutters2";
 	name = "Strange Shutters";
@@ -1004,7 +919,6 @@
 /obj/effect/turf_decal/edges{
 	dir = 1
 	},
-/obj/structure/cable,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "MB" = (
@@ -1014,9 +928,7 @@
 /area/shuttle/abandoned)
 "MK" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
@@ -1024,9 +936,7 @@
 /turf/closed/wall/mineral/abductor,
 /area/shuttle/abandoned)
 "NF" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/bubblegum,
 /obj/item/ammo_casing/spent{
 	pixel_w = 3;
@@ -1073,9 +983,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "Pj" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/computer/camera_advanced/syndie{
 	dir = 8;
 	name = "Human Observation Console";
@@ -1127,9 +1035,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "QH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -1157,9 +1063,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Shuttle Airlock"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -1187,15 +1091,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating/abductor,
@@ -1211,14 +1107,12 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "TV" = (
-/obj/item/stack/cable_coil/red/one,
-/obj/item/stack/cable_coil/red/one,
-/obj/item/stack/cable_coil/red/one,
-/obj/item/stack/cable_coil/red/one,
-/obj/item/stack/cable_coil/red/one,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating/abductor,
@@ -1237,9 +1131,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "Ui" = (
@@ -1254,9 +1146,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "Vw" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
@@ -1282,9 +1172,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "Wo" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/gibs/bubblegum,
 /obj/effect/turf_decal/edges/borderfloor/full,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -1338,9 +1226,7 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "YX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/edges{
@@ -1355,12 +1241,6 @@
 	},
 /obj/effect/turf_decal/edges{
 	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
@@ -1379,9 +1259,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "Zg" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/barricade/sandbags,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -1519,7 +1397,7 @@ Ac
 Ac
 Np
 Np
-Dg
+yv
 zz
 zz
 fg
