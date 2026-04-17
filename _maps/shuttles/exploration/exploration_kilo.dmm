@@ -116,9 +116,7 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
 "tv" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
@@ -140,9 +138,7 @@
 /area/shuttle/exploration)
 "wn" = (
 /obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/closet/crate/science,
 /obj/item/stack/sheet/mineral/plasma/twenty,

@@ -1,0 +1,7 @@
+author: PowerfulBacon, Pestoverde322, mrmanlikesbt, h42
+delete-after: true
+changes:
+  - rscadd: Added smartwires. For those of you who are unaware, it means cables auto-connect
+      now.
+  - refactor: Optimized powernet and cable code
+  - rscdel: Removed the rapid cable layer
