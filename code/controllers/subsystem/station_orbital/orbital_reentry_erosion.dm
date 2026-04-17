@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 	priority = FIRE_PRIORITY_STATION_ALTITUDE
 	runlevels = RUNLEVEL_GAME
 	/// Direction flames come from (based on map config)
-	var/reentry_direction = EAST
+	var/reentry_direction = SOUTH
 	/// Fire effects keyed by turf, reused across fires instead of recreated
 	var/list/created_fires = list()
 	/// Our position inside the target turfs snapshot for resumable processing

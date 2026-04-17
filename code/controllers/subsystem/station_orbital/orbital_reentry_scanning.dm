@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(orbital_reentry_scanning)
 	runlevels = RUNLEVEL_GAME
 
 	/// Direction flames come from (based on map config)
-	var/reentry_direction = EAST
+	var/reentry_direction = SOUTH
 
 	/// Station z-levels we scan across
 	var/list/station_levels
