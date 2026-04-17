@@ -45,3 +45,15 @@
 /obj/item/ammo_box/magazine/recharge/service/update_icon()
 	..()
 	icon_state = "officer-[CEILING(ammo_count(),3)]"
+
+/obj/item/ammo_box/magazine/recharge/hos
+	name = "energy gun magazine"
+	desc = "A rechargeable energy pack used by the experimental X-01."
+	icon_state = "officer-12"
+	max_ammo = 12
+	multiple_sprites = 1
+	ammo_type = /obj/item/ammo_casing/caseless/ballistic/hos
+
+/obj/item/ammo_box/magazine/recharge/hos/update_icon()
+	..()
+	icon_state = "officer-[CEILING(ammo_count(),3)]"

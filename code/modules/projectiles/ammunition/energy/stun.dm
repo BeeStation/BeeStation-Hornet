@@ -11,9 +11,6 @@
 /obj/item/ammo_casing/energy/electrode/spec
 	e_cost = 1000 WATT
 
-/obj/item/ammo_casing/energy/electrode/hos
-	e_cost = 4000 WATT
-
 /obj/item/ammo_casing/energy/electrode/old
 	e_cost = 10000 WATT
 
@@ -29,7 +26,3 @@
 	e_cost = 400 WATT
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
-
-/obj/item/ammo_casing/energy/disabler/hos
-	projectile_type = /obj/projectile/beam/disabler
-	e_cost = 500 WATT

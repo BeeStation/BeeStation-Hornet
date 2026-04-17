@@ -60,40 +60,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser/practice)
 	icon_state = "decloner"
 
-/obj/item/gun/energy/e_gun/hos
-	name = "\improper X-01 MultiPhase Energy Gun"
-	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time as fast."
-	gun_charge = 12000 WATT
-	icon_state = "hoslaser"
-	w_class = WEIGHT_CLASS_LARGE
-	force = 10
-	automatic = 1
-	fire_rate = 3
-	selfcharge = 1
-	charge_delay = 30 // Really shit recharge time
-	full_auto = TRUE
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
-	ammo_x_offset = 4
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	investigate_flags = ADMIN_INVESTIGATE_TARGET
-
-/obj/item/gun/energy/e_gun/hos/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/trackable)
-
-/obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
-	if (!ammo_type || !cell)
-		name = "\improper Broken X-01 MultiPhase Energy Gun"
-		desc = "This is an expensive, modern recreation of an antique laser gun. This gun had several unique firemodes, but lacked the ability to recharge over time as fast. Seems too be damaged to the point of not functioning, but still valuable."
-		icon_state = "hoslaser_broken"
-		update_icon()
-
-/obj/item/gun/energy/e_gun/hos/x02
-	name = "\improper X-02 MultiPhase Hybrid Gun"
-	desc = "An expensive one of a kind-hybrid energy/ballistic gun. This gun has several unique firemodes, and uses a built-in 3D printer to turn energy into ballistic rounds, but lacks a conventional nonlethal ammo type and the ability to recharge over time due to the strain put on the battery."
-	selfcharge = 0
-	ammo_type = list(/obj/item/ammo_casing/energy/ballistic/hos, /obj/item/ammo_casing/energy/ballistic/hos/pellet, /obj/item/ammo_casing/energy/ballistic/hos/breach)
-
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
 	desc = "The \"Dynamic Rapid-Apprehension of the Guilty\" net is a revolution in law enforcement technology."

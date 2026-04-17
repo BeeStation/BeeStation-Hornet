@@ -199,3 +199,39 @@
 			optional two-round burst and 12-round magazine ensure effective self defense when called upon. \
 			Designed to blend into any uniform yet hold its own in close quarters, it's the pragmatic choice for \
 			private security operators.</i>"
+
+/obj/item/gun/ballistic/automatic/pistol/x02
+	name = "\improper X-02 Hybrid Energy Gun"
+	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time as fast."
+	icon_state = "hoslaser"
+	w_class = WEIGHT_CLASS_LARGE
+	force = 10
+	var/obj/item/gun/ballistic/taser/attached
+	fire_rate = 2
+	full_auto = TRUE
+	mag_type = /obj/item/ammo_box/magazine/recharge/hos
+	ammo_x_offset = 4
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+/obj/item/gun/ballistic/automatic/pistol/x02/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+	attached = new /obj/item/gun/ballistic/taser/attached(src)
+	update_icon()
+
+/obj/item/gun/ballistic/automatic/pistol/x02/ranged_attack_secondary(atom/target, mob/living/user, params)
+	if(attached)
+		attached.pull_trigger(target, user, params)
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+/obj/item/gun/ballistic/automatic/pistol/x02/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	if(attached)
+		attached.pull_trigger(target, user, click_parameters)
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+/obj/item/gun/ballistic/automatic/pistol/x02/attackby(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/ammo_casing/taser))
+		attached.attackby(A, user, params)
+	else
+		..()

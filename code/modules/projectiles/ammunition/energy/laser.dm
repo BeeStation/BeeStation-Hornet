@@ -24,9 +24,6 @@
 	e_cost = 2000 WATT
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/hos
-	e_cost = 1200 WATT
-
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/projectile/beam/practice
 	select_name = "practice"

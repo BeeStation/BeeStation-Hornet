@@ -18,3 +18,7 @@
 
 /obj/item/ammo_casing/caseless/laser/lesslethal
 	projectile_type = /obj/projectile/beam/laser/lesslethal
+
+/obj/item/ammo_casing/caseless/ballistic/hos
+	fire_sound = 'sound/weapons/revolver357shot.ogg'
+	projectile_type = /obj/projectile/bullet/hos

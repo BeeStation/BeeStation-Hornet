@@ -52,3 +52,8 @@
 	damage = 22
 	armour_penetration = -100
 	bleed_force = BLEED_CUT
+
+// Special HoS 3D-printed round
+/obj/projectile/bullet/hos
+	name = "3D printed ballistic round"
+	damage = 20  // About same damage as 4.6x30

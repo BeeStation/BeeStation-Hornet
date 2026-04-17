@@ -45,3 +45,8 @@
 	. += "<i>The APS-Arc is a compact stunner made from impact-resistant polymer, developed by Nanotrasen for use by APS officers in the field. \
 		Each reloadable cartridge snaps in a pre-spooled wire spindle and barbed contact needles, primed for a precise and long-lasting electrical jolt. And officers can swap or reload spares in seconds too! \
 		This Lightweight and virtually silent design uilizes a manually cocked hammer to puncture the internal propellant load, it's the go-anywhere, reliable, less-lethal option security teams rely on.</i>"
+
+/obj/item/gun/ballistic/taser/attached //So far, only used for the HOS's X-02
+	desc = "A taser attached to a gun, you likely shouldn't be seeing this one."
+	name = "Attached Taser"
+	mag_type = /obj/item/ammo_box/magazine/internal/taser
