@@ -7363,21 +7363,8 @@
 /turf/closed/wall/r_wall,
 /area/station/command/corporate_showroom)
 "cjs" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/item/plant_tray,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/yellow,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -75416,25 +75403,10 @@
 /turf/open/floor/iron/white,
 /area/station/science/lobby)
 "wnu" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/rack,
-/obj/item/analyzer,
-/obj/item/plant_scanner,
-/obj/item/healthanalyzer{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/yellow,
 /obj/structure/rack,
 /obj/item/analyzer,
-/obj/item/plant_analyzer,
+/obj/item/plant_scanner,
 /obj/item/healthanalyzer{
 	pixel_x = 4;
 	pixel_y = -4
