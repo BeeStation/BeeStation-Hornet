@@ -195,6 +195,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/fuelsupply_input{
 	dir = 4
 	},
+/obj/machinery/light/small,
 /turf/open/floor/engine/vacuum,
 /area/station/engineering/atmos)
 "adB" = (
@@ -1391,7 +1392,7 @@
 /obj/structure/orbital_thruster_dummy,
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "aIb" = (
 /obj/structure/sign/warning/pods{
 	pixel_x = 32
@@ -7980,10 +7981,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
-"dEV" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/misc/space)
 "dFd" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
@@ -15631,9 +15628,12 @@
 /turf/open/floor/carpet/blue,
 /area/station/commons/dorms)
 "gMD" = (
+/obj/structure/orbital_thruster_dummy{
+	icon_state = "8"
+	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "gMI" = (
 /obj/machinery/computer/security/telescreen/cmo{
 	dir = 1;
@@ -17136,7 +17136,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "hoQ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -17713,7 +17713,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "hyV" = (
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
@@ -18816,7 +18816,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "hYf" = (
 /obj/structure/cable/yellow,
 /obj/structure/chair,
@@ -34185,7 +34185,7 @@
 /obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "ojB" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -37127,7 +37127,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "puf" = (
 /obj/machinery/suit_storage_unit/atmos,
 /obj/effect/turf_decal/stripes/line{
@@ -37201,6 +37201,7 @@
 /area/station/hallway/primary/fore)
 "pvY" = (
 /obj/machinery/air_sensor/fuelsupply_tank,
+/obj/machinery/camera/directional/east,
 /turf/open/floor/engine/vacuum,
 /area/station/engineering/atmos)
 "pwi" = (
@@ -37681,7 +37682,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "pIw" = (
 /obj/machinery/button/door{
 	id = "ViroA";
@@ -41372,7 +41373,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "rey" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -44320,7 +44321,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "spN" = (
 /obj/structure/table,
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -57439,7 +57440,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "xDU" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/catwalk_floor/iron,
@@ -57926,7 +57927,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
-/area/misc/space)
+/area/misc/space/nearstation)
 "xNH" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
 	dir = 1
@@ -81507,11 +81508,11 @@ aGt
 hyz
 hVs
 pHU
-dEV
-dEV
+iAO
+iAO
 pHU
-dEV
-dEV
+iAO
+iAO
 pHU
 pYg
 pYg
@@ -81763,7 +81764,7 @@ lmB
 aGt
 jSZ
 hVs
-dEV
+iAO
 aIa
 hXT
 hyT
@@ -82023,7 +82024,7 @@ nyj
 pud
 upp
 vNJ
-apO
+gMD
 mfI
 tbL
 pYg
@@ -82277,7 +82278,7 @@ aGt
 aGt
 pYg
 hVs
-dEV
+iAO
 xDR
 spE
 xNs
@@ -82535,11 +82536,11 @@ iaJ
 iaJ
 hVs
 pHU
-dEV
-dEV
+iAO
+iAO
 pHU
-dEV
-dEV
+iAO
+iAO
 pHU
 pYg
 pYg
@@ -101543,8 +101544,8 @@ ppY
 trv
 pYg
 pYg
-gMD
-dEV
+cJI
+iAO
 pYg
 pYg
 pYg
@@ -101800,8 +101801,8 @@ ppY
 trv
 pYg
 pYg
-gMD
-dEV
+cJI
+iAO
 pYg
 pYg
 pYg
@@ -102055,12 +102056,12 @@ trv
 nLM
 ppY
 trv
-gMD
-gMD
-gMD
-dEV
-gMD
-gMD
+cJI
+cJI
+cJI
+iAO
+cJI
+cJI
 pYg
 pYg
 pYg
@@ -102313,11 +102314,11 @@ nLM
 ppY
 ozp
 pHU
-dEV
-dEV
+iAO
+iAO
 pHU
-dEV
-dEV
+iAO
+iAO
 pHU
 pYg
 pYg
@@ -102569,7 +102570,7 @@ ozp
 awM
 ppY
 ozp
-dEV
+iAO
 aIa
 hXT
 hyT
@@ -103083,7 +103084,7 @@ pup
 rci
 gVc
 trv
-dEV
+iAO
 xDR
 spE
 xNs
@@ -103341,16 +103342,16 @@ ujK
 hzW
 trv
 pHU
-dEV
-dEV
+iAO
+iAO
 pHU
-dEV
-dEV
+iAO
+iAO
 pHU
-gMD
-gMD
-gMD
-gMD
+cJI
+cJI
+cJI
+cJI
 ojz
 pYg
 pYg
@@ -103597,16 +103598,16 @@ ozp
 ujK
 hzW
 ozp
-gMD
-gMD
-gMD
-gMD
-gMD
-dEV
-dEV
-dEV
-dEV
-dEV
+cJI
+cJI
+cJI
+cJI
+cJI
+iAO
+iAO
+iAO
+iAO
+iAO
 pYg
 pYg
 pYg
@@ -103858,7 +103859,7 @@ pYg
 pYg
 pYg
 pYg
-gMD
+cJI
 iAO
 trv
 trv
@@ -104115,7 +104116,7 @@ pYg
 pYg
 pYg
 pYg
-gMD
+cJI
 iAO
 ozp
 wHi

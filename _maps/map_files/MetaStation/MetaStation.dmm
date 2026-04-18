@@ -1066,6 +1066,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"azC" = (
+/obj/structure/orbital_thruster_dummy{
+	icon_state = "15"
+	},
+/turf/open/space/basic,
+/area/misc/space)
 "azE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -18799,6 +18805,12 @@
 /obj/structure/cable,
 /turf/open/floor/engine/vacuum,
 /area/station/maintenance/disposal/incinerator)
+"gXu" = (
+/obj/structure/orbital_thruster_dummy{
+	icon_state = "13"
+	},
+/turf/open/space/basic,
+/area/misc/space)
 "gXF" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/item/cigbutt,
@@ -58279,6 +58291,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/medical/chemistry)
+"ucB" = (
+/obj/machinery/orbital_thruster_nozzle,
+/turf/open/space/basic,
+/area/misc/space)
 "ucC" = (
 /obj/structure/table/wood,
 /obj/item/storage/crayons{
@@ -87102,8 +87118,8 @@ jWk
 bXS
 kCP
 jpV
-uAJ
-lFU
+gXu
+feE
 feE
 feE
 feE
@@ -87359,8 +87375,8 @@ hDr
 wxA
 wIn
 tue
-erM
-lFU
+ucB
+feE
 feE
 feE
 feE
@@ -87616,8 +87632,8 @@ oVJ
 dUj
 dVO
 ivo
-jVe
-lFU
+azC
+feE
 feE
 feE
 feE
@@ -106122,8 +106138,8 @@ jWk
 bXS
 kCP
 jpV
-uAJ
-lFU
+gXu
+feE
 feE
 feE
 feE
@@ -106379,8 +106395,8 @@ hDr
 wxA
 wIn
 tue
-erM
-lFU
+ucB
+feE
 feE
 feE
 feE
@@ -106636,8 +106652,8 @@ oVJ
 dUj
 dVO
 ivo
-jVe
-lFU
+azC
+feE
 feE
 feE
 feE
