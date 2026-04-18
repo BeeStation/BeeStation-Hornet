@@ -10155,14 +10155,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
-"dOF" = (
-/obj/structure/orbital_thruster_dummy,
-/obj/structure/railing{
-	dir = 1;
-	layer = 1
-	},
-/turf/open/space/basic,
-/area/misc/space)
 "dOG" = (
 /obj/structure/bookcase/manuals/medical,
 /obj/machinery/light,
@@ -18438,9 +18430,6 @@
 	},
 /area/station/maintenance/port/aft)
 "gVX" = (
-/obj/structure/railing{
-	dir = 1
-	},
 /obj/structure/orbital_thruster_dummy,
 /obj/structure/lattice,
 /turf/open/space/basic,
@@ -23340,6 +23329,14 @@
 	},
 /turf/open/floor/engine,
 /area/station/science/explab)
+"iRd" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/misc/space/nearstation)
 "iRe" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -37494,16 +37491,6 @@
 /obj/effect/landmark/loneops,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
-"nVm" = (
-/obj/structure/orbital_thruster_dummy{
-	icon_state = "3"
-	},
-/obj/structure/railing{
-	dir = 5;
-	layer = 1
-	},
-/turf/open/space/basic,
-/area/misc/space)
 "nVt" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/modular_computer/console/preset/engineering,
@@ -38277,14 +38264,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/station/science/xenobiology)
-"olx" = (
-/obj/machinery/atmospherics/components/unary/orbital_thruster,
-/obj/structure/railing{
-	dir = 1;
-	layer = 1
-	},
-/turf/open/space/basic,
-/area/misc/space)
 "olY" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/item/kirbyplants/random,
@@ -40487,10 +40466,6 @@
 /turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
 "pcu" = (
-/obj/structure/railing{
-	dir = 1;
-	layer = 1
-	},
 /obj/machinery/atmospherics/components/unary/orbital_thruster,
 /obj/structure/lattice,
 /turf/open/space/basic,
@@ -42022,14 +41997,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
-"pGt" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
-/turf/open/space/basic,
-/area/misc/space)
 "pGx" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -43834,15 +43801,6 @@
 	},
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
-"qsb" = (
-/obj/structure/orbital_thruster_dummy{
-	icon_state = "6"
-	},
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/misc/space)
 "qsg" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -46175,13 +46133,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center)
-"rfL" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/misc/space)
 "rfY" = (
 /turf/open/floor/iron/stairs/left{
 	dir = 8
@@ -52667,9 +52618,6 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter)
 "tDF" = (
-/obj/structure/railing{
-	dir = 1
-	},
 /obj/structure/orbital_thruster_dummy{
 	icon_state = "3"
 	},
@@ -57342,9 +57290,9 @@
 	icon_state = "3"
 	},
 /obj/structure/railing{
-	dir = 5;
-	layer = 1
+	dir = 4
 	},
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
 "vzz" = (
@@ -91346,8 +91294,8 @@ aer
 gkj
 lwh
 gQo
-yfl
-ecm
+bHh
+bHh
 bHh
 rfx
 iyu
@@ -91604,7 +91552,7 @@ nCv
 nCv
 yjh
 myA
-dOF
+hcJ
 pFi
 hNj
 iuD
@@ -91861,7 +91809,7 @@ nGT
 iRY
 yjh
 vVY
-olx
+hjX
 bXQ
 aYx
 sZE
@@ -92118,8 +92066,8 @@ mai
 ndq
 ccW
 vVY
-nVm
-qsb
+mvR
+aqU
 dmh
 vcM
 uxk
@@ -92376,7 +92324,7 @@ fTt
 qSK
 vVY
 vVY
-rfL
+iyu
 slt
 slt
 iyu
@@ -92633,7 +92581,7 @@ hNe
 ccW
 ccW
 vVY
-dOF
+hcJ
 pFi
 hNj
 jfR
@@ -92890,7 +92838,7 @@ sfY
 hpP
 qSK
 vVY
-olx
+hjX
 bXQ
 aYx
 yaI
@@ -93146,7 +93094,7 @@ tVM
 tVM
 pfm
 pfm
-uyV
+iRd
 vzy
 xCH
 dBZ
@@ -102141,7 +102089,7 @@ iHu
 fnP
 slt
 vVY
-pGt
+vPr
 vPr
 vVY
 slt
