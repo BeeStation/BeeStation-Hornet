@@ -1,4 +1,5 @@
 /obj/item/clothing/under/dress
+	abstract_type = /obj/item/clothing/under/dress
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	can_adjust = FALSE
 	body_parts_covered = CHEST|GROIN

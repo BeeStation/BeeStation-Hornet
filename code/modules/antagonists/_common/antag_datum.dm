@@ -2,6 +2,7 @@ GLOBAL_LIST_EMPTY(active_antagonists)
 GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist
+	abstract_type = /datum/antagonist
 	var/tips
 	var/name = "Antagonist"
 	var/roundend_category = "other antagonists"				//Section of roundend report, datums with same category will be displayed together, also default header for the section

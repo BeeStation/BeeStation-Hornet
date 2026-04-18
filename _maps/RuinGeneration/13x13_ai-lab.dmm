@@ -29,7 +29,7 @@
 /area/ruin/unpowered)
 "ew" = (
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/blue{
+/obj/item/stack/cable_coil{
 	pixel_x = 3;
 	pixel_y = 3
 	},

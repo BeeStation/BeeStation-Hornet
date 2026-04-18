@@ -1,4 +1,5 @@
 /obj/structure/reagent_dispensers
+	abstract_type = /obj/structure/reagent_dispensers
 	name = "Dispenser"
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'

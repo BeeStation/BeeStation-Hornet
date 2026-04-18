@@ -1,4 +1,6 @@
 /datum/dynamic_ruleset
+	abstract_type = /datum/dynamic_ruleset
+
 	/**
 	 * Configurable Variables
 	 */
@@ -37,8 +39,6 @@
 	 * Backend Variables
 	 */
 
-	/// The base abstract path for this subtype.
-	var/abstract_type = /datum/dynamic_ruleset
 	/// List of possible mobs (or minds for roundstart rulesets) for this ruleset to draft.
 	var/list/candidates
 	/// A list of mobs (or minds for roundstart rulesets) chosen for this ruleset.
