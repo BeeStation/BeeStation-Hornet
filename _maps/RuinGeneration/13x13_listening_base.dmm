@@ -239,9 +239,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/clothing/head/utility/welding,
 /obj/item/weldingtool/largetank,
@@ -392,9 +390,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/listeningstation)
 "ux" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/machinery/power/apc/syndicate{
 	dir = 4;
@@ -725,9 +721,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/listeningstation)
 "Of" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
